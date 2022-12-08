@@ -2,77 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD676471AB
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 15:25:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BCE6471D3
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 15:33:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F2C2180D;
-	Thu,  8 Dec 2022 15:24:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F2C2180D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 308501918;
+	Thu,  8 Dec 2022 15:32:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 308501918
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670509543;
-	bh=GPaHpj+et3FlCtAQUdQT2RrjvHaHoRC9l8A8y+TKXPg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Qpqmk23wqB05m10Afip95d5QmR11JKJMbviArqJlATrWoqvRGzHCd6p0g3aC4ggC0
-	 vQKS/UG9unzqX4hx3FM4mCBu1rNl27ifOjPVGHiJRgrNDlMaQfRpOE4WPrNYN3AEpg
-	 Ijl0w/9YH/uNp5X54sv2ygDoThRkmeG4y7iXoOh0=
+	s=default; t=1670510010;
+	bh=P8AfDNVwbM3u2ixBXw0ZWg+vjkCNL40fMtxjN5eLzPE=;
+	h=Date:Subject:To:References:From:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EKF/BHd4BLuzEE1vgrz0tijERyoUYT0q3BVSesuJjPpG22nlIJxGHbLt/G9TrRb20
+	 oxTdCHkhfhO3GZMitZonBCcK41zBEp5VH/Wd31xRISSvWynufCiw1zjTt2iO11zc0j
+	 IjuxUtj3zId6O1Hh553c9HqlhB7OIAsNQUJT/Mkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F804F8024C;
-	Thu,  8 Dec 2022 15:24:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD869F8027D;
+	Thu,  8 Dec 2022 15:32:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04047F800F8; Thu,  8 Dec 2022 15:24:45 +0100 (CET)
+ id C04D0F8024C; Thu,  8 Dec 2022 15:32:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+ URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E84DF800F8
- for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 15:24:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E84DF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5100DF80089
+ for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 15:32:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5100DF80089
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com
- header.b="DcHi2rWj"
+ header.b="CAD8FGIn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670509479; x=1702045479;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GPaHpj+et3FlCtAQUdQT2RrjvHaHoRC9l8A8y+TKXPg=;
- b=DcHi2rWjFqXG+sWN2rSjKtTZvmEi8bBrhdBuPSW9jVBTXF/0oaw+Zbtd
- Ca/Rmyl1PIweHsqWrFY3Z3YUhWo1BhQI7F15UCzZJ1fOko2EoW2piMlZb
- JMuHdsypQekRswaS9MBHpgn55uy9TATa3RBLScIFZft2hlCueBN1gp9RT
- rjpphQReIbwnEtqjGpELE/fQ6Es8M5wRT1kVJ5A3dTXJTBueZhvg5Nlew
- tTgrOue8ZdKMQmEEof6IjrLXtbsOlxu52Dybs/dJRWK8Bnal32vD21mmo
- NAf8UglfcguT7/eGZhzdYTZv6cc9GkawZQriZ4DIgU94PdRa2pjthQQ4Q A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="381476732"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="381476732"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2022 06:09:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="679541316"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="679541316"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga001.jf.intel.com with ESMTP; 08 Dec 2022 06:09:16 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: hda: Error out if invalid stream is being setup
-Date: Thu,  8 Dec 2022 15:26:35 +0100
-Message-Id: <20221208142635.1514944-1-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
+ t=1670509946; x=1702045946;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=P8AfDNVwbM3u2ixBXw0ZWg+vjkCNL40fMtxjN5eLzPE=;
+ b=CAD8FGInWbiUxxDZ9CcsX272N/lNPBkKxsIn29B1e+z84eAWlWjE+jQi
+ fjPmMhcg53YirXL88KRl9WI65q+JNHbVv63127F0pvm+GvJLFzke526nA
+ 2DS0Gk7Lg9TyLq5J+Mtwm3E0tvQJs4erlSaB9CiMHTT7TPtWXtaHsS1an
+ SZhqd7n+Zc82rcU7gzRVZU838r5mjma5craTrPtsvPGDmKHm+7MUEPIV4
+ X9JTK2eAEq4x0DThigxImgcT7vt63ojSajQ6L5djCBaGX062B9rGbtHXO
+ k6QzR/O3FcNfcnrYF2u3NECVwDNTYUjF/4Md5jkEmpWwLVFNGZOQVYqIf A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="296872565"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="296872565"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 06:32:22 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="715619055"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="715619055"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.249.223])
+ ([10.99.249.223])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 06:32:18 -0800
+Message-ID: <be91b5a8-7671-41d3-df9d-ff0aeaca6e9a@linux.intel.com>
+Date: Thu, 8 Dec 2022 15:32:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, error27@gmail.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH V6 4/5] ASoC: codecs: Configure aw883xx chip register as
+ well as Kconfig and Makefile
+Content-Language: en-US
+To: wangweidong.a@awinic.com, broonie@kernel.org, perex@perex.cz,
+ alsa-devel@alsa-project.org, tiwai@suse.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, ckeepax@opensource.cirrus.com,
+ tanureal@opensource.cirrus.com, quic_potturu@quicinc.com,
+ pierre-louis.bossart@linux.intel.com, cy_huang@richtek.com
+References: <20221208122313.55118-1-wangweidong.a@awinic.com>
+ <20221208122313.55118-5-wangweidong.a@awinic.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20221208122313.55118-5-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: zhangjianming@awinic.com, duanyibo@awinic.com, yijiangtao@awinic.com,
+ zhaolei@awinic.com, liweilei@awinic.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,33 +100,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Scenario when snd_hdac_stream_setup_periods() receives an instance of
-struct hdac_stream with neither ->substream nor ->cstream initialized is
-invalid.
+On 12/8/2022 1:23 PM, wangweidong.a@awinic.com wrote:
 
-Simultaneously addresses "uninitialized symbol 'dmab'" error reported by
-Smatch.
+(...)
 
-Fixes: 3e9582267e3a ("ALSA: hda: Interrupt servicing and BDL setup for compress streams")
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/hda/hdac_stream.c | 3 +++
- 1 file changed, 3 insertions(+)
+> diff --git a/sound/soc/codecs/aw883xx/aw883xx_init.c b/sound/soc/codecs/aw883xx/aw883xx_init.c
+> new file mode 100644
+> index 000000000000..2ef62fdebb57
+> --- /dev/null
+> +++ b/sound/soc/codecs/aw883xx/aw883xx_init.c
+> @@ -0,0 +1,615 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * aw883xx.c --  ALSA Soc AW883XX codec support
+> + *
+> + * Copyright (c) 2022 AWINIC Technology CO., LTD
+> + *
+> + * Author: Bruce zhao <zhaolei@awinic.com>
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/firmware.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/of_gpio.h>
+> +#include <linux/regmap.h>
+> +#include <linux/syscalls.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/version.h>
+> +#include <linux/workqueue.h>
 
-diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-index 8f625402505f..547adbc22590 100644
---- a/sound/hda/hdac_stream.c
-+++ b/sound/hda/hdac_stream.c
-@@ -500,6 +500,9 @@ int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev)
- 		dmab = snd_pcm_get_dma_buf(substream);
- 	} else if (cstream) {
- 		dmab = snd_pcm_get_dma_buf(cstream);
-+	} else {
-+		WARN(1, "No substream or cstream assigned\n");
-+		return -EINVAL;
- 	}
- 
- 	/* reset BDL address */
--- 
-2.25.1
+Again headers, picking at random: firmware.h, of_gpio, uaccess.h, 
+version.h, from quick check seem unnecessary and likely some others can 
+also be removed.
+
+> +#include <sound/control.h>
+> +#include <sound/core.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include "aw883xx.h"
+> +#include "aw883xx_bin_parse.h"
+> +#include "aw883xx_pid_2049_reg.h"
+> +
+
+(...)
 

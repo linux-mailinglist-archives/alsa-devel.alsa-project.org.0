@@ -2,95 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8226467D4
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 04:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12E8C646808
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Dec 2022 04:55:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CEC21760;
-	Thu,  8 Dec 2022 04:32:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CEC21760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91E771883;
+	Thu,  8 Dec 2022 04:54:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E771883
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670470412;
-	bh=ZuXaZ/pnmYeDS+3XGan9D4mJGMRNZRaX+5X1cFFoCcQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hXoa6ZMYVKN7JeWHlT23AUPiXRN86gvlnzEz8IBH50KBLhCbUPLY5qpEv6zgk6+EK
-	 gWtEx8JjyR2rYjR88XlcGY4P26LtDTKwBuZIjXWUvyrtF2L86DH3dmMgfGRjCFrQgh
-	 PZb/wMUX/MZGKbljvIQmp+BZ9MatiRg57JKIKaMA=
+	s=default; t=1670471710;
+	bh=JbhdEAOqlUmgORBr+B9yjdSrtKv90+VViwy5UzjSfMU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=b4c+9hb/lmt6ecaTYQTFOFSFLF722oHmqP78/YUF9QVQd5cp/DxTKTXGE/19cnU+9
+	 D1sMHINWCbpigNIrz92SyIfOMxQUJgACslcFSjWOPBn7Y4AXc4L/yBsQR0MziKDCUK
+	 E0PG2hKSdfjH8JOtbi05ECOMvDgYGHWl88WeElHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90AE4F80089;
-	Thu,  8 Dec 2022 04:32:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20505F8024C;
+	Thu,  8 Dec 2022 04:54:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FDBDF80089; Thu,  8 Dec 2022 04:32:32 +0100 (CET)
+ id E1A0FF8020D; Thu,  8 Dec 2022 04:54:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
- UNPARSEABLE_RELAY,URIBL_BLOCKED,URIBL_ZEN_BLOCKED_OPENDNS autolearn=disabled
- version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,
+ URIBL_DBL_BLOCKED_OPENDNS autolearn=disabled version=3.4.0
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5391F80089
- for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 04:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5391F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90DE0F80089
+ for <alsa-devel@alsa-project.org>; Thu,  8 Dec 2022 04:54:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90DE0F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="XO7LaGNC"
-X-UUID: 896bf3f260f64f6bb9e9522f8e9e3a34-20221208
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=QcBCrYwvYK7ah28O3JMQ2UxBDeByxAxxoE2p8W3FOG4=; 
- b=XO7LaGNCClEn9qahKZWbneT+qmorbxAviYJ9olYTDDybF8n14tKEj8sznzV/ViLnVGJnYc+hZus1lvcl51kIfwdyBKQ3FZEAKZXH3vVfFYNKWRxUfExDi/w+AU8r35Ol6dRDqZ7zhcPLiMMW71BQwHbhlKJwfaB83ifu/VH3S28=;
-X-CID-P-RULE: Spam_GS6885AD
-X-CID-O-INFO: VERSION:1.1.14, REQID:c669f777-151a-41ef-b4f4-317e914947b8, IP:0,
- U
- RL:25,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS6885AD,ACT
- ION:quarantine,TS:120
-X-CID-INFO: VERSION:1.1.14, REQID:c669f777-151a-41ef-b4f4-317e914947b8, IP:0,
- URL
- :25,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTIO
- N:quarantine,TS:120
-X-CID-META: VersionHash:dcaaed0, CLOUDID:c117a524-4387-4253-a41d-4f6f2296b154,
- B
- ulkID:2212081132170KQ7D6QA,BulkQuantity:0,Recheck:0,SF:38|28|17|19|48,TC:n
- il,Content:0,EDM:-3,IP:nil,URL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-X-UUID: 896bf3f260f64f6bb9e9522f8e9e3a34-20221208
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 458235568; Thu, 08 Dec 2022 11:32:17 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 8 Dec 2022 11:32:14 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.792.15 via Frontend Transport; Thu, 8 Dec 2022 11:32:14 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
- <perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <matthias.bgg@gmail.com>, <p.zabel@pengutronix.de>
-Subject: [PATCH v3 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
- document
-Date: Thu, 8 Dec 2022 11:31:48 +0800
-Message-ID: <20221208033148.21866-13-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20221208033148.21866-1-trevor.wu@mediatek.com>
-References: <20221208033148.21866-1-trevor.wu@mediatek.com>
+ dkim=pass (2048-bit key) header.d=denx.de header.i=@denx.de
+ header.b="kSgF8XPt"
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 510DE8363D;
+ Thu,  8 Dec 2022 04:53:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1670471644;
+ bh=lpuBG2yZoTMgVBMI8KC17xviFeFI7olLWyma3F566Nk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=kSgF8XPthdAlT1eaRx9wA+O7YUuGs2wHiq5emIGMT2co1e/ahOV42iymwDFEIdhPz
+ ygszGalAHsTJXhQgpj23degzv6BiGhcX1QsEzvKXe/E/r7tfDpAcjrxYaRxio1JlU2
+ QKBJt6IHZQq0X72sXiA0g7sAwGvZP5C8+A6dx5kMKHx+ZyCtaV3AK9D1D9jOjexkcc
+ 294T2xwcnI9YJ6eqIuZ8fmkXLdNsDl9ZTaCbX3O1+1iaNrWndrKyfXU/99etSFqxFr
+ aMXFUbqON2LVp5i6MPDVRk3Ghl0dQeVXSIPy0YhtlpyhKEhNdyRdfnoy0jdebJkrcy
+ 2JOfUVjiFqhIA==
+From: Marek Vasut <marex@denx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: dt-bindings: fsl-sai: Reinstate i.MX93 SAI compatible
+ string
+Date: Thu,  8 Dec 2022 04:53:54 +0100
+Message-Id: <20221208035354.255438-1-marex@denx.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,80 +86,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add document for mt8188 board with mt6359.
+The ASoC: dt-bindings: fsl-sai: Fix mx6ul and mx7d compatible strings
+dropped i.MX93 SAI compatible string, reinstate it.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+Fixes: 81b6c043e7ba ("ASoC: dt-bindings: fsl-sai: Fix mx6ul and mx7d compatible strings")
+Signed-off-by: Marek Vasut <marex@denx.de>
 ---
- .../bindings/sound/mt8188-mt6359.yaml         | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: devicetree@vger.kernel.org
+To: alsa-devel@alsa-project.org
+---
+ Documentation/devicetree/bindings/sound/fsl,sai.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
-new file mode 100644
-index 000000000000..eac1c87b693a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mt8188-mt6359.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek MT8188 ASoC sound card
-+
-+maintainers:
-+  - Trevor Wu <trevor.wu@mediatek.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt8188-mt6359-evb
-+
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User specified audio sound card name
-+
-+  audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description:
-+      A list of the connections between audio components. Each entry is a
-+      sink/source pair of strings. Valid names could be the input or output
-+      widgets of audio components, power supplies, MicBias of codec and the
-+      software switch.
-+
-+  mediatek,platform:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of MT8188 ASoC platform.
-+
-+  mediatek,dptx-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of MT8188 Display Port Tx codec node.
-+
-+  mediatek,hdmi-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of MT8188 HDMI codec node.
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+
-+examples:
-+  - |
-+
-+    sound: mt8188-sound {
-+        compatible = "mediatek,mt8188-mt6359-evb";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&aud_pins_default>;
-+        audio-routing =
-+            "Headphone", "Headphone L",
-+            "Headphone", "Headphone R",
-+            "AIN1", "Headset Mic";
-+    };
-+
-+...
+diff --git a/Documentation/devicetree/bindings/sound/fsl,sai.yaml b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+index 022da1f4583d6..c59e4edd7570c 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,sai.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+@@ -38,6 +38,7 @@ properties:
+               - fsl,imx8mq-sai
+               - fsl,imx8qm-sai
+               - fsl,imx8ulp-sai
++              - fsl,imx93-sai
+               - fsl,vf610-sai
+ 
+   reg:
 -- 
-2.18.0
+2.35.1
 

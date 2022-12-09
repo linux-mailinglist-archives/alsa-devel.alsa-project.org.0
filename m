@@ -2,75 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7480F648942
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 20:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176B9648A3E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 22:45:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F24BF2246;
-	Fri,  9 Dec 2022 20:55:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24BF2246
+	by alsa0.perex.cz (Postfix) with ESMTPS id 827A123BD;
+	Fri,  9 Dec 2022 22:45:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 827A123BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670615776;
-	bh=0985SvB6wLmyC7itWJ8Gv9VJ/uClOZX+DvRJ6lMdFjc=;
+	s=default; t=1670622354;
+	bh=yqiKsjF4B5Vp8k5sm91LIKie0+GOMiEppiXwOgSF+64=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=TLD2k1DqF5VzdqmtR6KO+xOdbTkGIzo9k/16Iy1lH9mVRjp04NSjW2+q3vxr8+Fsf
-	 pnjVnxnCOP/5cAsPN3K/X4zYbW47RkrD8g5At4B+abtD2+zUwKIB4I+56iUurdzbtI
-	 FJxUgzaT098Oqowb1Mzptt/8LUZ3pehtBSA4TUhw=
+	b=n4MRefvXUbgebko9ZJrObsiXAeNjCdcWfEOzI4BqZ4d8tgVMK5ah55Kl6dPU+OWXb
+	 mLjMKyVVYRwGvNDhlsdMD501WZvvahDRWGQs9EQ3Mg29/6Zij4RvNIVcwKddLN02Ht
+	 Tkg3/9WxaTwfY0LjMeIVNQRqkxMEeZSUePhK4KC4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96292F8022D;
-	Fri,  9 Dec 2022 20:55:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F028F8022D;
+	Fri,  9 Dec 2022 22:44:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5570FF8024D; Fri,  9 Dec 2022 20:55:16 +0100 (CET)
+ id 1AF50F8024D; Fri,  9 Dec 2022 22:44:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB552F800F8
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 20:55:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB552F800F8
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dawGGFvU
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B698862322;
- Fri,  9 Dec 2022 19:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF060C433D2;
- Fri,  9 Dec 2022 19:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1670615710;
- bh=0985SvB6wLmyC7itWJ8Gv9VJ/uClOZX+DvRJ6lMdFjc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dawGGFvUA2ghTMYuiSWqdS9+4A8iGYKYyDxMnKEQczovkBeFlWtoeY9qvfrf8s2BR
- 9MsJOJGc8r+BIyPDoiQt7sYQT2BXSvQrjqJIO27O03cqxzDIRkZm+0XQvOBqPMh8/f
- zc2bLp5PUyrd/Yi5F6uZ4H/kV4I8L3n3A91ygUT2P5CumzIEvVX8Ngk4VWFTzAJfzH
- m3zOszz0TMFtHHcUCGmVgGMJtcUNimJKaIL1iNXZ1FEJ/2Jvx1Xbk+6RDXA45UwzVp
- Bqj7CGHHjtnqnl46ubaa0/JNDlvyeKgY2QMyn3rtyTM+eaDKV9QD+nyboRF7qTuCZC
- BiWVcGs3dwY2g==
-Date: Fri, 9 Dec 2022 19:55:05 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
-Subject: Re: Simple card and PLL/FLL
-Message-ID: <Y5OSmaCIktilIZAZ@sirena.org.uk>
-References: <4172f4b2-9198-dfc8-a2b0-d75a95265e14@gmail.com>
- <Y5DPbhXQazD8OWX1@sirena.org.uk>
- <Y5Ly8E68N4qubJw8@francesco-nb.int.toradex.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45A31F8022D
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 22:44:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45A31F8022D
+Received: by mail-oi1-f180.google.com with SMTP id r11so5699810oie.13
+ for <alsa-devel@alsa-project.org>; Fri, 09 Dec 2022 13:44:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nd9e73YWcyDbpy8iNaJn59EprL8nmhryJLwX1qEN9Eo=;
+ b=s5SZ1FxlsaOJBnX6MP4aDGPdaHXPe2NOKg4MHli7QmBnFx8G+G+g9fal/Lq3/sJDBA
+ 69z+28HswgGWqzFeequgP5joHxPvkCo4jFiFpiSReXSrW9KEZZAYpNEbHGCjOVnSFoSW
+ /Qh7Y0+vLT+YEhDB6knFcaamQOmY63FPJAzREheKcim3p8ciHCS7R1HDF1TFFNnqDG1T
+ 98P/3hGpM9QzZlgibPEqP+D8630UHvm1QPcS8ZKoNp6ZMSwHv4ojSO6ThjF8oBqIzXcz
+ zB2mo/LuRQS39wQ+/lIE6AlsJ3wP/H3sjb/Ojznd3CTEoqTw6Vyqh9JYW1CX637MGe1A
+ icLA==
+X-Gm-Message-State: ANoB5pkKOqjQunPHlZmlFsP2ltgnpMay2FF4G/cYzaLbL18s3n77JLJ0
+ i/RNAJjOWRP5Qyx+obCcnQ==
+X-Google-Smtp-Source: AA0mqf4zxCpKeyR01HFGIasFt7sfhYOSMetLDwOipuBLFYhevP/VhTMYOe44Q7JQXfvLVLr+yQUR+A==
+X-Received: by 2002:a54:438d:0:b0:35e:1ca6:ff6d with SMTP id
+ u13-20020a54438d000000b0035e1ca6ff6dmr3103306oiv.5.1670622291324; 
+ Fri, 09 Dec 2022 13:44:51 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ b25-20020aca1b19000000b00342eade43d4sm923502oib.13.2022.12.09.13.44.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Dec 2022 13:44:50 -0800 (PST)
+Received: (nullmailer pid 3899706 invoked by uid 1000);
+ Fri, 09 Dec 2022 21:44:50 -0000
+Date: Fri, 9 Dec 2022 15:44:50 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: adi,adau7002: Convert to DT schema
+Message-ID: <167062228971.3899662.7192332013668197294.robh@kernel.org>
+References: <20221209175947.335319-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8d2AfbsJUtgDpxNV"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Y5Ly8E68N4qubJw8@francesco-nb.int.toradex.com>
-X-Cookie: Who is John Galt?
+In-Reply-To: <20221209175947.335319-1-krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +89,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, emanuele.ghidoli@toradex.com,
- Takashi Iwai <tiwai@suse.com>, Emanuele Ghidoli <ghidoliemanuele@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---8d2AfbsJUtgDpxNV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Fri, 09 Dec 2022 18:59:46 +0100, Krzysztof Kozlowski wrote:
+> Convert the Analog Devices ADAU7002 Stereo PDM-to-I2S/TDM Converter
+> bindings to DT schema.  During the conversion, add properties already
+> used by DTS (sc7180-trogdor-coachz.dts) and Linux driver:
+> 1. wakeup-delay-ms,
+> 2. sound-dai-cells (via referencing dai-common.yaml).
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../bindings/sound/adi,adau7002.txt           | 19 ---------
+>  .../bindings/sound/adi,adau7002.yaml          | 40 +++++++++++++++++++
+>  2 files changed, 40 insertions(+), 19 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/adi,adau7002.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/adi,adau7002.yaml
+> 
 
-On Fri, Dec 09, 2022 at 09:33:52AM +0100, Francesco Dolcini wrote:
-> On Wed, Dec 07, 2022 at 05:37:50PM +0000, Mark Brown wrote:
-
-> > It's kind of a taste thing.  There's some devices where the clocking is
-> > sufficently complicated and flexible that definitely needs a set_pll()
-> > ...
-> > for simpler devices like the WM8904 where there's an obvious thing to
-> > do it's much easier to just hide that from everything outside the
-> > driver and only deal with the input clock.
-
-> Thinking about asoc_simple_hw_params(), what about the fact that
-> asoc_simple_set_clk_rate() ask for a specific clock rate and assume that
-> the actual output frequency is the one requested?
-
-> After that we are potentially passing to the codec driver a wrong
-> information, we should likely have a way to pass the actual clock that
-> could be different because of limitation on the PLL/dividers.
-
-The machine probably just shouldn't use mclk-fs in that case.
-
---8d2AfbsJUtgDpxNV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOTkpgACgkQJNaLcl1U
-h9BUrAf/Z5wzoeRmG5kRkxS8WentWLHX9NMbtcTYNH+7Kd289jqEb33c9xFJ0PAa
-EdFnp6I+LFzN7J79lpx1NgVJavK4khrmu4U+3dOKSRB/ebTD1txjnH28IoS+Or6P
-3mTg0DSpSypcN3/01tENb0Gja9ob2pZZ+gKikRena5Q8mTzB9JJD8YIO/+lJUft2
-emPnNwm9MR0povRROl9vWcK7HzAGhArEzv7tj9tB340pQ8fj586hWsQlq/RjhowX
-ZA2M4WSPL3bKYpZ7Mpj+326YsPHHsiFRQDe8RGUlm2yCGy/jEkk1xKVL2rsE5EEX
-RhT8y4b5W0o6ov+IwJB/ta4EAtntig==
-=bkwM
------END PGP SIGNATURE-----
-
---8d2AfbsJUtgDpxNV--
+Reviewed-by: Rob Herring <robh@kernel.org>

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18863647AB6
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 01:22:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0F5647AC0
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 01:26:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94E0A822;
-	Fri,  9 Dec 2022 01:22:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E0A822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2436818B1;
+	Fri,  9 Dec 2022 01:25:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2436818B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670545376;
-	bh=jI6SUhmH5MM/ri61KzBdYeQoCpVBl8dA0+fl87Yrajc=;
+	s=default; t=1670545602;
+	bh=X1P+lfRntA5/rVdcQ23KL1DPJK0huaxSfDmNDLiRnZU=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sCPDSormtRkvGptBo0q3bPV1rLAQgZzqxvOXBPk44vZCd/Ot0wDR62ZuAN6QE6VXd
-	 lbMuF8/gfBHOK5OpixgXj2+dkgF6dpUkNkHn6gyF4/8GN2mW+CvAMbsOmRNBCnKXX3
-	 5gZfFYi28MwOSlJb8Rr3BRxcSNROWGx62hQBaO28=
+	b=pOriKk+YKfCx0OC4O76DNWMWMwHPNm9NHj6dnVzA+T81slF7GJ0vg2OlN43XchAl1
+	 NffDnAL5L0WZKv1NhaG1ksMjDJp8rAXGkkQoCm2uzLyQDrbNNuSmoVrTSQCMeR19jg
+	 I/qucL3gxdPwkZY8N8sTUmYIPtfvniHcwD+Dkv4o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41AC5F800F8;
-	Fri,  9 Dec 2022 01:21:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6E7AF800F8;
+	Fri,  9 Dec 2022 01:25:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32424F80132; Fri,  9 Dec 2022 01:21:57 +0100 (CET)
+ id 7505EF80124; Fri,  9 Dec 2022 01:25:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 34840F80007
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 01:21:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34840F80007
+ by alsa1.perex.cz (Postfix) with ESMTP id EED78F800F8
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 01:25:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EED78F800F8
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1670545314591640949-webhooks-bot@alsa-project.org>
-References: <1670545314591640949-webhooks-bot@alsa-project.org>
+In-Reply-To: <1670545541376754999-webhooks-bot@alsa-project.org>
+References: <1670545541376754999-webhooks-bot@alsa-project.org>
 Subject: Build Fails with AUTOMAKE v1.16.5 on Ubuntu - Solution Provided
-Message-Id: <20221209002157.32424F80132@alsa1.perex.cz>
-Date: Fri,  9 Dec 2022 01:21:57 +0100 (CET)
+Message-Id: <20221209002543.7505EF80124@alsa1.perex.cz>
+Date: Fri,  9 Dec 2022 01:25:43 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,9 +60,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #182 was opened from frkli1965:
+alsa-project/alsa-utils issue #182 was edited from frkli1965:
 
-I found that the prescribed compilation method in the 'INSTALL' file did not work on Ubuntu with Linux kernel v6.0.9 using 'automake 'and 'aclocal'  v1.16.5!
+I found that the prescribed compilation method in the 'INSTALL' file:-
+
+aclocal
+gettextize
+autoheader
+automake --foreign --copy --add-missing
+autoconf
+./configure
+make
+
+ did not work on Ubuntu with Linux kernel v6.0.9 using 'automake 'and 'aclocal'  v1.16.5!
 
 The following errors were encountered:-
 

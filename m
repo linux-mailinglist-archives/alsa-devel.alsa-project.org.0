@@ -2,79 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4CEB6480D4
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 11:21:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 175096480D0
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 11:19:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E77B2198;
-	Fri,  9 Dec 2022 11:20:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E77B2198
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0CB02142;
+	Fri,  9 Dec 2022 11:19:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0CB02142
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670581263;
-	bh=ZCXgyDaHVQAe/Fu//g372KfhGJpE9bthk3Co6jIyNT4=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1670581190;
+	bh=yeD/mr65IDz77j7/yP+XpHTcICMFlHLL0tlwfCE+1NU=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=W6P2ZIQ0SA9cuQGLDEJcf2toxmneP82aNojVwTaKxlWZTmsyOygdbMNcGmcHriy6B
-	 z3dfwH/FBri+V/gr558REFDIdLc9ifg4rbQ+jU2avSD08kkrr/4ns7doGM5crgEHB0
-	 sLwfzIOPzuyC8q/ZS/ZuE9YtxyHY7M2/qGMt5F/A=
+	b=epn1/Pu8YIVFsvry6r1pmmUcjHT+5F91qlnUodyMupZ868IfYO75VtxT9veRlxmYj
+	 NhMac8G4LhJOW6PNfcpTNcFgsV0tBi11Zd7dz8WrAWxobFe/csaJATdQ9DHuqcfB1c
+	 DZDpfd2KV/aDpfZqoFVWuL9mHj4FOTUL59fUKb3k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8DF9F8051A;
-	Fri,  9 Dec 2022 11:18:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58875F800F8;
+	Fri,  9 Dec 2022 11:18:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9E1DF804DC; Fri,  9 Dec 2022 11:18:56 +0100 (CET)
+ id 66B04F8024C; Fri,  9 Dec 2022 11:18:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54FEAF8022B
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 11:18:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54FEAF8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EE5CF800F8
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 11:18:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EE5CF800F8
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=idEVg5w2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670581135; x=1702117135;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ZCXgyDaHVQAe/Fu//g372KfhGJpE9bthk3Co6jIyNT4=;
- b=idEVg5w2pkEKHrfsWCw7sImjGSosuxzU3UjGRkIffTAhInbJsOh7GEh6
- U5LI1Fp1Zo9nNgxDaE+Bs+Xvndy4CYFVebsq2tfypGQdx4c3syL6zendV
- gt0CyX2hEJ4NiR2rQ0Nt4qKcce8mJ7opfh7fq0I2lrCBispzfuDa7Z6FJ
- 9hKJ40bXieB3/okFSwLz1eBDycAQmz+hsIVcJxuM9CUNnzzbDqOiXiC2Q
- j+dZGF3T2BEFL7x39UatmPZh+maff4+3g9+j4gWRjb2U9IBCo0yqYRTJx
- B45kVLPPsCdyFgeO8F9DrvdO7SRwgyowPQYtQ8KV+ejYbXk+dyQBOPXPa g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="316135215"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="316135215"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 02:18:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="649510777"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="649510777"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga007.fm.intel.com with ESMTP; 09 Dec 2022 02:18:51 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH v2 3/3] ALSA: hda/hdmi: fix stream-id config keep-alive for rt
- suspend
-Date: Fri,  9 Dec 2022 12:18:22 +0200
-Message-Id: <20221209101822.3893675-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221209101822.3893675-1-kai.vehmanen@linux.intel.com>
-References: <20221209101822.3893675-1-kai.vehmanen@linux.intel.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=i3pJ5Zl8
+Received: by mail-lf1-x133.google.com with SMTP id d6so6280088lfs.10
+ for <alsa-devel@alsa-project.org>; Fri, 09 Dec 2022 02:18:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=x00HNX5290w6ocB8BzuOCSV57L/qluq8fXghF2f6Urk=;
+ b=i3pJ5Zl8a1/s05t+pot30xPJdKFR8X7DbUHQqO2fWpR3NS7IV9xMH7yPs/PvXLeXj1
+ YsliKZrWIZ9SHauCdh+2/SMnHGrvhA6Hes4DZesF9nM5hAR3JjyoWQlRX8l8H7Sctiza
+ H1oS0rJMvlteo49XLIaiR+pCt8scMj7srITdJDpVyfITifbrTK/gvqpGZoMa9JOVTJvE
+ MsYhaoNDvxe/O57eIcZV6GorlescZblOMkiDtCa3cyhCOs4UtA8DdGlxSwT2RDuKcO5v
+ 0ovORGCdPRLBmwJFViw5nZ6TLWcO5gaoTmR6EfdW22S2Y2UJ0Siww/THZdiuFh72msGx
+ Hl/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=x00HNX5290w6ocB8BzuOCSV57L/qluq8fXghF2f6Urk=;
+ b=i0ed74CUeSuraglPBJVk2gwhUOFqMZwxiPnm9WRXU5ubnpwwtlJSFEWZrJbEvzhPDu
+ sQbBlWM+I5XjisyU5rF++Sf4eYUmX2Euteprz8uSX5CU1JTo+/b1uYkOSri/K8SM59iz
+ snRIAiW70ghBJ/n05KK65FJTdG697aVGbXQ2V/q0toIMxirsgB0d7EfOK3HD0WAC0ka/
+ 4Z/DWyIkyG0eyovoYsCm89OB/JoMhLYNiuBZU6Fx8ehfC+95X7MIaL/lku5hmajTRrKC
+ NdQBMoIukf5CWOy3kBuWBOjl0eHOOefUhSBtvvFjH6jVgTk1WdLQ+/Ub6T0FI2VfG6SZ
+ g+Hg==
+X-Gm-Message-State: ANoB5plsejH8hnMMUN+p7gQJ1LbYji2kzoTqhtro80bngd3fP0I8gpfU
+ gl4PXSURYbVcqoStuklHsZYb6A==
+X-Google-Smtp-Source: AA0mqf57GDeyjbTzizTDvwgHZIWKGjktE97SxwOAvab3vKYoBljLv+Jv7y6GOFoRNsx0ysHmTjUQTA==
+X-Received: by 2002:a05:6512:224e:b0:4a4:68b8:c2de with SMTP id
+ i14-20020a056512224e00b004a468b8c2demr1789569lfu.53.1670581127329; 
+ Fri, 09 Dec 2022 02:18:47 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ a26-20020a056512201a00b004b5aa1c4d10sm197829lfb.118.2022.12.09.02.18.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Dec 2022 02:18:46 -0800 (PST)
+Message-ID: <6350def8-bb1f-8aeb-4c98-4d02a4c59aed@linaro.org>
+Date: Fri, 9 Dec 2022 11:18:45 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH v3 12/12] dt-bindings: mediatek: mt8188: add mt8188-mt6359
+ document
+Content-Language: en-US
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
+ lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com,
+ p.zabel@pengutronix.de
+References: <20221208033148.21866-1-trevor.wu@mediatek.com>
+ <20221208033148.21866-13-trevor.wu@mediatek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221208033148.21866-13-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,173 +110,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- kai.vehmanen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the new style KAE keep-alive implementation is used on compatible
-Intel hardware, the clocks are maintained when codec is in D3. The
-generic code in hda_cleanup_all_streams() can however interfere with
-generation of audio samples in this mode, by setting the stream and
-channel ids to zero.
+On 08/12/2022 04:31, Trevor Wu wrote:
+> Add document for mt8188 board with mt6359.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+>  .../bindings/sound/mt8188-mt6359.yaml         | 60 +++++++++++++++++++
+>  1 file changed, 60 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
+> new file mode 100644
+> index 000000000000..eac1c87b693a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/mt8188-mt6359.yaml
 
-To get full benefit of the keepalive, set the new
-no_stream_clean_at_suspend quirk bit on affected Intel hardware. When
-this bit is set, stream cleanup is skipped in hda_call_codec_suspend().
+Missing vendor prefix. You got comments for it already.
 
-Special handling is needed for the case when system goes to suspend. The
-stream id programming can be lost in this case. This will also cause
-codec->cvt_setups to be out of sync. Handle this by implementing custom
-suspend/resume handlers. If keep-alive is active for any converter, set
-the quirk flags no_stream_clean_at_suspend and forced_resume. Upon
-resume, keepalive programming is restored if needed.
+> @@ -0,0 +1,60 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/mt8188-mt6359.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MediaTek MT8188 ASoC sound card
+> +
+> +maintainers:
+> +  - Trevor Wu <trevor.wu@mediatek.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8188-mt6359-evb
+> +
+> +  model:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: User specified audio sound card name
+> +
+> +  audio-routing:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    description:
+> +      A list of the connections between audio components. Each entry is a
+> +      sink/source pair of strings. Valid names could be the input or output
+> +      widgets of audio components, power supplies, MicBias of codec and the
+> +      software switch.
+> +
+> +  mediatek,platform:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: The phandle of MT8188 ASoC platform.
+> +
+> +  mediatek,dptx-codec:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: The phandle of MT8188 Display Port Tx codec node.
+> +
+> +  mediatek,hdmi-codec:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: The phandle of MT8188 HDMI codec node.
 
-Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/sound/hda_codec.h  |  1 +
- sound/pci/hda/hda_codec.c  |  3 +-
- sound/pci/hda/patch_hdmi.c | 90 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 92 insertions(+), 2 deletions(-)
+Why you do not use DAI links for all these?
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 25ec8c181688..eba23daf2c29 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -258,6 +258,7 @@ struct hda_codec {
- 	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
- 	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
- 	unsigned int forced_resume:1; /* forced resume for jack */
-+	unsigned int no_stream_clean_at_suspend:1; /* do not clean streams at suspend */
- 
- #ifdef CONFIG_PM
- 	unsigned long power_on_acct;
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index b4d1e658c556..edd653ece70d 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -2886,7 +2886,8 @@ static unsigned int hda_call_codec_suspend(struct hda_codec *codec)
- 	snd_hdac_enter_pm(&codec->core);
- 	if (codec->patch_ops.suspend)
- 		codec->patch_ops.suspend(codec);
--	hda_cleanup_all_streams(codec);
-+	if (!codec->no_stream_clean_at_suspend)
-+		hda_cleanup_all_streams(codec);
- 	state = hda_set_power_state(codec, AC_PWRST_D3);
- 	update_power_acct(codec, true);
- 	snd_hdac_leave_pm(&codec->core);
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index f8e6ff7f8820..8015e4471267 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2926,6 +2926,88 @@ static void i915_pin_cvt_fixup(struct hda_codec *codec,
- 	}
- }
- 
-+#ifdef CONFIG_PM
-+static int i915_adlp_hdmi_suspend(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	bool silent_streams = false;
-+	int pin_idx, res;
-+
-+	res = generic_hdmi_suspend(codec);
-+
-+	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
-+		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
-+
-+		if (per_pin->silent_stream) {
-+			silent_streams = true;
-+			break;
-+		}
-+	}
-+
-+	if (silent_streams && spec->silent_stream_type == SILENT_STREAM_KAE) {
-+		/*
-+		 * stream-id should remain programmed when codec goes
-+		 * to runtime suspend
-+		 */
-+		codec->no_stream_clean_at_suspend = 1;
-+
-+		/*
-+		 * the system might go to S3, in which case keep-alive
-+		 * must be reprogrammed upon resume
-+		 */
-+		codec->forced_resume = 1;
-+
-+		codec_dbg(codec, "HDMI: KAE active at suspend\n");
-+	} else {
-+		codec->no_stream_clean_at_suspend = 0;
-+		codec->forced_resume = 0;
-+	}
-+
-+	return res;
-+}
-+
-+static int i915_adlp_hdmi_resume(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	int pin_idx, res;
-+
-+	res = generic_hdmi_resume(codec);
-+
-+	/* KAE not programmed at suspend, nothing to do here */
-+	if (!codec->no_stream_clean_at_suspend)
-+		return res;
-+
-+	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
-+		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
-+
-+		/*
-+		 * If system was in suspend with monitor connected,
-+		 * the codec setting may have been lost. Re-enable
-+		 * keep-alive.
-+		 */
-+		if (per_pin->silent_stream) {
-+			unsigned int param;
-+
-+			param = snd_hda_codec_read(codec, per_pin->cvt_nid, 0,
-+						   AC_VERB_GET_CONV, 0);
-+			if (!param) {
-+				codec_dbg(codec, "HDMI: KAE: restore stream id\n");
-+				silent_stream_enable_i915(codec, per_pin);
-+			}
-+
-+			param = snd_hda_codec_read(codec, per_pin->cvt_nid, 0,
-+						   AC_VERB_GET_DIGI_CONVERT_1, 0);
-+			if (!(param & (AC_DIG3_KAE << 16))) {
-+				codec_dbg(codec, "HDMI: KAE: restore DIG3_KAE\n");
-+				silent_stream_set_kae(codec, per_pin, true);
-+			}
-+		}
-+	}
-+
-+	return res;
-+}
-+#endif
-+
- /* precondition and allocation for Intel codecs */
- static int alloc_intel_hdmi(struct hda_codec *codec)
- {
-@@ -3056,8 +3138,14 @@ static int patch_i915_adlp_hdmi(struct hda_codec *codec)
- 	if (!res) {
- 		spec = codec->spec;
- 
--		if (spec->silent_stream_type)
-+		if (spec->silent_stream_type) {
- 			spec->silent_stream_type = SILENT_STREAM_KAE;
-+
-+#ifdef CONFIG_PM
-+			codec->patch_ops.resume = i915_adlp_hdmi_resume;
-+			codec->patch_ops.suspend = i915_adlp_hdmi_suspend;
-+#endif
-+		}
- 	}
- 
- 	return res;
--- 
-2.38.1
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - mediatek,platform
+> +
+> +examples:
+> +  - |
+> +
+
+Drop blank line.
+
+> +    sound: mt8188-sound {
+
+Drop label, not used. Use generic node names, so just "sound".
+
+> +        compatible = "mediatek,mt8188-mt6359-evb";
+
+Best regards,
+Krzysztof
 

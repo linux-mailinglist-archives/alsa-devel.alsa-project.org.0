@@ -2,84 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31FA06483C5
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 15:29:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B2F64844E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 15:56:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A579D219B;
-	Fri,  9 Dec 2022 15:28:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A579D219B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58C3B21EB;
+	Fri,  9 Dec 2022 15:55:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C3B21EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670596152;
-	bh=XKJ3GRSHuHX15H3zy3Oe35SDTLkvHp+ZIQyyYsklFmI=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1670597792;
+	bh=As5TIUX896GFaXNoD36Zt43VBKJ9dzyR6zEUTgT8c3o=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VnkujRCBZoqkp1TUMKEscGHvHeyyN3kd3GFPj9uokYqj6AiiUNsYY7WxmScUArPnZ
-	 ZoLUcaNJZBUqbHvwFJ5xqX9fu0vrlrfGSeIvxE62azPsTVIXFmZsxYJZ1gZPNxDFni
-	 P82aP0Qmav1MfKvLPquA45KNRftbIkTo3IWJBabk=
+	b=EL7cY2wBaiqMjUFHlg/wWsWRXYRvDh91wE6IpiSg3vSDXUSTw5QTk8iDj9XC59pl5
+	 eOFNVDVcX3W9g2JHUti7qCS3p6WToBEP1ohnZ4lwBZjRXZ4YzdF/tHk15Tj5fSGxSc
+	 b+OQqSHu2rj9Wn8C3+2OMpZXEUTCD+gw7VRZkZkg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CA00F8024C;
-	Fri,  9 Dec 2022 15:28:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CB7BF8024C;
+	Fri,  9 Dec 2022 15:55:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E45DBF8022D; Fri,  9 Dec 2022 15:28:10 +0100 (CET)
+ id 3DA14F8022D; Fri,  9 Dec 2022 15:55:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 353A1F80007
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 15:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 353A1F80007
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82A01F80007
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 15:55:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82A01F80007
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=f3/hPbg3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670596089; x=1702132089;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=HqgoOLg94nvwxKe35sdtoSxMcAQD5gifnZrRCurRNJw=;
- b=f3/hPbg3qnfjxNX0/9RqjwfFJcjj+DY/DGz4yPLQKu3HAor+U0mWQDVH
- Zx3DoGpN1omC6gUJoh6Z/gyTcAjsvghNMJKvgGZDKvK66l3O6S6GosUpQ
- EO5F4q9yiz2d2EERwEacDBhct84MIjITY4VOU2BVvMQNtIZOgzaSCOnXm
- 4YLLnSMKyW1JYfihNPX63TVa/3ZTlFs3gAEYq/ukEci3z69GcE7s8PD42
- +knJ01kQjn79DjcYDDN8EBhaUUHRWNHuTpFNAQu9if51dNKQNGX6Zkp/r
- gS0GdYsPRhVZ72jvuVEMHOgdvpa15Labf7pPTZVeGqSzbgA3ifAEUwIQ7 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10556"; a="316174300"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="316174300"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 06:28:03 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10556"; a="597742329"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="597742329"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 06:28:00 -0800
-Date: Fri, 9 Dec 2022 16:27:40 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 2/2] ASoC: SOF: Revert: "core: unregister clients and
- machine drivers in .shutdown"
-In-Reply-To: <Y5M8MYT60KiS2XBn@sirena.org.uk>
-Message-ID: <alpine.DEB.2.22.394.2212091613240.3532114@eliteleevi.tm.intel.com>
-References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
- <20221209114529.3909192-3-kai.vehmanen@linux.intel.com>
- <Y5M8MYT60KiS2XBn@sirena.org.uk>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=AYyiutbM
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2B9Covj4017285; Fri, 9 Dec 2022 08:55:28 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=beHLIVYruywZ9h8tJeHU6upU+UkqfaDUEu7U/XxUask=;
+ b=AYyiutbMSM6Z9b29VMxrrakzIkwmu9E/z87NQPLxcvMio8NdvvvuFfH5hvj4EnB2rEgv
+ 8+louhyyF4MgQkE2SaxfWCyOnVJ2DmkX6qL5gaUDcqbQbZG85OtlxulsXR+7qi3wfQW+
+ PrMy8HmblSL+5z1aVrwpwaYc+gPw8+uvK/rGVFbKJXOexrA/Lb8mw5OUbBsGlHp62P2W
+ 1hgnxCu0SWwCHdm2z3u6BwU2Y43Ui1ohKehYZJ1a+/aG6VFmKcN3f+/Sd8IeyEiU4/ug
+ EiKTj1FcfxE7sGsZsBG7HYNDYSXGx6DytFnCZIb+Y7qmvI6/FgEbmL78hl90rs72+oTW cw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3matyutms8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 09 Dec 2022 08:55:27 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Fri, 9 Dec
+ 2022 08:55:26 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.20 via Frontend Transport; Fri, 9 Dec 2022 08:55:26 -0600
+Received: from [198.61.65.44] (EDIN4L06LR3.ad.cirrus.com [198.61.65.44])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DFC98B0E;
+ Fri,  9 Dec 2022 14:55:25 +0000 (UTC)
+Message-ID: <dc65501c-c2fd-5608-c3d9-7cea184c3989@opensource.cirrus.com>
+Date: Fri, 9 Dec 2022 14:55:25 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open() breaks
+ SOF Audio in Lenovo laptops
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
+References: <f7a515a0d5429b41348341874b78f3c3254970e6.camel@infinera.com>
+ <Y5IOEAw5pjAvGgiN@sirena.org.uk>
+ <8fa316d5-b525-2207-9092-da14f1d77232@linux.intel.com>
+ <ade9deca-2f15-a3a6-97c3-7198f1cf0da0@linux.intel.com>
+ <a31e0bee-6972-0c0f-7579-449fb412a0b2@linux.intel.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <a31e0bee-6972-0c0f-7579-449fb412a0b2@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: aE_8eGMwmoUkZjsd4mdMShecgz1N_eGO
+X-Proofpoint-GUID: aE_8eGMwmoUkZjsd4mdMShecgz1N_eGO
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,64 +105,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, lgirdwood@gmail.com,
- Takashi Iwai <tiwai@suse.de>, daniel.baluta@nxp.com,
- Oliver Neukum <oneukum@suse.com>, peter.ujfalusi@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Zhen Ni <nizhen@uniontech.com>, Ricardo Ribalda <ribalda@chromium.org>,
- Archana Patni <archana.patni@intel.com>, yung-chuan.liao@linux.intel.com
+Cc: "sashal@kernel.org" <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, patches@opensource.cirrus.com,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Fri, 9 Dec 2022, Mark Brown wrote:
-
-> On Fri, Dec 09, 2022 at 01:45:29PM +0200, Kai Vehmanen wrote:
+On 9/12/22 14:42, Pierre-Louis Bossart wrote:
 > 
-> > This reverts commit 83bfc7e793b555291785136c3ae86abcdc046887.
 > 
-> Please include human readable descriptions of things like commits and
-> issues being discussed in e-mail in your mails, this makes them much
-
-ack, will fix in V2. 
-
-> easier for humans to read especially when they have no internet access.
-> I do frequently catch up on my mail on flights or while otherwise
-> travelling so this is even more pressing for me than just being about
-> making things a bit easier to read.
+> On 12/9/22 01:37, PÃ©ter Ujfalusi wrote:
+>>
+>>
+>> On 08/12/2022 18:37, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>> On 12/8/22 10:17, Mark Brown wrote:
+>>>> On Thu, Dec 08, 2022 at 02:02:02PM +0000, Joakim Tjernlund wrote:
+>>>>> Several of our Lenovo laptops lost PC audio output in Teams in 5.15.81(also in 5.15.82)
+>>>>> Revering above patch:https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-5.15.y&id=b2ddd76237121155dcadfc4ae77ca1775dfc99f7
+>>>>> fixes it.
+>>>>>
+>>>>> Any idea what the real fix is?
+>>>>
+>>>> Adding the Intel people.  I've no idea if there's issues with
+>>>> dependencies, missing quirks for the hardare or anything in that stable
+>>>> version.
+>>>
+>>> Humm, yes in the past we used the TDM masks to convey the 'stream_tag'
+>>> for HDaudio.
+>>>
+>>> I can still see this in v5.15.85 in sound/soc/sof/intel/hda-dai.c
+>>>
+>>> 	/* set the stream tag in the codec dai dma params */
+>>> 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+>>> 		snd_soc_dai_set_tdm_slot(codec_dai, stream_tag, 0, 0, 0);
+>>> 	else
+>>> 		snd_soc_dai_set_tdm_slot(codec_dai, 0, stream_tag, 0, 0);
+>>>
+>>>
+>>> That was changed in
+>>> 636110411ca72 ASoC: Intel/SOF: use set_stream() instead of
+>>> set_tdm_slots() for HDAudio
+>>>
+>>> snd_soc_dai_set_stream(codec_dai, hdac_stream(hext_stream),
+>>> substream->stream);
+>>>
+>>> So my guess is that zeroing out TDM masks has a side effect on older
+>>> stable kernels, and that effect is not seen on newer kernels.
+>>>
+>>> I don't really understand what the side effect might be though.
+>>
+>> The reason is that on the the tdm mask now became persistent and the HDA
+>> code relied on the fact that it is volatile, it is reset for each stream
+>> open.
+>> The core would do some fixup if the tx/rx_mask is set:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sound/soc/soc-pcm.c?h=linux-5.15.y&#n963
+>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sound/soc/soc-pcm.c?h=linux-5.15.y&#n968
+>>
+>> This did not happened when the tx/rx_mask was reset at open - and later
+>> set bny the HDA driver, I guess after these checks, so the fixup did not
+>> happened, but without resetting them we would use the previously set
+>> masks to do fixups for the number of channels (!) based on a stream_tag
+>> value, which has nothing to do with channels.
 > 
-> > -	/*
-> > -	 * make sure clients and machine driver(s) are unregistered to force
-> > -	 * all userspace devices to be closed prior to the DSP shutdown sequence
-> > -	 */
-> > -	sof_unregister_clients(sdev);
-> > -
-> > -	snd_sof_machine_unregister(sdev, pdata);
-> > -
-> 
-> I am somewhat surprised that these block on the kernel side rather than
-> just disconnecting the kernel side of whatever userspace sees - I'd
-> thought they were more like hotplug operations than something blocking.
+> Agree with the analysis, so what would be the least bad recommendation?
+> a) revert the "don't zero TDM masks" patch
+> b) backport the change to use set_stream()?
 
-Yes, this is not so obvious. The machine unregister ends up 
-in soc-core.c:soc_cleanup_card_resources()
-
---cut--
-static void soc_cleanup_card_resources(struct snd_soc_card *card)
-{
-»       struct snd_soc_pcm_runtime *rtd, *n;
-
-»       if (card->snd_card)
-»       »       snd_card_disconnect_sync(card->snd_card);
---cut--
-
-... and there we have the "sync" variant call that gets us in trouble
-with e.g. kexec().
-
-This seems to be only user of snd_card_disconnect_sync(), but it was 
-specifically added to fix a bug in commit 0ced7b050224 ("ASoC: soc-pcm: 
-remove soc_pcm_private_free()").
-
-Br, Kai
+Adding alsa-devel@alsa-project.org and patches@opensource.cirrus.com.
+Please add relevant lists when sending emails so that other people who
+might need to know, or have an opinion, are aware of the discussion.

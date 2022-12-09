@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02FC36481F0
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 12:47:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110AE6481F1
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 12:47:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93F3C21F8;
-	Fri,  9 Dec 2022 12:46:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93F3C21F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A69BA21FE;
+	Fri,  9 Dec 2022 12:46:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A69BA21FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670586442;
-	bh=sB8A1veNV+LZI5M0GsUlKDd/sc+Hf1JeWCsI+5QDBHE=;
+	s=default; t=1670586463;
+	bh=h8cBc2yBpk7/VniQXMQNqhBOeLpvqUCk5Hu0Q33S5Go=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=GjJTWV67k7foualcPRufqumJDu6iwQ9Nfwg6+GAItKXy73trbYyWenlhpHx+cRp0t
-	 X4X1AbNK3FH3d0R+AjwKLLwIb7JU9eMBP7ddvpg91Up4umn6t3gZY/hgihrWrTwRNo
-	 ZxQaMvEbxrjxUprgmLiOrIgRi2d5DW9Bkasfxftk=
+	b=EsliLjNZYFsFbVfhmtQlEQZLyBZ5k5jpg+ZpVZZTyi53vjMkyofu74bCkvyI81NYV
+	 HAG66L1i9NwP1vo3QTL92tXpXx2BDuyIssjQbbX4GdF1fQekXsqqqKRuitTOps14c7
+	 ZLRP6K2oUfxAcXemJ0Jz/41a0wwMOvx3IiQL9lDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BB26F8022B;
-	Fri,  9 Dec 2022 12:46:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CD2CF804DC;
+	Fri,  9 Dec 2022 12:46:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28ED8F8025F; Fri,  9 Dec 2022 12:45:59 +0100 (CET)
+ id E534CF804DD; Fri,  9 Dec 2022 12:46:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26488F8016E
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 12:45:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26488F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B572F804DB
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 12:46:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B572F804DB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LUwxGh80
+ header.s=Intel header.b=CEJC98NA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670586358; x=1702122358;
+ t=1670586362; x=1702122362;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sB8A1veNV+LZI5M0GsUlKDd/sc+Hf1JeWCsI+5QDBHE=;
- b=LUwxGh80aXHgFZ7d47LkbtfQPzT0PLGaS9rBKBuSVgOuOf+r6PIQM5jX
- Xxn8+VBFquwJnCp2vgI8bjzxicpCJ6Cu1IB63FUudS5hRKRwHU/2qdq0Y
- R5VC2nay5KUHsAMilXJKv9znjNfNh+WvrM4GJx6TXuLhT4WpeS3n6bzFk
- VP2n6iiiEOoH1FoE5CS7KJL7LdTtpPQNIuGdA6YfBoBRWvrBH1YgqnGqG
- GF+5+dVATGmCUjR9vxno9QwdAmV2ii5Cdj1K6VKGN00BqNZ9dg2hpgoMe
- CAr3H4Y3DHzgqx6dVgILyeNe19HksuenumZAnKK4WHv0eW0U1LLt1Ucdk A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="297122693"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="297122693"
+ bh=h8cBc2yBpk7/VniQXMQNqhBOeLpvqUCk5Hu0Q33S5Go=;
+ b=CEJC98NAwICrOxChozGwnRt9tK9liP3AOmA/4uTPmq1J4roORdNre8fA
+ iVxM+YMgKoMsMvrS3ziSzJqEn67ezVmI8s+xcpdueh1xfcYndwFxkWaFr
+ HD/KGi9vVgy8Bg8vY0kUcZKCcq9AejaPyRpqyI4f6vCQda/AkMCibXN/x
+ BGK/4wmx69Drn1kmnbkr2VMEwpWVNK7X7azKlY37SnYz6oxhcJc7WfOw3
+ 8VrIDu920tYKQGqEiEs4haZTapx6UjEgMRvc5fHzTjTenyuUwakGGKjoS
+ qH7FnvDQnyOBhQ2Qwrwz915A9WmT91KhvJzIZ5biMpOF60hjtyjsEb9P4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="297122704"
+X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="297122704"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 03:45:56 -0800
+ 09 Dec 2022 03:46:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="754000450"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="754000450"
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="754000474"
+X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; d="scan'208";a="754000474"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga002.fm.intel.com with ESMTP; 09 Dec 2022 03:45:53 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 09 Dec 2022 03:45:57 -0800
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 1/2] ASoC: SOF: Intel: pci-tgl: unblock S5 entry if DMA stop
- has failed"
-Date: Fri,  9 Dec 2022 13:45:28 +0200
-Message-Id: <20221209114529.3909192-2-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 2/2] ASoC: SOF: Revert: "core: unregister clients and machine
+ drivers in .shutdown"
+Date: Fri,  9 Dec 2022 13:45:29 +0200
+Message-Id: <20221209114529.3909192-3-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
 References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
@@ -97,135 +97,58 @@ Cc: kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, tiwai@suse.de,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If system shutdown has not been completed cleanly, it is possible the
-DMA stream shutdown has not been done, or was not clean.
+The unregister machine drivers call is not safe to do when
+kexec is used. Kexec-lite gets blocked with following backtrace:
 
-If this is the case, Intel TGL/ADL HDA platforms may fail to shutdown
-cleanly due to pending HDA DMA transactions. To avoid this, detect this
-scenario in the shutdown callback, and perform an additional controller
-reset. This has been tested to unblock S5 entry if this condition is
-hit.
+[   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
+[  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
+[  246.819035] Call Trace:
+[  246.821782]  <TASK>
+[  246.824186]  __schedule+0x5f9/0x1263
+[  246.828231]  schedule+0x87/0xc5
+[  246.831779]  snd_card_disconnect_sync+0xb5/0x127
+...
+[  246.889249]  snd_sof_device_shutdown+0xb4/0x150
+[  246.899317]  pci_device_shutdown+0x37/0x61
+[  246.903990]  device_shutdown+0x14c/0x1d6
+[  246.908391]  kernel_kexec+0x45/0xb9
 
-Co-developed-by: Archana Patni <archana.patni@intel.com>
-Signed-off-by: Archana Patni <archana.patni@intel.com>
+This reverts commit 83bfc7e793b555291785136c3ae86abcdc046887.
+
+Reported-by: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Ricardo Ribalda <ribalda@chromium.org>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dsp.c | 72 +++++++++++++++++++++++++++++++++++
- sound/soc/sof/intel/hda.h     |  1 +
- sound/soc/sof/intel/tgl.c     |  2 +-
- 3 files changed, 74 insertions(+), 1 deletion(-)
+ sound/soc/sof/core.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 5fa29df54b42..b4eacae8564c 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -878,6 +878,78 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, u32 target_state)
- 	return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
- }
- 
-+static unsigned int hda_dsp_check_for_dma_streams(struct snd_sof_dev *sdev)
-+{
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+	struct hdac_stream *s;
-+	unsigned int active_streams = 0;
-+	int sd_offset;
-+	u32 val;
-+
-+	list_for_each_entry(s, &bus->stream_list, list) {
-+		sd_offset = SOF_STREAM_SD_OFFSET(s);
-+		val = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR,
-+				       sd_offset);
-+		if (val & SOF_HDA_SD_CTL_DMA_START)
-+			active_streams |= BIT(s->index);
-+	}
-+
-+	return active_streams;
-+}
-+
-+static int hda_dsp_s5_quirk(struct snd_sof_dev *sdev)
-+{
-+	int ret;
-+
-+	/*
-+	 * Do not assume a certain timing between the prior
-+	 * suspend flow, and running of this quirk function.
-+	 * This is needed if the controller was just put
-+	 * to reset before calling this function.
-+	 */
-+	usleep_range(500, 1000);
-+
-+	/*
-+	 * Take controller out of reset to flush DMA
-+	 * transactions.
-+	 */
-+	ret = hda_dsp_ctrl_link_reset(sdev, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(500, 1000);
-+
-+	/* Restore state for shutdown, back to reset */
-+	ret = hda_dsp_ctrl_link_reset(sdev, true);
-+	if (ret < 0)
-+		return ret;
-+
-+	return ret;
-+}
-+
-+int hda_dsp_shutdown_dma_flush(struct snd_sof_dev *sdev)
-+{
-+	unsigned int active_streams;
-+	int ret, ret2;
-+
-+	/* check if DMA cleanup has been successful */
-+	active_streams = hda_dsp_check_for_dma_streams(sdev);
-+
-+	sdev->system_suspend_target = SOF_SUSPEND_S3;
-+	ret = snd_sof_suspend(sdev->dev);
-+
-+	if (active_streams) {
-+		dev_warn(sdev->dev,
-+			 "There were active DSP streams (%#x) at shutdown, trying to recover\n",
-+			 active_streams);
-+		ret2 = hda_dsp_s5_quirk(sdev);
-+		if (ret2 < 0)
-+			dev_err(sdev->dev, "shutdown recovery failed (%d)\n", ret2);
-+	}
-+
-+	return ret;
-+}
-+
- int hda_dsp_shutdown(struct snd_sof_dev *sdev)
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 3e6141d03770..625977a29d8a 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -475,19 +475,10 @@ EXPORT_SYMBOL(snd_sof_device_remove);
+ int snd_sof_device_shutdown(struct device *dev)
  {
- 	sdev->system_suspend_target = SOF_SUSPEND_S3;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 022ce80968dd..caccaf8fba9c 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -592,6 +592,7 @@ int hda_dsp_resume(struct snd_sof_dev *sdev);
- int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev);
- int hda_dsp_runtime_resume(struct snd_sof_dev *sdev);
- int hda_dsp_runtime_idle(struct snd_sof_dev *sdev);
-+int hda_dsp_shutdown_dma_flush(struct snd_sof_dev *sdev);
- int hda_dsp_shutdown(struct snd_sof_dev *sdev);
- int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
- void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags);
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 30f2f49ee149..58ac3a46e6a7 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -60,7 +60,7 @@ int sof_tgl_ops_init(struct snd_sof_dev *sdev)
- 	memcpy(&sof_tgl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_dsp_ops));
+ 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+-	struct snd_sof_pdata *pdata = sdev->pdata;
  
- 	/* probe/remove/shutdown */
--	sof_tgl_ops.shutdown	= hda_dsp_shutdown;
-+	sof_tgl_ops.shutdown	= hda_dsp_shutdown_dma_flush;
+ 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+ 		cancel_work_sync(&sdev->probe_work);
  
- 	if (sdev->pdata->ipc_type == SOF_IPC) {
- 		/* doorbell */
+-	/*
+-	 * make sure clients and machine driver(s) are unregistered to force
+-	 * all userspace devices to be closed prior to the DSP shutdown sequence
+-	 */
+-	sof_unregister_clients(sdev);
+-
+-	snd_sof_machine_unregister(sdev, pdata);
+-
+ 	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
+ 		return snd_sof_shutdown(sdev);
+ 
 -- 
 2.38.1
 

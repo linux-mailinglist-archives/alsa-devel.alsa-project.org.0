@@ -2,87 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95CE7648179
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 12:17:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE8C648196
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 12:26:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A56C2132;
-	Fri,  9 Dec 2022 12:16:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A56C2132
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F0F621E9;
+	Fri,  9 Dec 2022 12:25:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F0F621E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670584666;
-	bh=wSXkakgGYe8yiJbrRpEHGjiOqNToaxvZoVpQZkfXars=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1670585183;
+	bh=h0F0ECbgu9UjPgQ1su1RR1vAjGvH/t7wpuDyq0wvdRg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ESeJomUYKXegsIT42RjLvyzEBzljL/HSOGB3nphwzSlGAO9UW/bXZf3MdzjiHEf/A
-	 pYCFLAAg0JueNpvqWK5JwVeDlVBQaiB91YpeDXELdHps+6o2AjmZkFf+ZDDjQ471QF
-	 WCCCIDkC352a/96PzqazbrpjVlN0fCHhY6qFH6Dw=
+	b=lKj1+EzDIqCNEnlw4M9qYPzWyxZ5LHo4qO7+JBtmJh4dBnxDc+k6Gc0GhuUuJu+XL
+	 6pzxo0kEJ2mKCy9bP9f8X9WvW0/5kzZUhiWdJiJ2Qu1PYTZ66mDLc5WtfdDZ1q9zwF
+	 UydxM/ctMYXmQPc0atb3exnUYrswYpqEZC4REF+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD50DF800F8;
-	Fri,  9 Dec 2022 12:16:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B46C3F80007;
+	Fri,  9 Dec 2022 12:25:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 446EFF8022D; Fri,  9 Dec 2022 12:16:47 +0100 (CET)
+ id 8760FF800F8; Fri,  9 Dec 2022 12:25:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F96BF80007
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 12:16:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F96BF80007
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9EA6F800F8
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 12:25:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9EA6F800F8
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=VpfH8//R
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2B94pTC1003426; Fri, 9 Dec 2022 05:16:42 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=9atow78hvykn5Vc3eFPeIJmOcg6TT3MeuElSx9jZL9Y=;
- b=VpfH8//R6XBbHi9Y8tCgtCV8D0VLsXUP54Wa6q9iRimlIkqP11GbAe4zfZV5gah+Y2Mx
- knTIJldUtikSm5YzkPgz1K384fH1dC08FXqI6i5eFK74aJmGGjhZVMDF1zi2y09ZL29p
- 2KHMKPWTjNo/JucvIOa0C5CTwur4jts2BwQtBsphzLoNYIpxkqQNEEr9r2UpU+KPK1JC
- SKq8CDcsyJ6y10i4T67wAWFbyK57xC7McdyFe3vXN8gI47j07X8u1xA1E+PIJ3zB1t6E
- iUQxcj8VtMVZ2fo3DYgcJsi4Ui4TMOJnlcCE28vj4gaADTlZO8j43jNm+l2Xc36XaYeK aQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3m84r6pvxh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 09 Dec 2022 05:16:42 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Fri, 9 Dec
- 2022 05:16:40 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Fri, 9 Dec 2022 05:16:40 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5642DB0E;
- Fri,  9 Dec 2022 11:16:40 +0000 (UTC)
-Date: Fri, 9 Dec 2022 11:16:40 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH] ASoC: wm8994: Fix potential deadlock
-Message-ID: <20221209111640.GK105268@ediswmail.ad.cirrus.com>
-References: <CGME20221209091928eucas1p1cfc768d888a6e6c57fcaa0fe320cfced@eucas1p1.samsung.com>
- <20221209091657.1183-1-m.szyprowski@samsung.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=v8O3Iind
+Received: by mail-lf1-x12d.google.com with SMTP id d6so6522714lfs.10
+ for <alsa-devel@alsa-project.org>; Fri, 09 Dec 2022 03:25:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0K7eVJj4k3cMvSUFweS+f/J9GwqB4FTC28EsgFNd3e4=;
+ b=v8O3IindDPA/6bCVNb+vJbPGFFquksYTufkIL+Vc7fLkAd/9VzB6hOH2SxGv89qjVJ
+ cNK9uYg8Oy/rJtYZ/8G8LMuzRhp3Gid70zHybmHW1tZxmRozMR0cJNglctyaw17vBDgZ
+ +fzwQWVeI/oQsKm7SMm1faRESIHEDNiLz86aDkwC53wksXi4ccm+VpJJsbzCNj1fZ4iD
+ tjwfA1zH3m3vTQH0URH6ln7ISWtYQR2uIGmDXytFFNw0KOwKuHfI45v68zdyc4VpD9jB
+ 2pNx580WFgQsamVQLtnQA3INsyxfKp5Es7Yezkp5xBefQc8FjwI9VJhqJWhzi5YXrMY2
+ hBKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0K7eVJj4k3cMvSUFweS+f/J9GwqB4FTC28EsgFNd3e4=;
+ b=XIIV6ue56dZ6YuiQ/WkKUR7R5hToBg7LjhfsDsjtN1fjhUsUFvFqetBca5OQ6TYNEm
+ SGKp7LMW0tQE0Qlc1SfpCBnkmyE8eYtH8jlWpbRWQSRv8c7ybkFIf8LK2bR16VGKVUTX
+ 8kgb4bdy28J8W7/JZ7Rk2qVPbcO220ReCuyChDy3M1/40OgvaFGNuaFAHIkxnYrqgoqs
+ BVJG/N86YiJB/2wc5a4Yxfn1xNLUrrz9mV2w76db+wfJ7xTZS1pHKLN1yUk4v4ZtNdu4
+ 2SRKjveo1XoXijX6S9hBRxmUQjMsz4uCpnZcADxZmsCqtX+5w/mbjvr7Z/NKmwNZShgR
+ hPIQ==
+X-Gm-Message-State: ANoB5pl/eKinRJCQS2Jmbt2ya5/ObmrmDjUJAsySrkVQywY0a66Aycjb
+ Sooia9I6ItfKKUhijuGkAHfxkA==
+X-Google-Smtp-Source: AA0mqf6LfW07j/W9B4V1vwkpcNXcjozq6HyoRYstlaUqh4lqn4eUXH8+9Cn1fFTwacZZFVk5UNKMVQ==
+X-Received: by 2002:a05:6512:150:b0:4b4:f212:617c with SMTP id
+ m16-20020a056512015000b004b4f212617cmr1274955lfo.1.1670585119603; 
+ Fri, 09 Dec 2022 03:25:19 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ e12-20020ac2546c000000b00497a0ea92desm218963lfn.135.2022.12.09.03.25.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Dec 2022 03:25:19 -0800 (PST)
+Message-ID: <79d72425-2188-0a87-4ad3-a334df081005@linaro.org>
+Date: Fri, 9 Dec 2022 12:25:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221209091657.1183-1-m.szyprowski@samsung.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: JW0C1SuHOfp6VrXwOhVOR80GLDfafi4b
-X-Proofpoint-GUID: JW0C1SuHOfp6VrXwOhVOR80GLDfafi4b
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH 2/2] dt-bindings: sound: rt5640: Allow to describe how
+ LOUT is wired
+Content-Language: en-US
+To: Jarrah Gosbell <kernel@undef.tools>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20221209105621.39237-1-kernel@undef.tools>
+ <20221209105621.39237-2-kernel@undef.tools>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221209105621.39237-2-kernel@undef.tools>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,96 +111,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Cc: phone-devel@vger.kernel.org, Ondrej Jirman <megi@xff.cz>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Dec 09, 2022 at 10:16:57AM +0100, Marek Szyprowski wrote:
-> Commit c0feea594e05 ("workqueue: don't skip lockdep work dependency in
-> cancel_work_sync()") revealed the following locking issue in the wm8994
-> codec:
+On 09/12/2022 11:56, Jarrah Gosbell wrote:
+> From: Ondrej Jirman <megi@xff.cz>
 > 
-> ======================================================
-> WARNING: possible circular locking dependency detected
-> 6.0.0-rc1-00001-gc0feea594e05-dirty #13097 Not tainted
-> ------------------------------------------------------
-> kworker/1:1/32 is trying to acquire lock:
-> c2bd4300 (&wm8994->accdet_lock){+.+.}-{3:3}, at: wm1811_mic_work+0x38/0xdc
+> Depending on HW design, som boards may expect mono differential output
+> on LOUT. Describe a property that enables it.
 > 
-> but task is already holding lock:
-> f08f5f28 ((work_completion)(&(&wm8994->mic_work)->work)){+.+.}-{0:0}, at: process_one_work+0x1e4/0x778
-> 
-> which lock already depends on the new lock.
-> 
-> the existing dependency chain (in reverse order) is:
-> 
-> -> #1 ((work_completion)(&(&wm8994->mic_work)->work)){+.+.}-{0:0}:
->        __cancel_work_timer+0x198/0x22c
->        wm1811_jackdet_irq+0x124/0x238
->        process_one_work+0x288/0x778
->        worker_thread+0x44/0x504
->        kthread+0xf0/0x124
->        ret_from_fork+0x14/0x2c
->        0x0
-> 
-> -> #0 (&wm8994->accdet_lock){+.+.}-{3:3}:
->        lock_acquire+0x124/0x3e4
->        __mutex_lock+0x90/0x948
->        mutex_lock_nested+0x1c/0x24
->        wm1811_mic_work+0x38/0xdc
->        process_one_work+0x288/0x778
->        worker_thread+0x44/0x504
->        kthread+0xf0/0x124
->        ret_from_fork+0x14/0x2c
->        0x0
-> 
-> other info that might help us debug this:
-> 
->  Possible unsafe locking scenario:
-> 
->        CPU0                    CPU1
->        ----                    ----
->   lock((work_completion)(&(&wm8994->mic_work)->work));
->                                lock(&wm8994->accdet_lock);
->                                lock((work_completion)(&(&wm8994->mic_work)->work));
->   lock(&wm8994->accdet_lock);
-> 
->  *** DEADLOCK ***
-> 
-> 2 locks held by kworker/1:1/32:
->  #0: c1c072a8 ((wq_completion)events_power_efficient){+.+.}-{0:0}, at: process_one_work+0x1e4/0x778
->  #1: f08f5f28 ((work_completion)(&(&wm8994->mic_work)->work)){+.+.}-{0:0}, at: process_one_work+0x1e4/0x778
-> 
-> stack backtrace:
-> CPU: 1 PID: 32 Comm: kworker/1:1 Not tainted 6.0.0-rc1-00001-gc0feea594e05-dirty #13097
-> Hardware name: Samsung Exynos (Flattened Device Tree)
-> Workqueue: events_power_efficient wm1811_mic_work
->  unwind_backtrace from show_stack+0x10/0x14
->  show_stack from dump_stack_lvl+0x58/0x70
->  dump_stack_lvl from check_noncircular+0xf0/0x158
->  check_noncircular from __lock_acquire+0x15e8/0x2a7c
->  __lock_acquire from lock_acquire+0x124/0x3e4
->  lock_acquire from __mutex_lock+0x90/0x948
->  __mutex_lock from mutex_lock_nested+0x1c/0x24
->  mutex_lock_nested from wm1811_mic_work+0x38/0xdc
->  wm1811_mic_work from process_one_work+0x288/0x778
->  process_one_work from worker_thread+0x44/0x504
->  worker_thread from kthread+0xf0/0x124
->  kthread from ret_from_fork+0x14/0x2c
-> Exception stack(0xf08f5fb0 to 0xf08f5ff8)
-> ...
-> --->8---
-> 
-> Fix this by dropping wm8994->accdet_lock while calling
-> cancel_delayed_work_sync(&wm8994->mic_work) in wm1811_jackdet_irq().
-> 
-> Fixes: c0cc3f166525 ("ASoC: wm8994: Allow a delay between jack insertion and microphone detect")
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Signed-off-by: Ondrej Jirman <megi@xff.cz>
+> Signed-off-by: Jarrah Gosbell <kernel@undef.tools>
 > ---
+>  Documentation/devicetree/bindings/sound/rt5640.txt | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Thanks,
-Charles
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+

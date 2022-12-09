@@ -2,93 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB914647F05
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 09:11:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B02E647F50
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 09:35:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55C831F9E;
-	Fri,  9 Dec 2022 09:10:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55C831F9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4277212A;
+	Fri,  9 Dec 2022 09:34:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4277212A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670573482;
-	bh=Ean3R9bjPxdS+CWFQpm4IW+2P6Y72b4UY4mRHShU4lQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1670574908;
+	bh=KgzqwHAUo4UlqMKoDx7vj0kvtzbIgoQfXRK9zwxkBaA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=RaCJBcl3n2AoLlx9l8F4Djnd4Rp95UOX0sdgHw3z+hDQg3LPXmk0W10oPK7eE3QK+
-	 NtAPtwfRvmkYdfbQ6cr+P32Nqzkqh6XELKFqco/6q5MxsDRGJI9GS21DrjIyBvVZfj
-	 /AtF86ckylmSb0gQ+O1BEgPR5trtCT+lKcHlMHVk=
+	b=XrhTf+fBQxz2HuxnKMAA0yUPfa6+a0zoSK7mOBDz6JdwbFCwFtx+S1LjEJv4GQV3Q
+	 4+/DhGon21JbJo4SLnBke+SJCeZc7MdT+9o8u3snjvOaBo2fKHkhntycjnBTH/yrrb
+	 +KjT2EPZeohHppnczLmN95Tnl4JYGTDjR9EVW0s0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 058A8F8016E;
-	Fri,  9 Dec 2022 09:10:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B185F80007;
+	Fri,  9 Dec 2022 09:34:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D00ADF8022D; Fri,  9 Dec 2022 09:10:22 +0100 (CET)
+ id DE4E0F8022D; Fri,  9 Dec 2022 09:34:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out-07.comm2000.it (smtp-out-07.comm2000.it [212.97.32.77])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D0CDF8016E
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 09:10:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D0CDF8016E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=viT6BMxf; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=+rAeGYUt
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E589F80007
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 09:34:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E589F80007
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=mailserver.it header.i=@mailserver.it
+ header.a=rsa-sha256 header.s=mailsrv header.b=wk7KyBzc
+Received: from francesco-nb.int.toradex.com (93-49-2-63.ip317.fastwebnet.it
+ [93.49.2.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7035822ADC;
- Fri,  9 Dec 2022 08:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670573420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TxDCO0feW92TTekFzWHxCZxRg4MCYDArXps4Xu9X1c8=;
- b=viT6BMxfjXO6v+XAGRqoLGgSd4zykA1v48ZTklKZOHHykVWDzaKCq94/6bZE5sBMghO2tg
- x0DmT6F0p1O6HNUwBKoMD4yqM026eis04n2iS8H23gkrIIWZuPRIXTxSdSrZqysQP6xFTx
- hJKIe58Eaz8FJEElxcgUMxwL5Ca2ptw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670573420;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TxDCO0feW92TTekFzWHxCZxRg4MCYDArXps4Xu9X1c8=;
- b=+rAeGYUtFvxZacIXXLqi8o+Ujdq534gkW8ZMpMb+LInwv0VAdg0O1BaqhTKh69Erg+MgpM
- SZ7deBxI2ZDKNkBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CB3F138E0;
- Fri,  9 Dec 2022 08:10:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id w//8EWztkmPSOQAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 09 Dec 2022 08:10:20 +0000
-Date: Fri, 09 Dec 2022 09:10:19 +0100
-Message-ID: <87tu256lqs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-In-Reply-To: <Y5KPAs6f7S2dEoxR@mail-itl>
-References: <Y5KPAs6f7S2dEoxR@mail-itl>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+ (Authenticated sender: francesco@dolcini.it)
+ by smtp-out-07.comm2000.it (Postfix) with ESMTPSA id E1D5E3C7F0C;
+ Fri,  9 Dec 2022 09:34:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailserver.it;
+ s=mailsrv; t=1670574847;
+ bh=KgzqwHAUo4UlqMKoDx7vj0kvtzbIgoQfXRK9zwxkBaA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=wk7KyBzcyfUEO0FlF+jzBzQEVQBAFC+mCBr0RhLc436pYljKF0XLms1bPio/UWkCz
+ tQ/9jK1ueaO1l9rnMEW72YMmAWrQ9VvX0cMDvQH9XamGo3lk0QgOU8L7jlPz7dtAtR
+ lRxn4ppsK+hknGi75xOFwt6c/FNPlXD8EzgQbFaTK1/7hDn3zeNwfHmGw0oEvlN5qX
+ Aa9h3uv+/BX3cZPj9KxTX/fGLjENR022uwjP0ouUcQYAb7/4N1ngs9EI9TS6K2ApoZ
+ F5w0qSuiz2Dl15kZUS4bT0Id7N4khOyc6bnbfC7xdxFtSgYkRh0P42FlMjLfCi0y1C
+ kCGQI6C1G0s5Q==
+Date: Fri, 9 Dec 2022 09:33:52 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Mark Brown <broonie@kernel.org>,
+ Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+Subject: Re: Simple card and PLL/FLL
+Message-ID: <Y5Ly8E68N4qubJw8@francesco-nb.int.toradex.com>
+References: <4172f4b2-9198-dfc8-a2b0-d75a95265e14@gmail.com>
+ <Y5DPbhXQazD8OWX1@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y5DPbhXQazD8OWX1@sirena.org.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,113 +81,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: alsa-devel@alsa-project.org, emanuele.ghidoli@toradex.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 09 Dec 2022 02:27:30 +0100,
-Marek Marczykowski-Górecki wrote:
-> 
-> Hi,
-> 
-> Under Xen PV dom0, with Linux >= 5.17, sound stops working after few
-> hours. pavucontrol still shows meter bars moving, but the speakers
-> remain silent. At least on some occasions I see the following message in
-> dmesg:
-> 
->   [ 2142.484553] snd_hda_intel 0000:00:1f.3: Unstable LPIB (18144 >= 6396); disabling LPIB delay counting
-> 
-> I'm not sure if that happens before sound stops working, after, of if
-> it's related at all, but that's pretty much the only sound-related error
-> I found in logs.
-> When the issue happens, on rare occasions it starts working again later
-> for a short time, but generally the fix is to reboot. Reloading all
-> snd_* modules (surprisingly) do not help. I don't know what exactly
-> triggers the issue, sometimes is happen after short time like 15 minutes
-> uptime, but usually after several hours. I guess it depends on usage
-> pattern, but I haven't spotted any specific relation.
-> 
-> I managed to bisect it to this commit:
-> 
->     2c95b92ecd92e784785b1db8cccc4f0f2bfa850c is the first bad commit
->     commit 2c95b92ecd92e784785b1db8cccc4f0f2bfa850c
->     Author: Takashi Iwai <tiwai@suse.de>
->     Date:   Tue Nov 16 08:33:58 2021 +0100
-> 
->         ALSA: memalloc: Unify x86 SG-buffer handling (take#3)
->         
->         This is a second attempt to unify the x86-specific SG-buffer handling
->         code with the new standard non-contiguous page handler.
->         
->         The first try (in commit 2d9ea39917a4) failed due to the wrong page
->         and address calculations, hence reverted.  (And the second try failed
->         due to a copy&paste error.)  Now it's corrected with the previous fix
->         for noncontig pages, and the proper sg page iteration by this patch.
->         
->         After the migration, SNDRV_DMA_TYPE_DMA_SG becomes identical with
->         SNDRV_DMA_TYPE_NONCONTIG on x86, while others still fall back to
->         SNDRV_DMA_TYPE_DEV.
->         
->         Tested-by: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
->         Tested-by: Harald Arnesen <harald@skogtun.org>
->         Link: https://lore.kernel.org/r/20211017074859.24112-4-tiwai@suse.de
->         Link: https://lore.kernel.org/r/20211109062235.22310-1-tiwai@suse.de
->         Link: https://lore.kernel.org/r/20211116073358.19741-1-tiwai@suse.de
->         Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> 
->      include/sound/memalloc.h |  14 ++--
->      sound/core/Makefile      |   1 -
->      sound/core/memalloc.c    |  53 ++++++++++++-
->      sound/core/sgbuf.c       | 201 -----------------------------------------------
->      4 files changed, 56 insertions(+), 213 deletions(-)
->      delete mode 100644 sound/core/sgbuf.c
-> 
-> I've seen further follow ups to this commit, but I still observe this
-> issue on Linux 6.0.8.
-> 
-> I have observed this issue on KBL-based system, but I've got reports
-> also from users of other platforms (including as old as Sandy Bridge).
-> 
-> I tried to include all relevant information above, but some more details
-> can be found at original report at
-> https://github.com/QubesOS/qubes-issues/issues/7465
-> 
-> Any ideas?
+Hello Mark and Emanuele
 
-Hm, is it specific to Xen, i.e. if you run the normal kernel on the
-same machine, does it still work?
+On Wed, Dec 07, 2022 at 05:37:50PM +0000, Mark Brown wrote:
+> On Wed, Dec 07, 2022 at 01:41:24PM +0100, Emanuele Ghidoli wrote:
+>
+> > I guess what is the "right/better" implementation? Have we to add the
+> > set_pll call in simple-card? Or have we to add it to e.g. fsl_sai driver?
+> > Or, in some way, the wm8904 codec driver is approaching in the right way?
+> >
+> > Is there any documentation that explain all of that (I have already looked
+> > at Documentation/sound)? Any driver that is considered well written and
+> > complete I should use as a reference?
+>
+> It's kind of a taste thing.  There's some devices where the clocking is
+> sufficently complicated and flexible that definitely needs a set_pll()
+> ...
+> for simpler devices like the WM8904 where there's an obvious thing to
+> do it's much easier to just hide that from everything outside the
+> driver and only deal with the input clock.
 
-In anyway, please check the behavior with 6.1-rc8 + the commit
-cc26516374065a34e10c9a8bf3e940e42cd96e2a
-    ALSA: memalloc: Allocate more contiguous pages for fallback case
-from for-next of my sound git tree (which will be in 6.2-rc1).
+Thinking about asoc_simple_hw_params(), what about the fact that
+asoc_simple_set_clk_rate() ask for a specific clock rate and assume that
+the actual output frequency is the one requested?
 
-If the problem persists, another thing to check is the hack below
-works.
+After that we are potentially passing to the codec driver a wrong
+information, we should likely have a way to pass the actual clock that
+could be different because of limitation on the PLL/dividers.
 
+Francesco
 
-thanks,
-
-Takashi
-
--- 8< --
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1808,9 +1808,16 @@ static int azx_create(struct snd_card *card, struct pci_dev *pci,
- 	if (err < 0)
- 		return err;
- 
-+#if 0
- 	/* use the non-cached pages in non-snoop mode */
- 	if (!azx_snoop(chip))
- 		azx_bus(chip)->dma_type = SNDRV_DMA_TYPE_DEV_WC_SG;
-+#else
-+	if (!azx_snoop(chip))
-+		azx_bus(chip)->dma_type = SNDRV_DMA_TYPE_DEV_SG;
-+	else
-+		azx_bus(chip)->dma_type = SNDRV_DMA_TYPE_DEV;
-+#endif
- 
- 	if (chip->driver_type == AZX_DRIVER_NVIDIA) {
- 		dev_dbg(chip->card->dev, "Enable delay in RIRB handling\n");

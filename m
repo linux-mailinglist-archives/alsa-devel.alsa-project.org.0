@@ -2,108 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D329D648454
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 15:57:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C8964849B
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 16:06:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AACDE2247;
-	Fri,  9 Dec 2022 15:56:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AACDE2247
+	by alsa0.perex.cz (Postfix) with ESMTPS id C02892243;
+	Fri,  9 Dec 2022 16:05:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C02892243
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670597842;
-	bh=saI1ACDmKuQAj+M2GUVyLcERGMWim3Lm36bIi/+Amb0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=UH8RU8hxzMkzw4ridxFxpS/aFr8CYxWh6wgRNKg1NX46ADNxHQuV19ZbUEiCghpD2
-	 ucSL08rftO7JPy52Pa9sAk3/3/yntzUNq/meEltfl+h6Y7JUhjS6PHWxrDoLSyzHsY
-	 ltTfMqXS7yAIk7wGzVvq0NTddJqiVCHaNzGnmIXk=
+	s=default; t=1670598376;
+	bh=5HjkS5qOo+gPezsyLThPhk3akTWsqGHavEYk0BWESbs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=LnYD7/DQWvyOAz0TqtVeOOWWL98a6mCVhPEpCh9E+K8R7AS4gw8z35LL2BkrL7uTg
+	 FrXCC8vlxAlV9mUN+zOrFdPILS0bnJMVCHvOjANaMwO2IMX43EKj0JD+S1RgU9k5EP
+	 dRLPLK8fWvmirD0MAG2cTwAWZQCCyocE5DhESpCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53EABF8024E;
-	Fri,  9 Dec 2022 15:56:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75F14F800F8;
+	Fri,  9 Dec 2022 16:05:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 961B8F80007; Fri,  9 Dec 2022 15:56:30 +0100 (CET)
+ id 4AD4DF8022D; Fri,  9 Dec 2022 16:05:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CE03F80007
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 15:56:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CE03F80007
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5EE71F80007
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 16:05:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EE71F80007
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oK6qJslO
-Received: by mail-lf1-x12e.google.com with SMTP id b13so7423259lfo.3
- for <alsa-devel@alsa-project.org>; Fri, 09 Dec 2022 06:56:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Zn39Cq6H46SfgCPMDp1Yyg4Hy1ifOLwJBJ6L3zqm8MM=;
- b=oK6qJslOKT34uL/1v4g3iVT1myebBNEM4jqIgvwqM03/FD9DabncthU7iZSDV0Dw6V
- XsercsMR7iFL4hosx9kgIZ9YzmeCwbSXsSX4/PK42T64csirCJrUZDGR63AA3gzG1g41
- zlLghgCExlKP16+a3f94HqnFX/ZzAhWZHtnZtcyd5lQqtnZGVR+xrZz6v60MtrThIAwE
- XQEk16WFuKtIqjvbXFNEA7UN1gFNRMxtw2StjPUdNgiBZiUp23HOjBaOGribElE0U6rD
- 481bOTOymtR3SVQCOPXoy+Dnb7PRwjW6PGEXoMZeDb2M9MiCGeBIBtnUuFWXLdoTE2dW
- +kEQ==
+ unprotected) header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.a=rsa-sha256 header.s=20210112 header.b=r82KimHT
+Received: by mail-pj1-x102b.google.com with SMTP id
+ fa4-20020a17090af0c400b002198d1328a0so8505749pjb.0
+ for <alsa-devel@alsa-project.org>; Fri, 09 Dec 2022 07:05:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bYXaODBVhflASZ7OxFAgzxq0Ral2A1PhxDvbahBGsvE=;
+ b=r82KimHTdYUJfTD2kSEU0d5/sHOgGIZebkfojO+q3neNyh7NCtKuRC6Zz3c9PE3ibd
+ iKKAoa23sJV2mQfhfpvTYF3KNMr3Tv9e8rwlZLDU7HfYjbDzTMIfDebIPNcK3i4X+wfS
+ eN+dv2k74QzCjEokGJya1Z8SrZVl9L0uF5jLW1C7VoJ4neLWAZrfU6vwk9G2Xu5C7fr6
+ LWx82xaeXPrR0v1L5jZt4pzQm2pV7naPBPxkZlBlgy0LIMq0u9Yom3PNl8Bs+6DgjcfR
+ pBvnf7m0h2TLoQ6wOjt4xRmbJaWUaH0+Y4jobjQRErSRIaKteuBhv4RA+MsUyKLoi3cm
+ jnTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Zn39Cq6H46SfgCPMDp1Yyg4Hy1ifOLwJBJ6L3zqm8MM=;
- b=w066tbDwY24mpVhw9LJ6leqjOmVdkW8l26EgbH1cX0Jzsx0XL4fxnvi7mmyjnj1Hcu
- jYS+ca8F/sDFjK047HKZIz5FwI+JFhYX2eCBmZArmlesD3Y6jIOKnNfts3P4vFYUbB0M
- yswrU9DZdzdAKX8dH/D685RCz1zXb77k2tBqL8/VELr3pFa4QRvHxPDf7eMoDWdnplQ2
- RDhm14FJrbfXT0+80ypFI59QgbkBJg9tSXn7bUYPB4kpmUN8AOUMNbcFJaSdQP9buvmo
- mUbUHu4QKSj9jCu9geJ5PpbZEy0eTXMgkzuxJMtJ6lRIQBhxooE8Lg3h0z3pLz5NR/wC
- vOsA==
-X-Gm-Message-State: ANoB5pm63SOl1dCHgpG7P0fCqozqVMgWImVLqYWVJzJxizg82Rj/IH0i
- ASrQt+B6yrJDuvuYhrUupnCVjw==
-X-Google-Smtp-Source: AA0mqf6+eQqJYIlJ4RBGy5DkLM0OPyqhKXbsUkA+Jn4oqxjdS9sXP0vfO1VIWussQDLHIAES8/dMgw==
-X-Received: by 2002:a05:6512:13a2:b0:4a4:68b7:d61d with SMTP id
- p34-20020a05651213a200b004a468b7d61dmr2041235lfa.4.1670597785748; 
- Fri, 09 Dec 2022 06:56:25 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bYXaODBVhflASZ7OxFAgzxq0Ral2A1PhxDvbahBGsvE=;
+ b=zyjciJaIg+LW2jL41xKWGg3yQkGM7d+yDXDdwwEPf7wj9dfKl+Wtcg5lo9GjRkJGj+
+ CqJfznPC86DXjdtq5+n+Uf2LeOEzQ2m56zhKBegmBH+7ziAP//VsFzIVnxDv6W2hy7mQ
+ r/gVLvDUwIDVrqvsZUTBlnWpMC2dJ3H/5kWJDFnkeLUMpcFyjC0kv7wFJo/xGElImbwz
+ cm8zta2Id8GKB48AZ3TJzqqQnDbXFraZnGGEYRoXm0UDBzej+UI5PNYXzWVFJpZS9W98
+ zDTHL0uRE1kodwnSi9Ohj4fdeiFEZVrW0rUZEYUveyUXyNR1yi9yQh32LtxTD5XABNrO
+ Eo0w==
+X-Gm-Message-State: ANoB5pkhR7h5FSLq+r4b5vjHR+lzeMp0TyyL/zZVowc8MGjb1FqG2SlA
+ wXYLSaItDSnMhQb+S4hO12kmBw==
+X-Google-Smtp-Source: AA0mqf7P2PScex89JkMHbkg7PXQ7ZPThb0uB4RrC4jJtpuZmE2zqb70l8OWHL1W52fylS8loKkwsEg==
+X-Received: by 2002:a17:90a:ba01:b0:218:8263:4aac with SMTP id
+ s1-20020a17090aba0100b0021882634aacmr6258953pjr.17.1670598313688; 
+ Fri, 09 Dec 2022 07:05:13 -0800 (PST)
+Received: from ajye-OMEN-by-HP-Laptop-S.hitronhub.home
+ (123-195-117-216.dynamic.kbronet.com.tw. [123.195.117.216])
  by smtp.gmail.com with ESMTPSA id
- h9-20020ac24d29000000b004b50b4f63b7sm287771lfk.170.2022.12.09.06.56.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Dec 2022 06:56:25 -0800 (PST)
-Message-ID: <fb34e446-2904-a357-e54b-3e82a2b0745c@linaro.org>
-Date: Fri, 9 Dec 2022 15:56:24 +0100
+ u2-20020a17090a410200b002187a4dd830sm1267137pjf.46.2022.12.09.07.05.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Dec 2022 07:05:13 -0800 (PST)
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v1] ASoC: Intel: sof_nau8825: add support for nau8825 with amp
+ nau8318
+Date: Fri,  9 Dec 2022 23:05:03 +0800
+Message-Id: <20221209150503.11875-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH v3 10/12] dt-bindings: mediatek: mt8188: add audio afe
- document
-Content-Language: en-US
-To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>
-References: <20221208033148.21866-1-trevor.wu@mediatek.com>
- <20221208033148.21866-11-trevor.wu@mediatek.com>
- <d7d9f3c7-b3e3-1e13-a80f-c7bf7b38a5b1@linaro.org>
- <45b4b287dfd57b99e0ba5675bf99194f6d84d9da.camel@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <45b4b287dfd57b99e0ba5675bf99194f6d84d9da.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -117,89 +101,131 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>
+Cc: Libin Yang <libin.yang@intel.com>,
+ "balamurugan . c" <balamurugan.c@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Muralidhar Reddy <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ David Lin <CTLIN0@nuvoton.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 09/12/2022 11:56, Trevor Wu (吳文良) wrote:
->>> +
->>> +patternProperties:
->>> +  "^mediatek,etdm-in[1-2]-chn-disabled$":
->>> +    $ref: /schemas/types.yaml#/definitions/uint8-array
->>> +    minItems: 1
->>> +    maxItems: 16
->>> +    description:
->>> +      By default, all data received from ETDM pins will be
->>> outputed to
->>> +      memory. etdm in supports disable_out in direct mode(w/o
->>> interconn).
->>> +      User can specify the channel ID which they hope dropping and
->>> then
->>> +      the specified channel won't be seen on memory.
->>
->> So we know what are the IDs but it's a mystery what are the values.
->> Especially with unique values - how any of these should case that
->> channel "won't be seen in memory"?
->>
-> For example,
-> FE can support 14ch, but BE(etdm) can't support 14ch(it can support
-> 16ch).
-> In the case, we can configure 16ch to etdm and make use of the property
-> to disable the last two channels.
-> 
-> mediatek,etdm-in1-chn-disabled = /bits/ 8 <0xE 0xF>;
+This patch adds the driver data for two nau8318 speaker amplifiers on
+SSP1 and nau8825 on SSP0 for ADL platform.
+And reusing max98360's topology since DAI setting could be leveraged.
 
-Your description should explain that this is a list of channel IDs which
-should be disabled.
+Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+---
+ sound/soc/intel/boards/Kconfig                |  1 +
+ sound/soc/intel/boards/sof_nau8825.c          | 23 +++++++++++++++++++
+ .../intel/common/soc-acpi-intel-adl-match.c   | 12 ++++++++++
+ 3 files changed, 36 insertions(+)
 
-> 
-> 
->>> +    uniqueItems: true
->>> +    items:
->>> +      minimum: 0
->>> +      maximum: 15
->>> +
->>> +  "^mediatek,etdm-in[1-2]-mclk-always-on-rate-hz$":
->>> +    description: Specify etdm in mclk output rate for always on
->>> case.
->>
->> How is it different than assigned-clock-rates?
->>
-> This includes clock enabling at init stage.
-
-assigned-clock-rates are also at init stage. I asked what is different.
-
-> 
->>> +
->>> +  "^mediatek,etdm-out[1-3]-mclk-always-on-rate-hz$":
->>> +    description: Specify etdm out mclk output rate for always on
->>> case.
->>> +
->>> +  "^mediatek,etdm-in[1-2]-multi-pin-mode$":
->>> +    type: boolean
->>> +    description: if present, the etdm data mode is I2S.
->>> +
->>> +  "^mediatek,etdm-out[1-3]-multi-pin-mode$":
->>> +    type: boolean
->>> +    description: if present, the etdm data mode is I2S.
->>> +
->>> +  "^mediatek,etdm-in[1-2]-cowork-source$":
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    description:
->>> +      etdm modules can share the same external clock pin. Specify
->>> +      which etdm clock source is required by this etdm in moudule.
->>
->> typo: module
->>
-
-Best regards,
-Krzysztof
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index a472de1909f4..3f68e9edd853 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -554,6 +554,7 @@ config SND_SOC_INTEL_SOF_NAU8825_MACH
+ 	select SND_SOC_RT1015P
+ 	select SND_SOC_MAX98373_I2C
+ 	select SND_SOC_MAX98357A
++	select SND_SOC_NAU8315
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDAC_HDMI
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
+index 27880224359d..0936450be153 100644
+--- a/sound/soc/intel/boards/sof_nau8825.c
++++ b/sound/soc/intel/boards/sof_nau8825.c
+@@ -48,6 +48,7 @@
+ #define SOF_MAX98373_SPEAKER_AMP_PRESENT	BIT(15)
+ #define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(16)
+ #define SOF_RT1015P_SPEAKER_AMP_PRESENT	BIT(17)
++#define SOF_NAU8318_SPEAKER_AMP_PRESENT	BIT(18)
+ 
+ static unsigned long sof_nau8825_quirk = SOF_NAU8825_SSP_CODEC(0);
+ 
+@@ -338,6 +339,13 @@ static struct snd_soc_dai_link_component rt1019p_component[] = {
+ 	}
+ };
+ 
++static struct snd_soc_dai_link_component nau8318_components[] = {
++	{
++		.name = "NVTN2012:00",
++		.dai_name = "nau8315-hifi",
++	}
++};
++
+ static struct snd_soc_dai_link_component dummy_component[] = {
+ 	{
+ 		.name = "snd-soc-dummy",
+@@ -486,6 +494,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 			max_98360a_dai_link(&links[id]);
+ 		} else if (sof_nau8825_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT) {
+ 			sof_rt1015p_dai_link(&links[id]);
++		} else if (sof_nau8825_quirk &
++				SOF_NAU8318_SPEAKER_AMP_PRESENT) {
++			links[id].codecs = nau8318_components;
++			links[id].num_codecs = ARRAY_SIZE(nau8318_components);
++			links[id].init = speaker_codec_init;
+ 		} else {
+ 			goto devm_err;
+ 		}
+@@ -657,6 +670,16 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_BT_OFFLOAD_SSP(2) |
+ 					SOF_SSP_BT_OFFLOAD_PRESENT),
+ 	},
++	{
++		.name = "adl_nau8318_nau8825",
++		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_NAU8318_SPEAKER_AMP_PRESENT |
++					SOF_NAU8825_SSP_AMP(1) |
++					SOF_NAU8825_NUM_HDMIDEV(4) |
++					SOF_BT_OFFLOAD_SSP(2) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index 60aee56f94bd..282b9c966ce6 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -450,6 +450,11 @@ static const struct snd_soc_acpi_codecs adl_lt6911_hdmi = {
+ 	.codecs = {"INTC10B0"}
+ };
+ 
++static const struct snd_soc_acpi_codecs adl_nau8318_amp = {
++	.num_codecs = 1,
++	.codecs = {"NVTN2012"}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 	{
+ 		.comp_ids = &adl_rt5682_rt5682s_hp,
+@@ -507,6 +512,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.quirk_data = &adl_rt1015p_amp,
+ 		.sof_tplg_filename = "sof-adl-rt1015-nau8825.tplg",
+ 	},
++	{
++		.id = "10508825",
++		.drv_name = "adl_nau8318_nau8825",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &adl_nau8318_amp,
++		.sof_tplg_filename = "sof-adl-max98360a-nau8825.tplg",
++	},
+ 	{
+ 		.id = "10508825",
+ 		.drv_name = "sof_nau8825",
+-- 
+2.25.1
 

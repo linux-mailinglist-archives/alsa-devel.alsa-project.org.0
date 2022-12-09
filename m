@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DAE7647F8F
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 09:52:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4C8A647F9F
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 09:56:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C23072135;
-	Fri,  9 Dec 2022 09:51:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C23072135
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FE582133;
+	Fri,  9 Dec 2022 09:55:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FE582133
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670575933;
-	bh=3vBv4vx0bfAs7AbcFXABePgWwDb2qNpMjcjP6g2vhkA=;
+	s=default; t=1670576183;
+	bh=jPt0gZJWXZptonm7YB2AOPVWBG3fBzzvnxLR9wpk3zM=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=fwNxO3X7fLdPK5sU8xhhgfC0Z16dcvP4FKzt8NuX1zHEsLTjpZT7Ki3v0+LxixXY0
-	 TTGFMrUUHzUoEtqVkiK4yimO7NmUczvb/IT+JKd3EYU+Z9o952d2o/SXksCYky+hKU
-	 2nkaL7ndyC0jy61b/jy3TYZ/zfNk8pWVSDDGfD7Q=
+	b=p6nTS0RjmjXuhM+S+FeH2CY7F/ca9BvHDAyOvm9QdPsUWhnxw1cUN+wmcyfQDLewj
+	 Luo+eoN3UnBmaVnaAfoiIu5l4B6bSYn0NCSK9OdoehQlKmz3wQJ9RxK0xj4v2hrZlu
+	 6Xf0zHoQht48jQ4JNvb8mE0XWtKd9FVoL/krSlNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B8FFF80007;
-	Fri,  9 Dec 2022 09:51:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D445F800F8;
+	Fri,  9 Dec 2022 09:55:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22E6DF8022D; Fri,  9 Dec 2022 09:51:15 +0100 (CET)
+ id 5E309F8022D; Fri,  9 Dec 2022 09:55:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92929F80007
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 09:51:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92929F80007
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00FD3F800F8
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 09:55:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00FD3F800F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=QwEo9QRv; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=HGUoYXeH; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=HeR8hpyC
+ header.s=susede2_ed25519 header.b=R0S2CrdD
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C531A2253E;
- Fri,  9 Dec 2022 08:51:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 79E8C33800;
+ Fri,  9 Dec 2022 08:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1670575872; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1670576122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iZmHRk5R+wh4+IzVivU/vg8kcsNo2QOdZ6jvmZE+PdI=;
- b=QwEo9QRve0yNbjwXtIUHuoD5gAiashpjWqjlKUBHDdv28e3+asmDJXR75XhGZ15NPH+sea
- MuOhMPs6vi9ZsVtk4DSPzh8V4hxZLdxpvksk6hFIScKRg8p4vuRaENy3s9M3sxm5LTR4RZ
- 5eLCl/vsm2xu6wK3Ewd/RRkrN9RnIXU=
+ bh=lnErAWAIZ1vIXncUqQShnCavf4TU1h1iJg34nlIaSI0=;
+ b=HGUoYXeHwwS323qV3WSqw8G296zX/0p0qlWaMzh2b0UEB/a8qVUaYJEyFKMRRa2RtNk8ru
+ AvDGJ+lTPqYso016X7v987jOpks4EinD8+wqaDM4QcMJg5ow+oko8yZArTVTJgVJGhHEpX
+ NzGvGcSvS33hbAodedj25LQdTJa0krA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1670575872;
+ s=susede2_ed25519; t=1670576122;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iZmHRk5R+wh4+IzVivU/vg8kcsNo2QOdZ6jvmZE+PdI=;
- b=HeR8hpyCRjT5+klFqaQcGNHB3CVyaVhS6dxbF7pyTi69D3t9mTLZ0EzL2c9/kkE7nPlJGg
- oUk/J7aVrUgVQnBQ==
+ bh=lnErAWAIZ1vIXncUqQShnCavf4TU1h1iJg34nlIaSI0=;
+ b=R0S2CrdDdKWdvEukAhdVq0XnwsD34DA62pGpswMy4vyzMbNB9G5IssZhr3aPXqCXLPsdig
+ kMqQ4G7zBeGaXGAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A9AF113597;
- Fri,  9 Dec 2022 08:51:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42EB413597;
+ Fri,  9 Dec 2022 08:55:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XRxVKAD3kmMuUAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 09 Dec 2022 08:51:12 +0000
-Date: Fri, 09 Dec 2022 09:51:12 +0100
-Message-ID: <87ilil6jun.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id iweRD/r3kmN3UgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 09 Dec 2022 08:55:22 +0000
+Date: Fri, 09 Dec 2022 09:55:21 +0100
+Message-ID: <87h6y56jnq.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC updates for v6.2-2
-In-Reply-To: <20221208144028.A6E58C433C1@smtp.kernel.org>
-References: <20221208144028.A6E58C433C1@smtp.kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH] ALSA: hda: Error out if invalid stream is being setup
+In-Reply-To: <20221208142635.1514944-1-cezary.rojewski@intel.com>
+References: <20221208142635.1514944-1-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,35 +97,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, error27@gmail.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 08 Dec 2022 15:40:19 +0100,
-Mark Brown wrote:
+On Thu, 08 Dec 2022 15:26:35 +0100,
+Cezary Rojewski wrote:
 > 
-> The following changes since commit 3d1bb6cc1a654c8693a85b1d262e610196edec8b:
+> Scenario when snd_hdac_stream_setup_periods() receives an instance of
+> struct hdac_stream with neither ->substream nor ->cstream initialized is
+> invalid.
 > 
->   ASoC: cs42l51: Correct PGA Volume minimum value (2022-11-25 16:29:52 +0000)
+> Simultaneously addresses "uninitialized symbol 'dmab'" error reported by
+> Smatch.
 > 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.2-2
-> 
-> for you to fetch changes up to e85b1f5a9769ac30f4d2f6fb1cdcd9570c38e0c1:
-> 
->   ASoC: dt-bindings: fsl-sai: Reinstate i.MX93 SAI compatible string (2022-12-08 11:46:36 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for v6.2
-> 
-> A few more updates for v6.2 which can hopefully go into a later pull
-> request, the bulk of these are fixes, minor cleanups or new board quirks
-> - the one big bit that isn't is support for getting diagnostic data out
-> of the Intel AVS firmwares.
+> Fixes: 3e9582267e3a ("ALSA: hda: Interrupt servicing and BDL setup for compress streams")
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Thanks, pulled now.  It'll be likely included in the second PR for
-6.2.
+Thanks, pulled now.
 
 
 Takashi

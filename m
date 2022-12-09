@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0F5647AC0
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 01:26:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366B8647ACA
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Dec 2022 01:30:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2436818B1;
-	Fri,  9 Dec 2022 01:25:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2436818B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B83A5179B;
+	Fri,  9 Dec 2022 01:29:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B83A5179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670545602;
-	bh=X1P+lfRntA5/rVdcQ23KL1DPJK0huaxSfDmNDLiRnZU=;
+	s=default; t=1670545843;
+	bh=h4HjZbi2mBL60a/3QsQm6WeUWyU9VIVA3kGmPQB0UPQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pOriKk+YKfCx0OC4O76DNWMWMwHPNm9NHj6dnVzA+T81slF7GJ0vg2OlN43XchAl1
-	 NffDnAL5L0WZKv1NhaG1ksMjDJp8rAXGkkQoCm2uzLyQDrbNNuSmoVrTSQCMeR19jg
-	 I/qucL3gxdPwkZY8N8sTUmYIPtfvniHcwD+Dkv4o=
+	b=nvdEsA21r8nfxSfIwaIpo9KoNvLmBjf9bE8coP/9oRP4TA7/9gpulLl4NS6graRiY
+	 ZFGwXoPB5/pUCGfQe3EVZ9L4PBD35KehVoRyd1+qBzoA2LEJqxCbkmvYe8NG90TIOe
+	 RLRMOrzSSdKFfsQ5v0FKh49z7GoX1aRlDgUK84L0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6E7AF800F8;
-	Fri,  9 Dec 2022 01:25:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6323CF80007;
+	Fri,  9 Dec 2022 01:29:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7505EF80124; Fri,  9 Dec 2022 01:25:43 +0100 (CET)
+ id 6E1D4F80124; Fri,  9 Dec 2022 01:29:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
+ autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id EED78F800F8
- for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 01:25:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EED78F800F8
+ by alsa1.perex.cz (Postfix) with ESMTP id EFA54F80007
+ for <alsa-devel@alsa-project.org>; Fri,  9 Dec 2022 01:29:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA54F80007
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1670545541376754999-webhooks-bot@alsa-project.org>
-References: <1670545541376754999-webhooks-bot@alsa-project.org>
+In-Reply-To: <1670545783642249107-webhooks-bot@alsa-project.org>
+References: <1670545783642249107-webhooks-bot@alsa-project.org>
 Subject: Build Fails with AUTOMAKE v1.16.5 on Ubuntu - Solution Provided
-Message-Id: <20221209002543.7505EF80124@alsa1.perex.cz>
-Date: Fri,  9 Dec 2022 01:25:43 +0100 (CET)
+Message-Id: <20221209002945.6E1D4F80124@alsa1.perex.cz>
+Date: Fri,  9 Dec 2022 01:29:45 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,13 +126,21 @@ make
 Despite lots of warnings as follows:-
 
 libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+
 configure.ac:22: warning: The macro `AM_PROG_LIBTOOL' is obsolete.
+
 configure.ac:26: warning: The macro `AC_ERROR' is obsolete.
+
 configure.ac:223: warning: The macro `AC_HEADER_STDC' is obsolete.
+
 configure.ac:313: warning: The macro `AC_TRY_LINK' is obsolete.
+
 configure.ac:397: warning: The macro `AC_HEADER_TIME' is obsolete.
+
 configure.ac:466: warning: AC_OUTPUT should be used without arguments.
+
 alsactl/Makefile.am:69: warning: '%'-style pattern rules are a GNU make extension
+
 gettextize: *** po/Makefile.in.in exists: use option -f if you really want to delete it.
 
 and ones regarding the .po files e.g.

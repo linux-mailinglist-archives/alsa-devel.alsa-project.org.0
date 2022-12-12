@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBBE664A4FB
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 17:38:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FFC664A501
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 17:38:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5922C22D7;
-	Mon, 12 Dec 2022 17:37:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5922C22D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F249921B0;
+	Mon, 12 Dec 2022 17:38:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F249921B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670863088;
-	bh=Mr8bvoDR3kP1Rf0wpZPD+P1CiMLnicoQSVkgRqx6GS4=;
+	s=default; t=1670863133;
+	bh=skGTs2WvA6zYDm87dHeVl8kymrVloAz2yV13MCgFbvY=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ItsmHdhOTfSzQmrjVKoSmRfk4/pKwFj2Ti+jOpq8tTWHSQubkLRgXrvEzzOUFmqdQ
-	 aPxAwWmQdKCnA3kResZ7NnyYIZES7hGiiyAUH14YJ+SkE+Erazm/j00dKy6uMFyET3
-	 rdMT48rs77Qau+GbLa6HbLFeiCqXCRyXcF1qGbzI=
+	b=Pibzk2BMSI+AVuPsCg6aOsbmTT2l6QciVoO6BZ7RtrI3M6i7sr9q4PfgYRdtSVuLg
+	 bk2NthoUn814eJyMtt/GpOIXO0bu8ckkUqECJ67GtapzWf5ld5IeYYxY80Q2JTwuDh
+	 v+O1Tppdd0VZBjTdtoZ2PWGk2YsJh8H9q0liFCNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51D64F8042F;
-	Mon, 12 Dec 2022 17:36:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41D94F800F8;
+	Mon, 12 Dec 2022 17:36:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F9CFF800F8; Mon, 12 Dec 2022 17:36:47 +0100 (CET)
+ id E38F8F8053D; Mon, 12 Dec 2022 17:36:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,45 +33,45 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
+ [68.232.154.123])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A3E4F800F8
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 17:36:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A3E4F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94EDBF8051A
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 17:36:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94EDBF8051A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=2RoxCrH/
+ header.a=rsa-sha256 header.s=mchp header.b=KR9mrwgv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1670863005; x=1702399005;
+ t=1670863014; x=1702399014;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Mr8bvoDR3kP1Rf0wpZPD+P1CiMLnicoQSVkgRqx6GS4=;
- b=2RoxCrH/SKBi7bqjTwhGoscuxkBwNbLm06qE7PBzhKDnG1gPu+K+2e7R
- 1ET6A6PX/GSYNAy6BZ1YztWEVTWGXpuk/MEJiR3ic6CZy9oOq5YTVdJ+9
- oaciofX7iReyYBLUVBnhpI8yPzfk9Nkn6stqwZZOQHJvJb1vV6l9LP0nG
- bMEuPfR/QKrOG/AKXyiOSayv2xwg5PQi0ElDMhXEE6n9S0jVWvawjuVnX
- RXVaHagaz7sZ2gHBmTtBJLu2sT2P1bl4Cf9o47BGFv2mepGikSbp5B1oY
- B+LTQnaXXd0+tjlqx4tDixqa5FjzhEjvrz8t8lfuFZ+HNh+PIOg1/dnkp A==;
-X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="192738381"
+ bh=skGTs2WvA6zYDm87dHeVl8kymrVloAz2yV13MCgFbvY=;
+ b=KR9mrwgvLU3Skc40si8gEK02lAt+g4wfC2m2WlKd4t32H8ycTUn38mIy
+ HPYDlteo2EdblWW39oJyVt6V00UzT9Y36kgQXPH39ZV2/H5URqwVacxzI
+ ak14cT0vgUWhO88LyUbetrQXOhlcZK4N2JzJi2qxFAMNs4URwxIhUE8Or
+ k0I8/jUff9IWmcdusU5WhjJQpJu4inZWlZYxtd3JKdBBwllo7Nb0EPuSF
+ h6WX4uvrSEaPZcQ/x15jsO8EIUXcdAWrdlfQmwx7fdFb0CoY414o2T415
+ U3zoeySjAvsoJ1VFTp9t6Ma9T0GXFmbHtjwtik3RBuOaPtCY40fUjApLl g==;
+X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="191263893"
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 12 Dec 2022 09:36:40 -0700
+ by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 12 Dec 2022 09:36:46 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Mon, 12 Dec 2022 09:36:40 -0700
+ 15.1.2507.16; Mon, 12 Dec 2022 09:36:43 -0700
 Received: from localhost.localdomain (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.16 via Frontend Transport; Mon, 12 Dec 2022 09:36:37 -0700
+ 15.1.2507.16 via Frontend Transport; Mon, 12 Dec 2022 09:36:40 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
  <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>
-Subject: [PATCH v2 2/4] ASoC: mchp-pdmc: use runtime pm for clock power saving
-Date: Mon, 12 Dec 2022 18:41:51 +0200
-Message-ID: <20221212164153.78677-3-claudiu.beznea@microchip.com>
+Subject: [PATCH v2 3/4] ASoC: mchp-pdmc: add support for suspend to RAM
+Date: Mon, 12 Dec 2022 18:41:52 +0200
+Message-ID: <20221212164153.78677-4-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20221212164153.78677-1-claudiu.beznea@microchip.com>
 References: <20221212164153.78677-1-claudiu.beznea@microchip.com>
@@ -96,262 +96,71 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Implement clock power saving taking advantage of runtime PM infrastructure.
-This simplifies the code and allow using the same infrastructure for
-suspend to RAM functionalities.
+Add support for suspend to RAM by re-aranging the lines in switch..case
+from mchp_pdmc_trigger() and saving/restoring the enabled interrupts. These
+are necessary as AT91 devices has a special power saving mode (called
+backup and self-refresh) where most of the SoC parts are powered off
+and thus we need to reconfigure the PDMC on resume.
 
 Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 ---
- sound/soc/atmel/mchp-pdmc.c | 126 ++++++++++++++++++++++++------------
- 1 file changed, 84 insertions(+), 42 deletions(-)
+ sound/soc/atmel/mchp-pdmc.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
-index 44aefbd5b62c..f184404e74e5 100644
+index f184404e74e5..cf4084dcbd5e 100644
 --- a/sound/soc/atmel/mchp-pdmc.c
 +++ b/sound/soc/atmel/mchp-pdmc.c
-@@ -11,6 +11,7 @@
- #include <linux/clk.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- 
- #include <sound/core.h>
-@@ -115,7 +116,6 @@ struct mchp_pdmc {
+@@ -113,6 +113,7 @@ struct mchp_pdmc {
+ 	struct clk *pclk;
+ 	struct clk *gclk;
+ 	u32 pdmcen;
++	u32 suspend_irq;
  	int mic_no;
  	int sinc_order;
  	bool audio_filter_en;
--	u8 gclk_enabled:1;
- };
+@@ -641,22 +642,27 @@ static int mchp_pdmc_trigger(struct snd_pcm_substream *substream,
+ #endif
  
- static const char *const mchp_pdmc_sinc_filter_order_text[] = {
-@@ -454,13 +454,6 @@ static int mchp_pdmc_startup(struct snd_pcm_substream *substream,
- 			     struct snd_soc_dai *dai)
- {
- 	struct mchp_pdmc *dd = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	ret = clk_prepare_enable(dd->pclk);
--	if (ret) {
--		dev_err(dd->dev, "failed to enable the peripheral clock: %d\n", ret);
--		return ret;
--	}
- 
- 	regmap_write(dd->regmap, MCHP_PDMC_CR, MCHP_PDMC_CR_SWRST);
- 
-@@ -470,14 +463,6 @@ static int mchp_pdmc_startup(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static void mchp_pdmc_shutdown(struct snd_pcm_substream *substream,
--			       struct snd_soc_dai *dai)
--{
--	struct mchp_pdmc *dd = snd_soc_dai_get_drvdata(dai);
--
--	clk_disable_unprepare(dd->pclk);
--}
--
- static int mchp_pdmc_dai_probe(struct snd_soc_dai *dai)
- {
- 	struct mchp_pdmc *dd = snd_soc_dai_get_drvdata(dai);
-@@ -594,11 +579,6 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 			cfgr_val |= MCHP_PDMC_CFGR_BSSEL(i);
- 	}
- 
--	if (dd->gclk_enabled) {
--		clk_disable_unprepare(dd->gclk);
--		dd->gclk_enabled = 0;
--	}
--
- 	for (osr_start = dd->audio_filter_en ? 64 : 8;
- 	     osr_start <= 256 && best_diff_rate; osr_start *= 2) {
- 		long round_rate;
-@@ -620,8 +600,12 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
- 
-+	/* CLK is enabled by runtime PM. */
-+	clk_disable_unprepare(dd->gclk);
-+
- 	/* set the rate */
- 	ret = clk_set_rate(dd->gclk, gclk_rate);
-+	clk_prepare_enable(dd->gclk);
- 	if (ret) {
- 		dev_err(comp->dev, "unable to set rate %lu to GCLK: %d\n",
- 			gclk_rate, ret);
-@@ -636,9 +620,6 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 	mr_val |= MCHP_PDMC_MR_CHUNK(dd->addr.maxburst);
- 	dev_dbg(comp->dev, "maxburst set to %d\n", dd->addr.maxburst);
- 
--	clk_prepare_enable(dd->gclk);
--	dd->gclk_enabled = 1;
--
- 	snd_soc_component_update_bits(comp, MCHP_PDMC_MR,
- 				      MCHP_PDMC_MR_OSR_MASK |
- 				      MCHP_PDMC_MR_SINCORDER_MASK |
-@@ -650,19 +631,6 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int mchp_pdmc_hw_free(struct snd_pcm_substream *substream,
--			     struct snd_soc_dai *dai)
--{
--	struct mchp_pdmc *dd = snd_soc_dai_get_drvdata(dai);
--
--	if (dd->gclk_enabled) {
--		clk_disable_unprepare(dd->gclk);
--		dd->gclk_enabled = 0;
--	}
--
--	return 0;
--}
--
- static int mchp_pdmc_trigger(struct snd_pcm_substream *substream,
- 			     int cmd, struct snd_soc_dai *dai)
- {
-@@ -711,9 +679,7 @@ static int mchp_pdmc_trigger(struct snd_pcm_substream *substream,
- static const struct snd_soc_dai_ops mchp_pdmc_dai_ops = {
- 	.set_fmt	= mchp_pdmc_set_fmt,
- 	.startup	= mchp_pdmc_startup,
--	.shutdown	= mchp_pdmc_shutdown,
- 	.hw_params	= mchp_pdmc_hw_params,
--	.hw_free	= mchp_pdmc_hw_free,
- 	.trigger	= mchp_pdmc_trigger,
- };
- 
-@@ -864,6 +830,7 @@ static const struct regmap_config mchp_pdmc_regmap_config = {
- 	.readable_reg	= mchp_pdmc_readable_reg,
- 	.writeable_reg	= mchp_pdmc_writeable_reg,
- 	.precious_reg	= mchp_pdmc_precious_reg,
-+	.cache_type	= REGCACHE_FLAT,
- };
- 
- static int mchp_pdmc_dt_init(struct mchp_pdmc *dd)
-@@ -970,6 +937,49 @@ static struct snd_dmaengine_pcm_config mchp_pdmc_config = {
- 	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
- };
- 
-+static int mchp_pdmc_runtime_suspend(struct device *dev)
-+{
-+	struct mchp_pdmc *dd = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(dd->regmap, true);
-+
-+	clk_disable_unprepare(dd->gclk);
-+	clk_disable_unprepare(dd->pclk);
-+
-+	return 0;
-+}
-+
-+static int mchp_pdmc_runtime_resume(struct device *dev)
-+{
-+	struct mchp_pdmc *dd = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(dd->pclk);
-+	if (ret) {
-+		dev_err(dd->dev,
-+			"failed to enable the peripheral clock: %d\n", ret);
-+		return ret;
-+	}
-+	ret = clk_prepare_enable(dd->gclk);
-+	if (ret) {
-+		dev_err(dd->dev,
-+			"failed to enable generic clock: %d\n", ret);
-+		goto disable_pclk;
-+	}
-+
-+	regcache_cache_only(dd->regmap, false);
-+	regcache_mark_dirty(dd->regmap);
-+	ret = regcache_sync(dd->regmap);
-+	if (ret) {
-+		regcache_cache_only(dd->regmap, true);
-+		clk_disable_unprepare(dd->gclk);
-+disable_pclk:
-+		clk_disable_unprepare(dd->pclk);
-+	}
-+
-+	return ret;
-+}
-+
- static int mchp_pdmc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1039,18 +1049,25 @@ static int mchp_pdmc_probe(struct platform_device *pdev)
- 	dd->addr.addr = (dma_addr_t)res->start + MCHP_PDMC_RHR;
- 	platform_set_drvdata(pdev, dd);
- 
-+	pm_runtime_enable(dd->dev);
-+	if (!pm_runtime_enabled(dd->dev)) {
-+		ret = mchp_pdmc_runtime_resume(dd->dev);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* register platform */
- 	ret = devm_snd_dmaengine_pcm_register(dev, &mchp_pdmc_config, 0);
- 	if (ret) {
- 		dev_err(dev, "could not register platform: %d\n", ret);
--		return ret;
-+		goto pm_runtime_suspend;
- 	}
- 
- 	ret = devm_snd_soc_register_component(dev, &mchp_pdmc_dai_component,
- 					      &mchp_pdmc_dai, 1);
- 	if (ret) {
- 		dev_err(dev, "could not register CPU DAI: %d\n", ret);
--		return ret;
-+		goto pm_runtime_suspend;
- 	}
- 
- 	/* print IP version */
-@@ -1059,6 +1076,25 @@ static int mchp_pdmc_probe(struct platform_device *pdev)
- 		 version & MCHP_PDMC_VER_VERSION);
- 
- 	return 0;
-+
-+pm_runtime_suspend:
-+	if (!pm_runtime_status_suspended(dd->dev))
-+		mchp_pdmc_runtime_suspend(dd->dev);
-+	pm_runtime_disable(dd->dev);
-+
-+	return ret;
-+}
-+
-+static int mchp_pdmc_remove(struct platform_device *pdev)
-+{
-+	struct mchp_pdmc *dd = platform_get_drvdata(pdev);
-+
-+	if (!pm_runtime_status_suspended(dd->dev))
-+		mchp_pdmc_runtime_suspend(dd->dev);
-+
-+	pm_runtime_disable(dd->dev);
-+
-+	return 0;
- }
- 
- static const struct of_device_id mchp_pdmc_of_match[] = {
-@@ -1070,13 +1106,19 @@ static const struct of_device_id mchp_pdmc_of_match[] = {
- };
+ 	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++	case SNDRV_PCM_TRIGGER_START:
+ 		/* Enable overrun and underrun error interrupts */
+-		regmap_write(dd->regmap, MCHP_PDMC_IER,
++		regmap_write(dd->regmap, MCHP_PDMC_IER, dd->suspend_irq |
+ 			     MCHP_PDMC_IR_RXOVR | MCHP_PDMC_IR_RXUDR);
++		dd->suspend_irq = 0;
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		snd_soc_component_update_bits(cpu, MCHP_PDMC_MR,
+ 					      MCHP_PDMC_MR_PDMCEN_MASK,
+ 					      dd->pdmcen);
+ 		break;
+-	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		regmap_read(dd->regmap, MCHP_PDMC_IMR, &dd->suspend_irq);
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_STOP:
+ 		/* Disable overrun and underrun error interrupts */
+-		regmap_write(dd->regmap, MCHP_PDMC_IDR,
++		regmap_write(dd->regmap, MCHP_PDMC_IDR, dd->suspend_irq |
+ 			     MCHP_PDMC_IR_RXOVR | MCHP_PDMC_IR_RXUDR);
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 		snd_soc_component_update_bits(cpu, MCHP_PDMC_MR,
+ 					      MCHP_PDMC_MR_PDMCEN_MASK, 0);
+ 		break;
+@@ -1107,6 +1113,7 @@ static const struct of_device_id mchp_pdmc_of_match[] = {
  MODULE_DEVICE_TABLE(of, mchp_pdmc_of_match);
  
-+static const struct dev_pm_ops mchp_pdmc_pm_ops = {
-+	RUNTIME_PM_OPS(mchp_pdmc_runtime_suspend, mchp_pdmc_runtime_resume,
-+		       NULL)
-+};
-+
- static struct platform_driver mchp_pdmc_driver = {
- 	.driver	= {
- 		.name		= "mchp-pdmc",
- 		.of_match_table	= of_match_ptr(mchp_pdmc_of_match),
--		.pm		= &snd_soc_pm_ops,
-+		.pm		= pm_ptr(&mchp_pdmc_pm_ops),
- 	},
- 	.probe	= mchp_pdmc_probe,
-+	.remove = mchp_pdmc_remove,
+ static const struct dev_pm_ops mchp_pdmc_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ 	RUNTIME_PM_OPS(mchp_pdmc_runtime_suspend, mchp_pdmc_runtime_resume,
+ 		       NULL)
  };
- module_platform_driver(mchp_pdmc_driver);
- 
 -- 
 2.34.1
 

@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A4BD649A63
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 09:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DA3F649A61
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 09:51:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24A402140;
-	Mon, 12 Dec 2022 09:51:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24A402140
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB72D1866;
+	Mon, 12 Dec 2022 09:50:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB72D1866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670835120;
-	bh=+TCCovkk1aO9l4Twe3DVfO+F8Eil43Bb8teXw9Jn25Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=VdNcpvIN6SRYsb5gLmacxVcyMyIws8rALOfO3CLywz4bdHzGiJ2cIIff0hoQvLRa9
-	 F9oPL/vyRAFpkKMTreZ1Hfy63hXDnogKAI29EjSN9BPYdaloVqf0NNKADwuwu+DX6k
-	 SXe+P6K1b8KzUdRZptHbUZjSLg5qn9nmfPRva+dM=
+	s=default; t=1670835094;
+	bh=F9zq1yrr8sAp03e3KEwHeY8qevfvAAdWWCtEIuNte2c=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=vGfxGuf76PmErmQvR7nUOw//vbSEIr+YcHrYfvhfhF92sWrr/00fBwXas2JgZWC68
+	 TKxBTmJsiShWZayJgoIIA7jZzNyPjmiGahtWnhZQgD7bZqMGy4JLz/DdEonNc7ZK+U
+	 zv+Sw5w3J/6TXWhKV1X33Wnla077XXqmrHztvk7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16463F80115;
-	Mon, 12 Dec 2022 09:51:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89415F800F8;
+	Mon, 12 Dec 2022 09:50:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40DABF804D7; Mon, 12 Dec 2022 09:50:58 +0100 (CET)
+ id 1BE7CF80115; Mon, 12 Dec 2022 09:50:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64288F804B4
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 09:50:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64288F804B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06914F80115
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 09:50:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06914F80115
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=kNTbRx/6
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 5D80166016B4;
- Mon, 12 Dec 2022 08:50:54 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1670835055;
- bh=+TCCovkk1aO9l4Twe3DVfO+F8Eil43Bb8teXw9Jn25Y=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kNTbRx/6pBe0MLj/3uqg2/HpIYonPNdnQclLvjOkSMixhW4qLpr0hb2xLhbF+vnVg
- LWrdXNJf2x6yaLyCij61DZTIUMFk4gBgJXtrTwr6Dz2IcE8HvlpWlF+ykwz/5aTBpF
- floxa8J9GF3sUWHRxIkdc0wcMuSXozbGOMAxzfFwSaVhjFvSfx+pP+Ah25gebsL3aU
- T9upxykE5i1VentgJeX+8m11NrMKek+2Phv5UWCPyUq2CD4Oger40M9ppy1OyiAst7
- pqzIMYakR7Ik/2u2/LNPFXCC2MUqeAFP3qQogF/e/DJB6pvarq/lleT1z06ZRfNcq7
- QFA0twT9kH7Ew==
-Message-ID: <2caaf016-c60d-3f4d-cfcc-e34a5629f359@collabora.com>
-Date: Mon, 12 Dec 2022 09:50:51 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lMWvPa5Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1670835035; x=1702371035;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=F9zq1yrr8sAp03e3KEwHeY8qevfvAAdWWCtEIuNte2c=;
+ b=lMWvPa5YFRVbKBbk8O9fDr3Vy0f3b3aLdyZyOnI9TvzuIcYfO+JdEsvd
+ C/0uaOuZ/1eX5qQUWtPQK1ECjq+L+7e207LdCkFwwbNDrzLeqTXk5zLbU
+ H5RDvTJoX/gUJdwI07uJh9IMwkLp6EvaAZ4HsLRhezIJN6/KFcUXarfbW
+ yIiS4m9d45yJIwgsxU9lAhsiE++rrLNSKRkT3gvT8AqRpz01zwoEDKFM9
+ UN9LBWIRsCLO5uqEqW7yTZRFsS3P0TVHKaWWxO3obPh/J5lfk+EK//968
+ 79J6d84dIk69iuBD7DdXfzHipClXxGSDV2Rw8uJYmKareZrEjobEFZlAd A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="318945177"
+X-IronPort-AV: E=Sophos;i="5.96,237,1665471600"; d="scan'208";a="318945177"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2022 00:50:31 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="772520853"
+X-IronPort-AV: E=Sophos;i="5.96,237,1665471600"; d="scan'208";a="772520853"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2022 00:50:29 -0800
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH] ASoC: Intel: soc-acpi: update codec addr on 0C11/0C4F product
+Date: Mon, 12 Dec 2022 16:55:27 +0800
+Message-Id: <20221212085527.1886168-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] ASoC: mediatek: mt8195: add sof be ops to check audio
- active
-To: Curtis Malainey <cujomalainey@google.com>, YC Hung <yc.hung@mediatek.com>
-References: <20221209031053.8444-1-yc.hung@mediatek.com>
- <CAOReqxh=27P7PogzhFr+37XBfRh5Nxu1x46JpdCH=ZRDVhRbeQ@mail.gmail.com>
-Content-Language: en-US
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <CAOReqxh=27P7PogzhFr+37XBfRh5Nxu1x46JpdCH=ZRDVhRbeQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,32 +83,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org,
- "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
- linux-kernel@vger.kernel.org, whalechang@google.com,
- Takashi Iwai <tiwai@suse.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ bard.liao@intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 09/12/22 19:27, Curtis Malainey ha scritto:
-> On Thu, Dec 8, 2022 at 7:11 PM YC Hung <yc.hung@mediatek.com> wrote:
->>
->> In MT8195 SOF design, both DSP and audio driver would access audio
->> registers. Before DSP accesses audio registers, audio power and clock
->> should be enabled. DSP will hang up if DSP access audio register but
->> audio power and clock are disabled. Therefore, we add audio pm runtime
->> active checking before accessing audio registers in SOF BE's callback
->> hw_params function to avoid this situation.
->>
->> Signed-off-by: YC Hung <yc.hung@mediatek.com>
-> 
-> Acked-by: Curtis Malainey <cujomalainey@chromium.org>
-> 
+From: Gongjun Song <gongjun.song@intel.com>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+The unique ID is determined by the ADR pin level of rt1318.
+ODM changed design, update codec addr to match new design.
+
+Fixes: 0050e3d3d43d ("ASoC: Intel: soc-acpi: add SKU 0C11 SoundWire configuration")
+Signed-off-by: Gongjun Song <gongjun.song@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ sound/soc/intel/common/soc-acpi-intel-rpl-match.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
+index 3c5229f41bb0..31b43116e3d8 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
+@@ -112,7 +112,7 @@ static const struct snd_soc_acpi_adr_device rt1316_1_group2_adr[] = {
+ 
+ static const struct snd_soc_acpi_adr_device rt1318_1_group1_adr[] = {
+ 	{
+-		.adr = 0x000131025D131801ull,
++		.adr = 0x000132025D131801ull,
+ 		.num_endpoints = 1,
+ 		.endpoints = &spk_l_endpoint,
+ 		.name_prefix = "rt1318-1"
+-- 
+2.25.1
 

@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A0664A8CB
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 21:37:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB6164A8D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 21:40:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AC7B189A;
-	Mon, 12 Dec 2022 21:36:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AC7B189A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA195189A;
+	Mon, 12 Dec 2022 21:39:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA195189A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670877459;
-	bh=WZqNiC4nA5q4m5CqyHucGWPrZNB5LCTxRWz0Cbml/AI=;
+	s=default; t=1670877635;
+	bh=GT3TRbu0wS+gAJnt8cskMJqmf6egF8+87gHJhFIjC/g=;
 	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Sl9UWUByjLVMaPPTaeFgSV+fkGUFr0+H6pghsRSc890deqjJ3nE9qUJSJQX1ai/n5
-	 n6CK1a1d/iwLYyZTDKPuwM79CCVO+9eYPKTzCTm1H0rO0oZ45gYVdHwy+5utVo7kvA
-	 0tHTfu8Ahx/ljb2LlW9HRDQRfQbsQo0vU10KvpKw=
+	b=JkTMVXU3XPW1bAZN5U2YfZ2q2w3E+PoISBJ3XWLrbKBtQTU6vYznNRUQa76GVO7Rq
+	 qTrDklCt4ECRylibpyW/zQw6EOHQZu2Y/BkEVrEjzQ5LvZRFCIRMDZccd1IQhUeJcE
+	 MOABaVtuCkXuCAwkuK3lRIDMHP2Wc6CYKXvjO0XE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45D14F80141;
-	Mon, 12 Dec 2022 21:36:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96B72F804B4;
+	Mon, 12 Dec 2022 21:39:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BF36F8042F; Mon, 12 Dec 2022 21:36:40 +0100 (CET)
+ id ECACBF8042F; Mon, 12 Dec 2022 21:39:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 020B2F800F8
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 21:36:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 020B2F800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3965F800F8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 21:39:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3965F800F8
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=M/jEXQeg
-Received: by mail-pl1-x635.google.com with SMTP id g10so13313287plo.11
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 12:36:37 -0800 (PST)
+ header.s=google header.b=UUPEiTNo
+Received: by mail-pl1-x633.google.com with SMTP id jn7so13310482plb.13
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 12:39:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pEcjmM5Re/+v4gW0VOGJ5VCSwc4Y8gVGp6Vhu28mqwQ=;
- b=M/jEXQegdnHGVlM4DZllDlptZWOtpNsGX3NILdjsUlZdBnlLMgixsKWgVcake2B4N7
- YpwxFVEcyZuKY9VghfLdMBLAU4mu2RezLaieVBWr5LDYhDdx9nuSuOXioOaz9JLwYaKv
- pDY4cvhgSZABtKZy+VRcsC5PnPuUGyG89QtKM=
+ bh=1V6YZCuixXBtnljSmmkzf84F5+TnkqQmaqOCfTK0GNo=;
+ b=UUPEiTNoA7jf6/LnVKjpw+tgF63l1h+wqULLj0FrwYVmkDYhVmM4BTbzWE4h10XCbw
+ gMbaKnhOpdt2IYlZBwxgufcPpWx75KZJGkpBSD1+jeKi0mEd4CwN5y1Kbjv6NPCMszRt
+ bBwEaEDBAKuiUpW8Lg39GC9fIbolf2ZchWRC4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pEcjmM5Re/+v4gW0VOGJ5VCSwc4Y8gVGp6Vhu28mqwQ=;
- b=4C6rodFlDyKtPVQQv7ttWxv0NklkKDDcxr07u6v/lYiqRBe8ASNon3K64NZhYflM9x
- mqNCQX5NvxbTOhAPItTqlTI2dXbcSXU9t+tcbGzuRQQ04n2CDbeWOGC1+Smvg6pvKzbE
- jPIu3Uj7U0vqbCQSa3Hpnwoopx5LYBdGCkWdOfeY42J4uHhaLr91G5J3Ys8n3w0B6hTS
- VzOFcCsgo+bMD/A+AobXAejBh4HMEholY62gkA9mWmEkYIkeVO5R2HT0NDPpwAd7jDCq
- fZZIa8bpEUsJeKFMs5R9Pe5ppvDqpG2yn1EgiBGrDoXsHSQKLI4MdVpgIujuVdGfU1d5
- +0Sw==
-X-Gm-Message-State: ANoB5pnW1K9u+68aBypPrGz04hyTLFLxbaQT9Nj7wVLUM36JUTVr3r33
- Ws7CndZ12nu775SWUrK/0jbSm1Lwp8UNt4dy
-X-Google-Smtp-Source: AA0mqf7tjW24R9EXs5dz45JauLnLc+7zHgBV282G5xLFzimkeaUIXy3AX2Cd6bu+f0MxgLg4n1Qg0A==
-X-Received: by 2002:a17:902:c14a:b0:189:6d2f:4bc7 with SMTP id
- 10-20020a170902c14a00b001896d2f4bc7mr17831634plj.37.1670877395153; 
- Mon, 12 Dec 2022 12:36:35 -0800 (PST)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com.
- [209.85.215.178]) by smtp.gmail.com with ESMTPSA id
- u15-20020a1709026e0f00b001894dc5fdf2sm6742886plk.296.2022.12.12.12.36.34
+ bh=1V6YZCuixXBtnljSmmkzf84F5+TnkqQmaqOCfTK0GNo=;
+ b=1741dwvorCI/Ep1g9HeVlYXYhXYtWcR7fogY9xflj3UkBNZ68cljCDvgaC01s/uG5/
+ BfwnK/4+CiJ4xHVQkqqDs+RHULO1jhbyYdqnSEF13rK9j6slAMm/rCdXrlub60ckWaz1
+ cJ8WkKAkdjXQWP8SC1O1RrYIE1BrrjAAW70YtXA9D2izNJRLkvxK07qKKv0nHnCc/zET
+ lyVyKNEC+v4GrcvsdTSVxFGDQwlKMj5lZ+p+qYcVua+16DOLvgSMWdKhs/ZUq+waKsrD
+ AYbmv9d2dofL5ECbsWKYBhTorBPl2SoJsHm0EJNInPggUmynGvKLhdughLNaJu3Gq7qH
+ csUQ==
+X-Gm-Message-State: ANoB5pmADMTbsmc2NNgKMZyEUlKBsYztU1D9l/uD1KBQakoB7joMRW+j
+ U5Vq3flXYbRQWM53HEuHbxyDAzo6x/xK/2b76V4=
+X-Google-Smtp-Source: AA0mqf5itsHIuECEuXtrDcbzNBTcoe2O0cQqyoxKutf3xEEMDYjDXbePsdBDgZgUV1Pgfnsh8N22pg==
+X-Received: by 2002:a17:902:7609:b0:185:441e:6ef3 with SMTP id
+ k9-20020a170902760900b00185441e6ef3mr18356576pll.61.1670877571712; 
+ Mon, 12 Dec 2022 12:39:31 -0800 (PST)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com.
+ [209.85.216.52]) by smtp.gmail.com with ESMTPSA id
+ h8-20020a170902680800b00186ffe62502sm6776246plk.254.2022.12.12.12.39.30
  for <alsa-devel@alsa-project.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Dec 2022 12:36:34 -0800 (PST)
-Received: by mail-pg1-f178.google.com with SMTP id 142so9035098pga.1
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 12:36:34 -0800 (PST)
-X-Received: by 2002:a05:6a00:3409:b0:577:f993:6786 with SMTP id
- cn9-20020a056a00340900b00577f9936786mr828321pfb.21.1670877393962; Mon, 12 Dec
- 2022 12:36:33 -0800 (PST)
+ Mon, 12 Dec 2022 12:39:30 -0800 (PST)
+Received: by mail-pj1-f52.google.com with SMTP id
+ w4-20020a17090ac98400b002186f5d7a4cso1220760pjt.0
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 12:39:30 -0800 (PST)
+X-Received: by 2002:a17:902:ce04:b0:174:af35:4b90 with SMTP id
+ k4-20020a170902ce0400b00174af354b90mr78902745plg.8.1670877569645; Mon, 12 Dec
+ 2022 12:39:29 -0800 (PST)
 MIME-Version: 1.0
 References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
- <20221209114529.3909192-3-kai.vehmanen@linux.intel.com>
-In-Reply-To: <20221209114529.3909192-3-kai.vehmanen@linux.intel.com>
+ <20221209114529.3909192-2-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20221209114529.3909192-2-kai.vehmanen@linux.intel.com>
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 12 Dec 2022 21:36:22 +0100
-X-Gmail-Original-Message-ID: <CANiDSCv28wbMOvjgsFc0T06tER3J9SoZ4cTZPHP0vkXz_5H8gg@mail.gmail.com>
-Message-ID: <CANiDSCv28wbMOvjgsFc0T06tER3J9SoZ4cTZPHP0vkXz_5H8gg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: SOF: Revert: "core: unregister clients and
- machine drivers in .shutdown"
+Date: Mon, 12 Dec 2022 21:39:18 +0100
+X-Gmail-Original-Message-ID: <CANiDSCthQdgxeowFMbGUfTvBNVh0iJMBCRRdi4WjazOJ4r1uww@mail.gmail.com>
+Message-ID: <CANiDSCthQdgxeowFMbGUfTvBNVh0iJMBCRRdi4WjazOJ4r1uww@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ASoC: SOF: Intel: pci-tgl: unblock S5 entry if DMA
+ stop has failed"
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -116,70 +117,151 @@ Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.de,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Kai
+Hi kai
 
-Thanks for the patch. Just tested it on Alderlake-P
+nit: I think you have an extra " at the end of the subject
+
+Thanks for the patch!
 
 On Fri, 9 Dec 2022 at 12:46, Kai Vehmanen <kai.vehmanen@linux.intel.com> wr=
 ote:
 >
-> The unregister machine drivers call is not safe to do when
-> kexec is used. Kexec-lite gets blocked with following backtrace:
+> If system shutdown has not been completed cleanly, it is possible the
+> DMA stream shutdown has not been done, or was not clean.
 >
-> [   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) =
-done.
-> [  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 secon=
-ds.
-> [  246.819035] Call Trace:
-> [  246.821782]  <TASK>
-> [  246.824186]  __schedule+0x5f9/0x1263
-> [  246.828231]  schedule+0x87/0xc5
-> [  246.831779]  snd_card_disconnect_sync+0xb5/0x127
-> ...
-> [  246.889249]  snd_sof_device_shutdown+0xb4/0x150
-> [  246.899317]  pci_device_shutdown+0x37/0x61
-> [  246.903990]  device_shutdown+0x14c/0x1d6
-> [  246.908391]  kernel_kexec+0x45/0xb9
+> If this is the case, Intel TGL/ADL HDA platforms may fail to shutdown
+> cleanly due to pending HDA DMA transactions. To avoid this, detect this
+> scenario in the shutdown callback, and perform an additional controller
+> reset. This has been tested to unblock S5 entry if this condition is
+> hit.
 >
-> This reverts commit 83bfc7e793b555291785136c3ae86abcdc046887.
->
-> Reported-by: Ricardo Ribalda <ribalda@chromium.org>
-> Cc: Ricardo Ribalda <ribalda@chromium.org>
+> Co-developed-by: Archana Patni <archana.patni@intel.com>
+> Signed-off-by: Archana Patni <archana.patni@intel.com>
 > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Tested-by: Ricardo Ribalda <ribalda@chromium.org>
 > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > Reviewed-by: P=C3=A9ter Ujfalusi <peter.ujfalusi@linux.intel.com>
 > Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Tested-by: Ricardo Ribalda <ribalda@chromium.org>
 > ---
->  sound/soc/sof/core.c | 9 ---------
->  1 file changed, 9 deletions(-)
+>  sound/soc/sof/intel/hda-dsp.c | 72 +++++++++++++++++++++++++++++++++++
+>  sound/soc/sof/intel/hda.h     |  1 +
+>  sound/soc/sof/intel/tgl.c     |  2 +-
+>  3 files changed, 74 insertions(+), 1 deletion(-)
 >
-> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-> index 3e6141d03770..625977a29d8a 100644
-> --- a/sound/soc/sof/core.c
-> +++ b/sound/soc/sof/core.c
-> @@ -475,19 +475,10 @@ EXPORT_SYMBOL(snd_sof_device_remove);
->  int snd_sof_device_shutdown(struct device *dev)
+> diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.=
+c
+> index 5fa29df54b42..b4eacae8564c 100644
+> --- a/sound/soc/sof/intel/hda-dsp.c
+> +++ b/sound/soc/sof/intel/hda-dsp.c
+> @@ -878,6 +878,78 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, u32 ta=
+rget_state)
+>         return snd_sof_dsp_set_power_state(sdev, &target_dsp_state);
+>  }
+>
+> +static unsigned int hda_dsp_check_for_dma_streams(struct snd_sof_dev *sd=
+ev)
+> +{
+> +       struct hdac_bus *bus =3D sof_to_bus(sdev);
+> +       struct hdac_stream *s;
+> +       unsigned int active_streams =3D 0;
+> +       int sd_offset;
+> +       u32 val;
+> +
+> +       list_for_each_entry(s, &bus->stream_list, list) {
+> +               sd_offset =3D SOF_STREAM_SD_OFFSET(s);
+> +               val =3D snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR,
+> +                                      sd_offset);
+> +               if (val & SOF_HDA_SD_CTL_DMA_START)
+> +                       active_streams |=3D BIT(s->index);
+> +       }
+> +
+> +       return active_streams;
+> +}
+> +
+> +static int hda_dsp_s5_quirk(struct snd_sof_dev *sdev)
+> +{
+> +       int ret;
+> +
+> +       /*
+> +        * Do not assume a certain timing between the prior
+> +        * suspend flow, and running of this quirk function.
+> +        * This is needed if the controller was just put
+> +        * to reset before calling this function.
+> +        */
+> +       usleep_range(500, 1000);
+> +
+> +       /*
+> +        * Take controller out of reset to flush DMA
+> +        * transactions.
+> +        */
+> +       ret =3D hda_dsp_ctrl_link_reset(sdev, false);
+> +       if (ret < 0)
+> +               return ret;
+> +
+> +       usleep_range(500, 1000);
+> +
+> +       /* Restore state for shutdown, back to reset */
+> +       ret =3D hda_dsp_ctrl_link_reset(sdev, true);
+> +       if (ret < 0)
+> +               return ret;
+> +
+> +       return ret;
+> +}
+> +
+> +int hda_dsp_shutdown_dma_flush(struct snd_sof_dev *sdev)
+> +{
+> +       unsigned int active_streams;
+> +       int ret, ret2;
+> +
+> +       /* check if DMA cleanup has been successful */
+> +       active_streams =3D hda_dsp_check_for_dma_streams(sdev);
+> +
+> +       sdev->system_suspend_target =3D SOF_SUSPEND_S3;
+> +       ret =3D snd_sof_suspend(sdev->dev);
+> +
+> +       if (active_streams) {
+> +               dev_warn(sdev->dev,
+> +                        "There were active DSP streams (%#x) at shutdown=
+, trying to recover\n",
+> +                        active_streams);
+> +               ret2 =3D hda_dsp_s5_quirk(sdev);
+> +               if (ret2 < 0)
+> +                       dev_err(sdev->dev, "shutdown recovery failed (%d)=
+\n", ret2);
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+>  int hda_dsp_shutdown(struct snd_sof_dev *sdev)
 >  {
->         struct snd_sof_dev *sdev =3D dev_get_drvdata(dev);
-> -       struct snd_sof_pdata *pdata =3D sdev->pdata;
+>         sdev->system_suspend_target =3D SOF_SUSPEND_S3;
+> diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+> index 022ce80968dd..caccaf8fba9c 100644
+> --- a/sound/soc/sof/intel/hda.h
+> +++ b/sound/soc/sof/intel/hda.h
+> @@ -592,6 +592,7 @@ int hda_dsp_resume(struct snd_sof_dev *sdev);
+>  int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev);
+>  int hda_dsp_runtime_resume(struct snd_sof_dev *sdev);
+>  int hda_dsp_runtime_idle(struct snd_sof_dev *sdev);
+> +int hda_dsp_shutdown_dma_flush(struct snd_sof_dev *sdev);
+>  int hda_dsp_shutdown(struct snd_sof_dev *sdev);
+>  int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
+>  void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags);
+> diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
+> index 30f2f49ee149..58ac3a46e6a7 100644
+> --- a/sound/soc/sof/intel/tgl.c
+> +++ b/sound/soc/sof/intel/tgl.c
+> @@ -60,7 +60,7 @@ int sof_tgl_ops_init(struct snd_sof_dev *sdev)
+>         memcpy(&sof_tgl_ops, &sof_hda_common_ops, sizeof(struct snd_sof_d=
+sp_ops));
 >
->         if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
->                 cancel_work_sync(&sdev->probe_work);
+>         /* probe/remove/shutdown */
+> -       sof_tgl_ops.shutdown    =3D hda_dsp_shutdown;
+> +       sof_tgl_ops.shutdown    =3D hda_dsp_shutdown_dma_flush;
 >
-> -       /*
-> -        * make sure clients and machine driver(s) are unregistered to fo=
-rce
-> -        * all userspace devices to be closed prior to the DSP shutdown s=
-equence
-> -        */
-> -       sof_unregister_clients(sdev);
-> -
-> -       snd_sof_machine_unregister(sdev, pdata);
-> -
->         if (sdev->fw_state =3D=3D SOF_FW_BOOT_COMPLETE)
->                 return snd_sof_shutdown(sdev);
->
+>         if (sdev->pdata->ipc_type =3D=3D SOF_IPC) {
+>                 /* doorbell */
 > --
 > 2.38.1
 >

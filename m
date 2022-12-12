@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF21649F94
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 14:12:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3806E64A13B
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 14:37:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8C062A4D;
-	Mon, 12 Dec 2022 14:11:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8C062A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6D0E1898;
+	Mon, 12 Dec 2022 14:36:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6D0E1898
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670850759;
-	bh=5xjzRZVtRE1cVlsbZZS0eIcjhBI2JgzIzQmwqEVYM3I=;
+	s=default; t=1670852231;
+	bh=GRR9jBZFyWAtOBROCtryACD0FFkQK7yiBk7+JNb9llA=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ZAVILI19MxiuFD9eZ05YETdqTgNEvmNdlM3F16HoKK6hBF/0axBbkjv84qJkrT4qo
-	 0C2Pe+2ofbXRoDq7wghGQrd9BppG9CH4gqY/iggia7vd4LYMxGSZ61ChV271MJa1dy
-	 qnbRM7d3d3NhFGh8W1iqClhV/iqOkYk71//X42Os=
+	b=G2yHQ/vP3zikZKQjdr6mnIuX64snrNl536lSngUlqa642jH442hUUuCJnxsURac9C
+	 JaXmvxGHY0gZsOnn2cSrYVqJFDYIU8tUaY7JsB69TZuCsvKQGkP3Dq67Gb6Ej8mYFz
+	 cvUZMOHgyp0NhOphjBuU/9z6BImrKsqoAk7lAWbQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA03AF80539;
-	Mon, 12 Dec 2022 14:10:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61DAEF800F8;
+	Mon, 12 Dec 2022 14:36:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9883F80551; Mon, 12 Dec 2022 14:10:35 +0100 (CET)
+ id A14ACF804B4; Mon, 12 Dec 2022 14:36:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46233F800F8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 14:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46233F800F8
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=Uh7bYSRZ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1276FF80518
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 14:10:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1276FF80518
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=GoHaITQ/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1670850631; x=1702386631;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5xjzRZVtRE1cVlsbZZS0eIcjhBI2JgzIzQmwqEVYM3I=;
- b=GoHaITQ/CD6rYzQypinU2Bcfhj673asxThocFAdJHyJwJbdYfPGaPU8b
- vsedUpdTQcaFvEyJvIuAR4CWJqD+yOoOY5Ro5o0z4LQ52MKyXENaFdQYs
- Ye3k9jGJKh4GpYq584WUf+R/yVGhKzKI5lbRS5W8X/No2LMAFMuBiMV8+
- lQarFigIlDfMZmflvDccBRt0NRN8bDYys+qcWKiLHrt5VN/bwbdHxLFE8
- kJddTiMqdUFZMLOT4Duiz2tS/0tUNrd1xqHYRAKsz3cvEiRPdClhJ5YmK
- 8gbQK2fShvvfxmIr1LG9jYuGgX01cTfY4Sn5lxqnttTjz9YMcF21tsUBA w==;
-X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="187716955"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 12 Dec 2022 06:10:29 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Mon, 12 Dec 2022 06:10:28 -0700
-Received: from localhost.localdomain (10.10.115.15) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.16 via Frontend Transport; Mon, 12 Dec 2022 06:10:25 -0700
-From: Claudiu Beznea <claudiu.beznea@microchip.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>
-Subject: [PATCH 4/4] ASoC: mchp-spdiftx: use FIELD_PREP() where possible
-Date: Mon, 12 Dec 2022 15:15:35 +0200
-Message-ID: <20221212131535.76111-5-claudiu.beznea@microchip.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20221212131535.76111-1-claudiu.beznea@microchip.com>
-References: <20221212131535.76111-1-claudiu.beznea@microchip.com>
+ by sin.source.kernel.org (Postfix) with ESMTPS id DD500CE0F7D;
+ Mon, 12 Dec 2022 13:36:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AE3C433F2;
+ Mon, 12 Dec 2022 13:36:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1670852164;
+ bh=GRR9jBZFyWAtOBROCtryACD0FFkQK7yiBk7+JNb9llA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Uh7bYSRZ2sg6bQyETA8rBzAnvTXPt/wrhY4TW9PWjtq1yeaLo75EU0XjlTNOEv+ot
+ Je6DUvL9AauWuuPreH9KbnI6plyTgvrUrqLQwbj56yw4qf43PzpGv0B4BuwQAyrVoa
+ jMwr1Uynbd5U+vVJ7+WAuZvZWYp1CGcLNge2pyjM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.0 024/157] ALSA: seq: Fix function prototype mismatch in
+ snd_seq_expand_var_event
+Date: Mon, 12 Dec 2022 14:16:12 +0100
+Message-Id: <20221212130935.484166559@linuxfoundation.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221212130934.337225088@linuxfoundation.org>
+References: <20221212130934.337225088@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,55 +81,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ kernel test robot <lkp@intel.com>, Takashi Iwai <tiwai@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ patches@lists.linux.dev, Kees Cook <keescook@chromium.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use FIELD_PREP() in macro definitions.
+From: Kees Cook <keescook@chromium.org>
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+[ Upstream commit 05530ef7cf7c7d700f6753f058999b1b5099a026 ]
+
+With clang's kernel control flow integrity (kCFI, CONFIG_CFI_CLANG),
+indirect call targets are validated against the expected function
+pointer prototype to make sure the call target is valid to help mitigate
+ROP attacks. If they are not identical, there is a failure at run time,
+which manifests as either a kernel panic or thread getting killed.
+
+seq_copy_in_user() and seq_copy_in_kernel() did not have prototypes
+matching snd_seq_dump_func_t. Adjust this and remove the casts. There
+are not resulting binary output differences.
+
+This was found as a result of Clang's new -Wcast-function-type-strict
+flag, which is more sensitive than the simpler -Wcast-function-type,
+which only checks for type width mismatches.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/lkml/202211041527.HD8TLSE1-lkp@intel.com
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20221118232346.never.380-kees@kernel.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/atmel/mchp-spdiftx.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/core/seq/seq_memory.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/atmel/mchp-spdiftx.c b/sound/soc/atmel/mchp-spdiftx.c
-index dc96a6fbf514..20d135c718b0 100644
---- a/sound/soc/atmel/mchp-spdiftx.c
-+++ b/sound/soc/atmel/mchp-spdiftx.c
-@@ -6,6 +6,7 @@
- //
- // Author: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
+index b7aee23fc387..47ef6bc30c0e 100644
+--- a/sound/core/seq/seq_memory.c
++++ b/sound/core/seq/seq_memory.c
+@@ -113,15 +113,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
+  * expand the variable length event to linear buffer space.
+  */
  
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/io.h>
- #include <linux/module.h>
-@@ -71,11 +72,11 @@
+-static int seq_copy_in_kernel(char **bufptr, const void *src, int size)
++static int seq_copy_in_kernel(void *ptr, void *src, int size)
+ {
++	char **bufptr = ptr;
++
+ 	memcpy(*bufptr, src, size);
+ 	*bufptr += size;
+ 	return 0;
+ }
  
- /* Valid Bits per Sample */
- #define SPDIFTX_MR_VBPS_MASK		GENMASK(13, 8)
--#define SPDIFTX_MR_VBPS(bps)		(((bps) << 8) & SPDIFTX_MR_VBPS_MASK)
-+#define SPDIFTX_MR_VBPS(bps)		FIELD_PREP(SPDIFTX_MR_VBPS_MASK, bps)
- 
- /* Chunk Size */
- #define SPDIFTX_MR_CHUNK_MASK		GENMASK(19, 16)
--#define SPDIFTX_MR_CHUNK(size)		(((size) << 16) & SPDIFTX_MR_CHUNK_MASK)
-+#define SPDIFTX_MR_CHUNK(size)		FIELD_PREP(SPDIFTX_MR_CHUNK_MASK, size)
- 
- /* Validity Bits for Channels 1 and 2 */
- #define SPDIFTX_MR_VALID1			BIT(24)
-@@ -88,8 +89,7 @@
- 
- /* Bytes per Sample */
- #define SPDIFTX_MR_BPS_MASK		GENMASK(29, 28)
--#define SPDIFTX_MR_BPS(bytes) \
--	((((bytes) - 1) << 28) & SPDIFTX_MR_BPS_MASK)
-+#define SPDIFTX_MR_BPS(bytes)		FIELD_PREP(SPDIFTX_MR_BPS_MASK, (bytes - 1))
- 
- /*
-  * ---- Interrupt Enable/Disable/Mask/Status Register (Write/Read-only) ----
+-static int seq_copy_in_user(char __user **bufptr, const void *src, int size)
++static int seq_copy_in_user(void *ptr, void *src, int size)
+ {
++	char __user **bufptr = ptr;
++
+ 	if (copy_to_user(*bufptr, src, size))
+ 		return -EFAULT;
+ 	*bufptr += size;
+@@ -151,8 +155,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+ 		return newlen;
+ 	}
+ 	err = snd_seq_dump_var_event(event,
+-				     in_kernel ? (snd_seq_dump_func_t)seq_copy_in_kernel :
+-				     (snd_seq_dump_func_t)seq_copy_in_user,
++				     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
+ 				     &buf);
+ 	return err < 0 ? err : newlen;
+ }
 -- 
-2.34.1
+2.35.1
+
+
 

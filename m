@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3106C64A904
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 21:59:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2DE064A8F7
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 21:58:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C53602A42;
-	Mon, 12 Dec 2022 21:58:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C53602A42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69CA82A1A;
+	Mon, 12 Dec 2022 21:57:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69CA82A1A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670878751;
-	bh=FQwHTF3hYRhq5XmNiFdDqGE836fxN7GA4Erq1Ivhv3E=;
+	s=default; t=1670878701;
+	bh=OSm9Xm56nyenrSMuk0D0fepZdveAL2uCsSsQlUfmTR0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=EoYx30ZkJv4WHtk26lYXLMLTKA9NddikJ+4dsW9dISks8sxvwrGMrGvVaKDDvDIBd
-	 1lgeOoIyQZUo3/GPddAJlq7jj4My2uy/lJf0mxQ3Nj5pGcelnkvBhR1DPgynhl8UXd
-	 1Kq7LERMOSTD1Qdv56dQenHp6TjhPnugSjkrUsqA=
+	b=XDArnl+LJ/FOj4KSVdKIkb3RcolnhWouKL5apCidI0yBbrHbfDSiDfPqsLlYWH/wQ
+	 PDtUpIDzaWVxb22d+hR/1CUdSgkGvJl6H/BXoA0UvvtbGwAN75JBCt3vMn1E+nrWQi
+	 QZ6SIoh/yqGEWrByiqNQCZlY4GiGpB7osMe0cVcM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF9C9F805B4;
-	Mon, 12 Dec 2022 21:54:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D390F8059F;
+	Mon, 12 Dec 2022 21:54:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79492F805B1; Mon, 12 Dec 2022 21:54:36 +0100 (CET)
+ id 1C109F8057B; Mon, 12 Dec 2022 21:54:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
@@ -36,42 +36,42 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0365AF805AC
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 21:54:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0365AF805AC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6353DF8056F
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 21:54:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6353DF8056F
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poT-00015u-CT; Mon, 12 Dec 2022 21:54:13 +0100
+ id 1p4poT-00015v-CW; Mon, 12 Dec 2022 21:54:13 +0100
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poQ-00463z-Py; Mon, 12 Dec 2022 21:54:11 +0100
+ id 1p4poR-004645-P2; Mon, 12 Dec 2022 21:54:12 +0100
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poQ-004aha-Ph; Mon, 12 Dec 2022 21:54:10 +0100
+ id 1p4poR-004ahf-GK; Mon, 12 Dec 2022 21:54:11 +0100
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 03/15] ASoC: atmel-classd: Drop empty platform remove function
-Date: Mon, 12 Dec 2022 21:53:54 +0100
-Message-Id: <20221212205406.3771071-4-u.kleine-koenig@pengutronix.de>
+Subject: [PATCH 04/15] ASoC: atmel-pdmic: Drop empty platform remove function
+Date: Mon, 12 Dec 2022 21:53:55 +0100
+Message-Id: <20221212205406.3771071-5-u.kleine-koenig@pengutronix.de>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221212205406.3771071-1-u.kleine-koenig@pengutronix.de>
 References: <20221212205406.3771071-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=993;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=980;
  i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=FQwHTF3hYRhq5XmNiFdDqGE836fxN7GA4Erq1Ivhv3E=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBjl5TBSiNsSSYIVTDUnwRJn1pXEj4x2GNOw6P69Y3d
- L3Dt6DWJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY5eUwQAKCRDB/BR4rcrsCSySB/
- 9Egie4JJjgCG4ULHFjiQxT8lKQ54g/RMSK2bH/DSjxUNEHi5IrF+h2g5ihnvHVK731ePBCkjo/eNCg
- bSCrvevD7EI5pXwaL81MUzX1Sh/ZltxNjUFEPuMdYLeGwBsFl0WDdYLUzfhRRmhY1CDFN4H+rM8570
- rpSH1nRql3El3sTsS7faeson2RFMln02f3uBb4Qvxajph9zuQysfPD/s1GVrv/J2OZYz4VuEgP4yew
- DOH/6CyuAxoNNNNkGxfMPkFiCruHryEqjq7uC1POI+HGjLBuXdSdBObsgvER1MujlzS9g976QBJoQz
- z1039xv9gIs6TZlnC0qDk0vhqkma31
+ bh=OSm9Xm56nyenrSMuk0D0fepZdveAL2uCsSsQlUfmTR0=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBjl5TEf4G4Lr2vEB3HV8YF/vjSlfIRCDrVnNKWe1Sc
+ uj4IjjGJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY5eUxAAKCRDB/BR4rcrsCa9lB/
+ 4gT0O3EjH73UT9ZblEhGpXN5yoPiGMpsblgebbinDs1pBAN0wr16chNuXbY0ZFQFfr/K8NlVAVmPD7
+ CFgGvOh/2TmBUiW6DaV8CJMGkbizj/aAyyCLdmiV7VENE3UrgP61MDUWpHSuT3dp160UhoSsUdTisO
+ wd5nySFSo1EY8eDiHxkNMsTs+/350CfNq0HvyL6WFhcYwi5A0tCCy7lbB92Cv2a/dQS7Vdh5gkvVD5
+ V2RTRH2zECD2iXf7aNwdJvBhJkSt7bqQy18OkjZdx8vhUvGMIir3cN94IehWb7bvpc/cGcx0a8HSbZ
+ V6nMSxyKfNL/zCVheL+u3pEWpd9LWo
 X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -106,32 +106,32 @@ at all. So drop the useless function.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- sound/soc/atmel/atmel-classd.c | 6 ------
+ sound/soc/atmel/atmel-pdmic.c | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
-index 87d6d6ed026b..9883e6867fd1 100644
---- a/sound/soc/atmel/atmel-classd.c
-+++ b/sound/soc/atmel/atmel-classd.c
-@@ -616,11 +616,6 @@ static int atmel_classd_probe(struct platform_device *pdev)
+diff --git a/sound/soc/atmel/atmel-pdmic.c b/sound/soc/atmel/atmel-pdmic.c
+index 77ff12baead5..12cd40b15644 100644
+--- a/sound/soc/atmel/atmel-pdmic.c
++++ b/sound/soc/atmel/atmel-pdmic.c
+@@ -692,11 +692,6 @@ static int atmel_pdmic_probe(struct platform_device *pdev)
  	return ret;
  }
  
--static int atmel_classd_remove(struct platform_device *pdev)
+-static int atmel_pdmic_remove(struct platform_device *pdev)
 -{
 -	return 0;
 -}
 -
- static struct platform_driver atmel_classd_driver = {
+ static struct platform_driver atmel_pdmic_driver = {
  	.driver	= {
- 		.name		= "atmel-classd",
-@@ -628,7 +623,6 @@ static struct platform_driver atmel_classd_driver = {
+ 		.name		= "atmel-pdmic",
+@@ -704,7 +699,6 @@ static struct platform_driver atmel_pdmic_driver = {
  		.pm		= &snd_soc_pm_ops,
  	},
- 	.probe	= atmel_classd_probe,
--	.remove	= atmel_classd_remove,
+ 	.probe	= atmel_pdmic_probe,
+-	.remove	= atmel_pdmic_remove,
  };
- module_platform_driver(atmel_classd_driver);
+ module_platform_driver(atmel_pdmic_driver);
  
 -- 
 2.38.1

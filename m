@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFC664A501
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 17:38:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2574064A4FE
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 17:38:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F249921B0;
-	Mon, 12 Dec 2022 17:38:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F249921B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB36A2A2A;
+	Mon, 12 Dec 2022 17:37:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB36A2A2A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670863133;
-	bh=skGTs2WvA6zYDm87dHeVl8kymrVloAz2yV13MCgFbvY=;
+	s=default; t=1670863110;
+	bh=5xjzRZVtRE1cVlsbZZS0eIcjhBI2JgzIzQmwqEVYM3I=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Pibzk2BMSI+AVuPsCg6aOsbmTT2l6QciVoO6BZ7RtrI3M6i7sr9q4PfgYRdtSVuLg
-	 bk2NthoUn814eJyMtt/GpOIXO0bu8ckkUqECJ67GtapzWf5ld5IeYYxY80Q2JTwuDh
-	 v+O1Tppdd0VZBjTdtoZ2PWGk2YsJh8H9q0liFCNM=
+	b=X9CeKKpHbelKmtJ7FWeiHbL8ydFQQgAKwAywOR8y41uB+R53yEC8DM5+suzPcHoRZ
+	 2SmbhjlBo3epWEq4eM9LY6EBM6r6DTPDtBt3ZhaQwM1f5c2ZeMU+rPmnG/OqUKT35w
+	 osIHPnGBZTjKXBA3bP7MFg+iGRltl0HnNonjx6vA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41D94F800F8;
-	Mon, 12 Dec 2022 17:36:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A09FF80535;
+	Mon, 12 Dec 2022 17:36:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E38F8F8053D; Mon, 12 Dec 2022 17:36:55 +0100 (CET)
+ id 923BFF80533; Mon, 12 Dec 2022 17:36:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,45 +33,45 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+ [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94EDBF8051A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E3CFF80518
  for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 17:36:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94EDBF8051A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E3CFF80518
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=KR9mrwgv
+ header.a=rsa-sha256 header.s=mchp header.b=J/nhqMfo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1670863014; x=1702399014;
+ t=1670863012; x=1702399012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=skGTs2WvA6zYDm87dHeVl8kymrVloAz2yV13MCgFbvY=;
- b=KR9mrwgvLU3Skc40si8gEK02lAt+g4wfC2m2WlKd4t32H8ycTUn38mIy
- HPYDlteo2EdblWW39oJyVt6V00UzT9Y36kgQXPH39ZV2/H5URqwVacxzI
- ak14cT0vgUWhO88LyUbetrQXOhlcZK4N2JzJi2qxFAMNs4URwxIhUE8Or
- k0I8/jUff9IWmcdusU5WhjJQpJu4inZWlZYxtd3JKdBBwllo7Nb0EPuSF
- h6WX4uvrSEaPZcQ/x15jsO8EIUXcdAWrdlfQmwx7fdFb0CoY414o2T415
- U3zoeySjAvsoJ1VFTp9t6Ma9T0GXFmbHtjwtik3RBuOaPtCY40fUjApLl g==;
-X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="191263893"
+ bh=5xjzRZVtRE1cVlsbZZS0eIcjhBI2JgzIzQmwqEVYM3I=;
+ b=J/nhqMfoX0sD/03JR4YbBPbPjLdrcZehDqN9gDBewGovABQyHgQQsizB
+ fY03VVs5QtZ5WuljWA82Ly8Gi2hVJu+6p+DdjEafvIcsh1G2a6KcgU3VU
+ 3LZpyee2qA+2RtzsfGB3xds5pHbgRFRGunS1cJjLRXSJwyR14K83d7ASU
+ D2cLMAIqIu/tvXoUwpqDiP66yB5yEDc+7jDAa/LuXIVQZtXgcLWTzq6eK
+ uI9RMlbY0+aYx4/vCdyH5CykuUUeuYlBVUiKy7yGKaJp7jUklsJU1QVox
+ 3r2UC4N2fxuY+l9mqm/T+P9lrAs9sWckey80s6ESLYiGZoN2bBYBymtVk g==;
+X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="192721522"
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 12 Dec 2022 09:36:46 -0700
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 12 Dec 2022 09:36:47 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Mon, 12 Dec 2022 09:36:43 -0700
+ 15.1.2507.16; Mon, 12 Dec 2022 09:36:46 -0700
 Received: from localhost.localdomain (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.16 via Frontend Transport; Mon, 12 Dec 2022 09:36:40 -0700
+ 15.1.2507.16 via Frontend Transport; Mon, 12 Dec 2022 09:36:43 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
  <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>
-Subject: [PATCH v2 3/4] ASoC: mchp-pdmc: add support for suspend to RAM
-Date: Mon, 12 Dec 2022 18:41:52 +0200
-Message-ID: <20221212164153.78677-4-claudiu.beznea@microchip.com>
+Subject: [PATCH v2 4/4] ASoC: mchp-spdiftx: use FIELD_PREP() where possible
+Date: Mon, 12 Dec 2022 18:41:53 +0200
+Message-ID: <20221212164153.78677-5-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20221212164153.78677-1-claudiu.beznea@microchip.com>
 References: <20221212164153.78677-1-claudiu.beznea@microchip.com>
@@ -96,71 +96,49 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for suspend to RAM by re-aranging the lines in switch..case
-from mchp_pdmc_trigger() and saving/restoring the enabled interrupts. These
-are necessary as AT91 devices has a special power saving mode (called
-backup and self-refresh) where most of the SoC parts are powered off
-and thus we need to reconfigure the PDMC on resume.
+Use FIELD_PREP() in macro definitions.
 
 Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 ---
- sound/soc/atmel/mchp-pdmc.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ sound/soc/atmel/mchp-spdiftx.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
-index f184404e74e5..cf4084dcbd5e 100644
---- a/sound/soc/atmel/mchp-pdmc.c
-+++ b/sound/soc/atmel/mchp-pdmc.c
-@@ -113,6 +113,7 @@ struct mchp_pdmc {
- 	struct clk *pclk;
- 	struct clk *gclk;
- 	u32 pdmcen;
-+	u32 suspend_irq;
- 	int mic_no;
- 	int sinc_order;
- 	bool audio_filter_en;
-@@ -641,22 +642,27 @@ static int mchp_pdmc_trigger(struct snd_pcm_substream *substream,
- #endif
+diff --git a/sound/soc/atmel/mchp-spdiftx.c b/sound/soc/atmel/mchp-spdiftx.c
+index dc96a6fbf514..20d135c718b0 100644
+--- a/sound/soc/atmel/mchp-spdiftx.c
++++ b/sound/soc/atmel/mchp-spdiftx.c
+@@ -6,6 +6,7 @@
+ //
+ // Author: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
  
- 	switch (cmd) {
--	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
--	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+	case SNDRV_PCM_TRIGGER_START:
- 		/* Enable overrun and underrun error interrupts */
--		regmap_write(dd->regmap, MCHP_PDMC_IER,
-+		regmap_write(dd->regmap, MCHP_PDMC_IER, dd->suspend_irq |
- 			     MCHP_PDMC_IR_RXOVR | MCHP_PDMC_IR_RXUDR);
-+		dd->suspend_irq = 0;
-+		fallthrough;
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		snd_soc_component_update_bits(cpu, MCHP_PDMC_MR,
- 					      MCHP_PDMC_MR_PDMCEN_MASK,
- 					      dd->pdmcen);
- 		break;
--	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		regmap_read(dd->regmap, MCHP_PDMC_IMR, &dd->suspend_irq);
-+		fallthrough;
-+	case SNDRV_PCM_TRIGGER_STOP:
- 		/* Disable overrun and underrun error interrupts */
--		regmap_write(dd->regmap, MCHP_PDMC_IDR,
-+		regmap_write(dd->regmap, MCHP_PDMC_IDR, dd->suspend_irq |
- 			     MCHP_PDMC_IR_RXOVR | MCHP_PDMC_IR_RXUDR);
-+		fallthrough;
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 		snd_soc_component_update_bits(cpu, MCHP_PDMC_MR,
- 					      MCHP_PDMC_MR_PDMCEN_MASK, 0);
- 		break;
-@@ -1107,6 +1113,7 @@ static const struct of_device_id mchp_pdmc_of_match[] = {
- MODULE_DEVICE_TABLE(of, mchp_pdmc_of_match);
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
+@@ -71,11 +72,11 @@
  
- static const struct dev_pm_ops mchp_pdmc_pm_ops = {
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- 	RUNTIME_PM_OPS(mchp_pdmc_runtime_suspend, mchp_pdmc_runtime_resume,
- 		       NULL)
- };
+ /* Valid Bits per Sample */
+ #define SPDIFTX_MR_VBPS_MASK		GENMASK(13, 8)
+-#define SPDIFTX_MR_VBPS(bps)		(((bps) << 8) & SPDIFTX_MR_VBPS_MASK)
++#define SPDIFTX_MR_VBPS(bps)		FIELD_PREP(SPDIFTX_MR_VBPS_MASK, bps)
+ 
+ /* Chunk Size */
+ #define SPDIFTX_MR_CHUNK_MASK		GENMASK(19, 16)
+-#define SPDIFTX_MR_CHUNK(size)		(((size) << 16) & SPDIFTX_MR_CHUNK_MASK)
++#define SPDIFTX_MR_CHUNK(size)		FIELD_PREP(SPDIFTX_MR_CHUNK_MASK, size)
+ 
+ /* Validity Bits for Channels 1 and 2 */
+ #define SPDIFTX_MR_VALID1			BIT(24)
+@@ -88,8 +89,7 @@
+ 
+ /* Bytes per Sample */
+ #define SPDIFTX_MR_BPS_MASK		GENMASK(29, 28)
+-#define SPDIFTX_MR_BPS(bytes) \
+-	((((bytes) - 1) << 28) & SPDIFTX_MR_BPS_MASK)
++#define SPDIFTX_MR_BPS(bytes)		FIELD_PREP(SPDIFTX_MR_BPS_MASK, (bytes - 1))
+ 
+ /*
+  * ---- Interrupt Enable/Disable/Mask/Status Register (Write/Read-only) ----
 -- 
 2.34.1
 

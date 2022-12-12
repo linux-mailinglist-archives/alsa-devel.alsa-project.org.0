@@ -2,79 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7E5B64A8FB
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 21:58:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB3764A95A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 22:14:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 744282320;
-	Mon, 12 Dec 2022 21:58:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 744282320
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F0EE21EB;
+	Mon, 12 Dec 2022 22:13:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F0EE21EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670878737;
-	bh=Lag8ABddGgo8Y+6xYVrV2ZWO5fJEd1lgDe+EeGNdmec=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1670879640;
+	bh=1VLKUgyRFbn/6epVxyfeviW2OfK8gPEmTHcUA0AV+NU=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=s9d6I6zF6wWTqY/t8znCNQFOkjzKenAcItgbuD8aVQblQAQPC4YKvjO9+XbTBi2oV
-	 BIt7lceug6tAKSzmop9eknSyhVfX0WzEpEHjt/Y4MjMqjCbLsBbb2qZg2Zct/6kJHS
-	 dJknv7W4h0ww57iF18kljmQu7Et3ZvdY+Mp1roaU=
+	b=nG+fzuDg93LnGmspxIpCN7/q5SxJ6Snfd6C+xlUGH6rgjtc10/6xvOO9qUojPG1y0
+	 ljSSKmd8JHSN2XJXh6wOg/0TOFlULH2wqAhkBw40xctLOjuU9VPhNB1PkLiDVU5t/N
+	 znFObC5ifiIFam6wIB50W0wOqSztNxagt3H/HcTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC2B9F805AA;
-	Mon, 12 Dec 2022 21:54:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7EAEF80141;
+	Mon, 12 Dec 2022 22:13:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33133F80580; Mon, 12 Dec 2022 21:54:35 +0100 (CET)
+ id 85519F8042F; Mon, 12 Dec 2022 22:13:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=unavailable
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C648BF80580
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 21:54:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C648BF80580
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2302BF800F8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 22:12:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2302BF800F8
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poX-0001HK-Tx; Mon, 12 Dec 2022 21:54:17 +0100
+ id 1p4q6c-0005I4-J5; Mon, 12 Dec 2022 22:12:58 +0100
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poW-00464y-9C; Mon, 12 Dec 2022 21:54:17 +0100
+ id 1p4q6a-004692-Lf; Mon, 12 Dec 2022 22:12:57 +0100
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1p4poV-004aiM-TK; Mon, 12 Dec 2022 21:54:15 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 15/15] ASoC: SOF: nocodec: Drop empty platform remove function
-Date: Mon, 12 Dec 2022 21:54:06 +0100
-Message-Id: <20221212205406.3771071-16-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212205406.3771071-1-u.kleine-koenig@pengutronix.de>
-References: <20221212205406.3771071-1-u.kleine-koenig@pengutronix.de>
+ id 1p4q6a-004bDG-KK; Mon, 12 Dec 2022 22:12:56 +0100
+Date: Mon, 12 Dec 2022 22:12:56 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>
+Subject: Re: [PATCH] ASoC: pxa: Drop empty platform remove function
+Message-ID: <20221212211256.dbmawjyllu6abjdb@pengutronix.de>
+References: <20221212174737.3740223-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=854;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=Lag8ABddGgo8Y+6xYVrV2ZWO5fJEd1lgDe+EeGNdmec=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBjl5To8oKR6rIGc08Iu8IDd+MNXehb0Bz1bIzJvSe2
- Kk1Rs9CJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY5eU6AAKCRDB/BR4rcrsCY5IB/
- 9R5d4jZLHvw0d7hHrazEhuiYAjekQTB8wscCD/1uoFS9WLUVboIwAgq8+NVH5LMK9FhLgeaBGSD7pg
- HDpQi6obq5AKGleaFUV2novDO1qrwqzW0UbqUvHXeopAggx2EM9bWvbGDea/WgF9v1qFN+EeCSy6or
- MpyAgzRInAry0xV5ll1tgf9WvUAVZrTeTBXs1aiDTsYZi7GeNeC2jKL5DEikZ2UB2KzNbn+0uX2F8d
- 39dx6JUDQEhZ/N7dvgGwQfWMtbYenat4jJB0VDogArYac0Xt+TpF4ihyTL3Cd1ygf2icOHwPrlm1eU
- sH7g4skFC3ffpR1u5effdrYdlaE9f/
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ao3i6ewcx7qnx35i"
+Content-Disposition: inline
+In-Reply-To: <20221212174737.3740223-1-u.kleine-koenig@pengutronix.de>
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
 X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
@@ -92,42 +80,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, kernel@pengutronix.de,
- Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
+Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ kernel@pengutronix.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A remove callback just returning 0 is equivalent to no remove callback
-at all. So drop the useless function.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- sound/soc/sof/nocodec.c | 6 ------
- 1 file changed, 6 deletions(-)
+--ao3i6ewcx7qnx35i
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
-index 3537805070ad..b13bfdeb2b70 100644
---- a/sound/soc/sof/nocodec.c
-+++ b/sound/soc/sof/nocodec.c
-@@ -103,14 +103,8 @@ static int sof_nocodec_probe(struct platform_device *pdev)
- 	return devm_snd_soc_register_card(&pdev->dev, card);
- }
- 
--static int sof_nocodec_remove(struct platform_device *pdev)
--{
--	return 0;
--}
--
- static struct platform_driver sof_nocodec_audio = {
- 	.probe = sof_nocodec_probe,
--	.remove = sof_nocodec_remove,
- 	.driver = {
- 		.name = "sof-nocodec",
- 		.pm = &snd_soc_pm_ops,
--- 
-2.38.1
+Hello,
 
+On Mon, Dec 12, 2022 at 06:47:37PM +0100, Uwe Kleine-K=F6nig wrote:
+> A remove callback just returning 0 is equivalent to no remove callback
+> at all. So drop the useless function.
+
+huh, I sent this out twice by mistake. I suggest you ignore this one and
+pick up the other one that is part of a series. (i.e.
+https://lore.kernel.org/alsa-devel/20221212205406.3771071-2-u.kleine-koenig=
+@pengutronix.de/).
+
+Sorry for the duplicate,
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--ao3i6ewcx7qnx35i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmOXmVUACgkQwfwUeK3K
+7AlNNwf/X9nDZKLBBfk5OJoex5EViZBLurIwNueWnmLBk3r/+LWtlQO+awf8BjqF
+j83sNhyqFzLRgcs+cd6EF0AN58ufn/alonXuu/tr3RKzv7fz4ZI7UI9auJjmDyQg
+WeSArEdYRQKbETFCAtlPYiqhvOiYJ09HqRfqEXjTvCVzem/iKt8Euatu07yR4Ifa
+6h05h15CKD0z/YbhJeM+gsWuaz/yLf/RmzRxfPLA7HkVzI2XqybvTXXyRs9VnrJ9
+ZkuhPJgAemByvwifICqLD3LDbGiqLCP+sTrbEHBLRS6Cxmege/mVFQ+144j5qb51
+hO+7KzaCcLJzCPcya2nQFbU/gZigpQ==
+=be9V
+-----END PGP SIGNATURE-----
+
+--ao3i6ewcx7qnx35i--

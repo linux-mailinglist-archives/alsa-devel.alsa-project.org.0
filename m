@@ -2,75 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA3F649A61
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 09:51:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DFB0649B6C
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 10:49:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB72D1866;
-	Mon, 12 Dec 2022 09:50:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB72D1866
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2F5A22E3;
+	Mon, 12 Dec 2022 10:48:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2F5A22E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670835094;
-	bh=F9zq1yrr8sAp03e3KEwHeY8qevfvAAdWWCtEIuNte2c=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=vGfxGuf76PmErmQvR7nUOw//vbSEIr+YcHrYfvhfhF92sWrr/00fBwXas2JgZWC68
-	 TKxBTmJsiShWZayJgoIIA7jZzNyPjmiGahtWnhZQgD7bZqMGy4JLz/DdEonNc7ZK+U
-	 zv+Sw5w3J/6TXWhKV1X33Wnla077XXqmrHztvk7I=
+	s=default; t=1670838584;
+	bh=3rN8Zkk48VOQwfDlZRYpgYMQ8cMZhlLUjxCfcJMJSbg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=L1i36ZFiP2mbb2fEsLjcDE57WP2jmkp6C2kegDPOUNa2WWMAOFsY/Qp51rybbeb4n
+	 AU12jqYRTcdzWg80LCCGUF2Lw9gziJeskZ+1hKyPxav/OhiX+z+IRPu3niSNvHiE3Y
+	 qdqZuicUUEUGPMwByduYCXuNG74ZO2WHaixRjJHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89415F800F8;
-	Mon, 12 Dec 2022 09:50:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47102F800F8;
+	Mon, 12 Dec 2022 10:48:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BE7CF80115; Mon, 12 Dec 2022 09:50:36 +0100 (CET)
+ id 61F19F80494; Mon, 12 Dec 2022 10:48:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06914F80115
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 09:50:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06914F80115
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lMWvPa5Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670835035; x=1702371035;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=F9zq1yrr8sAp03e3KEwHeY8qevfvAAdWWCtEIuNte2c=;
- b=lMWvPa5YFRVbKBbk8O9fDr3Vy0f3b3aLdyZyOnI9TvzuIcYfO+JdEsvd
- C/0uaOuZ/1eX5qQUWtPQK1ECjq+L+7e207LdCkFwwbNDrzLeqTXk5zLbU
- H5RDvTJoX/gUJdwI07uJh9IMwkLp6EvaAZ4HsLRhezIJN6/KFcUXarfbW
- yIiS4m9d45yJIwgsxU9lAhsiE++rrLNSKRkT3gvT8AqRpz01zwoEDKFM9
- UN9LBWIRsCLO5uqEqW7yTZRFsS3P0TVHKaWWxO3obPh/J5lfk+EK//968
- 79J6d84dIk69iuBD7DdXfzHipClXxGSDV2Rw8uJYmKareZrEjobEFZlAd A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="318945177"
-X-IronPort-AV: E=Sophos;i="5.96,237,1665471600"; d="scan'208";a="318945177"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 00:50:31 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="772520853"
-X-IronPort-AV: E=Sophos;i="5.96,237,1665471600"; d="scan'208";a="772520853"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 00:50:29 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Subject: [PATCH] ASoC: Intel: soc-acpi: update codec addr on 0C11/0C4F product
-Date: Mon, 12 Dec 2022 16:55:27 +0800
-Message-Id: <20221212085527.1886168-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F57DF800F8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 10:48:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F57DF800F8
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1p4fQR-0005eJ-8q; Mon, 12 Dec 2022 10:48:43 +0100
+Message-ID: <99245e87-f970-5660-d2af-82180e7a98d3@leemhuis.info>
+Date: Mon, 12 Dec 2022 10:48:42 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: Regression playing 24bit/96kHz audio on USB audio interface
+ between 5.10.94 and 5.15.21
+Content-Language: en-US, de-DE
+To: Ruud van Asseldonk <ruud@veniogames.com>
+References: <4e509aea-e563-e592-e652-ba44af6733fe@veniogames.com>
+ <9da2f631-4b45-9c5e-4349-488eea9436aa@veniogames.com>
+ <Y5ZGw/3GHXSUduEc@geday>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <Y5ZGw/3GHXSUduEc@geday>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1670838525;
+ bc7bca71; 
+X-HE-SMSGID: 1p4fQR-0005eJ-8q
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,36 +74,108 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Geraldo Nascimento <geraldogabriel@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Gongjun Song <gongjun.song@intel.com>
+Hi, this is your Linux kernel regression tracker.
 
-The unique ID is determined by the ADR pin level of rt1318.
-ODM changed design, update codec addr to match new design.
+On 11.12.22 22:08, Geraldo Nascimento wrote:
+> On Sun, Dec 11, 2022 at 04:30:11PM +0100, Ruud van Asseldonk wrote:
+>> Hi all,
+>>
+>> This issue is still present in 5.15.82, is there anything I can do to 
+>> diagnose this further?
+> 
+> Hi Ruud,
+> 
+> Sorry for your troubles. You could use "git bisect" to try to pinpoint
+> the exact commit that introduces failure for you.
 
-Fixes: 0050e3d3d43d ("ASoC: Intel: soc-acpi: add SKU 0C11 SoundWire configuration")
-Signed-off-by: Gongjun Song <gongjun.song@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/common/soc-acpi-intel-rpl-match.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yeah, that would be helpful. But 5.15 is quite old by now. Before going
+down that route you might want to try the latest kernel (e.g. Linux
+6.1), as the problem might have been fixed in between, without the fix
+being backported.
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-index 3c5229f41bb0..31b43116e3d8 100644
---- a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
-@@ -112,7 +112,7 @@ static const struct snd_soc_acpi_adr_device rt1316_1_group2_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1318_1_group1_adr[] = {
- 	{
--		.adr = 0x000131025D131801ull,
-+		.adr = 0x000132025D131801ull,
- 		.num_endpoints = 1,
- 		.endpoints = &spk_l_endpoint,
- 		.name_prefix = "rt1318-1"
--- 
-2.25.1
+You also talk about a "rpi-" kernel. Is that a vanilla kernel, or at
+least close to it?
+
+Also CCing Takashi, maybe he has an idea. CCing the regression mailing
+list, too, as it should be in the loop for all regressions, as explained
+here:
+https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.
+
+>> Ruud van Asseldonk
+>>
+>>> Hi,
+>>>
+>>> I have a program that configures a Behringer UMC404HD 192k USB audio 
+>>> interface for playback as follows (pseudocode):
+>>>
+>>>    snd_pcm_hw_params_set_channels(pcm, hwp, 2);
+>>>    snd_pcm_hw_params_set_format(pcm, hwp, SND_PCM_FORMAT_S24_3LE);
+>>>    snd_pcm_hw_params_set_access(pcm, hwp, SND_PCM_ACCESS_MMAP_INTERLEAVED);
+>>>    snd_pcm_hw_params_set_rate(pcm, hwp, val=96000, dir=0);
+>>>    snd_pcm_hw_params_set_period_size_near(pcm, hwp, val=513, dir=0);
+>>>    // If I confirm at this point with snd_pcm_hw_params_get_period_size,
+>>>    // I get back 513.
+>>>    snd_pcm_hw_params_set_buffer_size_near(pcm, hwp, val=2052);
+>>>    snd_pcm_hw_params(pcm, hwp);
+>>>    // If I confirm with snd_pcm_hw_params_get_buffer_size,
+>>>    // I get back 2052.
+>>>
+>>> On Linux 5.10.94 (specifically Arch Linux ARM package 
+>>> linux-rpi-5.10.94-1), this succeeds, and I can play back audio just 
+>>> fine. On 5.15.21 (specifically linux-rpi-5.15.21-3), all the calls 
+>>> succeed apart from the last one, which returns EINVAL.
+>>>
+>>> (My actual program is written in Rust and uses a Rust wrapper library 
+>>> for libasound, https://docs.rs/alsa/0.6.0/alsa/, but the calls should be 
+>>> the ones listed.)
+>>>
+>>> I confirmed with snd_pcm_hw_params_test_format that the S24_3LE format 
+>>> is supported. On both kernels it is successful. I confirmed with 
+>>> snd_pcm_hw_params_test_rate that 96 kHz is supported. On both kernels it 
+>>> is successful. There are differences though. When I query these:
+>>>
+>>>    snd_pcm_hw_params_get_period_size_min
+>>>    snd_pcm_hw_params_get_period_size_max
+>>>    snd_pcm_hw_params_get_buffer_size_min
+>>>    snd_pcm_hw_params_get_buffer_size_max
+>>>
+>>> Then on 5.10.94 (the good version), I get:
+>>>
+>>>    period size min/max: 12/32768, buffer size min/max: 24/65536
+>>>
+>>> But on 5.15.21 (the bad version), I get:
+>>>
+>>>    period size min/max: 13/71332, buffer size min/max: 26/142663
+>>>
+>>> Also, after I set the period size to 513, if I then query the buffer 
+>>> size min/max, on 5.10.94 I get:
+>>>
+>>>    buffer size min/max: 1026/65536
+>>>
+>>> But on 5.15.21 I get:
+>>>
+>>>    buffer size min/max: 1027/142663
+>>>
+>>> In lsmod, snd_usb_audio shows up, and from lsusb -v, the UMC404HD 
+>>> appears to be a standard USB audio interface. The lsusb output is 
+>>> identical on both kernels.
+>>>
+>>> Please let me know if there is anything I can do to help further 
+>>> diagnose the issue, or if I should report this elsewhere.
+>>>
+>>> Kind regards,
+>>> Ruud van Asseldonk
+
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9052964A046
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 14:23:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE8964A217
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Dec 2022 14:49:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1935729FF;
-	Mon, 12 Dec 2022 14:22:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1935729FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id D26212A01;
+	Mon, 12 Dec 2022 14:48:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D26212A01
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670851390;
-	bh=2nnZXA8RaZrSVvCN6ByjHxeIL4WuKWU/gteG+urh8OQ=;
+	s=default; t=1670852987;
+	bh=tWi8m0zIJyvdgVCG88lBeVWG25YXSJvsKgl/s+TMVZo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=qe7r771ZMpavjTIZM9dU8C1ryqw+RaN2taRJMm9kXwuviIUrS6U16cFapEeidB68S
-	 iLIuj4srif4BArgFIWoUfY1NjC/zulQBy0bqLjI0d6ED/R6zBzEqeSZHdcsjtnhsNr
-	 WviNqq6Xh0moXEXc7jXszfMxwR/UsJ4RWGeMrGjA=
+	b=af0sUYVWr+vc++Usp8D96Bw9jdrSMZIGnGDv+SRrYvNV/uja1IDaenPn+8eTKr6kF
+	 Hchq4mCMzVgZPKZi+1WzmnUkBwbPmZ9oIywdoKdLrVLjoOzdvaNlXV6tyHk03Q76iE
+	 FHvE0SixRdVqYmkmkr7NV13OaDARxMdNzpefU0N4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A947CF800F8;
-	Mon, 12 Dec 2022 14:22:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82D00F80115;
+	Mon, 12 Dec 2022 14:48:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42377F800F8; Mon, 12 Dec 2022 14:22:11 +0100 (CET)
+ id E46EAF804D0; Mon, 12 Dec 2022 14:48:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,35 +35,35 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F04AF800F8
- for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 14:22:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F04AF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1008FF80494
+ for <alsa-devel@alsa-project.org>; Mon, 12 Dec 2022 14:48:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1008FF80494
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=MrNWAnaZ
+ header.a=rsa-sha256 header.s=korg header.b=ZFDNUpfW
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A942261046;
- Mon, 12 Dec 2022 13:22:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A363C433EF;
- Mon, 12 Dec 2022 13:22:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C221C61025;
+ Mon, 12 Dec 2022 13:48:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD32C433EF;
+ Mon, 12 Dec 2022 13:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1670851326;
- bh=2nnZXA8RaZrSVvCN6ByjHxeIL4WuKWU/gteG+urh8OQ=;
+ s=korg; t=1670852924;
+ bh=tWi8m0zIJyvdgVCG88lBeVWG25YXSJvsKgl/s+TMVZo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MrNWAnaZcLx5Bz4YdmEFRdI9Ar8AqD+MhxE9lCfRUmWCx0VNY3Z3HoEZ8iB53BkzJ
- DDcNrc+HoxDdsqr1Pn6Ev8EFvHDVs1G1k7ZYOKnKEZ/EnvVoyhLZcB/gSCe9WEHria
- U9CX00B03Sg8neDZSZN/IdV45FXhQaAtxq/oc6+s=
+ b=ZFDNUpfWGtXXYPzINgsestkGJGYfkw76QPrMSY6Np6r+XS/zBDipri3z9QLWUerxP
+ zLjtYVBNNdppaiHvPtjdi0M0XhjwhSbAgOIBeFDJBrlMiVlJHia3rJzaOtbMmmmMkf
+ fpGY+qEsGX6WZqSsTJ/QvgkL++Aiakvjk7kM8s04=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.4 10/67] ALSA: seq: Fix function prototype mismatch in
+Subject: [PATCH 4.19 07/49] ALSA: seq: Fix function prototype mismatch in
  snd_seq_expand_var_event
-Date: Mon, 12 Dec 2022 14:16:45 +0100
-Message-Id: <20221212130918.121139101@linuxfoundation.org>
+Date: Mon, 12 Dec 2022 14:18:45 +0100
+Message-Id: <20221212130914.019235969@linuxfoundation.org>
 X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212130917.599345531@linuxfoundation.org>
-References: <20221212130917.599345531@linuxfoundation.org>
+In-Reply-To: <20221212130913.666185567@linuxfoundation.org>
+References: <20221212130913.666185567@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -121,10 +121,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index 65db1a7c77b7..bb76a2dd0a2f 100644
+index 5b0388202bac..ac854beb8347 100644
 --- a/sound/core/seq/seq_memory.c
 +++ b/sound/core/seq/seq_memory.c
-@@ -112,15 +112,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
+@@ -126,15 +126,19 @@ EXPORT_SYMBOL(snd_seq_dump_var_event);
   * expand the variable length event to linear buffer space.
   */
  
@@ -146,7 +146,7 @@ index 65db1a7c77b7..bb76a2dd0a2f 100644
  	if (copy_to_user(*bufptr, src, size))
  		return -EFAULT;
  	*bufptr += size;
-@@ -149,8 +153,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+@@ -163,8 +167,7 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
  		return newlen;
  	}
  	err = snd_seq_dump_var_event(event,

@@ -2,94 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C705F64BC32
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 19:38:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44AEC64C04F
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 00:12:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C19B8184D;
-	Tue, 13 Dec 2022 19:38:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C19B8184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C10631866;
+	Wed, 14 Dec 2022 00:11:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C10631866
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670956733;
-	bh=D1CofjcUsIPcXJT6fY4rSM1BnQcKyqAtHG5KaTJuTrg=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1670973127;
+	bh=FISYNgIlkvTOKrC2pZHiWi3hcktbJ9VHT1UQamn4t4Y=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=iuotERWO8/X3HcwpM7LDcFv8O9qnEoxJ1TFyoFayYaNF3l+mgJcLYj6zl9a8+8UbG
-	 tLuOKdsIQosmscyBscwNY3w5qbP1Y+irsoHivFbYdMHLxXCH6Ywwy9XutUNw4pm5qW
-	 d4l7FB+xKrG0qpPWcnfzLliWepSKWee71zx1+BGI=
+	b=Ml8929NyoqPvW63ieIry2ehSQiRDTnNlvMH3Pj0XxOWxM8zvuu3gB6lYjyZoF48IP
+	 eBvW+3J3LCuMsMxDj101Y1aNaD3tW7Rel3F8L1OU4I7LWKPBtBY2Qxs0j2Tn3pR+Lo
+	 jyy0nGp0wsGCIxtez8lOEc0Q6GqBM/oVzpyzZJ5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66AD6F8047D;
-	Tue, 13 Dec 2022 19:38:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67813F8047D;
+	Wed, 14 Dec 2022 00:11:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D93DBF804D6; Tue, 13 Dec 2022 19:38:01 +0100 (CET)
+ id 3031CF804E2; Wed, 14 Dec 2022 00:11:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2137.outbound.protection.outlook.com [40.107.114.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC5C7F804D6
- for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 19:37:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC5C7F804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 605D1F8047D
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 00:10:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 605D1F8047D
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=google header.b=XrBbWdcr
-Received: by mail-io1-xd2d.google.com with SMTP id h6so2174494iof.9
- for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 10:37:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zVw/Ub8n925hTRnFdUzvOTA/UBWQnS0OdDCK00ziL7s=;
- b=XrBbWdcrYPzuedqF0FgemXWCGtU7UrqvPAsmrbFXqGYJ28FAp6XGTo5oEn8x273sqU
- 1n/9Yzgl1P7zdafD9gaHuWhGonKRYglyMefa//+e41c5/9SaL5CtXhV701foySxdl0f5
- yRDHeGzCpWk0jJ3+phN5yr8QuFGKRgubk9o+Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zVw/Ub8n925hTRnFdUzvOTA/UBWQnS0OdDCK00ziL7s=;
- b=Pl6O14Ek0xv4yqwjJnWL0R6RVXf1ea2ilAKaAdzSAvNDNPZI/Pm/TDL7Y1VGlWrK7w
- Yu6PJc3h//xNHLsJxe0dkV5cnvxWcCDe3Tl+rC9tYssWLCu6XB1U5T09gehGX/KMFODq
- oxMyynfMqpcijVrOkITN9x5SdXG0Z/qDrsKKU5as1MVXQzNdwwvso+0Kf9sv7PPvCsNl
- eFdZ7rOMdaqwryJPupllglXr+gv0/gjAhOIb6YX5yvioHywHkf6OHXkMcO7sbwRtNO+K
- DzIixYm303szpekc+slenvdUhNuZL1k4K1W/l5KUqr7whIh+FMQ+0SbvI+qNAIxmAbs0
- IWNg==
-X-Gm-Message-State: ANoB5pmjbIp1B3+wI4GPXhcyNG8qkkP2ZDI/QXSl66f2XTZRquHum67Z
- 2CU+1L6mmQ5mR4+C/gube0+m0g==
-X-Google-Smtp-Source: AA0mqf7aJOMAxmp4CXqLPZfMIko49C01+d4Mm/IeX3PQ/xS4thygg7ozqQaxaFm0a2G0H35SvgIdew==
-X-Received: by 2002:a6b:500e:0:b0:6e2:d3f7:3b60 with SMTP id
- e14-20020a6b500e000000b006e2d3f73b60mr2036775iob.2.1670956677330; 
- Tue, 13 Dec 2022 10:37:57 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.45.1]) by smtp.gmail.com with ESMTPSA id
- q18-20020a0566022f1200b006e2f42a30c2sm3596261iow.35.2022.12.13.10.37.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Dec 2022 10:37:56 -0800 (PST)
-Message-ID: <2ee34e21-44bd-71e7-6da2-f4bea9a35452@linuxfoundation.org>
-Date: Tue, 13 Dec 2022 11:37:56 -0700
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=qBYTADrz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HcBOQ2qV7h5yRHXWUXMRQLn5BjC8LjDJBzkqUNHVRwvu8Ll426Ip3aYpM8D8UhfwizeQqT8Qe+fV58ZHm9tyJhL8gO2tn99CANmt8BUAAuRh5m4EszOiCpgH/tW5+xQf5wibjhhGmdEn6iDta5UBrzLhJNbOPjIdsUq7luiNNRTTiVEmOqGYDZepa9rBf8k6+U1NirRfOLRW0zOw2lbcrp24NWNso8aaJSfKxAdvJn5dQUcDxoa8o1RATaVbLAAQEGDYl4Qv0RnXPcZ1NHqA1g3Jzi4maBeaFNEN70z1AUR8CyySblgUU1c9D4bjzNnqs9/GmYEmnfnW+p+qM/XYxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6YuT68XiWOUqGXW3L3vBVRF3hzg45vw6ZqiFimP92l0=;
+ b=ZDOG+3cIOJvmT1EB4Bjy883sfFzqe2xVq2ticeKP8ruvQGYcqLNnpi0GeQdyjQ3KEfEAtHK89m/LwuItcm3HNspeI8DBwt6BvxGOJaoFfMtww947R46H+3k89w/w4zdPRFq04xyjGJq12FE1vuluDJWJfZS3nu1r6aHGwPeF8U7oJ07hAkB7+UVnPQuCi/QCm4XoQLmmr33ceTdayI+PgNRoP9Vy/659ThRxR9W2tOsglKt681qtL5SqwgtKeQcWUNvv53b9PJf92seNQ3lnNglILv74uXSfW9N7ZFVsA9VF/nKHYevNf9WBLHodlu5ScRieelC2x84h0DzcTNxRNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6YuT68XiWOUqGXW3L3vBVRF3hzg45vw6ZqiFimP92l0=;
+ b=qBYTADrzbfENONp2n98+WZuqhMgTaiVjNFQ5+cR8i8isehRAwFDZSA8375h3GoSGeBghXwsJHGP1UZbZnbikq/Z4E1WZxejixIUFo8/xDSxhFhsdw+AO9Ag+ODlnhsbBkt25fOcu8d0FSGhEvoIiq4nlJ6klq/KhoILtZubioXw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TY3PR01MB10268.jpnprd01.prod.outlook.com (2603:1096:400:1dd::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
+ 2022 23:10:53 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::a5a6:2344:db9:431]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::a5a6:2344:db9:431%8]) with mapi id 15.20.5924.011; Tue, 13 Dec 2022
+ 23:10:53 +0000
+Message-ID: <871qp2rjb7.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH/RFC 2/2] arm64: dts: renesas: ulcb-kf: Fix pcm3168a audio
+ codec node
+In-Reply-To: <CAMuHMdVgDF=wF3Q0_QMecpmmWe1NxyK4BGTNhEvcdS5698cNmg@mail.gmail.com>
+References: <cover.1669980383.git.geert+renesas@glider.be>
+ <3c0f5b935da4468fe04e2d85becafda0040e4d31.1669980383.git.geert+renesas@glider.be>
+ <871qpcm4mu.wl-kuninori.morimoto.gx@renesas.com>
+ <87mt7skwsk.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdVgDF=wF3Q0_QMecpmmWe1NxyK4BGTNhEvcdS5698cNmg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Dec 2022 23:10:53 +0000
+X-ClientProxiedBy: TYCPR01CA0125.jpnprd01.prod.outlook.com
+ (2603:1096:400:26d::7) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] kselftest/alsa: Increase kselftest timeout
-Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-References: <20221213183242.1908249-1-nfraprado@collabora.com>
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20221213183242.1908249-1-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB10268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63098658-def5-41ed-af76-08dadd5f4873
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: N350rCR+6laO+MhXUqzu6N/xnxiVQwIyjPFvZNNFs5tbQV0JCbfQOXXwBKl/rNlozT80O5kQ/Zpyo9IM/GcecFe2OoUdJJphf3ktpbttH4ndlRqy3gPUBZIFPyY1GIm8b/OnmZiRRFEdRZx0cyYXeDBMbbqCf/J2BDPdVOfcRF8EIpf6sAr75xGnkmtK5dCin5zFBGz64QN02jMddJ3bxV4E9auecX+8K0o8OGxMa/sG604FeViDb17JspB25cZGqnyeXZZrfIW5aI450vzoXjQ9BJZN8fBC8f+RlMyCc6ZuaW0Y+Fn0t/NnNXtDOM/j66Uiz5wq7Ms4nwTn+IW3mfLuM3sXPQS5EWif+Gt0SC2GpR8WfKfwmRiWdng1WwL3Zyeu0W/GRgzO9wiPIcB8Ja/R36dAlce03NdovQG0/LAYDM7dYPOlUSGmwI4649HlWWiYCD2IT9jctOK4zUo2vfRiqUns79jXt4uSjEU+Cxeq7E0L8kXIWKF5D4czVoR7+0Eu7V6L8mreDFf+cAlE+KGK+Cnk0eHPLtZYa64ntJ15ZTrakRxagGnY83/CB0nkMZ6rjtMwNvUj9zrqkramyJXudv4dlo6vAPPH63NtqBjmt1eEORUNd6gL/ssUjs6MhcSuZEsE5UDgHHZtfD6cOBdNN3lRBgzAHiZ45jabXwoZxkFrvTxT82rhRkONQ6+rkYrjrL45tNbVaSZFvUjGbQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(366004)(39860400002)(376002)(396003)(451199015)(478600001)(41300700001)(5660300002)(8676002)(4326008)(6486002)(6916009)(316002)(2906002)(54906003)(36756003)(2616005)(66476007)(4744005)(8936002)(66556008)(66946007)(52116002)(86362001)(6512007)(38100700002)(6506007)(38350700002)(26005)(186003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVczbVlMcVRLbWVreFBVVGNLcmJTb3FpU0tRQldHNmVFY3JsZ0w5TEJLeGpV?=
+ =?utf-8?B?aFVKT1Nqa2htaVhwSUJ5ck5YTzNBMHpGcHNtS1NUUzVzQTlTVGxhNy8rQ3RO?=
+ =?utf-8?B?UFFHWjAyS0Q0WmppZ2VHS0psVDI1bXdCZlJ4TGtlSytJbm9pQkhqYWZuRlc0?=
+ =?utf-8?B?NWNWaC9mZG9vSkRRQjN3d0l5YTNSVVg2dUJGb3pOSTVmaTVDQkd6UGtMclhG?=
+ =?utf-8?B?SHlwc2FJcE9XM2syd0lIcG42alB3TXRLUWVFYnV1S1B1WTR6LzcvcHJOaDF4?=
+ =?utf-8?B?ZXFtekdlajU0c2N3WEJxa1FidFRhZGUwV3Fzd1N6YTJUVkEvMDFLZ3MwVXR6?=
+ =?utf-8?B?ZjhKZHkrb2xQaml3ZCtScTBzUFZ3eWs2T3lBZE5RSDF0NnlyOEdxWlNuS1Nz?=
+ =?utf-8?B?VE0zK1hQaCtzcGRleG5hc2hvMC9oVmxtZ3UybWFjK0VWUExIZTZZM3Z1SVhF?=
+ =?utf-8?B?UytaNzY4bUV1NGRsU2hhWXhMenU0TE5JT254ZXhtWERYcEVNaDQ0UEQ1Um5D?=
+ =?utf-8?B?bVFjVkQrZ1JRa2dpYmFqN2RmVEZhcHFLSjFrZzY5VTRWR3Z2YUNKSDBOcTBM?=
+ =?utf-8?B?RytJRGRSa1k2YUZsQmZRdzVKbDhjNnJXWkd6aHRiNG9SdkRaOG1sWXEvN21R?=
+ =?utf-8?B?eEs1ZmUycVVCZlBneUFyRFBoVXRxd0ltb2hNWGFFNHA5UUMzdG1lRkM4NjRy?=
+ =?utf-8?B?ZmZzYXMvc2hzWmxGdzlUMnRMZTdKRFcxL0t2ak4ybGJCSXNLMHVMN2Q4K1NU?=
+ =?utf-8?B?cUk2ckVhZWJ1Zm1UTWt0Q2ZJZWRFNU5yZDVNOXZ4YVpua1RqY2FoYmh3SVV3?=
+ =?utf-8?B?NjduR1FmZENMQzZoV2d4d1BXN2RiZ2JkdUdxWEVtQy8wckp3OE1LcUY2aFI0?=
+ =?utf-8?B?eFE0YmQ4TEJSTlhUSldBeUR1WEp6UGUxQUZsYnN0UThGUC9xMTZDRDdOQUJF?=
+ =?utf-8?B?d1lLWmJOMkgyQ3Mydy9DSEVDeDdVQTJNMlh1ckpIaVh6R0RsMllEMXhFZEQz?=
+ =?utf-8?B?Ri9UQmdZS2FjNTRIVjg5OCtYc3VHNzBqY1l2Snc3Nllnbm10OGg1MGY3NURj?=
+ =?utf-8?B?WUdxVjRabmthS1pNd0FmbGhyUHNkWVM5eDk4aXBob2FjWnQyTkFyd1hUeVh6?=
+ =?utf-8?B?bmppZURSRmgzT3BRVE4zOW1paXkvWHhHYXVJK1RzbUcvSE03Z2JGVE03Q0tq?=
+ =?utf-8?B?Zmg2ZlhhbDRwdDc4eXpLNE40cXBoOGdCdENKTVdIeWxHdngvWHlPVzQ3dkZz?=
+ =?utf-8?B?Vm1NSE9hb0x3MzZmWHM3ZERNRGZhd1IrTDZsRm94b2hDN3dTNmsrTWdlaGRV?=
+ =?utf-8?B?dFNKcDJtWHVJTG1uUGh6aHpqYXNIaWRYRnp1U3VuNDNPZ20xYUw1RXhzUjdG?=
+ =?utf-8?B?eU5iMEQrbFkxbHZMMm5XMzNwQTJVc1pTTUpEdEd4TmE0M1o1dnpIY0NSM1dt?=
+ =?utf-8?B?Mmk4SWNTYmY4MTkvNE42TVp5UlVkaW9sWVptcUpZVlV0eTFTSVNrSzV1VkNP?=
+ =?utf-8?B?cHJGUU0zTHYyNmpMcVpmZ2VmVlBpT1hMaVdBK1NlSHdxYmpzV0pDWk05eTB0?=
+ =?utf-8?B?OHdwdjJYL0c0aGMwMWJHNVBuOHNNQjVwVlJVYmlTWWtLcXdoUzZnMUp6VzA5?=
+ =?utf-8?B?Y1laK1ExeTc0TlBqaTJOUkhIUzhOWDFkR1Y1WG44ak4zeWcrWUpUbUhBc1dY?=
+ =?utf-8?B?aDFBcmhVMmpubW8wbFhRci9FUHpPZ0tXZDdtbW5jUWpNeFhrV2xjQ0luUnli?=
+ =?utf-8?B?aWhmL1ozbm8rbENEcEhkVllvTDdTM2E2Z002QTczM3hvMVIrcFpDeERFSjhS?=
+ =?utf-8?B?NWh4V2E0V1A2a0IrYUJUYTh4eWtieHFJMDZBYzJjbjZrRkJNbWZBWmZYMDFK?=
+ =?utf-8?B?NkNnNU1pQkdvSWlYR2U1blhWR3VKcU94ZjVaaEE3QVhLNzU0YWdYY2NCeTdZ?=
+ =?utf-8?B?RFkxUDB3TEdVVm1BL1ljdWI0UW9QZkxhY2NLdDU1Rmd2Z21kMk8wT0JEVVFI?=
+ =?utf-8?B?MW0rUjhVbkRPejdOajE0MjNOSnJNNzU4THpwWDFBSnNYTjlKVlUwZWoydEwy?=
+ =?utf-8?B?TUp5YlQ1WEE4ZUFJYitNNVk4V0dNbElTNkpFSUpkbG9aRkFObzFjbG81b0Fu?=
+ =?utf-8?B?N0tSYjJvZjhWVEVRb21ZbUljc0tMOE5Xa3VDOCs1cFlVNXFyT2tEcXQyOEhO?=
+ =?utf-8?Q?2Xo1/aENy36ByYNxYm2xv2c=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63098658-def5-41ed-af76-08dadd5f4873
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 23:10:53.4300 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6zyU0SxQq0H02jqlyq0XAUIfslMgPBPJFFTglqvXIapJzoAVL3EpyVAl4N9wMUoYZxSor6m7CUxdVzOFxN8I3mkEGCG/U4P8pIMDY0pJrLRTmyxd36UNjL0z3aaMyep8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10268
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,48 +158,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- Shuah Khan <shuah@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Damien Horsley <Damien.Horsley@imgtec.com>, linux-renesas-soc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/13/22 11:32, Nícolas F. R. A. Prado wrote:
-> The default timeout for kselftests is 45 seconds, but pcm-test can take
-> longer than that to run depending on the number of PCMs present on a
-> device.
-> 
-> As a data point, running pcm-test on mt8192-asurada-spherion takes about
-> 1m15s.
-> 
-> Set the timeout to 10 minutes, which should give enough slack to run the
-> test even on devices with many PCMs.
-> 
 
-10 minutes is way too long.
+Hi Geert
 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> 
-> ---
-> 
->   tools/testing/selftests/alsa/settings | 1 +
->   1 file changed, 1 insertion(+)
->   create mode 100644 tools/testing/selftests/alsa/settings
-> 
-> diff --git a/tools/testing/selftests/alsa/settings b/tools/testing/selftests/alsa/settings
-> new file mode 100644
-> index 000000000000..a62d2fa1275c
-> --- /dev/null
-> +++ b/tools/testing/selftests/alsa/settings
-> @@ -0,0 +1 @@
-> +timeout=600
+> > I have investigated about this patch, and it needs extra patch
+> > which I will post if -rc1 was released.
+> > I can merge this patch (with small fixup) into my patch-set.
+> > Of course I will keep your name. But is it OK for you ?
+>=20
+> Thanks, fine for me!
+>=20
+> =E2=99=AB All I want for Christmas is =E2=99=AB... an error-free "make dt=
+bs_check" ;-)
 
-Adding timeouts like this especially 10 minutes will increase the time
-it takes to run tests. We run the risk of people not wanting to run tests
-anymore.
+I will do my best ;)
 
-thanks,
--- Shuah
+	Merry Christmas
 
+Thank you for your help !!
 
+Best regards
+---
+Kuninori Morimoto

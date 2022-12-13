@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D5C64B537
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 13:34:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1924A64B538
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 13:34:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6C2118A7;
-	Tue, 13 Dec 2022 13:33:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C2118A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A67DD18B6;
+	Tue, 13 Dec 2022 13:33:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67DD18B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670934840;
-	bh=cRB3ADmR4WZ55gVpfPk0HoF22a9qC2Xn5+rjrcCie6A=;
+	s=default; t=1670934868;
+	bh=EyfhgTFopWLDFA77W4AV5TOe7xbplwIB2XVGDrhTJo0=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=X5v0CmS2eYePkZ0xr2rAajSLL3ySeGVw0xFKUZjBt98bkzaMFMfOtN8Ljv7gWm1Mm
-	 oc3gRs7hRKF1SNOfiSVfadANmpbj+vfxHrENS8dDQhcPKiivJKkU6IJafrrJiirg4y
-	 2nCuhSThchCi7e1kJQDvJl3LQOj9gAePl8dlKK+I=
+	b=gEu0goRp+wE+EGZurNK4M75qPViQl491F7m6VOyjXcIL9uQq1KU+gspKiX+6/s+Fv
+	 ll9hh4FtBRqUCUnbMoFYsziY21bC9eGimwwCihnggA64GVMloEVOJiu6KhuMQp872l
+	 tl38pveSsUNLdL4rE/oHvYeWcdVB4P3or33Xv2pA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C297F80073;
-	Tue, 13 Dec 2022 13:33:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A68EF8047D;
+	Tue, 13 Dec 2022 13:33:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14CB0F804E2; Tue, 13 Dec 2022 13:33:01 +0100 (CET)
+ id 59FE5F804FD; Tue, 13 Dec 2022 13:33:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,50 +32,49 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8ECE6F80073
- for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 13:32:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ECE6F80073
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73C4DF8047D
+ for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 13:33:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73C4DF8047D
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=R/tgzx+e
+ header.s=mimecast20190719 header.b=Id6g0Z7R
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1670934773;
+ s=mimecast20190719; t=1670934804;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=LYcZg9Dh4szSlqajN1nnOf+3vcv2a0CEnX/RRmCyzIs=;
- b=R/tgzx+eir+BB+NvtDYSwxzMeqj50PrGirWNlX+Qa9KTkuKuzt6BMuEGWTdQmtqLuIYxOQ
- WYt1S7Lkdjp+TPnC9ghBkjgLYh214xCTRKvR9SzHeBh7Ubw2IMKmXXBfthq6kcTZDPV/7m
- 0QRhaC9QiIu6vNaP1Jt4QeLMbi5AJv4=
+ bh=Xg8WfX4IRNBY4QR4PHkuEHRYNMq4+odOw0Nfr2y4XCg=;
+ b=Id6g0Z7Rf701H+ABFXVPL4+mGkWr5rj8Otv0EIyquyQ0lJpc02lbxUNm2ZICjhWnQMieLT
+ InzFynRrlZU8Xp8e8ZKJXNECGsXAglSkZoOAADzh/tNVVA0bJk5BtCFcEa0mEaMZlYlj83
+ SKBWWkIX69LUbMLUqRL42/t1FbsR3Iw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-640-iylLAnVNNaS_xuzUtdSKHw-1; Tue, 13 Dec 2022 07:32:51 -0500
-X-MC-Unique: iylLAnVNNaS_xuzUtdSKHw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+ us-mta-639-89Zc_EpRPSuv2HcyHst3eQ-1; Tue, 13 Dec 2022 07:33:22 -0500
+X-MC-Unique: 89Zc_EpRPSuv2HcyHst3eQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB104293249A;
- Tue, 13 Dec 2022 12:32:50 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 310213C0F425;
+ Tue, 13 Dec 2022 12:33:22 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.194.225])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A0F442166B26;
- Tue, 13 Dec 2022 12:32:49 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2226E53A3;
+ Tue, 13 Dec 2022 12:33:21 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for the Advantech
- MICA-071 tablet
-Date: Tue, 13 Dec 2022 13:32:46 +0100
-Message-Id: <20221213123246.11226-1-hdegoede@redhat.com>
+Subject: [PATCH] ASoC: rt5670: Remove unbalanced pm_runtime_put()
+Date: Tue, 13 Dec 2022 13:33:19 +0100
+Message-Id: <20221213123319.11285-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
@@ -97,48 +96,33 @@ Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Advantech MICA-071 tablet deviates from the defaults for
-a non CR Bay Trail based tablet in several ways:
+For some reason rt5670_i2c_probe() does a pm_runtime_put() at the end
+of a successful probe. But it has never done a pm_runtime_get() leading
+to the following error being logged into dmesg:
 
-1. It uses an analog MIC on IN3 rather then using DMIC1
-2. It only has 1 speaker
-3. It needs the OVCD current threshold to be set to 1500uA instead of
-   the default 2000uA to reliable differentiate between headphones vs
-   headsets
+ rt5670 i2c-10EC5640:00: Runtime PM usage count underflow!
 
-Add a quirk with these settings for this tablet.
+Fix this by removing the unnecessary pm_runtime_put().
 
+Fixes: 64e89e5f5548 ("ASoC: rt5670: Add runtime PM support")
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ sound/soc/codecs/rt5670.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index fb9d9e271845..ddd2625bed90 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -570,6 +570,21 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{
-+		/* Advantech MICA-071 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Advantech"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MICA-071"),
-+		},
-+		/* OVCD Th = 1500uA to reliable detect head-phones vs -set */
-+		.driver_data = (void *)(BYT_RT5640_IN3_MAP |
-+					BYT_RT5640_JD_SRC_JD2_IN4N |
-+					BYT_RT5640_OVCD_TH_1500UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
+diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
+index ebac6caeb40a..a230f441559a 100644
+--- a/sound/soc/codecs/rt5670.c
++++ b/sound/soc/codecs/rt5670.c
+@@ -3311,8 +3311,6 @@ static int rt5670_i2c_probe(struct i2c_client *i2c)
+ 	if (ret < 0)
+ 		goto err;
+ 
+-	pm_runtime_put(&i2c->dev);
+-
+ 	return 0;
+ err:
+ 	pm_runtime_disable(&i2c->dev);
 -- 
 2.38.1
 

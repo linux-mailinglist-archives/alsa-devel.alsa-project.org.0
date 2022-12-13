@@ -2,59 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7400164B063
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 08:28:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1DF064B0A4
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 08:56:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0862717F7;
-	Tue, 13 Dec 2022 08:27:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0862717F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BC6E1683;
+	Tue, 13 Dec 2022 08:56:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BC6E1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670916495;
-	bh=lYB8AqHkZfVN0cxOxBYwUyIcVxlp0EqUC2KOx5sBNGE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=bCIejaNmIlKAU+rDfpUmX4H0DItxj78kjFlJGTmI5l7KLB/UFgy9o8QEBfkwZCXQX
-	 kBLPSWRINI1O2idjY3BZJxz1til1KB0ghjPjoptSJh8sQEPI/RXb8i0ojvDUPrLaeY
-	 XnF8hzSwT90MHKCdoyDwppSEGGo070tLgjwWZrk4=
+	s=default; t=1670918218;
+	bh=+Fjp4NTmrhG4YFx7jFd8xJDppuXs2EWKHX6VF+TC/SE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=NNOHdrDEa+kK5dgEWQLrtWd3FUHgSNCmpvtCGRMkFwHGH/T3CKcjD3rWhZmbP8XgK
+	 JyTsRHxZjw0q5p5GFXJn+AX0Wcmz6+jx5L9ooo37WFz1nWK1Vw2PbWQVqpEgt/aZ7L
+	 A4oz0FRTc8MljiaI9tR/k2I/rO02/xI+HjIgwUrs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DE33F803DD;
-	Tue, 13 Dec 2022 08:27:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F03E0F80141;
+	Tue, 13 Dec 2022 08:56:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED616F8047D; Tue, 13 Dec 2022 08:27:15 +0100 (CET)
+ id 50B40F80431; Tue, 13 Dec 2022 08:55:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_MED,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from out29-7.mail.aliyun.com (out29-7.mail.aliyun.com [115.124.29.7])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93809F80141
- for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 08:27:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93809F80141
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1133401|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.016597-0.000373216-0.98303;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047187; MF=wangweidong.a@awinic.com; NM=0;
- PH=DS; RN=16; RT=16; SR=0; TI=SMTPD_---.QUYqQ2e_1670916417; 
-Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.QUYqQ2e_1670916417) by smtp.aliyun-inc.com;
- Tue, 13 Dec 2022 15:27:04 +0800
-From: wangweidong.a@awinic.com
-To: robh+dt@kernel.org
-Subject: Re: [PATCH V6 5/5] ASoC: dt-bindings: Add schema for "awinic, aw883xx"
-Date: Tue, 13 Dec 2022 15:26:56 +0800
-Message-Id: <20221213072656.57312-1-wangweidong.a@awinic.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <CAL_JsqL8SScxB+TiML1joKKWQ_vZQ8+We+C-x84mYX0JsysSzA@mail.gmail.com>
-References: <CAL_JsqL8SScxB+TiML1joKKWQ_vZQ8+We+C-x84mYX0JsysSzA@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D4CEF80431
+ for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 08:55:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D4CEF80431
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256
+ header.s=axis-central1 header.b=A14lTsfa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1670918159;
+ x=1702454159;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=hDvAhm2qY0FyFX7cJlbF4u5kIskI/PQsLuV5FiRkqMg=;
+ b=A14lTsfa6SXoQzKJNCKODbX2xLux06pbHvTtzR8uFi9NHPzSsv/GEJFW
+ iWPj/OUkJOnfpLy+0xbsXgQOyks5tvAMBey8T9Ibe69ZHP8Oh4+9LfX7t
+ tYx9+XcVhs32oYJZrG3uG7skXMrR2Ap9INBTtj3EGXgqSBN64CPt0iYYI
+ kS9uP8tdJuon8Mu0PILarcRIyMCP+A0unYwBjC5LVA1d8yFql8YFqJGvF
+ auGVmaOx4aATMtZ+UigrpE/b86nNLaCt+mZBCm0tErQp85P/DeoCCFFVv
+ uhMMZjrTh9PKIxtNxmiOk0b0SzMaSYQiNmU2DL8VRlXkEcX7hH+PSlPSX Q==;
+From: Simon Svanbom <Simon.Svanbom@axis.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: [PATCH] ALSA: conf: Save SND_CONFIG_TYPE_REAL with at least one
+ decimal
+Thread-Topic: [PATCH] ALSA: conf: Save SND_CONFIG_TYPE_REAL with at least one
+ decimal
+Thread-Index: AQHZDsdHOsnY5fSCk0ykhYvc8iAaLw==
+Date: Tue, 13 Dec 2022 07:55:55 +0000
+Message-ID: <f9a7ad6a256d4ad7a31642dcf875d436@axis.com>
+Accept-Language: sv-SE, en-US
+Content-Language: sv-SE
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
+Content-Type: multipart/mixed;
+ boundary="_004_f9a7ad6a256d4ad7a31642dcf875d436axiscom_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,65 +81,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
- wangweidong.a@awinic.com, tiwai@suse.com, duanyibo@awinic.com,
- zhaolei@awinic.com, liweilei@awinic.com, cy_huang@richtek.com,
- yijiangtao@awinic.com, broonie@kernel.org, zhangjianming@awinic.com,
- krzysztof.kozlowski+dt@linaro.org, quic_potturu@quicinc.com
+Cc: "tiwai@suse.de" <tiwai@suse.de>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 8, 2022 at 6:28 AM <wangweidong.a@awinic.com> wrote:
->
-> From: Weidong Wang <wangweidong.a@awinic.com>
->
-> Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
-> controlled using I2C.
+--_004_f9a7ad6a256d4ad7a31642dcf875d436axiscom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-> blank line
+Hi,
+patch for saving SND_CONFIG_TYPE_REAL with at least one decimal as to not m=
+isinterpret the value as an integer in snd_config_get_real. Example would b=
+e the sofvol configuration property min_dB and max_dB, that are required to=
+ have at least one decimal.
 
-> Pretty sure I said this before, but resend to the DT list if you want
-> this reviewed.
+All the best
 
-Thank you for your advice, but could you please tell me how to resend it to the DT list
+// Simon
 
-> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
-> ---
->  .../bindings/sound/awinic,aw883xx.yaml        | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
-> new file mode 100644
-> index 000000000000..b72c9177ebb7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/awinic,aw883xx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Awinic AW883xx Smart Audio Amplifier
-> +
-> +maintainers:
-> +  - Stephan Gerhold <stephan@gerhold.net>
-> +
-> +description:
-> +  The Awinic AW883XX is an I2S/TDM input, high efficiency
-> +  digital Smart K audio amplifier with an integrated 10.25V
-> +  smart boost convert.
-> +
-> +allOf:
-> +  - $ref: name-prefix.yaml#
 
-> I think this file has now been renamed upstream.
+--_004_f9a7ad6a256d4ad7a31642dcf875d436axiscom_
+Content-Type: text/x-patch;
+	name="0001-conf-Save-SND_CONFIG_TYPE_REAL-with-at-least-one-dec.patch"
+Content-Description: 0001-conf-Save-SND_CONFIG_TYPE_REAL-with-at-least-one-dec.patch
+Content-Disposition: attachment;
+	filename="0001-conf-Save-SND_CONFIG_TYPE_REAL-with-at-least-one-dec.patch";
+	size=1130; creation-date="Tue, 13 Dec 2022 07:47:27 GMT";
+	modification-date="Tue, 13 Dec 2022 07:47:27 GMT"
+Content-Transfer-Encoding: base64
 
-Thank you for your advice, but could you please describe why
+RnJvbSBkNjc5ZDQ2OWNkMDQ4ZDAxZWRmZWM5NTJjNTU1MGFjYThmZDRiMDRhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBTaW1vbiBTdmFuYm9tIDxzaW1vY2hyQGF4aXMuY29tPgpEYXRl
+OiBUdWUsIDEzIERlYyAyMDIyIDA4OjIzOjUzICswMTAwClN1YmplY3Q6IFtQQVRDSF0gY29uZjog
+U2F2ZSBTTkRfQ09ORklHX1RZUEVfUkVBTCB3aXRoIGF0IGxlYXN0IG9uZSBkZWNpbWFsCgpTYXZl
+IG5vZGUgdmFsdWVzIG9mIHR5cGUgU05EX0NPTkZJR19UWVBFX1JFQUwgd2l0aCBhdCBsZWFzdApv
+bmUgZGVjaW1hbCBpbiBvcmRlciBub3QgdG8gbWlzaW50ZXJwcmV0IHRoZSB2YWx1ZSBhcwphbiBp
+bnRlZ2VyIGluIHNuZF9jb25maWdfZ2V0X3JlYWwuCgpDaGFuZ2UtSWQ6IEk1ODk3YmE4ZWE2YmUz
+MjE3ZjQwZGQzODJhOThlMTdmZmNhM2Q1NmJlCi0tLQogc3JjL2NvbmYuYyB8IDcgKysrKysrLQog
+MSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdp
+dCBhL3NyYy9jb25mLmMgYi9zcmMvY29uZi5jCmluZGV4IDY1ZjJlMWE3Li5kZTA1MTI4MyAxMDA2
+NDQKLS0tIGEvc3JjL2NvbmYuYworKysgYi9zcmMvY29uZi5jCkBAIC0xNjM0LDcgKzE2MzQsMTIg
+QEAgaW50IF9zbmRfY29uZmlnX3NhdmVfbm9kZV92YWx1ZShzbmRfY29uZmlnX3QgKm4sIHNuZF9v
+dXRwdXRfdCAqb3V0LAogCQlzbmRfb3V0cHV0X3ByaW50ZihvdXQsICIlbGxkIiwgbi0+dS5pbnRl
+Z2VyNjQpOwogCQlicmVhazsKIAljYXNlIFNORF9DT05GSUdfVFlQRV9SRUFMOgotCQlzbmRfb3V0
+cHV0X3ByaW50ZihvdXQsICIlLTE2ZyIsIG4tPnUucmVhbCk7CisJCS8qIElmIG5vIGRlY2ltYWxz
+IHByb3ZpZGVkLCBwcmludCBhdCBsZWFzdCBvbmUgKi8KKwkJaWYgKG4tPnUucmVhbCA9PSAoaW50
+KW4tPnUucmVhbCkgeworCQkJc25kX291dHB1dF9wcmludGYob3V0LCAiJS0uMWYiLCBuLT51LnJl
+YWwpOworCQl9IGVsc2UgeworCQkJc25kX291dHB1dF9wcmludGYob3V0LCAiJS0xNmciLCBuLT51
+LnJlYWwpOworCQl9CiAJCWJyZWFrOwogCWNhc2UgU05EX0NPTkZJR19UWVBFX1NUUklORzoKIAkJ
+c3RyaW5nX3ByaW50KG4tPnUuc3RyaW5nLCAwLCBvdXQpOwotLSAKMi4yMC4xCgo=
 
-Thanks again for your advice
-
-best regards
-Weidong Wang
+--_004_f9a7ad6a256d4ad7a31642dcf875d436axiscom_--

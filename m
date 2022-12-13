@@ -2,93 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7664864BABD
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 18:15:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCF4964BBBC
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Dec 2022 19:14:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05A4E1833;
-	Tue, 13 Dec 2022 18:14:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05A4E1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58EF6184E;
+	Tue, 13 Dec 2022 19:13:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58EF6184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670951743;
-	bh=hLsGCfvIjddggU0ZywVY7s922FmOj7/Vd71hqxF2vbY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1670955282;
+	bh=bsAx81CS2oGtFlCOIKJ8N6Se9n8UswnoX6gUXWJhq9s=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LoPs+PjWzruUdSRAjAnSgsDV6ixfUtHZ/H+6Msith0Sv3BfcnG+WWW3oe1w6pO3Zy
-	 PEM6DlLfJW4bOUl58EvfC36KkBuKUJ8KIVcltRprdb9jw2InrBql/SZzLxWMBRAAyg
-	 bJAtva9bkiT3KlM4BMvIp4dvwRFXtwfAXjVi2Lak=
+	b=R/AoNrepJ/Yn3QV3rVhqDRECf6NE71hhLdS+OIpXjkDXESXjibiXD/1hascFNH6m9
+	 ieqmHG4F/UN/k6uMJN9wBQnjGdtoWnWLDvIkGIWZcgxKwdeOjnchEpwnZtmy40YhTU
+	 L5oAVpX2al6GWnRtHkBkGt1kMNY1URk1KLtA3LAo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAC28F80073;
-	Tue, 13 Dec 2022 18:14:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0126AF804FD;
+	Tue, 13 Dec 2022 19:13:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5309F80073; Tue, 13 Dec 2022 18:14:44 +0100 (CET)
+ id 21654F804E2; Tue, 13 Dec 2022 19:13:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
+ USER_IN_DEF_SPF_WL shortcircuit=no autolearn=unavailable
  autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAA03F80073
- for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 18:14:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA03F80073
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02AAEF804D6
+ for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 19:13:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02AAEF804D6
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LmjS55qI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670951683; x=1702487683;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=hLsGCfvIjddggU0ZywVY7s922FmOj7/Vd71hqxF2vbY=;
- b=LmjS55qIVbuY+189nVQKD1oqy1EGUguyEeaxkSWJv7W2LOw6W6XHldD2
- ZQ5LbiqaxARJHJCWgdlPkpGPisbN7TsHjgYFhK336ET3Jq3978b9Y/o0j
- 7P6samyFkIdedy9lghmYGn/hJ6+laCugBh3xwxq/IaPhlLJjcshvEGWmG
- qz/b7xd6sBZELFucs0NKOYsdFpuKqUrhVWdXx3MYB+tO/wEt4laUNbhy7
- j0Z/FjeC89W4GtqoVbpgwDRWaN6rBWNdp8YIhKQygpHeg2CZg1qYdekti
- 5+Bk+27joFmhydyxhsxdOw5GVIXvL1GHlO/lhJu+Je7LVnLA2YgTdBoNH g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10560"; a="404445152"
-X-IronPort-AV: E=Sophos;i="5.96,242,1665471600"; d="scan'208";a="404445152"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2022 09:12:32 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10560"; a="642156491"
-X-IronPort-AV: E=Sophos;i="5.96,242,1665471600"; d="scan'208";a="642156491"
-Received: from lvalluri-mobl.amr.corp.intel.com (HELO [10.212.67.174])
- ([10.212.67.174])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2022 09:12:12 -0800
-Message-ID: <d2debc58-9263-213d-17b4-fd738a7899e9@linux.intel.com>
-Date: Tue, 13 Dec 2022 11:12:11 -0600
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=VuOVc9dM
+Received: by mail-pj1-x102a.google.com with SMTP id u5so4240212pjy.5
+ for <alsa-devel@alsa-project.org>; Tue, 13 Dec 2022 10:13:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=bsAx81CS2oGtFlCOIKJ8N6Se9n8UswnoX6gUXWJhq9s=;
+ b=VuOVc9dMuIMJz0Dd34VYPlU6ugaxmknQDoMrG5R7uQ5/qpQpbyKwiY7mNU+QgDUtCK
+ VkpAdxjZCrFA2AMI7fBHmIIkmi/kUbLQPoxtN0WcjCl9Wu9pcPv2N9pbGogcYhmmgu9x
+ wuB1AkD9GkJYjpTrvyeJmuVJOnt7HPvElLbG7uivUVNghl8B8jEXZeTqTyTxUsFVtTS7
+ U2qeQkM3IsBjwUJnG2ATPrYF+QYaYNX0X/Kt4O3HyDCyAcRLNQkML35HHbvsC19YHzyq
+ Ue5043VbSlz6zLlvo1tcJHA0EmlHu3Ecg/ObI9fgQ6NOjD18pG5cCS68BdXHOs+DiSuR
+ 0Q4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bsAx81CS2oGtFlCOIKJ8N6Se9n8UswnoX6gUXWJhq9s=;
+ b=pJ/dCensruIwBI/172vu0udZW/nL6V0TZOrqc6rG53lAyKU0NuecNNZJSU+l7SHyU/
+ x/KtmPc+yrHnxFAiicMCUxvh4p6uJIw6SWJUWy8rOrAJswp0+063nj1jzMff58P7AXSq
+ Lx05E2z5Kvv6HapCVuY0GfXGAqgyvylgadiMs89M0eVE8XlaVfH877U6DhLlFCvD45fn
+ JbZSp6sJkA1ZV0pzNfhsV6+Khj+YXyKq580fITn6vrDKSXx4pt8mxkWTaJpshR89omRt
+ YO9RhyI0b72SzROpLbs1NpWVzDNBJLl63ZanAbJvSfgo34AXCrKDEsMFHnbJ3iAeC20V
+ HmrA==
+X-Gm-Message-State: ANoB5pl9koOBJoaTMl97ZhbXjVPV0vbX4biZJ+CSVpjZe2JwNODIEENo
+ IQjveLzkWfKQNQPSWOT3fx5UabdOvGTtiIUgWn5IKA==
+X-Google-Smtp-Source: AA0mqf4/WHF+AYjmztxjz2jxNUncNhbMJ1aubsknOZGZah2GaEZhPlFE9bFEzQuI53SC2AwxWPH0+sI2DPdk1GSfNbM=
+X-Received: by 2002:a17:90a:6708:b0:219:2b00:8d23 with SMTP id
+ n8-20020a17090a670800b002192b008d23mr412904pjj.167.1670955217708; Tue, 13 Dec
+ 2022 10:13:37 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open() breaks
- SOF Audio in Lenovo laptops
-Content-Language: en-US
-To: Joakim Tjernlund <Joakim.Tjernlund@infinera.com>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>
-References: <f7a515a0d5429b41348341874b78f3c3254970e6.camel@infinera.com>
- <Y5IOEAw5pjAvGgiN@sirena.org.uk>
- <8fa316d5-b525-2207-9092-da14f1d77232@linux.intel.com>
- <ade9deca-2f15-a3a6-97c3-7198f1cf0da0@linux.intel.com>
- <a31e0bee-6972-0c0f-7579-449fb412a0b2@linux.intel.com>
- <b54b48cf-3680-9f0c-8ca9-db904e4a57ec@linux.intel.com>
- <Y5Nfyo7VARU0TKoB@sirena.org.uk>
- <bf558787-0ca5-f99b-5ae3-3b0a30de9344@opensource.cirrus.com>
- <962b52d90af9bbb3bd2ff0a2a125037a80019a97.camel@infinera.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <962b52d90af9bbb3bd2ff0a2a125037a80019a97.camel@infinera.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20221213115617.25086-1-yc.hung@mediatek.com>
+In-Reply-To: <20221213115617.25086-1-yc.hung@mediatek.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Tue, 13 Dec 2022 10:13:26 -0800
+Message-ID: <CAOReqxihOWVh0rGqwqCJ3SEOnEpH3RDQv-U1PEQJ6Tj5e02Vag@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: initialize panic_info to zero
+To: YC Hung <yc.hung@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,42 +95,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "sashal@kernel.org" <sashal@kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ chunxu.li@mediatek.com, linux-kernel@vger.kernel.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Chao Song <chao.song@intel.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Trevor Wu <trevor.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Dec 13, 2022 at 3:56 AM YC Hung <yc.hung@mediatek.com> wrote:
+>
+> Coverity spotted that panic_info is not initialized to zero in
+> mtk_adsp_dump. Using uninitialized value panic_info.linenum when
+> calling snd_sof_get_status. Fix this coverity by initializing
+> panic_info struct as zero.
+>
+> Signed-off-by: YC Hung <yc.hung@mediatek.com>
 
-
-On 12/13/22 10:57, Joakim Tjernlund wrote:
-> On Fri, 2022-12-09 at 16:26 +0000, Richard Fitzgerald wrote:
->> On 9/12/22 16:18, Mark Brown wrote:
->>> On Fri, Dec 09, 2022 at 05:38:54PM +0200, Péter Ujfalusi wrote:
->>>> On 09/12/2022 16:42, Pierre-Louis Bossart wrote:
->>>
->>>>> Agree with the analysis, so what would be the least bad recommendation?
->>>>> a) revert the "don't zero TDM masks" patch
->>>>> b) backport the change to use set_stream()?
->>>
->>>> I would vote for b) unless other platforms report regressions.
->>>
->>> I don't really care either way given the backport policy.
->>
->> Neither do I.
->> If you want to minimize risk, revert the patch in older backports.
->>
->> Lessons learned:
->> Don't hijack a data member to pass something different from what it
->> is intended to hold.
->> Don't depend on a bug.
->> Don't assume all code is using a data member for what is supposed to be
->> in that member.
-> 
-> Did you reach a conclusion w.r.t what the should be?
-
-I read the consensus is for a backport of the 'set_stream' stuff. You're
-welcome to submit a patch.
+Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>

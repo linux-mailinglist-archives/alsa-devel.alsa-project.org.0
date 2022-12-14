@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F70964C1D2
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 02:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B54E964C1D3
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 02:25:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5BAC18D8;
-	Wed, 14 Dec 2022 02:24:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5BAC18D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5728C18B9;
+	Wed, 14 Dec 2022 02:24:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5728C18B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1670981092;
-	bh=7JSjEu285DxeL8jEB+//lgLw0/8gVz+dH7jMs/BkiYs=;
+	s=default; t=1670981112;
+	bh=XE32pqmOvHzHx+EAxzdBOFAGdK0KSV4VaC+xrgPysj0=;
 	h=From:Subject:To:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=QDmhf4wnBbHhTrO4AXvpurMZ88ooPchFi/hn0MXub2zQ8DJkl/7TVtz/tZKwEqqTC
-	 +Vg8Pw4u/7U/MnC1BrlxZvxzsL3lj5EyF6+sEWyRhWn5KUdZg7dI7dgWI/IVuXBj1k
-	 WjISeu1HmRF5H41urnCxWw39jB/z3vIopj2+g4J8=
+	b=TuCbJwKsnmeBRuMxqxM1KRl9VJs9NsbLkTchzHUBVs20+SP0lWe6IzTJ9fLs40Ywj
+	 C28Ndmnh4r4/b0O2B8XsX9+RlqG4SNIC1xE0cp70RCOGbKo4lzOV/LLLEdnsIOCrvs
+	 HfC3JUy3KyP7Rhm+noD6E7GCDOVsba5wI4jy+g+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C1DAF804D6;
-	Wed, 14 Dec 2022 02:23:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA87F80537;
+	Wed, 14 Dec 2022 02:23:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A83F4F804E2; Wed, 14 Dec 2022 02:23:48 +0100 (CET)
+ id AF476F80551; Wed, 14 Dec 2022 02:23:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,102 +36,102 @@ Received: from JPN01-OS0-obe.outbound.protection.outlook.com
  (mail-os0jpn01on2091.outbound.protection.outlook.com [40.107.113.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACE54F80537
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 02:23:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACE54F80537
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60764F80536
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 02:23:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60764F80536
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=OuSfASQZ
+ header.s=selector1 header.b=cJuztsOS
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QBsRhd9/hkuvywviP/Cvvl5eRKJgJO0NVV6fActB9CQKhahkx+/KyT/OZBp3jakx4bN0OwQUxjIz4w8pxKG5ucd/Y4S5Q7YtWgwzmo/cilOUiIhGgXBCXr4xPKJrSny6ad4ZxRcTExUvGgRcx0Ey04L29LfPYU5+MAP3SpWQn7XlyoFtjrDBCBXfso2HzaysVVBXqAQ7WgGrLcYYQ0fXVbf3iWoDpna+r8rRstjVp/mI20JjA4d6trM6LviR96GC4/UJUiQH+53ACFHgBf+sWmquS47ffhC/gEBYQDrkPP0Zv+V/XxJHZjpPuIpKPAnu/037l/G3PINM0k2E24mB4Q==
+ b=eMXTkIta5bs1QRykzCDoXsiFvbgQ2czEswyp2pBV+2RQP4e++EfVXHHaaahsBoNv0mJHTSEHeEYnAYNk+PKOSwJlHFfNJpOMR5o7FuZPLxQMUYx4/0Qv6OsRI1M3F0rshJAPpsGqUN+QEg6H3q/qlsxHfc2ZVYLxsILPw9MKMvvjEh+mxszGXYLWL3MgABVUBDFvGFCKCMjtnEHWJaafvCsHesk+4kNypQQHKUZJum1DJsrgJcpydAycP6Lv5l9KBYFAzLrD9jiuB+UqoTiqzozq6ApnaqD/TeBcsgrFfXQ8TTlUmSkhbkDfy3nL1Vm2W6lcYPC2NYPRPxPcDnNy/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MBrBD0c0L6UAQpfaXMg2aSYGMpAahGqn+zB/Tscfu7g=;
- b=ZYq7BurWWW4iUAKWC5KN+TZeUZ503yZ3olbydmQ0JpC+4NijsSEGPdxuR5aPPomUYoGOO5Nst2bccwtKhdMxwZ9KmMDOVkeV3Wo6BFTd+Z0Qu8k5b/50e5wpCuDq5hsWkNV0L6WEJ5litSE8szvu4MddTP2NOxpVYSjoYZ4uotffLs8H6eESpa9V9XqB5nrs4NQ9jVDOYDAxJZcU/Akr8fm0jps5NqbkAv0zAbM+qiehT/10MUHvo0RbKx+nE6zGzxswRcc8hPSTn6CBD/SWQSBlguEj2fwjfwofYJUhVkM596jifrLwFjn6kBV/wvXe9/BGNsKoKtZUBGgVet4EQg==
+ bh=D2w41nrpzvW9yNY1Tg4DK63hjFHtdJ40U6K7Xr37MCk=;
+ b=BCVtTGEt+jFNfVl1LbxmiEX0e99iKj3rOYknK8FLcOq7hJo3fAHausJVg1ppneFaRl+295GHDpMj7ThOAxeY3D/ToaPkEP0HvyP/oWqemxQN6kzAj957r3THpm64b7nK2oeclmtkin24Y1IBCOrCpKBAZuadOFTZ8omQWK9B080JdOzE3RKdWRrBjSNipedfwXRAafk7b84Av/VLGJAX/sFnFM0zt0ZaaQog50zfal01Gml/z9mCJN2+B/RKkE6DEpYPZioABSPQ/ZXZDKNAV8HO+VU13XQaaKXyooEnLnyQEWLX1uXvx86O1og2KGesLy0oGqR95FmLiu7bojBJTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MBrBD0c0L6UAQpfaXMg2aSYGMpAahGqn+zB/Tscfu7g=;
- b=OuSfASQZngXOT6Efw2UtsmR1qr+s1+sdM6fWYxmABUQQcoguJqg2f4T5M3Rcey2Yj7qXPLDBwHMx6hRT9P5ZCpY0RJ4e/pSvkZJi/p5iH5AQZO4jcKCJooKapWHtROKLkdOgG5EMuuPiJohi5t/v+TEok4wdD0SoS0g+HRORcE4=
+ bh=D2w41nrpzvW9yNY1Tg4DK63hjFHtdJ40U6K7Xr37MCk=;
+ b=cJuztsOSR9iXVU/X90D/MzfYI8WEyYXmgfpcD4mmmWCno5swuvec2ZibGda25UHua/QkvN925jIISO2nFitF9R2rS+/O7EU7E8UGa9ug1WRtett7VyTi8Y2N79LS6zHgEbNu3nn2NUdHGQ27RUg5cS4XaRE0OGnJO0bebLyupD0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
  by TYWPR01MB9887.jpnprd01.prod.outlook.com (2603:1096:400:237::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Wed, 14 Dec
- 2022 01:23:34 +0000
+ 2022 01:23:44 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::a5a6:2344:db9:431]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::a5a6:2344:db9:431%8]) with mapi id 15.20.5924.011; Wed, 14 Dec 2022
- 01:23:34 +0000
-Message-ID: <87lenapyll.wl-kuninori.morimoto.gx@renesas.com>
+ 01:23:44 +0000
+Message-ID: <87k02upylb.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 07/11] ASoC: dt-bindings: nvidia: use audio-graph-port.yaml
- ports
+Subject: [PATCH 08/11] ASoC: dt-bindings: ak4613: enable Of-graph
+ (Audio-Graph-Card) style
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 In-Reply-To: <87v8mepyoy.wl-kuninori.morimoto.gx@renesas.com>
 References: <87v8mepyoy.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 14 Dec 2022 01:23:34 +0000
-X-ClientProxiedBy: TYAPR03CA0019.apcprd03.prod.outlook.com
- (2603:1096:404:14::31) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Wed, 14 Dec 2022 01:23:44 +0000
+X-ClientProxiedBy: TYBP286CA0018.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:404:ce::30) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB9887:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1439c89e-dcf5-4430-cdad-08dadd71d1d1
+X-MS-Office365-Filtering-Correlation-Id: 37a046d6-3670-4cc8-2c93-08dadd71d7b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kFmCucAOTM6c3fWuHL2pq6ukc/sNlGKRQBV2AYIQO4psmv6+Bo68I+Wq2xMpe398YRazf6yirJw4zyo2PqtXMdVOfUH7zuOLkFmgiUCkFylZe/o/sF88GVKivE2mQjDJDYwU7kaYh6/6X65BW8stA9lZ2lBWcHLa4ZEooaCF6IpIrdRj/AG8445mQeNJVorYyZQCwUGC3FnlgSOjT3WjzWGlIQeqEQnJR//WK0Cjs9g1RNNhptHs5M2++V1Be+08/RIQLBeBhxvvWh9J7T2BFgMP3dOWtiHTE1e4OAGSVVLfc28imIQ/zujTFXMJhVsnMcvP17PhHZ5QCMMzS6d8OuGSMnS+dcJ4SArOo85bDmXhdwy87UMO/JLsPr5zseFlyef3wbPeWdIWUqwAJRxZDSWICaodVcRbo3F4UpRaQt43TXS/YhzjDw+v3nZjZAGrVmnL0Z8MguvzHECU8od6vwhS4Qm0MJ/4Oaqny3/xCgf5etW5qvCzfpIxHQR/pYG55hk2WdQX+072IJCRoWryGIta7HJ3HRJ2Ds0SwXCFew4acUenVRppTdXIDXbhSv5YoCfjIXyGmrhTcWjALMGr7UnKEarArkHT2Pr+C5CfqLPXDGv5Pe1mOhmXpW6CJ1zOhRtRNLJ+C94Fg9N1ENjKvFCqiofypN4kNeC7Ctq5perBP17zjoHXn8i2Xt7caq692fXKXrvpqqlyf65rl7oXnD8aCZvg2sFttXKGv/6iDw0=
+X-Microsoft-Antispam-Message-Info: 0G76UOUG9++G0J4X3TNZgiCd+R42RxntL5yvfeGLLX87B1ExC/WR1f4t2e+PMva5gASUOGplU7PFhaM2dDUKFRw+U7RjhoQVW+3XxqcWNtysUZ/0f54SenL8GaZCS+SWaCUs8T9dOOZzomepOOmkuernlOTA0XSFq4ED3rG5kWmif3m1SF4PfdxsE0vzoOiCQMoKN+rmSbi8axpDJET3mLeY63NwpFvlVNUs9y/hDubxnBqRbtlKE7JQ3dmRoXe43q+77XUN3pqrt2VVKztgSs1JPSbO7ETgC+1ccJyJDC0xIEA9h15zFUErKUZJU3nOT2lSEZRwjbZMeWA7bwINTIMJKmr5o9Z8BDyOz3XwV81jZ2/ugTVlyRWsZphbinVQXPa3nE/qRH46vpdXqE8CYUGEmC2Zn5+0kHG7vCWDAqSI7zNBgs+eQBEzWgEa89GZbN+DT3JBQNLOoRXwTBDSwozlU3/W9DuS3a5+LC8vuFhn/y5ZxDhwN5sV8sdmagLaFvGpMGj7eke8HA9MEo3ugkn9ZmrNK4BzYlkUt1d75sJMofsHPLsUgWTUzkrQQtdZ90oy/P4ty1v6otR5MBA7ajqmp2xOiD/Lrz59sbGwM3JQLLWlxozM47aQgeahehJ0dnyPelenB+j7dJGv/oJl9fKPShY4VAMIsg4yaJLpFlHQr9D/9fKoj64PNzKRqFsFDC5PBMACqJOaR6bh/5ad3A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(366004)(346002)(451199015)(6506007)(83380400001)(41300700001)(478600001)(6486002)(2616005)(8676002)(66556008)(36756003)(4326008)(66476007)(66946007)(38350700002)(86362001)(38100700002)(2906002)(52116002)(26005)(6512007)(186003)(5660300002)(54906003)(110136005)(7416002)(316002)(8936002)(30864003)(21314003);
+ SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(366004)(346002)(451199015)(6506007)(83380400001)(41300700001)(478600001)(6486002)(2616005)(8676002)(66556008)(36756003)(4326008)(66476007)(66946007)(38350700002)(86362001)(38100700002)(2906002)(52116002)(26005)(6512007)(186003)(5660300002)(54906003)(110136005)(7416002)(316002)(8936002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wUxr8lpwQnpmfBemIPj3kmeeRSomiaWG6Nt3SkvUxcFeDyMb69I/lmskhRYp?=
- =?us-ascii?Q?+e31gVlBWSS1mQ5dVbsCpHMuubVXy/qWQiS7UOadOr/mKO/DJVp6ud3XEuK/?=
- =?us-ascii?Q?VQkwzvOXTWtVizv/vBJ1nOMkjtZDvVTldJ5KevDRnH+jNuobQ1s7h7KCYIda?=
- =?us-ascii?Q?L9aO1KM2TdDE2dljtElQ0TNK5duGynOJ7M6UJeAzbZKLaWxHECqDW1Ribfe/?=
- =?us-ascii?Q?qxFy/tHEUfs4LN8UoSia4p6MgUnH3iU3WB+Gt/2xC4GqHZmz2vY4SdGffD9q?=
- =?us-ascii?Q?c1/7OqP+NX5TGudkkAQI1E7MZbdQOKhXk7QkSCau0rwnny9VkNhIGx5d2FWU?=
- =?us-ascii?Q?8q/Ej2r4PfEq7GhQHhB610xW0jN3KgfeaEo6V4MtpZqv90ijMYj1njIKWzmz?=
- =?us-ascii?Q?FuR2BIEoypQW5fz2EGx3jytVQsmpbWwOiqwP9rj8c0PowW0Yrv0ll/6VxL0x?=
- =?us-ascii?Q?G0NlMvlVoKzHQ6PNoHXf3vetW7KY2Q4ps6CFjV3E01gJK1aeRaNYfuVa/jtg?=
- =?us-ascii?Q?iR25Z3aKxmkfBnOxOYwYaZv5e8Uoo/E7M81hTmyS5gquKZFxwcIRrYWBVY4W?=
- =?us-ascii?Q?27Ur4w2EN1Xfe17N0rRwfoKjvIqIzSVmK4MkqdDWlTI8CdtMgPGwaxwes7Mr?=
- =?us-ascii?Q?0da7bRlHaW5TQ13Os+LN9gFbBweaK6r3Z8uI44xgfzynfpso1a2iVE3hXLsQ?=
- =?us-ascii?Q?3PlNiF+ii4pvuQEePPYfZ3nZ6cnbhuTurfDk24DIZHK7BA49Z66uA+ztmda8?=
- =?us-ascii?Q?WqbLrtDBTLCOyjUWNhCZXphivrO++BSP5ibtGMMk4wYCJ9WkVjKyuNA46nvi?=
- =?us-ascii?Q?FYcSkAG2BERfxYKf3IeUQrGUTK0BUNeUf6ai6JSBYsN34qAkHzOrLEPNYkN7?=
- =?us-ascii?Q?6PUG2zhO7+oluoUsV0JzZHtMJFLuvWftWHGF6W/SA+6aSq+FHZfo0cJDYfH3?=
- =?us-ascii?Q?DM0L+bNLXXi5cRuoaDVwrgA0W0bfTuF3WCOqYTa6X9LbFcVUgSgUJnCV2W8x?=
- =?us-ascii?Q?di4dPxXWC7Vs8nxNZDkBFAGzHgnKh/OPHT9Sz4jBgQA/SjA2gGCaudC/Hei1?=
- =?us-ascii?Q?s+OpIAYPBqqEN+/t3aPNNKuZKnRhATS1WRLFx0wWH+0BwdSIypwY+I0UzzeW?=
- =?us-ascii?Q?8pF2o8AHWd33rmGn52XtN+8ofhRg8LVeJ98WrQuPxo2bL/R1RitOkyuRjXJA?=
- =?us-ascii?Q?yK+0Z9AoDFaSv/h9ZH4TPUjO79gA1AKRaFiiDClVN1JFR7R/udh95hGI88tj?=
- =?us-ascii?Q?kWoiqO0XI1x6hSyoe0wNommEjPHynyM+2No/xg/g4emu2NitLZGZK5pPe5Y7?=
- =?us-ascii?Q?htYmsChdN6zWbRyeTHSEkOYYrrYnBghs1RQQ5NAXeVHVtk/ZrSljuRUgaj9i?=
- =?us-ascii?Q?hsDjhfauyJgcmoU9mUXYjLrsCrhacTXtQAQ9h7bTUfiAFpozFC6312KTUDSE?=
- =?us-ascii?Q?Mj/1h85o2fZJm/YK37Ep1sCAes7+VdTBiksHzLQkCkusq1lh9oOco1q51+cQ?=
- =?us-ascii?Q?aFSBH36aOk0sl2kFfWtN1AjyzgE/WmO2WpMr+E96E2q5njfoHgtWxj6CuyqR?=
- =?us-ascii?Q?nevvg+wufeGvLKX6HMs1LiEc//qdPizSob4tXbYVsOejt+S2qBScHHQkro8W?=
- =?us-ascii?Q?DVkTvY2oj9ky5YV6p4nCzIw=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+gML+Oj92/SS7NAsPnh5dW3C0ihgWl6tSNZGz57RK51/iy9JQWvpCjIY+s/W?=
+ =?us-ascii?Q?7Jz9fLuuS9QTc38n8xe1tBj+OCXOgafr3DwxLnbg2Ws3z3RNmY38ORLhAJ5u?=
+ =?us-ascii?Q?OMr9goEMTXddLY72UxEbwquNdgtWhMVpJ2oSrLPSckrCa3AyzZRwZ9ngVpKo?=
+ =?us-ascii?Q?s9XYZrTNp5mtevoJkVUfd/5RnDEqyZRPU6UbViqBVicqpPdIsLj7uOGYcowA?=
+ =?us-ascii?Q?YZV3eEQ5VC52GRk+eOj/yLDPpdxTJOxifQPmO45b630tcl6gOzRaNYFos+OS?=
+ =?us-ascii?Q?k2yHdckZh5YRzHva/KFgsoLKMQ3rrvGY0PObbJQWDf+O5tu5dwwuM+fx16GY?=
+ =?us-ascii?Q?DRYngcoVDD/3QN6OTTgPT0J228FS97cf8NSSyM0iPwj68n3qrJ1a3uU8EIyb?=
+ =?us-ascii?Q?npTDxnEthFZjEVivN0F8MCSUgJUoEMKrHZ39nj9i6QVTy4E45Tfl/R2aiZuF?=
+ =?us-ascii?Q?9FkwEEWIdZxYEqKkwFf+MGKngI8QKN6JoC625W/0hrYwQDvr9r5kcIbixlL+?=
+ =?us-ascii?Q?dfYQ9fTcxtqj2/bkhB48x5OM6WYJqHwWP7mEWoGY/0Y57DPZObHF0d16onMf?=
+ =?us-ascii?Q?ZhWTXAQophz7RHhYh3vyc3dmk53R2xixXiiF31GkjrjQAGfcZZZ5K+VaEVCp?=
+ =?us-ascii?Q?YADF0Xz+A0CuJ++Y/hMfjEEcRXu+Pr19dcgB08J/1uI307uHlsh8+ONAmhL8?=
+ =?us-ascii?Q?wpfJi2Z/hJ1glGsp+EpHX/+dELuCUSLq7ue3l7isl4vNYlzGqs6dn3w2z9gl?=
+ =?us-ascii?Q?jK2LQAedEc7Okf7mBXK2rvaLstiIZkmTnf6+ZE7zn5hWxnKQP84xYlNS5UHV?=
+ =?us-ascii?Q?DLYjDBnQFOCMB+MHZngdwlBqvZSvcAM5Rx7bA21j+Mq9Jt8f5C1CpB/gjUbC?=
+ =?us-ascii?Q?xtpZNJzPnJHmO/+6HDlToDDHaIYFQyt6GAlsHJWsp9CZFgpp4/UEFlkNqc8y?=
+ =?us-ascii?Q?yM/ZiTe0Q0XVml5YTmY+R8eE9JrY5+BDdKuomGTSGvvLeAXtuXQrCSnG3lBq?=
+ =?us-ascii?Q?Vziuhg7E1cgr1n8MLtBmeFJ8cJ1wZ+z4lksNe9CQef9qN0j8EVYcdbl9NxG2?=
+ =?us-ascii?Q?zVIPzrHwBeQ8fFqpkfDZmLGjJc+e0BvNmrz2EbpdqBNAsz1+WAmjfPrNkINo?=
+ =?us-ascii?Q?Yl90H3By9bog4IViMRDiSBq4wa/PFns8pEbCexjX+e8J87hf6+I9CBFsEz2P?=
+ =?us-ascii?Q?Hf6rLLbiE2r/gukI0raBmctrIB6oSJRY+LSr673YCDb22yY59l7Wdybm7jqD?=
+ =?us-ascii?Q?8n7W4dN7GrwnbscAty/QeN5zoqUEmeXYAknIAKzb09MwPLp0IHvqhuUExMEp?=
+ =?us-ascii?Q?mdnr0jL8zjpZgROk+9D0HKICz78q6/BcQxcQMS7BrSaSn0YLdNoNbOEhrdgP?=
+ =?us-ascii?Q?3/YpUlsMkqNhci/XFy6kb3HePJvd0V+f/toRc8fpG2VhHRemhhgTNmQRmL7+?=
+ =?us-ascii?Q?9Mu/R7vjM0rAdPjmmtT00TEAszoc6b+SQmX6ScTnDa+MSQdtXg5KIYaeqUtr?=
+ =?us-ascii?Q?PvWB1c6fMusq1lHxUU3JrwerB8cTuVb8tqTmciZQSleUgVLnuTk2ErAYRJf8?=
+ =?us-ascii?Q?HoUAi5uLoXX1DmUYJGf1ONXkXhan8an+mIoQ5Ffn88pLDsym5nkK2hXe6Rif?=
+ =?us-ascii?Q?xyRvlgAyVsgfpaSiLi8C3As=3D?=
 X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1439c89e-dcf5-4430-cdad-08dadd71d1d1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37a046d6-3670-4cc8-2c93-08dadd71d7b2
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 01:23:34.8670 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 01:23:44.7105 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bf53CZTyFT12Y3KSH8Lf4ktZ1UBQW0UnNrmQM9Zzb4OCakLjKVZm7KQGicNdnSkvqQiiko/+ckf2KvZjsMJzeKzCBUTDh0rmolMy4vgc9KVpbyh+Ub8gTOETIxWAXP1O
+X-MS-Exchange-CrossTenant-UserPrincipalName: sKemjk4Icra7216iv1X25klbVmGRgDin1nsOxXUaV2/bkggfm7I4UstlQomZ6CHu2DNJORYtcaUONkAZLKrRCZYg6lOiv2Ivk17kg+QH8FsP9eo8LVxz56bYLonM3TCB
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9887
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -154,390 +154,36 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-nvidia,xxx.yaml is using original ports schemas, but we can now
-use audio-graph-port.yaml#/definitions/ports[-base] for it.
-This patch switch to use it.
+ak4613 is possible to use Of-graph (Audio-Graph-Card) style,
+but we need to indicate it. Otherwise we will get below warning.
+This patch add it.
+
+${LINUX}/arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb: codec@10: 'port' does not match any of the regexes: '^asahi-kasei,in[1-2]-single-end$', '^asahi-kasei,out[1-6]-single-end$', 'pinctrl-[0-9]+'
+	From schema: ${LINUX}/Documentation/devicetree/bindings/sound/ak4613.yaml
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- .../bindings/sound/nvidia,tegra186-asrc.yaml  | 14 +++----------
- .../bindings/sound/nvidia,tegra186-dspk.yaml  | 21 ++++++-------------
- .../sound/nvidia,tegra210-admaif.yaml         |  7 +------
- .../bindings/sound/nvidia,tegra210-adx.yaml   | 14 +++----------
- .../bindings/sound/nvidia,tegra210-ahub.yaml  |  7 +------
- .../bindings/sound/nvidia,tegra210-amx.yaml   | 16 +++-----------
- .../bindings/sound/nvidia,tegra210-dmic.yaml  | 21 ++++++-------------
- .../bindings/sound/nvidia,tegra210-i2s.yaml   | 21 ++++++-------------
- .../bindings/sound/nvidia,tegra210-mixer.yaml | 14 +++----------
- .../bindings/sound/nvidia,tegra210-mvc.yaml   | 21 ++++++-------------
- .../bindings/sound/nvidia,tegra210-ope.yaml   | 21 ++++++-------------
- .../bindings/sound/nvidia,tegra210-sfc.yaml   | 21 ++++++-------------
- 12 files changed, 50 insertions(+), 148 deletions(-)
+ Documentation/devicetree/bindings/sound/ak4613.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-asrc.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-asrc.yaml
-index d82415c21271..7ab8dd2fc813 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra186-asrc.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-asrc.yaml
-@@ -45,23 +45,15 @@ properties:
-     pattern: "^ASRC[1-9]$"
+diff --git a/Documentation/devicetree/bindings/sound/ak4613.yaml b/Documentation/devicetree/bindings/sound/ak4613.yaml
+index aa8a258a9f1c..99a90095a76d 100644
+--- a/Documentation/devicetree/bindings/sound/ak4613.yaml
++++ b/Documentation/devicetree/bindings/sound/ak4613.yaml
+@@ -22,6 +22,13 @@ properties:
+   "#sound-dai-cells":
+     const: 0
  
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
++  ports:
 +    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       ASRC has seven input ports and six output ports. Accordingly ACIF
-       (Audio Client Interfaces) port nodes are defined to represent the
-       ASRC inputs (port 0 to 6) and outputs (port 7 to 12). These are
-       connected to corresponding ports on AHUB (Audio Hub). Additional
-       input (port 6) is for receiving ratio information from estimator.
--
--    patternProperties:
--      '^port@[0-6]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: ASRC ACIF input ports
--      '^port@[7-9]|1[1-2]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: ASRC ACIF output ports
-+      port@[0-6]  are ASRC ACIF input  ports
-+      port@[7-12] are ASRC ACIF output ports
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-index 3d538df878ea..6cfd36bf21e8 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-@@ -55,21 +55,12 @@ properties:
-     pattern: "^DSPK[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          DSPK ACIF (Audio Client Interface) port connected to the
--          corresponding AHUB (Audio Hub) ACIF port.
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          DSPK DAP (Digital Audio Port) interface which can be connected
--          to external audio codec for playback.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+      port@0 is DSPK ACIF (Audio Client Interface) port connected to the
-+      corresponding AHUB (Audio Hub) ACIF port.
-+      port@1 is DSPK DAP (Digital Audio Port) interface which can be connected
-+      to external audio codec for playback.
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
-index 15ab40aeab1e..82141af47dce 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
-@@ -40,7 +40,7 @@ properties:
-   dma-names: true
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
-+    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       Contains list of ACIF (Audio CIF) port nodes for ADMAIF channels.
-       The number of port nodes depends on the number of ADMAIF channels
-@@ -48,11 +48,6 @@ properties:
-       in AHUB (Audio Hub). Each port is capable of data transfers in
-       both directions.
- 
--    patternProperties:
--      '^port@[0-9]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--
- if:
-   properties:
-     compatible:
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml
-index ea0dc0ece1bc..877ab4dea539 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-adx.yaml
-@@ -42,22 +42,14 @@ properties:
-     pattern: "^ADX[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
-+    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       ADX has one input and four outputs. Accordingly ACIF (Audio Client
-       Interface) port nodes are defined to represent ADX input (port 0)
-       and outputs (ports 1 to 4). These are connected to corresponding
-       ports on AHUB (Audio Hub).
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: ADX ACIF input port
--    patternProperties:
--      '^port@[1-4]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: ADX ACIF output ports
-+      port@0     is  ADX ACIF input  port
-+      port@[1-4] are ADX ACIF output ports
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-index 89f7805de274..a64cd893deb0 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
-@@ -58,18 +58,13 @@ properties:
-   ranges: true
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
-+    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       Contains list of ACIF (Audio CIF) port nodes for AHUB (Audio Hub).
-       These are connected to ACIF interfaces of AHUB clients. Thus the
-       number of port nodes depend on the number of clients that AHUB may
-       have depending on the SoC revision.
- 
--    patternProperties:
--      '^port@[0-9]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--
++
++  port:
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
++
  patternProperties:
-   '^i2s@[0-9a-f]+$':
-     type: object
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml
-index 1aff61f072bb..cd5ca38bef75 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-amx.yaml
-@@ -42,24 +42,14 @@ properties:
-     pattern: "^AMX[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
-+    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       AMX has four inputs and one output. Accordingly ACIF (Audio Client
-       Interfaces) port nodes are defined to represent AMX inputs (port 0
-       to 3) and output (port 4). These are connected to corresponding
-       ports on AHUB (Audio Hub).
--
--    patternProperties:
--      '^port@[0-3]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: AMX ACIF input ports
--
--    properties:
--      port@4:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: AMX ACIF output port
-+      port@[0-3] are AMX ACIF input  ports
-+      port@4     is  AMX ACIF output port
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
-index 0f9d2b461e02..9166c685ac05 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
-@@ -55,21 +55,12 @@ properties:
-     pattern: "^DMIC[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          DMIC ACIF (Audio Client Interface) port connected to the
--          corresponding AHUB (Audio Hub) ACIF port.
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          DMIC DAP (Digital Audio Port) interface which can be connected
--          to external audio codec for capture.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+      port@0 is DMIC ACIF (Audio Client Interface) port connected to the
-+      corresponding AHUB (Audio Hub) ACIF port.
-+      port@1 is DMIC DAP (Digital Audio Port) interface which can be connected
-+      to external audio codec for capture.
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
-index 12cd17eede99..f8f71a453575 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
-@@ -71,21 +71,12 @@ properties:
-     pattern: "^I2S[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          I2S ACIF (Audio Client Interface) port connected to the
--          corresponding AHUB (Audio Hub) ACIF port.
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          I2S DAP (Digital Audio Port) interface which can be connected
--          to external audio codec for playback or capture.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+     port@0 is I2S ACIF (Audio Client Interface) port connected to the
-+     corresponding AHUB (Audio Hub) ACIF port.
-+     port@1 is I2S DAP (Digital Audio Port) interface which can be connected
-+     to external audio codec for playback or capture.
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml
-index 570b03282aeb..dd0ba9742c06 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-mixer.yaml
-@@ -40,22 +40,14 @@ properties:
-     pattern: "^MIXER[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
-+    $ref: audio-graph-port.yaml#/definitions/ports
-     description: |
-       Mixer has ten inputs and five outputs. Accordingly ACIF (Audio
-       Client Interfaces) port nodes are defined to represent Mixer
-       inputs (port 0 to 9) and outputs (port 10 to 14). These are
-       connected to corresponding ports on AHUB (Audio Hub).
--
--    patternProperties:
--      '^port@[0-9]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: Mixer ACIF input ports
--      '^port@[10-14]':
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: Mixer ACIF output ports
-+      port@[0-9]   are Mixer ACIF input  ports
-+      port@[10-14] are Mixer ACIF output ports
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml
-index 4aecbc847b98..773b00b081fb 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-mvc.yaml
-@@ -43,21 +43,12 @@ properties:
-     pattern: "^MVC[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          MVC ACIF (Audio Client Interface) input port. This is connected
--          to corresponding ACIF output port on AHUB (Audio Hub).
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          MVC ACIF output port. This is connected to corresponding ACIF
--          input port on AHUB.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+      port@0 is MVC ACIF (Audio Client Interface) input port. This is connected
-+      to corresponding ACIF output port on AHUB (Audio Hub).
-+      port@1 is MVC ACIF output port. This is connected to corresponding ACIF
-+      input port on AHUB.
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ope.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ope.yaml
-index 9dc9ba590fa3..89dff2e961db 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-ope.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-ope.yaml
-@@ -45,21 +45,12 @@ properties:
-     pattern: "^OPE[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description:
--          OPE ACIF (Audio Client Interface) input port. This is connected
--          to corresponding ACIF output port on AHUB (Audio Hub).
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description:
--          OPE ACIF output port. This is connected to corresponding ACIF
--          input port on AHUB.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+      port@0 is OPE ACIF (Audio Client Interface) input port. This is connected
-+      to corresponding ACIF output port on AHUB (Audio Hub).
-+      port@1: is OPE ACIF output port. This is connected to corresponding ACIF
-+      input port on AHUB.
- 
- patternProperties:
-   '^equalizer@[0-9a-f]+$':
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml
-index 694f890d6305..04c550863d88 100644
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-sfc.yaml
-@@ -40,21 +40,12 @@ properties:
-     pattern: "^SFC[1-9]$"
- 
-   ports:
--    $ref: /schemas/graph.yaml#/properties/ports
--    properties:
--      port@0:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          SFC ACIF (Audio Client Interface) input port. This is connected
--          to corresponding ACIF output port on AHUB (Audio Hub).
--
--      port@1:
--        $ref: audio-graph-port.yaml#
--        unevaluatedProperties: false
--        description: |
--          SFC ACIF output port. This is connected to corresponding ACIF
--          input port on AHUB.
-+    $ref: audio-graph-port.yaml#/definitions/ports
-+    description: |
-+      port@0 is SFC ACIF (Audio Client Interface) input port. This is connected
-+      to corresponding ACIF output port on AHUB (Audio Hub).
-+      port@1 is SFC ACIF output port. This is connected to corresponding ACIF
-+      input port on AHUB.
- 
- required:
-   - compatible
+   "^asahi-kasei,in[1-2]-single-end$":
+     description: Input Pin 1 - 2.
 -- 
 2.25.1
 

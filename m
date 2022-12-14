@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E66764CCB6
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A820A64CCB8
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:55:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD4902A2A;
-	Wed, 14 Dec 2022 15:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD4902A2A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 419D62A38;
+	Wed, 14 Dec 2022 15:54:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 419D62A38
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671029716;
-	bh=l9Cc7KBiFu1aontYPmP7BSrxji8RnQamGv94FhyVBtQ=;
+	s=default; t=1671029740;
+	bh=w5xhvVMm8HcONvBFdH0GaBJz/7H0mrmGXMjWGZuBv8Q=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=IZI+JhE9h9cqFD/ZfowkHB5MZ7sn8QD1uLdkkqILUC4rgfJZPott7vt6RANeZ7yOD
-	 ycI4cFZ4pggnnS2vKfjs9oCncEvDxpwX3naBKj9aTAV7u5Z8gJ8Z75EVbyFevR+Cmm
-	 RPSyPxK+oDHhq7VGn8oOqYfIr4h+5DSdJKYtqHA0=
+	b=UTh1x/p7FAqXH8dLkFoJTm9VMebk1WhdpZ5UPgYkq/fDEg3hwDVed2ozKzDePehCy
+	 NFRjEFUOtg8yqa9Fb1QeHCTrUoCTNWnVCi/zFydq3x2TPW8qsT93VqMEAK6n7Fv3At
+	 Pw3FDYjUb4VdoiAGWAp+OTi7nSUYX0xJdGuFtG+A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16208F804F1;
+	by alsa1.perex.cz (Postfix) with ESMTP id E3EF5F80519;
 	Wed, 14 Dec 2022 15:53:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B903EF80519; Wed, 14 Dec 2022 15:53:53 +0100 (CET)
+ id 5DE8EF804FF; Wed, 14 Dec 2022 15:53:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9688F80141
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 15:53:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9688F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2562F804D0;
+ Wed, 14 Dec 2022 15:53:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2562F804D0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YtCSZl8c
+ header.s=k20201202 header.b=Nl26XP32
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0ECC6B816B0;
- Wed, 14 Dec 2022 14:53:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F2AC433F1;
- Wed, 14 Dec 2022 14:53:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9CCDA61807;
+ Wed, 14 Dec 2022 14:53:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54770C433EF;
+ Wed, 14 Dec 2022 14:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671029627;
- bh=l9Cc7KBiFu1aontYPmP7BSrxji8RnQamGv94FhyVBtQ=;
+ s=k20201202; t=1671029632;
+ bh=w5xhvVMm8HcONvBFdH0GaBJz/7H0mrmGXMjWGZuBv8Q=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=YtCSZl8cvB/QXhSAYKuhZzPHHG628lXAjbD5nxDroyMCbvlbzmn7reW7vnAciU7Lp
- L18g/NewmYNWBIQcuNwkBGwLxXhwhaAuG44G8Gp7/BCpXH8HmSPTBLD8zRW2vAJkPP
- FzzIENgFmllE4nHGe3I8oS+Wc7dQKArbGXDrAFIniv2hY8N5NSm+P8CAmuEwTsIzu6
- xeDryC4NdcptuHz6LGDzfdZxest+XAoPitTd/kDbswuYX9rxIm8Ey7SEDyn0XjnKOF
- Ahs2z/7vqiId4Qe16/Q+KpGE3PrrYa/MsloFuPLAeRtFyZy75yuMIlZz+q8hVguNLi
- gzn9l49Pyqkig==
+ b=Nl26XP32SxbpeOA3E7n4KLxmMIyuxGZPgbGDEYUueETTuCIhMhZz1JUnrIC/ufWYP
+ 8eetISDpNIk5bH/qt3D8VjaKqGpE5y0dmyOrKWFqQwCm0nbH9ug1SYHO8ZOGcT5+u3
+ RgII5HQxOL9HrcZK0ndL1oL+FWTfyd3eddZQwlgwjkP0bQFBOo2Jacz/0bdh1YfskP
+ ft7jQhHjFtklBVqVd/3x2oMu/YT60dGF7vSL7pxRYfguRXIpRQUbvY3vtJ8ST4tiJY
+ B9YsN3HSFf6rs3juaYnTCTB0TM2ZItJ0FTBGIB0XvT4yvXUzHoZ4Bi8Yg5frCjljIC
+ 7JS8QxUyvDb5Q==
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20221213123319.11285-1-hdegoede@redhat.com>
-References: <20221213123319.11285-1-hdegoede@redhat.com>
-Subject: Re: [PATCH] ASoC: rt5670: Remove unbalanced pm_runtime_put()
-Message-Id: <167102962625.215050.8714321914472971117.b4-ty@kernel.org>
-Date: Wed, 14 Dec 2022 14:53:46 +0000
+To: YC Hung <yc.hung@mediatek.com>
+In-Reply-To: <20221213115617.25086-1-yc.hung@mediatek.com>
+References: <20221213115617.25086-1-yc.hung@mediatek.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: initialize panic_info to zero
+Message-Id: <167102962807.215050.16757916120691616071.b4-ty@kernel.org>
+Date: Wed, 14 Dec 2022 14:53:48 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -84,20 +80,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Bard Liao <bard.liao@intel.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ chunxu.li@mediatek.com, linux-kernel@vger.kernel.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Chao Song <chao.song@intel.com>, linux-mediatek@lists.infradead.org,
+ Trevor Wu <trevor.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Dec 2022 13:33:19 +0100, Hans de Goede wrote:
-> For some reason rt5670_i2c_probe() does a pm_runtime_put() at the end
-> of a successful probe. But it has never done a pm_runtime_get() leading
-> to the following error being logged into dmesg:
+On Tue, 13 Dec 2022 19:56:17 +0800, YC Hung wrote:
+> Coverity spotted that panic_info is not initialized to zero in
+> mtk_adsp_dump. Using uninitialized value panic_info.linenum when
+> calling snd_sof_get_status. Fix this coverity by initializing
+> panic_info struct as zero.
 > 
->  rt5670 i2c-10EC5640:00: Runtime PM usage count underflow!
 > 
-> Fix this by removing the unnecessary pm_runtime_put().
-> 
-> [...]
 
 Applied to
 
@@ -105,8 +109,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5670: Remove unbalanced pm_runtime_put()
-      commit: 6c900dcc3f7331a67ed29739d74524e428d137fb
+[1/1] ASoC: SOF: mediatek: initialize panic_info to zero
+      commit: 7bd220f2ba9014b78f0304178103393554b8c4fe
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

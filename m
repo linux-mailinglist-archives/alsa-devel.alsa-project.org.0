@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC35064CBAF
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 14:57:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD1E64CC08
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:20:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61D5529FC;
-	Wed, 14 Dec 2022 14:56:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61D5529FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7DB82A21;
+	Wed, 14 Dec 2022 15:20:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7DB82A21
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671026261;
-	bh=LzhN4TtSvv+yIi8w0Twtj6V6GvnC+pvyAq9VUqFWruE=;
+	s=default; t=1671027657;
+	bh=dtD4at3QvmKceCkqefCGm/sNHM/GgIfcJcHylU8opnU=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=cGmLh/I+Ad/YUtY7XJV8BCV1XU6th6fqgsj8O3rUfVcocvYQ0t+x68SyX/mz1bPwU
-	 Afg3c3seSn7MHVuymeeMRVAHXs0BgVStXPcA03v86c27ykKJU9I6676AEuTUrSii//
-	 hSVvs0jpp5fegnveIVlccPjrMZaPRBMV2ru5CJsU=
+	b=Q0gxpJ1Zj5d1id7kcHQM9AUMpZZ21H9N8uDrrBiug7st8p7+56tcipAFAc9SqHw0l
+	 lXXXQyY2ISyQoGXyIurLPzq9cYeg/BOlM5ZxjG4z91+iJBqg/fTdL/RVwob2aWD0P9
+	 Y57doOhNtWTf8OIIJ+s304GgMdwxjOjghTJG7Iwo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3244FF80141;
-	Wed, 14 Dec 2022 14:56:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72865F80141;
+	Wed, 14 Dec 2022 15:20:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AAC3F80310; Wed, 14 Dec 2022 14:56:42 +0100 (CET)
+ id 1B745F804E0; Wed, 14 Dec 2022 15:19:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6A82F80310
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 14:56:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6A82F80310
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0026F80141
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 15:19:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0026F80141
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SGjewCpg
+ header.s=k20201202 header.b=k7myidlt
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id ACE5161AA2;
- Wed, 14 Dec 2022 13:56:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA53C433D2;
- Wed, 14 Dec 2022 13:56:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 010A0B818B7;
+ Wed, 14 Dec 2022 14:19:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D67AC433EF;
+ Wed, 14 Dec 2022 14:19:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671026197;
- bh=LzhN4TtSvv+yIi8w0Twtj6V6GvnC+pvyAq9VUqFWruE=;
+ s=k20201202; t=1671027589;
+ bh=dtD4at3QvmKceCkqefCGm/sNHM/GgIfcJcHylU8opnU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SGjewCpgFFFe0NdjJ+OSY4+MZ3d+arj1EoHeoXEu3fG+EUVYvfBvTVojkOstI3oXc
- ygeMvNT2JH8IucUeuI+1b6D26AE/wqt5H5167BBt9FSFdR5dKL0XUV4uW/r0seaD+f
- O6Kn7jIKsP1/viUjlyFmocbAlSLa4vCt1P0rku+O2KVITIG3KRsphv4OwpXvJc+Jx/
- BskfwmOIs47ye+PXJbQnx9b2k939zVawzx7H/jTkzx5McTn+nkW4Epe4LjgzDFswq4
- NbYfGCienskl/Gf5bAIDWzxGHYkOt5HYC1yY5t29rhiy1OL7yDRtxHwFSqoqPtPEmM
- ba/iN5enWqolA==
-Date: Wed, 14 Dec 2022 13:56:32 +0000
+ b=k7myidlt1qjkQT9UJa7xFBC7ymZusEbAJhR7EL6cmq3r66pJjeFH0FiJZid8k7Wb/
+ Wh4NTEW4i2iRc7/jYpUjEATvPMcnLKHPcxgam8bbO6J7y4f7SflONwWFmwX159t1JU
+ GXf0lV79rb94sgo+94H2Godo5Xa7lM8TnX/FW5k3w9P+Cr07XJMXi30xnNeTEO3AN9
+ q7s1LRl1QvnQeZp9qrm2ClJCdt1qfqTaKfvAjNKMmmoVyb6y4Wj6UHFooByhHhM/Bz
+ G+dRZMpAOfvBrqT0sg+dV7iHzfPbkKlow92rXmZQNwoIEvq0qOErFfo18enDt9lTRd
+ 7VbdMh4DBGMEQ==
+Date: Wed, 14 Dec 2022 14:19:43 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Lukasz Majewski <lukma@denx.de>
-Subject: Re: [PATCH 2/4] ASoC: wm8940: Rewrite code to set proper clocks
-Message-ID: <Y5nWEPTDenOIrXFY@sirena.org.uk>
+Subject: Re: [PATCH 3/4] ASoC: wm8940: Mute also the speaker output
+Message-ID: <Y5nbf72ksywcXK65@sirena.org.uk>
 References: <20221214123743.3713843-1-lukma@denx.de>
- <20221214123743.3713843-3-lukma@denx.de>
+ <20221214123743.3713843-4-lukma@denx.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="jG61M0kgxKMPOPeT"
+ protocol="application/pgp-signature"; boundary="6/ZnCXYOB14izKmh"
 Content-Disposition: inline
-In-Reply-To: <20221214123743.3713843-3-lukma@denx.de>
+In-Reply-To: <20221214123743.3713843-4-lukma@denx.de>
 X-Cookie: I disagree with unanimity.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -90,59 +91,68 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---jG61M0kgxKMPOPeT
+--6/ZnCXYOB14izKmh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 14, 2022 at 01:37:41PM +0100, Lukasz Majewski wrote:
+On Wed, Dec 14, 2022 at 01:37:42PM +0100, Lukasz Majewski wrote:
+> Without this change the BTL speaker produces some
+> "distortion" noise when test program
+> (speaker-test -t waw) is ended with ctrl+c.
 
-> Without this change, the wm8940 driver is not working when
-> set_sysclk callback (wm8940_set_dai_sysclk) is called with
-> frequency not listed in the switch clause.
+> As our design uses speaker outputs to drive BTL speaker,
+> it was necessary to also mute the speaker via the codec
+> internal WM8940_SPKVOL register with setting
+> WM8940_SPKMUTE bit.
 
-Your commit log doesn't actually describe what this change is...
+> @@ -465,9 +465,18 @@ static int wm8940_mute(struct snd_soc_dai *dai, int =
+mute, int direction)
+>  {
 
-> This change adjusts this driver to allow non-standard frequency
-> set (just after the boot) being adjusted afterwards by the sound
-> system core code.
+> +	spkvol_reg &=3D ~WM8940_SPKMUTE;
+> +	if (mute) {
+>  		mute_reg |=3D 0x40;
+> +		spkvol_reg |=3D WM8940_SPKMUTE;
+> +	}
+> +
+> +	ret =3D snd_soc_component_write(component, WM8940_SPKVOL, spkvol_reg);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	return snd_soc_component_write(component, WM8940_DAC, mute_reg);
 
-This doesn't appear to correspond to the commit.  The change will result
-in the driver automatically configuring it's PLL.
+In addition to the issue Charles raised this is simply not what the mute
+callback should do, the mute callback should specifically mute the
+digital input (with the goal of masking any glitching on there while
+clocks are started/stopped).  Looking at the driver the device supports
+analogue bypass paths to the speaker - these will be broken by your
+patch so if you genuinely need some workaround in this area I'd be
+looking at the Speaker Mixer PCM Playback Switch rather than muting the
+speaker as a whole.  If the device just can't cope without an input then
+ignore_mdown_time might be what you're looking for, it looks like the
+device doesn't have any lengthy sleeps in the power up/down paths so
+that should be fine so long as it doesn't pop/click.
 
-> Code in this commit is based on previous change done for wm8974
-> (SHA1: 51b2bb3f2568e6d9d81a001d38b8d70c2ba4af99).
+I'd also check there's not some other system configuration issue here
+which is more obvious when the input from the DAC stops getting input,
+check that you don't see similar issues when silence is played for
+example.  It might be worth checking that none of the analogue bypass
+paths are enabled.
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
-
-> @@ -496,7 +505,6 @@ static int wm8940_set_bias_level(struct snd_soc_component *component,
->  				return ret;
->  			}
->  		}
-> -
->  		/* ensure bufioen and biasen */
->  		pwr_reg |= (1 << 2) | (1 << 3);
->  		/* set vmid to 300k for standby */
-
-Unrelated (and questionable) whitespace change.
-
---jG61M0kgxKMPOPeT
+--6/ZnCXYOB14izKmh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOZ1g8ACgkQJNaLcl1U
-h9Ce1Af+IKHbY/SQFRzzAd6DFcX9yl+IMOoST7fw2IeXWj/eRDoQY3nhY/8favk/
-wC7QDqpbI+HhLtCC8AwTAPfQLwRetyDF4DT4Ns8E/uzt7jfJJYaawrTIxgwJRWtI
-sL5cBTCAzXKB/Xn4SvmdUY3rnf5BzVd+snzaU5s6L5QKoBYQQacDZMtbkS8mFiVM
-aZuIPbkgTyVzIQJTnD8Hl2cQylU+EOMxKeoj48qEqu2z++nT01FUK1dPSWR4eZg9
-X9OH7T7VGiweLhhV6YcrzFu4pEq9viG5Bukelx8/8vXI/OCbJWkrcRzvRPt87Dkg
-9xaEv6DPaTM5JInzPTMoQaWrMb4qHw==
-=YvQ2
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOZ238ACgkQJNaLcl1U
+h9BgmAf/WFppJCmZ/1kHJn/v0qAcUP8bEn0HUM+iMjhzmkLvqvnXswGGEfsHWWkW
+fagQVLQQBHDDzZWKP4ziGtKIfRyiut0gVlccgLR54UrBjkXGtl+DcgAjiAB8iyLm
+FkD+JG2PnU+39oBYK8LGcUb9cZj8H+szHlRqzdW4AB/rSyRtU9VujPvU78HSQCIr
+bL6ZBqdFwv5IfbThyp26AC20e3GqXpebEiJJTbSJbRr7wKsqTAKJKtJeWl2KZLQL
+Lyry6wMHzbAei1vl2U3BOoPCVQ0M4zlnz4o6aOfVE9yna/fplZZttJsbYyLwx6jl
+Z/SA7YiEJZB2VQXDc3wJN9ay2QnORQ==
+=BDk1
 -----END PGP SIGNATURE-----
 
---jG61M0kgxKMPOPeT--
+--6/ZnCXYOB14izKmh--

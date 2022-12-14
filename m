@@ -2,77 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEB164CCC1
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:57:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B9E64CD34
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 16:42:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 084D82A20;
-	Wed, 14 Dec 2022 15:56:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 084D82A20
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC7962A79;
+	Wed, 14 Dec 2022 16:41:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC7962A79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671029840;
-	bh=yZdmbCXTWUddvVBEZHmeG2z9NI9Lx2d7dIQudtCYe74=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1671032533;
+	bh=cU8tgWWNMEdHRLR61GiAwe5544OaRBsZ/Ic0VeuL3YQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=nrFyf/PgmJaeoaQqET2qO6fRxGNEB7oG+zR+OR4OQ3G++i7Y7dQijbzxmD4y9rMdz
-	 VCpptiKwjg0HEgEW9C0T7D50n1K8nUpb0rqyt4kfvdhCAowZqIy6xJCTjN4g0CBni0
-	 Ez53lGb1EspKB090YhcHaQ1QA1VpqiwZHxpUU03Q=
+	b=EEZXh/Ys8B3xyrXZBMO4M8FIbnw0BX7v2xdlsYlxpZBcAVmD+iv0C4nOYHCrRQUcN
+	 7VRAZ0zgsger6OI3fpBKeNXJMy3SMxQXM+nKGH+nfPyiBQSHCF8I7v7MgpqEjcea2i
+	 rpROMkDjg+sUKJy27/W0M7jPEfHRIx6Pq1HPQCXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B13FDF80141;
-	Wed, 14 Dec 2022 15:56:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE9DF80141;
+	Wed, 14 Dec 2022 16:41:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF29BF804D7; Wed, 14 Dec 2022 15:56:20 +0100 (CET)
+ id DFEE9F804D0; Wed, 14 Dec 2022 16:41:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61302F80141
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 15:56:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61302F80141
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JPGSqz1K
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9A176B818E3;
- Wed, 14 Dec 2022 14:56:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F822C433F0;
- Wed, 14 Dec 2022 14:56:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671029777;
- bh=yZdmbCXTWUddvVBEZHmeG2z9NI9Lx2d7dIQudtCYe74=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JPGSqz1KYnRvZzGrfNEcaYJlisk1nWUqray5NbRVq9cd4j3AJ0xN0D2rUJp4emJkF
- 2ujcrlyUkh/F52zgC7YB1Wf7Ljx7xQX2j6q4Rd+wBFExEpyvDC/5Uj7NVe0FoBvtlq
- NkCXYh9VE2G4+IOLHhQY/0Brs4V68VY4BcTBaHwFv6jy+xdndUX9OHs7Q1UyFP1P13
- dzuRu+P160rGM/iGGhJrn7o10xNwkha99J6+hDfa2AE/AGg3l8jD9F4oDzDcdp0JX5
- mtuh2zMDbBC9CSzr4lVREVt99RE1viOYiuVSY2mX1J7aOEkDxt2XlpSj4WjMpuBSig
- DdahU8XY7t85w==
-Date: Wed, 14 Dec 2022 14:56:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Subject: Re: [PATCH 2/2] ASoC: da7213: Add support for mono, set frame width
- to 32 when possible
-Message-ID: <Y5nkDEcgbZ2vNEsK@sirena.org.uk>
-References: <20221214044058.6289-1-David.Rau.opensource@dm.renesas.com>
- <Y5nb7ik1cCKo+FlR@sirena.org.uk>
- <CAG+cZ07erTzV8Re-xo8GixpsEhK28Q6wHxQeE0co+sWgQAFgGA@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A198F801D5
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 16:41:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A198F801D5
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=e19hr7O5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1671032471;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7XBd4ptJNbvgrkzTUuMXLg7l6NQuSyxEYYBB50Aa96E=;
+ b=e19hr7O5n67jOtDOJo8eKq1JIcgrz15tFbAtV7vrKsjerPBZZbue5Kgrtaa0w0VvIKx3sc
+ xPO+wLdXAEsEmky4iY649sqF5at0eFLY7PhrWYB+lvJ+qE10D6lK0JsWvBmUya4ZRAau0p
+ X5MU6Mu/wZHdUmCwWztkzbRYDzqRsoE=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-648-GHZMq6RAMpGJPoD7zrdKUA-1; Wed, 14 Dec 2022 10:41:10 -0500
+X-MC-Unique: GHZMq6RAMpGJPoD7zrdKUA-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ y20-20020a056402271400b0046c9a6ec30fso9804310edd.14
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 07:41:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7XBd4ptJNbvgrkzTUuMXLg7l6NQuSyxEYYBB50Aa96E=;
+ b=OVaEV7+3Vqo6nJfBgvc1CuMWnIGL+YMpfKeFZxYki6PRQpqmw5EuvPjJKpvbmZd3i2
+ DEF7IdmErGTJGpOSuY8hPKJrWoV5xD8D/j7ofp1AQ6G4HMNmfZRMj04pie92EYHQc/bD
+ UBYpR5eSOdt0utsE2BrzZYpNrS4occsSmGAAsgra/o558xsMLk7jzNswlSxVmvF5PuoB
+ ThSpW7oEQasvyV9XlSgwyNlwmzaoMPSlxP/PP74nK3P+dNoqBKR4tlk9Q8VcA9WbTwBz
+ oFLsEBRdTh6zwPnf5qxnxEBdGecP743w8M525kgyABVGIfWWK9jHh+eTa6UNv66AeSLF
+ NyWA==
+X-Gm-Message-State: ANoB5pmFFdLgYY2fI2z1ILrrL/HhisJSxqynPv8K9DAFaePE203tlnyO
+ dOAhCEIxjj3EBD/WofF5ucErdd0Ub3G40FPS8iBPnubZ/R1SSXpD2FwWapldKgsmKnDs2ldjEgu
+ 92Ftcy0PXPPEx3dQJmuuSZdM=
+X-Received: by 2002:a17:907:2137:b0:7c1:9041:8c5 with SMTP id
+ qo23-20020a170907213700b007c1904108c5mr5712990ejb.41.1671032468690; 
+ Wed, 14 Dec 2022 07:41:08 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf50Yg1t+/0rBr+e+/ZnJM3sz1HziqrJ0rW9vdRAPMksDUv4cZG97eQGNn9vZPLbhZPznnhJYA==
+X-Received: by 2002:a17:907:2137:b0:7c1:9041:8c5 with SMTP id
+ qo23-20020a170907213700b007c1904108c5mr5712971ejb.41.1671032468479; 
+ Wed, 14 Dec 2022 07:41:08 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ lu19-20020a170906fad300b007c0cbdfba04sm5914743ejb.70.2022.12.14.07.41.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Dec 2022 07:41:07 -0800 (PST)
+Message-ID: <725e80d6-73ab-d760-d49d-7cbc42dd442d@redhat.com>
+Date: Wed, 14 Dec 2022 16:41:07 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9H/SuYdosBTIY+zW"
-Content-Disposition: inline
-In-Reply-To: <CAG+cZ07erTzV8Re-xo8GixpsEhK28Q6wHxQeE0co+sWgQAFgGA@mail.gmail.com>
-X-Cookie: I disagree with unanimity.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH] Add HP Stream 8 to bytcr_rt5640.c
+To: Moises Cardona <moisesmcardona@gmail.com>, cezary.rojewski@intel.com
+References: <20221214120830.1572474-1-moisesmcardona@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20221214120830.1572474-1-moisesmcardona@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,44 +117,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, support.opensource@diasemi.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- David Rau <David.Rau.opensource@dm.renesas.com>
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org, akihiko.odaki@gmail.com,
+ yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---9H/SuYdosBTIY+zW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 12/14/22 13:08, Moises Cardona wrote:
+> The bytcr_rt5640.c file already supports the HP Stream 7.
+> 
+> The HP Stream 8 is almost identical in terms of the hardware
+> with the exception of it having stereo speakers, a SIM
+> card slot and the obvious size difference.
+> 
+> 
+> Signed-off-by Moises Cardona <moisesmcardona@gmail.com>
 
-On Wed, Dec 14, 2022 at 03:31:26PM +0100, Piotr Wojtaszczyk wrote:
-> It was a single patch, with no deps.
->=20
+Thanks, this new version (which should have been marked as v2)
+looks good to me:
 
-It's flagged as patch 2/2?
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 
-> On Wed, Dec 14, 2022 at 3:21 PM Mark Brown <broonie@kernel.org> wrote:
+Regards,
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
+Hans
 
---9H/SuYdosBTIY+zW
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOZ5AsACgkQJNaLcl1U
-h9Bd4Af+LPQLMTNkvKgvj0m+xCZebSX/5SfFCTHBQ6rwcogNbgHy+suNi+8WHRKs
-O9qU8gKEshxtUqyh9qG1GmIYJZ4gtbKHxBnjAeMPTTFQPc4a4ehxwKbOJgDizMmo
-/vHWERfBZ562FGUDVGHzOSWsffAAvJLg42t9yatHJlYV/88q84VVq1enDd6uu5EM
-u4QdIjqjtjgoGFqsF/Xc+5Xyq3C8d2evmjdlXO5/hnCuplgWrsJXn5+JY3yuOfVj
-WzDuuPZ5GZoc84Nnvsd1ltTjOMcuJkVjkno5dqrVVUQ/aB1uZHanDw+9ClFqbC7z
-25FSe85pqkPp5cyN7MGbqsX/NKAYeQ==
-=Kpy7
------END PGP SIGNATURE-----
+> 
+> ---
+>  sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+> index fb9d9e271845..569d039d680b 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5640.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
+> @@ -796,6 +796,16 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+>  					BYT_RT5640_SSP0_AIF1 |
+>  					BYT_RT5640_MCLK_EN),
+>  	},
+> +	{	/* HP Stream 8 */
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "HP Stream 8 Tablet"),
+> +		},
+> +		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
+> +					BYT_RT5640_JD_NOT_INV |
+> +					BYT_RT5640_SSP0_AIF1 |
+> +					BYT_RT5640_MCLK_EN),
+> +	},
+>  	{	/* I.T.Works TW891 */
+>  		.matches = {
+>  			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "To be filled by O.E.M."),
 
---9H/SuYdosBTIY+zW--

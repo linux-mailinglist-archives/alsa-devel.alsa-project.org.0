@@ -2,71 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514DD64CB65
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 14:33:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C36A64CB66
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 14:33:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF4022A07;
-	Wed, 14 Dec 2022 14:32:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF4022A07
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9F92A45;
+	Wed, 14 Dec 2022 14:32:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9F92A45
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671024797;
-	bh=Gjncl+uo/rvrBzyT+YEpr2GJ5y0nLCp+mO+ilIuCaAM=;
+	s=default; t=1671024813;
+	bh=YVfiy90k8tilTVTQpjmd0hDs1DlPV8FDiwz4/TOEKi8=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=TJuqjCkmBqWJjWLsgS7w6tuTxKYt3ggHhRcYtzThIwcGV1Q7uO/C/mw6YjcoY5ZtG
-	 XVI08B0aCy9eDea2LpXSPUQ6vyRVPtYFwziTLzwyITvtF91A8/1qENUqiVyX9DFAhD
-	 teABWVCUPTVmXKPajb1bXBnHZyIM0lcx+Yypf3zc=
+	b=hhwblk7BqMG4/MbzzvMs30f8Sls2th9vgPqO+9RcefjsIXq13uNp6Ivlr5KDJIiiQ
+	 9SQ3ul+kBuJyc+36IDJg8ODpg07xo9I97BNaw6Rd7rxEWLyRzEodPpCSrU+O3t42Ju
+	 pcGuxSiCG31oWIIOtMbUDw4COAAR1tiYzdmaY+os=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02319F80537;
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B3B5F8053D;
 	Wed, 14 Dec 2022 14:32:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B689DF80536; Wed, 14 Dec 2022 14:32:05 +0100 (CET)
+ id ADB1AF80536; Wed, 14 Dec 2022 14:32:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE4FEF80533
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 14:32:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE4FEF80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EB44F80533
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 14:32:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EB44F80533
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nfp3a0NL
+ header.s=k20201202 header.b=fPe9URLn
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D75A5B818B0;
- Wed, 14 Dec 2022 13:32:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF190C433F1;
- Wed, 14 Dec 2022 13:31:59 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D4A98B818B1;
+ Wed, 14 Dec 2022 13:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE63C433D2;
+ Wed, 14 Dec 2022 13:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671024721;
- bh=Gjncl+uo/rvrBzyT+YEpr2GJ5y0nLCp+mO+ilIuCaAM=;
+ s=k20201202; t=1671024724;
+ bh=YVfiy90k8tilTVTQpjmd0hDs1DlPV8FDiwz4/TOEKi8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nfp3a0NLHLUAjc1NYIewzZlt2nv824P+0xzuyMxDNHJLSKUnIcnKeNBkHO360CFva
- GlsBQjlGqIJd8hmM/ZbYEFRgUVoJp9UeGkMAUcn6po5UYLffIvScwdYKq1dvx/6Hky
- D3CJXzf+7W8YBT8g/IYmEUj/jaIjbDQE6OY5BzYtqp8sKeJvs2fTYKirU+HaBPskxj
- jUf1UehVoaNMsPjWWh4AkrBJ68UuG6bZyD0tOCAGKT6gfmmA6qKGjHwzzSE5ohFeDr
- /CzST+k5zVfpLerbExy/gS5xMCDe2HMoywbEKa5uC78tJTf7Rm7NxLCy05gPe1JmcC
- aFWKDJWftpl+w==
+ b=fPe9URLnFiUphM4bVUXbQrxLZ2rCoC2XjRu3Xx0eGjhJJn0BH/RDnOiioNxAJOezM
+ 3/oiaWYbzHcTXxEw2qy7IC/ANLl41B9vfGrcbzEMVk9iPG04G5d9OSn4h3K0O5mWEi
+ wyS+GzPdwutyh68aRa0EN5CqXVGzZdyIdznLTqtau0sPav76rzAo0aVlGjXoWh3xtZ
+ w7M+DfePWuf+TmiVkbvh6NUDuyRk7N5OPaQoxcfKsaBYkOU0sllCCRq+XzVDSdDWaw
+ qW8WTKxm2El+Gt3OgIW7dDtWHpM8uDNpiqbZELtL0RX8vkPIuCisgda8iMc+VqADiU
+ gAz9S9HQvl8Lw==
 From: Mark Brown <broonie@kernel.org>
-To: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20221209091657.1183-1-m.szyprowski@samsung.com>
-References: =?utf-8?q?=3CCGME20221209091928eucas1p1cfc768d888a6e6c57fcaa0fe3?=
- =?utf-8?q?20cfced=40eucas1p1=2Esamsung=2Ecom=3E?=
- <20221209091657.1183-1-m.szyprowski@samsung.com>
-Subject: Re: [PATCH] ASoC: wm8994: Fix potential deadlock
-Message-Id: <167102471963.27755.7459442612107772910.b4-ty@kernel.org>
-Date: Wed, 14 Dec 2022 13:31:59 +0000
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
+References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: SOF: remove unregister calls from shutdown
+Message-Id: <167102472177.27755.10161077455234852195.b4-ty@kernel.org>
+Date: Wed, 14 Dec 2022 13:32:01 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -83,17 +81,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: yung-chuan.liao@linux.intel.com, tiwai@suse.de, daniel.baluta@nxp.com,
+ Oliver Neukum <oneukum@suse.com>, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, Zhen Ni <nizhen@uniontech.com>,
+ ranjani.sridharan@linux.intel.com, Ricardo Ribalda <ribalda@chromium.org>,
+ Archana Patni <archana.patni@intel.com>, peter.ujfalusi@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 09 Dec 2022 10:16:57 +0100, Marek Szyprowski wrote:
-> Fix this by dropping wm8994->accdet_lock while calling
-> cancel_delayed_work_sync(&wm8994->mic_work) in wm1811_jackdet_irq().
+On Fri, 09 Dec 2022 13:45:27 +0200, Kai Vehmanen wrote:
+> This patchset is an alternative solution to problems
+> reported by Ricardo Ribalda <ribalda@chromium.org> and
+> Zhen Ni <nizhen@uniontech.com>, as discussed in
 > 
+> - "[PATCH] ALSA: core: Fix deadlock when shutdown a frozen userspace"
+>  https://mailman.alsa-project.org/pipermail/alsa-devel/2022-November/209248.html
 > 
+> [...]
 
 Applied to
 
@@ -101,8 +105,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm8994: Fix potential deadlock
-      commit: 9529dc167ffcdfd201b9f0eda71015f174095f7e
+[1/2] ASoC: SOF: Intel: pci-tgl: unblock S5 entry if DMA stop has failed"
+      commit: 2aa2a5ead0ee0a358bf80a2984a641d1bf2adc2a
+[2/2] ASoC: SOF: Revert: "core: unregister clients and machine drivers in .shutdown"
+      commit: 44fda61d2bcfb74a942df93959e083a4e8eff75f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

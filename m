@@ -2,72 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A820A64CCB8
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:55:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DEB164CCC1
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 15:57:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 419D62A38;
-	Wed, 14 Dec 2022 15:54:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 419D62A38
+	by alsa0.perex.cz (Postfix) with ESMTPS id 084D82A20;
+	Wed, 14 Dec 2022 15:56:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 084D82A20
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671029740;
-	bh=w5xhvVMm8HcONvBFdH0GaBJz/7H0mrmGXMjWGZuBv8Q=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1671029840;
+	bh=yZdmbCXTWUddvVBEZHmeG2z9NI9Lx2d7dIQudtCYe74=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=UTh1x/p7FAqXH8dLkFoJTm9VMebk1WhdpZ5UPgYkq/fDEg3hwDVed2ozKzDePehCy
-	 NFRjEFUOtg8yqa9Fb1QeHCTrUoCTNWnVCi/zFydq3x2TPW8qsT93VqMEAK6n7Fv3At
-	 Pw3FDYjUb4VdoiAGWAp+OTi7nSUYX0xJdGuFtG+A=
+	b=nrFyf/PgmJaeoaQqET2qO6fRxGNEB7oG+zR+OR4OQ3G++i7Y7dQijbzxmD4y9rMdz
+	 VCpptiKwjg0HEgEW9C0T7D50n1K8nUpb0rqyt4kfvdhCAowZqIy6xJCTjN4g0CBni0
+	 Ez53lGb1EspKB090YhcHaQ1QA1VpqiwZHxpUU03Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3EF5F80519;
-	Wed, 14 Dec 2022 15:53:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B13FDF80141;
+	Wed, 14 Dec 2022 15:56:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DE8EF804FF; Wed, 14 Dec 2022 15:53:56 +0100 (CET)
+ id BF29BF804D7; Wed, 14 Dec 2022 15:56:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2562F804D0;
- Wed, 14 Dec 2022 15:53:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2562F804D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61302F80141
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 15:56:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61302F80141
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Nl26XP32
+ header.s=k20201202 header.b=JPGSqz1K
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9CCDA61807;
- Wed, 14 Dec 2022 14:53:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54770C433EF;
- Wed, 14 Dec 2022 14:53:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9A176B818E3;
+ Wed, 14 Dec 2022 14:56:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F822C433F0;
+ Wed, 14 Dec 2022 14:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671029632;
- bh=w5xhvVMm8HcONvBFdH0GaBJz/7H0mrmGXMjWGZuBv8Q=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Nl26XP32SxbpeOA3E7n4KLxmMIyuxGZPgbGDEYUueETTuCIhMhZz1JUnrIC/ufWYP
- 8eetISDpNIk5bH/qt3D8VjaKqGpE5y0dmyOrKWFqQwCm0nbH9ug1SYHO8ZOGcT5+u3
- RgII5HQxOL9HrcZK0ndL1oL+FWTfyd3eddZQwlgwjkP0bQFBOo2Jacz/0bdh1YfskP
- ft7jQhHjFtklBVqVd/3x2oMu/YT60dGF7vSL7pxRYfguRXIpRQUbvY3vtJ8ST4tiJY
- B9YsN3HSFf6rs3juaYnTCTB0TM2ZItJ0FTBGIB0XvT4yvXUzHoZ4Bi8Yg5frCjljIC
- 7JS8QxUyvDb5Q==
+ s=k20201202; t=1671029777;
+ bh=yZdmbCXTWUddvVBEZHmeG2z9NI9Lx2d7dIQudtCYe74=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JPGSqz1KYnRvZzGrfNEcaYJlisk1nWUqray5NbRVq9cd4j3AJ0xN0D2rUJp4emJkF
+ 2ujcrlyUkh/F52zgC7YB1Wf7Ljx7xQX2j6q4Rd+wBFExEpyvDC/5Uj7NVe0FoBvtlq
+ NkCXYh9VE2G4+IOLHhQY/0Brs4V68VY4BcTBaHwFv6jy+xdndUX9OHs7Q1UyFP1P13
+ dzuRu+P160rGM/iGGhJrn7o10xNwkha99J6+hDfa2AE/AGg3l8jD9F4oDzDcdp0JX5
+ mtuh2zMDbBC9CSzr4lVREVt99RE1viOYiuVSY2mX1J7aOEkDxt2XlpSj4WjMpuBSig
+ DdahU8XY7t85w==
+Date: Wed, 14 Dec 2022 14:56:12 +0000
 From: Mark Brown <broonie@kernel.org>
-To: YC Hung <yc.hung@mediatek.com>
-In-Reply-To: <20221213115617.25086-1-yc.hung@mediatek.com>
-References: <20221213115617.25086-1-yc.hung@mediatek.com>
-Subject: Re: [PATCH] ASoC: SOF: mediatek: initialize panic_info to zero
-Message-Id: <167102962807.215050.16757916120691616071.b4-ty@kernel.org>
-Date: Wed, 14 Dec 2022 14:53:48 +0000
+To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Subject: Re: [PATCH 2/2] ASoC: da7213: Add support for mono, set frame width
+ to 32 when possible
+Message-ID: <Y5nkDEcgbZ2vNEsK@sirena.org.uk>
+References: <20221214044058.6289-1-David.Rau.opensource@dm.renesas.com>
+ <Y5nb7ik1cCKo+FlR@sirena.org.uk>
+ <CAG+cZ07erTzV8Re-xo8GixpsEhK28Q6wHxQeE0co+sWgQAFgGA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.11.0-dev-7e003
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="9H/SuYdosBTIY+zW"
+Content-Disposition: inline
+In-Reply-To: <CAG+cZ07erTzV8Re-xo8GixpsEhK28Q6wHxQeE0co+sWgQAFgGA@mail.gmail.com>
+X-Cookie: I disagree with unanimity.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,53 +85,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
- chunxu.li@mediatek.com, linux-kernel@vger.kernel.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Chao Song <chao.song@intel.com>, linux-mediatek@lists.infradead.org,
- Trevor Wu <trevor.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org, support.opensource@diasemi.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ David Rau <David.Rau.opensource@dm.renesas.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Dec 2022 19:56:17 +0800, YC Hung wrote:
-> Coverity spotted that panic_info is not initialized to zero in
-> mtk_adsp_dump. Using uninitialized value panic_info.linenum when
-> calling snd_sof_get_status. Fix this coverity by initializing
-> panic_info struct as zero.
-> 
-> 
 
-Applied to
+--9H/SuYdosBTIY+zW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Dec 14, 2022 at 03:31:26PM +0100, Piotr Wojtaszczyk wrote:
+> It was a single patch, with no deps.
+>=20
 
-Thanks!
+It's flagged as patch 2/2?
 
-[1/1] ASoC: SOF: mediatek: initialize panic_info to zero
-      commit: 7bd220f2ba9014b78f0304178103393554b8c4fe
+> On Wed, Dec 14, 2022 at 3:21 PM Mark Brown <broonie@kernel.org> wrote:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Please don't top post, reply in line with needed context.  This allows
+readers to readily follow the flow of conversation and understand what
+you are talking about and also helps ensure that everything in the
+discussion is being addressed.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--9H/SuYdosBTIY+zW
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOZ5AsACgkQJNaLcl1U
+h9Bd4Af+LPQLMTNkvKgvj0m+xCZebSX/5SfFCTHBQ6rwcogNbgHy+suNi+8WHRKs
+O9qU8gKEshxtUqyh9qG1GmIYJZ4gtbKHxBnjAeMPTTFQPc4a4ehxwKbOJgDizMmo
+/vHWERfBZ562FGUDVGHzOSWsffAAvJLg42t9yatHJlYV/88q84VVq1enDd6uu5EM
+u4QdIjqjtjgoGFqsF/Xc+5Xyq3C8d2evmjdlXO5/hnCuplgWrsJXn5+JY3yuOfVj
+WzDuuPZ5GZoc84Nnvsd1ltTjOMcuJkVjkno5dqrVVUQ/aB1uZHanDw+9ClFqbC7z
+25FSe85pqkPp5cyN7MGbqsX/NKAYeQ==
+=Kpy7
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
+--9H/SuYdosBTIY+zW--

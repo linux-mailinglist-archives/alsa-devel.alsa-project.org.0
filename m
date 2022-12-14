@@ -2,111 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AF664CD35
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 16:43:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33AB64CE3E
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Dec 2022 17:41:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4364A2A6C;
-	Wed, 14 Dec 2022 16:42:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4364A2A6C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 534362A18;
+	Wed, 14 Dec 2022 17:40:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 534362A18
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671032619;
-	bh=/tFLehCAzM84E9C+o+H9cH56sC+XHk7hf8Zjk2VARkk=;
+	s=default; t=1671036069;
+	bh=miQV7Ovr9cjfS7SXFTg/vmu5MJtUPHGv/PV8WzvmHAk=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=EbeMFqTyy8sUOEMN+5E7nZTTdfQ8mNoPryOWxIzEoa80mAhWZCE7uLlm9oy42kFcj
-	 ePITgztBDEghaih0+TJmMqGXljxInp/SUW9dHbO1cqlX3onw4wtnD1hBTsoY+GryiE
-	 0ItQ3xg2Z8LpPs4casJAmNHiybsKTbWn3ccvem/Q=
+	b=Y3b97S4dmug4yROPRNLfjvaYXxrAsg+SO+PRu4067lMtyaBG0ZtVbtIKe2MsRWeUq
+	 0A8akl6SQGjIyxy2lIwUsywkTVD4IJBKV+N2AxFkHMS872lqKP712k1B/g+Snm20JD
+	 KPftEMDi0ZoTYDsSi1xEEpaXeBCUOLmADo2L6wNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEB88F801D5;
-	Wed, 14 Dec 2022 16:42:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFC88F80310;
+	Wed, 14 Dec 2022 17:40:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50B39F804D0; Wed, 14 Dec 2022 16:42:41 +0100 (CET)
+ id 4E103F804D7; Wed, 14 Dec 2022 17:40:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7C1CF80141
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 16:42:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7C1CF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55A45F801D5
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 17:40:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55A45F801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=L9rdWYUu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1671032558;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AQzHZwjuXupiqlJusdYzgBRFmDan+a9C8lcInQhXBVM=;
- b=L9rdWYUuWyAsojbfDi2YyoSIYOuWD2M4eF0FmJT9j+lOvLScZgJTL3MC6gBs7CkajxiFGE
- irA/zI85sEfojX3DwPKyP2x+z6ddlYOUNFhm3CzwSEujWuYGjci9+3ncAgegbKJeBK24QJ
- vjvfGcpamdWpaJEfDoKfibuz1gg3Lg4=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-526-cW6wGrkCOzGu5jDl4ZFM8g-1; Wed, 14 Dec 2022 10:42:37 -0500
-X-MC-Unique: cW6wGrkCOzGu5jDl4ZFM8g-1
-Received: by mail-ej1-f71.google.com with SMTP id
- hs18-20020a1709073e9200b007c0f9ac75f9so11560905ejc.9
- for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 07:42:37 -0800 (PST)
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=google header.b=O3GKHlfC
+Received: by mail-io1-xd32.google.com with SMTP id d123so3678668iof.6
+ for <alsa-devel@alsa-project.org>; Wed, 14 Dec 2022 08:40:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=WKOOiUPKftict/8DhQFtuAp51sa4ovrd2kJ1MyabHJw=;
+ b=O3GKHlfCENCpCId9rzfgQyNazbXImgRjhe1IswoXuSD+obIOxQMzCJvjjn4DSO8TfB
+ pnhJIYsu7L+bfp85STMCZNRGPLJsWYDIbGEnTiTNqiQ6QQMWtnc1xXP3s/hb29i0HQx8
+ xLGWppNpMlvdaaE09ISsLcVZ+umUpgvV1+VKQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AQzHZwjuXupiqlJusdYzgBRFmDan+a9C8lcInQhXBVM=;
- b=TvzHrH6WaYfAANjwwcyVL1a/qBbHTD8PxFKFKF/I70AlUrsvvY3GInjMMQDarQgViQ
- PZNPdpS9vNxQ6l4gQ/qQafKLwpRhrmXYGlIPR510nx5b4dSCXE+JwU69nD02dAKnZYB3
- zqrhakQoFPYSeebx+30HsKYonGS4lLNAisIlPtfPVjWH1KrA6ReYZnSaKJCJuZB9prB6
- sA7UsSAIia06LQquFc3XVCw+YFdCNA5TgDGXrjwsPL8Zctry8CBTyHPO2xZMPnLos+u1
- mX6hNlPyLAJv2JxkqTGA4banciaCmHnGf9LfWvpMozolLKeMPcw6V3oT9Lg9YMqlTBQb
- jUUg==
-X-Gm-Message-State: ANoB5pnT+qONjj1Klc4CXibgpEzbZ8BhssAeBBhOOUguQeXOGrcBOWYe
- D0PmFcgRm/VCA6IVvjCgQqBSMbZ1aggr5wzjhD7t7tldQTZm00IvOJocDTGagoPSWwTaZz0yCnD
- 42IVDlcF8JoasflHzuUmc/Ws=
-X-Received: by 2002:a17:907:90d8:b0:7c0:e302:b523 with SMTP id
- gk24-20020a17090790d800b007c0e302b523mr16515536ejb.59.1671032556382; 
- Wed, 14 Dec 2022 07:42:36 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf63c7L8UGtfrL6TE+DGeYWq+KxeHIlGEceOMBDac035oAfK6UfailMlLf0IPYbKTOyjFxbIWg==
-X-Received: by 2002:a17:907:90d8:b0:7c0:e302:b523 with SMTP id
- gk24-20020a17090790d800b007c0e302b523mr16515530ejb.59.1671032556231; 
- Wed, 14 Dec 2022 07:42:36 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- q10-20020a17090676ca00b007c4ed5ced79sm888756ejn.73.2022.12.14.07.42.35
+ bh=WKOOiUPKftict/8DhQFtuAp51sa4ovrd2kJ1MyabHJw=;
+ b=YqA0MFNBLeOjIO2R8Sg48sy8PK+MlmRN0jX45ba6/EQH0mMUaM4P9K2FVWsgJ494nR
+ AknM4Mp8BnxOwuqaZHcr+VyWk/R4ZNAz0/0pPiFu3zkn09pIq+JtP6IsvrXkkuaWsROQ
+ fvgFW8GTr8CEeXLCzEVnWurPZoygNPD0i2WtjCZbN6TuxklxGu+GclTyp4jPQrRmqh31
+ Go5JrXnF6R13kWCAGoQFnZ5Voqs/5/y5LvYpD+2KHhFhldzIpT65+/UbPN5Hu4lyVazI
+ SK8gxqbF7Ue56hkCLwR7b9VweSP7nlTx4xIpbCqURY9+X+WbGoAiOIqWUS/pAUGqzF9i
+ oq5g==
+X-Gm-Message-State: ANoB5pnpGfncXN14lTyKOGv0Nj68MX9XceLRZjF5iy6DaIDR70Y+quCr
+ lFY+Qsq13TSf7mQ/6nDqY+FX7A==
+X-Google-Smtp-Source: AA0mqf4uk2vQ/34IoSVvV22g4d7cg9twWjLWq2DpSCNefcinONz0Gv+PJabIJlO243XLGuqdLtAuPg==
+X-Received: by 2002:a6b:500e:0:b0:6e2:d3f7:3b60 with SMTP id
+ e14-20020a6b500e000000b006e2d3f73b60mr2416935iob.2.1671036003942; 
+ Wed, 14 Dec 2022 08:40:03 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.45.1]) by smtp.gmail.com with ESMTPSA id
+ c17-20020a023311000000b0038a0182e0casm1939716jae.11.2022.12.14.08.40.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Dec 2022 07:42:35 -0800 (PST)
-Message-ID: <92358ff1-86ca-76b0-c4f3-3d4e0dddc80a@redhat.com>
-Date: Wed, 14 Dec 2022 16:42:34 +0100
+ Wed, 14 Dec 2022 08:40:03 -0800 (PST)
+Message-ID: <808f35bf-2800-c34b-cae9-4d8eaa11294d@linuxfoundation.org>
+Date: Wed, 14 Dec 2022 09:40:02 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] Add HP Stream 8 to bytcr_rt5640.c
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Moises Cardona <moisesmcardona@gmail.com>, cezary.rojewski@intel.com
-References: <20221213173550.1567875-1-moisesmcardona@gmail.com>
- <08403fff-359b-b5f4-d039-18eeef660637@linux.intel.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <08403fff-359b-b5f4-d039-18eeef660637@linux.intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v2] kselftest/alsa: Increase kselftest timeout
+To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20221214130353.1989075-1-nfraprado@collabora.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20221214130353.1989075-1-nfraprado@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,70 +102,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com, tiwai@suse.com,
- ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, akihiko.odaki@gmail.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ Shuah Khan <shuah@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On 12/13/22 20:04, Pierre-Louis Bossart wrote:
+On 12/14/22 06:03, Nícolas F. R. A. Prado wrote:
+> The default timeout for kselftests is 45 seconds, but that isn't enough
+> time to run pcm-test when there are many PCMs on the device, nor for
+> mixer-test when slower control buses and fancier CODECs are present.
 > 
+> As data points, running pcm-test on mt8192-asurada-spherion takes about
+> 1m15s, and mixer-test on rk3399-gru-kevin takes about 2m.
 > 
-> On 12/13/22 11:35, Moises Cardona wrote:
->> The HP Stream 8 tablet is identical to the HP Stream 7 in terms of the PCB,
->> with the exception of the added SIM Card Slot. 
->> Therefore, I'm submitting this patch which properly initializes the audio 
->> and enables the headphone jack to work, just like it does in the 
->> HP Stream 7.
->>
->> Signed-off-by: Moises Cardona <moisesmcardona@gmail.com>
+> Set the timeout to 4 minutes to allow both pcm-test and mixer-test to
+> run to completion with some slack.
 > 
-> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Note this is the old version which wrongly contains the
-BYT_RT5640_MONO_SPEAKER flag.
-
-Mark, please merge the new version (which unfortunately
-was not marked as v2) which correctly drops
-the BYT_RT5640_MONO_SPEAKER flag.
-
-(this tablet has 2 speakers so it should not have the mono flag)
-
-Regards,
-
-Hans
-
-
+> Reviewed-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 > 
->> ---
->>  sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
->>  1 file changed, 11 insertions(+)
->>
->> diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
->> index fb9d9e271845..1d964b1ceff4 100644
->> --- a/sound/soc/intel/boards/bytcr_rt5640.c
->> +++ b/sound/soc/intel/boards/bytcr_rt5640.c
->> @@ -796,6 +796,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
->>  					BYT_RT5640_SSP0_AIF1 |
->>  					BYT_RT5640_MCLK_EN),
->>  	},
->> +	{	/* HP Stream 8 */
->> +		.matches = {
->> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Hewlett-Packard"),
->> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "HP Stream 8 Tablet"),
->> +		},
->> +		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
->> +					BYT_RT5640_MONO_SPEAKER |
->> +					BYT_RT5640_JD_NOT_INV |
->> +					BYT_RT5640_SSP0_AIF1 |
->> +					BYT_RT5640_MCLK_EN),
->> +	},
->>  	{	/* I.T.Works TW891 */
->>  		.matches = {
->>  			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "To be filled by O.E.M."),
+> ---
+> 
+> Changes in v2:
+> - Reduced timeout from 10 to 4 minutes
+> - Tweaked commit message to also mention mixer-test and run time for
+>    mixer-test on rk3399-gru-kevin
 > 
 
+What I have in mind is that the default run can be limited scope.
+Run it on a few controllers and in the report mention that a full
+test can be run as needed.
+
+There are a couple of examples of default vs. full test runs - cpu
+and memory hot-lug tests.
+
+thanks,
+-- Shuah

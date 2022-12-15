@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB5764DAA3
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 12:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A78964DAD1
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 13:01:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94AE5228A;
-	Thu, 15 Dec 2022 12:47:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94AE5228A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74E5224E;
+	Thu, 15 Dec 2022 13:01:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74E5224E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671104924;
-	bh=8snVgzDkOR9zhOe/egX/KJ3N1HQ0HLrjXTG8drtdyY4=;
+	s=default; t=1671105714;
+	bh=oPpUqYlxr77fNyRzxzW8QwAyxbVGbPr6qrLHJlP9Cs0=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=kQwUwT3Ri+Fs7W6nBHZhbH/njVgeZjpCqZG/O8nxlC8axSPY3wx16e6mOz5whBcPs
-	 a9wo30sgJDRISrEcQnlcHZUObhsu7uXSQu9Lh8WKgPaniFGdmulNatGFBmlEBSGFB/
-	 Js7vbG7Da097IhZRA2zWrFsfQU/P/Zms3aUO/tvs=
+	b=T3ku4buWe/+0XT7MsTZfJoxEKBWIfmCFgdjKbZOfhfnzeGxA5Bb83BcrP4hAEyvtK
+	 EgYFUHK+uZ8586M8FA6VYQg90HGf9MJsleWT352xIlNoOxmcpirJcSsDNIn7Uid3w1
+	 VSWUKfyT0YHJSSYKTXHkQeaKKMgTUgxFny2umdlU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E096F80141;
-	Thu, 15 Dec 2022 12:47:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C412F804F3;
+	Thu, 15 Dec 2022 13:00:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44F6AF804E7; Thu, 15 Dec 2022 12:47:46 +0100 (CET)
+ id 5064AF804E7; Thu, 15 Dec 2022 13:00:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7623AF801D5
- for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 12:47:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7623AF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDFAFF801D5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 13:00:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDFAFF801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FCBQzN34
+ header.s=k20201202 header.b=YM9kX1fC
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A8A6361DA2;
- Thu, 15 Dec 2022 11:47:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42C4C433EF;
- Thu, 15 Dec 2022 11:47:38 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B00A9B81AAE;
+ Thu, 15 Dec 2022 12:00:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4CEC433D2;
+ Thu, 15 Dec 2022 12:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671104861;
- bh=8snVgzDkOR9zhOe/egX/KJ3N1HQ0HLrjXTG8drtdyY4=;
+ s=k20201202; t=1671105650;
+ bh=oPpUqYlxr77fNyRzxzW8QwAyxbVGbPr6qrLHJlP9Cs0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FCBQzN34iw4qBds47R7Lh74FgGK/c1B+JmvJc4AN/oUvQcwD6lsvYiQIdg9LM1v9v
- AebAnCGpKeTuIovJS/mERhVrV6Z4HzL448CQyC/qV923rnnryiwGJB7Qx6Mzeetmk8
- h2SAkPaAaw2ziQ7p3uw9/4XvjZIbLX/WgnawPILtKgkQThsofxKfdRemIdpFAak+nQ
- SFVT/L9lrV11ZutMZ1pU2N2WvSj6aSCdrmUM3kVvGWJE3ZsdKgbJOiHdgOaVzwuvgy
- pRlgHcxKGD2d9wOloX3sgyY/aViPqK5VT2+0lL/BKLNfCWGsdCWso7tg5OjaD6nua6
- h8YCHyeDIprzA==
-Date: Thu, 15 Dec 2022 11:47:35 +0000
+ b=YM9kX1fCDfqx8+0VlEePZMWX+U72VRPacsWkztsWfeB7KsPEpPoX2+TCUrOP7nsMP
+ 28WvETvisFcPeGoZjHtmPw6CVgPu6n5HxGxV/fpM8hlda6gVtO/kTjIY5VYKLhP8Dm
+ jcCfpKkrILJ/8UEXagGLYUcq6ON5Hjcws13AR5EkClCVRVWJNs+PK2kVagyaInqlNJ
+ ZrXyWSY4VemIjWObq3KdxeAAeq13MZhhjeICiNiyeu6vEXSvKm/c8FM0mnCDQm0r3U
+ d+3+FFZmZRNmXCp6nReN0ovWwErflvFvvwXloxrGtIA5DVbVXG6XlYJx89Cp3zZ1P1
+ pIWRD2lZHAgtA==
+Date: Thu, 15 Dec 2022 12:00:45 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH 06/11] ASoC: dt-bindings: ti,pcm3168a: Convert to
- json-schema
-Message-ID: <Y5sJV2KfX98KoMYZ@sirena.org.uk>
-References: <87v8mepyoy.wl-kuninori.morimoto.gx@renesas.com>
- <87mt7qpylw.wl-kuninori.morimoto.gx@renesas.com>
- <CAMuHMdW=_-MyqAjRqaoPyWkoUmdB2VOE1t+wpym7eyOxkzc_7g@mail.gmail.com>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Subject: Re: [PATCH 2/2] ASoC: max98088: fix initial dai mute state
+Message-ID: <Y5sMbQZix760NH4T@sirena.org.uk>
+References: <20221213095328.122309-1-r.czerwinski@pengutronix.de>
+ <20221213095328.122309-2-r.czerwinski@pengutronix.de>
+ <Y5hpqWH2WuSIUHil@sirena.org.uk>
+ <20221215091747.xn3f7ecrwoc7ssyo@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="QJDUvaOOFQYQAqme"
+ protocol="application/pgp-signature"; boundary="0PHvdl9amdw8Qwv7"
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdW=_-MyqAjRqaoPyWkoUmdB2VOE1t+wpym7eyOxkzc_7g@mail.gmail.com>
+In-Reply-To: <20221215091747.xn3f7ecrwoc7ssyo@pengutronix.de>
 X-Cookie: Today is what happened to yesterday.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -85,52 +85,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- devicetree@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Mohan Kumar <mkumard@nvidia.com>
+Cc: alsa-devel@alsa-project.org,
+ Rouven Czerwinski <r.czerwinski@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ kernel@pengutronix.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---QJDUvaOOFQYQAqme
+--0PHvdl9amdw8Qwv7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Dec 15, 2022 at 12:03:02PM +0100, Geert Uytterhoeven wrote:
-> On Wed, Dec 14, 2022 at 2:23 AM Kuninori Morimoto
+On Thu, Dec 15, 2022 at 10:17:47AM +0100, Marco Felsch wrote:
+> On 22-12-13, Mark Brown wrote:
 
-> > +maintainers:
-> > +  - Damien Horsley <Damien.Horsley@imgtec.com>
+> > > +       snd_soc_component_update_bits(component, M98088_REG_2F_LVL_DAI1_PLAY,
+> > > +               M98088_DAI_MUTE_MASK, M98088_DAI_MUTE);
+> > > +       snd_soc_component_update_bits(component, M98088_REG_31_LVL_DAI2_PLAY,
+> > > +               M98088_DAI_MUTE_MASK, M98088_DAI_MUTE);
+> > > +
 
-> For v2, I had planned
+> > Won't this be broken again after suspend?  The device gets powered off
+> > over suspend, then when it powers on again with the output unmuted
+> > nothing will do another write since the register is already in the state
+> > in the cache.
 
->     -+  - Damien Horsley <Damien.Horsley@imgtec.com>
->     ++  - Jaroslav Kysela <perex@perex.cz>
->     ++  - Takashi Iwai <tiwai@suse.com>
+> I didn't found any suspend logic within the driver. Is this handled
+> within the ASoC core?
 
-> as Damien's address bounces.
+Register save and restore for the device won't be.
 
-I wouldn't do that, I gather the maintainers for DT bindings are
-supposed to be people who know and care about the specific binding in
-particular.
-
---QJDUvaOOFQYQAqme
+--0PHvdl9amdw8Qwv7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmObCVYACgkQJNaLcl1U
-h9AEtwf/cHHOHd+LiHpcnpC/OdbwGPMWgBNmMYDNu8nAuQ0yM3Ao4e/gRfickAWM
-r9dJ+UpAGmA42n1pdk99B42neFVHQZ1iwlBmEjX6SmVAz561RO/dEVIMrHDCegT1
-GIxcPEyL3xaikoUqKYrznygcAHdKY2taKVVlHn0cj9QkQGdXaz5jruypmOVLjwQC
-6W5Hq7kN0NJ9TWHkanX3T8fkIcA7PkpLjdcDh2i71mjeCdxStN6qenYQ742n29xp
-wjSzNWnVzYuTLv4mNKfRUwX8qfxT8WjJAogDN7Ww0HQr0VjRSB3Vx5Pn7RDr0swf
-xymy5W2FQyYatqzN6LEJUM5NjKCWGQ==
-=GYG/
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmObDGwACgkQJNaLcl1U
+h9DKQQf/YCCGtpBvt7QeiGZoRVFHxvOPm7/7+AKqoB29uFoyBgi+BsaQPu2DWs7u
+wthV/jYoKl5Dqc4aTVUPEaHd+LfHrI1Z5zNk8bnsW/KTh73AYfBFelcgn78w+23n
+5uMwbHBQIESsiJTAELJOiHrfG/8M2WBrNO5gskq4NRbzclI5e0hZnI0lMFr7Uega
+R0nMslzE5cNiRGlbn1k33a8Rpi08T2cH1zS1cfAru4OPy4VEpgT/gyFK7dtDmH8f
+hPKSc0c1wBFlRz0a0cDMkf0HyoGeKrpMAGv+OPHjIvt9lzNjDMR9ekBConrqkrdg
+UXKSodtBH6MXrmjcOX3JFJwsGhCRSw==
+=W9y5
 -----END PGP SIGNATURE-----
 
---QJDUvaOOFQYQAqme--
+--0PHvdl9amdw8Qwv7--

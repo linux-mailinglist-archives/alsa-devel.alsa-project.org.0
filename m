@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8537D64D997
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 11:32:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10D364DA00
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 12:04:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B1D523D9;
-	Thu, 15 Dec 2022 11:31:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B1D523D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8783C228A;
+	Thu, 15 Dec 2022 12:03:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8783C228A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671100341;
-	bh=WIDaz+drK8oF/b9fCu9/41JRPOIXp254wSJ84sWVcpo=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1671102257;
+	bh=b3UsTHbPJQMG2DfX/FJtHgyQ9pSr66NvVHhXgWiJoGA=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=M+hVPiLHc5MbWWUpowBr+zDpYKlYnyj6IAXuG5DCVkuJ9XmGM4ycIOgquy+Z7G8Os
-	 B4ryjV66pyqKYm5lljEheCL89lC+rpigI2YaK6rA5JNtjfyaJm4AjIXY9v+ugW77D2
-	 Xw1SIRYjPNRyIKyCIDaIQ3J7fmyJsY9na+NxMDsY=
+	b=Ez2HPbWO27Z/WwovtF6aXCewqspX4AnknnRaUCCuYEWTvh8tUrIpJRqCTc4PgPg3P
+	 ZH8h+HYnhVoV73oWw8CZGXLrOFh91ZY+HpN4lo+B30AKvrgdgjSYP545kMtvGdXBz4
+	 qM5ehS4MP9+T+YzoKyPSF03tX62UG+4Id7CBwcRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B97D1F804F3;
-	Thu, 15 Dec 2022 11:31:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D173F801D5;
+	Thu, 15 Dec 2022 12:03:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9D0EF804ED; Thu, 15 Dec 2022 11:31:20 +0100 (CET)
+ id 85C03F804ED; Thu, 15 Dec 2022 12:03:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-4.7 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34562F804CB;
- Thu, 15 Dec 2022 11:31:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34562F804CB
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=GtPBVrT9
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 689146602C5F;
- Thu, 15 Dec 2022 10:31:13 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1671100274;
- bh=WIDaz+drK8oF/b9fCu9/41JRPOIXp254wSJ84sWVcpo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GtPBVrT9VvU5Nf3Fdnb3oE7wiZTu+ZLYId5RN1LJmUrey5rm8QajhLVbf0Z38uf90
- B2b4hDi8Xje+fO3bI86h+8/hGSeGrnNh3jGocVQw+MTAu2wTLDVhktrCS8UKLhIg/j
- L92zjN95nh15jDys2iegzxct6Jz+nHv5cc5iKMD9xs4FD2fFPu6JDuBDn42qxvaVh9
- ooXV3i2nIUFqrUBnXacnYDOxtRsCI3ZzbRT2kfD2uOYB6Xa0sPrC/6eXmuZ73MvNww
- 4leYuWdo1YbTervvIs0+KgdF/UQVrmvAO3nr1EDhyIXsI9ebdnD2IUIJg/fQjIYyB5
- NfG5hvkMkT1Ng==
-Message-ID: <7e8edf6f-9971-c704-4299-be9f7098d1cd@collabora.com>
-Date: Thu, 15 Dec 2022 11:31:10 +0100
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1730F804CB
+ for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 12:03:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1730F804CB
+Received: by mail-qt1-f174.google.com with SMTP id fu10so4896667qtb.0
+ for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 03:03:16 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=W1J3eIm7gN+a7l7I5FPtNe9iMuDw4N0S5iQn7zeIcKY=;
+ b=pMQpqLmMcMeyGMg/9JX7k16uIKBQ2Mc0t3CrsK63/lQ3SNH1fLnMY78sRLWhDC/73U
+ S77VCSOTDHQlrbu1bwIH+rmuEK+1RZVrUYUv9xvZra1ID3j3aZuudZ8xHMnWeWMs8MWw
+ H8zoahh+YwngRLjgV70iJpHd/1OtWlfV6lOlBrAkh2PdK3CaeJoHbpfrvHxUe18qeE9v
+ fseGe1dn+O4ROHvmccNOx6kWAXZiU1tMApLkwJWqhsVg+T+Upuf7Kw3EQ8ue1HO1+daP
+ 09CEFb979SttaQmleGFMusmlTubujmbGdt7EHJNV9RllJxvmEaOAmCqSDs/+VCla+W2Z
+ /+rA==
+X-Gm-Message-State: ANoB5pnDfYyqlA9U+ebomqdqaimN+qF7re+u81e5rnAReKy3Jl55um+K
+ 8G/oROwS/K290kWieeVaKuLoNG5af7tQ+g==
+X-Google-Smtp-Source: AA0mqf7xhz/7voA6dYa0H8SejaYoxv89b1az2BD5EVnn4ZdT2bomu9FjUNeka0kHHm5NHBm7XGkAhA==
+X-Received: by 2002:ac8:1198:0:b0:39c:da1f:f7f8 with SMTP id
+ d24-20020ac81198000000b0039cda1ff7f8mr35978969qtj.30.1671102194594; 
+ Thu, 15 Dec 2022 03:03:14 -0800 (PST)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
+ [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
+ z12-20020ac8100c000000b003996aa171b9sm3175656qti.97.2022.12.15.03.03.14
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Dec 2022 03:03:14 -0800 (PST)
+Received: by mail-yb1-f179.google.com with SMTP id i186so3014042ybc.9
+ for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 03:03:14 -0800 (PST)
+X-Received: by 2002:a25:9:0:b0:6f9:29ef:a5ee with SMTP id
+ 9-20020a250009000000b006f929efa5eemr39090062yba.380.1671102193696; 
+ Thu, 15 Dec 2022 03:03:13 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] ASoC: SOF: mediatek: mt8195: remove a redundant
- comparison of sram
-Content-Language: en-US
-To: YC Hung <yc.hung@mediatek.com>
-References: <20221215061046.16934-1-yc.hung@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20221215061046.16934-1-yc.hung@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <87v8mepyoy.wl-kuninori.morimoto.gx@renesas.com>
+ <87mt7qpylw.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mt7qpylw.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 15 Dec 2022 12:03:02 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdW=_-MyqAjRqaoPyWkoUmdB2VOE1t+wpym7eyOxkzc_7g@mail.gmail.com>
+Message-ID: <CAMuHMdW=_-MyqAjRqaoPyWkoUmdB2VOE1t+wpym7eyOxkzc_7g@mail.gmail.com>
+Subject: Re: [PATCH 06/11] ASoC: dt-bindings: ti,
+ pcm3168a: Convert to json-schema
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,29 +96,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
- Chunxu Li <chunxu.li@mediatek.com>, linux-kernel@vger.kernel.org,
- Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+Cc: Rob Herring <robh@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ devicetree@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mohan Kumar <mkumard@nvidia.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 15/12/22 07:10, YC Hung ha scritto:
-> DSP SRAM is not used for audio shared buffer between host and DSP so
-> TOTAL_SIZE_SHARED_SRAM_FROM_TAIL is zero. Remove the definition and
-> redundant comparison to fix coverity "unsigned compared against 0".
-> 
-> Signed-off-by: YC Hung <yc.hung@mediatek.com>
+Hi Morimoto-san,
 
-Reviewed-by: AngeloGioacchino Del Regno <angeloigoacchino.delregno@collabora.com>
+On Wed, Dec 14, 2022 at 2:23 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> From: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> Convert the Texas Instruments PCM3168A Audio Codec Device Tree binding
+> documentation to json-schema.
+>
+> Add missing properties.
+> Drop unneeded pinctrl properties from example.
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
+Thanks for your patch!
 
+You forgot to list the changes you made to my patch:
+  - Refer to audio-graph-port.yaml instead of describing ports and
+    port@[01] subnodes explicitly.
+
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
+> @@ -0,0 +1,100 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/ti,pcm3168a.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments PCM3168A Audio Codec
+> +
+> +maintainers:
+> +  - Damien Horsley <Damien.Horsley@imgtec.com>
+
+For v2, I had planned
+
+    -+  - Damien Horsley <Damien.Horsley@imgtec.com>
+    ++  - Jaroslav Kysela <perex@perex.cz>
+    ++  - Takashi Iwai <tiwai@suse.com>
+
+as Damien's address bounces.
+
+Or perhaps you want to become the maintainer?
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

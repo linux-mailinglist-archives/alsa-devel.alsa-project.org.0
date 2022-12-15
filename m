@@ -2,88 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20EE364D955
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 11:15:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8537D64D997
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 11:32:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8A5B2129;
-	Thu, 15 Dec 2022 11:14:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8A5B2129
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B1D523D9;
+	Thu, 15 Dec 2022 11:31:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B1D523D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671099300;
-	bh=WgYuRX18jkeCrtH9knZbT61VJPwb3C7IWOPKtqoabwU=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1671100341;
+	bh=WIDaz+drK8oF/b9fCu9/41JRPOIXp254wSJ84sWVcpo=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=L4F32RIb5BRdAjV25rtCOwpHbxP0zebp9q8bA80cNVht/YQBfKprouPLVeQpvANMB
-	 bBOz+yJ9Nf3vRARbUd2XoEUs/h9dcLh4NZM7eWVAGFcrZZLtKqmRBCeHEMKLZFvzvZ
-	 cTFsnVG+BOqVzC+9KPLrfklSdkHi4YFfrmYUgFD4=
+	b=M+hVPiLHc5MbWWUpowBr+zDpYKlYnyj6IAXuG5DCVkuJ9XmGM4ycIOgquy+Z7G8Os
+	 B4ryjV66pyqKYm5lljEheCL89lC+rpigI2YaK6rA5JNtjfyaJm4AjIXY9v+ugW77D2
+	 Xw1SIRYjPNRyIKyCIDaIQ3J7fmyJsY9na+NxMDsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3ABDDF80141;
-	Thu, 15 Dec 2022 11:14:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B97D1F804F3;
+	Thu, 15 Dec 2022 11:31:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F014EF804E7; Thu, 15 Dec 2022 11:14:01 +0100 (CET)
+ id A9D0EF804ED; Thu, 15 Dec 2022 11:31:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07A17F801D5
- for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 11:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A17F801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34562F804CB;
+ Thu, 15 Dec 2022 11:31:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34562F804CB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=lzzDYrDu
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BFA8v1K008119; Thu, 15 Dec 2022 04:13:56 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=Un3qCBxpCzido0mQnarkArNgTyyWKhnUSal2XP1EUNo=;
- b=lzzDYrDuG05Zvlx77Kxo+7HMLjQt1P/bb6ZJ7UWrKgDb52nfK1qhs3m7tfiLrj05UEW9
- 3O38UpM9A15DMsZBB9ep5NK4mIMFhMYDNpVN8BinGJxwc7+z56IpAx3AJO6LTPQF/ILK
- Traf9uRmhG2/cuz7dwfdlRZ6G1NsLXX9+X01lP7WPyn6fvpLEeNw2a5nl1GS+bdW30Ts
- Y4Qu+kn/snemPnGxc67Knjsd5KcvQYYAGo02w4ji8st72QdrqEgj0AEaS7387MZX2/ki
- 2uhjU4KProe2/m+xgpzbnoZfgOV4ZDoPakBLmDCoKAHeGzYPxVA9CblU3pgo4iBlAiIE xA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3mf6rw9fne-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Dec 2022 04:13:56 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Thu, 15 Dec
- 2022 04:13:53 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
- Frontend Transport; Thu, 15 Dec 2022 04:13:53 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D2F6011CB;
- Thu, 15 Dec 2022 10:13:53 +0000 (UTC)
-Date: Thu, 15 Dec 2022 10:13:53 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lukasz Majewski <lukma@denx.de>
-Subject: Re: [PATCH v2 2/3] ASoC: wm8940: Rewrite code to set proper clocks
-Message-ID: <20221215101353.GA36097@ediswmail.ad.cirrus.com>
-References: <20221214123743.3713843-1-lukma@denx.de>
- <20221215093615.3794156-1-lukma@denx.de>
- <20221215093615.3794156-2-lukma@denx.de>
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=GtPBVrT9
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 689146602C5F;
+ Thu, 15 Dec 2022 10:31:13 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1671100274;
+ bh=WIDaz+drK8oF/b9fCu9/41JRPOIXp254wSJ84sWVcpo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GtPBVrT9VvU5Nf3Fdnb3oE7wiZTu+ZLYId5RN1LJmUrey5rm8QajhLVbf0Z38uf90
+ B2b4hDi8Xje+fO3bI86h+8/hGSeGrnNh3jGocVQw+MTAu2wTLDVhktrCS8UKLhIg/j
+ L92zjN95nh15jDys2iegzxct6Jz+nHv5cc5iKMD9xs4FD2fFPu6JDuBDn42qxvaVh9
+ ooXV3i2nIUFqrUBnXacnYDOxtRsCI3ZzbRT2kfD2uOYB6Xa0sPrC/6eXmuZ73MvNww
+ 4leYuWdo1YbTervvIs0+KgdF/UQVrmvAO3nr1EDhyIXsI9ebdnD2IUIJg/fQjIYyB5
+ NfG5hvkMkT1Ng==
+Message-ID: <7e8edf6f-9971-c704-4299-be9f7098d1cd@collabora.com>
+Date: Thu, 15 Dec 2022 11:31:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221215093615.3794156-2-lukma@denx.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: tpQK4WjaN9ppPmobgYMS1GO9dUJSfxvG
-X-Proofpoint-ORIG-GUID: tpQK4WjaN9ppPmobgYMS1GO9dUJSfxvG
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] ASoC: SOF: mediatek: mt8195: remove a redundant
+ comparison of sram
+Content-Language: en-US
+To: YC Hung <yc.hung@mediatek.com>
+References: <20221215061046.16934-1-yc.hung@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20221215061046.16934-1-yc.hung@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,36 +85,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Stephen Kitt <steve@sk2.org>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ Chunxu Li <chunxu.li@mediatek.com>, linux-kernel@vger.kernel.org,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 15, 2022 at 10:36:14AM +0100, Lukasz Majewski wrote:
-> This patch enables support for internal wm8940's PLL and proper
-> divider to set proper value for 256x fs clock.
+Il 15/12/22 07:10, YC Hung ha scritto:
+> DSP SRAM is not used for audio shared buffer between host and DSP so
+> TOTAL_SIZE_SHARED_SRAM_FROM_TAIL is zero. Remove the definition and
+> redundant comparison to fix coverity "unsigned compared against 0".
 > 
-> This approach is more flexible and replaces hardcoded clock
-> values and makes the codec work with the simple-card driver.
-> Card drivers calling set_pll() and set_clkdiv() directly are
-> unaffected.
-> 
-> For the reference - code in this commit is based on:
-> "ASoC: wm8974: configure pll and mclk divider automatically"
-> (SHA1: 51b2bb3f2568e6d9d81a001d38b8d70c2ba4af99).
+> Signed-off-by: YC Hung <yc.hung@mediatek.com>
 
-Minor nit this doesn't quite match the commit <12-chars of SHA>
-("<description>") format in Submitting-patches.rst.
+Reviewed-by: AngeloGioacchino Del Regno <angeloigoacchino.delregno@collabora.com>
 
-> 
-> Signed-off-by: Lukasz Majewski <lukma@denx.de>
-> ---
 
-But the patch looks good to me:
-
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles

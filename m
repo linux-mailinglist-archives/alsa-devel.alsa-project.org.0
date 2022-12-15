@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E8D664D8B7
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 10:38:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20EE364D955
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Dec 2022 11:15:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0345621ED;
-	Thu, 15 Dec 2022 10:37:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0345621ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8A5B2129;
+	Thu, 15 Dec 2022 11:14:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8A5B2129
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671097081;
-	bh=K5IzDCWVlYzH0FrIDIcK+8IhqkaZcnzSMXBXD9x+Xw4=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1671099300;
+	bh=WgYuRX18jkeCrtH9knZbT61VJPwb3C7IWOPKtqoabwU=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=PqjNPoB4ai6CsxlmfSQSAxXfGYUgEvMcoIo5NWwpryyXH1OCFL7Skohl6LVx2dbb1
-	 WX7tGtJzsQxhuF8VgGxJEQ+GUnCWNQc3tbMQzpNs1bgDsS1AEnBPN4eOqdYw20c5FE
-	 oHNGmuBlEeflywFzM4WlC/3ogWGQ1Nnk60e26z2Q=
+	b=L4F32RIb5BRdAjV25rtCOwpHbxP0zebp9q8bA80cNVht/YQBfKprouPLVeQpvANMB
+	 bBOz+yJ9Nf3vRARbUd2XoEUs/h9dcLh4NZM7eWVAGFcrZZLtKqmRBCeHEMKLZFvzvZ
+	 cTFsnVG+BOqVzC+9KPLrfklSdkHi4YFfrmYUgFD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E5FCF80515;
-	Thu, 15 Dec 2022 10:36:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3ABDDF80141;
+	Thu, 15 Dec 2022 11:14:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED789F804ED; Thu, 15 Dec 2022 10:36:36 +0100 (CET)
+ id F014EF804E7; Thu, 15 Dec 2022 11:14:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13D38F804E7
- for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 10:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D38F804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07A17F801D5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Dec 2022 11:13:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A17F801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
- header.s=phobos-20191101 header.b=NRrPSD+Q
-Received: from localhost.localdomain (85-222-111-42.dynamic.chello.pl
- [85.222.111.42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: lukma@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id E21F98546A;
- Thu, 15 Dec 2022 10:36:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1671096994;
- bh=vUFV5R8bOhefsqOpqWAdoI5RFb/9UxmbNJq1tx/Av7g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NRrPSD+QLVUK3bepqgOCbe1axpXNykKURsTidZFGb2i2YHXhFlYKXkVB3df1TllF9
- cee8OuERe/R8yjf67/nDbOdl+ZV57tykGA3vsSCscbzk+BLAdQtOGyIPCeuZydFMKt
- uTzrY2xSzlRoQMb5MuCE/gyvmv+v7MO4W0DPJA2CKRof26JAhrEryHfcWaVJYLvaKT
- D5O6ursxmW1VLyAiInpTi+Mv7mEO+WRkWWAe8rbLj7g8CcXK6yRzXZods/jwRbUmxm
- IywzQZWnSkAXjsYV/GH8Vtudl/SAR5G0P6q1bJyIgSMWs7+ZeHje1F9V4lA1DohMkx
- X/t6BZBh0oErg==
-From: Lukasz Majewski <lukma@denx.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v2 3/3] ASoC: wm8940: Read chip ID when wm8940 codec probing
-Date: Thu, 15 Dec 2022 10:36:15 +0100
-Message-Id: <20221215093615.3794156-3-lukma@denx.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20221215093615.3794156-1-lukma@denx.de>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=lzzDYrDu
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BFA8v1K008119; Thu, 15 Dec 2022 04:13:56 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=Un3qCBxpCzido0mQnarkArNgTyyWKhnUSal2XP1EUNo=;
+ b=lzzDYrDuG05Zvlx77Kxo+7HMLjQt1P/bb6ZJ7UWrKgDb52nfK1qhs3m7tfiLrj05UEW9
+ 3O38UpM9A15DMsZBB9ep5NK4mIMFhMYDNpVN8BinGJxwc7+z56IpAx3AJO6LTPQF/ILK
+ Traf9uRmhG2/cuz7dwfdlRZ6G1NsLXX9+X01lP7WPyn6fvpLEeNw2a5nl1GS+bdW30Ts
+ Y4Qu+kn/snemPnGxc67Knjsd5KcvQYYAGo02w4ji8st72QdrqEgj0AEaS7387MZX2/ki
+ 2uhjU4KProe2/m+xgpzbnoZfgOV4ZDoPakBLmDCoKAHeGzYPxVA9CblU3pgo4iBlAiIE xA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3mf6rw9fne-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 15 Dec 2022 04:13:56 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Thu, 15 Dec
+ 2022 04:13:53 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.20 via
+ Frontend Transport; Thu, 15 Dec 2022 04:13:53 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D2F6011CB;
+ Thu, 15 Dec 2022 10:13:53 +0000 (UTC)
+Date: Thu, 15 Dec 2022 10:13:53 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Lukasz Majewski <lukma@denx.de>
+Subject: Re: [PATCH v2 2/3] ASoC: wm8940: Rewrite code to set proper clocks
+Message-ID: <20221215101353.GA36097@ediswmail.ad.cirrus.com>
 References: <20221214123743.3713843-1-lukma@denx.de>
  <20221215093615.3794156-1-lukma@denx.de>
+ <20221215093615.3794156-2-lukma@denx.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
-X-Virus-Status: Clean
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221215093615.3794156-2-lukma@denx.de>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: tpQK4WjaN9ppPmobgYMS1GO9dUJSfxvG
+X-Proofpoint-ORIG-GUID: tpQK4WjaN9ppPmobgYMS1GO9dUJSfxvG
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,62 +98,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: alsa-devel@alsa-project.org, Stephen Kitt <steve@sk2.org>,
  patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Lukasz Majewski <lukma@denx.de>
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The wm8940 provides the chip ID information via I2C. In this
-patch this information is read and if not matching expected
-value, the probe function is aborted.
+On Thu, Dec 15, 2022 at 10:36:14AM +0100, Lukasz Majewski wrote:
+> This patch enables support for internal wm8940's PLL and proper
+> divider to set proper value for 256x fs clock.
+> 
+> This approach is more flexible and replaces hardcoded clock
+> values and makes the codec work with the simple-card driver.
+> Card drivers calling set_pll() and set_clkdiv() directly are
+> unaffected.
+> 
+> For the reference - code in this commit is based on:
+> "ASoC: wm8974: configure pll and mclk divider automatically"
+> (SHA1: 51b2bb3f2568e6d9d81a001d38b8d70c2ba4af99).
 
-This prevents from using (i.e. inserting) other wm89* modules
-which use the same I2C bus address.
+Minor nit this doesn't quite match the commit <12-chars of SHA>
+("<description>") format in Submitting-patches.rst.
 
-Signed-off-by: Lukasz Majewski <lukma@denx.de>
+> 
+> Signed-off-by: Lukasz Majewski <lukma@denx.de>
+> ---
+
+But the patch looks good to me:
+
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
-Changes for v2:
-- None
----
- sound/soc/codecs/wm8940.c | 11 +++++++++++
- sound/soc/codecs/wm8940.h |  3 +++
- 2 files changed, 14 insertions(+)
 
-diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
-index 1b02d5e8a007..8eb4782c9232 100644
---- a/sound/soc/codecs/wm8940.c
-+++ b/sound/soc/codecs/wm8940.c
-@@ -760,6 +760,17 @@ static int wm8940_probe(struct snd_soc_component *component)
- 	int ret;
- 	u16 reg;
- 
-+	/*
-+	 * Check chip ID for wm8940 - value of 0x00 offset
-+	 * SOFTWARE_RESET on write
-+	 * CHIP_ID on read
-+	 */
-+	reg = snd_soc_component_read(component, WM8940_SOFTRESET);
-+	if (reg != WM8940_CHIP_ID) {
-+		dev_err(component->dev, "Wrong wm8940 chip ID: 0x%x\n", reg);
-+		return -ENODEV;
-+	}
-+
- 	ret = wm8940_reset(component);
- 	if (ret < 0) {
- 		dev_err(component->dev, "Failed to issue reset\n");
-diff --git a/sound/soc/codecs/wm8940.h b/sound/soc/codecs/wm8940.h
-index 0d4f53ada2e6..86bbf902ef5a 100644
---- a/sound/soc/codecs/wm8940.h
-+++ b/sound/soc/codecs/wm8940.h
-@@ -95,5 +95,8 @@ struct wm8940_setup_data {
- #define WM8940_OPCLKDIV_3 2
- #define WM8940_OPCLKDIV_4 3
- 
-+/* Chip ID */
-+#define WM8940_CHIP_ID 0x8940
-+
- #endif /* _WM8940_H */
- 
--- 
-2.20.1
-
+Thanks,
+Charles

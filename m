@@ -2,56 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A208164E762
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 07:47:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F6664E822
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 09:27:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17628175E;
-	Fri, 16 Dec 2022 07:47:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17628175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 056A8172F;
+	Fri, 16 Dec 2022 09:26:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 056A8172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671173279;
-	bh=IgG9+45/iTCOb24FVIEn0dt+X2X0qnOOwzl2uKPITdc=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=tAqLau7/rdXjmGVJZeWQS5y1BZwJHjNaJ3Tzj2p++8NB/JurkRyJyQRadmQnS7c5K
-	 dHSmEEiuQ4ZdbB/scl0vRPsU0BDKBLmrpCp957imXSBh/n+iGTFhE/rLyK5t98yEzN
-	 5Z2qgdpiLgjg15U/+1xwOGCG1Zy8HzaUzgqhMA6w=
+	s=default; t=1671179242;
+	bh=zydTTqQ4+SLBBwo4sVJhl7ZG40+SC36k08EWeHOYlkw=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DkE24HpTMtC+ZwePSIEkyddcg+B4wVfLeVHqa3/WIWV/v37mTgvon3ZcVm/Z6Up0x
+	 WwSsS96Gqy4JNIrYYPA/g2DGNViV4vGRAA8fYOv0pOiLGVPkzjEp4xQpgr+wi4gnuF
+	 P0KLyjo08bsO1ZRDU6UbOzBPaLe8Cz3XXtsVZ9R4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91D45F804CB;
-	Fri, 16 Dec 2022 07:47:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 940B4F804CB;
+	Fri, 16 Dec 2022 09:26:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6C45F804E2; Fri, 16 Dec 2022 07:46:50 +0100 (CET)
+ id 43D12F804CB; Fri, 16 Dec 2022 09:26:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DE31F804D0
- for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 07:46:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DE31F804D0
-Received: by verein.lst.de (Postfix, from userid 2407)
- id A8D8E68AA6; Fri, 16 Dec 2022 07:46:45 +0100 (CET)
-Date: Fri, 16 Dec 2022 07:46:45 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: Re: [6.2][regression] after commit
- ffcb754584603adf7039d7972564fbf6febdc542 all sound devices
- disappeared (due BUG at mm/page_alloc.c:3592!)
-Message-ID: <20221216064645.GA24446@lst.de>
-References: <CABXGCsPnpu0TGHnvXM1we7q1t3tJAOYW2rA=AMvf7ZahcYvpRQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 548E3F804CB
+ for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 09:26:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 548E3F804CB
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256
+ header.s=axis-central1 header.b=pEMYZrKZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1671179181;
+ x=1702715181;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uW0jnoDcdvYMUbyt9zm9YtjxeR1GwOdQOWBDidHKg50=;
+ b=pEMYZrKZFyC1980+JeS2C4+Ud+X+EdYlPnKPX1TcVF7Pvs7OSTn8pKVx
+ Ic0eIpQyG2twCM8EFirzpEUtuxnVcAC1kOtiK8wXySONLe9HaQSVES5AQ
+ KrK6rtX21Q6DY4PPLh0VEfiBkHRAbfR9vZep5jpWP72hTKM0CyKOzcvhi
+ x9LEW/L04hzR8UWaVpPRNRWtrwdj6oXFf07lh5aXXHSumq6ZQT2Uuv/T0
+ lisVOE8P6G6K8GQ5GlKfJzs9pD/DSjGuBti2kUVGEmLsYIcv+oEKmIOiW
+ NWB1vLSMwluvyq2T3x/RTzQUkGb+PSh6lhD6IkjBfh5qjZJpp0i+4eL3i w==;
+From: Jonas Holmberg <jonashg@axis.com>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH] pcm: hw: Do not return error unless there is one
+Date: Fri, 16 Dec 2022 09:26:13 +0100
+Message-ID: <20221216082613.2439067-1-jonashg@axis.com>
+X-Mailer: git-send-email 2.37.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABXGCsPnpu0TGHnvXM1we7q1t3tJAOYW2rA=AMvf7ZahcYvpRQ@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +73,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- iommu@lists.linux.dev, Robin Murphy <robin.murphy@arm.com>, hch@lst.de,
- m.szyprowski@samsung.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ok, it seems like the sound noncontig alloc code that I already
-commented on as potentially bogus GFP_GOMP mapping trips this.  I think
-for now the right thing would be to revert the hunk in dma-iommu.c
-(see patch below).  The other thing to try would be to remove both
-uses GFP_COMP in sound/core/memalloc.c, which should have the same
-effect.
+Add a line that was removed by mistake in commit
+7f2d6c3aac3505ceee4b0d3e8b3ca423ce29b070.
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 9297b741f5e80e..f798c44e090337 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -744,9 +744,6 @@ static struct page **__iommu_dma_alloc_pages(struct device *dev,
- 	/* IOMMU can map any pages, so himem can also be used here */
- 	gfp |= __GFP_NOWARN | __GFP_HIGHMEM;
- 
--	/* It makes no sense to muck about with huge pages */
--	gfp &= ~__GFP_COMP;
+Signed-off-by: Jonas Holmberg <jonashg@axis.com>
+---
+ src/pcm/pcm_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/pcm/pcm_hw.c b/src/pcm/pcm_hw.c
+index 0588ce5e..daa3e1ff 100644
+--- a/src/pcm/pcm_hw.c
++++ b/src/pcm/pcm_hw.c
+@@ -356,7 +356,7 @@ static int snd_pcm_hw_hw_refine(snd_pcm_t *pcm, snd_pcm_hw_params_t *params)
+ 	if (hw->rates.min > 0) {
+ 		err = _snd_pcm_hw_param_set_minmax(params, SND_PCM_HW_PARAM_RATE,
+ 						   hw->rates.min, 0, hw->rates.max + 1, -1);
 -
- 	while (count) {
- 		struct page *page = NULL;
- 		unsigned int order_size;
++		if (err < 0)
+ 			return err;
+ 	}
+ 
+-- 
+2.37.4
+

@@ -2,150 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8E3564ED9A
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 16:10:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A7864EE2D
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 16:51:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D6B316E6;
-	Fri, 16 Dec 2022 16:09:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D6B316E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8EB316BB;
+	Fri, 16 Dec 2022 16:50:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8EB316BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671203415;
-	bh=pFIYiyVPSg+MAYBtwHnfYxe79JqiaJ+R+FYAraKbRjc=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=XtcAeq6/q7Q5OVbdGtt7woOfqAV+iSZkPAmn3BtqV+0q6jZ4ASuUQNQ6vqTBegauz
-	 Du3US+bosHNKCU6+3G071AAl5wdt5zv1u/mMVGT9e3OQ5dwOxGmuFtHOzIb9oh8nsD
-	 6ItaGhnjmtq72DEYwuC6bDYbKUV9VWOMdQAtYNGI=
-Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8423F804E7;
-	Fri, 16 Dec 2022 16:09:17 +0100 (CET)
+	s=default; t=1671205860;
+	bh=ziDluwSEYmg/CA7izr8pg7qokeUVPr7Qv/E4H8HiHMc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=rlm1oz0lWggimBwMkZNysR6FrC3F2pBFDIz0xs6GJ2PYqOdU1ohONEVWWmEkMhhOZ
+	 6cXjPpAa7kECXavoBnIUn+Oq4uuaDTNRtOKVnfMGWe/PWZrfGvGHWzaR6pqLRiEeWw
+	 sadltvX9uCEaqb/9uZXwnCB+Utkf6RPai+RDCMF4=
+Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F90DF804D0;
+	Fri, 16 Dec 2022 16:50:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5648AF804E2; Fri, 16 Dec 2022 16:09:16 +0100 (CET)
+ id D36CEF804D0; Fri, 16 Dec 2022 16:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E9DEF804CB
- for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 16:09:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E9DEF804CB
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=eh/7vbCy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MBJ+SRYG8RacWw5itkgT7dszdeUQzz560hIluyHT6Kk3bxrDJAFqOFMA7WnGvaZQtggHUTGJqWaILuABHGIoQ8xKYvJqIznq5DrDeENpfzB7/1PW8fw6kUg2hFoNNZ0l0SynjXERTEE0z+ZSsi8EJbZX5k15EvSzkuy4n77W1uRjG/7y6nsafq1ROgQdF8WUilXnnqkdTqYnAbxkYahIRJXQqnn+vVnGV9vW0smDnM5xnb1WB24w8RSad9OScD/bxx5FxLwv/nfLI+98f1Qs35MgI2eyADiH/Wobux3cyIpJjAG5W5bHd1b/xe2Q+xVteRC0et6l0/3l3cqCVA4n8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7CfbGHNqiR2yXbLK7V3iAvtfN4StOFEbHf6LdZVyD/E=;
- b=fGzk44Np8mr97RZc5NG1t1CWLssN2KuVsW9Y8lELlnqJyBz23ehPhAtNammbUsd4k5sz2Jdbc4l78cprgSDhUV5C8+G3jPf/dWs37d5e5CYUJiVGq8G6PN70dwPAJki2fBgYZ3filBHBS5d92ajnG5eMluZNvg4Um61QOY7QyPIdkV/aDHqEPwexgYUN8p6cZqxUrwAI7QtT0mn4gJKAoKymMQsj6SJLz5IUqgQMhgFpno0RjFTDGvRc/G74nHzK+a8YId8ngR1CQJfvwm4btqsx4b03ZJS1iKGouleQKPC6kvKE/DBd6cQ3TG1b7bywLp/dbunMfmjqXzPOkvJL5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7CfbGHNqiR2yXbLK7V3iAvtfN4StOFEbHf6LdZVyD/E=;
- b=eh/7vbCyyOH3uqYL0dzkAjFOV0ptFkJyX1sRJU2h6Qwo0qUIwR3o7Z1mBAzq+FmoCuviHCjomp9OhXxrfD2CDjszZbb52fev9ur7n+f5AfmeGj6Sp6yYaFH1t7jhmLRnF4fpjhmdjavWytsHXwtzz4DyuR65z+KstaNIOfyIcy4=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SN7PR12MB6691.namprd12.prod.outlook.com (2603:10b6:806:271::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
- 2022 15:09:08 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a%4]) with mapi id 15.20.5880.019; Fri, 16 Dec 2022
- 15:09:08 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Wim Van Boven <wimvanboven@gmail.com>
-Subject: RE: [PATCH] ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
-Thread-Topic: [PATCH] ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
-Thread-Index: AQHZEScEEVPxC+tuU0iVk7OQYtNJra5wndUQ
-Date: Fri, 16 Dec 2022 15:09:08 +0000
-Message-ID: <MN0PR12MB6101AB123DF2718E7A452C71E2E69@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20221216081828.12382-1-wimvanboven@gmail.com>
-In-Reply-To: <20221216081828.12382-1-wimvanboven@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-12-16T15:07:12Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7795d5dd-9493-42d6-b84a-bcdf211e2a6b;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-12-16T15:09:07Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: c0d40f49-94d8-464d-b0f8-e3adfa22cd78
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|SN7PR12MB6691:EE_
-x-ms-office365-filtering-correlation-id: 0bbdca55-d8d4-4062-6d7d-08dadf777b14
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xo9MR5g0oTCm0MUvzQ72at6+++TkuTdevLqtZH1bWaCEFl3eb1dPHYx5YkX3ASGbQTdIJGkwlwjyqlqUhS9HPkN/7oc2JdaLqZyJl5uNMjQjlDo4s/BwvFWZzXlyvRImfHc+AjJvg3wKKfUDB7JMuOov52wWCKIyOUugMrA+fPPGdvSGfV9je8hwE/8gwzd1jHXdXRh6BROppGyn+mzO8gRV6JT5QIyK1b/rayQxPYttJoog33rrX6yhJwB6lV4galHA2fLWebHE9aKmjZkaqJ2xI7MrCgxTUMcAX5RieQMzvM2OmO/WDaVFeD1mxbU5tpa3bzK7ntAp+O2dkxsaJi3zKoK4d8CRDBUfeCw4eojaif9fLNpv4xEVqbcInH6p2rf7DGjtr04X17gZPvlfvfxw0naB5gP2fh7YP9Xs6wzfsdO/aRt2XEtHI1qkI2bmiM+uq5XrHBy1+4/H5n2OEooPWirYX2j85vbYUZTMh2neZQ0mk0g6zFpmUSR+ucvRJNRBr3jsneYmwS4edwcJ7TB4qVtB/S13wGt2wTedWxiX4KlFIJ5ZV6HHAQPhPxl4NAIM4+5x6lYFTZ9RKg3t59ctbPntnrHeOSmwE9GrHf2MkdL8lziujlJtkLe1iGv1Hxg6lJHXy564qO7cXr6p2ipriQtHi+u5tt1xdO/iOgRuKU8BYe7wgzV62Zc7S0wVKFVln5T514bjOCNrxGPLp5L+ZEM4/BVWY70t2fSNQFk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(366004)(396003)(136003)(39860400002)(376002)(451199015)(41300700001)(52536014)(64756008)(76116006)(66476007)(5660300002)(86362001)(66946007)(66556008)(66446008)(38070700005)(7416002)(8676002)(4326008)(316002)(2906002)(54906003)(6916009)(186003)(122000001)(38100700002)(6506007)(9686003)(26005)(7696005)(71200400001)(55016003)(83380400001)(8936002)(33656002)(966005)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?E+xe8PeSzOKwWxKkqRq4MFru27921li3KmrltYHVQSSrO0T3eYoHcIYmQruc?=
- =?us-ascii?Q?nfFACmJuoax1uLjhFyBTPG6eLl2VDiejZC9sS7OayWebanRhmTqEuY2c7oaZ?=
- =?us-ascii?Q?r/jYejW9qgjhN/Lmfws0/rsRrkh37ZUeVkcjFFgWprRiarBcyFnpcwuGF6ji?=
- =?us-ascii?Q?OFbUri6ueGVNYeaq45VAeVM21Q2wkZ7bPAwt0AUwGyp4eybiFAWJjc2mWWjE?=
- =?us-ascii?Q?vrFL6hOKm09jVn6vEyE9y4qZx/S4sh48dVmlEYdMD8GYlf5E6Gy/dRNyFe6K?=
- =?us-ascii?Q?rh8mE0YomUcO9YE4KcIj45WSlsuX2EdZQbjf+mYD6Srto7rqyRr+W2EvrObv?=
- =?us-ascii?Q?IqHcKrXX6kVYB4+v8TwCrnoDV8NKcqCBsz8w8Nx2hK05sdU0znHvda8PkAuf?=
- =?us-ascii?Q?pkhZDmMb+DFKiiYogsJO3076XRHr2gr2+CiZHnCRC+/2ouy5rNZlkxWnz//g?=
- =?us-ascii?Q?6K3bAelGbybp+W2YyqzCqKYH7r1yuJAEjGK/vIH23hmDLKFspjvFXueer3/C?=
- =?us-ascii?Q?qErBy8iPJcun6uaTtkRbcSsatxumnZ4Mqnkrg7jjPMj9bpwyKsnHL/aoZRht?=
- =?us-ascii?Q?34OWVJ0JXg0tXQG9uWOl0Sj4BkJ2KJ4oBzZ+sI3h5H/tSCpnJQKD/Yz9qqog?=
- =?us-ascii?Q?DuCrgQgUDQ1iuxtcooJegcIOamskhkVJ3ZUufvO5MsJJp+lyeBCGb9rsz8Tw?=
- =?us-ascii?Q?q8rTAQtCR0qAHpQCNq+KpyKFl9lHhh4IOzxaARVxs7ZmbS+caimfgoFFIQW9?=
- =?us-ascii?Q?zfKYRDlIuDSFkPm330xx78OTMAdsvX0+/iR0FziJh4wj9KgFglcEB5rFuDGN?=
- =?us-ascii?Q?eQM/RYvRMOj0HbQeSJ2EwM5IKA+jV78dxN6sohI5bRBqwkuIImva1b4nnEFD?=
- =?us-ascii?Q?jOEkJ871btNhOpGeWHFurTL5ZzXdawsY74/b/cQwNKNJF2lVaTDQJk0pnKlU?=
- =?us-ascii?Q?3hAE6pQQzhxrH+KLGiQFBTlcnpja+h72iVgZAwMSOJe+jMoFPt2r2PASrUxm?=
- =?us-ascii?Q?RlXss7xq+3CoAEHNi/NCyGzjkfn+Repctkp0ZPGnBQ9Hu2sou4bPWZEKvv6t?=
- =?us-ascii?Q?qdkrJ1Ow6YlXXw37dt1oVsGZ79sUXhmCqEe7B4Kk2GJmamjSIuICAkGE7Hh/?=
- =?us-ascii?Q?Qm6o+B6UivnJcUr6i5L3b9BE6FNtQ8FtjjW1ouZsKXd3KOXgew+FgjKnpvGA?=
- =?us-ascii?Q?XhQZeJO5QYu+SBQHHkaXQ9zq0hK8qrPsVoVGZn8LmiyZXoCgv2qZDjX3XLqZ?=
- =?us-ascii?Q?4gdoMSe4dRKFuoFxkXbleNf1gmCVCCWxAlRr0HkwJIsBKfWgOgFKlbnnondK?=
- =?us-ascii?Q?PRGOBCjDZLmDscX07e98aqBMxT6yZAtMR5iAGXz1EuxGZv7bBQbTgrcPrG+T?=
- =?us-ascii?Q?iixpFbPjGKrYRbmghoJQq07ZJel/WY2Lf4xj1IkNTL7BEtmOhEO10DuGZ0GC?=
- =?us-ascii?Q?S5S5XkPYUJqJX9eQx7TFeqBeZMpM3uBy/wPnlMDV9NiUlNBrNPQoX8vsAO2e?=
- =?us-ascii?Q?961jFiG3WeTZEfNvEpl78l8amEGaNhJob4J1yPZUlyt0YXw51inAb2FSGxUl?=
- =?us-ascii?Q?xBFFauWaOM1D9sNm+RM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9338F804D0
+ for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 16:49:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9338F804D0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
+ header.a=rsa-sha256 header.s=20210112 header.b=ALUB5kND
+Received: by mail-pl1-x62a.google.com with SMTP id n4so2736028plp.1
+ for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 07:49:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=x3qpEO5lHSZJwEeaighoCmCCXRBl2IrYmRYFiqgKpIw=;
+ b=ALUB5kNDC2Ru+bNPAbdn8rSB56VCGbnjykUtqJIjZAZM36nSTuFjrrI1kQ4eiJy0lV
+ AX36TnHO8u682Jt1uLYulk7vhIi8OsAXZtdccQAASLLzEJnexixvrjv29NV499gL/zSi
+ Xis1yOCWUu3LXS9HHogIxskSZhuxtIVDmVSGXV/b/Ol13T8BKNfqzROLB5CJiWngaZwy
+ fpEKb/j1dYSd71o0q1eptDRJz052ELBNEStfj7nqIi1oqfc/jicNQQd7g+lRZYEB2Jh4
+ B7DCRVDEVZ3YsM36WVdLuMEm6C1acU4YIeZEBQTBg0sAFF+8l2arzfFJeYoMh+SYS0ik
+ oR/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=x3qpEO5lHSZJwEeaighoCmCCXRBl2IrYmRYFiqgKpIw=;
+ b=lCPiIM9Mp9qVbd3pzt1JYkDp2eN8JhN7gqZGVZ3JRxZGJlQHYZ1lisuThDWUhHvkcY
+ k3KV0uuOFuSStAV5wT6DyFTXCurf223U5QyANqqLxo4S6r3RXRva9qnN0GLXekFVx9EW
+ /zS6WZF3G9x646vqMVRkLihZX2kMu/kKd5vEO5SvTxkJPCoLPYKlqvTx2iQ12SUFtQqw
+ xvVaaWILMo/e+JSX7p3YDMLEwYzVp2t1Q4d0vF01y5ZgfmNxkkGsCC4AVygjhSxDDScP
+ N9O/isiHvAxuLYVcDN+YVMPLbV2xXAglW5Ktq8Y778pnrHq5InmITCsztJWf+LdZdDxH
+ CdHA==
+X-Gm-Message-State: ANoB5pnI9WuRnjgNRPC6Ivf/5kjVS5o0CePS8ewNoGqJOnuiachSgQbB
+ uggvlhm481x4T+2Kb1XrSEODeA==
+X-Google-Smtp-Source: AA0mqf75RsyhgBAwKuey2DzSvP1/d3AiH7wmMlxnJig/9nbHpTV/V0QPqvnwI/rvRwkbg/5fUS4aIw==
+X-Received: by 2002:a17:903:1209:b0:186:7608:1880 with SMTP id
+ l9-20020a170903120900b0018676081880mr45954540plh.36.1671205792024; 
+ Fri, 16 Dec 2022 07:49:52 -0800 (PST)
+Received: from ajye-OMEN-by-HP-Laptop-S.hitronhub.home
+ (123-195-117-216.dynamic.kbronet.com.tw. [123.195.117.216])
+ by smtp.gmail.com with ESMTPSA id
+ o1-20020a170902d4c100b0017f7c4e260fsm1797897plg.150.2022.12.16.07.49.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Dec 2022 07:49:51 -0800 (PST)
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ASoC: Intel: sof_nau8825: add variant with nau8318
+ amplifier.
+Date: Fri, 16 Dec 2022 23:49:38 +0800
+Message-Id: <20221216154938.9426-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bbdca55-d8d4-4062-6d7d-08dadf777b14
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2022 15:09:08.4916 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3mS41kwusHgHgPXUjQAL6Ygol92oEhJkPEPZN46hD65+qgvYT2PTWPss2qYQWyzY0WS5YcVENy+J8aygKUj9TA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6691
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,68 +100,137 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, "Saba
- Kareem, Syed" <Syed.SabaKareem@amd.com>, Leohearts <leohearts@leohearts.com>,
- linkt <xazrael@hotmail.com>, Brent Mendelsohn <mendiebm@gmail.com>
+Cc: Libin Yang <libin.yang@intel.com>,
+ "balamurugan . c" <balamurugan.c@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Muralidhar Reddy <muralidhar.reddy@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ David Lin <CTLIN0@nuvoton.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[Public]
+This patch adds the driver data for two nau8318 speaker amplifiers on
+SSP1 and nau8825 on SSP0 for ADL platform.
 
+The nau8315 and nau8318 are both Nuvoton Amp chips. They use the same
+Amp driver nau8315.c. The acpi_device_id for nau8315 is "NVTN2010",
+for nau8318 is "NVTN2012".
+The nau8825 is one of Nuvoton headset codec, and its acpi_device_id is
+"10508825".
 
+Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+---
 
-> -----Original Message-----
-> From: Wim Van Boven <wimvanboven@gmail.com>
-> Sent: Friday, December 16, 2022 02:18
-> Cc: wimvanboven@gmail.com; Liam Girdwood <lgirdwood@gmail.com>;
-> Mark Brown <broonie@kernel.org>; Jaroslav Kysela <perex@perex.cz>;
-> Takashi Iwai <tiwai@suse.com>; Limonciello, Mario
-> <Mario.Limonciello@amd.com>; Saba Kareem, Syed
-> <Syed.SabaKareem@amd.com>; Leohearts <leohearts@leohearts.com>;
-> Brent Mendelsohn <mendiebm@gmail.com>; Xiaoyan Li
-> <lxy.lixiaoyan@gmail.com>; linkt <xazrael@hotmail.com>; alsa-devel@alsa-
-> project.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
->=20
-> Razer Blade 14 (2022) - RZ09-0427 needs the quirk to enable the built in
-> microphone
->=20
-> Signed-off-by: Wim Van Boven <wimvanboven@gmail.com>
+ sound/soc/intel/boards/Kconfig                |  1 +
+ sound/soc/intel/boards/sof_nau8825.c          | 23 +++++++++++++++++++
+ .../intel/common/soc-acpi-intel-adl-match.c   | 12 ++++++++++
+ 3 files changed, 36 insertions(+)
 
-Thanks!
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index a472de1909f4..3f68e9edd853 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -554,6 +554,7 @@ config SND_SOC_INTEL_SOF_NAU8825_MACH
+ 	select SND_SOC_RT1015P
+ 	select SND_SOC_MAX98373_I2C
+ 	select SND_SOC_MAX98357A
++	select SND_SOC_NAU8315
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDAC_HDMI
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
+index 27880224359d..0936450be153 100644
+--- a/sound/soc/intel/boards/sof_nau8825.c
++++ b/sound/soc/intel/boards/sof_nau8825.c
+@@ -48,6 +48,7 @@
+ #define SOF_MAX98373_SPEAKER_AMP_PRESENT	BIT(15)
+ #define SOF_MAX98360A_SPEAKER_AMP_PRESENT	BIT(16)
+ #define SOF_RT1015P_SPEAKER_AMP_PRESENT	BIT(17)
++#define SOF_NAU8318_SPEAKER_AMP_PRESENT	BIT(18)
+ 
+ static unsigned long sof_nau8825_quirk = SOF_NAU8825_SSP_CODEC(0);
+ 
+@@ -338,6 +339,13 @@ static struct snd_soc_dai_link_component rt1019p_component[] = {
+ 	}
+ };
+ 
++static struct snd_soc_dai_link_component nau8318_components[] = {
++	{
++		.name = "NVTN2012:00",
++		.dai_name = "nau8315-hifi",
++	}
++};
++
+ static struct snd_soc_dai_link_component dummy_component[] = {
+ 	{
+ 		.name = "snd-soc-dummy",
+@@ -486,6 +494,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 			max_98360a_dai_link(&links[id]);
+ 		} else if (sof_nau8825_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT) {
+ 			sof_rt1015p_dai_link(&links[id]);
++		} else if (sof_nau8825_quirk &
++				SOF_NAU8318_SPEAKER_AMP_PRESENT) {
++			links[id].codecs = nau8318_components;
++			links[id].num_codecs = ARRAY_SIZE(nau8318_components);
++			links[id].init = speaker_codec_init;
+ 		} else {
+ 			goto devm_err;
+ 		}
+@@ -657,6 +670,16 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_BT_OFFLOAD_SSP(2) |
+ 					SOF_SSP_BT_OFFLOAD_PRESENT),
+ 	},
++	{
++		.name = "adl_nau8318_nau8825",
++		.driver_data = (kernel_ulong_t)(SOF_NAU8825_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_NAU8318_SPEAKER_AMP_PRESENT |
++					SOF_NAU8825_SSP_AMP(1) |
++					SOF_NAU8825_NUM_HDMIDEV(4) |
++					SOF_BT_OFFLOAD_SSP(2) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index 60aee56f94bd..1a69cd8c5e18 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -450,6 +450,11 @@ static const struct snd_soc_acpi_codecs adl_lt6911_hdmi = {
+ 	.codecs = {"INTC10B0"}
+ };
+ 
++static const struct snd_soc_acpi_codecs adl_nau8318_amp = {
++	.num_codecs = 1,
++	.codecs = {"NVTN2012"}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 	{
+ 		.comp_ids = &adl_rt5682_rt5682s_hp,
+@@ -507,6 +512,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
+ 		.quirk_data = &adl_rt1015p_amp,
+ 		.sof_tplg_filename = "sof-adl-rt1015-nau8825.tplg",
+ 	},
++	{
++		.id = "10508825",
++		.drv_name = "adl_nau8318_nau8825",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &adl_nau8318_amp,
++		.sof_tplg_filename = "sof-adl-nau8318-nau8825.tplg",
++	},
+ 	{
+ 		.id = "10508825",
+ 		.drv_name = "sof_nau8825",
+-- 
+2.25.1
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D216801
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
-> ---
->  sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-
-> mach.c
-> index 1f0b5527c594..469c5e79e0ea 100644
-> --- a/sound/soc/amd/yc/acp6x-mach.c
-> +++ b/sound/soc/amd/yc/acp6x-mach.c
-> @@ -220,6 +220,13 @@ static const struct dmi_system_id
-> yc_acp_quirk_table[] =3D {
->  			DMI_MATCH(DMI_PRODUCT_NAME, "Redmi Book
-> Pro 14 2022"),
->  		}
->  	},
-> +	{
-> +		.driver_data =3D &acp6x_card,
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "Razer"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "Blade 14
-> (2022) - RZ09-0427"),
-> +		}
-> +	},
->  	{}
->  };
->=20
-> --
-> 2.38.1

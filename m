@@ -2,83 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1EA64F285
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 21:42:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A937C64F552
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Dec 2022 00:48:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 602E616FC;
-	Fri, 16 Dec 2022 21:41:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 602E616FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2428116E3;
+	Sat, 17 Dec 2022 00:47:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2428116E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671223366;
-	bh=yXW+wV+UgSM2VSneYgwaMavVBMwnnak5JNaby2zZkUY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=dVqeDOoY+aWULLzoyoARVZTvRTEjoTUw+Fq4sNh0SwkOAdhTw80/JvSa95xQg5rcl
-	 KlCvh/Gar+bR32yXJbCfmfn+GQdy/UL6gpnpxGhZqXA0aa7o4bOwQtmmPJ47l93Coh
-	 busDzQgWttF0j3XofVfcmt0LiGh/CPSGZdhKibKE=
+	s=default; t=1671234499;
+	bh=HJDFdvLuzuVRUsBi3mDaovfCwLQuvHrr/9wvS/8OE7M=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=qTXNY/IyBRnDMRSoMRdhDGjqEJyvrMQ4DSi4vZ0HCReTs1iLUj/dj/C/SnHhIHIJC
+	 Y8xlxEBYe8OIr0yVIIvT2VVfhAZDSESFLcdOhHPFnIbOGBaYmUIt4HrVen00VmrROS
+	 PEum78nT71rt5QpJbVjsGmP6duqdUOiYa9n2+mk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE3FAF80578;
-	Fri, 16 Dec 2022 18:37:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA07DF804CB;
+	Sat, 17 Dec 2022 00:47:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 931AAF80571; Fri, 16 Dec 2022 18:37:09 +0100 (CET)
+ id 3031FF804E2; Sat, 17 Dec 2022 00:47:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AE45F8056F
- for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 18:37:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AE45F8056F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42ADBF804D7
+ for <alsa-devel@alsa-project.org>; Sat, 17 Dec 2022 00:47:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42ADBF804D7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NIUP04Wu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671212225; x=1702748225;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=yXW+wV+UgSM2VSneYgwaMavVBMwnnak5JNaby2zZkUY=;
- b=NIUP04WujA/bmM8U0ekYddzlcD70QYJ1lsF/R2IGLmq2ayliN6BL3B0A
- S2HvY/Wk1aSt4DWH5+fwVX8trvAdnV7udjop1IPvM3mBx3/+f8Qu2fp+Y
- 1qNp5Zui5p6MdZ9NHY0hC7B8Ch+yVCQUjhngKCM6l+3eAGrcPaGL/BwRz
- 4pnWT62phzt8v798ycKpN9owDm2UVuVrA/xfQvie/J3qh+3EZadpcsM0l
- Givo8bBQn4n8mjAPBrZNgph0DrTIZJI1JIyBKVIZhkypAzpRNNotzxowi
- xBhLNvymIwvytNIN9Q4ALZ4JBIYt3wEbNVccx9d3Iby2jyFVyaw/wS8YR w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="383352493"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="383352493"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 09:36:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="651997543"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="651997543"
-Received: from krojasle-mobl.amr.corp.intel.com (HELO [10.209.187.31])
- ([10.209.187.31])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 09:36:57 -0800
-Message-ID: <9aa4bffd-bc7e-0e40-3063-5ce80b5fbe9a@linux.intel.com>
-Date: Fri, 16 Dec 2022 11:36:56 -0600
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=csoQxFmo
+Received: by mail-ej1-x629.google.com with SMTP id t17so9728699eju.1
+ for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 15:47:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:subject:cc:to:content-language:user-agent
+ :mime-version:date:message-id:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NHMmmido3nXTHMEbDUi50QRCKsCrWJz9nzirvJfWkMI=;
+ b=csoQxFmotzwpUL8SeawGxp9S0H2us15OpOoYyoUP33kyWFGFWRH4dqqh6aVO9rO+fU
+ LriTAksEiG6yDJ8I/HQEyFAxKjKpSFo4auFAn85aiUj2CVHPCt9OjMxVrImFYZ7AMS8l
+ vMIQGz1WTF5rEsBHEs9ZOWZAL72jzQuGh4QuMUq0gU6Ert8LkerXYkgw5KGIKtLNzy9I
+ pE+NeapTEPFovYXLS3KTFr8q9CgQEg/0WOEzNZNiUGBA11J67/2lUYlOKVaeDeBow3RO
+ PnrO3CbdXwKnAIUd2CNnqoFwLvac3ntbuo2OL8uDu+MXmeUg4m3je9P2Vgh4rC14Jqkq
+ mxxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:subject:cc:to:content-language:user-agent
+ :mime-version:date:message-id:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NHMmmido3nXTHMEbDUi50QRCKsCrWJz9nzirvJfWkMI=;
+ b=y/ozJtaOMtzAghS0A1qdiHeIucpm4dhgD854Mfng1va1BBcpS4x/uxQpwWZnGsB0mC
+ iJnWuKE6OzYvR0tKmPlmiby8qcewgl6iYqPL7wQDbXI9ymDEp2xeQaJI36YZ3mhfjiPb
+ +aIi6yh8ArH3k5HM7t1U53mxtSxCHcHLxuI1Hj1CWPJljGwilfcjpPccyJ/Suw7VPNM9
+ XuSkBve++0o2c7vrBrDE/DMhM86Cwf86frk91upW4Skg3AKQhidDzUqKQYRrFSUm5uDt
+ 3+CPPsKKor9yhDtK7gt6rFSZBSVEzxKNoA1OfGfcYmZuEquJ0h4UtaSMc01Rnd0DD3yI
+ d9UQ==
+X-Gm-Message-State: ANoB5pmUE0hEZ0FY38WasOoHYNJf9lyFfM45nMq6skdWaTxLRUJHoMUE
+ SK0QRe47L66khhC9itjWy+JU6K41+HZlmg==
+X-Google-Smtp-Source: AA0mqf7c95+jPEu42uKRI2Xii8b7yzXdpEjXvWFZ/q14r4kCosWhrPIrQGAHjRQlHO5hnbzaa1FmEw==
+X-Received: by 2002:a17:906:f106:b0:7c0:aea2:e910 with SMTP id
+ gv6-20020a170906f10600b007c0aea2e910mr40798327ejb.3.1671234435390; 
+ Fri, 16 Dec 2022 15:47:15 -0800 (PST)
+Received: from [192.168.79.191] ([151.30.119.73])
+ by smtp.gmail.com with ESMTPSA id
+ 11-20020a170906300b00b007bee745759bsm1357387ejz.20.2022.12.16.15.47.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Dec 2022 15:47:15 -0800 (PST)
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+X-Google-Original-From: Emanuele Ghidoli <ghidoli.emanuele@gmail.com>
+Message-ID: <c7864c35-738c-a867-a6a6-ddf9f98df7e7@gmail.com>
+Date: Sat, 17 Dec 2022 00:47:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v2] ASoC: Intel: sof_nau8825: add variant with nau8318
- amplifier.
+ Thunderbird/102.4.2
 Content-Language: en-US
-To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-References: <20221216154938.9426-1-ajye_huang@compal.corp-partner.google.com>
- <b0612bbd-2eba-36cf-9c29-7542cf32adfd@linux.intel.com>
- <CALprXBYy9_ax8-xfh0paB59Pn=TB7yVLwtY8vnT_-y5vWd867w@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <CALprXBYy9_ax8-xfh0paB59Pn=TB7yVLwtY8vnT_-y5vWd867w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: alsa-devel@alsa-project.org
+Subject: wm8904 and output volume control
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -92,90 +102,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Libin Yang <libin.yang@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- ye xingchen <ye.xingchen@zte.com.cn>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, "balamurugan . c" <balamurugan.c@intel.com>,
- Mark Brown <broonie@kernel.org>, Muralidhar Reddy <muralidhar.reddy@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Akihiko Odaki <akihiko.odaki@gmail.com>, David Lin <CTLIN0@nuvoton.com>,
- alsa-devel@alsa-project.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Brent Lu <brent.lu@intel.com>, Yong Zhi <yong.zhi@intel.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Michael Walle <michael@walle.cc>, Mark Brown <broonie@kernel.org>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ emanuele.ghidoli@toradex.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello,
+I have found that output volume is set to the default value after a 
+limited time (~4 seconds) after play stop.
+I have analyzed what is happening:
+- at first play the volume is the expected one
+- After stopping playing + ~4 seconds wm8904_set_bias_level (..., 
+SND_SOC_BIAS_OFF) is called
+- Chip is reset and regulator is switched off if "possible" (not in our 
+case, it is important to note)
+- at second play wm8904_set_bias_level (..., SND_SOC_BIAS_STANDBY) is 
+called. wm8904_hw_params is also called just before.
+
+I see that all I2C transactions are good, registers are written as 
+expected, especially volume control register (even the silly HPOUT_VU 
+bit, to do a volume update is correctly written).
+Reading out this register, using i2cget (bypassing regcache), report the 
+"expected" value. But the real output volume correspond to the default 
+value (hw default, that it is the same value in wm8904_reg_defaults 
+structure).
+
+I checked that SYSCLK_ENA is 0 during register writing (needed if 
+MCLK/SYSCLK is not present). I do not know if there is some other 
+constrain on these registers.
+
+If I rewrite the volume control register, a second time, the volume is 
+set (tested with i2cset, from user space. And from kernel space, 
+bypassing regcache).
+
+I resolve also by reverting e9149b8c00d2 ("ASoC: wm8904: fix regcache 
+handling").
+I'm not here to say that the commit is wrong. I analyzed it and seem 
+perfect (in few words it align the hw with the regcache avoiding 
+potential incoherence).
+
+I'm trying to compare first play and second play register programming 
+sequence. They are similar but not the same. But on the first play the 
+volume output is good.
+
+Do someone remember something similar fixed on another codec?
+Any idea is appreciated.
+Thank you.
+Best regards,
 
 
-On 12/16/22 10:55, Ajye Huang wrote:
-> Hi Pierre
-> 
-> On Sat, Dec 17, 2022 at 12:03 AM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
-> 
->> On 12/16/22 09:49, Ajye Huang wrote:
->>> This patch adds the driver data for two nau8318 speaker amplifiers on
->>> SSP1 and nau8825 on SSP0 for ADL platform.
->>
->> So here you are making reference to two amplifiers...
->>
->>> +static struct snd_soc_dai_link_component nau8318_components[] = {
->>> +     {
->>> +             .name = "NVTN2012:00",
->>> +             .dai_name = "nau8315-hifi",
->>> +     }
->>> +};
->>
->> but here there's only one? I was expecting something like what we've
->> used for Maxim amplifiers with a codec configuration and dailink
->> components that list the two amplifiers.
->>
->> static struct snd_soc_codec_conf max_98373_codec_conf[] = {
->>         {
->>                 .dlc = COMP_CODEC_CONF(MAX_98373_DEV0_NAME),
->>                 .name_prefix = "Right",
->>         },
->>         {
->>                 .dlc = COMP_CODEC_CONF(MAX_98373_DEV1_NAME),
->>                 .name_prefix = "Left",
->>         },
->> };
->>
->> struct snd_soc_dai_link_component max_98373_components[] = {
->>         {  /* For Right */
->>                 .name = MAX_98373_DEV0_NAME,
->>                 .dai_name = MAX_98373_CODEC_DAI,
->>         },
->>         {  /* For Left */
->>                 .name = MAX_98373_DEV1_NAME,
->>                 .dai_name = MAX_98373_CODEC_DAI,
->>         },
->> };
->>
->> Or is this a commit message problem and there's really only one amplifier?
-> 
-> Really , it has two speakers.  The nau8318 is an auto mode Amplifier
-> chip, similar to the max98360a amp chip.
-> EX: Sof_maxim_common.c (sound\soc\intel\boards):
-> static struct snd_soc_dai_link_component max_98360a_components[] = {
->     {
->         .name = MAX_98360A_DEV0_NAME,
->         .dai_name = MAX_98357A_CODEC_DAI,
->     }
-> };
-> It is not an i2c interface,  from the nau8318 data sheet, there are
-> five pins used mainly. one for enable, others for I2S.
-> EN-- enable pin
-> FSR-- Frame Sync, Right
-> FSL--  Frame Sync, Left
-> BCLK--  bit clock
-> DACIN-- Input i2s data
-> 
-> The FSR and FSL pins are for Left and Right channels used.
-> thanks
-
-Ok, thanks for the explanations.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Emanuele Ghidoli

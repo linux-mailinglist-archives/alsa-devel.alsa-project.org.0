@@ -2,62 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C7D664EACA
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 12:42:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B93D64EAF9
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Dec 2022 12:54:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EF591708;
-	Fri, 16 Dec 2022 12:41:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EF591708
+	by alsa0.perex.cz (Postfix) with ESMTPS id B55471704;
+	Fri, 16 Dec 2022 12:54:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55471704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671190926;
-	bh=NxebT7ioCT67lF80Wgum0sD4HDklmmyr0uuxk6QCpoA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=s0l8z/Ydy2r5Yvr9I8+YXNVG4KpAt/jCS/Sm3edNF8SBPsf2Wz3FcEs5Ep8DssLRy
-	 9a/X+PBHGaqt3DQQ8b+t0HE9Fjnp8Vz4XAiQm56JPWv4OC4Ak6VCRLfmeNMrzgn9Lb
-	 FvE5tLIT3NWWVGQjaFWGDCgH8XJm25VIRoqzPQuI=
+	s=default; t=1671191691;
+	bh=jfIMJ6TmP1cWJ87QRad98d693nmAOv5PARrxjq9F8lE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=kVecdX8EYJq55PUmD6FHXyyajCQuGbxgXu275L/KZFOCCl4jaaP9t8Xk7CTesYtw2
+	 V0X1hSF5pFYjbR+nWJ58/w647AfG2muyhiSxRahgJuKhx4hkUL0meQf2U2R23GuYmd
+	 q1kfE0M/itpIRR1K8UH+CewvQQ1dALd4Ei0nXMXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D490FF804CB;
-	Fri, 16 Dec 2022 12:41:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 516B6F804CB;
+	Fri, 16 Dec 2022 12:53:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 661EAF804E2; Fri, 16 Dec 2022 12:41:07 +0100 (CET)
+ id C7056F804E2; Fri, 16 Dec 2022 12:53:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8845AF804CB
- for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 12:41:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8845AF804CB
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F19081042;
- Fri, 16 Dec 2022 03:41:43 -0800 (PST)
-Received: from [10.57.88.234] (unknown [10.57.88.234])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AF4B3F73B;
- Fri, 16 Dec 2022 03:41:02 -0800 (PST)
-Message-ID: <a76cb262-a24f-e113-5680-2025aa143ee6@arm.com>
-Date: Fri, 16 Dec 2022 11:40:57 +0000
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EF46F804CB
+ for <alsa-devel@alsa-project.org>; Fri, 16 Dec 2022 12:53:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EF46F804CB
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=HoHAA9CQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671191630; x=1702727630;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=jfIMJ6TmP1cWJ87QRad98d693nmAOv5PARrxjq9F8lE=;
+ b=HoHAA9CQli3YBtlzotUYOK0JBQCys+pp7OIJdRrep+P7Qh89db8ZQUAo
+ 87msDc36v8PE68uev1sG8wUNv3pheXzfYHYpS45H/I/bnePAj2M4bKjTk
+ 3Gw1DBL3hkqfNWf5UdrzYVcPyBV31b2Q/jRYZbzd/VC8mlbrKygr8MmZj
+ EvzcamvD6wEmTK2LQtrRj0P8O6SuCd/seUFlVj1Vi7JFKT3SZQum82pLK
+ 9hGza/2gDtg3T0z4e85BSfRTvxyA8G5WLOvIfOXuuIP7CzcXcxNySXlhb
+ eoI4WL0L6+Q4CpmVLDz2mR2yT2SW+W90CuliaklO4U9D9uWb6UEuV+qNK A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="405209220"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="405209220"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 03:53:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="680474569"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="680474569"
+Received: from emnevill-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.6.47])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 03:53:44 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: IPC3 topology: Print the conflicting bytes sizes
+Date: Fri, 16 Dec 2022 13:53:50 +0200
+Message-Id: <20221216115350.28260-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [6.2][regression] after commit
- ffcb754584603adf7039d7972564fbf6febdc542 all sound devices disappeared (due
- BUG at mm/page_alloc.c:3592!)
-Content-Language: en-GB
-To: Christoph Hellwig <hch@lst.de>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-References: <CABXGCsPnpu0TGHnvXM1we7q1t3tJAOYW2rA=AMvf7ZahcYvpRQ@mail.gmail.com>
- <20221216064645.GA24446@lst.de>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <20221216064645.GA24446@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,39 +85,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- iommu@lists.linux.dev,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- m.szyprowski@samsung.com
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ seppo.ingalsuo@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2022-12-16 06:46, Christoph Hellwig wrote:
-> Ok, it seems like the sound noncontig alloc code that I already
-> commented on as potentially bogus GFP_GOMP mapping trips this.  I think
-> for now the right thing would be to revert the hunk in dma-iommu.c
-> (see patch below).  The other thing to try would be to remove both
-> uses GFP_COMP in sound/core/memalloc.c, which should have the same
-> effect.
+From: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
 
-Or we explicitly strip the flag in dma_alloc_noncontiguous() (and maybe 
-dma_alloc_pages() as well) for consistency with dma_alloc_attrs(). That 
-seems like it might be the most robust option.
+The error "Conflict in bytes vs. priv size." is too brief. With
+the printed sizes it's a lot easier to find the size issue in
+for binary control if such happens.
 
-Robin.
+Signed-off-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/ipc3-topology.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9297b741f5e80e..f798c44e090337 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -744,9 +744,6 @@ static struct page **__iommu_dma_alloc_pages(struct device *dev,
->   	/* IOMMU can map any pages, so himem can also be used here */
->   	gfp |= __GFP_NOWARN | __GFP_HIGHMEM;
->   
-> -	/* It makes no sense to muck about with huge pages */
-> -	gfp &= ~__GFP_COMP;
-> -
->   	while (count) {
->   		struct page *page = NULL;
->   		unsigned int order_size;
-> 
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index b94cc40485ed..989395999d6e 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -1651,6 +1651,7 @@ static int sof_ipc3_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
+ static int sof_ipc3_control_load_bytes(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
+ {
+ 	struct sof_ipc_ctrl_data *cdata;
++	size_t priv_size_check;
+ 	int ret;
+ 
+ 	if (scontrol->max_size < (sizeof(*cdata) + sizeof(struct sof_abi_hdr))) {
+@@ -1694,8 +1695,10 @@ static int sof_ipc3_control_load_bytes(struct snd_sof_dev *sdev, struct snd_sof_
+ 			goto err;
+ 		}
+ 
+-		if (cdata->data->size + sizeof(struct sof_abi_hdr) != scontrol->priv_size) {
+-			dev_err(sdev->dev, "Conflict in bytes vs. priv size.\n");
++		priv_size_check = cdata->data->size + sizeof(struct sof_abi_hdr);
++		if (priv_size_check != scontrol->priv_size) {
++			dev_err(sdev->dev, "Conflict in bytes (%zu) vs. priv size (%zu).\n",
++				priv_size_check, scontrol->priv_size);
+ 			ret = -EINVAL;
+ 			goto err;
+ 		}
+-- 
+2.39.0
+

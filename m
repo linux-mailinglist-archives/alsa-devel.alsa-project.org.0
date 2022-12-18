@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C59C64FF84
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Dec 2022 17:03:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27A164FFED
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Dec 2022 17:07:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FEB129C8;
-	Sun, 18 Dec 2022 17:02:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FEB129C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B63A27B9;
+	Sun, 18 Dec 2022 17:06:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B63A27B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671379416;
-	bh=94mJ4ktmnNf7/RYeKm5j2AXaLYPBiO/CeY1y913/4sU=;
+	s=default; t=1671379626;
+	bh=hT2opjcJ3EtQG+hfhaekVL/4QBKSyY0p5MkotzEjS/c=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=JHTVHAYo18XU4yMUUAMm950tn8Hxq22VIf/u6ZpiLuZXT1K/I6f/YDPlGGLazeXDP
-	 hG9wHOd0Pg19x8P9ZseoJaHFf/fvRSIDK8F79zJzv2l8lH58hivQXCBHYZxKqMp3PW
-	 SYe5pT+mOAoaX7okNMjVCG7C1szGhmyR0/z0E7bk=
+	b=EBu6S2vQL7hgEdZL+n4mfiXWNvARQYW6RC22FXdc9z7WY1sgbOB5+cPFkqGk9CUWP
+	 SYQdvlrkDWu8llJv0ZJTxqyCcA6DZ7lZ6MdGuL3b0Eg91zxY2VbCjsNByepPYsxRGU
+	 F5ftJGXPVgAlZGvoo1jsnxYAwMsHtxER3XuwSqr0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D621FF8025E;
-	Sun, 18 Dec 2022 17:02:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C594AF8025E;
+	Sun, 18 Dec 2022 17:06:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7048F804FF; Sun, 18 Dec 2022 17:02:31 +0100 (CET)
+ id 6279FF80496; Sun, 18 Dec 2022 17:06:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,40 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2CE1F8025E
- for <alsa-devel@alsa-project.org>; Sun, 18 Dec 2022 17:02:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2CE1F8025E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 688A5F8025E
+ for <alsa-devel@alsa-project.org>; Sun, 18 Dec 2022 17:06:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 688A5F8025E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qxVQtO7c
+ header.s=k20201202 header.b=uyKM5NYf
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6041B60DCA;
- Sun, 18 Dec 2022 16:02:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A51BC433D2;
- Sun, 18 Dec 2022 16:02:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C8B5F60DB4;
+ Sun, 18 Dec 2022 16:06:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6A7C433D2;
+ Sun, 18 Dec 2022 16:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1671379346;
- bh=94mJ4ktmnNf7/RYeKm5j2AXaLYPBiO/CeY1y913/4sU=;
+ s=k20201202; t=1671379562;
+ bh=hT2opjcJ3EtQG+hfhaekVL/4QBKSyY0p5MkotzEjS/c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qxVQtO7c5/KcgKfBHKbUW2lwOHzwCYc6tmjqtB56+XLaHjvXiKA2sPDULRPE0uUKY
- DgBCNYSKRxgF88smT2CiyYpi0tVdHROUJ6PWnfNl89Q/u3BaWvgMGUMgvodH9wp5P1
- GT4CNCQ6/2R/6Aqi8vGY5iqOqD7OZzIOGwyEJFXnOkodO69GWh1KMkUMAdVeirSaCh
- Znz8BtxEeC0YZ7KOdXRsqWgTkPa3B0EhEXdBHOUqNNOkRS8mRGeAeptyqG+idYkYJ9
- Qu7cWhYLfrI9ElSKEru+QLc/tKBo/eXpCvHJWUiMkII8X7RgMxakSkSHa+Ri/j6szO
- y+NKIC3IXpgVA==
+ b=uyKM5NYfA0MsY6Da0EQQeCnnEPK3Bm4XvsUAqwbbooRZvJRSIwo+AP1VmkdiKfFUr
+ cUaS6nNJe68iqx0vsftLpIk8xTDQoatlfPGic9sYuuSZlcUeCSO6ITYJRutRx7D0ue
+ +0IH7hXFK78UD0bKH8vt9SCRibKw8zd/uL8lZGulVSJnMTbRoYphzc+Mx5LQoSMxoG
+ /D43Zl+BI44Pro2I/P7/y6xBV3IAeQdqchc0ZzvnGOZrxVzw0I1v5RhmlzMEXyQR8K
+ Ey9bSTsx7iIkx/g7VrXpe++R7PRrNJEcVQP4L6dFCBVrW+hJgb+KNNAuVgp8fIrkvh
+ BbW36VsrvcBnw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 07/85] ASoC: Intel: avs: Add quirk for KBL-R RVP
- platform
-Date: Sun, 18 Dec 2022 11:00:24 -0500
-Message-Id: <20221218160142.925394-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 63/85] ALSA: usb-audio: Add quirk for Tascam Model
+ 12
+Date: Sun, 18 Dec 2022 11:01:20 -0500
+Message-Id: <20221218160142.925394-63-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221218160142.925394-1-sashal@kernel.org>
 References: <20221218160142.925394-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -85,90 +84,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, peter.ujfalusi@linux.intel.com
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ wanjiabing@vivo.com, john-linux@pelago.org.uk, connerknoxpublic@gmail.com,
+ Takashi Iwai <tiwai@suse.de>, ubizjak@gmail.com, sdoregor@sdore.me,
+ aichao@kylinos.cn, tiwai@suse.com, John Keeping <john@metanate.com>,
+ cyrozap@gmail.com, bp@suse.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: John Keeping <john@metanate.com>
 
-[ Upstream commit 9d0737fa0e7530313634c0ecd75f09a95ba8d44a ]
+[ Upstream commit 67df411db3f0209e4bb5227d4dd9d41b21368b9d ]
 
-KBL-R RVPs contain built-in rt298 codec which requires different PLL
-clock and .dai_fmt configuration than seen on other boards.
+Tascam's Model 12 is a mixer which can also operate as a USB audio
+interface.  The audio interface uses explicit feedback but it seems that
+it does not correctly handle missing isochronous frames.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://lore.kernel.org/r/20221010121955.718168-5-cezary.rojewski@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+When injecting an xrun (or doing anything else that pauses the playback
+stream) the feedback rate climbs (for example, at 44,100Hz nominal, I
+see a stable rate around 44,099 but xrun injection sees this peak at
+around 44,135 in most cases) and glitches are heard in the audio stream
+for several seconds - this is significantly worse than the single glitch
+expected for an underrun.
+
+While the stream does normally recover and the feedback rate returns to
+a stable value, I have seen some occurrences where this does not happen
+and the rate continues to increase while no audio is heard from the
+output.  I have not found a solid reproduction for this.
+
+This misbehaviour can be avoided by totally resetting the stream state
+by switching the interface to alt 0 and back before restarting the
+playback stream.
+
+Add a new quirk flag which forces the endpoint and interface to be
+reconfigured whenever the stream is stopped, and use this for the Tascam
+Model 12.
+
+Separate interfaces are used for the playback and capture endpoints, so
+resetting the playback interface here will not affect the capture stream
+if it is running.  While there are two endpoints on the interface,
+these are the OUT data endpoint and the IN explicit feedback endpoint
+corresponding to it and these are always stopped and started together.
+
+Signed-off-by: John Keeping <john@metanate.com>
+Link: https://lore.kernel.org/r/20221129130100.1257904-1-john@metanate.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/avs/boards/rt298.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+ sound/usb/endpoint.c | 7 +++++++
+ sound/usb/quirks.c   | 2 ++
+ sound/usb/usbaudio.h | 4 ++++
+ 3 files changed, 13 insertions(+)
 
-diff --git a/sound/soc/intel/avs/boards/rt298.c b/sound/soc/intel/avs/boards/rt298.c
-index b28d36872dcb..58c9d9edecf0 100644
---- a/sound/soc/intel/avs/boards/rt298.c
-+++ b/sound/soc/intel/avs/boards/rt298.c
-@@ -6,6 +6,7 @@
- //          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
- //
- 
-+#include <linux/dmi.h>
- #include <linux/module.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
-@@ -14,6 +15,16 @@
- #include <sound/soc-acpi.h>
- #include "../../../codecs/rt298.h"
- 
-+static const struct dmi_system_id kblr_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_BOARD_NAME, "Kabylake R DDR4 RVP"),
-+		},
-+	},
-+	{}
-+};
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 310cd6fb0038..4aaf0784940b 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1673,6 +1673,13 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending)
+ 		stop_urbs(ep, false, keep_pending);
+ 		if (ep->clock_ref)
+ 			atomic_dec(&ep->clock_ref->locked);
 +
- static const struct snd_kcontrol_new card_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Mic Jack"),
-@@ -96,9 +107,15 @@ avs_rt298_hw_params(struct snd_pcm_substream *substream, struct snd_pcm_hw_param
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	unsigned int clk_freq;
- 	int ret;
++		if (ep->chip->quirk_flags & QUIRK_FLAG_FORCE_IFACE_RESET &&
++		    usb_pipeout(ep->pipe)) {
++			ep->need_prepare = true;
++			if (ep->iface_ref)
++				ep->iface_ref->need_setup = true;
++		}
+ 	}
+ }
  
--	ret = snd_soc_dai_set_sysclk(codec_dai, RT298_SCLK_S_PLL, 19200000, SND_SOC_CLOCK_IN);
-+	if (dmi_first_match(kblr_dmi_table))
-+		clk_freq = 24000000;
-+	else
-+		clk_freq = 19200000;
-+
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT298_SCLK_S_PLL, clk_freq, SND_SOC_CLOCK_IN);
- 	if (ret < 0)
- 		dev_err(rtd->dev, "Set codec sysclk failed: %d\n", ret);
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 0f4dd3503a6a..58b37bfc885c 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2044,6 +2044,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x0644, 0x804a, /* TEAC UD-301 */
+ 		   QUIRK_FLAG_ITF_USB_DSD_DAC | QUIRK_FLAG_CTL_MSG_DELAY |
+ 		   QUIRK_FLAG_IFACE_DELAY),
++	DEVICE_FLG(0x0644, 0x805f, /* TEAC Model 12 */
++		   QUIRK_FLAG_FORCE_IFACE_RESET),
+ 	DEVICE_FLG(0x06f8, 0xb000, /* Hercules DJ Console (Windows Edition) */
+ 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x06f8, 0xd002, /* Hercules DJ Console (Macintosh Edition) */
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index e97141ef730a..2aba508a4831 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -172,6 +172,9 @@ extern bool snd_usb_skip_validation;
+  *  Don't apply implicit feedback sync mode
+  * QUIRK_FLAG_IFACE_SKIP_CLOSE
+  *  Don't closed interface during setting sample rate
++ * QUIRK_FLAG_FORCE_IFACE_RESET
++ *  Force an interface reset whenever stopping & restarting a stream
++ *  (e.g. after xrun)
+  */
  
-@@ -139,7 +156,10 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
- 	dl->platforms = platform;
- 	dl->num_platforms = 1;
- 	dl->id = 0;
--	dl->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
-+	if (dmi_first_match(kblr_dmi_table))
-+		dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
-+	else
-+		dl->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
- 	dl->init = avs_rt298_codec_init;
- 	dl->be_hw_params_fixup = avs_rt298_be_fixup;
- 	dl->ops = &avs_rt298_ops;
+ #define QUIRK_FLAG_GET_SAMPLE_RATE	(1U << 0)
+@@ -194,5 +197,6 @@ extern bool snd_usb_skip_validation;
+ #define QUIRK_FLAG_GENERIC_IMPLICIT_FB	(1U << 17)
+ #define QUIRK_FLAG_SKIP_IMPLICIT_FB	(1U << 18)
+ #define QUIRK_FLAG_IFACE_SKIP_CLOSE	(1U << 19)
++#define QUIRK_FLAG_FORCE_IFACE_RESET	(1U << 20)
+ 
+ #endif /* __USBAUDIO_H */
 -- 
 2.35.1
 

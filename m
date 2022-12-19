@@ -2,49 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69806650903
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 10:04:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E80F65093E
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 10:18:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E25372B99;
-	Mon, 19 Dec 2022 10:03:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E25372B99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BE3EDF3;
+	Mon, 19 Dec 2022 10:17:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BE3EDF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671440642;
-	bh=d6l7OtIhubQkBXrq+ETnye49Bui/SSKIUGFxULiwnlA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=N9Di74Wsw3CHaYKUKfmPTrjsID4h8R0Mfm6naj1+qzMBdRY/cqfz6EHcY9n00e9B9
-	 VurbDaPTWFLyaLZr511yoGtzzoB0SO0rgfwjK3l2vxwtD2bUlGbH04WeA00R6xzk0Z
-	 X51Aa0mheV2rfH5lQ5iSybrNj3m+Nq872HEDMrIw=
+	s=default; t=1671441485;
+	bh=PdsZH7PNp6cVHYpx9vFv8hp/d3LpGOmZ0NsrECLZIcI=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Q0UuNHcx/1HAHvkOKCol8mPEssktPxEUCWyewcIMDQvs4p7NeNLWaA3oUgS94jCEj
+	 Yci+rlMBn/oO6GjExTX9UMfUMllK7Beircv9Yl1jJwFVjogo1HLbKak3HXkAEo5AaX
+	 E+iXXaCrIjPUa+XfG1+cWTTSewDHc2TK3C/XriC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A610F8025E;
-	Mon, 19 Dec 2022 10:03:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAC12F800DF;
+	Mon, 19 Dec 2022 10:17:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D131F80423; Mon, 19 Dec 2022 10:03:02 +0100 (CET)
+ id D5601F800DF; Mon, 19 Dec 2022 10:17:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 99346F800DF
- for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 10:02:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99346F800DF
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E545F800DF
+ for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 10:17:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E545F800DF
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1p7CGb-0002bX-Sv; Mon, 19 Dec 2022 10:17:01 +0100
+Message-ID: <bf52f4c5-5cca-26d7-7fb2-ac8ecb5b24c5@leemhuis.info>
+Date: Mon, 19 Dec 2022 10:17:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-US, de-DE
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: =?UTF-8?Q?=5bregression=5d_Bug=c2=a0216818_-_The_microphone_mute_le?=
+ =?UTF-8?Q?d_not_working_after_linux_6?=
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1671440576363270998-webhooks-bot@alsa-project.org>
-References: <1671440576363270998-webhooks-bot@alsa-project.org>
-Subject: Add rate limitation in a SectionDevice
-Message-Id: <20221219090302.0D131F80423@alsa1.perex.cz>
-Date: Mon, 19 Dec 2022 10:03:02 +0100 (CET)
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1671441424;
+ 71e230b6; 
+X-HE-SMSGID: 1p7CGb-0002bX-Sv
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +69,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: LKML <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
+ plum <plumerlis@gmail.com>, sonic82003@gmail.com,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #253 was opened from fchiby:
+Hi, this is your Linux kernel regression tracker speaking.
 
-Hello, 
+I noticed a regression report in bugzilla.kernel.org. As many (most?)
+kernel developer don't keep an eye on it, I decided to forward it by
+mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216818 :
 
-I created an alsa-ucm configuration to my board i350-evk (mt8365-evk). 
-Here my configuration files:
+>  sonic82003@gmail.com 2022-12-18 08:52:32 UTC
+> 
+> The mic mute led of my ThinkPad X1 Carbon Gen 9 doesn't work anymore after updating linux to version 6.
+> I can still turn it on by  running 
+> 
+> echo 1 > /sys/class/leds/platform::micmute/brightness
+> 
+> With linux-lts it still works fine.
 
-[mt8365-evk.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/10247428/mt8365-evk.conf.txt)
-[HiFi.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/10247429/HiFi.conf.txt)
+See the ticket for more details.
 
-However pulseaudio initialization failed because of hw:mt8365evk,2, this pcm device is connected to jack_mic and Amic.  
+Note, I found a similar report that (despite my attempts to prevent
+things like this from happening) fell through the cracks here:
+https://bugzilla.kernel.org/show_bug.cgi?id=216355
 
-```
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: Set neither period nor buffer size.
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] alsa-util.c: snd_pcm_hw_params failed: Invalid argument
-D: [pulseaudio] alsa-util.c: Trying plug:SLAVE='_ucm0006.hw:mt8365evk,2' with SND_PCM_NO_AUTO_FORMAT ...
-I: [pulseaudio] pcm.c: Unknown PCM _ucm0006.hw:mt8365evk,2
-I: [pulseaudio] alsa-util.c: Error opening PCM device plug:SLAVE='_ucm0006.hw:mt8365evk,2': No such file or directory
-D: [pulseaudio] alsa-mixer.c: Profile set 0xaaab0a13a700, auto_profiles=no, probed=yes, n_mappings=0, n_profiles=0, n_decibel_fixes=0
-E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.
-E: [pulseaudio] module.c: Failed to load module "module-alsa-card" (argument: "device_id="0" name="platform-sound" card_name="alsa_card.platform-sound" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""): initialization failed.
-```
+>  plum 2022-08-13 02:11:01 UTC
+> 
+> I upgrade to kernel 5.19.1 but found my thinkpad x1 carbon 2021's mute led stop working.
+> 
+> Function is okay but LED won't light up.
+> 
+> Back to kernel 5.18 and it's normal and working again.
+> 
+> Fedora 36 64 bit 
+> Gnome-shell 42
 
-Whith dmesg I got more details about pulseaudio failure: 
+From a quick research it looks to me like this is an issue for the
+sounds maintainers, as the LED itself apparently works. If that is
+something for the platform people instead please speak up.
 
-```
-[  160.295717] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_fe_hw_params AWB period = 1102 rate = 44100 channels = 1
-[  160.295865] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_int_adda_prepare 'Capture' rate = 44100
-[  160.295881] mt8365-afe-pcm 11220000.audio-controller: ASoC: error at snd_soc_pcm_dai_prepare on INT ADDA: -22
-[  160.295891]  MTK Codec: ASoC: soc_pcm_prepare() failed (-22)
-[  160.295900]  AWB_FE: ASoC: dpcm_be_dai_prepare() failed (-22)
-[  160.295908]  AWB_FE: ASoC: dpcm_fe_dai_prepare() failed (-22)
-[  160.296395] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_fe_hw_params AWB period = 512 rate = 44100 channels = 1
-[  160.296543] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_int_adda_prepare 'Capture' rate = 44100
-[  160.296559] mt8365-afe-pcm 11220000.audio-controller: ASoC: error at snd_soc_pcm_dai_prepare on INT ADDA: -22
-[  160.296569]  MTK Codec: ASoC: soc_pcm_prepare() failed (-22)
-[  160.296577]  AWB_FE: ASoC: dpcm_be_dai_prepare() failed (-22)
-[  160.296585]  AWB_FE: ASoC: dpcm_fe_dai_prepare() failed (-22)
-```
- When I checked the machine driver, hw:mt8365evk,2 FE (AWB) has 8000_192000,  while hw:mt8365evk,2  BE (INT_ADDA) has only [8000, 16000, 32000, 48000] as sample rates.
-Actually, the rate limitation is not on afe dai, it's on PMIC. So we prefer to not restrict hw:mt8365evk,2 FE AWB rates.  
+BTW, let me use this mail to also add the report to the list of tracked
+regressions to ensure it's doesn't fall through the cracks:
 
-My question is, **is it possible to specify the rate limitation in a** `SectionDevice` ?  I checked the alsa-ucm-conf documentation  and did not find any section for this :/ [alsa-ucm-conf docs](https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.htmll)
+#regzbot introduced: v5.18..v5.19
+https://bugzilla.kernel.org/show_bug.cgi?id=216818
+#regzbot ignore-activity
 
-Thanks a bunch !
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/253
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.

@@ -2,49 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6687650944
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 10:19:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E0565096B
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 10:42:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 276912BD7;
-	Mon, 19 Dec 2022 10:19:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 276912BD7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BB262BC7;
+	Mon, 19 Dec 2022 10:41:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BB262BC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671441599;
-	bh=MV9TYB75o8a9Yci2hY5X6RWZ3GETpZTjDoRYzRNb4mo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1671442967;
+	bh=+wQWfOxKiIAGEQHOA5KQ2bJp+NVkB6j058dJn539MEU=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Yu9uB3pcVfVsQ8oV8I7//wVYBcqriu1B+0kFJi1nuvKeGrFGbR2NtvJ5+pv1sab2M
-	 rEww7wwkIDv+xKjkfTydH5S0dRYvpiKcizziR19c0NflBlK4Tg+UvMLB52zTWz84j5
-	 gpAoOGfrPYhy+QJuChkCpZCLdzYxoPIfW8NpnEJI=
+	 Cc:From;
+	b=Zw42YmbN/lHCVUnwJWE9jO8yXgXRRHHSG2jtU4laJPY5gaa1RR8ahVU85fIvoBCwz
+	 LJS60HzVZu38aeTOsbc/XUwOBxC7MPUeThoHlM2Jo6be6yZ23U8pqoo1cNgDUw/3St
+	 1tL6MHucQTTcL2ZNDOkHqNpRqJztFrhQ86z1d2s0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BAC5F8025E;
-	Mon, 19 Dec 2022 10:18:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1083AF801C0;
+	Mon, 19 Dec 2022 10:41:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6477F80535; Mon, 19 Dec 2022 10:18:49 +0100 (CET)
+ id C9B96F80423; Mon, 19 Dec 2022 10:41:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 384F7F8025E
- for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 10:18:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 384F7F8025E
+X-Spam-Status: No, score=-1.1 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75D0AF8025E
+ for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 10:41:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D0AF8025E
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1p7CeT-0001HF-Qv; Mon, 19 Dec 2022 10:41:41 +0100
+Message-ID: <e23ec080-9fe4-ee28-1d4c-879127803660@leemhuis.info>
+Date: Mon, 19 Dec 2022 10:41:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH 0/2] ASoC: SOF: remove unregister calls from shutdown
+Content-Language: en-US, de-DE
+To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
+ <167102472177.27755.10161077455234852195.b4-ty@kernel.org>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <167102472177.27755.10161077455234852195.b4-ty@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1671441527085860968-webhooks-bot@alsa-project.org>
-References: <1671441527085860968-webhooks-bot@alsa-project.org>
-Subject: Add rate limitation in a SectionDevice
-Message-Id: <20221219091849.C6477F80535@alsa1.perex.cz>
-Date: Mon, 19 Dec 2022 10:18:49 +0100 (CET)
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1671442906;
+ 63d41143; 
+X-HE-SMSGID: 1p7CeT-0001HF-Qv
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +73,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, tiwai@suse.de,
+ yung-chuan.liao@linux.intel.com, Oliver Neukum <oneukum@suse.com>,
+ peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, Zhen Ni <nizhen@uniontech.com>,
+ ranjani.sridharan@linux.intel.com, Ricardo Ribalda <ribalda@chromium.org>,
+ Archana Patni <archana.patni@intel.com>, daniel.baluta@nxp.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #253 was edited from fchiby:
+Hi, this is your Linux kernel regression tracker.
 
-Hello  @perexg,
+On 14.12.22 14:32, Mark Brown wrote:
+> On Fri, 09 Dec 2022 13:45:27 +0200, Kai Vehmanen wrote:
+>> This patchset is an alternative solution to problems
+>> reported by Ricardo Ribalda <ribalda@chromium.org> and
+>> Zhen Ni <nizhen@uniontech.com>, as discussed in
+>>
+>> - "[PATCH] ALSA: core: Fix deadlock when shutdown a frozen userspace"
+>>  https://mailman.alsa-project.org/pipermail/alsa-devel/2022-November/209248.html
+>>
+>> [...]
+> 
+> Applied to
+> 
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [1/2] ASoC: SOF: Intel: pci-tgl: unblock S5 entry if DMA stop has failed"
+>       commit: 2aa2a5ead0ee0a358bf80a2984a641d1bf2adc2a
+> [2/2] ASoC: SOF: Revert: "core: unregister clients and machine drivers in .shutdown"
+>       commit: 44fda61d2bcfb74a942df93959e083a4e8eff75f
+> 
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+> [...]
 
-I created an alsa-ucm configuration to my board i350-evk (mt8365-evk). 
-Here my configuration files:
-
-[mt8365-evk.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/10247428/mt8365-evk.conf.txt)
-[HiFi.conf.txt](https://github.com/alsa-project/alsa-ucm-conf/files/10247429/HiFi.conf.txt)
-
-However pulseaudio initialization failed because of hw:mt8365evk,2, this pcm device is connected to jack_mic and Amic.  
+I noticed a regression report in bugzilla:
+https://bugzilla.kernel.org/show_bug.cgi?id=216820
 
 ```
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: _buffer_size:4408 ,   _period_size:1102
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-D: [pulseaudio] alsa-util.c: Set neither period nor buffer size.
-I: [pulseaudio] pcm_hw.c: SNDRV_PCM_IOCTL_PREPARE failed (-22)
-I: [pulseaudio] alsa-util.c: snd_pcm_hw_params failed: Invalid argument
-D: [pulseaudio] alsa-util.c: Trying plug:SLAVE='_ucm0006.hw:mt8365evk,2' with SND_PCM_NO_AUTO_FORMAT ...
-I: [pulseaudio] pcm.c: Unknown PCM _ucm0006.hw:mt8365evk,2
-I: [pulseaudio] alsa-util.c: Error opening PCM device plug:SLAVE='_ucm0006.hw:mt8365evk,2': No such file or directory
-D: [pulseaudio] alsa-mixer.c: Profile set 0xaaab0a13a700, auto_profiles=no, probed=yes, n_mappings=0, n_profiles=0, n_decibel_fixes=0
-E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.
-E: [pulseaudio] module.c: Failed to load module "module-alsa-card" (argument: "device_id="0" name="platform-sound" card_name="alsa_card.platform-sound" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""): initialization failed.
+> My laptop started to hang on hibernation (sleep and shutdown are
+> fine). I bisected it to commit 83bfc7e793b555291785136c3ae86abcdc046887,
+> which appears to be related to ALSA.
 ```
 
-Whith dmesg I got more details about pulseaudio failure: 
+That's a commit the second patch from this series reverts. To my
+untrained eyes it thus looks a lot like these change will resolve the
+reported issue, which made me wonder:
 
-```
-[  160.295717] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_fe_hw_params AWB period = 1102 rate = 44100 channels = 1
-[  160.295865] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_int_adda_prepare 'Capture' rate = 44100
-[  160.295881] mt8365-afe-pcm 11220000.audio-controller: ASoC: error at snd_soc_pcm_dai_prepare on INT ADDA: -22
-[  160.295891]  MTK Codec: ASoC: soc_pcm_prepare() failed (-22)
-[  160.295900]  AWB_FE: ASoC: dpcm_be_dai_prepare() failed (-22)
-[  160.295908]  AWB_FE: ASoC: dpcm_fe_dai_prepare() failed (-22)
-[  160.296395] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_fe_hw_params AWB period = 512 rate = 44100 channels = 1
-[  160.296543] mt8365-afe-pcm 11220000.audio-controller: mt8365_afe_int_adda_prepare 'Capture' rate = 44100
-[  160.296559] mt8365-afe-pcm 11220000.audio-controller: ASoC: error at snd_soc_pcm_dai_prepare on INT ADDA: -22
-[  160.296569]  MTK Codec: ASoC: soc_pcm_prepare() failed (-22)
-[  160.296577]  AWB_FE: ASoC: dpcm_be_dai_prepare() failed (-22)
-[  160.296585]  AWB_FE: ASoC: dpcm_fe_dai_prepare() failed (-22)
-```
- When I checked the machine driver, hw:mt8365evk,2 FE (AWB) has 8000_192000,  while hw:mt8365evk,2  BE (INT_ADDA) has only [8000, 16000, 32000, 48000] as sample rates.
-Actually, the rate limitation is not on afe dai, it's on PMIC. So we prefer to not restrict hw:mt8365evk,2 FE AWB rates.  
+* these patches afaics are not yet in mainline, is the plan to still
+send it this cycle?
 
-My question is, **is it possible to specify the rate limitation in a** `SectionDevice` ?  I checked the alsa-ucm-conf documentation  and did not find any section for this :/ [alsa-ucm-conf docs](https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.htmll)
+* there are no "CC: <stable..." tags in these patches. Is the plan to
+manually ask for a backport? Or how can we get the regression fixed in
+older releases?
 
-Thanks a bunch !
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/253
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.

@@ -2,66 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C34D7650A14
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 11:28:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2323650C67
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Dec 2022 14:05:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49C312BE8;
-	Mon, 19 Dec 2022 11:27:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49C312BE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38F3A30A6;
+	Mon, 19 Dec 2022 14:04:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38F3A30A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671445684;
-	bh=l7hAlhwa7E9dy158fuCbX6Rzjd3itrYriiSVAHidfOo=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1671455128;
+	bh=/I4Kb7hC8uOUuswynbcWKvpfRKg1AKsJ8i1itOIMgNM=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=DJuxnVbAnZJ0llTB3QfhXvsCMFBJEBIFWOCneaoIXaFRHZzcudIGGinQ4RRqPN3kL
-	 821UzNx4PGJwghkwFQ56WNknnyoSt6eXPvBuLcUlVXz1fSVEUHU10EdfPYs9gT2WaU
-	 lXyNh4bcdr+aFONG4YmJqpzbjqXiF2IlpKi5WB/g=
+	b=hXhrbjvuHy7ZWRU4UyHK8TxSWcKmaALZ1SX5TpjTX8JpcDW07V24zT+VkmEaE9mmB
+	 T1m4/7NXe2E7YZb0wCSOZSaz44nizc2Y4X3JEvBVwbtj3A55FHfmonKzmNtV+uUKfJ
+	 4ZG9S9K6wqlUmJTA9fEmyUiT4nuECuRG97jM+2Vk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09656F8047B;
-	Mon, 19 Dec 2022 11:27:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EED24F800DF;
+	Mon, 19 Dec 2022 14:04:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C66BEF8047B; Mon, 19 Dec 2022 11:27:06 +0100 (CET)
+ id 05062F80423; Mon, 19 Dec 2022 14:04:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EEC3F8026D
- for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 11:27:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EEC3F8026D
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1p7DMM-0007WS-Fn; Mon, 19 Dec 2022 11:27:02 +0100
-Message-ID: <9f0e95d1-5057-93f0-ad9e-985eaeed0226@leemhuis.info>
-Date: Mon, 19 Dec 2022 11:27:01 +0100
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F037FF8025E
+ for <alsa-devel@alsa-project.org>; Mon, 19 Dec 2022 14:04:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F037FF8025E
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BG2+K+xY
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 4A333CE0F1F;
+ Mon, 19 Dec 2022 13:04:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D238C433D2;
+ Mon, 19 Dec 2022 13:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1671455059;
+ bh=/I4Kb7hC8uOUuswynbcWKvpfRKg1AKsJ8i1itOIMgNM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BG2+K+xYYC9R2EJR9LrAcE7VbEA78z7mrhopFIdT+aCu4zUHpmniLrhoMxHYQV0yZ
+ 74Ph1aMRO83yS8UAWWUCQv/usAUeB976hfoR5Ug0eqconlMbDogpR9cupYKqtgGzjx
+ hBYiBKOd+MbNKkhB7haTMR+Eu/KWlcujQqAw1nxE2OJ+ACNMthN/WdRE6olT26otJJ
+ hcY3rz2RKWS/8EQXUNXas3QeGh9Hd8q+i1IfXyQl6vT34uzFsdjtuMVG7/aBbIReV7
+ LGfuSiI229qmvNJv2NRi6BSCjDjn+HTpOUw7YIQSdF3E+UfELU364lEk4hwlbARDe7
+ 7jsxWAu8gInyA==
+Date: Mon, 19 Dec 2022 13:04:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [PATCH 0/2] ASoC: SOF: remove unregister calls from shutdown
+Message-ID: <Y6BhTWGUp2D5hhbE@sirena.org.uk>
+References: <20221209114529.3909192-1-kai.vehmanen@linux.intel.com>
+ <167102472177.27755.10161077455234852195.b4-ty@kernel.org>
+ <e23ec080-9fe4-ee28-1d4c-879127803660@leemhuis.info>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: =?UTF-8?Q?Re=3a_=5bregression=5d_Bug=c2=a0216818_-_The_microphone_m?=
- =?UTF-8?Q?ute_led_not_working_after_linux_6?=
-Content-Language: en-US, de-DE
-To: Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <bf52f4c5-5cca-26d7-7fb2-ac8ecb5b24c5@leemhuis.info>
- <572159b3-a1a4-8735-d435-ea574c07851f@redhat.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <572159b3-a1a4-8735-d435-ea574c07851f@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1671445626;
- 7c78547b; 
-X-HE-SMSGID: 1p7DMM-0007WS-Fn
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="z24uizcIcNefEU/8"
+Content-Disposition: inline
+In-Reply-To: <e23ec080-9fe4-ee28-1d4c-879127803660@leemhuis.info>
+X-Cookie: Pay toll ahead.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,80 +83,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: LKML <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
- plum <plumerlis@gmail.com>, sonic82003@gmail.com,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Cc: alsa-devel@alsa-project.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+ yung-chuan.liao@linux.intel.com, Oliver Neukum <oneukum@suse.com>,
+ peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, Zhen Ni <nizhen@uniontech.com>,
+ ranjani.sridharan@linux.intel.com, Ricardo Ribalda <ribalda@chromium.org>,
+ Archana Patni <archana.patni@intel.com>, daniel.baluta@nxp.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19.12.22 11:00, Hans de Goede wrote:
-> On 12/19/22 10:17, Thorsten Leemhuis wrote:
->> I noticed a regression report in bugzilla.kernel.org. As many (most?)
->> kernel developer don't keep an eye on it, I decided to forward it by
->> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216818 :
->>
->>>  sonic82003@gmail.com 2022-12-18 08:52:32 UTC
->>>
->>> The mic mute led of my ThinkPad X1 Carbon Gen 9 doesn't work anymore after updating linux to version 6.
->>> I can still turn it on by  running 
->>>
->>> echo 1 > /sys/class/leds/platform::micmute/brightness
->>>
->>> With linux-lts it still works fine.
->>
->> See the ticket for more details.
->>
->> Note, I found a similar report that (despite my attempts to prevent
->> things like this from happening) fell through the cracks here:
->> https://bugzilla.kernel.org/show_bug.cgi?id=216355
->>
->>>  plum 2022-08-13 02:11:01 UTC
->>>
->>> I upgrade to kernel 5.19.1 but found my thinkpad x1 carbon 2021's mute led stop working.
->>>
->>> Function is okay but LED won't light up.
->>>
->>> Back to kernel 5.18 and it's normal and working again.
->>>
->>> Fedora 36 64 bit 
->>> Gnome-shell 42
->>
->> From a quick research it looks to me like this is an issue for the
->> sounds maintainers, as the LED itself apparently works. If that is
->> something for the platform people instead please speak up.
-> 
-> Thanks for bringing this up, we recently hit this in Fedora too
-> and we have a fix/workaround there. Let me copy and paste what
-> I just added to bko216355 :
 
-Many thx for sharing these details, really helpful.
+--z24uizcIcNefEU/8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> This is caused by a behavior change of the kernel code controlling the LED to only turn on the LED when all inputs, including e.g. the jack mic input are turned off in the alsa-mixer settings.
-> 
-> But most userspace code only turns the mic which it is actually using on/off when you hit the mic-mute hotkey.
-> 
-> Also see: https://bugzilla.redhat.com/show_bug.cgi?id=2134824
+On Mon, Dec 19, 2022 at 10:41:41AM +0100, Thorsten Leemhuis wrote:
 
-Ahh, lot's of helpful information and even a bisect there. :-D
+> * there are no "CC: <stable..." tags in these patches. Is the plan to
+> manually ask for a backport? Or how can we get the regression fixed in
+> older releases?
 
-#regzbot introduced: 9b014266ef8ad0159
+Speak to the stable maintainers I guess, or hope their bot picks the
+commits up.
 
-> Which is the same bug.
-> 
-> There is a set of fixes available in the form of an alsa-ucm update which tells the kernel to ignore the state of the jack mic input restoring the old behavior:
-> 
-> https://git.alsa-project.org/?p=alsa-ucm-conf.git;a=commitdiff;h=79a8ec44d3dcf097f4a4492c506cbcf338324175
-> https://git.alsa-project.org/?p=alsa-ucm-conf.git;a=commitdiff;h=9ce9ddb4a84fb467602b716575ea1d8f2bab0c39
+--z24uizcIcNefEU/8
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Hmmm, that's nice, but well, by Linux' "no regressions rule" the issue
-is caused by kernel change and thus must be fixed in the kernel, e.g.
-without forcing users to update anything in userspace.
+-----BEGIN PGP SIGNATURE-----
 
-Jaroslav, are there any plans to do that?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOgYUwACgkQJNaLcl1U
+h9CJiAf+LFKoxKrnzbInjPMtZRBK99rFEvMVdssNVJslU5cTUDwpSv+36pXZuOQH
++dqHk715zIBic2CIlYArrY0jr1Z5eDIGSVgpn9kxTl3GNiOdHH1pIG9+Cf2ZSdL8
+m5iUPKQRWAGGqtep02hodZtMatdTBBhN+goepgcnKwudoggltP83SiGHBwxRivvM
+Gd/XMN6puIcpXsYe+UWnTAAYshOAHchTandsJ9kmWfPJwtHMIJqzZ5XxVIRRGqk8
+kmRRzX1iXq/w5h8fAWIYK/ZZ3aWn/YVXjdBxKQhuVXAc10TCoGIIMxgxY0KDKl7A
+7fvb3XroltdaVX33fP/BFYRehJLGBg==
+=H6ZP
+-----END PGP SIGNATURE-----
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I deal with a lot of
-reports and sometimes miss something important when writing mails like
-this. If that's the case here, don't hesitate to tell me in a public
-reply, it's in everyone's interest to set the public record straight.
+--z24uizcIcNefEU/8--

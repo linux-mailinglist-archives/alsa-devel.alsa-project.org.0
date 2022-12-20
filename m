@@ -2,113 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F82651A0D
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Dec 2022 05:44:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C683F651B7F
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Dec 2022 08:24:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2088B2B0A;
-	Tue, 20 Dec 2022 05:43:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2088B2B0A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC3272ABD;
+	Tue, 20 Dec 2022 08:23:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC3272ABD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671511468;
-	bh=PCFBhOmqwnUnJJ5JN8oL+3dj0SglPVwz2qVOwZ9GDYo=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=IqT2Lx1NHC8VK6DWirQU4am/ERCd3/a3P3bBKQnrDB9p2TsJNZjUT+TZfxshcP2Ht
-	 jPK4Mfwc4mlnCEOVW58pKO2EI5/Q5et634iHmzqUxcMvwdtRrQyDX8VbzGmqFNWOx+
-	 k4uTRkL+7UZFl340+mLrWKkHSmbi8Ak4C0nd2VNE=
+	s=default; t=1671521045;
+	bh=X5f6CgeXtMTque0g70d/VtQ/Bl9/wVUA6q4HmMZ9+yQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ZPPkXaF9AIbZeCj3exJozdxIhvboxVnG0FAmGNJLxkTfHbblsW1klz+dJjP9utsxD
+	 ByYlMmWOa5xi54dl2mpcV2a9JRXwuW5byBGkfg7AkHhVsm+CQD66TlGuy3uopMnbSN
+	 81d38iV1YKc8Nd3UV8bVSFpCfwrEMmgAKMWKzvhU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA299F8025E;
-	Tue, 20 Dec 2022 05:43:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55A36F8045D;
+	Tue, 20 Dec 2022 08:23:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FB41F8032B; Tue, 20 Dec 2022 05:43:14 +0100 (CET)
+ id B5999F8045D; Tue, 20 Dec 2022 08:23:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50823F8025E
- for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 05:43:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50823F8025E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com
- header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2
- header.b=tletu3R4; dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=tY/k6Aa7
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id D4C1D320093C;
- Mon, 19 Dec 2022 23:43:06 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 19 Dec 2022 23:43:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1671511386; x=
- 1671597786; bh=XaLoLd2oQGvxYAKJjaWvB8j3ooz2Y1N3AgmcEsW+u24=; b=t
- letu3R41VA7e+5oPTAT2rrHCYtjSu2U3Z7SFnwuC5bBOnfQgRUwYiC+zx5F0HLdO
- Ptsee+ZMj3/lZQnl/hhPGFCpMx5Ahys96aE59evQnRBMxwWElbv++m+hY8XFCmKA
- 5nLGM7qA14y245zcIIr+AryaZczpWI0rMWT3tbw5Qo37LSxfOcpIl0HnB9t0btaB
- 5MkQ2r8kRkTTiIENryMa5DDR+yXHDi3b/H8o8BfyDmvm4leqXmed/erGnBnEcrcV
- NRloyEu4foh4euXFXTd3vm51gt+bx4w7+Avifbw/9Og8uJx0yOWT3XZechHd4NLj
- fOpAhmOStnZwL8qZK6ETQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1671511386; x=1671597786; bh=XaLoLd2oQGvxYAKJjaWvB8j3ooz2
- Y1N3AgmcEsW+u24=; b=tY/k6Aa7PB0lYlfUSjX+Xkgz0mNH5NlcQmbgmLQJOIUe
- /3Ov8418RKHeRaFWyt+9ahiP/MJCxOLAW4kd4hmpeibJMVdBHFpjqjstdGTOGBq3
- sB8AZV/DqLA4gL86GtMem/RF88jpjN3ur+pGk/qp60TRAJsNTP4eCadfk8qqzG3w
- t4n3tOHiTJReHFhuLovGT6bAfOXThZEa7uIi3btoxNPoSw3iV0c7c3d96xi5WPwT
- fLHssTEvpGUNGdx6ZMWRko2i6aCvZ1ZvFjML5vrjGMSCkIBdoPAyCLbUl9gKpxfb
- bC8MVIJvDZNsSPV5AxC6or+PvXsn8MKaAmmekNp2GA==
-X-ME-Sender: <xms:Wj2hYw__ja2E4j3mVAX8XYW0880s59IjdCrpWnRLs04MDngERVj2lQ>
- <xme:Wj2hY4svZ-QsbWlIF-gq7Rw6PFTvFK7oHkVT-qLa-QCpAfvegurQcoRmqd0wRJLsI
- zvWBv9CkGC7YA>
-X-ME-Received: <xmr:Wj2hY2B4KkoNy1wgnYr-XQEp5tpuyBDFhiBAlmj2XJ0aZTiXEx7EK3GM_0yguyasssi6QFvao9YjufjtUWrVkE0lin9FWzwPiQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeeggdejhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeiledu
- vdekjeeukefhffetgeefiefffeejjedvieejvdfgjeehteduvdekffduieenucffohhmrg
- hinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
- pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
- grsgdrtghomh
-X-ME-Proxy: <xmx:Wj2hYwftnjlziRg6j-IXZ6hSmqYvKubaQ5NUHXrrU63V7z5jPsxQog>
- <xmx:Wj2hY1P6ViI-3Z1SgLzIwIajXZwyaLqTijhDzyjPoHfX4auMGPlnEw>
- <xmx:Wj2hY6nDWQO1iMf6WoH412qjmFuk3NfFQ0zvxfyUba9Gky2yXrxf7w>
- <xmx:Wj2hYz3yDdmyIdOJUwH2QukVCbPYDOIdNBsWPA_RgIYYUBt5KTZJwA>
-Feedback-ID: i1568416f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Dec 2022 23:43:05 -0500 (EST)
-Date: Tue, 20 Dec 2022 05:43:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-Message-ID: <Y6E9VixS7sV0kpWQ@mail-itl>
-References: <Y5KPAs6f7S2dEoxR@mail-itl> <87tu256lqs.wl-tiwai@suse.de>
- <Y5MssNfvE+mUyyZR@mail-itl> <Y5PaF4LhQGIrKthy@mail-itl>
- <Y5SxJ3IkhHSC/Psu@mail-itl>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5F0DF8026D
+ for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 08:22:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F0DF8026D
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=FlH+sSnT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CR6Rd7c+SZV1eI2JHILI6aQVjRJkeaz51CvCrsbu3seAg7iDwL1eRvGIw1SK9qg6WB+itgkCZQK9SblzIWtOo7vcA5GTfdEGhw1yi0INAMU4CO+kgqCHi56v7bEHr/lns3e/ZnmPuI7lWt9WfPd1YUEf+El85VM7hKKpmSebEfMt34rUhU4M3YN3As3zEUjM8Mcxx0wMi7nlBM5niGpkd0bNG6zKTwbY67n0qmcxxOrVed3sLZVeib3NfBV1NviVC1u5oDcNOdXtw4BvUZxfBXxk5bGE22Yd7FQePc/EmZqxFz7VSuwEDyjeHYGHKHR7c9J7c8EjNT/EF0v2xnSCkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iw9+gyIcnPnd6JFInGZBTBk+a5mGCbma2VMzHxuxbm0=;
+ b=fD9s39q8I1V/DQ8DqWqAt91wKbXkREBEpl8Yg3T/PLXNpPWMkfnx7JnqM3m3V2tBvWLG9vKu8VWemNPNXFEXQN8YsgU38DFCU580cBSq9F6QIjO5PUhDjiDqULY8YpZSRDxJylrsGyeTUDKTLcnKMjF2aq3Skpv79CxzKxsDB8cJ6jp3WChOEIUQronLJzYPTzyB33RThrRV6mRLglh5p7FhTzTMBHJMY3+Jx1vVqLqQsCADqf19ygpAfT3Vf+fAHKP62kQBJ4U/fkKMmzh8XeyGmcRqmFNr4WxjNzQzxbLsjDUQmm8/JWAC0LISoCQ952xaYiZXTJ8ATdP9Sz6HTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iw9+gyIcnPnd6JFInGZBTBk+a5mGCbma2VMzHxuxbm0=;
+ b=FlH+sSnTSZbSVXqHodYB+891X8VmbkjibUURvOAkXfvPCPbnrR9jprmQvmb45WKSgQM8t47a2C+79PS/svTOxuWa1jaUdxXpEaH740iiJiKPioo1HeIfztBdFu63fdJVjmalNKg5F8E6/z84amrsDbmCiCJiiFDuc+QAKxlQSjo=
+Received: from BN1PR10CA0019.namprd10.prod.outlook.com (2603:10b6:408:e0::24)
+ by IA1PR12MB7616.namprd12.prod.outlook.com (2603:10b6:208:427::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Tue, 20 Dec
+ 2022 07:22:54 +0000
+Received: from BN8NAM11FT080.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e0:cafe::3) by BN1PR10CA0019.outlook.office365.com
+ (2603:10b6:408:e0::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.21 via Frontend
+ Transport; Tue, 20 Dec 2022 07:22:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT080.mail.protection.outlook.com (10.13.176.82) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.16 via Frontend Transport; Tue, 20 Dec 2022 07:22:54 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 20 Dec
+ 2022 01:22:53 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 20 Dec
+ 2022 01:22:37 -0600
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 20 Dec 2022 01:22:35 -0600
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 0/5] Add tdm support in acp machine driver
+Date: Tue, 20 Dec 2022 12:57:00 +0530
+Message-ID: <20221220072705.1456908-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="RJV2GUvBvmXRiKge"
-Content-Disposition: inline
-In-Reply-To: <Y5SxJ3IkhHSC/Psu@mail-itl>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT080:EE_|IA1PR12MB7616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9acdfce9-7ce8-4a25-49e1-08dae25b02e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hkaEt1/D7aS5RqzPXdok9ZOHDysotcYqChYBmcihnEVsmlXS7LoS5XYP7C/CmT/w9wUKA52JE9EY6DXHDetwdm/l/2fhfHY2ba1/pB8WwRjAT8qKfPa7PcX1RAwYa8sE5fa2UMCnN1NLui8atsiNaxKHViAXCCKtu328QjqqhFWhfUKPTyIDO9qXnZOv7qPQDBLiMJlYIVBgjHNmHApojdtBODcUPGDRChzqNJU6VCA3UJrZDBGOlVFxJmRAT859bXOAQ/8ecEwWJHN3IKn1z/KU+tpCIGIwPcGhRiLo0d0vv0wsvWCoU+DBLR67Vj7kerBbvflPH60yx7338BSwEGAHDLLpaEKNNaxJMr/tvCbMMGON6KZ/M017wuDil9tIoqAwExS1Bk3zr/2tgJKsy6jAzJxE0csurLIIZPHTynEv5lcDezMYbxGV6BW1rAlg1vEVJ+Wug69TX6Rwjf92t7y+pE8kinDS+/+hr6WqpkFlScYW9BSi1OMy/+W2bDqJnvzqjBX1BWVQSNbxgBOqMZA/o7cHbZ6vz5x8DvtssT5Qj7/HUiTo55YxOcfsjl/eul7E1zjyNpiohIjIU1Lu5Z7qo4/MBfisY2fD2IKw+zN2ObvzQyAfKEJi+D2pNlYv4Ni8rN3b2M/nQJGpBp5MDBqsmyevYx6vnBqAgBspRSwMgJlTNRLiqF88JdJ1gbq0IgV7gotrLJ00lUdYZZ2Z21/xGzzOUafJzNWIsMeI2mE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199015)(46966006)(40470700004)(36840700001)(70586007)(40460700003)(86362001)(70206006)(8676002)(4326008)(316002)(36756003)(8936002)(5660300002)(2616005)(1076003)(82310400005)(7696005)(6666004)(41300700001)(186003)(36860700001)(26005)(356005)(426003)(336012)(47076005)(83380400001)(54906003)(40480700001)(4744005)(82740400003)(478600001)(81166007)(110136005)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 07:22:54.4319 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9acdfce9-7ce8-4a25-49e1-08dae25b02e2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT080.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7616
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,110 +130,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Basavaraj.Hiregoudar@amd.com, Vijendar.Mukunda@amd.com,
+ vsujithkumar.reddy@amd.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch set is to add new cpu dai, refactor dai format
+implementation and add tdm support in acp machine driver.
 
---RJV2GUvBvmXRiKge
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Dec 2022 05:43:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
-	Alex Xu <alex_y_xu@yahoo.ca>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
+Venkata Prasad Potturu (5):
+  ASoC: amd: acp: Refactor i2s bclk calculation
+  ASoC: amd: acp: Add new cpu dai's in machine driver
+  ASoC: amd: acp: Refactor dai format implementation
+  ASoC: amd: acp: Add tdm support in machine driver
+  ASoC: amd: acp: Enable tdm support for skyrim platforms
 
-On Sat, Dec 10, 2022 at 05:17:42PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Sat, Dec 10, 2022 at 02:00:06AM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Fri, Dec 09, 2022 at 01:40:15PM +0100, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > On Fri, Dec 09, 2022 at 09:10:19AM +0100, Takashi Iwai wrote:
-> > > > On Fri, 09 Dec 2022 02:27:30 +0100,
-> > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > >=20
-> > > > > Hi,
-> > > > >=20
-> > > > > Under Xen PV dom0, with Linux >=3D 5.17, sound stops working afte=
-r few
-> > > > > hours. pavucontrol still shows meter bars moving, but the speakers
-> > > > > remain silent. At least on some occasions I see the following mes=
-sage in
-> > > > > dmesg:
-> > > > >=20
-> > > > >   [ 2142.484553] snd_hda_intel 0000:00:1f.3: Unstable LPIB (18144=
- >=3D 6396); disabling LPIB delay counting
-> >=20
-> > Hit the issue again, this message did not appear in the log (or at least
-> > not yet).
-> >=20
-> > (...)
-> >=20
-> > > > In anyway, please check the behavior with 6.1-rc8 + the commit
-> > > > cc26516374065a34e10c9a8bf3e940e42cd96e2a
-> > > >     ALSA: memalloc: Allocate more contiguous pages for fallback case
-> > > > from for-next of my sound git tree (which will be in 6.2-rc1).
-> >=20
-> > This did not helped.
-> >=20
-> > > Looking at the mentioned commits, there is one specific aspect of Xen=
- PV
-> > > that may be relevant. It configures PAT differently than native Linux.
-> > > Theoretically Linux adapts automatically and using proper API (like
-> > > set_memory_wc()) should just work, but at least for i915 driver it
-> > > causes issues (not fully tracked down yet). Details about that bug
-> > > report include some more background:
-> > > https://lore.kernel.org/intel-gfx/Y5Hst0bCxQDTN7lK@mail-itl/
-> > >=20
-> > > Anyway, I have tested it on a Xen modified to setup PAT the same way =
-as
-> > > native Linux and the audio issue is still there.
-> > >=20
-> > > > If the problem persists, another thing to check is the hack below
-> > > > works.
-> >=20
-> > Trying this one now.
->=20
-> And this one didn't either :/
->=20
-> When it stopped working, I did two things:
-> 1. switched audio profiles ("configuration" tab in pavucontrol) several
-> times; this on its own did not helped
-> 2. reloaded sound related modules, but did not loaded them all back (see
-> attached list before and after).
->=20
-> After this, it worked again for a few minutes. Not sure if/which the above
-> actions were relevant, tho...
->=20
-> Another observation: when it stops working, it's never during a
-> playback. It's always that at some point starting an audio stream
-> results in a silence.
+ sound/soc/amd/acp/acp-legacy-mach.c |  13 ++
+ sound/soc/amd/acp/acp-mach-common.c | 275 +++++++++++++++++++++++-----
+ sound/soc/amd/acp/acp-mach.h        |   4 +
+ sound/soc/amd/acp/acp-sof-mach.c    |  14 ++
+ 4 files changed, 256 insertions(+), 50 deletions(-)
 
-Any other ideas? Or maybe there is another patch I should try?
+-- 
+2.25.1
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---RJV2GUvBvmXRiKge
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOhPVYACgkQ24/THMrX
-1ywPyAf8Da/fQIl0AxdHgHqjv3NmH/GZP0iDw7p25DH//Kb3Q3pOWy4iT+4EGCoG
-pt5vpO+aGzZCPYB4sdknOwY2m49iWwvmFRPntcWYtJi+83pgPrHI16yuIkXkidnC
-TePBjy79Hwa0uulpfJcrISGJVHEBuTvzcBCeUWwPGNvxDLETtsKKwI8qPxTcRWWw
-lsHG36E+R4xe4gvaoT0fUhK0WEOcIBFhwTUkoY5jmS9fJT2iMb+FNLl+74Ok1XPu
-tITvw7qbesf0unlsyNe0iHxiI+CV+HTx1GbGWCaGFp4orzC7aLtLcFhUUgBdD5HY
-oSLfQe8v04kYsY7ZxqbGOetJWQ4JkA==
-=HDES
------END PGP SIGNATURE-----
-
---RJV2GUvBvmXRiKge--

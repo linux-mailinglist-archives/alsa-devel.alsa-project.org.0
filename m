@@ -2,101 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0923652708
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Dec 2022 20:32:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CCE2653CB3
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 08:54:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DB1A18D5;
-	Tue, 20 Dec 2022 20:32:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DB1A18D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 265A634C2;
+	Thu, 22 Dec 2022 08:53:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 265A634C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671564775;
-	bh=3RH9NpTe5Gc0wAIVorjHbbomvQGBK/9hVXaTLg3w96c=;
-	h=From:Date:Subject:To:References:In-Reply-To:List-Id:
+	s=default; t=1671695683;
+	bh=drs2keNOjYrneLVT1ovWiV43cB9iAfeoemEyZrqaDWE=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=YF+w8ETBU2OWeCs4U7RZa+dBYPajooD79tcwb/BPYoscPFVBvyB7dW8w3eh9kPS4B
-	 vLztahQJlcmrCJTnr8LYJXuKVtI3wZXAItqS3xZPpfaYdHd0A6dGNp5dFAv+O6Y6Wb
-	 HcQbyW/7Dx0ug6xckujuJcqyROZaiX+JfoySbgok=
+	b=sEKD6GKfVjIpW/5xYGQ2QYxCw9JpyIpo3+JIhSe5l4DGWoT04TnLPOEQguYfZxfDV
+	 BsK6QKpFLyRR+gA2LaaLfMJV6ZaM02HE+OZOvAqHirVfbH0wwhmqouahQyesy9+XZT
+	 Ee++B0KK3ds86HuSOuoRIOMbVgbZh62ZUNApNrKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7037FF8962A;
-	Tue, 20 Dec 2022 20:12:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D8EF80544;
+	Thu, 22 Dec 2022 08:52:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D613EF89627; Tue, 20 Dec 2022 20:12:28 +0100 (CET)
+ id 07076F80552; Tue, 20 Dec 2022 20:40:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6EA5F89623
- for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 20:12:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6EA5F89623
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=Zx+OZuhh
-Received: by mail-ej1-x632.google.com with SMTP id tz12so31520788ejc.9
- for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 11:12:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=3uLa8ajteDiOGAZvhSykFDlJdUftlgnCdSxpkuYzHko=;
- b=Zx+OZuhheM1p9U2+5vopR71SRR1nxKu4lrkIqgl78Bov1H+HUAB5ZDSXZXs9SVoDj7
- 24cq+bs5bDjg8AaTEGkcquv01gGswnSfuff+agBK3WZwIQVqUrFOjXbM096BUo399oHe
- qwTC3aY8jRHk3/9ss84MRIHXCKPkJWjOhne0xJFu5ER1AbMQE32oEU5cljJEvYKhPBbj
- Yb4kgYttHycaN5q29OtKYRk/W9Y5zM41PT3Eio3ruU9pl2DnQi2ZSzDMWuFHphfnGatK
- 9dbzXqNmvmylmfvUqsJ7qKHoodkZjeDVjqkzrJxcznSYFaH0h0kSMuEgfr+pZLNn5vvG
- uBsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3uLa8ajteDiOGAZvhSykFDlJdUftlgnCdSxpkuYzHko=;
- b=T43AB+E800uOOfFOPYkOzqVs62pfbqQJ5t0Nge379gzQBqOorHUOxMVM7Mph5u02r0
- BXe3R5fAFJoJCNKMgtTN2NQy4pep/JWMsEitm0PNxKhZb4LABmYzIY+iXjjpisbMwHJs
- OzKN5ruykZCygvUJZelSc09MkkDNEMO/zDiJ+W1KGO6+wQuP1x7NYUy3zHrIjxABPh27
- lBBlFrZCcIa9ILkWqCX+LuOkxZMHEPte2aiq8E1mgP94adJiiprrsypJ4UTRrOKgQs3E
- ZsWH1GM85oK9HeKrRu362HUUATvSRTAR2ZgJlx9izukk8fqgtHTYvjfCW7kvpv3Vzo/r
- lSZw==
-X-Gm-Message-State: ANoB5pk1PgqgBBBGoLB1ttuLNrq3TVmlMHKiaud1MBpRZfRvVD0nspSX
- xgJOB07QkWUd6NEQlHe19Q0=
-X-Google-Smtp-Source: AA0mqf4G42KOa3Ptxy6uvUG11SslfIGCLi/gwTrjGgYou2MlvQJm+h7lZjPCnTVuhdZBPo9vyToY0A==
-X-Received: by 2002:a17:906:c418:b0:7c1:5768:5fc9 with SMTP id
- u24-20020a170906c41800b007c157685fc9mr31576004ejz.43.1671563544739; 
- Tue, 20 Dec 2022 11:12:24 -0800 (PST)
-Received: from [10.0.0.144] (31-10-206-125.static.upc.ch. [31.10.206.125])
- by smtp.gmail.com with ESMTPSA id
- g19-20020a170906539300b007c0efbaa8a0sm6059131ejo.4.2022.12.20.11.12.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 11:12:24 -0800 (PST)
-From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-X-Google-Original-From: Emanuele Ghidoli <ghidoli.emanuele@gmail.com>
-Message-ID: <9657ab8d-0c60-7c81-b1cb-8a5b43d07c40@gmail.com>
-Date: Tue, 20 Dec 2022 20:12:23 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CC58F80552
+ for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 20:39:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC58F80552
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=ucw.cz header.i=@ucw.cz header.a=rsa-sha256
+ header.s=gen1 header.b=iSK/6k6Y
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 8D0971C09F9; Tue, 20 Dec 2022 20:39:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
+ t=1671565196;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z6Z4LV97YlfeiHNsI0GPtvBWuPiFBia9iXHj9p0V7f4=;
+ b=iSK/6k6YdYfe0pf3QIaGF0m9os72nxF3CAqc4kVpFydNcBeDZyAXwLd29ygI3aWdCD/P4E
+ hjb1tP04xpxvEqTGSku5jVwZ3Ze5vyiRMUS/PfukmleXTPDA24OIQLtf5lIYLLX2i19Nc9
+ ctnIK+xkRK2AK199jxQW3iEge/uxrTY=
+Date: Tue, 20 Dec 2022 20:39:56 +0100
+From: Pavel Machek <pavel@ucw.cz>
+To: Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] treewide: Convert del_timer*() to timer_shutdown*()
+Message-ID: <Y6IPjC9mpnoquL8S@duo.ucw.cz>
+References: <20221220134519.3dd1318b@gandalf.local.home>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: wm8904 and output volume control
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-References: <c7864c35-738c-a867-a6a6-ddf9f98df7e7@gmail.com>
- <20221219095846.GC36097@ediswmail.ad.cirrus.com>
- <a8770d51-86f8-2a68-dd38-9b380f9c355a@gmail.com>
- <20221220100005.GD36097@ediswmail.ad.cirrus.com>
-In-Reply-To: <20221220100005.GD36097@ediswmail.ad.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="Q4QndSuPZQc8d5xp"
+Content-Disposition: inline
+In-Reply-To: <20221220134519.3dd1318b@gandalf.local.home>
+X-Mailman-Approved-At: Thu, 22 Dec 2022 08:52:08 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,82 +77,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Michael Walle <michael@walle.cc>,
- Mark Brown <broonie@kernel.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- emanuele.ghidoli@toradex.com
+Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
+ linux-sh@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, drbd-dev@lists.linbit.com,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, lvs-devel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, SHA-cyfmac-dev-list@infineon.com,
+ coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+ linux-input@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, bridge@lists.linux-foundation.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-block@vger.kernel.org, cgroups@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Anna-Maria Gleixner <anna-maria@linutronix.de>,
+ brcm80211-dev-list.pdl@broadcom.com, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>, linux-bluetooth@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20/12/2022 11:00, Charles Keepax wrote:
-> On Mon, Dec 19, 2022 at 04:20:10PM +0100, Emanuele Ghidoli wrote:
->> On 19/12/2022 10:58, Charles Keepax wrote:
->>> On Sat, Dec 17, 2022 at 12:47:14AM +0100, Emanuele Ghidoli wrote:
->> I infer, from datasheet, that volume update is applied in different
->> way based on charge pump dynamic vs register control (CP_DYN_PWR bit
->> in CLASS_W register):
->> "Under Register control, the HPOUTL_VOL, HPOUTR_VOL, LINEOUTL_VOL
->> and LINEOUTR_VOL register settings are used to control the charge
->> pump mode of operation.
->> Under Dynamic control, the audio signal level in the DAC is used to
->> control the charge pump mode of operation."
->>
->> The second sentence do not explain that volume register is still
->> considered by the component but likely in a different way.
->>
->> It is important to note that I trace I2C transactions and, without
->> the patch, the CLASS_W register is written JUST after volume update
->> registers (with the patch is written before and after).
->>
->> At this point I have no doubt that we have to update that register
->> before writing volume.
->>
-> 
-> Hmm... I think my only concern here is this feels a bit counter
-> intuitive, the default value is described as "controlled by
-> volume register settings" and we are saying in that situation the
-> volume registers don't seem to update properly. That is far from
-> impossible but I think we should perhaps poke a little more to
-> make sure we understand the bounds here.
-I did some more test and I'm not 100% sure of what is going on anymore.
 
+--Q4QndSuPZQc8d5xp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> I see that that CP_DYN_PWR bit is disabled when audio is going
-> through one of the bypass paths. Would you be able to enable one
-> of the bypass paths and see if you can manually adjust the volume
-> on the headphone output, with a bypass path active?
-With the previous change, I tested all the possible combination with one 
-channel from the DAC and the other toggling from DAC to Bypass changing 
-the volume and it's always correct.
+On Tue 2022-12-20 13:45:19, Steven Rostedt wrote:
+> [
+>   Linus,
+>=20
+>     I ran the script against your latest master branch:
+>     commit b6bb9676f2165d518b35ba3bea5f1fcfc0d969bf
+>=20
+>     As the timer_shutdown*() code is now in your tree, I figured
+>     we can start doing the conversions. At least add the trivial ones
+>     now as Thomas suggested that this gets applied at the end of the
+>     merge window, to avoid conflicts with linux-next during the
+>     development cycle. I can wait to Friday to run it again, and
+>     resubmit.
+>=20
+>     What is the best way to handle this?
+> ]
+>=20
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+>=20
+> Due to several bugs caused by timers being re-armed after they are
+> shutdown and just before they are freed, a new state of timers was added
+> called "shutdown". After a timer is set to this state, then it can no
+> longer be re-armed.
+>=20
+> The following script was run to find all the trivial locations where
+> del_timer() or del_timer_sync() is called in the same function that the
+> object holding the timer is freed. It also ignores any locations where the
+> timer->function is modified between the del_timer*() and the free(), as
+> that is not considered a "trivial" case.
+>=20
+> This was created by using a coccinelle script and the following
+commands:
 
+LED parts looks good to me.
 
-> Would also perhaps be interesting as a test to completely remove
-> the write to CP_DYN_PWR from probe and leave things set to manual
-> and see how the volume behaves then?
-When I tried to remove any write to this register my modification 
-stopped working.
+Getting it in just before -rc1 would be best solution for me.
 
+Best regards,
+								Pavel
+--=20
+People of Russia, stop Putin before his war on Ukraine escalates.
 
-> I guess the interests here are to find out if the SYSCLK is
-> involved at all.
-I tested keep the clock always enabled, removing clk_disable_unprepare 
-when going into SND_SOC_BIAS_OFF and it has zero effects.
-Or did you mean something else?
+--Q4QndSuPZQc8d5xp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Said all of that, I did one last test, forcing a volume update on
-the charge pump enable callback, cp_event(), with this and only this
-modification in everything is working fine.
+-----BEGIN PGP SIGNATURE-----
 
-Could it just be as easy as that the volume is applied only when the 
-charge pump is already active?
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCY6IPjAAKCRAw5/Bqldv6
+8qFnAJ4h7/YkgMmaMAi5FTo4aeUHj64lowCgv7jO/1JyimzJx+06JHTOXFlIAIk=
+=01ne
+-----END PGP SIGNATURE-----
 
- From the datasheet this seems a good explanation:
-
-  The Charge Pump is enabled by setting the CP_ENA bit. When enabled, the
-  charge pump adjusts the output voltages (CPVOUTP and CPVOUTN).
-
-What do you think?
-
-Emanuele
-
+--Q4QndSuPZQc8d5xp--

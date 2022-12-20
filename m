@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B044652113
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Dec 2022 13:58:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 941C1652114
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Dec 2022 13:58:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E55552138;
-	Tue, 20 Dec 2022 13:57:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E55552138
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8592143;
+	Tue, 20 Dec 2022 13:57:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8592143
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671541080;
-	bh=DIzxGdpsaudAy4Rr6Rfk/rSkOgdDzfTmlES+w5hTlWI=;
+	s=default; t=1671541089;
+	bh=2xUvJppOjrTHGAXye1BLsB5WdkkLABznyEZYkQBE2U8=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=IuvCWD21dN1bKlvnwot1VaR/vhceKGHmgY8SqSEIpK+iEvDehE3Pw+07mnXO4kS4c
-	 IJB802Uqdd9SedM60wexUpsATtTIeyBjmoDiwa1+/BELXk/Mh93nVfMBtXRvYTFmYk
-	 rjHQ30c6MZyuk8POwncy1akAejDFxBqfeFxulCUw=
+	b=VghFwk16Hw+1OAHnr9Z/O5S+ZzicP31fiqSPKZiYveAEdQJEpZACxxc3VWDzkUy3u
+	 2CJ05M2mqiNSZDozWfUVPhDs4AXsGU9FEvtUinoCfHBpPQO+cx4W2wXZW3d/IXXOi0
+	 8LRmT7uFhP5x58AurssksImU7KNW4dO8U8ZmIiRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60E15F80539;
-	Tue, 20 Dec 2022 13:56:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3DBAF8052F;
+	Tue, 20 Dec 2022 13:56:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 623B0F804CB; Tue, 20 Dec 2022 13:56:53 +0100 (CET)
+ id E2428F80538; Tue, 20 Dec 2022 13:56:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,42 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E587F8018A
- for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 13:56:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E587F8018A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 001A3F80536
+ for <alsa-devel@alsa-project.org>; Tue, 20 Dec 2022 13:56:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 001A3F80536
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=B6pbNUpy
+ header.s=Intel header.b=akxRB0iX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671541012; x=1703077012;
+ t=1671541014; x=1703077014;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DIzxGdpsaudAy4Rr6Rfk/rSkOgdDzfTmlES+w5hTlWI=;
- b=B6pbNUpyc5nSoIBzMw83JF7JmsQVcVWp+qyWEPxHW2m0hyyRzTT/pDiC
- z147f+jvGLHWeWeI0Y9rvJsCXJzgKHhlV8lRYmrpuuw3HtYWEtlH4QiWd
- OE1+HbT4caXW3G+2PFPp4AkSDe1QoNk53uXozICZV5m+PsKbZNMrzc4WR
- vBAPsV+8x3Bbk1gIUezJmWwQBsc5kjTF0PK8uds1vymyqWBkt4g9YbjDS
- xh4kJrRCT7glgCebHm4MpQRssaO2uz03GKXc8t+ZlR4GttGL1C/MVdBBJ
- flRwYHaNue0qNUkuDsKvysQ4Wzsd1F9NNs4+Wi80Xd69GWYrjnx9uVmuA A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="299280480"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="299280480"
+ bh=2xUvJppOjrTHGAXye1BLsB5WdkkLABznyEZYkQBE2U8=;
+ b=akxRB0iXEHraoJHWdl04sHrDNewk8qct2V1g/aD6S741Kj0X+R39bBx/
+ 2UjeCLHmAUl2qiknhAS+x61pMfSjXcqQ+sSIc9rvM92oKxoSfXQtoJsLo
+ SH5zPUAXseVM1qqAFttgqNV1fJLs11UINUuosDJrNCm4UD4hxjzSl3UC+
+ 7mKVgbrIzwHtJfMDzXJdySqlZwwAwU5MObwFKGe0qJDnrGHflJxGJP9eh
+ tNy8o/hxFh9+amLoQ1TTQpo9WCXOQqVMxtZ0A0cH1PzxiAXLbnrZwdaEw
+ psKoDQZKz5lLBRQKbc8lx+QpKMe4GWEcjnezRjoE+NHZ/6Dn38VNuokEP Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="299280493"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="299280493"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 04:56:26 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="825222233"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="825222233"
+ 20 Dec 2022 04:56:29 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="825222245"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="825222245"
 Received: from vadimbel-mobl2.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.20.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 04:56:23 -0800
+ 20 Dec 2022 04:56:26 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH v2 1/3] ASoC: SOF: pm: Set target state earlier
-Date: Tue, 20 Dec 2022 14:56:27 +0200
-Message-Id: <20221220125629.8469-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v2 2/3] ASoC: SOF: pm: Always tear down pipelines before DSP
+ suspend
+Date: Tue, 20 Dec 2022 14:56:28 +0200
+Message-Id: <20221220125629.8469-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221220125629.8469-1-peter.ujfalusi@linux.intel.com>
 References: <20221220125629.8469-1-peter.ujfalusi@linux.intel.com>
@@ -97,12 +98,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-If the DSP crashes before the system suspends, the setting of target state
-will be skipped because the firmware state will no longer be
-SOF_FW_BOOT_COMPLETE. This leads to the incorrect assumption that the
-DSP should suspend to D0I3 instead of suspending to D3. To fix this,
-set the target_state before we skip to DSP suspend even when the DSP has
-crashed.
+When the DSP is suspended while the firmware is in the crashed state, we
+skip tearing down the pipelines. This means that the widget reference
+counts will not get to reset to 0 before suspend. This will lead to
+errors with resuming audio after system resume. To fix this, invoke the
+tear_down_all_pipelines op before skipping to DSP suspend.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
@@ -111,30 +111,33 @@ Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/pm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/sof/pm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index df740be645e8..5f88c4a01fa3 100644
+index 5f88c4a01fa3..8722bbd7fd3d 100644
 --- a/sound/soc/sof/pm.c
 +++ b/sound/soc/sof/pm.c
-@@ -182,7 +182,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
- 	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 	pm_message_t pm_state;
--	u32 target_state = 0;
-+	u32 target_state = snd_sof_dsp_power_target(sdev);
- 	int ret;
+@@ -192,6 +192,9 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 	if (runtime_suspend && !sof_ops(sdev)->runtime_suspend)
+ 		return 0;
  
- 	/* do nothing if dsp suspend callback is not set */
-@@ -206,7 +206,6 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 		}
++	if (tplg_ops && tplg_ops->tear_down_all_pipelines)
++		tplg_ops->tear_down_all_pipelines(sdev, false);
++
+ 	if (sdev->fw_state != SOF_FW_BOOT_COMPLETE)
+ 		goto suspend;
+ 
+@@ -216,9 +219,6 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 		goto suspend;
  	}
  
--	target_state = snd_sof_dsp_power_target(sdev);
- 	pm_state.event = target_state;
+-	if (tplg_ops->tear_down_all_pipelines)
+-		tplg_ops->tear_down_all_pipelines(sdev, false);
+-
+ 	/* suspend DMA trace */
+ 	sof_fw_trace_suspend(sdev, pm_state);
  
- 	/* Skip to platform-specific suspend if DSP is entering D0 */
 -- 
 2.39.0
 

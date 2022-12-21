@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91351652F61
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 11:25:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB05652F6D
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 11:26:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8993816BC;
-	Wed, 21 Dec 2022 11:24:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8993816BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 851A216BD;
+	Wed, 21 Dec 2022 11:25:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 851A216BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671618300;
-	bh=0HKF5kFFAWbKZ+YlKgDkRtlCYbPqq/TgtBsScZmB4pc=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=UbPG6WVWiSA19vIj0+4M4nBS3UtM0tzclu6CX+VXbnKvn/27X6wg15l0XBPUr7MVa
-	 59+RYuzKFNI65l2M9PyMZ57ZGe4oA9AiGoXx7C1FHokB/0VwgOav1b0anmY0RWwddG
-	 mbxe5ARPs2YA46HYuQ76sUnt/GCMSUxOH3VYLp/k=
+	s=default; t=1671618393;
+	bh=zRfeGGUeehUOSAdNt/mTy9vJ+jy7NNlpmZd/7MRVOn4=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=gHVIABl2W36JNUEFx3oM8wj2AeI4noNZaZS7voGHxviFQVq5ToSXS6MtV6LOgpPQ0
+	 2KjyiIcsHcp2fjOzvzAFgpfQbi5VltQHbdPrHEmb9Q9IhBze8br1TWjdb5TIin0WLY
+	 QqC2DaQhjPNQ0yOvj24RAnMj11pi485asHgF2tpY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CF1FF804AD;
-	Wed, 21 Dec 2022 11:24:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E05B6F8053D;
+	Wed, 21 Dec 2022 11:24:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACDCDF804B0; Wed, 21 Dec 2022 11:23:31 +0100 (CET)
+ id AF867F804AD; Wed, 21 Dec 2022 11:23:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +35,45 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B150FF80022
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 11:23:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B150FF80022
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4F95F80423
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 11:23:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4F95F80423
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=j60Opbjo
+ header.s=Intel header.b=XkkVJy48
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671618208; x=1703154208;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0HKF5kFFAWbKZ+YlKgDkRtlCYbPqq/TgtBsScZmB4pc=;
- b=j60OpbjoWTgJek/HoKCStuel8hP7EmR/ZQURuedIbFZuZ2Vjh5Gx+ctv
- OTFqnNVAYPJunnh7oXXJnepJ3i3eN4xyNs2JICdVqKpOQh5X0GrPUj6Bc
- 7LWRIYBoIZcPWk7Gg/UTEzvxO3VboNAuBlw2iL+W5t4cvXu4D/o2cH3HG
- hAROyvgKFGrGzdT5Mfn9RHY0HCBWOk+HiouE/7kOMMSpqKx0OUMVF23a6
- dlEdzIiSkhBq1PEuBaRT0z/ENoVqrhe15evCXgqQAAi55rcHOqeYL7g3K
- b6ZmiDA2seotwFzTZqHcEusLy1Bypv38xtO4NfJ61Bb0e3XirhVdBe58P g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="406078606"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="406078606"
+ t=1671618211; x=1703154211;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zRfeGGUeehUOSAdNt/mTy9vJ+jy7NNlpmZd/7MRVOn4=;
+ b=XkkVJy48lWPqvK+3WwiRHwoXfmtG99/JOy1pvY9/lpj+gXCkxZA2uR0q
+ Uc9C4OW9+zeRPFXify3XhqQ3gtW1VLTxEMj4WSVXEx+FrT2oWHbIuSv8O
+ u4HBBuNgTEVAhhHyLfNNzxBk46nyE0QfixDAEGVqBujUNo+dHvXliH/SG
+ eUVwn6seB/S0SWlmNkefs0dwHZ9wGWPy4iFNs24GnxOl6Wy/b3lIbyt4y
+ 8GfLkGVG6jsrR6jouyEVhlQIOSWHAwURwkrDjaWo6J3vzZOOSxlPgNnRu
+ PKbx1oVm1EbXAz+iFIq932Iq8WgI9/GZeJ886JeVXKpycpT2pwhs9A2TA A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="406078611"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="406078611"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 02:23:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="681984271"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="681984271"
+ 21 Dec 2022 02:23:25 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="681984280"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="681984280"
 Received: from cofearra-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.20.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 02:23:20 -0800
+ 21 Dec 2022 02:23:23 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 00/11] ASoC: SOF: Extend the IPC ops optionality
-Date: Wed, 21 Dec 2022 12:23:17 +0200
-Message-Id: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 01/11] ASoC: SOF: sof-audio: Treat tplg_ops->route_setup() as
+ optional
+Date: Wed, 21 Dec 2022 12:23:18 +0200
+Message-Id: <20221221102328.9635-2-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
+References: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -90,57 +94,49 @@ Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Other topology ops have been treated as optional, including the route_free.
 
-This series will extend the IPC ops optionality to cover it up to the existence
-of the top level ipc pointer itself. There is no functionality change.
+Handle the route_setup in a conforming way as optional callback.
+Note: we do not have checks for the callbacks itself which makes them all
+optional in practice.
 
-The reason for the extended optionality is that we have "DSPless"
-debug/development support coming up (currently it is in SOF's topic/sof-dev
-stable branch) initially supporting Intel's HDA platforms.
-
-As the name suggests, in this mode the DSP is completely ignored by the linux
-driver stack (no firmware loaded, only using HDA directly).
-
-The DSPless mode is aimed to help us to verify our Linux stack on new platforms
-where the firmware is not yet in the state that we can reliably use it, but the
-hardware and programming flows can be tested already.
-There is no plan to make DSPless a production target for SOF Linux stack.
-
-While this is preparatory series aimed to unblock the DSPless support, it has
-been integrated into sof-dev separately and we have lots of new features
-depending on it (went in between this set and the DSPless support).
-
-I still have some minor tasks to complete for the DSPless to make it a bit more
-versatile, but I don't want to block other, stable features for upstreaming.
-
-Regards,
-Peter
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
-Peter Ujfalusi (11):
-  ASoC: SOF: sof-audio: Treat tplg_ops->route_setup() as optional
-  ASoC: SOF: sof-audio: Update documentation for sof_ipc_tplg_ops
-  ASoC: SOF: Add helper macro to be used to get an IPC ops
-  ASoC: SOF: pcm: Extend the optionality of IPC ops to IPC as well
-  ASoC: SOF: control: Extend the optionality of IPC ops to IPC as well
-  ASoC: SOF: sof-audio: Extend the optionality of IPC ops to IPC as well
-  ASoC: SOF: topology: Extend the optionality of IPC ops to IPC as well
-  ASoC: SOF: pm: Extend the optionality of IPC ops to IPC as well
-  ASoC: SOF: sof-priv: Mark fw_tracing ops optional in documentation
-  ASoC: SOF: trace: Use sof_ipc_get_ops() in sof_fw_trace_init
-  ASoC: SOF: trace: No need to check for op pointer in
-    sof_fw_trace_free()
+ sound/soc/sof/sof-audio.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
- sound/soc/sof/control.c   | 44 +++++++++----------
- sound/soc/sof/pcm.c       | 18 ++++----
- sound/soc/sof/pm.c        | 12 +++---
- sound/soc/sof/sof-audio.c | 57 +++++++++++++-----------
- sound/soc/sof/sof-audio.h |  6 ++-
- sound/soc/sof/sof-priv.h  |  6 ++-
- sound/soc/sof/topology.c  | 91 +++++++++++++++++++++++----------------
- sound/soc/sof/trace.c     |  8 ++--
- 8 files changed, 138 insertions(+), 104 deletions(-)
-
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index 7306a2649857..2c7d942427c1 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -174,7 +174,6 @@ int sof_route_setup(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *wsourc
+ 	struct snd_sof_widget *sink_widget = wsink->dobj.private;
+ 	struct snd_sof_route *sroute;
+ 	bool route_found = false;
+-	int ret;
+ 
+ 	/* ignore routes involving virtual widgets in topology */
+ 	switch (src_widget->id) {
+@@ -212,9 +211,12 @@ int sof_route_setup(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *wsourc
+ 	if (sroute->setup)
+ 		return 0;
+ 
+-	ret = ipc_tplg_ops->route_setup(sdev, sroute);
+-	if (ret < 0)
+-		return ret;
++	if (ipc_tplg_ops->route_setup) {
++		int ret = ipc_tplg_ops->route_setup(sdev, sroute);
++
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	sroute->setup = true;
+ 	return 0;
 -- 
 2.39.0
 

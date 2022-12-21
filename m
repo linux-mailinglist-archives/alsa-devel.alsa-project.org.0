@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD7B652F74
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 11:27:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FF78652F75
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 11:27:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0F2F16BD;
-	Wed, 21 Dec 2022 11:26:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0F2F16BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C281516D4;
+	Wed, 21 Dec 2022 11:27:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C281516D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671618464;
-	bh=r5Yyl4b8ilWgnmz7mfJQWkUdW1b0VRotQRp8wUsZ0uE=;
+	s=default; t=1671618477;
+	bh=fcHxp6xzffuBwUiPQ9VbkO96PvX/aCLLNmhxVnc0Eas=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=t1H5tmTbJg1CYs6rst2mThrfp59nSWGOm+F8HnWLKFBdHcpdpLCU1XGBmEXWHZVdw
-	 N9iBVKwgbkTWcGWNF3AKJUZ1jhkNl5gprsGGTRQVNUl8EzG+09wrNotY5veoChgETs
-	 pp9aoySXDgtFzZ1L8HzW9XsTLoS3zuflnyElACyE=
+	b=RY4l0vDiKE71cGB18+Eqz8ijja3lYuRq6cxfoIb8iqjXSPmPUOKm7wnxV1lJYWsHC
+	 BHLs50sphd/HPYGIHu8zqC6m1QzW6TGQcPtQJfRsdTa8TrT7/HO75OKyC6cgPOCUCs
+	 kB+SAey6iX4L/jJaBBxnmRL/1pNaqI0+EETUQgAw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB6ABF80580;
-	Wed, 21 Dec 2022 11:24:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CDAEF80587;
+	Wed, 21 Dec 2022 11:24:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51A2CF80423; Wed, 21 Dec 2022 11:23:51 +0100 (CET)
+ id 36A8FF80022; Wed, 21 Dec 2022 11:23:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,42 +35,42 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23447F80423
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 11:23:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23447F80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49F9EF80022
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 11:23:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F9EF80022
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PEcYImz1
+ header.s=Intel header.b=d3hl8VSA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671618230; x=1703154230;
+ t=1671618234; x=1703154234;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=r5Yyl4b8ilWgnmz7mfJQWkUdW1b0VRotQRp8wUsZ0uE=;
- b=PEcYImz1dkdLm7PPX/TtTjKAZQ8AZF7VLoZaGbxiEO7gFtotFtwHZERA
- iyj/peMOK4bW6r+KHn+/F66uPiApyXn3ZlKSeLgKoUwxt+vlAmxV9V8Py
- eMDmmrI4KvV2dEjkiOX27x+KKclC7CcFriGVw3PxWJK0L6hnXSjwKGO5m
- XscaiiP+64sxbDXKCjruQcj5pPYjHlOWnAhsSKdFL5ZvPnq736Yc2VNEC
- ZrmrEVqMGaEd+Vt2C9aCtmSnvD73kjCMxUle6ZvZNUB3f+q77WNcAOEC+
- WhrtI6DyiXWabvWNjzatIHVIO6H1SWrLM7u/f9VAWofBTLwSa4bAyyvNW Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="406078700"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="406078700"
+ bh=fcHxp6xzffuBwUiPQ9VbkO96PvX/aCLLNmhxVnc0Eas=;
+ b=d3hl8VSAb7EZiLWy317/LToYtaa+hJZkYJCwnfXSgA8GpntPXahQaTz5
+ U7gET1t6yvPC2GX7PdCS0rUTEMnX8Pj/C2iqXKlCON8p3Wq4E4UzZPl+O
+ dgirxhZZet+BxVMTKObkA0iczSa4DxFwxD33KVFE9CyvRNSqCNsBuWpwP
+ ABnDBwVaMiORyvnxnFMVYYEkrusE9/FOm7NvZvLQxH5MiB8uso6hVAPon
+ yINKLhG9ByqlUZWy+ty1nszhYf1OEguEezzB+mFwNS8k26WrnAWQpUSI8
+ p2m1DQcdXLzu73//9ORYO/NrlBJut+lLwT1XNS9DCu9ZW0nutbEqUp4lZ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="406078715"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="406078715"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 02:23:48 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="681984425"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="681984425"
+ 21 Dec 2022 02:23:51 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="681984443"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="681984443"
 Received: from cofearra-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.20.202])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 02:23:46 -0800
+ 21 Dec 2022 02:23:48 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 10/11] ASoC: SOF: trace: Use sof_ipc_get_ops() in
- sof_fw_trace_init
-Date: Wed, 21 Dec 2022 12:23:27 +0200
-Message-Id: <20221221102328.9635-11-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 11/11] ASoC: SOF: trace: No need to check for op pointer in
+ sof_fw_trace_free()
+Date: Wed, 21 Dec 2022 12:23:28 +0200
+Message-Id: <20221221102328.9635-12-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
 References: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
@@ -94,8 +94,8 @@ Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For the sake of safety use the sof_ipc_get_ops() to fetch the fw_tracing
-ops to avoid cases when either sdev->ipc or sdev->ipc->ops might be NULL.
+If the sdev->fw_trace_is_supported is true then we must have the fw_tracing
+ops set, no need to check again.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -103,32 +103,22 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- sound/soc/sof/trace.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/sof/trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
-index 6f662642d611..0e92269c4a00 100644
+index 0e92269c4a00..b2ab51e5214a 100644
 --- a/sound/soc/sof/trace.c
 +++ b/sound/soc/sof/trace.c
-@@ -6,14 +6,16 @@
- 
- int sof_fw_trace_init(struct snd_sof_dev *sdev)
- {
--	if (!sdev->ipc->ops->fw_tracing) {
-+	const struct sof_ipc_fw_tracing_ops *fw_tracing = sof_ipc_get_ops(sdev, fw_tracing);
-+
-+	if (!fw_tracing) {
- 		dev_info(sdev->dev, "Firmware tracing is not available\n");
- 		sdev->fw_trace_is_supported = false;
- 
- 		return 0;
- 	}
- 
--	return sdev->ipc->ops->fw_tracing->init(sdev);
-+	return fw_tracing->init(sdev);
- }
+@@ -20,7 +20,7 @@ int sof_fw_trace_init(struct snd_sof_dev *sdev)
  
  void sof_fw_trace_free(struct snd_sof_dev *sdev)
+ {
+-	if (!sdev->fw_trace_is_supported || !sdev->ipc->ops->fw_tracing)
++	if (!sdev->fw_trace_is_supported)
+ 		return;
+ 
+ 	if (sdev->ipc->ops->fw_tracing->free)
 -- 
 2.39.0
 

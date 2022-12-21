@@ -2,49 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764A76537B9
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 21:44:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4802C653822
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 22:16:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0599516F7;
-	Wed, 21 Dec 2022 21:43:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0599516F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABAD616FC;
+	Wed, 21 Dec 2022 22:15:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABAD616FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671655449;
-	bh=w+r0rlD43KKgkeeoDWt1SuFeuKtPezuHSjegKcS4ozU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cxiWqUKDVQu4ItwgdWV6TOzqqAg5xeXCtxS4/hhLPh6qGD5bksRV1rNdF9Kva5Wh0
-	 1Zs0zj2RiGZ/Rq26Re1JjDcKIa0HrIR2Y1iMZLsYcQMsYQYjQfZt90PGeqp229YD/0
-	 5oFMfnr97slNNCWdlv529myOn2RyzxSt798AX4EI=
+	s=default; t=1671657391;
+	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
+	h=Date:From:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mZr647aXq6D+agHM9rV3MsGxPLmCqpsHT/NoedFZOUneCLO7s5D5HiVwsx9/c+f3O
+	 e2Tlcc0xGAA63VF4YELCSOBMMsHay2wHt4OvjNLklI4S4R0/3SBJlMIgJy0ybOzlSF
+	 QK3djpyFZvol7hTRKWl91A4BoMg5YG5u7/DZl/y0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4C85F804B0;
-	Wed, 21 Dec 2022 21:43:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37F34F8024D;
+	Wed, 21 Dec 2022 22:15:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65169F8047B; Wed, 21 Dec 2022 21:43:15 +0100 (CET)
+ id 83C93F8024D; Wed, 21 Dec 2022 22:15:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE shortcircuit=no autolearn=no autolearn_force=no
- version=3.4.6
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E1297F80022
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 21:43:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1297F80022
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE6B3F8024D
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 22:15:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE6B3F8024D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=VwHJCbXb
+Received: by mail-pl1-x636.google.com with SMTP id w20so63571ply.12
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 13:15:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:to:message-id:thread-topic:subject:from
+ :date:mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=AZDdkmaRZkPMCYhGc5lbFjK3sLKWoOrA1I5czMFtYrk=;
+ b=VwHJCbXb1gO+vjG9YsKb7OwDVDG5mRgn5vzQWTkomrPnxa7EKZzmdZyKLBGLcj3EFS
+ gZDYdtDiHBpgSqysCMQjJ5fTiH1WdOERAIHDfki1AY8VqVxl/koMV5f4/YUGUxAuv089
+ y33ZmYFadEJIagOpq3XND+cV5IjxTOn+JFNKtzjVd3uX5+TkUawLqELHC+A7+y5D10NL
+ Y6CIg04MnqA8GzXpCfMJ2o9aVG19ONadjg+pKJgEAxE6p+qParUQL4rZ9Sym9V06bc0U
+ ZOuw4bfGY2+QDtu6ZMimLLmxl2NZzF01MvAxfpbleosOdVJmJvvWV1gsOhA2rO56UiYZ
+ 8iKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:to:message-id:thread-topic:subject:from
+ :date:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AZDdkmaRZkPMCYhGc5lbFjK3sLKWoOrA1I5czMFtYrk=;
+ b=UOscL4b6wpplFrPqsgT4lVbem2K/pmv2jLACNcgR/XFVjO9UtHouGVZccQzmW1P6lz
+ VpVfFiCCtePVqOr4JcKd7G1g5NyJ5xxlHM9cboMWAma6zPUsfO8tIxERlH2sCo6svjsA
+ 5Y0iMZNRK1y4yc3nf6kleIIoeKCCMD2OPuaHL7FkaoFAKx9m9dXOfHfUZFm5aYWUJH+W
+ mxM4ZHSdfSNjJC8DKmPVliZqk7osqQ3XNuoxuvmj1k1QokN1+2TUlQvhAne+stlpLMWc
+ IP1dHrgM9W/g0YLUHvDslYQrea5NxJ3aDfywZY5B+Q3MZ3a0mqFx6J5Cj5T3ECvDdA86
+ UuiA==
+X-Gm-Message-State: AFqh2krbSTCrbv6HoyWsQGzC9SFQl4G+DOYmN5KPWgwVSD5xm5vZDEiU
+ QzKGhAGIwM5JWWSlRQyrUbiT0E6vQ8uvfA==
+X-Google-Smtp-Source: AMrXdXtbQhQ1R1KHuAFkWozPqwQXyKytQXICIbomvBTdFzjsTFyqWJb52qwCue0fTDXwVFNg1QBI8Q==
+X-Received: by 2002:a17:903:40cd:b0:180:f32c:7501 with SMTP id
+ t13-20020a17090340cd00b00180f32c7501mr3909849pld.0.1671657332719; 
+ Wed, 21 Dec 2022 13:15:32 -0800 (PST)
+Received: from DESKTOP-OQV70FD (76-253-1-78.lightspeed.sntcca.sbcglobal.net.
+ [76.253.1.78]) by smtp.gmail.com with ESMTPSA id
+ e11-20020a170902ed8b00b00191152c4c6esm8590634plj.152.2022.12.21.13.15.31
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 21 Dec 2022 13:15:32 -0800 (PST)
+Date: Wed, 21 Dec 2022 13:15:30 -0800
+From: CoolStar <coolstarorganization@gmail.com>
+Subject: Re: Re: [PATCH] ASoC: Intel: avs: Add support for RT5663 codec
+Thread-Topic: Re: Re: [PATCH] ASoC: Intel: avs: Add support for RT5663 codec
+Message-ID: <60FD2E00-2A51-4F48-84A1-378276A56053@hxcore.ol>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1671655392348664045-webhooks-bot@alsa-project.org>
-References: <1671655392348664045-webhooks-bot@alsa-project.org>
-Subject: ALC4080 broken on MSI MPG X570S Carbon Max Wifi
-Message-Id: <20221221204315.65169F8047B@alsa1.perex.cz>
-Date: Wed, 21 Dec 2022 21:43:15 +0100 (CET)
+Content-Type: text/plain; charset="utf-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,13 +102,3 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #256 was opened from lordhoto:
-
-With the current ALC4080 UCM2 configuration, sound is completely broken on my MSI MPG X570S Carbon Max Wifi Mainboard with an ALC4080. Regardless of whether I use the "HiFi 2.0 channels", "HiFi 5.1 channels" or "HiFi 7.1 channels" configuration on the front headphone output, the audio is sometimes "stuck" and not playing at all.
-
-This causes all sorts of issues: when you play a YouTube video it might not even start, after a while sound might play for a bit and then suddenly stop again. Even in Gnome's audio settings dialog when testing left/right the sound sometimes just does not play at all.
-
-I'm using pulseaudio 16.1. When I insert my old ALSA UCM2 configuration, the sound works flawlessly. I suppose there is something wrong with the current configuration, but I can't figure out what. Are there any logs or similar I might look into?
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/256
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,148 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30FC65372D
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 20:44:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D312653769
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 21:14:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DDD816E9;
-	Wed, 21 Dec 2022 20:43:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DDD816E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CE0516DF;
+	Wed, 21 Dec 2022 21:13:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CE0516DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671651860;
-	bh=F20iX+Ci5TuEVHvdXI+Fpa5zCdB4MHF3uVHSalom/KA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ppmMYU+0ghrMRxkfS/MCzYS615Soi+xlA3H0EI+bFU29Vq5twK0mpTwKlgQsLq0kL
-	 qqmczDcLC6XiPYMHoipDvaNhT/K4UHZTorlwJrOgiqXr+CuqqhtISZFiQMPGnl7BjV
-	 Wg4dIwIm1hupWRyUx+K/sP3MkX2zhsoR9EV3tZyI=
+	s=default; t=1671653663;
+	bh=RpQU74H+UOR3BhMwrsAec9Z4aRPjFF3mJHG+jmAKifE=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=uUoP2GhkDrH0vNLTCvazrrIhkJ5ikgiFAeUHz6xUAAmZzsz9VoRf1Gere98CuSAVC
+	 T8QHuzA3DdiYckJWMlc7Yuf776KfmjkLW8rvBpGjX8j3ZVlQ6efzocDi4s332Kzsvs
+	 rg8s1w0iFINGRUR2qDlj9ja4EFvS04F8ZfLakDos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E04E5F80423;
-	Wed, 21 Dec 2022 20:43:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FE4FF80022;
+	Wed, 21 Dec 2022 21:13:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64800F8047B; Wed, 21 Dec 2022 20:43:21 +0100 (CET)
+ id 9F1D9F8047B; Wed, 21 Dec 2022 21:13:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEA7DF801C1
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 20:43:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEA7DF801C1
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=RfHiGmUA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FCaDh2ovkW5PDu1gNb7uN/zd+h960r0M09Bn7yhHpAoiUEUP2E9UIrRxS7oZN/fU6aEoAoTf1cJR2pZiZ9edfMLKkrCocWcMvBcRGQvhtXyTm0lPvZkpRcZRQrvmCMDlFmEEOTbw0XVTLkZtttcc9bc8wGVGjt+41GcvXZPMhWDswpjBclK+HBDWc5Ny8tgQYfHpkJR+WIl51ZI1dehyE2tR5ure3XDxpF93AbbLFFPRqif9oH2t3ygjfLqs25N/IURCEYzoQ7CbKSbTUaMtJ5Hhdy78Z2w9M8HZ0xhoFN2NRE+z2uIf8PBsMLKOcPyJzei9bPExYgAC7EWAux2KdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=43edvZSDfxRBAQhQS0zpP3D1pJdFUB9RMtBBQxdaklM=;
- b=Gc+pITqpVjlHKjRTKGDBhvxQsI6/WrNLQitg7jubqE1kSzD6HEqr6mIwNuQlSPq4ydChbOMYvl1GOJWsv6YME0pl9pRjMRX6A6Q1fTIbPdXJau79+8wnhTGUK7ic4tLCroRKwkwKB0XdSbOHjAuxHJhW9cJr0HqJhF3QhxS0bjfGk8gfpvtY4GMa2WK6o39vAgoGc7fqEboNPYmSXFNl6Tr0yVWXOdO7f8zpjoxjbX3fFolNj7VAvwMje/CirpasnY/qcn5WbygiVkICdu2Zl6Urw0v5Na1giM/I2ET0sm8aemSl9chKTRQU5CkML597yfP69iHVZ6qUPZQQ5OEcsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=43edvZSDfxRBAQhQS0zpP3D1pJdFUB9RMtBBQxdaklM=;
- b=RfHiGmUAB0cPEzYrAT+FlsSBwy9GSIVOZFhl4KZ4ibXL97to7BrsbMvEkWU0c4CiiJj5+5RJf4eZdqll4Oika9iP3IzqaXjfgUxwIDMxhQrjkBsREzAILZEHcRSFgDeYFnpf4LNsBhefK/X1FnbQNcS6NO3aVR3kRMaLKSSiH/k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DS7PR12MB5912.namprd12.prod.outlook.com (2603:10b6:8:7d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Wed, 21 Dec
- 2022 19:43:14 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::7d2d:dc01:79cf:df79]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::7d2d:dc01:79cf:df79%3]) with mapi id 15.20.5924.016; Wed, 21 Dec 2022
- 19:43:14 +0000
-Message-ID: <91916c6a-3254-184a-6b37-b948b1195d1d@amd.com>
-Date: Thu, 22 Dec 2022 01:15:46 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH V2 1/4] ASoC: amd: ps: implement api to retrieve acp
- device config
-Content-Language: en-US
-To: kernel test robot <lkp@intel.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20221221112611.1373278-1-Vijendar.Mukunda@amd.com>
- <202212220159.alghwGQT-lkp@intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <202212220159.alghwGQT-lkp@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0147.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:c8::12) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BF49F801C1
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 21:13:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BF49F801C1
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=qMcRZhV2
+Received: by mail-ed1-x52c.google.com with SMTP id z92so123628ede.1
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 12:13:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ATD0jdA4hEHgw70KYmeJzTQzWvXRSxdA5xCMRn+TpbY=;
+ b=qMcRZhV2F3M+nm4C2Y92ioNYuVzAbjt66BRYaY/D0TMXv99NbLhXcXKJR4zjKkLwxG
+ TowDN/A/UvzmdYwyhSTFfD5D5ZwYzNild/YLbmZedo/K5j7etywxPqRjx4uBd9ymFJHc
+ 2ELBq6EX9TV6phcgsavP4K1Tvr1pFJsG9BcrSKIwbDdPY0VN0XIss3pzEmPUnKuXhaw0
+ 3IhhQXeD3EBFDvl2/15gVWT/0rvI6jLDmAvP9eAkSJJtPb8q+fALIGtotIKccOIsMstS
+ DnC75jWctA91K18+9LpD4xbUpLnMConPH+wl6oD8NT6LwbmyOa+HV3bnUQ4hPKNQGfLi
+ 2BYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ATD0jdA4hEHgw70KYmeJzTQzWvXRSxdA5xCMRn+TpbY=;
+ b=GI5AR4xRWcnT3x7+arwr6NtA7yR1+bcNZICFvRmm6A5VlVyaBn9Jl97YvRdytcXEdU
+ 3Ca0zGHmG5lHM8zgaWPETefqKG9ZipD098SIb86eiCYuScOo1cYq8elAfB5LLmjVP4RJ
+ sYB1EHhs6i4flDKPDB7DSFH2NRp5Rv/JzvcsKJYiJm702HuVgqSVS74xbI9WlUugMvOy
+ M7Tkgu6y/6NhX+wL1/K+bZmlm6+jWDO6oFSpkscAC4ey4QyrUG/0HtOtT9NjD6enCZmJ
+ fVBJvZT0BzenLbQ9nux8ABVndoQJVRA8i4EnWOClnmaVuopG2/sw1b/IYbgM4UVUj+tJ
+ n+UQ==
+X-Gm-Message-State: AFqh2kqZET4udxQ0dVIB7wDgWS7ddkj/hROrDEae1CdxGwNBnjC6gT/+
+ UQw4CS3qXiI3Qx66aXPu7GIN0GpC2snciD/5
+X-Google-Smtp-Source: AMrXdXsjOgc5BwtKkrG1cEZhkTj/skJvDxnC1OKeRYZO3or/EAid7R4rTajITBUm6Es9x6bDBZ7yhw==
+X-Received: by 2002:a05:6402:220b:b0:475:32d2:74a5 with SMTP id
+ cq11-20020a056402220b00b0047532d274a5mr2255585edb.42.1671653600588; 
+ Wed, 21 Dec 2022 12:13:20 -0800 (PST)
+Received: from tora (80.49.37.164.ipv4.supernova.orange.pl. [80.49.37.164])
+ by smtp.gmail.com with ESMTPSA id
+ 9-20020a170906218900b008373f9ea148sm2533810eju.71.2022.12.21.12.13.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Dec 2022 12:13:20 -0800 (PST)
+Date: Wed, 21 Dec 2022 21:13:17 +0100
+From: Alicja Michalska <ahplka19@gmail.com>
+To: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: [PATCH] ASoC: Intel: avs: Add support for RT5663 codec
+Message-ID: <Y6No3WsiZ7Sbg35u@tora>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DS7PR12MB5912:EE_
-X-MS-Office365-Filtering-Correlation-Id: e80f41ff-97a0-4793-85ac-08dae38b9966
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yIo9U81k8xP6h8dftZd2wBUh1pBy2mDC8+0xcwo2eXembqaQUVHZ1KY4WHgoa7qL2m7NRJ7kdTv7NOaPrWSTNlPj4KfS530aNb24qk3aZSfLqpxQeZUuhfeoKFBYMz5qMYva2CL9oOR37Dx2wbBk6eLgMA1jNCz7lYx9Of1RP6b9t8g+rlP4eK5d/mRz0f0Nq/TYaEC4hZXVmfwaj+xH73jobnCiewhzTrBZRE/TAKJ34RvgdMXCIJZvnxvnSod4V0rPJQ2ZbSx5R+sp18h9GFaRn6r9OUK9flN/5HoZTXY0mEITKGJnFnG4gXKQfPV7QsicF7v9Kd9JeCiUOwDdB6sYhl0/bf6S267eBCNS/R/bgXrsMaELanWeTqJfmpi7tb91D1DTcvEEl8g9ysI6mI3Rynd4mcnuHValVQJrAoH6iDY9+AoIhdiqQsxjaEuB4bUMaO8K7WIhEQrxqMQyoInA5ylsyjw7jaaZflXjT5k/HxFWXFJWLXkfa0pHfGEV8MP/cRK5szONag2fonNuvAmPpHsPGnFlekUgCuk17FWgnjCV88BBAFMtzvHql7eo/U1MEXMEyLbUiE2ULt53RzXXwMpcsW+I0wyFcI+dlUTMdz9MALcRa77tspQtLNlB0AKfnTsJpnFWtF/LjmbZ1Yw6bAomV4RuHz1uyzHDwVyE7MWvihoaCZQBOKxPgJhAFdhn65A8dc7W6tHtdtAKEbDGrrOth/45/nxEOeT738r5bd2JG3T+gkJuD3vL3xrPj+9gvev24LYy2uoNQdNvfu8vMvOoBRBXlCqDfI5yh6YkMSW7dJwpNQpbaPU8akxa
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(376002)(396003)(136003)(39860400002)(346002)(451199015)(86362001)(66476007)(66946007)(4326008)(8676002)(316002)(31696002)(5660300002)(8936002)(2616005)(66556008)(36756003)(6512007)(6506007)(6666004)(53546011)(41300700001)(26005)(186003)(83380400001)(38100700002)(6486002)(54906003)(45080400002)(478600001)(966005)(2906002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnFFVDJJOFFpQ1JUWWRkd3h1YVdMTFczSU5HNkhTS085Ym5CNmNEM3JCVSth?=
- =?utf-8?B?TzdqbkpnblB0cndEK1YyTjhtekltYzZReUtrSGxsQWNacVcxMEhOLzZPOFB5?=
- =?utf-8?B?TGxmRDlrTXZNSzJDYURhak9sc1ZjNTlvN0Nab25XQzdFVVFyY0VMRzVaMWtR?=
- =?utf-8?B?SGZoSi9nTkVINWFOakdFT0lJa2Z1U0JqL1VEbDJyN3NUa2NQblpmNXNlVi81?=
- =?utf-8?B?TkRHL1Z6T1JVZXZyNW45TFdYUUpraXdETHRia0dXbDVWQ2tydElJQ3hnMFZF?=
- =?utf-8?B?Y0MzdGIzZjBjYmtsWjB2WDZSeWFJZXI4TmZobi9RR0VEYUVEU0FzMVN0Mk5r?=
- =?utf-8?B?eHpEVSsrZldPSWNUazR3VFp3S0p6UkhYK3p3ZUNIdDFObU5Xb1E5T3Z5V1Z0?=
- =?utf-8?B?NUJPR3B1MXdEWkd0ZlY1YkdReFBGcm1OWWxMdTJ0OWtEdlR0RnZSUERoWnBn?=
- =?utf-8?B?VjJDdTVySjBRQ0NBZmlZblVQWEoyQjNiRzY2dzE2RkU2Z2p0cldENTNLWHZK?=
- =?utf-8?B?clBDNTdwNm1LeXdUKzNHTVI2NGcxOU9SckdXVGdsQVFnU2dqdXFRK3c0VE1C?=
- =?utf-8?B?ZEpsSnJHRGplTGNRelRCRHhlTzEwSUR2cTQ2M1pSUVZicnhXSDJTSFhnNklE?=
- =?utf-8?B?a3drenVnbk1ka0tZMjNEMm1naHRJN3ROSThPM2hYQU9UaUkzVCt2NlZOVXVU?=
- =?utf-8?B?UW4rTS9uVldDdnF0aGdHZjM4WSthaTBUbG9CdXREVUFGS0x1TThIcm9LNmdO?=
- =?utf-8?B?YTc5QW53QmFseWNRbTdRNm1YME95TU5sb3Y0L0pNQlhrSzZJQUwrWU9sZGtZ?=
- =?utf-8?B?YTZIUnhtUDhHVWg5N3MxV2xTajVmSEhXZUU1eUZCTkR3bXRXeDg3YU9hTUha?=
- =?utf-8?B?V0xIUnl0R0x3ZVZGZ3FvMHpzano1ZUVxeGQvTkdEcUdQZEhkdnlhL3g1OTkz?=
- =?utf-8?B?UHplMm9Nd3lSR3Rsa1F1OW4wakpRQ2Z5OGJkZG01YVJPQ3RWVFA0U0p6dHRk?=
- =?utf-8?B?YjB2WGtWd2pVbzM5VTRYVnN2bXRJVEowb05wK0ZkakZQZEVEQlhLL1gzRFow?=
- =?utf-8?B?S25vNy9RRmNKVHBOOThiWDFNWjhFVWtoNXFKVXZEVnN5bkJYc3ZoRitOWXFm?=
- =?utf-8?B?c0hDcmU1Wm1NMWNmaHBDczhZWUxqVUxVc2NsTVBKQzdGOEZrUkhqUWV1dnBa?=
- =?utf-8?B?V1BORjd0YzBkTkVLYXV5Tm05eC9EUkNtU0h4Z0JDWUF0cGpZWHBKMkhvNWZS?=
- =?utf-8?B?em1QN0ROcXl1cUtCR0xXZWRrOVc2N0FTdHA1cG9RRDkrLzJzc1NjSzhiWktE?=
- =?utf-8?B?MjF3R3pYNGRIYmFZOEdGakY5OGlZbkxzbHAram1kV1o2a3hScncydWx0TWdn?=
- =?utf-8?B?TzMvVVVSaFUyNTlHK1FIMGxYNVFEV3IwVjJZUnVUOHRrZFhWSmZFTXJZd2xS?=
- =?utf-8?B?UVB0dXFTb1RGK1pVRElUd3RVeWM2N0todmZja1Z2NEVOTUo3T3FtUVpQcDZ2?=
- =?utf-8?B?QlZTUkVGS1BiY0RuRit2VUdvb3pQekplUUlkcVpHQU44ZnpWNzlFNzVXZ1VZ?=
- =?utf-8?B?Tmk2S3dqM1d5Q1g0RXFHU2NFV2l0MDRmNG5aK2s1WHp1VG0wY0tiSG9aWmRU?=
- =?utf-8?B?dENNaUswYkpkS0FmTmQvNTBZWlRFQUk0UTY3ejhxckt2NTEvbE9HYkxCZWEx?=
- =?utf-8?B?K1lWbWFZdlFGNTNnUVJCM1FNVFg2ZEozRGN6WXdQTUVEWVp4SlRWNmhWcCtE?=
- =?utf-8?B?cnNJcHR3YW9kVGQ4ZnU0YVZxQzFnUEJrSldyMDVJSnAvelVWMlpZei9LdXBk?=
- =?utf-8?B?RVBZQjN1ZWdqS3lRV1IyOWtKU0Y5a2MrM1lMUEhlWlE4QkRGUUlSS0hrVC9K?=
- =?utf-8?B?RlJ4eXEwSTdyRTg3cEg3VmJ3U0t1MEJtdlk0Vmw1Z0N1WW11KzVLVERUVWRx?=
- =?utf-8?B?RkRXM0NjR0J3ek9Md0VHUEh0SlRPZElpcnRMZ0pMcFhFSTEyZTh1TFRpcWNi?=
- =?utf-8?B?U0NyMExiWFNlNWx0K0FSbnhmMVhJZFZhOUN5M05UMG5uL0R5TVFlUHc2aWs2?=
- =?utf-8?B?OVNuV1FYQWFobDRvNlYvUjdMOVo4U1VpMTB1RHRMSHlCNEgrbGt3dC83SzUy?=
- =?utf-8?Q?RsqU+/AEbE6WmOUMgpQh+Uo4y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e80f41ff-97a0-4793-85ac-08dae38b9966
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 19:43:14.3531 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: buF4Z3EgJ50onAW0a+Q91Api21rq84RSlC/ROYbBF/9B4+YCb0auwgGesgmOK77hendXkk3ZBbt2h+kTcjXaGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5912
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,95 +96,329 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mario.Limonciello@amd.com,
- oe-kbuild-all@lists.linux.dev, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: cezary.rojewski@intel.com, upstream@semihalf.com, rad@semihalf.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21/12/22 23:10, kernel test robot wrote:
-> Hi Vijendar,
->
-> Thank you for the patch! Perhaps something to improve:
-Issue is already fixed and updated patch series as V2 version.
-Because of version mismatch , test robot picked older patch series.
+This patch adds support for RT5663 codec on KBL platform.
+Such hardware configuration can be found in Google Pixelbook (Google/Eve).
 
---
-Vijendar
-> [auto build test WARNING on broonie-sound/for-next]
-> [also build test WARNING on linus/master next-20221220]
-> [cannot apply to v6.1]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit-scm.com%2Fdocs%2Fgit-format-patch%23_base_tree_information&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=pREy1cj%2FssW267IS2cjwj1HM%2Fz%2FtFwMuFFAPsyEojso%3D&reserved=0]
->
-> url:    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fintel-lab-lkp%2Flinux%2Fcommits%2FVijendar-Mukunda%2FASoC-amd-ps-implement-api-to-retrieve-acp-device-config%2F20221221-192703&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=FsiiH4axp%2FR%2F2SoClKiyisUtDb3kR18d%2BnsgjYhjUiA%3D&reserved=0
-> base:   https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fbroonie%2Fsound.git&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=mhxTUjZwUkE6qSX2E%2FFdeNkvcxeUUGGLa0TiawEKcUA%3D&reserved=0 for-next
-> patch link:    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fr%2F20221221112611.1373278-1-Vijendar.Mukunda%2540amd.com&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ITTW3FXkEw0X7GdiqzG1dvdrS4VcemqldLWkFJah%2FU8%3D&reserved=0
-> patch subject: [PATCH V2 1/4] ASoC: amd: ps: implement api to retrieve acp device config
-> config: i386-allyesconfig
-> compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
-> reproduce (this is a W=1 build):
->         # https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fintel-lab-lkp%2Flinux%2Fcommit%2Fa47d6a455ff7716688a8c7efaae89f07cebf118d&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=WP%2FmbWI4Ry4pbUBfh6lx%2B4PxXz1TpjaXf6YIx7J71Nk%3D&reserved=0
->         git remote add linux-review https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fintel-lab-lkp%2Flinux&data=05%7C01%7CVijendar.Mukunda%40amd.com%7C77e7d774bd4b4dd1165308dae37aa5a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638072413166143017%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=koa4GqupLUfcvkCsQ2MD%2FUNkkF7vhYoBXMYzKg8k%2Bus%3D&reserved=0
->         git fetch --no-tags linux-review Vijendar-Mukunda/ASoC-amd-ps-implement-api-to-retrieve-acp-device-config/20221221-192703
->         git checkout a47d6a455ff7716688a8c7efaae89f07cebf118d
->         # save the config file
->         mkdir build_dir && cp config build_dir/.config
->         make W=1 O=build_dir ARCH=i386 olddefconfig
->         make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash sound/soc/amd/ps/
->
-> If you fix the issue, kindly add following tag where applicable
-> | Reported-by: kernel test robot <lkp@intel.com>
->
-> All warnings (new ones prefixed by >>):
->
->>> sound/soc/amd/ps/pci-ps.c:135:6: warning: no previous prototype for 'get_acp63_device_config' [-Wmissing-prototypes]
->      135 | void get_acp63_device_config(u32 config, struct pci_dev *pci, struct acp63_dev_data *acp_data)
->          |      ^~~~~~~~~~~~~~~~~~~~~~~
->    sound/soc/amd/ps/pci-ps.c: In function 'snd_acp63_probe':
->    sound/soc/amd/ps/pci-ps.c:231:74: error: 'ACP_DMIC_ADDR' undeclared (first use in this function); did you mean 'ACP63_DMIC_ADDR'?
->      231 |                 adev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP_DMIC_ADDR, 0);
->          |                                                                          ^~~~~~~~~~~~~
->          |                                                                          ACP63_DMIC_ADDR
->    sound/soc/amd/ps/pci-ps.c:231:74: note: each undeclared identifier is reported only once for each function it appears in
->
->
-> vim +/get_acp63_device_config +135 sound/soc/amd/ps/pci-ps.c
->
->    134	
->  > 135	void get_acp63_device_config(u32 config, struct pci_dev *pci, struct acp63_dev_data *acp_data)
->    136	{
->    137		struct acpi_device *dmic_dev;
->    138		const union acpi_object *obj;
->    139		bool is_dmic_dev = false;
->    140	
->    141		dmic_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_DMIC_ADDR, 0);
->    142		if (dmic_dev) {
->    143			if (!acpi_dev_get_property(dmic_dev, "acp-audio-device-type",
->    144						   ACPI_TYPE_INTEGER, &obj) &&
->    145						   obj->integer.value == ACP_DMIC_DEV)
->    146				is_dmic_dev = true;
->    147		}
->    148	
->    149		switch (config) {
->    150		case ACP_CONFIG_0:
->    151		case ACP_CONFIG_1:
->    152		case ACP_CONFIG_2:
->    153		case ACP_CONFIG_3:
->    154		case ACP_CONFIG_9:
->    155		case ACP_CONFIG_15:
->    156			dev_dbg(&pci->dev, "Audio Mode %d\n", config);
->    157			break;
->    158		default:
->    159			if (is_dmic_dev) {
->    160				acp_data->pdev_mask = ACP63_PDM_DEV_MASK;
->    161				acp_data->pdev_count = ACP63_PDM_MODE_DEVS;
->    162			}
->    163			break;
->    164		}
->    165	}
->    166	
->
+Reported-and-tested-by: CoolStar <coolstarorganization@gmail.com>
+Signed-off-by: Alicja Michalska <ahplka19@gmail.com>
 
+diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
+index b2823c2107f7..b167a641d1d5 100644
+--- a/sound/soc/intel/avs/board_selection.c
++++ b/sound/soc/intel/avs/board_selection.c
+@@ -159,6 +159,14 @@ static struct snd_soc_acpi_mach avs_kbl_i2s_machines[] = {
+ 		},
+ 		.tplg_filename = "da7219-tplg.bin",
+ 	},
++	{
++		.id = "10EC5663",
++		.drv_name = "avs_rt5663",
++		.mach_params = {
++			.i2s_link_mask = AVS_SSP(1),
++		},
++		.tplg_filename = "rt5663-tplg.bin",
++	},
+ 	{},
+ };
+ 
+diff --git a/sound/soc/intel/avs/boards/Kconfig b/sound/soc/intel/avs/boards/Kconfig
+index e4c230efe8d7..04c090c3f9b5 100644
+--- a/sound/soc/intel/avs/boards/Kconfig
++++ b/sound/soc/intel/avs/boards/Kconfig
+@@ -125,6 +125,16 @@ config SND_SOC_INTEL_AVS_MACH_RT5682
+ 	   Say Y or m if you have such a device. This is a recommended option.
+ 	   If unsure select "N".
+ 
++config SND_SOC_INTEL_AVS_MACH_RT5663
++	tristate "rt5663 in I2S mode"
++	depends on I2C
++	depends on MFD_INTEL_LPSS || COMPILE_TEST
++	select SND_SOC_RT5663_I2C
++	help
++	  This adds support for ASoC machine driver with RT5663 I2S audio codec.
++	  Say Y or m if you have such a device. This is a recommended option.
++	  If unsure select "N".
++
+ config SND_SOC_INTEL_AVS_MACH_SSM4567
+ 	tristate "ssm4567 I2S board"
+ 	depends on I2C
+diff --git a/sound/soc/intel/avs/boards/Makefile b/sound/soc/intel/avs/boards/Makefile
+index b81343420370..3db863fc26a7 100644
+--- a/sound/soc/intel/avs/boards/Makefile
++++ b/sound/soc/intel/avs/boards/Makefile
+@@ -13,6 +13,7 @@ snd-soc-avs-rt274-objs := rt274.o
+ snd-soc-avs-rt286-objs := rt286.o
+ snd-soc-avs-rt298-objs := rt298.o
+ snd-soc-avs-rt5682-objs := rt5682.o
++snd-soc-avs-rt5663-objs := rt5663.o
+ snd-soc-avs-ssm4567-objs := ssm4567.o
+ 
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_DA7219) += snd-soc-avs-da7219.o
+@@ -28,4 +29,5 @@ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT274) += snd-soc-avs-rt274.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT286) += snd-soc-avs-rt286.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT298) += snd-soc-avs-rt298.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT5682) += snd-soc-avs-rt5682.o
++obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_RT5663) += snd-soc-avs-rt5663.o
+ obj-$(CONFIG_SND_SOC_INTEL_AVS_MACH_SSM4567) += snd-soc-avs-ssm4567.o
+diff --git a/sound/soc/intel/avs/boards/rt5663.c b/sound/soc/intel/avs/boards/rt5663.c
+new file mode 100644
+index 000000000000..7d8f45267d27
+--- /dev/null
++++ b/sound/soc/intel/avs/boards/rt5663.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) CoolStar. All rights reserved.
++// Based off da7219 module
++// Copyright(c) 2021-2022 Intel Corporation. All rights reserved.
++//
++// Author: CoolStar <coolstarorganization.com>
++// Author: Cezary Rojewski <cezary.rojewski@intel.com>
++//
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <sound/jack.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++#include <sound/soc-dapm.h>
++#include <uapi/linux/input-event-codes.h>
++#include "../../../codecs/rt5663.h"
++
++#define RT5663_DAI_NAME		"rt5663-aif"
++
++static const struct snd_kcontrol_new card_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static const struct snd_soc_dapm_widget card_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++};
++
++static const struct snd_soc_dapm_route card_base_routes[] = {
++	/* HP jack connectors - unknown if we have jack detection */
++	{"Headphone Jack", NULL, "HPOL"},
++	{"Headphone Jack", NULL, "HPOR"},
++
++	{"IN1P", NULL, "Headset Mic"},
++	{"IN1N", NULL, "Headset Mic"},
++};
++
++static int avs_rt5663_codec_init(struct snd_soc_pcm_runtime *runtime)
++{
++	struct snd_soc_component *component = asoc_rtd_to_codec(runtime, 0)->component;
++	struct snd_soc_card *card = runtime->card;
++	struct snd_soc_jack *jack;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
++	int ret;
++
++	jack = snd_soc_card_get_drvdata(card);
++
++	rt5663_sel_asrc_clk_src(component,
++				RT5663_DA_STEREO_FILTER | RT5663_AD_STEREO_FILTER,
++				RT5663_CLK_SEL_I2S1_ASRC);
++				
++	snd_soc_dai_set_sysclk(codec_dai,
++			RT5663_SCLK_S_MCLK, 24576000, SND_SOC_CLOCK_IN);
++
++	/*
++	 * Headset buttons map to the google Reference headset.
++	 * These can be configured by userspace.
++	 */
++	ret = snd_soc_card_jack_new(card, "Headset Jack",
++				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
++				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++				    SND_JACK_BTN_3 | SND_JACK_LINEOUT, jack);
++	if (ret) {
++		dev_err(card->dev, "Headset Jack creation failed: %d\n", ret);
++		return ret;
++	}
++
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
++
++	return 0;
++}
++
++static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
++			       struct snd_soc_dai_link **dai_link)
++{
++	struct snd_soc_dai_link_component *platform;
++	struct snd_soc_dai_link *dl;
++
++	dl = devm_kzalloc(dev, sizeof(*dl), GFP_KERNEL);
++	platform = devm_kzalloc(dev, sizeof(*platform), GFP_KERNEL);
++	if (!dl || !platform)
++		return -ENOMEM;
++
++	platform->name = platform_name;
++
++	dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec", ssp_port);
++	dl->cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
++	dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
++	if (!dl->name || !dl->cpus || !dl->codecs)
++		return -ENOMEM;
++
++	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
++	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-10EC5663:00");
++	dl->codecs->dai_name = RT5663_DAI_NAME;
++	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
++		return -ENOMEM;
++
++	dl->num_cpus = 1;
++	dl->num_codecs = 1;
++	dl->platforms = platform;
++	dl->num_platforms = 1;
++	dl->id = 0;
++	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
++	dl->init = avs_rt5663_codec_init;
++	dl->nonatomic = 1;
++	dl->no_pcm = 1;
++	dl->dpcm_capture = 1;
++	dl->dpcm_playback = 1;
++
++	*dai_link = dl;
++
++	return 0;
++}
++
++static int avs_create_dapm_routes(struct device *dev, int ssp_port,
++				  struct snd_soc_dapm_route **routes, int *num_routes)
++{
++	struct snd_soc_dapm_route *dr;
++	const int num_base = ARRAY_SIZE(card_base_routes);
++	const int num_dr = num_base + 2;
++	int idx;
++
++	dr = devm_kcalloc(dev, num_dr, sizeof(*dr), GFP_KERNEL);
++	if (!dr)
++		return -ENOMEM;
++
++	memcpy(dr, card_base_routes, num_base * sizeof(*dr));
++
++	idx = num_base;
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "AIF Playback");
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
++	if (!dr[idx].sink || !dr[idx].source)
++		return -ENOMEM;
++
++	idx++;
++	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
++	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "AIF Capture");
++	if (!dr[idx].sink || !dr[idx].source)
++		return -ENOMEM;
++
++	*routes = dr;
++	*num_routes = num_dr;
++
++	return 0;
++}
++
++static int avs_card_set_jack(struct snd_soc_card *card, struct snd_soc_jack *jack)
++{
++	struct snd_soc_component *component;
++
++	for_each_card_components(card, component)
++		snd_soc_component_set_jack(component, jack, NULL);
++	return 0;
++}
++
++static int avs_card_remove(struct snd_soc_card *card)
++{
++	return avs_card_set_jack(card, NULL);
++}
++
++static int avs_card_suspend_pre(struct snd_soc_card *card)
++{
++	return avs_card_set_jack(card, NULL);
++}
++
++static int avs_card_resume_post(struct snd_soc_card *card)
++{
++	struct snd_soc_jack *jack = snd_soc_card_get_drvdata(card);
++
++	return avs_card_set_jack(card, jack);
++}
++
++static int avs_rt5663_probe(struct platform_device *pdev)
++{
++	struct snd_soc_dapm_route *routes;
++	struct snd_soc_dai_link *dai_link;
++	struct snd_soc_acpi_mach *mach;
++	struct snd_soc_card *card;
++	struct snd_soc_jack *jack;
++	struct device *dev = &pdev->dev;
++	const char *pname;
++	int num_routes, ssp_port, ret;
++
++	mach = dev_get_platdata(dev);
++	pname = mach->mach_params.platform;
++	ssp_port = __ffs(mach->mach_params.i2s_link_mask);
++
++	ret = avs_create_dai_link(dev, pname, ssp_port, &dai_link);
++	if (ret) {
++		dev_err(dev, "Failed to create dai link: %d", ret);
++		return ret;
++	}
++
++	ret = avs_create_dapm_routes(dev, ssp_port, &routes, &num_routes);
++	if (ret) {
++		dev_err(dev, "Failed to create dapm routes: %d", ret);
++		return ret;
++	}
++
++	jack = devm_kzalloc(dev, sizeof(*jack), GFP_KERNEL);
++	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
++	if (!jack || !card)
++		return -ENOMEM;
++
++	card->name = "avs_rt5663";
++	card->dev = dev;
++	card->owner = THIS_MODULE;
++	card->remove = avs_card_remove;
++	card->suspend_pre = avs_card_suspend_pre;
++	card->resume_post = avs_card_resume_post;
++	card->dai_link = dai_link;
++	card->num_links = 1;
++	card->controls = card_controls;
++	card->num_controls = ARRAY_SIZE(card_controls);
++	card->dapm_widgets = card_widgets;
++	card->num_dapm_widgets = ARRAY_SIZE(card_widgets);
++	card->dapm_routes = routes;
++	card->num_dapm_routes = num_routes;
++	card->fully_routed = true;
++	snd_soc_card_set_drvdata(card, jack);
++
++	ret = snd_soc_fixup_dai_links_platform_name(card, pname);
++	if (ret)
++		return ret;
++
++	return devm_snd_soc_register_card(dev, card);
++}
++
++static struct platform_driver avs_rt5663_driver = {
++	.probe = avs_rt5663_probe,
++	.driver = {
++		.name = "avs_rt5663",
++		.pm = &snd_soc_pm_ops,
++	},
++};
++
++module_platform_driver(avs_rt5663_driver);
++
++MODULE_AUTHOR("CoolStar <coolstarorganization@gmail.com>");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:avs_rt5663");

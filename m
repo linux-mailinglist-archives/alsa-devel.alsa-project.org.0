@@ -2,121 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E40653521
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 18:28:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F22653566
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 18:39:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD0CC16FB;
-	Wed, 21 Dec 2022 18:27:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD0CC16FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3671E16D6;
+	Wed, 21 Dec 2022 18:38:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3671E16D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671643694;
-	bh=KsUVLKwvFwXVIbho+u2mwejuymv8sq1zOxjkd8SSEOU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1671644354;
+	bh=tx1+1J35x7V4rrsSsmOSSbfeVBdPup/KanT39QHAYE4=;
+	h=From:Date:Subject:To:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=dhubWPQCTiT8SitOPHPuGi0JUIMtcIUKfBZb7EZVa/GKqOT4NQ7kk3hKsbMEBOtU7
-	 //8+RW2IJVzwMUphVQKISwt5fULxAcxkgNZaKRO0+dJDIDiUtnkNeUAalPnod+t5TV
-	 eUQz57+eec8ljdtr6bh3HrQWm+Hqg3iqzgAQSJ8g=
+	b=qGRvCdl9ht3QZkSvU1jRJV7wB/ahSCo5teYcmjACaecEUA8Y0cjwwlkROXK7dcpuM
+	 Z5IlTv2uxf/skWGWhQ8scGUpzEbEPEx/wFdd6PMAyD31Fdyz2vjLr+Wzow0TIOTFZa
+	 9m/eQUeUNjzl2t4i9uZcf2E5ihkbkwi0kWF3dtuM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 409DEF8053A;
-	Wed, 21 Dec 2022 18:26:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1477F804B0;
+	Wed, 21 Dec 2022 18:38:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2C9CF80544; Wed, 21 Dec 2022 18:26:41 +0100 (CET)
+ id 6E095F801C1; Wed, 21 Dec 2022 18:38:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C634FF8053A
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 18:26:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C634FF8053A
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=4ctHqtsN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iGBwRJcAW6EtVR4lWq5S4T11n2kKJGdsKwZl0evc48M0oMGlgyEXh1SPJjIl3llgdwcrpTWKd4881V4ym9L5uijL89e/YkWY/OGuZansvENlFfWsVDtLlBLmm86T8c3/DWY0kXEr9O1rnmOYtaBsnDVP+7ffAScIrRXCaI49jLRJ1Xki0TGDuaUb7gTu1N0z7IHOwd5Acai2yRDg2OxGhhLySAXyZjjPWMahzMvEUPIWvunLukJK9RB82U3axxqxvpvHZFbQohL6mCCxAca4AhTBPJzsFTjZq7JL9W2yZzpYE9T1K6Eodnwkg/PaxOWOT/Jkj1C34A8VWs8JRLRUNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5l4KBL+oE/e3tAtN6J6KA2TBGDjfJusjUQrFLnvb6rs=;
- b=hrMFAO9vHg5+PtieWgsiYwsKNuMtNmpQG1mVDkwJobeto0jO0htsusXnDlQsaaRT2I9rgW30oQEOudBZualW8akd+wwVbDL45xVOk/mOGo9/+p9xFWRqvqAJj+hvX0v17u6wSEYXOZbV6oHEmt1yoNfwSs6a2XLdUi2ueOvoibQHqwV2LTxRHOcDqA+cQyfCKagXkCys8hLlwt2KPg140/EZ+05e23qaOMO0akKEA4RbpTsxOUnFlqcFTwM+0ImN+1ETzp3eTNrl79kA+XGlGa3/H+KJs1xup9Lecinc+ZLO5qOfaPnfOp7UGaeWxJAIwOQ+DonlzguO9yJp3U9tfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5l4KBL+oE/e3tAtN6J6KA2TBGDjfJusjUQrFLnvb6rs=;
- b=4ctHqtsNzeFU5huuQ53x5IHvRVzjEHmZqPwCgUyU5nKjrhgAPCHzy6rNcS6n8NtarBVPmjTWPcs0v2TEQ4flssKj0D8n2T5M1y4yxLv8jL7IWl0B8ammB3BYJIgmiO7WQl4ypTTSL8ZmwRTf22oUEyqRwEXVya85KHTgGlo4fHQ=
-Received: from BN9PR03CA0765.namprd03.prod.outlook.com (2603:10b6:408:13a::20)
- by SA3PR12MB7949.namprd12.prod.outlook.com (2603:10b6:806:31a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Wed, 21 Dec
- 2022 17:26:35 +0000
-Received: from BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::8b) by BN9PR03CA0765.outlook.office365.com
- (2603:10b6:408:13a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.21 via Frontend
- Transport; Wed, 21 Dec 2022 17:26:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT073.mail.protection.outlook.com (10.13.177.231) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.10 via Frontend Transport; Wed, 21 Dec 2022 17:26:34 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 21 Dec
- 2022 11:26:34 -0600
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 21 Dec 2022 11:26:31 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH V2 4/4] ASoC: amd: ps: move irq handler registration
-Date: Wed, 21 Dec 2022 22:58:51 +0530
-Message-ID: <20221221172855.1618766-4-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221221172855.1618766-1-Vijendar.Mukunda@amd.com>
-References: <20221221172855.1618766-1-Vijendar.Mukunda@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60324F801C1
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 18:38:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60324F801C1
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=cMI0xPx1
+Received: by mail-ej1-x62d.google.com with SMTP id gh17so38550574ejb.6
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 09:38:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:from:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=D2X4VHxgbsENAINCLFdWB6eEEr0+NXwAY2cyGTtVAtQ=;
+ b=cMI0xPx1KLhKAo0ZAXTX2ZqYji9CAyWpljdyjrojOzA0RA/+73J6te4tKVrMSdwOAJ
+ QNLwl7yDmJH7lUVazpP2kXvcsYstHnrI6c0bg2yctBV0kVaRfAKUXpxh9CFoIAiXYVio
+ e77nZxlJ+MetKwqHq4NoL/agiP2w1bMl3WyDagw8ZWWoDi/JoqXi4D41s0P9av4MX6vI
+ i/UtFk9KFlIs4zXDzHmyrtFd78gfgCOcNlyv5luWKb49iATYyA4P+Jsz65SXpDoKKb8H
+ jO+tRLmthk5+9tVyF39Cqv5fBltUY1AR66eaOj1Wpg1+QemPRd2QRd1wFJ8rZYOEiPRC
+ 8pkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=D2X4VHxgbsENAINCLFdWB6eEEr0+NXwAY2cyGTtVAtQ=;
+ b=X1ZgbT4yiWfDSIvc9ZSoh0g7CZjtKDaQ+WPx20+pkJaHH46Qcys7Aya5A03ZTuB1ov
+ thZXy7OTzHvpBzyKZvtLC8iYfJt4UQEnDFU0Va3KZtbJEROJio7/IDC6WgedBporUA1s
+ YMaNEQdwTgpzYSTgtM3A59JaEls6f5x3LfTVg5rUeaAlM08xQixM1eafrnvGmoC7fRs1
+ SpGF+ERXC8SGanUBgSdGYWogCzJxbYCcdkNIRVJBpT2WdAEd5brCnMWFTrQPHLc7IekE
+ +krLgbYSgeioEsbOI9NEv2zSfbzuZ9aLmNAmU9/Vtpm0zMNyRxHpU7+mj9fTXY7tsnJR
+ UEKw==
+X-Gm-Message-State: AFqh2kodjP/T/TZC5aj4bYiXoxS1kApj7HwwscOJYtkfL7RUTBBgUkFN
+ DDKQ7BH7gZR4tJNWcyewjCWKkqXGWdXtoSWTdN4=
+X-Google-Smtp-Source: AMrXdXs7bTvWWGvc/64fDn9aRH71gOnkqebQzFbPkvo7H6OyBFZXKTCXNOLjjdyf0aUPhuKmit8U9A==
+X-Received: by 2002:a17:906:d18f:b0:7c1:80d7:55f2 with SMTP id
+ c15-20020a170906d18f00b007c180d755f2mr2362004ejz.48.1671644297368; 
+ Wed, 21 Dec 2022 09:38:17 -0800 (PST)
+Received: from [10.0.0.144] (31-10-206-125.static.upc.ch. [31.10.206.125])
+ by smtp.gmail.com with ESMTPSA id
+ 24-20020a170906309800b007bd28b50305sm7176098ejv.200.2022.12.21.09.38.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Dec 2022 09:38:16 -0800 (PST)
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+X-Google-Original-From: Emanuele Ghidoli <ghidoli.emanuele@gmail.com>
+Message-ID: <3d8c6f60-954d-c5b7-85bc-72509002f3df@gmail.com>
+Date: Wed, 21 Dec 2022 18:38:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT073:EE_|SA3PR12MB7949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07d63ac8-4029-4171-89fd-08dae378825f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EXYKxy6BtTkriklTWoiNPRylLSu5OVjwBGGEPQmUzEKBqc/QXK9uY7RFh2ciRRMNEN01+ExAiho+RU0v4jdsot9K5vzNxc2eljG5IbuBj1qArL6P9Q1vVY/bY/6zoG1YQw6uLwfhwnGCJgxfXpdqziO74Jh6zQuf7MOrRRAqw4gPkhosWe/CJ1FUrA0cEoxkHTrwpRMSQNCD2ZQkzLHs87dJKMq+T5UVEbX5PFOSHmYCPVExN0B9FV19qEAQY9BW8QtFsXfCFToPhmpaMp+6AICqhamCwiR/8iQFXZI58ZsH7kMxiC3wjbYVj+b6/ZETwO52qpSlVqrC8fPO90E/3lfOA9aB5Q83Kx+ku3Ncu3wM5S6PfPuNvUE5FA1isWDXqCsibY1nIirxAQmrKHv+sngMqkmjSzWhJ6rLuJeCp8Vn4AWFBsrRGMLfmH4j7jlzC+gOf4ERmjQwvk9FHeNWl0qgPa5j+21cXq97q3vJF/YblGn1+P1/TxrKB932hQooTAs2AQSBVmOP31TryDnPsMRRE/CTKGaReN7UmX+dNO8YkpVMdyb/MsmgrYFkw+dXoIFbR6zy1vCpVnEHHJ6w5e1Bc1gIYNy0ID+6ASCtb21N8a2qieaK61bULnxQhfuUyCNxefI5DZ6VljanMR9tVqQUKRzFSKvMtJA/rfECvFRXYhOc85dW8jXoehmqW8yLWCQZeRa1NVnKwpYGmT99Sg3xWsCeoyViyDrp/YzijQc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(478600001)(7696005)(6666004)(2906002)(4326008)(186003)(47076005)(426003)(40460700003)(36756003)(2616005)(83380400001)(1076003)(8676002)(82310400005)(5660300002)(82740400003)(36860700001)(26005)(54906003)(8936002)(110136005)(336012)(316002)(70206006)(70586007)(356005)(86362001)(40480700001)(41300700001)(81166007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 17:26:34.8757 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07d63ac8-4029-4171-89fd-08dae378825f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7949
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: wm8904 and output volume control
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+References: <c7864c35-738c-a867-a6a6-ddf9f98df7e7@gmail.com>
+ <20221219095846.GC36097@ediswmail.ad.cirrus.com>
+ <a8770d51-86f8-2a68-dd38-9b380f9c355a@gmail.com>
+ <20221220100005.GD36097@ediswmail.ad.cirrus.com>
+ <9657ab8d-0c60-7c81-b1cb-8a5b43d07c40@gmail.com>
+ <20221221165601.GE36097@ediswmail.ad.cirrus.com>
+Content-Language: en-US
+In-Reply-To: <20221221165601.GE36097@ediswmail.ad.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,54 +111,146 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mario.Limonciello@amd.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Michael Walle <michael@walle.cc>,
+ Mark Brown <broonie@kernel.org>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ emanuele.ghidoli@toradex.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move irq handler registration prior to platform device creation logic.
-This will avoid irq handling missing scenario when platform device
-raise interrrupts during it's probe sequence.
+On 21/12/2022 17:56, Charles Keepax wrote:
+> On Tue, Dec 20, 2022 at 08:12:23PM +0100, Emanuele Ghidoli wrote:
+>> On 20/12/2022 11:00, Charles Keepax wrote:
+>>> On Mon, Dec 19, 2022 at 04:20:10PM +0100, Emanuele Ghidoli wrote:
+>>>> On 19/12/2022 10:58, Charles Keepax wrote:
+>>>>> On Sat, Dec 17, 2022 at 12:47:14AM +0100, Emanuele Ghidoli wrote:
+>>> I see that that CP_DYN_PWR bit is disabled when audio is going
+>>> through one of the bypass paths. Would you be able to enable one
+>>> of the bypass paths and see if you can manually adjust the volume
+>>> on the headphone output, with a bypass path active?
+>> With the previous change, I tested all the possible combination with
+>> one channel from the DAC and the other toggling from DAC to Bypass
+>> changing the volume and it's always correct.
+>>
+>>> Would also perhaps be interesting as a test to completely remove
+>>> the write to CP_DYN_PWR from probe and leave things set to manual
+>>> and see how the volume behaves then?
+>> When I tried to remove any write to this register my modification
+>> stopped working.
+>>
+> 
+> Apologies just to be totally clear here, you are saying that
+> whilst a bypass path is active (ie. the class G widget has
+> cleared CP_DYN_PWR), you can still control the volume? But if you
+> remove the set of CP_DYN_PWR from probe, the volume doesn't
+> update at all, audio playing or not?
+Yes, exactly. But I have also commented:
+SND_SOC_DAPM_SUPPLY("Class G", WM8904_CLASS_W_0, 0, 1, NULL, 0)
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/ps/pci-ps.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+In every case the volume updates, while playing, when you write the relevant register
+(raw i2cset or changing volume using amixer).
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 4553e81da164..401cfd0036be 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -286,6 +286,12 @@ static int snd_acp63_probe(struct pci_dev *pci,
- 	ret = acp63_init(adata->acp63_base, &pci->dev);
- 	if (ret)
- 		goto release_regions;
-+	ret = devm_request_irq(&pci->dev, pci->irq, acp63_irq_handler,
-+			       irqflags, "ACP_PCI_IRQ", adata);
-+	if (ret) {
-+		dev_err(&pci->dev, "ACP PCI IRQ request failed\n");
-+		goto de_init;
-+	}
- 	val = acp63_readl(adata->acp63_base + ACP_PIN_CONFIG);
- 	get_acp63_device_config(val, pci, adata);
- 	ret = create_acp63_platform_devs(pci, adata, addr);
-@@ -293,13 +299,6 @@ static int snd_acp63_probe(struct pci_dev *pci,
- 		dev_err(&pci->dev, "ACP platform devices creation failed\n");
- 		goto de_init;
- 	}
--	ret = devm_request_irq(&pci->dev, pci->irq, acp63_irq_handler,
--			       irqflags, "ACP_PCI_IRQ", adata);
--	if (ret) {
--		dev_err(&pci->dev, "ACP PCI IRQ request failed\n");
--		goto de_init;
--	}
--
- 	pm_runtime_set_autosuspend_delay(&pci->dev, ACP_SUSPEND_DELAY_MS);
- 	pm_runtime_use_autosuspend(&pci->dev);
- 	pm_runtime_put_noidle(&pci->dev);
--- 
-2.34.1
+To be clear:
+The volume is not updated, after BIAS off, if we are in CLASS G WITH
+bypass DISABLED (that, without these modification, it is a condition we
+cannot trigger. Normally: Bypass ON->class G, bypass OFF->class W).
+
+Effectively, maybe, the test with bypass enabled is affected by the fact
+codec is not switched off (bias is kept on... otherwise as soon I stop
+playing something from my linux device bypass will stop working due to
+codec reset/power off).
+In other words the Dynamic Audio Power Managent (DAPM),
+which I "understand" only now, is doing its work.
+
+> 
+>>> I guess the interests here are to find out if the SYSCLK is
+>>> involved at all.
+>> I tested keep the clock always enabled, removing
+>> clk_disable_unprepare when going into SND_SOC_BIAS_OFF and it has
+>> zero effects.
+>> Or did you mean something else?
+>>
+> 
+> Yeah that is not quite what I was getting at. I am wondering if
+> volume updates work whilst CP_DYN_PWR==0 and CLK_SYS_ENA==1.
+Why are you wondering? It should be a standard working case (obviously
+with MCLK running). I know, from datasheet, that:
+"CLK_SYS_ENA = 1 and MCLK is not present, then register access will be
+unsuccessful". But it is not our case.
+> 
+>> Said all of that, I did one last test, forcing a volume update on
+>> the charge pump enable callback, cp_event(), with this and only this
+>> modification in everything is working fine.
+>>
+>> Could it just be as easy as that the volume is applied only when the
+>> charge pump is already active?
+>>
+>>  From the datasheet this seems a good explanation:
+>>
+>>   The Charge Pump is enabled by setting the CP_ENA bit. When enabled, the
+>>   charge pump adjusts the output voltages (CPVOUTP and CPVOUTN).
+>>
+>> What do you think?
+> 
+> I think we are getting pretty close, but we need to try and
+> narrow down what the requirement is here, is it the charge pump,
+> or the sysclk? That needs to be on for the volume update to work.
+Watching another codec driver (wm8964: see out_pga_event comment) and
+the Startup-sequence (of WM8904) in datasheet we figure out that volume
+update must be done after PGA enable.
+I tested another patch, I'm pretty convinced that it is the right way to
+do it. Now it is working in all conditions (even Class G with disabled bypass).
+Maybe some hw guy in Cirrus Logic can dig around?
+Anyway, this is the tested patch, that, to me, sound good:
+
+diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
+index ca6a01a230af..791d8738d1c0 100644
+--- a/sound/soc/codecs/wm8904.c
++++ b/sound/soc/codecs/wm8904.c
+@@ -697,6 +697,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
+         int dcs_mask;
+         int dcs_l, dcs_r;
+         int dcs_l_reg, dcs_r_reg;
++       int an_out_reg;
+         int timeout;
+         int pwr_reg;
+  
+@@ -712,6 +713,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
+                 dcs_mask = WM8904_DCS_ENA_CHAN_0 | WM8904_DCS_ENA_CHAN_1;
+                 dcs_r_reg = WM8904_DC_SERVO_8;
+                 dcs_l_reg = WM8904_DC_SERVO_9;
++               an_out_reg = WM8904_ANALOGUE_OUT1_LEFT;
+                 dcs_l = 0;
+                 dcs_r = 1;
+                 break;
+@@ -720,6 +722,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
+                 dcs_mask = WM8904_DCS_ENA_CHAN_2 | WM8904_DCS_ENA_CHAN_3;
+                 dcs_r_reg = WM8904_DC_SERVO_6;
+                 dcs_l_reg = WM8904_DC_SERVO_7;
++               an_out_reg = WM8904_ANALOGUE_OUT2_LEFT;
+                 dcs_l = 2;
+                 dcs_r = 3;
+                 break;
+@@ -792,6 +795,10 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
+                 snd_soc_component_update_bits(component, reg,
+                                     WM8904_HPL_ENA_OUTP | WM8904_HPR_ENA_OUTP,
+                                     WM8904_HPL_ENA_OUTP | WM8904_HPR_ENA_OUTP);
++
++               /* Update volume, requires PGA to be powered */
++               val = snd_soc_component_read(component, an_out_reg);
++               snd_soc_component_write(component, an_out_reg, val);
+                 break;
+  
+         case SND_SOC_DAPM_POST_PMU:
+
+
+> 
+> Thanks,
+> Charles
+
+Thank you.
+Best regards,
+
+Emanuele
 

@@ -2,98 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE4A652E03
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 09:34:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91351652F61
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Dec 2022 11:25:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A58DF168F;
-	Wed, 21 Dec 2022 09:34:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A58DF168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8993816BC;
+	Wed, 21 Dec 2022 11:24:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8993816BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671611691;
-	bh=IH/aUiF/BpmJ627vGqgsWST4JqH+rgfTYmQspig5YKE=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=GFdke8MgM5h6mTu7QaEOzELasuJbikI9tDCKThs9CD3ymeBzDCLTLyD2zhqc1s2/j
-	 1Avdv5JdTm+41Gyk9UDI4Hve8ScQClY/syJzdbQneSHQhD+VjtcfFwILJr/6bVCxdU
-	 oSdHBNOHuW426afsoUxR+Vuz9oiMDIpr/d8c1VM8=
+	s=default; t=1671618300;
+	bh=0HKF5kFFAWbKZ+YlKgDkRtlCYbPqq/TgtBsScZmB4pc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=UbPG6WVWiSA19vIj0+4M4nBS3UtM0tzclu6CX+VXbnKvn/27X6wg15l0XBPUr7MVa
+	 59+RYuzKFNI65l2M9PyMZ57ZGe4oA9AiGoXx7C1FHokB/0VwgOav1b0anmY0RWwddG
+	 mbxe5ARPs2YA46HYuQ76sUnt/GCMSUxOH3VYLp/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42B1AF8047B;
-	Wed, 21 Dec 2022 09:33:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CF1FF804AD;
+	Wed, 21 Dec 2022 11:24:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48A05F80022; Wed, 21 Dec 2022 09:33:41 +0100 (CET)
+ id ACDCDF804B0; Wed, 21 Dec 2022 11:23:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 893A4F80022
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 09:33:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 893A4F80022
+ by alsa1.perex.cz (Postfix) with ESMTPS id B150FF80022
+ for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 11:23:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B150FF80022
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=bpuK+FAv
-Received: by mail-lf1-x12a.google.com with SMTP id b13so22435848lfo.3
- for <alsa-devel@alsa-project.org>; Wed, 21 Dec 2022 00:33:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4jOnWz0VXwNEogehp8TEQmKOcmuRvhCI8qQAKriBX3Q=;
- b=bpuK+FAvdpZKB26/wt1JafMHXpjWPu6SrtQB521/C1GQBY+89khxEjtcrN0hvFHSgF
- Ruo5SrwWq5YXqIfTvz+67cF2H57Jyp0Af53CJz/+XSiuloCfA28OoEAd6u6vqVbo0IvO
- Sdzt5pqenjwUdmY0n3lD7sh8fcUSPmVZleP2KbY4fXn2eiMWrFOSG880NikSFawtGMxz
- FMurIv1wYLU0xBV6YAHN+0Wh7T4SgAwYPwVkuy7aYeBSDyZ1EU/DX8eQJ50g848m34dG
- WjiiBguOAGiAq066YnD9jxoSaXq622gzMc+8Q9us/7SKPtlfe7RG/9Uo/mQ8PkY33USW
- KWew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4jOnWz0VXwNEogehp8TEQmKOcmuRvhCI8qQAKriBX3Q=;
- b=wrudamlV7xzUlbz3RmT5Eaokay0vASLOkfbaSPExomlVB1jofs8EtbvQ+UbOrLfMTd
- +D3hCKpqUtKvJv/eYCixLfKKR8VLawFiSpg/9SJIn2freXxxGN1fAkMrC+WaeAfMGbCI
- ECKh62Dk/HN+9w0S074G8KIurtVOmW25mgkHJ8UKGmRUaLkljltV1Ab00B8rwbsMaZMg
- LIgm/AEqMP/joa/vTi/9UogH4rHZv9mirTItPyvlFounsIomyGaVUwYnZr9V3z5MnMMP
- TIj6izS+jDjwfait6iEp/FLtuXumuCfLmNuNWoalmSrQ/BQutmpvBVVbhU9H6QGXt/cV
- vrVQ==
-X-Gm-Message-State: AFqh2ko1toNGLY+ErMogIyveDPOzUdWxQVX/nbtrLcriAF1bncWQlgCt
- aujMiIgU2BNDc9R6KVNQ9ZRRow==
-X-Google-Smtp-Source: AMrXdXv66I16xM4fO2HPAgbHKarNPj8tCHsgBene27afY3kVvsY/yuv5VKVAjHf83A1uXNUAfPr4RA==
-X-Received: by 2002:ac2:5bc5:0:b0:4ad:5fbb:a594 with SMTP id
- u5-20020ac25bc5000000b004ad5fbba594mr322404lfn.58.1671611612977; 
- Wed, 21 Dec 2022 00:33:32 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- n9-20020a05651203e900b004b5a2a33972sm1777222lfq.40.2022.12.21.00.33.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Dec 2022 00:33:32 -0800 (PST)
-Message-ID: <aa8a2251-b7e7-9c03-fcd4-9875302981e4@linaro.org>
-Date: Wed, 21 Dec 2022 09:33:31 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=j60Opbjo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671618208; x=1703154208;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0HKF5kFFAWbKZ+YlKgDkRtlCYbPqq/TgtBsScZmB4pc=;
+ b=j60OpbjoWTgJek/HoKCStuel8hP7EmR/ZQURuedIbFZuZ2Vjh5Gx+ctv
+ OTFqnNVAYPJunnh7oXXJnepJ3i3eN4xyNs2JICdVqKpOQh5X0GrPUj6Bc
+ 7LWRIYBoIZcPWk7Gg/UTEzvxO3VboNAuBlw2iL+W5t4cvXu4D/o2cH3HG
+ hAROyvgKFGrGzdT5Mfn9RHY0HCBWOk+HiouE/7kOMMSpqKx0OUMVF23a6
+ dlEdzIiSkhBq1PEuBaRT0z/ENoVqrhe15evCXgqQAAi55rcHOqeYL7g3K
+ b6ZmiDA2seotwFzTZqHcEusLy1Bypv38xtO4NfJ61Bb0e3XirhVdBe58P g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="406078606"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="406078606"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2022 02:23:23 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="681984271"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="681984271"
+Received: from cofearra-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.20.202])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2022 02:23:20 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH 00/11] ASoC: SOF: Extend the IPC ops optionality
+Date: Wed, 21 Dec 2022 12:23:17 +0200
+Message-Id: <20221221102328.9635-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v3] dt-bindings: sound: tlv320aic3x: Convert to dtschema
-Content-Language: en-US
-To: Jai Luthra <j-luthra@ti.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20221220123951.29959-1-j-luthra@ti.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221220123951.29959-1-j-luthra@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,77 +84,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20/12/2022 13:39, Jai Luthra wrote:
-> Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
-> 
-> The following properties are still found in some old dts files, but will
-> be ignored by the driver:
-> - adc-settle-ms
-> - assigned-clock-paranets, assigned-clock-rates, assigned-clocks
-> - port
-> 
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> ---
+Hi,
 
-Thank you for your patch. There is something to discuss/improve.
+This series will extend the IPC ops optionality to cover it up to the existence
+of the top level ipc pointer itself. There is no functionality change.
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      tlv320aic3x_i2c: tlv320aic3x@1b {
+The reason for the extended optionality is that we have "DSPless"
+debug/development support coming up (currently it is in SOF's topic/sof-dev
+stable branch) initially supporting Intel's HDA platforms.
 
-Node names should be generic.
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+As the name suggests, in this mode the DSP is completely ignored by the linux
+driver stack (no firmware loaded, only using HDA directly).
 
-> +        compatible = "ti,tlv320aic3x";
-> +        reg = <0x1b>;
-> +
-> +        reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-> +
-> +        AVDD-supply = <&regulator>;
-> +        IOVDD-supply = <&regulator>;
-> +        DRVDD-supply = <&regulator>;
-> +        DVDD-supply = <&regulator>;
-> +      };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    spi {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      tlv320aic3x_spi: codec@0 {
-> +        compatible = "ti,tlv320aic3x";
-> +        reg = <0>; /* CS number */
-> +        #sound-dai-cells = <0>;
-> +
-> +        AVDD-supply = <&regulator>;
-> +        IOVDD-supply = <&regulator>;
-> +        DRVDD-supply = <&regulator>;
-> +        DVDD-supply = <&regulator>;
-> +        ai3x-ocmv = <0>;
-> +      };
-> +    };
-> +
-> +...
+The DSPless mode is aimed to help us to verify our Linux stack on new platforms
+where the firmware is not yet in the state that we can reliably use it, but the
+hardware and programming flows can be tested already.
+There is no plan to make DSPless a production target for SOF Linux stack.
 
-Best regards,
-Krzysztof
+While this is preparatory series aimed to unblock the DSPless support, it has
+been integrated into sof-dev separately and we have lots of new features
+depending on it (went in between this set and the DSPless support).
+
+I still have some minor tasks to complete for the DSPless to make it a bit more
+versatile, but I don't want to block other, stable features for upstreaming.
+
+Regards,
+Peter
+---
+Peter Ujfalusi (11):
+  ASoC: SOF: sof-audio: Treat tplg_ops->route_setup() as optional
+  ASoC: SOF: sof-audio: Update documentation for sof_ipc_tplg_ops
+  ASoC: SOF: Add helper macro to be used to get an IPC ops
+  ASoC: SOF: pcm: Extend the optionality of IPC ops to IPC as well
+  ASoC: SOF: control: Extend the optionality of IPC ops to IPC as well
+  ASoC: SOF: sof-audio: Extend the optionality of IPC ops to IPC as well
+  ASoC: SOF: topology: Extend the optionality of IPC ops to IPC as well
+  ASoC: SOF: pm: Extend the optionality of IPC ops to IPC as well
+  ASoC: SOF: sof-priv: Mark fw_tracing ops optional in documentation
+  ASoC: SOF: trace: Use sof_ipc_get_ops() in sof_fw_trace_init
+  ASoC: SOF: trace: No need to check for op pointer in
+    sof_fw_trace_free()
+
+ sound/soc/sof/control.c   | 44 +++++++++----------
+ sound/soc/sof/pcm.c       | 18 ++++----
+ sound/soc/sof/pm.c        | 12 +++---
+ sound/soc/sof/sof-audio.c | 57 +++++++++++++-----------
+ sound/soc/sof/sof-audio.h |  6 ++-
+ sound/soc/sof/sof-priv.h  |  6 ++-
+ sound/soc/sof/topology.c  | 91 +++++++++++++++++++++++----------------
+ sound/soc/sof/trace.c     |  8 ++--
+ 8 files changed, 138 insertions(+), 104 deletions(-)
+
+-- 
+2.39.0
 

@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5AA8653CD8
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 09:17:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A4B653CE3
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 09:21:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D78F35EC;
-	Thu, 22 Dec 2022 09:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D78F35EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A50473610;
+	Thu, 22 Dec 2022 09:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A50473610
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671697039;
-	bh=HISogsCs2w0Z9uyV5p6XTPy1i/cWJM8Yv8QR47lF6mw=;
+	s=default; t=1671697296;
+	bh=C2shjWJpPKg3yJY1uTy7+w0Dbncy//1jyEwwPTAx6Zw=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=QPxaQ7GRM5Ro05Oy9+ZbvrKtF+xNisJ9LA96KOKs6in7ZmjGZy78Q0giOzm1xFmaI
-	 gU4lH7SFaz/1l6pPxpCYA2xFXvkBnIJVBhFSClb2ODhaAlgiKr46jbZDBGdOJjeOGk
-	 Hm6HTMwHbQimmpduWOwEWDsGj4T4QoRDB3Gm2qds=
+	b=lLJy7g+sTCbVrl00TJqGDPbiHCOnpruzlhgbR1iiSh3veNQ4GUTc8KXt5uXnPxPu5
+	 pHZmRAbwejVkZtszQRnpK5kbZ98lYWZqPoROS61wqXd8QAmrVXQ8PG1dwG3cbd1QGf
+	 qx3t3KVFvzbDEBCSFalJntWrNEIDuHkGiaaNWdmI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC481F8026D;
-	Thu, 22 Dec 2022 09:16:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FFE8F8024D;
+	Thu, 22 Dec 2022 09:20:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53DA9F80022; Thu, 22 Dec 2022 09:16:19 +0100 (CET)
+ id 8A1ACF8026D; Thu, 22 Dec 2022 09:20:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C54E6F80022
- for <alsa-devel@alsa-project.org>; Thu, 22 Dec 2022 09:16:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C54E6F80022
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9637FF8024D
+ for <alsa-devel@alsa-project.org>; Thu, 22 Dec 2022 09:20:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9637FF8024D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=EMeXd4N7; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=I/VekBdW; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bUoBiJPW
+ header.s=susede2_ed25519 header.b=uNiMOHr7
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 45DEC3EBC;
- Thu, 22 Dec 2022 08:16:17 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A092F75846;
+ Thu, 22 Dec 2022 08:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671696977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671697224; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lleIbNlY24T3AGLdmA0xOyz1OOxie1ydRxU/M0+n6OM=;
- b=EMeXd4N7mZ1K+QNvRHxYLhMR/I9UlZzxtd5LxftUDAyVga1jwVArvSjWhGNtKiPRoOpCTQ
- aPfxI7g2SRIkpV52T7d5CvWWgZJK71wgb77dZoG42X8v9r68MZ/qH/OKaXael2BeOYusyg
- hQIFgsSvh6nLkKYdEnRt3Ot0cQonvHQ=
+ bh=5zLWTH+Nl4DlWjhPtNqS5DBam7Jf0v4rip3YdNBpA6M=;
+ b=I/VekBdWJMzJIuqRWTzhT/F4EwSyE0y4OHwErgQYznqHmzdce2VwgKU5nHKfmcgobr1gCR
+ lvO8DUqrluUQn948ZvcFcPpz3EqT29yKckClhSi2fJmkIA3WKkllx8HjeKO7etrVsXzEcD
+ ZBcC9H0wAyhrzUgqTGbG5ZVIYzSlfe8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671696977;
+ s=susede2_ed25519; t=1671697224;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lleIbNlY24T3AGLdmA0xOyz1OOxie1ydRxU/M0+n6OM=;
- b=bUoBiJPWxq7vdsyo4cxbKHso7jePYKFNgT160U1HQCFelhEf5Td+Gj8Ibh47vvlQmZiCpm
- ViMQVIgf/VCog1DQ==
+ bh=5zLWTH+Nl4DlWjhPtNqS5DBam7Jf0v4rip3YdNBpA6M=;
+ b=uNiMOHr7dv1oT943/OJr80vvYrx2zTCkllAT+GEE0pDnDMXZEUP621m+CVAA7ftl85S0q5
+ CNclQuClcWMNMkCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 274B113918;
- Thu, 22 Dec 2022 08:16:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 85B0D13918;
+ Thu, 22 Dec 2022 08:20:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dGbECFESpGMgKQAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 22 Dec 2022 08:16:17 +0000
-Date: Thu, 22 Dec 2022 09:16:16 +0100
-Message-ID: <87lemz4zvz.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0b7RH0gTpGPWKgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 22 Dec 2022 08:20:24 +0000
+Date: Thu, 22 Dec 2022 09:20:24 +0100
+Message-ID: <87ili34zp3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: usb-audio: Add new quirk FIXED_RATE for JBL
- Quantum810 Wireless
-In-Reply-To: <20221215153037.1163786-1-perex@perex.cz>
-References: <20221215153037.1163786-1-perex@perex.cz>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC updates for v6.2-3
+In-Reply-To: <20221220114153.01CE2C433D2@smtp.kernel.org>
+References: <20221220114153.01CE2C433D2@smtp.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -98,28 +97,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 15 Dec 2022 16:30:37 +0100,
-Jaroslav Kysela wrote:
+On Tue, 20 Dec 2022 12:41:42 +0100,
+Mark Brown wrote:
 > 
-> It seems that the firmware is broken and does not accept
-> the UAC_EP_CS_ATTR_SAMPLE_RATE URB. There is only one rate (48000Hz)
-> available in the descriptors for the output endpoint.
+> The following changes since commit 9472382db38452df15f9f2f74b1dff34848e56b2:
 > 
-> Create a new quirk QUIRK_FLAG_FIXED_RATE to skip the rate setup
-> when only one rate is available (fixed).
+>   Add SOF panic dump support for AMD platform. (2022-12-05 17:28:07 +0000)
 > 
-> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216798
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.2-3
+> 
+> for you to fetch changes up to a12a383e59ce486abd719b6bda33c353a3b385e7:
+> 
+>   ASoC: lochnagar: Fix unused lochnagar_of_match warning (2022-12-15 13:53:00 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Updates for v6.2
+> 
+> Some more small fixes and board quirks that came in since my last
+> update, the main one being the fixes from Kai for issues around the
+> attempts to get kexec working well on SOF based systems.
 
-Thanks, applied now.
-
-My gut feeling tells that this might be generically applicable, but we
-are never sure about the firmware bugs, so let's try to apply
-conditionally with a quirk flag.
+Pulled now.  Thanks.
 
 
 Takashi

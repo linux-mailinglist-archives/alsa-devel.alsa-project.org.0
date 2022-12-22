@@ -2,146 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32404654EF6
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 11:08:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D44654975
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 00:39:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0764771A0;
-	Fri, 23 Dec 2022 11:07:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0764771A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDAFC5533;
+	Fri, 23 Dec 2022 00:38:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAFC5533
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671790090;
-	bh=9vYrGssHTWmRwz+JDhjMqHxCf6rByLd6BpIKKWnM4Q0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=eCdQbcEfTYrYiyA6VTTrAqWwuAo5aXYepuXcLqX9yLerzJ8QwihYjL5MX+XzUz+Mo
-	 zHdVPjgBawTFwt9bH8xbj31T4JiTc59fQxJTaeGX0cS00wgSnJ23pNduhqZPYmROIu
-	 BeQl+XETQO+UPQ89H1x2bY+iImYQeshMtnxufhQ4=
+	s=default; t=1671752365;
+	bh=fwnNhx9cbSpSYoJQXvJRFXtICKmP57YRqc1n5cjzCHc=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=GJTZnianIdhZqYK9ONcE6AYQ8G0nrO3eIb0E57u8DM0oY62UaXYYP6yybCJdCYqZA
+	 eaXZY5gklFb3oxL3aSwDPHojZ1/GN75od/8XzYEnVjjZejhvNRdKhQvO42Bbcf+lon
+	 Yxok5uI4HqqgMG/KfxJO9Bsn6gISJHlQ4Uhth2is=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E47CF8051D;
-	Fri, 23 Dec 2022 11:06:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6118CF80022;
+	Fri, 23 Dec 2022 00:38:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6F56F8028D; Fri, 23 Dec 2022 00:38:21 +0100 (CET)
+ id 9BF90F80158; Fri, 23 Dec 2022 00:38:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
  SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on2081.outbound.protection.outlook.com [40.107.6.81])
+ (mail-db3eur04on2041.outbound.protection.outlook.com [40.107.6.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C1F9F80158
- for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 00:38:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C1F9F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id B22F7F80158
+ for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 00:38:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B22F7F80158
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
- header.s=selector1 header.b=yhEFY9kC
+ header.s=selector1 header.b=ZxYIWT8t
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AEG4ToBcxgKEUITpP8TsnXx02Et+fOynRU73t5IjGeevr3BmfnebqcwAB3YxL/uLrJImnGNk+6BXKuJ2Nm1n9Q+8tLW6kKHIivRM9rVhk0zxC5KARPX7CXncHecjCuumOnCpEMzOSVzL019BynSF+rOzetCAeYY9Qv8+GZWE8mZGCP/g25ote3BHmCFg2ICuHju723jgeYKiie48gJs0Yw97jfWmhhG2t97cOmzNq816PJpeu8Vm5y2LXM+aa4E07DvH1NzQERpZuMy5+5vlINwO3U4S7pR+aejnCxYsmmpJbU3x4gpH0r1r7wYBg2j6GIpE4eoWBRv1QXwXHGj3lA==
+ b=VcjN6cPJHJTHlVR3riOmYa0AuJpKtTolXt8EjYOLgumXVjzoQEZNXRCoyHy6i5wgz8Y55P85ejdRw2dYrM3exLPuJOCT4hNu1GzMW9bpJoadNM3gHGtOF8lba8MBIDKVgeIW2POMYCpyBYq/SlSRVTZXPaG17Zf2lAwd+QB3Bt3GdwV/rQkUavTT2jLOGCZLsoR0J5tbb62V4VNnm4iYVLv1umvWyf3IxXjHWGkPZPj5TEwH4OLK1BmgPlIZ92j7PTX50EK1QethImpR985ThsXYo7uoqauv9BEloZWO5/yEa5fPSQmnRJEdvw7AwAL71BRJtS/Rqw9728RrqGEtEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iX9wKz0aqai7Sdrr5N2vKqm9Ad5snU+tJzidN8DyPA0=;
- b=W9dynWaHT28n7FZ+1Yf4M8qiSV4TdX4rrDDd3z8LHEBU8Glt2IACR8eXRCjfEqkhkL9n70s8C64xgSlxv4P0OqjvfcxfiWxWSEgqV11JCGF8LxfXaNQ1oGAbXxl291YovPXQG9dV6g9SL2ZMBWYD9DrA2DYjnmk8lykagd9AnzsKmYI4sP4DSHG2KkueKXXdeNvYqNB/pTPjBtCWVpbTCJJjQ+yVHMRJh9/Wz30F96WF5giLILyeBRAlGloT8xLoP1eP0qifunA1Qv/Ms+BbR0N0zkJ9/cF2LWWooXvK9YnEf5TKS6WWIX/tQLoP4AVLpQJmbfHdeXigz+7SNBTDhQ==
+ bh=kEBfPTZlgkreP+XuG4W5PTE+mzXKo0XwInNaxx9l5Ug=;
+ b=ONOBXbnCTlhWpxClg+2/bJOnbKXAl6Xul99Iicb4E6gweKdaTejgL/rbhQxlONvqxBwW0rjpiUtOU0aBjHkIkUj+PJv88aY4LfoVb2Y2saTYtYE9n7hK+yQAsJAJdR9wcCfP5K/19hvVJzWvyF/3V1Bajbo4m1baMECPFgH+nyMUR2p5qhmPkkyePuEMyQrhq21OVY5UXyS7Rs7ppEO4hxj/i/Cujb5l6BoFYnJNq51zCywg+V32LzJMbZrICJ7ji6diVNjk9oiJ1+aAmYR1OcKieoZf2Imo++ftafEYT6cJlfQgErtFh3KdAdMmr/hGFKwRg5cbi0XtJOaIRmWrYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
  dkim=pass header.d=seco.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iX9wKz0aqai7Sdrr5N2vKqm9Ad5snU+tJzidN8DyPA0=;
- b=yhEFY9kCGF/NiYIYrCyBh05bM94ycy60OHv91C7q6PTmtzeGKeg9Tj9hj0GP3cyT6cjXb1FxMomOyA8O4K2pJRhMLjQCQufdtlWNqFnynHfSfieEZ6i/sjs72hocHcWtZcznsvpyh1EhVRVA7L7I8SBaQrrYJzpowOBIeCN/qGuthTo5O3FixQ8GAFKuYyR2p9lSeHldPN7am8UxOaX0nerXOCzqUtJ1dO+YsE9MfsLQTvqSBm8gJUgugdtgz6DOCQ+AyXqvebQTJtrkz+AxG6zc2TpRwC06uhNejGE4cbZ0TAk8fDjYumITAdFN1LRzJaqXbC93+PHDGh9RlYiO9g==
+ bh=kEBfPTZlgkreP+XuG4W5PTE+mzXKo0XwInNaxx9l5Ug=;
+ b=ZxYIWT8tdIe786tRfASDvM9R1Q3xQE8YVbETgwMcl/Vc7xXDgtb5SNXLBLyOWXxa/0Qy/rKFCdOdMvPb+whCL2WXZwtpxD4lLRRG/MOzxuR+txM49pJt94FH3lO7mtb8g3IdJKswxcIwdPES24yQhMbEZ5Ym2ovjsoAdyNI3x7wx85SpuB8XtUE6bbDJGRK7WOx2FcfLZeJXPh/n3JXmmcPEgFbS0GnorZMrhEFflhKMnRD8drc0y+NHvONqfyEZcmRGMeH4Wrqgvg+CZv8h0GagHupYR8iP4DxLUxWClja5SreVOzRMl33w1BA5h2wFdMfMrWsQABvNn63CXCYPtw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=seco.com;
 Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
  by AS2PR03MB9100.eurprd03.prod.outlook.com (2603:10a6:20b:5fb::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
- 2022 23:38:15 +0000
+ 2022 23:38:19 +0000
 Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
  ([fe80::2b95:1fe4:5d8f:22fb]) by DB9PR03MB8847.eurprd03.prod.outlook.com
  ([fe80::2b95:1fe4:5d8f:22fb%7]) with mapi id 15.20.5944.013; Thu, 22 Dec 2022
- 23:38:14 +0000
+ 23:38:19 +0000
 From: Sean Anderson <sean.anderson@seco.com>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 0/3] drm: Add component_match_add_of and convert users of
- drm_of_component_match_add
-Date: Thu, 22 Dec 2022 18:37:56 -0500
-Message-Id: <20221222233759.1934852-1-sean.anderson@seco.com>
+Subject: [PATCH v2 2/3] iommu/sound: Use component_match_add_of helper
+Date: Thu, 22 Dec 2022 18:37:58 -0500
+Message-Id: <20221222233759.1934852-3-sean.anderson@seco.com>
 X-Mailer: git-send-email 2.35.1.1320.gc452695387.dirty
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20221222233759.1934852-1-sean.anderson@seco.com>
+References: <20221222233759.1934852-1-sean.anderson@seco.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-ClientProxiedBy: BL1PR13CA0205.namprd13.prod.outlook.com
  (2603:10b6:208:2be::30) To DB9PR03MB8847.eurprd03.prod.outlook.com
  (2603:10a6:10:3dd::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DB9PR03MB8847:EE_|AS2PR03MB9100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95bddabe-aee3-464d-2fbe-08dae4759843
+X-MS-Office365-Filtering-Correlation-Id: 018f03e4-a305-4ac9-25d9-08dae4759b07
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qja4W2aRGHd/OWJchZu9X+5LyHNge2NwqDEEyYXky9xitvHfJarZ7uRBr1JxHYrXO5LGyF1YnZwttN6MXBDVJiNaeDbMVpNKH/7qYp8E+i6PQQdzVu5zJqYcbjrFfXC5iqI2zZYSBpVS48uFZZKZcJi9vmuTZk2Z/dFTPaB8+Puk8V7aWKWtrRXNTy7M43XxR+A5v2l0S1m88CysODsyGtsqHvWvlK1hlUQ3SiR5O+n3d/StnYSFjNsIbATWDPT1V2BFCJ/hRWp94bSca15MQReVu1bm3GyzKHnl2c92YDHoRmHggWDygUQ5SV9fQ5HwRA3F6t6sZxGJaRLStLRUsW2gsxws+QvjBz9ZfB+vzRC002lBaqF9aca341Z5ZgYM7n8QKo6cZYULaLAUI4MT3NAo0M6ZzPjWcjuuzdW9UJ1owe2HI9UgYb88QMMm4Mx9RHUCLS7Y7cr+a4ORqaeH7uArPwgrdTagNDrRjsty+WRHYHKIf8H7wdmj3gYK6bI8fLkqYKmt7awwgDZYyRDW6fyLFAUkIk22FCqjY+Vw6W7tDSczfVEWMOp63Up11bewCHDr2pwQ/3OEeEAVPrteO4pui3SGvAbAsAn5rpJgUAJaRvN13WOE4qqGRR8x/X1ECHJOfwdFUTIWN3gGT/iW7wSnWIWLQIfc5HNiNtVFX/b2r3gs/ECnfU2erjAmZuOdc1RvvZRPvprEvE9wrxelYg==
+X-Microsoft-Antispam-Message-Info: EF/GvGH/+mpcc1bpvYt1wkDNG/hy+mNOxiTWq33s3ALuXesewmsFr2yrdP/jD4vwQj70LvpL/Z0t9tHpQXNmR3LfB6zW3GJA7n89kW2mi5Om/myPJxrpQfj54xZVTAaBAgcllC+1t1KqBqvTojw+hxfBJIcCif3pAYJZEQL+YlSEfWTHqzVPxEu2tCvdn8yasLemLeUogW/x5KYZQq1grRrs4a53OgBHpzymffbEc2bpsRQeYzFQIlXE9PyoXs1FPjDrXugB+CdPNnmDsgbKovMolfxieTZlGFQXX7FTetNmacZbkTNcsI7imPyH9pXK78yjnCQ+FG9TCBFIWiBfq0Xi12jTQa1VQPrwiJqYfdq4xjcKOcPPGZM8taiM/2ZoVvLPrRBFsIMcOxOCZ9dBLiqrZshzDMnyPCuaAxG9lR26ZBHKejw5a4GwYERfZTAJ3oTLkc6DYBgXnrexWLPfvrGErADDcSLHcMP2yZKTD+J0MfCieQuayquCEfB54zWuOZwUvh/Csla1RJD6KvSgVR743RmTNRoeqmgZh/Y1EEXrqViBmkEC4lzLSvOb6gidm7IWD7C3na47z8tWX+wUv83VHtLeizJJSoZ67eEspAuhXK/liHWlqB9maDxVj6h8PbelJIWQjVbhoPQWgFIHJ0WTf4Ng6uxdtvOT3fn+gBn9KcZEKcKxSpLqH1uBrvq7EnYkPhmhXJKJLqtSaPMRiQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DB9PR03MB8847.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(396003)(346002)(366004)(376002)(136003)(39850400004)(451199015)(86362001)(36756003)(110136005)(316002)(7406005)(54906003)(478600001)(38350700002)(52116002)(8936002)(7366002)(44832011)(41300700001)(2906002)(4326008)(6486002)(66946007)(66556008)(7416002)(6666004)(5660300002)(66476007)(38100700002)(26005)(8676002)(6512007)(83380400001)(6506007)(186003)(1076003)(2616005);
+ SFS:(13230022)(396003)(346002)(366004)(376002)(136003)(39850400004)(451199015)(86362001)(36756003)(110136005)(316002)(54906003)(478600001)(38350700002)(52116002)(8936002)(44832011)(41300700001)(2906002)(4326008)(6486002)(66946007)(66556008)(7416002)(6666004)(5660300002)(66476007)(38100700002)(26005)(8676002)(6512007)(83380400001)(6506007)(186003)(1076003)(2616005);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEduVXFCcXpyNXdjOU1oQzU0VFJKeHNYOEU0QmpFUUFwTW1GRW1qRFFwZlJV?=
- =?utf-8?B?NDUxK25OTGkvWXdsWTBlWkFBb2oyNW5FRll4TTB0amZkUjVyS2RuRUdRYmoy?=
- =?utf-8?B?cDNyZllpb3cwb2Rma1h4Ym1SVVI3dHQ2SExqemlDVG9BRFdUNFQyaEpuZGI4?=
- =?utf-8?B?bFIxZXhCT1VNaTJ4cTNLYlZBb3JoalljQ3doOTBxcmVabFptYmJwdmdwbUZn?=
- =?utf-8?B?a1JHbWpmczBOYzFNRHZIS1gxbTNsTWI4QnpCZktWTzlZaWVVN3R4c0liUmtB?=
- =?utf-8?B?LzNweHVYbmI2cHdUTHIvc0sxRlZIckhScEQxN3BHR29WckMxVVRyL213ZUNT?=
- =?utf-8?B?c2xDTnQ1Y0JRbGV0WGZIM0Z3T2xmejNWRzFZZXVDcTJhZDNwREJjblhMQjBO?=
- =?utf-8?B?NDc2NmZmZmUvSWlOY3Blc3MxRmtsTk5zWUEweUxpZHBlOU4yVFhoQUNIMzRz?=
- =?utf-8?B?ZkhhZFV0Y3VJMWJzWEs5dnd0SXZ4UlhtTDRDbHhxY2hzSnF0QWIxNzMrWnA0?=
- =?utf-8?B?S0M0bHJYU055L2VTbDN3RWJ6TlNJSjVDbGFXcklydm91V0Zzbkc4Q25Ockhi?=
- =?utf-8?B?dlhhVXVUZmgyK2UwUVAwdmdhbHRzS0NLcisycU5pYW82MEp5Q2g2VU1VOUEz?=
- =?utf-8?B?T05NZkhYeGsvUU10dC9USzRLN2M5eURpdWM5MDRuOXVvOXl6aHErME5RY1JW?=
- =?utf-8?B?QXR4c0RHK1d1UEVsaEp3R3FUZEVEKzJCSStkUWluZzJDNllVQjlSWjV5WmV4?=
- =?utf-8?B?anhRMWRGcjNhL0lFZEpTUVA2bWdjcmoyYXdOSXJHRHA4TUhXTStPU1dpdWVP?=
- =?utf-8?B?aGdWUzJLRlZMRDdwSFdIQTNHc2diMStQZ3p6U3JqM0NKa3pUNnNmTGtCbWFq?=
- =?utf-8?B?N2NZSjhwYkJobXoyRmVDRXRHUS83cXFodmJ2b1NCZTVzekc1cFZUckgyd0tY?=
- =?utf-8?B?dDRERXJ1aE5hUW5mN2hxZGdXMXgzZkZlbGVmaU91YXFiSGxQUlJsUGI4MXgx?=
- =?utf-8?B?V2dFYXRYeDVtWUxRa1QrQlZKTWQwTTZTdElYNlNXemxTOFFYSUQ3MXNXcjBK?=
- =?utf-8?B?dnpYTlVGSjdwdzlyK1VvTEFFWGkyQ01QWnNtbEdpY1JCZEt0Wm1VZVlLYUY1?=
- =?utf-8?B?V3NGbHlkc2dRNmJsU0NYOXlYNUo5QmttRkpkci96SnBDMDZEWm4xTC9DMGxt?=
- =?utf-8?B?UjFmVDVJZnhyeHpYZ01OZWtCMHp2T2IwOXA3ajNwVHQxaGhOaVF2Sis2a2JG?=
- =?utf-8?B?L0l2R1pyamZ1TWhKMXZGOFhNZTE0ZDRYNXU1ektnTGxkYkkyTGNYVThGeHhr?=
- =?utf-8?B?amRnUFdvYkNDc3REcFVwMEF5UlVuNytTL01MR1A2SUdtTkhRalZGeEFtWFJI?=
- =?utf-8?B?bGpqaXM1WUtNOEJVdVNhU0U0TGF6ckJDeldrNWgyM2ZkMTNZRmYvd0NOUndr?=
- =?utf-8?B?SWdtOEs1Z0REdzFFazJnUGJWMzlmcXdoQlQ5UjlwUExjSEZFUllUNmQxOWxQ?=
- =?utf-8?B?VTNHaERLdHdLWG5iMzFwWnN4L3NYak5xbWhDbkFaUmpTdkZrN3pzc2tORW12?=
- =?utf-8?B?OE9RQjB1TDdNSVN1dzVzK3JzM0hFRXA2b0J0UUsvT3hERHRMYnJUVHcvTGdM?=
- =?utf-8?B?dzRvNGpLY1dGNHlGQlM2ZlM0em9VMEtJdll0UDF0V01xVHJXQkpPbGMzSWRB?=
- =?utf-8?B?Z2gxQ1dCZ0d4YS9BdnVkbktIem5jMS8wS3lENUJPQktBaWFFY0c3eEdSd0U5?=
- =?utf-8?B?VHYycUJjRElPa3BJOXl0SEtPNmtLNUVmcFdlYktHVjUwUlQ4eVpCaUk1K3Ix?=
- =?utf-8?B?VGxyajNIM1gvVlJSb0JpY0F3VVRET3lsWDE4V0E4dWRsMUZMV1ZUTFlLcW1P?=
- =?utf-8?B?b3lNSXNPSHVCQzVoM0xHTW1keUZVZkI0QjhGOWxJQXFKQ1B0dDk4YTcrM1VK?=
- =?utf-8?B?ZUFTL290REYwdWlBR2syTXhjT2pmQkxvb1oxbWJqek1XWHBvMUtrcWxLWEtM?=
- =?utf-8?B?OWExTEVyVlFvNUFtOERiQnFIaU4rbWk4ZjJhL0VTUlBHbnRlQ1JtZjJWUUhH?=
- =?utf-8?B?N3NZYWdDZ050VnNLd09IN2RPUDU0SFFEVFZkc3N0eFRoZ3E1ZVhhVGFuUFJs?=
- =?utf-8?B?c21OdVRncTcwVUZQZnRra1lEQ3duVXRPbTlQQXUwZEtxYlp2elFTRXpTV2RM?=
- =?utf-8?B?dkE9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C+48QwAXZC5yEi/kr6vKW5Hd3jP2SDHfjOAYX2ARqLwijYLQ/c+jvATQvATV?=
+ =?us-ascii?Q?UgJDlPOwJTwUaG5/tWyHr0iGVh2w0ICX9ybdzwmLHVy7SKHOGfvfdNzkCep+?=
+ =?us-ascii?Q?vPgnM9Ci+fU2fVaTpx+hXgpyJ2Ik1BMu84sfzWCUtigMhZ3+dY4y5RipbccA?=
+ =?us-ascii?Q?QsxK9V838yXtK5nS/xQKznhIXmCgCNkmc/FEK16Bwd/zvjvHyFieYzXjuq/R?=
+ =?us-ascii?Q?+f3JmyCAL8sKk/cr1eR+tcce8BxkIt85Qg6l3s85get8b2xtMyh8rI3eaXi9?=
+ =?us-ascii?Q?3u8DPbIlXgBUdRBlmjE0lYGmdO7Wp7y0DsoFjp10biIrFMTJbINnuwS4O02S?=
+ =?us-ascii?Q?qpzqm3bYsA/X438a0HBj2oZgjIDTQ113vYLfhPnbRs/rPjxW1lwbOi4eVvWd?=
+ =?us-ascii?Q?VmcWHoAdmAN1LCC5k62XhSB6mF74gSFy8QNu0iG4RPQKQnFnX9JICLL7KQ8f?=
+ =?us-ascii?Q?MQGRQJ7E7l71kw5iaNdaGt0jFBUthp327EO8PHP53IBriXe+3YnKfmveZLK0?=
+ =?us-ascii?Q?vCSjB42u4sVuI2VeCEPlnYgtkb/bUABpR4udldVJ94lmOzvyg6NdzqSw02IB?=
+ =?us-ascii?Q?h/ZzeMMGBBzM+YwlgaViyDiUKdzrkRrsqiSnOuB4HL9YAoK7SjKgzBQaL9Wl?=
+ =?us-ascii?Q?CW07zcMDucOOs6crzbMXT/xmg8KfUUQMk76v2T8y8OYkCCmWdzuFcvdyfS2y?=
+ =?us-ascii?Q?Q37IdMn1aW0W4ILpskPFyoKa4VBH660uaEY0DV/V53xBwsVKPRVIlI3Qc+D3?=
+ =?us-ascii?Q?3nOHOSmEgOdt5JWwmTC8BHLHD5ZSG4esya1Vj8WVOFIYklQdN10puutnrHP5?=
+ =?us-ascii?Q?oR96LRTORskYcUm91055mf1qkRv5AaFeW0Zhrke8YF7g8jUxW4DimN/rITzs?=
+ =?us-ascii?Q?yR3CVYUgyAMQc8yzCs+fejJlGA5evXo3xRVdDSNhxRI4PD3Xvzm8jCR0bWxx?=
+ =?us-ascii?Q?JJi2GOE7JWyKzWFbJ4DB27iLMnJ8CB/xePa8bUg85wbRhiksPK5YVZ9ocPpb?=
+ =?us-ascii?Q?TcX1A03chZK4WQ0sIIEiK4bn1Tq3yTkwH2cvx0HK7KBT0O9lDz9ur7a6pQvt?=
+ =?us-ascii?Q?Jzf5TNCcXiYc4JjIs1N573lSpyWqrF75dwlliRgcMzhzGYGbRuBpr9Men2AZ?=
+ =?us-ascii?Q?7ywxc4m6CupMvMp7lR4Fn9C5JADslG5+lhx1BmkCTT2dPT4e0+6DG1w8uLLd?=
+ =?us-ascii?Q?iapz7rMXysfrqCdVWP9G4K8GncO4HIRGO23PI/BQE/g92NQlFkc073gJbJey?=
+ =?us-ascii?Q?D/EPl1DzsyjVbqbr1/ttRPXy+CBpFzue5Q2i0UbOSNbV+1+4vohB0IlKqq0e?=
+ =?us-ascii?Q?FLKLUW4jWdZNFMs4/yS4EtWDISy5ahWNETNOh8qtRTzMaucZhs7lMP63L9RH?=
+ =?us-ascii?Q?toi/UPT4+qnBWbMyD1rZIggjy6F6Si1qSicBnyHOLRbCk5kRR0Segv+cv7yZ?=
+ =?us-ascii?Q?M47/aXUWlD4n6o+FwFIvuFzO5x6rEDDvKfFOye4OJoy4pEejWr4C8pGA7iNf?=
+ =?us-ascii?Q?oB3Itdv/j/WXabrvJjoUVtF8Z6R6BusZ/il/yxm02fqJ7bJFFE83xfQFOYN0?=
+ =?us-ascii?Q?Z+ryacsvnX0QfUOMW3z4FztNEfeNoXViJWFcauJRQHgnyzNnOZK51NPqiiIg?=
+ =?us-ascii?Q?TQ=3D=3D?=
 X-OriginatorOrg: seco.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95bddabe-aee3-464d-2fbe-08dae4759843
+X-MS-Exchange-CrossTenant-Network-Message-Id: 018f03e4-a305-4ac9-25d9-08dae4759b07
 X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8847.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 23:38:14.5223 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 23:38:19.0662 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LXQgymlxgccz8OK/+OoLStjlMTW3CLIijdzO3LkagAh8sYgNsd+pIObMSk9WssAzh9YojyL17nsDLxvH6c173g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6KSwa0DgHjRRJSl/fupxp2pWp/sBt+YZVyTw68BWlejvQiIUOr0MuPL3zt9Y6kiU6EIEh/Jy9IvQ7+wsLqxE7A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9100
-X-Mailman-Approved-At: Fri, 23 Dec 2022 11:06:26 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,70 +146,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Xinliang Liu <xinliang.liu@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>, John Stultz <jstultz@google.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Will Deacon <will@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
- Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
- Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mali DP Maintainers <malidp@foss.arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- etnaviv@lists.freedesktop.org, Christian Gmeiner <christian.gmeiner@gmail.com>,
+Cc: alsa-devel@alsa-project.org, Sean Anderson <sean.anderson@seco.com>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
  Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- Yong Wu <yong.wu@mediatek.com>, linux-mips@vger.kernel.org,
- Tomi Valkeinen <tomba@kernel.org>, iommu@lists.linux.dev,
- Robin Murphy <robin.murphy@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Tian Tao <tiantao6@hisilicon.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Brian Starkey <brian.starkey@arm.com>, Lucas Stach <l.stach@pengutronix.de>
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Yong Wu <yong.wu@mediatek.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series adds a new function component_match_add_of to simplify the
-common case of calling component_match_add_release with
-component_release_of and component_compare_of. There is already
-drm_of_component_match_add, which allows for a custom compare function.
-However, all existing users just use component_compare_of (or an
-equivalent).
+Convert users of component_match_add_release with component_release_of
+and component_compare_of to component_match_add_of.
+
+Signed-off-by: Sean Anderson <sean.anderson@seco.com>
+Acked-by: Mark Brown <broonie@kernel.org>
+---
 
 Changes in v2:
-- Split off conversion from helper addition
-- Rebased onto drm/drm-next
+- Split off from helper addition
 
-Sean Anderson (3):
-  component: Add helper for device nodes
-  iommu/sound: Use component_match_add_of helper
-  drm: Convert users of drm_of_component_match_add to
-    component_match_add_of
+ drivers/iommu/mtk_iommu.c    | 3 +--
+ drivers/iommu/mtk_iommu_v1.c | 3 +--
+ sound/soc/codecs/wcd938x.c   | 6 ++----
+ 3 files changed, 4 insertions(+), 8 deletions(-)
 
- .../gpu/drm/arm/display/komeda/komeda_drv.c   |  6 ++--
- drivers/gpu/drm/arm/hdlcd_drv.c               |  9 +-----
- drivers/gpu/drm/arm/malidp_drv.c              | 11 +------
- drivers/gpu/drm/armada/armada_drv.c           | 10 ++++---
- drivers/gpu/drm/drm_of.c                      | 29 +++----------------
- drivers/gpu/drm/etnaviv/etnaviv_drv.c         |  4 +--
- .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  3 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  3 +-
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  4 +--
- drivers/gpu/drm/msm/msm_drv.c                 | 14 ++++-----
- drivers/gpu/drm/sti/sti_drv.c                 |  3 +-
- drivers/gpu/drm/sun4i/sun4i_drv.c             |  3 +-
- drivers/gpu/drm/tilcdc/tilcdc_external.c      | 10 ++-----
- drivers/iommu/mtk_iommu.c                     |  3 +-
- drivers/iommu/mtk_iommu_v1.c                  |  3 +-
- include/drm/drm_of.h                          | 12 --------
- include/linux/component.h                     |  9 ++++++
- sound/soc/codecs/wcd938x.c                    |  6 ++--
- 18 files changed, 46 insertions(+), 96 deletions(-)
-
+diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
+index 2ab2ecfe01f8..483b7a9e4410 100644
+--- a/drivers/iommu/mtk_iommu.c
++++ b/drivers/iommu/mtk_iommu.c
+@@ -1079,8 +1079,7 @@ static int mtk_iommu_mm_dts_parse(struct device *dev, struct component_match **m
+ 		}
+ 		data->larb_imu[id].dev = &plarbdev->dev;
+ 
+-		component_match_add_release(dev, match, component_release_of,
+-					    component_compare_of, larbnode);
++		component_match_add_of(dev, match, larbnode);
+ 	}
+ 
+ 	/* Get smi-(sub)-common dev from the last larb. */
+diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
+index 6e0e65831eb7..fb09ed6bf550 100644
+--- a/drivers/iommu/mtk_iommu_v1.c
++++ b/drivers/iommu/mtk_iommu_v1.c
+@@ -672,8 +672,7 @@ static int mtk_iommu_v1_probe(struct platform_device *pdev)
+ 		}
+ 		data->larb_imu[i].dev = &plarbdev->dev;
+ 
+-		component_match_add_release(dev, &match, component_release_of,
+-					    component_compare_of, larbnode);
++		component_match_add_of(dev, &match, larbnode);
+ 	}
+ 
+ 	platform_set_drvdata(pdev, data);
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index aca06a4026f3..2f8444e54083 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -4474,8 +4474,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+ 	}
+ 
+ 	of_node_get(wcd938x->rxnode);
+-	component_match_add_release(dev, matchptr, component_release_of,
+-				    component_compare_of, wcd938x->rxnode);
++	component_match_add_of(dev, matchptr, wcd938x->rxnode);
+ 
+ 	wcd938x->txnode = of_parse_phandle(np, "qcom,tx-device", 0);
+ 	if (!wcd938x->txnode) {
+@@ -4483,8 +4482,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+ 		return -ENODEV;
+ 	}
+ 	of_node_get(wcd938x->txnode);
+-	component_match_add_release(dev, matchptr, component_release_of,
+-				    component_compare_of, wcd938x->txnode);
++	component_match_add_of(dev, matchptr, wcd938x->txnode);
+ 	return 0;
+ }
+ 
 -- 
 2.35.1.1320.gc452695387.dirty
 

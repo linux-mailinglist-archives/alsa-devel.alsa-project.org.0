@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E886065457D
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 18:07:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294F365457E
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 18:07:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D1744EBA;
-	Thu, 22 Dec 2022 18:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D1744EBA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1DEF4EA4;
+	Thu, 22 Dec 2022 18:06:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DEF4EA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671728851;
-	bh=xRzPPYpvZCh9imRdT6OgYxnUrsY6lkm1XcM6syklJx4=;
+	s=default; t=1671728862;
+	bh=K2faVlyV/1hDmIMnpX5nmiNOU1D2jzH4XcwX3GG/60E=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LOXndsHLHXqXYr9AYWOVWjOUO5+qEqxwnj3KSRIg7PfR11TP4IBRL4FrxBqw7kpng
-	 deZwd+Rvh3VETcc8jH/jndn/H58qiJrdjishqvxpzYOPo7/2yJk6w/80T+3Wfh4NRm
-	 8dTdQA/AXRQZoBUplVOwCvN+R6nZ6CN1ZM5veN2A=
+	b=JaA0w6LGoACOZWcSt8QRuL476TMzQ5BxKUKTSMQ3th65PvYJcrbUACtZJueq6OGXs
+	 4oU6NGCdOHgrQm/Wje7fLQQskjJ5s2RhEsi9WRc1hFn5AOXhGxTyUGdelTJpOvLdwn
+	 WZKSqEAYbduflJMobDrlVHFxBZIhbUXlwyB9csCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08B91F80496;
+	by alsa1.perex.cz (Postfix) with ESMTP id B0C0BF80543;
 	Thu, 22 Dec 2022 18:05:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8838FF80022; Thu, 22 Dec 2022 18:05:49 +0100 (CET)
+ id C5C23F8052F; Thu, 22 Dec 2022 18:05:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,42 +35,42 @@ X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5360F8028D
- for <alsa-devel@alsa-project.org>; Thu, 22 Dec 2022 18:05:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5360F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A3C8F80496
+ for <alsa-devel@alsa-project.org>; Thu, 22 Dec 2022 18:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A3C8F80496
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dIn2NtMQ
+ header.s=Intel header.b=MUbsXuTi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1671728748; x=1703264748;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=xRzPPYpvZCh9imRdT6OgYxnUrsY6lkm1XcM6syklJx4=;
- b=dIn2NtMQ69uStoDlCZI5Ub7h3QNCmq6bsLCvpnAWnpMb8jwpHLlp8ja6
- 8wh7XEBsElRR7xSlQwJdytRNSmTv1tVo/J0XYbxBR9ZRDOzLrp+dkYEzh
- GfPC0vSxqwgqol6ImVR8w4lvJsaY/Q4dJkkXJQnprw8ItIiF3iwHPxuv4
- Yj04ybX0vBJ2w36iu6kfYlKgW0qgRUGTMp7gGO3TlfPxzxVIs31/FguUK
- fFbXj8EJijioEji6LWCV0Mx7DGXe/X4lRE8UvB71GqSqwE84o/LPjy+zV
- TwO2GtGcDBRRIE+cAEhgC1/vLNq0uF0M+EbbdhrhFEjWr4Y9yTb1jMPVw w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406410671"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406410671"
+ bh=K2faVlyV/1hDmIMnpX5nmiNOU1D2jzH4XcwX3GG/60E=;
+ b=MUbsXuTimh6sFu1w/Kd/u4OmDo2JCY2eGLeT//IIGfPmwBusLXJu+404
+ qf/fnEMi7p62kjW334no85iIepSs+7wWbaIRUVClOsacMAxMMwcHf2qF/
+ yb3vBWPkl8YGgvxaa8IoRRGAjSbCF1bmU1XwZBesY9xubJXzwS853DJu2
+ MTM/nOaz/clhIELpqCFFzsewaqyyja5x3doKHcMAHcAs6C1xHRtyqj9AY
+ dXjWy4uGwCpNwzsrU2PH4OFde188Fcvb/Y3LTGW+aN9b9IwTc7jykVwfh
+ bRF8I142FCC5ca1dcT9xI0BKzA6Sk3BUlnD/stp2k+Ag+uQDpJGy+uY46 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406410693"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406410693"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 09:04:02 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="794175713"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="794175713"
+ 22 Dec 2022 09:04:05 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="794175756"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="794175756"
 Received: from rpurdy-mobl.amr.corp.intel.com (HELO [10.212.42.91])
  ([10.212.42.91])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 09:04:00 -0800
-Message-ID: <4a0f5f9f-3d58-1a45-4d8c-f009f2af36e5@linux.intel.com>
-Date: Thu, 22 Dec 2022 09:50:07 -0600
+ 22 Dec 2022 09:04:02 -0800
+Message-ID: <b0387660-a4a8-d109-0337-034dfc439325@linux.intel.com>
+Date: Thu, 22 Dec 2022 09:53:55 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH V7 3/5] ASoC: codecs: Aw883xx common function for ALSA
- Audio Driver
+Subject: Re: [PATCH V7 4/5] ASoC: codecs: Aw883xx chip register file, data
+ type file and Kconfig Makefile
 Content-Language: en-US
 To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, perex@perex.cz,
@@ -81,9 +81,9 @@ To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
  cezary.rojewski@intel.com, stephan@gerhold.net, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20221222123205.106353-1-wangweidong.a@awinic.com>
- <20221222123205.106353-4-wangweidong.a@awinic.com>
+ <20221222123205.106353-5-wangweidong.a@awinic.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221222123205.106353-4-wangweidong.a@awinic.com>
+In-Reply-To: <20221222123205.106353-5-wangweidong.a@awinic.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -98,438 +98,226 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: duanyibo@awinic.com, yijiangtao@awinic.com, zhangjianming@awinic.com,
+Cc: zhangjianming@awinic.com, duanyibo@awinic.com, yijiangtao@awinic.com,
  zhaolei@awinic.com, liweilei@awinic.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +static int aw_dev_dsp_write_32bit(struct aw_device *aw_dev,
-> +		unsigned short dsp_addr, unsigned int dsp_data)
-> +{
-> +	int ret;
-> +	u16 temp_data = 0;
+> +
+> +#define PROJECT_NAME_MAX		(24)
+> +#define CUSTOMER_NAME_MAX		(16)
+> +#define CFG_VERSION_MAX			(4)
+> +#define DEV_NAME_MAX			(16)
+> +#define PROFILE_STR_MAX			(32)
+> +
+> +#define ACF_FILE_ID				(0xa15f908)
 
-useless init
-
-> +
-> +	ret = regmap_write(aw_dev->regmap, AW_PID_2049_DSPMADD_REG, dsp_addr);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s write addr error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	temp_data = dsp_data & AW_DSP_16_DATA_MASK;
-> +	ret = regmap_write(aw_dev->regmap, AW_PID_2049_DSPMDAT_REG, (u16)temp_data);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s write datal error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	temp_data = dsp_data >> 16;
-> +	ret = regmap_write(aw_dev->regmap, AW_PID_2049_DSPMDAT_REG, (u16)temp_data);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s write datah error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aw_dev_dsp_write(struct aw_device *aw_dev,
-> +		unsigned short dsp_addr, unsigned int dsp_data, unsigned char data_type)
-> +{
-> +	int ret = 0;
-> +	u32 reg_value;
-> +
-> +	mutex_lock(&aw_dev->dsp_lock);
-> +	switch (data_type) {
-> +	case AW_DSP_16_DATA:
-> +		ret = aw_dev_dsp_write_16bit(aw_dev, dsp_addr, dsp_data);
-> +		if (ret < 0)
-> +			dev_err(aw_dev->dev, "write dsp_addr[0x%x] 16-bit dsp_data[0x%x] failed",
-> +					(u32)dsp_addr, dsp_data);
-> +		break;
-> +	case AW_DSP_32_DATA:
-> +		ret = aw_dev_dsp_write_32bit(aw_dev, dsp_addr, dsp_data);
-> +		if (ret < 0)
-> +			dev_err(aw_dev->dev, "write dsp_addr[0x%x] 32-bit dsp_data[0x%x] failed",
-> +					(u32)dsp_addr, dsp_data);
-> +		break;
-> +	default:
-> +		dev_err(aw_dev->dev, "data type[%d] unsupported", data_type);
-> +		ret = -EINVAL;
-> +		break;
-> +	}
-> +
-> +	/* clear dsp chip select state*/
-> +	regmap_read(aw_dev->regmap, AW_PID_2049_ID_REG, &reg_value);
-> +	mutex_unlock(&aw_dev->dsp_lock);
-> +	return ret;
-> +}
-> +
-> +static int aw_dev_dsp_read_16bit(struct aw_device *aw_dev,
-> +		unsigned short dsp_addr, unsigned int *dsp_data)
-> +{
-> +	int ret;
-> +	unsigned int temp_data = 0;
-> +
-> +	ret = regmap_write(aw_dev->regmap, AW_PID_2049_DSPMADD_REG, dsp_addr);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s write error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_read(aw_dev->regmap, AW_PID_2049_DSPMDAT_REG, &temp_data);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s read error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	*dsp_data = temp_data;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aw_dev_dsp_read_32bit(struct aw_device *aw_dev,
-> +		unsigned short dsp_addr, unsigned int *dsp_data)
-> +{
-> +	int ret;
-> +	unsigned int temp_data = 0;
-> +
-> +	ret = regmap_write(aw_dev->regmap, AW_PID_2049_DSPMADD_REG, dsp_addr);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s write error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_read(aw_dev->regmap, AW_PID_2049_DSPMDAT_REG, &temp_data);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s read error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	*dsp_data = temp_data;
-> +
-> +	ret = regmap_read(aw_dev->regmap, AW_PID_2049_DSPMDAT_REG, &temp_data);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "%s read error, ret=%d", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	*dsp_data |= (temp_data << 16);
-> +
-> +	return 0;
-> +}
-> +
-> +static int aw_dev_dsp_read(struct aw_device *aw_dev,
-> +		unsigned short dsp_addr, unsigned int *dsp_data, unsigned char data_type)
-> +{
-> +	int ret = 0;
-> +	u32 reg_value;
-> +
-> +	mutex_lock(&aw_dev->dsp_lock);
-> +	switch (data_type) {
-> +	case AW_DSP_16_DATA:
-> +		ret = aw_dev_dsp_read_16bit(aw_dev, dsp_addr, dsp_data);
-> +		if (ret < 0)
-> +			dev_err(aw_dev->dev, "read dsp_addr[0x%x] 16-bit dsp_data[0x%x] failed",
-> +					(u32)dsp_addr, *dsp_data);
-> +		break;
-> +	case AW_DSP_32_DATA:
-> +		ret = aw_dev_dsp_read_32bit(aw_dev, dsp_addr, dsp_data);
-> +		if (ret < 0)
-> +			dev_err(aw_dev->dev, "read dsp_addr[0x%x] 32r-bit dsp_data[0x%x] failed",
-> +					(u32)dsp_addr, *dsp_data);
-> +		break;
-> +	default:
-> +		dev_err(aw_dev->dev, "data type[%d] unsupported", data_type);
-> +		ret = -EINVAL;
-> +		break;
-> +	}
-> +
-> +	/* clear dsp chip select state*/
-> +	regmap_read(aw_dev->regmap, AW_PID_2049_ID_REG, &reg_value);
-> +	mutex_unlock(&aw_dev->dsp_lock);
-> +	return ret;
-> +}
-> +
-> +
-> +static int aw_dev_read_chipid(struct aw_device *aw_dev, u16 *chip_id)
-> +{
-> +	int ret = 0;
-
-useless init
-
-> +	int reg_val = 0;
-> +
-> +	ret = regmap_read(aw_dev->regmap, AW_CHIP_ID_REG, &reg_val);
-> +	if (ret < 0)
-> +		return -EIO;
-> +
-> +	dev_info(aw_dev->dev, "chip id = %x\n", reg_val);
-> +	*chip_id = reg_val;
-> +
-> +	return 0;
-> +}
-> +
-> +static void aw_dev_set_cfg_f0_fs(struct aw_device *aw_dev, unsigned int *f0_fs)
-> +{
-> +	unsigned int rate_data = 0;
-> +	u32 fs = 0;
-> +
-> +	regmap_read(aw_dev->regmap, AW_PID_2049_I2SCTRL_REG, &rate_data);
-
-usually you test the regmap results and here you don't, is it intentional?
+align on one indentation please
 
 > +
-> +	switch (rate_data & (~AW_PID_2049_I2SSR_MASK)) {
-> +	case AW_PID_2049_I2SSR_8_KHZ_VALUE:
-> +		fs = 8000;
-> +		break;
-> +	case AW_PID_2049_I2SSR_16_KHZ_VALUE:
-> +		fs = 16000;
-> +		break;
-> +	case AW_PID_2049_I2SSR_32_KHZ_VALUE:
-> +		fs = 32000;
-> +		break;
-> +	case AW_PID_2049_I2SSR_44_KHZ_VALUE:
-> +		fs = 44000;
+> +enum aw_cfg_hdr_version {
+> +	AW_CFG_HDR_VER_0_0_0_1	= 0x00000001,
+> +	AW_CFG_HDR_VER_1_0_0_0	= 0x01000000,
+> +};
+> +
 
-did you mean 44100?
+> +struct aw_cfg_hdr {
+> +	u32 a_id;				/*acf file ID 0xa15f908*/
+> +	char a_project[PROJECT_NAME_MAX];	/*project name*/
+> +	char a_custom[CUSTOMER_NAME_MAX];	/*custom name */
+> +	char a_version[CFG_VERSION_MAX];	/*author update version*/
+> +	u32 a_author_id;			/*author id*/
+> +	u32 a_ddt_size;				/*sub section table entry size*/
+> +	u32 a_ddt_num;				/*sub section table entry num*/
+> +	u32 a_hdr_offset;			/*sub section table offset in file*/
+> +	u32 a_hdr_version;			/*sub section table version*/
+> +	u32 reserve[3];
+> +};
 
-> +		break;
-> +	case AW_PID_2049_I2SSR_48_KHZ_VALUE:
-> +		fs = 48000;
-> +		break;
-> +	case AW_PID_2049_I2SSR_96_KHZ_VALUE:
-> +		fs = 96000;
-> +		break;
-> +	case AW_PID_2049_I2SSR_192KHZ_VALUE:
-> +		fs = 192000;
-> +		break;
-> +	default:
-> +		fs = 48000;
-> +		dev_err(aw_dev->dev,
-> +			"rate can not support, use default 48kHz");
-> +		break;
-> +	}
-> +
-> +	dev_dbg(aw_dev->dev, "i2s fs:%d Hz", fs);
-> +	*f0_fs = fs / 8;
-> +
-> +	aw_dev_dsp_write(aw_dev, AW_PID_2049_DSP_REG_CFGF0_FS, *f0_fs, AW_DSP_32_DATA);
-> +}
-> +
-> +/*[9 : 6]: -6DB ; [5 : 0]: -0.125DB  real_value = value * 8 : 0.125db --> 1*/
-> +static unsigned int reg_val_to_db(unsigned int value)
-> +{
-> +	return (((value >> AW_PID_2049_VOL_6DB_START) * AW_PID_2049_VOLUME_STEP_DB) +
-> +			((value & 0x3f) % AW_PID_2049_VOLUME_STEP_DB));
-> +}
-> +
-> +/*[9 : 6]: -6DB ; [5 : 0]: -0.125DB reg_value = value / step << 6 + value % step ; step = 6 * 8*/
-> +static unsigned short db_to_reg_val(unsigned short value)
-> +{
-> +	return (((value / AW_PID_2049_VOLUME_STEP_DB) << AW_PID_2049_VOL_6DB_START) +
-> +			(value % AW_PID_2049_VOLUME_STEP_DB));
-> +}
-> +
-> +static int aw_dev_dsp_fw_check(struct aw_device *aw_dev)
-> +{
-> +	struct aw_prof_desc *set_prof_desc = NULL;
-> +	struct aw_sec_data_desc *dsp_fw_desc = NULL;
-> +	u16 base_addr = AW_PID_2049_DSP_FW_ADDR;
-> +	u16 addr = base_addr;
-> +	int ret, i;
-> +	u32 dsp_val;
-> +	u16 bin_val;
-> +
-> +	ret = aw883xx_dev_get_prof_data(aw_dev, aw_dev->prof_cur, &set_prof_desc);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/*update reg*/
-> +	dsp_fw_desc = &set_prof_desc->sec_desc[AW_DATA_TYPE_DSP_FW];
-> +
-> +	for (i = 0; i < AW_FW_CHECK_PART; i++) {
-> +		ret = aw_dev_dsp_read(aw_dev, addr, &dsp_val, AW_DSP_16_DATA);
-> +		if (ret  < 0) {
-> +			dev_err(aw_dev->dev, "dsp read failed");
-> +			return ret;
-> +		}
-> +
-> +		bin_val = be16_to_cpup((void *)&dsp_fw_desc->data[2 * (addr - base_addr)]);
-> +
-> +		if (dsp_val != bin_val) {
-> +			dev_err(aw_dev->dev, "fw check failed, addr[0x%x], read[0x%x] != bindata[0x%x]",
-> +					addr, dsp_val, bin_val);
-> +			return -EINVAL;
-> +		}
-> +
-> +		addr += (dsp_fw_desc->len / 2) / AW_FW_CHECK_PART;
-> +		if ((addr - base_addr) > dsp_fw_desc->len) {
-> +			dev_err(aw_dev->dev, "fw check failed, addr[0x%x] too large", addr);
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aw_dev_set_volume(struct aw_device *aw_dev, unsigned int value)
-> +{
-> +	struct aw_volume_desc *vol_desc = &aw_dev->volume_desc;
-> +	unsigned int reg_value = 0;
-> +	u16 real_value = 0;
-> +	u16 volume = 0;
-> +
-> +	volume = min((value + vol_desc->init_volume), (unsigned int)AW_PID_2049_MUTE_VOL);
-> +	real_value = db_to_reg_val(volume);
-> +
-> +	/* cal real value */
-> +	regmap_read(aw_dev->regmap, AW_PID_2049_SYSCTRL2_REG, &reg_value);
-> +
-> +	dev_dbg(aw_dev->dev, "value 0x%x , reg:0x%x", value, real_value);
-> +
-> +	/*[15 : 6] volume*/
-> +	real_value = (real_value << AW_PID_2049_VOL_START_BIT) | (reg_value & AW_PID_2049_VOL_MASK);
-> +
-> +	/* write value */
-> +	regmap_write(aw_dev->regmap, AW_PID_2049_SYSCTRL2_REG, real_value);
-> +
-> +	return 0;
-> +}
-> +
-> +void aw883xx_dev_set_volume(struct aw_device *aw_dev, unsigned short set_vol)
-> +{
-> +	int ret = 0;
-> +
-> +	ret = aw_dev_set_volume(aw_dev, set_vol);
-> +	if (ret < 0)
-> +		dev_dbg(aw_dev->dev, "set volume failed");
-> +}
-> +EXPORT_SYMBOL_GPL(aw883xx_dev_set_volume);
-> +
-> +static void aw_dev_fade_in(struct aw_device *aw_dev)
-> +{
-> +	int i = 0;
+use spaces before and after /* and */
 
-useless init
-
-> +	struct aw_volume_desc *desc = &aw_dev->volume_desc;
-> +	int fade_step = aw_dev->fade_step;
-> +	u16 fade_in_vol = desc->ctl_volume;
-> +
-> +	if (!aw_dev->fade_en)
-> +		return;
-> +
-> +	if (fade_step == 0 || aw_dev->fade_in_time == 0) {
-> +		aw_dev_set_volume(aw_dev, fade_in_vol);
-> +		return;
-> +	}
-> +	/*volume up*/
-> +	for (i = AW_PID_2049_MUTE_VOL; i >= fade_in_vol; i -= fade_step) {
-> +		aw_dev_set_volume(aw_dev, i);
-> +		usleep_range(aw_dev->fade_in_time, aw_dev->fade_in_time + 10);
-> +	}
-> +	if (i != fade_in_vol)
-> +		aw_dev_set_volume(aw_dev, fade_in_vol);
-> +}
-> +
-> +static void aw_dev_fade_out(struct aw_device *aw_dev)
-> +{
-> +	int i = 0;
-
-useless init
-
-> +	struct aw_volume_desc *desc = &aw_dev->volume_desc;
-> +	int fade_step = aw_dev->fade_step;
-> +
-> +	if (!aw_dev->fade_en)
-> +		return;
-> +
-> +	if (fade_step == 0 || aw_dev->fade_out_time == 0) {
-> +		aw_dev_set_volume(aw_dev, AW_PID_2049_MUTE_VOL);
-> +		return;
-> +	}
-> +
-> +	for (i = desc->ctl_volume; i <= AW_PID_2049_MUTE_VOL; i += fade_step) {
-> +		aw_dev_set_volume(aw_dev, i);
-> +		usleep_range(aw_dev->fade_out_time, aw_dev->fade_out_time + 10);
-> +	}
-> +	if (i != AW_PID_2049_MUTE_VOL) {
-> +		aw_dev_set_volume(aw_dev, AW_PID_2049_MUTE_VOL);
-> +		usleep_range(aw_dev->fade_out_time, aw_dev->fade_out_time + 10);
-> +	}
-> +}
-> +
-> +static int aw_dev_modify_dsp_cfg(struct aw_device *aw_dev,
-> +			unsigned int addr, unsigned int dsp_data, unsigned char data_type)
-> +{
-> +	u32 addr_offset = 0;
-
-useless init
-
-> +	u16 data1 = 0;
-> +	u32 data2 = 0;
-
-useless init and could be moved to lower scopes
-
-> +	struct aw_sec_data_desc *crc_dsp_cfg = &aw_dev->crc_dsp_cfg;
-> +
-> +	dev_dbg(aw_dev->dev, "addr:0x%x, dsp_data:0x%x", addr, dsp_data);
-> +
-> +	addr_offset = (addr - AW_PID_2049_DSP_CFG_ADDR) * 2;
-> +	if (addr_offset > crc_dsp_cfg->len) {
-> +		dev_err(aw_dev->dev, "addr_offset[%d] > crc_dsp_cfg->len[%d]",
-> +				addr_offset, crc_dsp_cfg->len);
-> +		return -EINVAL;
-> +	}
-> +	switch (data_type) {
-> +	case AW_DSP_16_DATA:
-> +		data1 = cpu_to_le16((u16)dsp_data);
-> +		memcpy(crc_dsp_cfg->data + addr_offset, (u8 *)&data1, 2);
-> +		break;
-> +	case AW_DSP_32_DATA:
-> +		data2 = cpu_to_le32(dsp_data);
-> +		memcpy(crc_dsp_cfg->data + addr_offset, (u8 *)&data2, 4);
-> +		break;
-> +	default:
-> +		dev_err(aw_dev->dev, "data type[%d] unsupported", data_type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int aw_dev_dsp_set_cali_re(struct aw_device *aw_dev)
-> +{
-> +	u32 cali_re = 0;
-> +	int ret = 0;
-
-useless inits
+and what's up with the a_ prefix, is this needed?
 
 > +
-> +	cali_re = AW_SHOW_RE_TO_DSP_RE((aw_dev->cali_desc.cali_re +
-> +		aw_dev->cali_desc.ra), AW_PID_2049_DSP_RE_SHIFT);
-> +
-> +	/* set cali re to device */
-> +	ret = aw_dev_dsp_write(aw_dev,
-> +			AW_PID_2049_DSP_REG_CFG_ADPZ_RE, cali_re, AW_DSP_32_DATA);
-> +	if (ret < 0) {
-> +		dev_err(aw_dev->dev, "set cali re error");
-> +		return ret;
-> +	}
-> +
-> +	ret = aw_dev_modify_dsp_cfg(aw_dev, AW_PID_2049_DSP_REG_CFG_ADPZ_RE,
-> +				cali_re, AW_DSP_32_DATA);
-> +	if (ret < 0)
-> +		dev_err(aw_dev->dev, "modify dsp cfg failed");
-> +
-> +	return ret;
-> +
-> +}
+> +struct aw_cfg_dde {
+> +	u32 type;				/*DDE type id*/
+> +	char dev_name[DEV_NAME_MAX];
+> +	u16 dev_index;				/*dev id*/
+> +	u16 dev_bus;				/*dev bus id*/
+> +	u16 dev_addr;				/*dev addr id*/
+> +	u16 dev_profile;			/*dev profile id*/
+> +	u32 data_type;				/*data type id*/
+> +	u32 data_size;
+> +	u32 data_offset;
+> +	u32 data_crc;
+> +	u32 reserve[5];
 
-this file needs style fixes, stopping the review here.
+reserved
 
+> +};
+> +
+> +struct aw_cfg_dde_v_1_0_0_0 {
+> +	u32 type;				/*DDE type id*/
+> +	char dev_name[DEV_NAME_MAX];
+> +	u16 dev_index;				/*dev id*/
+> +	u16 dev_bus;				/*dev bus id*/
+> +	u16 dev_addr;				/*dev addr id*/
+> +	u16 dev_profile;			/*dev profile id*/
+> +	u32 data_type;				/*data type id*/
+> +	u32 data_size;
+> +	u32 data_offset;
+> +	u32 data_crc;
+> +	char dev_profile_str[PROFILE_STR_MAX];
+> +	u32 chip_id;
+> +	u32 reserve[4];
+> +};
+> +
+> +struct aw_sec_data_desc {
+> +	u32 len;
+> +	u8 *data;
+> +};
+> +
+> +struct aw_prof_desc {
+> +	u32 id;
+> +	u32 prof_st;
+> +	char *prf_str;
+> +	u32 fw_ver;
+> +	struct aw_sec_data_desc sec_desc[AW_DATA_TYPE_MAX];
+> +};
+> +
+> +struct aw_all_prof_info {
+> +	struct aw_prof_desc prof_desc[AW_PROFILE_MAX];
+> +};
+> +
+> +struct aw_prof_info {
+> +	int count;
+> +	int prof_type;
+> +	char **prof_name_list;
+> +	struct aw_prof_desc *prof_desc;
+> +};
+> +
+> +#endif
+> +
+> diff --git a/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h b/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
+> new file mode 100644
+> index 000000000000..21d1e913db0b
+> --- /dev/null
+> +++ b/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
+> @@ -0,0 +1,490 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * aw883xx.c --  ALSA SoC AW883XX codec support
+> + *
+> + * Copyright (c) 2022 AWINIC Technology CO., LTD
+> + *
+> + * Author: Bruce zhao <zhaolei@awinic.com>
+> + */
+> +
+> +#ifndef __AW883XX_PID_2049_REG_H__
+> +#define __AW883XX_PID_2049_REG_H__
+> +
+> +#define AW_PID_2049_ID_REG				(0x00)
+> +#define AW_PID_2049_SYSST_REG			(0x01)
+> +#define AW_PID_2049_SYSINT_REG			(0x02)
+> +#define AW_PID_2049_SYSINTM_REG			(0x03)
+> +#define AW_PID_2049_SYSCTRL_REG			(0x04)
+> +#define AW_PID_2049_SYSCTRL2_REG		(0x05)
+> +#define AW_PID_2049_I2SCTRL_REG			(0x06)
+> +#define AW_PID_2049_I2SCFG1_REG			(0x07)
+> +#define AW_PID_2049_I2SCFG2_REG			(0x08)
+> +#define AW_PID_2049_HAGCCFG1_REG		(0x09)
+> +#define AW_PID_2049_HAGCCFG2_REG		(0x0A)
+> +#define AW_PID_2049_HAGCCFG3_REG		(0x0B)
+> +#define AW_PID_2049_HAGCCFG4_REG		(0x0C)
+> +#define AW_PID_2049_HAGCCFG5_REG		(0x0D)
+> +#define AW_PID_2049_HAGCCFG6_REG		(0x0E)
+> +#define AW_PID_2049_HAGCCFG7_REG		(0x0F)
+> +#define AW_PID_2049_MPDCFG_REG			(0x10)
+> +#define AW_PID_2049_PWMCTRL_REG			(0x11)
+> +#define AW_PID_2049_I2SCFG3_REG			(0x12)
+> +#define AW_PID_2049_DBGCTRL_REG			(0x13)
+> +#define AW_PID_2049_HAGCST_REG			(0x20)
+> +#define AW_PID_2049_VBAT_REG			(0x21)
+> +#define AW_PID_2049_TEMP_REG			(0x22)
+> +#define AW_PID_2049_PVDD_REG			(0x23)
+> +#define AW_PID_2049_ISNDAT_REG			(0x24)
+> +#define AW_PID_2049_VSNDAT_REG			(0x25)
+> +#define AW_PID_2049_I2SINT_REG			(0x26)
+> +#define AW_PID_2049_I2SCAPCNT_REG		(0x27)
+> +#define AW_PID_2049_ANASTA1_REG			(0x28)
+> +#define AW_PID_2049_ANASTA2_REG			(0x29)
+> +#define AW_PID_2049_ANASTA3_REG			(0x2A)
+> +#define AW_PID_2049_ANASTA4_REG			(0x2B)
+> +#define AW_PID_2049_TESTDET_REG			(0x2C)
+> +#define AW_PID_2049_TESTIN_REG			(0x38)
+> +#define AW_PID_2049_TESTOUT_REG			(0x39)
+> +#define AW_PID_2049_DSPMADD_REG			(0x40)
+> +#define AW_PID_2049_DSPMDAT_REG			(0x41)
+> +#define AW_PID_2049_WDT_REG				(0x42)
+> +#define AW_PID_2049_ACR1_REG			(0x43)
+> +#define AW_PID_2049_ACR2_REG			(0x44)
+> +#define AW_PID_2049_ASR1_REG			(0x45)
+> +#define AW_PID_2049_ASR2_REG			(0x46)
+> +#define AW_PID_2049_DSPCFG_REG			(0x47)
+> +#define AW_PID_2049_ASR3_REG			(0x48)
+> +#define AW_PID_2049_ASR4_REG			(0x49)
+> +#define AW_PID_2049_VSNCTRL1_REG		(0x50)
+> +#define AW_PID_2049_ISNCTRL1_REG		(0x51)
+> +#define AW_PID_2049_PLLCTRL1_REG		(0x52)
+> +#define AW_PID_2049_PLLCTRL2_REG		(0x53)
+> +#define AW_PID_2049_PLLCTRL3_REG		(0x54)
+> +#define AW_PID_2049_CDACTRL1_REG		(0x55)
+> +#define AW_PID_2049_CDACTRL2_REG		(0x56)
+> +#define AW_PID_2049_SADCCTRL1_REG		(0x57)
+> +#define AW_PID_2049_SADCCTRL2_REG		(0x58)
+> +#define AW_PID_2049_CPCTRL1_REG			(0x59)
+> +#define AW_PID_2049_BSTCTRL1_REG		(0x60)
+> +#define AW_PID_2049_BSTCTRL2_REG		(0x61)
+> +#define AW_PID_2049_BSTCTRL3_REG		(0x62)
+> +#define AW_PID_2049_BSTCTRL4_REG		(0x63)
+> +#define AW_PID_2049_BSTCTRL5_REG		(0x64)
+> +#define AW_PID_2049_BSTCTRL6_REG		(0x65)
+> +#define AW_PID_2049_BSTCTRL7_REG		(0x66)
+> +#define AW_PID_2049_DSMCFG1_REG			(0x67)
+> +#define AW_PID_2049_DSMCFG2_REG			(0x68)
+> +#define AW_PID_2049_DSMCFG3_REG			(0x69)
+> +#define AW_PID_2049_DSMCFG4_REG			(0x6A)
+> +#define AW_PID_2049_DSMCFG5_REG			(0x6B)
+> +#define AW_PID_2049_DSMCFG6_REG			(0x6C)
+> +#define AW_PID_2049_DSMCFG7_REG			(0x6D)
+> +#define AW_PID_2049_DSMCFG8_REG			(0x6E)
+> +#define AW_PID_2049_TESTCTRL1_REG		(0x70)
+> +#define AW_PID_2049_TESTCTRL2_REG		(0x71)
+> +#define AW_PID_2049_EFCTRL1_REG			(0x72)
+> +#define AW_PID_2049_EFCTRL2_REG			(0x73)
+> +#define AW_PID_2049_EFWH_REG			(0x74)
+> +#define AW_PID_2049_EFWM2_REG			(0x75)
+> +#define AW_PID_2049_EFWM1_REG			(0x76)
+> +#define AW_PID_2049_EFWL_REG			(0x77)
+> +#define AW_PID_2049_EFRH_REG			(0x78)
+> +#define AW_PID_2049_EFRM2_REG			(0x79)
+> +#define AW_PID_2049_EFRM1_REG			(0x7A)
+> +#define AW_PID_2049_EFRL_REG			(0x7B)
+> +#define AW_PID_2049_TM_REG				(0x7C)
+
+indentation is distracting, please pick one.
+
+> +
+> +/*
+> + * Register Access
+> + */
+> +enum aw883xx_id {
+> +	AW883XX_PID_2049 = 0x2049,
+> +};
+> +
+> +#define AW_PID_2049_REG_MAX				(0x7D)
+> +
+> +#define REG_NONE_ACCESS					(0)
+> +#define REG_RD_ACCESS					(1 << 0)
+> +#define REG_WR_ACCESS					(1 << 1)
+> +
+> +#define AW_PID_2049_VOLUME_STEP_DB		(6 * 8)
+> +
+> +#define AW_PID_2049_SOFT_RESET_VALUE	(0x55aa)
+> +

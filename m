@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 294F365457E
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 18:07:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0269065457F
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Dec 2022 18:08:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1DEF4EA4;
-	Thu, 22 Dec 2022 18:06:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DEF4EA4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 867074EAD;
+	Thu, 22 Dec 2022 18:07:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 867074EAD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671728862;
-	bh=K2faVlyV/1hDmIMnpX5nmiNOU1D2jzH4XcwX3GG/60E=;
+	s=default; t=1671728879;
+	bh=u5a2cKDrvv2pHodEYViduWFxE2pfrmug8VDhjI3vNs0=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=JaA0w6LGoACOZWcSt8QRuL476TMzQ5BxKUKTSMQ3th65PvYJcrbUACtZJueq6OGXs
-	 4oU6NGCdOHgrQm/Wje7fLQQskjJ5s2RhEsi9WRc1hFn5AOXhGxTyUGdelTJpOvLdwn
-	 WZKSqEAYbduflJMobDrlVHFxBZIhbUXlwyB9csCY=
+	b=VsFwrIHuDnuVAqzkgoJXmrn0KqHmZH9T46LXqmb0UbTqMGD8vKwAyvc7kXsaYdO5E
+	 SPvsjtUToY19xC7rdoiC9NY4zrTJLV9Bc8iSjzcq2ZFlkee5PpcNZthk+pGRYYVyzq
+	 1luYbxeXCCOr+vYgF/kzpaqEWeJ/lc/d8Gy8VVG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0C0BF80543;
-	Thu, 22 Dec 2022 18:05:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 350AEF80544;
+	Thu, 22 Dec 2022 18:05:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5C23F8052F; Thu, 22 Dec 2022 18:05:49 +0100 (CET)
+ id 194FBF8051D; Thu, 22 Dec 2022 18:05:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,57 +35,52 @@ X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A3C8F80496
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0949FF8045D
  for <alsa-devel@alsa-project.org>; Thu, 22 Dec 2022 18:05:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A3C8F80496
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0949FF8045D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=MUbsXuTi
+ header.s=Intel header.b=hXW9Zmln
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671728748; x=1703264748;
+ t=1671728749; x=1703264749;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=K2faVlyV/1hDmIMnpX5nmiNOU1D2jzH4XcwX3GG/60E=;
- b=MUbsXuTimh6sFu1w/Kd/u4OmDo2JCY2eGLeT//IIGfPmwBusLXJu+404
- qf/fnEMi7p62kjW334no85iIepSs+7wWbaIRUVClOsacMAxMMwcHf2qF/
- yb3vBWPkl8YGgvxaa8IoRRGAjSbCF1bmU1XwZBesY9xubJXzwS853DJu2
- MTM/nOaz/clhIELpqCFFzsewaqyyja5x3doKHcMAHcAs6C1xHRtyqj9AY
- dXjWy4uGwCpNwzsrU2PH4OFde188Fcvb/Y3LTGW+aN9b9IwTc7jykVwfh
- bRF8I142FCC5ca1dcT9xI0BKzA6Sk3BUlnD/stp2k+Ag+uQDpJGy+uY46 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406410693"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406410693"
+ bh=u5a2cKDrvv2pHodEYViduWFxE2pfrmug8VDhjI3vNs0=;
+ b=hXW9ZmlnvzEz/CwRuJnEKNLRkZDk2RiuQdcuK4hAvgOSz/1eWWCk1DGV
+ zJ5y+rt+L6cIzlELSxjXaQCwCMpzQVrO/5V7Pz/tsEm4IDucTs1r3Av5v
+ QdtgC2ZQoAEz/r/6DWW4dCBbZwEeA5RWkVbCBQ0KB7zXEcD8KvjTukkPl
+ 8ID1bDt13LVHIdv3MVJxiOjD++nxSVR65Yp4FFlNDUc0yBVtscunYFpXh
+ AQdq7FppfDS8WmMH9KCnFavOimvQc2OqK72pBDnd1zhtKuN0UM0KXH3Wg
+ MAYZDyse83dr9KDhR0sbCXNS1LEB7MfAgxmfGcft5/JcnQ+NwvIs9nJ0O A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406410710"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406410710"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 09:04:05 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="794175756"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="794175756"
+ 22 Dec 2022 09:04:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="794175781"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="794175781"
 Received: from rpurdy-mobl.amr.corp.intel.com (HELO [10.212.42.91])
  ([10.212.42.91])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 09:04:02 -0800
-Message-ID: <b0387660-a4a8-d109-0337-034dfc439325@linux.intel.com>
-Date: Thu, 22 Dec 2022 09:53:55 -0600
+ 22 Dec 2022 09:04:05 -0800
+Message-ID: <4a627876-fd7c-25a3-bbae-cbb4539f18bb@linux.intel.com>
+Date: Thu, 22 Dec 2022 09:59:24 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH V7 4/5] ASoC: codecs: Aw883xx chip register file, data
- type file and Kconfig Makefile
+Subject: Re: [PATCH] ASoC: Intel: avs: Add support for RT5663 codec
 Content-Language: en-US
-To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, perex@perex.cz,
- tiwai@suse.com, ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com,
- peter.ujfalusi@linux.intel.com, james.schulman@cirrus.com,
- flatmax@flatmax.com, ryan.lee.analog@gmail.com, jonathan.albrieux@gmail.com,
- tanureal@opensource.cirrus.com, povik+lin@cutebit.org, 13691752556@139.com,
- cezary.rojewski@intel.com, stephan@gerhold.net, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20221222123205.106353-1-wangweidong.a@awinic.com>
- <20221222123205.106353-5-wangweidong.a@awinic.com>
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Alicja Michalska
+ <ahplka19@gmail.com>, alsa-devel@alsa-project.org, broonie@kernel.org
+References: <Y6No3WsiZ7Sbg35u@tora>
+ <0c48007d-5d95-4d6b-9aad-80e77bd3111f@linux.intel.com>
+ <f3b81814-96ce-f54e-5df9-6a70e4c29b19@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20221222123205.106353-5-wangweidong.a@awinic.com>
+In-Reply-To: <f3b81814-96ce-f54e-5df9-6a70e4c29b19@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,226 +93,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: zhangjianming@awinic.com, duanyibo@awinic.com, yijiangtao@awinic.com,
- zhaolei@awinic.com, liweilei@awinic.com
+Cc: cezary.rojewski@intel.com, upstream@semihalf.com, rad@semihalf.com,
+ tiwai@suse.com, hdegoede@redhat.com, cujomalainey@chromium.org,
+ lma@semihalf.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> +
-> +#define PROJECT_NAME_MAX		(24)
-> +#define CUSTOMER_NAME_MAX		(16)
-> +#define CFG_VERSION_MAX			(4)
-> +#define DEV_NAME_MAX			(16)
-> +#define PROFILE_STR_MAX			(32)
-> +
-> +#define ACF_FILE_ID				(0xa15f908)
 
-align on one indentation please
+On 12/22/22 03:41, Amadeusz Sławiński wrote:
+> On 12/21/2022 9:36 PM, Pierre-Louis Bossart wrote:
+>>
+>>> +static int avs_create_dai_link(struct device *dev, const char
+>>> *platform_name, int ssp_port,
+>>> +                   struct snd_soc_dai_link **dai_link)
+>>> +{
+>>> +    struct snd_soc_dai_link_component *platform;
+>>> +    struct snd_soc_dai_link *dl;
+>>> +
+>>> +    dl = devm_kzalloc(dev, sizeof(*dl), GFP_KERNEL);
+>>> +    platform = devm_kzalloc(dev, sizeof(*platform), GFP_KERNEL);
+>>> +    if (!dl || !platform)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    platform->name = platform_name;
+>>> +
+>>> +    dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec",
+>>> ssp_port);
+>>> +    dl->cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
+>>> +    dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
+>>> +    if (!dl->name || !dl->cpus || !dl->codecs)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d
+>>> Pin", ssp_port);
+>>> +    dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL,
+>>> "i2c-10EC5663:00");
+>>> +    dl->codecs->dai_name = RT5663_DAI_NAME;
+>>> +    if (!dl->cpus->dai_name || !dl->codecs->name ||
+>>> !dl->codecs->dai_name)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    dl->num_cpus = 1;
+>>> +    dl->num_codecs = 1;
+>>> +    dl->platforms = platform;
+>>> +    dl->num_platforms = 1;
+>>> +    dl->id = 0;
+>>> +    dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+>>> SND_SOC_DAIFMT_CBS_CFS;
+>>
+>> can I ask why it's necessary to hard-code the format, shouldn't this be
+>> specified in the topology?
+>>
+>> It's a generic question for AVS machine drivers, the same code is found
+>> in other cases.
+>>
+> 
+> It describes back-end and topology describes FEs and FE and BE DSP
+> configuration, machine boards describe BE configuration. Not to say that
+> I didn't wonder if we can perhaps simplify things some more  and move BE
+> declaration to topology and perhaps even implement generic i2s board. It
+> is something to revisit.
 
-> +
-> +enum aw_cfg_hdr_version {
-> +	AW_CFG_HDR_VER_0_0_0_1	= 0x00000001,
-> +	AW_CFG_HDR_VER_1_0_0_0	= 0x01000000,
-> +};
-> +
-
-> +struct aw_cfg_hdr {
-> +	u32 a_id;				/*acf file ID 0xa15f908*/
-> +	char a_project[PROJECT_NAME_MAX];	/*project name*/
-> +	char a_custom[CUSTOMER_NAME_MAX];	/*custom name */
-> +	char a_version[CFG_VERSION_MAX];	/*author update version*/
-> +	u32 a_author_id;			/*author id*/
-> +	u32 a_ddt_size;				/*sub section table entry size*/
-> +	u32 a_ddt_num;				/*sub section table entry num*/
-> +	u32 a_hdr_offset;			/*sub section table offset in file*/
-> +	u32 a_hdr_version;			/*sub section table version*/
-> +	u32 reserve[3];
-> +};
-
-use spaces before and after /* and */
-
-and what's up with the a_ prefix, is this needed?
-
-> +
-> +struct aw_cfg_dde {
-> +	u32 type;				/*DDE type id*/
-> +	char dev_name[DEV_NAME_MAX];
-> +	u16 dev_index;				/*dev id*/
-> +	u16 dev_bus;				/*dev bus id*/
-> +	u16 dev_addr;				/*dev addr id*/
-> +	u16 dev_profile;			/*dev profile id*/
-> +	u32 data_type;				/*data type id*/
-> +	u32 data_size;
-> +	u32 data_offset;
-> +	u32 data_crc;
-> +	u32 reserve[5];
-
-reserved
-
-> +};
-> +
-> +struct aw_cfg_dde_v_1_0_0_0 {
-> +	u32 type;				/*DDE type id*/
-> +	char dev_name[DEV_NAME_MAX];
-> +	u16 dev_index;				/*dev id*/
-> +	u16 dev_bus;				/*dev bus id*/
-> +	u16 dev_addr;				/*dev addr id*/
-> +	u16 dev_profile;			/*dev profile id*/
-> +	u32 data_type;				/*data type id*/
-> +	u32 data_size;
-> +	u32 data_offset;
-> +	u32 data_crc;
-> +	char dev_profile_str[PROFILE_STR_MAX];
-> +	u32 chip_id;
-> +	u32 reserve[4];
-> +};
-> +
-> +struct aw_sec_data_desc {
-> +	u32 len;
-> +	u8 *data;
-> +};
-> +
-> +struct aw_prof_desc {
-> +	u32 id;
-> +	u32 prof_st;
-> +	char *prf_str;
-> +	u32 fw_ver;
-> +	struct aw_sec_data_desc sec_desc[AW_DATA_TYPE_MAX];
-> +};
-> +
-> +struct aw_all_prof_info {
-> +	struct aw_prof_desc prof_desc[AW_PROFILE_MAX];
-> +};
-> +
-> +struct aw_prof_info {
-> +	int count;
-> +	int prof_type;
-> +	char **prof_name_list;
-> +	struct aw_prof_desc *prof_desc;
-> +};
-> +
-> +#endif
-> +
-> diff --git a/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h b/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
-> new file mode 100644
-> index 000000000000..21d1e913db0b
-> --- /dev/null
-> +++ b/sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
-> @@ -0,0 +1,490 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * aw883xx.c --  ALSA SoC AW883XX codec support
-> + *
-> + * Copyright (c) 2022 AWINIC Technology CO., LTD
-> + *
-> + * Author: Bruce zhao <zhaolei@awinic.com>
-> + */
-> +
-> +#ifndef __AW883XX_PID_2049_REG_H__
-> +#define __AW883XX_PID_2049_REG_H__
-> +
-> +#define AW_PID_2049_ID_REG				(0x00)
-> +#define AW_PID_2049_SYSST_REG			(0x01)
-> +#define AW_PID_2049_SYSINT_REG			(0x02)
-> +#define AW_PID_2049_SYSINTM_REG			(0x03)
-> +#define AW_PID_2049_SYSCTRL_REG			(0x04)
-> +#define AW_PID_2049_SYSCTRL2_REG		(0x05)
-> +#define AW_PID_2049_I2SCTRL_REG			(0x06)
-> +#define AW_PID_2049_I2SCFG1_REG			(0x07)
-> +#define AW_PID_2049_I2SCFG2_REG			(0x08)
-> +#define AW_PID_2049_HAGCCFG1_REG		(0x09)
-> +#define AW_PID_2049_HAGCCFG2_REG		(0x0A)
-> +#define AW_PID_2049_HAGCCFG3_REG		(0x0B)
-> +#define AW_PID_2049_HAGCCFG4_REG		(0x0C)
-> +#define AW_PID_2049_HAGCCFG5_REG		(0x0D)
-> +#define AW_PID_2049_HAGCCFG6_REG		(0x0E)
-> +#define AW_PID_2049_HAGCCFG7_REG		(0x0F)
-> +#define AW_PID_2049_MPDCFG_REG			(0x10)
-> +#define AW_PID_2049_PWMCTRL_REG			(0x11)
-> +#define AW_PID_2049_I2SCFG3_REG			(0x12)
-> +#define AW_PID_2049_DBGCTRL_REG			(0x13)
-> +#define AW_PID_2049_HAGCST_REG			(0x20)
-> +#define AW_PID_2049_VBAT_REG			(0x21)
-> +#define AW_PID_2049_TEMP_REG			(0x22)
-> +#define AW_PID_2049_PVDD_REG			(0x23)
-> +#define AW_PID_2049_ISNDAT_REG			(0x24)
-> +#define AW_PID_2049_VSNDAT_REG			(0x25)
-> +#define AW_PID_2049_I2SINT_REG			(0x26)
-> +#define AW_PID_2049_I2SCAPCNT_REG		(0x27)
-> +#define AW_PID_2049_ANASTA1_REG			(0x28)
-> +#define AW_PID_2049_ANASTA2_REG			(0x29)
-> +#define AW_PID_2049_ANASTA3_REG			(0x2A)
-> +#define AW_PID_2049_ANASTA4_REG			(0x2B)
-> +#define AW_PID_2049_TESTDET_REG			(0x2C)
-> +#define AW_PID_2049_TESTIN_REG			(0x38)
-> +#define AW_PID_2049_TESTOUT_REG			(0x39)
-> +#define AW_PID_2049_DSPMADD_REG			(0x40)
-> +#define AW_PID_2049_DSPMDAT_REG			(0x41)
-> +#define AW_PID_2049_WDT_REG				(0x42)
-> +#define AW_PID_2049_ACR1_REG			(0x43)
-> +#define AW_PID_2049_ACR2_REG			(0x44)
-> +#define AW_PID_2049_ASR1_REG			(0x45)
-> +#define AW_PID_2049_ASR2_REG			(0x46)
-> +#define AW_PID_2049_DSPCFG_REG			(0x47)
-> +#define AW_PID_2049_ASR3_REG			(0x48)
-> +#define AW_PID_2049_ASR4_REG			(0x49)
-> +#define AW_PID_2049_VSNCTRL1_REG		(0x50)
-> +#define AW_PID_2049_ISNCTRL1_REG		(0x51)
-> +#define AW_PID_2049_PLLCTRL1_REG		(0x52)
-> +#define AW_PID_2049_PLLCTRL2_REG		(0x53)
-> +#define AW_PID_2049_PLLCTRL3_REG		(0x54)
-> +#define AW_PID_2049_CDACTRL1_REG		(0x55)
-> +#define AW_PID_2049_CDACTRL2_REG		(0x56)
-> +#define AW_PID_2049_SADCCTRL1_REG		(0x57)
-> +#define AW_PID_2049_SADCCTRL2_REG		(0x58)
-> +#define AW_PID_2049_CPCTRL1_REG			(0x59)
-> +#define AW_PID_2049_BSTCTRL1_REG		(0x60)
-> +#define AW_PID_2049_BSTCTRL2_REG		(0x61)
-> +#define AW_PID_2049_BSTCTRL3_REG		(0x62)
-> +#define AW_PID_2049_BSTCTRL4_REG		(0x63)
-> +#define AW_PID_2049_BSTCTRL5_REG		(0x64)
-> +#define AW_PID_2049_BSTCTRL6_REG		(0x65)
-> +#define AW_PID_2049_BSTCTRL7_REG		(0x66)
-> +#define AW_PID_2049_DSMCFG1_REG			(0x67)
-> +#define AW_PID_2049_DSMCFG2_REG			(0x68)
-> +#define AW_PID_2049_DSMCFG3_REG			(0x69)
-> +#define AW_PID_2049_DSMCFG4_REG			(0x6A)
-> +#define AW_PID_2049_DSMCFG5_REG			(0x6B)
-> +#define AW_PID_2049_DSMCFG6_REG			(0x6C)
-> +#define AW_PID_2049_DSMCFG7_REG			(0x6D)
-> +#define AW_PID_2049_DSMCFG8_REG			(0x6E)
-> +#define AW_PID_2049_TESTCTRL1_REG		(0x70)
-> +#define AW_PID_2049_TESTCTRL2_REG		(0x71)
-> +#define AW_PID_2049_EFCTRL1_REG			(0x72)
-> +#define AW_PID_2049_EFCTRL2_REG			(0x73)
-> +#define AW_PID_2049_EFWH_REG			(0x74)
-> +#define AW_PID_2049_EFWM2_REG			(0x75)
-> +#define AW_PID_2049_EFWM1_REG			(0x76)
-> +#define AW_PID_2049_EFWL_REG			(0x77)
-> +#define AW_PID_2049_EFRH_REG			(0x78)
-> +#define AW_PID_2049_EFRM2_REG			(0x79)
-> +#define AW_PID_2049_EFRM1_REG			(0x7A)
-> +#define AW_PID_2049_EFRL_REG			(0x7B)
-> +#define AW_PID_2049_TM_REG				(0x7C)
-
-indentation is distracting, please pick one.
-
-> +
-> +/*
-> + * Register Access
-> + */
-> +enum aw883xx_id {
-> +	AW883XX_PID_2049 = 0x2049,
-> +};
-> +
-> +#define AW_PID_2049_REG_MAX				(0x7D)
-> +
-> +#define REG_NONE_ACCESS					(0)
-> +#define REG_RD_ACCESS					(1 << 0)
-> +#define REG_WR_ACCESS					(1 << 1)
-> +
-> +#define AW_PID_2049_VOLUME_STEP_DB		(6 * 8)
-> +
-> +#define AW_PID_2049_SOFT_RESET_VALUE	(0x55aa)
-> +
+My point is that the topology already provides the information for the
+DSP configuration and this is used for the codec configuration, but
+that's two pieces of information that need to match, and two things to
+change if for some reason you want to use different options.

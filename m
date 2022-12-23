@@ -2,138 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D44654975
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 00:39:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CF4654C59
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 07:00:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDAFC5533;
-	Fri, 23 Dec 2022 00:38:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAFC5533
+	by alsa0.perex.cz (Postfix) with ESMTPS id 974BF6697;
+	Fri, 23 Dec 2022 06:59:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 974BF6697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671752365;
-	bh=fwnNhx9cbSpSYoJQXvJRFXtICKmP57YRqc1n5cjzCHc=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=GJTZnianIdhZqYK9ONcE6AYQ8G0nrO3eIb0E57u8DM0oY62UaXYYP6yybCJdCYqZA
-	 eaXZY5gklFb3oxL3aSwDPHojZ1/GN75od/8XzYEnVjjZejhvNRdKhQvO42Bbcf+lon
-	 Yxok5uI4HqqgMG/KfxJO9Bsn6gISJHlQ4Uhth2is=
+	s=default; t=1671775219;
+	bh=4eOfrrODIfs/VLFKHcrtlzDupYr9ug3BSA1bLlCo//Y=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=oqeDsiw5jHpUHao9mgHFHcv1qLGIXOQoxkHmyOH0fAk4rUEc7Ht+iR2lz/pSnxOIh
+	 +fFmLxwDBvaN4UKShCIMF1gbhUUC2vTcJKs2hWYgzgQXc5QgPWKfDPTOSP6WGI7lw7
+	 RxCLZ4rxmQlUHGcGAmG1xfugJrSFPTnwNimwERhg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6118CF80022;
-	Fri, 23 Dec 2022 00:38:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33BADF803DC;
+	Fri, 23 Dec 2022 06:59:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BF90F80158; Fri, 23 Dec 2022 00:38:27 +0100 (CET)
+ id 8243CF8047B; Fri, 23 Dec 2022 06:59:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on2041.outbound.protection.outlook.com [40.107.6.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B22F7F80158
- for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 00:38:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B22F7F80158
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
- header.s=selector1 header.b=ZxYIWT8t
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VcjN6cPJHJTHlVR3riOmYa0AuJpKtTolXt8EjYOLgumXVjzoQEZNXRCoyHy6i5wgz8Y55P85ejdRw2dYrM3exLPuJOCT4hNu1GzMW9bpJoadNM3gHGtOF8lba8MBIDKVgeIW2POMYCpyBYq/SlSRVTZXPaG17Zf2lAwd+QB3Bt3GdwV/rQkUavTT2jLOGCZLsoR0J5tbb62V4VNnm4iYVLv1umvWyf3IxXjHWGkPZPj5TEwH4OLK1BmgPlIZ92j7PTX50EK1QethImpR985ThsXYo7uoqauv9BEloZWO5/yEa5fPSQmnRJEdvw7AwAL71BRJtS/Rqw9728RrqGEtEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kEBfPTZlgkreP+XuG4W5PTE+mzXKo0XwInNaxx9l5Ug=;
- b=ONOBXbnCTlhWpxClg+2/bJOnbKXAl6Xul99Iicb4E6gweKdaTejgL/rbhQxlONvqxBwW0rjpiUtOU0aBjHkIkUj+PJv88aY4LfoVb2Y2saTYtYE9n7hK+yQAsJAJdR9wcCfP5K/19hvVJzWvyF/3V1Bajbo4m1baMECPFgH+nyMUR2p5qhmPkkyePuEMyQrhq21OVY5UXyS7Rs7ppEO4hxj/i/Cujb5l6BoFYnJNq51zCywg+V32LzJMbZrICJ7ji6diVNjk9oiJ1+aAmYR1OcKieoZf2Imo++ftafEYT6cJlfQgErtFh3KdAdMmr/hGFKwRg5cbi0XtJOaIRmWrYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
- dkim=pass header.d=seco.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kEBfPTZlgkreP+XuG4W5PTE+mzXKo0XwInNaxx9l5Ug=;
- b=ZxYIWT8tdIe786tRfASDvM9R1Q3xQE8YVbETgwMcl/Vc7xXDgtb5SNXLBLyOWXxa/0Qy/rKFCdOdMvPb+whCL2WXZwtpxD4lLRRG/MOzxuR+txM49pJt94FH3lO7mtb8g3IdJKswxcIwdPES24yQhMbEZ5Ym2ovjsoAdyNI3x7wx85SpuB8XtUE6bbDJGRK7WOx2FcfLZeJXPh/n3JXmmcPEgFbS0GnorZMrhEFflhKMnRD8drc0y+NHvONqfyEZcmRGMeH4Wrqgvg+CZv8h0GagHupYR8iP4DxLUxWClja5SreVOzRMl33w1BA5h2wFdMfMrWsQABvNn63CXCYPtw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=seco.com;
-Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
- by AS2PR03MB9100.eurprd03.prod.outlook.com (2603:10a6:20b:5fb::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
- 2022 23:38:19 +0000
-Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
- ([fe80::2b95:1fe4:5d8f:22fb]) by DB9PR03MB8847.eurprd03.prod.outlook.com
- ([fe80::2b95:1fe4:5d8f:22fb%7]) with mapi id 15.20.5944.013; Thu, 22 Dec 2022
- 23:38:19 +0000
-From: Sean Anderson <sean.anderson@seco.com>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 2/3] iommu/sound: Use component_match_add_of helper
-Date: Thu, 22 Dec 2022 18:37:58 -0500
-Message-Id: <20221222233759.1934852-3-sean.anderson@seco.com>
-X-Mailer: git-send-email 2.35.1.1320.gc452695387.dirty
-In-Reply-To: <20221222233759.1934852-1-sean.anderson@seco.com>
-References: <20221222233759.1934852-1-sean.anderson@seco.com>
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ by alsa1.perex.cz (Postfix) with ESMTP id BD3CAF8024E
+ for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 06:59:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD3CAF8024E
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 2BN5w0ryD014825,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+ by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 2BN5w0ryD014825
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
+ Fri, 23 Dec 2022 13:58:00 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Fri, 23 Dec 2022 13:58:52 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Fri, 23 Dec 2022 13:58:52 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt711-sdca: add jack detection mode for JD2 100K
+Date: Fri, 23 Dec 2022 13:58:46 +0800
+Message-ID: <20221223055846.3285-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.38.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0205.namprd13.prod.outlook.com
- (2603:10b6:208:2be::30) To DB9PR03MB8847.eurprd03.prod.outlook.com
- (2603:10a6:10:3dd::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB8847:EE_|AS2PR03MB9100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 018f03e4-a305-4ac9-25d9-08dae4759b07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EF/GvGH/+mpcc1bpvYt1wkDNG/hy+mNOxiTWq33s3ALuXesewmsFr2yrdP/jD4vwQj70LvpL/Z0t9tHpQXNmR3LfB6zW3GJA7n89kW2mi5Om/myPJxrpQfj54xZVTAaBAgcllC+1t1KqBqvTojw+hxfBJIcCif3pAYJZEQL+YlSEfWTHqzVPxEu2tCvdn8yasLemLeUogW/x5KYZQq1grRrs4a53OgBHpzymffbEc2bpsRQeYzFQIlXE9PyoXs1FPjDrXugB+CdPNnmDsgbKovMolfxieTZlGFQXX7FTetNmacZbkTNcsI7imPyH9pXK78yjnCQ+FG9TCBFIWiBfq0Xi12jTQa1VQPrwiJqYfdq4xjcKOcPPGZM8taiM/2ZoVvLPrRBFsIMcOxOCZ9dBLiqrZshzDMnyPCuaAxG9lR26ZBHKejw5a4GwYERfZTAJ3oTLkc6DYBgXnrexWLPfvrGErADDcSLHcMP2yZKTD+J0MfCieQuayquCEfB54zWuOZwUvh/Csla1RJD6KvSgVR743RmTNRoeqmgZh/Y1EEXrqViBmkEC4lzLSvOb6gidm7IWD7C3na47z8tWX+wUv83VHtLeizJJSoZ67eEspAuhXK/liHWlqB9maDxVj6h8PbelJIWQjVbhoPQWgFIHJ0WTf4Ng6uxdtvOT3fn+gBn9KcZEKcKxSpLqH1uBrvq7EnYkPhmhXJKJLqtSaPMRiQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB8847.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(396003)(346002)(366004)(376002)(136003)(39850400004)(451199015)(86362001)(36756003)(110136005)(316002)(54906003)(478600001)(38350700002)(52116002)(8936002)(44832011)(41300700001)(2906002)(4326008)(6486002)(66946007)(66556008)(7416002)(6666004)(5660300002)(66476007)(38100700002)(26005)(8676002)(6512007)(83380400001)(6506007)(186003)(1076003)(2616005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C+48QwAXZC5yEi/kr6vKW5Hd3jP2SDHfjOAYX2ARqLwijYLQ/c+jvATQvATV?=
- =?us-ascii?Q?UgJDlPOwJTwUaG5/tWyHr0iGVh2w0ICX9ybdzwmLHVy7SKHOGfvfdNzkCep+?=
- =?us-ascii?Q?vPgnM9Ci+fU2fVaTpx+hXgpyJ2Ik1BMu84sfzWCUtigMhZ3+dY4y5RipbccA?=
- =?us-ascii?Q?QsxK9V838yXtK5nS/xQKznhIXmCgCNkmc/FEK16Bwd/zvjvHyFieYzXjuq/R?=
- =?us-ascii?Q?+f3JmyCAL8sKk/cr1eR+tcce8BxkIt85Qg6l3s85get8b2xtMyh8rI3eaXi9?=
- =?us-ascii?Q?3u8DPbIlXgBUdRBlmjE0lYGmdO7Wp7y0DsoFjp10biIrFMTJbINnuwS4O02S?=
- =?us-ascii?Q?qpzqm3bYsA/X438a0HBj2oZgjIDTQ113vYLfhPnbRs/rPjxW1lwbOi4eVvWd?=
- =?us-ascii?Q?VmcWHoAdmAN1LCC5k62XhSB6mF74gSFy8QNu0iG4RPQKQnFnX9JICLL7KQ8f?=
- =?us-ascii?Q?MQGRQJ7E7l71kw5iaNdaGt0jFBUthp327EO8PHP53IBriXe+3YnKfmveZLK0?=
- =?us-ascii?Q?vCSjB42u4sVuI2VeCEPlnYgtkb/bUABpR4udldVJ94lmOzvyg6NdzqSw02IB?=
- =?us-ascii?Q?h/ZzeMMGBBzM+YwlgaViyDiUKdzrkRrsqiSnOuB4HL9YAoK7SjKgzBQaL9Wl?=
- =?us-ascii?Q?CW07zcMDucOOs6crzbMXT/xmg8KfUUQMk76v2T8y8OYkCCmWdzuFcvdyfS2y?=
- =?us-ascii?Q?Q37IdMn1aW0W4ILpskPFyoKa4VBH660uaEY0DV/V53xBwsVKPRVIlI3Qc+D3?=
- =?us-ascii?Q?3nOHOSmEgOdt5JWwmTC8BHLHD5ZSG4esya1Vj8WVOFIYklQdN10puutnrHP5?=
- =?us-ascii?Q?oR96LRTORskYcUm91055mf1qkRv5AaFeW0Zhrke8YF7g8jUxW4DimN/rITzs?=
- =?us-ascii?Q?yR3CVYUgyAMQc8yzCs+fejJlGA5evXo3xRVdDSNhxRI4PD3Xvzm8jCR0bWxx?=
- =?us-ascii?Q?JJi2GOE7JWyKzWFbJ4DB27iLMnJ8CB/xePa8bUg85wbRhiksPK5YVZ9ocPpb?=
- =?us-ascii?Q?TcX1A03chZK4WQ0sIIEiK4bn1Tq3yTkwH2cvx0HK7KBT0O9lDz9ur7a6pQvt?=
- =?us-ascii?Q?Jzf5TNCcXiYc4JjIs1N573lSpyWqrF75dwlliRgcMzhzGYGbRuBpr9Men2AZ?=
- =?us-ascii?Q?7ywxc4m6CupMvMp7lR4Fn9C5JADslG5+lhx1BmkCTT2dPT4e0+6DG1w8uLLd?=
- =?us-ascii?Q?iapz7rMXysfrqCdVWP9G4K8GncO4HIRGO23PI/BQE/g92NQlFkc073gJbJey?=
- =?us-ascii?Q?D/EPl1DzsyjVbqbr1/ttRPXy+CBpFzue5Q2i0UbOSNbV+1+4vohB0IlKqq0e?=
- =?us-ascii?Q?FLKLUW4jWdZNFMs4/yS4EtWDISy5ahWNETNOh8qtRTzMaucZhs7lMP63L9RH?=
- =?us-ascii?Q?toi/UPT4+qnBWbMyD1rZIggjy6F6Si1qSicBnyHOLRbCk5kRR0Segv+cv7yZ?=
- =?us-ascii?Q?M47/aXUWlD4n6o+FwFIvuFzO5x6rEDDvKfFOye4OJoy4pEejWr4C8pGA7iNf?=
- =?us-ascii?Q?oB3Itdv/j/WXabrvJjoUVtF8Z6R6BusZ/il/yxm02fqJ7bJFFE83xfQFOYN0?=
- =?us-ascii?Q?Z+ryacsvnX0QfUOMW3z4FztNEfeNoXViJWFcauJRQHgnyzNnOZK51NPqiiIg?=
- =?us-ascii?Q?TQ=3D=3D?=
-X-OriginatorOrg: seco.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 018f03e4-a305-4ac9-25d9-08dae4759b07
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8847.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 23:38:19.0662 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6KSwa0DgHjRRJSl/fupxp2pWp/sBt+YZVyTw68BWlejvQiIUOr0MuPL3zt9Y6kiU6EIEh/Jy9IvQ7+wsLqxE7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9100
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: trusted connection
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 12/23/2022 05:27:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzEyLzIzIKRXpMggMDE6NTQ6MDA=?=
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,84 +88,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Sean Anderson <sean.anderson@seco.com>,
- Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- Yong Wu <yong.wu@mediatek.com>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, Shuming Fan <shumingf@realtek.com>,
+ flove@realtek.com, pierre-louis.bossart@intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert users of component_match_add_release with component_release_of
-and component_compare_of to component_match_add_of.
+From: Shuming Fan <shumingf@realtek.com>
 
-Signed-off-by: Sean Anderson <sean.anderson@seco.com>
-Acked-by: Mark Brown <broonie@kernel.org>
+This patch adds another jack detection mode for JD2 with an external resistor of 100k.
+
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
 ---
+ sound/soc/codecs/rt711-sdca.c | 15 +++++++++++++++
+ sound/soc/codecs/rt711-sdca.h |  8 +++++++-
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Split off from helper addition
-
- drivers/iommu/mtk_iommu.c    | 3 +--
- drivers/iommu/mtk_iommu_v1.c | 3 +--
- sound/soc/codecs/wcd938x.c   | 6 ++----
- 3 files changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
-index 2ab2ecfe01f8..483b7a9e4410 100644
---- a/drivers/iommu/mtk_iommu.c
-+++ b/drivers/iommu/mtk_iommu.c
-@@ -1079,8 +1079,7 @@ static int mtk_iommu_mm_dts_parse(struct device *dev, struct component_match **m
- 		}
- 		data->larb_imu[id].dev = &plarbdev->dev;
+diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
+index b78dd5994edb..7cdf184d380b 100644
+--- a/sound/soc/codecs/rt711-sdca.c
++++ b/sound/soc/codecs/rt711-sdca.c
+@@ -463,6 +463,21 @@ static void rt711_sdca_jack_init(struct rt711_sdca_priv *rt711)
+ 				RT711_HP_JD_FINAL_RESULT_CTL_JD12,
+ 				RT711_HP_JD_FINAL_RESULT_CTL_JD12);
+ 			break;
++		case RT711_JD2_100K:
++			rt711_sdca_index_write(rt711, RT711_VENDOR_REG,
++				RT711_COMBO_JACK_AUTO_CTL3, 0xa47e);
++			rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG,
++				RT711_JD_CTL1, RT711_JD2_DIGITAL_MODE_SEL,
++				RT711_JD2_DIGITAL_MODE_SEL);
++			rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG,
++				RT711_JD_CTL2, RT711_JD2_2PORT_200K_DECODE_HP |
++				RT711_JD2_2PORT_100K_DECODE_MASK | RT711_HP_JD_SEL_JD2,
++				RT711_JD2_2PORT_100K_DECODE_HP | RT711_HP_JD_SEL_JD2);
++			rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG,
++				RT711_CC_DET1,
++				RT711_HP_JD_FINAL_RESULT_CTL_JD12 | RT711_POW_CC1_AGPI,
++				RT711_HP_JD_FINAL_RESULT_CTL_JD12 | RT711_POW_CC1_AGPI_OFF);
++			break;
+ 		default:
+ 			dev_warn(rt711->component->dev, "Wrong JD source\n");
+ 			break;
+diff --git a/sound/soc/codecs/rt711-sdca.h b/sound/soc/codecs/rt711-sdca.h
+index 498ca687c47b..10e3c801b813 100644
+--- a/sound/soc/codecs/rt711-sdca.h
++++ b/sound/soc/codecs/rt711-sdca.h
+@@ -127,12 +127,17 @@ struct sdw_stream_data {
  
--		component_match_add_release(dev, match, component_release_of,
--					    component_compare_of, larbnode);
-+		component_match_add_of(dev, match, larbnode);
- 	}
+ /* jack detect control 2 (0x09)(NID:20h) */
+ #define RT711_JD2_2PORT_200K_DECODE_HP (0x1 << 13)
++#define RT711_JD2_2PORT_100K_DECODE_MASK (0x1 << 12)
++#define RT711_JD2_2PORT_100K_DECODE_HP (0x0 << 12)
+ #define RT711_HP_JD_SEL_JD1 (0x0 << 1)
+ #define RT711_HP_JD_SEL_JD2 (0x1 << 1)
  
- 	/* Get smi-(sub)-common dev from the last larb. */
-diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
-index 6e0e65831eb7..fb09ed6bf550 100644
---- a/drivers/iommu/mtk_iommu_v1.c
-+++ b/drivers/iommu/mtk_iommu_v1.c
-@@ -672,8 +672,7 @@ static int mtk_iommu_v1_probe(struct platform_device *pdev)
- 		}
- 		data->larb_imu[i].dev = &plarbdev->dev;
+ /* CC DET1 (0x11)(NID:20h) */
+ #define RT711_HP_JD_FINAL_RESULT_CTL_JD12 (0x1 << 10)
+ #define RT711_HP_JD_FINAL_RESULT_CTL_CCDET (0x0 << 10)
++#define RT711_POW_CC1_AGPI (0x1 << 5)
++#define RT711_POW_CC1_AGPI_ON (0x1 << 5)
++#define RT711_POW_CC1_AGPI_OFF (0x0 << 5)
  
--		component_match_add_release(dev, &match, component_release_of,
--					    component_compare_of, larbnode);
-+		component_match_add_of(dev, &match, larbnode);
- 	}
+ /* Parameter & Verb control (0x1a)(NID:20h) */
+ #define RT711_HIDDEN_REG_SW_RESET (0x1 << 14)
+@@ -226,7 +231,8 @@ enum {
+ enum rt711_sdca_jd_src {
+ 	RT711_JD_NULL,
+ 	RT711_JD1,
+-	RT711_JD2
++	RT711_JD2,
++	RT711_JD2_100K
+ };
  
- 	platform_set_drvdata(pdev, data);
-diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index aca06a4026f3..2f8444e54083 100644
---- a/sound/soc/codecs/wcd938x.c
-+++ b/sound/soc/codecs/wcd938x.c
-@@ -4474,8 +4474,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
- 	}
- 
- 	of_node_get(wcd938x->rxnode);
--	component_match_add_release(dev, matchptr, component_release_of,
--				    component_compare_of, wcd938x->rxnode);
-+	component_match_add_of(dev, matchptr, wcd938x->rxnode);
- 
- 	wcd938x->txnode = of_parse_phandle(np, "qcom,tx-device", 0);
- 	if (!wcd938x->txnode) {
-@@ -4483,8 +4482,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
- 		return -ENODEV;
- 	}
- 	of_node_get(wcd938x->txnode);
--	component_match_add_release(dev, matchptr, component_release_of,
--				    component_compare_of, wcd938x->txnode);
-+	component_match_add_of(dev, matchptr, wcd938x->txnode);
- 	return 0;
- }
- 
+ enum rt711_sdca_ver {
 -- 
-2.35.1.1320.gc452695387.dirty
+2.38.1
 

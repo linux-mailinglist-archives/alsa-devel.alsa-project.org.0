@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73822655313
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 18:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B94565656F
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 23:36:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08CC484DF;
-	Fri, 23 Dec 2022 18:05:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08CC484DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C927663CD;
+	Mon, 26 Dec 2022 23:36:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C927663CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671815195;
-	bh=fFMm4Z9Jn9GmTLFlEO5rpMTYF/7g0DE4+G2N/Ha2nEs=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1672094216;
+	bh=btT00mhezy9HTF1lIp7RKA+PUTUm+XbEB3t4kOpzlXE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=aaP4dMqkBHcSmSk+hPAiRHiUiL7qRS8Ut6+PdyFfyL5HRSVfhN2Wgqg8O6RW8bPob
-	 B7O05bFLylTCaY1YVW+iwKPL7WxvrMmzkl93bqiKxoV/pDhM8aPTgSNVNWHHdb611a
-	 Z1HjJTncmxdiWKUVf6H+8WF/pkmY0xUVA883iBtg=
+	b=n8QstjfJZHBlkvrG2ulhCFRbuYUkJRdzULEOXKQBQS+dZS5Yu+iAcDopGB1j+dBZO
+	 pPGtjmsf5Wrew7wEgN/UcaRMW4UUGjtK2NL9hA62UiKiD+9aqqjP2xoPJ4rjGvg64t
+	 aLpxByloS4183WNIMNXZqcRIdSWfbSQF/H0/JSwE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92362F80539;
-	Fri, 23 Dec 2022 18:05:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12AB1F800F0;
+	Mon, 26 Dec 2022 23:35:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEF11F80423; Fri, 23 Dec 2022 18:05:15 +0100 (CET)
+ id CBB1BF800F0; Mon, 26 Dec 2022 23:35:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out-12.comm2000.it (smtp-out-12.comm2000.it [212.97.32.82])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E1CCF80423
- for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 18:05:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E1CCF80423
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=mailserver.it header.i=@mailserver.it
- header.a=rsa-sha256 header.s=mailsrv header.b=eBNdMukw
-Received: from francesco-nb.pivistrello.it (93-49-2-63.ip317.fastwebnet.it
- [93.49.2.63])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: francesco@dolcini.it)
- by smtp-out-12.comm2000.it (Postfix) with ESMTPSA id 8A379BA3234;
- Fri, 23 Dec 2022 18:04:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailserver.it;
- s=mailsrv; t=1671815107;
- bh=fFMm4Z9Jn9GmTLFlEO5rpMTYF/7g0DE4+G2N/Ha2nEs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=eBNdMukwTGGCj16Ui9T+1ZhPjGYqMZQ8BNhmbhAi5q3cqwZyCSwTEnxk3DMf01blG
- XCeoYNgrsC3QAHEFNA+N2CNkQf4a0E5SL/uPkJjG90++c1dHohvrnoFjCrT5zP7r7n
- F+F7QLcefFpz9W3CKo1LEhOwdMg/cNdaApmbU6nWdJEIOn1ziLxbEiKkABVNwBZ1I1
- 9pAVR4zEdNzqov4ndrJ6+CwORd90zfzSbNO1ezs0u4AuOez3fCeRhhS6hJ8p//HYZK
- 6NablPAqb15DaqnXSRoycU1sRrZ+VLYpzXLbQHpKnWhrayJTb/8hZBbq73EbxeFLA9
- fohBhg9+G59ww==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v1 3/3] ASoC: nau8822: add speaker Bridge Tied Output
- configuration
-Date: Fri, 23 Dec 2022 18:04:04 +0100
-Message-Id: <20221223170404.210603-4-francesco@dolcini.it>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221223170404.210603-1-francesco@dolcini.it>
-References: <20221223170404.210603-1-francesco@dolcini.it>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E11FF800F0
+ for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 23:35:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E11FF800F0
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-1433ef3b61fso13785920fac.10
+ for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 14:35:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=lt+gzNImgwQhawSy/zX0NqMABwqGJ4OMHwRZPC2+ROw=;
+ b=HC28hdmjer7AZGvNcTS1WZT086q23ifxJULGSB6KXJu9TqyyXxlAGwhlJttYmI3AvM
+ cNCuwN55vGipaos+CF1vb4u1YRS/OE5KzgRB5qjKfnVPhouPHGfnNSV6A5fxXosGjcjw
+ nMmpjcpOpvV+hc/dwjDJ86IW4RxhedgQvjthu5ax680zKI+H4zQ6Eku5rm09+g6qokqk
+ FbB1kornV+/7T6Gbf7j0Z5mcw4qb2iraekGElv8+kAnWZnNuzCmTpRYa+qaSmMrxcfJL
+ q/2V8oBPmqpL5cMbIGG0x/3MYRufIyexFYa5BHBSfQlt+5WkMLIznywj1SuDIjrS7xm/
+ Kquw==
+X-Gm-Message-State: AFqh2krjEQn8tlOwrfkXNOeT6zN3KcUDpw/UUL6OPVrF+bXUlx2m1lOe
+ 4qYrdLN8e9Fr/r/QtWxq3g==
+X-Google-Smtp-Source: AMrXdXtoyYNVc/HfF7b8ZQ6awqmxZtHIAJA8GEEc6ASnXnLJU/vSgfPTQp95w57GfWXniFD8o9Moww==
+X-Received: by 2002:a05:6871:4595:b0:143:95b0:26e7 with SMTP id
+ nl21-20020a056871459500b0014395b026e7mr8961672oab.54.1672094146950; 
+ Mon, 26 Dec 2022 14:35:46 -0800 (PST)
+Received: from robh_at_kernel.org ([2605:ef80:80e8:2792:eb0e:539f:f657:547b])
+ by smtp.gmail.com with ESMTPSA id
+ z12-20020a056870738c00b00143065d3e99sm5461116oam.5.2022.12.26.14.35.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Dec 2022 14:35:46 -0800 (PST)
+Received: (nullmailer pid 375419 invoked by uid 1000);
+ Fri, 23 Dec 2022 19:26:02 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Francesco Dolcini <francesco@dolcini.it>
+In-Reply-To: <20221223170404.210603-2-francesco@dolcini.it>
+References: <20221223170404.210603-1-francesco@dolcini.it>
+ <20221223170404.210603-2-francesco@dolcini.it>
+Message-Id: <167182349408.373865.10339766752503211557.robh@kernel.org>
+Subject: Re: [PATCH v1 1/3] ASoC: dt-bindings: nau8822: convert to the dtschema
+Date: Fri, 23 Dec 2022 13:26:02 -0600
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,74 +92,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: wtli@nuvoton.com, Takashi Iwai <tiwai@suse.com>, kchsu0@nuvoton.com,
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, wtli@nuvoton.com,
+ Takashi Iwai <tiwai@suse.com>, kchsu0@nuvoton.com,
  Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Benjamin Marty <info@benjaminmarty.ch>, Mark Brown <broonie@kernel.org>,
+ David Lin <CTLIN0@nuvoton.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Francesco Dolcini <francesco.dolcini@toradex.com>,
  Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
 
-Allow configuring the two loudspeaker outputs as a
-single Bridge Tied Load output getting higher output power.
+On Fri, 23 Dec 2022 18:04:02 +0100, Francesco Dolcini wrote:
+> From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> 
+> Convert nau8822 devicetree binding to dtschema.
+> Change file name to match dtschema naming.
+> 
+> Cc: David Lin <CTLIN0@nuvoton.com>
+> Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+>  .../devicetree/bindings/sound/nau8822.txt     | 16 --------
+>  .../bindings/sound/nuvoton,nau8822.yaml       | 40 +++++++++++++++++++
+>  2 files changed, 40 insertions(+), 16 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nau8822.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8822.yaml
+> 
 
-Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- sound/soc/codecs/nau8822.c | 9 +++++++++
- sound/soc/codecs/nau8822.h | 9 +++++++++
- 2 files changed, 18 insertions(+)
+Running 'make dtbs_check' with the schema in this patch gives the
+following warnings. Consider if they are expected or the schema is
+incorrect. These may not be new warnings.
 
-diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
-index 1aef281a9972..d5006d8de639 100644
---- a/sound/soc/codecs/nau8822.c
-+++ b/sound/soc/codecs/nau8822.c
-@@ -1056,6 +1056,7 @@ static const int update_reg[] = {
- static int nau8822_probe(struct snd_soc_component *component)
- {
- 	int i;
-+	struct device_node *of_node = component->dev->of_node;
- 
- 	/*
- 	 * Set the update bit in all registers, that have one. This way all
-@@ -1066,6 +1067,14 @@ static int nau8822_probe(struct snd_soc_component *component)
- 		snd_soc_component_update_bits(component,
- 			update_reg[i], 0x100, 0x100);
- 
-+	/* Check property to configure the two loudspeaker outputs as
-+	 * a single Bridge Tied Load output
-+	 */
-+	if (of_property_read_bool(of_node, "nuvoton,spk-btl"))
-+		snd_soc_component_update_bits(component,
-+					      NAU8822_REG_RIGHT_SPEAKER_CONTROL,
-+					      NAU8822_RSUBBYP, NAU8822_RSUBBYP);
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/nau8822.h b/sound/soc/codecs/nau8822.h
-index 547ec057f853..646f6bb64bc5 100644
---- a/sound/soc/codecs/nau8822.h
-+++ b/sound/soc/codecs/nau8822.h
-@@ -187,6 +187,15 @@
- /* NAU8822_REG_PLL_K3 (0x27) */
- #define NAU8822_PLLK3_MASK			0x1FF
- 
-+/* NAU8822_REG_RIGHT_SPEAKER_CONTROL (0x2B) */
-+#define NAU8822_RMIXMUT				0x20
-+#define NAU8822_RSUBBYP				0x10
-+
-+#define NAU8822_RAUXRSUBG_SFT			1
-+#define NAU8822_RAUXRSUBG_MASK			0x0E
-+
-+#define NAU8822_RAUXSMUT			0x01
-+
- /* System Clock Source */
- enum {
- 	NAU8822_CLK_MCLK,
--- 
-2.25.1
+Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+This will change in the future.
+
+Full log is available here: https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20221223170404.210603-2-francesco@dolcini.it
+
+
+audio-codec@1a: '#sound-dai-cells', 'AVDD-supply', 'CPVDD-supply', 'DBVDD-supply', 'DCVDD-supply', 'MICVDD-supply', 'clock-names', 'clocks' do not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dev.dtb
+	arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dev.dtb
 

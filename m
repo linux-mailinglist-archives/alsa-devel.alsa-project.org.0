@@ -2,71 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDB00654D29
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 09:04:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41EA654E13
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Dec 2022 10:06:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 964DC482C;
-	Fri, 23 Dec 2022 09:03:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 964DC482C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AC826EA0;
+	Fri, 23 Dec 2022 10:05:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AC826EA0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671782649;
-	bh=YM14M0G++EQf8uQcFXGB62bbcyA50BDOjMaNomxxz5g=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=K8VfZB7Y14yJadVZHq/H+a9DYJ9yuD09nZMAsGbnGYHansjJ7FkVsvVvFm9t6ajVT
-	 vDxFnvK9F/eDTve3GK4g5FtRAZloHa55aXDuFpmWwp+mkh6SIWCoc0qY/UtzApgWcz
-	 ZCxjFtdzxMIAj+K3lyH/w1OUlLxEve18KplFpBpc=
+	s=default; t=1671786404;
+	bh=etoPTdN7fqAEFQVxNFjFob/1OaJkCbXYZY/47T9at1o=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=C9mfBbAIctJuISY3jSdQVPPVuHJOzb2pmlAHZYy/bRsfatnw8Yhqk9+Ruq7SBgJqs
+	 yZGd/BRp0emVXxwxQP6jDaMmREkffHNSZDHKz2QngEFpWJx85fPWJKUCKTvpbsSuJw
+	 LOstMJ0q3uW5m1k7aJsa4Si+h8C2zU7eLFjmDjPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27BFBF8024D;
-	Fri, 23 Dec 2022 09:03:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC472F80423;
+	Fri, 23 Dec 2022 10:05:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFB6CF804AD; Fri, 23 Dec 2022 09:03:08 +0100 (CET)
+ id 6B53EF804AD; Fri, 23 Dec 2022 10:05:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from smtp-out-03.comm2000.it (smtp-out-03.comm2000.it [212.97.32.66])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C4C5F8024D
- for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 09:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C4C5F8024D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=mailserver.it header.i=@mailserver.it
- header.a=rsa-sha256 header.s=mailsrv header.b=quClVVKX
-Received: from francesco-nb.pivistrello.it (93-49-2-63.ip317.fastwebnet.it
- [93.49.2.63])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: francesco@dolcini.it)
- by smtp-out-03.comm2000.it (Postfix) with ESMTPSA id B2BDBB42941;
- Fri, 23 Dec 2022 09:02:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailserver.it;
- s=mailsrv; t=1671782583;
- bh=YM14M0G++EQf8uQcFXGB62bbcyA50BDOjMaNomxxz5g=;
- h=From:To:Cc:Subject:Date;
- b=quClVVKXo0IMk646fsTtVZNEy3gdB3GaS94tS9gYpr60T62Q6Ov+oVb929MzRa9md
- LYq1IZfy7rNk1mmJlwI10I0vb7YNU+5aizhOr1GJFlQq/oMv+BYzR2JWMO6wwNYqrs
- pPLnaHDGjWkctjnNCbkvpSfPAl9OGeL1hn1ouiurC9bPdeBiyLYlw4IedqlgEyn5Ab
- J2RCe51HWKWqQFlGBjK1iozGa9+O7mZkqzSkylm+PJa3nSE3sSIzEQxXQl/tG1AcqZ
- x4JVlcVTqWQVz1PBUdwueEvCQweKxKJcct5MaK5jbLkDonlZ3NXXDYM4NZJ/bHowbm
- 6mGYVbOnth8Qg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v1] ASoC: wm8904: fix wrong outputs volume after power
- reactivation
-Date: Fri, 23 Dec 2022 09:02:47 +0100
-Message-Id: <20221223080247.7258-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53CC6F8024E
+ for <alsa-devel@alsa-project.org>; Fri, 23 Dec 2022 10:05:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53CC6F8024E
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=xFkazDvv
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2BN95b9k061490;
+ Fri, 23 Dec 2022 03:05:37 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1671786337;
+ bh=krWiqS2oUAgZnBdjWUYd7ZyOWML2qAZv4M/kjqLdiK8=;
+ h=Date:Subject:To:CC:References:From:In-Reply-To;
+ b=xFkazDvv3nVGN9g0bN4pGSRpbSAZpNHC0N5Bq3+E9lLHyMFJdRb6a4nKuzkFNA5XS
+ LKgoJd9BkcXJs2Dth0WwBUiisJsp/hRUA6M/UG3a+e2pMBXg/1HWUp/5qESSIt3fSL
+ A6+JUJfY7u2XnhGnhwsqNRHRVwkcVkOslXLo9Ris=
+Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2BN95bgR011373
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 23 Dec 2022 03:05:37 -0600
+Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Fri, 23
+ Dec 2022 03:05:37 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16 via
+ Frontend Transport; Fri, 23 Dec 2022 03:05:37 -0600
+Received: from [172.24.145.60] (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2BN95Z4u028566;
+ Fri, 23 Dec 2022 03:05:35 -0600
+Message-ID: <c09a1673-7d6c-e2dc-1d29-eef3dc5bd486@ti.com>
+Date: Fri, 23 Dec 2022 14:35:34 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH v4] dt-bindings: sound: tlv320aic3x: Convert to dtschema
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20221221145216.11400-1-j-luthra@ti.com>
+ <Y6RCN9DxeW7WacPD@sirena.org.uk>
+From: Jai Luthra <j-luthra@ti.com>
+In-Reply-To: <Y6RCN9DxeW7WacPD@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,68 +93,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+Hi Mark,
 
-Restore volume after charge pump and PGA activation to ensure
-that volume settings are correctly applied when re-enabling codec
-from SND_SOC_BIAS_OFF state.
-CLASS_W, CHARGE_PUMP and POWER_MANAGEMENT_2 register configuration
-affect how the volume register are applied and must be configured first.
+On 22/12/22 17:10, Mark Brown wrote:
+> On Wed, Dec 21, 2022 at 08:22:16PM +0530, Jai Luthra wrote:
+>> Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
+>>
+>> The following properties are still found in some old dts files, but will
+>> be ignored by the driver:
+> 
+>> - assigned-clock-parents, assigned-clock-rates, assigned-clocks
+> 
+> These are from the common clock binding and will be handled by the clock
+> code.
 
-Fixes: a91eb199e4dc ("ASoC: Initial WM8904 CODEC driver")
-Link: https://lore.kernel.org/all/c7864c35-738c-a867-a6a6-ddf9f98df7e7@gmail.com/
-Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- sound/soc/codecs/wm8904.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Thanks, I will send v5 where a follow-up commit adds the missing 
+properties for clocks and port in the binding.
 
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index ca6a01a230af..791d8738d1c0 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -697,6 +697,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
- 	int dcs_mask;
- 	int dcs_l, dcs_r;
- 	int dcs_l_reg, dcs_r_reg;
-+	int an_out_reg;
- 	int timeout;
- 	int pwr_reg;
- 
-@@ -712,6 +713,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
- 		dcs_mask = WM8904_DCS_ENA_CHAN_0 | WM8904_DCS_ENA_CHAN_1;
- 		dcs_r_reg = WM8904_DC_SERVO_8;
- 		dcs_l_reg = WM8904_DC_SERVO_9;
-+		an_out_reg = WM8904_ANALOGUE_OUT1_LEFT;
- 		dcs_l = 0;
- 		dcs_r = 1;
- 		break;
-@@ -720,6 +722,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
- 		dcs_mask = WM8904_DCS_ENA_CHAN_2 | WM8904_DCS_ENA_CHAN_3;
- 		dcs_r_reg = WM8904_DC_SERVO_6;
- 		dcs_l_reg = WM8904_DC_SERVO_7;
-+		an_out_reg = WM8904_ANALOGUE_OUT2_LEFT;
- 		dcs_l = 2;
- 		dcs_r = 3;
- 		break;
-@@ -792,6 +795,10 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_update_bits(component, reg,
- 				    WM8904_HPL_ENA_OUTP | WM8904_HPR_ENA_OUTP,
- 				    WM8904_HPL_ENA_OUTP | WM8904_HPR_ENA_OUTP);
-+
-+		/* Update volume, requires PGA to be powered */
-+		val = snd_soc_component_read(component, an_out_reg);
-+		snd_soc_component_write(component, an_out_reg, val);
- 		break;
- 
- 	case SND_SOC_DAPM_POST_PMU:
--- 
-2.25.1
-
+--
+Jai

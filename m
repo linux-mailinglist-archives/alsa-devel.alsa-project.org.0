@@ -2,112 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 897CA655E18
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Dec 2022 19:55:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBC8655980
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 09:55:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DB534B4F;
-	Sun, 25 Dec 2022 19:54:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DB534B4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62168A97F;
+	Sat, 24 Dec 2022 09:55:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62168A97F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671994520;
-	bh=BIG0KI4nEE0oSCQV5wXv3V1lWW5dwsDnoLWdYtYQRaY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1671872152;
+	bh=m3Ir70l8g/TXMb/IV1C5kk10eAYAEp+V9k7xKdezeGA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=XNM0R3dAjG7QgfJLAPTa5FKAwFd+qcZMEM01fQXaFims9H4D8XillBSUia5E2poXC
-	 BSwncpaj9abXCqXvZnGLA6BPn/kZkcKRWxZe2PUBJNM0neGj5H3nbGnuczGuCYn7Dq
-	 TMu3ghOTDkk9UsFiaZAhicm9U6nvr9RgpeQxsavE=
+	b=sjeEzDAaosWSRRuIlv5DI6D4li9sryygeXjHtPflyrhKJqF2vaWA20LSr5fnCMykE
+	 O3b9ZiVkljEPYpNkSrw+i6cbywdSyjIZzpeygZeV6jjYbEUHBDKvQcII1rh1RL9VGa
+	 WY6tnZ4uiknqibLyTb67WwkD+zR4V3Cx/XZoTp7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12305F805B6;
-	Sun, 25 Dec 2022 19:49:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B1AEF80245;
+	Sat, 24 Dec 2022 09:54:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D50DFF80423; Sat, 24 Dec 2022 09:50:25 +0100 (CET)
+ id B2317F8032B; Sat, 24 Dec 2022 09:54:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73862F80249
+ for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 09:54:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73862F80249
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=BQWqu7Gb
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D034F80245
- for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 09:50:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D034F80245
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=pc/T0q5B
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BO8l2R0008795; Sat, 24 Dec 2022 08:50:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=OW+eLGSz1Heim9HIqKFjzlkSom2T4l1aNalgqaBNqGk=;
- b=pc/T0q5BtY5mgFJUeBeTpYbgJT8izfPC37HG0gDiBTDc+mHpBJebnrqoO0C5miXNQwq2
- ku9rsCBQFCFWXp4xHXMbh/N+JrAjfs6NjG7iwaVr+85yca4YatIGay6dQEct1GByzYME
- eXt/ptb3/+mGz/PIlXcaHTGmaNip8HKxxYlatViyslFvQshEmXi0kWFHSEL9GP2+3BAb
- cQaE8WdD7vhCNTnHUxQD4A9ywTy+IIlTGNHWqil4ZQELTEb2ZMVFfGYk7TUOChd6Dn6D
- jzL9LZ6teWtS+Fp2GwU37+m2O/PM222tpQuJIBl1tCF8jx3K5B/GpvVYzt+To6b9QTey HQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mnstf88yt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 24 Dec 2022 08:50:21 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BO8oJZZ015040
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 24 Dec 2022 08:50:19 GMT
-Received: from [10.110.37.149] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Sat, 24 Dec
- 2022 00:50:18 -0800
-Message-ID: <ec40628c-ac9e-7043-21c6-5b21231928a8@quicinc.com>
-Date: Sat, 24 Dec 2022 00:50:18 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH 12/14] sound: soc: qcom: qusb6: Ensure PCM format is
- supported by USB audio device
-Content-Language: en-US
-To: Sergey Shtylyov <s.shtylyov@omp.ru>, <srinivas.kandagatla@linaro.org>,
- <mathias.nyman@intel.com>, <perex@perex.cz>, <broonie@kernel.org>,
- <lgirdwood@gmail.com>, <andersson@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
- <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
- <robh+dt@kernel.org>, <agross@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 98E0B6020F;
+ Sat, 24 Dec 2022 08:54:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79562C433D2;
+ Sat, 24 Dec 2022 08:54:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1671872088;
+ bh=m3Ir70l8g/TXMb/IV1C5kk10eAYAEp+V9k7xKdezeGA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BQWqu7Gb6mhU/wDiU4LytDOURNWAMqtwN8md9fTezBNZ8s3NJfpnVvzG25oC2AQBa
+ mUTLJMUQpHRZFrjrutDBg+lmU8PcRq1jqM639Tb1fxPUlr19o73tkMM1VNMjNs8tqA
+ MpK8Xi23gbyhrOPX9UHjLfZeZj7KKVFgD3E6cjYg=
+Date: Sat, 24 Dec 2022 09:54:44 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Subject: Re: [RFC PATCH 06/14] usb: core: hcd: Introduce USB HCD APIs for
+ interrupter management
+Message-ID: <Y6a+VJ75lRIUE9yD@kroah.com>
 References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-13-quic_wcheng@quicinc.com>
- <6e5da084-d2fb-4b84-1c3c-cd428ee111ec@omp.ru>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <6e5da084-d2fb-4b84-1c3c-cd428ee111ec@omp.ru>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: h0uFfLzZYSailoaNKNxVSBUrq-SUnT9X
-X-Proofpoint-ORIG-GUID: h0uFfLzZYSailoaNKNxVSBUrq-SUnT9X
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-24_02,2022-12-23_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0
- clxscore=1011 phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- mlxscore=0 priorityscore=1501 impostorscore=0 mlxlogscore=999
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2212240074
-X-Mailman-Approved-At: Sun, 25 Dec 2022 19:49:46 +0100
+ <20221223233200.26089-7-quic_wcheng@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221223233200.26089-7-quic_wcheng@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,46 +81,60 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+ linux-usb@vger.kernel.org, bgoswami@quicinc.com, mathias.nyman@intel.com,
+ Thinh.Nguyen@synopsys.com, andersson@kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Sergey,
+On Fri, Dec 23, 2022 at 03:31:52PM -0800, Wesley Cheng wrote:
+> For USB HCDs that can support multiple USB interrupters, expose functions
+> that class drivers can utilize for setting up secondary interrupters.
+> Class drivers can pass this information to its respective clients, i.e.
+> a dedicated DSP.
 
-On 12/24/2022 12:19 AM, Sergey Shtylyov wrote:
-> Hello!
-> 
-> On 12/24/22 2:31 AM, Wesley Cheng wrote:
-> 
->> Check for if the PCM format is supported during the hw_params callback.  If
->> the profile is not supported then the userspace ALSA entity will receive an
->> error, and can take further action.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   sound/soc/qcom/qdsp6/q6usb.c | 9 ++++++++-
->>   1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
->> index a9da6dec6c6f..128e0974db4e 100644
->> --- a/sound/soc/qcom/qdsp6/q6usb.c
->> +++ b/sound/soc/qcom/qdsp6/q6usb.c
->> @@ -42,7 +42,14 @@ static int q6usb_hw_params(struct snd_pcm_substream *substream,
->>   			   struct snd_pcm_hw_params *params,
->>   			   struct snd_soc_dai *dai)
->>   {
->> -	return 0;
->> +	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
->> +	int direction = substream->stream;
->> +	int ret;
-> 
->     You don't seem to need this variable, just use *return*
-> snd_soc_usb_find_format(...) >
+Where is the locking here that seems to be required when a hcd is
+removed from the system and you have data in flight?  What am I missing
+here in the design of this?
 
-Thanks for catching this... Will fix it in the next submission I make. 
-Happy holidays!
+And yes, HCDs get removed all the time, and will happen more and more in
+the future with the design of more systems moving to Thunderbolt/PCIe
+designs due to the simplicity of it.
 
-Thanks
-Wesley Cheng
+> +/**
+> + * usb_set_interruper - Reserve an interrupter
 
+Where is an "interrupter" defined?  I don't know what this term means
+sorry, is this in the USB specification somewhere?
+
+
+> + * @udev: usb device which requested the interrupter
+> + * @intr_num: interrupter number to reserve
+> + * @dma: iova address to event ring
+> + *
+> + * Request for a specific interrupter to be reserved for a USB class driver.
+> + * This will return the base address to the event ring that was allocated to
+> + * the specific interrupter.
+> + **/
+> +phys_addr_t usb_set_interruper(struct usb_device *udev, int intr_num,
+> +							dma_addr_t *dma)
+> +{
+> +	struct usb_hcd *hcd;
+> +	phys_addr_t pa = 0;
+> +
+> +	hcd = bus_to_hcd(udev->bus);
+> +	if (hcd->driver->update_interrupter)
+> +		pa = hcd->driver->update_interrupter(hcd, intr_num, dma);
+> +
+> +	return pa;
+
+Wait, you return a physical address?  What are you going to do with
+that?  And what guarantees that the address is valid after you return it
+(again, remember memory and devices can be removed at any point in time.
+
+thanks,
+
+greg k-h

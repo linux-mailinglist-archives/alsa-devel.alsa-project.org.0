@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 645DB655A3B
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 14:20:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAECA655A59
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 15:41:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE50B40E;
-	Sat, 24 Dec 2022 14:19:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE50B40E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E831B742;
+	Sat, 24 Dec 2022 15:40:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E831B742
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671888001;
-	bh=6C3X9uEz6bvvaWpQW4gg5MAuaY6sm2kN2vHBUfjqPys=;
+	s=default; t=1671892891;
+	bh=kHtva9GAa7yQ+IY4fwwzkUZaLIYPWlYIIuqJJlfldG8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=M8azvdyUyb+j+uXZi3rS+TTGKpLycCXqhUlcoKV2XLgpoQpUX3ogJcnsVC8klUUA9
-	 MkJSUZT9XWhjLCY1Z0S1HgkujX7ZRbWDgxyO/CfWLAMP5PLLudeOFcj/Zl1WAgkKLK
-	 F+vlce0LLV4D/gmNEhAT1PeK3p0PROlprhj1gd7A=
+	b=Q9kuRidqbmUvD4UHC6Ur8yzAwXpmRknbpqYJMvo7fKENIl4YD+iv3RhazLM/1UhcB
+	 E/+mNgC6vJPfO75oIkZ9b3SjdLBC1GETWBvh0ayx3Dm9m8bnjOdy8NbordyJWEw4q0
+	 6o6RNtd2VQQA/6XVd8T1xgSCA86/blGzal4cZ7+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB6EDF80249;
-	Sat, 24 Dec 2022 14:19:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9C8BF80249;
+	Sat, 24 Dec 2022 15:40:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0888BF8047D; Sat, 24 Dec 2022 14:19:09 +0100 (CET)
+ id 7CD38F80423; Sat, 24 Dec 2022 15:40:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5180F80423
- for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 14:19:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5180F80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C254F80249
+ for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 15:40:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C254F80249
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=NFKISZG/
-Received: by mail-lf1-x12b.google.com with SMTP id m29so10350206lfo.11
- for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 05:19:01 -0800 (PST)
+ header.s=google header.b=lVPZBYKa
+Received: by mail-lf1-x131.google.com with SMTP id f34so10541414lfv.10
+ for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 06:40:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=l964Sz7PrS9bd/FwgahSBxYZ+/O1sM00ru1BQtUwYy8=;
- b=NFKISZG/4i4oQz8EFFmQS9FFmD+qNf7DPMInWvW155471LReeh7n37d2a8yuaou3Db
- yj5817LkRVASVLKC1Mbnz2GzF+vVeIfLw1EE6skJSb/zLXGyGpJFEEP9cFF+KU0ba6CO
- UmfGwAgykU6hLAv8RnUVIVUeKQWyeIe3TrLCpflWUlKOOyll8z1pbelaFz9aIDJZAgWV
- xuf/x9Z7PJB7M9Tsed+M7ZKmAzNtj9hZWr5CoAy6W6m5Y+WFe+sQJLtafFt9TTjfsxn7
- ia7FHU2rLbT9jdV/MqizUIGdT9vjz6xyaf1WJeEGhJgZaZ9b9GROWhd4nwuVvGqz8zrH
- s7PQ==
+ bh=Ot4y1v/6kGhsB43W5lYaREV5k7vVErtV06ABJyLGw3E=;
+ b=lVPZBYKatl1jb0EDXy5sPKMfxCQjGR5rk4JhOUSJyAz+lMGw4vYWdFEpyNJPHdmDIP
+ 8O1LsSJfpkpESOKMJSn4QGDA27Z4xjagR/HbiiqiEqbldN32b+MgohZ9xgBMljvelWwr
+ JbII+QbxL+LDlg0gKaJWKcamYq4uWM/+/37t0TyVMHGUD1ltucEQtQ3yTxvsLZ4blpZL
+ gAYUP16Hitp5U/T88SzM0DcjbyvR2UrQkJeTMWFfZZaer+FQAaaWFWCz5CPeeIbAbA7n
+ w6YhlMpND98RphOBPx9UoaCgWEUq77yf6zBcjEi33aJh3jzxBnian8Ga4R724+RZM6D3
+ bgPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=l964Sz7PrS9bd/FwgahSBxYZ+/O1sM00ru1BQtUwYy8=;
- b=jGLF+iGV8LSxOwyhIykjSWnKYhXxHUz7w/bETt3I99g0bo6srFPleiW+HyAlpbgt3Y
- Nc2Pa3Rf0Ex9ID/kX+wIG3EZP53/QduZR4Hlv1FkJCkrWyrQXELCrjh8bcnTIkg7cQt5
- VdrK5Kgm6CzGJeYMeZqsy9VfzedxWBK7LBJaXqizi5RR25remXw0SkNIOgHwu3PVS//5
- g1S+oVy9DRfQv+LlIC2Fx+eIgOKA50lznhujFETzheFj2SdgeaKYyAzotetoucNHJe00
- 511Cd3BWSpMXbkzEqNh4twtV0Rh7XTNZaLgGoJwfDgRXDm4AqG0K/NP3ebVpEshnckiM
- l88g==
-X-Gm-Message-State: AFqh2kpsoXNsVq2Kwsofax09paOdW4Jk61VhjRHkyGCFcRIKi6B72sFW
- 87aC1Y8HScHaxerNeUBkkffBSQ==
-X-Google-Smtp-Source: AMrXdXvD4flfN9Rdg5Kmm7mAde8jIetmVIvRx+e1lChO9BX8AOwzwl8AB+HpaSOvkDcxgk/hYyGrDQ==
-X-Received: by 2002:ac2:490f:0:b0:4b6:eca8:f6ca with SMTP id
- n15-20020ac2490f000000b004b6eca8f6camr3238637lfi.67.1671887939762; 
- Sat, 24 Dec 2022 05:18:59 -0800 (PST)
+ bh=Ot4y1v/6kGhsB43W5lYaREV5k7vVErtV06ABJyLGw3E=;
+ b=z0Wx6kgffVy3t6+OpWhZnd4XmCDaOns4OEUsoRI0YqVcrupBKwgCvk03uO+TSVCcCY
+ VQyeW3IBHaFlMeBtVlEHqUnOuwg9AVHduzVzkOIWL37LQuJb3wwmPGXGPfg1nSjMkVzv
+ AondMemXbmA0K5V8JXto3bR+H8Il9lf4+xm8RxqRTKfTDouw3WLfp3nOqD/tdygmmKCr
+ laUFDs/6HeMOl5fS5OpxNGC+FsLtu4B103xEqB03hVniLSiCRKzQae71FxB82R0MXarh
+ 8320G/cdwbtw9Hm52ofK9CkviTJIUBDGO073jNA6Tottj85SsW9+ig8SsS+/onSWxLEd
+ Pqng==
+X-Gm-Message-State: AFqh2krWNjkFpPDe2pgk18c4L2jBEcjCaUJPD+jP9hAnfffzvC8mBYhJ
+ OHwRlCuv0gDH64s5X+ZRS8wtIo774pAuBBn/
+X-Google-Smtp-Source: AMrXdXvJGiHSbaP745Kpqugib5NXtxgXQBl1bFHWh9CyQRBuB7Fir6p3+hlgpoKSVVVVR+ygW956OQ==
+X-Received: by 2002:a05:6512:168d:b0:4ca:fd5f:ce82 with SMTP id
+ bu13-20020a056512168d00b004cafd5fce82mr530060lfb.49.1671892825195; 
+ Sat, 24 Dec 2022 06:40:25 -0800 (PST)
 Received: from [192.168.0.20]
  (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
  by smtp.gmail.com with ESMTPSA id
- h13-20020a05651211cd00b004a2511b8224sm926090lfr.103.2022.12.24.05.18.58
+ c18-20020ac244b2000000b004cb018ad4dfsm15286lfm.135.2022.12.24.06.40.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Dec 2022 05:18:59 -0800 (PST)
-Message-ID: <9d97247a-a921-bc7e-94f5-dcc583842a42@linaro.org>
-Date: Sat, 24 Dec 2022 14:18:58 +0100
+ Sat, 24 Dec 2022 06:40:24 -0800 (PST)
+Message-ID: <838e7657-817c-e5bd-5a45-d852560c7fe1@linaro.org>
+Date: Sat, 24 Dec 2022 15:40:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH v1 2/3] ASoC: dt-bindings: nau8822: add nuvoton,spk-btl
- property to dtschema
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: lpass-va: add npl clock for new
+ VA macro
 Content-Language: en-US
-To: Francesco Dolcini <francesco@dolcini.it>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
-References: <20221223170404.210603-1-francesco@dolcini.it>
- <20221223170404.210603-3-francesco@dolcini.it>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
+References: <20221118071849.25506-1-srinivas.kandagatla@linaro.org>
+ <20221118071849.25506-2-srinivas.kandagatla@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221223170404.210603-3-francesco@dolcini.it>
+In-Reply-To: <20221118071849.25506-2-srinivas.kandagatla@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -108,28 +107,89 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: wtli@nuvoton.com, Takashi Iwai <tiwai@suse.com>, kchsu0@nuvoton.com,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Benjamin Marty <info@benjaminmarty.ch>, Mark Brown <broonie@kernel.org>,
- David Lin <CTLIN0@nuvoton.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/12/2022 18:04, Francesco Dolcini wrote:
-> From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+On 18/11/2022 08:18, Srinivas Kandagatla wrote:
+> LPASS VA Macro now has soundwire master to deal with access to
+> analog mic in low power island use cases. This also means that VA macro
+> now needs to get hold of the npl clock too. Add clock bindings required
+> for this.
 > 
-> Add nuvoton,spk-btl to configure the two loudspeaker outputs
-> as Bridge Tied Load
+> As part of adding this bindings, also update bindings to be able to
+> specific and associate the clock names specific to the SoC.
 > 
-> Cc: David Lin <CTLIN0@nuvoton.com>
-> Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../bindings/sound/qcom,lpass-va-macro.yaml   | 63 ++++++++++++++++---
+>  1 file changed, 55 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> index c36caf90b837..288a1d5ad585 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> @@ -27,16 +27,12 @@ properties:
+>      const: 0
+>  
+>    clocks:
+> -    maxItems: 3
+> +    minItems: 1
+> +    maxItems: 4
+>  
+>    clock-names:
+> -    oneOf:
+> -      - items:   #for ADSP based platforms
+> -          - const: mclk
+> -          - const: core
+> -          - const: dcodec
+> -      - items:   #for ADSP bypass based platforms
+> -          - const: mclk
+> +    minItems: 1
+> +    maxItems: 4
+>  
+>    clock-output-names:
+>      maxItems: 1
+> @@ -60,6 +56,57 @@ required:
+>    - compatible
+>    - reg
+>    - "#sound-dai-cells"
+> +  - clock-names
+> +  - clocks
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7280-lpass-va-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm8250-lpass-va-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 3
+> +          maxItems: 3
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +            - const: core
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+There was no follow up on this patch and I just hit the warning here, so
+let me bring this back - that's not correct name. DTS and drivers use macro.
 
 Best regards,
 Krzysztof

@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37AD6558BF
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 07:50:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46EC86558E6
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 08:21:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68134A491;
-	Sat, 24 Dec 2022 07:49:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68134A491
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9FB6A5B7;
+	Sat, 24 Dec 2022 08:21:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9FB6A5B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671864606;
-	bh=TDbwSX+RZR85hFNOXP679l8Ts/uVY1WswfG1Rm5eWpU=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1671866510;
+	bh=h5wzDr7gLfzy22xDxrNurDVV8JBTfjO+3cPkPv7quuQ=;
+	h=Date:Subject:From:To:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=Oetpq1BvEAgekzgSnz4oGUj0ZWMmqnbLlL08MNV+/BdJpvbkzR1CRE3O/IHrgp88T
-	 gSdtQWjyqtUBTUIsO+LvQhUrk2JdCfjPyX1PBgXvH9wJte8FBLNYVPIjAppD1ZDLT3
-	 YKpn4W4C2xvOxdkvUazn6dilH90z0umyCSuqOlXU=
+	 From;
+	b=erwNTd0XbLjAMx1nWxn1oi0GrfkdxvItS4oQ4iRf0xHvjE4gKsOdf+tIrDFo9VF/z
+	 DwxJZXfT1GScokHq/QxNTOyhIebMRHN1nfOWsj7T9tko9RwmKWbNWprPBW6oa4LjuS
+	 92fXOqmMn/IezAcjMV3gMdFnI/rDz656BwkMcxQM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC3A6F8045D;
-	Sat, 24 Dec 2022 07:49:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D412F80245;
+	Sat, 24 Dec 2022 08:20:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1626F80249; Sat, 24 Dec 2022 07:49:07 +0100 (CET)
+ id 71CEFF8032B; Sat, 24 Dec 2022 08:20:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.1 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E73F5F80249
- for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 07:49:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E73F5F80249
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=NILFU/aF
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9F92260010;
- Sat, 24 Dec 2022 06:49:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734A0C433D2;
- Sat, 24 Dec 2022 06:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1671864544;
- bh=TDbwSX+RZR85hFNOXP679l8Ts/uVY1WswfG1Rm5eWpU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NILFU/aF5VNT1SOEMGiPNn1U/V5SmGstafo839scVcFjKX+SLxbR3Pgy3usDkVyM+
- w3bHMlHzM4YnhAL0fQXqUoDIMLQ/i2+OO7scNTfxlyShzATTa/xgvFBDgkqQN2cwa4
- O04xzRtAMjFVVDbLrmJD7ShDnnRA2t1TPbVWl4Oo=
-Date: Sat, 24 Dec 2022 07:48:59 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: Re: [RFC PATCH 05/14] sound: usb: Export USB SND APIs for modules
-Message-ID: <Y6ag20C20gVFGE5F@kroah.com>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-6-quic_wcheng@quicinc.com>
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69204F80245
+ for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 08:20:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69204F80245
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1p8yps-0000x0-Oo; Sat, 24 Dec 2022 08:20:48 +0100
+Message-ID: <f1770b7c-d287-a255-0298-2523ce3a9565@leemhuis.info>
+Date: Sat, 24 Dec 2022 08:20:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221223233200.26089-6-quic_wcheng@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [6.2][regression] after commit
+ ffcb754584603adf7039d7972564fbf6febdc542 all sound devices disappeared (due
+ BUG at mm/page_alloc.c:3592!) #forregzbot
+Content-Language: en-US, de-DE
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: alsa-devel@alsa-project.org,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+References: <CABXGCsPnpu0TGHnvXM1we7q1t3tJAOYW2rA=AMvf7ZahcYvpRQ@mail.gmail.com>
+ <5dff36ee-bfe5-4596-b01d-0eaca1b552bd@leemhuis.info>
+In-Reply-To: <5dff36ee-bfe5-4596-b01d-0eaca1b552bd@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1671866450;
+ edf446c9; 
+X-HE-SMSGID: 1p8yps-0000x0-Oo
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,28 +76,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, bgoswami@quicinc.com, mathias.nyman@intel.com,
- Thinh.Nguyen@synopsys.com, andersson@kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Dec 23, 2022 at 03:31:51PM -0800, Wesley Cheng wrote:
-> +EXPORT_SYMBOL(snd_usb_autoresume);
 
-EXPORT_SYMBOL_GPL()?  I have to ask...
 
-Same for the other ones here.
+On 22.12.22 13:17, Thorsten Leemhuis wrote:
+> [Note: this mail contains only information for Linux kernel regression
+> tracking. Mails like these contain '#forregzbot' in the subject to make
+> then easy to spot and filter out. The author also tried to remove most
+> or all individuals from the list of recipients to spare them the hassle.]
+> 
+> On 15.12.22 15:17, Mikhail Gavrilov wrote:
+>> Hi,
+>> The kernel 6.2 preparation cycle has begun and yesterday after the
+>> kernel was updated on my Fedora Rawhide all audio devices disappeared.
+> 
+> Thanks for the report. To be sure below issue doesn't fall through the
+> cracks unnoticed, I'm adding it to regzbot, my Linux kernel regression
+> tracking bot:
+> 
+> #regzbot ^introduced ffcb754584603adf
+> #regzbot title dma-mapping: audio devices disappeared
+> #regzbot monitor:
+> https://lore.kernel.org/all/20221220082009.569785-1-hch@lst.de/
+> #regzbot fix: dma-mapping: reject GFP_COMP for noncohernt allocaions
 
-> +EXPORT_SYMBOL(find_format);
+The typo in the subject of the fix was fixed, hence this is needed:
 
-That is not a valid global symbol name to use, you know better than
-this...
-
-thanks,
-
-greg k-h
+#regzbot fix: 3622b86f49f8

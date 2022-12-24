@@ -2,107 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 746F2655E14
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Dec 2022 19:54:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D27A6558B3
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Dec 2022 07:46:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF9824B58;
-	Sun, 25 Dec 2022 19:53:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF9824B58
+	by alsa0.perex.cz (Postfix) with ESMTPS id 009C4A473;
+	Sat, 24 Dec 2022 07:46:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 009C4A473
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671994457;
-	bh=FfRgHL/7Dx/SVKBCkpvhzPjgwsAoVkg6PuI3GqsuH20=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1671864417;
+	bh=6/p2lJLvTI6+tX0sbCT6LxS3aVzQMk+GVkfofNfWnog=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=TPAQttH+//SnPUyUyTte8MPf9txoTW9aCG24BcW5shtB8fYODFHSGszYyiqIE3fLw
-	 B3H5KqZ08NkfGAuudRmP5ML4NiGyzFChahhXRvH9ZQW0D95iUKr7rD9T0p+oux2Fou
-	 Gela4m59FbsN4WhHrgrJD5VRwjdhOf8M1xWOKk+Y=
+	b=X65AOznnptNhTjgsb2UqMuFXfB5ibr28ckinhf/NApY5a40tEqDv80dSrHR2q0biB
+	 JVe/0Pzy/EjfbcTAmBV1Q48gXVJhOCUoQHRZuAJjAbjpshktjsfPMNX7sUZGHl9/eo
+	 dMmlY06fXyTSM5zJahKjLXplXsQEeEbqI0afdPjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D306EF805AB;
-	Sun, 25 Dec 2022 19:49:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73B9AF80249;
+	Sat, 24 Dec 2022 07:45:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50CE3F80423; Sat, 24 Dec 2022 00:33:02 +0100 (CET)
+ id 44D91F8032B; Sat, 24 Dec 2022 07:45:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC9B1F802E0
+ for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 07:45:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC9B1F802E0
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=E0X03KlO
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CAD4F80536
- for <alsa-devel@alsa-project.org>; Sat, 24 Dec 2022 00:32:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CAD4F80536
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=BDfQM1rD
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BNNTUiv005442; Fri, 23 Dec 2022 23:32:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=l+njOKa/UFfOWF7VK5VgFL97OAxm3R4PP9cElfezPbw=;
- b=BDfQM1rDgFYx5Yg4OSGFVIGTDr5fFfBzYrKCehF5U1KkQJMEQuvRTTWdvVK9QkYEJyQB
- 4Ufn+rkTQvRVDQcq+O20mDfvPjethgoATImHVQFZmfdwcy13FWyh9X7idZ8QuPBLjvUJ
- d5t0rLUXcU+ab7k4gH4D8PhZ8EOUw6h32lodMMZmgZBvRCUknTdqRl5v/mmvNMWvOOG/
- SfyB/QNOIkCq+m6/G6K7v37MBe34V0e5S/v/dRKJgeZxsUfkXXTHr5cPTTJfKmvYWsU1
- zUDa6Xt3XW32SfeJwhs5ny9DbK4FLZ84jYtPVvlRY3uPZ8RAiGkYc5dWWqQB3Nwb+cS6 MA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mn2pga506-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Dec 2022 23:32:48 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BNNWlrM001248
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Dec 2022 23:32:47 GMT
-Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Fri, 23 Dec 2022 15:32:47 -0800
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-To: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
- <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <gregkh@linuxfoundation.org>, <Thinh.Nguyen@synopsys.com>,
- <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <agross@kernel.org>
-Subject: [RFC PATCH 14/14] ASoC: dt-bindings: Update example for enabling USB
- offload on SM8250
-Date: Fri, 23 Dec 2022 15:32:00 -0800
-Message-ID: <20221223233200.26089-15-quic_wcheng@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221223233200.26089-1-quic_wcheng@quicinc.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id EA251B81CD9;
+ Sat, 24 Dec 2022 06:45:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2D4C433D2;
+ Sat, 24 Dec 2022 06:45:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1671864341;
+ bh=6/p2lJLvTI6+tX0sbCT6LxS3aVzQMk+GVkfofNfWnog=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E0X03KlOd6ZaEkNOUT2Z6xoeiqL40qPcdj9j3PX8lCAm3YG06FNE92n9h+mdroegL
+ jWhb0sSGkxA5j2STjmEyjKxl1ZiMoLzzrBKulptvKjK0NbBVPsaxkL/oimlC+dPA74
+ lTBBDSW0/5YHnbj2H9pA5W0FeV3EUqqCIkSmBPGU=
+Date: Sat, 24 Dec 2022 07:45:38 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Subject: Re: [RFC PATCH 00/14] Introduce QC USB SND audio offloading support
+Message-ID: <Y6agEsfXKMMXPpmz@kroah.com>
 References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: FeDgiKh3WUckl5Si_5rWFheXgwsrsGlF
-X-Proofpoint-GUID: FeDgiKh3WUckl5Si_5rWFheXgwsrsGlF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-12-23_08,2022-12-23_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 impostorscore=0
- mlxlogscore=799 lowpriorityscore=0 suspectscore=0 mlxscore=0 phishscore=0
- clxscore=1015 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2212230197
-X-Mailman-Approved-At: Sun, 25 Dec 2022 19:49:46 +0100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221223233200.26089-1-quic_wcheng@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,42 +78,97 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Wesley Cheng <quic_wcheng@quicinc.com>,
- quic_jackp@quicinc.com, quic_plai@quicinc.com
+ linux-usb@vger.kernel.org, bgoswami@quicinc.com, mathias.nyman@intel.com,
+ Thinh.Nguyen@synopsys.com, andersson@kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add an example on enabling of USB offload for the Q6DSP.  The routing can
-be done by the mixer, which can pass the multimedia stream to the USB
-backend.
+On Fri, Dec 23, 2022 at 03:31:46PM -0800, Wesley Cheng wrote:
+> Several Qualcomm based chipsets can support USB audio offloading to a
+> dedicated audio DSP, which can take over issuing transfers to the USB
+> host controller.  The intention is to reduce the load on the main
+> processors in the SoC, and allow them to be placed into lower power modes.
+> There are several parts to this design:
+>   1. Adding ASoC binding layer
+>   2. Create a USB backend for Q6DSP
+>   3. Introduce XHCI interrupter support
+>   4. Create vendor ops for the USB SND driver
+> 
+> Adding ASoC binding layer:
+> soc-usb: Intention is to treat a USB port similar to a headphone jack.
+> The port is always present on the device, but cable/pin status can be
+> enabled/disabled.  Expose mechanisms for USB backend ASoC drivers to
+> communicate with USB SND.
+> 
+> Create a USB backend for Q6DSP:
+> q6usb: Basic backend driver that will be responsible for maintaining the
+> resources needed to initiate a playback stream using the Q6DSP.  Will
+> be the entity that checks to make sure the connected USB audio device
+> supports the requested PCM format.  If it does not, the PCM open call will
+> fail, and userpsace ALSA can take action accordingly.
+> 
+> Introduce XHCI interrupter support:
+> XHCI HCD supports multiple interrupters, which allows for events to be routed
+> to different event rings.  This is determined by "Interrupter Target" field
+> specified in Section "6.4.1.1 Normal TRB" of the XHCI specification.
+> 
+> Events in the offloading case will be routed to an event ring that is assigned
+> to the audio DSP.
+> 
+> Create vendor ops for the USB SND driver:
+> qc_audio_offload: This particular driver has several components associated
+> with it:
+> - QMI stream request handler
+> - XHCI interrupter and resource management
+> - audio DSP memory management
+> 
+> When the audio DSP wants to enable a playback stream, the request is first
+> received by the ASoC platform sound card.  Depending on the selected route,
+> ASoC will bring up the individual DAIs in the path.  The Q6USB backend DAI
+> will send an AFE port start command (with enabling the USB playback path), and
+> the audio DSP will handle the request accordingly.
+> 
+> Part of the AFE USB port start handling will have an exchange of control
+> messages using the QMI protocol.  The qc_audio_offload driver will populate the
+> buffer information:
+> - Event ring base address
+> - EP transfer ring base address
+> 
+> and pass it along to the audio DSP.  All endpoint management will now be handed
+> over to the DSP, and the main processor is not involved in transfers.
+> 
+> Overall, implementing this feature will still expose separate sound card and PCM
+> devices for both the platorm card and USB audio device:
+>  0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
+>                       SM8250-MTP-WCD9380-WSA8810-VA-DMIC
+>  1 [Audio          ]: USB-Audio - USB Audio
+>                       Generic USB Audio at usb-xhci-hcd.1.auto-1.4, high speed
+> 
+> This is to ensure that userspace ALSA entities can decide which route to take
+> when executing the audio playback.  In the above, if card#1 is selected, then
+> USB audio data will take the legacy path over the USB PCM drivers, etc...
+> 
+> This feature was validated using:
+> - tinymix: set/enable the multimedia path to route to USB backend
+> - tinyplay: issue playback on platform card
 
-Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
----
- .../devicetree/bindings/sound/qcom,sm8250.yaml      | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+This looks to duplicate a bunch of the same things that a number of
+different google developers have posted recently.  Please work with them
+to come up with a unified set of patches that you all can agree with,
+AND get them to sign off on the changes before resubmitting them.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 70080d04ddc9..60cd84e6727a 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -216,6 +216,19 @@ examples:
-                 sound-dai = <&vamacro 0>;
-             };
-         };
-+
-+        usb-dai-link {
-+            link-name = "USB Playback";
-+            cpu {
-+                sound-dai = <&q6afedai USB_RX>;
-+            };
-+            codec {
-+                sound-dai = <&usbdai USB_RX>;
-+            };
-+            platform {
-+                sound-dai = <&q6routing>;
-+            };
-+        };
-     };
- 
-   - |
+This uncoordinated drip of patches from different people doing the same
+thing is almost impossible to review from our side, as I'm sure you can
+imagine.
+
+That being said, thank you finally for at least submitting all of the
+needed changes together as one patch set.  That's a first, and something
+we had been asking for for years.
+
+Have a good holiday break,
+
+greg k-h

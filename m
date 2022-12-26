@@ -2,75 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86A36565AA
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 23:58:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C083565660F
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 00:35:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71BD3643A;
-	Mon, 26 Dec 2022 23:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71BD3643A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EA2765A0;
+	Tue, 27 Dec 2022 00:34:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EA2765A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672095506;
-	bh=Wti5O+00kVoBmzkKswTPUDc+8JKLmMqF4b5CHt77e60=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1672097705;
+	bh=7DsybbBBAfTaw/MyZaW8yFKygVp4C3sX9HBvOmr/AQA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=gm8BjF1f+qqJkcJV3O1wkGWm4Ej+RiN/5BXQ5YwkX95z163i9jDgJKj7dRFUJ6Cst
-	 R3NHWATjaXd1PPxXKvotGxHIlT/a1pG7FSVxmjMrbyMwM49UCaCbUx5OCYeoob7gDN
-	 e4b/QXIHd8MdnLelqIPIS+kczV4BoY+LzcZ6J9QQ=
+	b=bawINosVb2jsBNS/z57tcFXGYUP85Nbt6TbGpEVK1XPaRFoeOpNt+64SLleo8k17h
+	 peHYRdadQIOiwJUi98rjBg2q9NIMWCBFNUfuO0szDbXTn8l8cPK3pAVVWkyBznMGtz
+	 p6vMiv7rxA7KVKCNq0fEVw48tysjr7vOht6khSos=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D997EF802A0;
-	Mon, 26 Dec 2022 23:57:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C951F8027B;
+	Tue, 27 Dec 2022 00:34:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB28EF8042F; Mon, 26 Dec 2022 23:57:24 +0100 (CET)
+ id 95229F80310; Tue, 27 Dec 2022 00:34:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 628E1F800F0
- for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 23:57:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 628E1F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECBAAF8027B
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 00:33:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECBAAF8027B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mM5WMwZZ
+ header.s=k20201202 header.b=TJ+UpzFE
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 409FD60EE0;
- Mon, 26 Dec 2022 22:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAA8C433D2;
- Mon, 26 Dec 2022 22:57:15 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id AB24DCE0ED9;
+ Mon, 26 Dec 2022 23:33:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9623EC433EF;
+ Mon, 26 Dec 2022 23:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672095438;
- bh=Wti5O+00kVoBmzkKswTPUDc+8JKLmMqF4b5CHt77e60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mM5WMwZZSj4y5reqpjVqwaFFLgUdoLXqlSI/D9TJfClLz9ZQo5/wnnnqUVNc8Y25o
- M0gvOqg3oSboFXCnk7e5VnuFC+29uVViQ6cK/KBXc5BNirjRvcSu2SprbyRkqz4dll
- 9x7B0LNEXFtTLfI16iX/MWQKFY8dDWViSrfCVSEfH9cQ5GYYFPn7FAL7YIwrAkVRpC
- N33F6qNE4NV8pjgHQmraElbqgI5P3uLRmqtj+J140r24NriBV8xWK4kHRbuPHOVI6X
- tntGhtlByw2YUl6rw2o7E8lIn3CdQwZF9oUMTi7hhrDGZTkOTk+QB7SshiT33tXtA5
- bu3bd2YHvDggA==
-Date: Mon, 26 Dec 2022 22:57:12 +0000
+ s=k20201202; t=1672097634;
+ bh=7DsybbBBAfTaw/MyZaW8yFKygVp4C3sX9HBvOmr/AQA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=TJ+UpzFEDwFLbxscII1eoB1vN56nUV4f50QVIrLfxfIGy1TgNdofvm/WE0BV9Lvqc
+ V5SRlFyEasnroQlJ6MeslSpE91Z1bJWIqCbDeZppdKEoo1HEmBVdKBa4kBDKcBp+/Q
+ 8llM+rzO9OjBzxA16aAuYBGrHp0824GJ7Jr3AxyNNSveArcpa2IR3DKUmUUo9vg8Fs
+ R9vncwZFKL77rbliQqprVR+CXCsRvT4QHQ2phwCU3ARrExANQRzmc47t8DF/3h+6/9
+ FdK7v2WUFC/AkEs5Z3/CCsVRzZ7rzKK9vVtzS+i/QCgVvYxcrmyw8gefh+/8XT+6bu
+ sl6CuwhsOT+sg==
 From: Mark Brown <broonie@kernel.org>
-To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH 3/5] ASoC: amd: acp: Refactor dai format implementation
-Message-ID: <Y6omyPeaZIaGL/EW@sirena.org.uk>
-References: <20221220072705.1456908-1-venkataprasad.potturu@amd.com>
- <20221220072705.1456908-4-venkataprasad.potturu@amd.com>
+To: Wim Van Boven <wimvanboven@gmail.com>
+In-Reply-To: <20221216081828.12382-1-wimvanboven@gmail.com>
+References: <20221216081828.12382-1-wimvanboven@gmail.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
+Message-Id: <167209763231.330820.17564668361422560655.b4-ty@kernel.org>
+Date: Mon, 26 Dec 2022 23:33:52 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="h5fGREPqKqgMueed"
-Content-Disposition: inline
-In-Reply-To: <20221220072705.1456908-4-venkataprasad.potturu@amd.com>
-X-Cookie: Noone ever built a statue to a critic.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-7ab1d
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +80,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- ye xingchen <ye.xingchen@zte.com.cn>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jia-Ju Bai <baijiaju1990@gmail.com>, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Vijendar.Mukunda@amd.com, vsujithkumar.reddy@amd.com,
- open list <linux-kernel@vger.kernel.org>
+Cc: alsa-devel@alsa-project.org, Xiaoyan Li <lxy.lixiaoyan@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Leohearts <leohearts@leohearts.com>, linkt <xazrael@hotmail.com>,
+ Brent Mendelsohn <mendiebm@gmail.com>,
+ syed sabakareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 16 Dec 2022 09:18:27 +0100, Wim Van Boven wrote:
+> Razer Blade 14 (2022) - RZ09-0427 needs the quirk to enable the built in microphone
+> 
+> 
 
---h5fGREPqKqgMueed
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Tue, Dec 20, 2022 at 12:57:03PM +0530, Venkata Prasad Potturu wrote:
-> Refactor dai format implementation in dai_link specific
-> snd_soc_ops.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This breaks an x86 allmodconfig build:
+Thanks!
 
-/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c: In function =E2=80=
-=98acp_card_maxim_hw_params=E2=80=99:
-/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c:454:13: error: =E2=
-=80=98drvdata=E2=80=99 undeclared (first use in this function)
-  454 |         if (drvdata->soc_mclk)
-      |             ^~~~~~~
-/build/stage/linux/sound/soc/amd/acp/acp-mach-common.c:454:13: note: each u=
-ndeclared identifier is reported only once for each function it appears in
+[1/1] ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
+      commit: 68506a173dd700c2bd794dcc3489edcdb8ee35c6
 
---h5fGREPqKqgMueed
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOqJscACgkQJNaLcl1U
-h9A9WAf7BvZ7QNfzBCPPyXGxrXWwjIKX83E0fKopQpPw+AAwbjjH4TCk8gx1hTC6
-GGmNtlgTGDgsSUE6+3/CdvcNBJUw0joK+mjaCZBC3oeAwr4Ku/KlQjRqW82S1Hxd
-oRT0JlJ/dglR2WhZvgMUlPBbZNLlL0rHuM4ghe8AAfTLBhhigOBQpyFbiYhb2MH8
-P2bHd+IQ9U1jVZ8Ejuw5a9XrSHCnbYkpuH9YdaF6HIDGlnTO2f5hT84kbyFBDmtp
-/7kva/qQzRGLKOec5sF16sizwnNhK6rb7BY9ByiipGR4RHrWmsdi5Q5bDHyz3RTz
-vZj0Wy8cDERGIrsQlX3hnGc5l77Eiw==
-=3Fz1
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---h5fGREPqKqgMueed--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

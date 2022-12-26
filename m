@@ -2,65 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4293F6562D7
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 14:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0375A6564CB
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 20:25:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BFBA5726;
-	Mon, 26 Dec 2022 14:26:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BFBA5726
+	by alsa0.perex.cz (Postfix) with ESMTPS id E50AB5F30;
+	Mon, 26 Dec 2022 20:24:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E50AB5F30
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672061239;
-	bh=wL7NYT8/SibbMEZOhC/v2fMqD5ZC85zFzePjK2gh53c=;
+	s=default; t=1672082742;
+	bh=h1+l2fsOqjiY39qLICXGAAKDlFVfeCgz9S8OrNIWA1s=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=FsHkvhkAIPBUCcuK1YcQgVAfvYu8J69KR2IPWnmp4i/3kH41bhJ2y2ziepDH7+46X
-	 UB0Gb55Pd0Nu5ss0mr2l8gGmkyHquJaOFphavH/PfozJ63WErPWjQ2N0RLdulprfpN
-	 RqCgUX2NH5IKe+zsd2d3MGjPi1+xq0eGR3vYQ4JU=
+	b=h0ePQvu7yaDTxXkanOhqnK7zl8D68Y4y/oY1eVuXy+KU0L1sS7yB58ovqXXPWvVK6
+	 6L9q40elOxV1/T0hYvoBuF8ay0sPvFfkPHn4YBuDdDWzkZH3/KMEfHQsg8mlYeT2UC
+	 HwHLeFrYrmgB5vtzaRE9pFz+cJUtgTJ3CWKZ5mVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB4AAF800F0;
-	Mon, 26 Dec 2022 14:26:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A5F8F800F0;
+	Mon, 26 Dec 2022 20:24:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6314BF80310; Mon, 26 Dec 2022 14:26:18 +0100 (CET)
+ id 671A2F80310; Mon, 26 Dec 2022 20:24:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.1 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFEF4F8027B
- for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 14:26:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFEF4F8027B
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1p9nUa-0005in-9g; Mon, 26 Dec 2022 14:26:12 +0100
-Message-ID: <163d5366-35d9-f7db-cf50-796d6b011c0a@leemhuis.info>
-Date: Mon, 26 Dec 2022 14:26:11 +0100
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13A0AF80134
+ for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 20:24:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13A0AF80134
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
+ header.s=default header.b=2P9cw4xV
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 89DACA003F;
+ Mon, 26 Dec 2022 20:24:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 89DACA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1672082656; bh=G+feGOdiLCP3tiUA/WiebYF7xmjX4QgATt6Yoy3yzMc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=2P9cw4xV0sfTsmKCNRmPtGqCR4N78rkcFlOheLZnSLaJMlidFWyJZigNKefI8Pegq
+ UF2iWY1e9EaXE04wKOfHY4wo8wnjuYtDI/ivgaD6eDWto8SAEWNcYZtPviWlh18Iak
+ syN0AN6eAEC//Q7FHfbwzeDrczoAKaNHeAGAeFUU=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 26 Dec 2022 20:24:11 +0100 (CET)
+Message-ID: <47f3590c-f371-c997-374f-0a2a3dde86dc@perex.cz>
+Date: Mon, 26 Dec 2022 20:24:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
+ Thunderbird/102.5.0
 Subject: Re: [PATCH] ALSA: hda/hdmi: Use only dynamic PCM device allocation
- #forregzbot
-Content-Language: en-US, de-DE
-To: ALSA development <alsa-devel@alsa-project.org>
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, =?UTF-8?Q?Michael_La=c3=9f?=
+ <bevan@bi-co.net>
 References: <20220922084017.25925-1-perex@perex.cz>
  <1c9c00dec72c241a399b3b7c0a305382a5712529.camel@bi-co.net>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <1c9c00dec72c241a399b3b7c0a305382a5712529.camel@bi-co.net>
-Content-Type: text/plain; charset=UTF-8
+ <87edsnxqmo.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <87edsnxqmo.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1672061174;
- 839a19c5; 
-X-HE-SMSGID: 1p9nUa-0005in-9g
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,67 +84,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- amd-gfx@lists.freedesktop.org
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ amd-gfx@lists.freedesktop.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[Note: this mail contains only information for Linux kernel regression
-tracking. Mails like these contain '#forregzbot' in the subject to make
-then easy to spot and filter out. The author also tried to remove most
-or all individuals from the list of recipients to spare them the hassle.]
-
-On 25.12.22 13:14, Michael Laß wrote:
-> CC'ing amd-gfx as this might be an issue in the amd driver.
+On 25. 12. 22 19:52, Takashi Iwai wrote:
+> On Sun, 25 Dec 2022 13:14:28 +0100,
+> Michael Laß wrote:
+>>
+>> CC'ing amd-gfx as this might be an issue in the amd driver.
+>>
+>> This change causes a regression in Linux 6.1 at least on some AMD APUs.
+>> There are reports from users with Ryzen 4750U, 5800U and 5850U chips
+>> where the HDMI sound devices don't show up anymore. I'm affected by
+>> this as well.
+>>
+>> Reverting this commit (ef6f5494) makes the HDMI audio devices show up
+>> again. I verified that this is still an issue in current Linux git
+>> (72a85e2b).
+>>
+>> Am Donnerstag, dem 22.09.2022 um 10:40 +0200 schrieb Jaroslav Kysela:
+>>>> Per discussion on the alsa-devel mailing list [1], the legacy PIN to PCM
+>>>> device mapping is obsolete nowadays. The maximum number of the simultaneously
+>>>> usable PCM devices is equal to the HDMI codec converters.
+>>>>
+>>>> Remove the extra PCM devices (beyond the detected converters) and force
+>>>> the use of the dynamic PCM device allocation. The legacy code is removed.
+>>>>
+>>>> I believe that all HDMI codecs have the jack sensing feature. Move the check
+>>>> to the codec probe function and print a warning, if a codec without this
+>>>> feature is detected.
+>>
+>> The corresponding message ("jack not detectable") is not shown on the
+>> affected system.
+>>
+>>>> [1] https://lore.kernel.org/alsa-devel/2f37e0b2-1e82-8c0b-2bbd-1e5038d6ecc6@perex.cz/
+>>
+>> Links to some reports of this issue:
+>> https://bugzilla.kernel.org/show_bug.cgi?id=216836
+>> https://bbs.archlinux.org/viewtopic.php?pid=2075700
+>> https://bugs.archlinux.org/task/76917
+>> https://www.reddit.com/r/archlinux/comments/zsqq7i/hdmi_audio_is_broken_after_updating_kernel_to_611
 > 
-> This change causes a regression in Linux 6.1 at least on some AMD APUs.
-> There are reports from users with Ryzen 4750U, 5800U and 5850U chips
-> where the HDMI sound devices don't show up anymore. I'm affected by
-> this as well.
-> 
-> Reverting this commit (ef6f5494) makes the HDMI audio devices show up
-> again. I verified that this is still an issue in current Linux git
-> (72a85e2b).
+> Could you give alsa-info.sh outputs from both working and non-working
+> cases?  Run the script with --no-upload option during the playback of
+> HDMI stream, and attach the outputs.
 
-Thanks for the report. To be sure below issue doesn't fall through the
-cracks unnoticed, I'm adding it to regzbot, my Linux kernel regression
-tracking bot:
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=216836
 
-#regzbot ^introduced ef6f5494faf6a37c74990689a
-#regzbot title alsa: hda/hdmi: HDMI sound devices don't show up anymore
-with some AMD APUs
-#regzbot ignore-activity
+				Jaroslav
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I deal with a lot of
-reports and sometimes miss something important when writing mails like
-this. If that's the case here, don't hesitate to tell me in a public
-reply, it's in everyone's interest to set the public record straight.
-
-
-> Am Donnerstag, dem 22.09.2022 um 10:40 +0200 schrieb Jaroslav Kysela:
->>> Per discussion on the alsa-devel mailing list [1], the legacy PIN to PCM
->>> device mapping is obsolete nowadays. The maximum number of the simultaneously
->>> usable PCM devices is equal to the HDMI codec converters.
->>>
->>> Remove the extra PCM devices (beyond the detected converters) and force
->>> the use of the dynamic PCM device allocation. The legacy code is removed.
->>>
->>> I believe that all HDMI codecs have the jack sensing feature. Move the check
->>> to the codec probe function and print a warning, if a codec without this
->>> feature is detected.
-> 
-> The corresponding message ("jack not detectable") is not shown on the
-> affected system.
-> 
->>> [1] https://lore.kernel.org/alsa-devel/2f37e0b2-1e82-8c0b-2bbd-1e5038d6ecc6@perex.cz/
-> 
-> Links to some reports of this issue:
-> https://bugzilla.kernel.org/show_bug.cgi?id=216836
-> https://bbs.archlinux.org/viewtopic.php?pid=2075700
-> https://bugs.archlinux.org/task/76917
-> https://www.reddit.com/r/archlinux/comments/zsqq7i/hdmi_audio_is_broken_after_updating_kernel_to_611
-> 
-> Best regards,
-> Michael
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

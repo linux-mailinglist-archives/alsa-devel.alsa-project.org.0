@@ -2,92 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2448655E1B
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Dec 2022 19:56:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 825E8655EF5
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 02:04:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEA744B3D;
-	Sun, 25 Dec 2022 19:55:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEA744B3D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73B5A5590;
+	Mon, 26 Dec 2022 02:03:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73B5A5590
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1671994568;
-	bh=326izX67yjiN436eCBu0Fb/Yw6vjnp9+rsrV0fi0vF4=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=GZrlEYHVSTiGdEkjWiUM3MnQJuIlbcvxLIO+jm0ucjz5LUqjX7kC79NyUX7OJh4/P
-	 sG8ez2xzDs2z0++aMiDBiJzEmZV/LvcrK4avtI211hMt/2jPbByj+pwnpKOzIR4KMZ
-	 o2c4l/DR6LBrpIZFq1pTBosTljIowIALBlSHP1HE=
+	s=default; t=1672016645;
+	bh=RsmiUjpT/vcAsulXzr37tHeDg54prpDpKNSyMsLu3bE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=CT4YMm4yRrWY2bwVkTK0orMpSyI3OCHmtUKeVJ6ibFCY0KPHDA0UodfNeGnNJ7YvX
+	 RvB4rglFAWbzgI3D8JEv8mmdAVRnnWBNkhdD6S2sEGvcSY51RgZ6LxhEp2oCSbH5+Z
+	 TjKaqMh6NYUGK+U7psUtGoAm3Gz/GruJZ7c5D10w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2D6AF80539;
-	Sun, 25 Dec 2022 19:52:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B3CEF800F0;
+	Mon, 26 Dec 2022 02:03:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EE68F80535; Sun, 25 Dec 2022 19:52:36 +0100 (CET)
+ id 25D05F800F0; Mon, 26 Dec 2022 02:03:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17D85F8051C
- for <alsa-devel@alsa-project.org>; Sun, 25 Dec 2022 19:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D85F8051C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=0Ehbq02c; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=+H4VVhFA
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A03624D2A6;
- Sun, 25 Dec 2022 18:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671994352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=T0jDXgDPKoI92VGHx1VuZzgyrw1JEXmrqtiTV2NcFXY=;
- b=0Ehbq02cUPksS9pjNNMQNX7S9GJP2o6KNNrYoL4ZB079be8AOhbEzKeIiXITtZvsitAT5N
- THyZfiuMgdmBim435BCkJgehoTKI4MhXWJZsGwOC4rEJhi8BJWWABawREYomuwPiTX1588
- USsx82iB53tqvnIIns4MEO58I+3XhsQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671994352;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=T0jDXgDPKoI92VGHx1VuZzgyrw1JEXmrqtiTV2NcFXY=;
- b=+H4VVhFA/IFTqtP6Jjs35jxNrbM7Q7mtOEQM3Cd5eMWpaAZQ8NpDsjWK5gdDM5v45/J+0m
- Fjy4Ry5NJSOum3Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EF9A138F2;
- Sun, 25 Dec 2022 18:52:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kxbRHfCbqGN/dQAAMHmgww
- (envelope-from <tiwai@suse.de>); Sun, 25 Dec 2022 18:52:32 +0000
-Date: Sun, 25 Dec 2022 19:52:31 +0100
-Message-ID: <87edsnxqmo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Michael =?ISO-8859-1?Q?La=DF?= <bevan@bi-co.net>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Use only dynamic PCM device allocation
-In-Reply-To: <1c9c00dec72c241a399b3b7c0a305382a5712529.camel@bi-co.net>
-References: <20220922084017.25925-1-perex@perex.cz>
- <1c9c00dec72c241a399b3b7c0a305382a5712529.camel@bi-co.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6979AF800F0
+ for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 02:03:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6979AF800F0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=DTcEx1NL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672016583; x=1703552583;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RsmiUjpT/vcAsulXzr37tHeDg54prpDpKNSyMsLu3bE=;
+ b=DTcEx1NLTS7DnSWrTlmE7Wd9+6QdGNbMXxhYYfjV0WlFiBHOpoHGklG2
+ eDfRSNSlOTykOzLpMknoYJoHeJOp2vo7FB/rDrmdbAaC4c4HJS9eCxKOV
+ YLe6UDQ3SVKe4MkaDqa6kdHElOPEjX7ZYsAS1HSrqmPR4DSpXmzKqwirU
+ eXKRU8APM97U7u5nwMEL84Sqoo+XGozZ8Qt/9tjodbRMApbdrn/vCN4lS
+ PKyY5gzParEOdTeg2EcmDJZBtydMwdL1PaZQNJ/Fd+HOrJA7PCMYKaCy5
+ 5LWWH0wdieNHAVpKiKlJx6voArSTVMpEPs7s1sbEMDP5N+GE8ijitjLGS g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10571"; a="320591405"
+X-IronPort-AV: E=Sophos;i="5.96,274,1665471600"; d="scan'208";a="320591405"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Dec 2022 17:02:57 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10571"; a="741354808"
+X-IronPort-AV: E=Sophos;i="5.96,274,1665471600"; d="scan'208";a="741354808"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Dec 2022 17:02:55 -0800
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH 1/2] ASoC: Intel: soc-acpi: add configuration for variant of
+ 0C40 product
+Date: Mon, 26 Dec 2022 09:09:16 +0800
+Message-Id: <20221226010917.2632973-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -101,53 +84,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- amd-gfx@lists.freedesktop.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Zorro.Zhang@dell.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, bard.liao@intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 25 Dec 2022 13:14:28 +0100,
-Michael Laß wrote:
-> 
-> CC'ing amd-gfx as this might be an issue in the amd driver.
-> 
-> This change causes a regression in Linux 6.1 at least on some AMD APUs.
-> There are reports from users with Ryzen 4750U, 5800U and 5850U chips
-> where the HDMI sound devices don't show up anymore. I'm affected by
-> this as well.
-> 
-> Reverting this commit (ef6f5494) makes the HDMI audio devices show up
-> again. I verified that this is still an issue in current Linux git
-> (72a85e2b).
-> 
-> Am Donnerstag, dem 22.09.2022 um 10:40 +0200 schrieb Jaroslav Kysela:
-> > > Per discussion on the alsa-devel mailing list [1], the legacy PIN to PCM
-> > > device mapping is obsolete nowadays. The maximum number of the simultaneously
-> > > usable PCM devices is equal to the HDMI codec converters.
-> > > 
-> > > Remove the extra PCM devices (beyond the detected converters) and force
-> > > the use of the dynamic PCM device allocation. The legacy code is removed.
-> > > 
-> > > I believe that all HDMI codecs have the jack sensing feature. Move the check
-> > > to the codec probe function and print a warning, if a codec without this
-> > > feature is detected.
-> 
-> The corresponding message ("jack not detectable") is not shown on the
-> affected system.
-> 
-> > > [1] https://lore.kernel.org/alsa-devel/2f37e0b2-1e82-8c0b-2bbd-1e5038d6ecc6@perex.cz/
-> 
-> Links to some reports of this issue:
-> https://bugzilla.kernel.org/show_bug.cgi?id=216836
-> https://bbs.archlinux.org/viewtopic.php?pid=2075700
-> https://bugs.archlinux.org/task/76917
-> https://www.reddit.com/r/archlinux/comments/zsqq7i/hdmi_audio_is_broken_after_updating_kernel_to_611
+From: Gongjun Song <gongjun.song@intel.com>
 
-Could you give alsa-info.sh outputs from both working and non-working
-cases?  Run the script with --no-upload option during the playback of
-HDMI stream, and attach the outputs.
+Support configuration with SoundWire RT1316 amplifiers on link0 and
+link1, and RT711 on link2 for headphone/headset. This product does
+not support local microphones.
 
+Signed-off-by: Gongjun Song <gongjun.song@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ .../intel/common/soc-acpi-intel-rpl-match.c   | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-thanks,
+diff --git a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
+index 31b43116e3d8..c70d85bfedbf 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-rpl-match.c
+@@ -203,6 +203,25 @@ static const struct snd_soc_acpi_link_adr rpl_sdw_rt711_link2_rt1316_link01_rt71
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_link_adr rpl_sdw_rt711_link2_rt1316_link01[] = {
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(rt711_sdca_2_adr),
++		.adr_d = rt711_sdca_2_adr,
++	},
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt1316_0_group2_adr),
++		.adr_d = rt1316_0_group2_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt1316_1_group2_adr),
++		.adr_d = rt1316_1_group2_adr,
++	},
++	{}
++};
++
+ static const struct snd_soc_acpi_link_adr rpl_sdw_rt711_link0_rt1318_link12_rt714_link3[] = {
+ 	{
+ 		.mask = BIT(0),
+@@ -277,6 +296,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[] = {
+ 		.drv_name = "sof_sdw",
+ 		.sof_tplg_filename = "sof-rpl-rt1316-l12-rt714-l0.tplg",
+ 	},
++	{
++		.link_mask = 0x7, /* rt711 on link2 & two rt1316s on link0 and link1 */
++		.links = rpl_sdw_rt711_link2_rt1316_link01,
++		.drv_name = "sof_sdw",
++		.sof_tplg_filename = "sof-rpl-rt711-l2-rt1316-l01.tplg",
++	},
+ 	{
+ 		.link_mask = 0x1, /* link0 required */
+ 		.links = rpl_rvp,
+-- 
+2.25.1
 
-Takashi

@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE86B6576AB
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Dec 2022 13:53:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E5A4656104
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Dec 2022 09:10:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22B876EFC;
-	Wed, 28 Dec 2022 13:52:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B876EFC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F04E9600F;
+	Mon, 26 Dec 2022 09:09:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F04E9600F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672231985;
-	bh=zmtqhXQv7hiPZDJGmROKlujPmTGm2oRNxnDcUz2K1XA=;
-	h=Subject:From:Date:References:In-Reply-To:To:List-Id:
+	s=default; t=1672042243;
+	bh=+hJ4I0IWNy6HSG+nQd/CJwLM1xohcZgmIA6n+xX9UeU=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Qb6/Z5/Nd1PtDSMtkdYfbj8N7SHsKK5XBl7fGRua8OB8m3hayJ3CxbYbwx8IOqNuP
-	 p086YEEDtLbSUE6rir1kLkCxr+xFgiMsPqXctQmipkbeh0V2vq5tOi1ghVjwtjE8xn
-	 Ddjm9KlSJ0E+WIeYJtsxrCsVmLhI+FCiJ+VlLXoY=
+	b=Fep0bQAqMiO+9KmdED/FWA3t1m6FFM5D/amGNlAKy0rGZmtMakugPs4cx7Nq8YSqU
+	 8badYDwasoEFdSczsdjROnP5jSTZOuyZUhmFWWs6iIWTu+r65wtmovyOgjqKKuATIP
+	 xa+2B5xpN2zlCaB+4no0o+dSzymhVI49XQqA9waI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E171CF804FE;
-	Wed, 28 Dec 2022 13:51:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 496B8F8042F;
+	Mon, 26 Dec 2022 09:09:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FEF6F80310; Mon, 26 Dec 2022 04:41:36 +0100 (CET)
+ id 8EE4CF80310; Mon, 26 Dec 2022 09:09:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80772F800F0
- for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 04:41:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80772F800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aFP63n6a
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19801F80134
+ for <alsa-devel@alsa-project.org>; Mon, 26 Dec 2022 09:09:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19801F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=TubNC310; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ZSpxnfzZ
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BD5FDB80BE7;
- Mon, 26 Dec 2022 03:41:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 725BFC433D2;
- Mon, 26 Dec 2022 03:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672026091;
- bh=zmtqhXQv7hiPZDJGmROKlujPmTGm2oRNxnDcUz2K1XA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=aFP63n6aR/0rsvyekq2AImCT+Ltsl9Jl7dPzbNYHhoyZYHDH6lK2bZrhlcgunmhld
- RgMVPID00zacoRWh6/2WcYeqqfuXii7bfwtJk5lxNcH9sYhs6uYZ65sHxjCjvHVJGC
- jU2sooTMKGRe+SFmEQSyRrM2Z5Ebr4Jv8ipoN7FtPVN5x7rUbCF4ahlzEUcQHuzwgS
- dPZnfjIrxijvQKXa4OnPsL5xX8faKU1LhwAeeoNrFyIvTCF3+ednhZDVur/h1/X3jD
- E41cCnOUXtPEk1kFVfqyh2f9D9ufm9IlqPIid1pjLmSc0vc0NcK4CEzAwGC3ktCoTG
- JD3TuvTuDV3ew==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 4CBF2E50D66; Mon, 26 Dec 2022 03:41:31 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: Extend name-prefix.yaml into common
- DAI properties
-From: patchwork-bot+chrome-platform@kernel.org
-Message-Id: <167202609130.9518.10337988666912704066.git-patchwork-notify@kernel.org>
-Date: Mon, 26 Dec 2022 03:41:31 +0000
-References: <20221203160442.69594-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221203160442.69594-1-krzysztof.kozlowski@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailman-Approved-At: Wed, 28 Dec 2022 13:51:26 +0100
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0979F33FCD;
+ Mon, 26 Dec 2022 08:09:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1672042169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=P8ft7F/KT+lvr+2pYmbIZYoFyftWJwwWXEH04QR9uy8=;
+ b=TubNC310Gz/8DEdxSO6HQfOEPGNEMFZMTI0WRoenCcFnDm1FIIs/Ix7T1ZFNZPznVVF710
+ w1/itmVZu6Cd+2p0nDk7Y1ST/tkP6gL0SN9WaLlEnR4G12100KVJAanma0xaPK8D2zsdBF
+ KZaieoEutR5wzHHGEHLDNUHsF2ddUOs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1672042169;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=P8ft7F/KT+lvr+2pYmbIZYoFyftWJwwWXEH04QR9uy8=;
+ b=ZSpxnfzZ1CFuemMmRT2eirreCCGaxTjBiXeCrSfCZRETH3YKvqWcn5TnhYoDZFKXDr+Aed
+ Ti9FUW1CbbcFnfBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D2D9813456;
+ Mon, 26 Dec 2022 08:09:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id JKqKMrhWqWMvcwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 26 Dec 2022 08:09:28 +0000
+Date: Mon, 26 Dec 2022 09:09:28 +0100
+Message-ID: <878riuy4av.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Artem Egorkine <arteme@gmail.com>
+Subject: Re: [PATCH 1/2] ALSA: line6: correct midi status byte when receiving
+ data from podxt
+In-Reply-To: <20221225105728.1153989-1-arteme@gmail.com>
+References: <20221225105728.1153989-1-arteme@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,67 +98,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: heiko@sntech.de, dri-devel@lists.freedesktop.org, jonathanh@nvidia.com,
- peter.ujfalusi@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- cychiang@chromium.org, samuel@sholland.org, katsuhiro@katsuster.net,
- khilman@baylibre.com, joabreu@synopsys.com, derek.fang@realtek.com,
- olivier.moysan@foss.st.com, povik+lin@cutebit.org, linux-sunxi@lists.linux.dev,
- flatmax@flatmax.com, james.schulman@cirrus.com, vincent.knecht@mailoo.org,
- linux-kernel@vger.kernel.org, mhiramat@kernel.org, alsa-devel@alsa-project.org,
- tanureal@opensource.cirrus.com, david.rhodes@cirrus.com, cy_huang@richtek.com,
- thierry.reding@gmail.com, srinivas.kandagatla@linaro.org, groeck@chromium.org,
- chrome-platform@lists.linux.dev, lars@metafoo.de, fengzheng923@gmail.com,
- alexandre.belloni@bootlin.om, drake@endlessm.com,
- linux-rockchip@lists.infradead.org, jbrunet@baylibre.com,
- ckeepax@opensource.cirrus.com, martin.blumenstingl@googlemail.com,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, biju.das.jz@bp.renesas.com,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- neil.armstrong@linaro.org, mcoquelin.stm32@gmail.com,
- rriveram@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- spujar@nvidia.com, nuno.sa@analog.com, festevam@gmail.com,
- hayashi.kunihiko@socionext.com, jernej.skrabec@gmail.com, wens@csie.org,
- bogdan.togorean@analog.com, arnaud.pouliquen@foss.st.com, stephan@gerhold.net,
- rf@opensource.cirrus.com, broonie@kernel.org, bleung@chromium.org,
- mkumard@nvidia.com, j-choudhary@ti.com, lgirdwood@gmail.com,
- konrad.dybcio@linaro.org, asahi@lists.linux.dev, rohitkr@codeaurora.org,
- shengjiu.wang@nxp.com, codrin.ciubotariu@microchip.com,
- alexandre.torgue@foss.st.com, paul@crapouillou.net, ricardw@axis.com,
- shifu0704@thundersoft.com, krzysztof.kozlowski+dt@linaro.org,
- airlied@gmail.com, frattaroli.nicolas@gmail.com, agross@kernel.org,
- devicetree@vger.kernel.org, bgoswami@quicinc.com, shenghao-ding@ti.com,
- lkundrak@v3.sk, robh+dt@kernel.org, tzungbi@kernel.org,
- linux-tegra@vger.kernel.org, patches@opensource.cirrus.com,
- andersson@kernel.org, tiwai@suse.com, jee.heng.sia@intel.com, afd@ti.com,
- daniel@ffwll.ch
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello:
-
-This series was applied to chrome-platform/linux.git (for-next)
-by Mark Brown <broonie@kernel.org>:
-
-On Sat,  3 Dec 2022 17:04:40 +0100 you wrote:
-> Rename name-prefix.yaml into common DAI schema and document
-> '#sound-dai-cells' for completeness.  The '#sound-dai-cells' cannot be
-> really constrained, as there are users with value of 0, 1 and 2, but at
-> least it brings definition to one common place.
+On Sun, 25 Dec 2022 11:57:27 +0100,
+Artem Egorkine wrote:
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> A PODxt device sends 0xb2, 0xc2 or 0xf2 as a status byte for MIDI
+> messages over USB that should otherwise have a 0xb0, 0xc0 or 0xf0
+> status byte. This is usually corrected by the driver on other OSes.
 > 
-> [...]
+> This fixes MIDI sysex messages sent by PODxt.
+> 
+> Signed-off-by: Artem Egorkine <arteme@gmail.com>
 
-Here is the summary with links:
-  - [1/3] ASoC: dt-bindings: Extend name-prefix.yaml into common DAI properties
-    https://git.kernel.org/chrome-platform/c/3fda85324b8d
-  - [2/3] ASoC: dt-bindings: Reference common DAI properties
-    https://git.kernel.org/chrome-platform/c/58ae9a2aca6f
-  - [3/3] ASoC: dt-bindings: maxim,max98357a: Convert to DT schema
-    https://git.kernel.org/chrome-platform/c/8a5a05583a04
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Applied both patches now.  Thanks!
 
 
+Takashi

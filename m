@@ -2,92 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44B1656B82
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 15:03:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D959656B9A
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 15:12:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5C965E7E;
-	Tue, 27 Dec 2022 15:02:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5C965E7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7FEC74C6;
+	Tue, 27 Dec 2022 15:11:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7FEC74C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672149816;
-	bh=wFykFhFw0RpcC0zYsUT8nEO0nvz+A/H9TXMjASFAtGc=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672150354;
+	bh=w1Tt5KpHeU6LrhFDV3MOo7Ka2OTOJdZOMGYD+HubpdU=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=C81uEtmabXYsfkzpEFM35cDxMGWezu+JqzyJhxEHzODwjMX8G3t2K71Iy3//I6YtA
-	 owCZ8wti727fXpKvkdlbVuePpf7MJ5KRIcXp/3AR6W63itze0+1VEZppchpxpQr2Sf
-	 ZfKREZd2J1hy6I9rqg7zStBEHJQQuOggGI1N/r9c=
+	b=SSPCieDUSSBO5ukwORDLkg4VzbB/CRAMhpmQpKK4BBy7LRREV39edx6h0ty1uwCkp
+	 KdKep4U94Bfbly896bi8jMmBEokYiza/KOLzqjyqezMxY8PwG42dm7mqFqZbD2VJXF
+	 8wLnFco6MRKG+oDo+460Jqo0530MvW4kUCRVqAhY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14DE3F8023B;
-	Tue, 27 Dec 2022 15:02:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97AF3F8023B;
+	Tue, 27 Dec 2022 15:11:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F1AEF8023B; Tue, 27 Dec 2022 15:02:35 +0100 (CET)
+ id 40BE8F804E4; Tue, 27 Dec 2022 15:11:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0728F8023B
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 15:02:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0728F8023B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=vUr3dlNE; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Ih06188s
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97308F8027B
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 15:11:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97308F8027B
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MMmr8g6c
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 624DA21A14;
- Tue, 27 Dec 2022 14:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672149752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0KLiBDtIA7sN+ETgDOxVP3hBKlixZxiuD/45RsLx3hE=;
- b=vUr3dlNES5rrO/KcZ06D38wB0Lk2NfSAB9F0/HFo4qT1AngDH194kUNc/FFdC+nBz2shYu
- at9RsZ8jXUf+UOyvOuI0IJtC8qWdRmBH1jHIZqYqNuxVDDMltj8jwVNPhhlq2YtoVW/0YT
- GLB5Yqvw2YQu7TvMFzDL1ZOPbl79tMA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672149752;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=0KLiBDtIA7sN+ETgDOxVP3hBKlixZxiuD/45RsLx3hE=;
- b=Ih06188sb6XgugJG7XDgDd4abpGli3pOSvNztn0TlNE+g7qC7rlc4fjenD08gjlhDre0u4
- ZWte3co7ov6SIaAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC02613913;
- Tue, 27 Dec 2022 14:02:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hC/nNPf6qmOLZwAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 27 Dec 2022 14:02:31 +0000
-Date: Tue, 27 Dec 2022 15:02:31 +0100
-Message-ID: <87r0wl0wso.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Greg KH <gregkh@linuxfoundation.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9CAB7B81062;
+ Tue, 27 Dec 2022 14:11:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35E5C433F0;
+ Tue, 27 Dec 2022 14:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672150296;
+ bh=w1Tt5KpHeU6LrhFDV3MOo7Ka2OTOJdZOMGYD+HubpdU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MMmr8g6crtYz7sD8hp5VXA4d0W4r+qQfith6dYe66hivk1PanPlB8k2INiMFjpziB
+ oAL3Rc/zqddnLdjZ8Y7vE1cxxeBjOfHpw8VCiWeFx4RQmfLcQm2IU30imG0SqUiJPQ
+ YdiUnzoLNFwQ8nTcuGUozrnsMjEMphQHc8tjPb/32a5crd0tKPb5VcbNhSIN5UxrRA
+ Gl9is9ej3XQlw8VUPOU+gTTc5CkQ9EK4km/A9AmWBUBD9Th3RKRGE7GkDz+qxegTJs
+ vnTIaa4Zv8kbdnDp+XnezBZKvTDHE8ZeKcb28HR6/t+J0smuj/ZsOKOU7hiGzeA8x7
+ 0f6c5GSoBEAlQ==
+Date: Tue, 27 Dec 2022 14:11:28 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [RFC PATCH 03/14] ASoC: qcom: Add USB backend ASoC driver for Q6
-In-Reply-To: <Y6r26VfIfpE8zpPY@kroah.com>
+Message-ID: <Y6r9EKn7WU3eWl8e@sirena.org.uk>
 References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
  <20221223233200.26089-4-quic_wcheng@quicinc.com>
  <Y6bAQ8hDLkvrvjQQ@kroah.com> <Y6rtdy4NPfi/KOqd@sirena.org.uk>
- <Y6r26VfIfpE8zpPY@kroah.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ <Y6r26VfIfpE8zpPY@kroah.com> <87r0wl0wso.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="MoDs+V7j52bwbfqu"
+Content-Disposition: inline
+In-Reply-To: <87r0wl0wso.wl-tiwai@suse.de>
+X-Cookie: There's only one everything.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,46 +85,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, bgoswami@quicinc.com, mathias.nyman@intel.com,
- Thinh.Nguyen@synopsys.com, andersson@kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, Mark Brown <broonie@kernel.org>,
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
+ mathias.nyman@intel.com, Greg KH <gregkh@linuxfoundation.org>,
+ andersson@kernel.org, tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
  srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
  quic_plai@quicinc.com, Wesley Cheng <quic_wcheng@quicinc.com>,
  linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Dec 2022 14:45:13 +0100,
-Greg KH wrote:
-> 
-> On Tue, Dec 27, 2022 at 01:04:55PM +0000, Mark Brown wrote:
-> > On Sat, Dec 24, 2022 at 10:02:59AM +0100, Greg KH wrote:
-> > > On Fri, Dec 23, 2022 at 03:31:49PM -0800, Wesley Cheng wrote:
-> > 
-> > > > + * struct q6usb_offload
-> > > > + * @dev - dev handle to usb be
-> > 
-> > > "be"?  What is that?
-> > 
-> > Back end.  This is a concept in DPCM which should be reasonably
-> > discoverable to people working on the audio portions of this code.
-> 
-> Ok, then how is the reference counting logic handled here?  USB devices
-> can be removed from the system at any point in time...
 
-The whole picture is fairly complex, and this patch is a part
-belonging to the ASoC machine driver -- that is, it's bound to the
-Qualcomm host, and there can be only one on a system.  
+--MoDs+V7j52bwbfqu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-OTOH, USB audio devices are still managed by the existing USB audio
-driver as is, and they can be multiple and any devices.  The basic
-idea here is a hijack of the USB data processing in USB audio driver
-with the offloading mechanism by this ASoC driver (only if the
-condition met).
+On Tue, Dec 27, 2022 at 03:02:31PM +0100, Takashi Iwai wrote:
+> Greg KH wrote:
+> > On Tue, Dec 27, 2022 at 01:04:55PM +0000, Mark Brown wrote:
+> > > On Sat, Dec 24, 2022 at 10:02:59AM +0100, Greg KH wrote:
 
+> > > > "be"?  What is that?
 
-thanks,
+> > > Back end.  This is a concept in DPCM which should be reasonably
+> > > discoverable to people working on the audio portions of this code.
 
-Takashi
+> > Ok, then how is the reference counting logic handled here?  USB devices
+> > can be removed from the system at any point in time...
+
+> The whole picture is fairly complex, and this patch is a part
+> belonging to the ASoC machine driver -- that is, it's bound to the
+> Qualcomm host, and there can be only one on a system. =20
+
+> OTOH, USB audio devices are still managed by the existing USB audio
+> driver as is, and they can be multiple and any devices.  The basic
+> idea here is a hijack of the USB data processing in USB audio driver
+> with the offloading mechanism by this ASoC driver (only if the
+> condition met).
+
+Right.  I haven't even begun to look at the actual code here, just
+triaging my inbox, so I've got no thoughts on if things work or not.
+
+--MoDs+V7j52bwbfqu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmOq/Q8ACgkQJNaLcl1U
+h9AJLwf/TGoSsJdiOtmJ/KDGP2WpqZDVbQqPyJeobJzTd9iQ0WISteeWXhCaQzEP
+prsfQuOnpN59pIx92wR1QiQhG1hIfloZm9D0+2GFs6ig70JB/2tR4vrDwyOvpJab
+jdL+aAl495L95M2FyBU6iaBTSAkmJTiBro++bgcYRJHtExYiuVM0zSLnHnGXjpY/
+Q8VngUTeGebIQnTK/yjDIqCamWLQ1uygyiEexa6irqBZJxAf5E2QXww1573HF1ma
+7icaSGlaaDRvIz4f9tKvj7j7y++W8xHSZI/dUvGSQV++tuFVy5BxpysjqNncFT9t
+VB0GkLnFBoQ4w00oIOLbYMsqF69weA==
+=fyRg
+-----END PGP SIGNATURE-----
+
+--MoDs+V7j52bwbfqu--

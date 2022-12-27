@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0561656A58
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:01:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC55656A5B
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:01:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E72DD73C0;
-	Tue, 27 Dec 2022 13:00:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E72DD73C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D286373A7;
+	Tue, 27 Dec 2022 13:00:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D286373A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672142464;
-	bh=9UO0u0YE/X0JRi2NrzH12RftroDggzBoi0U4dy+j8Z4=;
+	s=default; t=1672142480;
+	bh=gE09O9kPmzTMcuuOFpc0l3Yqr1IL/aEE8PLijWmVyd0=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=uUbC2egPfNXigG2qrsyfU+SfVPcSOqlOs06Zh/CeoZjfvfC3vj4+PIvJfhJ6QnRdy
-	 VQ8SnJ1SCw9SHhZKEhGaR8S/OpuncUnKZXR7PpnUDbCzMgTjHoZeJr8pzdSvMUF9y0
-	 LFKUJ01feLt0y2wdH5tZMdcvYhUjVEGEpG5hm8qQ=
+	b=PuvW+oBGWGSm6kUtHC8MdwmJe/8gT6DigKD9Kn6Emp5tGtQlDRvzucjoOr21VJrSK
+	 kd8GSvSaOrWGOLCBJZwXPsg3lUg5hR0Ve/V+oj0fAeiDoESL0E1nbPfGHJ4phEbYhn
+	 FlukBm8CzS4cPfVY+pWSHpROe3iPj3GJpHVHkFgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E85E6F805B0;
-	Tue, 27 Dec 2022 12:57:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A8ADF805B1;
+	Tue, 27 Dec 2022 12:57:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B720F8058C; Tue, 27 Dec 2022 12:57:28 +0100 (CET)
+ id 17660F805AA; Tue, 27 Dec 2022 12:57:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,37 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2FFBF80587
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2FFBF80587
+ by alsa1.perex.cz (Postfix) with ESMTPS id 567DDF8059F
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 567DDF8059F
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ahGyD+G0
+ header.s=k20201202 header.b=F7bFKeeS
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 165986105A;
- Tue, 27 Dec 2022 11:57:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE26C433EF;
- Tue, 27 Dec 2022 11:57:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EBDB96106C;
+ Tue, 27 Dec 2022 11:57:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED32DC433D2;
+ Tue, 27 Dec 2022 11:57:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672142244;
- bh=9UO0u0YE/X0JRi2NrzH12RftroDggzBoi0U4dy+j8Z4=;
+ s=k20201202; t=1672142246;
+ bh=gE09O9kPmzTMcuuOFpc0l3Yqr1IL/aEE8PLijWmVyd0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ahGyD+G0oq24GFRQJsUurbEgmB698wUJQLf46I5UATmFotHyB7xQaXgsUAxcjEuzz
- dzMXBg/yqjHyzbD0XwMV07GRThqV4zJKzR+W2R5sUU7QOiGnyUMwV9FS/JH0MuLXUw
- TNAjTDo2qw6bQDwqXYKHFmxW6BRRAoYU4pYcjZg/0xesqQd/intshER2OhSgGX5jsw
- rYX2H/VUM2khfPIccYrjbjkT9h/osYXMN/wxnYUOUCU9pHwFTNSbgrVP40kWoYrm8k
- JtfmoLDvd4eKWthnHE0M1paymbs2In4rdY+rB13y+DhLttHtnlBe8H+o9BxjvsjLHm
- b1frMm9AahY4Q==
+ b=F7bFKeeSsjwKyYLWc4pgKKe27V3dnvNnr1yd/uQkrp6HX8XsftMG7KDwW7guHM91f
+ NII/9+tZf6ZMa+yo6RhP2Dou4QD4ElpmfurgrcZUswPp1aBAMJMpZ4i/aoObkEktCo
+ s5mni2fSvrDYWxa9jwhUHekqU2WdhDe6o3vQrSeVqEYdy7Sct5c5sbxPQ8LlnaqURY
+ y3Nko7GT3LHoocSFSKVRaoDiLP0rlExEnGxl7xg0mJa6Ucs7Lr3cRVBBSBhwKNH/Ue
+ eGeZuBAURYETLc28vj0qTAHMqeh1vuR9/qYy0jRRIthwZZyDkKYi9U51T29IjFGZDN
+ +fNSkCgOJOGZA==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20221216115350.28260-1-peter.ujfalusi@linux.intel.com>
-References: <20221216115350.28260-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: IPC3 topology: Print the conflicting bytes
- sizes
-Message-Id: <167214224262.82924.4835724530620803921.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 11:57:22 +0000
+In-Reply-To: <20221216115435.28427-1-peter.ujfalusi@linux.intel.com>
+References: <20221216115435.28427-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: core: Print out the value of sof_debug if it
+ is set
+Message-Id: <167214224468.82924.12765753486904968879.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:57:24 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -81,16 +81,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- seppo.ingalsuo@linux.intel.com, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com
+Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Dec 2022 13:53:50 +0200, Peter Ujfalusi wrote:
-> The error "Conflict in bytes vs. priv size." is too brief. With
-> the printed sizes it's a lot easier to find the size issue in
-> for binary control if such happens.
+On Fri, 16 Dec 2022 13:54:35 +0200, Peter Ujfalusi wrote:
+> The sof_debug value is set by the user, developer intentionally.
+> To save time on figuring out what value has been passed to the kernel by
+> the user, developer, print it out if it is not 0.
 > 
 > 
 
@@ -100,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: IPC3 topology: Print the conflicting bytes sizes
-      commit: 8a0eb06e0c9a613fce989e9d94de3f290b81e356
+[1/1] ASoC: SOF: core: Print out the value of sof_debug if it is set
+      commit: b2f7b9320537affe44efbb0a1e0aaff05974ad8b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4042656A49
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 12:59:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EDCC656A4A
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:00:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 848FD73A7;
-	Tue, 27 Dec 2022 12:59:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 848FD73A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A55D6739A;
+	Tue, 27 Dec 2022 12:59:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A55D6739A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672142390;
-	bh=W8nLcU84eflNXEY56jXPt3LCLy9g+sWNpH7hpDshvk8=;
+	s=default; t=1672142412;
+	bh=bCAcB9VxW/LzWbP5DjX8js9d6sLw1besip2FONIFpYE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=u3dyLPj/e5UqUDugIlVc/dLTAYwhhWyVPygpUfeFjbDRjr0M2PuWggs2PtD3lYsdU
-	 8+eCmSdL3u3xCcbK3/ythO9na6JM0EDmQN6tEyuGJnv9/rhszOXNzzwnb8jeYlCvb8
-	 vlDhPtkvOxd9RFQ8iT1irJzdVj90EghXFZlzpB7E=
+	b=RMDHuE8mREEvd96g7zptPQanmA3ah1oaj8hYD1HSDKccEGgIkGjffvxf0OJce1nJ0
+	 c7W0WUrVz10L1njakvjG+tzuGqMhjffA2LfCTQd+bXsw9yqN92thCLeo0rz05EdnBB
+	 FSOG8Pvv7Cdpr6nUqY5s4ed3oslKiV6T/AOOdoho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80AE8F8056F;
-	Tue, 27 Dec 2022 12:57:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6815BF8057B;
+	Tue, 27 Dec 2022 12:57:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBF8EF80552; Tue, 27 Dec 2022 12:57:13 +0100 (CET)
+ id A0CACF8055C; Tue, 27 Dec 2022 12:57:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A635F80543
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A635F80543
+ by alsa1.perex.cz (Postfix) with ESMTPS id 330BDF8055C
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 330BDF8055C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Bt7+t0pI
+ header.s=k20201202 header.b=L5+FGEm8
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CC33DB80F9D;
- Tue, 27 Dec 2022 11:57:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3656FC433D2;
- Tue, 27 Dec 2022 11:57:08 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 78D23B80F9F;
+ Tue, 27 Dec 2022 11:57:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF1BC433EF;
+ Tue, 27 Dec 2022 11:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672142230;
- bh=W8nLcU84eflNXEY56jXPt3LCLy9g+sWNpH7hpDshvk8=;
+ s=k20201202; t=1672142233;
+ bh=bCAcB9VxW/LzWbP5DjX8js9d6sLw1besip2FONIFpYE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Bt7+t0pIOPkgi60kiACa3xiV4+aLKdLznDfYRat+YRLOibtaefHtFwPjeNTUUX0wV
- cHfaTf8Kb+V5dlZXUF0nPVi2S+nTpFBSU7FuOoliWHpVF8NsazGBOJYbYukWSw7uT5
- dhpoGPU+ZYEATAsn1L/3NwkyCaOJ1YDK+0NndChuh8SxqBxrUEglJnUJgRe1p0polQ
- cohQxx/Ii4ctulfK2Ny0xR+uMDjj/c1CgacvZA8zOu8fLmEWt6ym0LzeNHr8VAiOmI
- yQnbDGS7EiZTvmSyx5OSjIHgcQTRrxp73NLs38qBNuAeu6nwiuOtej0MCCVmr4DRdI
- jjms4rsLr6DfQ==
+ b=L5+FGEm8voYU29vY9fNgabZEJCVEFWuAVbyyadYJx/0C0ixtpvvUrDOuOIsGVD6n4
+ ARG8MURgpIYGwC1fA+PXvBum+3XonMwKShNWTorz22KLDx6Fjb5+SnFuNVl9RCW6OX
+ Ps35YyQbw4xIVyZku7WJ7CdNQq3Jf7zK+FRPaxAuAgBuVLfpVRLpC5F1Gd/VoOVkbL
+ iCxt5w42d0LTW+lQTwATR6eFlst64hg9HLyVRtYj6DBUuALrFj7+w2lrHKOU1rnyGJ
+ dtNfGXCM77vE9MteDh853qntWiaNmPXIS7ap6ee9UoQqutTpYIpiH9WdOGon4nwAEW
+ olL8Lf5DjavGg==
 From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?q?S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20221214185500.3896902-1-amadeuszx.slawinski@linux.intel.com>
-References: <20221214185500.3896902-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 0/4] Add support for DSP volume controls
-Message-Id: <167214222879.82924.3882348798393283149.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 11:57:08 +0000
+To: tiwai@suse.com, perex@perex.cz, piotr.wojtaszczyk@timesys.com,
+ David Rau <David.Rau.opensource@dm.renesas.com>
+In-Reply-To: <20221214044058.6289-1-David.Rau.opensource@dm.renesas.com>
+References: <20221214044058.6289-1-David.Rau.opensource@dm.renesas.com>
+Subject: Re: [PATCH 2/2] ASoC: da7213: Add support for mono, set frame width
+ to 32 when possible
+Message-Id: <167214223069.82924.15530796438471486612.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:57:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12-dev-7ab1d
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -81,25 +82,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ support.opensource@diasemi.com, lgirdwood@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Dec 2022 19:54:56 +0100, Amadeusz Sławiński wrote:
-> Some devices like DMIC don't expose native controls or need volume limit
-> due to possible HW damage. Add support for volume controls allowing to
-> change volume level in DSP. Maximum volume level is imposed by the
-> topology file which defines given path.
+On Wed, 14 Dec 2022 04:40:58 +0000, David Rau wrote:
+> This adds the DAI mono mode support and set the frame width to 32
 > 
-> Amadeusz Sławiński (4):
->   ASoC: Intel: avs: Add peakvol runtime-parameter requests
->   ASoC: Intel: avs: Add control volume operations
->   ASoC: Intel: avs: Parse control tuples
->   ASoC: Intel: avs: Peakvol module configuration
 > 
-> [...]
 
 Applied to
 
@@ -107,14 +98,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: Intel: avs: Add peakvol runtime-parameter requests
-      commit: 905ea24f0f17d826e6b90ece706bfefde3d7b2e5
-[2/4] ASoC: Intel: avs: Add control volume operations
-      commit: 585b9427edd65ad124e23affb80fca3d15a6375d
-[3/4] ASoC: Intel: avs: Parse control tuples
-      commit: be2b81b519d7121290cfecc5fdfb4907ecc41c39
-[4/4] ASoC: Intel: avs: Peakvol module configuration
-      commit: 29d6523698f68011eda67619faa6358a46952e96
+[2/2] ASoC: da7213: Add support for mono, set frame width to 32 when possible
+      commit: c89e652e84f636354213aae42490c7f77a0eadde
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

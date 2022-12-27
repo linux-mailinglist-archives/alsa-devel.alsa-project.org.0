@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81154656A60
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:02:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C742D656A61
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:03:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0784A73C9;
-	Tue, 27 Dec 2022 13:01:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0784A73C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9DEC1FD;
+	Tue, 27 Dec 2022 13:02:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9DEC1FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672142562;
-	bh=+2qKv3WbUaHawZcISN3in0nPAywpWI8Aax5DXjnieW8=;
+	s=default; t=1672142591;
+	bh=vEIpeY9CnxdnlI0n6ZoQauj/xBx95xlm2rvC1G7qlaQ=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=bzztxgqgljV9Yj3dHNggTAWYnZYOFyyZwf9cWO09WKklE3KfslzEl/6hJm3pq5VGh
-	 B92niwD7fjvE/bl7dDbSdrQuiJOnQNJGefJLooMoJQdxJBitjxDTbMq44ZcjgwfuvE
-	 3W2RjAhz7yGubhxRUZrwoNywTZ25k/cQFJocdtT0=
+	b=oBtQ5Oj4gGqW8yhEE7LA637/F4e7rOgnoThOaKxYAicKFzuBTzDJzkTXyFjtGh0gW
+	 hYXKA2ZMxrwgizldF1LWfVbo/MOd5lVIR2Q6UuIwsHvzMbmIpyoSLxG/5UpE4gwADS
+	 ED5dMojyf9ovHvGDEY9jUNSTGSzp7UkopfHUeNNg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0E0BF805D2;
-	Tue, 27 Dec 2022 12:57:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59347F805D5;
+	Tue, 27 Dec 2022 12:57:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84A8FF805C0; Tue, 27 Dec 2022 12:57:37 +0100 (CET)
+ id 31530F805D7; Tue, 27 Dec 2022 12:57:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,36 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 158F0F805BE
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 158F0F805BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E901F805D4
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E901F805D4
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uNhz+hSq
+ header.s=k20201202 header.b=RbaRGwnb
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AE86FB80FA7;
- Tue, 27 Dec 2022 11:57:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40253C433F0;
- Tue, 27 Dec 2022 11:57:33 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 20B22B80ED9;
+ Tue, 27 Dec 2022 11:57:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00616C433EF;
+ Tue, 27 Dec 2022 11:57:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672142254;
- bh=+2qKv3WbUaHawZcISN3in0nPAywpWI8Aax5DXjnieW8=;
+ s=k20201202; t=1672142256;
+ bh=vEIpeY9CnxdnlI0n6ZoQauj/xBx95xlm2rvC1G7qlaQ=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=uNhz+hSqJ/HgrrHYcBT/H/W/ivBLKU744SapG58u/RdodbnRXfWEj9qqTBcc2Zztl
- 94lXbTyd0XxZKtFJS9LImsuCaAunrNQw0/2W+9e2x1MO5n2VeSzzh84Pd0vFRqCjDs
- kwNnwOie0EPXpZPoN3dqubYSvquNjm65PZUh0QCKF63ErzR1Is0WkjqyDPNNSZtqaT
- ZvuPYrG5YjZKPJzLvO7ZDXX2Xhllz4FspcPBmEID/4DhXEFfiYTV25C6oInC36TRu3
- rX5+nuV3WCXOHrQTDTvY5PGfjJ7TwjoGB1/1kecR9imUUCZVw0Z1sBMeIxCn1S2vHm
- w+I4MeCu/t3eQ==
+ b=RbaRGwnbjZZd2Jpm47JEQhvw7RSUFelkxyAFs4cN2d3OGsnShX1CWj87yicFBMVwa
+ Cm0d1veZTWQEtpyHofquIQwS4Icz3u/69ewdfkGlXdqsd/CwgyvxcxWjf75pDAY8HW
+ Us8xZY3R7wqE9sBwPE6YlgeWh4iZbQg8MpZIigeK1jfWyagpYz3niE23x+v4m6O2d+
+ I4V7hOpPLHgrd+9DhnqGwX7mnVD6ToX7Sje++LQQ2FxFM7i1astJkmQ8E+vQ44NQ4g
+ ljjzLyLSccUu4QVXUTLT6eJw4Z/nAvWg16XSH7QRJk6FUUhbJ9QCvHRxLOnin/2y4U
+ 8FB75H4RdC3ag==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jai Luthra <j-luthra@ti.com>
-In-Reply-To: <20221221145216.11400-1-j-luthra@ti.com>
-References: <20221221145216.11400-1-j-luthra@ti.com>
-Subject: Re: [PATCH v4] dt-bindings: sound: tlv320aic3x: Convert to dtschema
-Message-Id: <167214225297.82924.10955715874674840625.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 11:57:32 +0000
+To: lgirdwood@gmail.com, shumingf@realtek.com
+In-Reply-To: <20221223055846.3285-1-shumingf@realtek.com>
+References: <20221223055846.3285-1-shumingf@realtek.com>
+Subject: Re: [PATCH] ASoC: rt711-sdca: add jack detection mode for JD2 100K
+Message-Id: <167214225471.82924.961483337320548896.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:57:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -82,21 +80,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, derek.fang@realtek.com, flove@realtek.com,
+ pierre-louis.bossart@intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 21 Dec 2022 20:22:16 +0530, Jai Luthra wrote:
-> Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
+On Fri, 23 Dec 2022 13:58:46 +0800, shumingf@realtek.com wrote:
+> This patch adds another jack detection mode for JD2 with an external resistor of 100k.
 > 
-> The following properties are still found in some old dts files, but will
-> be ignored by the driver:
-> - adc-settle-ms
-> - assigned-clock-parents, assigned-clock-rates, assigned-clocks
-> - port
 > 
-> [...]
 
 Applied to
 
@@ -104,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: sound: tlv320aic3x: Convert to dtschema
-      commit: b66cd83547dabc0ba582e2de716c20c810a21124
+[1/1] ASoC: rt711-sdca: add jack detection mode for JD2 100K
+      commit: 51ea51b18904cd1a0fb244ce41dfd903c2ada628
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

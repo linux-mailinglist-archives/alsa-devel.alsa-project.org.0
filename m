@@ -2,72 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4B165663A
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 01:16:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0867665686C
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 09:28:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5982666F4;
-	Tue, 27 Dec 2022 01:15:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5982666F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1686D7088;
+	Tue, 27 Dec 2022 09:28:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1686D7088
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672100188;
-	bh=DIg/odKp2/GsvUG9uXZmNZJHmI/8dBE3E1rswz+7Tyk=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=JR9bNSPcCNybVKe2uWpHR2UBbCSaEVKiUuabd/a9hhx6haMQLjLD10RAL+de4Y3pb
-	 af2fcPrq3Ssqd9uhNp7kSNn8bRjwVemZlLlrgj5XCF0jekU+4W5erLNnhvr3u0R6zl
-	 BM8aTpZlsdnq0tRt99uxoZkM83CEKvIul5fEoGcw=
+	s=default; t=1672129734;
+	bh=zK6SB8PjBNzFTaE/BLXiypwAvRFZlXkv08jktiNmVyQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ki2iJhVyswYoTrYGDDaIa2cJnFjztzbzYD/B9v02sIN+mdD/qwRwGCJEF/I38SGG8
+	 WO8pV0jSabaDFEL0fdqM5VXC9cJrrRVnb0nhKo+QsPjCW5nUl3OiPRUGVleYR4P0lK
+	 k9zg+uSYSvIulxu3DaAWlyg4dwZklIoHK32IxOYg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09FF9F804FE;
-	Tue, 27 Dec 2022 01:15:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42260F804E4;
+	Tue, 27 Dec 2022 09:27:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E793F804FE; Tue, 27 Dec 2022 01:15:01 +0100 (CET)
+ id D25F7F804E7; Tue, 27 Dec 2022 09:27:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9BFEF8042F
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 01:14:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9BFEF8042F
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=adHxV0oz
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CEC1EB80E0D;
- Tue, 27 Dec 2022 00:14:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12A4C433F0;
- Tue, 27 Dec 2022 00:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672100097;
- bh=DIg/odKp2/GsvUG9uXZmNZJHmI/8dBE3E1rswz+7Tyk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=adHxV0ozZYYWlL030bfLJGOsiPe/eNeexNMRZocUQljH1oPjk0543dDUTvvBuQEBJ
- lsHsqyuE+akOlLxgKxGoOHr9wnt5NpuGxYb8tfb1RNnPa729Xbbrn/GoIYGK66uYVH
- YZNociIMJHtsQEUqedEnyScQUpaGOvxxRBrQ56K9O2KBZ8l2iq4mG7YJlcXyv4FP9d
- wfkQARgBkwMRZaz0JEK8KmAC3HqxGuVUVjITcA2/SYY6lQkQyG9rB7f9yYcvUtngJq
- AR7ly1iuhsNhUFhX8qx4GG9p1C79rJ94aSPLiW9Y1YFtMqEkuNt3pLcL8qsCb4RTko
- wgnOhtUTDuD0Q==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20221220125629.8469-1-peter.ujfalusi@linux.intel.com>
-References: <20221220125629.8469-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v2 0/3] ASoC: SOF: Fixes for suspend after firmware crash
-Message-Id: <167210009543.553759.6276339953213630705.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 00:14:55 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id B09E9F804B4
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 09:27:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B09E9F804B4
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=OxHXXt6Z
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8Rj5F019879;
+ Tue, 27 Dec 2022 02:27:45 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1672129665;
+ bh=W2jS52aaXKHKNZtM8BluGXp3l1JVDspx5b4whSMVk0k=;
+ h=From:To:CC:Subject:Date;
+ b=OxHXXt6ZwA8X1XOTCJRzmVKjZUQjQLUJ+DFVBMJ5zDKIkjDb3vRBDtlVXkZkCb5Js
+ HS0lzj6IHlkZIDe2NcWxi1GBaojZ48cPprZ+H/aBL140jE6SqNxS325HWrYbK7hXMn
+ tOoeOZLyPIBiiQ5w4i9neEWofEFCX8PIW6le42w8=
+Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2BR8RjRT100652
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 27 Dec 2022 02:27:45 -0600
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Tue, 27
+ Dec 2022 02:27:44 -0600
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16 via
+ Frontend Transport; Tue, 27 Dec 2022 02:27:44 -0600
+Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8RiVj099504;
+ Tue, 27 Dec 2022 02:27:44 -0600
+From: Jai Luthra <j-luthra@ti.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [PATCH v5 0/2] dt-bindings: sound: tlv320aic3x: Convert to dtschema
+Date: Tue, 27 Dec 2022 13:57:15 +0530
+Message-ID: <20221227082717.29561-1-j-luthra@ti.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-7ab1d
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,54 +88,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com, cujomalainey@chromium.org,
- yung-chuan.liao@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jai Luthra <j-luthra@ti.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Dec 2022 14:56:26 +0200, Peter Ujfalusi wrote:
-> This is the followup series for the v1 sent out by Ranjani [1]. Unfortunately
-> Ranjani was dragged away to another issue and could not send the update herself.
-> 
-> Changes since v1:
-> - In patch 2, move the tear_down_all_pipelines call instead of duplicating it
-> 
-> Amadeusz: I have kept the check as it is:
-> if (tplg_ops && tplg_ops->tear_down_all_pipelines)
-> I'm preparing the ops optionality change series which would require this change.
-> 
-> [...]
+Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
 
-Applied to
+v5:
+Follow up commit with properties around clocks and port that were 
+missing in original txt bindings
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+v4: https://lore.kernel.org/all/20221221145216.11400-1-j-luthra@ti.com/
 
-Thanks!
+Jai Luthra (2):
+  dt-bindings: sound: tlv320aic3x: Convert to dtschema
+  dt-bindings: sound: tlv320aic3x: Add optional clock and port
+    properties
 
-[1/3] ASoC: SOF: pm: Set target state earlier
-      commit: 6f95eec6fb89e195dbdf30de65553c7fc57d9372
-[2/3] ASoC: SOF: pm: Always tear down pipelines before DSP suspend
-      commit: d185e0689abc98ef55fb7a7d75aa0c48a0ed5838
-[3/3] ASoC: SOF: Add FW state to debugfs
-      commit: 9a9134fd56f6ba614ff7b2b3b0bac0bf1d0dc0c9
+ .../bindings/sound/ti,tlv320aic3x.yaml        | 164 ++++++++++++++++++
+ .../devicetree/bindings/sound/tlv320aic3x.txt |  97 -----------
+ 2 files changed, 164 insertions(+), 97 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic3x.txt
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+2.17.1
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

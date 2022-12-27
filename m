@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71BA765686D
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 09:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C27A65686E
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 09:29:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5546B7094;
-	Tue, 27 Dec 2022 09:28:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5546B7094
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC034709A;
+	Tue, 27 Dec 2022 09:28:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC034709A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672129764;
-	bh=IHoA8B20MQaWFyv1b2XoLX0gX4m9W/E7aUU2IpwDezE=;
+	s=default; t=1672129778;
+	bh=g8i31QJOt7maRA42zoQ1xufh5/MjSgMZd+De23wm6Vg=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=T4R3o+m9EDrmWtVQ6h9zOv4/pbHOOnXoPxdq5X9FEHkLnr2m/c048wYOzFwfya+RC
-	 8hR65mzLlSh/c98UyLj35XdseERKs7tdrPhAn6BfTbVxRaw9Y/1PO9gojUP/8smZZQ
-	 F10VBgCIMRVNJ+lBKrzRbBIVVR6d5GVgxdkyqqS4=
+	b=ZCnL+amgkMDxEyd8yCsBvIZ/P757ixDwQ56xTnoVo89xysw/wYQ8dvey/M3zvV575
+	 gG5Eharl6dKloIQCtFQF3QAEer0PlHRixk6qSv+k4ia+3mFOSAyQ6DLaz4IcKrphxn
+	 4hUi05x1hP2F74KCrTpDlElH0Lbs+oCVhgPlRz6w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1524F80524;
-	Tue, 27 Dec 2022 09:27:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40E7BF80535;
+	Tue, 27 Dec 2022 09:27:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CD76F804B4; Tue, 27 Dec 2022 09:27:52 +0100 (CET)
+ id 965A5F804B4; Tue, 27 Dec 2022 09:27:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,44 +35,45 @@ X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2A77F804E4
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 09:27:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2A77F804E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C4A3F800F0
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 09:27:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C4A3F800F0
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=cQS91mdN
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8RkME017629;
- Tue, 27 Dec 2022 02:27:46 -0600
+ header.s=ti-com-17Q1 header.b=rRrb+mfa
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8Rmti017638;
+ Tue, 27 Dec 2022 02:27:48 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1672129666;
- bh=5dOt9R98p8+4kAcuw+useYONjNz1Czwt4Lmrf0vrhgk=;
+ s=ti-com-17Q1; t=1672129668;
+ bh=oMJ4FPeMkZnO6YuQT5Qyr7UmQmMUx1pUdxiAyBoQDfQ=;
  h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=cQS91mdN8QFJ2R4IDYeHeYlxMn7QsoOSlYJm9SwAvqxThqHC9kN4dQeA1M2fcG+Vn
- XXB/Cw4V/HxMSLUyBYScuJFWqxP7oU8k0HEt4Bwo8PIDUf37i4yK9lu8uQ9BVmsMtf
- QSIBPIfzEzLAEbBMI7/x/On612g3al6M09VD+ixA=
+ b=rRrb+mfafPGIxrDgux44h1sRO+J/KluWspMM+xkOGt+16E6nia87GfNVcdIZvJ5U3
+ wZcaFvB9svy9vgwK+/rQn1YNZqrpiRDbN+/hplaytS+7HSPanb2QgiFl/aWnlU8+Sj
+ thhcSUjp4V1A307m7M7vvqedSnRBNdFXELwt2cmA=
 Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2BR8Rk3M100668
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2BR8RlM5049793
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 27 Dec 2022 02:27:46 -0600
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE104.ent.ti.com
+ Tue, 27 Dec 2022 02:27:47 -0600
+Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE104.ent.ti.com
  (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Tue, 27
- Dec 2022 02:27:46 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ Dec 2022 02:27:47 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16 via
- Frontend Transport; Tue, 27 Dec 2022 02:27:46 -0600
+ Frontend Transport; Tue, 27 Dec 2022 02:27:47 -0600
 Received: from localhost (ileaxei01-snat2.itg.ti.com [10.180.69.6])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8RjUw002111;
- Tue, 27 Dec 2022 02:27:46 -0600
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2BR8RkUA037782;
+ Tue, 27 Dec 2022 02:27:47 -0600
 From: Jai Luthra <j-luthra@ti.com>
 To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski+dt@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH v5 1/2] dt-bindings: sound: tlv320aic3x: Convert to dtschema
-Date: Tue, 27 Dec 2022 13:57:16 +0530
-Message-ID: <20221227082717.29561-2-j-luthra@ti.com>
+Subject: [PATCH v5 2/2] dt-bindings: sound: tlv320aic3x: Add optional clock
+ and port properties
+Date: Tue, 27 Dec 2022 13:57:17 +0530
+Message-ID: <20221227082717.29561-3-j-luthra@ti.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221227082717.29561-1-j-luthra@ti.com>
 References: <20221227082717.29561-1-j-luthra@ti.com>
@@ -96,287 +97,43 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert bindings for TI's TLV320AIC3x audio codecs to dtschema.
+Describe optional properties for clocks and ports that were missing in
+the original txt binding, to fix warnings like:
 
-There is an unknown property "adc-settle-ms" found in old dts files,
-which is ignored by the driver.
+aic33@18: 'assigned-clock-parents', 'assigned-clock-rates',
+	'assigned-clocks' do not match any of the regexes:
+	'pinctrl-[0-9]+'
+	arch/arm/boot/dts/omap2420-n810.dtb
+
+tlv320aic3106@1b: 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/am335x-sl50.dtb
+
+codec@18: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	arch/arm/boot/dts/imx6dl-gw5903.dtb
+	arch/arm/boot/dts/imx6q-gw5903.dtb
 
 Signed-off-by: Jai Luthra <j-luthra@ti.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/sound/ti,tlv320aic3x.yaml        | 158 ++++++++++++++++++
- .../devicetree/bindings/sound/tlv320aic3x.txt |  97 -----------
- 2 files changed, 158 insertions(+), 97 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic3x.txt
+ Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml b/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
-new file mode 100644
-index 000000000000..f0375bbf4c40
---- /dev/null
+index f0375bbf4c40..2f9fc76bba55 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
 +++ b/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
-@@ -0,0 +1,158 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+# Copyright (C) 2022 Texas Instruments Incorporated
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,tlv320aic3x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+@@ -110,6 +110,12 @@ properties:
+   '#sound-dai-cells':
+     const: 0
+ 
++  clocks: true
 +
-+title: Texas Instruments TLV320AIC3x Codec
++  port:
++    description: For DAI connection when the codec is used via graph card
++    type: object
 +
-+description: |
-+  TLV320AIC3x are a series of low-power stereo audio codecs with stereo
-+  headphone amplifier, as well as multiple inputs and outputs programmable in
-+  single-ended or fully differential configurations.
-+
-+  The serial control bus supports SPI or I2C protocols, while the serial audio
-+  data bus is programmable for I2S, left/right-justified, DSP, or TDM modes.
-+
-+  The following pins can be referred in the sound node's audio routing property:
-+
-+  CODEC output pins:
-+     LLOUT
-+     RLOUT
-+     MONO_LOUT
-+     HPLOUT
-+     HPROUT
-+     HPLCOM
-+     HPRCOM
-+
-+  CODEC input pins for TLV320AIC3104:
-+     MIC2L
-+     MIC2R
-+     LINE1L
-+     LINE1R
-+
-+  CODEC input pins for other compatible codecs:
-+     MIC3L
-+     MIC3R
-+     LINE1L
-+     LINE2L
-+     LINE1R
-+     LINE2R
-+
-+maintainers:
-+  - Jai Luthra <j-luthra@ti.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tlv320aic3x
-+      - ti,tlv320aic33
-+      - ti,tlv320aic3007
-+      - ti,tlv320aic3106
-+      - ti,tlv320aic3104
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO specification for the active low RESET input.
-+
-+  gpio-reset:
-+    maxItems: 1
-+    description:
-+      Deprecated, please use reset-gpios instead.
-+    deprecated: true
-+
-+  ai3x-gpio-func:
-+    description: AIC3X_GPIO1 & AIC3X_GPIO2 Functionality
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 2
-+
-+  ai3x-micbias-vg:
-+    description: MicBias required voltage. If node is omitted then MicBias is powered down.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    oneOf:
-+      - const: 1
-+        description: MICBIAS output is powered to 2.0V.
-+      - const: 2
-+        description: MICBIAS output is powered to 2.5V.
-+      - const: 3
-+        description: MICBIAS output is connected to AVDD.
-+
-+  ai3x-ocmv:
-+    description: Output Common-Mode Voltage selection.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    oneOf:
-+      - const: 0
-+        description: 1.35V
-+      - const: 1
-+        description: 1.5V
-+      - const: 2
-+        description: 1.65V
-+      - const: 3
-+        description: 1.8V
-+
-+  AVDD-supply:
-+    description: Analog DAC voltage.
-+
-+  IOVDD-supply:
-+    description: I/O voltage.
-+
-+  DRVDD-supply:
-+    description: ADC analog and output driver voltage.
-+
-+  DVDD-supply:
-+    description: Digital core voltage.
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      tlv320aic3x_i2c: audio-codec@1b {
-+        compatible = "ti,tlv320aic3x";
-+        reg = <0x1b>;
-+
-+        reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-+
-+        AVDD-supply = <&regulator>;
-+        IOVDD-supply = <&regulator>;
-+        DRVDD-supply = <&regulator>;
-+        DVDD-supply = <&regulator>;
-+      };
-+    };
-+
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      tlv320aic3x_spi: audio-codec@0 {
-+        compatible = "ti,tlv320aic3x";
-+        reg = <0>; /* CS number */
-+        #sound-dai-cells = <0>;
-+
-+        AVDD-supply = <&regulator>;
-+        IOVDD-supply = <&regulator>;
-+        DRVDD-supply = <&regulator>;
-+        DVDD-supply = <&regulator>;
-+        ai3x-ocmv = <0>;
-+      };
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/sound/tlv320aic3x.txt b/Documentation/devicetree/bindings/sound/tlv320aic3x.txt
-deleted file mode 100644
-index 20931a63fd64..000000000000
---- a/Documentation/devicetree/bindings/sound/tlv320aic3x.txt
-+++ /dev/null
-@@ -1,97 +0,0 @@
--Texas Instruments - tlv320aic3x Codec module
--
--The tlv320aic3x serial control bus communicates through both I2C and SPI bus protocols
--
--Required properties:
--
--- compatible - "string" - One of:
--    "ti,tlv320aic3x" - Generic TLV320AIC3x device
--    "ti,tlv320aic33" - TLV320AIC33
--    "ti,tlv320aic3007" - TLV320AIC3007
--    "ti,tlv320aic3106" - TLV320AIC3106
--    "ti,tlv320aic3104" - TLV320AIC3104
--
--
--- reg - <int> -  I2C slave address
--
--
--Optional properties:
--
--- reset-gpios - GPIO specification for the active low RESET input.
--- ai3x-gpio-func - <array of 2 int> - AIC3X_GPIO1 & AIC3X_GPIO2 Functionality
--				    - Not supported on tlv320aic3104
--- ai3x-micbias-vg - MicBias Voltage required.
--	1 - MICBIAS output is powered to 2.0V,
--	2 - MICBIAS output is powered to 2.5V,
--	3 - MICBIAS output is connected to AVDD,
--	If this node is not mentioned or if the value is incorrect, then MicBias
--	is powered down.
--- ai3x-ocmv - Output Common-Mode Voltage selection:
--	0 - 1.35V,
--	1 - 1.5V,
--	2 - 1.65V,
--	3 - 1.8V
--- AVDD-supply, IOVDD-supply, DRVDD-supply, DVDD-supply : power supplies for the
--  device as covered in Documentation/devicetree/bindings/regulator/regulator.txt
--
--Deprecated properties:
--
--- gpio-reset - gpio pin number used for codec reset
--
--CODEC output pins:
--  * LLOUT
--  * RLOUT
--  * MONO_LOUT
--  * HPLOUT
--  * HPROUT
--  * HPLCOM
--  * HPRCOM
--
--CODEC input pins for TLV320AIC3104:
--  * MIC2L
--  * MIC2R
--  * LINE1L
--  * LINE1R
--
--CODEC input pins for other compatible codecs:
--  * MIC3L
--  * MIC3R
--  * LINE1L
--  * LINE2L
--  * LINE1R
--  * LINE2R
--
--The pins can be used in referring sound node's audio-routing property.
--
--I2C example:
--
--#include <dt-bindings/gpio/gpio.h>
--
--tlv320aic3x: tlv320aic3x@1b {
--	compatible = "ti,tlv320aic3x";
--	reg = <0x1b>;
--
--	reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
--
--	AVDD-supply = <&regulator>;
--	IOVDD-supply = <&regulator>;
--	DRVDD-supply = <&regulator>;
--	DVDD-supply = <&regulator>;
--};
--
--SPI example:
--
--spi0: spi@f0000000 {
--	tlv320aic3x: codec@0 {
--		compatible = "ti,tlv320aic3x";
--		reg = <0>; /* CS number */
--		#sound-dai-cells = <0>;
--		spi-max-frequency = <1000000>;
--
--		AVDD-supply = <&regulator>;
--		IOVDD-supply = <&regulator>;
--		DRVDD-supply = <&regulator>;
--		DVDD-supply = <&regulator>;
--		ai3x-ocmv = <0>;
--	};
--};
+ required:
+   - compatible
+   - reg
 -- 
 2.17.1
 

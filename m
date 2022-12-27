@@ -2,90 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909A7656893
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 09:55:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B81AA656A21
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 12:57:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B98E667E;
-	Tue, 27 Dec 2022 09:54:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B98E667E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 618A4739C;
+	Tue, 27 Dec 2022 12:57:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618A4739C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672131311;
-	bh=EX785Wd/r9a+DHlDqFkfj7I9VH9UsxzoedVLmdg/GqQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672142277;
+	bh=MVhpv8rXzR6Te24jCkntBS3xe22aOWW6rhIHAEiEsTI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ObcXrkTx1UOt4COGHMEE5z9wXSW7X4SMHlGwiXIpEr98MG6+5gUBhGVoX47IX2kvW
-	 ZeKOfyqMqro6CSd3c13hPvDFBZhkJdjMXDtco3sBJ1pwDQAjNFs6Ou6JHoww1N1y0J
-	 9t60K3f27ITkJ4MWVHRAyloLNZ/WaEUAL7olrObo=
+	b=KhNh2D/+PMWhO0bP2aSOUrOHMhTuE1o1LUhG515uX4GTJQEw9a6NvZLEQoL9ulIw+
+	 i9MDg6gmDPq44QOo9o5ChoBiInlnL/Tiyc+ksSEE1Ilr40fxJAwhm98+aKDiBTxKhX
+	 L1R5Ej4FNKwrfL4bgfeFrw/R7HcOP5OHTl7GYB/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43CE9F800F0;
-	Tue, 27 Dec 2022 09:54:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42770F804E7;
+	Tue, 27 Dec 2022 12:56:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFFFEF804B4; Tue, 27 Dec 2022 09:54:09 +0100 (CET)
+ id B56ACF804B4; Tue, 27 Dec 2022 12:56:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E905F800F0
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 09:54:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E905F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=KsPqrNdD; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=H4+tzfRo
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6ECBF800F0
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:56:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6ECBF800F0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=PSUPvLMA
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3FCBC6032A;
- Tue, 27 Dec 2022 08:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672131247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5JP7NlsjxZPXUXT4QtzWwyBIF6ntDtZWKZSUZGf8DaI=;
- b=KsPqrNdDU6Kr7Kpq/03+n290KuyffHVVVBtUG8+Ci3z8nmdQZ80EW7XECETcbnNB/u/xYV
- 66aJLzUIi/3IQI+QoX/NfJZuCS34wfL49TCvP+Q/A6g6LkJkN0AMW+llFJ0Uzd5sXjRMni
- ReQ9BwY6nvEKrEvv1OHvuFDYq4RUE4Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672131247;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5JP7NlsjxZPXUXT4QtzWwyBIF6ntDtZWKZSUZGf8DaI=;
- b=H4+tzfRo1wRI4CLMEwEd/EdCcggWhNwCG2XlUzatsZHmYo3o1cOa89KuRgq10QWuJJj+RS
- eSYYpYdcMH0eeaDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CBBF13913;
- Tue, 27 Dec 2022 08:54:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Om1BBq+yqmPkfAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 27 Dec 2022 08:54:07 +0000
-Date: Tue, 27 Dec 2022 09:54:06 +0100
-Message-ID: <87wn6d1b2p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Chris Chiu <chris.chiu@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Apply dual codec fixup for Dell
- Latitude laptops
-In-Reply-To: <20221226114303.4027500-1-chris.chiu@canonical.com>
-References: <20221226114303.4027500-1-chris.chiu@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1EA99B80ED9;
+ Tue, 27 Dec 2022 11:56:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C59C433D2;
+ Tue, 27 Dec 2022 11:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672142211;
+ bh=MVhpv8rXzR6Te24jCkntBS3xe22aOWW6rhIHAEiEsTI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=PSUPvLMAwFNazUcuumTkeUgtQFmpg2Vw/cgqNm7UwT4p+V6Any1e1GpEiBrUGc63I
+ jpqUEuEjJyUZM3fBL8N/QA7A/d5CwFQTWQUrqabnWeCUFaYnJ46ZDjNbTu4fcIDVOk
+ zvGW2TXYdD+BeXEtF8qzXP45KEJS3NSDcaFiEIOOAtU/oNPAZd/h9rfu2LNjp5pM2D
+ 3exLfJN9KJP2Sz9vWXFJ0WfnJCZa3CqT5r7q8BFevoF87UKmAmkeRzIEPusaT7wmp6
+ VM4HsNIHDwpr4wmAWYz9Jp9V7Z7dvOTlJi+hFG4y728CFRfC/CMbWKO/Cw4Nh9KX0I
+ vQXmATWtnoltw==
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jarrah Gosbell <kernel@undef.tools>
+In-Reply-To: <20221209105621.39237-1-kernel@undef.tools>
+References: <20221209105621.39237-1-kernel@undef.tools>
+Subject: Re: [PATCH 1/2] ASoC: rt5640: Allow configuration of LOUT to mono
+ differential mode
+Message-Id: <167214220970.82924.10318641625938014586.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:56:49 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-7ab1d
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,26 +84,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: phone-devel@vger.kernel.org, Ondrej Jirman <megi@xff.cz>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Dec 2022 12:43:03 +0100,
-Chris Chiu wrote:
+On Fri, 09 Dec 2022 10:56:20 +0000, Jarrah Gosbell wrote:
+> LOUT output can produce either single-ended stereo signals, or mono
+> differential signal. Some applications are wired to use LOUT in mono
+> differential mode. Allow to configure it via device property.
 > 
-> The Dell Latiture 3340/3440/3540 laptops with Realtek ALC3204 have
-> dual codecs and need the ALC1220_FIXUP_GB_DUAL_CODECS to fix the
-> conflicts of Master controls. The existing headset mic fixup for
-> Dell is also required to enable the jack sense and the headset mic.
 > 
-> Introduce a new fixup to fix the dual codec and headset mic issues
-> for particular Dell laptops since other old Dell laptops with the
-> same codec configuration are already well handled by the fixup in
-> alc269_fallback_pin_fixup_tbl[].
-> 
-> Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
 
-Thanks, applied.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/2] ASoC: rt5640: Allow configuration of LOUT to mono differential mode
+      commit: 44b54f54b41d36e8a2302a2c18a65268751c9067
+[2/2] dt-bindings: sound: rt5640: Allow to describe how LOUT is wired
+      commit: d8510532ccf3bc12e2b1c0c285d4b61d4b713e1a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

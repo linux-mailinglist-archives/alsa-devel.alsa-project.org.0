@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D78656A50
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:00:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EEE2656A57
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:00:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF54873B5;
-	Tue, 27 Dec 2022 12:59:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF54873B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0965C73A4;
+	Tue, 27 Dec 2022 12:59:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0965C73A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672142429;
-	bh=9g9GTzF4uJyrsr6n2tT7K7F/NVdujs3tyyZcAug4t1s=;
+	s=default; t=1672142442;
+	bh=Tp797qKymqBv9WjfLeXEP16pI60mkQzwoax0c7aWd4w=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=UalVf/2z7PkfVhUKfuvV7n35n+3NWi6BMbwYLT3hxkLY6zDVmlyCsy4bLcwpcrB/a
-	 wVOzeE8o4bo3oO+olxqLkdfFkQtbDoPR7auo6U44npCvj2TlhozRf+1ByHWZ2jpiuq
-	 VKbg+JWsJgMMqPxkezfPK3QDuDtR2mUpa1ZXUowc=
+	b=M/bBSTiafQysTnH1xrryqk4bR1dF19clSQcTv3llqZ5Mq84YVCf8zyGm6AuUTsGbI
+	 vJ/nwlQ2pvgj/XOhW+QuzL8U1e2+ka3Wt2iACL9Ylmm17YX740SngkjcX/e62bZ/+h
+	 VOFm0IkyanaUFHLg1SW5GzMvVeNIDT/wKyBYs7Ic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBB34F80588;
-	Tue, 27 Dec 2022 12:57:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75237F800F0;
+	Tue, 27 Dec 2022 12:57:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C383F80578; Tue, 27 Dec 2022 12:57:19 +0100 (CET)
+ id 813F3F8059F; Tue, 27 Dec 2022 12:57:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 873D0F80570
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873D0F80570
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3E19F80587;
+ Tue, 27 Dec 2022 12:57:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3E19F80587
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=C/JCLyRf
+ header.s=k20201202 header.b=h5PqXQt+
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BE36CB80F9E;
- Tue, 27 Dec 2022 11:57:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930C0C433D2;
- Tue, 27 Dec 2022 11:57:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BC85061013;
+ Tue, 27 Dec 2022 11:57:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33125C433EF;
+ Tue, 27 Dec 2022 11:57:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672142235;
- bh=9g9GTzF4uJyrsr6n2tT7K7F/NVdujs3tyyZcAug4t1s=;
+ s=k20201202; t=1672142240;
+ bh=Tp797qKymqBv9WjfLeXEP16pI60mkQzwoax0c7aWd4w=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=C/JCLyRfVRJzP5Eu0R+uj9aub31CKb0fjaDgyDnXVVUEnbiib26yZFGlAFeejc8a4
- aQJGQUuVCDkI9PGT4rOoX3Ihs1EA+UyhZhQ9u9T+rbF6IfC1M26C8053TcsUK6AVJx
- bqfeoYqPecvHFMY3f5GUImhSX3BKhYxuh5/1ZSwzPVHz4gMdhiVQJb1VmRIhvVKMTq
- ZScCi6LmvQquezH1508CeT5MSKyTkZdXBe5XugIIPB818x3KJdisW1Y6Bjc1k+yiJ8
- GFajcLGc3bE1wztkkbnGOZ/6WOIGDUoC+zRQRsSuOCV3PhKvbMA7ipMVz9mlZUrUEn
- zg5lRM1mqLWNw==
+ b=h5PqXQt+1dOSdfqT0sUbOR6JLvDmP4bByJjBGkaFm75wKOFpxrJzF7nc4Dr7JAWFI
+ fKusaXiCtsWq9WS3gWWr7EmLaiCyxKc7Vc5DfdIc6qpaA8go4rtlaDLFU5CuCuin9h
+ QjqH0PWpSB+zbTNrLS/Nwz0fs+0A6cu1+qWfm1fvc1vnWl/VYchGh5/NIxVC50Euyp
+ elnh+wER6z/eexITr9fGXBat1jYnR9XPc51xhHRdXD9JjmVjMIsBMl8oxAk9PtRiHV
+ FjQO9BNm7Iu1jygJKsKUBbHI9IpqmfjEfQojTW7Yo9qHCprSxZ7dWlkjDEBZ9PuMny
+ YYWell7aWyiTA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Stephen Kitt <steve@sk2.org>, Lukasz Majewski <lukma@denx.de>
-In-Reply-To: <20221214123743.3713843-1-lukma@denx.de>
-References: <20221214123743.3713843-1-lukma@denx.de>
-Subject: Re: [PATCH 0/4] ASoC: Fixes for WM8940 codec
-Message-Id: <167214223331.82924.4308622733023807080.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 11:57:13 +0000
+To: YC Hung <yc.hung@mediatek.com>
+In-Reply-To: <20221215061046.16934-1-yc.hung@mediatek.com>
+References: <20221215061046.16934-1-yc.hung@mediatek.com>
+Subject: Re: [PATCH] ASoC: SOF: mediatek: mt8195: remove a redundant
+ comparison of sram
+Message-Id: <167214223584.82924.11453521857555977092.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:57:15 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -83,25 +82,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
+ Chunxu Li <chunxu.li@mediatek.com>, linux-kernel@vger.kernel.org,
+ Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ sound-open-firmware@alsa-project.org, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Dec 2022 13:37:39 +0100, Lukasz Majewski wrote:
-> This patch series provides fixes for WM8940 codec.
+On Thu, 15 Dec 2022 14:10:46 +0800, YC Hung wrote:
+> DSP SRAM is not used for audio shared buffer between host and DSP so
+> TOTAL_SIZE_SHARED_SRAM_FROM_TAIL is zero. Remove the definition and
+> redundant comparison to fix coverity "unsigned compared against 0".
 > 
-> The most notable change is the clock rewrite, so this driver now
-> can either generate proper clock frequency by itself or use one
-> provided from the clock subsystem of the SoC.
 > 
-> Lukasz Majewski (4):
->   ASoC: wm8940: Remove warning when no plat data present
->   ASoC: wm8940: Rewrite code to set proper clocks
->   ASoC: wm8940: Mute also the speaker output
->   ASoC: wm8940: Read chip ID when wm8940 codec probing
-> 
-> [...]
 
 Applied to
 
@@ -109,12 +112,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: wm8940: Remove warning when no plat data present
-      commit: 5dc5e76b4c41fc8cdd9ed77653b2ce453974fb30
-[2/3] ASoC: wm8940: Rewrite code to set proper clocks
-      commit: 294833fc9eb4e9d6c69f8d158cd991d641e59908
-[3/3] ASoC: wm8940: Read chip ID when wm8940 codec probing
-      commit: a5c26ee572d94337baf9c944b7b4881a2db62d37
+[1/1] ASoC: SOF: mediatek: mt8195: remove a redundant comparison of sram
+      commit: 3f58ff6b53c11773b1bd564082fae37d48e0cc40
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

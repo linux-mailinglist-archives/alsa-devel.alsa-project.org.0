@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC55656A5B
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:01:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBDC6656A5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 13:01:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D286373A7;
-	Tue, 27 Dec 2022 13:00:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D286373A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F94373C3;
+	Tue, 27 Dec 2022 13:01:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F94373C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672142480;
-	bh=gE09O9kPmzTMcuuOFpc0l3Yqr1IL/aEE8PLijWmVyd0=;
+	s=default; t=1672142511;
+	bh=qzDtipgE+9sohMGcEQB+zL7TsMbL15rCYtAT70uF2G4=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=PuvW+oBGWGSm6kUtHC8MdwmJe/8gT6DigKD9Kn6Emp5tGtQlDRvzucjoOr21VJrSK
-	 kd8GSvSaOrWGOLCBJZwXPsg3lUg5hR0Ve/V+oj0fAeiDoESL0E1nbPfGHJ4phEbYhn
-	 FlukBm8CzS4cPfVY+pWSHpROe3iPj3GJpHVHkFgU=
+	b=bQM8nMQOe76R1h8j9HdHVz8wVWZ5D3la+Pdukf7LtjB0yBSa75YJZp2UEygC+FnBs
+	 AQsZFN7rmmI7nKyS8Gbm5oTLFFf2f7KhXlP0GLbFnozgDT3Urr3t7mwGBUgKhQqcqT
+	 +rtt8CwhbVeUjIjSFVLvZ1KMS0cO7w3LNRwXIOeI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A8ADF805B1;
-	Tue, 27 Dec 2022 12:57:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6F20F805BA;
+	Tue, 27 Dec 2022 12:57:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17660F805AA; Tue, 27 Dec 2022 12:57:30 +0100 (CET)
+ id 2D536F805AC; Tue, 27 Dec 2022 12:57:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,37 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 567DDF8059F
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 567DDF8059F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94A37F8059F
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 12:57:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94A37F8059F
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=F7bFKeeS
+ header.s=k20201202 header.b=Vodk7Nx7
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EBDB96106C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 558C761086;
+ Tue, 27 Dec 2022 11:57:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE67DC433EF;
  Tue, 27 Dec 2022 11:57:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED32DC433D2;
- Tue, 27 Dec 2022 11:57:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672142246;
- bh=gE09O9kPmzTMcuuOFpc0l3Yqr1IL/aEE8PLijWmVyd0=;
+ s=k20201202; t=1672142248;
+ bh=qzDtipgE+9sohMGcEQB+zL7TsMbL15rCYtAT70uF2G4=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=F7bFKeeSsjwKyYLWc4pgKKe27V3dnvNnr1yd/uQkrp6HX8XsftMG7KDwW7guHM91f
- NII/9+tZf6ZMa+yo6RhP2Dou4QD4ElpmfurgrcZUswPp1aBAMJMpZ4i/aoObkEktCo
- s5mni2fSvrDYWxa9jwhUHekqU2WdhDe6o3vQrSeVqEYdy7Sct5c5sbxPQ8LlnaqURY
- y3Nko7GT3LHoocSFSKVRaoDiLP0rlExEnGxl7xg0mJa6Ucs7Lr3cRVBBSBhwKNH/Ue
- eGeZuBAURYETLc28vj0qTAHMqeh1vuR9/qYy0jRRIthwZZyDkKYi9U51T29IjFGZDN
- +fNSkCgOJOGZA==
+ b=Vodk7Nx7VwsTwtRYX2mSkOdHTjthhmfc81mido2yrHqAzXS4pNni34fztq3qDiKMB
+ Umzl7OqcH/eK0ON2tMDPgMYVLTbe7J7ODoPJGAN0fgpVE/7GcqoDcTe1ObWdEhlzI4
+ ufE4WU4cgJB7OWvUOSRT4Jwfc/yIkwO/OGQ133y1xwlOqhAp0pSePpUJy69ygFXeiM
+ 3In78h13xLnTVO3JgVRFyUKq3g02ObKHesyes2Wg5mam94luCtMChAPOqbua2Ugqqy
+ tQTDp4oJIlOYEyexNr0uEumEW9gIEgqcVKIUeR86RZ8EO2HM5LUk9Oc3FjPPThkDXi
+ jOVR28mWYRatg==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20221216115435.28427-1-peter.ujfalusi@linux.intel.com>
-References: <20221216115435.28427-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20221221111750.20283-1-peter.ujfalusi@linux.intel.com>
+References: <20221221111750.20283-1-peter.ujfalusi@linux.intel.com>
 Subject: Re: [PATCH] ASoC: SOF: core: Print out the value of sof_debug if it
  is set
-Message-Id: <167214224468.82924.12765753486904968879.b4-ty@kernel.org>
-Date: Tue, 27 Dec 2022 11:57:24 +0000
+Message-Id: <167214224656.82924.332736050056900428.b4-ty@kernel.org>
+Date: Tue, 27 Dec 2022 11:57:26 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -87,7 +87,7 @@ Cc: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 16 Dec 2022 13:54:35 +0200, Peter Ujfalusi wrote:
+On Wed, 21 Dec 2022 13:17:50 +0200, Peter Ujfalusi wrote:
 > The sof_debug value is set by the user, developer intentionally.
 > To save time on figuring out what value has been passed to the kernel by
 > the user, developer, print it out if it is not 0.

@@ -2,104 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C402656CF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 17:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D15656D3F
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Dec 2022 18:08:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0B5676D1;
-	Tue, 27 Dec 2022 17:32:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0B5676D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9453B9C;
+	Tue, 27 Dec 2022 18:07:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9453B9C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672158814;
-	bh=fW39H5GUQrBPbxCHJzba4mbYtUtAi7l/+bfKS5Vv/OA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=nS2/rcgzpEWzef2gxpavNp/1+3xDaHnIfty9qkXOKlghUj/maqRp+MbnBVD28HSil
-	 /pxQT0n2+tUQg3YDdl/m7XCoFe2h4gt03gg6VRsu+fAcDeBc6DE2JjeW8uUSX4a3z7
-	 e3Wfp078QbWG6zu0mjKSJcjrFp9pfQQpIZrgzmhY=
+	s=default; t=1672160908;
+	bh=3ZqYhqiXtAyvi8Q7fMoUgAIsy3lZvzcW6OONX2fXOhU=;
+	h=From:Subject:Date:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=VNzrxlWIcCCSzMnHdZHDHeEQZoOn6LREBNbfYjd0rHNosso5p6vBQnRXqREqBMnAR
+	 F/cmY1Y6+F5AZdI10wTaVYe8HrPO0ZeGWpaugjo0i0jKhZeBGeuZYa2cu+7UIJLEFi
+	 WFBJjv/UlvU6QnYmE9sQ9mLO/nW4L9bdyfL+JIVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 012E5F80524;
-	Tue, 27 Dec 2022 17:31:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40AF8F804B4;
+	Tue, 27 Dec 2022 18:07:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A364F804E7; Tue, 27 Dec 2022 17:31:50 +0100 (CET)
+ id 6ABDBF804E4; Tue, 27 Dec 2022 18:07:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F376EF8027B
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 17:31:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F376EF8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A715F800F0
+ for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 18:07:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A715F800F0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=NbHvojsr
-Received: by mail-lf1-x135.google.com with SMTP id y25so20263102lfa.9
- for <alsa-devel@alsa-project.org>; Tue, 27 Dec 2022 08:31:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=72cmjE0V7BUxC28t/DNBJowrN2/6PZnCNzCr8N7zUBI=;
- b=NbHvojsrG4KTDx9OBuOv4eb0KqhmLcbXkFP/iqhlN3OVTGkCaq0cWQ4jMpkhcK63Zp
- PmZkTs8M36h3rKdR7cK8P69gAiI0hXs4lj9IA4LsAJHoyeD65U35aJ1Ffv9H7CHlZOVh
- Gld9v2SH9QS+6kO7lwGFcDpO9nNfulZWMwZAJt90TNOY8BVHTIrjkN+igQKO/cFLtvwp
- +n2PaWEUVwv4hBmiw9ncVsD4bJnJLy94IJsjLhz3S9EHpUAUHQiDe+z+hoUhvMUH3D+o
- 1ZB7JqL7yARj2SwLMSuthMBQwTsqGmH2YdyYUgQKEAEny+LPMlmku6gPPU3nn8jJHqft
- /HXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=72cmjE0V7BUxC28t/DNBJowrN2/6PZnCNzCr8N7zUBI=;
- b=6SqutoMWtS+lmedmpL2CV3op1CAJUF2KKVRncV5h6JCr0xDWwEAvW7rxWXPV2N1U83
- DXM7v3nN0KeeGW06otw3vCkTeq/E72VcSk/JTzsPQXW3JtWaAzOp4/pLsahBnIuQg5BK
- YQRx+WOExTI+R651zOKx2IE36AqU7ofITUBS50iJBLLcoWLFspQ4xbBZhTp1mRghUVNS
- 2kI8uvuF3YKMJ6u+4U3qYbHJ7LUPLZz3rWRnFjNyq5HecQZu6wTposwKTLidiiNg2ZAB
- 4u4ZzBQFpfIdyCGkGxqj25H14pxPvlRYbtPlIf/Wew1ptB4Tsg+daKAgiwLkfw0I6P7j
- 7L1g==
-X-Gm-Message-State: AFqh2koPzacm2isQe9r5fCNwDESZcGLLvgRQZS+cCpPfed0rQjRsgGP+
- 6qldTiI8ZRFdBOWkOpOo2YNofQ==
-X-Google-Smtp-Source: AMrXdXurCVsOysDqPyuiNeCz8zEeNtL+8/Od7Vrp0R3PwtkTV5Cby6lOIAcerYnQcAMYUDfSKqgvPw==
-X-Received: by 2002:a05:6512:2316:b0:4b0:6023:6f6f with SMTP id
- o22-20020a056512231600b004b060236f6fmr7739080lfu.57.1672158700907; 
- Tue, 27 Dec 2022 08:31:40 -0800 (PST)
-Received: from krzk-bin.NAT.warszawa.vectranet.pl
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- v9-20020a056512348900b004a46a9cebe2sm2318019lfr.289.2022.12.27.08.31.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Dec 2022 08:31:40 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rohit kumar <rohitkr@codeaurora.org>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] ASoC: dt-bindings: qcom,
- lpass-cpu: Correct and constrain clocks, interrupts, reg
-Date: Tue, 27 Dec 2022 17:31:35 +0100
-Message-Id: <20221227163135.102559-3-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221227163135.102559-1-krzysztof.kozlowski@linaro.org>
-References: <20221227163135.102559-1-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CCaknGvM
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 027CBB80E98;
+ Tue, 27 Dec 2022 17:07:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53395C433EF;
+ Tue, 27 Dec 2022 17:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672160839;
+ bh=3ZqYhqiXtAyvi8Q7fMoUgAIsy3lZvzcW6OONX2fXOhU=;
+ h=From:Subject:Date:To:Cc:From;
+ b=CCaknGvMXwN9QPnEKLEEYTIwoZwLOm9b/S+FyHjOECokpkK0ktvN8jfx4ZrVqBEkg
+ iVyOyOBZTsEPkc3ve9nShbJYvTdmhb++em+HvtH3DJQUt5AGI3o/fwmTV+zdOFnHD8
+ 8vM9bYrho0EGxPWpooiY6ssBZLGO2qDgufloiTERqC4YBYGDGFxu3y2aiVT+/665sw
+ A3xSCmLkr0mD8bVUCm1s08NA5te/fzcewn8afPl8eMHJXmXhmrvUwV48oNEY86bvJN
+ 8fA8ePdI99cg0L6se1tvYsmp3tcq11KCNEY+yuEdoVBiEoVDB5gj3dt6gL+lEC3feW
+ 7VmMA28ef6c+Q==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v4 0/7] kselftest/alsa: pcm-test improvements
+Date: Tue, 27 Dec 2022 17:06:46 +0000
+Message-Id: <20221208-alsa-pcm-test-hacks-v4-0-5a152e65b1e1@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACcmq2MC/02NQQ6CMBBFr0K6tkgHAujKexgXQxloA7RkhhgTw
+ t0trly+/Pz3diXEnkTds10xvb34GBJUl0xZh2Ek7fvECgoAA0WrcRbUq130RrJph3YSPdTWIDZ1
+ 14NV6dmhkO4Yg3XnN7IffbguKBvxua9Mg//8qs9X4oFj8jkm/G9BUZimuuVlCca0jYakjDF4ekz
+ EgeY88qiO4ws7P+6+wwAAAA==
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Shuah Khan <shuah@kernel.org>
+X-Mailer: b4 0.12-dev-7ab1d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2778; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=3ZqYhqiXtAyvi8Q7fMoUgAIsy3lZvzcW6OONX2fXOhU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjqyY/pbutDd6Y4yp8LnfxN6ot/hPhK5ehtPpAM1Fe
+ kTbDSymJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY6smPwAKCRAk1otyXVSH0DnMB/
+ 9fT47XsKKQjVBcOm90UZTpz+kJQzTrKRetYFtwZIAFYJpitsPVIsv1KCVjdTj0q6ZWdSrujaA5YXWG
+ lngOh4K+/ZebTNX6G8fcIY2KkCa8PunjSCofxyDiNwZn8vdV7zXgWzCI4ahbapQkzqJHdSLm5qOrKI
+ Yd9swXb65dLOI1KxcsO/hD+MhMLFTX2UsFcn5Y7+9T6oDb2KBbPJB7Ozs7dBLLNbxwzq8DvDxm6drJ
+ 1AQtVOpkUe7n5lQRYqtrz6WmwnR/LXIXy+VAeOxEKA1tLiYwuLya+WHhGycrrQXgTWNC+C/7F3sOEb
+ wBf0bUiB/9vOa8fX+/IKZNV3fQyE+G
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,212 +93,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The binding allowed multiple variations and number of
-reg/interrupts/clocks properties for SC7180 and SC7280.  Maybe this was
-done for different use-cases of LPASS CPU audio node, but DTS is
-supposed to be a complete picture of the hardware.  The upstreamed
-SC7180 and SC7280 DTSes contain the widest set of these
-reg/interrupts/clocks, sometimes being even sum of these different
-variations.
+This series provides a bunch of quick updates which should make the
+coverage from pcm-test a bit more useful, it adds some support for
+skipping tests when the hardware/driver is unable to support the
+requested configuration, support for providing user visible descriptions
+and then expands the set of cases we cover to include more sample rates
+and channel counts.  This should exercise switching between 8kHz and
+44.1kHz based rates and ensure that clocking doesn't get confused by
+non-stereo channel counts, both of which are I expect common real world
+errors, at least for embedded cards.
 
-Correct and narrow the reg, interrupts and clocks to match existing DTS:
+v4:
+ - Rebase onto v6.2-rc1.
+v3:
+ - "Rebase" onto Takashi's current tree (with a revert).
+ - Include Jaroslav's changes to specify all tests in the configuration
+   file parsing.
+ - Add a new "description" field to the configuration instead of trying
+   to name the tests.
+ - Always run both default and per-system tests, logging our success at
+   setting the per-system configurations as a separate test since they
+   shouldn't fail.
+v2:
+ - Rebase onto Takashi's current tree.
+ - Tweak the buffer sizes for the newly added cases, don't be quite
+   so ambitious in how big a buffer we request for 96kHz and don't
+   go quite so small for 8kHz since some devices start hitting lower
+   limits on period size and struggle to deliver accurate timing.
 
-  sc7280-herobrine-evoker-lte.dtb: audio@3987000: clock-names: 'oneOf' conditional failed, one must be fixed:
-    ['aon_cc_audio_hm_h', 'audio_cc_ext_mclk0', 'core_cc_sysnoc_mport_core', 'core_cc_ext_if0_ibit', 'core_cc_ext_if1_ibit',
-     'audio_cc_codec_mem', 'audio_cc_codec_mem0', 'audio_cc_codec_mem1', 'audio_cc_codec_mem2', 'aon_cc_va_mem0'] is too long
-    'core_cc_sysnoc_mport_core' was expected
-    'audio_cc_codec_mem' was expected
-    'audio_cc_codec_mem0' was expected
-    'audio_cc_codec_mem1' was expected
-    'audio_cc_codec_mem2' was expected
-    'aon_cc_va_mem0' was expected
+To: Takashi Iwai <tiwai@suse.com>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Shuah Khan <shuah@kernel.org>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/sound/qcom,lpass-cpu.yaml        | 131 +++++++++---------
- 1 file changed, 62 insertions(+), 69 deletions(-)
+Jaroslav Kysela (1):
+      kselftest/alsa: pcm - move more configuration to configuration files
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-index 16248629f659..6cc8f86c7531 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-@@ -35,7 +35,7 @@ properties:
- 
-   clocks:
-     minItems: 3
--    maxItems: 7
-+    maxItems: 10
- 
-   clock-names:
-     minItems: 1
-@@ -124,6 +124,8 @@ allOf:
- 
-     then:
-       properties:
-+        clocks:
-+          maxItems: 3
-         clock-names:
-           items:
-             - const: ahbix-clk
-@@ -138,6 +140,9 @@ allOf:
- 
-     then:
-       properties:
-+        clocks:
-+          minItems: 7
-+          maxItems: 7
-         clock-names:
-           items:
-             - const: ahbix-clk
-@@ -156,33 +161,31 @@ allOf:
- 
-     then:
-       properties:
-+        clocks:
-+          minItems: 6
-+          maxItems: 6
-         clock-names:
--          oneOf:
--            - items:   #for I2S
--                - const: pcnoc-sway-clk
--                - const: audio-core
--                - const: mclk0
--                - const: pcnoc-mport-clk
--                - const: mi2s-bit-clk0
--                - const: mi2s-bit-clk1
--            - items:   #for HDMI
--                - const: pcnoc-sway-clk
--                - const: audio-core
--                - const: pcnoc-mport-clk
-+          items:
-+            - const: pcnoc-sway-clk
-+            - const: audio-core
-+            - const: mclk0
-+            - const: pcnoc-mport-clk
-+            - const: mi2s-bit-clk0
-+            - const: mi2s-bit-clk1
-+        reg:
-+          minItems: 2
-+          maxItems: 2
-         reg-names:
--          anyOf:
--            - items:   #for I2S
--                - const: lpass-lpaif
--            - items:   #for I2S and HDMI
--                - const: lpass-hdmiif
--                - const: lpass-lpaif
-+          items:
-+            - const: lpass-hdmiif
-+            - const: lpass-lpaif
-+        interrupts:
-+          minItems: 2
-+          maxItems: 2
-         interrupt-names:
--          anyOf:
--            - items:   #for I2S
--                - const: lpass-irq-lpaif
--            - items:   #for I2S and HDMI
--                - const: lpass-irq-lpaif
--                - const: lpass-irq-hdmi
-+          items:
-+            - const: lpass-irq-lpaif
-+            - const: lpass-irq-hdmi
-       required:
-         - iommus
-         - power-domains
-@@ -195,54 +198,44 @@ allOf:
- 
-     then:
-       properties:
-+        clocks:
-+          minItems: 10
-+          maxItems: 10
-         clock-names:
--          oneOf:
--            - items:   #for I2S
--                - const: aon_cc_audio_hm_h
--                - const: audio_cc_ext_mclk0
--                - const: core_cc_sysnoc_mport_core
--                - const: core_cc_ext_if0_ibit
--                - const: core_cc_ext_if1_ibit
--            - items:   #for Soundwire
--                - const: aon_cc_audio_hm_h
--                - const: audio_cc_codec_mem
--                - const: audio_cc_codec_mem0
--                - const: audio_cc_codec_mem1
--                - const: audio_cc_codec_mem2
--                - const: aon_cc_va_mem0
--            - items:   #for HDMI
--                - const: core_cc_sysnoc_mport_core
--
-+          items:
-+            - const: aon_cc_audio_hm_h
-+            - const: audio_cc_ext_mclk0
-+            - const: core_cc_sysnoc_mport_core
-+            - const: core_cc_ext_if0_ibit
-+            - const: core_cc_ext_if1_ibit
-+            - const: audio_cc_codec_mem
-+            - const: audio_cc_codec_mem0
-+            - const: audio_cc_codec_mem1
-+            - const: audio_cc_codec_mem2
-+            - const: aon_cc_va_mem0
-+        reg:
-+          minItems: 6
-+          maxItems: 6
-         reg-names:
--          anyOf:
--            - items:   #for I2S
--                - const: lpass-lpaif
--            - items:   #for I2S and HDMI
--                - const: lpass-hdmiif
--                - const: lpass-lpaif
--            - items:   #for I2S, soundwire and HDMI
--                - const: lpass-hdmiif
--                - const: lpass-lpaif
--                - const: lpass-rxtx-cdc-dma-lpm
--                - const: lpass-rxtx-lpaif
--                - const: lpass-va-lpaif
--                - const: lpass-va-cdc-dma-lpm
-+          items:
-+            - const: lpass-hdmiif
-+            - const: lpass-lpaif
-+            - const: lpass-rxtx-cdc-dma-lpm
-+            - const: lpass-rxtx-lpaif
-+            - const: lpass-va-lpaif
-+            - const: lpass-va-cdc-dma-lpm
-+        interrupts:
-+          minItems: 4
-+          maxItems: 4
-         interrupt-names:
--          anyOf:
--            - items:   #for I2S
--                - const: lpass-irq-lpaif
--            - items:   #for I2S and HDMI
--                - const: lpass-irq-lpaif
--                - const: lpass-irq-hdmi
--            - items:   #for I2S, soundwire and HDMI
--                - const: lpass-irq-lpaif
--                - const: lpass-irq-hdmi
--                - const: lpass-irq-vaif
--                - const: lpass-irq-rxtxif
-+          items:
-+            - const: lpass-irq-lpaif
-+            - const: lpass-irq-hdmi
-+            - const: lpass-irq-vaif
-+            - const: lpass-irq-rxtxif
-         power-domain-names:
--          allOf:
--            - items:
--                - const: lcx
-+          items:
-+            - const: lcx
- 
-       required:
-         - iommus
+Mark Brown (6):
+      kselftest/alsa: pcm - Drop recent coverage improvement changes
+      kselftest/alsa: pcm - Always run the default set of tests
+      kselftest/alsa: pcm - skip tests when we fail to set params
+      kselftest/alsa: pcm - Support optional description for tests
+      kselftest/alsa: pcm - Provide descriptions for the default tests
+      kselftest/alsa: pcm - Add more coverage by default
+
+ tools/testing/selftests/alsa/Makefile              |   2 +-
+ tools/testing/selftests/alsa/alsa-local.h          |   3 +
+ tools/testing/selftests/alsa/conf.c                |  26 ++-
+ .../alsa/conf.d/Lenovo_ThinkPad_P1_Gen2.conf       |  43 +++--
+ tools/testing/selftests/alsa/pcm-test.c            | 205 ++++++++++++++-------
+ tools/testing/selftests/alsa/pcm-test.conf         |  63 +++++++
+ 6 files changed, 250 insertions(+), 92 deletions(-)
+---
+base-commit: 1b929c02afd37871d5afb9d498426f83432e71c2
+change-id: 20221208-alsa-pcm-test-hacks-f6c1aa76bd2c
+
+Best regards,
 -- 
-2.34.1
-
+Mark Brown <broonie@kernel.org>

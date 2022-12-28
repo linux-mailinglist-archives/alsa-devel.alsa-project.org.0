@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DECA16576B0
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Dec 2022 13:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE48F657689
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Dec 2022 13:38:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 031653157;
-	Wed, 28 Dec 2022 13:53:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 031653157
+	by alsa0.perex.cz (Postfix) with ESMTPS id E109718F5;
+	Wed, 28 Dec 2022 13:37:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E109718F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672232039;
-	bh=XPY58WEpe4eoW2n+/jB/Q8RnA1rtgZq68i4gnmqmx1Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1672231103;
+	bh=/gdigYLlotNH44gF23aO8kFiBAJCshjeHKDPWidrRBw=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=NF5pHiCaX/N1W3N1LNrLk1dBe6JGmQmjQgfZeAHQJMMCvroq5+KHOnBpBdTdpGGeC
-	 2afcuSrEfE1Tgvgkegk9/94hilXRU3SUCPsWz2pqoUko+c4jtwO156uHJ5zfqm+0/g
-	 peXd3XqngaU6//hMQurqdIRLnuR8NwFcYNEN3qiw=
+	b=NDio6fiQpaqnGVP5TI322uAqFhvL7T63M+jWPzm2Vz+rBQXIYNC2qRXmtY8e2D48E
+	 SoKTfRA+XtGOgkghkP9W2xU7w+LzWWekr6MRAlTj1kU66NOGTNeSd0DgryLTN4RkoZ
+	 OPz5u0ofvpWjus9Jp2U5yX68t+b0Q6MjD67Tya4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7936BF80544;
-	Wed, 28 Dec 2022 13:51:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2D83F800F0;
+	Wed, 28 Dec 2022 13:37:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1660AF8042F; Wed, 28 Dec 2022 13:23:07 +0100 (CET)
+ id 9F08DF8042F; Wed, 28 Dec 2022 13:37:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3AF3EF80310
- for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 13:23:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AF3EF80310
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2AB0F8023B
+ for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 13:37:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2AB0F8023B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=huaqin-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@huaqin-corp-partner-google-com.20210112.gappssmtp.com
- header.a=rsa-sha256 header.s=20210112 header.b=x/ZSlQ8p
-Received: by mail-pf1-x436.google.com with SMTP id z7so4937192pfq.13
- for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 04:23:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=huaqin-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=F0LQcrjzcqyHGx/EG+ZxulY1MidQR+dP6F+oRvG3vQs=;
- b=x/ZSlQ8pHG3xkV8dK6KyzVm22eyZhu3j80eOGMvGPMwCebW/JYa9bvXGKtSFn8vbV5
- 5aC30qO+FGeVDqa6hM3f99d42d8Y+EUt0EWm8TFlq/4TkyPTXHubCPe6BK6txdD2JPJ/
- cYErJ2c2Ye/cFe9UA9HJlFki7EhknDZ7YBu+183MID3AA4U4OWc421E+CU5jvpKL53Wq
- SkMh7FCqoS9IAMN7cCNgH84NXgJcgvj083upOmOktH6ErMszWA+rp4ftCOeuQOWRWfUg
- VRaZLGm0Ka0jC0o/RtTXruMlZ0UTjdD0si5vTQceCk80DTEva2K3MqCzm6l5oU4u0gWG
- SGmQ==
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=WOVDjahb
+Received: by mail-lf1-x135.google.com with SMTP id bt23so6793957lfb.5
+ for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 04:37:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=szUYv0uneyN7YHYxEv+1bpNF1FTM8iygqyO0FKMlC7o=;
+ b=WOVDjahbgzvlWA+I1nfhLWRgkZ9OLauPupQIX9iHFBEbdG8UN1RK9cBk1C1lyT3fTt
+ M8sP2kN+ZfEc0G/6RdgTqJ8VY/1ISqEaKr6aGlvBLyAp1z+6nm656TsD+NlwlHqAqUup
+ 6K1j9LRupJG4y9A3X8omkxFf7AoNQ2HTj5Jq/V8I9J0C+nIOWRdneTA+I4UZ/UiAHjAi
+ ahjoVbi51mljf696KPwr8etfQCOeRJYRFbfXjkDtECh+NQiS182weSxvczkUsV01bKTf
+ 9FbvEHLrlGbTsDPaiqZBZsi68TiUfCAbJejheVLEvaTvdgfLnLO/DxzpGHofAqiqCkej
+ I4og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=F0LQcrjzcqyHGx/EG+ZxulY1MidQR+dP6F+oRvG3vQs=;
- b=yfGWguDxgiCGKSYO9viITZ/8mtW9EhOwiwiFMMu0zSOEQneVJoQIz4wvcS2P72VC/O
- YEBWMAeqGGLTgSXitr0uMiSpJdkdilbfDuJ/dEst6yLuTAjKo/2bWzHn2qoL0akUgkA/
- l2adzzoEFWp9PkS8cub7gQUX6krO0hL+oENWwUrkOzCVEebiauUNmVPU2W2bXdFM4u1F
- tl80Sgwgg4eZE8gtdFPpc/HchH5+KJ4+x/Cl5Eb3+fL8lxD2nvVq48ri5PgAvsvfq6rr
- reOb+rcLpyfVVTQZBoj13RhmjnjbyRNwVUFacnMYaYVylMtA+iv1i+k8yEvqxBgLiyuJ
- pgbA==
-X-Gm-Message-State: AFqh2kom+2bisqAFdWLKGCnL5vcMdzjS0B2TVAZPXVKlb04CdLYLj/vO
- 1veZ4H0JDDLpVTRkffewze9Hsg==
-X-Google-Smtp-Source: AMrXdXudRa1wP9H6e6vGFfQm6qY0zfkdkBMEcZaDW22e10mqSIjt3bIqPJ0YRH0r2IRG0HPaz0kP6g==
-X-Received: by 2002:a62:16d5:0:b0:580:f58f:efb3 with SMTP id
- 204-20020a6216d5000000b00580f58fefb3mr14897592pfw.15.1672230182928; 
- Wed, 28 Dec 2022 04:23:02 -0800 (PST)
-Received: from localhost.localdomain (202.60.225.077.static.cyberec.com.
- [202.60.225.77]) by smtp.gmail.com with ESMTPSA id
- h1-20020a056a00000100b0058124f92399sm5236074pfk.219.2022.12.28.04.22.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Dec 2022 04:23:02 -0800 (PST)
-From: tongjian <tongjian@huaqin.corp-partner.google.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com, perex@perex.cz,
- tiwai@suse.com, angelogioacchino.delregno@collabora.com,
- nfraprado@collabora.com, jiaxin.yu@mediatek.com, chunxu.li@mediatek.com,
- ajye_huang@compal.corp-partner.google.com,
- tongjian@huaqin.corp-partner.google.com
-Subject: [PATCH 2/2] ASoC: dt-bindings: mt8186-mt6366: add new compatible for
- max98360a
-Date: Wed, 28 Dec 2022 20:22:30 +0800
-Message-Id: <20221228122230.3818533-3-tongjian@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221228122230.3818533-1-tongjian@huaqin.corp-partner.google.com>
-References: <20221228122230.3818533-1-tongjian@huaqin.corp-partner.google.com>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=szUYv0uneyN7YHYxEv+1bpNF1FTM8iygqyO0FKMlC7o=;
+ b=fJ8MvaYyISBVQLC/1v7cBdL7+/aSvjW+DxQHMLC6907Ea35ES8c3VzQkv8uH2Js5cg
+ erKis5vb1LPFjcWAfIMpMpmYxdU5wIv9lu8fY+a1p0CFhcqCIxYszPLdykEb/sN6wmyd
+ HOX21JMmRcegMAudvcrRJDAc7nEz9YZZOAowkvOa2xyIzdsFBYjGPaaQJEY85eWek7xK
+ CGi5Y7rgWWI6vDZJGkXrF2CiwiIjEhADWB4Bg9uL20q+KbdoniwrHafKlQ7iLIqjEBKj
+ NhX7cr/NnXbDc2nxY5S63F1Q9UlzREBgPM+P/KwZMrj82w/HW/+J8wPATx4RLM1DyTZu
+ c6xw==
+X-Gm-Message-State: AFqh2kp8uGXpT6nR1q86KCZ9AFun/B7dUEvxT+6hRbmniU0SBwwiDDu7
+ P8Rv1fq9goWhXemMscazoOpq9A==
+X-Google-Smtp-Source: AMrXdXvZp7CP84l0lYhtw+B8zuMLZIv9fPypPu/nFTNLtiVo6H2Eh797Bsi99jc32fqou298yyIzXg==
+X-Received: by 2002:a05:6512:228a:b0:4b5:7f79:f8bd with SMTP id
+ f10-20020a056512228a00b004b57f79f8bdmr9812553lfu.22.1672231034559; 
+ Wed, 28 Dec 2022 04:37:14 -0800 (PST)
+Received: from [192.168.0.20]
+ (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
+ by smtp.gmail.com with ESMTPSA id
+ q21-20020a19a415000000b004a46f92a15bsm2661813lfc.41.2022.12.28.04.37.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Dec 2022 04:37:13 -0800 (PST)
+Message-ID: <cae5273e-aac5-0c4c-6686-fb2cbc5379e3@linaro.org>
+Date: Wed, 28 Dec 2022 13:37:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 28 Dec 2022 13:51:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 1/2] ASoC: mediatek: mt8186: support rt5682s_max98360
+Content-Language: en-US
+To: tongjian <tongjian@huaqin.corp-partner.google.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ matthias.bgg@gmail.com, perex@perex.cz, tiwai@suse.com,
+ angelogioacchino.delregno@collabora.com, nfraprado@collabora.com,
+ jiaxin.yu@mediatek.com, chunxu.li@mediatek.com,
+ ajye_huang@compal.corp-partner.google.com
+References: <20221228122230.3818533-1-tongjian@huaqin.corp-partner.google.com>
+ <20221228122230.3818533-2-tongjian@huaqin.corp-partner.google.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221228122230.3818533-2-tongjian@huaqin.corp-partner.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,26 +117,16 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adds new compatible string "mt8186-mt6366-rt5682s-max98360-sound" for machines
-with max98360a and rt5682s.
+On 28/12/2022 13:22, tongjian wrote:
+> Add support for using the rt5682s codec together with max98360a on
+> MT8186-MT6366-RT1019-RT5682S machines.
+> 
+> Signed-off-by: tongjian <tongjian@huaqin.corp-partner.google.com>
 
-Signed-off-by: tongjian <tongjian@huaqin.corp-partner.google.com>
----
- .../devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml  | 1 +
- 1 file changed, 1 insertion(+)
+The author and SoB should be full name. Is this correct (full)
+transliteration of your name?
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-index 9d3139990237..aa23b0024c46 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -16,6 +16,7 @@ properties:
-   compatible:
-     enum:
-       - mediatek,mt8186-mt6366-rt1019-rt5682s-sound
-+      - mediatek,mt8186-mt6366-rt5682s-max98360-sound
- 
-   mediatek,platform:
-     $ref: "/schemas/types.yaml#/definitions/phandle"
--- 
-2.25.1
+
+Best regards,
+Krzysztof
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61EA665757E
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Dec 2022 11:51:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC38F65757F
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Dec 2022 11:52:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2B72590C;
-	Wed, 28 Dec 2022 11:50:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2B72590C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F043A635A;
+	Wed, 28 Dec 2022 11:51:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F043A635A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672224687;
-	bh=6qut9pA9OveEvxOPBLoEVjTUuS8asjcaGZgo/5ThDRo=;
+	s=default; t=1672224724;
+	bh=8uRlUMFUz+fCMuv8t4fUqTdwVxFmcGzuBaHNENj223o=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=i6S1FRrkJXGfuHly9oe7mwKSeIu1c0ro6yVgneIxf5ld82kvI4GeajLgGTD9oNCvl
-	 7ovo6Q94VAT+PnGHhyS59TvSmSkExFdKdsajS1D/x6QzbON8luPjoqBmZEMb4MFL6Q
-	 CQXUFPpLHeWBul56gX5mhosiFowJfabA6hZtkIoU=
+	b=Wfc+z3jRgUiMNy8edO7HlS8FPvfcLKhV2M9M7Wz28jAsWL/NvQ7EAhXy7A4nByj4+
+	 UE/XVART87/qXs3BZ0kZxQwhMKOhTajZ8ZSu717c6NDGa13WDc4AWDzbSpe4R947qV
+	 SZBNUpU+Jg+itwcxgT9Tcal1ff1JoDuD22UC+mOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3AB4F8023B;
-	Wed, 28 Dec 2022 11:50:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3C4FF800F0;
+	Wed, 28 Dec 2022 11:50:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70E95F8042F; Wed, 28 Dec 2022 11:50:25 +0100 (CET)
+ id 0B81BF804D6; Wed, 28 Dec 2022 11:50:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,52 +35,54 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48584F800F0
- for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 11:50:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48584F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45ADFF8049E
+ for <alsa-devel@alsa-project.org>; Wed, 28 Dec 2022 11:50:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45ADFF8049E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=V94Garek
+ header.s=PODMain02222019 header.b=kC6QGTVv
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 2BSAFcib029539; Wed, 28 Dec 2022 04:50:20 -0600
+ 2BSAoVv2022579; Wed, 28 Dec 2022 04:50:31 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=date : from : to : cc
  : subject : message-id : references : mime-version : content-type :
  in-reply-to; s=PODMain02222019;
- bh=rIeu7WF6DtqWolIDAOYqvMx29bKhbAUlb2U/kZoTnH0=;
- b=V94GarekpKmiZWByPz+K7dj+KFEmHN7rSXJF3Zo1z+gNNjHKi/bChMUEhAk4PAwdd8+V
- vfFeA8g4ekN0tnm/F1a7KAIbluozEgAYTQ7xqasX/IMKDw56M1f+qn5Lm6zXQbdfbMcc
- /9Y9nOI7XCant0ZRWAbondQip5nLnWEeP3pWgts3313JMD9ObtUOapmAmTs4Hs0OH1y2
- 293G4H9nv8eYwfb3yW4Ed37q2qlL17V2sNAYJIWpzXMftC77bBWJAo+SizR9Y/NZeaCt
- iTSdaPKYHzFJThrw9o5RiVvnwJz+RqpnAoOoQfVx1aKgCiT0AmjWlpUyt6gIG483xwNK Jg== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3mnyq7aygf-1
+ bh=/oJf1TOlCzp8cbvlvuGdfVB98faQ75HUAlntSWortiA=;
+ b=kC6QGTVvuIOi9fupJC0/ZsnG6r5EMwARIpmG6OxB27pMYYkc5ODuyx+OG2oubEDEUKsb
+ 9ZeIwhdySGsevS4bKejT3XvU75/7y/CY6cYvZIojhRmH2jc7DfmBT2qM6juqm4gwKAty
+ au5+Ss5/uWEDzK4VGJSIJ42JfRXGecOBkWpNhRuF2ZRqNSAydeuDiJDajaUMpoqMDJAL
+ ga0guqHAJ2ND42kdK/kvVbJYdRgrFlxuGaQLMTkyOC20nqrU1k2p8LjNzrC0SnTWjHqu
+ SFHQxFqijx+KqDyEB0swZlobZ7Y31n3pjhumtX8KWj7ud55HvKUl31gozMUPfPOHXu4z mw== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3mnyq7aygh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Dec 2022 04:50:20 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ Wed, 28 Dec 2022 04:50:31 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.20; Wed, 28 Dec
- 2022 04:50:18 -0600
+ 2022 04:50:29 -0600
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
  anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.20 via Frontend Transport; Wed, 28 Dec 2022 04:50:18 -0600
+ 15.2.1118.20 via Frontend Transport; Wed, 28 Dec 2022 04:50:29 -0600
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 726BC11CB;
- Wed, 28 Dec 2022 10:50:18 +0000 (UTC)
-Date: Wed, 28 Dec 2022 10:50:18 +0000
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 574E311CB;
+ Wed, 28 Dec 2022 10:50:29 +0000 (UTC)
+Date: Wed, 28 Dec 2022 10:50:29 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: cirrus,cs35l41: add interrupts
-Message-ID: <20221228105018.GH36097@ediswmail.ad.cirrus.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: cirrus,cs35l41: cleanup $ref and
+ example
+Message-ID: <20221228105029.GI36097@ediswmail.ad.cirrus.com>
 References: <20221224154210.43356-1-krzysztof.kozlowski@linaro.org>
+ <20221224154210.43356-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20221224154210.43356-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221224154210.43356-2-krzysztof.kozlowski@linaro.org>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: GLp5ipBMYVET8tLWK6OHEKBU3-iUWl04
-X-Proofpoint-ORIG-GUID: GLp5ipBMYVET8tLWK6OHEKBU3-iUWl04
+X-Proofpoint-GUID: eTk1Kx9mksOACjqG-XD8SXgx-L4E-D6J
+X-Proofpoint-ORIG-GUID: eTk1Kx9mksOACjqG-XD8SXgx-L4E-D6J
 X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -104,11 +106,11 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Dec 24, 2022 at 04:42:09PM +0100, Krzysztof Kozlowski wrote:
-> Both DTS (SM8250 and SM8350 based Sony Xperia boards) and Linux driver
-> mention interrupt, so allow it to fix:
-> 
->   sm8350-sony-xperia-sagami-pdx215.dtb: cs35l41@41: Unevaluated properties are not allowed ('interrupt-parent', 'interrupts' were unexpected)
+On Sat, Dec 24, 2022 at 04:42:10PM +0100, Krzysztof Kozlowski wrote:
+> Non-functional cleanup:
+> 1. Drop unneeded quotes form $ref,
+> 2. Example: Use generic node name, use define for GPIO flag, adjust
+>    indentation to consistent 4-space style.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---

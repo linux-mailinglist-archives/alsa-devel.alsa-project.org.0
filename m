@@ -2,139 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6156589BC
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 07:33:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7CA7658A26
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 09:05:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 171F47430;
-	Thu, 29 Dec 2022 07:32:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 171F47430
+	by alsa0.perex.cz (Postfix) with ESMTPS id 214E1948B;
+	Thu, 29 Dec 2022 09:04:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 214E1948B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672295580;
-	bh=Anscl2HuxOFojrou46izftfhYFFdoiERvCB2KnYfKn0=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ROPgO0GwwAY2giyGO3DimmVwfDoe8ePAcsuJ94P0M2uV5FhWxLlcQBg1P55UtvX2a
-	 EFkxMZdyPk/plFOid4u4fRtPXzwLz/35YlU2S+xS1C+FLesDonveo7y9Dg6DaK3qmW
-	 kd8sdOOcTB9AiH/hw/xHEgAyqWMguCJJNc7w2b7w=
+	s=default; t=1672301106;
+	bh=pCGVHBfe1EhrOsCbongF5TLMWm45N4YH/7WU6J/v7K8=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=TnvasNV6L2LrqnXM4HdTqPOaxsvIzRzJYrJj2zSbOUMDb19vDk1x8KReuKCz+GEwz
+	 HtD6wnlRXRXd6g9WNF5uVN8kfmFJiRN9wcvJAuTsO8NPYVnCompe7W0j+AsMp1adpq
+	 p66jBmhWwEJCDOuuoh1GDloaYbrehFqSAR7xbKW4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A1B7F80549;
-	Thu, 29 Dec 2022 07:30:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AB30F804E7;
+	Thu, 29 Dec 2022 09:04:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EDBAF80538; Thu, 29 Dec 2022 07:30:46 +0100 (CET)
+ id 3A34BF804E4; Thu, 29 Dec 2022 09:04:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2089.outbound.protection.outlook.com [40.107.20.89])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F2D1F80246
- for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 07:30:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F2D1F80246
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=QxsFXlno
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BEd1dHCl1yNp3EzVJoGdioTs74YSlOPdfldLbcggjFwxAyVqPzS1/9Mr64yVdtG/4gjm2LfPID2BeN+aFh30D7nrN7AeTaAogujeFTmRhf0E61+PnfHr++jSJVB+7Vx5WVjquHYKC3DGY1QgGWKZT+29OjnyR1rJEPu2KJhgmDjCVhYi7DF75e/yFwjWTyEvmvIvsPDFfx4e+KXM5776K92uiPHZtbfsKgF/aPStus2l/cSIO1V6zx7lod0b8irmGFnkIvXKR8DGxqVwIWJ45QYCr+OuC/AiVG2yE4YXA4iD7lL3yHEmd7yL05MdLWsDR4V2l1MZ09XFQjv7GMDeBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jfqqfKq+p5L47STbaiUShceGluBUv/TPjceQ6WfftIM=;
- b=kydmW3ZBJaWd+xvRWgXuKL6q0/b3M3zsvZGfEl4/+9emuNuuCAv8p/1L2Fcv0Mi/pNZZ/+pQE5hw5l5/Fpso0ozilvfgw9iDh9QOOnKjFuFVOnn5MtroAZ6sZ2gu86mHEc9fbnoeeZpzmJ6TPqKdipfv+WqI7BwGlwuJBY2qXAIumf5KjE3ap/b9ywRkJwDQHe0Wqv6DMSbrqYXxKdbLy7dZBbOQPErJTWhqpggoO83VNPzPybiL4DstBV9SjuLD3qwDTgsF8J2oOdekfxBdH7ydXzmWj04jGo/PcqyfS+poTn4nXaePB6s0pD/tFQGR1xOgtNlDrd6lAdGTJuYD2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jfqqfKq+p5L47STbaiUShceGluBUv/TPjceQ6WfftIM=;
- b=QxsFXlnozdgYE1p4XmVKn8783+vx3jNXL7f3ZyE1lrW9anYOYoBt2CTmud1bX+5OVYEjjrVEU3yzIDod/WkIoFRkUiZwAtfB7dJxN6xJRyn+hnPPJ1u2XDNFJMIoreRwycL1wHx6GVaXG0gDZISynkH122aXCd4S4SGCXapiPcE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB4211.eurprd04.prod.outlook.com (2603:10a6:208:5b::30)
- by DU2PR04MB9193.eurprd04.prod.outlook.com (2603:10a6:10:2f8::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.16; Thu, 29 Dec
- 2022 06:30:42 +0000
-Received: from AM0PR04MB4211.eurprd04.prod.outlook.com
- ([fe80::c1e7:eafb:408c:6ae5]) by AM0PR04MB4211.eurprd04.prod.outlook.com
- ([fe80::c1e7:eafb:408c:6ae5%4]) with mapi id 15.20.5944.016; Thu, 29 Dec 2022
- 06:30:42 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@gmail.com,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- perex@perex.cz, tiwai@suse.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] ASoC: fsl_xcvr: Add constraints of period size while
- using eDMA
-Date: Thu, 29 Dec 2022 14:30:09 +0800
-Message-Id: <20221229063009.2396716-4-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221229063009.2396716-1-chancel.liu@nxp.com>
-References: <20221229063009.2396716-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR02CA0017.apcprd02.prod.outlook.com
- (2603:1096:3:17::29) To AM0PR04MB4211.eurprd04.prod.outlook.com
- (2603:10a6:208:5b::30)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4211:EE_|DU2PR04MB9193:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bf28895-f001-4487-2b87-08dae9663551
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ItHFV4CRocwZ2OYoA3PtprqWOYuVZuFkjUOr+NU7PS82gb4abM5+nZNBdwdExL3hrnunIJOyl03uxjlPlS/Fla2yy2KYFCmgbjFZfsZH7l+gAQ3LpvVogneGmBvB8A6E080dmjiuZdBmuPrepnfNV/29VKKnwM3T0N27phpGeRctPvVNxE/QVJTUZEmIoWak5Ce343AORTP/UeCgS8DIrrMwg1VMNJVu/9kxYdhhMnCATpjwnrCkrpMd8+z25moGWhM7y0JN1gpLF+gAJ+kUi35FPRaed2Xt1WXl3QNhEr/cglEw4JpiLXNB1wG80zrKGlnlB8Mj+LVY35FOBnSQGXMsSuSw3iviVd2fS6/uCYeuMtpBAInWRF/rllvCFLg+5PNOmjm8a764hv+bP5gTBWwZI6nVCVwM9REbQG/VuidS9vKGg7KzbLULqlHYtjS3shlI3r85gOqivMi6Ly0jqJdFisnvQ/If/f6OKf+WpJMEGICIQHt9KddZBFYNzvQKvjC3owiHucrLvAQ6/4U/tiU+KK0WEMzx4uSqaOh/GRrCW2bcH4k/2QPZTxtrH1kwVFWiH+yzsoEKxJP8IKdg7IOoOF2IkMeTno/SFxJ8K3RR/lw2jjBU0Il1g40o7oP/VJpw+AJmFPKBHoKeNlxJOM/tg4WUuWA8qOS9W3VjoL7g2QygqhzuPQLNcEjnpE2+2wx6+xr4jgipTgm+1tMdZA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB4211.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(39860400002)(346002)(136003)(396003)(376002)(451199015)(8936002)(8676002)(66556008)(66476007)(66946007)(4326008)(44832011)(316002)(2906002)(7416002)(38350700002)(86362001)(6486002)(52116002)(478600001)(36756003)(6666004)(5660300002)(2616005)(38100700002)(6512007)(186003)(26005)(6506007)(921005)(41300700001)(1076003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XwUyp0vqZUecVTL1foS7FPM/iTV60IVyOl7UepDfdMHU7A4b50tg2JAI648Q?=
- =?us-ascii?Q?28M0nWa5s4e8RBGBq6jmd7WtOvqh5iKc1+PiGBWpixvDDdZNlHa8+9jonT1E?=
- =?us-ascii?Q?/RPyDE5kOW8W+kU6LYJXj3mW6lBVtAMsFCa0JhNMa0sAw/sz2u0J7Zenx3FZ?=
- =?us-ascii?Q?SgOD1vvobSG6+RQ0d1XmHfZA+8M6ELjyfKb1Bs7SjuyLaIzfqNDEJph1lPqV?=
- =?us-ascii?Q?sL/KcxrMgAHqyJBx55o8Aa7+wo32L/NujSdobdZIvBnwCjtErrhPv1lvC3Qc?=
- =?us-ascii?Q?VJmTM2MUjdBi3yqrCPqwhSIP9BcS/vg3YHmnQKBMsj8KoozKi/Jm9bQJMERR?=
- =?us-ascii?Q?8nWZVIfuwAnBGmv9aINMqSWYmmDOjxk79Vt5N59aIt/kxKHVsDq9M4voCL25?=
- =?us-ascii?Q?P084/yzZpnO2y5EMBI+onUgNE3pIFUnj6SXC2aVFPWQiaf9EL/atkph5Qa19?=
- =?us-ascii?Q?dBXsJQJPy2rvrIRN/l502La6qDGlxg5WAFguyLT8ltMQ0GWuwe+QWKmy8csw?=
- =?us-ascii?Q?Y8G+g/NWqlP5JHq8WKdUoV3+0B2/dItiPEyMmjkNymjknw/Kc2Z7Bhe581ld?=
- =?us-ascii?Q?lNJ6Thxy1C0m214EHZ5+gDkrHjYiwpV9ThlurbT9fGBEMbt08buSA7KqiBS/?=
- =?us-ascii?Q?NFs5vLiLNw5tQz/XJaVF+756YTL6tA6IfjufX0jwZJUYclPF7t1Wq3qQeLNa?=
- =?us-ascii?Q?vV7DXiBLQbBTKVgbU1xVAmzwoRyv3+S5lHhkbQaOJi2UIJhz7oz/s+wlvEl+?=
- =?us-ascii?Q?iSKs+qrYy84Z68ts1BB/08UIlXaA7Ua8CDyBuNVT/qjQabGXb79fpy53+BS/?=
- =?us-ascii?Q?YGPaXTp7A/XSDwXecBMBC/GgdHuaLEbFrCtAfs7AAqjcONlyxpqbltik6A+X?=
- =?us-ascii?Q?HqWASGjXF+nWxN9LxwuFgZuF5+ZHszkGllloOZ5sqZIPq4sRQWA3U+MqWYD+?=
- =?us-ascii?Q?2fsuJk8PAw3zyBRzJ8DBb/nE6Dac8Nhx4LeWv+qZ5LxHxYRCFL1H56Zi7nDV?=
- =?us-ascii?Q?dMPcwKqfjo6hGw0Pb/fBPqvVnqNlqBz5nEXJAch7XQCgDHdk9L2OGcVMRK9w?=
- =?us-ascii?Q?fvWHMCw15wIZWos4yOD/x/a95zPdWR6suXIn3FtD1wtTWFpf6xNmRIKnmuJO?=
- =?us-ascii?Q?G+T3dkLu+StC9XVOXqQF0RxPuw5S1cUz6o6876gPAYq+eNXwC/OPihS4yng8?=
- =?us-ascii?Q?V9OQnrjEn5q5A477fc1G+V6bsIJXwHviT+xILPI3XEszvxryjseLHeKCSD5K?=
- =?us-ascii?Q?LxFBiMvAiWtyobijnKXkiZGvcGjcjdBUAtOWx2ge7iP2byL/I6veIFQGS4ZM?=
- =?us-ascii?Q?rojO6jZb/GltEPUgyXn9wzCnpzOEZz/0mKL8IZ7FdcuW0UcN+Fa8XO2sZMJI?=
- =?us-ascii?Q?qTOiac+9j6mt4Bftrv7ThLVm50kMaQ1E3ruQy+5CHX78KIOIBYHN0G10YzL2?=
- =?us-ascii?Q?hn7RKa9Vbnco42dUptVuE4jqsZoGxncf0E2qH83xRVRJdoYcuQc3mPz2/ONF?=
- =?us-ascii?Q?0JgzCdbgckntsc1oMw6dnrqZ+Bgg4pfSbWzi2gyWgtZpdWDLAvrozgZb6Gvn?=
- =?us-ascii?Q?6QJN/b7HwmkTA/RMSLmmrECRWc6xC2fjPGVO9wN2?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bf28895-f001-4487-2b87-08dae9663551
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4211.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Dec 2022 06:30:42.0387 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /8x5LKoU0BhMZPe7iiNk8id7cGhETF1PWL2sJ6pTl93qnSccilwX14vSfL8qiwUOl+Ja+INSsKHuSiB3s79slg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9193
+ by alsa1.perex.cz (Postfix) with ESMTPS id 626CDF804D0
+ for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 09:04:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 626CDF804D0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=fxENY/Wx
+Received: by mail-pj1-x102d.google.com with SMTP id
+ j8-20020a17090a3e0800b00225fdd5007fso8651306pjc.2
+ for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 00:04:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8KIiQNFKqzc7opQJ8ok0FfP39sLd9x5gpUsGJ8JTvp0=;
+ b=fxENY/WxTKg7eKS46UKKzjcaEgaZMSAIt+Ys0flXSHONKVVDibA7JqN54SUBJLdBQW
+ V5RCs11JLQz/M4GNr81/8s4fRvLBIgQeIpHfXHNMUgRAcRp4Kj8Nwg5n32JP41kTCk+p
+ unFP7fkQA797WjqhRok4wwHbqejpy7xzm/4f0MjXR3S8jHGaM1CFnEbnckhDr4ULyBb7
+ pN4RzdniMZXFgDM3+XED28/fKuvdn7Vg2gHlygbmglLe4Ro9h822/ACLAKlHH+tX8vTX
+ lg+83a9cQpOE/nc+t3tcbnhTQ/S8ZOJ+5XMqVZ4XPR1+Gw0+6gxmVrNMxrTRhgPb6a2k
+ CuFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8KIiQNFKqzc7opQJ8ok0FfP39sLd9x5gpUsGJ8JTvp0=;
+ b=ZtLg1QmM2+IC27HE2UOhaHGqtEFtrIBwVrsCZg4o+CCUSrt36f1OeVoD4ZL/4EjcRc
+ PAmbBLIfwdAJA3uDZeIr55t5sEckyOJLURx031O/Nt8S0hkBJYMR2Qx3jtHUKSfN8rTl
+ 3npGoEFnz//zKBV+YDcjptcXyZ3CJ8lVHbL/cTW7OztMHPlHWS9OEwwa0bV6zqXRWXky
+ KsttTaAmVrL0482mrAZDcjaLYpqqAcU9cTNruilZM8yhjqujrh6u0TVsja4xMHZtsa6b
+ l40p52MUH/xvfhPpnHXTZuYpQRsQ34YlvgGDml+y3O+UN4G+KUu6/8UTXlHJ9A3rSVaC
+ KbJg==
+X-Gm-Message-State: AFqh2kqKJCUCZWLhARFWhqOvCbxAnXVYd4wF5km+Zx4keMRB45DzdDyj
+ Ng4gbpfrFKDdmEeqWfqxRHQ=
+X-Google-Smtp-Source: AMrXdXs3S5oDblrRByIPHLBud9vtobVm0v+3RvFHKnj/1tUpoKvkA+II3DVZ10IefiUKE71/a55T0g==
+X-Received: by 2002:a17:902:edc3:b0:189:5ef4:6ae9 with SMTP id
+ q3-20020a170902edc300b001895ef46ae9mr26746572plk.45.1672301040510; 
+ Thu, 29 Dec 2022 00:04:00 -0800 (PST)
+Received: from localhost.localdomain ([2402:7500:587:a2f0:9dda:bb2d:720c:85e8])
+ by smtp.gmail.com with ESMTPSA id
+ e9-20020a170902784900b001895b2c4cf6sm12146987pln.297.2022.12.29.00.03.57
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 29 Dec 2022 00:04:00 -0800 (PST)
+From: cy_huang <u0084500@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: rt9120: Make dev PM runtime bind AsoC component PM
+Date: Thu, 29 Dec 2022 16:03:53 +0800
+Message-Id: <1672301033-3675-1-git-send-email-u0084500@gmail.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,55 +96,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Chancel Liu <chancel.liu@nxp.com>
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, cy_huang@richtek.com,
+ jeff_chang@richtek.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-eDMA on i.MX93 platform requires the period size to be multiple of
-maxburst.
+From: ChiYuan Huang <cy_huang@richtek.com>
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+RT9120 uses PM runtime autosuspend to decrease the frequently on/off
+spent time. This exists one case, when pcm is closed and dev PM is
+waiting for autosuspend time expired to enter runtime suspend state.
+At the mean time, system is going to enter suspend, dev PM runtime
+suspend won't be called. It makes the rt9120 suspend consumption
+current not as expected.
+
+This patch can fix the rt9120 dev PM issue during runtime autosuspend
+and system suspend by binding dev PM runtime and ASoC component PM.
+
+Fixes: 80b949f332e3 ("ASoC: rt9120: Use pm_runtime and regcache to optimize 'pwdnn' logic")
+Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
 ---
- sound/soc/fsl/fsl_xcvr.c | 12 ++++++++++++
+ sound/soc/codecs/rt9120.c | 12 ++++++++++++
  1 file changed, 12 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index b794158a7876..2a78243df752 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -22,6 +22,7 @@
- struct fsl_xcvr_soc_data {
- 	const char *fw_name;
- 	bool spdif_only;
-+	bool use_edma;
- };
+diff --git a/sound/soc/codecs/rt9120.c b/sound/soc/codecs/rt9120.c
+index 644300e..fcf4fba 100644
+--- a/sound/soc/codecs/rt9120.c
++++ b/sound/soc/codecs/rt9120.c
+@@ -177,8 +177,20 @@ static int rt9120_codec_probe(struct snd_soc_component *comp)
+ 	return 0;
+ }
  
- struct fsl_xcvr {
-@@ -538,6 +539,16 @@ static int fsl_xcvr_startup(struct snd_pcm_substream *substream,
- 		return -EBUSY;
- 	}
- 
-+	/*
-+	 * EDMA controller needs period size to be a multiple of
-+	 * tx/rx maxburst
-+	 */
-+	if (xcvr->soc_data->use_edma)
-+		snd_pcm_hw_constraint_step(substream->runtime, 0,
-+					   SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-+					   tx ? xcvr->dma_prms_tx.maxburst :
-+					   xcvr->dma_prms_rx.maxburst);
++static int rt9120_codec_suspend(struct snd_soc_component *comp)
++{
++	return pm_runtime_force_suspend(comp->dev);
++}
 +
- 	switch (xcvr->mode) {
- 	case FSL_XCVR_MODE_SPDIF:
- 	case FSL_XCVR_MODE_ARC:
-@@ -1207,6 +1218,7 @@ static const struct fsl_xcvr_soc_data fsl_xcvr_imx8mp_data = {
- 
- static const struct fsl_xcvr_soc_data fsl_xcvr_imx93_data = {
- 	.spdif_only = true,
-+	.use_edma = true,
- };
- 
- static const struct of_device_id fsl_xcvr_dt_ids[] = {
++static int rt9120_codec_resume(struct snd_soc_component *comp)
++{
++	return pm_runtime_force_resume(comp->dev);
++}
++
+ static const struct snd_soc_component_driver rt9120_component_driver = {
+ 	.probe = rt9120_codec_probe,
++	.suspend = rt9120_codec_suspend,
++	.resume = rt9120_codec_resume,
+ 	.controls = rt9120_snd_controls,
+ 	.num_controls = ARRAY_SIZE(rt9120_snd_controls),
+ 	.dapm_widgets = rt9120_dapm_widgets,
 -- 
-2.25.1
+2.7.4
 

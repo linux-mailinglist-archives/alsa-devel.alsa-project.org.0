@@ -2,92 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81AE0658DDC
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 15:21:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B7A658E44
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 16:19:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DB158634;
-	Thu, 29 Dec 2022 15:20:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DB158634
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E9CA9CD9;
+	Thu, 29 Dec 2022 16:19:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E9CA9CD9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672323672;
-	bh=d68hC20589Ctcis4IfSbCF+uNdhJbKhVIIf7umjLP70=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=XvyyCgPKhoDpv5dtPT8wk936Ay6Peyu86iSC1CDIosf4RbzsRxBf53g9dTxW7/5Ll
-	 ODRCeOahIYfpNNp2KaCCKV6htP4uWuLgF6Mj5d/UbQv5+TjdQ0LPmfgzcbaimbjscA
-	 gZQTIHP7zUrHC61/Bh01WeoP4pvELyTYWgWk+M0M=
+	s=default; t=1672327195;
+	bh=QRsoloeh5yoDsVfFAz62YFeWxqU1uyZTVQKLC8vGCcs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=CCLxUPNPydSXDAtAfGNZ9+3hnf/02K+HsuStnMkXMjuahDQsNeiLAOkgbhGjCNlOa
+	 1TGd00t88B5ECrP/r12Vi2PzTDO4H/7FtYd6s2hhw0CxqOZfRrkN3+aezH8+vmDgkh
+	 v+7fKqIxVKIxmFVecqOLyiOg9nfwIlqL638+KjMk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38A09F804F1;
-	Thu, 29 Dec 2022 15:20:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A0D3F80534;
+	Thu, 29 Dec 2022 16:18:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35399F804F1; Thu, 29 Dec 2022 15:20:14 +0100 (CET)
+ id A42D3F802A0; Thu, 29 Dec 2022 16:18:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97F76F804E4
- for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 15:20:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F76F804E4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=IagYAO9K; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=h9m3zYuQ
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A1A7F21C16;
- Thu, 29 Dec 2022 14:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672323611; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6S/5dUuk93/quxJDXW8zPtubkuqAP+2SRjZ0dzR6/K0=;
- b=IagYAO9Ke7u0hhsyuKd6Fx8s/lHiA1HQlem/YX675oLgpHOuzvlVF7DzdZs/xvamON9oxP
- HiR1VrukdpjKTgvJb/bpl/sHvZr3n5QP6gjt20fp28a7oZZ7T+qX3FoShMf9I38nzfGdW5
- stIlnOsK61/J+STImJeRxnLobuJoWTg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672323611;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6S/5dUuk93/quxJDXW8zPtubkuqAP+2SRjZ0dzR6/K0=;
- b=h9m3zYuQenkof35tDdAvbDSA9frScOvdOw/6TJSrwTvQmMkK6oB8ZT3vboUDe7lR5jKv1+
- PCFmsbNvlNRNQ7DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4174313913;
- Thu, 29 Dec 2022 14:20:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IroEDxuirWNXOQAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 29 Dec 2022 14:20:11 +0000
-Date: Thu, 29 Dec 2022 15:20:10 +0100
-Message-ID: <87lemqxpet.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oliver Neukum <oneukum@suse.com>
-Subject: Re: [RFC PATCH 04/14] sound: usb: card: Introduce USB SND vendor op
- callbacks
-In-Reply-To: <80f92635-6d14-8ff3-17ac-de2e5b977947@suse.com>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-5-quic_wcheng@quicinc.com>
- <80f92635-6d14-8ff3-17ac-de2e5b977947@suse.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7A2AF802A0
+ for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 16:17:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7A2AF802A0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gerhold.net header.i=@gerhold.net header.a=rsa-sha256
+ header.s=strato-dkim-0002 header.b=f41wZQ8Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1672327076;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=NhDVal3cY5RtflAGfuXYwWRxbBcys6vmGS1S3kTpu58=;
+ b=f41wZQ8Qo2p5DjOKrnomUd4pigBHedDdR1p0/2XTzWfZ1eN+Jv6m88JRbmhLr394lB
+ +DkT755r4yFoZKar1SZiIJlNkuph+GF1ElZxCsDIG16zFth/CYTcgrBjJNQSsUJfIaS9
+ 0n4Er9YU8VyNiJrfFb33N34jC5aO5nl4mZZaTp7E/yNJOlz/h3GNsJIfs0uscyRAr7RI
+ ZzxMcFTo/t1C4/SGbRungnLfsVBPpJBDVCvSvRGLbidWHN5dACyAsoN51b2nxDqgmiWQ
+ ukINmxETOvAOhAXNYLbj5JfecGucA9VikUDNX4NbbLmZiGIaxExUtk1hMdmQDV90HR7h
+ yEFw==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXTbAOHjRHIRvweF+KLA=="
+X-RZG-CLASS-ID: mo00
+Received: from droid.. by smtp.strato.de (RZmta 48.2.1 DYNA|AUTH)
+ with ESMTPSA id Yce349yBTFHtXT2
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 29 Dec 2022 16:17:55 +0100 (CET)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Andy Gross <agross@kernel.org>
+Subject: [PATCH 0/2] Fix APR audio regression on 6.2-rc1
+Date: Thu, 29 Dec 2022 16:16:46 +0100
+Message-Id: <20221229151648.19839-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,37 +82,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
- mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
- quic_plai@quicinc.com, Wesley Cheng <quic_wcheng@quicinc.com>,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@quicinc.com>, Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm@vger.kernel.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 29 Dec 2022 14:49:21 +0100,
-Oliver Neukum wrote:
-> 
-> 
-> 
-> On 24.12.22 00:31, Wesley Cheng wrote:
-> > Allow for different vendors to be notified on USB SND connect/disconnect
-> > seqeunces.  This allows for vendor USB SND modules to properly initialize
-> > and populate internal structures with references to the USB SND chip
-> > device.
-> 
-> Hi,
-> 
-> this raises a design question. If the system is suspending or, worse,
-> hibernating, how do you make sure the offloader and the device are
-> suspended in the correct order?
-> And what happens if you need to go into reset_resume() when resuming?
+These two patches fix regressions in the Qualcomm APR driver that 
+prevent audio from working on MSM8916 (and likely MSM8996). In previous 
+kernel releases the "qcom,protection-domain" property was optional, in 
+6.2-rc1 it is now required. It should remain optional because the 
+protection domain functionality is only supported starting with MSM8998
+and is not present on older SoCs [1].
 
-I guess we'd need to establish a device link when the binding from the
-offload driver is done.  Then the PM order will be assured.
+These patches should go as fixes into 6.2 to fix the regression.
 
+[1]: https://lore.kernel.org/all/20200312120842.21991-1-sibis@codeaurora.org/
 
-Takashi
+Stephan Gerhold (2):
+  dt-bindings: soc: qcom: apr: Make qcom,protection-domain optional
+    again
+  soc: qcom: apr: Make qcom,protection-domain optional again
+
+ .../devicetree/bindings/soc/qcom/qcom,apr-services.yaml      | 5 ++---
+ drivers/soc/qcom/apr.c                                       | 3 ++-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+-- 
+2.39.0
+

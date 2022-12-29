@@ -2,104 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C958E658A90
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 09:34:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADDDB658C7A
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 13:00:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DFD39540;
-	Thu, 29 Dec 2022 09:33:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DFD39540
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A4E458C7;
+	Thu, 29 Dec 2022 12:59:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A4E458C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672302880;
-	bh=sO9WkAk/OOXRpyqBLPjASGV+6ltb+ZhpTUjgw8wVqNM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=maop7pMZenblb6akKm0HCsCn2qj6/JoVpwHNR7XXVB8TfawGZrAZfSOnKeC9dt+HJ
-	 n5Ump5HnU4OEPQiW3EZpbgSTFbcIMYNX5FCw0thtMzAl0OA1PUK/QB6yMwMFit0L+W
-	 gs0zB3g1yGy/boXGLYjxoL3zSm5yPbBXBbkNEjmg=
+	s=default; t=1672315210;
+	bh=J6f1aq2kuA/fYtFIXIjyuulrnG3zC3VMzKFm2ZtFxGs=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=sb6p95HH10oVD0+czPN2EtB93C5Kwk5h/+nFiIN8xPfflb3N6cut0nIwjAQkAv0Ow
+	 49Y5RQIYun3GqvSXZpo+zMN+UdTxFXw7k/qCd9gZKmb/3gtqxBSiR3/0X+NmKojEZ4
+	 pilXw388UEuV5vZiaSG8k7vmO3aSo2mvqGvm7eKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B703F8023B;
-	Thu, 29 Dec 2022 09:33:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4184F804FB;
+	Thu, 29 Dec 2022 12:59:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EFBDF804E4; Thu, 29 Dec 2022 09:33:39 +0100 (CET)
+ id 909C4F8023B; Thu, 29 Dec 2022 12:59:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DF62F802A0
- for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 09:33:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF62F802A0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=TM3kkB2j
-Received: by mail-lj1-x22a.google.com with SMTP id z7so13121418ljq.12
- for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 00:33:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2DbYkte6+L+Cr8TE5Lz9IdM41YLyTWgT3D+LkTXTvZc=;
- b=TM3kkB2j9ZQ0cQ2arKZaxphmUkIs22Q9WkBAIkTuiKaDBevRBs8R1Y1J25gLpxCBO3
- 9RoNxVQfx0Wf6mQoCb2rYpc24Y3e0SeHC/2WniaZ2sXKKGa/jepvCZPF2pu5FvmJpruA
- 0si/6FqDOiHl0NgPrVl7VvHE/2MyVFjn9RxahsIY4SZXkWbcsuSv/jpQJmfEuWKB70NJ
- KkQso0FRKJ0k9RjSm581fLNzNccCy5dz5XIsWtHaFCMb1WxsEAYW1v1Ypou92BV4XZ3s
- ZdZG3QOxBHGPq4lNsSBqKgEc4+Ugdrq+QXCN9C43WgVQgMUc/VQFjiXr2ow3gTHHR705
- Nabw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2DbYkte6+L+Cr8TE5Lz9IdM41YLyTWgT3D+LkTXTvZc=;
- b=0vtzVK7qi33slcU5boZhqGOzCOvodGpL3c50wOyGudTMeiRrOiWVQp0qa7CpYNB8B4
- nUHEI1gxa15DYQZTHZ4+Ascb6dB8/Nr45+A+x+aHJQsYOR0AHrj3qnT+BSWrSkd1KgUw
- SEJ2RUPTzJqSVxc4l5jJo7qfYdq2dtfPYvlFtko0cuaItyzR6QMxy1tz3Dm6B3hHRTZs
- htORG4FWulyTCdDFveoRfXeAGyrwX7ldA98XYt0UtD0PtV3msLBWHCRPQyUhicxV4pRs
- yNivnSGuGYn5jsXu4hFiHVu1fONr1R0nlPhrb9gr7XaGTL5q+fmrxFTmFkTWKNC7gdRA
- 1MaQ==
-X-Gm-Message-State: AFqh2kp171a+JOQd7nYNO9TRAzmOPVfQOSbUAh9KxifmBgirlf+82PHh
- 12WhC3JDbACjdCS8izwuDpmilA==
-X-Google-Smtp-Source: AMrXdXtlKNE7qMglk70f1cqT2C2029qOJIrB/AnaeaV/ZtmCr4Qj8LKT0y3U9qFMd56bJL2UbmZyyw==
-X-Received: by 2002:a2e:934c:0:b0:27f:b265:d6c3 with SMTP id
- m12-20020a2e934c000000b0027fb265d6c3mr5390937ljh.29.1672302813136; 
- Thu, 29 Dec 2022 00:33:33 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- p22-20020a2eb7d6000000b002796fb63dbdsm2267177ljo.13.2022.12.29.00.33.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Dec 2022 00:33:32 -0800 (PST)
-Message-ID: <2aae081d-25bb-4e93-da31-d19d51d0b4fc@linaro.org>
-Date: Thu, 29 Dec 2022 09:33:31 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id DED4AF8023B
+ for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 12:59:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DED4AF8023B
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256
+ header.s=dkim header.b=NNGE1crw
+Received: from zn.tnic (p5de8e9fe.dip0.t-ipconnect.de [93.232.233.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EBEC21EC052A;
+ Thu, 29 Dec 2022 12:59:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1672315150;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Lp+vdmZQGHadMtj/xrHmq66kTM3YtHE5xn6Anog2k54=;
+ b=NNGE1crwL4GCXhaVIsqMlucjtAR+YFYFAu5SyRxVVo0DF8EmCACt3NYrW+4Ix8/xNuFU8o
+ 59sFAQb/1hNjFrexEaCEdgFRGmhpbUbQb53NMqkNxMIeRLNpJlHs1agZKVSaC3VR2eOq3J
+ oqAqYTysPQ13qCkBEQyrsjBlzGLXg8M=
+Date: Thu, 29 Dec 2022 12:59:09 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: alsa-devel@alsa-project.org
+Subject: [bugzilla-daemon@kernel.org: [Bug 216861] New: sound disappearance
+ on Acer Swift 3 SF314-59-78UR after update to 5.10.157]
+Message-ID: <Y62BDSI/6nk9AUKp@zn.tnic>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: fsl, xcvr: Add compatible string
- for i.MX93 platform
-Content-Language: en-US
-To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20221229063009.2396716-1-chancel.liu@nxp.com>
- <20221229063009.2396716-2-chancel.liu@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20221229063009.2396716-2-chancel.liu@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,28 +74,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: zagagyka@basealt.ru
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29/12/2022 07:30, Chancel Liu wrote:
-> Add compatible string "fsl,imx93-xcvr" for i.MX93 platform.
-> 
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Forwarding to the ALSA ML.
 
-This is a friendly reminder during the review process.
+----- Forwarded message from bugzilla-daemon@kernel.org -----
 
-It looks like you received a tag and forgot to add it.
+Date: Thu, 29 Dec 2022 10:07:51 +0000
+From: bugzilla-daemon@kernel.org
+To: bp@alien8.de
+Subject: [Bug 216861] New: sound disappearance on Acer Swift 3 SF314-59-78UR after update to 5.10.157
+Message-ID: <bug-216861-6385@https.bugzilla.kernel.org/>
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions. However, there's no need to repost patches *only* to add the
-tags. The upstream maintainer will do that for acks received on the
-version they apply.
+https://bugzilla.kernel.org/show_bug.cgi?id=216861
 
-https://elixir.bootlin.com/linux/v5.17/source/Documentation/process/submitting-patches.rst#L540
+               URL: https://bugzilla.altlinux.org/44690
+            Bug ID: 216861
+           Summary: sound disappearance on Acer Swift 3 SF314-59-78UR
+                    after update to 5.10.157
+           Product: Platform Specific/Hardware
+           Version: 2.5
+    Kernel Version: 5.10.157
+          Hardware: Intel
+                OS: Linux
+              Tree: Mainline
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: x86-64
+          Assignee: platform_x86_64@kernel-bugs.osdl.org
+          Reporter: zagagyka@basealt.ru
+                CC: broonie@kernel.org, perex@perex.cz
+        Regression: Yes
 
-If a tag was not added on purpose, please state why and what changed.
+Created attachment 303497
+  --> https://bugzilla.kernel.org/attachment.cgi?id=303497&action=edit
+pulseaudio.log
 
-Best regards,
-Krzysztof
+Sudden sound disappearance was reported for some laptops, e.g.
 
+Acer Swift 3 SF314-59-78UR 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+
+# lspci
+0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-LP Smart
+Sound Technology Audio Controller (rev 20)
+        Subsystem: Acer Incorporated [ALI] Device 148c
+        Flags: bus master, fast devsel, latency 32, IRQ 197, IOMMU group 12
+        Memory at 601f270000 (64-bit, non-prefetchable) [size=16K]
+        Memory at 601f000000 (64-bit, non-prefetchable) [size=1M]
+        Capabilities: [50] Power Management version 3
+        Capabilities: [80] Vendor Specific Information: Len=14 <?>
+        Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Kernel driver in use: sof-audio-pci
+
+I am attaching the pulseaudio and dmesg logs
+
+This bug started reproducing after updating the kernel from 5.10.156 to
+5.10.157
+
+Bisection revealed the commit being reverted:
+
+c34db0d6b88b1da95e7ab3353e674f4f574cccee is the first bad commit
+commit c34db0d6b88b1da95e7ab3353e674f4f574cccee
+Author: Richard Fitzgerald <rf@opensource.cirrus.com>
+Date:   Fri Nov 4 13:22:13 2022 +0000
+
+    ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
+
+    [ Upstream commit 39bd801d6908900e9ab0cdc2655150f95ddd4f1a ]
+
+    The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
+    and used by later code that depends on the TDM settings. So
+    __soc_pcm_open() should not be obliterating those mask values.
+
+    The code in __soc_pcm_hw_params() uses these masks to calculate the
+    active channels so that only the AIF_IN/AIF_OUT widgets for the
+    active TDM slots are enabled. The zeroing of the masks in
+    __soc_pcm_open() disables this functionality so all AIF widgets
+    were enabled even for channels that are not assigned to a TDM slot.
+
+    Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+    Fixes: 2e5894d73789 ("ASoC: pcm: Add support for DAI multicodec")
+    Link:
+https://lore.kernel.org/r/20221104132213.121847-1-rf@opensource.cirrus.com
+    Signed-off-by: Mark Brown <broonie@kernel.org>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+ sound/soc/soc-pcm.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+Original bug report: https://bugzilla.altlinux.org/44690
+
+-- 
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.
+
+----- End forwarded message -----
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette

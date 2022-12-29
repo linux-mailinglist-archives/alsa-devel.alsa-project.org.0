@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A544658E42
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 16:19:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D88658E43
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Dec 2022 16:19:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78B828242;
-	Thu, 29 Dec 2022 16:18:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78B828242
+	by alsa0.perex.cz (Postfix) with ESMTPS id 731409CD3;
+	Thu, 29 Dec 2022 16:18:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 731409CD3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672327147;
-	bh=4a5U7BEL+rGYJRlVkx14BPuEsGpf8PZ5w5juP6cL40U=;
+	s=default; t=1672327185;
+	bh=eT3ABVCFvGesWuCHYEt5BJlwWRBnBg0zulRiJXRDfXw=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=RW8tb7Oec9YOsDafwaeUg0H/LkT6oTGYl8ZUF9/c3Wr/Z6JFksReGkG3Slq2KrnGs
-	 9tXe8BEebdaG7bS+o/w0ccHMnPkwqDRNmor+38++lf9sAFzIcxWSFUaJzRbJtw+GbM
-	 bLt1PZcDe0fh4Jkc9twXqkURHHtM8AjMQkeLwoQk=
+	b=cKda9bjpPoCTRMdONUUhhAA8ttPauo/DsclGaWVxaqS5YybO7ck7uJ1i+0iyxZnTa
+	 oiu9Q5T16xEmbIJj0KfhcK/v25OIF23gtf5oBaIa1tx2eDH+sKqukfr7st4Rbbt53Y
+	 u6sWlX2hmiyRrT5bF0ffEc0o4VESKtb76GsXjmGw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87148F804F1;
-	Thu, 29 Dec 2022 16:18:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FAF4F804D0;
+	Thu, 29 Dec 2022 16:18:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9657F8023B; Thu, 29 Dec 2022 16:18:04 +0100 (CET)
+ id 28FDAF804E7; Thu, 29 Dec 2022 16:18:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_PASS,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
 Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [81.169.146.169])
+ [85.215.255.84])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91961F8023B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 977CCF8023B
  for <alsa-devel@alsa-project.org>; Thu, 29 Dec 2022 16:17:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91961F8023B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 977CCF8023B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=gerhold.net header.i=@gerhold.net header.a=rsa-sha256
- header.s=strato-dkim-0002 header.b=TK3tY/pO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1672327076;
+ header.s=strato-dkim-0002 header.b=F+eYRHNU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1672327077;
  s=strato-dkim-0002; d=gerhold.net;
  h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=ufovkPO+jNddBOfj2hrolKoU/q+utp3DmWQhPWZpjlQ=;
- b=TK3tY/pO+q0ZpT65UHNC57hTiYfKr8aSV72LkddUx+WAMKp00yFCrdI5UdTaLi/tAc
- wdkwhxzV+w6vbmrSfFe7FnOjSwjpx6gBQtmBqI6Io6dLA78GYWySeKpGH9WVbTl+o8ou
- gNS36WuTk2u9vqB+1NFUxEXtWxgTAEdth08vdOQugMszLaeVzthUIIaVea2XqyAM+gw3
- eeNMUnxbioNbSw+N8fVsdASOjAquH7oQdMIYwjVbwZSV9mxjTw6/uh6Z/19asfozwJYY
- xj5UgMzP8stU0WrIy6LpQI5IM3weXuXEfazBmbUxP/oK6QHYZZGFi5Zrhhs5yKre3VAO
- IPkw==
+ bh=o9yw6kwnyVHqftafsTZRSK4tSSkPBL8db2BOCD1EwNk=;
+ b=F+eYRHNUH3aMOrCmUY+iyyqyw39IdWu3vV7TBGa1gKcA8oju/dl4M/JQe/+WCDO2vF
+ tQbOoK3dpIu8Jc+fuvrOoujcRCyKFZwjAYGgb38phMO20rIYTx0ybF7F46A9Ot1rvTN9
+ 9D4RLvkXonYr8UsLxN/9tmhFoCxbb03NBXT2EDzBWasSeqgoJ7fP4BakGJRb5yeomxYl
+ v1DW9CNRQSDsAf1qFK0P0dfxdzRwrTtn9hUejHgW6hP39fDHuEKh6DV9CiuFOqHkqTWZ
+ nAe7PKuu8MY/Yo7PMLNEUsBP6KcfVSuSforI1Koh7syclJHmSiu8iK0Ij6M5U4FbE+Xw
+ vhRQ==
 Authentication-Results: strato.com;
     dkim=none
 X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXTbAOHjRHIRvweF+KLA=="
-X-RZG-CLASS-ID: mo01
+X-RZG-CLASS-ID: mo02
 Received: from droid.. by smtp.strato.de (RZmta 48.2.1 DYNA|AUTH)
- with ESMTPSA id Yce349yBTFHuXT3
+ with ESMTPSA id Yce349yBTFHuXT4
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
  Thu, 29 Dec 2022 16:17:56 +0100 (CET)
 From: Stephan Gerhold <stephan@gerhold.net>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Andy Gross <agross@kernel.org>
-Subject: [PATCH 1/2] dt-bindings: soc: qcom: apr: Make qcom,
+Subject: [PATCH 2/2] soc: qcom: apr: Make qcom,
  protection-domain optional again
-Date: Thu, 29 Dec 2022 16:16:47 +0100
-Message-Id: <20221229151648.19839-2-stephan@gerhold.net>
+Date: Thu, 29 Dec 2022 16:16:48 +0100
+Message-Id: <20221229151648.19839-3-stephan@gerhold.net>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221229151648.19839-1-stephan@gerhold.net>
 References: <20221229151648.19839-1-stephan@gerhold.net>
@@ -98,48 +98,40 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The protection domain functionality exists only in SoCs starting from
-MSM8998 [1], while the APR bindings are also used on older platforms.
+APR should not fail if the service device tree node does not have
+the qcom,protection-domain property, since this functionality does
+not exist on older platforms such as MSM8916 and MSM8996.
 
-Commit 41288c305836 ("ASoC: dt-bindings: qcom,apr: Split services to
-shared schema") made the "qcom,protection-domain" required but it
-should remain optional to avoid dtbs_check warnings on older platforms,
-e.g.:
+Ignore -EINVAL (returned when the property does not exist) to fix
+a regression on 6.2-rc1 that prevents audio from working:
 
-arch/arm64/boot/dts/qcom/apq8096-db820c.dtb:
-  apr: service@3: 'qcom,protection-domain' is a required property
-  From schema: Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+  qcom,apr remoteproc0:smd-edge.apr_audio_svc.-1.-1:
+    Failed to read second value of qcom,protection-domain
+  qcom,apr remoteproc0:smd-edge.apr_audio_svc.-1.-1:
+    Failed to add apr 3 svc
 
-[1]: https://lore.kernel.org/all/20200312120842.21991-1-sibis@codeaurora.org/
-
-Fixes: 41288c305836 ("ASoC: dt-bindings: qcom,apr: Split services to shared schema")
+Fixes: 6d7860f5750d ("soc: qcom: apr: Add check for idr_alloc and of_property_read_string_index")
 Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 ---
- .../devicetree/bindings/soc/qcom/qcom,apr-services.yaml      | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/soc/qcom/apr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr-services.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr-services.yaml
-index 290555426c39..bdf482db32aa 100644
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr-services.yaml
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr-services.yaml
-@@ -39,8 +39,8 @@ properties:
-   qcom,protection-domain:
-     $ref: /schemas/types.yaml#/definitions/string-array
-     description: |
--      Protection domain service name and path for APR service
--      possible values are::
-+      Protection domain service name and path for APR service (if supported).
-+      Possible values are::
-       "avs/audio", "msm/adsp/audio_pd".
-       "kernel/elf_loader", "msm/modem/wlan_pd".
-       "tms/servreg", "msm/adsp/audio_pd".
-@@ -49,6 +49,5 @@ properties:
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index cd44f17dad3d..d51abb462ae5 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -461,9 +461,10 @@ static int apr_add_device(struct device *dev, struct device_node *np,
+ 		goto out;
+ 	}
  
- required:
-   - reg
--  - qcom,protection-domain
- 
- additionalProperties: true
++	/* Protection domain is optional, it does not exist on older platforms */
+ 	ret = of_property_read_string_index(np, "qcom,protection-domain",
+ 					    1, &adev->service_path);
+-	if (ret < 0) {
++	if (ret < 0 && ret != -EINVAL) {
+ 		dev_err(dev, "Failed to read second value of qcom,protection-domain\n");
+ 		goto out;
+ 	}
 -- 
 2.39.0
 

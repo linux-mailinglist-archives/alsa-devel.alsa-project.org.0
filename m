@@ -2,87 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA3E65953B
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Dec 2022 06:57:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FECF65959D
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Dec 2022 08:11:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A2AD1788;
-	Fri, 30 Dec 2022 06:57:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A2AD1788
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E8D91746;
+	Fri, 30 Dec 2022 08:11:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E8D91746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672379875;
-	bh=jOEcoLpFV3eGQbHqqzCGUq+CoGhi/Jz7x34ZsqVU7Ps=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1672384312;
+	bh=PRIofR41wxCot3r+Fx2SbFbT/4WWlLg0/PjsPdQUO/I=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Idm9P0uS1vDpqLmgESHMHO4VBOEMWWA5TlRqZtc5p0C75ePzFR2WlteqBDQQ35QTB
-	 XmDOshkknHJfLVrBQafKBNTE5lvwEEPcwb+E2t71H9RDBYHySYkmJ68nCsZVncIQff
-	 8dDCbrXAeu2m07pAYLRRnTZK5I5fT7WzKJolKIXg=
+	b=HxP3Bm9mA2ZMtVeN+DcR0mVlcFG5VVRwwQUg+n2pyq4CTS25WJEOxoYpt/pCtiwhX
+	 klq6O/oZxPFedCCbAyYZVC8myhNqLkYWq60u0WriiAhFKIV7allUn0Fky5EiBqyymm
+	 D+seT9JU25698pSHhoSLFGstfb6bYwbEDOpwoFp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22429F8055A;
-	Fri, 30 Dec 2022 06:55:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCDA0F804B4;
+	Fri, 30 Dec 2022 08:10:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4ED36F80551; Fri, 30 Dec 2022 06:55:09 +0100 (CET)
+ id 4E310F80310; Fri, 30 Dec 2022 08:10:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F18ADF804D6
- for <alsa-devel@alsa-project.org>; Fri, 30 Dec 2022 06:54:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18ADF804D6
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=J+h3Uwxc
-X-UUID: e0ab0446896c48cdb0e3217b04757298-20221230
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=1XsQfMLq3hzFvTdP+ZJqkPk+RUeEIJ8mxC4BB8fe5IQ=; 
- b=J+h3Uwxcp3o3vj2rO/DRUb+nnVvKXpcewfUNsMnSD+PRSdHJRUYhwF86ne9O0UL+wh3Mrw516BFStnUZqEAVzTXOms+a9ammU0gDrup2TRUlX8swguPiEGNyVRzOk0xdx0mpdA4/JzPHzvFu0y2yOAmElopRpT5yZTImq6pAv8M=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.16, REQID:5713d976-c26b-4400-a340-67c6bfb3f7d8, IP:0,
- U
- RL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:09771b1, CLOUDID:92443653-dd49-462e-a4be-2143a3ddc739,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-X-CID-BVR: 0,NGT
-X-UUID: e0ab0446896c48cdb0e3217b04757298-20221230
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 210004404; Fri, 30 Dec 2022 13:54:51 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Fri, 30 Dec 2022 13:54:50 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.792.15 via Frontend Transport; Fri, 30 Dec 2022 13:54:50 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
- <perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <matthias.bgg@gmail.com>, <p.zabel@pengutronix.de>
-Subject: [PATCH v4 13/13] dt-bindings: mediatek: mt8188: add mt8188-mt6359
- document
-Date: Fri, 30 Dec 2022 13:54:43 +0800
-Message-ID: <20221230055443.16024-14-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20221230055443.16024-1-trevor.wu@mediatek.com>
-References: <20221230055443.16024-1-trevor.wu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D776F80310
+ for <alsa-devel@alsa-project.org>; Fri, 30 Dec 2022 08:10:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D776F80310
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=J/mcI0k/
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BU5sFsr026256; Fri, 30 Dec 2022 07:10:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=FwhgSt+H12LokA09wY+Ljn6TvSwI6v7ncaNm3O6cwro=;
+ b=J/mcI0k/6vjX9FhdSxYJYSt40LPnfc/hcIYWxD2v846nVodvXcdDdlw/duoiE3ywlZHb
+ YGHRzGwgkoCFOjTzsqfMbLxRtVczH6NpeAB+gn2OH5gHj4/ukVXE5LJff+fvwEeUcE4t
+ HsWLiWsBsU/amsSjsiIpAnt2pWLHyViBBAwZa7AU8nK5m2wgDzUMIJfnSXAv4oMeJgtG
+ h5n2TQPFNWOXWZPeJ4LP3HyBS9aVAyBp/lRmptm7trMZpPZkbb+9uN+ONQF7WNT3ZllT
+ zYX9PRSoeXB2uHjuvAICTBNKG/6SsAwxn6BwngGLBgPzaLThWlUGZhnzcT03N4GWVNPq 5A== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ms2nra9nb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Dec 2022 07:10:46 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 2BU7AcoQ007450
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Dec 2022 07:10:38 GMT
+Received: from [10.110.125.32] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 29 Dec
+ 2022 23:10:37 -0800
+Message-ID: <ec632e64-2d9c-3f71-4fe7-e1c6acb81393@quicinc.com>
+Date: Thu, 29 Dec 2022 23:10:36 -0800
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH 04/14] sound: usb: card: Introduce USB SND vendor op
+ callbacks
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, Oliver Neukum <oneukum@suse.com>
+References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
+ <20221223233200.26089-5-quic_wcheng@quicinc.com>
+ <80f92635-6d14-8ff3-17ac-de2e5b977947@suse.com> <87lemqxpet.wl-tiwai@suse.de>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <87lemqxpet.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Eb4Q5qdFJpjmSWS6gnMU0-nbVChD5pAE
+X-Proofpoint-GUID: Eb4Q5qdFJpjmSWS6gnMU0-nbVChD5pAE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-30_03,2022-12-29_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 bulkscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 mlxlogscore=682 spamscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2212300061
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,121 +114,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
+ mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
+ quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add document for mt8188 board with mt6359.
+Hi,
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- .../sound/mediatek,mt8188-mt6359.yaml         | 93 +++++++++++++++++++
- 1 file changed, 93 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
+On 12/29/2022 6:20 AM, Takashi Iwai wrote:
+> On Thu, 29 Dec 2022 14:49:21 +0100,
+> Oliver Neukum wrote:
+>>
+>>
+>>
+>> On 24.12.22 00:31, Wesley Cheng wrote:
+>>> Allow for different vendors to be notified on USB SND connect/disconnect
+>>> seqeunces.  This allows for vendor USB SND modules to properly initialize
+>>> and populate internal structures with references to the USB SND chip
+>>> device.
+>>
+>> Hi,
+>>
+>> this raises a design question. If the system is suspending or, worse,
+>> hibernating, how do you make sure the offloader and the device are
+>> suspended in the correct order?
+>> And what happens if you need to go into reset_resume() when resuming?
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-new file mode 100644
-index 000000000000..5754c1d460db
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mediatek,mt8188-mt6359.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek MT8188 ASoC sound card
-+
-+maintainers:
-+  - Trevor Wu <trevor.wu@mediatek.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt8188-mt6359-evb
-+
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User specified audio sound card name
-+
-+  audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description:
-+      A list of the connections between audio components. Each entry is a
-+      sink/source pair of strings. Valid names could be the input or output
-+      widgets of audio components, power supplies, MicBias of codec and the
-+      software switch.
-+
-+  mediatek,platform:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of MT8188 ASoC platform.
-+
-+patternProperties:
-+  "^dai-link-[0-9]+$":
-+    type: object
-+    description: |
-+      Container for dai-link level properties and CODEC sub-nodes.
-+
-+    properties:
-+      dai-link-name:
-+        description: |
-+          This property corresponds to the name of the BE dai-link to which
-+          we are going to update parameters in this node.
-+        items:
-+          enum:
-+            - ADDA_BE
-+            - DPTX_BE
-+            - ETDM1_IN_BE
-+            - ETDM2_IN_BE
-+            - ETDM1_OUT_BE
-+            - ETDM2_OUT_BE
-+            - ETDM3_OUT_BE
-+            - PCM1_BE
-+
-+      codec:
-+        description: Holds subnode which indicates codec dai.
-+        type: object
-+        additionalProperties: false
-+        properties:
-+          sound-dai:
-+            minItems: 1
-+            maxItems: 2
-+
-+    required:
-+      - dai-link-name
-+      - codec
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - mediatek,platform
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "mediatek,mt8188-mt6359-evb";
-+        mediatek,platform = <&afe>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&aud_pins_default>;
-+        audio-routing =
-+            "Headphone", "Headphone L",
-+            "Headphone", "Headphone R",
-+            "AIN1", "Headset Mic";
-+        dai-link-0 {
-+            dai-link-name = "ETDM3_OUT_BE";
-+
-+            codec {
-+                sound-dai = <&hdmi0>;
-+            };
-+        };
-+    };
-+
-+...
--- 
-2.18.0
+It may depend on how the offloading is implemented, but we do have a 
+mechanism to force the audio stream off from the qc_usb_audio_offload. 
+Regardless of if the UDEV is suspended first, or the USB backend, as 
+long as we ensure that the offloading is disabled before entering 
+suspend, I think that should be sufficient.  I would need to add some 
+suspend handling in the offload driver to issue the command to stop the 
+offloading.
+
+As for the resume path, is there a concern if either device is resumed 
+first?  The only scenario where maybe it could cause some mishandling is 
+if the USB backend is resumed before the offload driver is 
+connected/resumed.  This means that the userspace ALSA would have access 
+to the platform sound card, and could potentially attempt to route audio 
+streams to it.  I think in worst case, if we were going through a 
+reset_resume() we would end up rejecting that request coming from the 
+audio DSP to enable the stream.  However, userspace entities would be 
+resumed/unfrozen last, so not sure if that would ever be a problem.
+
+The reset_resume() path is fine.  Bus reset is going to cause a 
+disconnect() callback in the offload driver, in which we already have 
+the proper handling for ensuring the offload path is halted, and we 
+reject any incoming stream start requests.
+
+Thanks
+Wesley Cheng
 

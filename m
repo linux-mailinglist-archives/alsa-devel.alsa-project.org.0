@@ -2,91 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABA3265969C
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Dec 2022 10:16:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C126596DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Dec 2022 10:36:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7EB7DEC;
-	Fri, 30 Dec 2022 10:15:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7EB7DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F0E21714;
+	Fri, 30 Dec 2022 10:35:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F0E21714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672391808;
-	bh=JrGoVjmGruvZfuhPFhn/inYGJA6IOeFSEOCzOeL9L5Q=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=J/ZKQK2vqwHBPjhM10IM5f43Xvd9qdYYLrRqHN7/hlE1x1e7/G20fI1/S+i0QZkO4
-	 ICQ9iRr9G/BlmJZo94u3F8TOucihMZiqPB6Hy6veve2VmlrZs/OXeh2O0u2UUgW9wL
-	 2JhHJ91meb7EMPczOmL5rk3Zfr5+W2L52MNOVaso=
+	s=default; t=1672392982;
+	bh=qhkQ47hb70UZeHlvM6cBn7xtvlrwkZzsy/YaIws3y60=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Y2c1xw0VoN6XnVUdyezaGUAX7MjaddfIB7rNG3denOnltV72IZ6Op4Xr2NeoN9F4K
+	 DujKPrjUk75n0k+/JHzoMm8/BKrlRdcJ7eHRbEDqWjlJjIu7NwhpmFgFYDfh2d5NvQ
+	 n7wEiACttqw0hdFJIyTvCwW9vtj+X2qnrrtH9mCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2625FF8023B;
-	Fri, 30 Dec 2022 10:15:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8100DF8023B;
+	Fri, 30 Dec 2022 10:35:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79C28F8023B; Fri, 30 Dec 2022 10:15:48 +0100 (CET)
+ id 5B060F8042F; Fri, 30 Dec 2022 10:35:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from out29-7.mail.aliyun.com (out29-7.mail.aliyun.com [115.124.29.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E534F8023B
- for <alsa-devel@alsa-project.org>; Fri, 30 Dec 2022 10:15:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E534F8023B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=QLVEMTyw; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Oa6Dj/PC
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 63A84220FD;
- Fri, 30 Dec 2022 09:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672391745; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iHbVpODfgp/T+VyfuvKyHtjtd9zTJ/W5BjA61pcdDR8=;
- b=QLVEMTywFhZfdfEfyhkmn1yHqW5DQ3D17t1FfXsmCBtkQCdiU+dXyRwz3N0LEcXH/6B6EM
- edxUy42NAwzRPO+HLuG8RhOErZZuu1svEj08bWVzJfJBRe2AamXp0RueBX3YaD6OAsN1qg
- u8Oha0j1mgKTLtKt4uG4G2ROGBmN/Hw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672391745;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iHbVpODfgp/T+VyfuvKyHtjtd9zTJ/W5BjA61pcdDR8=;
- b=Oa6Dj/PC/0kkikrIWjYEl9UR6ineSGhOM9xQ4YQ4yztANPuC9hoPacXO4t/PrVy8JBEigV
- Br8Wz0Iy53/QBnDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36FF913638;
- Fri, 30 Dec 2022 09:15:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KdcTDEGsrmOrNAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 30 Dec 2022 09:15:45 +0000
-Date: Fri, 30 Dec 2022 10:15:44 +0100
-Message-ID: <87cz81xnen.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Subject: Re: Turn on power early to avoid something
-In-Reply-To: <af64a2d5e55448dbadef4d0efd96bea5@realtek.com>
-References: <3dcfbaf4ccb34be7a9c4af0202cdcdd4@realtek.com>
- <87fscxxqp0.wl-tiwai@suse.de>
- <af64a2d5e55448dbadef4d0efd96bea5@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BEA9F80424
+ for <alsa-devel@alsa-project.org>; Fri, 30 Dec 2022 10:35:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BEA9F80424
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.09643909|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00387715-6.27374e-05-0.99606;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047192; MF=wangweidong.a@awinic.com; NM=1;
+ PH=DS; RN=27; RT=27; SR=0; TI=SMTPD_---.Qh0QfiN_1672392896; 
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.Qh0QfiN_1672392896) by smtp.aliyun-inc.com;
+ Fri, 30 Dec 2022 17:35:04 +0800
+From: wangweidong.a@awinic.com
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, perex@perex.cz, tiwai@suse.com,
+ ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com,
+ povik+lin@cutebit.org, pierre-louis.bossart@linux.intel.com,
+ james.schulman@cirrus.com, flatmax@flatmax.com, cezary.rojewski@intel.com,
+ srinivas.kandagatla@linaro.org, tanureal@opensource.cirrus.com,
+ steve@sk2.org, stephan@gerhold.net, zhuning0077@gmail.com,
+ shumingf@realtek.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ wangweidong.a@awinic.com
+Subject: [PATCH V8 0/5] ASoC: codecs: Add Awinic AW883XX audio amplifier driver
+Date: Fri, 30 Dec 2022 17:34:49 +0800
+Message-Id: <20221230093454.190579-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.38.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,51 +74,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+Cc: yijiangtao@awinic.com, duanyibo@awinic.com, zhaolei@awinic.com,
+ liweilei@awinic.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Dec 2022 09:14:16 +0100,
-Kailang wrote:
-> 
-> 
-> 
-> > -----Original Message-----
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Sent: Friday, December 30, 2022 4:05 PM
-> > To: Kailang <kailang@realtek.com>
-> > Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
-> > Subject: Re: Turn on power early to avoid something
-> > 
-> > On Fri, 30 Dec 2022 08:54:01 +0100,
-> > Kailang wrote:
-> > >
-> > > Hi Takashi,
-> > >
-> > > It maybe can avoid something for early power up.
-> > >
-> > > Many Thanks.
-> > > Kailang.
-> > 
-> > Hmm, what is "something"?  The description is way too ambiguous to judge
-> > whether the change is OK or not, unfortunately.
-> > Could you elaborate what exactly the change will fix?
-> > 
-> > Also, when you submit a patch from another person, please put your own
-> > Signed-off-by line.  It's a legal requirement.
-> yangyuchi66@gmail.com was my personal account.
-> Could I use this account?
+From: Weidong Wang <wangweidong.a@awinic.com>
 
-Ah OK, then it's fine.
+The Awinic AW883XX is an I2S/TDM input, high efficiency
+digital Smart K audio amplifier with an integrated 10.25V
+smart boost convert
 
-> Or I need use this account to mail patch to you.
+Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
+controlled using I2C
 
-It's not necessary, the sign-off is fine as long as it matches with
-the From address in the patch and it's yourself.
+v7 -> v8: Delete retry for double loops Enable PA
+          Delete useless initialization and use reverse x-mas tree style
+          Add Spaces in comments
+          Modify aw883xx_switch_set function
+          Delete our own workqueue, use a default one
+          Change variable name
+          Modifying function name
+          Use dev_ replace pr_ function
+          Use define replace number
+          Modify the compatible of the awinic,aw883xx.yaml file
 
-But we still need a better description of the patch text.
+Weidong Wang (5):
+  ASoC: codecs: Add i2c and codec registration for aw883xx and their
+    associated operation functions
+  ASoC: codecs: Aw883xx function for ACF file parse and check
+  ASoC: codecs: Aw883xx common function for ALSA Audio Driver
+  ASoC: codecs: Aw883xx chip register file, data type file and Kconfig
+    Makefile
+  ASoC: dt-bindings: Add schema for "awinic,aw883xx"
+
+ .../bindings/sound/awinic,aw883xx.yaml        |   49 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    6 +
+ sound/soc/codecs/aw883xx/aw883xx.c            |  667 ++++++
+ sound/soc/codecs/aw883xx/aw883xx.h            |   59 +
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.c  | 1067 ++++++++++
+ sound/soc/codecs/aw883xx/aw883xx_bin_parse.h  |   92 +
+ sound/soc/codecs/aw883xx/aw883xx_data_type.h  |  143 ++
+ sound/soc/codecs/aw883xx/aw883xx_device.c     | 1790 +++++++++++++++++
+ sound/soc/codecs/aw883xx/aw883xx_device.h     |  198 ++
+ .../soc/codecs/aw883xx/aw883xx_pid_2049_reg.h |  384 ++++
+ 11 files changed, 4465 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_bin_parse.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_data_type.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_device.c
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_device.h
+ create mode 100644 sound/soc/codecs/aw883xx/aw883xx_pid_2049_reg.h
 
 
-thanks,
+base-commit: bff687b3dad6e0e56b27f4d3ed8a9695f35c7b1a
+-- 
+2.38.1
 
-Takashi

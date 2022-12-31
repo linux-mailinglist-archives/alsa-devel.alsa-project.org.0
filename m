@@ -2,72 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C8765A6BF
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 21:07:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37F7365A6C2
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 21:07:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55D224311;
-	Sat, 31 Dec 2022 21:06:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55D224311
+	by alsa0.perex.cz (Postfix) with ESMTPS id 280584325;
+	Sat, 31 Dec 2022 21:06:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 280584325
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672517248;
-	bh=nbEQCC/a/+NsXj6d7pAHo1OtVx4lNUjq9z845PL8KLE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=UtSYhTu8HgJwmMC6csl0kN4oGYky5aAKsVTgn0g13f14j6zj5Mi57/3Lxi5kQvT88
-	 3B4Pugg1IIosrNf7wh3BeqidQKHgBJf3j/yiBJ4h7STNJaQa9Z/3q4e3ZmRjVvsYfg
-	 uXyWOlXLq4yX/gJnOSvFUpyey0bzHcjaeR7ttw5g=
+	s=default; t=1672517269;
+	bh=LgmgjUvXQy7L94wXyNzwMxfJN9MuEKIpK69qKKpPfko=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=gNyLhyo+7GmZ0Zi4VaJh/BKRXX/JgK+13DB4kAbpn2gRONSUdaomS6B7zJQ3Fn3E+
+	 1QCXgnzPo9tCh4WrnPJ09W61sGWjYJwqM1CBuBBa8X7NHAyVqfRYveq/jmqIl+YBid
+	 sRawbNgGihXkRr3KyjRU8oM4fGkWJ4wNaKn7FmuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95864F80564;
-	Sat, 31 Dec 2022 21:05:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C94C4F80571;
+	Sat, 31 Dec 2022 21:06:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6236CF80564; Sat, 31 Dec 2022 21:05:41 +0100 (CET)
+ id 9E5BCF8053A; Sat, 31 Dec 2022 21:06:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBA54F80536;
- Sat, 31 Dec 2022 21:05:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBA54F80536
+ by alsa1.perex.cz (Postfix) with ESMTPS id 271B2F8053A
+ for <alsa-devel@alsa-project.org>; Sat, 31 Dec 2022 21:06:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 271B2F8053A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XIYJ1Xhn
+ header.s=k20201202 header.b=snFazREG
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2126260A6F;
- Sat, 31 Dec 2022 20:05:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EE6C433D2;
- Sat, 31 Dec 2022 20:05:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 548D860A73;
+ Sat, 31 Dec 2022 20:05:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C8BC433A7;
+ Sat, 31 Dec 2022 20:05:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672517136;
- bh=nbEQCC/a/+NsXj6d7pAHo1OtVx4lNUjq9z845PL8KLE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XIYJ1XhnrhflgRMfxmD/e/9im96567mbddgFDNBYEE2ohnUE43ga2bCoUDMTnG9fP
- 0CIMGcaEjapfoBItehBwFupyGx6ZlAMCLpzdOl9UnhttWdQjQ7Nt85DqGBd/F6onea
- tx4K4nYKm9sLBUdL0SV58uokT0PFxa9zLYnqpAgLATXCP3LQ+haIzqgj1DchsS3tBe
- C/+M2l9/GfRGubAtpeVM4XWTyimGrQn3Z+lTOyxc+zg7Ti1xQwwZWQdhaP8xEjc6Ku
- wdykZpnNm9c9kIAYQ7BFrkpzQZw66LCOxM+3xTLio+0vSM6vE470FfH59AbnULXjZH
- gpEobjdGQXndw==
+ s=k20201202; t=1672517159;
+ bh=LgmgjUvXQy7L94wXyNzwMxfJN9MuEKIpK69qKKpPfko=;
+ h=From:To:Cc:Subject:Date:From;
+ b=snFazREGvAVSk/O94v1xZ5aERWAIyIV3IaIdGGrg/tWbuWjlVuE+J0GACbIJh8fR8
+ 21cDcM+RTPGatm7zJRbh9zMlkVogDDAt6fdTni6o6cZN/v72T34WhTRXWS2pMhhLWF
+ 2t+PyGXkYm/Dau++JiV8EpxF896uAzbbGMdDXRTY3nQgrBccLuRfTXplhO1q18uK0B
+ D2Rh/324FKL2JpIJcU6ueTD+gH70v98+WwnBCv6EdgfuHvMTr6e5LhrzoyucvrclBr
+ sWZSCNvfN7DpmidkpKxyYN+c5gJ4ntqKpWQMjDOqDPiYcPml7i0CjZxtiR30Ki5tLb
+ RRpphDHIKrb5A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.0 4/7] ASoC: SOF: mediatek: initialize panic_info to
- zero
-Date: Sat, 31 Dec 2022 15:04:59 -0500
-Message-Id: <20221231200502.1748784-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15] ASoC: Intel: bytcr_rt5640: Add quirk for the
+ Advantech MICA-071 tablet
+Date: Sat, 31 Dec 2022 15:05:44 -0500
+Message-Id: <20221231200545.1748883-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221231200502.1748784-1-sashal@kernel.org>
-References: <20221231200502.1748784-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -84,48 +80,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com, lgirdwood@gmail.com,
- daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- ranjani.sridharan@linux.intel.com, YC Hung <yc.hung@mediatek.com>,
- matthias.bgg@gmail.com, Curtis Malainey <cujomalainey@chromium.org>,
- peter.ujfalusi@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- sound-open-firmware@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, oder_chiou@realtek.com,
+ cezary.rojewski@intel.com, ckeepax@opensource.cirrus.com,
+ kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ranjani.sridharan@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ akihiko.odaki@gmail.com, peter.ujfalusi@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: YC Hung <yc.hung@mediatek.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 7bd220f2ba9014b78f0304178103393554b8c4fe ]
+[ Upstream commit a1dec9d70b6ad97087b60b81d2492134a84208c6 ]
 
-Coverity spotted that panic_info is not initialized to zero in
-mtk_adsp_dump. Using uninitialized value panic_info.linenum when
-calling snd_sof_get_status. Fix this coverity by initializing
-panic_info struct as zero.
+The Advantech MICA-071 tablet deviates from the defaults for
+a non CR Bay Trail based tablet in several ways:
 
-Signed-off-by: YC Hung <yc.hung@mediatek.com>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20221213115617.25086-1-yc.hung@mediatek.com
+1. It uses an analog MIC on IN3 rather then using DMIC1
+2. It only has 1 speaker
+3. It needs the OVCD current threshold to be set to 1500uA instead of
+   the default 2000uA to reliable differentiate between headphones vs
+   headsets
+
+Add a quirk with these settings for this tablet.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20221213123246.11226-1-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/mediatek/mtk-adsp-common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/sound/soc/sof/mediatek/mtk-adsp-common.c b/sound/soc/sof/mediatek/mtk-adsp-common.c
-index 1e0769c668a7..de8dbe27cd0d 100644
---- a/sound/soc/sof/mediatek/mtk-adsp-common.c
-+++ b/sound/soc/sof/mediatek/mtk-adsp-common.c
-@@ -60,7 +60,7 @@ void mtk_adsp_dump(struct snd_sof_dev *sdev, u32 flags)
- {
- 	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
- 	struct sof_ipc_dsp_oops_xtensa xoops;
--	struct sof_ipc_panic_info panic_info;
-+	struct sof_ipc_panic_info panic_info = {};
- 	u32 stack[MTK_ADSP_STACK_DUMP_SIZE];
- 	u32 status;
- 
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index f9c82ebc552c..888e04c57757 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -570,6 +570,21 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{
++		/* Advantech MICA-071 */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Advantech"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MICA-071"),
++		},
++		/* OVCD Th = 1500uA to reliable detect head-phones vs -set */
++		.driver_data = (void *)(BYT_RT5640_IN3_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_1500UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_DIFF_MIC |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
 -- 
 2.35.1
 

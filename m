@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C8465A654
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 20:36:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C60365A6AA
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 21:05:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F2314240;
-	Sat, 31 Dec 2022 20:35:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F2314240
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87C92431B;
+	Sat, 31 Dec 2022 21:05:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87C92431B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672515397;
-	bh=HW5NYXHwfaJpYlQDZI62Ts1zbYkDtVaLQ5DQkeI8+8o=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=mnkaB8Ppd8AFO3s36IAd7ihXQTtPAR3U5Axem9+vTXZqVwz7YmJJ8+IAtW9mWCgDk
-	 kRNagrI3+iz7xbs5nniL6JX+YPn8H4HXbhwRXBXduQBacjpMSwgHYNQPAZgNUGP3ZK
-	 ol1VlZQS/1wkDaE7jzE4SMOIpU7fyOE9fU6d57Y8=
+	s=default; t=1672517150;
+	bh=y2Ppgz8FPbpRQPLR/AGHTGFAgEiy6KDl4M0uBsPvi28=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=VpHN3I4nr11JijnN/mcirZM+1k4KVRMwLBNp7FytIZ6uW+jTTNTvQnt7nSCLQVMVP
+	 4tWqxRfEnKWc3jSGZGNhpsoAUOXQujv/ckuFtdIlxjH2tmmgI+MtaJFrqN3S0lLS0b
+	 +l7LRFKMZT7nnA3Cs43hHBcRNQF6P1otBFhpERxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53D7CF804E7;
-	Sat, 31 Dec 2022 20:35:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCE6EF8023B;
+	Sat, 31 Dec 2022 21:04:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24C15F804D0; Sat, 31 Dec 2022 20:35:45 +0100 (CET)
+ id 52714F804D0; Sat, 31 Dec 2022 21:04:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB081F80144
- for <alsa-devel@alsa-project.org>; Sat, 31 Dec 2022 20:35:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB081F80144
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=ix4TDoSU
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 18947A0046;
- Sat, 31 Dec 2022 20:35:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 18947A0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1672515335; bh=445zeGDj5axHzpHbYrKnGtdVB3dyz/RsKewaXM9iGtM=;
- h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
- b=ix4TDoSUuxVK6ehDzfke6bdRt06K5o2O4bQdzHwWLu+pWVNDC5bEjRzKs2zzWElZ9
- 5daY2+bZaLApdg4H1lkPp3IGgKQxDqdJnNTTQayXnirJCNX0ARpoSGUBK8NKTv8vPr
- k9X7NJ40OhJei5G0C0RCFI+PtM4jb//oP5iNGbTk=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sat, 31 Dec 2022 20:35:33 +0100 (CET)
-Message-ID: <5b276f02-2792-36e6-55e1-a1cdbc389453@perex.cz>
-Date: Sat, 31 Dec 2022 20:35:32 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EF26F80310;
+ Sat, 31 Dec 2022 21:04:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EF26F80310
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=liWcx5de
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7B11660C17;
+ Sat, 31 Dec 2022 20:04:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39349C433D2;
+ Sat, 31 Dec 2022 20:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672517082;
+ bh=y2Ppgz8FPbpRQPLR/AGHTGFAgEiy6KDl4M0uBsPvi28=;
+ h=From:To:Cc:Subject:Date:From;
+ b=liWcx5deR4GpZ6RK0oF+0BpU1QLrtQMbNtwDAJwmA6hXbyI0wzJBBllVZtlVI6/lr
+ 4hF5StW8kkUnIAJT8WNk1eVTu8jiAsRuS5yn1NWdbR2jiG3NUri82O0nV2PszNrjmF
+ QKnkoNMMZdEt/TTupRwi7uLQhF2lepFWmW2ViEcBY2/fkV3eoC4cbzmuh4XKav/ru6
+ Z9PV1svPZ/9xJme307jWvriJDm/bhbdc+To3QMaQ0ZuZSxoSNBogo6tdTWo6m3Szw0
+ +cLbYvriqVAaFmdhom2Y1hy0DDi0a0zKTYG30bCGuy2DBwhGZkB1TIMgQPRQzKOm+Y
+ pFuuZxTBcIizw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.1 1/7] ASoC: SOF: Revert: "core: unregister clients
+ and machine drivers in .shutdown"
+Date: Sat, 31 Dec 2022 15:04:33 -0500
+Message-Id: <20221231200439.1748686-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: Front Audio (Headphone) and Optical Not Working in Rocky Linux 9
-Content-Language: en-US
-To: yakajirri - a001 <a001@yakajirri.com>
-References: <80606087-3b92-c06a-ec3a-a37549a33017@yakajirri.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <80606087-3b92-c06a-ec3a-a37549a33017@yakajirri.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -81,40 +81,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, lgirdwood@gmail.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, daniel.baluta@nxp.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Ricardo Ribalda <ribalda@chromium.org>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 31. 12. 22 20:16, yakajirri - a001 wrote:
-> With Rocky Linux 9 (clone of RHEL 9), I do not get audio of the front
-> headphone jack or the optical output on the back.  I do get audio out of
-> the line out on the back.  The front port does not work with Rocky Linux
-> 8, Ubuntu and Fedora, and I did not test the optical.  With Windows, the
-> front jack works as expected with the realtek driver installed, and I
-> did not test the optical on Windows.
-> 
-> The output of /usr/sbin/alsa-info.sh is here:
-> http://alsa-project.org/db/?f=0d71a1351cd49f220c36fe69cc9af93f1d71ee3c
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Card sysdefault:0 'Audio'/'Generic USB Audio at usb-0000:00:14.0-11, high speed'
-   Mixer name	: 'USB Mixer'
-   Components	: 'USB0414:a012'
+[ Upstream commit 44fda61d2bcfb74a942df93959e083a4e8eff75f ]
 
+The unregister machine drivers call is not safe to do when
+kexec is used. Kexec-lite gets blocked with following backtrace:
+
+[   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
+[  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
+[  246.819035] Call Trace:
+[  246.821782]  <TASK>
+[  246.824186]  __schedule+0x5f9/0x1263
+[  246.828231]  schedule+0x87/0xc5
+[  246.831779]  snd_card_disconnect_sync+0xb5/0x127
 ...
+[  246.889249]  snd_sof_device_shutdown+0xb4/0x150
+[  246.899317]  pci_device_shutdown+0x37/0x61
+[  246.903990]  device_shutdown+0x14c/0x1d6
+[  246.908391]  kernel_kexec+0x45/0xb9
 
-> https://github.com/alsa-project/alsa-ucm-conf/blob/master/ucm2/USB-Audio/USB-Audio.conf
-> has more If.realtek-alc4080 entries.  When I copied the
-> If.realtek-alc4080 section into
-> /usr/share/alsa/ucm2/USB-Audio/USB-Audio.conf and
-> /usr/share/alsa/ucm2/conf.d/USB-Audio/USB-Audio.conf, and after I
-> rebooted, I get the same performance.
+This reverts commit 83bfc7e793b555291785136c3ae86abcdc046887.
 
-The configuration for your hardware version is missing in UCM.
+Reported-by: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20221209114529.3909192-3-kai.vehmanen@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/sof/core.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Change 0414:a00e string in Regex (If.realtek-alc4080) to 0414:a012 for a quick test in USB-Audio.conf. And yes, use the latest USB-Audio.conf, Realtek/ALC4080.conf and Realtek/ALC4080-HiFi.conf files from github.
-
-				Jaroslav
-
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 3e6141d03770..625977a29d8a 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -475,19 +475,10 @@ EXPORT_SYMBOL(snd_sof_device_remove);
+ int snd_sof_device_shutdown(struct device *dev)
+ {
+ 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+-	struct snd_sof_pdata *pdata = sdev->pdata;
+ 
+ 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+ 		cancel_work_sync(&sdev->probe_work);
+ 
+-	/*
+-	 * make sure clients and machine driver(s) are unregistered to force
+-	 * all userspace devices to be closed prior to the DSP shutdown sequence
+-	 */
+-	sof_unregister_clients(sdev);
+-
+-	snd_sof_machine_unregister(sdev, pdata);
+-
+ 	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
+ 		return snd_sof_shutdown(sdev);
+ 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.35.1
+

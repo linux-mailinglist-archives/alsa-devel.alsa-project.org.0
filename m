@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CAD65A6BA
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 21:06:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE05065A6BC
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Dec 2022 21:06:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B307432D;
-	Sat, 31 Dec 2022 21:05:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B307432D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B739431A;
+	Sat, 31 Dec 2022 21:06:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B739431A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672517192;
-	bh=nbEQCC/a/+NsXj6d7pAHo1OtVx4lNUjq9z845PL8KLE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ZcdaeeT2quuhRQ4EMCGWAu/P3dyWTCLHuf3ZV6whHcEdTFIzFvo0DYqtSroHT+6Od
-	 1zSu675xUqiA1V8R2CPMPZWfw4W+d1ZdSBeq9kQTqeJJISBb1vqJfH+o/g6Z603JJS
-	 AliWxzGVypJqglMtcnjgcIRvtElGEfO/W42MubGY=
+	s=default; t=1672517214;
+	bh=FbV0q6beeAFmQblRc8HSsLotow8WXUVOUrnLu92Y8wE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=STpXBi0tUXGFwlyh9Joip0LswPDcn+4JvD3bXJLaXVUoi22lT01LebrXcdSRTNXmz
+	 7RmzarI076/7zO8/uB/eo22d0lizI6vgC3j50NNjM4RQu5AkkDuTJV/Rr2+FmSrnMk
+	 i9Z9cwgRCHIHlUAjT1DkanxK/w59f+5/Kw9osg/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00A60F8053C;
-	Sat, 31 Dec 2022 21:05:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FB26F804E7;
+	Sat, 31 Dec 2022 21:05:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26942F80543; Sat, 31 Dec 2022 21:04:59 +0100 (CET)
+ id 08AF8F80553; Sat, 31 Dec 2022 21:05:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +34,39 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75964F80535;
- Sat, 31 Dec 2022 21:04:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75964F80535
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C421F804E7;
+ Sat, 31 Dec 2022 21:05:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C421F804E7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kgn1awa6
+ header.s=k20201202 header.b=l8kJafGL
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 85C2B60C2B;
- Sat, 31 Dec 2022 20:04:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18FCC433F0;
- Sat, 31 Dec 2022 20:04:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0C71360C2D;
+ Sat, 31 Dec 2022 20:05:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD2EC433D2;
+ Sat, 31 Dec 2022 20:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672517094;
- bh=nbEQCC/a/+NsXj6d7pAHo1OtVx4lNUjq9z845PL8KLE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kgn1awa6j4koxcAFSCZxbWYbksP1qEevFxgKHa5AFVc35JwP8So4ENt1mQdHUYlfa
- sUn6Qz9chc3hFaOXRUtWkbZ6Vwnm0lFx87KfvROae8qmnGC+03b56qH5lv7CaWq7NO
- Twh6jvjWXMojBPUkJTKrsWd17AaQOF9XkBQfjJ/pHmPuQ2puZ4+m4RnSG0aOflJs3j
- 3JUWef/odCCxrcYpfI6c8RBrePIAsT98llHeI9w9qvl3nWN4ePc2B39ePs/U7Ag77E
- DJhCmA9Aq+8EecAywFEaMbC4GMgtbgYiDEjMULYut1kiKg3fJopnfJonn9438YnK8a
- s1X77QfGSQzdA==
+ s=k20201202; t=1672517125;
+ bh=FbV0q6beeAFmQblRc8HSsLotow8WXUVOUrnLu92Y8wE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=l8kJafGLqcChRfN/XrXHS2ED+Nu1HhAPwJ8toSvtXsfPoessqFZNkWWqPmkJOReak
+ QnDjHUqOiALDKAZmt/bSyAwksbTmq4WmKhoqGGPGP0cVNwZBIh5fKEsCHQcRXhy3Ta
+ S8ybPo5e93Jpd/rTm4kHOadyDBdhpMGJNBr2cclmyreCYNLQHXU6cthyNrXEr7BAE9
+ HZh0M8bw68+7uthXUKPYa3MSW9Q8r9JEAemWICU65XIfA9uhM51jLid+zHtKBKIdjh
+ x8WtjV09wZ0GdQpOd5x0w6/39aAUMrJHBkgnmz2JSQSAnzSZVBrbFLeHQZugQ1c82P
+ TMjOsrsLDflmA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 4/7] ASoC: SOF: mediatek: initialize panic_info to
- zero
-Date: Sat, 31 Dec 2022 15:04:36 -0500
-Message-Id: <20221231200439.1748686-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.0 1/7] ASoC: SOF: Revert: "core: unregister clients
+ and machine drivers in .shutdown"
+Date: Sat, 31 Dec 2022 15:04:56 -0500
+Message-Id: <20221231200502.1748784-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221231200439.1748686-1-sashal@kernel.org>
-References: <20221231200439.1748686-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -85,46 +83,74 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, tiwai@suse.com, lgirdwood@gmail.com,
- daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- ranjani.sridharan@linux.intel.com, YC Hung <yc.hung@mediatek.com>,
- matthias.bgg@gmail.com, Curtis Malainey <cujomalainey@chromium.org>,
- peter.ujfalusi@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, lgirdwood@gmail.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, daniel.baluta@nxp.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Ricardo Ribalda <ribalda@chromium.org>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
  sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: YC Hung <yc.hung@mediatek.com>
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-[ Upstream commit 7bd220f2ba9014b78f0304178103393554b8c4fe ]
+[ Upstream commit 44fda61d2bcfb74a942df93959e083a4e8eff75f ]
 
-Coverity spotted that panic_info is not initialized to zero in
-mtk_adsp_dump. Using uninitialized value panic_info.linenum when
-calling snd_sof_get_status. Fix this coverity by initializing
-panic_info struct as zero.
+The unregister machine drivers call is not safe to do when
+kexec is used. Kexec-lite gets blocked with following backtrace:
 
-Signed-off-by: YC Hung <yc.hung@mediatek.com>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20221213115617.25086-1-yc.hung@mediatek.com
+[   84.943749] Freezing user space processes ... (elapsed 0.111 seconds) done.
+[  246.784446] INFO: task kexec-lite:5123 blocked for more than 122 seconds.
+[  246.819035] Call Trace:
+[  246.821782]  <TASK>
+[  246.824186]  __schedule+0x5f9/0x1263
+[  246.828231]  schedule+0x87/0xc5
+[  246.831779]  snd_card_disconnect_sync+0xb5/0x127
+...
+[  246.889249]  snd_sof_device_shutdown+0xb4/0x150
+[  246.899317]  pci_device_shutdown+0x37/0x61
+[  246.903990]  device_shutdown+0x14c/0x1d6
+[  246.908391]  kernel_kexec+0x45/0xb9
+
+This reverts commit 83bfc7e793b555291785136c3ae86abcdc046887.
+
+Reported-by: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20221209114529.3909192-3-kai.vehmanen@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/mediatek/mtk-adsp-common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sof/core.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/sound/soc/sof/mediatek/mtk-adsp-common.c b/sound/soc/sof/mediatek/mtk-adsp-common.c
-index 1e0769c668a7..de8dbe27cd0d 100644
---- a/sound/soc/sof/mediatek/mtk-adsp-common.c
-+++ b/sound/soc/sof/mediatek/mtk-adsp-common.c
-@@ -60,7 +60,7 @@ void mtk_adsp_dump(struct snd_sof_dev *sdev, u32 flags)
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index c99b5e6c026c..694a2d94a222 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -472,19 +472,10 @@ EXPORT_SYMBOL(snd_sof_device_remove);
+ int snd_sof_device_shutdown(struct device *dev)
  {
- 	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
- 	struct sof_ipc_dsp_oops_xtensa xoops;
--	struct sof_ipc_panic_info panic_info;
-+	struct sof_ipc_panic_info panic_info = {};
- 	u32 stack[MTK_ADSP_STACK_DUMP_SIZE];
- 	u32 status;
+ 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+-	struct snd_sof_pdata *pdata = sdev->pdata;
+ 
+ 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+ 		cancel_work_sync(&sdev->probe_work);
+ 
+-	/*
+-	 * make sure clients and machine driver(s) are unregistered to force
+-	 * all userspace devices to be closed prior to the DSP shutdown sequence
+-	 */
+-	sof_unregister_clients(sdev);
+-
+-	snd_sof_machine_unregister(sdev, pdata);
+-
+ 	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
+ 		return snd_sof_shutdown(sdev);
  
 -- 
 2.35.1

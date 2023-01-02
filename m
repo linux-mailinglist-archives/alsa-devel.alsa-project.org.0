@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA89165B5DE
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 18:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7B5E65B72C
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 21:31:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E407A3E4;
-	Mon,  2 Jan 2023 18:28:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E407A3E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9609BA8C8;
+	Mon,  2 Jan 2023 21:30:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9609BA8C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672680584;
-	bh=MI1x6fEM2sK/1axp690XjurD3OaPPC0EQLi7SICuzek=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=a3SieHuJBHwqzGrymEvWa7axJYerwwoz4PwwCvkqISC82LuM/9VV0WLSJLb9Ha0o8
-	 fUjCNTbT4KW8RB9BLGNB4iwkPTcUfs+AV7FJmdZOpnkPsNDzy/fQsgcR+gR2ElNqAB
-	 DOlYPJm2A/6IBgEWDkyzD/A+DAwUjOr3/BimcPjA=
+	s=default; t=1672691502;
+	bh=Tuh2SSmJnpDPTtlBWbyywMESzagl6YRuFPwYuCTfJEU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ZhnwREeBgjR/mYPlV101SjWaFA4CCJ/ctEvKTgXXY3G6VS4Rencdz3D+CzYXE1xB9
+	 Gv3b5Zly5n2T8NZMyZv77reyRJbrLvLPJ84haEC8hgps/ms22Dz28KQ7pSmCQJu5Gt
+	 eAdDbdUOR75QHzUnIlldbbf3sp32dClk3yn9F9JA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABD2BF800D0;
-	Mon,  2 Jan 2023 18:28:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECB43F8023B;
+	Mon,  2 Jan 2023 21:30:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59EB9F800C0; Mon,  2 Jan 2023 18:28:42 +0100 (CET)
+ id 9B74BF80542; Mon,  2 Jan 2023 21:30:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A296F800C0
- for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 18:28:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A296F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=ANkNie0i; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=tWgOFZcq
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C7BE6342A7;
- Mon,  2 Jan 2023 17:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672680515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=c+p+ZHZvJLaVRQr5NTszckwP5nV6LjSTDHOD89k5qNI=;
- b=ANkNie0iEw+MUPgAvLqNXpLtkCUzRqRfOgJpC594NUXYaDxiY0ZToLCCvayH8+/acLOskm
- WjgRbB9mrM9lwKA6rIRi2W++cSewn6f0kr15VS9qKwvPKpl5O5EPwiARv+2ujwKx5eFeKN
- 0w6nMhR/x82e6RGCWuEETudE7Id91l4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672680515;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=c+p+ZHZvJLaVRQr5NTszckwP5nV6LjSTDHOD89k5qNI=;
- b=tWgOFZcqs4GLxyLAh3jp6i0EgE7JPjCDyRfptR9lzceBDEYk76L6j/PcrKE6zBOBjdSpj5
- 1KDBnaRWSnWbIVCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6BE0513427;
- Mon,  2 Jan 2023 17:28:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6vZjGUMUs2ORIQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 02 Jan 2023 17:28:35 +0000
-Date: Mon, 02 Jan 2023 18:28:34 +0100
-Message-ID: <87edscsv5p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: Re: [RFC PATCH 09/14] sound: usb: Introduce QC USB SND offloading
- support
-In-Reply-To: <20221223233200.26089-10-quic_wcheng@quicinc.com>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-10-quic_wcheng@quicinc.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA9C1F80238
+ for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 21:29:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA9C1F80238
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=YIMbhNSa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672691395; x=1704227395;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Tuh2SSmJnpDPTtlBWbyywMESzagl6YRuFPwYuCTfJEU=;
+ b=YIMbhNSawYVPDiM9zPcVcZ1NwEJNAhmESfA56amU5LPMjm7PBqgrjYCu
+ G4m3yQVE8emX1CqJUGbq0/I1cTwnRBbbCQmNLtampmVHx58FLGb1P0H/2
+ eXF8DwgXoVDNOIEwyHBcVF73U+Ymw/Oh+hreFVO9VLpuT+VkZKKeleg5L
+ +usfZrS2Ttyzsjm+GdrwqgObuuZF4iqRArOqpRktoocg3mZQEqq8RBxWJ
+ zUClpRHHfvyghrVgagSgFgcQRvrK6RlheSzODAwRxcm1AE+RmGjozWzRn
+ OIhOq+I6Z3MtCOUCa7LysTg5qXNlktIx06uprNzXLiOOVQ5c5Xhv/6sQ6 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10578"; a="320252183"
+X-IronPort-AV: E=Sophos;i="5.96,295,1665471600"; d="scan'208";a="320252183"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2023 12:29:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10578"; a="685170309"
+X-IronPort-AV: E=Sophos;i="5.96,295,1665471600"; d="scan'208";a="685170309"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga008.jf.intel.com with ESMTP; 02 Jan 2023 12:29:44 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id A66E3F4; Mon,  2 Jan 2023 22:30:16 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/6] ASoC: amd: acp-es8336: Drop reference count of ACPI
+ device after use
+Date: Mon,  2 Jan 2023 22:30:09 +0200
+Message-Id: <20230102203014.16041-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,170 +89,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
- mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
- quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 24 Dec 2022 00:31:55 +0100,
-Wesley Cheng wrote:
-> 
-> Several Qualcomm SoCs have a dedicated audio DSP, which has the ability to
-> support USB sound devices.  This vendor driver will implement the required
-> handshaking with the DSP, in order to pass along required resources that
-> will be utilized by the DSP's USB SW.  The communication channel used for
-> this handshaking will be using the QMI protocol.  Required resources
-> include:
-> - Allocated secondary event ring address
-> - EP transfer ring address
-> - Interrupter number
-> 
-> The above information will allow for the audio DSP to execute USB transfers
-> over the USB bus.  It will also be able to support devices that have an
-> implicit feedback and sync endpoint as well.  Offloading these data
-> transfers will allow the main/applications processor to enter lower CPU
-> power modes, and sustain a longer duration in those modes.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Theoretically the device might gone if its reference count drops to 0.
+This might be the case when we try to find the first physical node of
+the ACPI device. We need to keep reference to it until we get a result
+of the above mentioned call. Refactor the code to drop the reference
+count at the correct place.
 
-Hmm, this must be the main part that works to bypass the normal USB
-packet handling in USB audio driver but hooks to the own offload one,
-but there is no description how to take over and manage.
-A missing "big picture" makes it difficult to understand and review.
+While at it, move to acpi_dev_put() as symmetrical call to the
+acpi_dev_get_first_match_dev().
 
-Also, since both drivers are asynchronous, we may need some proper
-locking.
+Fixes: 02527c3f2300 ("ASoC: amd: add Machine driver for Jadeite platform")
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ sound/soc/amd/acp-es8336.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-More on the code change:
+diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
+index 2fe8df86053a..89499542c803 100644
+--- a/sound/soc/amd/acp-es8336.c
++++ b/sound/soc/amd/acp-es8336.c
+@@ -198,9 +198,11 @@ static int st_es8336_late_probe(struct snd_soc_card *card)
+ 	int ret;
+ 
+ 	adev = acpi_dev_get_first_match_dev("ESSX8336", NULL, -1);
+-	if (adev)
+-		put_device(&adev->dev);
++	if (!adev)
++		return -ENODEV;
++
+ 	codec_dev = acpi_get_first_physical_node(adev);
++	acpi_dev_put(adev);
+ 	if (!codec_dev)
+ 		dev_err(card->dev, "can not find codec dev\n");
+ 
+-- 
+2.35.1
 
-> +static int snd_interval_refine_set(struct snd_interval *i, unsigned int val)
-> +{
-> +	struct snd_interval t;
-> +
-> +	t.empty = 0;
-> +	t.min = t.max = val;
-> +	t.openmin = t.openmax = 0;
-> +	t.integer = 1;
-> +	return snd_interval_refine(i, &t);
-> +}
-> +
-> +static int _snd_pcm_hw_param_set(struct snd_pcm_hw_params *params,
-> +				 snd_pcm_hw_param_t var, unsigned int val,
-> +				 int dir)
-> +{
-> +	int changed;
-> +
-> +	if (hw_is_mask(var)) {
-> +		struct snd_mask *m = hw_param_mask(params, var);
-> +
-> +		if (val == 0 && dir < 0) {
-> +			changed = -EINVAL;
-> +			snd_mask_none(m);
-> +		} else {
-> +			if (dir > 0)
-> +				val++;
-> +			else if (dir < 0)
-> +				val--;
-> +			changed = snd_mask_refine_set(
-> +					hw_param_mask(params, var), val);
-> +		}
-> +	} else if (hw_is_interval(var)) {
-> +		struct snd_interval *i = hw_param_interval(params, var);
-> +
-> +		if (val == 0 && dir < 0) {
-> +			changed = -EINVAL;
-> +			snd_interval_none(i);
-> +		} else if (dir == 0)
-> +			changed = snd_interval_refine_set(i, val);
-> +		else {
-> +			struct snd_interval t;
-> +
-> +			t.openmin = 1;
-> +			t.openmax = 1;
-> +			t.empty = 0;
-> +			t.integer = 0;
-> +			if (dir < 0) {
-> +				t.min = val - 1;
-> +				t.max = val;
-> +			} else {
-> +				t.min = val;
-> +				t.max = val+1;
-> +			}
-> +			changed = snd_interval_refine(i, &t);
-> +		}
-> +	} else
-> +		return -EINVAL;
-> +	if (changed) {
-> +		params->cmask |= 1 << var;
-> +		params->rmask |= 1 << var;
-> +	}
-> +	return changed;
-> +}
-
-Those are taken from sound/core/oss/pcm_oss.c?  We may put to the
-common PCM helper instead of duplication.
-
-> +static void disable_audio_stream(struct snd_usb_substream *subs)
-> +{
-> +	struct snd_usb_audio *chip = subs->stream->chip;
-> +
-> +	if (subs->data_endpoint || subs->sync_endpoint) {
-> +		close_endpoints(chip, subs);
-> +
-> +		mutex_lock(&chip->mutex);
-> +		subs->cur_audiofmt = NULL;
-> +		mutex_unlock(&chip->mutex);
-> +	}
-> +
-> +	snd_usb_autosuspend(chip);
-> +}
-> +
-> +static int enable_audio_stream(struct snd_usb_substream *subs,
-> +				snd_pcm_format_t pcm_format,
-> +				unsigned int channels, unsigned int cur_rate,
-> +				int datainterval)
-> +{
-> +	struct snd_usb_audio *chip = subs->stream->chip;
-> +	struct snd_pcm_hw_params params;
-> +	const struct audioformat *fmt;
-> +	int ret;
-> +
-> +	_snd_pcm_hw_params_any(&params);
-> +	_snd_pcm_hw_param_set(&params, SNDRV_PCM_HW_PARAM_FORMAT,
-> +			pcm_format, 0);
-> +	_snd_pcm_hw_param_set(&params, SNDRV_PCM_HW_PARAM_CHANNELS,
-> +			channels, 0);
-> +	_snd_pcm_hw_param_set(&params, SNDRV_PCM_HW_PARAM_RATE,
-> +			cur_rate, 0);
-
-What about other parameters like period / buffer sizes?
-
-> +struct qmi_uaudio_stream_req_msg_v01 {
-> +	u8 enable;
-> +	u32 usb_token;
-> +	u8 audio_format_valid;
-> +	u32 audio_format;
-> +	u8 number_of_ch_valid;
-> +	u32 number_of_ch;
-> +	u8 bit_rate_valid;
-> +	u32 bit_rate;
-> +	u8 xfer_buff_size_valid;
-> +	u32 xfer_buff_size;
-> +	u8 service_interval_valid;
-> +	u32 service_interval;
-> +};
-
-Are this and the other structs a part of DSP ABI?
-Or is it a definition only used in kernel?  I'm asking because
-__packed attribute is required for most of ABI definitions with
-different field types.
-
-
-thanks,
-
-Takashi

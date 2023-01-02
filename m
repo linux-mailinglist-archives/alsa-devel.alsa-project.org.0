@@ -2,94 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E241565B23F
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 13:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 544BC65B325
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 15:05:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0C3D973B;
-	Mon,  2 Jan 2023 13:43:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0C3D973B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B95589ACA;
+	Mon,  2 Jan 2023 15:04:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95589ACA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672663431;
-	bh=7iYQ5kN4T8/NNMSwKjCv4+apFzoOOusIYWOJxRB5jJg=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672668330;
+	bh=9SfAvpp+xUocwdOTAlc0yJwXpK/UtaHt4dqqho+pHyE=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=XpMJRjBeYMQo0N8ofL6wSBV1D7Hafv35fQoQ1Fn5sbsqwqHVzP1dyqu50NziwdQ+Q
-	 VeLRR9iGSw4YMw8ZDZ1iEu5O6rlmc713n5+4pSIMnf5Dvy1tn/KvcNEcLP7BG3LQfV
-	 ueWqgKrtj5waJZ6tZNV0G4CAIu2rFFrDR7CQglM8=
+	b=FgZACusZwBe6r1OFfAxeLIWJxclLrYR8orXQhzXeUtP7fpG0w5JxspXCINerwcwo/
+	 eCWZI8ta4HVqKTi+txk7syEHHxBQDzy3S7welGQcFIrvr99lAQ9069iCPWqDf5Ftox
+	 /J4JQ9C7c2w0A8tSVsECbWndnTJJuVpIbEAmcyZ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73CC6F8023B;
-	Mon,  2 Jan 2023 13:43:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CB6FF8023B;
+	Mon,  2 Jan 2023 15:04:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 440C7F8023B; Mon,  2 Jan 2023 13:42:58 +0100 (CET)
+ id 31829F8023B; Mon,  2 Jan 2023 15:04:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-3.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD757F800C0
- for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 13:42:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD757F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=Z1yYj+u7; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=zjGIYVhE
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4524820EE5;
- Mon,  2 Jan 2023 12:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672663370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1sg7BmNN8+RDm1eojWN+wOBEZpkzt9WjUrPrxXXU8Oo=;
- b=Z1yYj+u7YbKVfLCniHq0g9pR1Utx3LIE2GOuUdANXf65nOnGb4Rp/dFZ2GHHU/b1+7pkRa
- xzG7Vpw+Td3omGiMB8eoW4wcbjHlbUUj42QDQaS8ZdRcyGUWglFNYKOZjU1zhclMX6GUqx
- Ge58qGAP+J3Hc/3l5aCgZ7c0+On+siA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672663370;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1sg7BmNN8+RDm1eojWN+wOBEZpkzt9WjUrPrxXXU8Oo=;
- b=zjGIYVhEPt+kSK4f6vsoobHVlYjiVW06dOZ5AehbDtWDjK/2X4vIXpbbU5zXsVxsF8YUW+
- l1f0BBTSi+L+2yBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 16C0213427;
- Mon,  2 Jan 2023 12:42:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lVXpBErRsmP2FwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 02 Jan 2023 12:42:50 +0000
-Date: Mon, 02 Jan 2023 13:42:49 +0100
-Message-ID: <87wn65umye.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Subject: Re: [regression, 5.10.y] =?ISO-8859-1?Q?Bug=A0216861?= - sound
- disappearance on Acer Swift 3 SF314-59-78UR after update to 5.10.157
-In-Reply-To: <Y7K1WDmPYi3EMOn1@eldamar.lan>
-References: <bebd692d-7d21-6648-6b7a-c91063bb51c2@leemhuis.info>
- <Y7K1WDmPYi3EMOn1@eldamar.lan>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99AD1F801EB
+ for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 15:04:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99AD1F801EB
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=FuE68w9I
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A3E116602CD9;
+ Mon,  2 Jan 2023 14:04:24 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1672668265;
+ bh=9SfAvpp+xUocwdOTAlc0yJwXpK/UtaHt4dqqho+pHyE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=FuE68w9Iq0c5UKIwMSNQu25pCOt41tk2jo3M3UMRi/qXlIitOxMZ1BtXXW1fV2Q+g
+ t0AruPk9jTmiNN5iaZQBC2fVELbtOzovIZHunj0BlTjUQtZqscrYrteCPgp67g6bPQ
+ Sk81cMnUVnvxMqEQTjonzp19OmA20OwwNYZBObWpaZtUF9zH61RnYn8G1y9RY22P0n
+ cmVo9bd7TMdPA6w6l6s80Kq08I7j7pcqR+BxAFJqazBtp6z/puX/4hUyPNkj1IxZPW
+ g/8ppxSMVeQuC1Y5PQ9hDWnsC3AjrfVjimW2imhtsEOjueiu0Nuxs3kPUSfX+oZ8pI
+ soch/rq5PAhjA==
+Message-ID: <6309e7c5-f740-fa22-bdf0-937187b19285@collabora.com>
+Date: Mon, 2 Jan 2023 15:04:21 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v4 05/13] ASoC: mediatek: mt8188: support etdm in platform
+ driver
+Content-Language: en-US
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
+ lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com,
+ p.zabel@pengutronix.de
+References: <20221230055443.16024-1-trevor.wu@mediatek.com>
+ <20221230055443.16024-6-trevor.wu@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20221230055443.16024-6-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,100 +89,304 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- =?ISO-8859-1?Q?P=C1LFFY_D=E1niel?= <dpalffy@gmail.com>,
- Sergey <zagagyka@basealt.ru>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 02 Jan 2023 11:43:36 +0100,
-Salvatore Bonaccorso wrote:
+Il 30/12/22 06:54, Trevor Wu ha scritto:
+> Add mt8188 etdm dai driver support.
 > 
-> Hi,
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+>   sound/soc/mediatek/mt8188/mt8188-dai-etdm.c | 2591 +++++++++++++++++++
+>   1 file changed, 2591 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
 > 
-> [Adding as well Richard Fitzgerald and PÁLFFY Dániel to recipients]
-> 
-> On Fri, Dec 30, 2022 at 09:08:57AM +0100, Thorsten Leemhuis wrote:
-> > Hi, this is your Linux kernel regression tracker speaking.
-> > 
-> > I noticed a regression report in bugzilla.kernel.org. As many (most?)
-> > kernel developer don't keep an eye on it, I decided to forward it by
-> > mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216861 :
-> > 
-> > >  Sergey 2022-12-29 10:07:51 UTC
-> > > 
-> > > Created attachment 303497 [details]
-> > > pulseaudio.log
-> > > 
-> > > Sudden sound disappearance was reported for some laptops, e.g.
-> > > 
-> > > Acer Swift 3 SF314-59-78UR 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-> > > 
-> > > # lspci
-> > > 0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller (rev 20)
-> > >         Subsystem: Acer Incorporated [ALI] Device 148c
-> > >         Flags: bus master, fast devsel, latency 32, IRQ 197, IOMMU group 12
-> > >         Memory at 601f270000 (64-bit, non-prefetchable) [size=16K]
-> > >         Memory at 601f000000 (64-bit, non-prefetchable) [size=1M]
-> > >         Capabilities: [50] Power Management version 3
-> > >         Capabilities: [80] Vendor Specific Information: Len=14 <?>
-> > >         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
-> > >         Kernel driver in use: sof-audio-pci
-> > > 
-> > > I am attaching the pulseaudio and dmesg logs
-> > > 
-> > > This bug started reproducing after updating the kernel from 5.10.156 to 5.10.157
-> > > 
-> > > Bisection revealed the commit being reverted:
-> > > 
-> > > c34db0d6b88b1da95e7ab3353e674f4f574cccee is the first bad commit
-> > > commit c34db0d6b88b1da95e7ab3353e674f4f574cccee
-> > > Author: Richard Fitzgerald <rf@opensource.cirrus.com>
-> > > Date:   Fri Nov 4 13:22:13 2022 +0000
-> > > 
-> > >     ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
-> > >     
-> > >     [ Upstream commit 39bd801d6908900e9ab0cdc2655150f95ddd4f1a ]
-> > >     
-> > >     The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
-> > >     and used by later code that depends on the TDM settings. So
-> > >     __soc_pcm_open() should not be obliterating those mask values.
-> > >     
-> > > [...]
-> > > Original bug report: https://bugzilla.altlinux.org/44690
-> > 
-> > See the ticket for more details.
-> > 
-> > BTW, let me use this mail to also add the report to the list of tracked
-> > regressions to ensure it's doesn't fall through the cracks:
-> > 
-> > #regzbot introduced: c34db0d6b88b1d
-> > https://bugzilla.kernel.org/show_bug.cgi?id=216861
-> > #regzbot title: sound: asoc: sudden sound disappearance
-> > #regzbot ignore-activity
-> 
-> FWIW, we had as well reports in Debian after having updated the kernel
-> from 5.10.149 based one to 5.10.158 based one in the last point
-> releases, they are at least:
-> 
-> https://bugs.debian.org/1027483
-> https://bugs.debian.org/1027430
+> diff --git a/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c b/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
+> new file mode 100644
+> index 000000000000..f8e69d655706
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
+> @@ -0,0 +1,2591 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * MediaTek ALSA SoC Audio DAI eTDM Control
+> + *
+> + * Copyright (c) 2022 MediaTek Inc.
+> + * Author: Bicycle Tsai <bicycle.tsai@mediatek.com>
+> + *         Trevor Wu <trevor.wu@mediatek.com>
+> + *         Chun-Chia Chiu <chun-chia.chiu@mediatek.com>
+> + */
+> +
 
-I got another report while the commit was backported to 5.14-based
-openSUSE Leap kernel, and I ended up with dropping it.
+..snip..
 
-So, IMO, it's safer to drop this patch from the older stable trees.
-As far as I see, 5.15.y and 5.10.y got this.
+> +
+> +static int mtk_dai_etdm_get_clkdiv_id_by_dai_id(int dai_id)
+> +{
+> +	int clk_id = -1;
+> +
+> +	switch (dai_id) {
+> +	case MT8188_AFE_IO_DPTX:
+> +		clk_id = MT8188_CLK_TOP_APLL12_DIV9;
 
-Unless anyone gives a better fix, I'm going to submit a revert patch
-for those trees.
+		return MT8188_CLK_TOP_APLL12_DIV_9;
 
+> +		break;
+> +	case MT8188_AFE_IO_ETDM1_IN:
+> +		clk_id = MT8188_CLK_TOP_APLL12_DIV0;
 
-thanks,
+		return MT8188_CLK_TOP_APLL12_DIV0;
 
-Takashi
+> +		break;
+> +	case MT8188_AFE_IO_ETDM2_IN:
+> +		clk_id = MT8188_CLK_TOP_APLL12_DIV1;
+
+return .....
+
+> +		break;
+> +	case MT8188_AFE_IO_ETDM1_OUT:
+> +		clk_id = MT8188_CLK_TOP_APLL12_DIV2;
+> +		break;
+> +	case MT8188_AFE_IO_ETDM2_OUT:
+> +		clk_id = MT8188_CLK_TOP_APLL12_DIV3;
+> +		break;
+> +	case MT8188_AFE_IO_ETDM3_OUT:
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return clk_id;
+
+	return -EINVAL;
+
+...so you don't need clk_id at all :-)
+
+> +}
+> +
+
+..snip..
+
+> +
+> +static int mtk_dai_etdm_mclk_configure(struct mtk_base_afe *afe, int dai_id)
+> +{
+> +	struct mt8188_afe_private *afe_priv = afe->platform_priv;
+> +	struct mtk_dai_etdm_priv *etdm_data;
+> +	int clk_id = mtk_dai_etdm_get_clk_id_by_dai_id(dai_id);
+> +	int clkdiv_id = mtk_dai_etdm_get_clkdiv_id_by_dai_id(dai_id);
+> +	int apll;
+> +	int apll_clk_id;
+> +	struct etdm_con_reg etdm_reg;
+> +	int ret = 0;
+> +
+> +	if (clk_id < 0 || clkdiv_id < 0)
+> +		return 0;
+> +
+> +	if (!is_valid_etdm_dai(dai_id))
+> +		return -EINVAL;
+> +	etdm_data = afe_priv->dai_priv[dai_id];
+> +
+> +	ret = get_etdm_reg(dai_id, &etdm_reg);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (etdm_data->mclk_dir == SND_SOC_CLOCK_OUT)
+> +		regmap_set_bits(afe->regmap, etdm_reg.con1,
+> +				ETDM_CON1_MCLK_OUTPUT);
+> +	else
+> +		regmap_clear_bits(afe->regmap, etdm_reg.con1,
+> +				  ETDM_CON1_MCLK_OUTPUT);
+> +
+> +	if (etdm_data->mclk_freq) {
+> +		apll = etdm_data->mclk_apll;
+> +		apll_clk_id = mt8188_afe_get_mclk_source_clk_id(apll);
+> +		if (apll_clk_id < 0)
+> +			return apll_clk_id;
+> +
+> +		/* select apll */
+> +		ret = mt8188_afe_set_clk_parent(afe, afe_priv->clk[clk_id],
+> +						afe_priv->clk[apll_clk_id]);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* set rate */
+> +		ret = mt8188_afe_set_clk_rate(afe, afe_priv->clk[clkdiv_id],
+> +					      etdm_data->mclk_freq);
+
+Check ret here...
+
+> +	} else {
+> +		if (etdm_data->mclk_dir == SND_SOC_CLOCK_OUT)
+> +			dev_dbg(afe->dev, "%s mclk freq = 0\n", __func__);
+> +	}
+> +
+
+...and return 0 here.
+
+> +	return ret;
+> +}
+> +
+
+..snip..
+
+> +
+> +static int mtk_dai_etdm_hw_params(struct snd_pcm_substream *substream,
+> +				  struct snd_pcm_hw_params *params,
+> +				  struct snd_soc_dai *dai)
+> +{
+> +	int ret = 0;
+> +	unsigned int rate = params_rate(params);
+> +	unsigned int bit_width = params_width(params);
+> +	unsigned int channels = params_channels(params);
+> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+> +	struct mt8188_afe_private *afe_priv = afe->platform_priv;
+> +	struct mtk_dai_etdm_priv *mst_etdm_data;
+> +	int mst_dai_id;
+> +	int slv_dai_id;
+> +	int i;
+> +
+> +	dev_dbg(afe->dev, "%s '%s' period %u-%u\n",
+> +		__func__, snd_pcm_stream_str(substream),
+> +		params_period_size(params), params_periods(params));
+> +
+> +	if (is_cowork_mode(dai)) {
+> +		mst_dai_id = get_etdm_cowork_master_id(dai);
+> +		if (!is_valid_etdm_dai(mst_dai_id))
+> +			return -EINVAL;
+> +
+> +		ret = mtk_dai_etdm_mclk_configure(afe, mst_dai_id);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = mtk_dai_etdm_configure(afe, rate, channels,
+> +					     bit_width, mst_dai_id);
+> +		if (ret)
+> +			return ret;
+> +
+> +		mst_etdm_data = afe_priv->dai_priv[mst_dai_id];
+> +		for (i = 0; i < mst_etdm_data->cowork_slv_count; i++) {
+> +			slv_dai_id = mst_etdm_data->cowork_slv_id[i];
+> +			ret = mtk_dai_etdm_configure(afe, rate, channels,
+> +						     bit_width, slv_dai_id);
+> +			if (ret)
+> +				return ret;
+> +
+> +			ret = mt8188_etdm_sync_mode_configure(afe, slv_dai_id);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +	} else {
+> +		ret = mtk_dai_etdm_mclk_configure(afe, dai->id);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = mtk_dai_etdm_configure(afe, rate, channels,
+> +					     bit_width, dai->id);
+
+Check return value here...
+
+> +	}
+> +
+
+...and return 0 here.
+
+> +	return ret;
+> +}
+> +
+> +static int mtk_dai_etdm_prepare(struct snd_pcm_substream *substream,
+> +				struct snd_soc_dai *dai)
+> +{
+> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+> +	struct mt8188_afe_private *afe_priv = afe->platform_priv;
+> +	struct mtk_dai_etdm_priv *mst_etdm_data;
+> +	int mst_dai_id;
+> +	int slv_dai_id;
+> +	int i;
+> +	int ret = 0;
+> +
+> +	if (!is_valid_etdm_dai(dai->id))
+> +		return -EINVAL;
+> +	mst_etdm_data = afe_priv->dai_priv[dai->id];
+> +
+> +	dev_dbg(afe->dev, "%s(), dai id %d, prepared %d\n", __func__, dai->id,
+> +		mst_etdm_data->is_prepared);
+> +
+> +	if (mst_etdm_data->is_prepared)
+> +		return 0;
+> +
+> +	mst_etdm_data->is_prepared = true;
+> +
+> +	if (is_cowork_mode(dai)) {
+> +		mst_dai_id = get_etdm_cowork_master_id(dai);
+> +		if (!is_valid_etdm_dai(mst_dai_id))
+> +			return -EINVAL;
+> +		mst_etdm_data = afe_priv->dai_priv[mst_dai_id];
+> +
+> +		for (i = 0; i < mst_etdm_data->cowork_slv_count; i++) {
+> +			slv_dai_id = mst_etdm_data->cowork_slv_id[i];
+> +			ret |= mt8188_afe_enable_etdm(afe, slv_dai_id);
+> +		}
+> +
+> +		ret |= mt8188_afe_enable_etdm(afe, mst_dai_id);
+
+OR'ing return values is not an acceptable practice: you should check for error
+right after the call and immediately take action if anything wrong happened.
+
+> +	} else {
+> +		ret = mt8188_afe_enable_etdm(afe, dai->id);
+
+Same comment as the previous function: check ret here.
+
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+
+..snip..
+
+> +
+> +static int mtk_dai_hdmitx_dptx_prepare(struct snd_pcm_substream *substream,
+> +				       struct snd_soc_dai *dai)
+> +{
+> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+> +	struct mt8188_afe_private *afe_priv = afe->platform_priv;
+> +	struct mtk_dai_etdm_priv *etdm_data;
+> +	int ret;
+> +
+> +	if (!is_valid_etdm_dai(dai->id))
+> +		return -EINVAL;
+> +	etdm_data = afe_priv->dai_priv[dai->id];
+> +
+> +	dev_dbg(afe->dev, "%s(), dai id %d, prepared %d\n", __func__, dai->id,
+> +		etdm_data->is_prepared);
+> +
+> +	if (etdm_data->is_prepared)
+> +		return 0;
+> +
+> +	etdm_data->is_prepared = true;
+> +
+> +	/* enable dptx interface */
+> +	if (dai->id == MT8188_AFE_IO_DPTX)
+> +		regmap_set_bits(afe->regmap, AFE_DPTX_CON, AFE_DPTX_CON_ON);
+> +
+> +	/* enable etdm_out3 */
+> +	ret = mt8188_afe_enable_etdm(afe, dai->id);
+
+You don't need the `ret` variable here...
+
+	return mt8188_afe_enable_etdm(afe, dai->id);
+
+> +
+> +	return ret;
+> +}
+> +
+
+Apart from this, looks good.
+
+Regards,
+Angelo
+

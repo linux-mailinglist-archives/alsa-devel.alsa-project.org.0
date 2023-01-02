@@ -2,82 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7103565B731
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 21:32:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F42565B757
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Jan 2023 22:16:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10B48A8CB;
-	Mon,  2 Jan 2023 21:31:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10B48A8CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C04B3AB22;
+	Mon,  2 Jan 2023 22:15:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C04B3AB22
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672691569;
-	bh=CFo7ISntdmpoVi76v1LxoXR/BugA3bqZ0RVMplT5JSw=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1672694185;
+	bh=VdCFEjL/pXhO3/s2/6Z/F/sNBWs9tGLAKOlX1du+ZVg=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=YKc7neWMeZOP+3HzR9VZ0TGlJh459JNtQhNupeRu3yQdLyYEyv7YvS3bpLGc5+IxN
-	 1eI7cRQSiCCD0hYbvIU2TeQ22R4wcaXBzzjg2zjBRdXwwrNxVxiYiWvZaqnIra/4Sn
-	 m6lbMiLamdf0b9liYVXLDn6HNhBCpudHV8sCt73g=
+	b=ZoyOtAVl7q+J/kUmzgxhqTsHTZr2Xy+8cb0FugpOVEOc5y1gOXkWGz2KCxHORCTMQ
+	 eO6UTRl5v4arhmuBYsUKXQfsbRYD0vsZ9XQy2zpwGPiKPEsesxXsOtV4o9YVdFSO7Y
+	 zHsIxV8moeiyJu1irOeeKKWegOARTd+l9z7RqD84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E20CAF8057A;
-	Mon,  2 Jan 2023 21:30:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DE6DF800C0;
+	Mon,  2 Jan 2023 22:15:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12C4DF80579; Mon,  2 Jan 2023 21:30:17 +0100 (CET)
+ id 9DED0F8023A; Mon,  2 Jan 2023 22:15:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 724FAF80571
- for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 21:30:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724FAF80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFC92F800C0
+ for <alsa-devel@alsa-project.org>; Mon,  2 Jan 2023 22:15:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC92F800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=GYIyfSYX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1672691415; x=1704227415;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CFo7ISntdmpoVi76v1LxoXR/BugA3bqZ0RVMplT5JSw=;
- b=GYIyfSYX+g8hfm+K3sVuz9xJB8oM3Aq3DDbVq7LqLbqMrArTdWtNLfXM
- aYC9FI0SMpxed+zblMdZC9/TZ/Gr44QoanC54BbFWVr1CUhzamJQ9G4cv
- IVuRnqYz4QLeKjWYJcsEZOFg3BlY12oJNjGqadlUYYlQvc2r47PAvPawl
- tnu9UTdvQOJolH4N9d49AxKcaAQqiW5sJqYeR9XjwXXR9bAD72tRA7KVe
- rPp7iGVH0ljr+fl9cTHLHWAn1hQXGQpKfbsdTYXDTS493mUuI8K0Cxh8m
- M9Byxtr1lFv1foLyFQss7bpie4w8J1Y0ouivMQeHrZY4GZqrjMgyYqV3x w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10578"; a="301224156"
-X-IronPort-AV: E=Sophos;i="5.96,295,1665471600"; d="scan'208";a="301224156"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jan 2023 12:30:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10578"; a="796962523"
-X-IronPort-AV: E=Sophos;i="5.96,295,1665471600"; d="scan'208";a="796962523"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga001.fm.intel.com with ESMTP; 02 Jan 2023 12:30:08 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id E3A3219E; Mon,  2 Jan 2023 22:30:40 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v1 5/5] ASoC: Intel: sof-wm8804: Replace open coded
- acpi_dev_put()
-Date: Mon,  2 Jan 2023 22:30:37 +0200
-Message-Id: <20230102203037.16120-5-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
-References: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=V7xHsaHW
+Received: by mail-ot1-x336.google.com with SMTP id
+ k44-20020a9d19af000000b00683e176ab01so13170438otk.13
+ for <alsa-devel@alsa-project.org>; Mon, 02 Jan 2023 13:15:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=SW0oRVfU9E9kddNcaOCqOIe25DN6FqPgevlyVzRceYs=;
+ b=V7xHsaHWfrYGJToPfcJGIYGLLiNaZYa+eqarT/yNA5ebilDf7DWQj+UelxBPPQ7Znw
+ IULfV0EMtcn43S+Y+putXx4XMYZKemRLliwr3DnUSdT36hlhUE61erWDdyg5n5J57tRz
+ a7jqDOpHXEdmdj21aWvGWcOXhzetC2pMYGj9zwK1hNkIE2QwOvhIpDz679t1mNMtDu6X
+ m4sV7omY5l/70JmJw5J7otilZhaGPMqJA9+9vv6TeIVGk0q//RgAflnQtYIuQ61AiJvh
+ yV/T7oPCBpVywuSneNDWkQRlc3rjJgdIr2pFLO9c0tKocU0Dr9b4jGemTNHPo/a3bXSU
+ uE+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SW0oRVfU9E9kddNcaOCqOIe25DN6FqPgevlyVzRceYs=;
+ b=HSa5KaV0zB1UZor50fT0Vkm88eXSEwWjmBcu8qdMWhSI1k4B+088MtXNGZLFAkS77E
+ lDCIWpQoPHiOy/jyu0sJB/esbwh6J+q+jwzFkIG95TKKNVf6Z6ESDpFBr/LdXoH5vqrx
+ EfmOpo3WyykKyt8F6YeoQFFWs5Sd9ANxE7g+dY0R+yNIXOuODdaLHkWS54XeJKjsK2qE
+ MCXoueCrxvwcH4b8tIyhcBTkiL43l5H+vZJfSC09ejHjNyRExu7WX8s8sWCnsbYe145F
+ 2tK5twoqfaVzQ+KQwLZJhtkImti2f06uqS2r2s+lGm+fa6adZttsSs086bl0kvl8mgxy
+ f0Fw==
+X-Gm-Message-State: AFqh2kq077tYR3hub5lNlYBIyJiYX3jsTuArJGZXywbtqhFZ94tXQnm4
+ uuvtamUMbxm8SJHG4y9Sy2E=
+X-Google-Smtp-Source: AMrXdXsBGe/5tX1JQDigKkFkZdMLjG0utWKvMQGzJQVGWbHv741pPeBpWEL/xiXNmMaaj8jnQxGSDA==
+X-Received: by 2002:a9d:6057:0:b0:675:1aa2:5e40 with SMTP id
+ v23-20020a9d6057000000b006751aa25e40mr23942592otj.17.1672694120504; 
+ Mon, 02 Jan 2023 13:15:20 -0800 (PST)
+Received: from geday ([2804:7f2:8002:cb32:cc6f:d0db:e73:5ece])
+ by smtp.gmail.com with ESMTPSA id
+ p6-20020a0568301d4600b0067088ff2b45sm13957443oth.37.2023.01.02.13.15.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Jan 2023 13:15:19 -0800 (PST)
+Date: Mon, 2 Jan 2023 18:15:25 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 0/3] ALSA: usb-audio: Fix a few implicit fb sync issues
+Message-ID: <Y7NJbVBuiDHlJbgb@geday>
+References: <20230102170759.29610-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230102170759.29610-1-tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +101,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Instead of calling put_device(&adev->dev) where adev is a pointer
-to an ACPI device, use specific call, i.e. acpi_dev_put().
+On Mon, Jan 02, 2023 at 06:07:56PM +0100, Takashi Iwai wrote:
+> Hi,
 
-Also move it out of the conditional to make it more visible in case
-some other code will be added which may use that pointer. We need
-to keep a reference as long as we use the pointer.
+Hi Takashi,
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- sound/soc/intel/boards/sof_wm8804.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> this is a series of patches for addressing the remaining problem with
+> the implicit fb sync.  The first one is to cover the left over EP run
+> state at re-configuring PCM.  The second one is a workaround for a
+> regression with the hw constraints, and the last one is the
+> refactoring and fix for the multiple EPs assigned in the format list.
+>
 
-diff --git a/sound/soc/intel/boards/sof_wm8804.c b/sound/soc/intel/boards/sof_wm8804.c
-index 54395e2ededc..fbad5a73de44 100644
---- a/sound/soc/intel/boards/sof_wm8804.c
-+++ b/sound/soc/intel/boards/sof_wm8804.c
-@@ -269,9 +269,9 @@ static int sof_wm8804_probe(struct platform_device *pdev)
- 	if (adev) {
- 		snprintf(codec_name, sizeof(codec_name),
- 			 "%s%s", "i2c-", acpi_dev_name(adev));
--		put_device(&adev->dev);
- 		dailink[dai_index].codecs->name = codec_name;
- 	}
-+	acpi_dev_put(adev);
- 
- 	snd_soc_card_set_drvdata(card, ctx);
- 
--- 
-2.35.1
+Perhaps it would be wise to include tag
+"Reported-by: Ruud van Asseldonk <ruud@veniogames.com>"
+in the relevants commits tied to this series, as Ruud did share a small
+reproducing C program and went so far as to bisect the regression.
 
+Thanks,
+Geraldo Nascimento
+
+> 
+> Takashi
+> 
+> ===
+> 
+> Takashi Iwai (3):
+>   ALSA: usb-audio: Make sure to stop endpoints before closing EPs
+>   ALSA: usb-audio: Relax hw constraints for implicit fb sync
+>   ALSA: usb-audio: More refactoring of hw constraint rules
+> 
+>  sound/usb/pcm.c | 217 ++++++++++++++++++++++++++++++------------------
+>  1 file changed, 134 insertions(+), 83 deletions(-)
+> 
+> -- 
+> 2.35.3
+> 

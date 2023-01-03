@@ -2,76 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3A265C7FA
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 21:19:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F5B565CA82
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 00:46:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 936856785;
-	Tue,  3 Jan 2023 21:18:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 936856785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7472674D4;
+	Wed,  4 Jan 2023 00:46:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7472674D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672777154;
-	bh=aefyPZ3j7hvwG7QeijhHyzMLOESfZrmBbDDV3DnBE8w=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1672789612;
+	bh=EGVRA0r5BpnAaAvDGfX9OkAtceSZNskFaME8fX8DXRc=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=GUWPKiT2nqH+BKLyFxc3mVIPGbYhBmR1lsXAfdKp/prqZSNVk8rCFpMo75noJAMYw
-	 pzdBFjGwK2lXeZ/KDGeOjetpDiMjwlqM9evQ0zQpggTlTrfzKpVRZYc5HfzEm+sRjZ
-	 WRWdrej30FN9Hh2XhQDKhKTc5KWBl0dAHv/zCVeE=
+	b=WWAsY+gCRzYWdjhJ8yJrRR2HKaDKhRGHGt/mjtGbhQbZAZGtnuV5GgbDojQ4xHXQM
+	 YiFrhT23ZRkhIyjdyrFruCg0u7PrWWLPrI1ChsbS+sH2X2L5c29rHIt9DQ7HVNWV1w
+	 53d9PHBUS4CZ3qpdIzG8F6n5b/4IZe4Nybh0rKVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D9ACF804AA;
-	Tue,  3 Jan 2023 21:18:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AAE4F800C0;
+	Wed,  4 Jan 2023 00:45:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 074D1F804AE; Tue,  3 Jan 2023 21:18:12 +0100 (CET)
+ id 99A86F804AA; Wed,  4 Jan 2023 00:45:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26FCAF800C0
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 21:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26FCAF800C0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SeDJIBfB
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-8.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4D4A5B810FD;
- Tue,  3 Jan 2023 20:18:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D2CC433EF;
- Tue,  3 Jan 2023 20:18:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672777088;
- bh=aefyPZ3j7hvwG7QeijhHyzMLOESfZrmBbDDV3DnBE8w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SeDJIBfBQdHWF4D8+asO8g+zjYRW3ez4WunybsCHniOSdXzojNEdord+O7fSPBLHN
- o8/JoP+nx8C0MDn29nlDrwA9NSiDa+uOHtKDdMdBwrhMvxvM7qKsyG/ErOHq38u6v5
- zBGEG67cwmWqfrobFGesRBY7X/uB3YMVHoU44EPBDS0Oju+ke5Gu4+Q6ITlATIJz77
- bwAjXmjMedUIUa6bZu8dUZud/ApkUiN9fxVWrqqE5/N/7SRYtwBOGXSS0BLAu+EZCq
- PywsppgqVNyW4MEo9Q1K72JRqEkKs7bp5gO7L+GPFzzW3TERIkeiOdiWpRENsjL6lF
- BCUGvWJrq/gmw==
-Date: Tue, 3 Jan 2023 20:17:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: wangweidong.a@awinic.com
-Subject: Re: [PATCH V8 1/5] ASoC: codecs: Add i2c and codec registration for
- aw883xx and their associated operation functions
-Message-ID: <Y7SNdgU6b5r+YsWK@sirena.org.uk>
-References: <20221230093454.190579-1-wangweidong.a@awinic.com>
- <20221230093454.190579-2-wangweidong.a@awinic.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 992CAF800C0
+ for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 00:45:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 992CAF800C0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=JC3J+Jjz
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 303NM1Ag015232; Tue, 3 Jan 2023 23:45:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=bqX0P8LAkS0qn7kAaiRMBmXDNABlm+TdaaE/onDLB+g=;
+ b=JC3J+JjzHaOU0LdltrzzwMCeADJSYLFTh1fPZO/8CWFy3YKTLIsOq4q7GCrJANiAglSp
+ YeCJfjtbMOKMUev+fkNF0qR8FqEgsdYnTpTbtembCGDSr8oJgIJT6w45fPwVgYJXRN9B
+ 4QXr4k6fFfo/vKTaO51qCrkMub7Ky7510O9Ers6Yi/IDou/jwIQVPneYYm5ZqbVyc+Xj
+ 5IfwDEFjcneILweu2DifDZJh9GHmq/VnqNpANgYRd3ZgS+hKb/cSJNzR5RXs6o1ycJ/X
+ lK59JBAP2N6gPsrvlBlGj9TQwDxwWq2r0pBlmtUCwE194IlwLeCsaIr08uKV4fzDAWRd Mw== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mvsvurdp2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Jan 2023 23:45:42 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 303NjfWH001230
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 3 Jan 2023 23:45:41 GMT
+Received: from [10.110.47.113] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 3 Jan 2023
+ 15:45:40 -0800
+Message-ID: <54f36fe7-c590-3d5c-58dc-c5a02c412487@quicinc.com>
+Date: Tue, 3 Jan 2023 15:45:27 -0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="929h2gIydsuzAm1i"
-Content-Disposition: inline
-In-Reply-To: <20221230093454.190579-2-wangweidong.a@awinic.com>
-X-Cookie: So many men
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH 04/14] sound: usb: card: Introduce USB SND vendor op
+ callbacks
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, Oliver Neukum <oneukum@suse.com>
+References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
+ <20221223233200.26089-5-quic_wcheng@quicinc.com>
+ <80f92635-6d14-8ff3-17ac-de2e5b977947@suse.com> <87lemqxpet.wl-tiwai@suse.de>
+ <ec632e64-2d9c-3f71-4fe7-e1c6acb81393@quicinc.com>
+ <465bb512-2ea3-ebfc-4b21-7b493f019fc3@suse.com> <87v8lnrde2.wl-tiwai@suse.de>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <87v8lnrde2.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 94uUE7f83JPt0O_oswNAVd_rJb-Y--0T
+X-Proofpoint-ORIG-GUID: 94uUE7f83JPt0O_oswNAVd_rJb-Y--0T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-03_07,2023-01-03_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 suspectscore=0 bulkscore=0 clxscore=1015 mlxscore=0
+ mlxlogscore=999 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2212070000 definitions=main-2301030200
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,112 +116,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, steve@sk2.org, tanureal@opensource.cirrus.com,
- lgirdwood@gmail.com, cezary.rojewski@intel.com, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- zhuning0077@gmail.com, pierre-louis.bossart@linux.intel.com,
- povik+lin@cutebit.org, flatmax@flatmax.com, devicetree@vger.kernel.org,
- ckeepax@opensource.cirrus.com, stephan@gerhold.net, duanyibo@awinic.com,
- zhaolei@awinic.com, james.schulman@cirrus.com, rf@opensource.cirrus.com,
- robh+dt@kernel.org, shumingf@realtek.com, liweilei@awinic.com,
- linux-kernel@vger.kernel.org, yijiangtao@awinic.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
+ mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
+ quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Oliver,
 
---929h2gIydsuzAm1i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 1/3/2023 4:49 AM, Takashi Iwai wrote:
+> On Tue, 03 Jan 2023 13:20:48 +0100,
+> Oliver Neukum wrote:
+>>
+>>
+>>
+>> On 30.12.22 08:10, Wesley Cheng wrote:
+>>
+>>> It may depend on how the offloading is implemented, but we do have a mechanism to force the audio stream off from the qc_usb_audio_offload. Regardless of if the UDEV is suspended first, or the USB backend, as long as we ensure that the offloading is disabled before entering suspend, I think that should be sufficient.
+>>
+>> You would presumably output garbage, if the UDEV is asleep but the backend is not.
+>>
 
-On Fri, Dec 30, 2022 at 05:34:50PM +0800, wangweidong.a@awinic.com wrote:
+As long as the stream is halted, i.e. the audio DSP doesn't execute 
+further transfers on the bus, there shouldn't be any noise/static that 
+will continue to be outputted.  When I mentioned that we have a 
+mechanism to force for the offloading to be disabled to the audio DSP 
+side, it will no longer submit any audio data to the USB bus.
 
-This looks mostly good, there's a few small nits below but nothing too
-huge:
+>>   
+>>> The reset_resume() path is fine.  Bus reset is going to cause a disconnect() callback in the offload driver, in which we already have the proper handling for ensuring the offload path is halted, and we reject any incoming stream start requests.
+>>
+>> How? If we go the reset_resume() code path, we find that usb-audio does not make
+>> a difference between regular resume() and reset_resume()
+> 
+> Note that, for USB audio, there is no much difference between resume()
+> and reset_resume(), especially about the PCM stream handling that is
+> the main target for the offload (the mixer isn't handled there).
+> And for the PCM, we just set the power state for UAC3, and that's
+> all.  All the rest is handled by the PCM core handler as usual.
+> 
 
-> +++ b/sound/soc/codecs/aw883xx/aw883xx.c
-> @@ -0,0 +1,667 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * aw883xx.c --  ALSA SoC AW883XX codec support
+Sorry, I was under the impression that the USB SND class driver didn't 
+register a reset_resume() callback, which Takashi helped clarify that it 
+does indeed do.  (if no callback is registered, then USB interface is 
+re-binded in the resume path)  However, it doesn't explicitly treat the 
+reset_resume differently than a normal resume.
 
-Please make the entire comment a C++ one so things look more
-intentional.
+For the offload path, we don't need to do anything special either - if 
+we have ensured that the stream was stopped in the suspend path. (to be 
+added) It would be up to the userspace to restart the ASoC PCM stream, 
+which would cause another stream request enable QMI command handshake to 
+happen before any transfers would start.
 
-> +static int aw883xx_startup(struct snd_pcm_substream *substream,
-> +			struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *codec = dai->component;
-> +	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(codec);
-> +
-> +	mutex_lock(&aw883xx->lock);
-> +	aw883xx_start(aw883xx, AW_ASYNC_START);
-> +	mutex_unlock(&aw883xx->lock);
-> +
-> +	return 0;
-> +}
+One thing that I could add to protect the situation where the USB ASoC 
+backend is resumed before UDEV, is to check the chip->system_suspend 
+state.  Normally, the offload driver needs to ensure the bus is in U0 
+before starting the audio stream, but it is done using runtime PM:
 
-I would not expect power management to be done in the startup and
-shutdown callbacks, this should be done in set_bias_level() or DAPM like
-with other drivers.
+static int enable_audio_stream(struct snd_usb_substream *subs,
+				snd_pcm_format_t pcm_format,
+				unsigned int channels, unsigned int cur_rate,
+				int datainterval)
+{
+...
+	pm_runtime_barrier(&chip->intf[0]->dev);
+	snd_usb_autoresume(chip);
 
-> +static int aw883xx_set_fade_in_time(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
+In case we're in the PM resume path, I don't believe PM runtime can be 
+triggered to resume a device.  In this case, the snd_usb_autoresume() 
+would return w/o ensuring the USB SND device is fully exited from PM 
+suspend.  Although, this situation would be a corner case, as userspace 
+entities (userspace ALSA) are going to be unfrozen after kernel devices 
+are resumed, so most likely there should be no request to enable the 
+audio stream if kernel devices are still resuming.
 
-> +	time = ucontrol->value.integer.value[0];
-> +
-> +	if (time < mc->min || time > mc->max)
-> +		return 0;
+I don't see an issue with the sequence of UDEV being resumed before USB 
+backend.  In this case, the USB bus is ready to go, and able to handle 
+stream enable requests.
 
-That's in spec, but it's a bit nicer to return an error so that people
-are more likely to notice that their attempt to set a value didn't do
-what they asked.
-
-> +static int aw883xx_switch_get(struct snd_kcontrol *kcontrol,
-> +			struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-> +	struct aw883xx *aw883xx = snd_soc_component_get_drvdata(codec);
-> +
-> +	ucontrol->value.integer.value[0] = aw883xx->allow_power;
-> +
-> +	return 0;
-> +}
-
-Let the system deal with adding a control that lets the output path be
-powered off if that's needed, the driver shouldn't be open coding that -
-it's just extra and redundant complexity.  If users do need this then
-DAPM is probably a better fit than set_bias_level().
-
-> +	dev_info(aw883xx->aw_pa->dev, "%s : bin load success\n", __func__);
-
-Lower this to a dev_dbg()
-
-> +static void aw883xx_i2c_remove(struct i2c_client *i2c)
-> +{
-> +	struct aw883xx *aw883xx = i2c_get_clientdata(i2c);
-> +
-> +	aw883xx_deinit(aw883xx->aw_pa);
-> +	snd_soc_unregister_component(&i2c->dev);
-
-I'd expect these to be in the other order, otherwise something could be
-using the device while it's partially initialised which probably won't
-go well.  Unregistering the component will detach userspace and the card
-avoiding that problem.
-
---929h2gIydsuzAm1i
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO0jXUACgkQJNaLcl1U
-h9CN2gf/TOQnuPxL2AA3udiB5SD+QAMkx6soCgpSdYQhUmLA1PK1tZOrfxK5q5ci
-g/6SdR+XIF/lbO2Yy2q9HP8lYelnmJg0KWZvoY8lCmxWhGsirEenA3fz0ce8mHXl
-L/RaWnOIEH1nKo7SW1BSHeJ3hblXaqJ+egDuaJ5Rl+ouUIKVoK9PfuLXTeBoJtRZ
-OWpd9fT650Lk0hES7oOFnaFNLOYI9mmE1ir3t0WUioBlqUWhcbo+D2wvAJvG0XzY
-Cu5DJ8FfLtws39/PlguaFy0lLCkLGogPG7FuUmlwfLnp5CsY+q09R4WUO9apuYD7
-+C/m98h3/y8TIW2EnpDGWxCMKdaWtQ==
-=ZN+S
------END PGP SIGNATURE-----
-
---929h2gIydsuzAm1i--
+Thanks
+Wesley Cheng

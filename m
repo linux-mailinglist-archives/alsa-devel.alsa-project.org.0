@@ -2,103 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E34765BEBC
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 12:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EADF65BEE6
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 12:28:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 879B3D669;
-	Tue,  3 Jan 2023 12:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 879B3D669
+	by alsa0.perex.cz (Postfix) with ESMTPS id D53F5D694;
+	Tue,  3 Jan 2023 12:27:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D53F5D694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672744465;
-	bh=lEbdPmqpgfDvfbTEvdAKdfQWATwDiebxcsBy3oDLjnA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1672745324;
+	bh=tr1mK9A8nVNJ6yZwPcx9+WhvVvm/NuilBnIrYLrfOrk=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=H/QfUX/SFEBvHD/yypzH23MuRH+hAyFK22gb/Wqs/mQHYnTvvB1a8abqFfMoHg/DF
-	 mm455QfjufJOzQHDkpjNvM3ATIgpV6mDWR0eGz5Ne9vF14R/A8XlfAg63iTqDmwPHK
-	 nnTkbq/oLTRLoMbeG/jO8HBqYE6D9nRak5QK/hFg=
+	b=rgrFXLbH7toub/O6mKFPXapWg6bR/0n2V15bW8POk0m5EF4M8Hvcn//miGFlxW/fM
+	 T2KJVVa1MmPAPTjTob8AjT1If+lEIzT824RDCjbLZSAyre8nYn5HVNv0Vrbtok34Zj
+	 2xmvo1PSYET5eYP8zmsYYo7Kbv5LVm6DJJMgfed0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0917EF8003C;
-	Tue,  3 Jan 2023 12:13:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48017F804AD;
+	Tue,  3 Jan 2023 12:27:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56F94F800C0; Tue,  3 Jan 2023 12:13:24 +0100 (CET)
+ id 9EB60F8047B; Tue,  3 Jan 2023 12:27:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from out29-177.mail.aliyun.com (out29-177.mail.aliyun.com
+ [115.124.29.177])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 068EDF800C0
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 12:13:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 068EDF800C0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=P2s5tnD5
-Received: by mail-lj1-x235.google.com with SMTP id x37so24561817ljq.1
- for <alsa-devel@alsa-project.org>; Tue, 03 Jan 2023 03:13:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/TWpQiqg2iNv0O2diyiU4mfauguHMd4IysTnhIm0+fM=;
- b=P2s5tnD5MmHi+uSv4kHuF4d8IwY9IgQ+14JhDu+4u3ZxKe97MH/MG6IY8eE/t+dl7m
- b9BWNzeVLkwLYxXe/GZoRxyz2QKbT+dgj3HZyL/HxyYllp1Se9uXmJp8Q7FRJDdPUr+m
- 45kWneEaoQoYg3BK5tWcHhHJSIFYnIKb0nB7llMmj/QNCTUzRe0pFMRqhZCoYKWl6YbS
- 65dMNkbEioNXPZ+66yQWA8HX5EU6hlozJvDfS/2MlQUjqAu8IMUmMq0IYbpzygECyMBy
- e9+XT4fWylQly35GWrFj9PggXTGHEwgukIZgWnk+EEXvYYiFWix3h71ThCsrv6eVxmfn
- SgZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/TWpQiqg2iNv0O2diyiU4mfauguHMd4IysTnhIm0+fM=;
- b=LLpiKtF3G50rI2lceEzhNN3aZCjLbW8laDimA47RRPEKy9phS6eEHKkcPe+vilzb+j
- Eejl0ULlmYLJ7xKuhab12BD+Prbr4yC2fN1yBGXmhyhUr61BxheqKrw0ORoIs+JR+F62
- kl4uxxDmgCzaMnZSVVQG1htWRpcph+XkeppFnLKTr3c1eBKkq9C9thCT8PuoDerbWF0r
- DuaRG0uvulZPG0yeNKZ1Vh8d/lbPTlJ/MSmf0MKZEvIbWHv3yZZTFcBlmOtuJ0Cwo6o+
- Om92Id1O8u7uuQW6yVGWoJ3dkArjgphwAkT6cyGzr6nXlHaa2BsV4oyrRonwSDZS26qV
- VrJQ==
-X-Gm-Message-State: AFqh2kr2v7SAYmAnxcSIb0Ilkl2zTTnRZQynbKQ5cyHa4qR8ZYQAM1Nb
- jLedcaUBbOT7ZE9xYY/hXu9rJw==
-X-Google-Smtp-Source: AMrXdXsq4eIbXobzEJN/aR14hPh8zbDa75iWKce21g7fG2vNVHzWb4UfMEZpdHsU9qRvjyGv1U9L0A==
-X-Received: by 2002:a2e:a583:0:b0:27f:cf81:cbc with SMTP id
- m3-20020a2ea583000000b0027fcf810cbcmr6992503ljp.24.1672744397870; 
- Tue, 03 Jan 2023 03:13:17 -0800 (PST)
-Received: from [192.168.0.20]
- (088156142067.dynamic-2-waw-k-3-2-0.vectranet.pl. [88.156.142.67])
- by smtp.gmail.com with ESMTPSA id
- k10-20020a05651c10aa00b0027fe262a75csm970094ljn.81.2023.01.03.03.13.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jan 2023 03:13:17 -0800 (PST)
-Message-ID: <2c6950c9-3489-c2d4-2ca8-cb723195f75b@linaro.org>
-Date: Tue, 3 Jan 2023 12:13:16 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9D7DF800C0
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 12:27:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9D7DF800C0
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1034973|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.265725-0.00146619-0.732809;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047199; MF=wangweidong.a@awinic.com; NM=1;
+ PH=DS; RN=28; RT=28; SR=0; TI=SMTPD_---.QjR9KV8_1672745223; 
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.QjR9KV8_1672745223) by smtp.aliyun-inc.com;
+ Tue, 03 Jan 2023 19:27:10 +0800
+From: wangweidong.a@awinic.com
+To: krzysztof.kozlowski@linaro.org
+Subject: Re: [PATCH V8 5/5] ASoC: dt-bindings: Add schema for "awinic, aw883xx"
+Date: Tue,  3 Jan 2023 19:27:03 +0800
+Message-Id: <20230103112703.382153-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <aa0de3c8-d783-f8cc-42a9-7988acd6ab87@linaro.org>
+References: <aa0de3c8-d783-f8cc-42a9-7988acd6ab87@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 5/5] arm64: dts: fsd: Add sound card node for Tesla FSD
-Content-Language: en-US
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- s.nawrocki@samsung.com, perex@perex.cz, tiwai@suse.com,
- pankaj.dubey@samsung.com, alim.akhtar@samsung.com, rcsekar@samsung.com,
- aswani.reddy@samsung.com
-References: <20230103045613.100309-1-p.rajanbabu@samsung.com>
- <CGME20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b@epcas5p1.samsung.com>
- <20230103045613.100309-6-p.rajanbabu@samsung.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230103045613.100309-6-p.rajanbabu@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,74 +68,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, steve@sk2.org, tanureal@opensource.cirrus.com,
+ cezary.rojewski@intel.com, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
+ zhuning0077@gmail.com, liweilei@awinic.com,
+ pierre-louis.bossart@linux.intel.com, povik+lin@cutebit.org,
+ flatmax@flatmax.com, devicetree@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ stephan@gerhold.net, zhaolei@awinic.com, james.schulman@cirrus.com,
+ rf@opensource.cirrus.com, robh+dt@kernel.org, shumingf@realtek.com,
+ tiwai@suse.com, duanyibo@awinic.com, wangweidong.a@awinic.com,
+ lgirdwood@gmail.com, yijiangtao@awinic.com, broonie@kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03/01/2023 05:56, Padmanabhan Rajanbabu wrote:
-> Add device tree node support for sound card on Tesla FSD board
-> 
-> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-> ---
->  arch/arm64/boot/dts/tesla/fsd-evb.dts | 37 +++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> index e2fd49774f15..ce726bddfb50 100644
-> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> @@ -29,6 +29,43 @@
->  		device_type = "memory";
->  		reg = <0x0 0x80000000 0x2 0x00000000>;
->  	};
-> +
-> +	sound {
-> +		compatible = "simple-audio-card";
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		simple-audio-card,name = "FSD Audio Card";
-> +		simple-audio-card,widgets =
-> +			"Line", "Line Out",
+Hi Krzysztof
 
-I don't think you need to break the line after '='.
+On 30/12/2022 10:34, wangweidong.a@awinic.com wrote:
+>> From: Weidong Wang <wangweidong.a@awinic.com>
+>> 
+>> Add a DT schema for describing Awinic AW883xx audio amplifiers. They are
+>> controlled using I2C.
+>> 
+>> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+>> ---
+>>  .../bindings/sound/awinic,aw883xx.yaml        | 49 +++++++++++++++++++
+>>  1 file changed, 49 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
+>> 
+>> diff --git a/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
+>> new file mode 100644
+>> index 000000000000..b677427ebcd1
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/awinic,aw883xx.yaml
+>> @@ -0,0 +1,49 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/awinic,aw883xx.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Awinic AW883xx Smart Audio Amplifier
+>> +
+>> +maintainers:
+>> +  - Stephan Weidong Wang <wangweidong.a@awinic.com>
+>> +
+>> +description:
+>> +  The Awinic AW883XX is an I2S/TDM input, high efficiency
+>> +  digital Smart K audio amplifier with an integrated 10.25V
+>> +  smart boost convert.
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: awinic,aw883xx
 
-> +			"Line", "Line In";
-> +		simple-audio-card,routing =
-> +			"Line Out", "LLOUT",
-> +			"Line Out", "RLOUT",
-> +			"MIC2L", "Line In",
-> +			"MIC2R", "Line In";
-> +
-> +		status = "okay";
+> Now the question what does "xx" stand for? I cannot find such product on
+> awinic website:
+> https://www.awinic.com/En/Index/queryAll/wd/aw883xx.html
 
-Why?
+xx represents our company's aw88394 and aw88395 chips,Aw88395 chips can be found on 
+https://www.awinic.com/cn/detail/index/catid/229/id/48/title/AW88395CSR.html
+The aw88394 chip will be available on the website in the near future.
 
-> +
-> +		simple-audio-card,dai-link@0 {
-> +			reg = <0>;
-> +			format = "i2s";
-> +			bitclock-master = <&tlv320aic3x>;
-> +			frame-master = <&tlv320aic3x>;
-> +
-> +			cpu0 {
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +
 
-Does not look like you tested the DTS against bindings. Please run `make
-dtbs_check` (see Documentation/devicetree/bindings/writing-schema.rst
-for instructions).
+> Why there is no sound-dai-cells?
 
-> +				sound-dai = <&i2s_0 0>;
-> +			};
-> +			cpu1 {
-> +				sound-dai = <&i2s_0 1>;
-> +			};
-> +			codec {
-> +				sound-dai = <&tlv320aic3x>;
-> +				system-clock-frequency = <33000000>;
-> +			};
+I'll add sound-dai-cells in patch v8
+
+>> +  sound-name-prefix: true
+
+> Drop it.
+
+I will modify it on patch v8
+
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reset-gpios
+>> +
+>> +additionalProperties: false
+
+> Instead:
+> unevaluatedProperties: false
+
+> unless this is not a codec and sound-dai-cells cannot be used?
+
+I will modify it on patch v8
+
+>> +
+>> +examples:
+>> +  - |
+>> +    i2c {
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +        audio-codec@34 {
+>> +            compatible = "awinic,aw883xx";
+>> +            reg = <0x34>;
+>> +            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
+
+> Does not look like you tested the bindings. Please run `make
+> dt_binding_check` (see
+> Documentation/devicetree/bindings/writing-schema.rst for instructions).
+
+I will modify it on patch v8
 
 Best regards,
-Krzysztof
-
+Weidong Wang

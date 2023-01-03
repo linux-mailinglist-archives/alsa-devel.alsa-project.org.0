@@ -2,192 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B485065B9F3
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 05:16:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D58C65BAAD
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 07:39:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39DF6C09E;
-	Tue,  3 Jan 2023 05:15:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39DF6C09E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA1E1C7F6;
+	Tue,  3 Jan 2023 07:38:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA1E1C7F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672719391;
-	bh=gOWQQhI1KMKTjWLfrlQ12sscpjr3OasKdjKkQRGr/QE=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1672727955;
+	bh=GMwLClyKXqvwtdNRvkwy0wY+YThJhyJxsmqfKkoF+Kg=;
+	h=From:To:In-Reply-To:Subject:Date:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=mjKbxzO+HgMRy9czNqiMbU5Q5F1ERrpCU5YxvsdaMyVZzYUOHRdPqOiI3CCWuGtpm
-	 Ior+clINgOLQGRpBDzM9nVWbWyRSPmwLykYH+G+KQ6GAoPnlL7+DPVJ956cK5G/1Es
-	 Ge++yLyIeDntMDbo1MK7BJdJbsXGDvquaO/zTiOU=
+	b=dKqByChnSTnc0HiPsmIwWPdFgRkgy8GNnqYtINZLT+XdLRODwWW+vo3w8++67StiG
+	 jZaszdd+IP8qGhieNdydi3iPt1D4ibnvp3ZFhhspTcfWuuz9+bEMGAW7nbnn7VK3GD
+	 Mc5eaH7+9Z668r+WA0iQOiFGU9zo+JUkm1REZrc4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D31ADF8047B;
-	Tue,  3 Jan 2023 05:15:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0397DF8001F;
+	Tue,  3 Jan 2023 07:38:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51026F804AA; Tue,  3 Jan 2023 05:15:39 +0100 (CET)
+ id 2297DF8001F; Tue,  3 Jan 2023 07:38:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 284B2F8001F
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 05:15:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 284B2F8001F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=mediatek.com
- header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=IafX+Aj7; 
- dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com
- header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-mediateko365-onmicrosoft-com header.b=c1l/jlvc
-X-UUID: f726e664906c42d99d404f12a4f8896b-20230103
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=gOWQQhI1KMKTjWLfrlQ12sscpjr3OasKdjKkQRGr/QE=; 
- b=IafX+Aj7sMcWV1ptmUxa5QoQIi3vC2wKD0JSB8DbvmIdJ9sW1j+cbhubNw3BIoG96DlSrG3Hjze5OOwnzNiS0Xtcbc+4DqGCiTuzVA8USJvLTAeBa9hPYTHc+ZjUv3iods/rbw0m6npcvY2nLex8QvF6kTfCJ7bXCOaBxqr/lI0=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.16, REQID:8396c354-c1c4-4006-8f30-6b7a11b7b8b0, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:09771b1, CLOUDID:e8827353-dd49-462e-a4be-2143a3ddc739,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-X-CID-BVR: 0,NGT
-X-UUID: f726e664906c42d99d404f12a4f8896b-20230103
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw02.mediatek.com (envelope-from <trevor.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1945466055; Tue, 03 Jan 2023 12:15:23 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
- Tue, 3 Jan 2023 12:15:22 +0800
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n1.mediatek.com (172.21.101.34) with Microsoft SMTP
- Server id
- 15.2.792.15 via Frontend Transport; Tue, 3 Jan 2023 12:15:22 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X0QYNar211eVsPB7fubMRYTCBc5be8L2M0y3rS5GHSUWXWHOQ4tAtdOerkKRHxxZqqk/2iYTBmWYPoFoDxz20E+0PSxiX1YPQF2CxezPMFkllo2VtXS0/05WlW+NBpUcXUARkLkv1Hh0eTQJOm+BaE8XfRrxm7FIM3FLlk+pn4yM7RPf6jjKQAF3HHoTG7KZgH7Az8YNKjHxVz7sv/nLQleCtkXGEQWVlzXQG9GaMgJzIRBEKSF5Bri4gyZB+kTf738AvkY+BUwLWBoCzGm+Q4ioIGq/9QPwNTrLEdTi03HjXOHaN9ysoWkkJaP22bPmLRbtuxT2tEV7X3vIX2+rmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gOWQQhI1KMKTjWLfrlQ12sscpjr3OasKdjKkQRGr/QE=;
- b=fFmpp5/rxx/SMlXQ4qAL5s76nPDE0Afn7c6uAgvJmEgEgcGjoZoZLqDsguvE647hr48LYLCZsx8t3sW8Pwsku904j/JUF7HYeWQwhzgWK9gRJaSPmNFHoto/dX22Hnh70Lm83HPZbyDQ00XNK0HF2AZI/MsApnR9HI3qVV5pmXVNWKtBBl7mS/0n2VK8M/TEEcixnXD+Cka7rUcDB8bcZA+naJxGRGRv+NMAdHGPAH5z/eqvStDmN3I2H/6NKHX2W77lIj0wZ2kupZiYLUWgN6iTp5yOX8tJgoWd1K2+1FZzrvQXpa7P8G5RvKa9oL+xElIqh3O9AhhIcmYgfzaPPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gOWQQhI1KMKTjWLfrlQ12sscpjr3OasKdjKkQRGr/QE=;
- b=c1l/jlvcrxpVPyS6YGpIHU3YH0ESq7nZHwIF+01Ud7lNn9H0IANAinGPuaQpNdN2mUTi5jq2WVBVherGcoveJmk5rAendtE48WXMo5zLbJlS6R+yiQZjMJKDDC4xWKKYFnJOXdMbw0jTItIJdLO29VJbwAsWxj2iaJZJaGAnBC0=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by KL1PR0302MB5220.apcprd03.prod.outlook.com (2603:1096:820:45::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Tue, 3 Jan
- 2023 04:15:20 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::789f:a595:931d:b4dc]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::789f:a595:931d:b4dc%6]) with mapi id 15.20.5944.019; Tue, 3 Jan 2023
- 04:15:20 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>, "tiwai@suse.com" <tiwai@suse.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "perex@perex.cz"
- <perex@perex.cz>
-Subject: Re: [PATCH v4 10/13] dt-bindings: mediatek: mt8188: add audio afe
- document
-Thread-Topic: [PATCH v4 10/13] dt-bindings: mediatek: mt8188: add audio afe
- document
-Thread-Index: AQHZHBOD+EKNxmU00k2ACj0ovnnPmq6LU/0AgADH1QA=
-Date: Tue, 3 Jan 2023 04:15:20 +0000
-Message-ID: <70fce807a7d10b806fea88ed86ae542d9fd58a2d.camel@mediatek.com>
-References: <20221230055443.16024-1-trevor.wu@mediatek.com>
- <20221230055443.16024-11-trevor.wu@mediatek.com>
- <43ee7ca8-de65-8c0a-20b4-e3cb5f10a3c8@linaro.org>
-In-Reply-To: <43ee7ca8-de65-8c0a-20b4-e3cb5f10a3c8@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|KL1PR0302MB5220:EE_
-x-ms-office365-filtering-correlation-id: c6cd9b08-169c-423d-c7dc-08daed4120a4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yobtQc/32/HNcnjtFFFGTCxZIDRk+pFe1U4zclbnQt8ZVFbVRhSs+oae+5vVc+jkmxbkoRrB6DX1vd4Vm9gcTRVPlZZafWWdxUWQtgHyjQUy7aruAtH+IiP3l0aCPPrRr5RzB/k4lbIRaCI7MQNrVcMQ2ATzfLr3G1SSmal5jBJV06pXYn6hl9FUPrejOlvpBU/OKHKaYEsf5Gv7xHKz0lEs1cMqTaUzyLqQyz5Eumsut26JaP8WYld87p/eFd6YPnE+hQjA5ivkenzP/mhcimVIyB0lA+aJQ1AaInzyCPVDEE/Ztur+96FGSQFQkCR0c8w6eTPX0ZjQx4ykrvJc4vI8ZQBWgLeJ6Z5HrVgPTbFUQimrUVGpjuckd0rNxBj9mtPTb2RWMqO9jjzNT4NbERWO5C3du7kwaTMgJQxv9Bm5mMZq+b9s//f293R9ATZcuFNt01LmRul40x4R7zrFL9Q71eqOYn4kPrArBdB9nPRuFNomt45NdRqQOOAajUlUDnq1zjXKbYI4QQ8IOKDLEH4HnGYlBGn+g/X5mGBmVSqdaHqYBYkCokhADYpsE++lcSCMLomuq4dbKz3CjpDPWdRWLsNIgbF/JqzfY26Lrm9IFOgoxrdu+RAZki62CcBA7Q8RhrHF/G1BNkV1fK845g87ToMiG1+4ZlFBBRKZobG1jL6G58kT/rQxoEzubtSk5DqFviyZ6210bsmxSjeAYnPdlXkjbrOf8jNqt6u6j3F9vmUUrXeAvgrRufA10WWF
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR03MB6686.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(39860400002)(396003)(346002)(136003)(376002)(451199015)(66946007)(8676002)(64756008)(66476007)(66556008)(4326008)(4744005)(8936002)(91956017)(5660300002)(66446008)(316002)(7416002)(110136005)(2906002)(76116006)(6506007)(6486002)(71200400001)(478600001)(54906003)(41300700001)(53546011)(26005)(6512007)(186003)(2616005)(38100700002)(36756003)(122000001)(85182001)(38070700005)(86362001)(22166006)(99106002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VnNJUFBCdmRNUW9GNGsxZjBENVMxY29qR0pkcHBiQVFMM2J1ais2L1ozbHJ6?=
- =?utf-8?B?T2hxN3F1ZmdKRTVOVE95N25FR0tDaEhpeVVNNjQ3K0VxUEs0c0k4UlNuY0JQ?=
- =?utf-8?B?LzFWRDdacG5Qc21Od1JDQU1VMmg3cERXZHEvbGtOYndoVTNWYlRkT2dJK01u?=
- =?utf-8?B?N2s4QUlIMk9MQnhLS1VycVVocmpkZEdPR3Z2c3RCR0w2WngzeXFqL0Irdlhs?=
- =?utf-8?B?MEgxL0RqUWxOV3lmem5yaFVrZlllR1gzZGZ4R3NWcy9ISWp1VndwM0FaOGF5?=
- =?utf-8?B?SWcxTXI2NVNUaFduVDNnRVRoTVdZTC9tM2JyNlBjMnI3eHdLT1VLSWZTcTRj?=
- =?utf-8?B?elBZNS9NcHVZTG5DS0ZkaEZMVm01QnF6Uyt5VVJoUFAzWDMrQXZjNUZuRnR3?=
- =?utf-8?B?MHF3V21rR0E4S3k0Z3dCSWloUEdyL29OOGlXbUxiZ2lLb3hQQkJEdGNzeGRF?=
- =?utf-8?B?YmFnNFhKczAxWkdpZmVreGVBSzN0eVZEbDdpbk0xejJ6eSs3amdZQTdOMU1r?=
- =?utf-8?B?M3Zxa0k5NGdQRVVRUVdBTkhsTW5HbTI4bzVQV0dSbUNzaFBmK256Y3o2Q2xK?=
- =?utf-8?B?dEplUzBaWkJTWGd4YzN5QzRQa3M2WlJUaVM2SVRDb3czd3R6aW5TS2ZsY1Q5?=
- =?utf-8?B?YnFOTFRRbHk5Vnk4RGNYR2x6c2dRNk5RRDc0WmZYYVJ4ZlV1cVNmajgvdDJI?=
- =?utf-8?B?NFo1ak9zNmV4UFdnRGMwSUpEbVpkWXpFcEYwdzVTZ21rT1UrSWlyUm93SWdB?=
- =?utf-8?B?KzUza0ZzZ2RDNnJDbElKTldWWTNaQVhBZjRSYjJZeU41R01KdzgrM3pkRSs3?=
- =?utf-8?B?OTdQZzgwSVlVVUVRbzY4VjBtUlNmaHk4djhkUFZVcjN0eUdoOVZ6REdOd2Zq?=
- =?utf-8?B?S25VUWRUVEFyVmZuUjZtWFZLRnhJSW9FWmUxVGRhdjF0M215bDNWV2lkekJt?=
- =?utf-8?B?Yi9vWjFRM0dYQlpjU1RqSHVEZUN5YWdNd1BkNjVFM0NNMmlZcHJmQXcvTVJL?=
- =?utf-8?B?am00NE1KV2RsbGZSM2F4RHhNUkdxQ3pKb1hHdzY0c2pPZk45NWRSSjFROWQz?=
- =?utf-8?B?RDloaG05QkxYQjVLTnpwNk1NYnV2WitDWitJNjRjczBITHVwMlFuRlBGUjJY?=
- =?utf-8?B?eVFFVU5KRUFkOTZmT3JxUmlqUWtPVytMUjRoSE1UelZ2UjBYdnh0bGdHcmsx?=
- =?utf-8?B?N1c2VDhwQXJCd2cvOHNiaWNxTEMrVlo2VGF2THllclIvc2h3VFNxNU9IcTVn?=
- =?utf-8?B?UFdWWW9zVk44Q2UwRHB3aUtnbEtHNVEvVGVQaEJLZ05NK1FEZ1craFIvaDJU?=
- =?utf-8?B?dEpZVDJRVVd4MUpXdU9XcGttVG1XbVordnY2dlNCODhQTStKNDVQMmRkbTF0?=
- =?utf-8?B?MitJelFNUFR2U2lDcjBOSHhZTnBUT2R5VjVoL1pKQ0F6VzZEKzNTdXJPMWJq?=
- =?utf-8?B?cVFHc1RDbDVnendsMFh5a1E1L0Q4ZVlZVEJGWkx4ek41VU96SVQydmRqK00w?=
- =?utf-8?B?d2dhOC8vNWN6Vi9BRGxqOTNyRmZyYXlYWUZtMXgxemkxQWt4T084NS9LTTMr?=
- =?utf-8?B?ZGdrQUxCbVlPNmFNKzNwSVFyUFRlRi9WTHVSRlBxV09YS2wxajJjcmY3RnFU?=
- =?utf-8?B?V1VydEdIcTc3R3doaHpJaWk1UTFZbVcxT3lzV0VaaVlwMmFEVEhzOG42V2NB?=
- =?utf-8?B?YXRNYTJtaVB1UDM2T2NJNHBKY2lmVXcvYUJ3R0YrTHBqTUgxTDByYXIyeWxt?=
- =?utf-8?B?V0pITGJueFZJT1RZOUVUcXVpamgwVFRZRnRCWlFTcTBaT1pjUDIwUGZKTlVh?=
- =?utf-8?B?MElLT0dNdG5LVUR6RXowb0dJZS9NbnFVUVRnQ3FZV0FCQnhuay8rcUVlWUdr?=
- =?utf-8?B?aEdndmRMZFlPMys0aEY5d0J6b2pTM1NhZVV4WWs0OVpmZ2tUVFVDOTZlZVgv?=
- =?utf-8?B?VWpxcWNOSEJmSlpMc281aGZadDdqTFpJcGFrZ1Njbm5WZjdLc0FrekdLU1JW?=
- =?utf-8?B?UURSZnBjTzRyc1QvQllONFdQNHk5eE5Rak9hL1NBZHZUKzR2V2ZLbU0xa3ZF?=
- =?utf-8?B?a1NSdnBjWVduQkdwRDVJdHdtRmcvQ2xraXB5ak9HdHhSRHVqc2UrZU4vVW13?=
- =?utf-8?B?SWZvSmdXcnlXVlFYZmRFMlAyYWlOS3YvZ0IrNDBOdy84SWhwSS8rSjZmSitC?=
- =?utf-8?B?UXc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C5509DE0421A204D841B83E829E4D031@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 885ACF8001F
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 07:38:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 885ACF8001F
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
+ header.s=mail20170921 header.b=ETaGzmWo
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20230103063758epoutp0407abbaa2a8e1762a8ab5f16a4867f046~2uSSO5lwW3192231922epoutp04n
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 06:37:58 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20230103063758epoutp0407abbaa2a8e1762a8ab5f16a4867f046~2uSSO5lwW3192231922epoutp04n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1672727878;
+ bh=XZvYlXgpWFcytY0b+WO4ljcktt6LBn91faP7lLVRS0g=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=ETaGzmWo6V/HN+r9W7LDnqPC9fmq+jeWXBs3LLJjeqdY9Twa5yJbsZJKhk6HbuvWR
+ alJG1uJjESh1R85NcGTMPqnzDY6wXktTybbEzcYS1PTZYv3zyKoKYR05ydGwis85i2
+ GlhXrAamoYFSb4CrsICiwEXLYtvJOtNvbuiIc9aA=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20230103063757epcas5p49588c838606addcd87eef2d793f0250c~2uSR4khOf2944229442epcas5p49;
+ Tue,  3 Jan 2023 06:37:57 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.177]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4NmNMm28zGz4x9Pq; Tue,  3 Jan
+ 2023 06:37:56 +0000 (GMT)
+Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
+ epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 74.38.03362.44DC3B36; Tue,  3 Jan 2023 15:37:56 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20230103045506epcas5p4dae882d7ac7627f37f17572c3bf70760~2s4d3Y-XZ1872118721epcas5p4Q;
+ Tue,  3 Jan 2023 04:55:06 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20230103045506epsmtrp2984e59cd9032a225c69b4608b4597947~2s4d2f5FQ0604406044epsmtrp2r;
+ Tue,  3 Jan 2023 04:55:06 +0000 (GMT)
+X-AuditID: b6c32a4b-4e5fa70000010d22-ca-63b3cd441131
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ B7.D4.10542.925B3B36; Tue,  3 Jan 2023 13:55:05 +0900 (KST)
+Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20230103045503epsmtip141b657b6f85830aeca46b749e4eea160~2s4boh1T71253712537epsmtip1A;
+ Tue,  3 Jan 2023 04:55:03 +0000 (GMT)
+From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
+To: "'Mark Brown'" <broonie@kernel.org>
+In-Reply-To: <Y2vlqatX7dfPJ3Zi@sirena.org.uk>
+Subject: RE: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
+Date: Tue, 3 Jan 2023 10:25:02 +0530
+Message-ID: <025401d91f2f$8bf78a00$a3e69e00$@samsung.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6cd9b08-169c-423d-c7dc-08daed4120a4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2023 04:15:20.2204 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: odJi7ORwhxjfsroI5cbKN54Mjin4xLS3nJV6QOJFEb+Q5F3OBALa/c7KfaewRAGgMx767xw2MWkGFoPnHMmjvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0302MB5220
-X-MTK: N
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwJEXTuNARMAzQMCgN8f5gMWNkuwArAClEQCgEQWDwHlvOpzrLPsmiA=
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrCJsWRmVeSWpSXmKPExsWy7bCmuq7L2c3JBgv6+SwezNvGZnHl4iEm
+ i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW3y70sFkcXnXHDaLGef3MVks2vqF3aJzVz+rxawLO1gt
+ WvceYbc4/Kad1WLD97WMDvweGz43sXnsnHWX3WPTqk42jzvX9rB57Hu7jM2jb8sqRo/1W66y
+ eHzeJBfAEZVtk5GamJJapJCal5yfkpmXbqvkHRzvHG9qZmCoa2hpYa6kkJeYm2qr5OIToOuW
+ mQN0vZJCWWJOKVAoILG4WEnfzqYov7QkVSEjv7jEVim1ICWnwKRArzgxt7g0L10vL7XEytDA
+ wMgUqDAhO+PXn/eMBceVKi5/PcvYwHhKsouRk0NCwETiw9bljF2MXBxCArsZJRq/n2eGcD4x
+ SnxfMJEFwvnMKNE/cyczTMuixUvYIBK7GCX+L3oEVfWCUWLnzmY2kCo2AXOJRXuXMoLYIgLq
+ Ekc3bWQFKWIW6GKW2HDkHQtIglNAV+LMqV1MILawgJfEmZ51YCtYBFQkTm/+ABbnFbCUuPl8
+ DjOELShxcuYTsF5mAXmJ7W/nQJ2kIPHz6TJWiGVJEm1Hn7JB1IhLHP3ZA/aQhMAbDonOR3dY
+ IBpcJJ7MvMMKYQtLvDq+hR3ClpL4/G4vG4SdLzHtYzOUXSHR9nEDE4RtL3HgyhygORxACzQl
+ 1u/ShwjLSkw9tY4JYi+fRO/vJ1DlvBI75sHYqhLrl29ihLClJfZd38s4gVFpFpLXZiF5bRaS
+ F2YhbFvAyLKKUTK1oDg3PbXYtMA4L7UcHuXJ+bmbGMHJW8t7B+OjBx/0DjEycTAeYpTgYFYS
+ 4Z30YlOyEG9KYmVValF+fFFpTmrxIUZTYHhPZJYSTc4H5o+8knhDE0sDEzMzMxNLYzNDJXHe
+ 1K3zk4UE0hNLUrNTUwtSi2D6mDg4pRqYUtqnFJUomZQuerLCT2jb1WNMfnYl3V2MqWYZfnW7
+ r3+3dXxeWeCnu/OJilx9VMLe9rC2Nwq70s//uPf7nFjd5SArtsdnTWVuNcycu+qkSmS0g47+
+ XsaAv3O8P+dxKTZlvT7/6vWcPLXn5lFLe37KzJQ9eujw5msnVDUP1F7wLsk984hJ0WL/9PO2
+ yqwfLk9X0FPonBT0aK36aW0h6xtP5nxbn/CjdXvY3JZ1De8jrL/1lTPt2O1kfFdp7aauXlHm
+ LzucbBjOLWh8zvxwtoRzwTW5D+cjFu44c2/mrOraLtbSVX8Fcw4u2iBbtkjvXeet/ec/S9/6
+ m1/gK1GzlKOA7ctE3gnVDRpLQxadUzmmrMRSnJFoqMVcVJwIAE7otvJnBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrFIsWRmVeSWpSXmKPExsWy7bCSnK7m1s3JBj1LTSwezNvGZnHl4iEm
+ i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW3y70sFkcXnXHDaLGef3MVks2vqF3aJzVz+rxawLO1gt
+ WvceYbc4/Kad1WLD97WMDvweGz43sXnsnHWX3WPTqk42jzvX9rB57Hu7jM2jb8sqRo/1W66y
+ eHzeJBfAEcVlk5Kak1mWWqRvl8CV8evPe8aC40oVl7+eZWxgPCXZxcjJISFgIrFo8RK2LkYu
+ DiGBHYwS31o2MEMkpCWm9+9hg7CFJVb+e84OUfSMUWLZis1gCTYBc4lFe5cygtgiAuoSRzdt
+ ZAUpYhaYwSxx6NYlVoiOBmaJ7d8XgHVwCuhKnDm1iwnEFhbwkjjTsw5sHYuAisTpzR/A4rwC
+ lhI3n89hhrAFJU7OfMLSxcgBNFVPom0j2DJmAXmJ7W/nQF2qIPHz6TJWiCOSJNqOPmWDqBGX
+ OPqzh3kCo/AsJJNmIUyahWTSLCQdCxhZVjFKphYU56bnFhsWGOWllusVJ+YWl+al6yXn525i
+ BEevltYOxj2rPugdYmTiYDzEKMHBrCTCO+nFpmQh3pTEyqrUovz4otKc1OJDjNIcLErivBe6
+ TsYLCaQnlqRmp6YWpBbBZJk4OKUamFT/7nz3xGNdldu9M4mujrNfnZGQOPA07comp8bbbT53
+ Hhy/7LnYU2nSsy5nk3l/ywsONi3ktghnYF9WfOdrkfgeUYmuyTN39Tns+3/u0MUn55csOO/Q
+ s/7Y/Oj4KSoBV2a1PM7WPbO9IcEu/DQfwyu+t60MOg2N8pX8zyTfv9i+PeQQe/i564udZufN
+ XxM46ZrmlVaR+fWra++2Hd5Q6iX6QMvP8p9v9GltnlgDfrXmF/PnuV7OF3m6pa/ybH9zQmyM
+ 0vU8lZij4redJd12zdf5dyzvmz3HZqu+dRseMC1KfLPivVtM5u2b2crWi/WrpV4efDZBr7F3
+ kdWxPzM6zW6Zm5cwaOkIzg/i4lv7MUKJpTgj0VCLuag4EQDN3wZCTQMAAA==
+X-CMS-MailID: 20230103045506epcas5p4dae882d7ac7627f37f17572c3bf70760
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120
+References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
+ <CGME20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120@epcas5p2.samsung.com>
+ <20221014102151.108539-3-p.rajanbabu@samsung.com>
+ <Y0lPz91gbovAub9D@sirena.org.uk>
+ <04a101d8e523$30804b80$9180e280$@samsung.com>
+ <Y1KIT4nk7C8SQ45x@sirena.org.uk>
+ <01ba01d8f332$44eb3810$cec1a830$@samsung.com>
+ <Y2vlqatX7dfPJ3Zi@sirena.org.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -200,29 +154,120 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCAyMDIzLTAxLTAyIGF0IDE3OjIwICswMTAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdy
-b3RlOg0KPiBPbiAzMC8xMi8yMDIyIDA2OjU0LCBUcmV2b3IgV3Ugd3JvdGU6DQo+ID4gQWRkIG10
-ODE4OCBhdWRpbyBhZmUgZG9jdW1lbnQuDQo+IA0KPiBVc2Ugc3ViamVjdCBwcmVmaXhlcyBtYXRj
-aGluZyB0aGUgc3Vic3lzdGVtICh3aGljaCB5b3UgY2FuIGdldCBmb3INCj4gZXhhbXBsZSB3aXRo
-IGBnaXQgbG9nIC0tb25lbGluZSAtLSBESVJFQ1RPUllfT1JfRklMRWAgb24gdGhlDQo+IGRpcmVj
-dG9yeQ0KPiB5b3VyIHBhdGNoIGlzIHRvdWNoaW5nKS4NCj4gDQo+IFRoaXMgaXMgc3RpbGwgbm90
-IGZpeGVkIGFuZCB5b3UgZ290IGNvbW1lbnRzIGFib3V0IGl0LiBJIGFtIG5vdCBnb2luZw0KPiB0
-bw0KPiBrZWVwIHJldmlld2luZyB0aGlzIHBhdGNoLiBJbXBsZW1lbnQgdGhlIGZlZWRiYWNrLg0K
-PiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCj4gDQoNCkhpIEtyenlzenRvZiwNCg0K
-SSBhcG9sb2dpemUsIEkgZGlkbid0IGludGVuZCB0byBpZ25vcmUgeW91ciBjb21tZW50LiBJIG1p
-c3VuZGVyc3Rvb2QNCnRoZSBjb21tZW50IGFnYWluLiBPcmlnaW5hbGx5LCBJIHRob3VnaHQgaXQg
-d2FzIGFsc28gcmVsYXRlZCB0byBteQ0KbWlzc2luZyBwcmVmaXggaW4gdGhlIGZpbGVuYW1lLg0K
-DQpJJ2xsIGNvcnJlY3QgdGhlIHN1YmplY3QoYWRkIEFTb0MgcHJlZml4KSBpbiB2NS4NCg0KVGhh
-bmtzLA0KVHJldm9yDQo=
+
+
+> -----Original Message-----
+> From: Mark Brown [mailto:broonie@kernel.org]
+> Sent: 09 November 2022 11:09 PM
+> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+> Cc: lgirdwood@gmail.com; robh+dt@kernel.org;
+> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
+> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
+> alim.akhtar@samsung.com; rcsekar@samsung.com;
+> aswani.reddy@samsung.com; alsa-devel@alsa-project.org;
+> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-samsung-
+> soc@vger.kernel.org
+> Subject: Re: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
+> 
+> On Tue, Nov 08, 2022 at 10:53:40AM +0530, Padmanabhan Rajanbabu wrote:
+> 
+> > > > We can overcome this scenario to an extent if we can get a
+> > > > flexibility to Configure both PSR as well as RFS.
+> 
+> > > Why does it make sense for the machine driver to worry about this
+> > > rather than having the I2S controller driver configure the clock tree?
+> 
+> > _____           |                  __
+> > |
+> > |         |	        |	             |   \
+> > |
+> > |CMU|	        |	             |     \
+> > |
+> > |FSD  |-  |---|-|--------->|       \        _________    _________
+> > |
+> > |___  |    |    | |op_clk0|         |      |               |     |
+> > |             |
+> > 	  |    | |	             |MUX|----|  PSR       |----|  RFS
+> > |--cdclk  |
+> > 	  |    | |              |         |      |_______|     |_______|
+> > |
+> > 	  |    | |--------->|        /
+> > |
+> > 	  |    |  op_clk1 |      /
+> > |
+> > 	  |    | 	             |_ /
+> > |
+> > 	  |    |___________________________________________|
+> > 	  |
+> > 	  |-----> To other FSD SoC Peripherals
+> 
+> > In FSD I2S, the clock source is not an independent source but a common
+> > clock source being shared by many IPs in the same domain.
+> 
+> > Changing the clock tree will impact other IPs in the domain as they
+> > are dependent on the same source for functionality.
+> 
+> I'm not sure I follow.  Perhaps your diagram is unclear but it looks like
+PSR and
+> RFS are both after a mux which appears to select which clock is going to
+be
+> used by the I2S controller?  The usage by other clocks appears to be
+> upstream of the mux and dividers.
+> 
+> > We can understand your point to bring the PSR changes under the I2S
+> > CPU DAI driver by adding a separate compatible and data for the FSD
+> > SoC. But If we take the example of existing sound cards such as
+> > sound/soc/samsung/tm2_wm5110.c, the op_clk is supplied via external
+> > audio pll to the controller and PLL configuration is taken care by the
+> > sound card. Since the configuration of PLL is more specific to the tm2
+> > platform, it makes use of the flexibility of changing the RFS and BFS
+> > using the sysclk and clkdiv hooks provided by exynos7-i2s CPU DAI
+> > along with PLL tuning for precise sampling frequency.
+> 
+> The big reason for the clocking control (and indeed having a custom
+machine
+> driver) with the WM5110 is that it has multiple clocks to control and a
+good
+> deal of flexibility with placing them in clock domains and so on which
+have
+> power and performance impacts.  It's frankly a bit unclear to me if the
+CPU
+> I2S controller even needs the bitclock configuring given that the clocks
+are
+> being driven by the CODEC there, but regardless it's not clear to me why
+the
+> I2S controller would need anything other than the input clock to the block
+> configuring?
+> 
+> > Similar to the above example, the choice of clock source under
+> > discussion is not a limitation of exynos7-i2s controller, but instead
+> > is a limitation on the FSD SoC.
+> > By using the proposed change, we can ensure that the exynos CPU DAI
+> > driver is giving additional hooks similar to existing hooks for BFS,
+> > RFS and CDCLK direction so that sound cards can use
+> > snd_soc_dai_set_sysclk and snd_soc_dai_set_clkdiv to customize the
+> > same.
+> 
+> I'm still not seeing anything that articulates why pushing the
+configuration of
+> the dividers within the block into the machine driver solves a problem
+here.
+> Again, what's the upside to configuring clocks that are purely within the
+> block?
+
+Okay, I can understand the reason for de-linking these changes from the
+machine
+Driver. I'll post the v2 patches integrating the PSR changes into cpu dai
+driver.
+
+Thanks,
+Padmanabhan R.
+

@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D58C65BAAD
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 07:39:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2626665BAC8
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 07:42:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA1E1C7F6;
-	Tue,  3 Jan 2023 07:38:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA1E1C7F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 548EFC823;
+	Tue,  3 Jan 2023 07:41:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 548EFC823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672727955;
-	bh=GMwLClyKXqvwtdNRvkwy0wY+YThJhyJxsmqfKkoF+Kg=;
-	h=From:To:In-Reply-To:Subject:Date:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=dKqByChnSTnc0HiPsmIwWPdFgRkgy8GNnqYtINZLT+XdLRODwWW+vo3w8++67StiG
-	 jZaszdd+IP8qGhieNdydi3iPt1D4ibnvp3ZFhhspTcfWuuz9+bEMGAW7nbnn7VK3GD
-	 Mc5eaH7+9Z668r+WA0iQOiFGU9zo+JUkm1REZrc4=
+	s=default; t=1672728128;
+	bh=N7LKRoNWo5qF/zXAbYhEKfZR3EEWYZDxbItjEaEHhB0=;
+	h=From:To:Subject:Date:References:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:Cc:From;
+	b=C6ZzTWmP3cXeTtZ1Z4qdkHFsQ/Q4rIqYrmkhgtc+KqIQ4jz4RHbK99lJz5/qLO/yl
+	 ftJCxNqpmkdshHr9JQAut1khJMQHOOF+aeHzZN8dotdLNBOtd3ZOrvMnjJRvvZsSHC
+	 i5/okqzCUUfCtZLX2WknItlnaZAVDztKT/3mCmAE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0397DF8001F;
-	Tue,  3 Jan 2023 07:38:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DE27F8001F;
+	Tue,  3 Jan 2023 07:41:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2297DF8001F; Tue,  3 Jan 2023 07:38:12 +0100 (CET)
+ id 9F343F804AA; Tue,  3 Jan 2023 07:41:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,115 +32,105 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 885ACF8001F
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 07:38:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 885ACF8001F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22F21F8001F
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 07:41:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F21F8001F
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=ETaGzmWo
+ header.s=mail20170921 header.b=ueCnYXFw
 Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20230103063758epoutp0407abbaa2a8e1762a8ab5f16a4867f046~2uSSO5lwW3192231922epoutp04n
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 06:37:58 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
- 20230103063758epoutp0407abbaa2a8e1762a8ab5f16a4867f046~2uSSO5lwW3192231922epoutp04n
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20230103064105epoutp03a114c9b0b00b0fccd958f4106207b322~2uVAvTlGz2513725137epoutp03f
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 06:41:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20230103064105epoutp03a114c9b0b00b0fccd958f4106207b322~2uVAvTlGz2513725137epoutp03f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1672727878;
- bh=XZvYlXgpWFcytY0b+WO4ljcktt6LBn91faP7lLVRS0g=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=ETaGzmWo6V/HN+r9W7LDnqPC9fmq+jeWXBs3LLJjeqdY9Twa5yJbsZJKhk6HbuvWR
- alJG1uJjESh1R85NcGTMPqnzDY6wXktTybbEzcYS1PTZYv3zyKoKYR05ydGwis85i2
- GlhXrAamoYFSb4CrsICiwEXLYtvJOtNvbuiIc9aA=
+ s=mail20170921; t=1672728065;
+ bh=sJrBsryZL8QBCKShIN5Y8ReoEPW8pUkX9vNKkHRbpRI=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=ueCnYXFwQAdeGYqrZPNotJ0gH/OcQOHEX4BGWV7CfcEk9dOakUiksdGcJeHApPs20
+ o2cebDaLyfuIZyZacnQA37MwW9Rern2FTWAw+4UdUvYS2CtYhXbykaN7u9Hs7u3MM5
+ rLtj33UMsWSCKQqGpobe0zIAZxJfQRaNs1ijFdFk=
 Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTP id
- 20230103063757epcas5p49588c838606addcd87eef2d793f0250c~2uSR4khOf2944229442epcas5p49;
- Tue,  3 Jan 2023 06:37:57 +0000 (GMT)
-Received: from epsmges5p3new.samsung.com (unknown [182.195.38.177]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4NmNMm28zGz4x9Pq; Tue,  3 Jan
- 2023 06:37:56 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
+ epcas5p3.samsung.com (KnoxPortal) with ESMTP id
+ 20230103064104epcas5p33bb2641ea1e66b4ea15a9d132cf81cd3~2uU-X139U1851818518epcas5p33;
+ Tue,  3 Jan 2023 06:41:04 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.179]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4NmNRL4kyXz4x9Q9; Tue,  3 Jan
+ 2023 06:41:02 +0000 (GMT)
+Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
  epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 74.38.03362.44DC3B36; Tue,  3 Jan 2023 15:37:56 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
- 20230103045506epcas5p4dae882d7ac7627f37f17572c3bf70760~2s4d3Y-XZ1872118721epcas5p4Q;
- Tue,  3 Jan 2023 04:55:06 +0000 (GMT)
+ 24.49.03362.EFDC3B36; Tue,  3 Jan 2023 15:41:02 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20230103045646epcas5p2a9c43bc3bd187ca69653239a0de73152~2s57QlceS2841728417epcas5p27;
+ Tue,  3 Jan 2023 04:56:46 +0000 (GMT)
 Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20230103045506epsmtrp2984e59cd9032a225c69b4608b4597947~2s4d2f5FQ0604406044epsmtrp2r;
- Tue,  3 Jan 2023 04:55:06 +0000 (GMT)
-X-AuditID: b6c32a4b-4e5fa70000010d22-ca-63b3cd441131
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20230103045646epsmtrp1eb30a7ec29e7ef8854b2317fbad38068~2s57L1MLP0134001340epsmtrp1S;
+ Tue,  3 Jan 2023 04:56:46 +0000 (GMT)
+X-AuditID: b6c32a4b-4e5fa70000010d22-17-63b3cdfea0ef
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
  epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- B7.D4.10542.925B3B36; Tue,  3 Jan 2023 13:55:05 +0900 (KST)
-Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20230103045503epsmtip141b657b6f85830aeca46b749e4eea160~2s4boh1T71253712537epsmtip1A;
- Tue,  3 Jan 2023 04:55:03 +0000 (GMT)
-From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
-To: "'Mark Brown'" <broonie@kernel.org>
-In-Reply-To: <Y2vlqatX7dfPJ3Zi@sirena.org.uk>
-Subject: RE: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
-Date: Tue, 3 Jan 2023 10:25:02 +0530
-Message-ID: <025401d91f2f$8bf78a00$a3e69e00$@samsung.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKFI9qd/qMOsyXBjKz4d8Q6MS4QvwJEXTuNARMAzQMCgN8f5gMWNkuwArAClEQCgEQWDwHlvOpzrLPsmiA=
-Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrCJsWRmVeSWpSXmKPExsWy7bCmuq7L2c3JBgv6+SwezNvGZnHl4iEm
- i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW3y70sFkcXnXHDaLGef3MVks2vqF3aJzVz+rxawLO1gt
- WvceYbc4/Kad1WLD97WMDvweGz43sXnsnHWX3WPTqk42jzvX9rB57Hu7jM2jb8sqRo/1W66y
- eHzeJBfAEZVtk5GamJJapJCal5yfkpmXbqvkHRzvHG9qZmCoa2hpYa6kkJeYm2qr5OIToOuW
- mQN0vZJCWWJOKVAoILG4WEnfzqYov7QkVSEjv7jEVim1ICWnwKRArzgxt7g0L10vL7XEytDA
- wMgUqDAhO+PXn/eMBceVKi5/PcvYwHhKsouRk0NCwETiw9bljF2MXBxCArsZJRq/n2eGcD4x
- SnxfMJEFwvnMKNE/cyczTMuixUvYIBK7GCX+L3oEVfWCUWLnzmY2kCo2AXOJRXuXMoLYIgLq
- Ekc3bWQFKWIW6GKW2HDkHQtIglNAV+LMqV1MILawgJfEmZ51YCtYBFQkTm/+ABbnFbCUuPl8
- DjOELShxcuYTsF5mAXmJ7W/nQJ2kIPHz6TJWiGVJEm1Hn7JB1IhLHP3ZA/aQhMAbDonOR3dY
- IBpcJJ7MvMMKYQtLvDq+hR3ClpL4/G4vG4SdLzHtYzOUXSHR9nEDE4RtL3HgyhygORxACzQl
- 1u/ShwjLSkw9tY4JYi+fRO/vJ1DlvBI75sHYqhLrl29ihLClJfZd38s4gVFpFpLXZiF5bRaS
- F2YhbFvAyLKKUTK1oDg3PbXYtMA4L7UcHuXJ+bmbGMHJW8t7B+OjBx/0DjEycTAeYpTgYFYS
- 4Z30YlOyEG9KYmVValF+fFFpTmrxIUZTYHhPZJYSTc4H5o+8knhDE0sDEzMzMxNLYzNDJXHe
- 1K3zk4UE0hNLUrNTUwtSi2D6mDg4pRqYUtqnFJUomZQuerLCT2jb1WNMfnYl3V2MqWYZfnW7
- r3+3dXxeWeCnu/OJilx9VMLe9rC2Nwq70s//uPf7nFjd5SArtsdnTWVuNcycu+qkSmS0g47+
- XsaAv3O8P+dxKTZlvT7/6vWcPLXn5lFLe37KzJQ9eujw5msnVDUP1F7wLsk984hJ0WL/9PO2
- yqwfLk9X0FPonBT0aK36aW0h6xtP5nxbn/CjdXvY3JZ1De8jrL/1lTPt2O1kfFdp7aauXlHm
- LzucbBjOLWh8zvxwtoRzwTW5D+cjFu44c2/mrOraLtbSVX8Fcw4u2iBbtkjvXeet/ec/S9/6
- m1/gK1GzlKOA7ctE3gnVDRpLQxadUzmmrMRSnJFoqMVcVJwIAE7otvJnBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrFIsWRmVeSWpSXmKPExsWy7bCSnK7m1s3JBj1LTSwezNvGZnHl4iEm
- i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW3y70sFkcXnXHDaLGef3MVks2vqF3aJzVz+rxawLO1gt
- WvceYbc4/Kad1WLD97WMDvweGz43sXnsnHWX3WPTqk42jzvX9rB57Hu7jM2jb8sqRo/1W66y
- eHzeJBfAEcVlk5Kak1mWWqRvl8CV8evPe8aC40oVl7+eZWxgPCXZxcjJISFgIrFo8RK2LkYu
- DiGBHYwS31o2MEMkpCWm9+9hg7CFJVb+e84OUfSMUWLZis1gCTYBc4lFe5cygtgiAuoSRzdt
- ZAUpYhaYwSxx6NYlVoiOBmaJ7d8XgHVwCuhKnDm1iwnEFhbwkjjTsw5sHYuAisTpzR/A4rwC
- lhI3n89hhrAFJU7OfMLSxcgBNFVPom0j2DJmAXmJ7W/nQF2qIPHz6TJWiCOSJNqOPmWDqBGX
- OPqzh3kCo/AsJJNmIUyahWTSLCQdCxhZVjFKphYU56bnFhsWGOWllusVJ+YWl+al6yXn525i
- BEevltYOxj2rPugdYmTiYDzEKMHBrCTCO+nFpmQh3pTEyqrUovz4otKc1OJDjNIcLErivBe6
- TsYLCaQnlqRmp6YWpBbBZJk4OKUamFT/7nz3xGNdldu9M4mujrNfnZGQOPA07comp8bbbT53
- Hhy/7LnYU2nSsy5nk3l/ywsONi3ktghnYF9WfOdrkfgeUYmuyTN39Tns+3/u0MUn55csOO/Q
- s/7Y/Oj4KSoBV2a1PM7WPbO9IcEu/DQfwyu+t60MOg2N8pX8zyTfv9i+PeQQe/i564udZufN
- XxM46ZrmlVaR+fWra++2Hd5Q6iX6QMvP8p9v9GltnlgDfrXmF/PnuV7OF3m6pa/ybH9zQmyM
- 0vU8lZij4redJd12zdf5dyzvmz3HZqu+dRseMC1KfLPivVtM5u2b2crWi/WrpV4efDZBr7F3
- kdWxPzM6zW6Zm5cwaOkIzg/i4lv7MUKJpTgj0VCLuag4EQDN3wZCTQMAAA==
-X-CMS-MailID: 20230103045506epcas5p4dae882d7ac7627f37f17572c3bf70760
+ 78.05.10542.E85B3B36; Tue,  3 Jan 2023 13:56:46 +0900 (KST)
+Received: from cheetah.sa.corp.samsungelectronics.net (unknown
+ [107.109.115.53]) by epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20230103045643epsmtip2c7798c7769dce991de46496089b04bc8~2s5411mp90074100741epsmtip2p;
+ Tue,  3 Jan 2023 04:56:43 +0000 (GMT)
+From: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, s.nawrocki@samsung.com, perex@perex.cz,
+ tiwai@suse.com, pankaj.dubey@samsung.com, alim.akhtar@samsung.com,
+ rcsekar@samsung.com, aswani.reddy@samsung.com
+Subject: [PATCH v2 0/5] ASoC: samsung: fsd: audio support for FSD SoC
+Date: Tue,  3 Jan 2023 10:26:08 +0530
+Message-Id: <20230103045613.100309-1-p.rajanbabu@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprAJsWRmVeSWpSXmKPExsWy7bCmpu6/s5uTDXaeVrV4MG8bm8WVi4eY
+ LA5t3spuMfXhEzaL+UfOsVr0vXjIbPHtSgeTxeVdc9gsZpzfx2RxdGOwxaKtX9gtOnf1s1rM
+ urCD1aJ17xF2i8Nv2lktNnxfy+gg4LHhcxObx85Zd9k9Nq3qZPO4c20Pm8e+t8vYPPq2rGL0
+ WL/lKovH501yARxR2TYZqYkpqUUKqXnJ+SmZeem2St7B8c7xpmYGhrqGlhbmSgp5ibmptkou
+ PgG6bpk5QB8oKZQl5pQChQISi4uV9O1sivJLS1IVMvKLS2yVUgtScgpMCvSKE3OLS/PS9fJS
+ S6wMDQyMTIEKE7IzJjTNYSzYwVWxZ+U89gbGXo4uRk4OCQETiSNrZjN3MXJxCAnsZpQ4vXc7
+ K4TziVHiwOtWNgjnM6PE+8+L2GBaFs1/yApiCwnsYpQ42h0BUdTKJDF9/R9GkASbgKnEqjmN
+ YKNEBJqYJNreTGQBcZgFNgItOfaQCaRKWMBV4vvvu2AdLAKqEh+ObmEGsXkFbCXWvO+FWicv
+ sXrDAbALJQRaOSQ+TZzLApFwkWjZOoEVwhaWeHV8CzuELSXxsr8Nys6XmPaxGWpQhUTbxw1M
+ ELa9xIErc4DmcABdpCmxfpc+RFhWYuqpdWAlzAJ8Er2/n0CV80rsmAdjq0qsX76JEcKWlth3
+ fS+U7SFxtW8ZNFhiJZq73jJOYJSdhbBhASPjKkbJ1ILi3PTUYtMC47zUcnhUJefnbmIEJ00t
+ 7x2Mjx580DvEyMTBeIhRgoNZSYR30otNyUK8KYmVValF+fFFpTmpxYcYTYFhNpFZSjQ5H5i2
+ 80riDU0sDUzMzMxMLI3NDJXEeVO3zk8WEkhPLEnNTk0tSC2C6WPi4JRqYArrj2e6q7L80csE
+ I/bqJM2HyjMZvW6s2KM9LWGdg8cn3tZa60MzqhplksQ/e16+K3lp24J1TlqqIvaCd74/8LCr
+ L7pj6NU/V/hc1y59Do9XFakeqVHclya35y5YMf8ej01coNj0YPbq3OjZf0y0guNemZXOfnEw
+ 9uTl12HXNr897ak848g652Py9r84DTKVv945XNUuY9sgH7LNOztlK9/8PevPWpa1RHXOc+Ku
+ 6nVtaNC0CDWZe6Rpxf26eJHvmYFCP35udf0y43pstuecaFeZkqYpEvIntSUv207aNWEiq2lb
+ jUa9pexEuZA07rXq63cGr0u7vPLO+ZWy2rP6NZfftHjOZ52W9mLmxP++SizFGYmGWsxFxYkA
+ 7lf+uyMEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrNLMWRmVeSWpSXmKPExsWy7bCSvG7f1s3JBidfsls8mLeNzeLKxUNM
+ Foc2b2W3mPrwCZvF/CPnWC36Xjxktvh2pYPJ4vKuOWwWM87vY7I4ujHYYtHWL+wWnbv6WS1m
+ XdjBatG69wi7xeE37awWG76vZXQQ8NjwuYnNY+esu+wem1Z1snncubaHzWPf22VsHn1bVjF6
+ rN9ylcXj8ya5AI4oLpuU1JzMstQifbsErowJTXMYC3ZwVexZOY+9gbGXo4uRk0NCwERi0fyH
+ rF2MXBxCAjsYJU49m88GkZCWmN6/B8oWllj57zk7RFEzk8S+K9vAEmwCphKr5jSCdYsITGCS
+ OPnuGAtIgllgK6PE1M9GILawgKvE9993GUFsFgFViQ9HtzCD2LwCthJr3vdCbZCXWL3hAPME
+ Rp4FjAyrGCVTC4pz03OLDQuM8lLL9YoTc4tL89L1kvNzNzGCw1dLawfjnlUf9A4xMnEwHmKU
+ 4GBWEuGd9GJTshBvSmJlVWpRfnxRaU5q8SFGaQ4WJXHeC10n44UE0hNLUrNTUwtSi2CyTByc
+ Ug1M+UHiG9esrk8/F6+g/bb5nexUJ7+dN7yeXGOb2b3IQZ519cbqgzaZbM02et/1ztnlOC2Z
+ eX5hXP+K7s3J87Ll19kv+5jNFPn6yLuo18ue9zxRW93R/6q9cNGUSRP8m/e82X3RZlnFhv5T
+ S5I12naG6R1xyLyZ5xRy8vCjmh2em4RmWP9imfU3R6bepfAo+0+GIKZ8yzUXHkZtSK1+VHj5
+ Nsft787bsj7PWCO+4HewDVMcj+uKVIntN9YIsq5KfPZDXk6fz/Rq+7Qjc5/P/qC0XHTFM2nH
+ 33xqBfdjquv6BeJYZnteif3/LfScX9Y0q1zp2doByjuqRMXKpbqeKP6oit3WLfhl/U2fInnm
+ W7zXlFiKMxINtZiLihMBMlzURM4CAAA=
+X-CMS-MailID: 20230103045646epcas5p2a9c43bc3bd187ca69653239a0de73152
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120
-References: <20221014102151.108539-1-p.rajanbabu@samsung.com>
- <CGME20221014104857epcas5p2a275a1d606ca066227228d13bcf5b120@epcas5p2.samsung.com>
- <20221014102151.108539-3-p.rajanbabu@samsung.com>
- <Y0lPz91gbovAub9D@sirena.org.uk>
- <04a101d8e523$30804b80$9180e280$@samsung.com>
- <Y1KIT4nk7C8SQ45x@sirena.org.uk>
- <01ba01d8f332$44eb3810$cec1a830$@samsung.com>
- <Y2vlqatX7dfPJ3Zi@sirena.org.uk>
+X-CMS-RootMailID: 20230103045646epcas5p2a9c43bc3bd187ca69653239a0de73152
+References: <CGME20230103045646epcas5p2a9c43bc3bd187ca69653239a0de73152@epcas5p2.samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,119 +144,42 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The intention of this patch series is to enable audio support on FSD SoC.
 
+Changes in v2:
+1. New compatible added in Exynos I2S driver for FSD platform.
+2. Added Fixup support for Exynos I2S CPU DAI.
+3. Migration of manual PSR, OPCLK configuration to Exynos CPU DAI driver as
+fixup.
+4. Migrated from dedicated sound card to simple audio card.
+5. Support added for tlv320aic3x-i2c codec on FSD platform.
 
-> -----Original Message-----
-> From: Mark Brown [mailto:broonie@kernel.org]
-> Sent: 09 November 2022 11:09 PM
-> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-> Cc: lgirdwood@gmail.com; robh+dt@kernel.org;
-> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
-> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
-> alim.akhtar@samsung.com; rcsekar@samsung.com;
-> aswani.reddy@samsung.com; alsa-devel@alsa-project.org;
-> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-samsung-
-> soc@vger.kernel.org
-> Subject: Re: [PATCH 2/6] ASoC: samsung: i2s: configure PSR from sound card
-> 
-> On Tue, Nov 08, 2022 at 10:53:40AM +0530, Padmanabhan Rajanbabu wrote:
-> 
-> > > > We can overcome this scenario to an extent if we can get a
-> > > > flexibility to Configure both PSR as well as RFS.
-> 
-> > > Why does it make sense for the machine driver to worry about this
-> > > rather than having the I2S controller driver configure the clock tree?
-> 
-> > _____           |                  __
-> > |
-> > |         |	        |	             |   \
-> > |
-> > |CMU|	        |	             |     \
-> > |
-> > |FSD  |-  |---|-|--------->|       \        _________    _________
-> > |
-> > |___  |    |    | |op_clk0|         |      |               |     |
-> > |             |
-> > 	  |    | |	             |MUX|----|  PSR       |----|  RFS
-> > |--cdclk  |
-> > 	  |    | |              |         |      |_______|     |_______|
-> > |
-> > 	  |    | |--------->|        /
-> > |
-> > 	  |    |  op_clk1 |      /
-> > |
-> > 	  |    | 	             |_ /
-> > |
-> > 	  |    |___________________________________________|
-> > 	  |
-> > 	  |-----> To other FSD SoC Peripherals
-> 
-> > In FSD I2S, the clock source is not an independent source but a common
-> > clock source being shared by many IPs in the same domain.
-> 
-> > Changing the clock tree will impact other IPs in the domain as they
-> > are dependent on the same source for functionality.
-> 
-> I'm not sure I follow.  Perhaps your diagram is unclear but it looks like
-PSR and
-> RFS are both after a mux which appears to select which clock is going to
-be
-> used by the I2S controller?  The usage by other clocks appears to be
-> upstream of the mux and dividers.
-> 
-> > We can understand your point to bring the PSR changes under the I2S
-> > CPU DAI driver by adding a separate compatible and data for the FSD
-> > SoC. But If we take the example of existing sound cards such as
-> > sound/soc/samsung/tm2_wm5110.c, the op_clk is supplied via external
-> > audio pll to the controller and PLL configuration is taken care by the
-> > sound card. Since the configuration of PLL is more specific to the tm2
-> > platform, it makes use of the flexibility of changing the RFS and BFS
-> > using the sysclk and clkdiv hooks provided by exynos7-i2s CPU DAI
-> > along with PLL tuning for precise sampling frequency.
-> 
-> The big reason for the clocking control (and indeed having a custom
-machine
-> driver) with the WM5110 is that it has multiple clocks to control and a
-good
-> deal of flexibility with placing them in clock domains and so on which
-have
-> power and performance impacts.  It's frankly a bit unclear to me if the
-CPU
-> I2S controller even needs the bitclock configuring given that the clocks
-are
-> being driven by the CODEC there, but regardless it's not clear to me why
-the
-> I2S controller would need anything other than the input clock to the block
-> configuring?
-> 
-> > Similar to the above example, the choice of clock source under
-> > discussion is not a limitation of exynos7-i2s controller, but instead
-> > is a limitation on the FSD SoC.
-> > By using the proposed change, we can ensure that the exynos CPU DAI
-> > driver is giving additional hooks similar to existing hooks for BFS,
-> > RFS and CDCLK direction so that sound cards can use
-> > snd_soc_dai_set_sysclk and snd_soc_dai_set_clkdiv to customize the
-> > same.
-> 
-> I'm still not seeing anything that articulates why pushing the
-configuration of
-> the dividers within the block into the machine driver solves a problem
-here.
-> Again, what's the upside to configuring clocks that are purely within the
-> block?
+Changes in v1:
+1. Add TDM support on samsung I2S interface.
+2. Allow sound card to directly configure I2S prescaler divider instead of
+calculating it from frame clock.
+3. The sound card support for FSD SoC which utilizes samsung I2S interface
+as CPU DAI.
 
-Okay, I can understand the reason for de-linking these changes from the
-machine
-Driver. I'll post the v2 patches integrating the PSR changes into cpu dai
-driver.
+Padmanabhan Rajanbabu (5):
+  ASoC: samsung-i2s: add FSD compatibile string
+  ASoC: samsung: i2s: add support for FSD I2S
+  arm64: dts: fsd: Add I2S DAI node for Tesla FSD
+  arm64: dts: fsd: Add codec node for Tesla FSD
+  arm64: dts: fsd: Add sound card node for Tesla FSD
 
-Thanks,
-Padmanabhan R.
+ .../bindings/sound/samsung-i2s.yaml           |  4 ++
+ arch/arm64/boot/dts/tesla/fsd-evb.dts         | 59 +++++++++++++++++++
+ arch/arm64/boot/dts/tesla/fsd-pinctrl.dtsi    | 14 +++++
+ arch/arm64/boot/dts/tesla/fsd.dtsi            | 34 +++++++++++
+ sound/soc/samsung/i2s.c                       | 57 ++++++++++++++++++
+ 5 files changed, 168 insertions(+)
+
+-- 
+2.17.1
 

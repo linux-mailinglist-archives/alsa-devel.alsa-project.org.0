@@ -2,98 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93BB065C3E2
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 17:27:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCE3E65C420
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 17:41:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1393530A;
-	Tue,  3 Jan 2023 17:27:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1393530A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66CF2730E;
+	Tue,  3 Jan 2023 17:40:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66CF2730E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672763274;
-	bh=CZ5jQxUZ/A8eEHJqgKv81eL++P47gI2oxmhDh0VWePw=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672764081;
+	bh=BGgs+QYUOjIFHxW2yTZDRX9cwQNvq/RtUIGrPk5Dkro=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LqMgISBvDJ3SHPFz0IgvNp33pr6vMOA1AosB5j0eBMgVkqo+HLRuvxI2QFZghOiV9
-	 WRYk2miyV7TwBdiIZCbfIqsi04vvXE6TA91hvkSE5M8myIl+IiyLo0lm2OesNgtftd
-	 4CxfPXhUL9hClPacyaBK/hOVDWFoYKqJ3RdeOTJA=
+	b=bliH5zE+ZlgJ9N0WJMbyViGp1taabbtfuWTaJ65nNXgPaf1TV577Nl0SOGyRQ9T3s
+	 i7caVer8e4KeQdHYet5S0jAXPucV3G8g+KbEAzL3BX8jgl0SVi2mSvcZDaEoaqCT+B
+	 xc/XCUA8wYeJA0y6Ts42aKNC00zIrweBWc3cvCp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22433F8003C;
-	Tue,  3 Jan 2023 17:26:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62952F804AA;
+	Tue,  3 Jan 2023 17:40:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FE91F8047B; Tue,  3 Jan 2023 17:26:53 +0100 (CET)
+ id E473FF8047B; Tue,  3 Jan 2023 17:40:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 763DBF8003C
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 17:26:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 763DBF8003C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=n5WwMClm; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=l6rnYthX
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6045B67E98;
- Tue,  3 Jan 2023 16:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672763210; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pY3jzxaENXIf/F3kBvSDUUjACo7aZEQ2xT84WOtvWIk=;
- b=n5WwMClmrUr7C2YCBNPycTpVcSloPJI1OglbHOsK8t9WzilezolS7QWZrQ8qqTqIkN5rDj
- snD0mmlZq3QycW75tvRiXjGuoaTGbo1sPkm4/nPkC0l7JZnLw3SueSgfojywtwV56AqG6j
- L4nxwqvz/gJ9SNhB4M8XQoFPf9N970o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672763210;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pY3jzxaENXIf/F3kBvSDUUjACo7aZEQ2xT84WOtvWIk=;
- b=l6rnYthXUigefSFln7FGpieHONOnzIhQMunHWDr38i7I1JNuE6waHuv8b58c60K3lFj73P
- h0tt/TNEVtLMUfCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23E581392B;
- Tue,  3 Jan 2023 16:26:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zvP5B0pXtGPjDAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 03 Jan 2023 16:26:50 +0000
-Date: Tue, 03 Jan 2023 17:26:49 +0100
-Message-ID: <87sfgrpos6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [regression,
- 5.10.y] Bug 216861 - sound disappearance on Acer Swift 3
- SF314-59-78UR after update to 5.10.157
-In-Reply-To: <87h6x7r7w6.wl-tiwai@suse.de>
-References: <bebd692d-7d21-6648-6b7a-c91063bb51c2@leemhuis.info>
- <Y7K1WDmPYi3EMOn1@eldamar.lan> <87wn65umye.wl-tiwai@suse.de>
- <CALp6mkJhM1zDcNr9X_7WL09+uqcaAhNFFMhrjme0r7584O+Lgw@mail.gmail.com>
- <CALp6mk+rdqGXySUowxZv3kEEVWrh96m_x-h8xcFNQ9YZPkbc5w@mail.gmail.com>
- <87h6x7r7w6.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-8.1 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id F403AF803DC
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 17:40:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F403AF803DC
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 819861516;
+ Tue,  3 Jan 2023 08:40:51 -0800 (PST)
+Received: from [10.1.196.40] (e121345-lin.cambridge.arm.com [10.1.196.40])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 804AE3F71A;
+ Tue,  3 Jan 2023 08:40:07 -0800 (PST)
+Message-ID: <832f3200-77ac-1ee0-e1b5-5f56353cba36@arm.com>
+Date: Tue, 3 Jan 2023 16:39:59 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v2 2/3] iommu/sound: Use component_match_add_of helper
+Content-Language: en-GB
+To: Maxime Ripard <maxime@cerno.tech>
+References: <20221222233759.1934852-1-sean.anderson@seco.com>
+ <20221222233759.1934852-3-sean.anderson@seco.com>
+ <7897d4a6-bf43-becd-3437-7a254f38f6be@arm.com>
+ <20230103161550.4tui3ihl65olvkd7@houat>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <20230103161550.4tui3ihl65olvkd7@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,144 +69,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>,
- =?ISO-8859-1?Q?P=C1LFFY_D=E1niel?= <dpalffy@gmail.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Sergey <zagagyka@basealt.ru>
+Cc: alsa-devel@alsa-project.org, Daniel Vetter <daniel@ffwll.ch>,
+ Liam Girdwood <lgirdwood@gmail.com>, Sean Anderson <sean.anderson@seco.com>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, David Airlie <airlied@gmail.com>,
+ Yong Wu <yong.wu@mediatek.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Jan 2023 15:48:41 +0100,
-Takashi Iwai wrote:
+On 03/01/2023 4:15 pm, Maxime Ripard wrote:
+> Hi Robin,
 > 
-> On Tue, 03 Jan 2023 14:04:50 +0100,
-> PÁLFFY Dániel wrote:
-> > 
-> > And confirming, 5.10.161 with e8444560b4d9302a511f0996f4cfdf85b628f4ca
-> > and 636110411ca726f19ef8e87b0be51bb9a4cdef06 cherry-picked works for
-> > me.
+> On Tue, Jan 03, 2023 at 01:01:07PM +0000, Robin Murphy wrote:
+>> Hi Sean,
+>>
+>> On 22/12/2022 11:37 pm, Sean Anderson wrote:
+>>> Convert users of component_match_add_release with component_release_of
+>>> and component_compare_of to component_match_add_of.
+>>>
+>>> Signed-off-by: Sean Anderson <sean.anderson@seco.com>
+>>> Acked-by: Mark Brown <broonie@kernel.org>
+>>> ---
+>>>
+>>> Changes in v2:
+>>> - Split off from helper addition
+>>>
+>>>    drivers/iommu/mtk_iommu.c    | 3 +--
+>>>    drivers/iommu/mtk_iommu_v1.c | 3 +--
+>>>    sound/soc/codecs/wcd938x.c   | 6 ++----
+>>>    3 files changed, 4 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
+>>> index 2ab2ecfe01f8..483b7a9e4410 100644
+>>> --- a/drivers/iommu/mtk_iommu.c
+>>> +++ b/drivers/iommu/mtk_iommu.c
+>>> @@ -1079,8 +1079,7 @@ static int mtk_iommu_mm_dts_parse(struct device *dev, struct component_match **m
+>>>    		}
+>>>    		data->larb_imu[id].dev = &plarbdev->dev;
+>>> -		component_match_add_release(dev, match, component_release_of,
+>>> -					    component_compare_of, larbnode);
+>>> +		component_match_add_of(dev, match, larbnode);
+>>
+>> I've long since given up trying to make sense of how the DRM tree works, but
+>> the conflicting change is definitely already in mainline:
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=b5765a1b44bea9dfcae69c53ffeb4c689d0922a7
 > 
-> That's a good news.  Then we can ask stable people to pick up those
-> commits for 5.10.y and 5.15.y.
+> As far as I can see, that patch doesn't affect DRM at all, and the
+> commit you pointed to doesn't either, nor has it been merged through the
+> DRM tree.
 
-I confirmed that the latest 5.15.y requires those fixes, too.
+Right it doesn't affect DRM, and was merged via the IOMMU tree, but it 
+does affect *this* patch, which Sean has based on a drm-next branch that 
+seemingly still wasn't up to date with 6.2-rc1 at the time.
 
-Greg, could you cherry-pick the following two commits to both 5.10.y
-and 5.15.y stable trees?  This fixes the recent regression caused by
-the backport of 39bd801d6908.
+Since v2 had already been posted, it seemed like a bright idea to 
+comment here to clarify that it was still relevant, rather than bumping 
+the old thread to reply directly. Apologies for any confusion.
 
-e8444560b4d9302a511f0996f4cfdf85b628f4ca
-    ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+In practical terms I think it's merely a case of dropping this hunk; the 
+other one in mtk_iommu_v1.c looks fine to me.
 
-636110411ca726f19ef8e87b0be51bb9a4cdef06
-    ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
+Cheers,
+Robin.
 
-
-Thanks!
-
-Takashi
-
+> Can you expand a bit on how we're involved in this, what we should
+> clarify or help with?
 > 
-> 
-> Takashi
-> 
-> > 
-> > On Tue, Jan 3, 2023 at 1:05 PM PÁLFFY Dániel <dpalffy@gmail.com> wrote:
-> > >
-> > > Another report: https://bugs.archlinux.org/task/76795
-> > > Apparently, folks at alsa-devel traced down the dependencies of that patch, see the mail thread at https://lore.kernel.org/all/dc65501c-c2fd-5608-c3d9-7cea184c3989%40opensource.cirrus.com/
-> > >
-> > > On Mon, Jan 2, 2023 at 1:42 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > >>
-> > >> On Mon, 02 Jan 2023 11:43:36 +0100,
-> > >> Salvatore Bonaccorso wrote:
-> > >> >
-> > >> > Hi,
-> > >> >
-> > >> > [Adding as well Richard Fitzgerald and PÁLFFY Dániel to recipients]
-> > >> >
-> > >> > On Fri, Dec 30, 2022 at 09:08:57AM +0100, Thorsten Leemhuis wrote:
-> > >> > > Hi, this is your Linux kernel regression tracker speaking.
-> > >> > >
-> > >> > > I noticed a regression report in bugzilla.kernel.org. As many (most?)
-> > >> > > kernel developer don't keep an eye on it, I decided to forward it by
-> > >> > > mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216861 :
-> > >> > >
-> > >> > > >  Sergey 2022-12-29 10:07:51 UTC
-> > >> > > >
-> > >> > > > Created attachment 303497 [details]
-> > >> > > > pulseaudio.log
-> > >> > > >
-> > >> > > > Sudden sound disappearance was reported for some laptops, e.g.
-> > >> > > >
-> > >> > > > Acer Swift 3 SF314-59-78UR 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-> > >> > > >
-> > >> > > > # lspci
-> > >> > > > 0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller (rev 20)
-> > >> > > >         Subsystem: Acer Incorporated [ALI] Device 148c
-> > >> > > >         Flags: bus master, fast devsel, latency 32, IRQ 197, IOMMU group 12
-> > >> > > >         Memory at 601f270000 (64-bit, non-prefetchable) [size=16K]
-> > >> > > >         Memory at 601f000000 (64-bit, non-prefetchable) [size=1M]
-> > >> > > >         Capabilities: [50] Power Management version 3
-> > >> > > >         Capabilities: [80] Vendor Specific Information: Len=14 <?>
-> > >> > > >         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
-> > >> > > >         Kernel driver in use: sof-audio-pci
-> > >> > > >
-> > >> > > > I am attaching the pulseaudio and dmesg logs
-> > >> > > >
-> > >> > > > This bug started reproducing after updating the kernel from 5.10.156 to 5.10.157
-> > >> > > >
-> > >> > > > Bisection revealed the commit being reverted:
-> > >> > > >
-> > >> > > > c34db0d6b88b1da95e7ab3353e674f4f574cccee is the first bad commit
-> > >> > > > commit c34db0d6b88b1da95e7ab3353e674f4f574cccee
-> > >> > > > Author: Richard Fitzgerald <rf@opensource.cirrus.com>
-> > >> > > > Date:   Fri Nov 4 13:22:13 2022 +0000
-> > >> > > >
-> > >> > > >     ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
-> > >> > > >
-> > >> > > >     [ Upstream commit 39bd801d6908900e9ab0cdc2655150f95ddd4f1a ]
-> > >> > > >
-> > >> > > >     The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
-> > >> > > >     and used by later code that depends on the TDM settings. So
-> > >> > > >     __soc_pcm_open() should not be obliterating those mask values.
-> > >> > > >
-> > >> > > > [...]
-> > >> > > > Original bug report: https://bugzilla.altlinux.org/44690
-> > >> > >
-> > >> > > See the ticket for more details.
-> > >> > >
-> > >> > > BTW, let me use this mail to also add the report to the list of tracked
-> > >> > > regressions to ensure it's doesn't fall through the cracks:
-> > >> > >
-> > >> > > #regzbot introduced: c34db0d6b88b1d
-> > >> > > https://bugzilla.kernel.org/show_bug.cgi?id=216861
-> > >> > > #regzbot title: sound: asoc: sudden sound disappearance
-> > >> > > #regzbot ignore-activity
-> > >> >
-> > >> > FWIW, we had as well reports in Debian after having updated the kernel
-> > >> > from 5.10.149 based one to 5.10.158 based one in the last point
-> > >> > releases, they are at least:
-> > >> >
-> > >> > https://bugs.debian.org/1027483
-> > >> > https://bugs.debian.org/1027430
-> > >>
-> > >> I got another report while the commit was backported to 5.14-based
-> > >> openSUSE Leap kernel, and I ended up with dropping it.
-> > >>
-> > >> So, IMO, it's safer to drop this patch from the older stable trees.
-> > >> As far as I see, 5.15.y and 5.10.y got this.
-> > >>
-> > >> Unless anyone gives a better fix, I'm going to submit a revert patch
-> > >> for those trees.
-> > >>
-> > >>
-> > >> thanks,
-> > >>
-> > >> Takashi
-> > 
-> 
+> Maxime

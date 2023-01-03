@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9634865C5CB
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 19:10:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32BB65C74D
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 20:18:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 241FA5F54;
-	Tue,  3 Jan 2023 19:09:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 241FA5F54
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF1162BC;
+	Tue,  3 Jan 2023 20:17:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF1162BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672769434;
-	bh=M+guTx9/MFdaM/g9JD7GIaQjt1whUIAEus/BUJ/qVW0=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1672773501;
+	bh=rHCesJ+cl5D0m6koH1aTaI1S1JP4QlOBXoCX2LsSXr4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=tPqFXMRrYYrfcR5KoX21ViFZKs6Fol6JgMkcsKW129qBNXoD2goaQKEoy/0pK4exa
-	 d9Dd3HL9W9UlMy+rR4kzpG/SteTGzSg2Rukk9tzslxHMb8jqABZenM+a0Pfat2H4MZ
-	 frcaNcDVNKd7TP8q+LF/1dZ4yDhxkFAOsN+XVhSc=
+	b=d5wqH5vYu934EKJ0I2olrhRn9GPZoIpGvm8xeJpQYFQBkXSRQixzQUGth+9RigFBM
+	 ImRumtqhINt1iacAK6m1VfykaJ15wXjdurLP+b8LJuo9LvEl5G4XI9C3Gr3nowetD9
+	 f+evw6As7yr6j4Tisll7cXYHrSjJQg/cZFszzhm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA5F1F8003C;
-	Tue,  3 Jan 2023 19:09:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 636CEF89633;
+	Tue,  3 Jan 2023 20:00:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94D98F804AA; Tue,  3 Jan 2023 19:09:32 +0100 (CET)
+ id 14314F89630; Tue,  3 Jan 2023 20:00:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 000AEF8003C
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 19:09:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 000AEF8003C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 790F4F8962C
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 20:00:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 790F4F8962C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aK/PvWiJ
+ header.s=k20201202 header.b=cTnXHpSy
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5D20C614B4;
- Tue,  3 Jan 2023 18:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB81C433D2;
- Tue,  3 Jan 2023 18:09:25 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9E915CE12B2;
+ Tue,  3 Jan 2023 19:00:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E434C433D2;
+ Tue,  3 Jan 2023 19:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672769368;
- bh=M+guTx9/MFdaM/g9JD7GIaQjt1whUIAEus/BUJ/qVW0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aK/PvWiJ0IC/szabV2T3ucI2bbelhC5VEhUGImiCMvL4xSd7gEP89zAHFKL56PGvK
- kgOiX+0uePgsZ8B3qX+GL2Fwpd2qvd2POGDAgoein1yukl4H5Lr4/2uIjTiJVfWKoK
- Dmyr3gLhNUxH6/xObRVsiw3/xIt7ddUn0NDaep9ozLf+PUu1fPd3n4+M8SPBSDkeX1
- KJa7JONexbyP+Q3JjghGzMcP3nTw1OLOWFgqFfU1C7/bvX/CFAf1j4uk+v8y93u5tB
- RmbmkFbnJRNPJGYuSAnnrKSwajaRUJcZTmZ5wLGW877H987VgYXREW9XQC3vujh4OP
- MaJC32NLQAc1w==
-Date: Tue, 3 Jan 2023 18:09:22 +0000
+ s=k20201202; t=1672772436;
+ bh=rHCesJ+cl5D0m6koH1aTaI1S1JP4QlOBXoCX2LsSXr4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=cTnXHpSyIEdGcRaodXG6vuQlwK3BlDoYkOCL5PJ7r+AEH6Q0vwEHT9gryvePz0b6W
+ ndlum+j8MaFUZzyTsyjTfupr8k+C1eXaJxOfpGWqIF/s9evyoh8/a8Y4ansZQ9ak9d
+ zq93zRzzTEtj+ZWL7d8mii3sQIDN2AakkxqmGaJ8yBhJz094Je+jznLVShktIUgwvN
+ CrN7n2nQkgVKb8ST8se1YZRroEJYcvFwVIDoPkbt5Xxqz+gnZSRwKSSAuFIF5nndIs
+ gi1e7eGxa2nv4ASv9HKBukSZ7BxNLGmx4nny7xedxpqxE8m4/wJeav5PSl98fxSjBQ
+ ZJ/X8NiL5W1gw==
 From: Mark Brown <broonie@kernel.org>
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-Subject: Re: [PATCH v2 2/5] ASoC: samsung: i2s: add support for FSD I2S
-Message-ID: <Y7RvUlIuXQLUHEna@sirena.org.uk>
-References: <20230103045613.100309-1-p.rajanbabu@samsung.com>
- <CGME20230103045655epcas5p1af06a83208190c471e8cd891ef4760f3@epcas5p1.samsung.com>
- <20230103045613.100309-3-p.rajanbabu@samsung.com>
+To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
+In-Reply-To: <20230103073704.722027-1-brent.lu@intel.com>
+References: <20230103073704.722027-1-brent.lu@intel.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_ssp_amp: remove unused variable
+Message-Id: <167277243396.325583.15307745179196438624.b4-ty@kernel.org>
+Date: Tue, 03 Jan 2023 19:00:33 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gcxAJ25eGCCq6ZtM"
-Content-Disposition: inline
-In-Reply-To: <20230103045613.100309-3-p.rajanbabu@samsung.com>
-X-Cookie: So many men
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-7ab1d
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,49 +81,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- rcsekar@samsung.com, aswani.reddy@samsung.com, pankaj.dubey@samsung.com,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- alim.akhtar@samsung.com, linux-kernel@vger.kernel.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 03 Jan 2023 15:37:04 +0800, Brent Lu wrote:
+> The variable becomes useless since we moved the snd_soc_jack
+> structure from a static array to sof_hdmi_pcm structure.
+> 
+> 
 
---gcxAJ25eGCCq6ZtM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Jan 03, 2023 at 10:26:10AM +0530, Padmanabhan Rajanbabu wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> +void fsd_i2s_fixup_early(struct snd_pcm_substream *substream,
-> +		struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +	struct i2s_dai *i2s = to_info(asoc_rtd_to_cpu(rtd, 0));
-> +	struct i2s_dai *other = get_other_dai(i2s);
-> +
-> +	if (!is_opened(other)) {
-> +		i2s_set_sysclk(dai, SAMSUNG_I2S_CDCLK, 192, SND_SOC_CLOCK_OUT);
-> +		i2s_set_sysclk(dai, SAMSUNG_I2S_OPCLK, 0, MOD_OPCLK_PCLK);
-> +	}
-> +}
+Thanks!
 
-This looks like we're just hard coding to 192kHz?
+[1/1] ASoC: Intel: sof_ssp_amp: remove unused variable
+      commit: 03178b4f7e2c59ead102e5ab5acb82ce1eaefe46
 
---gcxAJ25eGCCq6ZtM
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO0b1EACgkQJNaLcl1U
-h9Dtpwf/QBcLyOstOlusyhiszKaJsdbQq5jWmUNMELBJe4e8mvmusHElUqb3+OoE
-jY2c7i7PWNP3Oi/MeieAOfGJeAB8W4MMyIqVor6A/rpdG4Rpi8oqrjDuO6T94nBJ
-staf9152tPNf3feG+I1WMH7K4wHkuSuByqwfES2Gd/AC5CLW5mAsJ7LdCA9isCwB
-60ZM6zs3NIOBTTOfTx6Hpr5WCKYLUOCVCBfQ5BfvncrS2Hygd+fgfFaEPCN5Q5vQ
-2NuVyFfIToDz6VYW4dJ2C/NKS4UG8633qDg2KZHA/u94L7FzPZLDlHExBIbQARX0
-nFuJFOwzX7ip//+J74ftTHpOUeFPqA==
-=GVZ8
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---gcxAJ25eGCCq6ZtM--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

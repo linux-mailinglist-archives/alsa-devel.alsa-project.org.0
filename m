@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE4665C2D4
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 16:16:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB6865C2E2
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 16:21:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DAEEE3CD;
-	Tue,  3 Jan 2023 16:15:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DAEEE3CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29E85E406;
+	Tue,  3 Jan 2023 16:20:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29E85E406
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672758991;
-	bh=hLcII6jMGOCSjmx7dWL2WRwK1YhBhRy/4N8nf33bmio=;
+	s=default; t=1672759275;
+	bh=toc2JlbFoFF7NCVVERtHpnT/bR/h+KwjZbozt2IXEQw=;
 	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=CGfe/vwDbYLjtDV4hg5RLy3k5z/+rC/XLyeS+t+Etp8SVVCJDXLe4I+vj1yovSX0O
-	 /2/tiL+UiZ2jaRrvV9g2II4NIUBfSsAN4TGNpnqe/jIYUv91T0CMVYRu8cBSo+0zs3
-	 iy5X9cMLhFUEDaJ1nAizUnpGis4dKhfEDS480I8c=
+	b=FfuvDGBXk2Rx224QDbye1uJNSi9r8ZPmVUkyu77jdlpM0STCKfO62yutGkhmCJXpm
+	 y0mU5aaJnV63HS3PDpC8cL06FPmthnEejM+tNsWcqVzuhUcZRCasWa4fvbSbf96Cer
+	 yceV3ym1YWEUJ2HFuhmpsFEOS2Y0+ypFnq6KmpqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C100CF804AA;
-	Tue,  3 Jan 2023 16:15:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC6E1F804AA;
+	Tue,  3 Jan 2023 16:20:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D21F9F8047B; Tue,  3 Jan 2023 16:15:36 +0100 (CET)
+ id E0917F804AA; Tue,  3 Jan 2023 16:20:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBEE8F8003C
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 16:15:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBEE8F8003C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11A1BF8003C
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 16:20:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11A1BF8003C
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=ralston.id.au header.i=@ralston.id.au
- header.a=rsa-sha256 header.s=google header.b=JpRf7WA8
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1442977d77dso37061810fac.6
- for <alsa-devel@alsa-project.org>; Tue, 03 Jan 2023 07:15:34 -0800 (PST)
+ header.a=rsa-sha256 header.s=google header.b=hyeNGChJ
+Received: by mail-oi1-x234.google.com with SMTP id j130so21687218oif.4
+ for <alsa-devel@alsa-project.org>; Tue, 03 Jan 2023 07:20:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ralston.id.au; s=google;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6mpKJos/FPMtqgzKryfkykw/TumKk6Lc1MADv4VNDaw=;
- b=JpRf7WA8CR1VvL1u9d7F0pRpDV7B/2mtiBVwj/uQ0vvHj51xLPBBHZbcmZ4FhLc53e
- 7MTRjmhjlpBEDDMygvniKGDlSK7EAeThLiVnzoHmLMiFBvVDG35zBj1ZPNrInrrEJEd4
- aUv8/wdm1CjSSywI58kB+2yx49Vsuc4aIPo2w=
+ bh=z8vVarhYQXZ9Qhz5mKvhwtmR7SHZZ/LNj7oEL18OVmc=;
+ b=hyeNGChJOIyeBdeAor9LyYJDIbYuztx7eQPHqVLU/cYmveo63Dounjfo3BQ16he9mC
+ H2PBFm462b6aeUnMdHKBadoPpjesWMEruUkoYYlOuMKBK+5N+2CD3+Wr5xhnwXRMPl4c
+ mMdw5sImTu+yhVbE1H9hYFjKdg7u/cJfIJmPQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6mpKJos/FPMtqgzKryfkykw/TumKk6Lc1MADv4VNDaw=;
- b=HL7XxgqBQlGpvLz5XpaJVJWFElVgHCabBMPlGE2iUYgB+7l5NX9RUU/C7Sw9L20uy9
- AlEgNusI2amO+XyzHynxkBDWw6O0l87QMdN8XKxmtZjGO69lIj6wW/M+udR6taI2VOG7
- f+22mHV+1R/yL8kL/Rxkz65DOUvkjqHvZSY7hcVBS9cleXiZ3+9ZhCg9/r8+g2Iv0O/5
- EPgVSDBrIQY2XVOFcMuPzq5RPzV9ILIM9MvDhoNjO+EtitUyTWj/2B/S9bB9MMYHETy2
- HAfuRwvCkAS79o+EPKiU8r36FVbJQ3VCoWwyA9F3G7wQmvc2+UBnpYT2LOfHVRmpDy5j
- YcNA==
-X-Gm-Message-State: AFqh2ko2QGDH7+ktJkNhptPvxB+QtKKXDcYrHhgNueeqTm5olnwi9qm/
- olJWptAugGv0FPu9KI17CLCuMvSI5fZNS7K8+/g6gw==
-X-Google-Smtp-Source: AMrXdXv3dQDnfdNBNw+MQp56Vjvne/Kn7e1ltujbhspbCMkGntbNdh9QTHMnc3OVzHwx4LzFX2C+gndhklK2kW3cefI=
-X-Received: by 2002:a05:687c:189:b0:14f:a2ed:988f with SMTP id
- yo9-20020a05687c018900b0014fa2ed988fmr2110159oab.220.1672758933004; Tue, 03
- Jan 2023 07:15:33 -0800 (PST)
+ bh=z8vVarhYQXZ9Qhz5mKvhwtmR7SHZZ/LNj7oEL18OVmc=;
+ b=fuftXNFCZOWTsrQ6cvy4BGHaRUHRhTb0XST9qPN1N2Ghzybzw5jbPSBCnc+aC/Asb3
+ H7aFqHxw+fmx6D/nWeOKbOpj57G0no3jmu/fisZ1CNA4H2meSWO1W6gtgae4sWJCoIor
+ E5bt5iskNUs3hIZ3PGn79J7/RW2HC+kfa2zrE8Tv8Bm75ASDqHNPyyuXKev2+fu5jBjj
+ utxjmGzaNYv08YSjhRFvQ77ydlKy3IURFFIycy374Div6fZqSV1ugOO8+5vLifM67lZd
+ cP7/H3s0gNEIOUH+RkhnWFgIbkdIs9zePRdQFi4Sl+yiMEM15eBQE3dTjVaLE3TT5LNy
+ 8ViA==
+X-Gm-Message-State: AFqh2kqaJl95iGFLLTgcRnDKvSm1ZHYSI97SWoE7Yz/i55vm6yxRzEmE
+ aRyQTB8gXH1f/n/FlrJ2gLvvhkiBTwmQp3iffdXktg==
+X-Google-Smtp-Source: AMrXdXu0SPE09PX79YJPOiZzyF40E/NRTrYM3mQEXId4MTVPUHDeIvG66xX/A8ZFkefsBYcMYb0vO3fCepWpRm7CMVI=
+X-Received: by 2002:a05:6808:48d:b0:35c:3327:ecf0 with SMTP id
+ z13-20020a056808048d00b0035c3327ecf0mr2266171oid.220.1672759217823; Tue, 03
+ Jan 2023 07:20:17 -0800 (PST)
 MIME-Version: 1.0
 References: <CAC2975JXkS1A5Tj9b02G_sy25ZWN-ys+tc9wmkoS=qPgKCogSg@mail.gmail.com>
  <bf646395-1231-92f6-7c5a-5b7765596358@leemhuis.info>
@@ -80,10 +79,11 @@ References: <CAC2975JXkS1A5Tj9b02G_sy25ZWN-ys+tc9wmkoS=qPgKCogSg@mail.gmail.com>
  <87sfgrrb5f.wl-tiwai@suse.de>
  <CAC2975+cUqiFC0LO-D-fi0swH+x=_FMuG+==mhg6HH4pc_YDRA@mail.gmail.com>
  <87bknfr6rd.wl-tiwai@suse.de>
-In-Reply-To: <87bknfr6rd.wl-tiwai@suse.de>
+ <CAC2975+CP0WKmXouX_8TffT1+VpU3EuOzyGHMv+VsAOBjCyhnA@mail.gmail.com>
+In-Reply-To: <CAC2975+CP0WKmXouX_8TffT1+VpU3EuOzyGHMv+VsAOBjCyhnA@mail.gmail.com>
 From: Michael Ralston <michael@ralston.id.au>
-Date: Wed, 4 Jan 2023 02:14:57 +1100
-Message-ID: <CAC2975+CP0WKmXouX_8TffT1+VpU3EuOzyGHMv+VsAOBjCyhnA@mail.gmail.com>
+Date: Wed, 4 Jan 2023 02:19:41 +1100
+Message-ID: <CAC2975LNYcsW1zAohijLtziXLbUyBjxHY3grD5=HjHcWBH_LPA@mail.gmail.com>
 Subject: Re: USB-Audio regression on behringer UMC404HD
 To: Takashi Iwai <tiwai@suse.de>
 Content-Type: text/plain; charset="UTF-8"
@@ -105,22 +105,45 @@ Cc: alsa-devel@alsa-project.org, regressions@lists.linux.dev,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 4 Jan 2023 at 02:13, Takashi Iwai <tiwai@suse.de> wrote:
+On Wed, 4 Jan 2023 at 02:14, Michael Ralston <michael@ralston.id.au> wrote:
 >
-> That's weird.  Is snd_usb_audio driver bound with the device at all?
-> That is, does it appear in /proc/asound/cards?
+> On Wed, 4 Jan 2023 at 02:13, Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > That's weird.  Is snd_usb_audio driver bound with the device at all?
+> > That is, does it appear in /proc/asound/cards?
+> >
 >
+> Yes, it's there.
+>
+> 0 [V49            ]: USB-Audio - V49
+>                      Alesis V49 at usb-0000:08:00.1-3, full speed
+> 1 [NVidia         ]: HDA-Intel - HDA NVidia
+>                      HDA NVidia at 0xfc080000 irq 154
+> 2 [U192k          ]: USB-Audio - UMC404HD 192k
+>                      BEHRINGER UMC404HD 192k at usb-0000:08:00.1-4, high speed
+> 3 [Generic        ]: HDA-Intel - HD-Audio Generic
+>                      HD-Audio Generic at 0xfca00000 irq 156
 
-Yes, it's there.
+Also lsusb shows this...
 
-0 [V49            ]: USB-Audio - V49
-                     Alesis V49 at usb-0000:08:00.1-3, full speed
-1 [NVidia         ]: HDA-Intel - HDA NVidia
-                     HDA NVidia at 0xfc080000 irq 154
-2 [U192k          ]: USB-Audio - UMC404HD 192k
-                     BEHRINGER UMC404HD 192k at usb-0000:08:00.1-4, high speed
-3 [Generic        ]: HDA-Intel - HD-Audio Generic
-                     HD-Audio Generic at 0xfca00000 irq 156
+    |__ Port 4: Dev 5, If 0, Class=Audio, Driver=snd-usb-audio, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
+   |__ Port 4: Dev 5, If 1, Class=Audio, Driver=snd-usb-audio, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
+   |__ Port 4: Dev 5, If 2, Class=Audio, Driver=snd-usb-audio, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
+   |__ Port 4: Dev 5, If 3, Class=Audio, Driver=snd-usb-audio, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
+   |__ Port 4: Dev 5, If 4, Class=Audio, Driver=snd-usb-audio, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
+   |__ Port 4: Dev 5, If 5, Class=Vendor Specific Class, Driver=, 480M
+       ID 1397:0509 BEHRINGER International GmbH
+       /sys/bus/usb/devices/1-4  /dev/bus/usb/001/005
 
 --
 Michael

@@ -2,73 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32BB65C74D
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 20:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D6BE65C74E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 20:18:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF1162BC;
-	Tue,  3 Jan 2023 20:17:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF1162BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67FCA63AA;
+	Tue,  3 Jan 2023 20:17:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67FCA63AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672773501;
-	bh=rHCesJ+cl5D0m6koH1aTaI1S1JP4QlOBXoCX2LsSXr4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1672773524;
+	bh=1gZCuDVhDiI4OhyB1qdRgnCbjuxd6rQBSiT4gcHk7vI=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=d5wqH5vYu934EKJ0I2olrhRn9GPZoIpGvm8xeJpQYFQBkXSRQixzQUGth+9RigFBM
-	 ImRumtqhINt1iacAK6m1VfykaJ15wXjdurLP+b8LJuo9LvEl5G4XI9C3Gr3nowetD9
-	 f+evw6As7yr6j4Tisll7cXYHrSjJQg/cZFszzhm4=
+	b=aXwWpUouCF9BRSNV6cQb0nAdF0Q+7ASuI8g+eR7/QzKUpnrkEMNj8N2UXoETDAiKM
+	 HwUMyKKGKXjpwl2wxqxPA8POmgL5+fZE0N4HdMJvTzEIhcuq3DaJp7r3rvVXK6eM19
+	 N6GoN0ungLjeCxVytFrV49WHzHtWYeTe5LSxtHRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 636CEF89633;
-	Tue,  3 Jan 2023 20:00:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A13D9F8973C;
+	Tue,  3 Jan 2023 20:10:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14314F89630; Tue,  3 Jan 2023 20:00:47 +0100 (CET)
+ id 26420F8973B; Tue,  3 Jan 2023 20:10:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 790F4F8962C
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 20:00:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 790F4F8962C
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cTnXHpSy
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 9E915CE12B2;
- Tue,  3 Jan 2023 19:00:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E434C433D2;
- Tue,  3 Jan 2023 19:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672772436;
- bh=rHCesJ+cl5D0m6koH1aTaI1S1JP4QlOBXoCX2LsSXr4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=cTnXHpSyIEdGcRaodXG6vuQlwK3BlDoYkOCL5PJ7r+AEH6Q0vwEHT9gryvePz0b6W
- ndlum+j8MaFUZzyTsyjTfupr8k+C1eXaJxOfpGWqIF/s9evyoh8/a8Y4ansZQ9ak9d
- zq93zRzzTEtj+ZWL7d8mii3sQIDN2AakkxqmGaJ8yBhJz094Je+jznLVShktIUgwvN
- CrN7n2nQkgVKb8ST8se1YZRroEJYcvFwVIDoPkbt5Xxqz+gnZSRwKSSAuFIF5nndIs
- gi1e7eGxa2nv4ASv9HKBukSZ7BxNLGmx4nny7xedxpqxE8m4/wJeav5PSl98fxSjBQ
- ZJ/X8NiL5W1gw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
-In-Reply-To: <20230103073704.722027-1-brent.lu@intel.com>
-References: <20230103073704.722027-1-brent.lu@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_ssp_amp: remove unused variable
-Message-Id: <167277243396.325583.15307745179196438624.b4-ty@kernel.org>
-Date: Tue, 03 Jan 2023 19:00:33 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C0BCF89738
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 20:09:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C0BCF89738
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=ralston.id.au header.i=@ralston.id.au
+ header.a=rsa-sha256 header.s=google header.b=kYD3G6Uz
+Received: by mail-ot1-x331.google.com with SMTP id
+ r2-20020a9d7cc2000000b006718a7f7fbaso19611724otn.2
+ for <alsa-devel@alsa-project.org>; Tue, 03 Jan 2023 11:09:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ralston.id.au; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=C08OceEXw18iUGGiRS1+CrnOaGSBY8Ykajf+8A9hXvc=;
+ b=kYD3G6UzTOkhCT7szVoyh5/v+2TIehuj/B8XGShsIbzhGPau8MXrHebfzJpslSxwdE
+ aCuer2gXgiyk6lIm3Vp9fh0cu5rxdFdujtRUixA2gOwi3HRrWroXjpcLJX7D8lJs5JJW
+ OlWxKzEEvl04KM62QncHE+dl2oYp6ZB46V9NU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=C08OceEXw18iUGGiRS1+CrnOaGSBY8Ykajf+8A9hXvc=;
+ b=35ePmurbVjaoE90+4y6PrAIWUD8TLYdLq41FtuFJEiRIu+HTuiJVlgE+2mDcrccPyH
+ /d/N3BdhuwQDwsAFJ4T/+Gln2mKncM4G1y495prZ2OCq+otwuXyRCR5g6by/nDsoKO7x
+ I4IqCWvUFeLT2XFUtFcoVgP1vmpvpp5egKTUVLljZUd1s2x9IIrfDZjPXjlGOtCPGBsl
+ jW/dNg4a73tZtxCL1m+7zVvx93efZctzfrX2ASEOYEFqzjcmEgdmDHsVhW5VAgnP0NQc
+ lIDv0BjpUMU0nnmwQsRyTcZg6DzbARzWcvllNN7j5zsvZ02DILivxjy/5klI21pZq8Oq
+ Stsw==
+X-Gm-Message-State: AFqh2kosUiOOU8RyYU0+sSiERxKzd1hpy5UGb7skfzVcZdL0zFPLpk8c
+ BHBwP3wjpSUgARTHMQjr6vztyB11lDy476JI9mnBnA==
+X-Google-Smtp-Source: AMrXdXthw5dKhojJxrUcr3e0JejicQ9XapnRXcqB2mBfdyuH37vcqnRI/Qf2oo1aqqCbWTWVxwFKdNXKtxVzvdNCU7g=
+X-Received: by 2002:a05:6830:3747:b0:66a:8bca:86d9 with SMTP id
+ bm7-20020a056830374700b0066a8bca86d9mr2572880otb.358.1672772992979; Tue, 03
+ Jan 2023 11:09:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-7ab1d
+References: <CAC2975JXkS1A5Tj9b02G_sy25ZWN-ys+tc9wmkoS=qPgKCogSg@mail.gmail.com>
+ <bf646395-1231-92f6-7c5a-5b7765596358@leemhuis.info>
+ <87zgb0q7x4.wl-tiwai@suse.de>
+ <CAC2975K24Gt3rGieAToHjb7FEHv84aqiRSQx7EOuR2Q7KByUXw@mail.gmail.com>
+ <87sfgrrb5f.wl-tiwai@suse.de>
+ <CAC2975+cUqiFC0LO-D-fi0swH+x=_FMuG+==mhg6HH4pc_YDRA@mail.gmail.com>
+ <87bknfr6rd.wl-tiwai@suse.de>
+ <CAC2975+CP0WKmXouX_8TffT1+VpU3EuOzyGHMv+VsAOBjCyhnA@mail.gmail.com>
+ <878rijr6dz.wl-tiwai@suse.de>
+ <CAC2975+Ybz2-jyJAwAUEu5S1XKfp0B-p4s-gAsMPfZdD61uNfQ@mail.gmail.com>
+ <87zgazppuc.wl-tiwai@suse.de>
+In-Reply-To: <87zgazppuc.wl-tiwai@suse.de>
+From: Michael Ralston <michael@ralston.id.au>
+Date: Wed, 4 Jan 2023 06:09:16 +1100
+Message-ID: <CAC2975+476CHDL3YM=uExHu96UB2rodAng9PVYHX+vGnSCppGA@mail.gmail.com>
+Subject: Re: USB-Audio regression on behringer UMC404HD
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,47 +103,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Akihiko Odaki <akihiko.odaki@gmail.com>, ye xingchen <ye.xingchen@zte.com.cn>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, regressions@lists.linux.dev,
+ Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
+ Thorsten Leemhuis <regressions@leemhuis.info>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Jan 2023 15:37:04 +0800, Brent Lu wrote:
-> The variable becomes useless since we moved the snd_soc_jack
-> structure from a static array to sof_hdmi_pcm structure.
-> 
-> 
+On Wed, 4 Jan 2023 at 03:03, Takashi Iwai <tiwai@suse.de> wrote:
+>
+> OK, thanks.  Then it's not about the USB interface reset.
+> It must be subtle and nasty difference.
+>
+> Could you apply the change below on the top?
+> It essentially reverts the hw_params/prepare split again.
+>
 
-Applied to
+Very sorry to say this still hasn't fixed the problem :(
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: Intel: sof_ssp_amp: remove unused variable
-      commit: 03178b4f7e2c59ead102e5ab5acb82ce1eaefe46
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Jan 04 06:05:12 leatherback kernel: mc: Linux media interface: v0.10
+Jan 04 06:05:12 leatherback kernel: usb 1-3: Found last interface = 1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: Set quirk_flags 0x20010
+for device 1397:0509
+Jan 04 06:05:12 leatherback kernel: usb 1-4: Found last interface = 4
+Jan 04 06:05:12 leatherback kernel: usb 1-4: 1:1: added playback
+implicit_fb sync_ep 88, iface 2:1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: 1:1: add audio endpoint 0x8
+Jan 04 06:05:12 leatherback kernel: usb 1-4: Creating new data endpoint #8
+Jan 04 06:05:12 leatherback kernel: usb 1-4: Creating new data endpoint #88
+Jan 04 06:05:12 leatherback kernel: usb 1-4: 2:1: add audio endpoint 0x88
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [10] FU [PCM Playback
+Switch] ch = 4, val = 0/1/1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [10] FU [PCM Playback
+Switch] ch = 1, val = 0/1/1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [10] FU [PCM Playback
+Volume] ch = 4, val = -32512/0/256
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [10] FU [PCM Playback
+Volume] ch = 1, val = -32512/0/256
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [11] FU [Mic Capture
+Switch] ch = 4, val = 0/1/1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [11] FU [Mic Capture
+Switch] ch = 1, val = 0/1/1
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [11] FU [Mic Capture
+Volume] ch = 4, val = -32512/0/256
+Jan 04 06:05:12 leatherback kernel: usb 1-4: [11] FU [Mic Capture
+Volume] ch = 1, val = -32512/0/256
+Jan 04 06:05:12 leatherback kernel: usbcore: registered new interface
+driver snd-usb-audio
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Open EP 0x8, iface=1:1, idx=0
+Jan 04 06:06:07 leatherback kernel: usb 1-4:   channels=4, rate=48000,
+format=S32_LE, period_bytes=96000, periods=4, implicit_fb=1
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Open EP 0x88, iface=2:1, idx=0
+Jan 04 06:06:07 leatherback kernel: usb 1-4:   channels=4, rate=48000,
+format=S32_LE, period_bytes=96000, periods=4, implicit_fb=0
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting params for data
+EP 0x88, pipe 0x40580
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Set up 12 URBS, ret=0
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting params for data
+EP 0x8, pipe 0x40500
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Set up 12 URBS, ret=0
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting usb interface 2:0
+for EP 0x88
+Jan 04 06:06:07 leatherback kernel: usb 1-4: 2:1 Set sample rate 48000, clock 40
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting usb interface 2:1
+for EP 0x88
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting usb interface 1:0
+for EP 0x8
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Setting usb interface 1:1
+for EP 0x8
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Starting data EP 0x8 (running 0)
+Jan 04 06:06:07 leatherback kernel: usb 1-4: 12 URBs submitted for EP 0x8
+Jan 04 06:06:07 leatherback kernel: usb 1-4: Starting data EP 0x88 (running 0)
+Jan 04 06:06:07 leatherback kernel: usb 1-4: 12 URBs submitted for EP 0x88
+Jan 04 06:06:07 leatherback kernel: usb 1-4: 1:1 Start Playback PCM
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Stopping data EP 0x88 (running 1)
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Stopping data EP 0x8 (running 1)
+Jan 04 06:06:30 leatherback kernel: usb 1-4: 1:1 Stop Playback PCM
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Closing EP 0x8 (count 1)
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Setting usb interface 1:0
+for EP 0x8
+Jan 04 06:06:30 leatherback kernel: usb 1-4: EP 0x8 closed
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Closing EP 0x88 (count 1)
+Jan 04 06:06:30 leatherback kernel: usb 1-4: Setting usb interface 2:0
+for EP 0x88
+Jan 04 06:06:30 leatherback kernel: usb 1-4: EP 0x88 closed

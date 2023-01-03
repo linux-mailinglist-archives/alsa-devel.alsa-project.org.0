@@ -2,98 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7D565C031
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 13:50:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFD665C060
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 14:02:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EB02DB46;
-	Tue,  3 Jan 2023 13:50:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EB02DB46
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCD3FDBF9;
+	Tue,  3 Jan 2023 14:01:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD3FDBF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672750257;
-	bh=lg2rka+/oZ/+tGqaSEoly2UvP59alozn00J76AdY/4Q=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672750931;
+	bh=NuosO/prXr2xQGkChWRAzT79ixrbSzxM4h9TTXCjPFI=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ly2BqjmUC8RNm6Vl68DYEZIf8W02/SXm3RqbR7K0TbcrWOBtSUwmXHztpuxJ+NlqN
-	 VMayfdYv9QkwGGcQg0Lg/4p1VsEUD3NlG3UEZzNZoI5k5FTs4As/p533QUs/ZWkIBP
-	 2gPoNN1GWQg5sPGEP0YzlWzqQUdUh/Y1C0JZqedI=
+	b=VMdjhN1zU5p2AZt379N8WIabvRdsuXo5bNLnuZDdACosjCstjQO1cA7cZlmY74Wnc
+	 14ajIO6/eXX+0KbD815lgpEMQR3Vf1P0KYGD7FP/sIvOJZTQ/rh5uu/v5qaH6eNo8d
+	 dnBFdMHjaFDGj1m3CeN7XaETAD2Uf/vrVaCYRiFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5C94F800F8;
-	Tue,  3 Jan 2023 13:50:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2E96F800C0;
+	Tue,  3 Jan 2023 14:01:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7667F804AA; Tue,  3 Jan 2023 13:50:03 +0100 (CET)
+ id DFF2FF800C0; Tue,  3 Jan 2023 14:01:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C6D3F800C0
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 13:49:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C6D3F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=xc9iI98/; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4Dt3mtDN
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C44F938C77;
- Tue,  3 Jan 2023 12:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672750198; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZEzIhKt2C2SI/WYm+OZI65abirl7ySTd6WBWg9jxJDk=;
- b=xc9iI98/J3TaTDSNEDN0tpUTzZ7pBlb4s9VbKSDV3irSxGxu9MC3m9O2xA+IJtK4WjsMcT
- 5tNjAm6/QzaqS3AaXRVB2w8VU1GOg2ZvZUjSlUxgoZUDz5H76mxNRKCOwwizuxnWNebxdi
- +5l53mluriuk68EV6wYPYV1wBAeqD98=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672750198;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZEzIhKt2C2SI/WYm+OZI65abirl7ySTd6WBWg9jxJDk=;
- b=4Dt3mtDNy7NwTEv/sGp959JFzQTcPMqu6tgsJqvfJQvfdi2az26te36H/fdn0CADh6tjZ2
- 9v2JJ+sVbixVE/DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56B111392B;
- Tue,  3 Jan 2023 12:49:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5eHnE3YktGOeEgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 03 Jan 2023 12:49:58 +0000
-Date: Tue, 03 Jan 2023 13:49:57 +0100
-Message-ID: <87v8lnrde2.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oliver Neukum <oneukum@suse.com>
-Subject: Re: [RFC PATCH 04/14] sound: usb: card: Introduce USB SND vendor op
- callbacks
-In-Reply-To: <465bb512-2ea3-ebfc-4b21-7b493f019fc3@suse.com>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-5-quic_wcheng@quicinc.com>
- <80f92635-6d14-8ff3-17ac-de2e5b977947@suse.com>
- <87lemqxpet.wl-tiwai@suse.de>
- <ec632e64-2d9c-3f71-4fe7-e1c6acb81393@quicinc.com>
- <465bb512-2ea3-ebfc-4b21-7b493f019fc3@suse.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-8.1 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 672D7F800C0
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 14:01:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 672D7F800C0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6C8471516;
+ Tue,  3 Jan 2023 05:01:55 -0800 (PST)
+Received: from [10.1.196.40] (e121345-lin.cambridge.arm.com [10.1.196.40])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E6EC3F587;
+ Tue,  3 Jan 2023 05:01:11 -0800 (PST)
+Message-ID: <7897d4a6-bf43-becd-3437-7a254f38f6be@arm.com>
+Date: Tue, 3 Jan 2023 13:01:07 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v2 2/3] iommu/sound: Use component_match_add_of helper
+To: Sean Anderson <sean.anderson@seco.com>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org
+References: <20221222233759.1934852-1-sean.anderson@seco.com>
+ <20221222233759.1934852-3-sean.anderson@seco.com>
+Content-Language: en-GB
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <20221222233759.1934852-3-sean.anderson@seco.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,39 +71,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
- mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
- quic_plai@quicinc.com, Wesley Cheng <quic_wcheng@quicinc.com>,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
+Cc: alsa-devel@alsa-project.org, Joerg Roedel <joro@8bytes.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Will Deacon <will@kernel.org>,
+ Yong Wu <yong.wu@mediatek.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Jan 2023 13:20:48 +0100,
-Oliver Neukum wrote:
-> 
-> 
-> 
-> On 30.12.22 08:10, Wesley Cheng wrote:
-> 
-> > It may depend on how the offloading is implemented, but we do have a mechanism to force the audio stream off from the qc_usb_audio_offload. Regardless of if the UDEV is suspended first, or the USB backend, as long as we ensure that the offloading is disabled before entering suspend, I think that should be sufficient.
-> 
-> You would presumably output garbage, if the UDEV is asleep but the backend is not.
-> 
->  
-> > The reset_resume() path is fine.  Bus reset is going to cause a disconnect() callback in the offload driver, in which we already have the proper handling for ensuring the offload path is halted, and we reject any incoming stream start requests.
-> 
-> How? If we go the reset_resume() code path, we find that usb-audio does not make
-> a difference between regular resume() and reset_resume()
+Hi Sean,
 
-Note that, for USB audio, there is no much difference between resume()
-and reset_resume(), especially about the PCM stream handling that is
-the main target for the offload (the mixer isn't handled there).
-And for the PCM, we just set the power state for UAC3, and that's
-all.  All the rest is handled by the PCM core handler as usual.
+On 22/12/2022 11:37 pm, Sean Anderson wrote:
+> Convert users of component_match_add_release with component_release_of
+> and component_compare_of to component_match_add_of.
+> 
+> Signed-off-by: Sean Anderson <sean.anderson@seco.com>
+> Acked-by: Mark Brown <broonie@kernel.org>
+> ---
+> 
+> Changes in v2:
+> - Split off from helper addition
+> 
+>   drivers/iommu/mtk_iommu.c    | 3 +--
+>   drivers/iommu/mtk_iommu_v1.c | 3 +--
+>   sound/soc/codecs/wcd938x.c   | 6 ++----
+>   3 files changed, 4 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
+> index 2ab2ecfe01f8..483b7a9e4410 100644
+> --- a/drivers/iommu/mtk_iommu.c
+> +++ b/drivers/iommu/mtk_iommu.c
+> @@ -1079,8 +1079,7 @@ static int mtk_iommu_mm_dts_parse(struct device *dev, struct component_match **m
+>   		}
+>   		data->larb_imu[id].dev = &plarbdev->dev;
+>   
+> -		component_match_add_release(dev, match, component_release_of,
+> -					    component_compare_of, larbnode);
+> +		component_match_add_of(dev, match, larbnode);
 
+I've long since given up trying to make sense of how the DRM tree works, 
+but the conflicting change is definitely already in mainline:
 
-Takashi
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=b5765a1b44bea9dfcae69c53ffeb4c689d0922a7
+
+Thanks,
+Robin.
+
+>   	}
+>   
+>   	/* Get smi-(sub)-common dev from the last larb. */
+> diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
+> index 6e0e65831eb7..fb09ed6bf550 100644
+> --- a/drivers/iommu/mtk_iommu_v1.c
+> +++ b/drivers/iommu/mtk_iommu_v1.c
+> @@ -672,8 +672,7 @@ static int mtk_iommu_v1_probe(struct platform_device *pdev)
+>   		}
+>   		data->larb_imu[i].dev = &plarbdev->dev;
+>   
+> -		component_match_add_release(dev, &match, component_release_of,
+> -					    component_compare_of, larbnode);
+> +		component_match_add_of(dev, &match, larbnode);
+>   	}
+>   
+>   	platform_set_drvdata(pdev, data);
+> diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+> index aca06a4026f3..2f8444e54083 100644
+> --- a/sound/soc/codecs/wcd938x.c
+> +++ b/sound/soc/codecs/wcd938x.c
+> @@ -4474,8 +4474,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+>   	}
+>   
+>   	of_node_get(wcd938x->rxnode);
+> -	component_match_add_release(dev, matchptr, component_release_of,
+> -				    component_compare_of, wcd938x->rxnode);
+> +	component_match_add_of(dev, matchptr, wcd938x->rxnode);
+>   
+>   	wcd938x->txnode = of_parse_phandle(np, "qcom,tx-device", 0);
+>   	if (!wcd938x->txnode) {
+> @@ -4483,8 +4482,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+>   		return -ENODEV;
+>   	}
+>   	of_node_get(wcd938x->txnode);
+> -	component_match_add_release(dev, matchptr, component_release_of,
+> -				    component_compare_of, wcd938x->txnode);
+> +	component_match_add_of(dev, matchptr, wcd938x->txnode);
+>   	return 0;
+>   }
+>   

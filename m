@@ -2,95 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93E865C4C8
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 18:11:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD49265C54A
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 18:45:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2F1E2D7E;
-	Tue,  3 Jan 2023 18:10:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2F1E2D7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F90B29F7;
+	Tue,  3 Jan 2023 18:44:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F90B29F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672765895;
-	bh=RptTEU2cLYChzm9C6z2QKss+R/qu2gMjygZb54qWdjQ=;
-	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O0uUZ5hrVtnylUno4BPCVP73FKNUs/uCYPUawybyF7zf68DIyEtc3fERY7b9s8sOS
-	 PtD4eJDIrQ8qrL0OfsVi+yez9Fprj5BgIzZ+bm7RhfBwaEpeuMvi6V/PC+iHiitNsU
-	 oqwyZGOT4S41U9gAlNWd7lt3OO+ds/loq+92I7cY=
+	s=default; t=1672767931;
+	bh=LckIA+Gz2HvlJFTUCOOcP66kxq0hG8yz1WKdpVjE/xw=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=XZqA5rev5jDzglZ6sslK3maPnqjzIXVdDhMk27VYZvaeJenqduzimHWl3dypv5K3r
+	 6V+gKqOKaVWl2bbxjZKbpdllQk5BXEUgaXKCOO9rDoJ1QRIYKLkx7Gy5p2oatugbzH
+	 f9FuNzLGOae3xtrjx8anc0krWt95IC1orchaO2yE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82DA5F804AD;
-	Tue,  3 Jan 2023 18:10:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8B1DF804AA;
+	Tue,  3 Jan 2023 18:44:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 641E9F800F8; Tue,  3 Jan 2023 18:10:43 +0100 (CET)
+ id 39CC8F803DC; Tue,  3 Jan 2023 18:44:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9021FF800F8
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 18:10:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9021FF800F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40CC6F803DC
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 18:44:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40CC6F803DC
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=R2ZBENni
-Received: by mail-wm1-x32d.google.com with SMTP id
- b24-20020a05600c4a9800b003d21efdd61dso23954064wmp.3
- for <alsa-devel@alsa-project.org>; Tue, 03 Jan 2023 09:10:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:from:to:content-language:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=DxU00yrA+Sc2ZL2bKk8Pv8ejprrUz0uN45A5QU4UU48=;
- b=R2ZBENniiMnRU5DfA2gvq/TT/bOJqGrS3jI5F+2KCPuYK5QewHqDBAMCTnZTUybKRH
- gryFdbjAUDsKrkgqhA+TxS0jfI5qMyl1y52aaZtBUO9djOJAvDoHnvPRxw//LHyIDkh+
- BGz7hC/loMHq/DE6x0jB6+RrdyLyszrwUT2D6dGh5XAW2PgXwdZwxqyjU2g2hF6oyNFo
- Xhf/1HsGOCDsDoQhlbtNJbIVfiNiNz/zTWvKxSvwg/XrtlO8CEWt/D4O8AkPaQ4BzltY
- wgHVvccf6aBtLTercUEgTLkEOw9XqdqedZa6aSnjX5Hs8sX8rPvZnkzsSgdwJqlHBsZo
- LW/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=subject:from:to:content-language:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DxU00yrA+Sc2ZL2bKk8Pv8ejprrUz0uN45A5QU4UU48=;
- b=MQppYx60zmI+7jmVt+35MflRqSW+ZPXtr0aZ9E5Xq6f8xlHLg1xpMFo/EbP2lH+I3S
- 4rlXZY4D10ReixnZ58XVWB9XfVmg4o8e/vwOT35aHwJ+3RRA2hQFQZYs+gmfrJjaLU/1
- cw+mA3KEBHXja5n6llXEqG0xQ8GpdD7VeE5kmmRyVfryTlaH34fltcNJyockEpn77PpN
- y7VwagqwkDmeI7AHzVhFCrB51BKzxNE5Xykdw8JqihSTGpZm/f7ZHZNk1QL4NCq9W+sz
- EFMNiepDpSMLryx+6RphNMpQThZ9WixAfv3OZEJa5SdTkwFGjYIkWurus/RAW8UmSave
- aiMw==
-X-Gm-Message-State: AFqh2kpTzRv6DldL58tcYms6wluY8NlgHewm30LHcjETOfSZhqXxgG11
- 5V7MFI3ery2YR0oeG/jNOGifjc1rtog=
-X-Google-Smtp-Source: AMrXdXt18pL8mtyMa+qjKemIvLwFSK/CVEJg0MU0EEMK+2Y+oo01+DloqZph04OnY7WJoD6yHovgww==
-X-Received: by 2002:a05:600c:4a90:b0:3d2:3ae8:886a with SMTP id
- b16-20020a05600c4a9000b003d23ae8886amr35202644wmp.17.1672765839639; 
- Tue, 03 Jan 2023 09:10:39 -0800 (PST)
-Received: from [192.168.21.204] (surfbythesea.plus.com. [81.174.134.71])
- by smtp.gmail.com with ESMTPSA id
- i25-20020a1c5419000000b003c6c182bef9sm56202540wmb.36.2023.01.03.09.10.38
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jan 2023 09:10:39 -0800 (PST)
-Message-ID: <e4b850e4-6828-2663-5a58-49d44582ce3c@gmail.com>
-Date: Tue, 3 Jan 2023 17:10:38 +0000
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=rLEnW9wG
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0BCED614AB;
+ Tue,  3 Jan 2023 17:44:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D47C433D2;
+ Tue,  3 Jan 2023 17:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672767864;
+ bh=LckIA+Gz2HvlJFTUCOOcP66kxq0hG8yz1WKdpVjE/xw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rLEnW9wGp3Z6Q59S+JwrZph3YhZJJVqowPqSQECJuDE53pVqR/Sj0YqQz83zB2pUZ
+ ZbkfXfocDWExQhS3inMdUczLRARUe1uRPhv1pTUPdSRnG8TsIAUtUywxr3sr4YHHlw
+ lyxc4zcrcw9ngl/94/71H4KNflC5V3CAQIWzX9D+SXYgLoQgLiCtHHyUxMQf5VRkg+
+ +U+1wOq7+laGbKtBvXTanpclz8SXgPneLrrqey3/x/j26PvxByRzmp9y321SFi5dz4
+ WO5Xt28gURXGYgIhhCFMgvTjhUDWKbDu+Ub6HuavuP8YYAIPK/THmyS1asBEZ+2lNC
+ fMf8njjTLVF9w==
+Date: Tue, 3 Jan 2023 17:44:17 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Subject: Re: [RFC PATCH 12/14] sound: soc: qcom: qusb6: Ensure PCM format is
+ supported by USB audio device
+Message-ID: <Y7RpcfWG5yrd6J3X@sirena.org.uk>
+References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
+ <20221223233200.26089-13-quic_wcheng@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-GB
-To: alsa-devel@alsa-project.org
-From: Alan Young <consult.awy@gmail.com>
-Subject: Avoiding 64-bit calculations in 32-bit application
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hij50yuqfbUKxTCY"
+Content-Disposition: inline
+In-Reply-To: <20221223233200.26089-13-quic_wcheng@quicinc.com>
+X-Cookie: So many men
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,34 +83,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
+ mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
+ quic_plai@quicinc.com, linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-How much do we care about avoiding unnecessary 64-bit calculations in 
-32-bit applications?
 
-I think I am going to have to submit another fix to 
-pcm_rate:snd_pcm_rate_sync_hwptr0(). I'm not sure yet, but I think that 
-the fix by /mahendran.kuppusamy@in.bosch.com/ can result in, at least, 
-off-by-one errors in the calculated value. I have yet to determine 
-whether the error is ever cumulative and the consequences.
+--hij50yuqfbUKxTCY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-My proposed fix includes (rate->slave_hw_ptr_wrap is u_int64_t):
+On Fri, Dec 23, 2022 at 03:31:58PM -0800, Wesley Cheng wrote:
 
-+	if (rate->slave_hw_ptr_wrap) {
-+		/*
-+		 * Restrict explicit 64-bit calculations to case where rate->slave_hw_ptr_wrap
-+		 * is non-zero, which will only happen in 32-bit environments.
-+		 */
-+		u_int64_t wrapped_slave_hw_ptr = slave_hw_ptr + rate->slave_hw_ptr_wrap;
-+		new_hw_ptr = ((wrapped_slave_hw_ptr / slave_period_size) * period_size) % boundary;
-+		slave_residual = wrapped_slave_hw_ptr % slave_period_size;
-+	} else {
-+		new_hw_ptr = (slave_hw_ptr / slave_period_size) * period_size;
-+		slave_residual = slave_hw_ptr % slave_period_size;
-+	}
+> Check for if the PCM format is supported during the hw_params callback.  If
+> the profile is not supported then the userspace ALSA entity will receive an
+> error, and can take further action.
 
-so it only ever does 64-bit calculations if there has been a boundary wrap.
+Ideally we'd wire up constraints for this but that gets complicated with
+DPCM so it's probably disproportionate effort.  Otherwise other than the
+subject lines not using ASoC on this and the previous change I don't
+have any issues that other people didn't raise, but then most of the
+complication is in the USB bits.
 
-Is that optimization desirable (assuming my fix is necessary at all) or 
-would it be better just to do 64-bit calculations all the time?
+--hij50yuqfbUKxTCY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO0aXAACgkQJNaLcl1U
+h9D1xQf+LwgGcwM55I9NHiwQ3ebZ4m7VhjDLgWvKR107h7Duq8GctdogaoB5LvTP
+O9xWQH1QhvotKZf1j+Wn0NoYxROayG9QPwht4tIGzQmAhgq72kfiSZ6IiETIW+IP
+K58dG61EXGWBLniqpXQNpxnqL1XeW9wHfSwuVOqN1Or0XoOCyjGupDURXP4Uau6z
+AJ5cGhqW3cd2xobybkD7asnAvDniZokvV0sreSFRYy4a/vNm4cVe5WRhibUh+S7K
+K7akWpFDvsOAobbQvGkEkeCvltQMkZxYbtm6av1vQBI6j7kQ5WXw9G72a2AX8VbR
+I8ILJBI6jfDXIjH8Fnc/L23TEnwfPw==
+=p0V6
+-----END PGP SIGNATURE-----
+
+--hij50yuqfbUKxTCY--

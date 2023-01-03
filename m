@@ -2,138 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE77E65BAD9
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 07:43:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD0665BAF7
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Jan 2023 07:52:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B8D7B5D6;
-	Tue,  3 Jan 2023 07:42:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B8D7B5D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D09B3C8BA;
+	Tue,  3 Jan 2023 07:51:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D09B3C8BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672728209;
-	bh=8M/k28hBcT9SiLAwroQXPSPOfMYBF11QDSrKwHQNMa0=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1672728766;
+	bh=CBTfiMouzqzZx18Tnxrp88VVoqsb+2NzdTSq2SSZstc=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=jyk40vaVWsdZhJXFReFle4kZU3eWIBuV3OGfz1ZoubTJsOAK03uDkh2HumNJD7iAY
-	 5j+rqaHZjfA7hkrrr5m0NOvqpwk8gj6bTyQS/srCMt9Lhne3OyMhMqHABvfWAQu3vR
-	 5lI3sY0UwajcocUV2tahoRxCyyaScZXcMXoRAf6s=
+	b=gAqRvygocrPRBvirEV2+YzNezlycStnv25ZsT6kiiOgVQYK/y/UeSPzdih7f0qMBu
+	 jRT/uFjb5QvSef3El79EeU1draL850ff+ywJ5w0UYYEM42nuWMwhhNxJnuSxLZ6vQ5
+	 O6U/WGXGSx7xm2no948y714muiFUleonnIJ/hUUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D863F80579;
-	Tue,  3 Jan 2023 07:41:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69D9CF804AD;
+	Tue,  3 Jan 2023 07:51:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D3B6F8057B; Tue,  3 Jan 2023 07:41:53 +0100 (CET)
+ id 7F3A7F800F8; Tue,  3 Jan 2023 07:51:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D5CBF80579
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 07:41:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D5CBF80579
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=Ph+LWPsk
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20230103064147epoutp042b370fbad4dfb53ac41bce887ab74b1d~2uVnVQjX00290302903epoutp04q
- for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 06:41:47 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
- 20230103064147epoutp042b370fbad4dfb53ac41bce887ab74b1d~2uVnVQjX00290302903epoutp04q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1672728107;
- bh=nhdfKuY6VgLCY5Ul25sLP3BbNNJgGEW2tayYvQfRUgw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Ph+LWPskbfKUGO7UY177YNtMXlsarDPEKm0qoeptwGP03qRqOk1cIPs4aU9+Cn0Fw
- Z4WJeBcBUzT/fU335RV8+E9K91tKsQbCr0MtdufKkVIGq+g2eG0C0kdgLbdPiC832Z
- U9XmmXhK3PBZ+sY7XJIMRejShQFFHAriw9K7oUno=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTP id
- 20230103064146epcas5p3421ed7c35cbbedafdc426bd54dfb8356~2uVm5944U0590305903epcas5p3g;
- Tue,  3 Jan 2023 06:41:46 +0000 (GMT)
-Received: from epsmges5p2new.samsung.com (unknown [182.195.38.177]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 4NmNS818Gcz4x9Q4; Tue,  3 Jan
- 2023 06:41:44 +0000 (GMT)
-Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
- epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 0E.E0.62806.72EC3B36; Tue,  3 Jan 2023 15:41:44 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
- 20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b~2s6Of__Ck2038120381epcas5p1b;
- Tue,  3 Jan 2023 04:57:06 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20230103045706epsmtrp21d91195338b2a9b7de0c58c4d8ae04ac~2s6Oak1wS0749107491epsmtrp2-;
- Tue,  3 Jan 2023 04:57:06 +0000 (GMT)
-X-AuditID: b6c32a4a-c43ff7000000f556-17-63b3ce27ec1d
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- E1.15.10542.2A5B3B36; Tue,  3 Jan 2023 13:57:06 +0900 (KST)
-Received: from cheetah.sa.corp.samsungelectronics.net (unknown
- [107.109.115.53]) by epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20230103045704epsmtip27788c0c81554ab6969b69128dd45d984~2s6MNWlBL3215832158epsmtip2O;
- Tue,  3 Jan 2023 04:57:04 +0000 (GMT)
-From: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, s.nawrocki@samsung.com, perex@perex.cz,
- tiwai@suse.com, pankaj.dubey@samsung.com, alim.akhtar@samsung.com,
- rcsekar@samsung.com, aswani.reddy@samsung.com
-Subject: [PATCH v2 5/5] arm64: dts: fsd: Add sound card node for Tesla FSD
-Date: Tue,  3 Jan 2023 10:26:13 +0530
-Message-Id: <20230103045613.100309-6-p.rajanbabu@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230103045613.100309-1-p.rajanbabu@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprLJsWRmVeSWpSXmKPExsWy7bCmpq7Guc3JBttnMlk8mLeNzeLKxUNM
- Foc2b2W3mPrwCZvF/CPnWC36Xjxktvh2pYPJ4vKuOWwWM87vY7I4ujHYYtHWL+wWnbv6WS1m
- XdjBatG69wi7xeE37awWG76vZXQQ8NjwuYnNY+esu+wem1Z1snncubaHzWPf22VsHn1bVjF6
- rN9ylcXj8ya5AI6obJuM1MSU1CKF1Lzk/JTMvHRbJe/geOd4UzMDQ11DSwtzJYW8xNxUWyUX
- nwBdt8wcoA+UFMoSc0qBQgGJxcVK+nY2RfmlJakKGfnFJbZKqQUpOQUmBXrFibnFpXnpenmp
- JVaGBgZGpkCFCdkZ02ZMYis4x1Wxpm8mWwPjAo4uRk4OCQETic1NLaxdjFwcQgK7GSU+PX3F
- BOF8YpRYN/k9O4TzmVHi/o4jrDAtX0+3QFXtYpSYMe8dE0hCSKCVSeLAqUQQm03AVGLVnEaw
- uSICTUwSbW8msoA4zAIbGSVOH3sI1iEs4CXx+cEaRhCbRUBVYsf6HWA2r4CtxN6FJ5gg1slL
- rN5wgBnE5hSwk/jTcQFstYTAXA6Jz6fXMUIUuUgs2PIF6j5hiVfHt7BD2FISn9/tZYOw8yWm
- fWyGsisk2j5ugFpgL3Hgyhyg6ziArtOUWL9LHyIsKzH11DqwEmYBPone30+gynkldsyDsVUl
- 1i/fBHWCtMS+63uhbA+J7hePGSFBNJFR4vGWP4wTGOVmIaxYwMi4ilEytaA4Nz212LTAKC+1
- HB5vyfm5mxjB6VTLawfjwwcf9A4xMnEwHmKU4GBWEuGd9GJTshBvSmJlVWpRfnxRaU5q8SFG
- U2AATmSWEk3OByb0vJJ4QxNLAxMzMzMTS2MzQyVx3tSt85OFBNITS1KzU1MLUotg+pg4OKUa
- mDQ4TTevOt2g8bh04/tcSa39ERXvWnqtAjz3aLC7NNXPqvso/9K9by+zpznXP/kT6xoLblfN
- eady6tGn0ls+y85u+GsXUyB5VCgkxcTjeFn8rrmZvV6xvcerWe+re5S/y9pUV+az9smsiNWr
- f4Q5FK84E6CcURWu0uq6x2uHxWe2LpcZG8t5v2s7/I7fGa0r1SenKNPpoW785fgjpR+V53em
- X/zutjEocZa8Y0eLmMj/jN6zVw7131Mya41ma/wiYafwTriv/qnxsph7wXMTTh4rO8z7cv9j
- wVd3etTMT0q2le+qtio9dOHPPzOuM7OWJp21tc0Oeeunx5ImJz1f7+KfhfuuVR9jytbod5un
- xFKckWioxVxUnAgAoVMNajAEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrMLMWRmVeSWpSXmKPExsWy7bCSvO6irZuTDd791rZ4MG8bm8WVi4eY
- LA5t3spuMfXhEzaL+UfOsVr0vXjIbPHtSgeTxeVdc9gsZpzfx2RxdGOwxaKtX9gtOnf1s1rM
- urCD1aJ17xF2i8Nv2lktNnxfy+gg4LHhcxObx85Zd9k9Nq3qZPO4c20Pm8e+t8vYPPq2rGL0
- WL/lKovH501yARxRXDYpqTmZZalF+nYJXBnTZkxiKzjHVbGmbyZbA+MCji5GTg4JAROJr6db
- mLoYuTiEBHYwSjRuWc8CkZCWmN6/hw3CFpZY+e85O0RRM5PE1sZTYAk2AVOJVXMaWUESIgIT
- mCROvjsG1s0ssJVRYupnIxBbWMBL4vODNYwgNouAqsSO9TvAbF4BW4m9C08wQWyQl1i94QAz
- iM0pYCfxp+MCWFwIqGZ7wyfmCYx8CxgZVjFKphYU56bnFhsWGOWllusVJ+YWl+al6yXn525i
- BIe7ltYOxj2rPugdYmTiYDzEKMHBrCTCO+nFpmQh3pTEyqrUovz4otKc1OJDjNIcLErivBe6
- TsYLCaQnlqRmp6YWpBbBZJk4OKUamOaW1l0LXR7OxP7ssHXN05mCAl8+tjXWePuVu1oZF+jk
- mMtt/+Jjs2VDfOIkYb4v3jcqvPUe/Wef22jMwtw180eV09vY2dYPHxQp3WjJPL9LzlG6fL/E
- v6fu79QFDp21vDafSeOyR9jRwrCmmV+und+T1dB3bcWLt+su2V1SmLJXbgOHwtO7IZclHj14
- tOJK+2WmIvn792adzNeamrnY9XtW2Z19c+6sjy36fKVIwcKysd8toV++sjNi3+nrRy76My82
- mXhFJu3HRNWOlp3ntp3v4do47a9dvaGj16R7jXvTL6+VW2TRYLAkN6M+g3959M1bmf/c2jyr
- OVT5VAT9Vi2xPGIllBPm4B+5U2PfZyWW4oxEQy3mouJEAJT4uDvmAgAA
-X-CMS-MailID: 20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b
-References: <20230103045613.100309-1-p.rajanbabu@samsung.com>
- <CGME20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b@epcas5p1.samsung.com>
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ by alsa1.perex.cz (Postfix) with ESMTP id 4A873F8047B
+ for <alsa-devel@alsa-project.org>; Tue,  3 Jan 2023 07:51:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A873F8047B
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 3036oduI7003975,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+ by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 3036oduI7003975
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
+ Tue, 3 Jan 2023 14:50:39 +0800
+Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.9; Tue, 3 Jan 2023 14:51:35 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 3 Jan 2023 14:51:34 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::98d2:65f8:dcdf:fa31]) by
+ RTEXMBS01.realtek.com.tw ([fe80::98d2:65f8:dcdf:fa31%5]) with mapi id
+ 15.01.2375.007; Tue, 3 Jan 2023 14:51:34 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: RE: Turn on power early to avoid something
+Thread-Topic: Turn on power early to avoid something
+Thread-Index: AdkcI3Ma5yaXX0FTSK+6gZEsLjDbL///fb2A//94BFCAAJvTAP/5WTSA
+Date: Tue, 3 Jan 2023 06:51:34 +0000
+Message-ID: <e35d8f4fa18f4448a2315cc7d4a3715f@realtek.com>
+References: <3dcfbaf4ccb34be7a9c4af0202cdcdd4@realtek.com>
+ <87fscxxqp0.wl-tiwai@suse.de>	<af64a2d5e55448dbadef4d0efd96bea5@realtek.com>
+ <87cz81xnen.wl-tiwai@suse.de>
+In-Reply-To: <87cz81xnen.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: =?us-ascii?Q?Clean,_bases:_2023/1/3_=3F=3F_02:18:00?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: multipart/mixed;
+ boundary="_002_e35d8f4fa18f4448a2315cc7d4a3715frealtekcom_"
+MIME-Version: 1.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,67 +90,124 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add device tree node support for sound card on Tesla FSD board
+--_002_e35d8f4fa18f4448a2315cc7d4a3715frealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
----
- arch/arm64/boot/dts/tesla/fsd-evb.dts | 37 +++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+Add more description.
 
-diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-index e2fd49774f15..ce726bddfb50 100644
---- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-+++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-@@ -29,6 +29,43 @@
- 		device_type = "memory";
- 		reg = <0x0 0x80000000 0x2 0x00000000>;
- 	};
-+
-+	sound {
-+		compatible = "simple-audio-card";
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		simple-audio-card,name = "FSD Audio Card";
-+		simple-audio-card,widgets =
-+			"Line", "Line Out",
-+			"Line", "Line In";
-+		simple-audio-card,routing =
-+			"Line Out", "LLOUT",
-+			"Line Out", "RLOUT",
-+			"MIC2L", "Line In",
-+			"MIC2R", "Line In";
-+
-+		status = "okay";
-+
-+		simple-audio-card,dai-link@0 {
-+			reg = <0>;
-+			format = "i2s";
-+			bitclock-master = <&tlv320aic3x>;
-+			frame-master = <&tlv320aic3x>;
-+
-+			cpu0 {
-+				sound-dai = <&i2s_0 0>;
-+			};
-+			cpu1 {
-+				sound-dai = <&i2s_0 1>;
-+			};
-+			codec {
-+				sound-dai = <&tlv320aic3x>;
-+				system-clock-frequency = <33000000>;
-+			};
-+		};
-+	};
- };
- 
- &fin_pll {
--- 
-2.17.1
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Friday, December 30, 2022 5:16 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> Subject: Re: Turn on power early to avoid something
+>=20
+> On Fri, 30 Dec 2022 09:14:16 +0100,
+> Kailang wrote:
+> >
+> >
+> >
+> > > -----Original Message-----
+> > > From: Takashi Iwai <tiwai@suse.de>
+> > > Sent: Friday, December 30, 2022 4:05 PM
+> > > To: Kailang <kailang@realtek.com>
+> > > Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> > > Subject: Re: Turn on power early to avoid something
+> > >
+> > > On Fri, 30 Dec 2022 08:54:01 +0100,
+> > > Kailang wrote:
+> > > >
+> > > > Hi Takashi,
+> > > >
+> > > > It maybe can avoid something for early power up.
+> > > >
+> > > > Many Thanks.
+> > > > Kailang.
+> > >
+> > > Hmm, what is "something"?  The description is way too ambiguous to
+> > > judge whether the change is OK or not, unfortunately.
+> > > Could you elaborate what exactly the change will fix?
+> > >
+> > > Also, when you submit a patch from another person, please put your
+> > > own Signed-off-by line.  It's a legal requirement.
+> > yangyuchi66@gmail.com was my personal account.
+> > Could I use this account?
+>=20
+> Ah OK, then it's fine.
+>=20
+> > Or I need use this account to mail patch to you.
+>=20
+> It's not necessary, the sign-off is fine as long as it matches with the F=
+rom
+> address in the patch and it's yourself.
+>=20
+> But we still need a better description of the patch text.
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
+>=20
+> ------Please consider the environment before printing this e-mail.
 
+--_002_e35d8f4fa18f4448a2315cc7d4a3715frealtekcom_
+Content-Type: application/octet-stream;
+	name="0000-turn-on-power-early.patch"
+Content-Description: 0000-turn-on-power-early.patch
+Content-Disposition: attachment; filename="0000-turn-on-power-early.patch";
+	size=2516; creation-date="Fri, 30 Dec 2022 07:26:17 GMT";
+	modification-date="Tue, 03 Jan 2023 06:49:50 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSBjMjZhM2U1YzYyNWIzZDZhZjhiYjkwYjQ1MGI4MTdiYTU1ZDJjYzExIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBZdWNoaSBZYW5nIDx5YW5neXVjaGk2NkBnbWFpbC5jb20+CkRh
+dGU6IEZyaSwgMzAgRGVjIDIwMjIgMTU6MjI6MjUgKzA4MDAKU3ViamVjdDogW1BBVENIXUFMU0E6
+IGhkYS9yZWFsdGVrIC0gVHVybiBvbiBwb3dlciBlYXJseQoKVHVybiBvbiBwb3dlciBlYXJseSB0
+byBhdm9pZCB3cm9uZyBzdGF0ZSBmb3IgcG93ZXIgcmVsYXRpb24gcmVnaXN0ZXIuClRoaXMgY2Fu
+IGVhcmxpZXIgdXBkYXRlIEpEIHN0YXRlIHdoZW4gcmVzdW1lIGJhY2suCgpTaWduZWQtb2ZmLWJ5
+OiBZdWNoaSBZYW5nIDx5YW5neXVjaGk2NkBnbWFpbC5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQv
+cGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpp
+bmRleCA4YTNlMmZlNDIxMDYuLjExODRiN2I1M2VlYyAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hk
+YS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAg
+LTM0NjMsNiArMzQ2MywxNSBAQCBzdGF0aWMgdm9pZCBhbGMyNTZfaW5pdChzdHJ1Y3QgaGRhX2Nv
+ZGVjICpjb2RlYykKIAloZGFfbmlkX3QgaHBfcGluID0gYWxjX2dldF9ocF9waW4oc3BlYyk7CiAJ
+Ym9vbCBocF9waW5fc2Vuc2U7CiAKKwlpZiAoc3BlYy0+dWx0cmFfbG93X3Bvd2VyKSB7CisJCWFs
+Y191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4MDMsIDE8PDEsIDE8PDEpOworCQlhbGNfdXBkYXRl
+X2NvZWZfaWR4KGNvZGVjLCAweDA4LCAzPDwyLCAzPDwyKTsKKwkJYWxjX3VwZGF0ZV9jb2VmX2lk
+eChjb2RlYywgMHgwOCwgNzw8NCwgMCk7CisJCWFsY191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4
+M2IsIDE8PDE1LCAwKTsKKwkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHgwZSwgNzw8Niwg
+Nzw8Nik7CisJCW1zbGVlcCgzMCk7CisJfQorCiAJaWYgKCFocF9waW4pCiAJCWhwX3BpbiA9IDB4
+MjE7CiAKQEAgLTM0NzQsMTQgKzM0ODMsNiBAQCBzdGF0aWMgdm9pZCBhbGMyNTZfaW5pdChzdHJ1
+Y3QgaGRhX2NvZGVjICpjb2RlYykKIAkJbXNsZWVwKDIpOwogCiAJYWxjX3VwZGF0ZV9jb2VmZXhf
+aWR4KGNvZGVjLCAweDU3LCAweDA0LCAweDAwMDcsIDB4MSk7IC8qIExvdyBwb3dlciAqLwotCWlm
+IChzcGVjLT51bHRyYV9sb3dfcG93ZXIpIHsKLQkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywg
+MHgwMywgMTw8MSwgMTw8MSk7Ci0JCWFsY191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4MDgsIDM8
+PDIsIDM8PDIpOwotCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDA4LCA3PDw0LCAwKTsK
+LQkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHgzYiwgMTw8MTUsIDApOwotCQlhbGNfdXBk
+YXRlX2NvZWZfaWR4KGNvZGVjLCAweDBlLCA3PDw2LCA3PDw2KTsKLQkJbXNsZWVwKDMwKTsKLQl9
+CiAKIAlzbmRfaGRhX2NvZGVjX3dyaXRlKGNvZGVjLCBocF9waW4sIDAsCiAJCQkgICAgQUNfVkVS
+Ql9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09VVF9NVVRFKTsKQEAgLTM2MTIsNiArMzYxMywxMyBA
+QCBzdGF0aWMgdm9pZCBhbGMyMjVfaW5pdChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAloZGFf
+bmlkX3QgaHBfcGluID0gYWxjX2dldF9ocF9waW4oc3BlYyk7CiAJYm9vbCBocDFfcGluX3NlbnNl
+LCBocDJfcGluX3NlbnNlOwogCisJaWYgKHNwZWMtPnVsdHJhX2xvd19wb3dlcikgeworCQlhbGNf
+dXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDA4LCAweDBmIDw8IDIsIDM8PDIpOworCQlhbGNfdXBk
+YXRlX2NvZWZfaWR4KGNvZGVjLCAweDBlLCA3PDw2LCA3PDw2KTsKKwkJYWxjX3VwZGF0ZV9jb2Vm
+X2lkeChjb2RlYywgMHgzMywgMTw8MTEsIDApOworCQltc2xlZXAoMzApOworCX0KKwogCWlmIChz
+cGVjLT5jb2RlY192YXJpYW50ICE9IEFMQzI2OV9UWVBFX0FMQzI4NykKIAkJLyogcmVxdWlyZWQg
+b25seSBhdCBib290IG9yIFMzIGFuZCBTNCByZXN1bWUgdGltZSAqLwogCQlpZiAoIXNwZWMtPmRv
+bmVfaHBfaW5pdCB8fApAQCAtMzYzMiwxMiArMzY0MCw2IEBAIHN0YXRpYyB2b2lkIGFsYzIyNV9p
+bml0KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCQltc2xlZXAoMik7CiAKIAlhbGNfdXBkYXRl
+X2NvZWZleF9pZHgoY29kZWMsIDB4NTcsIDB4MDQsIDB4MDAwNywgMHgxKTsgLyogTG93IHBvd2Vy
+ICovCi0JaWYgKHNwZWMtPnVsdHJhX2xvd19wb3dlcikgewotCQlhbGNfdXBkYXRlX2NvZWZfaWR4
+KGNvZGVjLCAweDA4LCAweDBmIDw8IDIsIDM8PDIpOwotCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNv
+ZGVjLCAweDBlLCA3PDw2LCA3PDw2KTsKLQkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHgz
+MywgMTw8MTEsIDApOwotCQltc2xlZXAoMzApOwotCX0KIAogCWlmIChocDFfcGluX3NlbnNlIHx8
+IHNwZWMtPnVsdHJhX2xvd19wb3dlcikKIAkJc25kX2hkYV9jb2RlY193cml0ZShjb2RlYywgaHBf
+cGluLCAwLAo=
+
+--_002_e35d8f4fa18f4448a2315cc7d4a3715frealtekcom_--

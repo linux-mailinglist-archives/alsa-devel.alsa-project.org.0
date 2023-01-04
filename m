@@ -2,70 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3F165D0B9
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 11:36:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E6665D174
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 12:32:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBB55A3CC;
-	Wed,  4 Jan 2023 11:35:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB55A3CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4377393D;
+	Wed,  4 Jan 2023 12:31:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4377393D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672828578;
-	bh=D4NpByt381Wxc3AfgPTZUhsdAKSu1MrR6gFvAJh8z7Q=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1672831963;
+	bh=v+0G+kQjDPZcgzyLAonltcocpIDs/oeo0yIa+WxMioo=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:Cc:From;
-	b=KjOIdL7zK7zKt3/KOoSO/qArBCI3f0h+jaxFt3M65ewO1UJn0cwpgKLyxXMt4b8fK
-	 klmpXff5MBMSKWyyk4O+xYdclffYVhIbFfSoImsGkF9X9yAmFscJvjJr+hplhpGiZ4
-	 IKUcTsycsomxSnaMFwM4C4AK660pmrvPAgi276dU=
+	 Cc:From;
+	b=tftmI4Ex3P2QbIZ1gx/sv3INQ/wJiZTl/ZGqBMzxynyOrdZtb7t+tKloX/Cj4ZKbO
+	 CNP5AOY7TBUXp8scmiKWLLsSJZ7OY+u58H0GLtUn6HHLxWzGyiYtwwmKFlwUowtqL2
+	 1nqirejfs1n38qG2xYLD5M40N0x0iEEpRk/RGJwU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECA02F80544;
-	Wed,  4 Jan 2023 11:35:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F5E1F80240;
+	Wed,  4 Jan 2023 12:31:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7644BF8055B; Wed,  4 Jan 2023 11:35:17 +0100 (CET)
+ id 24947F8024E; Wed,  4 Jan 2023 12:31:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.1 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 197BDF8023B
- for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 11:35:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 197BDF8023B
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1pD16y-0006GG-7N; Wed, 04 Jan 2023 11:35:08 +0100
-Message-ID: <60aa306c-2047-59ab-24ba-a6fba6667a3d@leemhuis.info>
-Date: Wed, 4 Jan 2023 11:35:04 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 887E7F8023B
+ for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 12:31:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 887E7F8023B
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=jaW9/2IE
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B0C6FB8162A;
+ Wed,  4 Jan 2023 11:31:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24DCC433EF;
+ Wed,  4 Jan 2023 11:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1672831901;
+ bh=v+0G+kQjDPZcgzyLAonltcocpIDs/oeo0yIa+WxMioo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jaW9/2IEM6Wvyg0dBgFkIqCUmk40O7invRLZNi5z3G6eRQS0M/I8BJCxXeDt6jZu2
+ itU3Ge1LXKNw1pubUjO1rVPjB3O81IxgjffO85Ushs/3Fno6PE4MU1lJTTrBeHlu29
+ SvE+gXqm/dD+yOdwidUi09q+SuhjN5JJK/qDuIGU=
+Date: Wed, 4 Jan 2023 12:31:38 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: Request for cherry-picks for sound (Re: [regression, 5.10.y] Bug
  216861)
-Content-Language: en-US, de-DE
-To: Takashi Iwai <tiwai@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <Y7Vjmod9m/Zmp4v2@kroah.com>
 References: <bebd692d-7d21-6648-6b7a-c91063bb51c2@leemhuis.info>
  <Y7K1WDmPYi3EMOn1@eldamar.lan> <87wn65umye.wl-tiwai@suse.de>
  <CALp6mkJhM1zDcNr9X_7WL09+uqcaAhNFFMhrjme0r7584O+Lgw@mail.gmail.com>
  <CALp6mk+rdqGXySUowxZv3kEEVWrh96m_x-h8xcFNQ9YZPkbc5w@mail.gmail.com>
  <87h6x7r7w6.wl-tiwai@suse.de> <87sfgrpos6.wl-tiwai@suse.de>
  <87wn62obhm.wl-tiwai@suse.de>
-From: "Linux kernel regression tracking (#info)" <regressions@leemhuis.info>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <87wn62obhm.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1672828511;
- a40a4397; 
-X-HE-SMSGID: 1pD16y-0006GG-7N
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,25 +83,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: Thorsten Leemhuis <regressions@leemhuis.info>
 Cc: Alsa-devel <alsa-devel@alsa-project.org>,
  "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
  LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
  Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?UMOBTEZGWSBEw6FuaWVs?= <dpalffy@gmail.com>,
+ =?iso-8859-1?Q?P=C1LFFY_D=E1niel?= <dpalffy@gmail.com>,
  Salvatore Bonaccorso <carnil@debian.org>, Sergey <zagagyka@basealt.ru>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[TLDR: This mail in primarily relevant for Linux kernel regression
-tracking. See link in footer if these mails annoy you.]
-
-On 04.01.23 11:11, Takashi Iwai wrote:
+On Wed, Jan 04, 2023 at 11:11:33AM +0100, Takashi Iwai wrote:
 > Greg, just in case you missed my previous post.
-
-Side note: thx for handling this, Takashi!
-
+> 
 > Could you cherry-pick the following two commits to 5.10.y and 5.15.y
 > stable trees?
 > 
@@ -106,151 +106,6 @@ Side note: thx for handling this, Takashi!
 > 636110411ca726f19ef8e87b0be51bb9a4cdef06
 >     ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
 
-#regzbot fix: ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
+Took a bit of work, but both now queued up, thanks.
 
-/me just picked one of them as the fix for the tracked regression, even
-if both are needed, as that's likely close enough, unless something
-really unexpected happens
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-> On Tue, 03 Jan 2023 17:26:49 +0100,
-> Takashi Iwai wrote:
->>
->> On Tue, 03 Jan 2023 15:48:41 +0100,
->> Takashi Iwai wrote:
->>>
->>> On Tue, 03 Jan 2023 14:04:50 +0100,
->>> PÁLFFY Dániel wrote:
->>>>
->>>> And confirming, 5.10.161 with e8444560b4d9302a511f0996f4cfdf85b628f4ca
->>>> and 636110411ca726f19ef8e87b0be51bb9a4cdef06 cherry-picked works for
->>>> me.
->>>
->>> That's a good news.  Then we can ask stable people to pick up those
->>> commits for 5.10.y and 5.15.y.
->>
->> I confirmed that the latest 5.15.y requires those fixes, too.
->>
->> Greg, could you cherry-pick the following two commits to both 5.10.y
->> and 5.15.y stable trees?  This fixes the recent regression caused by
->> the backport of 39bd801d6908.
->>
->> e8444560b4d9302a511f0996f4cfdf85b628f4ca
->>     ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
->>
->> 636110411ca726f19ef8e87b0be51bb9a4cdef06
->>     ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
->>
->>
->> Thanks!
->>
->> Takashi
->>
->>>
->>>
->>> Takashi
->>>
->>>>
->>>> On Tue, Jan 3, 2023 at 1:05 PM PÁLFFY Dániel <dpalffy@gmail.com> wrote:
->>>>>
->>>>> Another report: https://bugs.archlinux.org/task/76795
->>>>> Apparently, folks at alsa-devel traced down the dependencies of that patch, see the mail thread at https://lore.kernel.org/all/dc65501c-c2fd-5608-c3d9-7cea184c3989%40opensource.cirrus.com/
->>>>>
->>>>> On Mon, Jan 2, 2023 at 1:42 PM Takashi Iwai <tiwai@suse.de> wrote:
->>>>>>
->>>>>> On Mon, 02 Jan 2023 11:43:36 +0100,
->>>>>> Salvatore Bonaccorso wrote:
->>>>>>>
->>>>>>> Hi,
->>>>>>>
->>>>>>> [Adding as well Richard Fitzgerald and PÁLFFY Dániel to recipients]
->>>>>>>
->>>>>>> On Fri, Dec 30, 2022 at 09:08:57AM +0100, Thorsten Leemhuis wrote:
->>>>>>>> Hi, this is your Linux kernel regression tracker speaking.
->>>>>>>>
->>>>>>>> I noticed a regression report in bugzilla.kernel.org. As many (most?)
->>>>>>>> kernel developer don't keep an eye on it, I decided to forward it by
->>>>>>>> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216861 :
->>>>>>>>
->>>>>>>>>  Sergey 2022-12-29 10:07:51 UTC
->>>>>>>>>
->>>>>>>>> Created attachment 303497 [details]
->>>>>>>>> pulseaudio.log
->>>>>>>>>
->>>>>>>>> Sudden sound disappearance was reported for some laptops, e.g.
->>>>>>>>>
->>>>>>>>> Acer Swift 3 SF314-59-78UR 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
->>>>>>>>>
->>>>>>>>> # lspci
->>>>>>>>> 0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller (rev 20)
->>>>>>>>>         Subsystem: Acer Incorporated [ALI] Device 148c
->>>>>>>>>         Flags: bus master, fast devsel, latency 32, IRQ 197, IOMMU group 12
->>>>>>>>>         Memory at 601f270000 (64-bit, non-prefetchable) [size=16K]
->>>>>>>>>         Memory at 601f000000 (64-bit, non-prefetchable) [size=1M]
->>>>>>>>>         Capabilities: [50] Power Management version 3
->>>>>>>>>         Capabilities: [80] Vendor Specific Information: Len=14 <?>
->>>>>>>>>         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
->>>>>>>>>         Kernel driver in use: sof-audio-pci
->>>>>>>>>
->>>>>>>>> I am attaching the pulseaudio and dmesg logs
->>>>>>>>>
->>>>>>>>> This bug started reproducing after updating the kernel from 5.10.156 to 5.10.157
->>>>>>>>>
->>>>>>>>> Bisection revealed the commit being reverted:
->>>>>>>>>
->>>>>>>>> c34db0d6b88b1da95e7ab3353e674f4f574cccee is the first bad commit
->>>>>>>>> commit c34db0d6b88b1da95e7ab3353e674f4f574cccee
->>>>>>>>> Author: Richard Fitzgerald <rf@opensource.cirrus.com>
->>>>>>>>> Date:   Fri Nov 4 13:22:13 2022 +0000
->>>>>>>>>
->>>>>>>>>     ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
->>>>>>>>>
->>>>>>>>>     [ Upstream commit 39bd801d6908900e9ab0cdc2655150f95ddd4f1a ]
->>>>>>>>>
->>>>>>>>>     The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
->>>>>>>>>     and used by later code that depends on the TDM settings. So
->>>>>>>>>     __soc_pcm_open() should not be obliterating those mask values.
->>>>>>>>>
->>>>>>>>> [...]
->>>>>>>>> Original bug report: https://bugzilla.altlinux.org/44690
->>>>>>>>
->>>>>>>> See the ticket for more details.
->>>>>>>>
->>>>>>>> BTW, let me use this mail to also add the report to the list of tracked
->>>>>>>> regressions to ensure it's doesn't fall through the cracks:
->>>>>>>>
->>>>>>>> #regzbot introduced: c34db0d6b88b1d
->>>>>>>> https://bugzilla.kernel.org/show_bug.cgi?id=216861
->>>>>>>> #regzbot title: sound: asoc: sudden sound disappearance
->>>>>>>> #regzbot ignore-activity
->>>>>>>
->>>>>>> FWIW, we had as well reports in Debian after having updated the kernel
->>>>>>> from 5.10.149 based one to 5.10.158 based one in the last point
->>>>>>> releases, they are at least:
->>>>>>>
->>>>>>> https://bugs.debian.org/1027483
->>>>>>> https://bugs.debian.org/1027430
->>>>>>
->>>>>> I got another report while the commit was backported to 5.14-based
->>>>>> openSUSE Leap kernel, and I ended up with dropping it.
->>>>>>
->>>>>> So, IMO, it's safer to drop this patch from the older stable trees.
->>>>>> As far as I see, 5.15.y and 5.10.y got this.
->>>>>>
->>>>>> Unless anyone gives a better fix, I'm going to submit a revert patch
->>>>>> for those trees.
->>>>>>
->>>>>>
->>>>>> thanks,
->>>>>>
->>>>>> Takashi
->>>>
->>>
-> 
-> 
-
--- 
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-That page also explains what to do if mails like this annoy you.
+greg k-h

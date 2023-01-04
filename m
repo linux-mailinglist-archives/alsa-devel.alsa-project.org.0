@@ -2,86 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 864E465DAB7
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 17:49:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C4F65DB08
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 18:17:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A52CFBD2E;
-	Wed,  4 Jan 2023 17:49:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A52CFBD2E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9470DBF6E;
+	Wed,  4 Jan 2023 18:16:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9470DBF6E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672850994;
-	bh=mEq9W5dgWpSJiZZbrWI25k4VVJPZgYN5UhDmi7NHqNs=;
+	s=default; t=1672852628;
+	bh=XwOijTKRs64E9IkFBMlrNumius7hSHhyVy94XZxMOFM=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Fmwm9Rm73rZgswWdu699wnFu9JIZr/5D+oL0GuiJd+PdZRmuTOjaAiaOT1a0vQ6ZN
-	 0ebV4f7vu/AaPApiwwb0vq6W7JsQ62yUFs7ZhO3lDQmmXCyQGxJ/NbHh3Na7A8+YQl
-	 6WLkIIokBHTEGRTBI7Sqt+1zxU8+1Nd4gHkXIYaM=
+	b=MB04rZFfc5YIh7yMk71cc33ZIh/uICw1wEUHMeDNQ0G0HwTR7J21UYyPLuepg/HyN
+	 HyVNKvkaa+F4juTbU+HHBk71bXp/hm2WF7CVj14NV0hYmtb27dGYqNGPrUVBmszMVH
+	 xuRF2SuIkVnHBCYoOKAGu79w9KNFkib+lDorNTTA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 768C6F8023B;
-	Wed,  4 Jan 2023 17:49:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63102F800C0;
+	Wed,  4 Jan 2023 18:16:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FF36F8024E; Wed,  4 Jan 2023 17:49:02 +0100 (CET)
+ id D0875F8023A; Wed,  4 Jan 2023 18:16:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64EB9F8023A
+ for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 18:16:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64EB9F8023A
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=TKDHvQ+q
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38E16F8023A
- for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 17:48:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38E16F8023A
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EPpmoKl9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1672850940; x=1704386940;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=mEq9W5dgWpSJiZZbrWI25k4VVJPZgYN5UhDmi7NHqNs=;
- b=EPpmoKl9Ms5OLZbx8zNboiCXu5t4gzHEIQO5YXvh+e0FtyMt102DwzBA
- uAYSKp1MhmSX55x7g0+USeKntQARxXQgBQt58PGvB1ylDVee053Wt/ShE
- 75LOWm1U/h/vh55KAcxS/DbX6gKvQX3NbdZLxo/02/hI5nw8R341DBk2/
- 9RmjS7NzvvTdtzYXv6eMDVtnNUr1ECbj1bpxHC1g3mhttAKYJWCnPqKQ1
- gxOkE1HJHn2dlUauafmVxlHiySoh/eDpdPWMWETsWM27XV50qrVn7E8nm
- A2eS1ToS1sZy47gHoCSrYrG5TuVtZhM4fiOZmdXefA3pZf+TIORXOB/Da A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="302351237"
-X-IronPort-AV: E=Sophos;i="5.96,300,1665471600"; d="scan'208";a="302351237"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2023 08:48:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="797600777"
-X-IronPort-AV: E=Sophos;i="5.96,300,1665471600"; d="scan'208";a="797600777"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga001.fm.intel.com with ESMTP; 04 Jan 2023 08:48:13 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1pD6vz-004Nt0-25; Wed, 04 Jan 2023 18:48:11 +0200
-Date: Wed, 4 Jan 2023 18:48:11 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4A424B81888;
+ Wed,  4 Jan 2023 17:16:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D10BC433D2;
+ Wed,  4 Jan 2023 17:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672852569;
+ bh=XwOijTKRs64E9IkFBMlrNumius7hSHhyVy94XZxMOFM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TKDHvQ+qPwAoQ/3XivrWZXA6qfjLz7QRcK9K2gl/H7uHPDTWXNPZEfDgXSphczRLM
+ 4FnptcvjM6EUEsVNzEnweSH3spHn6Hnn1UYku9wgWR0uvXcgU/f3xUUvs/2+N5VkGA
+ u98x6PGmHC4neU9pbEVPd8BS3OaZ72/wL4ZQ/fXtYmBqf6JhcrUp2abr+2NaASoqFH
+ WN1eRK5YyywXGb7gQzEeBGBI24X9QoffodDNasyLeO6qs9/AaofP3M47BZvDgk66eg
+ tmsmxFiFpeeuOn7UNU8MKcX1IREPItqAh0zPRljUJ+fx+5UUiIFNHaM2cpjaEemzmE
+ xiy+TxG+aal4Q==
+Date: Wed, 4 Jan 2023 17:16:04 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Subject: Re: [PATCH v1 1/5] ASoC: Intel: bytcht_cx2072x: Replace open coded
  acpi_dev_put()
-Message-ID: <Y7WtywhUZCTx3akM@smile.fi.intel.com>
-References: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
- <731b2d59-22f1-a456-bcfc-040a1adccce0@linux.intel.com>
- <Y7VVCc7TjY3YsJoV@smile.fi.intel.com>
- <151a05a5-fc56-e005-e572-d031e6de0bb1@linux.intel.com>
- <Y7WsdF1rK/JmS01W@sirena.org.uk>
+Message-ID: <Y7W0VOJKlMtaIp13@sirena.org.uk>
+References: <Y7WtywhUZCTx3akM@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="DzU3FZTl/qvLfKOs"
 Content-Disposition: inline
-In-Reply-To: <Y7WsdF1rK/JmS01W@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <Y7WtywhUZCTx3akM@smile.fi.intel.com>
+X-Cookie: Stay away from hurricanes for a while.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,22 +93,36 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 04, 2023 at 04:42:28PM +0000, Mark Brown wrote:
-> On Wed, Jan 04, 2023 at 08:15:27AM -0600, Pierre-Louis Bossart wrote:
-> 
-> > For this series
-> 
-> > Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> According to b4 you've only acked the first patch here because Andy
-> doesn't send cover letters :/
 
-Is b4 capable to spread tags from cover letter to the whole series?
-(Sorry, I'm a bit outdated with all Swiss-knife possibilities that
- b4 provides)
+--DzU3FZTl/qvLfKOs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--- 
-With Best Regards,
-Andy Shevchenko
+On Wed, Jan 04, 2023 at 06:48:11PM +0200, Andy Shevchenko wrote:
+> On Wed, Jan 04, 2023 at 04:42:28PM +0000, Mark Brown wrote:
 
+> > According to b4 you've only acked the first patch here because Andy
+> > doesn't send cover letters :/
 
+> Is b4 capable to spread tags from cover letter to the whole series?
+> (Sorry, I'm a bit outdated with all Swiss-knife possibilities that
+>  b4 provides)
+
+Yes, it does that.
+
+--DzU3FZTl/qvLfKOs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO1tFMACgkQJNaLcl1U
+h9CXiwf9EWr+UeDMVySmEBhGp8o+0wnuHvOhwQtbbLZfRNGFujw9NVRQ5CQ6nzzF
+GcXZgSV1AZZg4l6BPBTHh1OBKVT4l+xURJjZ32un5r6f/0xmdAtFkx/+pRa2loIf
+B6skxnNOBbhyeaOZ9/5XSnnODmSSeRqw55aBvHHfOPFrXIHsFIywVBgD7ILrFL2V
+49RATfsii5jzsob/5NH//fJY23hVHWgZMKWW58pail+bKRujcG5hOiqbAFICJo4T
+O/hFyzjD/DbkQQGqCZtF/f+bwtBdEQQcxT9PX/GpDkSJ0CEY1EYLuBqOG868oix9
+/zEhGqpQQ60lejRHV5rPwtjtoaA7dg==
+=JwZ6
+-----END PGP SIGNATURE-----
+
+--DzU3FZTl/qvLfKOs--

@@ -2,97 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3977F65D070
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 11:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38E4165D0A9
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jan 2023 11:30:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0583A016;
-	Wed,  4 Jan 2023 11:11:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0583A016
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FD3EA370;
+	Wed,  4 Jan 2023 11:29:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FD3EA370
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672827163;
-	bh=V2wdkT2qGQOfUY6gNSyWISfoWQ8PWYs1nu9N6YAoc6E=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672828246;
+	bh=arwmrU6pTPoOLqCBDphrff/+pF//A9r4I80+Attw2tM=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=E1EGo/6C01eIiDyoj/QGzaQozi43DCknBArq9XOghdxcJQV1fW57ziZPCx95yrOD/
-	 4FIW7r/A2pOs7LWmAIJsWfl8+l29/YWAYV9HZS1SIndbprnsQk8TvtFNzSzF2tMEoh
-	 oACzDM/4t1Oo/soppe1p/1e56SU6Hr1A4AhHttOw=
+	b=NTqQK0daEFscFy3oawN8J85bNc3uVwhNdHowvmW2s2PSA48F2fzPw/2e9komxEq94
+	 WPjZpPabkAC+joDmvEzlS0EGCLtSYNGBB/g0N9pW799yK9S9Fm5a3KdglpOGWDK3um
+	 RZsGfvN8J0cqfr+G7moKMaOkmoP91nMO1fpIvqRY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21B8CF8055A;
-	Wed,  4 Jan 2023 11:11:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0F8CF8023B;
+	Wed,  4 Jan 2023 11:29:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CDEAF80563; Wed,  4 Jan 2023 11:11:42 +0100 (CET)
+ id 9B18CF80553; Wed,  4 Jan 2023 11:29:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15F2CF8055B
- for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 11:11:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15F2CF8055B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=jIUUFUU4; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=D0MHobL4
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CF59C3EC52;
- Wed,  4 Jan 2023 10:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672827093; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2Wf8/FIMUYrQBgeOJTLbyqmuHcLemKRfaSwIgj/ziLY=;
- b=jIUUFUU4O3+mr00mQ7oQ+W+IN6muOpQoiGa1T4DXF48Lx9Y3A5n1l3SM5VZCFtXmV9rKtO
- PWozl0rpB0LiTs1pgl+y+qx9yOF2gc7x35uoNxzClAeKaIqmHP7juHQFr+amDAbnvPtsGn
- Awxy+tP6CsmdlT8zN3wPbrKXwlKuyvU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672827093;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2Wf8/FIMUYrQBgeOJTLbyqmuHcLemKRfaSwIgj/ziLY=;
- b=D0MHobL4tuE7ZPWKE8E97wXFBOr64KvTOm6Rw/I7BhK9Q5o1j91ixSHvtER+J+tV0YG4/M
- fEf/9Vm6HgpdY/DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93007133D1;
- Wed,  4 Jan 2023 10:11:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id swQFI9VQtWPZTQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 04 Jan 2023 10:11:33 +0000
-Date: Wed, 04 Jan 2023 11:11:33 +0100
-Message-ID: <87wn62obhm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Request for cherry-picks for sound (Re: [regression,
- 5.10.y] Bug 216861)
-In-Reply-To: <87sfgrpos6.wl-tiwai@suse.de>
-References: <bebd692d-7d21-6648-6b7a-c91063bb51c2@leemhuis.info>
- <Y7K1WDmPYi3EMOn1@eldamar.lan> <87wn65umye.wl-tiwai@suse.de>
- <CALp6mkJhM1zDcNr9X_7WL09+uqcaAhNFFMhrjme0r7584O+Lgw@mail.gmail.com>
- <CALp6mk+rdqGXySUowxZv3kEEVWrh96m_x-h8xcFNQ9YZPkbc5w@mail.gmail.com>
- <87h6x7r7w6.wl-tiwai@suse.de> <87sfgrpos6.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 404A9F80553
+ for <alsa-devel@alsa-project.org>; Wed,  4 Jan 2023 11:29:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 404A9F80553
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VKbd0v6a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672828181; x=1704364181;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=arwmrU6pTPoOLqCBDphrff/+pF//A9r4I80+Attw2tM=;
+ b=VKbd0v6aZORSvT71d5cqwMFkncLd3P8K8xDhHVSA6jFmyUwyO2+xf+I2
+ fYkb5TwOS/zA8tFCwQTDpD7g+4XEl9pU/xgbgWdx4q9Uc8mPxAPVqhYHt
+ wuusCXzd5RvgLf0wiS4qxYozDATbu8FmbEcB8egr/gcdDz/7UGMveCMVQ
+ HkNQnbFLYCWVmKswAMRfGDZpMhOT2T+ipf7tab+AplihOn3zfdfT37f6a
+ +SamMAbGsMv4AGD9CSf19gb1Uuegl3imwhx72E66Wnqqu6jq6fbHDEd2z
+ OHaeVej0H+YxhLX09Japtt8Dp8cvP+tr95yQ7Hp55/8kmmfIpk7Q/OPqs A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="305406982"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="305406982"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2023 02:29:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="718407267"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="718407267"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga008.fm.intel.com with ESMTP; 04 Jan 2023 02:29:32 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1pD11W-004GDy-0d; Wed, 04 Jan 2023 12:29:30 +0200
+Date: Wed, 4 Jan 2023 12:29:29 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v1 1/5] ASoC: Intel: bytcht_cx2072x: Replace open coded
+ acpi_dev_put()
+Message-ID: <Y7VVCc7TjY3YsJoV@smile.fi.intel.com>
+References: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
+ <731b2d59-22f1-a456-bcfc-040a1adccce0@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <731b2d59-22f1-a456-bcfc-040a1adccce0@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,163 +91,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Alsa-devel <alsa-devel@alsa-project.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Mark Brown <broonie@kernel.org>,
- =?ISO-8859-1?Q?P=C1LFFY_D=E1niel?= <dpalffy@gmail.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Sergey <zagagyka@basealt.ru>
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Greg, just in case you missed my previous post.
-
-Could you cherry-pick the following two commits to 5.10.y and 5.15.y
-stable trees?
-
-e8444560b4d9302a511f0996f4cfdf85b628f4ca
-    ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
- 
-636110411ca726f19ef8e87b0be51bb9a4cdef06
-    ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
-
-
-Thanks!
-
-Takashi
-
-On Tue, 03 Jan 2023 17:26:49 +0100,
-Takashi Iwai wrote:
-> 
-> On Tue, 03 Jan 2023 15:48:41 +0100,
-> Takashi Iwai wrote:
+On Tue, Jan 03, 2023 at 09:08:20AM -0600, Pierre-Louis Bossart wrote:
+> On 1/2/23 14:30, Andy Shevchenko wrote:
+> > Instead of calling put_device(&adev->dev) where adev is a pointer
+> > to an ACPI device, use specific call, i.e. acpi_dev_put().
 > > 
-> > On Tue, 03 Jan 2023 14:04:50 +0100,
-> > PÁLFFY Dániel wrote:
-> > > 
-> > > And confirming, 5.10.161 with e8444560b4d9302a511f0996f4cfdf85b628f4ca
-> > > and 636110411ca726f19ef8e87b0be51bb9a4cdef06 cherry-picked works for
-> > > me.
+> > Also move it out of the conditional to make it more visible in case
+> > some other code will be added which may use that pointer. We need
+> > to keep a reference as long as we use the pointer.
 > > 
-> > That's a good news.  Then we can ask stable people to pick up those
-> > commits for 5.10.y and 5.15.y.
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > 
-> I confirmed that the latest 5.15.y requires those fixes, too.
+> Answering for the series: we should make the change across all Intel
+> machine drivers. I see at least four cases that were missed
 > 
-> Greg, could you cherry-pick the following two commits to both 5.10.y
-> and 5.15.y stable trees?  This fixes the recent regression caused by
-> the backport of 39bd801d6908.
-> 
-> e8444560b4d9302a511f0996f4cfdf85b628f4ca
->     ASoC/SoundWire: dai: expand 'stream' concept beyond SoundWire
-> 
-> 636110411ca726f19ef8e87b0be51bb9a4cdef06
->     ASoC: Intel/SOF: use set_stream() instead of set_tdm_slots() for HDAudio
-> 
-> 
-> Thanks!
-> 
-> Takashi
-> 
-> > 
-> > 
-> > Takashi
-> > 
-> > > 
-> > > On Tue, Jan 3, 2023 at 1:05 PM PÁLFFY Dániel <dpalffy@gmail.com> wrote:
-> > > >
-> > > > Another report: https://bugs.archlinux.org/task/76795
-> > > > Apparently, folks at alsa-devel traced down the dependencies of that patch, see the mail thread at https://lore.kernel.org/all/dc65501c-c2fd-5608-c3d9-7cea184c3989%40opensource.cirrus.com/
-> > > >
-> > > > On Mon, Jan 2, 2023 at 1:42 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > >>
-> > > >> On Mon, 02 Jan 2023 11:43:36 +0100,
-> > > >> Salvatore Bonaccorso wrote:
-> > > >> >
-> > > >> > Hi,
-> > > >> >
-> > > >> > [Adding as well Richard Fitzgerald and PÁLFFY Dániel to recipients]
-> > > >> >
-> > > >> > On Fri, Dec 30, 2022 at 09:08:57AM +0100, Thorsten Leemhuis wrote:
-> > > >> > > Hi, this is your Linux kernel regression tracker speaking.
-> > > >> > >
-> > > >> > > I noticed a regression report in bugzilla.kernel.org. As many (most?)
-> > > >> > > kernel developer don't keep an eye on it, I decided to forward it by
-> > > >> > > mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216861 :
-> > > >> > >
-> > > >> > > >  Sergey 2022-12-29 10:07:51 UTC
-> > > >> > > >
-> > > >> > > > Created attachment 303497 [details]
-> > > >> > > > pulseaudio.log
-> > > >> > > >
-> > > >> > > > Sudden sound disappearance was reported for some laptops, e.g.
-> > > >> > > >
-> > > >> > > > Acer Swift 3 SF314-59-78UR 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-> > > >> > > >
-> > > >> > > > # lspci
-> > > >> > > > 0000:00:1f.3 Multimedia audio controller: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller (rev 20)
-> > > >> > > >         Subsystem: Acer Incorporated [ALI] Device 148c
-> > > >> > > >         Flags: bus master, fast devsel, latency 32, IRQ 197, IOMMU group 12
-> > > >> > > >         Memory at 601f270000 (64-bit, non-prefetchable) [size=16K]
-> > > >> > > >         Memory at 601f000000 (64-bit, non-prefetchable) [size=1M]
-> > > >> > > >         Capabilities: [50] Power Management version 3
-> > > >> > > >         Capabilities: [80] Vendor Specific Information: Len=14 <?>
-> > > >> > > >         Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit+
-> > > >> > > >         Kernel driver in use: sof-audio-pci
-> > > >> > > >
-> > > >> > > > I am attaching the pulseaudio and dmesg logs
-> > > >> > > >
-> > > >> > > > This bug started reproducing after updating the kernel from 5.10.156 to 5.10.157
-> > > >> > > >
-> > > >> > > > Bisection revealed the commit being reverted:
-> > > >> > > >
-> > > >> > > > c34db0d6b88b1da95e7ab3353e674f4f574cccee is the first bad commit
-> > > >> > > > commit c34db0d6b88b1da95e7ab3353e674f4f574cccee
-> > > >> > > > Author: Richard Fitzgerald <rf@opensource.cirrus.com>
-> > > >> > > > Date:   Fri Nov 4 13:22:13 2022 +0000
-> > > >> > > >
-> > > >> > > >     ASoC: soc-pcm: Don't zero TDM masks in __soc_pcm_open()
-> > > >> > > >
-> > > >> > > >     [ Upstream commit 39bd801d6908900e9ab0cdc2655150f95ddd4f1a ]
-> > > >> > > >
-> > > >> > > >     The DAI tx_mask and rx_mask are set by snd_soc_dai_set_tdm_slot()
-> > > >> > > >     and used by later code that depends on the TDM settings. So
-> > > >> > > >     __soc_pcm_open() should not be obliterating those mask values.
-> > > >> > > >
-> > > >> > > > [...]
-> > > >> > > > Original bug report: https://bugzilla.altlinux.org/44690
-> > > >> > >
-> > > >> > > See the ticket for more details.
-> > > >> > >
-> > > >> > > BTW, let me use this mail to also add the report to the list of tracked
-> > > >> > > regressions to ensure it's doesn't fall through the cracks:
-> > > >> > >
-> > > >> > > #regzbot introduced: c34db0d6b88b1d
-> > > >> > > https://bugzilla.kernel.org/show_bug.cgi?id=216861
-> > > >> > > #regzbot title: sound: asoc: sudden sound disappearance
-> > > >> > > #regzbot ignore-activity
-> > > >> >
-> > > >> > FWIW, we had as well reports in Debian after having updated the kernel
-> > > >> > from 5.10.149 based one to 5.10.158 based one in the last point
-> > > >> > releases, they are at least:
-> > > >> >
-> > > >> > https://bugs.debian.org/1027483
-> > > >> > https://bugs.debian.org/1027430
-> > > >>
-> > > >> I got another report while the commit was backported to 5.14-based
-> > > >> openSUSE Leap kernel, and I ended up with dropping it.
-> > > >>
-> > > >> So, IMO, it's safer to drop this patch from the older stable trees.
-> > > >> As far as I see, 5.15.y and 5.10.y got this.
-> > > >>
-> > > >> Unless anyone gives a better fix, I'm going to submit a revert patch
-> > > >> for those trees.
-> > > >>
-> > > >>
-> > > >> thanks,
-> > > >>
-> > > >> Takashi
-> > > 
-> > 
+> bytcr_rt5640.c:         put_device(&adev->dev);
+> bytcr_rt5651.c:         put_device(&adev->dev);
+> bytcr_wm5102.c: put_device(&adev->dev);
+> sof_es8336.c:           put_device(&adev->dev);
+
+Aren't they (they all problematic, btw) covered by the fixes series
+https://lore.kernel.org/r/20230102203014.16041-1-andriy.shevchenko@linux.intel.com?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

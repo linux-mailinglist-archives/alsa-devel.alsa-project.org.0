@@ -2,82 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAC4E65E98D
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 12:10:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1801265EA23
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 12:47:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C00B1063F;
-	Thu,  5 Jan 2023 12:09:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C00B1063F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E47FE65EE;
+	Thu,  5 Jan 2023 12:46:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E47FE65EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672917022;
-	bh=LAsrZfSnQres51ppPQcdXpGQ3gS3K+MVgY/44ivN1Y4=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1672919240;
+	bh=Cik1RDuh83X3oFwc9w6B7VB1PTN9Hd7TIFEd95DW/3w=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=vtPHed8LpK8HWaltiPdgPDhfBr3e2a+oG017i06Aqx+bDLAOh+in8Kdml5/cbgH0R
-	 0Z9mIlafNGfaV65qfn92JX2F0Cr0e9e7r9WUxNiBaXaT/rJiS4JYJlbxUnUbf+hopa
-	 urKNd2EfjY2NMlzJqkP5yejbNsmbXrVFipBdXQH0=
+	b=RIWu1agZ+IJENHRTRIUF1tR3QrgS1cKxsR1bj1Nn/tQybEfdb1+CtMG/w3pBnh6X9
+	 8NYG2IuFFHKaASKODs5VzhzeWVHtN+y3npMSbZadGef3Gjcm81BvtDVUPBsxhQQt74
+	 aoQBNF5rXZL710SU/teYYiKZqLVpCFA+X3u5dcf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 445E7F8022B;
-	Thu,  5 Jan 2023 12:09:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28F36F8047B;
+	Thu,  5 Jan 2023 12:46:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B3BDF804AD; Thu,  5 Jan 2023 12:09:29 +0100 (CET)
+ id 07439F800C0; Thu,  5 Jan 2023 12:46:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC8F3F8022B
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 12:09:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC8F3F8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF216F800C0
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 12:46:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF216F800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=iAV0ZfBH
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 7A6786602D2B;
- Thu,  5 Jan 2023 11:09:24 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1672916965;
- bh=LAsrZfSnQres51ppPQcdXpGQ3gS3K+MVgY/44ivN1Y4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iAV0ZfBHi/SK8ThsE63VKckB2W2TMiARXN3hqNYC9GBS8vXSmHwFk8BwBeesxguF6
- zP/Ks+vamEcKO+tHiXLJVubRerU8+1LbLcnfN/HqDygHAouz4KePH66XvtHGBuyf6i
- IY/3y8k+ju4FBAU8qnWsg3RVY6QzQxVhI7tGbpJbP7yu92Ww2H5MudA8QLjk2C4weG
- nGYh12cV+HI9m/5+NtKCiXqU4RuHEqf5JqaxDOQT44PWAVz67QPpd2y+LZkWEAAqbv
- +9vsS2c8QEHPto8fJzPBjfbA+GxTSq6iRRxO4VnzBYp3Yy4GuFiDRv7k238VBSpJi2
- j5IjErh5uIDkQ==
-Message-ID: <77e958fd-5ced-bd5a-70cb-af4fe94717d5@collabora.com>
-Date: Thu, 5 Jan 2023 12:09:21 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=OG2WD/ou
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6480DB81A84;
+ Thu,  5 Jan 2023 11:46:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA372C433D2;
+ Thu,  5 Jan 2023 11:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1672919171;
+ bh=Cik1RDuh83X3oFwc9w6B7VB1PTN9Hd7TIFEd95DW/3w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OG2WD/oueUO8uQD+sD1XijfTHFL/AWRDuHyAfd8ePct23bIa9t2iyTq0Nfo69pGIH
+ fbDe/1hEn7NkLwN5AVXUVG8bs9+INhDGc13idZtfrGU7Hqgxc3suxIslqmkCrSoCCn
+ i1z8G54FHRDYpkq5zb5jJAL5sDupe/nzL8GxQoPo9l0aOnDkbNe/w8/N1BIUWMWJih
+ cNY89Xm8t+miYCoqjoBnTTGPTEOAvs5/vfgVGxeY+wyz1+sNhx0wVDyYd1C1LZB0ZC
+ NVIIHYgtxI2Jo05pFApewre4NvjFUIxAvS7/jU648OiDbkgRXR3/bhpIAtFbhTbOiN
+ fOE+Mm3S2eW5g==
+Date: Thu, 5 Jan 2023 11:46:05 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 1/5] ASoC: Intel: bytcht_cx2072x: Replace open coded
+ acpi_dev_put()
+Message-ID: <Y7a4fVwa9WlYJHS4@sirena.org.uk>
+References: <Y7WtywhUZCTx3akM@smile.fi.intel.com>
+ <Y7W0VOJKlMtaIp13@sirena.org.uk>
+ <Y7XLo8febtiSLGAD@smile.fi.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v5 09/13] ASoC: mediatek: mt8188: add control for timing
- select
-Content-Language: en-US
-To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com,
- p.zabel@pengutronix.de
-References: <20230105081606.6582-1-trevor.wu@mediatek.com>
- <20230105081606.6582-10-trevor.wu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230105081606.6582-10-trevor.wu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="6clIRmAMq5MhY13B"
+Content-Disposition: inline
+In-Reply-To: <Y7XLo8febtiSLGAD@smile.fi.intel.com>
+X-Cookie: Surprise due today.  Also the rent.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,18 +85,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 05/01/23 09:16, Trevor Wu ha scritto:
-> Add mixer control for irq and memif timing selection.
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+--6clIRmAMq5MhY13B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Jan 04, 2023 at 08:55:31PM +0200, Andy Shevchenko wrote:
 
+> P.S. Tell me if I need to resend with tags applied this time?
+
+No.
+
+--6clIRmAMq5MhY13B
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO2uHwACgkQJNaLcl1U
+h9B+EAf+I/vPfWxJqkCwPWOm+sJxBlPlaeU6T8geBRQao86QUWShHa3hclugSHnN
+LKmbfMhvQga/7WQmaGdd3mHqQb9Km4WQX/vM2hLgdSNgXBIPgbZCWFyOXCK9E41q
+J66eg5UqNMFsOAjZS+s4Rr3FLSZPwtbH3uINMhZjo2arW7Cq++iuGrTTlGkjUhtB
+cUc12EWyJu3j5Xlqa0sVURmWQtugXLKQZ89lCah04CIkcZGub8KaMwu4qucv2G7a
+Kv9k98lkKpwS5JBgFPPuBjzxBI4/pgRkaefuOlDvUcFj+RuGs+7137xofH1fJbnA
+AVd6iKKPJezBiTRteFXR8LmFuv2OqA==
+=TXc/
+-----END PGP SIGNATURE-----
+
+--6clIRmAMq5MhY13B--

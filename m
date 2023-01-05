@@ -2,81 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3517665F094
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 16:54:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C4DD65F0C4
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 17:05:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFBA7114CF;
-	Thu,  5 Jan 2023 16:53:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFBA7114CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F4C311595;
+	Thu,  5 Jan 2023 17:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F4C311595
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672934082;
-	bh=vHZs9OjJ6KXg+S9h06OTafkkgxBlrbQRQXCR8C8oFts=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1672934710;
+	bh=pp82hOsYNlkQhNttFMywjUKN/0qobYmD6BVqzQNn814=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=qAxYsM0Utm9tOXQ/+Dz8GDwk0hPkOhWm9xCJI2KHhzAs6tP6Ej7kGK4QckShjhPVL
-	 AGUIb5SXXjrk9rpRMDp3ErdMwdErkTuKxruczTsxHYLS6d1tPyKn2V98WuJX4qcckX
-	 PFKyfJITGMR08vl9ULp/iiQ7Bknx5TRMO2Q2p01E=
+	b=fxRknWBm3NLElJRtuoKWPgc6Pmv3S//NIGDfDeLiAPAv+mGs3xrAWkb3nXf6er8ZM
+	 oEN8vJRIAEqkx0NqeXpw0/z7VPWJ37WTYUK5WH8Idak4F78G9Esh7supG8aUPXq6CE
+	 syXix7gHX9/X+NWhs/c4ezTq+NTxiCsB2ENdB9A0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 656C1F800C0;
-	Thu,  5 Jan 2023 16:53:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD331F800C0;
+	Thu,  5 Jan 2023 17:04:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA89FF804AA; Thu,  5 Jan 2023 16:53:41 +0100 (CET)
+ id 11D39F804AA; Thu,  5 Jan 2023 17:04:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D10AF800C0
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 16:53:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D10AF800C0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EaRmeDs9
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3365DB81ABD;
- Thu,  5 Jan 2023 15:53:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72696C433EF;
- Thu,  5 Jan 2023 15:53:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672934017;
- bh=vHZs9OjJ6KXg+S9h06OTafkkgxBlrbQRQXCR8C8oFts=;
- h=From:Date:Subject:To:Cc:From;
- b=EaRmeDs94KgukTL3nj7VhltrGLOj5INt3wMoL9fll6WRAybCmCwkBrdrJLi/YMAOi
- G38A/xeGwXHS48/pb0wJ0aABHaE4g0CVNok4NTd+TUixmGFbhlyHUjnTCE9Jp8MEqX
- UUJyy1YEV6GPjEiTqDcVd/tICh8IjxlNNqFEL00O51pqRUSR27N72hH1Ti+v43aQ+7
- uRrPTEyhv1rba5cfIott1kTA0DQZtYlM2/hE3euHrkwJvCgMgtmpnHVDI4fmFrm9MV
- k1f9ernVSQ4yZknxLab+uP6u68l1p3ug6jH+9Wr8wGiL/BGVQEni0uZWiL8EkeBXH1
- lYAZFnOrhwlww==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 05 Jan 2023 08:53:32 -0700
-Subject: [PATCH] ASoC: amd: ps: Fix uninitialized ret in
- create_acp64_platform_devs()
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 68DB4F800C0
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 17:04:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68DB4F800C0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A563F1063;
+ Thu,  5 Jan 2023 08:04:43 -0800 (PST)
+Received: from R913NWR2.arm.com (unknown [10.163.47.55])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5B9CC3F71A;
+ Thu,  5 Jan 2023 08:03:58 -0800 (PST)
+From: Faiz Abbas <faiz.abbas@arm.com>
+To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: [PATCH] ASoC: dt-bindings: simple-card: Document simple-audio-card,
+ plat
+Date: Thu,  5 Jan 2023 21:33:46 +0530
+Message-Id: <20230105160346.29018-1-faiz.abbas@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230105-wsometimes-uninitialized-pci-ps-c-v1-1-4022fd077959@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAHzytmMC/x2NSQoCMRAAvzL02YYsRMGviIcsrdNgMiEdFxzm7
- 2Y8FgVVKwg1JoHztEKjFwsvZYA+TBBnX+6EnAaDUcYqrRy+ZcnUOZPgs3Dhzv7BX0pYI2MVjGiD
- OxkXj5SshtEJXghD8yXOeyl76dR2URvd+POfX67b9gN/dwFjjAAAAA==
-To: lgirdwood@gmail.com, broonie@kernel.org
-X-Mailer: b4 0.11.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1438; i=nathan@kernel.org;
- h=from:subject:message-id; bh=vHZs9OjJ6KXg+S9h06OTafkkgxBlrbQRQXCR8C8oFts=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDMnbPjU6rCu0ly2bHu2wMyhmn4Li2T8xM3YKSjq/td54xUcq
- sFWqo5SFQYyDQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzkjSwjw9QHEZEczY8je97eenThk6
- aeQyMrz4JNomHJfEeyF+kf4mVkWNOb1FfPFlP0om+uyEZFjV1i2zpKhW5NfcF/7+K9C/E/2QA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,52 +62,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Syed.SabaKareem@amd.com, Vijendar.Mukunda@amd.com
+Cc: kuninori.morimoto.gx@renesas.com, Faiz Abbas <faiz.abbas@arm.com>,
+ lgirdwood@gmail.com, Deepak.Pandey@arm.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Anurag.Koul@arm.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clang warns:
+The simple card driver has support for adding cpu, codec and platform
+nodes with the simple-audio-card prefix. Add documentation for the plat
+binding.
 
-  sound/soc/amd/ps/pci-ps.c:218:2: error: variable 'ret' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
-          default:
-          ^~~~~~~
-  sound/soc/amd/ps/pci-ps.c:239:9: note: uninitialized use occurs here
-          return ret;
-                 ^~~
-  sound/soc/amd/ps/pci-ps.c:190:9: note: initialize the variable 'ret' to silence this warning
-          int ret;
-                 ^
-                  = 0
-  1 error generated.
-
-Return -ENODEV, which matches the debug message's description of this block.
-
-Fixes: 1d325cdaf7a2 ("ASoC: amd: ps: refactor platform device creation logic")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1779
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Faiz Abbas <faiz.abbas@arm.com>
 ---
- sound/soc/amd/ps/pci-ps.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/sound/simple-card.yaml           | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 401cfd0036be..f54b9fd9c3ce 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -217,6 +217,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
- 		break;
- 	default:
- 		dev_dbg(&pci->dev, "No PDM devices found\n");
-+		ret = -ENODEV;
- 		goto de_init;
- 	}
+diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+index ed19899bc94b..fa67c76d4dbb 100644
+--- a/Documentation/devicetree/bindings/sound/simple-card.yaml
++++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+@@ -205,6 +205,8 @@ patternProperties:
+     $ref: "#/definitions/dai"
+   "^simple-audio-card,codec(@[0-9a-f]+)?$":
+     $ref: "#/definitions/dai"
++  "^simple-audio-card,plat(@[0-9a-f]+)?$":
++    $ref: "#/definitions/dai"
  
-
----
-base-commit: 03178b4f7e2c59ead102e5ab5acb82ce1eaefe46
-change-id: 20230105-wsometimes-uninitialized-pci-ps-c-3b5725c6ed31
-
-Best regards,
+   "^simple-audio-card,dai-link(@[0-9a-f]+)?$":
+     description: |
+@@ -285,6 +287,27 @@ examples:
+         };
+     };
+ 
++#-------------------------------
++# single DAI link with platform
++#-------------------------------
++ - |
++   sound {
++        compatible = "simple-audio-card";
++        simple-audio-card,format = "i2s";
++        simple-audio-card,mclk-fs = <384>;
++        simple-audio-card,cpu {
++                sound-dai = <&iofpga_i2s>;
++        };
++
++        simple-audio-card,codec {
++                sound-dai = <&hdmi_tx>;
++        };
++
++        simple-audio-card,plat {
++                sound-dai = <&audio_formatter>;
++        };
++};
++
+ #--------------------
+ # Multi DAI links
+ #--------------------
 -- 
-Nathan Chancellor <nathan@kernel.org>
+2.25.1
+

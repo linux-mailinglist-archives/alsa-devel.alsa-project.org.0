@@ -2,108 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3DED65F67B
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 23:10:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2428765F7AA
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 00:37:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A76F122D3;
-	Thu,  5 Jan 2023 23:09:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A76F122D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id E858E126FA;
+	Fri,  6 Jan 2023 00:37:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E858E126FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672956622;
-	bh=eEt5WoqZxk5jGA3A1BZyFJhQhx+wAYMb8uclQzYe8zA=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1672961873;
+	bh=PLCf+HAU0J4jCk45TwfyBZ+fGlz58JfjNtJ7FE4FU0o=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ltZ7f4dILeA3omI2aFr/MDDK7j6jFOP20kdbNgfgcoFXeDJTwS8kSGc58VIoMkCkH
-	 b12SuBOea1P/EZgJQUY6/fgEWhuOA2QqXXjSKwdoTApcrtZ9e2tsJLvR50bbauqM0d
-	 d4N90HDEDZJVL+vDoxO8+//MDzjkyGsSpI6dOezE=
+	b=BnpsFyNZuJDQYHsFnROfYljRHdZchiwoa5UChUIq2BivFzlq/TMGbLAWWB5oWAooL
+	 0rx30p4KAMyyf2I2t8rNDFVqjorgl4K4I5lJnyvrDa6SnkSNIqR9LHKvhd/akV4dHR
+	 i/orhKs9GV3og37hbZHmNDIfeKz8UvqGfRjC4a9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F246F800C0;
-	Thu,  5 Jan 2023 23:09:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A92ACF80238;
+	Fri,  6 Jan 2023 00:36:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92B82F804AA; Thu,  5 Jan 2023 23:09:22 +0100 (CET)
+ id 72C91F804AA; Fri,  6 Jan 2023 00:36:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 961CEF80238
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 23:09:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 961CEF80238
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F233F804AA
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 00:36:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F233F804AA
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=WxsdcKEz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1672956548;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=idk7zwMeN8Ms5ELQH7d2B6f/MLuOIPR3AtkkFMxBOP4=;
- b=WxsdcKEzoRuvf4DRT79vN2pF0Mp4E1Y47672tB95E4Dut0Tp9JW4OaXFOKCk3U1T4G2rBb
- MOORUvmk9k35z9vnJTIiUNUlf+7zYNXD/NvUoEJfTmCV1HS+bnsKRgTRexDcRl84IEsWDy
- pOr45HI+F2tP74UjVyKGfwNuKEMOSP0=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-120-q-Sd4Ay5O-m3tr5iE9kNQA-1; Thu, 05 Jan 2023 17:09:07 -0500
-X-MC-Unique: q-Sd4Ay5O-m3tr5iE9kNQA-1
-Received: by mail-qv1-f71.google.com with SMTP id
- d16-20020a0cfe90000000b005320dea1ed5so2053070qvs.17
- for <alsa-devel@alsa-project.org>; Thu, 05 Jan 2023 14:09:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-language:content-transfer-encoding:in-reply-to:mime-version
- :user-agent:date:message-id:from:references:cc:to:subject
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=idk7zwMeN8Ms5ELQH7d2B6f/MLuOIPR3AtkkFMxBOP4=;
- b=LIA0a6j0bXsJ7AtZRtFXzejIImpCHPbBpjgPcSkjOzyqbjXI2jR4VMM817F/916dnJ
- hdPwE7jWgN9yZzOyci9RJBaWenIIbHND1W+vemMTr3g3lyCQPlu0pr2aufCLrwKB1g37
- Ysg12eCUmtGuzv8Iszkjpnqp1214969KK5b0IN3eUfHP5HqKJyZvoUPTSHdmlKUGiQrp
- ILH0qi2xc06LwBmR72ykDeKfID+O3pzRMCu0g8CK06trjUncopTPCSQGKeaVcywdKTBd
- dHXDPIn0tSEMo1h8fuKHhLIilQorADdaeqVN/PnBHHfI4OsUc02qCGl1qj3Xu/0INpwJ
- U30g==
-X-Gm-Message-State: AFqh2krUIOgN6b61AoFM+bnTvEKnrQk6r8OdFCnIM49Qvph/x+/a1vFX
- GRDwc0w2k3HkgfYmF+L2GlB00RsfeT4pTLUehV8HsTeAfjE7CJ3FVCS3HxMwVUF9d/ngCxBRbfa
- Zz+f2WJSYeTsg97Bt9LDq7js=
-X-Received: by 2002:a05:6214:2e81:b0:4b8:8a31:5741 with SMTP id
- oc1-20020a0562142e8100b004b88a315741mr71801215qvb.15.1672956547176; 
- Thu, 05 Jan 2023 14:09:07 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXughyad3qrXR+35kG38zogh8DNxPC/6FgPkh/1kss3XlBPgAaxGNhEBt42C/e4ZtH94rv6pbA==
-X-Received: by 2002:a05:6214:2e81:b0:4b8:8a31:5741 with SMTP id
- oc1-20020a0562142e8100b004b88a315741mr71801183qvb.15.1672956546809; 
- Thu, 05 Jan 2023 14:09:06 -0800 (PST)
-Received: from localhost.localdomain (024-205-208-113.res.spectrum.com.
- [24.205.208.113]) by smtp.gmail.com with ESMTPSA id
- pj8-20020a05620a1d8800b006cfc7f9eea0sm25787894qkn.122.2023.01.05.14.09.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 14:09:06 -0800 (PST)
-Subject: Re: [PATCH] ASoC: amd: Return ENODEV if acp63 is not found.
-To: Nathan Chancellor <nathan@kernel.org>
-References: <20230105211912.824250-1-trix@redhat.com>
- <Y7dF3VvQs6l7rr3p@dev-arch.thelio-3990X>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <3921856d-7843-4206-f888-4ac48cdc97e4@redhat.com>
-Date: Thu, 5 Jan 2023 14:09:03 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
-In-Reply-To: <Y7dF3VvQs6l7rr3p@dev-arch.thelio-3990X>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=VHZ5mbG7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e6brgKhpJsQ7g9VmfGST9KbP8eUN57Am/4PnKZ67lVZPIivzvJP2QIRuhexy0nYA1/HKhgB1LOZiyWVGoVDd5rRK+cC4PPSUgDZhZf7a4r7y0t1Cx5JiPam5X+oE0Vh/QmjV5EFLdAHDamBZMrZye31ZNVYbl3DiKq+sdBh2BuoYcKFEOw69WUI69H8ZZ8IBTHhh8OepVQnlAwQKLChYaS1CThpVRHh/PHXzwVrs8JCRdHVyK5oVGaKKrHkDaEkaFIOf3+ZbV9AnuNRuKSTM7C6YvHrRLx7fqM/4NVlF+mfzvLhAgXwRqYQMYg2P8RmMp/516jPtV1X3mc22peDe+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NR3eKyRwc3llxiqUL3S6Bbzzk4GAkQXBWj8ka9Smif0=;
+ b=bO+F2d4yKoZBAxNrCEZLn3K5ze1rFTpNH+NZJdSallLaVohi5/phGL+26aPnzBWh5oPVEAXO00jzN6A0sXITiRpaWJZTuj6UEmS23GAXL9YWXJmiIAmZF6BIlauoLwaDugTccpzIaN2XvB2tS2iydBJNsyfAet4CHitFYxEA84glwLYW+pD/tZU4et6E+ty0+WeUNpprQCsuWa8rSKwt+jQflIjA1W+5+6MQkxxPw0VS+i4Oa30vS1ZinNLHBH0tTQvgWmMku+fn7rcmOo8o6zQkVd1CDu4CdMA1UkkN7OgJpbvLcTzPC5O6JXmRDstVtWzCgx+0kyhHehAEE+aytQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NR3eKyRwc3llxiqUL3S6Bbzzk4GAkQXBWj8ka9Smif0=;
+ b=VHZ5mbG7W6J5STyROoJiPUKxcCreZY+Z/LQPEiwMfvjTt0iJZq54btH0PUOyaFNozyobJdDFwpX6t7DubeYmuQjHJ2Xc8lHZ6RXfy+2dhjQ2FUa8H/dpfcNRUTWdk2joXhgXg1DwiGJZ0irOXzkOBYmkrpl/RGVJY4/SlOLNzgU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by LV2PR12MB5823.namprd12.prod.outlook.com (2603:10b6:408:178::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
+ 2023 23:36:35 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::7d2d:dc01:79cf:df79]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::7d2d:dc01:79cf:df79%3]) with mapi id 15.20.5944.019; Thu, 5 Jan 2023
+ 23:36:35 +0000
+Message-ID: <e57369d9-e4ab-365e-2d59-4a5f46d65283@amd.com>
+Date: Fri, 6 Jan 2023 05:09:40 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] ASoC: amd: ps: Fix uninitialized ret in
+ create_acp64_platform_devs()
 Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20230105-wsometimes-uninitialized-pci-ps-c-v1-1-4022fd077959@kernel.org>
+ <6bb126b7-1cb4-0c4c-d357-fadc3ffdd3f9@amd.com>
+ <Y7cEra00F9PeFFcx@dev-arch.thelio-3990X>
+ <Y7cKHZL8e+rfR66a@dev-arch.thelio-3990X>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <Y7cKHZL8e+rfR66a@dev-arch.thelio-3990X>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN0PR01CA0004.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4f::9) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|LV2PR12MB5823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41a4b54e-c371-4f07-4e62-08daef75aed8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: O3fU7Jdlz0ksw5v3y4x7rZkeHmBacE3FR/q2HspVElbZyApx48hDyBCs46EYd0p8Tze2+wD1fV1lLHWEiYdS/DB27kVsK7jBVJEhospNo+A1AjLoHlaRHLSf4gssTwl8dak/0LuHsvc6QBWOh2i+aywCZVW3KDt9VYbdJ5P1ZTSHPVVvzD99haGNy9bOk2F1z0TTxsM8Qr/F7JlPG0m26rZZmqo/Sr/BsK793QOiUXozLw8AwM7m+/IHpVMwwXK2BLYdudj3QHwsqWHdrx2wzAH8Emj7ngj2YFu9p06VISsywtRVFUYFZC97Fl/Ior8STecL2pPg/Vt6swWA/yG8NuI5pUcSeYbTsoL6P4AyJb2SV9U1N99wUXFk4WbG3Mh6MXahg+oH1cSzSeZjDVt66t3gveC+3bPsvHbGuSDwbbbr2hlcsTE5MwGdgmicLvGyKKA+oROl1vB4462sRVtwqJAl+pUmfYiMZoyqZcyPDlxIryq2ngsjkhpWvpdG2VLgWo9W1S+CGpmalL14U674NFR1mNZJz/CX2ydzIM5yZRggJltClX/jAsZ46sIZ6JUfX81sMS5B+junLPhKqGAtdiZJWchIdsFtBikP1PfTntCZdFayHlgvRM5euWonb8DIUDGjk652dJc42g9OCbL/TwdqGZLe6c/1dPLih7f+be9EW7FmgsibWhFouqDkU+bKq44faEjQeCIWnrsaz58i6BxDZP35syYTe726euqDXdt22oDyhg3fvGkW+1fbDSFuTvwqjJcsvfUwSXIYOgeAXg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(136003)(346002)(376002)(366004)(451199015)(8936002)(41300700001)(66946007)(5660300002)(8676002)(2906002)(6916009)(66556008)(31686004)(4326008)(966005)(53546011)(6506007)(45080400002)(6486002)(6666004)(316002)(478600001)(66476007)(86362001)(31696002)(26005)(186003)(2616005)(83380400001)(6512007)(38100700002)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE8wdmw3cG4yVE5SRkVTa0RGa3lRdmNsOUs4eVA2OGJkZE82VUZpakE4U1Yz?=
+ =?utf-8?B?di9yMHI0bjI0MmtXZG12aGZScE5kUVI1em0yVk1lWEw1QmxhdnhjL3pqT2o2?=
+ =?utf-8?B?dVdwaDdpMkRjMXRuQjNTRVN0OC8yTHhZL1RjVVFVUmlqTkVOZmd0TkZ6UWx2?=
+ =?utf-8?B?ckRObXBDYmd5Vk14Tm9FQ1FDVTZ1b1E2cDJ6Z0gvRENnbDcrQXhkTFBrSXlP?=
+ =?utf-8?B?TitXcE0weDZwa1VPVkthS0o3NWVqOXlSRHp4VnNhdXhxRVlEZ1FkQ0YzWW80?=
+ =?utf-8?B?dmVFTlV5Qk9NVExJSXQzMGxmRjI2dUhtT0o1azlTTzNmWlRrams5OHFRN0VD?=
+ =?utf-8?B?eFIwUDAvNnZmS3V1QllBYlJCbFQ4cFNSdmRpNjNtOGlySG5nSkFRUnN0b2tr?=
+ =?utf-8?B?TVk5UTZMVWRJWU0rZCs5dnBXcDNMR3RId0F6MGpwd3dTUm9sTisrN1lZSHA1?=
+ =?utf-8?B?UndzOFc3UytsbVV2VWx3TVNabGhXejlxcnc1UFNGeUczNEszV1FlUUZZSlB4?=
+ =?utf-8?B?K0xoYzdBZzN6V2hZT0R2b1ltaUI3RURDUzVtUEVIOUVGbFFyRW9lRm15bHIr?=
+ =?utf-8?B?UzVOR0FqNUYybUIrblhRa203d3hvMmVKcnpVZ2JpcUNZWUdudmJBUnV0K1J6?=
+ =?utf-8?B?UzIrNXZUeEdOYkhWZWcvVXJLbW1QaTY2U0VlK2xHRndnNHhEV3BIb3ozL3dz?=
+ =?utf-8?B?NWVnS1E2OHBiNjV1YVc3WlZEejF2bmROektQSGdCM2hEZFNZMlcxNUFIK2V3?=
+ =?utf-8?B?bTlPdEZwVVZ1eE9VVTMxOVRCeFZSU0k1K1ZPKzJwb0I3Nlk3VzVkNUs0Um5v?=
+ =?utf-8?B?Qmk5Y1Fwc1VHMUxWTzVVSFNSK2dNQjFERjduQ2t5eXFVMmpLbVQ5czhXMXdC?=
+ =?utf-8?B?ZGhENUNzc2x0bUJPZ21UbEk3MmhCdW9GNEhITTN6MFZmOW8zOFBCellyUnBp?=
+ =?utf-8?B?RU03MmFSTERJOWZsOUluaUtJMVo2QVVUTVR4YlovLzRaOUQ1SG5YdmtBeDZn?=
+ =?utf-8?B?T1c5WFNZUVlhMG1VY0hadWY5MTVpR0NrNlpIdFgwOU85Tm9mQkUxd2dSZ3h3?=
+ =?utf-8?B?QWY2MFRNWGRiSldjeVFxMEUrdTgrYlhLSDVtNG1aVHlHd1VmK2gvbDYwYjd1?=
+ =?utf-8?B?cXBoWG41NklpL0EwdWVqeVI4aHFGZ3JEMEZmNmFZbzdlNEpaOFFnRTMrYjlx?=
+ =?utf-8?B?SzRqbE85a2pUYUh6ZG5NNGZ2aWljUWpkVElhQnVMU0xDMWZsWHN1bllxYS83?=
+ =?utf-8?B?cHBITDdvU0NHbTlvMTNHOVZhejJpbFNzb1pyZXZaeUU1Unh6YnJ3WS9SU2Y2?=
+ =?utf-8?B?Q1gycXpxaG5SNUNnT0FUVW8wOUg1aDBPVHhreXdVQWIrZXp2N1dQblplTFE0?=
+ =?utf-8?B?cUxxWHlrdmlxM3hOWW9RQnVLbUVLZUxZYWtUL1kzUFpzZ2NGcmx2UUtPd053?=
+ =?utf-8?B?RVpGb0RKN2t1V3JYYis4VHZISDdkeDUzbTQ2MlBGYVljb2h4S25wM1hWMjFZ?=
+ =?utf-8?B?TS9jRDdySGFSRzNsVS81VU9CamxwR2tHWHhBMXUxcnpwZGhDVlZlcTFtdnpB?=
+ =?utf-8?B?WjFqbG9DNHBoa0Ixb1JkTGovTE81ZGwwQnh5dXZZTlRWWmtUdkxEeERTZ0dh?=
+ =?utf-8?B?RmM4Y0FWVnBsRmlQOStueWE5djRPd0pSc3R3ZW4vdnN4cThBS3ZPNmJLR0FH?=
+ =?utf-8?B?ZlFrVFhRSisrTWFod0c0eFdCbXRrTDFHYW80VVJ6ejN2Q0s4cDRiR0dUMlJE?=
+ =?utf-8?B?YnFSMGVoQ3R3eUdpZFNuUVo2M0pPY3llUC9tT044YmI5cmNRRGF6TkFTTlht?=
+ =?utf-8?B?eFd3VklwT3VuUDU4UlU0S01pY0Q1RzBZcGdBMHJRN0dETHBMMkZLT2pTL2t5?=
+ =?utf-8?B?bk5FNERPMXdwTXc5Rkl0U1JtNENpY3BkMk1NV0ExY3U2MG9xcDVJQWJxRVps?=
+ =?utf-8?B?d2ExK2dZNGN1VVBGUEtENnhwQ2pPOW9mdkIyUWtPaUcyQ2dXUUlmYW1DNGhV?=
+ =?utf-8?B?V0QxdmFyZkpIMUR2RkRDK1FTR3pHak95a1Y0MUxhT3BVb0Z0dERqOS9zRkZC?=
+ =?utf-8?B?UmlOYzdNVWlzYVNGVWV1K21JUE54ajQzUmdFSnIxQ2U0dEs2Wk5sT0g2WnBP?=
+ =?utf-8?Q?l1Lr7/Qc+O4f5fzSwVop3EoZx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41a4b54e-c371-4f07-4e62-08daef75aed8
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 23:36:35.4500 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E14jIJPcZPzeFfBaWDbB9z9dg7nSY5N9fSz9ecdRcIzVFZlMN6v8EkY1SR6/nNtoja9RgHUnX59kPJvWUaHgEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5823
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,78 +157,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, ndesaulniers@google.com, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, Syed.SabaKareem@amd.com,
- Vijendar.Mukunda@amd.com
+Cc: alsa-devel@alsa-project.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ Syed.SabaKareem@amd.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On 1/5/23 1:49 PM, Nathan Chancellor wrote:
-> Hi Tom,
+On 05/01/23 23:04, Nathan Chancellor wrote:
+> On Thu, Jan 05, 2023 at 10:11:09AM -0700, Nathan Chancellor wrote:
+>> On Thu, Jan 05, 2023 at 10:34:10PM +0530, Mukunda,Vijendar wrote:
+>>> On 05/01/23 21:23, Nathan Chancellor wrote:
+>>>> Clang warns:
+>>>>
+>>>>   sound/soc/amd/ps/pci-ps.c:218:2: error: variable 'ret' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+>>>>           default:
+>>>>           ^~~~~~~
+>>>>   sound/soc/amd/ps/pci-ps.c:239:9: note: uninitialized use occurs here
+>>>>           return ret;
+>>>>                  ^~~
+>>>>   sound/soc/amd/ps/pci-ps.c:190:9: note: initialize the variable 'ret' to silence this warning
+>>>>           int ret;
+>>>>                  ^
+>>>>                   = 0
+>>>>   1 error generated.
+>>>>
+>>>> Return -ENODEV, which matches the debug message's description of this block.
+>>>>
+>>>> Fixes: 1d325cdaf7a2 ("ASoC: amd: ps: refactor platform device creation logic")
+>>>> Link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FClangBuiltLinux%2Flinux%2Fissues%2F1779&data=05%7C01%7Cvijendar.mukunda%40amd.com%7Ce9133748553c4463824d08daef4317c1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638085368693977265%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=nDmZXCJR%2Fwt%2FautwTwcZostLvRtUrEbYV2l7M2W%2FTD0%3D&reserved=0
+>>>> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+>>>> ---
+>>>>  sound/soc/amd/ps/pci-ps.c | 1 +
+>>>>  1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+>>>> index 401cfd0036be..f54b9fd9c3ce 100644
+>>>> --- a/sound/soc/amd/ps/pci-ps.c
+>>>> +++ b/sound/soc/amd/ps/pci-ps.c
+>>>> @@ -217,6 +217,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
+>>>>  		break;
+>>>>  	default:
+>>>>  		dev_dbg(&pci->dev, "No PDM devices found\n");
+>>>> +		ret = -ENODEV;
+>>> ACP PCI driver supports different configurations. As per design , even  when no child dev
+>>> nodes are created , ACP driver probe should be successful. ACP PCI driver probe failure
+>>> causes power state transition failures when no child device nodes are created.
+>>> We should not return -ENODEV in this case.
+>>> return 0 is enough in this case. No need to de-init the ACP.
+>> Thank you for the review and input and sorry for getting it wrong! I
+>> will send a v2 replacing 'break;' with 'return 0;' shortly.
+> Actually, I re-read your message and looked at the code now that I am
+> back in front of my keyboard and I am a little confused by your message.
+> Should 'goto de_init' be replaced with 'return 0' to avoid the call to
+> acp63_deinit() or should ret just be initialized to 0 in this block so
+> that the call to acp63_deinit() still happens?
 >
-> On Thu, Jan 05, 2023 at 04:19:12PM -0500, Tom Rix wrote:
->> The clang build fails with
->> sound/soc/amd/ps/pci-ps.c:218:2: error: variable 'ret' is used
->>    uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
->>          default:
->>          ^~~~~~~
->>
->> When no device is found -ENODEV should be returned.
->> A switch with a single case is overkill, change to if-else.
->>
->> Fixes: 1d325cdaf7a2 ("ASoC: amd: ps: refactor platform device creation logic")
->> Signed-off-by: Tom Rix <trix@redhat.com>
-> Thanks for the patch! I sent basically the same thing earlier today
-> (sorry for forgetting to Cc you directly) and was told it was not
-> correct:
+> Thanks again for your input!
+> Nathan
+'goto de-init' should be replaced with 'return 0' for default case.
+
+-
+Vijendar
 >
-> https://lore.kernel.org/6bb126b7-1cb4-0c4c-d357-fadc3ffdd3f9@amd.com/
->
-> I am just waiting for some feedback before sending a v2.
-
-Looking closer, the pdev_mask is only set to ACP63_PDM_DEV_MASK so the 
-case statement can be folded into the above if-check of pdev_mask.
-
-And the default: dropped,  it looks like dead code.
-
-Please cc me on the v2,
-
-Tom
-
->
->> ---
->>   sound/soc/amd/ps/pci-ps.c | 7 +++----
->>   1 file changed, 3 insertions(+), 4 deletions(-)
->>
->> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
->> index 401cfd0036be..cba8800ab4ea 100644
->> --- a/sound/soc/amd/ps/pci-ps.c
->> +++ b/sound/soc/amd/ps/pci-ps.c
->> @@ -205,8 +205,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
->>   		memset(&pdevinfo, 0, sizeof(pdevinfo));
->>   	}
->>   
->> -	switch (adata->pdev_mask) {
->> -	case ACP63_PDM_DEV_MASK:
->> +	if (adata->pdev_mask == ACP63_PDM_DEV_MASK) {
->>   		adata->pdm_dev_index  = 0;
->>   		acp63_fill_platform_dev_info(&pdevinfo[0], parent, NULL, "acp_ps_pdm_dma",
->>   					     0, adata->res, 1, NULL, 0);
->> @@ -214,8 +213,8 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
->>   					     0, NULL, 0, NULL, 0);
->>   		acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "acp_ps_mach",
->>   					     0, NULL, 0, NULL, 0);
->> -		break;
->> -	default:
->> +	} else {
->> +		ret = -ENODEV;
->>   		dev_dbg(&pci->dev, "No PDM devices found\n");
->>   		goto de_init;
->>   	}
->> -- 
->> 2.27.0
->>
->>
+>>>>  		goto de_init;
+>>>>  	}
+>>>>  
+>>>>
+>>>> ---
+>>>> base-commit: 03178b4f7e2c59ead102e5ab5acb82ce1eaefe46
+>>>> change-id: 20230105-wsometimes-uninitialized-pci-ps-c-3b5725c6ed31
+>>>>
+>>>> Best regards,
 

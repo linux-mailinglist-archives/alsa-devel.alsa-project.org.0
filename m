@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9B7F65EDCC
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 14:49:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCECF65EF01
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 15:43:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 425DC10F0D;
-	Thu,  5 Jan 2023 14:48:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 425DC10F0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A83311170;
+	Thu,  5 Jan 2023 15:42:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A83311170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672926547;
-	bh=/FS8fBmu6pkebaZatQp3ZoSENMWZyiaJpwoCDpO4hWs=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=UI4n+wVKNhTLtlWBDU44RqcyNUP6EZAcVuWYtANXOUBfiFW0xfCz3E3B3XZbPYUTb
-	 08wTFW/zJFP1iGh3x5xD/nOOe1ptCmbrKC7G72wqEG2ITfX8enF2t9Jyp+u5vHx53n
-	 ybC4CgTg3wX2PlnXPe/gT3z2p1xRXfqyOlyT3pAk=
+	s=default; t=1672929782;
+	bh=5s1KtwU1cLN7GL/X0OTK7kb5+a4WTKerZI29eSw9LMo=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=sZMA+SLqmIX6vU2Za0B0V0oeRIIZM+ggUCML1JuXOJjgEt7vY8gVLjCJYHvO8+iyJ
+	 lHG0fAxnz3HhQryCDiDAfw5fT+wduCZfRwYfjArc3yTPkljQS46teMOnhAWhb5fyqu
+	 OTlPon3rWK9KCbprEt56DqDow1wrEx5UtvXqqPiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6DB3F8053A;
-	Thu,  5 Jan 2023 14:47:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB6E6F8022B;
+	Thu,  5 Jan 2023 15:42:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE596F8053A; Thu,  5 Jan 2023 14:47:37 +0100 (CET)
+ id 55962F8022B; Thu,  5 Jan 2023 15:42:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB6FBF8053A
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 14:47:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB6FBF8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBA39F8022B
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 15:42:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBA39F8022B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jm+NeQGS
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
+ header.s=phobos-20191101 header.b=xQKP2ZUz
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 940B861AC6;
- Thu,  5 Jan 2023 13:47:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E092C433F0;
- Thu,  5 Jan 2023 13:47:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672926453;
- bh=/FS8fBmu6pkebaZatQp3ZoSENMWZyiaJpwoCDpO4hWs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jm+NeQGSKbwVMEHk1yxqRUvzXRIbut8bFNcg4c6VdmR+pP28NrpHrdFqm6pn/OZQN
- 7X3Re7172JGOtRjUmutdHJ5nC6UL/H2z9BSBK0GSjllTTYb3BXOUurEULihRrDz17f
- LkXNElhBjKjYQZcWxsGC0GmA6W1MtGKqqCcwULz6p7MBV78UkZYtKlyVaADSy9dMHH
- LL6/d05bpTusmbbmzk3/w88r0oAlfG8BjLpFpQeKl9a0/EhjpVmGXTA/kjJzrOs/vA
- t2b0DVschHyxCL5qkMEPsWUv21IA7UOogug/q0dKML1/uQ/Qos44YVMSXpzLSxtIF2
- 3MWFFvQ3GS0YQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Robert Jarzmik <robert.jarzmik@free.fr>
-Subject: [PATCH 19/27] mfd: remove ucb1400 support
-Date: Thu,  5 Jan 2023 14:46:14 +0100
-Message-Id: <20230105134622.254560-20-arnd@kernel.org>
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 0835E85248;
+ Thu,  5 Jan 2023 15:41:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1672929720;
+ bh=P+0Qo4nN3rJriPnghe4osYRl64VJHMO2uLo+zGykihY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=xQKP2ZUzr1dKjnQVQBshOI+e3BJCLgZaoQCaRuJLOjiqP0CsNoY318VqU3z9guiNb
+ U0hYFpxTsyvyh/orYPWwo8QRFUAxzmNdW7e66VdPEoMhHga7yVXJdQbT9lw4SoUfPB
+ flPn9IWUyFMhv4zCW67dw4QxAJMevtENvAItv4s0p2y8ue3t9x/bYSXY0wbrnxxnR7
+ JxL4LT64cAMDfohdlE4HD9SdyQxqmA6cv3g2NQs2Ua6j0bP1g48Jv5b8R1pJtCIA5X
+ k4fyjNdvfotxDaVZ4rvDUhXcfdFMosBUofHA5+dS70q7ahceoe4RlMY0p+Qn1OI/sK
+ 3jP+VjYsrH0Mg==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 1/2] ASoC: dt-bindings: fsl-sai: Simplify the VFxxx dmas
+ binding
+Date: Thu,  5 Jan 2023 15:41:44 +0100
+Message-Id: <20230105144145.165010-1-marex@denx.de>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230105134622.254560-1-arnd@kernel.org>
-References: <20230105134622.254560-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.103.6 at phobos.denx.de
+X-Virus-Status: Clean
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,245 +80,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org,
- Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Linus Walleij <linus.walleij@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>, linux-gpio@vger.kernel.org,
- Daniel Mack <daniel@zonque.org>, linux-input@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-kernel@lists.infradead.org
+Cc: Peng Fan <peng.fan@nxp.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, alsa-devel@alsa-project.org,
+ Stefan Agner <stefan@agner.ch>, Liam Girdwood <lgirdwood@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@denx.de>,
+ Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+ Paul Elder <paul.elder@ideasonboard.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Tim Harvey <tharvey@gateworks.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ devicetree@vger.kernel.org, Richard Zhu <hongxing.zhu@nxp.com>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Adam Ford <aford173@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Get rid of the vf610 sai special case, instead update the vfxxx.dtsi
+DT to use the same DMA channel ordering as all the other devices. The
+sai DMA channel ordering has not been aligned with other IP DMA channel
+ordering in the vfxxx.dtsi anyway.
 
-The ucb1400 MFD driver and its gpio and touchscreen child
-drivers were only used on a few PXA machines that were unused
-for a while and are now removed.
-
-Removing these leaves the AC97 support as ALSA specific,
-no other drivers are now connected through this interface.
-
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Lee Jones <lee@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Marek Vasut <marex@denx.de>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-input@vger.kernel.org
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Marek Vasut <marex@denx.de>
 ---
- drivers/gpio/Kconfig                   |   7 -
- drivers/gpio/Makefile                  |   1 -
- drivers/gpio/gpio-ucb1400.c            |  85 -----
- drivers/input/touchscreen/Kconfig      |  16 -
- drivers/input/touchscreen/Makefile     |   1 -
- drivers/input/touchscreen/ucb1400_ts.c | 458 -------------------------
- drivers/mfd/Kconfig                    |  11 -
- drivers/mfd/Makefile                   |   1 -
- drivers/mfd/ucb1400_core.c             | 158 ---------
- include/linux/ucb1400.h                | 160 ---------
- sound/Kconfig                          |   1 -
- sound/pci/ac97/ac97_codec.c            |   1 -
- sound/pci/ac97/ac97_patch.c            |  40 ---
- 13 files changed, 940 deletions(-)
- delete mode 100644 drivers/gpio/gpio-ucb1400.c
- delete mode 100644 drivers/input/touchscreen/ucb1400_ts.c
- delete mode 100644 drivers/mfd/ucb1400_core.c
- delete mode 100644 include/linux/ucb1400.h
+Cc: Adam Ford <aford173@gmail.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Joakim Zhang <qiangqing.zhang@nxp.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>
+Cc: Marek Vasut <marex@denx.de>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+Cc: NXP Linux Team <linux-imx@nxp.com>
+Cc: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Peng Fan <peng.fan@nxp.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Richard Cochran <richardcochran@gmail.com>
+Cc: Richard Zhu <hongxing.zhu@nxp.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Shawn Guo <shawnguo@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: Tim Harvey <tharvey@gateworks.com>
+Cc: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org
+To: linux-arm-kernel@lists.infradead.org
+---
+ .../devicetree/bindings/sound/fsl,sai.yaml    | 38 ++++---------------
+ 1 file changed, 8 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index 0148553790eb..df2dfbb2601e 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -1428,13 +1428,6 @@ config GPIO_TWL6040
- 	  Say yes here to access the GPO signals of twl6040
- 	  audio chip from Texas Instruments.
+diff --git a/Documentation/devicetree/bindings/sound/fsl,sai.yaml b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+index 7e56337d8edc1..088c26b001cc0 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,sai.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,sai.yaml
+@@ -76,10 +76,14 @@ properties:
+         minItems: 4
  
--config GPIO_UCB1400
--	tristate "Philips UCB1400 GPIO"
--	depends on UCB1400_CORE
--	help
--	  This enables support for the Philips UCB1400 GPIO pins.
--	  The UCB1400 is an AC97 audio codec.
--
- config GPIO_WHISKEY_COVE
- 	tristate "GPIO support for Whiskey Cove PMIC"
- 	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC_BXTWC
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index 59ac21054261..c048ba003367 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -165,7 +165,6 @@ obj-$(CONFIG_GPIO_TS4900)		+= gpio-ts4900.o
- obj-$(CONFIG_GPIO_TS5500)		+= gpio-ts5500.o
- obj-$(CONFIG_GPIO_TWL4030)		+= gpio-twl4030.o
- obj-$(CONFIG_GPIO_TWL6040)		+= gpio-twl6040.o
--obj-$(CONFIG_GPIO_UCB1400)		+= gpio-ucb1400.o
- obj-$(CONFIG_GPIO_UNIPHIER)		+= gpio-uniphier.o
- obj-$(CONFIG_GPIO_VF610)		+= gpio-vf610.o
- obj-$(CONFIG_GPIO_VIPERBOARD)		+= gpio-viperboard.o
-diff --git a/drivers/gpio/gpio-ucb1400.c b/drivers/gpio/gpio-ucb1400.c
-deleted file mode 100644
-index 676adf1f198a..000000000000
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index ca00f55eaf45..1a2049b336a6 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -827,22 +827,6 @@ config TOUCHSCREEN_TI_AM335X_TSC
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ti_am335x_tsc.
+   dmas:
+-    maxItems: 2
++    items:
++      - description: DMA controller phandle and request line for RX
++      - description: DMA controller phandle and request line for TX
  
--config TOUCHSCREEN_UCB1400
--	tristate "Philips UCB1400 touchscreen"
--	depends on AC97_BUS
--	depends on UCB1400_CORE
--	help
--	  This enables support for the Philips UCB1400 touchscreen interface.
--	  The UCB1400 is an AC97 audio codec.  The touchscreen interface
--	  will be initialized only after the ALSA subsystem has been
--	  brought up and the UCB1400 detected.  You therefore have to
--	  configure ALSA support as well (either built-in or modular,
--	  independently of whether this driver is itself built-in or
--	  modular) for this driver to work.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called ucb1400_ts.
--
- config TOUCHSCREEN_PIXCIR
- 	tristate "PIXCIR I2C touchscreens"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index 7053fede594e..f2fd28cc34a6 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -97,7 +97,6 @@ obj-$(CONFIG_TOUCHSCREEN_TSC2005)	+= tsc2005.o
- tsc2007-y := tsc2007_core.o
- tsc2007-$(CONFIG_TOUCHSCREEN_TSC2007_IIO)	+= tsc2007_iio.o
- obj-$(CONFIG_TOUCHSCREEN_TSC2007)	+= tsc2007.o
--obj-$(CONFIG_TOUCHSCREEN_UCB1400)	+= ucb1400_ts.o
- obj-$(CONFIG_TOUCHSCREEN_WACOM_W8001)	+= wacom_w8001.o
- obj-$(CONFIG_TOUCHSCREEN_WACOM_I2C)	+= wacom_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_WDT87XX_I2C)	+= wdt87xx_i2c.o
-diff --git a/drivers/input/touchscreen/ucb1400_ts.c b/drivers/input/touchscreen/ucb1400_ts.c
-deleted file mode 100644
-index dfd3b35590c3..000000000000
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index da57ebf22630..5ea07a65f150 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1071,17 +1071,6 @@ config PCF50633_GPIO
- 	  Say yes here if you want to include support GPIO for pins on
- 	  the PCF50633 chip.
+   dma-names:
+-    maxItems: 2
++    items:
++      - const: rx
++      - const: tx
  
--config UCB1400_CORE
--	tristate "Philips UCB1400 Core driver"
--	depends on AC97_BUS
--	depends on GPIOLIB
--	help
--	  This enables support for the Philips UCB1400 core functions.
--	  The UCB1400 is an AC97 audio codec.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called ucb1400_core.
--
- config MFD_PM8XXX
- 	tristate "Qualcomm PM8xxx PMIC chips driver"
- 	depends on (ARM || HEXAGON || COMPILE_TEST)
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 9ba9d711c492..4969ea6e24f1 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -127,7 +127,6 @@ obj-$(CONFIG_MCP_UCB1200_TS)	+= ucb1x00-ts.o
- ifeq ($(CONFIG_SA1100_ASSABET),y)
- obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-assabet.o
- endif
--obj-$(CONFIG_UCB1400_CORE)	+= ucb1400_core.o
+   interrupts:
+     items:
+@@ -142,31 +146,6 @@ properties:
  
- obj-$(CONFIG_PMIC_DA903X)	+= da903x.o
- 
-diff --git a/drivers/mfd/ucb1400_core.c b/drivers/mfd/ucb1400_core.c
-deleted file mode 100644
-index ac1d18039568..000000000000
-diff --git a/include/linux/ucb1400.h b/include/linux/ucb1400.h
-deleted file mode 100644
-index 2516082cd3a9..000000000000
-diff --git a/sound/Kconfig b/sound/Kconfig
-index e56d96d2b11c..0ddfb717b81d 100644
---- a/sound/Kconfig
-+++ b/sound/Kconfig
-@@ -107,7 +107,6 @@ endif # !UML
- 
- endif # SOUND
- 
--# AC97_BUS is used from both sound and ucb1400
- config AC97_BUS
- 	tristate
- 	help
-diff --git a/sound/pci/ac97/ac97_codec.c b/sound/pci/ac97/ac97_codec.c
-index ff685321f1a1..9afc5906d662 100644
---- a/sound/pci/ac97/ac97_codec.c
-+++ b/sound/pci/ac97/ac97_codec.c
-@@ -152,7 +152,6 @@ static const struct ac97_codec_id snd_ac97_codec_ids[] = {
- { 0x4e534300, 0xffffffff, "LM4540,43,45,46,48",	NULL,		NULL }, // only guess --jk
- { 0x4e534331, 0xffffffff, "LM4549",		NULL,		NULL },
- { 0x4e534350, 0xffffffff, "LM4550",		patch_lm4550,  	NULL }, // volume wrap fix 
--{ 0x50534304, 0xffffffff, "UCB1400",		patch_ucb1400,	NULL },
- { 0x53494c20, 0xffffffe0, "Si3036,8",		mpatch_si3036,	mpatch_si3036, AC97_MODEM_PATCH },
- { 0x53544d02, 0xffffffff, "ST7597",		NULL,		NULL },
- { 0x54524102, 0xffffffff, "TR28022",		NULL,		NULL },
-diff --git a/sound/pci/ac97/ac97_patch.c b/sound/pci/ac97/ac97_patch.c
-index 025c1666c1fc..4b5f33de70d5 100644
---- a/sound/pci/ac97/ac97_patch.c
-+++ b/sound/pci/ac97/ac97_patch.c
-@@ -3937,43 +3937,3 @@ static int patch_lm4550(struct snd_ac97 *ac97)
- 	ac97->res_table = lm4550_restbl;
- 	return 0;
- }
--
--/* 
-- *  UCB1400 codec (http://www.semiconductors.philips.com/acrobat_download/datasheets/UCB1400-02.pdf)
-- */
--static const struct snd_kcontrol_new snd_ac97_controls_ucb1400[] = {
--/* enable/disable headphone driver which allows direct connection to
--   stereo headphone without the use of external DC blocking
--   capacitors */
--AC97_SINGLE("Headphone Driver", 0x6a, 6, 1, 0),
--/* Filter used to compensate the DC offset is added in the ADC to remove idle
--   tones from the audio band. */
--AC97_SINGLE("DC Filter", 0x6a, 4, 1, 0),
--/* Control smart-low-power mode feature. Allows automatic power down
--   of unused blocks in the ADC analog front end and the PLL. */
--AC97_SINGLE("Smart Low Power Mode", 0x6c, 4, 3, 0),
--};
--
--static int patch_ucb1400_specific(struct snd_ac97 * ac97)
--{
--	int idx, err;
--	for (idx = 0; idx < ARRAY_SIZE(snd_ac97_controls_ucb1400); idx++) {
--		err = snd_ctl_add(ac97->bus->card, snd_ctl_new1(&snd_ac97_controls_ucb1400[idx], ac97));
--		if (err < 0)
--			return err;
--	}
--	return 0;
--}
--
--static const struct snd_ac97_build_ops patch_ucb1400_ops = {
--	.build_specific	= patch_ucb1400_specific,
--};
--
--static int patch_ucb1400(struct snd_ac97 * ac97)
--{
--	ac97->build_ops = &patch_ucb1400_ops;
--	/* enable headphone driver and smart low power mode by default */
--	snd_ac97_write_cache(ac97, 0x6a, 0x0050);
--	snd_ac97_write_cache(ac97, 0x6c, 0x0030);
--	return 0;
--}
+ allOf:
+   - $ref: dai-common.yaml#
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            const: fsl,vf610-sai
+-    then:
+-      properties:
+-        dmas:
+-          items:
+-            - description: DMA controller phandle and request line for TX
+-            - description: DMA controller phandle and request line for RX
+-        dma-names:
+-          items:
+-            - const: tx
+-            - const: rx
+-    else:
+-      properties:
+-        dmas:
+-          items:
+-            - description: DMA controller phandle and request line for RX
+-            - description: DMA controller phandle and request line for TX
+-        dma-names:
+-          items:
+-            - const: rx
+-            - const: tx
+   - if:
+       required:
+         - fsl,sai-asynchronous
+@@ -199,9 +178,8 @@ examples:
+                  <&clks VF610_CLK_SAI2>,
+                  <&clks 0>, <&clks 0>;
+         clock-names = "bus", "mclk1", "mclk2", "mclk3";
+-        dma-names = "tx", "rx";
+-        dmas = <&edma0 0 21>,
+-               <&edma0 0 20>;
++        dma-names = "rx", "tx";
++        dmas = <&edma0 0 20>, <&edma0 0 21>;
+         big-endian;
+         lsb-first;
+     };
 -- 
 2.39.0
 

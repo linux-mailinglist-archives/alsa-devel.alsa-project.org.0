@@ -2,91 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED85665ED24
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 14:34:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD7565ED89
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 14:46:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B34F10DF1;
-	Thu,  5 Jan 2023 14:33:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B34F10DF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 856C610ED1;
+	Thu,  5 Jan 2023 14:45:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 856C610ED1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672925685;
-	bh=Pi2D9DTYiBdRgH5h0C/CEparBdk64B+TTdiyL5UlF9M=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1672926372;
+	bh=Jni/5iSE1X9W5gQqjujdrZ0ZCzmwZyLVIfNfnpfLMQ0=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=DLZM+SMhwqdQFt03BJ4saFpDTaLWWu+qb87vo8X3HA4rTq5EgF6H6I2+ouW99Oz4X
-	 jk25YwKxZ3p3ktwO1DA6RPFPA8aIJH+tlD9Pr0nh/SsLrvZDzf8rSuJu5DeSgOK6vc
-	 ZAoHZEcCMg4EDKLCDogPT7FlemBmgBsZ5pGB0PbQ=
+	b=DDn9vhzTLhaNDd9Gd/zyg+MSpqgQmzqqMea8l+Qj8sib1JbirT2b4UtfXjatJ431r
+	 N0/cCSyIURz6LRC9ypOiQl+h1KUIui53ylzEUS9mZUgS61PcNZ1iFuQEJmADRh30xy
+	 uEWqoW/58hxLymTZkULZa3++VpR5QI2Gcn9DfnEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAA5DF800C0;
-	Thu,  5 Jan 2023 14:33:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44C9DF804AD;
+	Thu,  5 Jan 2023 14:45:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3B15F800C0; Thu,  5 Jan 2023 14:33:43 +0100 (CET)
+ id D9A68F804AD; Thu,  5 Jan 2023 14:45:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0EA4F800C0
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 14:33:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0EA4F800C0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=SVami08X; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Wy+O+63G
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 66BDC24060;
- Thu,  5 Jan 2023 13:33:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672925616; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QoOn8rw1D+RYEvX/6fpB0+7eScUu53VCc5EzQDucmEg=;
- b=SVami08X6MoN/Ma6qgYoc3Pc2fNg+h6L9TKNpfljzeSJ44bFoa88/zDBTBHYuuA13ET4Hr
- iY7cRsiLPuU89A/OqLuaHeXqxl/QmbrVn22N0CLpofGUAZ1F5Zj0Ia/8zYl9fl60aVL46G
- 1TgXVayR+CmYFX8zhDM9VruMOpyQ7e0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672925616;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QoOn8rw1D+RYEvX/6fpB0+7eScUu53VCc5EzQDucmEg=;
- b=Wy+O+63Gwzrt2dIyHMUvOGCi1FmkPA0KjDhzYQLlfgEAgBxOh/+B9UcZUjKbvYgFDBiHhU
- fGPbnCh6WLPQusAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3EEE313338;
- Thu,  5 Jan 2023 13:33:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Nj+eDrDRtmMKbwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 05 Jan 2023 13:33:36 +0000
-Date: Thu, 05 Jan 2023 14:33:35 +0100
-Message-ID: <87wn61kswg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [PATCH 1/2] ALSA: hda: cs35l41: Don't return -EINVAL from system
- suspend/resume
-In-Reply-To: <b99d78df-8087-5a18-a6ea-b83bf1446092@leemhuis.info>
-References: <20230105093531.16960-1-tiwai@suse.de>
- <b99d78df-8087-5a18-a6ea-b83bf1446092@leemhuis.info>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E06FF8022B
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 14:45:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E06FF8022B
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=GUVfvG5T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672926308; x=1704462308;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Jni/5iSE1X9W5gQqjujdrZ0ZCzmwZyLVIfNfnpfLMQ0=;
+ b=GUVfvG5ThGal+R2CDOqv42MBuN6UtHy7MFD4xs+aa+AmCnc+pXjSFl7n
+ XBVhawklv0ryAY/bqINJtSv3SvcUDWTauChWs/DqkP807F7j7Li3gSqcp
+ d3ZZVUepKp3iu66zq2xgYIN5jd0iJiCuWowRypmWCQADq5xeEj1ffp7Sg
+ M+2wEGmaEXUyVKpn1oL0OmUrewDE/HdskYvRVF+OTn8hZNTjOwu4phM42
+ /2zXINJdPkzXzAakhf9nsq775FMD3KBl2ptIrBcjry/i3ly9aOQOdRNdq
+ no3ukRSO7PzOi2Mr7qXYPlyYYPQhuq7L3yImOQm7+t/TWw1OiaUcRP1Nx g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="309975330"
+X-IronPort-AV: E=Sophos;i="5.96,303,1665471600"; d="scan'208";a="309975330"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2023 05:45:03 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="655574463"
+X-IronPort-AV: E=Sophos;i="5.96,303,1665471600"; d="scan'208";a="655574463"
+Received: from lkp-server02.sh.intel.com (HELO f1920e93ebb5) ([10.239.97.151])
+ by orsmga002.jf.intel.com with ESMTP; 05 Jan 2023 05:45:01 -0800
+Received: from kbuild by f1920e93ebb5 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pDQYG-0001mv-1i;
+ Thu, 05 Jan 2023 13:45:00 +0000
+Date: Thu, 5 Jan 2023 21:44:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kiseok Jo <kiseok.jo@irondevice.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
+Message-ID: <202301052147.RxKwmFjJ-lkp@intel.com>
+References: <20230104064342.2094-2-kiseok.jo@irondevice.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230104064342.2094-2-kiseok.jo@irondevice.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,41 +89,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: Kiseok Jo <kiseok.jo@irondevice.com>, alsa-devel@alsa-project.org,
+ application@irondevice.com, Gyuhwa Park <gyuhwa.park@irondevice.com>,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 05 Jan 2023 11:14:13 +0100,
-Thorsten Leemhuis wrote:
-> 
-> On 05.01.23 10:35, Takashi Iwai wrote:
-> > The recent commit to support the system suspend for CS35L41 caused a
-> > regression on the models with CS35L41_EXT_BOOST_NO_VSPK_SWITC boost
-> > type, as the suspend/resume callbacks just return -EINVAL.  This is
-> > eventually handled as a fatal error and blocks the whole system
-> > suspend/resume.
-> > 
-> > For avoiding the problem, this patch corrects the return code from
-> > cs35l41_system_suspend() and _resume() to 0, and replace dev_err()
-> > with dev_err_once() for stop spamming too much.
-> > 
-> > Fixes: 88672826e2a4 ("ALSA: hda: cs35l41: Support System Suspend")
-> > Cc: <stable@vger.kernel.org>
-> 
-> Thx for taking care of that.
-> 
-> > Link: https://lore.kernel.org/r/4262e3c4-6169-bbd2-e918-16b06f6994bc@protonmail.com
-> 
-> Lore says "Not found". I wonder if it was a private mail later send
-> again here:
-> 
-> https://lore.kernel.org/all/e6751ac2-34f3-d13f-13db-8174fade8308@pm.me/
+Hi Kiseok,
 
-Yeah, it looks so.  I'll correct the URL at applying the patches.
+Thank you for the patch! Perhaps something to improve:
 
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on robh/for-next linus/master v6.2-rc2 next-20230105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-thanks,
+url:    https://github.com/intel-lab-lkp/linux/commits/Kiseok-Jo/ASoC-sma1303-Add-driver-for-Iron-Device-SMA1303-Amp/20230104-150052
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230104064342.2094-2-kiseok.jo%40irondevice.com
+patch subject: [PATCH 1/3] ASoC: sma1303: Add driver for Iron Device SMA1303 Amp
+reproduce:
+        make versioncheck
 
-Takashi
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+
+versioncheck warnings: (new ones prefixed by >>)
+   INFO PATH=/opt/cross/clang/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+   /usr/bin/timeout -k 100 3h /usr/bin/make W=1 --keep-going HOSTCC=gcc-11 CC=gcc-11 -j32 ARCH=x86_64 versioncheck
+   find ./* \( -name SCCS -o -name BitKeeper -o -name .svn -o -name CVS -o -name .pc -o -name .hg -o -name .git \) -prune -o \
+   	-name '*.[hcS]' -type f -print | sort \
+   	| xargs perl -w ./scripts/checkversion.pl
+   ./drivers/accessibility/speakup/genmap.c: 13 linux/version.h not needed.
+   ./drivers/accessibility/speakup/makemapdata.c: 13 linux/version.h not needed.
+   ./drivers/net/ethernet/qlogic/qede/qede.h: 10 linux/version.h not needed.
+   ./drivers/net/ethernet/qlogic/qede/qede_ethtool.c: 7 linux/version.h not needed.
+   ./drivers/scsi/cxgbi/libcxgbi.h: 27 linux/version.h not needed.
+   ./drivers/scsi/mpi3mr/mpi3mr.h: 32 linux/version.h not needed.
+   ./drivers/scsi/qedi/qedi_dbg.h: 14 linux/version.h not needed.
+   ./drivers/soc/tegra/cbb/tegra-cbb.c: 19 linux/version.h not needed.
+   ./drivers/soc/tegra/cbb/tegra194-cbb.c: 26 linux/version.h not needed.
+   ./drivers/soc/tegra/cbb/tegra234-cbb.c: 27 linux/version.h not needed.
+   ./drivers/staging/media/atomisp/include/linux/atomisp.h: 23 linux/version.h not needed.
+   ./init/version-timestamp.c: 5 linux/version.h not needed.
+   ./samples/trace_events/trace_custom_sched.c: 11 linux/version.h not needed.
+   ./sound/soc/codecs/cs42l42.c: 14 linux/version.h not needed.
+>> ./sound/soc/codecs/sma1303.c: 19 linux/version.h not needed.
+   ./tools/lib/bpf/bpf_helpers.h: 289: need linux/version.h
+   ./tools/perf/tests/bpf-script-example.c: 60: need linux/version.h
+   ./tools/perf/tests/bpf-script-test-kbuild.c: 21: need linux/version.h
+   ./tools/perf/tests/bpf-script-test-prologue.c: 47: need linux/version.h
+   ./tools/perf/tests/bpf-script-test-relocation.c: 51: need linux/version.h
+   ./tools/testing/selftests/bpf/progs/dev_cgroup.c: 9 linux/version.h not needed.
+   ./tools/testing/selftests/bpf/progs/netcnt_prog.c: 3 linux/version.h not needed.
+   ./tools/testing/selftests/bpf/progs/test_map_lock.c: 4 linux/version.h not needed.
+   ./tools/testing/selftests/bpf/progs/test_send_signal_kern.c: 4 linux/version.h not needed.
+   ./tools/testing/selftests/bpf/progs/test_spin_lock.c: 4 linux/version.h not needed.
+   ./tools/testing/selftests/bpf/progs/test_tcp_estats.c: 37 linux/version.h not needed.
+   ./tools/testing/selftests/wireguard/qemu/init.c: 27 linux/version.h not needed.
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

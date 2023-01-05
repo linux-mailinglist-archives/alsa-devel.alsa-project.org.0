@@ -2,100 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC7965F385
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 19:10:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1779665F59B
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 22:20:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E20B11C31;
-	Thu,  5 Jan 2023 19:10:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E20B11C31
+	by alsa0.perex.cz (Postfix) with ESMTPS id D950011FCA;
+	Thu,  5 Jan 2023 22:19:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D950011FCA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672942250;
-	bh=cH7I8K9n1mPh2vJSYs6UTHZP6VRhETkKheYKIaIvimM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=A/4dR4ShmbqehkbTkL8QowpTxca+THqoj8PShQRV7+IzWyDUaocOHFWQ7LcprKn2W
-	 MVvYaGlQybyokilwMMdn1trSg1ZiEhRvpWo85YjfjkptUyqjvLjzwHMlb4chPjw/By
-	 8hlQxQoYFopG2nC/1qIPICO/jdR4ujmZ9C2u4728=
+	s=default; t=1672953619;
+	bh=YmNvJU3x+eslYBxDse0+K0vFQCmawRvOpTpfPPatX8A=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=R3ODUHxvga4ncS8jmkco9gZxNiyZcCsnTpu3EKmqfQdrVmUXrrvzKrbUsJ8nmnkv7
+	 D1mhM+ujtIv3ITCrM/v2J9zEsJCOJHjhff3Dw7T/lRCxD6tu5TSe52qg0r82QnxjDM
+	 YN0aS/YGJMC3AxffUPcauN8IkCjl7xsYOhiAfz90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6765AF80542;
-	Thu,  5 Jan 2023 19:09:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C579CF800C0;
+	Thu,  5 Jan 2023 22:19:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAD78F8053D; Thu,  5 Jan 2023 19:09:44 +0100 (CET)
+ id 738D2F80238; Thu,  5 Jan 2023 22:19:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F810F8053A
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 19:09:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F810F8053A
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=BUgdp574
-Received: by mail-wr1-x42b.google.com with SMTP id h16so36886696wrz.12
- for <alsa-devel@alsa-project.org>; Thu, 05 Jan 2023 10:09:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aCNkMnPSRswrB4/cN/tNytIZs+wuZf7VPA/RAMeEvis=;
- b=BUgdp574Abl4d6f7mAU7ICKWQyO3CKfC1WalR3KSuX6qMylVBgHByF66a/g6HUBtTT
- M0kOyHyE+AMKAJa+TTNk08cczF6ITHY7X9oSXM729aCP5Z5sgaCxVPXsQOmqhtJVJ1Pu
- 59KE00iEKTALzNVm9hZNxAWBnKdVWUYceEx48OaTukjFwMRF4F6jAP6z9QNol4Zgg0Dj
- YeoRl9IcNv6S/nPITHSQPTRhQ7E31zmKrDi8uBPlt+svHf14gkKn2ag61jrai3bWQ9WO
- ueLCGDsaBLAhJEwCb9JD0yFtciHOwtnT5GlwWp6CJN0TwEuFBZHrmxonPXg53suffGS2
- bbIg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B890F804AA
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 22:19:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B890F804AA
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=c81gaJqK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1672953559;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dr6WuGFgn3lsUzUTklOx1mec9m003HYE8pI42id0om0=;
+ b=c81gaJqKa+4CRbURTX4d/xi7JuP1GclfyonKLoefFIDfTbyr1J2cCkVZfwZkMUoaswXEJL
+ JU4gJL6inRNjGTPc+QD7t1ML3QjZQiRzAB5LIJUkOIZLypd5Cw9MfeXS67khhBkFWj3sEp
+ IeCmJKphArKaQVWf+syhHrjRd/1BJ40=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-564-Bavv1rwROKm8XCwZy0Lu-Q-1; Thu, 05 Jan 2023 16:19:18 -0500
+X-MC-Unique: Bavv1rwROKm8XCwZy0Lu-Q-1
+Received: by mail-qv1-f72.google.com with SMTP id
+ i7-20020a056214020700b004ffce246a2bso19595883qvt.3
+ for <alsa-devel@alsa-project.org>; Thu, 05 Jan 2023 13:19:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aCNkMnPSRswrB4/cN/tNytIZs+wuZf7VPA/RAMeEvis=;
- b=Tl4BMFKVf9O5VZnHwnrUIt971+gxYRLeWTY4/abnnUK6dcQfcHMi8bYzvlRRDMS1R/
- 5LJ3BncvAVGcMtSUoeVRXMUyIpovKv4QUIJPe+HFa6pn1BVG1389vMtOLrertIU24lwD
- ERr3m01lF6hWgOBNkDVZYjvDHQAO7I/GaeOyqm2kL9ljzSqCvWTWQNVyIfjAiUKns/mA
- DLrvlAr6v0YHlTwflQhuERxhYSpQDO9HIcI9mSLVSeDPj/5i1JS7eKm12NzWWUxvEoLr
- LvXHQSyh9USs7KJtw2IN8zdDJfyFqbcEPRIUn6rODMHl6EN+snDypvJPQvlQuiW2qbxq
- ZYug==
-X-Gm-Message-State: AFqh2kpnoAEezDz14B0gqxpm+venXUxwsQ2K2GQzOCZEj34sz0KDrWQK
- iplIWxq/nCHYILlh1ro6lZnHSA==
-X-Google-Smtp-Source: AMrXdXuKJS4KYFfBIofRQW2C+0hVHSnszXj4FBaa7hFjC+VGRdw29Xt18QQAGVNmA1dTF+5JauVMlA==
-X-Received: by 2002:a5d:58fa:0:b0:28e:46bc:3256 with SMTP id
- f26-20020a5d58fa000000b0028e46bc3256mr14579011wrd.8.1672942181384; 
- Thu, 05 Jan 2023 10:09:41 -0800 (PST)
-Received: from [192.168.1.100] ([178.197.217.234])
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dr6WuGFgn3lsUzUTklOx1mec9m003HYE8pI42id0om0=;
+ b=ty6U7ccNHr4RDDkhRFBo3EyPzEy44DkM2EHZY4tBywp/tq+zA2RXzlE+jXg2K1k5sa
+ GEvp8lfHQfQgbMiQuuhpEVqhueaTPtasZ45EsnFwqk0ijr9XIQzeXMtJvp6A/WKWO6e+
+ 146G9WLyXiwXcKUj4UNW03bTowWhwXJYTs5yNilKpc67aBCjw4H0MrFLd5W10hYMfXxa
+ 9RZzo+97D4VmxV+lXAhWJ7SS7od9R0Qc3CINBWWwTA8k5zYJWLmyLaHu5JkE5gVLNkmB
+ LVwX8GoQ2yubUcH77rjfla1acppX+GVAVtx61vObKKQ9OoPEwGwKopA9F9Ed1BiiWHPx
+ 9DgA==
+X-Gm-Message-State: AFqh2krQ2+MRxB7/rBrSjygirzLYqu8FSwFyJpCBJ3pDDuIKNzckJdiM
+ NbfBNM5XozpHnUw/UvB/uoZ9KgPE1NeAWK8zJfzFrQFeXTMxBc6fyYHIzZwdFWcpdP9O9wU1Vgu
+ FYk1SetlQU0g3qmETXxZhqZ4=
+X-Received: by 2002:ad4:5362:0:b0:520:f8fa:5ad8 with SMTP id
+ e2-20020ad45362000000b00520f8fa5ad8mr64600738qvv.17.1672953558272; 
+ Thu, 05 Jan 2023 13:19:18 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXseXrlDGPJVvsIgIjlWKLibyWOq+e3SjxItVbfKqMuTnJRcqgiNlKhtIddkByXDz+/MSbYMyw==
+X-Received: by 2002:ad4:5362:0:b0:520:f8fa:5ad8 with SMTP id
+ e2-20020ad45362000000b00520f8fa5ad8mr64600701qvv.17.1672953557847; 
+ Thu, 05 Jan 2023 13:19:17 -0800 (PST)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- bt15-20020a056000080f00b00297dcfdc90fsm12714459wrb.24.2023.01.05.10.09.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jan 2023 10:09:40 -0800 (PST)
-Message-ID: <afde9ca3-40e2-4332-fc8e-41a1176cd37e@linaro.org>
-Date: Thu, 5 Jan 2023 19:09:37 +0100
+ y17-20020a05620a25d100b00705377347b9sm11643264qko.70.2023.01.05.13.19.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jan 2023 13:19:17 -0800 (PST)
+From: Tom Rix <trix@redhat.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ nathan@kernel.org, ndesaulniers@google.com, Vijendar.Mukunda@amd.com,
+ Syed.SabaKareem@amd.com
+Subject: [PATCH] ASoC: amd: Return ENODEV if acp63 is not found.
+Date: Thu,  5 Jan 2023 16:19:12 -0500
+Message-Id: <20230105211912.824250-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [RFC PATCH 14/14] ASoC: dt-bindings: Update example for enabling
- USB offload on SM8250
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-15-quic_wcheng@quicinc.com>
- <f57d8d44-651e-b51d-dd72-bdf15801958f@linaro.org>
- <Y7RqEM+GvBQbmBTb@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <Y7RqEM+GvBQbmBTb@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,33 +112,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-usb@vger.kernel.org, bgoswami@quicinc.com,
- mathias.nyman@intel.com, gregkh@linuxfoundation.org, andersson@kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
- quic_plai@quicinc.com, Wesley Cheng <quic_wcheng@quicinc.com>,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
+Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03/01/2023 18:46, Mark Brown wrote:
-> On Mon, Dec 26, 2022 at 01:27:21PM +0100, Krzysztof Kozlowski wrote:
->> On 24/12/2022 00:32, Wesley Cheng wrote:
-> 
->>> +            link-name = "USB Playback";
->>> +            cpu {
->>> +                sound-dai = <&q6afedai USB_RX>;
-> 
->> Hmm, that makes me wonder if you really tested the bindings before
->> sending? If yes, where is the USB_RX defined?
-> 
-> It was added in patch 2, it's in include/dt-bindings.
+The clang build fails with
+sound/soc/amd/ps/pci-ps.c:218:2: error: variable 'ret' is used
+  uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
+        default:
+        ^~~~~~~
 
-Thanks, indeed, I was looking for another bindings patch but this was
-squashed with a driver.
+When no device is found -ENODEV should be returned.
+A switch with a single case is overkill, change to if-else.
 
-Best regards,
-Krzysztof
+Fixes: 1d325cdaf7a2 ("ASoC: amd: ps: refactor platform device creation logic")
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ sound/soc/amd/ps/pci-ps.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index 401cfd0036be..cba8800ab4ea 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -205,8 +205,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
+ 		memset(&pdevinfo, 0, sizeof(pdevinfo));
+ 	}
+ 
+-	switch (adata->pdev_mask) {
+-	case ACP63_PDM_DEV_MASK:
++	if (adata->pdev_mask == ACP63_PDM_DEV_MASK) {
+ 		adata->pdm_dev_index  = 0;
+ 		acp63_fill_platform_dev_info(&pdevinfo[0], parent, NULL, "acp_ps_pdm_dma",
+ 					     0, adata->res, 1, NULL, 0);
+@@ -214,8 +213,8 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
+ 					     0, NULL, 0, NULL, 0);
+ 		acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "acp_ps_mach",
+ 					     0, NULL, 0, NULL, 0);
+-		break;
+-	default:
++	} else {
++		ret = -ENODEV;
+ 		dev_dbg(&pci->dev, "No PDM devices found\n");
+ 		goto de_init;
+ 	}
+-- 
+2.27.0
 

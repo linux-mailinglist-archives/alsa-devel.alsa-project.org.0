@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA54265E989
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 12:09:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC4E65E98D
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 12:10:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D852210641;
-	Thu,  5 Jan 2023 12:08:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D852210641
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C00B1063F;
+	Thu,  5 Jan 2023 12:09:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C00B1063F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672916946;
-	bh=1kiw+Nt5XgcB53KKtDr+R7gkEeVhhmQpgaGQMdBRJJw=;
+	s=default; t=1672917022;
+	bh=LAsrZfSnQres51ppPQcdXpGQ3gS3K+MVgY/44ivN1Y4=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LBnqAn76t2jsjemn2EVErbF27wxDVhA98wFmIKFzcTjWXgFBZkRlN1p+1+C0DuE0b
-	 AVxB+Ccu/prnbLdGWvyHuIXkGPBi3oCeRkYv2hdxhlEtVLWj4TL7lb7XpRn4Tur9Dn
-	 nxwMyJ5E4Sj8SJg7PggDmFRjCm7ClRCIfunR+qwg=
+	b=vtPHed8LpK8HWaltiPdgPDhfBr3e2a+oG017i06Aqx+bDLAOh+in8Kdml5/cbgH0R
+	 0Z9mIlafNGfaV65qfn92JX2F0Cr0e9e7r9WUxNiBaXaT/rJiS4JYJlbxUnUbf+hopa
+	 urKNd2EfjY2NMlzJqkP5yejbNsmbXrVFipBdXQH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57C84F80238;
-	Thu,  5 Jan 2023 12:08:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 445E7F8022B;
+	Thu,  5 Jan 2023 12:09:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9C58F8047B; Thu,  5 Jan 2023 12:08:13 +0100 (CET)
+ id 1B3BDF804AD; Thu,  5 Jan 2023 12:09:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25AEFF800C0
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 12:08:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25AEFF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC8F3F8022B
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 12:09:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC8F3F8022B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=A/WUTsHe
+ header.a=rsa-sha256 header.s=mail header.b=iAV0ZfBH
 Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
  [2.237.20.237])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id D62196602D2B;
- Thu,  5 Jan 2023 11:08:09 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7A6786602D2B;
+ Thu,  5 Jan 2023 11:09:24 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1672916890;
- bh=1kiw+Nt5XgcB53KKtDr+R7gkEeVhhmQpgaGQMdBRJJw=;
+ s=mail; t=1672916965;
+ bh=LAsrZfSnQres51ppPQcdXpGQ3gS3K+MVgY/44ivN1Y4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=A/WUTsHeShksuISQG/AgxAzAP+CQx4dsDGsshFDwf7Y+EJ0M+6JbGDxb+WgGAJchO
- Xj52jqtomYFQt+1VcX+K067bieQDQhr8hVb51KtxInDykCrZcIGCpbEDRehVeLxXcE
- XOUlL1WrU9oxXh4Ys9JrxLrIeuCea1/Y0FQoKeGxc69WTO1Dx86RXQEE9+LqghwSBX
- GL0ylej9Xm8ktH+VG+nmrclvwLCjZSvP50ToR8fJC8YOhXxVDQ8t+Th4p5NCvzKHec
- FYEXPwDGwa2FmR62+v2CDROQUOQ3rOLY0zMEt0z6OjnfqXBPiuMTcFb+7FByrrKBJD
- vVwAqsGA0TwhA==
-Message-ID: <710ca95e-bb57-a487-aaf9-1861b7dcb703@collabora.com>
-Date: Thu, 5 Jan 2023 12:08:07 +0100
+ b=iAV0ZfBHi/SK8ThsE63VKckB2W2TMiARXN3hqNYC9GBS8vXSmHwFk8BwBeesxguF6
+ zP/Ks+vamEcKO+tHiXLJVubRerU8+1LbLcnfN/HqDygHAouz4KePH66XvtHGBuyf6i
+ IY/3y8k+ju4FBAU8qnWsg3RVY6QzQxVhI7tGbpJbP7yu92Ww2H5MudA8QLjk2C4weG
+ nGYh12cV+HI9m/5+NtKCiXqU4RuHEqf5JqaxDOQT44PWAVz67QPpd2y+LZkWEAAqbv
+ +9vsS2c8QEHPto8fJzPBjfbA+GxTSq6iRRxO4VnzBYp3Yy4GuFiDRv7k238VBSpJi2
+ j5IjErh5uIDkQ==
+Message-ID: <77e958fd-5ced-bd5a-70cb-af4fe94717d5@collabora.com>
+Date: Thu, 5 Jan 2023 12:09:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH v5 05/13] ASoC: mediatek: mt8188: support etdm in platform
- driver
+Subject: Re: [PATCH v5 09/13] ASoC: mediatek: mt8188: add control for timing
+ select
+Content-Language: en-US
 To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
  lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
  krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com,
  p.zabel@pengutronix.de
 References: <20230105081606.6582-1-trevor.wu@mediatek.com>
- <20230105081606.6582-6-trevor.wu@mediatek.com>
-Content-Language: en-US
+ <20230105081606.6582-10-trevor.wu@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230105081606.6582-6-trevor.wu@mediatek.com>
+In-Reply-To: <20230105081606.6582-10-trevor.wu@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -96,8 +97,8 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 05/01/23 09:15, Trevor Wu ha scritto:
-> Add mt8188 etdm dai driver support.
+Il 05/01/23 09:16, Trevor Wu ha scritto:
+> Add mixer control for irq and memif timing selection.
 > 
 > Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 

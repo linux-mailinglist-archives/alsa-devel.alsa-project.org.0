@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FD565E703
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 09:46:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B97665E722
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 09:56:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F502FFF4;
-	Thu,  5 Jan 2023 09:46:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F502FFF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D7A41009D;
+	Thu,  5 Jan 2023 09:55:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D7A41009D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672908414;
-	bh=Tj1dWHCOEcU68NFaAkhmLicXFQGVsOJJ/XcQkQzandA=;
+	s=default; t=1672908959;
+	bh=sJOKWRxD/w9OFW5rHNCIzFI0oe4k9NP7xI+yFJkqbVY=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=lvhTv0Rns38tQneczYUGBqzZsh/nPo+DWtW2VKdIXs9xbgjPAFrnx3jTQidSOVIER
-	 DRrBZwh4unyUV7g55OrLLsKv31YvxJSn1QFkRsyL6iJ6JBC+mbccEwDYm13CVAn+3k
-	 wiNOjnNy2FCUMozKkmKGy8oytPUjwldS2uPk69iA=
+	b=nRNKw3hdu8o68J2UWPdhuyAN8rap4f/lwMgwKQD8OPa3MN7AWdvghPSZZ3JANM4eK
+	 gs9EIQSqjowQA/jsl2/4GsX3NT56McxXfEe9LY4eWQiwxDeYCj9rF/D9mxy1EvfpkG
+	 jJdA3j4jlIbXOl2Xi2pcLQsLESzpVnzDbQTpulxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04E3FF80238;
-	Thu,  5 Jan 2023 09:45:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1661F804AA;
+	Thu,  5 Jan 2023 09:55:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FE33F804AD; Thu,  5 Jan 2023 09:45:52 +0100 (CET)
+ id 1393CF804AA; Thu,  5 Jan 2023 09:55:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D913F8022B
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 09:45:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D913F8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73CBEF804AD
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 09:55:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73CBEF804AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=cgmfbn8p; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=uCiWNYqL; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=DXfySPGr
+ header.s=susede2_ed25519 header.b=6/bNP8g/
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CBBD46BA5E;
- Thu,  5 Jan 2023 08:45:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3888623071;
+ Thu,  5 Jan 2023 08:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1672908349; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1672908904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cZx8HfJYhY9oxfQCn02Rv42DLJWeIgkNON5cURxS4Nk=;
- b=cgmfbn8pnvNkVNCAHRVyshl3W/AiAp0HqwnstBgTCCjXwzYT/hn6gJJQn/Nkv0UeD6IfYA
- m1CXd+Yr1cQysjfqaRAu4ZzB4jH0LJTN4k/ynpCtQyQVQ8MHhkWZNqPp+Ce0KbhvkyJBa4
- iIBg++CTRltAEKFrJts4wXEFythrLWQ=
+ bh=IHOYC6vfUa6VVFgCcPoqOyMNWdBh/humVgArq1I7u+A=;
+ b=uCiWNYqLGWlCrP4+sxvzylCpKldvKj02X/dPIZ/LiBQgA1w6rsuZxTcNAgN0A39Zxrd1O/
+ WqEbr3aDmlfn+lcVFWWwmw1Nq0n6RFGVKJer+nMv5+eWW/8u1/ORb7zrh90efyz9k/IcJe
+ EHtvWcyApVkMjJAA3WkvNhRIzvcqIbs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1672908349;
+ s=susede2_ed25519; t=1672908904;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=cZx8HfJYhY9oxfQCn02Rv42DLJWeIgkNON5cURxS4Nk=;
- b=DXfySPGrOQjlo1R3YHgtP3N1scoLTRSU8U4pIUFRB58V2MvPxxUWvd0rvjgM+LBQYrT4Se
- NznhO+C0nrkDYnDw==
+ bh=IHOYC6vfUa6VVFgCcPoqOyMNWdBh/humVgArq1I7u+A=;
+ b=6/bNP8g/DknzW+F86MsMEJ9LltOtvCIBf93a68f0ZF8SqXHxKk8kRGQot8mDBhlERErfwB
+ kFnjvLITCP8cXvCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8944113273;
- Thu,  5 Jan 2023 08:45:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0C8A613273;
+ Thu,  5 Jan 2023 08:55:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jovBID2OtmPLIwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 05 Jan 2023 08:45:49 +0000
-Date: Thu, 05 Jan 2023 09:45:49 +0100
-Message-ID: <878rihmksi.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id NgZ3AmiQtmNpKAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 05 Jan 2023 08:55:04 +0000
+Date: Thu, 05 Jan 2023 09:55:03 +0100
+Message-ID: <877cy1mkd4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeremy Szu <jeremy.szu@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs don't work for a
- HP platform
-In-Reply-To: <20230105044154.8242-1-jeremy.szu@canonical.com>
-References: <20230105044154.8242-1-jeremy.szu@canonical.com>
+To: Ben Carter <craterrender@gmail.com>
+Subject: Re: [PATCH] sound: hda: increase timeouts to stop crash on resume
+ with ALC3204 and others
+In-Reply-To: <20230104221024.23524-1-craterrender@gmail.com>
+References: <20230104221024.23524-1-craterrender@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -98,28 +98,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Yuchi Yang <yangyuchi66@gmail.com>, Meng Tang <tangmeng@uniontech.com>,
- Philipp Jungkamp <p.jungkamp@gmx.net>, tiwai@suse.com,
- Tim Crawford <tcrawford@system76.com>, "moderated
- list:SOUND" <alsa-devel@alsa-project.org>,
- Kacper =?ISO-8859-2?Q?Michaj=B3ow?= <kasper93@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Divya Prakash <divya1.prakash@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>,
+ Amadeusz =?ISO-8859-2?Q?S=B3awi=F1s?= =?ISO-8859-2?Q?ki?=
+ <amadeuszx.slawinski@linux.intel.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 05 Jan 2023 05:41:53 +0100,
-Jeremy Szu wrote:
+On Wed, 04 Jan 2023 23:10:24 +0100,
+Ben Carter wrote:
 > 
-> There is a HP platform uses ALC236 codec which using GPIO2 to control
-> mute LED and GPIO1 to control micmute LED.
-> Thus, add a quirk to make them work.
-> 
-> Signed-off-by: Jeremy Szu <jeremy.szu@canonical.com>
+> Upon waking after system suspend, ALSA often crashed with:
+>   snd_hda_intel 0000:00:1f.3: CORB reset timeout#2, CORBRP = 65535
+>   snd_hda_codec_hdmi hdaudioC1D2: Unable to sync register 0x2f8100. -5
+>   snd_hda_codec_realtek hdaudioC1D0: Unable to sync register 0x2b8000. -5
+> A temporary fix was established by reloading snd_hda_intel, but increasing
+> the rather strict timeout of 1ms to 100ms has remedied the issue on my
+> device. Although this is a much larger delay, most hardware took less than
+> 1ms anyway and it's preferable to the whole audio system crashing.
 
-Thanks, applied now.
+100ms is way too long for an atomic context.  How long it took in
+reality?
 
+If we extend to 100ms, the loop should be outside the spinlock.
+Maybe it's worth to rewrite with the standard iopoll helper, too.
+
+
+thanks,
 
 Takashi
+
+> 
+> Signed-off-by: Ben Carter <craterrender@gmail.com>
+> ---
+>  sound/hda/hdac_controller.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+> index 3c7af6558249..1ab573248452 100644
+> --- a/sound/hda/hdac_controller.c
+> +++ b/sound/hda/hdac_controller.c
+> @@ -16,7 +16,7 @@ static void azx_clear_corbrp(struct hdac_bus *bus)
+>  {
+>  	int timeout;
+>  
+> -	for (timeout = 1000; timeout > 0; timeout--) {
+> +	for (timeout = 100000; timeout > 0; timeout--) {
+>  		if (snd_hdac_chip_readw(bus, CORBRP) & AZX_CORBRP_RST)
+>  			break;
+>  		udelay(1);
+> @@ -26,7 +26,7 @@ static void azx_clear_corbrp(struct hdac_bus *bus)
+>  			snd_hdac_chip_readw(bus, CORBRP));
+>  
+>  	snd_hdac_chip_writew(bus, CORBRP, 0);
+> -	for (timeout = 1000; timeout > 0; timeout--) {
+> +	for (timeout = 100000; timeout > 0; timeout--) {
+>  		if (snd_hdac_chip_readw(bus, CORBRP) == 0)
+>  			break;
+>  		udelay(1);
+> -- 
+> 2.39.0
+> 

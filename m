@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE7C65EDC4
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 14:48:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9B7F65EDCC
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jan 2023 14:49:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B85DE10EF9;
-	Thu,  5 Jan 2023 14:48:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B85DE10EF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 425DC10F0D;
+	Thu,  5 Jan 2023 14:48:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 425DC10F0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672926533;
-	bh=PXqOv0LctzShAq7q8kG4dABXJIY3SUF939BAdbcjLEU=;
+	s=default; t=1672926547;
+	bh=/FS8fBmu6pkebaZatQp3ZoSENMWZyiaJpwoCDpO4hWs=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Tvz/ImB3bTp4A21M1DdYDKysXPNv5XZ7nhGi00uPMm+Earsrze9r/u4zGle+BU6mY
-	 wJxLtOsvfcMxuN+vC2T+t9Ax544CLibCkXXJ0QKN8+yDd6k7d1nhehgV1XsyURy7A2
-	 QksesF+tpVt9Fl1Og6KLoKocrs4rOEqPLr/lPGXg=
+	b=UI4n+wVKNhTLtlWBDU44RqcyNUP6EZAcVuWYtANXOUBfiFW0xfCz3E3B3XZbPYUTb
+	 08wTFW/zJFP1iGh3x5xD/nOOe1ptCmbrKC7G72wqEG2ITfX8enF2t9Jyp+u5vHx53n
+	 ybC4CgTg3wX2PlnXPe/gT3z2p1xRXfqyOlyT3pAk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE333F804AE;
-	Thu,  5 Jan 2023 14:47:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6DB3F8053A;
+	Thu,  5 Jan 2023 14:47:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B19D5F804DB; Thu,  5 Jan 2023 14:47:26 +0100 (CET)
+ id CE596F8053A; Thu,  5 Jan 2023 14:47:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 831A0F804AD
- for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 14:47:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 831A0F804AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB6FBF8053A
+ for <alsa-devel@alsa-project.org>; Thu,  5 Jan 2023 14:47:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB6FBF8053A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ua1EpTbe
+ header.s=k20201202 header.b=jm+NeQGS
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 01AC161A81;
- Thu,  5 Jan 2023 13:47:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47060C433D2;
- Thu,  5 Jan 2023 13:47:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 940B861AC6;
+ Thu,  5 Jan 2023 13:47:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E092C433F0;
+ Thu,  5 Jan 2023 13:47:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672926442;
- bh=PXqOv0LctzShAq7q8kG4dABXJIY3SUF939BAdbcjLEU=;
+ s=k20201202; t=1672926453;
+ bh=/FS8fBmu6pkebaZatQp3ZoSENMWZyiaJpwoCDpO4hWs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ua1EpTbehUxbw/Ic9Uz2vQyvyrsKyksmt2Vyi6cGfsesz04RTE1JtjsR6+uyc2Azn
- 8H5rIZWotkUqE3CIPIDVSm067bcRneXSmmp1vypSuIlUOSFaypLq2giJmi/5ml5M8s
- 6kANTUb/T1tq3Q+oVgz84jtAU+QaaMyEEEN7Y822FWonHiGfmC1H6m6noj1gRRyvk/
- bNPhkjK6FVLLAR2aGLBIZ7WgG6pC29njQXqjw/ge90WKxQazqmixXbeeXi1sX8AzeN
- VIM1rWPwJkSfbIlDcDy3Bwyv+lUrckDwX2L8saGzh0jxKQMY7rsxtx1YWs4V/30/Cy
- bCJ5Uc7cWgsWA==
+ b=jm+NeQGSKbwVMEHk1yxqRUvzXRIbut8bFNcg4c6VdmR+pP28NrpHrdFqm6pn/OZQN
+ 7X3Re7172JGOtRjUmutdHJ5nC6UL/H2z9BSBK0GSjllTTYb3BXOUurEULihRrDz17f
+ LkXNElhBjKjYQZcWxsGC0GmA6W1MtGKqqCcwULz6p7MBV78UkZYtKlyVaADSy9dMHH
+ LL6/d05bpTusmbbmzk3/w88r0oAlfG8BjLpFpQeKl9a0/EhjpVmGXTA/kjJzrOs/vA
+ t2b0DVschHyxCL5qkMEPsWUv21IA7UOogug/q0dKML1/uQ/Qos44YVMSXpzLSxtIF2
+ 3MWFFvQ3GS0YQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Robert Jarzmik <robert.jarzmik@free.fr>
-Subject: [PATCH 15/27] ASoC: pxa: remove unused board support
-Date: Thu,  5 Jan 2023 14:46:10 +0100
-Message-Id: <20230105134622.254560-16-arnd@kernel.org>
+Subject: [PATCH 19/27] mfd: remove ucb1400 support
+Date: Thu,  5 Jan 2023 14:46:14 +0100
+Message-Id: <20230105134622.254560-20-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230105134622.254560-1-arnd@kernel.org>
 References: <20230105134622.254560-1-arnd@kernel.org>
@@ -80,391 +80,245 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Ken McGuire <kenm@desertweyr.com>,
- Arnd Bergmann <arnd@arndb.de>, Ian Molton <spyro@f2s.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Marek Vasut <marek.vasut@gmail.com>, Mark Brown <broonie@kernel.org>,
- Daniel Mack <daniel@zonque.org>, Mike Rapoport <rppt@kernel.org>,
+Cc: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org,
+ Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Haojian Zhuang <haojian.zhuang@gmail.com>, linux-gpio@vger.kernel.org,
+ Daniel Mack <daniel@zonque.org>, linux-input@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
  linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Most PXA/MMP boards were removed, so the board specific ASoC
-support is no longer needed, leaving only support for DT
-based ones, as well as the "gumstix" and "spitz" machines
-that may get converted to DT later.
+The ucb1400 MFD driver and its gpio and touchscreen child
+drivers were only used on a few PXA machines that were unused
+for a while and are now removed.
 
-Cc: Ian Molton <spyro@f2s.com>
-Cc: Ken McGuire <kenm@desertweyr.com>
-Cc: Marek Vasut <marek.vasut@gmail.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Robert Jarzmik <robert.jarzmik@free.fr>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
+Removing these leaves the AC97 support as ALSA specific,
+no other drivers are now connected through this interface.
+
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Lee Jones <lee@kernel.org>
 Cc: Jaroslav Kysela <perex@perex.cz>
 Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Marek Vasut <marex@denx.de>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-input@vger.kernel.org
 Cc: alsa-devel@alsa-project.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- include/linux/platform_data/asoc-palm27x.h |   9 -
- include/linux/platform_data/asoc-poodle.h  |  16 -
- include/linux/platform_data/mmp_audio.h    |  18 -
- sound/soc/pxa/Kconfig                      | 176 ----------
- sound/soc/pxa/Makefile                     |  33 --
- sound/soc/pxa/brownstone.c                 | 133 --------
- sound/soc/pxa/corgi.c                      | 332 -------------------
- sound/soc/pxa/e740_wm9705.c                | 168 ----------
- sound/soc/pxa/e750_wm9705.c                | 147 ---------
- sound/soc/pxa/e800_wm9712.c                | 147 ---------
- sound/soc/pxa/em-x270.c                    |  92 ------
- sound/soc/pxa/hx4700.c                     | 207 ------------
- sound/soc/pxa/magician.c                   | 366 ---------------------
- sound/soc/pxa/mioa701_wm9713.c             | 201 -----------
- sound/soc/pxa/mmp-pcm.c                    | 267 ---------------
- sound/soc/pxa/palm27x.c                    | 162 ---------
- sound/soc/pxa/poodle.c                     | 291 ----------------
- sound/soc/pxa/tosa.c                       | 255 --------------
- sound/soc/pxa/ttc-dkb.c                    | 143 --------
- sound/soc/pxa/z2.c                         | 218 ------------
- sound/soc/pxa/zylonite.c                   | 266 ---------------
- 21 files changed, 3647 deletions(-)
- delete mode 100644 include/linux/platform_data/asoc-palm27x.h
- delete mode 100644 include/linux/platform_data/asoc-poodle.h
- delete mode 100644 include/linux/platform_data/mmp_audio.h
- delete mode 100644 sound/soc/pxa/brownstone.c
- delete mode 100644 sound/soc/pxa/corgi.c
- delete mode 100644 sound/soc/pxa/e740_wm9705.c
- delete mode 100644 sound/soc/pxa/e750_wm9705.c
- delete mode 100644 sound/soc/pxa/e800_wm9712.c
- delete mode 100644 sound/soc/pxa/em-x270.c
- delete mode 100644 sound/soc/pxa/hx4700.c
- delete mode 100644 sound/soc/pxa/magician.c
- delete mode 100644 sound/soc/pxa/mioa701_wm9713.c
- delete mode 100644 sound/soc/pxa/mmp-pcm.c
- delete mode 100644 sound/soc/pxa/palm27x.c
- delete mode 100644 sound/soc/pxa/poodle.c
- delete mode 100644 sound/soc/pxa/tosa.c
- delete mode 100644 sound/soc/pxa/ttc-dkb.c
- delete mode 100644 sound/soc/pxa/z2.c
- delete mode 100644 sound/soc/pxa/zylonite.c
+ drivers/gpio/Kconfig                   |   7 -
+ drivers/gpio/Makefile                  |   1 -
+ drivers/gpio/gpio-ucb1400.c            |  85 -----
+ drivers/input/touchscreen/Kconfig      |  16 -
+ drivers/input/touchscreen/Makefile     |   1 -
+ drivers/input/touchscreen/ucb1400_ts.c | 458 -------------------------
+ drivers/mfd/Kconfig                    |  11 -
+ drivers/mfd/Makefile                   |   1 -
+ drivers/mfd/ucb1400_core.c             | 158 ---------
+ include/linux/ucb1400.h                | 160 ---------
+ sound/Kconfig                          |   1 -
+ sound/pci/ac97/ac97_codec.c            |   1 -
+ sound/pci/ac97/ac97_patch.c            |  40 ---
+ 13 files changed, 940 deletions(-)
+ delete mode 100644 drivers/gpio/gpio-ucb1400.c
+ delete mode 100644 drivers/input/touchscreen/ucb1400_ts.c
+ delete mode 100644 drivers/mfd/ucb1400_core.c
+ delete mode 100644 include/linux/ucb1400.h
 
-diff --git a/include/linux/platform_data/asoc-palm27x.h b/include/linux/platform_data/asoc-palm27x.h
-deleted file mode 100644
-index 22b69a393a57..000000000000
-diff --git a/include/linux/platform_data/asoc-poodle.h b/include/linux/platform_data/asoc-poodle.h
-deleted file mode 100644
-index 2052fad55c5c..000000000000
-diff --git a/include/linux/platform_data/mmp_audio.h b/include/linux/platform_data/mmp_audio.h
-deleted file mode 100644
-index 83428d8ee18d..000000000000
-diff --git a/sound/soc/pxa/Kconfig b/sound/soc/pxa/Kconfig
-index 2036d368c08d..e6bca9070953 100644
---- a/sound/soc/pxa/Kconfig
-+++ b/sound/soc/pxa/Kconfig
-@@ -8,10 +8,6 @@ config SND_PXA2XX_SOC
- 	  the PXA2xx AC97, I2S or SSP interface. You will also need
- 	  to select the audio interfaces to support below.
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 0148553790eb..df2dfbb2601e 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -1428,13 +1428,6 @@ config GPIO_TWL6040
+ 	  Say yes here to access the GPO signals of twl6040
+ 	  audio chip from Texas Instruments.
  
--config SND_MMP_SOC
--	bool
--	select MMP_SRAM
+-config GPIO_UCB1400
+-	tristate "Philips UCB1400 GPIO"
+-	depends on UCB1400_CORE
+-	help
+-	  This enables support for the Philips UCB1400 GPIO pins.
+-	  The UCB1400 is an AC97 audio codec.
 -
- config SND_PXA2XX_AC97
+ config GPIO_WHISKEY_COVE
+ 	tristate "GPIO support for Whiskey Cove PMIC"
+ 	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC_BXTWC
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index 59ac21054261..c048ba003367 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -165,7 +165,6 @@ obj-$(CONFIG_GPIO_TS4900)		+= gpio-ts4900.o
+ obj-$(CONFIG_GPIO_TS5500)		+= gpio-ts5500.o
+ obj-$(CONFIG_GPIO_TWL4030)		+= gpio-twl4030.o
+ obj-$(CONFIG_GPIO_TWL6040)		+= gpio-twl6040.o
+-obj-$(CONFIG_GPIO_UCB1400)		+= gpio-ucb1400.o
+ obj-$(CONFIG_GPIO_UNIPHIER)		+= gpio-uniphier.o
+ obj-$(CONFIG_GPIO_VF610)		+= gpio-vf610.o
+ obj-$(CONFIG_GPIO_VIPERBOARD)		+= gpio-viperboard.o
+diff --git a/drivers/gpio/gpio-ucb1400.c b/drivers/gpio/gpio-ucb1400.c
+deleted file mode 100644
+index 676adf1f198a..000000000000
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index ca00f55eaf45..1a2049b336a6 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -827,22 +827,6 @@ config TOUCHSCREEN_TI_AM335X_TSC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called ti_am335x_tsc.
+ 
+-config TOUCHSCREEN_UCB1400
+-	tristate "Philips UCB1400 touchscreen"
+-	depends on AC97_BUS
+-	depends on UCB1400_CORE
+-	help
+-	  This enables support for the Philips UCB1400 touchscreen interface.
+-	  The UCB1400 is an AC97 audio codec.  The touchscreen interface
+-	  will be initialized only after the ALSA subsystem has been
+-	  brought up and the UCB1400 detected.  You therefore have to
+-	  configure ALSA support as well (either built-in or modular,
+-	  independently of whether this driver is itself built-in or
+-	  modular) for this driver to work.
+-
+-	  To compile this driver as a module, choose M here: the
+-	  module will be called ucb1400_ts.
+-
+ config TOUCHSCREEN_PIXCIR
+ 	tristate "PIXCIR I2C touchscreens"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index 7053fede594e..f2fd28cc34a6 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -97,7 +97,6 @@ obj-$(CONFIG_TOUCHSCREEN_TSC2005)	+= tsc2005.o
+ tsc2007-y := tsc2007_core.o
+ tsc2007-$(CONFIG_TOUCHSCREEN_TSC2007_IIO)	+= tsc2007_iio.o
+ obj-$(CONFIG_TOUCHSCREEN_TSC2007)	+= tsc2007.o
+-obj-$(CONFIG_TOUCHSCREEN_UCB1400)	+= ucb1400_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_WACOM_W8001)	+= wacom_w8001.o
+ obj-$(CONFIG_TOUCHSCREEN_WACOM_I2C)	+= wacom_i2c.o
+ obj-$(CONFIG_TOUCHSCREEN_WDT87XX_I2C)	+= wdt87xx_i2c.o
+diff --git a/drivers/input/touchscreen/ucb1400_ts.c b/drivers/input/touchscreen/ucb1400_ts.c
+deleted file mode 100644
+index dfd3b35590c3..000000000000
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index da57ebf22630..5ea07a65f150 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -1071,17 +1071,6 @@ config PCF50633_GPIO
+ 	  Say yes here if you want to include support GPIO for pins on
+ 	  the PCF50633 chip.
+ 
+-config UCB1400_CORE
+-	tristate "Philips UCB1400 Core driver"
+-	depends on AC97_BUS
+-	depends on GPIOLIB
+-	help
+-	  This enables support for the Philips UCB1400 core functions.
+-	  The UCB1400 is an AC97 audio codec.
+-
+-	  To compile this driver as a module, choose M here: the
+-	  module will be called ucb1400_core.
+-
+ config MFD_PM8XXX
+ 	tristate "Qualcomm PM8xxx PMIC chips driver"
+ 	depends on (ARM || HEXAGON || COMPILE_TEST)
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index 9ba9d711c492..4969ea6e24f1 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -127,7 +127,6 @@ obj-$(CONFIG_MCP_UCB1200_TS)	+= ucb1x00-ts.o
+ ifeq ($(CONFIG_SA1100_ASSABET),y)
+ obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-assabet.o
+ endif
+-obj-$(CONFIG_UCB1400_CORE)	+= ucb1400_core.o
+ 
+ obj-$(CONFIG_PMIC_DA903X)	+= da903x.o
+ 
+diff --git a/drivers/mfd/ucb1400_core.c b/drivers/mfd/ucb1400_core.c
+deleted file mode 100644
+index ac1d18039568..000000000000
+diff --git a/include/linux/ucb1400.h b/include/linux/ucb1400.h
+deleted file mode 100644
+index 2516082cd3a9..000000000000
+diff --git a/sound/Kconfig b/sound/Kconfig
+index e56d96d2b11c..0ddfb717b81d 100644
+--- a/sound/Kconfig
++++ b/sound/Kconfig
+@@ -107,7 +107,6 @@ endif # !UML
+ 
+ endif # SOUND
+ 
+-# AC97_BUS is used from both sound and ucb1400
+ config AC97_BUS
  	tristate
- 
-@@ -44,15 +40,6 @@ config SND_MMP_SOC_SSPA
- 	  Say Y if you want to add support for codecs attached to
- 	  the MMP SSPA interface.
- 
--config SND_PXA2XX_SOC_CORGI
--	tristate "SoC Audio support for Sharp Zaurus SL-C7x0"
--	depends on SND_PXA2XX_SOC && PXA_SHARP_C7xx && I2C
--	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_WM8731_I2C
--	help
--	  Say Y if you want to add support for SoC audio on Sharp
--	  Zaurus SL-C7x0 models (Corgi, Shepherd, Husky).
--
- config SND_PXA2XX_SOC_SPITZ
- 	tristate "SoC Audio support for Sharp Zaurus SL-Cxx00"
- 	depends on SND_PXA2XX_SOC && PXA_SHARP_Cxx00 && I2C
-@@ -62,101 +49,6 @@ config SND_PXA2XX_SOC_SPITZ
- 	  Say Y if you want to add support for SoC audio on Sharp
- 	  Zaurus SL-Cxx00 models (Spitz, Borzoi and Akita).
- 
--config SND_PXA2XX_SOC_Z2
--	tristate "SoC Audio support for Zipit Z2"
--	depends on SND_PXA2XX_SOC && MACH_ZIPIT2 && I2C
--	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_WM8750
--	help
--	  Say Y if you want to add support for SoC audio on Zipit Z2.
--
--config SND_PXA2XX_SOC_POODLE
--	tristate "SoC Audio support for Poodle"
--	depends on SND_PXA2XX_SOC && MACH_POODLE && I2C
--	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_WM8731_I2C
--	help
--	  Say Y if you want to add support for SoC audio on Sharp
--	  Zaurus SL-5600 model (Poodle).
--
--config SND_PXA2XX_SOC_TOSA
--	tristate "SoC AC97 Audio support for Tosa"
--	depends on SND_PXA2XX_SOC && MACH_TOSA
--	depends on MFD_TC6393XB
--	depends on AC97_BUS=n
--	select REGMAP
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	select SND_SOC_WM9712
--	help
--	  Say Y if you want to add support for SoC audio on Sharp
--	  Zaurus SL-C6000x models (Tosa).
--
--config SND_PXA2XX_SOC_E740
--	tristate "SoC AC97 Audio support for e740"
--	depends on SND_PXA2XX_SOC && MACH_E740
--	depends on AC97_BUS=n
--	select REGMAP
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_SOC_WM9705
--	select SND_PXA2XX_SOC_AC97
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  toshiba e740 PDA
--
--config SND_PXA2XX_SOC_E750
--	tristate "SoC AC97 Audio support for e750"
--	depends on SND_PXA2XX_SOC && MACH_E750
--	depends on AC97_BUS=n
--	select REGMAP
--	select SND_SOC_WM9705
--	select SND_PXA2XX_SOC_AC97
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  toshiba e750 PDA
--
--config SND_PXA2XX_SOC_E800
--	tristate "SoC AC97 Audio support for e800"
--	depends on SND_PXA2XX_SOC && MACH_E800
--	depends on AC97_BUS=n
--	select REGMAP
--	select SND_SOC_WM9712
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  Toshiba e800 PDA
--
--config SND_PXA2XX_SOC_EM_X270
--	tristate "SoC Audio support for CompuLab CM-X300"
--	depends on SND_PXA2XX_SOC && MACH_CM_X300
--	depends on AC97_BUS=n
--	select REGMAP
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	select SND_SOC_WM9712
--	help
--	  Say Y if you want to add support for SoC audio on
--	  CompuLab EM-x270, eXeda and CM-X300 machines.
--
--config SND_PXA2XX_SOC_PALM27X
--	bool "SoC Audio support for Palm T|X, T5, E2 and LifeDrive"
--	depends on SND_PXA2XX_SOC && (MACH_PALMLD || MACH_PALMTX || \
--			MACH_PALMT5 || MACH_PALMTE2)
--	depends on AC97_BUS=n
--	select REGMAP
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	select SND_SOC_WM9712
--	help
--	  Say Y if you want to add support for SoC audio on
--	  Palm T|X, T5, E2 or LifeDrive handheld computer.
--
- config SND_PXA910_SOC
- 	tristate "SoC Audio for Marvell PXA910 chip"
- 	depends on ARCH_MMP && SND
-@@ -164,71 +56,3 @@ config SND_PXA910_SOC
  	help
- 	  Say Y if you want to add support for SoC audio on the
- 	  Marvell PXA910 reference platform.
+diff --git a/sound/pci/ac97/ac97_codec.c b/sound/pci/ac97/ac97_codec.c
+index ff685321f1a1..9afc5906d662 100644
+--- a/sound/pci/ac97/ac97_codec.c
++++ b/sound/pci/ac97/ac97_codec.c
+@@ -152,7 +152,6 @@ static const struct ac97_codec_id snd_ac97_codec_ids[] = {
+ { 0x4e534300, 0xffffffff, "LM4540,43,45,46,48",	NULL,		NULL }, // only guess --jk
+ { 0x4e534331, 0xffffffff, "LM4549",		NULL,		NULL },
+ { 0x4e534350, 0xffffffff, "LM4550",		patch_lm4550,  	NULL }, // volume wrap fix 
+-{ 0x50534304, 0xffffffff, "UCB1400",		patch_ucb1400,	NULL },
+ { 0x53494c20, 0xffffffe0, "Si3036,8",		mpatch_si3036,	mpatch_si3036, AC97_MODEM_PATCH },
+ { 0x53544d02, 0xffffffff, "ST7597",		NULL,		NULL },
+ { 0x54524102, 0xffffffff, "TR28022",		NULL,		NULL },
+diff --git a/sound/pci/ac97/ac97_patch.c b/sound/pci/ac97/ac97_patch.c
+index 025c1666c1fc..4b5f33de70d5 100644
+--- a/sound/pci/ac97/ac97_patch.c
++++ b/sound/pci/ac97/ac97_patch.c
+@@ -3937,43 +3937,3 @@ static int patch_lm4550(struct snd_ac97 *ac97)
+ 	ac97->res_table = lm4550_restbl;
+ 	return 0;
+ }
 -
--config SND_SOC_TTC_DKB
--	tristate "SoC Audio support for TTC DKB"
--	depends on SND_PXA910_SOC && MACH_TTC_DKB && I2C=y
--	select PXA_SSP
--	select SND_PXA_SOC_SSP
--	select SND_MMP_SOC
--	select MFD_88PM860X
--	select SND_SOC_88PM860X
--	help
--	  Say Y if you want to add support for SoC audio on TTC DKB
+-/* 
+- *  UCB1400 codec (http://www.semiconductors.philips.com/acrobat_download/datasheets/UCB1400-02.pdf)
+- */
+-static const struct snd_kcontrol_new snd_ac97_controls_ucb1400[] = {
+-/* enable/disable headphone driver which allows direct connection to
+-   stereo headphone without the use of external DC blocking
+-   capacitors */
+-AC97_SINGLE("Headphone Driver", 0x6a, 6, 1, 0),
+-/* Filter used to compensate the DC offset is added in the ADC to remove idle
+-   tones from the audio band. */
+-AC97_SINGLE("DC Filter", 0x6a, 4, 1, 0),
+-/* Control smart-low-power mode feature. Allows automatic power down
+-   of unused blocks in the ADC analog front end and the PLL. */
+-AC97_SINGLE("Smart Low Power Mode", 0x6c, 4, 3, 0),
+-};
 -
+-static int patch_ucb1400_specific(struct snd_ac97 * ac97)
+-{
+-	int idx, err;
+-	for (idx = 0; idx < ARRAY_SIZE(snd_ac97_controls_ucb1400); idx++) {
+-		err = snd_ctl_add(ac97->bus->card, snd_ctl_new1(&snd_ac97_controls_ucb1400[idx], ac97));
+-		if (err < 0)
+-			return err;
+-	}
+-	return 0;
+-}
 -
--config SND_SOC_ZYLONITE
--	tristate "SoC Audio support for Marvell Zylonite"
--	depends on SND_PXA2XX_SOC && MACH_ZYLONITE
--	depends on AC97_BUS=n
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	select REGMAP
--	select SND_PXA_SOC_SSP
--	select SND_SOC_WM9713
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  Marvell Zylonite reference platform.
+-static const struct snd_ac97_build_ops patch_ucb1400_ops = {
+-	.build_specific	= patch_ucb1400_specific,
+-};
 -
--config SND_PXA2XX_SOC_HX4700
--	tristate "SoC Audio support for HP iPAQ hx4700"
--	depends on SND_PXA2XX_SOC && MACH_H4700 && I2C
--	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_AK4641
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  HP iPAQ hx4700.
--
--config SND_PXA2XX_SOC_MAGICIAN
--	tristate "SoC Audio support for HTC Magician"
--	depends on SND_PXA2XX_SOC && MACH_MAGICIAN && I2C
--	select SND_PXA2XX_SOC_I2S
--	select SND_PXA_SOC_SSP
--	select SND_SOC_UDA1380
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  HTC Magician.
--
--config SND_PXA2XX_SOC_MIOA701
--	tristate "SoC Audio support for MIO A701"
--	depends on SND_PXA2XX_SOC && MACH_MIOA701
--	depends on AC97_BUS=n
--	select REGMAP
--	select AC97_BUS_NEW
--	select AC97_BUS_COMPAT
--	select SND_PXA2XX_SOC_AC97
--	select SND_SOC_WM9713
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  MIO A701.
--
--config SND_MMP_SOC_BROWNSTONE
--	tristate "SoC Audio support for Marvell Brownstone"
--	depends on SND_MMP_SOC_SSPA && MACH_BROWNSTONE && I2C
--	select SND_MMP_SOC
--	select MFD_WM8994
--	select SND_SOC_WM8994
--	help
--	  Say Y if you want to add support for SoC audio on the
--	  Marvell Brownstone reference platform.
-diff --git a/sound/soc/pxa/Makefile b/sound/soc/pxa/Makefile
-index b712eb894a61..406605fc7414 100644
---- a/sound/soc/pxa/Makefile
-+++ b/sound/soc/pxa/Makefile
-@@ -4,47 +4,14 @@ snd-soc-pxa2xx-objs := pxa2xx-pcm.o
- snd-soc-pxa2xx-ac97-objs := pxa2xx-ac97.o
- snd-soc-pxa2xx-i2s-objs := pxa2xx-i2s.o
- snd-soc-pxa-ssp-objs := pxa-ssp.o
--snd-soc-mmp-objs := mmp-pcm.o
- snd-soc-mmp-sspa-objs := mmp-sspa.o
- 
- obj-$(CONFIG_SND_PXA2XX_SOC) += snd-soc-pxa2xx.o
- obj-$(CONFIG_SND_PXA2XX_SOC_AC97) += snd-soc-pxa2xx-ac97.o
- obj-$(CONFIG_SND_PXA2XX_SOC_I2S) += snd-soc-pxa2xx-i2s.o
- obj-$(CONFIG_SND_PXA_SOC_SSP) += snd-soc-pxa-ssp.o
--obj-$(CONFIG_SND_MMP_SOC) += snd-soc-mmp.o
- obj-$(CONFIG_SND_MMP_SOC_SSPA) += snd-soc-mmp-sspa.o
- 
- # PXA Machine Support
--snd-soc-corgi-objs := corgi.o
--snd-soc-poodle-objs := poodle.o
--snd-soc-tosa-objs := tosa.o
--snd-soc-e740-objs := e740_wm9705.o
--snd-soc-e750-objs := e750_wm9705.o
--snd-soc-e800-objs := e800_wm9712.o
- snd-soc-spitz-objs := spitz.o
--snd-soc-em-x270-objs := em-x270.o
--snd-soc-palm27x-objs := palm27x.o
--snd-soc-zylonite-objs := zylonite.o
--snd-soc-hx4700-objs := hx4700.o
--snd-soc-magician-objs := magician.o
--snd-soc-mioa701-objs := mioa701_wm9713.o
--snd-soc-z2-objs := z2.o
--snd-soc-brownstone-objs := brownstone.o
--snd-soc-ttc-dkb-objs := ttc-dkb.o
--
--obj-$(CONFIG_SND_PXA2XX_SOC_CORGI) += snd-soc-corgi.o
--obj-$(CONFIG_SND_PXA2XX_SOC_POODLE) += snd-soc-poodle.o
--obj-$(CONFIG_SND_PXA2XX_SOC_TOSA) += snd-soc-tosa.o
--obj-$(CONFIG_SND_PXA2XX_SOC_E740) += snd-soc-e740.o
--obj-$(CONFIG_SND_PXA2XX_SOC_E750) += snd-soc-e750.o
--obj-$(CONFIG_SND_PXA2XX_SOC_E800) += snd-soc-e800.o
- obj-$(CONFIG_SND_PXA2XX_SOC_SPITZ) += snd-soc-spitz.o
--obj-$(CONFIG_SND_PXA2XX_SOC_EM_X270) += snd-soc-em-x270.o
--obj-$(CONFIG_SND_PXA2XX_SOC_PALM27X) += snd-soc-palm27x.o
--obj-$(CONFIG_SND_PXA2XX_SOC_HX4700) += snd-soc-hx4700.o
--obj-$(CONFIG_SND_PXA2XX_SOC_MAGICIAN) += snd-soc-magician.o
--obj-$(CONFIG_SND_PXA2XX_SOC_MIOA701) += snd-soc-mioa701.o
--obj-$(CONFIG_SND_PXA2XX_SOC_Z2) += snd-soc-z2.o
--obj-$(CONFIG_SND_SOC_ZYLONITE) += snd-soc-zylonite.o
--obj-$(CONFIG_SND_MMP_SOC_BROWNSTONE) += snd-soc-brownstone.o
--obj-$(CONFIG_SND_SOC_TTC_DKB) += snd-soc-ttc-dkb.o
-diff --git a/sound/soc/pxa/brownstone.c b/sound/soc/pxa/brownstone.c
-deleted file mode 100644
-index f310a8e91bbf..000000000000
-diff --git a/sound/soc/pxa/corgi.c b/sound/soc/pxa/corgi.c
-deleted file mode 100644
-index 4489d2c8b124..000000000000
-diff --git a/sound/soc/pxa/e740_wm9705.c b/sound/soc/pxa/e740_wm9705.c
-deleted file mode 100644
-index 4e0e9b778d4c..000000000000
-diff --git a/sound/soc/pxa/e750_wm9705.c b/sound/soc/pxa/e750_wm9705.c
-deleted file mode 100644
-index 7a1e0d8bfd11..000000000000
-diff --git a/sound/soc/pxa/e800_wm9712.c b/sound/soc/pxa/e800_wm9712.c
-deleted file mode 100644
-index a39c494127cf..000000000000
-diff --git a/sound/soc/pxa/em-x270.c b/sound/soc/pxa/em-x270.c
-deleted file mode 100644
-index b59ec22e1e7e..000000000000
-diff --git a/sound/soc/pxa/hx4700.c b/sound/soc/pxa/hx4700.c
-deleted file mode 100644
-index a323ddb8fc3e..000000000000
-diff --git a/sound/soc/pxa/magician.c b/sound/soc/pxa/magician.c
-deleted file mode 100644
-index b791a2ba5ce5..000000000000
-diff --git a/sound/soc/pxa/mioa701_wm9713.c b/sound/soc/pxa/mioa701_wm9713.c
-deleted file mode 100644
-index 0fa37637eca9..000000000000
-diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
-deleted file mode 100644
-index 99b245e3079a..000000000000
-diff --git a/sound/soc/pxa/palm27x.c b/sound/soc/pxa/palm27x.c
-deleted file mode 100644
-index a2321c01c160..000000000000
-diff --git a/sound/soc/pxa/poodle.c b/sound/soc/pxa/poodle.c
-deleted file mode 100644
-index 5fdaa477e85d..000000000000
-diff --git a/sound/soc/pxa/tosa.c b/sound/soc/pxa/tosa.c
-deleted file mode 100644
-index 30f83cab0c32..000000000000
-diff --git a/sound/soc/pxa/ttc-dkb.c b/sound/soc/pxa/ttc-dkb.c
-deleted file mode 100644
-index 6cc970bb2aac..000000000000
-diff --git a/sound/soc/pxa/z2.c b/sound/soc/pxa/z2.c
-deleted file mode 100644
-index 020dcce1df1f..000000000000
-diff --git a/sound/soc/pxa/zylonite.c b/sound/soc/pxa/zylonite.c
-deleted file mode 100644
-index bb89a53f4ab1..000000000000
+-static int patch_ucb1400(struct snd_ac97 * ac97)
+-{
+-	ac97->build_ops = &patch_ucb1400_ops;
+-	/* enable headphone driver and smart low power mode by default */
+-	snd_ac97_write_cache(ac97, 0x6a, 0x0050);
+-	snd_ac97_write_cache(ac97, 0x6c, 0x0030);
+-	return 0;
+-}
 -- 
 2.39.0
 

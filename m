@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D0F65F8A3
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 02:07:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B69865F92E
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 02:34:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32A3512A8D;
-	Fri,  6 Jan 2023 02:06:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32A3512A8D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A02F12C09;
+	Fri,  6 Jan 2023 02:33:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A02F12C09
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672967259;
-	bh=bLbFY+f2iSvXdEQj7ylbqoPaL+MQ+e/dql5CGe16Sbs=;
+	s=default; t=1672968841;
+	bh=9HcUcr/es1Pfa+hm51jx5eW0TuphFDxCHcfi39fR3No=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=OMKRCGNAaXHeqPEBI7oja968eJgD7lcSKSPzaomoCRb6IRsxxn/S/G7doWhuggwiK
-	 dOvD4drDFdEsTZY887bthiIdziAqdZyNNL+MpbRinLmyNB8W1U2Obcfqt8UrusuFiD
-	 CBXgZD/ZV34SlhdUBdGm6vk6HVPwNjoA5RzntIW0=
+	b=MAYjejEH/u37WRmhqSDd+J669lXkyTsmHLP0DDK4y9wULh9EiMzSFIsB+wYgq9q3h
+	 VNTXrnQCkbA/qcIza/cnI0NWNXYTE5bZ5h+254pNRACLMAySgVCYSVFs3+iwX9csIf
+	 qf8X2zcuXzKODAyPoR+Net+7wINYmnBUBW16GpX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9A68F8055C;
-	Fri,  6 Jan 2023 02:06:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D34C8F800C0;
+	Fri,  6 Jan 2023 02:33:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D1C7F8055A; Fri,  6 Jan 2023 02:06:07 +0100 (CET)
+ id 4F61EF804AD; Fri,  6 Jan 2023 02:33:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F654F800C0
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 02:06:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F654F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84C34F800C0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 02:32:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84C34F800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=V+CYW4KH
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=BqdXZR1x
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 305NJ21b028867; Fri, 6 Jan 2023 01:06:03 GMT
+ 30617lYa002491; Fri, 6 Jan 2023 01:32:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=waEmoD9HLDyTdq1YvqeqR5jNgi/lFUBikWierfohQ1I=;
- b=V+CYW4KH8jKcSTlSK7afO4DhGUZwpVoN6XLRSLmjDFBqNJibyUyZcuz2NuJRg2c1gmLX
- rV8mI9RwBQSeaW/gkF3ytlO28ciLbdLXaXADHkFzPvhEU1cyYqFYxh4pIvDnYYf2Beod
- m3B0KtrSH2LjJBXdV5AkPvpT1ST7zfbZYXYNxk/deQYc4diFO5N4fi7ig8liBq8V0he3
- bWeYHrJVwMCVb+w/dEGt2oHyfB6EJ9AmFwcZ0/HIRQJE+GMJOl8uB/nV8k5T0CbqVRwx
- Xb/fBrpNduTRoZAEx9/NSnqI2y3/yALQgIcM2no37UY2mlv8bbggocPb9RxzjsqKT76v wA== 
+ bh=EPPJJquUmVF7Qc2Iy/gHw+vCbRk1oBfl7WGwMVHjjxw=;
+ b=BqdXZR1xIWucXLvhoM9kyeLFMB0vlS/Xe3PU92pVOX/+BiPm9GqtVwOM3P7YNxnD7ObF
+ 1vhcbCjKky9iiwYUvAaozfnopkY1+MR87tvnAe0KJaLSudWe7LKeMaNByIWg/bdRfOwa
+ cTcVLXhrNP9Q6hg1b4xXdDnij9esIemBKNmqltdVNuS7OcURvZ0SZQh3cYuZfMM13gRN
+ DCmvrv1XlsvqIqtBN5IB1a1M6oGnVgCo7NzdLzq2BYLFGTpqi+wd0sQ+3I515Ou0IAoF
+ Gd7uoO5zExcPsqUoquYttblzp18wyVzyXr8lYXzRDfnKnhL1LanrDX23ilVh9yNUIJRy HQ== 
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mwwfs9ghr-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mx9jfg1ua-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Jan 2023 01:06:02 +0000
+ Fri, 06 Jan 2023 01:32:50 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 306162AB001411
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3061Wn5i031136
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 6 Jan 2023 01:06:02 GMT
+ Fri, 6 Jan 2023 01:32:49 GMT
 Received: from [10.110.47.113] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 5 Jan 2023
- 17:06:01 -0800
-Message-ID: <cc40d2e2-3384-cd64-f53c-a0811b53d781@quicinc.com>
-Date: Thu, 5 Jan 2023 17:06:00 -0800
+ 17:32:48 -0800
+Message-ID: <dd0bb92f-036e-3ba7-4c0a-9536ba0c179a@quicinc.com>
+Date: Thu, 5 Jan 2023 17:32:47 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [RFC PATCH 09/14] sound: usb: Introduce QC USB SND offloading
- support
+Subject: Re: [RFC PATCH 02/14] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
  <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
  <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
@@ -85,10 +85,10 @@ To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
  <agross@kernel.org>
 References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-10-quic_wcheng@quicinc.com>
- <07443b54-2973-7990-e749-66dd7fb4e499@linux.intel.com>
+ <20221223233200.26089-3-quic_wcheng@quicinc.com>
+ <5b4d657c-1acf-f90b-be64-3e36cca96686@linaro.org>
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <07443b54-2973-7990-e749-66dd7fb4e499@linux.intel.com>
+In-Reply-To: <5b4d657c-1acf-f90b-be64-3e36cca96686@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -97,17 +97,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: kbpMgnLHgXYBsjm1Fb4JRK-2iBTcOG-L
-X-Proofpoint-ORIG-GUID: kbpMgnLHgXYBsjm1Fb4JRK-2iBTcOG-L
+X-Proofpoint-GUID: 1gRGGqNwZdkAeANIiLhfXAm7SBUBRYkT
+X-Proofpoint-ORIG-GUID: 1gRGGqNwZdkAeANIiLhfXAm7SBUBRYkT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2023-01-05_14,2023-01-05_02,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- phishscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- mlxlogscore=361 mlxscore=0 adultscore=0 bulkscore=0 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301060006
+ clxscore=1011 mlxscore=0
+ bulkscore=0 phishscore=0 spamscore=0 adultscore=0 suspectscore=0
+ mlxlogscore=731 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301060009
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,41 +126,42 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre,
+Hi Krzysztof,
 
-On 1/4/2023 3:51 PM, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 12/23/22 17:31, Wesley Cheng wrote:
->> Several Qualcomm SoCs have a dedicated audio DSP, which has the ability to
->> support USB sound devices.  This vendor driver will implement the required
->> handshaking with the DSP, in order to pass along required resources that
->> will be utilized by the DSP's USB SW.  The communication channel used for
->> this handshaking will be using the QMI protocol.  Required resources
->> include:
->> - Allocated secondary event ring address
->> - EP transfer ring address
->> - Interrupter number
+On 1/5/2023 10:09 AM, Krzysztof Kozlowski wrote:
+> On 24/12/2022 00:31, Wesley Cheng wrote:
+>> The QC ADSP is able to support USB playback and capture, so that the
+>> main application processor can be placed into lower CPU power modes.  This
+>> adds the required AFE port configurations and port start command to start
+>> an audio session.
 >>
->> The above information will allow for the audio DSP to execute USB transfers
->> over the USB bus.  It will also be able to support devices that have an
->> implicit feedback and sync endpoint as well.  Offloading these data
->> transfers will allow the main/applications processor to enter lower CPU
->> power modes, and sustain a longer duration in those modes.
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>   .../sound/qcom,q6dsp-lpass-ports.h            |   1 +
+>>   sound/soc/qcom/qdsp6/q6afe-dai.c              |  47 +++++
+>>   sound/soc/qcom/qdsp6/q6afe.c                  | 183 ++++++++++++++++++
+>>   sound/soc/qcom/qdsp6/q6afe.h                  |  46 ++++-
+>>   sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c      |  23 +++
+>>   sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h      |   1 +
+>>   sound/soc/qcom/qdsp6/q6routing.c              |   8 +
+>>   7 files changed, 308 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> index 9f7c5103bc82..746bc462bb2e 100644
+>> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> @@ -131,6 +131,7 @@
+>>   #define RX_CODEC_DMA_RX_7	126
+>>   #define QUINARY_MI2S_RX		127
+>>   #define QUINARY_MI2S_TX		128
+>> +#define USB_RX				129
+>>   
+>>   #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
 > 
-> Are you suggesting that the entire feedback loop be handled in the DSP?
-> It's not clear what "Offloading these data transfers" refers to, the
-> data part or the feedback path?
+> Bindings are separate patches. Please split.
 > 
 
-Yes, as mentioned in the cover letter response, we'll handle the 
-feedback endpoints. (feedback eps are part of the audio data interface)
-
-> Comments are almost inexistent in this patch so it's hard to figure out
-> what it really does.
-> 
-
-OK, will add some more comments.
+Thanks for catching this.  Will do.
 
 Thanks
 Wesley Cheng

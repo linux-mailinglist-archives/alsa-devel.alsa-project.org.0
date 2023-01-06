@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EDE965FD94
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:21:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C02465FD80
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:20:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD3E0819F;
-	Fri,  6 Jan 2023 10:20:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD3E0819F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAF3F14126;
+	Fri,  6 Jan 2023 10:19:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAF3F14126
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672996882;
-	bh=e2LnDPucXIAz9UG8dv/JMM1/wmxUtrEG5J7Cloc8y9I=;
+	s=default; t=1672996828;
+	bh=zbfqZTEVmoWiRxl4QzK981QevqrE79UgpYIuwIZOnL4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=G0snT5O51EArjp+N+a1ys1+pO7NpSKMvhNsVuiGcmNA4ejuMin5tnJtKK2lMIibxr
-	 oeOGq9D7nJGsd/cFhLFvCzIsE+FOs8CRAZupiPU8f61/u3VMDlHXDFWo8GPECcZf4g
-	 thEv/KvAxWxr2mfjgBuD3g75Ix/3L8XMoYBAzahs=
+	b=uzuFevMKIbcs08QS1fB91aW0QSyC8BchjnJ56scK/ySS5LOu9rQlJMeIVa60s/vUB
+	 ugwbol9vLHlWZOmXiySSWTuiy+dRnI8is41+xT60vlhfFqTtmMWzJwqGjrr2edoWtj
+	 fInjrCGHgXXiTfX1iU4W+bI0OSlWaDT35WYzTVic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C4B7F805EC;
-	Fri,  6 Jan 2023 10:16:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BB8CF805C4;
+	Fri,  6 Jan 2023 10:16:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0018DF805AC; Fri,  6 Jan 2023 10:16:18 +0100 (CET)
+ id C89EAF805AC; Fri,  6 Jan 2023 10:16:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from KOR01-SL2-obe.outbound.protection.outlook.com
- (mail-sl2kor01on2082.outbound.protection.outlook.com [40.107.129.82])
+ (mail-sl2kor01on2040.outbound.protection.outlook.com [40.107.129.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE46BF805AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A545F805AC
  for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 10:16:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE46BF805AA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A545F805AC
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=moW00HfHw1cXZMcLV/CQ2V1jkMM3g6x+GtzwNDn1oQaX2DKMr+XYzszCCD6shgpL85B10TPzOg3n/dfoe0gC1VcLa1PFLw/ekzb38pfvFohNrOeUBvQnBUnQuugcjcTHdeSo1DMztlfs2hC5hgtTwXV0B1sDnq/atY5LS/1WWsQhs+4czb4NP2aW60HoQqBqba5VcONeRmt1yn5UFZkkaVr5h7AGD7coztxePmDdMi2/vi8b/lVDcNPbbde4Lm6Qn7BfEibi1wcwdiWSEkDdnY+zlxc+03RvPy1wOGhxnwyIxmAG9lEOgPgUmf1TtcGken0mhsJ2VNmxhfRdTg50kg==
+ b=DF0xpFwc60atifLLMGrhb3OnB7XDZGujWO/FJ72Z8u7to5puWXFgmJW4PSx3OpO3P6o9j4Ne+vtwZprAzBw1kjqi8c3Px9MRWW089jjP+DQ1Rt2gQXyfm35J0dLMrNmyWVMfdYSLqNX93oJNR0XOD0j/zLF1SaNW+2iGjifyOWBOp7TKUnadPDKVHQXwC62MpKcbT29/w2FDW2FTIo2NOrkoqv5WfuUG0Z/m9k57fQAL2vekiPfRKjAOarfMHfnxWRpnRBr5EnrRHejcz9Ixs+b5EK5s0Qo4RsF2+tg2RBqfxVMkbRLNVdS3oxkpGZsAhDTSiQsZjmSE/DhLUX/PYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y+fRSzAEoaxv5XIxLX8kbHJUDvoxR5QZuWktaypOXTc=;
- b=gPfQEnr2BeWW1YsiQQ42keDRJOfc95G7dMwhAVuCIZ0sQOkF93RY7umVLfku4L/P32sCKDvOkqekQGWwm5l+5WDqV+tcHHznfru7YUsRseMCyIJjZIrPcgt/KHUSffsbLQWsbQZSLDEmU1Eznyup1N8HLwxOVy0446d9GCjDKPfGTJSz2owoP+VNKCXWW8zCMX3BOzBBcVGWY+BoizrTpWH5rRWKYKb5PQOYzTYYwSjWLu036vj3UTjoBotDTZ+IiU0pBNsCACR1ox6Hqy6fHs/udj1IV2hHPq8qD+cf+WIUIr3WOUq3chEounFhUYZ0fFnT9yRzz3f7D/YvOk2DsQ==
+ bh=3XKTGBLkjHgnny5QSJtsB+4tYdvlTD4AOZSqOHdGbDc=;
+ b=jlIOqoGcUmYofL/0dyMMQ5KwNmgb0kbrg6CcTmG9E8+Dc5C4Y40K+Qxrgvv/C+9LxE7CjcqbaR3LFYFxfy4fjcJq3G2BEkOiYrTrlS/tOE7vydAaQXnQ/VNb7MdOV0f86Vg3p/bciwQxuJyQ7HsoTam5TrQqA7fZizH7lZYGUsy6Kme3Sg+GNERJnC4mxhM23LjCQFbdhqXNn40ZZ0KCGJ8BotuagcViKZK/IkElivgbYwSgyloxbnzhgtRmznZqwlmMVyDugPpfjAt8c/QCz8ZLn2n/uKCMC7vuUIwr1ogFT/nkFPSsjI5IldbAxTJJfiwv0/u8BudJUHUDXUFxwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=irondevice.com; dmarc=pass action=none
  header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
@@ -58,12 +58,12 @@ Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM (2603:1096:100:7::23) by
 Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
  ([fe80::3d9:7f82:fa73:e727]) by SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
  ([fe80::3d9:7f82:fa73:e727%7]) with mapi id 15.20.5944.019; Fri, 6 Jan 2023
- 09:16:01 +0000
+ 09:16:02 +0000
 From: Kiseok Jo <kiseok.jo@irondevice.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 13/14] Move the initial settings to i2c driver probe
-Date: Fri,  6 Jan 2023 18:15:42 +0900
-Message-Id: <20230106091543.2440-14-kiseok.jo@irondevice.com>
+Subject: [PATCH 14/14] Fixed the retry_cnt bug about being zero
+Date: Fri,  6 Jan 2023 18:15:43 +0900
+Message-Id: <20230106091543.2440-15-kiseok.jo@irondevice.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230106091543.2440-1-kiseok.jo@irondevice.com>
 References: <20230106091543.2440-1-kiseok.jo@irondevice.com>
@@ -75,53 +75,53 @@ X-ClientProxiedBy: SL2PR01CA0017.apcprd01.prod.exchangelabs.com
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SLXP216MB0077:EE_|PS2P216MB1300:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66da9304-da90-4c70-d9d3-08daefc6a149
+X-MS-Office365-Filtering-Correlation-Id: 9c131779-4d0e-4236-d3e5-08daefc6a1a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xr+hyP2OscDTqowOLRLYyZy8OIckHoxj2R52OHhKlDm1CuN2etdgmguGzos90ZuKTuIipR9XtCUNmwtPorlf9NS3kpv1BGk99c75FWOI7jtqI5VTE+qakaOZK+R11QURIflAwyHwVyDVH+m9aSpBStZkryhMQMr40E0a6DrKjYi61M5Al2AijrRLMmXbpAqbVns8vSRoUcULZqJHUk6SyeLzCG1qIVqbK7l8EcJBvKTwzaeJwGN5YrwBZm2SJGHZXID67M0wfg7SQzftJrC+eDt3YKvS2ns9eVA1j5AjvRrZKcriZuMu9Z0X0Y7/X0Bn6DeqdP5iposvtmRmsitxs/XVgZtpp0YCMz30bMHdoP8sKJ5/IC86seZFSJWl78xSL6NooxoO9+W+m5ZZqLlDUnB+lk7WQC3Z46iucNKHYMnegA5qMsAZMj8vqS+NngzHq9rH4iK/1bxaE8YaYd1JbhoDXKCdWDCkCenC9gBXg5H2r1U3JYw9V/HjZb7f3wmJv+mL58h0bgaAfZh8Lpl2lGjdByld3LxOouILBiL4XRwk1Uv0ZFjijwIrvycmuwLnluTQm55aVvBA9scZ9p2ed1QkK7GL6KSoQwAiGqhWjHUI8dSXY5wwFDYDDdddMJxy0Gz64t0+EVrc5YhTlZ8PXbgBt5lCzIMb59KAS7Xecu2anCTzIS4KwSt+b1MdoENO2ASA0ElGDgaK9jca2hoKJg==
+X-Microsoft-Antispam-Message-Info: 4rSAN80306hVIHwxvWTBlFmCtiEIACVP5XEvjOMYeWw1O5W5qzYiWl3xM4BqvOKaSMRtgUoHd1tTkJLyfHFsFLdeat7niFSDkWffyxJWDVJ4uuzfBnIL+j6634VOWnzutUNUBvUXWKy20xoNR9FDKJKZcyketKWrE4ua8KjyYneUxGMMPsA1k7gkeGDPnfMPJ0dVGAgXG0mRH9xkD7ZmZDYc95jAqv57hB9xu/k50cbMK6Jzvy35kp/azOHyGDjPJ4PKJpKDl6Snj0Z/MPzr5+zvE5XFFjtoPEVYcwXkiLWZ1TkFrV2fFNX4fYKhrnPr6UD6wThId7i/139VfN5QQkVnjE3lpfA/z1R60mqrwdalWeAdcf2vkYavT7GP6sbwfwgcm5lZHFdj81EiJwkbEcYc8ieX8wFqWA8g8o3aPpvS96VkmCnz6hlGytOXcTmV6glkLHS/ZQ69vnCeqcjrIdpGGNnQyAAWfkLmG+lYO5wv0262Xv0LSMmEuHXEuL8WlR4L4XP/PbWZCuMGmNtFPZjpbGojR2RD+SruOLw42ZxhaAlt8Wo5PgPplu7htB/YrPcyklQd+bclj8nseKV/tijiP6PWDNR4dHYty4kj6xJ9eJ7Y6KwCiVy7oK78G23qg3BUelEdt+VB0ctA59qc8p1xYG/57hR5gf5ZPYnQUosMHDGX9Bnf0k/djib2Z/iklZQtBnXAueph7mLF4VdxcQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SLXP216MB0077.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230022)(366004)(39840400004)(396003)(376002)(136003)(346002)(451199015)(8936002)(2906002)(5660300002)(44832011)(8676002)(41300700001)(4326008)(6916009)(66476007)(66946007)(52116002)(66556008)(316002)(6486002)(478600001)(83380400001)(26005)(186003)(6512007)(107886003)(6666004)(6506007)(2616005)(38350700002)(1076003)(38100700002)(86362001)(36756003);
+ SFS:(13230022)(366004)(39840400004)(396003)(376002)(136003)(346002)(451199015)(8936002)(2906002)(5660300002)(44832011)(8676002)(41300700001)(4326008)(54906003)(6916009)(66476007)(66946007)(52116002)(66556008)(316002)(6486002)(478600001)(83380400001)(26005)(186003)(6512007)(6666004)(6506007)(2616005)(38350700002)(1076003)(38100700002)(86362001)(36756003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MDpAuFX7uicm7g0KVdweMJ70YEWWKNwgXuU5mErU90h0ZN52s4Keq9l0zbtx?=
- =?us-ascii?Q?F/QXmgTAKppxYRnLp3YczHvH/iG7JInTUAfbf7suaV6VKmFYacqT6tIzoRYd?=
- =?us-ascii?Q?5sOI07XeLOo/cBQ6aZ0v7EEVWjPsSdiGqUe5z89Qj+/nLrlj7c+pXHyuShM6?=
- =?us-ascii?Q?1H5iv8/xbBG1/c6kCwJ/ZccHYE3di2Cmb1lI+nPhYRFL0dEu3pEUqYXUMVrV?=
- =?us-ascii?Q?mT9JzMUNaHO/0f91Mskr0opR4Dib93ae9MW4yjNbCVxqgLOcuZLXJQCYdDzs?=
- =?us-ascii?Q?G9HfFTEKRkRqlNXBjJEhCW2YVyZ50sXhA7tkW+BqwQMkvGpsXV5zfZn/gqi1?=
- =?us-ascii?Q?Y8myGeKyqHWuE+UNNxEs+cN3WoY//dTAskZTk6xShKSJRKvmNf0z4mwjzSc3?=
- =?us-ascii?Q?S846scCHqBuMOymbpsxFbIDzrsI368gq+d4o8rmg1ky+NLtCno1nW1+MXXjc?=
- =?us-ascii?Q?u48s9qngFCu/kSZcL+yYGEi/PFu6G3fgxU1TWLd5MCRx05F371RWLomFrnhS?=
- =?us-ascii?Q?MS87FNx49ZgLPk9OoBE56TFII9ucmt8LO6vW8wwm6c35w01BptBqu0ulXPPL?=
- =?us-ascii?Q?/Ku2YJOmMHMNaAvrDsK1RV0bF+zbOfZPqs7xHLd+FXom76XjORLr1vlRJ87P?=
- =?us-ascii?Q?WVF0exXYbpUqTvZ3fI7y9Z3ZuthV7Utq9MCJJxiLsBVTyHlqiEN6EKU+3S+V?=
- =?us-ascii?Q?ziGymUdDXK2GzcwObGtEb4NKkt/EM8skhE2VVQ+79K71OSFVb10fWzn4yzP/?=
- =?us-ascii?Q?5XH7jHQvTBSE/z41zrR7sN408Yrn/jbxG7PFY/hVZFdtrqxHUfhXUCWA+1Gr?=
- =?us-ascii?Q?u9oV39+XE04VZw8pKRotKe3/SHv0v0YIHAtfHdKdM10bkeOJl2cpJIDDKdBV?=
- =?us-ascii?Q?+4+wEvC1/8LcgxmZbZ1fQxHADX1CVDhQprBWAToFmbXZV8+OEpRtqhO3Uc2I?=
- =?us-ascii?Q?mTMwn21Shys0MPEOaU+ok0WZmlQB3wSn3ie3pEKOzvfHRuAyteWeVi2U51XX?=
- =?us-ascii?Q?tdKMYYvnmXOEcYNcu8SqjnsqjppiqwOwa2Asm5AOhGOGqkcTL1EuKHQURWPw?=
- =?us-ascii?Q?1ieVJs3PM/IQkscMEodu8ctIIBzEgAyvWRqbr2vUNNhpdiwLDhY4MwvJlW3e?=
- =?us-ascii?Q?XcxqH292pGCDZgoTs4yHslimtu3Pq3+KPTnSyoyjognO9MnoZDdJsKoXGhel?=
- =?us-ascii?Q?D5IrgKkBz2wu6h2LgVLY3N9MOxfBB5ELYoMKQjTnQLOzywo4h7BSkeCZL6kT?=
- =?us-ascii?Q?TknLzqxhUrBUOW2VbKF5F2lTzRNAUc9C3RTrcKH7pdT9F0A2swGaMD5uSBn9?=
- =?us-ascii?Q?GPZxF+XPtJmaCXxcAZgDtJXS/xxEXYFaI4oVFRBf7ydtAt2XBXSKEgsLeUzY?=
- =?us-ascii?Q?dJPMNFxvMVYwVNkkkTAsKP/EtaSMO2Jnvtwuops+cHxoT7dPUG6ohcs0Pbqx?=
- =?us-ascii?Q?wz8B6BTO9LizDcUt+35iC2Z6UjlJy4s7Spa+6C9ZFWAld8eKXdBaBfSbP5o2?=
- =?us-ascii?Q?eS2W7dC4Dq3eBPBud0q8FMxFbtnOclFnYQufNpMxCAJd29n+1kgpbrP2lMwL?=
- =?us-ascii?Q?Rh9+otdaBRJ0/Te9EKmCD32lUA6NogLxwcXxsDkNKaB2NUp2UdCIrb0YdBYI?=
- =?us-ascii?Q?Lw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sICLrdm3WjNORlPv3KsfNOVHWmBuMTslgwO7jeRJOYHXTrh5+MP9I194tOkX?=
+ =?us-ascii?Q?D6S8Bcr2tdM0rGgMxna8eYkVOXInUhk2z7N5rErhDryUyEikHQsIGCr01TOk?=
+ =?us-ascii?Q?E6FjPApglpnd5Gn/+3j7cX6diS3P2kE0G0Rz22cXzj6VmYa2c8VUSFybdsSQ?=
+ =?us-ascii?Q?4/dGAZx6EIzj5Abn92QK+5DffURGsGc6IYhOH8EnGdat/bIcmJ5ihfjx83n+?=
+ =?us-ascii?Q?E5HSRjQpaxXNVvsgCpdu3lHKGnsKbU+x79dvfJ6ngIfJCoTNAbyOCOnVW+bB?=
+ =?us-ascii?Q?huTWILvCWGKKaPlGt/S+RGUrKXx+4MZ7YgftGdic+AYIrq6dD/7uUdRZ6Ywq?=
+ =?us-ascii?Q?Ak4j1gPBLsbiy6NkMD2MC570DApGOhXbYAPEQLXXdHHNXfvo3XTXIXNcwHih?=
+ =?us-ascii?Q?0cZ4Jq0NTMJ8LM4h0/i/vt4yUptk1XewQAp7FAXmMUhtVd89lZSKk9P6PyL5?=
+ =?us-ascii?Q?tdlBxfVoWSnHmlrJ8GeHrQuoeQ65FPcLjKK6gExNi3gaW/LLD88qNDQFjJj4?=
+ =?us-ascii?Q?9PhFxCBjGj6tclDyeuC3s30X411Zo3Lt+hTJGUbr6wHgHTLBF9ByyQ/IfJf3?=
+ =?us-ascii?Q?ZkgrBlRHRudYdcmqDuruKL+HF7/jcIBJObMGHJx9h38AO4EbwjQb+9RDHQa/?=
+ =?us-ascii?Q?TzDNBbNoT5T5yejQ8FsG3zljTir883s54+wlBeMDCEC+XPjulX+6esGdDnoO?=
+ =?us-ascii?Q?vrtRJgFdM+3X2VmWzY3G5xc8ZnDPCNzkF6l2xYX3IZGBUOiW/LYfuWqLVtd7?=
+ =?us-ascii?Q?44gxJ5ZYAaJP+eugSLKAWfksloxKdamkCEW/rYuAD4f5BvmgqI+RMNAnKMCt?=
+ =?us-ascii?Q?IrtwvXfD6YTohVyUUKaoyEEj9Zgc4M8Z0sXAdpy1T3spVBURHHOEn3LxUQGS?=
+ =?us-ascii?Q?QkYJL9BUlqdO3MXhA29d3eeNQgts9j+z9u83oQ1bgd01ZM4i0Sluo4aqPvJ2?=
+ =?us-ascii?Q?GHJUnQMcFHErOBwTGyctMFgDI5ElBB6DXYnnzf3xFlb2ifnPER0UMVjNyZ/Y?=
+ =?us-ascii?Q?6/GrW92jnFxZmvWqXuBi1PdeguqgA/41Jl5Tf0bsU3H+Jl5YEG47FMyYiwpY?=
+ =?us-ascii?Q?5c+JTHV8pzzwduCbNMANXSOwLUf+tXlygsgjbQGZDw4k9v2T3rJPeUToexqX?=
+ =?us-ascii?Q?7Ilb40kEqwaB5o7QkFhR/l6Ye+DcjOTBGk/wFBOHaq1bm8yM7levQvN2+mOI?=
+ =?us-ascii?Q?RU80gFLS0kGsDIooBxfplZ3UqCqNmTOFinjDomWqLW55Cm/Eh3mD/nB5WFS5?=
+ =?us-ascii?Q?cYxAUQ6tecEvz2pnWKsFVA4EbwSyb6YxP+5XL2TtJSFfBO7XPRLV3BqHoKez?=
+ =?us-ascii?Q?OSe0xzhFqqfWjUnfiIAKy1XNs1rA8zbfo73tua2+VwwX42rpvAk93nGD3dKA?=
+ =?us-ascii?Q?t9v/Ampfe4qQGAbpI4hE9siVgG2uRyH8zHyHA3cV+g2nYDmrlpyH8Lc5BLAV?=
+ =?us-ascii?Q?Qjtx+w6Zw/HuetYPzjAsZU5a9MwewxJfnl77yw/8eF5q1nxw5NchBe/LUjW9?=
+ =?us-ascii?Q?XbuEdil1EWMDF+ktd0WCBZdfY6+E3DHe+u6ttvGkPkDUXECUoofL0pjFdaMP?=
+ =?us-ascii?Q?DoD8FdhcnUoEnRBjrIDt9tEsgohQMGgjresMIeCAIvOgxj/j8TlOPp2PE/w2?=
+ =?us-ascii?Q?jQ=3D=3D?=
 X-OriginatorOrg: irondevice.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66da9304-da90-4c70-d9d3-08daefc6a149
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c131779-4d0e-4236-d3e5-08daefc6a1a6
 X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 09:16:01.9412 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 09:16:02.5505 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S1CZjvTudNHewxu7rREElVtlxzigRp06fzRneZuw56GSGONKVyEIKRSxk92FZXtNCNZKzKZZmrqx0EZFDYvFyOdaGEU85eIWrRbhGbbTTt4=
+X-MS-Exchange-CrossTenant-UserPrincipalName: oSU8TrLuxHsU9rsHT5TlVeeSuo+6mtETlsePzec6clL1NQHKrOrLHNlSnYW8ocvVKN0rDJtjELyBMTFBS+shC5CzqIhdxVHCVTmauT2nn0w=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS2P216MB1300
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -135,182 +135,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, application@irondevice.com,
- Kiseok Jo <kiseok.jo@irondevice.com>
+Cc: alsa-devel@alsa-project.org, Dan Carpenter <error27@gmail.com>,
+ application@irondevice.com, Kiseok Jo <kiseok.jo@irondevice.com>,
+ kernel test robot <lkp@intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
-Reported-by: Mark Brown <broonie@kernel.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
 ---
- sound/soc/codecs/sma1303.c | 106 +++++++++++++++++--------------------
- 1 file changed, 48 insertions(+), 58 deletions(-)
+ sound/soc/codecs/sma1303.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
-index 08f5054fde1d..1a5d992bf3db 100644
+index 1a5d992bf3db..4f9dab5d1613 100644
 --- a/sound/soc/codecs/sma1303.c
 +++ b/sound/soc/codecs/sma1303.c
-@@ -1416,49 +1416,12 @@ static int sma1303_probe(struct snd_soc_component *component)
- 	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm =
- 		snd_soc_component_get_dapm(component);
--	int ret = 0, i = 0;
--	unsigned int status, otp_stat;
-+	int ret = 0;
- 
- 	ret += sma1303_add_component_controls(component);
- 
- 	snd_soc_dapm_sync(dapm);
- 
--	ret += sma1303_regmap_update_bits(sma1303,
--			SMA1303_00_SYSTEM_CTRL,
--			SMA1303_RESETBYI2C_MASK, SMA1303_RESETBYI2C_RESET);
--
--	ret += sma1303_regmap_read(sma1303, SMA1303_FF_DEVICE_INDEX, &status);
--	if (ret < 0) {
--		dev_err(sma1303->dev,
--			"failed to read, register: %02X, ret: %d\n",
--				SMA1303_FF_DEVICE_INDEX, ret);
--		return ret;
--	}
--	sma1303->rev_num = status & SMA1303_REV_NUM_STATUS;
--	if (sma1303->rev_num == SMA1303_REV_NUM_TV0)
--		dev_info(component->dev, "SMA1303 Trimming Version 0\n");
--	else if (sma1303->rev_num == SMA1303_REV_NUM_TV1)
--		dev_info(component->dev, "SMA1303 Trimming Version 1\n");
--
--	ret += sma1303_regmap_read(sma1303, SMA1303_FB_STATUS2, &otp_stat);
--	if (ret < 0)
--		dev_err(sma1303->dev,
--			"failed to read, register: %02X, ret: %d\n",
--				SMA1303_FF_DEVICE_INDEX, ret);
--
--	if (((sma1303->rev_num == SMA1303_REV_NUM_TV0) &&
--		((otp_stat & 0x0E) == SMA1303_OTP_STAT_OK_0)) ||
--		((sma1303->rev_num != SMA1303_REV_NUM_TV0) &&
--		((otp_stat & 0x0C) == SMA1303_OTP_STAT_OK_1)))
--		dev_info(component->dev, "SMA1303 OTP Status Successful\n");
--	else
--		dev_info(component->dev, "SMA1303 OTP Status Fail\n");
--
--	for (i = 0; i < (unsigned int)ARRAY_SIZE(sma1303_reg_def); i++)
--		ret += sma1303_regmap_write(sma1303,
--				sma1303_reg_def[i].reg,
--				sma1303_reg_def[i].def);
--
- 	ret += sma1303_regmap_write(sma1303,
- 			SMA1303_0A_SPK_VOL, sma1303->init_vol);
- 
-@@ -1580,18 +1543,17 @@ static int sma1303_i2c_probe(struct i2c_client *client,
+@@ -247,7 +247,7 @@ EXPORT_SYMBOL(sma1303_set_callback_func);
+ static int sma1303_regmap_write(struct sma1303_priv *sma1303,
+ 				unsigned int reg, unsigned int val)
  {
+-	int ret;
++	int ret = 0;
+ 	int cnt = sma1303->retry_cnt;
+ 
+ 	while (cnt--) {
+@@ -266,7 +266,7 @@ static int sma1303_regmap_write(struct sma1303_priv *sma1303,
+ static int sma1303_regmap_update_bits(struct sma1303_priv *sma1303,
+ 		unsigned int reg, unsigned int mask, unsigned int val)
+ {
+-	int ret;
++	int ret = 0;
+ 	int cnt = sma1303->retry_cnt;
+ 
+ 	while (cnt--) {
+@@ -285,7 +285,7 @@ static int sma1303_regmap_update_bits(struct sma1303_priv *sma1303,
+ static int sma1303_regmap_read(struct sma1303_priv *sma1303,
+ 			unsigned int reg, unsigned int *val)
+ {
+-	int ret;
++	int ret = 0;
+ 	int cnt = sma1303->retry_cnt;
+ 
+ 	while (cnt--) {
+@@ -772,12 +772,13 @@ static int sma1303_add_component_controls(struct snd_soc_component *component)
+ 	sma1303_controls = devm_kzalloc(sma1303->dev,
+ 			sizeof(sma1303_snd_controls), GFP_KERNEL);
+ 	name = devm_kzalloc(sma1303->dev,
+-			ARRAY_SIZE(sma1303_snd_controls), GFP_KERNEL);
++			ARRAY_SIZE(sma1303_snd_controls)*sizeof(char *),
++			GFP_KERNEL);
+ 
+ 	for (index = 0; index < ARRAY_SIZE(sma1303_snd_controls); index++) {
+ 		sma1303_controls[index] = sma1303_snd_controls[index];
+ 		name[index] = devm_kzalloc(sma1303->dev,
+-				MAX_CONTROL_NAME, GFP_KERNEL);
++				MAX_CONTROL_NAME*sizeof(char), GFP_KERNEL);
+ 		size = strlen(sma1303_snd_controls[index].name)
+ 			+ strlen(sma1303->dev->driver->name);
+ 		if (!name[index] || size > MAX_CONTROL_NAME) {
+@@ -1544,7 +1545,7 @@ static int sma1303_i2c_probe(struct i2c_client *client,
  	struct sma1303_priv *sma1303;
  	struct device_node *np = client->dev.of_node;
--	int ret;
-+	int ret, i = 0;
- 	u32 value;
--	unsigned int device_info;
--
--	sma1303 = devm_kzalloc(&client->dev, sizeof(struct sma1303_priv),
--							GFP_KERNEL);
-+	unsigned int device_info, status, otp_stat;
+ 	int ret, i = 0;
+-	u32 value;
++	u32 value = 0;
+ 	unsigned int device_info, status, otp_stat;
  
-+	sma1303 = devm_kzalloc(&client->dev,
-+				sizeof(struct sma1303_priv), GFP_KERNEL);
- 	if (!sma1303)
- 		return -ENOMEM;
-+	sma1303->dev = &client->dev;
+ 	sma1303 = devm_kzalloc(&client->dev,
+@@ -1564,13 +1565,13 @@ static int sma1303_i2c_probe(struct i2c_client *client,
  
- 	sma1303->regmap = devm_regmap_init_i2c(client, &sma_i2c_regmap);
--
- 	if (IS_ERR(sma1303->regmap)) {
- 		ret = PTR_ERR(sma1303->regmap);
- 		dev_err(&client->dev,
-@@ -1671,35 +1633,64 @@ static int sma1303_i2c_probe(struct i2c_client *client,
- 	}
- 	dev_info(&client->dev, "chip version 0x%02X\n", device_info);
- 
--	sma1303->last_over_temp = 0xC0;
--	sma1303->last_ocp_val = 0x08;
--	sma1303->tsdw_cnt = 0;
-+	ret += sma1303_regmap_update_bits(sma1303,
-+			SMA1303_00_SYSTEM_CTRL,
-+			SMA1303_RESETBYI2C_MASK, SMA1303_RESETBYI2C_RESET);
-+
-+	ret += sma1303_regmap_read(sma1303, SMA1303_FF_DEVICE_INDEX, &status);
-+	sma1303->rev_num = status & SMA1303_REV_NUM_STATUS;
-+	if (sma1303->rev_num == SMA1303_REV_NUM_TV0)
-+		dev_info(&client->dev, "SMA1303 Trimming Version 0\n");
-+	else if (sma1303->rev_num == SMA1303_REV_NUM_TV1)
-+		dev_info(&client->dev, "SMA1303 Trimming Version 1\n");
-+
-+	ret += sma1303_regmap_read(sma1303, SMA1303_FB_STATUS2, &otp_stat);
-+	if (ret < 0)
-+		dev_err(&client->dev,
-+			"failed to read, register: %02X, ret: %d\n",
-+				SMA1303_FF_DEVICE_INDEX, ret);
-+
-+	if (((sma1303->rev_num == SMA1303_REV_NUM_TV0) &&
-+		((otp_stat & 0x0E) == SMA1303_OTP_STAT_OK_0)) ||
-+		((sma1303->rev_num != SMA1303_REV_NUM_TV0) &&
-+		((otp_stat & 0x0C) == SMA1303_OTP_STAT_OK_1)))
-+		dev_info(&client->dev, "SMA1303 OTP Status Successful\n");
-+	else
-+		dev_info(&client->dev, "SMA1303 OTP Status Fail\n");
-+
-+	for (i = 0; i < (unsigned int)ARRAY_SIZE(sma1303_reg_def); i++)
-+		ret += sma1303_regmap_write(sma1303,
-+				sma1303_reg_def[i].reg,
-+				sma1303_reg_def[i].def);
-+
-+	sma1303->amp_mode = SMA1303_MONO;
-+	sma1303->amp_power_status = false;
-+	sma1303->check_fault_period = CHECK_PERIOD_TIME;
-+	sma1303->check_fault_status = true;
-+	sma1303->force_mute_status = false;
- 	sma1303->init_vol = 0x31;
- 	sma1303->cur_vol = sma1303->init_vol;
- 	sma1303->last_bclk = 0;
-+	sma1303->last_ocp_val = 0x08;
-+	sma1303->last_over_temp = 0xC0;
-+	sma1303->tsdw_cnt = 0;
- 
--	INIT_DELAYED_WORK(&sma1303->check_fault_work,
--		sma1303_check_fault_worker);
-+	sma1303->dev = &client->dev;
-+	sma1303->kobj = &client->dev.kobj;
- 
- 	mutex_init(&sma1303->lock);
--	sma1303->check_fault_period = CHECK_PERIOD_TIME;
- 
--	sma1303->dev = &client->dev;
--	sma1303->kobj = &client->dev.kobj;
-+	INIT_DELAYED_WORK(&sma1303->check_fault_work,
-+		sma1303_check_fault_worker);
- 
- 	i2c_set_clientdata(client, sma1303);
- 
--	sma1303->amp_mode = SMA1303_MONO;
--	sma1303->amp_power_status = false;
--	sma1303->force_mute_status = false;
--	sma1303->check_fault_status = true;
- 	sma1303->pll_matches = sma1303_pll_matches;
- 	sma1303->num_of_pll_matches =
- 		ARRAY_SIZE(sma1303_pll_matches);
- 
- 	ret = devm_snd_soc_register_component(&client->dev,
- 			&sma1303_component, sma1303_dai, 1);
--
- 	if (ret) {
- 		dev_err(&client->dev, "Failed to register component");
- 
-@@ -1708,7 +1699,6 @@ static int sma1303_i2c_probe(struct i2c_client *client,
- 
- 	sma1303->attr_grp = &sma1303_attr_group;
- 	ret = sysfs_create_group(sma1303->kobj, sma1303->attr_grp);
--
- 	if (ret) {
- 		dev_err(&client->dev,
- 			"failed to create attribute group [%d]\n", ret);
+ 	if (np) {
+ 		if (!of_property_read_u32(np, "i2c-retry", &value)) {
+-			if (value > 50 || value < 0) {
++			if (value > 50 || value <= 0) {
+ 				sma1303->retry_cnt = SMA1303_I2C_RETRY_COUNT;
+ 				dev_info(&client->dev, "%s : %s\n", __func__,
+ 					"i2c-retry out of range (up to 50)");
+ 			} else {
+ 				sma1303->retry_cnt = value;
+-				dev_info(&client->dev, "%s : %s = %d\n",
++				dev_info(&client->dev, "%s : %s = %u\n",
+ 					__func__, "i2c-retry count", value);
+ 			}
+ 		} else {
+@@ -1589,7 +1590,7 @@ static int sma1303_i2c_probe(struct i2c_client *client,
+ 		}
+ 		if (!of_property_read_u32(np, "tdm-slot-tx", &value)) {
+ 			dev_info(&client->dev,
+-				"tdm slot tx is '%d' from DT\n", value);
++				"tdm slot tx is '%u' from DT\n", value);
+ 			sma1303->tdm_slot_tx = value;
+ 		} else {
+ 			dev_info(&client->dev,
+@@ -1609,7 +1610,7 @@ static int sma1303_i2c_probe(struct i2c_client *client,
+ 				break;
+ 			default:
+ 				dev_err(&client->dev,
+-					"Invalid sys-clk-id: %d\n", value);
++					"Invalid sys-clk-id: %u\n", value);
+ 				return -EINVAL;
+ 			}
+ 			sma1303->sys_clk_id = value;
 -- 
 2.30.2
 

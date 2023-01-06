@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3F6660548
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 18:05:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6AE660549
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 18:06:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B25F14859;
-	Fri,  6 Jan 2023 18:05:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B25F14859
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A09A14861;
+	Fri,  6 Jan 2023 18:05:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A09A14861
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673024753;
-	bh=TGkLPAmTHI5beVTILN8LxRcgzvniy8G4IAn2VJlDzyA=;
+	s=default; t=1673024780;
+	bh=yzUgOX03REvnqdWszk7eSyOU7gDnqqziGYE0sY8A/R0=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=dh3TZ4eoBlt7Gvg3SJEI9EFcirEjxjR9qspedWsw8nRDGsetVnBZ3TeNci4aVU18F
-	 VRLmhzMtdRz/kSXIVvCAtpoA+SmESpw+E9/uP3fCoIyMykCyrVqLM+8ZyTTHB4B0rE
-	 icrnz7I+QcQRiKnQ0Z1nEjp51pXeNXzk2mut5RYc=
+	b=D1/r1V47wCobahdJ+GUa9n7sY5/4o1hqukY00NsLtsy+hcxTOOkUIaz6JYDNOns2U
+	 s8jZEXrKje/l3PR3OM7KHYMoCaOdSqvB5M9lQKYBItdmXo+uUoFW7/MITOGUPNTsje
+	 N/By7d1cqL0S5NmgJZWCejlRnBKnydZjgEH8QSfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0500EF8024E;
-	Fri,  6 Jan 2023 18:04:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C82F7F8032D;
+	Fri,  6 Jan 2023 18:04:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6504CF8024D; Fri,  6 Jan 2023 18:04:53 +0100 (CET)
+ id A6683F8025A; Fri,  6 Jan 2023 18:04:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,37 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B72A8F800C0
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 18:04:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B72A8F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 301ABF8022B
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 18:04:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 301ABF8022B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f9NxORnQ
+ header.s=k20201202 header.b=HjHzhgaw
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E8FC5B81D2F;
- Fri,  6 Jan 2023 17:04:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8866EC433D2;
- Fri,  6 Jan 2023 17:04:47 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 53C1BB81D5B;
+ Fri,  6 Jan 2023 17:04:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26358C433F1;
+ Fri,  6 Jan 2023 17:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673024689;
- bh=TGkLPAmTHI5beVTILN8LxRcgzvniy8G4IAn2VJlDzyA=;
+ s=k20201202; t=1673024691;
+ bh=yzUgOX03REvnqdWszk7eSyOU7gDnqqziGYE0sY8A/R0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=f9NxORnQR6/ut/Ch2IGD/2R76unIwu7QF65ukKZLaXVfb1xS0w1Egp25zgaiLoie6
- NYUWt8SVopKDC+K5ZkTNK7+YCpxZ+VEFHRjXOlLXoU6AEq3K+zqLbXvBNpDtd/W48x
- q9Wq3AMzB/axbdkXMj4q8H4W32rRJJq21sT/ZufIopm7NoihEkewyebt8zJ4FrFDRS
- 355N70kyyXV3ChAjWGCJ3i+hcevyJ/SbJ/63YjGM9E2cb3qSjp5/rZP7MYRQtK6FS3
- /ZHJi8D0r18hGgv+QG1vRD10Y+iSeCKjZ9mL0bszhFLyFGnX0xYVmDsGUwH43WPKgm
- hnDaNseS5KrQg==
+ b=HjHzhgaw1XooiPR5KvpTtcJGy4ufiqh/xYMReh5Qb4WXyFSPRBNkgA7iBAWRrJ+Xx
+ 2upZw+vnbP7NTdDqrsUybXj1AtlTaZAIJPuFweRoYYOAhABXYBo0uipqml5tt8sK0G
+ TVMWPOHjRPMVpZZUL9ppIJ+53UR9XhMJsJZfzGFdx7+MR92xzrQYYnp6x3ECNFuEkw
+ kUJgU5RG1s0sH86ENqLJZ07MenIbXt3bZe6ftnXDMTy9j9UrT2lxhcEEqSDSAM/IxA
+ jUC6KsyvPIwik4C8NzKX5Vav64JFUaEsAMXYCwqmwJse8F7Zm1/sJpN9H99p4MwgfN
+ 62oIoq7PKR9RQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, syed.sabakareem@amd.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-In-Reply-To: <20230104055435.321327-1-Vijendar.Mukunda@amd.com>
-References: <20230104055435.321327-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 1/3] ASoC: amd: ps: add mutex lock for accessing common
- registers
-Message-Id: <167302468725.215080.6874492373066173949.b4-ty@kernel.org>
-Date: Fri, 06 Jan 2023 17:04:47 +0000
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230104145708.25051-1-pierre-louis.bossart@linux.intel.com>
+References: <20230104145708.25051-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: amd: ps: use static function
+Message-Id: <167302468987.215080.18138342775610314637.b4-ty@kernel.org>
+Date: Fri, 06 Jan 2023 17:04:49 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -82,18 +81,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, basavaraj.hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, mario.limonciello@amd.com,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: tiwai@suse.de, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 04 Jan 2023 11:24:29 +0530, Vijendar Mukunda wrote:
-> Add mutex lock for accessing ACP common registers across different
-> modules.
+On Wed, 04 Jan 2023 08:57:08 -0600, Pierre-Louis Bossart wrote:
+> Sparse warning:
 > 
+> error: symbol 'acp63_fill_platform_dev_info' was not declared. Should
+> it be static?
 > 
+> Also reduce line lines below 100 characters.
+> 
+> [...]
 
 Applied to
 
@@ -101,12 +101,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: amd: ps: add mutex lock for accessing common registers
-      commit: f763fb2fc93065d33f17fe9c5adeac8dec7713dc
-[2/3] ASoC: amd: ps: use acp_lock to protect common registers in pdm driver
-      commit: 45aa83cb93885d406c178498623b01cf128ca233
-[3/3] ASoC: amd: ps: remove unused variable
-      commit: 948f317fac06f8c0e2dea8c37f5ae5ee10514034
+[1/1] ASoC: amd: ps: use static function
+      commit: b118458936785bd104e95f09abd52525c0a84616
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

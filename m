@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D6AE660549
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 18:06:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30AD166054C
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 18:06:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A09A14861;
-	Fri,  6 Jan 2023 18:05:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A09A14861
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB6614869;
+	Fri,  6 Jan 2023 18:05:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB6614869
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673024780;
-	bh=yzUgOX03REvnqdWszk7eSyOU7gDnqqziGYE0sY8A/R0=;
+	s=default; t=1673024796;
+	bh=UVKsY5pp2vhAxXKSR8hDZtBUPV1iYvpC4veubRkiAQg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=D1/r1V47wCobahdJ+GUa9n7sY5/4o1hqukY00NsLtsy+hcxTOOkUIaz6JYDNOns2U
-	 s8jZEXrKje/l3PR3OM7KHYMoCaOdSqvB5M9lQKYBItdmXo+uUoFW7/MITOGUPNTsje
-	 N/By7d1cqL0S5NmgJZWCejlRnBKnydZjgEH8QSfo=
+	b=cTSHQ4ZPG2KPSie4M/fUhl3OWm+rCeT6i70nBniqjGUoMrRsP8DMq5Ip/wpz8+e6J
+	 uCFVhyyno7zzvrKxKIKYheioEZFEM+ZgeWc5P9vDA6lvJaWrlEPeVr00N5h2W+T0Gs
+	 mfvhcAkkLxbragkrP+janRGFmjJdzyr/CdjziUdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C82F7F8032D;
-	Fri,  6 Jan 2023 18:04:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 608F1F803DC;
+	Fri,  6 Jan 2023 18:05:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6683F8025A; Fri,  6 Jan 2023 18:04:54 +0100 (CET)
+ id 7F8C9F803DC; Fri,  6 Jan 2023 18:04:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 301ABF8022B
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 18:04:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 301ABF8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B97CF800C0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 18:04:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B97CF800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HjHzhgaw
+ header.s=k20201202 header.b=tOlTP9gh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 53C1BB81D5B;
- Fri,  6 Jan 2023 17:04:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26358C433F1;
- Fri,  6 Jan 2023 17:04:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 74A3461EBC;
+ Fri,  6 Jan 2023 17:04:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87288C433D2;
+ Fri,  6 Jan 2023 17:04:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673024691;
- bh=yzUgOX03REvnqdWszk7eSyOU7gDnqqziGYE0sY8A/R0=;
+ s=k20201202; t=1673024693;
+ bh=UVKsY5pp2vhAxXKSR8hDZtBUPV1iYvpC4veubRkiAQg=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HjHzhgaw1XooiPR5KvpTtcJGy4ufiqh/xYMReh5Qb4WXyFSPRBNkgA7iBAWRrJ+Xx
- 2upZw+vnbP7NTdDqrsUybXj1AtlTaZAIJPuFweRoYYOAhABXYBo0uipqml5tt8sK0G
- TVMWPOHjRPMVpZZUL9ppIJ+53UR9XhMJsJZfzGFdx7+MR92xzrQYYnp6x3ECNFuEkw
- kUJgU5RG1s0sH86ENqLJZ07MenIbXt3bZe6ftnXDMTy9j9UrT2lxhcEEqSDSAM/IxA
- jUC6KsyvPIwik4C8NzKX5Vav64JFUaEsAMXYCwqmwJse8F7Zm1/sJpN9H99p4MwgfN
- 62oIoq7PKR9RQ==
+ b=tOlTP9ghvlqltjOiiof5qkpx2g2ojkcl/zhvtpXVyt03L6izlU51CXAGkcV97/Lwg
+ x8NSUq9I8h94J5IVEx728F11JGuVtPYqCdDB4jIFZPsxRttZ0p0G0hf2761oxYYhS0
+ iLKCRIaHb3YZKe1GEDu+E/ultJct6NCNXkk+rkBF4ezRwS8HZ93i6iSuOVXOK/SYaf
+ 7FHEEvf7cTyry+6DoaNMgXWnPacVSl27ZIG3oXlyhbVDaH6N5JH8kwUFc1NOb0h9Ip
+ Gd+OMd2kDIotZn+qPQhGfKYItOkDbvJqRdyNiXIsr6yVQBOoSePUiNewEYkwB2+IE3
+ koRWLWQwOsI4g==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230104145708.25051-1-pierre-louis.bossart@linux.intel.com>
-References: <20230104145708.25051-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: amd: ps: use static function
-Message-Id: <167302468987.215080.18138342775610314637.b4-ty@kernel.org>
-Date: Fri, 06 Jan 2023 17:04:49 +0000
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
+References: <20230102203037.16120-1-andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 1/5] ASoC: Intel: bytcht_cx2072x: Replace open coded
+ acpi_dev_put()
+Message-Id: <167302469126.215080.4413513420785608198.b4-ty@kernel.org>
+Date: Fri, 06 Jan 2023 17:04:51 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -81,17 +82,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: tiwai@suse.de, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 04 Jan 2023 08:57:08 -0600, Pierre-Louis Bossart wrote:
-> Sparse warning:
+On Mon, 02 Jan 2023 22:30:33 +0200, Andy Shevchenko wrote:
+> Instead of calling put_device(&adev->dev) where adev is a pointer
+> to an ACPI device, use specific call, i.e. acpi_dev_put().
 > 
-> error: symbol 'acp63_fill_platform_dev_info' was not declared. Should
-> it be static?
-> 
-> Also reduce line lines below 100 characters.
+> Also move it out of the conditional to make it more visible in case
+> some other code will be added which may use that pointer. We need
+> to keep a reference as long as we use the pointer.
 > 
 > [...]
 
@@ -101,8 +108,16 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: ps: use static function
-      commit: b118458936785bd104e95f09abd52525c0a84616
+[1/5] ASoC: Intel: bytcht_cx2072x: Replace open coded acpi_dev_put()
+      commit: 7baff1a9debc5f4ff0d6bc1496358e251f66e396
+[2/5] ASoC: Intel: bytcht_da7213: Replace open coded acpi_dev_put()
+      commit: 4afda6de02285758c9b892a2e79658966d3cfbb0
+[3/5] ASoC: Intel: cht_bsw_rt5645: Replace open coded acpi_dev_put()
+      commit: 5360a1c0f251b8000e9b2ea7b9f9e40c2e8f1c83
+[4/5] ASoC: Intel: cht_bsw_rt5672: Replace open coded acpi_dev_put()
+      commit: 6736dd4e5b58f27983ab3dba5fa96ed97768beaf
+[5/5] ASoC: Intel: sof-wm8804: Replace open coded acpi_dev_put()
+      commit: 892dbe0ecf658fd23e0a7255fca26a216cf54f96
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

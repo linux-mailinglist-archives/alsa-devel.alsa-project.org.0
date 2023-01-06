@@ -2,82 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E9865F845
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 01:44:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A43C965F894
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 02:06:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71F6712A2E;
-	Fri,  6 Jan 2023 01:43:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71F6712A2E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 075C112A5E;
+	Fri,  6 Jan 2023 02:05:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 075C112A5E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672965884;
-	bh=n5rn1ndDy0J4oMMVBUgSely0aXqBqrOyuJvdvAA+ycQ=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=XjBVuP9Dp7O9lLt75DDlX5633nm/mYQLpXQVojgOVnFM8cNARYQAO8xsfYHjw24iz
-	 K8dXdLQ6+vDwC4+l4ECxFOuel9TnOQwtiCnmueFP0yznZNhhSQBLtFe/UQ3LAO+qHC
-	 iOIqep7RNUVvZCVn94s66DbayZ10jT27+g5ckTZY=
+	s=default; t=1672967205;
+	bh=1MYaQYstJ9PJbWkdh/l2lF4MKrN9Gk6+AebE/BRkn20=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=nEGIQFzmDRcNwSnQVkMKbSAV+uVCLm+U5Sw2ltlAjHWAdcUz4/GtNdT5EqwJ6tcLQ
+	 pvZUhpoHNEyF3Hr5GbsAQmJ0KiQYU7jggTiNks6gf6WfY8SNJGMr5aIQvQLXbI+f/2
+	 +DWR2rJXVZ5EE6DcD+VSB6Fu5DwGGJmXJyc/G260=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4219FF80238;
-	Fri,  6 Jan 2023 01:43:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFC8EF80238;
+	Fri,  6 Jan 2023 02:05:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6C18F804AD; Fri,  6 Jan 2023 01:43:51 +0100 (CET)
+ id CDDA9F804AD; Fri,  6 Jan 2023 02:05:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E6EEF8022B
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 01:43:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E6EEF8022B
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Gp9fRbHr
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1480761CBA;
- Fri,  6 Jan 2023 00:43:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E992CC433F0;
- Fri,  6 Jan 2023 00:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1672965823;
- bh=n5rn1ndDy0J4oMMVBUgSely0aXqBqrOyuJvdvAA+ycQ=;
- h=From:Date:Subject:To:Cc:From;
- b=Gp9fRbHrqw00tH8HiCAyeNOv4Ko0dqddK1n+wwPyB2pqgCSM69R6hVvrdeVbS8A1F
- detZJXlnt6wI4qXyjtm1Ns+71kWGyr+oreDwxSm1iYNrLmOfexo8xY2LdQcnkCwgUD
- ZYTHLDJk8vPtgNFciREX69CWap2IFo9JT+blgfCsTpwKxqjlovinJVLVnfscu0NLdX
- o5f/CmaXbEtI8wSxNo9J7i7qItjnTJXxqAcCGWdz5dErQC9FyZIjDQ3zmhZqxVwDVv
- +ha34635clrncSD5Cl50QP2pVU93gB4OlnRWm+xC2347w+KLh0eUUh6ERvbcdSUq23
- IBg3FDorAj1NQ==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 05 Jan 2023 17:43:39 -0700
-Subject: [PATCH v2] ASoC: amd: ps: Fix uninitialized ret in
- create_acp64_platform_devs()
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CC59F80238
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 02:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CC59F80238
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=UFxCby15
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30609axQ028245; Fri, 6 Jan 2023 01:05:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=kYVSJNudMGf4WCtGaw5oM38FQkHNvOOyFU+4JjDqiPY=;
+ b=UFxCby15Y3IPMuaE99FpQHRUnwjgrM/kgruNJOgRaiNtAxAvnOgZ/aaiDxo/zPriGkz8
+ dVO2xfvRob8VFUdvmjc0RrRuQ3o4L0pyHkrKI0tFQSsrlnJ+609PzYrQJJLkZ9OIPebA
+ DXrLn8JE1CvAfLxf6V7T2R9Fiqvc6BX4g6CmAHNBB8O5rsGpCVWVGTfFDqULWGi85ZXp
+ hE4wRdlyJO/VY/nwx9KHoZSMapkHM5xE3VxdQqOnze6gqKnTJ2B8uk37iPO+A4iXCqLc
+ fQNk0IY5GeC8PPPluhdZNW15P+PnSFVeUauaXdpK4p3iQMbXncl8bPxCs/2GwjIfff7X NA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mwwfs9gh4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Jan 2023 01:05:46 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30615iL2023979
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 6 Jan 2023 01:05:44 GMT
+Received: from [10.110.47.113] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 5 Jan 2023
+ 17:05:44 -0800
+Message-ID: <178892ad-091e-1d95-d9d9-7270f19ef4ef@quicinc.com>
+Date: Thu, 5 Jan 2023 17:05:43 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH 00/14] Introduce QC USB SND audio offloading support
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+ <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+ <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <gregkh@linuxfoundation.org>, <Thinh.Nguyen@synopsys.com>,
+ <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <agross@kernel.org>
+References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
+ <0991fdf5-a29d-6ef7-71ec-9b4d858ed1eb@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <0991fdf5-a29d-6ef7-71ec-9b4d858ed1eb@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230105-wsometimes-uninitialized-pci-ps-c-v2-1-c50321676325@kernel.org>
-X-B4-Tracking: v=1; b=H4sIALtut2MC/5WOTQ6CMBCFr2K6dkxbrARX3sOwKO0AE6GQDuIP4
- e4WbuDyey/53lsEYyRkcT0sIuJMTENIoI8H4VobGgTyiYWWOpNKGnjx0ONEPTI8AwWayHb0RQ+j
- IxgZHGSVybVxF/SZEslTWUaoog2u3Uy95QnjVowRa3rv4/cycUs8DfGzf5nVlv4zOytQcJZa117
- meWGK2wNjwO40xEaU67r+ACeGIVvsAAAA
-To: lgirdwood@gmail.com, broonie@kernel.org
-X-Mailer: b4 0.11.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1921; i=nathan@kernel.org;
- h=from:subject:message-id; bh=n5rn1ndDy0J4oMMVBUgSely0aXqBqrOyuJvdvAA+ycQ=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDMnb8/Y1Z18MqTqn4MkcXGLMlX/gUGaQy6qkMHHB/51ME6vq
- eZ50lLIwiHEwyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgImwOzAy/KuXiIoRbnWfsvhmu/SSGV
- IG/v8WejGxzg5iPn7k1CX77YwMi2//yg6VU3qTf/302g5B5VDlh/lnVLjdppzbpLO96ORqbgA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: mgJq0Ikhc-ZvYuN4zvBOJncOm2AaJxDX
+X-Proofpoint-ORIG-GUID: mgJq0Ikhc-ZvYuN4zvBOJncOm2AaJxDX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-05_14,2023-01-05_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ phishscore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ mlxlogscore=999 mlxscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301060006
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,62 +118,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, trix@redhat.com, llvm@lists.linux.dev,
- ndesaulniers@google.com, linux-kernel@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>, Syed.SabaKareem@amd.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clang warns:
+Hi Pierre,
 
-  sound/soc/amd/ps/pci-ps.c:218:2: error: variable 'ret' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
-          default:
-          ^~~~~~~
-  sound/soc/amd/ps/pci-ps.c:239:9: note: uninitialized use occurs here
-          return ret;
-                 ^~~
-  sound/soc/amd/ps/pci-ps.c:190:9: note: initialize the variable 'ret' to silence this warning
-          int ret;
-                 ^
-                  = 0
-  1 error generated.
+On 1/4/2023 3:19 PM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 12/23/22 17:31, Wesley Cheng wrote:
+>> Several Qualcomm based chipsets can support USB audio offloading to a
+>> dedicated audio DSP, which can take over issuing transfers to the USB
+>> host controller.  The intention is to reduce the load on the main
+>> processors in the SoC, and allow them to be placed into lower power modes.
+> 
+> It would be nice to clarify what you want to offload
+> a) audio data transfers for isoc ports
+> b) control for e.g. volume settings (those go to endpoint 0 IIRC)
+> c) Both?
+> 
 
-ret is used uninitialized if 'goto de_init' is taken. As this is not an
-error nor should the ACP be deinitialized, just directly return 0 in
-this case statement, which resolves the warning.
+Thanks for sharing your experience, and inputs!
 
-Fixes: 1d325cdaf7a2 ("ASoC: amd: ps: refactor platform device creation logic")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1779
-Suggested-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-Changes in v2:
-- Instead of setting ret to -ENODEV and going to de_init, just 'return 0' in
-  the default case (Vijendar)
-Link to v1: https://lore.kernel.org/r/20230105-wsometimes-uninitialized-pci-ps-c-v1-1-4022fd077959@kernel.org
----
- sound/soc/amd/ps/pci-ps.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It would be the audio related endpoints only, so ISOC and potentially 
+feedback ep.
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 401cfd0036be..64648b75de6b 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -217,7 +217,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
- 		break;
- 	default:
- 		dev_dbg(&pci->dev, "No PDM devices found\n");
--		goto de_init;
-+		return 0;
- 	}
- 
- 	for (index = 0; index < adata->pdev_count; index++) {
+> This has a lot of implications on the design. ASoC/DPCM is mainly
+> intended for audio data transfers, control is a separate problem with
+> configurations handled with register settings or bus-specific commands.
+> 
 
----
-base-commit: 03178b4f7e2c59ead102e5ab5acb82ce1eaefe46
-change-id: 20230105-wsometimes-uninitialized-pci-ps-c-3b5725c6ed31
+Control would still be handled by the main processor.
 
-Best regards,
--- 
-Nathan Chancellor <nathan@kernel.org>
+>> There are several parts to this design:
+>>    1. Adding ASoC binding layer
+>>    2. Create a USB backend for Q6DSP
+>>    3. Introduce XHCI interrupter support
+>>    4. Create vendor ops for the USB SND driver
+>>
+>> Adding ASoC binding layer:
+>> soc-usb: Intention is to treat a USB port similar to a headphone jack.
+>> The port is always present on the device, but cable/pin status can be
+>> enabled/disabled.  Expose mechanisms for USB backend ASoC drivers to
+>> communicate with USB SND.
+>>
+>> Create a USB backend for Q6DSP:
+>> q6usb: Basic backend driver that will be responsible for maintaining the
+>> resources needed to initiate a playback stream using the Q6DSP.  Will
+>> be the entity that checks to make sure the connected USB audio device
+>> supports the requested PCM format.  If it does not, the PCM open call will
+>> fail, and userpsace ALSA can take action accordingly.
+>>
+>> Introduce XHCI interrupter support:
+>> XHCI HCD supports multiple interrupters, which allows for events to be routed
+>> to different event rings.  This is determined by "Interrupter Target" field
+>> specified in Section "6.4.1.1 Normal TRB" of the XHCI specification.
+>>
+>> Events in the offloading case will be routed to an event ring that is assigned
+>> to the audio DSP.
+>>
+>> Create vendor ops for the USB SND driver:
+>> qc_audio_offload: This particular driver has several components associated
+>> with it:
+>> - QMI stream request handler
+>> - XHCI interrupter and resource management
+>> - audio DSP memory management
+>>
+>> When the audio DSP wants to enable a playback stream, the request is first
+>> received by the ASoC platform sound card.  Depending on the selected route,
+>> ASoC will bring up the individual DAIs in the path.  The Q6USB backend DAI
+>> will send an AFE port start command (with enabling the USB playback path), and
+>> the audio DSP will handle the request accordingly.
+>>
+>> Part of the AFE USB port start handling will have an exchange of control
+>> messages using the QMI protocol.  The qc_audio_offload driver will populate the
+>> buffer information:
+>> - Event ring base address
+>> - EP transfer ring base address
+>>
+>> and pass it along to the audio DSP.  All endpoint management will now be handed
+>> over to the DSP, and the main processor is not involved in transfers.
+>>
+>> Overall, implementing this feature will still expose separate sound card and PCM
+>> devices for both the platorm card and USB audio device:
+>>   0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
+>>                        SM8250-MTP-WCD9380-WSA8810-VA-DMIC
+>>   1 [Audio          ]: USB-Audio - USB Audio
+>>                        Generic USB Audio at usb-xhci-hcd.1.auto-1.4, high speed
+>>
+>> This is to ensure that userspace ALSA entities can decide which route to take
+>> when executing the audio playback.  In the above, if card#1 is selected, then
+>> USB audio data will take the legacy path over the USB PCM drivers, etc...
+> 
+> You would still need some sort of mutual exclusion to make sure the isoc
+> endpoints are not used concurrently by the two cards. Relying on
+> userspace intelligence to enforce that exclusion is not safe IMHO.
+> 
+
+Sure, I think we can make the USB card as being used if the offloading 
+path is currently being enabled.  Kernel could return an error to 
+userspace when this situation happens.
+
+> Intel looked at this sort of offload support a while ago and our
+> directions were very different - for a variety of reasons USB offload is
+> enabled on Windows platforms but remains a TODO for Linux. Rather than
+> having two cards, you could have a single card and addition subdevices
+> that expose the paths through the DSP. The benefits were that there was
+> a single set of controls that userspace needed to know about, and volume
+> settings were the same no matter which path you used (legacy or
+> DSP-optimized paths). That's consistent with the directions to use 'Deep
+> Buffer' PCM paths for local playback, it's the same idea of reducing
+> power consumption with optimized routing.
+> 
+
+Volume control would still be done through the legacy path as mentioned 
+above.  For example, if a USB headset w/ a HID interface exposed (for 
+volume control) was connected, those HID events would be routed to 
+userspace to adjust volume accordingly on the main processor. (although 
+you're right about having separate controls still present - one for the 
+ASoC card and another for USB card)
+
+> Another point is that there may be cases where the DSP paths are not
+> available if the DSP memory and MCPS budget is exceeded. In those cases,
+> the DSP parts needs the ability to notify userspace that the legacy path
+> should be used.
+
+If we ran into this scenario, the audio DSP AFE port start command would 
+fail, and this would be propagated to the userspace entity.  It could 
+then potentially re-route to the legacy/non-offload path.
+
+> 
+> Another case to handle is that some USB devices can handle way more data
+> than DSPs can chew, for example Pro audio boxes that can deal with 8ch
+> 192kHz will typically use the legacy paths. Some also handle specific
+> formats such as DSD over PCM. So it's quite likely that PCM devices for
+> card0 and card1 above do NOT expose support for the same formats, or put
+> differently that only a subset of the USB device capabilities are
+> handled through the DSP.
+
+Same as the above.  We have programmed the USB backend to support the 
+profiles that the audio DSP can handle.  I assume if there was any other 
+request, the userspace entity would fail the PCM open for that requested 
+profile.
+
+> 
+> And last, power optimizations with DSPs typically come from additional
+> latency helping put the SoC in low-power modes. That's not necessarily
+> ideal for all usages, e.g. for music recording and mixing I am not
+> convinced the DSP path would help at all.
+> 
+
+That's true.  At the same time, this feature is more for power related 
+benefits, not specifically for performance. (although we haven't seen 
+any performance related issues w/ this approach on the audio profiles 
+the DSP supports)  I think if its an audio profile that supports a high 
+sample rate and large number of channels, then the DSP wouldn't be able 
+to support it anyway, and userspace could still use the legacy path. 
+This would allow for those high-performance audio devices to not be 
+affected.
+
+Thanks
+Wesley Cheng

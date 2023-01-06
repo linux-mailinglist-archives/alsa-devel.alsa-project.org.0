@@ -2,102 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F5965FDD1
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:25:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6901E65FDFA
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:29:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BED014197;
-	Fri,  6 Jan 2023 10:24:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BED014197
+	by alsa0.perex.cz (Postfix) with ESMTPS id B480C141DC;
+	Fri,  6 Jan 2023 10:28:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B480C141DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672997112;
-	bh=/guuqpYUGNjdXQuLjNqMSHdBTlf67T4+XuF5fMg8NmA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1672997343;
+	bh=7VURbdA/f33SHpyamMot+8CgwN1q8ppcvbxL7CrroNI=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Qt3Dgz9yVKCxlM5m6sbiDV65/BTl+nZ/KoCAJUNat9V2OsWTucfX9cZsjZcipQ6T2
-	 f4nmV/9ktc2SYnyIDhP4miNXxvc71k+dVIFvwWup9HVVzERFsNV6+wfXIbRz8y7u+9
-	 OIN7/GQvuqT+mYTNFYqoK4yfwsJGS5de2F4XiRn4=
+	b=rLalHl0odrDhTrrAgbJlCJuR9ckFq730Y2zOQaqcKGGrgqo20mi6imTHoBHOaPElz
+	 PhmIFGOhzeHni5VAJL319iIGmdpyypyd9Cwf7UoDZHe6yxwfirV0skp1gipX9f2Fas
+	 aV89FWzxmZviRiM0NHWs3Y2kyJ8CcXsBwBSFS3Es=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 427E0F800C0;
-	Fri,  6 Jan 2023 10:24:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FC57F80238;
+	Fri,  6 Jan 2023 10:28:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 222D1F80238; Fri,  6 Jan 2023 10:24:13 +0100 (CET)
+ id E50EAF8024D; Fri,  6 Jan 2023 10:28:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60448F80238
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 10:24:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60448F80238
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AA9CF800C0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 10:28:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AA9CF800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=YTbpxPT1
-Received: by mail-wm1-x333.google.com with SMTP id
- fm16-20020a05600c0c1000b003d96fb976efso3110278wmb.3
- for <alsa-devel@alsa-project.org>; Fri, 06 Jan 2023 01:24:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SK0dKOCEBiaYKVTOvhAS22+z7lpa7ZgsHoskRIRAsZc=;
- b=YTbpxPT1ydolX/yLiyHmyWQXFkrm76SJhztxoGBZX3lIpxBbCW/ue7DCp6AtCG9DnI
- yDu9AD5+xqLyvsC9TSBoQKdQ9H73q+SPg6W/D1yGKk9StZfYlZ356SvmshsHoSVv9T/G
- jcQCIcvTHcsT8gJzeQef+d+nGR2q7gASrn1Fnln5Ejp3+lsENDxg3CSPvXp3/HOeXJR2
- 2c0EEDx94X+WkfyNLGtsqwJWAOy/1HgVcQ7bE31mSDXNobClaQBXBsi+xaQSZBqTl170
- 5pFD3NtwDVWjJgbyBkqox87NKkY2JxhMgxnyplkoH304Bcyq9Q9YImAqgJslqXIV434U
- Cb7g==
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=ny/r6YpW
+Received: by mail-wr1-x435.google.com with SMTP id co23so744101wrb.4
+ for <alsa-devel@alsa-project.org>; Fri, 06 Jan 2023 01:28:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FtfE3nkhCAml+Y80MwjMTBRLqZ9ylrwR07F55wGMKag=;
+ b=ny/r6YpW4HW4xQwX5Fjo9j33z/mGceoUqhrhEom2mFZ+zzm+XmbbbSw/mMl522BT2/
+ 1vXNpyJEBoK3+27mF6UzLWwSuXC4OWFQFZyZHrDsPeV1g0ugmX/CDW5iOJn+neIZXaco
+ 1XMGcVuacj5gGh9PnP6G4zJpQ59JIzeBG3om7M2/pFUWvF7SjomoB1hd4B/EhMZLhxrI
+ WokJs8C+mVTmHj0OynWqeUIJvQCsH3nVF12Yskox4ePtioOvs1GGeDqZRzmICrUWLcrO
+ JG4+Jl374AuwPwKKnRk7GGajOdrIs78evToPtKX03wXzFgGUXHwllLQiUgtBfHeoy0hj
+ GwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SK0dKOCEBiaYKVTOvhAS22+z7lpa7ZgsHoskRIRAsZc=;
- b=O0mCQkLnrW1zqBeYqJK1CzeKxdVG+vWWKz2Jkt1/KLx4b7VulSxCxoUiBDxFa6mxP3
- uAxxrlu5znzuUZW8wsWbbiHls7lTKJXwVYAEOG+nydqM7iuWINeniZGwd8HottKBQdDS
- sxoY1KqDxtR8QjW7DYgFA+F51N7MDzU3BLL9D/UE4JlsfkqPwFCAo5t/mDTCAmML39TA
- 38lj0wrrAm9ggUNIZNwqfeluPvUugfMTWd9VX0RGGhdc2KuLaMEWAR8YUe8brMi/XW+2
- lNbnW17qhrS7MnA3s4S9n46bY2BwmlPVfKtqiUpJF0GJi+KyPWgu6Z2Rgz2foAtXanYs
- 714g==
-X-Gm-Message-State: AFqh2kqRDlURCFK0tiUH3/zAcYl3GrSqhL3JqEALlVPR+02Vk/St2hVC
- 7fHf3w2RKRhHM0wjJDURe1J3sg==
-X-Google-Smtp-Source: AMrXdXvUXP1CXYiwjVxyNq2t/+oSyvDqLJuGkimxPKQaOx1jLGDORGChSn+kZ/MZBKQgytJdm7fmrA==
-X-Received: by 2002:a05:600c:798:b0:3d3:5737:3b0f with SMTP id
- z24-20020a05600c079800b003d357373b0fmr47698542wmo.36.1672997049322; 
- Fri, 06 Jan 2023 01:24:09 -0800 (PST)
-Received: from [192.168.1.102] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- k4-20020a05600c1c8400b003d22528decesm6453805wms.43.2023.01.06.01.24.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 01:24:08 -0800 (PST)
-Message-ID: <b74b4438-9496-f636-995b-4acdba5766f1@linaro.org>
-Date: Fri, 6 Jan 2023 10:24:05 +0100
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FtfE3nkhCAml+Y80MwjMTBRLqZ9ylrwR07F55wGMKag=;
+ b=cglliam2TerHBAIlnrwvBN0Q7wiHefixPQBxbVMlutIR6sJ9A7zs2U6rlDkMwHy4fk
+ sUQH8TnG2OOxWwd4mfN28nxQA0li5Fno4L8G7lLjfkcradgHryc0Wf/H9d/86a4/nW+r
+ D3KdeAV6Wre6jSQw42f5yrpckSnldSe+46EeW7fe8GfiZ6NAMOnNJ3ioT4JOIXbJfXps
+ E/MlaW+ICgPwL4n0Vv7MZgyir86jHbKG2b03iCIRebY1uJEdjJonTHnqRGTPxMQCe5e0
+ QvpI3BjW2zcWc+y/A347IjM9s4KPc6x6rJBlZFeG+A3aYGB7zkzecXf6WeFtD91kIB9w
+ CwFA==
+X-Gm-Message-State: AFqh2kruV+1sojpB/6QXR7qC4OJeGELjE8rNE/Ow3VGf3hFLeymSnWHM
+ aIM3zJkuXvoeO6jg81ojtSU=
+X-Google-Smtp-Source: AMrXdXuL6sD2mrHXcQ549uiiHPDtW3gv1yIp/RNc/vejzv9kWBuBp3MZIOlQomUKQzo4CYzTqUKMdQ==
+X-Received: by 2002:adf:f9cb:0:b0:285:d0ba:92e2 with SMTP id
+ w11-20020adff9cb000000b00285d0ba92e2mr24278711wrr.47.1672997280345; 
+ Fri, 06 Jan 2023 01:28:00 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ i6-20020adfe486000000b002423dc3b1a9sm619553wrm.52.2023.01.06.01.27.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Jan 2023 01:27:59 -0800 (PST)
+Date: Fri, 6 Jan 2023 12:27:49 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Subject: Re: [PATCH 14/14] Fixed the retry_cnt bug about being zero
+Message-ID: <Y7fplQ18qyhKDC44@kadam>
+References: <20230106091543.2440-1-kiseok.jo@irondevice.com>
+ <20230106091543.2440-15-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/2] ARM: dts: vfxxx: Swap SAI DMA order
-Content-Language: en-US
-To: Lucas Stach <l.stach@pengutronix.de>, Marek Vasut <marex@denx.de>,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>
-References: <20230105144145.165010-1-marex@denx.de>
- <20230105144145.165010-2-marex@denx.de>
- <5c2f0bba0a3a9d846cdfbcf7529759327d895810.camel@pengutronix.de>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <5c2f0bba0a3a9d846cdfbcf7529759327d895810.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230106091543.2440-15-kiseok.jo@irondevice.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,45 +100,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Markus Niebel <Markus.Niebel@ew.tq-group.com>,
- Richard Zhu <hongxing.zhu@nxp.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, Alexander Stein <alexander.stein@ew.tq-group.com>,
- Adam Ford <aford173@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
- Paul Elder <paul.elder@ideasonboard.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Stefan Agner <stefan@agner.ch>, Joakim Zhang <qiangqing.zhang@nxp.com>,
- Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Tim Harvey <tharvey@gateworks.com>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- NXP Linux Team <linux-imx@nxp.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ application@irondevice.com, kernel test robot <lkp@intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 06/01/2023 10:18, Lucas Stach wrote:
-> Am Donnerstag, dem 05.01.2023 um 15:41 +0100 schrieb Marek Vasut:
->> Swap the SAI dmas and dma-names to match the order documented in
->> Documentation/devicetree/bindings/sound/fsl,sai.yaml
->> No functional change.
->>
-> While I'm not opposing this patch, I find this class of changes a bit
-> odd. The *-names properties are there so the properties they are naming
-> can be in any order in the DT without impacting the lookup. Enforcing a
-> fixed order for named properties just feels odd.
+There are a number of issues with this patch...  :(
 
-DT requires fixed order regardless of '-names' property. '-names' are
-not there to fulfill "can be in any order", but merely a helper.
+The bug reports were from kbuild so you'll probably need to just resend
+the patch series from before as a v2 or something.  It can't be
+[PATCH 14/14].  Where are the others in the series?
 
-> 
-> Not sure if the schema validation could take this into account or if
-> there is any policy in place already by the DT maintainer that we still
-> want to enforce the same order in the DTs as in the bindings.
+If you do fix these issues as a separate patch:
+1) It needs a subsystem prefix like "[PATCH] ASoC: sma1303: " or something.
+2) It fixes 3 different issues so it should be 3 different patches.
+3) It needs a commit description.
+4) It needs a Fixes tag.
 
-The order in DTS must obviously match bindings, however here both are
-changed, so what is exactly your concern?
+> @@ -772,12 +772,13 @@ static int sma1303_add_component_controls(struct snd_soc_component *component)
+>  	sma1303_controls = devm_kzalloc(sma1303->dev,
+>  			sizeof(sma1303_snd_controls), GFP_KERNEL);
+>  	name = devm_kzalloc(sma1303->dev,
+> -			ARRAY_SIZE(sma1303_snd_controls), GFP_KERNEL);
+> +			ARRAY_SIZE(sma1303_snd_controls)*sizeof(char *),
+> +			GFP_KERNEL);
 
+I am surprised checkpatch doesn't complain that spaces are required
+around the * operator.  Please just use sizeof(sma1303_snd_controls).
+Otherwise you have to use devm_kcalloc() to avoid checkers warning about
+integer overflows.
 
-Best regards,
-Krzysztof
+>  
+>  	for (index = 0; index < ARRAY_SIZE(sma1303_snd_controls); index++) {
+>  		sma1303_controls[index] = sma1303_snd_controls[index];
+>  		name[index] = devm_kzalloc(sma1303->dev,
+> -				MAX_CONTROL_NAME, GFP_KERNEL);
+> +				MAX_CONTROL_NAME*sizeof(char), GFP_KERNEL);
+
+sizeof(char) is not required.  It's always zero.
+
+>  		size = strlen(sma1303_snd_controls[index].name)
+>  			+ strlen(sma1303->dev->driver->name);
+>  		if (!name[index] || size > MAX_CONTROL_NAME) {
+
+regards,
+dan carpenter
 

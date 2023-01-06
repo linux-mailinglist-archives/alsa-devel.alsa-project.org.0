@@ -2,101 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013F6660095
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 13:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CAC6601AF
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 15:00:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 406FF11379;
-	Fri,  6 Jan 2023 13:52:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406FF11379
+	by alsa0.perex.cz (Postfix) with ESMTPS id C423212973;
+	Fri,  6 Jan 2023 14:59:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C423212973
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673009617;
-	bh=8svKxDlhERl/+LL0zqo5I7lxcGrM+u6inRFoQ9D6Qdw=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673013630;
+	bh=Esqf6WfRusE6N5q7EOYK75AMvHYKOnQq3yC+0vsf5Zk=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=olUEMOfOzbO2J+8oXXRQGq443dOBvXThSu+NNX/Vaxgh2Zy4eFNmhKNeZnN2bw2R+
-	 HUQg5hThBaxSFvLYpfk2U3boBmnmT6KbCmsW2ll1q3RBHpUDegL2dqfd8LjYJLHile
-	 gWxxHhSlo0ZtYlZVqnRKH63nwMDPA3sW6O63Vaik=
+	b=IqU5SkyDtvSmjrTa8XxvekbegyDtBNJHgMR8yz/5YVzR8nWh9mxAh4EDjFJMASIus
+	 vKvz99N3cTOvfJvmuyY0KcOezdNTqKT842/igQY42apF5V5dw0RCXf4VL0ziZR9keE
+	 lrJe7sjLiA67ViV+f5VFgtlGAyGNRKvwX2lk4nnk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAE47F8022B;
-	Fri,  6 Jan 2023 13:52:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F788F800C0;
+	Fri,  6 Jan 2023 14:59:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2D2FF802DB; Fri,  6 Jan 2023 13:52:35 +0100 (CET)
+ id 9E34AF8024D; Fri,  6 Jan 2023 14:59:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16457F8022B
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 13:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16457F8022B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09977F80217
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 14:59:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09977F80217
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=U8ZvDuPJ
-Received: by mail-wm1-x333.google.com with SMTP id g10so995852wmo.1
- for <alsa-devel@alsa-project.org>; Fri, 06 Jan 2023 04:52:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TAOMstZovNL9Fw1icUH51vZKfotjQqt9VMYdlqvkSf8=;
- b=U8ZvDuPJkFFQOlBgzFNmC6o8YMOiY/MeXyL1tdI5FZphEVXgu6KszyKxnDFtBSMrqC
- 6K7fRtUQcJwQdHNQ3LMF5OHDj6Tj4o6Zbtbk2njmn4D8KskY2K/9zqNdsNq8Vf4+yCgN
- /nz3LBTAAawpO03uf4ve80mIDrXpWbBs8aqNlJXFTJnhGPcNIqqeNPAuaS56MlIWDiib
- V8aAkAGfLSawL/uWnXyNOltei/sxpGTU8cFEzU5mhMU3+b5Ve6K4XcmL20HgfGWVDVl8
- LMrd3T8IKvM1mYKtltSP80JdczaAf9eQLXTzrhz8i04wTqfLs4hkY10RoiFDuxRdDHws
- i/Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TAOMstZovNL9Fw1icUH51vZKfotjQqt9VMYdlqvkSf8=;
- b=aJcDO94JBlUsHyv/BnU55SZjGRHGY1ou79gRgxVLSSTtCgk8LKxnfRcIPI/8P7yN/f
- hdc0O94+Lklfz4A2bG81/N8N6a6j50l8b/hGWpbSYwlbofY+Arpu51Z3Dd0JzL6Ma55N
- A1MFdEO4qBhUp8RrRk0/Wl+MU6MLr7GInTnqrismoLFSN/jQLKyKan2IXgsSBT1ODHGk
- JtFf05IIpO8Ferqyc8/z0j5BpewYJHt0jq6XXleYKNzcF4oVLGtD/xiFLdqhAWH45jW3
- zP49p7v4E/Ysfyhr2RIjAskbxrOQvhCIdN13uT6B7O0Jy4OpKiJonVBLH8sdP88eGjvr
- 8vWw==
-X-Gm-Message-State: AFqh2krXHafWGx5q/en5Laig7RGA5q81oDqNLXEw4Gx+mR9vnojMO/km
- sXm9plAsGG9tf8UJJsbC3LIgdQ==
-X-Google-Smtp-Source: AMrXdXttz/qmuwcn3VqjXhrWUfUZyiMjfZIVlIzwzOCT/WC9xGVucirL7hV8GfUERndLqM55ciQDsA==
-X-Received: by 2002:a05:600c:17c5:b0:3d1:ebdf:d591 with SMTP id
- y5-20020a05600c17c500b003d1ebdfd591mr37880740wmo.15.1673009551764; 
- Fri, 06 Jan 2023 04:52:31 -0800 (PST)
-Received: from [192.168.1.102] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- r10-20020a05600c458a00b003d35acb0fd7sm6625327wmo.34.2023.01.06.04.52.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 04:52:31 -0800 (PST)
-Message-ID: <03802554-42b0-7f4a-08b2-835b7ea9dc8d@linaro.org>
-Date: Fri, 6 Jan 2023 13:52:28 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CqUoHXMZ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CA4D0B81C52;
+ Fri,  6 Jan 2023 13:59:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA55CC433D2;
+ Fri,  6 Jan 2023 13:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673013572;
+ bh=Esqf6WfRusE6N5q7EOYK75AMvHYKOnQq3yC+0vsf5Zk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CqUoHXMZShGtVN0jDQw8SfHL5ylyMVQ1DLQzQzcsxAEVx+ARa+UCB5FeZkY+9trCk
+ qaIeLQybZbUGAAEVaa+P0p7L3fbX2N4I9SqeaGl9k3TM0Iw/RCYn9gGe4lOMso+o3e
+ zOa/oA+X2Lnd9U5F1wrJ0cE3Ys24n6jimhGehi8VYFsfd1qNtq4g6/wdDY1b6mpdtT
+ w8Bj3R+IQtgCzR/Izi8zFZKbRb4O+FrW8E5bbuYO026z5ZqZ1nOguxrLvlxC4mkprK
+ SU14TQ/3XvmX4QDa19RAbd8Due8cTLm+OO5/TmToowa3BI9bw6ES+huErkdJ1RD652
+ cSjLYOZZena6Q==
+Date: Fri, 6 Jan 2023 13:59:28 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Subject: Re: [PATCH 04/14] Removed the usage control and add the power switch
+ on DAPM route.
+Message-ID: <Y7gpQPuVLmDj/S95@sirena.org.uk>
+References: <20230106091543.2440-1-kiseok.jo@irondevice.com>
+ <20230106091543.2440-5-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v5 13/13] ASoC: dt-bindings: mediatek,mt8188-mt6359: add
- mt8188-mt6359 document
-Content-Language: en-US
-To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com,
- p.zabel@pengutronix.de
-References: <20230105081606.6582-1-trevor.wu@mediatek.com>
- <20230105081606.6582-14-trevor.wu@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230105081606.6582-14-trevor.wu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rmRBjBl1G5DrFYI4"
+Content-Disposition: inline
+In-Reply-To: <20230106091543.2440-5-kiseok.jo@irondevice.com>
+X-Cookie: Do not fold, spindle or mutilate.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,27 +84,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
+Cc: alsa-devel@alsa-project.org, application@irondevice.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 05/01/2023 09:16, Trevor Wu wrote:
-> Add document for mt8188 board with mt6359.
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+
+--rmRBjBl1G5DrFYI4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jan 06, 2023 at 06:15:33PM +0900, Kiseok Jo wrote:
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> Reported-by: Mark Brown <broonie@kernel.org>
 > ---
->  .../sound/mediatek,mt8188-mt6359.yaml         | 97 +++++++++++++++++++
->  1 file changed, 97 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-> 
+>  sound/soc/codecs/sma1303.c | 79 ++++----------------------------------
+>  1 file changed, 8 insertions(+), 71 deletions(-)
 
+This and most of your other followup patches should be part of patch 1 -
+normally you shouldn't introduce problems then fix them as part of the
+same patch series, this makes it very hard to review things since people
+will see the problems earlier on and perhaps not get as far as seeing
+the fix.  Once the code is merged changes need to be incremental but
+until then you should fix the patch itself.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+--rmRBjBl1G5DrFYI4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards,
-Krzysztof
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO4KT8ACgkQJNaLcl1U
+h9AjLAf8CckNy/svY1ZR3Zjpe4DjYbqQ3d+wqRnO02rlxPDtYj3z9G4ejZKZsuXR
+G36nnR9+SYnGl3erEFYI/vLZ7OHsOY8N+UTChFrucuxVXftRyP4xZms87rGyk8j9
+EQT8Oy/MErA20ixQyCK5MSGSa78hWLCCegvu1f5D8OLx1QS6tdomANx7ucY0RfGi
+S3WPmqgFTRDGgec6jFtLUhc3vzxdRxnVz3z3mIctToFCtkn+WRTE6NiE55JdWq+M
+spXfdHbF+sWXGj1SsLY846sJnVBTH69NYfP5eeuhJXLrN7mB3Cr87KOfGW/KCn1f
+AGZa9hPSle+OsLFOY7JNmZdQe2x8nQ==
+=9LXv
+-----END PGP SIGNATURE-----
+
+--rmRBjBl1G5DrFYI4--

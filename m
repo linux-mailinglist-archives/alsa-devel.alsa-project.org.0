@@ -2,123 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6646F660335
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 16:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ECB5660462
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 17:39:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0350414775;
-	Fri,  6 Jan 2023 16:29:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0350414775
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8E1E147FC;
+	Fri,  6 Jan 2023 17:38:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8E1E147FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673018998;
-	bh=4AC2XCpylz2JOYbFxc1DSak6fA5ZSjSpjnJLsuQP6vQ=;
+	s=default; t=1673023140;
+	bh=hWSgOSBpOgBan4Zg5FaI3QNSq8U/KLj4g3kDjeSzKIg=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=by9E0NRLzl6j8HgMJJF7SqEi1E6XQFWlMqFxWfe7vTNNKLEXivRq+5gZx179o4QPl
-	 Ae2ZTXeqlWd+7DMuoUGtqaF+rIl9bTSrf0XZaORaoRMDcfDsaqc92OWxje5j9BwYtJ
-	 rP5UQHIk0d7299w8FRr+OK7eTCMLbvMIRSPFaUIM=
+	b=LNkLlCYJAdULsIKmBcvRurhJz6x4L+KZneitTqY/Ad6hCjF2sUtmWmwU1U9YUciLZ
+	 1ccvERIDAqt/FXEtXJSDsdELE6qIHFScFc7jV4pbXQUQgHVuLcCygjDYXZVK62nFb9
+	 aT4BtFe+8arg+GhSu+iP78bi7N5JXdSGvqQLlQ1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B64D7F8024D;
-	Fri,  6 Jan 2023 16:28:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F3CAF8022B;
+	Fri,  6 Jan 2023 17:38:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7094EF8024D; Fri,  6 Jan 2023 16:28:57 +0100 (CET)
+ id 50412F8024E; Fri,  6 Jan 2023 17:38:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01olkn2033.outbound.protection.outlook.com [40.92.98.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::231])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53BE0F80217
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 16:28:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53BE0F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2BBFF800C0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 17:37:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2BBFF800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256
- header.s=selector1 header.b=ZdmwauXL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=byeEh3Rp9rK9rjDWdV+oP6uAjLvGZWmUfq77Di9dxJtl+V2UgE9Gli1LSqHtMv+ULrTf89bUOfKv58C1aKINSpESBBk1/HkMjPZh4PERaOlTL/85JszRcFjKylYgT/2h7YOybdpv4ZrtRtEskCvAvokdseNO+FFD9JL1UgtMjwirdfyIvNIh0lzgMGNUTMw6UeAwLrMBOVd0bf7cgqOygsVTNNlaRCsy+K4CnyXrrmTyxDZP2+dQ596tpiWjvQzPE/mwzwVYY2ltXLtQzGMQNtsRpDeYLiMWteySCDfNCRkNPnVzVVeFbeU4lMx0UupB3LQ2x5j3XGnq2EvHIyyNoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1BmRLGvIFGf6x6MsdNchUu4m49Fskrvy5WlA1WAaOJE=;
- b=RHHjVVdHTttCwBre3q4Zfus9qQX5zF2y2uZJ8U6oQVJZwjAdCiEX3vz+dSHW5GUwPWdlquOQP4HuiwtZz860MnfFM6YfU4KZat6TVFYpIExM4dZrarmkwUAf2uwGXzYpN5lVCqaZ9BsSOA7ouULDImPtx0iRPKGNR/w3E+EY7LQYawGEvWSgLIam+zjSSn5ZlwCSfSHuTuOoPI1gZtWhJT9Wj7y0Yo781X3Ep/tYXETnVTuRjE+E7/tYufh4TVmTn/M8lIj3BKfuziBMA5lLZCKJxHDR0VFm4UVRwP1waNV1ZzaDUGZJXyjPZX0bUcvy9+FGIWd1fvu5IeCUVR0Img==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1BmRLGvIFGf6x6MsdNchUu4m49Fskrvy5WlA1WAaOJE=;
- b=ZdmwauXLwuNdGR/byU+gKUM1mG95ijvT++BP08dFpcm3ZuTtB9b+z2clrzxUInAPZPqs3Kw4bjCTeaznlBL+h8qT+zsh11x37PbLQds6G0Tv281TG5538mU3KY559EWY3v4cXooW4DHzzgHQYbVNBFhLxDeStMQHI82XmvjOaOM1T4FcCX1B+x0xlzKUtdgKWSQMED+NNVTCvU5A8hK9E1nt0WOUmQBDxaf9opBUhhSNnEFnGoufslc7KG5qOSM7w93uwS5Af8Wq+jI9OeLXHWJB1is81mHA8nJtqPhZ24Ml/B84/QGPH1eraApDK+p4NPv7WZjfRi6j17YeJVEngw==
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:152::9)
- by OSZP286MB2315.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:181::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Fri, 6 Jan
- 2023 15:28:45 +0000
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605]) by TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605%4]) with mapi id 15.20.5944.019; Fri, 6 Jan 2023
- 15:28:45 +0000
-From: Dawei Li <set_pte_at@outlook.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH v2] soc: qcom: apr: make remove callback of apr driver void
- returned
-Date: Fri,  6 Jan 2023 23:28:03 +0800
-Message-ID: <TYCP286MB23232B7968D34DB8323B0F16CAFB9@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [wOxWUVj8v5B3sibpjM3IbgS3aY/UczNH]
-X-ClientProxiedBy: SI2PR02CA0038.apcprd02.prod.outlook.com
- (2603:1096:4:196::22) To TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:152::9)
-X-Microsoft-Original-Message-ID: <20230106152803.27942-1-set_pte_at@outlook.com>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=o/IsLhnu
+Received: (Authenticated sender: herve.codina@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPA id 1AEA4100007;
+ Fri,  6 Jan 2023 16:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1673023073;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=wOlG0UFgwPyHibvWeKLz0mSVirAtrO9tROfk5VrpIi4=;
+ b=o/IsLhnuzz4J7IXPyjgToH+TVV87KVOB9oVq/yOCwg8YQW/N5lo2nZPqNeEicVLH0eMV1H
+ zDq1AKJXZyuesBSs/CeLdn9l6y4NTl8zMsqTQFxlkF7aP5Xuj1hZGDlBE2WYInDaNd7ylw
+ 31VZif0xxfQ/QADxsHUYFm+ayTZT7/cuVvR/+DFAfdvcHTuqETOo+iQzS0ioTKW8ZxrQbf
+ SPllV1GWfvc1WxlkCgbPXonrIxWainYN2NsgiomhU6lxG/keik6Qss6p8PJj8BScMAV6bF
+ pN19xO8A/S3ipyUnT33HEnWuWIraQAskoJx1KhsbUgsy50c3MGjQP3XPRlehIg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>
+Subject: [PATCH v2 00/10] Add the PowerQUICC audio support using the QMC
+Date: Fri,  6 Jan 2023 17:37:36 +0100
+Message-Id: <20230106163746.439717-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCP286MB2323:EE_|OSZP286MB2315:EE_
-X-MS-Office365-Filtering-Correlation-Id: d36ba945-1d63-4aae-117a-08daeffab322
-X-MS-Exchange-SLBlob-MailProps: 7J/vb0KDx3izZZWclzhZiVSziz+VEPOckQAHMgMaaTBtqwRxrt95MFmY1BAtt2TFXK1trFz4np0j1/RIjX07ti0WJh12VtYVpD7iuovdCfCZ+64p5W4px7i1vtnf8lz8cVeefUYw4R0fu074VixKyiXYNAIIf/b8bG3uFtAC1mLnmu4tnVuy1BJ69+YzQNiRi/7XQkbhYUEAEBgUrjvXIdx4YXwAombEgXDyUqIKGiUULWgpSpI4hTvSI7mZrSeuS8N/RgRbj7FVeKZzjKy4HPGel3EKtSkkG4yBFvfRT83ku38D4zPqtOp7hKv5uy1Uo+12QpWzSQ/HRD2te0oQkI0ItGJyLURkqfMufgDCO/cBAJir1G3wG0w2Cl0ATtyYh0Ei2fO8Fs81hbChiYTP0g3VqU1NQ2jeCynrqPch6I/74kUKudzw8nEkr1d4GsTo7z9b9l7MS9ZfEVIHeeM0i+vynTn+Hu79tsS+2Sa1n7xetrtQyPz3A6wq4a/tnDVMx+EXMksDWBdNnNgBGPgVEF8ygMUrssyQ5QMT9+iwoIxBrfAC1FxMLlzEoKNehNJnltTnsOZUBuf2LLscs8yPOeGKglgbgpNMYb2WPE62mH2lZlKemowuAKaFEo6WIfiMndfUdpxFIOEpQEQqEwda20vhv5Ad+EbtnTOoPXF/7WP6mm4PYBNP8vZynzvnwoesTONdCYgZf34hKzIeUwJxYY2CBVEUiVt2xwji8N0A6SKEM3M87wZCDb6Vh5P1IKWJqUtt69nFgBLNA9dFeT/Kvp5PkE7FVyN2skzBx4Hzboo=
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PdE29EoagZCD9dIgap/0rI/Zg+hr0fFKcJiYMG8BojQD4FAb58/YlNLPXUS3DLweT8mO+y+MYfRIYm2KhgRHAgTn7mpkeuqHP2lrIyaQuIKK97XslMvQILs2W94X3DKaR4H4azApIeEMWTBIfxBotj6I2uBWQxeBZcCEX0SqoA/q62Zey94IlEK8a8eXnoSihP4wvsKYSiR1Ce0sHd1bXnRT+LDKUsf8ypriO1sPJhQfWJVlJDab+lcEiSqN86sRSfWRkSvfqrhGD1fndXTav7b5VpE8Z9uxDuyblSCQTO7KXTO61Vu3ZoQAmJ44jM0lZpu/xSapV2Kdj5Pc7gvVC3U1hjm1n2TPocNbe+TrFVf+bstzYTJeFq4wIDvH7d/z6lWiCFlxO3tFubFXEPQ6W6cetzZZ6eXEaDniFmtErg5QntBN6f9LVXzzqOC5yG5HPtGgTKQgwPRLl503l9bY5EGIb+C6lcduyVfKtdGzL5OU+bkw3UovKdWo27pDmx1FLJcwOJPvfob6enEElPv0EGQqSbLh6jWBVbelu8t/T/MHV+2AVWd+1bSmeloonCWkqNb2ym+uqhDSkQ1ZEtIYi+ycL+/RswAU1oIPie3xcCLS4cBj++fJnskIJbyNzhuMvjKZBMZMhUAojEMBshcWZQ==
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Rrcmz3THTnzaeefWMyNZzW2ojwp6XYmZxCdDLeHCG/cX/vUsy6XsHpKp1015?=
- =?us-ascii?Q?s405yGwN13fMy/06ShowASH7bfjmAEgHg8In66xrYFHBjqNd/IUhQpoaD0gZ?=
- =?us-ascii?Q?INASx4n6q4LoAYyoLPgU69RSUIT0gpSdyJ4FKqB+2dJn9KjtRowFVC1XNh7x?=
- =?us-ascii?Q?qfUa8R1dmOA29rHxzG10JEYNtu8zATSw1HzL2H6He4yTLeKMktAYco1uuso9?=
- =?us-ascii?Q?dKo6k8UnSFaGjcPx56d1iYDWVoChe25m5L+Th+nuU8nW0br9cQm4HUHwaBTK?=
- =?us-ascii?Q?VYPWLWpmc34Wo89UIjl1NvWxki99HFHkvP3RwXddX0xUKNz0ftiOIPwDyvMp?=
- =?us-ascii?Q?OCoTFXpVSy8iYKbWaERQ2m1zajbhrj+NKSMLKyNwzFccN+CAVwKzqb8EY6ay?=
- =?us-ascii?Q?MQ8gQNgfPk0R1Fo3f9UjT2N1HHBs629tNl8Q9ZUNv9lak5GoUEYEStnf8ssQ?=
- =?us-ascii?Q?a4+ue1mKC5C4K42Z02IT2qMCaXA7vZWBtF/fa+fScmEWTTA1X1+CSboRNdlF?=
- =?us-ascii?Q?Lnh9RTbCHYL3jRUA9+LlpjZEsAyTAA29/0Fe+JVfYETraIHHDrCAxll99//3?=
- =?us-ascii?Q?I43DBRROJ45bYHuqHcTvpmduMxg3fydj0npYpyTGM2/dxddQkY6wV68jPStR?=
- =?us-ascii?Q?NnO8YVRfZyq8y5bwxrZXqINJY/7sTEQaaalyJc3BP0wNfa6BNyrkVdOiimAK?=
- =?us-ascii?Q?oQALnE4GKbRc4CuPqF+CfJAWT907I4DJZ7vKMpP728YbYfXaCopyHcM0LriZ?=
- =?us-ascii?Q?sYJEgsDYHtwldsaWsinUKk1+AWQLICrySglt1GaCNnSfZ0qj3+54nI8qiLlw?=
- =?us-ascii?Q?7QHhlvkWc2jBPUA0Vz3MxJZUlvwJe0/f7qT2opliaNXwtekzGeYqoQBZh4/F?=
- =?us-ascii?Q?Bnlfiz8U9alo6iEvDO9iq0xR/MGikeDMUxzIgZFlnNxGIRu6F84+3pQaNz69?=
- =?us-ascii?Q?6tcsZtrjik68hhujFa0JEqbhlUgAJQZW1qzLLob1MnuBo9Sx4cR0oP2/kMY8?=
- =?us-ascii?Q?VIeniM0L6axAianKPOmiuett8ZZC0bDlqzfRYB1rFbBWjLcLodbihI2QyMcF?=
- =?us-ascii?Q?+Go3ZWlX/CkRTddmDHonpYmMl+5qy4Vua2Wo62fxbcTSyr/YPAxw9+asKnPo?=
- =?us-ascii?Q?GLsaQ1fJGfvRv1ZyNpxz5xx/FYQLXRLC0t97E0XOsmWdtCtLQV3XiZI8c7hR?=
- =?us-ascii?Q?JnMhwPCrGJdhQiHinqVVnB7+HP/y3hhLCz6kVmNezEoylWh8infbIG0LJy6B?=
- =?us-ascii?Q?OdRV0W58b2L09XGaQtd3HgTBFOu1URAER3YZzQw/+g=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d36ba945-1d63-4aae-117a-08daeffab322
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 15:28:45.4906 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB2315
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,66 +84,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Dawei Li <set_pte_at@outlook.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since commit fc7a6209d571 ("bus: Make remove callback return void")
-forces bus_type::remove be void-returned, it doesn't make much sense
-for any bus based driver implementing remove callbalk to return
-non-void to its caller.
+Hi,
 
-As such, change the remove function for apr bus based drivers to
-return void.
+This series adds support for audio using the QMC controller
+available in some Freescale PowerQUICC SoCs.
 
-Signed-off-by: Dawei Li <set_pte_at@outlook.com>
----
-v1 -> v2
-- Update commit message.
+This series contains three parts in order to show the different
+blocks hierarchy and their usage in this support.
 
-v1
-- https://lore.kernel.org/all/TYCP286MB2323DBD1F01BF918ADD0ABCECA189@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM/ 
----
- include/linux/soc/qcom/apr.h  | 2 +-
- sound/soc/qcom/qdsp6/q6core.c | 4 +---
- 2 files changed, 2 insertions(+), 4 deletions(-)
+The first one is related to TSA (Time Slot Assigner).
+The TSA handles the data present at the pin level (TDM with up
+to 64 time slots) and dispatchs them to one or more serial
+controller (SCC).
 
-diff --git a/include/linux/soc/qcom/apr.h b/include/linux/soc/qcom/apr.h
-index 23c5b30f3511..be98aebcb3e1 100644
---- a/include/linux/soc/qcom/apr.h
-+++ b/include/linux/soc/qcom/apr.h
-@@ -153,7 +153,7 @@ typedef struct apr_device gpr_device_t;
- 
- struct apr_driver {
- 	int	(*probe)(struct apr_device *sl);
--	int	(*remove)(struct apr_device *sl);
-+	void	(*remove)(struct apr_device *sl);
- 	int	(*callback)(struct apr_device *a,
- 			    struct apr_resp_pkt *d);
- 	int	(*gpr_callback)(struct gpr_resp_pkt *d, void *data, int op);
-diff --git a/sound/soc/qcom/qdsp6/q6core.c b/sound/soc/qcom/qdsp6/q6core.c
-index 5358fefd4210..49cfb32cd209 100644
---- a/sound/soc/qcom/qdsp6/q6core.c
-+++ b/sound/soc/qcom/qdsp6/q6core.c
-@@ -339,7 +339,7 @@ static int q6core_probe(struct apr_device *adev)
- 	return 0;
- }
- 
--static int q6core_exit(struct apr_device *adev)
-+static void q6core_exit(struct apr_device *adev)
- {
- 	struct q6core *core = dev_get_drvdata(&adev->dev);
- 
-@@ -350,8 +350,6 @@ static int q6core_exit(struct apr_device *adev)
- 
- 	g_core = NULL;
- 	kfree(core);
--
--	return 0;
- }
- 
- #ifdef CONFIG_OF
+The second is related to QMC (QUICC Multichannel Controller).
+The QMC handles the data at the serial controller (SCC) level
+and splits again the data to creates some virtual channels.
+
+The last one is related to the audio component (QMC audio).
+It is the glue between the QMC controller and the ASoC
+component. It handles one or more QMC virtual channels and
+creates one DAI per QMC virtual channels handled.
+
+Compared to the v1 series, this v2 series fixes errors raised
+by the test kernel robot.
+
+Best regards,
+Herve Codina
+
+Changes v1 -> v2:
+  - patch 2 and 6
+    Fix kernel test robot errors
+
+  - other patches
+    No changes
+
+Herve Codina (10):
+  dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+  soc: fsl: qe: Add support for TSA
+  MAINTAINERS: add the Freescale TSA controller entry
+  powerpc/8xx: Use a larger CPM1 command check mask
+  dt-bindings: soc: fsl: cpm_qe: Add QMC controller
+  soc: fsl: qe: Add support for QMC
+  MAINTAINERS: add the Freescale QMC controller entry
+  dt-bindings: sound: Add support for QMC audio
+  ASoC: fsl: Add support for QMC audio
+  MAINTAINERS: add the Freescale QMC audio entry
+
+ .../bindings/soc/fsl/cpm_qe/fsl,qmc.yaml      |  167 ++
+ .../bindings/soc/fsl/cpm_qe/fsl,tsa.yaml      |  262 +++
+ .../bindings/sound/fsl,qmc-audio.yaml         |  110 ++
+ MAINTAINERS                                   |   25 +
+ arch/powerpc/platforms/8xx/cpm1.c             |    2 +-
+ drivers/soc/fsl/qe/Kconfig                    |   23 +
+ drivers/soc/fsl/qe/Makefile                   |    2 +
+ drivers/soc/fsl/qe/qmc.c                      | 1493 +++++++++++++++++
+ drivers/soc/fsl/qe/tsa.c                      |  783 +++++++++
+ drivers/soc/fsl/qe/tsa.h                      |   43 +
+ include/dt-bindings/soc/fsl-tsa.h             |   15 +
+ include/soc/fsl/qe/qmc.h                      |   71 +
+ sound/soc/fsl/Kconfig                         |    9 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl_qmc_audio.c                 |  731 ++++++++
+ 15 files changed, 3737 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+ create mode 100644 drivers/soc/fsl/qe/qmc.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.h
+ create mode 100644 include/dt-bindings/soc/fsl-tsa.h
+ create mode 100644 include/soc/fsl/qe/qmc.h
+ create mode 100644 sound/soc/fsl/fsl_qmc_audio.c
+
 -- 
-2.25.1
+2.38.1
 

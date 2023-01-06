@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1BB265FDFF
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:32:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C4E65FE17
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 10:37:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 887AB8C3F;
-	Fri,  6 Jan 2023 10:31:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 887AB8C3F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9287E2C6;
+	Fri,  6 Jan 2023 10:36:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9287E2C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672997533;
-	bh=n746WgD3hqttiDAK36u3HftdObyZG67fDL/mR38hR5Q=;
+	s=default; t=1672997838;
+	bh=+NyFbFwd34DatyY7yZ6dcCeDYbhRJg8RLeAlUsbp1CA=;
 	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=S+fLAz/ds+I5jRNtRjGRcKBP7RQu1jwrsLjGt09oZ5E0usAOAjvV2caKFSYJnxnhC
-	 2HEBcu22Ym8JDJEtW3CFgxy6HWHMHcwPp1deyjuRsP6dFdCDSw5nIi3iPra+uEOlFP
-	 WcqDog7sOsuw6VHGS1nQDGWruFTjagohcCePOLa8=
+	b=urhB/x62SbxP2QmZ5D463kbfxsl4KPvHXQmSrcy30DqK2utU+cDgGYXzRPYldiJ/x
+	 s79pCzeDpw1FXtQgtH4epyJWj5Qx7DoOxCK+9Pdt9c8H1Jo1MO0R8cK9fwlDTUJwE5
+	 CQYc8z/GcgDo9mVQh6EC+QxGDTUn+7uexFbdiXds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44502F80238;
-	Fri,  6 Jan 2023 10:31:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEA57F8024E;
+	Fri,  6 Jan 2023 10:36:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10CA8F802DB; Fri,  6 Jan 2023 10:31:22 +0100 (CET)
+ id 1CCFFF8024E; Fri,  6 Jan 2023 10:36:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
+ RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0581CF80217
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 10:31:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0581CF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FD2BF800C0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 10:36:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD2BF800C0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=X/Onrk6e
-Received: by mail-wm1-x336.google.com with SMTP id
- g25-20020a7bc4d9000000b003d97c8d4941so3119462wmk.4
- for <alsa-devel@alsa-project.org>; Fri, 06 Jan 2023 01:31:17 -0800 (PST)
+ header.s=20210112 header.b=TVLkgSuY
+Received: by mail-wr1-x429.google.com with SMTP id d17so768972wrs.2
+ for <alsa-devel@alsa-project.org>; Fri, 06 Jan 2023 01:36:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=CZjG2mq/svTWuMsxUlV/QkAtUpSagHTF3MdrXvGlnMo=;
- b=X/Onrk6esOLc6UKBZ9gFTOBbEd9e2UYboopTQ9CjpuH+roaQL9t2jX7kxjfIblL6OG
- PdI9stFBwI6RL6oZ987u6ejHNjqPy30kdX3ywW/AAqI7wQocv6uJmaPkHUWfot+HArC3
- NTIgnzv5ATPWBVvKaXtjft/86oFARp4FPaaKhwpP209VtEPV2aBfktdCtNPcojAUfF3U
- 1oSVLVu7Upz/qaNRRhoSHwctU+/+LiiIotnEnQ68/9GIoXsNNxSyE4SwQjtRn8xChRCh
- m3Z9wBo7rYGDrxGOtHV5szJEQbkr7RwB4OnQeeWoyjmhYly4MhyN4SaRXGTmiDFEhDjV
- QITA==
+ bh=fcim/GWWe/+q9J0gSv4vTjrEQLLQwPqNkvMOb72MU5U=;
+ b=TVLkgSuYpM/xeDlRB1uN1hG9xyD3Iwu9YakAra45VU2v30Vvwa1O2YemiY8mGYE/Xg
+ y3hMe5m+Yhzsr1XvGuTjSh/pMObQLxCuyrfmz6KkPNgKjRL7Zrpaq3VtqZzsqfB0jWya
+ Ya08Q5HU8uuXMKouX40hnXMzr29Ig6C9CwSnWyrmfGoxqXTPMD/FfKXWxzyRsr5htWMN
+ thnhG/KrCnZqCmodCvc4JKIUmW/8KLjZARdOldXntCcslsxJRykfiTRN03YcgZim0fkR
+ osPgN/Fu48sk9n+CVqbNP2+F9QuBJIR7VXjYEVNAJsrAGEliRjnmcIPmQMRZsUKrfXCY
+ ZAbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CZjG2mq/svTWuMsxUlV/QkAtUpSagHTF3MdrXvGlnMo=;
- b=4p18mJG3akf43k/V8gnBuoYa+5BBldo/jvipsTvnPDTW0N9vivSVdMJu0WUlz8lLVE
- ZyRSbRnhODhXBdIiFvNuVPGipLMvmh+GjC+tznafpyKfNou3ZyWhZYflfvBy1H+KTscE
- x8PN2wRbXLisdUVY3XQZDQdDaMW100dFpSXM1GoVre929GZC6UjmlRMJcTS4EpGhgwUL
- CXfJcNEZAaD/uLZXdyFin0VthB6ryUArcpnlNSpKzGv9tTIpAhLbrpHHBQzYW9ph2IWs
- tKwQI0B8iqwZ0zUAac0g56lyHwrfaAKSohB5G5KeuK9dHNmBuR5Hb+gu2ITy/+bfm6kI
- 8U7g==
-X-Gm-Message-State: AFqh2kpaKaB3r5nbL58DaHGOby1J3grWjc8saENVOduCUYYngVbvzur+
- RJAgBRyXedlAe/IVlRlkytI=
-X-Google-Smtp-Source: AMrXdXvw9WwEvOpVfOOUeziF2fx8X3i+YbCzEWKqgR5DddpDhVd6o0PZB+ZVRZXXbYmUxjp65cILhw==
-X-Received: by 2002:a05:600c:a4a:b0:3d3:3d1b:6354 with SMTP id
- c10-20020a05600c0a4a00b003d33d1b6354mr39153505wmq.3.1672997476149; 
- Fri, 06 Jan 2023 01:31:16 -0800 (PST)
+ bh=fcim/GWWe/+q9J0gSv4vTjrEQLLQwPqNkvMOb72MU5U=;
+ b=tEd4iZtVF6OfUSFeqzScd+Sm7YIOYVDX7paw1sQSTdByyxOwcvHFO74IyuO0npQgcW
+ o9WpeYuyX/PJJQ/Ol5QEvQALUDieIbZzuwHzClxS/AFYR2YFoXY1aOsFwFPIEa71eCRT
+ 29LSBg6GowFqnaJG55lRh39isl+kmXY3aTYE+iTJbBJSrB1zkQI2RstwwAcM1v1RrHr9
+ LiS7q7qkJ/uIRJc5Ce/I2kJN5bZsvhHnTYK83RYPxio5d8HYVOq5xv90Pw8ylexfNozw
+ Fly1MDalg+wHai2r6nzArECxO9a3jhMtqy7ax0YiATJZkBr6fLuVi09m+11aCUX3ouum
+ HkVw==
+X-Gm-Message-State: AFqh2kq0OEkP/REfZmjeAG0aBgm6wgw1cbudMB1Xtl/AXNAejCl7ki/7
+ 0F63qS/ju/9aD5OEJhPPBheOTc53G7VcFg==
+X-Google-Smtp-Source: AMrXdXvGW9zQPp25GXT7AldUMz+tu1KDOLXVovuEyFHbAEK0hbGZ2dcTSYvhAsgcK/khCR6FdHwv/g==
+X-Received: by 2002:a5d:4e83:0:b0:29f:b589:158d with SMTP id
+ e3-20020a5d4e83000000b0029fb589158dmr7559543wru.48.1672997770757; 
+ Fri, 06 Jan 2023 01:36:10 -0800 (PST)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- p7-20020a05600c1d8700b003d973d4fb28sm5628609wms.4.2023.01.06.01.31.14
+ f14-20020adff58e000000b00241fea203b6sm624012wro.87.2023.01.06.01.36.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Jan 2023 01:31:15 -0800 (PST)
-Date: Fri, 6 Jan 2023 12:31:12 +0300
+ Fri, 06 Jan 2023 01:36:10 -0800 (PST)
+Date: Fri, 6 Jan 2023 12:35:59 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: o-takashi@sakamocchi.jp
-Subject: [bug report] ALSA: firewire-motu: notify event for parameter change
- in register DSP model
-Message-ID: <Y7fqYJnNC02zsFkW@kili>
+To: perex@perex.cz
+Subject: [bug report] ALSA: usb-audio: Add new quirk FIXED_RATE for JBL
+ Quantum810 Wireless
+Message-ID: <Y7frf3N/xzvESEsN@kili>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -101,87 +100,98 @@ Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Takashi Sakamoto,
+Hello Jaroslav Kysela,
 
-The patch 634ec0b2906e: "ALSA: firewire-motu: notify event for
-parameter change in register DSP model" from Oct 15, 2021, leads to
-the following Smatch static checker warning:
+The patch fd28941cff1c: "ALSA: usb-audio: Add new quirk FIXED_RATE
+for JBL Quantum810 Wireless" from Dec 15, 2022, leads to the
+following Smatch static checker warning:
 
-	sound/firewire/motu/motu-hwdep.c:92 hwdep_read()
-	warn: inconsistent returns '&motu->lock'.
+	sound/usb/pcm.c:543 snd_usb_hw_params()
+	error: uninitialized symbol 'sync_fixed_rate'.
 
-sound/firewire/motu/motu-hwdep.c
-    27 static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf, long count,
-    28                        loff_t *offset)
-    29 {
-    30         struct snd_motu *motu = hwdep->private_data;
-    31         DEFINE_WAIT(wait);
-    32         union snd_firewire_event event;
-    33 
-    34         spin_lock_irq(&motu->lock);
-    35 
-    36         while (!motu->dev_lock_changed && motu->msg == 0 && !has_dsp_event(motu)) {
-    37                 prepare_to_wait(&motu->hwdep_wait, &wait, TASK_INTERRUPTIBLE);
-    38                 spin_unlock_irq(&motu->lock);
-    39                 schedule();
-    40                 finish_wait(&motu->hwdep_wait, &wait);
-    41                 if (signal_pending(current))
-    42                         return -ERESTARTSYS;
-    43                 spin_lock_irq(&motu->lock);
-    44         }
-    45 
-    46         memset(&event, 0, sizeof(event));
-    47         if (motu->dev_lock_changed) {
-    48                 event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
-    49                 event.lock_status.status = (motu->dev_lock_count > 0);
-    50                 motu->dev_lock_changed = false;
-    51                 spin_unlock_irq(&motu->lock);
-    52 
-    53                 count = min_t(long, count, sizeof(event));
-    54                 if (copy_to_user(buf, &event, count))
-    55                         return -EFAULT;
-    56         } else if (motu->msg > 0) {
-    57                 event.motu_notification.type = SNDRV_FIREWIRE_EVENT_MOTU_NOTIFICATION;
-    58                 event.motu_notification.message = motu->msg;
-    59                 motu->msg = 0;
-    60                 spin_unlock_irq(&motu->lock);
-    61 
-    62                 count = min_t(long, count, sizeof(event));
-    63                 if (copy_to_user(buf, &event, count))
-    64                         return -EFAULT;
-    65         } else if (has_dsp_event(motu)) {
-    66                 size_t consumed = 0;
-    67                 u32 __user *ptr;
-    68                 u32 ev;
-    69 
-    70                 spin_unlock_irq(&motu->lock);
-    71 
-    72                 // Header is filled later.
-    73                 consumed += sizeof(event.motu_register_dsp_change);
-    74 
-    75                 while (consumed < count &&
-    76                        snd_motu_register_dsp_message_parser_copy_event(motu, &ev)) {
-    77                         ptr = (u32 __user *)(buf + consumed);
-    78                         if (put_user(ev, ptr))
-    79                                 return -EFAULT;
-    80                         consumed += sizeof(ev);
-    81                 }
-    82 
-    83                 event.motu_register_dsp_change.type = SNDRV_FIREWIRE_EVENT_MOTU_REGISTER_DSP_CHANGE;
-    84                 event.motu_register_dsp_change.count =
-    85                         (consumed - sizeof(event.motu_register_dsp_change)) / 4;
-    86                 if (copy_to_user(buf, &event, sizeof(event.motu_register_dsp_change)))
-    87                         return -EFAULT;
-    88 
-    89                 count = consumed;
-    90         }
+sound/usb/pcm.c
+    471 static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+    472                              struct snd_pcm_hw_params *hw_params)
+    473 {
+    474         struct snd_usb_substream *subs = substream->runtime->private_data;
+    475         struct snd_usb_audio *chip = subs->stream->chip;
+    476         const struct audioformat *fmt;
+    477         const struct audioformat *sync_fmt;
+    478         bool fixed_rate, sync_fixed_rate;
+    479         int ret;
+    480 
+    481         ret = snd_media_start_pipeline(subs);
+    482         if (ret)
+    483                 return ret;
+    484 
+    485         fixed_rate = snd_usb_pcm_has_fixed_rate(subs);
+    486         fmt = find_substream_format(subs, hw_params);
+    487         if (!fmt) {
+    488                 usb_audio_dbg(chip,
+    489                               "cannot find format: format=%s, rate=%d, channels=%d\n",
+    490                               snd_pcm_format_name(params_format(hw_params)),
+    491                               params_rate(hw_params), params_channels(hw_params));
+    492                 ret = -EINVAL;
+    493                 goto stop_pipeline;
+    494         }
+    495 
+    496         if (fmt->implicit_fb) {
+    497                 sync_fmt = snd_usb_find_implicit_fb_sync_format(chip, fmt,
+    498                                                                 hw_params,
+    499                                                                 !substream->stream,
+    500                                                                 &sync_fixed_rate);
 
-Smatch complains that there is no "} else {" path which unlocks.
+"sync_fixed_rate" is uninitialized when we "Use the original audioformat
+as fallback for the shared altset" and find_matching_substream() returns
+NULL.
 
-
-    91 
---> 92         return count;
-    93 }
+    501                 if (!sync_fmt) {
+    502                         usb_audio_dbg(chip,
+    503                                       "cannot find sync format: ep=0x%x, iface=%d:%d, format=%s, rate=%d, channels=%d\n",
+    504                                       fmt->sync_ep, fmt->sync_iface,
+    505                                       fmt->sync_altsetting,
+    506                                       snd_pcm_format_name(params_format(hw_params)),
+    507                                       params_rate(hw_params), params_channels(hw_params));
+    508                         ret = -EINVAL;
+    509                         goto stop_pipeline;
+    510                 }
+    511         } else {
+    512                 sync_fmt = fmt;
+    513                 sync_fixed_rate = fixed_rate;
+    514         }
+    515 
+    516         ret = snd_usb_lock_shutdown(chip);
+    517         if (ret < 0)
+    518                 goto stop_pipeline;
+    519 
+    520         ret = snd_usb_pcm_change_state(subs, UAC3_PD_STATE_D0);
+    521         if (ret < 0)
+    522                 goto unlock;
+    523 
+    524         if (subs->data_endpoint) {
+    525                 if (snd_usb_endpoint_compatible(chip, subs->data_endpoint,
+    526                                                 fmt, hw_params))
+    527                         goto unlock;
+    528                 if (stop_endpoints(subs, false))
+    529                         sync_pending_stops(subs);
+    530                 close_endpoints(chip, subs);
+    531         }
+    532 
+    533         subs->data_endpoint = snd_usb_endpoint_open(chip, fmt, hw_params, false, fixed_rate);
+    534         if (!subs->data_endpoint) {
+    535                 ret = -EINVAL;
+    536                 goto unlock;
+    537         }
+    538 
+    539         if (fmt->sync_ep) {
+    540                 subs->sync_endpoint = snd_usb_endpoint_open(chip, sync_fmt,
+    541                                                             hw_params,
+    542                                                             fmt == sync_fmt,
+--> 543                                                             sync_fixed_rate);
+    544                 if (!subs->sync_endpoint) {
+    545                         ret = -EINVAL;
+    546                         goto unlock;
+    547                 }
 
 regards,
 dan carpenter

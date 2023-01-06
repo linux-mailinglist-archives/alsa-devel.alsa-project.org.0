@@ -2,89 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4161660A88
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Jan 2023 00:59:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA34F660A22
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Jan 2023 00:14:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 353C414C87;
-	Sat,  7 Jan 2023 00:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 353C414C87
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCC4B100AF;
+	Sat,  7 Jan 2023 00:13:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCC4B100AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673049568;
-	bh=3d1DO0cDsSSFGxEy7xYujqdO/RXqj/Yc3KB9N5fpqDU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=M6yWyj1RuGg0mpbQ40EHGmAkME6S3Uj+Cwk5pBfbE0bPk1IRj8QE9+NYW4Zu2tDNP
-	 S3AEWuU4feqZv+Aatsv8MxW4vUEmGcv12DDMzJ7e6AXVnzKuqhGLOtO4/XF1QmQN7P
-	 VuveJCPDxyXYfCrTuKkL0egZ50TMxlM2CPyiRjtw=
+	s=default; t=1673046884;
+	bh=9QuuyD08K7AM++1vpIeF0GhtGMMNya1f8XKBBSWk3gI=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Q0u2BF0iGjwcg3/Slx8nPRbqas690QZkEoeFseO9kWyhAEnr2YYSVVndse02Vplmu
+	 ODCMJ4dyfv79/26eJv+Cnb5xo/b+N/JnFQwNI+jR57rxNz3/asrvkjah12S1uabFQt
+	 nCGJrbVEqZLSVINXntzokAWDK7l4xAOI0/efQjRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE522F8047B;
-	Sat,  7 Jan 2023 00:57:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99248F800C0;
+	Sat,  7 Jan 2023 00:13:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B61F6F8032D; Sat,  7 Jan 2023 00:57:46 +0100 (CET)
+ id 84607F800C0; Sat,  7 Jan 2023 00:13:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DATE_IN_PAST_06_12,
- DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,
- RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF8ABF800C0
+ for <alsa-devel@alsa-project.org>; Sat,  7 Jan 2023 00:13:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF8ABF800C0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=IrzUhFGn
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEE2AF800C0
- for <alsa-devel@alsa-project.org>; Sat,  7 Jan 2023 00:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEE2AF800C0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=R3Uboh1+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673049458; x=1704585458;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=3d1DO0cDsSSFGxEy7xYujqdO/RXqj/Yc3KB9N5fpqDU=;
- b=R3Uboh1+PG9iScn29b3X31wL8Duvu6lxL2XqGXOwo25fdmnkyW6wYdRA
- 70Wuk/jsaIznuPdqR+RmWnZIABI0FfxaQ96J2b6q+EVIqJweBVcn54zyt
- 044SxI7hHh+J8phV+iT10evrgaYK0Z3L5+0GxtEpvnZapF4oBNqWnKtXf
- 6P0EOILYY/Nsd8z9s6eXL7uK57B+3a1kpqBX/fAflld+pqixwfDK3KEqP
- TPkXx1UTpC79htz+Cn7XwMCPah+1msIlyBDsFDSQZ3Q4xc6Uo17c0ejbd
- Z2O+xRGJXCaZRlJMtUlD6sTPB2xAH99AA9G3RQT/7n9mMRVdAM+Aoymyb g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10582"; a="387047046"
-X-IronPort-AV: E=Sophos;i="5.96,306,1665471600"; d="scan'208";a="387047046"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2023 15:57:34 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10582"; a="984817951"
-X-IronPort-AV: E=Sophos;i="5.96,306,1665471600"; d="scan'208";a="984817951"
-Received: from apbaezbo-mobl2.amr.corp.intel.com (HELO [10.212.60.153])
- ([10.212.60.153])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2023 15:57:32 -0800
-Message-ID: <654077f4-2ae2-3457-b777-9eb3b816c6ba@linux.intel.com>
-Date: Fri, 6 Jan 2023 10:16:09 -0600
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9CBABB81DD7;
+ Fri,  6 Jan 2023 23:13:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B29C433D2;
+ Fri,  6 Jan 2023 23:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673046828;
+ bh=9QuuyD08K7AM++1vpIeF0GhtGMMNya1f8XKBBSWk3gI=;
+ h=From:Date:Subject:To:Cc:From;
+ b=IrzUhFGnBS2THLiY8q3qzSU1Z8XU53slg4fTTdklU0dsTXGjwoUxHZfVr60t1waqU
+ QT0M002tDAIGl4jmq7uCFDRuE6JDNlPePr4BEJL4bkXXmpnHupM1XuBVPQ42O08en9
+ NUYbWRlaajZALxpaGiURajVxuc3SHtK80eeXxq0dM3HUsukII1499fAGsHhzKfK0kK
+ WEiZVjwWjixdd11GgzRdIu4U1fnp+FhfMZAKTrh7uC57fR2jiVYcVsqcwJms5wEGH+
+ gkx2Noew5FOXxE2xJcAHAXG/akt8vhjWs8NxfRRsdXwj4l59f+O/cv+Fdi9L2VQkbK
+ JSUgxKzwY7myg==
+From: Mark Brown <broonie@kernel.org>
+Date: Fri, 06 Jan 2023 23:13:37 +0000
+Subject: [PATCH] ASoC: fsl-asoc-card: Log error code when we fail to register
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [RFC PATCH 03/14] ASoC: qcom: Add USB backend ASoC driver for Q6
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, gregkh@linuxfoundation.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
- robh+dt@kernel.org, agross@kernel.org
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-4-quic_wcheng@quicinc.com>
- <e29060b1-df65-c0d1-5777-023879a5863e@linux.intel.com>
- <0f903c49-a989-14a6-bac1-c4cae21839eb@quicinc.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <0f903c49-a989-14a6-bac1-c4cae21839eb@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20230106-asoc-fsl-err-log-v1-1-49d845c99434@kernel.org>
+X-B4-Tracking: v=1; b=H4sIACGruGMC/x2N0QrCMAwAf2Xk2UC7zYH+iviQxnQLjlYSUGHs3
+ +18vIPjNnAxFYdrt4HJW11raRBPHfBCZRbUR2PoQz+EGCYkr4zZVxQzXOuM4yWeEw2ZJx6hZYlc
+ MBkVXo7wU+156JdJ1u//dLvv+w9FhqhteQAAAA==
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+X-Mailer: b4 0.12-dev-8b3d1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=954; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=9QuuyD08K7AM++1vpIeF0GhtGMMNya1f8XKBBSWk3gI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBjuKspaaObCWe8J+qEwUnrz1fm3UEPH90SCr0Mx92e
+ iCuVd2WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY7irKQAKCRAk1otyXVSH0EReB/
+ 4gSdZxhmyVKd7vuXzWNqXr5WSKCbC7PvnGA/dZY1Q28SmudSE4lMaH7MHto1u8I212ASDS9qrzWQtN
+ Zb7EA9XygGvHLLvbIRXAmNmZ8pUT3HI7McDgPvy+oSpVFyETSpTREf9kLMeUqUcmhFYfq//LmWSXMj
+ jHgybfKgL0xXvVAMZO4Ks++bj+kZHQt8lMCXuSbz+Os4hiwetnexhU7kEm815iQbCD2xRJ69M7kmDl
+ MtwPdpMRAjiU3agtlQIcGZI4AP3Ypmq2XZu1wDOlRUpK5eVw76OYQml6EXjZL4qJZGFxZVE0dp2Qca
+ 3kWbLJ+vQC0hIX+a6fBmuiC6aTbest
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,54 +94,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The chances are that any error we see here will be EPROBE_DEFER but let's
+actually tell the user so they know.
 
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/fsl/fsl-asoc-card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 1/5/23 19:05, Wesley Cheng wrote:
-> Hi Pierre,
-> 
-> On 1/4/2023 3:41 PM, Pierre-Louis Bossart wrote:
->>
->>> +int q6usb_alsa_connection_cb(struct snd_soc_usb *usb, int card_idx,
->>> +            int connected)
->>> +{
->>> +    struct snd_soc_dapm_context *dapm;
->>> +    struct q6usb_port_data *data;
->>> +
->>> +    if (!usb->component)
->>> +        return 0;
->>> +
->>> +    dapm = snd_soc_component_get_dapm(usb->component);
->>> +    data = dev_get_drvdata(usb->component->dev);
->>> +
->>> +    if (connected) {
->>> +        snd_soc_dapm_enable_pin(dapm, "USB_RX_BE");
->>> +        /* We only track the latest USB headset plugged in */
->>
->> that answers to my earlier question on how to deal with multiple
->> devices, but is this a desirable policy? This could lead to a lot of
->> confusion. If there are restrictions to a single device, then it might
->> be more interesting for userspace or the user to indicate which USB
->> device gets to use USB offload and all others use legacy.
->>
-> 
-> Yeah, as mentioned its still pretty open ended.  I think from the
-> feedback received from Mark/Takashi, this was a viable option for now.
-> Would you happen to have any insight/input on how the userspace can pass
-> down that selection to the ASoC framework?  Maybe some kind of PCM IOCTL
-> call?
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index c836848ef0a6..58834e56a278 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -855,7 +855,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_snd_soc_register_card(&pdev->dev, &priv->card);
+ 	if (ret) {
+-		dev_err_probe(&pdev->dev, ret, "snd_soc_register_card failed\n");
++		dev_err_probe(&pdev->dev, ret, "snd_soc_register_card failed: %d\n", ret);
+ 		goto asrc_fail;
+ 	}
+ 
 
-I don't have a turn-key solution either :-)
-We'd need userspace to make one device as 'preferred' or 'optimized' and
-give it a priority somehow. It can't be a PCM IOCTL, it has to be at the
-device level.
+---
+base-commit: 1b929c02afd37871d5afb9d498426f83432e71c2
+change-id: 20230106-asoc-fsl-err-log-4915ba3fc6c4
 
-It's really a second-level optimization that can be parked for now, the
-bulk of the work is really the interaction between USB audio and ASoC
-stacks, we should probably focus on that BIG topic with a design that
-can be shared across implementations.
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>

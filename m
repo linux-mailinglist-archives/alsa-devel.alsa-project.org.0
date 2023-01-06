@@ -2,106 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211B665FACF
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 06:02:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC2065FC46
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Jan 2023 08:52:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD5FD915;
-	Fri,  6 Jan 2023 06:01:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD5FD915
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0B404947;
+	Fri,  6 Jan 2023 08:51:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0B404947
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1672981326;
-	bh=HLedwd1+3El7BOY0G2TT+9YHwuHPcX/SiLSzCxrnSKk=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=u7G9SyC62Kl/2KjrOhbpdMd3k6BD/qO2BnYR59pIs45O481UdRhDMswq7lDP/Lt17
-	 4YiT5VlqNSqQ5Yh68zbWlTVGj6GNxayrP7OKJpJJeb4rNQE20sUO17r0jRF1fqvkcJ
-	 P6EVQOM3OlsGkmWmSwMy5qfHFKv2s+mb5rguJj3Q=
+	s=default; t=1672991564;
+	bh=I+KkT0rK/LQYUuUax3rPa8bPEvTqljDS1+83X2hArJY=;
+	h=Date:From:To:Subject:In-Reply-To:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ngAvvxsiaR8ysnp4V0htdD+pCiyGQNcCcw3VAwgAJI1Q4BCM0L+ZoqSRv9N224X8S
+	 Tt7NUsBtUsHHaib4NvhdNaeR+zJoHCXSn5vi8WWiC4LnwRrldx75L3wX1+nRbU29qZ
+	 v3QkQzbvtUySII7TaYz1UHDjhJQkChFLHNE6ze/8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 160B5F8022B;
-	Fri,  6 Jan 2023 06:01:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A2DFF800C0;
+	Fri,  6 Jan 2023 08:51:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3DFBFF80217; Fri,  6 Jan 2023 06:01:06 +0100 (CET)
+ id 77EDCF802DB; Fri,  6 Jan 2023 08:51:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79FD3F80217
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 06:00:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79FD3F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56F72F8032D
+ for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 08:51:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56F72F8032D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=H3riTjmz
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4F5A6418E8
- for <alsa-devel@alsa-project.org>; Fri,  6 Jan 2023 05:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1672981258;
- bh=VjK+soZmeM7SKVDJ28iDB0gliwiKEw0ymz/jEaR8lgk=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=H3riTjmzJ2ixvPHISUVBIUTpdNId2JWabUFOyCWcFkFLuzLlqSaies1luGigYoq2I
- 8pvQ6s40PA0zTSuuM89+bI2KnLW46a0xLtsK0T5/Gei86L1btLTJ3rHlj4uomVyGki
- Npce3UiYIBjlipx+qXO//k5fx7T1WxotK4Wl+MWLPyog6VdQfErBtBW7YN+DZ01/A5
- zQTBpoO3+p+JB+1MDhYwJukfPffsxGHX37jp7YmqNMcMBuGgfRF9n74kXBcNU1Y1q8
- GWyT3R+XE06cFIWQbTTRBKHd6DfWjjltglCsOHQdcKkscmxwqp9D9dmFnPFYCDiX/R
- 7yYb+UJnD/jAw==
-Received: by mail-pg1-f197.google.com with SMTP id
- l63-20020a639142000000b0047942953738so456514pge.15
- for <alsa-devel@alsa-project.org>; Thu, 05 Jan 2023 21:00:58 -0800 (PST)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=h9qSkZ/l
+Received: by mail-wm1-x32f.google.com with SMTP id
+ p1-20020a05600c1d8100b003d8c9b191e0so534219wms.4
+ for <alsa-devel@alsa-project.org>; Thu, 05 Jan 2023 23:51:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=y3pRAKha/wzSEcfkkP+wItKC8O2T26cp8rC+a7a/8wE=;
+ b=h9qSkZ/lNKRn0GoqXqd51msXoaLrhePp2jwrns+8ZIarLWUXHUwUV7U7LIyPrBy7v0
+ v9wQc3vTiWWsrgCRL7y8HGQIHKGe/Jm6pJhOAK6jZckbKoRBQasG3sI6yO8IwdUIy5Ex
+ bsErb0FzMDhrZmcqHNsenITTPcBCotVeDqOrCti6GYWann/B8rp8iIkn695yTB0560v8
+ IIhH1KMWSqkkc6GPTk39BbA8lTePWJApzDUjpL8LLB3INak3SBgQVZ6y4tDhUpGn58p5
+ zmB1C0yNPAh6YwWhVAM7rPsWPrld8ZWG1RIV8YESKDYFlG/Ka7DzlesV6inKaI1BSoQS
+ jN4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=VjK+soZmeM7SKVDJ28iDB0gliwiKEw0ymz/jEaR8lgk=;
- b=avHM4seTPAXdjpO8Y9VbvzedJFKDEgZUOwHfQAdj5A1kVtbZaX6FbX2QL+srdMQZ+S
- lhOgYBWONh/wvaAHTev45axhrdF/Hs9w9vZxwsmhyog1mpWGIrYKy5/8xd6X92yOJFtb
- P9GyQl3lX3rGb8ticLdqSqj5eRFBxKHUcXGvXECgyIuPFcQer7J+B++pQQ/pY8/a9NJl
- 1Vg7wZbGa0HjNvzSWFrF/Qe3rRnwribH3l5i9C17Aw5HTdyYpFiyNLMziesGM/oeQKd9
- qGnLy9g/keW7l66uN/ZGz8LRLODbz0IjrUYcXvDljs63eHNZEiZtHubo91ajEXBE2SFO
- cvpw==
-X-Gm-Message-State: AFqh2kpzgaks98+YfKl075Kh5ByTNSeSdLhJKAafHNdob0t9w0ZYzNBO
- INnI/sQ/9m2DWwjvZNG9q30YlHlQQERUmlDlBVeVTY0a3qvto9HNtEvZKphgcHHjomVFp+n3eFH
- D0QZoFtSE9hLX63X3rumIUvq0qkET1y/3h6QNCTO11NgPn6n0ibCs5Atx
-X-Received: by 2002:a65:6741:0:b0:477:f6be:b65b with SMTP id
- c1-20020a656741000000b00477f6beb65bmr3768778pgu.362.1672981256688; 
- Thu, 05 Jan 2023 21:00:56 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXsFMj3RxZH9KyqSDBcEip7IlWhll6+Cvv+Zt4Zj2R3waKMbXg3eZrNPT30QXdLNRJjJ6Xzjb70Wih1iDfWfxjQ=
-X-Received: by 2002:a65:6741:0:b0:477:f6be:b65b with SMTP id
- c1-20020a656741000000b00477f6beb65bmr3768768pgu.362.1672981256079; Thu, 05
- Jan 2023 21:00:56 -0800 (PST)
+ bh=y3pRAKha/wzSEcfkkP+wItKC8O2T26cp8rC+a7a/8wE=;
+ b=YfD0OSqrSvSvmMRBK6EvuevJmFizP83ahajz/u2XrvGuC95+R/6awyH7adebKn37T4
+ NvEXxryW9WawuNNwI9vuNyBBzgG4Oaiekmw/NxKIP02s8Vaoh5wPazwblAlP4AowQwWt
+ Rr/+XlC5Zm+SkRi4yl5ACVy6J/ynQ0B5KIrkD6DylGmmh4TLaGhpmQV6WPdSk7CRI2j/
+ 6itOcVpi69q+p93X3FmzgbWafOGb0dbwesIPllk5XRPJZYHSV2ZSqQE6zvTZ2mmna0gv
+ KbuxXCKiDpa/6oqiIhMa/QFr/ntq9sO8rOfdCHj7fBCS84HNKcR9/3607xnhKjrxuy92
+ cjag==
+X-Gm-Message-State: AFqh2koLlO6I6W5RUou3nD8IhpReQhxQ2TaV9I6I2nih0zud8NIgde7Y
+ tCVdw4yg9/WgqrXgLLGMVlI=
+X-Google-Smtp-Source: AMrXdXu6TTTYGLa+SILLMKWwpOWZZYNwmyzupE2o6wzTTk3OqigAVRTAyV6CyW8n+m7PZJRemMcT7w==
+X-Received: by 2002:a05:600c:6020:b0:3d1:f0b4:8827 with SMTP id
+ az32-20020a05600c602000b003d1f0b48827mr38023700wmb.25.1672991497451; 
+ Thu, 05 Jan 2023 23:51:37 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ h10-20020a1ccc0a000000b003d237d60318sm780111wmb.2.2023.01.05.23.51.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jan 2023 23:51:36 -0800 (PST)
+Date: Fri, 6 Jan 2023 10:51:30 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: oe-kbuild@lists.linux.dev, Kiseok Jo <kiseok.jo@irondevice.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 3/3] ASOC: sma1303: change the overall contents
+Message-ID: <202301060752.Z9ahR5KX-lkp@intel.com>
 MIME-Version: 1.0
-References: <20220719144753.252231-1-kai.heng.feng@canonical.com>
- <bd59b06a-de49-2a1a-d2a2-351957fec6d0@perex.cz>
- <CAAd53p6ru7CJ=pJ2knCL5pgU_Y+nA=yTPscKk225zTD-fv4qQg@mail.gmail.com>
- <34bddb2f-dc57-c08c-358e-26cf7824c203@perex.cz>
- <514f0fda-9475-e163-fd64-0bc675dd3447@linux.intel.com>
- <CAAd53p5xkjKkpvZu2nNu5EaJC9d060g5GAhV_gRD2ouGjKY9AQ@mail.gmail.com>
- <CAAd53p4Jcfo1_jsCd98_HxzkfqhUxS_7h7vM5a2dcK4fRYS1RA@mail.gmail.com>
- <144a8a27-ac7a-6d3b-1744-26fe0806deee@perex.cz>
-In-Reply-To: <144a8a27-ac7a-6d3b-1744-26fe0806deee@perex.cz>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Fri, 6 Jan 2023 13:00:44 +0800
-Message-ID: <CAAd53p6d846H9UKYm8CeDaYNN0qY8u0Wy9tAa3Re0bVPN8tr3w@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: hda: Skip creating captures in SOF context
-To: Jaroslav Kysela <perex@perex.cz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230104064342.2094-4-kiseok.jo@irondevice.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,95 +99,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
+Cc: Kiseok Jo <kiseok.jo@irondevice.com>, alsa-devel@alsa-project.org,
+ lkp@intel.com, application@irondevice.com, oe-kbuild-all@lists.linux.dev
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+Hi Kiseok,
 
-On Thu, Jan 5, 2023 at 8:43 PM Jaroslav Kysela <perex@perex.cz> wrote:
->
-> On 05. 01. 23 13:36, Kai-Heng Feng wrote:
-> > On Mon, Aug 15, 2022 at 3:55 PM Kai-Heng Feng
-> > <kai.heng.feng@canonical.com> wrote:
-> >>
-> >> On Wed, Jul 20, 2022 at 9:31 PM Pierre-Louis Bossart
-> >> <pierre-louis.bossart@linux.intel.com> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 7/20/22 02:52, Jaroslav Kysela wrote:
-> >>>> Dne 20. 07. 22 v 3:45 Kai-Heng Feng napsal(a):
-> >>>>> On Tue, Jul 19, 2022 at 11:41 PM Jaroslav Kysela <perex@perex.cz> wrote:
-> >>>>>>
-> >>>>>> Dne 19. 07. 22 v 16:47 Kai-Heng Feng napsal(a):
-> >>>>>>> On HP laptops that use SOF driver for DMIC, the micmute LED doesn't
-> >>>>>>> light up when mic is muted after commit 9b014266ef8a ("ASoC: SOF:
-> >>>>>>> topology: use new sound control LED layer").
-> >>>>>>>
-> >>>>>>> The micmute LED itself is still working via sysfs, but it doesn't follow
-> >>>>>>> mute anymore. That's because unlike vendors like Dell and Lenovo, HP
-> >>>>>>> laptops use HDA codec to control mute LEDs instead of ACPI. So on HP
-> >>>>>>> laptops, both SOF and HDA create captures with
-> >>>>>>> SNDRV_CTL_ELEM_ACCESS_MIC_LED access, snd_ctl_led_set_state() considers
-> >>>>>>> there are two different kcontrols and one of them is not muted.
-> >>>>>>
-> >>>>>> It does not mean that it's a wrong behavior. When both controls are muted, the
-> >>>>>> LED should be turned on. It just requires that all inputs are off (and it may
-> >>>>>> be the default - probably we can set in UCM or so). If you turn the "Capture
-> >>>>>> Switch" off in amixer / alsamixer, do things work as expected ?
-> >>>>>
-> >>>>> Yes. When all captures are muted the micmute LED is on.
-> >>>>>
-> >>>>>>
-> >>>>>>> So skip creating captures for HDA when it's called from SOF, the
-> >>>>>>> captures are already handled by SOF.
-> >>>>>>
-> >>>>>> The capture controls are for other inputs like external analog microphone. If
-> >>>>>> it is required to suppress the MIC LED for some hardware, just skip the
-> >>>>>> "spec->mic_mute_led = 1" assignment in hda_generic.c . Also, the check
-> >>>>>> "codec->core.type != HDA_DEV_ASOC" is not sufficient, because you don't know,
-> >>>>>> if the topology really sets the MIC LED flag.
-> >>>>>
-> >>>>> AFAIK the external analog microphone on DMIC laptop is driven by SOF driver too.
-> >>>>> If those capture controls are indeed needed for external analog mics,
-> >>>>> use UCM to mute them by default won't work either.
-> >>>>
-> >>>> Could you describe this ? I though that only DMIC is handled by SOF when HDA
-> >>>> codec is in the system. There is a separate analog codec for external analog
-> >>>> microphone or the HDA codec is somehow connected to SOF/DSP ? If so, how ?
-> >>>
-> >>> The HDA codec is connected in the same way in all cases, there's no
-> >>> hardware/electrical/routing difference.
-> >>>
-> >>> When used, the SOF driver will handle ALL links, be they DMIC or
-> >>> HDAudio. The difference for HDaudio is that instead of a single DMA
-> >>> transfer (DDR->FIFO), we have a first 'Host' DMA into the DSP SRAM, some
-> >>> processing and a second 'Link' DMA from DSP SRAM to the HDaudio FIFO
-> >>> (reversed flow for capture).
-> >>
-> >> So is this approach sufficient for this issue? Or should I explore
-> >> other possibilities?
-> >
-> > A gentle ping...
->
-> This Mic LED problem was resolved through UCM for the moment:
->
-> https://github.com/alsa-project/alsa-ucm-conf/commit/79a8ec44d3dcf097f4a4492c506cbcf338324175
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-That solves the issue, thanks!
+url:    https://github.com/intel-lab-lkp/linux/commits/Kiseok-Jo/ASoC-sma1303-Add-driver-for-Iron-Device-SMA1303-Amp/20230104-150052
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230104064342.2094-4-kiseok.jo%40irondevice.com
+patch subject: [PATCH 3/3] ASOC: sma1303: change the overall contents
+config: ia64-randconfig-m041-20230101
+compiler: ia64-linux-gcc (GCC) 12.1.0
 
-Kai-Heng
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <error27@gmail.com>
 
->
-> More discussion:
->
-> https://bugzilla.redhat.com/show_bug.cgi?id=2134824
->
->                                         Jaroslav
->
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+smatch warnings:
+sound/soc/codecs/sma1303.c:257 sma1303_regmap_write() error: uninitialized symbol 'ret'.
+sound/soc/codecs/sma1303.c:275 sma1303_regmap_update_bits() error: uninitialized symbol 'ret'.
+sound/soc/codecs/sma1303.c:293 sma1303_regmap_read() error: uninitialized symbol 'ret'.
+sound/soc/codecs/sma1303.c:684 sma1303_add_component_controls() error: not allocating enough for = 'name' 8 vs 3
+	(This should allocate sizeof() not ARRAY_SIZE()).
+sound/soc/codecs/sma1303.c:1539 sma1303_i2c_probe() warn: unsigned 'value' is never less than zero.
+
+vim +/ret +257 sound/soc/codecs/sma1303.c
+
+287cf116194f9c Kiseok Jo 2023-01-04  242  static int sma1303_regmap_write(struct sma1303_priv *sma1303,
+0b15568ccfb962 Kiseok Jo 2023-01-04  243  				unsigned int reg, unsigned int val)
+0b15568ccfb962 Kiseok Jo 2023-01-04  244  {
+287cf116194f9c Kiseok Jo 2023-01-04  245  	int ret;
+287cf116194f9c Kiseok Jo 2023-01-04  246  	int cnt = sma1303->retry_cnt;
+0b15568ccfb962 Kiseok Jo 2023-01-04  247  
+287cf116194f9c Kiseok Jo 2023-01-04  248  	while (cnt--) {
+
+The way I look at it, you need three bugs for this to affect real life:
+
+BUG 1: sma1303_regmap_write() is not written robustly (this warning).
+BUG 2: sma1303_i2c_probe() allows sma1303->retry_cnt of zero (it does).
+BUG 3: The i2c-retry_count is set to zero.  (Probably not but also not
+       unimaginable).
+
+So, yeah, let's fix BUG 2 because retry_cnt of zero is bogus.
+
+                if (!of_property_read_u32(np, "i2c-retry_count", &value)) {
+-                        if (value > 50 || value < 0) {
++                        if (value > 50 || value <= 0) {
+                                sma1303->retry_cnt = SMA1303_I2C_RETRY_COUNT;
+
+And BUG 1 to make the checker happy.
+
+-  	int ret;
++  	int ret = -EINVAL;
+
+287cf116194f9c Kiseok Jo 2023-01-04  249  		ret = regmap_write(sma1303->regmap, reg, val);
+0b15568ccfb962 Kiseok Jo 2023-01-04  250  		if (ret < 0) {
+287cf116194f9c Kiseok Jo 2023-01-04  251  			dev_err(sma1303->dev, "Failed to write [0x%02X]\n", reg);
+287cf116194f9c Kiseok Jo 2023-01-04  252  			if (gCallback.set_i2c_err)
+287cf116194f9c Kiseok Jo 2023-01-04  253  				gCallback.set_i2c_err(sma1303->dev, ret);
+287cf116194f9c Kiseok Jo 2023-01-04  254  		} else
+287cf116194f9c Kiseok Jo 2023-01-04  255  			break;
+0b15568ccfb962 Kiseok Jo 2023-01-04  256  	}
+0b15568ccfb962 Kiseok Jo 2023-01-04 @257  	return ret;
+0b15568ccfb962 Kiseok Jo 2023-01-04  258  }
+0b15568ccfb962 Kiseok Jo 2023-01-04  259  
+287cf116194f9c Kiseok Jo 2023-01-04  260  static int sma1303_regmap_update_bits(struct sma1303_priv *sma1303,
+0b15568ccfb962 Kiseok Jo 2023-01-04  261  		unsigned int reg, unsigned int mask, unsigned int val)
+0b15568ccfb962 Kiseok Jo 2023-01-04  262  {
+287cf116194f9c Kiseok Jo 2023-01-04  263  	int ret;
+287cf116194f9c Kiseok Jo 2023-01-04  264  	int cnt = sma1303->retry_cnt;
+0b15568ccfb962 Kiseok Jo 2023-01-04  265  
+287cf116194f9c Kiseok Jo 2023-01-04  266  	while (cnt--) {
+287cf116194f9c Kiseok Jo 2023-01-04  267  		ret = regmap_update_bits(sma1303->regmap, reg, mask, val);
+0b15568ccfb962 Kiseok Jo 2023-01-04  268  		if (ret < 0) {
+287cf116194f9c Kiseok Jo 2023-01-04  269  			dev_err(sma1303->dev, "Failed to update [0x%02X]\n", reg);
+287cf116194f9c Kiseok Jo 2023-01-04  270  			if (gCallback.set_i2c_err)
+287cf116194f9c Kiseok Jo 2023-01-04  271  				gCallback.set_i2c_err(sma1303->dev, ret);
+287cf116194f9c Kiseok Jo 2023-01-04  272  		} else
+287cf116194f9c Kiseok Jo 2023-01-04  273  			break;
+0b15568ccfb962 Kiseok Jo 2023-01-04  274  	}
+0b15568ccfb962 Kiseok Jo 2023-01-04 @275  	return ret;
+0b15568ccfb962 Kiseok Jo 2023-01-04  276  }
+0b15568ccfb962 Kiseok Jo 2023-01-04  277  
+287cf116194f9c Kiseok Jo 2023-01-04  278  static int sma1303_regmap_read(struct sma1303_priv *sma1303,
+287cf116194f9c Kiseok Jo 2023-01-04  279  		unsigned int reg, unsigned int *val)
+0b15568ccfb962 Kiseok Jo 2023-01-04  280  {
+287cf116194f9c Kiseok Jo 2023-01-04  281  	int ret;
+287cf116194f9c Kiseok Jo 2023-01-04  282  	int cnt = sma1303->retry_cnt;
+0b15568ccfb962 Kiseok Jo 2023-01-04  283  
+287cf116194f9c Kiseok Jo 2023-01-04  284  	while (cnt--) {
+287cf116194f9c Kiseok Jo 2023-01-04  285  		ret = regmap_read(sma1303->regmap, reg, val);
+0b15568ccfb962 Kiseok Jo 2023-01-04  286  		if (ret < 0) {
+287cf116194f9c Kiseok Jo 2023-01-04  287  			dev_err(sma1303->dev, "Failed to read [0x%02X]\n", reg);
+287cf116194f9c Kiseok Jo 2023-01-04  288  			if (gCallback.set_i2c_err)
+287cf116194f9c Kiseok Jo 2023-01-04  289  				gCallback.set_i2c_err(sma1303->dev, ret);
+287cf116194f9c Kiseok Jo 2023-01-04  290  		} else
+287cf116194f9c Kiseok Jo 2023-01-04  291  			break;
+0b15568ccfb962 Kiseok Jo 2023-01-04  292  	}
+287cf116194f9c Kiseok Jo 2023-01-04 @293  	return ret;
+0b15568ccfb962 Kiseok Jo 2023-01-04  294  }
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
+

@@ -2,114 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 011A3660B19
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Jan 2023 01:52:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11E1F660B58
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Jan 2023 02:16:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4078614CF2;
-	Sat,  7 Jan 2023 01:51:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4078614CF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2521114DE1;
+	Sat,  7 Jan 2023 02:15:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2521114DE1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673052749;
-	bh=/Qy//JA9pM2rN2qcq+AbZAmimJDeO1xxQNeYC4nJwko=;
+	s=default; t=1673054176;
+	bh=A1l9nLxqa/QgP6et14ncprz/Qiq1w5jVWtdRAUx+0/E=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=mKNaFD2k9mSGljx/sxEOOF79wz8i0UPrL5v4uhFl6QE8xyqTuetXzYHYFRHWenOKS
-	 zJBrmrXCqKncRJd7Wtg+V6dG5ocb+0+51WFKJlOUraIvy/ZFZZAO1gGjTXy2jTHMCk
-	 GHLoq/5hpL8yvjo+nVSFhA086ocwOX8e03SI4BXo=
+	b=ajSHHBrLjQqpuonmELB/5JqWhcCuDq6lvw2bVvO0iXIM7vcmsQGEEJLW3IVoxw6/x
+	 8TgxH1ikrIOAW08MLdFSzSnOX6kni+3ynoaNnJNWKOCQk3YT6WyMURjKrL4y+6VgWW
+	 glaOhzF32v3E9tN1GybVSl1XTOSr4RtYpJqzZHsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D645EF800C0;
-	Sat,  7 Jan 2023 01:51:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3F13F8024E;
+	Sat,  7 Jan 2023 02:15:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BD1BF8024E; Sat,  7 Jan 2023 01:51:28 +0100 (CET)
+ id BE61FF8024E; Sat,  7 Jan 2023 02:15:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-8.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30CA3F80217
- for <alsa-devel@alsa-project.org>; Sat,  7 Jan 2023 01:51:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30CA3F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FB22F80217
+ for <alsa-devel@alsa-project.org>; Sat,  7 Jan 2023 02:15:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FB22F80217
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=JeM6/+1n
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3070pNWI021772; Sat, 7 Jan 2023 00:51:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=PcCTzQLOna79iKhl3SfZY+DvvqfN7lJVlW4D5wl0maY=;
- b=JeM6/+1ngbSi50nsDLzRU7/lFCShKAeAJ30E2Z41AyUxovn3aavxcTTN6TVOVmKBXy0s
- hP3bAg1/8GAiI11aaV+ozFWmu6uE7ATFyk/NHNj/WmvsufRue0ltIy9MXNP2h3hqg/3/
- LC3xDWIZ5JKDV+DgsQEMWD2qDlJHIoJdK9QeuJS4hz1Vdmp1Lu4f79UYB3fvhpJ2kx/e
- kcf4kW7LufgvupBuOm4a4HbpIs8sS1XX+85RtU4oOLg2pRE3fYNaurZJsMKzRGBkmDR9
- jleMMNRoIhCAn5Byjmpib5e06fveVWo36P/V01XhN4qE6nR71SzAUi5y2q6lo3n8oYuk Jg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3mx9jfjn0h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 07 Jan 2023 00:51:23 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3070pMNF023141
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 7 Jan 2023 00:51:22 GMT
-Received: from [10.110.74.54] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 6 Jan 2023
- 16:51:21 -0800
-Message-ID: <ed3d16a2-0320-596f-4091-ceef2d11fca9@quicinc.com>
-Date: Fri, 6 Jan 2023 16:51:21 -0800
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=M7TwVeeE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673054114; x=1704590114;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=A1l9nLxqa/QgP6et14ncprz/Qiq1w5jVWtdRAUx+0/E=;
+ b=M7TwVeeEZEXNGGl17ZQTDqkazpmfCoCrmL62oQXtK/AgwPxoag+QC9BV
+ QZgHvrni1QP0l+gnYeKaEzH3+WbR/SjTJ4m6PDqb81EshQmGTHnTwFd/2
+ ZS1umg/jDjwhfD76L4YFZeE2WZ2tCD/zn9O74PEJMx0x3MWShFKHPnEuN
+ aGKTG+Xtkfjp6XaSfkZesGF9XfGX5uSwY81EXNJlYb7UVESEFzpnu7bXl
+ /oE4UONaWryF1DEIaD/SJVHD82sH6ceFGnmwyFFGU732p6cGW5XmFzL52
+ PwTcJzzMAtAo9lzdLbpRN14r8lnH20+JKp9BX73S/pXjl/lZgB3rfFihE A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10582"; a="322671668"
+X-IronPort-AV: E=Sophos;i="5.96,307,1665471600"; d="scan'208";a="322671668"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2023 17:15:09 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10582"; a="649474201"
+X-IronPort-AV: E=Sophos;i="5.96,307,1665471600"; d="scan'208";a="649474201"
+Received: from apbaezbo-mobl2.amr.corp.intel.com (HELO [10.212.60.153])
+ ([10.212.60.153])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2023 17:15:07 -0800
+Message-ID: <fe30d88f-fe03-f77b-7f34-2b8a063214b9@linux.intel.com>
+Date: Fri, 6 Jan 2023 19:15:07 -0600
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH 02/14] ASoC: qcom: qdsp6: Introduce USB AFE port to
- q6dsp
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [RFC] Sound support for Huawei line of AMD laptops using ACP and
+ ES8336 codec
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
- <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <gregkh@linuxfoundation.org>, <Thinh.Nguyen@synopsys.com>,
- <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <agross@kernel.org>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-3-quic_wcheng@quicinc.com>
- <5babccd6-9796-7613-cf82-cc859f338448@linux.intel.com>
- <6e13521a-84bf-f8a6-e8cc-5b90ff4bd675@quicinc.com>
- <65820e0e-be8b-c574-98d0-a2e60ee4be76@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <65820e0e-be8b-c574-98d0-a2e60ee4be76@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 2qDcc9MT_mr9ckvvQHeLaPh9VIMfXPaR
-X-Proofpoint-ORIG-GUID: 2qDcc9MT_mr9ckvvQHeLaPh9VIMfXPaR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-06_14,2023-01-06_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- bulkscore=0 phishscore=0 spamscore=0 adultscore=0 suspectscore=0
- mlxlogscore=999 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301070005
+To: Marian Postevca <posteuca@mutex.one>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <871qo7fqjp.fsf@mutex.one>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <871qo7fqjp.fsf@mutex.one>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,120 +91,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, "Chehab, Mauro" <mauro.chehab@intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ David Yang <yangxiaohua@everest-semi.com>,
+ syed sabakareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre,
 
-On 1/6/2023 8:09 AM, Pierre-Louis Bossart wrote:
-> 
->>>> The QC ADSP is able to support USB playback and capture, so that the
->>>> main application processor can be placed into lower CPU power modes.
->>>> This
->>>> adds the required AFE port configurations and port start command to
->>>> start
->>>> an audio session.
->>>
->>> It would be good to clarify what sort of endpoints can be supported. I
->>> presume the SOF-synchronous case is handled, but how would you deal with
->>> async endpoints with feedback (be it explicit or implicit)?
->>>
->>
->> Sure, both types of feedback endpoints are expected to be supported by
->> the audio DSP, as well as sync eps.  We have the logic there to modify
->> the audio sample size accordingly.
-> 
-> did you mean modify samples per USB frame (or uframe), so as to change
-> the pace at which data is transferred? If yes it'd be the same for Intel.
-> 
 
-Yes, sorry for not being clear.  Your understanding is correct.
-
->>>>      static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
->>>> +    {"USB Playback", NULL, "USB_RX"},
->>>
->>> ... but here RX means playback?
->>>
->>> I am not sure I get the convention on directions and what is actually
->>> supported?
->>>
->>
->> The notation is based on the direction of which the audio data is
->> sourced or pushed on to the DSP.  So in playback, the DSP is receiving
->> audio data to send, and capture, it is transmitting audio data received.
->> (although we do not support capture yet)
+> I have a Huawei Matebook 14 AMD 2021 laptop for which the sound isn't
+> supported on Linux. On further investigation in Windows and ACPI tables
+> I could determine that this particular SKU has an ES8336 codec connected
+> to the CPU ACP module.
+> The CPU of my laptop is an AMD Ryzen 5 5500U which seems to be codenamed
+> Lucienne and is a derivation of the Renoir family.
+> Acording to lspci the ACP is revision 1:
 > 
-> ok, it'd be good to add a comment on this convention. Usually RX/TX is
-> bus-centric.
+> 03:00.5 Multimedia controller [0480]: Advanced Micro Devices, Inc. [AMD] Raven/Raven2/FireFlight/Renoir Audio Processor [1022:15e2] (rev 01)
+> 	Subsystem: Device [1e83:3e4d]
+> 	Kernel driver in use: snd_rn_pci_acp3x
+> 	Kernel modules: snd_pci_acp3x, snd_rn_pci_acp3x, snd_pci_acp5x,
+> 	snd_pci_acp6x, snd_acp_pci, snd_rpl_pci_acp6x,
+> 	snd_sof_amd_renoir
 > 
-
-Sure, will do.
-
->>
->>>> +struct afe_param_id_usb_cfg {
->>>> +/* Minor version used for tracking USB audio device configuration.
->>>> + * Supported values: AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
->>>> + */
->>>> +    u32                  cfg_minor_version;
->>>> +/* Sampling rate of the port.
->>>> + * Supported values:
->>>> + * - AFE_PORT_SAMPLE_RATE_8K
->>>> + * - AFE_PORT_SAMPLE_RATE_11025
->>>> + * - AFE_PORT_SAMPLE_RATE_12K
->>>> + * - AFE_PORT_SAMPLE_RATE_16K
->>>> + * - AFE_PORT_SAMPLE_RATE_22050
->>>> + * - AFE_PORT_SAMPLE_RATE_24K
->>>> + * - AFE_PORT_SAMPLE_RATE_32K
->>>> + * - AFE_PORT_SAMPLE_RATE_44P1K
->>>> + * - AFE_PORT_SAMPLE_RATE_48K
->>>> + * - AFE_PORT_SAMPLE_RATE_96K
->>>> + * - AFE_PORT_SAMPLE_RATE_192K
->>>> + */
->>>> +    u32                  sample_rate;
->>>> +/* Bit width of the sample.
->>>> + * Supported values: 16, 24
->>>> + */
->>>> +    u16                  bit_width;
->>>> +/* Number of channels.
->>>> + * Supported values: 1 and 2
->>>
->>> that aligns with my feedback on the cover letter, if you connect a
->>> device that can support from than 2 channels should the DSP even expose
->>> this DSP-optimized path?
->>>
->>
->> My assumption is that I programmed the DAIs w/ PCM formats supported by
->> the DSP, so I think the ASoC core should not allow userspace to choose
->> that path if the hw params don't fit/match.
+> I have written a machine driver for this platform and managed to make
+> the sound and internal microphone work. I am looking to integrate this
+> support but there are some issues with the current implementation of ACP
+> support.
 > 
-> Right, but the point I was trying to make is that if the device can do
-> more, why create this DSP path at all?
+> As far as I can tell there are 4 directions I could take to add support:
 > 
-
-Yeah, I think this brings me back to needing to understand a bit more of 
-how the userspace chooses which PCM device to use.  At least for our 
-current use cases, userspace would always route through the offload 
-path, regardless of if the device can do more.  It will just select a 
-lower audio profile if so.
-
->>
->>> Oh and I forgot, what happens if there are multiple audio devices
->>> connected, can the DSP deal with all of them? If not, how is this
->>> handled?
->>>
->>
->> This is one topic that we were pretty open ended on.  At least on our
->> implementation, only one audio device can be supported at a time.  We
->> choose the latest device that was plugged in or discovered by the USB
->> SND class driver.
+> 1. A standalone machine driver in sound/soc/amd that uses the platform
+>   drivers from sound/soc/amd/raven/
 > 
-> Similar case for Intel. I have to revisit this, I don't recall the details.
+> 2. An embedded driver in sound/soc/amd/acp/acp-legacy-mach.c
 > 
+> 3. A standalone machine driver in sound/soc/amd that uses the platform
+>   drivers from sound/soc/amd/renoir
+> 
+> 4. Use the SOF infrastructure
 
-Got it.
-
-Thanks
-Wesley Cheng
+The main issue with this codec is the mind-blowing proliferation of
+configurations and quirks.
+I can't comment on AMD-specific stuff, but would recommend you take a
+look at the GitHub PR we've been reviewing to extract as much
+information as possible from ACPI _DSM tables (as done by the Windows
+driver). see https://github.com/thesofproject/linux/pull/4112 (credits
+to Mauro Chehab for fixing and testing on real hardware and David Yang
+for providing the DSM information and comments).

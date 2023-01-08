@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEFEC6610AE
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Jan 2023 19:00:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889C06614D6
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Jan 2023 12:45:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB90735E9;
-	Sat,  7 Jan 2023 18:59:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB90735E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8ABDC67B;
+	Sun,  8 Jan 2023 12:44:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8ABDC67B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673114444;
-	bh=KpNPtoWtSU8ydsvE/mK3W+cUogeAgwBi7lQ7A9MHyOc=;
+	s=default; t=1673178309;
+	bh=Cs2DxQdTvtt/co+pTJ4Kj/b3UwuYx8JSmr0ljLbQVEk=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=Re9bRF823tfzqrxOxGnm1A7xhlLZgZKYjgiHtK7PO2Ro+hTROpFw3UA+qckdVOyl5
-	 A1VmLgXvuHpKAQPoYpFKo/9pK+K77auWwBqOoKTe+gA8PQw8H6M4eZT5cMdRJGvxdu
-	 79+8fReX2T0E8TJN4Zaj6hk/XUHjuZJoNRG9UR5E=
+	b=F3J6dbiNEClfWxMtzeEC7z2Ri984ITTUlwslOL6dYwpPRaCEMDLjtmYFP5j6mU3+1
+	 u9uIeW7Ee+R3Df2PTV3OLHD8uIVoYxrmLsjBI7ZryPKfjJY9P9FgJDG74cPIVpeN4d
+	 VTMhTKFNRa1omZm2L73uuuQHWaNcouC/AD/c6h/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98D06F800C0;
-	Sat,  7 Jan 2023 18:59:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1258DF80236;
+	Sun,  8 Jan 2023 12:44:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62F29F804AD; Sat,  7 Jan 2023 18:59:45 +0100 (CET)
+ id 8C68AF804C1; Sun,  8 Jan 2023 12:44:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DBE7F8027B
- for <alsa-devel@alsa-project.org>; Sat,  7 Jan 2023 18:59:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DBE7F8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2D86F80236
+ for <alsa-devel@alsa-project.org>; Sun,  8 Jan 2023 12:44:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2D86F80236
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
  header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
- header.a=rsa-sha256 header.s=20210112 header.b=wMIOyxfy
-Received: by mail-pl1-x62e.google.com with SMTP id v23so159086plo.1
- for <alsa-devel@alsa-project.org>; Sat, 07 Jan 2023 09:59:42 -0800 (PST)
+ header.a=rsa-sha256 header.s=20210112 header.b=JZNPMaVe
+Received: by mail-pl1-x62f.google.com with SMTP id v23so1616371plo.1
+ for <alsa-devel@alsa-project.org>; Sun, 08 Jan 2023 03:44:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iWqmgQf0ITiBcZh6JNhizBnvL7irlNgfSV2PoqtxyOw=;
- b=wMIOyxfyvHuC8e5Aj6CB86Nw70h9LBzXvBV1QA9bp/cj6fSM7QyfknVz52mhPEPidk
- a1zsQzUy5Qq7BA4Ks65U5UYG+sp3s+EBb25I2XDJ2dcahqqjpM60S5LbDLZfRpx2MeFU
- W7nfaCWOroj4S4MucO++lqXNHZVD+7BdFUnEzq659JgK4gdHmWhnogPQqXUkmUxBgp5a
- Ua/h1lO+/UUDk4aU/llV3Dk9KtpcdmChz7iAN5oZkUagA7INeCQhFf3pz9/QqMnZ5Gww
- FlwN4i2TSMyEqfdVC6acojXTwY3qO43cpWjfuEQnQa2sYVZKFU4f/Vp8pm576XC0SbMc
- 5nLw==
+ bh=K9nsM9ze7/IVAFeNx2iL5lzz62WyvKhiLwvesPkswPc=;
+ b=JZNPMaVecw2wAD9otYPnQHFnTEF+Tu1oNbEjp5STAi+ECzfPFA8tIGA1EaSGNqEFrN
+ q99Ew5DTqSFV+jxLC3M0ei6NrX7va83Dl5iMGSsI2y7CRsF9HRFz1yjOD6rUi2VVACUm
+ +lha5iN9Gy5GpL/Orqm0pYrc3I/xgNghbMUdB4UhvbH1zjeCwwJQqeKAlQvTePXNYF8E
+ OLQ1ArR9wP6GVMf8VAAirh5vi4NxEnIdFGll43fgy/tKoMSvOu7ySrizB65Zz/5xTSUz
+ px2pPVv0AaRBhv+eEV4VoPXXz6fFjs0JHWI4d1Fkg+SZ4tt+hcdLQuEW3jSSvz26IkWo
+ pgzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=iWqmgQf0ITiBcZh6JNhizBnvL7irlNgfSV2PoqtxyOw=;
- b=kst2EgxVWFuaggiRqPkiVJ6sZJECeGASADm2ngOZ9uILyggJgP2nW59ZzImX93OW4g
- zMSSGsRNtpkIEHaSxYyW9kE+Gjs1t9F0rngF1PWplBaP0j/lGaO/y7o0SZCKu06ss/M3
- YJ7FyzFFyhXvTulKoQ20xPtuBihsVUlX33cQ0W3JFXCFi0qSVPeJ//LBe1OlM8hI4pow
- KWW+cLLgoAcbJMItLtvjunX18vza+stNYyeGgRKjW7g9Nt/nnwlb9tu+yzaSSULpvj02
- IBoMFgz866/zyax969u0t9UoQfMA3e3w/CyZzJbcgQXUDZy3Na0f8+SxpNgpFy5OyaN/
- pPHQ==
-X-Gm-Message-State: AFqh2kqlpwLvRSjRIoRGlPpiFarvH9w39rSimoei9P+VLHx6ZX5QIq1i
- 5fvSMTAzSrCfgt4hr4G+vFO8LA==
-X-Google-Smtp-Source: AMrXdXtVpHJdVOh4RfHSJOx0P/jtbPc2ZkMWo8tGt2ZaF7BG1czvecWZCiKuu3acIhIcAZwpeKeMbg==
-X-Received: by 2002:a05:6a20:1a84:b0:a7:89fd:884c with SMTP id
- ci4-20020a056a201a8400b000a789fd884cmr66257655pzb.11.1673114380551; 
- Sat, 07 Jan 2023 09:59:40 -0800 (PST)
+ bh=K9nsM9ze7/IVAFeNx2iL5lzz62WyvKhiLwvesPkswPc=;
+ b=oSNp9ZXt3EEYX3H28BzYsRhtDhp5c+oiM+4Rsh9W839YlT5X2ft09/jNEr0CvHVc+G
+ mqeG1WFLQZ7iGXlbEwvnkO/X+SUKFiSXl9tG4H+E8WjgQBwKK5gQGHyyy8oiGK0Gqp6H
+ Baw473rEwD2Ro2s7joh++QV4maiozcjV0pttuLiXXmfKJ3knN6Kgh9WQCiuqCb/+hrPz
+ qUr4SOWbSrG77NffkMqALHNJQhkK4dBmF0jc31SxiR6ZGICCN5CkR956/sUHq9Rfxv7m
+ f0OmZwK4L3LG6zHYUd/abq/16CrWw2590xJM3RXMxU7ICzNoBe5riFryHnMb6QJCJSfF
+ srFQ==
+X-Gm-Message-State: AFqh2krK8rOsZ21LRtWPXsEM8qdeVUZE1iEOYY7SYaj+NXYpXlxcF8Hi
+ WWBZSV5Df0VRosDU7iajrhGBGw==
+X-Google-Smtp-Source: AMrXdXsNwzNBN2wYlF9q0MVzJwVapvLJ3KcrR9ulqvMDas5TSQuWTmnHqjbmnPNZCS5CFVDxoRNluw==
+X-Received: by 2002:a17:90b:310f:b0:226:876c:4c57 with SMTP id
+ gc15-20020a17090b310f00b00226876c4c57mr20464874pjb.39.1673178239277; 
+ Sun, 08 Jan 2023 03:43:59 -0800 (PST)
 Received: from localhost.localdomain (36-226-16-237.dynamic-ip.hinet.net.
  [36.226.16.237]) by smtp.gmail.com with ESMTPSA id
- g84-20020a625257000000b00580978caca7sm3102886pfb.45.2023.01.07.09.59.37
+ j23-20020a17090a061700b002262fcd92desm5621521pjj.7.2023.01.08.03.43.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Jan 2023 09:59:39 -0800 (PST)
+ Sun, 08 Jan 2023 03:43:58 -0800 (PST)
 From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH v1] ASoC: mediatek: mt8186-rt5682: primary_codec_init() warn:
- missing error code? 'ret'
-Date: Sun,  8 Jan 2023 01:59:33 +0800
-Message-Id: <20230107175933.12973-1-ajye_huang@compal.corp-partner.google.com>
+Subject: [PATCH v1] ASoC: nau8315: remove dependency on GPIOLIB
+Date: Sun,  8 Jan 2023 19:43:51 +0800
+Message-Id: <20230108114351.539786-1-ajye_huang@compal.corp-partner.google.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -99,57 +98,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, "chunxu . li" <chunxu.li@mediatek.com>,
- Dan Carpenter <error27@gmail.com>, kernel test robot <lkp@intel.com>,
- =?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
- <nfraprado@collabora.com>,
+Cc: Sasha Levin <sashal@kernel.org>, Terry Cheong <htcheong@chromium.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
  Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- tongjian <tongjian@huaqin.corp-partner.google.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ kernel test robot <lkp@intel.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, David Lin <CTLIN0@nuvoton.com>,
+ amadeuszx.slawinski@linux.intel.com, Linux Patches Robot
+ <linux-patches-robot@chromeos-missing-patches.google.com.iam.gserviceaccount.com>,
+ Ryan Lee <ryan.lee.analog@gmail.com>, alsa-devel@alsa-project.org,
+ Sean Paul <sean@poorly.run>, Brent Lu <brent.lu@intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The function primary_codec_init() should return 0 if dmic_sel is null.
+commit dcc2c012c7691 ("ASoC: Fix gpiolib dependencies") removed a
+series of unnecessary dependencies on GPIOLIB when the gpio was
+optional.
 
-Here is the warning message reported by 0-DAY CI Kernel Test Service.
+A similar simplification seems valid for nau8315, so remove the
+dependency as well. This will avoid the following warning
 
-smatch warnings:
-primary_codec_init() warn: missing error code? 'ret'
-...
-2022-11-02  141       if (!priv->dmic_sel) {
-2022-11-02  142               dev_info(card->dev, "dmic_sel is null\n");
-2022-11-02 @143               return ret;
+  WARNING: unmet direct dependencies detected for SND_SOC_NAU8315
 
-return -EIVNAL;?  return 0;?
+   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
+                   GPIOLIB [=n]
+   Selected by [y]:
 
-2022-11-02  144       }
+     - SND_SOC_INTEL_SOF_NAU8825_MACH [=y] && SOUND [=y] && !UML &&
+       SND [=y] && SND_SOC [=y] && SND_SOC_INTEL_MACH [=y] &&
+       (SND_SOC_SOF_HDA_LINK [=y] || SND_SOC_SOF_BAYTRAIL [=n]) &&
+       I2C [=y] && ACPI [=y] && SND_HDA_CODEC_HDMI [=y] &&
+       SND_SOC_SOF_HDA_AUDIO_CODEC [=y] && (MFD_INTEL_LPSS [=n] ||
+       COMPILE_TEST [=y])
 
 Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <error27@gmail.com>
 Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-
 ---
- sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-index af44e331dae8..b333950aa3c3 100644
---- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-@@ -140,7 +140,7 @@ static int primary_codec_init(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index bbd401e52be1..e165addec25f 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1863,7 +1863,6 @@ config SND_SOC_MT6660
  
- 	if (!priv->dmic_sel) {
- 		dev_info(card->dev, "dmic_sel is null\n");
--		return ret;
-+		return 0;
- 	}
+ config SND_SOC_NAU8315
+ 	tristate "Nuvoton Technology Corporation NAU8315 CODEC"
+-	depends on GPIOLIB
  
- 	ret = snd_soc_dapm_new_controls(&card->dapm, dmic_widgets,
+ config SND_SOC_NAU8540
+ 	tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
 -- 
 2.25.1
 

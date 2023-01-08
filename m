@@ -2,90 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889C06614D6
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Jan 2023 12:45:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6BF366160C
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Jan 2023 16:11:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8ABDC67B;
-	Sun,  8 Jan 2023 12:44:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8ABDC67B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B41FCD1E;
+	Sun,  8 Jan 2023 16:10:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B41FCD1E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673178309;
-	bh=Cs2DxQdTvtt/co+pTJ4Kj/b3UwuYx8JSmr0ljLbQVEk=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=F3J6dbiNEClfWxMtzeEC7z2Ri984ITTUlwslOL6dYwpPRaCEMDLjtmYFP5j6mU3+1
-	 u9uIeW7Ee+R3Df2PTV3OLHD8uIVoYxrmLsjBI7ZryPKfjJY9P9FgJDG74cPIVpeN4d
-	 VTMhTKFNRa1omZm2L73uuuQHWaNcouC/AD/c6h/g=
+	s=default; t=1673190707;
+	bh=SxXDNsl3vuc0zk4vbXiRjSLhogMTvhotnj2GQr6lUyE=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=eIij0a9EgBQIu9RaD1DT4QzhIuebZ8IxHg6JEF+80fuSy1ABNgeUq+P8DbDTfLPyT
+	 yY9jtu8/b8MwqCQPMb7O5n3WeMYEC8SiRLDhQhd0OfgutjjPHBpiz5mLsJ0+5087yw
+	 NJxErsqyUR4F1xWV9cM/php+V9+ABfY1aaB6byLs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1258DF80236;
-	Sun,  8 Jan 2023 12:44:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D41CCF80245;
+	Sun,  8 Jan 2023 16:10:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C68AF804C1; Sun,  8 Jan 2023 12:44:08 +0100 (CET)
+ id 89B19F804C1; Sun,  8 Jan 2023 16:10:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-8.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2D86F80236
- for <alsa-devel@alsa-project.org>; Sun,  8 Jan 2023 12:44:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2D86F80236
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F73EF80245
+ for <alsa-devel@alsa-project.org>; Sun,  8 Jan 2023 16:10:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F73EF80245
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=compal-corp-partner-google-com.20210112.gappssmtp.com
- header.i=@compal-corp-partner-google-com.20210112.gappssmtp.com
- header.a=rsa-sha256 header.s=20210112 header.b=JZNPMaVe
-Received: by mail-pl1-x62f.google.com with SMTP id v23so1616371plo.1
- for <alsa-devel@alsa-project.org>; Sun, 08 Jan 2023 03:44:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=compal-corp-partner-google-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=K9nsM9ze7/IVAFeNx2iL5lzz62WyvKhiLwvesPkswPc=;
- b=JZNPMaVecw2wAD9otYPnQHFnTEF+Tu1oNbEjp5STAi+ECzfPFA8tIGA1EaSGNqEFrN
- q99Ew5DTqSFV+jxLC3M0ei6NrX7va83Dl5iMGSsI2y7CRsF9HRFz1yjOD6rUi2VVACUm
- +lha5iN9Gy5GpL/Orqm0pYrc3I/xgNghbMUdB4UhvbH1zjeCwwJQqeKAlQvTePXNYF8E
- OLQ1ArR9wP6GVMf8VAAirh5vi4NxEnIdFGll43fgy/tKoMSvOu7ySrizB65Zz/5xTSUz
- px2pPVv0AaRBhv+eEV4VoPXXz6fFjs0JHWI4d1Fkg+SZ4tt+hcdLQuEW3jSSvz26IkWo
- pgzQ==
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=kPbR0cqH
+Received: by mail-wm1-x335.google.com with SMTP id
+ m8-20020a05600c3b0800b003d96f801c48so7172036wms.0
+ for <alsa-devel@alsa-project.org>; Sun, 08 Jan 2023 07:10:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Bg8R7GNb5drrHJYQqW2GJwB+W4AiceVnD28th+/uo4I=;
+ b=kPbR0cqHsrH02VTzykoBoOZCWg/Qo7jWwHGb24NzLeE+k8v/8cUUVookffg+H9koUS
+ hA++KI8we94rOez+6Q+dFA2OcORLMzaK+hWMBrKCl1K4GaJJpdAvy4pWykjyBvEFwHgr
+ 9UM8sib62v69Fw5gHxwiJQi6qrjDoboGq7IjVFHg3aDbo7xqEvqDs2UwtkAzoZDDZ5l4
+ J+ZtYMCGr8yfRRTvgAm1BqVnUaoaFUjUBwjsbx4OkrqpryARZ3P06OyI1nVxGy5uNYJU
+ s/q3IwN5ojBVgO6103bZr3LVK7Rfe1sweFRYVYzvn/jk0H/+TIX6k+UslLFX+xKUpGvy
+ ORFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=K9nsM9ze7/IVAFeNx2iL5lzz62WyvKhiLwvesPkswPc=;
- b=oSNp9ZXt3EEYX3H28BzYsRhtDhp5c+oiM+4Rsh9W839YlT5X2ft09/jNEr0CvHVc+G
- mqeG1WFLQZ7iGXlbEwvnkO/X+SUKFiSXl9tG4H+E8WjgQBwKK5gQGHyyy8oiGK0Gqp6H
- Baw473rEwD2Ro2s7joh++QV4maiozcjV0pttuLiXXmfKJ3knN6Kgh9WQCiuqCb/+hrPz
- qUr4SOWbSrG77NffkMqALHNJQhkK4dBmF0jc31SxiR6ZGICCN5CkR956/sUHq9Rfxv7m
- f0OmZwK4L3LG6zHYUd/abq/16CrWw2590xJM3RXMxU7ICzNoBe5riFryHnMb6QJCJSfF
- srFQ==
-X-Gm-Message-State: AFqh2krK8rOsZ21LRtWPXsEM8qdeVUZE1iEOYY7SYaj+NXYpXlxcF8Hi
- WWBZSV5Df0VRosDU7iajrhGBGw==
-X-Google-Smtp-Source: AMrXdXsNwzNBN2wYlF9q0MVzJwVapvLJ3KcrR9ulqvMDas5TSQuWTmnHqjbmnPNZCS5CFVDxoRNluw==
-X-Received: by 2002:a17:90b:310f:b0:226:876c:4c57 with SMTP id
- gc15-20020a17090b310f00b00226876c4c57mr20464874pjb.39.1673178239277; 
- Sun, 08 Jan 2023 03:43:59 -0800 (PST)
-Received: from localhost.localdomain (36-226-16-237.dynamic-ip.hinet.net.
- [36.226.16.237]) by smtp.gmail.com with ESMTPSA id
- j23-20020a17090a061700b002262fcd92desm5621521pjj.7.2023.01.08.03.43.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Jan 2023 03:43:58 -0800 (PST)
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v1] ASoC: nau8315: remove dependency on GPIOLIB
-Date: Sun,  8 Jan 2023 19:43:51 +0800
-Message-Id: <20230108114351.539786-1-ajye_huang@compal.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bg8R7GNb5drrHJYQqW2GJwB+W4AiceVnD28th+/uo4I=;
+ b=QcRQa96bCWMnrceOlEjuzBJb/Ew0AwiyRBZv0xarptWRVGv2rLSQ00QqTCx+Kx2roo
+ 64BLVU0QuyK9+amBcFMmcPKPGWTrjikvBNUvXYeFPiSwCXl0H3ULP7xeH+HWNJZkOBdC
+ 4D+pPrp6Pz1upvE/AuWBrXBD7WBhdUvO53LFPlbB9ndDjZNG1nffOZDjXhKZ5wD7AUNd
+ xD7Q+3faceV9/jVlqnLzrL4br+N8KvaaODnNOmy2CjCaUbFEeloi6nwCsNTD7cn/pzIW
+ kdhsWSCR9kw+pPMgubvuhCSxT47W7Mn9tFJVetu0jP1ble+UmsEGMc+FGFzioacZZoPj
+ FjAA==
+X-Gm-Message-State: AFqh2kptGnq5s7TSAFbhryNDWoeSc3zLoBMgdvFZuL+U7l1jGKKdcCpu
+ Wqsy8AbfyGdbe2fPl5ANARIxOQ==
+X-Google-Smtp-Source: AMrXdXvR04b9qmXw5LXVzZsXI3/3ZWLWhpukdXTXq+q6vSHTfrly72adgYlRcwhjYZblERHSvEyXbQ==
+X-Received: by 2002:a1c:770b:0:b0:3cf:a18d:399c with SMTP id
+ t11-20020a1c770b000000b003cfa18d399cmr46344225wmi.1.1673190642554; 
+ Sun, 08 Jan 2023 07:10:42 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ x7-20020a05600c188700b003c701c12a17sm12412741wmp.12.2023.01.08.07.10.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Jan 2023 07:10:41 -0800 (PST)
+Message-ID: <427e0775-c576-e293-f590-b9840b936884@linaro.org>
+Date: Sun, 8 Jan 2023 16:10:38 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 01/10] dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+Content-Language: en-US
+To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>
+References: <20230106163746.439717-1-herve.codina@bootlin.com>
+ <20230106163746.439717-2-herve.codina@bootlin.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230106163746.439717-2-herve.codina@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,60 +115,355 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Terry Cheong <htcheong@chromium.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- kernel test robot <lkp@intel.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, David Lin <CTLIN0@nuvoton.com>,
- amadeuszx.slawinski@linux.intel.com, Linux Patches Robot
- <linux-patches-robot@chromeos-missing-patches.google.com.iam.gserviceaccount.com>,
- Ryan Lee <ryan.lee.analog@gmail.com>, alsa-devel@alsa-project.org,
- Sean Paul <sean@poorly.run>, Brent Lu <brent.lu@intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-commit dcc2c012c7691 ("ASoC: Fix gpiolib dependencies") removed a
-series of unnecessary dependencies on GPIOLIB when the gpio was
-optional.
+On 06/01/2023 17:37, Herve Codina wrote:
+> Add support for the time slot assigner (TSA)
+> available in some PowerQUICC SoC such as MPC885
+> or MPC866.
+> 
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> ---
+>  .../bindings/soc/fsl/cpm_qe/fsl,tsa.yaml      | 262 ++++++++++++++++++
+>  include/dt-bindings/soc/fsl-tsa.h             |  15 +
+>  2 files changed, 277 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
+>  create mode 100644 include/dt-bindings/soc/fsl-tsa.h
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
+> new file mode 100644
+> index 000000000000..7542c0fd8435
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
+> @@ -0,0 +1,262 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/fsl/cpm_qe/fsl,tsa.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: PowerQUICC CPM Time-slot assigner (TSA) controller
+> +
+> +maintainers:
+> +  - Herve Codina <herve.codina@bootlin.com>
+> +
+> +description: |
+> +  The TSA is the time-slot assigner that can be found on some
+> +  PowerQUICC SoC.
+> +  Its purpose is to route some TDM time-slots to other internal
+> +  serial controllers.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - fsl,mpc885-tsa
+> +          - fsl,mpc866-tsa
+> +      - const: fsl,cpm1-tsa
+> +
+> +  reg:
+> +    items:
+> +      - description: SI (Serial Interface) register base
+> +      - description: SI RAM base
+> +
+> +  reg-names:
+> +    items:
+> +      - const: si_regs
+> +      - const: si_ram
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^tdm@[0-1]$":
 
-A similar simplification seems valid for nau8315, so remove the
-dependency as well. This will avoid the following warning
+Use consistent quotes - either ' or "
 
-  WARNING: unmet direct dependencies detected for SND_SOC_NAU8315
+> +    description:
+> +      The TDM managed by this controller
+> +    type: object
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 1
+> +        description:
+> +          The TDM number for this TDM, 0 for TDMa and 1 for TDMb
+> +
+> +      fsl,common-rxtx-pins:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          Use common pins for both transmit and receive
 
-   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
-                   GPIOLIB [=n]
-   Selected by [y]:
+What are the "common" pins? Without this property device is using
+uncommon pins? This does not make sense...
 
-     - SND_SOC_INTEL_SOF_NAU8825_MACH [=y] && SOUND [=y] && !UML &&
-       SND [=y] && SND_SOC [=y] && SND_SOC_INTEL_MACH [=y] &&
-       (SND_SOC_SOF_HDA_LINK [=y] || SND_SOC_SOF_BAYTRAIL [=n]) &&
-       I2C [=y] && ACPI [=y] && SND_HDA_CODEC_HDMI [=y] &&
-       SND_SOC_SOF_HDA_AUDIO_CODEC [=y] && (MFD_INTEL_LPSS [=n] ||
-       COMPILE_TEST [=y])
+> +
+> +      clocks: true
+> +      clock-names: true
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
----
- sound/soc/codecs/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+Both need constraints.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index bbd401e52be1..e165addec25f 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1863,7 +1863,6 @@ config SND_SOC_MT6660
- 
- config SND_SOC_NAU8315
- 	tristate "Nuvoton Technology Corporation NAU8315 CODEC"
--	depends on GPIOLIB
- 
- config SND_SOC_NAU8540
- 	tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
--- 
-2.25.1
+> +
+> +      fsl,mode:
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        enum: [normal, echo, internal-loopback, control-loopback]
+> +        default: normal
+> +        description: |
+> +          Operational mode:
+> +            - normal:
+> +                Normal operation
+> +            - echo:
+> +                Automatic echo. Rx data is resent on Tx
+> +            - internal-loopback:
+> +                The TDM transmitter is connected to the receiver.
+> +                Data appears on Tx pin.
+> +            - control-loopback:
+> +                The TDM transmitter is connected to the receiver.
+> +                The Tx pin is disconnected.
+> +
+> +      fsl,rx-frame-sync-delay:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3]
+> +        default: 0
+> +        description: |
+> +          Receive frame sync delay.
+
+Delay in what units?
+
+> +          Indicates the delay between the Rx sync and the first bit of the
+> +          Rx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
+> +
+> +      fsl,tx-frame-sync-delay:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3]
+> +        default: 0
+> +        description: |
+> +          Transmit frame sync delay.
+> +          Indicates the delay between the Tx sync and the first bit of the
+> +          Tx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
+> +
+> +      fsl,clock-falling-edge:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description: |
+> +          Data is sent on falling edge of the clock (and received on the
+> +          rising edge).
+> +          If 'clock-falling-edge' is not present, data is sent on the
+> +          rising edge (and received on the falling edge).
+> +
+> +      fsl,fsync-rising-edge:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          Frame sync pulses are sampled with the rising edge of the channel
+> +          clock. If 'fsync-rising-edge' is not present, pulses are sample
+> +          with e falling edge.
+> +
+> +      fsl,double-speed-clock:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          The channel clock is twice the data rate.
+> +
+> +      fsl,grant-mode:
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          Grant mode enabled.
+
+This we know from property name. You need to describe what it is and
+what it does.
+
+> +
+> +      tx_ts_routes:
+
+No underscores, missing vendor prefix.
+
+> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +        description: |
+> +          A list of tupple that indicates the Tx time-slots routes.
+> +            tx_ts_routes =
+> +               < 2 0 0>, /* The first 2 time slots are not used */
+> +               < 3 1 0>, /* The next 3 ones are route to SCC2 */
+> +               < 4 0 0>, /* The next 4 ones are not used */
+> +               < 2 2 0>; /* The nest 2 ones are route to SCC3 */
+> +        items:
+> +          items:
+> +            - description:
+> +                The number of time-slots
+> +              minimum: 1
+> +              maximum: 64
+> +            - description: |
+> +                The source serial interface (dt-bindings/soc/fsl-tsa.h
+> +                defines these values)
+> +                 - 0: No destination
+> +                 - 1: SCC2
+> +                 - 2: SCC3
+> +                 - 3: SCC4
+> +                 - 4: SMC1
+> +                 - 5: SMC2
+> +              enum: [0, 1, 2, 3, 4, 5]
+> +            - description:
+> +                The route flags (reserved)
+
+Why part of binding is reserved?
+
+> +              const: 0
+> +        minItems: 1
+> +        maxItems: 64
+> +
+> +      rx_ts_routes:
+> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +        description: |
+> +          A list of tupple that indicates the Rx time-slots routes.
+> +            tx_ts_routes =
+> +               < 2 0 0>, /* The first 2 time slots are not used */
+> +               < 3 1 0>, /* The next 3 ones are route from SCC2 */
+> +               < 4 0 0>, /* The next 4 ones are not used */
+> +               < 2 2 0>; /* The nest 2 ones are route from SCC3 */
+> +        items:
+> +          items:
+> +            - description:
+> +                The number of time-slots
+> +              minimum: 1
+> +              maximum: 64
+> +            - description: |
+> +                The destination serial interface (dt-bindings/soc/fsl-tsa.h
+> +                defines these values)
+> +                 - 0: No destination
+> +                 - 1: SCC2
+> +                 - 2: SCC3
+> +                 - 3: SCC4
+> +                 - 4: SMC1
+> +                 - 5: SMC2
+> +              enum: [0, 1, 2, 3, 4, 5]
+> +            - description:
+> +                The route flags (reserved)
+> +              const: 0
+> +        minItems: 1
+> +        maxItems: 64
+> +
+> +    allOf:
+> +      - if:
+> +          properties:
+> +            fsl,common-rxtx-pins:
+> +              type: 'null'
+
+What is this exactly? If check for property present, it's wrong. Should
+be test if it is in required.
+
+> +        then:
+> +          properties:
+> +            clocks:
+> +              items:
+> +                - description: External clock connected to L1RSYNC pin
+> +                - description: External clock connected to L1RCLK pin
+> +                - description: External clock connected to L1TSYNC pin
+> +                - description: External clock connected to L1TCLK pin
+> +            clock-names:
+> +              items:
+> +                - const: l1rsync
+> +                - const: l1rclk
+> +                - const: l1tsync
+> +                - const: l1tclk
+> +        else:
+> +          properties:
+> +            clocks:
+> +              items:
+> +                - description: External clock connected to L1RSYNC pin
+> +                - description: External clock connected to L1RCLK pin
+> +            clock-names:
+> +              items:
+> +                - const: l1rsync
+> +                - const: l1rclk
+> +
+> +    required:
+> +      - reg
+> +      - clocks
+> +      - clock-names
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/soc/fsl-tsa.h>
+> +
+> +    tsa@ae0 {
+> +        compatible = "fsl,mpc885-tsa", "fsl,cpm1-tsa";
+> +        reg = <0xae0 0x10>,
+> +              <0xc00 0x200>;
+> +        reg-names = "si_regs", "si_ram";
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        tdm@0 {
+> +            /* TDMa */
+> +            reg = <0>;
+> +
+> +            clocks = <&clk_l1rsynca>, <&clk_l1rclka>;
+> +            clock-names = "l1rsync", "l1rclk";
+> +
+> +            fsl,common-rxtx-pins;
+> +            fsl,fsync-rising-edge;
+> +
+> +            tx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
+> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* TS 2..25 */
+> +                           < 1 0 0>,                 /* TS 26 */
+> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
+> +
+> +            rx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
+> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* 2..25 */
+> +                           < 1 0 0>,                 /* TS 26 */
+> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
+> +        };
+> +    };
+> diff --git a/include/dt-bindings/soc/fsl-tsa.h b/include/dt-bindings/soc/fsl-tsa.h
+> new file mode 100644
+> index 000000000000..9d09468694a2
+> --- /dev/null
+> +++ b/include/dt-bindings/soc/fsl-tsa.h
+
+Filename should match binding filename.
+
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later OR MIT */
+
+A bit weird license... cannot be the same as binding?
+
+> +
+> +#ifndef __DT_BINDINGS_SOC_FSL_TSA_H
+> +#define __DT_BINDINGS_SOC_FSL_TSA_H
+> +
+> +#define FSL_CPM_TSA_NU		0	/* Pseuso Cell Id for not used item */
+
+Why defining unused IDs in binding header? These are IDs, not some
+hardware/register values.
+
+> +#define FSL_CPM_TSA_SCC2	1
+> +#define FSL_CPM_TSA_SCC3	2
+> +#define FSL_CPM_TSA_SCC4	3
+> +#define FSL_CPM_TSA_SMC1	4
+> +#define FSL_CPM_TSA_SMC2	5
+> +
+> +#define FSL_CPM_TSA_NBCELL	6
+
+Drop.
+
+> +
+> +#endif
+
+Best regards,
+Krzysztof
 

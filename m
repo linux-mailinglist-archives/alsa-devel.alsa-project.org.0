@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB3B662950
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 16:06:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33828662953
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 16:06:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89DA8B1C2;
-	Mon,  9 Jan 2023 16:05:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89DA8B1C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9984CB2B9;
+	Mon,  9 Jan 2023 16:05:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9984CB2B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673276762;
-	bh=s6GjYnke8o1MzemM8rXOytUynEpfOT5U7s+oD7Wzexw=;
+	s=default; t=1673276802;
+	bh=QHi2jbvzkeeJFLgxOk5dOR0TFTlEdZy1yafoqGl+dxU=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=BhggCMaDMQky3UwcQqKwvGG/jqZ+l/UrswWWUm86TioRjd3wCxYVjmCUV2NDfgAtC
-	 pPR6+bRI27JzR2/4Ptr32GXETkc3SsMXLFyyNxEqAKMNtVIdRoyjIZjLnrkG4JKyrz
-	 CU3l4+zW/LtXzISFDcvFo36OrZOpbpQaPIieGYOE=
+	b=SOx2HIhj/I+46rW+VggdQGHo78ANOzEhhffuaPAYsPsLuxIEaZW0mZUJi6RX8Wzej
+	 aO4asVmGulhbIkvSc2Rtr9fy+i+goue1j0HvCxELsKlCXQYfNfrSqB32JZNBomZY0v
+	 5t9QrVdkxw6EUbJTYgAPYwPuQGdvmnuMKJpCEfuQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9022EF8051B;
-	Mon,  9 Jan 2023 16:04:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E014F802BE;
+	Mon,  9 Jan 2023 16:05:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA3C6F804D2; Mon,  9 Jan 2023 16:04:54 +0100 (CET)
+ id 32D68F803DC; Mon,  9 Jan 2023 16:05:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01507F804D2
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 16:04:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01507F804D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77232F800C7
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 16:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77232F800C7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=QY5vTLVX; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=OeyHL0Nn; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=woDdPbq9
+ header.s=susede2_ed25519 header.b=2QPLHP4h
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 799F03F149;
- Mon,  9 Jan 2023 15:04:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F32C14696;
+ Mon,  9 Jan 2023 15:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673276689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673276748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9Yi1OzODcTdBG92zJ+Vu6KfAkh5Gz6h0Ktzr/eSa1d4=;
- b=QY5vTLVXNYv7BsryOF+zBr4llB8VnC3ifaJrC7shXhxzBU3a0jBCTDPVyny3jrD9x9FzL/
- s3gnxSyumZsdy0Q4QveEM7d/suyrMuNHc+AHXF4XO+3U0/mnct8Xu+Y6XgBz5wS0RUo74x
- KvGtyvQEZKKSg/mae2KcGufpiPDEPg0=
+ bh=OfJkh1o91GDn+Lns7O1tGUfnaHNTusfEDNvTAzRVavY=;
+ b=OeyHL0NnFAsiWFGIQk+5IcyYT36aA+ObOSCgS35sZ96GCJBI0exSdqcGNuCrJ5mppKnZ9C
+ CxyTi2yzHPuK7CCMasaJ9aOKdQxzi0YGWOwQdVsMqeAPZSyf9VnEF9IWBjaSez5mkTvmQ/
+ nb2qS6q88+2CLfUJbu0dkjNo+7gvYSI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673276689;
+ s=susede2_ed25519; t=1673276748;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9Yi1OzODcTdBG92zJ+Vu6KfAkh5Gz6h0Ktzr/eSa1d4=;
- b=woDdPbq9fiG+nSzRxjfEEyXhkgUzcZqyGs+Yjkrq4u7pTMwFOlpI8H9vV8pff7zQkD5CGP
- VvLE2OYoLgbYOSCA==
+ bh=OfJkh1o91GDn+Lns7O1tGUfnaHNTusfEDNvTAzRVavY=;
+ b=2QPLHP4hldnzYKDsEdLHP4VPf87mFECvCgJvK1ssMPPWKP4jzqFkfs9WLh/SjQv1JRj45N
+ 6pORK0uyPsVu6rCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59E6F134AD;
- Mon,  9 Jan 2023 15:04:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D812F134AD;
+ Mon,  9 Jan 2023 15:05:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rlYLFREtvGO1QgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 09 Jan 2023 15:04:49 +0000
-Date: Mon, 09 Jan 2023 16:04:48 +0100
-Message-ID: <87h6wzg35b.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id nKcKNEstvGNSQwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 09 Jan 2023 15:05:47 +0000
+Date: Mon, 09 Jan 2023 16:05:47 +0100
+Message-ID: <87fscjg33o.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2] ALSA: control-led: use strscpy in set_led_id()
-In-Reply-To: <20230109150119.342771-1-perex@perex.cz>
-References: <20230109150119.342771-1-perex@perex.cz>
+Subject: Re: [PATCH] ALSA: usb-audio: Always initialize fixed_rate in
+ snd_usb_find_implicit_fb_sync_format()
+In-Reply-To: <20230109141133.335543-1-perex@perex.cz>
+References: <20230109141133.335543-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,29 +98,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: yang.yang29@zte.com.cn, ALSA development <alsa-devel@alsa-project.org>,
- stable@vger.kernel.org
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Dan Carpenter <error27@gmail.com>, stable@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 09 Jan 2023 16:01:18 +0100,
+On Mon, 09 Jan 2023 15:11:33 +0100,
 Jaroslav Kysela wrote:
 > 
-> The use of strncpy() in the set_led_id() was incorrect.
-> The len variable should use 'min(sizeof(buf2) - 1, count)'
-> expression.
+> Handle the fallback code path, too.
 > 
-> Use strscpy() function to simplify things and handle the error gracefully.
-> 
-> Reported-by: yang.yang29@zte.com.cn
-> BugLink: https://lore.kernel.org/alsa-devel/202301091945513559977@zte.com.cn/
+> Fixes: fd28941cff1c ("ALSA: usb-audio: Add new quirk FIXED_RATE for JBL Quantum810 Wireless")
+> BugLink: https://lore.kernel.org/alsa-devel/Y7frf3N%2FxzvESEsN@kili/
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Let's use the normal Link tag instead of BugLink.  The former is
-preferred.
+Thanks, applied.
 
-Also, it'd be great if you can put the Fixes tag, too.
-
-
-thanks,
 
 Takashi

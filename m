@@ -2,67 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3087466298A
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 16:14:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17C93662995
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 16:14:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82B7FB3D6;
-	Mon,  9 Jan 2023 16:13:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82B7FB3D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB52AB3DD;
+	Mon,  9 Jan 2023 16:13:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB52AB3DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673277241;
-	bh=3/wjuL1YbOaJAKytJRlm2FfCw3CGRr2gS1GTsUgSqsc=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=N0WyXMQYJdqWGZ5eNPuTrIS8W2Wx7pmqh33Apim81cOkIrkHy30tvmkoJWKpiF0B8
-	 MW0hrpCucMDiWhtE4qEIsHpSK0lPJRizzus8qUEoBP2HARXBFEBtl7YpM0pHiuO2N8
-	 ryYEfa5GEEgo3HAght2SjsWe0g87+l3bQgEyQOfI=
+	s=default; t=1673277283;
+	bh=JVWO+P5CYVAglZX/1tTUTPQ6NwcQ9vUC5QzY4oBpUjs=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=MwHnH2ZfJZCaa9MQ/IeCa+S2LTT11LV/qviLR4uoHCiK0m7rGTmjSfLqzcEx/vMZ/
+	 mo1Nr1ZH+PFwizgS1ifnp/cS6y4T3JMJhO+1vXyiYepJTBN+u81da5QVJUt+4KKJPz
+	 x3ymhqBTgLRJTBBy6HE7VMS3NIJO8tFMNLMkQBzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27FBCF803DC;
-	Mon,  9 Jan 2023 16:13:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 780A9F802BE;
+	Mon,  9 Jan 2023 16:13:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 986F2F8030F; Mon,  9 Jan 2023 16:13:01 +0100 (CET)
+ id 75318F8051B; Mon,  9 Jan 2023 16:13:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00579F802BE
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 16:12:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00579F802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03D65F8030F
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 16:13:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D65F8030F
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=y31VGSY+
+ header.s=default header.b=5tWLPAcw
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C7B61A0040;
- Mon,  9 Jan 2023 16:12:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C7B61A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C912DA0042;
+ Mon,  9 Jan 2023 16:13:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C912DA0042
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1673277178; bh=VETaylCI6Iv/LOQZi/JXQYyAJhoJr3CGCu2KIBSTyFc=;
- h=From:To:Cc:Subject:Date:From;
- b=y31VGSY+Emwzpx/QwrLZEsaPQU5Qpd0S2VQxkz+bB4sucEII1/NkU9DINTeb3NMLQ
- fLF7i5YfyAARh6Dqp939RXnIjFqanaj2JvGvPCucsHYHBgVoCxCY1xDtHqls1TFJQP
- 8+NC9JVC8j2Fo87LlR0fxCOXP7/wm6csw5HmF6jc=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ t=1673277228; bh=JOgV0HrPLnwj9pZW17Xj5Dva1AUOBQ8aiY9pRGXMYWw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=5tWLPAcwwe/BjcGo1DrBO+lem97FpWvDkV3Zoe4pPZBVI7dRtnF/MPNhClhMSwcnP
+ z9ES9+6IezcH4pGykZGx3VEsLsmEjY/Q76gVRRu4uT5iFRRu+JA4kfAVsA8pJ1MnaT
+ cA2pAXwobzHCNw5WaYveGjurVwMSKAJBvYUqiTUo=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon,  9 Jan 2023 16:12:53 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH v3] ALSA: control-led: use strscpy in set_led_id()
-Date: Mon,  9 Jan 2023 16:12:49 +0100
-Message-Id: <20230109151249.343741-1-perex@perex.cz>
-X-Mailer: git-send-email 2.39.0
+ Mon,  9 Jan 2023 16:13:44 +0100 (CET)
+Message-ID: <c117caee-cd9e-02a1-d38b-489d8611b340@perex.cz>
+Date: Mon, 9 Jan 2023 16:13:44 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2] ALSA: control-led: use strscpy in set_led_id()
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+References: <20230109150119.342771-1-perex@perex.cz>
+ <87h6wzg35b.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <87h6wzg35b.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,50 +82,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>, yang.yang29@zte.com.cn,
+Cc: yang.yang29@zte.com.cn, ALSA development <alsa-devel@alsa-project.org>,
  stable@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The use of strncpy() in the set_led_id() was incorrect.
-The len variable should use 'min(sizeof(buf2) - 1, count)'
-expression.
+On 09. 01. 23 16:04, Takashi Iwai wrote:
+> On Mon, 09 Jan 2023 16:01:18 +0100,
+> Jaroslav Kysela wrote:
+>>
+>> The use of strncpy() in the set_led_id() was incorrect.
+>> The len variable should use 'min(sizeof(buf2) - 1, count)'
+>> expression.
+>>
+>> Use strscpy() function to simplify things and handle the error gracefully.
+>>
+>> Reported-by: yang.yang29@zte.com.cn
+>> BugLink: https://lore.kernel.org/alsa-devel/202301091945513559977@zte.com.cn/
+> 
+> Let's use the normal Link tag instead of BugLink.  The former is
+> preferred.
+> 
+> Also, it'd be great if you can put the Fixes tag, too.
 
-Use strscpy() function to simplify things and handle the error gracefully.
+Done. Sent v3.
 
-Fixes: a135dfb5de15 ("ALSA: led control - add sysfs kcontrol LED marking layer")
-Reported-by: yang.yang29@zte.com.cn
-Link: https://lore.kernel.org/alsa-devel/202301091945513559977@zte.com.cn/
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+			Thanks,
+				Jaroslav
 
-v1..v2:
-  - remove min() expression which strips the last char
-v2..v3:
-  - BugLink -> Link
-  - add Fixes tag
----
- sound/core/control_led.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index f975cc85772b..3cadd40100f3 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -530,12 +530,11 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
- 			  bool attach)
- {
- 	char buf2[256], *s, *os;
--	size_t len = max(sizeof(s) - 1, count);
- 	struct snd_ctl_elem_id id;
- 	int err;
- 
--	strncpy(buf2, buf, len);
--	buf2[len] = '\0';
-+	if (strscpy(buf2, buf, sizeof(buf2)) < 0)
-+		return -E2BIG;
- 	memset(&id, 0, sizeof(id));
- 	id.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	s = buf2;
 -- 
-2.39.0
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

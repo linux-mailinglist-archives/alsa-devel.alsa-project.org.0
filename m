@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80111662B9E
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 17:50:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB1AE662B9F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 17:50:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FBFCBA36;
-	Mon,  9 Jan 2023 17:49:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FBFCBA36
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52620BEBB;
+	Mon,  9 Jan 2023 17:49:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52620BEBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673283010;
-	bh=H0htiAO+IFq+g1kJgzGvOm1YmHXS0hxKh6DEXB3GTTM=;
+	s=default; t=1673283037;
+	bh=nomMKMBq5vqYlYBkVcfPgR908mTaHI9M2brVdnM5JRU=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=QEbQknahZ+MoZoAONzUkVXZT2QgF6/RTeRD6FAMuzhmPSINkVzkUalgQ9Mr1l/HVN
-	 /m/6DGnC8cXwy8Ve6hIFt/xElsDM7A3BkuB9FvmNzIzysY/14OA1pMeKjhUxv9HXjj
-	 CM2HPoSSYqscmAhVasp83zzvg791ogPGfHPRrQ94=
+	b=GA+I33FwPh/pw1RwLsy0LU8E3K7kTt+oaUjPP8YHiUXMYwhOe4mT7xzDq2XY/vKKU
+	 1XQlOiHgHImKEfl38xyTQ+12wJ0enSd/hIKybZQkbF57xLIys+OKWgslFmyMfwjJl4
+	 XEFq58HD7xuG23VGKZ4wvjKkA9UaMevrUMUhzXUg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A973CF802BE;
-	Mon,  9 Jan 2023 17:49:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 427ECF80245;
+	Mon,  9 Jan 2023 17:49:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF4D9F800C7; Mon,  9 Jan 2023 17:49:10 +0100 (CET)
+ id 4AD7BF8051B; Mon,  9 Jan 2023 17:49:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4249F800C7
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 17:49:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4249F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A760EF80245
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 17:49:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A760EF80245
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QogZDQbP
+ header.s=k20201202 header.b=qFFxaR/Z
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 718EE611A0;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3B9CB611DB;
+ Mon,  9 Jan 2023 16:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E93AC433D2;
  Mon,  9 Jan 2023 16:49:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F45CC433F0;
- Mon,  9 Jan 2023 16:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673282944;
- bh=H0htiAO+IFq+g1kJgzGvOm1YmHXS0hxKh6DEXB3GTTM=;
+ s=k20201202; t=1673282947;
+ bh=nomMKMBq5vqYlYBkVcfPgR908mTaHI9M2brVdnM5JRU=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=QogZDQbPqxlOguyCkSnP7GkZ/qDjqfQl9F/Qu1MXxIzq8xLBZtZNU5mmqbDdepXmg
- uTp/HNQyIBt9mgZldLHjB8Wvh4ISAUlZQmWK79j3iJkkx+5FSpmue9Mm9PTtamZ+a+
- xxAQsOHS2am14ScPKHs+LjGa9jaQr/IhJ4Gr0qMzjwElnyd3Hj5r1jBaVgA1/0QeNy
- YBn0ERVEDm99j5XBkMDonmNN48Pb98f7qIhN4/55VusFCizoOXBJcDWlA/TW8qsAbC
- PEJSRt3VlXsLxAfOk5ArlBDnxgQlDto5yZxeKEuFPfBIf12HRK1Sj6FEe1gTKDzqpp
- jamtcwpDku1yw==
+ b=qFFxaR/Zchf5+vt6x+1Rl3oSOSbcFlWH62nhYxmHqSsTrEAdbI9QIeHZND3nVt8RJ
+ nRzrurq6JV8Fq0qrSvvgudwzOVSq/Qflwi4Y/3tTA3+/fFtXXxWjdkwEXCjoU//muO
+ XtATpsnPXVYzABiPPput65fRKOEDn+uZFOds06zMVa3t4jSwikqZVGb8VsEGvwIaud
+ pJVj2/f3J3o6+PMQ1wIrQ2wH4PJM7UFA01vxE9MilxAKPUfeTuUsdU/we9dLb/RSJo
+ Io1YqBCYE3MvKG9//G7+XoncCFz3YY+yFZpZRgwwmxpiXER20VFcL9ayevk6hScAHE
+ cALvfCncA2cgg==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  Francesco Dolcini <francesco@dolcini.it>
-In-Reply-To: <20221223170404.210603-1-francesco@dolcini.it>
-References: <20221223170404.210603-1-francesco@dolcini.it>
-Subject: Re: [PATCH v1 0/3] ASoC: nau8822: add speaker Bridge Tied Output
-Message-Id: <167328294221.323147.12666098870170781252.b4-ty@kernel.org>
-Date: Mon, 09 Jan 2023 16:49:02 +0000
+In-Reply-To: <20230104140412.35575-1-francesco@dolcini.it>
+References: <20230104140412.35575-1-francesco@dolcini.it>
+Subject: Re: [PATCH v2 0/3] ASoC: nau8822: add speaker Bridge Tied Output
+Message-Id: <167328294504.323147.3197941344180988086.b4-ty@kernel.org>
+Date: Mon, 09 Jan 2023 16:49:05 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -89,15 +90,14 @@ Cc: wtli@nuvoton.com, kchsu0@nuvoton.com, Takashi Iwai <tiwai@suse.com>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Dec 2022 18:04:01 +0100, Francesco Dolcini wrote:
+On Wed, 04 Jan 2023 15:04:09 +0100, Francesco Dolcini wrote:
 > Add support for BTL (Bridge Tied Load) configuration to NAU8822 audio codec,
 > since this requires adding a new property to the binding convert it from
 > txt to yaml first.
 > 
-> Emanuele Ghidoli (3):
->   ASoC: dt-bindings: nau8822: convert to the dtschema
->   ASoC: dt-bindings: nau8822: add nuvoton,spk-btl property to dtschema
->   ASoC: nau8822: add speaker Bridge Tied Output configuration
+> v2:
+>  - added Krzysztof reviewed-by and acked-by
+>  - removed non-relevant information about SPI not being supported from binding document
 > 
 > [...]
 
@@ -109,8 +109,6 @@ Thanks!
 
 [1/3] ASoC: dt-bindings: nau8822: convert to the dtschema
       commit: 76fa6279eff931b43482f0bef5d65cdcf325de87
-[2/3] ASoC: dt-bindings: nau8822: add nuvoton,spk-btl property to dtschema
-      (no commit info)
 [3/3] ASoC: nau8822: add speaker Bridge Tied Output configuration
       commit: 968b42069fe5dab362b623c6b8a1565709a12f5b
 

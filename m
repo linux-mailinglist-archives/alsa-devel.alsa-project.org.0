@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53AB662AC4
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 17:05:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02715662ACF
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 17:06:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98467AE8D;
-	Mon,  9 Jan 2023 17:04:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98467AE8D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C924F7481;
+	Mon,  9 Jan 2023 17:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C924F7481
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673280328;
-	bh=aJvsO2ZCjvtapdq7NF2Wrx81prim0DCQPLc7wYFukP8=;
+	s=default; t=1673280397;
+	bh=2zy7LQyKhNRKmrWfAJAeRW4nEcuZrNAohGchSSTPYpY=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Qh21290/EviiRCg1r2ethGzJZ10+qxGqitD1Wi4f3QwbnTOppztFd/YJxgAfoT/NR
-	 P4J7HqXzw2gtDMfIbyqTVDgUU+0gKEftuarfYSoLLYozhc/6CTThYm01ZhpgGPTTao
-	 3RCvOqhrycySZXBur2CZKWFcIZ2uOgyhUEL2nWzs=
+	b=Nls4qcC7iH/Lgkwc2GxYOHlxyYHLPbAjEtGlDo/yK5AJ+tXIcivd4H0FT+o4yRPli
+	 vN9bccAR8E86hqHM5zps7FywPChpv1a6F2+3wRXQglQc8fJydWycoxVNrh7Yj8w4s8
+	 BFkUDo3CzsSmQsXQbRqGLBGVR61bmqrc/CbaK/1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A915AF8026A;
-	Mon,  9 Jan 2023 17:04:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A2CCF80425;
+	Mon,  9 Jan 2023 17:05:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44DC6F804D2; Mon,  9 Jan 2023 17:04:19 +0100 (CET)
+ id 5AB39F803DC; Mon,  9 Jan 2023 17:05:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABE71F804D2
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 17:04:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABE71F804D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B394CF8026A
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 17:05:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B394CF8026A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=jXZ/R+aa; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Rrj0sI24; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=JUnuEm7+
+ header.s=susede2_ed25519 header.b=q3Yl12YJ
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DC9573EE66;
- Mon,  9 Jan 2023 16:04:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1B3311FFEE;
+ Mon,  9 Jan 2023 16:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673280256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673280335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HJHipvrpo8KjADV7MAJ61tJ8kiV36dDKHKEUhRnBbpQ=;
- b=jXZ/R+aawdovWHbsYz9WAHMzD1IRIv41FbnMwST2Lev+ruL7EJyaXFEAiliJ35E5GwSxZC
- xoFFsX/vmoeDMejTgFfQK/0zt+lu4TYvObU4rYRIFwsx/uvGbGgnTEEaI7Q+mmbzk0DnwN
- zLF87lJypp6Tw/3O8eTi+x8v82UkIRA=
+ bh=rUSZNTu15y0chJt/E8aylV1+1Ebsa2Do1Q/5WVQPefs=;
+ b=Rrj0sI24HRTiWaYeXzWBG7eZO8aJmIRinh59xCwfitROZsbp3qu5WpolLNg0qBQsnBqx/J
+ hAxqxZqb0p/xI6ly8mFpbWPUF8ACDodHuQCvWzIBpAa7THTXuO4uiBolMq8Bm9oIoTpZZJ
+ vx//6AdSw8y0SeaIIKTwTLfDwQ0I2og=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673280256;
+ s=susede2_ed25519; t=1673280335;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HJHipvrpo8KjADV7MAJ61tJ8kiV36dDKHKEUhRnBbpQ=;
- b=JUnuEm7+0wJyUDahIV9etxAT2DpL8nNk2OKNBn11UIAJUPoJowirVg+VflmPwB5ZqVTz8+
- IykUGoJ/xMVF2WAw==
+ bh=rUSZNTu15y0chJt/E8aylV1+1Ebsa2Do1Q/5WVQPefs=;
+ b=q3Yl12YJrr935Ezn1LaRX+Fhdn5k8HNah+BYa8+ppO0kZRkSXUmmrEvRjkCWcwY7hqUveQ
+ YD50SLQbQObL0mBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFD9213583;
- Mon,  9 Jan 2023 16:04:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 053AE13583;
+ Mon,  9 Jan 2023 16:05:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wqPwLQA7vGPJZgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 09 Jan 2023 16:04:16 +0000
-Date: Mon, 09 Jan 2023 17:04:16 +0100
-Message-ID: <875ydfg0e7.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id nECEAE87vGN0ZwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 09 Jan 2023 16:05:35 +0000
+Date: Mon, 09 Jan 2023 17:05:34 +0100
+Message-ID: <874jszg0c1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v3] ALSA: control-led: use strscpy in set_led_id()
-In-Reply-To: <20230109151249.343741-1-perex@perex.cz>
-References: <20230109151249.343741-1-perex@perex.cz>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] ALSA: firewire-lib: keep history to process
+ isochronous packet
+In-Reply-To: <20230109021738.75543-1-o-takashi@sakamocchi.jp>
+References: <20230109021738.75543-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,33 +98,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: yang.yang29@zte.com.cn, ALSA development <alsa-devel@alsa-project.org>,
- stable@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 09 Jan 2023 16:12:49 +0100,
-Jaroslav Kysela wrote:
+On Mon, 09 Jan 2023 03:17:35 +0100,
+Takashi Sakamoto wrote:
 > 
-> The use of strncpy() in the set_led_id() was incorrect.
-> The len variable should use 'min(sizeof(buf2) - 1, count)'
-> expression.
+> Hi,
 > 
-> Use strscpy() function to simplify things and handle the error gracefully.
+> This patchset is preparation for computation of extra delay in runtime of
+> PCM substream.
 > 
-> Fixes: a135dfb5de15 ("ALSA: led control - add sysfs kcontrol LED marking layer")
-> Reported-by: yang.yang29@zte.com.cn
-> Link: https://lore.kernel.org/alsa-devel/202301091945513559977@zte.com.cn/
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Current implementation uses list of packet descriptor to process
+> isochronous packets. The packet descriptors are overwritten every time to
+> process packets, while the history of packet descriptors is useful when
+> computing gap between current isochronous cycle and the latest isochronous
+> cycle in which isochronous packet is processed or scheduled.
 > 
-> v1..v2:
->   - remove min() expression which strips the last char
-> v2..v3:
->   - BugLink -> Link
->   - add Fixes tag
+> Conveniently, circular linked list was added to Linux kernel v5.19 at a
+> commit 2fbdf45d7d26 ("list: Add list_next_entry_circular() and
+> list_prev_entry_circular()"). This patchset changes data structure from
+> list to the circular linked list for the packet descriptors.
+> 
+> 
+> Takashi Sakamoto (3):
+>   ALSA: firewire-lib: use circular linked list to enumerate packet
+>     descriptors
+>   ALSA: firewire-lib: use circular linked list for context payload
+>     processing layer
+>   ALSA: firewire-lib: store history to process isochronous packet
 
-Thanks, applied.
+Applied now to for-next branch.  Thanks.
 
 
 Takashi

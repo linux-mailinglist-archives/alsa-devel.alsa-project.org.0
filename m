@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E58D6627A1
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 14:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F274662826
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 15:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E86327307;
-	Mon,  9 Jan 2023 14:47:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E86327307
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74EACB0C0;
+	Mon,  9 Jan 2023 15:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74EACB0C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673272125;
-	bh=Jd+4u+vQpcZxC+XzxFysjp3HoPdFA9H0rhDwzicPZ+0=;
+	s=default; t=1673273569;
+	bh=uHOfRESEj1MvNCfQSp/Q2fqxgAH5un2XKHWwe2HQ7kM=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=ipR93tatysUbNGgxI6fg28Qwmqn0/qBxtFknREwMKlnYQmZUGR8iN+RfHBxKbov+0
-	 fgZ8/aSI704ZTilQABEPrf74DRoOo+dg4mVzGrlNlHL4uhVsiUziVB9135K5YAgDW3
-	 82yiJfIvNUaVCuBmDDj8ifQvzPlDaByNeOKYhuy8=
+	b=uhU/UDxrGvjd+8DaTvMooFcM9WQDyu17a9gTmJb+EdL/e1IzcpgCuMkOmQIB0ppjX
+	 1is8lPwBgWFmNpe/ktE9obUSIiF8PAesezkHi9RnAew/eRwL4m4zM3MSnStGjTQiOB
+	 DX/g6RnvKYoEw8sBbh6lZXrCbIm1wmmcJsMG+yBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0790F800C7;
-	Mon,  9 Jan 2023 14:47:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4BE3F800C7;
+	Mon,  9 Jan 2023 15:11:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0482F803DC; Mon,  9 Jan 2023 14:47:43 +0100 (CET)
+ id 34D6FF8030F; Mon,  9 Jan 2023 15:11:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,32 +34,33 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4D07F800C7
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 14:47:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4D07F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6A34F800C7
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 15:11:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A34F800C7
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=l9fcbuld
+ header.s=default header.b=V7edFy/y
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8B2FEA0047;
- Mon,  9 Jan 2023 14:47:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8B2FEA0047
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 377A2A0040;
+ Mon,  9 Jan 2023 15:11:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 377A2A0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1673272061; bh=tadL4Xyx4wSfJPL9BsL3pVlwT9nrk52x1+B6CFo7qRI=;
+ t=1673273506; bh=bdJQw3RjHRvPBAzXLjM89tBZKg2o+zofSE/cDoto0WU=;
  h=From:To:Cc:Subject:Date:From;
- b=l9fcbuldR4Wjnu/KmddjM0yJ6TcfaEwH1Pcl6OxKeviC61OctE3bS/qFvlJYQgufR
- kLJ+Ifh0ePZZ8OZVK4WtGiwd8QOUicpPsp48gnXwA2WyawxpGECNhHb+6XAbYrfBA4
- 7CV0wMTrYcWqTAhlKR43mSORTt3RJY4I1oRDusGU=
+ b=V7edFy/yPIjYulHgOUsPgjvAKpum3D5VbQQeB0NZU3BIMdKzY2iLUbyGHEe8kMwrF
+ lrbTQTQ4bkf5SC7ZGFCCFoYD5KpIHGCCpCcqgnjVFB7PXrtOCD6fuJ48lzAnVmyiHj
+ 0264FaTPNsmbwUKH/W18BHKmW+6lrhkqTZXMqfb0=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon,  9 Jan 2023 14:47:36 +0100 (CET)
+ Mon,  9 Jan 2023 15:11:41 +0100 (CET)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: control-led: use strscpy in set_led_id()
-Date: Mon,  9 Jan 2023 14:47:24 +0100
-Message-Id: <20230109134724.332868-1-perex@perex.cz>
+Subject: [PATCH] ALSA: usb-audio: Always initialize fixed_rate in
+ snd_usb_find_implicit_fb_sync_format()
+Date: Mon,  9 Jan 2023 15:11:33 +0100
+Message-Id: <20230109141133.335543-1-perex@perex.cz>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,43 +76,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>, yang.yang29@zte.com.cn,
+Cc: Takashi Iwai <tiwai@suse.de>, Dan Carpenter <error27@gmail.com>,
  stable@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The use of strncpy() in the set_led_id() was incorrect.
-The len variable should use 'min(sizeof(buf2) - 1, count)'
-expression.
+Handle the fallback code path, too.
 
-Use strscpy() function to simplify things and handle the error gracefully.
-
-Reported-by: yang.yang29@zte.com.cn
-BugLink: https://lore.kernel.org/alsa-devel/202301091945513559977@zte.com.cn/
+Fixes: fd28941cff1c ("ALSA: usb-audio: Add new quirk FIXED_RATE for JBL Quantum810 Wireless")
+BugLink: https://lore.kernel.org/alsa-devel/Y7frf3N%2FxzvESEsN@kili/
+Reported-by: Dan Carpenter <error27@gmail.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- sound/core/control_led.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/usb/implicit.c | 3 ++-
+ sound/usb/pcm.c      | 2 ++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index f975cc85772b..45c8eb5700c1 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -530,12 +530,11 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
- 			  bool attach)
- {
- 	char buf2[256], *s, *os;
--	size_t len = max(sizeof(s) - 1, count);
- 	struct snd_ctl_elem_id id;
- 	int err;
+diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
+index 41ac7185b42b..4727043fd745 100644
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -471,7 +471,7 @@ snd_usb_find_implicit_fb_sync_format(struct snd_usb_audio *chip,
+ 	subs = find_matching_substream(chip, stream, target->sync_ep,
+ 				       target->fmt_type);
+ 	if (!subs)
+-		return sync_fmt;
++		goto end;
  
--	strncpy(buf2, buf, len);
--	buf2[len] = '\0';
-+	if (strscpy(buf2, buf, min(sizeof(buf2), count)) < 0)
-+		return -E2BIG;
- 	memset(&id, 0, sizeof(id));
- 	id.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	s = buf2;
+ 	high_score = 0;
+ 	list_for_each_entry(fp, &subs->fmt_list, list) {
+@@ -485,6 +485,7 @@ snd_usb_find_implicit_fb_sync_format(struct snd_usb_audio *chip,
+ 		}
+ 	}
+ 
++ end:
+ 	if (fixed_rate)
+ 		*fixed_rate = snd_usb_pcm_has_fixed_rate(subs);
+ 	return sync_fmt;
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 99a66d0ef5b2..d2c652aa1385 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -163,6 +163,8 @@ bool snd_usb_pcm_has_fixed_rate(struct snd_usb_substream *subs)
+ 	struct snd_usb_audio *chip = subs->stream->chip;
+ 	int rate = -1;
+ 
++	if (!subs)
++		return false;
+ 	if (!(chip->quirk_flags & QUIRK_FLAG_FIXED_RATE))
+ 		return false;
+ 	list_for_each_entry(fp, &subs->fmt_list, list) {
 -- 
 2.39.0

@@ -2,146 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFAA2661DB9
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 05:18:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AED0661DBA
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 05:18:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 530F0C6BA;
-	Mon,  9 Jan 2023 05:17:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 530F0C6BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D79BC704;
+	Mon,  9 Jan 2023 05:17:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D79BC704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673237910;
-	bh=k9V+0ouX3cM+ggHoJnEg3XxCQlgGJ+TU9QryVN8oOTA=;
+	s=default; t=1673237926;
+	bh=kwZWrGtTFj4ufpPQkAJzb7kLk4Ojt5Wx/5TnW2tA0Yk=;
 	h=From:To:In-Reply-To:Subject:Date:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=orL87pNOkj3HNT1NZBg0BTvMqVJL34tJPeoM8fN9PLnNdTaRSiWZWIMDVJGSXaa31
-	 37ymQ1A8uqcYUJFQdrM7a6XNdA9sco4lsQZ2zvsafiMsYXmzdZE/+ls2DVHOjHLFZL
-	 FvUBFlyA6RSeKvi8bNc3gEMhq4n60s6jp5eBEWb8=
+	b=bP+rv7rB4wCthGwQv0fSrL0z0c049/GIb6mCSwXFx6KHf7ZOFZGit9CotcSECp0Fx
+	 4sI0BgvvmJ9MQB4VKnLhD/JzZhOx/fHHY0JtyxHpsUGZ7V0fR2xYRIAbjY0Em45au6
+	 euwxX43bmfZu6JzRKEjLmkiohCf/czz2pz2ipEQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6606FF80425;
-	Mon,  9 Jan 2023 05:17:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 237E2F80524;
+	Mon,  9 Jan 2023 05:17:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32B78F80539; Mon,  9 Jan 2023 05:17:04 +0100 (CET)
+ id 2454FF80524; Mon,  9 Jan 2023 05:17:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5A42F802BE
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 05:16:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5A42F802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC3C4F8030F
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 05:16:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC3C4F8030F
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=F8AzRxoM
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20230109041650epoutp0100c85fd896ed6541aaa73596a0bb7902~4iOxmdp7C0413904139epoutp01Q
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 04:16:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20230109041650epoutp0100c85fd896ed6541aaa73596a0bb7902~4iOxmdp7C0413904139epoutp01Q
+ header.s=mail20170921 header.b=UWWQd/Zy
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20230109041653epoutp024433d9fe1784284175c911d2af37aa52~4iO0i9xpW2665726657epoutp02e
+ for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 04:16:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20230109041653epoutp024433d9fe1784284175c911d2af37aa52~4iO0i9xpW2665726657epoutp02e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1673237810;
- bh=eAd1NhnKkUpDBR09TwlKqpAQa5WXZk2eA0RjIrWm0H4=;
+ s=mail20170921; t=1673237813;
+ bh=HXTSJf4b0RBli8gncBuMHnH5r/LI/9LtRvHtvntnnvQ=;
  h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=F8AzRxoMGl3tAcz6EvZZ+8eGhhgJJMjckDEaL7UYdK+6Gx/zUKGMQwzVuBBtGVTaI
- IULZX8NIZCpHG9nv7X5faTiXR1/tZKvYfoYyiO10twRfOXS4JJWEfd4ThIDeIJmRMr
- bI75K6oMffHHq9SfG67dq5CqxmTYx1JNJbp33b4c=
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTP id
- 20230109041650epcas5p1a1512596f215707b19c803d717dc912c~4iOxN8qAH0195301953epcas5p1B;
- Mon,  9 Jan 2023 04:16:50 +0000 (GMT)
-Received: from epsmges5p3new.samsung.com (unknown [182.195.38.182]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 4Nr0y82BvMz4x9Pr; Mon,  9 Jan
- 2023 04:16:48 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
+ b=UWWQd/ZyGPoB0g6VsLLwvFuHmnIfqCT2dRhWS3+Kcdi1HemS0+VtuR1fwAWybGIeK
+ JW6CBzUgzbYopAhhqx0L5FPZ0jShlFhSGdNc6MEAi6tV4Uw9rbB88TO9I43wnuFPWJ
+ HcfEcWso9F+BFt6QiIOSJN7sqPjKFKMKdDe8V75E=
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20230109041653epcas5p48b5e1263a942012d7ee602af3d54b79f~4iO0EsCEN3264832648epcas5p46;
+ Mon,  9 Jan 2023 04:16:53 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.183]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 4Nr0yC10Z9z4x9Pt; Mon,  9 Jan
+ 2023 04:16:51 +0000 (GMT)
+Received: from epcas5p4.samsung.com ( [182.195.41.42]) by
  epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
- D7.3C.03362.0359BB36; Mon,  9 Jan 2023 13:16:48 +0900 (KST)
+ 2B.3C.03362.3359BB36; Mon,  9 Jan 2023 13:16:51 +0900 (KST)
 Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
  epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20230109040520epcas5p399ca66e8410b3d26dd38fee93ce2d9d2~4iEveFJDX0857808578epcas5p3J;
- Mon,  9 Jan 2023 04:05:20 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ 20230109040537epcas5p3a2f787c7d3dce00a29edbc5e71a47ba1~4iE_g0fdu0857808578epcas5p3h;
+ Mon,  9 Jan 2023 04:05:37 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
  epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20230109040520epsmtrp1bd896b2fcd574494d46ee3cde9647bc5~4iEvdLqbf1945819458epsmtrp1V;
- Mon,  9 Jan 2023 04:05:20 +0000 (GMT)
-X-AuditID: b6c32a4b-287ff70000010d22-ca-63bb953040fe
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 2B.F7.10542.0829BB36; Mon,  9 Jan 2023 13:05:20 +0900 (KST)
-Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip2.samsung.com
+ 20230109040537epsmtrp18e6dacf09b30b8769cfcef0e31cbaf49~4iE_fh8QY1945819458epsmtrp1e;
+ Mon,  9 Jan 2023 04:05:37 +0000 (GMT)
+X-AuditID: b6c32a4b-4e5fa70000010d22-d5-63bb953345fb
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ DB.99.02211.0929BB36; Mon,  9 Jan 2023 13:05:36 +0900 (KST)
+Received: from FDSFTE070 (unknown [107.116.189.86]) by epsmtip1.samsung.com
  (KnoxPortal) with ESMTPA id
- 20230109040518epsmtip26071d53c0a62b23059cd69d952d78a41~4iEtOLb982131421314epsmtip2T;
- Mon,  9 Jan 2023 04:05:18 +0000 (GMT)
+ 20230109040534epsmtip143da8bfbbb3718bdad5f673545829356~4iE8T5nK70547905479epsmtip1V;
+ Mon,  9 Jan 2023 04:05:34 +0000 (GMT)
 From: "Padmanabhan Rajanbabu" <p.rajanbabu@samsung.com>
 To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>,
  <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <s.nawrocki@samsung.com>,
  <perex@perex.cz>, <tiwai@suse.com>, <pankaj.dubey@samsung.com>,
  <alim.akhtar@samsung.com>, <rcsekar@samsung.com>, <aswani.reddy@samsung.com>
-In-Reply-To: <b3ec1abe-7fb4-0c12-33b6-9f4e8d03f8b2@linaro.org>
-Subject: RE: [PATCH v2 4/5] arm64: dts: fsd: Add codec node for Tesla FSD
-Date: Mon, 9 Jan 2023 09:35:17 +0530
-Message-ID: <050f01d923df$974019e0$c5c04da0$@samsung.com>
+In-Reply-To: <2c6950c9-3489-c2d4-2ca8-cb723195f75b@linaro.org>
+Subject: RE: [PATCH v2 5/5] arm64: dts: fsd: Add sound card node for Tesla FSD
+Date: Mon, 9 Jan 2023 09:35:33 +0530
+Message-ID: <051601d923df$a0e7b840$e2b728c0$@samsung.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH5OglsonJNs2LrkABkwml8apZdSgH2TZf9AYeLzk0BpGRP4q4sL3Cw
+Thread-Index: AQH5OglsonJNs2LrkABkwml8apZdSgIw2p9KAbd2VQACGX4hJ64lNt4g
 Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrJJsWRmVeSWpSXmKPExsWy7bCmuq7B1N3JBlO6+CwezNvGZnHl4iEm
- i0Obt7JbTH34hM1i/pFzrBZ9Lx4yW+x9DRT7dqWDyeLyrjlsFjPO72OyWLT1C7tF565+VotZ
- F3awWrTuPcJucfhNO6vFhu9rGR0EPDZ8bmLz2DnrLrvHplWdbB53ru1h89j3dhmbR9+WVYwe
- 67dcZfH4vEkugCMq2yYjNTEltUghNS85PyUzL91WyTs43jne1MzAUNfQ0sJcSSEvMTfVVsnF
- J0DXLTMH6AUlhbLEnFKgUEBicbGSvp1NUX5pSapCRn5xia1SakFKToFJgV5xYm5xaV66Xl5q
- iZWhgYGRKVBhQnbG/fOLWAoWCFTsXrmfrYFxLm8XIyeHhICJxLN/55m6GLk4hAR2M0q0rDjI
- DOF8YpRY/PUVK4TzmVFi/7UXLDAtW/eeY4dI7GKUuLa1Dar/BaPEtB3rGUGq2ATMJRbtXcoI
- khARuMIk8XN1OwuIwyzQxiix9+JasCpOATuJ5UumMoHYwgKeElN/HgLbwSKgIjH11nlmEJtX
- wFJi95PVrBC2oMTJmU/AapgF5CW2v53DDHGTgsTPp8uAajiAtrlJvP5RAVEiLnH0Zw/YQxIC
- Xzgk5p3phKp3kbhw7REThC0s8er4FnYIW0riZX8blJ0vMe1jMxuEXSHR9nEDVL29xIErc1hA
- djELaEqs36UPEZaVmHpqHRPEXj6J3t9PoMp5JXbMg7FVJdYv38QIYUtL7Lu+l3ECo9IsJJ/N
- QvLZLCQvzELYtoCRZRWjZGpBcW56arFpgXFeajk8ypPzczcxgtO4lvcOxkcPPugdYmTiYDzE
- KMHBrCTCW7ppV7IQb0piZVVqUX58UWlOavEhRlNgcE9klhJNzgdmkrySeEMTSwMTMzMzE0tj
- M0Mlcd7UrfOThQTSE0tSs1NTC1KLYPqYODilGphsJbbVTdvv9GDd+0P/vHx3Oe9tmOpxO+54
- 5ULjJ1XFTfPFjX+fUm14O7OgXsHfZEVAxwx97bbWC8JPz4tdPVoZFnDaNSP3zP45TXPSpigv
- M2k70XbMydDGNPdkzrRdkwMcsvYGpN3eetnUlf99OZPNdj+55/M+r3f8fqLqxdZNf9ketj8Q
- lHyeuanXlsdVqvl4UYrR9AyGDF7OxDkX/6R5fWlQD805q61svfPycuugxP2d4ZIh/N8vsD6c
- p7r18oX2hczPFy+V92bsryoP3159/nSlwN7TEmrNx5e6cV+f8mjl5OI/etFfHPnXb+awOaBa
- pit17MxVjU0nL504zr5exuvmERNny6i67V7V8muUWIozEg21mIuKEwHVltBVbAQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrIIsWRmVeSWpSXmKPExsWy7bCSvG7DpN3JBr9uWlg8mLeNzeLKxUNM
- Foc2b2W3mPrwCZvF/CPnWC36Xjxkttj7Gij27UoHk8XlXXPYLGac38dksWjrF3aLzl39rBaz
- LuxgtWjde4Td4vCbdlaLDd/XMjoIeGz43MTmsXPWXXaPTas62TzuXNvD5rHv7TI2j74tqxg9
- 1m+5yuLxeZNcAEcUl01Kak5mWWqRvl0CV8b984tYChYIVOxeuZ+tgXEubxcjJ4eEgInE1r3n
- 2LsYuTiEBHYwSkx/v5oNIiEtMb1/D5QtLLHy33OoomeMEhN//WIFSbAJmEss2ruUESQhIvCI
- SWLu/EdsIA6zQBejxPG/K5khWj4zSjw9cZoRpIVTwE5i+ZKpTCC2sICnxNSfh1hAbBYBFYmp
- t84zg9i8ApYSu5+sZoWwBSVOznwCVsMsoC3R+7CVEcKWl9j+dg4zxH0KEj+fLgOq5wA6w03i
- 9Y8KiBJxiaM/e5gnMArPQjJpFpJJs5BMmoWkZQEjyypGydSC4tz03GLDAqO81HK94sTc4tK8
- dL3k/NxNjOBY1tLawbhn1Qe9Q4xMHIyHGCU4mJVEeEs37UoW4k1JrKxKLcqPLyrNSS0+xCjN
- waIkznuh62S8kEB6YklqdmpqQWoRTJaJg1OqgWnW363bDZRPsEwx3VvNzWhQt1Lhuf7J2J5r
- m6ed7uZ073q96vuC+9YJhuZSrUGXHwXPdYp5qng14/mnTWKzrt7UY3e88/t/w6oth3+INZ3e
- 2OZ0O5czunPhk9tf1JJfdaguC03cLb/5pa3I/Lx6s58cZa0PPauEb1q/Fy4Rua4tmO0QY/12
- zsdNUkWFvWfZkwRdOBa+YwxazcZgLOHG6fb2WfGu1dHTDt97uYlpUpXncodbgqf9ptq9DV/C
- zBiftffVlImph9p3rn8YkOS3Sn23WdF2exf223tu3Bc8JChnOzmigPNOxsxM3gBW3g8cl5he
- fLWTqMsuEvrzaNmDvuaGFduPi82rW8IhJvJEM0uJpTgj0VCLuag4EQClZnKIVAMAAA==
-X-CMS-MailID: 20230109040520epcas5p399ca66e8410b3d26dd38fee93ce2d9d2
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf0wTdxzN9+56HIS6s8D4jgXXnSwOktZ2lHIl1LHRaIluwywzmYmDW3uh
+ BGibXnHKsolj/JAITksJFALYOFw6EVZAGazMAAbnNgVXQIKokG6CCtHJQECStbRs/Pc+L+/l
+ 8973B4EKxvEoIltvZk16JpfCQ7BL/bFxonhrj0biHuHR9xsu4bR7uA+h+9o7g2jrlAenGwdu
+ 8OjKmSmUdj3ycovuMoT+o7sep2tu9iK0vXMhiD7RfYpH24a6eHSxayCI7n9cyqPbllpACqlu
+ e/YVrv7RNhmkdjpO4Oo7oz/h6t65Zlxd2eEA6taOEUz9zLktnTiYk6xjGS1rErJ6jUGbrc9S
+ Uns/zEjNSJBLpCKpgk6khHomj1VSqn3pot3Zud4KlPAwk5vvpdIZjqN27ko2GfLNrFBn4MxK
+ ijVqc40yo5hj8rh8fZZYz5qTpBLJWwleYWaObnLegxjPRx5puNWBFYJmQTkIJiApg45SC14O
+ QggB2QPg6Hgj6h/+BnD+wUXgHxYBPHfuBbJheW4vDqhcAA4PWRH/MAPgmN2+rsLJRGh3fbtu
+ DyfdCFz+vhTzDShZAqBruAX4VMHkLnjz6hnUh8PIdFhXbFnHGBkDl1YWvbEIgk8qoOVGmo/m
+ k1vhL7UezIdR8jV4ea4e9UcSwuU/m3k+HE7uhhecazy/JhJeXT65HhWSCwS89sQd5DeoYFWP
+ LdAnDD4c7AjwUXD2VEkAG2D10yLcj4/AkqdtAf3b8Iq7HvNlQ8lY2Nq9009HQ+v1i4h/7xZY
+ seoJyPmwq2EDvwFbzzuBH78Ke8dc4BtA2TZVs22qZttUwfb/tiaAOcArrJHLy2K5BGO8nv3s
+ vyvXGPKcYP2Nx+3tAtP3n4j7AEKAPgAJlArn5zu7NQK+ljlawJoMGab8XJbrAwne4z6NRkVo
+ DN5PojdnSGUKiUwul8sU8XIpFclnOxs1AjKLMbM5LGtkTRs+hAiOKkQ0ny9/UfFJf/ZYwaF9
+ Wo95LUFZ+JfNca+qTMWbrUoOVj6YPMMvd41EkJl3v4tX5F1Bz6rEFpEYtYpizi69J1+4NjG6
+ daxmfPvRjx3/1Ldnjikr5O3JS9NlX19u2a9TvRg6JKyR6E7GGu7a59+URTeFrn66/HpBGopx
+ swfubJmyyxTT1damwT2/Jv6wxzMseJ/38/yBOmoGPJxuR8HqsW2heGj9B9WRL5WnpCUpXeVf
+ loTWpkT8rlqpxSrfvXf9cGnIcfFC0nFG0XUrpmtNM9s0MDjBlT0Wp9bcXtlxge+pi+lPat8f
+ 9ltNT1FR6kTOwbXbYA5E73gnmTj96KNBy8toLYVxOkYah5o45l9dEC4mbAQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrAIsWRmVeSWpSXmKPExsWy7bCSnO7ESbuTDR6mWzyYt43N4srFQ0wW
+ hzZvZbeY+vAJm8X8I+dYLfpePGS22PsaKPbtSgeTxeVdc9gsZpzfx2SxaOsXdovOXf2sFrMu
+ 7GC1aN17hN3i8Jt2VosN39cyOgh4bPjcxOaxc9Zddo9NqzrZPO5c28Pmse/tMjaPvi2rGD3W
+ b7nK4vF5k1wARxSXTUpqTmZZapG+XQJXxt13T5gKlotXzLu0haWBcZlQFyMnh4SAicSPRa3M
+ XYxcHEICuxkl5i08xgKRkJaY3r+HDcIWllj57zk7RNEzRonpm1+wgyTYBMwlFu1dygiSEBF4
+ xCQxd/4jNhCHWaCLUeL435VQcz8zSrzccJEVpIVTwE7i/NFJzCC2sICfxOreXiYQm0VAReL7
+ r29A3RwcvAKWEpPPeYKEeQUEJU7OfAJ2ErOAtkTvw1ZGCFteYvvbOcwQ5ylI/Hy6DGy8iICb
+ xJpNf1khasQljv7sYZ7AKDwLyahZSEbNQjJqFpKWBYwsqxglUwuKc9Nziw0LDPNSy/WKE3OL
+ S/PS9ZLzczcxgiNZS3MH4/ZVH/QOMTJxMB5ilOBgVhLhLd20K1mINyWxsiq1KD++qDQntfgQ
+ ozQHi5I474Wuk/FCAumJJanZqakFqUUwWSYOTqkGpo3Gc2t+L2Q+z7/v3282kYltl+SmO7rf
+ /L22/8RiY9a67z6vO/Xv8IVe3FWYPvXnDolPa3i/cqq9XOS8TvtWnWz5dq7n/na8O/5OM7GV
+ FXDqd5cTb5xrwXdXx111dW/jkfZDb6Y53y3kcri7X1Y5QZFlarLjLE5LkZafn77vWK7jLs5l
+ ndXIdOXBE0vFSYcE5Cf5NbBqyUcv/Z7oZx70hl15au1Bnfgtk54wPbyxqmiObrFzs/DNX/vq
+ TDTi5y/Yb2O6qPH98zCOJpfb+sr6M9bt/lcywblYYt50jVMvLxeUN64TiS4wsX1/eKmFZamt
+ QF2P0LxLHF6Lv5v1/jdRMnmvNyM0oKpKOW9RIPNeJZbijERDLeai4kQAT9ZLZVMDAAA=
+X-CMS-MailID: 20230109040537epcas5p3a2f787c7d3dce00a29edbc5e71a47ba1
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230103045703epcas5p2344520777efa3c06321732e2784e6c6c
+X-CMS-RootMailID: 20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b
 References: <20230103045613.100309-1-p.rajanbabu@samsung.com>
- <CGME20230103045703epcas5p2344520777efa3c06321732e2784e6c6c@epcas5p2.samsung.com>
- <20230103045613.100309-5-p.rajanbabu@samsung.com>
- <b3ec1abe-7fb4-0c12-33b6-9f4e8d03f8b2@linaro.org>
+ <CGME20230103045706epcas5p14f2f951d162899234c7f5f7a0998ab6b@epcas5p1.samsung.com>
+ <20230103045613.100309-6-p.rajanbabu@samsung.com>
+ <2c6950c9-3489-c2d4-2ca8-cb723195f75b@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,7 +162,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 > -----Original Message-----
 > From: Krzysztof Kozlowski [mailto:krzysztof.kozlowski@linaro.org]
-> Sent: 03 January 2023 04:41 PM
+> Sent: 03 January 2023 04:43 PM
 > To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>;
 > lgirdwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org;
 > krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
@@ -172,55 +171,91 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 > aswani.reddy@samsung.com
 > Cc: alsa-devel@alsa-project.org; devicetree@vger.kernel.org; linux-
 > kernel@vger.kernel.org; linux-samsung-soc@vger.kernel.org
-> Subject: Re: [PATCH v2 4/5] arm64: dts: fsd: Add codec node for Tesla FSD
+> Subject: Re: [PATCH v2 5/5] arm64: dts: fsd: Add sound card node for Tesla
+> FSD
 > 
 > On 03/01/2023 05:56, Padmanabhan Rajanbabu wrote:
-> > Add device tree node support for codec on Tesla FSD platform.
+> > Add device tree node support for sound card on Tesla FSD board
 > >
 > > Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
 > > ---
-> >  arch/arm64/boot/dts/tesla/fsd-evb.dts | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
+> >  arch/arm64/boot/dts/tesla/fsd-evb.dts | 37
+> > +++++++++++++++++++++++++++
+> >  1 file changed, 37 insertions(+)
 > >
 > > diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts
 > > b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > index cf5f2ce4d2a7..e2fd49774f15 100644
+> > index e2fd49774f15..ce726bddfb50 100644
 > > --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
 > > +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> > @@ -10,6 +10,7 @@
-> >
-> >  /dts-v1/;
-> >  #include "fsd.dtsi"
-> > +#include <dt-bindings/gpio/gpio.h>
-> >
-> >  / {
-> >  	model = "Tesla Full Self-Driving (FSD) Evaluation board"; @@ -34,6
-> > +35,18 @@
-> >  	clock-frequency = <24000000>;
-> >  };
-> >
-> > +&hsi2c_5 {
-> > +	status = "okay";
+> > @@ -29,6 +29,43 @@
+> >  		device_type = "memory";
+> >  		reg = <0x0 0x80000000 0x2 0x00000000>;
+> >  	};
 > > +
-> > +	tlv320aic3x: codec@18 {
-> > +		#sound-dai-cells = <0>;
-> > +		compatible = "ti,tlv320aic3104";
-> > +		reg = <0x18>;
+> > +	sound {
+> > +		compatible = "simple-audio-card";
+> > +
+> > +		#address-cells = <1>;
+> > +		#size-cells = <0>;
+> > +
+> > +		simple-audio-card,name = "FSD Audio Card";
+> > +		simple-audio-card,widgets =
+> > +			"Line", "Line Out",
 > 
-> First compatible, then reg, then the rest.
+> I don't think you need to break the line after '='.
 
-Okay, I'll update the same in the next patch set.
+Okay, will change the same in the next patch set.
 
 > 
-> > +		reset-gpios = <&gpg1 6 GPIO_ACTIVE_LOW>;
+> > +			"Line", "Line In";
+> > +		simple-audio-card,routing =
+> > +			"Line Out", "LLOUT",
+> > +			"Line Out", "RLOUT",
+> > +			"MIC2L", "Line In",
+> > +			"MIC2R", "Line In";
+> > +
 > > +		status = "okay";
 > 
-> It's by default. Why do you need it?
+> Why?
 
 Okay, I understood that if there is no status entry, it is
 treated as "okay". I'll update the same in the next
 patch set.
 
+> 
+> > +
+> > +		simple-audio-card,dai-link@0 {
+> > +			reg = <0>;
+> > +			format = "i2s";
+> > +			bitclock-master = <&tlv320aic3x>;
+> > +			frame-master = <&tlv320aic3x>;
+> > +
+> > +			cpu0 {
+> 
+> Does not look like you tested the DTS against bindings. Please run `make
+> dtbs_check` (see Documentation/devicetree/bindings/writing-schema.rst
+> for instructions).
+
+I did not encounter any error while running dtbs_check for fsd-evb.dts
+
+This is the command I executed
+make dtbs_check > output.txt 2>&1
+
+dt-mk-schema --version: 2022.11
+
+Please let me know if I'm missing anything here.
+
+> 
+> > +				sound-dai = <&i2s_0 0>;
+> > +			};
+> > +			cpu1 {
+> > +				sound-dai = <&i2s_0 1>;
+> > +			};
+> > +			codec {
+> > +				sound-dai = <&tlv320aic3x>;
+> > +				system-clock-frequency = <33000000>;
+> > +			};
 > 
 > Best regards,
 > Krzysztof

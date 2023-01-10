@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2819663B50
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 09:38:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77812663B51
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 09:39:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC2D5B7A1;
-	Tue, 10 Jan 2023 09:37:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC2D5B7A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CEF4C18A;
+	Tue, 10 Jan 2023 09:38:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CEF4C18A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673339928;
-	bh=x9zrBu1yRWVkV1oM0tVTvhG0TZEgX0n4c0ud5yU6fHg=;
+	s=default; t=1673339948;
+	bh=rocWwoX0LGyzN8H1F/C2h9pI9C44XcJWx374mbqMkuY=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=g757HAYzhHI7MRziI1v5xE8S5BHjROmrkwKFcWHkW+eIGAdSI5V3JP2K8Hq6ls3EI
-	 BPmu0ZZ9pxoSRHhNSD6mlsMVAgs7DbxnXH4HlpIGVKNrBF3eog3BjkfHv0jaIzB0bP
-	 1F10LYMDWRZ6I/k/iyzMrvkOHzfkQZS0HU7gwgZ4=
+	b=WWMPEuWdm5yihT7ktypTME8cHKxsp31Fq9+EHzS+5PHb6IVBTmhGz316bVCjmd1OW
+	 AAo0DlrXwfaAP/DnovgQmrZU1AMs0speI4+73wwsaLLjFnQTiM+mUzIt6o5J9iQWeB
+	 mXkzTkFfW6mBwgOJf0j9C3NouxGYOqM8e5RkPva0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A641CF8053A;
-	Tue, 10 Jan 2023 09:34:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28FA3F8057A;
+	Tue, 10 Jan 2023 09:36:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17F3DF80539; Tue, 10 Jan 2023 09:34:24 +0100 (CET)
+ id 55F1AF8057E; Tue, 10 Jan 2023 09:36:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FFA5F804D9
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 09:34:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FFA5F804D9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BAB65F8057E
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 09:36:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAB65F8057E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=iFOOhmgw; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=sLt1j2De; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GsC4+92J
+ header.s=susede2_ed25519 header.b=DZuJmvUt
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2F6FF4E1FB;
- Tue, 10 Jan 2023 08:34:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0F895678BF;
+ Tue, 10 Jan 2023 08:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673339660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673339798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nYFcXOhPghZFvihcZJhRG7rUyQj5xbUBK67rXzPJHTo=;
- b=iFOOhmgwuurk+SpBy5Qj3Dorjo+D0V3V8X8Z/p2OaqDcmi7d1pp9WMdRUsXb5dfE5RXnaB
- 5TXazxJrIqH26i6mH48lPXzONcC+kn5/Aj1w+RaVdJp+Rms8T8o22DVhgEmZ60NHafd3BA
- CNj7UXFM/MRGe/xy3E/EqzxveO++6PQ=
+ bh=xvS//62VSffaOVkPd7AJ+WkPm2q+fEQoyqXPxSgE+Tc=;
+ b=sLt1j2De2qQT5zPcMyDikiQPYwPstDNGwUA+QwDZTjMdEHh/s5GuDx/XkgrLZrCN0jpYtm
+ r9IgMiVSFfcsQZ38yWwqsGfJvg7nDXXdaY2zBLTgU+35YhzPWPBlPxV4zmtKh15WqGnSk3
+ JD9CWhXokfnH500EdukLWNyDmWJtlME=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673339660;
+ s=susede2_ed25519; t=1673339798;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nYFcXOhPghZFvihcZJhRG7rUyQj5xbUBK67rXzPJHTo=;
- b=GsC4+92JMGgdHKfi6P3IeuhEDP6xkZ1nF8jjojnrK24zlR/ELBc/NjvamZtSp/dMAGHqL/
- fBPwy5Vm1WnU8/Cw==
+ bh=xvS//62VSffaOVkPd7AJ+WkPm2q+fEQoyqXPxSgE+Tc=;
+ b=DZuJmvUtsJf4nJ5sVotgf+gUVorDRkWgCrx6j8e8mSNd7NpIaS3LmCPyRIX2wUu3KiDfVM
+ q3zzuibEavQ5jADw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 17A0B1358A;
- Tue, 10 Jan 2023 08:34:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E2BC01358A;
+ Tue, 10 Jan 2023 08:36:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Rc8tBQwjvWOaFQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 10 Jan 2023 08:34:20 +0000
-Date: Tue, 10 Jan 2023 09:34:19 +0100
-Message-ID: <87lemaeqk4.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id OUC5NpUjvWOyFgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 10 Jan 2023 08:36:37 +0000
+Date: Tue, 10 Jan 2023 09:36:37 +0100
+Message-ID: <87k01ueqga.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Adrian Chan <adchan@google.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Add a HP device to force connect list
-In-Reply-To: <20230109210520.16060-1-adchan@google.com>
-References: <20230109210520.16060-1-adchan@google.com>
+To: Luka Guzenko <l.guzenko@web.de>
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable mute/micmute LEDs on HP Spectre
+ x360 13-aw0xxx
+In-Reply-To: <20230109235840.26452-1-l.guzenko@web.de>
+References: <20230109235840.26452-1-l.guzenko@web.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,25 +98,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 09 Jan 2023 22:05:20 +0100,
-Adrian Chan wrote:
+On Tue, 10 Jan 2023 00:58:40 +0100,
+Luka Guzenko wrote:
 > 
-> Add the 'HP Engage Flex Mini' device to the force connect list to
-> enable audio through HDMI.
+> The HP Spectre x360 13-aw0xxx devices use the ALC285 codec with GPIO 0x04
+> controlling the micmute LED and COEF 0x0b index 8 controlling the mute LED.
+> A quirk was added to make these work as well as a fixup entry.
 > 
-> Signed-off-by: Adrian Chan <adchan@google.com>
+> Signed-off-by: Luka Guzenko <l.guzenko@web.de>
 > ---
-> HDMI audio is not working on the HP Engage Flex Mini because the pin is
-> unconnected. This issue can be resolved by using the 'hdajackretask'
-> tool to override the unconnected pin to force it to connect.
-> The alsa-info.sh output can be found at
-> http://alsa-project.org/db/?f=0e8f829d184407dca6dae4dc2686eac561a14ec6.
+>  sound/pci/hda/patch_realtek.c | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 3794b522c222..6a76a2eddd3c 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4644,6 +4644,16 @@ static void alc285_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+>  	}
+>  }
+> 
+> +static void alc285_fixup_hp_gpio_micmute_led(struct hda_codec *codec,
+> +				const struct hda_fixup *fix, int action)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +
+> +	if (action != HDA_FIXUP_ACT_PRE_PROBE)
+> +		spec->micmute_led_polarity = 1;
 
-Thanks, applied now.
+Is this condition correct?  It's usually other way round; a flag is
+set up only once at parsing.
 
+
+thanks,
 
 Takashi

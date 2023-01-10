@@ -2,104 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84BF56632F7
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jan 2023 22:33:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A166637C9
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 04:15:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4F8FC8AE;
-	Mon,  9 Jan 2023 22:32:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F8FC8AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D82CD7CE;
+	Tue, 10 Jan 2023 04:15:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D82CD7CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673300027;
-	bh=i1sriP5bv+aVMfDT8XA98r032B8Mn+4bQ8MhfD3yFmg=;
+	s=default; t=1673320555;
+	bh=zUxynVVGAwnhZfaOb/9/e5JWdRk7/MYZWS3LEpjGF/s=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=tEkckCRlpFOBamuDZE47JjfWNsr+3e/KMbaJf6xrBgf7WKmATAjPSv8BbZDIcba28
-	 w7wmDK8TgT3H1EPEE8J2jvHV27X80PUZrdxtOhlKuxQOBWlSlYmKpkOOKljLkylebf
-	 o9qqn09HZ5eHuvmMY4L2mG8YnhTuZEoapeGsUm9s=
+	b=C7uMvnOgSArLAvbWzdhvKTiMbDyXs79dgLqGwXiWay6gtgQi+bwkwHihH+/RLgC6u
+	 4IENj0suQPbEiSyR6ve2lXq1N5AiqMteZORMWbKhOt0dtYPm89CtLnCv21fvcOybJy
+	 DjkBT2GBsD24DCopiQEZQfn+zdnt+ZwxpDdwW2eg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47805F803DC;
-	Mon,  9 Jan 2023 22:32:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7258AF804CA;
+	Tue, 10 Jan 2023 04:14:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 294DAF8030F; Mon,  9 Jan 2023 22:32:47 +0100 (CET)
+ id EEBEBF804C1; Tue, 10 Jan 2023 04:14:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,T_SPF_PERMERROR,URIBL_BLOCKED
+ shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2060.outbound.protection.outlook.com [40.107.117.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF1C6F8026A
- for <alsa-devel@alsa-project.org>; Mon,  9 Jan 2023 22:32:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF1C6F8026A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=R2BkCzk7; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=aTCWPRdo
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 0B5AF5C01A7;
- Mon,  9 Jan 2023 16:32:37 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Mon, 09 Jan 2023 16:32:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1673299957; x=1673386357; bh=BGm7ovjamC
- R3hfJoHVl9R5EgA/7UGDRR7wFYjBiOAiE=; b=R2BkCzk7Huok7VaaigSnzlYzG/
- Nxf4cwKEvjlxXiam5dCjbvzm81o2Uv7IQCh0mWQVj+TBb3jLmllfdXDH5IXGQQwT
- aYnrEnkSK+QEtmA6an8wRJSSOfbLVJrGQQ0iJosB1a/O6ZNRAx/uaJ1O8K/NM8rB
- yTBriwL5csp+lZXMp9Y3ycw4LuZaE0OcSu4eBqwH7DK1sqpIBsHAz1aLm9tD3vNo
- NMM78CVlTWvS6g8E4doWGdEndz9tNuj6nxY1IG40255bO7pK3+K3W+lWEomSfFZA
- TAlr5ceW54ANJb6dlAY32V+eQH7NtWL4YxjlWBw1JBaLyOou+Vt3jmdcMcpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1673299957; x=1673386357; bh=BGm7ovjamCR3hfJoHVl9R5EgA/7UGDRR7wF
- YjBiOAiE=; b=aTCWPRdo9ez1bVZ2qyv5IcNkA5aEgbKUeQSy6qMhp0XOZK01E6h
- FGPBZkFIHVELrRWj74wsR8pmpVH4YvXVGK7YRCY65Jp08v9sOYtKMP0zMtoQxXi4
- gGBBZVdVKBVQ9W3AXEq3630YKDPQdexoo5/bfxEkLyv8NXFtAFGoZwh7B6xSazHW
- wdwLVGk2OawLBHdqxR44k7CUBgTiEnvPvteyVdQAjQHbu1dn79eRnlHIwUFpks61
- lXWQ3EKzjAm+dDAIcP/YfDf0kXFH2ZdOKD3oDSG92mthbqB8q/tuS8sJnygflecl
- x0XzzMix+gxzN5DpFW4eD4kT6zAjMH6CVbA==
-X-ME-Sender: <xms:9Ie8Y518Ij5VBubgisnRr6VwIvjK_GCnwDDiTbcb_eoXP67X__0plA>
- <xme:9Ie8YwE5Vr-EwiwgkCGYSQ0QgGwtRJEUlg2QEFZTtR2UVxQtXCBTXvAiomuP-6XdE
- yNnTZNKqbClHM3kH3s>
-X-ME-Received: <xmr:9Ie8Y56DOVESFIztRDuZP5Tbflu7VJlXmYKAiaKvsuezGmT6uZPyH2PxFdoxmspAiFSktaz4WxFk6lxib6aXeTCwo87VFxWD2YUc3nemvGr15FvWSY2e8GU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrkeeigddugeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeffvdeuleffve
- ekudfhteejudffgefhtedtgfeutdfgvdfgueefudehveehveekkeenucevlhhushhtvghr
- ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrg
- hkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:9Ie8Y21qSODJTYo9Njj95LAoSZ9BPisl_IbQAokyJycjD5pi1LL0Dg>
- <xmx:9Ie8Y8ECM2008DhFjUtlwQt-beH3-xdvlaBJLoHfcgxtK21DC1eZEQ>
- <xmx:9Ie8Y38uBLxHY1RiNnbfQn_H_kPjWH2DguuFEyEgcqZUo5kI4jE2wA>
- <xmx:9Ye8Y2N2hxOK8y-pN2grKUoq7jmsQ8-DFBMUzI8iG0F4CzVhLpwmZg>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Jan 2023 16:32:35 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: firewire-lib: extend tracepoints event including
- CYCLE_TIME of 1394 OHCI
-Date: Tue, 10 Jan 2023 06:32:31 +0900
-Message-Id: <20230109213231.138223-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 769F6F800C7
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 04:14:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 769F6F800C7
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=Bfru7vr8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E9G9drcSH1pQ3Zxg/sR/fkwArnBCay0cGeT+miVjIWyTY9fTyJSnapm1sTT9+G1jGZe4tVAOLIMwK0YyarTwJaoN4xLTULp30eTyv0vSrHH64c/4d3ZiHsq3Nyp0RAp8nYJbWOVDhoW2MgYmpt87DKf4pmwz4BTvnJdv2IInynrhSlEx6PMlSX7RGYOpGPu+LEb3ZCa49t5GKHLH228wTpm92uQtq25qaxh0tRQj1EooD0IFrZogLf9uSuJxQdqLBNa16SySCc6lXy6ZKRLbcxZ7Lf+DSshYTxV/pEDLfko5XqzC1K79kHqMl+0s4nv7mRONsWval0i9SOAREuT9DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v/eDTTyf7TnHis9ug3gcJyATUHf08pwqCV7lSBV6pU8=;
+ b=jNNNnacB/AnzBPlUMo/1AXGKnDq/fqFYMm8vYW1h4JRfND1CT94iM/kW73ucx/81tHaBpdRWdWX5fa6DbFc9Hp61K1Z3c8LePt31nqGMb2bV3OqUDaHuu7ep+qiTbWa3EOstahT23MTmD4Ffdrmkj/KHGccxjWCgpFVKkGo9emlZ4najmaVOXhszp7zPyNmavAy7mCKD/O9aBEitvAnFCoLZEhLetETFWiFzMFuWehofNsI2ilxl8rcxUeOuEztaL1F0YDtXytB/3clEVeiwo9XhC8+OWkZDKfbrLeBhcCA/rltQXjA8N+sYK6fjppgWuhssqW2+sQK7QSDmLq79iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nuvoton.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v/eDTTyf7TnHis9ug3gcJyATUHf08pwqCV7lSBV6pU8=;
+ b=Bfru7vr8NFdLAkzDij+FXoaJiCUGM1+UyQbRKe4Owfr0Hjinlb3gIn2Q8eK5BA9SD8/iq25W+lbQP4syiuvRz6vqRUZJZwNklT+zRkyAypq75KXFhYtZbFTVo+7LNs5nNj2v7bVsFuWZYns7Vzvsj1OJsEMBuxSc5nsXFNi3zlQ=
+Received: from TYBP286CA0018.JPNP286.PROD.OUTLOOK.COM (2603:1096:404:ce::30)
+ by SEYPR03MB6483.apcprd03.prod.outlook.com (2603:1096:101:53::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
+ 2023 03:14:39 +0000
+Received: from TYZAPC01FT061.eop-APC01.prod.protection.outlook.com
+ (2603:1096:404:ce:cafe::6c) by TYBP286CA0018.outlook.office365.com
+ (2603:1096:404:ce::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
+ Transport; Tue, 10 Jan 2023 03:14:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS04.nuvoton.com; pr=C
+Received: from NTHCCAS04.nuvoton.com (175.98.123.7) by
+ TYZAPC01FT061.mail.protection.outlook.com (10.118.152.78) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 03:14:38 +0000
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Tue, 10
+ Jan 2023 11:14:33 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.7 via Frontend Transport; 
+ Tue, 10 Jan 2023 11:14:34 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: nau8821: Implement DRC controls
+Date: Tue, 10 Jan 2023 11:14:27 +0800
+Message-ID: <20230110031427.459588-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZAPC01FT061:EE_|SEYPR03MB6483:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad84f534-8149-4292-eaca-08daf2b8cf0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zahB9Ed9Ibnx86vVnVFPCF/w2nSKrjuy2/NQGpcs7yiq0pbvYP0d6EeBpg3kA+jxlzFmbZqIvTQe18nJ38FSLopr0kdiNaa7XfxFvamih1RHQ5PN5OZSBVvDUSsj4ygMiQAkmgKyi5KdS9qQse+pbkRLlwtct9cP5qt7Lpc/u/u0lLKZ9XzuYfBAogbceSDDttA6hwTUWgZgpaFm/iNpQR13nOrS3vRkOQqmsRqkTunIRRwmsa0G9JpOBgNmJ1Pwgi7Vfaswmju2CB3sdh+D+BztEJ+nMRxV0uz5Xr8qjuTCARM9qGeoe+9YO+fntG+LWI3QRvnGb6Fsm/TxMCr721sDOGSKEBYuozw+MvTvTGp/ZgL70Rij5vZiWvZNnGan81vnluSSZGJ3S8rYPvMQZHjOwj7Vq5eQ5n0zAN/gz7425SHZgj3blTuDsG+ZtNgPr0PB22ajjLwr25CcCSJYqnibqvI6q1HQVB00GOu2uXRJCbcg9KVWFV9+rIujTq/IAfTA14Wp3YTi2KQaarC3oFvKRF9T7YSh6UnrY0XX7eHdt1QzhzhhzGwtqbZDeHZ/bJ6B+lq6jShS3H8B4s1mI7qBWE5BiWZ0PKkr1I52Y6JMrbbMU2vgUdxtH42mvgm4Kw+FRhXnqNPa0E+RQO0IvymfOXywrxtZzXimbNrnmvgsnfNuvLDjfhjkStcJT0TNxTN3k3BHCnRi/8WGwSqgfg==
+X-Forefront-Antispam-Report: CIP:175.98.123.7; CTRY:TW; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:NTHCCAS04.nuvoton.com; PTR:175-98-123-7.static.tfn.net.tw;
+ CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(2906002)(478600001)(26005)(186003)(6666004)(107886003)(36906005)(54906003)(316002)(2616005)(1076003)(8676002)(36756003)(70586007)(6916009)(336012)(40460700003)(70206006)(4326008)(47076005)(41300700001)(426003)(5660300002)(83380400001)(82740400003)(36860700001)(40480700001)(82310400005)(86362001)(356005)(81166007)(8936002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 03:14:38.7265 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad84f534-8149-4292-eaca-08daf2b8cf0d
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07; Ip=[175.98.123.7];
+ Helo=[NTHCCAS04.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYZAPC01FT061.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6483
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,154 +128,199 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: alsa-devel@alsa-project.org, scott6986@gmail.com,
+ Seven Lee <wtli@nuvoton.com>, SJLIN0@nuvoton.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com,
+ dardar923@gmail.com, supercraig0719@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A commit baa914cd81f5 ("firewire: add kernel API to access CYCLE_TIME
-register") allow unit drivers to read CYCLE_TIME of 1394 OHCI controller.
-The value expresses monotonic time with 42.195 Mhz resolution and wrapping
-around every 128 seconds. The controller uses the time to govern
-isochronous cycle.
+This patch is support dynamic range compression controls.
 
-This commit extends tracepoints event including the value so that event
-parser can compute gap between current isochronous cycle and the latest
-isochronous cycle in which packet is processed (in IR context) or scheduled
-(in IT context). It loses backward compatibility to former format of the
-tracepoints event.
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Seven Lee <wtli@nuvoton.com>
 ---
- sound/firewire/amdtp-stream-trace.h |  9 ++++++---
- sound/firewire/amdtp-stream.c       | 21 +++++++++++++++------
- 2 files changed, 21 insertions(+), 9 deletions(-)
+ sound/soc/codecs/nau8821.c | 96 ++++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/nau8821.h | 23 +++++++++
+ 2 files changed, 119 insertions(+)
 
-diff --git a/sound/firewire/amdtp-stream-trace.h b/sound/firewire/amdtp-stream-trace.h
-index 5fd2aeccdfc2..208f97cf8de6 100644
---- a/sound/firewire/amdtp-stream-trace.h
-+++ b/sound/firewire/amdtp-stream-trace.h
-@@ -14,9 +14,10 @@
- #include <linux/tracepoint.h>
- 
- TRACE_EVENT(amdtp_packet,
--	TP_PROTO(const struct amdtp_stream *s, u32 cycles, const __be32 *cip_header, unsigned int payload_length, unsigned int data_blocks, unsigned int data_block_counter, unsigned int packet_index, unsigned int index),
--	TP_ARGS(s, cycles, cip_header, payload_length, data_blocks, data_block_counter, packet_index, index),
-+	TP_PROTO(const struct amdtp_stream *s, u32 cycles, const __be32 *cip_header, unsigned int payload_length, unsigned int data_blocks, unsigned int data_block_counter, unsigned int packet_index, unsigned int index, u32 curr_cycle_time),
-+	TP_ARGS(s, cycles, cip_header, payload_length, data_blocks, data_block_counter, packet_index, index, curr_cycle_time),
- 	TP_STRUCT__entry(
-+		__field(unsigned int, cycle_time)
- 		__field(unsigned int, second)
- 		__field(unsigned int, cycle)
- 		__field(int, channel)
-@@ -31,6 +32,7 @@ TRACE_EVENT(amdtp_packet,
- 		__field(unsigned int, index)
- 	),
- 	TP_fast_assign(
-+		__entry->cycle_time = curr_cycle_time;
- 		__entry->second = cycles / CYCLES_PER_SECOND;
- 		__entry->cycle = cycles % CYCLES_PER_SECOND;
- 		__entry->channel = s->context->channel;
-@@ -53,7 +55,8 @@ TRACE_EVENT(amdtp_packet,
- 		__entry->index = index;
- 	),
- 	TP_printk(
--		"%02u %04u %04x %04x %02d %03u %02u %03u %02u %01u %02u %s",
-+		"%08x %02u %04u %04x %04x %02d %03u %02u %03u %02u %01u %02u %s",
-+		__entry->cycle_time,
- 		__entry->second,
- 		__entry->cycle,
- 		__entry->src,
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 430b33dc60b3..65720ae866cb 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -674,7 +674,7 @@ static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
- 				struct fw_iso_packet *params, unsigned int header_length,
- 				unsigned int data_blocks,
- 				unsigned int data_block_counter,
--				unsigned int syt, unsigned int index)
-+				unsigned int syt, unsigned int index, u32 curr_cycle_time)
- {
- 	unsigned int payload_length;
- 	__be32 *cip_header;
-@@ -691,7 +691,7 @@ static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
- 	}
- 
- 	trace_amdtp_packet(s, cycle, cip_header, payload_length + header_length, data_blocks,
--			   data_block_counter, s->packet_index, index);
-+			   data_block_counter, s->packet_index, index, curr_cycle_time);
- }
- 
- static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
-@@ -793,7 +793,8 @@ static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
- 			       const __be32 *ctx_header,
- 			       unsigned int *data_blocks,
- 			       unsigned int *data_block_counter,
--			       unsigned int *syt, unsigned int packet_index, unsigned int index)
-+			       unsigned int *syt, unsigned int packet_index, unsigned int index,
-+			       u32 curr_cycle_time)
- {
- 	unsigned int payload_length;
- 	const __be32 *cip_header;
-@@ -838,7 +839,7 @@ static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
- 	}
- 
- 	trace_amdtp_packet(s, cycle, cip_header, payload_length, *data_blocks,
--			   *data_block_counter, packet_index, index);
-+			   *data_block_counter, packet_index, index, curr_cycle_time);
- 
- 	return 0;
- }
-@@ -889,9 +890,13 @@ static int generate_tx_packet_descs(struct amdtp_stream *s, struct pkt_desc *des
- 	unsigned int dbc = s->data_block_counter;
- 	unsigned int packet_index = s->packet_index;
- 	unsigned int queue_size = s->queue_size;
-+	u32 curr_cycle_time;
- 	int i;
- 	int err;
- 
-+	if (trace_amdtp_packet_enabled())
-+		(void)fw_card_read_cycle_time(fw_parent_device(s->unit)->card, &curr_cycle_time);
-+
- 	*desc_count = 0;
- 	for (i = 0; i < packet_count; ++i) {
- 		unsigned int cycle;
-@@ -936,7 +941,7 @@ static int generate_tx_packet_descs(struct amdtp_stream *s, struct pkt_desc *des
- 		}
- 
- 		err = parse_ir_ctx_header(s, cycle, ctx_header, &data_blocks, &dbc, &syt,
--					  packet_index, i);
-+					  packet_index, i, curr_cycle_time);
- 		if (err < 0)
- 			return err;
- 
-@@ -1050,6 +1055,7 @@ static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_
- 	struct pkt_desc *desc = s->packet_descs_cursor;
- 	unsigned int pkt_header_length;
- 	unsigned int packets;
-+	u32 curr_cycle_time;
- 	bool need_hw_irq;
- 	int i;
- 
-@@ -1078,6 +1084,9 @@ static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_
- 		need_hw_irq = false;
- 	}
- 
-+	if (trace_amdtp_packet_enabled())
-+		(void)fw_card_read_cycle_time(fw_parent_device(s->unit)->card, &curr_cycle_time);
-+
- 	for (i = 0; i < packets; ++i) {
- 		struct {
- 			struct fw_iso_packet params;
-@@ -1087,7 +1096,7 @@ static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_
- 
- 		build_it_pkt_header(s, desc->cycle, &template.params, pkt_header_length,
- 				    desc->data_blocks, desc->data_block_counter,
--				    desc->syt, i);
-+				    desc->syt, i, curr_cycle_time);
- 
- 		if (s == s->domain->irq_target) {
- 			event_count += desc->data_blocks;
--- 
-2.37.2
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index 4a72b94e8410..fee970427a24 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -322,12 +322,92 @@ static const struct soc_enum nau8821_dac_oversampl_en=
+um =3D
+        SOC_ENUM_SINGLE(NAU8821_R2C_DAC_CTRL1, NAU8821_DAC_OVERSAMPLE_SFT,
+                ARRAY_SIZE(nau8821_dac_oversampl), nau8821_dac_oversampl);
 
++static const char * const nau8821_adc_drc_noise_gate[] =3D {
++       "1:1", "2:1", "4:1", "8:1" };
++
++static const struct soc_enum nau8821_adc_drc_noise_gate_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R38_ADC_DRC_SLOPES, NAU8821_DRC_NG_SLP_ADC_=
+SFT,
++               ARRAY_SIZE(nau8821_adc_drc_noise_gate),
++               nau8821_adc_drc_noise_gate);
++
++static const char * const nau8821_adc_drc_expansion_slope[] =3D {
++       "1:1", "2:1", "4:1" };
++
++static const struct soc_enum nau8821_adc_drc_expansion_slope_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R38_ADC_DRC_SLOPES, NAU8821_DRC_EXP_SLP_ADC=
+_SFT,
++               ARRAY_SIZE(nau8821_adc_drc_expansion_slope),
++               nau8821_adc_drc_expansion_slope);
++
++static const char * const nau8821_adc_drc_lower_region[] =3D {
++       "0", "1:2", "1:4", "1:8", "1:16", "", "", "1:1" };
++
++static const struct soc_enum nau8821_adc_drc_lower_region_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R38_ADC_DRC_SLOPES,
++               NAU8821_DRC_CMP2_SLP_ADC_SFT,
++               ARRAY_SIZE(nau8821_adc_drc_lower_region),
++               nau8821_adc_drc_lower_region);
++
++static const char * const nau8821_higher_region[] =3D {
++       "0", "1:2", "1:4", "1:8", "1:16", "", "", "1:1" };
++
++static const struct soc_enum nau8821_higher_region_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R38_ADC_DRC_SLOPES,
++               NAU8821_DRC_CMP1_SLP_ADC_SFT,
++               ARRAY_SIZE(nau8821_higher_region),
++               nau8821_higher_region);
++
++static const char * const nau8821_limiter_slope[] =3D {
++       "0", "1:2", "1:4", "1:8", "1:16", "1:32", "1:64", "1:1" };
++
++static const struct soc_enum nau8821_limiter_slope_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R38_ADC_DRC_SLOPES,
++               NAU8821_DRC_LMT_SLP_ADC_SFT, ARRAY_SIZE(nau8821_limiter_slo=
+pe),
++               nau8821_limiter_slope);
++
++static const char * const nau8821_detection_attack_time[] =3D {
++       "Ts", "3Ts", "7Ts", "15Ts", "31Ts", "63Ts", "127Ts", "255Ts",
++       "", "511Ts" };
++
++static const struct soc_enum nau8821_detection_attack_time_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R39_ADC_DRC_ATKDCY,
++               NAU8821_DRC_PK_COEF1_ADC_SFT,
++               ARRAY_SIZE(nau8821_detection_attack_time),
++               nau8821_detection_attack_time);
++
++static const char * const nau8821_detection_release_time[] =3D {
++       "63Ts", "127Ts", "255Ts", "511Ts", "1023Ts", "2047Ts", "4095Ts",
++       "8191Ts", "", "16383Ts" };
++
++static const struct soc_enum nau8821_detection_release_time_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R39_ADC_DRC_ATKDCY,
++               NAU8821_DRC_PK_COEF2_ADC_SFT,
++               ARRAY_SIZE(nau8821_detection_release_time),
++               nau8821_detection_release_time);
++
++static const char * const nau8821_attack_time[] =3D {
++       "Ts", "3Ts", "7Ts", "15Ts", "31Ts", "63Ts", "127Ts", "255Ts",
++       "511Ts", "1023Ts", "2047Ts", "4095Ts", "8191Ts" };
++
++static const struct soc_enum nau8821_attack_time_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R39_ADC_DRC_ATKDCY, NAU8821_DRC_ATK_ADC_SFT=
+,
++               ARRAY_SIZE(nau8821_attack_time), nau8821_attack_time);
++
++static const char * const nau8821_decay_time[] =3D {
++       "63Ts", "127Ts", "255Ts", "511Ts", "1023Ts", "2047Ts", "4095Ts",
++       "8191Ts", "16383Ts", "32757Ts", "65535Ts" };
++
++static const struct soc_enum nau8821_decay_time_enum =3D
++       SOC_ENUM_SINGLE(NAU8821_R39_ADC_DRC_ATKDCY, NAU8821_DRC_DCY_ADC_SFT=
+,
++               ARRAY_SIZE(nau8821_decay_time), nau8821_decay_time);
++
+ static const DECLARE_TLV_DB_MINMAX_MUTE(adc_vol_tlv, -6600, 2400);
+ static const DECLARE_TLV_DB_MINMAX_MUTE(sidetone_vol_tlv, -4200, 0);
+ static const DECLARE_TLV_DB_MINMAX(hp_vol_tlv, -900, 0);
+ static const DECLARE_TLV_DB_SCALE(playback_vol_tlv, -6600, 50, 1);
+ static const DECLARE_TLV_DB_MINMAX(fepga_gain_tlv, -100, 3600);
+ static const DECLARE_TLV_DB_MINMAX_MUTE(crosstalk_vol_tlv, -7000, 2400);
++static const DECLARE_TLV_DB_MINMAX(drc_knee4_tlv, -9800, -3500);
++static const DECLARE_TLV_DB_MINMAX(drc_knee3_tlv, -8100, -1800);
+
+ static const struct snd_kcontrol_new nau8821_controls[] =3D {
+        SOC_DOUBLE_TLV("Mic Volume", NAU8821_R35_ADC_DGAIN_CTRL1,
+@@ -346,6 +426,22 @@ static const struct snd_kcontrol_new nau8821_controls[=
+] =3D {
+        SOC_DOUBLE_TLV("Headphone Crosstalk Volume",
+                NAU8821_R2F_DAC_DGAIN_CTRL,
+                0, 8, 0xff, 0, crosstalk_vol_tlv),
++       SOC_SINGLE_TLV("ADC DRC KNEE4", NAU8821_R37_ADC_DRC_KNEE_IP34,
++               NAU8821_DRC_KNEE4_IP_ADC_SFT, 0x3f, 1, drc_knee4_tlv),
++       SOC_SINGLE_TLV("ADC DRC KNEE3", NAU8821_R37_ADC_DRC_KNEE_IP34,
++               NAU8821_DRC_KNEE3_IP_ADC_SFT, 0x3f, 1, drc_knee3_tlv),
++
++       SOC_ENUM("ADC DRC Noise Gate", nau8821_adc_drc_noise_gate_enum),
++       SOC_ENUM("ADC DRC Expansion Slope", nau8821_adc_drc_expansion_slope=
+_enum),
++       SOC_ENUM("ADC DRC Lower Region", nau8821_adc_drc_lower_region_enum)=
+,
++       SOC_ENUM("ADC DRC Higher Region", nau8821_higher_region_enum),
++       SOC_ENUM("ADC DRC Limiter Slope", nau8821_limiter_slope_enum),
++       SOC_ENUM("ADC DRC Peak Detection Attack Time", nau8821_detection_at=
+tack_time_enum),
++       SOC_ENUM("ADC DRC Peak Detection Release Time", nau8821_detection_r=
+elease_time_enum),
++       SOC_ENUM("ADC DRC Attack Time", nau8821_attack_time_enum),
++       SOC_ENUM("ADC DRC Decay Time", nau8821_decay_time_enum),
++       SOC_SINGLE("DRC Enable Switch", NAU8821_R36_ADC_DRC_KNEE_IP12,
++               NAU8821_DRC_ENA_ADC_SFT, 1, 0),
+
+        SOC_ENUM("ADC Decimation Rate", nau8821_adc_decimation_enum),
+        SOC_ENUM("DAC Oversampling Rate", nau8821_dac_oversampl_enum),
+diff --git a/sound/soc/codecs/nau8821.h b/sound/soc/codecs/nau8821.h
+index c44251f54d48..d962293c218e 100644
+--- a/sound/soc/codecs/nau8821.h
++++ b/sound/soc/codecs/nau8821.h
+@@ -350,6 +350,29 @@
+ #define NAU8821_ADCL_CH_VOL_SFT                0
+ #define NAU8821_ADCL_CH_VOL_MASK       0xff
+
++/* ADC_DRC_KNEE_IP12 (0x36) */
++#define NAU8821_DRC_ENA_ADC_SFT                15
++#define NAU8821_DRC_ENA_ADC_EN         (0x1 << NAU8821_DRC_ENA_ADC_SFT)
++
++/* ADC_DRC_KNEE_IP34 (0x37) */
++#define NAU8821_DRC_KNEE4_IP_ADC_SFT   8
++#define NAU8821_DRC_KNEE4_IP_ADC_MASK  (0xff << NAU8821_DRC_KNEE4_IP_ADC_S=
+FT)
++#define NAU8821_DRC_KNEE3_IP_ADC_SFT   0
++#define NAU8821_DRC_KNEE3_IP_ADC_MASK  0xff
++
++/* ADC_DRC_SLOPES (0x38) */
++#define NAU8821_DRC_NG_SLP_ADC_SFT     12
++#define NAU8821_DRC_EXP_SLP_ADC_SFT    9
++#define NAU8821_DRC_CMP2_SLP_ADC_SFT   6
++#define NAU8821_DRC_CMP1_SLP_ADC_SFT   3
++#define NAU8821_DRC_LMT_SLP_ADC_SFT    0
++
++/* ADC_DRC_ATKDCY (0x39) */
++#define NAU8821_DRC_PK_COEF1_ADC_SFT   12
++#define NAU8821_DRC_PK_COEF2_ADC_SFT   8
++#define NAU8821_DRC_ATK_ADC_SFT                4
++#define NAU8821_DRC_DCY_ADC_SFT                0
++
+ /* BIQ1_COF10 (0x4a) */
+ #define NAU8821_BIQ1_DAC_EN_SFT                3
+ #define NAU8821_BIQ1_DAC_EN_EN          (0x1 << NAU8821_BIQ1_DAC_EN_SFT)
+--
+2.25.1
+
+________________________________
+________________________________
+ The privileged confidential information contained in this email is intende=
+d for use only by the addressees as indicated by the original sender of thi=
+s email. If you are not the addressee indicated in this email or are not re=
+sponsible for delivery of the email to such a person, please kindly reply t=
+o the sender indicating this fact and delete all copies of it from your com=
+puter and network server immediately. Your cooperation is highly appreciate=
+d. It is advised that any unauthorized use of confidential information of N=
+uvoton is strictly prohibited; and any information in this email irrelevant=
+ to the official business of Nuvoton shall be deemed as neither given nor e=
+ndorsed by Nuvoton.

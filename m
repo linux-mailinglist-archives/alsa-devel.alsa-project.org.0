@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A166637C9
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 04:15:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 944596637CD
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 04:17:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D82CD7CE;
-	Tue, 10 Jan 2023 04:15:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D82CD7CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF07AD7EC;
+	Tue, 10 Jan 2023 04:16:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF07AD7EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673320555;
+	s=default; t=1673320655;
 	bh=zUxynVVGAwnhZfaOb/9/e5JWdRk7/MYZWS3LEpjGF/s=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=C7uMvnOgSArLAvbWzdhvKTiMbDyXs79dgLqGwXiWay6gtgQi+bwkwHihH+/RLgC6u
-	 4IENj0suQPbEiSyR6ve2lXq1N5AiqMteZORMWbKhOt0dtYPm89CtLnCv21fvcOybJy
-	 DjkBT2GBsD24DCopiQEZQfn+zdnt+ZwxpDdwW2eg=
+	b=hHUaru9veqDBlHJ/h4Zd4dO9X5fHS7GyLNqr+4EFMSKF0g0WlMBamR7AyxOwwDUYY
+	 ToJbUAwDSfDftYzY3uKeJOqOupVkRvBi6mNP+EjJz3MEDbbrjZyoG9FJhzkomgQPtC
+	 Dw533l4WiLHN1oijuGzkD31i5m+r14XeAArUovp4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7258AF804CA;
-	Tue, 10 Jan 2023 04:14:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8985FF800C7;
+	Tue, 10 Jan 2023 04:16:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EEBEBF804C1; Tue, 10 Jan 2023 04:14:54 +0100 (CET)
+ id 104CCF804C1; Tue, 10 Jan 2023 04:16:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,T_SPF_PERMERROR,URIBL_BLOCKED
- shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01on2060.outbound.protection.outlook.com [40.107.117.60])
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2061.outbound.protection.outlook.com [40.107.255.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 769F6F800C7
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 04:14:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 769F6F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id E739CF8026A
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 04:16:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E739CF8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
- header.s=selector1 header.b=Bfru7vr8
+ header.s=selector1 header.b=NyEzeflB
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E9G9drcSH1pQ3Zxg/sR/fkwArnBCay0cGeT+miVjIWyTY9fTyJSnapm1sTT9+G1jGZe4tVAOLIMwK0YyarTwJaoN4xLTULp30eTyv0vSrHH64c/4d3ZiHsq3Nyp0RAp8nYJbWOVDhoW2MgYmpt87DKf4pmwz4BTvnJdv2IInynrhSlEx6PMlSX7RGYOpGPu+LEb3ZCa49t5GKHLH228wTpm92uQtq25qaxh0tRQj1EooD0IFrZogLf9uSuJxQdqLBNa16SySCc6lXy6ZKRLbcxZ7Lf+DSshYTxV/pEDLfko5XqzC1K79kHqMl+0s4nv7mRONsWval0i9SOAREuT9DQ==
+ b=Ncgzn5wRs9OdfPw18e6UA6Kwv0ZSue74o1gDSj/j+MggaXfczE7xXsECqj+Ga/ZlzK5/pBFEPkNt248wL4r4kZKic4SKj2K8yBNz21AAjkEJG1iiN7VHXHCB0Qpzq6lkB4trJ2ljJdMRDb5Rc0zMeRoVXVy2CRF6ZU6iBfMqBfquzoJ4qZn/6EJIkyB1w2jpxt+SYjWP84Q5CfIqJp5N/ywsq4q5swJ8khoWCo5DpLIPW1XJRul51usE3dm71jSPO2VP/w8USUeCMik/FLrStjn9k4rKDFc6Y3tIGfhkkkD/KWID99m4dI0zASlTxCSLNqc8WYppxWlgeb/0yQCDXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
  bh=v/eDTTyf7TnHis9ug3gcJyATUHf08pwqCV7lSBV6pU8=;
- b=jNNNnacB/AnzBPlUMo/1AXGKnDq/fqFYMm8vYW1h4JRfND1CT94iM/kW73ucx/81tHaBpdRWdWX5fa6DbFc9Hp61K1Z3c8LePt31nqGMb2bV3OqUDaHuu7ep+qiTbWa3EOstahT23MTmD4Ffdrmkj/KHGccxjWCgpFVKkGo9emlZ4najmaVOXhszp7zPyNmavAy7mCKD/O9aBEitvAnFCoLZEhLetETFWiFzMFuWehofNsI2ilxl8rcxUeOuEztaL1F0YDtXytB/3clEVeiwo9XhC8+OWkZDKfbrLeBhcCA/rltQXjA8N+sYK6fjppgWuhssqW2+sQK7QSDmLq79iA==
+ b=bhk7JQ7v+pDpQdpFcqWYTOggly4IrShqAc1g88KvFqkVcVdL0CfX1tI5CfYImv0Jz2tTIn23xTQBVnMsQr8R7lEFKq3G1a0PNHi1Upyuf9r52bnk3BOe66Ux8JxYhFrvJiJWA49IscXs9fMBXXwseRdoJwLmIGbnJSrPMpE1V1QZTo7DLd2P5q3hnbi8IYPt3Jq79pQ0/9gEkikXg0ONKFZK5M2u0hMkxFCXSR1NaJ2SSqh8ko99GOY6qsp8F4rmIGSggDklrI/nbMSOKy4+res5yATBC/Xp8H5nKtudZg7Om4UsnQ+nDKJuoNGyaRgAqbJsH2TaZrqErZaTlTr+bA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=nuvoton.com;
@@ -56,17 +56,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=v/eDTTyf7TnHis9ug3gcJyATUHf08pwqCV7lSBV6pU8=;
- b=Bfru7vr8NFdLAkzDij+FXoaJiCUGM1+UyQbRKe4Owfr0Hjinlb3gIn2Q8eK5BA9SD8/iq25W+lbQP4syiuvRz6vqRUZJZwNklT+zRkyAypq75KXFhYtZbFTVo+7LNs5nNj2v7bVsFuWZYns7Vzvsj1OJsEMBuxSc5nsXFNi3zlQ=
-Received: from TYBP286CA0018.JPNP286.PROD.OUTLOOK.COM (2603:1096:404:ce::30)
- by SEYPR03MB6483.apcprd03.prod.outlook.com (2603:1096:101:53::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ b=NyEzeflBZHmKEJpEhpe6pPXgb+Wq6JjVkKYkMCtc9Xsb0ztaXpivhutE/WKPMwga5mM5ngDbuAaEDRScq8zk8ino1/mlU1cOQ0duELBjc96/ics8GqcHTNBzP2mQc31BCvBT+Frhrpk+6aHBod6NmF+m3iREDGPGJZ/2JNPQc2I=
+Received: from TYAPR04CA0023.apcprd04.prod.outlook.com (2603:1096:404:15::35)
+ by TYZPR03MB5677.apcprd03.prod.outlook.com (2603:1096:400:65::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 03:14:39 +0000
-Received: from TYZAPC01FT061.eop-APC01.prod.protection.outlook.com
- (2603:1096:404:ce:cafe::6c) by TYBP286CA0018.outlook.office365.com
- (2603:1096:404:ce::30) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 03:16:25 +0000
+Received: from TYZAPC01FT052.eop-APC01.prod.protection.outlook.com
+ (2603:1096:404:15:cafe::24) by TYAPR04CA0023.outlook.office365.com
+ (2603:1096:404:15::35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
- Transport; Tue, 10 Jan 2023 03:14:39 +0000
+ Transport; Tue, 10 Jan 2023 03:16:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
  smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nuvoton.com;
@@ -74,48 +74,52 @@ Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
  175.98.123.7 as permitted sender) receiver=protection.outlook.com;
  client-ip=175.98.123.7; helo=NTHCCAS04.nuvoton.com; pr=C
 Received: from NTHCCAS04.nuvoton.com (175.98.123.7) by
- TYZAPC01FT061.mail.protection.outlook.com (10.118.152.78) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 03:14:38 +0000
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ TYZAPC01FT052.mail.protection.outlook.com (10.118.152.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 03:16:25 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS04.nuvoton.com
  (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Tue, 10
- Jan 2023 11:14:33 +0800
+ Jan 2023 11:16:24 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 10 Jan
+ 2023 11:16:24 +0800
 Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.7 via Frontend Transport; 
- Tue, 10 Jan 2023 11:14:34 +0800
+ Tue, 10 Jan 2023 11:16:24 +0800
 From: Seven Lee <wtli@nuvoton.com>
 To: <broonie@kernel.org>
 Subject: [PATCH] ASoC: nau8821: Implement DRC controls
-Date: Tue, 10 Jan 2023 11:14:27 +0800
-Message-ID: <20230110031427.459588-1-wtli@nuvoton.com>
+Date: Tue, 10 Jan 2023 11:16:22 +0800
+Message-ID: <20230110031622.459686-1-wtli@nuvoton.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZAPC01FT061:EE_|SEYPR03MB6483:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad84f534-8149-4292-eaca-08daf2b8cf0d
+X-MS-TrafficTypeDiagnostic: TYZAPC01FT052:EE_|TYZPR03MB5677:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2bd6ca5c-329e-4ce2-9e57-08daf2b90ec9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zahB9Ed9Ibnx86vVnVFPCF/w2nSKrjuy2/NQGpcs7yiq0pbvYP0d6EeBpg3kA+jxlzFmbZqIvTQe18nJ38FSLopr0kdiNaa7XfxFvamih1RHQ5PN5OZSBVvDUSsj4ygMiQAkmgKyi5KdS9qQse+pbkRLlwtct9cP5qt7Lpc/u/u0lLKZ9XzuYfBAogbceSDDttA6hwTUWgZgpaFm/iNpQR13nOrS3vRkOQqmsRqkTunIRRwmsa0G9JpOBgNmJ1Pwgi7Vfaswmju2CB3sdh+D+BztEJ+nMRxV0uz5Xr8qjuTCARM9qGeoe+9YO+fntG+LWI3QRvnGb6Fsm/TxMCr721sDOGSKEBYuozw+MvTvTGp/ZgL70Rij5vZiWvZNnGan81vnluSSZGJ3S8rYPvMQZHjOwj7Vq5eQ5n0zAN/gz7425SHZgj3blTuDsG+ZtNgPr0PB22ajjLwr25CcCSJYqnibqvI6q1HQVB00GOu2uXRJCbcg9KVWFV9+rIujTq/IAfTA14Wp3YTi2KQaarC3oFvKRF9T7YSh6UnrY0XX7eHdt1QzhzhhzGwtqbZDeHZ/bJ6B+lq6jShS3H8B4s1mI7qBWE5BiWZ0PKkr1I52Y6JMrbbMU2vgUdxtH42mvgm4Kw+FRhXnqNPa0E+RQO0IvymfOXywrxtZzXimbNrnmvgsnfNuvLDjfhjkStcJT0TNxTN3k3BHCnRi/8WGwSqgfg==
+X-Microsoft-Antispam-Message-Info: mn24iMDHLq4YEAwIxyN1+YyH88oC6uK7Kvb3diGMaQmolwY7D/aYJY8osXTvkAbsGfab0zAzaoQwrrp91kCThnyv2iHiTSiWiDNmW3RKO2YFdW2f4BLADWA0u07KJIQLcANt7c8jKL6myeiI3xVTmVsm71ehVd56hvIy1B4Zx9dWxHHEWpei9N0iufN83yCI4vSdi2otgNNjc0E+Ac/cJN6rvy1SYujQRCzeEKr+KIqtdb9MUNhitph/wL+QImUXi+YXLdAytOZYSmQU5nhWMykXiHSly1BcjnQaGHdw+ruJBa8I6rFCnDict9qx/xrbKlWkVRCU3BrrPnMEi6kt+KWeT/sO1BW0q++1C8TkMSPb2URVPx8cZi47cprNnwOYWjLrpthwsxogMknCt43ITsShA8+hcuh3u2GV6u18QbWnqrXW1oNl+B3MDHKH7tSxkn/ZHzLKT4y0wEOT/6Qu+TVD3O++oqa906vzyOVPwoFbRCm8OnCCe9ZmCgZSF7A4l+1jr/kaEqDp/YSk8Ug9zjFi5sWPEGJWaqTtW/gNhZxzyc53VGvX4desdee9vAjo+AoCFlQ0znmva07e/AeLHt3trzRu3iGC9H5QiKhkPIFan26BqFwjJyVtzv/fAZTlju9aIuflQI/A6EelFhCmxlBrB/9IvKK7V6J787DFyncUTgcO/1LqqCiu8W56uhZFMwm6Tvr2prQfvxnjSklIcw==
 X-Forefront-Antispam-Report: CIP:175.98.123.7; CTRY:TW; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:NTHCCAS04.nuvoton.com; PTR:175-98-123-7.static.tfn.net.tw;
  CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(2906002)(478600001)(26005)(186003)(6666004)(107886003)(36906005)(54906003)(316002)(2616005)(1076003)(8676002)(36756003)(70586007)(6916009)(336012)(40460700003)(70206006)(4326008)(47076005)(41300700001)(426003)(5660300002)(83380400001)(82740400003)(36860700001)(40480700001)(82310400005)(86362001)(356005)(81166007)(8936002);
+ SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199015)(46966006)(40470700004)(36840700001)(1076003)(5660300002)(316002)(40480700001)(26005)(186003)(478600001)(2616005)(41300700001)(47076005)(426003)(40460700003)(54906003)(336012)(6916009)(4326008)(70586007)(70206006)(8676002)(82310400005)(8936002)(83380400001)(86362001)(36906005)(36756003)(107886003)(36860700001)(82740400003)(356005)(2906002)(81166007);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: nuvoton.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 03:14:38.7265 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad84f534-8149-4292-eaca-08daf2b8cf0d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 03:16:25.6375 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bd6ca5c-329e-4ce2-9e57-08daf2b90ec9
 X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07; Ip=[175.98.123.7];
  Helo=[NTHCCAS04.nuvoton.com]
-X-MS-Exchange-CrossTenant-AuthSource: TYZAPC01FT061.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: TYZAPC01FT052.eop-APC01.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6483
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB5677
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list

@@ -2,69 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3192663CFA
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 10:34:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98562664075
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 13:29:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D9DC785C;
-	Tue, 10 Jan 2023 10:33:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D9DC785C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DE55B138;
+	Tue, 10 Jan 2023 13:28:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DE55B138
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673343272;
-	bh=dO+7VJNDBN5kIbWJH+BQHNTha0YTKUoZv+eak76K/QI=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673353741;
+	bh=zwxBsdOxXbT/o7p0/efrqT/Nkwrd77eV/+pSV4XqXNc=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:Cc:From;
-	b=tX7SehrAFkhhMB22Pp4Vp9S+TzSOqW8ssaDetiM2x3i8Uz3rs8X8mpOAjlSo7MrR6
-	 Au83am0CWp3/3zGzErBihosCnYtXm4179WLgqBLR9I+1LF8S4X2pVytFve2wy1JwfB
-	 hL1IJo2K1ZYFXZSHt+qEaNzRN5yXv8lxKbQqvGaA=
+	 Cc:From;
+	b=DTCbYKxYxQwkZ9V+lzLnhGKN2ApAWOTBc80exgUlVOBSGK3SwKVxM1j4E1BvpWkyW
+	 gg0e+3+sCCRLn+lDp2o7YGefB/B27jnAN4dIRgPrdYah90m9AkM/uDa3j+c99wRdAh
+	 rCAmUM4JHORKhd0XXuzw3N/lUxI3yEUP/aNuUXN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA478F804D9;
-	Tue, 10 Jan 2023 10:33:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08084F800C7;
+	Tue, 10 Jan 2023 13:28:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8589DF804C1; Tue, 10 Jan 2023 10:33:39 +0100 (CET)
+ id 06E3CF804BD; Tue, 10 Jan 2023 13:28:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81A16F8026A
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 10:33:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81A16F8026A
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1pFB0e-0002ya-EF; Tue, 10 Jan 2023 10:33:32 +0100
-Message-ID: <169efa7b-917f-34b8-9edf-1b8c6345c277@leemhuis.info>
-Date: Tue, 10 Jan 2023 10:33:31 +0100
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 397F3F8019B
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 13:27:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 397F3F8019B
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=GXfR+1I7
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.mutex.one (Postfix) with ESMTP id 4495C16C0004;
+ Tue, 10 Jan 2023 14:27:58 +0200 (EET)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+ by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id lj3SrLoA6jRB; Tue, 10 Jan 2023 14:27:57 +0200 (EET)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+ t=1673353677; bh=zwxBsdOxXbT/o7p0/efrqT/Nkwrd77eV/+pSV4XqXNc=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=GXfR+1I7gu3qzNDklinm7snHOlgQA4uHRyNRiZsLPalOWYpcS83pNHtyV464bxRHB
+ PkFCcfqxFLEcHJsjpEK7nmqKqfMUh/EoBwCv5SYwdu5Fvz+8HeLnz9RaQSUBMyvSt3
+ EPaPycjIEJj00BgUXiQcOUwaK+5W3COTEDrU3gP8=
+To: "Limonciello, Mario" <mario.limonciello@amd.com>, "Reddy, V sujith
+ kumar" <vsujithkumar.reddy@amd.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC] Sound support for Huawei line of AMD laptops using ACP
+ and ES8336 codec
+In-Reply-To: <8349cf5f-1e26-f605-4404-978dbef9cee3@amd.com>
+References: <871qo7fqjp.fsf@mutex.one>
+ <598ca0a8-8aef-a030-7060-f76ba4700bbf@amd.com>
+ <8349cf5f-1e26-f605-4404-978dbef9cee3@amd.com>
+Date: Tue, 10 Jan 2023 14:27:54 +0200
+Message-ID: <871qo2bmlx.fsf@mutex.one>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: =?UTF-8?Q?Re=3a_=5bregression=5d_Bug=c2=a0216818_-_The_microphone_m?=
- =?UTF-8?Q?ute_led_not_working_after_linux_6?=
-Content-Language: en-US, de-DE
-To: Jaroslav Kysela <perex@perex.cz>,
- Pierre-louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <bf52f4c5-5cca-26d7-7fb2-ac8ecb5b24c5@leemhuis.info>
- <572159b3-a1a4-8735-d435-ea574c07851f@redhat.com>
- <9f0e95d1-5057-93f0-ad9e-985eaeed0226@leemhuis.info>
- <7ab2be50-11c6-f79f-e3f5-a5dc5ec41708@perex.cz>
-From: "Linux kernel regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <7ab2be50-11c6-f79f-e3f5-a5dc5ec41708@perex.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1673343215;
- 8e28777c; 
-X-HE-SMSGID: 1pFB0e-0002ya-EF
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,122 +81,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: alsa-devel@alsa-project.org, plum <plumerlis@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Hans de Goede <hdegoede@redhat.com>, sonic82003@gmail.com,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, syed sabakareem <Syed.SabaKareem@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[now that the holiday season is over I'd like to get this rolling again]
+Hello V sujith kumar, Mario,
 
-On 19.12.22 18:01, Jaroslav Kysela wrote:
-> On 19. 12. 22 11:27, Thorsten Leemhuis wrote:
->> On 19.12.22 11:00, Hans de Goede wrote:
->>> On 12/19/22 10:17, Thorsten Leemhuis wrote:
->>>> I noticed a regression report in bugzilla.kernel.org. As many (most?)
->>>> kernel developer don't keep an eye on it, I decided to forward it by
->>>> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216818 :
->>>>
->>>>>   sonic82003@gmail.com 2022-12-18 08:52:32 UTC
->>>>>
->>>>> The mic mute led of my ThinkPad X1 Carbon Gen 9 doesn't work
->>>>> anymore after updating linux to version 6.
->>>>> I can still turn it on by  running
->>>>>
->>>>> echo 1 > /sys/class/leds/platform::micmute/brightness
->>>>>
->>>>> With linux-lts it still works fine.
->>>>
->>>> See the ticket for more details.
->>>>
->>>> Note, I found a similar report that (despite my attempts to prevent
->>>> things like this from happening) fell through the cracks here:
->>>> https://bugzilla.kernel.org/show_bug.cgi?id=216355
->>>>
->>>>>   plum 2022-08-13 02:11:01 UTC
->>>>>
->>>>> I upgrade to kernel 5.19.1 but found my thinkpad x1 carbon 2021's
->>>>> mute led stop working.
->>>>>
->>>>> Function is okay but LED won't light up.
->>>>>
->>>>> Back to kernel 5.18 and it's normal and working again.
->>>>>
->>>>> Fedora 36 64 bit
->>>>> Gnome-shell 42
->>>>
->>>>  From a quick research it looks to me like this is an issue for the
->>>> sounds maintainers, as the LED itself apparently works. If that is
->>>> something for the platform people instead please speak up.
->>>
->>> Thanks for bringing this up, we recently hit this in Fedora too
->>> and we have a fix/workaround there. Let me copy and paste what
->>> I just added to bko216355 :
->>
->> Many thx for sharing these details, really helpful.
->>
->>> This is caused by a behavior change of the kernel code controlling
->>> the LED to only turn on the LED when all inputs, including e.g. the
->>> jack mic input are turned off in the alsa-mixer settings.
->>>
->>> But most userspace code only turns the mic which it is actually using
->>> on/off when you hit the mic-mute hotkey.
->>>
->>> Also see: https://bugzilla.redhat.com/show_bug.cgi?id=2134824
->>
->> Ahh, lot's of helpful information and even a bisect there. :-D
->>
->> #regzbot introduced: 9b014266ef8ad0159
-> 
-> It's not a regression from my view.
+Thanks for the replies to my email.
 
-Please elaborate. Afaics it is one, as something that used to work
-stopped working with a newer kernel version; it doesn't matter it worked
-by accident beforehand or can be fixed by updating userland, as Linus
-explained multiple times in the past:
+"Limonciello, Mario" <mario.limonciello@amd.com> writes:
 
-https://docs.kernel.org/process/handling-regressions.html#quotes-from-linus-about-regression
+> On 1/7/2023 00:58, Reddy, V sujith kumar wrote:
+>>=20
+>> Could you please send=C2=A0 the error, we will check and let you know wh=
+at is=20
+>> missing.
+>
+> Just a guess here without seeing the error.  Is this perhaps because the=
+=20
+> SOF F/W binary that was loaded was not signed with signature trusted by=20
+> the platform and the platform required validation?
+>
+> SOF on AMD was first introduced for Chromebooks which don't use the same=
+=20
+> authority for firmware binary verification that general purpose UEFI=20
+> notebooks would use.
 
-But maybe I'm missing something.
 
->>> Which is the same bug.
->>>
->>> There is a set of fixes available in the form of an alsa-ucm update
->>> which tells the kernel to ignore the state of the jack mic input
->>> restoring the old behavior:
->>>
->>> https://git.alsa-project.org/?p=alsa-ucm-conf.git;a=commitdiff;h=79a8ec44d3dcf097f4a4492c506cbcf338324175
->>> https://git.alsa-project.org/?p=alsa-ucm-conf.git;a=commitdiff;h=9ce9ddb4a84fb467602b716575ea1d8f2bab0c39
->>
->> Hmmm, that's nice, but well, by Linux' "no regressions rule" the issue
->> is caused by kernel change and thus must be fixed in the kernel, e.g.
->> without forcing users to update anything in userspace.
->>
->> Jaroslav, are there any plans to do that?
-> 
-> I wrote all relevant information to
-> https://bugzilla.redhat.com/show_bug.cgi?id=2134824 . The problem exists
-> from the initial microphone LED support in the SOF HDA driver, because
-> two drivers control the microphone LED simultaneously (sof-hda-dsp +
-> hda-intel). My recent update just made this thing more visible - the LED
-> state may be updated wrongly in all previous kernels. Original behavior:
-> last write wins. New behavior: all off = LED ON. The UCM fix (update the
-> default kernel runtime configuration from the user space) is sufficient
-> in my eyes for now because even the use case when the microphone LED
-> follows the state when all internal inputs are turned off makes sense.
-> 
-> I think that the sof-hda-dsp driver maintainer may decide to change the
-> default settings in the HDA driver when the digital microphone is
-> detected. Adding Pierre-Louis to the chain.
+So I compiled the latest sof firmware from main branch commit
+90c14e56cb, and now it seems I get additional errors that I didn't get a
+few months ago when I last tried:
+[   38.251393] snd_sof_amd_renoir 0000:03:00.5: enabling device (0000 -> 00=
+02)
+[   38.252944] snd_sof_amd_renoir 0000:03:00.5: unknown sof_ext_man header =
+type 3 size 0x30
+[   38.252955] snd_sof_amd_renoir 0000:03:00.5: Firmware info: version 2:0:=
+0-90c14
+[   38.252957] snd_sof_amd_renoir 0000:03:00.5: Firmware: ABI 3:26:0 Kernel=
+ ABI 3:23:0
+[   41.345068] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump star=
+t ]------------
+[   41.345080] snd_sof_amd_renoir 0000:03:00.5: Firmware boot failure due t=
+o timeout
+[   41.345085] snd_sof_amd_renoir 0000:03:00.5: fw_state: SOF_FW_BOOT_IN_PR=
+OGRESS (2)
+[   41.345137] snd_sof_amd_renoir 0000:03:00.5: invalid header size 0x7f841=
+000. FW oops is bogus
+[   41.345142] snd_sof_amd_renoir 0000:03:00.5: unexpected fault 0x7f840000=
+ trace 0x7f840000
+[   41.345146] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump end =
+]------------
+[   41.345150] snd_sof_amd_renoir 0000:03:00.5: error: failed to boot DSP f=
+irmware -5
+[   41.345266] snd_sof_amd_renoir 0000:03:00.5: error: sof_probe_work faile=
+d err: -5
 
-Pierre-Louis?
+The kernel I'm running on is based on the asoc tree from Mark Brown:
+git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+commit f8778e910cab179f5835386a0a70847921a8fbec (sound/for-next)
+Merge: cdfa92eb90f5 b11845893678
+Author: Mark Brown <broonie@kernel.org>
+Date:   Fri Jan 6 17:04:36 2023 +0000
 
-#regzbot poke
+    Merge remote-tracking branch 'asoc/for-6.3' into asoc-next
+
+Let me know what other information you need in order to debug this.
+
+

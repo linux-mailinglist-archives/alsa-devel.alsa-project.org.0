@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CDE3664306
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 15:19:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27768664370
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 15:41:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D243977FD;
-	Tue, 10 Jan 2023 15:18:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D243977FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFF6694FD;
+	Tue, 10 Jan 2023 15:40:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFF6694FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673360343;
-	bh=khR8Je2/S/jctq/e4Ct/y9FYt+f+huPTCHFUMhIqpg4=;
+	s=default; t=1673361668;
+	bh=g2uxEgDDC/isOJ69EhF/95eancI2BHdqdcwczqCKl7E=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=UphIf4HGbu3eEDrRu3dp4WwMWqsZ6Whq4qJ4yP4SQ0L/KAt+Yfxl7NKXVrT6pq4KH
-	 DIUzjM30WUZ5QIBQOO6QcHszam565Qyc1o9rkIrnjDaj5ZYCHWq4040Aj4Ds04LcKs
-	 rJZH8WoIv1N6/ssnL2eqJwGSyGpuEGlK8kkmHq5U=
+	b=Wulbuteg2UgiomkVJk8Tsiw7GjOA9vM9r+toREOpi0kd2DzBlQCtTYz/H+MdHn/5O
+	 Zy7Jd3ZHloSSS5DqtMdExXtSw+5peDePGuMILkxbWxOW7syjQabQSAXNLLk47hoNB1
+	 mB/XN1ak73b5j15qQ9m9OxOZHtoZ+N5+Mp1W3W2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9344AF8019B;
-	Tue, 10 Jan 2023 15:18:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7449DF8019B;
+	Tue, 10 Jan 2023 15:40:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3D2AF804C1; Tue, 10 Jan 2023 15:18:03 +0100 (CET)
+ id AB2E1F804C1; Tue, 10 Jan 2023 15:40:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,39 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3935EF8026A
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 15:18:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3935EF8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46ED7F8026A
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 15:40:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46ED7F8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lSyJyyfL
+ header.s=k20201202 header.b=MdB8qq89
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1C158B81699;
- Tue, 10 Jan 2023 14:18:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53DBC433D2;
- Tue, 10 Jan 2023 14:17:57 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6D83CB8167C;
+ Tue, 10 Jan 2023 14:40:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3689FC433D2;
+ Tue, 10 Jan 2023 14:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673360279;
- bh=khR8Je2/S/jctq/e4Ct/y9FYt+f+huPTCHFUMhIqpg4=;
+ s=k20201202; t=1673361606;
+ bh=g2uxEgDDC/isOJ69EhF/95eancI2BHdqdcwczqCKl7E=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=lSyJyyfLiaJsV/QS4mfRCTYKoWBKWJ6LTuciTxGn1k63r4ev8ajQsbP0//uSofaZY
- Ji5gXe8F9/WV7h2rCAV03Rmzyz4TjA9oPFeBe6CyO3rdTdq0Wj9TazS4k89zLv0xbX
- nEZp9TzsK5+cRJZMe/c+pvXsXd6edvtbCqMsF3bfB2H8Aw13vujLSVAOod3tb8IAE7
- v+Dn5WMd9VpspoacTKeNWj9ga6/7/RYecqS5wX0PK6FCjz2i6TdW7JXaP5qGbRIpVO
- D4S+YF19hp04h6dw0DVrBOtuNYZE8qIpWWR7D1siGpAREfELRaGP6CoZ+XfOY7S+16
- R5yXYi+KAzsig==
+ b=MdB8qq89/QXB4jwSj+YyuQFkvdV63vixxiOc2s+BNlvP5+gfSADfBKXG7OE4VuAhL
+ K4x5Dc2xWgajn8CV+sSQPW4AvgtmydPmODMMkE+O4Ox+48oq53TSpRntHSR047jgyt
+ imKPxXQmRzUwRMxlIWsXtzU4kLM9gNF92gBk4tNGGcVcjaNyHz1AZx1CXi9fikisPj
+ GKPeq9tuLlTMVC9Teq7hj41312JWm0iFRCvpsn37PsTcRfy6a82IwgmszyTEw0V6K6
+ dlGAZL5I19EU2ODDza14vtupe3WJzYZfYDD/o17khOyH3jCw3hNt6ZHJ5+UFXfzlmr
+ lcaTwihDcukXQ==
 From: Mark Brown <broonie@kernel.org>
 To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
  Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-In-Reply-To: <20230106-asoc-udoo-probe-v1-0-a5d7469d4f67@kernel.org>
-References: <20230106-asoc-udoo-probe-v1-0-a5d7469d4f67@kernel.org>
-Subject: Re: [PATCH 0/2] ASoC: fsl: Fix fsl-asoc-card AC'97 support
-Message-Id: <167336027745.725755.13402587013389671005.b4-ty@kernel.org>
-Date: Tue, 10 Jan 2023 14:17:57 +0000
+In-Reply-To: <20230106-asoc-fsl-err-log-v1-1-49d845c99434@kernel.org>
+References: <20230106-asoc-fsl-err-log-v1-1-49d845c99434@kernel.org>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Log error code when we fail to
+ register
+Message-Id: <167336160487.737822.4519603531969093245.b4-ty@kernel.org>
+Date: Tue, 10 Jan 2023 14:40:04 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -82,20 +83,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 06 Jan 2023 23:15:06 +0000, Mark Brown wrote:
-> The generic driver for Freescale cards with ASRC does not so far as I
-> can tell work for AC'97 cards, it's certainly not working for the two
-> Udoo boards I have that use it and I'm not clear how it ever worked.
-> These patches fix the card well enough to probe and make it through
-> pcm-test for playback at standard rates, though there are still issues
-> with capture and some playback configurations getting confused about
-> constraints.
+On Fri, 06 Jan 2023 23:13:37 +0000, Mark Brown wrote:
+> The chances are that any error we see here will be EPROBE_DEFER but let's
+> actually tell the user so they know.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -103,10 +99,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: fsl_ssi: Rename AC'97 streams to avoid collisions with AC'97 CODEC
-      commit: 8c6a42b5b0ed6f96624f56954e93eeae107440a6
-[2/2] ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets
-      commit: 242fc66ae6e1e2b8519daacc7590a73cd0e8a6e4
+[1/1] ASoC: fsl-asoc-card: Log error code when we fail to register
+      commit: 1a77d59e7e3917e311e91ff2908ef23c3250bec0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

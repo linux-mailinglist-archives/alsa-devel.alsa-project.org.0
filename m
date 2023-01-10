@@ -2,34 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3D9664251
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 14:51:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49B7D66424B
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 14:51:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 930E9A9BA;
-	Tue, 10 Jan 2023 14:50:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 930E9A9BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95A92BE73;
+	Tue, 10 Jan 2023 14:50:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A92BE73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673358692;
-	bh=4oGSJ6FbnspCAIUmDXE7cKoixn7zT1eynXgj/tg+wmY=;
+	s=default; t=1673358664;
+	bh=B3grr3Xoie2KJ2/ekrtXDbE+JcVyGtXybYt9jbb5rq4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=vRnz8E8Kv3sv+PmHeZ6gj2vNUg+IBXlOJfs+dyprEGSWYA4twnPz85NDUE9J/orRX
-	 shbez/GZq5E5VYGsFLzpbwe4e1VPmC+5a0Ad354GBznP9+bpb4A45hE+RBkM9pSDBo
-	 /mezE8Sv5O1sMd7gJspGG9bVT1yiwO1EDOCdz/AA=
+	b=lxdmcCtQqwiDXdxeZbROtbbndihs3J0avRwl9Pm6qugItR17elgMsua2MrTPyR7sZ
+	 C1eLskoUG3duPY1oggJYEnxzxNe94RyHpTPuy3mAtO3S3LDIJ5YVyJSHUIaTIcNh7e
+	 xeuEWLpB+rOmfhEBN5BAIRkItqxGZ+q5UY9D3RS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94C70F8055A;
-	Tue, 10 Jan 2023 14:49:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2228F8052F;
+	Tue, 10 Jan 2023 14:49:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD535F80558; Tue, 10 Jan 2023 14:49:55 +0100 (CET)
+ id 71916F8052F; Tue, 10 Jan 2023 14:49:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
@@ -37,47 +37,47 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 037BDF8019B
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 14:49:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 037BDF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05117F800C7
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 14:49:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05117F800C7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=sXDWI1R3; 
+ header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=RZploBSM; 
  dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=oJSsyslU
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 1B8FB5C0145;
- Tue, 10 Jan 2023 08:49:39 -0500 (EST)
+ header.a=rsa-sha256 header.s=fm3 header.b=XL1y1nNb
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 657BA5C0150;
+ Tue, 10 Jan 2023 08:49:40 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Tue, 10 Jan 2023 08:49:39 -0500
+ by compute2.internal (MEProxy); Tue, 10 Jan 2023 08:49:40 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=cc:cc:content-transfer-encoding:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1673358579; x=
- 1673444979; bh=miI7uGTmU797GNjdEiXAgXhylwamx1SsJtp/2vvjRP0=; b=s
- XDWI1R3BjC/KaR2Uv0Q4x5WWQOXZD7lZCiV2LDjD/2DxyM6S6XLa5wHESsWhQWlu
- WHNMBm5NiF71nqsKDK/R6wTJSfXcBhDaFwkjZC+FMc1SmWJIZsl5/jTdxyZGpPXv
- XhVV0emgyvLVzpLtvNyD68ZKm8NzmbpIZED1FYwKps68vuXfImBxv04iwFhtPIfM
- yyi7TYvlORUnFQbajrAbC4ZH/lyB/92rVQKYu/WZbBMprG3VebC8dW8htHowPcPX
- 4uFXDeRrjhhp5GmLoRoreRHQbiDlS3uFx4siuJhghJJrbD5laClfyDfoVAsNr7pR
- ci1gW+ZLTvDTN9o6BJsAw==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1673358580; x=
+ 1673444980; bh=r1lrn4XUoQqlWpmKS3JEKUiJFtgBdDEV+Q2Xhuz0CCc=; b=R
+ ZploBSMwwNAZSbH+0dPcwH2mSK7txXzPQ1gvZtm/wcCw/g4aj0Pwxvs5KOFtl7id
+ H8w5TMoDo3zaXK+ObhzIAlVAgZFeNYLSm1M0lpCY5YtF3Ty2A8qoBBolUbSGz0Ts
+ gRlA8gvI1oLbVmTbNTsLa2FkaTaQquevbOkVFjVy3zdA/rne6Idi70wyKzrZnnXZ
+ 4Yh70qOzce+tSN1qDbv5/dC1SsWK5ZuUxHz1ln3qcQmY5P/Z3PnXH7JVTHj+0y7Q
+ 2K+KgkH2pB3maaFAEAv116dOPSxrXc6t+4Pdd4LoILYM8jbEG6eRKC1DGgykZNBQ
+ oKbub7XEiP7m7IlK6yCUQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
  :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
  :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1673358579; x=1673444979; bh=miI7uGTmU797G
- NjdEiXAgXhylwamx1SsJtp/2vvjRP0=; b=oJSsyslUAq5ivoc+ASYb5qrS50b6F
- 1eMeSZjEdFN1ZutO9LfK7ibYD4KUkLjcLvWeCM4BiZjPFxLta7ubA6Rzon0vXVay
- Q/BROyXKqX4nHYImKwZ8L/RB5wNmqx5b26yui7oRzF3sfeUi9MHeocgTskzDjVu1
- I4/bZ0Z2FGnz4u6tHupKegPIWpO5PZBOqbBTROus9jYLrHgG2XbQdcEVPQsEQ4mN
- yPpvSzpHrms/vq7ryvVx1jWOPNu0j7NkX0zoV7tDXfub8GFy/cH0vFF3mTA2/7la
- 0gphwpaZRzGgCkMsDK3Nl89mj8zmbm9vA3VFl76YNqITazoZ97BQUYyAQ==
-X-ME-Sender: <xms:8my9Y43_hF7cRucEfueWF88kUzutFzaFkOVlbeQFr1r5wuKNSNlzpQ>
- <xme:8my9YzGZK-BucvwtwRmdpKzYXCZxEto50AJFJKrd-IEh5UiSZ50uCjsOlXe9ggbo7
- 1NxtCd9clbNSoSAy2g>
-X-ME-Received: <xmr:8my9Yw6Yvkz-fXLVIKi7YeCac_X1wQN97QebfHQTrtMgQvbWnOcp0BDJ3-EnrFH6qc5qA9t-JHzX0lN50h2B5iSF8aCGC4pqSINDSxGXluhjRUJi0NR0kAs>
+ :x-sasl-enc; s=fm3; t=1673358580; x=1673444980; bh=r1lrn4XUoQqlW
+ pmKS3JEKUiJFtgBdDEV+Q2Xhuz0CCc=; b=XL1y1nNbosLMgCSkROyZffkZUz+dK
+ pTJpFNvq+1i8c/Su1tro40OVrA6qr6HGLjIbG9CcuTnhtTbcMgN++w0C15912MS5
+ h8NUe1LYZYjq8JwPYxv6RItC7QtEa0ayw9DELOOl5KPqjuBktmE6SXEnhdN4h5xz
+ 11lt970TQ7bEVh8xuya1l0hrNg1ia0MG1IoNKrbpuKl2UuloMBAfdocbnVHhLWBi
+ i2nGIuDJpCTXhRMRSd5GCDHHBchdOegxyO7nLvCQ6qwSnrk1AkskE/9xNIPh6FZX
+ yWdfLbmyTdX86fkcALb0OBHjSwPVnQlt90pxaRW5JYnxn3+9Zw9gFchZQ==
+X-ME-Sender: <xms:9Gy9YxLWGusl5lzZz_e_qm1i4S262aVAEGsacjeDJwIHuL-e-VuBOA>
+ <xme:9Gy9Y9JtT3NZivXmXC4LsvvR21dKnMFDCEFDSnepRhA1js9KwsTtNFmvW1KFUYQzV
+ YEz5SqHWLLBfe6mH5w>
+X-ME-Received: <xmr:9Gy9Y5vGdMZuFOOiMpZk3Yq2xpU-3SCWMZHEH5PYPImMP5LqndWK2eOVPz5IAfAHaiBN5kKATjZK7_qXtCg2uOfICAFI4m3bCLFyh6po6BRGPJImf9vnCkg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrkeekgdehjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgjfhgggfestdekre
@@ -86,19 +86,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrkeekgdehjecutefuodetggdote
  dvgfduudekleevtefgtdevhfdtffefiefgveeuteffiedvffekvddtnecuvehluhhsthgv
  rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:8my9Yx2-jn-uVMyeqcobBrCQ_-tj-zDftjK6eYy9-4kzaGr0WLaqMw>
- <xmx:8my9Y7HElDM5nbqJU8iVSYukK0OgLcVOL3jcp5xy_1mxHdWRO4Snow>
- <xmx:8my9Y69hIfFkwBso0oL32de9Bc2Ldb_rYTbtIaFSJ16Az4p3AO-hLg>
- <xmx:82y9YxOQArJcGxxNrqc2xtFJbbDYbm_7NfC7FVgK0QukrQOQufcI4g>
+X-ME-Proxy: <xmx:9Gy9YyY-7y8_NQ3wkSjc5vOFiobTid6VsEpPRH6RMvsD5v4Z6pgu3A>
+ <xmx:9Gy9Y4Ze_9U3OdTG7VKSgsQfqZdZf4ZrBA9PYjA9HnQveVSVU9Lkxg>
+ <xmx:9Gy9Y2A_FmVBf4rUJwlBDMYcVBRc5uqKTEtxEL3YukLc_a1NVTr34A>
+ <xmx:9Gy9YzyoRXaqqLJsJrueSq2ixH_IUMNsncYQiJGRlzGkLAiDKUfr2A>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Jan 2023 08:49:37 -0500 (EST)
+ 10 Jan 2023 08:49:39 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 1/3] ALSA: firewire-lib: move parameter for pcm frame
- multiplier from context payload processing layer
-Date: Tue, 10 Jan 2023 22:49:31 +0900
-Message-Id: <20230110134933.322794-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 2/3] ALSA: firewire-lib: obsolete return value from context
+ payload processing layer
+Date: Tue, 10 Jan 2023 22:49:32 +0900
+Message-Id: <20230110134933.322794-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230110134933.322794-1-o-takashi@sakamocchi.jp>
 References: <20230110134933.322794-1-o-takashi@sakamocchi.jp>
@@ -120,241 +120,274 @@ Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current implementation delegates the task to calculate the number of
-processed PCM frames into the context payload processing layer. It looks
-good as long as frame calculation is done for a single purpose.
-Nevertheless, another purpose, the computation of extra delay for the
-runtime of PCM substream, requires frame calculation, too.
-
-This commit refactors the current implementation so that the packet stream
-processing layer is responsible for the calculation of PCM frame, too. The
-member is moved to stream structure for multiplier between data block
-count and PCM frame count.
+This commit obsoletes return value from the context payload processing layer
+since the multiplier between the data block count and PCM frame count was
+moved to the packet streaming processing layer.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-am824.c         | 34 +++++++++++++---------------
- sound/firewire/amdtp-stream.c        | 25 +++++++++++++++-----
- sound/firewire/amdtp-stream.h        |  3 ++-
- sound/firewire/digi00x/amdtp-dot.c   |  2 +-
- sound/firewire/fireface/amdtp-ff.c   |  2 +-
- sound/firewire/motu/amdtp-motu.c     |  2 +-
- sound/firewire/tascam/amdtp-tascam.c |  2 +-
- 7 files changed, 41 insertions(+), 29 deletions(-)
+ sound/firewire/amdtp-am824.c         | 16 ++++------------
+ sound/firewire/amdtp-stream.c        |  2 +-
+ sound/firewire/amdtp-stream.h        |  9 ++++-----
+ sound/firewire/digi00x/amdtp-dot.c   | 16 ++++------------
+ sound/firewire/fireface/amdtp-ff.c   | 16 ++++------------
+ sound/firewire/motu/amdtp-motu.c     | 16 ++++------------
+ sound/firewire/tascam/amdtp-tascam.c | 16 ++++------------
+ 7 files changed, 25 insertions(+), 66 deletions(-)
 
 diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
-index cf55f7784d23..b849f529fcba 100644
+index b849f529fcba..3660c312bf33 100644
 --- a/sound/firewire/amdtp-am824.c
 +++ b/sound/firewire/amdtp-am824.c
-@@ -36,8 +36,6 @@ struct amdtp_am824 {
+@@ -344,10 +344,8 @@ static void read_midi_messages(struct amdtp_stream *s, __be32 *buffer,
+ 	}
+ }
  
- 	u8 pcm_positions[AM824_MAX_CHANNELS_FOR_PCM];
- 	u8 midi_position;
--
--	unsigned int frame_multiplier;
- };
- 
- /**
-@@ -59,8 +57,8 @@ int amdtp_am824_set_parameters(struct amdtp_stream *s, unsigned int rate,
+-static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_it_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
  {
  	struct amdtp_am824 *p = s->protocol;
- 	unsigned int midi_channels;
--	unsigned int i;
--	int err;
-+	unsigned int pcm_frame_multiplier;
-+	int i, err;
+ 	unsigned int pcm_frames = 0;
+@@ -371,14 +369,10 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
  
- 	if (amdtp_stream_running(s))
- 		return -EINVAL;
-@@ -77,8 +75,18 @@ int amdtp_am824_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	    WARN_ON(midi_channels > AM824_MAX_CHANNELS_FOR_MIDI))
- 		return -EINVAL;
- 
--	err = amdtp_stream_set_parameters(s, rate,
--					  pcm_channels + midi_channels);
-+	/*
-+	 * In IEC 61883-6, one data block represents one event. In ALSA, one
-+	 * event equals to one PCM frame. But Dice has a quirk at higher
-+	 * sampling rate to transfer two PCM frames in one data block.
-+	 */
-+	if (double_pcm_frames)
-+		pcm_frame_multiplier = 2;
-+	else
-+		pcm_frame_multiplier = 1;
-+
-+	err = amdtp_stream_set_parameters(s, rate, pcm_channels + midi_channels,
-+					  pcm_frame_multiplier);
- 	if (err < 0)
- 		return err;
- 
-@@ -88,16 +96,6 @@ int amdtp_am824_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	p->pcm_channels = pcm_channels;
- 	p->midi_ports = midi_ports;
- 
--	/*
--	 * In IEC 61883-6, one data block represents one event. In ALSA, one
--	 * event equals to one PCM frame. But Dice has a quirk at higher
--	 * sampling rate to transfer two PCM frames in one data block.
--	 */
--	if (double_pcm_frames)
--		p->frame_multiplier = 2;
--	else
--		p->frame_multiplier = 1;
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
 -
- 	/* init the position map for PCM and MIDI channels */
- 	for (i = 0; i < pcm_channels; i++)
- 		p->pcm_positions[i] = i;
-@@ -361,7 +359,7 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-	return pcm_frames;
+ }
  
- 		if (pcm) {
- 			write_pcm_s32(s, pcm, buf, data_blocks, pcm_frames);
--			pcm_frames += data_blocks * p->frame_multiplier;
-+			pcm_frames += data_blocks * s->pcm_frame_multiplier;
- 		} else {
- 			write_pcm_silence(s, buf, data_blocks);
- 		}
-@@ -392,7 +390,7 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_ir_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	struct amdtp_am824 *p = s->protocol;
+ 	unsigned int pcm_frames = 0;
+@@ -400,8 +394,6 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
  
- 		if (pcm) {
- 			read_pcm_s32(s, pcm, buf, data_blocks, pcm_frames);
--			pcm_frames += data_blocks * p->frame_multiplier;
-+			pcm_frames += data_blocks * s->pcm_frame_multiplier;
- 		}
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
  
- 		if (p->midi_ports) {
+ /**
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 65720ae866cb..98a033afc5f8 100644
+index 98a033afc5f8..03e97faca797 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -271,12 +271,14 @@ EXPORT_SYMBOL(amdtp_stream_add_pcm_hw_constraints);
-  * @s: the AMDTP stream to configure
-  * @rate: the sample rate
-  * @data_block_quadlets: the size of a data block in quadlet unit
-+ * @pcm_frame_multiplier: the multiplier to compute the number of PCM frames by the number of AMDTP
-+ *			  events.
-  *
-  * The parameters must be set before the stream is started, and must not be
-  * changed while the stream is running.
-  */
- int amdtp_stream_set_parameters(struct amdtp_stream *s, unsigned int rate,
--				unsigned int data_block_quadlets)
-+				unsigned int data_block_quadlets, unsigned int pcm_frame_multiplier)
- {
- 	unsigned int sfc;
- 
-@@ -298,6 +300,8 @@ int amdtp_stream_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	if (s->flags & CIP_BLOCKING)
- 		s->transfer_delay += TICKS_PER_SECOND * s->syt_interval / rate;
- 
-+	s->pcm_frame_multiplier = pcm_frame_multiplier;
-+
- 	return 0;
- }
- EXPORT_SYMBOL(amdtp_stream_set_parameters);
-@@ -1032,16 +1036,25 @@ static inline void cancel_stream(struct amdtp_stream *s)
- }
- 
- static void process_ctx_payloads(struct amdtp_stream *s,
--				 const struct pkt_desc *descs,
-+				 const struct pkt_desc *desc,
- 				 unsigned int count)
- {
- 	struct snd_pcm_substream *pcm;
--	unsigned int pcm_frames;
-+	int i;
+@@ -1043,7 +1043,7 @@ static void process_ctx_payloads(struct amdtp_stream *s,
+ 	int i;
  
  	pcm = READ_ONCE(s->pcm);
--	pcm_frames = s->process_ctx_payloads(s, descs, count, pcm);
--	if (pcm)
--		update_pcm_pointers(s, pcm, pcm_frames);
-+	(void)s->process_ctx_payloads(s, desc, count, pcm);
-+
-+	if (pcm) {
-+		unsigned int data_block_count = 0;
-+
-+		for (i = 0; i < count; ++i) {
-+			data_block_count += desc->data_blocks;
-+			desc = amdtp_stream_next_packet_desc(s, desc);
-+		}
-+
-+		update_pcm_pointers(s, pcm, data_block_count * s->pcm_frame_multiplier);
-+	}
- }
+-	(void)s->process_ctx_payloads(s, desc, count, pcm);
++	s->process_ctx_payloads(s, desc, count, pcm);
  
- static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
+ 	if (pcm) {
+ 		unsigned int data_block_count = 0;
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index a8dd1c3ec8d9..35b48f9ddbf7 100644
+index 35b48f9ddbf7..b7ff44751ab9 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -190,6 +190,7 @@ struct amdtp_stream {
- 	struct snd_pcm_substream *pcm;
- 	snd_pcm_uframes_t pcm_buffer_pointer;
- 	unsigned int pcm_period_pointer;
-+	unsigned int pcm_frame_multiplier;
+@@ -107,11 +107,10 @@ struct pkt_desc {
+ };
  
- 	// To start processing content of packets at the same cycle in several contexts for
- 	// each direction.
-@@ -216,7 +217,7 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
- void amdtp_stream_destroy(struct amdtp_stream *s);
+ struct amdtp_stream;
+-typedef unsigned int (*amdtp_stream_process_ctx_payloads_t)(
+-						struct amdtp_stream *s,
+-						const struct pkt_desc *desc,
+-						unsigned int count,
+-						struct snd_pcm_substream *pcm);
++typedef void (*amdtp_stream_process_ctx_payloads_t)(struct amdtp_stream *s,
++						    const struct pkt_desc *desc,
++						    unsigned int count,
++						    struct snd_pcm_substream *pcm);
  
- int amdtp_stream_set_parameters(struct amdtp_stream *s, unsigned int rate,
--				unsigned int data_block_quadlets);
-+				unsigned int data_block_quadlets, unsigned int pcm_frame_multiplier);
- unsigned int amdtp_stream_get_max_payload(struct amdtp_stream *s);
- 
- void amdtp_stream_update(struct amdtp_stream *s);
+ struct amdtp_domain;
+ struct amdtp_stream {
 diff --git a/sound/firewire/digi00x/amdtp-dot.c b/sound/firewire/digi00x/amdtp-dot.c
-index fcae7d07aa03..b3f67af2d3b1 100644
+index b3f67af2d3b1..7db0024495b7 100644
 --- a/sound/firewire/digi00x/amdtp-dot.c
 +++ b/sound/firewire/digi00x/amdtp-dot.c
-@@ -123,7 +123,7 @@ int amdtp_dot_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	 * A first data channel is for MIDI messages, the rest is Multi Bit
- 	 * Linear Audio data channel.
- 	 */
--	err = amdtp_stream_set_parameters(s, rate, pcm_channels + 1);
-+	err = amdtp_stream_set_parameters(s, rate, pcm_channels + 1, 1);
- 	if (err < 0)
- 		return err;
+@@ -341,10 +341,8 @@ void amdtp_dot_midi_trigger(struct amdtp_stream *s, unsigned int port,
+ 		WRITE_ONCE(p->midi[port], midi);
+ }
  
+-static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_ir_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -362,14 +360,10 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+-static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_it_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -390,8 +384,6 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+ int amdtp_dot_init(struct amdtp_stream *s, struct fw_unit *unit,
 diff --git a/sound/firewire/fireface/amdtp-ff.c b/sound/firewire/fireface/amdtp-ff.c
-index 2402e2be87a6..27943b7f86fa 100644
+index 27943b7f86fa..76c9d33ed572 100644
 --- a/sound/firewire/fireface/amdtp-ff.c
 +++ b/sound/firewire/fireface/amdtp-ff.c
-@@ -24,7 +24,7 @@ int amdtp_ff_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	p->pcm_channels = pcm_channels;
- 	data_channels = pcm_channels;
- 
--	return amdtp_stream_set_parameters(s, rate, data_channels);
-+	return amdtp_stream_set_parameters(s, rate, data_channels, 1);
+@@ -112,10 +112,8 @@ int amdtp_ff_add_pcm_hw_constraints(struct amdtp_stream *s,
+ 	return amdtp_stream_add_pcm_hw_constraints(s, runtime);
  }
  
- static void write_pcm_s32(struct amdtp_stream *s, struct snd_pcm_substream *pcm,
+-static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-					   const struct pkt_desc *desc,
+-					   unsigned int count,
+-					   struct snd_pcm_substream *pcm)
++static void process_it_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -133,14 +131,10 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+-static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_ir_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -156,8 +150,6 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+ int amdtp_ff_init(struct amdtp_stream *s, struct fw_unit *unit,
 diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
-index ea0063cec5fb..4153527b5e08 100644
+index 4153527b5e08..39ed57d2c5a0 100644
 --- a/sound/firewire/motu/amdtp-motu.c
 +++ b/sound/firewire/motu/amdtp-motu.c
-@@ -73,7 +73,7 @@ int amdtp_motu_set_parameters(struct amdtp_stream *s, unsigned int rate,
- 	data_chunks = formats->msg_chunks + pcm_chunks;
- 	data_block_quadlets = 1 + DIV_ROUND_UP(data_chunks * 3, 4);
- 
--	err = amdtp_stream_set_parameters(s, rate, data_block_quadlets);
-+	err = amdtp_stream_set_parameters(s, rate, data_block_quadlets, 1);
- 	if (err < 0)
- 		return err;
- 
-diff --git a/sound/firewire/tascam/amdtp-tascam.c b/sound/firewire/tascam/amdtp-tascam.c
-index c367a6ee6121..bb4cf2d26d1b 100644
---- a/sound/firewire/tascam/amdtp-tascam.c
-+++ b/sound/firewire/tascam/amdtp-tascam.c
-@@ -29,7 +29,7 @@ int amdtp_tscm_set_parameters(struct amdtp_stream *s, unsigned int rate)
- 	if (s->direction == AMDTP_IN_STREAM)
- 		data_channels += 2;
- 
--	return amdtp_stream_set_parameters(s, rate, data_channels);
-+	return amdtp_stream_set_parameters(s, rate, data_channels, 1);
+@@ -328,10 +328,8 @@ static void cache_event_offsets(struct amdtp_motu_cache *cache, const __be32 *bu
+ 	cache->tx_cycle_count = (cache->tx_cycle_count + 1) % CYCLES_PER_SECOND;
  }
  
- static void write_pcm_s32(struct amdtp_stream *s, struct snd_pcm_substream *pcm,
+-static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_ir_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	struct snd_motu *motu = container_of(s, struct snd_motu, tx_stream);
+ 	struct amdtp_motu *p = s->protocol;
+@@ -370,8 +368,6 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+ 	if (trace_data_block_sph_enabled() ||
+ 	    trace_data_block_message_enabled())
+ 		probe_tracepoints_events(s, desc, count);
+-
+-	return pcm_frames;
+ }
+ 
+ static void write_sph(struct amdtp_motu_cache *cache, __be32 *buffer, unsigned int data_blocks,
+@@ -396,10 +392,8 @@ static void write_sph(struct amdtp_motu_cache *cache, __be32 *buffer, unsigned i
+ 	cache->rx_cycle_count = (cache->rx_cycle_count + 1) % CYCLES_PER_SECOND;
+ }
+ 
+-static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_it_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	struct amdtp_motu *p = s->protocol;
+ 	const struct pkt_desc *cursor = desc;
+@@ -435,8 +429,6 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+ 	if (trace_data_block_sph_enabled() ||
+ 	    trace_data_block_message_enabled())
+ 		probe_tracepoints_events(s, desc, count);
+-
+-	return pcm_frames;
+ }
+ 
+ int amdtp_motu_init(struct amdtp_stream *s, struct fw_unit *unit,
+diff --git a/sound/firewire/tascam/amdtp-tascam.c b/sound/firewire/tascam/amdtp-tascam.c
+index bb4cf2d26d1b..0b42d6559008 100644
+--- a/sound/firewire/tascam/amdtp-tascam.c
++++ b/sound/firewire/tascam/amdtp-tascam.c
+@@ -176,10 +176,8 @@ static void read_status_messages(struct amdtp_stream *s,
+ 	}
+ }
+ 
+-static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_ir_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -197,14 +195,10 @@ static unsigned int process_ir_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+-static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+-					    const struct pkt_desc *desc,
+-					    unsigned int count,
+-					    struct snd_pcm_substream *pcm)
++static void process_it_ctx_payloads(struct amdtp_stream *s, const struct pkt_desc *desc,
++				    unsigned int count, struct snd_pcm_substream *pcm)
+ {
+ 	unsigned int pcm_frames = 0;
+ 	int i;
+@@ -222,8 +216,6 @@ static unsigned int process_it_ctx_payloads(struct amdtp_stream *s,
+ 
+ 		desc = amdtp_stream_next_packet_desc(s, desc);
+ 	}
+-
+-	return pcm_frames;
+ }
+ 
+ int amdtp_tscm_init(struct amdtp_stream *s, struct fw_unit *unit,
 -- 
 2.37.2
 

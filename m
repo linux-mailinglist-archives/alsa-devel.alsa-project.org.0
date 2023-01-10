@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45320664299
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 14:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CDE3664306
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 15:19:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C83A0BFEC;
-	Tue, 10 Jan 2023 14:58:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83A0BFEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D243977FD;
+	Tue, 10 Jan 2023 15:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D243977FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673359176;
-	bh=lF/saPJXboEiKAom+2j+crI83CaqhVkfm0qrNigQRTs=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1673360343;
+	bh=khR8Je2/S/jctq/e4Ct/y9FYt+f+huPTCHFUMhIqpg4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=J56Ei3AdB9rb9RabtVKlSBtXBzTQfTGGR7fHRLO1yzfn6Wj8OgbZ2kBOHbYojhwfJ
-	 +Fz3j96NBzUeOAcj2hoinSn9Iho9sEGfWPBZ97BpStdU0gOTRsZ/dVarm4YyE5mrV7
-	 iCeKz8xSILKZem71JXW2ISb9u5FOJ6RdZ3Mks2Gk=
+	b=UphIf4HGbu3eEDrRu3dp4WwMWqsZ6Whq4qJ4yP4SQ0L/KAt+Yfxl7NKXVrT6pq4KH
+	 DIUzjM30WUZ5QIBQOO6QcHszam565Qyc1o9rkIrnjDaj5ZYCHWq4040Aj4Ds04LcKs
+	 rJZH8WoIv1N6/ssnL2eqJwGSyGpuEGlK8kkmHq5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75662F800C7;
-	Tue, 10 Jan 2023 14:58:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9344AF8019B;
+	Tue, 10 Jan 2023 15:18:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32594F800C7; Tue, 10 Jan 2023 14:58:36 +0100 (CET)
+ id D3D2AF804C1; Tue, 10 Jan 2023 15:18:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CFEAF800C7
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 14:58:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CFEAF800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3935EF8026A
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 15:18:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3935EF8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=munQoUGv
+ header.s=k20201202 header.b=lSyJyyfL
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 46D0D61717;
- Tue, 10 Jan 2023 13:58:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0D7C433D2;
- Tue, 10 Jan 2023 13:58:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1C158B81699;
+ Tue, 10 Jan 2023 14:18:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53DBC433D2;
+ Tue, 10 Jan 2023 14:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673359110;
- bh=lF/saPJXboEiKAom+2j+crI83CaqhVkfm0qrNigQRTs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=munQoUGvJ1wVnawEOm1XVAwqy9FchXaPwxlgUwY435kPFQ24oJieCz7c486ad4lyY
- nft95+w4qsRdpS+w27iTDIK3o3dEtcPbTV1M/fzMonNyLmxGz28ZZ5FeIYK8ejtyso
- qy0oQLxEJ77CnoW2HzPwqz5AfDCL2C04H/CMtpNHfH1PyUwksyrNBdVnLkStB6oFSb
- wmaoNvjDtl6uazVwh2m3FF4i/IviVtOAiDHvTJfoUz6DuZcv7GIOeKTQE8d0JwIrIX
- VKRpY3FAky59ooFjua8S8HQYCcKPkISdwLLfXT0rfaoGgwdsmUMSCf5d0l7qBOtVaY
- zNKwZOYQBboLA==
-Date: Tue, 10 Jan 2023 13:58:24 +0000
+ s=k20201202; t=1673360279;
+ bh=khR8Je2/S/jctq/e4Ct/y9FYt+f+huPTCHFUMhIqpg4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=lSyJyyfLiaJsV/QS4mfRCTYKoWBKWJ6LTuciTxGn1k63r4ev8ajQsbP0//uSofaZY
+ Ji5gXe8F9/WV7h2rCAV03Rmzyz4TjA9oPFeBe6CyO3rdTdq0Wj9TazS4k89zLv0xbX
+ nEZp9TzsK5+cRJZMe/c+pvXsXd6edvtbCqMsF3bfB2H8Aw13vujLSVAOod3tb8IAE7
+ v+Dn5WMd9VpspoacTKeNWj9ga6/7/RYecqS5wX0PK6FCjz2i6TdW7JXaP5qGbRIpVO
+ D4S+YF19hp04h6dw0DVrBOtuNYZE8qIpWWR7D1siGpAREfELRaGP6CoZ+XfOY7S+16
+ R5yXYi+KAzsig==
 From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH 15/27] ASoC: pxa: remove unused board support
-Message-ID: <Y71vABj05MAYEbHJ@sirena.org.uk>
-References: <20230105134622.254560-1-arnd@kernel.org>
- <20230105134622.254560-16-arnd@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+In-Reply-To: <20230106-asoc-udoo-probe-v1-0-a5d7469d4f67@kernel.org>
+References: <20230106-asoc-udoo-probe-v1-0-a5d7469d4f67@kernel.org>
+Subject: Re: [PATCH 0/2] ASoC: fsl: Fix fsl-asoc-card AC'97 support
+Message-Id: <167336027745.725755.13402587013389671005.b4-ty@kernel.org>
+Date: Tue, 10 Jan 2023 14:17:57 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mUO23bK4vSgaY15P"
-Content-Disposition: inline
-In-Reply-To: <20230105134622.254560-16-arnd@kernel.org>
-X-Cookie: I think we're in trouble.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-8b3d1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,45 +82,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Ken McGuire <kenm@desertweyr.com>,
- Arnd Bergmann <arnd@arndb.de>, Ian Molton <spyro@f2s.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Marek Vasut <marek.vasut@gmail.com>, Daniel Mack <daniel@zonque.org>,
- Mike Rapoport <rppt@kernel.org>, Robert Jarzmik <robert.jarzmik@free.fr>,
- linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 06 Jan 2023 23:15:06 +0000, Mark Brown wrote:
+> The generic driver for Freescale cards with ASRC does not so far as I
+> can tell work for AC'97 cards, it's certainly not working for the two
+> Udoo boards I have that use it and I'm not clear how it ever worked.
+> These patches fix the card well enough to probe and make it through
+> pcm-test for playback at standard rates, though there are still issues
+> with capture and some playback configurations getting confused about
+> constraints.
+> 
+> [...]
 
---mUO23bK4vSgaY15P
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Thu, Jan 05, 2023 at 02:46:10PM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> Most PXA/MMP boards were removed, so the board specific ASoC
-> support is no longer needed, leaving only support for DT
-> based ones, as well as the "gumstix" and "spitz" machines
-> that may get converted to DT later.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This doesn't apply against current code, please check and resend.
+Thanks!
 
---mUO23bK4vSgaY15P
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/2] ASoC: fsl_ssi: Rename AC'97 streams to avoid collisions with AC'97 CODEC
+      commit: 8c6a42b5b0ed6f96624f56954e93eeae107440a6
+[2/2] ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets
+      commit: 242fc66ae6e1e2b8519daacc7590a73cd0e8a6e4
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO9bv8ACgkQJNaLcl1U
-h9CmuAf/QrI3z3oJ4pU/rY4gmnY4otSvXcS25C5zSiDcRACA362DAnPbjJqs/ZNr
-ZxkPTrMY1RIPLDZfZf6/BREI9LEw8GYOEMmkDVTys1mcT/cx7rd/4dhlD/uZjls0
-7xITTtwxw7vQ++qTpoHClcgiuEg22MJcviMzFNg3lHd/4zVuTlA/O7fe+IfmV7I7
-+b2Mx645/T9OALXfcXWa7xc6r8a++as0+sBn1T9wsk7ciqYGSUUEda3zPrf/DlvM
-4t3WYY7WCWZ9m3kG37mKn/qPpCf3xG9nfUcjkJ3cOsqpj/M6z21IidSLRKq5mv9h
-S7DQ4GBmjlPVPqZ7jzYrWwLyML9cWQ==
-=uKo2
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---mUO23bK4vSgaY15P--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

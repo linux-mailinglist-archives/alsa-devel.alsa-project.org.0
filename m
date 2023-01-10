@@ -2,117 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE41664CFA
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 21:05:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F653664D38
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 21:26:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 592B9D464;
-	Tue, 10 Jan 2023 21:04:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 592B9D464
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD5E1D783;
+	Tue, 10 Jan 2023 21:26:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5E1D783
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673381100;
-	bh=wWB9VxAPDxfHfZVHSm/HhykpFYGDLj8rrKcjarGVM9s=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=l5jYa+R9AHthJaRLZk+1h7wB9gFAik3fZ8fBBSB4T8mDboTMrP0Aq13FOci+T9EOA
-	 kQnF6235WFM/zmssEcjBIpdvc1L46WqhSw+TEypwanVtV2s0zCXcyd7a0BYsqxil/0
-	 FcuAjKGLHMW6EQgk5ivDXMtvBUIwsVQx6uLf9wPE=
+	s=default; t=1673382410;
+	bh=MEejYbw8dcDa3DUGUZRzzPL8AkL59tjy8R6jRGsfjOY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=B/Z0YXlyURnJl0FjG9zbB7HrW+MYD2mRBM4Y6w3Cd9F7cWAo9NyTTtYzEqADbXcs1
+	 CrApPbgW+WwwCnDhLxUxYghARFQeD8ssvmh9eACnYb30+Hl8hEEOcp7Cs08CXSA3+L
+	 w7ls4nYxpY3XokQHPjfF8lh8FC9GzEodPcuv+MXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0165CF800C7;
-	Tue, 10 Jan 2023 21:04:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D15B2F800C7;
+	Tue, 10 Jan 2023 21:25:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74F1FF8019B; Tue, 10 Jan 2023 21:04:00 +0100 (CET)
+ id ADD9FF804C1; Tue, 10 Jan 2023 21:25:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78280F8019B
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 21:03:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78280F8019B
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF382F8019B
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 21:25:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF382F8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=IkoPBa7d
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30ACaKFN014144; Tue, 10 Jan 2023 20:03:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=lDhJiMKqhS4cwe6NUw8uuSD1qEAuVbxSRigz1sHh4oQ=;
- b=IkoPBa7d9Vzm84Xbg3Tfh2j4T/m/QIe8kwQNlu8axpUlP7t6DIHi1DnBA+ppoF7bIVID
- sAHYoOvu/J5cRjQwxAy9vNv7teka5ZNhV22YsAyVxmW0ejGBTzMxxmngk7UPuXG+YN/I
- afGGxLfRVh0/6w/YJlWvNi/AyzvI8JbKZ7P3MI0llpZAzL98hyV6gfdMJfQ5PlybpzyS
- W2D0ypEsGCbnxfiQ5rzesSYNykUnkCenXC/DnaennCOvgaCBdxeB5rERb3cPMSVEgvIR
- ZAbjkP2KgYJdWtaWaUtKVF6YdYVr0iHX8E0b3VwZahKoTG+t4G5eXSzWxxzNzpAUQ1N7 wQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n0x0jjac3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Jan 2023 20:03:53 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30AK3krn019414
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Jan 2023 20:03:46 GMT
-Received: from [10.110.66.166] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 10 Jan
- 2023 12:03:45 -0800
-Message-ID: <23a2b82e-4f4f-66e2-2c60-3613ffe7912f@quicinc.com>
-Date: Tue, 10 Jan 2023 12:03:45 -0800
+ secure) header.d=web.de header.i=@web.de header.a=rsa-sha256
+ header.s=s29768273 header.b=EUhpdUXY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+ t=1673382343; bh=MEejYbw8dcDa3DUGUZRzzPL8AkL59tjy8R6jRGsfjOY=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=EUhpdUXYDazSY+d+DIKtCqy+wnMJ4gNOh1emncoOsx8/B+KBabBVClaxt23kkLnIg
+ b1kE9FdIwHcVQO2xDQ33ZKLmbozQs8IqPs/BrX7KkCxL1IAjwiIsi73Kq/HUggsKxO
+ Kb0IZQFz5P5aUNyu1vd6cq+yqptDYNg7YsadJXD+rurmMQv/SQI/tV+jR/tpb/aqLa
+ r4zY03204gEtGiqEaSUgoDUJePoBPsfijK92lVE0zeDyJdJJJnJ7z3MgMKaAlu6rqN
+ 5sq6kh/33qnX2OHMzE4vLjTEoNI3M++5ZxYmXYG7aCOhJWbztyupMvXgalXNMOL8e3
+ OAr8Rz8FEU0cw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from luka-spectre.fritz.box ([93.129.44.167]) by smtp.web.de
+ (mrweb005 [213.165.67.108]) with ESMTPSA (Nemesis) id
+ 1MVJRb-1pNHnc0G4l-00SRYv; Tue, 10 Jan 2023 21:25:43 +0100
+From: Luka Guzenko <l.guzenko@web.de>
+To: tiwai@suse.com
+Subject: [PATCH v2] ALSA: hda/realtek: Enable mute/micmute LEDs on HP Spectre
+ x360 13-aw0xxx
+Date: Tue, 10 Jan 2023 21:25:14 +0100
+Message-Id: <20230110202514.2792-1-l.guzenko@web.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH 07/14] usb: host: xhci: Add XHCI secondary interrupter
- support
-Content-Language: en-US
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
- <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
- <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <gregkh@linuxfoundation.org>, <Thinh.Nguyen@synopsys.com>,
- <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <agross@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, Albert Wang
- <albertccwang@google.com>
-References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
- <20221223233200.26089-8-quic_wcheng@quicinc.com>
- <7dfe215b-4cc7-f95f-17c3-563c0120151a@linux.intel.com>
- <f7f80320-02bb-a573-dd95-b6d58c260624@quicinc.com>
- <5f54c5a3-caf0-2920-e90f-68124ed2e06c@linux.intel.com>
- <d1334e58-1126-c068-d211-8fd3b7dcbf17@quicinc.com>
- <cefcc5c6-6a91-c737-252a-edf596f77473@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <cefcc5c6-6a91-c737-252a-edf596f77473@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: jiQBCJnSBnVkVHxOOa0aeOKcweduyDnY
-X-Proofpoint-ORIG-GUID: jiQBCJnSBnVkVHxOOa0aeOKcweduyDnY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2023-01-10_09,2023-01-10_03,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 mlxscore=0 adultscore=0 mlxlogscore=999
- spamscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301100133
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:/szKTTJvCAPwW11ClrWP49WM+KH1T+Wcs9r+r+84lKyxX0LdTXO
+ 90IyXQGm0GYJeqnkDxdxpxozHnsD7+xNQzqndUF01e/WtN/qjDpbEAwESEOOW32GCcXUTeV
+ 31cOopdhgcwya7/U4cSjqR2YcML2grX5HXcMO0Kxqp5xXW2fEH4KP9iNcV2W0RP+qeozqrw
+ 4yhGmPQnD4ami7787DqnQ==
+UI-OutboundReport: notjunk:1;M01:P0:r4LwyxPvEaU=;WOmxJuurha2cxYvUQGQnyWuEmyK
+ QuHDXk2NstbLqJdFrPHZBoW/xdpyhdMmJwNMRDpYlWTX0E8pSM+AI/in6YwdeIzeB0aLk/LO5
+ hayymnhDDF1G5PFJSTqiLobVt8zSCf0YGv8L8lvlx7761Hd89LNmpayQXFh+X+N7z6sLf1Ds7
+ hGHuFG5mAnrr3fO4zm2Fje/Pl+YloryxmK3nyv+JxnmBJB6RCS4KjNyVqkUBa0MAf3Y9PwfEq
+ eULxkA1LaCmCGoWTyKEuH2douqptTreo+bVJj5bsTUcrQqWTHISU4ALZdwZa455+bDir+/oOK
+ Ro1C6vOsRNHliwJlAUramQ+usvXSKNCtf16AI3EFDNA+k/R5AmwQi1iSbYabHZRT11V0x3nd3
+ 5rXr0+fJ5F1bQTZmTj65eVtf1WY2sls1v/A/Ty8cCT3qWvWSK26Dxi9OQkYybZIvGyWFsxi4R
+ do097hl3p47GUrdD3yWTrFN4eXsD2GtL//6TA88Qs6pB3RZJuc+m5nX8cDlncyiRyJUUU8cef
+ AZCiSSztMETX9s5inKm1h6TuohsUSAeysPW7trCjFQXq5/pwgSzYPrdRIYdroHVDLdfApry/T
+ ctkiAvbRYLBqpUk7jksXPqfAN7wpgWqhU3NGl6t/RHXwp9fCOd7JUseylcGZz1nK6aYfbsNoA
+ cwSYMDwnfI3oz4IaIy6GFRLPswF8Be2KfAa+BHUe88CBsIFHbEHXq4SvWBO6XGlQui3KbiwQB
+ TsrzOOs4+xRW4dVBrdxvx1eRuml3D+7nS2BBDaLKbkrj7gJAuG6ODS4sO2kJzmYVIJ0aYu0hI
+ F+70opmPkJ4mup3mX8E4QCCwvhOSV8/r/lTeSdPmJVHF93XVFabvx3ywTmhCGtbmyR378Tp+O
+ s6r1O5q3Qy8mgLTXbYhGie2I1vwAolyfRXbM8y609tjElCiF8XVAJhlvN66T286+fguAn1PwY
+ l3GDOg==
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,178 +94,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: Luka Guzenko <l.guzenko@web.de>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mathias,
+The HP Spectre x360 13-aw0xxx devices use the ALC285 codec with GPIO 0x04
+controlling the micmute LED and COEF 0x0b index 8 controlling the mute LED=
+.
+A quirk was added to make these work as well as a fixup.
 
-On 1/10/2023 11:47 AM, Mathias Nyman wrote:
-> On 9.1.2023 22.24, Wesley Cheng wrote:
->> Hi Mathias,
->>
->> On 1/2/2023 8:38 AM, Mathias Nyman wrote:
->>> On 29.12.2022 23.14, Wesley Cheng wrote:
->>>> Hi Mathias,
->>>>
->>>> On 12/28/2022 7:47 AM, Mathias Nyman wrote:
->>>>> On 24.12.2022 1.31, Wesley Cheng wrote:
->>>>>> Implement the XHCI operations for allocating and requesting for a 
->>>>>> secondary
->>>>>> interrupter.  The secondary interrupter can allow for events for a
->>>>>> particular endpoint to be routed to a separate event ring.  The event
->>>>>> routing is defined when submitting a transfer descriptor to the 
->>>>>> USB HW.
->>>>>> There is a specific field which denotes which interrupter ring to 
->>>>>> route the
->>>>>> event to when the transfer is completed.
->>>>>>
->>>>>> An example use case, such as audio packet offloading can utilize a 
->>>>>> separate
->>>>>> event ring, so that these events can be routed to a different 
->>>>>> processor
->>>>>> within the system.  The processor would be able to independently 
->>>>>> submit
->>>>>> transfers and handle its completions without intervention from the 
->>>>>> main
->>>>>> processor.
->>>>>>
->>>>>
->>>>> Adding support for more xHCI interrupters than just the primary one 
->>>>> make sense for
->>>>> both the offloading and virtualization cases.
->>>>>
->>>>> xHCI support for several interrupters was probably added to support 
->>>>> virtualization,
->>>>> to hand over usb devices to virtual machines and give them their 
->>>>> own event ring and
->>>>> MSI/MSI-X vector.
->>>>>
->>>>> In this offloading case you probably want to avoid xHC interrupts 
->>>>> from this device
->>>>> completely, making sure it doesn't wake up the main CPU unnecessarily.
->>>>>
->>>>> So is the idea here to let xhci driver set up the new interrupter, 
->>>>> its event ring,
->>>>> and the endpoint transfer rings. Then pass the address of the 
->>>>> endpoint transfer rings
->>>>> and the new event ring to the separate processor.
->>>>>
->>>>> This separate processor then both polls the event ring for new 
->>>>> events, sets its dequeue
->>>>> pointer, clears EHB bit, and queues new TRBs on the transfer ring.
->>>>>
->>>>> so xhci driver does not handle any events for the audio part, and 
->>>>> no audio data URBs
->>>>> are sent to usb core?
->>>>
->>>> Your entire description is correct.  To clarify, the interfaces 
->>>> which are non-audio will still be handled by the main processor.  
->>>> For example, a USB headset can have a HID interface as well for 
->>>> volume control.  The HID interface will still be handled by the main 
->>>> processor, and events routed to the main event ring.
->>>>
->>>>>
->>>>> How about the control part?
->>>>> Is the control endpoint for this device still handled normally by 
->>>>> usb core/xhci?
->>>>>
->>>>
->>>> Control transfers are always handled on the main processor.  Only 
->>>> audio interface's endpoints.
->>>
->>> Good to know, that means interrupter should be chosen per endpoint, 
->>> not per device.
->>>
->>>>
->>>>> For the xhci parts I think we should start start by adding generic 
->>>>> support for several
->>>>> interrupters, then add parts needed for offloading.
->>>>
->>> I can split up the patchsets to add interrupters first, then adding 
->>> the offloading APIs in a separate patch.
->>>
->>>
->>> I started looking at supporting secondary interrupters myself.
->>> Let me work on that part a bit first. We have a bit different end goals.
->>> I want to handle interrupts from a secondary interrupter, while this 
->>> audio offload
->>> really just wants to mask some interrupts.
->>>
->>
->> I was looking at how we could possibly split up the XHCI secondary 
->> interrupter, and offloading parts.  Since the XHCI secondary 
->> interrupter is a feature that is defined in the XHCI spec (and we 
->> aren't doing anything outside of what is defined), I was thinking of 
->> having a separate XHCI driver (ie xhci-sec.c/h) that can be used to 
->> define all APIs related to setting up the event ring and ring 
->> management. (interrupt support can be added here)  This aligns a bit 
->> with what Alan suggested, and removing the APIs in the USB HCD, since 
->> this is XHCI specific stuff. ( 
->> https://lore.kernel.org/linux-usb/Y6zwZOquZOTZfnvP@rowland.harvard.edu/ )
-> 
-> Already started working on the interrupter, that part fits well into 
-> current driver.
-> 
-> Code (untested, will be randomly rebased etc) can be found in my 
-> feature_interrupters branch:
-> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
-> feature_interrupters
-> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
-> 
+Signed-off-by: Luka Guzenko <l.guzenko@web.de>
+=2D--
+V1 -> V2: Inverted the conditional statement in
+	  alc285_fixup_hp_gpio_micmute_led as suggested by Takashi Iwai
 
-Oh perfect, let me take a look.  Thanks for this!
+ sound/pci/hda/patch_realtek.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-> 
-> First step turns current event ring into a primary interrupter.
-> last patch is a test implementation for creating and freeing new 
-> secondary interrupters.
-> 
->>
->> For the offloading part, I think this is a bit more dependent on how 
->> different platforms implement it.  To use more of a generic approach 
->> like how Albert suggested here:
->>
->> https://patchwork.kernel.org/project/linux-usb/list/?series=704174
->>
->> Basically to give vendors the ability to define their own 
->> sequences/callbacks, and from which the XHCI driver will call into. 
->> (if needed)  These would need to be a separate set of XHCI drivers as 
->> well.
->>
->> Do you think this is a proper model for us to go with, so that we can 
->> allow for vendors to easily add functionality?  Appreciate the inputs.
-> 
-> I'm not convinced that overriding different xhci memory allocation 
-> functions is the best solution.
-> I think xhci driver will need to know which endpoints are offloaded.
-> maybe usb class driver could register an "offloader" with xhci for a usb 
-> device.
-> 
-> Trying to figure out what this xhci offload API would look like.
-> The dsp needs at least dma address of an event ring, and offloaded 
-> endpoint rings.
-> Is there anything else that the dsp would directly need to take care of, 
-> or can
-> we just export some xhci functions for starting/stopping endpoints, and 
-> update event deq?
-> 
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3794b522c222..dc4b07a0c240 100644
+=2D-- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4644,6 +4644,16 @@ static void alc285_fixup_hp_coef_micmute_led(struct=
+ hda_codec *codec,
+ 	}
+ }
 
-I'm still working it out with Albert as well to see what they actually 
-require, and if "hooking" into these XHCI apis is really necessary.  I 
-wouldn't follow the path of hooking into existing XHCI APIs either, 
-since I'm sure most of it will be duplicate code that is already done by 
-the XHCI drivers.  I'll follow up a bit more to get a better 
-understanding, or if Albert wants to chime in here that would be helpful 
-also, so everyone is on the same page.
++static void alc285_fixup_hp_gpio_micmute_led(struct hda_codec *codec,
++				const struct hda_fixup *fix, int action)
++{
++	struct alc_spec *spec =3D codec->spec;
++
++	if (action =3D=3D HDA_FIXUP_ACT_PRE_PROBE)
++		spec->micmute_led_polarity =3D 1;
++	alc_fixup_hp_gpio_led(codec, action, 0, 0x04);
++}
++
+ static void alc236_fixup_hp_coef_micmute_led(struct hda_codec *codec,
+ 				const struct hda_fixup *fix, int action)
+ {
+@@ -4665,6 +4675,13 @@ static void alc285_fixup_hp_mute_led(struct hda_cod=
+ec *codec,
+ 	alc285_fixup_hp_coef_micmute_led(codec, fix, action);
+ }
 
-In the QC implementation, we only need the transfer and event ring 
-address, skipping pending events in the secondary event ring (similar to 
-update event deq), and starting/stopping eps.  Exporting APIs would work 
-for us.
-
-Thanks
-Wesley Cheng
++static void alc285_fixup_hp_spectre_x360_mute_led(struct hda_codec *codec=
+,
++				const struct hda_fixup *fix, int action)
++{
++	alc285_fixup_hp_mute_led_coefbit(codec, fix, action);
++	alc285_fixup_hp_gpio_micmute_led(codec, fix, action);
++}
++
+ static void alc236_fixup_hp_mute_led(struct hda_codec *codec,
+ 				const struct hda_fixup *fix, int action)
+ {
+@@ -7106,6 +7123,7 @@ enum {
+ 	ALC285_FIXUP_ASUS_G533Z_PINS,
+ 	ALC285_FIXUP_HP_GPIO_LED,
+ 	ALC285_FIXUP_HP_MUTE_LED,
++	ALC285_FIXUP_HP_SPECTRE_X360_MUTE_LED,
+ 	ALC236_FIXUP_HP_GPIO_LED,
+ 	ALC236_FIXUP_HP_MUTE_LED,
+ 	ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF,
+@@ -8486,6 +8504,10 @@ static const struct hda_fixup alc269_fixups[] =3D {
+ 		.type =3D HDA_FIXUP_FUNC,
+ 		.v.func =3D alc285_fixup_hp_mute_led,
+ 	},
++	[ALC285_FIXUP_HP_SPECTRE_X360_MUTE_LED] =3D {
++		.type =3D HDA_FIXUP_FUNC,
++		.v.func =3D alc285_fixup_hp_spectre_x360_mute_led,
++	},
+ 	[ALC236_FIXUP_HP_GPIO_LED] =3D {
+ 		.type =3D HDA_FIXUP_FUNC,
+ 		.v.func =3D alc236_fixup_hp_gpio_led,
+@@ -9327,6 +9349,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]=
+ =3D {
+ 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPI=
+O),
+ 	SND_PCI_QUIRK(0x103c, 0x86e7, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_=
+HP_SPECTRE_X360_EB1),
+ 	SND_PCI_QUIRK(0x103c, 0x86e8, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_=
+HP_SPECTRE_X360_EB1),
++	SND_PCI_QUIRK(0x103c, 0x86f9, "HP Spectre x360 13-aw0xxx", ALC285_FIXUP_=
+HP_SPECTRE_X360_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8716, "HP Elite Dragonfly G2 Notebook PC", ALC28=
+5_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8720, "HP EliteBook x360 1040 G8 Notebook PC", A=
+LC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8724, "HP EliteBook 850 G7", ALC285_FIXUP_HP_GPI=
+O_LED),
+=2D-
+2.39.0
 

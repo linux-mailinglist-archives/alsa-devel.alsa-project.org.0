@@ -2,92 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 165E9664CC4
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 20:47:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE41664CFA
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 21:05:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CAAFD14A;
-	Tue, 10 Jan 2023 20:46:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CAAFD14A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 592B9D464;
+	Tue, 10 Jan 2023 21:04:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 592B9D464
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673380065;
-	bh=KqQe3X8R2+M4ca8Y3nt3MFKKLU33LTTi3NG9IoqqMpY=;
-	h=Date:To:References:From:Subject:In-Reply-To:List-Id:
+	s=default; t=1673381100;
+	bh=wWB9VxAPDxfHfZVHSm/HhykpFYGDLj8rrKcjarGVM9s=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=B2kto/85SOnXJY8sBLuQjxKOxS3Z4mmrmIeTWlFCA3wsevLjkNQYHDlFwDhO57ZW2
-	 5FrWcXcOfirG1HBH2CpS6e4LNCBAcxYUhkJJngA0/gN7IXQRplHv34g/Mo2xkZRzaS
-	 kqWv9vogqBL6ses61MdphHJuwNWh+meHP74Lbam4=
+	b=l5jYa+R9AHthJaRLZk+1h7wB9gFAik3fZ8fBBSB4T8mDboTMrP0Aq13FOci+T9EOA
+	 kQnF6235WFM/zmssEcjBIpdvc1L46WqhSw+TEypwanVtV2s0zCXcyd7a0BYsqxil/0
+	 FcuAjKGLHMW6EQgk5ivDXMtvBUIwsVQx6uLf9wPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35B27F800C7;
-	Tue, 10 Jan 2023 20:46:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0165CF800C7;
+	Tue, 10 Jan 2023 21:04:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A27A3F804C1; Tue, 10 Jan 2023 20:46:45 +0100 (CET)
+ id 74F1FF8019B; Tue, 10 Jan 2023 21:04:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69ACDF8026A
- for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 20:46:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69ACDF8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78280F8019B
+ for <alsa-devel@alsa-project.org>; Tue, 10 Jan 2023 21:03:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78280F8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VIWNOhAr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673379998; x=1704915998;
- h=message-id:date:mime-version:to:cc:references:from:
- subject:in-reply-to:content-transfer-encoding;
- bh=KqQe3X8R2+M4ca8Y3nt3MFKKLU33LTTi3NG9IoqqMpY=;
- b=VIWNOhArWhU/4yV5l0O8D4ybFR9xRU3MNc7JRVD835EdiUnAe1FUS1ZF
- ZHF1G/1aJgkkOeKAI3+ie2xsRgD95VVFiTU1NYE3RpfP+SBgF6RJ9LxkK
- qI40Y4NUjrNXqW2lVyGSeIl1hxDepMJ6qMKOPj6XVg+mHJRIcCh7Vy9zj
- Y1eQgnkMCQt2Anl04lQHX4oNwB1ZIIypyCVLIV3kyrwas7ZojhWmhvfOR
- H/5kM+Nywn4rQ0KMnMwykJL1HAiq/kSefisuCBngqE5WMI1qB3lTq4fcn
- EvHsB5qGZpxKsduNu05UNe2Rj4TXOcRAZzMl0ml6QxvN+6CZa8V18QQRu Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="385550324"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="385550324"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 11:46:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831113342"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="831113342"
-Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
- ([10.237.72.199])
- by orsmga005.jf.intel.com with ESMTP; 10 Jan 2023 11:46:28 -0800
-Message-ID: <cefcc5c6-6a91-c737-252a-edf596f77473@linux.intel.com>
-Date: Tue, 10 Jan 2023 21:47:47 +0200
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=IkoPBa7d
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30ACaKFN014144; Tue, 10 Jan 2023 20:03:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=lDhJiMKqhS4cwe6NUw8uuSD1qEAuVbxSRigz1sHh4oQ=;
+ b=IkoPBa7d9Vzm84Xbg3Tfh2j4T/m/QIe8kwQNlu8axpUlP7t6DIHi1DnBA+ppoF7bIVID
+ sAHYoOvu/J5cRjQwxAy9vNv7teka5ZNhV22YsAyVxmW0ejGBTzMxxmngk7UPuXG+YN/I
+ afGGxLfRVh0/6w/YJlWvNi/AyzvI8JbKZ7P3MI0llpZAzL98hyV6gfdMJfQ5PlybpzyS
+ W2D0ypEsGCbnxfiQ5rzesSYNykUnkCenXC/DnaennCOvgaCBdxeB5rERb3cPMSVEgvIR
+ ZAbjkP2KgYJdWtaWaUtKVF6YdYVr0iHX8E0b3VwZahKoTG+t4G5eXSzWxxzNzpAUQ1N7 wQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n0x0jjac3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Jan 2023 20:03:53 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30AK3krn019414
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Jan 2023 20:03:46 GMT
+Received: from [10.110.66.166] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Tue, 10 Jan
+ 2023 12:03:45 -0800
+Message-ID: <23a2b82e-4f4f-66e2-2c60-3613ffe7912f@quicinc.com>
+Date: Tue, 10 Jan 2023 12:03:45 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH 07/14] usb: host: xhci: Add XHCI secondary interrupter
+ support
 Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, gregkh@linuxfoundation.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
- robh+dt@kernel.org, agross@kernel.org, Alan Stern <stern@rowland.harvard.edu>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+ <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+ <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+ <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <gregkh@linuxfoundation.org>, <Thinh.Nguyen@synopsys.com>,
+ <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <agross@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, Albert Wang
+ <albertccwang@google.com>
 References: <20221223233200.26089-1-quic_wcheng@quicinc.com>
  <20221223233200.26089-8-quic_wcheng@quicinc.com>
  <7dfe215b-4cc7-f95f-17c3-563c0120151a@linux.intel.com>
  <f7f80320-02bb-a573-dd95-b6d58c260624@quicinc.com>
  <5f54c5a3-caf0-2920-e90f-68124ed2e06c@linux.intel.com>
  <d1334e58-1126-c068-d211-8fd3b7dcbf17@quicinc.com>
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: Re: [RFC PATCH 07/14] usb: host: xhci: Add XHCI secondary interrupter
- support
-In-Reply-To: <d1334e58-1126-c068-d211-8fd3b7dcbf17@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <cefcc5c6-6a91-c737-252a-edf596f77473@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <cefcc5c6-6a91-c737-252a-edf596f77473@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: jiQBCJnSBnVkVHxOOa0aeOKcweduyDnY
+X-Proofpoint-ORIG-GUID: jiQBCJnSBnVkVHxOOa0aeOKcweduyDnY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-10_09,2023-01-10_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 phishscore=0 mlxscore=0 adultscore=0 mlxlogscore=999
+ spamscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301100133
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,102 +131,172 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9.1.2023 22.24, Wesley Cheng wrote:
-> Hi Mathias,
-> 
-> On 1/2/2023 8:38 AM, Mathias Nyman wrote:
->> On 29.12.2022 23.14, Wesley Cheng wrote:
->>> Hi Mathias,
->>>
->>> On 12/28/2022 7:47 AM, Mathias Nyman wrote:
->>>> On 24.12.2022 1.31, Wesley Cheng wrote:
->>>>> Implement the XHCI operations for allocating and requesting for a secondary
->>>>> interrupter.  The secondary interrupter can allow for events for a
->>>>> particular endpoint to be routed to a separate event ring.  The event
->>>>> routing is defined when submitting a transfer descriptor to the USB HW.
->>>>> There is a specific field which denotes which interrupter ring to route the
->>>>> event to when the transfer is completed.
+Hi Mathias,
+
+On 1/10/2023 11:47 AM, Mathias Nyman wrote:
+> On 9.1.2023 22.24, Wesley Cheng wrote:
+>> Hi Mathias,
+>>
+>> On 1/2/2023 8:38 AM, Mathias Nyman wrote:
+>>> On 29.12.2022 23.14, Wesley Cheng wrote:
+>>>> Hi Mathias,
+>>>>
+>>>> On 12/28/2022 7:47 AM, Mathias Nyman wrote:
+>>>>> On 24.12.2022 1.31, Wesley Cheng wrote:
+>>>>>> Implement the XHCI operations for allocating and requesting for a 
+>>>>>> secondary
+>>>>>> interrupter.  The secondary interrupter can allow for events for a
+>>>>>> particular endpoint to be routed to a separate event ring.  The event
+>>>>>> routing is defined when submitting a transfer descriptor to the 
+>>>>>> USB HW.
+>>>>>> There is a specific field which denotes which interrupter ring to 
+>>>>>> route the
+>>>>>> event to when the transfer is completed.
+>>>>>>
+>>>>>> An example use case, such as audio packet offloading can utilize a 
+>>>>>> separate
+>>>>>> event ring, so that these events can be routed to a different 
+>>>>>> processor
+>>>>>> within the system.  The processor would be able to independently 
+>>>>>> submit
+>>>>>> transfers and handle its completions without intervention from the 
+>>>>>> main
+>>>>>> processor.
+>>>>>>
 >>>>>
->>>>> An example use case, such as audio packet offloading can utilize a separate
->>>>> event ring, so that these events can be routed to a different processor
->>>>> within the system.  The processor would be able to independently submit
->>>>> transfers and handle its completions without intervention from the main
->>>>> processor.
+>>>>> Adding support for more xHCI interrupters than just the primary one 
+>>>>> make sense for
+>>>>> both the offloading and virtualization cases.
+>>>>>
+>>>>> xHCI support for several interrupters was probably added to support 
+>>>>> virtualization,
+>>>>> to hand over usb devices to virtual machines and give them their 
+>>>>> own event ring and
+>>>>> MSI/MSI-X vector.
+>>>>>
+>>>>> In this offloading case you probably want to avoid xHC interrupts 
+>>>>> from this device
+>>>>> completely, making sure it doesn't wake up the main CPU unnecessarily.
+>>>>>
+>>>>> So is the idea here to let xhci driver set up the new interrupter, 
+>>>>> its event ring,
+>>>>> and the endpoint transfer rings. Then pass the address of the 
+>>>>> endpoint transfer rings
+>>>>> and the new event ring to the separate processor.
+>>>>>
+>>>>> This separate processor then both polls the event ring for new 
+>>>>> events, sets its dequeue
+>>>>> pointer, clears EHB bit, and queues new TRBs on the transfer ring.
+>>>>>
+>>>>> so xhci driver does not handle any events for the audio part, and 
+>>>>> no audio data URBs
+>>>>> are sent to usb core?
+>>>>
+>>>> Your entire description is correct.  To clarify, the interfaces 
+>>>> which are non-audio will still be handled by the main processor.  
+>>>> For example, a USB headset can have a HID interface as well for 
+>>>> volume control.  The HID interface will still be handled by the main 
+>>>> processor, and events routed to the main event ring.
+>>>>
+>>>>>
+>>>>> How about the control part?
+>>>>> Is the control endpoint for this device still handled normally by 
+>>>>> usb core/xhci?
 >>>>>
 >>>>
->>>> Adding support for more xHCI interrupters than just the primary one make sense for
->>>> both the offloading and virtualization cases.
->>>>
->>>> xHCI support for several interrupters was probably added to support virtualization,
->>>> to hand over usb devices to virtual machines and give them their own event ring and
->>>> MSI/MSI-X vector.
->>>>
->>>> In this offloading case you probably want to avoid xHC interrupts from this device
->>>> completely, making sure it doesn't wake up the main CPU unnecessarily.
->>>>
->>>> So is the idea here to let xhci driver set up the new interrupter, its event ring,
->>>> and the endpoint transfer rings. Then pass the address of the endpoint transfer rings
->>>> and the new event ring to the separate processor.
->>>>
->>>> This separate processor then both polls the event ring for new events, sets its dequeue
->>>> pointer, clears EHB bit, and queues new TRBs on the transfer ring.
->>>>
->>>> so xhci driver does not handle any events for the audio part, and no audio data URBs
->>>> are sent to usb core?
+>>>> Control transfers are always handled on the main processor.  Only 
+>>>> audio interface's endpoints.
 >>>
->>> Your entire description is correct.  To clarify, the interfaces which are non-audio will still be handled by the main processor.  For example, a USB headset can have a HID interface as well for volume control.  The HID interface will still be handled by the main processor, and events routed to the main event ring.
+>>> Good to know, that means interrupter should be chosen per endpoint, 
+>>> not per device.
 >>>
 >>>>
->>>> How about the control part?
->>>> Is the control endpoint for this device still handled normally by usb core/xhci?
+>>>>> For the xhci parts I think we should start start by adding generic 
+>>>>> support for several
+>>>>> interrupters, then add parts needed for offloading.
 >>>>
+>>> I can split up the patchsets to add interrupters first, then adding 
+>>> the offloading APIs in a separate patch.
 >>>
->>> Control transfers are always handled on the main processor.  Only audio interface's endpoints.
->>
->> Good to know, that means interrupter should be chosen per endpoint, not per device.
->>
 >>>
->>>> For the xhci parts I think we should start start by adding generic support for several
->>>> interrupters, then add parts needed for offloading.
+>>> I started looking at supporting secondary interrupters myself.
+>>> Let me work on that part a bit first. We have a bit different end goals.
+>>> I want to handle interrupts from a secondary interrupter, while this 
+>>> audio offload
+>>> really just wants to mask some interrupts.
 >>>
->> I can split up the patchsets to add interrupters first, then adding the offloading APIs in a separate patch.
 >>
+>> I was looking at how we could possibly split up the XHCI secondary 
+>> interrupter, and offloading parts.  Since the XHCI secondary 
+>> interrupter is a feature that is defined in the XHCI spec (and we 
+>> aren't doing anything outside of what is defined), I was thinking of 
+>> having a separate XHCI driver (ie xhci-sec.c/h) that can be used to 
+>> define all APIs related to setting up the event ring and ring 
+>> management. (interrupt support can be added here)  This aligns a bit 
+>> with what Alan suggested, and removing the APIs in the USB HCD, since 
+>> this is XHCI specific stuff. ( 
+>> https://lore.kernel.org/linux-usb/Y6zwZOquZOTZfnvP@rowland.harvard.edu/ )
+> 
+> Already started working on the interrupter, that part fits well into 
+> current driver.
+> 
+> Code (untested, will be randomly rebased etc) can be found in my 
+> feature_interrupters branch:
+> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
+> feature_interrupters
+> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
+> 
+
+Oh perfect, let me take a look.  Thanks for this!
+
+> 
+> First step turns current event ring into a primary interrupter.
+> last patch is a test implementation for creating and freeing new 
+> secondary interrupters.
+> 
 >>
->> I started looking at supporting secondary interrupters myself.
->> Let me work on that part a bit first. We have a bit different end goals.
->> I want to handle interrupts from a secondary interrupter, while this audio offload
->> really just wants to mask some interrupts.
+>> For the offloading part, I think this is a bit more dependent on how 
+>> different platforms implement it.  To use more of a generic approach 
+>> like how Albert suggested here:
 >>
+>> https://patchwork.kernel.org/project/linux-usb/list/?series=704174
+>>
+>> Basically to give vendors the ability to define their own 
+>> sequences/callbacks, and from which the XHCI driver will call into. 
+>> (if needed)  These would need to be a separate set of XHCI drivers as 
+>> well.
+>>
+>> Do you think this is a proper model for us to go with, so that we can 
+>> allow for vendors to easily add functionality?  Appreciate the inputs.
 > 
-> I was looking at how we could possibly split up the XHCI secondary interrupter, and offloading parts.  Since the XHCI secondary interrupter is a feature that is defined in the XHCI spec (and we aren't doing anything outside of what is defined), I was thinking of having a separate XHCI driver (ie xhci-sec.c/h) that can be used to define all APIs related to setting up the event ring and ring management. (interrupt support can be added here)  This aligns a bit with what Alan suggested, and removing the APIs in the USB HCD, since this is XHCI specific stuff. ( https://lore.kernel.org/linux-usb/Y6zwZOquZOTZfnvP@rowland.harvard.edu/ )
-
-Already started working on the interrupter, that part fits well into current driver.
-
-Code (untested, will be randomly rebased etc) can be found in my feature_interrupters branch:
-git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git feature_interrupters
-https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters
-
-First step turns current event ring into a primary interrupter.
-last patch is a test implementation for creating and freeing new secondary interrupters.
-
+> I'm not convinced that overriding different xhci memory allocation 
+> functions is the best solution.
+> I think xhci driver will need to know which endpoints are offloaded.
+> maybe usb class driver could register an "offloader" with xhci for a usb 
+> device.
 > 
-> For the offloading part, I think this is a bit more dependent on how different platforms implement it.  To use more of a generic approach like how Albert suggested here:
+> Trying to figure out what this xhci offload API would look like.
+> The dsp needs at least dma address of an event ring, and offloaded 
+> endpoint rings.
+> Is there anything else that the dsp would directly need to take care of, 
+> or can
+> we just export some xhci functions for starting/stopping endpoints, and 
+> update event deq?
 > 
-> https://patchwork.kernel.org/project/linux-usb/list/?series=704174
-> 
-> Basically to give vendors the ability to define their own sequences/callbacks, and from which the XHCI driver will call into. (if needed)  These would need to be a separate set of XHCI drivers as well.
-> 
-> Do you think this is a proper model for us to go with, so that we can allow for vendors to easily add functionality?  Appreciate the inputs.
 
-I'm not convinced that overriding different xhci memory allocation functions is the best solution.
-I think xhci driver will need to know which endpoints are offloaded.
-maybe usb class driver could register an "offloader" with xhci for a usb device.
+I'm still working it out with Albert as well to see what they actually 
+require, and if "hooking" into these XHCI apis is really necessary.  I 
+wouldn't follow the path of hooking into existing XHCI APIs either, 
+since I'm sure most of it will be duplicate code that is already done by 
+the XHCI drivers.  I'll follow up a bit more to get a better 
+understanding, or if Albert wants to chime in here that would be helpful 
+also, so everyone is on the same page.
 
-Trying to figure out what this xhci offload API would look like.
-The dsp needs at least dma address of an event ring, and offloaded endpoint rings.
-Is there anything else that the dsp would directly need to take care of, or can
-we just export some xhci functions for starting/stopping endpoints, and update event deq?
+In the QC implementation, we only need the transfer and event ring 
+address, skipping pending events in the secondary event ring (similar to 
+update event deq), and starting/stopping eps.  Exporting APIs would work 
+for us.
 
 Thanks
--Mathias
+Wesley Cheng
 

@@ -2,61 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A116646A3
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 17:55:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5038B6646A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jan 2023 17:55:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39EBC16A3;
-	Tue, 10 Jan 2023 17:54:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39EBC16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9863493B1;
+	Tue, 10 Jan 2023 17:54:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9863493B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673369701;
-	bh=SollqPHgY5I7lTwviKqNUa8+yrbzo1QLNEo3j1yUsrE=;
+	s=default; t=1673369733;
+	bh=8bYl3EkgXZRUNK57wCietLLP/Pf13l89ULpfbcWOHK8=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=XeHndap5nqwV2QZnXrkLKTf3Qx1XnNLEgHAWpMqJegCxtNeiztSqBPCqfc8BUCXKu
-	 /Pz6JrAJeVCE6OnN4Q1eEYf+2/t835EolqB0qseoXD2+euTJkh4rZ4rilOoBRXvYeO
-	 Sc4M8nDy4rdOPqSGjBddEFIx9BYFHIyH4tQ/HeJI=
+	b=MKphdvdQ0xyjkU0VorWxZvkoytS8AhGvzYmNJe00taO4w76wk4KyR3n3Ypm3ueqmV
+	 Fdz3QXyJF9YetCiv6AbonrE2UBFtTkHM0BG3FJ2AnwWTWzkI7vkrLR5GzC/1izBz2q
+	 M3CZcsnN+DaG0wjmzNXaEC5JUUUtEB5AW96lMui8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F612F800C7;
-	Tue, 10 Jan 2023 17:54:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82857F80539;
+	Tue, 10 Jan 2023 17:54:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E965EF804C1; Tue, 10 Jan 2023 17:54:00 +0100 (CET)
+ id 0B830F804BD; Tue, 10 Jan 2023 17:54:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0F8CF8019B;
- Tue, 10 Jan 2023 17:53:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0F8CF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67908F8026A;
+ Tue, 10 Jan 2023 17:53:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67908F8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Pcx4YAWa
+ header.s=k20201202 header.b=gBiuoUKO
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 6C22ACE1876;
- Tue, 10 Jan 2023 16:53:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B11C433F1;
- Tue, 10 Jan 2023 16:53:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AECFE614F3;
+ Tue, 10 Jan 2023 16:53:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB35C433D2;
+ Tue, 10 Jan 2023 16:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673369629;
- bh=SollqPHgY5I7lTwviKqNUa8+yrbzo1QLNEo3j1yUsrE=;
+ s=k20201202; t=1673369635;
+ bh=8bYl3EkgXZRUNK57wCietLLP/Pf13l89ULpfbcWOHK8=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Pcx4YAWaJufTQxXy4GmIV8Y1noj4cbwA15h92+yCwAy6+iAD1g4NCRKi+Pc/MhOrA
- 9fZmAqK66hDCjjocSouT92wlgPUXT2FnN45SDl130vtR53DfSKC1oQEkT0Lx7E1SL1
- ltLqOXveg2pUrYZePevnJZCfBbzXF9kpl0BYd47uoGh72YpWX86DYd0ZURIMAlMzGC
- V8yVDpk/rzieN+Y7QR7ojyEB6u6BY/t2e41t2iEnUI/PFt4CbIk+sm+jdpd1KO99+1
- TA1i1vL7vlBrlVJ3Bpm+HFBdpWcpCrAlBH+y7CN7NvNMBTM8gXCBdNIY7wXWVZeel0
- OazQiUHiDX+Dw==
+ b=gBiuoUKO6JWztiz5PI24eupTdl7muvcNZ3jI5I9CvnpdFIAQDT8S+a6MtCnBc3Ung
+ pA0Dgx/N+lA/9VnhCWbCCcHG1z+klgeLBfaTHZWWSQHzHZ7UOKL6uVimN+VpF4Sxih
+ Zb3qXdFOL7Ns7AqDIbdcQkhtZCo6W1OvvmgmrdAT7CZlA/WjVqbinrq5kwy63i37Pe
+ JmP9Wg8YRgx1uFVx42IlO0VOCD9i6wC+Tdf95H8OFFVpxlM8cKtZGzYdjTy4nYxw4c
+ tQH8AZUILD3s3QhalfwdMLW9iVI0mma8o3K3VdzMD8UdEDJTXSAaebjLKCYVn6vADk
+ ZKqmaxgw9LVBg==
 From: Mark Brown <broonie@kernel.org>
 To: Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -68,16 +69,17 @@ To: Rob Herring <robh+dt@kernel.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Chunxu Li <chunxu.li@mediatek.com>,
- Dan Carpenter <error27@gmail.com>, YC Hung <yc.hung@mediatek.com>,
+ Takashi Iwai <tiwai@suse.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chunxu Li <chunxu.li@mediatek.com>, Dan Carpenter <error27@gmail.com>,
+ YC Hung <yc.hung@mediatek.com>, Wan Jiabing <wanjiabing@vivo.com>,
  Allen-KH Cheng <Allen-KH.Cheng@mediatek.com>,
  Tinghan Shen <tinghan.shen@mediatek.com>
-In-Reply-To: <20221222072150.10627-1-tinghan.shen@mediatek.com>
-References: <20221222072150.10627-1-tinghan.shen@mediatek.com>
-Subject: Re: [PATCH v1 0/3] Add support of MediaTek mt8188 to SOF
-Message-Id: <167336962456.1940041.13852570954333682480.b4-ty@kernel.org>
-Date: Tue, 10 Jan 2023 16:53:44 +0000
+In-Reply-To: <20230110084312.12953-1-tinghan.shen@mediatek.com>
+References: <20230110084312.12953-1-tinghan.shen@mediatek.com>
+Subject: Re: [PATCH v2 0/3] Add support of MediaTek mt8188 to SOF
+Message-Id: <167336962989.1940041.17948802979012631387.b4-ty@kernel.org>
+Date: Tue, 10 Jan 2023 16:53:49 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -102,7 +104,7 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 22 Dec 2022 15:21:47 +0800, Tinghan Shen wrote:
+On Tue, 10 Jan 2023 16:43:09 +0800, Tinghan Shen wrote:
 > Add support of MediaTek mt8188 SoC DSP to SOF.
 > The sof driver patches in this series are taken from
 > thesofproject/linux/tree/topic/sof-dev-rebase.

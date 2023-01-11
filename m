@@ -2,150 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D1366578E
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:34:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8225F66585A
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:58:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94DC9E372;
-	Wed, 11 Jan 2023 10:33:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94DC9E372
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96F5EE416;
+	Wed, 11 Jan 2023 10:57:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96F5EE416
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673429677;
-	bh=H+jMxS5tDiP7tjmc8A0U5gIbFs71PE0Jqzvxi09wj3k=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1673431085;
+	bh=vKxsGbUQlSFfRxjGzOqK0YM0Gye4zGSOztBp8vIWev8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=YSCkwekxialf/Gbj80Ar4y1aWLTbZWKXc/kVRxdzkkBUzy6itsfBkabrOKa3W0TeF
-	 UXPFap4TBZfmgJBI3Awb9R7PxPzTI7PCglprUtraLRLb5f8wcDcWFN3oJev8HKIctx
-	 nAWT4aqZsHtGr/0+rtVsFyuV7Jur2petJKY8zRUI=
+	b=aeT8Q5/Y+p43GQQga+fg/MPTMUf6hXTlU3GZVIYK5/rjq/zN5Vo/5zvZ8e/UjcejU
+	 OddJ6vUyPCtdyyV0KpzaX6g5EpZ+HvnqlRfwEuL9FvO5Gr1Isf6X3NDOvGXMaVkk80
+	 9RBniSydRucak7cXHj/GevPFf0r7haJ6feZ8szPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42A73F8026A;
-	Wed, 11 Jan 2023 10:33:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDF99F8019B;
+	Wed, 11 Jan 2023 10:57:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAFC3F803DC; Wed, 11 Jan 2023 10:33:37 +0100 (CET)
+ id C5D8FF8026A; Wed, 11 Jan 2023 10:57:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90721F8026A
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:33:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90721F8026A
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=QdmQuSlL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fO4ZcTulD3juFXjE+/spDnuMToC4wW8I3CWKQRJqEDtPD2/WdcFM09K6sLu0kHdvRym1Z0RN/oq+9IwuA07icT0CtzF+xGIktAK/k6xBNAgfQvbC20iiYntVmqpUSkQG8DGSjIUEfyzGJL8E2FWX6YohYdHG528n93Xrb0ITC8y/vleNiP9wJRozhKhB2tXzFNVxLgd8UFFKQhNaW8AQ3rto9rzBuLzXHmnMrW03j6BUQXfuUMKIxFQEqesDtCZgsTHvtCpf8VLyKj8KntxmYVaOXutWKGFkWy5JaIe51NRm6hBi1R8Vv0D46dcYa0m5dmJ07ItjBfe//2wZpGVDZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m6zxCaArxcBfXH1vPQa04bpbGz6jysmcicB2EtMBcQk=;
- b=mZca1FDleQIKVFK5QVX5UrQTV/wiSEF0J85zOyApGG5wrGDjm/Vqozp+eHIXzPEpnm7KA8gLjwNumuohVOo5xiSjJZvt45cFmuuI20ZfP2XTVuGSmSEplRb+isKSVDQeov0P6ivN5R6LDhTSPCgby0XUtDYpf0OQQy3xibcbE8hnOwc+ntQwV01bJX+iN1UBhbAhKk6TvdCt+r/j2L+Y5bQKfaPEPf6KpQ1/tKvIgnbOvkxF5sq6M/wnxuKrjp8YkLf7yA8Yp1/WG5AatkC55sSX5W0IQv9jF4HewAmR0SkhxtWnQUT7yfd3dBM4xWIqb+XniLvySHRS791Q0xxnhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m6zxCaArxcBfXH1vPQa04bpbGz6jysmcicB2EtMBcQk=;
- b=QdmQuSlLWVERSertoghZsxh2FRuRNlvVVuHB4sbdQuhNO/WbxdHEgeMmVOYING/fTqNI1ww0lco94JzavcXGuHDdzcXyRx+MpOqT4UXrF0CD7M4p3QkYFhqAgeprvsOoK7MfelZ+O7m9hd06Ql+A+51hPj7ZWClGEvVpm5cL8WU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
- by PH0PR12MB5404.namprd12.prod.outlook.com (2603:10b6:510:d7::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
- 2023 09:33:23 +0000
-Received: from DM6PR12MB4171.namprd12.prod.outlook.com
- ([fe80::b828:7c21:5e7c:5416]) by DM6PR12MB4171.namprd12.prod.outlook.com
- ([fe80::b828:7c21:5e7c:5416%8]) with mapi id 15.20.5986.018; Wed, 11 Jan 2023
- 09:33:23 +0000
-Subject: Re: [RFC] Sound support for Huawei line of AMD laptops using ACP and
- ES8336 codec
-To: Marian Postevca <posteuca@mutex.one>,
- "Limonciello, Mario" <mario.limonciello@amd.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <871qo7fqjp.fsf@mutex.one>
- <598ca0a8-8aef-a030-7060-f76ba4700bbf@amd.com>
- <8349cf5f-1e26-f605-4404-978dbef9cee3@amd.com> <871qo2bmlx.fsf@mutex.one>
-From: "Reddy, V sujith kumar" <vsujithkumar.reddy@amd.com>
-Message-ID: <ecd0bcaa-677f-aabb-2864-9f54a510f3e7@amd.com>
-Date: Wed, 11 Jan 2023 15:03:11 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <871qo2bmlx.fsf@mutex.one>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: PN2PR01CA0016.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::21) To DM6PR12MB4171.namprd12.prod.outlook.com
- (2603:10b6:5:21f::18)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49495F8030F
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:57:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49495F8030F
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=NzYr9WZv
+Received: by mail-wm1-x32e.google.com with SMTP id
+ j16-20020a05600c1c1000b003d9ef8c274bso7830861wms.0
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 01:57:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=rZrK9lXyFzrE/eivw3OcCooHt4NoTEPjrW6/dIApfWI=;
+ b=NzYr9WZvB0yPX9hmesMv0hgjDwjPXJutQ420ENuuA9rzr/TQWrsMDcym9eYFiFgdGI
+ naPSBbWitrpZKZCx0vELymwzFkMspdu+Dlsap6Mxeh5+O0zR+tMzz+1bmNzADbvSiYxH
+ dNr97ZXrfPxm8W0qoh0JM1wDMcbDddc8uOAMflrjpxZ5LlenxI4MCjd0zOoGjJLCLcjq
+ YFgE2RKtVeBT+dwfGwj5KDpEGeTsHfb0zSTv6aulHloiytjxY0CVuM/aodJXMm6Wp129
+ mlYgw97MwPSwerW/Ty1mMGlZd3O2cqPqsp7bvEqIqKMh6NmWkV15o7ZAluVXGyOKhaTR
+ +sqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rZrK9lXyFzrE/eivw3OcCooHt4NoTEPjrW6/dIApfWI=;
+ b=tZgm5dqSsXSAXjjbsXpb0P6KapeGawC7V1f87ei8w55Dr5v8tq0i2rKeNZAdutuFeF
+ yKF5p/YYNkQSRYoiETxYIaf/7xKn4sF0B58Q474aUkitln9rDQDCQGkRX+3B/VzevvfA
+ a3J6D5NzJ2p+cIf4Oki6kYmzwHtYzlEyK7RcOXbwpk/FZrB4jHlC4d3WebxysSV7LXbt
+ RoNNn5zgDpbgVeXymqGDDMpS9aI8Y6IhDcPI9DpNfvEL61zzrXEyWjzCFZZvjwI2aocm
+ jGfvuJvo7oH0fpERYb8Ze2ja5uo9jxTXRl8tj3spiLwSYgW/FxXzb9z7TwMXTD1oU7V0
+ 51IA==
+X-Gm-Message-State: AFqh2kqFhH20gPlbr/f5xCFqUypAu1lMduMp9kDiMCNQjSKUxoxNHvmo
+ 3Ktgz9Y3kEGZYE/ZJAir2Jf9jg==
+X-Google-Smtp-Source: AMrXdXtnjRK0dM2PKFvDPnK0ZNqW9OOfaNRQsXHtWzxpQraFJ2OLkK1Td920Jou43ys0vpMsTSfiYA==
+X-Received: by 2002:a05:600c:4e46:b0:3d2:3761:b717 with SMTP id
+ e6-20020a05600c4e4600b003d23761b717mr52118078wmq.37.1673431019418; 
+ Wed, 11 Jan 2023 01:56:59 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ s23-20020a1cf217000000b003d1e3b1624dsm22268979wmc.2.2023.01.11.01.56.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jan 2023 01:56:59 -0800 (PST)
+Message-ID: <c1b07878-4cbc-bb79-3635-03f15df8a658@linaro.org>
+Date: Wed, 11 Jan 2023 10:56:56 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4171:EE_|PH0PR12MB5404:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca175101-b1a8-4973-561d-08daf3b6e246
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wx7NbbJaCwdLkrZRgVIy9KeOkyx4b+7UQ/Xcsf2ENh1D2oybD2NYdmec8ByLBdEQjECeTj1YZmtoTb7KwgbtXW177rQqpVALIW3bi1nupwfKsggs9oDco7uwXL/pTJa5MEgUl9b1Cqxh7TNBxz9w7biIB9Z7IviJOj3nl32+VFy6sj7MoOKGMJq/QDlMroF211a0hewHEhFq8KOw6TLq8b/eSNO00hg8EZFeAqnRRLn2YNKMgTcG1sqLJjivAsZsQ8D+pXKvrZlj4+4KYuv0MsWTcyS7evv4ygtW1ybhWM5dP20Q+MJah3A0JS7Qx4FRYZBg6+we/jAe5aQiMrNKhy/2FKIMSHJJ3424Q+IXkc+cwjRaKBFcGGLSlXkbsliAvXcTX07CSAe5K5oHTpnfwFenqP7+IO5OwnvuxXc086vyWyU+08t7gFpNltCLaTZ2avP/AxVyw27puP8J7ezM5Di9xWQG9FC1Mxf7+K1B5uwI4dXpb4gGk9/FI0faQ+fpXa/4i9QhRsScM9tfEcB9wKiQTNEckhCWp5YC9Q856+zGLkiT7qbjy7xrqEIx2+e+5aDpFCQsAck/On5HuH5XOPvSVKFbvMxmSov2Itj/YzF89W9bfMz7/BAWiR5wBqlPg9k180fMYbkq2gbLPhxqLlVAFaWZlmH/kStxcaD/EWWGzb0y9DOmPFtfOdOpgiTAUTszDhXt+hgCpxILDLIJ8jxy+DWmN9nvYcv5kg+ZZPfNK4frlTrkToFkOXaFgzfVUJZpC6hGeNV2+kq0dEC+7NvfHytN/atOzut9Dms/Djw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(451199015)(6506007)(38100700002)(6666004)(84970400001)(31686004)(53546011)(2906002)(6486002)(966005)(478600001)(2616005)(26005)(186003)(6512007)(5660300002)(316002)(8936002)(83380400001)(36756003)(86362001)(31696002)(41300700001)(110136005)(8676002)(54906003)(66556008)(4326008)(66946007)(66476007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTJjZzZDbTNUcnVWMVphZk9xMnlTNDJyUUs3M3UvYjNXQWY1aGgvam1rTTg1?=
- =?utf-8?B?WHRYbnkxY3lqVFFEdVJMYzBwSCtnV1R4Z1BoRG5SSlBNTFd3L1U2OWNCdEw1?=
- =?utf-8?B?N0N6K21ISHBrYmVEUURCYlkxNS83emZjUXV5Z0VlQUxFdTd3Tm5hZXcyM3E5?=
- =?utf-8?B?OUZIZ0ZVVmFMQkdQSGpHUEk0dmtnRVhMdXl2blJyTFZnSWFpY1pMdHllTkp6?=
- =?utf-8?B?SmRqQmh1QWc4clFGN3AxQWdVWXhIWmZHYmxnT29GTHpJS0QxRk45WEV3eFk5?=
- =?utf-8?B?Zk9TNGUwaG0wT3dFbytwT2xqZWc1ZGVJQ3FnZW14dmRFMmtXY1I1dUJTdyti?=
- =?utf-8?B?VVJsUCs0OEwrKzc4b3hDQXN3SWhmYnhFaXpMN0owT0hrcXpRZzgvRG1Yckwv?=
- =?utf-8?B?UWtrQmdOazVkMmUxRzVCMS83ODg2a1NPbUdxekpFVW8vNEJoUzdQeWhyOEZI?=
- =?utf-8?B?TXBWWXVpS05uZE8rWXlsZjNYeE9LcXVKWU9zelNPTjJXYUQ4WisvMDhIVTE3?=
- =?utf-8?B?YU0xaytwdUZRd2gvaFE4bzJyNnlOMmE4NkFleVp1U1FHUXhYNVFsSGRWRlk2?=
- =?utf-8?B?UDhuVXhUWllER2s2cENSanR3OWJFeFdnVHk3UllVTlBGUjA3dHFSUUVRejJz?=
- =?utf-8?B?L1hJdTNESUhkVUFlRTNPQTZkdlJVUHI5c3ZjLy9ibVV1b3g1VGN0V2ZTMS9Y?=
- =?utf-8?B?akF4Y1JvN2duaHFsbWpDYW12RVdrQXYwbGc1ZEcwQUtHNE4xSW1xQm9BNjlV?=
- =?utf-8?B?TG1kUWdXSmJ6d3BIYmxOcFZpbmpOa1Q1aTA5T01abmhWS21VUG1vQW56cjVD?=
- =?utf-8?B?d1dldENCSTJ5N1BpL1VVcVQvUEJBQlRVd2RIWEhKY3pEK0w2L2IxTzJjUWlS?=
- =?utf-8?B?YjNZeUdRSWJFMG1PaVBHcm9RMUpvOGN4bUJiRTV0WjlpejNsQTFuZENsdzkw?=
- =?utf-8?B?OTYwU1o1YlhMWVFNRkJxUCtxQ0JPbG1xRXRZdlVSVC94b3VieWY5cGJiL0hE?=
- =?utf-8?B?WXNWZ01JQmI2dXpFYVAwNTUyZXVaRGJoNEw5dzJPTjA2czBCS1BQRDBsSEUw?=
- =?utf-8?B?Rk1MWHh5U3hwaTZmQjl6VnFKbGNVNjZOSXMvTTg3UStoaHh6VW9odlhVeENi?=
- =?utf-8?B?Yk9QRzRXdzZqbHFQMlB0RXVTYmFCMGlFRFM0N0h6SW1yKzU4cStvY0hXSWJX?=
- =?utf-8?B?MmpaTUdwVG54aWtmT204VktlaWtsMnVPYkVjd1pscnQydnh1eEN2QzYvY2lR?=
- =?utf-8?B?Uy91TS96U0kxeTNsQmpuSW1YWFUzanNoTXp4QnY4ZUhuTUJvS0syK1Q2Rldt?=
- =?utf-8?B?R25EejNVazN2UlgxdU5GSlFIWDFxTHh1R003Z1ltUHo3VjY0WHBydTNiOUVZ?=
- =?utf-8?B?Nld3b3hWcGJocWdpdVc2UUhQM2g3Q0I5Z0J2K2ZFajFmc1dDVXFwRG9Gekx3?=
- =?utf-8?B?VDYwcXJJVG9ZbUdYNE5JSStMejdRdjQ3QXlGbURnZVpwK1cxamxWSjIxcHVU?=
- =?utf-8?B?MFRna0x5eG9EMjAzRWRHSXU0ZkJ2UzIrM2preDhKZWxOMEliQSt4cVVISkRY?=
- =?utf-8?B?ZXJWV3JzbTVjSVVOcnZYOWtYeTFlbmRoek1MWmtHOXhVaDNIU1Z6ZU8rVzUw?=
- =?utf-8?B?OHBrRDF1V1VBMU9zRnVZM2VuNXQ4dGpWcFZmd0pGSWJJd2tnU2lidWhDS3dh?=
- =?utf-8?B?bjM1eHFpdUhESGM4enNJUzZqVnR6bUZYYk9GRzN3NXZsL1h6QUd5OU9zVnFa?=
- =?utf-8?B?UlpnMGp4NFRRaFZDeFB4dVRabWU1UWFjM25ZZ2Zta2Q2c3RQM1FKSXppMzhu?=
- =?utf-8?B?YkhQZmRKQ2l3MzIwUm8zQnVVWUFZcUJTMGpsOEdsWGtUR3I4bFE3TEM5bE5H?=
- =?utf-8?B?a3NlZnBVM25WeHlMNlhNcXBEOFBhR3UydjNhWjI1bm45b1A1WlpuWXdIWnlh?=
- =?utf-8?B?dC9UNVRZNjlKREhlQ2t6cFloMmRQVk5UY0g1V0pETDRSY3BEcXgvSlQ3TkZB?=
- =?utf-8?B?endYQ1JjVlhXeUNSckFnZHNpbEV5MG45ckJ6QzlaQmtnNmx0OVRPZ0lIc05K?=
- =?utf-8?B?cXBEYnpEWXFxR0pDbW0zZFhoNGVZS0FkWWpIeTNPWHNyWmZyVkI1SFN3cFlC?=
- =?utf-8?Q?ADRwWT2tkS5nDVJfu9k/63ZDy?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca175101-b1a8-4973-561d-08daf3b6e246
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 09:33:23.3141 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aPpAlqV9pg4Zwo9ahC6mih8/mpLrpn8ujox+3Cz54GlT2niEE1xmy5KK0er7V/05
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5404
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 01/10] dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+Content-Language: en-US
+To: Herve Codina <herve.codina@bootlin.com>
+References: <20230106163746.439717-1-herve.codina@bootlin.com>
+ <20230106163746.439717-2-herve.codina@bootlin.com>
+ <427e0775-c576-e293-f590-b9840b936884@linaro.org>
+ <20230110090445.2dc61b51@bootlin.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230110090445.2dc61b51@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,69 +108,348 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, syed sabakareem <Syed.SabaKareem@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Takashi Iwai <tiwai@suse.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Li Yang <leoyang.li@nxp.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, Mark Brown <broonie@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Qiang Zhao <qiang.zhao@nxp.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On 1/10/2023 5:57 PM, Marian Postevca wrote:
-> Hello V sujith kumar, Mario,
->
-> Thanks for the replies to my email.
->
-> "Limonciello, Mario" <mario.limonciello@amd.com> writes:
->
->> On 1/7/2023 00:58, Reddy, V sujith kumar wrote:
->>> Could you please send  the error, we will check and let you know what is
->>> missing.
->> Just a guess here without seeing the error.  Is this perhaps because the
->> SOF F/W binary that was loaded was not signed with signature trusted by
->> the platform and the platform required validation?
+On 10/01/2023 09:04, Herve Codina wrote:
+> Hi Krzysztof,
+> 
+> On Sun, 8 Jan 2023 16:10:38 +0100
+> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+> 
+> [...]
+> 
+>>> +  '#size-cells':
+>>> +    const: 0
+>>> +
+>>> +patternProperties:
+>>> +  "^tdm@[0-1]$":  
 >>
->> SOF on AMD was first introduced for Chromebooks which don't use the same
->> authority for firmware binary verification that general purpose UEFI
->> notebooks would use.
->
-> So I compiled the latest sof firmware from main branch commit
-> 90c14e56cb, and now it seems I get additional errors that I didn't get a
-> few months ago when I last tried:
-> [   38.251393] snd_sof_amd_renoir 0000:03:00.5: enabling device (0000 -> 0002)
-> [   38.252944] snd_sof_amd_renoir 0000:03:00.5: unknown sof_ext_man header type 3 size 0x30
-> [   38.252955] snd_sof_amd_renoir 0000:03:00.5: Firmware info: version 2:0:0-90c14
-> [   38.252957] snd_sof_amd_renoir 0000:03:00.5: Firmware: ABI 3:26:0 Kernel ABI 3:23:0
-> [   41.345068] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump start ]------------
-> [   41.345080] snd_sof_amd_renoir 0000:03:00.5: Firmware boot failure due to timeout
-> [   41.345085] snd_sof_amd_renoir 0000:03:00.5: fw_state: SOF_FW_BOOT_IN_PROGRESS (2)
-> [   41.345137] snd_sof_amd_renoir 0000:03:00.5: invalid header size 0x7f841000. FW oops is bogus
-> [   41.345142] snd_sof_amd_renoir 0000:03:00.5: unexpected fault 0x7f840000 trace 0x7f840000
-> [   41.345146] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump end ]------------
-> [   41.345150] snd_sof_amd_renoir 0000:03:00.5: error: failed to boot DSP firmware -5
-> [   41.345266] snd_sof_amd_renoir 0000:03:00.5: error: sof_probe_work failed err: -5
->
-> The kernel I'm running on is based on the asoc tree from Mark Brown:
-> git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
->
-> commit f8778e910cab179f5835386a0a70847921a8fbec (sound/for-next)
-> Merge: cdfa92eb90f5 b11845893678
-> Author: Mark Brown <broonie@kernel.org>
-> Date:   Fri Jan 6 17:04:36 2023 +0000
->
->      Merge remote-tracking branch 'asoc/for-6.3' into asoc-next
->
-> Let me know what other information you need in order to debug this.
->
-As per the error in 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/sof/ipc3-loader.c?h=v6.2-rc3#n204,
+>> Use consistent quotes - either ' or "
+> 
+> Ok, I will change on v3.
+> I will also change them on the other bindings present in the
+> series.
+> 
+>>
+>>> +    description:
+>>> +      The TDM managed by this controller
+>>> +    type: object
+>>> +
+>>> +    properties:
+>>> +      reg:
+>>> +        minimum: 0
+>>> +        maximum: 1
+>>> +        description:
+>>> +          The TDM number for this TDM, 0 for TDMa and 1 for TDMb
+>>> +
+>>> +      fsl,common-rxtx-pins:
+>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>> +        description:
+>>> +          Use common pins for both transmit and receive  
+>>
+>> What are the "common" pins? Without this property device is using
+>> uncommon pins? This does not make sense...
+> 
+> Common in the "shared" sense.
+> The hardware can use dedicated pins for Tx clock, Tx sync,
+> Rx clock and Rx sync or use only 2 pins, Tx/Rx clock and
+> Rx/Rx sync.
+> 
+> Without the property, we use the 4 pins and with the property,
+> we use 2 pins.
 
-the firmware header was not proper.
+Just use this as description.
 
+> 
+>>
+>>> +
+>>> +      clocks: true
+>>> +      clock-names: true  
+>>
+>> Both need constraints.
+> 
+> The constraints are present later in the file as the number
+> of clocks depends on the 'fsl,common-rxtx-pins' property.
 
-Even the header parsing is done correctly, you will run into other 
-issues related to signed firmware validation error as mentioned by 
-mario.limonciello@amd.com .
+OK, but still top level properties need widest constraints.
 
-So please Use x86 based implementation without DSP that is recommended 2.
+> 
+> I will remove these two lines in the v3 series as they are
+> not needed. 'clocks' and 'clock-names' are handled in the
+> conditional part.
 
+No, top level properties must contain them.
+
+> 
+>>
+> [...]
+>>> +
+>>> +      fsl,rx-frame-sync-delay:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2, 3]
+>>> +        default: 0
+>>> +        description: |
+>>> +          Receive frame sync delay.  
+>>
+>> Delay in what units?
+> 
+> The unit is a number of bits.
+> I will rename to fsl,rx-frame-sync-delay-bits and change the description
+> to 'Receive frame sync delay in number of bits'
+> 
+> I will do also the same for fsl,tx-frame-sync-delay property.
+
+OK
+
+> 
+>>
+>>> +          Indicates the delay between the Rx sync and the first bit of the
+>>> +          Rx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
+>>> +
+>>> +      fsl,tx-frame-sync-delay:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2, 3]
+>>> +        default: 0
+>>> +        description: |
+>>> +          Transmit frame sync delay.
+>>> +          Indicates the delay between the Tx sync and the first bit of the
+>>> +          Tx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
+>>> +
+>>> +      fsl,clock-falling-edge:
+>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>> +        description: |
+>>> +          Data is sent on falling edge of the clock (and received on the
+>>> +          rising edge).
+>>> +          If 'clock-falling-edge' is not present, data is sent on the
+>>> +          rising edge (and received on the falling edge).
+>>> +
+>>> +      fsl,fsync-rising-edge:
+>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>> +        description:
+>>> +          Frame sync pulses are sampled with the rising edge of the channel
+>>> +          clock. If 'fsync-rising-edge' is not present, pulses are sample
+>>> +          with e falling edge.
+>>> +
+>>> +      fsl,double-speed-clock:
+>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>> +        description:
+>>> +          The channel clock is twice the data rate.
+>>> +
+>>> +      fsl,grant-mode:
+>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>> +        description:
+>>> +          Grant mode enabled.  
+>>
+>> This we know from property name. You need to describe what it is and
+>> what it does.
+> 
+> Instead of describing it, I will simply remove the property (I should
+> have done already).
+> I cannot test the 'grant mode' enabled with my hardware and so
+> I prefer keeping it disabled.
+> This property, if needed, could be add later setting it optional
+> with default to 'disabled'.
+> 
+>>
+>>> +
+>>> +      tx_ts_routes:  
+>>
+>> No underscores, missing vendor prefix.
+> 
+> Indeed, will be change to fsl,tx-ts-routes (idem for rx_ts_routes).
+> 
+>>
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
+>>> +        description: |
+>>> +          A list of tupple that indicates the Tx time-slots routes.
+>>> +            tx_ts_routes =
+>>> +               < 2 0 0>, /* The first 2 time slots are not used */
+>>> +               < 3 1 0>, /* The next 3 ones are route to SCC2 */
+>>> +               < 4 0 0>, /* The next 4 ones are not used */
+>>> +               < 2 2 0>; /* The nest 2 ones are route to SCC3 */
+>>> +        items:
+>>> +          items:
+>>> +            - description:
+>>> +                The number of time-slots
+>>> +              minimum: 1
+>>> +              maximum: 64
+>>> +            - description: |
+>>> +                The source serial interface (dt-bindings/soc/fsl-tsa.h
+>>> +                defines these values)
+>>> +                 - 0: No destination
+>>> +                 - 1: SCC2
+>>> +                 - 2: SCC3
+>>> +                 - 3: SCC4
+>>> +                 - 4: SMC1
+>>> +                 - 5: SMC2
+>>> +              enum: [0, 1, 2, 3, 4, 5]
+>>> +            - description:
+>>> +                The route flags (reserved)  
+>>
+>> Why part of binding is reserved?
+> 
+> The 'reserved' part will be removed in v3.
+> Same for the rx route table.
+> 
+>>
+>>> +              const: 0
+>>> +        minItems: 1
+>>> +        maxItems: 64
+>>> +
+>>> +      rx_ts_routes:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
+>>> +        description: |
+>>> +          A list of tupple that indicates the Rx time-slots routes.
+>>> +            tx_ts_routes =
+>>> +               < 2 0 0>, /* The first 2 time slots are not used */
+>>> +               < 3 1 0>, /* The next 3 ones are route from SCC2 */
+>>> +               < 4 0 0>, /* The next 4 ones are not used */
+>>> +               < 2 2 0>; /* The nest 2 ones are route from SCC3 */
+>>> +        items:
+>>> +          items:
+>>> +            - description:
+>>> +                The number of time-slots
+>>> +              minimum: 1
+>>> +              maximum: 64
+>>> +            - description: |
+>>> +                The destination serial interface (dt-bindings/soc/fsl-tsa.h
+>>> +                defines these values)
+>>> +                 - 0: No destination
+>>> +                 - 1: SCC2
+>>> +                 - 2: SCC3
+>>> +                 - 3: SCC4
+>>> +                 - 4: SMC1
+>>> +                 - 5: SMC2
+>>> +              enum: [0, 1, 2, 3, 4, 5]
+>>> +            - description:
+>>> +                The route flags (reserved)
+>>> +              const: 0
+>>> +        minItems: 1
+>>> +        maxItems: 64
+>>> +
+>>> +    allOf:
+>>> +      - if:
+>>> +          properties:
+>>> +            fsl,common-rxtx-pins:
+>>> +              type: 'null'  
+>>
+>> What is this exactly? If check for property present, it's wrong. Should
+>> be test if it is in required.
+> 
+> Yes, it was a check for the property presence.
+> 
+> If we not use the 'fsl,common-rxtx-pins', we need 4 clocks.
+> If we use the 'fsl,common-rxtx-pins', we need 2 clocks (Rx part and Tx
+> part use the same CLK and SYNC clocks).
+
+https://elixir.bootlin.com/linux/v6.2-rc3/source/Documentation/devicetree/bindings/net/qcom,ipa.yaml#L174
+
+> 
+> How can I describe this ?
+> Is the check for the property presence incorrect ?
+> 
+> Should I always describe 4 clocks even if only 2 are used ?
+> 
+
+>>
+>>> +        then:
+>>> +          properties:
+>>> +            clocks:
+>>> +              items:
+>>> +                - description: External clock connected to L1RSYNC pin
+>>> +                - description: External clock connected to L1RCLK pin
+>>> +                - description: External clock connected to L1TSYNC pin
+>>> +                - description: External clock connected to L1TCLK pin
+>>> +            clock-names:
+>>> +              items:
+>>> +                - const: l1rsync
+>>> +                - const: l1rclk
+>>> +                - const: l1tsync
+>>> +                - const: l1tclk
+>>> +        else:
+>>> +          properties:
+>>> +            clocks:
+>>> +              items:
+>>> +                - description: External clock connected to L1RSYNC pin
+>>> +                - description: External clock connected to L1RCLK pin
+>>> +            clock-names:
+>>> +              items:
+>>> +                - const: l1rsync
+>>> +                - const: l1rclk
+>>> +
+>>> +    required:
+>>> +      - reg
+>>> +      - clocks
+>>> +      - clock-names
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - reg-names
+>>> +  - '#address-cells'
+>>> +  - '#size-cells'
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/soc/fsl-tsa.h>
+>>> +
+>>> +    tsa@ae0 {
+>>> +        compatible = "fsl,mpc885-tsa", "fsl,cpm1-tsa";
+>>> +        reg = <0xae0 0x10>,
+>>> +              <0xc00 0x200>;
+>>> +        reg-names = "si_regs", "si_ram";
+>>> +
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +
+>>> +        tdm@0 {
+>>> +            /* TDMa */
+>>> +            reg = <0>;
+>>> +
+>>> +            clocks = <&clk_l1rsynca>, <&clk_l1rclka>;
+>>> +            clock-names = "l1rsync", "l1rclk";
+>>> +
+>>> +            fsl,common-rxtx-pins;
+>>> +            fsl,fsync-rising-edge;
+>>> +
+>>> +            tx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
+>>> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* TS 2..25 */
+>>> +                           < 1 0 0>,                 /* TS 26 */
+>>> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
+>>> +
+>>> +            rx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
+>>> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* 2..25 */
+>>> +                           < 1 0 0>,                 /* TS 26 */
+>>> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
+>>> +        };
+>>> +    };
+>>> diff --git a/include/dt-bindings/soc/fsl-tsa.h b/include/dt-bindings/soc/fsl-tsa.h
+>>> new file mode 100644
+>>> index 000000000000..9d09468694a2
+>>> --- /dev/null
+>>> +++ b/include/dt-bindings/soc/fsl-tsa.h  
+>>
+>> Filename should match binding filename.
+> 
+> Right, I will rename to fsl,tsa.h
+
+If your binding was fsl,tsa.yaml.
+
+Best regards,
+Krzysztof
 

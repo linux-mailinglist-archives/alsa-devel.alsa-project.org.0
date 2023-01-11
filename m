@@ -2,84 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE156660B2
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 17:37:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB30665EC7
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 16:08:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CEFF763A;
-	Wed, 11 Jan 2023 17:36:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CEFF763A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CA6C7A08;
+	Wed, 11 Jan 2023 16:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CA6C7A08
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673455049;
-	bh=6fg178pyC3sYYKy6n9PRcFhahGLP5hWIRuLMizCzi1g=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673449680;
+	bh=96p48KGQVOszGpiIUB1uMQHTSrU1mw+PEt8uGhIXaOc=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=KjXib4D/ZfXbVMyzpYtPhtThQvPxNhaD6MY96BJ3Un6+TR+PV4lJwQr/QpQo2oBSn
-	 oYEijk4RVHO7ztpxqByHtEQPKUlmw3BNzRHjT+Ge4aUCmVFKf9doazyAUkpYKO/g+a
-	 NBwcx2XCBsL9qXm55ubDzWKgq97rRZj8wbrGc728=
+	b=ZB7D/R2l27KKqZ6htjrCzoE32KqYSLM+E+W5lDHEF+fiZZYogtFgSfHmMw841dSM6
+	 RtbxgPmHcbDDXw20j/XqzChjoJxkuAaxqO4Gw30s1pZ5RvgS3NFtYk2E96sceGvwHf
+	 d1x13BII5b2EtUwloi4dZtEPxV3Ui5rzzd5yf2Mk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B8FDF8026A;
-	Wed, 11 Jan 2023 17:36:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E85B9F8016E;
+	Wed, 11 Jan 2023 16:07:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E87B8F80539; Wed, 11 Jan 2023 17:36:02 +0100 (CET)
+ id EAB7BF803DC; Wed, 11 Jan 2023 16:06:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::225])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ADAEF803DC
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 17:35:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ADAEF803DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF31DF8019B
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 16:06:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF31DF8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NAWKUSr5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673454959; x=1704990959;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=6fg178pyC3sYYKy6n9PRcFhahGLP5hWIRuLMizCzi1g=;
- b=NAWKUSr5M4aH4Sn2k0dDDOy6rCH+OIxlMbL6W84f5C8p4sSkaOewUWCR
- A+XbrPq+J15P4sMLj4hTsbwppq6qoIvaujwfqpCHPDTE8wb/Itf1nlMCw
- J0vQJC6oxTsvvSFWkMQJurnFNV/CawW7GujiiPm3jWoRp5LScfMsB38z5
- SH/yLp8RrOGj2CS8IOPap0IvmWKHEUFjnFxxJ6tR5FrnJW7D0zU2tzREF
- fb5nQCzycfw8tlyXoFg+g9z4s6Jleh1OgAaWU/kkOq5z12CfkJBYKphlU
- ktAypHWuNDHPhA6MN+zL1hXjJqoIXwhtCIWjnLZqvexULp1joAhQ01AcH Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="324704030"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="324704030"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 08:32:15 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="607408347"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="607408347"
-Received: from flobatol-mobl1.amr.corp.intel.com (HELO [10.212.110.208])
- ([10.212.110.208])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 08:32:13 -0800
-Message-ID: <ad052efb-286e-4716-7608-d284782011cd@linux.intel.com>
-Date: Wed, 11 Jan 2023 08:58:57 -0600
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=J2zebCAM
+Received: (Authenticated sender: herve.codina@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 7925C1C000B;
+ Wed, 11 Jan 2023 15:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1673449616;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=96p48KGQVOszGpiIUB1uMQHTSrU1mw+PEt8uGhIXaOc=;
+ b=J2zebCAM0gphMWejuOqgoceHr5MqD34OCvw5uIQ+F8xbwSyORqkjh5JN2WScz1Txu5rTA2
+ oWG0oqjsC4TfW2W6iI9azZabaMlxD4UwGsCtIMgaxUsBAVf+S4BhZxNsfF++6qyd88P51j
+ jTN0lxAM9hMeQ2T1yXZ3dCMevMQX/c69W2vPSEc81hUm2hBKXfojWt/aKd1iw4OGl0mv14
+ 6jyJY34VcHSqHG5PWqLJhCiaVS7KwdXzjRRNsRc7oZvowk1q7ZqmkvjRCtumbZwDyt60IY
+ gVVVVQjYQyaYgKeiyyyZhzYFLYpjrQTPE5pNH2V3X3c+rY/pgSOvtO7fye2REA==
+Date: Wed, 11 Jan 2023 16:06:51 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [PATCH v2 02/10] soc: fsl: qe: Add support for TSA
+Message-ID: <20230111160651.24538b35@bootlin.com>
+In-Reply-To: <7a36f02b-1ba1-b509-4aa0-c5c37a3cb3ef@csgroup.eu>
+References: <20230106163746.439717-1-herve.codina@bootlin.com>
+ <20230106163746.439717-3-herve.codina@bootlin.com>
+ <7a36f02b-1ba1-b509-4aa0-c5c37a3cb3ef@csgroup.eu>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 03/19] soundwire: amd: register sdw controller dai ops
-Content-Language: en-US
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-4-Vijendar.Mukunda@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230111090222.2016499-4-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,299 +83,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Li Yang <leoyang.li@nxp.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ Mark Brown <broonie@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Qiang Zhao <qiang.zhao@nxp.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Christophe,
 
+On Wed, 11 Jan 2023 13:47:23 +0000
+Christophe Leroy <christophe.leroy@csgroup.eu> wrote:
 
-On 1/11/23 03:02, Vijendar Mukunda wrote:
-> Register dai ops for two controller instances.
+> Le 06/01/2023 =C3=A0 17:37, Herve Codina a =C3=A9crit=C2=A0:
+> > The TSA (Time Slot Assigner) is available in some
+> > PowerQUICC SoC such as the MPC885 or MPC866.
+> >=20
+> > Its purpose is to route some TDM time-slots to other
+> > internal serial controllers. =20
+>=20
+> Is the subject correct ? As far as I understand this patch adds support=20
+> for the TSA on the CPM (exactly on CPM1), not on the QE.
 
-manager instances
+Yes exactly, it is a CPM1 support (kind of previous version of QE).
 
-> diff --git a/drivers/soundwire/amd_master.c b/drivers/soundwire/amd_master.c
-> index 7e1f618254ac..93bffe6ff9e2 100644
-> --- a/drivers/soundwire/amd_master.c
-> +++ b/drivers/soundwire/amd_master.c
-> @@ -952,6 +952,186 @@ static const struct sdw_master_ops amd_sdwc_ops = {
->  	.read_ping_status = amd_sdwc_read_ping_status,
->  };
->  
-> +static int amd_sdwc_hw_params(struct snd_pcm_substream *substream,
-> +			      struct snd_pcm_hw_params *params,
-> +			      struct snd_soc_dai *dai)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl = snd_soc_dai_get_drvdata(dai);
-> +	struct sdw_amd_dma_data *dma;
-> +	struct sdw_stream_config sconfig;
-> +	struct sdw_port_config *pconfig;
-> +	int ch, dir;
-> +	int ret;
-> +
-> +	dma = snd_soc_dai_get_dma_data(dai, substream);
-> +	if (!dma)
-> +		return -EIO;
-> +
-> +	ch = params_channels(params);
-> +	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-> +		dir = SDW_DATA_DIR_RX;
-> +	else
-> +		dir = SDW_DATA_DIR_TX;
-> +	dev_dbg(ctrl->dev, "%s: dir:%d dai->id:0x%x\n", __func__, dir, dai->id);
-> +	dma->hw_params = params;
-> +
-> +	sconfig.direction = dir;
-> +	sconfig.ch_count = ch;
-> +	sconfig.frame_rate = params_rate(params);
-> +	sconfig.type = dma->stream_type;
-> +
-> +	sconfig.bps = snd_pcm_format_width(params_format(params));
-> +
-> +	/* Port configuration */
-> +	pconfig = kzalloc(sizeof(*pconfig), GFP_KERNEL);
-> +	if (!pconfig) {
-> +		ret =  -ENOMEM;
-> +		goto error;
-> +	}
-> +
-> +	pconfig->num = dai->id;
-> +	pconfig->ch_mask = (1 << ch) - 1;
-> +	ret = sdw_stream_add_master(&ctrl->bus, &sconfig,
-> +				    pconfig, 1, dma->stream);
-> +	if (ret)
-> +		dev_err(ctrl->dev, "add master to stream failed:%d\n", ret);
-> +
-> +	kfree(pconfig);
-> +error:
-> +	return ret;
-> +}
+Do you think that fixing the subject is enough or do I need also
+to create a new directory drivers/soc/fsl/cpm/ and move these drivers
+(TSA and QMC) in this new directory.
 
-This looks inspired from intel.c, but you are not programming ANY
-registers here. is this intentional?
+The alternative could be to leave this driver in drivers/soc/qe/ and
+rename it to cpm-tsa.c.
 
-> +static int amd_sdwc_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl = snd_soc_dai_get_drvdata(dai);
-> +	struct sdw_amd_dma_data *dma;
-> +	int ret;
-> +
-> +	dma = snd_soc_dai_get_dma_data(dai, substream);
-> +	if (!dma)
-> +		return -EIO;
-> +
-> +	ret = sdw_stream_remove_master(&ctrl->bus, dma->stream);
-> +	if (ret < 0) {
-> +		dev_err(dai->dev, "remove master from stream %s failed: %d\n",
-> +			dma->stream->name, ret);
-> +		return ret;
-> +	}
-> +	dma->hw_params = NULL;
-> +	return 0;
-> +}
-> +
-> +static int amd_set_sdw_stream(struct snd_soc_dai *dai, void *stream, int direction)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl = snd_soc_dai_get_drvdata(dai);
-> +	struct sdw_amd_dma_data *dma;
+For information, we have some plan to have this driver working
+with QE (not done yet).
 
-you want to avoid using dma_data and use your own runtime. We made that
-change recently for cadence_runtime.c
+>=20
+> By the way, there are already some embryo for handling TSA on QE in=20
+> drivers/soc/fsl/qe/qe-tdm.c
 
-> +
-> +	if (stream) {
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +			dma = dai->playback_dma_data;
-> +		else
-> +			dma = dai->capture_dma_data;
-> +
-> +		if (dma) {
-> +			dev_err(dai->dev,
-> +				"dma_data already allocated for dai %s\n",
-> +				dai->name);
-> +			return -EINVAL;
-> +		}
-> +
-> +		/* allocate and set dma info */
-> +		dma = kzalloc(sizeof(*dma), GFP_KERNEL);
-> +		if (!dma)
-> +			return -ENOMEM;
-> +		dma->stream_type = SDW_STREAM_PCM;
-> +		dma->bus = &ctrl->bus;
-> +		dma->link_id = ctrl->instance;
-> +		dma->stream = stream;
-> +
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +			dai->playback_dma_data = dma;
-> +		else
-> +			dai->capture_dma_data = dma;
-> +	} else {
-> +		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-> +			kfree(dai->playback_dma_data);
-> +			dai->playback_dma_data = NULL;
-> +		} else {
-> +			kfree(dai->capture_dma_data);
-> +			dai->capture_dma_data = NULL;
-> +		}
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int amd_pcm_set_sdw_stream(struct snd_soc_dai *dai, void *stream, int direction)
-> +{
-> +	return amd_set_sdw_stream(dai, stream, direction);
-> +}
-> +
-> +static void *amd_get_sdw_stream(struct snd_soc_dai *dai, int direction)
-> +{
-> +	struct sdw_amd_dma_data *dma;
-> +
-> +	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +		dma = dai->playback_dma_data;
-> +	else
-> +		dma = dai->capture_dma_data;
-> +
-> +	if (!dma)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	return dma->stream;
-> +}
-> +
-> +static const struct snd_soc_dai_ops amd_sdwc_dai_ops = {
-> +	.hw_params = amd_sdwc_hw_params,
-> +	.hw_free = amd_sdwc_hw_free,
-> +	.set_stream = amd_pcm_set_sdw_stream,
+Yes but this can be seen as an extension only used by=20
+drivers/net/wan/fsl_ucc_hdlc.c and it supports QE only.
 
-In the first patch there was support for PDM exposed, but here it's PDM
-only?
+Not sure that qe-tdm.c will fit well if several other
+drivers instances use it.
 
-> +	.get_stream = amd_get_sdw_stream,
-> +};
-> +
-> +static const struct snd_soc_component_driver amd_sdwc_dai_component = {
-> +	.name = "soundwire",
-> +};
-> +
-> +static int amd_sdwc_register_dais(struct amd_sdwc_ctrl *ctrl)
-> +{
-> +	struct snd_soc_dai_driver *dais;
-> +	struct snd_soc_pcm_stream *stream;
-> +	struct device *dev;
-> +	int i, num_dais;
-> +
-> +	dev = ctrl->dev;
-> +	num_dais = ctrl->num_dout_ports + ctrl->num_din_ports;
-> +	dais = devm_kcalloc(dev, num_dais, sizeof(*dais), GFP_KERNEL);
-> +	if (!dais)
-> +		return -ENOMEM;
-> +	for (i = 0; i < num_dais; i++) {
-> +		dais[i].name = devm_kasprintf(dev, GFP_KERNEL, "SDW%d Pin%d", ctrl->instance, i);
-> +		if (!dais[i].name) {
-> +			dev_err(ctrl->dev, "-ENOMEM dai name allocation failed\n");
+>=20
+> >=20
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com> =20
+>=20
+> Christophe
 
-remove, we don't add error logs on memory allocation issues.
+Thanks for the review,
+Herv=C3=A9
 
-> +			return -ENOMEM;
-> +		}
-> +
-> +		if (i < ctrl->num_dout_ports)
-> +			stream = &dais[i].playback;
-> +		else
-> +			stream = &dais[i].capture;
-> +
-> +		stream->channels_min = 2;
-> +		stream->channels_max = 2;
-
-Is this a port limitation or just a software definition?
-
-> +		stream->rates = SNDRV_PCM_RATE_48000;
-> +		stream->formats = SNDRV_PCM_FMTBIT_S16_LE;
-
-Wondering if this is needed. I don't even recall why it's in the Intel
-code, we tested with 32 bit data and 192kHz, that looks unnecessary to
-me unless the hardware is really limited to those values.
-
-> +
-> +		dais[i].ops = &amd_sdwc_dai_ops;
-> +		dais[i].id = i;
-> +	}
-> +
-> +	return devm_snd_soc_register_component(ctrl->dev, &amd_sdwc_dai_component,
-> +					       dais, num_dais);
-> +}
-> +
->  static void amd_sdwc_probe_work(struct work_struct *work)
->  {
->  	struct amd_sdwc_ctrl *ctrl  = container_of(work, struct amd_sdwc_ctrl, probe_work);
-> @@ -1043,6 +1223,12 @@ static int amd_sdwc_probe(struct platform_device *pdev)
->  			ret);
->  		return ret;
->  	}
-> +	ret = amd_sdwc_register_dais(ctrl);
-> +	if (ret) {
-> +		dev_err(dev, "CPU DAI registration failed\n");
-> +		sdw_bus_master_delete(&ctrl->bus);
-> +		return ret;
-> +	}
->  	INIT_WORK(&ctrl->probe_work, amd_sdwc_probe_work);
->  	schedule_work(&ctrl->probe_work);
->  	return 0;
-> diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
-> index 5ec39f8c2f2e..7a99d782969f 100644
-> --- a/include/linux/soundwire/sdw_amd.h
-> +++ b/include/linux/soundwire/sdw_amd.h
-> @@ -13,6 +13,7 @@
->  #define ACP_SDW0	0
->  #define ACP_SDW1	1
->  #define ACP_SDW0_MAX_DAI	6
-> +#define AMD_SDW_MAX_DAIS	8
-
-How does this work? 6 dais for the first master and 2 for the second?
-
->  
->  struct acp_sdw_pdata {
->  	u16 instance;
-> @@ -25,6 +26,7 @@ struct amd_sdwc_ctrl {
->  	void __iomem *mmio;
->  	struct work_struct probe_work;
->  	struct mutex *sdw_lock;
-> +	struct sdw_stream_runtime *sruntime[AMD_SDW_MAX_DAIS];
-
-well no, a stream runtime needs to be allocated per stream and usually
-there's a 1:1 mapping between dailink and stream. A stream may use
-multiple DAIs, possibly on different masters - just like a dailink can
-rely on multiple cpu- and codec-dais.
-
-You are conflating/confusing concepts I am afraid here.
-
->  	int num_din_ports;
->  	int num_dout_ports;
->  	int cols_index;
-> @@ -36,4 +38,23 @@ struct amd_sdwc_ctrl {
->  	bool startup_done;
->  	u32 power_mode_mask;
->  };
-> +
-> +/**
-> + * struct sdw_amd_dma_data: AMD DMA data
-> + *
-> + * @name: SoundWire stream name
-> + * @stream: stream runtime
-> + * @bus: Bus handle
-> + * @stream_type: Stream type
-> + * @link_id: Master link id
-> + * @hw_params: hw_params to be applied in .prepare step
-> + */
-> +struct sdw_amd_dma_data {
-> +	char *name;
-> +	struct sdw_stream_runtime *stream;
-> +	struct sdw_bus *bus;
-> +	enum sdw_stream_type stream_type;
-> +	int link_id;
-> +	struct snd_pcm_hw_params *hw_params;
-> +};
->  #endif
+--=20
+Herv=C3=A9 Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

@@ -2,62 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF01C665175
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 03:03:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3471A665219
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 04:04:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C7FA781C;
-	Wed, 11 Jan 2023 03:03:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C7FA781C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56D5F6848;
+	Wed, 11 Jan 2023 04:03:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56D5F6848
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673402639;
-	bh=5xNSLWQZErPPGbN6PdCvmcZ6GohWnmEdvcDaz0ync1g=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1673406240;
+	bh=QWTo+UlFh9wGfRsdn3HH+s1qf2/NiCd+Htib4tpPvJc=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=u9J+aBHluGHlGv7CY+EFMTBZ+qOLBo7Iu/KOPovHMEMWj3oETn5A8lpOmfmGcyYFA
-	 mVcWXyR1Rkwv/NkFn3NsAr8T/frnIcjEXGezcFRY9JkcddA9NSkg8QKIXvW1iPx0Nv
-	 PIxnGoZ+MQf4rz27IMzTseURmYMZeBgi7M6mYQrI=
+	b=OiGMLYo3ZcTutks2lIMIR6Llp+c8IrlTRK1uuefxEZnMq4fzDYLEBGC0lP/2Je46B
+	 ayPHdSVJAFPCU4aFg+p3D4V8PcKcKOQzGXt8lCTvdtpdAqmYg4d68mQv4XkTWcam8P
+	 MHVNsM4IyAc5/D5kkLrVeG4YVE1oL6jdSiAfyVOI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3BA4F800C7;
-	Wed, 11 Jan 2023 03:03:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05C97F80424;
+	Wed, 11 Jan 2023 04:03:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C037F804C1; Wed, 11 Jan 2023 03:02:59 +0100 (CET)
+ id 596EBF803DC; Wed, 11 Jan 2023 04:03:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from out29-128.mail.aliyun.com (out29-128.mail.aliyun.com
- [115.124.29.128])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 248BBF800C7
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 03:02:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 248BBF800C7
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07457647|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_regular_dialog|0.00142299-6.55096e-05-0.998511;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047209; MF=wangweidong.a@awinic.com; NM=1;
- PH=DS; RN=29; RT=29; SR=0; TI=SMTPD_---.Qpjh-Tl_1673402554; 
-Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.Qpjh-Tl_1673402554) by smtp.aliyun-inc.com;
- Wed, 11 Jan 2023 10:02:46 +0800
-From: wangweidong.a@awinic.com
-To: lkp@intel.com
-Subject: Re: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file,
- data type file and Kconfig Makefile
-Date: Wed, 11 Jan 2023 10:02:33 +0800
-Message-Id: <20230111020233.4306-1-wangweidong.a@awinic.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <202301100233.QuEJ8pyu-lkp@intel.com>
-References: <202301100233.QuEJ8pyu-lkp@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC76AF8019B
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 04:02:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC76AF8019B
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=iWTUYvRC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rf977WbUkmkws+Tf0N7MUie0baTcjk60JL8ob/+ph9voM2ofohSKm+0tmT8mr48p8Hkimhh7hvGvo+45Wl9bYOD/BWDbfmaqGq85hrpHraNCWmChPYsjKUYB8A4dSaRQE3xlxzENpGYX61A1n3t4JxVZlcqGTFK2hxaBXkLkFY279d2aKb2PRypjVX/bwAsz0nflmqIr8G5X5raakIoqK6ihh7VGuIypXqr2iYl709ftW2DvsPCccXixRdgFI0Wdbpq4ZLlJTXMktSc4X6vbmFOcbFK5DDGVCLxeKXystIzlDji50U4IUvhwEWLrmXNVhytIh/xIsunnSH4NZ5zzCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NaojYCiPLq0PIgzZQ9RNXov7TzWHpN1uIXezUiZa8Ls=;
+ b=B4WXrjHON4lZD9QywYWTzwc3AqMTkeKt3t/yjP7b7Do6Q8XHfkTidR5evgv+4MJ4LR9K2lLe1cR62Wz5wL93OOUo4et5++o3xQhxZmNYfT4qNIw0fzd5uBKYoreAd7McH5pI9O5Ma5O2bvLcFKYoZtVnXBjHjdsvBX2j8Qr84DsB86VUItMY34B9Bnl7wSo0cp9ArmLACJgGq89hrn10lposrkxQfmMk63j+EyPYc2fQ/UNVAXvhpbjkghBwFjIt65on3N7JhS+uZUPNYuzaBDvpLfZRCmwTh5Xgxqn+4r7DPD/xQf/zdioyZ7f/6CRqqzFH62AhPTMM3cMe/7U0+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NaojYCiPLq0PIgzZQ9RNXov7TzWHpN1uIXezUiZa8Ls=;
+ b=iWTUYvRCQJPPEIb3AddGbC0isYf29ZTL16wpUdB4czzr7vvatcSEMSK7tINl20sxLBCA7Z4BkT30bk/tw+CKV5be12BLXIe2eTBACHiVR2c4If5NyGpKL6yNDtPWOxPcmCIQcqEXGLH3353Ryh+qmN4q6liKO1C8wC85JO6y7Ak=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by CH2PR12MB4247.namprd12.prod.outlook.com (2603:10b6:610:7c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 03:02:48 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Wed, 11 Jan 2023
+ 03:02:48 +0000
+Message-ID: <6d3380db-5e21-a3e5-b1c2-8618819d1cb2@amd.com>
+Date: Wed, 11 Jan 2023 08:35:41 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v1 1/6] ASoC: amd: acp-es8336: Drop reference count of
+ ACPI device after use
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20230102203014.16041-1-andriy.shevchenko@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20230102203014.16041-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN0PR01CA0018.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4f::23) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|CH2PR12MB4247:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8055c751-e4b0-41c9-9487-08daf3805201
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bjXzFO+FZxNUJ7nKor1veaDQki6zXKjaJTF3Z7VtdQBu8Rp8MememGB6NXQksUUbN92XJypXpeqgXPdJzQmaUSV4pJy4Lz04jo/s2OJaYofoxSKXHlregXnZioiOSWbKr/BYqkpVM6VGVkKyDhMbHLTjevRt8TJGNxXzU/FVyq4HgTf4wRIQAffJWbAhWxlwMLdZyrB7/QA78g9QjLh4UG7zQHrje9DVWev3aLrFE2oq/052SboVK2rUdkjC5euJrMnvCtB7pW3UoA/wkjHlghqJLGncI691RDs8nrGshACyQw6ONtu9c7dBQUWViz3NsZKqVO8pChiNDRV4QhShoJgO4txcU29R6gO3yeHjJCr9rnXYetXzQ5sgJuWWiSUbrn18idwb3vWBENUGC0jZwgYYMY87S9PQAdyJC40pvu0iGnHPnKI/pqyIQf1M0DgxgDSx4cYXIiaL5rYTAst8sF7FGtYBYKt1xp9wasfQgtM6ekjBVF3v4JEDVHLXkxcHoEZyrf6MFapS1MJbydUs+n/lGjtmvb+U5QjKqlj/zURYQ7fNLwVBPAyiAiMxsq1jxx3/+fdVgFe7vgwkIzAaAnSSfEUmnXW6UuUdFTGWXH/dR+VXIWq5qWon0nBZad8cZcxRcV/gKfVNhVZ0L1ec35KoF9ltLHWN27LrQLGtIHXd6EZ0HypEAxmniSFVVKptTiIGChJGR6M5Y3sRdD3iDbSKDF51OilrHb5sirpEzA4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(39860400002)(136003)(346002)(366004)(396003)(451199015)(53546011)(6506007)(6486002)(478600001)(6666004)(2616005)(4326008)(26005)(186003)(6512007)(66556008)(316002)(8676002)(66476007)(110136005)(54906003)(86362001)(38100700002)(83380400001)(31696002)(41300700001)(66946007)(31686004)(7416002)(5660300002)(36756003)(2906002)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzhPQ2dyRU9OS3dLUVFIUG5DSk51YngwNU1KUWVtcHBadWE4ak53Z3BWOEo1?=
+ =?utf-8?B?dWQrQkVHUnBnTHFIcDRNeGx4YzZCeTJNVC9NVjRCbk1xN0xFcGZFb2taVmc1?=
+ =?utf-8?B?ek50aEl6UmpObDNncTh0RFR1Vno3TmJybUhQcEo1Qm5lQzFJcVpzaWR1SlRr?=
+ =?utf-8?B?aXZCZkhIUkI4YlBOWU01Nmp5WEY1MWM5bHFuK1E4L2lvL3RKc0pjNlJUMWtS?=
+ =?utf-8?B?UUkxRWduWTMzbXFRZDl4L29FcGVoMWdYQWFEVnhiVnFRM3ZaZEF2ZERjZ2VS?=
+ =?utf-8?B?bHZ3Y1VpRUM3RGZzQVk1Z01SMmpaV2ZWM09nTGkvN1lYdldhc2lSeVhqWmZF?=
+ =?utf-8?B?ODMrMHdlQ1RnOWRZTWU2ODVPdDlRYlZPQ1lWbDdzcUNIM1NJSHFqVUlXY2hr?=
+ =?utf-8?B?QXJNTzhnY2lYUGE1YTdOOHhaMlhUNTRHQk41S25keW9yeVZjM29PSEpHUytE?=
+ =?utf-8?B?Yyt0RTVEUTA5aVQrZ2xLQ3B4SlRIMUhCOU5OaXdJQktBNHpSRVFtNG1kOTYy?=
+ =?utf-8?B?bUo5MXBsaDIwYmVZcmNiaWpjVnNDeUxmcjBWdnoxY215TVZLd0ozNGJySCtH?=
+ =?utf-8?B?aThxaVp1eEE3MER5S1hBQWt6cGRUNGNDMFdkT0x6dHdkWUZYVzRRWUVNclVj?=
+ =?utf-8?B?UHk0Y1I3aWYrdUVzRkNRUFFRZVdQSkt5Um1wWnNvbXJXbnhQOW9acXRDNWZF?=
+ =?utf-8?B?QUpKT09uTFlFY0dmUVdMdFFYRTliV1dQRnF6bWFHWVFWUm9sc2dFYWdkMkxZ?=
+ =?utf-8?B?SnF1Mmx3Z3l5cHVmamdmWWt4QW1lUlAva2swQWNjOUdOa1F5Z0ZTZTZ5ejdK?=
+ =?utf-8?B?SGtwRlRUdzFpZmN0YjdycXBWZWpHaEpybWIveEUwSlB6bENBNEJpYTYzVGRw?=
+ =?utf-8?B?NGNWczhDZFpYeVJtR2hiUW1CQ3d1UHNVeWNhN0xmSU1nOXd4ajdxWVZLOGF5?=
+ =?utf-8?B?ckcvMWJkVktIVEtGeTdKTXVkc0dJVkhPb1MvU0FvZ1k2cXRrQWFiTFRnSHNP?=
+ =?utf-8?B?RmgwRzIzSGdaZjY0RGxIQitUNnprSGgrWXlCOFhtdkRIQ2l6S1JENWViZllB?=
+ =?utf-8?B?OXBGMlpWQUF4VjZuSDIrSjlMZkZIVGVETkNVcGZLOWNpK2tLTnZ3Ti81clpi?=
+ =?utf-8?B?c2xLeWxpdUg1RXcxdEZ2T1VaUmN1dHM0YXprY0JMSy9meEY0RGFoaWw1UEpT?=
+ =?utf-8?B?S0VuRDFUZE83UGRIM0pxei9IdEFTRmtSQUFHMWkvSVE5Mktyak9jdGR0NlhU?=
+ =?utf-8?B?YjBJdzBaamlGbzJrNnhGT25WUmdjYVVOTGYyb3VLa3hPdXk4N0hUMHZ4REtD?=
+ =?utf-8?B?ZDIvaS9CTjRCSWdQWVFjYkF1NElWRktmcUpRTjRjd1JTN1g1dTI4Tm12YS9o?=
+ =?utf-8?B?cEhyejhZMksyOVlxQ29ERjloTURWOVJtWk9hSkY3WVRPcnEzcXMzZVhlNlhx?=
+ =?utf-8?B?OFlyV3NSQW5XaHNJeUtZNkZ4eTdDUnlscEN5Ri9nY1h3cjkrRnAzQmlHc0Q2?=
+ =?utf-8?B?dllTczBzTjJ6NTYrYWRVMDJ1dlJROTZ0V3pHVFBpYVlxTHl4dU82R1FJbGhS?=
+ =?utf-8?B?Qy9JQlRralBUazdBR2ZkYzNIZ1JPd1JNUDdIUDY2ZEpTaXlSU1Q5QmZJTDdH?=
+ =?utf-8?B?TUlTRnkxaXMwTTQ5R3U0Vmh5c1FMdlk4NGkyZVBEQ0kwTVF1dDdUdjFvWGIr?=
+ =?utf-8?B?ZTRBTXZNeFhOeHMwR24vMTVMeUgwVGt1MjFHM0phdkUraWNVWnB1L2tmRW1B?=
+ =?utf-8?B?dWROV1dKYkJVZFpKUjREOUp3bWY2eU5DMEVxSWdZZXMrVkEzWVdEU0Vad1N1?=
+ =?utf-8?B?ZmE2NnNZZitpc2VkQzY1cEZwOWMxbmJUTW1yV2x5TGFiOFR6NGlWMkwxWXRs?=
+ =?utf-8?B?eHBuZzJFRFh1dVVKVzhrWllPYXBjY3FDb3N3Umx1dzZzNVlTbUhPdTNhT2dl?=
+ =?utf-8?B?b3h6MGJLeHF0QlNJMmtHL1hlTHpMTEhjWG1LK0gyTFBjUUkzRFJoZ29lTElQ?=
+ =?utf-8?B?ckRLL3JSQ05JMTF1U2ZUeXNYZ3BTd21VaHNzQ3lqaWNlSFVnL0tKMXpNTUR1?=
+ =?utf-8?B?bU85VEMwQ1prMjdOZ2FnNFVGbERBTHlYdWNnMTRqL2d4cEhXUFcrVWdPRC9h?=
+ =?utf-8?Q?Mu8uNJUCWoqUyFRLdKCL4LXdJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8055c751-e4b0-41c9-9487-08daf3805201
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 03:02:48.7294 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eE+uzSOiW27A2n4KvDygUon1nFz6LEyI+RnVkrZUsRwOShgZ+NRwDsnQSEc1gp3m+INrlj8VmOaHUtAGc1xJ3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4247
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,66 +157,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: cezary.rojewski@intel.com, steve@sk2.org, llvm@lists.linux.dev,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- yangxiaohua@everest-semi.com, daniel.beer@igorinstitute.com,
- pierre-louis.bossart@linux.intel.com, povik+lin@cutebit.org,
- flatmax@flatmax.com, devicetree@vger.kernel.org, ckeepax@opensource.cirrus.com,
- zhaolei@awinic.com, james.schulman@cirrus.com, rf@opensource.cirrus.com,
- robh+dt@kernel.org, oe-kbuild-all@lists.linux.dev, jonathan.albrieux@gmail.com,
- tiwai@suse.com, liweilei@awinic.com, wangweidong.a@awinic.com,
- lgirdwood@gmail.com, yijiangtao@awinic.com, broonie@kernel.org,
- 13691752556@139.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 09/01/2023 03:00, kernel test robot wrote:
-> Hi,
+On 03/01/23 02:00, Andy Shevchenko wrote:
+> Theoretically the device might gone if its reference count drops to 0.
+> This might be the case when we try to find the first physical node of
+> the ACPI device. We need to keep reference to it until we get a result
+> of the above mentioned call. Refactor the code to drop the reference
+> count at the correct place.
+>
+> While at it, move to acpi_dev_put() as symmetrical call to the
+> acpi_dev_get_first_match_dev().
+>
+> Fixes: 02527c3f2300 ("ASoC: amd: add Machine driver for Jadeite platform")
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  sound/soc/amd/acp-es8336.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
+> index 2fe8df86053a..89499542c803 100644
+> --- a/sound/soc/amd/acp-es8336.c
+> +++ b/sound/soc/amd/acp-es8336.c
+> @@ -198,9 +198,11 @@ static int st_es8336_late_probe(struct snd_soc_card *card)
+>  	int ret;
+>  
+>  	adev = acpi_dev_get_first_match_dev("ESSX8336", NULL, -1);
+> -	if (adev)
+> -		put_device(&adev->dev);
+> +	if (!adev)
+> +		return -ENODEV;
+> +
+>  	codec_dev = acpi_get_first_physical_node(adev);
+> +	acpi_dev_put(adev);
+>  	if (!codec_dev)
+>  		dev_err(card->dev, "can not find codec dev\n");
+>  
 
-> Thank you for the patch! Yet something to improve:
-
-> [auto build test ERROR on 1f5abbd77e2c1787e74b7c2caffac97def78ba52]
-
-> url:    https://github.com/intel-lab-lkp/linux/commits/wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
-> base:   1f5abbd77e2c1787e74b7c2caffac97def78ba52
-> patch link:    https://lore.kernel.org/r/20230106032835.141918-5-wangweidong.a%40awinic.com
-> patch subject: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file, data type file and Kconfig Makefile
-> config: arm64-randconfig-r034-20230109
-> compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 8d9828ef5aa9688500657d36cd2aefbe12bbd162)
-> reproduce (this is a W=1 build):
->        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->        chmod +x ~/bin/make.cross
->        # install arm64 cross compiling tool for clang build
->        # apt-get install binutils-aarch64-linux-gnu
->        # https://github.com/intel-lab-lkp/linux/commit/63bed80c0eacb29f78eb53987b34863bafd48cee
->        git remote add linux-review https://github.com/intel-lab-lkp/linux
->        git fetch --no-tags linux-review wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
->        git checkout 63bed80c0eacb29f78eb53987b34863bafd48cee
->        # save the config file
->        mkdir build_dir && cp config build_dir/.config
->        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
->        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
-
-> If you fix the issue, kindly add following tag where applicable
-> | Reported-by: kernel test robot <lkp@intel.com>
-
-> All errors (new ones prefixed by >>):
-
-> >> ld.lld: error: undefined symbol: crc8_populate_lsb
->   >>> referenced by aw883xx_bin_parse.c:1049 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1049)
->   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
-> --
-> >> ld.lld: error: undefined symbol: crc8
->   >>> referenced by aw883xx_bin_parse.c:963 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:963)
->   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
->   >>> referenced by aw883xx_bin_parse.c:1022 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1022)
->   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
->   >>> did you mean: crc4
->   >>> defined in: vmlinux.o
-
-This looks like a false positive. crc8_populate_lsb is defined in the lib/crc8.c file.
-I also could not reproduce it with GCC.
-
-Best regards,
-Weidong Wang

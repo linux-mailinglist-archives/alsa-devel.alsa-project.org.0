@@ -2,125 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D267B6656E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D1366578E
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:34:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74E0E3CA8;
-	Wed, 11 Jan 2023 10:05:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74E0E3CA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94DC9E372;
+	Wed, 11 Jan 2023 10:33:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94DC9E372
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673427978;
-	bh=GbplTMTX0DVbgVGT6y95fxro380uNUc3UatQqvskn9k=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1673429677;
+	bh=H+jMxS5tDiP7tjmc8A0U5gIbFs71PE0Jqzvxi09wj3k=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VKfczAhsTfMtyoPG+ib6rt1dGGA+UMbe3yLCfe4T3qSCA6dzup1jNxZkQjPyUwXWm
-	 uKYey6m8kOgnMjGixM5xPNjIKNtbZUdbprkVWvAPM+rvtIBDrqf4033EIQl2ox/RMK
-	 NtuF8x0k+RB80ddiFJSbaGPeD/MzyEz59jp0Ca0I=
+	b=YSCkwekxialf/Gbj80Ar4y1aWLTbZWKXc/kVRxdzkkBUzy6itsfBkabrOKa3W0TeF
+	 UXPFap4TBZfmgJBI3Awb9R7PxPzTI7PCglprUtraLRLb5f8wcDcWFN3oJev8HKIctx
+	 nAWT4aqZsHtGr/0+rtVsFyuV7Jur2petJKY8zRUI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01BDCF805A9;
-	Wed, 11 Jan 2023 10:04:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42A73F8026A;
+	Wed, 11 Jan 2023 10:33:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01E82F80580; Wed, 11 Jan 2023 10:04:01 +0100 (CET)
+ id DAFC3F803DC; Wed, 11 Jan 2023 10:33:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2D6AF80571
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:03:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2D6AF80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90721F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:33:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90721F8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=dK04mPLo
+ header.s=selector1 header.b=QdmQuSlL
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lx7qbffImFmxOGuBRA42/FwHTCmHg+fOkARMqyhWUFwME4Icvm9CAAr92DDCWO4Eeg7aheFeWJ7sqtggGmRoAi+72VBk1IxHEhu/vU8yA5+D6+T8m1WqLWKSls/EHdpTT3/aeteUwvKTzJccgPRw/xKGvieOzP6i7bUX03+1i+5o3ziAmMMCBt+i5lDMu0CF5X5VaJkIKXCOCnqqbL/8XfWl+1596r388enKSMmXE1Rf2GUwcFBfOMHCvXBHOJf1tk09vaPn+aAfFqLrdriDem/j1tMbgRvzCa9HSaAwm89txYv7YQ+xQJWEjfBvFq1Zr4XDqaWwZAR/Pl2Sjan4HA==
+ b=fO4ZcTulD3juFXjE+/spDnuMToC4wW8I3CWKQRJqEDtPD2/WdcFM09K6sLu0kHdvRym1Z0RN/oq+9IwuA07icT0CtzF+xGIktAK/k6xBNAgfQvbC20iiYntVmqpUSkQG8DGSjIUEfyzGJL8E2FWX6YohYdHG528n93Xrb0ITC8y/vleNiP9wJRozhKhB2tXzFNVxLgd8UFFKQhNaW8AQ3rto9rzBuLzXHmnMrW03j6BUQXfuUMKIxFQEqesDtCZgsTHvtCpf8VLyKj8KntxmYVaOXutWKGFkWy5JaIe51NRm6hBi1R8Vv0D46dcYa0m5dmJ07ItjBfe//2wZpGVDZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cZMXt8C6+nAkybTbBz/l5hTmmGkMItamXiYVLJmt7ZU=;
- b=Oqbfg0euoCUCnMsDxwC4UvJwIf2mP9qVgOsr6ZUYmO12MEWpcuAJBXdDhIeZ1Dx9E9NNaCBFH9zdM4hCDqXKLl6nE5b5Oi7qytIUsu8NHdGAdzFE+Pxo21qQzUQ43lyqX8qwjgbwUU1FIpfn5eOVgFKn390xjWp2EmPGblhTSz6dM+pIgjzN2WYViG2qqsPuBjHGV3QZ9g/6QuRU5pCv6+sEHlfXKPDb9WrlNHeTG3nURdZjxjHx6c8OZM31FD89O3LtIsNTgnJtLRofusLpj9Vp+lj2oRykmn4wBphWoYU+uAFUPDvEZt+39fC6IMvx3iK7i4R24KiKyibk1+IOaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=m6zxCaArxcBfXH1vPQa04bpbGz6jysmcicB2EtMBcQk=;
+ b=mZca1FDleQIKVFK5QVX5UrQTV/wiSEF0J85zOyApGG5wrGDjm/Vqozp+eHIXzPEpnm7KA8gLjwNumuohVOo5xiSjJZvt45cFmuuI20ZfP2XTVuGSmSEplRb+isKSVDQeov0P6ivN5R6LDhTSPCgby0XUtDYpf0OQQy3xibcbE8hnOwc+ntQwV01bJX+iN1UBhbAhKk6TvdCt+r/j2L+Y5bQKfaPEPf6KpQ1/tKvIgnbOvkxF5sq6M/wnxuKrjp8YkLf7yA8Yp1/WG5AatkC55sSX5W0IQv9jF4HewAmR0SkhxtWnQUT7yfd3dBM4xWIqb+XniLvySHRS791Q0xxnhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cZMXt8C6+nAkybTbBz/l5hTmmGkMItamXiYVLJmt7ZU=;
- b=dK04mPLoNqgZW8yxmm86TmDAT8HJuR+JS51/ew64U9pF+nf6dPUZsp1U0zrrgV13F1+ugX7nlr8nOYnjSUCoYvEZ/5rJKCLnFDizqai27C0DcoAwyqosKg/aUKLPQVnVKTMubqSjlcN8/13eYlV9/99ovL6no960mW4aiZHwCYQ=
-Received: from BN8PR07CA0007.namprd07.prod.outlook.com (2603:10b6:408:ac::20)
- by DM4PR12MB6232.namprd12.prod.outlook.com (2603:10b6:8:a5::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5986.18; Wed, 11 Jan 2023 09:03:55 +0000
-Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ac:cafe::1) by BN8PR07CA0007.outlook.office365.com
- (2603:10b6:408:ac::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12 via Frontend
- Transport; Wed, 11 Jan 2023 09:03:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Wed, 11 Jan 2023 09:03:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 03:03:50 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 03:03:48 -0600
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 11 Jan 2023 03:03:45 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <vkoul@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
-Date: Wed, 11 Jan 2023 14:32:22 +0530
-Message-ID: <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
-MIME-Version: 1.0
+ bh=m6zxCaArxcBfXH1vPQa04bpbGz6jysmcicB2EtMBcQk=;
+ b=QdmQuSlLWVERSertoghZsxh2FRuRNlvVVuHB4sbdQuhNO/WbxdHEgeMmVOYING/fTqNI1ww0lco94JzavcXGuHDdzcXyRx+MpOqT4UXrF0CD7M4p3QkYFhqAgeprvsOoK7MfelZ+O7m9hd06Ql+A+51hPj7ZWClGEvVpm5cL8WU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com (2603:10b6:5:21f::18)
+ by PH0PR12MB5404.namprd12.prod.outlook.com (2603:10b6:510:d7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 09:33:23 +0000
+Received: from DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::b828:7c21:5e7c:5416]) by DM6PR12MB4171.namprd12.prod.outlook.com
+ ([fe80::b828:7c21:5e7c:5416%8]) with mapi id 15.20.5986.018; Wed, 11 Jan 2023
+ 09:33:23 +0000
+Subject: Re: [RFC] Sound support for Huawei line of AMD laptops using ACP and
+ ES8336 codec
+To: Marian Postevca <posteuca@mutex.one>,
+ "Limonciello, Mario" <mario.limonciello@amd.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <871qo7fqjp.fsf@mutex.one>
+ <598ca0a8-8aef-a030-7060-f76ba4700bbf@amd.com>
+ <8349cf5f-1e26-f605-4404-978dbef9cee3@amd.com> <871qo2bmlx.fsf@mutex.one>
+From: "Reddy, V sujith kumar" <vsujithkumar.reddy@amd.com>
+Message-ID: <ecd0bcaa-677f-aabb-2864-9f54a510f3e7@amd.com>
+Date: Wed, 11 Jan 2023 15:03:11 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
+In-Reply-To: <871qo2bmlx.fsf@mutex.one>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: PN2PR01CA0016.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::21) To DM6PR12MB4171.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::18)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT023:EE_|DM4PR12MB6232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fc2d00c-73b1-47fb-0e1f-08daf3b2c49e
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4171:EE_|PH0PR12MB5404:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca175101-b1a8-4973-561d-08daf3b6e246
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +JE+zrpCwIFZXQG/zlc1muZL2nPIsHrdIP3+t0PzTX+Fn53RZ7IDDYJmVkuy41xeGYb9c5NxP0unDL7GSR1q6fka42vXWzgeTVAZxpbDiC+5XO7r+rVSio/hugnSWqsWtxZblEtipQX/vBlp1N+3BiKjtvT2d2hYs6v1eN8bkvPbgAOiwo3hRBYvQdwW6ZoBAr99TqscoMa7CHWV8kkWVPsHZTg5JBYWzcw8dMucJdwXG35VHjTPYiNCuV6CjVw+id3aKGFw+R705ArrMzQX/iVCR2LdTFeked/Aud0gSfgWMECmhbTPG3/8IaERsSYcptm6J0YOcMISGJ5DXQIuK4P2zRVHgbXC7X0h8rdS/q+MDiTCHsygn5nKX/wC/AdWZK45zfYV++IIg2ih+2OZf4U6zIxg7Oc86VJWxxwBuWYi5cjTagPKwGLBmqsGU9+kXQ3quhBMSCQL7g7aj7iaxsRPHfNzcHjbtyRgUzGc55xW8rB9VH7+76FzHBYaAQ4B5dwGs1w01dgK8etnjfOcIROmk022jvS/TDz7fFDxgCMaC+4HrZieDIACrbb1acvmr5V7MlE692GmZS3AUOwdqsYZGrvMAVEQP7MZouAQQAPNbq5dIN54f4srJ4eofFKOXEpLCJc9q0tfhSBjfMGYWAWByNgy1gkRiYBQkUp80FfAlflRePYNOXoqqkvfqh0grzsx4ELYebL4gKcHwmiwhjhtW1Yb8E01eRXBiDMl1kg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(39860400002)(376002)(396003)(451199015)(36840700001)(40470700004)(46966006)(82310400005)(2906002)(15650500001)(36756003)(4744005)(5660300002)(8936002)(70206006)(6666004)(8676002)(41300700001)(2616005)(70586007)(316002)(7696005)(4326008)(54906003)(110136005)(478600001)(40480700001)(26005)(186003)(336012)(1076003)(426003)(86362001)(47076005)(83380400001)(36860700001)(40460700003)(356005)(81166007)(82740400003)(36900700001);
+X-Microsoft-Antispam-Message-Info: wx7NbbJaCwdLkrZRgVIy9KeOkyx4b+7UQ/Xcsf2ENh1D2oybD2NYdmec8ByLBdEQjECeTj1YZmtoTb7KwgbtXW177rQqpVALIW3bi1nupwfKsggs9oDco7uwXL/pTJa5MEgUl9b1Cqxh7TNBxz9w7biIB9Z7IviJOj3nl32+VFy6sj7MoOKGMJq/QDlMroF211a0hewHEhFq8KOw6TLq8b/eSNO00hg8EZFeAqnRRLn2YNKMgTcG1sqLJjivAsZsQ8D+pXKvrZlj4+4KYuv0MsWTcyS7evv4ygtW1ybhWM5dP20Q+MJah3A0JS7Qx4FRYZBg6+we/jAe5aQiMrNKhy/2FKIMSHJJ3424Q+IXkc+cwjRaKBFcGGLSlXkbsliAvXcTX07CSAe5K5oHTpnfwFenqP7+IO5OwnvuxXc086vyWyU+08t7gFpNltCLaTZ2avP/AxVyw27puP8J7ezM5Di9xWQG9FC1Mxf7+K1B5uwI4dXpb4gGk9/FI0faQ+fpXa/4i9QhRsScM9tfEcB9wKiQTNEckhCWp5YC9Q856+zGLkiT7qbjy7xrqEIx2+e+5aDpFCQsAck/On5HuH5XOPvSVKFbvMxmSov2Itj/YzF89W9bfMz7/BAWiR5wBqlPg9k180fMYbkq2gbLPhxqLlVAFaWZlmH/kStxcaD/EWWGzb0y9DOmPFtfOdOpgiTAUTszDhXt+hgCpxILDLIJ8jxy+DWmN9nvYcv5kg+ZZPfNK4frlTrkToFkOXaFgzfVUJZpC6hGeNV2+kq0dEC+7NvfHytN/atOzut9Dms/Djw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(451199015)(6506007)(38100700002)(6666004)(84970400001)(31686004)(53546011)(2906002)(6486002)(966005)(478600001)(2616005)(26005)(186003)(6512007)(5660300002)(316002)(8936002)(83380400001)(36756003)(86362001)(31696002)(41300700001)(110136005)(8676002)(54906003)(66556008)(4326008)(66946007)(66476007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTJjZzZDbTNUcnVWMVphZk9xMnlTNDJyUUs3M3UvYjNXQWY1aGgvam1rTTg1?=
+ =?utf-8?B?WHRYbnkxY3lqVFFEdVJMYzBwSCtnV1R4Z1BoRG5SSlBNTFd3L1U2OWNCdEw1?=
+ =?utf-8?B?N0N6K21ISHBrYmVEUURCYlkxNS83emZjUXV5Z0VlQUxFdTd3Tm5hZXcyM3E5?=
+ =?utf-8?B?OUZIZ0ZVVmFMQkdQSGpHUEk0dmtnRVhMdXl2blJyTFZnSWFpY1pMdHllTkp6?=
+ =?utf-8?B?SmRqQmh1QWc4clFGN3AxQWdVWXhIWmZHYmxnT29GTHpJS0QxRk45WEV3eFk5?=
+ =?utf-8?B?Zk9TNGUwaG0wT3dFbytwT2xqZWc1ZGVJQ3FnZW14dmRFMmtXY1I1dUJTdyti?=
+ =?utf-8?B?VVJsUCs0OEwrKzc4b3hDQXN3SWhmYnhFaXpMN0owT0hrcXpRZzgvRG1Yckwv?=
+ =?utf-8?B?UWtrQmdOazVkMmUxRzVCMS83ODg2a1NPbUdxekpFVW8vNEJoUzdQeWhyOEZI?=
+ =?utf-8?B?TXBWWXVpS05uZE8rWXlsZjNYeE9LcXVKWU9zelNPTjJXYUQ4WisvMDhIVTE3?=
+ =?utf-8?B?YU0xaytwdUZRd2gvaFE4bzJyNnlOMmE4NkFleVp1U1FHUXhYNVFsSGRWRlk2?=
+ =?utf-8?B?UDhuVXhUWllER2s2cENSanR3OWJFeFdnVHk3UllVTlBGUjA3dHFSUUVRejJz?=
+ =?utf-8?B?L1hJdTNESUhkVUFlRTNPQTZkdlJVUHI5c3ZjLy9ibVV1b3g1VGN0V2ZTMS9Y?=
+ =?utf-8?B?akF4Y1JvN2duaHFsbWpDYW12RVdrQXYwbGc1ZEcwQUtHNE4xSW1xQm9BNjlV?=
+ =?utf-8?B?TG1kUWdXSmJ6d3BIYmxOcFZpbmpOa1Q1aTA5T01abmhWS21VUG1vQW56cjVD?=
+ =?utf-8?B?d1dldENCSTJ5N1BpL1VVcVQvUEJBQlRVd2RIWEhKY3pEK0w2L2IxTzJjUWlS?=
+ =?utf-8?B?YjNZeUdRSWJFMG1PaVBHcm9RMUpvOGN4bUJiRTV0WjlpejNsQTFuZENsdzkw?=
+ =?utf-8?B?OTYwU1o1YlhMWVFNRkJxUCtxQ0JPbG1xRXRZdlVSVC94b3VieWY5cGJiL0hE?=
+ =?utf-8?B?WXNWZ01JQmI2dXpFYVAwNTUyZXVaRGJoNEw5dzJPTjA2czBCS1BQRDBsSEUw?=
+ =?utf-8?B?Rk1MWHh5U3hwaTZmQjl6VnFKbGNVNjZOSXMvTTg3UStoaHh6VW9odlhVeENi?=
+ =?utf-8?B?Yk9QRzRXdzZqbHFQMlB0RXVTYmFCMGlFRFM0N0h6SW1yKzU4cStvY0hXSWJX?=
+ =?utf-8?B?MmpaTUdwVG54aWtmT204VktlaWtsMnVPYkVjd1pscnQydnh1eEN2QzYvY2lR?=
+ =?utf-8?B?Uy91TS96U0kxeTNsQmpuSW1YWFUzanNoTXp4QnY4ZUhuTUJvS0syK1Q2Rldt?=
+ =?utf-8?B?R25EejNVazN2UlgxdU5GSlFIWDFxTHh1R003Z1ltUHo3VjY0WHBydTNiOUVZ?=
+ =?utf-8?B?Nld3b3hWcGJocWdpdVc2UUhQM2g3Q0I5Z0J2K2ZFajFmc1dDVXFwRG9Gekx3?=
+ =?utf-8?B?VDYwcXJJVG9ZbUdYNE5JSStMejdRdjQ3QXlGbURnZVpwK1cxamxWSjIxcHVU?=
+ =?utf-8?B?MFRna0x5eG9EMjAzRWRHSXU0ZkJ2UzIrM2preDhKZWxOMEliQSt4cVVISkRY?=
+ =?utf-8?B?ZXJWV3JzbTVjSVVOcnZYOWtYeTFlbmRoek1MWmtHOXhVaDNIU1Z6ZU8rVzUw?=
+ =?utf-8?B?OHBrRDF1V1VBMU9zRnVZM2VuNXQ4dGpWcFZmd0pGSWJJd2tnU2lidWhDS3dh?=
+ =?utf-8?B?bjM1eHFpdUhESGM4enNJUzZqVnR6bUZYYk9GRzN3NXZsL1h6QUd5OU9zVnFa?=
+ =?utf-8?B?UlpnMGp4NFRRaFZDeFB4dVRabWU1UWFjM25ZZ2Zta2Q2c3RQM1FKSXppMzhu?=
+ =?utf-8?B?YkhQZmRKQ2l3MzIwUm8zQnVVWUFZcUJTMGpsOEdsWGtUR3I4bFE3TEM5bE5H?=
+ =?utf-8?B?a3NlZnBVM25WeHlMNlhNcXBEOFBhR3UydjNhWjI1bm45b1A1WlpuWXdIWnlh?=
+ =?utf-8?B?dC9UNVRZNjlKREhlQ2t6cFloMmRQVk5UY0g1V0pETDRSY3BEcXgvSlQ3TkZB?=
+ =?utf-8?B?endYQ1JjVlhXeUNSckFnZHNpbEV5MG45ckJ6QzlaQmtnNmx0OVRPZ0lIc05K?=
+ =?utf-8?B?cXBEYnpEWXFxR0pDbW0zZFhoNGVZS0FkWWpIeTNPWHNyWmZyVkI1SFN3cFlC?=
+ =?utf-8?Q?ADRwWT2tkS5nDVJfu9k/63ZDy?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 09:03:55.3361 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fc2d00c-73b1-47fb-0e1f-08daf3b2c49e
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca175101-b1a8-4973-561d-08daf3b6e246
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 09:33:23.3141 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6232
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aPpAlqV9pg4Zwo9ahC6mih8/mpLrpn8ujox+3Cz54GlT2niEE1xmy5KK0er7V/05
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5404
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,36 +158,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mario.Limonciello@amd.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- arungopal.kondaveeti@amd.com, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, syed sabakareem <Syed.SabaKareem@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To avoid ACP entering into D3 state during slave enumeration and
-initialization on two soundwire controller instances for multiple codecs,
-increase the runtime suspend delay to 3 seconds.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/ps/acp63.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 1/10/2023 5:57 PM, Marian Postevca wrote:
+> Hello V sujith kumar, Mario,
+>
+> Thanks for the replies to my email.
+>
+> "Limonciello, Mario" <mario.limonciello@amd.com> writes:
+>
+>> On 1/7/2023 00:58, Reddy, V sujith kumar wrote:
+>>> Could you please send  the error, we will check and let you know what is
+>>> missing.
+>> Just a guess here without seeing the error.  Is this perhaps because the
+>> SOF F/W binary that was loaded was not signed with signature trusted by
+>> the platform and the platform required validation?
+>>
+>> SOF on AMD was first introduced for Chromebooks which don't use the same
+>> authority for firmware binary verification that general purpose UEFI
+>> notebooks would use.
+>
+> So I compiled the latest sof firmware from main branch commit
+> 90c14e56cb, and now it seems I get additional errors that I didn't get a
+> few months ago when I last tried:
+> [   38.251393] snd_sof_amd_renoir 0000:03:00.5: enabling device (0000 -> 0002)
+> [   38.252944] snd_sof_amd_renoir 0000:03:00.5: unknown sof_ext_man header type 3 size 0x30
+> [   38.252955] snd_sof_amd_renoir 0000:03:00.5: Firmware info: version 2:0:0-90c14
+> [   38.252957] snd_sof_amd_renoir 0000:03:00.5: Firmware: ABI 3:26:0 Kernel ABI 3:23:0
+> [   41.345068] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump start ]------------
+> [   41.345080] snd_sof_amd_renoir 0000:03:00.5: Firmware boot failure due to timeout
+> [   41.345085] snd_sof_amd_renoir 0000:03:00.5: fw_state: SOF_FW_BOOT_IN_PROGRESS (2)
+> [   41.345137] snd_sof_amd_renoir 0000:03:00.5: invalid header size 0x7f841000. FW oops is bogus
+> [   41.345142] snd_sof_amd_renoir 0000:03:00.5: unexpected fault 0x7f840000 trace 0x7f840000
+> [   41.345146] snd_sof_amd_renoir 0000:03:00.5: ------------[ DSP dump end ]------------
+> [   41.345150] snd_sof_amd_renoir 0000:03:00.5: error: failed to boot DSP firmware -5
+> [   41.345266] snd_sof_amd_renoir 0000:03:00.5: error: sof_probe_work failed err: -5
+>
+> The kernel I'm running on is based on the asoc tree from Mark Brown:
+> git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+>
+> commit f8778e910cab179f5835386a0a70847921a8fbec (sound/for-next)
+> Merge: cdfa92eb90f5 b11845893678
+> Author: Mark Brown <broonie@kernel.org>
+> Date:   Fri Jan 6 17:04:36 2023 +0000
+>
+>      Merge remote-tracking branch 'asoc/for-6.3' into asoc-next
+>
+> Let me know what other information you need in order to debug this.
+>
+As per the error in 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/sof/ipc3-loader.c?h=v6.2-rc3#n204,
 
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index 833d0b5aa73d..6c8849f2bcec 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -51,7 +51,7 @@
- #define MIN_BUFFER MAX_BUFFER
- 
- /* time in ms for runtime suspend delay */
--#define ACP_SUSPEND_DELAY_MS	2000
-+#define ACP_SUSPEND_DELAY_MS	3000
- 
- #define ACP63_DMIC_ADDR		2
- #define ACP63_PDM_MODE_DEVS		3
--- 
-2.34.1
+the firmware header was not proper.
+
+
+Even the header parsing is done correctly, you will run into other 
+issues related to signed firmware validation error as mentioned by 
+mario.limonciello@amd.com .
+
+So please Use x86 based implementation without DSP that is recommended 2.
+
 

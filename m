@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF2A666260
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 18:58:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5593A66657F
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 22:20:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 052657169;
-	Wed, 11 Jan 2023 18:57:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 052657169
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BCBB7667;
+	Wed, 11 Jan 2023 22:19:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BCBB7667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673459895;
-	bh=5LEMMpXQx+KS8TLTTFnQlUbDjTjiKY0h3Mr8CfUFdvk=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1673472041;
+	bh=I6RVi3rMn06g5XGWsQnabnI2T34LE0uMNfo6RlULTGE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AcAc0Qgd+v5j4IwRcKwaoDsAMB4Ch9A0mg/0Uw1QAiz0j/5RxjEa9sahAcikPW3Fr
-	 kMmjl0aXWQAJ7K9AYE4Z8In+cUCYUJ04MH+2ANW2n46UgiF5N6VPmoklB9A6+J0oFO
-	 p47AmcBSB0LdupHvcP0NXfww7HBYHZ76DLJr7MMU=
+	b=NkodFuKICrb503ADjZwVgLrmRkpde65vOe5LEHd8EOHBVhZfGa/4qWb1+8Rukm/7o
+	 KW6JfGQ5Q1KapZLVIZz2mNacDN2ti+AuospPk7vfx9XrzQ4I3QXvAxS9E1WwWZVue+
+	 AWB7sJYDJBnqsFWkhVAXFTu5eSP5PoWTQ897PWeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EE2BF8016E;
-	Wed, 11 Jan 2023 18:57:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08746F8016E;
+	Wed, 11 Jan 2023 22:19:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 70DC0F8019B; Wed, 11 Jan 2023 18:57:13 +0100 (CET)
+ id 58345F8030F; Wed, 11 Jan 2023 22:19:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,45 +34,41 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01746F8019B
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 18:57:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01746F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DFEAF8016E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 22:19:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DFEAF8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TDESBZtZ
+ header.s=k20201202 header.b=UtMvQGeJ
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B25B261DBF;
- Wed, 11 Jan 2023 17:57:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D18C433D2;
- Wed, 11 Jan 2023 17:57:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 321E161EC6;
+ Wed, 11 Jan 2023 21:19:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0412C433D2;
+ Wed, 11 Jan 2023 21:19:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673459828;
- bh=5LEMMpXQx+KS8TLTTFnQlUbDjTjiKY0h3Mr8CfUFdvk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TDESBZtZH7EP7mR0FGphTdgKzxeINhHnh+GR70l9rvjNmzzk1xOQH0zPKMcDOIkLV
- i+T18lEc3o61C285ufWmcacpNrJi1k7L8SoINvoPH8noTR3xuZ5v7mhU8LpgXGqNpP
- ebxP3zbRH/YhDXqn8A8PtzvXfLCGFy5eM0qBoc+6Er+Ttqu4/QnSM5RF20m0E6Evmq
- erLxkoH0l3hU3Jrlmhvr0+0vGPVML+fGuY0mi+iE4tAU4nTmc4j0/JDy9IGzQ6+eMt
- R4uTy4dve95u484svFyJOfBb+D/+SmnG60M46RInIWhEabWqiDQZ/9sut7lzCQ0IWl
- LMK+rxvDpW8sQ==
-Date: Wed, 11 Jan 2023 17:57:01 +0000
+ s=k20201202; t=1673471973;
+ bh=I6RVi3rMn06g5XGWsQnabnI2T34LE0uMNfo6RlULTGE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=UtMvQGeJw9E3IdruelG3VenLhkQhouBDjy0/NDm0VRGsrFEZaZR10fw9/hAvQOcpz
+ 67i7BDkOspLZ4ShVUQoBzfuNhpZuwVLkIkGpHm/ImDav3TJaKWBvz4EaMrHnfJq77S
+ LW4N+L0/RVgomp0zyVaKqKRQ1KnXxUuGHPlCkwM+mHHs3x4/Dts1IVDm0OQcO2WZz/
+ s1134IINUELVjACdqSAO0vIY9vMFBfmshG012sHxX+5iXGM/s0c8nwRkwIfAEPoDFG
+ 2c7JGPQhGX60eJ+NWiPYWC8Fq7Nx95W+V1GFDQHkBtBIbYWwN+hma7DTYSoL0uTZHm
+ 77ZCWB1Qs1Tdw==
 From: Mark Brown <broonie@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Renesas IDT821034
- codec
-Message-ID: <Y774bY4icD8RuMnX@sirena.org.uk>
-References: <20230111134905.248305-1-herve.codina@bootlin.com>
- <20230111134905.248305-3-herve.codina@bootlin.com>
- <Y77DKSdZf27qE+xl@sirena.org.uk>
- <20230111174022.077f6a8c@bootlin.com>
+To: alsa-devel@alsa-project.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+In-Reply-To: <20230111102130.2276391-1-Syed.SabaKareem@amd.com>
+References: <20230111102130.2276391-1-Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI support for new acer/emdoor
+ platforms
+Message-Id: <167347197037.2692419.7705644270342223963.b4-ty@kernel.org>
+Date: Wed, 11 Jan 2023 21:19:30 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="FW/lrGorzYH/UUN+"
-Content-Disposition: inline
-In-Reply-To: <20230111174022.077f6a8c@bootlin.com>
-X-Cookie: Life is not for everyone.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-8b3d1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,85 +81,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, shansheng.wang@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Brent Mendelsohn <mendiebm@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Leohearts <leohearts@leohearts.com>, Vijendar.Mukunda@amd.com,
+ linkt <xazrael@hotmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Xiaoyan Li <lxy.lixiaoyan@gmail.com>, Artem Lukyanov <dukzcry@ya.ru>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 11 Jan 2023 15:51:23 +0530, Syed Saba Kareem wrote:
+> Adding DMI entries to support new acer/emdoor platforms.
+> 
+> 
 
---FW/lrGorzYH/UUN+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Jan 11, 2023 at 05:40:22PM +0100, Herve Codina wrote:
-> Mark Brown <broonie@kernel.org> wrote:
-> > On Wed, Jan 11, 2023 at 02:49:04PM +0100, Herve Codina wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > Without knowing why things are written in this way or what it's trying
-> > to accomplish it's hard to comment in detail on what specifically should
-> > be done.
+Thanks!
 
-> Yes, I use regmap to ease the integration of controls and use the
-> already defined controls macros but the device registers do not fit
-> well with regmap.
+[1/1] ASoC: amd: yc: Add DMI support for new acer/emdoor platforms
+      commit: 7fd26a27680aa9032920f798a5a8b38a2c61075f
 
-If this doesn't fit into regmap then don't try to shoehorn it into
-regmap, that just makes it incredibly hard to follow what's going on.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> The device registers are not defined as simple as address/value pairs.
-> Accesses contains one or more bytes and the signification of the
-> data (and bytes) depends on the first bits.
-> - 0b10xxxxxx means 'Control register' with some data as xxxxxx
->   and one extra byte
-> - 0b1101yyyy means 'Configuration register, slic mode' with
->   some other data as yyyy and one extra byte
-> - 0b1100zzzz means 'Configuration register, gain mode' with
->   some other data as zzzz and two extra bytes
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-So really the device only has three registers, each of different sizes
-and windowed fields within those registers?  I love innovation,
-innovation is great and it's good that our hardware design colleagues
-work so hard to keep us in jobs.  It seems hardly worth it to treat them
-as registers TBH.  This is so far off a register/value type thing that I
-just wouldn't even try.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> Of course, I can describe all of these in details.
-> Where do you want to have this information ? All at the top
-> of the file ? Each part (low-level, virtual regs, ...) at
-> the beginning of each part in the code ?
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-I'm not sure what problem it solves to use regmap or have virtual
-registers in the first place.  I think you would be better off with
-custom _EXT controls, you almost have that anway just hidden in the
-middle of the fake register stuff instead of directly there.  My sense
-is that the result would be much less code.  If you are trying to map
-things onto registers you probably want comments at every level since
-you don't know where people are going to end up jumping into the code.
-
-Perhaps it's possible to write some new SND_SOC_ helpers that work with
-just a value in the device's driver data rather than a regmap and have
-a callback to trigger a write to the device?  I suspect that'd be
-generally useful actually...
-
---FW/lrGorzYH/UUN+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmO++GwACgkQJNaLcl1U
-h9ArFgf+O3HGWDePtn5hoFUxSB5AcANrqXbqzjNhuBkCGYrBvgjW4OpJVDkAYKAq
-64TpDiANcIFWChMfdNoOgJjdEvq0JnooViFhAKp4hAXvhfGzMzN58LgYSy98tL8Q
-N/lFjWN1qAtBMT5WtJahyzZs/AKpTXGFxTre1KwzvqSxQTZxCSSIg6P56WV4GD8X
-WtQnRlaaef2V0O/j52Ah0+4Q/OgUrxXVZDpE5AgNnVCGYf1zoXKt9roOfdN9yVMB
-w1WvYbXJG0bbPo3onWcyqkzDwW6N8FUX5vnBk8ZXiyLRn7dEe6JdTKO3Y9JTv5yP
-9+0CqC/gxRPWoc4cFBBclomIuSP3pg==
-=xtx3
------END PGP SIGNATURE-----
-
---FW/lrGorzYH/UUN+--
+Thanks,
+Mark

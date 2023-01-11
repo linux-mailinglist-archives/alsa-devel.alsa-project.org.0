@@ -2,89 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20FF4665907
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 11:29:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32491665938
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 11:43:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A595821B;
-	Wed, 11 Jan 2023 11:28:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A595821B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 721AAE43A;
+	Wed, 11 Jan 2023 11:42:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 721AAE43A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673432949;
-	bh=TdhW/su0bvIqy92U0pt8vjw/OXF7Ir6eSYFDJ/3VUfU=;
-	h=Date:From:To:Subject:In-Reply-To:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:Cc:From;
-	b=eLdigX5QBBwi2BNl+27lXZ8FyNVfxTg9TdkpVMQWCyUyem37VzehDA/rY3uswthrE
-	 e1FPDDKrRkbi3GQrus+0TFeHZUGfljf6FSANyOGKa7k5FOPfm9duYgmIPEbffcoi+P
-	 xe48BtFP0/SOTYtGZFf4rUGReP2Ldgdc4ZREHvas=
+	s=default; t=1673433787;
+	bh=Jh6P01APnXH6kprR+1Y6g9ET4KrsF7MUmXeJ1Gmuwnk=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=R6+32XNgLd94iAp0tSFiE8+LO8UFtN3l1eAC+J7Z1NwVf/KEBpZcY8a8Lz0L6BHpH
+	 tXYi5v8YcsvJsU1EQQk5Hpmiza35IYAB45HOcHxSExjhn3/l6+182MEPWRQnTGhGv8
+	 +So5zV0B79lblC3JGW/3bDyHYpSmnLv/jfsgPxVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78CE2F80424;
-	Wed, 11 Jan 2023 11:28:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCDFAF8019B;
+	Wed, 11 Jan 2023 11:42:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D5A5F80424; Wed, 11 Jan 2023 11:28:08 +0100 (CET)
+ id D552CF803DC; Wed, 11 Jan 2023 11:42:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58B83F8016E
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 11:28:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58B83F8016E
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5CC7F8019B
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 11:42:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5CC7F8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- secure) header.d=web.de header.i=@web.de header.a=rsa-sha256
- header.s=s29768273 header.b=HnY7/QUQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1673432880; bh=FN/H6q+AUS8GfOmhvewAJdPFGaXlQvuOzOvjllUz5/Q=;
- h=X-UI-Sender-Class:Date:From:To:CC:Subject:In-Reply-To;
- b=HnY7/QUQbE8XGRaB1cbS+NI4jITySxHrbGGsFOOEynQtRnQ+IjTf2nD53CgglKS+U
- cSwwFaLJOBO4tYo6U7zV3p4J5VqfhUgTabLV+TPQqbks4iMDirAOGp4WFUjuXf9+DI
- zuuA9Njf8LVgF/J2aM/eP6Ievj7u+u8Rx+KSNZCkTRGi0GdoohO9jwMQlpyZqnBWcA
- PsCXXN5TAMoNCHrt+mmXtpBR/GLsWTM9F5H25PyhzUW+B28yYPQoutNVCXWTapBKmL
- Mos55sOsDqOgH00LLHacEkERy6nKWWxmQJGF+tdpudR6NJIdn9X2R30B3xQhNCLcJU
- yUVEjVjt+5Yxg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [127.0.0.1] ([80.187.114.121]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MJFhJ-1pUjZj2CoF-00KRUV; Wed, 11
- Jan 2023 11:28:00 +0100
-Date: Wed, 11 Jan 2023 11:27:59 +0100
-From: Luka Guzenko <l.guzenko@web.de>
-To: tiwai@suse.de
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_ALSA=3A_hda/realtek=3A_Enable_mute?=
- =?US-ASCII?Q?/micmute_LEDs_on_HP_Spectre_x360_13-aw0xxx?=
-In-Reply-To: <87k01ueqga.wl-tiwai@suse.de>
-Message-ID: <FCFCA221-383E-491A-8DF7-66BA83A086FB@web.de>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=cM0cDprD
+Received: by mail-wm1-x330.google.com with SMTP id
+ j16-20020a05600c1c1000b003d9ef8c274bso7923564wms.0
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 02:42:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QCB9HC+nOODlhgQeT6tYCcnxKnTMlcj4XPzktx4ilxw=;
+ b=cM0cDprDbL3928y3K/CBVa6ETnMywsmJPhhQAv4pvu4CEHy4GKdy3qbaQEAd38EHzZ
+ ne7dt8ylDAA9lcwTB0/EJu9Lw/rdNjxjhHLy8PftjKhF19i4YEjBJ6RfqZ9CESSQQRdU
+ tlOty7NB1h1kgm/obRWwkCTVf7w5s+0Ue7kAlcYKSRnngSFk/UkeKH1QSWfZADyV9ZDG
+ suB9V6DhKlSJx4ByrBi4E6QcZnYyO0d/XU1gIWYnfRHAvw7Brn2vLhh8nZ4JAXIzEiuD
+ wUwdFIN1+klb4V0qt39R9BZSJXA0t3kFbH1HNTaVmejDs1vlEMdioeqdUyIwaVIDdBD8
+ rXlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QCB9HC+nOODlhgQeT6tYCcnxKnTMlcj4XPzktx4ilxw=;
+ b=cOp6i7MzencPjFMVVGKp53PXTcDWX9Qq/P7tdVXS7jCMLu+BGHwP+rjOMxQgm/bCOn
+ 4GpPMtiHOF6iHUVAVH958WAlUySms+oVt58A8GSSR1LmE4S6rLdnwHuedBpvqOPUzxdQ
+ Kt5g7tRarN7lZ06QN+IOqFekK/ZW+Z32sl9yeJl9chJ0+6OgvM9n98qiaCvDDSkTuwxX
+ fNxg9hi2hX57rhboFacl3zQ5XCWqefwMZussPSLZ8YXPmGACGS8PlXqoU7NEb8vx7F6X
+ e7PYmgB7jaL93lr2vIrIfnOgd8hk3Fy3xjuBf5SQAoaYl2vmW3ysN7iRabSjJ+NJe3D9
+ 5UTA==
+X-Gm-Message-State: AFqh2kp5Yf3gqIPTjj+A52MRtnkUpTKiCo7rbzDtnzVllkha1FoV27sN
+ XRvAPNgW43aACoHlaRdISMAr/Q==
+X-Google-Smtp-Source: AMrXdXu+qZ79UaiIi9fB8q9zgE864/BrT4A7HXZ3JRhyGLpw7KkMcEnaFBxgrbP2oUdKUB6eoTKR/g==
+X-Received: by 2002:a05:600c:35d1:b0:3d3:58d1:2588 with SMTP id
+ r17-20020a05600c35d100b003d358d12588mr53288995wmq.41.1673433719242; 
+ Wed, 11 Jan 2023 02:41:59 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ q6-20020a05600c46c600b003d1f3e9df3csm24237019wmo.7.2023.01.11.02.41.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jan 2023 02:41:58 -0800 (PST)
+Message-ID: <5dab7c06-7d6a-0e8c-4618-6607df27217d@linaro.org>
+Date: Wed, 11 Jan 2023 11:41:57 +0100
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:bZzYsg/qT8Ujd/CZHC+ojL0BhHMUeAdAiElaZezPxfkQgz3ycyb
- TnahPJs/PGm/XVviVKjEpUGdiIlevU0VDxqBVbJlHCQSBydGB4RMXBDhHtfTWGG4BDcFO0D
- GW4ipXc+lVvs/H6STLeyph745tJhUgl0jXBGTDwnaBZFa7e12TmQEIbSPMYqQTbxuVxe0df
- 9xThPzbel6VlLJM9psEjQ==
-UI-OutboundReport: notjunk:1;M01:P0:Te96pD9XVlY=;ghP6ewk+L+8U7gpwDRoW0zwyKRz
- 9M/bAROmtsoHb2Xr2Qy4X7zqSp0fyJXmBfXNND2MPcOIxqjTsqPMEadBMDkGvEBXl7MI24/T2
- tLqcfx4ikBQqnTrHQsPQJkoaoDyASuZ1K9A5UQfC8V2cU69TaDUn2XhvA//OgNBmW1hG6LyOq
- FntSqO6xInjs5EGIeRLP5ez5Sp14kb1dWWJIV17Pc7VIrQIUaqDFlTZDpyYTXn74AdJLvEzwV
- RUb6SBYmiCJ7GLkFt7TIDldp7/wGsJIy86dtPj3MBnC6wcOescqWW3h1yn6MLy2xozWCVBW0+
- YrsVmNeslxCS/ZdKdgd2nRV/2wSvhjAR89LGhIfrFx/VhzxwyZesRR3IZy8TFf1saA61TWQSf
- 0xdIB0Cnnm8XE9uU+C3AII2gB55Fjv3IbpWD2+QTlGr5ZHF/WMqI2pblctgQ1bHu3l6lsjzLG
- AnCPLWNjDwv1AC3+dTXs2lzXQrYs8t4HxzY9skw7O6lBFIBSxGCrmJriHa+arJIR5oBQbe0iI
- 8h2KTzTOQQLKhyTv2lrwUEzTzaiwpZ/8Cv6D9uZCWNtvAtnXYe3XYADYaXUl+jvSOYVE7yJnL
- c/pDJe7PWVd8tqk8/q0U6FRinJPukTyCB3Slvi6UYuPZ+pTgPH0Ig5uS5YYJRAtGxp1tH0aog
- Jd/TLSLhD7u2u5uG24AxAfcSvnwAse00wq6KWLQuO5s5Pn7n86GENohbcZTmR+VWL3FuDfP0n
- hLVSt9GUVO+M9w4HzWhIoSm096UnuSN5Hn/IkkxDpJml+lTU9aSjll5hNHWMg+O/fIbyJfDhL
- jtQ7xKglRndsyK5mpD8uGhDtzwFOgbJOff4CKLeXrEq3hvvKhq/KSldXvFNBuI+hzC6X+GsOs
- 1CwNxOuDbCOYwaHKBZvEJSLiCVObfG8uWJWkyhgA0ay3DrYvSz3pWItFO7y6kCjzYXX3cIdV9
- YLCY4eeO5ueGgrzHx18b79ZtXAo=
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2] dt-bindings: sound: tlv320aic3x: Add optional clock
+ and port properties
+Content-Language: en-US
+To: Jai Luthra <j-luthra@ti.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20221230132644.6398-1-j-luthra@ti.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20221230132644.6398-1-j-luthra@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,13 +108,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: l.guzenko@web.de, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- tiwai@suse.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This seems to be a mistake on my part=2E
-I have inverted the condition and recompiled the Kernel on my system=2E
-It works=2E I have created a Version 2 of this Patch=2E
-Thank you,
-Luka
+On 30/12/2022 14:26, Jai Luthra wrote:
+> Describe optional properties for clocks and ports that were missing in
+> the original txt binding, to fix warnings like:
+> 
+> aic33@18: 'assigned-clock-parents', 'assigned-clock-rates',
+> 	'assigned-clocks' do not match any of the regexes:
+> 	'pinctrl-[0-9]+'
+> 	arch/arm/boot/dts/omap2420-n810.dtb
+> 
+> tlv320aic3106@1b: 'port' does not match any of the regexes:
+> 	'pinctrl-[0-9]+'
+> 	arch/arm/boot/dts/am335x-sl50.dtb
+> 
+> codec@18: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+> 	arch/arm/boot/dts/imx6dl-gw5903.dtb
+> 	arch/arm/boot/dts/imx6q-gw5903.dtb
+> 
+> Some uses of "port" still lead to warnings because they pass clocks in
+> the endpoint, but that is discouraged:
+> https://lore.kernel.org/all/20210205152644.GA3083322@robh.at.kernel.org/
+> 
+> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> ---
+> 
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+

@@ -2,85 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7707C665D37
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 15:00:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB54665D4A
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 15:07:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BECBE14C;
-	Wed, 11 Jan 2023 15:00:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BECBE14C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1D4B21FF;
+	Wed, 11 Jan 2023 15:06:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1D4B21FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673445655;
-	bh=6GmdrrfPAFrTCzpxyHGgTB46FlBc6juYoJFaKX7l39E=;
+	s=default; t=1673446039;
+	bh=U7lYNiqXhmMD0nyokRnj+KhuCLG5Gsp8lD+GATk50H8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=DprDoWmtbdzUU3I6brcctGSHJ645BDjwXq1Yzt6E8bUNyE2DULhB+n/gxobmohJnW
-	 hBESaUi7C9vCt7lWL4UsQU/zyLXYKX95vCdyZV0gmiVii6V8xQkw479mGA0mscRQj1
-	 oCnULq01sfRNfClrq/iCma24g1cRLFRzti6y6PKc=
+	b=n9rcXc/ByoGfptdA62ULVRY9SbK5AhwMvMr/MxwSD4V/3ZjhT0aLxh4ktQMgLyajp
+	 kIOZK2TlEYtZT4IgWdhmIpdf2AgErPsmwshIdqZ291zvl+UtNp0u/NfbOM+teBEydy
+	 KFeSCePJ+q+LvviIo8PekBNYJLFLf9N4JXYvPl0I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39BA8F8030F;
-	Wed, 11 Jan 2023 14:59:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01C3FF8016E;
+	Wed, 11 Jan 2023 15:06:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D228F803DC; Wed, 11 Jan 2023 14:59:55 +0100 (CET)
+ id D6507F80424; Wed, 11 Jan 2023 15:06:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CCE0F8026A
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 14:59:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CCE0F8026A
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=d3ulNJdJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673445594; x=1704981594;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=6GmdrrfPAFrTCzpxyHGgTB46FlBc6juYoJFaKX7l39E=;
- b=d3ulNJdJ5sUYzW2WA/B7SJJntFuhMcVTchUocSDnnJKy503g14t1F6wn
- 3tRrts4C61KlTD7yhEvZ9C5nLEkkuphZnaBAxu51AWh/68oNdgFJ2oc5X
- 7MD/PzdwR9P/djzOB76if1kbmThrv8SPk3fmDwPVckkAi+scBnXXQeVnX
- BqOEKW3UHPvLLbTSEq8/IUngObj6rxoKp+HXxoAkqwpmGXXr8Ji1FgdCL
- coRgOKPVNmYT80oNazc+VSzr3Ws4eKPVKSzbBAsaR8ASgL/ZypS15e84r
- MDGW9i2+73rJTxm2ikQlB4nUMCQnSMFzy4ylNsBv01P4eemSjBtP0g3xy w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="324652533"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="324652533"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 05:59:49 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="687931532"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="687931532"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 05:59:46 -0800
-Message-ID: <5dfc3961-206c-5a42-b648-74944de9212f@linux.intel.com>
-Date: Wed, 11 Jan 2023 14:59:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 02/19] soundwire: amd: Add support for AMD Master driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id 949D1F8016E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 15:06:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 949D1F8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=EZXVjXkj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kYMefet5K1vRUiGOFOMKwVFKaDkJ4+Rm+UMzkofo3KUBA9ghMWs88/pMGC6ZR9OICtRNZlvPVs9Kp3wrPwgmdTEeTKC68Y7Nlh38AeA70DutcOeIT/m24hp/ft9xN1T7Yn03Bss0HRrzFxeJ1se0XlyrlW99I9JabXynTAxsh6MNWP8w2nzIF+jko8cUmRTh11nq7MdOipDnvQKHNcskORxEBaeoaPjFawWz43CLtfarlgPBkqKSiN7NboNzHT+afmTmPey0ALmJQJueBCLFsJpz8mITQKwOT2m6XS/t5ePioZuxD/xwRfDNX2ROM3NWIyh8v/eY3d0l/5bw+xAq/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W3UtqeVL92WzzGR6C46DSCZs6jchiRzzc2SbM4bAX50=;
+ b=F/QERlLTl4ki9MZGpKndzDTOaGbBc6wPwvCdyljzHh9NECvX9g5siFn/ZagZchkgB2RevROP2KhFDN9j2h4VJny3PAJbSjJduPcW5edvjuVYwT3EUiYndu8fXJMkIcUlSodPFYzYVVJGpt+fyI+ikx1zG+0NhZnkthEA2swv22ZPtdcF6SsJRbGw6szjpt+bjz0AGG7lBh06aryE8nXmgyKTlk/OV3BY+i3OM5Q4z7Zdo6y/k6BtpID9vAk+AxjR9jlFuyse50h0Q9RzBxQmvoPyijpRGie4/+6nvWtXFih7OM6gDc1puKTNFLUV3t+RUWHNw6USmHwQp18hFGb5AA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W3UtqeVL92WzzGR6C46DSCZs6jchiRzzc2SbM4bAX50=;
+ b=EZXVjXkj5QPd7pBH/BQTKUHsbpgOuMmULfro6HY9ChIFbDxoI4AmoVK1+Bq1mz3Cb94QscY3LCw+uBxM1zS1vXSQJsjgBmaXfmdglityA8nxZvkvrqhbIAZCcuK2i8+2JInY4S7xdMMaXfdGnRE0zeBsXQPuQ+wKtmrkDYK4H8c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by PH8PR12MB6915.namprd12.prod.outlook.com (2603:10b6:510:1bc::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 14:05:57 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Wed, 11 Jan 2023
+ 14:05:57 +0000
+Message-ID: <68ab36c0-5514-667f-1ffe-378206aeafff@amd.com>
+Date: Wed, 11 Jan 2023 19:38:58 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 08/19] ASoC: amd: ps: add soundwire dma driver dma ops
 Content-Language: en-US
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
+To: Mark Brown <broonie@kernel.org>
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-3-Vijendar.Mukunda@amd.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230111090222.2016499-3-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20230111090222.2016499-9-Vijendar.Mukunda@amd.com>
+ <Y76z7uYb2/2BUSfl@sirena.org.uk>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <Y76z7uYb2/2BUSfl@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0006.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::10) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH8PR12MB6915:EE_
+X-MS-Office365-Filtering-Correlation-Id: db4dce54-25c9-4152-f36a-08daf3dcf5f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vlLM4SI/isESv1kELm7vHxAu0nrnhpG/VYz+tnMa5St/rXQMsUofnTXcSmOWcUvghp2Kb813Bq/EU2+SaX+VkGT+Vl/bhAJwqFM9CeNGMkkkRyJjhq9TmVX90UNnJOaV+z1wWv3mfRGo53KkDXNR7j0ZJxa7k1X/gUcM9L8iSThLdBi9ddfk8F+N5q7wQRvTrjXKkK8POR4tocNZu5744rCTlKkw4eObxR4Kva95O9xi6d7Szm2G8/LCyAfj41/SAjqSfmG+FGZFgDNg7AdWpWQhYD4sOwYl8oiE7aaRIDoCSksA+nCBkzMcSbnMvpOgHlJB+ndsF9gX8fOY/3W7TQks5Z0We67G53cQhJlA7mkHdJL/YJL3GfK5QsvYp+udSykuYtVA9klkEwdR4dzf1SrtIJhfpXF4huTtJJLkrSHI81vH+HSHkV4OXKI1rO/kKpHmUXoR/4W1RTeGVg0fNdFuX17jT3NMU7xlPleoXpmj3HfCeaRD48rvrRDecry7Y3wKerAkU45Kt1XyRHAJ7h/U6JXeBHVV8EZCkkxGm/g3LH2ZzoapKG7tjNwr3SB40lIn1cjtf8crOtXljsudjjSCGTnsAEtFS/ileMOrPWCDNj7yL7BilHAQtHqVcEqSjApZ2VnOf0M8QyrB+PEB+YmmDfPPX+hGembiC9A5Niw34e2pRvNcR5ursJegAZwqKnCpm1EGvpp4Qrh+VgqU/uvspzySBaqFpKiLA/bfhx4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(39860400002)(366004)(376002)(136003)(396003)(451199015)(8936002)(2906002)(5660300002)(41300700001)(316002)(4326008)(66556008)(8676002)(6916009)(66476007)(66946007)(54906003)(26005)(6512007)(38100700002)(2616005)(31686004)(86362001)(186003)(31696002)(83380400001)(53546011)(36756003)(6506007)(478600001)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2FWQVI4U3YvMWw0VEFTdncwb0ZjRzdtSnQzcVhtSko1ZG5GOFhvSkpoOEFL?=
+ =?utf-8?B?dDBiazBBRlppTjYzZDBxZDFMT2NjQTRXWFRVdEtQcHdNSXM1WDNzYS9rS3Fl?=
+ =?utf-8?B?OEdCWmhQYnhlak9zeHFGM2dxODdmdXhNbmxZeDJ6cU5DZ0JUNWh0Vkx3cnJF?=
+ =?utf-8?B?VmxHYWZHQkM3YzZIUDdQUXZyZ2srRXR4bm5FWDl2cXRZRmhXdGQ2Rll5Kyth?=
+ =?utf-8?B?S2FvV0JHR011aUpxS3dJSEpjcDRDcmlrdGFvVmZyQzFLWmNhNnhITWg5OEhy?=
+ =?utf-8?B?RWE0dE5mZ3gxZ1IvTFBKWkcvMmtVZmphdkRQOXpMdnJCYWhnaVNwaWJQc2Iz?=
+ =?utf-8?B?OUU1d2lWRzdkRmwzS1V3bXlhUUdwVUxtcld1OXRrNUxVTlkxMEp6MjhuYVpJ?=
+ =?utf-8?B?OHV0NXZFdHZtTDhFQ3ZPWkY4Z0dyNnUxTG8wVzg2OEQrY0pqMmZueXk0Z1M0?=
+ =?utf-8?B?TGxkVzdHMkxDSGJ5R1hxcmNrS0JqRStsa0xreEhFRHRKWHBDVUhWZGJCazJF?=
+ =?utf-8?B?bHQvanB0UWJHNkZXMll0aDRQWHBiMXRCOUJuM1YvT05HY3pIWEV3eXR3c3lE?=
+ =?utf-8?B?NmhRUEE1YVFKclRmYUJoajVmZmtjOGswTDU4QjFoYm04czh6VE0yVlhyYitt?=
+ =?utf-8?B?eXI1MWRScHltb0U2S1RBQ0xBcTl6OWdlQ3lqYVNMMDRYc3Y3VWQzdENlOUl3?=
+ =?utf-8?B?alo3MDFBajd0OTByM213QkdyL2tjOTBNMEN6Z05DdkYzdWZTRlRhTHZrU3Aw?=
+ =?utf-8?B?ejRjQ0wwcFplUTNqK21VL3QweHU2VC82N3RKWHU3RFRrTHlpc09HY0NUUTU0?=
+ =?utf-8?B?eTJsZXNxNi9hek9zR2dHSk13Mnc0OXZWVG03UU1sbERuNGFxUGt1eDE5TmxQ?=
+ =?utf-8?B?ajN5dWZvQkFPaExJODl5OWZFRTFhWGNhWXJtZ1o3ZmZYSFhUNmFTeVNWN0Y0?=
+ =?utf-8?B?LzdSaStSQkxodVB4NU1FZmh5QStHdktubFJrZENkUFVXU2pBWDBEOEtKdXJZ?=
+ =?utf-8?B?bHdXczc4RzFZK1N6QWVpQnM1MG9Cdk5XL05NS0J2QXBDQUx3bk02bnlHeWRI?=
+ =?utf-8?B?NkhEU0g1ZGpMV1FuM2VtQVRwUzdySnRaZS9XTjJIRXNLUFpUUzhqQ2lYUU0x?=
+ =?utf-8?B?Mm85UDZLcmlvWUNDS2pVRmFodEVDTHRIQ1B6SmM5c0VkZi9La0xPWlZ5cHJN?=
+ =?utf-8?B?RHFKdTd5L0U1NkpWMkxtWDNDaWtJL0dHVS9nOVZ2QldQWWduR1A3U1U4N0M2?=
+ =?utf-8?B?d0R5Y05MMjVwVXBqclpHalpvaENkeTRGYjNkd1Y3bGdjRVlUa1F6VWFLZ3hH?=
+ =?utf-8?B?SzNIREUxNW1jMy95WXJ0UE12ekNMR1M4Y0d2Zm1zWVNOeHJFUXRMbDFCclJj?=
+ =?utf-8?B?TkM5WTdVWlY2ZWFKQ1htTENFeDRnSE9ELzFVek5RZGNscFNlWjRMeDZZdXdH?=
+ =?utf-8?B?d0wxNW5IVy9wNGVSTm03bi91QmxJdDZLeE5Ea2haZ3FubThVeXRMblV4MVFO?=
+ =?utf-8?B?SllRS3psSGU0NC9pUERhTTNjVjVsYUFkaDlscWxpaldITDlLR2ZhUDdUOVFa?=
+ =?utf-8?B?MjBUV05LUU9kVFZRR0Rqc0F1SHpneFgyQTVRVFBPVG5rSzZpRFNIbytzeWZG?=
+ =?utf-8?B?dlROUjBwUEtUcUZEb2NCUkNvdGdIcGRoT05jeURGTlJsbzF3ekFiWEk2UGhh?=
+ =?utf-8?B?ZnRadDQvQ2lCUFFhSTRGVURWc1RKdTBlTUk5YnozS3VXTCtiTUJ3N1RuNDM1?=
+ =?utf-8?B?TWpIenJLeFpaOW5VL1E2Rk5Yd2tFM3YzRHV1aHc4Slkrb3M2cURUTklnMWVR?=
+ =?utf-8?B?Q1dxK1RvTlQyZ3VPU0xDSTBCVXp4VHI0OVJ0UzEySmpVbDB2ZmdNWGZQQmQw?=
+ =?utf-8?B?cVg1N1ZGWlVnYWczU0J5eDRqdEgvUWhHRGU0dFd5RVRseXJhYWNzZzFnZWpO?=
+ =?utf-8?B?Nnc3MDNlNFpFbWlXeUNhUVJ5c1R2dzdOa2tkeVgzUCtDNUNkb0VCa0VzRVFW?=
+ =?utf-8?B?eC9NMUpVZHJIZmc4S3Y2am9NeUxWajBKYkxqdkpxaGZ1U2dJQm5sV09hWDlK?=
+ =?utf-8?B?eE5obzdkZ2l2cWViRlREMVVBaVNiakJqLytuSjZnb3IwUDlFcmpSTEIzVkdw?=
+ =?utf-8?Q?daP7niRbr573GNnK9Va1qrmyZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db4dce54-25c9-4152-f36a-08daf3dcf5f8
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 14:05:57.5496 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DBw3h3atB1YIUbna/At5xgYxNnirH0o5X+Xtp+JzRiZjlkTRGKHC33S5ut6CPJ8i546uwH1Er7FIEjMm0eSLRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6915
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,269 +156,44 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, vkoul@kernel.org,
  Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/11/2023 10:02 AM, Vijendar Mukunda wrote:
-> AMD ACP IP block has two soundwire controller devices.
-> Add support for
-> - Master driver probe & remove sequence
-> - Helper functions to enable/disable interrupts, Initialize sdw controller,
->    enable sdw pads
-> - Master driver sdw_master_ops & port_ops callbacks
-> 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
-
-...
-
-> +
-> +static int amd_sdwc_compute_params(struct sdw_bus *bus)
-> +{
-> +	struct sdw_transport_data t_data = {0};
-> +	struct sdw_master_runtime *m_rt;
-> +	struct sdw_port_runtime *p_rt;
-> +	struct sdw_bus_params *b_params = &bus->params;
-> +	int port_bo, hstart, hstop, sample_int;
-> +	unsigned int rate, bps;
-> +
-> +	port_bo  = 0;
-
-Double space before '='.
-
-> +	hstart = 1;
-> +	hstop = bus->params.col - 1;
-> +	t_data.hstop = hstop;
-> +	t_data.hstart = hstart;
-> +
-> +	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-> +		rate = m_rt->stream->params.rate;
-> +		bps = m_rt->stream->params.bps;
-> +		sample_int = (bus->params.curr_dr_freq / rate);
-> +		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
-> +			port_bo = (p_rt->num * 64) + 1;
-> +			dev_dbg(bus->dev, "p_rt->num=%d hstart=%d hstop=%d port_bo=%d\n",
-> +				p_rt->num, hstart, hstop, port_bo);
-> +			sdw_fill_xport_params(&p_rt->transport_params, p_rt->num,
-> +					      false, SDW_BLK_GRP_CNT_1, sample_int,
-> +					      port_bo, port_bo >> 8, hstart, hstop,
-> +					      SDW_BLK_PKG_PER_PORT, 0x0);
-> +
-> +			sdw_fill_port_params(&p_rt->port_params,
-> +					     p_rt->num, bps,
-> +					     SDW_PORT_FLOW_MODE_ISOCH,
-> +					     b_params->m_data_mode);
-> +			t_data.hstart = hstart;
-> +			t_data.hstop = hstop;
-> +			t_data.block_offset = port_bo;
-> +			t_data.sub_block_offset = 0;
-> +		}
-> +		amd_sdwc_compute_slave_ports(m_rt, &t_data);
-> +	}
-> +	return 0;
-> +}
-> +
-
-...
-
-> +
-> +static int amd_sdwc_port_enable(struct sdw_bus *bus,
-> +				struct sdw_enable_ch *enable_ch,
-> +				unsigned int bank)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl = to_amd_sdw(bus);
-> +	u32 dpn_ch_enable;
-> +	u32 ch_enable_reg, channel_type;
-> +
-> +	switch (ctrl->instance) {
-> +	case ACP_SDW0:
-> +		channel_type = enable_ch->port_num;
-> +		break;
-> +	case ACP_SDW1:
-> +		channel_type = enable_ch->port_num + ACP_SDW0_MAX_DAI;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (channel_type) {
-> +	case ACP_SDW0_AUDIO_TX:
-> +		ch_enable_reg = ACP_SW_AUDIO_TX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW0_HS_TX:
-> +		ch_enable_reg = ACP_SW_HEADSET_TX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW0_BT_TX:
-> +		ch_enable_reg = ACP_SW_BT_TX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW1_BT_TX:
-> +		ch_enable_reg = ACP_P1_SW_BT_TX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW0_AUDIO_RX:
-> +		ch_enable_reg = ACP_SW_AUDIO_RX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW0_HS_RX:
-> +		ch_enable_reg = ACP_SW_HEADSET_RX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW0_BT_RX:
-> +		ch_enable_reg = ACP_SW_BT_RX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	case ACP_SDW1_BT_RX:
-> +		ch_enable_reg = ACP_P1_SW_BT_RX_CHANNEL_ENABLE_DP0;
-> +		break;
-> +	default:
-> +		dev_err(bus->dev, "%s:Invalid channel:%d\n", __func__, channel_type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	dpn_ch_enable =  acp_reg_readl(ctrl->mmio + ch_enable_reg);
-
-Double space after '='.
-
-> +	u32p_replace_bits(&dpn_ch_enable, enable_ch->ch_mask, AMD_DPN_CH_EN_CHMASK);
-> +	if (enable_ch->enable)
-> +		acp_reg_writel(dpn_ch_enable, ctrl->mmio + ch_enable_reg);
-> +	else
-> +		acp_reg_writel(0, ctrl->mmio + ch_enable_reg);
-> +	return 0;
-> +}
-> +
-
-...
-
-> +
-> +static void amd_sdwc_probe_work(struct work_struct *work)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl  = container_of(work, struct amd_sdwc_ctrl, probe_work);
-
-Double space before '='.
-
-> +	struct sdw_master_prop *prop;
-> +	int ret;
-> +
-> +	prop = &ctrl->bus.prop;
-> +	if (!prop->hw_disabled) {
-> +		ret = amd_enable_sdw_pads(ctrl);
-> +		if (ret)
-> +			return;
-> +		ret = amd_init_sdw_controller(ctrl);
-> +		if (ret)
-> +			return;
-> +		amd_enable_sdw_interrupts(ctrl);
-> +		ret = amd_enable_sdw_controller(ctrl);
-> +		if (ret)
-> +			return;
-> +		ret = amd_sdwc_set_frameshape(ctrl, 50, 10);
-> +		if (!ret)
-> +			ctrl->startup_done = true;
-> +	}
-> +}
-> +
-> +static int amd_sdwc_probe(struct platform_device *pdev)
-> +{
-> +	const struct acp_sdw_pdata *pdata = pdev->dev.platform_data;
-> +	struct resource *res;
-> +	struct device *dev = &pdev->dev;
-
-Same as in previous patch, you assign dev here, but keep using 
-&pdev->dev below?
-
-> +	struct sdw_master_prop *prop;
-> +	struct sdw_bus_params *params;
-> +	struct amd_sdwc_ctrl *ctrl;
-> +	int ret;
-> +
-> +	if (!pdev->dev.platform_data) {
-> +		dev_err(&pdev->dev, "platform_data not retrieved\n");
-> +		return -ENODEV;
-> +	}
-> +	ctrl = devm_kzalloc(&pdev->dev, sizeof(struct amd_sdwc_ctrl), GFP_KERNEL);
-> +	if (!ctrl)
-> +		return -ENOMEM;
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res) {
-> +		dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
-> +		return -ENOMEM;
-> +	}
-> +	ctrl->mmio = devm_ioremap(&pdev->dev, res->start, resource_size(res));
-> +	if (IS_ERR(ctrl->mmio)) {
-> +		dev_err(&pdev->dev, "mmio not found\n");
-> +		return PTR_ERR(ctrl->mmio);
-> +	}
-> +	ctrl->instance = pdata->instance;
-> +	ctrl->sdw_lock  = pdata->sdw_lock;
-
-Double space before '='.
-
-> +	ctrl->rows_index = sdw_find_row_index(50);
-> +	ctrl->cols_index = sdw_find_col_index(10);
-> +
-> +	ctrl->dev = dev;
-> +	dev_set_drvdata(&pdev->dev, ctrl);
-> +
-> +	ctrl->bus.ops = &amd_sdwc_ops;
-> +	ctrl->bus.port_ops = &amd_sdwc_port_ops;
-> +	ctrl->bus.compute_params = &amd_sdwc_compute_params;
-> +	ctrl->bus.clk_stop_timeout = 1;
-> +	switch (ctrl->instance) {
-> +	case ACP_SDW0:
-> +		ctrl->num_dout_ports =  AMD_SDW0_MAX_TX_PORTS;
-
-Double space after '='.
-
-> +		ctrl->num_din_ports = AMD_SDW0_MAX_RX_PORTS;
-> +		break;
-> +	case ACP_SDW1:
-> +		ctrl->num_dout_ports = AMD_SDW1_MAX_TX_PORTS;
-> +		ctrl->num_din_ports = AMD_SDW1_MAX_RX_PORTS;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	params = &ctrl->bus.params;
-> +	params->max_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
-> +	params->curr_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
-> +	params->col = 10;
-> +	params->row = 50;
-> +
-> +	prop = &ctrl->bus.prop;
-> +	prop->clk_freq = &amd_sdwc_freq_tbl[0];
-> +	prop->mclk_freq = AMD_SDW_BUS_BASE_FREQ;
-> +	ctrl->bus.link_id = ctrl->instance;
-> +	ret = sdw_bus_master_add(&ctrl->bus, dev, dev->fwnode);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register Soundwire controller (%d)\n",
-> +			ret);
-> +		return ret;
-> +	}
-> +	INIT_WORK(&ctrl->probe_work, amd_sdwc_probe_work);
-> +	schedule_work(&ctrl->probe_work);
-> +	return 0;
-> +}
-> +
-> +static int amd_sdwc_remove(struct platform_device *pdev)
-> +{
-> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
-> +	int ret;
-> +
-
-You may need to cancel work if someone tries to unload driver before 
-probe work completes. Something like
-
-cancel_work_sync(&ctrl->probe_work);
-
-should probably work here.
-
-> +	amd_disable_sdw_interrupts(ctrl);
-> +	sdw_bus_master_delete(&ctrl->bus);
-> +	ret = amd_disable_sdw_controller(ctrl);
-> +	return ret;
-> +}
-> +
-
-
+On 11/01/23 18:34, Mark Brown wrote:
+> On Wed, Jan 11, 2023 at 02:32:11PM +0530, Vijendar Mukunda wrote:
+>
+>> +static int acp63_sdw_dma_start(struct snd_pcm_substream *stream)
+>> +{
+>> +	struct sdw_stream_instance *sdw_ins;
+>> +	struct snd_soc_pcm_runtime *prtd;
+>> +	u32 stream_id;
+>> +	u32 sdw_dma_reg;
+>> +	u32 sdw_dma_en_stat_reg;
+>> +	u32 sdw_dma_stat;
+>> +	u32 val;
+>> +	int timeout = 0;
+>> +
+>> +	sdw_ins = stream->runtime->private_data;
+>> +	prtd = stream->private_data;
+>> +	stream_id = sdw_ins->stream_id;
+>> +	switch (stream_id) {
+>> +	case ACP_SDW_AUDIO_TX:
+>> +		sdw_dma_reg = ACP_SW_AUDIO_TX_EN;
+>> +		sdw_dma_en_stat_reg = ACP_SW_AUDIO_TX_EN_STATUS;
+>> +		break;
+> Not super urgent but if you're respinning then it looks like the
+> register selection here is the same in _dma_stop() so they could be
+> shared.  Indeed it generally feels like it might be nicer to have a
+> table of structs listing the registers needed per stream so all these
+> switch statements can be more like
+>
+> 	sdw_dma_reg = stream_registers[sdw_ins->stream_id];
+>
+> That'd make each function smaller and I'd expect it'd be a bit easier to
+> add new streams for new hardware that way.
+will fix it in next version.

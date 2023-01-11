@@ -2,92 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E04C667A41
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6442F667A42
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9901A92F0;
-	Thu, 12 Jan 2023 17:03:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9901A92F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5497B92BC;
+	Thu, 12 Jan 2023 17:03:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5497B92BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673539448;
-	bh=LBE/XFszLAhYkzy/9N5kRKrqi9XPyCBUQIW8gZBFmrk=;
-	h=Subject:From:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1673539465;
+	bh=0dfNRqDELJzeMbKeK2k3puxktlH9TAfo1+WGxCaJWzw=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=VXZiC1HM3CTaoZx/JYt1Mt38uCThim6Kfb3zGTQHpDvjTILWFbuAcvR4D/p3P4AK7
-	 5WFExii3ekGqyN+RzdL0y7dHvvwykszcZ32pYyfk+Yi91CLVJYlJkYyjm1RLSgY01h
-	 F/JlFox7tyKT5v7iiV3EDvjXbyhoEis8HwzrPvyU=
+	b=K8XpryedTqSRe+ujsWqYBE2Fwm69zlcEIoLqovZYK/ICIF/Pk1EnNw5jVo27oQ0/T
+	 iNjhhr5E6of2A2Jd9PkB+9w8RDpj6tbMAEVM0DYGgtpoBknXBFAh2GgJOQ/hPA2EoC
+	 WkFRASgMypL2ZSIoJZXF2bQzDTfLj9UoTaz5CuZg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E982F805A0;
-	Thu, 12 Jan 2023 16:59:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49171F805AE;
+	Thu, 12 Jan 2023 16:59:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E08C8F803DC; Wed, 11 Jan 2023 16:58:39 +0100 (CET)
+ id EE36DF80424; Wed, 11 Jan 2023 17:11:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E823BF8016E
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 16:58:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E823BF8016E
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=U0QibaRA
-Received: by mail-qt1-x830.google.com with SMTP id bp44so14197998qtb.0
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 07:58:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=mVbhM9DNyV2jQIegc8jHBnPMqXbVMUIZxNuIpUdoJgM=;
- b=U0QibaRA8bNJbPgD9cI8P/1/BUMhkmX/ePcRktD5uVuKkNnZqQ/Wa/ZiM1kREOXFpn
- OHrsWLsEtT9PDbpRKHD0fLgVJCghXKCXwCV1+ogxKbnwMVMrJGdnIUm3/40yNL/FubuG
- VwMdCxecjQCfbcqYo05cTpqNrKkbe8u8pUygyeAF/huL+nF1CJpTtF9OZWW3hV+DDllu
- Q6QN5LsqZfJ4701Oc+JM1j1zzolxtmJj+L5c09FQavPjHF6FzMnRAuIUcFdwxUd1CPBR
- yL9WB8MFlUrUyfVGv27wcbaogHDB0HUK+4XONjoaFdYQubbsE7Ut/odP+AhH0unfoWWV
- N/VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
- :subject:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mVbhM9DNyV2jQIegc8jHBnPMqXbVMUIZxNuIpUdoJgM=;
- b=VnNSad1zLOO8XYbtgIofD2dMBnA/t+G0Mu+SlyD1IlxHJTgqBKwzXjsvyaH7OVF8UK
- 95f1M2kho2ADcZ1nWJj8nN2AJbzrz9iTuGAbZsvaCkok6JcDfeyoWgwJGqxXQDo2aba3
- H4+svWjl3QDZfTryC085yShnCfNK+L8eH++T++SQoxzeNOmwmQh2UnL4WptFJfinUUxc
- y9Xg8/1TzyfD6fMG/pjxuHYdwcO8skU35HnJKs68OHNnLlKYK00ajS3jtT4W6S9vf6MS
- hbd4RSfN/+3TfN3H64nrfuzwH/COjLRKgJba5emuBiReqwIpkFhtPUSXZHi/xEuTuVVG
- gdIQ==
-X-Gm-Message-State: AFqh2kq0d8A2SjVkVrOs/2aGcSvfP+acsacNdViEddQSH/MPyw/t+39v
- +jrc1wo9ilEtXD8y8tqhDhw=
-X-Google-Smtp-Source: AMrXdXvrvo18EgKvN9HAw3iQVascb3AHvRXSav2ZSw4oyr5DZysdWnPOX734BqI5V/ktXJ/bDhmaKg==
-X-Received: by 2002:ac8:4811:0:b0:3b0:5068:6d63 with SMTP id
- g17-20020ac84811000000b003b050686d63mr5350799qtq.66.1673452714968; 
- Wed, 11 Jan 2023 07:58:34 -0800 (PST)
-Received: from ?IPv6:2601:14d:4e80:336e:6940:faac:fba5:1dee?
- ([2601:14d:4e80:336e:6940:faac:fba5:1dee])
- by smtp.gmail.com with ESMTPSA id
- b3-20020ac86bc3000000b003ab7aee56a0sm7731725qtt.39.2023.01.11.07.58.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jan 2023 07:58:34 -0800 (PST)
-Message-ID: <392d72f2f86bebd56b072431ec0199aaaa5daad6.camel@gmail.com>
-Subject: [PATCH] ASoC: amd: yc: Add OMEN by HP Gaming Laptop 16z-n000 into
- DMI table
-From: Joseph Hunkeler <jhunkeler@gmail.com>
-To: Syed.SabaKareem@amd.com
-Date: Wed, 11 Jan 2023 10:58:33 -0500
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC988F803DC
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 17:11:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC988F803DC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=tq-group.com
+ header.i=@tq-group.com header.a=rsa-sha256 header.s=key1 header.b=RghrCwOM; 
+ dkim=pass (2048-bit key) header.d=tq-group.com header.i=@tq-group.com
+ header.a=rsa-sha256 header.s=key1 header.b=i/TqBNK9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1673453509; x=1704989509;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=c9cpAyHWzxXjJFF8d9KlzwQ1StQxFYBmw6tvDxixwNc=;
+ b=RghrCwOM/ZWkbsDu6Ri1sUtVPKlbnmwEE6pK5eRKu1KZBQElXBzAvS3N
+ r4yF5sM8yymhlUk3+80ZZj4Z8eDdnri3yAef0DHl6C3u2sihcYajbwdFe
+ Oi74jJMHDa+/xGy7xpwRAD2D3wIE0FTMxLgu/zsWuP+uvLMh5+ZiEt04p
+ nuc+JKgE+HqSmYIdlAmsN9GcxtCJ8KbtB/RlnqrdpGe8T5fyKIpUZZ6si
+ dV7I3Kvp4R6LzfZui8d7qnfnSEgfdBm+75R0As9KQTTRAEv3DmD1j8Qw8
+ DP/bbwQe2Ml9pGJqtSGFUKkrHAxn2FwzUg1twtQpbPt/JL6B+iHtTiImH Q==;
+X-IronPort-AV: E=Sophos;i="5.96,317,1665439200"; d="scan'208";a="28363764"
+Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
+ by mx1-pgp.tq-group.com with ESMTP; 11 Jan 2023 17:11:48 +0100
+Received: from mx1.tq-group.com ([192.168.6.7])
+ by tq-pgp-pr1.tq-net.de (PGP Universal service);
+ Wed, 11 Jan 2023 17:11:48 +0100
+X-PGP-Universal: processed;
+ by tq-pgp-pr1.tq-net.de on Wed, 11 Jan 2023 17:11:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1673453508; x=1704989508;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=c9cpAyHWzxXjJFF8d9KlzwQ1StQxFYBmw6tvDxixwNc=;
+ b=i/TqBNK9qdyc3cvLiA0cZxg4/yFPkYSOhUQU3zGK/47xLCmIOfSUdwdI
+ f8AsrNbC49D2ylz/YnlMEsEhQHtVVo92beEvxz52cXu6dD+tP+I09iayT
+ cp77FohBCEGfNnsc72JrbnlsGNrmwJibOKgarO14H1tF/+khJMfylS6ig
+ jrRiOwhIIi46yiTgNd33/a/p7MQzq3QgUK40zcUk7ilsUfvqoIcMpyLZk
+ JRI72sYAtQysxkV4fHEayQ/p2y36iTAQqpXHZMEz+FM39+qRulobUyVNl
+ YKMSF2gNw5qwg32T9Uzkm0+XPYQ9zDQdP7YYOsK2pLI8xQlVUKQ/WdsJJ Q==;
+X-IronPort-AV: E=Sophos;i="5.96,317,1665439200"; d="scan'208";a="28363763"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 11 Jan 2023 17:11:48 +0100
+Received: from steina-w.tq-net.de (unknown [10.123.53.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 9A204280056;
+ Wed, 11 Jan 2023 17:11:47 +0100 (CET)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 1/1] ASoC: fsl_sai: Use dev_err_probe
+Date: Wed, 11 Jan 2023 17:11:44 +0100
+Message-Id: <20230111161144.3275546-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Jan 2023 16:59:42 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -101,38 +105,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, mario.limonciello@amd.com
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adding support for the HP Omen 16z-n000 laptop; this enables the internal
-microphone.
+This helps figuring out why the device probe is deferred, e.g. missing
+FSL_EDMA driver.
 
-Signed-off-by: Joseph Hunkeler <jhunkeler@gmail.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Old:
+root@ls1021:~# cat /sys/kernel/debug/devices_deferred 
+sound   fsl-asoc-card: snd_soc_register_card failed: -517
+2b50000.sai
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 1f0b5527c594..32b61189d653 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -220,6 +220,13 @@ static const struct dmi_system_id yc_acp_quirk_table[]=
- =3D {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
+New:
+root@ls1021:~# cat /sys/kernel/debug/devices_deferred 
+sound   fsl-asoc-card: snd_soc_register_card failed: -517
+2b50000.sai     fsl-sai: Registering PCM dmaengine failed
+
+ sound/soc/fsl/fsl_sai.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 1c9be8a5dcb13..2a38e2bdf9893 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1458,14 +1458,17 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	if (sai->soc_data->use_imx_pcm) {
+ 		ret = imx_pcm_dma_init(pdev);
+ 		if (ret) {
++			dev_err_probe(dev, ret, "PCM DMA init failed\n");
+ 			if (!IS_ENABLED(CONFIG_SND_SOC_IMX_PCM_DMA))
+ 				dev_err(dev, "Error: You must enable the imx-pcm-dma support!\n");
+ 			goto err_pm_get_sync;
  		}
- 	},
-+	{
-+		.driver_data =3D &acp6x_card,
-+		.matches =3D {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16z-n000"),
+ 	} else {
+ 		ret = devm_snd_dmaengine_pcm_register(dev, NULL, 0);
+-		if (ret)
++		if (ret) {
++			dev_err_probe(dev, ret, "Registering PCM dmaengine failed\n");
+ 			goto err_pm_get_sync;
 +		}
-+	},
- 	{}
- };
-=20
---=20
-2.39.0
-
+ 	}
+ 
+ 	ret = devm_snd_soc_register_component(dev, &fsl_component,
+-- 
+2.34.1
 

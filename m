@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 414F2665C81
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 14:29:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75DCF665C82
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 14:30:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7CACE77D;
-	Wed, 11 Jan 2023 14:28:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7CACE77D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2747E79F;
+	Wed, 11 Jan 2023 14:29:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2747E79F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673443755;
-	bh=k7MGDdueXV0hxglws6KfXGvJ46M4lOKkMqZznlffKp0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673443813;
+	bh=una5oRyRbPIcKrt1hYeISUW/DKq9iiXHn6eQlzEJjMs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Djf5FRk8E54wWLOgvsRtZF4dKG6aLNMKtBJs7gbeJ4bxp0RW30I2MpzzLhUqbPO4X
-	 4hRjyOAPjZuPXFzKWEyfTEBMD1dyX8RqO6dfFMJTYZhBWYTBrP1py5ThQ1JCdpSF0M
-	 IAMmlsof22lBw7VRDh20ETkmE4uyjFRTd6ObrfuE=
+	b=pYWAXbUXVvmSxlzrMsVADsInLOwpvw0l5uHVkdAUUsqrb7AwI6JlMYAtywxUYomNY
+	 GJJusdqr7mNYH3sUAh8kY0c5szQiZ/cyrE42TTs9CDH/qOP3WtdRg0ikY2ajSLCvU/
+	 i/byP1oL3f7UpilgLiATAeSlKWBWbt6Wl+2RfhZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75DE5F80424;
-	Wed, 11 Jan 2023 14:28:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A95BF8016E;
+	Wed, 11 Jan 2023 14:29:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB3C5F8030F; Wed, 11 Jan 2023 14:28:15 +0100 (CET)
+ id 41296F803DC; Wed, 11 Jan 2023 14:29:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70A87F8026A
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 14:28:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70A87F8026A
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TQQhbHCm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673443687; x=1704979687;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=k7MGDdueXV0hxglws6KfXGvJ46M4lOKkMqZznlffKp0=;
- b=TQQhbHCmXUJPr5kiero7QRR0SJyknuNAiE+2RQ3SzDWCRUdAd8MEPIQu
- r6USRCJSu03TpkY7oxoBl/GLfHG0dcIReS7uGy3DqSmvM7C0hqaXwG1e5
- JbHwX3l9TRiJnY/1NZG2drdwCixfojcXDBMNpC51oHcpEySYhKDVt9oey
- U3/mcAiBK/uO+TGslP3/QMZgZM8m9V7gfN3M544t6iQZozMkbWYaa+Iyl
- mMRkFQkHFozrltpvB437r7hlgJBa/SkRwq9uz/X5pYYF284ZQGb+Dwoij
- eOzXlfdkqSZmIeSOZrVdHPxCGx8AECqhP8Z5L51VXwM7Iy+IhywLvq8ej A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="409655477"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="409655477"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 05:27:13 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831360000"
-X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="831360000"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 05:27:08 -0800
-Message-ID: <f7ca6b33-19b2-7a59-da0c-c34e441e0063@linux.intel.com>
-Date: Wed, 11 Jan 2023 14:27:06 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DBE6F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 14:29:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DBE6F8026A
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-15bb8ec196aso3743386fac.3
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 05:29:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wfcyeKV+jmJfxwF7NRjV8Nnjqq+j+TtjFkaEsE2MxJg=;
+ b=xdnggaIfA3AfCX41Hhlryex4Iid7svHMZOhb5eqOxBrC3X1Sm643lSThJlR9CRZt+i
+ YzzftbnsigISnmDJWJGz2QCxwe8S42uJqro+hf/g3fZhZwyJ7b5asc7npmWDax8XzczA
+ xuxwvlfmNefUxfPdCtvggPxA40wQcaXKFc4kPmWwTUHzp3MjMYGjEl4nbHCZWJ0B4v2h
+ vlpPJ5ZVQF2po6GRV8x1ngpNenOcXIDizW823EFlcJ0ql7xbUWlI/2EClLP9a5Pt01Qc
+ +gQbTqyloqOKnfvsOvUAx3FHYpO+c4X9y5y70tvO/GXDaduKf6HrwqHVgd+ZwfYatnI5
+ 6gqw==
+X-Gm-Message-State: AFqh2kqPivqcI+k9OJDCO3nCFcvdvJwR0I/tMaF1Tz5dVUaZx9P78oJZ
+ ux1b8th+di2zyGhGgRUjhQ==
+X-Google-Smtp-Source: AMrXdXurr2Fkt7xIiSGu2+v4jLMmjbG5iQyzQgObyqO+r+3rDohu/0qojG9+9uV23VV7Y4jPZu7Hpw==
+X-Received: by 2002:a05:6870:390e:b0:14b:e944:ac13 with SMTP id
+ b14-20020a056870390e00b0014be944ac13mr34453421oap.15.1673443752372; 
+ Wed, 11 Jan 2023 05:29:12 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ x19-20020a056870331300b00143cfb377b4sm7306519oae.6.2023.01.11.05.29.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Jan 2023 05:29:12 -0800 (PST)
+Received: (nullmailer pid 408838 invoked by uid 1000);
+ Wed, 11 Jan 2023 13:29:11 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 01/19] ASoC: amd: ps: create platform devices based on acp
- config
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-2-Vijendar.Mukunda@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230111090222.2016499-2-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r0w1ho26.wl-kuninori.morimoto.gx@renesas.com>
+References: <87358hj2ub.wl-kuninori.morimoto.gx@renesas.com>
+ <87r0w1ho26.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <167344317928.394453.14105689826645262807.robh@kernel.org>
+Subject: Re: [PATCH v2 08/10] ASoC: dt-bindings: renesas,rsnd: add missing
+ playback/capture
+Date: Wed, 11 Jan 2023 07:29:11 -0600
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,136 +93,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, Mario.Limonciello@amd.com,
- arungopal.kondaveeti@amd.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/11/2023 10:02 AM, Vijendar Mukunda wrote:
-> Create platform devices for sdw controllers and PDM controller
-> based on ACP pin config selection and ACPI fw handle for
-> pink sardine platform.
+
+On Wed, 11 Jan 2023 01:12:18 +0000, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
+> renesas,rsnd.yaml is possible to use ports/port/endpoint if it is using
+> Audio Graph Card/Card2 for sound. The schema is defined under
+> audio-graph-port.yaml.
+> 
+> rsnd driver needs "playback/capture" property under endpoint, but it is not
+> defined in audio-graph-port.yaml. This patch adds missing "playback/capture"
+> properties under endpoint.
+> 
+> Without this patch, we will get below warning
+> 
+> ${LINUX}/arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb: sound@ec500000: ports:port@0:endpoint: Unevaluated properties are not allowed ('playback', 'capture' were unexpected)
+> 	From schema: ${LINUX}/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
->   include/linux/soundwire/sdw_amd.h |  18 +++
->   sound/soc/amd/ps/acp63.h          |  24 ++-
->   sound/soc/amd/ps/pci-ps.c         | 248 ++++++++++++++++++++++++++++--
->   3 files changed, 277 insertions(+), 13 deletions(-)
->   create mode 100644 include/linux/soundwire/sdw_amd.h
+>  .../bindings/sound/renesas,rsnd.yaml          | 25 ++++++++++++++++---
+>  1 file changed, 22 insertions(+), 3 deletions(-)
 > 
 
-...
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-> index e86f23d97584..85154cf0b2a2 100644
-> --- a/sound/soc/amd/ps/pci-ps.c
-> +++ b/sound/soc/amd/ps/pci-ps.c
-> @@ -14,6 +14,7 @@
->   #include <linux/interrupt.h>
->   #include <sound/pcm_params.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/soundwire/sdw_amd.h>
->   
->   #include "acp63.h"
->   
-> @@ -134,12 +135,68 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
->   	return IRQ_NONE;
->   }
->   
-> -static void get_acp63_device_config(u32 config, struct pci_dev *pci,
-> -				    struct acp63_dev_data *acp_data)
-> +static int sdw_amd_scan_controller(struct device *dev)
-> +{
-> +	struct acp63_dev_data *acp_data;
-> +	struct fwnode_handle *link;
-> +	char name[32];
-> +	u8 count = 0;
-> +	u32 acp_sdw_power_mode = 0;
-> +	int index;
-> +	int ret;
-> +
-> +	acp_data = dev_get_drvdata(dev);
-> +	acp_data->acp_sdw_power_off = true;
-> +	/* Found controller, find links supported */
-> +	ret = fwnode_property_read_u8_array((acp_data->sdw_fw_node),
-> +					    "mipi-sdw-master-count", &count, 1);
-> +
-> +	if (ret) {
-> +		dev_err(dev,
-> +			"Failed to read mipi-sdw-master-count: %d\n", ret);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Check count is within bounds */
-> +	if (count > AMD_SDW_MAX_CONTROLLERS) {
-> +		dev_err(dev, "Controller count %d exceeds max %d\n",
-> +			count, AMD_SDW_MAX_CONTROLLERS);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!count) {
-> +		dev_warn(dev, "No SoundWire controllers detected\n");
-> +		return -EINVAL;
-> +	}
-> +	dev_dbg(dev, "ACPI reports %d Soundwire Controller devices\n", count);
-> +	acp_data->sdw_master_count  = count;
+yamllint warnings/errors:
 
-Double space before '='.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.example.dtb: sound@ec500000: Unevaluated properties are not allowed ('rcar_sound,src' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
 
-> +	for (index = 0; index < count; index++) {
-> +		snprintf(name, sizeof(name), "mipi-sdw-link-%d-subproperties", index);
-> +		link = fwnode_get_named_child_node(acp_data->sdw_fw_node, name);
-> +		if (!link) {
-> +			dev_err(dev, "Master node %s not found\n", name);
-> +			return -EIO;
-> +		}
-> +
-> +		fwnode_property_read_u32(link, "amd-sdw-power-mode",
-> +					 &acp_sdw_power_mode);
-> +		if (acp_sdw_power_mode != AMD_SDW_POWER_OFF_MODE)
-> +			acp_data->acp_sdw_power_off = false;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int get_acp63_device_config(u32 config, struct pci_dev *pci, struct acp63_dev_data *acp_data)
->   {
->   	struct acpi_device *dmic_dev;
-> +	struct acpi_device *sdw_dev;
-> +	struct device *dev;
->   	const union acpi_object *obj;
->   	bool is_dmic_dev = false;
-> +	bool is_sdw_dev = false;
-> +	int ret;
-> +
-> +	dev = &pci->dev;
->   
->   	dmic_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_DMIC_ADDR, 0);
+doc reference errors (make refcheckdocs):
 
-If you set dev above, you might as well use it throughout the function 
-context? Like above in ACPI_COMPANION?
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/87r0w1ho26.wl-kuninori.morimoto.gx@renesas.com
 
->   	if (dmic_dev) {
-> @@ -149,22 +206,84 @@ static void get_acp63_device_config(u32 config, struct pci_dev *pci,
->   			is_dmic_dev = true;
->   	}
->   
-> +	sdw_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_SDW_ADDR, 0);
-> +	if (sdw_dev) {
-> +		is_sdw_dev = true;
-> +		acp_data->sdw_fw_node = acpi_fwnode_handle(sdw_dev);
-> +		ret = sdw_amd_scan_controller(dev);
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Or just use &pci->dev here, so there is no need for separate variable?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
+pip3 install dtschema --upgrade
 
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

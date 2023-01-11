@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8225F66585A
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E24566585E
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:59:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96F5EE416;
-	Wed, 11 Jan 2023 10:57:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96F5EE416
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2DCE424;
+	Wed, 11 Jan 2023 10:58:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2DCE424
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673431085;
-	bh=vKxsGbUQlSFfRxjGzOqK0YM0Gye4zGSOztBp8vIWev8=;
+	s=default; t=1673431155;
+	bh=OyxXEQ0imQPB2cFRQnFLA0MEm9sui8GV2YOvy14k4v8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=aeT8Q5/Y+p43GQQga+fg/MPTMUf6hXTlU3GZVIYK5/rjq/zN5Vo/5zvZ8e/UjcejU
-	 OddJ6vUyPCtdyyV0KpzaX6g5EpZ+HvnqlRfwEuL9FvO5Gr1Isf6X3NDOvGXMaVkk80
-	 9RBniSydRucak7cXHj/GevPFf0r7haJ6feZ8szPs=
+	b=Brpie6bhujoyofWqUTX0hBIVSd7ghlGq2004OWyM/kzm/MCy0WY8kEf8c/leOVTlM
+	 ryJ5FCqy1jARh8LDd4ZteFQdUhBdwnL+e4Y89uZCJKUWiIcxeNbQrl0ckRECkdrJH3
+	 hT0t4L+R2xXELqzqRmWrOzjzCAbWehi/D06JIjvs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDF99F8019B;
-	Wed, 11 Jan 2023 10:57:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F72CF80425;
+	Wed, 11 Jan 2023 10:58:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5D8FF8026A; Wed, 11 Jan 2023 10:57:04 +0100 (CET)
+ id 36B59F803DC; Wed, 11 Jan 2023 10:58:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49495F8030F
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49495F8030F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D8C9F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D8C9F8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=NzYr9WZv
-Received: by mail-wm1-x32e.google.com with SMTP id
- j16-20020a05600c1c1000b003d9ef8c274bso7830861wms.0
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 01:57:01 -0800 (PST)
+ header.s=google header.b=RNHLAM9U
+Received: by mail-wr1-x42d.google.com with SMTP id e3so5256288wru.13
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 01:58:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=rZrK9lXyFzrE/eivw3OcCooHt4NoTEPjrW6/dIApfWI=;
- b=NzYr9WZvB0yPX9hmesMv0hgjDwjPXJutQ420ENuuA9rzr/TQWrsMDcym9eYFiFgdGI
- naPSBbWitrpZKZCx0vELymwzFkMspdu+Dlsap6Mxeh5+O0zR+tMzz+1bmNzADbvSiYxH
- dNr97ZXrfPxm8W0qoh0JM1wDMcbDddc8uOAMflrjpxZ5LlenxI4MCjd0zOoGjJLCLcjq
- YFgE2RKtVeBT+dwfGwj5KDpEGeTsHfb0zSTv6aulHloiytjxY0CVuM/aodJXMm6Wp129
- mlYgw97MwPSwerW/Ty1mMGlZd3O2cqPqsp7bvEqIqKMh6NmWkV15o7ZAluVXGyOKhaTR
- +sqQ==
+ bh=3CHpIDH1rMG1Owv5eVtyw16nuH+y+qhna5O7yLLSeRw=;
+ b=RNHLAM9UMNWjzNdMdG9Xyke7V2tvwiaMWk2yetrWIWk9PiP/TiIgBaI7hQJ48yicT4
+ ikwmc6VkZcZmcvmInImlhlTcbzYAdTtI0ONi7CsZfA/3YVmrSVuC6Lj5FmVYzx9abd2z
+ IbpjEW7Fe0Um491Fc2PgQwnUgaK8c+u/gHBtfSORSP1rSCb8HbiQY7ZgqFvK7jTK/1vr
+ MUHsO9KB+uPJQItW/4BEcTne3K4I6ZuK1oa8sfXQzHAlwRaT5w5ilr97DBqfJD9cgewo
+ NWUgqy4lD4+ZXvkI/W53F2X28SAzkNK4d/r/0BXXP4t3zVLrdhBmcLjZf3NySRS0ECLc
+ PHgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rZrK9lXyFzrE/eivw3OcCooHt4NoTEPjrW6/dIApfWI=;
- b=tZgm5dqSsXSAXjjbsXpb0P6KapeGawC7V1f87ei8w55Dr5v8tq0i2rKeNZAdutuFeF
- yKF5p/YYNkQSRYoiETxYIaf/7xKn4sF0B58Q474aUkitln9rDQDCQGkRX+3B/VzevvfA
- a3J6D5NzJ2p+cIf4Oki6kYmzwHtYzlEyK7RcOXbwpk/FZrB4jHlC4d3WebxysSV7LXbt
- RoNNn5zgDpbgVeXymqGDDMpS9aI8Y6IhDcPI9DpNfvEL61zzrXEyWjzCFZZvjwI2aocm
- jGfvuJvo7oH0fpERYb8Ze2ja5uo9jxTXRl8tj3spiLwSYgW/FxXzb9z7TwMXTD1oU7V0
- 51IA==
-X-Gm-Message-State: AFqh2kqFhH20gPlbr/f5xCFqUypAu1lMduMp9kDiMCNQjSKUxoxNHvmo
- 3Ktgz9Y3kEGZYE/ZJAir2Jf9jg==
-X-Google-Smtp-Source: AMrXdXtnjRK0dM2PKFvDPnK0ZNqW9OOfaNRQsXHtWzxpQraFJ2OLkK1Td920Jou43ys0vpMsTSfiYA==
-X-Received: by 2002:a05:600c:4e46:b0:3d2:3761:b717 with SMTP id
- e6-20020a05600c4e4600b003d23761b717mr52118078wmq.37.1673431019418; 
- Wed, 11 Jan 2023 01:56:59 -0800 (PST)
+ bh=3CHpIDH1rMG1Owv5eVtyw16nuH+y+qhna5O7yLLSeRw=;
+ b=5I/LnimT2Sv01bSyKuCjWEcGWrxVqJLnbaVjhcN6/DbgKyihG7K3hKqViuKTTqsMR+
+ JWcLqPr+ZcTSMJaaUzNuGPJoWrT8v5xMAvbLYJI26503x/t0PX182mJ8O58+NhMub+/H
+ /sywarJOHoiTfGe4TOVVzgbNkzxhyNdK9luOA6ZGGBQUcoYB+tOMwJLAZSK/NUz10ckb
+ bu+ooDXOCFgsso0HrGvtmpv8xXffhdKPwRAWRyjqgf6L4b2E+ik3Tqko2UryI2FwCg+q
+ ZgNJK/if/8KYNKVi2FG/oqpUduCtj78gL8fPyG5lDyw9aMBfBw8Qx99mQgI+oEFl/ZL7
+ GXhg==
+X-Gm-Message-State: AFqh2ko06ryJ1h1wVVcduEb6o9+8zGMrHw9btqYsbyf3X38Yero3dPS4
+ MpWjxOaYq9IJ5raqPnJHk99tMA==
+X-Google-Smtp-Source: AMrXdXvOO92JdADUb6pK4nZXTuSXDpapYvVg5c/tyfJN2x9QXp+QTXqy7lCQx9L1qO0ZWPHWZu3bXw==
+X-Received: by 2002:adf:fb88:0:b0:242:1809:7e17 with SMTP id
+ a8-20020adffb88000000b0024218097e17mr40370295wrr.6.1673431094509; 
+ Wed, 11 Jan 2023 01:58:14 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- s23-20020a1cf217000000b003d1e3b1624dsm22268979wmc.2.2023.01.11.01.56.57
+ n6-20020adfe786000000b002bdbde1d3absm3053607wrm.78.2023.01.11.01.58.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jan 2023 01:56:59 -0800 (PST)
-Message-ID: <c1b07878-4cbc-bb79-3635-03f15df8a658@linaro.org>
-Date: Wed, 11 Jan 2023 10:56:56 +0100
+ Wed, 11 Jan 2023 01:58:14 -0800 (PST)
+Message-ID: <1dfade07-f8c4-2e16-00dc-c7d183708259@linaro.org>
+Date: Wed, 11 Jan 2023 10:58:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v2 01/10] dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+Subject: Re: [PATCH v2 08/10] dt-bindings: sound: Add support for QMC audio
 Content-Language: en-US
 To: Herve Codina <herve.codina@bootlin.com>
 References: <20230106163746.439717-1-herve.codina@bootlin.com>
- <20230106163746.439717-2-herve.codina@bootlin.com>
- <427e0775-c576-e293-f590-b9840b936884@linaro.org>
- <20230110090445.2dc61b51@bootlin.com>
+ <20230106163746.439717-9-herve.codina@bootlin.com>
+ <c393e532-d466-366b-a390-65de47c58b6a@linaro.org>
+ <20230110090728.2024b5eb@bootlin.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230110090445.2dc61b51@bootlin.com>
+In-Reply-To: <20230110090728.2024b5eb@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -123,332 +122,29 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/01/2023 09:04, Herve Codina wrote:
-> Hi Krzysztof,
-> 
-> On Sun, 8 Jan 2023 16:10:38 +0100
-> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> 
-> [...]
-> 
->>> +  '#size-cells':
->>> +    const: 0
->>> +
->>> +patternProperties:
->>> +  "^tdm@[0-1]$":  
+On 10/01/2023 09:07, Herve Codina wrote:
+>>> +      qmc-chan:  
 >>
->> Use consistent quotes - either ' or "
+>> Missing vendor prefix.
 > 
-> Ok, I will change on v3.
-> I will also change them on the other bindings present in the
-> series.
+> Will be changed to 'fsl,qmc-chan'
 > 
 >>
->>> +    description:
->>> +      The TDM managed by this controller
->>> +    type: object
->>> +
->>> +    properties:
->>> +      reg:
->>> +        minimum: 0
->>> +        maximum: 1
->>> +        description:
->>> +          The TDM number for this TDM, 0 for TDMa and 1 for TDMb
->>> +
->>> +      fsl,common-rxtx-pins:
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          Use common pins for both transmit and receive  
+>>> +        $ref: /schemas/types.yaml#/definitions/phandle-array  
 >>
->> What are the "common" pins? Without this property device is using
->> uncommon pins? This does not make sense...
+>> Why this is not a phandle?
 > 
-> Common in the "shared" sense.
-> The hardware can use dedicated pins for Tx clock, Tx sync,
-> Rx clock and Rx sync or use only 2 pins, Tx/Rx clock and
-> Rx/Rx sync.
+> I have try '$ref: /schemas/types.yaml#/definitions/phandle'
 > 
-> Without the property, we use the 4 pins and with the property,
-> we use 2 pins.
+> I have an error from make dt_binding_check: 
+>   dai@16:fsl,qmc-chan:0: [4294967295, 16] is too long
+> 
+> I need a phandle with an argument ie <&qmc 16>.
+> Is there an alternative to phandle-array to handle this case ?
 
-Just use this as description.
+OK, then you need items like here:
+https://elixir.bootlin.com/linux/v5.18-rc1/source/Documentation/devicetree/bindings/soc/samsung/exynos-usi.yaml#L42
 
-> 
->>
->>> +
->>> +      clocks: true
->>> +      clock-names: true  
->>
->> Both need constraints.
-> 
-> The constraints are present later in the file as the number
-> of clocks depends on the 'fsl,common-rxtx-pins' property.
-
-OK, but still top level properties need widest constraints.
-
-> 
-> I will remove these two lines in the v3 series as they are
-> not needed. 'clocks' and 'clock-names' are handled in the
-> conditional part.
-
-No, top level properties must contain them.
-
-> 
->>
-> [...]
->>> +
->>> +      fsl,rx-frame-sync-delay:
->>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>> +        enum: [0, 1, 2, 3]
->>> +        default: 0
->>> +        description: |
->>> +          Receive frame sync delay.  
->>
->> Delay in what units?
-> 
-> The unit is a number of bits.
-> I will rename to fsl,rx-frame-sync-delay-bits and change the description
-> to 'Receive frame sync delay in number of bits'
-> 
-> I will do also the same for fsl,tx-frame-sync-delay property.
-
-OK
-
-> 
->>
->>> +          Indicates the delay between the Rx sync and the first bit of the
->>> +          Rx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
->>> +
->>> +      fsl,tx-frame-sync-delay:
->>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>> +        enum: [0, 1, 2, 3]
->>> +        default: 0
->>> +        description: |
->>> +          Transmit frame sync delay.
->>> +          Indicates the delay between the Tx sync and the first bit of the
->>> +          Tx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits delay.
->>> +
->>> +      fsl,clock-falling-edge:
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description: |
->>> +          Data is sent on falling edge of the clock (and received on the
->>> +          rising edge).
->>> +          If 'clock-falling-edge' is not present, data is sent on the
->>> +          rising edge (and received on the falling edge).
->>> +
->>> +      fsl,fsync-rising-edge:
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          Frame sync pulses are sampled with the rising edge of the channel
->>> +          clock. If 'fsync-rising-edge' is not present, pulses are sample
->>> +          with e falling edge.
->>> +
->>> +      fsl,double-speed-clock:
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          The channel clock is twice the data rate.
->>> +
->>> +      fsl,grant-mode:
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          Grant mode enabled.  
->>
->> This we know from property name. You need to describe what it is and
->> what it does.
-> 
-> Instead of describing it, I will simply remove the property (I should
-> have done already).
-> I cannot test the 'grant mode' enabled with my hardware and so
-> I prefer keeping it disabled.
-> This property, if needed, could be add later setting it optional
-> with default to 'disabled'.
-> 
->>
->>> +
->>> +      tx_ts_routes:  
->>
->> No underscores, missing vendor prefix.
-> 
-> Indeed, will be change to fsl,tx-ts-routes (idem for rx_ts_routes).
-> 
->>
->>> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
->>> +        description: |
->>> +          A list of tupple that indicates the Tx time-slots routes.
->>> +            tx_ts_routes =
->>> +               < 2 0 0>, /* The first 2 time slots are not used */
->>> +               < 3 1 0>, /* The next 3 ones are route to SCC2 */
->>> +               < 4 0 0>, /* The next 4 ones are not used */
->>> +               < 2 2 0>; /* The nest 2 ones are route to SCC3 */
->>> +        items:
->>> +          items:
->>> +            - description:
->>> +                The number of time-slots
->>> +              minimum: 1
->>> +              maximum: 64
->>> +            - description: |
->>> +                The source serial interface (dt-bindings/soc/fsl-tsa.h
->>> +                defines these values)
->>> +                 - 0: No destination
->>> +                 - 1: SCC2
->>> +                 - 2: SCC3
->>> +                 - 3: SCC4
->>> +                 - 4: SMC1
->>> +                 - 5: SMC2
->>> +              enum: [0, 1, 2, 3, 4, 5]
->>> +            - description:
->>> +                The route flags (reserved)  
->>
->> Why part of binding is reserved?
-> 
-> The 'reserved' part will be removed in v3.
-> Same for the rx route table.
-> 
->>
->>> +              const: 0
->>> +        minItems: 1
->>> +        maxItems: 64
->>> +
->>> +      rx_ts_routes:
->>> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
->>> +        description: |
->>> +          A list of tupple that indicates the Rx time-slots routes.
->>> +            tx_ts_routes =
->>> +               < 2 0 0>, /* The first 2 time slots are not used */
->>> +               < 3 1 0>, /* The next 3 ones are route from SCC2 */
->>> +               < 4 0 0>, /* The next 4 ones are not used */
->>> +               < 2 2 0>; /* The nest 2 ones are route from SCC3 */
->>> +        items:
->>> +          items:
->>> +            - description:
->>> +                The number of time-slots
->>> +              minimum: 1
->>> +              maximum: 64
->>> +            - description: |
->>> +                The destination serial interface (dt-bindings/soc/fsl-tsa.h
->>> +                defines these values)
->>> +                 - 0: No destination
->>> +                 - 1: SCC2
->>> +                 - 2: SCC3
->>> +                 - 3: SCC4
->>> +                 - 4: SMC1
->>> +                 - 5: SMC2
->>> +              enum: [0, 1, 2, 3, 4, 5]
->>> +            - description:
->>> +                The route flags (reserved)
->>> +              const: 0
->>> +        minItems: 1
->>> +        maxItems: 64
->>> +
->>> +    allOf:
->>> +      - if:
->>> +          properties:
->>> +            fsl,common-rxtx-pins:
->>> +              type: 'null'  
->>
->> What is this exactly? If check for property present, it's wrong. Should
->> be test if it is in required.
-> 
-> Yes, it was a check for the property presence.
-> 
-> If we not use the 'fsl,common-rxtx-pins', we need 4 clocks.
-> If we use the 'fsl,common-rxtx-pins', we need 2 clocks (Rx part and Tx
-> part use the same CLK and SYNC clocks).
-
-https://elixir.bootlin.com/linux/v6.2-rc3/source/Documentation/devicetree/bindings/net/qcom,ipa.yaml#L174
-
-> 
-> How can I describe this ?
-> Is the check for the property presence incorrect ?
-> 
-> Should I always describe 4 clocks even if only 2 are used ?
-> 
-
->>
->>> +        then:
->>> +          properties:
->>> +            clocks:
->>> +              items:
->>> +                - description: External clock connected to L1RSYNC pin
->>> +                - description: External clock connected to L1RCLK pin
->>> +                - description: External clock connected to L1TSYNC pin
->>> +                - description: External clock connected to L1TCLK pin
->>> +            clock-names:
->>> +              items:
->>> +                - const: l1rsync
->>> +                - const: l1rclk
->>> +                - const: l1tsync
->>> +                - const: l1tclk
->>> +        else:
->>> +          properties:
->>> +            clocks:
->>> +              items:
->>> +                - description: External clock connected to L1RSYNC pin
->>> +                - description: External clock connected to L1RCLK pin
->>> +            clock-names:
->>> +              items:
->>> +                - const: l1rsync
->>> +                - const: l1rclk
->>> +
->>> +    required:
->>> +      - reg
->>> +      - clocks
->>> +      - clock-names
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - reg-names
->>> +  - '#address-cells'
->>> +  - '#size-cells'
->>> +
->>> +additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/soc/fsl-tsa.h>
->>> +
->>> +    tsa@ae0 {
->>> +        compatible = "fsl,mpc885-tsa", "fsl,cpm1-tsa";
->>> +        reg = <0xae0 0x10>,
->>> +              <0xc00 0x200>;
->>> +        reg-names = "si_regs", "si_ram";
->>> +
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +
->>> +        tdm@0 {
->>> +            /* TDMa */
->>> +            reg = <0>;
->>> +
->>> +            clocks = <&clk_l1rsynca>, <&clk_l1rclka>;
->>> +            clock-names = "l1rsync", "l1rclk";
->>> +
->>> +            fsl,common-rxtx-pins;
->>> +            fsl,fsync-rising-edge;
->>> +
->>> +            tx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
->>> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* TS 2..25 */
->>> +                           < 1 0 0>,                 /* TS 26 */
->>> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
->>> +
->>> +            rx_ts_routes = < 2 0 0>,                 /* TS 0..1 */
->>> +                           < 24 FSL_CPM_TSA_SCC4 0>, /* 2..25 */
->>> +                           < 1 0 0>,                 /* TS 26 */
->>> +                           < 5 FSL_CPM_TSA_SCC3 0>;  /* TS 27..31 */
->>> +        };
->>> +    };
->>> diff --git a/include/dt-bindings/soc/fsl-tsa.h b/include/dt-bindings/soc/fsl-tsa.h
->>> new file mode 100644
->>> index 000000000000..9d09468694a2
->>> --- /dev/null
->>> +++ b/include/dt-bindings/soc/fsl-tsa.h  
->>
->> Filename should match binding filename.
-> 
-> Right, I will rename to fsl,tsa.h
-
-If your binding was fsl,tsa.yaml.
 
 Best regards,
 Krzysztof

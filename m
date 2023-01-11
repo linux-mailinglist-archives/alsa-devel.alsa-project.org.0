@@ -2,77 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653EC665D00
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 14:51:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E118665D33
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 14:59:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 769E137A5;
-	Wed, 11 Jan 2023 14:50:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 769E137A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99EB46D1E;
+	Wed, 11 Jan 2023 14:58:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99EB46D1E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673445077;
-	bh=6oHgtmSl8WNmDwl22+JOCXB6qKPnm2EYrN9SzFL34ak=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1673445548;
+	bh=aFoQZ7QqGItdUliW2f3ZDdeglQUUPVNkWIszkqqZoWw=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=tkGowv2MNnlFDhwlop9p8v1x2df8qMs1DuS5BymdvztIGYYaKBZlNZFnllLBjPuKO
-	 WRnA3kevx/+/bfkq00Hdg62CT5EVhELiDxWezf+UnZqaUJRUAuKB8o7SQqIKgfhvxT
-	 fPd0HMQBvRjf+TSDq9CY40AhUFFXCswlS8XkF+XE=
+	b=J4iH7EUmwi2UethkwmRwSlwhaz2nu6RSYnWpGcjaISegKv9/HdhSoehgUSz/BfC80
+	 7APn09UNjH1uPXDlCzoszdO9tQqn4SS+7aMtL5YSv3XZOGTwtOzujRfTahMLk+Tmq2
+	 qO0hFe/LyKmhdRS02P4LeYYr3pzI1tNVxKusG8hM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A77D7F80544;
-	Wed, 11 Jan 2023 14:49:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA092F8026A;
+	Wed, 11 Jan 2023 14:58:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 100CEF80539; Wed, 11 Jan 2023 14:49:30 +0100 (CET)
+ id E90BAF803DC; Wed, 11 Jan 2023 14:58:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from FRA01-PR2-obe.outbound.protection.outlook.com
+ (mail-pr2fra01on2041.outbound.protection.outlook.com [40.107.12.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52F6EF8051B
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 14:49:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52F6EF8051B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34BA6F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 14:58:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34BA6F8026A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=ByaSXOKv
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPA id 9E34AFF802;
- Wed, 11 Jan 2023 13:49:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1673444966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=c9EnZLjG+M9U2ONqhUBGVZCcyMyK2X5wHaN45jR1ceg=;
- b=ByaSXOKvk4XEECyLn27Tk4Ldxvxm05KVnKRViSa66Hk/L1mzTW0KAhZ6+m64s+qGIQCqM+
- elsDF/epIy4V/u2A0zVBt2P49YhXxtnhz/EEMQw12FAkQSf4MOWbu/lZ0NpdyLMDXALo0U
- c87+3x9imIyZz+9/2Ul+WphA2uyg/+LOVsQCfjMHB0TDWuz2vUdZxvSQFcz0UELsZjq2np
- uO8GxdPQ1RhJFZGENK9PdGKov9nFqu+XwcT/Hl8sFe9TfkWs2gCdFGP5aXLT6cA//M1k3v
- vwKzbAx661jtzhKC/OV1y/HvrRMlRTofhyIAdU3iD/U/PtWLVNVDjTYVkTd8KA==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 3/3] MAINTAINERS: add the Renesas IDT821034 codec entry
-Date: Wed, 11 Jan 2023 14:49:05 +0100
-Message-Id: <20230111134905.248305-4-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20230111134905.248305-1-herve.codina@bootlin.com>
-References: <20230111134905.248305-1-herve.codina@bootlin.com>
+ unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
+ header.s=selector1 header.b=Pbyez93F
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P986PpkUB9zTgRgF+xMODyRrSSuziod3gfZpL+yo3GDKj25IknZ18bulStwGtggXEr4v8YBBI4dP1ouJgoNiK9zajiWXLNtF8dPigZTi9r/4hO7AqrElFrhtMKG3lQy0BJZtYfgTndhjGVtPr0lc06q+lZN/pXiy166ntF6WB/BgMpz4zvCBReDZy/rTKeSyr5YYTuWc9n91CQ68OVODGU3ldxacHjfqVsSwG/7AdnYrFrx7/XVydcHXbRjFxszHOJejxcsk2DTpx/bG8urXsku0+E7PYi1zNPlYCPQ987Cvr7gliCISVeR8aQjMZSmfz4QLUDILhG4Rnqmoqo7qEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aFoQZ7QqGItdUliW2f3ZDdeglQUUPVNkWIszkqqZoWw=;
+ b=bZC9eXnBVYhEyaDRD6/erp+SKJ/qnZ/kWZNO/nM8veygAwfPX01krE8Hk3pJoreCud1ZK0Pd5S2ixjk2KMQjVEKxxNMlp/xk5wGW64obqTXE4EEc/GP9NulJnxKyUPB27XwzxbBok5FotEYecx00tNTrjxM70Bl9azVaCexXXCnIib8qnBgX7PQfN7tT7GI3azUK4QBmsZkW6gWJAIlnajvI/B0fy7lFJtS1e/O4FB7TC3ThIk8jF1DVcYkZPKA/bPRVJegAKH283NqrRArMOVKbIxCpOfkjPe+bm6q9koQ8Z+jDqVl+E+6Dd6aQdbLc18XCAt5+vkpvZcvdIDQ07A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
+ dkim=pass header.d=csgroup.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aFoQZ7QqGItdUliW2f3ZDdeglQUUPVNkWIszkqqZoWw=;
+ b=Pbyez93FHNm1CqIpVU+VMU7hi7UtOEaVgZnLJ0P4OoGnVcbWkoZ1oRXLLl4dd6gL9a1JPbrJrhJAE8//HNzBNjdpCb4ruYlC0GZzWB3drSrzodwCMCS+L4S1RrZE753jrb3zkYZZr7v92R3AiISKIGGYZnrIlkkssk0GDFVdX+QZWqJLO8wNFylwTUgAayqKIWBqpyPQaPFXBUE2JDDkNFwVCWz79ph4XbTWcQze0VfLaeXC5kElqjskFZaTCpeXFo7XJug2Ibuf8KrC3bOPabl4NrHOnbmDuyKsUdcdHfA3q3qS2PvWdJx9/leEFgA4JyQhV8T8+l8ScL3YS10XUw==
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
+ by PR0P264MB2188.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:167::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 13:58:03 +0000
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2cfb:d4c:1932:b097]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2cfb:d4c:1932:b097%7]) with mapi id 15.20.5986.018; Wed, 11 Jan 2023
+ 13:58:03 +0000
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>, Rob
+ Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu
+ Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
+ <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>
+Subject: Re: [PATCH v2 06/10] soc: fsl: qe: Add support for QMC
+Thread-Topic: [PATCH v2 06/10] soc: fsl: qe: Add support for QMC
+Thread-Index: AQHZIe1KiCJWjZ4L0UmZQZF6SLJUjK6ZRZeA
+Date: Wed, 11 Jan 2023 13:58:03 +0000
+Message-ID: <f46eb64d-ad4c-7531-60b0-68961f171ed8@csgroup.eu>
+References: <20230106163746.439717-1-herve.codina@bootlin.com>
+ <20230106163746.439717-7-herve.codina@bootlin.com>
+In-Reply-To: <20230106163746.439717-7-herve.codina@bootlin.com>
+Accept-Language: fr-FR, en-US
+Content-Language: fr-FR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=csgroup.eu;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR0P264MB2188:EE_
+x-ms-office365-filtering-correlation-id: 8e284e4b-3966-4040-cd1a-08daf3dbdb99
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: N8BEnPwuwjhczUsY5qDW9JYWxpGJprexh+Amg+CPJWEArsZ8geVbFQAX+5RKEEtI6tO4Zi17W+P3x+Rt7zLMpsBOsfZ92WbrEOKPBPZ7bFPcOdprs5M02sviBUtgTpt6iWweuKa9GLVen8kQ36joNj+1ylfIxBlFvL3XqWsexMENB+xGjO6geBm+izCauPY68k9pj5U43J8LEWJxfZwoHJwM3AxVrkQ7oCOCdo6isGliKqd3lDPe8EaQkIisg96LOFkxGuKSTlAWCO3tYABb/AmBf0C/dnv0DI6n/ssyxNhERqNtj+TPHAu4DMvhlc1GSC1IiN+axByo9bZxpF8mA4WOVW2IXaX5JuRpwG6KF628UTm6KngcbSmY7S4dBMPdlvQ8Wmj2fleVjxYQmBJhwCNnVMkt+23kQS/nFzV52/7m3Stw8rGIxWeQAEeS6QNjIw6zpRxlXMwnVF6c8auqDIfXChuxXuf/+7E7+xaCfWlheU2c/BRZ2niqAjFS5v5oM1I0pgSFd39cxZRM+5LpeNEL5Eg0PWYnaaTVBija4PNHf6E8qfD5ReNrSe3EkqQsRp8oVGFmZq348Ok0rl7XU7Cw7M05/fWLUa1IzvLfk/EGOHDThq3QD6rnkXolwXCQI/NqoedTr3XCLfT2YbF3M/mUWs66KCIvZ9uf195udmXiD3kYyAm1q7GRiorwQznqNwMydOvyjmkkZ6g7QLP59NBaHAZaFRBK9wpL/BN+k4B2EJLNUKDkAGVuZFIUWN/EEa2Zp9D9RyKyl89QPIYuoQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(39850400004)(366004)(376002)(396003)(451199015)(8676002)(66946007)(31686004)(7416002)(41300700001)(2906002)(44832011)(8936002)(5660300002)(36756003)(4744005)(91956017)(76116006)(66446008)(66476007)(64756008)(316002)(6512007)(66556008)(71200400001)(110136005)(54906003)(478600001)(6486002)(6506007)(4326008)(26005)(186003)(2616005)(31696002)(86362001)(38070700005)(38100700002)(122000001)(921005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?S1hHSnYzVlhEVUQzQkQzT3NweGdNVUFZUitQb0tOeEQxTnFhYWtIU3QxNVZw?=
+ =?utf-8?B?eVRBK0JUNitVcU5nNko3RkJjeU4rUFgxVUc1OWo1MXpsZTVKUGFSY21FQU9Y?=
+ =?utf-8?B?M1FQUEVUMi9KZi91YzQ0bloxUUtDUjlmalZqNVVBdUJ0bGxKV0JNazFIY2Z1?=
+ =?utf-8?B?NG5qcDh0UmNDQ254clBZakxDd0IrNVVxVFQ2djcyZTZyR1dTTld0Lzh0UW5w?=
+ =?utf-8?B?R0o1M1pxdThNQ093TGtyL1UrckVvVldHZ2ZjU0JVSWpWUTkvdWNZS0dYY1BE?=
+ =?utf-8?B?REVpd1BnSlY1enFnRGEzWGpmRW9DY0E4Z2NiamMxR1FCa3JQTi9RL2tncVRN?=
+ =?utf-8?B?Q1ovUXVPNkRNOHFGTll5d3pzN3g3M2poSDBRam5odGp1Rmx0bjV0T2J0US9H?=
+ =?utf-8?B?SkZQM1JOdnZBTGhSODF3VTNlQi8wUHl3dENKV0hCVGF5M0Jzb1RhcmdxYXZu?=
+ =?utf-8?B?SnRnUkd6bnZqblRDb3RVTEJXQlRTNmJQanNPZHRXUi9KTmhxaHk3WnFOQkxj?=
+ =?utf-8?B?MklSVXhaZ2hRL2E2QWI3dVM3ZHB4VzFGTlVMVGs1SU9VZytrblNNMStub1hC?=
+ =?utf-8?B?REZqWnlxL2dVZzBvL1Jld1Q0Ym8xTGtlNkRlUTNidDIzL2tKT3cvUjhFY2R0?=
+ =?utf-8?B?dzVwVUFiZzVOck5qeSs0V3RBSGQ1b0pTcU1QcVlFMmZxUkNPSWxEbUJqS1BR?=
+ =?utf-8?B?VHBKbE5MTURvY3hWbWxucmlISzRLelJoVkFuL281NXdNcjZBcjh6MGo0S0s3?=
+ =?utf-8?B?MFJNRktoVHZHeXdkdTBTdUlZSVF2RnJEaFRseEJGWFVaSHhCcGRnSzFaWkJK?=
+ =?utf-8?B?RUdObkw3QXoyUThIZk9NdWppMWRmMm9NU05tQ3ViakFFQlgyZHlMamhqZGZv?=
+ =?utf-8?B?cWFDdWwvN3dBTjFtdlJKbnFiTWJvMWR2RUl6ZEY1ejUwbnFKOGQzdHNEd015?=
+ =?utf-8?B?RWhMeFZWbENBckJPVVNRcU9lcUwzcGR6UFQ5UFNDK3RRRDV0dTBXYitPRVZn?=
+ =?utf-8?B?amUyNzVJdFAxcmV6VFo2QUxjQUJXR3hNbitRU28vaCtvM3hzTzE3VlFqUjRX?=
+ =?utf-8?B?YnVmT0VvZ0gwcGhJb1NCWDExbXFxR1hVTXozUlR1SDl5bnJKamJuZjd4M2tj?=
+ =?utf-8?B?bWdkQnk1ZkJPK005bjZ5a29iL3pXWFBHK3ZRMFlmdktnVFJlSHBjdi9RNmhh?=
+ =?utf-8?B?eUpac0NSSzZLcG9CQVAzZVhWSEdySWxHd0FIUlF0akZtLzZFMVhRN201Z0VB?=
+ =?utf-8?B?QmpWbXd6N01uaGp2UU1mbzkzc0huN3Fad0Y5cnQzUHpvS0w2ZCtNS1Y5ZWQx?=
+ =?utf-8?B?cGdaVkJqNkx2VFNIaGVFaGZjMWFWK0dISzYweWdjWWV4Rnh4L3dVTTVnL3Fk?=
+ =?utf-8?B?QjU0bnZCUkp3bGg1K2l0YWpINzBLTUYyWWFqYjV5QWlWWmgyb1phdURwdXFK?=
+ =?utf-8?B?QVdiaHNRRERTRzlyZEUvaEpCbjBoMGZER2JUZXh0WDFLQ3ZBVFFaVWIwZUEz?=
+ =?utf-8?B?MjUvTCs3UGZqWVN6R3U0Z21IQUl0K01IRm1SdHZCb3lpVHljeG1QZnRrem43?=
+ =?utf-8?B?ajQwK0tGM3BHdUk0bXFCbGFkdHplVHhzRUN1VDF6c01mOVJzNGVKbjdINmx3?=
+ =?utf-8?B?K3hmUUJERmlMUi9ZOXI0c2dvVkgxeHFIbXVVdWtxMU4wbmxjY3RnUTQwcmRv?=
+ =?utf-8?B?U0I1dEJsUmJna0tRcmM4a2MrLzJOM0lHbE0vZGZzWnFrM0VieFBqZmdoaE9y?=
+ =?utf-8?B?Tm5SaUdCVXZPc0NsbUx2SzByY3ovWGZjeGV0TW5WaUJKME1zR2xCZzNSbXpt?=
+ =?utf-8?B?QkhFOGtqS3RnRnVsQkU0NERFREprekovS2VTTXQrc0JTT3Q2L0xMUkZQNTZj?=
+ =?utf-8?B?bUxjYjdsZmVPZWlPTkIxdEZpT1VJV0wzSndrZlRIdkt1clRtSjhTaDBESFJn?=
+ =?utf-8?B?VGI4dkFxZ1I4VEVBOE9wZ3BQKzFxS01EM2dBQ2t1ZUNiMVVERW9XaFg3UnIv?=
+ =?utf-8?B?d1VrVUMwYjlwYkxmc3ZrdmJJUEVpNE0wWXdITUVzaU0xMVdaSlBzaDl5Z2hj?=
+ =?utf-8?B?S2JXdzZHdENBUXR4Vk5JWlo4aTl4Z3VPOVNNNSs3ZzJwdS9tOEE4K1BFS1ZF?=
+ =?utf-8?B?SW8rMys1SlQxSk02RnB5V1owWFh1ZXpaZ2tidkR5R3YrZ2xRdnhaWEtuRGp6?=
+ =?utf-8?B?dFE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B6CD152417796742A38AE0EE2A39A0B4@FRAP264.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: csgroup.eu
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e284e4b-3966-4040-cd1a-08daf3dbdb99
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2023 13:58:03.3554 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VX3cU6WaCZV2p1O/XLEQiYfdi/BXv02IVrXhr2ykB91uncPvj5mInlcfGwpfKpvHXHc7dRftp/lEjuzCOpcM8w9KYQPzA4oTp5mjLpaF5cM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB2188
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,38 +166,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- linux-gpio@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After contributing the driver, add myself as the maintainer
-for the Renesas IDT821034 codec.
-
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9dcfadec5aa3..31115a7e01c1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17809,6 +17809,13 @@ F:	Documentation/devicetree/bindings/net/renesas,*.yaml
- F:	drivers/net/ethernet/renesas/
- F:	include/linux/sh_eth.h
- 
-+RENESAS IDT821034 ASoC CODEC
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/renesas,idt821034.yaml
-+F:	sound/soc/codecs/idt821034.c
-+
- RENESAS R-CAR GYROADC DRIVER
- M:	Marek Vasut <marek.vasut@gmail.com>
- L:	linux-iio@vger.kernel.org
--- 
-2.38.1
-
+DQoNCkxlIDA2LzAxLzIwMjMgw6AgMTc6MzcsIEhlcnZlIENvZGluYSBhIMOpY3JpdMKgOg0KPiBU
+aGUgUU1DIChRVUlDQyBNdWx0aWNoYW5uZWwgQ29udHJvbGxlcikgaXMgYXZhaWxhYmxlIG9uIHNv
+bWUNCj4gUG93ZXJRVUlDQyBTb0Mgc3VjaCBhcyB0aGUgTVBDODg1IG9yIE1QQzg2Ni4NCg0KU2Ft
+ZSwgdGhhdCdzIFFNQyBmb3IgQ1BNIGZvciB0aGUgdGltZSBiZWluZywgc2hvdWxkIHRoYXQgYmUg
+bWFkZSBjbGVhciANCmluIHRoZSBzdWJqZWN0ID8NCg0KUUUgYWxzbyBoYXMgUU1DIGFuZCB0aGlz
+IGRyaXZlciBtaWdodCBiZSB1c2VkIGZvciBRRSBRTUMgYXMgd2VsbCB3aXRoIA0Kc29tZSBlbmhh
+bmNlbWVudCwgbWF5YmUgdGhhdCBjb3VsZCBiZSBleHBsYWluZWQgaGVyZSA/DQoNCkkgc2VlIHlv
+dSBhcmUgdXNpbmcgaW5fYmUxNigpLCBvdXRfYmUxNigpIGV0YyAuLi4uDQpUaGF0J3Mgc3BlY2lm
+aWMgdG8gcG93ZXJwYyBhcmNoLCBtYXliZSBpdCBpcyBiZXR0ZXIgdG8gdXNlIGlvcmVhZDE2YmUs
+IA0KaW93cml0ZTE2YmUoKSBldGMgLi4uLg0KU2VlIGNvbW1pdCAzZjM5ZjM4ZWE5MWQgKCJzb2M6
+IGZzbDogcWU6IHJlcGxhY2UgcWVfaW97cmVhZCx3cml0ZX0qIA0Kd3JhcHBlcnMgYnkgZ2VuZXJp
+YyBpb3tyZWFkLHdyaXRlfSoiKSBhbmQgY29tbWl0IDZhYzliNjE3ODZjYyAoInNvYzogDQpmc2w6
+IHFlOiBpbnRyb2R1Y2UgcWVfaW97cmVhZCx3cml0ZX0qIHdyYXBwZXJzIikgZm9yIGluZm9ybWF0
+aW9uLg0KDQo+IA0KPiBJdCBlbXVsYXRlcyB1cCB0byA2NCBjaGFubmVscyB3aXRoaW4gb25lIHNl
+cmlhbCBjb250cm9sbGVyDQo+IHVzaW5nIHRoZSBzYW1lIFRETSBwaHlzaWNhbCBpbnRlcmZhY2Ug
+cm91dGVkIGZyb20gdGhlIFRTQS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEhlcnZlIENvZGluYSA8
+aGVydmUuY29kaW5hQGJvb3RsaW4uY29tPg0KDQpJbiBzb21lIHBsYWNlcywgeW91IGNvbW1lbnRz
+IHVzZSB0aGUgbmV0d29yayBzdHlsZSwgbm90IHRoZSBnZW5lcmljIHN0eWxlLg0KDQpDaHJpc3Rv
+cGhlDQo=

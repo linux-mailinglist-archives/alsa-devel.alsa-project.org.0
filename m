@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918406656CE
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:03:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BBED6656CF
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 10:03:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AD604E3A;
-	Wed, 11 Jan 2023 10:02:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AD604E3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9CF6225;
+	Wed, 11 Jan 2023 10:02:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9CF6225
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673427808;
-	bh=0cdbqmsVSk9RuMecj4C+N1lNSA/8FOyzz/JdbaJbgdM=;
+	s=default; t=1673427825;
+	bh=ZriLAUAqSVJ3WdO3WXP44+ykCusNIBMeiLHaD2MaUIo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=vMpPdgkr/fVLEl6/JBPqEiizlQGXxuxkhNpw8NWUhM/frUX9cDeb1HmWYggMrJo8y
-	 QI8cAGx4mbM+dBc07gTS00OinrUisGDe7szoTQNI+utRfm+0XAaYk/0+l3GxGpPptz
-	 8zg7T4V4C8OWLtDdVAg9xcxo4WINTS+cgdYTP1vY=
+	b=hD/NArCj32+jCXzi17vrfCHXlApN/rKUuenkT8Ohe/iM3xVtAIwfaE1E5dQXcbEU1
+	 xsYNfmmL9JT31o7hWsXmbm1epaGVLQJAbekM1YtTqeGPcvq14eJtV/ThlNmLYEAWUP
+	 EY7vZj7FUZ9OGcXJaX/MCvnOY3T/5CuPSrkkpLE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52BDDF8030F;
-	Wed, 11 Jan 2023 10:01:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73FABF8059F;
+	Wed, 11 Jan 2023 10:02:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71356F8055A; Wed, 11 Jan 2023 10:01:53 +0100 (CET)
+ id 5586DF80589; Wed, 11 Jan 2023 10:01:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
  SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2086.outbound.protection.outlook.com [40.107.96.86])
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8787EF80571
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:01:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8787EF80571
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DC1AF80579
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 10:01:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DC1AF80579
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=jIgQKPx2
+ header.s=selector1 header.b=OGPesfv/
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HPNp4SRKG5beJIUobSv1BCkhRMQTUyufhoo4C4fGjxtoKbr/cn+u0GhbChOvio04GYZfn0/E5htbvjTRd9ySAxmGgxwbOwH0Msi6j1JoukR1nuqqigu9z2sRMLpkvuaRc6UEf/2Y8ll+0VDIj4kN77DNYH5fIt+dLwpCtx+Fa/owRSIbx7IezW0FAZ4sO+zNSK83qM25RSIYNM/viyc6f0dOXqoa9s5n9EogESuVN/xFgBMCu/NAzN6qIy44YEjR5a8voeUNC/2CP5+q+6sqmLlGuxekVsGFUXOGqEZcVqymGCIyKuVuRNr72xLzJG9Bgc1kY9RVidpirS2TGFcW7w==
+ b=C7fbOjRixELdt0G9zXxEhNbhHeN8q6GmP27A6Sbj79mlzE8gBlQj10QV6c33O3zz2WzszGj7Qmfdt04HewCijybG04eSWqubrYpEic+jzaP7MDA1jPLbmheoC87EGxA+2bdXYZRmFa5nnLQCN4VWus4oDuOr+Cydxgrd249W/e4fp41yZ0PwkdjByigfao9smmPy312PJglTFm4I4PPkbglToDh/j6NsXqarJLUL9afFy0jxZ2PAVpzhFDcA8rcp5QGiHKyI9+a/9k7ugb8bCYW7gg/jYf5aPuYnHMSVf296IwRaalFWbZXpw+SpF5NIhO1uiGwIOEz+F+1S9tuCJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AgIVun9p3HbmExWmkSyPXi0ZP4KKvEqfg6Tx/AxFJHU=;
- b=eeb/Ag3//IByCDHD72P1+noCK2IPU8Re0Tgo23Z+sRum4h5deCGv94IY5BRslITy10eQNwBMQQ5c2lemNKwqZRPEVCNxGMTSzYg/zPMUe9PwOgYziLtrCR01yqJObVPgxcvFEEcuzlqm1nkoAgLkA8czZTgaoC1sdIHkEIzYx222Fg2Fa6osT8s3GT4AGi7Lpg4maYHm3s/QRcuV8MHj991z1KAh0+0wQfk+K/YuhMtn+ujggMl5mwcMotqf3kIs70gZeU2EXzbFz21Fn0cKY3lkkbqhyXcRyf7AP9mgBWW+SYS6awXncCcMq2lJjZsTi+KQd09gwhnGXCqYuXlkEw==
+ bh=d8FKM8p6lvQFixka7PVxUHl/w3rLXcJGY/h61/YHaJ0=;
+ b=BGjebrrV9wJ+6RM2EH5dUB9MhKkzG5YfuFnJ/+PCgtAIoEfDuxQXqv/Fcgt00zeAM77FcpNj7xZ53/ymnFSTl0Mke+Lrz86vT3oe3BV5LqYwZj/YGi2wyOSwY5C7HhS6T73NAPIXuS/GzGlE4gjdJuiP+8B1I7OIGowtyvbQVbqCXULqM2j0ECE9Nhp1bdfm2fcuIb8/LhmLXjIPg0yPCmv9kcv3iUPlBvlM+7TExP4dwpCCnX5jtBVfknpqjLDO1Oa4SG1/ye1K3pGEADj6YcR40sRTTR+duvgWV2FaBadsmEZ0i0RhvAMMBIyoo6QOSSVuj8+FqeT4Bwgy6bN7Ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AgIVun9p3HbmExWmkSyPXi0ZP4KKvEqfg6Tx/AxFJHU=;
- b=jIgQKPx2mK9F0FMqgdO7chrNf+g6WZi6B4p6/fRhlDlqKTDR0gPT443XRN4XZ/hvXdymN9xy9ZmyGa4rBxxVPaqJm42YTneaBDXl+zYMVbNRsZMtxrVlsZRAKHxGe5laTM6Abin80Pp95lyhJYdv0rMzbqUIO+QuBTEpdZ8xAfU=
-Received: from DS7PR05CA0096.namprd05.prod.outlook.com (2603:10b6:8:56::28) by
- SN7PR12MB8004.namprd12.prod.outlook.com (2603:10b6:806:341::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.13; Wed, 11 Jan 2023 09:01:48 +0000
-Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::b9) by DS7PR05CA0096.outlook.office365.com
- (2603:10b6:8:56::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12 via Frontend
- Transport; Wed, 11 Jan 2023 09:01:47 +0000
+ bh=d8FKM8p6lvQFixka7PVxUHl/w3rLXcJGY/h61/YHaJ0=;
+ b=OGPesfv/izQQwdqF7RmF4R219n8hcWmFB/uE7torUNcUph9RYTcDewRge+zT+2eJGfINdAUHt2c58ueSGbo12XzQdg+hSaaVqjna25O3hJjdw2EF3g4mAs2A+BhTjym0C11RQWGylPoVBqNEgmr6l+4/ErVXO82j+h3Fr3/Az4o=
+Received: from DM6PR11CA0056.namprd11.prod.outlook.com (2603:10b6:5:14c::33)
+ by DM8PR12MB5479.namprd12.prod.outlook.com (2603:10b6:8:38::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 09:01:53 +0000
+Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:14c:cafe::ee) by DM6PR11CA0056.outlook.office365.com
+ (2603:10b6:5:14c::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
+ Transport; Wed, 11 Jan 2023 09:01:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -74,25 +74,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
+ DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5986.18 via Frontend Transport; Wed, 11 Jan 2023 09:01:47 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ 15.20.5986.18 via Frontend Transport; Wed, 11 Jan 2023 09:01:52 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 03:01:46 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 03:01:46 -0600
+ 2023 03:01:51 -0600
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 11 Jan 2023 03:01:10 -0600
+ via Frontend Transport; Wed, 11 Jan 2023 03:01:47 -0600
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>, <vkoul@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 10/19] ASoC: amd: ps: enable Soundwire DMA driver build
-Date: Wed, 11 Jan 2023 14:32:13 +0530
-Message-ID: <20230111090222.2016499-11-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 11/19] ASoC: amd: update comments in Kconfig file
+Date: Wed, 11 Jan 2023 14:32:14 +0530
+Message-ID: <20230111090222.2016499-12-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
@@ -101,26 +97,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT016:EE_|SN7PR12MB8004:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23a3b59d-4ab8-414b-155e-08daf3b27858
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT024:EE_|DM8PR12MB5479:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ce74972-8cbd-4fef-0e7d-08daf3b27b77
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WZMbO/9xkQz7wjpRoyTZrkwLdPuKL41/F1K56Bs+sHwf7C98Bu9nv7i+Yr0Vw0Zn05KyltXKs1+zAod+IsDUMzGD75uJm5BYslei7bHPf66iE4+7FWCOMsudWL+7CRNR4Ps9kaYruh8NfNzq24iM/oL6tQbIi0E+5OsrF2Pk92RWWEmh1x+IpE6JF2DQdlxIjTdY2CX7YRM4HGp3JBqZeyrJlX5Vh/Gw+N31fUGjNlPdejPKINehRKppc+RyuoTOUK5qgg64FfoaysDpizLWfKRGH/SOuIKhvFiU3Oo4c+pMncn5JRzpafMfCygGxNHihjcb22AQa+1zmR+xIXRuKn/kzmGRPjwEMdHRb8eIV74w+mYPAD5oS2/c/XSwNY0sYzsnfDpxXpyPQNcvvHqXvinw4xCW7NqhVcqFuZC4ZfD8smtSpWCfXGu0PHj1J6PSq3VMWEYYHhJNpdBktDlIQyvxwFDOYZDELVwsKayT3r2wy8fdWgo/3vIUqdnlM+rinxI0TJUcMxzZtx0C+YstccNoBoT7PCJ425UzfBaJbZ5BYgWPzAJup5m3yAT8yZHDmUlR2s22jAX17FIR5hiiEbGW6/6Az/TYMeNDvxMb0GMtsnAYq7ixcmpBau00F720QJzlNOtXW1lnmrL2yx3LQ/dfazCjbGCXDebzm0DQq11t2nz8PdrP1zYmsTisXsVzKDOOpJBslIGlsAfmWC/K3Qz9cjNbtfa97lR2D/zjWh8=
+X-Microsoft-Antispam-Message-Info: PMBo9/cc5GE1//KQqKt7iU1rkYp+7kFfPBJFGFi4a7YwKHftCHqafJ0UExomwEoQcLcLkl1K69499MQ0PSE2G00DwUdcx0LypqvhRveNR8OMV9RWSHMxoTjJIcATWOZA7lUSjF34EkmiR1N6V4QKS0m+nLlBa8O2y55Bx3bR1OGYbpYMZxQXXrypr8NcWrW0yaUmmlpV6PsVEXGKwlAbIttvBMI9+FXs1MQdSghilueTTfZ6nLdlG0D+chyZtHEJkRbI+M9vpwlCDiErkVFnewP7gN9EEMTPt7b6pYuF08P0NW396G1YRgRbu7uuGo7IECLtyKqycYocopDrtRghvWX4WRVJZOJq7wm7szMQQE34pX1bkg+b7Tc4FkwKDGN/YZm/0JM64eQs3EIvZzkhbwP42A2H1n05b7rm6AM6ZGqunM/zLhvRtkk97zGxINqO03rMy77DSvSO7xwxyRFAuwdZC6cNxATwolwE3xr9/09LcWsksf1rS4oqsBera+RcNNIydEY1itkjmU6haiGn/4uGkOsJ4AnWrTTENYpQ1i/HIupl+aAr2eRIyFEUjOalLkCS3Tyos+5lukTgPLHOBGCcsikAY6Bs/+lhHwid+rn6XSnAl8u72GxLf9vOBdMLg5RNhwY0xE+NupR9ODLU/oLi4A4ysFrOFMWuSg8ebjs2uKGmM16H9ICjugcs6zvj5mK1+UGD8CFp8XbSURvVJwqKLKX4/0605SBO1SdP9ns=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(136003)(396003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(82740400003)(426003)(81166007)(41300700001)(356005)(47076005)(478600001)(1076003)(40460700003)(86362001)(110136005)(54906003)(2616005)(316002)(336012)(7696005)(82310400005)(186003)(26005)(40480700001)(70206006)(70586007)(4326008)(8676002)(36756003)(5660300002)(36860700001)(2906002)(4744005)(8936002)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199015)(46966006)(40470700004)(36840700001)(82310400005)(47076005)(8936002)(2906002)(5660300002)(81166007)(41300700001)(426003)(4744005)(70206006)(7696005)(316002)(4326008)(70586007)(8676002)(356005)(15650500001)(110136005)(54906003)(26005)(82740400003)(1076003)(40480700001)(2616005)(336012)(86362001)(40460700003)(186003)(36860700001)(83380400001)(36756003)(6666004)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 09:01:47.4332 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23a3b59d-4ab8-414b-155e-08daf3b27858
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 09:01:52.6693 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce74972-8cbd-4fef-0e7d-08daf3b27b77
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8004
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5479
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,34 +130,36 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
  open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mario.Limonciello@amd.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- arungopal.kondaveeti@amd.com, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+ Randy Dunlap <rdunlap@infradead.org>, Mario.Limonciello@amd.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, arungopal.kondaveeti@amd.com,
+ syed saba kareem <syed.sabakareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable Soundwire DMA driver build for PS platform.
+Update comments in Kconfig file for PS platform.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/ps/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/amd/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/ps/Makefile b/sound/soc/amd/ps/Makefile
-index 383973a12f6a..a3da8670e3e2 100644
---- a/sound/soc/amd/ps/Makefile
-+++ b/sound/soc/amd/ps/Makefile
-@@ -3,7 +3,9 @@
- snd-pci-ps-objs := pci-ps.o
- snd-ps-pdm-dma-objs := ps-pdm-dma.o
- snd-soc-ps-mach-objs := ps-mach.o
-+snd-ps-sdw-dma-objs	:= ps-sdw-dma.o
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index c88ebd84bdd5..50bcec55a275 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -134,7 +134,8 @@ config SND_SOC_AMD_PS
+         help
+           This option enables Audio Coprocessor i.e ACP v6.3 support on
+           AMD Pink sardine platform. By enabling this flag build will be
+-          triggered for ACP PCI driver, ACP PDM DMA driver.
++          triggered for ACP PCI driver, ACP PDM DMA driver, ACP SDW DMA
++          driver.
+           Say m if you have such a device.
+           If unsure select "N".
  
- obj-$(CONFIG_SND_SOC_AMD_PS) += snd-pci-ps.o
- obj-$(CONFIG_SND_SOC_AMD_PS) += snd-ps-pdm-dma.o
-+obj-$(CONFIG_SND_SOC_AMD_PS) += snd-ps-sdw-dma.o
- obj-$(CONFIG_SND_SOC_AMD_PS_MACH)   += snd-soc-ps-mach.o
 -- 
 2.34.1
 

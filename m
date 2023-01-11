@@ -2,103 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E5A66606F
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 17:29:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B690F6660CB
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 17:41:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A52B6C29;
-	Wed, 11 Jan 2023 17:28:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A52B6C29
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D57C265C;
+	Wed, 11 Jan 2023 17:40:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D57C265C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673454556;
-	bh=uU3Y9GiFhya/dgYG5vN/LRF4cAC/4aVRadvTPKOqovM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673455280;
+	bh=V27jqtrjbGGXh7zimZxCrskbp7V7X6hXh2gEibi92Cw=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ISsk3Pemux949PqIYjKT5hPbvuhFqVV5jtQ9sfBflV2HupFjDxA2Ri2oWsO4TnZCq
-	 GYtCCPMnIlS2E1qjVpd2Mg1xgHYPMvUH/UmGdhBOQFHwqgDCzGzmVB2e4+O5bdG1u1
-	 osLpJXXqQ+pQ6GyupGGmk77rKWi7DHBNSwXSz+DE=
+	b=kYwSRFVanR07AtgO6ENo1FpyLojPOwsQHzKqCpDRdIFF2fyAeQzFOZPMXT6G3CZli
+	 N/wrdtVqrtknyg+NPW2Vh4CNzJaP2xIlsSkF6b8z7AVgk8rMu8OlQkc3PQ1qtwsQcK
+	 1iJsWUQlyu9jfwri1TmKE87fKIz7wbXq5mF0QXgQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE795F8016E;
-	Wed, 11 Jan 2023 17:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 263F6F8016E;
+	Wed, 11 Jan 2023 17:40:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41987F803DC; Wed, 11 Jan 2023 17:28:23 +0100 (CET)
+ id 91BE5F80424; Wed, 11 Jan 2023 17:40:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::226])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47DC6F8016E
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 17:28:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47DC6F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C3D0F8016E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 17:40:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C3D0F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QG/1xRDc
-Received: by mail-wm1-x32d.google.com with SMTP id l26so11494143wme.5
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 08:28:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=h7CWF9KkUKbOJvIgyBGuBX3AgumkGtq/yuQpNawXVGo=;
- b=QG/1xRDc2gvPUcV3qYyLpo9U1+DrMtmYMCpfUHY3aBxCA/zvDPrypygAq50eRHghxJ
- VMQZMBAirs1WNJzVVb5Z2Cr9RIBnVWz/mxGftXpw0Vl5NqIg/1370zLOgEEStiNr9L8n
- 6u97vE0rrLrlha03SYeQIX+8vZD2HXqxn2I6ogvtXhMWZ0MD3iV9VAa/QA1qSafYq10g
- /Dv0x3t+uUCvWLa3esZKGcAoUI+MRcKPyf+GgWtlOiYECKsOOcVajufpcYZI4oa6IFCo
- 9iMsozsf8EujJzSufGogv/LJdpQ9o8xZZwozSz9oZSGHTiz2dEmesqr5B2O9Lk/fQEck
- r8tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=h7CWF9KkUKbOJvIgyBGuBX3AgumkGtq/yuQpNawXVGo=;
- b=HywRlQv79pdrd9ZkTEMBdWEDQ+bGAY+aHiLfto/ZFUPPK7pnfXx0N6KYULXDgr1N5l
- RmMNyMnZqEMXdTDnEnD57nJrnhzv9ClmSMhrkUgochMlEliXVOUDslG86mHUyKDW+DjF
- ZvAER1nO13PowufJfV6RLP+4e+9Oav26PjhoMU5f/PhGW0F3fp9DpZs5g7y0eTckIDrq
- BxXzexsTSeoyRwqGCabNA+6QyeEiDq3QHdhHPJjOXLAupnhiy59OicwJh0EPHFBwII24
- wAuB9/C48jcDeZiSs2xAGIcKRISGhslMDuAj/BsRsgYV3ehHg5scZKtXg5yiFdVtKzoK
- KjMQ==
-X-Gm-Message-State: AFqh2kqf/lZdXIOX+gGkQ3Bc4YFzZ1Q+3BIEk8xVLLbSMNNTmiXj4apv
- MtcLQqJZ0aiOG0z3+V9OB1QPhA==
-X-Google-Smtp-Source: AMrXdXsJO0FKX4wDji1FsHRVmHI5Sp0+ktkb3opEqy9j/XqlcQpG//WN65wKFYu7H+P8NXUVJtGUQg==
-X-Received: by 2002:a05:600c:1e09:b0:3cf:b73f:bf8f with SMTP id
- ay9-20020a05600c1e0900b003cfb73fbf8fmr51982781wmb.7.1673454493504; 
- Wed, 11 Jan 2023 08:28:13 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- l3-20020a05600c4f0300b003a6125562e1sm20455115wmq.46.2023.01.11.08.28.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jan 2023 08:28:13 -0800 (PST)
-Message-ID: <c4497bde-c1e0-1efc-7a46-233495f7760b@linaro.org>
-Date: Wed, 11 Jan 2023 17:28:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 1/3] dt-bindings: sound: Add Renesas IDT821034 codec
-Content-Language: en-US
-To: Herve Codina <herve.codina@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=bmCljGHA
+Received: (Authenticated sender: herve.codina@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 42BD2C000D;
+ Wed, 11 Jan 2023 16:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1673455225;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oGdtiEMVVLmjdlMhzVMr6gYLdJzA+jzOtls9FW8855g=;
+ b=bmCljGHAKJnjYOgao3zIAnf1JX2bGWcKm8KDBBfKhvUuexUL+GP4D1cLbWCfWqKv7wnoJY
+ 5APlF6VCuTJUCGVpR7tGH+2eGPGyq4eu9mJ9o5PTDo0YWGA7JajFJ1VOFU+ihFzcX6emdM
+ grTDbC3NW45Hoymvdigaao6b2rgM03skXrgY97dmZRics5n+NnJFlQmiux0UTDIVLoOiZC
+ aMvQVWGI280RbKkqUXTq2n2G8toi3MOMZKpGFloB5PtqtC+Y4kOVYbHubyedANb0F7Acc1
+ xfiucowxIj7OEwgj67voWbr2h+TKolLLxpHYdnl/M6eibt7nLpHOPH05Y3oaeg==
+Date: Wed, 11 Jan 2023 17:40:22 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Renesas IDT821034
+ codec
+Message-ID: <20230111174022.077f6a8c@bootlin.com>
+In-Reply-To: <Y77DKSdZf27qE+xl@sirena.org.uk>
 References: <20230111134905.248305-1-herve.codina@bootlin.com>
- <20230111134905.248305-2-herve.codina@bootlin.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230111134905.248305-2-herve.codina@bootlin.com>
+ <20230111134905.248305-3-herve.codina@bootlin.com>
+ <Y77DKSdZf27qE+xl@sirena.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,123 +85,154 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- linux-gpio@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/01/2023 14:49, Herve Codina wrote:
-> The Renesas IDT821034 codec is a quad PCM codec with
-> programmable gain.
-> 
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  .../bindings/sound/renesas,idt821034.yaml     | 97 +++++++++++++++++++
->  1 file changed, 97 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/renesas,idt821034.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,idt821034.yaml b/Documentation/devicetree/bindings/sound/renesas,idt821034.yaml
-> new file mode 100644
-> index 000000000000..2c29b770e3f7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/renesas,idt821034.yaml
-> @@ -0,0 +1,97 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/renesas,idt821034.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas IDT821034 codec device
-> +
-> +maintainers:
-> +  - Herve Codina <herve.codina@bootlin.com>
-> +
-> +description: |
-> +  The IDT821034 codec is a four channel PCM codec with onchip filters and
-> +  programmable gain setting.
-> +
-> +  The time-slots used by the codec must be set and so, the properties
-> +  'dai-tdm-slot-num', 'dai-tdm-slot-width', 'dai-tdm-slot-tx-mask' and
-> +  'dai-tdm-slot-rx-mask' must be present in the ALSA sound card node for
-> +  sub-nodes that involve the codec. The codec uses one 8bit time-slot per
-> +  channel.
-> +  'dai-tdm-tdm-slot-with' must be set to 8.
-> +
-> +  The IDT821034 codec also supports 5 gpios (SLIC signals) per channel.
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - $ref: /schemas/gpio/gpio.yaml#
+Hi Mark,
 
-This one is never needed. Drop.
+On Wed, 11 Jan 2023 14:09:45 +0000
+Mark Brown <broonie@kernel.org> wrote:
 
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: renesas,idt821034
-> +
-> +  reg:
-> +    description:
-> +      SPI device address.
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 8192000
-> +
-> +  spi-cpha: true
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  gpio-controller: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - spi-cpha
-> +  - '#sound-dai-cells'
-> +  - gpio-controller
-> +  - '#gpio-cells'
-> +
-> +additionalProperties: false
+> On Wed, Jan 11, 2023 at 02:49:04PM +0100, Herve Codina wrote:
+>=20
+> > +++ b/sound/soc/codecs/idt821034.c
+> > @@ -0,0 +1,1234 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * IDT821034 ALSA SoC driver =20
+>=20
+> Please make the entire comment a C++ one so things look more
+> intentional.
 
-This should be rather unevaluatedProperties: false, so other properties
-from spi-props and dai-common will work.
+Ok, I will change in v2.
 
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    spi0 {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        codec: idt821034@0 {
+>=20
+> > +static int idt821034_8bit_write(struct idt821034 *idt821034, u8 val)
+> > +{
+> > +	struct spi_transfer xfer[] =3D {
+> > +		{
+> > +			.tx_buf =3D &idt821034->spi_tx_buf,
+> > +			.len =3D 1,
+> > +		}, {
+> > +			.cs_off =3D 1,
+> > +			.tx_buf =3D &idt821034->spi_tx_buf,
+> > +			.len =3D 1,
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	idt821034->spi_tx_buf =3D val;
+> > +
+> > +	dev_vdbg(&idt821034->spi->dev, "spi xfer wr 0x%x\n", val);
+> > +
+> > +	ret =3D spi_sync_transfer(idt821034->spi, xfer, 2); =20
+>=20
+> Why is this open coding register I/O rather than using regmap?
+>=20
+> > +	conf =3D 0x80 | idt821034->cache.codec_conf | IDT821034_CONF_CHANNEL(=
+ch); =20
+>=20
+> regmap provides cache support too.
+>=20
+> > +static int idt821034_reg_write_gain(struct idt821034 *idt821034,
+> > +				    unsigned int reg, unsigned int val)
+> > +{
+> > +	u16 gain_val;
+> > +	u8 gain_type;
+> > +	u8 ch;
+> > +
+> > +	ch =3D IDT821034_REGMAP_ADDR_GET_CH(reg);
+> > +	gain_type =3D IDT821034_REGMAP_ADDR_IS_DIR_OUT(reg) ?
+> > +			IDT821034_GAIN_RX : IDT821034_GAIN_TX;
+> > +	gain_val =3D (val & 0x01) ? 0 : val >> 1;
+> > +
+> > +	return idt821034_set_gain_channel(idt821034, ch, gain_type, gain_val);
+> > +} =20
+>=20
+> So if the low bit of the gain is zero we just discard the value?  This
+> really needs some comments...
+>=20
+> > +static int idt821034_reg_write(void *context, unsigned int reg, unsign=
+ed int val)
+> > +{
+> > +	struct idt821034 *idt821034 =3D context;
+> > +
+> > +	dev_dbg(&idt821034->spi->dev, "reg_write(0x%x, 0x%x)\n", reg, val);
+> > +
+> > +	switch (IDT821034_REGMAP_ADDR_GET_TYPE(reg)) {
+> > +	case IDT821034_REGMAP_ADDR_TYPE_GBLCONF:
+> > +		return idt821034_reg_write_gblconf(idt821034, reg, val);
+> > + =20
+>=20
+> Oh, so there is some regmap stuff but it's not actually a regmap and is
+> instead some virtual thing which rewrites all the values with no
+> comments or anything explaining what's going on....  this all feels very
+> confused.  I would expect the regmap usage to be such that the regmap
+> represents the physical device, any rewriting of the values or anything
+> like that should be done on top of the regmap rather than underneath it.
+>=20
+> Without knowing why things are written in this way or what it's trying
+> to accomplish it's hard to comment in detail on what specifically should
+> be done.
 
-Node names should be generic, so "audio-codec"
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+Yes, I use regmap to ease the integration of controls and use the
+already defined controls macros but the device registers do not fit
+well with regmap.
 
-> +            compatible = "renesas,idt821034";
-> +            reg = <0>;
-> +            spi-max-frequency = <8192000>;
-> +            spi-cpha;
-> +            #sound-dai-cells = <0>;
-> +            gpio-controller;
-> +            #gpio-cells = <2>;
-> +        };
-> +    };
-> +    sound {
-> +        compatible = "simple-audio-card";
+The device registers are not defined as simple as address/value pairs.
+Accesses contains one or more bytes and the signification of the
+data (and bytes) depends on the first bits.
+- 0b10xxxxxx means 'Control register' with some data as xxxxxx
+  and one extra byte
+- 0b1101yyyy means 'Configuration register, slic mode' with
+  some other data as yyyy and one extra byte
+- 0b1100zzzz means 'Configuration register, gain mode' with
+  some other data as zzzz and two extra bytes
 
-Drop sound{} node. Not relevant to the case here and it's the same in
-every case of audio codec... unless something here is specific. But even
-the dai-tdm properties are sound card specific.
+The datasheet is available at
+  https://www.renesas.com/us/en/document/dst/821034-data-sheet
 
+This does not fit well for a regmap usage.
+
+So I wrote some low-level access functions to handle this
+protocol and use some kind of "virtual registers" to map
+this protocol to regmap and use them in controls.
+
+The "virtual registers" were defined to match what I need.
+
+For instance, idt821034_reg_write_gain() is the regmap
+write access for one of the gain "virtual register".
+The mapping of this virtual register is:
+   |15          1|0|
+   | Gain value  |M|
+With M for Mute flag.
+
+The gain value is not discarded as it is available in the
+regmap cache.
+For the low-level access, I write the 'Gain Value' or 0 if
+the mute flag was set.
+
+In some low level accesses, I need save some data (cache) in
+order to be able to use them later for an other access.
+For instance when a channel is powered-on, a timeslot
+need to be present in the bytes sent.
+
+Of course, I can describe all of these in details.
+Where do you want to have this information ? All at the top
+of the file ? Each part (low-level, virtual regs, ...) at
+the beginning of each part in the code ?
 
 Best regards,
-Krzysztof
+Herv=C3=A9
 
+--=20
+Herv=C3=A9 Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

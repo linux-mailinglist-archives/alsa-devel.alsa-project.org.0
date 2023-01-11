@@ -2,65 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC48665647
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 09:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B03F665694
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 09:54:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 880BAE2FB;
-	Wed, 11 Jan 2023 09:39:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 880BAE2FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEB966216;
+	Wed, 11 Jan 2023 09:54:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEB966216
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673426396;
-	bh=2JFiNFTVGgBQrdHk4k8MmU/fu7xUdUL/MJJxSDMd5GI=;
-	h=Subject:From:In-Reply-To:Date:References:To:List-Id:
+	s=default; t=1673427298;
+	bh=CPH6JUquCvKYJ2lHY7t/4WVjpIjEvDbc3nSWcNlZfDo=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=X2s3JTZZcaT5XJDs0k4wfbPh7o9H5MACmcdM7Fs1hqG9cXd9W+orDxafmjon0yCiT
-	 MhtVnT1iBO0Pz4bQzFn5y/7Y4vRHoyYSOp+6fi3IS7xnio1/zdObI4lwNai0dM8e8h
-	 j+HhjIWLxnwIR8og8eDiqrT6oFTBt1LQscJlS7qs=
+	b=R+8rIWizVLjJAy/q4rPBJmQIpq8K3fbrODSOkeZBlj1hVSeE67DW9VuUfuNf2pvNw
+	 HxBevGJP98vayaaKMuboTUAOXWxobYfaOpxxuWK8owUSa8+64AmJCiwd1Z2kNU3diw
+	 N3ksNvBhk7IiWaBP+96brTo6BIuyKnCTWXU/hnZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFEFCF8016E;
-	Wed, 11 Jan 2023 09:38:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99191F8019B;
+	Wed, 11 Jan 2023 09:53:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75824F803DC; Wed, 11 Jan 2023 09:38:56 +0100 (CET)
+ id 28E4CF803DC; Wed, 11 Jan 2023 09:53:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8323CF8019B
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 09:38:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8323CF8019B
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256
- header.s=mail header.b=jB92gv8A
-Content-Type: text/plain;
-	charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
- t=1673426330; bh=tYUkvP1LL/oKjpBzUtCikUMIK2n3hYe7+3rcbguWTLI=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=jB92gv8ARa5tL/VyJEF/uCMfvl1vtEXMwuAMJ+MMC63FMtUet8XBJLP3KY9UXwe7u
- crj5snAwBqlFuMS+Tg4NgOWDTEwk2mJl81z/lGeAJRQ0/GkSWMi0n5JMVz7EkJb2en
- 3dIorM7Y2WBeYwV6O3Y6GSej5fdPsDMEIbI5b5Gs=
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48070F8026A
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 09:53:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48070F8026A
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=XHHHDrQh
+Received: by mail-wr1-x42d.google.com with SMTP id j7so9297071wrn.9
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 00:53:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Q7ZKXxds+m1ToRjFrL/N+aqre1KgGndrtfTN0CIit8s=;
+ b=XHHHDrQhKlGvPWmc4XNnEMGxL98utCEbip/4LCI7ljniEym7IpDxUK8BxJ+7p5NdCr
+ 4BOpTEMGIVYn7IkwE8mgzFcGqFg1zSecStlMS+PktmW8m33h4gAm+RZUtrefkE6Vx2xf
+ Jcg+NiTYrourEiRHiJArQCdj6W7BWafOq7hXvEMM5/qUS35Jm3Rqlkq3rdPlbYEFFNBz
+ lZlf/JqEhvL18r7/2/CuShLPEjQJg5sDuCo/MKJJbg6fdJZu7mDdufy4gGcZkkD1RQY4
+ bJnQA3fHLd9aA6qiurp3X5RAdNMmaJXv/ipWIDgC/PPbGbPoAgdL9z90gOMEuVCnlr5L
+ A9gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q7ZKXxds+m1ToRjFrL/N+aqre1KgGndrtfTN0CIit8s=;
+ b=FWT8MUNLA5IDEsNoCeho13IejIWPspQHsfermXx9J/SIUS7qPYcaxFyI3+hAcrY6GF
+ gawV/uXVH8jUcOTmjRG9Utxd6JQV/Jh+ZhBhZFPcb+1K07vjJwyPhrRkitiQUrdkysLl
+ lx9jUrSv5Mas4zQujVVBHHKELUI7aJ1KkT8Oh25Q9pifBpmZVk0h6tqqYy0qXraekvy+
+ 7X3zQ81EK68bCNczFtSNrowc/hJIrwlHap2L0/C4v7FbssIu+l8XOfG2fJIGJtSyAZ+k
+ z11Vx+SzadeQaGPoZlHf4yn++YvCRMLZIFQuuKXKsXVIf2UMcT5tK7ZDhTD7iJQKFwCM
+ b/tQ==
+X-Gm-Message-State: AFqh2krzSqFdBxyMrxuXuLoDdwDKCPpTvzGX6D7EvFiTPlzJ2VsXHRVw
+ 1mqcSN5tZoMJuQfUqoiX5541LA==
+X-Google-Smtp-Source: AMrXdXtSvUw/ROl85qcQG2OnoAkmXrr7Fjq3EFgsOO+Fd8GkN3u1UpW6ueKal3JQWBwXt4G8jDGyrA==
+X-Received: by 2002:a5d:6e8c:0:b0:26b:e7e1:ad03 with SMTP id
+ k12-20020a5d6e8c000000b0026be7e1ad03mr44564208wrz.55.1673427231254; 
+ Wed, 11 Jan 2023 00:53:51 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ f3-20020adfdb43000000b00236883f2f5csm13442872wrj.94.2023.01.11.00.53.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jan 2023 00:53:50 -0800 (PST)
+Message-ID: <1301a59a-9085-c7f5-bc1c-ce09766806a1@linaro.org>
+Date: Wed, 11 Jan 2023 09:53:47 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
 Subject: Re: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file, data
  type file and Kconfig Makefile
-From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
-In-Reply-To: <20230111020233.4306-1-wangweidong.a@awinic.com>
-Date: Wed, 11 Jan 2023 09:38:47 +0100
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <5EA7B038-9B49-4E5D-8209-8689C0D03071@cutebit.org>
+To: wangweidong.a@awinic.com, lkp@intel.com
 References: <202301100233.QuEJ8pyu-lkp@intel.com>
  <20230111020233.4306-1-wangweidong.a@awinic.com>
-To: wangweidong.a@awinic.com
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230111020233.4306-1-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,58 +107,71 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: cezary.rojewski@intel.com, steve@sk2.org, llvm@lists.linux.dev,
- Linux-ALSA <alsa-devel@alsa-project.org>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
- yangxiaohua@everest-semi.com, lkp@intel.com, daniel.beer@igorinstitute.com,
- pierre-louis.bossart@linux.intel.com, flatmax@flatmax.com,
- devicetree@vger.kernel.org, ckeepax@opensource.cirrus.com, zhaolei@awinic.com,
- james.schulman@cirrus.com, rf@opensource.cirrus.com, robh+dt@kernel.org,
- oe-kbuild-all@lists.linux.dev, jonathan.albrieux@gmail.com, tiwai@suse.com,
- liweilei@awinic.com, lgirdwood@gmail.com, yijiangtao@awinic.com,
- Mark Brown <broonie@kernel.org>, 13691752556@139.com
+ yangxiaohua@everest-semi.com, daniel.beer@igorinstitute.com,
+ pierre-louis.bossart@linux.intel.com, povik+lin@cutebit.org,
+ flatmax@flatmax.com, devicetree@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ zhaolei@awinic.com, james.schulman@cirrus.com, rf@opensource.cirrus.com,
+ robh+dt@kernel.org, oe-kbuild-all@lists.linux.dev, jonathan.albrieux@gmail.com,
+ tiwai@suse.com, liweilei@awinic.com, lgirdwood@gmail.com,
+ yijiangtao@awinic.com, broonie@kernel.org, 13691752556@139.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-> On 11. 1. 2023, at 3:02, wangweidong.a@awinic.com wrote:
->=20
+On 11/01/2023 03:02, wangweidong.a@awinic.com wrote:
 > On 09/01/2023 03:00, kernel test robot wrote:
-
+>> Hi,
+> 
+>> Thank you for the patch! Yet something to improve:
+> 
+>> [auto build test ERROR on 1f5abbd77e2c1787e74b7c2caffac97def78ba52]
+> 
+>> url:    https://github.com/intel-lab-lkp/linux/commits/wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
+>> base:   1f5abbd77e2c1787e74b7c2caffac97def78ba52
+>> patch link:    https://lore.kernel.org/r/20230106032835.141918-5-wangweidong.a%40awinic.com
+>> patch subject: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file, data type file and Kconfig Makefile
+>> config: arm64-randconfig-r034-20230109
+>> compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 8d9828ef5aa9688500657d36cd2aefbe12bbd162)
+>> reproduce (this is a W=1 build):
+>>        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>>        chmod +x ~/bin/make.cross
+>>        # install arm64 cross compiling tool for clang build
+>>        # apt-get install binutils-aarch64-linux-gnu
+>>        # https://github.com/intel-lab-lkp/linux/commit/63bed80c0eacb29f78eb53987b34863bafd48cee
+>>        git remote add linux-review https://github.com/intel-lab-lkp/linux
+>>        git fetch --no-tags linux-review wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
+>>        git checkout 63bed80c0eacb29f78eb53987b34863bafd48cee
+>>        # save the config file
+>>        mkdir build_dir && cp config build_dir/.config
+>>        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
+>>        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
+> 
+>> If you fix the issue, kindly add following tag where applicable
+>> | Reported-by: kernel test robot <lkp@intel.com>
+> 
 >> All errors (new ones prefixed by >>):
->=20
+> 
 >>>> ld.lld: error: undefined symbol: crc8_populate_lsb
->>>>> referenced by aw883xx_bin_parse.c:1049 =
-(sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1049)
->>>>>              vmlinux.o:(aw883xx_dev_load_acf_check)
+>>   >>> referenced by aw883xx_bin_parse.c:1049 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1049)
+>>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
 >> --
 >>>> ld.lld: error: undefined symbol: crc8
->>>>> referenced by aw883xx_bin_parse.c:963 =
-(sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:963)
->>>>>              vmlinux.o:(aw883xx_dev_load_acf_check)
->>>>> referenced by aw883xx_bin_parse.c:1022 =
-(sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1022)
->>>>>              vmlinux.o:(aw883xx_dev_load_acf_check)
->>>>> did you mean: crc4
->>>>> defined in: vmlinux.o
->=20
-> This looks like a false positive. crc8_populate_lsb is defined in the =
-lib/crc8.c file.
+>>   >>> referenced by aw883xx_bin_parse.c:963 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:963)
+>>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
+>>   >>> referenced by aw883xx_bin_parse.c:1022 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1022)
+>>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
+>>   >>> did you mean: crc4
+>>   >>> defined in: vmlinux.o
+> 
+> This looks like a false positive. crc8_populate_lsb is defined in the lib/crc8.c file.
 > I also could not reproduce it with GCC.
 
-Hi,
-
-the issue here would be that it=E2=80=99s possible to select your driver =
-for compilation without
-having selected the CRC8 functions, leading to the linkage error.
-
-You can fix that by adding =E2=80=99select CRC8=E2=80=99 under the =
-Kconfig section of your driver, similarly
-to how the SND_SOC_SIGMADSP symbol selects CRC32.
+kernel test robot almost does not report false positives, at least not
+in such obvious cases. Chances you get here false positive are so small
+(although possible), that it is much, much more likely your code needs
+fixing.
 
 Best regards,
-Martin
-
->=20
-> Best regards,
-> Weidong Wang
+Krzysztof
 

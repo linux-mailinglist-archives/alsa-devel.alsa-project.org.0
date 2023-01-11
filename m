@@ -2,86 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA97B665110
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 02:21:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF01C665175
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 03:03:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65A986763;
-	Wed, 11 Jan 2023 02:20:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A986763
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C7FA781C;
+	Wed, 11 Jan 2023 03:03:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C7FA781C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673400086;
-	bh=akataVV8/0DapSMoYhbnfdEzhpmfzhdfJCigD6PWqj0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673402639;
+	bh=5xNSLWQZErPPGbN6PdCvmcZ6GohWnmEdvcDaz0ync1g=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=U8P4z02t/inNqLRZfaAXDB7KSQJuHFNzJ6+gXHCZFN3gwv3yAZhQsTD3JW/FqPv4y
-	 sxoHtKFRXNK5V0w6xzKf2s5jtCmUV/TVVZjCMD/PmWHh7N5IFXFZpjF8z7oNQ2u8tB
-	 sBgICl2h1YXbUpPOaIdHkQilKYHuRj7vr3JJtfDg=
+	b=u9J+aBHluGHlGv7CY+EFMTBZ+qOLBo7Iu/KOPovHMEMWj3oETn5A8lpOmfmGcyYFA
+	 mVcWXyR1Rkwv/NkFn3NsAr8T/frnIcjEXGezcFRY9JkcddA9NSkg8QKIXvW1iPx0Nv
+	 PIxnGoZ+MQf4rz27IMzTseURmYMZeBgi7M6mYQrI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFE60F804CA;
-	Wed, 11 Jan 2023 02:20:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3BA4F800C7;
+	Wed, 11 Jan 2023 03:03:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48F1CF804C1; Wed, 11 Jan 2023 02:20:26 +0100 (CET)
+ id 9C037F804C1; Wed, 11 Jan 2023 03:02:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out29-128.mail.aliyun.com (out29-128.mail.aliyun.com
+ [115.124.29.128])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36120F800C7
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 02:20:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36120F800C7
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BUw9/qIv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673400025; x=1704936025;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=akataVV8/0DapSMoYhbnfdEzhpmfzhdfJCigD6PWqj0=;
- b=BUw9/qIvpevPoPp6qfQg6FzQZSGFkAybvximgJUjWuh7xY5PdDNXmQf8
- AkILzZd0zq/b2pJ9Hii3T51iiBXgDrXqVL1oTmZSj9esZMiEW3Ad3HA13
- JB3X+IpU5ycOtIigemrTckX27Y88Wm4oC0OEaffGFV7zFTCQaL/Z92WVb
- jNFC4C3DuCZs3Z65+U43J0wlK7gDTwooPOkyxh/Lm9v0AnTvblAuQt2KE
- kkXVJmRQqIS8JAZ7PlU7ljRsv3WyuKSni/nIcRea3giUeuB02nrrePNId
- RnNTWJybXPB8Ac7JQuqMosWUa7IOEKi0gq/T+ItnqvIBX8kAnrzQ/4YRr w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="409538750"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="409538750"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 17:20:10 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="689612544"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="689612544"
-Received: from bphilli1-mobl1.amr.corp.intel.com (HELO [10.209.156.204])
- ([10.209.156.204])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 17:20:08 -0800
-Message-ID: <edde76c0-a444-1c3a-3541-af79897701fa@linux.intel.com>
-Date: Tue, 10 Jan 2023 19:20:08 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 248BBF800C7
+ for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 03:02:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 248BBF800C7
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07457647|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_regular_dialog|0.00142299-6.55096e-05-0.998511;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047209; MF=wangweidong.a@awinic.com; NM=1;
+ PH=DS; RN=29; RT=29; SR=0; TI=SMTPD_---.Qpjh-Tl_1673402554; 
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.Qpjh-Tl_1673402554) by smtp.aliyun-inc.com;
+ Wed, 11 Jan 2023 10:02:46 +0800
+From: wangweidong.a@awinic.com
+To: lkp@intel.com
+Subject: Re: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file,
+ data type file and Kconfig Makefile
+Date: Wed, 11 Jan 2023 10:02:33 +0800
+Message-Id: <20230111020233.4306-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <202301100233.QuEJ8pyu-lkp@intel.com>
+References: <202301100233.QuEJ8pyu-lkp@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v1 2/6] ASoC: Intel: bytcht_es8316: Drop reference count
- of ACPI device after use
-Content-Language: en-US
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Vijendar Mukunda
- <Vijendar.Mukunda@amd.com>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20230102203014.16041-1-andriy.shevchenko@linux.intel.com>
- <20230102203014.16041-2-andriy.shevchenko@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230102203014.16041-2-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,30 +70,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: cezary.rojewski@intel.com, steve@sk2.org, llvm@lists.linux.dev,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, krzysztof.kozlowski+dt@linaro.org,
+ yangxiaohua@everest-semi.com, daniel.beer@igorinstitute.com,
+ pierre-louis.bossart@linux.intel.com, povik+lin@cutebit.org,
+ flatmax@flatmax.com, devicetree@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ zhaolei@awinic.com, james.schulman@cirrus.com, rf@opensource.cirrus.com,
+ robh+dt@kernel.org, oe-kbuild-all@lists.linux.dev, jonathan.albrieux@gmail.com,
+ tiwai@suse.com, liweilei@awinic.com, wangweidong.a@awinic.com,
+ lgirdwood@gmail.com, yijiangtao@awinic.com, broonie@kernel.org,
+ 13691752556@139.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 09/01/2023 03:00, kernel test robot wrote:
+> Hi,
 
+> Thank you for the patch! Yet something to improve:
 
-On 1/2/23 14:30, Andy Shevchenko wrote:
-> Theoretically the device might gone if its reference count drops to 0.
-> This might be the case when we try to find the first physical node of
-> the ACPI device. We need to keep reference to it until we get a result
-> of the above mentioned call. Refactor the code to drop the reference
-> count at the correct place.
-> 
-> While at it, move to acpi_dev_put() as symmetrical call to the
-> acpi_dev_get_first_match_dev().
-> 
-> Fixes: 3c22a73fb873 ("ASoC: Intel: bytcht_es8316: fix HID handling")
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> [auto build test ERROR on 1f5abbd77e2c1787e74b7c2caffac97def78ba52]
 
-How do we proceed for this patchset? I am happy to ack a v2 if Andy
-splits the AMD and Intel patches w/ a cover letter, but this could also
-be added directly if there is no objection.
+> url:    https://github.com/intel-lab-lkp/linux/commits/wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
+> base:   1f5abbd77e2c1787e74b7c2caffac97def78ba52
+> patch link:    https://lore.kernel.org/r/20230106032835.141918-5-wangweidong.a%40awinic.com
+> patch subject: [PATCH V9 4/5] ASoC: codecs: Aw883xx chip register file, data type file and Kconfig Makefile
+> config: arm64-randconfig-r034-20230109
+> compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 8d9828ef5aa9688500657d36cd2aefbe12bbd162)
+> reproduce (this is a W=1 build):
+>        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>        chmod +x ~/bin/make.cross
+>        # install arm64 cross compiling tool for clang build
+>        # apt-get install binutils-aarch64-linux-gnu
+>        # https://github.com/intel-lab-lkp/linux/commit/63bed80c0eacb29f78eb53987b34863bafd48cee
+>        git remote add linux-review https://github.com/intel-lab-lkp/linux
+>        git fetch --no-tags linux-review wangweidong-a-awinic-com/ASoC-codecs-Add-i2c-and-codec-registration-for-aw883xx-and-their-associated-operation-functions/20230106-113130
+>        git checkout 63bed80c0eacb29f78eb53987b34863bafd48cee
+>        # save the config file
+>        mkdir build_dir && cp config build_dir/.config
+>        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
+>        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
+
+> If you fix the issue, kindly add following tag where applicable
+> | Reported-by: kernel test robot <lkp@intel.com>
+
+> All errors (new ones prefixed by >>):
+
+> >> ld.lld: error: undefined symbol: crc8_populate_lsb
+>   >>> referenced by aw883xx_bin_parse.c:1049 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1049)
+>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
+> --
+> >> ld.lld: error: undefined symbol: crc8
+>   >>> referenced by aw883xx_bin_parse.c:963 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:963)
+>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
+>   >>> referenced by aw883xx_bin_parse.c:1022 (sound/soc/codecs/aw883xx/aw883xx_bin_parse.c:1022)
+>   >>>               vmlinux.o:(aw883xx_dev_load_acf_check)
+>   >>> did you mean: crc4
+>   >>> defined in: vmlinux.o
+
+This looks like a false positive. crc8_populate_lsb is defined in the lib/crc8.c file.
+I also could not reproduce it with GCC.
+
+Best regards,
+Weidong Wang

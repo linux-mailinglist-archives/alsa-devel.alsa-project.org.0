@@ -2,75 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 396E8667E19
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 19:24:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 350D0668381
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 21:09:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F66F98B9;
-	Thu, 12 Jan 2023 19:24:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F66F98B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DC6599FE;
+	Thu, 12 Jan 2023 21:08:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DC6599FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673547894;
-	bh=3imop1nfFEnzeDa06BtYeQWlSuMolSQ7BMbFpqXcv+g=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=gZz5EfDQTHqo3dUfFyM0eqFrloPXZVTTzyF5TUP/XY24Hy1u3Bw5mrDVqb1iKbX/T
-	 y71keD0AuWlq4B91GDTC1lKO9vJdNWp4KUpXMvvWMKgFVEVE6loPePLTssIkaFk2Fq
-	 SBKVP0rLIEzmr1swzQ1DJnEBcMogNu5G1CTsTIjk=
+	s=default; t=1673554166;
+	bh=eu6oC6p18svRffUOBN2Wg+o/+IqQkvr+YGuw0J4xmfM=;
+	h=Date:From:To:Subject:In-Reply-To:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:Cc:From;
+	b=shdp0cLg8lTGokHMjztkvaRTn2Zokb8025U1Fb0rD9PkeDh77FPyn+/kZvIuVqrHM
+	 ZS9g5hvyR3vXec3tOCN9LSjs6BBDPw1LXJlu/A+8d6f/9TBzFWUhqZ0j8mnmDENKau
+	 9VSuhyOT3pKdFisiE47eCvbn0MxgErgkVps8uo2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EB06F8013D;
-	Thu, 12 Jan 2023 19:23:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EADD8F804CA;
+	Thu, 12 Jan 2023 21:08:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6FB1F804CA; Thu, 12 Jan 2023 19:23:55 +0100 (CET)
+ id 18F42F804C1; Thu, 12 Jan 2023 21:08:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HEXHASH_WORD,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18465F8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 19:23:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18465F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D9BFF8013D
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 21:08:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D9BFF8013D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bTRUbuns
+ header.s=k20201202 header.b=sF5xQ/uz
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 6BAE6CE1DF1;
- Thu, 12 Jan 2023 18:23:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33347C433D2;
- Thu, 12 Jan 2023 18:23:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BAA9762178;
+ Thu, 12 Jan 2023 20:08:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F103AC433D2;
+ Thu, 12 Jan 2023 20:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673547825;
- bh=3imop1nfFEnzeDa06BtYeQWlSuMolSQ7BMbFpqXcv+g=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=bTRUbuns7Dj7Sr+RfeJbnOAnkV+eqjwJpDpA4wkpyIlHZBAcwdRpm/VjKDtWDFVfJ
- DaMzyaH+eeC0h0XLkDUPsea51EpuQqlCUCR9RlOC5+xWbZltiHlRbjeMnaY/vE5D78
- HLVGEYizweadjUhnKJ5BWTIobJ5NWItVA/3vq9glwzffYU3q7lSl4RDhZMnfXjJtXV
- 5sqHKHVniZLtTCgghPQTb7EJrIW2VuEhxLKWfQ7ywD6SMat5KRsIwzQXIPxnsIhnZ9
- DBgDs7qp12dyWDmSMrxQR+PtwleZG3r52FkRiTunWrDesy4uE9qlJJxAOvUNDa4yFY
- MjIqDWpPA3Hzw==
-From: Mark Brown <broonie@kernel.org>
-To: Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20230112112852.67714-1-andriy.shevchenko@linux.intel.com>
-References: <20230112112852.67714-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 0/5] ASoC: Intel: Balance ACPI device refcount
-Message-Id: <167354782291.2217680.16107261306458603255.b4-ty@kernel.org>
-Date: Thu, 12 Jan 2023 18:23:42 +0000
+ s=k20201202; t=1673554101;
+ bh=eu6oC6p18svRffUOBN2Wg+o/+IqQkvr+YGuw0J4xmfM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=sF5xQ/uzmcOJVRxhFlu/jydAsWM7BSEjNKSGB6h4HCE5xUN62UlOR7oB0AkuGpHr7
+ x4YVqxzHVTySi+2OZaOZlBynG79mx5u3FIIEdLH4bWsbYNLgxJNbMyKd/34r7pKKkc
+ o+8xt3x9y4o77EDaIlQbyhts7aoAOTX13Qf0fkwtubVbIhJHTA0Sgu/luw9QzrMpf+
+ OIZ0spVXkhQQyOCgg/sdgd6aSRBVoGsmyTb3zeu5+hGr8TtjUg+RlzGtodQ5k/umV5
+ HDugauVm4LTZszSICHvLcNShCeo9CoP9zUdSx/rAa8F4aMz+VkCICUCKPVWbFPPfR3
+ sLZaG0TXA6/PA==
+Date: Thu, 12 Jan 2023 14:08:19 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Zeno R.R. Davatz" <zdavatz@gmail.com>
+Subject: Re: [Bug 216859] New: PCI bridge to bus boot hang at enumeration
+Message-ID: <20230112200819.GA1785077@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-8b3d1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221228120248.GA508080@bhelgaas>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,60 +79,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-pci@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 12 Jan 2023 13:28:47 +0200, Andy Shevchenko wrote:
-> While looking for the open coded put_device(&adev->dev) cases, where
-> adev stands for ACPI device, I noticed that in a few ASoC Intel driver,
-> among others, the refcount is not balanced properly in some cases.
+[+cc sound folks]
+
+On Wed, Dec 28, 2022 at 06:02:48AM -0600, Bjorn Helgaas wrote:
+> On Wed, Dec 28, 2022 at 08:37:52AM +0000, bugzilla-daemon@kernel.org wrote:
+> > https://bugzilla.kernel.org/show_bug.cgi?id=216859
 > 
-> This series fixes that issue and converts to use acpi_dev_put().
+> >            Summary: PCI bridge to bus boot hang at enumeration
+> >     Kernel Version: 6.1-rc1
+> > ...
 > 
-> Changelog v2:
-> - split Intel drivers out from others (Pierre)
-> - sent with cover letter (Mark)
+> > With Kernel 6.1-rc1 the enumeration process stopped working for me,
+> > see attachments.
+> > 
+> > The enumeration works fine with Kernel 6.0 and below.
+> > 
+> > Same problem still exists with v6.1. and v6.2.-rc1
 > 
-> [...]
+> Thank you very much for your report, Zeno!
+> 
+> v6.0 works, v6.1-rc1 fails.  Would you mind booting v6.1-rc1 with the
+> "ignore_loglevel initcall_debug" kernel parameters and taking a photo
+> when it hangs?
+> 
+> How did you conclude that the hang is related to a PCI bridge?  I see
+> recent PCI messages in the photo, but it looks like the last message
+> is from NFS, so I'm wondering if I'm missing some context.  The v6.0
+> dmesg shows several other ntfs, fuse, JFS, etc messages before more
+> PCI-related things.  Anyway, the "initcall_debug" might help us narrow
+> it down a bit.
 
-Applied to
+Thanks very much for the bisection (complete log at [1])!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+The bisection claims the first bad commit is:
 
-Thanks!
+  833477fce7a1 ("Merge tag 'sound-6.1-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound")
 
-[1/5] ASoC: Intel: bytcht_es8316: Drop reference count of ACPI device after use
-      commit: 6b1c0bd6fdefbf3c3d75680c2708f5423ef72e46
-[2/5] ASoC: Intel: bytcr_rt5651: Drop reference count of ACPI device after use
-      commit: 721858823d7cdc8f2a897579b040e935989f6f02
-[3/5] ASoC: Intel: bytcr_rt5640: Drop reference count of ACPI device after use
-      commit: cbf87bcf46e399e9a5288430d940efbad3551c68
-[4/5] ASoC: Intel: bytcr_wm5102: Drop reference count of ACPI device after use
-      commit: c8aa49abdeda2ab587aadb083e670f6aa0236f93
-[5/5] ASoC: Intel: sof_es8336: Drop reference count of ACPI device after use
-      commit: 64e57b2195725c1ae2246a8a2ce224abb60620ac
+with parents:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  7e6739b9336e ("Merge tag 'drm-next-2022-10-05' of git://anongit.freedesktop.org/drm/drm")
+  86a4d29e7554 ("Merge tag 'asoc-v6.1' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound into for-linus")
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Both 7e6739b9336e and 86a4d29e7554 tested "good" during the bisection.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+There is a minor conflict when merging 86a4d29e7554 into the upstream,
+but I can't imagine that being resolved incorrectly.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Would you mind turning off CONFIG_SOUND in your .config and testing
+833477fce7a1 again?  I'm a little skeptical that the hang would be
+sound-related, but I guess it's a place to start.
 
-Thanks,
-Mark
+Bjorn
+
+[1] https://bugzilla.kernel.org/show_bug.cgi?id=216859#c35

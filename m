@@ -2,73 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EF44667A44
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F643667A45
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:05:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68A789323;
-	Thu, 12 Jan 2023 17:04:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A789323
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85F10932B;
+	Thu, 12 Jan 2023 17:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F10932B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673539496;
-	bh=qaRv5TRGJxEiKoJKrdxHOkRY9VUWILKEVzY031bVZZk=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=R5Lv4AX15h6GIKA553G8HnQNNuD7GE8eHdftwCQyC+zEO9WMF0ojU3TgJI4ByvkA1
-	 uerm68BiWhXRQJufCdorum4BWe9g1ckL5Eue/CzDDWBNG/lh8DhlabmZFqIMLR7Kqz
-	 Ay6jnPPwYbHaC0hvPXAs/xwcGSHSqSMX+GishW2U=
+	s=default; t=1673539510;
+	bh=fdZR2d98/iYrGEqZXV6e7SW+75h27l74f19UtobG2zU=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=XTkQnDyIYnhwr4wK4jWhWDCkyHHCbM2g1dSU9xMAk6Ql1AFR2vF3vTVFgxenL5k0Y
+	 8loNxpqqMx7ApkFUWILDQNdaH6GcUP0PJnZ55MYjNHNF5liW8UKJ69eAqlbAPPW6nu
+	 JYAx878evRqzbqppc5jKS4X4CHEi+kDLSvOfYLDw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7351CF805B6;
-	Thu, 12 Jan 2023 16:59:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1023EF805BB;
+	Thu, 12 Jan 2023 16:59:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 591DBF804C1; Thu, 12 Jan 2023 11:13:51 +0100 (CET)
+ id B5BA9F804CA; Thu, 12 Jan 2023 12:58:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
- [209.85.166.70])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84D7CF8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:13:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84D7CF8013D
-Received: by mail-io1-f70.google.com with SMTP id
- w12-20020a5e970c000000b0070450f33abbso6082225ioj.14
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:13:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4z+4JMdufQd0xjAzXlpUq0cUo/jRkL5ILtP7IbjE2Lc=;
- b=SvT541iRNV4PitSF8h11ZPBL01Wwk02dtywhCWE3TeQIBd0QxtSf/QlDCniYCYHYrJ
- fuwBaF+RxoNm4c9GedXAVWwHZbFWfpJFM1egaIj6SproJirXLt36/T2k3k76NvpCkFjb
- JvD2hfNr7EFGcUkSaiXHSWDeT9M/tQA+rOttIaRGFcp6UJaSG6rtQcmLPCUrThzxsKLl
- Vv2U7fwe3cqVvG9GKfZuzcTJ7D+n2ODPjqVDCTmp6QFbr48uRZTfHjZ1xPuu5OlVELlp
- cKgFyIgkFCCtjlKIN3+HosjdegpTYAGoOEjI/VMxUK8idkguLarc7K9+1UIBkueUWt4u
- Qcyw==
-X-Gm-Message-State: AFqh2kq7aB2ihlqAWUokawE536T+vmPvGT2HkMuy+7XYhDvGbwYsmolh
- 9IZt+cf/tpW0y4nppyK5lTGVyidz0L4yhPE2W+AIDRNwRetk
-X-Google-Smtp-Source: AMrXdXuDI20Vy67NuqBxivbd6GryckYXfGRT7ozAJz4j1EH4bb3/cHvvWRI97XkiFMui40vDVvzC8lozLmWVwUqhT8uWT7lZd3ek
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C171F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:58:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C171F8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=GmO46823
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673524713; x=1705060713;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fdZR2d98/iYrGEqZXV6e7SW+75h27l74f19UtobG2zU=;
+ b=GmO46823iSNYMnvDQG3JpsaxztNM2Ah8cp6AVHQY9p4KLU6Z/bmbAr+O
+ 0mzSDi4+tHrY1oQ6CthNb4Ts6Qc8nAfCK9w3XxfjL+nGdsebNL2dQbC7n
+ jm+OXbHYVsccOtvIlPXTB4sIL2Idf0O61JN8znqYyP7GiHAf4p0fxts7i
+ Fie2HHnrBdkaD+9PX36s8D8R5J4lSf6X5BCQNRLjOc45+v4i+DdX34+Rv
+ O0/f5xuvkKxS4xpbeUqAgYVviSiCw3zKUlHSlMgqZoRNpftJUhX5G8BUR
+ WpHXSQQt2zvb5oRcObRch0rdhI/rTz9STdY3n+Ip0zez4SbwLP58G/UG5 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="386000912"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="386000912"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 03:58:28 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="800177263"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="800177263"
+Received: from kuha.fi.intel.com ([10.237.72.185])
+ by fmsmga001.fm.intel.com with SMTP; 12 Jan 2023 03:58:16 -0800
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Thu, 12 Jan 2023 13:58:15 +0200
+Date: Thu, 12 Jan 2023 13:58:15 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v2 05/16] driver core: make struct device_type.uevent()
+ take a const *
+Message-ID: <Y7/1163Ahkesgqp0@kuha.fi.intel.com>
+References: <20230111113018.459199-1-gregkh@linuxfoundation.org>
+ <20230111113018.459199-6-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6638:2a5:b0:38a:2cb1:7796 with SMTP id
- d5-20020a05663802a500b0038a2cb17796mr7804431jaq.267.1673518419868; Thu, 12
- Jan 2023 02:13:39 -0800 (PST)
-Date: Thu, 12 Jan 2023 02:13:39 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000f1068105f20e5e8f@google.com>
-Subject: [syzbot] KASAN: use-after-free Read in snd_pcm_oss_poll
-From: syzbot <syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230111113018.459199-6-gregkh@linuxfoundation.org>
 X-Mailman-Approved-At: Thu, 12 Jan 2023 16:59:42 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -82,202 +90,623 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-usb@vger.kernel.org, Sean Young <sean@mess.org>,
+ alsa-devel@alsa-project.org, platform-driver-x86@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Andreas Noever <andreas.noever@gmail.com>,
+ linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>, linux-acpi@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Alan Stern <stern@rowland.harvard.edu>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Won Chung <wonchung@google.com>, Len Brown <lenb@kernel.org>,
+ devicetree@vger.kernel.org, Chaitanya Kulkarni <kch@nvidia.com>,
+ Ira Weiny <ira.weiny@intel.com>, Michael Jamet <michael.jamet@intel.com>,
+ Ming Lei <ming.lei@redhat.com>, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Jilin Yuan <yuanjilin@cdjrlc.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Wolfram Sang <wsa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ linux-media@vger.kernel.org, Maximilian Luz <luzmaximilian@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Wed, Jan 11, 2023 at 12:30:07PM +0100, Greg Kroah-Hartman wrote:
+> The uevent() callback in struct device_type should not be modifying the
+> device that is passed into it, so mark it as a const * and propagate the
+> function signature changes out into all relevant subsystems that use
+> this callback.
+> 
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: Len Brown <lenb@kernel.org>
+> Cc: Stefan Richter <stefanr@s5r6.in-berlin.de>
+> Cc: Wolfram Sang <wsa@kernel.org>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Cc: Sean Young <sean@mess.org>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Frank Rowand <frowand.list@gmail.com>
+> Cc: Maximilian Luz <luzmaximilian@gmail.com>
+> Cc: Hans de Goede <hdegoede@redhat.com>
+> Cc: Mark Gross <markgross@kernel.org>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Cc: Sanyog Kale <sanyog.r.kale@intel.com>
+> Cc: Andreas Noever <andreas.noever@gmail.com>
+> Cc: Michael Jamet <michael.jamet@intel.com>
+> Cc: Yehezkel Bernat <YehezkelShB@gmail.com>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+> Cc: Chaitanya Kulkarni <kch@nvidia.com>
+> Cc: Ming Lei <ming.lei@redhat.com>
+> Cc: Jilin Yuan <yuanjilin@cdjrlc.com>
+> Cc: Alan Stern <stern@rowland.harvard.edu>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Ira Weiny <ira.weiny@intel.com>
+> Cc: Dan Williams <dan.j.williams@intel.com>
+> Cc: Won Chung <wonchung@google.com>
+> Cc: alsa-devel@alsa-project.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-acpi@vger.kernel.org
+> Cc: linux-block@vger.kernel.org
+> Cc: linux-i2c@vger.kernel.org
+> Cc: linux-i3c@lists.infradead.org
+> Cc: linux-input@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-serial@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> Cc: linux1394-devel@lists.sourceforge.net
+> Cc: platform-driver-x86@vger.kernel.org
+> Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com> # for Thunderbolt
+> Acked-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-syzbot found the following issue on:
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=16d906ea480000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
-dashboard link: https://syzkaller.appspot.com/bug?extid=ee73befabe68e7907adf
-compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+> ---
+>  block/partitions/core.c                   |  4 ++--
+>  drivers/acpi/device_sysfs.c               |  8 ++++----
+>  drivers/acpi/internal.h                   |  2 +-
+>  drivers/firewire/core-device.c            |  8 ++++----
+>  drivers/gpu/drm/display/drm_dp_aux_bus.c  |  2 +-
+>  drivers/i2c/i2c-core-base.c               |  4 ++--
+>  drivers/i3c/device.c                      |  2 +-
+>  drivers/i3c/master.c                      |  4 ++--
+>  drivers/input/input.c                     | 16 ++++++++--------
+>  drivers/media/rc/rc-main.c                |  2 +-
+>  drivers/platform/surface/aggregator/bus.c |  4 ++--
+>  drivers/soundwire/bus_type.c              |  4 ++--
+>  drivers/thunderbolt/switch.c              |  4 ++--
+>  drivers/thunderbolt/tb.h                  |  2 +-
+>  drivers/thunderbolt/xdomain.c             |  6 +++---
+>  drivers/tty/serdev/core.c                 |  2 +-
+>  drivers/usb/core/message.c                |  8 ++++----
+>  drivers/usb/core/usb.c                    |  4 ++--
+>  drivers/usb/phy/phy.c                     |  6 +++---
+>  drivers/usb/roles/class.c                 |  3 +--
+>  drivers/usb/typec/class.c                 |  2 +-
+>  include/linux/acpi.h                      |  4 ++--
+>  include/linux/device.h                    |  2 +-
+>  include/linux/i3c/device.h                |  2 +-
+>  include/linux/soundwire/sdw_type.h        |  2 +-
+>  25 files changed, 53 insertions(+), 54 deletions(-)
+> 
+> diff --git a/block/partitions/core.c b/block/partitions/core.c
+> index b8112f52d388..7b8ef6296abd 100644
+> --- a/block/partitions/core.c
+> +++ b/block/partitions/core.c
+> @@ -254,9 +254,9 @@ static void part_release(struct device *dev)
+>  	iput(dev_to_bdev(dev)->bd_inode);
+>  }
+>  
+> -static int part_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int part_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct block_device *part = dev_to_bdev(dev);
+> +	const struct block_device *part = dev_to_bdev(dev);
+>  
+>  	add_uevent_var(env, "PARTN=%u", part->bd_partno);
+>  	if (part->bd_meta_info && part->bd_meta_info->volname[0])
+> diff --git a/drivers/acpi/device_sysfs.c b/drivers/acpi/device_sysfs.c
+> index 120873dad2cc..daff2c0c5c52 100644
+> --- a/drivers/acpi/device_sysfs.c
+> +++ b/drivers/acpi/device_sysfs.c
+> @@ -133,7 +133,7 @@ static void acpi_hide_nondev_subnodes(struct acpi_device_data *data)
+>   *         -EINVAL: output error
+>   *         -ENOMEM: output is truncated
+>   */
+> -static int create_pnp_modalias(struct acpi_device *acpi_dev, char *modalias,
+> +static int create_pnp_modalias(const struct acpi_device *acpi_dev, char *modalias,
+>  			       int size)
+>  {
+>  	int len;
+> @@ -191,7 +191,7 @@ static int create_pnp_modalias(struct acpi_device *acpi_dev, char *modalias,
+>   * only be called for devices having ACPI_DT_NAMESPACE_HID in their list of
+>   * ACPI/PNP IDs.
+>   */
+> -static int create_of_modalias(struct acpi_device *acpi_dev, char *modalias,
+> +static int create_of_modalias(const struct acpi_device *acpi_dev, char *modalias,
+>  			      int size)
+>  {
+>  	struct acpi_buffer buf = { ACPI_ALLOCATE_BUFFER };
+> @@ -239,7 +239,7 @@ static int create_of_modalias(struct acpi_device *acpi_dev, char *modalias,
+>  	return len;
+>  }
+>  
+> -int __acpi_device_uevent_modalias(struct acpi_device *adev,
+> +int __acpi_device_uevent_modalias(const struct acpi_device *adev,
+>  				  struct kobj_uevent_env *env)
+>  {
+>  	int len;
+> @@ -277,7 +277,7 @@ int __acpi_device_uevent_modalias(struct acpi_device *adev,
+>   * Because other buses do not support ACPI HIDs & CIDs, e.g. for a device with
+>   * hid:IBM0001 and cid:ACPI0001 you get: "acpi:IBM0001:ACPI0001".
+>   */
+> -int acpi_device_uevent_modalias(struct device *dev, struct kobj_uevent_env *env)
+> +int acpi_device_uevent_modalias(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+>  	return __acpi_device_uevent_modalias(acpi_companion_match(dev), env);
+>  }
+> diff --git a/drivers/acpi/internal.h b/drivers/acpi/internal.h
+> index ec584442fb29..06ad497067ac 100644
+> --- a/drivers/acpi/internal.h
+> +++ b/drivers/acpi/internal.h
+> @@ -120,7 +120,7 @@ int acpi_bus_register_early_device(int type);
+>                       Device Matching and Notification
+>     -------------------------------------------------------------------------- */
+>  struct acpi_device *acpi_companion_match(const struct device *dev);
+> -int __acpi_device_uevent_modalias(struct acpi_device *adev,
+> +int __acpi_device_uevent_modalias(const struct acpi_device *adev,
+>  				  struct kobj_uevent_env *env);
+>  
+>  /* --------------------------------------------------------------------------
+> diff --git a/drivers/firewire/core-device.c b/drivers/firewire/core-device.c
+> index adddd8c45d0c..aa597cda0d88 100644
+> --- a/drivers/firewire/core-device.c
+> +++ b/drivers/firewire/core-device.c
+> @@ -133,7 +133,7 @@ static void get_ids(const u32 *directory, int *id)
+>  	}
+>  }
+>  
+> -static void get_modalias_ids(struct fw_unit *unit, int *id)
+> +static void get_modalias_ids(const struct fw_unit *unit, int *id)
+>  {
+>  	get_ids(&fw_parent_device(unit)->config_rom[5], id);
+>  	get_ids(unit->directory, id);
+> @@ -195,7 +195,7 @@ static void fw_unit_remove(struct device *dev)
+>  	driver->remove(fw_unit(dev));
+>  }
+>  
+> -static int get_modalias(struct fw_unit *unit, char *buffer, size_t buffer_size)
+> +static int get_modalias(const struct fw_unit *unit, char *buffer, size_t buffer_size)
+>  {
+>  	int id[] = {0, 0, 0, 0};
+>  
+> @@ -206,9 +206,9 @@ static int get_modalias(struct fw_unit *unit, char *buffer, size_t buffer_size)
+>  			id[0], id[1], id[2], id[3]);
+>  }
+>  
+> -static int fw_unit_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int fw_unit_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct fw_unit *unit = fw_unit(dev);
+> +	const struct fw_unit *unit = fw_unit(dev);
+>  	char modalias[64];
+>  
+>  	get_modalias(unit, modalias, sizeof(modalias));
+> diff --git a/drivers/gpu/drm/display/drm_dp_aux_bus.c b/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> index e31a0261c53e..8a165be1a821 100644
+> --- a/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> +++ b/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> @@ -161,7 +161,7 @@ static void dp_aux_ep_dev_release(struct device *dev)
+>  	kfree(aux_ep_with_data);
+>  }
+>  
+> -static int dp_aux_ep_dev_modalias(struct device *dev, struct kobj_uevent_env *env)
+> +static int dp_aux_ep_dev_modalias(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+>  	return of_device_uevent_modalias(dev, env);
+>  }
+> diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+> index 087e480b624c..51b78a52ab7f 100644
+> --- a/drivers/i2c/i2c-core-base.c
+> +++ b/drivers/i2c/i2c-core-base.c
+> @@ -136,9 +136,9 @@ static int i2c_device_match(struct device *dev, struct device_driver *drv)
+>  	return 0;
+>  }
+>  
+> -static int i2c_device_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int i2c_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct i2c_client *client = to_i2c_client(dev);
+> +	const struct i2c_client *client = to_i2c_client(dev);
+>  	int rc;
+>  
+>  	rc = of_device_uevent_modalias(dev, env);
+> diff --git a/drivers/i3c/device.c b/drivers/i3c/device.c
+> index d111499061b2..1a6a8703dbc3 100644
+> --- a/drivers/i3c/device.c
+> +++ b/drivers/i3c/device.c
+> @@ -78,7 +78,7 @@ EXPORT_SYMBOL_GPL(i3c_device_do_setdasa);
+>   *
+>   * Retrieve I3C dev info.
+>   */
+> -void i3c_device_get_info(struct i3c_device *dev,
+> +void i3c_device_get_info(const struct i3c_device *dev,
+>  			 struct i3c_device_info *info)
+>  {
+>  	if (!info)
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index d7e6f6c99aea..7a60e1c5e587 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+> @@ -273,9 +273,9 @@ static struct attribute *i3c_device_attrs[] = {
+>  };
+>  ATTRIBUTE_GROUPS(i3c_device);
+>  
+> -static int i3c_device_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int i3c_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct i3c_device *i3cdev = dev_to_i3cdev(dev);
+> +	const struct i3c_device *i3cdev = dev_to_i3cdev(dev);
+>  	struct i3c_device_info devinfo;
+>  	u16 manuf, part, ext;
+>  
+> diff --git a/drivers/input/input.c b/drivers/input/input.c
+> index ca2e3dd7188b..0336e799d713 100644
+> --- a/drivers/input/input.c
+> +++ b/drivers/input/input.c
+> @@ -1372,7 +1372,7 @@ INPUT_DEV_STRING_ATTR_SHOW(phys);
+>  INPUT_DEV_STRING_ATTR_SHOW(uniq);
+>  
+>  static int input_print_modalias_bits(char *buf, int size,
+> -				     char name, unsigned long *bm,
+> +				     char name, const unsigned long *bm,
+>  				     unsigned int min_bit, unsigned int max_bit)
+>  {
+>  	int len = 0, i;
+> @@ -1384,7 +1384,7 @@ static int input_print_modalias_bits(char *buf, int size,
+>  	return len;
+>  }
+>  
+> -static int input_print_modalias(char *buf, int size, struct input_dev *id,
+> +static int input_print_modalias(char *buf, int size, const struct input_dev *id,
+>  				int add_cr)
+>  {
+>  	int len;
+> @@ -1432,7 +1432,7 @@ static ssize_t input_dev_show_modalias(struct device *dev,
+>  }
+>  static DEVICE_ATTR(modalias, S_IRUGO, input_dev_show_modalias, NULL);
+>  
+> -static int input_print_bitmap(char *buf, int buf_size, unsigned long *bitmap,
+> +static int input_print_bitmap(char *buf, int buf_size, const unsigned long *bitmap,
+>  			      int max, int add_cr);
+>  
+>  static ssize_t input_dev_show_properties(struct device *dev,
+> @@ -1524,7 +1524,7 @@ static const struct attribute_group input_dev_id_attr_group = {
+>  	.attrs	= input_dev_id_attrs,
+>  };
+>  
+> -static int input_print_bitmap(char *buf, int buf_size, unsigned long *bitmap,
+> +static int input_print_bitmap(char *buf, int buf_size, const unsigned long *bitmap,
+>  			      int max, int add_cr)
+>  {
+>  	int i;
+> @@ -1621,7 +1621,7 @@ static void input_dev_release(struct device *device)
+>   * device bitfields.
+>   */
+>  static int input_add_uevent_bm_var(struct kobj_uevent_env *env,
+> -				   const char *name, unsigned long *bitmap, int max)
+> +				   const char *name, const unsigned long *bitmap, int max)
+>  {
+>  	int len;
+>  
+> @@ -1639,7 +1639,7 @@ static int input_add_uevent_bm_var(struct kobj_uevent_env *env,
+>  }
+>  
+>  static int input_add_uevent_modalias_var(struct kobj_uevent_env *env,
+> -					 struct input_dev *dev)
+> +					 const struct input_dev *dev)
+>  {
+>  	int len;
+>  
+> @@ -1677,9 +1677,9 @@ static int input_add_uevent_modalias_var(struct kobj_uevent_env *env,
+>  			return err;					\
+>  	} while (0)
+>  
+> -static int input_dev_uevent(struct device *device, struct kobj_uevent_env *env)
+> +static int input_dev_uevent(const struct device *device, struct kobj_uevent_env *env)
+>  {
+> -	struct input_dev *dev = to_input_dev(device);
+> +	const struct input_dev *dev = to_input_dev(device);
+>  
+>  	INPUT_ADD_HOTPLUG_VAR("PRODUCT=%x/%x/%x/%x",
+>  				dev->id.bustype, dev->id.vendor,
+> diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> index 527d9324742b..6bdad6341844 100644
+> --- a/drivers/media/rc/rc-main.c
+> +++ b/drivers/media/rc/rc-main.c
+> @@ -1614,7 +1614,7 @@ static void rc_dev_release(struct device *device)
+>  	kfree(dev);
+>  }
+>  
+> -static int rc_dev_uevent(struct device *device, struct kobj_uevent_env *env)
+> +static int rc_dev_uevent(const struct device *device, struct kobj_uevent_env *env)
+>  {
+>  	struct rc_dev *dev = to_rc_dev(device);
+>  	int ret = 0;
+> diff --git a/drivers/platform/surface/aggregator/bus.c b/drivers/platform/surface/aggregator/bus.c
+> index de539938896e..407eb55050a6 100644
+> --- a/drivers/platform/surface/aggregator/bus.c
+> +++ b/drivers/platform/surface/aggregator/bus.c
+> @@ -35,9 +35,9 @@ static struct attribute *ssam_device_attrs[] = {
+>  };
+>  ATTRIBUTE_GROUPS(ssam_device);
+>  
+> -static int ssam_device_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int ssam_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct ssam_device *sdev = to_ssam_device(dev);
+> +	const struct ssam_device *sdev = to_ssam_device(dev);
+>  
+>  	return add_uevent_var(env, "MODALIAS=ssam:d%02Xc%02Xt%02Xi%02Xf%02X",
+>  			      sdev->uid.domain, sdev->uid.category,
+> diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+> index 04b3529f8929..26c9a0a85d49 100644
+> --- a/drivers/soundwire/bus_type.c
+> +++ b/drivers/soundwire/bus_type.c
+> @@ -58,9 +58,9 @@ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size)
+>  			slave->id.sdw_version, slave->id.class_id);
+>  }
+>  
+> -int sdw_slave_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +int sdw_slave_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+> +	const struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>  	char modalias[32];
+>  
+>  	sdw_slave_modalias(slave, modalias, sizeof(modalias));
+> diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
+> index 363d712aa364..cb6c304c445e 100644
+> --- a/drivers/thunderbolt/switch.c
+> +++ b/drivers/thunderbolt/switch.c
+> @@ -2176,9 +2176,9 @@ static void tb_switch_release(struct device *dev)
+>  	kfree(sw);
+>  }
+>  
+> -static int tb_switch_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int tb_switch_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct tb_switch *sw = tb_to_switch(dev);
+> +	const struct tb_switch *sw = tb_to_switch(dev);
+>  	const char *type;
+>  
+>  	if (sw->config.thunderbolt_version == USB4_VERSION_1_0) {
+> diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
+> index f9786976f5ec..909da0a98134 100644
+> --- a/drivers/thunderbolt/tb.h
+> +++ b/drivers/thunderbolt/tb.h
+> @@ -815,7 +815,7 @@ static inline bool tb_is_switch(const struct device *dev)
+>  	return dev->type == &tb_switch_type;
+>  }
+>  
+> -static inline struct tb_switch *tb_to_switch(struct device *dev)
+> +static inline struct tb_switch *tb_to_switch(const struct device *dev)
+>  {
+>  	if (tb_is_switch(dev))
+>  		return container_of(dev, struct tb_switch, dev);
+> diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
+> index cfa83486c9da..7bf1e360b04c 100644
+> --- a/drivers/thunderbolt/xdomain.c
+> +++ b/drivers/thunderbolt/xdomain.c
+> @@ -881,7 +881,7 @@ static ssize_t key_show(struct device *dev, struct device_attribute *attr,
+>  }
+>  static DEVICE_ATTR_RO(key);
+>  
+> -static int get_modalias(struct tb_service *svc, char *buf, size_t size)
+> +static int get_modalias(const struct tb_service *svc, char *buf, size_t size)
+>  {
+>  	return snprintf(buf, size, "tbsvc:k%sp%08Xv%08Xr%08X", svc->key,
+>  			svc->prtcid, svc->prtcvers, svc->prtcrevs);
+> @@ -953,9 +953,9 @@ static const struct attribute_group *tb_service_attr_groups[] = {
+>  	NULL,
+>  };
+>  
+> -static int tb_service_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int tb_service_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct tb_service *svc = container_of(dev, struct tb_service, dev);
+> +	const struct tb_service *svc = container_of_const(dev, struct tb_service, dev);
+>  	char modalias[64];
+>  
+>  	get_modalias(svc, modalias, sizeof(modalias));
+> diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+> index 0180e1e4e75d..aa80de3a8194 100644
+> --- a/drivers/tty/serdev/core.c
+> +++ b/drivers/tty/serdev/core.c
+> @@ -42,7 +42,7 @@ static struct attribute *serdev_device_attrs[] = {
+>  };
+>  ATTRIBUTE_GROUPS(serdev_device);
+>  
+> -static int serdev_device_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int serdev_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+>  	int rc;
+>  
+> diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+> index 127fac1af676..cc404bb7e8f7 100644
+> --- a/drivers/usb/core/message.c
+> +++ b/drivers/usb/core/message.c
+> @@ -1819,11 +1819,11 @@ void usb_authorize_interface(struct usb_interface *intf)
+>  	}
+>  }
+>  
+> -static int usb_if_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int usb_if_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct usb_device *usb_dev;
+> -	struct usb_interface *intf;
+> -	struct usb_host_interface *alt;
+> +	const struct usb_device *usb_dev;
+> +	const struct usb_interface *intf;
+> +	const struct usb_host_interface *alt;
+>  
+>  	intf = to_usb_interface(dev);
+>  	usb_dev = interface_to_usbdev(intf);
+> diff --git a/drivers/usb/core/usb.c b/drivers/usb/core/usb.c
+> index 11b15d7b357a..8527c06b65e6 100644
+> --- a/drivers/usb/core/usb.c
+> +++ b/drivers/usb/core/usb.c
+> @@ -423,9 +423,9 @@ static void usb_release_dev(struct device *dev)
+>  	kfree(udev);
+>  }
+>  
+> -static int usb_dev_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int usb_dev_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct usb_device *usb_dev;
+> +	const struct usb_device *usb_dev;
+>  
+>  	usb_dev = to_usb_device(dev);
+>  
+> diff --git a/drivers/usb/phy/phy.c b/drivers/usb/phy/phy.c
+> index 1b24492bb4e5..4b468bde19cf 100644
+> --- a/drivers/usb/phy/phy.c
+> +++ b/drivers/usb/phy/phy.c
+> @@ -80,7 +80,7 @@ static struct usb_phy *__of_usb_find_phy(struct device_node *node)
+>  	return ERR_PTR(-EPROBE_DEFER);
+>  }
+>  
+> -static struct usb_phy *__device_to_usb_phy(struct device *dev)
+> +static struct usb_phy *__device_to_usb_phy(const struct device *dev)
+>  {
+>  	struct usb_phy *usb_phy;
+>  
+> @@ -145,9 +145,9 @@ static void usb_phy_notify_charger_work(struct work_struct *work)
+>  	kobject_uevent(&usb_phy->dev->kobj, KOBJ_CHANGE);
+>  }
+>  
+> -static int usb_phy_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int usb_phy_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> -	struct usb_phy *usb_phy;
+> +	const struct usb_phy *usb_phy;
+>  	char uchger_state[50] = { 0 };
+>  	char uchger_type[50] = { 0 };
+>  	unsigned long flags;
+> diff --git a/drivers/usb/roles/class.c b/drivers/usb/roles/class.c
+> index eacb46ec2ab3..56814ef80c24 100644
+> --- a/drivers/usb/roles/class.c
+> +++ b/drivers/usb/roles/class.c
+> @@ -274,8 +274,7 @@ static const struct attribute_group *usb_role_switch_groups[] = {
+>  	NULL,
+>  };
+>  
+> -static int
+> -usb_role_switch_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int usb_role_switch_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+>  	int ret;
+>  
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 5897905cb4f0..a89d8fd3f46c 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -1737,7 +1737,7 @@ static const struct attribute_group *typec_groups[] = {
+>  	NULL
+>  };
+>  
+> -static int typec_uevent(struct device *dev, struct kobj_uevent_env *env)
+> +static int typec_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+>  	int ret;
+>  
+> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> index 5e6a876e17ba..564b62f13bd0 100644
+> --- a/include/linux/acpi.h
+> +++ b/include/linux/acpi.h
+> @@ -723,7 +723,7 @@ const struct acpi_device_id *acpi_match_device(const struct acpi_device_id *ids,
+>  const void *acpi_device_get_match_data(const struct device *dev);
+>  extern bool acpi_driver_match_device(struct device *dev,
+>  				     const struct device_driver *drv);
+> -int acpi_device_uevent_modalias(struct device *, struct kobj_uevent_env *);
+> +int acpi_device_uevent_modalias(const struct device *, struct kobj_uevent_env *);
+>  int acpi_device_modalias(struct device *, char *, int);
+>  
+>  struct platform_device *acpi_create_platform_device(struct acpi_device *,
+> @@ -958,7 +958,7 @@ static inline union acpi_object *acpi_evaluate_dsm(acpi_handle handle,
+>  	return NULL;
+>  }
+>  
+> -static inline int acpi_device_uevent_modalias(struct device *dev,
+> +static inline int acpi_device_uevent_modalias(const struct device *dev,
+>  				struct kobj_uevent_env *env)
+>  {
+>  	return -ENODEV;
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index 44e3acae7b36..dad0614aad96 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -88,7 +88,7 @@ int subsys_virtual_register(struct bus_type *subsys,
+>  struct device_type {
+>  	const char *name;
+>  	const struct attribute_group **groups;
+> -	int (*uevent)(struct device *dev, struct kobj_uevent_env *env);
+> +	int (*uevent)(const struct device *dev, struct kobj_uevent_env *env);
+>  	char *(*devnode)(struct device *dev, umode_t *mode,
+>  			 kuid_t *uid, kgid_t *gid);
+>  	void (*release)(struct device *dev);
+> diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
+> index 68b558929aec..ce115ef08fec 100644
+> --- a/include/linux/i3c/device.h
+> +++ b/include/linux/i3c/device.h
+> @@ -303,7 +303,7 @@ int i3c_device_do_priv_xfers(struct i3c_device *dev,
+>  
+>  int i3c_device_do_setdasa(struct i3c_device *dev);
+>  
+> -void i3c_device_get_info(struct i3c_device *dev, struct i3c_device_info *info);
+> +void i3c_device_get_info(const struct i3c_device *dev, struct i3c_device_info *info);
+>  
+>  struct i3c_ibi_payload {
+>  	unsigned int len;
+> diff --git a/include/linux/soundwire/sdw_type.h b/include/linux/soundwire/sdw_type.h
+> index 52eb66cd11bc..d8c27f1e5559 100644
+> --- a/include/linux/soundwire/sdw_type.h
+> +++ b/include/linux/soundwire/sdw_type.h
+> @@ -21,7 +21,7 @@ static inline int is_sdw_slave(const struct device *dev)
+>  int __sdw_register_driver(struct sdw_driver *drv, struct module *owner);
+>  void sdw_unregister_driver(struct sdw_driver *drv);
+>  
+> -int sdw_slave_uevent(struct device *dev, struct kobj_uevent_env *env);
+> +int sdw_slave_uevent(const struct device *dev, struct kobj_uevent_env *env);
+>  
+>  /**
+>   * module_sdw_driver() - Helper macro for registering a Soundwire driver
+> -- 
+> 2.39.0
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: use-after-free in snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
-Read of size 8 at addr ffff8880222ed980 by task syz-executor.0/13421
-
-CPU: 0 PID: 13421 Comm: syz-executor.0 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0xd1/0x138 lib/dump_stack.c:106
- print_address_description mm/kasan/report.c:306 [inline]
- print_report+0x15e/0x45d mm/kasan/report.c:417
- kasan_report+0xc0/0xf0 mm/kasan/report.c:517
- snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
- vfs_poll include/linux/poll.h:88 [inline]
- io_poll_check_events io_uring/poll.c:279 [inline]
- io_poll_task_func+0x3a6/0x1220 io_uring/poll.c:327
- handle_tw_list+0xa8/0x460 io_uring/io_uring.c:1169
- tctx_task_work+0x12e/0x530 io_uring/io_uring.c:1224
- task_work_run+0x16f/0x270 kernel/task_work.c:179
- get_signal+0x1c7/0x24f0 kernel/signal.c:2635
- arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
- exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
- exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
- __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
- syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
- do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7fbb08c8c0c9
-Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fbb099a6218 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-RAX: 0000000000000001 RBX: 00007fbb08dabf88 RCX: 00007fbb08c8c0c9
-RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007fbb08dabf8c
-RBP: 00007fbb08dabf80 R08: 00007ffdf79a3080 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000246 R12: 00007fbb08dabf8c
-R13: 00007ffdf794d43f R14: 00007fbb099a6300 R15: 0000000000022000
- </TASK>
-
-Allocated by task 13421:
- kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
- kasan_set_track+0x25/0x30 mm/kasan/common.c:52
- ____kasan_kmalloc mm/kasan/common.c:371 [inline]
- ____kasan_kmalloc mm/kasan/common.c:330 [inline]
- __kasan_kmalloc+0xa2/0xb0 mm/kasan/common.c:380
- kmalloc include/linux/slab.h:580 [inline]
- kzalloc include/linux/slab.h:720 [inline]
- snd_pcm_oss_open_file sound/core/oss/pcm_oss.c:2433 [inline]
- snd_pcm_oss_open.part.0+0x558/0x1330 sound/core/oss/pcm_oss.c:2535
- snd_pcm_oss_open+0x44/0x60 sound/core/oss/pcm_oss.c:2499
- soundcore_open+0x452/0x620 sound/sound_core.c:593
- chrdev_open+0x26a/0x770 fs/char_dev.c:414
- do_dentry_open+0x6cc/0x13f0 fs/open.c:883
- do_open fs/namei.c:3558 [inline]
- path_openat+0x1bc1/0x2b40 fs/namei.c:3715
- do_filp_open+0x1ba/0x410 fs/namei.c:3742
- do_sys_openat2+0x16d/0x4c0 fs/open.c:1311
- do_sys_open fs/open.c:1327 [inline]
- __do_sys_openat fs/open.c:1343 [inline]
- __se_sys_openat fs/open.c:1338 [inline]
- __x64_sys_openat+0x143/0x1f0 fs/open.c:1338
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-
-Freed by task 13421:
- kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
- kasan_set_track+0x25/0x30 mm/kasan/common.c:52
- kasan_save_free_info+0x2e/0x40 mm/kasan/generic.c:518
- ____kasan_slab_free mm/kasan/common.c:236 [inline]
- ____kasan_slab_free+0x160/0x1c0 mm/kasan/common.c:200
- kasan_slab_free include/linux/kasan.h:162 [inline]
- slab_free_hook mm/slub.c:1781 [inline]
- slab_free_freelist_hook+0x8b/0x1c0 mm/slub.c:1807
- slab_free mm/slub.c:3787 [inline]
- __kmem_cache_free+0xaf/0x2d0 mm/slub.c:3800
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2415 [inline]
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2405 [inline]
- snd_pcm_oss_release+0x182/0x300 sound/core/oss/pcm_oss.c:2592
- __fput+0x27c/0xa90 fs/file_table.c:321
- task_work_run+0x16f/0x270 kernel/task_work.c:179
- get_signal+0x1c7/0x24f0 kernel/signal.c:2635
- arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
- exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
- exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
- __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
- syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
- do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-
-The buggy address belongs to the object at ffff8880222ed980
- which belongs to the cache kmalloc-16 of size 16
-The buggy address is located 0 bytes inside of
- 16-byte region [ffff8880222ed980, ffff8880222ed990)
-
-The buggy address belongs to the physical page:
-page:ffffea000088bb40 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x222ed
-anon flags: 0xfff00000000200(slab|node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000200 ffff8880124413c0 0000000000000000 dead000000000001
-raw: 0000000000000000 0000000000800080 00000001ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x112cc0(GFP_USER|__GFP_NOWARN|__GFP_NORETRY), pid 5107, tgid 5107 (syz-executor.1), ts 750843463810, free_ts 748166918947
- prep_new_page mm/page_alloc.c:2549 [inline]
- get_page_from_freelist+0x11bb/0x2d50 mm/page_alloc.c:4324
- __alloc_pages+0x1cb/0x5c0 mm/page_alloc.c:5590
- __alloc_pages_node include/linux/gfp.h:237 [inline]
- alloc_slab_page mm/slub.c:1853 [inline]
- allocate_slab+0xa7/0x350 mm/slub.c:1998
- new_slab mm/slub.c:2051 [inline]
- ___slab_alloc+0xa91/0x1400 mm/slub.c:3193
- __slab_alloc.constprop.0+0x56/0xa0 mm/slub.c:3292
- __slab_alloc_node mm/slub.c:3345 [inline]
- slab_alloc_node mm/slub.c:3442 [inline]
- __kmem_cache_alloc_node+0x136/0x330 mm/slub.c:3491
- __do_kmalloc_node mm/slab_common.c:966 [inline]
- __kmalloc_node+0x4d/0xd0 mm/slab_common.c:974
- kmalloc_node include/linux/slab.h:610 [inline]
- kvmalloc_node+0xa2/0x1a0 mm/util.c:603
- xt_jumpstack_alloc net/netfilter/x_tables.c:1354 [inline]
- xt_replace_table+0x1a7/0x8c0 net/netfilter/x_tables.c:1393
- __do_replace+0x1d7/0x8e0 net/ipv4/netfilter/ip_tables.c:1067
- do_replace net/ipv4/netfilter/ip_tables.c:1140 [inline]
- do_ipt_set_ctl+0x89d/0xb10 net/ipv4/netfilter/ip_tables.c:1630
- nf_setsockopt+0x87/0xe0 net/netfilter/nf_sockopt.c:101
- ip_setsockopt+0xf2/0x110 net/ipv4/ip_sockglue.c:1445
- tcp_setsockopt+0x9f/0x100 net/ipv4/tcp.c:3802
- __sys_setsockopt+0x2c6/0x5b0 net/socket.c:2246
- __do_sys_setsockopt net/socket.c:2257 [inline]
- __se_sys_setsockopt net/socket.c:2254 [inline]
- __x64_sys_setsockopt+0xbe/0x160 net/socket.c:2254
-page last free stack trace:
- reset_page_owner include/linux/page_owner.h:24 [inline]
- free_pages_prepare mm/page_alloc.c:1451 [inline]
- free_pcp_prepare+0x4d0/0x910 mm/page_alloc.c:1501
- free_unref_page_prepare mm/page_alloc.c:3387 [inline]
- free_unref_page+0x1d/0x490 mm/page_alloc.c:3482
- __unfreeze_partials+0x17c/0x1a0 mm/slub.c:2637
- qlink_free mm/kasan/quarantine.c:168 [inline]
- qlist_free_all+0x6a/0x170 mm/kasan/quarantine.c:187
- kasan_quarantine_reduce+0x192/0x220 mm/kasan/quarantine.c:294
- __kasan_slab_alloc+0x63/0x90 mm/kasan/common.c:302
- kasan_slab_alloc include/linux/kasan.h:186 [inline]
- slab_post_alloc_hook mm/slab.h:769 [inline]
- slab_alloc_node mm/slub.c:3452 [inline]
- slab_alloc mm/slub.c:3460 [inline]
- __kmem_cache_alloc_lru mm/slub.c:3467 [inline]
- kmem_cache_alloc+0x175/0x320 mm/slub.c:3476
- kmem_cache_zalloc include/linux/slab.h:710 [inline]
- alloc_buffer_head+0x24/0x150 fs/buffer.c:2946
- alloc_page_buffers+0x284/0x790 fs/buffer.c:871
- create_empty_buffers+0x30/0xf30 fs/buffer.c:1585
- ext4_block_write_begin+0x10a7/0x15f0 fs/ext4/inode.c:1080
- ext4_da_write_begin+0x450/0xb70 fs/ext4/inode.c:3082
- generic_perform_write+0x256/0x570 mm/filemap.c:3772
- ext4_buffered_write_iter+0x15b/0x460 fs/ext4/file.c:285
- ext4_file_write_iter+0x8bf/0x1710 fs/ext4/file.c:700
- __kernel_write_iter+0x262/0x730 fs/read_write.c:517
-
-Memory state around the buggy address:
- ffff8880222ed880: 00 00 fc fc fa fb fc fc fa fb fc fc fa fb fc fc
- ffff8880222ed900: fa fb fc fc fa fb fc fc 00 00 fc fc 00 00 fc fc
->ffff8880222ed980: fa fb fc fc fa fb fc fc 00 00 fc fc 00 00 fc fc
-                   ^
- ffff8880222eda00: 00 00 fc fc 00 00 fc fc fa fb fc fc 00 00 fc fc
- ffff8880222eda80: fa fb fc fc 00 00 fc fc fa fb fc fc fa fb fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+-- 
+heikki

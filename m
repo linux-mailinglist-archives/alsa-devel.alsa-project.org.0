@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C46E6670B1
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:16:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82E4C6670D0
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:24:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A264B70D5;
-	Thu, 12 Jan 2023 12:15:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A264B70D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFDDF8AEE;
+	Thu, 12 Jan 2023 12:23:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFDDF8AEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673522198;
-	bh=xu67CKRYcIeWxPWa6uuAhl4U1ci6zO82QrjSgqyRjeE=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ak/ZxWQLduMZUlupwWOt/NCrRUgqyRcjOMvvRgYlEqxV2O+YvIoXMYPlctHDF3JuN
-	 qi28Ui1O6CkgQ68NoSI+cOhkjMaUkHdsxhHzSUgvl+bUAH/+MXrjvZKNOceBrTGGgE
-	 75lAKc+6B95nsLNtPMN64C669akwWJsgdwE2Exd4=
+	s=default; t=1673522685;
+	bh=9KAbnHL0UiVDA9+ZptE4cD++4OwAL8HyjhzOIXTCDOc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=F90ao6MPyPf7IfEIZF32/E4KcD1ydaipKJsfPdhOGiKOShCrYu2ahW6PzSYxBuEh8
+	 0o5Ozx/QiNi5q/FEqrKdsjuPwk/KAdYi0el6AzNh12FrqgQ4NUZBcthiLhvn1clIjX
+	 THRmrQvMijHmdiLpSYvGPeVbOpa9Ko7L3QawU1EU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A4B7F8013D;
-	Thu, 12 Jan 2023 12:15:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 677D5F8016E;
+	Thu, 12 Jan 2023 12:23:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6200F804C1; Thu, 12 Jan 2023 12:15:38 +0100 (CET)
+ id 66817F8016E; Thu, 12 Jan 2023 12:23:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08233F8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:15:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08233F8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=F8IHt4AY; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=T0sEUhdO
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2530D3FC8F;
- Thu, 12 Jan 2023 11:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673522136; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6cNCT0QTgoQmto8fANglKfkjFp5jf/v47qI+q2qRbSw=;
- b=F8IHt4AYUdEbemFHCHOpMuNufXOX3OLKdg4WgGXOlni2lVUcdUGKHByl32fbG7EwjSijgY
- vOEE8+C7p8DW1JxTlh10Nae1KL3rkv1s1XJrUsdphUNsZg5LRI559bJHzAPJAKXYHBcowW
- vItueh59Z+DOijHaAuP+VT+8vFGTHC8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673522136;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6cNCT0QTgoQmto8fANglKfkjFp5jf/v47qI+q2qRbSw=;
- b=T0sEUhdOxqT4SAdh74q7ccTACsCogImCyKmNKcqmKkfRufW+V5rMaX9qxsOd9T96bEGwcL
- OXbMmqBOGHF9yKDg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 04FB813958;
- Thu, 12 Jan 2023 11:15:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id znVvANjrv2NaRAAAGKfGzw
- (envelope-from <tiwai@suse.de>); Thu, 12 Jan 2023 11:15:36 +0000
-Date: Thu, 12 Jan 2023 12:15:35 +0100
-Message-ID: <87h6ww6m20.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 0/3] ALSA: firewire-lib: report extra delay of PCM runtime
-In-Reply-To: <20230110134933.322794-1-o-takashi@sakamocchi.jp>
-References: <20230110134933.322794-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1092F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:23:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1092F8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IGQCUpcK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673522624; x=1705058624;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9KAbnHL0UiVDA9+ZptE4cD++4OwAL8HyjhzOIXTCDOc=;
+ b=IGQCUpcKBf9Izef+7f45MXpO3pGJRY+unJZR6o8kIXfSvK2ZDQWRZlfw
+ Q4e6ZulYmZqP4qM31brosCW0nJISneF7eJB41yTjNqAouJVWW59zfAol5
+ Hd805XWSzWlxdb4GHiAA8SCpeBaJjFmXO4SkDe/jSgIznIuPCQQzS4uiv
+ IL8fVlJACnDCFh7SX6uv+e6UYTfCOPBHhH6FBibeDxLEk8CkETQ6WKNpr
+ wCf2AF4oVZaCbLSgemrU7AjGTveGB+bKw+PIMOuvhvGTPHmgABGiaBvI3
+ LorDqsfLJgnabtudTSrVBC4wm+zgRmc4R6AEeHoScdvSLTIk7bHsN1hQB w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="325704375"
+X-IronPort-AV: E=Sophos;i="5.96,319,1665471600"; d="scan'208";a="325704375"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 03:23:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="607750221"
+X-IronPort-AV: E=Sophos;i="5.96,319,1665471600"; d="scan'208";a="607750221"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga003.jf.intel.com with ESMTP; 12 Jan 2023 03:23:30 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 59258130; Thu, 12 Jan 2023 13:24:04 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/1] ASoC: amd: acp-es8336: Drop reference count of ACPI
+ device after use
+Date: Thu, 12 Jan 2023 13:23:56 +0200
+Message-Id: <20230112112356.67643-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,43 +87,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Jan 2023 14:49:30 +0100,
-Takashi Sakamoto wrote:
-> 
-> For reasons, all drivers in ALSA firewire stack have never reported extra
-> delay for the runtime of PCM substream. The main reason is that the
-> meaning of extra delay differs depending on driver design. Another
-> technical reason is that no kernel API was provided to know the current
-> hardware time.
-> 
-> I realized that the extra delay is helpful to user space PCM applications
-> in the case of packet-oriented drivers since the drivers have a gap
-> between the current transmission cycle and the latest transmission cycle
-> to which the packet is processed (for PCM capture) or scheduled (for PCM
-> playback). The amount of PCM frames delivered during the gap is usually
-> invisible from the application as is in reported delay.
-> 
-> A commit baa914cd81f5 ("firewire: add kernel API to access CYCLE_TIME
-> register") was already merged into Linux kernel v5.19 or later, and the
-> unit drivers can read hardware time and calculate the current isochronous
-> cycle. Moreover, a commit f0117128879b ("ALSA: firewire-lib: keep history
-> to process isochronous packet") enables to keep the recent history of
-> packets, including cycle count and data block count.
-> 
-> It is ready at last. This patchset adds computation of the extra delay.
-> 
-> Takashi Sakamoto (3):
->   ALSA: firewire-lib: move parameter for pcm frame multiplier from
->     context payload processing layer
->   ALSA: firewire-lib: obsolete return value from context payload
->     processing layer
->   ALSA: firewire-lib: compute extra delay for runtime of PCM substream
+Theoretically the device might gone if its reference count drops to 0.
+This might be the case when we try to find the first physical node of
+the ACPI device. We need to keep reference to it until we get a result
+of the above mentioned call. Refactor the code to drop the reference
+count at the correct place.
 
-Thanks, applied now.
+While at it, move to acpi_dev_put() as symmetrical call to the
+acpi_dev_get_first_match_dev().
 
+Fixes: 02527c3f2300 ("ASoC: amd: add Machine driver for Jadeite platform")
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+v2: split from big series (Pierre), added tag (Vijendar)
+ sound/soc/amd/acp-es8336.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Takashi
+diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
+index 2fe8df86053a..89499542c803 100644
+--- a/sound/soc/amd/acp-es8336.c
++++ b/sound/soc/amd/acp-es8336.c
+@@ -198,9 +198,11 @@ static int st_es8336_late_probe(struct snd_soc_card *card)
+ 	int ret;
+ 
+ 	adev = acpi_dev_get_first_match_dev("ESSX8336", NULL, -1);
+-	if (adev)
+-		put_device(&adev->dev);
++	if (!adev)
++		return -ENODEV;
++
+ 	codec_dev = acpi_get_first_physical_node(adev);
++	acpi_dev_put(adev);
+ 	if (!codec_dev)
+ 		dev_err(card->dev, "can not find codec dev\n");
+ 
+-- 
+2.39.0
+

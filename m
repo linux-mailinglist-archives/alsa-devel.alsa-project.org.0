@@ -2,96 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6442F667A42
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12A5667A43
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5497B92BC;
-	Thu, 12 Jan 2023 17:03:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5497B92BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C27592EC;
+	Thu, 12 Jan 2023 17:03:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C27592EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673539465;
-	bh=0dfNRqDELJzeMbKeK2k3puxktlH9TAfo1+WGxCaJWzw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=K8XpryedTqSRe+ujsWqYBE2Fwm69zlcEIoLqovZYK/ICIF/Pk1EnNw5jVo27oQ0/T
-	 iNjhhr5E6of2A2Jd9PkB+9w8RDpj6tbMAEVM0DYGgtpoBknXBFAh2GgJOQ/hPA2EoC
-	 WkFRASgMypL2ZSIoJZXF2bQzDTfLj9UoTaz5CuZg=
+	s=default; t=1673539478;
+	bh=24pa4CrQvbeifm5wbrY99xyH88M3WPUoYOr6YWN72Qs=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=owXudyO3HiXlcmZgN1NroQPmVZa35sJFaUqi4Z8sZKR8Fc8zBdaV3F7GnPJ/s/6Qy
+	 GC+xTlcMssVU69WsCFOipDUSMYnUQeBFUp/KUxjZBLL9qxTHkPWO4dUDfx9k5oN7qk
+	 ju2zXxIXuRFkVd6wlVV36D0BDMtgWSrXFvY9qOK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49171F805AE;
+	by alsa1.perex.cz (Postfix) with ESMTP id E00C0F805B2;
 	Thu, 12 Jan 2023 16:59:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE36DF80424; Wed, 11 Jan 2023 17:11:50 +0100 (CET)
+ id 0DE7AF804C1; Thu, 12 Jan 2023 11:12:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+ autolearn_force=no version=3.4.6
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC988F803DC
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 17:11:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC988F803DC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=tq-group.com
- header.i=@tq-group.com header.a=rsa-sha256 header.s=key1 header.b=RghrCwOM; 
- dkim=pass (2048-bit key) header.d=tq-group.com header.i=@tq-group.com
- header.a=rsa-sha256 header.s=key1 header.b=i/TqBNK9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1673453509; x=1704989509;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=c9cpAyHWzxXjJFF8d9KlzwQ1StQxFYBmw6tvDxixwNc=;
- b=RghrCwOM/ZWkbsDu6Ri1sUtVPKlbnmwEE6pK5eRKu1KZBQElXBzAvS3N
- r4yF5sM8yymhlUk3+80ZZj4Z8eDdnri3yAef0DHl6C3u2sihcYajbwdFe
- Oi74jJMHDa+/xGy7xpwRAD2D3wIE0FTMxLgu/zsWuP+uvLMh5+ZiEt04p
- nuc+JKgE+HqSmYIdlAmsN9GcxtCJ8KbtB/RlnqrdpGe8T5fyKIpUZZ6si
- dV7I3Kvp4R6LzfZui8d7qnfnSEgfdBm+75R0As9KQTTRAEv3DmD1j8Qw8
- DP/bbwQe2Ml9pGJqtSGFUKkrHAxn2FwzUg1twtQpbPt/JL6B+iHtTiImH Q==;
-X-IronPort-AV: E=Sophos;i="5.96,317,1665439200"; d="scan'208";a="28363764"
-Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
- by mx1-pgp.tq-group.com with ESMTP; 11 Jan 2023 17:11:48 +0100
-Received: from mx1.tq-group.com ([192.168.6.7])
- by tq-pgp-pr1.tq-net.de (PGP Universal service);
- Wed, 11 Jan 2023 17:11:48 +0100
-X-PGP-Universal: processed;
- by tq-pgp-pr1.tq-net.de on Wed, 11 Jan 2023 17:11:48 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1673453508; x=1704989508;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=c9cpAyHWzxXjJFF8d9KlzwQ1StQxFYBmw6tvDxixwNc=;
- b=i/TqBNK9qdyc3cvLiA0cZxg4/yFPkYSOhUQU3zGK/47xLCmIOfSUdwdI
- f8AsrNbC49D2ylz/YnlMEsEhQHtVVo92beEvxz52cXu6dD+tP+I09iayT
- cp77FohBCEGfNnsc72JrbnlsGNrmwJibOKgarO14H1tF/+khJMfylS6ig
- jrRiOwhIIi46yiTgNd33/a/p7MQzq3QgUK40zcUk7ilsUfvqoIcMpyLZk
- JRI72sYAtQysxkV4fHEayQ/p2y36iTAQqpXHZMEz+FM39+qRulobUyVNl
- YKMSF2gNw5qwg32T9Uzkm0+XPYQ9zDQdP7YYOsK2pLI8xQlVUKQ/WdsJJ Q==;
-X-IronPort-AV: E=Sophos;i="5.96,317,1665439200"; d="scan'208";a="28363763"
-Received: from vtuxmail01.tq-net.de ([10.115.0.20])
- by mx1.tq-group.com with ESMTP; 11 Jan 2023 17:11:48 +0100
-Received: from steina-w.tq-net.de (unknown [10.123.53.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 9A204280056;
- Wed, 11 Jan 2023 17:11:47 +0100 (CET)
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/1] ASoC: fsl_sai: Use dev_err_probe
-Date: Wed, 11 Jan 2023 17:11:44 +0100
-Message-Id: <20230111161144.3275546-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DB1DF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:12:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DB1DF8016E
+Received: by mail-io1-f71.google.com with SMTP id
+ z9-20020a6b0a09000000b00704712ed815so2227040ioi.1
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:12:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+hJHl7iV8f1sYSqGJtEFNLAOHn3tn9sXTJHzL+rZ44k=;
+ b=W5nd2XAHQlAmXHCdgONsgsCPtDvoOJRZiwHKRE9cDd0zEHyEIJQ5vrV36Ly4GRW2nR
+ lIyk86/+sIhzmy3GBfNitbe/QrIo2B6wPYsEEDXMilDhF4XoHHTj6ZCyMtGimpm25Qup
+ gMsQB3NbHGNCy4iR3key/IGbEJ7R+gFuFToowO8GumiFLxvF/SE+8CzzWdy/Gg9U9yth
+ wm540amwcrXe2ofKyBzoXR1mKICq0u1lEgpeN8+7yIKVXLb2TbMlqFtEPt8UU5SeU5so
+ 8Oe4/7raS7EMi96rmmQeZ4w3mDCVkD9XH8K6ThgD+rmZ3Zsq0ZBMQi+k5yyOjTJ3Igvd
+ 2veQ==
+X-Gm-Message-State: AFqh2krnBmd/nKS7rvaU9upmwvDiamaxrimjKa9e2lb+KXQd0Uk8PhUC
+ 9aDsB3K5XXmcxIsl7RW6NAeL6oqsv8TR49tUS7aJjJEFrahr
+X-Google-Smtp-Source: AMrXdXurBxuYu0nhD0PaEOwHTy7qvi0IMq+b8qmXhXbFK7SZ28SbXP+kfBgzivzv0yQ+mAeHgD/g4rExqh9Bz48nPCQy0ihcNA4/
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6638:50b:b0:373:d769:bc14 with SMTP id
+ i11-20020a056638050b00b00373d769bc14mr8061266jar.264.1673518359945; Thu, 12
+ Jan 2023 02:12:39 -0800 (PST)
+Date: Thu, 12 Jan 2023 02:12:39 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000005ea9dd05f20e5b48@google.com>
+Subject: [syzbot] KASAN: use-after-free Read in snd_rawmidi_poll
+From: syzbot <syzbot+e3ec01fd2d18c9264c3b@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 12 Jan 2023 16:59:42 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -105,52 +82,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This helps figuring out why the device probe is deferred, e.g. missing
-FSL_EDMA driver.
+Hello,
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+syzbot found the following issue on:
+
+HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1748baa1480000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
+dashboard link: https://syzkaller.appspot.com/bug?extid=e3ec01fd2d18c9264c3b
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e3ec01fd2d18c9264c3b@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: use-after-free in snd_rawmidi_poll+0x559/0x680 sound/core/rawmidi.c:1655
+Read of size 8 at addr ffff8881479ea708 by task syz-executor.0/7629
+
+CPU: 1 PID: 7629 Comm: syz-executor.0 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0xd1/0x138 lib/dump_stack.c:106
+ print_address_description mm/kasan/report.c:306 [inline]
+ print_report+0x15e/0x45d mm/kasan/report.c:417
+ kasan_report+0xc0/0xf0 mm/kasan/report.c:517
+ snd_rawmidi_poll+0x559/0x680 sound/core/rawmidi.c:1655
+ vfs_poll include/linux/poll.h:88 [inline]
+ io_poll_check_events io_uring/poll.c:279 [inline]
+ io_poll_task_func+0x3a6/0x1220 io_uring/poll.c:327
+ handle_tw_list+0xa8/0x460 io_uring/io_uring.c:1169
+ tctx_task_work+0x12e/0x530 io_uring/io_uring.c:1224
+ task_work_run+0x16f/0x270 kernel/task_work.c:179
+ get_signal+0x1c7/0x24f0 kernel/signal.c:2635
+ arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
+ exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
+ exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
+ __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
+ syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
+ do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7f66cbc8c0c9
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f66cc936168 EFLAGS: 00000246 ORIG_RAX: 0000000000000013
+RAX: fffffffffffffe00 RBX: 00007f66cbdabf80 RCX: 00007f66cbc8c0c9
+RDX: 0000000000000001 RSI: 0000000020000800 RDI: 0000000000000006
+RBP: 00007f66cbce7ae9 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffe231decef R14: 00007f66cc936300 R15: 0000000000022000
+ </TASK>
+
+Allocated by task 7629:
+ kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
+ kasan_set_track+0x25/0x30 mm/kasan/common.c:52
+ ____kasan_kmalloc mm/kasan/common.c:371 [inline]
+ ____kasan_kmalloc mm/kasan/common.c:330 [inline]
+ __kasan_kmalloc+0xa2/0xb0 mm/kasan/common.c:380
+ kmalloc include/linux/slab.h:580 [inline]
+ snd_rawmidi_open+0x39a/0xb70 sound/core/rawmidi.c:482
+ snd_open+0x223/0x460 sound/core/sound.c:169
+ chrdev_open+0x26a/0x770 fs/char_dev.c:414
+ do_dentry_open+0x6cc/0x13f0 fs/open.c:883
+ do_open fs/namei.c:3558 [inline]
+ path_openat+0x1bc1/0x2b40 fs/namei.c:3715
+ do_filp_open+0x1ba/0x410 fs/namei.c:3742
+ do_sys_openat2+0x16d/0x4c0 fs/open.c:1311
+ do_sys_open fs/open.c:1327 [inline]
+ __do_sys_openat fs/open.c:1343 [inline]
+ __se_sys_openat fs/open.c:1338 [inline]
+ __x64_sys_openat+0x143/0x1f0 fs/open.c:1338
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+
+Freed by task 7629:
+ kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
+ kasan_set_track+0x25/0x30 mm/kasan/common.c:52
+ kasan_save_free_info+0x2e/0x40 mm/kasan/generic.c:518
+ ____kasan_slab_free mm/kasan/common.c:236 [inline]
+ ____kasan_slab_free+0x160/0x1c0 mm/kasan/common.c:200
+ kasan_slab_free include/linux/kasan.h:162 [inline]
+ slab_free_hook mm/slub.c:1781 [inline]
+ slab_free_freelist_hook+0x8b/0x1c0 mm/slub.c:1807
+ slab_free mm/slub.c:3787 [inline]
+ __kmem_cache_free+0xaf/0x2d0 mm/slub.c:3800
+ snd_rawmidi_release+0x6a/0xf0 sound/core/rawmidi.c:619
+ __fput+0x27c/0xa90 fs/file_table.c:321
+ task_work_run+0x16f/0x270 kernel/task_work.c:179
+ get_signal+0x1c7/0x24f0 kernel/signal.c:2635
+ arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
+ exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
+ exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
+ __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
+ syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
+ do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+
+The buggy address belongs to the object at ffff8881479ea700
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 8 bytes inside of
+ 32-byte region [ffff8881479ea700, ffff8881479ea720)
+
+The buggy address belongs to the physical page:
+page:ffffea00051e7a80 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1479ea
+flags: 0x57ff00000000200(slab|node=1|zone=2|lastcpupid=0x7ff)
+raw: 057ff00000000200 ffff888012441500 ffffea0001debd00 dead000000000004
+raw: 0000000000000000 0000000000400040 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY), pid 1, tgid 1 (swapper/0), ts 9844741481, free_ts 0
+ prep_new_page mm/page_alloc.c:2549 [inline]
+ get_page_from_freelist+0x11bb/0x2d50 mm/page_alloc.c:4324
+ __alloc_pages+0x1cb/0x5c0 mm/page_alloc.c:5590
+ alloc_page_interleave+0x1e/0x200 mm/mempolicy.c:2114
+ alloc_pages+0x233/0x270 mm/mempolicy.c:2276
+ alloc_slab_page mm/slub.c:1851 [inline]
+ allocate_slab+0x25f/0x350 mm/slub.c:1998
+ new_slab mm/slub.c:2051 [inline]
+ ___slab_alloc+0xa91/0x1400 mm/slub.c:3193
+ __slab_alloc.constprop.0+0x56/0xa0 mm/slub.c:3292
+ __slab_alloc_node mm/slub.c:3345 [inline]
+ slab_alloc_node mm/slub.c:3442 [inline]
+ __kmem_cache_alloc_node+0x136/0x330 mm/slub.c:3491
+ __do_kmalloc_node mm/slab_common.c:966 [inline]
+ __kmalloc+0x4a/0xd0 mm/slab_common.c:980
+ kmalloc include/linux/slab.h:584 [inline]
+ usb_get_configuration+0x381/0x3b60 drivers/usb/core/config.c:919
+ usb_enumerate_device drivers/usb/core/hub.c:2405 [inline]
+ usb_new_device+0x56a/0x7b0 drivers/usb/core/hub.c:2543
+ register_root_hub+0x421/0x573 drivers/usb/core/hcd.c:1017
+ usb_add_hcd.cold+0x100c/0x13a1 drivers/usb/core/hcd.c:2991
+ vhci_hcd_probe+0x14f/0x3a0 drivers/usb/usbip/vhci_hcd.c:1362
+ platform_probe+0x100/0x1f0 drivers/base/platform.c:1400
+ call_driver_probe drivers/base/dd.c:560 [inline]
+ really_probe+0x249/0xb90 drivers/base/dd.c:639
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff8881479ea600: 00 00 00 00 fc fc fc fc 00 00 00 07 fc fc fc fc
+ ffff8881479ea680: fa fb fb fb fc fc fc fc 00 00 00 07 fc fc fc fc
+>ffff8881479ea700: fa fb fb fb fc fc fc fc 00 00 00 00 fc fc fc fc
+                      ^
+ ffff8881479ea780: 00 00 00 00 fc fc fc fc 00 00 00 00 fc fc fc fc
+ ffff8881479ea800: 00 00 00 01 fc fc fc fc 00 00 00 00 fc fc fc fc
+==================================================================
+
+
 ---
-Old:
-root@ls1021:~# cat /sys/kernel/debug/devices_deferred 
-sound   fsl-asoc-card: snd_soc_register_card failed: -517
-2b50000.sai
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-New:
-root@ls1021:~# cat /sys/kernel/debug/devices_deferred 
-sound   fsl-asoc-card: snd_soc_register_card failed: -517
-2b50000.sai     fsl-sai: Registering PCM dmaengine failed
-
- sound/soc/fsl/fsl_sai.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 1c9be8a5dcb13..2a38e2bdf9893 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -1458,14 +1458,17 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	if (sai->soc_data->use_imx_pcm) {
- 		ret = imx_pcm_dma_init(pdev);
- 		if (ret) {
-+			dev_err_probe(dev, ret, "PCM DMA init failed\n");
- 			if (!IS_ENABLED(CONFIG_SND_SOC_IMX_PCM_DMA))
- 				dev_err(dev, "Error: You must enable the imx-pcm-dma support!\n");
- 			goto err_pm_get_sync;
- 		}
- 	} else {
- 		ret = devm_snd_dmaengine_pcm_register(dev, NULL, 0);
--		if (ret)
-+		if (ret) {
-+			dev_err_probe(dev, ret, "Registering PCM dmaengine failed\n");
- 			goto err_pm_get_sync;
-+		}
- 	}
- 
- 	ret = devm_snd_soc_register_component(dev, &fsl_component,
--- 
-2.34.1
-
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

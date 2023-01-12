@@ -2,139 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3BE6687BE
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 00:08:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE69E6687F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 00:45:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07873957D;
-	Fri, 13 Jan 2023 00:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07873957D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAC3C9E36;
+	Fri, 13 Jan 2023 00:44:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAC3C9E36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673564908;
-	bh=5vKZ8MSWYVGf9d/X6rztk538AEvxLAiPgrf55f58Hpk=;
-	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=rQa/sxN3YwRYPON81+r7t7gnHNv8qOhp9F1cO3sBsh9yVNNLtW6HKq/X9NpTPSpSV
-	 snhPnJXGsnpPDOxTWZ5qexB9G7tw766CfmepyuXI0CN3bCaI2mj3eeJJVZ2TytckTn
-	 rjtDukBHm/61r1lqrgx6GP/Kn+UA78CHw5TgHzTo=
+	s=default; t=1673567129;
+	bh=jfdHidMabXXieYkDUpm+UdOLlSTN6GG3E7NjYRUcBVI=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=UvRGIYIjANXhNd/XYjD5F2HzBIq3MXPLFDg9UYOXJt5AWKiNmU65iIjcq9EfOOzDm
+	 u4PcLCGzxeSIO7dN9IkwYi2fwqr1jEoLolgmUOOYna/rQW5Rf96uJIN9vDsvk2SZMS
+	 spzdcOwxafmTSrjbpGtI4YSdS3K/h0b9/H48SKM4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C3CFF804CA;
-	Fri, 13 Jan 2023 00:07:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8777EF804CA;
+	Fri, 13 Jan 2023 00:44:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25927F8019B; Fri, 13 Jan 2023 00:07:35 +0100 (CET)
+ id 8DFC9F804BD; Fri, 13 Jan 2023 00:44:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2126.outbound.protection.outlook.com [40.107.114.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFA89F8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:07:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFA89F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4EAEF8013D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:44:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4EAEF8013D
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=ZZqYlYMz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VNtysPpQK7J5nF9teVxsKwC7ld6TITlFUEx9NoCrhwns8HwljG1y0h0Va9iqVsayBmzunWWX6SzRe4QgnR26AEuGTTcuhJ20Rvakx3ZDIpkrOlRYEnD1CyySDkBqhn2Ow2gdomad7K/tzt+H9o9CPlsA4rIIR9eOJZ7tkR4rrbAs4uF8QH1f+0rHK8NKdN4I2mC1TWX8oFJul78Vj84yJvkf6Sn35WwmG2mDIY9JVuVeFhEML0CH2wLsKetGnDa8KIRgQuP3OkgKEwCnzhbMpeuU0fjoSoj/rLFdtb9/LQQ3vC0bikFx8zfLalwiRiu4XDtGIze4ThsEycbb8Dp5eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=awF32QOCfSkp3dvKY5876KRtte954rMLE6jS2MZOn9A=;
- b=lhLksAYUcAq0NN5+b4QYvuWXEJSqPjDcWpbEaz8hFv94y4LKKTSn2y0itbftsXmgEJviaj9HFQuCbbh0hSO1AeK42Y/z95vSmdBVX3DTZ9JGa0MApvJdNrl31NDiyo1ImDySk0tb1U9ueTI5i/sa63rPq39itGb3m3aT0hftOiw3YDWNsJ2nx2Sy+hZexJequA8Pu7K5apWT5jTOQpUvYV1zCsw1RR2OeUNX1f+jWC4hiD9hFePqNaSNFk1GYi5epoYQ9pOFDcwETqI7k1KNCaE+S8uWpLmiGOGx2VIDbYrNrOolGDm/dvIuHJL4K3JNH3Df7+tcbPTSHh9mNHit3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=awF32QOCfSkp3dvKY5876KRtte954rMLE6jS2MZOn9A=;
- b=ZZqYlYMzfIP2bBT2c8v/gHiZnzRVfe1IzhqYkQSmjA203y0/vdhSnxb2+WYJ7rcglyE9XgzziS9feSwYq2Zpgcu26sKvCUgEJM74l2eCAQlHZn8wNLs2nCr1wzR21M6epehiEvyiCwWpdhSWP1R0fRYF41Wtsrn7+Bcb+yRZ9Mo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYWPR01MB10050.jpnprd01.prod.outlook.com (2603:1096:400:1e2::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 23:07:24 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3cd7:a7b5:ea86:9ae]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3cd7:a7b5:ea86:9ae%4]) with mapi id 15.20.6002.012; Thu, 12 Jan 2023
- 23:07:24 +0000
-Message-ID: <87a62nbbdg.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH 0/8] arm64: dts: renesas: Simple-Card /
- Audio-Graph-Card/Card2 dts for ULCB/KF
-In-Reply-To: <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
-References: <87edt2pxhd.wl-kuninori.morimoto.gx@renesas.com>
- <CAMuHMdUH-CSmaKuM2HA-5j5cP_c2pygp9DqyQiOC9XkCUuzCKw@mail.gmail.com>
- <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
- <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 12 Jan 2023 23:07:24 +0000
-X-ClientProxiedBy: TYAPR04CA0015.apcprd04.prod.outlook.com
- (2603:1096:404:15::27) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=TgUpO3rj
+Received: by mail-pj1-x1032.google.com with SMTP id n12so20732449pjp.1
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 15:44:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TW7nZwtXvq7y1k60RlWkCYmvZPHsdjErvYSMre+x70E=;
+ b=TgUpO3rjKMdZJgZeVdg7uctPo7kKRZgIIyGRegrat8L9LyUHv20NH4AYc2W3oDbSoS
+ xt+hOOZSY0ot694vl2uB7XnOwESc/T9A8W6XDK/95t6EPjv9+/HhadlsenouW0cOtfvZ
+ T6KgiMSs8yQexs1BDHppi+GWKEox7wzNaHMKM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TW7nZwtXvq7y1k60RlWkCYmvZPHsdjErvYSMre+x70E=;
+ b=JwVuUwY9U0uhtQgsNggLE0UPFL+TToLB5TauTbD1amtA2UPAgJfyO4PBUbSCvfMIEX
+ NDCABoInM6/Fzhvrt7VA56yvNWBckoiWRByIgSrnworMw8jeow17nxHn5Y0vXxymtQ9t
+ 6hUcMIjqQifAtzBk6aJMRR9OCTAeit5dD6kcgdfNazlgI003m7cnTovZK8uT1VpouGmQ
+ gmkvY+ZUDaf/3+jiNUSSl7sEd9vWEi1oFN76+Ar4E1pXby7ahVFZ4Beti4ZAWNqrl1xF
+ 3UeaonL6TjKKI8DGgz2r1LbmckJ+x9J08zQ+c4oH5/v8tH72xvFqLOlAqrqNc4z9Kjf/
+ Bm9A==
+X-Gm-Message-State: AFqh2kpeGx41RuwG6CPPgLSX5ex74JpaqunH3pDADuoZYJFh17EPEufI
+ l6OWw9WRchLrrn6cPKcUQiEuDcu3UKf7J7g=
+X-Google-Smtp-Source: AMrXdXuGqL1XPNVNHP2b6b+8ibsLXWK8aQ4mD/Yq4R15qGn1FuQDgTqlPMY7Lw4Su8xj06A8tbXhtQ==
+X-Received: by 2002:a17:902:a9c8:b0:194:4a0e:3024 with SMTP id
+ b8-20020a170902a9c800b001944a0e3024mr8044907plr.62.1673567071063; 
+ Thu, 12 Jan 2023 15:44:31 -0800 (PST)
+Received: from localhost ([2620:15c:9d:4:3375:381:fcab:585f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ o1-20020a170902d4c100b0019320b4f832sm1730979plg.178.2023.01.12.15.44.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jan 2023 15:44:30 -0800 (PST)
+From: cujomalainey@chromium.org
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ucm: add existence checks to geti calls
+Date: Thu, 12 Jan 2023 15:44:26 -0800
+Message-Id: <20230112234426.1714071-1-cujomalainey@chromium.org>
+X-Mailer: git-send-email 2.39.0.314.g84b9a713c41-goog
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB10050:EE_
-X-MS-Office365-Filtering-Correlation-Id: f33fb480-a536-4f27-663c-08daf4f1c42f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f4ekqeTW6jC+BdcfSN53cVp5E9MCnSHpTPQNduCyEuDX0qVPXcZZyiSui96si+XdhFN16Wn+WIdth91mAree3bIDd5j2wHgf9kHh4PdiF65TlMGozMQGp2y27PYbiMa4K7DwzX4nVIKnpvUR/qSm6ki2OAUUF1+g+Akx3jKNv2Dw8IMKMAX5T+WcnoQ9hH4yMGuYyAklFMn2YxjlRsWqUO3jrd4TQZQHLid+E4It8QgSb1E4hRuou3hoKwenuHK8y9A6t2YA/wYCBS+GJfJm5w7hHHXBs48G50pYZuG1BqXYU1a+q5w7sVHejm9/cp86kALKmUC6eatkx8qRjojmxwXipytXjL89pWHgC7WOih9y1kLNJhfhnKJ9/wdRUtVRTFObsWeBkYO+2U9H5fawZUIFgeOKcvpYfvxrOzed5FrrpyrCRXtY5RcT3t4bUQRyu221323V6fgeb7DfIWEcA0HmWXFDIZmBCEzKBJkmuQowv55G/9XRxU7jK3Jos8qI+g6qtjp9oqMKyIhPFoUjpG8PtQhZogvp3QcMjZXRgq6sCz0dSzOLDfl7k9FCi6RmuU2to+w+PYzymFphh98RGDIXgW7Qnw7T8SzBixNeDbsJOfvqdhBFOZMMCQGCybmOw2nDCZNwKXiLgD4OJ212NLQHktAkX4ypvulk7nzxTTVOPTibUHgXK3mqW+9ujJqQvr+gG0jwqXvDFGQNqlqCrQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(451199015)(36756003)(86362001)(66476007)(5660300002)(52116002)(316002)(8936002)(4744005)(8676002)(6506007)(26005)(6486002)(478600001)(2616005)(6512007)(186003)(38100700002)(38350700002)(66946007)(41300700001)(4326008)(6916009)(66556008)(2906002)(54906003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?y9sItGagba1dhxAimOquud+Xx0+6THsTvvvbAWPBt/TuLGZE/rub7Bpm3lgi?=
- =?us-ascii?Q?waY1UhC7ewAbTaZTox+wplQGO/mR+bbgEsCG/nBAH79fKk6mpJ3zdEmzo2tf?=
- =?us-ascii?Q?LBlrLMF4cSFEQlvGMym+jeu0Jv/zfcT8Rh2s0/WGy2OAoG+6Qu8aKND0Ty0L?=
- =?us-ascii?Q?45w5LzpMjfyprqDMhIAlFfZ33KkKYyx66GV6RVSjswFsT8NTa3MjIyuVyRkh?=
- =?us-ascii?Q?18wH0uFjGRZva8JBq9npwu33umOS/a8Y2vc3SQPamRuxZT0m2/pvxFVgvn2V?=
- =?us-ascii?Q?xCO9xEqaECdqkscps5DNCxFUDzy0uta1j3Q10ECUul46vwfSg5Gy1BDsbqEh?=
- =?us-ascii?Q?JtZYPS5bAm/mk0uVUC0Is/oaVJxRkKYmQujxFdpYPPOGMbK5rVDY86SbQkjX?=
- =?us-ascii?Q?moV2bpavEVvlcSwLlyW1PSSyUmT2YkvOV8istQrCSMcYqNZ4rLoBaQUSiGic?=
- =?us-ascii?Q?+uL5NQVzv8WkzSe7wUuLQRFh4Ly/8zBiTVrEcuwDIgqoildQoYg7B1R3ysFd?=
- =?us-ascii?Q?GUcQhLu6X2pazY58fiKG4Th6FMCBloLJS55dPXK9yd9C83arwpDrvpH4Kdtp?=
- =?us-ascii?Q?DhtRVkOSMuQEhCKjKLbTUChVwkPfzNFwESCZojWgWAnENLk3RyDoYyoSLdR/?=
- =?us-ascii?Q?PwEUKV0iH6E8JTlvcDJu204fhH8HF7ZGpDtfzojVkDLa11jGcpNjBlDTPP87?=
- =?us-ascii?Q?ozUDnJCbUSEqOkzs+hEmGEgP60b/yKBy705X6idowdoKvV6eO1v4JhCjrxWd?=
- =?us-ascii?Q?MfAleuajyY0CO34dJ5vXx3DlaO+iIVXry21VhWoIDaI9rr3jCJDsemQLMO8T?=
- =?us-ascii?Q?KDKcWqyvKhh6duybTh8Sk0J+/iWiNfxmd4fdwICV3jLG/eqgHMxBFk8QQQ0e?=
- =?us-ascii?Q?W/YwK42lICt98insIK3ems7KX9/Y+Dl5KDNyQW64s/7oCjIy+/465DnqGrdw?=
- =?us-ascii?Q?+57vw4LnuySACCOoD10yAc/Al4Uhrfu21mHMlacb4xePHr4SnP5d7pEWukjL?=
- =?us-ascii?Q?JaQCAeJQ/4XV40STBy5TW0SKdxX32Xi0nxQLKhRCZAugNeyPj6rZXOd6xwUQ?=
- =?us-ascii?Q?BBIdPvKhu7Vi1HxlKCk8+xU1nIwPiGYak8jS+HImkm7GU78ZfDEFyz5INrtd?=
- =?us-ascii?Q?G7ZUIWgkg0PVyykyNk/t92tJNPIbdhH1Q26ErAQFDyWDH5BnQAEDkxAqPx/B?=
- =?us-ascii?Q?fO6JhsIBj3+Lrwj98wh5pKb4dz9kXXmcDUZ0kqPnIqWCyrm8vDePb3sQCHcz?=
- =?us-ascii?Q?QIh48Nwegd5sIljuZISBCSVX8EMPLRkQWyPw72nNVc+HzWaJU2k+RNrY5rdp?=
- =?us-ascii?Q?AuUXr41Gp5gFF4K5VIy4OKID06bNdeUluFLT6sXPjvSWxdeBwKwJwdbB6PoB?=
- =?us-ascii?Q?UfY1UNXnR4WcAtk34ByOX4xGDu0vPkIa78rzyh7PJTmjl/4yQj0y614AJZ7U?=
- =?us-ascii?Q?8lOGS7Uk10ni/ENFfNNwB4i1tysOJjwVKC+rBauaBWbBA6ooPDhTFYte8+s4?=
- =?us-ascii?Q?OiOUOIkyyqSCQsbuIYr6s7bEcuc11IlYRXGSzL9EK+fiYU2EYLEI3vNY9msu?=
- =?us-ascii?Q?JGPw+pU7mcY6x5uJWdMVPlroKmHgyEP209wiGCHmHtdrxWxDy+KGysG44b3q?=
- =?us-ascii?Q?hZbI9UHVrBwcanTRVYY4VyU=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f33fb480-a536-4f27-663c-08daf4f1c42f
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 23:07:24.3020 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /ylt5umJO4lrF8JHItRlSlmPY1bv5vMUy0/5wCsO/gc+kZv2AZxYRmZTskOSwOakJugvsADKzLUU8+95ypZZudw0iaszlQNxWU5MmYit4BJwyE5MzuB5kRt9A9HKo1WC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10050
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,42 +94,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Curtis Malainey <cujomalainey@chromium.org>, tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Curtis Malainey <cujomalainey@chromium.org>
 
-Hi Geert
+Right now in snd_use_case_geti you cannot tell if the item being queried
+exists or not when being checked. This also means the only way to check
+for the existence of something in the client of the library is to
+iterate over the list of mods/devs even if we know exactly the name we
+are looking for. We have functions that do exactly this internally so
+lets return this information in a logical fashion through geti.
 
-> > It is used on "Simple Audio Card".
-> > We  need <0> if the board is using SSI x 1,
-> > and need <1> if the board is using SSI x N.
-> > It is not mandatory if the board is using "Audio Graph Card/Card2".
-> 
-> So #sound-dai-cells should be in the board DTS, and never in the
-> SoC .dtsi? Hence it should be moved out of
-> arch/arm/boot/dts/{r8a7740,sh73a0}.dtsi and
-> arch/arm64/boot/dts/renesas/r9a07g0{43,44,54}.dtsi?
-
-Hmm, it is difficult to explain via text...
-
-On rsnd case, how many DAIs exist is based on the board,
-and its connection (= R-Car SoC).
-But FSI has fixed DAIs (= SH), thus having #sound-dai-cells
-on SoC is not strange (= r8a7740/sh73a0).
-
-And I'm not sure how it works on r9a07g0xx,
-it is not my drivers.
-
-Thank you for your help !!
-
-Best regards
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 ---
-Kuninori Morimoto
+ src/ucm/main.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/ucm/main.c b/src/ucm/main.c
+index 2ff4d3f3..39edf3ae 100644
+--- a/src/ucm/main.c
++++ b/src/ucm/main.c
+@@ -1321,6 +1321,9 @@ long device_status(snd_use_case_mgr_t *uc_mgr,
+ 		if (strcmp(dev->name, device_name) == 0)
+ 			return 1;
+ 	}
++	dev = find_device(uc_mgr, uc_mgr->active_verb, device_name, 0);
++	if (!dev)
++		return -ENOENT;
+ 	return 0;
+ }
+ 
+@@ -1335,6 +1338,9 @@ long modifier_status(snd_use_case_mgr_t *uc_mgr,
+ 		if (strcmp(mod->name, modifier_name) == 0)
+ 			return 1;
+ 	}
++	mod = find_modifier(uc_mgr, uc_mgr->active_verb, device_name, 0);
++	if (!mod)
++		return -ENOENT;
+ 	return 0;
+ }
+ 
+-- 
+2.39.0.314.g84b9a713c41-goog
+

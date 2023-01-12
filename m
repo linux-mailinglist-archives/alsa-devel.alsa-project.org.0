@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC0566AD0D
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Jan 2023 18:26:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A126E66AFBB
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:49:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B0A1A459;
-	Sat, 14 Jan 2023 18:26:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B0A1A459
+	by alsa0.perex.cz (Postfix) with ESMTPS id B947FAC5D;
+	Sun, 15 Jan 2023 08:48:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B947FAC5D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673717211;
-	bh=51ViAOYwT+L18PsoAipKMhxe8CCSN6yffy7zR6YFLdI=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1673768959;
+	bh=DjplknG/Og42vIVzT/q7FbntQdQMbrnKJqFFsTyhjNM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=aJ0n/T+MPLfN4E6R+f8zV0wzuIUdTDingYNx3HUpMJGomtY1SzXVltQC4ya5Vo9Ds
-	 HtlQxVOYyHaZ8Qmi+YT3eN/rdE9QUmxPgNHxzx2/anMph0oXmDXlzUqwunCUAQDDBK
-	 +Ax9Im9bk9GMQ1qcnS3CPhTYNc8fTUXjs7/C+ihM=
+	b=PGzuqeN6bgXVOwTOnHgiN2BnGHkeUQRszu9B4M/2tgElg86xOGxD/URj1nyx4Fq6T
+	 V/tfoBmwS4pn2uQ7ZPU9ybidtPc/gUYz1cLv8GiOb3qOzXtKzIesDIUf8f/MkcBJR3
+	 oFYCjR8jDfGzKVUD/LrBqQCS8z4hweFvqd32T8yY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 055A9F8026D;
-	Sat, 14 Jan 2023 18:25:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03D1DF804A9;
+	Sun, 15 Jan 2023 08:48:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A16C1F804C1; Sat, 14 Jan 2023 18:25:51 +0100 (CET)
+ id 25E44F804C1; Thu, 12 Jan 2023 21:01:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 532A4F8026D
- for <alsa-devel@alsa-project.org>; Sat, 14 Jan 2023 18:25:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 532A4F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0F01F8019B
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 21:01:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0F01F8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Z94GKYZZ
+ header.s=k20201202 header.b=EUafdQGi
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0C72A60BE9;
- Sat, 14 Jan 2023 17:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9958C433D2;
- Sat, 14 Jan 2023 17:25:41 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 4C397CE1F92;
+ Thu, 12 Jan 2023 20:01:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28061C433D2;
+ Thu, 12 Jan 2023 20:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673717142;
- bh=51ViAOYwT+L18PsoAipKMhxe8CCSN6yffy7zR6YFLdI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z94GKYZZWFNbKNROFJv54fKg5nMm4P0X2aQga1SmffqBJEBxJTDrM2s2BlXcuquWh
- N5Zc40MvepK5NQ15bYUb3YIMn+TyjTj2sOg/Tg45+1ZR4NjVsWzRpHNOu27zIg22n7
- 8MKhUOjwZMxnru7P8PE3buFtMY2lQVxYx0WI+jslfjxCx342/icq5RqGuvbJw4vhe4
- wVy6hywOAyo8gnIo6YJ61OwId/WWlMPlYCvgeVkiFmMBPZg7fdw9Nq+Dgp8fNeJWef
- p1dKQS1Hz2obK1Alf8POl6dwk6q7N8aBLkY2RI+UWUBWQLuYytVfzN/vUMK+WQbP6s
- ESVfigIGzqAFA==
-Date: Sat, 14 Jan 2023 17:25:48 +0000
+ s=k20201202; t=1673553688;
+ bh=DjplknG/Og42vIVzT/q7FbntQdQMbrnKJqFFsTyhjNM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=EUafdQGi6kPVntwFcsX8dQ++eMfDpAt4hRufXGYp4rn3498p9O5an8Dtzb32f8VZO
+ /0dwxqLx9EiZWyrofGYjXdGydKTREAjzdQvusJ0Ow7D4V0fv83WO6VIMOVK93JIW2S
+ WKNFKVIBv7VwC+kTD5h1WgF5etFBp2YPn8S3ZXmT1Seav9nsmaQ1vhNBslaNNmcYRn
+ zsCLB4TmasZgZxWFa1UpanGfaUnDdJStrP+pk1HardQUH3NiBxgoCCXTezH0ic2ZBw
+ 6otuSPV9m9aONvZu3dzL7IfHqeZgMZCL4VALktP1HibdXNi78cOSWjN0jogQQsvptF
+ 31XhLFJQie5QQ==
 From: Mark Brown <broonie@kernel.org>
-To: Jarrah Gosbell <kernel@undef.tools>
-Subject: Re: [PATCH] ASoC: codec: rt5640: Resolve failure to set DMIC clock
- after playback
-Message-ID: <Y8LlnIbvnLGERCNo@sirena.org.uk>
-References: <20230114003053.401274-1-kernel@undef.tools>
+To: Robert Jarzmik <robert.jarzmik@free.fr>, Arnd Bergmann <arnd@kernel.org>
+In-Reply-To: <20230105134622.254560-1-arnd@kernel.org>
+References: <20230105134622.254560-1-arnd@kernel.org>
+Subject: Re: (subset) [PATCH v2 00/27] ARM: pxa: remove all unused
+ boards&drivers
+Message-Id: <167355367885.2500964.3629822486060649314.b4-ty@kernel.org>
+Date: Thu, 12 Jan 2023 20:01:18 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="1RYbj7oVxAjXTigi"
-Content-Disposition: inline
-In-Reply-To: <20230114003053.401274-1-kernel@undef.tools>
-X-Cookie: TANSTAAFL
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-8b3d1
+X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,45 +82,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- phone-devel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Ondrej Jirman <megi@xff.cz>
+Cc: alexandre.belloni@bootlin.com, linux-usb@vger.kernel.org, vigneshr@ti.com,
+ lgirdwood@gmail.com, viresh.kumar@linaro.org, linus.walleij@linaro.org,
+ ulf.hansson@linaro.org, linux@dominikbrodowski.net,
+ wsa+renesas@sang-engineering.com, patches@opensource.cirrus.com,
+ linux-mtd@lists.infradead.org, philipp.zabel@gmail.com,
+ miquel.raynal@bootlin.com, damien.lemoal@opensource.wdc.com,
+ kernel@wantstofly.org, linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
+ brgl@bgdev.pl, lee@kernel.org, linux@armlinux.org.uk, marek.vasut@gmail.com,
+ stern@rowland.harvard.edu, lost.distance@yahoo.com, slapin@ossfans.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ linux-gpio@vger.kernel.org, sre@kernel.org, linux-fbdev@vger.kernel.org,
+ tiwai@suse.com, linux-arm-kernel@lists.infradead.org, balbi@kernel.org,
+ mkpetch@internode.on.net, s.shtylyov@omp.ru, linux-ide@vger.kernel.org,
+ jingoohan1@gmail.com, dri-devel@lists.freedesktop.org,
+ dmitry.torokhov@gmail.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sudipm.mukherjee@gmail.com,
+ linux-renesas-soc@vger.kernel.org, gregkh@linuxfoundation.org,
+ alsa-devel@alsa-project.org, deller@gmx.de, Daniel Mack <daniel@zonque.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 05 Jan 2023 14:45:55 +0100, Arnd Bergmann wrote:
+> Most of the legacy PXA board files were marked as unused in linux-5.19 and
+> can get removed in linux-6.3. There is support for pxa250/pxa270/pxa300
+> using devicetree already, which supports a number of boards, but progress
+> on converting the remaining ones has stalled over the past few years.
+> 
+> The two boards that are left in the tree for now are the three 'sharpsl'
+> variants (spitz/akita/borzoi) and the 'gumstix' family of machines.
+> Both of these are supported by qemu, which can be helpful for completing
+> the DT conversion.
+> 
+> [...]
 
---1RYbj7oVxAjXTigi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Sat, Jan 14, 2023 at 12:30:54AM +0000, Jarrah Gosbell wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> rt5640_set_dai_sysclk is called with freq == 0 when playback stops. This
-> causes DMIC setup code to fail. I2S interface doesn't need to be active
-> for codec to work, so don't clear rt5640->sysclk after
-> rt5640_set_dai_sysclk is called with freq == 0.
+Thanks!
 
-The goal with set_sysclk() is to record the current clock
-frequency, if the clock is stopped it should be set to zero.  If
-a machine driver is setting the input clock to zero when it's
-still being provided then it should be fixed.  If the device
-doesn't need a clock for DMIC (which seems dubious) then whatever
-is checking for a clock should be fixed.
+[14/27] ASoC: PXA: make SND_PXA2XX_SOC_AC97 user-selectable
+        commit: 5eab9265759e2fb042aa452931c3d06ab7ab8dae
+[15/27] ASoC: pxa: remove unused board support
+        (no commit info)
 
---1RYbj7oVxAjXTigi
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPC5ZsACgkQJNaLcl1U
-h9AQHgf/XaEEjF+BLM6Pnh3lYFsdSIlU+KtG76/OC9GzqxX1yVhlp5T1weE8tfSM
-nyVWqN20RA2TvVL9npXjB7xlRcsCONSUHg4h9SCDk08p5HT1bL9NtdgtqgMxwDPe
-3Q70V5aD8vrF7QtdNLQe7wX/ub/yY7E6F3Nu3mlvdyzFjxekCnp5BcdCNMxQYlP2
-cJdDWsO2vdc1tZrN4oFHWrtxoGEi5frIJLPkttaflVt4JV7g/07KpAP3qJ5KCQyY
-xItHWBAkhrbaLarnjJMfo9oKlu1U69QR3OFClWpmDYhzReAmtqby9phny8VWOpxT
-m1YFxkULKef8d8F4IZDrS72uQ57q9g==
-=tHmS
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---1RYbj7oVxAjXTigi--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

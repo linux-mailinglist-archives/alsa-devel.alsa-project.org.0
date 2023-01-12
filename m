@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 294F56678C0
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:13:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2E16678C1
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:13:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA9A9159;
-	Thu, 12 Jan 2023 16:12:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA9A9159
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FCBE9144;
+	Thu, 12 Jan 2023 16:12:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FCBE9144
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673536399;
-	bh=mmzqSII9T6D59c5Rwcmo14SU+6iZlSmcHeRTkXTcRWM=;
+	s=default; t=1673536412;
+	bh=NCeRjLCRTVAFJDaMjO99WvD53V2liIYYcYd9tkRKlhk=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=SiNZPPg/TiCiFSmbaRpVy3jNt8rgp1sCUImR6cwnQsmlr8qaArafzZOT/oD9A2uoT
-	 Nl9zson6N1krHx4Eu3DkLRAusVY6bRze49ELyIx+Egk99VRfpk/xPrh4b4XBucPckE
-	 yCGhha1p79VjlBS6ofRnSXl7WHDBvErhV/IApbR0=
+	b=BQLZJJeRI2U3VFzBx7e5RgHSa+GwXEkuwGaZMdI3GDE2ZwEDWtshaVevzU1zfVMZ1
+	 kOqlRuPwJTPQNySCsruolyUmodPoXI+3Hb4RGb9XP1O/C/6YhFyB/P5wLqiQOqoTda
+	 P1tCK4VmRThPV6AlH+s+VCZqvVQmDbfPMGxh7Nmw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24FE5F8053D;
+	by alsa1.perex.cz (Postfix) with ESMTP id AB6F4F80542;
 	Thu, 12 Jan 2023 16:12:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD50AF804DD; Thu, 12 Jan 2023 16:12:17 +0100 (CET)
+ id AB8F6F8053D; Thu, 12 Jan 2023 16:12:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F05DCF8016E
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:12:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F05DCF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EDF1F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:12:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EDF1F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=blWMyYT7
+ header.s=k20201202 header.b=U6tAstGh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 61B3762053;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E165462036;
+ Thu, 12 Jan 2023 15:12:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC3AC433F0;
  Thu, 12 Jan 2023 15:12:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D281DC433EF;
- Thu, 12 Jan 2023 15:12:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673536333;
- bh=mmzqSII9T6D59c5Rwcmo14SU+6iZlSmcHeRTkXTcRWM=;
+ s=k20201202; t=1673536335;
+ bh=NCeRjLCRTVAFJDaMjO99WvD53V2liIYYcYd9tkRKlhk=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=blWMyYT7NqCfzvbtYA6V4krkw93hhaNVMC9tnemHst0C+qnUKn+r4VpAE7JwwNi7w
- ioRl0DtWoG37Vye44GVSUAYduAYTy4vDt3TUjae0EN0mXyaPKgImGCcTwmUzCQcuM6
- F7nVYeofr09KYtwkCsOqA66M95w/MI9nMPpbsWaYD38dt/LexMqwtFNHOqxZMhYUrV
- R+myls/ZNOut3ws5TU/IoXvCTLPpBBcGhYmzl2qI5op5/fa1zMEKhT64a19u7CqmNs
- X8OWjCIFM0hM9KyHtkO29/TbLNXXchXxBt8YBzfMP6mlPXn9W5xKTm86P2ymupl9xz
- Mg3AcH04GxuNQ==
+ b=U6tAstGh1mgNY5ujXJZ3OflQfR5zWC1tFRSjfPjND4uva9u0tNMWTISmBGdbP0cVd
+ jMSnuutKVc7NQQi6a6DUY6sFt/SHAU5TXwgez9hQ33AwyeShL6xJs/JsVT91KEyDzj
+ +UlBu2MW/KxKk3ULMsAMNP+1z7HwwJ2XrSxt9xEcumaRWZpm18NUimjxeHVjSpTQwR
+ fanNkPyvw4vZIZo3NUoQovAUlAOJhhtQ5fBhj+rlSlEKCU/MzeDZFxqlqIZfPfiO/+
+ bXkBnmk6kXf36avsCqpiu2O8uHliB3FsIiHGmDQHBPPCrW4cCQ2u1DGD1SIQF+dIRN
+ 1nm036WT9ciYQ==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jai Luthra <j-luthra@ti.com>
-In-Reply-To: <20221230132644.6398-1-j-luthra@ti.com>
-References: <20221230132644.6398-1-j-luthra@ti.com>
-Subject: Re: [PATCH v2] dt-bindings: sound: tlv320aic3x: Add optional clock
- and port properties
-Message-Id: <167353633135.2136827.959588025464826190.b4-ty@kernel.org>
-Date: Thu, 12 Jan 2023 15:12:11 +0000
+To: alsa-devel@alsa-project.org,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+In-Reply-To: <20230109132104.1259479-1-venkataprasad.potturu@amd.com>
+References: <20230109132104.1259479-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH v2 0/5] Add tdm support in acp machine driver
+Message-Id: <167353633397.2136827.3282677778937629013.b4-ty@kernel.org>
+Date: Thu, 12 Jan 2023 15:12:13 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -83,18 +82,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: vsujithkumar.reddy@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, ssabakar@amd.com, Vijendar.Mukunda@amd.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Dec 2022 18:56:44 +0530, Jai Luthra wrote:
-> Describe optional properties for clocks and ports that were missing in
-> the original txt binding, to fix warnings like:
+On Mon, 09 Jan 2023 18:50:59 +0530, Venkata Prasad Potturu wrote:
+> This patch set is to add new cpu dai, refactor dai format
+> implementation and clock enable/disable and add tdm support
+> in acp machine driver.
 > 
-> aic33@18: 'assigned-clock-parents', 'assigned-clock-rates',
-> 	'assigned-clocks' do not match any of the regexes:
-> 	'pinctrl-[0-9]+'
-> 	arch/arm/boot/dts/omap2420-n810.dtb
+> Changes since v1:
+>     -- Fix compilation error.
+>     -- Reorder patch series.
+>     -- Modify commit message.
+>     -- Refactor i2s clocks programming sequence.
 > 
 > [...]
 
@@ -104,8 +106,16 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: sound: tlv320aic3x: Add optional clock and port properties
-      commit: b6e98cf4ed3baff0c2f7a1c1babf96fde8e129f3
+[1/5] ASoC: amd: acp: Add new cpu dai's in machine driver
+      commit: 099b923fc15d8faa91c5fc1b46cbc483d034f5dc
+[2/5] ASoC: amd: acp: Refactor dai format implementation
+      commit: af830fc44a2d273b163e76b17f51b128ce694481
+[3/5] ASoC: amd: acp: Refactor i2s clocks programming sequence
+      commit: ca9d237994db63dca68f2b04e257a4738847deee
+[4/5] ASoC: amd: acp: Add i2s tdm support in machine driver
+      commit: 200553008e9f5b613aa9ea75a68210861bff511f
+[5/5] ASoC: amd: acp: Enable i2s tdm support for skyrim platforms
+      commit: d386a10c9cd887b53ff9da06d27a60da61b007c9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

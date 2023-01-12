@@ -2,133 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0696A666B5C
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 08:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B645666B9A
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 08:31:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E20D783E1;
-	Thu, 12 Jan 2023 08:01:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E20D783E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAD1300B;
+	Thu, 12 Jan 2023 08:30:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAD1300B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673506968;
-	bh=NQJSR4lrQU52MM6WD4awO2uKMkhAFnKr28QbkRADp/s=;
+	s=default; t=1673508697;
+	bh=6ruSKV8dLfWJ5HLGY14wVdF1hKIB+Jy+Lxwm3UZrHAY=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=cA+54tdzfEwDhUFkKtc0OJUHHbGC34R+Gy3Rp6Mt5UvfINeHLBE05uDzieXf8qZQ1
-	 7f3KLenVBwGPWPQT5y7ao+4JKg9ca0nZVT/DAwCoYf7BfHn+pOfldokQw4/S6c0cyv
-	 tbgAvVhmUUAuUlp9JLRMAmqWQqrlyVzSHeeSbiqs=
+	b=cjAFR7jEZT3w9CybOITqXaD1heG1c0ICblvC0qo3sEdWHjY8yXDQmKj0WUrZQobxF
+	 wlmIeM6KZCGanNlpkl+Fo0sC82OuGT2OW2I6kFgh3VpU7pJ/mQfLdvueGQS1AOvPPA
+	 /plT7HwN0EiJ6T2tVCINIMtAQlwiDFQfivVI+PKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73533F8016E;
-	Thu, 12 Jan 2023 08:01:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FDFBF80533;
+	Thu, 12 Jan 2023 08:30:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60A55F8019B; Thu, 12 Jan 2023 08:01:48 +0100 (CET)
+ id CEEC0F804E4; Thu, 12 Jan 2023 08:30:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2055.outbound.protection.outlook.com [40.107.20.55])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 392EAF804BD
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 08:01:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 392EAF804BD
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=hZkQ90K6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OsACSdImt/WxwQ10SXp1CnxzAujrmxqmCudSyGfzevgDY9oktKWJz0V8nkL0TSG+OhZROg4I6nbmVDe1DVDaYijbKdEj0Y3zYcNAA21lFjUqIGAxCUcTTh+8vo355n/QIKmyJsPKL7XBCTmJWYM71O6MXhn37jSRFasnnZhgqX72tJu+SYcUI8rp/309p6ZOY9Q1WJ/TvkC3I3OAqvujGaEdhFGN3O7WoHIcVUjQAGrSX4LJCnhBWfleaLFfl6tXkSQ+tIZQo78FafwC33/8cskGNI5dgXAVNs/A7+y+MsT03ii8giM4fhpx2I4VTm1rjJjd5CWdXli+sFIoHnQmOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NOAtMYRuRL8In3aNN24NDfEsnl+Nf5FDIVmgF64/MqQ=;
- b=VzsvpKYSnzhw9OgfLlJbW0S/Uy5XJpOp3PVjbpNPMIJ0HhJcepUGKCYyQycMsmW+QwwDJsvepg9DOdIA3s4wPglnUR+xW831Iu7VKh/KPg/H7nkPsCcDrV6C+r5Qs9RSPSC19dIJUSXn27LbF4X5kLEAsS0wdcaOP2xdjd4P+1z8wt7rGIskFB2WaUXXqDmMg0/tGViv/1L27Eh4J8PHKvBdeEbZGcWaeXB/3Qs5q3cHztgSTZaZxS16eAAkw1zl1XAIaE/NYJ57kBbTbdSLNlr2LoUlfCP364xzLSmFi1cJtzJoStGJ/fxO5BPb1Wu6iKlSkcX6dJiPQxoP3iJf2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NOAtMYRuRL8In3aNN24NDfEsnl+Nf5FDIVmgF64/MqQ=;
- b=hZkQ90K68d1IwdgH4xvZefh653sNE8aQaZ0ue51I50eT7w5lEUFXTouWNqEa5M93pVxPH6cnURM74TSwmQEQvI1oXbYA7e0EB6eRc1XlByNn653Tu4wKdYGEDq7mHCRIISzvR9MP0VZtaEUSxigkrjB7DFuGNCsJXBcC2kA72SY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB4211.eurprd04.prod.outlook.com (2603:10a6:208:5b::30)
- by DB8PR04MB6826.eurprd04.prod.outlook.com (2603:10a6:10:11d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 07:01:38 +0000
-Received: from AM0PR04MB4211.eurprd04.prod.outlook.com
- ([fe80::c1e7:eafb:408c:6ae5]) by AM0PR04MB4211.eurprd04.prod.outlook.com
- ([fe80::c1e7:eafb:408c:6ae5%4]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 07:01:37 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: soc-pcm.c: Introduce a count to record the times of
- setting DAIs parameters
-Date: Thu, 12 Jan 2023 14:58:34 +0800
-Message-Id: <20230112065834.580192-1-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0021.apcprd02.prod.outlook.com
- (2603:1096:4:195::10) To AM0PR04MB4211.eurprd04.prod.outlook.com
- (2603:10a6:208:5b::30)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A27F804CA
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 08:30:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A27F804CA
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=d/LsU2Ig
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30C77KTV011184; Thu, 12 Jan 2023 07:30:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=JxSLuuwJdixLMUVDdjnyixo00L0lkVae3W4i6JzZ1xs=;
+ b=d/LsU2Igs3TZy/cXwy5isBSis/by9EqmkrtCNP3s+4rkmJl7zL/z5NnHo26OVw/YbuhS
+ pOZuCnotWtOdfOQ3HiZjvxzyhJ6lXCJSaFk+PqViTKlZgF3CB5ip0VUQmXeDqWYI3789
+ D0IS7ri6I4jxyfG1790VA5BfWqlsHu/ZXwCLpTJDJ6sDGYDm14ub67fnrzKdqdkDg8u0
+ SKESylFV9xiUZE4BgmMJm4W6y3h1tgQhE5dg1IcKVGdU4t0MkkTc2FzhKCdRQc+1TyzI
+ bVcfnxBmIG1pfLe3UTuEKrVBW40Yc43L4pe7fkllemIf6oKyTMekJYZUnYxpNp6k2K8Y 2A== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n1k5k37sa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Jan 2023 07:30:35 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30C7UXoN023815
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Jan 2023 07:30:33 GMT
+Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.36; Wed, 11 Jan 2023 23:30:28 -0800
+From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+To: <agross@kernel.org>, <andersson@kernel.org>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <robh+dt@kernel.org>, <quic_plai@quicinc.com>,
+ <bgoswami@quicinc.com>, <perex@perex.cz>, <tiwai@suse.com>,
+ <srinivas.kandagatla@linaro.org>, <quic_rohkumar@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+ <linux-kernel@vger.kernel.org>, <swboyd@chromium.org>,
+ <judyhsiao@chromium.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH] ASoC: qdsp6: audioreach: Add ADSP ready check
+Date: Thu, 12 Jan 2023 13:00:17 +0530
+Message-ID: <1673508617-27410-1-git-send-email-quic_srivasam@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4211:EE_|DB8PR04MB6826:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bade384-558e-4e5a-1422-08daf46ad962
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: b5VcSa3LUIC9t6JIP3a6gOzjVlxJlQtbGWkXXG1JIQn4oc4Gislw38GzRAGmndLXiQsVkM+Ie0ZXJWNNrLdTVjh8md3lK0SynQlSPB1h/cavceAdlMDHMOJCOyssTuU5eVn/6x4Dq9nYzSrw0P3I+NCdq6qS17WzAIaDpMnXqExwGx1FcxLUb6bKdUUWPvXf7MMHXpfuYqrL7NQzLhacZ+h1f2CYkCr8tUxc1X+xmWokfk3JfBqf53NbAcwuCV/bTnkMRSBQ9QYRwRrz/rHGG+eKh+pAp1fvODCdlfzS2iD5/23UAycF6ua9jTMQX/BW2120DQ/9tsMYyitLLJZuGWsa5FLwlKLTOlAp2rL5IDEUK8iXVMlOyRfRll3YjbZkvibOX3QuVcK6ddqea3NgQW1ed/547XjrJZKshrlkxTnzlhr30w1oheMXrDkEiE8yAJ+BcXEIB9gn5UOFoSkFsf82ktJMvmPKRcbHoqlOYlXmmxWObhCB0mt59fHeRglTgfngOa6lqtQ05pydgqohIyCYzPzhgyp+UiJ2XHBxQDkM7mvG/NvhElktHny7uS44PaNGVnekWx1OSZZm30I/rkI6zCS5VhXXdSywafMyVazDLWnFntF3VTZhifPqlhPLjWjftDhdCRVKKpxbQe5cPHvqRS94kox37k5R5ZlGlsSd7mEEsDxDHwe1Mlt1VUQ/42Hrasg8V4kXv4A2B0xCyQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB4211.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(396003)(366004)(136003)(451199015)(36756003)(2906002)(8676002)(66946007)(66476007)(8936002)(5660300002)(86362001)(44832011)(66556008)(83380400001)(38100700002)(38350700002)(4326008)(478600001)(6486002)(316002)(52116002)(41300700001)(2616005)(1076003)(186003)(6512007)(6666004)(26005)(6506007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7ivnkcVLTrG4Wwqu500jD4SvUidKOC5NI4PpCmApLbGTDPt4316gAkmtq+JV?=
- =?us-ascii?Q?1CYGqFlg4dqtOo30sOtiOF0WcWkfrV2s78U1OMFSdpB90bLWK5R2lHGuL2ux?=
- =?us-ascii?Q?E7AFKy1Qebf597ztB1Fk2zMybD6Ty4nFvu0Al5JxPLlKClKRfoik/45ewdVk?=
- =?us-ascii?Q?7YIEX3oU5sLyrCUGjdkdFY+7t1DJdA7wuGv78ldxDZAZiS2/dYayui1YL+Z5?=
- =?us-ascii?Q?2KO1pVEjJo/tEzXAwfQlD8oicuAV3ynQ9zu2X3y1ZCHg2tW3hBEFowF5cCBB?=
- =?us-ascii?Q?gHisp6lVHTUTjRpnGHmfxs8qu6Vy+DwpwumR+lXLBz0TWJuITDaY4+KPfrWt?=
- =?us-ascii?Q?0At4itusPAhLlqd7Z90yb7KbSCo5QjAF01024FrBNkM18FpP9XTTbRo2CiHw?=
- =?us-ascii?Q?IUYRjndkLyR8tdOz7fTdlAO4XdifDy77A6d+oVkQC4Xu+c2T0FxFTkObfypp?=
- =?us-ascii?Q?rBHoVFNN9mqFGCQgELl2yEFzfoMKqp3zHK/V0SicxySq4ggJAiql6EnzvFnK?=
- =?us-ascii?Q?WsuwxvstLUqCA6wHd1QTyvQ1LlxghnQDgd59A7p5MPlJ3rpsNp8NxpJPgyxw?=
- =?us-ascii?Q?Ng6vOPk1D90HO5ABcsk6slU+pZSJW4NAQYSHW2eKJF7N5nRdpGg1eTG6JKjc?=
- =?us-ascii?Q?2B8xX+PcCICgpY/0lEZKJZPjOjf2RGwHUCUmYUa11TZVyH8eDBMnK70uPj8Z?=
- =?us-ascii?Q?40p1JwtAPe1M7L5w6aZ83GDQsIR/eNyGrdRVnXtTUtey8oaP7Ie68aw+v1bU?=
- =?us-ascii?Q?pEteclbZ1KY1YFV+UtX1DB7D7Eo5J25vlzy6NQqmMrxyXTWGZgSGu4wnyK0l?=
- =?us-ascii?Q?QEUwk+mD22FtOonW9YVSMhu5nWdjIdMqLeU0ejNmRcZ3El8yjyeU3apTqM6N?=
- =?us-ascii?Q?IELtRi/RV1i+lHHr3xhnE1ZqDbEwptSPP22pHqZL33eBlao1px4WhPwqo1GM?=
- =?us-ascii?Q?f5OZxQlcaGNpKVG6nCj6lDMy2fDkdVmzz9FwkTOKG2GJocCg07CTLgNPLNrR?=
- =?us-ascii?Q?AI35t7g+HNY3Y1hhzzn/eNnRp3KMblqalFhZHRzdI1x36/joUJBtvhKO3kGa?=
- =?us-ascii?Q?HCswTlN4h7TtGZPM6bAQ+gCBdZw5QqNo/bkO3zoHpULYiEXPIQfhexuAM8Iw?=
- =?us-ascii?Q?YjIauTc47aWGPJGK3YYx4SCgJcgW7Hb31JLpO+f1VWULnC5HEQlN5vvneyVl?=
- =?us-ascii?Q?84/Vptzmp9h3iTqBE2eJemBnSubsguYcf3fTQl5ZH2vw3M4YBNC3dR8ZqkTy?=
- =?us-ascii?Q?A+J/CvrE3n8mH6sIKi5LiTPHmtUz0DnXFQXohA1m0PaGaJ3GbaF0UZ/OTIii?=
- =?us-ascii?Q?qOv4Ski6mZ1pfFWrKGErgWgL/k9g8VmWiB+3+fYYBSTZ6Ap/uIRIJ6hEVp7f?=
- =?us-ascii?Q?F+8XK5/iWRuNWo0d4UZPtspnNdblXANiWI/nMzrmVg/CQNUYJBwrQRLR2iFb?=
- =?us-ascii?Q?fx/zmvg/ROs5q2jNEcniZ8ULAnreI4ssBkaJpPQ2cSs90Jq8Lw0xJSZW7v3k?=
- =?us-ascii?Q?NRx5yqHg1SUDDFDF5CYHtUtellNQWQ1flbfwPZG36bfpyTO40fX9Z/6PSIG7?=
- =?us-ascii?Q?rIXfwaxtHspuweC18UTzMRI6wLgSzp/WTMjzn1tK?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bade384-558e-4e5a-1422-08daf46ad962
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4211.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 07:01:37.9171 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DoeXtKbYBJl7cuX2M31Osa8EPxbelzIHSa9u0YbS5qnRkfvHtowf0SOP8pWumUOiI6RmHdVbmEjVA8LeKWzSAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6826
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: elNRcLsPaMwYRWWPSUwy8R_nOuDkGfj2
+X-Proofpoint-GUID: elNRcLsPaMwYRWWPSUwy8R_nOuDkGfj2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2023-01-12_04,2023-01-11_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 mlxlogscore=999
+ clxscore=1011 bulkscore=0 mlxscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301120052
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,105 +109,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Chancel Liu <chancel.liu@nxp.com>
+Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The commit 1da681e52853 ("ASoC: soc-pcm.c: Clear DAIs parameters after
-stream_active is updated") tries to make sure DAIs parameters can be
-cleared properly through moving the cleanup to the place where
-stream_active is updated. However, it will cause the cleanup only
-happening in soc_pcm_close().
+Check for SPF readiness in prm driver probe to avoid race conditions
+during ADSP pil loading.
+This patch is to avoid, sending requests to ADSP before it's
+power domains are up and ready.
 
-Suppose a case: aplay -Dhw:0 44100.wav 48000.wav. The case calls
-soc_pcm_open()->soc_pcm_hw_params()->soc_pcm_hw_free()->
-soc_pcm_hw_params()->soc_pcm_hw_free()->soc_pcm_close() in order. The
-parameters would be remained in the system even if the playback of
-44100.wav is finished.
-
-The case requires us clearing parameters in phase of soc_pcm_hw_free().
-We shouldn't use stream_active to decide if we must do the cleanup
-since it is finally updated in soc_pcm_close().
-
-This patch introduces a usage count called hw_params_count in
-snd_soc_dai structure. It records the times of setting parameters to
-this DAI then decreases each time soc_pcm_hw_free() is called. If the
-count decreases to 0, it means this DAI is not used now and we should
-clear the parameters.
-
-Fixes: 1da681e52853 ("ASoC: soc-pcm.c: Clear DAIs parameters after stream_active is updated")
-
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+Tested-by: Ratna Deepthi Kudaravalli <rkudarav@qti.qualcomm.com>
 ---
- include/sound/soc-dai.h |  3 +++
- sound/soc/soc-pcm.c     | 16 +++++++++++-----
- 2 files changed, 14 insertions(+), 5 deletions(-)
+ sound/soc/qcom/qdsp6/q6apm.c | 13 +++++++++++++
+ sound/soc/qcom/qdsp6/q6apm.h |  2 ++
+ sound/soc/qcom/qdsp6/q6prm.c |  4 ++++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index ea7509672086..a7e589a0fe72 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -451,6 +451,9 @@ struct snd_soc_dai {
- 	unsigned int channels;
- 	unsigned int sample_bits;
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index 5beb898..8a7dfd2 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -27,6 +27,8 @@ struct apm_graph_mgmt_cmd {
  
-+	/* Count of setting DAI parameters */
-+	unsigned int hw_params_count;
+ #define APM_GRAPH_MGMT_PSIZE(p, n) ALIGN(struct_size(p, sub_graph_id_list, n), 8)
+ 
++struct q6apm *g_apm;
 +
- 	/* parent platform/codec */
- 	struct snd_soc_component *component;
+ int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt, uint32_t rsp_opcode)
+ {
+ 	gpr_device_t *gdev = apm->gdev;
+@@ -143,6 +145,15 @@ static void q6apm_put_audioreach_graph(struct kref *ref)
+ 	kfree(graph);
+ }
  
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 579a44d81d9a..2c2a5dcf9e06 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -711,14 +711,10 @@ static int soc_pcm_clean(struct snd_soc_pcm_runtime *rtd,
- 
- 	if (!rollback) {
- 		snd_soc_runtime_deactivate(rtd, substream->stream);
--		/* clear the corresponding DAIs parameters when going to be inactive */
--		for_each_rtd_dais(rtd, i, dai) {
--			if (snd_soc_dai_active(dai) == 0)
--				soc_pcm_set_dai_params(dai, NULL);
- 
-+		for_each_rtd_dais(rtd, i, dai)
- 			if (snd_soc_dai_stream_active(dai, substream->stream) == 0)
- 				snd_soc_dai_digital_mute(dai, 1, substream->stream);
--		}
- 	}
- 
- 	for_each_rtd_dais(rtd, i, dai)
-@@ -949,6 +945,14 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
- 
- 	snd_soc_dpcm_mutex_assert_held(rtd);
- 
-+	/* clear the corresponding DAIs parameters when hw_params_count decreases to 0 */
-+	for_each_rtd_dais(rtd, i, dai)
-+		if (snd_soc_dai_stream_valid(dai, substream->stream)) {
-+			dai->hw_params_count--;
-+			if (dai->hw_params_count == 0)
-+				soc_pcm_set_dai_params(dai, NULL);
-+		}
++bool q6apm_is_adsp_ready(void)
++{
++	if (g_apm && g_apm->state)
++		return true;
 +
- 	/* run the stream event */
- 	snd_soc_dapm_stream_stop(rtd, substream->stream);
++	return false;
++}
++EXPORT_SYMBOL_GPL(q6apm_is_adsp_ready);
++
+ static int q6apm_get_apm_state(struct q6apm *apm)
+ {
+ 	struct gpr_pkt *pkt;
+@@ -658,6 +669,8 @@ static int apm_probe(gpr_device_t *gdev)
  
-@@ -1051,6 +1055,7 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 	idr_init(&apm->modules_idr);
  
- 		soc_pcm_set_dai_params(codec_dai, &codec_params);
- 		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
-+		codec_dai->hw_params_count++;
- 	}
++	g_apm = apm;
++
+ 	q6apm_get_apm_state(apm);
  
- 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-@@ -1068,6 +1073,7 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
- 		/* store the parameters for each DAI */
- 		soc_pcm_set_dai_params(cpu_dai, params);
- 		snd_soc_dapm_update_dai(substream, params, cpu_dai);
-+		cpu_dai->hw_params_count++;
- 	}
+ 	ret = devm_snd_soc_register_component(dev, &q6apm_audio_component, NULL, 0);
+diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
+index 273f978..7005be9 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.h
++++ b/sound/soc/qcom/qdsp6/q6apm.h
+@@ -145,4 +145,6 @@ struct audioreach_module *q6apm_find_module_by_mid(struct q6apm_graph *graph,
+ void q6apm_set_fe_dai_ops(struct snd_soc_dai_driver *dai_drv);
+ int q6apm_graph_get_rx_shmem_module_iid(struct q6apm_graph *graph);
  
- 	ret = snd_soc_pcm_component_hw_params(substream, params);
++bool q6apm_is_adsp_ready(void);
++
+ #endif /* __APM_GRAPH_ */
+diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
+index 8aa1a21..3aa63aa 100644
+--- a/sound/soc/qcom/qdsp6/q6prm.c
++++ b/sound/soc/qcom/qdsp6/q6prm.c
+@@ -12,6 +12,7 @@
+ #include <linux/soc/qcom/apr.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++#include "q6apm.h"
+ #include "q6prm.h"
+ #include "audioreach.h"
+ 
+@@ -226,6 +227,9 @@ static int prm_probe(gpr_device_t *gdev)
+ 	init_waitqueue_head(&cc->wait);
+ 	dev_set_drvdata(dev, cc);
+ 
++	if (!q6apm_is_adsp_ready())
++		return -EPROBE_DEFER;
++
+ 	return devm_of_platform_populate(dev);
+ }
+ 
 -- 
-2.25.1
+2.7.4
 

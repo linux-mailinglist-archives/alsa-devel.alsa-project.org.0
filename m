@@ -2,73 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5593A66657F
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Jan 2023 22:20:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D5D66678B
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 01:18:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BCBB7667;
-	Wed, 11 Jan 2023 22:19:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BCBB7667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C35A7A56;
+	Thu, 12 Jan 2023 01:17:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C35A7A56
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673472041;
-	bh=I6RVi3rMn06g5XGWsQnabnI2T34LE0uMNfo6RlULTGE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1673482727;
+	bh=jSOEs6NaJ1luWhIP4dreijEEsNt5mHMWz7QAZYvuWEk=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=NkodFuKICrb503ADjZwVgLrmRkpde65vOe5LEHd8EOHBVhZfGa/4qWb1+8Rukm/7o
-	 KW6JfGQ5Q1KapZLVIZz2mNacDN2ti+AuospPk7vfx9XrzQ4I3QXvAxS9E1WwWZVue+
-	 AWB7sJYDJBnqsFWkhVAXFTu5eSP5PoWTQ897PWeQ=
+	b=ibgm5CVNT4Q2YcB0ww9ik5M4hzkeMEsBzloRkBbmmRsuPmRw5hW3zs+Svb6/cdk/P
+	 NfZOVS83PZXuBdp3Cfk+ytKCMOKMVPXPAIUKD2pIp14b9uPxxrN3BES0prNpCi+/xP
+	 wEVqmawTRYuVtnt1Elj3JKng6V6d7spfvw3j6h5A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08746F8016E;
-	Wed, 11 Jan 2023 22:19:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF1D0F8016E;
+	Thu, 12 Jan 2023 01:17:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58345F8030F; Wed, 11 Jan 2023 22:19:41 +0100 (CET)
+ id 5EC96F8026A; Thu, 12 Jan 2023 01:17:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DFEAF8016E
- for <alsa-devel@alsa-project.org>; Wed, 11 Jan 2023 22:19:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DFEAF8016E
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UtMvQGeJ
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2127.outbound.protection.outlook.com [40.107.114.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 321E161EC6;
- Wed, 11 Jan 2023 21:19:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0412C433D2;
- Wed, 11 Jan 2023 21:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673471973;
- bh=I6RVi3rMn06g5XGWsQnabnI2T34LE0uMNfo6RlULTGE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=UtMvQGeJw9E3IdruelG3VenLhkQhouBDjy0/NDm0VRGsrFEZaZR10fw9/hAvQOcpz
- 67i7BDkOspLZ4ShVUQoBzfuNhpZuwVLkIkGpHm/ImDav3TJaKWBvz4EaMrHnfJq77S
- LW4N+L0/RVgomp0zyVaKqKRQ1KnXxUuGHPlCkwM+mHHs3x4/Dts1IVDm0OQcO2WZz/
- s1134IINUELVjACdqSAO0vIY9vMFBfmshG012sHxX+5iXGM/s0c8nwRkwIfAEPoDFG
- 2c7JGPQhGX60eJ+NWiPYWC8Fq7Nx95W+V1GFDQHkBtBIbYWwN+hma7DTYSoL0uTZHm
- 77ZCWB1Qs1Tdw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>
-In-Reply-To: <20230111102130.2276391-1-Syed.SabaKareem@amd.com>
-References: <20230111102130.2276391-1-Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Add DMI support for new acer/emdoor
- platforms
-Message-Id: <167347197037.2692419.7705644270342223963.b4-ty@kernel.org>
-Date: Wed, 11 Jan 2023 21:19:30 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1CA02F8030F
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 01:17:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CA02F8030F
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=UyOHjz7A
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hjYGZs6vmgKO6jbfEDUBLH23rZBUcs1y6g1ItY1e/XgK88PXtFhOzXX24W3Fio2zxI0KsIbvJrKZ9ENYmtEoUIYDTix1JDHtfeF6SFJGpL9XOn6XAaIF0opm8bxLLlPXb1R1ctvB6NujdEK7ntCuEDKoDVeGLGwrPW2wgiC5+rV4Q1ykzIn3jsn0zAUmK97D8Hqw4OjGNTPhMRnjvmvuyvQJdLr6j8tOgJpWTbpeT8MCM+99CFpeCUhrbx4AjouW+Y5TQY+JJZTaTGQcpXokwEgIpj9K/3Ht+ujoLYveAGjKFnQNQGHuyCPvFHA9PSYuG4ywuKGGfSKwYakB35U6bA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PdixyNEdCPsH+Sy8g9AzgCzobEbDVI5BvYqLQsxTlcs=;
+ b=YEpoguZ0lfHigkrBoyegjsoCYFFELMuix18oKSEnv6yPPmi9+vup9mA2spPcBHPcBgZX8oyvJzmG3jfSpARCLMkkDpO63QPh3orG83NhTNNOufOKFtdhhcD2WagMeicINCjZ+HNFQSVq7ClqNIi1FpI0g8881rneiTZ13IghvCOZURXzy0w6wDEE4udnC7Yo9mRDRavDaPwY4RLhZzwDzde4GZKR5CAHuaMvAZ02cjLVe8zrDeC39GVYevBlmLrY/Vs/NiODc+1cuG1Z8ReN8g7M+i+XckIpfqjJDmZpUMpypvxBDHL3VhtCVdqNLfHRqm5Puqp69yCSiLwe/BUkCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PdixyNEdCPsH+Sy8g9AzgCzobEbDVI5BvYqLQsxTlcs=;
+ b=UyOHjz7ACkvuYpU2//2SYr3MXSRzcVAywS7VG/1IvAM3UpWGmj9xV76HPsvDhDoZwRcaDE3jm01l6tzzg6AfsCrXUwowu2bBi3fJm+ex8D9ia7auNurJqCcaiy1Z/zArXbWwuXB3TkJ7yoy9+c3VvibT74NetQhk+7Vn06ngW9c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by OSZPR01MB8735.jpnprd01.prod.outlook.com (2603:1096:604:157::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Thu, 12 Jan
+ 2023 00:17:29 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::3cd7:a7b5:ea86:9ae]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::3cd7:a7b5:ea86:9ae%4]) with mapi id 15.20.6002.012; Thu, 12 Jan 2023
+ 00:17:29 +0000
+Message-ID: <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 0/8] arm64: dts: renesas: Simple-Card /
+ Audio-Graph-Card/Card2 dts for ULCB/KF
+In-Reply-To: <CAMuHMdUH-CSmaKuM2HA-5j5cP_c2pygp9DqyQiOC9XkCUuzCKw@mail.gmail.com>
+References: <87edt2pxhd.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdUH-CSmaKuM2HA-5j5cP_c2pygp9DqyQiOC9XkCUuzCKw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Thu, 12 Jan 2023 00:17:28 +0000
+X-ClientProxiedBy: TYCP286CA0229.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c7::8) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-8b3d1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OSZPR01MB8735:EE_
+X-MS-Office365-Filtering-Correlation-Id: d57d646b-a7f9-4169-77f2-08daf4326408
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0EEst5YMtPGtilrI6JXkToEk4TlKXkCwP9awbFFno7kq9j3FH7WEHcOTUlH/Y9ajsBd3oY/VHYNs/yidYJG5ots2RkGTXfhla0TyFhgQUO2VykIz4uwp9ZBJDWWg3DNK/5QsRH9eGWqNmWT1Qd78YPCVrbau92rS+nofOAgkN3OZZOTSzqfoVuYlo8RPuYn32pKSJLR1PjxWnoR/XyGBmPybC4wVF2Z8c7Wof0Tv2gq0e3yEaF1/BoGzlPI3yzpB5ht0PP1skeVqMELGO1TQ2d9CNbVSV0obOy3crIznqWPuzPCpvI1/CNm+YM9gBx+rdzre3M1EW0CzQ7UEH84azg+pqNkpApv2O6WM1wZzPi+Y9Y7ahavlDiUFhg+ScCogeP/2OgQXtk7u3g6UtVPcvUIpm/OYXbwEtzDM3wRehjoIJ3Ar5jvyta9J2oYPvu2RNHFbBBFvqPoKKHbxsrUg6urlh7x1aC/yU1EFDQuZHlrAdgpi89sGXx6XvE2k+vau2je7hYLN4RojB2DlSE7PnokLmVoYMk6GtFV72jVIvITDgOLylVwMNmzbAoKKQlb7oG49IXIPVgBW2eu4hX1ANQxonhIxa1+T96+YKs7DDM9TtLXlMoA6xHL9RX+b8kq9QPUDYMPtJimDMPLzKRgVAn6DW4OB5J+f3x8ougU1NjFASdcZBFxVVPT9t+XTfO6FCm2d61bLFrAJg9TIs/oYRw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(346002)(396003)(376002)(366004)(451199015)(66556008)(41300700001)(66476007)(6916009)(8676002)(66946007)(4326008)(5660300002)(54906003)(316002)(8936002)(2906002)(86362001)(38100700002)(36756003)(478600001)(6486002)(38350700002)(52116002)(186003)(26005)(6506007)(2616005)(6512007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dn5yPi0ncI4a/8sQVKvXMvl2JfQ85qjd8732hEfVNmh7Hj0SUEuMYBSRRsVP?=
+ =?us-ascii?Q?YEGdTJFXLFLhJ1Lo/GHHaHES24eI9cm/kbdYTvEJ9TXSW6CgTBOt/iMyVilX?=
+ =?us-ascii?Q?PLn7AhJ8m4d7cbwiV+g0GjXjjBasGBoSLsXIBTKUvHyZFaTvxQ4qlgiHhQk8?=
+ =?us-ascii?Q?YNN8iR9zhfqOFuUxN6tPEyOHbCfjkN7K+S+7oA+jFxsFbmpgHwpEcQKYfNF3?=
+ =?us-ascii?Q?1iCg7EsMnD+mBOBFhgSLbuO7/0xSuTFNeGmpjbeZg553yVJJueRuvatrBTMy?=
+ =?us-ascii?Q?1wC2Mn/6IxIhglrTWCkQAA50jCqTCJfjUVuLbnbBm0QV01FWHwq/L3tk8+l/?=
+ =?us-ascii?Q?PojvnNvQPnqRLF9r0PPDQ2HBLKz19ZQl7BP9VaWy7KY75TtEP4v2hbAgZ1QZ?=
+ =?us-ascii?Q?K2aJY8zqV4f2NnEutbYwLEcgOx+djXkaFscdhJZEUR1vHdAgr/p1ZTICPz54?=
+ =?us-ascii?Q?381PacIafoNIYv6rUYVQE9xG/3l2uxq7XE0T65jH7qN5b4q5dNl/uRq3IX9L?=
+ =?us-ascii?Q?KcKllLwM1SrI0ypYtbJbSiZ02DDX9pNx7A8guf5rYZAcgR7ZcYQO0QIUifj+?=
+ =?us-ascii?Q?VfLd1+22RZFNEf39J6C/EhygwtEgjbGU9RZ2HyzMzUyvSJUUZ0E3td/f13da?=
+ =?us-ascii?Q?vJBogvFqmK2u0iLQA9+9wfSH8qSkslDevjbej2E5KuIq6xKNarM3TnndVVqf?=
+ =?us-ascii?Q?+/Q1utYjpF1q/uToCFPL0LlKwaK0HggwUCZvwd8CpR5gg+KHfgIQpQsoOpow?=
+ =?us-ascii?Q?GgukGbQQt2sq5ykQb4Kw6dizA3gCoDhXpt00vBX0xmwKSHNLk9BNQk2qpJWX?=
+ =?us-ascii?Q?LGmree54XcqvlQBGs18RRVwOwwQv9Gc+R0MrD1OdXD1CYyZmj7HKat/WrrJq?=
+ =?us-ascii?Q?iIfW7+1JrALxyCR1qAkrdbKhXLkwCn4KFQy1VmRSxiiQ/WZWd+TrWQDUZVTZ?=
+ =?us-ascii?Q?iC2oPhSoq20e431Cm3HKCRC6FSrKdKLltPp8nu3UQ3jMiYRddC9lmK6L+15A?=
+ =?us-ascii?Q?J4mjGVskYBXBlgcbhHc0tM8BYeWtz+LE0bVf2kHQ0kor/NFT2bc52pq5qfza?=
+ =?us-ascii?Q?wXOSIFBfsJvdUGY9Vb8vCXcUoogJBq9DtTZg+meUCHWCmm8XBl2xzH8c5wm9?=
+ =?us-ascii?Q?Zozrp1el30Os1i2KCua05FuvW6lv3mhirBo6+eZvbvAtITjKNlT7h9ryOcCy?=
+ =?us-ascii?Q?+tMpWZBKCcwBKCkXcSZrgDeSO6UPiPl9lP8Wp1VMsLdnjv0WJIZVKrYHCkv/?=
+ =?us-ascii?Q?gtDx0DIjwEKJtPFsa46yYBWbFHxmPjbTwxsRqFi8VT5MNKlz081D+lKSQ1HJ?=
+ =?us-ascii?Q?qOk+UJoOtDLisvBwdEL7M935sXlkxe2Izq89yhoZAhNhtabdHZaSnmLD0P5c?=
+ =?us-ascii?Q?BstFh9rF236oi1p3NUKeoRJCnP6oBWQVHSB+cb26trrpdwj2eyTGBHSxFNLy?=
+ =?us-ascii?Q?s9G5ev4rajLc1MEPBH8EA4NSK3fYQsgOHf/LIgZkR3OXLlCjx22Ac71X0j1f?=
+ =?us-ascii?Q?PoQyjM8jQnkveiZNPiqtju5tmLl1uHY5LHoQ3I6pMCFaKnwsX7C3wQ9i6X4l?=
+ =?us-ascii?Q?f6OsnY0CwNIM8oKA01pBr/qIjKCFYExJDUl0VBjXO+6Cc4Sz/p9UA1gQYaVI?=
+ =?us-ascii?Q?3L9A2N81YD089mcYeQ9INbo=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d57d646b-a7f9-4169-77f2-08daf4326408
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 00:17:29.1258 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1t1XZ1oWb5kr7W86YmcE7yyPrTevys1zcqkMLsDYtbP/L9378W5XoKTERK1m5l34cJaINoJFS0XJLOB+PtAgxzEp/gK1PB0hlix7I+7kyrfXMtfVgRlq9SClBIvPlWtC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8735
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,45 +145,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Sunil-kumar.Dommati@amd.com, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, shansheng.wang@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Brent Mendelsohn <mendiebm@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Leohearts <leohearts@leohearts.com>, Vijendar.Mukunda@amd.com,
- linkt <xazrael@hotmail.com>, Takashi Iwai <tiwai@suse.com>,
- Xiaoyan Li <lxy.lixiaoyan@gmail.com>, Artem Lukyanov <dukzcry@ya.ru>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 11 Jan 2023 15:51:23 +0530, Syed Saba Kareem wrote:
-> Adding DMI entries to support new acer/emdoor platforms.
+
+Hi Geert
+
+> I really wanted to review this earlier, but I am held back by my lack
+> of understanding of the audio subsystem and the audio bindings.
+> It is also not clear to me what really is hardware description
+> (i.e. to be described in DT), and what is software policy (i.e. not
+> to be described in DT)...
+
+OK, I will try to answer your question, here.
+
+> Hence I have lots of questions ("A fool can ask more questions in a
+> minute than a wise man can answer in an hour." ;-)
+
+No problem, your are very wise man :)
+
+> What is the difference between "Simple Audio Card", "Audio Graph Card",
+> and "Audio Graph Card2"?  Why do we need to support all three of them?
+
+The answer is because of "history" and "compatibility".
+
+"Simple Audio Card" was created before DT support, now it is supporting DT too.
+But it is for very simple sound connection. It is using own DT style.
+
+"Audio Graph Card" is almost same as "Simple Audio Card", but it is
+using "Of Graph" style. It is needed for HDMI support (= Sound with Video).
+"Audio Graph Card" was created because it is difficult to keep compatibility
+for both "Of Graph style" and "own style" on "Simple Audio Card".
+
+"Audio Graph Card2" is expand version of "Audio Graph Card",
+but it is supporting more complex connections.
+Because of this complex connection, it is difficult to keep compatibility
+with "Audio Graph Card".
+
+For normal user case, selecting one of them is very enough.
+But for me, I need to test all of them, thus I want to switch these easily.
+And ULCB is good board for testing.
+
+Basically, people don't need to care about this patch-set.
+It separates DT file, but nothing change.
+It is just easy for testing.
+
+> How come we can have no #sound-dai-cells, #sound-dai-cells = <0>,
+> and #sound-dai-cells = <1>, for the same hardware?
+> What is the real difference between Single DAI and Multi DAI?
+> Why do we need to support both?
+
+It is used on "Simple Audio Card".
+We  need <0> if the board is using SSI x 1,
+and need <1> if the board is using SSI x N.
+It is not mandatory if the board is using "Audio Graph Card/Card2".
+
+> > Kuninori Morimoto (8):
+> >   ARM: dts: renesas: #sound-dai-cells is used when simple-card
+> >   arm64: dts: renesas: #sound-dai-cells is used when simple-card
+> >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi
+> >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi
+> >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card dtsi
 > 
+> The above three all describe the same hardware configuration?
+
+Yes, same hardware, but is using different connection style (= driver).
+
+> >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi MIX + TDM Split dtsi
+> >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi MIX + TDM Split dtsi
+> >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card MIX + TDM Split dtsi
 > 
+> Is MIX and TDM Split a different hardware configuration, or software
+> policy?
 
-Applied to
+Same hardware, but different connection (= mixing, split).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+Hmm, it is difficult to explain via text...
+But this patch-set has no effect for users, but expand to easy to switch
+driver for testing for me.
 
-[1/1] ASoC: amd: yc: Add DMI support for new acer/emdoor platforms
-      commit: 7fd26a27680aa9032920f798a5a8b38a2c61075f
+Thank you for your help !!
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards
+---
+Kuninori Morimoto

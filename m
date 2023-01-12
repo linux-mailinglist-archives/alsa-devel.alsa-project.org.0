@@ -2,89 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85C6667A57
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:07:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40E9A667AC3
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:28:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C14A937F;
-	Thu, 12 Jan 2023 17:06:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C14A937F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 346A69403;
+	Thu, 12 Jan 2023 17:27:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 346A69403
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673539657;
-	bh=zlUUNC+cARovNFjA+Q1H4jS02JPtBf+LVmgjBr5WeUE=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673540884;
+	bh=6B18eQK7F29TeAZAl4w4ZRa5vzYBaXl0zGGzZeMr0jA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=DYQbrcdI1pEBriiDbVh5b6DalNs8Ba3cgakuXuejFWQRvA88xwUvEfB0KorXhVQEI
-	 KGuhszFQFDt/wg62FcYdrybj011ZKfZf9rTLrHU7CbnMKacrawsoN2lPx3yHyrSqw2
-	 9qBrb4iJY1aHHbTx6cfNWrrnxKnVYUR5NhVtj4nA=
+	b=lb0yRxE0zSga+0dkhYdvwEVwEGYEJNUZ2IDDVkZZDKHo+eDXRiKw64pTkV1YYMxIM
+	 S6kL02575XQXbAWEzD1+Gy8wTN8ZWqii0KWGYgyXOU+x5NpMXpi8XPTSiapJQYPacs
+	 VLw9pPlkQRsq+9hSTTIGIvklAMxd8tgiLL7pMLkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD6E0F804CA;
-	Thu, 12 Jan 2023 17:06:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1CF6F8016E;
+	Thu, 12 Jan 2023 17:27:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D7EEF804BD; Thu, 12 Jan 2023 17:06:38 +0100 (CET)
+ id 41B77F8019B; Thu, 12 Jan 2023 17:27:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47CD7F804BD
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 17:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47CD7F804BD
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=d9E2tVfE
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8ADA1F8019B
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 17:06:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ADA1F8019B
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=k2lF7PaK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673539596; x=1705075596;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zlUUNC+cARovNFjA+Q1H4jS02JPtBf+LVmgjBr5WeUE=;
- b=k2lF7PaKfzXCL7DGqei0tinvLsPfxzAjgSU6cKVGHKH+UGFsr3ErSBsk
- FxSBhPUq4tCahBRNA/4MW2b97J4un0X6zRUlARY8pQMJ+cQk+UvknjXXe
- hwPoYalBLCRf4j1UtqoCP+5Zd2GEyzfoE4P/Jtv6WkBygREwuY2URy2uw
- Q/v6wSxdrCtsfMiLSjhZZIqLlM1SIWuTy3LIbw1DSazgBfPGA8SSwMRpH
- Wa2bBHCi9d1IguYPyVe1sFxiAf/WDEmIDhYzfrIYgkcUYXdq9aDpog6BI
- h2cvvWgMzTtdjHw9d+8a2iQUQp9Cz73JrCW+PqaD38ON2NDvb3oy86J35 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="350971808"
-X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="350971808"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 08:05:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="903257591"
-X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="903257591"
-Received: from jbetan3x-mobl1.amr.corp.intel.com (HELO [10.209.143.163])
- ([10.209.143.163])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 08:05:37 -0800
-Message-ID: <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
-Date: Thu, 12 Jan 2023 10:05:36 -0600
+ by ams.source.kernel.org (Postfix) with ESMTPS id D9B26B81ECA;
+ Thu, 12 Jan 2023 16:27:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E331CC433EF;
+ Thu, 12 Jan 2023 16:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673540820;
+ bh=6B18eQK7F29TeAZAl4w4ZRa5vzYBaXl0zGGzZeMr0jA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d9E2tVfE55rLfk0/DL67Ga5vqStFqbGyZXHBHVjPf+gcyh8FD3DrLmPIhAb2JJwEA
+ 5FAIhCH2YQeV7ZqR2DXB94jZGQr5YH8wbfDcBuLSgV20GWBNiz14/6pb96tcUm1DLo
+ rbMEEFfjftvd2x1JclwugCBQBxDVozvVZe4pxppVX8foAhY+fRSzQCABKShuhdJ1t6
+ cnPzMqOlWjlWWbZsg1uV2TTqjb1AKBPkk+l4BnSY/dtapSnn9Tzw1pBfsfPLz9/Qi+
+ 6EXYTkLUPV/FEKqLUlKlBkyO82sAGKFHUqn+OV23octZ7luUq+lOyGOnOxAwGwBeI1
+ bf/fmgVWnsNmQ==
+Date: Thu, 12 Jan 2023 16:26:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: soc-pcm.c: Introduce a count to record the times
+ of setting DAIs parameters
+Message-ID: <Y8A0z1L0xUyhlxT2@sirena.org.uk>
+References: <20230112065834.580192-1-chancel.liu@nxp.com>
+ <d83615ae-10d9-ca5b-26aa-522b3f10b43f@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
-Content-Language: en-US
-To: "Limonciello, Mario" <mario.limonciello@amd.com>,
- "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
- <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
- <0aaf3fa5-bcf1-ec06-8f78-c61e8809398e@amd.com>
- <5a34e6f7-eaf1-8128-81e4-81f65541d9a8@linux.intel.com>
- <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Aw7vIz3sK1rpMdsF"
+Content-Disposition: inline
+In-Reply-To: <d83615ae-10d9-ca5b-26aa-522b3f10b43f@linux.intel.com>
+X-Cookie: A watched clock never boils.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,63 +83,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>, arungopal.kondaveeti@amd.com
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Chancel Liu <chancel.liu@nxp.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--Aw7vIz3sK1rpMdsF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 1/12/23 09:29, Limonciello, Mario wrote:
-> On 1/12/2023 08:54, Pierre-Louis Bossart wrote:
->>
->>
->> On 1/12/23 05:02, Mukunda,Vijendar wrote:
->>> On 11/01/23 21:32, Pierre-Louis Bossart wrote:
->>>> On 1/11/23 03:02, Vijendar Mukunda wrote:
->>>>> To avoid ACP entering into D3 state during slave enumeration and
->>>>> initialization on two soundwire controller instances for multiple
->>>>> codecs,
->>>>> increase the runtime suspend delay to 3 seconds.
->>>> You have a parent PCI device and a set of child devices for each
->>>> manager. The parent PCI device cannot suspend before all its children
->>>> are also suspended, so shouldn't the delay be modified at the
->>>> manager level?
->>>>
->>>> Not getting what this delay is and how this would deal with a lengthy
->>>> enumeration/initialization process.
->>> Yes agreed. Until Child devices are suspended, parent device will
->>> be in D0 state. We will rephrase the commit message.
->>>
->>> Machine driver node will be created by ACP PCI driver.
->>> We have added delay in machine driver to make sure
->>> two manager instances completes codec enumeration and
->>> peripheral initialization before registering the sound card.
->>> Without adding delay in machine driver will result early card
->>> registration before codec initialization is completed. Manager
->>> will enter in to bad state due to codec read/write failures.
->>> We are intended to keep the ACP in D0 state, till sound card
->>> is created and jack controls are initialized. To handle, at manager
->>> level increased runtime suspend delay.
->>
->> This doesn't look too good. You should not assume any timing
->> dependencies in the machine driver probe. I made that mistake in earlier
->> versions and we had to revisit all this to make sure drivers could be
->> bound/unbound at any time.
-> 
-> Rather than a timing dependency, could you perhaps prohibit runtime PM
-> and have a codec make a callback to indicate it's fully initialized and
-> then allow runtime PM again?
+On Thu, Jan 12, 2023 at 08:19:40AM -0600, Pierre-Louis Bossart wrote:
 
-We already have enumeration and initialization 'struct completion' that
-are used by codec drivers to know if the hardware is usable. We also
-have pm_runtime_get_sync() is the bus layer to make sure the codec is
-resumed before being accessed.
+> IIRC it's also valid to call hw_params multiple times without calling
+> hw_free every time.
 
-The explanations above confuse card registration and manager
-probe/initialization. These are two different things. Maybe there's
-indeed a missing part in the SoundWire PM assumptions, but I am not
-getting what the issue is.
+Yes, you can call hw_params() as often as you like, the OSS emulation
+does that all the time due to a fun mismatch between how OSS and ALSA
+work.
 
+--Aw7vIz3sK1rpMdsF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPANM4ACgkQJNaLcl1U
+h9Cxbgf/cIVKEmivx4GVL63S/XlJ/ajGggtAf9VfYwdW13CwMWZifUnINlG35ly/
+gDf4bqx01WM70f0L0tGSdte7xs5L6+BdH7p41n62Hf033IpwNCaF0W4j+x4qkx9G
+XuNqvI58LoEkU4u6i8+oKfCQ7sW7tKFNyliVMuLvBy5nMOkr9Xj3Xs4Elz48FiDZ
+54YO//QDi3ZPytuuzLa02/Z3G0MRJkuBg3UZHF3hPG8/2DUZP/778brweyMIPQD0
+8CzxqmHt09n6khLTNHTGjoGjwU2kN9ZfFR20dSjlRRyrHvvdUv+jfTqAZfwP5lo2
+ezfPh8egJYcd4wtkCD4L7C+jnttGTA==
+=Hz1I
+-----END PGP SIGNATURE-----
+
+--Aw7vIz3sK1rpMdsF--

@@ -2,149 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 624F0667035
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 11:53:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7932366705E
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:00:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65E458A34;
-	Thu, 12 Jan 2023 11:52:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65E458A34
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBE8B8A7C;
+	Thu, 12 Jan 2023 11:59:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBE8B8A7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673520780;
-	bh=HKGk70SFMyHdGm8J2NfO6kgT0/h6n/KklgaSYrgKJ0g=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673521249;
+	bh=beb/MzzbBN/Q8toWLppR6k8xkpnksJWlcfl/d+Uc/tw=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VpxTz8SnirNnB7v0N65sklNU2jr+BrQ/ycnkyRoRVWeNtx/rCjpVeSa81X4+E39O7
-	 zAE0IKS5tgnckejd3fUTOYPQxZhI26C/TsGGzd5az8VKmGXzpZ9UA7n/m0xhT2ZJmh
-	 48vt8cAPo0LJhk7fseD0TgZYz0VvGq1wRqcdm8Dc=
+	b=APjilXwdvxqnMvf9HBAuuhKLliabYfWhoJbusnYDbZCORAwIG0gXCN6mdnqTNHn8g
+	 Rm602yGJrCzEirAbqTAwj1jB+a4zYPtG0JUiuVkGCLdp/KbHByUfkntlGQMEaSbYxv
+	 Ve+bBIyJYvxUR/NIhVjitlEy2G/D/LihYir7Zesg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 323C9F8013D;
-	Thu, 12 Jan 2023 11:52:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF00F804C1;
+	Thu, 12 Jan 2023 11:59:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8B8BF804C1; Thu, 12 Jan 2023 11:51:59 +0100 (CET)
+ id D7901F804C1; Thu, 12 Jan 2023 11:59:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no
+ autolearn_force=no version=3.4.6
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB134F8016E
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:51:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB134F8016E
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=uh1vNH5Z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TJt6Yc6zb2AVHrYcT1yUTsWTEJBZvPBDYH9kBgxnwoWyaHqhgKhJe591oPOiYmlK7+2giAhFsyCAvg+LFD+I6z5LzYttzbVFvdMUAFp0FvzV5s6nEEceL2ibFohVakvRJ+9kc8Q6wvfZB42U+gfMwP6wPwlcK0qgr1aJtIPQsG9/uW2Wblnh/YwnzeEZoo56smu8pAFxKiD23VT+0ZF+C215uH8H5cXiyWFK92iocLa81lDavYEmeGXOPqpBSmVGRW3hQYWm7nVqKhzKojcFodUhJ6FIIKSnja3ke8oiG7UXFKRStrsozeQRoPBkgEwOextLsgauBJZqPpFDPfp7pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=291AZmMfY6ipIWU6Yk4FXFPHjAS3Dqu+d2EWCWfXeLE=;
- b=HYXdq7+y+GPGRmSPvFm8t5HJjJAihGEqSK3MKL+4qXUFqyPV0m6ILOFy45t3j+KysM5bI4mbD84a4cKFI9biRTyOtk8eClo8FzAlZqkzUJFZP12OH439IGhqufQzR/Dr7DybVVoRwDEmxIaT3wjnstmEcFVpRF/1n1PNoGng34ZcJmeLrEA3r8BGsW8OKXgWC/x6zIn39FYkfOdFawagbVpbVgt77nZb+IZEMRSijOwK0r+qGtv1N9MoxiN5V5i8cpIhy1wIHWaGhVA2maQlw2Tc9FiTX2WNd9oPonPSGV1++s1XGxZEABsS3tSKevu1VW4Wd9GbsINRhq1e9MuoZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=291AZmMfY6ipIWU6Yk4FXFPHjAS3Dqu+d2EWCWfXeLE=;
- b=uh1vNH5ZhqQ5zqg3I6k+EUHgQGTZOxS+DDPNRZea/H/Ubn/pl8NIDcgzqhzeMnB1kegzn986+Vmn2I1ezeJ3lDdPcXlBWp1WCCkJ5A5t7ABqr/3VBu0Ru5dUfuK7SHHhO7Vv4qlNbhtj6t66CuXq0HlC8/3+VgIs3+J+wpXoZe0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DS7PR12MB6240.namprd12.prod.outlook.com (2603:10b6:8:94::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 10:51:50 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 10:51:50 +0000
-Message-ID: <3ec7726d-b70f-df8b-f6b6-8e876b43a570@amd.com>
-Date: Thu, 12 Jan 2023 16:25:00 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 09/19] ASoC: amd: ps: add support for Soundwire DMA
- interrupts
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-10-Vijendar.Mukunda@amd.com>
- <0d2ccd69-63e3-b8c5-396b-b698110cad14@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <0d2ccd69-63e3-b8c5-396b-b698110cad14@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0047.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:49::11) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1516FF804C1
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:59:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1516FF804C1
+Received: by mail-qv1-f50.google.com with SMTP id y8so12468792qvn.11
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:59:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IH7mi4pHsD5CSZenw/RrhIslHHOi1JF8tLoL2JEA6Vc=;
+ b=3dobmyzopB/WK6Akex7CLFEFJgsIRRh9rnWxe7HPYoe8qDopU1b5ZikMGbcijjPryF
+ l792ObSL6SWsoH/0tOdt3pDFoDceMMKi4IfeFxmQecOXivKNger5N6qRRXhvEIfzbaT0
+ sGy2kh9IKM6tQDZDBtPgXyisUBOpThyFYcuz+BVRKwTt31Aa9NcvFLlbCrzn9KcoPslw
+ TglcOmh+C4vjlUJXV6aEPP5Hgpga+fwWhT6HaCgSC3f0dYoToSWkjObRgLQjOV8tGI+e
+ FbeDllKymyKaPX10oxtz0bDvckqERsDoOsc5C1ePAmTF9JplEDii0UH7uds4Uwgu9w8G
+ jiGQ==
+X-Gm-Message-State: AFqh2kqDIjQp3XNq5ouTHz/AfwqyH8QiBgYfmOnNKO5LjaAVZth6Fkqe
+ RYuGtO3tNzkjvCObWYNczRAyLh+MYaLlQQ==
+X-Google-Smtp-Source: AMrXdXsbSWbTkX1Sd+XSMh7ArBTf+EWrQ2f7aPT+BY+9Q3Xnig4M8xnexIRBK9wUoBbfiyin4dkfsQ==
+X-Received: by 2002:ad4:4082:0:b0:531:9341:5485 with SMTP id
+ l2-20020ad44082000000b0053193415485mr8057287qvp.17.1673521193308; 
+ Thu, 12 Jan 2023 02:59:53 -0800 (PST)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
+ [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
+ d12-20020a05620a240c00b006fcc3858044sm10912067qkn.86.2023.01.12.02.59.52
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jan 2023 02:59:52 -0800 (PST)
+Received: by mail-yb1-f174.google.com with SMTP id d62so2055558ybh.8
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:59:52 -0800 (PST)
+X-Received: by 2002:a25:d84e:0:b0:7b4:6a33:d89f with SMTP id
+ p75-20020a25d84e000000b007b46a33d89fmr1877621ybg.543.1673521192231; Thu, 12
+ Jan 2023 02:59:52 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DS7PR12MB6240:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58320c71-be57-41ae-233a-08daf48b0264
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IlnqKrmB11Fy+vNNQQ7nfDwrQ5WQfY3XhIUUgaOWTv8bwqt1vVVqVF4bY123kxzg065sT1KnCyuKcc9cdzWtGFqEm3EzF3L0GhxM+A6CnT3su1jr+1kcLVZLyHIVaGovWdmuFTTCx984hEN3jsR6KMXgwIb8ZOxr6K09yUkU7r4FhK8qWS7qB11tzwx38oD2+O771Zjmt9NPvLHVlQ7YURDcLpQx0jV3sEamILW9TcnkUBJaUac3bEP0zkmnf7J5E/HPTOW7avX/UYwzehCsjMYmWhhv9d3TSsBHvHlwtWyTmPClBnPme8rdhhPXfgrXa0OmqciR/DnODB3lXz4Ogj/RX8OLHJxQ5QKuPb2hxSr9tkzRDBxspKfSmSKwvc8L3ltka+xUpDQfUcAn1aAmruGqRVECFw1cEBjfaKrsss+9Gkp0aSE1J0JwAB8ZzxIX9o1g1elJiF0CeeNuEPVKP9aixaIykhHhr0MW7rI6AY2DpUSss9rsmLqCIX1GkaBoo5Tg1hOqV75QDKf0dFjuVK08xkZdPvoVQJM18nN+bt575o//MGjZP/L+qQpLHN+TWCVHG0Gv3kIw1RKpMsOLNvNIhu7WZ4aAlPBqrk5CttN+WgFan4ZmWE+eX///9OK77kPEzBBWFGYs0FSoBIFtH56raFV2JiAV/+eUM4JkzHqbIAikO2R7xiBYlceOnneAz5GWsyyT+TJduARh2pg8JhxAcZuxFi56JLoNONd5S10=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(451199015)(316002)(86362001)(26005)(6512007)(5660300002)(186003)(478600001)(6486002)(2616005)(41300700001)(31696002)(66556008)(4326008)(66946007)(54906003)(66476007)(8676002)(36756003)(8936002)(83380400001)(6666004)(53546011)(31686004)(6506007)(38100700002)(2906002)(66899015)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZldBVzFBb0NRb0ZEZGpzbFk5T2lHbXhYdUlsUjBWMW53YlRTUUV4Z0MzdGZa?=
- =?utf-8?B?TU1QRlp4VmxpdjNqamwwUEl3Y3J1WFdFM1RPZU01MmFESy96UmlKOWxzTjY5?=
- =?utf-8?B?MjZrQjZDRFhHYS9iK2VuMm1rUVEwS25pZU93NjBUTW5rWFUrZGRCYjNnOHZn?=
- =?utf-8?B?ZHV4cklsb2tXK0NManVGUEtMdjZXdHhyNDNhUXZWUFlyM0VxWG5wZUZKWmRB?=
- =?utf-8?B?b2lMd21UN3l1QkxXK2todWlEdFBnVXFDYTNsSG9EYm1VS1B0S1RUaGdGTGUv?=
- =?utf-8?B?YkZTR0hEY1ZsaUJKeWdPS3grWFp3M1lWcW9tcEdDRVFBYUdObVgzb1FMRFBP?=
- =?utf-8?B?TDBjWUpPVXY3czVzVkpnSGRDNUp3USsyY0xWVlQxTmE0dVgxcVozS3hMcFhO?=
- =?utf-8?B?L1VrLzdzb0tIc0xkaHV6YVh1elZvdmNGT0lnbGZXREgyY1hEUHVTa2pLNlFq?=
- =?utf-8?B?NE9uK29sd2I4RHRpZjZDSlo0ZGtIemdBSTVUZVhRTHFudDA5TDcxRjZ0SFBH?=
- =?utf-8?B?UVU3eDJ0eDh6YUV4VmlJQXhnSEVreS9oODF5b1VYdmpsdnIwVXk4WHBNTEll?=
- =?utf-8?B?bFJubUt5ckY2VFZKQ0NOeTI2ckg2VGlFcnE0blR4WkRRaktJUlRyb253VXQ3?=
- =?utf-8?B?TjJ6a1d3ckw5RVlXR0tGRGoza2VSR3dSdUh3M0JxQWlBSkd3UWNGd0ZhNmlu?=
- =?utf-8?B?NFYrM1dZOFFqaUliUGpQVkpteU1HYXFoUE1HcjBmYlAydUZqZTJmblNxcmhs?=
- =?utf-8?B?ZTNWOXQyK29rNFQ5Yi92aUJ3UXhsbjF2VXN0eFR3dzhkblVBU1RwK1BWWWFE?=
- =?utf-8?B?VnFJNXlueTNreFJXQmU2WXJzNk9lK08rQ0hKa3BIT2tNcGs5eVBTSUorZmUz?=
- =?utf-8?B?YzRMaWtaOUxncmxCRjMrRFhDZElZNmRTL29XZ01oZnd1Ni9zSXZUU3dYcVNh?=
- =?utf-8?B?b29aWnBCVUFYRWtkcHR0ZE9sODN4S1R3aXpmaTFObWxZb1ZWcmNCRjlmWWh2?=
- =?utf-8?B?MGN2WkIrU0czUUlOWEZaQ1pUTStvSXhzOVBWR1E3L2ZmV0p0Y2t4em5CcjhW?=
- =?utf-8?B?OE1SNGRndHFJQzVnT0dxbURObVgzU2hzR1VZRGpPczMrQ1dJYWY2OUVOUGNi?=
- =?utf-8?B?aFFwcEJGRFp5Z2Y0TXpFS3ljbGl4SGQzekJxaVI0OCswcHZHZXZJdWtYYzVB?=
- =?utf-8?B?NnNRQmZDdy9jV1g3MjhlSXZFbFVIL0pDY3lXT1I0V1VsZ1RxMFlrbFZEOGM0?=
- =?utf-8?B?bmJIMnJLeWdRRFBZZlE2YW85RTBYZXV4Z2tHVnpUNUx1WXhpaktoejVWZVZR?=
- =?utf-8?B?TXRKTkJTT1dRcFYxK1R2VXREYUhzYjdTRjNCUTJHeThQTndybXdERGpqWVdo?=
- =?utf-8?B?OHdGMkdGbnBPTVV4M2FoZXJGZWlVVzR0WU1LREFEYlRCNFBkMHVMOEpCdkpU?=
- =?utf-8?B?ajVDdDdleFVadnZhQzJuNmpTQjhuTkJ4cHFyUVY0cHcrWWNnUjBtclhXcTNo?=
- =?utf-8?B?NXNCRFJDMjZWODNiSDZOZ1NMOHBlc1ZSQllDS3dIaDJqNzlLVDNtang4UWpS?=
- =?utf-8?B?VmJEOGsvZ3V4cXFRaVFJOXRsWUdweU12UHJpRHlMVnZ3K1d1cVAzTkZJK0E2?=
- =?utf-8?B?UStvdU1xZm8wcW55dlkvbWhYNmtCUjRBR0dCUHRNNmdmVDdJYnhDUngxM3p5?=
- =?utf-8?B?THBvMHI5d253cldqWFRBcHYxTWRuS1N0MVQrd2lFRWhzY2NmUFkxY2FXdzZX?=
- =?utf-8?B?RWtRaWs2dkFvUEh5RVJ4dmVvYTRyMDNMVytIa2FzcVlDQmcwUEJwTlRHWC9j?=
- =?utf-8?B?L283ZklVdDFldFY2RVFkZkVwcy9GNTh2TGMwYzV2UXVKVzUwdm5jT0ROcnR5?=
- =?utf-8?B?TmhzZ0dtNXJxR3F6ZlZHZlZXNklTcHI5b0RSK1ZCdHVBNW90NGtrbjNaUmhv?=
- =?utf-8?B?QmFyNVB3TnZpWHhrcXNWQ2p4Yk14YWJLMWtXcnZXSUc0ZUcvU0dQYS9lbmc3?=
- =?utf-8?B?cDRpYSszQ2l4aHhBb2hkcE54a01WZmpNOFc5VlhSUWpCbGxkMGFwazJqMkpF?=
- =?utf-8?B?VldkQ05TdC8zcGkwdDZURXpvWnk5Y1dMb1ltblBBQ0h3b3VXc1V5ZkFmOFda?=
- =?utf-8?Q?oxbZzqQ8dwfHI4gt4oWMnGrHX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58320c71-be57-41ae-233a-08daf48b0264
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 10:51:50.5032 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p+1uORiF5leN4BR91YOJDZqkeiW2BQIv+sDYHyxxFceB23UimSWDWXvrt7Z1sVR2pCalQLqiu8YZJRwZ1yYytg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6240
+References: <87edt2pxhd.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdUH-CSmaKuM2HA-5j5cP_c2pygp9DqyQiOC9XkCUuzCKw@mail.gmail.com>
+ <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Jan 2023 11:59:40 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
+Message-ID: <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
+Subject: Re: [PATCH 0/8] arm64: dts: renesas: Simple-Card /
+ Audio-Graph-Card/Card2 dts for ULCB/KF
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,70 +96,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, Mario.Limonciello@amd.com,
- arungopal.kondaveeti@amd.com, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/01/23 21:08, Pierre-Louis Bossart wrote:
->
->
->> @@ -167,9 +167,11 @@ struct acp63_dev_data {
->>  	struct platform_device *pdev[ACP63_DEVS];
->>  	struct mutex acp_lock; /* protect shared registers */
->>  	struct fwnode_handle *sdw_fw_node;
->> +	struct work_struct acp_sdw_dma_work;
->>  	u16 pdev_mask;
->>  	u16 pdev_count;
->>  	u16 pdm_dev_index;
->> +	u16 dma_intr_stat[ACP63_SDW_MAX_STREAMS];
-> streams and DMAs are different things in SoundWire. You can have a 1:N
-> mapping.
->
->>  	u8 sdw_master_count;
->>  	u16 sdw0_dev_index;
->>  	u16 sdw1_dev_index;
->> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
->> index 0fbe5e27f3fb..5b82ee8e3ad8 100644
->> --- a/sound/soc/amd/ps/pci-ps.c
->> +++ b/sound/soc/amd/ps/pci-ps.c
->> @@ -113,14 +113,37 @@ static int acp63_deinit(void __iomem *acp_base, struct device *dev)
->>  	return 0;
->>  }
->>  
->> +static void acp63_sdw_dma_workthread(struct work_struct *work)
->> +{
->> +	struct acp63_dev_data *adata = container_of(work, struct acp63_dev_data,
->> +						    acp_sdw_dma_work);
->> +	struct sdw_dma_dev_data *sdw_dma_data;
->> +	u32 stream_index;
->> +	u16 pdev_index;
->> +
->> +	pdev_index = adata->sdw_dma_dev_index;
->> +	sdw_dma_data = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
->> +
->> +	for (stream_index = 0; stream_index < ACP63_SDW_MAX_STREAMS; stream_index++) {
->> +		if (adata->dma_intr_stat[stream_index]) {
->> +			if (sdw_dma_data->sdw_stream[stream_index])
->> +				snd_pcm_period_elapsed(sdw_dma_data->sdw_stream[stream_index]);
-> is there a reason why you do this in a work thread?
->
-> IIRC we did this in SOF because of an issue where during an xrun a stop
-> IPC would be sent while we were dealing with an IPC.
->
-> I don't quite see why it's needed for a DMA?
->
-> What am I missing?
-Initially, we have used in atomic context. We have seen issues
-during stream closure, in interrupt context , handling
-period_elapsed causing sleep in atomic context.
-To avoid that , we have declared dai_link as non-atomic and
-moved period_elapsed code to work queue.
->> +			adata->dma_intr_stat[stream_index] = 0;
->> +		}
->> +	}
->> +}
+Hi Morimoto-san,
 
+On Thu, Jan 12, 2023 at 1:17 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> > What is the difference between "Simple Audio Card", "Audio Graph Card",
+> > and "Audio Graph Card2"?  Why do we need to support all three of them?
+>
+> The answer is because of "history" and "compatibility".
+>
+> "Simple Audio Card" was created before DT support, now it is supporting DT too.
+> But it is for very simple sound connection. It is using own DT style.
+>
+> "Audio Graph Card" is almost same as "Simple Audio Card", but it is
+> using "Of Graph" style. It is needed for HDMI support (= Sound with Video).
+> "Audio Graph Card" was created because it is difficult to keep compatibility
+> for both "Of Graph style" and "own style" on "Simple Audio Card".
+>
+> "Audio Graph Card2" is expand version of "Audio Graph Card",
+> but it is supporting more complex connections.
+> Because of this complex connection, it is difficult to keep compatibility
+> with "Audio Graph Card".
+
+So they are different ways (generations) of representing the audio
+topology on the board? Like "operating-points" and "operating-points-v2"
+for cpufreq?
+
+Hence these are orthogonal to (and independent of) the underlying audio
+hardware in the SoC?
+
+> For normal user case, selecting one of them is very enough.
+> But for me, I need to test all of them, thus I want to switch these easily.
+> And ULCB is good board for testing.
+>
+> Basically, people don't need to care about this patch-set.
+> It separates DT file, but nothing change.
+> It is just easy for testing.
+
+OK. And I guess you intend to use them as examples to point people
+to, too?
+
+> > How come we can have no #sound-dai-cells, #sound-dai-cells = <0>,
+> > and #sound-dai-cells = <1>, for the same hardware?
+> > What is the real difference between Single DAI and Multi DAI?
+> > Why do we need to support both?
+>
+> It is used on "Simple Audio Card".
+> We  need <0> if the board is using SSI x 1,
+> and need <1> if the board is using SSI x N.
+> It is not mandatory if the board is using "Audio Graph Card/Card2".
+
+So #sound-dai-cells should be in the board DTS, and never in the
+SoC .dtsi? Hence it should be moved out of
+arch/arm/boot/dts/{r8a7740,sh73a0}.dtsi and
+arch/arm64/boot/dts/renesas/r9a07g0{43,44,54}.dtsi?
+
+> > > Kuninori Morimoto (8):
+> > >   ARM: dts: renesas: #sound-dai-cells is used when simple-card
+> > >   arm64: dts: renesas: #sound-dai-cells is used when simple-card
+> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi
+> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi
+> > >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card dtsi
+> >
+> > The above three all describe the same hardware configuration?
+>
+> Yes, same hardware, but is using different connection style (= driver).
+
+OK.
+
+> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi MIX + TDM Split dtsi
+> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi MIX + TDM Split dtsi
+> > >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card MIX + TDM Split dtsi
+> >
+> > Is MIX and TDM Split a different hardware configuration, or software
+> > policy?
+>
+> Same hardware, but different connection (= mixing, split).
+>
+> Hmm, it is difficult to explain via text...
+
+IC, this is more complicated...
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

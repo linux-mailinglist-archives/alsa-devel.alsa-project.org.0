@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0EA46671C5
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 13:12:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA5C6671C9
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 13:13:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 406285D68;
-	Thu, 12 Jan 2023 13:11:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406285D68
+	by alsa0.perex.cz (Postfix) with ESMTPS id 120823FFA;
+	Thu, 12 Jan 2023 13:12:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 120823FFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673525568;
-	bh=bom6iDovjPR8h43XjUic+WoachRYoYeHoW3CUJ6aYy4=;
+	s=default; t=1673525583;
+	bh=gK8/tkpYlxATkQsO9XNO4Z2bjpTVjR3SuXTh09/vKpo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=o83CsSgyOoOxyV3P+D/QoanfT9CW4itVzVyTudsxqE8QbCgHAxzTpq5xwVk6A8AnD
-	 IBC1+aGeJ31NzuJAA7uTD/bqjIehiaSbcXhVnH6YigZXVRZ0zN6M8XM6WBjLFhSREB
-	 0C4DDJGb4xqZ+t5ffk6EnielPvUYRsXFRO3v7Cy0=
+	b=c5bhzViE9J8Yr15V6gw0KXOljVccDO3ewd2RTZz7JUgnAvgz6U7FF8rfK5DUgzpvU
+	 VUZkN9AeNFfDc36sVZcmkKsdZploZErlmvRJCeN302WlpQzG9JsQ0RLohr2fHvtLdn
+	 XXy6Uu6fL4djbP80xQZ6WsBEn1MaZ5QOWNXLPsVI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1571AF8056F;
-	Thu, 12 Jan 2023 13:10:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A43D9F80571;
+	Thu, 12 Jan 2023 13:10:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14C63F80563; Thu, 12 Jan 2023 13:10:18 +0100 (CET)
+ id 0A944F8055C; Thu, 12 Jan 2023 13:10:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,47 +37,47 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 356A9F80539
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 13:10:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 356A9F80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A7F6F80558
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 13:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A7F6F80558
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=Cr65VU+o; 
+ header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=KfgTzzIC; 
  dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=KlwGexP3
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 3892932005D8;
- Thu, 12 Jan 2023 07:10:12 -0500 (EST)
+ header.a=rsa-sha256 header.s=fm3 header.b=INSlfodA
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 750403200926;
+ Thu, 12 Jan 2023 07:10:14 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 12 Jan 2023 07:10:12 -0500
+ by compute4.internal (MEProxy); Thu, 12 Jan 2023 07:10:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=cc:cc:content-transfer-encoding:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1673525411; x=
- 1673611811; bh=jIjQLxPzQp9KlPrtd/2Ool6fxDwQOyxeMj0J+DUzA0o=; b=C
- r65VU+oQGWzDJSWXV9bO5PXEC/EuQ6++W31QQ7P0UPP1sovzUF2pzXmjt4oemy8F
- Vrhm+FiNRIlcI3uy0raJy9nr6p4n4WYqZMZ2vXN0kRm0aMpZdIf59NgI0D92FvTD
- pOc3EaxrIwsblrLQ9MD6I9qljjAOraMe399bCv65dieR0A1cQAU04a8dKZ+CgvoK
- ZUqnnatapPrRooLkD4wYIXozWnWr8KY8d/ty0pqqV6eS1rYmCrGMeNVfFrg8o8fe
- RyughNsHmFE1GYVGYihAiDaHdgP6ZD1QY86VoUf8HjHvUEXA/zl7UoDTyvoic14v
- jBK31EJUpGYnUlZ/CwdfQ==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1673525414; x=
+ 1673611814; bh=RhyCQ9BUXc9pGETo5nJD3J62TbnHhvNRK59Kc5sZ+Gw=; b=K
+ fgTzzICpPAT5Q5aFV5AgpbbHaEiohs+dCyxyE3Cwk1jtgvKhNgwhxHyb/92cRPEG
+ 9qlrTcl/8ZzGg7DufzTDAuH0QB0X4AVGgjrpGCUEuiYeV2uJ8Q75bOXCYHoArVwg
+ 8fkvo411vpXIIkI+yJOdjLHTLzlDFP0Y8xBavGJIIHuxUfzbyuywS35NHYZTnQA1
+ R8LP4kCP0yelDFy6/xvpQrn5N1Azq6t8TR582Ek5nwg0x8NoLNtFZwWIX7IDwjyG
+ vIcCDpyq825pDcev7045XnJ/Pd/oc01e8xo00n7Z/jFpr0z2BqUnTafWFPXFC2wm
+ LFNxueuiTJQ3RbM7S8Yyg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
  :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
  :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1673525411; x=1673611811; bh=jIjQLxPzQp9Kl
- Prtd/2Ool6fxDwQOyxeMj0J+DUzA0o=; b=KlwGexP3QiYf/QJ0MTQ8fJayv0OIU
- epQY2nw5z0MFK6EoBbcEDhGWSKRUnViQcIf5T09QOtLuyItEJTSYnP2Tnf7urY0x
- 2ImLa+H82FbqRacpElOZ4nQChGHB8JIeK6f41yKHH7rFezvAbe70Ko69e2PbiIJg
- v+jEryWDCWGGyIJ7GbEl7Vhk4CxsB9Txs8JtcJf6S+1cwhkHbYT6sYSGz5ljy86B
- iFBoEjjOZIFv7OxlMiV5JmEizJ3M8vvox0BaXJ+VByRbO9khVejVfFN8iWqCDlmf
- 7U3SSyaS7O5oO/6kBNz5pPHwVTekaPtul2asvAFO8u4RSwpMi0nl8dHWg==
-X-ME-Sender: <xms:o_i_Yy658mzXp7-SMmMNVTNbFsYLn2bcrNYQwQ0B7kyCXB71E4SC3w>
- <xme:o_i_Y75IFlgTMkqWZUPiML22Kc7_sP5V7tNkcI4EfNob4P6HT9IVudKTgxPKa7a1w
- uEBAX4rdSikvkaZKLw>
-X-ME-Received: <xmr:o_i_YxcFYFEoaPRRrKnxG0AW6I6Y_qeyZz5cZkm4mLx4rGxQ2rRuC2gtKQYjJ02e42JEFkFrQGeDpiPPPt7ei9x09XjxC4Ow6w0Z3jegB5Tlr73oBrl8CDU>
+ :x-sasl-enc; s=fm3; t=1673525414; x=1673611814; bh=RhyCQ9BUXc9pG
+ ETo5nJD3J62TbnHhvNRK59Kc5sZ+Gw=; b=INSlfodAQkBgdcblGDN6z7p+XWV9P
+ snR9orze/4XQzi+wyMiYBATrG0eLDwukTdY2lex5XWOeJ0uHgemC2NPSZPypq3Rg
+ OWzTaJ0nuQPi6J68R0mm/c3WwCqjottjj16/Y+AkKEVQlvJXCb1tdzp9b2THNlh7
+ Ix3izvkz8nB46ahfIE1s7hMJDEzB2PNFcjw/nk7TJm+r819PVB5jdXVi/CSls9wI
+ atTjjXGN7xnhAIH6IUlm1otRwNO5v/Gzne8mXdCVH4aBfR2lGuuhCbNKsMFP8ULj
+ odz933aNRA82NJRxZjR9AIMlANts/KiXHaQRaKFMpO48RVPTIXZuUcaNg==
+X-ME-Sender: <xms:pfi_Y1L90s0MJSLqFwpnIfyGZglPjWRAi46lRC2vIQq8g2oi7o9l2A>
+ <xme:pfi_YxKk-x0nBu69b3hdblF0aDii_stslE67W_LR0LxWiQ1ZBtj0OQs5FtzMX83TK
+ TNPWchXpsrJEqjGvQI>
+X-ME-Received: <xmr:pfi_Y9tfha0Ch2n8FM44D3bgdIOY4fSWqqXp8IZZb53y-V3ciscnhBBc7ZnQW3KiRUqtLqSUC3hkV9pohxWwPGPP3VfdYN3mGssITeR-tSc3L4awkRctw-E>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleeigdefhecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgjfhgggfestdekre
@@ -86,18 +86,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleeigdefhecutefuodetggdote
  dvgfduudekleevtefgtdevhfdtffefiefgveeuteffiedvffekvddtnecuvehluhhsthgv
  rhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:o_i_Y_JAjNJJ4WKpA5gMeOfUgumOqlJ12esS60ISRW7fsIYFfdUmBQ>
- <xmx:o_i_Y2LXbJ-kmkRLsIutjXXDqfHWHl6e4eR72Ay9oyiA5oMzYtYwKg>
- <xmx:o_i_YwxdGLY17vnn-3LgYsRhZTouPcNxDdvks8uEUNVZzKbqcEqtSw>
- <xmx:o_i_Y4i4uwxOIFGZAK6NO-BWEml-bz6gBVl_Y2dBfVnF1wMxS8xBJA>
+X-ME-Proxy: <xmx:pfi_Y2b-r0KoVHRjNsafT4nk_DkpyBxa5Dmw4SeMWtBQrHl4Nhak6A>
+ <xmx:pfi_Y8a5yrlMZ7oNYUw29GaCPbrjo83mnYCU8IjpV-2d0q7re4nqiA>
+ <xmx:pfi_Y6CZp7WVuFiEnXDJJRIfvYeAcglGj4k0IRCSjlWNoytAJtlGcw>
+ <xmx:pvi_Y3wwxiEFELFNTYzcNU_7ThlammvsFQ7nvLsCft4FppCZI3PJEw>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Jan 2023 07:10:10 -0500 (EST)
+ 12 Jan 2023 07:10:12 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 5/6] ALSA: fireface: add local framework to message parser
-Date: Thu, 12 Jan 2023 21:09:53 +0900
-Message-Id: <20230112120954.500692-6-o-takashi@sakamocchi.jp>
+Subject: [PATCH 6/6] ALSA: fireface: implement message parser for Fireface 400
+Date: Thu, 12 Jan 2023 21:09:54 +0900
+Message-Id: <20230112120954.500692-7-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
 References: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
@@ -119,166 +119,191 @@ Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds local framework to message parser. This is preparation
-for future work to pass event of knob control for Fireface 400 to user
-space.
+This commit implements message parser for Fireface 400 to pass data of
+knob control to user space. The parser has FIFO which can store maximum
+32 events without no overrun detection since it doesn't matter to lose
+the event.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireface/ff-hwdep.c       | 41 +++++++++++++++++-------
- sound/firewire/fireface/ff-transaction.c |  4 +++
- sound/firewire/fireface/ff.c             | 10 ++++++
- sound/firewire/fireface/ff.h             |  5 +++
- 4 files changed, 49 insertions(+), 11 deletions(-)
+ sound/firewire/fireface/ff-protocol-former.c | 143 ++++++++++++++++++-
+ 1 file changed, 137 insertions(+), 6 deletions(-)
 
-diff --git a/sound/firewire/fireface/ff-hwdep.c b/sound/firewire/fireface/ff-hwdep.c
-index ea64a2a41eea..8a741b3b0436 100644
---- a/sound/firewire/fireface/ff-hwdep.c
-+++ b/sound/firewire/fireface/ff-hwdep.c
-@@ -15,16 +15,23 @@
+diff --git a/sound/firewire/fireface/ff-protocol-former.c b/sound/firewire/fireface/ff-protocol-former.c
+index d2cc9961b973..f58008762fe6 100644
+--- a/sound/firewire/fireface/ff-protocol-former.c
++++ b/sound/firewire/fireface/ff-protocol-former.c
+@@ -545,10 +545,23 @@ static void parse_midi_msg(struct snd_ff *ff, u32 quad, unsigned int port)
+ 	}
+ }
  
- #include "ff.h"
- 
-+static bool has_msg(struct snd_ff *ff)
+-#define FF400_MSG_FLAG_IS_MIDI_PORT_0		0x00000100
+-#define  FF400_MSG_MASK_MIDI_PORT_0		0x000000ff
+-#define FF400_MSG_FLAG_IS_MIDI_PORT_1		0x01000000
+-#define  FF400_MSG_MASK_MIDI_PORT_1		0x00ff0000
++#define FF400_QUEUE_SIZE	32
++
++struct ff400_msg_parser {
++	struct {
++		u32 msg;
++		u32 tstamp;
++	} msgs[FF400_QUEUE_SIZE];
++	size_t push_pos;
++	size_t pull_pos;
++};
++
++static bool ff400_has_msg(struct snd_ff *ff)
 +{
-+	if (ff->spec->protocol->has_msg)
-+		return ff->spec->protocol->has_msg(ff);
-+	else
-+		return 0;
++	struct ff400_msg_parser *parser = ff->msg_parser;
++
++	return (parser->push_pos != parser->pull_pos);
++}
+ 
+ // For Fireface 400, lower 4 bytes of destination address is configured by bit
+ // flag in quadlet register (little endian) at 0x'0000'801'0051c. Drivers can
+@@ -569,22 +582,140 @@ static void parse_midi_msg(struct snd_ff *ff, u32 quad, unsigned int port)
+ // input attenuation. This driver allocates destination address with '0000'0000
+ // in its lower offset and expects userspace application to configure the
+ // register for it.
++
++// When the message is for signal level operation, the upper 4 bits in MSB expresses the pair of
++// stereo physical port.
++// - 0: Microphone input 0/1
++// - 1: Line input 0/1
++// - [2-4]: Line output 0-5
++// - 5: Headphone output 0/1
++// - 6: S/PDIF output 0/1
++// - [7-10]: ADAT output 0-7
++//
++// The value of signal level can be detected by mask of 0x00fffc00. For signal level of microphone
++// input:
++//
++// - 0:    0.0 dB
++// - 10: +10.0 dB
++// - 11: +11.0 dB
++// - 12: +12.0 dB
++// - ...
++// - 63: +63.0 dB:
++// - 64: +64.0 dB:
++// - 65: +65.0 dB:
++//
++// For signal level of line input:
++//
++// - 0:  0.0 dB
++// - 1: +0.5 dB
++// - 2: +1.0 dB
++// - 3: +1.5 dB
++// - ...
++// - 34: +17.0 dB:
++// - 35: +17.5 dB:
++// - 36: +18.0 dB:
++//
++// For signal level of any type of output:
++//
++// - 63: -infinite
++// - 62: -58.0 dB
++// - 61: -56.0 dB
++// - 60: -54.0 dB
++// - 59: -53.0 dB
++// - 58: -52.0 dB
++// - ...
++// - 7: -1.0 dB
++// - 6:  0.0 dB
++// - 5: +1.0 dB
++// - ...
++// - 2: +4.0 dB
++// - 1: +5.0 dB
++// - 0: +6.0 dB
++//
++// When the message is not for signal level operation, it's for MIDI bytes. When matching to
++// FF400_MSG_FLAG_IS_MIDI_PORT_0, one MIDI byte can be detected by mask of 0x000000ff. When
++// matching to FF400_MSG_FLAG_IS_MIDI_PORT_1, one MIDI byte can be detected by mask of 0x00ff0000.
++#define FF400_MSG_FLAG_IS_SIGNAL_LEVEL		0x04000000
++#define  FF400_MSG_FLAG_IS_RIGHT_CHANNEL	0x08000000
++#define  FF400_MSG_FLAG_IS_STEREO_PAIRED	0x02000000
++#define  FF400_MSG_MASK_STEREO_PAIR		0xf0000000
++#define  FF400_MSG_MASK_SIGNAL_LEVEL		0x00fffc00
++#define FF400_MSG_FLAG_IS_MIDI_PORT_0		0x00000100
++#define  FF400_MSG_MASK_MIDI_PORT_0		0x000000ff
++#define FF400_MSG_FLAG_IS_MIDI_PORT_1		0x01000000
++#define  FF400_MSG_MASK_MIDI_PORT_1		0x00ff0000
++
+ static void ff400_handle_msg(struct snd_ff *ff, unsigned int offset, const __le32 *buf,
+ 			     size_t length, u32 tstamp)
+ {
++	bool need_hwdep_wake_up = false;
+ 	int i;
+ 
+ 	for (i = 0; i < length / 4; i++) {
+ 		u32 quad = le32_to_cpu(buf[i]);
+ 
+-		if (quad & FF400_MSG_FLAG_IS_MIDI_PORT_0)
++		if (quad & FF400_MSG_FLAG_IS_SIGNAL_LEVEL) {
++			struct ff400_msg_parser *parser = ff->msg_parser;
++
++			parser->msgs[parser->push_pos].msg = quad;
++			parser->msgs[parser->push_pos].tstamp = tstamp;
++			++parser->push_pos;
++			if (parser->push_pos >= FF400_QUEUE_SIZE)
++				parser->push_pos = 0;
++
++			need_hwdep_wake_up = true;
++		} else if (quad & FF400_MSG_FLAG_IS_MIDI_PORT_0) {
+ 			parse_midi_msg(ff, quad, 0);
+-		else if (quad & FF400_MSG_FLAG_IS_MIDI_PORT_1)
++		} else if (quad & FF400_MSG_FLAG_IS_MIDI_PORT_1) {
+ 			parse_midi_msg(ff, quad, 1);
++		}
+ 	}
++
++	if (need_hwdep_wake_up)
++		wake_up(&ff->hwdep_wait);
 +}
 +
- static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
- 		       loff_t *offset)
- {
- 	struct snd_ff *ff = hwdep->private_data;
- 	DEFINE_WAIT(wait);
--	union snd_firewire_event event;
- 
- 	spin_lock_irq(&ff->lock);
- 
--	while (!ff->dev_lock_changed) {
-+	while (!ff->dev_lock_changed && !has_msg(ff)) {
- 		prepare_to_wait(&ff->hwdep_wait, &wait, TASK_INTERRUPTIBLE);
- 		spin_unlock_irq(&ff->lock);
- 		schedule();
-@@ -34,17 +41,29 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
- 		spin_lock_irq(&ff->lock);
- 	}
- 
--	memset(&event, 0, sizeof(event));
--	event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
--	event.lock_status.status = (ff->dev_lock_count > 0);
--	ff->dev_lock_changed = false;
-+	if (ff->dev_lock_changed && count >= sizeof(struct snd_firewire_event_lock_status)) {
-+		struct snd_firewire_event_lock_status ev = {
-+			.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS,
-+			.status = (ff->dev_lock_count > 0),
-+		};
- 
--	count = min_t(long, count, sizeof(event.lock_status));
-+		ff->dev_lock_changed = false;
- 
--	spin_unlock_irq(&ff->lock);
++static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long count)
++{
++	struct ff400_msg_parser *parser = ff->msg_parser;
++	u32 type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE;
++	long consumed = 0;
++
++	if (count < 8)
++		return 0;
++
++	spin_unlock_irq(&ff->lock);
++
++	if (copy_to_user(buf, &type, sizeof(type)))
++		return -EFAULT;
++
++	spin_lock_irq(&ff->lock);
++
++	count -= sizeof(type);
++	consumed += sizeof(type);
++
++	while (count >= sizeof(*parser->msgs) && parser->pull_pos != parser->push_pos) {
 +		spin_unlock_irq(&ff->lock);
- 
--	if (copy_to_user(buf, &event, count))
--		return -EFAULT;
-+		if (copy_to_user(buf, &ev, sizeof(ev)))
++
++		if (copy_to_user(buf + consumed, parser->msgs + parser->pull_pos,
++				 sizeof(*parser->msgs)))
 +			return -EFAULT;
-+		count = sizeof(ev);
-+	} else if (has_msg(ff)) {
-+		// NOTE: Acquired spin lock should be released before accessing to user space in the
-+		// callback since the access can cause page fault.
-+		count = ff->spec->protocol->copy_msg_to_user(ff, buf, count);
-+		spin_unlock_irq(&ff->lock);
-+	} else {
-+		spin_unlock_irq(&ff->lock);
 +
-+		count = 0;
-+	}
- 
- 	return count;
- }
-@@ -58,7 +77,7 @@ static __poll_t hwdep_poll(struct snd_hwdep *hwdep, struct file *file,
- 	poll_wait(file, &ff->hwdep_wait, wait);
- 
- 	spin_lock_irq(&ff->lock);
--	if (ff->dev_lock_changed)
-+	if (ff->dev_lock_changed || has_msg(ff))
- 		events = EPOLLIN | EPOLLRDNORM;
- 	else
- 		events = 0;
-diff --git a/sound/firewire/fireface/ff-transaction.c b/sound/firewire/fireface/ff-transaction.c
-index 79f733d8c98b..6b89e39f4a43 100644
---- a/sound/firewire/fireface/ff-transaction.c
-+++ b/sound/firewire/fireface/ff-transaction.c
-@@ -132,11 +132,15 @@ static void handle_msg(struct fw_card *card, struct fw_request *request, int tco
- 	struct snd_ff *ff = callback_data;
- 	__le32 *buf = data;
- 	u32 tstamp = fw_request_get_timestamp(request);
-+	unsigned long flag;
- 
- 	fw_send_response(card, request, RCODE_COMPLETE);
- 
- 	offset -= ff->async_handler.offset;
-+
-+	spin_lock_irqsave(&ff->lock, flag);
- 	ff->spec->protocol->handle_msg(ff, (unsigned int)offset, buf, length, tstamp);
-+	spin_unlock_irqrestore(&ff->lock, flag);
- }
- 
- static int allocate_own_address(struct snd_ff *ff, int i)
-diff --git a/sound/firewire/fireface/ff.c b/sound/firewire/fireface/ff.c
-index 7bf51d062021..448e972028d9 100644
---- a/sound/firewire/fireface/ff.c
-+++ b/sound/firewire/fireface/ff.c
-@@ -43,6 +43,8 @@ static void ff_card_free(struct snd_card *card)
- 	snd_ff_stream_destroy_duplex(ff);
- 	snd_ff_transaction_unregister(ff);
- 
-+	kfree(ff->msg_parser);
-+
- 	mutex_destroy(&ff->mutex);
- 	fw_unit_put(ff->unit);
- }
-@@ -94,6 +96,14 @@ static int snd_ff_probe(struct fw_unit *unit, const struct ieee1394_device_id *e
- 	if (err < 0)
- 		goto error;
- 
-+	if (ff->spec->protocol->msg_parser_size > 0) {
-+		ff->msg_parser = kzalloc(ff->spec->protocol->msg_parser_size, GFP_KERNEL);
-+		if (!ff->msg_parser) {
-+			err = -ENOMEM;
-+			goto error;
-+		}
++		spin_lock_irq(&ff->lock);
++		++parser->pull_pos;
++		if (parser->pull_pos >= FF400_QUEUE_SIZE)
++			parser->pull_pos = 0;
++		count -= sizeof(*parser->msgs);
++		consumed += sizeof(*parser->msgs);
 +	}
 +
- 	err = snd_card_register(card);
- 	if (err < 0)
- 		goto error;
-diff --git a/sound/firewire/fireface/ff.h b/sound/firewire/fireface/ff.h
-index f430ebe157b3..7e42f5778a8a 100644
---- a/sound/firewire/fireface/ff.h
-+++ b/sound/firewire/fireface/ff.h
-@@ -97,6 +97,8 @@ struct snd_ff {
- 	wait_queue_head_t hwdep_wait;
++	return consumed;
+ }
  
- 	struct amdtp_domain domain;
-+
-+	void *msg_parser;
- };
- 
- enum snd_ff_clock_src {
-@@ -110,6 +112,9 @@ enum snd_ff_clock_src {
- };
- 
- struct snd_ff_protocol {
-+	size_t msg_parser_size;
-+	bool (*has_msg)(struct snd_ff *ff);
-+	long (*copy_msg_to_user)(struct snd_ff *ff, char __user *buf, long count);
- 	void (*handle_msg)(struct snd_ff *ff, unsigned int offset, const __le32 *buf,
- 			   size_t length, u32 tstamp);
- 	int (*fill_midi_msg)(struct snd_ff *ff,
+ const struct snd_ff_protocol snd_ff_protocol_ff400 = {
++	.msg_parser_size	= sizeof(struct ff400_msg_parser),
++	.has_msg		= ff400_has_msg,
++	.copy_msg_to_user	= ff400_copy_msg_to_user,
+ 	.handle_msg		= ff400_handle_msg,
+ 	.fill_midi_msg		= former_fill_midi_msg,
+ 	.get_clock		= former_get_clock,
 -- 
 2.37.2
 

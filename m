@@ -2,149 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EDC9666FB9
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 11:33:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFAD9667022
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 11:46:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1277D8959;
-	Thu, 12 Jan 2023 11:32:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1277D8959
+	by alsa0.perex.cz (Postfix) with ESMTPS id 715D789F0;
+	Thu, 12 Jan 2023 11:46:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 715D789F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673519613;
-	bh=oMG1TRXn+Y0XxZdseAVLmD0YCbNhcuZj7ODaPk1ByhM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=e7oEIZPi3YWz+owG4yOeWWRI7bqy4SQUWatcc+WbAyc740qIakMSUk/Tbf2WycPFI
-	 ljgsEUVQr/z1k01zu4YpUT0IfjyvIGJwJAxOU1732mbZ98TfgURuhGa94k3KAXbLg8
-	 Ml9m7ki1IbL8pARECd6y+YbJz9g360Yx7s4UHa28=
+	s=default; t=1673520417;
+	bh=q6MN89SwxOfQZMxHmc6kKxnaAaHPdvgAVWDRJPuUHgw=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=qdoZcyj5avd2DAifdvSzv9zZs9Bj60p2ZA86pfsg4gFW4a+pay9SSjtJ5zNQ8sCla
+	 pfV9l2fKjJrchGS/bx55yIWlQepd1tjB3PmhRxfXX9f+/5X23f1EBofepAYuMbObZW
+	 Kh0m9NswzvUvKUMNmnDjcGe6a2rq1++Lkn8RLEwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09F3CF8016E;
-	Thu, 12 Jan 2023 11:32:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D044F8013D;
+	Thu, 12 Jan 2023 11:45:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF7D0F804C1; Thu, 12 Jan 2023 11:32:30 +0100 (CET)
+ id 70423F8016E; Thu, 12 Jan 2023 11:45:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 845CEF8016E
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:32:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845CEF8016E
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=2qHKMCDS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ENVBt1e7RO9W52NbVvzGD6jvyWxfUMUekdPkTPlvBFjFMs0WOnO0hoeYLZ6DteOJRVPE+IZ/QHYSA03cKO6/WFzZlR6awZXV2c/NzVRQnTIkYOo4XdChOo/hC3WKFnAEqOYowcn1QG90L1xL0uUQ5UrIJYAof1hCAoYhttLFy30hbiFTyFSU5v+Po3twbj9ltPTWRQHgs4KCZ7Uk3emuDHFUfjleyJcGWZ9dX3VYZKxvenpFSLxprr91dUSc43AWu5hBCXRwlp1oxO/RawADDTb3UOGxk+0KkszXE24+qeXYCKSnf36+vwZP7IVAUo5FIBJ6PmwqXuaX0Yw1xl7REw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5yQZsEUAcmkGASIuLrGbwQ13dHkhYAM7e4JWz6set1I=;
- b=NRiDEk4DaG65garEGEb9nC6/wyG7y5DimFeY0beSlVHLWyFzi5+Mx1ua+1cX/FpnpMyayh1jywOhmbR3VPAjCkROr5ZrSZXQ0U4bfrE0JxkBBVEyxQXHJ/rnFrT+sukaELeakN5nImXQrMpiOuq3NRtwBjvEzHPwS/NkBy5+3QYjKov1U5nbUecwExwA4NmzPSx3k74ComZdc14WbZzGHf+MzuFHNdeMqXZXCsDEzimJG/GTAgq0y6r7HA7LfIlYVWhBE7Zx7rLaaA8iBtvHbON1gUg0Yt1c0ay2D47nf6kATFTax5zTpTdXWJC8oRd0bUcezO/2LXv5IVzYwCKjtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5yQZsEUAcmkGASIuLrGbwQ13dHkhYAM7e4JWz6set1I=;
- b=2qHKMCDS32RvV5tJSAiNpOR+wHd4A1RXxQbYSBfP248Ln0TDHwtLxJA+Jd9VNRPzEWb087NBycc+DPmiXpDPyHPFzpkTCd9yr/UsNVVv2BIAyD6OA0wyBkT1PcVoVTfueWSqr1rmKre91gHK/6qBvYwRvCh/QdFc4ZFjR1pVMME=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DS7PR12MB5766.namprd12.prod.outlook.com (2603:10b6:8:75::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 10:32:17 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 10:32:17 +0000
-Message-ID: <216b288d-16d3-5806-86fb-fc6ba83b757a@amd.com>
-Date: Thu, 12 Jan 2023 16:05:29 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 14/19] soundwire: amd: add runtime pm ops for AMD master
- driver
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
-References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-15-Vijendar.Mukunda@amd.com>
- <1af8aa6a-9896-4d35-48de-f084fd16ebc7@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <1af8aa6a-9896-4d35-48de-f084fd16ebc7@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0045.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::20) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FF2DF8016E;
+ Thu, 12 Jan 2023 11:45:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FF2DF8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=Rfmotd9s
+Received: from IcarusMOD.eternityproject.eu (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 5008D6600357;
+ Thu, 12 Jan 2023 10:45:48 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1673520349;
+ bh=q6MN89SwxOfQZMxHmc6kKxnaAaHPdvgAVWDRJPuUHgw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Rfmotd9sfiSPNX1Z88yAJhM3KDW3HuJ4Kranp8EZMj2zoHt6RWBboKf4PuHx7qwKy
+ t4Ipt4muFGK+PSOJCn0i/QEplyDHdAe+71juM7Fiq3NGqrrK2EQLOCKSNppvUhl7u3
+ 4Pg5xfaD1yAlzXlSzwIoSbwn0tX4lLg9ZLHyFz9gKwZqRI2FXzDLFyRbv1egt/uI55
+ SeaQFvpZKsahOJCpdZXa4Ym6jGzDKDicD2bfc4m8kKfb8sHza4sW7/l2JjV2lfMJO4
+ CEdneS+W+vOOJt7LKZwoaB2ciQZNR4MNY8+Lc5k9rdWMBRRPp8FHoHuI8LuHhY1Mta
+ WLMAWze50DBnw==
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: pierre-louis.bossart@linux.intel.com
+Subject: [PATCH] ASoC: SOF: sof-audio: Check snd_sof_widget pointer not NULL
+Date: Thu, 12 Jan 2023 11:45:42 +0100
+Message-Id: <20230112104542.115151-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DS7PR12MB5766:EE_
-X-MS-Office365-Filtering-Correlation-Id: 258eaffe-2887-4af1-8564-08daf48846ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: l5O8UQI/FrgpUU05le4xQjBsUxbxk0F+PCqT1zHK4OA4y7eOl7wDOcmbjdvb4aBR1HEhb1Q3npkeqjb5BO8mTpAuJ40x+GD96dAgUgytvhmOiTE240t4apMYK59Sat0ahiZ9vDfqtetYYYn/tVAYpiItIbaIvd6gfGyHLW+FDbuUDcjE+aDwDoIuVM+RsdYRUixTwPXkMwRdrHDiU2xutXjiDoVw5kQJAd9zSlgMfhbUeyCp7EERz0CXTqQMkhp7h5XKuAz0GpBoN0dBfpGBya30G4Kdr0BytdvLPTEgVJMzbY5peR+uWpEXfh8KtaImvIQUrUX3jjLFwgyj9pp5iqtpEA3KAcyfbxGLm/s3Wl9CV6W6zA/i/Ab+hxhfuelX+fc/4ZUxw9RdOyfCJ6UZHey49i30x7RNr1Qo6TZrd9KLgDLHdXx0zlG/11b/kmLFs0HXjJWLCHr98ibU2Z9BVhwVKZE8SI4udYPLWxhrjEjYELL4a+vkIMdwER8oOXOl0fupq/cH+M2FzoAm0c5aPkBCDNdZ0rBqI0L9gAs295oEjYHBEx3i8RLV6wk0B8Pq0LeBf1+wAOAXCszGdxmA+5DTQSxJqjz2VUnAIwTefq4HQNp36WgBIgmVlOUYLp/EQUqMupk3tU1f6oZ+4XDmnQkIG1Mnd96Kla8PLKKkW48sBHa5sZ2YD22XSVRk3jbHH4cw0UMfx3dhXLNZMSNn1pYmcL4LyWGNtos3b7M2m+g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(451199015)(36756003)(478600001)(8676002)(66946007)(86362001)(4326008)(38100700002)(66556008)(5660300002)(66476007)(31696002)(41300700001)(8936002)(316002)(53546011)(6486002)(83380400001)(2906002)(31686004)(26005)(54906003)(6506007)(186003)(6512007)(6666004)(2616005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THV5dUZHTlpkSFcvNFJWMHI2Z0xJUGU2VVVqMnQ2NnJUanc0OUF3dmdGRkNl?=
- =?utf-8?B?dit3clE0b1ZFeHNtUWxTY2h0eTlTNGNGM3J5TEJ6aTBUMTVXUjQ2aDB3UTBC?=
- =?utf-8?B?NjBhZnZ6cld2WTB5cFFtb0NRSmttSWJTdW1iTGtJZEcxcUdFRFcyV0ovUHIz?=
- =?utf-8?B?MWY1cjZDZGprQ3ZNaE4xdEM5YmRpSG0wV0Z4eGp0YXYydVR0cVJjUy9pYVcz?=
- =?utf-8?B?U2U4RVpiZ082VHkrcVRpV1dtWnkzdDFSbWRKekttZjVaNTV3d0hod1hiQ0k1?=
- =?utf-8?B?S3ovYlkrUDB0OEk2Z1JGTEYwdkVFZmtBYm9UaE1tLzR6dHhKemZRbjVjUWFj?=
- =?utf-8?B?aEU1Zi9jcDFaNTdrYWVmWFBiZEJsRTdKWlJ3V0poTlZYWUsyK2NST3JTNnll?=
- =?utf-8?B?WXk4VFpLMW0wbkpOckRpOVRFc1VVcnRHUkE5MTVnSTdKNUFoVkdPMW9hK1Nl?=
- =?utf-8?B?b1l4ZjdURGFEeWpyNnFuQXBMZlNjcDI3NTBSdFJ2VXlsQUZIUUFiUUlVOWxD?=
- =?utf-8?B?eGplZ2FCTnZFeTdndjVIenpCNHVaV1d3RktSSm9MMUlvMEhQM0xxMkUydC96?=
- =?utf-8?B?and3d250UFZ2TmJDN3VGZGdVWVB1aUFuMi9mNmxTMmNGa3JMV0orRlVKVi9H?=
- =?utf-8?B?RGRHSnpUZEdSM2RicHovZUx3U0NnUE9LMHZmQVdsSXg4OGJNYjljeTB4MnQz?=
- =?utf-8?B?OTduSjl5TjhIeE9GRStWNkxadlNOa2w5R3E2K1hLZmxpaHpQQ3d3cTA5bGEz?=
- =?utf-8?B?YWU3cGpYUCtHSTA5bnF3YnR3QTZ1eVIyU1BCWGp1OGxkMGREVzRKR3hQdnp3?=
- =?utf-8?B?emo4eDJQUjZTRElCYWZUa1RKby9pRzArUVlHbWNJNS82bEFMK3lkMkg5REpU?=
- =?utf-8?B?ekNlZFFzbmZLS2o3NVJnMDZRc1VObVJkcU1QeHJsbnBscVVoRklPQnhqR0Y0?=
- =?utf-8?B?OUFBdFRSTEk3Y2Fpd0pzUkcvem5TcG1GQWxqNmxjZVBhSlJiUkpxQ1lvTG0z?=
- =?utf-8?B?YlRqM096K2tkaHNSblM1UXIyWTkrYjhYY2ZlemU3dkNheG9mMEswblBLK0ly?=
- =?utf-8?B?azdkRlE2L2crbnJLQmJMaGV4TTNZcUxUODZXenI1Z2NPS2traUQyUXQxOHV0?=
- =?utf-8?B?NFZ5ZkVWMGthVitPUW1vNVNqVXVodGJyOGtWTUZUSkpBWEZYZ2lISjB6M0Rr?=
- =?utf-8?B?T0ZNZndYY1kxTGg5aGplOWRjenh4SC9rT1NGS2JIbjJmUXJhekh1N0plc25T?=
- =?utf-8?B?VDlNek0zMnVoeHdYT0J3M3RtMTBvM1BKMVJraXRjc2xyenRGMUpidlJDaGtD?=
- =?utf-8?B?N2t3MVkxUEljUnVxRHJVek0yQk13aU5BUmdyakVKTjRIcnNFcGtKdXdDSm1X?=
- =?utf-8?B?V2ZUK2JUS0Z4WlRENGNEdWErY0UrYW9sMXhkUXB0SGlrSUhiYm5xNFFRdGZt?=
- =?utf-8?B?dXlocEpZeGZxaDdEYlpxWHI5MjBUd2dXdG8xR2xFc3Y4NFM5WFNMOEl3d2s2?=
- =?utf-8?B?Y2JZL1V3ZGI2NkZUcWpHZ3Q0ZEk5Ky9XZUhzTFJIL2F2Y0FiOUZwRWJ6QklZ?=
- =?utf-8?B?M0FzMWhLRWx0RjZoWUtoVXVQbWJYTkwrc3dUNS9XSG4wU2ZaS3BIZGFxTTht?=
- =?utf-8?B?SEFJSjE5Nmw1bDdBa3N0UVpuZjRQVENUa0gzbmk5YUVSVkYwSUMvY1VSV0xp?=
- =?utf-8?B?ZkhWTnVmMnRKR1VHTGNqWXgvdnAyQTZpSkM3STVmanM2MkNMMGxrTVhCVWx0?=
- =?utf-8?B?RGFMQUJIdUlUajJZZG8ya0cxbGdqWVJ4VmNmWmFnY0tiUm9tMVNNNVRGSHJ2?=
- =?utf-8?B?U004VHB5dFVaa0J0bTZTaXdvZURtcnlpa3BsMVo1UnBZT1p0T2cvMmpWLy9C?=
- =?utf-8?B?RXlNN21yT0F3MXVoM0hpK2hTdlZxbHk3SFdINHIzY1hnRGhqc0cvN2Z3L1NU?=
- =?utf-8?B?RFFxMFY3bk9TWTdraHlXVHFHVXVSdWNBTUF5YjYrMWtSU2FYb2MxZ20xREVw?=
- =?utf-8?B?VzVObWttUkVYclEyUm5yNVFHNndXQW95eFhUaE5HUlptQUpWNmhiT0JHUVc0?=
- =?utf-8?B?ak01aTQ1MmdMLzVhc2NpSm1CK2dBVzBMcVZoeFNLODluZm8vNW5NQzl6WUZy?=
- =?utf-8?Q?fQ98Zp6bQgZ3xjjPbYdTQtxbS?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 258eaffe-2887-4af1-8564-08daf48846ff
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 10:32:17.3507 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dCzogOKKKzmEbRbo9+Rtg49veXjl5YCgxaCDm/Rr7keNhBXDNSkHi1RWCg/xrv7icuAzOKJTpYyAzgBUnr196Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5766
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,279 +78,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
+ kai.vehmanen@linux.intel.com, rander.wang@intel.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com,
+ peter.ujfalusi@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, broonie@kernel.org, wenst@chromium.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ daniel.baluta@nxp.com, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/01/23 21:17, Pierre-Louis Bossart wrote:
->
-> On 1/11/23 03:02, Vijendar Mukunda wrote:
->> Add support for runtime pm ops for AMD master driver.
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
->> ---
->>  drivers/soundwire/amd_master.c    | 205 ++++++++++++++++++++++++++++++
->>  drivers/soundwire/amd_master.h    |   3 +
->>  include/linux/soundwire/sdw_amd.h |   1 +
->>  3 files changed, 209 insertions(+)
->>
->> diff --git a/drivers/soundwire/amd_master.c b/drivers/soundwire/amd_master.c
->> index c7063b8bdd7b..d2d7f07de202 100644
->> --- a/drivers/soundwire/amd_master.c
->> +++ b/drivers/soundwire/amd_master.c
->> @@ -15,6 +15,7 @@
->>  #include <linux/soundwire/sdw.h>
->>  #include <linux/soundwire/sdw_registers.h>
->>  #include <linux/soundwire/sdw_amd.h>
->> +#include <linux/pm_runtime.h>
->>  #include <linux/wait.h>
->>  #include <sound/pcm_params.h>
->>  #include <sound/soc.h>
->> @@ -290,6 +291,17 @@ static int amd_disable_sdw_interrupts(struct amd_sdwc_ctrl *ctrl)
->>  	return 0;
->>  }
->>  
->> +static int amd_deinit_sdw_controller(struct amd_sdwc_ctrl *ctrl)
->> +{
->> +	int ret;
->> +
->> +	ret = amd_disable_sdw_interrupts(ctrl);
->> +	if (ret)
->> +		return ret;
->> +	ret = amd_disable_sdw_controller(ctrl);
->> +	return ret;
->> +}
->> +
->>  static int amd_sdwc_set_frameshape(struct amd_sdwc_ctrl *ctrl, u32 rows, u32 cols)
->>  {
->>  	u32 sdw_rows, sdw_cols, frame_size;
->> @@ -1387,6 +1399,12 @@ static int amd_sdwc_probe(struct platform_device *pdev)
->>  	INIT_WORK(&ctrl->amd_sdw_work, amd_sdwc_update_slave_status_work);
->>  	INIT_WORK(&ctrl->probe_work, amd_sdwc_probe_work);
->>  	schedule_work(&ctrl->probe_work);
->> +	/* Enable runtime PM */
->> +	pm_runtime_set_autosuspend_delay(dev, AMD_SDW_MASTER_SUSPEND_DELAY_MS);
->> +	pm_runtime_use_autosuspend(dev);
->> +	pm_runtime_mark_last_busy(dev);
->> +	pm_runtime_set_active(dev);
->> +	pm_runtime_enable(dev);
->>  	return 0;
->>  }
->>  
->> @@ -1398,14 +1416,201 @@ static int amd_sdwc_remove(struct platform_device *pdev)
->>  	amd_disable_sdw_interrupts(ctrl);
->>  	sdw_bus_master_delete(&ctrl->bus);
->>  	ret = amd_disable_sdw_controller(ctrl);
->> +	pm_runtime_disable(&pdev->dev);
->>  	return ret;
->>  }
->>  
->> +static int amd_sdwc_clock_stop(struct amd_sdwc_ctrl *ctrl)
->> +{
->> +	u32 clk_resume_ctrl_reg;
->> +	u32 wake_en_reg;
->> +	u32 val;
->> +	u32 retry_count = 0;
->> +	int ret;
->> +
->> +	ret = sdw_bus_prep_clk_stop(&ctrl->bus);
->> +	if (ret < 0 && ret != -ENODATA) {
->> +		dev_err(ctrl->dev, "prepare clock stop failed %d", ret);
->> +		return ret;
->> +	}
->> +	ret = sdw_bus_clk_stop(&ctrl->bus);
->> +	if (ret < 0 && ret != -ENODATA) {
->> +		dev_err(ctrl->dev, "bus clock stop failed %d", ret);
->> +		return ret;
-> You need to be very careful here, because returning an error may prevent
-> the device from suspending.
->
-> If it's safe and possible to recover during the resume step, you
-> probably want to log the error but let the suspend continue.
-will fix it.
->> +	}
->> +	switch (ctrl->instance) {
->> +	case ACP_SDW0:
->> +		clk_resume_ctrl_reg = ACP_SW_CLK_RESUME_CTRL;
->> +		wake_en_reg = ACP_SW_WAKE_EN;
->> +		break;
->> +	case ACP_SDW1:
->> +		clk_resume_ctrl_reg = ACP_P1_SW_CLK_RESUME_CTRL;
->> +		wake_en_reg = ACP_SW1_WAKE_EN;
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
-> why not store these offsets during the probe and use them directly here?
-> You know at probe time which master you're using.
-will fix it.
->> +
->> +	do {
->> +		val = acp_reg_readl(ctrl->mmio + clk_resume_ctrl_reg);
->> +		if (val & AMD_SDW_CLK_STOP_DONE) {
->> +			ctrl->clk_stopped = true;
->> +			break;
->> +		}
->> +	} while (retry_count++ < AMD_SDW_CLK_STOP_MAX_RETRY_COUNT);
->> +
->> +	if (!ctrl->clk_stopped) {
->> +		dev_err(ctrl->dev, "SDW%x clock stop failed\n", ctrl->instance);
->> +		return -ETIMEDOUT;
->> +	}
->> +
->> +	if (ctrl->wake_en_mask)
->> +		acp_reg_writel(0x01, ctrl->mmio + wake_en_reg);
->> +
->> +	dev_dbg(ctrl->dev, "SDW%x clock stop successful\n", ctrl->instance);
->> +	return 0;
->> +}
->> +
->> +static int amd_sdwc_clock_stop_exit(struct amd_sdwc_ctrl *ctrl)
->> +{
->> +	int ret;
->> +	u32 clk_resume_ctrl_reg;
->> +	u32 val = 0;
->> +	u32 retry_count = 0;
->> +
->> +	switch (ctrl->instance) {
->> +	case ACP_SDW0:
->> +		clk_resume_ctrl_reg = ACP_SW_CLK_RESUME_CTRL;
->> +		break;
->> +	case ACP_SDW1:
->> +		clk_resume_ctrl_reg = ACP_P1_SW_CLK_RESUME_CTRL;
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +	if (ctrl->clk_stopped) {
->> +		val = acp_reg_readl(ctrl->mmio + clk_resume_ctrl_reg);
->> +		val |= AMD_SDW_CLK_RESUME_REQ;
->> +		acp_reg_writel(val, ctrl->mmio + clk_resume_ctrl_reg);
->> +		do {
->> +			val = acp_reg_readl(ctrl->mmio + clk_resume_ctrl_reg);
->> +			if (val & AMD_SDW_CLK_RESUME_DONE)
->> +				break;
->> +			usleep_range(10, 100);
->> +		} while (retry_count++ < AMD_SDW_CLK_STOP_MAX_RETRY_COUNT);
->> +		if (val & AMD_SDW_CLK_RESUME_DONE) {
->> +			acp_reg_writel(0, ctrl->mmio + clk_resume_ctrl_reg);
->> +			ret = sdw_bus_exit_clk_stop(&ctrl->bus);
->> +			if (ret < 0)
->> +				dev_err(ctrl->dev, "bus failed to exit clock stop %d\n", ret);
->> +			ctrl->clk_stopped = false;
->> +		}
->> +	}
->> +	if (ctrl->clk_stopped) {
->> +		dev_err(ctrl->dev, "SDW%x clock stop exit failed\n", ctrl->instance);
->> +		return -ETIMEDOUT;
->> +	}
->> +
->> +	dev_dbg(ctrl->dev, "SDW%x clock stop exit successful\n", ctrl->instance);
->> +
->> +	return 0;
->> +}
->> +
->> +static int __maybe_unused amd_suspend_runtime(struct device *dev)
->> +{
->> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
->> +	struct sdw_bus *bus = &ctrl->bus;
->> +	int ret;
->> +
->> +	if (bus->prop.hw_disabled || !ctrl->startup_done) {
-> do you have a case where the startup is not done? This was an
-> Intel-specific thing.
-We have included startup_done flag in probe_work to check whether Manager
-has started. In case if manager init sequence fails, then there is no need
-to apply any PM ops.
+In function sof_unprepare_widgets_in_path(), check if swidget is
+actually not NULL, as the widget may not have been initialized at all.
 
->> +		dev_dbg(bus->dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->> +			bus->link_id);
->> +		return 0;
->> +	}
->> +	if (ctrl->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
->> +		ret = amd_sdwc_clock_stop(ctrl);
->> +		if (ret)
->> +			return ret;
->> +	} else if (ctrl->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
->> +		ret = amd_sdwc_clock_stop(ctrl);
->> +		if (ret)
->> +			return ret;
->> +		ret = amd_deinit_sdw_controller(ctrl);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +	return 0;
->> +}
->> +
->> +static int __maybe_unused amd_resume_runtime(struct device *dev)
->> +{
->> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
->> +	struct sdw_bus *bus = &ctrl->bus;
->> +	int ret;
->> +	u32 clk_resume_ctrl_reg;
->> +	u32 val = 0;
->> +	u32 retry_count = 0;
->> +
->> +	if (bus->prop.hw_disabled || !ctrl->startup_done) {
-> same here
->
->> +		dev_dbg(bus->dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->> +			bus->link_id);
->> +		return 0;
->> +	}
->> +
->> +	switch (ctrl->instance) {
->> +	case ACP_SDW0:
->> +		clk_resume_ctrl_reg = ACP_SW_CLK_RESUME_CTRL;
->> +		break;
->> +	case ACP_SDW1:
->> +		clk_resume_ctrl_reg = ACP_P1_SW_CLK_RESUME_CTRL;
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
-> select registers in the probe.
-will fix it.
->> +
->> +	if (ctrl->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
->> +		ret = amd_sdwc_clock_stop_exit(ctrl);
->> +		if (ret)
->> +			return ret;
->> +	} else if (ctrl->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
->> +		val = acp_reg_readl(ctrl->mmio + clk_resume_ctrl_reg);
->> +		if (val) {
->> +			val |= AMD_SDW_CLK_RESUME_REQ;
->> +			acp_reg_writel(val, ctrl->mmio + clk_resume_ctrl_reg);
->> +			do {
->> +				val = acp_reg_readl(ctrl->mmio + clk_resume_ctrl_reg);
->> +				if (val & AMD_SDW_CLK_RESUME_DONE)
->> +					break;
->> +				usleep_range(10, 100);
->> +			} while (retry_count++ < AMD_SDW_CLK_STOP_MAX_RETRY_COUNT);
->> +			if (val & AMD_SDW_CLK_RESUME_DONE) {
->> +				acp_reg_writel(0, ctrl->mmio + clk_resume_ctrl_reg);
->> +				ctrl->clk_stopped = false;
->> +			}
->> +		}
->> +		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
->> +		amd_init_sdw_controller(ctrl);
->> +		amd_enable_sdw_interrupts(ctrl);
->> +		ret = amd_enable_sdw_controller(ctrl);
->> +		if (ret)
->> +			return ret;
->> +		ret = amd_sdwc_set_frameshape(ctrl, 50, 10);
-> this should be defined at probe time, using magic numbers like this will
-> not work in all cases and totally depends on the frame rate and
-> bandwidth needs.
-Will fix it.
->> +		if (ret)
->> +			return ret;
->> +	}
->> +	return 0;
->> +}
+This commit solves the following kernel panic seen on MediaTek MT8195:
+
+[   18.025215] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000014
+[   18.034266] Mem abort info:
+[   18.037314]   ESR = 0x0000000096000004
+[   18.041314]   EC = 0x25: DABT (current EL), IL = 32 bits
+[   18.046876]   SET = 0, FnV = 0
+[   18.050180]   EA = 0, S1PTW = 0
+[   18.053572]   FSC = 0x04: level 0 translation fault
+[   18.058700] Data abort info:
+[   18.061832]   ISV = 0, ISS = 0x00000004
+[   18.065919]   CM = 0, WnR = 0
+[   18.069137] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000115495000
+[   18.075826] [0000000000000014] pgd=0000000000000000, p4d=0000000000000000
+[   18.082867] Internal error: Oops: 0000000096000004 [#1] SMP
+[   18.088688] Modules linked in: af_alg qrtr btusb btrtl btintel btmtk btbcm bluetooth 8021q garp uvcvideo mrp stp ecdh_generic llc ecc videobuf2_vmalloc mt7921e mt7921_common mt76_connac_lib mt76 mac80211 snd_sof_ipc_msg_injector snd_sof_ipc_flood_test cfg80211 snd_sof_mt8195 mtk_adsp_common snd_sof_xtensa_dsp snd_sof_of panfrost rfkill snd_sof crct10dif_ce cros_ec_sensors cros_ec_lid_angle gpu_sched sbs_battery cros_usbpd_logger cros_ec_sensors_core hid_multitouch snd_sof_utils fuse ipv6
+[   18.132109] CPU: 5 PID: 657 Comm: wireplumber Tainted: G        W          6.2.0-rc3-next-20230111+ #230
+[   18.141834] Hardware name: Acer Tomato (rev2) board (DT)
+[   18.147392] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   18.154600] pc : sof_unprepare_widgets_in_path.isra.0+0x28/0x10c [snd_sof]
+[   18.161735] lr : sof_walk_widgets_in_order+0x198/0x1d0 [snd_sof]
+[   18.167996] sp : ffff80000eb0b870
+[   18.171558] x29: ffff80000eb0b870 x28: 0000000000000001 x27: ffff5d8e178c4c00
+[   18.178939] x26: ffffbd50140fd758 x25: ffffbd50140fd760 x24: 0000000000000000
+[   18.186321] x23: 0000000000000000 x22: ffff5d8e109dd080 x21: ffff5d8e0a429280
+[   18.193702] x20: 0000000000000000 x19: ffff5d8e11fe4800 x18: 0000000000000000
+[   18.201083] x17: 0000000000000000 x16: ffffbd5073deabb0 x15: 0000000000000000
+[   18.208464] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+[   18.215846] x11: 0000000000000000 x10: 0000000000002780 x9 : ffffbd50140eb4bc
+[   18.223228] x8 : ffff5d8e1b5327e0 x7 : 0000000000000000 x6 : ffff5d8e1b530000
+[   18.230610] x5 : 0000000000000003 x4 : 0000000000000001 x3 : 0000000000000000
+[   18.237991] x2 : 0000000000000000 x1 : ffff5d8e11fe4800 x0 : ffff5d8e0a429280
+[   18.245372] Call trace:
+[   18.248066]  sof_unprepare_widgets_in_path.isra.0+0x28/0x10c [snd_sof]
+[   18.254847]  sof_walk_widgets_in_order+0x198/0x1d0 [snd_sof]
+[   18.260760]  sof_widget_list_free+0x7c/0xbc [snd_sof]
+[   18.266066]  sof_pcm_hw_free+0x10c/0x1c0 [snd_sof]
+[   18.271110]  snd_soc_pcm_component_hw_free+0x8c/0xe0
+[   18.276327]  soc_pcm_hw_clean+0x60/0x11c
+[   18.280498]  dpcm_fe_dai_hw_free+0x98/0x110
+[   18.284930]  snd_pcm_common_ioctl+0xc48/0x1a2c
+[   18.289624]  snd_pcm_ioctl+0x38/0x50
+[   18.293448]  __arm64_sys_ioctl+0xb0/0xf4
+[   18.297620]  invoke_syscall+0x50/0x120
+[   18.301618]  el0_svc_common.constprop.0+0x17c/0x1b0
+[   18.306744]  do_el0_svc+0x40/0xc4
+[   18.310307]  el0_svc+0x48/0xf0
+[   18.313611]  el0t_64_sync_handler+0xb8/0xc0
+[   18.318041]  el0t_64_sync+0x1a0/0x1a4
+[   18.321953] Code: aa0103f3 f90013f5 aa0003f5 f9406834 (39405280)
+[   18.328293] ---[ end trace 0000000000000000 ]---
+
+Fixes: 9862dcf70245 ("ASoC: SOF: don't unprepare widget used other pipelines")
+Fixes: ce59804d2643 ("ASoC: SOF: clear prepare state when widget is unprepared")
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ sound/soc/sof/sof-audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index e1ab8380e7d8..1988717762b3 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -274,7 +274,7 @@ sof_unprepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widg
+ 	struct snd_soc_dapm_path *p;
+ 
+ 	/* return if the widget is in use or if it is already unprepared */
+-	if (!swidget->prepared || swidget->use_count > 1)
++	if (!swidget || !swidget->prepared || swidget->use_count > 1)
+ 		return;
+ 
+ 	widget_ops = tplg_ops ? tplg_ops->widget : NULL;
+-- 
+2.39.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A75667921
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:25:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A29B66791D
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:24:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19F1791BD;
-	Thu, 12 Jan 2023 16:24:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19F1791BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DE9C91D3;
+	Thu, 12 Jan 2023 16:23:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DE9C91D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673537098;
-	bh=xDmwjywJLhxTesfoaedLfKxuHBE4U5Qc/GEUQvlSwl0=;
+	s=default; t=1673537082;
+	bh=TN1PtohmiBBHyfdy4nNcbruYWz6XfuHSrNsflFeJG/8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=KOQric1wmX5s7ic6p+repJkF6pQ2gkaRzpNBw3HHkDYGAgc/RFc3TQQrzYsi+p16X
-	 BzIPm9dbKQfQUZbZ0QvISxBc0DR6wfeZZ3rrCFih94zOT+mJKZ1xJBYpW6/Jejh92C
-	 E21Cfg7u/cmTaXAQTe/KQrmfZx03KdCNcG2YTJ3w=
+	b=Dw6iaNLcvWLGS0CrJDiTBLhefj+BxzqNhugQqcn06oLTIzZxYeKczVSkr3FvqLAzY
+	 UM/eb0a5rc7r731LsvRQgm+tPurMgpe8rxaJrSA4ISSSm8DbfaPGuz6y38jvV3IwBF
+	 hl5TY+iX6p368w591PCjE9cH337ThjRhvGvqoaBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53393F80542;
-	Thu, 12 Jan 2023 16:23:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9B06F8053D;
+	Thu, 12 Jan 2023 16:23:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7107CF804E4; Thu, 12 Jan 2023 16:23:17 +0100 (CET)
+ id DD3C9F804D9; Thu, 12 Jan 2023 16:23:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,51 +35,51 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D756F8016E
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:23:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D756F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AE75F8013D
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:23:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AE75F8013D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=iwQAOoop
+ header.s=Intel header.b=ZvKULN/v
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673536996; x=1705072996;
+ t=1673536995; x=1705072995;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=xDmwjywJLhxTesfoaedLfKxuHBE4U5Qc/GEUQvlSwl0=;
- b=iwQAOooppIAloicQa7eOcQs8kcGFFrY1KbVEYWPyHbVjTffEs6B0NkTO
- 21SJBbDpuiOPGHghNAqq43oxw9fEtDUytOQVlbYT65Y7XU37e6JhRawkG
- GBsWKDph6irtHDbe94BubkA9ts8H9rn8kLI+w1sYVg2Pa5GC5Zxp9RPaw
- S0Kgt165KufnccnnXSnn2jpPzyagNhDe64XGqOIfjOfyAkquHcuywNwlw
- dwoiJ3EQhSkoy38eLPD/WDxgcaifeDginyGQRp8huAjMTIuI1Nxfsne5W
- 7hZ4JZXvUxtxfNYGZPW+aoOHCBfQ1EAMjKOxDTqU0FtRhBfM2xKDnaT9O g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="388212571"
-X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="388212571"
+ bh=TN1PtohmiBBHyfdy4nNcbruYWz6XfuHSrNsflFeJG/8=;
+ b=ZvKULN/vXsfPPn5g48tmWB3/DCaQJbr4AiS1wVQRKFRLiKah4e/XrLE4
+ JJyPazDExxWDCDSK4LRowTD3f3aAXRXVkOT/OEk56+T+KMA7CRLTpGX/X
+ qUVMSNqHTKsAp0KG5gdZOB/fSbVQDUaHmDY9V+wE2neuAvxsOuyIHojsi
+ 999ZBP8Pe6KGME3o88J0hVrcTpYNtlqNx0YF0GHVUCNXPNEY5zU46CJSH
+ A3kvloMVf5ciL3UbnaxyIunzw/Qs7G96XSHuis94w24DUKW06K9EnW5hO
+ 3F1Xr+AYB3f/Izf81Clz2nEGVDrcSHm8+cnGQjGN/C8cyABc4wMFxgVdu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="388212578"
+X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="388212578"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 06:57:12 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="607816928"
-X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="607816928"
+ 12 Jan 2023 06:57:14 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="607816938"
+X-IronPort-AV: E=Sophos;i="5.97,211,1669104000"; d="scan'208";a="607816938"
 Received: from jbetan3x-mobl1.amr.corp.intel.com (HELO [10.209.143.163])
  ([10.209.143.163])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 06:57:11 -0800
-Message-ID: <5d7659af-ffd0-4948-4c38-68815f4ca17f@linux.intel.com>
-Date: Thu, 12 Jan 2023 08:47:08 -0600
+ 12 Jan 2023 06:57:13 -0800
+Message-ID: <9edd31f6-1208-64fd-bdde-afb72699a1f5@linux.intel.com>
+Date: Thu, 12 Jan 2023 08:50:13 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 14/19] soundwire: amd: add runtime pm ops for AMD master
- driver
+Subject: Re: [PATCH 17/19] soundwire: amd: add pm_prepare callback and pm ops
+ support
 Content-Language: en-US
 To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org,
  vkoul@kernel.org, alsa-devel@alsa-project.org
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-15-Vijendar.Mukunda@amd.com>
- <1af8aa6a-9896-4d35-48de-f084fd16ebc7@linux.intel.com>
- <216b288d-16d3-5806-86fb-fc6ba83b757a@amd.com>
+ <20230111090222.2016499-18-Vijendar.Mukunda@amd.com>
+ <a76043ad-c212-f625-8d0e-ef9460a078a5@linux.intel.com>
+ <8bc313ad-aaad-8d4e-b851-d08229dd5d55@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <216b288d-16d3-5806-86fb-fc6ba83b757a@amd.com>
+In-Reply-To: <8bc313ad-aaad-8d4e-b851-d08229dd5d55@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -103,26 +103,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
->>> +static int __maybe_unused amd_suspend_runtime(struct device *dev)
+>>> +static int __maybe_unused amd_pm_prepare(struct device *dev)
 >>> +{
 >>> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
 >>> +	struct sdw_bus *bus = &ctrl->bus;
 >>> +	int ret;
 >>> +
 >>> +	if (bus->prop.hw_disabled || !ctrl->startup_done) {
->> do you have a case where the startup is not done? This was an
->> Intel-specific thing.
-> We have included startup_done flag in probe_work to check whether Manager
-> has started. In case if manager init sequence fails, then there is no need
-> to apply any PM ops.
+>>> +		dev_dbg(bus->dev, "SoundWire master %d is disabled or not-started, ignoring\n",
+>>> +			bus->link_id);
+>>> +		return 0;
+>>> +	}
+>>> +	ret = device_for_each_child(bus->dev, NULL, amd_resume_child_device);
+>>> +	if (ret < 0)
+>>> +		dev_err(dev, "%s: amd_resume_child_device failed: %d\n", __func__, ret);
+>>> +	if (pm_runtime_suspended(dev) && ctrl->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+>>> +		ret = pm_request_resume(dev);
+>>> +		if (ret < 0) {
+>>> +			dev_err(bus->dev, "pm_request_resume failed: %d\n", ret);
+>>> +			return 0;
+>>> +		}
+>>> +	}
+>>> +	return 0;
+>>> +}
+>> This seems to be inspired by the Intel code, but is this necessary here?
+> No It's not inspired by intel code. Initially, we haven't included
+> pm_prepare callback. We have observed issues without
+> pm_prepare callback.
+>> For Intel, we saw cases where we had to pm_resume before doing a system
+>> suspend, otherwise the hardware was in a bad state.
+>>
+>> Do you actually need to do so, or is is possible to do a system suspend
+>> when the clock is stopped.
+>>
+>> And in the case where the bus is in 'power-off' mode, do you actually
+>> need to resume at all?
+> Our platform supports different power modes. To support all
+> combinations, we have included pm_prepare callback.
 
-Not following, sorry.
+>> do you actually need to stop the clock before powering-off? This seems
+>> counter intuitive and not so useful?
+> Yes, as per our design, we need to stop the clock
+> before powering off.
 
-We introduced the .startup callback for intel because of a power
-dependency where we could not access and initialize the registers at the
-.probe time for the master driver.
-
-Do you have a similar dependency, and if not why not remove this flag?
-
-
+It'd be good to add comments capturing these points, that would be
+useful for new contributors and reviewers to know this is intentional
+and required by the hardware programming sequences.

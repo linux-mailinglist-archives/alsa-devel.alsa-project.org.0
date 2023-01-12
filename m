@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BFB86678B9
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:13:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294F56678C0
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 16:13:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF5179150;
-	Thu, 12 Jan 2023 16:12:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF5179150
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA9A9159;
+	Thu, 12 Jan 2023 16:12:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA9A9159
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673536389;
-	bh=i0txVsnRMPVTx90fZAVv/lr9sSoXFnlMzEdCAzHbd7Q=;
+	s=default; t=1673536399;
+	bh=mmzqSII9T6D59c5Rwcmo14SU+6iZlSmcHeRTkXTcRWM=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=PbrCv9KEh34TE/iWtS4bKTqGD+C2fqoh+XlRrh74cKl+VBVDynQ2nmEzSIRVI/JWQ
-	 pCcc3tqKf80b11DwB6cdHGyWoGx2RKvKRlwkRL5fR3PAizUxSln+zAKLoEDj9W0Ifc
-	 MH3WmzCrJhWzKL1KJvquQ2h3moBe2cit094UIAJo=
+	b=SiNZPPg/TiCiFSmbaRpVy3jNt8rgp1sCUImR6cwnQsmlr8qaArafzZOT/oD9A2uoT
+	 Nl9zson6N1krHx4Eu3DkLRAusVY6bRze49ELyIx+Egk99VRfpk/xPrh4b4XBucPckE
+	 yCGhha1p79VjlBS6ofRnSXl7WHDBvErhV/IApbR0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76A12F804DD;
-	Thu, 12 Jan 2023 16:12:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24FE5F8053D;
+	Thu, 12 Jan 2023 16:12:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1337AF8013D; Thu, 12 Jan 2023 16:12:17 +0100 (CET)
+ id BD50AF804DD; Thu, 12 Jan 2023 16:12:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,39 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DFF4F8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:12:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DFF4F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id F05DCF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 16:12:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F05DCF8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lfUeVfF1
+ header.s=k20201202 header.b=blWMyYT7
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A747D62036;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 61B3762053;
+ Thu, 12 Jan 2023 15:12:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D281DC433EF;
  Thu, 12 Jan 2023 15:12:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C391C433EF;
- Thu, 12 Jan 2023 15:12:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673536331;
- bh=i0txVsnRMPVTx90fZAVv/lr9sSoXFnlMzEdCAzHbd7Q=;
+ s=k20201202; t=1673536333;
+ bh=mmzqSII9T6D59c5Rwcmo14SU+6iZlSmcHeRTkXTcRWM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=lfUeVfF1uD9Jl5jhUegEPsNHMNp8Jv2nzFsvxLY1mgE8QB5ixnYXcXbx3yWBZnIIb
- yOdz7iYpdjo7Hz6viaj3vZoufFie4a7ZGDwfo0RftI9Jlx1fMgTORNC31JBm7zrCiy
- K1kOvaKdgKLOoXpw+FzuX81Tdl2REC5PEDfF2S+l1Xu9s+3IZnkKKWR2Qik3edZmep
- 1UauMRowgSiwu6mhI9OpKCslVCm8nevnoDo2iTUsg8xxOxP61+XHKvzB9sIso7AXjl
- zX0eWYf01KKtasGh044lNkr40w17pmxHwdpLToXmPOsvbxl0PlL+pFo5hCFM6VKovq
- scrjuj/Urc++A==
+ b=blWMyYT7NqCfzvbtYA6V4krkw93hhaNVMC9tnemHst0C+qnUKn+r4VpAE7JwwNi7w
+ ioRl0DtWoG37Vye44GVSUAYduAYTy4vDt3TUjae0EN0mXyaPKgImGCcTwmUzCQcuM6
+ F7nVYeofr09KYtwkCsOqA66M95w/MI9nMPpbsWaYD38dt/LexMqwtFNHOqxZMhYUrV
+ R+myls/ZNOut3ws5TU/IoXvCTLPpBBcGhYmzl2qI5op5/fa1zMEKhT64a19u7CqmNs
+ X8OWjCIFM0hM9KyHtkO29/TbLNXXchXxBt8YBzfMP6mlPXn9W5xKTm86P2ymupl9xz
+ Mg3AcH04GxuNQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-In-Reply-To: <20221220072705.1456908-1-venkataprasad.potturu@amd.com>
-References: <20221220072705.1456908-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH 0/5] Add tdm support in acp machine driver
-Message-Id: <167353632896.2136827.8680445783031086400.b4-ty@kernel.org>
-Date: Thu, 12 Jan 2023 15:12:08 +0000
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jai Luthra <j-luthra@ti.com>
+In-Reply-To: <20221230132644.6398-1-j-luthra@ti.com>
+References: <20221230132644.6398-1-j-luthra@ti.com>
+Subject: Re: [PATCH v2] dt-bindings: sound: tlv320aic3x: Add optional clock
+ and port properties
+Message-Id: <167353633135.2136827.959588025464826190.b4-ty@kernel.org>
+Date: Thu, 12 Jan 2023 15:12:11 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -81,21 +83,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: vsujithkumar.reddy@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, ssabakar@amd.com, Vijendar.Mukunda@amd.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 20 Dec 2022 12:57:00 +0530, Venkata Prasad Potturu wrote:
-> This patch set is to add new cpu dai, refactor dai format
-> implementation and add tdm support in acp machine driver.
+On Fri, 30 Dec 2022 18:56:44 +0530, Jai Luthra wrote:
+> Describe optional properties for clocks and ports that were missing in
+> the original txt binding, to fix warnings like:
 > 
-> Venkata Prasad Potturu (5):
->   ASoC: amd: acp: Refactor i2s bclk calculation
->   ASoC: amd: acp: Add new cpu dai's in machine driver
->   ASoC: amd: acp: Refactor dai format implementation
->   ASoC: amd: acp: Add tdm support in machine driver
->   ASoC: amd: acp: Enable tdm support for skyrim platforms
+> aic33@18: 'assigned-clock-parents', 'assigned-clock-rates',
+> 	'assigned-clocks' do not match any of the regexes:
+> 	'pinctrl-[0-9]+'
+> 	arch/arm/boot/dts/omap2420-n810.dtb
 > 
 > [...]
 
@@ -105,16 +104,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: amd: acp: Refactor i2s bclk calculation
-      (no commit info)
-[2/5] ASoC: amd: acp: Add new cpu dai's in machine driver
-      commit: 099b923fc15d8faa91c5fc1b46cbc483d034f5dc
-[3/5] ASoC: amd: acp: Refactor dai format implementation
-      commit: af830fc44a2d273b163e76b17f51b128ce694481
-[4/5] ASoC: amd: acp: Add tdm support in machine driver
-      (no commit info)
-[5/5] ASoC: amd: acp: Enable tdm support for skyrim platforms
-      (no commit info)
+[1/1] dt-bindings: sound: tlv320aic3x: Add optional clock and port properties
+      commit: b6e98cf4ed3baff0c2f7a1c1babf96fde8e129f3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

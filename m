@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D64AC6671C3
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 13:12:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0EA46671C5
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 13:12:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C884520F;
-	Thu, 12 Jan 2023 13:11:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C884520F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 406285D68;
+	Thu, 12 Jan 2023 13:11:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406285D68
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673525550;
-	bh=c5u44GiTWkFZotG8x/UdUgo4YmgY68gGCQU0CbxS5ws=;
+	s=default; t=1673525568;
+	bh=bom6iDovjPR8h43XjUic+WoachRYoYeHoW3CUJ6aYy4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=p4AzvgnM6OHY3PdGeKPxxcT2u4/4fQLHCWQuD2niL+thEGqKHhJG6kcrlpfmIeqk6
-	 zvxjP/wNd4uAZjqqon1IoqyLvQTw6Pk68/jTY1jcNzk+wHdZO9DEcwBzH5Q7ZudKBC
-	 W5wDeET/Kt9Zk1XEjPic1nMasmz+yKJp1Vbr8C88=
+	b=o83CsSgyOoOxyV3P+D/QoanfT9CW4itVzVyTudsxqE8QbCgHAxzTpq5xwVk6A8AnD
+	 IBC1+aGeJ31NzuJAA7uTD/bqjIehiaSbcXhVnH6YigZXVRZ0zN6M8XM6WBjLFhSREB
+	 0C4DDJGb4xqZ+t5ffk6EnielPvUYRsXFRO3v7Cy0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 765A3F80539;
-	Thu, 12 Jan 2023 13:10:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1571AF8056F;
+	Thu, 12 Jan 2023 13:10:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1C5CF80543; Thu, 12 Jan 2023 13:10:15 +0100 (CET)
+ id 14C63F80563; Thu, 12 Jan 2023 13:10:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,67 +37,67 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A82AAF804C1
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 13:10:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A82AAF804C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 356A9F80539
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 13:10:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 356A9F80539
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=lOZ6P59N; 
+ header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=Cr65VU+o; 
  dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=beDhYvfS
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id F0AE33200930;
- Thu, 12 Jan 2023 07:10:09 -0500 (EST)
+ header.a=rsa-sha256 header.s=fm3 header.b=KlwGexP3
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 3892932005D8;
+ Thu, 12 Jan 2023 07:10:12 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 12 Jan 2023 07:10:10 -0500
+ by compute5.internal (MEProxy); Thu, 12 Jan 2023 07:10:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=cc:cc:content-transfer-encoding:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1673525409; x=
- 1673611809; bh=UNlHD8gW0ngNuYF/LW1sYgMPqPGbma3iF/sGBB13x6Y=; b=l
- OZ6P59NE580QSkk3qo7SiF+v04RAdPRj4lfnDi3ZBHSuUpvFZFDNTe5c2D9VVjNE
- TGW5j3i9SCJfYmGjqi/rwMZvtGmQ8SPrfVksLUguinUtgKJ1LkRm1XbHrQWbH153
- tIydYVWknSlW8shmsI7Hq2Ru2zFpIRh6aV5S/MUgECdWG0WpB2gjP+9GPqXdivhr
- DxACvwL3ImcQamVNGK3ElvLyF0oZGF404NYt5y8JQYwK9UzJkhQjNJ1m4nBrXXfc
- iGCmWHB9pdSV3QezBTe/iLEz5t8isgTZKxh08tow2xJirRNkE490tKrzfe+mmkBG
- uUD2AfghXjFvkt/5MNbzA==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1673525411; x=
+ 1673611811; bh=jIjQLxPzQp9KlPrtd/2Ool6fxDwQOyxeMj0J+DUzA0o=; b=C
+ r65VU+oQGWzDJSWXV9bO5PXEC/EuQ6++W31QQ7P0UPP1sovzUF2pzXmjt4oemy8F
+ Vrhm+FiNRIlcI3uy0raJy9nr6p4n4WYqZMZ2vXN0kRm0aMpZdIf59NgI0D92FvTD
+ pOc3EaxrIwsblrLQ9MD6I9qljjAOraMe399bCv65dieR0A1cQAU04a8dKZ+CgvoK
+ ZUqnnatapPrRooLkD4wYIXozWnWr8KY8d/ty0pqqV6eS1rYmCrGMeNVfFrg8o8fe
+ RyughNsHmFE1GYVGYihAiDaHdgP6ZD1QY86VoUf8HjHvUEXA/zl7UoDTyvoic14v
+ jBK31EJUpGYnUlZ/CwdfQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
  :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
  :message-id:mime-version:references:reply-to:sender:subject
  :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1673525409; x=1673611809; bh=UNlHD8gW0ngNu
- YF/LW1sYgMPqPGbma3iF/sGBB13x6Y=; b=beDhYvfSzon+ihqr49DdrzfpIaTAP
- lQZolt77+eG3z8n96EhNPlmkq7DeYFDqf4CbXb1tggMhqf4uNLGaNw9mhgeQn4LC
- oQbiybINyexQWFfyOwYllMVH1JXObY4CprIe43z10A+nn0mJhZ4W32o1SnTP6IGW
- pp4vczfawq7K/oWsXiRncESr4oMlduUMtDbgdJcVQPe3vKbLFy4f2rujNCvVwIMO
- eO3/dT0bj37OvmIe1wUPaqwWIbDXGR0RIRWDRoByQtf6VXIX7sE08j8CWyyJhlgX
- MyWmNiHx/AzO4klJs0i3WgCpcUmFex9XrwSECjy/6MqBdj4OEKBJyD3OA==
-X-ME-Sender: <xms:ofi_Y0ZXcnDxnXK6_5RhHXIDlYixljRTvZmZyOw-Wlj4P6nu0LEzHQ>
- <xme:ofi_Y_YolgswzuHcHpsiTOMM71bQu5N2t9941Xrx6XRJxB9omlHxiUsMqb28ikSZm
- bfhu1i8VaZUrVjWuAM>
-X-ME-Received: <xmr:ofi_Y-_M5OVJDQ7xE-iVv4adKcm1Y4h21F-TmbCdF4-pjHv0SyiaBTKasGRvi_P-mbeKzAm05u0I3k9LGHWVOHkoGcphlwHzcF9girpS3XQrpVa4Uww9VBw>
+ :x-sasl-enc; s=fm3; t=1673525411; x=1673611811; bh=jIjQLxPzQp9Kl
+ Prtd/2Ool6fxDwQOyxeMj0J+DUzA0o=; b=KlwGexP3QiYf/QJ0MTQ8fJayv0OIU
+ epQY2nw5z0MFK6EoBbcEDhGWSKRUnViQcIf5T09QOtLuyItEJTSYnP2Tnf7urY0x
+ 2ImLa+H82FbqRacpElOZ4nQChGHB8JIeK6f41yKHH7rFezvAbe70Ko69e2PbiIJg
+ v+jEryWDCWGGyIJ7GbEl7Vhk4CxsB9Txs8JtcJf6S+1cwhkHbYT6sYSGz5ljy86B
+ iFBoEjjOZIFv7OxlMiV5JmEizJ3M8vvox0BaXJ+VByRbO9khVejVfFN8iWqCDlmf
+ 7U3SSyaS7O5oO/6kBNz5pPHwVTekaPtul2asvAFO8u4RSwpMi0nl8dHWg==
+X-ME-Sender: <xms:o_i_Yy658mzXp7-SMmMNVTNbFsYLn2bcrNYQwQ0B7kyCXB71E4SC3w>
+ <xme:o_i_Y75IFlgTMkqWZUPiML22Kc7_sP5V7tNkcI4EfNob4P6HT9IVudKTgxPKa7a1w
+ uEBAX4rdSikvkaZKLw>
+X-ME-Received: <xmr:o_i_YxcFYFEoaPRRrKnxG0AW6I6Y_qeyZz5cZkm4mLx4rGxQ2rRuC2gtKQYjJ02e42JEFkFrQGeDpiPPPt7ei9x09XjxC4Ow6w0Z3jegB5Tlr73oBrl8CDU>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleeigdefhecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepvdejgfejue
  dvgfduudekleevtefgtdevhfdtffefiefgveeuteffiedvffekvddtnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
+ rhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihessh
  grkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:ofi_Y-pnweUMVPU5Q7lLdSGXWxvkp2p0vr7sMiN-PkC3cRuiMXvhRg>
- <xmx:ofi_Y_o-sYpBWNLpnnAujGT_8akN7eiXgavSCOVrEqelYnRKFfFPAg>
- <xmx:ofi_Y8QIa6cBaapevO1uR5aYkLyuW6wR05rskIj55JC_LIZt7FgXVQ>
- <xmx:ofi_Y4DGoTO6rcF9783pvIMtFBIDaSI7qYn_JCWrp_4o5CpGddw8TQ>
+X-ME-Proxy: <xmx:o_i_Y_JAjNJJ4WKpA5gMeOfUgumOqlJ12esS60ISRW7fsIYFfdUmBQ>
+ <xmx:o_i_Y2LXbJ-kmkRLsIutjXXDqfHWHl6e4eR72Ay9oyiA5oMzYtYwKg>
+ <xmx:o_i_YwxdGLY17vnn-3LgYsRhZTouPcNxDdvks8uEUNVZzKbqcEqtSw>
+ <xmx:o_i_Y4i4uwxOIFGZAK6NO-BWEml-bz6gBVl_Y2dBfVnF1wMxS8xBJA>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Jan 2023 07:10:08 -0500 (EST)
+ 12 Jan 2023 07:10:10 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Subject: [PATCH 4/6] ALSA: fireface: update UAPI for data of knob control
-Date: Thu, 12 Jan 2023 21:09:52 +0900
-Message-Id: <20230112120954.500692-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 5/6] ALSA: fireface: add local framework to message parser
+Date: Thu, 12 Jan 2023 21:09:53 +0900
+Message-Id: <20230112120954.500692-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
 References: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
@@ -119,62 +119,166 @@ Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds a new event of knob control specific to RME Fireface 400.
+This commit adds local framework to message parser. This is preparation
+for future work to pass event of knob control for Fireface 400 to user
+space.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- include/uapi/sound/firewire.h | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ sound/firewire/fireface/ff-hwdep.c       | 41 +++++++++++++++++-------
+ sound/firewire/fireface/ff-transaction.c |  4 +++
+ sound/firewire/fireface/ff.c             | 10 ++++++
+ sound/firewire/fireface/ff.h             |  5 +++
+ 4 files changed, 49 insertions(+), 11 deletions(-)
 
-diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
-index 3532ac7046d7..50917581dd2b 100644
---- a/include/uapi/sound/firewire.h
-+++ b/include/uapi/sound/firewire.h
-@@ -14,6 +14,7 @@
- #define SNDRV_FIREWIRE_EVENT_MOTU_NOTIFICATION	0x64776479
- #define SNDRV_FIREWIRE_EVENT_TASCAM_CONTROL	0x7473636d
- #define SNDRV_FIREWIRE_EVENT_MOTU_REGISTER_DSP_CHANGE	0x4d545244
-+#define SNDRV_FIREWIRE_EVENT_FF400_MESSAGE	0x4f6c6761
+diff --git a/sound/firewire/fireface/ff-hwdep.c b/sound/firewire/fireface/ff-hwdep.c
+index ea64a2a41eea..8a741b3b0436 100644
+--- a/sound/firewire/fireface/ff-hwdep.c
++++ b/sound/firewire/fireface/ff-hwdep.c
+@@ -15,16 +15,23 @@
  
- struct snd_firewire_event_common {
- 	unsigned int type; /* SNDRV_FIREWIRE_EVENT_xxx */
-@@ -72,6 +73,28 @@ struct snd_firewire_event_motu_register_dsp_change {
- 	__u32 changes[];	/* Encoded event for change of register DSP. */
- };
+ #include "ff.h"
  
-+/**
-+ * struct snd_firewire_event_ff400_message - the container for message from Fireface 400 when
-+ *					     operating hardware knob.
-+ *
-+ * @type: Fixed to SNDRV_FIREWIRE_EVENT_FF400_MESSAGE.
-+ * @messages.message: The messages expressing hardware knob operation.
-+ * @messages.tstamp: The isochronous cycle at which the request subaction of asynchronous
-+ *		     transaction was sent to deliver the message. It has 16 bit unsigned integer
-+ *		     value. The higher 3 bits of value expresses the lower three bits of second
-+ *		     field in the format of CYCLE_TIME, up to 7. The rest 13 bits expresses cycle
-+ *		     field up to 7999.
-+ *
-+ * The structure expresses message transmitted by Fireface 400 when operating hardware knob.
-+ */
-+struct snd_firewire_event_ff400_message {
-+	unsigned int type;
-+	struct {
-+		__u32 message;
-+		__u32 tstamp;
-+	} messages[];
-+};
++static bool has_msg(struct snd_ff *ff)
++{
++	if (ff->spec->protocol->has_msg)
++		return ff->spec->protocol->has_msg(ff);
++	else
++		return 0;
++}
 +
- union snd_firewire_event {
- 	struct snd_firewire_event_common            common;
- 	struct snd_firewire_event_lock_status       lock_status;
-@@ -81,6 +104,7 @@ union snd_firewire_event {
- 	struct snd_firewire_event_tascam_control    tascam_control;
- 	struct snd_firewire_event_motu_notification motu_notification;
- 	struct snd_firewire_event_motu_register_dsp_change motu_register_dsp_change;
-+	struct snd_firewire_event_ff400_message	    ff400_message;
+ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
+ 		       loff_t *offset)
+ {
+ 	struct snd_ff *ff = hwdep->private_data;
+ 	DEFINE_WAIT(wait);
+-	union snd_firewire_event event;
+ 
+ 	spin_lock_irq(&ff->lock);
+ 
+-	while (!ff->dev_lock_changed) {
++	while (!ff->dev_lock_changed && !has_msg(ff)) {
+ 		prepare_to_wait(&ff->hwdep_wait, &wait, TASK_INTERRUPTIBLE);
+ 		spin_unlock_irq(&ff->lock);
+ 		schedule();
+@@ -34,17 +41,29 @@ static long hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
+ 		spin_lock_irq(&ff->lock);
+ 	}
+ 
+-	memset(&event, 0, sizeof(event));
+-	event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
+-	event.lock_status.status = (ff->dev_lock_count > 0);
+-	ff->dev_lock_changed = false;
++	if (ff->dev_lock_changed && count >= sizeof(struct snd_firewire_event_lock_status)) {
++		struct snd_firewire_event_lock_status ev = {
++			.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS,
++			.status = (ff->dev_lock_count > 0),
++		};
+ 
+-	count = min_t(long, count, sizeof(event.lock_status));
++		ff->dev_lock_changed = false;
+ 
+-	spin_unlock_irq(&ff->lock);
++		spin_unlock_irq(&ff->lock);
+ 
+-	if (copy_to_user(buf, &event, count))
+-		return -EFAULT;
++		if (copy_to_user(buf, &ev, sizeof(ev)))
++			return -EFAULT;
++		count = sizeof(ev);
++	} else if (has_msg(ff)) {
++		// NOTE: Acquired spin lock should be released before accessing to user space in the
++		// callback since the access can cause page fault.
++		count = ff->spec->protocol->copy_msg_to_user(ff, buf, count);
++		spin_unlock_irq(&ff->lock);
++	} else {
++		spin_unlock_irq(&ff->lock);
++
++		count = 0;
++	}
+ 
+ 	return count;
+ }
+@@ -58,7 +77,7 @@ static __poll_t hwdep_poll(struct snd_hwdep *hwdep, struct file *file,
+ 	poll_wait(file, &ff->hwdep_wait, wait);
+ 
+ 	spin_lock_irq(&ff->lock);
+-	if (ff->dev_lock_changed)
++	if (ff->dev_lock_changed || has_msg(ff))
+ 		events = EPOLLIN | EPOLLRDNORM;
+ 	else
+ 		events = 0;
+diff --git a/sound/firewire/fireface/ff-transaction.c b/sound/firewire/fireface/ff-transaction.c
+index 79f733d8c98b..6b89e39f4a43 100644
+--- a/sound/firewire/fireface/ff-transaction.c
++++ b/sound/firewire/fireface/ff-transaction.c
+@@ -132,11 +132,15 @@ static void handle_msg(struct fw_card *card, struct fw_request *request, int tco
+ 	struct snd_ff *ff = callback_data;
+ 	__le32 *buf = data;
+ 	u32 tstamp = fw_request_get_timestamp(request);
++	unsigned long flag;
+ 
+ 	fw_send_response(card, request, RCODE_COMPLETE);
+ 
+ 	offset -= ff->async_handler.offset;
++
++	spin_lock_irqsave(&ff->lock, flag);
+ 	ff->spec->protocol->handle_msg(ff, (unsigned int)offset, buf, length, tstamp);
++	spin_unlock_irqrestore(&ff->lock, flag);
+ }
+ 
+ static int allocate_own_address(struct snd_ff *ff, int i)
+diff --git a/sound/firewire/fireface/ff.c b/sound/firewire/fireface/ff.c
+index 7bf51d062021..448e972028d9 100644
+--- a/sound/firewire/fireface/ff.c
++++ b/sound/firewire/fireface/ff.c
+@@ -43,6 +43,8 @@ static void ff_card_free(struct snd_card *card)
+ 	snd_ff_stream_destroy_duplex(ff);
+ 	snd_ff_transaction_unregister(ff);
+ 
++	kfree(ff->msg_parser);
++
+ 	mutex_destroy(&ff->mutex);
+ 	fw_unit_put(ff->unit);
+ }
+@@ -94,6 +96,14 @@ static int snd_ff_probe(struct fw_unit *unit, const struct ieee1394_device_id *e
+ 	if (err < 0)
+ 		goto error;
+ 
++	if (ff->spec->protocol->msg_parser_size > 0) {
++		ff->msg_parser = kzalloc(ff->spec->protocol->msg_parser_size, GFP_KERNEL);
++		if (!ff->msg_parser) {
++			err = -ENOMEM;
++			goto error;
++		}
++	}
++
+ 	err = snd_card_register(card);
+ 	if (err < 0)
+ 		goto error;
+diff --git a/sound/firewire/fireface/ff.h b/sound/firewire/fireface/ff.h
+index f430ebe157b3..7e42f5778a8a 100644
+--- a/sound/firewire/fireface/ff.h
++++ b/sound/firewire/fireface/ff.h
+@@ -97,6 +97,8 @@ struct snd_ff {
+ 	wait_queue_head_t hwdep_wait;
+ 
+ 	struct amdtp_domain domain;
++
++	void *msg_parser;
  };
  
+ enum snd_ff_clock_src {
+@@ -110,6 +112,9 @@ enum snd_ff_clock_src {
+ };
  
+ struct snd_ff_protocol {
++	size_t msg_parser_size;
++	bool (*has_msg)(struct snd_ff *ff);
++	long (*copy_msg_to_user)(struct snd_ff *ff, char __user *buf, long count);
+ 	void (*handle_msg)(struct snd_ff *ff, unsigned int offset, const __le32 *buf,
+ 			   size_t length, u32 tstamp);
+ 	int (*fill_midi_msg)(struct snd_ff *ff,
 -- 
 2.37.2
 

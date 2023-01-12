@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12A5667A43
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF44667A44
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 17:04:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C27592EC;
-	Thu, 12 Jan 2023 17:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C27592EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68A789323;
+	Thu, 12 Jan 2023 17:04:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A789323
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673539478;
-	bh=24pa4CrQvbeifm5wbrY99xyH88M3WPUoYOr6YWN72Qs=;
+	s=default; t=1673539496;
+	bh=qaRv5TRGJxEiKoJKrdxHOkRY9VUWILKEVzY031bVZZk=;
 	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=owXudyO3HiXlcmZgN1NroQPmVZa35sJFaUqi4Z8sZKR8Fc8zBdaV3F7GnPJ/s/6Qy
-	 GC+xTlcMssVU69WsCFOipDUSMYnUQeBFUp/KUxjZBLL9qxTHkPWO4dUDfx9k5oN7qk
-	 ju2zXxIXuRFkVd6wlVV36D0BDMtgWSrXFvY9qOK0=
+	b=R5Lv4AX15h6GIKA553G8HnQNNuD7GE8eHdftwCQyC+zEO9WMF0ojU3TgJI4ByvkA1
+	 uerm68BiWhXRQJufCdorum4BWe9g1ckL5Eue/CzDDWBNG/lh8DhlabmZFqIMLR7Kqz
+	 Ay6jnPPwYbHaC0hvPXAs/xwcGSHSqSMX+GishW2U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E00C0F805B2;
-	Thu, 12 Jan 2023 16:59:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7351CF805B6;
+	Thu, 12 Jan 2023 16:59:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0DE7AF804C1; Thu, 12 Jan 2023 11:12:47 +0100 (CET)
+ id 591DBF804C1; Thu, 12 Jan 2023 11:13:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
- [209.85.166.71])
+Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
+ [209.85.166.70])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DB1DF8016E
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:12:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DB1DF8016E
-Received: by mail-io1-f71.google.com with SMTP id
- z9-20020a6b0a09000000b00704712ed815so2227040ioi.1
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:12:41 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84D7CF8013D
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:13:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84D7CF8013D
+Received: by mail-io1-f70.google.com with SMTP id
+ w12-20020a5e970c000000b0070450f33abbso6082225ioj.14
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:13:41 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=to:from:subject:message-id:date:mime-version:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=+hJHl7iV8f1sYSqGJtEFNLAOHn3tn9sXTJHzL+rZ44k=;
- b=W5nd2XAHQlAmXHCdgONsgsCPtDvoOJRZiwHKRE9cDd0zEHyEIJQ5vrV36Ly4GRW2nR
- lIyk86/+sIhzmy3GBfNitbe/QrIo2B6wPYsEEDXMilDhF4XoHHTj6ZCyMtGimpm25Qup
- gMsQB3NbHGNCy4iR3key/IGbEJ7R+gFuFToowO8GumiFLxvF/SE+8CzzWdy/Gg9U9yth
- wm540amwcrXe2ofKyBzoXR1mKICq0u1lEgpeN8+7yIKVXLb2TbMlqFtEPt8UU5SeU5so
- 8Oe4/7raS7EMi96rmmQeZ4w3mDCVkD9XH8K6ThgD+rmZ3Zsq0ZBMQi+k5yyOjTJ3Igvd
- 2veQ==
-X-Gm-Message-State: AFqh2krnBmd/nKS7rvaU9upmwvDiamaxrimjKa9e2lb+KXQd0Uk8PhUC
- 9aDsB3K5XXmcxIsl7RW6NAeL6oqsv8TR49tUS7aJjJEFrahr
-X-Google-Smtp-Source: AMrXdXurBxuYu0nhD0PaEOwHTy7qvi0IMq+b8qmXhXbFK7SZ28SbXP+kfBgzivzv0yQ+mAeHgD/g4rExqh9Bz48nPCQy0ihcNA4/
+ bh=4z+4JMdufQd0xjAzXlpUq0cUo/jRkL5ILtP7IbjE2Lc=;
+ b=SvT541iRNV4PitSF8h11ZPBL01Wwk02dtywhCWE3TeQIBd0QxtSf/QlDCniYCYHYrJ
+ fuwBaF+RxoNm4c9GedXAVWwHZbFWfpJFM1egaIj6SproJirXLt36/T2k3k76NvpCkFjb
+ JvD2hfNr7EFGcUkSaiXHSWDeT9M/tQA+rOttIaRGFcp6UJaSG6rtQcmLPCUrThzxsKLl
+ Vv2U7fwe3cqVvG9GKfZuzcTJ7D+n2ODPjqVDCTmp6QFbr48uRZTfHjZ1xPuu5OlVELlp
+ cKgFyIgkFCCtjlKIN3+HosjdegpTYAGoOEjI/VMxUK8idkguLarc7K9+1UIBkueUWt4u
+ Qcyw==
+X-Gm-Message-State: AFqh2kq7aB2ihlqAWUokawE536T+vmPvGT2HkMuy+7XYhDvGbwYsmolh
+ 9IZt+cf/tpW0y4nppyK5lTGVyidz0L4yhPE2W+AIDRNwRetk
+X-Google-Smtp-Source: AMrXdXuDI20Vy67NuqBxivbd6GryckYXfGRT7ozAJz4j1EH4bb3/cHvvWRI97XkiFMui40vDVvzC8lozLmWVwUqhT8uWT7lZd3ek
 MIME-Version: 1.0
-X-Received: by 2002:a05:6638:50b:b0:373:d769:bc14 with SMTP id
- i11-20020a056638050b00b00373d769bc14mr8061266jar.264.1673518359945; Thu, 12
- Jan 2023 02:12:39 -0800 (PST)
-Date: Thu, 12 Jan 2023 02:12:39 -0800
+X-Received: by 2002:a05:6638:2a5:b0:38a:2cb1:7796 with SMTP id
+ d5-20020a05663802a500b0038a2cb17796mr7804431jaq.267.1673518419868; Thu, 12
+ Jan 2023 02:13:39 -0800 (PST)
+Date: Thu, 12 Jan 2023 02:13:39 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000005ea9dd05f20e5b48@google.com>
-Subject: [syzbot] KASAN: use-after-free Read in snd_rawmidi_poll
-From: syzbot <syzbot+e3ec01fd2d18c9264c3b@syzkaller.appspotmail.com>
+Message-ID: <000000000000f1068105f20e5e8f@google.com>
+Subject: [syzbot] KASAN: use-after-free Read in snd_pcm_oss_poll
+From: syzbot <syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com>
 To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
  syzkaller-bugs@googlegroups.com, tiwai@suse.com
 Content-Type: text/plain; charset="UTF-8"
@@ -91,9 +91,9 @@ syzbot found the following issue on:
 
 HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
 git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=1748baa1480000
+console output: https://syzkaller.appspot.com/x/log.txt?x=16d906ea480000
 kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
-dashboard link: https://syzkaller.appspot.com/bug?extid=e3ec01fd2d18c9264c3b
+dashboard link: https://syzkaller.appspot.com/bug?extid=ee73befabe68e7907adf
 compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
 
 Unfortunately, I don't have any reproducer for this issue yet.
@@ -104,13 +104,13 @@ vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093
 kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e3ec01fd2d18c9264c3b@syzkaller.appspotmail.com
+Reported-by: syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com
 
 ==================================================================
-BUG: KASAN: use-after-free in snd_rawmidi_poll+0x559/0x680 sound/core/rawmidi.c:1655
-Read of size 8 at addr ffff8881479ea708 by task syz-executor.0/7629
+BUG: KASAN: use-after-free in snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
+Read of size 8 at addr ffff8880222ed980 by task syz-executor.0/13421
 
-CPU: 1 PID: 7629 Comm: syz-executor.0 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
+CPU: 0 PID: 13421 Comm: syz-executor.0 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
 Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
 Call Trace:
  <TASK>
@@ -119,7 +119,7 @@ Call Trace:
  print_address_description mm/kasan/report.c:306 [inline]
  print_report+0x15e/0x45d mm/kasan/report.c:417
  kasan_report+0xc0/0xf0 mm/kasan/report.c:517
- snd_rawmidi_poll+0x559/0x680 sound/core/rawmidi.c:1655
+ snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
  vfs_poll include/linux/poll.h:88 [inline]
  io_poll_check_events io_uring/poll.c:279 [inline]
  io_poll_task_func+0x3a6/0x1220 io_uring/poll.c:327
@@ -134,25 +134,28 @@ Call Trace:
  syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
  do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f66cbc8c0c9
+RIP: 0033:0x7fbb08c8c0c9
 Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f66cc936168 EFLAGS: 00000246 ORIG_RAX: 0000000000000013
-RAX: fffffffffffffe00 RBX: 00007f66cbdabf80 RCX: 00007f66cbc8c0c9
-RDX: 0000000000000001 RSI: 0000000020000800 RDI: 0000000000000006
-RBP: 00007f66cbce7ae9 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ffe231decef R14: 00007f66cc936300 R15: 0000000000022000
+RSP: 002b:00007fbb099a6218 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+RAX: 0000000000000001 RBX: 00007fbb08dabf88 RCX: 00007fbb08c8c0c9
+RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007fbb08dabf8c
+RBP: 00007fbb08dabf80 R08: 00007ffdf79a3080 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000246 R12: 00007fbb08dabf8c
+R13: 00007ffdf794d43f R14: 00007fbb099a6300 R15: 0000000000022000
  </TASK>
 
-Allocated by task 7629:
+Allocated by task 13421:
  kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
  kasan_set_track+0x25/0x30 mm/kasan/common.c:52
  ____kasan_kmalloc mm/kasan/common.c:371 [inline]
  ____kasan_kmalloc mm/kasan/common.c:330 [inline]
  __kasan_kmalloc+0xa2/0xb0 mm/kasan/common.c:380
  kmalloc include/linux/slab.h:580 [inline]
- snd_rawmidi_open+0x39a/0xb70 sound/core/rawmidi.c:482
- snd_open+0x223/0x460 sound/core/sound.c:169
+ kzalloc include/linux/slab.h:720 [inline]
+ snd_pcm_oss_open_file sound/core/oss/pcm_oss.c:2433 [inline]
+ snd_pcm_oss_open.part.0+0x558/0x1330 sound/core/oss/pcm_oss.c:2535
+ snd_pcm_oss_open+0x44/0x60 sound/core/oss/pcm_oss.c:2499
+ soundcore_open+0x452/0x620 sound/sound_core.c:593
  chrdev_open+0x26a/0x770 fs/char_dev.c:414
  do_dentry_open+0x6cc/0x13f0 fs/open.c:883
  do_open fs/namei.c:3558 [inline]
@@ -167,7 +170,7 @@ Allocated by task 7629:
  do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
  entry_SYSCALL_64_after_hwframe+0x63/0xcd
 
-Freed by task 7629:
+Freed by task 13421:
  kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
  kasan_set_track+0x25/0x30 mm/kasan/common.c:52
  kasan_save_free_info+0x2e/0x40 mm/kasan/generic.c:518
@@ -178,7 +181,9 @@ Freed by task 7629:
  slab_free_freelist_hook+0x8b/0x1c0 mm/slub.c:1807
  slab_free mm/slub.c:3787 [inline]
  __kmem_cache_free+0xaf/0x2d0 mm/slub.c:3800
- snd_rawmidi_release+0x6a/0xf0 sound/core/rawmidi.c:619
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2415 [inline]
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2405 [inline]
+ snd_pcm_oss_release+0x182/0x300 sound/core/oss/pcm_oss.c:2592
  __fput+0x27c/0xa90 fs/file_table.c:321
  task_work_run+0x16f/0x270 kernel/task_work.c:179
  get_signal+0x1c7/0x24f0 kernel/signal.c:2635
@@ -190,26 +195,25 @@ Freed by task 7629:
  do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
  entry_SYSCALL_64_after_hwframe+0x63/0xcd
 
-The buggy address belongs to the object at ffff8881479ea700
- which belongs to the cache kmalloc-32 of size 32
-The buggy address is located 8 bytes inside of
- 32-byte region [ffff8881479ea700, ffff8881479ea720)
+The buggy address belongs to the object at ffff8880222ed980
+ which belongs to the cache kmalloc-16 of size 16
+The buggy address is located 0 bytes inside of
+ 16-byte region [ffff8880222ed980, ffff8880222ed990)
 
 The buggy address belongs to the physical page:
-page:ffffea00051e7a80 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1479ea
-flags: 0x57ff00000000200(slab|node=1|zone=2|lastcpupid=0x7ff)
-raw: 057ff00000000200 ffff888012441500 ffffea0001debd00 dead000000000004
-raw: 0000000000000000 0000000000400040 00000001ffffffff 0000000000000000
+page:ffffea000088bb40 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x222ed
+anon flags: 0xfff00000000200(slab|node=0|zone=1|lastcpupid=0x7ff)
+raw: 00fff00000000200 ffff8880124413c0 0000000000000000 dead000000000001
+raw: 0000000000000000 0000000000800080 00000001ffffffff 0000000000000000
 page dumped because: kasan: bad access detected
 page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY), pid 1, tgid 1 (swapper/0), ts 9844741481, free_ts 0
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0x112cc0(GFP_USER|__GFP_NOWARN|__GFP_NORETRY), pid 5107, tgid 5107 (syz-executor.1), ts 750843463810, free_ts 748166918947
  prep_new_page mm/page_alloc.c:2549 [inline]
  get_page_from_freelist+0x11bb/0x2d50 mm/page_alloc.c:4324
  __alloc_pages+0x1cb/0x5c0 mm/page_alloc.c:5590
- alloc_page_interleave+0x1e/0x200 mm/mempolicy.c:2114
- alloc_pages+0x233/0x270 mm/mempolicy.c:2276
- alloc_slab_page mm/slub.c:1851 [inline]
- allocate_slab+0x25f/0x350 mm/slub.c:1998
+ __alloc_pages_node include/linux/gfp.h:237 [inline]
+ alloc_slab_page mm/slub.c:1853 [inline]
+ allocate_slab+0xa7/0x350 mm/slub.c:1998
  new_slab mm/slub.c:2051 [inline]
  ___slab_alloc+0xa91/0x1400 mm/slub.c:3193
  __slab_alloc.constprop.0+0x56/0xa0 mm/slub.c:3292
@@ -217,26 +221,56 @@ page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KER
  slab_alloc_node mm/slub.c:3442 [inline]
  __kmem_cache_alloc_node+0x136/0x330 mm/slub.c:3491
  __do_kmalloc_node mm/slab_common.c:966 [inline]
- __kmalloc+0x4a/0xd0 mm/slab_common.c:980
- kmalloc include/linux/slab.h:584 [inline]
- usb_get_configuration+0x381/0x3b60 drivers/usb/core/config.c:919
- usb_enumerate_device drivers/usb/core/hub.c:2405 [inline]
- usb_new_device+0x56a/0x7b0 drivers/usb/core/hub.c:2543
- register_root_hub+0x421/0x573 drivers/usb/core/hcd.c:1017
- usb_add_hcd.cold+0x100c/0x13a1 drivers/usb/core/hcd.c:2991
- vhci_hcd_probe+0x14f/0x3a0 drivers/usb/usbip/vhci_hcd.c:1362
- platform_probe+0x100/0x1f0 drivers/base/platform.c:1400
- call_driver_probe drivers/base/dd.c:560 [inline]
- really_probe+0x249/0xb90 drivers/base/dd.c:639
-page_owner free stack trace missing
+ __kmalloc_node+0x4d/0xd0 mm/slab_common.c:974
+ kmalloc_node include/linux/slab.h:610 [inline]
+ kvmalloc_node+0xa2/0x1a0 mm/util.c:603
+ xt_jumpstack_alloc net/netfilter/x_tables.c:1354 [inline]
+ xt_replace_table+0x1a7/0x8c0 net/netfilter/x_tables.c:1393
+ __do_replace+0x1d7/0x8e0 net/ipv4/netfilter/ip_tables.c:1067
+ do_replace net/ipv4/netfilter/ip_tables.c:1140 [inline]
+ do_ipt_set_ctl+0x89d/0xb10 net/ipv4/netfilter/ip_tables.c:1630
+ nf_setsockopt+0x87/0xe0 net/netfilter/nf_sockopt.c:101
+ ip_setsockopt+0xf2/0x110 net/ipv4/ip_sockglue.c:1445
+ tcp_setsockopt+0x9f/0x100 net/ipv4/tcp.c:3802
+ __sys_setsockopt+0x2c6/0x5b0 net/socket.c:2246
+ __do_sys_setsockopt net/socket.c:2257 [inline]
+ __se_sys_setsockopt net/socket.c:2254 [inline]
+ __x64_sys_setsockopt+0xbe/0x160 net/socket.c:2254
+page last free stack trace:
+ reset_page_owner include/linux/page_owner.h:24 [inline]
+ free_pages_prepare mm/page_alloc.c:1451 [inline]
+ free_pcp_prepare+0x4d0/0x910 mm/page_alloc.c:1501
+ free_unref_page_prepare mm/page_alloc.c:3387 [inline]
+ free_unref_page+0x1d/0x490 mm/page_alloc.c:3482
+ __unfreeze_partials+0x17c/0x1a0 mm/slub.c:2637
+ qlink_free mm/kasan/quarantine.c:168 [inline]
+ qlist_free_all+0x6a/0x170 mm/kasan/quarantine.c:187
+ kasan_quarantine_reduce+0x192/0x220 mm/kasan/quarantine.c:294
+ __kasan_slab_alloc+0x63/0x90 mm/kasan/common.c:302
+ kasan_slab_alloc include/linux/kasan.h:186 [inline]
+ slab_post_alloc_hook mm/slab.h:769 [inline]
+ slab_alloc_node mm/slub.c:3452 [inline]
+ slab_alloc mm/slub.c:3460 [inline]
+ __kmem_cache_alloc_lru mm/slub.c:3467 [inline]
+ kmem_cache_alloc+0x175/0x320 mm/slub.c:3476
+ kmem_cache_zalloc include/linux/slab.h:710 [inline]
+ alloc_buffer_head+0x24/0x150 fs/buffer.c:2946
+ alloc_page_buffers+0x284/0x790 fs/buffer.c:871
+ create_empty_buffers+0x30/0xf30 fs/buffer.c:1585
+ ext4_block_write_begin+0x10a7/0x15f0 fs/ext4/inode.c:1080
+ ext4_da_write_begin+0x450/0xb70 fs/ext4/inode.c:3082
+ generic_perform_write+0x256/0x570 mm/filemap.c:3772
+ ext4_buffered_write_iter+0x15b/0x460 fs/ext4/file.c:285
+ ext4_file_write_iter+0x8bf/0x1710 fs/ext4/file.c:700
+ __kernel_write_iter+0x262/0x730 fs/read_write.c:517
 
 Memory state around the buggy address:
- ffff8881479ea600: 00 00 00 00 fc fc fc fc 00 00 00 07 fc fc fc fc
- ffff8881479ea680: fa fb fb fb fc fc fc fc 00 00 00 07 fc fc fc fc
->ffff8881479ea700: fa fb fb fb fc fc fc fc 00 00 00 00 fc fc fc fc
-                      ^
- ffff8881479ea780: 00 00 00 00 fc fc fc fc 00 00 00 00 fc fc fc fc
- ffff8881479ea800: 00 00 00 01 fc fc fc fc 00 00 00 00 fc fc fc fc
+ ffff8880222ed880: 00 00 fc fc fa fb fc fc fa fb fc fc fa fb fc fc
+ ffff8880222ed900: fa fb fc fc fa fb fc fc 00 00 fc fc 00 00 fc fc
+>ffff8880222ed980: fa fb fc fc fa fb fc fc 00 00 fc fc 00 00 fc fc
+                   ^
+ ffff8880222eda00: 00 00 fc fc 00 00 fc fc fa fb fc fc 00 00 fc fc
+ ffff8880222eda80: fa fb fc fc 00 00 fc fc fa fb fc fc fa fb fc fc
 ==================================================================
 
 

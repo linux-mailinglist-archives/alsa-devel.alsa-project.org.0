@@ -2,82 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87E666670E6
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:29:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 260ED6670FA
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:34:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58D9E8B2D;
-	Thu, 12 Jan 2023 12:28:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58D9E8B2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82AF18B4E;
+	Thu, 12 Jan 2023 12:33:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82AF18B4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673522977;
-	bh=jhd+WRzaHqmWRkPNRNir7nTbOsn0RTp6sg9bQRKKJuM=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=oKuBqQD/XJDpPZgerkbwL/JJsNpV8L0hjG+wWN50GO/Q2GQx9hb5hT3vnQI0/2AI3
-	 b6ADOnE3lKvo3uPmWt9ysNPoKRgX0QwGkZEHUQUCt//HkwSNbv8yThNQGx37KLIjgi
-	 sqoj8XHHVdUMg9JNdpUI1Hd6KyQ+/tLYfDXdTZ44=
+	s=default; t=1673523241;
+	bh=UDiUiT3qlTgsGXPSp1oemfNeBsCBX6ql2MPwxW3lg2E=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=XRHNpNWxBa0McPTx5Wt+oYiaPl00jOeqOanoFPxF55SfB3/4vTowcgodHstyyxKNf
+	 uv0348CAhgz8snBInkN1YhHjRNvoMcqoCYz3IYx1SlzrixgxrK6S3xYPaNlNcRiyKn
+	 P2sxGlD8J92m09Fjb1FOI5f6nuTszJnHg8TmkH+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86FA2F804C1;
-	Thu, 12 Jan 2023 12:28:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91938F804BD;
+	Thu, 12 Jan 2023 12:33:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B598F804CA; Thu, 12 Jan 2023 12:28:36 +0100 (CET)
+ id 0CF42F804C1; Thu, 12 Jan 2023 12:33:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 563EFF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:32:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 563EFF8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bQtx97jJ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 139E1F8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:28:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139E1F8013D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=aLPR8Zqn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673522914; x=1705058914;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jhd+WRzaHqmWRkPNRNir7nTbOsn0RTp6sg9bQRKKJuM=;
- b=aLPR8ZqnHDIyeS2aN8+DLZ/G1AQBdinEzHI9GMV5cyPcW/mo/mGHm+rV
- iWDOmK7EEgiVrx/fTk1n1edPKbQiV3ZSNXqzuBMDRVeJapUXHXnjTEUxn
- 2iNgwbvvTDXR1ElHhP3Wpr/Rg24k4mQwFA0SGgSkya34Vi+LmrS+6d3T5
- h1qoHYSMuu3qiogEJ6n85A7tfwfZj9/DKlCw/1xHY02wL4W8jIc8ja+4P
- 8tZvIo8YottvoQak3x6m3hc5TIaWIrfkQYjs8zaj3oy5ESu9X5iTcbQ1w
- BQm2afC5sfRpeTJLiw+v5W1ezg9jRb1LyJB7dvtbVq2LBLyAkQ0HvF+2v g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="304058542"
-X-IronPort-AV: E=Sophos;i="5.96,319,1665471600"; d="scan'208";a="304058542"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 03:28:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="903164798"
-X-IronPort-AV: E=Sophos;i="5.96,319,1665471600"; d="scan'208";a="903164798"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga006.fm.intel.com with ESMTP; 12 Jan 2023 03:28:27 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id A03854E3; Thu, 12 Jan 2023 13:28:56 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/5] ASoC: Intel: sof_es8336: Drop reference count of ACPI
- device after use
-Date: Thu, 12 Jan 2023 13:28:52 +0200
-Message-Id: <20230112112852.67714-6-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230112112852.67714-1-andriy.shevchenko@linux.intel.com>
-References: <20230112112852.67714-1-andriy.shevchenko@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by ams.source.kernel.org (Postfix) with ESMTPS id 86E35B81E26;
+ Thu, 12 Jan 2023 11:32:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86989C433EF;
+ Thu, 12 Jan 2023 11:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673523174;
+ bh=UDiUiT3qlTgsGXPSp1oemfNeBsCBX6ql2MPwxW3lg2E=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bQtx97jJ7PKWc8gfTD5+IRm9L/CPfb3QOZQY5Jz8Wsenig5e/kzx/ev5bXwx4mLr0
+ yeOWoVIvfJKT6Ym3LTcbKODK2/p1ayaiDlMOSvqLJSFCxydRfNNOXbuG0ogvfXDBmS
+ g9QunqivAoVhbFDcySc+Ze5NmdnhF2FdnK3ydKZO7KmdN63rGBSU/H06J0rCQqZP8q
+ jZ9lHEZ1U6wf9vzk0q3R+unwXwwNnHAVneFnQEuC0qYPzVHuvb1sNpZ+Q4FPBEu8f6
+ e8OjzKtgsn26YY//o64pVgZyd3AI6PlaOnkLgSIsIdD7w5lWQnj6CITAKh9bGV05aI
+ RwR6D5e5UssBw==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [GIT PULL] ASoC fixes for v6.2-rc3
+Date: Thu, 12 Jan 2023 11:32:35 +0000
+Message-Id: <20230112113253.86989C433EF@smtp.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,68 +75,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Theoretically the device might gone if its reference count drops to 0.
-This might be the case when we try to find the first physical node of
-the ACPI device. We need to keep reference to it until we get a result
-of the above mentioned call. Refactor the code to drop the reference
-count at the correct place.
+The following changes since commit 1b929c02afd37871d5afb9d498426f83432e71c2:
 
-While at it, move to acpi_dev_put() as symmetrical call to the
-acpi_dev_get_first_match_dev().
+  Linux 6.2-rc1 (2022-12-25 13:41:39 -0800)
 
-Fixes: a164137ce91a ("ASoC: Intel: add machine driver for SOF+ES8336")
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- sound/soc/intel/boards/sof_es8336.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+are available in the Git repository at:
 
-diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index 773e5d1d87d4..894b6610b9e2 100644
---- a/sound/soc/intel/boards/sof_es8336.c
-+++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -681,7 +681,6 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 	if (adev) {
- 		snprintf(codec_name, sizeof(codec_name),
- 			 "i2c-%s", acpi_dev_name(adev));
--		put_device(&adev->dev);
- 		dai_links[0].codecs->name = codec_name;
- 
- 		/* also fixup codec dai name if relevant */
-@@ -692,16 +691,19 @@ static int sof_es8336_probe(struct platform_device *pdev)
- 		return -ENXIO;
- 	}
- 
--	ret = snd_soc_fixup_dai_links_platform_name(&sof_es8336_card,
--						    mach->mach_params.platform);
--	if (ret)
--		return ret;
--
- 	codec_dev = acpi_get_first_physical_node(adev);
-+	acpi_dev_put(adev);
- 	if (!codec_dev)
- 		return -EPROBE_DEFER;
- 	priv->codec_dev = get_device(codec_dev);
- 
-+	ret = snd_soc_fixup_dai_links_platform_name(&sof_es8336_card,
-+						    mach->mach_params.platform);
-+	if (ret) {
-+		put_device(codec_dev);
-+		return ret;
-+	}
-+
- 	if (quirk & SOF_ES8336_JD_INVERTED)
- 		props[cnt++] = PROPERTY_ENTRY_BOOL("everest,jack-detect-inverted");
- 
--- 
-2.39.0
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc3
 
+for you to fetch changes up to 242fc66ae6e1e2b8519daacc7590a73cd0e8a6e4:
+
+  ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets (2023-01-10 12:45:22 +0000)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.2
+
+There's quite a few fixes here, mostly board specific apart from the SOF
+power management ones.  We also have some new quirks and Kconfig tweaks
+to enable existing code on new platforms, and a one liner which exposes
+the SOF firmware state in debugfs to aid with debugging.
+
+There's also a SPI fix that I mistakenly put in the wrong queue and
+did some merges on top of before I noticed, it seemed more trouble than
+it was worth to unpick things.  A copy of the same patch is also in the
+spi tree.
+
+----------------------------------------------------------------
+Ajye Huang (1):
+      ASoC: Intel: sof_nau8825: add variant with nau8318 amplifier.
+
+Allen-KH Cheng (1):
+      ASoC: mediatek: mt8186: Add machine support for max98357a
+
+Aniol Martí (1):
+      ASoC: amd: yc: Add ASUS M5402RA into DMI table
+
+Arnd Bergmann (2):
+      ASoC: Intel: fix sof-nau8825 link failure
+      ASoC: Intel: sof-nau8825: fix module alias overflow
+
+Brian Norris (1):
+      ASoC: qcom: lpass-cpu: Fix fallback SD line index handling
+
+Chancel Liu (1):
+      ASoC: fsl_micfil: Correct the number of steps on SX controls
+
+ChiYuan Huang (1):
+      ASoC: rt9120: Make dev PM runtime bind AsoC component PM
+
+Curtis Malainey (1):
+      ASoC: SOF: Add FW state to debugfs
+
+Emanuele Ghidoli (1):
+      ASoC: wm8904: fix wrong outputs volume after power reactivation
+
+Gongjun Song (2):
+      ASoC: Intel: soc-acpi: add configuration for variant of 0C40 product
+      ASoC: Intel: soc-acpi: add configuration for variant of 0C11 product
+
+Krzysztof Kozlowski (2):
+      ASoC: dt-bindings: qcom,lpass-wsa-macro: correct clocks on SM8250
+      ASoC: dt-bindings: qcom,lpass-tx-macro: correct clocks on SC7280
+
+Mark Brown (4):
+      ASoC: SOF: Fixes for suspend after firmware crash
+      Add new AMP MAX98360A for RT5682S
+      ASoC: fsl_ssi: Rename AC'97 streams to avoid collisions with AC'97 CODEC
+      ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets
+
+Mars Chen (1):
+      ASoC: support machine driver with max98360
+
+Ranjani Sridharan (2):
+      ASoC: SOF: pm: Set target state earlier
+      ASoC: SOF: pm: Always tear down pipelines before DSP suspend
+
+Ricardo Ribalda (1):
+      spi: mediatek: Enable irq before the spi registration
+
+Stephan Gerhold (1):
+      ASoC: qcom: Fix building APQ8016 machine driver without SOUNDWIRE
+
+Wim Van Boven (1):
+      ASoC: amd: yc: Add Razer Blade 14 2022 into DMI table
+
+tongjian (2):
+      ASoC: mediatek: mt8186: support rt5682s_max98360
+      ASoC: dt-bindings: mt8186-mt6366: add new compatible for max98360a
+
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml        |   1 +
+ .../bindings/sound/qcom,lpass-tx-macro.yaml        |   4 +-
+ .../bindings/sound/qcom,lpass-wsa-macro.yaml       |  58 ++++++++--
+ drivers/spi/spi-mt65xx.c                           |  12 +-
+ sound/soc/amd/yc/acp6x-mach.c                      |  14 +++
+ sound/soc/codecs/rt9120.c                          |  12 ++
+ sound/soc/codecs/wm8904.c                          |   7 ++
+ sound/soc/fsl/fsl-asoc-card.c                      |   8 +-
+ sound/soc/fsl/fsl_micfil.c                         |  16 +--
+ sound/soc/fsl/fsl_ssi.c                            |   4 +-
+ sound/soc/intel/boards/Kconfig                     |   2 +
+ sound/soc/intel/boards/sof_nau8825.c               |  31 +++++-
+ sound/soc/intel/common/soc-acpi-intel-adl-match.c  |  20 +++-
+ sound/soc/intel/common/soc-acpi-intel-rpl-match.c  |  50 +++++++++
+ sound/soc/mediatek/Kconfig                         |   4 +-
+ .../mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c |  22 +++-
+ sound/soc/qcom/Kconfig                             |  21 ++--
+ sound/soc/qcom/Makefile                            |   2 +
+ sound/soc/qcom/common.c                            | 114 -------------------
+ sound/soc/qcom/common.h                            |  10 --
+ sound/soc/qcom/lpass-cpu.c                         |   5 +-
+ sound/soc/qcom/sc8280xp.c                          |   1 +
+ sound/soc/qcom/sdw.c                               | 123 +++++++++++++++++++++
+ sound/soc/qcom/sdw.h                               |  18 +++
+ sound/soc/qcom/sm8250.c                            |   1 +
+ sound/soc/sof/debug.c                              |   4 +-
+ sound/soc/sof/pm.c                                 |   9 +-
+ 27 files changed, 389 insertions(+), 184 deletions(-)
+ create mode 100644 sound/soc/qcom/sdw.c
+ create mode 100644 sound/soc/qcom/sdw.h

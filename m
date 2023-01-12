@@ -2,149 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E7C666F30
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 11:12:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A9D3666F64
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 11:18:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 636768886;
-	Thu, 12 Jan 2023 11:11:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 636768886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2609388BD;
+	Thu, 12 Jan 2023 11:18:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2609388BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673518344;
-	bh=EfMR5+qYBFuNZovtjdh3As06MFieylh+sSApncVLu8Y=;
+	s=default; t=1673518739;
+	bh=K+vH6D8m3w+Rrxd5Sa7hlqa5WZvy/shbNTsohUB2vHM=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=QFbEPtmYKuRjwFrxAf50eXnHY7tduCMJO6GqVb8Y073QQeTnqhuVhKYQHXpv8d7j/
-	 j0fZNf6c6s/WPdeMUH/rNq8XQwHJ9KXG+pqdFGtwIGTNVfFesx05aYagx6DpU42FkV
-	 LDbJuYDo6uh7ktE2gr2oPYPRNiwPZHqwgcyjy2hs=
+	b=mqNBqxhQGZ8NEJSGUxwGMcar75vrXw1Q8TLZnw/SxEzkaxYtBF1iwmW6PitRPaUf0
+	 /U6URzTIGGp6dZCsu8g7GQXrduK8cv9zruPoBQAP+NPfEvF+uVnX6N+RZWf1nYkLic
+	 8eGntX3aSuAMYKjiwTukNy0IaIiluvEi4kfFBYaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE080F804CA;
-	Thu, 12 Jan 2023 11:11:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A65DFF8013D;
+	Thu, 12 Jan 2023 11:18:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D583F8013D; Thu, 12 Jan 2023 11:11:23 +0100 (CET)
+ id 3FACDF804C1; Thu, 12 Jan 2023 11:17:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2076.outbound.protection.outlook.com [40.107.94.76])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D248F8013D
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:11:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D248F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC7F6F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:17:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC7F6F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Ele/POYu
+ header.s=selector1 header.b=XUlgelq6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J/FBXvLcI31+wEzUafGo8Yz9SRnpVRIjLoMKZSce38d2/nkRfpP/Z+pnnEfwd12tll2r3wsIsay8g/SpChISTeplrGQJepbheLiDEbeobZDgY3QpxrmmhSxBmHnPwYvxyO2HrWQW11x6HmHKwWQPrnnjnKorFlDawH9Q+coILcbA3LQmdpE0qgv+U1WMoWFGE5bEpu+lAIbectaPvuOCmCDhuFJNBDA0YbeDBZ2jQLIaAzAOGBl5Xnhx0ODk4U8eqruZ5VssB3q+4woCMLDa0UTHScPGH3MF3w0slASzdUy1PPcLnW6JU+UqU0ArknVs4izaiy9TkOi2NlGbh/Se7Q==
+ b=V64ZO49BQ5qaAG5dqjqbY0KN1zP3wI1RnXVIZ0ubFMnIibngeVpxVIauKWDQs+82d5rdI9ZWeHhDIWFb12XLTZk1zEJWct45P2J2rxzktD7v9NOGZzGdLOQZ80W6SLTygu30ID+19AC1OrWS/Zx+26ag/JEmUB8cpIHFzIDbLlg3PtefhwIeJDDtBgh/YRKi23I8YrfG3cZvxqkDHTpHlyOPKuyX1Suhg9hzSTGe/CKVZwkyRm+ZXDEY59YgKUMrySR20vFuwok7q02TI3I0LD8Glu1V8tp37DGwsnXfbcVBI0IqPgCPpQ2CVSyQQgUW457MoZtu49Qmt+NXH5h4TA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wVdKSkgBUXteEYYm8mipEznI6k+FOPXt/Loo2ef7+JI=;
- b=i7RAEnDpa975TM1L2/rMaJvc1uYQNsjCklbpT1j/Z9jMKkqTSEfnHzVVZZUUNZ1eHLoj9kPN82jvRYfkSianEKKZ+UUd+WTPeRmoPw9/KaOdXGv+MC8hLKclMe/N0Ha6LVTlH6oMc4bDMDt3806aJg+EPYd6qRtTwCsipOloEv2rKceWiebLAj5SaQCGpLzMtZAWl5H54WqkZShQOKr5qVQUwZkW4IyGpN4hmTc3m9yQJ0lR2zmHf07rSgVKTU/c+wn2KXd7tALGE7DHV230ofsaLggHEMubvyLQeaHapkonntGuQjtByIIl1J3UcgQXXx/N6aBWZpPJJpFuVVc8fQ==
+ bh=WxfrOpULrXMzw5Mmzl+M+ueYVwItVb2NdUzarr6DRZc=;
+ b=gZwYmtjofe4j5G804cnuIG7NZatv6l4wujxNio+73sJfWSqqg3zdS2bzKtHZSrrhEch3+tU/OSbEg8nHJq1aPuKLsfpb5tr73diVhDMIfFWL1G5dx1UiWVjaWYwRku9+aaMawPyJfxnkOd7kKVVMLhe/nTye4/Lp0FpTHMDWXrSBC04z8MnQ9enbXDEtj1lFe5Gxlxz9AKV0ucjLxjlnZ7QrG0FzuTUWyKaDVXdfCM+AaluCgzBZiorwC9P8sXNBoK/j/Ia5Io7TW5KewWL3nAHgAVXVQJl/8QL4KE1Me3e8ME5Ph8vlkSkRq1p6Srf+ByAEtVGI1P0b1BtGU/98qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wVdKSkgBUXteEYYm8mipEznI6k+FOPXt/Loo2ef7+JI=;
- b=Ele/POYuwR92LlCS4+yBdBrTljhFky1u3FaI2iAOPgD59ODzHIAeMek3Rb4VYG9ccc6lj1y2+bf16wI2M/GMv6nayoknaA4KNSs3abl1NIcprHexYmczTZq+h3YHVbj5YAwyEx4UeEPWrkWOXvKJPP6jX5sW4SwkZrabTdp3G9U=
+ bh=WxfrOpULrXMzw5Mmzl+M+ueYVwItVb2NdUzarr6DRZc=;
+ b=XUlgelq6dkV1XPVwZpKWzX1SFLu0bj6AvgOVYHeDgQWvQPLJGizQlrbuWuIoW1eiTaDI8896xB8CyllnOyNTMNwCZmT0jLB/scd8HxIDNsRZz6mTpaZLBOa226+m6F4sbtUku4Q0YsnsyMtU7rnOd3CFrxKK7De02/qFDn1a+/s=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by MN0PR12MB5714.namprd12.prod.outlook.com (2603:10b6:208:371::7) with
+ by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 10:11:07 +0000
+ 2023 10:17:50 +0000
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 10:11:07 +0000
-Message-ID: <8bc313ad-aaad-8d4e-b851-d08229dd5d55@amd.com>
-Date: Thu, 12 Jan 2023 15:44:19 +0530
+ 10:17:50 +0000
+Message-ID: <374d0e3f-3575-329e-359c-3f900241d642@amd.com>
+Date: Thu, 12 Jan 2023 15:51:03 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 17/19] soundwire: amd: add pm_prepare callback and pm ops
- support
+Subject: Re: [PATCH 16/19] soundwire: amd: handle wake enable interrupt
+Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-18-Vijendar.Mukunda@amd.com>
- <a76043ad-c212-f625-8d0e-ef9460a078a5@linux.intel.com>
-Content-Language: en-US
+ <20230111090222.2016499-17-Vijendar.Mukunda@amd.com>
+ <612c78ea-335e-a196-247c-9e8f3442c3e5@linux.intel.com>
 From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <a76043ad-c212-f625-8d0e-ef9460a078a5@linux.intel.com>
+In-Reply-To: <612c78ea-335e-a196-247c-9e8f3442c3e5@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0180.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::35) To DM6PR12MB4123.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:eb::20) To DM6PR12MB4123.namprd12.prod.outlook.com
  (2603:10b6:5:21f::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|MN0PR12MB5714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ee3f8b2-268a-4ded-c8b8-08daf48551e9
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SA0PR12MB4399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4426eb74-bbbe-4026-7855-08daf486428f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UvhwRemPEN+4SmK+Eq9IW5H116tOSG7aqHyY+fwIrv2M5idVfRoovzUkjvgfoxKMt7k8Cv8c7a+zzhvnm4xRbNQYzGAdD3O3u2xKoHGGXrLAJ1Wbd6lLKO0mL+NDf/RUqpGB+17m8RNYLwHDiMkXvUUHSDUKU1kjFQx4FiHalUzpJJNWv6qFlxxAAapSU54UxROxVy0pEMEkiuAF7WxRyvHPVIh8PyiDUoNaiMKjrQQybmd1zi3J4UhENAtSXiKZSRXEwQmpTA66zkip8xhyINBgyOYmO5PEYMVtQLOUBH1Pll9zS/3LDnE2grxPfAKQEThOMpBtauhjZVJFMONQw1dbrkFElQQhgUkcX8GQNLAhTb4YC5mUN6PSvDTJDi6Jl+TNBqw68i2IKho32Citn5kYE56l63azfYOXBQk2zX476Hv3aa8W59AH9EyOSxVBaC66xJqI0IA02yCNC2zuAlpSMu/aGCiwlfN/VAO5JNKzsD6aX2mLMMO7fLQNNc3X6QZEnjrd/2szOVB2T9PRjvt5rweNRrrLzFgG3m9nVZRjIsbxG3eB07BHSqiOUBTwTVuAc0SPkls1XLb0vfFCmPOGwGr32IvEzvY9DVJ2NRon+i81UO8YMY/m7mHxpS5Lp0H8LnXEzyvLGED7Iu38jAnnhJkn1AkkvUoEv2faQGzFeofLIUV8CYgjOgfQwKE2VzEtLGrDCjk5aLAe7rqE4p3eVAocIrs5yFwUhwkrojg=
+X-Microsoft-Antispam-Message-Info: 2XSF4Y3DMX+vrTPM1xmXOX3bi70mt4MTXoj07J9IAepeHobnTD5Ff3sxut42l1F+2e+uBHW5UPfcssq2QMcJ6LdUTj6QOrj15YLfZAEiXORuJ14YeQUwOJD3+yCQYq5b75Kca0nC7m+spTDckCAxOUtOEE1im7ZDai2uUGP0oPpvanNBk8j1CSZETGFoltdJOuiV20GJDnBx+Mi3bNH1lOVmQVK6r3nfU0Je8VbxhYPHbhQWhU23GkWajr1ZoG+fNIRirqLSrbUj47juQUQ/7QXz8DYhEePgMyDdimAyFKCl733h3sw+jnnTlBt7L6zmjEQhVI5tVF/ToZXuG6shbB4wM48Zsbq+tPJ+R7aXNE2Lqh2GQjnD3PTwndbzwtrwbpV2emB72UPGLX7IVx8SvXBdRGJXNHhq5t7f8g2wuFlNEVkQhCU12NNVRXOtR1HRUEofOC7miLo6vw7ozJkKYfbqgW4EYqoGsvsvTMqLX02H20s5UHdbfiIjz5wANmcSJgLBpnRB4aG4B5UF5x9KQkbSUhdXdyNIOBlqbrpmbsd+rQKmXvdiN+PGe6KwynuSkIBXbrEgAny1IdZjq55irg2WsJEf79O8S65emVXuvb2YP0ba8YiE+rOlIg/FJycEnIY+3cSrKkP4dYYEejX4o8dWJHr3TNPJD0aHDKxUsdN25MHpSZKJaDNE5b7WYvtb+Lapjt42pMUC9s5FMVn4luCKDLliDg/FcX0tFpf2IVc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(396003)(39860400002)(346002)(366004)(451199015)(2616005)(36756003)(6486002)(6506007)(53546011)(316002)(478600001)(6666004)(86362001)(31696002)(66946007)(41300700001)(66556008)(8676002)(66476007)(5660300002)(38100700002)(4326008)(54906003)(8936002)(31686004)(6512007)(186003)(26005)(83380400001)(2906002)(43740500002)(45980500001);
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(366004)(396003)(39860400002)(451199015)(41300700001)(66899015)(4326008)(66556008)(54906003)(66476007)(2616005)(316002)(36756003)(8676002)(66946007)(31696002)(86362001)(38100700002)(5660300002)(8936002)(83380400001)(6506007)(2906002)(53546011)(31686004)(6486002)(6512007)(6666004)(26005)(186003)(478600001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUJSUWRlMXRkUVhNVENtY3hlQllyUTloVXUvenhQaWtSTU05ZDBvS0dHNkpP?=
- =?utf-8?B?ZWpXRGo2TmZzZ2M2TkhrMzZGVU05b0ZhYnJsMGplY2JNODcyOFA3OFRtM2RP?=
- =?utf-8?B?a2o5d05aOUppRzRKWTlmUDFaV3YyRWovT3FjTm53NldFWVk3MWRwdXI0NzVP?=
- =?utf-8?B?ekl3c2JRTUxJWTFSdzMzeW5IM2JCbmR6a2tPc2ZwQnJudnJ6b1pZMGJwSFpG?=
- =?utf-8?B?aThDQ2pqbkh1UnJRSTJ1MWVReEgrT0d2TTd1OGoyZjc3TnlzSEtHZFZoRXBo?=
- =?utf-8?B?dkRLUU9GUUFqUnNsMHBFVzVoTmpSSTdMaGYxdmppaGVyRm1VUzlKWWQrMDNV?=
- =?utf-8?B?cUlnSE1ZR1pFNzBmeCtPZkUxYksvU1RxUzRZMDBtbG5kQmVzT0Y0djRQNTlO?=
- =?utf-8?B?L2sybWVpN3dHeml3R3NSV1Z3SUpGMEh6dllaUldnQThlbVZnSHFhR2FwMENr?=
- =?utf-8?B?L29ma01WM1J6c0VvdTFpZUxVdUhVOTBlSW53Tm5sK1VKRWVLVkJaVXovaXZR?=
- =?utf-8?B?Ny9YdVdGelpvZE1ZWUpwRG03WUswMFpWcXhtaG5QZm5XZlViZnJraFVJMlFt?=
- =?utf-8?B?a1VubGNEQkFEVlFaY1ZxbTQ1c3JsREt0MzJ6OVFZRHVDZk1zZ1lnYThXRnV3?=
- =?utf-8?B?THptRnZTaXpGb0V6QUhPT2FSbTFTaGxqMFhJL1B2WjdzdGxIZ2YrNlFEZlBD?=
- =?utf-8?B?VStuMjVVTDREVkhnTGYweTZuY3BIcFJxRFc5M0R4SHlQbGNYTUVnUldJRG5M?=
- =?utf-8?B?Ym1vdjBXNnA0MlF0d2lPblFTaHdUNDVRWi9rMTIrdjdFTHlGQ2w3ODFLVmVY?=
- =?utf-8?B?R2V4QTU0a3VCZnpWSDdldklmWGwwa1NqVmNlUUJJYVBTY1c3MlJxaVg4TjB1?=
- =?utf-8?B?T1hWOTY3dmVmc2ZSRTFQUjBpenRJZVRiUHdPeGtnQVRtWEhkL3B1SjZ4OFli?=
- =?utf-8?B?RDB0N2tlUkhYVGd0UTFMSVVBb00xYXQ4NWR1amd3U2VTRy9ySXVsK2RJSHN4?=
- =?utf-8?B?VmhoTVhpVHdtejZSUllGSzNqV2pYQitxMWNER0sxYWNuUUt1NmhFVXVLcXFV?=
- =?utf-8?B?VWE3YXI3ZytxcGZHL3VhdUdtaVU4aERpWk9ZSVZjaFFhY3dqcWJwU2c2MmtU?=
- =?utf-8?B?WldBVVNPRDI2MEtZMW0xNWRIRE1aV0VpdS9RdTBoL055UVNDc3VUNmtQcDBk?=
- =?utf-8?B?L0YycTRWWFlGNlJ3OFNNa1haQnkvWEcyajFaemphV2tycUhMYmJ5SytoODNh?=
- =?utf-8?B?cE5pcDIrRkQ0NEwrVEVWRjlGbTd4eldSVVMyRkk4dWFLZng4Z3JZMkRjbUhE?=
- =?utf-8?B?Zkd1bW9HcGcxZ0NVcjVqQy90MDNYa2pCaXlnZDQ1QjB3NExIYnduNVVqZlB2?=
- =?utf-8?B?Rm1JM2R4T3pTVytqRXRMdGZZNHo2TXpiRDdjM2pPVmFuVXM2VlRFNnhzOWNv?=
- =?utf-8?B?dzRIQUJOZmpUVFZhSitPZXQ1SlRCS0JRbU5VVWdmdkcxcklEZ2w5cHVLNDhz?=
- =?utf-8?B?WjAxaXpxYVViSTM1YjFiVmkvUzNjN1lXNThETlBRTm1IcU9ndXVtOVVTbHBl?=
- =?utf-8?B?Tm1LSnB5YzByRVZCUWMxR3ZZQ3dhT0E2ODFlWnVmZFhJeTkrbkJuZENYblZ4?=
- =?utf-8?B?dUZha2M3bWs2OFhjbUQ1UzVqREs1ZnpjZDdwR0V5ek5pbmwwVTJCZXRSQnQv?=
- =?utf-8?B?M0E4SWVTS1hYdWFqeFRHSytLc3JWU1JoL2o3VFlESE9EaW8wYmZNNUhMYTRs?=
- =?utf-8?B?ejZDYTB4RHA1Z2EyZEN5SVBXd1hjWEtmYldBYTJNbWdGSHk4SlF1VWpjRjE2?=
- =?utf-8?B?aFAva3ZqdEMvZ1RwRHJONCt0eW85YkJwTVN3NFFjNlJvT3p0dWE1bzkzZnIy?=
- =?utf-8?B?STNhdzFqZzNXWmhNYkVEYThqOEx0eXJuRVFaRFZ5R2drN2NOZlFpM1pUeVZq?=
- =?utf-8?B?L0RSdTYvTnNxQ2dqMnZKVE1Xdlo0bGRiUmFaek9NS3RJSloweS83d2ZRKytY?=
- =?utf-8?B?OHZQOWdZN1FPU3ZYMlZ3UHNoNTZLWE9wejFXWUhObVVCRHZOekQxaldHQVl3?=
- =?utf-8?B?YWU2K0Z0UGQxV0lWbEcrNDZZbUIxOFBMejZ2R0IxMHE5WjhFc2VBa1lROUtu?=
- =?utf-8?Q?8gMsjziJQ8trXERAeTf8yDW4b?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N05LL2t6L0xrbzdCemswWnhCcDZ0TVhEajBjMWs3dU0vTHVWSzhkSVloOTJj?=
+ =?utf-8?B?bCtHNWJCaUo5YjB1Vncwak8zRjNtRXJuamJIY0ZxZ1NKRGd2a01uelFxWEt3?=
+ =?utf-8?B?MlBySkROWUJtWWRKYzI1Zlpoajg0RDlEbytpMjNjUVI0N21QeUxrNzZtMzNP?=
+ =?utf-8?B?eTEyVTluNGlLMWJ1dkxsM1lZdERrRWU2aGxtQVFibFlhNmVYYmlRUjl4eVRU?=
+ =?utf-8?B?MVJnTUFZSFFta3ZmcEhoSGUwa21la2F5NTQrUHhTSVFLa3R0RjJEQ3FiQXJR?=
+ =?utf-8?B?Z2xjM3ZJeGU5emQ1Q202NzUzNFEwdC9RTFh6MEJETFgrZXloU3VqbngvdWla?=
+ =?utf-8?B?dngxMkMrUmxoeUVvVll0dTNCSkRXTGxUMUJuRFlLMThMZHFEU3dBdmlONlJG?=
+ =?utf-8?B?bUJuSUZDYm5FblFwOUNqZUJ2eG9RV010Q0tZeVJUOWY1aExqZEZ6VXpNU0ll?=
+ =?utf-8?B?WUVKeTljN2hPZkJBbDlxTUpkNmlRRmdzUnBza0NTTlNoUmJjQy8xaTE4Vnlr?=
+ =?utf-8?B?T0FKK01veFpWMVZ0Nmc3SVBLdHVKanVnOTlOVUhzbnJ0TkN0V2NZRGRNU3Yz?=
+ =?utf-8?B?Qlp2NE5pZVdKRnBGTE5aQkJiSk9wNjJ1bm5UNG9sYzQ5ZU1sWVIwMVgwNmFT?=
+ =?utf-8?B?TnlSUkkzeTZ6VUk1Q1NDQ3RvV1lSTHZiY0VrS0l6MW1rT0RjY2R1UkxzVTlI?=
+ =?utf-8?B?UC96Z1BmWnpoWUpjTWFtNmE1eWV1YWV1SW9Sem0xa25MNFBSWTNhaCtEdWxX?=
+ =?utf-8?B?TFdtMi9HWElMZFlNZWhGOG1MdEpLV0lCakZ4UDYrenRrOENqV2phUnplQnIw?=
+ =?utf-8?B?dUtSaURvYnIxZ2dsTHpTcFlFOHdFN2c5OXN6RWRVWGpXTHJkeWRqRnIrckhB?=
+ =?utf-8?B?MkREK00rWFF3UXNXd3FzN2ZHd0NwcmEyZEtsRC94SW9MVDloeEI5cXdWVGhx?=
+ =?utf-8?B?cm9HcE5KOEZjbTV1dHJvTFE3RTZzZ3JYNXZ2WWZwc2x2UXFaWWc5SkhrbHlk?=
+ =?utf-8?B?a3JBRFdrbkFWS2F2V3U3dklUak9rYTE4SnEzcGFrTHJNbUp3Mmdnc2NSclR0?=
+ =?utf-8?B?YlBnRHpxV2hIem9udjAwZTBQRVFUdkx3dmNQd0orZGNmTk5xMlZVdHlqZXZM?=
+ =?utf-8?B?TXpjTlhZdCtCeVlleGZUVVNLeTF1Qk5ZM2hsS3NUcmJzejBGbkFXa3RNazhk?=
+ =?utf-8?B?Sk9ncUpoYkFacUFWbnBSeElDY1VYeVA0TGM3cU5MTklLUVZFR1l4L05vNDFI?=
+ =?utf-8?B?alVnWDUrWGJuMGFwQmxRQSs5NDdJeDJiWUdhSjIwcklzUXZXRFJUeFkrempD?=
+ =?utf-8?B?SHR2RnpWZkJEV2crWlN5Y09vL0crbVRnd1R6TGdZY1FpUW81cXVJaXNWdXNW?=
+ =?utf-8?B?U1h6cXRvOTZmVTUxQW5kOGp1TXNOVnNFd3AzTFlHQkFPWUpQL0k1Y2xZcCtq?=
+ =?utf-8?B?SXorL3NObDAyQjdzdWtjQXYzdVpYdFNsY3IwaFphbmhIbGVuU0lMUTZtRDE1?=
+ =?utf-8?B?MmxiVTZ1SDlEay9GZzZpY3VxMUJQY3BMcHVYY2x1WVpEOWpIeHlnMGtxRkNw?=
+ =?utf-8?B?bE04OEw3VmJ6TmhiOFF1NVplOWNpY1l1dmhLU2Zkd3IyaEZFNVhzVW1naklG?=
+ =?utf-8?B?d1lmOGoxSUZFaWFWdURyNnhCSUhpUnRnL2laTUVvZk9wdzdNcFdXek53SlJu?=
+ =?utf-8?B?R3ZmWnBrL1JpMUZyNys5Ukk5SG82aTFRd0JHSTVyai91VGd4UjFnb2VybTQw?=
+ =?utf-8?B?QzVyRGdOb2JUamlhL0kzdmxFTXU0ektad25sQ3VPQ1NuQjI2MFdOUEU0OEd1?=
+ =?utf-8?B?TVJjdGlkbk5DMXF3NzhuYlFna2RoR3EwcHlRVCtqZVZnajM5WDNiRzZROFpo?=
+ =?utf-8?B?ekJPVS94bXVjL0NXNWFPMU5kTWpVeVlFUUxPdjZ5T0J3ZFl6MS9taURES0w2?=
+ =?utf-8?B?MXR3YS9RRldSN3BjYUpLNmRpSUdJZUxWOWUrVjFueGYvY1FFU3VITHRGZEl1?=
+ =?utf-8?B?cGFXK0dhMkU1M3JGeEIyTytxTmt1QzhPZjRLcUVQMmdjWnZNM2dqcjVaM1Fp?=
+ =?utf-8?B?M0VXS0Y3N1FibTFJSnZrZ3JHTmd3bGZ1aWRmVWdhUlg4ZG9hejNwS0FXYUpT?=
+ =?utf-8?Q?6F8ECej1PSHzkin413myfkSfy?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ee3f8b2-268a-4ded-c8b8-08daf48551e9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4426eb74-bbbe-4026-7855-08daf486428f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 10:11:07.2355 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 10:17:50.6934 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eNxMX9YMP2v9mbjlZdr88brdd9Yt5SB2jzzoPM5TmWfY9viuttAQ98GmnQ/PMn5nZY260qNMZLnlLFM3ceUEyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5714
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Wte0VGriYzipz+MMyI7qZ7cNKtdDvPTSDxXAfLH7myCoJkuznVAZHbLFgEjCD46g3Jwcddgd2odhfbE4iGLrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,128 +164,56 @@ Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/01/23 21:28, Pierre-Louis Bossart wrote:
+On 11/01/23 21:24, Pierre-Louis Bossart wrote:
 >
 > On 1/11/23 03:02, Vijendar Mukunda wrote:
->> Add pm_prepare callback and System level pm ops support for
->> AMD master driver.
+>> Add wake enable interrupt support for both the soundwire controller
+> SoundWire.
+>
+>> instances.
 >>
 >> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 >> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
 >> ---
->>  drivers/soundwire/amd_master.c | 76 ++++++++++++++++++++++++++++++++++
->>  1 file changed, 76 insertions(+)
+>>  drivers/soundwire/amd_master.c    | 9 +++++++++
+>>  drivers/soundwire/amd_master.h    | 1 +
+>>  include/linux/soundwire/sdw_amd.h | 1 +
+>>  3 files changed, 11 insertions(+)
 >>
 >> diff --git a/drivers/soundwire/amd_master.c b/drivers/soundwire/amd_master.c
->> index 2fd77a673c22..f4478cc17aac 100644
+>> index 290c59ab7760..2fd77a673c22 100644
 >> --- a/drivers/soundwire/amd_master.c
 >> +++ b/drivers/soundwire/amd_master.c
->> @@ -1552,6 +1552,80 @@ static int amd_sdwc_clock_stop_exit(struct amd_sdwc_ctrl *ctrl)
->>  	return 0;
->>  }
+>> @@ -1219,6 +1219,13 @@ static void amd_sdwc_update_slave_status_work(struct work_struct *work)
+>>  	u32 sw_status_change_mask_0to7_reg;
+>>  	u32 sw_status_change_mask_8to11_reg;
 >>  
->> +static int amd_resume_child_device(struct device *dev, void *data)
->> +{
->> +	int ret;
->> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
->> +
->> +	if (!slave->probed) {
->> +		dev_dbg(dev, "skipping device, no probed driver\n");
->> +		return 0;
->> +	}
->> +	if (!slave->dev_num_sticky) {
->> +		dev_dbg(dev, "skipping device, never detected on bus\n");
->> +		return 0;
->> +	}
->> +
->> +	if (!pm_runtime_suspended(dev))
->> +		return 0;
->> +	ret = pm_request_resume(dev);
->> +	if (ret < 0)
->> +		dev_err(dev, "%s: pm_request_resume failed: %d\n", __func__, ret);
->> +
->> +	return ret;
->> +}
->> +
->> +static int __maybe_unused amd_pm_prepare(struct device *dev)
->> +{
->> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
->> +	struct sdw_bus *bus = &ctrl->bus;
->> +	int ret;
->> +
->> +	if (bus->prop.hw_disabled || !ctrl->startup_done) {
->> +		dev_dbg(bus->dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->> +			bus->link_id);
->> +		return 0;
->> +	}
->> +	ret = device_for_each_child(bus->dev, NULL, amd_resume_child_device);
->> +	if (ret < 0)
->> +		dev_err(dev, "%s: amd_resume_child_device failed: %d\n", __func__, ret);
->> +	if (pm_runtime_suspended(dev) && ctrl->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
->> +		ret = pm_request_resume(dev);
->> +		if (ret < 0) {
->> +			dev_err(bus->dev, "pm_request_resume failed: %d\n", ret);
->> +			return 0;
->> +		}
->> +	}
->> +	return 0;
->> +}
-> This seems to be inspired by the Intel code, but is this necessary here?
-No It's not inspired by intel code. Initially, we haven't included
-pm_prepare callback. We have observed issues without
-pm_prepare callback.
-> For Intel, we saw cases where we had to pm_resume before doing a system
-> suspend, otherwise the hardware was in a bad state.
->
-> Do you actually need to do so, or is is possible to do a system suspend
-> when the clock is stopped.
->
-> And in the case where the bus is in 'power-off' mode, do you actually
-> need to resume at all?
-Our platform supports different power modes. To support all
-combinations, we have included pm_prepare callback.
->> +
->> +static int __maybe_unused amd_suspend(struct device *dev)
->> +{
->> +	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
->> +	struct sdw_bus *bus = &ctrl->bus;
->> +	int ret;
->> +
->> +	if (bus->prop.hw_disabled || !ctrl->startup_done) {
->> +		dev_dbg(bus->dev, "SoundWire master %d is disabled or not-started, ignoring\n",
->> +			bus->link_id);
->> +		return 0;
->> +	}
->> +
->> +	if (ctrl->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
->> +		ret = amd_sdwc_clock_stop(ctrl);
->> +		if (ret)
->> +			return ret;
->> +	} else if (ctrl->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
->> +		ret = amd_sdwc_clock_stop(ctrl);
-> do you actually need to stop the clock before powering-off? This seems
-> counter intuitive and not so useful?
-Yes, as per our design, we need to stop the clock
-before powering off.
->> +		if (ret)
->> +			return ret;
->> +		ret = amd_deinit_sdw_controller(ctrl);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +	return 0;
->> +}
->> +
->>  static int __maybe_unused amd_suspend_runtime(struct device *dev)
->>  {
->>  	struct amd_sdwc_ctrl *ctrl = dev_get_drvdata(dev);
->> @@ -1638,6 +1712,8 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
->>  }
->>  
->>  static const struct dev_pm_ops amd_pm = {
->> +	.prepare = amd_pm_prepare,
->> +	SET_SYSTEM_SLEEP_PM_OPS(amd_suspend, amd_resume_runtime)
->>  	SET_RUNTIME_PM_OPS(amd_suspend_runtime, amd_resume_runtime, NULL)
->>  };
->>  
+>> +	if (ctrl->wake_event) {
+>> +		pm_runtime_resume(ctrl->dev);
+>> +		acp_reg_writel(0x00, ctrl->mmio + ACP_SW_WAKE_EN);
+>> +		ctrl->wake_event = false;
+>> +		return;
 
+
+
+
+
+
+
+>> +	}
+> this is surprising.
+>
+> A wake event typically happens when the bus is in clock-stop mode.
+> You cannot deal with wake events while dealing with the peripheral
+> status update, because you can only get that status when the manager is
+> up-and-running. There's a conceptual miss here, no?
+>
+> If the wake comes from the PCI side, then it's the same comment: why
+> would the wake be handled while updating the peripheral status.
+>
+> What am I missing?
+>
+It's a miss. This should be moved out of slave_status_work() even
+though when wake enable irq is received we are just returning
+from API.
+will move wake interrupt handling in to a separate helper function.

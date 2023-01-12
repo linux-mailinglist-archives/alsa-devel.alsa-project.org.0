@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA04B667209
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 13:23:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60E986672D0
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 14:03:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAD2B7FF4;
-	Thu, 12 Jan 2023 13:22:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAD2B7FF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 396A18DEB;
+	Thu, 12 Jan 2023 14:02:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 396A18DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673526209;
-	bh=2crn5sxrqzCdGb43jdV91iTLgeObnzl1FzjlSjxxpjw=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1673528624;
+	bh=JXSDsmLnQzvQ/XCzTSz2mXqUndPYaLZr0fmph+GOck0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Z0OJEgt+63PM/M/04u6RjyK9AG+mzdSdHNBbjJW7eN8e+00QKTGb4Fmw9WRvfDCzj
-	 5B5xKwVY9M8MVaRb8OIQTxunvc22VNMQMtF9k8G9NOozpdmDGYFP+515mfgleyFTgM
-	 FjJUe+wpEeHgNroQdNfp/qoUBiUQ4YTspKhfTt8k=
+	b=kSs0IevCKUHNs/dfFgRHT1MjBVlValePHG3EjB+lRPftGEbLNJ2eI55r/Ggz/H6ae
+	 4+MTN2/XoroemoSi318oWBtjCReQkWCQciJVOauONSPGFkIn60VBREX6LBaodM5GzC
+	 DMJxQ5CjqAGLi1UNBCT8DuwQeCbqYnVXG8xLcsiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A40C2F8013D;
-	Thu, 12 Jan 2023 13:22:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2CD4F804BD;
+	Thu, 12 Jan 2023 14:02:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F4A0F804DC; Thu, 12 Jan 2023 13:22:28 +0100 (CET)
+ id 0D7A7F8013D; Thu, 12 Jan 2023 14:02:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B2B6F8019B
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 13:22:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2B6F8019B
-Received: by mail-oi1-f173.google.com with SMTP id e205so15099641oif.11
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 04:22:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=rtINNytsd/zxKdxtXoOSr+cNhhKcWFohemXYweWGB1E=;
- b=HCQEIIsJUnSpgLsowYF1eZYXIuBpbdSK3VaXdNpfP9vMsOwb48RJkHWQEZe2zqkSub
- EOptvbMXKZ1CNAv54d7lfm6YvYu5tgomJ1pscNAJip5j7Fj13A7iUqI8eAaa1TnsJJ6G
- QOMS9Fx5yJLK0Yb/3SZJS9IdwbAsHQPCGAezdwgUyj4JGqZmFtPIZNdxIyqB+BAV9ZKj
- sZQ2LtZM0mKbB2nGPSBld5qgM3MqrtRRfWGl0dFPoJ0bPRrI/ZRNfnU8bjbCBBfQDRDs
- OFo3sEbKMzu5BPDBxNykbEQrOgj6JmifjOLgJx3VZgJjRXp6ceadSV3K/Nb4uIRzAyFb
- ak5Q==
-X-Gm-Message-State: AFqh2kqpNvJ0ux3hkW8wCUoTyhjiL8ynq5y1X1ynoVDVV/IFe0ygjjzg
- z2KjdETVzgn4ckoLGuzUFg==
-X-Google-Smtp-Source: AMrXdXteLOgISZYsRPd/H/T+nOQmYks3iSGq+eTi5zkTvXm+MXN1FfdkAJP6d7iBRIfwnuBL4ngLxA==
-X-Received: by 2002:a05:6808:2226:b0:364:2adb:2680 with SMTP id
- bd38-20020a056808222600b003642adb2680mr14431577oib.5.1673526143997; 
- Thu, 12 Jan 2023 04:22:23 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- n24-20020a9d7118000000b00661ad8741b4sm9030832otj.24.2023.01.12.04.22.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jan 2023 04:22:23 -0800 (PST)
-Received: (nullmailer pid 3055045 invoked by uid 1000);
- Thu, 12 Jan 2023 12:22:22 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3D99F8013D;
+ Thu, 12 Jan 2023 14:02:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D99F8013D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=cgzlCXfO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673528554; x=1705064554;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=JXSDsmLnQzvQ/XCzTSz2mXqUndPYaLZr0fmph+GOck0=;
+ b=cgzlCXfOMJQtM5xA1jclfk0mXcT7MWOeYHvC3jRIx+B73DQ/T3b0LV3k
+ fWvW8wlsvSKP1EZgBBVde1Nnvxi+LkAS7Se1QhoBZbuGlEvcMPWMJzOC9
+ o3OFIJUqZcRyEbEXnekhcjJ+tIFSbLCvIqZhx6RwvEGyZyy/6YsW1YeWI
+ jp3yf3fhTASWqL9ZxvOhHbH6x7korC2YFcByjeISCtch3szkwQent6bcI
+ zIndPhVLFdppS0YQJ3rFj9Wuuccs3nHID6MEnraFUEcb3R9dCbKgQNZ+o
+ pkAY8kU/lxlog8SU4f3T9dapNvPJEtKD0qseFnaqvDc+O/ChCRmogqA5U g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10587"; a="304075038"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="304075038"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 05:02:24 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10587"; a="746544590"
+X-IronPort-AV: E=Sophos;i="5.97,319,1669104000"; d="scan'208";a="746544590"
+Received: from aeagersx-mobl1.ger.corp.intel.com (HELO [10.252.12.74])
+ ([10.252.12.74])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 05:02:20 -0800
+Message-ID: <ec65c3dc-135d-afbc-3f26-a28a2da791f7@linux.intel.com>
+Date: Thu, 12 Jan 2023 15:02:07 +0200
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <878ri84lc6.wl-kuninori.morimoto.gx@renesas.com>
-References: <87358hj2ub.wl-kuninori.morimoto.gx@renesas.com>
- <878ri84lc6.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <167352605035.3051151.10083276065810564823.robh@kernel.org>
-Subject: Re: [PATCH 11/10] ASoC: dt-bindings: renesas, rsnd: tidyup rcar_sound,
- src
-Date: Thu, 12 Jan 2023 06:22:22 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.6.1
+Subject: Re: [PATCH] ASoC: SOF: sof-audio: Check snd_sof_widget pointer not
+ NULL
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ pierre-louis.bossart@linux.intel.com
+References: <20230112104542.115151-1-angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230112104542.115151-1-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,59 +91,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: alsa-devel@alsa-project.org, kernel@collabora.com,
+ kai.vehmanen@linux.intel.com, rander.wang@intel.com,
+ yung-chuan.liao@linux.intel.com, tiwai@suse.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, broonie@kernel.org, wenst@chromium.org,
+ daniel.baluta@nxp.com, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Angelo,
 
-On Thu, 12 Jan 2023 01:01:45 +0000, Kuninori Morimoto wrote:
+On 12/01/2023 12:45, AngeloGioacchino Del Regno wrote:
+> In function sof_unprepare_widgets_in_path(), check if swidget is
+> actually not NULL, as the widget may not have been initialized at all.
 > 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> This commit solves the following kernel panic seen on MediaTek MT8195:
 > 
-> Some SRC is not implemented on some SoC, thus
-> interrupts/dmas/dma-names are not mandatory.
-> This patch solve it. Without this patch we will get below error
-> when 'make DT_CHECKER_FLAGS=-m dt_binding_check'.
+> [   18.025215] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000014
+> [   18.034266] Mem abort info:
+> [   18.037314]   ESR = 0x0000000096000004
+> [   18.041314]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [   18.046876]   SET = 0, FnV = 0
+> [   18.050180]   EA = 0, S1PTW = 0
+> [   18.053572]   FSC = 0x04: level 0 translation fault
+> [   18.058700] Data abort info:
+> [   18.061832]   ISV = 0, ISS = 0x00000004
+> [   18.065919]   CM = 0, WnR = 0
+> [   18.069137] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000115495000
+> [   18.075826] [0000000000000014] pgd=0000000000000000, p4d=0000000000000000
+> [   18.082867] Internal error: Oops: 0000000096000004 [#1] SMP
+> [   18.088688] Modules linked in: af_alg qrtr btusb btrtl btintel btmtk btbcm bluetooth 8021q garp uvcvideo mrp stp ecdh_generic llc ecc videobuf2_vmalloc mt7921e mt7921_common mt76_connac_lib mt76 mac80211 snd_sof_ipc_msg_injector snd_sof_ipc_flood_test cfg80211 snd_sof_mt8195 mtk_adsp_common snd_sof_xtensa_dsp snd_sof_of panfrost rfkill snd_sof crct10dif_ce cros_ec_sensors cros_ec_lid_angle gpu_sched sbs_battery cros_usbpd_logger cros_ec_sensors_core hid_multitouch snd_sof_utils fuse ipv6
+> [   18.132109] CPU: 5 PID: 657 Comm: wireplumber Tainted: G        W          6.2.0-rc3-next-20230111+ #230
+> [   18.141834] Hardware name: Acer Tomato (rev2) board (DT)
+> [   18.147392] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [   18.154600] pc : sof_unprepare_widgets_in_path.isra.0+0x28/0x10c [snd_sof]
+> [   18.161735] lr : sof_walk_widgets_in_order+0x198/0x1d0 [snd_sof]
+> [   18.167996] sp : ffff80000eb0b870
+> [   18.171558] x29: ffff80000eb0b870 x28: 0000000000000001 x27: ffff5d8e178c4c00
+> [   18.178939] x26: ffffbd50140fd758 x25: ffffbd50140fd760 x24: 0000000000000000
+> [   18.186321] x23: 0000000000000000 x22: ffff5d8e109dd080 x21: ffff5d8e0a429280
+> [   18.193702] x20: 0000000000000000 x19: ffff5d8e11fe4800 x18: 0000000000000000
+> [   18.201083] x17: 0000000000000000 x16: ffffbd5073deabb0 x15: 0000000000000000
+> [   18.208464] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+> [   18.215846] x11: 0000000000000000 x10: 0000000000002780 x9 : ffffbd50140eb4bc
+> [   18.223228] x8 : ffff5d8e1b5327e0 x7 : 0000000000000000 x6 : ffff5d8e1b530000
+> [   18.230610] x5 : 0000000000000003 x4 : 0000000000000001 x3 : 0000000000000000
+> [   18.237991] x2 : 0000000000000000 x1 : ffff5d8e11fe4800 x0 : ffff5d8e0a429280
+> [   18.245372] Call trace:
+> [   18.248066]  sof_unprepare_widgets_in_path.isra.0+0x28/0x10c [snd_sof]
+> [   18.254847]  sof_walk_widgets_in_order+0x198/0x1d0 [snd_sof]
+> [   18.260760]  sof_widget_list_free+0x7c/0xbc [snd_sof]
+> [   18.266066]  sof_pcm_hw_free+0x10c/0x1c0 [snd_sof]
+> [   18.271110]  snd_soc_pcm_component_hw_free+0x8c/0xe0
+> [   18.276327]  soc_pcm_hw_clean+0x60/0x11c
+> [   18.280498]  dpcm_fe_dai_hw_free+0x98/0x110
+> [   18.284930]  snd_pcm_common_ioctl+0xc48/0x1a2c
+> [   18.289624]  snd_pcm_ioctl+0x38/0x50
+> [   18.293448]  __arm64_sys_ioctl+0xb0/0xf4
+> [   18.297620]  invoke_syscall+0x50/0x120
+> [   18.301618]  el0_svc_common.constprop.0+0x17c/0x1b0
+> [   18.306744]  do_el0_svc+0x40/0xc4
+> [   18.310307]  el0_svc+0x48/0xf0
+> [   18.313611]  el0t_64_sync_handler+0xb8/0xc0
+> [   18.318041]  el0t_64_sync+0x1a0/0x1a4
+> [   18.321953] Code: aa0103f3 f90013f5 aa0003f5 f9406834 (39405280)
+> [   18.328293] ---[ end trace 0000000000000000 ]---
 > 
-> dtschema/dtc warnings/errors:
-> ${LINUX}/Documentation/devicetree/bindings/sound/renesas,rsnd.example.dtb: \
->  sound@ec500000: Unevaluated properties are not allowed ('rcar_sound,src' was unexpected)
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> 
-> Link: https://lore.kernel.org/r/167344317928.394453.14105689826645262807.robh@kernel.org
-> Reported-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Fixes: 9862dcf70245 ("ASoC: SOF: don't unprepare widget used other pipelines")
+> Fixes: ce59804d2643 ("ASoC: SOF: clear prepare state when widget is unprepared")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 4 ----
->  1 file changed, 4 deletions(-)
+>  sound/soc/sof/sof-audio.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+> index e1ab8380e7d8..1988717762b3 100644
+> --- a/sound/soc/sof/sof-audio.c
+> +++ b/sound/soc/sof/sof-audio.c
+> @@ -274,7 +274,7 @@ sof_unprepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widg
+>  	struct snd_soc_dapm_path *p;
+>  
+>  	/* return if the widget is in use or if it is already unprepared */
+> -	if (!swidget->prepared || swidget->use_count > 1)
+> +	if (!swidget || !swidget->prepared || swidget->use_count > 1)
+>  		return;
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+we actually have a pending patch for upstream which did not yet made it
+to the gate:
+https://github.com/thesofproject/linux/commit/922646d533100044d95a050b222533d59f06020c
 
-yamllint warnings/errors:
+It also adds symmetrical check for the prepare path.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.example.dtb: sound@ec500000: Unevaluated properties are not allowed ('port' was unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+Would you be OK if I send that right away to replace your fix?
 
-doc reference errors (make refcheckdocs):
+>  
+>  	widget_ops = tplg_ops ? tplg_ops->widget : NULL;
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/878ri84lc6.wl-kuninori.morimoto.gx@renesas.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+Péter

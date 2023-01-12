@@ -2,88 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7932366705E
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:00:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83E966705D
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Jan 2023 12:00:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBE8B8A7C;
-	Thu, 12 Jan 2023 11:59:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBE8B8A7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE6298A7D;
+	Thu, 12 Jan 2023 11:59:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE6298A7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673521249;
-	bh=beb/MzzbBN/Q8toWLppR6k8xkpnksJWlcfl/d+Uc/tw=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1673521210;
+	bh=PlB8X6IO8ifNov3XdtEOVh52OBcvMZrl3nuQzGKaY/k=;
+	h=Date:From:Subject:To:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=APjilXwdvxqnMvf9HBAuuhKLliabYfWhoJbusnYDbZCORAwIG0gXCN6mdnqTNHn8g
-	 Rm602yGJrCzEirAbqTAwj1jB+a4zYPtG0JUiuVkGCLdp/KbHByUfkntlGQMEaSbYxv
-	 Ve+bBIyJYvxUR/NIhVjitlEy2G/D/LihYir7Zesg=
+	b=R5bZwEUU0ibmjfL3igVL4Ytfa1fAVbMBrz4xN1M16aSbT0FMYUy+o1szULtpupCij
+	 LmXVrM2DcV5OxJN4f5LrJdzPntWdOXAXViVk3g0VeCdJkfDiFMlDlLKL0sKZpulVD7
+	 pZNWnXs0OHTqIaEO5/z0/QC2WawImdFknplk7xQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FF00F804C1;
-	Thu, 12 Jan 2023 11:59:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24492F804CA;
+	Thu, 12 Jan 2023 11:59:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7901F804C1; Thu, 12 Jan 2023 11:59:56 +0100 (CET)
+ id B8654F8019B; Thu, 12 Jan 2023 11:59:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no
- autolearn_force=no version=3.4.6
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2087.outbound.protection.outlook.com [40.107.237.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1516FF804C1
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:59:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1516FF804C1
-Received: by mail-qv1-f50.google.com with SMTP id y8so12468792qvn.11
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:59:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IH7mi4pHsD5CSZenw/RrhIslHHOi1JF8tLoL2JEA6Vc=;
- b=3dobmyzopB/WK6Akex7CLFEFJgsIRRh9rnWxe7HPYoe8qDopU1b5ZikMGbcijjPryF
- l792ObSL6SWsoH/0tOdt3pDFoDceMMKi4IfeFxmQecOXivKNger5N6qRRXhvEIfzbaT0
- sGy2kh9IKM6tQDZDBtPgXyisUBOpThyFYcuz+BVRKwTt31Aa9NcvFLlbCrzn9KcoPslw
- TglcOmh+C4vjlUJXV6aEPP5Hgpga+fwWhT6HaCgSC3f0dYoToSWkjObRgLQjOV8tGI+e
- FbeDllKymyKaPX10oxtz0bDvckqERsDoOsc5C1ePAmTF9JplEDii0UH7uds4Uwgu9w8G
- jiGQ==
-X-Gm-Message-State: AFqh2kqDIjQp3XNq5ouTHz/AfwqyH8QiBgYfmOnNKO5LjaAVZth6Fkqe
- RYuGtO3tNzkjvCObWYNczRAyLh+MYaLlQQ==
-X-Google-Smtp-Source: AMrXdXsbSWbTkX1Sd+XSMh7ArBTf+EWrQ2f7aPT+BY+9Q3Xnig4M8xnexIRBK9wUoBbfiyin4dkfsQ==
-X-Received: by 2002:ad4:4082:0:b0:531:9341:5485 with SMTP id
- l2-20020ad44082000000b0053193415485mr8057287qvp.17.1673521193308; 
- Thu, 12 Jan 2023 02:59:53 -0800 (PST)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
- [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
- d12-20020a05620a240c00b006fcc3858044sm10912067qkn.86.2023.01.12.02.59.52
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jan 2023 02:59:52 -0800 (PST)
-Received: by mail-yb1-f174.google.com with SMTP id d62so2055558ybh.8
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 02:59:52 -0800 (PST)
-X-Received: by 2002:a25:d84e:0:b0:7b4:6a33:d89f with SMTP id
- p75-20020a25d84e000000b007b46a33d89fmr1877621ybg.543.1673521192231; Thu, 12
- Jan 2023 02:59:52 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D32EF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 11:59:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D32EF8016E
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=g5mBBzBk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BaS2x/uVv5C8+dDx7efdSpGKJW7Sz08CMTWG49SEXINu3jImP+9ghzpHJxE8U8eWogmkbnDlB3NqKh6xN/IkxkjqerpoNFpxlxMFekQEyzP1qha/h1gw1vrYPGm7QMpd/B9aZmcw9M3BepFlMfpM4xH0jpI5UyYlLj9RCWPQS7lY8QKr1BEgG6lKPXsXJwwVAiTRxu2xvNPyZveHxcQeoFk0qYsw0gTTBS2p+o1Ro8zEaMKLP9XZ0aaX38evcxGSsr6RFP8fTKbQcxwaSTznhNsRe/OIyUxSmoWX6GUqByXWknlQAYTsZRcyw924LdrfmHudAQb1p9PoJTFSE+eC/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KwMgnC9WDVQj/JLJrTcmv3b6YDoMRLc6JaiLAZz7NVw=;
+ b=YNnEE4RlheFvTDzeyk2qwI/MqbgqcVIdebKDLKRwoegiEjXQwEyUylAD9bgGVslgKk6t3rvvRbXxu+cgfY6g3qpYOYMrCgO+Er54bzVac/staUV9tAlMnbi1wFeTe18NZfTN4dPRAftSy/OIdiIZc6mYyqR60iPHgk82srK4H/8R6GeB1OmdhcpuD4kAcfU4lYD2RyP+ZODTCToNkcvd0wFPGmgAUpFqmRJVPMIl0yX/9pHk5NcYzPKAKCjTmZwUMCndXMnvtZTW5bCsyhfGCdmzOUttLf7OxCWsFzHt9BbRIErYlTQbhA3+maBkU1QMgzcWfpnUfAnEjo86seR7Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KwMgnC9WDVQj/JLJrTcmv3b6YDoMRLc6JaiLAZz7NVw=;
+ b=g5mBBzBkYkLWeHdlzoTjGDXgsrjviiSf4GpIGMQSHK4aKXROJcreUIEnYolPT0TKQZfN96Flvd/dNyeOd5hsGLDx0GMbCO5+CiIMGt/IH310x7qhkqhht40jhj5qy5GlLcETcqyPWb6G6pGW7jHiokUWn38k3WLa7SqM56IuZ74=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by CY5PR12MB6060.namprd12.prod.outlook.com (2603:10b6:930:2b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
+ 2023 10:59:00 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
+ 10:59:00 +0000
+Message-ID: <0aaf3fa5-bcf1-ec06-8f78-c61e8809398e@amd.com>
+Date: Thu, 12 Jan 2023 16:32:06 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
+ <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0083.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::14) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-References: <87edt2pxhd.wl-kuninori.morimoto.gx@renesas.com>
- <CAMuHMdUH-CSmaKuM2HA-5j5cP_c2pygp9DqyQiOC9XkCUuzCKw@mail.gmail.com>
- <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87bkn44ne0.wl-kuninori.morimoto.gx@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Jan 2023 11:59:40 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
-Message-ID: <CAMuHMdXPS5zToCU-C=gQB3n6=OXzmhMdtVGbCn1Vk1GtKSZGwA@mail.gmail.com>
-Subject: Re: [PATCH 0/8] arm64: dts: renesas: Simple-Card /
- Audio-Graph-Card/Card2 dts for ULCB/KF
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|CY5PR12MB6060:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f31563e-47f5-438e-d155-08daf48c02db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BqFlMEBzQr/M5qstR5zPOXY0EJWWjZLjfiFCuwnFl7wTaLCJnQ9BFHd/ceVku4AHVq/OheIUPfyT/UEE//UP9GOA9CoL0wGRYUvxYB320aMUvMQJu5xKShzgTF0DjU2S5LjubvbjmfpAZER5wfvnSgFbSnFO051FSYaa61SZMAjKY609UBJZxjIkz1HoG+EWSq62hN+M4/26YVmwa9bdNZwXHOhR/wn+ejyhVTm/8VK3kcNUX72vl6HqPr4X0D2aa3x+WTWImXDt1OCwJo7bOFfsDMPdwCqCMwJHz2Kolc27JIgkcBk27Vn3Lsk5xM10D1FTokBklEMYQSisp/DVteSWOnQcFnOjHARrhp1UolcRL39fzZmszYzC74WJ9yGVsF4q5p1Xra+vsiIpywcU5vJ+sTnFHdICakSJl5h9JlT9gNVIdVCGbq+71gVSwRN5t2eHs34bUeWLw12p2c3N6UkGCzjmbs/oWfTfmO3CheUIp6lOs2pwpgfNHvoVVXP60T3B6b8rUn/eAwNMpW3oPrGuhIUY73yW8gCcQAPQzUoZVNHrEQyHGEcbfDk2CQiHtJDQJ7AD8rDPL2Tnsl39UMMIg6mDeNgT6tw8l0gZ7plwXNiBDjqELu+PPnSy0U5YCOfY9fvQvvDHLc3phhyptffVas6DejKZi1ciD+MEcLEeJC7Iqt52GfTN6h8PLR2Ffv9HDEsHbi1jTkH3vWKVtcGNYyCs9nuC7t8vPIniUCo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(451199015)(66899015)(8936002)(26005)(5660300002)(2906002)(41300700001)(66556008)(4326008)(316002)(8676002)(66946007)(66476007)(15650500001)(54906003)(6512007)(38100700002)(2616005)(31686004)(86362001)(186003)(31696002)(83380400001)(53546011)(36756003)(6506007)(478600001)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dll0c0hjQ2dkOC8rTjladUdEK3lyUXEreWhtaktKUnFDcTk3N2g4ZkxubCtN?=
+ =?utf-8?B?U2sySlhHbXZBRmhBcnF0SHQ0ZlRkYWdnM0cvNjNSQWlyTkVTUmNNMG9XVHFq?=
+ =?utf-8?B?S2RId20wWkxlNzdta0VrRTdJZGNmRlg2QjJ4REI1RjJnalFVenY1MzJmQVUy?=
+ =?utf-8?B?dkp3d1ZYMnNWN3lyMlovYnYyMWVZRjBvdmtYeW9LbGt0MUF4cHl2QU5OM0dI?=
+ =?utf-8?B?VjFHdEM1dGNDOUtRU1BnejR4Yk1XNFBaSjRwaXRrZEVZTWZBMHM3TDM4cTla?=
+ =?utf-8?B?YlBQOXdEZEdMTVVDZURVNjhVdXAraFMwQmNlVFYvcFhHdkZKT2l4a0FZNGE2?=
+ =?utf-8?B?b05xbmZZMk1uMmt6ZGhlQ2NOQ3VZMW5tK3hTdDRFQUpoWnFpYVBvTjYyaEhm?=
+ =?utf-8?B?K25kT1ltZm55NSs2SVVHY1Z6d0pWcm1zUk03MjdEVlFyVzhENEI5UXAySkRI?=
+ =?utf-8?B?emhnWndJNk5qU0FjT1NSM0IxMzIxR1RveTVTTlQwNHcwQkhzOVhZbnluazdY?=
+ =?utf-8?B?aWQ4RlpQWTgydkRTcmlxTnU0dTBXeHNCQkx2LzdkMXRXQS80UmtUK1pOZTZa?=
+ =?utf-8?B?SnBUaXFkbFhYeVNTd2MzR3hPdENWV0ZQZ0Z2bXJ1R1dkOHlFQ0JLMURsQ1BK?=
+ =?utf-8?B?NFoxWVZDYjNLMjlwTkJPTWg0SjhvN0RGUThSYXZzakJwdlZpenh6T2dkRzlF?=
+ =?utf-8?B?R296UVA3Q2xXTVRaSVRiNk5rVVJKdDdqWDlMc3ErVWdQY205R1ptelpSaW5Q?=
+ =?utf-8?B?eFhQQVFBWFY3alhyZWpRdzhEejI1dGpiQzRBci8yQjM5UFRQZ25jbVJRdUdP?=
+ =?utf-8?B?Njh3V1RPQm1KVkJ3eFR0dUViZWk0OUpEWlFha0orVm1zVWFXUUpJMy9UVkc3?=
+ =?utf-8?B?R3NXdlNyWEJ0UlNabjB2SnJ6WXl2RlZvMjNNenVScCs3K0J6Tmw4Z0grWlp5?=
+ =?utf-8?B?V1Q1MWdxOStuUGJsemppejV0ajNUSytVNHlmNndDYkhKbHFROXl1VXZxMmwx?=
+ =?utf-8?B?L0xjYXpGZ21UY21sOEU5RURGbDJMWEdOVWI2dm5PK0V3bml4dDhJNURDL0sx?=
+ =?utf-8?B?Yk9PKzdJaFd6RVNqdjFJR3FneXNycHR1dmNyNFM3dHVqWXN1K3NwNjFGOURT?=
+ =?utf-8?B?dE1GU04vY1l2YWJUUjJMUnloT2FDOUJJRWlWRkdHaGs3TStjZXB0ZWpoTGUw?=
+ =?utf-8?B?TnJBK09nQy9kSWZ2M2l6QlBMckNwd1Z3aEFsTnJESjFuVkZxQkszMGduc2hq?=
+ =?utf-8?B?MFNFN0tVQXFCNlJpdll1bm43Ykt3UFVoTEU1Vit0NjBxTjEvMkZCZGpQdHlU?=
+ =?utf-8?B?eDVBTERtTjh3ZDA1K0NqQlE0emloTGZyRnBIVlBFV1Jzb1lHY0JPU213dVR1?=
+ =?utf-8?B?ZUJkck16VEdTNEp1TlZ2V1pHSFVVL2hkSEw1bDNqY0FsazkvK212SVhQRFdm?=
+ =?utf-8?B?NjhEQ3VMbGpKWXR0MzdkVTkvTGxEY0FqMG9ZMVd1NjVKRmFTQ2lGeFJNQ3Bu?=
+ =?utf-8?B?cmhXOWYvVjB3UTBkdjVZVm0yY3BNOHJIdzNZKzZ3NTJORnlQVzVGdWkyelUy?=
+ =?utf-8?B?VVdzbWFJZWlROTBTYWYwYWdMZWFNS2pSWC9vcFJRemxSQU0rb3B1NS9pV1FJ?=
+ =?utf-8?B?V1d6cS9CWlFVTTlBR1hBVEY2c1Q0S3hjT2xvM3VlSVduS3YyTG5Rc2NwTWRa?=
+ =?utf-8?B?KzdBL1BrSDl5ZHc4T1FXUHRySURYZ2o1S01HUmRYaXg2TTdxU3kvNk5yMS9z?=
+ =?utf-8?B?V0NKZ21oV1dVdndpZzB4aUd1VkxTNXJFeTFKMkU3QnVQTk5IZmRxdzMvWmxn?=
+ =?utf-8?B?VTNlYng5T2kvOXBnRXlDY1BTZ2hJWHM2UG9JMzZjY2o5MEJEdjNtbXQ4Skdr?=
+ =?utf-8?B?TytXRjY5VmhieFVPZ3IrSlVzY3QyRGNpbk50Tm9VcVpWS2o5ellZdC9QQjV6?=
+ =?utf-8?B?TjdmbGJqRHdLZDBlVGk2UkVHMFdWS0lKK1FVaytULzczNzd6RHlGZWNDRFJp?=
+ =?utf-8?B?SGFpM0R3YnVwd3gyQmtXWWRRTDl4ci9pUnVReGMxMG10cmtzL2dSSUFBT0Nq?=
+ =?utf-8?B?bHR4ZkNJSDYzRVB3YmdSOU1LSFFWaGh4a3FJUHEwei9qelJURTBnb25rK0c1?=
+ =?utf-8?Q?QQLplfaYXbPjj6RG1YbrGQBr1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f31563e-47f5-438e-d155-08daf48c02db
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 10:59:00.8155 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h7VKrtfppSHxK0ts1XIdzwsv3eGETCm91CUPBiL72sFvdow2Kr9k97M8Wd/zwJqblqgtnBsRCJ4Kv4n4hMGVhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6060
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,107 +156,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
-
-On Thu, Jan 12, 2023 at 1:17 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
-> > What is the difference between "Simple Audio Card", "Audio Graph Card",
-> > and "Audio Graph Card2"?  Why do we need to support all three of them?
+On 11/01/23 21:32, Pierre-Louis Bossart wrote:
+> On 1/11/23 03:02, Vijendar Mukunda wrote:
+>> To avoid ACP entering into D3 state during slave enumeration and
+>> initialization on two soundwire controller instances for multiple codecs,
+>> increase the runtime suspend delay to 3 seconds.
+> You have a parent PCI device and a set of child devices for each
+> manager. The parent PCI device cannot suspend before all its children
+> are also suspended, so shouldn't the delay be modified at the manager level?
 >
-> The answer is because of "history" and "compatibility".
->
-> "Simple Audio Card" was created before DT support, now it is supporting DT too.
-> But it is for very simple sound connection. It is using own DT style.
->
-> "Audio Graph Card" is almost same as "Simple Audio Card", but it is
-> using "Of Graph" style. It is needed for HDMI support (= Sound with Video).
-> "Audio Graph Card" was created because it is difficult to keep compatibility
-> for both "Of Graph style" and "own style" on "Simple Audio Card".
->
-> "Audio Graph Card2" is expand version of "Audio Graph Card",
-> but it is supporting more complex connections.
-> Because of this complex connection, it is difficult to keep compatibility
-> with "Audio Graph Card".
+> Not getting what this delay is and how this would deal with a lengthy
+> enumeration/initialization process.
+Yes agreed. Until Child devices are suspended, parent device will
+be in D0 state. We will rephrase the commit message.
 
-So they are different ways (generations) of representing the audio
-topology on the board? Like "operating-points" and "operating-points-v2"
-for cpufreq?
+Machine driver node will be created by ACP PCI driver.
+We have added delay in machine driver to make sure
+two manager instances completes codec enumeration and
+peripheral initialization before registering the sound card.
+Without adding delay in machine driver will result early card
+registration before codec initialization is completed. Manager
+will enter in to bad state due to codec read/write failures.
+We are intended to keep the ACP in D0 state, till sound card
+is created and jack controls are initialized. To handle, at manager
+level increased runtime suspend delay.
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> ---
+>>  sound/soc/amd/ps/acp63.h | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+>> index 833d0b5aa73d..6c8849f2bcec 100644
+>> --- a/sound/soc/amd/ps/acp63.h
+>> +++ b/sound/soc/amd/ps/acp63.h
+>> @@ -51,7 +51,7 @@
+>>  #define MIN_BUFFER MAX_BUFFER
+>>  
+>>  /* time in ms for runtime suspend delay */
+>> -#define ACP_SUSPEND_DELAY_MS	2000
+>> +#define ACP_SUSPEND_DELAY_MS	3000
+>>  
+>>  #define ACP63_DMIC_ADDR		2
+>>  #define ACP63_PDM_MODE_DEVS		3
 
-Hence these are orthogonal to (and independent of) the underlying audio
-hardware in the SoC?
-
-> For normal user case, selecting one of them is very enough.
-> But for me, I need to test all of them, thus I want to switch these easily.
-> And ULCB is good board for testing.
->
-> Basically, people don't need to care about this patch-set.
-> It separates DT file, but nothing change.
-> It is just easy for testing.
-
-OK. And I guess you intend to use them as examples to point people
-to, too?
-
-> > How come we can have no #sound-dai-cells, #sound-dai-cells = <0>,
-> > and #sound-dai-cells = <1>, for the same hardware?
-> > What is the real difference between Single DAI and Multi DAI?
-> > Why do we need to support both?
->
-> It is used on "Simple Audio Card".
-> We  need <0> if the board is using SSI x 1,
-> and need <1> if the board is using SSI x N.
-> It is not mandatory if the board is using "Audio Graph Card/Card2".
-
-So #sound-dai-cells should be in the board DTS, and never in the
-SoC .dtsi? Hence it should be moved out of
-arch/arm/boot/dts/{r8a7740,sh73a0}.dtsi and
-arch/arm64/boot/dts/renesas/r9a07g0{43,44,54}.dtsi?
-
-> > > Kuninori Morimoto (8):
-> > >   ARM: dts: renesas: #sound-dai-cells is used when simple-card
-> > >   arm64: dts: renesas: #sound-dai-cells is used when simple-card
-> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi
-> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi
-> > >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card dtsi
-> >
-> > The above three all describe the same hardware configuration?
->
-> Yes, same hardware, but is using different connection style (= driver).
-
-OK.
-
-> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card2 dtsi MIX + TDM Split dtsi
-> > >   arm64: dts: renesas: add ulcb{-kf} Audio Graph Card dtsi MIX + TDM Split dtsi
-> > >   arm64: dts: renesas: add ulcb{-kf} Simple Audio Card MIX + TDM Split dtsi
-> >
-> > Is MIX and TDM Split a different hardware configuration, or software
-> > policy?
->
-> Same hardware, but different connection (= mixing, split).
->
-> Hmm, it is difficult to explain via text...
-
-IC, this is more complicated...
-
-Thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

@@ -2,89 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341F56693A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:05:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6CF6693BC
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:08:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2C12A60A;
-	Fri, 13 Jan 2023 11:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C12A60A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA91BA61C;
+	Fri, 13 Jan 2023 11:07:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA91BA61C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673604356;
-	bh=visOqDfGyrGZZhLY3aBWVf+JPzFkbi3Wr7mTO+gZTI0=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=MHgxJROvewhy8G3XbdY/e9O9ghI/6AAIDy9JH3gTbNpU++LYQmmpjBdTmZ3/Ya2rk
-	 2/al6I4sHpl7SUvSTpXhmmUHuzrwAv9J+IDCgGrRfVNSSIQ3Y6zSLkeLTbinxCskw0
-	 C5ixx8b3/4zRENBRhTlstbi+FGWCzwf8zEUFy1cI=
+	s=default; t=1673604484;
+	bh=pevdLgFV+zlgt+q5J1/S+yY7RevcvWPre69UMNcS/q4=;
+	h=In-Reply-To:References:Date:From:To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=Frvgc2xb7FQw1lULHXviIBBmo2SnH0x18BsUT5U1xWuvbvVTUyiia93bY72cIEtz/
+	 FlUX6Rn66oaBht+QF6JiubzMVAmAP4SWK+guBINTST3H78VupfXyScckTmqT4Qnob6
+	 9o/qKPcm7K9N4n8qFio2gvpNAlLc/ImfHCeVeCpg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57611F8030F;
-	Fri, 13 Jan 2023 11:04:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29439F8030F;
+	Fri, 13 Jan 2023 11:07:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0CB4F8026D; Fri, 13 Jan 2023 11:04:55 +0100 (CET)
+ id DF062F8030F; Fri, 13 Jan 2023 11:07:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AA33F802E8
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:04:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AA33F802E8
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=YwuwFT30
-Received: by mail-wm1-x32b.google.com with SMTP id
- p3-20020a05600c1d8300b003d9ee5f125bso11902277wms.4
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 02:04:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8NUCMuYbymx8u5btDVD+N91T8RFFIAXiDfuzelNpPD0=;
- b=YwuwFT30rA4Uzc48l3kg627KqF4f+ijzT5WVwwLaY3J8PtHa2E2re8CZ/Ko7q1wasW
- zgtFYuUYE5OjuN4HeffsmkdvcUxCEVE/wp22fAx+JO7tE698vuUmEszaKTdSftklM++p
- 34eYQzblo1t3NOybfdka89/72r1DCff5bGVzzCjTN6NS57k+E6Dd0SqpxL6iHBWxrQM9
- dNCUsDTZ+JUhXNsJXZBdpIz4DAL+0zG19SgI5WfRRI4L4IsM2A3EZjztd5khSittWEX/
- kIb3IAa1y7hovJw8idyt8JnE42l62ViUvXHwvbYychiSyN+RIqsy2USFlues/BQ2+Ar5
- uTvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8NUCMuYbymx8u5btDVD+N91T8RFFIAXiDfuzelNpPD0=;
- b=w5rBGw9M8ETKxX1k+WL4oX85o9VIAmdNCiJm2qa0aVkUIeJqT34vO7HyFqFm/P6pXZ
- eA1BsENDOPTx0jRPGvo4FwrHNcka6qWXUEirTFTMTv0Q2Q7ZtLV3lQIe52sz3zvv4XEo
- z2fys2qnCSDrKX2c1TRm+7ksOKixWIttx45hqF5M8CO64QQlMd7pkVSlSxd5fZzTPcxX
- p9l1YqXFvPmazopnjU/lUL1AJNKRPA574r3xBN+hcpnZo5tLpucY1xPR7PktspZlKXEL
- cpxKyXyHXKOHG6YbUeE5aGNAX+vnlL2DhLA9Ui0oknu6eZPuD7FIXI9MU7dZmKi0TwAd
- jHaw==
-X-Gm-Message-State: AFqh2koF/balpryWFZ03/uG/B2PGAXqlb33Idy8hShtACKS8fr9nRHem
- ahN7WMzFMMH12S30FiLln9gaupIO4dfSAA==
-X-Google-Smtp-Source: AMrXdXuYwFhQsuh2YN2TfFnPe4MkYYmJ+0nWMU12lOpcVMmZdmx/S1qcVKn2JmeTlYPXrqh07vMe/w==
-X-Received: by 2002:a05:600c:1d28:b0:3d2:1d51:246e with SMTP id
- l40-20020a05600c1d2800b003d21d51246emr61128443wms.9.1673604289537; 
- Fri, 13 Jan 2023 02:04:49 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- k5-20020adfd845000000b002bdd96d88b4sm3026553wrl.75.2023.01.13.02.04.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 02:04:49 -0800 (PST)
-Date: Fri, 13 Jan 2023 13:04:35 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: o-takashi@sakamocchi.jp
-Subject: [bug report] ALSA: firewire-lib: extend tracepoints event including
- CYCLE_TIME of 1394 OHCI
-Message-ID: <Y8Ess7+7NxnSDX2o@kili>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB256F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:06:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB256F8016D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de
+ header.a=rsa-sha256 header.s=fm2 header.b=jQa0HDmP; 
+ dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=T9tKOcHl
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailnew.west.internal (Postfix) with ESMTP id 59F1E2B066ED;
+ Fri, 13 Jan 2023 05:06:53 -0500 (EST)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Fri, 13 Jan 2023 05:06:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1673604412; x=1673611612; bh=wiGd1poFqy
+ c19NDgfhWxoziS+5a2ezYepeVzBSacqw8=; b=jQa0HDmPBmL/FfJL+hgRmPsB40
+ Y3mC3xChdI36TABN4RG5b4ucaLsZc6+hC+19/zCIm4A4ie1QOoF7GdEwpLDXWLgg
+ YS7KkbMyef4z8Yilol0xjO/jcY2PDSzSOyaObnKUz9YejiKar9NRQ/48gMheN8SP
+ L9ydOdhClMFMN+laVtMxeJLlISQdpKBcfrhR3HNQLngArqhNZXfmj7B7QaV3Yjlc
+ q1pbz3p93X/orY60g/G7bg2Tiz9gOW8CeW5RhiSUeYXFN/oIPHXLd05ewSyQoczy
+ YcvZ76uBqZ6njLqUwdbbXb3on9pD3cxdKgfVZ0av7GSfMv1N46xG/nNSra4w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1673604412; x=1673611612; bh=wiGd1poFqyc19NDgfhWxoziS+5a2
+ ezYepeVzBSacqw8=; b=T9tKOcHloTqEvCQgyITgoeWHiCG023yZCoHB8GCNjjun
+ JWtWHvJqinTMKxNzOHfWFkde1UNzFYeNjWL4OYuUevGP5ZiDtpX0SAgeRoVmsRqT
+ 4s4imE9aYV/f9Pvbl/xyCzDnDswOyuD8ceeVeSEppPmXeTdO2UYN2NW+SPkjkx6z
+ 7AGNecW4IwYIR8h6khoClacES7xN1wBX6oY0XpQ9E/MHHJqDRpFMe5RHSjqUpFHQ
+ 972R/sDnO/VHBlJ/MZtdHhD4RBw3rwTM6MhJr5iT0G2mUNkzC1EVZ0kt797d6W2S
+ fBdJ8aBi3uu6VLi/i8mbcHwOUByNIvAxQvGBru7fCg==
+X-ME-Sender: <xms:Oy3BY2x8u8jGs5oav_hETNuy2fGaBGNB7nGV00CwtVI39ajIhtTDrA>
+ <xme:Oy3BYyQeI43uOCS5CK49RFBPrQXLvgoH7jyxA1EWEhaXS1U_GFSXnUcOsyByJ4HxX
+ 7ebslCPuxwL7F72QUk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleekgddtkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdetrhhn
+ ugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtth
+ gvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedtkeet
+ ffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrh
+ hnugesrghrnhgusgdruggv
+X-ME-Proxy: <xmx:Oy3BY4WFmJ1Wzov0EgMi6qcJljjNqlgJoW7YxZYtni3we9ZcuZJC0Q>
+ <xmx:Oy3BY8jDZdOmomBzdPQYugeTKvRs2JAmwJR9qFQ78gYn6oU0QQd3og>
+ <xmx:Oy3BY4DQ3Zg11gEbb70JkOCpYbMnoYHqWtdB8svYNbX-CHCrZb2sRA>
+ <xmx:PC3BYzV0__Pe1Lv9Yq1qvCTC7InwXhC6SGzQNcMq4ULKQsDh2lBDrgxrUdU>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id B041DB60086; Fri, 13 Jan 2023 05:06:51 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.7.0-alpha0-1185-g841157300a-fm-20221208.002-g84115730
+Mime-Version: 1.0
+Message-Id: <d9c2f760-283b-483c-8512-fdd2c372f26c@app.fastmail.com>
+In-Reply-To: <CAMuHMdXYt4dNHUDsTnPa-RP+sdK=35nNa9xQzMChwK54qO44mA@mail.gmail.com>
+References: <20230113062339.1909087-1-hch@lst.de>
+ <20230113062339.1909087-12-hch@lst.de>
+ <CAMuHMdXYt4dNHUDsTnPa-RP+sdK=35nNa9xQzMChwK54qO44mA@mail.gmail.com>
+Date: Fri, 13 Jan 2023 11:06:22 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "Christoph Hellwig" <hch@lst.de>
+Subject: Re: [PATCH 11/22] mtd/nand: remove sh_flctl
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,101 +117,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Linux-Arch <linux-arch@vger.kernel.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ alsa-devel@alsa-project.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Netdev <netdev@vger.kernel.org>, dmaengine@vger.kernel.org,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Takashi Sakamoto,
+On Fri, Jan 13, 2023, at 09:30, Geert Uytterhoeven wrote:
+> On Fri, Jan 13, 2023 at 7:24 AM Christoph Hellwig <hch@lst.de> wrote:
+>> Now that arch/sh is removed this driver is dead code.
+>
+> FTR, this hardware block is also present on the ARM-based
+> SH-Mobile AG5 and R-Mobile A1 SoCs.
+> Again, no DT support.
 
-The patch fef4e61b0b76: "ALSA: firewire-lib: extend tracepoints event
-including CYCLE_TIME of 1394 OHCI" from Jan 10, 2023, leads to the
-following Smatch static checker warning:
+I would generally consider drivers dead when they have no DT support
+and no platform in the upstream kernel registering the corresponding
+device.
 
-sound/firewire/amdtp-stream.c:944 generate_tx_packet_descs() error: uninitialized symbol 'curr_cycle_time'.
-sound/firewire/amdtp-stream.c:1099 process_rx_packets()	error: uninitialized symbol 'curr_cycle_time'.
+If anyone still uses this driver on SH-Mobile or R-Mobile, they
+have clearly given up on upstreaming their patches by now, and
+they can carry the burden of maintaining the driver out of tree,
+or re-submit a working version.
 
-sound/firewire/amdtp-stream.c
-    1047 static void process_rx_packets(struct fw_iso_context *context, u32 tstamp, size_t header_length,
-    1048                                void *header, void *private_data)
-    1049 {
-    1050         struct amdtp_stream *s = private_data;
-    1051         const struct amdtp_domain *d = s->domain;
-    1052         const __be32 *ctx_header = header;
-    1053         const unsigned int events_per_period = d->events_per_period;
-    1054         unsigned int event_count = s->ctx_data.rx.event_count;
-    1055         struct pkt_desc *desc = s->packet_descs_cursor;
-    1056         unsigned int pkt_header_length;
-    1057         unsigned int packets;
-    1058         u32 curr_cycle_time;
-                 ^^^^^^^^^^^^^^^^^^^
-
-    1059         bool need_hw_irq;
-    1060         int i;
-    1061 
-    1062         if (s->packet_index < 0)
-    1063                 return;
-    1064 
-    1065         // Calculate the number of packets in buffer and check XRUN.
-    1066         packets = header_length / sizeof(*ctx_header);
-    1067 
-    1068         generate_rx_packet_descs(s, desc, ctx_header, packets);
-    1069 
-    1070         process_ctx_payloads(s, desc, packets);
-    1071 
-    1072         if (!(s->flags & CIP_NO_HEADER))
-    1073                 pkt_header_length = IT_PKT_HEADER_SIZE_CIP;
-    1074         else
-    1075                 pkt_header_length = 0;
-    1076 
-    1077         if (s == d->irq_target) {
-    1078                 // At NO_PERIOD_WAKEUP mode, the packets for all IT/IR contexts are processed by
-    1079                 // the tasks of user process operating ALSA PCM character device by calling ioctl(2)
-    1080                 // with some requests, instead of scheduled hardware IRQ of an IT context.
-    1081                 struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
-    1082                 need_hw_irq = !pcm || !pcm->runtime->no_period_wakeup;
-    1083         } else {
-    1084                 need_hw_irq = false;
-    1085         }
-    1086 
-    1087         if (trace_amdtp_packet_enabled())
-    1088                 (void)fw_card_read_cycle_time(fw_parent_device(s->unit)->card, &curr_cycle_time);
-
-No error checking and no else path.
-
-    1089 
-    1090         for (i = 0; i < packets; ++i) {
-    1091                 struct {
-    1092                         struct fw_iso_packet params;
-    1093                         __be32 header[CIP_HEADER_QUADLETS];
-    1094                 } template = { {0}, {0} };
-    1095                 bool sched_irq = false;
-    1096 
-    1097                 build_it_pkt_header(s, desc->cycle, &template.params, pkt_header_length,
-    1098                                     desc->data_blocks, desc->data_block_counter,
---> 1099                                     desc->syt, i, curr_cycle_time);
-                                                           ^^^^^^^^^^^^^^^
-Uninitialized.
-
-    1100 
-    1101                 if (s == s->domain->irq_target) {
-    1102                         event_count += desc->data_blocks;
-    1103                         if (event_count >= events_per_period) {
-    1104                                 event_count -= events_per_period;
-    1105                                 sched_irq = need_hw_irq;
-    1106                         }
-    1107                 }
-    1108 
-    1109                 if (queue_out_packet(s, &template.params, sched_irq) < 0) {
-    1110                         cancel_stream(s);
-    1111                         return;
-    1112                 }
-    1113 
-    1114                 desc = amdtp_stream_next_packet_desc(s, desc);
-    1115         }
-    1116 
-    1117         s->ctx_data.rx.event_count = event_count;
-    1118         s->packet_descs_cursor = desc;
-    1119 }
-
-regards,
-dan carpenter
+    Arnd

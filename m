@@ -2,80 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1A736699F0
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 15:20:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C397669A11
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 15:27:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B63FA6DA;
-	Fri, 13 Jan 2023 15:19:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B63FA6DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97597AAA8;
+	Fri, 13 Jan 2023 15:26:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97597AAA8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673619629;
-	bh=48ADDpQM9z/BZ40yXTCecgBCKKneMYXS0AEi6nY1rNY=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=uv+F09qLyR8pC/UuNppGQpgiHfEsRYaY0qDVjPiL9GnLl4xyXQsD8vODI18+Ltnw7
-	 ztCwXsFQ6RYXObppPzyjMU0tkVh6N5XxMLSVvLMQJ9CQQNftcpNJXEQ5hvOxJ5MhEN
-	 ljr7A/PgfjrDKMRohqvbf0gXkCEykhn2wgt2PM5w=
+	s=default; t=1673620068;
+	bh=jz1pMXh18ppcBDQ08RIRFkUrhb7QFjFVPCcYIKJU5zU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Es2RrX5uGUt+6oAkucgpsmXBVvRXwpjLGEKnlTje9P4aVDzNV2TKO5w5IRgSAPzlk
+	 uqiugN+nw9KWTMAFAWc9PUyOnhn7F2jM5shDOUjVBPds+RM0ZaX8qG9J+X+wPTAELI
+	 YuP4+52BdyJL1ZUVs9QvkyBw7fR5szPmAonsq45E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D36ADF803DC;
-	Fri, 13 Jan 2023 15:19:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38F78F8016D;
+	Fri, 13 Jan 2023 15:26:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C36AF8030F; Fri, 13 Jan 2023 15:19:29 +0100 (CET)
+ id D8C3CF8030F; Fri, 13 Jan 2023 15:26:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::223])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 954ABF8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 15:19:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 954ABF8016D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=pxDShVxp
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 3A5AA60013;
- Fri, 13 Jan 2023 14:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1673619566;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=48ADDpQM9z/BZ40yXTCecgBCKKneMYXS0AEi6nY1rNY=;
- b=pxDShVxpca+jED54OGgdBg2dQ/oLPtWL3k1XprzkQgOZNVmQB2J8anIbjl9TH5ndSi8EtM
- CVDwgeA/F1Rwz2aJFbe2d0uZMU8kwHdAq/sC33IEJYKedCQX6NkyE/Xhs6hNj1eFiczDsg
- MxGIigt6L9diQdCvI0t2FH80R9ieFCEml7Orp6TKOR/G0i2wQngnIXJH/3cpcfc6nQpN5s
- WO84G9SQyVaYOhrqgcXTjW5qRR9J30DCDtuvGO/9n2yWGs4irpkQLh+jnRHudKr2MV6S35
- T8m1yxS6wMWcU80yb9BPjOkelGxc9ooexqQI/4QwIZIxZRKqpr6PujFTFg8Q1Q==
-Date: Fri, 13 Jan 2023 15:19:23 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Renesas IDT821034
- codec
-Message-ID: <20230113151923.086a0495@bootlin.com>
-In-Reply-To: <Y8FVz/Mp5xSdI34a@sirena.org.uk>
-References: <20230111134905.248305-1-herve.codina@bootlin.com>
- <20230111134905.248305-3-herve.codina@bootlin.com>
- <Y77DKSdZf27qE+xl@sirena.org.uk>
- <20230111174022.077f6a8c@bootlin.com>
- <Y774bY4icD8RuMnX@sirena.org.uk>
- <20230113090431.7f84c93a@bootlin.com>
- <Y8FVz/Mp5xSdI34a@sirena.org.uk>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6992F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 15:26:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6992F8016D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Jtmx8qSh; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=1XFKdmKo
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AEE356077A;
+ Fri, 13 Jan 2023 14:26:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1673620005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ZlT0bW1RT1S/RjUud1OHBkBdTWci8dCpwsYwHEA60CU=;
+ b=Jtmx8qSh10mse1aghzGf5O2OJpk2ANrzQQJ5UjROd+nkGRzzkpW181UYRfbFuNUdiZx/AR
+ mP9smr3XuGiJPpkaCClRrUHpB5OLjkNkOmrbVeOKK3dxAkgSQRja2ayHRV2XxI7ks2di8b
+ 3SXt2oNX2EI1jeRd4c+CBnjsuRMGNGg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1673620005;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ZlT0bW1RT1S/RjUud1OHBkBdTWci8dCpwsYwHEA60CU=;
+ b=1XFKdmKo9XRjBZi/aLaSro2SdtveCWAwmQm5jYelTynOhKUoWeko+Nsx4AREXPY9iHKZt0
+ LaJJafmXd/Vr/FDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 84F701358A;
+ Fri, 13 Jan 2023 14:26:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id DeG5HyVqwWOTGAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 13 Jan 2023 14:26:45 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: Greg KH <gregkh@linuxfoundation.org>
+Subject: [PATCH 5.10.y] ALSA: pcm: Properly take rwsem lock in
+ ctl_elem_read_user/ctl_elem_write_user to prevent UAF
+Date: Fri, 13 Jan 2023 15:26:39 +0100
+Message-Id: <20230113142639.4420-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,39 +93,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Clement Lecigne <clecigne@google.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+From: Clement Lecigne <clecigne@google.com>
 
-On Fri, 13 Jan 2023 12:59:59 +0000
-Mark Brown <broonie@kernel.org> wrote:
+[ Note: this is a fix that works around the bug equivalently as the
+  two upstream commits:
+   1fa4445f9adf ("ALSA: control - introduce snd_ctl_notify_one() helper")
+   56b88b50565c ("ALSA: pcm: Move rwsem lock inside snd_ctl_elem_read to prevent UAF")
+  but in a simpler way to fit with older stable trees -- tiwai ]
 
-> On Fri, Jan 13, 2023 at 09:04:31AM +0100, Herve Codina wrote:
->=20
-> > For DAPM (struct snd_soc_dapm_widget), no kind of .put() and .get()
-> > are available. I will use some Ids for the 'reg' value and use the
-> > .write() and .read() hooks available in struct snd_soc_component_driver
-> > in order to handle these Ids and so perform the accesses. =20
->=20
-> That's what the event hooks are for - there's plenty of widgets using
-> SND_SOC_NOPM as the register, look at those for examples.
+Add missing locking in ctl_elem_read_user/ctl_elem_write_user which can be
+easily triggered and turned into an use-after-free.
 
-Indeed, got it.
-Thanks for pointing it.
+Example code paths with SNDRV_CTL_IOCTL_ELEM_READ:
 
-Best regards,
-Herv=C3=A9
+64-bits:
+snd_ctl_ioctl
+  snd_ctl_elem_read_user
+    [takes controls_rwsem]
+    snd_ctl_elem_read [lock properly held, all good]
+    [drops controls_rwsem]
 
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+32-bits (compat):
+snd_ctl_ioctl_compat
+  snd_ctl_elem_write_read_compat
+    ctl_elem_write_read
+      snd_ctl_elem_read [missing lock, not good]
+
+CVE-2023-0266 was assigned for this issue.
+
+Signed-off-by: Clement Lecigne <clecigne@google.com>
+Cc: stable@kernel.org # 5.12 and older
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+
+Greg, this is a patch for the last ALSA PCM UCM fix for the older
+stable trees.  Please take this to 5.10.y and older stable trees.
+Thanks!
+
+ sound/core/control_compat.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
+index 97467f6a32a1..980ab3580f1b 100644
+--- a/sound/core/control_compat.c
++++ b/sound/core/control_compat.c
+@@ -304,7 +304,9 @@ static int ctl_elem_read_user(struct snd_card *card,
+ 	err = snd_power_wait(card, SNDRV_CTL_POWER_D0);
+ 	if (err < 0)
+ 		goto error;
++	down_read(&card->controls_rwsem);
+ 	err = snd_ctl_elem_read(card, data);
++	up_read(&card->controls_rwsem);
+ 	if (err < 0)
+ 		goto error;
+ 	err = copy_ctl_value_to_user(userdata, valuep, data, type, count);
+@@ -332,7 +334,9 @@ static int ctl_elem_write_user(struct snd_ctl_file *file,
+ 	err = snd_power_wait(card, SNDRV_CTL_POWER_D0);
+ 	if (err < 0)
+ 		goto error;
++	down_write(&card->controls_rwsem);
+ 	err = snd_ctl_elem_write(card, file, data);
++	up_write(&card->controls_rwsem);
+ 	if (err < 0)
+ 		goto error;
+ 	err = copy_ctl_value_to_user(userdata, valuep, data, type, count);
+-- 
+2.35.3
+

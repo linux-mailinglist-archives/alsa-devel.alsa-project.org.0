@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FB5669AD7
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 15:46:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE03A669BB1
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 16:15:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06840AB45;
-	Fri, 13 Jan 2023 15:45:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06840AB45
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D41A72A0;
+	Fri, 13 Jan 2023 16:14:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D41A72A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673621201;
-	bh=OOpO7rcmHDE5eJICc86n274kB9+T6ASNfsQPC6exYYc=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673622946;
+	bh=0WpTZ6nAdG/LzLrC9ZtsqXlfpYYCo3tWtYNG6udfhc4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=s0+x4LrjofDXxd6jwuY5XynYpm7rHnq//24johSDBPSA0Uuy7+riOepyiEIY7yh5Z
-	 MHR8dIyKq+XAhENvxguUWJu7LUKbLv5e1Uhlm2NkFPR4d9zaeiyNYKAMt4LE9FRiWY
-	 05twnSM4U7IMXdGGWmZgjUv6jlPp4YX6Ed7TdjPU=
+	b=pU84rkMzqxgSliZHofVTN2TztXDswrVeLi7tTtAptgq8PsBPEwuHJl/Cfsx6SFPpR
+	 8TVY7zCVBHqCfJBj8DvMbuFbAD0HBGgG0CCHIe1qdM+SbaV42DRR3xKsZGBVzxexuT
+	 gSQuxk8+Qeg7Bsb7r5Cp7iaaWyqvvay7VTqQ9UXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E6FCF8016D;
-	Fri, 13 Jan 2023 15:45:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57894F802E8;
+	Fri, 13 Jan 2023 16:14:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EFB3F802E8; Fri, 13 Jan 2023 15:45:40 +0100 (CET)
+ id DEA10F803DC; Fri, 13 Jan 2023 16:14:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F583F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 15:45:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F583F8026D
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=oxH4hwuc
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id DFB59A003F;
- Fri, 13 Jan 2023 15:45:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz DFB59A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1673621133; bh=MW4KMXeombVYSD+Suet8+ydrU5cpb02IsctRgeT+eMA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oxH4hwuc4P4vB1QHOPlx0Symvo9vUeVn2Zed7vI37rm2lL7CL/HD369fKXjHIgMWr
- yVA4MViHGOVut/XK6y9GVLfPontWlCgUgyjsTk2nV3jWZcCla7HuhFsdBwkBVkLepW
- KfgvYm7JmculfAW4owmsjYLE2wq1KVBGY1O5zLok=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 13 Jan 2023 15:45:27 +0100 (CET)
-Message-ID: <e0dae3a0-4176-0bc7-42e4-65cf58f265ad@perex.cz>
-Date: Fri, 13 Jan 2023 15:45:27 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90190F8019B
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 16:14:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90190F8019B
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=o2JHeVE/
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8A4B061F41;
+ Fri, 13 Jan 2023 15:14:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6147C433D2;
+ Fri, 13 Jan 2023 15:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673622880;
+ bh=0WpTZ6nAdG/LzLrC9ZtsqXlfpYYCo3tWtYNG6udfhc4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=o2JHeVE/EBjb2DkY4qfHiVU4H5x+r37/2Cx4PC5srdknQwDgVuxT08ZCJLAOrmHBg
+ vmelt25j6NfO3Dtu7s5VNSOKpjPmzV/d6b8OOGx5z0OC/Vh2loE5jEqgDBfQHj64BL
+ oYxi/bXfmOB3KXO9nKvydcZIW00rSsdTnB2FLuRd5RkeV4kFqX3pr2UtYxc+gmscAW
+ w0WhT+xZOJehv43rhkRRUsPakcrNnkZ0Y0PVOpujVOfdGtT1GFPv7UT+0SY9Z514o3
+ LWaycPSg5lPmPqGUmm1YxATwjLC64z66io5Q/ahTHRiJoF/jyktvkff/0uFw2YjY9C
+ QMGB/Sh1N2GMQ==
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?q?S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
+References: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 0/3] Fixes for avs driver
+Message-Id: <167362287864.139004.6556093020954977105.b4-ty@kernel.org>
+Date: Fri, 13 Jan 2023 15:14:38 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 5.10.y] ALSA: pcm: Properly take rwsem lock in
- ctl_elem_read_user/ctl_elem_write_user to prevent UAF
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, Greg KH <gregkh@linuxfoundation.org>
-References: <20230113142639.4420-1-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230113142639.4420-1-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.12-dev-8b3d1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,46 +81,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Clement Lecigne <clecigne@google.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13. 01. 23 15:26, Takashi Iwai wrote:
-> From: Clement Lecigne <clecigne@google.com>
+On Fri, 13 Jan 2023 20:03:07 +0100, Amadeusz Sławiński wrote:
+> First patch fixes problems reported when performing shutdown. Second one
+> is for a problem reported by LKP. Last one fixes problem reported by
+> checkpatch.
 > 
-> [ Note: this is a fix that works around the bug equivalently as the
->    two upstream commits:
->     1fa4445f9adf ("ALSA: control - introduce snd_ctl_notify_one() helper")
->     56b88b50565c ("ALSA: pcm: Move rwsem lock inside snd_ctl_elem_read to prevent UAF")
->    but in a simpler way to fit with older stable trees -- tiwai ]
+> Amadeusz Sławiński (3):
+>   ASoC: Intel: avs: Implement PCI shutdown
+>   ASoC: Intel: avs: Correctly access topology fiels
+>   ASoC: Intel: avs: Use min_t instead of min with cast
 > 
-> Add missing locking in ctl_elem_read_user/ctl_elem_write_user which can be
-> easily triggered and turned into an use-after-free.
-> 
-> Example code paths with SNDRV_CTL_IOCTL_ELEM_READ:
-> 
-> 64-bits:
-> snd_ctl_ioctl
->    snd_ctl_elem_read_user
->      [takes controls_rwsem]
->      snd_ctl_elem_read [lock properly held, all good]
->      [drops controls_rwsem]
-> 
-> 32-bits (compat):
-> snd_ctl_ioctl_compat
->    snd_ctl_elem_write_read_compat
->      ctl_elem_write_read
->        snd_ctl_elem_read [missing lock, not good]
-> 
-> CVE-2023-0266 was assigned for this issue.
-> 
-> Signed-off-by: Clement Lecigne <clecigne@google.com>
-> Cc: stable@kernel.org # 5.12 and older
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> [...]
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Applied to
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/3] ASoC: Intel: avs: Implement PCI shutdown
+      commit: f89d783d68dcc6b2ce4fe3bda972ae0f84df0dca
+[2/3] ASoC: Intel: avs: Correctly access topology fiels
+      (no commit info)
+[3/3] ASoC: Intel: avs: Use min_t instead of min with cast
+      (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

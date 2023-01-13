@@ -2,59 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6650669183
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:46:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C4826691AD
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:51:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 773CEA4FE;
-	Fri, 13 Jan 2023 09:45:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 773CEA4FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6378A526;
+	Fri, 13 Jan 2023 09:50:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6378A526
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673599604;
-	bh=nzEpF1FDU6wN9OHhmo7nQiBcpeENfEzXLRMXSl6MIIE=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1673599902;
+	bh=btXy0yFVN7Bu/EMyQg9LuLklVrXV7x7YVfwVN+gzI9A=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=UEKl51W5gkdUW0nRo37JsAkJnHxLMJW+W5DOuK43ASSRjMLPWPnjpUmeqHJDdXEtm
-	 gfCyDouC/1su2/GiuuAFQcWQzkxHqlSkzNXloPtPgLSsZbOEB5+MO0xj2lsPr/vxZL
-	 iaFRoV0uO3olO0LJ8cb9DeeW4Y4j1NzSIVJ1E1pQ=
+	b=myzx2jEsaa/5Lh5agCGfV/wNlqF2koP/FYXv8J7BT3xP14qdSfBR+5ri3r6+SREkL
+	 QNTguY/MwiXWJNf1Tw6FVQhPr3vsavSiTA1fiJcV0a549EiOdX5sfB2kWGcG5btTiE
+	 oKll812Yv9ALBAvgTvK3mzuikKU0s07dP3sf3u3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CF89F803DC;
-	Fri, 13 Jan 2023 09:45:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62B84F8030F;
+	Fri, 13 Jan 2023 09:50:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E094BF803DC; Fri, 13 Jan 2023 09:45:44 +0100 (CET)
+ id 0FD04F803DC; Fri, 13 Jan 2023 09:50:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.7 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA1D6F8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:45:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA1D6F8019B
-Received: from ramsan.of.borg ([84.195.186.194])
- by laurent.telenet-ops.be with bizsmtp
- id 88lL2900C4C55Sk018lL8t; Fri, 13 Jan 2023 09:45:40 +0100
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1pGFgd-003qP4-W0;
- Fri, 13 Jan 2023 09:45:19 +0100
-Date: Fri, 13 Jan 2023 09:45:19 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 13/22] pinctrl: remove renesas sh controllers
-In-Reply-To: <20230113062339.1909087-14-hch@lst.de>
-Message-ID: <c480ecd6-166c-18b4-2230-418836ce3fb2@linux-m68k.org>
-References: <20230113062339.1909087-1-hch@lst.de>
- <20230113062339.1909087-14-hch@lst.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 613BCF8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:50:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 613BCF8016D
+Received: by mail-qt1-f172.google.com with SMTP id jr10so11292637qtb.7
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:50:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=awQakUOIwVvp4xWgkhRGNM/c58rzqkM16qYt20+qNyU=;
+ b=mHh2dIc9+hj2OhebeAbFT9ovwJY/KFrxtgROBAJMtDaC9rJN2QGutgXFZplXnKBUx0
+ XAL39849hsbDxfOeukROV6HGRaWBKRVjlLU2kt1nb0ivgWvN0O383RJbYKa6MV9fjvYz
+ A+a4DYARZovZCYoqyIualrjrDRDNDNTjbJNYKoQqDwoWa5MVgB2Df1dALmk9Kru7bCG4
+ hbTJTxkHFeXbc6sn/ygTL7e/8D+Ze9cJnkAaDll67UEJ06kPnb8CYM4jrRSkvjSW4v3O
+ HcCvEiLpFZIlNKj7rwRwfyF1kMnGHFr8RcZUMXCRDeh8sYaSIU68ouj2Gp2Hmy3okPrW
+ GveQ==
+X-Gm-Message-State: AFqh2kqwQA6rPeGjdkoIIUmJpYPiL4YlKoBfsKC0D+5W89gW/ArBFyh/
+ UP8oXMm1eZZrk+8vuEfdj8bvsY3m6z0AKA==
+X-Google-Smtp-Source: AMrXdXuP4DI1Vc9B8xb3SD/YRSxc4QLn5ZOvtctYsRbjDAMQviOyEhEgy/zHgIdG06ovdkHlMnKYQA==
+X-Received: by 2002:ac8:7c8:0:b0:3ad:a37b:54e with SMTP id
+ m8-20020ac807c8000000b003ada37b054emr23829885qth.32.1673599837806; 
+ Fri, 13 Jan 2023 00:50:37 -0800 (PST)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com.
+ [209.85.128.182]) by smtp.gmail.com with ESMTPSA id
+ x14-20020ac86b4e000000b003a816011d51sm10244115qts.38.2023.01.13.00.50.36
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jan 2023 00:50:36 -0800 (PST)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-4b718cab0e4so275365127b3.9
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:50:36 -0800 (PST)
+X-Received: by 2002:a81:578e:0:b0:4d9:3858:392 with SMTP id
+ l136-20020a81578e000000b004d938580392mr551266ywb.502.1673599835999; Fri, 13
+ Jan 2023 00:50:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+References: <20230113062339.1909087-1-hch@lst.de>
+ <20230113062339.1909087-17-hch@lst.de>
+In-Reply-To: <20230113062339.1909087-17-hch@lst.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 13 Jan 2023 09:50:24 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdU2vaVaCrcKom5YQYD9GLoeerX8HAQav36uFGUksOFc9w@mail.gmail.com>
+Message-ID: <CAMuHMdU2vaVaCrcKom5YQYD9GLoeerX8HAQav36uFGUksOFc9w@mail.gmail.com>
+Subject: Re: [PATCH 16/22] spi: remove spi-sh-sci
+To: Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,50 +113,44 @@ Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- 	Hi Christoph,
-
-On Fri, 13 Jan 2023, Christoph Hellwig wrote:
-> Now that arch/sh is removed these drivers are dead code.
+On Fri, Jan 13, 2023 at 7:24 AM Christoph Hellwig <hch@lst.de> wrote:
+> Now that arch/sh is removed this driver is dead code.
 >
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-Thanks for your patch!
-
-> --- a/drivers/pinctrl/renesas/Kconfig
-> +++ b/drivers/pinctrl/renesas/Kconfig
-> @@ -255,57 +243,10 @@ config PINCTRL_RZV2M
-> 	  This selects GPIO and pinctrl driver for Renesas RZ/V2M
-> 	  platforms.
+> ---
+>  drivers/spi/Kconfig      |   7 --
+>  drivers/spi/Makefile     |   1 -
+>  drivers/spi/spi-sh-sci.c | 197 ---------------------------------------
+>  3 files changed, 205 deletions(-)
+>  delete mode 100644 drivers/spi/spi-sh-sci.c
 >
-> -config PINCTRL_PFC_SH7203
-> -	bool "pin control support for SH7203" if COMPILE_TEST
-> -	select PINCTRL_SH_FUNC_GPIO
-
-(If this is to be continued) the PINCTRL_SH_FUNC_GPIO symbol itself, and
-all its users, can be removed, too.
-
-> --- a/drivers/pinctrl/renesas/core.c
-> +++ b/drivers/pinctrl/renesas/core.c
-> @@ -753,562 +753,6 @@ static int sh_pfc_suspend_init(struct sh_pfc *pfc) { return 0; }
-> #define DEV_PM_OPS	NULL
-> #endif /* CONFIG_PM_SLEEP && CONFIG_ARM_PSCI_FW */
+> diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+> index 7508dcef909c78..76f3bc6f8c81fc 100644
+> --- a/drivers/spi/Kconfig
+> +++ b/drivers/spi/Kconfig
+> @@ -882,13 +882,6 @@ config SPI_SH_MSIOF
+>         help
+>           SPI driver for SuperH and SH Mobile MSIOF blocks.
 >
-> -#ifdef DEBUG
-> -#define SH_PFC_MAX_REGS		300
-> -#define SH_PFC_MAX_ENUMS	5000
-> -
+> -config SPI_SH_SCI
+> -       tristate "SuperH SCI SPI controller"
+> -       depends on SUPERH
+> -       select SPI_BITBANG
+> -       help
+> -         SPI driver for SuperH SCI blocks.
 
-This whole hunk should stay (except for the part protected by #ifdef
-CONFIG_PINCTRL_SH_FUNC_GPIO), as it is used for validating pin control
-tables on ARM SoCs, too.
+This driver uses the Serial Communications Interface (SCI, cfr.
+drivers/tty/serial/sh-sci.c) in SPI mode. Hence in theory it could be
+used on a variety of Renesas ARM SoCs, and even on RZ/Five.
+Again, no DT support.
 
 Gr{oetje,eeting}s,
 
- 						Geert
+                        Geert
 
 --
 Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
 In personal conversations with technical people, I call myself a hacker. But
 when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
+                                -- Linus Torvalds

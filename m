@@ -2,79 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461AF669F36
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 18:13:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F07A66A118
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 18:49:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71CDEAD76;
-	Fri, 13 Jan 2023 18:12:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71CDEAD76
+	by alsa0.perex.cz (Postfix) with ESMTPS id A598EAB08;
+	Fri, 13 Jan 2023 18:48:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A598EAB08
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673629989;
-	bh=uaaXZV3sG79+TeMR+hrFRsa8RvzQpx4iYxOp0B1DqCM=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=M+yNLjwy5NmHqcrXGVjiTEWq66LWofgc9fdSSGoRSeZj6kkll3A6+c0X354+FGGHk
-	 taL5RSSh2sxq927g9L38AbDrrWsGTJm8D0UmYc21n/cSQnTmqezQig4bX5SpN1ADbl
-	 3ttN6vgrZQ15sYQxsxMIlTap3EDtnelbwznpcctQ=
+	s=default; t=1673632168;
+	bh=vXZYegqr0r8VoEKtaFQ41Pd2O25X43DEDShZ7ZuY//c=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=BQ1x9kPPowt3EoQYHBl6xAXkSmtRcBOFheEZvKLmBBOGcTPzVG0gjqopWz8WZEyLs
+	 1B58VYdNsNVjuJ3VRCJlTp93nOHq/9/CwfL//n2pNMyO3e04oUR0u1j7Ut+PQOJXX2
+	 FQsRm8qx61nFiEu3YHby91Q8GEVPex+7QstShxtQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B46DF8026D;
-	Fri, 13 Jan 2023 18:12:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E4D2F8016D;
+	Fri, 13 Jan 2023 18:48:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AA4BF8030F; Fri, 13 Jan 2023 18:12:16 +0100 (CET)
+ id 255D1F8030F; Fri, 13 Jan 2023 18:48:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46D12F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 18:12:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46D12F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8E91F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 18:48:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8E91F8016D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AuwlW2Y0
+ header.s=Intel header.b=BFbHakLz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673629930; x=1705165930;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=uaaXZV3sG79+TeMR+hrFRsa8RvzQpx4iYxOp0B1DqCM=;
- b=AuwlW2Y04gk4FU2FfJAaXAdT5YM8Ladj5tugVXys9sA8dnJnWBwDXd2a
- o3qjdSkvoRRFLQKj7cyWPE3YWsVjKlRyTOCDYlSXGeZOJgYdHNFNYiMc5
- 4fjEfvh25Q1kpjARoVNJGGuUmMk9PC0ckJjiHjd+cAhfa9mEMHq/w0rGB
- Ot+4HSJLxRWfvq3e3nsHy+RjhGH6v6Ynmh59Nna4sd0am4AkZ1CtgOCQ0
- YH2R3rHlMa47+mZl6i3Ql99uOG2pLWRW1odWcWMRcWZ8K9WADLlgtRqfN
- cwZZqjUz2Au2IqzSAy4OUQV1kPe37OE6PytSqVGdiBc36B9JYgo9EuOgb w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="322742862"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="322742862"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 09:10:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="660282846"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="660282846"
-Received: from lkp-server02.sh.intel.com (HELO f1920e93ebb5) ([10.239.97.151])
- by fmsmga007.fm.intel.com with ESMTP; 13 Jan 2023 09:10:30 -0800
-Received: from kbuild by f1920e93ebb5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pGNZV-000BHg-2D;
- Fri, 13 Jan 2023 17:10:29 +0000
-Date: Sat, 14 Jan 2023 01:10:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 6b31ffe9c8b9947d6d3552d6e10752fd96d0f80f
-Message-ID: <63c19068.KJJoDMv4WFq0GgOm%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ t=1673632103; x=1705168103;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=vXZYegqr0r8VoEKtaFQ41Pd2O25X43DEDShZ7ZuY//c=;
+ b=BFbHakLzWoZ5FohimrRkuIYvu6v19tCEM8v/zn5GPocFNjicJYR3x2FP
+ nnFCXpE6GPuluFwPVqQkbdSTZbRBFdUFw3nbPwWoM10lCQwhlIzRQkr8j
+ B5tgkJCKwf8LbQEWYnDLeBFftAtAtGU1a0j/Riclc72mbY3qq/iSRKQap
+ bHY2NY/qIe5awbIjdUSQ0yhuKwV9zBJWo/3F4CWfiYxJxvCuCBjGoW4yK
+ iZ8TC3lOYwNKEUnq0RUqbaqe4QBiCkzeT7FGTr6N4TNjVUfuS3ZHOJAMu
+ Nv6oxE82+oKDy+zDCHnONbmLSyV3SUwdmfQRxd5md1cT08s5sp5xz44+6 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="326111270"
+X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="326111270"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2023 09:48:13 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="635854356"
+X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="635854356"
+Received: from rerayess-mobl.amr.corp.intel.com (HELO [10.212.13.223])
+ ([10.212.13.223])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2023 09:48:12 -0800
+Message-ID: <202c4f36-77b0-44a2-a77d-b989040dafc6@linux.intel.com>
+Date: Fri, 13 Jan 2023 11:48:12 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 1/5] soundwire: stream: uniquify dev_err() logs
+Content-Language: en-US
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
+ vkoul@kernel.org
+References: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
+ <20230113093532.3872113-2-yung-chuan.liao@linux.intel.com>
+ <d2c6f43a-e166-a201-4662-ba726347f2da@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <d2c6f43a-e166-a201-4662-ba726347f2da@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,126 +94,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-scsi@vger.kernel.org
+Cc: vinod.koul@linaro.org, bard.liao@intel.com, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 6b31ffe9c8b9947d6d3552d6e10752fd96d0f80f  Add linux-next specific files for 20230113
 
-Error/Warning: (recently discovered and may have been fixed)
 
-aarch64-linux-ld: ID map text too big or misaligned
-arch/arm/kernel/entry-armv.S:485:5: warning: "CONFIG_ARM_THUMB" is not defined, evaluates to 0 [-Wundef]
-drivers/gpu/drm/ttm/ttm_bo_util.c:364:32: error: implicit declaration of function 'vmap'; did you mean 'kmap'? [-Werror=implicit-function-declaration]
-drivers/gpu/drm/ttm/ttm_bo_util.c:429:17: error: implicit declaration of function 'vunmap'; did you mean 'kunmap'? [-Werror=implicit-function-declaration]
+On 1/13/23 04:22, Amadeusz Sławiński wrote:
+> On 1/13/2023 10:35 AM, Bard Liao wrote:
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>>
+>> There are a couple of duplicate logs which makes harder than needed to
+>> follow the error flows. Add __func__ or make the log unique.
+>>
+>> Signed-off-by: Pierre-Louis Bossart
+>> <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> ---
+>>   drivers/soundwire/stream.c | 14 ++++++++------
+>>   1 file changed, 8 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+>> index df3b36670df4..e0eae0b98267 100644
+>> --- a/drivers/soundwire/stream.c
+>> +++ b/drivers/soundwire/stream.c
+>> @@ -1389,7 +1389,7 @@ static int _sdw_prepare_stream(struct
+>> sdw_stream_runtime *stream,
+>>         ret = do_bank_switch(stream);
+>>       if (ret < 0) {
+>> -        dev_err(bus->dev, "Bank switch failed: %d\n", ret);
+>> +        dev_err(bus->dev, "do_bank_switch failed: %d\n", ret);
+>>           goto restore_params;
+>>       }
+> 
+> This one seems bit unrelated to the change and makes error message
+> inconsistent with:
+> https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/tree/drivers/soundwire/stream.c?h=next&id=545c365185a47672b1d5cc13c84057a1e874993c#n1498
+> and
+> https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/tree/drivers/soundwire/stream.c?h=next&id=545c365185a47672b1d5cc13c84057a1e874993c#n1575
+> which actually brings me to another suggestion, can this error message
+> perhaps be just moved into do_bank_switch() function itself, instead of
+> being duplicated multiple times or alternatively just also prefix all of
+> them with function name?
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+well, as you correctly pointed out, there are multiple users of
+'do_bank_switch' so we don't want to put the message in the function itself.
 
-drivers/nvmem/layouts/sl28vpd.c:143:21: sparse: sparse: symbol 'sl28vpd_layout' was not declared. Should it be static?
-drivers/scsi/qla2xxx/qla_mid.c:1189:6: sparse: sparse: symbol 'qla_trim_buf' was not declared. Should it be static?
-drivers/scsi/qla2xxx/qla_mid.c:1221:6: sparse: sparse: symbol '__qla_adjust_buf' was not declared. Should it be static?
-sound/ac97/bus.c:465:1: sparse: sparse: symbol 'dev_attr_vendor_id' was not declared. Should it be static?
+We could indeed use __func__ instead, that'd be fine.
 
-Error/Warning ids grouped by kconfigs:
+Looking at the code, there are also inconsistencies with the use of
+pr_err and dev_err. dev_err(bus->dev is wrong actually, this would use
+the bus variable assigned in the previous loop, this makes no sense for
+multi-segment topologies.
 
-gcc_recent_errors
-|-- arm-buildonly-randconfig-r003-20230113
-|   `-- arch-arm-kernel-entry-armv.S:warning:CONFIG_ARM_THUMB-is-not-defined-evaluates-to
-|-- arm64-allyesconfig
-|   `-- aarch64-linux-ld:ID-map-text-too-big-or-misaligned
-|-- microblaze-randconfig-s041-20230112
-|   |-- drivers-nvmem-layouts-sl28vpd.c:sparse:sparse:symbol-sl28vpd_layout-was-not-declared.-Should-it-be-static
-|   `-- sound-ac97-bus.c:sparse:sparse:symbol-dev_attr_vendor_id-was-not-declared.-Should-it-be-static
-|-- microblaze-randconfig-s043-20230112
-|   |-- drivers-scsi-qla2xxx-qla_mid.c:sparse:sparse:symbol-__qla_adjust_buf-was-not-declared.-Should-it-be-static
-|   `-- drivers-scsi-qla2xxx-qla_mid.c:sparse:sparse:symbol-qla_trim_buf-was-not-declared.-Should-it-be-static
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-ttm-ttm_bo_util.c:error:implicit-declaration-of-function-vmap
-|   `-- drivers-gpu-drm-ttm-ttm_bo_util.c:error:implicit-declaration-of-function-vunmap
-`-- mips-randconfig-r012-20230113
-    |-- drivers-gpu-drm-ttm-ttm_bo_util.c:error:implicit-declaration-of-function-vmap
-    `-- drivers-gpu-drm-ttm-ttm_bo_util.c:error:implicit-declaration-of-function-vunmap
+Let's drop this patch and revisit all this, hope Vinod can deal with
+patch 1..4 otherwise we'll resend the set.
 
-elapsed time: 725m
-
-configs tested: 68
-configs skipped: 2
-
-gcc tested configs:
-x86_64                            allnoconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-powerpc                           allnoconfig
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-s390                                defconfig
-sh                               allmodconfig
-x86_64                              defconfig
-mips                             allyesconfig
-x86_64                               rhel-8.3
-s390                             allyesconfig
-powerpc                          allmodconfig
-arc                  randconfig-r043-20230112
-arm                                 defconfig
-x86_64                           allyesconfig
-i386                                defconfig
-ia64                             allmodconfig
-i386                          randconfig-a001
-x86_64                           rhel-8.3-bpf
-i386                          randconfig-a003
-riscv                randconfig-r042-20230112
-s390                 randconfig-r044-20230112
-x86_64                        randconfig-a013
-i386                          randconfig-a005
-arm64                            allyesconfig
-x86_64                        randconfig-a011
-i386                          randconfig-a014
-x86_64                        randconfig-a002
-arm                              allyesconfig
-i386                          randconfig-a012
-x86_64                        randconfig-a015
-i386                          randconfig-a016
-x86_64                        randconfig-a006
-i386                             allyesconfig
-x86_64                        randconfig-a004
-sh                          urquell_defconfig
-sh                     magicpanelr2_defconfig
-xtensa                       common_defconfig
-m68k                             allyesconfig
-m68k                             allmodconfig
-alpha                            allyesconfig
-arc                              allyesconfig
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-kvm
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-arm                  randconfig-r046-20230112
-hexagon              randconfig-r041-20230112
-hexagon              randconfig-r045-20230112
-i386                          randconfig-a002
-x86_64                        randconfig-a014
-i386                          randconfig-a013
-i386                          randconfig-a006
-i386                          randconfig-a011
-x86_64                        randconfig-a012
-x86_64                        randconfig-a001
-i386                          randconfig-a015
-i386                          randconfig-a004
-x86_64                        randconfig-a016
-x86_64                        randconfig-a003
-x86_64                        randconfig-a005
-mips                       rbtx49xx_defconfig
-s390                             alldefconfig
-powerpc                      walnut_defconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Thanks Amadeusz for the feedback.

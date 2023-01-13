@@ -2,90 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530DC6691F3
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 497E0669213
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 10:00:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC407A41E;
-	Fri, 13 Jan 2023 09:57:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC407A41E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FBF5A502;
+	Fri, 13 Jan 2023 09:59:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FBF5A502
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673600292;
-	bh=Z4ampBNr8JbwjKuR9FoyH7OH2Uay5Gptn/nql4PhnY4=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1673600417;
+	bh=1I0+/jhCo9D7vNPV/eLpWQmnR1UGppvsFhnQYX2UELA=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Uzi0p6DPKG2dYkE/8mvkxqAuW3rOuiokK4fHEFw6kCbHdN3S307k4fo8qdWLxeGzo
-	 e/6q2yf2yoGOxs46fWniHiaBnniDafmrCvwQcI5OyX8/lE+gecejHClq35A1sH43w1
-	 M2VIVBvWQM9rI5m6IdFWOhpgZdk72nRtZhHeHUYU=
+	b=fjTnMt9tCYqxC5ht81ujPP5vbuVrLYPyA86nShPNuxysGBnTUynC3StgY9DiL5abP
+	 tid4H7SVeZ6bGbEKtL6QSsWvizXNeFmcqEsBxXd6Nqy9xt3uUifnxGLp+AXpQHvVYp
+	 ygpvz1qa0aFnza+bauOBuljhHv/jr53wLhVqJj9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D0C6F8019B;
-	Fri, 13 Jan 2023 09:57:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 392C2F8016D;
+	Fri, 13 Jan 2023 09:59:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E3EDF802E8; Fri, 13 Jan 2023 09:57:12 +0100 (CET)
+ id 61313F8030F; Fri, 13 Jan 2023 09:59:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98B61F802E8
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:57:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98B61F802E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=vPFKdWvw; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=LF1nkUZm
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4E8FB5D6AF;
- Fri, 13 Jan 2023 08:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673600230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=v839hLGgtMy48q9FFiQSTVw/UzxO4DwEmYVeXyFIGgg=;
- b=vPFKdWvwMSSBhRGcXSowR+jOoMLzM/BclSzj5tSsWkS97kRUYrazSar69EytH/sJEvkFyR
- GuHRM6Ep7IemUOd7j/Miq9BOwWvENMGKbkTR/EpbJDPN9mnd1Zx/nTmCJHgZWIgB/pf8Yt
- 4nmY4SiF9AqftIhX1mPFN+6iifuHeRo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673600230;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=v839hLGgtMy48q9FFiQSTVw/UzxO4DwEmYVeXyFIGgg=;
- b=LF1nkUZmaF2qHqq2hlQeHmHRZSelFOmru0Qnn3AjGEy0WecL0NvV7aX7by5ke2RgA3CbfP
- bOd8Ptna0yuTCaCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF7A31358A;
- Fri, 13 Jan 2023 08:57:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8fInNOUcwWOsZAAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 13 Jan 2023 08:57:09 +0000
-Date: Fri, 13 Jan 2023 09:57:08 +0100
-Message-ID: <878ri66cd7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH 0/6] ALSA: fireface: support knob control event for
- Fireface 400
-In-Reply-To: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
-References: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id C61D4F8019B
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:59:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C61D4F8019B
+Received: by mail-qt1-f181.google.com with SMTP id y7so87606qtv.5
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:59:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=HIx/98EgJxXRPw6eabRyCtMqFo85a6og6EquEgJiRDY=;
+ b=1l8bh2kil0/jOnrQ3dyCZudeR9VxC7L2/Db06pDn/VuTdrM8Cju5TA1CgoAbPRx2AP
+ GmWWgJVv933LBRh9rmsCLGafyUD+Hy2+hy8gOvGX8q/83UXcwR728I5naGn4vfA0a2yt
+ vL6MwymSK7yZFFk38/xNSlL5vYXHwB6ypsj4eUvpGxyMLcsshXZdQb4Yx4a4/jh9Vvhz
+ jIERAi38IvZXPhzOibTAy9CCU6ebzs9gbGvRr3r41JSyQJ+EnZ8JrL774Me9EFh5RMXO
+ k+Ld2sEXTsEGQc3gqMKVBJH59rbAgiRsCvFUSugx6lieBKGhBuhZdM2Yyy/xufpTma5y
+ V+tA==
+X-Gm-Message-State: AFqh2krbUG7Pajt+LERJCsVWEBcZ51iKFDLfa69x2zfaPq3hvEXFwigR
+ YgBPIZk0/i/k7R6FZ5zRQ4X30/7tXTGs/g==
+X-Google-Smtp-Source: AMrXdXtFZF9ju6HjpoFd/bwNdIwnf0hFfm/tkLt8v3i3YDZihAwrJ63WVFvO6Hemu7HxsTGjPq55Iw==
+X-Received: by 2002:ac8:4919:0:b0:3a8:16d:ea4c with SMTP id
+ e25-20020ac84919000000b003a8016dea4cmr17311852qtq.31.1673600354124; 
+ Fri, 13 Jan 2023 00:59:14 -0800 (PST)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com.
+ [209.85.219.172]) by smtp.gmail.com with ESMTPSA id
+ i14-20020ac871ce000000b003a4f22c6507sm10342435qtp.48.2023.01.13.00.59.13
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jan 2023 00:59:13 -0800 (PST)
+Received: by mail-yb1-f172.google.com with SMTP id t15so21642529ybq.4
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:59:13 -0800 (PST)
+X-Received: by 2002:a25:7:0:b0:7c1:b2e9:7e71 with SMTP id
+ 7-20020a250007000000b007c1b2e97e71mr838217yba.604.1673600353257; 
+ Fri, 13 Jan 2023 00:59:13 -0800 (PST)
+MIME-Version: 1.0
+References: <20230113062339.1909087-1-hch@lst.de>
+ <20230113062339.1909087-3-hch@lst.de>
+In-Reply-To: <20230113062339.1909087-3-hch@lst.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 13 Jan 2023 09:59:02 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVM3BpvVD3c4gp1OidnwF5zFd4MJecij7zWBnahzNaSNw@mail.gmail.com>
+Message-ID: <CAMuHMdVM3BpvVD3c4gp1OidnwF5zFd4MJecij7zWBnahzNaSNw@mail.gmail.com>
+Subject: Re: [PATCH 02/22] usb: remove the dead USB_OHCI_SH option
+To: Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,42 +94,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-arch@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-gpio@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, linux-rtc@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 12 Jan 2023 13:09:48 +0100,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> Fireface 400 uses asynchronous transaction mechanism to deliver event of
-> hardware knob control as well as received MIDI messages. Current
-> implementation doesn't distinguish them, thus all arrived messages are
-> processed for MIDI message.
-> 
-> This patchset adds the parser to distinguish them, and deliver knob
-> control event to user space via ALSA hwdep character device. The
-> implementation works well as long as I tested with the patches for
-> libhitaki library:
-> 
-> https://github.com/alsa-project/libhitaki/tree/topic/ff/400-msg
-> 
-> I note that Fireface 400 transmits no asynchronous transaction when it
-> is not configured by block write transaction to offset 0x000080100514,
-> which turn off HOST led from red.
-> 
-> Takashi Sakamoto (6):
->   ALSA: fireface: rename callback functions
->   ALSA: fireface: pick up time stamp for request subaction of asynchronous
->     transaction
->   ALSA: fireface: add helper function to parse MIDI messages transmitted by
->     Fireface 400
->   ALSA: fireface: update UAPI for data of knob control
->   ALSA: fireface: add local framework to message parser
->   ALSA: fireface: implement message parser for Fireface 400
+Hi Christoph,
 
-Applied now to for-next branch.  Thanks.
+On Fri, Jan 13, 2023 at 7:23 AM Christoph Hellwig <hch@lst.de> wrote:
+> USB_OHCI_SH is a dummy option that never builds any code, remove it.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
+Thanks for your patch!
+Nice catch!
 
-Takashi
+> --- a/drivers/usb/host/Kconfig
+> +++ b/drivers/usb/host/Kconfig
+> @@ -548,17 +548,6 @@ config USB_OHCI_HCD_SSB
+>
+>           If unsure, say N.
+>
+> -config USB_OHCI_SH
+> -       bool "OHCI support for SuperH USB controller (DEPRECATED)"
+> -       depends on SUPERH || COMPILE_TEST
+> -       select USB_OHCI_HCD_PLATFORM
+> -       help
+> -         This option is deprecated now and the driver was removed, use
+> -         USB_OHCI_HCD_PLATFORM instead.
+> -
+> -         Enables support for the on-chip OHCI controller on the SuperH.
+> -         If you use the PCI OHCI controller, this option is not necessary.
+> -
+
+At this point in the series, there are still selects and enablements of
+USB_OHCI_SH in arch/sh/Kconfig and arch/sh/configs/sh7757lcr_defconfig.
+I think it would be good to replace them by USB_OHCI_HCD_PLATFORM first,
+to decouple the fate of this patch from the rest of the series.
+
+>  config USB_OHCI_EXYNOS
+>         tristate "OHCI support for Samsung S5P/Exynos SoC Series"
+>         depends on ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

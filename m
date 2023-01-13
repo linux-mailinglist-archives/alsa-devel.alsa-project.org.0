@@ -2,80 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A93E6697E3
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 14:01:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51ACC6694F2
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 12:03:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C8299307;
-	Fri, 13 Jan 2023 14:00:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C8299307
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCC79A706;
+	Fri, 13 Jan 2023 12:02:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCC79A706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673614863;
-	bh=ZP8XIsS+80qkgSOQWeJfZPFezfHfSRD008tq6Tt5pVM=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=gR0FZGaeucddTg2iYtVMIEr1/BCNdSfMBrc86iGQ9bsTwg3UDUuTt5sef7OSeBb5K
-	 R0VK1hWLOnJKzDA7TEBDnvmIguRNutCnBn/xj2LTqtCNLxavgD9RarCS7zB/GW31jg
-	 0Re41xq1uv6/lp5o5feuctATTXhplbyVQ9jv+ElY=
+	s=default; t=1673607800;
+	bh=wnkkKmvfCsJyTJzr7CXn/P5H4NR6N1WzmQcgVrV6FRg=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Z8bCSe5SDeJw+/fzI5Ur0NtHtfEWiaN7bh4A5UBc2U3ZX/gQ06aHapZLc0P711+0q
+	 AX8L+B/nDlObeeQw94Bg6bE7MgjQBR/fIdYraRR6BNBEZ2N7XE8Ys/rEv+1MteXSzd
+	 LxmomL45JqWT8SlBJ7lEgsWpSOR+SEQsHkd5pZB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74B31F80424;
-	Fri, 13 Jan 2023 14:00:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BA79F8026D;
+	Fri, 13 Jan 2023 12:02:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E04FF8030F; Fri, 13 Jan 2023 14:00:11 +0100 (CET)
+ id 699DCF8030F; Fri, 13 Jan 2023 12:02:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66298F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 14:00:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66298F8026D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Q+TA5zAK
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2491161904;
- Fri, 13 Jan 2023 13:00:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECE6C433D2;
- Fri, 13 Jan 2023 13:00:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673614806;
- bh=ZP8XIsS+80qkgSOQWeJfZPFezfHfSRD008tq6Tt5pVM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q+TA5zAKqGXCmaGrYk99jkVIQKonzPOPIegiyi8+3I1BxmPRQIzsBF6XwqZ995nY1
- 67EHFMpuyIpINrwtBWjLO72bP1/a+LErlP0dks1cZ/62ZeX991mzu6avglNIIT8IJn
- 0QjWBnYyM69eY23rRuLQHJ1QdBNjTUWmagQKDB2y396+kya1S2yYGbFRYhDydcdDGX
- 5cNH0vywKEefPBNhPGY4mnJqa5927Q27NJWbzohinWryB/AjfGSJ+fvX4VPb8mnMiC
- a14pIf0Xf35qcjB6F93E/vLbrioQ2MD0A+lRPvtIOLQP5cgQ2FpwKR7QScWVjdQTZz
- +s4zkg6xtizcA==
-Date: Fri, 13 Jan 2023 12:59:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Renesas IDT821034
- codec
-Message-ID: <Y8FVz/Mp5xSdI34a@sirena.org.uk>
-References: <20230111134905.248305-1-herve.codina@bootlin.com>
- <20230111134905.248305-3-herve.codina@bootlin.com>
- <Y77DKSdZf27qE+xl@sirena.org.uk>
- <20230111174022.077f6a8c@bootlin.com>
- <Y774bY4icD8RuMnX@sirena.org.uk>
- <20230113090431.7f84c93a@bootlin.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAB66F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 12:02:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAB66F8026D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=B3wnYle1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673607739; x=1705143739;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wnkkKmvfCsJyTJzr7CXn/P5H4NR6N1WzmQcgVrV6FRg=;
+ b=B3wnYle1Ytcy0alddD7N4pDEM4xrg3vZRQ8aabnuGuQ/l9qvpDuOfLAn
+ JYPMve8aOL+wJ6hoymnAyMpVsPeMziBOYt+fs7HAParGRNrna5VZsLDbQ
+ bOr72VAlxIId9xji3xxdpUPR3UcNZqDO5CUfaAPmGd5s+lw9l0z24xR2W
+ IUFQZmi+MvxGxcddCqiPl+lwyl7xsXH35qvCNYsyKNCAKcICzMQGEj5Po
+ Jt9QZvMusc0K/IoaoN45zbd6FRz059zwgV4lOGOKnpHvhzOj3CgcXdbJt
+ Rsf/GCV9Bh/sKV/s3Mri8OGdiBuWM5mbROuUvObEchACp37+eemsF80oq g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="325228470"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="325228470"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2023 03:02:14 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="832039876"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="832039876"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+ by orsmga005.jf.intel.com with ESMTP; 13 Jan 2023 03:02:12 -0800
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/3] Fixes for avs driver
+Date: Fri, 13 Jan 2023 20:03:07 +0100
+Message-Id: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tY5Grajt3iCZ58MK"
-Content-Disposition: inline
-In-Reply-To: <20230113090431.7f84c93a@bootlin.com>
-X-Cookie: I know how to do SPECIAL EFFECTS!!
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,45 +85,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+First patch fixes problems reported when performing shutdown. Second one
+is for a problem reported by LKP. Last one fixes problem reported by
+checkpatch.
 
---tY5Grajt3iCZ58MK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Amadeusz Sławiński (3):
+  ASoC: Intel: avs: Implement PCI shutdown
+  ASoC: Intel: avs: Correctly access topology fiels
+  ASoC: Intel: avs: Use min_t instead of min with cast
 
-On Fri, Jan 13, 2023 at 09:04:31AM +0100, Herve Codina wrote:
+ sound/soc/intel/avs/core.c     | 24 ++++++++++++++++++++++++
+ sound/soc/intel/avs/topology.c |  2 +-
+ sound/soc/intel/avs/trace.c    |  2 +-
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
-> For DAPM (struct snd_soc_dapm_widget), no kind of .put() and .get()
-> are available. I will use some Ids for the 'reg' value and use the
-> .write() and .read() hooks available in struct snd_soc_component_driver
-> in order to handle these Ids and so perform the accesses.
+-- 
+2.25.1
 
-That's what the event hooks are for - there's plenty of widgets using
-SND_SOC_NOPM as the register, look at those for examples.
-
---tY5Grajt3iCZ58MK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPBVc8ACgkQJNaLcl1U
-h9AzVQf+IpbKw3nUOCd5FnoIfC7a9hLUt4eHIEqikDmn4Lb0N0OX7frf/8tR948l
-KlKpueTgBz0TLqZUaI43dlzt2AeYsHcshaZ8Rkg+2YtAumavq3sc4rrq+9HxRn5X
-akZKiao7FYUAVxqcVvyfatB3qtShtwes0I80YL/8JClxfd/vOZTUriymgeTemgwb
-3h1esS5zNPKD1rp/h2Fm/AytOFrTE0xA+7HlZ5qmy357cwpc+JKYx9enGt6hwc95
-zhE3+AZ1UIc0bFfp8xhGnW0YzlelN1grOl5oar0kdwTOY9kQTwVgTfMp3+L4BBBD
-1xdRqnZEhFNnTC1IW724rzztEvTfuA==
-=p0Is
------END PGP SIGNATURE-----
-
---tY5Grajt3iCZ58MK--

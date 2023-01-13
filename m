@@ -2,87 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C4826691AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:51:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA356691E6
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:54:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6378A526;
-	Fri, 13 Jan 2023 09:50:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6378A526
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1FBBA52C;
+	Fri, 13 Jan 2023 09:53:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1FBBA52C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673599902;
-	bh=btXy0yFVN7Bu/EMyQg9LuLklVrXV7x7YVfwVN+gzI9A=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=myzx2jEsaa/5Lh5agCGfV/wNlqF2koP/FYXv8J7BT3xP14qdSfBR+5ri3r6+SREkL
-	 QNTguY/MwiXWJNf1Tw6FVQhPr3vsavSiTA1fiJcV0a549EiOdX5sfB2kWGcG5btTiE
-	 oKll812Yv9ALBAvgTvK3mzuikKU0s07dP3sf3u3Q=
+	s=default; t=1673600078;
+	bh=pQv6XbL/T2VcCxt4uKNFLVlyX2iWhG7e+KCGtxPtPBk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=CNIk0pCMWOvssyIbwE5UyevVma7tVmYEa9MXwetRSPp4n04Co7j0XEW6lE81WE1bD
+	 mvvncl3q128rHGdBqovDfcVsSrvM99nzKBhV6bxnFhS7Hvj2R7hMnPss8TMUF5ZNYY
+	 /y+6P+hW2q6UUZCp8EccNiq8biHB0eZ3wS/H+Rbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62B84F8030F;
-	Fri, 13 Jan 2023 09:50:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C22CF8016D;
+	Fri, 13 Jan 2023 09:53:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FD04F803DC; Fri, 13 Jan 2023 09:50:43 +0100 (CET)
+ id D6054F8030F; Fri, 13 Jan 2023 09:53:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.7 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 613BCF8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:50:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 613BCF8016D
-Received: by mail-qt1-f172.google.com with SMTP id jr10so11292637qtb.7
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:50:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=awQakUOIwVvp4xWgkhRGNM/c58rzqkM16qYt20+qNyU=;
- b=mHh2dIc9+hj2OhebeAbFT9ovwJY/KFrxtgROBAJMtDaC9rJN2QGutgXFZplXnKBUx0
- XAL39849hsbDxfOeukROV6HGRaWBKRVjlLU2kt1nb0ivgWvN0O383RJbYKa6MV9fjvYz
- A+a4DYARZovZCYoqyIualrjrDRDNDNTjbJNYKoQqDwoWa5MVgB2Df1dALmk9Kru7bCG4
- hbTJTxkHFeXbc6sn/ygTL7e/8D+Ze9cJnkAaDll67UEJ06kPnb8CYM4jrRSkvjSW4v3O
- HcCvEiLpFZIlNKj7rwRwfyF1kMnGHFr8RcZUMXCRDeh8sYaSIU68ouj2Gp2Hmy3okPrW
- GveQ==
-X-Gm-Message-State: AFqh2kqwQA6rPeGjdkoIIUmJpYPiL4YlKoBfsKC0D+5W89gW/ArBFyh/
- UP8oXMm1eZZrk+8vuEfdj8bvsY3m6z0AKA==
-X-Google-Smtp-Source: AMrXdXuP4DI1Vc9B8xb3SD/YRSxc4QLn5ZOvtctYsRbjDAMQviOyEhEgy/zHgIdG06ovdkHlMnKYQA==
-X-Received: by 2002:ac8:7c8:0:b0:3ad:a37b:54e with SMTP id
- m8-20020ac807c8000000b003ada37b054emr23829885qth.32.1673599837806; 
- Fri, 13 Jan 2023 00:50:37 -0800 (PST)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com.
- [209.85.128.182]) by smtp.gmail.com with ESMTPSA id
- x14-20020ac86b4e000000b003a816011d51sm10244115qts.38.2023.01.13.00.50.36
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 00:50:36 -0800 (PST)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-4b718cab0e4so275365127b3.9
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 00:50:36 -0800 (PST)
-X-Received: by 2002:a81:578e:0:b0:4d9:3858:392 with SMTP id
- l136-20020a81578e000000b004d938580392mr551266ywb.502.1673599835999; Fri, 13
- Jan 2023 00:50:35 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 187C7F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:53:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 187C7F8016D
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
+ header.s=default header.b=3EGV2f9y
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5F0C0A0040;
+ Fri, 13 Jan 2023 09:53:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5F0C0A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1673600014; bh=jGsuJl4vm4qCqTHSra+gs1Jv8yGxIGLogGS7Qry5yvU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=3EGV2f9yYQnoXJJUIN0plEBRRaFf1RBClAu8afbk03mXj4+WWKO4xsr0lb3pIlItt
+ hdMRw8AWWhUBz6ZrrtI1q1fDPQmkJNk8YVkERA/ZsawBQVPxg0a9nzPTbo5Zhll/+Q
+ 1Wr2s/lNDb/QbQj+QO4AtgCWBwfVOUurMB4Rhpno=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 13 Jan 2023 09:53:30 +0100 (CET)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH] ALSA: usb-audio: Fix possible NULL pointer dereference in
+ snd_usb_pcm_has_fixed_rate()
+Date: Fri, 13 Jan 2023 09:53:11 +0100
+Message-Id: <20230113085311.623325-1-perex@perex.cz>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230113062339.1909087-1-hch@lst.de>
- <20230113062339.1909087-17-hch@lst.de>
-In-Reply-To: <20230113062339.1909087-17-hch@lst.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 13 Jan 2023 09:50:24 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU2vaVaCrcKom5YQYD9GLoeerX8HAQav36uFGUksOFc9w@mail.gmail.com>
-Message-ID: <CAMuHMdU2vaVaCrcKom5YQYD9GLoeerX8HAQav36uFGUksOFc9w@mail.gmail.com>
-Subject: Re: [PATCH 16/22] spi: remove spi-sh-sci
-To: Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,62 +76,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-arch@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-gpio@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, linux-rtc@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>, coverity-bot <keescook@chromium.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 13, 2023 at 7:24 AM Christoph Hellwig <hch@lst.de> wrote:
-> Now that arch/sh is removed this driver is dead code.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/spi/Kconfig      |   7 --
->  drivers/spi/Makefile     |   1 -
->  drivers/spi/spi-sh-sci.c | 197 ---------------------------------------
->  3 files changed, 205 deletions(-)
->  delete mode 100644 drivers/spi/spi-sh-sci.c
->
-> diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-> index 7508dcef909c78..76f3bc6f8c81fc 100644
-> --- a/drivers/spi/Kconfig
-> +++ b/drivers/spi/Kconfig
-> @@ -882,13 +882,6 @@ config SPI_SH_MSIOF
->         help
->           SPI driver for SuperH and SH Mobile MSIOF blocks.
->
-> -config SPI_SH_SCI
-> -       tristate "SuperH SCI SPI controller"
-> -       depends on SUPERH
-> -       select SPI_BITBANG
-> -       help
-> -         SPI driver for SuperH SCI blocks.
+The subs function argument may be NULL, so do not use it before the NULL check.
 
-This driver uses the Serial Communications Interface (SCI, cfr.
-drivers/tty/serial/sh-sci.c) in SPI mode. Hence in theory it could be
-used on a variety of Renesas ARM SoCs, and even on RZ/Five.
-Again, no DT support.
+Fixes: 291e9da91403 ("ALSA: usb-audio: Always initialize fixed_rate in snd_usb_find_implicit_fb_sync_format()")
+Reported-by: coverity-bot <keescook@chromium.org>
+Link: https://lore.kernel.org/alsa-devel/202301121424.4A79A485@keescook/
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ sound/usb/pcm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 1f72960d0d53..d959da7a1afb 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -160,11 +160,12 @@ find_substream_format(struct snd_usb_substream *subs,
+ bool snd_usb_pcm_has_fixed_rate(struct snd_usb_substream *subs)
+ {
+ 	const struct audioformat *fp;
+-	struct snd_usb_audio *chip = subs->stream->chip;
++	struct snd_usb_audio *chip;
+ 	int rate = -1;
+ 
+ 	if (!subs)
+ 		return false;
++	chip = subs->stream->chip;
+ 	if (!(chip->quirk_flags & QUIRK_FLAG_FIXED_RATE))
+ 		return false;
+ 	list_for_each_entry(fp, &subs->fmt_list, list) {
+-- 
+2.39.0

@@ -2,78 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B33C66900F
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:05:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CBFA66902D
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:11:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54EE359CD;
-	Fri, 13 Jan 2023 09:04:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54EE359CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id D92A03E17;
+	Fri, 13 Jan 2023 09:10:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D92A03E17
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673597139;
-	bh=MpXDrBxOfA/wXLqyW3cVkwQMnJn13SdYEnemaJmt/Zw=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1673597479;
+	bh=1JNxQ12mgGJkxfnmJ8W3z+Ts1eAAAf2FCSLb3EdxGYU=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=HHeuU+FISgE/nuiaVC5lDd9MJ/6wyYLOEjajgrLNPu3sxQJSDSr4C1T/Xlq1znLGO
-	 b4d0XtyGuzQ+qVuagfAXIK8WkyK5c7pNrngejEWxyGTdBbfQp2+Cpr4j5Grr4BDvBI
-	 kuGSH2jXq0DXj3Ty0ctwZqV//CyARs7BIwg7DUN0=
+	b=rqh5SN5dAx5wZxyBrrdQpfCU0BROvPYVAm0QZnNcYOsAjkEFkV8BHDdtNUepYdvOL
+	 +217XcRkuXYrIDHo+CQlB5q6CQVnLsz+hPsLg0VJLdtfq3FPWSQYo7owIJ3m9PmD37
+	 LlUcfP7SHyu26iyu3x3cbdPCjJ10hFaAXZsMnLBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0425FF8016D;
-	Fri, 13 Jan 2023 09:04:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7505EF8019B;
+	Fri, 13 Jan 2023 09:10:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D829F802E8; Fri, 13 Jan 2023 09:04:39 +0100 (CET)
+ id BD280F802E8; Fri, 13 Jan 2023 09:10:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 402AEF8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:04:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 402AEF8016D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=Bu0gSlWM
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 12EE51C000B;
- Fri, 13 Jan 2023 08:04:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1673597076;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wvxk6DPDlmeOz1Nn9izcenGUkdQHjs7DPmCAW7HiLUE=;
- b=Bu0gSlWMgpDnKyBJAhbLPzgDZLvaaTCma7cj46th38QxpH/47+drhybCAiePHomM0aTh83
- +PXDsWuxQ0Gze0oSdhbIo31xIIwfPwHPP5kCc5Eb0QcCvts6IrrEX6pBoZYt6mPF/snPmq
- b/DFsQClZhA1dHPWiT9Y+EoRd/xRmZ/MnZQOI5RFkcDPWvXhg88+HqTLhPB/+Twbf/b5xe
- ODYI5UOQVKp0rZnJ69vWJMU1zopXB+Olug2gjyfbsBe3POdUeDo+TzsYBLOc7qApp71wsr
- tGND6/XXAbxN3j8QDXt522WDLId2uUazy6oVdOyihsb9hfF4lAIOzbgsfCRwVw==
-Date: Fri, 13 Jan 2023 09:04:31 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Renesas IDT821034
- codec
-Message-ID: <20230113090431.7f84c93a@bootlin.com>
-In-Reply-To: <Y774bY4icD8RuMnX@sirena.org.uk>
-References: <20230111134905.248305-1-herve.codina@bootlin.com>
- <20230111134905.248305-3-herve.codina@bootlin.com>
- <Y77DKSdZf27qE+xl@sirena.org.uk>
- <20230111174022.077f6a8c@bootlin.com>
- <Y774bY4icD8RuMnX@sirena.org.uk>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31215F8019B
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:10:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31215F8019B
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1pGF8L-000nxd-RT; Fri, 13 Jan 2023 09:09:53 +0100
+Received: from dynamic-078-054-173-160.78.54.pool.telefonica.de
+ ([78.54.173.160] helo=[192.168.1.11])
+ by inpost2.zedat.fu-berlin.de (Exim 4.95) with esmtpsa (TLS1.3)
+ tls TLS_AES_128_GCM_SHA256
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1pGF8L-002cz3-K9; Fri, 13 Jan 2023 09:09:53 +0100
+Message-ID: <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+Date: Fri, 13 Jan 2023 09:09:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: remove arch/sh
+To: Christoph Hellwig <hch@lst.de>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20230113062339.1909087-1-hch@lst.de>
+Content-Language: en-US
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+In-Reply-To: <20230113062339.1909087-1-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 78.54.173.160
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,86 +80,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: linux-fbdev@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-sh@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-mtd@lists.infradead.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-arch@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-gpio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ linux-i2c@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-rtc@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+Hello!
 
-On Wed, 11 Jan 2023 17:57:01 +0000
-Mark Brown <broonie@kernel.org> wrote:
+On 1/13/23 07:23, Christoph Hellwig wrote:
+> arch/sh has been a long drag because it supports a lot of SOCs, and most
+> of them haven't even been converted to device tree infrastructure.  These
+> SOCs are generally obsolete as well, and all of the support has been barely
+> maintained for almost 10 years, and not at all for more than 1 year.
+> 
+> Drop arch/sh and everything that depends on it.
 
-> On Wed, Jan 11, 2023 at 05:40:22PM +0100, Herve Codina wrote:
-> > Mark Brown <broonie@kernel.org> wrote: =20
-> > > On Wed, Jan 11, 2023 at 02:49:04PM +0100, Herve Codina wrote: =20
->=20
-> > > Without knowing why things are written in this way or what it's trying
-> > > to accomplish it's hard to comment in detail on what specifically sho=
-uld
-> > > be done. =20
->=20
-> > Yes, I use regmap to ease the integration of controls and use the
-> > already defined controls macros but the device registers do not fit
-> > well with regmap. =20
->=20
-> If this doesn't fit into regmap then don't try to shoehorn it into
-> regmap, that just makes it incredibly hard to follow what's going on.
->=20
-> > The device registers are not defined as simple as address/value pairs.
-> > Accesses contains one or more bytes and the signification of the
-> > data (and bytes) depends on the first bits.
-> > - 0b10xxxxxx means 'Control register' with some data as xxxxxx
-> >   and one extra byte
-> > - 0b1101yyyy means 'Configuration register, slic mode' with
-> >   some other data as yyyy and one extra byte
-> > - 0b1100zzzz means 'Configuration register, gain mode' with
-> >   some other data as zzzz and two extra bytes =20
->=20
-> So really the device only has three registers, each of different sizes
-> and windowed fields within those registers?  I love innovation,
-> innovation is great and it's good that our hardware design colleagues
-> work so hard to keep us in jobs.  It seems hardly worth it to treat them
-> as registers TBH.  This is so far off a register/value type thing that I
-> just wouldn't even try.
->=20
-> > Of course, I can describe all of these in details.
-> > Where do you want to have this information ? All at the top
-> > of the file ? Each part (low-level, virtual regs, ...) at
-> > the beginning of each part in the code ? =20
->=20
-> I'm not sure what problem it solves to use regmap or have virtual
-> registers in the first place.  I think you would be better off with
-> custom _EXT controls, you almost have that anway just hidden in the
-> middle of the fake register stuff instead of directly there.  My sense
-> is that the result would be much less code.  If you are trying to map
-> things onto registers you probably want comments at every level since
-> you don't know where people are going to end up jumping into the code.
->=20
-> Perhaps it's possible to write some new SND_SOC_ helpers that work with
-> just a value in the device's driver data rather than a regmap and have
-> a callback to trigger a write to the device?  I suspect that'd be
-> generally useful actually...
+I'm still maintaining and using this port in Debian.
 
-Well, I wil try to use my own .put() and .get() for snd_controls.
+It's a bit disappointing that people keep hammering on it. It works fine for me.
 
-For DAPM (struct snd_soc_dapm_widget), no kind of .put() and .get()
-are available. I will use some Ids for the 'reg' value and use the
-.write() and .read() hooks available in struct snd_soc_component_driver
-in order to handle these Ids and so perform the accesses.
+Adrian
 
-Do you think this can be the right way (at least for a first try) ?
+-- 
+  .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
 
-Best regards,
-Herv=C3=A9
-
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com

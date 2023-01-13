@@ -2,89 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9171A66A516
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 22:23:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC2E66A4F6
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 22:15:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24473A777;
-	Fri, 13 Jan 2023 22:22:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24473A777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 301459DB1;
+	Fri, 13 Jan 2023 22:15:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 301459DB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673644986;
-	bh=lKY3fbYL5J9qgzZsh0gbXS9p+kXHs4ITmBjb/ETsoxQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1673644557;
+	bh=0Sj9Tr5QT4dzqV7iVWUiv4fQ8QN7e5UZzJ3VzXZ1p2g=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ujn4e6Ks75qu4oKvSX6aYYK6UkAcSWtjW9aCDYwoBRj5zT/JZ/NdyqEAh90mRvI6m
-	 +/OnuwN0HD9k+JIIT9ilEBQgt87HEe5pg79RvWEsosd36J4v1DmyFJKOVc9PK1DiXf
-	 bUAJhu86JK0lWqzL/bfFwgvOYqCZG51QGEQpeMT0=
+	b=SHzgrOvrIS3UJfG7/fgstTSVQLQpbxMlZYcLhCOMG3DLRo1f5/jyE8sqeL5ogZ5gp
+	 DArpTl32q5vSZPNbExRBYWnsICylDHgvA5QSZLykiNUpZryOyjlQ4Llo27evbm60YF
+	 OzHxuKIyqwN/babPd6FguslhM1o9A5grinitdafg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8889DF8016D;
-	Fri, 13 Jan 2023 22:22:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6AF1F803DC;
+	Fri, 13 Jan 2023 22:14:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79561F8030F; Fri, 13 Jan 2023 22:22:06 +0100 (CET)
+ id 29B81F8030F; Fri, 13 Jan 2023 22:14:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A6CDF8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 22:22:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A6CDF8019B
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=VNAQHC0Z
-Received: by mail-pl1-x62a.google.com with SMTP id b17so17183153pld.7
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 13:22:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Sa35Rgi5hm13WG7/Y9JLeLbyRTFfrt1VJnvm071o9k8=;
- b=VNAQHC0ZFZybRBjug5ljTtb3JNqoCqZD1Ol05DNVVXVP0AjCUE/6OJpY5Bo79Mo2BB
- CPC4wtSn6WiGtbyEpl8xMZ8fbzWbRFMB12ic4mvRlr+5KClx5diU2O8N2Db88+dMcakK
- DpvzsO0QmScl68fbuJeUqmdkQa5a6BlWqeNz0=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BD40F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 22:14:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BD40F8016D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=UEaP2XtX
+Received: by mail-lf1-x133.google.com with SMTP id g13so34829785lfv.7
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 13:14:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=v9Q6K4s5QhNtpyqKaOo9XKQFv6iSXNWhs/iQ5O+aNxA=;
+ b=UEaP2XtXo9uy7oVa0Mz87dudlHhc0V2Q5x5WQVEk/m8qZCSXoSPkGIVRFfsH9Ciaxm
+ SBHB/ziQ2ptuotGxaqnKCcYcb9PunzCiz+DCw1NSJ1YSvkRZEi+wREow/0tDFktgrM29
+ Ha5F7WTugiMrsNPdMiyqDTfQlMCLMh7zLGVNpIyyoE1dtn5N5o7z3QPaxyPFZJCx2lgW
+ YS1Wnql2WqjeQrg+PoIUJZRfVWeFwxMtrvRglR3jxHwZc9IIrkueG44CaXY8vVlxkleN
+ bHmBjtcFSekyCvja8rzwLng1KsZmydkzMbL6wHNV362p+wFql7IQP3aGAuADeZf/aQ8e
+ My1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Sa35Rgi5hm13WG7/Y9JLeLbyRTFfrt1VJnvm071o9k8=;
- b=f63mpGbi6ZZtBIIAsfFlaqwguFh6OtraSIs9ubaIWlVRpy7ZIFouaMDXzxwzpqDW++
- 58i6CKhm1eujwuqh0GM0brMObjOQQ5dmsIq6nGDg2ZNybSdTwi4EDBD3mtVucu8dZo1o
- Sh8d5qMmRzuPDuA2r/tctWVAgIGzU7aj6BJR8gIl7g70MdnkfLmleIpDtKocg6G+i7DU
- cBggOVT1wUkOhPXk1ghsTsL1cJ4QKZFH7nj/DWkzgDqgXhBqD8y1PLNmprGSRvR6aAtZ
- uQU58A4cI4d/bUMTya0J7p9zUsf+djK6epGGVpysFiOvMaYDQH+CNpn9V1bDc4LFuO4z
- vBZQ==
-X-Gm-Message-State: AFqh2kodL9ovKWfzfP+eXUSN6r1YhsEwPdmGklpX91pM3+5lVkoqXkmn
- oQUyE14QT8gFwkTyMkEU//U9qZ5GZgHnmIA=
-X-Google-Smtp-Source: AMrXdXufPrdP6LXhSBQr7+AVmZuulhOAJ217NsWPWWCQNLYtZeCN3xffPanhFkUMhEJD+1IXGwugLQ==
-X-Received: by 2002:a05:6a20:988a:b0:ad:79bb:7485 with SMTP id
- jk10-20020a056a20988a00b000ad79bb7485mr77584525pzb.11.1673644920772; 
- Fri, 13 Jan 2023 13:22:00 -0800 (PST)
-Received: from localhost ([2620:15c:9d:4:2017:603c:987:371b])
- by smtp.gmail.com with UTF8SMTPSA id
- n34-20020a17090a2ca500b00228c8aa7916sm1754998pjd.38.2023.01.13.13.22.00
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=v9Q6K4s5QhNtpyqKaOo9XKQFv6iSXNWhs/iQ5O+aNxA=;
+ b=g1iB0JuQea2M4rUS1QB4B91a3XQ9IBhk/hbnFIomXzB+ebAfESa6MkcnP37Qk8vjQC
+ LyS2d3SLncVPm64d3pq7nmc6FEJl8tsN+kzR1jnswX3KrZtaCxpLdmn9ADjRUAomnkjN
+ C15245lxrnyu/MlmSHqeOoPgiCwh9JycDRDLIwL3X9+932rBvlLdS+/Ou1UNnfHOFy/o
+ dXKcmNT8mQbQAO5nj+rJeRSZjkjYsK8/QlqcLD07N1Rn/ek7QpiAs8ScKqX0cIXY/Iay
+ 3Fb70o5MVrrJubM/iAnCfQCNtWSWHG0tRZjdzx2aTW6o6zuK8Ys4n7afVM7CGTgbCn8i
+ o+hA==
+X-Gm-Message-State: AFqh2kojxxY6/jXJDcuBavESg4n7LCZ3EF6tjb4MCE7m0UxP9DoEYPUA
+ ogfGk0SqwTAzxaitM83pzFw=
+X-Google-Smtp-Source: AMrXdXuEK+H214nGsU2CeNX7R70Aik1NHSOs3d4i5Hk0bWget27myBty8mnJZNTUN+JaQ2vtIOfZnA==
+X-Received: by 2002:a05:6512:3196:b0:4cc:7ff0:dd64 with SMTP id
+ i22-20020a056512319600b004cc7ff0dd64mr10176064lfe.21.1673644491810; 
+ Fri, 13 Jan 2023 13:14:51 -0800 (PST)
+Received: from [10.0.0.42] (host-185-69-38-8.kaisa-laajakaista.fi.
+ [185.69.38.8]) by smtp.gmail.com with ESMTPSA id
+ x11-20020a056512078b00b004b5821219fbsm4020206lfr.60.2023.01.13.13.14.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 13:22:00 -0800 (PST)
-From: cujomalainey@chromium.org
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v3] ucm: add existence checks to geti calls
-Date: Fri, 13 Jan 2023 13:21:55 -0800
-Message-Id: <20230113212155.2108905-1-cujomalainey@chromium.org>
-X-Mailer: git-send-email 2.39.0.314.g84b9a713c41-goog
-In-Reply-To: <20230113185019.1500147-1-cujomalainey@chromium.org>
-References: <20230113185019.1500147-1-cujomalainey@chromium.org>
+ Fri, 13 Jan 2023 13:14:51 -0800 (PST)
+Message-ID: <69c4d620-4b35-1ea0-c3ec-3d564d183a44@gmail.com>
+Date: Fri, 13 Jan 2023 23:25:19 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH -next] ASoC: ti: davinci-evm: simplify the code with
+ module_platform_driver
+To: Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org
+References: <20230112135457.1490360-1-yangyingliang@huawei.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <20230112135457.1490360-1-yangyingliang@huawei.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -98,136 +105,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Curtis Malainey <cujomalainey@chromium.org>, tiwai@suse.com
+Cc: tiwai@suse.com, broonie@kernel.org, lgirdwood@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
 
-Right now in snd_use_case_geti you cannot tell if the item being queried
-exists or not when being checked. This also means the only way to check
-for the existence of something in the client of the library is to
-iterate over the list of mods/devs even if we know exactly the name we
-are looking for. We have functions that do exactly this internally so
-lets return this information in a logical fashion through geti.
 
-Also clean up some trailing white space nearby.
+On 1/12/23 15:54, Yang Yingliang wrote:
+> The init/exit() of driver only calls platform_driver_register/unregister,
+> it can be simpilfied with module_platform_driver.
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
----
- src/ucm/main.c | 83 ++++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 67 insertions(+), 16 deletions(-)
+Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-diff --git a/src/ucm/main.c b/src/ucm/main.c
-index 2ff4d3f3..55867012 100644
---- a/src/ucm/main.c
-+++ b/src/ucm/main.c
-@@ -2414,12 +2414,73 @@ int snd_use_case_get(snd_use_case_mgr_t *uc_mgr,
- 	return err;
- }
- 
-+/**
-+ * \brief check device status and existance
-+ * \param uc_mgr Use case manager
-+ * \param str device identifier
-+ * \param value Value pointer
-+ * \return Zero if success, otherwise a negative error code
-+ */
-+static long check_device(snd_use_case_mgr_t *uc_mgr,
-+		      const char *str,
-+		      long *value)
-+{
-+	struct use_case_device *dev;
-+	int err;
-+
-+	if (!str) {
-+		return -EINVAL;
-+	}
-+	err = device_status(uc_mgr, str);
-+	if (err > 0) {
-+		*value = err;
-+		err = 0;
-+	} else if (err < 0) {
-+		return err;
-+	}
-+	dev = find_device(uc_mgr, uc_mgr->active_verb, str, 0);
-+	if (!dev) {
-+		return -ENOENT;
-+	}
-+	return 0;
-+}
-+
-+/**
-+ * \brief check modifier status and existance
-+ * \param uc_mgr Use case manager
-+ * \param str modifier identifier
-+ * \param value Value pointer
-+ * \return Zero if success, otherwise a negative error code
-+ */
-+static long check_modifier(snd_use_case_mgr_t *uc_mgr,
-+		      const char *str,
-+		      long *value)
-+{
-+	struct use_case_modifier *mod;
-+	long err;
-+
-+	if (!str) {
-+		return -EINVAL;
-+	}
-+	err = modifier_status(uc_mgr, str);
-+	if (err > 0) {
-+		*value = err;
-+		return 0;
-+	} else if (err < 0) {
-+		return err;
-+	}
-+	mod = find_modifier(uc_mgr, uc_mgr->active_verb, str, 0);
-+	if (!mod) {
-+		return -ENOENT;
-+	}
-+	return 0;
-+}
- 
- /**
-  * \brief Get current - integer
-  * \param uc_mgr Use case manager
-- * \param identifier 
-- * \return Value if success, otherwise a negative error code 
-+ * \param identifier
-+ * \return Value if success, otherwise a negative error code
-  */
- int snd_use_case_geti(snd_use_case_mgr_t *uc_mgr,
- 		      const char *identifier,
-@@ -2443,25 +2504,15 @@ int snd_use_case_geti(snd_use_case_mgr_t *uc_mgr,
- 			str = NULL;
- 		}
- 		if (check_identifier(identifier, "_devstatus")) {
--			if (!str) {
--				err = -EINVAL;
-+			err = check_device(uc_mgr, str, value);
-+			if (err < 0) {
- 				goto __end;
- 			}
--			err = device_status(uc_mgr, str);
--			if (err >= 0) {
--				*value = err;
--				err = 0;
--			}
- 		} else if (check_identifier(identifier, "_modstatus")) {
--			if (!str) {
--				err = -EINVAL;
-+			err = check_modifier(uc_mgr, str, value);
-+			if (err < 0) {
- 				goto __end;
- 			}
--			err = modifier_status(uc_mgr, str);
--			if (err >= 0) {
--				*value = err;
--				err = 0;
--			}
- #if 0
- 		/*
- 		 * enable this block if the else clause below is expanded to query
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> ---
+>  sound/soc/ti/davinci-evm.c | 13 +------------
+>  1 file changed, 1 insertion(+), 12 deletions(-)
+> 
+> diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
+> index 983d69b951b0..544cb3da50eb 100644
+> --- a/sound/soc/ti/davinci-evm.c
+> +++ b/sound/soc/ti/davinci-evm.c
+> @@ -257,18 +257,7 @@ static struct platform_driver davinci_evm_driver = {
+>  	},
+>  };
+>  
+> -static int __init evm_init(void)
+> -{
+> -	return platform_driver_register(&davinci_evm_driver);
+> -}
+> -
+> -static void __exit evm_exit(void)
+> -{
+> -	platform_driver_unregister(&davinci_evm_driver);
+> -}
+> -
+> -module_init(evm_init);
+> -module_exit(evm_exit);
+> +module_platform_driver(davinci_evm_driver);
+>  
+>  MODULE_AUTHOR("Vladimir Barinov");
+>  MODULE_DESCRIPTION("TI DAVINCI EVM ASoC driver");
+
 -- 
-2.39.0.314.g84b9a713c41-goog
-
+Péter

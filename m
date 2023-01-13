@@ -2,78 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569BA669D85
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 17:20:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A935669D8F
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 17:23:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6ADB65EB;
-	Fri, 13 Jan 2023 17:19:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6ADB65EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC8156BD7;
+	Fri, 13 Jan 2023 17:22:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC8156BD7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673626808;
-	bh=gR3lFRuixolSVgSLsxswUCJzS4/2DJJ0wiJyBOY5QgU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=nOI0PGu6BMQVyY1QWHh1QyT9Tq1l438zH8n/13HlY/5BHOgZnPs8Bzwc5Jy2OvCpA
-	 6phFJChvaK4EnrYFgaa06dx1+38GjI2o/G0wH25s2WLnHsGaO+mLF4CMBV4flCkdsy
-	 jioc/Zz2EJWY9Iqeb1bk1DIcBmvDdbmvyBgyauxk=
+	s=default; t=1673627002;
+	bh=7igi3QXwPJz6wzBQj26BT//kmqhniZAOlj7qDJhZfJo=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=nGrEq/fS3hIjj5gqBi89cMnVovLSo/LoUprcg2pAXzIjTTlTHdaj6YfkUhWbxibnP
+	 jqWUZLQBil0+BudxUki6R4Ij2SGj+esIvgh/w87ga1HNAHGkOFOK+schPEF51xMmdM
+	 K3C2SbDlabqI7IjB1DcxOo/usiG0CoP6hH734id8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF173F80544;
-	Fri, 13 Jan 2023 17:18:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F7ECF8019B;
+	Fri, 13 Jan 2023 17:22:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 706D8F8053D; Fri, 13 Jan 2023 17:18:55 +0100 (CET)
+ id AED39F8030F; Fri, 13 Jan 2023 17:22:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 555C0F8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 17:18:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 555C0F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C533AF8019B
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 17:22:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C533AF8019B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FTSNl92I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673626734; x=1705162734;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gR3lFRuixolSVgSLsxswUCJzS4/2DJJ0wiJyBOY5QgU=;
- b=FTSNl92Iw414m+rQxG1bJPshJ5P9dK7caM1X6PchCP8MvOMUlMSOXW54
- nJ5q5R1EI/EsWRNOvBftkJ8CPn7qHWrkHUY9OeWYZ1pnCmU41ulFo/yPk
- AyCXhgrRS7dQExLUE/Uk92YEmXKl69a3kIea6PQdWXv2IS6X4ziI2kGDX
- uRGLqd7fZMQQrcVYMyVP56p3qveXJ3Y5LqbvsFVjvOuhoEKT2GP+j1ik/
- sK/mUA1djPkM5N+YDsyw46Y+GdYEsHkU5E2y8GRshAxu2TkcTxTsN/LWi
- CfLMCDZwr8EN6fQ3I2C47GTcXMpWho5/ektgQs2V/MMErRvDdHyzJeQUF g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="324087603"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="324087603"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 08:18:51 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10589"; a="690547439"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="690547439"
-Received: from rjmaskel-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.27.128])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 08:18:48 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: SOF: sof-audio: skip prepare/unprepare if swidget
- is NULL
-Date: Fri, 13 Jan 2023 18:18:42 +0200
-Message-Id: <20230113161842.22059-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230113161842.22059-1-peter.ujfalusi@linux.intel.com>
-References: <20230113161842.22059-1-peter.ujfalusi@linux.intel.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=yz/Vebqf
+Received: by mail-ej1-x62e.google.com with SMTP id mp20so6867410ejc.7
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 08:22:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=M9oKZpLB3KLxNjht49zMQ5zevFbZ/bcUUbDkM3FfyYA=;
+ b=yz/VebqfEp1bmhZjr9FNC1ihtfQnR9SeGG3hAJziFTTvriFYLQCyTY3TTjL93C5MKA
+ hla/sInL4jnIB1nKZJAyFRBaHSvNdGSCqqZ1I7hDPhrRKfuTr+RoZB1E0MKx7oZVY64h
+ iKU+DDNYQwUUUhZ92UbsIUHk8by803W17KKNdpFFLyZgiCP0zpkV0zdfePV1+aUnlNHc
+ 6vaJvgT3KNT60pZ6cszElSPhqfX9BBB4po46IhOvJkB6fmZ8MogstCBzywuA0vKjrhle
+ hSB+ykAAJ6lFL+C/Tnf1soGmRB9OLBE4I3n0/uFJOonGnzDcY/PYQW1z6MZUl6Se2Ndm
+ garQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=M9oKZpLB3KLxNjht49zMQ5zevFbZ/bcUUbDkM3FfyYA=;
+ b=58jcr5je9YMgGtpG/5JlEkFCYr8e8UoooL3TqMxaCQA6BazdPZZY4gXzZBxcVoRqdE
+ HL7++C1qb0aDupHpKh0frDSiAX8VNjci/YN/+qBK7orOhcfU5oP1024KKpGkbSMFy7p5
+ Q4cMKZGGPxS/R15y7P24sdvQIAh+7OZY+V7DHleM7/ETBihe+aG0igjWUrbU33T11pbL
+ zeSRq6faaDLzvvfC6aOI+VVseAmm9lbVLpvf+Kh/KXV+cdYrjcXyhN8ouVYeJXAw3GHz
+ kBrQQbA7AyzEddv2WJ3NBXqa11qum04gz8MTEIimlMFzZmUDNdGszp5VqmD85NZ40Vlk
+ 6Kow==
+X-Gm-Message-State: AFqh2kotcaKKtXvaWvSNnd2AkDPQ6ZvEKdA6ayU4LvubORc3pJQOFDbx
+ uSPSylj1xi+mU+vEW5sOlpHv2w==
+X-Google-Smtp-Source: AMrXdXvd45K78hFtMbn/TLgUzGtyghVKPnuwBJk4k2UCCXd5I59g2iRZLy7eqsLZ58B/VpDHcrS18Q==
+X-Received: by 2002:a17:906:7fc3:b0:7c1:10b8:e6a4 with SMTP id
+ r3-20020a1709067fc300b007c110b8e6a4mr65343071ejs.19.1673626938650; 
+ Fri, 13 Jan 2023 08:22:18 -0800 (PST)
+Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
+ o11-20020a170906768b00b0084d242d07ffsm8376737ejm.8.2023.01.13.08.22.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Jan 2023 08:22:18 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] ASoC: dt-bindings: qcom,wsa881x: Allow sound-name-prefix
+Date: Fri, 13 Jan 2023 17:22:12 +0100
+Message-Id: <20230113162214.117261-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -88,48 +104,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com,
- angelogioacchino.delregno@collabora.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reference common DAI properties to fix:
 
-Skip preparing/unpreparing widgets if the swidget pointer is NULL. This
-will be true in the case of virtual widgets in topology that were added
-for reusing the legacy HDA machine driver with SOF.
+  sdm845-db845c.dtb: speaker@0,1: 'sound-name-prefix' does not match any of the regexes: 'pinctrl-[0-9]+'
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/sof/sof-audio.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 721de96fdb83..5c878788dedb 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -274,7 +274,7 @@ sof_unprepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widg
- 	struct snd_soc_dapm_path *p;
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+index d702b489320f..ac03672ebf6d 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+@@ -15,6 +15,9 @@ description: |
+   Their primary operating mode uses a SoundWire digital audio
+   interface. This binding is for SoundWire interface.
  
- 	/* skip if the widget is in use or if it is already unprepared */
--	if (!swidget->prepared || swidget->use_count > 0)
-+	if (!swidget || !swidget->prepared || swidget->use_count > 0)
- 		goto sink_unprepare;
++allOf:
++  - $ref: dai-common.yaml#
++
+ properties:
+   compatible:
+     const: sdw10217201000
+@@ -39,7 +42,7 @@ required:
+   - "#thermal-sensor-cells"
+   - "#sound-dai-cells"
  
- 	widget_ops = tplg_ops ? tplg_ops->widget : NULL;
-@@ -311,7 +311,7 @@ sof_prepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget
- 	if (!widget_ops)
- 		return 0;
+-additionalProperties: false
++unevaluatedProperties: false
  
--	if (!widget_ops[widget->id].ipc_prepare || swidget->prepared)
-+	if (!swidget || !widget_ops[widget->id].ipc_prepare || swidget->prepared)
- 		goto sink_prepare;
- 
- 	/* prepare the source widget */
+ examples:
+   - |
 -- 
-2.39.0
+2.34.1
 

@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F7566A371
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 20:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62B7E66A3C7
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 20:58:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE24AB015;
-	Fri, 13 Jan 2023 20:36:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE24AB015
+	by alsa0.perex.cz (Postfix) with ESMTPS id F132579A8;
+	Fri, 13 Jan 2023 20:57:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F132579A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673638669;
-	bh=VzzAdGwmoxwimvqLcoG8+cmSGhF4PD4xtuhgxBqOI4c=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1673639904;
+	bh=psMGJdgXEDhHqs6+nx8XQ26BP+2CjFD7qZ/x59x3SEM=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AWyTsm7fu6HoUExENRzZiv2mya/szWM8GAxA7Ib9UR4UzP6U/uzodTbkjHcXHgY0X
-	 F0ffQr1L1HFSKfwlfny9oe1AkP0B7VR617oqe3vhHQ5d3GyK88UUKCGNUtL378r+CO
-	 XbsgVXJkZXBb6vlmPz0+m0BaqOe2fwyaocMN/MWY=
+	b=oE6KZAa/WqOKz08Riwwa1VvmyLNVPdbcr7jf/6PKE+VZIFaV2cKRMJfiCP12UgWlw
+	 ydkY/sJr+XMkqLbWeIZ+NfsG5OK7vHeanicpGr95xj/F/L6JgZXLM8ZX/nqFFjhBxF
+	 9k2oPrb3xqyUzizaaZWqRvdp0ikA8eOJ+PyAMmUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CCDEF8019B;
-	Fri, 13 Jan 2023 20:36:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A91DFF8019B;
+	Fri, 13 Jan 2023 20:57:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB1C1F8030F; Fri, 13 Jan 2023 20:36:49 +0100 (CET)
+ id 867B1F8026D; Fri, 13 Jan 2023 20:57:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
- USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52D8CF8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 20:36:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52D8CF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40E43F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 20:57:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40E43F8026D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20210112 header.b=ORiYY1wn
-Received: by mail-pl1-x62c.google.com with SMTP id d15so24433268pls.6
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:36:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=rYqri1Hsodo96403V/CNTOVaRrTuVHHTBkoiYeX7lwI=;
- b=ORiYY1wnYAYZZ6QeQDujBsfpACxvl7al8b1S9MuU6gOjtkgowYaLGC09q48a0NFmlF
- dvoSfj1ylsWCzf0txRIYsQyPca9sVqz+KUTL1PWcad0Kvw9rkmpZXNo7TQOw4hfgOZj1
- 7cjFtGdK6dmu3hWZAdZei0QW0jQEkGK9LeRZvIaOOq4tZLWIlD6P6eZZ/u3jbPFzkZof
- 7TjclBxn3di3DTOOFq5OW9nhq+Bd0eZj58s/M+fcPJQRurDs6PE6Bn8s9nXJhY4dVQGZ
- LaiKbB8dnid5jJ4MfstJBJHyRoUqDQgMy1heB00VYEEqCBWW9VmsO3o6Haz488hC/cY5
- xnNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rYqri1Hsodo96403V/CNTOVaRrTuVHHTBkoiYeX7lwI=;
- b=RaGYPZVmFEa7qNb3adUS6gjpdIwrfQfeVyB25+5yEZuL8bX2//F0c5RNRscRTJfXW/
- WrBGsPLOLdoFI3AP0l4qMrYi7iFTjbZlpz7l1i1DhCjOO9rvPLkqzvrEsSnp7AZrzvKB
- x7g+ogK/yrqy63YuAxlYln5kQpgzw9AKalDCPiBv5H4WoLn/Y0W8TsUloYIMlHfOAsmo
- 7UzkbWQ02+hELB+MMJRhV28vH7LEtSkQoKN2MAAVcIVOHuBonMJ2Kj4EQHXkL/G97p4n
- SEAIdLtwLzh/faflMUZkMR5WeOiIttmjRb/CTE2zcOAUy2eXmsHOrXtj54RiRpbfpRZy
- 47gQ==
-X-Gm-Message-State: AFqh2kplXuAV9UD/U7Ug/D9D0kabclMCVTvaLMABc9twAfqGaOZrAgKZ
- +ofNEli595wI9pKp7aR7BduunHsQh5bmVHre4a/XMA==
-X-Google-Smtp-Source: AMrXdXuYgOY46ANXq1EHwp8i9xXzgfzaNVi7rMcjNBJf3xS16sNppUj78+q9b0lec3fCYYJ/0qJc39+uBhkCdsqKoAE=
-X-Received: by 2002:a17:90a:5b:b0:227:203c:6071 with SMTP id
- 27-20020a17090a005b00b00227203c6071mr1691728pjb.167.1673638603567; Fri, 13
- Jan 2023 11:36:43 -0800 (PST)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bZbdrdxa
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C7FC6622EC;
+ Fri, 13 Jan 2023 19:57:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508EDC433D2;
+ Fri, 13 Jan 2023 19:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673639839;
+ bh=psMGJdgXEDhHqs6+nx8XQ26BP+2CjFD7qZ/x59x3SEM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bZbdrdxa58jGYYcx35JnYbKGRyS3ok+Lutba8s3nrkDWWQrDUXk+IZs+POhfcPxKG
+ TVPR35D7bzqQDNsqS09UaY3VxR3j6CrPC9jGeXcdll0V/W8fgX2//7LXaSZv+0G9JO
+ VJF343kc83gNHPzu6I6YAjE2fwoJ7qnEMo/6jgFGBWBNu8xIaWa60Ey1pJPUsJ+vAK
+ h963STHp4Jn6JLEtPeXS8fFfRbDVfoCGR0gJThEqQ/7t5kXGQOIA2nnwtzv/G0omdx
+ 8m0QVzvctvN0n6z6FjxARsFPDGnnp3L0IrCf4BVikulslqRWjc6JhEk3Rqbkmwpqh9
+ SkoYYfHd4nxww==
+Date: Fri, 13 Jan 2023 19:57:12 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
+Message-ID: <Y8G3mPUDWWUu/3ZR@sirena.org.uk>
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
+ <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
+ <0aaf3fa5-bcf1-ec06-8f78-c61e8809398e@amd.com>
+ <5a34e6f7-eaf1-8128-81e4-81f65541d9a8@linux.intel.com>
+ <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
+ <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
+ <90782037-109b-b197-ca17-b7d199931f7d@amd.com>
+ <e73032b1-ac5b-4a3a-e2a0-8ac121853dee@linux.intel.com>
 MIME-Version: 1.0
-References: <20230112234426.1714071-1-cujomalainey@chromium.org>
- <20230113185019.1500147-1-cujomalainey@chromium.org>
- <43beedbe-05e4-1c11-a27a-b2e3ca002935@perex.cz>
-In-Reply-To: <43beedbe-05e4-1c11-a27a-b2e3ca002935@perex.cz>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Fri, 13 Jan 2023 11:36:32 -0800
-Message-ID: <CAOReqxhnCn2o6MAk0WpGGjObYp=M_gihZHO=zynbYkww-=kGHg@mail.gmail.com>
-Subject: Re: [PATCH v2] ucm: add existence checks to geti calls
-To: Jaroslav Kysela <perex@perex.cz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5R3mQI7755N2isNj"
+Content-Disposition: inline
+In-Reply-To: <e73032b1-ac5b-4a3a-e2a0-8ac121853dee@linux.intel.com>
+X-Cookie: I know how to do SPECIAL EFFECTS!!
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,33 +90,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, vkoul@kernel.org, "Limonciello,
+ Mario" <mario.limonciello@amd.com>, "Mukunda,
+ Vijendar" <vijendar.mukunda@amd.com>, arungopal.kondaveeti@amd.com,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 13, 2023 at 11:32 AM Jaroslav Kysela <perex@perex.cz> wrote:
->
-> On 13. 01. 23 19:50, cujomalainey@chromium.org wrote:
-> > From: Curtis Malainey <cujomalainey@chromium.org>
-> >
-> > Right now in snd_use_case_geti you cannot tell if the item being queried
-> > exists or not when being checked. This also means the only way to check
-> > for the existence of something in the client of the library is to
-> > iterate over the list of mods/devs even if we know exactly the name we
-> > are looking for. We have functions that do exactly this internally so
-> > lets return this information in a logical fashion through geti.
->
-> The device_status/modifier_status functions are used internally, too.
-> I would add the device validation only to the geti code. The other parts do
-> this job already and expect just 0 or 1 return values.
->
->                                 Jaroslav
 
-Understood, I will move it back to geti directly, figured this was the
-cleanest place to put it but that makes sense if other places use
-those internal functions.
+--5R3mQI7755N2isNj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+On Fri, Jan 13, 2023 at 11:33:09AM -0600, Pierre-Louis Bossart wrote:
+
+> I do recall some issues with the codec jacks, where if the card
+> registration happens too late the codec might have suspended. But we
+> added pm_runtime_resume_and_get in the set_jack_detect callbacks, so
+> that was solved.
+
+Right, I would expect that whatever needs the device to be powered on
+would be explicitly ensuring that this is done rather than tweaking
+timeouts - the timeouts should be more of a performance thing to avoid
+bouncing power too much, not a correctness thing.
+
+--5R3mQI7755N2isNj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPBt5cACgkQJNaLcl1U
+h9Amowf/TSY2DBZY7eTxdtVv9af5yNvLjFgJfNge3+K83ylW64H/9hLJV15RoHdI
+c9BdxzTIyxZucV8SLW0lYqG477MQzg/kSsASsPbETcSI77Qwm2lsVHSJC/nXU0N2
+PlhS/r8x+j/hVtX0B6d8p5mciXfAqI4KRXo3+P0BAddr1dT4FwQOHkeftzIEoU1z
+EHv5wVGPidIEjCnJraBzFCPtiqlQeelMQWUsAyBWWuiHjthhuHscuXTD0iH4vM82
+tLrSmopJFk8O23yQgICI+zBrUb/W46sXGf8JAbBvZBGmwwMuf+TEipFLfaJ8FP1F
+HcSufqSJhFfUnOIV0YB1sFWIUQSqqQ==
+=rznC
+-----END PGP SIGNATURE-----
+
+--5R3mQI7755N2isNj--

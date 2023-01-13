@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE03A669BB1
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 16:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273D8669BB6
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 16:16:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D41A72A0;
-	Fri, 13 Jan 2023 16:14:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D41A72A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B95987248;
+	Fri, 13 Jan 2023 16:15:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95987248
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673622946;
-	bh=0WpTZ6nAdG/LzLrC9ZtsqXlfpYYCo3tWtYNG6udfhc4=;
+	s=default; t=1673622973;
+	bh=D9GkIGSMBFxxdMCoDmGPDwQh4bCe5JTrqRSdiBrayjM=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=pU84rkMzqxgSliZHofVTN2TztXDswrVeLi7tTtAptgq8PsBPEwuHJl/Cfsx6SFPpR
-	 8TVY7zCVBHqCfJBj8DvMbuFbAD0HBGgG0CCHIe1qdM+SbaV42DRR3xKsZGBVzxexuT
-	 gSQuxk8+Qeg7Bsb7r5Cp7iaaWyqvvay7VTqQ9UXk=
+	b=vqh5KJJXkViXHMt6xUR4XFS1jZgekEWGi+7Vm9czTo7+5CEnYT+PwdVqEafdhR0M2
+	 NtcwjCF66/TjGS1gkz+n6a3DyyC2GadUuc4M2gDiiAB2S/SG1ZIc4uF+AiEuabBe6x
+	 td9OWP6C80hoUNlZUF6gRca2FVWMIWNbQDZMJn1E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57894F802E8;
-	Fri, 13 Jan 2023 16:14:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4439F804A9;
+	Fri, 13 Jan 2023 16:14:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEA10F803DC; Fri, 13 Jan 2023 16:14:46 +0100 (CET)
+ id C9A58F8016D; Fri, 13 Jan 2023 16:14:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90190F8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 16:14:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90190F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCDBDF8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 16:14:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCDBDF8016D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=o2JHeVE/
+ header.s=k20201202 header.b=tA9kvYxr
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8A4B061F41;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5C6C4B82168;
+ Fri, 13 Jan 2023 15:14:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75218C433F0;
  Fri, 13 Jan 2023 15:14:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6147C433D2;
- Fri, 13 Jan 2023 15:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673622880;
- bh=0WpTZ6nAdG/LzLrC9ZtsqXlfpYYCo3tWtYNG6udfhc4=;
+ s=k20201202; t=1673622881;
+ bh=D9GkIGSMBFxxdMCoDmGPDwQh4bCe5JTrqRSdiBrayjM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=o2JHeVE/EBjb2DkY4qfHiVU4H5x+r37/2Cx4PC5srdknQwDgVuxT08ZCJLAOrmHBg
- vmelt25j6NfO3Dtu7s5VNSOKpjPmzV/d6b8OOGx5z0OC/Vh2loE5jEqgDBfQHj64BL
- oYxi/bXfmOB3KXO9nKvydcZIW00rSsdTnB2FLuRd5RkeV4kFqX3pr2UtYxc+gmscAW
- w0WhT+xZOJehv43rhkRRUsPakcrNnkZ0Y0PVOpujVOfdGtT1GFPv7UT+0SY9Z514o3
- LWaycPSg5lPmPqGUmm1YxATwjLC64z66io5Q/ahTHRiJoF/jyktvkff/0uFw2YjY9C
- QMGB/Sh1N2GMQ==
+ b=tA9kvYxr5sb0mkuvHUWiKGt/OE3o0HVHqvJfxtzql8bSXXx1wnrlIJkcCHSovHAHe
+ 0AqBHhPblqjjH3tG62lidLUT4r40wReIgHehqe0DKpORwk/ALlgJUZOzxf7WGjiY4a
+ s9N2ltIjl3/QeRXySFj+zzW2jJV23IPlpeSdtQy+UQL8BQ0fQtmNgj+Fmn63CgHJaN
+ nGSmrGmO/0iZLEYPXMYxLY+vzB9A7Uu/QR3LnSvYjWXUmehULhEB5qWLxYOU3VOIVQ
+ OpioPn60kzoDZMwXMuMLlMakE3Z+8vedJMDKeMyHfE6zTaJ+yq7rO3G7TNqhICXlfe
+ NxNXTNHiFEkvQ==
 From: Mark Brown <broonie@kernel.org>
 To: Amadeusz =?utf-8?q?S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 0/3] Fixes for avs driver
-Message-Id: <167362287864.139004.6556093020954977105.b4-ty@kernel.org>
-Date: Fri, 13 Jan 2023 15:14:38 +0000
+In-Reply-To: <20230113191410.1454566-1-amadeuszx.slawinski@linux.intel.com>
+References: <20230113191410.1454566-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 1/2] ASoC: Intel: avs: Use asoc_substream_to_rtd() to
+ obtain rtd
+Message-Id: <167362288019.139004.13546767194834121090.b4-ty@kernel.org>
+Date: Fri, 13 Jan 2023 15:14:40 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -81,23 +83,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Jan 2023 20:03:07 +0100, Amadeusz Sławiński wrote:
-> First patch fixes problems reported when performing shutdown. Second one
-> is for a problem reported by LKP. Last one fixes problem reported by
-> checkpatch.
+On Fri, 13 Jan 2023 20:14:09 +0100, Amadeusz Sławiński wrote:
+> Utilize the helper function instead of casting from ->private_data
+> or snd_pcm_substream_chip() directly.
 > 
-> Amadeusz Sławiński (3):
->   ASoC: Intel: avs: Implement PCI shutdown
->   ASoC: Intel: avs: Correctly access topology fiels
->   ASoC: Intel: avs: Use min_t instead of min with cast
 > 
-> [...]
 
 Applied to
 
@@ -105,11 +102,9 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: Intel: avs: Implement PCI shutdown
-      commit: f89d783d68dcc6b2ce4fe3bda972ae0f84df0dca
-[2/3] ASoC: Intel: avs: Correctly access topology fiels
-      (no commit info)
-[3/3] ASoC: Intel: avs: Use min_t instead of min with cast
+[1/2] ASoC: Intel: avs: Use asoc_substream_to_rtd() to obtain rtd
+      commit: 8f28299f5cdcc6e7b6ed664364d1c76821896d07
+[2/2] soundwire: Use asoc_substream_to_rtd() to obtain rtd
       (no commit info)
 
 All being well this means that it will be integrated into the linux-next

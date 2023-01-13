@@ -2,72 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 046EA66AFC4
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:52:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0098166AFC8
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:52:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58CF4173E;
-	Sun, 15 Jan 2023 08:50:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58CF4173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78ACF45DF;
+	Sun, 15 Jan 2023 08:51:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78ACF45DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673769084;
-	bh=y7pVf6Lpukzk3xis3LCBYxRtHXfDTLRlkEAhKXVRmUA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673769153;
+	bh=Ql/MtFV/o8frGgk9ShYfUxbq3TlDhoE/TZ4GysCBCr4=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=eXprcVXVkyrBxB5skI9+BWSAmtsdfxPkRhVeQBBZvcGxmenlzSPVk6luYUiGJnyM0
-	 O+TXZSLKYzd+cgw8O18JgcRPzvm/XEAsohgAYiErSW2vVBH9TVkpnV3y92R6Nqptyq
-	 8H46czKqte9o1Mp62c2Yic2UiY+i+4sRhGyixD1k=
+	b=QES7PWLW4Srww844LONEMvTy6CVzCPE/pLwkFMpxAdaGQbBDgJWJ1q5eN/dcLs/Co
+	 Rw17zGGCqzVqpaqQw0uEuWnIXh7S6AKLlpcEYeY6PAbnQwnPlAzp2vS2a3+Rjrz52o
+	 sNLqvLMSEI1DP69T65eCXH040LcjzbAjgmJG8MvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9864AF80571;
-	Sun, 15 Jan 2023 08:48:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2481F805A0;
+	Sun, 15 Jan 2023 08:48:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BA0BF8030F; Fri, 13 Jan 2023 09:53:01 +0100 (CET)
+ id CBF8FF8030F; Fri, 13 Jan 2023 11:18:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC279F8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:52:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC279F8016D
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1pGFnq-001QE4-Us; Fri, 13 Jan 2023 09:52:46 +0100
-Received: from dynamic-078-054-173-160.78.54.pool.telefonica.de
- ([78.54.173.160] helo=[192.168.1.11])
- by inpost2.zedat.fu-berlin.de (Exim 4.95) with esmtpsa (TLS1.3)
- tls TLS_AES_128_GCM_SHA256
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1pGFnq-002ngG-HF; Fri, 13 Jan 2023 09:52:46 +0100
-Message-ID: <142532fb-5997-bdc1-0811-a80ae33f4ba4@physik.fu-berlin.de>
-Date: Fri, 13 Jan 2023 09:52:45 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8710F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8710F8026D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=flhQ/myV
+Received: by mail-ed1-x52d.google.com with SMTP id s5so30503425edc.12
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 02:18:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=kzDOK1JJgHEyW0UkKAsgNd5XNzteE1HhYTj65aQgafA=;
+ b=flhQ/myVHK6JKteIP002IwYUQ1HLE+TmwKWGqM44yzp/wk8RhnYAAPRjqXegQMU8if
+ d6UkFENK/I2Ko4Cb15fraqKWzsmk3OYAbY+jKgaNgczi/cP/YUAJOpFRBXFEhG/amnDM
+ MKt96Tk+X16N9/QqPHILjSezJSRLF6NKMxI4CbKjK0YPFaPqzaZIQdlh45W4JTxdQe7Q
+ Ujc6FxGNYml+oEhvlLnVApd2aS3tQUewdiS9+lDC7hrYBIVDa5bRcGrhPtD2+i8PajKn
+ Mpe6V3OYsmoY/ds0Lt5Fw2llEK7vENozV9/3+oyJqCSmilDe6yDMCoCbTW9q6xCyyYCT
+ Jy4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kzDOK1JJgHEyW0UkKAsgNd5XNzteE1HhYTj65aQgafA=;
+ b=rP+DkUUPSf2ICopYEwrRCL4fK2IXYj9h21h6NGHkYqfxK9B76Ud2CTnHWOGCMa6blQ
+ Smbhbbj/pKeMZVs9GakNbpw/0FTLLDfi5vogEc2H8OqSD1HBa7oX2mNGZZGTdleRBPXa
+ Xcxcd9ZjCwXzfAf8mNaXUvscz9aMXo7klnm22yv8fSWHm8u0Cu5O373JH37hCfGXXPhY
+ 3MR327SXqXS5hR1uW8khGFxGMPTU21EXlrBaKojmYrsWLPm8Y0Id2H9n+h44G1LpLEX+
+ Jn3EXb/BF2e+Kgj90a3z/PEHaM5aUb+aYnJidj4avMsBRwjDBJUYgWMYko0K7IX9UrRz
+ z0bA==
+X-Gm-Message-State: AFqh2koiAYALOTMBl+Rt9oJN9Uc6udNmgpjTWdedlymuoXVvhcoprN56
+ 36kGQbkB3rlfPDnFwUQ6G3V9Bm/gnEwLDVM4GP8=
+X-Google-Smtp-Source: AMrXdXvp/ij2CcKdAeoXa+bxrKAsBQX0J149SYtq9TQsQyh6L5bKkEtpxP6cToqRfrtaE1cNii7nZUYGchM8ODW9oZk=
+X-Received: by 2002:a05:6402:40d3:b0:48e:c1a0:119f with SMTP id
+ z19-20020a05640240d300b0048ec1a0119fmr3971521edb.115.1673605119927; Fri, 13
+ Jan 2023 02:18:39 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: remove arch/sh
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20230113062339.1909087-1-hch@lst.de>
- <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
- <CAMuHMdUcnP6a9Ch5=_CMPq-io-YWK5pshkOT2nZmP1hvNcwBAg@mail.gmail.com>
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-In-Reply-To: <CAMuHMdUcnP6a9Ch5=_CMPq-io-YWK5pshkOT2nZmP1hvNcwBAg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 78.54.173.160
-X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:18 +0100
+References: <20221228120248.GA508080@bhelgaas>
+ <20230112200819.GA1785077@bhelgaas>
+In-Reply-To: <20230112200819.GA1785077@bhelgaas>
+From: Zeno Davatz <zdavatz@gmail.com>
+Date: Fri, 13 Jan 2023 11:18:29 +0100
+Message-ID: <CAOkhzLU_F9O0TxUzkb9YdHr357O3muj9V7GLTLsWzHm5mUsr-w@mail.gmail.com>
+Subject: Re: [Bug 216859] New: PCI bridge to bus boot hang at enumeration
+To: Bjorn Helgaas <helgaas@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +96,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-pci@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Geert!
+Dear Bjorn
 
-On 1/13/23 09:26, Geert Uytterhoeven wrote:
-> Indeed.  The main issue is not the lack of people sending patches and
-> fixes, but those patches never being applied by the maintainers.
-> Perhaps someone is willing to stand up to take over maintainership?
+On Thu, Jan 12, 2023 at 9:08 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+>
+> [+cc sound folks]
+>
+> On Wed, Dec 28, 2022 at 06:02:48AM -0600, Bjorn Helgaas wrote:
+> > On Wed, Dec 28, 2022 at 08:37:52AM +0000, bugzilla-daemon@kernel.org wrote:
+> > > https://bugzilla.kernel.org/show_bug.cgi?id=216859
+> >
+> > >            Summary: PCI bridge to bus boot hang at enumeration
+> > >     Kernel Version: 6.1-rc1
+> > > ...
+> >
+> > > With Kernel 6.1-rc1 the enumeration process stopped working for me,
+> > > see attachments.
+> > >
+> > > The enumeration works fine with Kernel 6.0 and below.
+> > >
+> > > Same problem still exists with v6.1. and v6.2.-rc1
+> >
+> > Thank you very much for your report, Zeno!
+> >
+> > v6.0 works, v6.1-rc1 fails.  Would you mind booting v6.1-rc1 with the
+> > "ignore_loglevel initcall_debug" kernel parameters and taking a photo
+> > when it hangs?
+> >
+> > How did you conclude that the hang is related to a PCI bridge?  I see
+> > recent PCI messages in the photo, but it looks like the last message
+> > is from NFS, so I'm wondering if I'm missing some context.  The v6.0
+> > dmesg shows several other ntfs, fuse, JFS, etc messages before more
+> > PCI-related things.  Anyway, the "initcall_debug" might help us narrow
+> > it down a bit.
+>
+> Thanks very much for the bisection (complete log at [1])!
+>
+> The bisection claims the first bad commit is:
+>
+>   833477fce7a1 ("Merge tag 'sound-6.1-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound")
+>
+> with parents:
+>
+>   7e6739b9336e ("Merge tag 'drm-next-2022-10-05' of git://anongit.freedesktop.org/drm/drm")
+>   86a4d29e7554 ("Merge tag 'asoc-v6.1' of https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound into for-linus")
+>
+> Both 7e6739b9336e and 86a4d29e7554 tested "good" during the bisection.
+>
+> There is a minor conflict when merging 86a4d29e7554 into the upstream,
+> but I can't imagine that being resolved incorrectly.
+>
+> Would you mind turning off CONFIG_SOUND in your .config and testing
+> 833477fce7a1 again?  I'm a little skeptical that the hang would be
+> sound-related, but I guess it's a place to start.
+>
+> Bjorn
+>
+> [1] https://bugzilla.kernel.org/show_bug.cgi?id=216859#c35
 
-I actually would be willing to do it but I'm a bit hesitant as I'm not 100%
-sure my skills are sufficient. Maybe if someone can assist me?
+Booting without sound into the commit 833477fce7a1 did not help. Same hang.
 
-Adrian
-
--- 
-  .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
-
+Best
+Zeno

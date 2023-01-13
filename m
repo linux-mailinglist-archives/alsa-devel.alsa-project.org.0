@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7F26692E5
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 10:28:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69EF6692EC
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 10:29:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 992C18366;
-	Fri, 13 Jan 2023 10:28:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 992C18366
+	by alsa0.perex.cz (Postfix) with ESMTPS id E44317E96;
+	Fri, 13 Jan 2023 10:28:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E44317E96
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673602134;
-	bh=C9eEbKq5usd6ckHzGy5EN+JxgZQpOybLQsyYvmgo4Hg=;
+	s=default; t=1673602165;
+	bh=7vfmYiwRnIv7Am96c9Qj/RTB4F0doxF2OEQMmfScbOc=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=WWYZhHf8xtyoBCB0q6e+S1Ee38EcNSjF/r5Cyn2tBuiwelgDpa9HSDt0DeGKFIRFL
-	 +B60hy6EUy56sMmg4+3UhfRG71HcB5ISrCUPUxdmNx8iQTB3hCFZOBGIeZ7PI1/jVa
-	 eAoo3hvszb/tbQyvwrxyYvw1YsbUpB2xkW+kK58g=
+	b=r44Vg9v6k83co1O6ejmrFKNClcNnoWC6GUKt7pD2jSGEnH8wBJiwE9OOq9qsTV4Et
+	 sAaUD2JVVhqo24lcwyB/ogaNXI6RstBfNALL4CU1ntdajuYgj1ial8Vseeps1bOK+y
+	 J2gitCFSN36c9u6deWldAtpUGH3FP7Kg1YsQ7Kzo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2DDAF80424;
-	Fri, 13 Jan 2023 10:27:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33AECF80557;
+	Fri, 13 Jan 2023 10:27:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CA50F8026D; Fri, 13 Jan 2023 10:27:26 +0100 (CET)
+ id E0124F80549; Fri, 13 Jan 2023 10:27:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 617F7F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 10:27:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 617F7F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D09F3F80543
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 10:27:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D09F3F80543
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VBZjNHSU
+ header.s=Intel header.b=ibHUSLlJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673602045; x=1705138045;
+ t=1673602065; x=1705138065;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=C9eEbKq5usd6ckHzGy5EN+JxgZQpOybLQsyYvmgo4Hg=;
- b=VBZjNHSUWwSMhafvNslCYgew63C6YLtw+FOzCk5p6XMIKSNcJ0yrygbs
- FSfjXxBvi8hFCaqNnsBxBx0qMivm/XPjpj+09gupoQjJMu+7Dz0Xx9Eg1
- ORGRKtu/XsoFfOShrKqFl+GVM8Hr9YvgfpwkiiuObL4Cf77eTg8+oFNHl
- dFdrDypuMofa4PP3Vd4g1AJ60S+SDzqZhJyy67fREUgLCpkEBWJzNIH+J
- dZaQwsxcig+wF8/Zq7ZjSRmPs8SebH42TctOXr2G/UloJYmnZGQUzg0yX
- xtPWywQxzELo6NMKacHW1/9a4I78+BTAXvKhq6toXJufMd5byWzCaCPLf w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="351189440"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="351189440"
+ bh=7vfmYiwRnIv7Am96c9Qj/RTB4F0doxF2OEQMmfScbOc=;
+ b=ibHUSLlJZ5AQbt3mltkte5XKDE4VGzILlvAltCyQ9g7YZzLlhCm/fgom
+ TxtzDdeZsIyKrZWm3qrgu2YU1Fx1ZKwbEAQO8yR7uw0oC28FNJaWQIT24
+ uUGVryf246oOra9mpW8pdk+qVK5CGN6uixC7P5GzrpfCEKsDOng1Pc7kY
+ fFl59Vx400CceJyBTb2mJqkKRC6o1qIYc3HWuI9wnjVj/IbVxPS+xHjmI
+ zoevu1h+4sc8Wv+tZ34sJ4L631jZm9Ux/fQWz6c1xzbPxVeYm51/ugPET
+ AmROzSvCUfaB6TxuuJL2E94Cb0WGFepiK1kklsJAjW/KlKdTu4mdZi8Ib w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="351189450"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="351189450"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 01:27:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="608116093"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="608116093"
+ 13 Jan 2023 01:27:25 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="608116104"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="608116104"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 01:27:22 -0800
+ 13 Jan 2023 01:27:23 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 2/5] soundwire: stream: use consistent pattern for freeing
- buffers
-Date: Fri, 13 Jan 2023 17:35:29 +0800
-Message-Id: <20230113093532.3872113-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 3/5] soundwire: bus: remove sdw_defer argument in
+ sdw_transfer_defer()
+Date: Fri, 13 Jan 2023 17:35:30 +0800
+Message-Id: <20230113093532.3872113-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
 References: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
@@ -94,48 +94,95 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The code should free the message buffer used for data, the message
-structure used for control and assign the latter to NULL. The last
-part is missing for multi-link cases, and the order is inconsistent
-for single-link cases.
+There's no point in passing an argument that is a pointer to a bus
+member. We can directly get the member and do an indirection when
+needed.
 
-Link: https://github.com/thesofproject/linux/issues/4056
+This is a first step before simplifying the hardware-specific
+callbacks further.
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/stream.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/soundwire/bus.c    | 10 ++++------
+ drivers/soundwire/bus.h    |  3 +--
+ drivers/soundwire/stream.c |  4 +---
+ 3 files changed, 6 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 633d411b64f3..572cc9a9af41 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -225,9 +225,9 @@ static inline int do_transfer(struct sdw_bus *bus, struct sdw_msg *msg)
+ }
+ 
+ static inline int do_transfer_defer(struct sdw_bus *bus,
+-				    struct sdw_msg *msg,
+-				    struct sdw_defer *defer)
++				    struct sdw_msg *msg)
+ {
++	struct sdw_defer *defer = &bus->defer_msg;
+ 	int retry = bus->prop.err_threshold;
+ 	enum sdw_command_response resp;
+ 	int ret = 0, i;
+@@ -335,19 +335,17 @@ EXPORT_SYMBOL(sdw_show_ping_status);
+  * sdw_transfer_defer() - Asynchronously transfer message to a SDW Slave device
+  * @bus: SDW bus
+  * @msg: SDW message to be xfered
+- * @defer: Defer block for signal completion
+  *
+  * Caller needs to hold the msg_lock lock while calling this
+  */
+-int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg,
+-		       struct sdw_defer *defer)
++int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg)
+ {
+ 	int ret;
+ 
+ 	if (!bus->ops->xfer_msg_defer)
+ 		return -ENOTSUPP;
+ 
+-	ret = do_transfer_defer(bus, msg, defer);
++	ret = do_transfer_defer(bus, msg);
+ 	if (ret != 0 && ret != -ENODATA)
+ 		dev_err(bus->dev, "Defer trf on Slave %d failed:%d\n",
+ 			msg->dev_num, ret);
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 7631ef5e71fb..96927a143796 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -151,8 +151,7 @@ int sdw_configure_dpn_intr(struct sdw_slave *slave, int port,
+ 			   bool enable, int mask);
+ 
+ int sdw_transfer(struct sdw_bus *bus, struct sdw_msg *msg);
+-int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg,
+-		       struct sdw_defer *defer);
++int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg);
+ 
+ #define SDW_READ_INTR_CLEAR_RETRY	10
+ 
 diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index e0eae0b98267..f27bd37b154d 100644
+index f27bd37b154d..e0b0c63fc55c 100644
 --- a/drivers/soundwire/stream.c
 +++ b/drivers/soundwire/stream.c
-@@ -723,8 +723,8 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
- 	}
+@@ -684,8 +684,6 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
+ 	if (!wr_msg)
+ 		return -ENOMEM;
  
- 	if (!multi_link) {
--		kfree(wr_msg);
- 		kfree(wbuf);
-+		kfree(wr_msg);
- 		bus->defer_msg.msg = NULL;
- 		bus->params.curr_bank = !bus->params.curr_bank;
- 		bus->params.next_bank = !bus->params.next_bank;
-@@ -769,6 +769,7 @@ static int sdw_ml_sync_bank_switch(struct sdw_bus *bus)
- 	if (bus->defer_msg.msg) {
- 		kfree(bus->defer_msg.msg->buf);
- 		kfree(bus->defer_msg.msg);
-+		bus->defer_msg.msg = NULL;
- 	}
+-	bus->defer_msg.msg = wr_msg;
+-
+ 	wbuf = kzalloc(sizeof(*wbuf), GFP_KERNEL);
+ 	if (!wbuf) {
+ 		ret = -ENOMEM;
+@@ -713,7 +711,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
+ 	multi_link = bus->multi_link && (m_rt_count >= bus->hw_sync_min_links);
  
- 	return 0;
-@@ -867,6 +868,7 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
- 		if (bus->defer_msg.msg) {
- 			kfree(bus->defer_msg.msg->buf);
- 			kfree(bus->defer_msg.msg);
-+			bus->defer_msg.msg = NULL;
- 		}
- 	}
+ 	if (multi_link)
+-		ret = sdw_transfer_defer(bus, wr_msg, &bus->defer_msg);
++		ret = sdw_transfer_defer(bus, wr_msg);
+ 	else
+ 		ret = sdw_transfer(bus, wr_msg);
  
 -- 
 2.25.1

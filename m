@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD416692DE
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 10:28:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEE7C6692E8
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 10:29:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 401AC7B86;
-	Fri, 13 Jan 2023 10:27:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 401AC7B86
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4B658A8A;
+	Fri, 13 Jan 2023 10:28:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4B658A8A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673602105;
-	bh=aD/lfRR8F8fjWyTEE25We7aJuQghHG33UM+A1dXJgGo=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=s1ZMusg+JEnPtv0hkpokd4D/6ZvjaOOQlTm7bDlj8O1+cafFXnbR/GsI8PVy/lUls
-	 BQtPIcRH3Sy85Za5x54jx2+2ZXbl0WLhS2WbpeIXepo5Q77gCFLligV1VEXf1nebrx
-	 iY4Dto1klQ/v3bA/o4D2VRF29eXFiFAbTqJBWEG8=
+	s=default; t=1673602148;
+	bh=Msf7Ux2UBgkRWznDZIyNsLYT/We1sSSckwpIyVPyhL0=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=DPMC+9G0VXaftFlF+40VPy+bIelZ9d8JtImWoO1gCBxaPHN7bIOIRT80eJ7jTeEXl
+	 uYHIYrHE4K5/ommJ/roCVvr2iFzHXalCUoyEtyxRz4SA1uWzID3JaiUKjLSV5ABegY
+	 m6i4Z7C2PdA/4QV77HXdtSo0SHpbcj6gpQjPNLrk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CD10F802E8;
-	Fri, 13 Jan 2023 10:27:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67044F804D2;
+	Fri, 13 Jan 2023 10:27:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC2D0F8030F; Fri, 13 Jan 2023 10:27:24 +0100 (CET)
+ id 05906F80425; Fri, 13 Jan 2023 10:27:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +35,43 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 602A5F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 10:27:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 602A5F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C07FEF802E8
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 10:27:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C07FEF802E8
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bRNXBBHI
+ header.s=Intel header.b=bZAa35aq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673602043; x=1705138043;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=aD/lfRR8F8fjWyTEE25We7aJuQghHG33UM+A1dXJgGo=;
- b=bRNXBBHIRIdx9kqNLCo7e0KexmpjGgxuzyCQOAqjjfqYPWQDRxpnLBEz
- S1T95KgNa87Z04ZyUpM3sydmODTSsoC+yu2Ruk3T8LNd4yK9pUFh9Piat
- c7NADYjd4UK9SeeMwUVK7KPsQPqCdnxOJ2SJLroZMXDSVmrU2rpttPeRk
- boTWyZrDHsw9gPLuC78hV3QROaTt4RWv5d/jj6zT+xKg5k46owza8Dkrh
- 2o/yUyOZlsxLk+v5w55KgO9r9rTMhjoL+IiG9gw/SnZP9F+4GOnHSA1Fw
- aZ9GA2lCuuDZb3csp9HRBTUKvQa1lV5TMCvGID9Sy6NB4Azs5Tafs97ia g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="351189428"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="351189428"
+ t=1673602046; x=1705138046;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Msf7Ux2UBgkRWznDZIyNsLYT/We1sSSckwpIyVPyhL0=;
+ b=bZAa35aqt0Tpd7kpbGlVzvbn9GZx0jsrgLgouwD3WIqy+2ajZZjU0aPU
+ N2DbMPefkaiJ5GQiUQezxOhk3B/c/0UfWwUzBYRdlyaMnlrmwi9fTT7hY
+ MPNGZWcOreWDMeSZngn6NNRusG2ghdg29Nuu728F+Sp+eU75xLmvsT54x
+ i4eIGwi6Mp/AFwPACoARVbfSoIq/QHJ3zBSxvgp91hHRkymv0jFLXT0zE
+ ouAqtrzUXUVBXwabd1HPeC1CzPzk/tPGFKdvCEVjaDypJq3uPjLPCZIGa
+ zwf1vg8dXOMQQp7SF0tu0Jk5FTTkkr3yv+IdFMgORVx8fdqAWy3xjz2j3 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="351189435"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="351189435"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 01:27:20 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="608116081"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="608116081"
+ 13 Jan 2023 01:27:21 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="608116087"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="608116087"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 01:27:18 -0800
+ 13 Jan 2023 01:27:20 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 0/5] soundwire: better error handling in deferred transfers
-Date: Fri, 13 Jan 2023 17:35:27 +0800
-Message-Id: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 1/5] soundwire: stream: uniquify dev_err() logs
+Date: Fri, 13 Jan 2023 17:35:28 +0800
+Message-Id: <20230113093532.3872113-2-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
+References: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -88,24 +91,78 @@ Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a generic cleanup series.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Pierre-Louis Bossart (5):
-  soundwire: stream: uniquify dev_err() logs
-  soundwire: stream: use consistent pattern for freeing buffers
-  soundwire: bus: remove sdw_defer argument in sdw_transfer_defer()
-  soundwire: cadence: use directly bus sdw_defer structure
-  soundwire: cadence: further simplify low-level xfer_msg_defer()
-    callback
+There are a couple of duplicate logs which makes harder than needed to
+follow the error flows. Add __func__ or make the log unique.
 
- drivers/soundwire/bus.c            | 12 +++++-------
- drivers/soundwire/bus.h            |  3 +--
- drivers/soundwire/cadence_master.c | 20 ++++++++++----------
- drivers/soundwire/cadence_master.h |  5 +----
- drivers/soundwire/stream.c         | 22 ++++++++++++----------
- include/linux/soundwire/sdw.h      |  6 +++---
- 6 files changed, 32 insertions(+), 36 deletions(-)
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/stream.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index df3b36670df4..e0eae0b98267 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -1389,7 +1389,7 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
+ 
+ 	ret = do_bank_switch(stream);
+ 	if (ret < 0) {
+-		dev_err(bus->dev, "Bank switch failed: %d\n", ret);
++		dev_err(bus->dev, "do_bank_switch failed: %d\n", ret);
+ 		goto restore_params;
+ 	}
+ 
+@@ -1477,7 +1477,7 @@ static int _sdw_enable_stream(struct sdw_stream_runtime *stream)
+ 		/* Program params */
+ 		ret = sdw_program_params(bus, false);
+ 		if (ret < 0) {
+-			dev_err(bus->dev, "Program params failed: %d\n", ret);
++			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+ 			return ret;
+ 		}
+ 
+@@ -1567,7 +1567,7 @@ static int _sdw_disable_stream(struct sdw_stream_runtime *stream)
+ 		/* Program params */
+ 		ret = sdw_program_params(bus, false);
+ 		if (ret < 0) {
+-			dev_err(bus->dev, "Program params failed: %d\n", ret);
++			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+ 			return ret;
+ 		}
+ 	}
+@@ -1664,7 +1664,7 @@ static int _sdw_deprepare_stream(struct sdw_stream_runtime *stream)
+ 		/* Program params */
+ 		ret = sdw_program_params(bus, false);
+ 		if (ret < 0) {
+-			dev_err(bus->dev, "Program params failed: %d\n", ret);
++			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+ 			return ret;
+ 		}
+ 	}
+@@ -1893,7 +1893,8 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+ 
+ 	m_rt = sdw_master_rt_alloc(bus, stream);
+ 	if (!m_rt) {
+-		dev_err(bus->dev, "Master runtime alloc failed for stream:%s\n", stream->name);
++		dev_err(bus->dev, "%s: Master runtime alloc failed for stream:%s\n",
++			__func__, stream->name);
+ 		ret = -ENOMEM;
+ 		goto unlock;
+ 	}
+@@ -2012,7 +2013,8 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+ 	 */
+ 	m_rt = sdw_master_rt_alloc(slave->bus, stream);
+ 	if (!m_rt) {
+-		dev_err(&slave->dev, "Master runtime alloc failed for stream:%s\n", stream->name);
++		dev_err(&slave->dev, "%s: Master runtime alloc failed for stream:%s\n",
++			__func__, stream->name);
+ 		ret = -ENOMEM;
+ 		goto unlock;
+ 	}
 -- 
 2.25.1
 

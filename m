@@ -2,153 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF9D6694E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:56:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E7E66952F
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 12:14:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F54BA6F4;
-	Fri, 13 Jan 2023 11:55:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F54BA6F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38AF9A757;
+	Fri, 13 Jan 2023 12:13:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38AF9A757
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673607364;
-	bh=5nkgeobzWuui53LLIzZEGabaqoHenkpGvSE/b9Bdib0=;
+	s=default; t=1673608464;
+	bh=tCeU5EXZPNkaq1ygJmsyj4jBNJbpgxQfcB0nClYZixM=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=fCR+PfuhjpfDcLD7eFAez1/IpsqUCqOEsS+4uT6XmsEY+Gwco2xPoSTPpAVt9JxGu
-	 bwbelHhtrEo1U/DULPrIkIgeyvQxqVfhjyauV6A5WFqEbPE79vgGDJNQZx9Y7X8dJy
-	 LIcCOtJz/hJmD8Tm3ixj9G4d8/r4o2obIwyp+i74=
+	b=d/rcMJezIRouo8LgYJ9oDNqsRzIUh+ZeiaN+//71/6mTDfkd6agH7EN+nRnoJJ8b/
+	 Z2wnpi95cByNuHYDenE80SCdWRg841wPQf6ZRwUyTodLFLTvqgw3T/4GiB/4mxlWZq
+	 +LrnOdCqZr5NOFPiDCunLKq41CaZccjmY4m4XRcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67E48F8026D;
-	Fri, 13 Jan 2023 11:55:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E66B3F8019B;
+	Fri, 13 Jan 2023 12:13:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F67CF8030F; Fri, 13 Jan 2023 11:55:04 +0100 (CET)
+ id 9B5CAF8030F; Fri, 13 Jan 2023 12:13:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
  RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2078.outbound.protection.outlook.com [40.107.95.78])
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CB07F8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:55:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CB07F8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96B36F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 12:13:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96B36F8026D
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=h0fcdF60
+ header.s=selector1 header.b=v+2nhpxd
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HMPwvJpCw8UWKai+yUBPtrtRmtmm3ghbc45vRJeIrjHsOgK2kMuFOX+j1lQP/4KgjmmtpFbu3IKE8VKOnYLy3Un8OrrRZLa0jsZ33pcCpyDcN7D88tqB30a+v+YYeCOIxq7dYWJaOwVNzxFSd99jCBs9Ck0uqOZuSTI7boEKSH3jiZTO8ZDHflXwGoYUVuJA3ZLbqqFHHh7Vm0bDe+DtyN4WJaZ2wg/okArd8JpwVfVrNwYkE//TarYdnfIS7neshKFC+RR7QAUyqKqZyfB/soJxO6o/3QTzI9qpflV4dlzZMAybC+ohcy9lDvvCHkMCc+6r3/WSHHcI/4g5ogU5Xw==
+ b=d1ebtIq7w5tcqhHnlFQOccj02Rs/6zH0Im2Wl+YIlK7S9NGTiocWo8+jPO1L4uY84VCHM22aDDP4amGld/PNiDdJJQrg5N3EbooTmMUtqhSfrWvWqA+ZSWmM0G0ytf/X/zGooouxeqTaTlmcI4IQjDETZduzZVnOl+gDtY0FcujoakTIuRfDy5DwCTp/65c0+8RzKizMI/Ob7k0W4CMQrU4cgeLz4vhoMJKF8ZVt/+QoWbDIR1C1zmbWgRwOzQA6HrvZBOE4/U2s+rxkuhETHDIPS4M3oUxak4BVAuTZ5qfpLiyeFELyAjPoHLeb0SVggB20SayD1SLK+ixFJw6Z5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5nkgeobzWuui53LLIzZEGabaqoHenkpGvSE/b9Bdib0=;
- b=ZyMhEJuIl3XQEIQJMUWkCqOBt8gKun2mI9JFeT6fOJGh4pZ1Cgtbdc3Go0t8+uftc3hSAC4PsH44NV5igiHpZJmGH/cppb29iQyZUO+ykNMq2SxDr8XCp95/LPhXcbHy03TcPr8RsYx5POIgAqJY9KubwMT7Bdl0eDkivYWwWeaCeJMLsWhuTD3vnhoCnJbcHamnme8ve2zL5MaD1HSTUs+SgACx4q3FjpovWhzCJvHwWQ1OMh1eGjJl0auU7NYEm44FWBi5Ibtip9IGN6UZQrxV6eXLJxqlPtD5MSF5jdZD8srmr3cbrAwfP3g0ixBn3JhBugUzvvUBra9UL+xw2g==
+ bh=PDIOPS2edmKPC+5ohZjjO4+sfBRNwkAYgQXn268TCTM=;
+ b=cQbXwOzDGYiNP573tM0Vn1JLwzmlkG1CC9xdFtf7f8lol4nwKg+KxgMHsGCKEyu+avk2NDdNKisvzK6D7iNNKy1CCusp9dpvvoPKbZsaRqV44lTxlTAROjee2WAMNWnN2A1CTGB+glbNxP5W+fXAtieQB2//aW+2OTZo/lrpvy3LmiLS2yR+UPEgtzTXqkaIoSjSyw23Vf1z1TPr5i++q9U2nanX4OXU7UeD4Cv6Hcub8Nb9L5DXxNVU7JnjGMGfDgTt2lMi3zTG/PwaFnhjkTILvfOqYDC4N6XieOwjPVB08QH1Oofm4k2IGB/75HXBmHJSfcTFv5x9PlqZySX6gQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nkgeobzWuui53LLIzZEGabaqoHenkpGvSE/b9Bdib0=;
- b=h0fcdF60m5bu0iBKopVSmCv/dRZ29IzsA/4/VnUU/DdLiniG7EJ+eXcvtgVdsu5fuLn+PgrYleVtX2F7XXtoId0MT4N4xyNEm7qvsJUS6UA/cK1dVI83XAZI+2gQMoV47cYuDlnp1UbpJ/ihrsTW9Hf+OhjaiIe97eHYTheML/U=
+ bh=PDIOPS2edmKPC+5ohZjjO4+sfBRNwkAYgQXn268TCTM=;
+ b=v+2nhpxdYBNxAZkQyxKFuQcnJo9OaW3w7WC92xXDOPSTkb/m4fBw1HsPRR57IzyIjHkEKLIkrjbbG5OG5xw6cv4yAPEw11iHZhmVDvx9PYeGGkKB/0AM+kLg7frEELKc8JY5pRafhAxXcbk2nzj6nX9vwuh0hfhRzKPk/IFkubY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by CH3PR12MB8512.namprd12.prod.outlook.com (2603:10b6:610:158::19) with
+ by MW5PR12MB5681.namprd12.prod.outlook.com (2603:10b6:303:19e::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 13 Jan
- 2023 10:54:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Fri, 13 Jan
+ 2023 11:13:16 +0000
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::fc88:7080:445e:6866%5]) with mapi id 15.20.5986.019; Fri, 13 Jan 2023
- 10:54:56 +0000
-Message-ID: <90782037-109b-b197-ca17-b7d199931f7d@amd.com>
-Date: Fri, 13 Jan 2023 16:28:06 +0530
+ 11:13:15 +0000
+Message-ID: <6bb9b13c-2829-d7c3-872b-6e9586189300@amd.com>
+Date: Fri, 13 Jan 2023 16:46:25 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
+Subject: Re: [PATCH 08/19] ASoC: amd: ps: add soundwire dma driver dma ops
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Limonciello, Mario" <mario.limonciello@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
+ broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
- <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
- <0aaf3fa5-bcf1-ec06-8f78-c61e8809398e@amd.com>
- <5a34e6f7-eaf1-8128-81e4-81f65541d9a8@linux.intel.com>
- <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
- <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
+ <20230111090222.2016499-9-Vijendar.Mukunda@amd.com>
+ <77e35f54-323e-42d0-9e74-be984eebc0fe@linux.intel.com>
 From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
+In-Reply-To: <77e35f54-323e-42d0-9e74-be984eebc0fe@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0170.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::25) To DM6PR12MB4123.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0128.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::13) To DM6PR12MB4123.namprd12.prod.outlook.com
  (2603:10b6:5:21f::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|CH3PR12MB8512:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3a460d6-9a4e-4215-a7bf-08daf5549b30
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|MW5PR12MB5681:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1f2643b-70f5-41ba-edcb-08daf5572aaf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yvHltx2RauZOkkFIthAKKyBMZ0uRpM9ULdHQ8bvJrR59lX+Xcuf8QlHuLS1lXy4Xc+uELqBxbfV9EHj9IxbD3jCsTZL3IwZRZ54OzEFodO/WGGWrFHnU0hOgouBnSK/PDrwe+W6URCDjH2KH8qmOY8A0Yq4ZsBvChr2SXh9oR9klZtjO0TxB98DsIPmLyedoi1gzSY5+t4NLF64YHPB1gzj0Zp2Sls0Sn+Wh1JY/hUFMO30VSy66YGgaYEOmHMGj0pdf4JNXCIrcG8wUjLY7MUlfNJ4hEJhNmNTYvKSuxVOIBOGjTP3RPhvaEcSRxP/blvtQLZX/RxPr42PYxvRcKqXDYfhctt5mAcNaeCnJuHxee1emJWICwmrrRxHNxPsXEvfy8if6F646SCZmQZ3Y7+F345uSZ/ns5S6bh1lfX1VsHejpJtTTz47dW8N8e48wwsZpKuboWdMIaMuLZOW+5Y9dF2yxnlPU1N06uVbyF2CfaT2LxRmtYluLlFp5KEqFFdHQeuwEAWuVosdeRt1dl4ULwtAhgbC/BSkUXey9I7o8keorByhjbF4/StrmYexUIE2+di3PPP33dhNFdWpNg+VzetBjanJBPaN1qgD8qKm001G0lj19SX5GhQ74RfZyjMtVVJGWY985D84HGkdJuLuTL07H3GPpqftj9lzONHR+KzHQI4L31VkkF+tU9aqE5RdOnfgAjLtVMRPhd3IgbYbN0Ic8FnGA+I2iL27HAo0=
+X-Microsoft-Antispam-Message-Info: Rq9G+FMjqjZNXmevMFtzNXD4SWFjlL4quyMLX7UqiGg7BfGVv8PzlyHGYaZS+0K3blxq6RwBnJAa4HOxAtVHQ0/t1wGO5guBgyu2DbtJuNg4elxCIXgk8iRN2lk/i5xFTCVXjMPE3aKvmzE3IoIr9VLH4LG+o5KRrlXRP5cICuzMv5bPln0JXASrO2at3nZnQPBb7uXMLxTEa7nmQjETTrWG4cVPzZAcSiklF5TVtvYJ75IHO4e19EQHS/P+XUdGAc10jqPQxf25w0QfIZEuTFYBQg+dswr0p93ccVqWGEmUFX229ki1p0u211unn2o6YdWgww9OviO9dOKoHZihpBbc9bndL2AFcF8PXMEzZxq9/9Wm99aOVRAMFplwV+qHj+W0Y8fO0kVYTPYfw35GVDNUp9Sq4QUrMyLt/A0nY1w13TKslnDBl3fs7j92YmngA2IwcLVyr2Zgy8R9k1AEtkjAlGO3Jl39+bWEd+J4lmesJpjUQPU7YUXXXYE6EEEuupSWUl6rIplWr5RZPWfuNyDwixoqKV2EmJLOLRIT8meqYGxfn2fU/RVj1jkkqdJag01x1KyuBD0WPxI4wNuYUt+cFOcNdgyS1rByoYnXz0kKmY7u0az9dHFT5bmPRGDRpaWps3L5ue1YatfjthGrxa/0D+RzbB+o3OeKn05WHjzms2OvHUw0xhm3yQEDCiaSFEpK3r2LtNsmqPZTPFNQTQwHBrJ16jFgTiWPAOJYxJk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(376002)(39860400002)(366004)(396003)(451199015)(53546011)(6666004)(26005)(186003)(66476007)(54906003)(66556008)(8676002)(6506007)(6486002)(6512007)(478600001)(66946007)(66899015)(4326008)(83380400001)(41300700001)(5660300002)(8936002)(15650500001)(2906002)(36756003)(2616005)(38100700002)(31686004)(31696002)(316002)(110136005)(86362001)(45980500001)(43740500002);
+ SFS:(13230022)(4636009)(366004)(39860400002)(396003)(136003)(346002)(376002)(451199015)(53546011)(31686004)(66899015)(2906002)(6506007)(6486002)(26005)(6512007)(6666004)(478600001)(186003)(8676002)(2616005)(83380400001)(66946007)(36756003)(316002)(66556008)(66476007)(54906003)(4326008)(41300700001)(38100700002)(31696002)(86362001)(8936002)(5660300002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEVZUFlyTEFaWWV0ZkNUNWlYNEtGWGtrOE9TdDIyUEV5VEJzQ3VRMW54aFhH?=
- =?utf-8?B?d1ZuQ3FPRXVJV0F1andYSFNjNFNHbHV1NGtHbTI5UTZCbW1FcFdyQjQvUUw5?=
- =?utf-8?B?d0wzRDZGTmw5TVh6Q25GZ29ZVmc4S2RRZTRjZk5sT3UyRWxMSkt3dHk1NVh1?=
- =?utf-8?B?UGdOc01yaURhSTNlKzFNa2FpZGlKb3dZNUlRRDRHSVY4UE9KQXoySTlCVUZp?=
- =?utf-8?B?ajM2N3FzNDYveTduaFg0WThtS29ZbCtmL2YwS3Y0aUNjalVCSlZKZFNOZG9N?=
- =?utf-8?B?eWdxSEhjMEpNQnNJWEZraWNCUDU4K3QvM0tianZVaTc4bkQwdVJ1ekFlZWw5?=
- =?utf-8?B?UGNZL1lsSVl0R1FMVWhOYnZIM0V5dSthME5lUXVIQzEzZ0F2R3crYjY1Mkp6?=
- =?utf-8?B?bzA4RC9TM2hJRXVYc1lGQ3FFWXpXeFh3U1NlL2k3VUh5QzA1Kzlnc1dOYnZj?=
- =?utf-8?B?a3dXYWtSdzQraStpUVc1Uk4zMGhoUnZuTEVDa2hCOHUzdUFBcW4vOC95ZXpD?=
- =?utf-8?B?RVptZm82U29NY1EreVVxSmc3OEpaazBxaWtQcWR2eTN0VzZhZm1saTFSMVZG?=
- =?utf-8?B?Tzc3cVEwUzIzZzdpaTRBa0lwK0RiQW1yaFBOQnNJemdHRUNtY2FoQWlZdVhj?=
- =?utf-8?B?ZFhNRnFnS05nSm4vOWVsYW5ZNm5xRjNlQSthMXlSczllS2RjY2Z1cXdnYTFM?=
- =?utf-8?B?TmRGR3dubDVHb0F2MEVKNC9ZWlg3M2RRMzF1ZTczY1dScFNySy9ncGxKdUVh?=
- =?utf-8?B?NWh5VXJSUGJLWEtTcVYxOWQvVjVwTGJ2UFJ4UWNjcXZLY0NkdkFtL2ZFY1M3?=
- =?utf-8?B?S2pPN1BiTVU1dDJwWnQ4WlBuTlhlak9qUjV0V3g3dWlxOHAyaHJjWmtnK2dr?=
- =?utf-8?B?aGpXOU5PNk9oYWM5VS9UU0VlRnY5M09tT0JQMFp2R3dPSUQ0aElUTWp6Sktp?=
- =?utf-8?B?dEtSZ0xla0QzZ3RRaDIwMlEzSVYvWTlwa3ZzUlFJSWdBeTBVYnV6MENnRnVz?=
- =?utf-8?B?YWJ4c1BCRzBTYldQUjZaSGFmdmhFRHM0K0Z2MUo5RTRzMzR0aURsL0dTaFNz?=
- =?utf-8?B?QWxnUmJna2FzVTM0UjIrcC9lRUFUekQ2VDBxM3o1UktKKzRoQVpDRmZLZkRu?=
- =?utf-8?B?aFpmcjRJT0NlWCtCQXJDUFR4TDd3N2UvNUtCQUMrc1haZ1p2b0MwYjFaNDVJ?=
- =?utf-8?B?NzdhNkxDemlqWjlOdGJVd09ZVGlMTGhHMnJzSFJPSUNRMW5wWkpDdTY1MzBR?=
- =?utf-8?B?WWZIeTRuQVJkUEFrcWFGeStsd1NoRkRNWG1xaTBLaHE0VmRvZHFYSURCOExQ?=
- =?utf-8?B?eXRKejNKTWJqZFNJcElqUXVxRWdYdnVSYkxNTEFNbDdudzZYbEROUEZxZWwx?=
- =?utf-8?B?cS9MUFRHKzU1ZTZTREN2bWkxUTJlU3laUjJ2SjBXWXNqN2t6bGJKM0NKM2tu?=
- =?utf-8?B?Yy9jckR4TU44cncreVpPZ2R3TE1BdWRRaGYxdkRUU291MjNDd1hZMTJvVDRn?=
- =?utf-8?B?YThFU1YyRmp4U3ZyNjZYcmsycFJucTkvcmRxUXdzd3pwQmU3N1Y3c1Ezd3Fz?=
- =?utf-8?B?cUl6RmxIUFkrNXkwUm1jUEN6M0pyN0NuOHhnSVFXYlY4d1RjbHZtSEFuLy9J?=
- =?utf-8?B?dG12Y21ISjFVZE0vNkJoRTNZZkVlcUFOSWxJSFRNQkVMK3phZS9xdTZoSzVl?=
- =?utf-8?B?bmcrUDRYa2Y2R1pBNTJGODNWOGMwWUtCbE82VG9EYUI2RjMrM1JSZ0NKOW1G?=
- =?utf-8?B?Z2JZZ1EyTXlvSnNHY2Q4YnFZSXZoWFNhNXdZMVh2Vlg4RlVtS0djRTE1YzEr?=
- =?utf-8?B?NWNaSGF6NzhVMGEvNU1HRE5tR0NEbzZMRVRhZDZ3a0JKZ3k3QXBlcmtxMEQ1?=
- =?utf-8?B?bDJsNEgrWkpnTzRkWDNuemt1d0JZNlJNakZzUVIwdFE0bFg4NDI2T0I0NjBW?=
- =?utf-8?B?YTZZb2dxM0p3UEZ0RE44UEdWMFV1czROSXptSFlrS2NYL1ljR0FsZ3cvRUFW?=
- =?utf-8?B?b0EzcWI0YWtsd1VDL0JCc2pOR0xiSUlVMXJ6N0I2V1dwSithL1V2cUNMZmlI?=
- =?utf-8?B?ZmdSdVlXWWh4M3NGemxySFlZV0FScER2MDJLQ21ZTXpWNXRMNi8rUlVUN2p2?=
- =?utf-8?Q?/Qmb7pdwq70pqDHDqt9FoLIEX?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NENwRUxWSkFJYURvQ21UczJpYUVmK1ByTkJjSE1MSlQ4ZXUxYTVLNWMrME52?=
+ =?utf-8?B?U1FOd2FCTTNhTDZUWkF4c2ljSkdjK1dxcGZ2dTAxeERZL2dKbWZhMzNZSzVJ?=
+ =?utf-8?B?Zy80K3FiTXJlcmhrTUtDcDFJQW1SMkthYTkyL3ZLM2NTdHo3ZllZR1BEZDVw?=
+ =?utf-8?B?VEYzY1V3ZDNZeVlCL21TMlVRaGU4dGlsTWF2U29oaEtpeVVrak4wODRrTHhs?=
+ =?utf-8?B?OGg1KytGK3pmd3k4YkM1ZENneENqQTYyUU9nSGYyOURKbFIyMDE0aVdrQnF3?=
+ =?utf-8?B?YlRUVDV5Ky93Z25KZGFzUmdqblkvT1Q2QUpLQ1VVbnJQMnpTalliYUFVZ1U0?=
+ =?utf-8?B?WENKM3Y1M2REcEZLdDdOWGVKVm9NM293bE02bmo4amswRWk0NWhYUzB1bmJv?=
+ =?utf-8?B?OHA3SXdVcUNsN3R2bEJPOHVRZ21iQ0FMV0pLc2NVWjlKZFFZVWxXMkgyaGF4?=
+ =?utf-8?B?U3BGUTJ5M25ObjhjaGptdWsvL0VhR3Btem5hNkpvSW40QXlqUElKTEF6S2Zw?=
+ =?utf-8?B?OElxbllUSnp1emJmWEFHOFVYWURScVN6aUJSWE44UXExOWt5blVqejBHM1RL?=
+ =?utf-8?B?MENvbWR5UFVkS1ZVb21YL0tuZnpnSVVKNXc5NDlPaDhTbFVnVUdoLzA3b3VI?=
+ =?utf-8?B?WjZ6YnQ2LzIvSG1keE1XSHJOeGxvb0hNbEVqOHk0ejRYK1NIUy92aEdaRy84?=
+ =?utf-8?B?UUc4L1FCSDh3UnhwdVM3dmlwZFBucjM0dWNjL1dsU1RoMHBYM3NUUXJHeDRK?=
+ =?utf-8?B?TURNRTRYdlZsM0tqN2JNaVBtRGdsYzNNQnBsc21OSGNtYzgvOElXOTNEZVBz?=
+ =?utf-8?B?dVNPaTRIL2gydkN2RE9rM28wYjRIUVg0VG9JY1BlWlcwYU5hQlNZOU1UeHZW?=
+ =?utf-8?B?WTVlTS9XQ1NtS2w2WW05WWxHK2l6QkN3RGpnR01lQ3lyYXVRd3dmRTFsVUxs?=
+ =?utf-8?B?YVZEeGZuKzEzYVFXZmNiTVEzSWhERHFxcTkwL084RTZJWm9CK3VZS2tKVHUy?=
+ =?utf-8?B?MVBEZThDbE43aWpaOWtoRWp3dExVOGZUS3Z1cU16WVpHbHhnbUswbFBuOEw0?=
+ =?utf-8?B?YmhqVXUwdkpWdlFmR0MwSjBJUmQ3dGdkUmlaNllzektOK1h0MzVoNkN0alJl?=
+ =?utf-8?B?aU1wdmdmcHgwdG5NSTgyeXhCa1dpeXU4N24vYVphVlFGZnlCT1UrZlpKYk12?=
+ =?utf-8?B?U05KVUI4d1NGMU4rZllLdlZKZWdsTkNKNEJ2N0x3MTUzQk1jZEg5c3BNNG0z?=
+ =?utf-8?B?eFlqQkt4dEt1NjRkYWpzTzc3bVVMOGJrYUg0eWVWRnpYb2RvRWliTEJlL0la?=
+ =?utf-8?B?Wk9MdmFiWDJLWkl6M0h2UHJ1SmtTUGhVL3kvNklZWWwvUmIxMUFsNzVLbXRF?=
+ =?utf-8?B?OGdEbzVDZVVJcjhEK2V3eXNKYUw2MWhreGczMmF5Tlk0ZExiZ1B0UURDZTVt?=
+ =?utf-8?B?aHk4QmR4dHNUWGd6Q25Ic21mU2szZnRlQ0VzTkhYRFdvWWFLeVFQdldxZzN2?=
+ =?utf-8?B?TzJkNlpIeS9MSHhDRDZNSmtaNUZvdUVMNWZ0ei9zT2xFTzViTUcyekdCS1VJ?=
+ =?utf-8?B?c2VZUWlyS251Q0svRDF3Q1pEOVNsVlBqeDFlNVJObGZZMGpoR1ZxN29iL1Rm?=
+ =?utf-8?B?bXpHb2lXVXlVMDB0MlFxanpQcm9MZ1h5YlJWaFNlWFZzNzRJYmFVNWduMDlK?=
+ =?utf-8?B?ejlHYmJkVSswVmtkbHVPOHArQUo4eWZITTIydmFRb3YyZGVlRWp0dzNFRHdS?=
+ =?utf-8?B?QWVhVTFVM3VEUXU4aEhxK09kb0ZKZzdMeXZJbXJlZnJTTkwvZk9RVGY2aXBN?=
+ =?utf-8?B?NjVlM3NhS2FteThlQmRkRHFpdmd6MEtFTzlrU2g0RHkxVEtubFFrWm1XY1l2?=
+ =?utf-8?B?bVo3V0tOWHZsZDk2N0JSekVCUjF6RDNOSXZ5QldtQ2RWNTdJdUhYS1o4aG5j?=
+ =?utf-8?B?MGZ0cERTWVJsRmNjR1BGNlpDalRnTUxQd2xXUC9kTFpYblRTbWRzOXRLTnZU?=
+ =?utf-8?B?WFNIY1Y3RmNHaE5qWlRuS1UwRnowSDhBTXVxeW9RMnhobEtNTS8yQkVOMGNh?=
+ =?utf-8?B?ekRnejN0Y2cvWXFMeTJndE5rdEE5NUZtNkNGb2hzY05PTkFraXJmQUxzVGNC?=
+ =?utf-8?Q?7UFQrixYVbYn1pExbQWm6ISRL?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3a460d6-9a4e-4215-a7bf-08daf5549b30
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1f2643b-70f5-41ba-edcb-08daf5572aaf
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 10:54:55.9654 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 11:13:15.8166 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QGsFQAAGKSZrn9sMSfiYp0kKkw7aieN3FetL7ZGUxW48O/76KECf9f36W5558gkQeQ4nBYuwv0qt0qmjhiWX/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8512
+X-MS-Exchange-CrossTenant-UserPrincipalName: +3GNlCM3HS3V2qGH05Te/ln3+mROIH/yMvRxDpyy+eDTi+IstwREMOPKhfwdPVvy1v2oItS8T9GviCkEcs1O/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5681
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,65 +159,295 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
  Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>, arungopal.kondaveeti@amd.com
+ Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/01/23 21:35, Pierre-Louis Bossart wrote:
+On 11/01/23 21:04, Pierre-Louis Bossart wrote:
 >
-> On 1/12/23 09:29, Limonciello, Mario wrote:
->> On 1/12/2023 08:54, Pierre-Louis Bossart wrote:
->>>
->>> On 1/12/23 05:02, Mukunda,Vijendar wrote:
->>>> On 11/01/23 21:32, Pierre-Louis Bossart wrote:
->>>>> On 1/11/23 03:02, Vijendar Mukunda wrote:
->>>>>> To avoid ACP entering into D3 state during slave enumeration and
->>>>>> initialization on two soundwire controller instances for multiple
->>>>>> codecs,
->>>>>> increase the runtime suspend delay to 3 seconds.
->>>>> You have a parent PCI device and a set of child devices for each
->>>>> manager. The parent PCI device cannot suspend before all its children
->>>>> are also suspended, so shouldn't the delay be modified at the
->>>>> manager level?
->>>>>
->>>>> Not getting what this delay is and how this would deal with a lengthy
->>>>> enumeration/initialization process.
->>>> Yes agreed. Until Child devices are suspended, parent device will
->>>> be in D0 state. We will rephrase the commit message.
->>>>
->>>> Machine driver node will be created by ACP PCI driver.
->>>> We have added delay in machine driver to make sure
->>>> two manager instances completes codec enumeration and
->>>> peripheral initialization before registering the sound card.
->>>> Without adding delay in machine driver will result early card
->>>> registration before codec initialization is completed. Manager
->>>> will enter in to bad state due to codec read/write failures.
->>>> We are intended to keep the ACP in D0 state, till sound card
->>>> is created and jack controls are initialized. To handle, at manager
->>>> level increased runtime suspend delay.
->>> This doesn't look too good. You should not assume any timing
->>> dependencies in the machine driver probe. I made that mistake in earlier
->>> versions and we had to revisit all this to make sure drivers could be
->>> bound/unbound at any time.
->> Rather than a timing dependency, could you perhaps prohibit runtime PM
->> and have a codec make a callback to indicate it's fully initialized and
->> then allow runtime PM again?
-> We already have enumeration and initialization 'struct completion' that
-> are used by codec drivers to know if the hardware is usable. We also
-> have pm_runtime_get_sync() is the bus layer to make sure the codec is
-> resumed before being accessed.
-Instead of walking through codec list and checking completion status
-for every codec over the link, can we have some solution where once
-all codecs gets enumerated and initialized, a variable in bus instance
-will be updated to know all peripherals initialized. So that we can
-check this variable in machine driver.
-
+> On 1/11/23 03:02, Vijendar Mukunda wrote:
+>> Add Soundwire DMA driver dma ops for Pink Sardine platform.
+>>
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> ---
+>>  sound/soc/amd/ps/acp63.h      |  61 ++++
+>>  sound/soc/amd/ps/ps-sdw-dma.c | 531 ++++++++++++++++++++++++++++++++++
+>>  2 files changed, 592 insertions(+)
+>>
+>> diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+>> index b462320fdf2a..8963cfb6120d 100644
+>> --- a/sound/soc/amd/ps/acp63.h
+>> +++ b/sound/soc/amd/ps/acp63.h
+>> @@ -67,6 +67,38 @@
+>>  #define ACP_SDW0_IRQ_MASK	21
+>>  #define ACP_SDW1_IRQ_MASK	2
+>>  #define ACP_ERROR_IRQ_MASK      29
+>> +#define ACP_AUDIO_TX_THRESHOLD	28
+>> +#define ACP_BT_TX_THRESHOLD	26
+>> +#define ACP_HS_TX_THRESHOLD	24
+>> +#define ACP_AUDIO_RX_THRESHOLD	27
+>> +#define ACP_BT_RX_THRESHOLD	25
+>> +#define ACP_HS_RX_THRESHOLD	23
+>> +#define ACP_P1_BT_TX_THRESHOLD	6
+>> +#define ACP_P1_BT_RX_THRESHOLD	5
+>> +#define ACP_SDW_DMA_IRQ_MASK	0x1F800000
+>> +#define ACP_P1_SDW_DMA_IRQ_MASK	0x60
+>> +#define ACP63_SDW_MAX_STREAMS		8
+>> +
+>> +#define ACP_DELAY_US		5
+>> +#define SDW_MEM_WINDOW_START	0x4800000
+>> +#define ACP_SDW_SRAM_PTE_OFFSET	0x03800400
+>> +#define SDW_PTE_OFFSET		0x400
+>> +#define SDW_FIFO_SIZE		0x100
+>> +#define SDW_DMA_SIZE		0x40
+>> +#define ACP_SDW_FIFO_OFFSET	0x100
+>> +#define ACP_SDW_RING_BUFF_ADDR_OFFSET (128 * 1024)
+>> +
+>> +#define SDW_PLAYBACK_MIN_NUM_PERIODS    2
+>> +#define SDW_PLAYBACK_MAX_NUM_PERIODS    8
+>> +#define SDW_PLAYBACK_MAX_PERIOD_SIZE    8192
+>> +#define SDW_PLAYBACK_MIN_PERIOD_SIZE    1024
+>> +#define SDW_CAPTURE_MIN_NUM_PERIODS     2
+>> +#define SDW_CAPTURE_MAX_NUM_PERIODS     8
+>> +#define SDW_CAPTURE_MAX_PERIOD_SIZE     8192
+>> +#define SDW_CAPTURE_MIN_PERIOD_SIZE     1024
+>> +
+>> +#define SDW_MAX_BUFFER (SDW_PLAYBACK_MAX_PERIOD_SIZE * SDW_PLAYBACK_MAX_NUM_PERIODS)
+>> +#define SDW_MIN_BUFFER SDW_MAX_BUFFER
+>>  
+>>  enum acp_config {
+>>  	ACP_CONFIG_0 = 0,
+>> @@ -93,6 +125,17 @@ enum acp_pdev_mask {
+>>  	ACP63_SDW_PDM_DEV_MASK,
+>>  };
+>>  
+>> +enum channel_type {
+>> +	ACP_SDW_AUDIO_TX = 0,
+>> +	ACP_SDW_BT_TX,
+>> +	ACP_SDW_HS_TX,
+>> +	ACP_SDW_AUDIO_RX,
+>> +	ACP_SDW_BT_RX,
+>> +	ACP_SDW_HS_RX,
+>> +	ACP_SDW1_BT_TX,
+>> +	ACP_SDW1_BT_RX,
+>> +};
+> this was defined in another patch already?
+will drop this change.
 >
-> The explanations above confuse card registration and manager
-> probe/initialization. These are two different things. Maybe there's
-> indeed a missing part in the SoundWire PM assumptions, but I am not
-> getting what the issue is.
-We will rephrase the commit message.
-At manager level we want to increase the delay to 3s.
+>> +
+>>  struct pdm_stream_instance {
+>>  	u16 num_pages;
+>>  	u16 channels;
+>> @@ -139,4 +182,22 @@ struct acp63_dev_data {
+>>  struct sdw_dma_dev_data {
+>>  	void __iomem *acp_base;
+>>  	struct mutex *acp_lock;
+>> +	struct snd_pcm_substream *sdw_stream[ACP63_SDW_MAX_STREAMS];
+>> +};
+>> +
+>> +struct sdw_stream_instance {
+> sdw_stream is already a well-defined concept. Please use sdw_dma_stream
+> or something less confusing naming-wise.
+will rename it.
+>> +	u16 num_pages;
+>> +	u16 channels;
+>> +	u32 stream_id;
+>> +	dma_addr_t dma_addr;
+>> +	u64 bytescount;
+>> +	void __iomem *acp_base;
+>> +};
+>> +
+>> +union acp_sdw_dma_count {
+>> +	struct {
+>> +	u32 low;
+>> +	u32 high;
+>> +	} bcount;
+>> +	u64 bytescount;
+>>  };
+>> diff --git a/sound/soc/amd/ps/ps-sdw-dma.c b/sound/soc/amd/ps/ps-sdw-dma.c
+>> index 388a4b7df715..e94f76053c66 100644
+>> --- a/sound/soc/amd/ps/ps-sdw-dma.c
+>> +++ b/sound/soc/amd/ps/ps-sdw-dma.c
+>> @@ -12,12 +12,543 @@
+>>  #include <sound/pcm_params.h>
+>>  #include <sound/soc.h>
+>>  #include <sound/soc-dai.h>
+>> +#include <linux/soundwire/sdw_amd.h>
+>>  #include "acp63.h"
+>>  
+>>  #define DRV_NAME "amd_ps_sdw_dma"
+>>  
+>> +static const struct snd_pcm_hardware acp63_sdw_hardware_playback = {
+>> +	.info = SNDRV_PCM_INFO_INTERLEAVED |
+>> +		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>> +		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
+>> +		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
+>> +	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
+>> +		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+>> +	.channels_min = 2,
+>> +	.channels_max = 2,
+>> +	.rates = SNDRV_PCM_RATE_48000,
+>> +	.rate_min = 48000,
+>> +	.rate_max = 48000,
+> is this really limited to 2ch 48kHz? This doesn't align with the
+> references to Bluetooth above?
+As of now we are enabling solution for 48khz, 2Ch, 16bit.
+We will expand the coverage in the future.
+>> +	.buffer_bytes_max = SDW_PLAYBACK_MAX_NUM_PERIODS * SDW_PLAYBACK_MAX_PERIOD_SIZE,
+>> +	.period_bytes_min = SDW_PLAYBACK_MIN_PERIOD_SIZE,
+>> +	.period_bytes_max = SDW_PLAYBACK_MAX_PERIOD_SIZE,
+>> +	.periods_min = SDW_PLAYBACK_MIN_NUM_PERIODS,
+>> +	.periods_max = SDW_PLAYBACK_MAX_NUM_PERIODS,
+>> +};
+>> +
+>> +static const struct snd_pcm_hardware acp63_sdw_hardware_capture = {
+>> +	.info = SNDRV_PCM_INFO_INTERLEAVED |
+>> +		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>> +		SNDRV_PCM_INFO_MMAP |
+>> +		SNDRV_PCM_INFO_MMAP_VALID |
+>> +		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
+>> +	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
+>> +		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+>> +	.channels_min = 2,
+>> +	.channels_max = 2,
+>> +	.rates = SNDRV_PCM_RATE_48000,
+>> +	.rate_min = 48000,
+>> +	.rate_max = 48000,
+> same here?
+>
+>> +	.buffer_bytes_max = SDW_CAPTURE_MAX_NUM_PERIODS * SDW_CAPTURE_MAX_PERIOD_SIZE,
+>> +	.period_bytes_min = SDW_CAPTURE_MIN_PERIOD_SIZE,
+>> +	.period_bytes_max = SDW_CAPTURE_MAX_PERIOD_SIZE,
+>> +	.periods_min = SDW_CAPTURE_MIN_NUM_PERIODS,
+>> +	.periods_max = SDW_CAPTURE_MAX_NUM_PERIODS,
+>> +};
+>> +
+>> +static void acp63_config_dma(struct sdw_stream_instance *sdw_ins, u32 stream_id)
+>> +{
+>> +	u16 page_idx;
+>> +	u32 low, high, val;
+>> +	dma_addr_t addr;
+>> +
+>> +	addr = sdw_ins->dma_addr;
+>> +	val = SDW_PTE_OFFSET + (stream_id * 256);
+>> +
+>> +	/* Group Enable */
+>> +	acp63_writel(ACP_SDW_SRAM_PTE_OFFSET | BIT(31), sdw_ins->acp_base +
+>> +		     ACPAXI2AXI_ATU_BASE_ADDR_GRP_2);
+>> +	acp63_writel(PAGE_SIZE_4K_ENABLE, sdw_ins->acp_base +
+>> +		     ACPAXI2AXI_ATU_PAGE_SIZE_GRP_2);
+>> +	for (page_idx = 0; page_idx < sdw_ins->num_pages; page_idx++) {
+>> +		/* Load the low address of page int ACP SRAM through SRBM */
+>> +		low = lower_32_bits(addr);
+>> +		high = upper_32_bits(addr);
+>> +
+>> +		acp63_writel(low, sdw_ins->acp_base + ACP_SCRATCH_REG_0 + val);
+>> +		high |= BIT(31);
+>> +		acp63_writel(high, sdw_ins->acp_base + ACP_SCRATCH_REG_0 + val + 4);
+>> +		val += 8;
+>> +		addr += PAGE_SIZE;
+>> +	}
+>> +
+>> +	/*cache Invalidation added for Testing */
+Below register programming is required. We will remove the comment.
+> /* cache
+>
+>> +	acp63_writel(0x1, sdw_ins->acp_base + ACPAXI2AXI_ATU_CTRL);
+>> +}
+>> +static int acp63_sdw_dma_hw_params(struct snd_soc_component *component,
+>> +				   struct snd_pcm_substream *substream,
+>> +				   struct snd_pcm_hw_params *params)
+>> +{
+>> +	struct sdw_stream_instance *sdw_stream_data;
+>> +	struct sdw_dma_dev_data *sdw_data;
+>> +	u32 period_bytes;
+>> +	u32 water_mark_size_reg;
+>> +	u32 irq_mask, ext_intr_ctrl;
+>> +	u64 size;
+>> +	u32 stream_id;
+>> +	u32 acp_ext_intr_cntl_reg;
+>> +	int ret;
+>> +
+>> +	stream_id = 0;
+> useless initialization...
+Will remove it.
+>> +	sdw_data = dev_get_drvdata(component->dev);
+>> +	sdw_stream_data = substream->runtime->private_data;
+>> +	if (!sdw_stream_data)
+>> +		return -EINVAL;
+>> +	stream_id = sdw_stream_data->stream_id;
+> ... overriden here
+>
+>> +	sdw_data->sdw_stream[stream_id] = substream;
+>> +	size = params_buffer_bytes(params);
+>> +	period_bytes = params_period_bytes(params);
+>> +	sdw_stream_data->dma_addr = substream->runtime->dma_addr;
+>> +	sdw_stream_data->num_pages = (PAGE_ALIGN(size) >> PAGE_SHIFT);
+>> +	acp63_config_dma(sdw_stream_data, stream_id);
+>> +	ret = acp63_configure_sdw_ringbuffer(sdw_stream_data->acp_base, stream_id, size);
+>> +	if (ret) {
+>> +		dev_err(component->dev, "Invalid channel type\n");
+>> +		return -EINVAL;
+>> +	}
+>> +	switch (stream_id) {
+>> +	case ACP_SDW_AUDIO_TX:
+>> +		water_mark_size_reg = ACP_AUDIO_TX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_AUDIO_TX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+> so there's ONE resource to deal with external codecs? How does this work
+> if you have a headset codec and an amplifier?
+Are you referring to playing a same stream over headset codec and
+amplifier?
+It's all about channel selection from DMA perspective.
+We have tested speaker aggregation and headset playback use cases.
 
+
+>> +	case ACP_SDW_BT_TX:
+>> +		water_mark_size_reg = ACP_BT_TX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_BT_TX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+>> +	case ACP_SDW_HS_TX:
+>> +		water_mark_size_reg = ACP_HS_TX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_HS_TX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+>> +	case ACP_SDW1_BT_TX:
+>> +		water_mark_size_reg = ACP_P1_BT_TX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_P1_BT_TX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL1;
+>> +		break;
+>> +	case ACP_SDW_AUDIO_RX:
+>> +		water_mark_size_reg = ACP_AUDIO_RX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_AUDIO_RX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+>> +	case ACP_SDW_BT_RX:
+>> +		water_mark_size_reg = ACP_BT_RX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_BT_RX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+>> +	case ACP_SDW_HS_RX:
+>> +		water_mark_size_reg = ACP_HS_RX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_HS_RX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL;
+>> +		break;
+>> +	case ACP_SDW1_BT_RX:
+>> +		water_mark_size_reg = ACP_P1_BT_RX_INTR_WATERMARK_SIZE;
+>> +		irq_mask = BIT(ACP_P1_BT_RX_THRESHOLD);
+>> +		acp_ext_intr_cntl_reg = ACP_EXTERNAL_INTR_CNTL1;
+>> +		break;
+>> +	default:
+>> +		dev_err(component->dev, "%s: Invalid channel type\n", __func__);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	ext_intr_ctrl = acp63_readl(sdw_stream_data->acp_base + acp_ext_intr_cntl_reg);
+>> +	ext_intr_ctrl |= irq_mask;
+>> +	acp63_writel(ext_intr_ctrl, sdw_stream_data->acp_base + acp_ext_intr_cntl_reg);
+>> +	acp63_writel(period_bytes, sdw_stream_data->acp_base + water_mark_size_reg);
+>> +	return 0;
+>> +}
 

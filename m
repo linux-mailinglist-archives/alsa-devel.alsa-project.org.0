@@ -2,75 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9826466AFBC
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:49:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3908966AFBD
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:50:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9079AC8B;
-	Sun, 15 Jan 2023 08:48:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9079AC8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45AB1ACD5;
+	Sun, 15 Jan 2023 08:49:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45AB1ACD5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673768987;
-	bh=DlA6X3Ynblj5vzGd90yoauEZMiLJ/ahbpP9RvHJmwL8=;
-	h=Date:In-Reply-To:Subject:From:To:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qpXjr9s619srFkQCTMuuIaoYQMXAeIXHYEB9tRYIAcwQajhWj/6Lig2VZZZCnbkdP
-	 S4Zg7dehMeAbzi/yI3zUl2OM9DOZ6nmMw/78fOFRAMDA/9jw2PLXTItF92mTgsyoeo
-	 R5kFNm7/ZK/rklztpLk3J73128MH+t4wu+qi7hwM=
+	s=default; t=1673769003;
+	bh=s6c7cwhcwWmGTasQhG8iGf+AHW/DX1awLgqmT01kcZo=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=drb6TSKAEVqXw2k1DqgsgAO69TcwTMDaPh/MRY56imTKsUJrBxSbPA36NHdeMiOgH
+	 KSzuFbZ80FA1VRA5rKLYPXdTErK/dQ2hmYjunTRtikQj0nIKw1QdqDKBfWotGno9di
+	 7xWbg3VWxxZlWsIrVKiIT7AALrSpN5yv0CLgZgSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D0C3F80506;
-	Sun, 15 Jan 2023 08:48:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C0DBF801EB;
+	Sun, 15 Jan 2023 08:48:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1678F804CA; Thu, 12 Jan 2023 21:56:50 +0100 (CET)
+ id 025FFF80548; Fri, 13 Jan 2023 06:50:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from IND01-BMX-obe.outbound.protection.outlook.com
+ (mail-bmxind01on2073.outbound.protection.outlook.com [40.107.239.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 653C1F804BD
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 21:56:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 653C1F804BD
-Received: by mail-il1-f199.google.com with SMTP id
- l13-20020a056e021c0d00b003034e24b866so14575165ilh.22
- for <alsa-devel@alsa-project.org>; Thu, 12 Jan 2023 12:56:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gM+TCMdssC5AP1w3tSB0QawlpFzYuYVK2tHIdTgodI8=;
- b=vs8Vyh3Sjlwnhae3xm5+tu8ZgKIvQDIlRSpKd4+12XOE/EEJmUCKfgU7BMFC2I43qC
- 5YKZKOHek1j0G/0/sGQ3FZzprjnvVALW7yXrU5U9uD9WbDKgiebAbgzwndBxoQH8vNcv
- ueokhIzFyzhY2JSdFXqNcfAtPo8V9i56RGXQNHdAUAG6AHW19f1aWnJbg+TZJLX7QzgM
- erqLUllzJMQPrisG4SG4iBu8pVSSxPVLOF9edGl8XHz9oHK1sWbMS6Vy7YovxrhTg/QK
- 7aKK37Sjx6dIF0mrf+sOUoF1BEpE1hTEfsm8q2Cnl2n6e6nd7p8lOA6Kcji8JUYIePaA
- cKJQ==
-X-Gm-Message-State: AFqh2kp7o4rG8O3TBk01UkGylDK1HDh2e0jRbdiQd+sWctX/Lj42btMg
- 1wc6dVipjVzRlWto/eD1FCkpCOZJRMHdy9oXDMjEZF0sgqOP
-X-Google-Smtp-Source: AMrXdXuA0IoSrhUfCnpR4Z1YG7+n3qOwIuUKerEf5XT8ivyKTn+0W9AQTAZvEFWTjOiohI+LbqFUolkk7sh5C7vuR8/MAARBfF85
+ by alsa1.perex.cz (Postfix) with ESMTPS id D18CFF8030F
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 06:50:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D18CFF8030F
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gzFrbNJ7hBfVMfMug+SOAumy2NAbJXJwZZaUpEJnTgz8TShbQRamdOG8MPSxgnQ0dWUKjI8IJj9twXgBVxPLUb0rmD79RQOYip+BSDzxJpbax0oshsVZK5ZZ85xnQKNHdv6/K+r7rSV7h428faNdOYlgA0IaGbkAaz2vx2eNkdhiY2P5B5vk0OEzWfcm68XLvHQQQHy63fwQT4uUp3I2FoAow6894/CQzNSL1G2oHLddcIdJRV838o8M12YZr5NyaRQ+uDa2sUuKOc1/3c7E+FkNH6JGKbOrJPbuPDj7ZZ7Lm/wbQr6/mkDH5pJdMkR669U7+kIwiQUtI7v7FJyDJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/1vmbFi3uJ3P6X5K5hRFZa08ZJ37gDPe5lQelIg3pb4=;
+ b=UKX5yKqraayAtxx6659TuGHStGrkIK331loktyCxiX1NTuZyiHP4kpKk6ehEe/9tuFhBmzlKD+2Z+xx3ia9520I6TGAyOD+913i5suEgCPsNkMxoTnqtcYQ/XSwD9DGtXxl+TR6LLpVEEr0qwW6GX7PV6OGzudS2hbLTXYVtvoTVVSoNp6MbbfHf2I5xigl8t5zbSprcEyTStVrfm1ObiuwkNLREhGKAJJumqXEwx9/NBHcS3y5/YcK9pC3KVxpxZ1/A6KufIwULibig5l+23BXgUWgJBmPzlfSj8U0qn7qiad8tXc/aGvcXya6eH5wtRVy7iNWX1NM3iSEIf/MzZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+Received: from MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a01:31::9)
+ by PN3PR01MB6459.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:86::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.11; Fri, 13 Jan
+ 2023 05:50:30 +0000
+Received: from MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::e762:50f5:c91e:7e61]) by MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::e762:50f5:c91e:7e61%4]) with mapi id 15.20.6002.013; Fri, 13 Jan 2023
+ 05:50:30 +0000
+From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+To: Daniel Baluta <daniel.baluta@gmail.com>, Daniel Baluta
+ <daniel.baluta@nxp.com>, "krzysztof.kozlowski+dt@linaro.org"
+ <krzysztof.kozlowski+dt@linaro.org>
+Subject: Re: [PATCH] Support for MAX98090/91 codec in iMX8MM evk
+Thread-Topic: [PATCH] Support for MAX98090/91 codec in iMX8MM evk
+Thread-Index: AQHZJYqW0X9zj+hpQkK22Ny+RkFTBa6Y7JCAgAACEuaAAC3aAIACvW6s
+Date: Fri, 13 Jan 2023 05:50:30 +0000
+Message-ID: <MA0PR01MB7145B5094B0E3FB35764DE9FFFC29@MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM>
+References: <MA0PR01MB7145CB5A2D487FB713CD7C01FFFC9@MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM>
+ <CAEnQRZC2X5v6hh=-PRiaUgp3SZQYg1vot+4JKwEE6x5bzTKvwA@mail.gmail.com>
+ <MA0PR01MB71451A4A70DBD85680E90AE0FFFC9@MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM>
+ <CAEnQRZDowp=-Cqvy=hJzQDDN_+cEUS7Pj-GJ-0oAhqq=N2STWw@mail.gmail.com>
+In-Reply-To: <CAEnQRZDowp=-Cqvy=hJzQDDN_+cEUS7Pj-GJ-0oAhqq=N2STWw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MA0PR01MB7145:EE_|PN3PR01MB6459:EE_
+x-ms-office365-filtering-correlation-id: 2724517c-7fc3-42e2-14b5-08daf52a1478
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FqlajtkW/OD20ZQ0SUmHPzpNP40adYCX1uLuL2rjflsA9Jt//bdnfMvixHh19cHg1BD7mFHXJZrK1x82SUYlrlUeKM7M9hCxQxhL9oGKii6gMrPdBtkvcBCInQVUQO4EW2Mdsogv7CgJnn/1taN1UdGrwXkW6tJi05jsrzIoPhKKP6uUVzswfNWdiD+b69VDwM0VIHkKG9a3fHRWHhgoOtnxQxmYeJMc9MhpADcfICt5+ouA3evb8UOTK59e/7tqU7U/lXWCpvM8Xx/jxnyr+Csn73Pl+ylb/m/YfJYZZGCpW6MDD62/xWuKfH2paj6X+EWWo6CKCmyH++HJJMiDGloBLvTW9TMxXCyjMM/xJY3U1tO5RENiogO7WU2VtOivlZSk2viaN1T5ToJFQSBMWuAIHThw0vxwU5spKIb8fGzvBsuP2Tk1XdRyWkeagQ2D/DRuHmL4iaKUGwGuKcIo/iKupkgFLRpmJT6z8MTOrwr4egRLlXztifIGgWTeniI5ptboF8GOckBFxb35zg2/RH/yOwQ72CfLZDMxzvNcx+GEPmIyHZ+Phz+ttw72Mx3poqSWKrmDJSWq8VA0kQGxi76CL6hwi+XT02ZaJcRpwWADrk3JTaQy2v1F4IhOPeXsHF7ls2vyg8CMvwDgge8eg8/1UdArUXJx1pLWTGJ/oULqPoZIfDjKqsc0nf93rN4fy6c08KyEyOeX9919kiVUpttxGcYHdkm0vspVv4accQE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230022)(376002)(39830400003)(396003)(366004)(346002)(136003)(451199015)(55236004)(53546011)(6506007)(122000001)(38100700002)(2906002)(38070700005)(7416002)(33656002)(9686003)(5660300002)(71200400001)(7696005)(186003)(26005)(478600001)(316002)(7406005)(44832011)(86362001)(52536014)(8936002)(83380400001)(55016003)(91956017)(66946007)(41300700001)(54906003)(66556008)(66476007)(64756008)(8676002)(4326008)(66446008)(110136005)(76116006)(32563001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?r6kQj5ooKApSso7HW5SdSx9LG+z1ytqttMplsjKCVaLCEunam5Pgdg4T++?=
+ =?iso-8859-1?Q?u/qw2JSDF7d22OHPy3WuO3gO4rBuflLj79qgt0/QMMXDGiKum4EynRipaB?=
+ =?iso-8859-1?Q?mQaURo2vcon8wn2d5HIrjE0dTsrHa0ugUMBU4NiPLep9aUzPhhzfj8jhur?=
+ =?iso-8859-1?Q?1Bp+/7HkFIhvdkBOs5FOf4+Wcvs6YweaN8ibald+vqEG+1nV88eqVFWPiM?=
+ =?iso-8859-1?Q?Xk1IvD8ijShv5ggnqelBFa+e7x7hkbPogj+Au/1VqV5CBNJXgrVzhW9jcE?=
+ =?iso-8859-1?Q?yBQo+TMWwGQCnwvR4qsNFD9NvDpg6RK7rbzb9Cwrl3Cgj/So5+1hdeF+3H?=
+ =?iso-8859-1?Q?BSj+dwjhhzbBeEFxFNO1TK4udH+NGFiEknxetQ6YCJfvi8eQN6NVzdxS2K?=
+ =?iso-8859-1?Q?1xJvUJ6/jZmLBBTVuvN+0FE1S7aGvovUU3ZiwE8hDIUyx0/BdMDn/UoSKV?=
+ =?iso-8859-1?Q?2Hrt1fE61NO7NG8H8oovzMEo9bpEYuMDVhGz7vcmNsE7bua0BsvMUZEDxE?=
+ =?iso-8859-1?Q?HGnScxSalLp2z2RpU0QCoQvJhc3oc8I7PLb72Mm5xFx6pk3DCgGCr6CKzs?=
+ =?iso-8859-1?Q?5ou4X8ghcUOv+fnCbwJ6lbcj12zHT0FjU/Mk75Ly46CvNNzAiyc5iNtvLi?=
+ =?iso-8859-1?Q?+OcLYfwY9yVl5QFegz/iWV0G2FCwxNC9II3uWf83BFZWlYqDwtB12HdaQg?=
+ =?iso-8859-1?Q?95V02HhrKxe+KF5CN5VFfjncVcoMcQuzZWTDUlyw6BtMFmr1QcKXLhaxLJ?=
+ =?iso-8859-1?Q?pFvloUEOaQ0THhtaRPIFDhTFOM+/IZO96pTg5sp300BJPbtg280TcLcoSF?=
+ =?iso-8859-1?Q?Xied6wyp3SB+rIqu++4L+b3l+L95vNpEL3QyhT5KKDR7DdL2lMYtkZua/s?=
+ =?iso-8859-1?Q?9GpY3hd7cd6cpp4FrhpTBvtMtqe/JYK5C4dRIaGYmGbcvOi2W1j1wR2xFn?=
+ =?iso-8859-1?Q?clZo0VCJ2uWPD39uincEjCJEpLNA6ahWU8l5dYH2c9c+vThvoKsXez2J9c?=
+ =?iso-8859-1?Q?N6aTbafXyOtHTgtojIwBa8VV5jDKoKtcwyM/0D2aifawcUSmgCLBykL3rS?=
+ =?iso-8859-1?Q?mQ/lO3JA9qDBGwWJIOXIjyLWmhOd08iosS48FgHfI5swW12m4Hhk75UAEX?=
+ =?iso-8859-1?Q?aeZIIJ0gAWIUGC249YwMCfiQk/80lm8TskGT6KG4rpPFSep9ktKx2sULml?=
+ =?iso-8859-1?Q?3EKGCQSGaTS3vASYsKukQZ9A6aBYl7qwdrd3bQtZwQoIUZ291dkPw9Z03D?=
+ =?iso-8859-1?Q?snewCPEiAKJ4HZ4LM7nCf+36m0Pn//Jy0Eiuiazeq/rT4opY42DEghoOAX?=
+ =?iso-8859-1?Q?trX8SOGj2vOMKU+2E/NtfxZACGdVyjrT5Fgr4teWdmvV5gxbF9qCuvc/PJ?=
+ =?iso-8859-1?Q?8pOUqiCO0nSqeM5oK47opz7eEsWgMJ2uQCNvsu6ItaBohXc820urnCG5f3?=
+ =?iso-8859-1?Q?8wYMGb2ut09gWpYcF3TQC/TGWTV66rvhtWl+yldTp/zy/9B2kaTXeXMvHH?=
+ =?iso-8859-1?Q?knkj3bnCxqNIaEgPtBPK8+0f2kK3a7OVSE/Oo+QXmGpC/Hh7DiFVsVwKB9?=
+ =?iso-8859-1?Q?wy+0rIbTHq3K1LS5v4jx9eO4FLPT07BBQUOT0rpc20fYkN2xSrC8MGpoje?=
+ =?iso-8859-1?Q?33gFJJD610HhDV4+j/Ce6l5gfiHnVHE0Snwpn2UuxRpQx0QlstHIaBJGJN?=
+ =?iso-8859-1?Q?3COeEOaPgbvaDP6CJ5Q=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-Received: by 2002:a02:a0c1:0:b0:3a0:6dcf:ed6b with SMTP id
- i1-20020a02a0c1000000b003a06dcfed6bmr48392jah.236.1673556997415; Thu, 12 Jan
- 2023 12:56:37 -0800 (PST)
-Date: Thu, 12 Jan 2023 12:56:37 -0800
-In-Reply-To: <000000000000f1068105f20e5e8f@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000057ab2c05f2175af1@google.com>
-Subject: Re: [syzbot] KASAN: use-after-free Read in snd_pcm_oss_poll
-From: syzbot <syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com>
-To: alsa-devel-owner@alsa-project.org, alsa-devel@alsa-project.org, 
- linux-kernel@vger.kernel.org, perex@perex.cz, syzkaller-bugs@googlegroups.com, 
- tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MA0PR01MB7145.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2724517c-7fc3-42e2-14b5-08daf52a1478
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jan 2023 05:50:30.6879 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /jkxlovXPo3hf3j0FM+nBojFumqVGp15cFdJY2TUS+6xTOVX+ZLXqK68HmmRqoVJH+ot5TMqdYCS2zeJwwBCSYj6wG91QGNWhaBMi6bPeVH9yQkD8lRt/k+G2Za1wboo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3PR01MB6459
 X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -84,185 +145,154 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: "peng.fan@nxp.com" <peng.fan@nxp.com>,
+ "m.felsch@pengutronix.de" <m.felsch@pengutronix.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
+ "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "Markus.Niebel@ew.tq-group.com" <Markus.Niebel@ew.tq-group.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "tommaso.merciai@amarulasolutions.com" <tommaso.merciai@amarulasolutions.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "povik+lin@cutebit.org" <povik+lin@cutebit.org>,
+ "ryan.lee.analog@gmail.com" <ryan.lee.analog@gmail.com>,
+ "flatmax@flatmax.com" <flatmax@flatmax.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "hongxing.zhu@nxp.com" <hongxing.zhu@nxp.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
+ "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "shengjiu.wang@nxp.com" <shengjiu.wang@nxp.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>, "jun.li@nxp.com" <jun.li@nxp.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13948291480000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
-dashboard link: https://syzkaller.appspot.com/bug?extid=ee73befabe68e7907adf
-compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=142c4d16480000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10129b5a480000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ee73befabe68e7907adf@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: use-after-free in snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
-Read of size 8 at addr ffff88801c509840 by task syz-executor364/5089
-
-CPU: 0 PID: 5089 Comm: syz-executor364 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0xd1/0x138 lib/dump_stack.c:106
- print_address_description mm/kasan/report.c:306 [inline]
- print_report+0x15e/0x45d mm/kasan/report.c:417
- kasan_report+0xc0/0xf0 mm/kasan/report.c:517
- snd_pcm_oss_poll+0x91c/0xab0 sound/core/oss/pcm_oss.c:2849
- vfs_poll include/linux/poll.h:88 [inline]
- io_poll_check_events io_uring/poll.c:279 [inline]
- io_poll_task_func+0x3a6/0x1220 io_uring/poll.c:327
- handle_tw_list+0xa8/0x460 io_uring/io_uring.c:1169
- tctx_task_work+0x12e/0x530 io_uring/io_uring.c:1224
- task_work_run+0x16f/0x270 kernel/task_work.c:179
- get_signal+0x1c7/0x24f0 kernel/signal.c:2635
- arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
- exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
- exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
- __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
- syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
- do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f4b05dee34b
-Code: 0f 05 48 3d 00 f0 ff ff 77 45 c3 0f 1f 40 00 48 83 ec 18 89 7c 24 0c e8 63 fc ff ff 8b 7c 24 0c 41 89 c0 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 35 44 89 c7 89 44 24 0c e8 a1 fc ff ff 8b 44
-RSP: 002b:00007ffc30175fb0 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-RAX: fffffffffffffff7 RBX: 000000000000000c RCX: 00007f4b05dee34b
-RDX: ffffffffffffffb8 RSI: 000000000000450e RDI: 000000000000000b
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000293 R12: 00007ffc30175fe8
-R13: 00007f4b05eb7508 R14: 00007ffc30176000 R15: 0000000000000000
- </TASK>
-
-Allocated by task 5089:
- kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
- kasan_set_track+0x25/0x30 mm/kasan/common.c:52
- ____kasan_kmalloc mm/kasan/common.c:371 [inline]
- ____kasan_kmalloc mm/kasan/common.c:330 [inline]
- __kasan_kmalloc+0xa2/0xb0 mm/kasan/common.c:380
- kmalloc include/linux/slab.h:580 [inline]
- kzalloc include/linux/slab.h:720 [inline]
- snd_pcm_oss_open_file sound/core/oss/pcm_oss.c:2433 [inline]
- snd_pcm_oss_open.part.0+0x558/0x1330 sound/core/oss/pcm_oss.c:2535
- snd_pcm_oss_open+0x44/0x60 sound/core/oss/pcm_oss.c:2499
- soundcore_open+0x452/0x620 sound/sound_core.c:593
- chrdev_open+0x26a/0x770 fs/char_dev.c:414
- do_dentry_open+0x6cc/0x13f0 fs/open.c:883
- do_open fs/namei.c:3558 [inline]
- path_openat+0x1bc1/0x2b40 fs/namei.c:3715
- do_filp_open+0x1ba/0x410 fs/namei.c:3742
- do_sys_openat2+0x16d/0x4c0 fs/open.c:1311
- do_sys_open fs/open.c:1327 [inline]
- __do_sys_openat fs/open.c:1343 [inline]
- __se_sys_openat fs/open.c:1338 [inline]
- __x64_sys_openat+0x143/0x1f0 fs/open.c:1338
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-
-Freed by task 5089:
- kasan_save_stack+0x22/0x40 mm/kasan/common.c:45
- kasan_set_track+0x25/0x30 mm/kasan/common.c:52
- kasan_save_free_info+0x2e/0x40 mm/kasan/generic.c:518
- ____kasan_slab_free mm/kasan/common.c:236 [inline]
- ____kasan_slab_free+0x160/0x1c0 mm/kasan/common.c:200
- kasan_slab_free include/linux/kasan.h:162 [inline]
- slab_free_hook mm/slub.c:1781 [inline]
- slab_free_freelist_hook+0x8b/0x1c0 mm/slub.c:1807
- slab_free mm/slub.c:3787 [inline]
- __kmem_cache_free+0xaf/0x2d0 mm/slub.c:3800
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2415 [inline]
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2405 [inline]
- snd_pcm_oss_release+0x182/0x300 sound/core/oss/pcm_oss.c:2592
- __fput+0x27c/0xa90 fs/file_table.c:321
- task_work_run+0x16f/0x270 kernel/task_work.c:179
- get_signal+0x1c7/0x24f0 kernel/signal.c:2635
- arch_do_signal_or_restart+0x79/0x5c0 arch/x86/kernel/signal.c:306
- exit_to_user_mode_loop kernel/entry/common.c:168 [inline]
- exit_to_user_mode_prepare+0x11f/0x240 kernel/entry/common.c:204
- __syscall_exit_to_user_mode_work kernel/entry/common.c:286 [inline]
- syscall_exit_to_user_mode+0x1d/0x50 kernel/entry/common.c:297
- do_syscall_64+0x46/0xb0 arch/x86/entry/common.c:86
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-
-The buggy address belongs to the object at ffff88801c509840
- which belongs to the cache kmalloc-16 of size 16
-The buggy address is located 0 bytes inside of
- 16-byte region [ffff88801c509840, ffff88801c509850)
-
-The buggy address belongs to the physical page:
-page:ffffea0000714240 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1c509
-flags: 0xfff00000000200(slab|node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000200 ffff8880124413c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000080800080 00000001ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x12cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY), pid 1, tgid 1 (swapper/0), ts 12562219376, free_ts 12549200446
- prep_new_page mm/page_alloc.c:2549 [inline]
- get_page_from_freelist+0x11bb/0x2d50 mm/page_alloc.c:4324
- __alloc_pages+0x1cb/0x5c0 mm/page_alloc.c:5590
- alloc_page_interleave+0x1e/0x200 mm/mempolicy.c:2114
- alloc_pages+0x233/0x270 mm/mempolicy.c:2276
- alloc_slab_page mm/slub.c:1851 [inline]
- allocate_slab+0x25f/0x350 mm/slub.c:1998
- new_slab mm/slub.c:2051 [inline]
- ___slab_alloc+0xa91/0x1400 mm/slub.c:3193
- __slab_alloc.constprop.0+0x56/0xa0 mm/slub.c:3292
- __slab_alloc_node mm/slub.c:3345 [inline]
- slab_alloc_node mm/slub.c:3442 [inline]
- __kmem_cache_alloc_node+0x136/0x330 mm/slub.c:3491
- __do_kmalloc_node mm/slab_common.c:966 [inline]
- __kmalloc+0x4a/0xd0 mm/slab_common.c:980
- kmalloc include/linux/slab.h:584 [inline]
- kzalloc include/linux/slab.h:720 [inline]
- kobject_get_path+0xc2/0x230 lib/kobject.c:147
- kobject_uevent_env+0x257/0x1620 lib/kobject_uevent.c:529
- kernel_add_sysfs_param kernel/params.c:816 [inline]
- param_sysfs_builtin kernel/params.c:851 [inline]
- param_sysfs_builtin_init+0x321/0x3fd kernel/params.c:985
- do_one_initcall+0x141/0x7d0 init/main.c:1306
- do_initcall_level init/main.c:1379 [inline]
- do_initcalls init/main.c:1395 [inline]
- do_basic_setup init/main.c:1414 [inline]
- kernel_init_freeable+0x6f9/0x782 init/main.c:1634
- kernel_init+0x1e/0x1d0 init/main.c:1522
- ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:308
-page last free stack trace:
- reset_page_owner include/linux/page_owner.h:24 [inline]
- free_pages_prepare mm/page_alloc.c:1451 [inline]
- free_pcp_prepare+0x4d0/0x910 mm/page_alloc.c:1501
- free_unref_page_prepare mm/page_alloc.c:3387 [inline]
- free_unref_page+0x1d/0x490 mm/page_alloc.c:3482
- kasan_depopulate_vmalloc_pte+0x60/0x80 mm/kasan/shadow.c:372
- apply_to_pte_range mm/memory.c:2575 [inline]
- apply_to_pmd_range mm/memory.c:2619 [inline]
- apply_to_pud_range mm/memory.c:2655 [inline]
- apply_to_p4d_range mm/memory.c:2691 [inline]
- __apply_to_page_range+0x68c/0x1030 mm/memory.c:2725
- kasan_release_vmalloc+0xab/0xc0 mm/kasan/shadow.c:486
- __purge_vmap_area_lazy+0x897/0x1fa0 mm/vmalloc.c:1776
- drain_vmap_area_work+0x56/0xe0 mm/vmalloc.c:1809
- process_one_work+0x9bf/0x1750 kernel/workqueue.c:2293
- worker_thread+0x669/0x1090 kernel/workqueue.c:2440
- kthread+0x2e8/0x3a0 kernel/kthread.c:376
- ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:308
-
-Memory state around the buggy address:
- ffff88801c509700: 00 03 fc fc 00 00 fc fc 00 03 fc fc 00 03 fc fc
- ffff88801c509780: 00 00 fc fc fb fb fc fc fb fb fc fc fb fb fc fc
->ffff88801c509800: 00 01 fc fc 00 01 fc fc fa fb fc fc 00 03 fc fc
-                                           ^
- ffff88801c509880: 00 03 fc fc fa fb fc fc 00 00 fc fc 00 00 fc fc
- ffff88801c509900: fa fb fc fc fa fb fc fc fa fb fc fc fa fb fc fc
-==================================================================
-
+From d2001cdbc2fda3345af307b4cf3d0f2e53d80c35 Mon Sep 17 00:00:00 2001=0A=
+From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>=0A=
+Date: Fri, 13 Jan 2023 11:01:22 +0530=0A=
+Subject: [PATCH] Add dts to support MAX98090/91 with i.MX8MM-evk=0A=
+=0A=
+- Add sound-max98090 node to support external codec MAX98090/91=0A=
+- Use i2c3 for i2c communicate with codec=0A=
+- Use sai5 for i2s communication=0A=
+=0A=
+Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>=
+=0A=
+=0A=
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-evk-max98090-91.dts b/arc=
+h/arm64/boot/dts/freescale/imx8mm-evk-max98090-91.dts=0A=
+new file mode 100644=0A=
+index 000000000000..d053c586514a=0A=
+--- /dev/null=0A=
++++ b/arch/arm64/boot/dts/freescale/imx8mm-evk-max98090-91.dts=0A=
+@@ -0,0 +1,65 @@=0A=
++#include "imx8mm-evk.dtsi"=0A=
++=0A=
++/ {=0A=
++	sound-max98090 {=0A=
++		compatible =3D "simple-audio-card";=0A=
++		simple-audio-card,name =3D "max98090-audio";=0A=
++		simple-audio-card,format =3D "i2s";=0A=
++		simple-audio-card,frame-master =3D <&cpudai>;=0A=
++		simple-audio-card,bitclock-master =3D <&cpudai>;=0A=
++		simple-audio-card,widgets =3D "Speakers", "Speakers";=0A=
++		simple-audio-card,routing =3D=0A=
++				"Speakers", "SPKR",=0A=
++				"Speakers", "SPKL",=0A=
++				"IN1", "MICBIAS",=0A=
++				"MIC1","IN1",=0A=
++				"MIC2","IN1";=0A=
++=0A=
++		cpudai: simple-audio-card,cpu {=0A=
++			sound-dai =3D <&sai5>;=0A=
++			dai-tdm-slot-num =3D <2>;=0A=
++			dai-tdm-slot-width =3D <32>;=0A=
++		};=0A=
++=0A=
++		simple-audio-card,codec {=0A=
++			sound-dai =3D <&max98090>;=0A=
++			clocks =3D <&clk IMX8MM_CLK_SAI5_ROOT>;=0A=
++		};=0A=
++	};=0A=
++}=0A=
++=0A=
++&i2c3 {=0A=
++	max98090: audio-codec@10 {=0A=
++		compatible =3D "maxim,max98090","maxim,max98091";=0A=
++		#sound-dai-ceddlls =3D <0>;=0A=
++		reg =3D <0x10>;=0A=
++		clocks =3D <&clk IMX8MM_CLK_SAI5_ROOT>;=0A=
++		clock-names =3D "mclk";=0A=
++	};=0A=
++}=0A=
++=0A=
++&sai5 {=0A=
++	pinctrl-names =3D "default";=0A=
++	pinctrl-0 =3D <&pinctrl_sai5>;=0A=
++	assigned-clocks =3D <&clk IMX8MM_CLK_SAI5>;=0A=
++	assigned-clock-parents =3D <&clk IMX8MM_AUDIO_PLL1_OUT>;=0A=
++	assigned-clock-rates =3D <24576000>;=0A=
++	clocks =3D <&clk IMX8MM_CLK_SAI5_IPG>, <&clk IMX8MM_CLK_DUMMY>,=0A=
++		<&clk IMX8MM_CLK_SAI5_ROOT>, <&clk IMX8MM_CLK_DUMMY>,=0A=
++		<&clk IMX8MM_CLK_DUMMY>, <&clk IMX8MM_AUDIO_PLL1_OUT>,=0A=
++		<&clk IMX8MM_AUDIO_PLL2_OUT>;=0A=
++	clock-names =3D "bus", "mclk0", "mclk1", "mclk2", "mclk3", "pll8k", "pll1=
+1k";=0A=
++	status =3D "okay";=0A=
++};=0A=
++=0A=
++&iomuxc {=0A=
++	pinctrl_sai5: sai5grp {=0A=
++		fsl,pins =3D <=0A=
++			MX8MM_IOMUXC_SAI5_MCLK_SAI5_MCLK        0xd6=0A=
++			MX8MM_IOMUXC_SAI5_RXD2_SAI5_TX_BCLK     0xd6=0A=
++			MX8MM_IOMUXC_SAI5_RXD1_SAI5_TX_SYNC     0xd6=0A=
++			MX8MM_IOMUXC_SAI5_RXD0_SAI5_RX_DATA0    0xd6=0A=
++			MX8MM_IOMUXC_SAI5_RXD3_SAI5_TX_DATA0    0xd6=0A=
++		>;=0A=
++	}=0A=
++}=0A=
+-- =0A=
+2.25.1=0A=
+________________________________________=0A=
+From: Daniel Baluta <daniel.baluta@gmail.com>=0A=
+Sent: Wednesday, January 11, 2023 5:26 PM=0A=
+To: Hardevsinh Palaniya; Daniel Baluta=0A=
+Cc: robh+dt@kernel.org; krzysztof.kozlowski+dt@linaro.org; shawnguo@kernel.=
+org; s.hauer@pengutronix.de; kernel@pengutronix.de; festevam@gmail.com; lin=
+ux-imx@nxp.com; lgirdwood@gmail.com; broonie@kernel.org; perex@perex.cz; ti=
+wai@suse.com; peng.fan@nxp.com; m.felsch@pengutronix.de; shengjiu.wang@nxp.=
+com; Markus.Niebel@ew.tq-group.com; hongxing.zhu@nxp.com; tommaso.merciai@a=
+marulasolutions.com; jun.li@nxp.com; ckeepax@opensource.cirrus.com; rf@open=
+source.cirrus.com; povik+lin@cutebit.org; pierre-louis.bossart@linux.intel.=
+com; james.schulman@cirrus.com; flatmax@flatmax.com; srinivas.kandagatla@li=
+naro.org; ryan.lee.analog@gmail.com; devicetree@vger.kernel.org; linux-arm-=
+kernel@lists.infradead.org; linux-kernel@vger.kernel.org; alsa-devel@alsa-p=
+roject.org=0A=
+Subject: Re: [PATCH] Support for MAX98090/91 codec in iMX8MM evk=0A=
+=0A=
+=0A=
+ > I have added support for the external codec MAX98091 with I.MX8MM-EVK.=
+=0A=
+=0A=
+Please fix your email client to start sending email in text format only.=0A=
+=0A=
+Now, going back to the matter at hand.=0A=
+=0A=
+I do think that for an external codec we should find a smarter way of enabl=
+ing it.=0A=
+=0A=
+What would happen if you enable MAX codec in the dts but expander board is =
+not plugged in?=0A=
+=0A=
+Maybe create a separate dts which includes imx8mm-evk.dtsi?=0A=
+=0A=
+=0A=

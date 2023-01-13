@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19A006691EE
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:57:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530DC6691F3
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 09:58:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90B8DA421;
-	Fri, 13 Jan 2023 09:56:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B8DA421
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC407A41E;
+	Fri, 13 Jan 2023 09:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC407A41E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673600233;
-	bh=AvIR02/8LDo5rNf1iZNMXQX6krLeGFcu/JowYUtgiYE=;
+	s=default; t=1673600292;
+	bh=Z4ampBNr8JbwjKuR9FoyH7OH2Uay5Gptn/nql4PhnY4=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=pw+qLDXt+FcwpJPd0DVrwPG0sf5Cn+L5HK/gEojmxClmBnLlSKY4ddlpoogqkUCNK
-	 md7SQfwWi86fA7oZCI1Iazum40xGNkjE+hNwH6zgBtQNBGJrprdgKuzX7WEG0uXhAy
-	 709lIygPbWZFNf+F+rRd+b9zq6QmQplpLTwr3FY8=
+	b=Uzi0p6DPKG2dYkE/8mvkxqAuW3rOuiokK4fHEFw6kCbHdN3S307k4fo8qdWLxeGzo
+	 e/6q2yf2yoGOxs46fWniHiaBnniDafmrCvwQcI5OyX8/lE+gecejHClq35A1sH43w1
+	 M2VIVBvWQM9rI5m6IdFWOhpgZdk72nRtZhHeHUYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EBBCF8016D;
-	Fri, 13 Jan 2023 09:56:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D0C6F8019B;
+	Fri, 13 Jan 2023 09:57:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A74EF8030F; Fri, 13 Jan 2023 09:56:13 +0100 (CET)
+ id 1E3EDF802E8; Fri, 13 Jan 2023 09:57:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,53 +36,53 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F6F7F8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:56:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F6F7F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98B61F802E8
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 09:57:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98B61F802E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=xB/C/K6z; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=vPFKdWvw; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=xApzkJRX
+ header.s=susede2_ed25519 header.b=LF1nkUZm
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C2B916001F;
- Fri, 13 Jan 2023 08:56:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4E8FB5D6AF;
+ Fri, 13 Jan 2023 08:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673600170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673600230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eKDD9yGJA4YbHAwlzIibj028FXua1+RGJ9fxcwqwHWc=;
- b=xB/C/K6zY2Llgtj4k7xKFyRYVgMVv8ptdvz82ipJmZDZDqSpzVPu8zVrakVr8RS7VLPgt7
- mrVtSpXtPsEcCX8ZyxNUB8iu80kG8f7wOnQ6FqruBCx8wg80ia6i4m7blbe029qZVQog9y
- FD+v9uRfSfcRMm2GwIryflE1rYrp4vg=
+ bh=v839hLGgtMy48q9FFiQSTVw/UzxO4DwEmYVeXyFIGgg=;
+ b=vPFKdWvwMSSBhRGcXSowR+jOoMLzM/BclSzj5tSsWkS97kRUYrazSar69EytH/sJEvkFyR
+ GuHRM6Ep7IemUOd7j/Miq9BOwWvENMGKbkTR/EpbJDPN9mnd1Zx/nTmCJHgZWIgB/pf8Yt
+ 4nmY4SiF9AqftIhX1mPFN+6iifuHeRo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673600170;
+ s=susede2_ed25519; t=1673600230;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eKDD9yGJA4YbHAwlzIibj028FXua1+RGJ9fxcwqwHWc=;
- b=xApzkJRXyRSgxQelKNJyklqkCgt85E9XT9tG7L4u+d3yIdxbagdEjYEDAhL82QNMPHm1cX
- q+4XSmJoY0zkDyBA==
+ bh=v839hLGgtMy48q9FFiQSTVw/UzxO4DwEmYVeXyFIGgg=;
+ b=LF1nkUZmaF2qHqq2hlQeHmHRZSelFOmru0Qnn3AjGEy0WecL0NvV7aX7by5ke2RgA3CbfP
+ bOd8Ptna0yuTCaCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A3DEA1358A;
- Fri, 13 Jan 2023 08:56:10 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF7A31358A;
+ Fri, 13 Jan 2023 08:57:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YncsJ6ocwWPtYwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 13 Jan 2023 08:56:10 +0000
-Date: Fri, 13 Jan 2023 09:56:10 +0100
-Message-ID: <87a62m6cet.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8fInNOUcwWOsZAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 13 Jan 2023 08:57:09 +0000
+Date: Fri, 13 Jan 2023 09:57:08 +0100
+Message-ID: <878ri66cd7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix possible NULL pointer dereference in
- snd_usb_pcm_has_fixed_rate()
-In-Reply-To: <20230113085311.623325-1-perex@perex.cz>
-References: <20230113085311.623325-1-perex@perex.cz>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/6] ALSA: fireface: support knob control event for
+ Fireface 400
+In-Reply-To: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
+References: <20230112120954.500692-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -98,22 +98,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- coverity-bot <keescook@chromium.org>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Jan 2023 09:53:11 +0100,
-Jaroslav Kysela wrote:
+On Thu, 12 Jan 2023 13:09:48 +0100,
+Takashi Sakamoto wrote:
 > 
-> The subs function argument may be NULL, so do not use it before the NULL check.
+> Hi,
 > 
-> Fixes: 291e9da91403 ("ALSA: usb-audio: Always initialize fixed_rate in snd_usb_find_implicit_fb_sync_format()")
-> Reported-by: coverity-bot <keescook@chromium.org>
-> Link: https://lore.kernel.org/alsa-devel/202301121424.4A79A485@keescook/
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Fireface 400 uses asynchronous transaction mechanism to deliver event of
+> hardware knob control as well as received MIDI messages. Current
+> implementation doesn't distinguish them, thus all arrived messages are
+> processed for MIDI message.
+> 
+> This patchset adds the parser to distinguish them, and deliver knob
+> control event to user space via ALSA hwdep character device. The
+> implementation works well as long as I tested with the patches for
+> libhitaki library:
+> 
+> https://github.com/alsa-project/libhitaki/tree/topic/ff/400-msg
+> 
+> I note that Fireface 400 transmits no asynchronous transaction when it
+> is not configured by block write transaction to offset 0x000080100514,
+> which turn off HOST led from red.
+> 
+> Takashi Sakamoto (6):
+>   ALSA: fireface: rename callback functions
+>   ALSA: fireface: pick up time stamp for request subaction of asynchronous
+>     transaction
+>   ALSA: fireface: add helper function to parse MIDI messages transmitted by
+>     Fireface 400
+>   ALSA: fireface: update UAPI for data of knob control
+>   ALSA: fireface: add local framework to message parser
+>   ALSA: fireface: implement message parser for Fireface 400
 
-Applied, thanks.
+Applied now to for-next branch.  Thanks.
 
 
 Takashi

@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E80DB66AFC9
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:52:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E27F66AFC5
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:52:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E9B838BA;
-	Sun, 15 Jan 2023 08:51:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E9B838BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2851B3743;
+	Sun, 15 Jan 2023 08:50:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2851B3743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673769166;
-	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=VFUkJaq2+rd5PjI7x86JM25JXsrs7+nnkqnTucd41jy6MegziFOthgdDMr69l4MT3
-	 1k8DEQxFaVpIZcmJoqO/6gGQP1M3FXzclzGifJuboPiMPudvuo2D3ZnyqW+hquFtAr
-	 T9AtIXjIPm0tHwr4SzJBmqC88v5Yp1HPiCq+xAJw=
+	s=default; t=1673769104;
+	bh=NklCLtbWc5WyOgonvZKTPSjAxeAHnIbpUkTWUUnWx+Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=eZnWXoqHazCyrkyBZLymx86xzpcqZ/G3bmzF3aMHNRbTXvTGtMfBGWw8Idn7dnt7v
+	 XXgDK+3FQXmSF580KwM3Y2EnqDSo4X8v/kAa2uA2L2XLpYCBvotT12UBK2bZhVt5op
+	 xMsMt7bx6fBhz6bA4JQIM+nP5uo038pFnjyTPO+E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68AE7F805AB;
-	Sun, 15 Jan 2023 08:48:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29884F8057C;
+	Sun, 15 Jan 2023 08:48:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FEC1F8030F; Fri, 13 Jan 2023 13:25:21 +0100 (CET)
+ id EB548F803DC; Fri, 13 Jan 2023 20:05:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,
- RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from st43p00im-ztfb10071701.me.com (st43p00im-ztfb10071701.me.com
- [17.58.63.173])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50A4BF8016D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 13:25:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A4BF8016D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=mac.com header.i=@mac.com header.a=rsa-sha256
- header.s=1a1hai header.b=qi2Oj1bK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mac.com; s=1a1hai;
- t=1673612716; bh=+oVvzsrERZqgJ3fcl9RAR80VZ71ww2UFJnb6O/Kv4/g=;
- h=Content-Type:MIME-Version:Message-ID:Date:Subject:From:To;
- b=qi2Oj1bK+4rOLRj3GHmm3ZmeJhRKQzqhsg1AWlb5S5wTBeXm7o4glVFLmH3gNNY8t
- SSBIu5ueUyq3e9xKmkx+W/rXjOg+ncP40IfzPMzqfICa7H3CAyl34RXJl1VCLkmOsB
- kIG1hHVm2Kokn0ZXmdZsx8rcqh1vwcXfvVhs2BbgC49+AAyflJU/cJAzhqQ70PsNHT
- 9KGC8UaRlVm0AN1NTwg/uXOwGZb2tCYgsf0/tvSrxDLpnexFrHZPpFWQ25mpm1FUq6
- xuimJkM2JpiG+zQtLhI8VMhRseTrPbpf/50xSlG9qNQS/86XdUZI2w0m6iFKdVVcAF
- QcCD/0vsbjgbA==
-Received: from [127.0.0.1] (st43p00im-dlb-asmtp-mailmevip.me.com
- [17.42.251.41])
- by st43p00im-ztfb10071701.me.com (Postfix) with ESMTPSA id B36CBA0D46
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 12:25:14 +0000 (UTC)
-X-Mailer: BlackBerry Email (10.3.3.3216)
-Message-ID: <20230113122514.5591123.98083.41900@mac.com>
-Date: Fri, 13 Jan 2023 05:25:14 -0700
-Subject: question about byte alignment (snd_pcm_hw_constraint_msbits and
- SNDRV_PCM_FMTBIT_S32_LE)
-From: Gagan Sidhu <beatlesnut@mac.com>
-To: alsa-devel@alsa-project.org
-X-Proofpoint-ORIG-GUID: tMIu94bK3XOBOBovxZtR4Pmd3v3a9Lmy
-X-Proofpoint-GUID: tMIu94bK3XOBOBovxZtR4Pmd3v3a9Lmy
-X-Proofpoint-Virus-Version: =?UTF-8?Q?vendor=3Dfsecure_engine=3D1.1.170-22c6f66c430a71ce266a39bfe25bc?=
- =?UTF-8?Q?2903e8d5c8f:6.0.138,18.0.572,17.11.64.514.0000000_definitions?=
- =?UTF-8?Q?=3D2020-02-14=5F11:2020-02-14=5F02,2020-02-14=5F11,2022-02-23?=
- =?UTF-8?Q?=5F01_signatures=3D0?=
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- mlxscore=0 phishscore=0
- spamscore=0 bulkscore=0 adultscore=0 clxscore=1031 malwarescore=0
- mlxlogscore=601 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2301130083
-X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02E91F8016D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 20:05:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02E91F8016D
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1pGPMg-003M27-Uf; Fri, 13 Jan 2023 20:05:22 +0100
+Received: from p57ae5361.dip0.t-ipconnect.de ([87.174.83.97]
+ helo=[192.168.178.35]) by inpost2.zedat.fu-berlin.de (Exim 4.95)
+ with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1pGPMg-000Hn8-Jc; Fri, 13 Jan 2023 20:05:22 +0100
+Message-ID: <fe09d811-e290-821d-ec8b-75936b6583c2@physik.fu-berlin.de>
+Date: Fri, 13 Jan 2023 20:05:20 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: remove arch/sh
+Content-Language: en-US
+To: Rob Landley <rob@landley.net>, Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20230113062339.1909087-1-hch@lst.de>
+ <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+ <CAMuHMdUcnP6a9Ch5=_CMPq-io-YWK5pshkOT2nZmP1hvNcwBAg@mail.gmail.com>
+ <142532fb-5997-bdc1-0811-a80ae33f4ba4@physik.fu-berlin.de>
+ <6891afb6-4190-6a52-0319-745b3f138d97@landley.net>
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+In-Reply-To: <6891afb6-4190-6a52-0319-745b3f138d97@landley.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 87.174.83.97
+X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:18 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,6 +82,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
+
+Hi Rob!
+
+On 1/13/23 20:11, Rob Landley wrote:
+>> I actually would be willing to do it but I'm a bit hesitant as I'm not 100%
+>> sure my skills are sufficient. Maybe if someone can assist me?
+> 
+> My skills aren't sufficient and I dunno how much time I have, but I can
+> certainly assist. I test sh4 regularlyish and it's in the list of architectures
+> I ship binaries and tiny VM images for, just refreshed tuesday:
+> 
+> https://landley.net/toybox/downloads/binaries/0.8.9/
+> https://landley.net/toybox/downloads/binaries/mkroot/0.8.9/
+> 
+> (The sh2eb isn't a VM, it's a physical board I have here...)
+> 
+> There is definitely interest in this architecture. I'm aware Rich hasn't been
+> the most responsive maintainer. (I'm told he's on vacation with his family at
+> the moment, according to the text I got about this issue from the J-core
+> hardware guys in Japan.)
+
+Well, maybe we can just give it a try together ...
+
+> The main reason we haven't converted everything to device tree is we only have
+> access to test hardware for a subset of the boards. Pruning the list of
+> supported boards and converting the rest to device tree might make sense. We can
+> always add/convert boards back later...
+
+There is a patch by Yoshinori Sato which adds device tree support to SH. Maybe we
+can revive it.
+
+Adrian
+
+-- 
+  .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
 

@@ -2,84 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4FFB6693FB
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:23:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3546A66945C
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:39:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C5AC5913;
-	Fri, 13 Jan 2023 11:23:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C5AC5913
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6A3B8DB1;
+	Fri, 13 Jan 2023 11:38:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6A3B8DB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673605431;
-	bh=CDcpGc14MxwljMRrNGGaJzjMrvUpcw8OYXg9rqQznUQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=f00Ffe6/CNePwjXP+Nz6aCPTDdH7+bkAURjGGDS7bJmLMUMvpACXh4My4eWmruHlF
-	 24DqPxxR0A7xXmz1oOYm5zdZdMdo9f+MJ+ZNk5Ex/ibH2hGMET86LMFv4CcvvNoXUM
-	 ou80vEGYlLTA+0pweZFZD/4iLIdIvcRoWPQyerCw=
+	s=default; t=1673606352;
+	bh=zB4Dg3nORfrWhHg0gs6QYUIEk85KkIrC8pAluZR2rAg=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=bHt0wKNkbbFWHNTwxo5uGW0bOKwqjxJT62Ccqg9GAdpk9dVQ2b2pvcbEsojPmoob1
+	 VeMXx9I+cIXYzGuJPme8QmMrLjez6hsm4X7+0nK1RLRd9oMRNhYc+GWt9AKkrX3P7b
+	 4UOj+IdslsRbd31rYMOfyCiDeZphnaKnJBIapPDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE986F8019B;
-	Fri, 13 Jan 2023 11:22:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BA55F8026D;
+	Fri, 13 Jan 2023 11:38:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7353F8030F; Fri, 13 Jan 2023 11:22:50 +0100 (CET)
+ id D2589F8030F; Fri, 13 Jan 2023 11:38:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DA6EF8026D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:22:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DA6EF8026D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB0B5F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:38:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB0B5F8026D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FkBXPFB+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673605369; x=1705141369;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=CDcpGc14MxwljMRrNGGaJzjMrvUpcw8OYXg9rqQznUQ=;
- b=FkBXPFB+I8bwpy02Vzyq887AgNLI0Z49+0nZzTjSxigyqAMkotRgpXYI
- Rj/ZU1YU5EgxIgGnQkaQmKsldi84pI1S0+JtDwIpf2b7Vme0+NCAz83zn
- W9+6g9rr+H6U/CtKUPcgktjrUVGVHYS3GXf4L+Udu/u16Jr9/YXrhJB81
- +AMaY4SQ2Q3gtrbQoUcw2+57vhkwtKGSWBnIVL02Zznhm7HUbdNjtA2Nu
- e7pOnimq4U+aAQg8RMfOsK547uzdBpeWMHoQ7J1cmQsIVBi0cZWSBGVYx
- CLHgaA7kDEKoqnvIvMFZo73NbCtKvNQaeG4nNc2vhr95i7gBvmIh20o5d g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="324024195"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="324024195"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 02:22:34 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="721473464"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="721473464"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 02:22:32 -0800
-Message-ID: <d2c6f43a-e166-a201-4662-ba726347f2da@linux.intel.com>
-Date: Fri, 13 Jan 2023 11:22:30 +0100
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=XJXZKssK
+Received: (Authenticated sender: herve.codina@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPA id DDFD6FF808;
+ Fri, 13 Jan 2023 10:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1673606286;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QZrDoPTVMtt/nPtGEUH/c16zuug+TjuwVzIICNji49Q=;
+ b=XJXZKssKn38Y38w5k0cQ+2NB8kxVenn82zuQYsDnBMaugApThAvX4ZBttyXqHgKmE97kVM
+ LTJDipEWXjkLpVqy51JIgbI0hhC6PE/xk0RCf1JdBk/1I4L6mO7Z8FiPdiaIhy7yX1s8yJ
+ Eq2HEVuhfhjb99kTJfsuK7ZZfhv91mTBYC1ELi//OM8me7vazndBlNM13ejvYJINg/k7+X
+ lYRZ53VYA7FQ0eAgFn+vQ/TuqHuAABBNWp15KaXV7LdquooG55Xj8CH4uqzQRrPBDhFZLq
+ xNxIEsoXz/RkytUY28IMJQUVz0200qxVGbxgY24tYsxidcTxMlfJ/nZ2xCZimQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>
+Subject: [PATCH v3 00/10] Add the PowerQUICC audio support using the QMC
+Date: Fri, 13 Jan 2023 11:37:49 +0100
+Message-Id: <20230113103759.327698-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 1/5] soundwire: stream: uniquify dev_err() logs
-Content-Language: en-US
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org, 
- vkoul@kernel.org
-References: <20230113093532.3872113-1-yung-chuan.liao@linux.intel.com>
- <20230113093532.3872113-2-yung-chuan.liao@linux.intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230113093532.3872113-2-yung-chuan.liao@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,44 +84,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com, vinod.koul@linaro.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/13/2023 10:35 AM, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> There are a couple of duplicate logs which makes harder than needed to
-> follow the error flows. Add __func__ or make the log unique.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
->   drivers/soundwire/stream.c | 14 ++++++++------
->   1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index df3b36670df4..e0eae0b98267 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -1389,7 +1389,7 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
->   
->   	ret = do_bank_switch(stream);
->   	if (ret < 0) {
-> -		dev_err(bus->dev, "Bank switch failed: %d\n", ret);
-> +		dev_err(bus->dev, "do_bank_switch failed: %d\n", ret);
->   		goto restore_params;
->   	}
+Hi,
 
-This one seems bit unrelated to the change and makes error message 
-inconsistent with:
-https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/tree/drivers/soundwire/stream.c?h=next&id=545c365185a47672b1d5cc13c84057a1e874993c#n1498
-and
-https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/tree/drivers/soundwire/stream.c?h=next&id=545c365185a47672b1d5cc13c84057a1e874993c#n1575
-which actually brings me to another suggestion, can this error message 
-perhaps be just moved into do_bank_switch() function itself, instead of 
-being duplicated multiple times or alternatively just also prefix all of 
-them with function name?
+This series adds support for audio using the QMC controller
+available in some Freescale PowerQUICC SoCs.
+
+This series contains three parts in order to show the different
+blocks hierarchy and their usage in this support.
+
+The first one is related to TSA (Time Slot Assigner).
+The TSA handles the data present at the pin level (TDM with up
+to 64 time slots) and dispatchs them to one or more serial
+controller (SCC).
+
+The second is related to QMC (QUICC Multichannel Controller).
+The QMC handles the data at the serial controller (SCC) level
+and splits again the data to creates some virtual channels.
+
+The last one is related to the audio component (QMC audio).
+It is the glue between the QMC controller and the ASoC
+component. It handles one or more QMC virtual channels and
+creates one DAI per QMC virtual channels handled.
+
+Compared to the v2 series, this v3 series mainly:
+  - adds modification in the DT bindings,
+  - uses generic io{read,write}be{16,32} for registers
+    accesses instead of the specific PowerPC ones.
+  - updates some commit subjects and logs (CPM1 SoCs supports).
+
+Best regards,
+Herve Codina
+
+Changes v2 -> v3
+  - All bindings
+    Rename fsl-tsa.h to fsl,tsa.h
+    Add missing vendor prefix
+    Various fixes (quotes, node names, upper/lower case)
+
+  - patches 1 and 2 (TSA binding specific)
+    Remove 'reserved' values in the routing tables
+    Remove fsl,grant-mode
+    Add a better description for 'fsl,common-rxtx-pins'
+    Fix clocks/clocks-name handling against fsl,common-rxtx-pins
+    Add information related to the delays unit
+    Removed FSL_CPM_TSA_NBCELL
+    Fix license in binding header file fsl,tsa.h
+
+  - patches 5 and 6 (QMC binding specific)
+    Remove fsl,cpm-command property
+    Add interrupt property constraint
+
+  - patches 8 and 9 (QMC audio binding specific)
+    Remove 'items' in compatible property definition
+    Add missing 'dai-common.yaml' reference
+    Fix the qmc_chan phandle definition
+
+  - patch 2 and 6
+    Use io{read,write}be{32,16}
+    Change commit subjects and logs
+
+  - patch 4
+    Add 'Acked-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+Changes v1 -> v2:
+  - patch 2 and 6
+    Fix kernel test robot errors
+
+  - other patches
+    No changes
+
+Herve Codina (10):
+  dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+  soc: fsl: cpm1: Add support for TSA
+  MAINTAINERS: add the Freescale TSA controller entry
+  powerpc/8xx: Use a larger CPM1 command check mask
+  dt-bindings: soc: fsl: cpm_qe: Add QMC controller
+  soc: fsl: cmp1: Add support for QMC
+  MAINTAINERS: add the Freescale QMC controller entry
+  dt-bindings: sound: Add support for QMC audio
+  ASoC: fsl: Add support for QMC audio
+  MAINTAINERS: add the Freescale QMC audio entry
+
+ .../bindings/soc/fsl/cpm_qe/fsl,qmc.yaml      |  164 ++
+ .../bindings/soc/fsl/cpm_qe/fsl,tsa.yaml      |  260 +++
+ .../bindings/sound/fsl,qmc-audio.yaml         |  117 ++
+ MAINTAINERS                                   |   25 +
+ arch/powerpc/platforms/8xx/cpm1.c             |    2 +-
+ drivers/soc/fsl/qe/Kconfig                    |   23 +
+ drivers/soc/fsl/qe/Makefile                   |    2 +
+ drivers/soc/fsl/qe/qmc.c                      | 1531 +++++++++++++++++
+ drivers/soc/fsl/qe/tsa.c                      |  810 +++++++++
+ drivers/soc/fsl/qe/tsa.h                      |   43 +
+ include/dt-bindings/soc/fsl,tsa.h             |   13 +
+ include/soc/fsl/qe/qmc.h                      |   71 +
+ sound/soc/fsl/Kconfig                         |    9 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl_qmc_audio.c                 |  732 ++++++++
+ 15 files changed, 3803 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+ create mode 100644 drivers/soc/fsl/qe/qmc.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.h
+ create mode 100644 include/dt-bindings/soc/fsl,tsa.h
+ create mode 100644 include/soc/fsl/qe/qmc.h
+ create mode 100644 sound/soc/fsl/fsl_qmc_audio.c
+
+-- 
+2.38.1
 

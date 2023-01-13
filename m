@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 716C2668D33
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 07:30:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0B1B668D62
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 07:31:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12CD5A372;
-	Fri, 13 Jan 2023 07:30:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12CD5A372
+	by alsa0.perex.cz (Postfix) with ESMTPS id C672A2FE0;
+	Fri, 13 Jan 2023 07:30:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C672A2FE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673591457;
-	bh=WY65rWW/eGKU0CrpCO+Z7XiFlLqUkO3UShwGiaBtPTE=;
+	s=default; t=1673591474;
+	bh=r7PJ/2yasq67K87T99aDymP4AnaDGSKuoBzyIiiSoDM=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=lCsrkGiDF7nv8C374PyVv/D36QqU/T25bMd7DmaHqsj2D6Y0RaRd48nxWZXB1YSyJ
-	 eWc+WyMb+Z9MLeGUYnPsrFm82Tvk3AC6wmfrpaSuOA1khjsuM020RANw6x8jar0ZDd
-	 zGjQpvjlnVlch61t3tR4Wv5T6X8oFboDYDp4lRZk=
+	b=ANrH/WEq2gvLVig2kOB28Xc0fDzLDUen6vRZzq0rXxpaSRGCA3T42CerxziKnZWLp
+	 i6IomdaUvkcGN6LXLjJUpz5sKe+Hsj0i86VoqgqNr3AzehJhy0z6I36MAWVt6/aLkO
+	 FadhvS3/greuDe0dBQ3BnIW6kYQdy3CzXZDyYeyI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34F63F80603;
-	Fri, 13 Jan 2023 07:25:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9CB8F80609;
+	Fri, 13 Jan 2023 07:25:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B3C5F80603; Fri, 13 Jan 2023 07:25:16 +0100 (CET)
+ id DC46DF80609; Fri, 13 Jan 2023 07:25:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,32 +37,32 @@ Received: from bombadil.infradead.org (bombadil.infradead.org
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D70E7F80557
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 07:25:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D70E7F80557
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD69CF80603
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 07:25:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD69CF80603
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
- header.s=bombadil.20210309 header.b=fnW6I1Oj
+ header.s=bombadil.20210309 header.b=2+SiOyCv
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=zn2TAaVu38FIU65k7/MT4xLZlbVRoRB8asSaJE0SHvU=; b=fnW6I1OjxCV/+qCsEUVt/I2ltx
- pVazaxhtTWwOIFpuSgV6S/wrRsGO0a/JL9Td5f60CfSJn6rTXQrpT7rBZgWhpR1xWyE0Qgwb3e5Zy
- 4xYHJNUH36rYOUlCEJc2GhFeezJZ9AunFCAdE9DOQH7vpp7WH6nP+ijWR7nX8lLuXuyAS3ijRmg7R
- N/W1AmVs/dORBf3sC4X6YxUxqheUzey81JPGw+OvSRgvvpFrFD097CgP86vfGOsIcx6qaVl9TOX3v
- LtdFkCrdEDDEoYkoG3xniDxe0zLInwtaWTr/4pr7zm63OFXIpgGRxp+awTDCHrO/CuJ7EvBvDGGdC
- +Le7Nwsg==;
+ bh=V1vQGE3XW96qQp3ejFsm70w3mnOS9+pWBLCZirkv1tk=; b=2+SiOyCvTzvDZZCeuwWrAYwhzj
+ EWAQESOIDtQymDuYM0T7JpVes3xvB7NFWQ+KmJV1uAOpOiRJUBjTMIMZUpzF2ix6MOt0hGo62CWng
+ diwLKN81u+WjRqFmLkwMZ873sIws+XMLCIUxrN4I7r+ZaeFve8swojZ2Nb8EGuKmlXeIEB1nRyph2
+ AGmxrxbCZm5edKIVp4yRI47qeIEa85kNn0gl7iBuYuEaOtP2HtGe1Lkv6xia/XchQLm3DtxOaVah4
+ 5sBY0LpYQziGvInjmbVYYVxDsXL3Jm0yMz0PJd+Su5dRSgTKQwyncOI0wCWZmAu3ILcI2jS/gxiK0
+ qG4NqsbA==;
 Received: from [2001:4bb8:181:656b:9509:7d20:8d39:f895] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pGDUl-000m83-Hp; Fri, 13 Jan 2023 06:24:56 +0000
+ id 1pGDUo-000m9z-Df; Fri, 13 Jan 2023 06:24:59 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
  Arnd Bergmann <arnd@arndb.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 21/22] drivers: platform: remove is_sh_early_platform_device
-Date: Fri, 13 Jan 2023 07:23:38 +0100
-Message-Id: <20230113062339.1909087-22-hch@lst.de>
+Subject: [PATCH 22/22] drivers: platform: remove early_platform_cleanup
+Date: Fri, 13 Jan 2023 07:23:39 +0100
+Message-Id: <20230113062339.1909087-23-hch@lst.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113062339.1909087-1-hch@lst.de>
 References: <20230113062339.1909087-1-hch@lst.de>
@@ -98,119 +98,45 @@ Cc: linux-fbdev@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This was used as a hack for sh-architecture device initialization, and
-with sh gone now, only the stub that always returns 0 is left.
+This weak stub was only overriden by the now remove sh architecture.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/clocksource/sh_cmt.c    |  8 ++------
- drivers/clocksource/sh_mtu2.c   |  8 ++------
- drivers/clocksource/sh_tmu.c    |  9 ++-------
- include/linux/platform_device.h | 12 ------------
- 4 files changed, 6 insertions(+), 31 deletions(-)
+ drivers/base/platform.c         | 4 ----
+ include/linux/platform_device.h | 3 ---
+ 2 files changed, 7 deletions(-)
 
-diff --git a/drivers/clocksource/sh_cmt.c b/drivers/clocksource/sh_cmt.c
-index 7fed3529bbaf82..4f6d7d40c9fcb1 100644
---- a/drivers/clocksource/sh_cmt.c
-+++ b/drivers/clocksource/sh_cmt.c
-@@ -1109,10 +1109,8 @@ static int sh_cmt_probe(struct platform_device *pdev)
- 	struct sh_cmt_device *cmt = platform_get_drvdata(pdev);
- 	int ret;
+diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+index 968f3d71eeab2e..eb3feabf6c2f53 100644
+--- a/drivers/base/platform.c
++++ b/drivers/base/platform.c
+@@ -1506,14 +1506,10 @@ struct device *platform_find_device_by_driver(struct device *start,
+ }
+ EXPORT_SYMBOL_GPL(platform_find_device_by_driver);
  
--	if (!is_sh_early_platform_device(pdev)) {
--		pm_runtime_set_active(&pdev->dev);
--		pm_runtime_enable(&pdev->dev);
--	}
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 
- 	if (cmt) {
- 		dev_info(&pdev->dev, "kept as earlytimer\n");
-@@ -1129,8 +1127,6 @@ static int sh_cmt_probe(struct platform_device *pdev)
- 		pm_runtime_idle(&pdev->dev);
- 		return ret;
- 	}
--	if (is_sh_early_platform_device(pdev))
--		return 0;
- 
-  out:
- 	if (cmt->has_clockevent || cmt->has_clocksource)
-diff --git a/drivers/clocksource/sh_mtu2.c b/drivers/clocksource/sh_mtu2.c
-index e81e978513f80e..97ac2929e424be 100644
---- a/drivers/clocksource/sh_mtu2.c
-+++ b/drivers/clocksource/sh_mtu2.c
-@@ -448,10 +448,8 @@ static int sh_mtu2_probe(struct platform_device *pdev)
- 	struct sh_mtu2_device *mtu = platform_get_drvdata(pdev);
- 	int ret;
- 
--	if (!is_sh_early_platform_device(pdev)) {
--		pm_runtime_set_active(&pdev->dev);
--		pm_runtime_enable(&pdev->dev);
--	}
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 
- 	if (mtu) {
- 		dev_info(&pdev->dev, "kept as earlytimer\n");
-@@ -468,8 +466,6 @@ static int sh_mtu2_probe(struct platform_device *pdev)
- 		pm_runtime_idle(&pdev->dev);
- 		return ret;
- 	}
--	if (is_sh_early_platform_device(pdev))
--		return 0;
- 
-  out:
- 	if (mtu->has_clockevent)
-diff --git a/drivers/clocksource/sh_tmu.c b/drivers/clocksource/sh_tmu.c
-index 596e9146ad54e9..940378d38dd523 100644
---- a/drivers/clocksource/sh_tmu.c
-+++ b/drivers/clocksource/sh_tmu.c
-@@ -595,10 +595,8 @@ static int sh_tmu_probe(struct platform_device *pdev)
- 	struct sh_tmu_device *tmu = platform_get_drvdata(pdev);
- 	int ret;
- 
--	if (!is_sh_early_platform_device(pdev)) {
--		pm_runtime_set_active(&pdev->dev);
--		pm_runtime_enable(&pdev->dev);
--	}
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 
- 	if (tmu) {
- 		dev_info(&pdev->dev, "kept as earlytimer\n");
-@@ -616,9 +614,6 @@ static int sh_tmu_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	if (is_sh_early_platform_device(pdev))
--		return 0;
+-void __weak __init early_platform_cleanup(void) { }
 -
-  out:
- 	if (tmu->has_clockevent || tmu->has_clocksource)
- 		pm_runtime_irq_safe(&pdev->dev);
+ int __init platform_bus_init(void)
+ {
+ 	int error;
+ 
+-	early_platform_cleanup();
+-
+ 	error = device_register(&platform_bus);
+ 	if (error) {
+ 		put_device(&platform_bus);
 diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
-index b0d5a253156ece..894939a74dd20f 100644
+index 894939a74dd20f..86692f730e3a12 100644
 --- a/include/linux/platform_device.h
 +++ b/include/linux/platform_device.h
-@@ -352,18 +352,6 @@ extern int platform_pm_restore(struct device *dev);
+@@ -352,7 +352,4 @@ extern int platform_pm_restore(struct device *dev);
  #define USE_PLATFORM_PM_SLEEP_OPS
  #endif
  
--#ifndef CONFIG_SUPERH
--/*
-- * REVISIT: This stub is needed for all non-SuperH users of early platform
-- * drivers. It should go away once we introduce the new platform_device-based
-- * early driver framework.
-- */
--static inline int is_sh_early_platform_device(struct platform_device *pdev)
--{
--	return 0;
--}
--#endif /* CONFIG_SUPERH */
+-/* For now only SuperH uses it */
+-void early_platform_cleanup(void);
 -
- /* For now only SuperH uses it */
- void early_platform_cleanup(void);
- 
+ #endif /* _PLATFORM_DEVICE_H_ */
 -- 
 2.39.0
 

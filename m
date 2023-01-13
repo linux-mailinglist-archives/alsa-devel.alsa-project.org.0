@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B146694F7
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 12:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34ABF669540
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 12:14:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E04E0A734;
-	Fri, 13 Jan 2023 12:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E04E0A734
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C941A788;
+	Fri, 13 Jan 2023 12:14:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C941A788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673607851;
-	bh=jvIEaZNc9a/JtwZzFe9mobDzOIz8+rNt4DjJLjhg6cQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=jvVc3IcNUPZ5M3/I8QL9U71qEmBMk0AEo0YzBOPPyXSu05FcpQa4k0luPBwdlmP1H
-	 n2wwFGmH+3qwcZZ3zwvtLnlUndYokr+yoLWEN5kOkhsKm30Lh8P7Q2LWxq4bwEyDR2
-	 LTkvavXGUZ9CCrrBCMOjOkFP/Mz5TDRQPERWlqZw=
+	s=default; t=1673608490;
+	bh=1+XG7qLammQBp0XBhf1JdRZJfko8cla6x0q0gInCAo0=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=UMEeAtqhHqcN3QMAHSrUos/blQDSnIOmfOXkoBombJvalcveIC0/EMmggh5lgIkpF
+	 lTqE+b5b2gJLkAeTNN98hqmQsAoo6jsF/59b6Mva7rZ2XTUDTzXsK1GZEyufxu5vGh
+	 w5UYxG2bGgmRDxXw3It6mxZu+LZ00W4Y72CZHYdU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D45FF80548;
-	Fri, 13 Jan 2023 12:02:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBEB1F8053D;
+	Fri, 13 Jan 2023 12:13:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84C6BF804A9; Fri, 13 Jan 2023 12:02:24 +0100 (CET)
+ id 83042F80542; Fri, 13 Jan 2023 12:13:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D06FFF804A9
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 12:02:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D06FFF804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A9A1F8026D
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 12:13:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A9A1F8026D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=n/woBrEa
+ header.s=Intel header.b=C4B2xE8A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673607743; x=1705143743;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jvIEaZNc9a/JtwZzFe9mobDzOIz8+rNt4DjJLjhg6cQ=;
- b=n/woBrEa09eLdeetCiRbZBiH4lQg9i1QiVcEAd7aLOYxJihcfiVpKtby
- 20Gj1E32Dl13VTdd+sK3Xn3ZdtsWAW9aq8KzJ5pJCo3QsyJeFhkP5B9fY
- vPxWOlwjrOxqDk5/t9RGa3GHOA6JEFvVPjvRFkEZtEU+gCt+hwmIFP8oP
- 1DDwmJB7h1uVD8BLUmbEAg1CYRMutPU4LIbad81k8lAu/OgoLQtmjBfb8
- L3LT6IhuU34AZML/6tRdqCkuOeENtIoBaMS/hwMD36qR8aNBQU3jxQwy5
- 4Sd80mfhIbOg/4kuidkW6V4tEcAA/G8kbyk5bKd7eKw9xQsL81MNqk6XY Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="325228501"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="325228501"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 03:02:20 -0800
+ t=1673608405; x=1705144405;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1+XG7qLammQBp0XBhf1JdRZJfko8cla6x0q0gInCAo0=;
+ b=C4B2xE8AlbrLzHV1rpSh4Ndz1a7AIzBrD3DiH4nfpRNMbsAuPeWyZ31z
+ c/VYnnwZ9IVCvFLt5xiSdIr5s/U+GvSwaTbq1bNYFAV14bKRIFhYEt0rI
+ iZbaXGTOHjHmeb6wGUCKBlfZGl3hrcENHnYon/7qJMS++GR+yp1nZ7amj
+ Zhesubn3qkAEgPXIa/sQEI8+7PHrNyue+tw40UnvcoQVG0t8593TOuIKi
+ nctmFe+o9haXxzIB8E0I121nKsTogh9Hqwmm0B4cW/ntNGdLUcIpyzh9I
+ hLVpgtmBY+X5xFO0A2tKdsYc4rwp5EqTIj0TNwQ923Gx+OBH1Xf+RGw8D w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="321666370"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="321666370"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2023 03:13:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="832039947"
-X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="832039947"
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="726667093"
+X-IronPort-AV: E=Sophos;i="5.97,213,1669104000"; d="scan'208";a="726667093"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by orsmga005.jf.intel.com with ESMTP; 13 Jan 2023 03:02:18 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 13 Jan 2023 03:13:18 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/3] ASoC: Intel: avs: Use min_t instead of min with cast
-Date: Fri, 13 Jan 2023 20:03:10 +0100
-Message-Id: <20230113190310.1451693-4-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: Intel: avs: Use asoc_substream_to_rtd() to obtain
+ rtd
+Date: Fri, 13 Jan 2023 20:14:09 +0100
+Message-Id: <20230113191410.1454566-1-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230113190310.1451693-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -88,35 +85,193 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
  =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+ <amadeuszx.slawinski@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Checkpatch script recommends using min_t instead of min with the cast.
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Fixes: 69b23b3937a1 ("ASoC: Intel: avs: Event tracing")
+Utilize the helper function instead of casting from ->private_data
+or snd_pcm_substream_chip() directly.
+
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/avs/trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/avs/boards/rt286.c |  2 +-
+ sound/soc/intel/avs/boards/rt298.c |  2 +-
+ sound/soc/intel/avs/pcm.c          | 30 +++++++++++++++---------------
+ 3 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/intel/avs/trace.c b/sound/soc/intel/avs/trace.c
-index fcb7cfc823d6..c63eea909b5e 100644
---- a/sound/soc/intel/avs/trace.c
-+++ b/sound/soc/intel/avs/trace.c
-@@ -24,7 +24,7 @@ void trace_avs_msg_payload(const void *data, size_t size)
- 	while (remaining > 0) {
- 		u32 chunk;
+diff --git a/sound/soc/intel/avs/boards/rt286.c b/sound/soc/intel/avs/boards/rt286.c
+index 8447b37a2a41..3551a05bd599 100644
+--- a/sound/soc/intel/avs/boards/rt286.c
++++ b/sound/soc/intel/avs/boards/rt286.c
+@@ -98,7 +98,7 @@ static int avs_rt286_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pc
+ static int
+ avs_rt286_hw_params(struct snd_pcm_substream *substream, struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *runtime = substream->private_data;
++	struct snd_soc_pcm_runtime *runtime = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(runtime, 0);
+ 	int ret;
  
--		chunk = min(remaining, (size_t)MAX_CHUNK_SIZE);
-+		chunk = min_t(size_t, remaining, MAX_CHUNK_SIZE);
- 		trace_avs_ipc_msg_payload(data, chunk, offset, size);
+diff --git a/sound/soc/intel/avs/boards/rt298.c b/sound/soc/intel/avs/boards/rt298.c
+index bd25f0fde35e..2923f3805bbe 100644
+--- a/sound/soc/intel/avs/boards/rt298.c
++++ b/sound/soc/intel/avs/boards/rt298.c
+@@ -109,7 +109,7 @@ static int avs_rt298_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pc
+ static int
+ avs_rt298_hw_params(struct snd_pcm_substream *substream, struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+ 	unsigned int clk_freq;
+ 	int ret;
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index f930c5e86a84..c4376c9c35ef 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -60,7 +60,7 @@ avs_dai_find_path_template(struct snd_soc_dai *dai, bool is_fe, int direction)
+ static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai, bool is_fe,
+ 			   const struct snd_soc_dai_ops *ops)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_tplg_path_template *template;
+ 	struct avs_dma_data *data;
+@@ -169,7 +169,7 @@ static int avs_dai_nonhda_be_startup(struct snd_pcm_substream *substream, struct
  
- 		remaining -= chunk;
+ static void avs_dai_nonhda_be_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_dma_data *data;
+ 
+@@ -218,7 +218,7 @@ static int avs_dai_nonhda_be_prepare(struct snd_pcm_substream *substream, struct
+ static int avs_dai_nonhda_be_trigger(struct snd_pcm_substream *substream, int cmd,
+ 				     struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dma_data *data;
+ 	int ret = 0;
+ 
+@@ -305,7 +305,7 @@ static int avs_dai_hda_be_hw_params(struct snd_pcm_substream *substream,
+ static int avs_dai_hda_be_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
+ 	struct avs_dma_data *data;
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hdac_ext_stream *link_stream;
+ 	struct hdac_ext_link *link;
+ 	struct hda_codec *codec;
+@@ -335,7 +335,7 @@ static int avs_dai_hda_be_hw_free(struct snd_pcm_substream *substream, struct sn
+ 
+ static int avs_dai_hda_be_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct hdac_ext_stream *link_stream = runtime->private_data;
+ 	struct hdac_ext_link *link;
+@@ -374,7 +374,7 @@ static int avs_dai_hda_be_prepare(struct snd_pcm_substream *substream, struct sn
+ static int avs_dai_hda_be_trigger(struct snd_pcm_substream *substream, int cmd,
+ 				  struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hdac_ext_stream *link_stream;
+ 	struct avs_dma_data *data;
+ 	int ret = 0;
+@@ -489,7 +489,7 @@ static int avs_dai_fe_startup(struct snd_pcm_substream *substream, struct snd_so
+ 
+ static void avs_dai_fe_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dev *adev = to_avs_dev(dai->dev);
+ 	struct avs_dma_data *data;
+ 
+@@ -628,7 +628,7 @@ static int avs_dai_fe_prepare(struct snd_pcm_substream *substream, struct snd_so
+ 
+ static int avs_dai_fe_trigger(struct snd_pcm_substream *substream, int cmd, struct snd_soc_dai *dai)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dma_data *data;
+ 	struct hdac_ext_stream *host_stream;
+ 	struct hdac_bus *bus;
+@@ -836,7 +836,7 @@ static int avs_dai_resume_hw_params(struct snd_soc_dai *dai, struct avs_dma_data
+ 	int ret;
+ 
+ 	substream = data->substream;
+-	rtd = snd_pcm_substream_chip(substream);
++	rtd = asoc_substream_to_rtd(substream);
+ 
+ 	ret = dai->driver->ops->hw_params(substream, &rtd->dpcm[substream->stream].hw_params, dai);
+ 	if (ret)
+@@ -931,7 +931,7 @@ static int avs_component_pm_op(struct snd_soc_component *component, bool be,
+ 	for_each_component_dais(component, dai) {
+ 		data = dai->playback_dma_data;
+ 		if (data) {
+-			rtd = snd_pcm_substream_chip(data->substream);
++			rtd = asoc_substream_to_rtd(data->substream);
+ 			if (rtd->dai_link->no_pcm == be && !rtd->dai_link->ignore_suspend) {
+ 				ret = op(dai, data);
+ 				if (ret < 0) {
+@@ -944,7 +944,7 @@ static int avs_component_pm_op(struct snd_soc_component *component, bool be,
+ 
+ 		data = dai->capture_dma_data;
+ 		if (data) {
+-			rtd = snd_pcm_substream_chip(data->substream);
++			rtd = asoc_substream_to_rtd(data->substream);
+ 			if (rtd->dai_link->no_pcm == be && !rtd->dai_link->ignore_suspend) {
+ 				ret = op(dai, data);
+ 				if (ret < 0) {
+@@ -1048,7 +1048,7 @@ static const struct snd_pcm_hardware avs_pcm_hardware = {
+ static int avs_component_open(struct snd_soc_component *component,
+ 			      struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
+ 	/* only FE DAI links are handled here */
+ 	if (rtd->dai_link->no_pcm)
+@@ -1066,7 +1066,7 @@ static unsigned int avs_hda_stream_dpib_read(struct hdac_ext_stream *stream)
+ static snd_pcm_uframes_t
+ avs_component_pointer(struct snd_soc_component *component, struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct avs_dma_data *data;
+ 	struct hdac_ext_stream *host_stream;
+ 	unsigned int pos;
+@@ -1394,7 +1394,7 @@ static void avs_component_hda_remove(struct snd_soc_component *component)
+ static int avs_component_hda_open(struct snd_soc_component *component,
+ 				  struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hdac_ext_stream *link_stream;
+ 	struct hda_codec *codec;
+ 
+@@ -1441,7 +1441,7 @@ static int avs_component_hda_open(struct snd_soc_component *component,
+ static int avs_component_hda_close(struct snd_soc_component *component,
+ 				   struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct hdac_ext_stream *link_stream;
+ 
+ 	/* only BE DAI links are handled here */
 -- 
 2.25.1
 

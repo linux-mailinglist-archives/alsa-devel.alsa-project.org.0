@@ -2,61 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C9666947E
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:41:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10EE3669481
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jan 2023 11:41:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2721F4DB1;
-	Fri, 13 Jan 2023 11:40:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2721F4DB1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3EF2A677;
+	Fri, 13 Jan 2023 11:40:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3EF2A677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673606481;
-	bh=MIuVjCjMJDcgVnmJ0pr8TVceeCPAqnXq4XTx/k4WF+M=;
+	s=default; t=1673606502;
+	bh=539Rhr8oTmKwee6LhwUiwwoo6EZu02HQx59O3ADkTbU=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=gSk0SMmTs7nXjJ8ntI5Rr/cc0SB3wWNbHuwsplWIC+CAwq424X5p56gfQ7xQeGnRY
-	 I2i+X5G7i3+4Pqj/a6zTfxb4ccDIrpwEqCABgvmne7HWZy6L5+j2iGDdx4nPK78Dw8
-	 hbTTnu9zlF1Fx4GVup0aGQKPh3dvx16bNNs+iSBQ=
+	b=TT/Or2IBouQ1v784e8netuPlpJP9nhIm6gomu5pNCRAFEtUA1ImVhn2Ts93whyQE8
+	 PUfLbrOelu6aMg6U/BBJuPXni0rlHQmZxkdzUg4LgWjevfQaucf3D+XTGi6q0gSdoX
+	 JBJ4CoAOgeVCGuol21IutIBY5aUulLGyRiUPF4Xw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2296F80589;
-	Fri, 13 Jan 2023 11:38:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3D39F804A9;
+	Fri, 13 Jan 2023 11:38:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12F5CF8057F; Fri, 13 Jan 2023 11:38:38 +0100 (CET)
+ id E8959F80589; Fri, 13 Jan 2023 11:38:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
+ [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F9C5F8057D
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:38:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F9C5F8057D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A92B4F8057E
+ for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 11:38:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A92B4F8057E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=jEgFrYZv
+ header.s=gm1 header.b=XlOprv3Z
 Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPA id 10380FF80F;
- Fri, 13 Jan 2023 10:38:28 +0000 (UTC)
+ by mail.gandi.net (Postfix) with ESMTPA id 069CAFF81B;
+ Fri, 13 Jan 2023 10:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1673606312;
+ t=1673606315;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=E3G6KG9oTCxnIpwdv1vNB+hhtIBP9x/liCnyDYXaJro=;
- b=jEgFrYZvomO4N83PWEi2ybcaE8mvS6eprGFtqs4MmPIfieJ+5TbyHuPATTvycuFSOMHRXz
- z6COzdF4ZmDoALabeB3oDjwSpKl7mqvpK4ZYDmprllCBK7DZrrqyt0BhPpUdRb3/9Y7J80
- hTTzdbEzG2muoPDGGtKJlaWDwbn31ISRRiNnJLh1onbkoqdI9Jfoi8FOxHMF7Id+ciing+
- mivX42FUrAIwMRq+gWCqd0cE2+qKMKG1BqRFh3Nk2p+jWqLqfCfWP6YU2we24IC2eVjtSL
- DJvneI2I0i7dccu5/zAJT5GTs15HQZX8NEOkKyztIDsy2iX2flbQ7Wt5L1IFjA==
+ bh=ZqR1sbzJlEP7+ZXzooqfoTsDW4e3sPJzR7dwt0b3cSs=;
+ b=XlOprv3ZimuihHQZvNbxcgHZYx3GRRS/kt8qkLz0LvmzfBkZGHV0LeXQScDykpF5WgsIgA
+ q8/sJmyiBZIUk6l74Xw/l4ejMwY9VUtgzSK13vex1i25TlV0kcQfnU8PYwsE+ZCAoT7eKs
+ NqZbpfcOqzCVN7Ozg21RoPdQhcHEg9G2bRTyi4etOE5eVz3ZtangySUvdVqnzadhheKqE6
+ jLK/Wza3mDbkPajmXlphBWit9011Pfjsyw07xo/ruvsPhH1F+hMxz+NaxqzyhJATnYIP1r
+ CyomeAJ07UihdEIpNnzot0t13kCHgFyShvQPu9dK+vqCMcrPLtjGx3jsFsMJYw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
  Rob Herring <robh+dt@kernel.org>,
@@ -68,9 +68,9 @@ To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
  Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: [PATCH v3 07/10] MAINTAINERS: add the Freescale QMC controller entry
-Date: Fri, 13 Jan 2023 11:37:56 +0100
-Message-Id: <20230113103759.327698-8-herve.codina@bootlin.com>
+Subject: [PATCH v3 08/10] dt-bindings: sound: Add support for QMC audio
+Date: Fri, 13 Jan 2023 11:37:57 +0100
+Message-Id: <20230113103759.327698-9-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20230113103759.327698-1-herve.codina@bootlin.com>
 References: <20230113103759.327698-1-herve.codina@bootlin.com>
@@ -94,33 +94,140 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After contributing the driver, add myself as the maintainer
-for the Freescale QMC controller.
+The QMC (QUICC mutichannel controller) is a controller
+present in some PowerQUICC SoC such as MPC885.
+The QMC audio is an ASoC component that uses the QMC
+controller to transfer the audio data.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../bindings/sound/fsl,qmc-audio.yaml         | 117 ++++++++++++++++++
+ 1 file changed, 117 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6a0605ebf8a0..9a574892b9b1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8372,6 +8372,14 @@ S:	Maintained
- F:	drivers/soc/fsl/qe/
- F:	include/soc/fsl/qe/
- 
-+FREESCALE QUICC ENGINE QMC DRIVER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	linuxppc-dev@lists.ozlabs.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
-+F:	drivers/soc/fsl/qe/qmc.c
-+F:	include/soc/fsl/qe/qmc.h
+diff --git a/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml b/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+new file mode 100644
+index 000000000000..ff5cd9241941
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+@@ -0,0 +1,117 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/fsl,qmc-audio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- FREESCALE QUICC ENGINE TSA DRIVER
- M:	Herve Codina <herve.codina@bootlin.com>
- L:	linuxppc-dev@lists.ozlabs.org
++title: QMC audio
++
++maintainers:
++  - Herve Codina <herve.codina@bootlin.com>
++
++description: |
++  The QMC audio is an ASoC component which uses QMC (QUICC Multichannel
++  Controller) channels to transfer the audio data.
++  It provides as many DAI as the number of QMC channel used.
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: fsl,qmc-audio
++
++  '#address-cells':
++    const: 1
++  '#size-cells':
++    const: 0
++  '#sound-dai-cells':
++    const: 1
++
++patternProperties:
++  '^dai@([0-9]|[1-5][0-9]|6[0-3])$':
++    description:
++      A DAI managed by this controller
++    type: object
++
++    properties:
++      reg:
++        minimum: 0
++        maximum: 63
++        description:
++          The DAI number
++
++      fsl,qmc-chan:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        items:
++          - items:
++              - description: phandle to QMC node
++              - description: Channel number
++        description:
++          Should be a phandle/number pair. The phandle to QMC node and the QMC
++          channel to use for this DAI.
++
++    required:
++      - reg
++      - fsl,qmc-chan
++
++required:
++  - compatible
++  - '#address-cells'
++  - '#size-cells'
++  - '#sound-dai-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    audio_controller: audio-controller {
++        compatible = "fsl,qmc-audio";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        #sound-dai-cells = <1>;
++        dai@16 {
++            reg = <16>;
++            fsl,qmc-chan = <&qmc 16>;
++        };
++        dai@17 {
++            reg = <17>;
++            fsl,qmc-chan = <&qmc 17>;
++        };
++    };
++
++    sound {
++        compatible = "simple-audio-card";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        simple-audio-card,dai-link@0 {
++            reg = <0>;
++            format = "dsp_b";
++            cpu {
++                sound-dai = <&audio_controller 16>;
++            };
++            codec {
++                sound-dai = <&codec1>;
++                dai-tdm-slot-num = <4>;
++                dai-tdm-slot-width = <8>;
++                /* TS 3, 5, 7, 9 */
++                dai-tdm-slot-tx-mask = <0 0 0 1 0 1 0 1 0 1>;
++                dai-tdm-slot-rx-mask = <0 0 0 1 0 1 0 1 0 1>;
++            };
++        };
++        simple-audio-card,dai-link@1 {
++            reg = <1>;
++            format = "dsp_b";
++            cpu {
++                sound-dai = <&audio_controller 17>;
++            };
++            codec {
++                sound-dai = <&codec2>;
++                dai-tdm-slot-num = <4>;
++                dai-tdm-slot-width = <8>;
++                /* TS 2, 4, 6, 8 */
++                dai-tdm-slot-tx-mask = <0 0 1 0 1 0 1 0 1>;
++                dai-tdm-slot-rx-mask = <0 0 1 0 1 0 1 0 1>;
++            };
++        };
++    };
 -- 
 2.38.1
 

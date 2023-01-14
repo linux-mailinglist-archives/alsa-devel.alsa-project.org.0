@@ -2,105 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEC0C66AFCB
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:53:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A5D866AFC6
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:52:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EF7345B2;
-	Sun, 15 Jan 2023 08:52:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EF7345B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 617BB3ED7;
+	Sun, 15 Jan 2023 08:51:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 617BB3ED7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673769200;
-	bh=RcxvleO2ys/XahCHf89+p6wYj85gWSkzc7/STuF7zgk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=kFU62MTmuKL3YfgvAa+gLogbCg2kF4m1BMY5s9b1Oltb3t5Krm7ICxDVWmYj07E2z
-	 md0DNogPZ4JkLtyjLdPvNBhvkpdFdACOi3TSEtiirnoPFO0bZDLt+7Lbh+v3a45YPV
-	 ljvH3Ivw3smiuRI3uh7PSedFGdVi/afIdQVMDtWU=
+	s=default; t=1673769120;
+	bh=IRUqthaA5X6K+gtdbTlhzXVseCsUEEL8rASJdnzGhKE=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=MxuJhD1O7gU6/USlnQugq+I487C/DDGxrPD+pdKx956TpNERbNG7ITdEK7gETN80g
+	 v4YmeKWRsisVK4IlJc14H7aYyGu8LmJGaI2Ox7pvJ7exbhkdumYyYN6Ly34hS03U/M
+	 Q1vFeIrpdsuls5c9UfTa/CFlLmy7gpI2DXQOd4U8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74A76F805B3;
-	Sun, 15 Jan 2023 08:48:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A13C7F80580;
+	Sun, 15 Jan 2023 08:48:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F559F8030F; Sat, 14 Jan 2023 00:20:25 +0100 (CET)
+ id DAC2FF802E8; Sat, 14 Jan 2023 01:31:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38CE1F8026D
- for <alsa-devel@alsa-project.org>; Sat, 14 Jan 2023 00:20:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38CE1F8026D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=landley-net.20210112.gappssmtp.com
- header.i=@landley-net.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=HEeiDnUe
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1433ef3b61fso23895028fac.10
- for <alsa-devel@alsa-project.org>; Fri, 13 Jan 2023 15:20:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=landley-net.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TQ9PrP3iNHpghVpkywhiMHcSFTwXN8kLEUSP7zNfGWk=;
- b=HEeiDnUeOlaMmzrHg6LtTWNe2KIF6Q5d6PASMOjvpBnFNwlXnpxtBoyLsjdUSiFic5
- Zy4GrupmECG1CN3m99XRInimzLkAyFlnAC1yFwr9ZV5WqZ8Mxia0axE41+SyDlpGZHOF
- b9/hPmk9ZzrDZTerjRuPw9aOBuwmuFZgGCgGCyi5DNv5BOgrp6hpzWbx8PiSSS3PCS6S
- UoJjpLq7r0mXx6nv8CL2PCVxH6W+Fc0fSdqCoguiOJxRwovXLajxMhMVOFQITRvWQd2L
- +x8hdq/wHJdMhQD25h3cEnBEwX4srdIbxyBywCRXQlXO+4KVbgaam+X20emmeoxJCckb
- 5wPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TQ9PrP3iNHpghVpkywhiMHcSFTwXN8kLEUSP7zNfGWk=;
- b=mHOViOjHzyAUZS/SYUy91/Ch8OGMz57AVRyPG28KOdw/rBH6X8CEdT3QE7yvBtzjbJ
- GIcFjpJ4wa0y8oI6YoeDTnkzMa+BxUTiBRAkD3jBVfH+UUpuzbonNRJdf1l8ACQQZF/f
- VZwOoaCYI3UxI9Rn0hiQmf68crMoASpxvff6yBbb+XOivJGtp6gkEXZ5wg9uBIdHNPR5
- 2wl1zAeG+5jznB1DwZeM+REyVjaEIjuvlCZR1a/gRzqND6rSMDftUKzl65S808Wo1Vnq
- tzaqLYpfPaO4EpvovdFUkyXwkT7nMGbQJ93rZw6EkqFiekzht5Po/7YPksPYIfVqCDst
- hgdg==
-X-Gm-Message-State: AFqh2krb+wIV2ZeUgyqJM/qIrKUqm7cRtO+NFSq4PFqA9d0RiZso+ONk
- H+MoGblviBEs1oUDXCcHbNEPMA==
-X-Google-Smtp-Source: AMrXdXu9HHEo/oiUtz2RMFCVU9bzsQZjZJ6cJq7QQE+EgrBS53y1RWYqF/4GpGuzhXIiUysKwMTRjQ==
-X-Received: by 2002:a05:6871:4090:b0:155:cb39:7325 with SMTP id
- kz16-20020a056871409000b00155cb397325mr16579350oab.6.1673652012126; 
- Fri, 13 Jan 2023 15:20:12 -0800 (PST)
-Received: from [192.168.86.224] ([136.62.38.22])
- by smtp.gmail.com with ESMTPSA id
- z13-20020a056870738d00b0013ae39d0575sm11411907oam.15.2023.01.13.15.20.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 15:20:11 -0800 (PST)
-Message-ID: <38200b53-c743-4396-6603-7274f4a29c86@landley.net>
-Date: Fri, 13 Jan 2023 17:32:20 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CD4EF8019B
+ for <alsa-devel@alsa-project.org>; Sat, 14 Jan 2023 01:31:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD4EF8019B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=undef.tools
+ header.i=@undef.tools header.a=rsa-sha256 header.s=fm3 header.b=d2NkJzL1; 
+ dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=OgLKE3xT
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 140455C00A7;
+ Fri, 13 Jan 2023 19:31:19 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 13 Jan 2023 19:31:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=undef.tools; h=
+ cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:sender:subject:subject:to:to;
+ s=fm3; t=1673656279; x=1673742679; bh=06oSer/hbIX+e8ixGpELbsOVt
+ s3pi8H+tRTjkc7QSco=; b=d2NkJzL1JwBETuvfrCBMhHNw91k9PEmBfKLJc81Gn
+ qZBJ/dTpzWX1uNkywAsErH1obEYD6+W3XSqpb0SjEQ0Re87mW2jYm3HKyRARU6XR
+ DLsVNRsz6Lr8fsIGxuILrXSShPJ+3XoJ7I4pvTtY+A46Xrkzd3TibguPUoEerSAu
+ 6nw80dJmRNexmL6rg3TJndYhU0eE/OK3MSLjZ+gaw8T03AjcHKLKfyUt/sXMICkc
+ 9O252C5oFKxYQg1l0HH0ADUg7NaS/l7YINW6WRPUJHfpS8bG+83999h1vjMQzjaq
+ UKON3SmPXQgiqT9hwnVCcngTvQx6gxLj/e5iXm350gvvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:message-id
+ :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1673656279; x=1673742679; bh=06oSer/hbIX+e8ixGpELbsOVts3pi8H+tRT
+ jkc7QSco=; b=OgLKE3xTvIREhVSDtMWTJj5enSFDb9I41shZnityxl7dkfv+vao
+ 9KNQr8Y7gP/O2mJwSuoE4qsfrOBtZGVjVx/9cb4iUu1G0eAQRx1AfpQI3lBLov5D
+ ynETmT3m1ZHdsCtNED6wYkfReHJ+OQ26uZc6t3Q7pVjjHtWm8uVN8WxTCyZl0rMr
+ tdDa5y3ZlqKpjYyecAZbKo5mczg6d4MJRC9LdwmL2HGNEiRdA0MAGDi7ecgGYiKu
+ E8TahxaMd4uFYBGqJ+J8yXVHU+fA+3uzibiGf4P+GZc1Kg4MRjo3xnytaxXsL5iI
+ mLYUsvgrra2J3Byfkt4pREX7lvLn4yaXUow==
+X-ME-Sender: <xms:1ffBY5GekTrmQNbnKtYZiHgyjnvNBR9vUiN8PI_3MX2PuBTycpYBHw>
+ <xme:1ffBY-XlGPiC-fOHc9PWgHhcxXmfTkakFnzQ1WZrpVS0vgWDGeaq-xCzEF5eiaWEG
+ zwis_AVunJGYSC81H0>
+X-ME-Received: <xmr:1ffBY7L4oX1LS7QU59v-Arro1fp1phsHQEuGk4opMqihtEkf0p8Fb9mrmH4j_DiXWbXCXDGFsFtN2hLn_tPJ3BXBJfoaq1VvdmSKjAMcspKP2VHk3gAlzD-Lfg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleelgddvgecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeflrghrrhgrhhcu
+ ifhoshgsvghllhcuoehkvghrnhgvlhesuhhnuggvfhdrthhoohhlsheqnecuggftrfgrth
+ htvghrnhepjeeuvefgjeefgefhhfefhedvffelteehkeekvdefheeiteeutdehveeghfeg
+ kefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepkh
+ gvrhhnvghlsehunhguvghfrdhtohholhhs
+X-ME-Proxy: <xmx:1ffBY_E7Yui-m0Qql0NNBgfk59W7rops_-ItwjoFJyKNq8ifiKKrIQ>
+ <xmx:1ffBY_XPHbC453p9rAmA4QVkK6PCh2-o40NE9Ccew8lcaiMkihYGgA>
+ <xmx:1ffBY6NFSnL3O8AIuuI6xnA2XjXRj_o4TJKC-iBrjwRlJDVXjBXx2w>
+ <xmx:1_fBY7pxaNJxadzhpnd7UrlFjHR1ccmRI8mDgv6JPFaDI7iZalfyvA>
+Feedback-ID: id76147eb:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Jan 2023 19:31:14 -0500 (EST)
+From: Jarrah Gosbell <kernel@undef.tools>
+To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: codec: rt5640: Resolve failure to set DMIC clock after
+ playback
+Date: Sat, 14 Jan 2023 00:30:54 +0000
+Message-Id: <20230114003053.401274-1-kernel@undef.tools>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: remove arch/sh
-Content-Language: en-US
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20230113062339.1909087-1-hch@lst.de>
- <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
- <CAMuHMdUcnP6a9Ch5=_CMPq-io-YWK5pshkOT2nZmP1hvNcwBAg@mail.gmail.com>
- <142532fb-5997-bdc1-0811-a80ae33f4ba4@physik.fu-berlin.de>
- <6891afb6-4190-6a52-0319-745b3f138d97@landley.net>
- <fe09d811-e290-821d-ec8b-75936b6583c2@physik.fu-berlin.de>
-From: Rob Landley <rob@landley.net>
-In-Reply-To: <fe09d811-e290-821d-ec8b-75936b6583c2@physik.fu-berlin.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:18 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,59 +116,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Jarrah Gosbell <kernel@undef.tools>, phone-devel@vger.kernel.org,
+ Ondrej Jirman <megi@xff.cz>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/13/23 13:05, John Paul Adrian Glaubitz wrote:
-> Hi Rob!
-> 
-> On 1/13/23 20:11, Rob Landley wrote:
->> There is definitely interest in this architecture. I'm aware Rich hasn't been
->> the most responsive maintainer. (I'm told he's on vacation with his family at
->> the moment, according to the text I got about this issue from the J-core
->> hardware guys in Japan.)
-> 
-> Well, maybe we can just give it a try together ...
+From: Ondrej Jirman <megi@xff.cz>
 
-Jeff Dionne said he'd make himself available to answer hardware questions. (He
-said he maintained some Linux ports 20 years ago, but isn't current with Linux
-plumbing. Last month he was digging through the guts of vxworks, and the project
-before that was some sort of BSD I think?)
+rt5640_set_dai_sysclk is called with freq == 0 when playback stops. This
+causes DMIC setup code to fail. I2S interface doesn't need to be active
+for codec to work, so don't clear rt5640->sysclk after
+rt5640_set_dai_sysclk is called with freq == 0.
 
-I _do_ maintain Linux patches, I just generally don't bother to repost them
-endlessly. Here's my "on top of 6.1" stack for example, each of which links to
-at least one time it was posted to linux-kernel:
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+Signed-off-by: Jarrah Gosbell <kernel@undef.tools>
+---
+ sound/soc/codecs/rt5640.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-https://landley.net/toybox/downloads/binaries/mkroot/0.8.9/linux-patches/
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 18e01949f20e..054de41ceccb 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1839,6 +1839,9 @@ static int rt5640_set_dai_sysclk(struct snd_soc_dai *dai,
+ 	unsigned int reg_val = 0;
+ 	unsigned int pll_bit = 0;
+ 
++	if (freq == 0)
++		return 0;
++
+ 	switch (clk_id) {
+ 	case RT5640_SCLK_S_MCLK:
+ 		reg_val |= RT5640_SCLK_SRC_MCLK;
+-- 
+2.39.0
 
->> The main reason we haven't converted everything to device tree is we only have
->> access to test hardware for a subset of the boards. Pruning the list of
->> supported boards and converting the rest to device tree might make sense. We can
->> always add/convert boards back later...
-> 
-> There is a patch by Yoshinori Sato which adds device tree support to SH. Maybe we
-> can revive it.
-
-The turtle board is device tree and has been since it was merged. The
-infrastructure is there, the question is converting over boards and testing
-them, or deciding to prune them. Did Sato-san convert many boards? (I'm not
-finding his patch via google...)
-
-> Adrian
-
-Rob

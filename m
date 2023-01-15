@@ -2,100 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108D266AFCE
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 08:54:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F09166B0EB
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 13:17:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D90045E2;
-	Sun, 15 Jan 2023 08:53:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D90045E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BE689F3A;
+	Sun, 15 Jan 2023 13:16:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BE689F3A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673769245;
-	bh=ULnSzZi7Fcy6i2z1/K2SY0sm86j8JuNp+7N6nuMX2YA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=fqpvxOWW7P5iLxZ5n6ymvi+ccr3WHj9wVY0y3MnmlY+L9MYypD3b24z2kbbjdBTG2
-	 8gRKzYGT+kEzSxBPmD1fBs8PEabl/ViMAkRwXn2q2F11hcEFT0o5an081O8GR0Ic0D
-	 GJt3n80nJM5agqxPfQEHp84R2Rj77keCnmL01dHs=
+	s=default; t=1673785067;
+	bh=Rr4wFE8+o2Dr30WQsw7WljTzTPYoi/KgCKkLDQSLcWY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=PWtvkpMtKYHWUQlmZ+cxC5xyCRaz2T9/E5y56dW8oEqUiFZeW/UYW/97jDSEjn3bX
+	 5yi4tVaAhu6XM9Jl+GAvoxUJKc1ovUPRRALW6YLybdu98G5T0DOnUehZG5R/c6Dayo
+	 cqeNaVWkILR/Y7x/AY0UEUax2A5ceT/25jVfaVw0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEBB2F805C1;
-	Sun, 15 Jan 2023 08:48:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97AF4F801EB;
+	Sun, 15 Jan 2023 13:16:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBAC3F804C1; Sun, 15 Jan 2023 01:43:31 +0100 (CET)
+ id 4C2D0F804DE; Sun, 15 Jan 2023 13:16:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=FREEMAIL_FROM,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71B9BF8025F
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 01:43:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71B9BF8025F
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=landley-net.20210112.gappssmtp.com
- header.i=@landley-net.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=AWOVJoTR
-Received: by mail-oi1-x22e.google.com with SMTP id i5so2333561oih.11
- for <alsa-devel@alsa-project.org>; Sat, 14 Jan 2023 16:43:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=landley-net.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VA+b6ERucM0SVhgS+CxkVoqDPdylXXEER7Oavou/n5c=;
- b=AWOVJoTRCZIzDDPEVrLicc1SKpwl7KTn8Ol48utvExDUblpnjljkkxvHgz5x7ZXre+
- 8m1djuSOUoerjvNlDkOsvOoru5Slmn51JdtG4yWzqApm65GcAawUt0a4970Ve8qE/PbE
- WIpzUe/igEignY6RXJsMefYQMCJguWlv4sRLkistNu2yHDIEgQ5le/hWruMQxtCBR8qR
- R0Xe1ZeaqdcCUIm6QnssL2hDeKkpiOJ4cANGy/HkgZiIyg5h2uIoq1Znienu3k+LNYC0
- mG/pqdest+Z0kWbWIAyWD+qrcbh4pkalGKoAU1Y3Z3G0iffow+5qADIIMc/6gwB/2uWn
- mYPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VA+b6ERucM0SVhgS+CxkVoqDPdylXXEER7Oavou/n5c=;
- b=cov0J/2+Lw+0N/+Z8Pe36Zoz0uo/jkDDn+ClAzI2cnXDPqM9qbCRJoI2jM3WuBiUhP
- 6I9rmD1KePjc5Fw45VFkIOKG2mkJI+ON9qVI6ySI42Pda3r6eX90qsQLqe1SBuvLkNWe
- wjIhrKrek29+fS84SVqZQoHhR84IVOrdnMUyt8BZsl0IjToq1rmRVSQ2AWmyWQuf/FVk
- hale0DDRsieP8IsjAbizReyFGldMDxBTV+GiCK+iSn1+07ekoEUEH/GVeQroSsf7CxEF
- mjGRDAdJ3tlpfFIT3zuuppnKFMVtHFM2SGaTVU0/1O9w2jC5q+QqHY6zX3fJfsC2i+Tt
- +nTg==
-X-Gm-Message-State: AFqh2kryBxlRK6G0wwlne7Y5UGuOnJ22KEMoxW4+n45afaVY+U8M3AVG
- ehef2GPVOU4dG6Kv/HwrN2Lu1A==
-X-Google-Smtp-Source: AMrXdXtmlbzCnjvw02a750r61CcJJIRVFXhgi7CC+Te697GM+nVvImU+iajKPZiIXIE5Si7tn9Lk3Q==
-X-Received: by 2002:aca:c189:0:b0:35a:6005:3dc5 with SMTP id
- r131-20020acac189000000b0035a60053dc5mr35396207oif.51.1673743401843; 
- Sat, 14 Jan 2023 16:43:21 -0800 (PST)
-Received: from [192.168.86.224] ([136.62.38.22])
- by smtp.gmail.com with ESMTPSA id
- l10-20020a056808020a00b00360e46a1edasm10935583oie.22.2023.01.14.16.43.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Jan 2023 16:43:21 -0800 (PST)
-Message-ID: <fe206345-9445-f1be-02c1-b3cc39a533ef@landley.net>
-Date: Sat, 14 Jan 2023 18:55:31 -0600
+Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1CA76F804A9
+ for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 13:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CA76F804A9
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000005
+Received: from lml-VirtualBox.. (unknown[183.14.134.10])
+ by rmsmtp-lg-appmail-13-12002 (RichMail) with SMTP id 2ee263c3ee9ef57-7c0a4;
+ Sun, 15 Jan 2023 20:16:31 +0800 (CST)
+X-RM-TRANSID: 2ee263c3ee9ef57-7c0a4
+From: Kevin Lu <luminlong@139.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org
+Subject: [PATCH v1] Asoc: dt_bindings: Add tas2781 yaml
+Date: Sun, 15 Jan 2023 20:16:29 +0800
+Message-Id: <20230115121629.2420-1-luminlong@139.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH 02/22] usb: remove the dead USB_OHCI_SH option
-Content-Language: en-US
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christoph Hellwig <hch@lst.de>
-References: <20230113062339.1909087-1-hch@lst.de>
- <20230113062339.1909087-3-hch@lst.de> <Y8EEbCP6PRMzWP5y@kroah.com>
-From: Rob Landley <rob@landley.net>
-In-Reply-To: <Y8EEbCP6PRMzWP5y@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sun, 15 Jan 2023 08:48:19 +0100
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,63 +64,149 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-arch@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-gpio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Lu <luminlong@139.com>, linux-kernel@vger.kernel.org, navada@ti.com,
+ kevin-lu@ti.com, shenghao-ding@ti.com, peeyush@ti.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Complete the DTS for tas2781
+
+Signed-off-by: Kevin Lu <luminlong@139.com>
+---
+ .../devicetree/bindings/sound/ti,tas2781.yaml | 122 ++++++++++++++++++
+ 1 file changed, 122 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+new file mode 100644
+index 0000000..7d73f46
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+@@ -0,0 +1,122 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2022 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TAS2781 Smart PA
++
++maintainers:
++  - Shenghao Ding <shenghao-ding@ti.com>
++  - Kevin Lu <kevin-lu@ti.com>
++
++description: |
++  The TAS2781 is a mono, digital input Class-D audio amplifier
++  optimized for efficiently driving high peak power into small
++  loudspeakers. Integrated an on-chip DSP supports Texas Instruments
++  Smart Amp speaker protection algorithm. The integrated speaker
++  voltage and current sense provides for real time
++  monitoring of loudspeaker behavior.
++
++properties:
++  compatible:
++    enum:
++      - ti,tas2781
++
++  reg:
++    maxItems: 1
++    description: |
++      I2C address of the device can be in range from 0x38 to 0x40.
++
++  ti,audio-slots:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 4
++    description: |
++      This item is used to store the i2c address of the device
++      for deifferent audio slots. It is not required for Mono case.
++
++  ti,global-addr:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      This item is used to store the generic i2c address of
++      all the tas2781 devices for I2C broadcast during the multi-device
++      writes, useless in mono case.
++
++  ti,reset-gpios:
++    minItems: 1
++    maxItems: 4
++    description: GPIO specifier for the reset pin.
++
++  ti,irq-gpio:
++    maxItems: 1
++    description: GPIO used to interrupts the device.
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c {
++     /* example with mono support */
++     #address-cells = <1>;
++     #size-cells = <0>;
++     mono: codec@38 {
++       compatible = "ti,tas2781";
++       reg = <0x38>;
++       #sound-dai-cells = <1>;
++       ti,reset-gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
++       ti,irq-gpio = <&gpio1 15 0>;
++     };
++   };
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c {
++     /* Stereo without irq-gpio and global-addr */
++     #address-cells = <1>;
++     #size-cells = <0>;
++     stereo: codec@38 {
++       compatible = "ti,tas2781";
++       reg = <0x38>;
++       #sound-dai-cells = <1>;
++       ti,audio-slots = < 0x38 /* left-channel */
++                          0x39 /* right-channel */
++                        >;
++       ti,reset-gpios = < &gpio1 10 GPIO_ACTIVE_HIGH
++                          &gpio1 11 GPIO_ACTIVE_HIGH
++                        >;
++     };
++   };
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c {
++     /* example with quad support, such as tablet or pad device */
++     #address-cells = <1>;
++     #size-cells = <0>;
++     quad: codec@38 {
++       compatible = "ti,tas2781";
++       reg = <0x38>;
++       #sound-dai-cells = <1>;
++       ti,audio-slots = < 0x38 /* topleft-channel */
++                          0x39 /* topright-channel */
++                          0x3a /* bottomleft-channel */
++                          0x3b /* bottomright-channel */
++                        >;
++       ti,global-addr = <0x40>;
++       ti,reset-gpios = < &gpio1 10 GPIO_ACTIVE_HIGH
++                          &gpio1 11 GPIO_ACTIVE_HIGH
++                          &gpio1 12 GPIO_ACTIVE_HIGH
++                          &gpio1 13 GPIO_ACTIVE_HIGH
++                        >;
++       ti,irq-gpio = <&gpio1 15 0>;
++     };
++   };
++...
+-- 
+2.34.1
 
 
-On 1/13/23 01:12, Greg Kroah-Hartman wrote:
-> On Fri, Jan 13, 2023 at 07:23:19AM +0100, Christoph Hellwig wrote:
->> USB_OHCI_SH is a dummy option that never builds any code, remove it.
->> 
->> Signed-off-by: Christoph Hellwig <hch@lst.de>
->> ---
->>  drivers/usb/host/Kconfig | 11 -----------
->>  1 file changed, 11 deletions(-)
->> 
->> diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
->> index 8d799d23c476e1..ca5f657c092cf4 100644
->> --- a/drivers/usb/host/Kconfig
->> +++ b/drivers/usb/host/Kconfig
->> @@ -548,17 +548,6 @@ config USB_OHCI_HCD_SSB
->>  
->>  	  If unsure, say N.
->>  
->> -config USB_OHCI_SH
->> -	bool "OHCI support for SuperH USB controller (DEPRECATED)"
->> -	depends on SUPERH || COMPILE_TEST
->> -	select USB_OHCI_HCD_PLATFORM
->> -	help
->> -	  This option is deprecated now and the driver was removed, use
->> -	  USB_OHCI_HCD_PLATFORM instead.
->> -
->> -	  Enables support for the on-chip OHCI controller on the SuperH.
->> -	  If you use the PCI OHCI controller, this option is not necessary.
->> -
->>  config USB_OHCI_EXYNOS
->>  	tristate "OHCI support for Samsung S5P/Exynos SoC Series"
->>  	depends on ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
->> -- 
->> 2.39.0
->> 
-> 
-> Do you want all of these to go through a single tree, or can they go
-> through the different driver subsystem trees?
-
-Neither please. Multiple people are objecting.
-
-Rob

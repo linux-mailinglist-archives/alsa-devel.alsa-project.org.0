@@ -2,102 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E7266B1D9
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 16:07:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC1B66B225
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 16:37:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDFC4522B;
-	Sun, 15 Jan 2023 16:06:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDFC4522B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC03914A;
+	Sun, 15 Jan 2023 16:36:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC03914A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673795262;
-	bh=eRgNOFUXNGW8V2TuzgzTa13lyiotT5iD7a9NpjDZQ9s=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673797050;
+	bh=VxMR/QrFFcjb0QRPOaFx5XdU9Fiwwx4cWhOZW1jrvSc=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Tw/TK2WHSneQvkN8d6DJ2tlfoe10pzlu7s5EPcuFgdfChwcsgIXBl4nWEBB1vx696
-	 DokB2TnHpUVKEPMNxk+AmByGjHjW2YTTVwvIuGVGVjU5UeSc66xQiVW+oZt+c3pD0q
-	 4fDUgkRTyOSffbtNMdoT1Dd+7vz5LzpG4CxyBTK8=
+	b=ipn/BtlNIkbGA9F7UOGk84/VipJq98auDRijQsNB23wMWZmCm7yEMzZ32tOzon/MX
+	 aIawREaG6C9YK4SY18ldsrSM9e49jlMj+SsLEJzaTfZM2F10tfkCHVmYsUtC67m4yz
+	 RgGsfz4mb3iK0XbjLKiLwTWi0sbBGX0m4PR2QRxM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99521F801EB;
-	Sun, 15 Jan 2023 16:06:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C06CEF804BC;
+	Sun, 15 Jan 2023 16:36:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E134DF804DE; Sun, 15 Jan 2023 16:06:41 +0100 (CET)
+ id C5326F804DE; Sun, 15 Jan 2023 16:36:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AFFBF801EB
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 16:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AFFBF801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C038F804A9
+ for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 16:36:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C038F804A9
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Gxs+wgA/
-Received: by mail-ej1-x632.google.com with SMTP id mp20so16093256ejc.7
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 07:06:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6mV2i5/nB+6SQc3dRdfPMP5cMJSxy5rQiGnmFtQCfgQ=;
- b=Gxs+wgA/dB9MSMphhEcVZMGRdxcy+UPE25FznZluA2FOhVqJ8U4Eo6zqWEi5g8q+A6
- T2YCrsRaw2aw287emFzJt2/ALkOUorBkXUkLb7nQcm3aMpYdWdY34Y4e9tzVftHi5pB/
- QUiyVIb7EhiDGlRUBHdxbLoXoux/oAaLuWbDE8nUnxECJO1s2AgEyv89Zw85RCoGuqky
- 1c006IJMXIKKrHw8onTaVEqeCArUieCwzFrrPxeH/Ev52mY+GtzWhHq6Jh5u7Jm63qbQ
- BtuEzdm7hMKrDoNu9eA8iDVemEFbPuV1wjrMIIAv1Yngxj7XKL/ZayYJEs7BRku/+Al0
- C56g==
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=ESYN/lgt
+Received: by mail-ot1-x32b.google.com with SMTP id
+ r2-20020a9d7cc2000000b006718a7f7fbaso14905723otn.2
+ for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 07:36:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=pRCLnfO5D50aLUIqRH3Be5ElBGG7mevjFvkDgjByEkg=;
+ b=ESYN/lgtsCJz1vk5hIWF8P0XT3zE4HOkfbCef61dEh9nfpUszGpqaILDdbRYwRpBaS
+ Gq0n3cdms6iw0aRSFDJpioaByPmQbKCQP0DMmTGvyCsapfKPYKjs4KTwwNR87Zitspdn
+ tniK5INo56zs/GSaaJc39/v4ceiIJC1pB59guwU6dk/ST7wHrW1GsjBxDt0fMLpUe9Og
+ 1v9Whb4AApgIKVhjQbVH2MHL30mD29abfoMS+VPtLoheVkY7LhOupZe8UcHafZllZEmR
+ Q02XH5CuaiXHw9on84tyYVxbzt6ZWhdpxJ/RGI0Gk5dJ5RFTO2+nukuT+lKm/LaCi8GD
+ Tvcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6mV2i5/nB+6SQc3dRdfPMP5cMJSxy5rQiGnmFtQCfgQ=;
- b=h3pDNdfPGyZnds1lbWhaQCGVRQC52SgFfURFvQKp2tm2VNGNxqtahWgFe8D68H4LWM
- SaAlU9tKjIdCESLDvhVsxAFn1HihPxgh7ZBfJRdaQQIQELOWkRWrohR5NFCJUJIPdzee
- kKbu61bGZ2nxygRvwiGbDsWhbswA82cJym1rnVlIFndMsbw2Q6Di4fFOkc2Arpl9Enik
- h+MnL7czjVDrmhmw/134TQu0vhbrqCAi9IXydajLPUz28ZJy4M9E3BllxzK0P006BTlR
- jbAGlGybrvKLYhJb8Ed9PLvFcXh6vS6VQsqVAXtCvdLKeTzMAopbLp3FZ3+ZaN5zrzp/
- CMNA==
-X-Gm-Message-State: AFqh2kryrJ0C+ZCRSPyvLUYkj1dKizJQpKccbfsop+nHCD+w3zhiDqYG
- ZlIQ9pxRRpeIQC38JpV/I9nDcw==
-X-Google-Smtp-Source: AMrXdXtoJE1Ir5Xn52Iji4CbQo6oLweEklRVp9bvVaH0Nk2PtWen++DWHI0yZaagkGlYpbUC+Ijg7A==
-X-Received: by 2002:a17:906:b108:b0:843:a9fe:f115 with SMTP id
- u8-20020a170906b10800b00843a9fef115mr79416292ejy.32.1673795197836; 
- Sun, 15 Jan 2023 07:06:37 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- kz14-20020a17090777ce00b007c17b3a4163sm10914026ejc.15.2023.01.15.07.06.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Jan 2023 07:06:37 -0800 (PST)
-Message-ID: <a4982e06-a6a4-a8c9-3b24-24f798c61f73@linaro.org>
-Date: Sun, 15 Jan 2023 16:06:34 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pRCLnfO5D50aLUIqRH3Be5ElBGG7mevjFvkDgjByEkg=;
+ b=d8ckvPi6NDuyx3DdFccR499roLVFMOWET6VWGvbPIyHyQh5tQEzA0lpFmvgB1DZ8qC
+ eNPfi1hYRgQwiYJAayMwt8clZSE8yhEbN5p3fMGCMNWPJiIs4WtIIyVU8qiVaTpy4Cx0
+ rA6EzKV4mWLKpaBaLqWxSr/pnxQ19TwjbsPbp64ISM6quzXHeWx4g7tuC6W1GrgaOtJR
+ th1bGvXhFz6zC2yuGVbfAxDiMnlC8xR0uw8bqZW0vhf4Leps2zHz1k3HChlkdBKtHs43
+ Lttuo/Fd2jx5OMqNqsBd9WzE9g4BKy5QXSjlc4ZMZFIYouW6PtMLB0osLk9qRlAchIHu
+ KfEg==
+X-Gm-Message-State: AFqh2kpjoIX7axJLIeMUZQSKHBuVo2R7prqelG+p7GKGFSEdTRcMGUcs
+ ftykJru2b40NkST+vKfWFN7EH0E3s+yrgC+93sg=
+X-Google-Smtp-Source: AMrXdXu/zET195jKhsFTVp5xxmwIScKWmACgEKUi1QrBdrbk6v28T2qMy0jJBHOkkSBc+MnjFZnNZuARMBSt9P0VdRA=
+X-Received: by 2002:a9d:489:0:b0:684:bedc:4f54 with SMTP id
+ 9-20020a9d0489000000b00684bedc4f54mr837621otm.233.1673796976794; Sun, 15 Jan
+ 2023 07:36:16 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v3 4/5] arm64: dts: fsd: Add codec node for Tesla FSD
-Content-Language: en-US
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- s.nawrocki@samsung.com, perex@perex.cz, tiwai@suse.com,
- pankaj.dubey@samsung.com, alim.akhtar@samsung.com, rcsekar@samsung.com,
- aswani.reddy@samsung.com
-References: <20230113121749.4657-1-p.rajanbabu@samsung.com>
- <CGME20230113121830epcas5p4cc336a48f4597ba84ab1352774242f75@epcas5p4.samsung.com>
- <20230113121749.4657-5-p.rajanbabu@samsung.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230113121749.4657-5-p.rajanbabu@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20230114194741.115855-1-sj@kernel.org>
+ <20230114194741.115855-2-sj@kernel.org>
+In-Reply-To: <20230114194741.115855-2-sj@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sun, 15 Jan 2023 10:35:57 -0500
+Message-ID: <CADnq5_OUnkzoZcCdW0X-=gJsXSRgY=GLrbmfNj0geDCzL5a7eQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Docs: Add some missing SPDX license identifiers of
+ subsystem docs
+To: SeongJae Park <sj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,50 +97,122 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, linux-doc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
+ Jean Delvare <jdelvare@suse.com>, linux-crypto@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Guenter Roeck <linux@roeck-us.net>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13/01/2023 13:17, Padmanabhan Rajanbabu wrote:
-> Add device tree node support for codec on Tesla FSD platform.
-> 
-> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+On Sat, Jan 14, 2023 at 2:48 PM SeongJae Park <sj@kernel.org> wrote:
+>
+> Some subsystem documents are missing SPDX license identifiers.  Add
+> those.
+
+It would be good to split this up per subsystem.
+
+>
+> Signed-off-by: SeongJae Park <sj@kernel.org>
 > ---
->  arch/arm64/boot/dts/tesla/fsd-evb.dts | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> index cf5f2ce4d2a7..2f211a1ad50d 100644
-> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> @@ -10,6 +10,7 @@
->  
->  /dts-v1/;
->  #include "fsd.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
->  
->  / {
->  	model = "Tesla Full Self-Driving (FSD) Evaluation board";
-> @@ -34,6 +35,17 @@
->  	clock-frequency = <24000000>;
->  };
->  
-> +&hsi2c_5 {
-> +	status = "okay";
+>  Documentation/crypto/index.rst     | 2 ++
+>  Documentation/driver-api/index.rst | 2 ++
+>  Documentation/gpu/index.rst        | 2 ++
+>  Documentation/hwmon/index.rst      | 2 ++
+>  Documentation/input/index.rst      | 2 ++
+>  Documentation/mm/index.rst         | 2 ++
+>  Documentation/scheduler/index.rst  | 2 ++
+>  Documentation/sound/index.rst      | 2 ++
+>  8 files changed, 16 insertions(+)
+>
+> diff --git a/Documentation/crypto/index.rst b/Documentation/crypto/index.rst
+> index da5d5ad2bdf3..95b0870e09b8 100644
+> --- a/Documentation/crypto/index.rst
+> +++ b/Documentation/crypto/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
-> +	tlv320aic3x: codec@18 {
-> +		compatible = "ti,tlv320aic3104";
-> +		reg = <0x18>;
-> +		#sound-dai-cells = <0>;
-> +		reset-gpios = <&gpg1 6 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
+>  ==========
+>  Crypto API
+>  ==========
+> diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/index.rst
+> index b208e0dac3a0..7a2584ab63c4 100644
+> --- a/Documentation/driver-api/index.rst
+> +++ b/Documentation/driver-api/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
+>  ==============================
+>  Driver implementer's API guide
+>  ==============================
+> diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
+> index eee5996acf2c..ff06a6b12c5e 100644
+> --- a/Documentation/gpu/index.rst
+> +++ b/Documentation/gpu/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 
-Why there is i2s here? What was the base of this patch?
+Most of the DRM code is MIT.  I'd expect this would be MIT as well.
 
+Alex
 
-Best regards,
-Krzysztof
-
+> +
+>  ============================
+>  GPU Driver Developer's Guide
+>  ============================
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index c2b3c1a822dd..2186d732654f 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+>  ===================
+>  Hardware Monitoring
+>  ===================
+> diff --git a/Documentation/input/index.rst b/Documentation/input/index.rst
+> index 35581cd18e91..d60bf9cfe005 100644
+> --- a/Documentation/input/index.rst
+> +++ b/Documentation/input/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+>  ===================
+>  Input Documentation
+>  ===================
+> diff --git a/Documentation/mm/index.rst b/Documentation/mm/index.rst
+> index 5a94a921ea40..c4e9fbacaf38 100644
+> --- a/Documentation/mm/index.rst
+> +++ b/Documentation/mm/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+>  ===============================
+>  Memory Management Documentation
+>  ===============================
+> diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
+> index 1aac972a652f..ae0229f5a9cf 100644
+> --- a/Documentation/scheduler/index.rst
+> +++ b/Documentation/scheduler/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+>  =========
+>  Scheduler
+>  =========
+> diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
+> index 5abed5fc6485..7e67e12730d3 100644
+> --- a/Documentation/sound/index.rst
+> +++ b/Documentation/sound/index.rst
+> @@ -1,3 +1,5 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+>  =============================
+>  Sound Subsystem Documentation
+>  =============================
+> --
+> 2.25.1
+>

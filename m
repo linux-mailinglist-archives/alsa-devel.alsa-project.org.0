@@ -2,89 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC1B66B225
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 16:37:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A603066B33D
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Jan 2023 18:41:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC03914A;
-	Sun, 15 Jan 2023 16:36:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC03914A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA5D163B;
+	Sun, 15 Jan 2023 18:40:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA5D163B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673797050;
-	bh=VxMR/QrFFcjb0QRPOaFx5XdU9Fiwwx4cWhOZW1jrvSc=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1673804481;
+	bh=b0c4SisGOxXTZv+SqlAq3EVXxnbaGRSwkRGwqq/AE24=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ipn/BtlNIkbGA9F7UOGk84/VipJq98auDRijQsNB23wMWZmCm7yEMzZ32tOzon/MX
-	 aIawREaG6C9YK4SY18ldsrSM9e49jlMj+SsLEJzaTfZM2F10tfkCHVmYsUtC67m4yz
-	 RgGsfz4mb3iK0XbjLKiLwTWi0sbBGX0m4PR2QRxM=
+	b=LcdPdrhtiOEelz8SjzGyLVgjoHEK9n2+QF8cvo0IavG5sXKXn3qPT5hTfuvNRuoN1
+	 3n2h7272hIpScHTQ5Rhm7qe8qpVgZILD3pmWRDSeYqpXtGGF77r3cY+SWR8sdjLGM3
+	 UvVY3VWXEohQlV7CAU6dEMQF+vKCf934LHWKJqB8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C06CEF804BC;
-	Sun, 15 Jan 2023 16:36:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEC9FF801EB;
+	Sun, 15 Jan 2023 18:40:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5326F804DE; Sun, 15 Jan 2023 16:36:29 +0100 (CET)
+ id 22F33F804DE; Sun, 15 Jan 2023 18:40:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C038F804A9
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 16:36:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C038F804A9
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=ESYN/lgt
-Received: by mail-ot1-x32b.google.com with SMTP id
- r2-20020a9d7cc2000000b006718a7f7fbaso14905723otn.2
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 07:36:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=pRCLnfO5D50aLUIqRH3Be5ElBGG7mevjFvkDgjByEkg=;
- b=ESYN/lgtsCJz1vk5hIWF8P0XT3zE4HOkfbCef61dEh9nfpUszGpqaILDdbRYwRpBaS
- Gq0n3cdms6iw0aRSFDJpioaByPmQbKCQP0DMmTGvyCsapfKPYKjs4KTwwNR87Zitspdn
- tniK5INo56zs/GSaaJc39/v4ceiIJC1pB59guwU6dk/ST7wHrW1GsjBxDt0fMLpUe9Og
- 1v9Whb4AApgIKVhjQbVH2MHL30mD29abfoMS+VPtLoheVkY7LhOupZe8UcHafZllZEmR
- Q02XH5CuaiXHw9on84tyYVxbzt6ZWhdpxJ/RGI0Gk5dJ5RFTO2+nukuT+lKm/LaCi8GD
- Tvcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pRCLnfO5D50aLUIqRH3Be5ElBGG7mevjFvkDgjByEkg=;
- b=d8ckvPi6NDuyx3DdFccR499roLVFMOWET6VWGvbPIyHyQh5tQEzA0lpFmvgB1DZ8qC
- eNPfi1hYRgQwiYJAayMwt8clZSE8yhEbN5p3fMGCMNWPJiIs4WtIIyVU8qiVaTpy4Cx0
- rA6EzKV4mWLKpaBaLqWxSr/pnxQ19TwjbsPbp64ISM6quzXHeWx4g7tuC6W1GrgaOtJR
- th1bGvXhFz6zC2yuGVbfAxDiMnlC8xR0uw8bqZW0vhf4Leps2zHz1k3HChlkdBKtHs43
- Lttuo/Fd2jx5OMqNqsBd9WzE9g4BKy5QXSjlc4ZMZFIYouW6PtMLB0osLk9qRlAchIHu
- KfEg==
-X-Gm-Message-State: AFqh2kpjoIX7axJLIeMUZQSKHBuVo2R7prqelG+p7GKGFSEdTRcMGUcs
- ftykJru2b40NkST+vKfWFN7EH0E3s+yrgC+93sg=
-X-Google-Smtp-Source: AMrXdXu/zET195jKhsFTVp5xxmwIScKWmACgEKUi1QrBdrbk6v28T2qMy0jJBHOkkSBc+MnjFZnNZuARMBSt9P0VdRA=
-X-Received: by 2002:a9d:489:0:b0:684:bedc:4f54 with SMTP id
- 9-20020a9d0489000000b00684bedc4f54mr837621otm.233.1673796976794; Sun, 15 Jan
- 2023 07:36:16 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93481F801EB
+ for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 18:40:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93481F801EB
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
+ header.s=default header.b=Df4CAiol
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BCF6BA003F;
+ Sun, 15 Jan 2023 18:40:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BCF6BA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1673804415; bh=+4MyiBBI3+rHdJSz/uu81wyClilJEo0vJjFAH+YodTg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Df4CAiolb94HU6i950Domc0gUOnpP53+bSHIqS1g3/E28iAqRCKYMW89kCmTQyunS
+ SBL1YYLVcfDgyYRsLIinjcNrCn9vs/rVbwRkSZBTJWCRiCqbxrpZmJMjoljUq3eZhy
+ aXCZVo3vRVrNwgV/loV7wwC/UPEFh1/uRThf1Up0=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Sun, 15 Jan 2023 18:40:12 +0100 (CET)
+Message-ID: <944b3ca8-27fb-01da-a2b0-77b15d7422f9@perex.cz>
+Date: Sun, 15 Jan 2023 18:40:12 +0100
 MIME-Version: 1.0
-References: <20230114194741.115855-1-sj@kernel.org>
- <20230114194741.115855-2-sj@kernel.org>
-In-Reply-To: <20230114194741.115855-2-sj@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 15 Jan 2023 10:35:57 -0500
-Message-ID: <CADnq5_OUnkzoZcCdW0X-=gJsXSRgY=GLrbmfNj0geDCzL5a7eQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Docs: Add some missing SPDX license identifiers of
- subsystem docs
-To: SeongJae Park <sj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v3] ucm: add existence checks to geti calls
+Content-Language: en-US
+To: cujomalainey@chromium.org, alsa-devel@alsa-project.org
+References: <20230113185019.1500147-1-cujomalainey@chromium.org>
+ <20230113212155.2108905-1-cujomalainey@chromium.org>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230113212155.2108905-1-cujomalainey@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,122 +82,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, alsa-devel@alsa-project.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-doc@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- Jean Delvare <jdelvare@suse.com>, linux-crypto@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Guenter Roeck <linux@roeck-us.net>
+Cc: tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Jan 14, 2023 at 2:48 PM SeongJae Park <sj@kernel.org> wrote:
->
-> Some subsystem documents are missing SPDX license identifiers.  Add
-> those.
+On 13. 01. 23 22:21, cujomalainey@chromium.org wrote:
+> From: Curtis Malainey <cujomalainey@chromium.org>
+> 
+> Right now in snd_use_case_geti you cannot tell if the item being queried
+> exists or not when being checked. This also means the only way to check
+> for the existence of something in the client of the library is to
+> iterate over the list of mods/devs even if we know exactly the name we
+> are looking for. We have functions that do exactly this internally so
+> lets return this information in a logical fashion through geti.
 
-It would be good to split this up per subsystem.
+Thanks. I applied your code and and pushed a cleanup + fix on top:
 
->
-> Signed-off-by: SeongJae Park <sj@kernel.org>
-> ---
->  Documentation/crypto/index.rst     | 2 ++
->  Documentation/driver-api/index.rst | 2 ++
->  Documentation/gpu/index.rst        | 2 ++
->  Documentation/hwmon/index.rst      | 2 ++
->  Documentation/input/index.rst      | 2 ++
->  Documentation/mm/index.rst         | 2 ++
->  Documentation/scheduler/index.rst  | 2 ++
->  Documentation/sound/index.rst      | 2 ++
->  8 files changed, 16 insertions(+)
->
-> diff --git a/Documentation/crypto/index.rst b/Documentation/crypto/index.rst
-> index da5d5ad2bdf3..95b0870e09b8 100644
-> --- a/Documentation/crypto/index.rst
-> +++ b/Documentation/crypto/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  ==========
->  Crypto API
->  ==========
-> diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/index.rst
-> index b208e0dac3a0..7a2584ab63c4 100644
-> --- a/Documentation/driver-api/index.rst
-> +++ b/Documentation/driver-api/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  ==============================
->  Driver implementer's API guide
->  ==============================
-> diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-> index eee5996acf2c..ff06a6b12c5e 100644
-> --- a/Documentation/gpu/index.rst
-> +++ b/Documentation/gpu/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
+https://github.com/alsa-project/alsa-lib/commit/c083417b723a3485657234a21da3264419da1411
 
-Most of the DRM code is MIT.  I'd expect this would be MIT as well.
+				Jaroslav
 
-Alex
-
-> +
->  ============================
->  GPU Driver Developer's Guide
->  ============================
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-> index c2b3c1a822dd..2186d732654f 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  ===================
->  Hardware Monitoring
->  ===================
-> diff --git a/Documentation/input/index.rst b/Documentation/input/index.rst
-> index 35581cd18e91..d60bf9cfe005 100644
-> --- a/Documentation/input/index.rst
-> +++ b/Documentation/input/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  ===================
->  Input Documentation
->  ===================
-> diff --git a/Documentation/mm/index.rst b/Documentation/mm/index.rst
-> index 5a94a921ea40..c4e9fbacaf38 100644
-> --- a/Documentation/mm/index.rst
-> +++ b/Documentation/mm/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  ===============================
->  Memory Management Documentation
->  ===============================
-> diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
-> index 1aac972a652f..ae0229f5a9cf 100644
-> --- a/Documentation/scheduler/index.rst
-> +++ b/Documentation/scheduler/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  =========
->  Scheduler
->  =========
-> diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
-> index 5abed5fc6485..7e67e12730d3 100644
-> --- a/Documentation/sound/index.rst
-> +++ b/Documentation/sound/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  =============================
->  Sound Subsystem Documentation
->  =============================
-> --
-> 2.25.1
->
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

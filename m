@@ -2,60 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67A6966B836
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 08:33:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D91C566B8A7
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 09:03:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 648DB50F4;
-	Mon, 16 Jan 2023 08:32:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648DB50F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1283A5183;
+	Mon, 16 Jan 2023 09:02:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1283A5183
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673854416;
-	bh=iPZX3wxJVKCjjQFcsE386Rt/abWz6DeJeOCaZGWlLag=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=HvEwRqYB6yfuHO6i9Z4w3T0ClO41CZ5wnKkoi/5D7CqYlOv+U77Se7zhzF21d36SZ
-	 41KyZVq50VYolLJJEcz/ysySKcne8x0lvF9OTqQu59gvByBQzN+j+3G1TEsstT1lMM
-	 U2JOscehVLXOgNoUCC21/lglNE+mxncNIztOBe4A=
+	s=default; t=1673856204;
+	bh=zXT8e1lsuCWvOA1LSVVVySAfZ6MKe/ib3dGFDvOyIlI=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=hayvyIIyQpW0cpM84PjjWxhbVPXBD19fxcdWv86NocZzVlVfLVhXgt04oWqq6Jevf
+	 +p5uu/E5a/fllfaKfyq8A83nteoXN8xmA5f13WpHZgnSrN0gnPwCSklc54YGVTBHwB
+	 yLrX56gTm0n3cTl9ZIU132WoaRU7QsQCH4E4/5Js=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E4E2F804A9;
-	Mon, 16 Jan 2023 08:32:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E023AF80551;
+	Mon, 16 Jan 2023 09:01:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54C69F80482; Mon, 16 Jan 2023 08:32:36 +0100 (CET)
+ id B1D9FF8024C; Mon, 16 Jan 2023 08:13:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CEB1F8023B
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 08:32:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CEB1F8023B
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id AB80A1A0F01;
- Mon, 16 Jan 2023 08:32:30 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 73DDA1A0746;
- Mon, 16 Jan 2023 08:32:30 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E3EF6180031E;
- Mon, 16 Jan 2023 15:32:28 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: fsl_sai: initialize is_dsp_mode flag
-Date: Mon, 16 Jan 2023 15:07:54 +0800
-Message-Id: <1673852874-32200-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id E12A1F80083
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 08:13:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E12A1F80083
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 617D468AFE; Mon, 16 Jan 2023 08:13:06 +0100 (CET)
+Date: Mon, 16 Jan 2023 08:13:06 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Subject: Re: remove arch/sh
+Message-ID: <20230116071306.GA15848@lst.de>
+References: <20230113062339.1909087-1-hch@lst.de>
+ <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mailman-Approved-At: Mon, 16 Jan 2023 09:01:06 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,36 +64,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Initialize is_dsp_mode flag in the beginning of function
-fsl_sai_set_dai_fmt_tr().
+On Fri, Jan 13, 2023 at 09:09:52AM +0100, John Paul Adrian Glaubitz wrote:
+> I'm still maintaining and using this port in Debian.
+>
+> It's a bit disappointing that people keep hammering on it. It works fine for me.
 
-When the DAIFMT is DAIFMT_DSP_B the first time, is_dsp_mode is
-true, then the second time DAIFMT is DAIFMT_I2S, is_dsp_mode
-still true, which is a wrong state. So need to initialize
-is_dsp_mode flag every time.
-
-Fixes: a3f7dcc9cc03 ("ASoC: fsl-sai: Add SND_SOC_DAIFMT_DSP_A/B support.")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 1c9be8a5dcb1..355ef29af48c 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -281,6 +281,7 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
- 		val_cr4 |= FSL_SAI_CR4_MF;
- 
- 	sai->is_pdm_mode = false;
-+	sai->is_dsp_mode = false;
- 	/* DAI mode */
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
--- 
-2.34.1
-
+What platforms do you (or your users) use it on?

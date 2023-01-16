@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8999066C0A2
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:03:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CACC66C0B0
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:03:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AF0256D0;
-	Mon, 16 Jan 2023 15:02:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AF0256D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7F1D56D5;
+	Mon, 16 Jan 2023 15:02:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7F1D56D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673877792;
-	bh=We4AOABTCrlp9F1jwtkkQL4Oz6PzYUIHv8bU4uce94M=;
+	s=default; t=1673877826;
+	bh=gd6nnAxCXX6nRwCMcVtm0qxihQ4usvTBVYQsxON9ZlI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=rhFDTTAA7axHWBxAaEWZX0mPr101+q3SUH2ZI4WpMsLIyFgsmLh97q8BzYcZmIWyF
-	 qpNAWVgaHIay8W3ZnVSblMP/iPWfTcKlnV2m6hlmJSQ8IE3ExWPSgPPviq+kgfKIjT
-	 aBvadSmuUTDeX88Qn2NBt1tzOlVUuArXnTP2nqy8=
+	b=Om8BSva83DD1gYVKx+cYe/a9tho0z6OJXeZOu1Nn7/g6wuj1dTo48S+FC3stXt+0F
+	 Zj7ldSP9W5prgz0qNdlA9KMUSAY8JIup6H9oRJRVzjECZ0vf1xVh7v/TODUaBc1McB
+	 KA5iB0xlOqFqks2/37kRCVKX3v4+lUBlxtqEpPeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7D72F80240;
-	Mon, 16 Jan 2023 15:02:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63733F80563;
+	Mon, 16 Jan 2023 15:02:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12A03F804A9; Mon, 16 Jan 2023 15:02:11 +0100 (CET)
+ id 69AAAF8053D; Mon, 16 Jan 2023 15:02:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1201F8023B;
- Mon, 16 Jan 2023 15:02:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1201F8023B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F563F8023A;
+ Mon, 16 Jan 2023 15:02:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F563F8023A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZhVbiC5V
+ header.s=k20201202 header.b=F7VYT2Fl
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B182D60FC9;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A84B160FCC;
+ Mon, 16 Jan 2023 14:02:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966CCC433F2;
  Mon, 16 Jan 2023 14:01:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B327EC433F1;
- Mon, 16 Jan 2023 14:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673877719;
- bh=We4AOABTCrlp9F1jwtkkQL4Oz6PzYUIHv8bU4uce94M=;
+ s=k20201202; t=1673877721;
+ bh=gd6nnAxCXX6nRwCMcVtm0qxihQ4usvTBVYQsxON9ZlI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZhVbiC5VuxVgnFlze6h+c0CA4eB/roBtnO2JExucH0g9FyhDi4tMD6HAnbeIFnZVL
- 3+MTmkX38kdnE64WVdGZJOsUrUEQAaeM8oMYurYtvLRMOmwADhh/OaQIC3LIdaHbY5
- g30dce1n/ieunFMXxs/sCKZLksvUM/bDsGaWdtj9BsJLFBxakZq0X9C/MYtL6hVNEA
- 9ttUkpz2NJO5+Ja1xVBi+MYEIaLSXGMvk4RfubfhV02bZif9SFPSPBBtAMn+DG29mI
- m2triDAhKNDf+XWHJeovcALpRNxQ6vReELx7PToRSMKhRVTjgk7fcZwWdW35ftDMP9
- NG5WU9nBopA7g==
+ b=F7VYT2FlXIS5w2rDCSnB2KQBhT/fWc/g5qeby3PrjLiM1eVrdv/NPTwdlen0LOcuj
+ 5oYP55PiHZgXYSzzbs7KTDuLKNZAzFDKBtcIfN1l3ePOjy1lkzLX7FpxfTmaeUfkkQ
+ WVxT3Ke6R6L956eJ8BWUkTjpB3/0bCTKSwx2VJsYoSvsNH9v6sfVBcig4+pZjTx1q4
+ 3+WCYLju/Riv6HhnciIbgHcMS36fVLwt6kMdtgNWQAU5/bkX2bbje6MwZaKYyTtoy0
+ SQmCSmLCGzXtHRWSc+I9Wn26JJBOxmGHYik8ZIegmIZbpIAYUtireUrEnuWht4KX80
+ 76ezWsYI8AjBA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 02/53] ASoC: SOF: pm: Set target state earlier
-Date: Mon, 16 Jan 2023 09:01:02 -0500
-Message-Id: <20230116140154.114951-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 03/53] ASoC: SOF: pm: Always tear down pipelines
+ before DSP suspend
+Date: Mon, 16 Jan 2023 09:01:03 -0500
+Message-Id: <20230116140154.114951-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230116140154.114951-1-sashal@kernel.org>
 References: <20230116140154.114951-1-sashal@kernel.org>
@@ -97,14 +97,13 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-[ Upstream commit 6f95eec6fb89e195dbdf30de65553c7fc57d9372 ]
+[ Upstream commit d185e0689abc98ef55fb7a7d75aa0c48a0ed5838 ]
 
-If the DSP crashes before the system suspends, the setting of target state
-will be skipped because the firmware state will no longer be
-SOF_FW_BOOT_COMPLETE. This leads to the incorrect assumption that the
-DSP should suspend to D0I3 instead of suspending to D3. To fix this,
-set the target_state before we skip to DSP suspend even when the DSP has
-crashed.
+When the DSP is suspended while the firmware is in the crashed state, we
+skip tearing down the pipelines. This means that the widget reference
+counts will not get to reset to 0 before suspend. This will lead to
+errors with resuming audio after system resume. To fix this, invoke the
+tear_down_all_pipelines op before skipping to DSP suspend.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
@@ -112,34 +111,37 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://lore.kernel.org/r/20221220125629.8469-2-peter.ujfalusi@linux.intel.com
+Link: https://lore.kernel.org/r/20221220125629.8469-3-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/pm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/sof/pm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index df740be645e8..5f88c4a01fa3 100644
+index 5f88c4a01fa3..8722bbd7fd3d 100644
 --- a/sound/soc/sof/pm.c
 +++ b/sound/soc/sof/pm.c
-@@ -182,7 +182,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
- 	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
- 	pm_message_t pm_state;
--	u32 target_state = 0;
-+	u32 target_state = snd_sof_dsp_power_target(sdev);
- 	int ret;
+@@ -192,6 +192,9 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 	if (runtime_suspend && !sof_ops(sdev)->runtime_suspend)
+ 		return 0;
  
- 	/* do nothing if dsp suspend callback is not set */
-@@ -206,7 +206,6 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 		}
++	if (tplg_ops && tplg_ops->tear_down_all_pipelines)
++		tplg_ops->tear_down_all_pipelines(sdev, false);
++
+ 	if (sdev->fw_state != SOF_FW_BOOT_COMPLETE)
+ 		goto suspend;
+ 
+@@ -216,9 +219,6 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 		goto suspend;
  	}
  
--	target_state = snd_sof_dsp_power_target(sdev);
- 	pm_state.event = target_state;
+-	if (tplg_ops->tear_down_all_pipelines)
+-		tplg_ops->tear_down_all_pipelines(sdev, false);
+-
+ 	/* suspend DMA trace */
+ 	sof_fw_trace_suspend(sdev, pm_state);
  
- 	/* Skip to platform-specific suspend if DSP is entering D0 */
 -- 
 2.35.1
 

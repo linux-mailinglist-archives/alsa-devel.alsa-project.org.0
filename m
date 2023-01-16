@@ -2,96 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CA2166C4A3
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 16:57:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0BAB66CE5E
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 19:07:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D04A581F;
-	Mon, 16 Jan 2023 16:56:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D04A581F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D631597B;
+	Mon, 16 Jan 2023 19:06:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D631597B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673884624;
-	bh=1lvru4C1BziDtWs91ty6Sf3y6zX8rvAmmIA2wp5IL9I=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1673892434;
+	bh=zSrlJOl6mUi04pTIjgeQpEmQFl7alGult2nqhe5MceM=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=HRWWWQTASFH+9vi0mb0B9U0Qia5KFdmSrjIcwjdqLiJVbu7qf8CzltosY45hI9R7I
-	 T//gc+fqrNWOAvbAhdlr2A5QwcLYJgXF3/EdmnfKq80Tmg8WcuMLJZY45t81z8k9Ck
-	 vpyxgWScLxpEYUh/88QFBilX2yL37topKHb4guHo=
+	b=YKKtDju+/CQdj1W3hxYS+tVAdKoHGnDKw+FAgZgB1NdfGGEOU84Rcj/H9mQaCN7SF
+	 x7qI2qm3InpoXW953TooQcwjzNlMkTdoIX6vD+HiChRcRZl4ZGTPE+i7EElvrKQJNg
+	 RzhBp8FJhR45qFegEzvYF2qZPYWsFYYD1gV3wdWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8636F80482;
-	Mon, 16 Jan 2023 16:56:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14239F8023B;
+	Mon, 16 Jan 2023 19:06:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7703F8024C; Mon, 16 Jan 2023 16:55:46 +0100 (CET)
+ id 00548F80482; Mon, 16 Jan 2023 19:06:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-4.0 required=5.0 tests=DATE_IN_PAST_03_06,
+ DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2DCFF80240
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 16:55:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2DCFF80240
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=AIQRApGN; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=LVg+oRS2
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 388F3209E7;
- Mon, 16 Jan 2023 15:55:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673884512; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SAmuR13r52A6EktUKaL6Lcj5D7X/qA47+HFxgQaeHhE=;
- b=AIQRApGNkoMC4vX8kHkgFYu5Uzc/b8iKxL5G4Np5eNfztcFcH2xVLd/fJieY6XP3oHgIfk
- 5S3dQeWwU86dd7s/ELikFW+cal7CTgjHysvq73sl4r1FxoLTHRAmwJnB7Skeb9kVAOicNi
- 4JxrXpglneTx+lS/r8+V89djLOybtkA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673884512;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SAmuR13r52A6EktUKaL6Lcj5D7X/qA47+HFxgQaeHhE=;
- b=LVg+oRS2fTqdO75Jcgmcb3/SeJlCR5iDuu4sqPw3z77Ifyloz5RjN0v7zOtEq9VAIj0lQA
- qL9esVZze1pcY5CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0DA2A138FE;
- Mon, 16 Jan 2023 15:55:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PQupAmBzxWMMGwAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 16 Jan 2023 15:55:12 +0000
-Date: Mon, 16 Jan 2023 16:55:11 +0100
-Message-ID: <87bkmya2zk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-In-Reply-To: <Y6sOvyYwuR8Pu0wj@mail-itl>
-References: <Y5KPAs6f7S2dEoxR@mail-itl> <87tu256lqs.wl-tiwai@suse.de>
- <Y5MssNfvE+mUyyZR@mail-itl> <Y5PaF4LhQGIrKthy@mail-itl>
- <Y5SxJ3IkhHSC/Psu@mail-itl> <87o7rv507o.wl-tiwai@suse.de>
- <Y6sOvyYwuR8Pu0wj@mail-itl>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1D14F8023B
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 19:06:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D14F8023B
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=OhvVoIcn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673892368; x=1705428368;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=zSrlJOl6mUi04pTIjgeQpEmQFl7alGult2nqhe5MceM=;
+ b=OhvVoIcnGwse8FrzLTJ8DxOdhkpJ9gXT+S7t5Tj6CXecvfZYkahcyu8R
+ 9LqSFSwwqCsVeOnfkAfO5IS+UDXV4FP2YPz0QqmFBF6+U3HJR6spVab4Y
+ blzVzETxHDLEbHL7RNCFuhF7eaBQG51q6G6+4G+BTgWiH0Uwt7Lbm4h0r
+ chFuGZ3aH0WVIckkd49lThQqaRPE7m+rPWq+9lP/po63i/zg/q0FjDdOt
+ o/q4k8txs5AuM/Eu416UpEpbmgwMK+4j7BT6LgbJLu/IkHVb8GrklrQTZ
+ K8h9b3d2lQNBAgdvgyLWUsNRQMn8jpFkqDqEdcnd9PYRSYqpmaJVuOsez g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="351767486"
+X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="351767486"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2023 10:06:01 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="766987448"
+X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="766987448"
+Received: from mahdiahm-mobl1.amr.corp.intel.com (HELO [10.213.173.94])
+ ([10.213.173.94])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2023 10:05:59 -0800
+Message-ID: <d5638ec8-3fa4-4643-9740-ef87a4ba5833@linux.intel.com>
+Date: Mon, 16 Jan 2023 08:57:13 -0600
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 02/19] soundwire: amd: Add support for AMD Master driver
+Content-Language: en-US
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org,
+ vkoul@kernel.org, alsa-devel@alsa-project.org
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-3-Vijendar.Mukunda@amd.com>
+ <991ff630-17a7-eef3-1436-e4a905fe0541@linux.intel.com>
+ <78741dee-9257-77c2-8950-0519ccb462e6@amd.com>
+ <420258d4-1f66-5288-f421-b26b2a2a35ea@linux.intel.com>
+ <dbf20726-3900-9bff-7a72-14608702f636@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <dbf20726-3900-9bff-7a72-14608702f636@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,187 +96,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Dec 2022 16:26:54 +0100,
-Marek Marczykowski-Górecki wrote:
-> 
-> On Thu, Dec 22, 2022 at 09:09:15AM +0100, Takashi Iwai wrote:
-> > On Sat, 10 Dec 2022 17:17:42 +0100,
-> > Marek Marczykowski-Górecki wrote:
-> > > 
-> > > On Sat, Dec 10, 2022 at 02:00:06AM +0100, Marek Marczykowski-Górecki wrote:
-> > > > On Fri, Dec 09, 2022 at 01:40:15PM +0100, Marek Marczykowski-Górecki wrote:
-> > > > > On Fri, Dec 09, 2022 at 09:10:19AM +0100, Takashi Iwai wrote:
-> > > > > > On Fri, 09 Dec 2022 02:27:30 +0100,
-> > > > > > Marek Marczykowski-Górecki wrote:
-> > > > > > > 
-> > > > > > > Hi,
-> > > > > > > 
-> > > > > > > Under Xen PV dom0, with Linux >= 5.17, sound stops working after few
-> > > > > > > hours. pavucontrol still shows meter bars moving, but the speakers
-> > > > > > > remain silent. At least on some occasions I see the following message in
-> > > > > > > dmesg:
-> > > > > > > 
-> > > > > > >   [ 2142.484553] snd_hda_intel 0000:00:1f.3: Unstable LPIB (18144 >= 6396); disabling LPIB delay counting
-> > > > 
-> > > > Hit the issue again, this message did not appear in the log (or at least
-> > > > not yet).
-> > > > 
-> > > > (...)
-> > > > 
-> > > > > > In anyway, please check the behavior with 6.1-rc8 + the commit
-> > > > > > cc26516374065a34e10c9a8bf3e940e42cd96e2a
-> > > > > >     ALSA: memalloc: Allocate more contiguous pages for fallback case
-> > > > > > from for-next of my sound git tree (which will be in 6.2-rc1).
-> > > > 
-> > > > This did not helped.
-> > > > 
-> > > > > Looking at the mentioned commits, there is one specific aspect of Xen PV
-> > > > > that may be relevant. It configures PAT differently than native Linux.
-> > > > > Theoretically Linux adapts automatically and using proper API (like
-> > > > > set_memory_wc()) should just work, but at least for i915 driver it
-> > > > > causes issues (not fully tracked down yet). Details about that bug
-> > > > > report include some more background:
-> > > > > https://lore.kernel.org/intel-gfx/Y5Hst0bCxQDTN7lK@mail-itl/
-> > > > > 
-> > > > > Anyway, I have tested it on a Xen modified to setup PAT the same way as
-> > > > > native Linux and the audio issue is still there.
-> > > > > 
-> > > > > > If the problem persists, another thing to check is the hack below
-> > > > > > works.
-> > > > 
-> > > > Trying this one now.
-> > > 
-> > > And this one didn't either :/
-> > 
-> > (Sorry for the late reply, as I've been off in the last weeks.)
-> > 
-> > I think the hack doesn't influence on the PCM buffer pages, but only
-> > about BDL pages.  Could you check the patch below instead?
-> > It'll disable the SG-buffer handling on x86 completely. 
-> 
-> This seems to "fix" the issue, thanks!
-> I guess I'll run it this way for now, but a proper solution would be
-> nice. Let me know if I can collect any more info that would help with
-> that.
-
-Then we seem to go back again with the coherent memory allocation for
-the fallback sg cases.  It was changed because the use of
-dma_alloc_coherent() caused a problem with IOMMU case for retrieving
-the page addresses, but since the commit 9736a325137b, we essentially
-avoid the fallback when IOMMU is used, so it should be fine again.
-
-Let me know if the patch like below works for you instead of the
-previous hack to disable SG-buffer (note: totally untested!)
 
 
-thanks,
+On 1/16/23 01:53, Mukunda,Vijendar wrote:
+> On 14/01/23 00:11, Pierre-Louis Bossart wrote:
+>>>>> +	for (index = 0; index < 2; index++) {
+>>>>> +		if (response_buf[index] == -ETIMEDOUT) {
+>>>>> +			dev_err(ctrl->dev, "Program SCP cmd timeout\n");
+>>>>> +			timeout = 1;
+>>>>> +		} else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
+>>>>> +			no_ack = 1;
+>>>>> +			if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
+>>>>> +				nack = 1;
+>>>>> +				dev_err(ctrl->dev, "Program SCP NACK received\n");
+>>>>> +			}
+>>>> this is a copy of the cadence_master.c code... With the error added that
+>>>> this is not for a controller but for a master...
+>>> Its manager instance only. Our immediate command and response
+>>> mechanism allows sending commands over the link and get the
+>>> response for every command immediately, unlike as mentioned in
+>>> candence_master.c.
+>> I don't get the reply. The Cadence IP also has the ability to get the
+>> response immediately. There's limited scope for creativity, the commands
+>> are defined in the spec and the responses as well.
+> As per our understanding in Intel code, responses are processed
+> after sending all commands.
+> In our case, we send the command and process the response
+> immediately before invoking the next command.
 
-Takashi
+The Cadence IP can queue a number of commands, I think 8 off the top of
+my head. But the response is provided immediately after each command.
 
--- 8< --
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -719,17 +719,30 @@ static const struct snd_malloc_ops snd_dma_sg_wc_ops = {
- struct snd_dma_sg_fallback {
- 	size_t count;
- 	struct page **pages;
-+	dma_addr_t *addrs;
- };
- 
- static void __snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab,
- 				       struct snd_dma_sg_fallback *sgbuf)
- {
--	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
--	size_t i;
--
--	for (i = 0; i < sgbuf->count && sgbuf->pages[i]; i++)
--		do_free_pages(page_address(sgbuf->pages[i]), PAGE_SIZE, wc);
-+	size_t i, size;
-+
-+	if (sgbuf->pages && sgbuf->addrs) {
-+		i = 0;
-+		while (i < sgbuf->count) {
-+			if (!sgbuf->pages[i] || !sgbuf->addrs[i])
-+				break;
-+			size = sgbuf->addrs[i] & ~PAGE_MASK;
-+			if (!WARN_ON(size))
-+				break;
-+			dma_free_coherent(dmab->dev.dev, size,
-+					  page_address(sgbuf->pages[i]),
-+					  sgbuf->addrs[i] & PAGE_MASK);
-+			i += size;
-+		}
-+	}
- 	kvfree(sgbuf->pages);
-+	kvfree(sgbuf->addrs);
- 	kfree(sgbuf);
- }
- 
-@@ -738,9 +751,8 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	struct snd_dma_sg_fallback *sgbuf;
- 	struct page **pagep, *curp;
- 	size_t chunk, npages;
--	dma_addr_t addr;
-+	dma_addr_t *addrp;
- 	void *p;
--	bool wc = dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
- 
- 	sgbuf = kzalloc(sizeof(*sgbuf), GFP_KERNEL);
- 	if (!sgbuf)
-@@ -748,14 +760,16 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	size = PAGE_ALIGN(size);
- 	sgbuf->count = size >> PAGE_SHIFT;
- 	sgbuf->pages = kvcalloc(sgbuf->count, sizeof(*sgbuf->pages), GFP_KERNEL);
--	if (!sgbuf->pages)
-+	sgbuf->addrs = kvcalloc(sgbuf->count, sizeof(*sgbuf->addrs), GFP_KERNEL);
-+	if (!sgbuf->pages || !sgbuf->addrs)
- 		goto error;
- 
- 	pagep = sgbuf->pages;
--	chunk = size;
-+	addrp = sgbuf->addrs;
-+	chunk = PAGE_SIZE * (PAGE_SIZE - 1); /* to fit in low bits in addrs */
- 	while (size > 0) {
- 		chunk = min(size, chunk);
--		p = do_alloc_pages(dmab->dev.dev, chunk, &addr, wc);
-+		p = dma_alloc_coherent(dmab->dev.dev, chunk, addrp, DEFAULT_GFP);
- 		if (!p) {
- 			if (chunk <= PAGE_SIZE)
- 				goto error;
-@@ -767,6 +781,8 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 		size -= chunk;
- 		/* fill pages */
- 		npages = chunk >> PAGE_SHIFT;
-+		*addrp |= npages; /* store in lower bits */
-+		addrp += npages;
- 		curp = virt_to_page(p);
- 		while (npages--)
- 			*pagep++ = curp++;
-@@ -775,6 +791,10 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 	p = vmap(sgbuf->pages, sgbuf->count, VM_MAP, PAGE_KERNEL);
- 	if (!p)
- 		goto error;
-+
-+	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
-+		set_pages_array_wc(sgbuf->pages, sgbuf->count);
-+
- 	dmab->private_data = sgbuf;
- 	/* store the first page address for convenience */
- 	dmab->addr = snd_sgbuf_get_addr(dmab, 0);
-@@ -787,7 +807,11 @@ static void *snd_dma_sg_fallback_alloc(struct snd_dma_buffer *dmab, size_t size)
- 
- static void snd_dma_sg_fallback_free(struct snd_dma_buffer *dmab)
- {
-+	struct snd_dma_sg_fallback *sgbuf = dmab->private_data;
-+
- 	vunmap(dmab->area);
-+	if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK)
-+		set_pages_array_wb(sgbuf->pages, sgbuf->count);
- 	__snd_dma_sg_fallback_free(dmab, dmab->private_data);
- }
- 
+Maybe the disconnect is that there's an ability to define a watermark on
+the response buffer, so that the software can decide to process the
+command responses in one shot.
+
+>>>>> +		}
+>>>>> +	}
+>>>>> +
+>>>>> +	if (timeout) {
+>>>>> +		dev_err_ratelimited(ctrl->dev,
+>>>>> +				    "SCP_addrpage command timeout for Slave %d\n", msg->dev_num);
+>>>>> +		return SDW_CMD_TIMEOUT;
+>>>>> +	}
+>>>>> +
+>>>>> +	if (nack) {
+>>>>> +		dev_err_ratelimited(ctrl->dev,
+>>>>> +				    "SCP_addrpage NACKed for Slave %d\n", msg->dev_num);
+>>>>> +		return SDW_CMD_FAIL;
+>>>>> +	}
+>>>>> +
+>>>>> +	if (no_ack) {
+>>>>> +		dev_dbg_ratelimited(ctrl->dev,
+>>>>> +				    "SCP_addrpage ignored for Slave %d\n", msg->dev_num);
+>>>>> +		return SDW_CMD_IGNORED;
+>>>>> +	}
+>>>>> +	return SDW_CMD_OK;
+>>>> this should probably become a helper since the response is really the
+>>>> same as in cadence_master.c
+>>>>
+>>>> There's really room for optimization and reuse here.
+>>> not really needed. Please refer above comment as command/response
+>>> mechanism differs from Intel's implementation.
+>> how? there's a buffer of responses in both cases. please clarify.
+> Ours implementation is not interrupt driven like Intel.
+> When we send command over the link, we will wait for command's
+> response in polling method and process the response immediately
+> before issuing the new command.
+
+On the Intel side we use an interrupt to avoid polling, and in case of N
+commands the watermark will be set to N to reduce the overhead. That
+said, most users only use 1 command at a time, it's only recently that
+Cirrus Logic experimented with multiple commands to speed-up transfers.
+
+Even if there are differences in the way the responses are processed,
+whether one-at-a-time or in a batch, the point remains that each command
+response can be individually analyzed and that could be using a helper -
+moving code from cadence_master.c into the bus layer.
+
+

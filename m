@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0BAB66CE5E
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 19:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C9266CE5F
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 19:07:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D631597B;
-	Mon, 16 Jan 2023 19:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D631597B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BDEC5989;
+	Mon, 16 Jan 2023 19:06:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BDEC5989
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673892434;
-	bh=zSrlJOl6mUi04pTIjgeQpEmQFl7alGult2nqhe5MceM=;
+	s=default; t=1673892462;
+	bh=N8T9dC4MhCj1V1rc1Oi3oPDU4pzVY12HeNUEeFyLyCE=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=YKKtDju+/CQdj1W3hxYS+tVAdKoHGnDKw+FAgZgB1NdfGGEOU84Rcj/H9mQaCN7SF
-	 x7qI2qm3InpoXW953TooQcwjzNlMkTdoIX6vD+HiChRcRZl4ZGTPE+i7EElvrKQJNg
-	 RzhBp8FJhR45qFegEzvYF2qZPYWsFYYD1gV3wdWU=
+	b=AOHgpDSUAmA24b7uBgR9ZXgq0kpCHupOsG3/9dBvnb/iyS4NaeUofB57XRfxDc1T8
+	 EsKtSwPWcRyUMJmhVre+nELIsnwlCRGFcFz7Ub95i6+IDCdfEE5FWFWqq3kvlViQU4
+	 SwuNPpycxdbxnhR0Raq7aip9QC8tdmjNf4anfqu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14239F8023B;
-	Mon, 16 Jan 2023 19:06:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5A74F80240;
+	Mon, 16 Jan 2023 19:06:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00548F80482; Mon, 16 Jan 2023 19:06:13 +0100 (CET)
+ id 036F2F804BC; Mon, 16 Jan 2023 19:06:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.0 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -36,52 +36,57 @@ X-Spam-Status: No, score=-4.0 required=5.0 tests=DATE_IN_PAST_03_06,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1D14F8023B
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 19:06:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D14F8023B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46F17F80083
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 19:06:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46F17F80083
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OhvVoIcn
+ header.s=Intel header.b=m4fORAOP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673892368; x=1705428368;
+ t=1673892370; x=1705428370;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=zSrlJOl6mUi04pTIjgeQpEmQFl7alGult2nqhe5MceM=;
- b=OhvVoIcnGwse8FrzLTJ8DxOdhkpJ9gXT+S7t5Tj6CXecvfZYkahcyu8R
- 9LqSFSwwqCsVeOnfkAfO5IS+UDXV4FP2YPz0QqmFBF6+U3HJR6spVab4Y
- blzVzETxHDLEbHL7RNCFuhF7eaBQG51q6G6+4G+BTgWiH0Uwt7Lbm4h0r
- chFuGZ3aH0WVIckkd49lThQqaRPE7m+rPWq+9lP/po63i/zg/q0FjDdOt
- o/q4k8txs5AuM/Eu416UpEpbmgwMK+4j7BT6LgbJLu/IkHVb8GrklrQTZ
- K8h9b3d2lQNBAgdvgyLWUsNRQMn8jpFkqDqEdcnd9PYRSYqpmaJVuOsez g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="351767486"
-X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="351767486"
+ bh=N8T9dC4MhCj1V1rc1Oi3oPDU4pzVY12HeNUEeFyLyCE=;
+ b=m4fORAOPO33klZczhhkdVLuXO0tbrq0CF0iEfbZQg2TyL88YTZi/lb4Y
+ AhiBo/UYEIXCYfgDFTaPyr69Jyeo9kYo0/qKczkW/BroD+4IByh4CgHHg
+ kUgEpRxNv/ft/9ZUwWSuZg9IedEnV0SSCtu2FuiZpME97nvvlgAVBtZNx
+ HlebHbF2RldF0IVAnXFX2oLHu0hULTIoqRHKf36PcYDP4zNKrEoZFRr8F
+ Dg3XM0kNUzQwPLmgnCwaBUaV2bIBcvZXh8O1/PG7niXnigFd/vvlKG3QA
+ +fp+XB24CkyuTWuktKUl38Pf9Oh28lhw9Cmtedk3e5vN6Z9yHDn4HZ0NB Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="351767495"
+X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="351767495"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2023 10:06:01 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="766987448"
-X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="766987448"
+ 16 Jan 2023 10:06:02 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="766987458"
+X-IronPort-AV: E=Sophos;i="5.97,221,1669104000"; d="scan'208";a="766987458"
 Received: from mahdiahm-mobl1.amr.corp.intel.com (HELO [10.213.173.94])
  ([10.213.173.94])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2023 10:05:59 -0800
-Message-ID: <d5638ec8-3fa4-4643-9740-ef87a4ba5833@linux.intel.com>
-Date: Mon, 16 Jan 2023 08:57:13 -0600
+ 16 Jan 2023 10:06:01 -0800
+Message-ID: <62272f17-bb97-aa10-d5d9-0914595e5431@linux.intel.com>
+Date: Mon, 16 Jan 2023 09:02:08 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 02/19] soundwire: amd: Add support for AMD Master driver
+Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
 Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
+ Mark Brown <broonie@kernel.org>
 References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
- <20230111090222.2016499-3-Vijendar.Mukunda@amd.com>
- <991ff630-17a7-eef3-1436-e4a905fe0541@linux.intel.com>
- <78741dee-9257-77c2-8950-0519ccb462e6@amd.com>
- <420258d4-1f66-5288-f421-b26b2a2a35ea@linux.intel.com>
- <dbf20726-3900-9bff-7a72-14608702f636@amd.com>
+ <20230111090222.2016499-20-Vijendar.Mukunda@amd.com>
+ <c7f018e3-c8be-6819-0ece-244bfb943c62@linux.intel.com>
+ <0aaf3fa5-bcf1-ec06-8f78-c61e8809398e@amd.com>
+ <5a34e6f7-eaf1-8128-81e4-81f65541d9a8@linux.intel.com>
+ <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
+ <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
+ <90782037-109b-b197-ca17-b7d199931f7d@amd.com>
+ <e73032b1-ac5b-4a3a-e2a0-8ac121853dee@linux.intel.com>
+ <Y8G3mPUDWWUu/3ZR@sirena.org.uk>
+ <ef05d550-c2aa-e256-58ec-612c2a3294ca@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <dbf20726-3900-9bff-7a72-14608702f636@amd.com>
+In-Reply-To: <ef05d550-c2aa-e256-58ec-612c2a3294ca@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -97,89 +102,48 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Basavaraj.Hiregoudar@amd.com, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, vkoul@kernel.org, "Limonciello,
+ Mario" <mario.limonciello@amd.com>, arungopal.kondaveeti@amd.com,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 1/16/23 01:53, Mukunda,Vijendar wrote:
-> On 14/01/23 00:11, Pierre-Louis Bossart wrote:
->>>>> +	for (index = 0; index < 2; index++) {
->>>>> +		if (response_buf[index] == -ETIMEDOUT) {
->>>>> +			dev_err(ctrl->dev, "Program SCP cmd timeout\n");
->>>>> +			timeout = 1;
->>>>> +		} else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
->>>>> +			no_ack = 1;
->>>>> +			if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
->>>>> +				nack = 1;
->>>>> +				dev_err(ctrl->dev, "Program SCP NACK received\n");
->>>>> +			}
->>>> this is a copy of the cadence_master.c code... With the error added that
->>>> this is not for a controller but for a master...
->>> Its manager instance only. Our immediate command and response
->>> mechanism allows sending commands over the link and get the
->>> response for every command immediately, unlike as mentioned in
->>> candence_master.c.
->> I don't get the reply. The Cadence IP also has the ability to get the
->> response immediately. There's limited scope for creativity, the commands
->> are defined in the spec and the responses as well.
-> As per our understanding in Intel code, responses are processed
-> after sending all commands.
-> In our case, we send the command and process the response
-> immediately before invoking the next command.
+On 1/16/23 02:35, Mukunda,Vijendar wrote:
+> On 14/01/23 01:27, Mark Brown wrote:
+>> On Fri, Jan 13, 2023 at 11:33:09AM -0600, Pierre-Louis Bossart wrote:
+>>
+>>> I do recall some issues with the codec jacks, where if the card
+>>> registration happens too late the codec might have suspended. But we
+>>> added pm_runtime_resume_and_get in the set_jack_detect callbacks, so
+>>> that was solved.
+>> Right, I would expect that whatever needs the device to be powered on
+>> would be explicitly ensuring that this is done rather than tweaking
+>> timeouts - the timeouts should be more of a performance thing to avoid
+>> bouncing power too much, not a correctness thing.
+> Machine driver probe is executed in parallel with Manager driver
+> probe sequence. Because of it, before completion of all peripherals
+> enumeration across the multiple links, if card registration is
+> completed, codec register writes will fail as Codec device numbers
+> are not assigned.
+> 
+> If we understood correctly, as per your suggestion, We shouldn't use any
+> time bounds in machine driver probe sequence and before registering the
+> sound card, need to traverses through all peripheral initialization completion
+> status for all the managers.
 
-The Cadence IP can queue a number of commands, I think 8 off the top of
-my head. But the response is provided immediately after each command.
+What's not clear in your reply is this:
 
-Maybe the disconnect is that there's an ability to define a watermark on
-the response buffer, so that the software can decide to process the
-command responses in one shot.
+What codec registers are accessed as a result of the machine driver
+probe and card registration, and in what part of the card registration?
 
->>>>> +		}
->>>>> +	}
->>>>> +
->>>>> +	if (timeout) {
->>>>> +		dev_err_ratelimited(ctrl->dev,
->>>>> +				    "SCP_addrpage command timeout for Slave %d\n", msg->dev_num);
->>>>> +		return SDW_CMD_TIMEOUT;
->>>>> +	}
->>>>> +
->>>>> +	if (nack) {
->>>>> +		dev_err_ratelimited(ctrl->dev,
->>>>> +				    "SCP_addrpage NACKed for Slave %d\n", msg->dev_num);
->>>>> +		return SDW_CMD_FAIL;
->>>>> +	}
->>>>> +
->>>>> +	if (no_ack) {
->>>>> +		dev_dbg_ratelimited(ctrl->dev,
->>>>> +				    "SCP_addrpage ignored for Slave %d\n", msg->dev_num);
->>>>> +		return SDW_CMD_IGNORED;
->>>>> +	}
->>>>> +	return SDW_CMD_OK;
->>>> this should probably become a helper since the response is really the
->>>> same as in cadence_master.c
->>>>
->>>> There's really room for optimization and reuse here.
->>> not really needed. Please refer above comment as command/response
->>> mechanism differs from Intel's implementation.
->> how? there's a buffer of responses in both cases. please clarify.
-> Ours implementation is not interrupt driven like Intel.
-> When we send command over the link, we will wait for command's
-> response in polling method and process the response immediately
-> before issuing the new command.
+Are we talking about SoundWire 'standard' registers for device/port
+management, about vendor specific ones that are exposed to userspace, or
+vendor-specific ones entirely configured by the driver/regmap.
 
-On the Intel side we use an interrupt to avoid polling, and in case of N
-commands the watermark will be set to N to reduce the overhead. That
-said, most users only use 1 command at a time, it's only recently that
-Cirrus Logic experimented with multiple commands to speed-up transfers.
-
-Even if there are differences in the way the responses are processed,
-whether one-at-a-time or in a batch, the point remains that each command
-response can be individually analyzed and that could be using a helper -
-moving code from cadence_master.c into the bus layer.
-
-
+You've got to give us more data or understanding of the sequence to
+help. Saying there's a race condition doesn't really help if there's
+nothing that explains what codec registers are accessed and when.

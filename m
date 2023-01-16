@@ -2,104 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D55266B881
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 08:57:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5416E66B896
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 09:00:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CDD55160;
-	Mon, 16 Jan 2023 08:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CDD55160
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1163D5167;
+	Mon, 16 Jan 2023 09:00:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1163D5167
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673855866;
-	bh=iOT1cHocIgvvMJiGKL/VTP7W73Acc9SpZUWsiONBsjw=;
+	s=default; t=1673856052;
+	bh=J6LAD/M1BYVSk40hST8OFkHx/XjKH8+QxHRB6ko2ETI=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=QuZDJONjoKCf7q8Ru//lJ2ZrDYu/pEYOVpe6xLq0ymQUdUvRcPJiW1dDRKSwogSoa
-	 VuceK4oyrUfXRnB2uWmnMp/FRVkkEq9kaWay0U1Fd+OgNMCy4gjojAxL9decuMKy0d
-	 4SUH4pfTxpLei7C9ldh+x+vvqvKZzbOkMFLScyYk=
+	b=BlLS2jE+Wz5ld8eW6Pgr5FCMzSk/5z0/mWoOAPz4KHNGw+pddVk3LPMOlM+UahPRE
+	 Hl/YVjHeusVf5fNg5oxNKFtZKfbB9b7gKwOu4YstPPvRLJVj8Agn8jDxMC7tXtKuLV
+	 YTyJeAoe/p39yR95WsVOoWPv/3uVivPoaj5bCgIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1BBEF80083;
-	Mon, 16 Jan 2023 08:56:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96193F80083;
+	Mon, 16 Jan 2023 08:59:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D05EF8024C; Mon, 16 Jan 2023 08:56:45 +0100 (CET)
+ id D32B2F8024C; Mon, 16 Jan 2023 08:59:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2068.outbound.protection.outlook.com [40.107.95.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D48BF8023B
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 08:56:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D48BF8023B
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=rBDrFUNg
-Received: by mail-ej1-x635.google.com with SMTP id v6so23057119ejg.6
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 23:56:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2gvyOgN0Gv+9aZeDPI0iyOYcZNIneKqTYb4ORRQXR7c=;
- b=rBDrFUNgFpBENLm5kSuqnkbHktKp1W/JSHPkJG8x1mcgNb9zbfQzwykiwP7hn6Exnu
- wPIROLfu9bB/KOY0BfINggz/qVnWSWBbDK1tipAuCd0IVRXWWjNbiJ6mzK7FsbttFfWW
- 6gidJvWAhVO5F6lPoJeLHIc/OlyWpVQKsJ/unTr91x0vRlZLBpuxcDkq7szT6QPAd8TA
- wJ7pJ3cIvubXBFEnR3Q937zXPv6gqggvpzWFMhgqmQNfVAONMxl9Dr3LrEnu6UIRAmDo
- jo1U06Xl6dNjma+Pm/zEtEt88KAt9XE5psNyq4U7PwJEo2Yi/anChwz5mUrVjwnF3+/y
- zNOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2gvyOgN0Gv+9aZeDPI0iyOYcZNIneKqTYb4ORRQXR7c=;
- b=FoV1rweXLISGrZE7IJmZPxDwuCGaa/8JlhmV2ORhtLYHXBd/tqK5+p3VngM+gZqReu
- fwARniG/Sosln2umqCEb1gnSufVqevuBnQIDm/Pd+FY2BKh4uoUdeK4s3AaHoQM/6ZEz
- fPrDLID8haMg1MY1WkWGJ6SodFDEcYcTKcGz3XqjlEDAjIdFL+YLzzPy+MYQKJ+I6uIp
- IaU9FU5tvomolAZ5YDdLVEVO0jZ4jey/GwCwLCygXJpzStF4LpMhmeRHdxdPBlAUbYBH
- vRPOouun1EIyDX7InPR7RjLGGNZ3xbuUqXLaC6Xi/KPAH08Gd/QXdbDFlhxjXXoLOsix
- 9D/g==
-X-Gm-Message-State: AFqh2kpWn0yNV7qVo2wXT0WRApNepNAaWQLK70Jdg0bwshb5bHWva+Yx
- yP21lg8WDeC8qlCPZQuAOWwiyA==
-X-Google-Smtp-Source: AMrXdXvdJcISS/2tkszHVKaJI3ZYI/cMss5wB+0+Mq6EMO0VIT+isGpGqBB2ELI7cd9SLA9/KESnIQ==
-X-Received: by 2002:a17:906:3154:b0:84d:28d9:ce6 with SMTP id
- e20-20020a170906315400b0084d28d90ce6mr29373303eje.35.1673855798726; 
- Sun, 15 Jan 2023 23:56:38 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- kw4-20020a170907770400b0084d397e0938sm10138707ejc.195.2023.01.15.23.56.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Jan 2023 23:56:38 -0800 (PST)
-Message-ID: <70fd41e4-6d1a-cc73-cc30-1392e125919e@linaro.org>
-Date: Mon, 16 Jan 2023 08:56:35 +0100
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82062F8023A
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 08:59:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82062F8023A
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=IEHwufGt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Sq6Hwhc6qONVEhVvNDLSF3S3bKQWPevo7esdvPJlWEBVEHgRX5zshz8Hly2DWNqd0T/Ivsprsr5A+L9OWMVKN74ifY9vWrmR9umPzbE3ijvZC14bKTCLo3lWfDeT9ffDCMnPc3XUh0ywCHUHNlYn3W3M9L2dZxM1xQawp/WV5EQa0td+VRgovUIpmjGlO66L0D+y1rsOzd0pbUZBvJRG6s9fU/FCwKDSirYYAM1IC0Z1mzrOH6VxFFx2iZctw0C+AkshjnZtn0fw6g0zp3vihbMAFFrdKeau2tGYFRA897Hk28me94ruSAZ4+oQQN7ZSXgw7b2mkieGancvK7sVEHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5bjlptJFs6ZXp8gMQNEH6RVEKd1sh4AU2H+U7Ijd+7w=;
+ b=VYxDh+ER10IprCILIuJxC/EBi8kWdGeJa8+hTwU5TOzCXNbrCthIHd8NGaniWRxxNxz8JO7++bFqzVxn+hWylSYoi8bhm1US7HAVvp71igFr+u5Rv0YpiOzmQV7r4KqHka7tCcOZ8ycR9SBWi1bl3ef1+xwDyTQpVIvz1cSA9XXq9XNQBDzzKwZZGwBUotYZydCO5LSWjkbpZRpU4E1Dpev7mDit2FINOI2gUNgP8LDqTUBN8AkeHdf/zc+umOPiieQ5Uxa5EIRl2X+kar4kC0j0STTJkISl3roMmPs337ZZnv+utCVIbkX24AZnkI/JTl9V4PLS6pRqUoL5iqC3Sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5bjlptJFs6ZXp8gMQNEH6RVEKd1sh4AU2H+U7Ijd+7w=;
+ b=IEHwufGtokSd64zDQFR7sNrib+m64NfeOcoRF5/loFdTTrwsHKxa11OSSU/99lJQY0DdP2TtnxOVuEFxVClu5ds2Ib0E2dd/sf1fzsg2r6CYgHmfFKB577O6bYZkjtPDREYbGdw3YBKwcpMl+rraGJaebQIRfK+gQoKZNav3lsc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Mon, 16 Jan
+ 2023 07:59:42 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%7]) with mapi id 15.20.5986.023; Mon, 16 Jan 2023
+ 07:59:42 +0000
+Message-ID: <27eabbf2-eff2-0964-b72b-f9db251c3b57@amd.com>
+Date: Mon, 16 Jan 2023 13:32:54 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v3 4/5] arm64: dts: fsd: Add codec node for Tesla FSD
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 01/19] ASoC: amd: ps: create platform devices based on acp
+ config
 Content-Language: en-US
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- s.nawrocki@samsung.com, perex@perex.cz, tiwai@suse.com,
- pankaj.dubey@samsung.com, alim.akhtar@samsung.com, rcsekar@samsung.com,
- aswani.reddy@samsung.com
-References: <20230113121749.4657-1-p.rajanbabu@samsung.com>
- <CGME20230113121830epcas5p4cc336a48f4597ba84ab1352774242f75@epcas5p4.samsung.com>
- <20230113121749.4657-5-p.rajanbabu@samsung.com>
- <a4982e06-a6a4-a8c9-3b24-24f798c61f73@linaro.org>
- <03a301d92962$3c1a2320$b44e6960$@samsung.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <03a301d92962$3c1a2320$b44e6960$@samsung.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, vkoul@kernel.org, alsa-devel@alsa-project.org
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-2-Vijendar.Mukunda@amd.com>
+ <9f2229fb-499b-f802-993b-56a7ad2ce361@linux.intel.com>
+ <257b6f1e-f403-573f-3978-13ffb14342ad@amd.com>
+ <2b4c12ce-2586-0277-ede0-560f8317e4e4@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <2b4c12ce-2586-0277-ede0-560f8317e4e4@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0177.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::32) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SN7PR12MB8147:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6562e2e-33ef-43c6-9eea-08daf797a024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KcWLwNc710RKexaVfm617fSK+v8HCkDYdX58lnlMcT+bB++DLQ92U8tX92vhFoqlZh4cwlfX7Bq6GOx+fN80Zl0AdhxFKj33wrCZka7uqNQ3maaNuHm2BfELd7/ruZXU162d+azCJzO6Iq9KiadXS2kNdMJh5qkBqZreOPk8nkOSL9l7MHLQcLqh5HIVaKK68h4GLadUNwf4D7JBtsMvzE+5OHue/KifxXagIOkArvWf8M4WVI0uYE7lCafoOB5MBQc+QyJAg9VuDftVcJHB4h5USW/TzpAtrKVpagnvaDQDtFB8A5GCdMuJj170pv3dFm4vEXgwvPQV8NfNgRGJQIW3to/hN5Vwav99Qs8at3N+xS9fViezjAdmLc7QwIi6YcutUp9cNySM6dpp7NTSQaQYB0ghLfAfr3mWDxIMqRM8XApywtHdbYveeuQcybF7wSAXx4BUMtOmzTB9eAnq4giEZPid/VMA2JF1qB7EZhFbtzNEriL3V2NmH8I/UWHaitG/0K40G0Y1hCcBxMDZyKJPi+LfiqJKq+qyOkM3MH/FKag2GGgXT8v8fghV9u5Tnnd5HxMch8DpLvSQn78totdiYdi1skO4IMyLsHPhqGP3zytJjXVHbj9hAYf3qX6kDtfXr7ryWBAXeR47lbhJVoQ4SVkfM47ATKw3ZQDstOMG3ms+RudYQsvS0meunnmhkYRrhgrK64ptx3qsYd0hV8D4kunsFnQZ/M0I14ECUmo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(39860400002)(376002)(346002)(366004)(451199015)(54906003)(2616005)(186003)(66476007)(8676002)(4326008)(26005)(6512007)(66556008)(31686004)(66946007)(478600001)(8936002)(41300700001)(83380400001)(5660300002)(7416002)(2906002)(6666004)(53546011)(316002)(6506007)(38100700002)(31696002)(6486002)(86362001)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VG8zY1VXbUZ3NE5uTkdpNW9EeTZMbkV6dTZaQ1NOU0hmUUlRUTZraGsyb3lL?=
+ =?utf-8?B?TExEWTROcmgwanNsMG4zenJYWjRPY01DeERsR0xYcGhKTmlqT2xXbkNKaHlI?=
+ =?utf-8?B?NHY5Ri9YZ2w3Slh3eDVPalowckZwZ0FpdENkbE1Wd1p0SWY2UXpWSmE2M2VB?=
+ =?utf-8?B?TXJFYUpDeGpJSjRjTUhSMzlyaCt4bW1Oa2Jha3IrdnJxUWdxRDZTc2dnOERD?=
+ =?utf-8?B?RHhjc2dTR1JKSkFCOThIUFMzTkttbE1ta3hFb3VmbGFSR3FDRGhLTkluMXhh?=
+ =?utf-8?B?SU9ZUExHY3Y0WUFDdVBOVHl6OHkxN28rMTBqM3JVRFB5U0JPWUFKY250UWVQ?=
+ =?utf-8?B?bTFGU1REOUl0QlhDWlkydm8rZXFCc1hSdHZBUDV0N0hhTXpmbHY1UlpyYjZE?=
+ =?utf-8?B?ZkVseFVYeWRJbmF4L2dtQm5DYThKdko0emdHanJWckZFZEJCckpVUTgzMlc3?=
+ =?utf-8?B?T2lMQ1d1eXh1ZW1hblEvNkNVd0cwOVVwN2JqbHh4RU5JLzJDZC9sVmNaY0FH?=
+ =?utf-8?B?VmNFREQ1ejBoQXgycmhEcXowN3BoMklZSTZQaDNPcXFrTEFkRTE4d3RMSzk5?=
+ =?utf-8?B?SWNOV1BzZFZlVDF2WHluTE1BRmhWTk9uZW1ZeGpvNlVaRlJVVVl6MEhFRVN6?=
+ =?utf-8?B?NWlCVnkvS3JvdW5QMHQrcVJvYURFU2hObHhFQTFGMXZsbGRQT2VOb0FyZWhF?=
+ =?utf-8?B?VXQzamxUUVRxZnRkK0ZoRktuclF0a3MzbkdxbUxMYUZjN0Voc0xrVW8wUWRx?=
+ =?utf-8?B?WUJUaUFrZ3hzZDdsSE1ZMzgwN04rVW1OUDFyRGlzem05elE3M0JMbWpLZHN2?=
+ =?utf-8?B?ZjhzeTlCM3g0NXFBcXJEVi9ibkRmQThmNUdQRTZZUXRyODFJVjBPdWYvTlQ2?=
+ =?utf-8?B?c2RYeUFrdDZZU3dxUElSbzY2N2pJcVhLbXF1cnRSL1N6aTFNa0orb3kzb0Vp?=
+ =?utf-8?B?MEt3NnpLMjVQZXFJc0ZKNlg2SGZlN2dyWlVtc2E2Q29Fa2pEZFFxQkZ0anMv?=
+ =?utf-8?B?V2ZQcjEwS1BYOWhJeVFtZTcxMEhJaDZxcnFoRjhIeXF1dlo4RHdRRDlKaCsx?=
+ =?utf-8?B?bTMzTmpuQWs2SWJBV3Q1TnpoMzRtT1VneFhndHIrWjRkWkNOSlBhbnFySkJ6?=
+ =?utf-8?B?Z1YyM2ZnRlI1Lyt3UlAwcDJYbkc2d2hWNjFUdm5WU1ZKU3dleXQ0ZlN6Mmxp?=
+ =?utf-8?B?Zi9TbGQzajRnYzZIOGMyK3VOekxzeG5MQ2o2cHk4eHFZRkUxOC85ZVVIVE04?=
+ =?utf-8?B?Q3RKbllQTUhibGxSZUhSTUQ2SUlCZWc1K3h3cXBvRjJDdTU1alVRZHhoYW41?=
+ =?utf-8?B?TjUrQjhQb3ZEbUNGTXAzYjAwcUdDTXE3WGcwK2h3Q2FxM1hibTJQOTNEQXBy?=
+ =?utf-8?B?WDgxeHVQWllNK0NKNnUyS2RGa3hGVEdrUUNMbWFQSFN2RXFIMWViRmNDeFhM?=
+ =?utf-8?B?VFZuakVwcDR4WTRHSnRKWGJHVWlRS1Q4TmtHVlk1ZmxnZmNjVjhxVVhsMEFT?=
+ =?utf-8?B?TkxtVlpGWE1yOXBNSTc2dFUyRTdab3VRbHp5R2NWMnZKM3Bud05pRGRZZmgv?=
+ =?utf-8?B?WGpTSEc1OFhoVVFmSWZyalpkRTVrYTFSUnUxenpDSU85T2toZkIwREE4MUdE?=
+ =?utf-8?B?SmRDYmZSam5oOThOTWNWRU5Jb2E3aWFoUHRUUEZRNVErRklQazhEeFVkRHpJ?=
+ =?utf-8?B?aEF0cW1PRFdXL1VQUnRLYlFoNG4ramNyYjEzc2IzODNNRnFVNzQrb1RLbita?=
+ =?utf-8?B?TmFTdS9SN0VCWDZ0WUZVOVFsaVd3TFVZS2EvTEhpRHBEb2pVN1dONVVXVHVz?=
+ =?utf-8?B?cEZ0d3grUDB6L01CT1hxR1Z5bnFobzVPV09QUExML2w2QTVHaVJ0L3VjSjRG?=
+ =?utf-8?B?QTVxcEF2OEUyalVJZmFpT1RTenJuY3hyZzFMd09VQzYyVXVFaWVCUmtWRlAz?=
+ =?utf-8?B?TVB2ckRKai9td0hNbzBFNnNZblNFOCtUNHAyVi9lcnB0OVVyb0dkVzJMMGlJ?=
+ =?utf-8?B?RmxHYTRpRTdtdmpjSXh2ekJlVDdsc2Z3ckIvdTVrZ1QzbkVSR2o2Q0VSYnNu?=
+ =?utf-8?B?Y1lXRFR3ajJybEhSclZiVkpoTlZwWmdhQnpkREdqaGZjeVJ5STlkR3R1a3BM?=
+ =?utf-8?Q?OuPePMYWS/AVkO//CmKqKZfoU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6562e2e-33ef-43c6-9eea-08daf797a024
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 07:59:42.7109 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n+NBzKfAHN4052pgQgOpVs/doVYQdWFgTSmzQY/3nGCyCaB8+ElHr3MPl6/7S0ITb379xraVW9wycdmyoyEFvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8147
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,75 +159,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, Mario.Limonciello@amd.com,
+ arungopal.kondaveeti@amd.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 16/01/2023 05:23, Padmanabhan Rajanbabu wrote:
-> 
-> 
->> -----Original Message-----
->> From: Krzysztof Kozlowski [mailto:krzysztof.kozlowski@linaro.org]
->> Sent: 15 January 2023 08:37 PM
->> To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>;
->> lgirdwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org;
->> krzysztof.kozlowski+dt@linaro.org; s.nawrocki@samsung.com;
->> perex@perex.cz; tiwai@suse.com; pankaj.dubey@samsung.com;
->> alim.akhtar@samsung.com; rcsekar@samsung.com;
->> aswani.reddy@samsung.com
->> Cc: alsa-devel@alsa-project.org; devicetree@vger.kernel.org; linux-
->> kernel@vger.kernel.org; linux-samsung-soc@vger.kernel.org
->> Subject: Re: [PATCH v3 4/5] arm64: dts: fsd: Add codec node for Tesla FSD
+On 13/01/23 22:41, Pierre-Louis Bossart wrote:
+>>>> +		if (is_dmic_dev && is_sdw_dev) {
+>>>> +			switch (acp_data->sdw_master_count) {
+>>>> +			case 1:
+>>>> +				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
+>>>> +				acp_data->pdev_count = ACP63_SDW0_PDM_MODE_DEVS;
+>>>> +				break;
+>>>> +			case 2:
+>>>> +				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
+>>>> +				acp_data->pdev_count = ACP63_SDW0_SDW1_PDM_MODE_DEVS;
+>>>> +				break;
+>>> so the cover letter is indeed wrong and confuses two controllers for two
+>>> managers.
+>> ACP IP has two independent manager instances driven by separate controller
+>> each which are connected in different power domains.
 >>
->> On 13/01/2023 13:17, Padmanabhan Rajanbabu wrote:
->>> Add device tree node support for codec on Tesla FSD platform.
->>>
->>> Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
->>> ---
->>>  arch/arm64/boot/dts/tesla/fsd-evb.dts | 12 ++++++++++++
->>>  1 file changed, 12 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts
->>> b/arch/arm64/boot/dts/tesla/fsd-evb.dts
->>> index cf5f2ce4d2a7..2f211a1ad50d 100644
->>> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
->>> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
->>> @@ -10,6 +10,7 @@
->>>
->>>  /dts-v1/;
->>>  #include "fsd.dtsi"
->>> +#include <dt-bindings/gpio/gpio.h>
->>>
->>>  / {
->>>  	model = "Tesla Full Self-Driving (FSD) Evaluation board"; @@ -34,6
->>> +35,17 @@
->>>  	clock-frequency = <24000000>;
->>>  };
->>>
->>> +&hsi2c_5 {
->>> +	status = "okay";
->>> +
->>> +	tlv320aic3x: codec@18 {
->>> +		compatible = "ti,tlv320aic3104";
->>> +		reg = <0x18>;
->>> +		#sound-dai-cells = <0>;
->>> +		reset-gpios = <&gpg1 6 GPIO_ACTIVE_LOW>;
->>> +	};
->>> +};
->>> +
->>
->> Why there is i2s here? What was the base of this patch?
-> 
-> Sorry, I could not get what you were asking for. Would be really
-> helpful if you can elaborate on this query.
+>> we should create two separate ACPI companion devices for separate
+>> manager instance.  Currently we have limitations with BIOS.
+>> we are going with single ACPI companion device.
+>> We will update the changes later.
+> Humm, this is tricky. The BIOS interface isn't something that can be
+> changed at will on the kernel side, you'd have to maintain two solutions
+> with a means to detect which one to use.
+>
+> Or is this is a temporary issue on development devices, then that part
+> should probably not be upstreamed.
+It's a temporary issue on development devices.
+We had discussion with Windows dev team and BIOS team.
+They have agreed to modify ACPI companion device logic.
+We will update the two companion devices logic for two manager
+instances in V2 version.
 
-Eh, I missed a "not" in the sentence - why there is no i2s here? You
-added the i2s in previous patch and by ordering this should be just
-after this node, right? i2s should be before serial, so it should be
-visible in the diff. Are your nodes properly ordered?
-
-
-Best regards,
-Krzysztof
 

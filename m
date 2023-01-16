@@ -2,98 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED66F66B8A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 09:03:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A6966B836
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 08:33:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EC3C517C;
-	Mon, 16 Jan 2023 09:02:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EC3C517C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 648DB50F4;
+	Mon, 16 Jan 2023 08:32:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648DB50F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673856187;
-	bh=CtVylMFpnJWK4+7d5PUIAjyOIqqFgGyuGsYcvb2iZXE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=URRpsjWZ9y8zz/EDqTGUtP1vS1Dl0QvxjghVw+fxRFCUS7/EOPA8n1IqWl6Ow/F3e
-	 qE+/D5RbS7a1Ty5MWsdyl0Hivf90uKwWNXIGC4T8XRak8tV6SerxhfD5puutxWjBrV
-	 ENdFGeU5KYHg0k2JyX9P5qwH1jAsYO9C4y/6QTUo=
+	s=default; t=1673854416;
+	bh=iPZX3wxJVKCjjQFcsE386Rt/abWz6DeJeOCaZGWlLag=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=HvEwRqYB6yfuHO6i9Z4w3T0ClO41CZ5wnKkoi/5D7CqYlOv+U77Se7zhzF21d36SZ
+	 41KyZVq50VYolLJJEcz/ysySKcne8x0lvF9OTqQu59gvByBQzN+j+3G1TEsstT1lMM
+	 U2JOscehVLXOgNoUCC21/lglNE+mxncNIztOBe4A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B0EAF80083;
-	Mon, 16 Jan 2023 09:01:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E4E2F804A9;
+	Mon, 16 Jan 2023 08:32:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53A50F804F2; Sun, 15 Jan 2023 20:34:12 +0100 (CET)
+ id 54C69F80482; Mon, 16 Jan 2023 08:32:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7368F804DE
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 20:34:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7368F804DE
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=shruggie-ro.20210112.gappssmtp.com
- header.i=@shruggie-ro.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=ptg+XxdP
-Received: by mail-wm1-x335.google.com with SMTP id
- f25-20020a1c6a19000000b003da221fbf48so4467214wmc.1
- for <alsa-devel@alsa-project.org>; Sun, 15 Jan 2023 11:34:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=shruggie-ro.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aKS96pmJPoYb7b0N1pU8tQ1JoETnhuDxnTgIIKOenYM=;
- b=ptg+XxdP0iKhBkszM3udc/4H9pCnHeQS36Lsg2Ij0gMHkNcIvlvI1Cju75BpLjmsGX
- kHc0qsHeG4rGBEVp+kh2tmeQyyLVyDrdtY0z1CmRapu2VdLNtavrsQKmSz5u++fHJ4aV
- RliGMKFR4cvOcRMAeKpW3D/+zhgiqUyxi66rUm1gNcKYWk/VHZ12gMsoGRD/REB2BWBk
- RDshmY8uokHGzZjixSDoc67PtAdDhIXgjex3/HRthkje6iEvctdN4QX5AlLkD4i+0/Mp
- cIgj3pZ3+0D5e4tpKCaQT8v9Bqajzg8yccQ4Cocq5QqPTPsYdgoplDeH+ulyUInAAH2X
- iqcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aKS96pmJPoYb7b0N1pU8tQ1JoETnhuDxnTgIIKOenYM=;
- b=ru+J23y7n/2+1E0scvLyhpLjjKW1AMOLapW5XHs0v898b/lLqNOYo5Th9LeGKIkPNl
- tTHx8o8M6X/JgIoch3kerYc1eAAHrSfqkm/TvGXmc6CxESFzeoYqXHooqfjv8ZshOuDT
- g0l/w5Akn9gz8s/LY06H+LohvLuJX5Vd9Vy4956jU3U4D69MnbYmOktnWwBh3fFMne2B
- FInURvUVLI0iHz80kieupqJ7OK30+TdhPUzD7JlF9eN0ScCZwXn84Wq7efHvmLcV4Spy
- DqpCirSsfoB8pDKcCLSQ1NpxKF6hdwsmiTyugY1ZqwkJAqhTlzn9SCnFJ7UNqmawLtYw
- uj9w==
-X-Gm-Message-State: AFqh2krEzvxctxpIFSLYQhMYodFoGaJCnwqMHty0IglRz4ZlHsQG5GH3
- zP5aFszcPZDKpFXEE+GqJ2HBpA==
-X-Google-Smtp-Source: AMrXdXtiAtWBNInaUn1ciDGHW3hTscUUewtiMApYCrZAJJioAH4xZZgDcR5vCIpdWiBgI2mj0JNJ6A==
-X-Received: by 2002:a7b:c39a:0:b0:3d2:640:c4e5 with SMTP id
- s26-20020a7bc39a000000b003d20640c4e5mr63160339wmj.8.1673811239112; 
- Sun, 15 Jan 2023 11:33:59 -0800 (PST)
-Received: from neptune.hotspot.internet-for-guests.com
- (ip-078-094-237-238.um19.pools.vodafone-ip.de. [78.94.237.238])
- by smtp.gmail.com with ESMTPSA id
- f15-20020a7bcd0f000000b003d9a71ee54dsm30559281wmj.36.2023.01.15.11.33.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 11:33:58 -0800 (PST)
-From: Alexandru Ardelean <alex@shruggie.ro>
-To: devicetree@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: dt-bindings: add entry for TAS5720A-Q1 driver
-Date: Sun, 15 Jan 2023 21:33:47 +0200
-Message-Id: <20230115193347.24190-4-alex@shruggie.ro>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230115193347.24190-1-alex@shruggie.ro>
-References: <20230115193347.24190-1-alex@shruggie.ro>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 16 Jan 2023 09:01:06 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8CEB1F8023B
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 08:32:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CEB1F8023B
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id AB80A1A0F01;
+ Mon, 16 Jan 2023 08:32:30 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 73DDA1A0746;
+ Mon, 16 Jan 2023 08:32:30 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id E3EF6180031E;
+ Mon, 16 Jan 2023 15:32:28 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_sai: initialize is_dsp_mode flag
+Date: Mon, 16 Jan 2023 15:07:54 +0800
+Message-Id: <1673852874-32200-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,40 +68,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: steffen.aschbacher@stihl.de, tiwai@suse.com, lgirdwood@gmail.com,
- broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Alexandru Ardelean <alex@shruggie.ro>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Steffen Aschbacher <steffen.aschbacher@stihl.de>
+Initialize is_dsp_mode flag in the beginning of function
+fsl_sai_set_dai_fmt_tr().
 
-Add entry for the TAS5720A-Q1 driver in the dt-bindings doc.
+When the DAIFMT is DAIFMT_DSP_B the first time, is_dsp_mode is
+true, then the second time DAIFMT is DAIFMT_I2S, is_dsp_mode
+still true, which is a wrong state. So need to initialize
+is_dsp_mode flag every time.
 
-Signed-off-by: Steffen Aschbacher <steffen.aschbacher@stihl.de>
-Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
+Fixes: a3f7dcc9cc03 ("ASoC: fsl-sai: Add SND_SOC_DAIFMT_DSP_A/B support.")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- Documentation/devicetree/bindings/sound/tas5720.txt | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/fsl/fsl_sai.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/tas5720.txt b/Documentation/devicetree/bindings/sound/tas5720.txt
-index df99ca9451b0..7d851ae2bba2 100644
---- a/Documentation/devicetree/bindings/sound/tas5720.txt
-+++ b/Documentation/devicetree/bindings/sound/tas5720.txt
-@@ -6,11 +6,13 @@ audio playback. For more product information please see the links below:
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 1c9be8a5dcb1..355ef29af48c 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -281,6 +281,7 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
+ 		val_cr4 |= FSL_SAI_CR4_MF;
  
- https://www.ti.com/product/TAS5720L
- https://www.ti.com/product/TAS5720M
-+https://www.ti.com/product/TAS5720A-Q1
- https://www.ti.com/product/TAS5722L
- 
- Required properties:
- 
- - compatible : "ti,tas5720",
-+               "ti,tas5720a-q1",
-                "ti,tas5722"
- - reg : I2C slave address
- - dvdd-supply : phandle to a 3.3-V supply for the digital circuitry
+ 	sai->is_pdm_mode = false;
++	sai->is_dsp_mode = false;
+ 	/* DAI mode */
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+ 	case SND_SOC_DAIFMT_I2S:
 -- 
 2.34.1
 

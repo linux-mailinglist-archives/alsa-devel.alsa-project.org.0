@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5167366C0BE
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D17DE66C0C2
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:04:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CF9056DB;
-	Mon, 16 Jan 2023 15:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CF9056DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3335556D4;
+	Mon, 16 Jan 2023 15:03:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3335556D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673877851;
-	bh=kiHwUifiCG//om76OU+JIAh3guueRo7nVV+ZCGhevnw=;
+	s=default; t=1673877859;
+	bh=5tOmvaesfULeH1TrSOZPXIY3fM3dEnOedhw0AXIl7kI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=H4ykWaq+Bw6dpqe6I0M3O3YqKF9yaQaS/CtXtnpFEv/mIVXDYwLpaNHdcjdIFGL1Y
-	 Es0xgMQDaLSO6EGwOAk9exigYX92y6oKjzAt8oJQzcriz9gGBXLasFB+05kNY8oTrN
-	 vhLHayKikpxH0cf3w8E30fNNi2VeY5EFmCE5l7Fk=
+	b=u24PPZ3gCw40T6O6WN7/kUy3+nJVqbw3XFjKV4LKh1K8k5BbL9HRqaA3pEJIkiY2W
+	 aRaK4GYAbpnGQKvCHlTPhJZHQKlGob8e/lgi4A6y88WAj9GvK47zhl+DgH0hKReiyZ
+	 1FY6Tp4Vf2vjcTPLN3gJdExweWnwR4NhAEbaxhZs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 333C6F8055C;
-	Mon, 16 Jan 2023 15:02:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6740F8023B;
+	Mon, 16 Jan 2023 15:02:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61EC7F8055C; Mon, 16 Jan 2023 15:02:18 +0100 (CET)
+ id 47123F80543; Mon, 16 Jan 2023 15:02:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 141D6F8024C
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 15:02:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 141D6F8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB31AF8053C
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 15:02:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB31AF8053C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gejzWAvw
+ header.s=k20201202 header.b=QeLvOGaa
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BBB2B60FD0;
- Mon, 16 Jan 2023 14:02:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DACC433F0;
- Mon, 16 Jan 2023 14:02:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DA97160FCB;
+ Mon, 16 Jan 2023 14:02:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E28C433EF;
+ Mon, 16 Jan 2023 14:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673877727;
- bh=kiHwUifiCG//om76OU+JIAh3guueRo7nVV+ZCGhevnw=;
+ s=k20201202; t=1673877746;
+ bh=5tOmvaesfULeH1TrSOZPXIY3fM3dEnOedhw0AXIl7kI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gejzWAvwPM5eKc+yZUwsS2KjxcA48UJezyJl6CIFNiZoZXZUceADXZUHwFvv0aFEQ
- lsfDyjCOY1hsDaiy9akkhPjIiSMJtTuBqIJ0wV+zWVfMvghUlBUavh2k0Otz+VO7nU
- f5rNOWGJv8X1ZyUFNqWlYmPtaA3EYg9tJjmcJCnmhbdnCKHQQMInP18jBLnIcQT45f
- caLlFW+r61WWpwh6P1+pmlXXPPzh2Zgl9Aijr3970np27NMRgCu6zTkfRN6qQa1IO8
- A7cAdcAqPThIj3hQ+VSl1C+aEaePXS7VLzZqPqixF8jSzTHyliYEiDxeb1ZVD2D20j
- CeBjro40pgSQQ==
+ b=QeLvOGaafFog9e3sfNve0LsCpWqyNfPjvI1HApjuk1bUnwg8fQ8JVxd/MsmfTQnkL
+ e1+4KRWc73QuRxFs/zrhW0cuTFvNQgfKPlceTmUXc3edAJsF41/KkM/oprVxS68cPw
+ K+hUDyImmKJS9fGe3LnrEeBPtxoMH/K4p9uXwa/S+UPKoZhOCD4INPfOQ0xnrxBvLd
+ U0S/As8xDi8uT7D8IHlT6KXbEH94kFh8iX5bwtrk9/PAp9c3COAjF5CvSXQf2QrxfT
+ 8///tomZ5Dbtttyq/1dilQM9UoWlN3BLdFus0bOORnGAD7ozuBOYCoswUbn+8YAHAt
+ bq4g3f2dVrYtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 05/53] ASoC: amd: yc: Add Razer Blade 14 2022 into
- DMI table
-Date: Mon, 16 Jan 2023 09:01:05 -0500
-Message-Id: <20230116140154.114951-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 09/53] ASoC: mediatek: mt8186: support
+ rt5682s_max98360
+Date: Mon, 16 Jan 2023 09:01:09 -0500
+Message-Id: <20230116140154.114951-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230116140154.114951-1-sashal@kernel.org>
 References: <20230116140154.114951-1-sashal@kernel.org>
@@ -85,47 +84,72 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- aniol@aniolmarti.cat, tiwai@suse.com, lgirdwood@gmail.com,
- Wim Van Boven <wimvanboven@gmail.com>, Mark Brown <broonie@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>, leohearts@leohearts.com,
- xazrael@hotmail.com, mendiebm@gmail.com, lxy.lixiaoyan@gmail.com,
- dukzcry@ya.ru, Syed.SabaKareem@amd.com
+ chunxu.li@mediatek.com, nfraprado@collabora.com,
+ ajye_huang@compal.corp-partner.google.com, tiwai@suse.com,
+ tongjian <tongjian@huaqin.corp-partner.google.com>, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ jiaxin.yu@mediatek.com, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Wim Van Boven <wimvanboven@gmail.com>
+From: tongjian <tongjian@huaqin.corp-partner.google.com>
 
-[ Upstream commit 68506a173dd700c2bd794dcc3489edcdb8ee35c6 ]
+[ Upstream commit 6e1dbf694d7cd1737ee14866e9e05016ccc9ac40 ]
 
-Razer Blade 14 (2022) - RZ09-0427 needs the quirk to enable the built in microphone
+Add support for using the rt5682s codec together with max98360a on
+MT8186-MT6366-RT1019-RT5682S machines.
 
-Signed-off-by: Wim Van Boven <wimvanboven@gmail.com>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://lore.kernel.org/r/20221216081828.12382-1-wimvanboven@gmail.com
+Signed-off-by: tongjian <tongjian@huaqin.corp-partner.google.com>
+Link: https://lore.kernel.org/r/20221228122230.3818533-2-tongjian@huaqin.corp-partner.google.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 22 ++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 1f0b5527c594..469c5e79e0ea 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -220,6 +220,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
- 		}
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+index 60fa55d0c91f..6babadb2e6fe 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+@@ -991,6 +991,21 @@ static struct snd_soc_card mt8186_mt6366_rt1019_rt5682s_soc_card = {
+ 	.num_configs = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_codec_conf),
+ };
+ 
++static struct snd_soc_card mt8186_mt6366_rt5682s_max98360_soc_card = {
++	.name = "mt8186_rt5682s_max98360",
++	.owner = THIS_MODULE,
++	.dai_link = mt8186_mt6366_rt1019_rt5682s_dai_links,
++	.num_links = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_dai_links),
++	.controls = mt8186_mt6366_rt1019_rt5682s_controls,
++	.num_controls = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_controls),
++	.dapm_widgets = mt8186_mt6366_rt1019_rt5682s_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_widgets),
++	.dapm_routes = mt8186_mt6366_rt1019_rt5682s_routes,
++	.num_dapm_routes = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_routes),
++	.codec_conf = mt8186_mt6366_rt1019_rt5682s_codec_conf,
++	.num_configs = ARRAY_SIZE(mt8186_mt6366_rt1019_rt5682s_codec_conf),
++};
++
+ static int mt8186_mt6366_rt1019_rt5682s_dev_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card;
+@@ -1132,9 +1147,14 @@ static int mt8186_mt6366_rt1019_rt5682s_dev_probe(struct platform_device *pdev)
+ 
+ #if IS_ENABLED(CONFIG_OF)
+ static const struct of_device_id mt8186_mt6366_rt1019_rt5682s_dt_match[] = {
+-	{	.compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound",
++	{
++		.compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound",
+ 		.data = &mt8186_mt6366_rt1019_rt5682s_soc_card,
  	},
 +	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Razer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Blade 14 (2022) - RZ09-0427"),
-+		}
++		.compatible = "mediatek,mt8186-mt6366-rt5682s-max98360-sound",
++		.data = &mt8186_mt6366_rt5682s_max98360_soc_card,
 +	},
  	{}
  };
- 
+ #endif
 -- 
 2.35.1
 

@@ -2,98 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3E766E41E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 17:53:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D128F66E491
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 18:13:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA617506A;
-	Tue, 17 Jan 2023 17:52:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA617506A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 048C46B10;
+	Tue, 17 Jan 2023 18:12:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 048C46B10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673974410;
-	bh=YQ4olIC9vGy0t9hWkxBQyUX2A13fumOigHDoNWaAVnc=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ZsSRuybf3Q92iUUGt/igazEdWVM7hPpvvjMjji404aMmEQOD0gCnGvnolvqO9T9di
-	 N9rJ6MItu2BH1qKnJZQ3KmgsP+Fx6dzzQBbHivaPXmEk01SWqb8ZiN/L6MUsxHF8jm
-	 vGdoSXEtez/29cbneRqHAHkF2TOQbPAx2yO4vwP4=
+	s=default; t=1673975613;
+	bh=Sy+DcVL862ePRsNSx1UnuRPqVKg9kcEBIMiIJvjooSU=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gX0lYDTQedrosq/oSvqPDeNKWtKInhORGbGXY2QMJm1xK4Xo0rGoJTjxQzINjhqUk
+	 4UEo9z1gmNpE63sMP6RzSyMvc5W/V+zKX7IBYb+hAx9NcpHu/J1OjD4wySpS/mq7Js
+	 AEBaTYhPXHhwfXZJPCZdjtcbUwg5XeA0lGdbbdRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2582AF804DE;
-	Tue, 17 Jan 2023 17:52:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B232F80506;
+	Tue, 17 Jan 2023 18:12:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09804F8047B; Tue, 17 Jan 2023 17:52:30 +0100 (CET)
+ id D45A1F8024C; Mon, 16 Jan 2023 12:39:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+ autolearn_force=no version=3.4.6
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6D66F8023A
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 17:52:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6D66F8023A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=HScpHokU; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NntryFEI
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 691EB1FE16;
- Tue, 17 Jan 2023 16:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673974346; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TR/ATiBe1ydQMMqik5gXESbDdDu3yuM/iJMZIo3aUFc=;
- b=HScpHokUQH+NahNC7udUAvM3V6dTcfX1K8Hv/jnkBvH9Jy+NSH3LSviq/bdpUWQdNmu16M
- eypto1SGvv6o7X4ph1DeQCDHXzwA3kmkFJFoL1Eah1AbRUqY2hN7v8kmQl0c8RZ+2bHHUe
- EKpNe5iue9i9vy7NbrbGyUGZ0BEvYRo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673974346;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TR/ATiBe1ydQMMqik5gXESbDdDu3yuM/iJMZIo3aUFc=;
- b=NntryFEIxqILmwbWT5ehIxLXmx1SuFLmViEKDsbPQCCBwb4+8zXOGqSHck8kjazX7NfzVy
- BAq8mViisthfbqAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5016B1390C;
- Tue, 17 Jan 2023 16:52:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3ODxEkrSxmMEewAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 17 Jan 2023 16:52:26 +0000
-Date: Tue, 17 Jan 2023 17:52:25 +0100
-Message-ID: <874jsp6r3q.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-In-Reply-To: <Y8bRmWMBVFVk0WZc@mail-itl>
-References: <Y5MssNfvE+mUyyZR@mail-itl> <Y5PaF4LhQGIrKthy@mail-itl>
- <Y5SxJ3IkhHSC/Psu@mail-itl> <87o7rv507o.wl-tiwai@suse.de>
- <Y6sOvyYwuR8Pu0wj@mail-itl> <87bkmya2zk.wl-tiwai@suse.de>
- <87tu0p8uda.wl-tiwai@suse.de> <Y8aIPPcPuDeNkVEy@mail-itl>
- <Y8au5JiQ3w1YPZ8d@mail-itl> <87tu0p6xix.wl-tiwai@suse.de>
- <Y8bRmWMBVFVk0WZc@mail-itl>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08839F8023A
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 12:39:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08839F8023A
+Received: by mail-io1-f72.google.com with SMTP id
+ k1-20020a6b3c01000000b006f744aee560so17392393iob.2
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 03:39:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MSwiniR5woQGqc8BuSp7q6E3UjD1x2HrdHo84ICBI9Q=;
+ b=FF4PB7NNkVMrHfiH5EwOaii32wCACDm7LT1uPuGQAnlN4SpQlcLBOaDea9XGwNFoSp
+ aTlp9lQqSE5NKjgqzz6Fn8BboiPHELozyIUDdV5cFXIt3wwCfmk27tWKsICd/5JkdZKm
+ dLz3GL2a8Rh6wMjlB8Dcosp813BcPpLUxzvImPZ24kXHCNBKugPiYm/GflcD+wZTX2+E
+ 0vex9T9d/bz1JI8qvBBfVZXvtLvjZLGBb7NRXjeObWQlvVrpgxkHt0RMgE61vkiHuZmy
+ AYq32IzY3jzFue1LaGA2d7QOlnIJ4Wtztmf2jKYDNQrdu29YKf2ATRAwSZRa7TEPZxLn
+ GOsw==
+X-Gm-Message-State: AFqh2kpWVNBdLdcfGZBLXuNDlGilLBjKao0pvtOC2gsdaJnu6mwMbdNN
+ stZ+maqVobZdR7YTdsW3PdSNdquGJP7t0E5XlBHNe+hkn2wH
+X-Google-Smtp-Source: AMrXdXtN9RuEcXj4YKTwxvCY9z/PMotAZJVQBskp9A1ozhNVQ8sEqZC/00BYOUHyWuB7z4G4U43LfTQuZudjXwLhp7TX1Ivj4rK9
+MIME-Version: 1.0
+X-Received: by 2002:a05:6638:60c:b0:38c:886a:219a with SMTP id
+ g12-20020a056638060c00b0038c886a219amr10320580jar.133.1673869177783; Mon, 16
+ Jan 2023 03:39:37 -0800 (PST)
+Date: Mon, 16 Jan 2023 03:39:37 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000be0f9b05f2600901@google.com>
+Subject: [syzbot] general protection fault in snd_rawmidi_write
+From: syzbot <syzbot+52d5f07074cbd0fa32d4@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 17 Jan 2023 18:12:39 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,115 +82,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 17 Jan 2023 17:49:28 +0100,
-Marek Marczykowski-Górecki wrote:
-> 
-> On Tue, Jan 17, 2023 at 03:33:42PM +0100, Takashi Iwai wrote:
-> > On Tue, 17 Jan 2023 15:21:23 +0100,
-> > Marek Marczykowski-Górecki wrote:
-> > > 
-> > > On Tue, Jan 17, 2023 at 12:36:28PM +0100, Marek Marczykowski-Górecki wrote:
-> > > > On Tue, Jan 17, 2023 at 08:58:57AM +0100, Takashi Iwai wrote:
-> > > > > On Mon, 16 Jan 2023 16:55:11 +0100,
-> > > > > Takashi Iwai wrote:
-> > > > > > 
-> > > > > > On Tue, 27 Dec 2022 16:26:54 +0100,
-> > > > > > Marek Marczykowski-Górecki wrote:
-> > > > > > > 
-> > > > > > > On Thu, Dec 22, 2022 at 09:09:15AM +0100, Takashi Iwai wrote:
-> > > > > > > > On Sat, 10 Dec 2022 17:17:42 +0100,
-> > > > > > > > Marek Marczykowski-Górecki wrote:
-> > > > > > > > > 
-> > > > > > > > > On Sat, Dec 10, 2022 at 02:00:06AM +0100, Marek Marczykowski-Górecki wrote:
-> > > > > > > > > > On Fri, Dec 09, 2022 at 01:40:15PM +0100, Marek Marczykowski-Górecki wrote:
-> > > > > > > > > > > On Fri, Dec 09, 2022 at 09:10:19AM +0100, Takashi Iwai wrote:
-> > > > > > > > > > > > On Fri, 09 Dec 2022 02:27:30 +0100,
-> > > > > > > > > > > > Marek Marczykowski-Górecki wrote:
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > Hi,
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > Under Xen PV dom0, with Linux >= 5.17, sound stops working after few
-> > > > > > > > > > > > > hours. pavucontrol still shows meter bars moving, but the speakers
-> > > > > > > > > > > > > remain silent. At least on some occasions I see the following message in
-> > > > > > > > > > > > > dmesg:
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > >   [ 2142.484553] snd_hda_intel 0000:00:1f.3: Unstable LPIB (18144 >= 6396); disabling LPIB delay counting
-> > > > > > > > > > 
-> > > > > > > > > > Hit the issue again, this message did not appear in the log (or at least
-> > > > > > > > > > not yet).
-> > > > > > > > > > 
-> > > > > > > > > > (...)
-> > > > > > > > > > 
-> > > > > > > > > > > > In anyway, please check the behavior with 6.1-rc8 + the commit
-> > > > > > > > > > > > cc26516374065a34e10c9a8bf3e940e42cd96e2a
-> > > > > > > > > > > >     ALSA: memalloc: Allocate more contiguous pages for fallback case
-> > > > > > > > > > > > from for-next of my sound git tree (which will be in 6.2-rc1).
-> > > > > > > > > > 
-> > > > > > > > > > This did not helped.
-> > > > > > > > > > 
-> > > > > > > > > > > Looking at the mentioned commits, there is one specific aspect of Xen PV
-> > > > > > > > > > > that may be relevant. It configures PAT differently than native Linux.
-> > > > > > > > > > > Theoretically Linux adapts automatically and using proper API (like
-> > > > > > > > > > > set_memory_wc()) should just work, but at least for i915 driver it
-> > > > > > > > > > > causes issues (not fully tracked down yet). Details about that bug
-> > > > > > > > > > > report include some more background:
-> > > > > > > > > > > https://lore.kernel.org/intel-gfx/Y5Hst0bCxQDTN7lK@mail-itl/
-> > > > > > > > > > > 
-> > > > > > > > > > > Anyway, I have tested it on a Xen modified to setup PAT the same way as
-> > > > > > > > > > > native Linux and the audio issue is still there.
-> > > > > > > > > > > 
-> > > > > > > > > > > > If the problem persists, another thing to check is the hack below
-> > > > > > > > > > > > works.
-> > > > > > > > > > 
-> > > > > > > > > > Trying this one now.
-> > > > > > > > > 
-> > > > > > > > > And this one didn't either :/
-> > > > > > > > 
-> > > > > > > > (Sorry for the late reply, as I've been off in the last weeks.)
-> > > > > > > > 
-> > > > > > > > I think the hack doesn't influence on the PCM buffer pages, but only
-> > > > > > > > about BDL pages.  Could you check the patch below instead?
-> > > > > > > > It'll disable the SG-buffer handling on x86 completely. 
-> > > > > > > 
-> > > > > > > This seems to "fix" the issue, thanks!
-> > > > > > > I guess I'll run it this way for now, but a proper solution would be
-> > > > > > > nice. Let me know if I can collect any more info that would help with
-> > > > > > > that.
-> > > > > > 
-> > > > > > Then we seem to go back again with the coherent memory allocation for
-> > > > > > the fallback sg cases.  It was changed because the use of
-> > > > > > dma_alloc_coherent() caused a problem with IOMMU case for retrieving
-> > > > > > the page addresses, but since the commit 9736a325137b, we essentially
-> > > > > > avoid the fallback when IOMMU is used, so it should be fine again.
-> > > > > > 
-> > > > > > Let me know if the patch like below works for you instead of the
-> > > > > > previous hack to disable SG-buffer (note: totally untested!)
-> > > > > 
-> > > > > Gah, there was an obvious typo, scratch that.
-> > > > > 
-> > > > > Below is a proper patch.  Please try this one instead.
-> > > > 
-> > > > Thanks, I'll give it a try.
-> > > 
-> > > Unfortunately, it doesn't help, it stopped working again, after about 3h
-> > > uptime.
-> > 
-> > Aha, then it might be rather other way round;
-> > dma_alloc_noncontiguous() doesn't work on Xen properly.
-> > 
-> > Could you try the one below instead of the previous?
-> 
-> Unfortunately, this one doesn't fix it either :/
+Hello,
 
-Hmm.  Then how about applying both of the last two patches?  The last
-one to enforce the fallback allocation and the previous one to use
-dma_alloc_coherent().  It should be essentially reverting to the old
-way.
+syzbot found the following issue on:
+
+HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=168edb4a480000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
+dashboard link: https://syzkaller.appspot.com/bug?extid=52d5f07074cbd0fa32d4
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+52d5f07074cbd0fa32d4@syzkaller.appspotmail.com
+
+general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] PREEMPT SMP KASAN
+KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+CPU: 1 PID: 8401 Comm: syz-executor.4 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+RIP: 0010:snd_rawmidi_ready_append sound/core/rawmidi.c:119 [inline]
+RIP: 0010:snd_rawmidi_write+0x358/0xbb0 sound/core/rawmidi.c:1592
+Code: f9 48 8b 44 24 38 48 c1 e8 03 80 3c 18 00 0f 85 0d 07 00 00 48 8b 04 24 4c 8b b0 a0 00 00 00 49 8d 7e 38 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 06 07 00 00 49 8d 7e 30 49 8b 6e 38 48 89 f8 48
+RSP: 0018:ffffc900050a7c28 EFLAGS: 00010002
+
+RAX: 0000000000000007 RBX: dffffc0000000000 RCX: ffffc9000e84b000
+RDX: 0000000000040000 RSI: ffffffff879a3daf RDI: 0000000000000038
+RBP: 0000000000001bb8 R08: 0000000000000007 R09: 0000000000000000
+R10: 0000000000001bb8 R11: 0000000000000000 R12: ffff88807ac10000
+R13: ffff888149ef0630 R14: 0000000000000000 R15: ffffc900050a7cc0
+FS:  00007f9e6738e700(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000200ce000 CR3: 0000000029217000 CR4: 00000000003506e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ vfs_write+0x2db/0xe10 fs/read_write.c:582
+ ksys_write+0x1ec/0x250 fs/read_write.c:637
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7f9e6668c0c9
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f9e6738e168 EFLAGS: 00000246
+ ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f9e667ac1f0 RCX: 00007f9e6668c0c9
+RDX: 00000000fffffd2c RSI: 0000000020000000 RDI: 0000000000000004
+RBP: 00007f9e666e7ae9 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffec721559f R14: 00007f9e6738e300 R15: 0000000000022000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:snd_rawmidi_ready_append sound/core/rawmidi.c:119 [inline]
+RIP: 0010:snd_rawmidi_write+0x358/0xbb0 sound/core/rawmidi.c:1592
+Code: f9 48 8b 44 24 38 48 c1 e8 03 80 3c 18 00 0f 85 0d 07 00 00 48 8b 04 24 4c 8b b0 a0 00 00 00 49 8d 7e 38 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 06 07 00 00 49 8d 7e 30 49 8b 6e 38 48 89 f8 48
+RSP: 0018:ffffc900050a7c28 EFLAGS: 00010002
+
+RAX: 0000000000000007 RBX: dffffc0000000000 RCX: ffffc9000e84b000
+RDX: 0000000000040000 RSI: ffffffff879a3daf RDI: 0000000000000038
+RBP: 0000000000001bb8 R08: 0000000000000007 R09: 0000000000000000
+R10: 0000000000001bb8 R11: 0000000000000000 R12: ffff88807ac10000
+R13: ffff888149ef0630 R14: 0000000000000000 R15: ffffc900050a7cc0
+FS:  00007f9e6738e700(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000200ce000 CR3: 0000000029217000 CR4: 00000000003506e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+----------------
+Code disassembly (best guess):
+   0:	f9                   	stc
+   1:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   6:	48 c1 e8 03          	shr    $0x3,%rax
+   a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+   e:	0f 85 0d 07 00 00    	jne    0x721
+  14:	48 8b 04 24          	mov    (%rsp),%rax
+  18:	4c 8b b0 a0 00 00 00 	mov    0xa0(%rax),%r14
+  1f:	49 8d 7e 38          	lea    0x38(%r14),%rdi
+  23:	48 89 f8             	mov    %rdi,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1) <-- trapping instruction
+  2e:	0f 85 06 07 00 00    	jne    0x73a
+  34:	49 8d 7e 30          	lea    0x30(%r14),%rdi
+  38:	49 8b 6e 38          	mov    0x38(%r14),%rbp
+  3c:	48 89 f8             	mov    %rdi,%rax
+  3f:	48                   	rex.W
 
 
-Takashi
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

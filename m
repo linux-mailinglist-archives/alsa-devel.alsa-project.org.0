@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C55F66BF82
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 14:17:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8999066C0A2
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:03:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AF29560F;
-	Mon, 16 Jan 2023 14:16:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AF29560F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AF0256D0;
+	Mon, 16 Jan 2023 15:02:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AF0256D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673875032;
-	bh=29QfTPcs9/gEQmgCKCXaRl7jYtU3HRfzrfTR4DlbQv8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1673877792;
+	bh=We4AOABTCrlp9F1jwtkkQL4Oz6PzYUIHv8bU4uce94M=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=fTlJ66vCI8/HdpSlUhfuS1+BPc9lRaDiMe8izUfef1NihjToVVF9dfkwFp4i940Z2
-	 hAX279eCe4c2ASIGDSKWmOdo/AKrCVjGXEOx6e76TjH0dwc0Oln4+MWbcGXB8R3/Xz
-	 H+oPNcqD/Hiii69o2xpxNqX6vL3v1o2k9t7+cPxU=
+	b=rhFDTTAA7axHWBxAaEWZX0mPr101+q3SUH2ZI4WpMsLIyFgsmLh97q8BzYcZmIWyF
+	 qpNAWVgaHIay8W3ZnVSblMP/iPWfTcKlnV2m6hlmJSQ8IE3ExWPSgPPviq+kgfKIjT
+	 aBvadSmuUTDeX88Qn2NBt1tzOlVUuArXnTP2nqy8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD5D4F80482;
-	Mon, 16 Jan 2023 14:16:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7D72F80240;
+	Mon, 16 Jan 2023 15:02:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87A2FF8024C; Mon, 16 Jan 2023 14:16:11 +0100 (CET)
+ id 12A03F804A9; Mon, 16 Jan 2023 15:02:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93CB9F8023A
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 14:16:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93CB9F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1201F8023B;
+ Mon, 16 Jan 2023 15:02:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1201F8023B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Rwwmd6He
+ header.s=k20201202 header.b=ZhVbiC5V
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8185FB80D2F;
- Mon, 16 Jan 2023 13:16:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F72C433EF;
- Mon, 16 Jan 2023 13:15:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B182D60FC9;
+ Mon, 16 Jan 2023 14:01:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B327EC433F1;
+ Mon, 16 Jan 2023 14:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673874961;
- bh=29QfTPcs9/gEQmgCKCXaRl7jYtU3HRfzrfTR4DlbQv8=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Rwwmd6He0NxJjr4f1ILWqhp9FNFKb4tQ4NS8uikEnEMibnZru5eRe99uMM72gNsju
- cGn2Ss2REDrQgwy/ZolLQ8L6nxfmA+c2J8j8SGlO/QJOslphsntYH7XyFGimQFKRiu
- iryooyKcgNgoakq++RWAswZz0ns7CHHtCE9E8Iiz9V17fxVbX31lBClYjlC6yAZkUT
- EPQIjH0zsMA+9TARs5LtI0wnXJ4qbRAtvbXvJw3bqgsb4NhVDZ5u8OqG2fprc5njDg
- Qn/pccU0lxSfZILJey4qi15/zoNIuFVuh9fsrzVhA03TeyN3rkNNeNnbhbR48dhJnI
- 66bGbBL9fqxYA==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Jai Luthra <j-luthra@ti.com>
-In-Reply-To: <20221230132644.6398-1-j-luthra@ti.com>
-References: <20221230132644.6398-1-j-luthra@ti.com>
-Subject: Re: [PATCH v2] dt-bindings: sound: tlv320aic3x: Add optional clock
- and port properties
-Message-Id: <167387495862.317762.14606265116095883268.b4-ty@kernel.org>
-Date: Mon, 16 Jan 2023 13:15:58 +0000
+ s=k20201202; t=1673877719;
+ bh=We4AOABTCrlp9F1jwtkkQL4Oz6PzYUIHv8bU4uce94M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZhVbiC5VuxVgnFlze6h+c0CA4eB/roBtnO2JExucH0g9FyhDi4tMD6HAnbeIFnZVL
+ 3+MTmkX38kdnE64WVdGZJOsUrUEQAaeM8oMYurYtvLRMOmwADhh/OaQIC3LIdaHbY5
+ g30dce1n/ieunFMXxs/sCKZLksvUM/bDsGaWdtj9BsJLFBxakZq0X9C/MYtL6hVNEA
+ 9ttUkpz2NJO5+Ja1xVBi+MYEIaLSXGMvk4RfubfhV02bZif9SFPSPBBtAMn+DG29mI
+ m2triDAhKNDf+XWHJeovcALpRNxQ6vReELx7PToRSMKhRVTjgk7fcZwWdW35ftDMP9
+ NG5WU9nBopA7g==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.1 02/53] ASoC: SOF: pm: Set target state earlier
+Date: Mon, 16 Jan 2023 09:01:02 -0500
+Message-Id: <20230116140154.114951-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230116140154.114951-1-sashal@kernel.org>
+References: <20230116140154.114951-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-69c4d
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,45 +84,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ tiwai@suse.com, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ daniel.baluta@nxp.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Curtis Malainey <cujomalainey@chromium.org>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Dec 2022 18:56:44 +0530, Jai Luthra wrote:
-> Describe optional properties for clocks and ports that were missing in
-> the original txt binding, to fix warnings like:
-> 
-> aic33@18: 'assigned-clock-parents', 'assigned-clock-rates',
-> 	'assigned-clocks' do not match any of the regexes:
-> 	'pinctrl-[0-9]+'
-> 	arch/arm/boot/dts/omap2420-n810.dtb
-> 
-> [...]
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Applied to
+[ Upstream commit 6f95eec6fb89e195dbdf30de65553c7fc57d9372 ]
 
-   broonie/sound.git for-next
+If the DSP crashes before the system suspends, the setting of target state
+will be skipped because the firmware state will no longer be
+SOF_FW_BOOT_COMPLETE. This leads to the incorrect assumption that the
+DSP should suspend to D0I3 instead of suspending to D3. To fix this,
+set the target_state before we skip to DSP suspend even when the DSP has
+crashed.
 
-Thanks!
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/20221220125629.8469-2-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/sof/pm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-[1/1] dt-bindings: sound: tlv320aic3x: Add optional clock and port properties
-      commit: b6e98cf4ed3baff0c2f7a1c1babf96fde8e129f3
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index df740be645e8..5f88c4a01fa3 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -182,7 +182,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
+ 	const struct sof_ipc_tplg_ops *tplg_ops = sdev->ipc->ops->tplg;
+ 	pm_message_t pm_state;
+-	u32 target_state = 0;
++	u32 target_state = snd_sof_dsp_power_target(sdev);
+ 	int ret;
+ 
+ 	/* do nothing if dsp suspend callback is not set */
+@@ -206,7 +206,6 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
+ 		}
+ 	}
+ 
+-	target_state = snd_sof_dsp_power_target(sdev);
+ 	pm_state.event = target_state;
+ 
+ 	/* Skip to platform-specific suspend if DSP is entering D0 */
+-- 
+2.35.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

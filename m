@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D26F66C0CB
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:04:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 011B066C0D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jan 2023 15:04:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 445AD56CF;
-	Mon, 16 Jan 2023 15:03:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 445AD56CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A2ED56DE;
+	Mon, 16 Jan 2023 15:04:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A2ED56DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673877877;
-	bh=QPhRtNuE6JxeurA1PW69fSuF/HqnQ/1AJqwFGLiIYdI=;
+	s=default; t=1673877893;
+	bh=jBxXofiDuMYrEyqP2oAXhBy9CTP5zsteBxobWUWQSW0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VHXSjnq5EG8zzYfn/t/dKsg3FRSk8KUEyt2Z7FmFU0sCJAkEawhwf2BA8AHGOCWVb
-	 Zds6HOXUGVCCwPkqVqrDCcJ4+VoJwnog+K7MuVQSQycmeqritdFDRDhbgsqvCayOBF
-	 RlGJFtnDZP0uDL8AszkwoKhv+h4BcnSVNLONTR4I=
+	b=JX9Jy1YHbwoIcKzAOfLQnWZnyotWMZ2FyinoTbkVX4YgbfF36uDssvuyf/UE97jsL
+	 alJgjFCZy01O8bX5qaLY7wrlARtKebFYX++2Oqpuh9y798ystyWU26KsV5njIktCPN
+	 G94UhFgzHpVLeM/DxNGFwlMttTLqqLBK80KC+yNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B0DFF8023A;
-	Mon, 16 Jan 2023 15:02:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CDB7F80578;
+	Mon, 16 Jan 2023 15:02:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B637FF8056F; Mon, 16 Jan 2023 15:02:35 +0100 (CET)
+ id 82BF3F80578; Mon, 16 Jan 2023 15:02:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4F49F8023A
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 15:02:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4F49F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE709F80570
+ for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 15:02:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE709F80570
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BMHhJlt2
+ header.s=k20201202 header.b=DbtbqWIm
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6F3D1B80F88;
- Mon, 16 Jan 2023 14:02:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6576BC433EF;
- Mon, 16 Jan 2023 14:02:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3EB01B80F96;
+ Mon, 16 Jan 2023 14:02:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85982C433EF;
+ Mon, 16 Jan 2023 14:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673877750;
- bh=QPhRtNuE6JxeurA1PW69fSuF/HqnQ/1AJqwFGLiIYdI=;
+ s=k20201202; t=1673877753;
+ bh=jBxXofiDuMYrEyqP2oAXhBy9CTP5zsteBxobWUWQSW0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BMHhJlt2HmB01gVPRkqfxfzcrTc9o1KHtzzhQjV0m2nmocLQEuWwUl9tTewyQaaaG
- 1Dzq6ICPOIOiyfZmQMKTTc62PVsFmhh6BRze73KzP2dXDp//6Tjdhk0++iLhmoZlvJ
- icccd/j3t6EPwcyyXLKe5cpaueX36UJySaU6Q7i51dtqsW0ucrnFKAmtIx/96Tb+Ss
- Ntgz8VGvgmBdFHtShr0+8cUZ5jbBKXfdmWa2Tt9+2+aSAGZ9Nsqk7GbcS0Icm7JTNL
- hC7mVyGtl2JXLiLhEe+H/vEw9tYG8tywT3/7gOEalyOp+D3/c+uhBcOQytVD64fBAc
- Rbn9crVCbGvDA==
+ b=DbtbqWImrBtoGgjSwtziE2ghkeP32f9gaZaEmbgsgBy7yUWLrYxJIT3hFMOt9RQU5
+ 54/HiYUyGUBTuQx0OtyXBzFeZJGSizR7UierPOqsrzB1kJlcp8/EqqINsEUJCXgf8C
+ hF9L0PeXmhEBaiUvT8Rua7ThT25IHH/gTaeafhc/1tiDECh1LhGezS6DfSaaYHiDky
+ sEIXEKTGtzhAjnFYkHSwUMTd09Z2Uwcxr3AQimokDVQdAIZ0y0bNAf+naahhtjBQnv
+ VhGqBozQQWtlQF3bf/1TSe+pdkIBymMRZsF7pQpOmN80m/6PKppOuUvDNwJsF//SeG
+ VKsaRvYXfEvwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 10/53] ASoC: mediatek: mt8186: Add machine support
- for max98357a
-Date: Mon, 16 Jan 2023 09:01:10 -0500
-Message-Id: <20230116140154.114951-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 11/53] ASoC: amd: yc: Add ASUS M5402RA into DMI
+ table
+Date: Mon, 16 Jan 2023 09:01:11 -0500
+Message-Id: <20230116140154.114951-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230116140154.114951-1-sashal@kernel.org>
 References: <20230116140154.114951-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -84,45 +86,45 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Allen-KH Cheng <allen-kh.cheng@mediatek.com>, lgirdwood@gmail.com,
- chenxiangrui@huaqin.corp-partner.google.com, tiwai@suse.com,
- jiaxin.yu@mediatek.com, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, trevor.wu@mediatek.com, tzungbi@kernel.org,
- matthias.bgg@gmail.com, renzhijie2@huawei.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+ =?UTF-8?q?Aniol=20Mart=C3=AD?= <aniol@aniolmarti.cat>, lxy.lixiaoyan@gmail.com,
+ tiwai@suse.com, wimvanboven@gmail.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, mario.limonciello@amd.com,
+ leohearts@leohearts.com, xazrael@hotmail.com, Syed.SabaKareem@amd.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+From: Aniol Martí <aniol@aniolmarti.cat>
 
-[ Upstream commit 8a54f666db581bbf07494cca44a0124acbced581 ]
+[ Upstream commit a0dd7fcab5cd221fa960f594c586e1f9f16c02c0 ]
 
-Add support for mt8186 with mt6366 and max98357a.
+ASUS VivoBook 13 OLED (M5402RA) needs this quirk to get the built-in microphone working properly.
 
-Signed-off-by: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
-Link: https://lore.kernel.org/r/20221228115756.28014-1-allen-kh.cheng@mediatek.com
+Signed-off-by: Aniol Martí <aniol@aniolmarti.cat>
+Link: https://lore.kernel.org/r/20221227224932.9771-1-aniol@aniolmarti.cat
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/mediatek/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 363fa4d47680..7bdb0ded831c 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -182,9 +182,10 @@ config SND_SOC_MT8186_MT6366_DA7219_MAX98357
- 	  If unsure select "N".
- 
- config SND_SOC_MT8186_MT6366_RT1019_RT5682S
--	tristate "ASoC Audio driver for MT8186 with RT1019 RT5682S codec"
-+	tristate "ASoC Audio driver for MT8186 with RT1019 RT5682S MAX98357A/MAX98360 codec"
- 	depends on I2C && GPIOLIB
- 	depends on SND_SOC_MT8186 && MTK_PMIC_WRAP
-+	select SND_SOC_MAX98357A
- 	select SND_SOC_MT6358
- 	select SND_SOC_RT1015P
- 	select SND_SOC_RT5682S
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 469c5e79e0ea..0d283e41f66d 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -206,6 +206,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "UM5302TA"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "M5402RA"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.35.1
 

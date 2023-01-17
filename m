@@ -2,73 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D128F66E491
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 18:13:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6019266E493
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 18:13:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 048C46B10;
-	Tue, 17 Jan 2023 18:12:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 048C46B10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B0306B17;
+	Tue, 17 Jan 2023 18:12:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B0306B17
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673975613;
-	bh=Sy+DcVL862ePRsNSx1UnuRPqVKg9kcEBIMiIJvjooSU=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gX0lYDTQedrosq/oSvqPDeNKWtKInhORGbGXY2QMJm1xK4Xo0rGoJTjxQzINjhqUk
-	 4UEo9z1gmNpE63sMP6RzSyMvc5W/V+zKX7IBYb+hAx9NcpHu/J1OjD4wySpS/mq7Js
-	 AEBaTYhPXHhwfXZJPCZdjtcbUwg5XeA0lGdbbdRQ=
+	s=default; t=1673975626;
+	bh=T1YX+7v++iT+p9UCqcNeNXf8qzxAO8KXpTdkm/5Wh/4=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=l3bo0K4we3LKBcmJU/b8eF4596VUrsvCChumX9dWnETI0sOMG7H2ZIHclH75ooc8Q
+	 C7I6rQ7D0v9qm577kuirWr6xljSNItOkKcYR7K3GJTzDAwToMJ+h10GBDRPyodBuOn
+	 IkCO1z/6Bl1thtqivOB/odRVE5DiNg9soilFNpXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B232F80506;
-	Tue, 17 Jan 2023 18:12:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09B47F804EC;
+	Tue, 17 Jan 2023 18:12:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D45A1F8024C; Mon, 16 Jan 2023 12:39:43 +0100 (CET)
+ id D4839F8047B; Tue, 17 Jan 2023 12:15:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
- autolearn_force=no version=3.4.6
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-4.7 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08839F8023A
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 12:39:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08839F8023A
-Received: by mail-io1-f72.google.com with SMTP id
- k1-20020a6b3c01000000b006f744aee560so17392393iob.2
- for <alsa-devel@alsa-project.org>; Mon, 16 Jan 2023 03:39:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MSwiniR5woQGqc8BuSp7q6E3UjD1x2HrdHo84ICBI9Q=;
- b=FF4PB7NNkVMrHfiH5EwOaii32wCACDm7LT1uPuGQAnlN4SpQlcLBOaDea9XGwNFoSp
- aTlp9lQqSE5NKjgqzz6Fn8BboiPHELozyIUDdV5cFXIt3wwCfmk27tWKsICd/5JkdZKm
- dLz3GL2a8Rh6wMjlB8Dcosp813BcPpLUxzvImPZ24kXHCNBKugPiYm/GflcD+wZTX2+E
- 0vex9T9d/bz1JI8qvBBfVZXvtLvjZLGBb7NRXjeObWQlvVrpgxkHt0RMgE61vkiHuZmy
- AYq32IzY3jzFue1LaGA2d7QOlnIJ4Wtztmf2jKYDNQrdu29YKf2ATRAwSZRa7TEPZxLn
- GOsw==
-X-Gm-Message-State: AFqh2kpWVNBdLdcfGZBLXuNDlGilLBjKao0pvtOC2gsdaJnu6mwMbdNN
- stZ+maqVobZdR7YTdsW3PdSNdquGJP7t0E5XlBHNe+hkn2wH
-X-Google-Smtp-Source: AMrXdXtN9RuEcXj4YKTwxvCY9z/PMotAZJVQBskp9A1ozhNVQ8sEqZC/00BYOUHyWuB7z4G4U43LfTQuZudjXwLhp7TX1Ivj4rK9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34575F8022D
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 12:15:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34575F8022D
+Received: by air.basealt.ru (Postfix, from userid 490)
+ id 8FCFE2F20230; Tue, 17 Jan 2023 11:15:25 +0000 (UTC)
+Received: from localhost (broadband-188-32-10-232.ip.moscow.rt.ru
+ [188.32.10.232])
+ by air.basealt.ru (Postfix) with ESMTPSA id 1D6B82F2022C;
+ Tue, 17 Jan 2023 11:15:23 +0000 (UTC)
+Date: Tue, 17 Jan 2023 14:15:23 +0300
+From: "Alexey V. Vissarionov" <gremlin@altlinux.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: hda/ca0132: minor fix for allocation size
+Message-ID: <20230117111522.GA15213@altlinux.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6638:60c:b0:38c:886a:219a with SMTP id
- g12-20020a056638060c00b0038c886a219amr10320580jar.133.1673869177783; Mon, 16
- Jan 2023 03:39:37 -0800 (PST)
-Date: Mon, 16 Jan 2023 03:39:37 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000be0f9b05f2600901@google.com>
-Subject: [syzbot] general protection fault in snd_rawmidi_write
-From: syzbot <syzbot+52d5f07074cbd0fa32d4@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="8t9RHnE3ZwKMSgU+"
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 17 Jan 2023 18:12:39 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -82,107 +64,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: alsa-devel@alsa-project.org, lvc-project@linuxtesting.org,
+ Ian Minett <ian_minett@creativelabs.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ Takashi Iwai <tiwai@suse.com>, Xian Wang <dev@xianwang.io>,
+ "Alexey V. Vissarionov" <gremlin@altlinux.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
 
-syzbot found the following issue on:
+--8t9RHnE3ZwKMSgU+
+Content-Type: text/plain; charset=koi8-r
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=168edb4a480000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
-dashboard link: https://syzkaller.appspot.com/bug?extid=52d5f07074cbd0fa32d4
-compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+Although the "dma_chan" pointer occupies more or equal space compared
+to "*dma_chan", the allocation size should use the size of variable
+itself.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
+Fixes: 01ef7dbffb411d9d ("ALSA: hda - Update CA0132 codec to load DSP firmw=
+are binary")
+Signed-off-by: Alexey V. Vissarionov <gremlin@altlinux.org>
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+52d5f07074cbd0fa32d4@syzkaller.appspotmail.com
-
-general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] PREEMPT SMP KASAN
-KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
-CPU: 1 PID: 8401 Comm: syz-executor.4 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
-RIP: 0010:snd_rawmidi_ready_append sound/core/rawmidi.c:119 [inline]
-RIP: 0010:snd_rawmidi_write+0x358/0xbb0 sound/core/rawmidi.c:1592
-Code: f9 48 8b 44 24 38 48 c1 e8 03 80 3c 18 00 0f 85 0d 07 00 00 48 8b 04 24 4c 8b b0 a0 00 00 00 49 8d 7e 38 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 06 07 00 00 49 8d 7e 30 49 8b 6e 38 48 89 f8 48
-RSP: 0018:ffffc900050a7c28 EFLAGS: 00010002
-
-RAX: 0000000000000007 RBX: dffffc0000000000 RCX: ffffc9000e84b000
-RDX: 0000000000040000 RSI: ffffffff879a3daf RDI: 0000000000000038
-RBP: 0000000000001bb8 R08: 0000000000000007 R09: 0000000000000000
-R10: 0000000000001bb8 R11: 0000000000000000 R12: ffff88807ac10000
-R13: ffff888149ef0630 R14: 0000000000000000 R15: ffffc900050a7cc0
-FS:  00007f9e6738e700(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000200ce000 CR3: 0000000029217000 CR4: 00000000003506e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- vfs_write+0x2db/0xe10 fs/read_write.c:582
- ksys_write+0x1ec/0x250 fs/read_write.c:637
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7f9e6668c0c9
-Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9e6738e168 EFLAGS: 00000246
- ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f9e667ac1f0 RCX: 00007f9e6668c0c9
-RDX: 00000000fffffd2c RSI: 0000000020000000 RDI: 0000000000000004
-RBP: 00007f9e666e7ae9 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ffec721559f R14: 00007f9e6738e300 R15: 0000000000022000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:snd_rawmidi_ready_append sound/core/rawmidi.c:119 [inline]
-RIP: 0010:snd_rawmidi_write+0x358/0xbb0 sound/core/rawmidi.c:1592
-Code: f9 48 8b 44 24 38 48 c1 e8 03 80 3c 18 00 0f 85 0d 07 00 00 48 8b 04 24 4c 8b b0 a0 00 00 00 49 8d 7e 38 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 06 07 00 00 49 8d 7e 30 49 8b 6e 38 48 89 f8 48
-RSP: 0018:ffffc900050a7c28 EFLAGS: 00010002
-
-RAX: 0000000000000007 RBX: dffffc0000000000 RCX: ffffc9000e84b000
-RDX: 0000000000040000 RSI: ffffffff879a3daf RDI: 0000000000000038
-RBP: 0000000000001bb8 R08: 0000000000000007 R09: 0000000000000000
-R10: 0000000000001bb8 R11: 0000000000000000 R12: ffff88807ac10000
-R13: ffff888149ef0630 R14: 0000000000000000 R15: ffffc900050a7cc0
-FS:  00007f9e6738e700(0000) GS:ffff8880b9900000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000200ce000 CR3: 0000000029217000 CR4: 00000000003506e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-----------------
-Code disassembly (best guess):
-   0:	f9                   	stc
-   1:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
-   6:	48 c1 e8 03          	shr    $0x3,%rax
-   a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   e:	0f 85 0d 07 00 00    	jne    0x721
-  14:	48 8b 04 24          	mov    (%rsp),%rax
-  18:	4c 8b b0 a0 00 00 00 	mov    0xa0(%rax),%r14
-  1f:	49 8d 7e 38          	lea    0x38(%r14),%rdi
-  23:	48 89 f8             	mov    %rdi,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1) <-- trapping instruction
-  2e:	0f 85 06 07 00 00    	jne    0x73a
-  34:	49 8d 7e 30          	lea    0x30(%r14),%rdi
-  38:	49 8b 6e 38          	mov    0x38(%r14),%rbp
-  3c:	48 89 f8             	mov    %rdi,%rax
-  3f:	48                   	rex.W
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 0a292bf271f2e59a..acde4cd58785e0cb 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -2455,7 +2455,7 @@ static int dspio_set_uint_param(struct hda_codec *cod=
+ec, int mod_id,
+ static int dspio_alloc_dma_chan(struct hda_codec *codec, unsigned int *dma=
+_chan)
+ {
+ 	int status =3D 0;
+-	unsigned int size =3D sizeof(dma_chan);
++	unsigned int size =3D sizeof(*dma_chan);
+=20
+ 	codec_dbg(codec, "     dspio_alloc_dma_chan() -- begin\n");
+ 	status =3D dspio_scp(codec, MASTERCONTROL, 0x20,
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+--=20
+Alexey V. Vissarionov
+gremlin =F0=F2=E9 altlinux =F4=FE=EB org; +vii-cmiii-ccxxix-lxxix-xlii
+GPG: 0D92F19E1C0DC36E27F61A29CD17E2B43D879005 @ hkp://keys.gnupg.net
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+--8t9RHnE3ZwKMSgU+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCgAGBQJjxoNKAAoJEFv2F9znRj5KU2IP/A9EgJ/2sPrwFgPnInPTBDO/
+yL/DCmz1u/2iRUaeFo3lv6NCRzBWrvTT9UFa88VOntuGWS0rp4n6eRGVur907V12
+vkvK34rWUhxGW5FqATgwB04XjzwWBc2234ycOL6qQHDFEJJICt8YbjY08KMt/Xe+
+TTAMwNsfw9WvsSgAVuWwBkMztMXcTgbLkwBoZ9S3DUsOT4AiAKeCBXBZBb24NOjR
+a59fW2HAZZQr0zGONML7cGm7yzlfHrBrs/4kOI3461binaNaBaZD48XQRQ6pbZuZ
+GXAfsjCP04pyDy50BMBBUqJyhefZ3Ls0/6RP+UQSppECZO8vXwsQNGZL4j7os6rm
+kk5f3rejaW+wKbItHqJ28T8zuhmrNyzDFmmr8mx/2p5v9sDM2VFlzBSQXWZtAHK+
+N6BTkwQvYYomL2KY4yzfBcMmU9C+04WvV24n9iBUkjT2rZA4Ezctspq4V09gwWLa
+29BdZO6zOPixfwdnkmKfl8QhemNREPmuEUkdOB2nPQLivIOmm1Ea7XOlU6kh160z
+nlRSAXOZaouGa0rouQvlaFDWXXLKrHOIjxSezm3tVzahpnffJosckg5WNLLiuJyK
+L3fKtu72ly9GbbDxXRCXYJ51OyNpvsS+52XTaQ53S4AEWOKS8DnIw9lGkf+tDVWd
+j7YCGNWdxBxSyDXfWlmQ
+=IATM
+-----END PGP SIGNATURE-----
+
+--8t9RHnE3ZwKMSgU+--

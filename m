@@ -2,107 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258AB66D955
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 10:07:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C264F66DC1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 12:19:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AECC464D1;
-	Tue, 17 Jan 2023 10:07:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AECC464D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE6A665F;
+	Tue, 17 Jan 2023 12:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE6A665F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673946471;
-	bh=7hVCUviFHIWHI/MF90drsdniQmudHfgTR2L6GFksZAk=;
+	s=default; t=1673954353;
+	bh=ot1dAG2puk6i6YlG8cyNaOEvUs1ZmRJeLIwhauFiy7k=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=qqQIHLk8mk74ebfZMfPoGN5mHCVDg4ittcvMyDWn7KVqsa2l2EhM3Ter3f0f99H6F
-	 e+K59pMaGEI8B5o47fPVLyRje3mkEX2HUUlZpGDTtgRkYMoc4dNxgsJmgguNxCoDrO
-	 lRstM/rR15uH4gegJZ90kGBHb7ac1o3Z32w8Ps4Q=
+	b=je1Aopa2HkD6hNkjP2MJ4baaIoNujODmQpS7xs882/G6X/DaAmRwjL9GtGNC8qg6Q
+	 YF0+l05ofp9xzMF60U3aLfMSj5GKz6gCJdCsBERs+zQtZzQ9n6orzDINx+kBsxSo7T
+	 aRPkErSTCOPqBZf3IsPn5x5mZ3p9ykYW64UiyYe8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EE9BF80543;
-	Tue, 17 Jan 2023 10:06:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8D48F80083;
+	Tue, 17 Jan 2023 12:18:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E76BAF804EC; Tue, 17 Jan 2023 10:06:25 +0100 (CET)
+ id A2377F8047B; Tue, 17 Jan 2023 12:18:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CC05F8022D
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 10:06:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CC05F8022D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=qldaI/6c; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=YssJBzOR
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id EE8895C0064;
- Tue, 17 Jan 2023 04:06:16 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Tue, 17 Jan 2023 04:06:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1673946376; x=
- 1674032776; bh=Df24bCGT4QZ+Xvpi3Tsf1b/KvctyrLLDs9supDMoYb4=; b=q
- ldaI/6cbb+baLZkEdkC1XqC6QOIjuL0ubizkmMPLME8ZyGmv7q74IcY99czsnFTi
- 4BILWFI/uMbx6qchUCGu7MySS3xrgJFGN3v3xtSgVwP+i02KcigDrj2tVijd1Isz
- jopMEmlnEQmDKsqb4v5huMmtPkJ5EIoD9HMQvwIsyQyBfu7s3SEH0xXvCPPVVB3g
- xnwEc8co7h/DfWJ/3T44oHVT719kaoTRcCAoPqy/Ex+FYRTjoGhyiEkPFCPNfQVi
- ByRcWbwuvAztJV+nr2U3m4BTmkmPSj6x5WM/THlBCwMIRYMBomXwuobGUlj53T31
- ZZ6erUhTaatC1QkYqgr3A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1673946376; x=1674032776; bh=Df24bCGT4QZ+X
- vpi3Tsf1b/KvctyrLLDs9supDMoYb4=; b=YssJBzORyH6tOfwDPpV5JsC+tXJbj
- wvYj7U/+2mWIS26rlbRA+fA/SyUqeLFdRLOnbyPjJtl5iKp9fKw4l+fIuLnqVnS+
- 1z1nkLkNrotnX8uW94SwaxUHbQhKFMefpjFavgEklcJ9/mepK+2NCG5ichNux8ry
- kp6r5bLFHtjYk1u9czEoihFhic+PZsV+Yy0JFVcKO4NIHZyDVX7v/yaKy5MJWLaX
- ooR5aKn0lCNyRtjS8XDp71QO4zpGyweIKCtwDHTVa2BPVc7sIviDN6TKYjCdOBzu
- bdZP3GHf8GsBXRqZslGI+T3U/XKfO3tYrOo2bOO9ZqJjt9ejXHE40UrPw==
-X-ME-Sender: <xms:CGXGYxNkJmywlUCvR2d8GV-9BqrrCACcfT6QRJbQ4rilStP_kOseqQ>
- <xme:CGXGYz_Ku41BPKqwMzIutVvTaLJaJL2oHaX02wQU9B99t4Q6WCEpi5ErMifa2A0W6
- fhhZYvrn_2NkOAFW5M>
-X-ME-Received: <xmr:CGXGYwQPHhyiu7OImQ9QnFZ1ixp2mD4fKajlhkTIq-m4lM6_jHPakO5eTM25IGrun1caWKRaBCKMElQ56GL0aJMqjsBtcst8MKeC-7mnmRuFcHMBt3ZFm_Y>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddthedgudefudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgjfhgggfestd
- ekredtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgr
- khgrshhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepvdejgf
- ejuedvgfduudekleevtefgtdevhfdtffefiefgveeuteffiedvffekvddtnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhih
- esshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:CGXGY9to3Y48oTmuRfGeZcNC3Qi-EFR0UBH7-X11-P8Yeq_76QoxJw>
- <xmx:CGXGY5cropCq127Ut5Af_sQjlQcP8Kp6fxV1uzb2yVUPOG3nwAMgew>
- <xmx:CGXGY53VUOpuAlAuoypPc5HDhyxoUNHloQI2HmEnzAm1ZWPwP5GBIA>
- <xmx:CGXGY95xcbGvPITu_u_qmCGOtgSPI8PEZ3fG3f9ViNq6ON3V4Pp-IQ>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Jan 2023 04:06:15 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH 1/1] firewire: fix memory leak for payload of request
- subaction to IEC 61883-1 FCP region
-Date: Tue, 17 Jan 2023 18:06:10 +0900
-Message-Id: <20230117090610.93792-2-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230117090610.93792-1-o-takashi@sakamocchi.jp>
-References: <20230117090610.93792-1-o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83F18F8023A
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 12:18:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83F18F8023A
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=M5VfcbtC
+Received: by mail-wr1-x436.google.com with SMTP id e3so20988143wru.13
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 03:18:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9F8FAq9VHh3X8R5TYntvycSxeEy9zUQAgESTqIenWBs=;
+ b=M5VfcbtCsw01lCDWxI/FmN1NwPgHEaGl0oYAzM601jiZEYylOMcXYVVJhuUhmk7pjG
+ QBt89h3Ns9mtXc7L+NCZzXAY7XD7Vm64GAqJJttlTNlrLiovRqG3Ymy/OnUXp05uJ0HJ
+ 78Kxu/Rogv1S2Ptj4YH6pdStOrJEYUSqy0EAyb106MQ+skNCOfQYNeuzAhJuz7JeiY/d
+ GTDetXITOHiRaUSunYV684bH3dfhrlthbtzSQ/w6SGiJGZontYwMDMYTN2agesepRCY0
+ X+pzAW8mUHHHYgxNoFE7KR/mKsmmti9I3bDqSn3KTQypJ+KiiOh3IOM6Nv/WQepZuDvl
+ fHfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9F8FAq9VHh3X8R5TYntvycSxeEy9zUQAgESTqIenWBs=;
+ b=7KHXJVYobq6q9NVZdIkuteUCnRzZaePzC5XuN0lL4TV8asREm2PKuys17lW6JpVpR+
+ p/dzIhbnLwFG6tynda8RY8JYD2Q18UvGnhMBQ+mfpF4fi/+Umlv4w7MhkfaoyA7ogcRF
+ h5IGvLlPknwfvOcSQ5lsfvAS63UYmFMh6tB+21Q8gPCRoDGSe6NZ+Lg01MYON7LWGPNv
+ e1hAJEcltDFoMJ27d3qfw5ZIvk3UsBgiHVTjCre8LV8bzpe7gEiJqCquN+I1YZqCuOp6
+ D+mt1hTJ0a319OLVIFJGRwaKN9qPRF4fEpBai2JIEiTfx3NvVOW7W+mft2kHj23KYwSw
+ yApw==
+X-Gm-Message-State: AFqh2kqZVr8BxB40VUIWGYK5w0ebIOba8cgiI7LM8dcq14MgLZ3nqgW/
+ 3DTVSIi3fkirRNjJqozZnci8AQ==
+X-Google-Smtp-Source: AMrXdXtuMwXDTKjRMyG4UHHCTHIY3tjmlqLwu/1pei9KsF5NZ+G3lpmedGWKLrTweXTxfyPz75A61w==
+X-Received: by 2002:a5d:6505:0:b0:2bd:dba2:c17e with SMTP id
+ x5-20020a5d6505000000b002bddba2c17emr2414593wru.12.1673954288574; 
+ Tue, 17 Jan 2023 03:18:08 -0800 (PST)
+Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
+ w10-20020a5d404a000000b00275970a85f4sm28466717wrp.74.2023.01.17.03.18.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Jan 2023 03:18:08 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, rcsekar@samsung.com,
+ alim.akhtar@samsung.com, robh+dt@kernel.org, lgirdwood@gmail.com,
+ aswani.reddy@samsung.com, krzysztof.kozlowski+dt@linaro.org,
+ s.nawrocki@samsung.com, pankaj.dubey@samsung.com, tiwai@suse.com,
+ broonie@kernel.org, perex@perex.cz
+Subject: Re: (subset) [PATCH v4 3/5] arm64: dts: fsd: Add I2S DAI node for
+ Tesla FSD
+Date: Tue, 17 Jan 2023 12:18:01 +0100
+Message-Id: <167395418605.64421.15917174672513679108.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230116103823.90757-4-p.rajanbabu@samsung.com>
+References: <20230116103823.90757-1-p.rajanbabu@samsung.com>
+ <CGME20230116103903epcas5p2c3e87c1df31b6a53e26fb1358a53f634@epcas5p2.samsung.com>
+ <20230116103823.90757-4-p.rajanbabu@samsung.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -116,58 +108,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux1394-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch is fix for Linux kernel v2.6.33 or later.
+On Mon, 16 Jan 2023 16:08:21 +0530, Padmanabhan Rajanbabu wrote:
+> Add device tree node for I2S0 and I2S1 CPU DAI instances for Tesla
+> FSD platform.
+> 
+> FSD SoC has 2 I2S instances driving stereo channel I2S audio playback
+> and capture with external DMA support.
+> 
+> 
+> [...]
 
-For request subaction to IEC 61883-1 FCP region, Linux FireWire subsystem
-have had an issue of use-after-free. The subsystem allows multiple
-user space listeners to the region, while data of the payload was likely
-released before the listeners execute read(2) to access to it for copying
-to user space.
+Applied, thanks!
 
-The issue was fixed by a commit 281e20323ab7 ("firewire: core: fix
-use-after-free regression in FCP handler"). The object of payload is
-duplicated in kernel space for each listener. When the listener executes
-ioctl(2) with FW_CDEV_IOC_SEND_RESPONSE request, the object is going to
-be released.
+[3/5] arm64: dts: fsd: Add I2S DAI node for Tesla FSD
+      https://git.kernel.org/krzk/linux/c/7f62af80dc62b82bc18f72c674e4c81c5ecbfe37
 
-However, it causes memory leak since the commit relies on call of
-release_request() in drivers/firewire/core-cdev.c. Against the
-expectation, the function is never called due to the design of
-release_client_resource(). The function delegates release task
-to caller when called with non-NULL fourth argument. The implementation
-of ioctl_send_response() is the case. It should release the object
-explicitly.
-
-This commit fixes the bug.
-
-Cc: <stable@vger.kernel.org>
-Fixes: 281e20323ab7 ("firewire: core: fix use-after-free regression in FCP handler")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/core-cdev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 9c89f7d53e99..958aa4662ccb 100644
---- a/drivers/firewire/core-cdev.c
-+++ b/drivers/firewire/core-cdev.c
-@@ -819,8 +819,10 @@ static int ioctl_send_response(struct client *client, union ioctl_arg *arg)
- 
- 	r = container_of(resource, struct inbound_transaction_resource,
- 			 resource);
--	if (is_fcp_request(r->request))
-+	if (is_fcp_request(r->request)) {
-+		kfree(r->data);
- 		goto out;
-+	}
- 
- 	if (a->length != fw_get_response_length(r->request)) {
- 		ret = -EINVAL;
+Best regards,
 -- 
-2.37.2
-
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>

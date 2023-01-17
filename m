@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF5666E6F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 20:28:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2033966E709
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 20:34:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 867CC6D00;
-	Tue, 17 Jan 2023 20:27:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 867CC6D00
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C2E66D2D;
+	Tue, 17 Jan 2023 20:33:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C2E66D2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673983710;
-	bh=p5DW/XjfgL3g6Jk4j/iR9BOD62DWkaVXgbeDZJq2kNM=;
+	s=default; t=1673984059;
+	bh=mtjTovEPjxvYGK1uAME9HAj0lhPuRk9rZFb8FXi/J/o=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=uAqfiBXmZ+NP2YVv6yEdUSfJiqI1Ih5mXPoFqXQEQLn6G3UWc6ce+Bbl94Nb2qRmg
-	 st3r1x7zBYMWLn2rF1/t6ShtLlJnRQCGeJofVuML8kcNHMtD+dMgQIEvWKBLLvOfjU
-	 Szk5JEDMkn85/hLWeGI28S2zqMvymax0gCW99J50=
+	b=G8YEw+WJ/mEclRTZrfQVSBuLW0CFwcgH+qQqjOe0/0rwFd1wIWh2CPbcLtoMPnMqE
+	 KCzqGEK/CSikJ0u3LOC/xJhiGLj24XHYFNmJs4RXH8+WJsQYQ9OwQWJrIR7nBnuJTW
+	 cXURj0Nato6GOVquTcBmjNGv0moBw9pwV9oy9yVU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 428AEF80083;
-	Tue, 17 Jan 2023 20:27:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F0F0F80083;
+	Tue, 17 Jan 2023 20:33:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14B9DF8047B; Tue, 17 Jan 2023 20:27:30 +0100 (CET)
+ id 5C497F8047B; Tue, 17 Jan 2023 20:33:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
+ RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96AADF80083
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 20:27:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96AADF80083
-Received: by mail-ot1-f46.google.com with SMTP id
- t7-20020a05683014c700b006864760b1caso1723453otq.0
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 11:27:26 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2BF7F80083
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 20:33:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2BF7F80083
+Received: by mail-oi1-f175.google.com with SMTP id p185so5717184oif.2
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 11:33:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+BTquYHamd8yY9RObnEinrCsM0HQYTFZPUAO2Z2hiGw=;
- b=u2dH9WyOMZvavlQwoEVhDzcm55MhxXF4+kl3mYdSw5L5G9Pgy1z2Mip2bxPxCAhtBz
- Q+/01oTMHju80eMHAjwW+Eo0+kDU8kxqdL1Daun/d4cd+E+jV7DM+1S7eBysuRF6lO9R
- lr7Tb4iIILAoAFOHatKAC5TP/9q2rWfAQL958mbHiFKzeas8Dc0JkRD2tfRQVkPNGS+C
- dDUUyI/LV2P/qBdMrWZoyLEx0LtPPrK5QYHR8u7UiqOwlnihV6QYt5JDNv8nVkiya4q2
- JnEtwLCjHJFpqTv+O62VrflphrQ5r7qE+VZWVhFWI+b4NvXKcRl3Zvx/ChH6MoEgkFVI
- 1CFA==
-X-Gm-Message-State: AFqh2kq6BH18tfKUtzpdTvJzieKRSAK21nzi1MzqJhGDxZ3gQoK5fkAG
- IqlAQHIlRYWzP5ZFsezATmdH/oWF6g==
-X-Google-Smtp-Source: AMrXdXup/GjCMKAAMwBR12RckeeuXA6GYe+ILgLNJSKyingY0Wtc71tweIPPGZAZ93TxKYSeH0rjMg==
-X-Received: by 2002:a05:6830:150a:b0:670:69ac:bb49 with SMTP id
- k10-20020a056830150a00b0067069acbb49mr2069239otp.15.1673983645371; 
- Tue, 17 Jan 2023 11:27:25 -0800 (PST)
+ bh=3/5VHDfuP60dlqe33FBmFK6FgItob/cxxKnvyTavuYE=;
+ b=JivdlGItus3L/m9/x69flIkJ+df51UuxstjdPyEK/w6kj0eCL1wMDbtmWVfsAH2Tta
+ 24VVaOSDG5mXjjDCGhTR6svhMCWgCCooL5/7QxAJ8qM7DRaNvPjccnEo1iWzVjzmjstw
+ 9jP8xQ0V8f5acqe8AdjT8DvzcNxhxFJtF6RRt5rTZzyKtkImI89A7Pi3Rfl4CUHYHnUC
+ K10bGdadMnkOL+fGKBDaBRj2VNQ408ikYY4dHstMq3YRnCOmVP6DYNRGwJvQzoaf7Ync
+ gSoGsHTHd3mVE2zdfyJ4TQDjTuN8Vr4YME/ufcFBuT8yCut4R41vFbKGem8f2SRs0KKa
+ wKeQ==
+X-Gm-Message-State: AFqh2krfbcyxfJOpjSor0W2l7iNpYyPXJeUsMNS0wXVIRGTDHQ3uYfOy
+ 7wqN2IgyTQa6XZpsk5G5jQ==
+X-Google-Smtp-Source: AMrXdXvSKOggm/yjSQrSk84DQlXTfHz0baeJwd3/p31H4zN6IQISF1PzfbOm3NU2JN6ca56PgFDj1g==
+X-Received: by 2002:aca:6706:0:b0:367:30b:ef76 with SMTP id
+ z6-20020aca6706000000b00367030bef76mr1947484oix.46.1673983996953; 
+ Tue, 17 Jan 2023 11:33:16 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- e4-20020a9d63c4000000b006864a3b00a8sm1310485otl.4.2023.01.17.11.27.24
+ v25-20020a05683011d900b00683e4084740sm16785861otq.10.2023.01.17.11.33.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 11:27:25 -0800 (PST)
-Received: (nullmailer pid 3496235 invoked by uid 1000);
- Tue, 17 Jan 2023 19:27:24 -0000
-Date: Tue, 17 Jan 2023 13:27:24 -0600
+ Tue, 17 Jan 2023 11:33:16 -0800 (PST)
+Received: (nullmailer pid 3504196 invoked by uid 1000);
+ Tue, 17 Jan 2023 19:33:15 -0000
+Date: Tue, 17 Jan 2023 13:33:15 -0600
 From: Rob Herring <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: qcom,wcd934x: Describe slim-ifc-dev
-Message-ID: <20230117192724.GA3489389-robh@kernel.org>
+Subject: Re: [PATCH 3/3] ASoC: dt-bindings: qcom,wcd934x: Allow usage as IFD
+ device
+Message-ID: <167398399522.3504122.3368632808087174176.robh@kernel.org>
 References: <20230113162214.117261-1-krzysztof.kozlowski@linaro.org>
- <20230113162214.117261-2-krzysztof.kozlowski@linaro.org>
+ <20230113162214.117261-3-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230113162214.117261-2-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230113162214.117261-3-krzysztof.kozlowski@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +92,36 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>,
+ Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Mark Brown <broonie@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 13, 2023 at 05:22:13PM +0100, Krzysztof Kozlowski wrote:
-> The "slim-ifc-dev" property should not be just "true", because it allows
-> any type.
 
-Yes, but it is common, so it should be in a common schema. Though 
-there's only one other binding using it (wcd9335.txt).
-
+On Fri, 13 Jan 2023 17:22:14 +0100, Krzysztof Kozlowski wrote:
+> The WCD9340 audio codec appears on Slimbus twice: as IFD device without
+> properties and the actual audio-codec referencing the former via
+> wcd9340_ifd.  Allow in the binding both versions to fix several warnings
+> like:
+> 
+>   sdm850-samsung-w737.dtb: ifd@0,0: 'reset-gpios' is a required property
+>   sdm850-samsung-w737.dtb: ifd@0,0: 'slim-ifc-dev' is a required property
+>   sdm850-samsung-w737.dtb: ifd@0,0: 'interrupt-controller' is a required property
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
 > ---
->  Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
-> index 184e8ccbdd13..39b27126cfc1 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
-> @@ -28,7 +28,9 @@ properties:
->      description: GPIO spec for reset line to use
->      maxItems: 1
->  
-> -  slim-ifc-dev: true
-> +  slim-ifc-dev:
-> +    description: IFC device interface
-> +    $ref: /schemas/types.yaml#/definitions/phandle
->  
->    clocks:
->      maxItems: 1
-> -- 
-> 2.34.1
+> oneOf: interrupts-extended|interrupts is needed to avoid dtschema
+> limitation.
+> ---
+>  .../bindings/sound/qcom,wcd934x.yaml          | 58 ++++++++++++++-----
+>  1 file changed, 43 insertions(+), 15 deletions(-)
 > 
+
+Reviewed-by: Rob Herring <robh@kernel.org>

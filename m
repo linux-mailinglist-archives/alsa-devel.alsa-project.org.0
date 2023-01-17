@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4780E66E02C
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 15:19:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC6C66E02E
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 15:19:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6E2F68F2;
-	Tue, 17 Jan 2023 15:18:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6E2F68F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26ADB6905;
+	Tue, 17 Jan 2023 15:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26ADB6905
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673965144;
-	bh=UMHe04P6ii9tzbFiy/D8r5Ujeyo9EUUXTNra99ebVRQ=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=u27FbWAvsICuhEejU+U6Tnc8IUwIMbcpIj53g1bND538ITyvwCAXYInZz0D2+TzrV
-	 JVJO7rcGL0qFReH12Z/oa1r/u/ac2oQIZt748Cz7R1SOjbO9XRboGpnfBo/5BXNIJN
-	 W2Ti3SnF7Xx4g1R1jeC1UlBN/QKUmEjYFrbb/4Co=
+	s=default; t=1673965171;
+	bh=uVGdRX9tb66aSkyW8WYEjW1kFdCKXI7yv9+/xjC0zqo=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=au8ZBDxfO9eMQTqOvA39l3We3EDEzCaVzxJdPdl2sNRzBWYweD9ygSz4NrTDvyS+w
+	 yPrezT2QmGXiyuuD2ZMpio+6eHASKWb71fLrkpohYG0qC2e7z3K/mpaxA97KPZDe7R
+	 0dMsC2MPPwWyp872XnB5fLM9Y/DRBwZOoKCpLxI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FADFF80083;
-	Tue, 17 Jan 2023 15:18:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94CCDF804F2;
+	Tue, 17 Jan 2023 15:18:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ECD1F8047B; Tue, 17 Jan 2023 15:18:05 +0100 (CET)
+ id DF4ADF804EC; Tue, 17 Jan 2023 15:18:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A36E8F8023A
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 15:18:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A36E8F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B6A6F804DE
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 15:18:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B6A6F804DE
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=JsENXzV6
-Received: by mail-wm1-x32b.google.com with SMTP id g10so22355542wmo.1
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 06:18:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=V/31Zx3eFGec3nVJb1oXQa8scv6g71AJ2XVF1SMXsjo=;
- b=JsENXzV6Lcf38ecr6c11Q6jS0Qc0Xz4sxWJ8XXr9w+6I6yQYTFU/kD3TYBqxQ7rv7+
- PAt5XdD25KohEDXfAc3mZ9slNyHRsZLQ8xqy6sBjF1v6p85u3eg16Lu8MJzqMfU42WDB
- o6vxwbyQRB/5fGDaDckdJ6GNPSwzvBL8prscTe0JDAvHLcN/pCtmLskKBZjwYPIOCt1l
- Lmnw+kuZqIQG9nC3Elv2Ot5kC3jIs8/cunsn38HEUu4oyuSEdBKKb7WVar4L0fDhvWZa
- wsEOrNQ5b16T47/LLxgPHFFSoQAJX3KZuutYb/DCXYfmwLd1CTizC2qTbr514ZS9xC7a
- PEbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V/31Zx3eFGec3nVJb1oXQa8scv6g71AJ2XVF1SMXsjo=;
- b=AjablQU+FANtsyZayv5f8KfB6y3Z20BHJr+HHzWHKsYFsM64WXKZuA6Y9JWpFeEwL3
- dwfp0riMzZv8O7uO3diUbugt4+n2wwDdief/HzM7veYvX7ywJfsJJKvxPPIND8jpjqAv
- ayFYbWhq2kHUCqqwlc3V36Pi2YUkr1E15baaQIucDr7J1dy7R0/xvkgxA5QLi3IBnOBU
- HZdOzcndoAWNFHjZV0urTi5bNbBEGufVJbF6dbBoCOAOOHM3d+GJgv6WctA16NPDCUo8
- kjkVlQlv3nH3N2WN8tqCmBdcse563IfPJ7G/dS2GV7k6mtDxnMNzGWyU8anXp++u+/MN
- +L4w==
-X-Gm-Message-State: AFqh2kopilXUOcFg7nsDuJuvs628sYoa+izULVMCBjszIcsyLi3yiBOF
- HeXHQrBKcIxqVtr+DzIOMJw7dIiW8GWv4g==
-X-Google-Smtp-Source: AMrXdXv13PeROVeFKbk7cnsb5gc6/H/L0Wzq8HMm9OUe+9N3rMROib28v6Y7pnDQc+irUC7Ne1v3JQ==
-X-Received: by 2002:a05:600c:2d05:b0:3d0:85b5:33d3 with SMTP id
- x5-20020a05600c2d0500b003d085b533d3mr3164709wmf.16.1673965080509; 
- Tue, 17 Jan 2023 06:18:00 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- l24-20020a05600c1d1800b003daf6e3bc2fsm11093626wms.1.2023.01.17.06.17.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 06:18:00 -0800 (PST)
-Date: Tue, 17 Jan 2023 17:17:29 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: [PATCH] ALSA: fireface: fix locking bug in ff400_copy_msg_to_user()
-Message-ID: <Y8at+W/7OGvEBY8O@kili>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=S4tHOGVq
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B094461467;
+ Tue, 17 Jan 2023 14:18:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B328C433EF;
+ Tue, 17 Jan 2023 14:18:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1673965107;
+ bh=uVGdRX9tb66aSkyW8WYEjW1kFdCKXI7yv9+/xjC0zqo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S4tHOGVqyoS+akOGzS9EYsbdhEd+Gkiv1LooYpscK2oesI9P1IRDEK8ixSe8nSwzM
+ IrvHuFb1AZp6ux+Bj42KyuwTB1rIThKhZ7FGLpvgdZiz2S5E0AHDC48AddpwFdfsPP
+ OgfcfxQbBFnV7nBIq3I8M49vzJNPZPwuYLTEvbBvNNfOSLKRWnkreREAj8N/gTOyTE
+ M1hUDsJwUKmBI3mdTu37YsyXeuBNMO/tY81p1YmdqFeO1TJjb8pSh8Dk4p5w6xmQWg
+ n1+TGbFZHDAzk39uXk40l/OZaq27mgLr3Z5L7fjh3unJQoOqA3wPkNRnb+Lh0qJw9i
+ hwCNEme6jXdnw==
+Date: Tue, 17 Jan 2023 14:18:23 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2 0/3] ASoC: SOF: sof-audio: Fixes for widget prepare
+ and unprepare
+Message-ID: <Y8auL5VNefcFZAB4@sirena.org.uk>
+References: <20230116125506.27989-1-peter.ujfalusi@linux.intel.com>
+ <Y8afrS+wfZujFRHS@sirena.org.uk>
+ <675f42a7-1d26-10bd-5862-f758d8b41849@linux.intel.com>
+ <597d5cee-f9fd-411f-c780-8413b6fd422d@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="j2kQFq0eqFoFoF6s"
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+In-Reply-To: <597d5cee-f9fd-411f-c780-8413b6fd422d@linux.intel.com>
+X-Cookie: Serving suggestion.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,63 +86,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ angelogioacchino.delregno@collabora.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The ff400_copy_msg_to_user() function drops the spin lock to call
-copy_to_user().  However, if the copy_to_user() fails, then it must
-take the lock again before returning.  Failure to take the lock leads
-to a double unlock in the caller, hwdep_read().
 
-Fixes: acdebd8b4c0c ("ALSA: fireface: implement message parser for Fireface 400")
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
- sound/firewire/fireface/ff-protocol-former.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+--j2kQFq0eqFoFoF6s
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/firewire/fireface/ff-protocol-former.c b/sound/firewire/fireface/ff-protocol-former.c
-index f58008762fe6..fa41de978756 100644
---- a/sound/firewire/fireface/ff-protocol-former.c
-+++ b/sound/firewire/fireface/ff-protocol-former.c
-@@ -680,28 +680,30 @@ static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long cou
- 	struct ff400_msg_parser *parser = ff->msg_parser;
- 	u32 type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE;
- 	long consumed = 0;
-+	int ret = 0;
- 
- 	if (count < 8)
- 		return 0;
- 
- 	spin_unlock_irq(&ff->lock);
--
- 	if (copy_to_user(buf, &type, sizeof(type)))
--		return -EFAULT;
--
-+		ret = -EFAULT;
- 	spin_lock_irq(&ff->lock);
-+	if (ret)
-+		return ret;
- 
- 	count -= sizeof(type);
- 	consumed += sizeof(type);
- 
- 	while (count >= sizeof(*parser->msgs) && parser->pull_pos != parser->push_pos) {
- 		spin_unlock_irq(&ff->lock);
--
- 		if (copy_to_user(buf + consumed, parser->msgs + parser->pull_pos,
- 				 sizeof(*parser->msgs)))
--			return -EFAULT;
--
-+			ret = -EFAULT;
- 		spin_lock_irq(&ff->lock);
-+		if (ret)
-+			return ret;
-+
- 		++parser->pull_pos;
- 		if (parser->pull_pos >= FF400_QUEUE_SIZE)
- 			parser->pull_pos = 0;
--- 
-2.35.1
+On Tue, Jan 17, 2023 at 04:05:18PM +0200, P=E9ter Ujfalusi wrote:
 
+> It is the topology ops optionality stuff. It is in itself a trivial (for
+> my eyes) conflict, but it is a conflict never the less.
+
+> This is not going to backport cleanly to stable either.
+
+> What would be the preferred way to handle this (for next, for 6.2 and
+> for 6.1.x)?
+
+Can you send me a version that applies against for-6.2, if it
+doesn't backport to stable you can send an explicit backport
+patch once that becomes an issue.  I'm much happier resolving a
+merge between 6.2 and 6.3 than on initial application.
+
+--j2kQFq0eqFoFoF6s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPGri4ACgkQJNaLcl1U
+h9B2pAf+NVySSXpRnc8OU7v3saonOk7SJp2G6XKMs2ArATjYsfpivhMpD2xAlVVS
+10k0mc/ic+rzoO32fRubXUQiFE+L7AhQ/C1uCOgyK1R/XCuAX8BUPTp6/MR3CkTR
+auw1bInaYgc7S1Em4vq9q1fCiR12yfC28jyAt2E2fJE/R5zQXvV9CnU3qXksstZr
+IJSWfQVtJKP31/lBs616Id9Y1oDrKAMzXyZ/0hxwefp8OKZeainMRwBn4Nbs76jR
+OEn1W4zlkdh8s7zAq3YHQlenLPqdTley6n1vbaakNoO67SJmpfzQ5f9q6LhrfQHb
+wwBRdcIPhBBpq8F+4QqhURP7rcTP2g==
+=ZmDc
+-----END PGP SIGNATURE-----
+
+--j2kQFq0eqFoFoF6s--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C264F66DC1E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 12:19:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBCDB66DC28
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 12:19:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE6A665F;
-	Tue, 17 Jan 2023 12:18:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE6A665F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A58E6667;
+	Tue, 17 Jan 2023 12:18:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A58E6667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673954353;
-	bh=ot1dAG2puk6i6YlG8cyNaOEvUs1ZmRJeLIwhauFiy7k=;
+	s=default; t=1673954381;
+	bh=utjGxX5KnShJupXmJr2oXdREVXsLedngS3jGrS1gyMI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=je1Aopa2HkD6hNkjP2MJ4baaIoNujODmQpS7xs882/G6X/DaAmRwjL9GtGNC8qg6Q
-	 YF0+l05ofp9xzMF60U3aLfMSj5GKz6gCJdCsBERs+zQtZzQ9n6orzDINx+kBsxSo7T
-	 aRPkErSTCOPqBZf3IsPn5x5mZ3p9ykYW64UiyYe8=
+	b=YRA2RLnYNMiveVGDZ5Qa6eY3tIzG1QDL0JilWA3ZUI9a5pDOkuPly3u6mck/ETfka
+	 wcODFsD3Bn5DTC4buveKHH8JMuNUTgHNgV15aHhzIqTcloV2Vroisyddof1f2uRvud
+	 biW1eGVdV8cTK+dIDNYB+ArDk0XAB1JGD3+k2c/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8D48F80083;
-	Tue, 17 Jan 2023 12:18:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C16AF8026D;
+	Tue, 17 Jan 2023 12:18:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2377F8047B; Tue, 17 Jan 2023 12:18:13 +0100 (CET)
+ id 58BFAF804F2; Tue, 17 Jan 2023 12:18:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,62 +37,62 @@ Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83F18F8023A
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 12:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83F18F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57AE4F8023A
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 12:18:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57AE4F8023A
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=M5VfcbtC
-Received: by mail-wr1-x436.google.com with SMTP id e3so20988143wru.13
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 03:18:10 -0800 (PST)
+ header.s=google header.b=Iyxg74bB
+Received: by mail-wr1-x436.google.com with SMTP id t5so25799529wrq.1
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 03:18:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9F8FAq9VHh3X8R5TYntvycSxeEy9zUQAgESTqIenWBs=;
- b=M5VfcbtCsw01lCDWxI/FmN1NwPgHEaGl0oYAzM601jiZEYylOMcXYVVJhuUhmk7pjG
- QBt89h3Ns9mtXc7L+NCZzXAY7XD7Vm64GAqJJttlTNlrLiovRqG3Ymy/OnUXp05uJ0HJ
- 78Kxu/Rogv1S2Ptj4YH6pdStOrJEYUSqy0EAyb106MQ+skNCOfQYNeuzAhJuz7JeiY/d
- GTDetXITOHiRaUSunYV684bH3dfhrlthbtzSQ/w6SGiJGZontYwMDMYTN2agesepRCY0
- X+pzAW8mUHHHYgxNoFE7KR/mKsmmti9I3bDqSn3KTQypJ+KiiOh3IOM6Nv/WQepZuDvl
- fHfw==
+ bh=yNRGNwlNlCSw2219mzmzcHuVoA6n0rLRFLEvc8LW6gY=;
+ b=Iyxg74bBYLWGp513et7gB2YXtL7HK3kYuRl7xNOwXLaR0QDkm7sCLEM+NWaPJW9lBm
+ QQ4vUuI9S0KMD3ghyn6LJaOnJrpLD0lN4r0tTEkCTa+1SxfEOix+jowDPpRywuutMSzd
+ HU55Jx5wMdWXCeLVfGIbKD8xAtFxeYKbc6MprBdj8Wv7LGvCdAKHwYpr8EiE6ohtTcf0
+ PGEJtxLDbrKeMFDuRDSmJxT+Z/6cCOXebbU0texdQUj9tQoj2uQuSaBcnIlARRW4HEBs
+ JLONPAuPSCH/h9MUNhrCFc2jocqEkCyLFVQ5ShH5VfqouxTQbXc9T8m1ApLc3k4JyjGR
+ GSDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9F8FAq9VHh3X8R5TYntvycSxeEy9zUQAgESTqIenWBs=;
- b=7KHXJVYobq6q9NVZdIkuteUCnRzZaePzC5XuN0lL4TV8asREm2PKuys17lW6JpVpR+
- p/dzIhbnLwFG6tynda8RY8JYD2Q18UvGnhMBQ+mfpF4fi/+Umlv4w7MhkfaoyA7ogcRF
- h5IGvLlPknwfvOcSQ5lsfvAS63UYmFMh6tB+21Q8gPCRoDGSe6NZ+Lg01MYON7LWGPNv
- e1hAJEcltDFoMJ27d3qfw5ZIvk3UsBgiHVTjCre8LV8bzpe7gEiJqCquN+I1YZqCuOp6
- D+mt1hTJ0a319OLVIFJGRwaKN9qPRF4fEpBai2JIEiTfx3NvVOW7W+mft2kHj23KYwSw
- yApw==
-X-Gm-Message-State: AFqh2kqZVr8BxB40VUIWGYK5w0ebIOba8cgiI7LM8dcq14MgLZ3nqgW/
- 3DTVSIi3fkirRNjJqozZnci8AQ==
-X-Google-Smtp-Source: AMrXdXtuMwXDTKjRMyG4UHHCTHIY3tjmlqLwu/1pei9KsF5NZ+G3lpmedGWKLrTweXTxfyPz75A61w==
-X-Received: by 2002:a5d:6505:0:b0:2bd:dba2:c17e with SMTP id
- x5-20020a5d6505000000b002bddba2c17emr2414593wru.12.1673954288574; 
- Tue, 17 Jan 2023 03:18:08 -0800 (PST)
+ bh=yNRGNwlNlCSw2219mzmzcHuVoA6n0rLRFLEvc8LW6gY=;
+ b=oXQkh1OgQtW8G6Rxdtqm3WNV0orgy8burJkICJ7gFGSnyTJapAXHJoBIRL/w1AMCSK
+ NMz3ZLBHAUDYTFkV+Beq5ytn5Clwy7EZIEIXdZUSFxXr6aE8iWqzsfmMLr0ctIxIC+Sn
+ 8ojM/mk3pxaYJmaqCd5qwuYW8rGf5efaeeeJBn201yzCIk+Y90lQEa5w6+K6T9xvAlg8
+ x5HIIoJNpgB77SHrFKeWDJJvbyYf/u8cKN1RinX75V1zxaW7uFy4plHA/LGKnHKc522s
+ I6Ur7lPu8oWIk54NoTAiYqqs/wb8ULVTxQK9XOdHac7Asq5cRp7XZVOlhHswbe6lrUs3
+ Wu5A==
+X-Gm-Message-State: AFqh2kpIkv/v8hry/OJDiUJY3D44dQE0WxTA4kz6QTbxpirDVKu+Eteg
+ 9bweAumFgs3v067VsUbk0yB0FA==
+X-Google-Smtp-Source: AMrXdXuVWtE1Ni5EZq32Gzte0bp61JbiooFjWQqGOkD1Z37NFu6Rgo4WQWMFnOMwCLhEHBq3tOmVPQ==
+X-Received: by 2002:a5d:6b4d:0:b0:2bb:f88b:43b6 with SMTP id
+ x13-20020a5d6b4d000000b002bbf88b43b6mr2637076wrw.3.1673954291241; 
+ Tue, 17 Jan 2023 03:18:11 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- w10-20020a5d404a000000b00275970a85f4sm28466717wrp.74.2023.01.17.03.18.06
+ w10-20020a5d404a000000b00275970a85f4sm28466717wrp.74.2023.01.17.03.18.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 03:18:08 -0800 (PST)
+ Tue, 17 Jan 2023 03:18:10 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, rcsekar@samsung.com,
- alim.akhtar@samsung.com, robh+dt@kernel.org, lgirdwood@gmail.com,
+To: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>, alim.akhtar@samsung.com,
+ rcsekar@samsung.com, robh+dt@kernel.org, lgirdwood@gmail.com,
  aswani.reddy@samsung.com, krzysztof.kozlowski+dt@linaro.org,
- s.nawrocki@samsung.com, pankaj.dubey@samsung.com, tiwai@suse.com,
+ s.nawrocki@samsung.com, tiwai@suse.com, pankaj.dubey@samsung.com,
  broonie@kernel.org, perex@perex.cz
-Subject: Re: (subset) [PATCH v4 3/5] arm64: dts: fsd: Add I2S DAI node for
- Tesla FSD
-Date: Tue, 17 Jan 2023 12:18:01 +0100
-Message-Id: <167395418605.64421.15917174672513679108.b4-ty@linaro.org>
+Subject: Re: (subset) [PATCH v4 4/5] arm64: dts: fsd: Add codec node for Tesla
+ FSD
+Date: Tue, 17 Jan 2023 12:18:02 +0100
+Message-Id: <167395418605.64421.2322020488377607185.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230116103823.90757-4-p.rajanbabu@samsung.com>
+In-Reply-To: <20230116103823.90757-5-p.rajanbabu@samsung.com>
 References: <20230116103823.90757-1-p.rajanbabu@samsung.com>
- <CGME20230116103903epcas5p2c3e87c1df31b6a53e26fb1358a53f634@epcas5p2.samsung.com>
- <20230116103823.90757-4-p.rajanbabu@samsung.com>
+ <CGME20230116103908epcas5p49d65b8a38b8ecfeda508960a9543193d@epcas5p4.samsung.com>
+ <20230116103823.90757-5-p.rajanbabu@samsung.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -115,20 +115,15 @@ Cc: devicetree@vger.kernel.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Jan 2023 16:08:21 +0530, Padmanabhan Rajanbabu wrote:
-> Add device tree node for I2S0 and I2S1 CPU DAI instances for Tesla
-> FSD platform.
-> 
-> FSD SoC has 2 I2S instances driving stereo channel I2S audio playback
-> and capture with external DMA support.
+On Mon, 16 Jan 2023 16:08:22 +0530, Padmanabhan Rajanbabu wrote:
+> Add device tree node support for codec on Tesla FSD platform.
 > 
 > 
-> [...]
 
 Applied, thanks!
 
-[3/5] arm64: dts: fsd: Add I2S DAI node for Tesla FSD
-      https://git.kernel.org/krzk/linux/c/7f62af80dc62b82bc18f72c674e4c81c5ecbfe37
+[4/5] arm64: dts: fsd: Add codec node for Tesla FSD
+      https://git.kernel.org/krzk/linux/c/be8599d07a6a184a790054b9b229c0b37e418014
 
 Best regards,
 -- 

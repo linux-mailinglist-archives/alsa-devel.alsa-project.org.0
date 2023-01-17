@@ -2,85 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D640D66E0BC
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 15:31:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1F366E0D3
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 15:34:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B8876331;
-	Tue, 17 Jan 2023 15:31:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B8876331
+	by alsa0.perex.cz (Postfix) with ESMTPS id 256C2652A;
+	Tue, 17 Jan 2023 15:34:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 256C2652A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673965912;
-	bh=wBmY79D/XBmCEo2WPDabE2wir7MUxUIlpHlWXck/7R0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1673966092;
+	bh=fieUxPoa2F+7WuAa9U/Hl1w0iH0y2dKt1mEFMIFDzOY=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VkXxqvTiE+iIfXVs7IvJ8dyveji+pB42UhFEIKQoMPxoFjrndrsCuKBXpkcPHIp9t
-	 nFMGG42hQ1v/MF4cS1IXb8cLM+M0sb/7arFzyMRU26z8fVMlkD3QyyEu9Dmv78q++4
-	 ZGahpEQnIWKGKA9+u6lLd7Z8Y5gMtBPiHuhEOAk0=
+	b=bN8HyQAqCqZOzBk7J8NogKk5Z1bkV/4+LugJFc7veSvFoCt+dTK/eMYTxmc8EVKZo
+	 U6ZCqaNeNgBHcIBJpHA9X115w+XEkvvFEhKbuselGAw8VkN5hapMwe9MIYcvtEaaaw
+	 9U3oGQvhAcz/MnI3GboWRTQgUNmdrNg1iy9Zo3QI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD4B9F80083;
-	Tue, 17 Jan 2023 15:30:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C68CAF804DE;
+	Tue, 17 Jan 2023 15:33:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8FDEF804DE; Tue, 17 Jan 2023 15:30:52 +0100 (CET)
+ id 12736F8047B; Tue, 17 Jan 2023 15:33:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 572C4F80083
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 15:30:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 572C4F80083
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=B4SVzCLB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673965849; x=1705501849;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=wBmY79D/XBmCEo2WPDabE2wir7MUxUIlpHlWXck/7R0=;
- b=B4SVzCLBR6ztYCCmtorhnJ67/yyT76If4KSG/G0EZGnxXNSOe1HN2NHm
- IzeqRDugZ7Z6AjScuZREZhghXcKyBX7X5DEoMP8b4CHxRI5asp5+t6J9Y
- WWKGqeEVxLlZT30JTg0nHfI7P5rq+UQ25JXGByZ776YqyjJGa1PeZn6eu
- dtwkHun0i26iqxU/vVDmi2DMYl4rjqpSbDr7OM1cXKKEiGZ3GKocjLG2O
- hHCCwZ3+EUwPGxZmxa+YW9xJNUa3PJM2DLdqrcyPrt0gqoBMNqirg3kyU
- /mQZBECX8+ppTYgQq15aPj/Us/Yi2TmvjayFWG+o7U8dpwzFlpPOlXtJd A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="389204855"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="389204855"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 06:30:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="636886423"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="636886423"
-Received: from izakharo-mobl1.ger.corp.intel.com (HELO [10.252.14.16])
- ([10.252.14.16])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 06:30:42 -0800
-Message-ID: <63b9317b-97af-2264-0cce-5a0181496799@linux.intel.com>
-Date: Tue, 17 Jan 2023 16:30:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 0/3] ASoC: SOF: sof-audio: Fixes for widget prepare and
- unprepare
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230116125506.27989-1-peter.ujfalusi@linux.intel.com>
- <Y8afrS+wfZujFRHS@sirena.org.uk>
- <675f42a7-1d26-10bd-5862-f758d8b41849@linux.intel.com>
- <597d5cee-f9fd-411f-c780-8413b6fd422d@linux.intel.com>
- <Y8auL5VNefcFZAB4@sirena.org.uk>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <Y8auL5VNefcFZAB4@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD188F8023A
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 15:33:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD188F8023A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=dQg/7Cn2; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=YeXWrg2F
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7E529386EC;
+ Tue, 17 Jan 2023 14:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1673966023; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xOWvbQxV86BPByVhx38GAmMRWDHbT9IqXk6xEQSHQbE=;
+ b=dQg/7Cn217sYSDENe80ODuFk83nocHPYEELd/9sJsLCeUcbWfRgNqShZojULeeVACikCvp
+ eJfvcdpFhc25xwzSe1cQ9D5ZQW2d+tu2aaLPJbdbFx8RVOqui2J5Wj0VbiHmP017zPrSaG
+ 12kbud8IMseJ8rTlSg2xl6p8WAX8Z8E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1673966023;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xOWvbQxV86BPByVhx38GAmMRWDHbT9IqXk6xEQSHQbE=;
+ b=YeXWrg2FbtP4jKRVYTe6Oqn3Wv310VbcuPp41I0CXyezqyWl43oP2ZTO2XnHoU/SCdGUhr
+ b2ueaku63Q1DbtDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5B60E13357;
+ Tue, 17 Jan 2023 14:33:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OgQqFcexxmPHLAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 17 Jan 2023 14:33:43 +0000
+Date: Tue, 17 Jan 2023 15:33:42 +0100
+Message-ID: <87tu0p6xix.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>
+Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
+In-Reply-To: <Y8au5JiQ3w1YPZ8d@mail-itl>
+References: <Y5KPAs6f7S2dEoxR@mail-itl> <87tu256lqs.wl-tiwai@suse.de>
+ <Y5MssNfvE+mUyyZR@mail-itl> <Y5PaF4LhQGIrKthy@mail-itl>
+ <Y5SxJ3IkhHSC/Psu@mail-itl> <87o7rv507o.wl-tiwai@suse.de>
+ <Y6sOvyYwuR8Pu0wj@mail-itl> <87bkmya2zk.wl-tiwai@suse.de>
+ <87tu0p8uda.wl-tiwai@suse.de> <Y8aIPPcPuDeNkVEy@mail-itl>
+ <Y8au5JiQ3w1YPZ8d@mail-itl>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -94,34 +106,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com, rander.wang@intel.com,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com,
- angelogioacchino.delregno@collabora.com
+Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
+ Alex Xu <alex_y_xu@yahoo.ca>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 17/01/2023 16:18, Mark Brown wrote:
-> On Tue, Jan 17, 2023 at 04:05:18PM +0200, PÃ©ter Ujfalusi wrote:
+On Tue, 17 Jan 2023 15:21:23 +0100,
+Marek Marczykowski-Górecki wrote:
 > 
->> It is the topology ops optionality stuff. It is in itself a trivial (for
->> my eyes) conflict, but it is a conflict never the less.
+> On Tue, Jan 17, 2023 at 12:36:28PM +0100, Marek Marczykowski-Górecki wrote:
+> > On Tue, Jan 17, 2023 at 08:58:57AM +0100, Takashi Iwai wrote:
+> > > On Mon, 16 Jan 2023 16:55:11 +0100,
+> > > Takashi Iwai wrote:
+> > > > 
+> > > > On Tue, 27 Dec 2022 16:26:54 +0100,
+> > > > Marek Marczykowski-Górecki wrote:
+> > > > > 
+> > > > > On Thu, Dec 22, 2022 at 09:09:15AM +0100, Takashi Iwai wrote:
+> > > > > > On Sat, 10 Dec 2022 17:17:42 +0100,
+> > > > > > Marek Marczykowski-Górecki wrote:
+> > > > > > > 
+> > > > > > > On Sat, Dec 10, 2022 at 02:00:06AM +0100, Marek Marczykowski-Górecki wrote:
+> > > > > > > > On Fri, Dec 09, 2022 at 01:40:15PM +0100, Marek Marczykowski-Górecki wrote:
+> > > > > > > > > On Fri, Dec 09, 2022 at 09:10:19AM +0100, Takashi Iwai wrote:
+> > > > > > > > > > On Fri, 09 Dec 2022 02:27:30 +0100,
+> > > > > > > > > > Marek Marczykowski-Górecki wrote:
+> > > > > > > > > > > 
+> > > > > > > > > > > Hi,
+> > > > > > > > > > > 
+> > > > > > > > > > > Under Xen PV dom0, with Linux >= 5.17, sound stops working after few
+> > > > > > > > > > > hours. pavucontrol still shows meter bars moving, but the speakers
+> > > > > > > > > > > remain silent. At least on some occasions I see the following message in
+> > > > > > > > > > > dmesg:
+> > > > > > > > > > > 
+> > > > > > > > > > >   [ 2142.484553] snd_hda_intel 0000:00:1f.3: Unstable LPIB (18144 >= 6396); disabling LPIB delay counting
+> > > > > > > > 
+> > > > > > > > Hit the issue again, this message did not appear in the log (or at least
+> > > > > > > > not yet).
+> > > > > > > > 
+> > > > > > > > (...)
+> > > > > > > > 
+> > > > > > > > > > In anyway, please check the behavior with 6.1-rc8 + the commit
+> > > > > > > > > > cc26516374065a34e10c9a8bf3e940e42cd96e2a
+> > > > > > > > > >     ALSA: memalloc: Allocate more contiguous pages for fallback case
+> > > > > > > > > > from for-next of my sound git tree (which will be in 6.2-rc1).
+> > > > > > > > 
+> > > > > > > > This did not helped.
+> > > > > > > > 
+> > > > > > > > > Looking at the mentioned commits, there is one specific aspect of Xen PV
+> > > > > > > > > that may be relevant. It configures PAT differently than native Linux.
+> > > > > > > > > Theoretically Linux adapts automatically and using proper API (like
+> > > > > > > > > set_memory_wc()) should just work, but at least for i915 driver it
+> > > > > > > > > causes issues (not fully tracked down yet). Details about that bug
+> > > > > > > > > report include some more background:
+> > > > > > > > > https://lore.kernel.org/intel-gfx/Y5Hst0bCxQDTN7lK@mail-itl/
+> > > > > > > > > 
+> > > > > > > > > Anyway, I have tested it on a Xen modified to setup PAT the same way as
+> > > > > > > > > native Linux and the audio issue is still there.
+> > > > > > > > > 
+> > > > > > > > > > If the problem persists, another thing to check is the hack below
+> > > > > > > > > > works.
+> > > > > > > > 
+> > > > > > > > Trying this one now.
+> > > > > > > 
+> > > > > > > And this one didn't either :/
+> > > > > > 
+> > > > > > (Sorry for the late reply, as I've been off in the last weeks.)
+> > > > > > 
+> > > > > > I think the hack doesn't influence on the PCM buffer pages, but only
+> > > > > > about BDL pages.  Could you check the patch below instead?
+> > > > > > It'll disable the SG-buffer handling on x86 completely. 
+> > > > > 
+> > > > > This seems to "fix" the issue, thanks!
+> > > > > I guess I'll run it this way for now, but a proper solution would be
+> > > > > nice. Let me know if I can collect any more info that would help with
+> > > > > that.
+> > > > 
+> > > > Then we seem to go back again with the coherent memory allocation for
+> > > > the fallback sg cases.  It was changed because the use of
+> > > > dma_alloc_coherent() caused a problem with IOMMU case for retrieving
+> > > > the page addresses, but since the commit 9736a325137b, we essentially
+> > > > avoid the fallback when IOMMU is used, so it should be fine again.
+> > > > 
+> > > > Let me know if the patch like below works for you instead of the
+> > > > previous hack to disable SG-buffer (note: totally untested!)
+> > > 
+> > > Gah, there was an obvious typo, scratch that.
+> > > 
+> > > Below is a proper patch.  Please try this one instead.
+> > 
+> > Thanks, I'll give it a try.
 > 
->> This is not going to backport cleanly to stable either.
-> 
->> What would be the preferred way to handle this (for next, for 6.2 and
->> for 6.1.x)?
-> 
-> Can you send me a version that applies against for-6.2, if it
-> doesn't backport to stable you can send an explicit backport
-> patch once that becomes an issue.  I'm much happier resolving a
-> merge between 6.2 and 6.3 than on initial application.
+> Unfortunately, it doesn't help, it stopped working again, after about 3h
+> uptime.
 
-Sure, just to be sure: v3 which is against 6.2-rc, right?
+Aha, then it might be rather other way round;
+dma_alloc_noncontiguous() doesn't work on Xen properly.
 
-I can assist you in case of a conflict.
+Could you try the one below instead of the previous?
 
--- 
-PÃ©ter
+
+Takashi
+
+-- 8< --
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -538,11 +538,11 @@ static const struct snd_malloc_ops snd_dma_wc_ops = {
+  */
+ static void *snd_dma_noncontig_alloc(struct snd_dma_buffer *dmab, size_t size)
+ {
+-	struct sg_table *sgt;
++	struct sg_table *sgt = NULL;
+ 	void *p;
+ 
+-	sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
+-				      DEFAULT_GFP, 0);
++	// sgt = dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
++	//			      DEFAULT_GFP, 0);
+ #ifdef CONFIG_SND_DMA_SGBUF
+ 	if (!sgt && !get_dma_ops(dmab->dev.dev)) {
+ 		if (dmab->dev.type == SNDRV_DMA_TYPE_DEV_WC_SG)

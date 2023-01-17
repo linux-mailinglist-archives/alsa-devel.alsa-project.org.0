@@ -2,90 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F7B66DDBD
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 13:37:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E6766DDF2
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Jan 2023 13:45:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31C656784;
-	Tue, 17 Jan 2023 13:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31C656784
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACC5467AE;
+	Tue, 17 Jan 2023 13:44:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACC5467AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1673959048;
-	bh=uhUyp8s8X+TLtfLu32/M/aKyQIv+uFrr5EaeTyAlnig=;
+	s=default; t=1673959535;
+	bh=LYt9Zjh3U1vSbk/jnAFB5FURBSw9E3xiD1G2Qih/3yI=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=SsfXL9+46ScbvHAyAho/LNGT7ZINZqy1aI3GSOpxfXuL6LV7k9tYB+EUYO0zhkeJl
-	 Amqzkd7ucsaEE8wIa+5qc1Qld44g4MytTMXywaUBCWXWUhKEvQL0d8QD6DE4wcVQWc
-	 YqJPeR8temSflCnzH6xX8TcwFVKo3Y9/rNll2ROw=
+	b=DM8XrTUPFd5TTLbQ8BN9y75cjtlO3KJkJrLY7H+ij2ZAz3UiFOP74P52Xyt772WW3
+	 4z3MSRU1Od7cMJmi/UDZvq12e4UtTAsx8ymaN+lGZtgLphxad6fjbcOEntV5OGuvIX
+	 WqxFIKrndNbFyJLA5GShxYRBdSoYyS5HUpStyuSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE0B2F8026D;
-	Tue, 17 Jan 2023 13:36:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52FB7F8023A;
+	Tue, 17 Jan 2023 13:44:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB370F804E6; Tue, 17 Jan 2023 13:36:35 +0100 (CET)
+ id EB3ECF804DE; Tue, 17 Jan 2023 13:44:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4BC2F8023A
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 13:36:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4BC2F8023A
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDF1AF8022D
+ for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 13:44:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDF1AF8022D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=b7m8Gxj9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673958992; x=1705494992;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=uhUyp8s8X+TLtfLu32/M/aKyQIv+uFrr5EaeTyAlnig=;
- b=b7m8Gxj9TQ3oZ2fNAhok3Uu3aN+9ST1FqIb8RZdVRrMzi/l7F9tFTeaq
- QCdxfuuo0qO2XFJALxdBkqRY4IvNcW2cPbBi63tO2AEy567USSq2nlET4
- ItqClxJg5sw2GcPDstj39RueFYmbMF+/nzR1+5bFs6pIaZdjBvfocwRAF
- KywYw5sRgyBPF73iJib1TO4IZ3eT/8lBkm0kpI7RJpz1P/xLz/0174JQY
- 4AYXL9dZY96Q3xGEyzbT+Ebd4JiPEk6pD+MlkTqDy5xwZUB0fmB0xdYNL
- tUDCZ1QGEZGhc4bJVBckgu+qiQZRudPQP9FaHsNjDEooDN+Lp4BU7oecf Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="305058722"
-X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="305058722"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 04:36:21 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="722641870"
-X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="722641870"
-Received: from tdnguye2-mobl.amr.corp.intel.com (HELO [10.212.127.230])
- ([10.212.127.230])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 04:36:20 -0800
-Message-ID: <f3aaf5b7-d822-d5d6-eb7c-71ef1e9c9e73@linux.intel.com>
-Date: Tue, 17 Jan 2023 06:36:19 -0600
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=GisC5/yj
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 57C156602D91;
+ Tue, 17 Jan 2023 12:44:38 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1673959478;
+ bh=LYt9Zjh3U1vSbk/jnAFB5FURBSw9E3xiD1G2Qih/3yI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GisC5/yjQ4g/R3OCu3f1HMt9qNULbOYPux+knYi8oLrnU6yqOay59cK6UW0CXUe58
+ dr3q/LZiJxcGrF14mkUIjva+WlPB7URi+l6u+gGOXesYo3ayCDdPdliN1UZjIm3s2v
+ qMwRv1NGBkyRtjh0VLcyH6qTRSsyE4nk9oO5jmiVlhQbls1uwH2fBRhyD8iVbMuM4w
+ 8E2dxZk2JK+EuVZhLZvk53NlezEmkDVWReGmGDu1Or0h4R8SkmTlMp5MEd47M8Nb+V
+ 5cfjXNKJkR0P3rXZRpBee18SLKPCeh2S+83Znyn61lZsj/lHwzU0IFQh6DCRn+ePTh
+ JXsVwUPUNnuDQ==
+Message-ID: <1e2913ab-b796-f839-0383-d1fba6abf410@collabora.com>
+Date: Tue, 17 Jan 2023 13:44:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 19/19] ASoC: amd: ps: increase runtime suspend delay
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 2/3] ASoC: SOF: sof-audio: skip prepare/unprepare if
+ swidget is NULL
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <5a34e6f7-eaf1-8128-81e4-81f65541d9a8@linux.intel.com>
- <1a14e117-4216-b98d-f972-c9a02cf79d1e@amd.com>
- <eb12ed5d-a9f9-cb8d-28f5-ac84c75cf441@linux.intel.com>
- <90782037-109b-b197-ca17-b7d199931f7d@amd.com>
- <e73032b1-ac5b-4a3a-e2a0-8ac121853dee@linux.intel.com>
- <Y8G3mPUDWWUu/3ZR@sirena.org.uk>
- <ef05d550-c2aa-e256-58ec-612c2a3294ca@amd.com>
- <62272f17-bb97-aa10-d5d9-0914595e5431@linux.intel.com>
- <b61474ce-01a9-7602-e3c0-df8fdc5191c6@amd.com>
- <625915d5-0c2a-ce63-e71b-ff4f4f2c6d07@linux.intel.com>
- <Y8aRlJRsCjIzYuqa@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <Y8aRlJRsCjIzYuqa@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
+ broonie@kernel.org
+References: <20230116125506.27989-1-peter.ujfalusi@linux.intel.com>
+ <20230116125506.27989-3-peter.ujfalusi@linux.intel.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20230116125506.27989-3-peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -99,43 +87,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Basavaraj.Hiregoudar@amd.com, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, vkoul@kernel.org, "Limonciello,
- Mario" <mario.limonciello@amd.com>, "Mukunda,
- Vijendar" <vijendar.mukunda@amd.com>, arungopal.kondaveeti@amd.com,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 1/17/23 06:16, Mark Brown wrote:
-> On Tue, Jan 17, 2023 at 05:51:03AM -0600, Pierre-Louis Bossart wrote:
->> On 1/17/23 05:33, Mukunda,Vijendar wrote:
+Il 16/01/23 13:55, Peter Ujfalusi ha scritto:
+> From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 > 
->> [    2.758904] rt1316-sdca sdw:0:025d:1316:01:0: ASoC: error at
->> snd_soc_component_update_bits on sdw:0:025d:1316:01:0 for register:
->> [0x00003004] -110
+> Skip preparing/unpreparing widgets if the swidget pointer is NULL. This
+> will be true in the case of virtual widgets in topology that were added
+> for reusing the legacy HDA machine driver with SOF.
 > 
->> The last one is clearly listed in the regmap list.
-> 
->> You probably want to reverse-engineer what causes these accesses.
->> I see this suspicious kcontrol definition that might be related:
-> 
->> 	SOC_SINGLE("Left I Tag Select", 0x3004, 4, 7, 0),
-> 
-> Looks like a case for putting the CODEC in cache only mode...
+> Fixes: 9862dcf70245 ("ASoC: SOF: don't unprepare widget used other pipelines")
+> Cc: <stable@vger.kernel.org> # 6.1
+> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Reviewed-by: Rander Wang <rander.wang@intel.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-Right, and I think we'd need to do this during the probe instead of the
-hardware initialization (which could happen at a later time).
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-I started a PR to try and improve regmap handling, see
-https://github.com/thesofproject/linux/pull/3941
+[Angelo: Tested on MT8195 Tomato Chromebook]
+Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-I was trying to solve the case where codecs become unattached, but
-apparently the problem is hardware-related. One of the suggested
-improvements was to move the cache_only part earlier to prevent such
-accesses. Unfortunately the work isn't complete so that PR is just a
-draft at the moment.

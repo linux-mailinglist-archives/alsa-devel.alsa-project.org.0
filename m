@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B0B671E4C
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 14:43:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F26671E4D
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 14:43:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 779B73C81;
-	Wed, 18 Jan 2023 14:42:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 779B73C81
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9743E489D;
+	Wed, 18 Jan 2023 14:43:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9743E489D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674049417;
-	bh=3aw2Of8C8dj0Sl2s2WbPQ4HaD1owl4Omnh3YKIftZSU=;
+	s=default; t=1674049430;
+	bh=aF1vAtO//C1XF9AQ5nzlkEx0tMeil3RfjeIi7EtuUu0=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AZAjs5W98xqZTiUxXss5m0oeJPFapnUVNyWgEWWk/CON77Oh4IFCqt44CNH/qKjNG
-	 L3C2pEJdTZJT93MkKptM/iOBFdD1c99jx83216aUI/AaHdpayDpJPUTVICfhCDA/0N
-	 emhWKxvbz2m0qSK2WMdDHKgzYQzsVoyK9DULqmEQ=
+	b=lXrFkg5zgO0nGVOCdngk7J8G8vu6vk7jhR9Zqd4cHqRhBZQOrxUuGPEjEEwdPOk68
+	 tKmUSCrPGNEcEJ4hY25O40D6bXCldBvHtndzocRCDO5a4UAf7dQ8O69aFpG+9OqDLh
+	 tRvMgDa9irWHeaz/pOfRoUbZcjCjm7qiXF1n/f6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3146F80083;
-	Wed, 18 Jan 2023 14:42:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EEA3F8021D;
+	Wed, 18 Jan 2023 14:42:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB67AF80557; Wed, 18 Jan 2023 14:42:43 +0100 (CET)
+ id 6CB89F8021D; Wed, 18 Jan 2023 14:42:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,42 +35,38 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34922F80083
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 14:42:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34922F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A6FEF8021D
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 14:42:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A6FEF8021D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SEAzXHBa
+ header.s=k20201202 header.b=ihZWz81p
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D382BB81D15;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 043A7B81C84;
+ Wed, 18 Jan 2023 13:42:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497EEC433F0;
  Wed, 18 Jan 2023 13:42:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9815C433F1;
- Wed, 18 Jan 2023 13:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674049359;
- bh=3aw2Of8C8dj0Sl2s2WbPQ4HaD1owl4Omnh3YKIftZSU=;
+ s=k20201202; t=1674049364;
+ bh=aF1vAtO//C1XF9AQ5nzlkEx0tMeil3RfjeIi7EtuUu0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=SEAzXHBa6pUh42R8aSZQ8mep00K65aAwIAYt03OIA1yAqEk3Lh1t9RZnPjY4lZOMm
- +jzbZbATJHB9xhbD5T0ZNQcuneI6wT7j0xtBXyqAv8aun2KnSGfFvueZ+LMLVYelY4
- eHguuCw8v5z4vWMIFn8+bdgMQHNYSkq4Tw5U7WZWk1CCksDbNgwu757O4GNLWftzZH
- HvPPJggcAmDftf/c/l6JGnGLrZNt4cMfihFtlWj7SSweCekAuBH1dydaQc9eWrfdeM
- hZJ0Nvbg1SItcJ0yWxxyGpD7NQyWbFn77rSD5oVb5GIV4jRcvuxpjddSYhW9TrzA2T
- OJxNw12FHol6A==
+ b=ihZWz81pyWzvJdsvlvz4m8Ur7xAg8Dde58yOtNO3Ha+GUPucbyX9r/Ik+lN6Gsz6K
+ 2AlQoLLjPYqAHppLT8Z+Y/MNGth0EfNLR9FWeJvHQyw6CVBblMhzu31K+e7JzUHb2t
+ KzlBcRwsLNb6QPjFuWXF42CzdfFUewsRu1Y6ZClJhBMU47Jjzory8CvZdpSmbm4yxI
+ jmnSEPMjJAmf7BQepzSPMdIi2K5RrbSs99f2Bp9ViHp0k3TVDOTTeWWyB13WFEwGGW
+ e9FbBMXQJoQdqYLoMJa1PP/tojDac3ekIn3ESdu+HcmedkbdXrS1PhiqGd/RSXz4Uy
+ ZhfAMuhtLFYuA==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org, 
- krzysztof.kozlowski+dt@linaro.org, s.nawrocki@samsung.com, perex@perex.cz, 
- tiwai@suse.com, pankaj.dubey@samsung.com, alim.akhtar@samsung.com, 
- rcsekar@samsung.com, aswani.reddy@samsung.com, 
- Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-In-Reply-To: <20230116103823.90757-1-p.rajanbabu@samsung.com>
-References: <CGME20230116103841epcas5p17b33f2b6567935d6be59b4d2b5d9f847@epcas5p1.samsung.com>
- <20230116103823.90757-1-p.rajanbabu@samsung.com>
-Subject: Re: (subset) [PATCH v4 0/5] ASoC: samsung: fsd: audio support for
- FSD SoC
-Message-Id: <167404935251.749539.9077335076740575140.b4-ty@kernel.org>
-Date: Wed, 18 Jan 2023 13:42:32 +0000
+To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ alsa-devel@alsa-project.org, Faiz Abbas <faiz.abbas@arm.com>
+In-Reply-To: <20230117061808.18422-1-faiz.abbas@arm.com>
+References: <20230117061808.18422-1-faiz.abbas@arm.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: simple-card: Document
+ simple-audio-card,plat
+Message-Id: <167404935974.749539.3058245186501349723.b4-ty@kernel.org>
+Date: Wed, 18 Jan 2023 13:42:39 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -87,22 +83,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
+ Deepak.Pandey@arm.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ Anurag.Koul@arm.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Jan 2023 16:08:18 +0530, Padmanabhan Rajanbabu wrote:
-> This patch series enables audio support on FSD SoC.
+On Tue, 17 Jan 2023 11:48:08 +0530, Faiz Abbas wrote:
+> The simple card driver already has support for a simple-audio-card,plat
+> property but its not reflected in the documentation. Add documentation
+> for this plat property.
 > 
-> Changes in v4:
-> 1. Rebased and addressed review comments provided for v3.
 > 
-> Changes in v3:
-> 1. Addressed all the review comments provided for v2 patch.
-> 2. Fixed compilation warnings reported by kernel test robot.
-> 
-> [...]
 
 Applied to
 
@@ -110,10 +102,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: dt-bindings: Add FSD I2S controller bindings
-      commit: 93d79d410c0b33ff7b31015b9c2459bb5cabf030
-[2/5] ASoC: samsung: i2s: add support for FSD I2S
-      commit: bc36d761cad7f3fec22cd97ddaa80f0120610181
+[1/1] ASoC: dt-bindings: simple-card: Document simple-audio-card,plat
+      commit: e7e2b92e609f82cd164209509f852de941e1285b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

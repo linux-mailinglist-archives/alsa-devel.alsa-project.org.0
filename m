@@ -2,93 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5C967276F
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 19:46:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB11672B57
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 23:33:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B1FC7955;
-	Wed, 18 Jan 2023 19:45:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B1FC7955
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C0567BDC;
+	Wed, 18 Jan 2023 23:32:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C0567BDC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674067574;
-	bh=bI+3I7jEOIiGFG0OUiEj9DtLYMDw5QUc+0NJWi4lgGg=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1674081218;
+	bh=iR2rhrTSMYK9PDj2icFRUKFemo5k3GYEy4vYgABVWBA=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=kSCbqB0/UhOxNLZ+5YAlzOapynlH88rzBfbiPiYLm4w5YVYj0Qxa/k6XqONLlKRbJ
-	 mSzCf7ME5tnnDFmbEIBwjJTN75NaHtK0W8iLRFTyIDNpzBfG3Blh3oc7Cu/jN8dFyK
-	 TzTxGGpFRY6hIv1xgPfIadcR0AHDNRTw9C6Y8Fsk=
+	b=k39jIaIG3MNWSQiD4iZv4AJSmAvmdCQ6IUiEqFmTPy6MQSMTuzkzGtnNMol9b4KTH
+	 xjVNU8mmXVCG7bR2b9sev4g0swXth1JEzRULxYQetc92Xi896U2yUso3Q2p9EaEEkK
+	 NRciTlGKs0RQJzupVfLlH1pxtLKcMIlxkiv7Dxrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28E68F80482;
-	Wed, 18 Jan 2023 19:45:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 666F6F8024C;
+	Wed, 18 Jan 2023 23:32:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E39BF80083; Wed, 18 Jan 2023 19:45:21 +0100 (CET)
+ id A2AE6F8026D; Wed, 18 Jan 2023 23:32:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BF0CF80083
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 19:45:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF0CF80083
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=RyXUT5Hl; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NLWmAo3E
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EA96F5C208;
- Wed, 18 Jan 2023 18:45:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674067516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Wup1jTLVlB7BnualzffoD/w5qclrnhQQwM3y50nMKO0=;
- b=RyXUT5HluXPO4qE7SzMN0PTf4926WU64TdgkhdLRZzZv6e3J2s4VZ2BWpSLpGah00EqFKd
- kdgzedOituLFuldpn2Y/4+kMfCXmDLKXB0RWh0jPSyfRZEkIzxKJyedL2T5G5uSDBK7+92
- zjooRdjpqQcyQGfRUlixpLrNagqM6Bo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674067516;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Wup1jTLVlB7BnualzffoD/w5qclrnhQQwM3y50nMKO0=;
- b=NLWmAo3EfjCmtRWEapzXI6yPeCYlQIfYfDHfq3vPdLr7YR+wy+k3AFsfScJ5465sMUACFN
- dBjxWvZYQIrzTaAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF90B138FE;
- Wed, 18 Jan 2023 18:45:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Os/FMTw+yGO4bgAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 18 Jan 2023 18:45:16 +0000
-Date: Wed, 18 Jan 2023 19:45:16 +0100
-Message-ID: <877cxj65s3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mike FABIAN <mfabian@redhat.com>
-Subject: Re: No sound on HDMI by default on Lenovo T14s using Fedora 37
-In-Reply-To: <s9dfsc7ixik.fsf@hathi.site>
-References: <s9dy1pzx3ki.fsf@hathi.site> <87k01j6cw6.wl-tiwai@suse.de>
- <s9dfsc7ixik.fsf@hathi.site>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2651F8024C
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 23:32:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2651F8024C
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=mixoZB3X
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-4bf16baa865so1222887b3.13
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 14:32:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=iR2rhrTSMYK9PDj2icFRUKFemo5k3GYEy4vYgABVWBA=;
+ b=mixoZB3XxmmwB+248ZOx2zNjqNP3syHPWQOlCKWGblxckFWMjSkBVb8eywGZvwRUBH
+ 2cwxPpzrbeiHAIZfMqIXhTAdpWS0sYi+8waOYFI+zh2X6q6AqS8hKxWPE5lO17MoE2bx
+ u93UNmBAkcQAsb5eRWo2mt0ca4/WXqAUfgOQiHeWj1VqyyIctf5GrACBkukpyVikFrNr
+ qFVgR7FFMN2D+FFf+aDQ/I58WFeHnaYgPN+xgfKgxSDuiYDMhBBXSCxILdPU5vPbQN7K
+ KxGwEaWV1/Fs0wPKjPnVXFvsK+KXS7oRs1S2ibwZ5/zcr/2rqij2f+S0plYKkBo7VCop
+ 7H6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iR2rhrTSMYK9PDj2icFRUKFemo5k3GYEy4vYgABVWBA=;
+ b=17ogRme6meBO0IWLJ4atkx7aHdCTNdl3DJ8b8UBMykZpH5YnrEeDsMuRBchvI5NR/t
+ TI65qLfZC1o94nFxQfNPlAFPK9JPZuTdtUEvqXIA31K8126vzTEdXppRHDf+IXv29Srx
+ H92ODxBKIKbI69IMP01hSbWQKuyi7WTQUm3S6Q/IUY/+meme22h5K13I1oOCK9Rwor8j
+ raAP7EDaGqCt8H0jmVKvKSl4KsPCifipy4ESUppLH1Yc5BZ12K8X7h0nO/k5WvrRhtlZ
+ 735BV9Il6IuXTNKffg6tRJ0tVt8qHnEvGTFOumgKoy3/c8c6cEq9UaAySVQTWyDGD4R/
+ PP0w==
+X-Gm-Message-State: AFqh2kr/TwbdQkUQDphVMJS7488icwt3HppfNqQ0fOxoVR5AJz1H0545
+ DIVTqqPKsMpuSeCbJqwuvN+6Y6gQAX+BBrXA/m9jVQ==
+X-Google-Smtp-Source: AMrXdXthNU+N2HysXSnoWkZV1WoH8vtXfPtXO05j8luFV1F0xquuRFfbj1CWJAKa2gVJWtkVD+77IuheHg/Ii70YLyw=
+X-Received: by 2002:a0d:ce43:0:b0:474:b3f2:8df1 with SMTP id
+ q64-20020a0dce43000000b00474b3f28df1mr999564ywd.434.1674081148032; Wed, 18
+ Jan 2023 14:32:28 -0800 (PST)
+MIME-Version: 1.0
+References: <20230118161110.521504-1-arnd@kernel.org>
+ <20230118161110.521504-3-arnd@kernel.org>
+In-Reply-To: <20230118161110.521504-3-arnd@kernel.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 18 Jan 2023 23:32:14 +0100
+Message-ID: <CACRpkdbO9-GioRumc8tOZ_NjUQUQ2JN2R2sJpRou4kbucmEWaQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] ASoC: ux500: remove platform_data support
+To: Arnd Bergmann <arnd@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,67 +96,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Jan 2023 18:05:23 +0100,
-Mike FABIAN wrote:
-> 
-> Takashi Iwai <tiwai@suse.de> さんはかきました:
-> 
-> > On Wed, 18 Jan 2023 16:30:53 +0100,
-> > Mike FABIAN wrote:
-> >> 
-> >> 
-> >> With a Lenovo Thinkpad T14s (Gen1, Intel version), I tried to get sound
-> >> on the monitor speakers via the HDMI cable.
-> >> 
-> >> It didn’t work out of the box and after a bit of googling I found:
-> >> 
-> >>     https://forums.lenovo.com/t5/ThinkPad-T400-T500-and-newer-T-series-Laptops/T14s-AMD-no-HDMI-audio-on-Linux/m-p/5081195?page=2
-> >> 
-> >> 
-> >> which suggested to put
-> >> 
-> >>     snd_rn_pci_acp3x.dmic_acpi_check=0
-> >> 
-> >> on the kernel command line.
-> >> 
-> >> So I tried this:
-> >> 
-> >> $ cat /etc/modprobe.d/lenovot14s.conf 
-> >> options snd-rn-pci-acp3x dmic_acpi_check=0
-> >> 
-> >> And that did make it work indeed.
-> >> 
-> >> I have no idea what this means and why this makes it work.
-> >
-> > The option basically should influence on the driver's behavior whether
-> > to probe the built-in d-mic or not, and it has no direct relationship
-> > with HDMI (supposedly via HD-audio bus), so it's puzzling how this
-> > fixes the problem.
-> >
-> > Could you run alsa-info.sh (with --no-upload option) on both working
-> > and non-working cases, and attach both outputs for comparison?
-> 
-> I removed /etc/modprobe.d/lenovot14s.conf but now it still works ☹
-> 
-> I did a “sudo dnf --enablerepo=updates-testing update”
-> 
-> since I last rebooted, so it is possible that an update fixed this.
-> 
-> So unfortunately I cannot produce a “alsa-info.sh --no-upload” output
-> for the non-working case anymore (I attached the output for the working
-> case *without* /etc/modprobe.d/lenovot14s.conf (i.e. without snd_rn_pci_acp3x.dmic_acpi_check=0)
+On Wed, Jan 18, 2023 at 5:17 PM Arnd Bergmann <arnd@kernel.org> wrote:
 
-Hm, I see no snd-rn-pci-acp3x module is loaded there, so something
-might prevent it loaded (e.g. blacklist or such)?
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The platform data definition for ux500 sound devices was removed
+> six years ago after the DT conversion was completed, see commit
+> 4b483ed0be8b ("ARM: ux500: cut some platform data").
+>
+> Remove some leftover bits in the ASoC driver and just assume that
+> it always gets probed using DT.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-And, with this state, can you use the built-in mic?  Also, how after
-restoring the module option?
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-
-thanks,
-
-Takashi
+Yours,
+Linus Walleij

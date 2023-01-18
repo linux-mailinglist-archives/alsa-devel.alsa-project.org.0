@@ -2,74 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E3B26721FA
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 16:48:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19AC167227D
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 17:07:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF87798A;
-	Wed, 18 Jan 2023 16:47:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF87798A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9F2E676F;
+	Wed, 18 Jan 2023 17:06:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9F2E676F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674056886;
-	bh=lYFKVvc7tvviq3RgBfe8rDLSTPHhOHUruMa3+8hdj6U=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=AB4+ndhQcS4IevnQyCfVFcImk83MOprdun/oev4ZXmPev8olZoC4nxgqb11otvUpu
-	 JzURX3GeRIfDamKZ5MBj7JPugRZFjUFkWC+uNuyCz2f2zzVvxX2PejCOZIUQpDcVXM
-	 VQZiCdSQDcjbzGE0fyWRM/tgA+EWedpRGZGk9kYw=
+	s=default; t=1674058027;
+	bh=NGJIxez0hX5y1kWh4U8jctHG3HciDy9GdtO4craFfag=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ZYXEBqI6K1gIRu3eX7ZHu1L+7YdgXTZMm6RhazUYvQS4gt6HJzo4jG8UVS9lEEko2
+	 XmHoP4z8rKOKV5wL4ksjBCS1W2ojDRkNJbrFeL2pv9CYmI1C77fT15SNPBamdVt5Bs
+	 UfAwrCj4GwtqErm0HbjyRCF/6sv3NvY63l1nX9nI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC2E3F80520;
-	Wed, 18 Jan 2023 16:46:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2039FF80558;
+	Wed, 18 Jan 2023 17:05:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A55E5F804A9; Wed, 18 Jan 2023 16:46:25 +0100 (CET)
+ id 82F6FF80551; Wed, 18 Jan 2023 17:05:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1EB9F8024D
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 16:46:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1EB9F8024D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=utPpXgq9
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4F5CDB81D8E;
- Wed, 18 Jan 2023 15:46:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 449F9C433EF;
- Wed, 18 Jan 2023 15:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674056780;
- bh=lYFKVvc7tvviq3RgBfe8rDLSTPHhOHUruMa3+8hdj6U=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=utPpXgq9BbrisKelrYCw8xfIK0oG88bZ9HCpeH6Nrj4Fk3GvtfXN3FpodWHciXSnP
- OAYbyIHsfUn7lXgFCzY01el7BGJgPlgdvARu7XqEWUzK3kAeGJjZYpsG+74q4ZAlvW
- OKinYBTezmsNS/gj0/uLtKS3y9qa+XxJYIEasBALHN05a/CHK1LEE1sGi5VEPwJdyj
- osycdD/mtq/NxV0whWwgU2o/QgjuAlOOyykFvVG2tGMJwPkI7C49TW8XXqkEsxB8yj
- eE2Bv4VjODhdx3MFz0ApW9NhbQOi7E6D6zmQ9LDeF0R3dZl+gicXx9CvtdWhhbx2TF
- fcWRUbEO+IW+Q==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230118101255.29139-1-peter.ujfalusi@linux.intel.com>
-References: <20230118101255.29139-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v3 0/3] ASoC: SOF: sof-audio: Fixes for widget prepare
- and unprepare (for 6.2)
-Message-Id: <167405677569.930478.13759548736696801543.b4-ty@kernel.org>
-Date: Wed, 18 Jan 2023 15:46:15 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E43DF80083
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 17:05:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E43DF80083
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=letUPSPx
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30IEEjl9023722; Wed, 18 Jan 2023 10:05:02 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=TubZNWDH/zWXtSwzOFhswLR3JQxQo2D9s8O6hcO+0V4=;
+ b=letUPSPxqdfsIp8ZZBevx0WFZ3Ifg5H8vlu7ipN2qVVT8pZCTqJL53mumnEg3N7Tlcc3
+ YoVJT/CJcTsuvUfjJcn5EBGujKCM1ZNM8kNW1lyjbP3zIdI1tLpwtLMsX46eD16BVX3s
+ UVUFRItS2ZvE5iJqUH78lNcKqh8shj6n/vL3PFW+vrLFZ/JhaRi4pzdcX3qf/qgn6//V
+ TGhiXlhHs2+8ohep2SKfzm808EiI/Ch+c685r2CvMQ3v6io83IXwlJdIfAc8uOD+Ndfn
+ jZbngziWhDzrAKepUEFXogCOyWP/oil3/uUnVDwKK8uW1mcPCkBimyg9BebdKMAJ0U7k cA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n3spx6vk8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Jan 2023 10:05:00 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Wed, 18 Jan
+ 2023 10:04:57 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Wed, 18 Jan 2023 10:04:57 -0600
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DD5B411CA;
+ Wed, 18 Jan 2023 16:04:56 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 0/8] ASoC: cs42l42: Add Soundwire support
+Date: Wed, 18 Jan 2023 16:04:44 +0000
+Message-ID: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-77e06
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: Dvqzp6B2ec0kf04P6WmVhfG2McbCgK_L
+X-Proofpoint-ORIG-GUID: Dvqzp6B2ec0kf04P6WmVhfG2McbCgK_L
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,54 +92,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- rander.wang@intel.com, yung-chuan.liao@linux.intel.com,
- angelogioacchino.delregno@collabora.com
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Jan 2023 12:12:52 +0200, Peter Ujfalusi wrote:
-> Changes since v2:
-> - re-based on v6.2-rc4 (and tested)
-> - tags added from AngeloGioacchino Del Regno for patch 2
-> 
-> Changes since v1:
-> - patches got re-ordered to make them (hopefully) apply on stable when picked
-> - Added stable tag for 6.1 for the patches
-> - Added Fixes tag for the swidget NULL check on unprepare
-> 
-> [...]
+The CS42L42 has a Soundwire interface for control and audio. This
+chain of patches adds support for this.
 
-Applied to
+Patches #1 .. #5 split out various changes to the existing code that
+are needed for adding Soundwire. These are mostly around clocking and
+supporting the separate probe and enumeration stages in Soundwire.
 
-   broonie/sound.git for-next
+Patches #6 .. #8 actually adds the Soundwire handling.
 
-Thanks!
+Changes since v1:
+- fixes for various review comments from v1
+- add support for wakeup from clock stop using hardware interrupts
+- use port_prep callback to prepare/deprepare codec
 
-[1/3] ASoC: SOF: sof-audio: unprepare when swidget->use_count > 0
-      commit: 7d2a67e02549c4b1feaac4d8b4151bf46424a047
-[2/3] ASoC: SOF: sof-audio: skip prepare/unprepare if swidget is NULL
-      commit: 0ad84b11f2f8dd19d62d0b2ffd95ece897e6c3dc
-[3/3] ASoC: SOF: keep prepare/unprepare widgets in sink path
-      commit: cc755b4377b0520d594ae573497cf0824baea648
+Richard Fitzgerald (6):
+  ASoC: cs42l42: Add SOFT_RESET_REBOOT register
+  ASoC: cs42l42: Ensure MCLKint is a multiple of the sample rate
+  ASoC: cs42l42: Separate ASP config from PLL config
+  ASoC: cs42l42: Export some functions for Soundwire
+  ASoC: cs42l42: Add Soundwire support
+  ASoC: cs42l42: Don't set idle_bias_on
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Stefan Binding (2):
+  soundwire: stream: Add specific prep/deprep commands to port_prep
+    callback
+  ASoC: cs42l42: Wait for debounce interval after resume
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+ drivers/soundwire/stream.c     |   4 +-
+ include/linux/soundwire/sdw.h  |   8 +-
+ include/sound/cs42l42.h        |   5 +
+ sound/soc/codecs/Kconfig       |   8 +
+ sound/soc/codecs/Makefile      |   2 +
+ sound/soc/codecs/cs42l42-sdw.c | 603 +++++++++++++++++++++++++++++++++
+ sound/soc/codecs/cs42l42.c     | 127 ++++---
+ sound/soc/codecs/cs42l42.h     |   9 +-
+ 8 files changed, 716 insertions(+), 50 deletions(-)
+ create mode 100644 sound/soc/codecs/cs42l42-sdw.c
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.34.1
 

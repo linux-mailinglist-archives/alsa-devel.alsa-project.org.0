@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A87B5672735
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 19:39:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F7967273B
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 19:40:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EB24199C;
-	Wed, 18 Jan 2023 19:38:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EB24199C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 705D678B4;
+	Wed, 18 Jan 2023 19:39:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 705D678B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674067165;
-	bh=OlBzbupfhV2bmyY8s2x6GJLsiZW8YnpaxbAPUhUsLXU=;
+	s=default; t=1674067209;
+	bh=rLOjY01QTq0Btsgrlpy5oCl1OvMXzrTFhGhJXtQRRpc=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AkoIOT6Vvn81RAzoc+wZ/LM0WSNR7qn8faqtApW1Iel5ARiI180EZykTQdOOg49dM
-	 cdWKsO9PgFuMrIFF4uAoR7BdRNqGKpfbKr60M1Dq4l4/xnq1PaQRWZyOnIisHiN9/A
-	 XiIq2Tj0wWF4cS6xYb1XovC0eY7J1Dc38hk+UxV4=
+	b=pCrpvsxUE8x5JLRo5DS+7XdJL69uLfWn/R6Kws27+uSiLmmngX8AXxbv1zomoKB4H
+	 7s7VLWBX5J7Z39wV2bx2sIlM7kmobUm0BZ3UVEysfhWXVeSRYiefh+YghiiDrh0WrM
+	 Vd9od8PdXf/fE2Tdeo8Ef88i9KI/nwt2bXfOUh34=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B11A1F8024D;
-	Wed, 18 Jan 2023 19:38:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16A5EF80083;
+	Wed, 18 Jan 2023 19:38:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A2BAF804BC; Wed, 18 Jan 2023 19:38:25 +0100 (CET)
+ id C0094F80520; Wed, 18 Jan 2023 19:38:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,48 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7AC8F80083
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 19:38:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7AC8F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBB6EF8024C
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 19:38:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBB6EF8024C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lyOcrq99
+ header.s=Intel header.b=mCUoYq/G
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674067099; x=1705603099;
+ t=1674067101; x=1705603101;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=OlBzbupfhV2bmyY8s2x6GJLsiZW8YnpaxbAPUhUsLXU=;
- b=lyOcrq99O2IV6g2B7yn4e6XZ7LugTcx/gLWNUOFEVSUWbKp8+ONemm+Y
- Wz72wZRttsWTGchOBhls7wGq+NavbJYvwjkwMiMXO8vVPT297yWlruLIY
- 3N60nxndXDIfErmOJiC2kZFG7QfjPABkZ+dZjJMdDiNUdNplm1hj9FjHc
- EZw0sAPHjmYVV8/BeFZTdAtXRFcXyZDLCI+1bIaCJIJNA8GokTKHzdKOr
- joPmQq90f3ixrAk04mZzMV2NQS5W+yr5UjsCTFe6Lz9V0PzvehjRnc/UC
- 2vf8yJhNc0ddP2XzSgfA441AzgRd/PJRR0OI3i58B9LZHY3uiRWd/vnEI w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="327138507"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="327138507"
+ bh=rLOjY01QTq0Btsgrlpy5oCl1OvMXzrTFhGhJXtQRRpc=;
+ b=mCUoYq/Gn76v40p7wT5zGBTZ1aAOidLT9Lkdz03hMNh1qtv6Uo5OGptz
+ c4ibOUrgUjYS01cdFfHeIerazgQ7YivA3cbmAUcvU9qjNzlcUiIp5Zp8t
+ Jf/RHzlpbVR2ZzM/VslfOB3oFP1j8S1NwKMsbqX/voip2REyEgO1s4PNk
+ DH058g9UkMz8heimWIYWJew/cW81zGDD6YP8DK+RX+Amk1h7eQmWM14I9
+ QiR79y8MOUK+QR9PYldNb+Y6q3Wf1HlY9JLI88EOhjuiWatSI6aeonnxg
+ iqGiTZ0q6DEBSFIcJrn2/cqJhVoSDyhr/XFR2DsiRK2Ct/asK0mUVPNmi w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="327138517"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="327138517"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 10:37:55 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="783777243"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="783777243"
+ 18 Jan 2023 10:37:56 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="783777249"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="783777249"
 Received: from jaibarra-mobl.amr.corp.intel.com (HELO [10.209.131.1])
  ([10.209.131.1])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 10:37:54 -0800
-Message-ID: <72ba99a9-3d21-b3be-4a23-6570078aaae9@linux.intel.com>
-Date: Wed, 18 Jan 2023 10:37:34 -0600
+ 18 Jan 2023 10:37:55 -0800
+Message-ID: <eb9fe53e-013b-e477-1d14-8d0c1c7514fc@linux.intel.com>
+Date: Wed, 18 Jan 2023 10:41:18 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v2 1/8] soundwire: stream: Add specific prep/deprep
- commands to port_prep callback
+Subject: Re: [PATCH v2 2/8] ASoC: cs42l42: Add SOFT_RESET_REBOOT register
 Content-Language: en-US
 To: Stefan Binding <sbinding@opensource.cirrus.com>,
  Mark Brown <broonie@kernel.org>
 References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
- <20230118160452.2385494-2-sbinding@opensource.cirrus.com>
+ <20230118160452.2385494-3-sbinding@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230118160452.2385494-2-sbinding@opensource.cirrus.com>
+In-Reply-To: <20230118160452.2385494-3-sbinding@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -93,89 +92,73 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
 On 1/18/23 10:04, Stefan Binding wrote:
-> Currently, port_prep callback only has commands for PRE_PREP, PREP,
-> and POST_PREP, which doesn't directly say whether this is for a
-> prepare or deprepare call. Extend the command list enum to say
-> whether the call is for prepare or deprepare aswell.
+> From: Richard Fitzgerald <rf@opensource.cirrus.com>
 > 
-> Also remove SDW_OPS_PORT_PREP from sdw_port_prep_ops as this is unused,
-> and update this enum to be simpler and more consistent with enum
-> sdw_clk_stop_type.
+> The SOFT_RESET_REBOOT register is needed to recover CS42L42 state after
+> a Soundwire bus reset.
 
-yes, I don't know why this PORT_PREP was added, clearly the prepare part
-is something that would be done with standard registers without the need
-to inform the codec driver. The codec driver only need the pre- and
-post- notifications.
+Humm, you probably want to clarify the terminology, the 'soft reset' is
+defined in the SoundWire spec as the case where the peripheral device
+loses sync. Bus reset is a Severe Reset, but there's also a Hard Reset.
 
-Good cleanup!
+does this 'SOFT_RESET_REBOOT' need to be accessed when there's a soft
+reset, or only after a Severe/Hard Reset?
 
-
-> Note: Currently, the only users of SDW_OPS_PORT_POST_PREP are codec
-> drivers sound/soc/codecs/wsa881x.c and sound/soc/codecs/wsa883x.c, both
-> of which seem to assume that POST_PREP only occurs after a prepare,
-> even though it would also have occurred after a deprepare. Since it
-> doesn't make sense to mark the port prepared after a deprepare, changing
-> the enum to separate PORT_DEPREP from PORT_PREP should make the check
-> for PORT_PREP in those drivers be more logical.
 > 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 > ---
->  drivers/soundwire/stream.c    | 4 ++--
->  include/linux/soundwire/sdw.h | 8 +++++---
->  2 files changed, 7 insertions(+), 5 deletions(-)
+>  include/sound/cs42l42.h    | 5 +++++
+>  sound/soc/codecs/cs42l42.c | 2 ++
+>  2 files changed, 7 insertions(+)
 > 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index df3b36670df4c..1652fb5737d9d 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -469,7 +469,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
->  	}
+> diff --git a/include/sound/cs42l42.h b/include/sound/cs42l42.h
+> index 1d1c24fdd0cae..3994e933db195 100644
+> --- a/include/sound/cs42l42.h
+> +++ b/include/sound/cs42l42.h
+> @@ -34,6 +34,7 @@
+>  #define CS42L42_PAGE_24		0x2400
+>  #define CS42L42_PAGE_25		0x2500
+>  #define CS42L42_PAGE_26		0x2600
+> +#define CS42L42_PAGE_27		0x2700
+>  #define CS42L42_PAGE_28		0x2800
+>  #define CS42L42_PAGE_29		0x2900
+>  #define CS42L42_PAGE_2A		0x2A00
+> @@ -720,6 +721,10 @@
 >  
->  	/* Inform slave about the impending port prepare */
-> -	sdw_do_port_prep(s_rt, prep_ch, SDW_OPS_PORT_PRE_PREP);
-> +	sdw_do_port_prep(s_rt, prep_ch, prep ? SDW_OPS_PORT_PRE_PREP : SDW_OPS_PORT_PRE_DEPREP);
+>  #define CS42L42_SRC_SDOUT_FS		(CS42L42_PAGE_26 + 0x09)
 >  
->  	/* Prepare Slave port implementing CP_SM */
->  	if (!dpn_prop->simple_ch_prep_sm) {
-> @@ -501,7 +501,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
->  	}
->  
->  	/* Inform slaves about ports prepared */
-> -	sdw_do_port_prep(s_rt, prep_ch, SDW_OPS_PORT_POST_PREP);
-> +	sdw_do_port_prep(s_rt, prep_ch, prep ? SDW_OPS_PORT_POST_PREP : SDW_OPS_PORT_POST_DEPREP);
->  
->  	/* Disable interrupt after Port de-prepare */
->  	if (!prep && intr)
-> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> index 3cd2a761911ff..547fc1b30a51a 100644
-> --- a/include/linux/soundwire/sdw.h
-> +++ b/include/linux/soundwire/sdw.h
-> @@ -569,13 +569,15 @@ struct sdw_prepare_ch {
->   * enum sdw_port_prep_ops: Prepare operations for Data Port
->   *
->   * @SDW_OPS_PORT_PRE_PREP: Pre prepare operation for the Port
-> - * @SDW_OPS_PORT_PREP: Prepare operation for the Port
-> + * @SDW_OPS_PORT_PRE_DEPREP: Pre deprepare operation for the Port
->   * @SDW_OPS_PORT_POST_PREP: Post prepare operation for the Port
-> + * @SDW_OPS_PORT_POST_DEPREP: Post deprepare operation for the Port
->   */
->  enum sdw_port_prep_ops {
->  	SDW_OPS_PORT_PRE_PREP = 0,
-> -	SDW_OPS_PORT_PREP = 1,
-> -	SDW_OPS_PORT_POST_PREP = 2,
-> +	SDW_OPS_PORT_PRE_DEPREP,
-> +	SDW_OPS_PORT_POST_PREP,
-> +	SDW_OPS_PORT_POST_DEPREP,
->  };
->  
->  /**
+> +/* Page 0x27 DMA */
+> +#define CS42L42_SOFT_RESET_REBOOT	(CS42L42_PAGE_27 + 0x01)
+> +#define CS42L42_SFT_RST_REBOOT_MASK	BIT(1)
+> +
+>  /* Page 0x28 S/PDIF Registers */
+>  #define CS42L42_SPDIF_CTL1		(CS42L42_PAGE_28 + 0x01)
+>  #define CS42L42_SPDIF_CTL2		(CS42L42_PAGE_28 + 0x02)
+> diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+> index 2fefbcf7bd130..82aa11d6937be 100644
+> --- a/sound/soc/codecs/cs42l42.c
+> +++ b/sound/soc/codecs/cs42l42.c
+> @@ -293,6 +293,7 @@ bool cs42l42_readable_register(struct device *dev, unsigned int reg)
+>  	case CS42L42_SPDIF_SW_CTL1:
+>  	case CS42L42_SRC_SDIN_FS:
+>  	case CS42L42_SRC_SDOUT_FS:
+> +	case CS42L42_SOFT_RESET_REBOOT:
+>  	case CS42L42_SPDIF_CTL1:
+>  	case CS42L42_SPDIF_CTL2:
+>  	case CS42L42_SPDIF_CTL3:
+> @@ -358,6 +359,7 @@ bool cs42l42_volatile_register(struct device *dev, unsigned int reg)
+>  	case CS42L42_LOAD_DET_DONE:
+>  	case CS42L42_DET_STATUS1:
+>  	case CS42L42_DET_STATUS2:
+> +	case CS42L42_SOFT_RESET_REBOOT:
+>  		return true;
+>  	default:
+>  		return false;

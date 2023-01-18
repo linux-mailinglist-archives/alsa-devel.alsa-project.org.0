@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5330E67273D
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 19:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12CB867273C
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 19:40:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FFA77A14;
-	Wed, 18 Jan 2023 19:39:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FFA77A14
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5A6D7971;
+	Wed, 18 Jan 2023 19:39:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5A6D7971
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674067243;
-	bh=Mxky+plx16rPsgtojIjqis3Gy4qDWU96AbOKvkoFz5U=;
-	h=Date:From:Subject:To:References:In-Reply-To:List-Id:
+	s=default; t=1674067224;
+	bh=fNVfUI0/Z0DjRR7gwu1N9IY2Ziu6mt7cPXccrzYKj08=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=SBe6s4mu7D8uE2KzoTVcjogL+t8wLmcV70jgw4T4eXDKRX7CcsJcURmtGmnz9x2JH
-	 nyd1qqkYkyQBd2IaRMJ7Hy9EuFTTaS6NZd98gVVj6qWTg/7sU+iqEZQlnpvHzdmv7C
-	 rMXPT9JNk1B34rqA0/Ei90iQ21F/Z+qzs+9UeH0U=
+	b=CewfjcH1ZYGd3WMUIR7rHNi0w0o5fGoJcviu4Sj7jlgcFpMpSRcMPruOOF0f3DS7m
+	 tjMGtOfBZSKdBgSM/1wrkUw68MIZ7c+7xvj+QUToAZ7fnnmGCdBRZMiN8v+iYkAoQ9
+	 rfQSIIIxRTLRUP1ROEHt0F/pBjpNNyWPETyqEme8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D523F80548;
-	Wed, 18 Jan 2023 19:38:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA865F80552;
+	Wed, 18 Jan 2023 19:38:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EC80F80557; Wed, 18 Jan 2023 19:38:35 +0100 (CET)
+ id 0B715F80542; Wed, 18 Jan 2023 19:38:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A78EF80482
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3813AF80495
  for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 19:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A78EF80482
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3813AF80495
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=KtT9w0pg
+ header.s=Intel header.b=hJbvU6AH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1674067104; x=1705603104;
- h=message-id:date:mime-version:from:subject:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=Mxky+plx16rPsgtojIjqis3Gy4qDWU96AbOKvkoFz5U=;
- b=KtT9w0pg2qAaDKZ3K7VcapKKIHSJ+b1g8Xd8/GQBGMQLpXb3zCpd/alC
- HAi+PJsLbumaK24n55TgnXTsP/YT9jwwk0lvHSJCM4PP6DdwUEwGihlw+
- aMiLy1QhrylLqfCiNT23pKZ38//2w+zNyxA/xd73Wf9H2/dUsFZ8VbfOm
- Xa2A026QuFkehmPtaU4mEYJ9X1RmnySVcX3HUF/j/y95eV5BxcuEPUb0b
- kTwytNpunaOMkfEctlq9lUgOxT67mX+ocenJO5AjqdpKfE+VZCW+7LmDa
- uN145ipxFL3YLcD2j2eEtByrsGJfMGWkM0crY9F0WosLNd4YjjvCEGpmi Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="327138532"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="327138532"
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=fNVfUI0/Z0DjRR7gwu1N9IY2Ziu6mt7cPXccrzYKj08=;
+ b=hJbvU6AHsjI81rQmymHitMYKP06HMBhujSG/y/HdLgLBZ1byPAuXAH2Z
+ ySI687UrGbz0aSIzOlY3U/JuPnaDDAf3uKRyHe/p8vQxyiPnLskGRu8hr
+ Wzmyn+Vde4hiRXfvSpxqqF6x00PUfHZmD++S4zsaDk2QDK5YFJQQozVXR
+ EDGv4jKP36sm66+YA3tZIkXxeZJ1/y2xAJYxaCdH8WJwbKnvPdU7lkn65
+ sy130BO/NSYrWZRw597plbRLxM7uRC9ckvjkBHqLQpuFM8DlvGQNPgV69
+ 7PNnEipB5HDn/9pcTHah+5ilbyJPdxQ9+uhDGw869AuoXUK0faP8edFpU Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="327138543"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="327138543"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 10:37:59 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="783777264"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="783777264"
+ 18 Jan 2023 10:38:01 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="783777265"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="783777265"
 Received: from jaibarra-mobl.amr.corp.intel.com (HELO [10.209.131.1])
  ([10.209.131.1])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 10:37:58 -0800
-Message-ID: <33130336-b2ce-330e-fdec-166eee977e13@linux.intel.com>
-Date: Wed, 18 Jan 2023 11:41:25 -0600
+ 18 Jan 2023 10:37:59 -0800
+Message-ID: <feb8eedc-c7fe-ef0e-85c8-faf6b0f3592e@linux.intel.com>
+Date: Wed, 18 Jan 2023 11:43:42 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 6/8] ASoC: cs42l42: Add Soundwire support
+Subject: Re: [PATCH v2 0/8] ASoC: cs42l42: Add Soundwire support
+Content-Language: en-US
 To: Stefan Binding <sbinding@opensource.cirrus.com>,
  Mark Brown <broonie@kernel.org>
 References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
- <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
-Content-Language: en-US
-In-Reply-To: <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -92,381 +91,52 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+ Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-nitpick: please use the MIPI SoundWire spelling
 
-> This adds support for using CS42L42 as a Soundwire device.
+On 1/18/23 10:04, Stefan Binding wrote:
+> The CS42L42 has a Soundwire interface for control and audio. This
+> chain of patches adds support for this.
 > 
-> Soundwire-specifics are kept separate from the I2S implementation as
-> much as possible, aiming to limit the risk of breaking the I2C+I2S
-> support.
+> Patches #1 .. #5 split out various changes to the existing code that
+> are needed for adding Soundwire. These are mostly around clocking and
+> supporting the separate probe and enumeration stages in Soundwire.
 > 
-> There are some important differences in the silicon behaviour between
-> I2S and Soundwire mode that are reflected in the implementation:
+> Patches #6 .. #8 actually adds the Soundwire handling.
 > 
-> - ASP (I2S) most not be used in Soundwire mode because the two interfaces
->   share pins.
+> Changes since v1:
+> - fixes for various review comments from v1
+> - add support for wakeup from clock stop using hardware interrupts
+> - use port_prep callback to prepare/deprepare codec
 > 
-> - The Soundwire capture (record) port only supports 1 channel. It does
->   not have left-to-right duplication like the ASP.
+> Richard Fitzgerald (6):
+>   ASoC: cs42l42: Add SOFT_RESET_REBOOT register
+>   ASoC: cs42l42: Ensure MCLKint is a multiple of the sample rate
+>   ASoC: cs42l42: Separate ASP config from PLL config
+>   ASoC: cs42l42: Export some functions for Soundwire
+>   ASoC: cs42l42: Add Soundwire support
+>   ASoC: cs42l42: Don't set idle_bias_on
 > 
-> - DP2 can only be prepared if the HP has powered-up. DP1 can only be
->   prepared if the ADC has powered-up. (This ordering restriction does
->   not exist for ASPs.) The Soundwire core port-prepare step is
->   triggered by the DAI-link prepare(). This happens before the
->   codec DAI prepare() or the DAPM sequence so these cannot be used
->   to enable HP/ADC. Instead the HP/ADC enable/disable are done during
->   the port_prep callback.
+> Stefan Binding (2):
+>   soundwire: stream: Add specific prep/deprep commands to port_prep
+>     callback
+
+probably want to CC: Vinod and Bard to get their Acked-by tag...
+
+>   ASoC: cs42l42: Wait for debounce interval after resume
 > 
-> - The SRCs are an integral part of the audio chain but in silicon their
->   power control is linked to the ASP. There is no equivalent power link
->   to Soundwire DPs so the driver must take "manual" control of SRC power.
+>  drivers/soundwire/stream.c     |   4 +-
+>  include/linux/soundwire/sdw.h  |   8 +-
+>  include/sound/cs42l42.h        |   5 +
+>  sound/soc/codecs/Kconfig       |   8 +
+>  sound/soc/codecs/Makefile      |   2 +
+>  sound/soc/codecs/cs42l42-sdw.c | 603 +++++++++++++++++++++++++++++++++
+>  sound/soc/codecs/cs42l42.c     | 127 ++++---
+>  sound/soc/codecs/cs42l42.h     |   9 +-
+>  8 files changed, 716 insertions(+), 50 deletions(-)
+>  create mode 100644 sound/soc/codecs/cs42l42-sdw.c
 > 
-> - The Soundwire control registers occupy the lower part of the Soundwire
->   address space so cs42l42 registers are offset by 0x8000 (non-paged) in
->   Soundwire mode.
-> 
-> - Register addresses are 8-bit paged in I2C mode but 16-bit unpaged in
->   Soundwire.
-> 
-> - Special procedures are needed on register read/writes to (a) ensure
->   that the previous internal bus transaction has completed, and
->   (b) handle delayed read results, when the read value could not be
->   returned within the Soundwire read command.
-> 
-> There are also some differences in driver implementation between I2S
-> and Soundwire operation:
-> 
-> - CS42L42 does not runtime_suspend, but runtime_suspend/resume are required
->   in Soundwire mode as the most convenient way to power-up the bus manager
->   and to handle the unattach_request condition.
-That's an impressive commit message indeed.
-
-I couldn't really follow this paragraph though. The main reason why
-having suspend/resume routines is to wait for initialization to be
-complete, as well as handle the regcache status to deal with access to
-regmap'ed registers, if any, while the bus is stopped or resuming.
-
-Edit after reaching the end of this patch: that's actually what is done
-in the implementation below so you may want to clarify this part.
-
-> - Intel Soundwire host controllers have a low-power clock-stop mode that
->   requires resetting all peripherals when resuming. This means that the
->   interrupt registers will be reset in between the interrupt being
->   generated and the interrupt being handled, and since the interrupt
->   status is debounced, these values may not be accurrate immediately,
-
-accurate
-
-
-> diff --git a/sound/soc/codecs/cs42l42-sdw.c b/sound/soc/codecs/cs42l42-sdw.c
-> new file mode 100644
-> index 0000000000000..67800b275e422
-> --- /dev/null
-> +++ b/sound/soc/codecs/cs42l42-sdw.c
-> @@ -0,0 +1,595 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// cs42l42-sdw.c -- CS42L42 ALSA SoC audio driver Soundwire binding
-
-binding?
-
-> +//
-> +// Copyright (C) 2022 Cirrus Logic, Inc. and
-> +//                    Cirrus Logic International Semiconductor Ltd.
-> +
-> +#include <linux/acpi.h>
-> +#include <linux/device.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/of_irq.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/soundwire/sdw.h>
-> +#include <linux/soundwire/sdw_registers.h>
-> +#include <linux/soundwire/sdw_type.h>
-> +#include <sound/pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/sdw.h>
-> +#include <sound/soc.h>
-> +
-> +#include "cs42l42.h"
-> +
-> +#define CS42L42_SDW_CAPTURE_PORT	1
-> +#define CS42L42_SDW_PLAYBACK_PORT	2
-> +
-> +/* Register addresses are offset when sent over Soundwire */
-
-nitpick: SoundWire
-
-> +#define CS42L42_SDW_ADDR_OFFSET		0x8000
-> +
-> +#define CS42L42_SDW_MEM_ACCESS_STATUS	0xd0
-> +#define CS42L42_SDW_MEM_READ_DATA	0xd8
-> +
-> +#define CS42L42_SDW_LAST_LATE		BIT(3)
-> +#define CS42L42_SDW_CMD_IN_PROGRESS	BIT(2)
-> +#define CS42L42_SDW_RDATA_RDY		BIT(0)
-> +
-> +#define CS42L42_DELAYED_READ_POLL_US	1
-> +#define CS42L42_DELAYED_READ_TIMEOUT_US	100
-> +
-> +static const struct snd_soc_dapm_route cs42l42_sdw_audio_map[] = {
-> +	/* Playback Path */
-> +	{ "HP", NULL, "MIXER" },
-> +	{ "MIXER", NULL, "DACSRC" },
-> +	{ "DACSRC", NULL, "Playback" },
-> +
-> +	/* Capture Path */
-> +	{ "ADCSRC", NULL, "HS" },
-> +	{ "Capture", NULL, "ADCSRC" },
-> +};
-> +
-> +static int cs42l42_sdw_dai_startup(struct snd_pcm_substream *substream,
-> +				   struct snd_soc_dai *dai)
-> +{
-> +	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(dai->component);
-> +
-> +	if (!cs42l42->init_done)
-> +		return -ENODEV;
-
-Can this happen? IIRC the ASoC framework would use
-pm_runtime_resume_and_get() before .startup, which would guarantee that
-the device is initialized, no?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int cs42l42_sdw_dai_hw_params(struct snd_pcm_substream *substream,
-> +				     struct snd_pcm_hw_params *params,
-> +				     struct snd_soc_dai *dai)
-> +{
-> +	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(dai->component);
-> +	struct sdw_stream_runtime *sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
-> +	struct sdw_stream_config stream_config = {0};
-> +	struct sdw_port_config port_config = {0};
-> +	int ret;
-> +
-> +	if (!sdw_stream)
-> +		return -EINVAL;
-> +
-> +	/* Needed for PLL configuration when we are notified of new bus config */
-> +	cs42l42->sample_rate = params_rate(params);
-
-wouldn't it be better to check if the sample_rate is supported by the
-PLL here, instead of in the .prepare step ...
-
-> +
-> +	snd_sdw_params_to_config(substream, params, &stream_config, &port_config);
-> +
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		port_config.num = CS42L42_SDW_PLAYBACK_PORT;
-> +	else
-> +		port_config.num = CS42L42_SDW_CAPTURE_PORT;
-> +
-> +	ret = sdw_stream_add_slave(cs42l42->sdw_peripheral, &stream_config, &port_config, 1,
-> +				   sdw_stream);
-> +	if (ret) {
-> +		dev_err(dai->dev, "Failed to add sdw stream: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	cs42l42_src_config(dai->component, params_rate(params));
-> +
-> +	return 0;
-> +}
-> +
-> +static int cs42l42_sdw_dai_prepare(struct snd_pcm_substream *substream,
-> +				   struct snd_soc_dai *dai)
-> +{
-> +	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(dai->component);
-> +
-> +	dev_dbg(dai->dev, "dai_prepare: sclk=%u rate=%u\n", cs42l42->sclk, cs42l42->sample_rate);
-> +
-> +	if (!cs42l42->sclk || !cs42l42->sample_rate)
-> +		return -EINVAL;
-> +
-> +	return cs42l42_pll_config(dai->component, cs42l42->sclk, cs42l42->sample_rate);
-
-... it's a bit late to verify the sample_rate is indeed supported, no?
-
-> +}
-> +
-> +static int cs42l42_sdw_dai_hw_free(struct snd_pcm_substream *substream,
-> +				   struct snd_soc_dai *dai)
-> +{
-> +	struct cs42l42_private *cs42l42 = snd_soc_component_get_drvdata(dai->component);
-> +	struct sdw_stream_runtime *sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
-> +
-> +	sdw_stream_remove_slave(cs42l42->sdw_peripheral, sdw_stream);
-> +	cs42l42->sample_rate = 0;
-> +
-> +	return 0;
-> +}
-
-> +static int cs42l42_sdw_dai_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
-> +					  int direction)
-> +{
-> +	if (!sdw_stream)
-> +		return 0;
-> +
-> +	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-> +		dai->playback_dma_data = sdw_stream;
-> +	else
-> +		dai->capture_dma_data = sdw_stream;
-> +
-> +	return 0;
-
-Humm, this is interesting, you are not using the sdw_stream_data that
-all other codecs use, but in hindsight I have no idea why we allocate
-something to only store a pointer.
-
-
-> +
-> +static struct snd_soc_dai_driver cs42l42_sdw_dai = {
-> +	.name = "cs42l42-sdw",
-> +	.playback = {
-> +		.stream_name = "Playback",
-> +		.channels_min = 1,
-> +		.channels_max = 2,
-> +		.rates = SNDRV_PCM_RATE_8000_96000,
-> +		.formats = SNDRV_PCM_FMTBIT_S16_LE |
-> +			   SNDRV_PCM_FMTBIT_S24_LE |
-> +			   SNDRV_PCM_FMTBIT_S32_LE,
-> +	},
-> +	.capture = {
-> +		.stream_name = "Capture",
-> +		.channels_min = 1,
-> +		.channels_max = 1,
-> +		.rates = SNDRV_PCM_RATE_8000_96000,
-> +		.formats = SNDRV_PCM_FMTBIT_S16_LE |
-> +			   SNDRV_PCM_FMTBIT_S24_LE |
-> +			   SNDRV_PCM_FMTBIT_S32_LE,
-
-Are the rates and formats needed? IIRC only the channels are used.
-
-> +	},
-> +	.symmetric_rate = 1,
-> +	.ops = &cs42l42_sdw_dai_ops,
-> +};
-> +
-
-> +static void cs42l42_sdw_init(struct sdw_slave *peripheral)
-> +{
-> +	struct cs42l42_private *cs42l42 = dev_get_drvdata(&peripheral->dev);
-> +	int ret = 0;
-
-unnecessary init
-
-> +
-> +	regcache_cache_only(cs42l42->regmap, false);
-> +
-> +	ret = cs42l42_init(cs42l42);
-> +	if (ret < 0) {
-> +		regcache_cache_only(cs42l42->regmap, true);
-> +		return;
-> +	}
-> +
-> +	/* Write out any cached changes that happened between probe and attach */
-> +	ret = regcache_sync(cs42l42->regmap);
-> +	if (ret < 0)
-> +		dev_warn(cs42l42->dev, "Failed to sync cache: %d\n", ret);
-> +
-> +	/* Disable internal logic that makes clock-stop conditional */
-> +	regmap_clear_bits(cs42l42->regmap, CS42L42_PWR_CTL3, CS42L42_SW_CLK_STP_STAT_SEL_MASK);
-> +
-> +	/*
-> +	 * pm_runtime is needed to control bus manager suspend, and to
-> +	 * recover from an unattach_request when the manager suspends.
-> +	 * Autosuspend delay must be long enough to enumerate.
-> +	 */
-> +	pm_runtime_set_autosuspend_delay(cs42l42->dev, 3000);
-> +	pm_runtime_use_autosuspend(cs42l42->dev);
-> +	pm_runtime_set_active(cs42l42->dev);
-> +	pm_runtime_enable(cs42l42->dev);
-
-you would want to set all this once during the first initialization.
-
-> +	pm_runtime_mark_last_busy(cs42l42->dev);
-
-usually this is added before the pm_runtime_enable()
-
-> +	pm_runtime_idle(cs42l42->dev);
-
-is this needed?
-
-> +static int cs42l42_sdw_update_status(struct sdw_slave *peripheral,
-> +				     enum sdw_slave_status status)
-> +{
-> +	struct cs42l42_private *cs42l42 = dev_get_drvdata(&peripheral->dev);
-> +
-> +	switch (status) {
-> +	case SDW_SLAVE_ATTACHED:
-> +		dev_dbg(cs42l42->dev, "ATTACHED\n");
-> +		if (!cs42l42->init_done)
-> +			cs42l42_sdw_init(peripheral);
-
-unclear to me what happens is the bus suspends, how would you redo the init?
-
-> +		break;
-> +	case SDW_SLAVE_UNATTACHED:
-> +		dev_dbg(cs42l42->dev, "UNATTACHED\n");
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-
-> +static int __maybe_unused cs42l42_sdw_clk_stop(struct sdw_slave *peripheral,
-> +				enum sdw_clk_stop_mode mode,
-> +				enum sdw_clk_stop_type type)
-> +{
-> +	struct cs42l42_private *cs42l42 = dev_get_drvdata(&peripheral->dev);
-> +
-> +	dev_dbg(cs42l42->dev, "clk_stop mode:%d type:%d\n", mode, type);
-> +
-> +	return 0;
-
-that doesn't sound terribly useful?
-
-> +}
-> +
-> +static const struct sdw_slave_ops cs42l42_sdw_ops = {
-> +	.read_prop = cs42l42_sdw_read_prop,
-> +	.update_status = cs42l42_sdw_update_status,
-
-what about .interrupt_callback?
-
-I vaguely remember something about not using the in-band wake mechanism
-and having a separate interrupt line, if that's what happens it's worthy
-of a comment here.
-
-> +	.bus_config = cs42l42_sdw_bus_config,
-> +	.port_prep = cs42l42_sdw_port_prep,
-> +#ifdef DEBUG
-> +	.clk_stop = cs42l42_sdw_clk_stop,
-> +#endif
-> +};
-
-> +static int cs42l42_sdw_remove(struct sdw_slave *peripheral)
-> +{
-> +	struct cs42l42_private *cs42l42 = dev_get_drvdata(&peripheral->dev);
-> +
-> +	/* Resume so that cs42l42_remove() can access registers */
-> +	pm_runtime_get_sync(cs42l42->dev);
-
-is this necessary? I thought the device framework always did that.
-
-> +	cs42l42_common_remove(cs42l42);
-> +	pm_runtime_put(cs42l42->dev);
-> +	pm_runtime_disable(cs42l42->dev);
-> +
-> +	return 0;
-> +}
-

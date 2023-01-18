@@ -2,92 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1466722A9
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 17:11:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844566722AC
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 17:11:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66D5E7995;
-	Wed, 18 Jan 2023 17:10:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66D5E7995
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D10E79A5;
+	Wed, 18 Jan 2023 17:10:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D10E79A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674058282;
-	bh=k/Assz0EUsvtavUESdEw+MMNq6qnAqGjxpdDihguySs=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1674058293;
+	bh=o207/8Aolhui6XSClRkOJigK5rfepT6oSTq6FBfPVNE=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=gc/3T4hglvjvxhPyS6pmT1yBzZ3JSUJwDTM5Ujh4vFW4je4Zpvatw1UoQUb6QF6Wc
-	 sIN29GohG0JcHaDATjKyLuFtcyaFYODJAI9kQPXOuCTJTpaipfYCll/i/jxAnKIoZj
-	 vj04rFIuhau5dINub+Q2RYhgIbHx8HBDICf8CeTI=
+	b=sPS8jO1GXSyNrNfYpKeOrfEfqkWXzx7FLE59IoqCi5uOfPLu6LHTO6l7KGAXNJg2v
+	 BN054t0fZMKjZsNomxV6A2OUT0vNkrJze0VIFFqmS7PwxPTAeCz285sww5Ej6IoxD4
+	 jQ8jD7bi3fIF0mMwADFB38WeUm0cmPdY2t8KnvWw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29861F80563;
-	Wed, 18 Jan 2023 17:08:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FCFDF8055A;
+	Wed, 18 Jan 2023 17:08:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8ACB7F8024D; Wed, 18 Jan 2023 08:47:24 +0100 (CET)
+ id D9E88F8024D; Wed, 18 Jan 2023 12:02:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA8DFF80083
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 08:47:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA8DFF80083
-Received: by mail-qt1-f178.google.com with SMTP id s4so356769qtx.6
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 23:47:14 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FA7BF8021D
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 12:02:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA7BF8021D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=landley-net.20210112.gappssmtp.com
+ header.i=@landley-net.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=5PCGooyh
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-15027746720so35049325fac.13
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 03:02:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=landley-net.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=KuI0iwHsMdHgi9UUhJbv/FF6Zx1hDWv0kF6EEdUlD2I=;
+ b=5PCGooyhPIEuUA8LfHpgz2E1NSo9q7mSLwwd+kP7a2WQx5oIObawC1SZ8b3GjlhI6w
+ k+aUwf08xYT06HES1GVAUttTfmtlU/+2mUQ+E6nwI3mvpykPVqpS3CT4T1OK8Y7wh8Lh
+ OxdivEq+CnvHPuPDLKxMirSIFn7kanNvD0azdCBrxVrZC626tljgU09Q5NwDlRdCl5Pm
+ h30BKW+O6Gpe2j8vZBVS7nQX0CZx9F+vnTsIKQmfF0oeOZkgBCg3IFGxtjTVee8Llq3v
+ VTgrTzM1eGIkuy0knsusfqmXW3O1e3iUrjIXv4sd1h2zvdReBrfi+vZn6Ejf/45OptwH
+ w5QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ckf5E8d0Cnw+micSJ5vxd9QO1KFnhxODfDAqVKF2Q0k=;
- b=i0C22bFJXlNzqEJglZO2yA1JVTKuurZAinvezWe+LIsRhi7IIb5wcHPtWFEkO7fTCF
- J73CxKeXnCsdG+qbhnSkSuyQapYkjV6FevfWI1KORCqPcJC1AlWHICqq7lwg+QkGHj36
- bJuovy07+Kn8KY01h1P4hSl7MyZoYERnGvj2pXnmNTL8gZZcFJrAl4ahBAZESTKeMjev
- 20SocX0UxzPZR1vHlTXNp0tBKnYHuCTD1OvGGVx6Nw62N2KZppffFvxX4VMpihCP+xul
- wHL9Nk44NcXCslJoa9IMcbDVYnzEtW9gn53GyMwynzakZhXQCK0z3ev4bsVdP5a/7x81
- KKIA==
-X-Gm-Message-State: AFqh2kpAXzbllNu0hIeGfUe2aP0zce7wxNKWEN+zLQ7TLbpln7ly/LCI
- saDTNwKf05EDvvzgXt5hBJIl0ILEzP5QlA==
-X-Google-Smtp-Source: AMrXdXtEzA8nTZtM8IugIm7lCDZOzkG4Dy5IvGJgXRWMxM7mk7wEWTJRoslK8uN4n7OrHEt5XmAxnw==
-X-Received: by 2002:ac8:44cd:0:b0:3b6:2fbb:1f8 with SMTP id
- b13-20020ac844cd000000b003b62fbb01f8mr7518254qto.61.1674028032717; 
- Tue, 17 Jan 2023 23:47:12 -0800 (PST)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com.
- [209.85.128.169]) by smtp.gmail.com with ESMTPSA id
- jr49-20020a05622a803100b003ad373d04b6sm14238522qtb.59.2023.01.17.23.47.11
- for <alsa-devel@alsa-project.org>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KuI0iwHsMdHgi9UUhJbv/FF6Zx1hDWv0kF6EEdUlD2I=;
+ b=bu5IxILnG+y5TMIqU6gFyGksmGGAPqlqp2Lx/zTQLhBys4T/1/9sJcJt7dfzCRt4jZ
+ YjnCZv6tnD2XFciHTXMJj/SOKCUNiD/3WpoMqvGbX2zs2uEPp4DnPUi6Ln5wbsFQewZK
+ 0tPAfxeq40HhOTq7zagf0Td9GT7DdbV/8DNvmxM6eVIWc1XDKft5y1Wj1qtFeY3TvDZN
+ /ywMUw41JkqxkPiLxCLAE7ZDk9CP873lzmei3m/kC8BXwypsLnnh03f+obSj8aKq6mdd
+ YJiU+bnuDn6woKQI0oLlefRsx+splIiJOqpq8cvCL1e24ySLYemcph02Y4ld2NMiuvBX
+ HSFg==
+X-Gm-Message-State: AFqh2kpRzYxxFxOwrEeo2K10Ai03Jh1Rq6GyUfQ2xBWkASzl9JRx3J70
+ Nf4V56yYnf/Q+r++YJinbGps0A==
+X-Google-Smtp-Source: AMrXdXvlrp1Ed3XBrrhA3zCnrQ6Rbb/wKmg6UrVk+wIslhGo+AMwXBPpNO4DwySZY2+3rtlEwlTN+A==
+X-Received: by 2002:a05:6870:c190:b0:15e:cc77:1e6d with SMTP id
+ h16-20020a056870c19000b0015ecc771e6dmr4364085oad.13.1674039741194; 
+ Wed, 18 Jan 2023 03:02:21 -0800 (PST)
+Received: from ?IPV6:2607:fb91:120e:1c84:8038:3fff:fe9f:cbb4?
+ ([2607:fb91:120e:1c84:8038:3fff:fe9f:cbb4])
+ by smtp.gmail.com with ESMTPSA id
+ e19-20020a056871045300b001442fada152sm18099522oag.46.2023.01.18.03.02.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jan 2023 23:47:11 -0800 (PST)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-4a2f8ad29d5so456471017b3.8
- for <alsa-devel@alsa-project.org>; Tue, 17 Jan 2023 23:47:11 -0800 (PST)
-X-Received: by 2002:a81:bd6:0:b0:48d:1334:6e38 with SMTP id
- 205-20020a810bd6000000b0048d13346e38mr726842ywl.316.1674028030903; Tue, 17
- Jan 2023 23:47:10 -0800 (PST)
+ Wed, 18 Jan 2023 03:02:20 -0800 (PST)
+Message-ID: <efa6a8aa-466e-cfaa-0113-b85002af008e@landley.net>
+Date: Wed, 18 Jan 2023 05:14:36 -0600
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: remove arch/sh
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 References: <20230113062339.1909087-1-hch@lst.de>
  <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
  <20230116071306.GA15848@lst.de>
  <9325a949-8d19-435a-50bd-9ebe0a432012@landley.net>
  <CAMuHMdUJm5QvzH8hvqwvn9O6qSbzNOapabjw5nh9DJd0F55Zdg@mail.gmail.com>
  <7329212f-b1a0-41eb-99b3-a56eb1d23138@landley.net>
-In-Reply-To: <7329212f-b1a0-41eb-99b3-a56eb1d23138@landley.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 18 Jan 2023 08:46:58 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXo3iR2C=CAaXO5tBRCncnQAAMR6BMPLOm_nBpFAeVhrA@mail.gmail.com>
-Message-ID: <CAMuHMdXo3iR2C=CAaXO5tBRCncnQAAMR6BMPLOm_nBpFAeVhrA@mail.gmail.com>
-Subject: Re: remove arch/sh
-To: Rob Landley <rob@landley.net>
-Content-Type: text/plain; charset="UTF-8"
+ <CAMuHMdXo3iR2C=CAaXO5tBRCncnQAAMR6BMPLOm_nBpFAeVhrA@mail.gmail.com>
+From: Rob Landley <rob@landley.net>
+In-Reply-To: <CAMuHMdXo3iR2C=CAaXO5tBRCncnQAAMR6BMPLOm_nBpFAeVhrA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 18 Jan 2023 17:08:49 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -120,81 +133,33 @@ Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+On 1/18/23 01:46, Geert Uytterhoeven wrote:
+> Again, I think you're talking about something different.
+> Does kexec work for you?
 
-On Wed, Jan 18, 2023 at 5:50 AM Rob Landley <rob@landley.net> wrote:
-> On 1/17/23 14:26, Geert Uytterhoeven wrote:
-> > On Tue, Jan 17, 2023 at 8:01 PM Rob Landley <rob@landley.net> wrote:
-> >> I'm lazy and mostly test each new sh4 build under qemu -M r2d because it's
-> >> really convenient: neither of my physical boards boot from SD card so replacing
-> >> the kernel requires reflashing soldered in flash. (They'll net mount userspace
-> >> but I haven't gotten either bootloader to net-boot a kernel.)
-> >
-> > On my landisk (with boots from CompactFLASH), I boot the original 2.6.22
-> > kernel, and use kexec to boot-test each and every renesas-drivers
-> > release.  Note that this requires both the original 2.6.22 kernel
-> > and matching kexec-tools.
->
-> I make it a point to run _current_ kernels in all my mkroot systems, including
-> sh4. What I shipped was 6.1 is:
->
-> # cat /proc/version
-> Linux version 6.1.0 (landley@driftwood) (sh4-linux-musl-cc (GCC) 9.4.0, GNU ld
-> (GNU Binutils) 2.33.1) #1 Tue Jan 10 16:32:07 CST 2023
+Sorry, got woken up several hours early by sirens and flashy lights this morning
+(duplex on the corner caught fire, Austin has a LOT of emergency vehicles), been
+a bit underclocked all day.
 
-I think you misunderstood: renesas-drivers releases[1] are current
-kernels.
+No, I haven't tried kexec on sh4. I'll add it to the todo heap.
 
-   Linux version 6.2.0-rc3-landisk-01864-g0c6453b3e5f6 (geert@rox)
-(sh4-linux-gnu-gcc (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0, GNU ld (GNU
-Binutils for Ubuntu) 2.38) #125 Tue Jan 10 14:29:01 CET 2023
+>> > I tried working my way up from 2.6.22, but gave up around 2.6.29.
+>> > Probably I should do this with r2d and qemu instead ;-)
+>>
+>> I have current running there. I've had current running there for years. Config
+>> attached...
+>>
+>> > Both r2d and landisk are SH7751.
+>>
+>> Cool. Shouldn't be hard to get landisk running current then.
+> 
+> Current kernels work fine on landisk with an old Debian userspace
+> on CF.  The 8139cp driver is a bit flaky: last time I tried nfsroot,
+> that didn't work well.
 
-I use 2.6.22 and kexec as a boot loader for newer kernels, to avoid
-juggling CF cards.  I cannot install a newer base kernel on the CF,
-as kexec is broken upstream.
+I've never had luck with NFS, I was using NBD. Hadn't noticed the flake but
+haven't stress tested it too hard either?
 
-> > Apparently both upstreamed kernel and
-> > kexec-tools support for SH are different, and incompatible with each
-> > other, so you cannot kexec from a contemporary kernel.
->
-> Sure you can. Using toybox's insmod and modprobe, anyway. (That's the target I
-> tested those on... :)
->
-> Haven't messed with signing or compression or anything yet, my insmod is just
-> doing syscall(SYS_finit_module) and then falling back to SYS_init_module if that
-> fails and either fd was 0 or errno was ENOSYS. (Don't ask me why
-> SYS_finit_module doesn't work on stdin...)
->
-> https://github.com/landley/toybox/blob/master/toys/other/insmod.c#L31
->
-> https://landley.net/toybox/downloads/binaries/0.8.9/toybox-sh4
+Mostly new userspace is what I'm testing...
 
-Again, I think you're talking about something different.
-Does kexec work for you?
-
-> > I tried working my way up from 2.6.22, but gave up around 2.6.29.
-> > Probably I should do this with r2d and qemu instead ;-)
->
-> I have current running there. I've had current running there for years. Config
-> attached...
->
-> > Both r2d and landisk are SH7751.
->
-> Cool. Shouldn't be hard to get landisk running current then.
-
-Current kernels work fine on landisk with an old Debian userspace
-on CF.  The 8139cp driver is a bit flaky: last time I tried nfsroot,
-that didn't work well.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rob

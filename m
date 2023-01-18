@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C43CF6722B7
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 17:13:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9426722B8
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 17:13:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1171D79C9;
-	Wed, 18 Jan 2023 17:12:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1171D79C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F82B79D5;
+	Wed, 18 Jan 2023 17:12:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F82B79D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674058405;
-	bh=48FuYf73j5irAdfV5OvRijOa2+RnLc2iiO0dv0dASHs=;
+	s=default; t=1674058425;
+	bh=8cChsv74pYJOfcjtONuonGjh4UJndDRCDERVcmwltLQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=mPTRIBZsgi1/46NDO0IWsKIUzNj+wz+6qouR2Wf35I7e6Pw+2yGFJvhCBGBbZ9ZNG
-	 1oAbOpNI5pJIQGLOfBuv/pc5towXJUSWomR0IXu7e42gUuTwriN2yqDE9gqrxP3bfy
-	 94vqwYPghE1t69EYapMfX0zH091KOJva0XSbSKLM=
+	b=igUrmsiFQUYQDnbW4G519L8DEPfBcQ2y7P+7rn6NIrYgCa5rSRUMEZDejCRCBIBf3
+	 NQwHGD3YDBy5C9+camn9ZJWWtot5xMaC5/HtD9bEQnYVfxAB5vcjkOC9pkb82nxd54
+	 SI9FH02G67gvQsPigmtL3lXpw4RkjbG9TYOInWCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 091BBF80548;
-	Wed, 18 Jan 2023 17:12:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A92ACF80482;
+	Wed, 18 Jan 2023 17:12:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A120F80548; Wed, 18 Jan 2023 17:12:32 +0100 (CET)
+ id 6F573F80482; Wed, 18 Jan 2023 17:12:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,37 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57EC1F8024D
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 17:12:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57EC1F8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9EEEF8024D
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 17:12:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9EEEF8024D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pHJYhgtV
+ header.s=k20201202 header.b=VJ5KtuAX
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AF8F1B81D7D;
- Wed, 18 Jan 2023 16:12:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6DA7C433EF;
- Wed, 18 Jan 2023 16:12:25 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8EEE0B81D8E;
+ Wed, 18 Jan 2023 16:12:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702BBC433D2;
+ Wed, 18 Jan 2023 16:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674058347;
- bh=48FuYf73j5irAdfV5OvRijOa2+RnLc2iiO0dv0dASHs=;
+ s=k20201202; t=1674058365;
+ bh=8cChsv74pYJOfcjtONuonGjh4UJndDRCDERVcmwltLQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pHJYhgtVQnVdtM3GXH1PlDVa63tAXRgp+hPGoN+O2xX7XSgRNjW10imB20sRpRP81
- ZyC+8sw4Oh1XbZzjHJMa5fs3h3r/j5TuQlHqO1aK85whjbAB5OoI88FP6tyr4KNgKB
- fa1BOFWvzOv5wDNPohWXJWO/mFhvHj7vHdOSKD2B/Vw4qRxvEl4wWwBpTIBGKX25Ih
- 0cOuV5Bv4PAkAlf/Ymr7340gcFZsZD0QaM44fUR7BT7f7bUUXo5AsZ3rd6TRGYP689
- bWqSoAHItZRc2sahS2zRxyEYsj+g59xwFASryHSFXKMiIp2R69MSVwUvO1RYb/fStF
- wMPnAPKeVRPKA==
+ b=VJ5KtuAXOH316tSrgSNn6b8gq5MCYj0z0J+xThfFP72otWnHh0r1VmuOApvAXoCUr
+ PG1a0KG4zAl6fL6MXUTy9rJseNw+H6F24mjOf9BaROeVSCRIZ0u7Ds8RkPN+vDTUyT
+ hLVgDtHV91FGhg9LcpprKNIVDAAc9tvrak0cCtVY3GzdP7ED1RbEVREzIG1s/bmEuk
+ GBzzeR2QxsxddC9iLeSD9YIEN7/n+rWo0nbCj+GKMVN/Ccky+Pq/cUI2MqlT+XKJW+
+ NNlyht4DtVDNa4UD2mRlpj1l4kgAkfxnITqqTkV5U7LV7J7NoruaTnsgWGm4iKhO3Z
+ T/9cwCxSiavPQ==
 From: Arnd Bergmann <arnd@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 4/5] ASoC: ux500: remove stedma40 references
-Date: Wed, 18 Jan 2023 17:10:48 +0100
-Message-Id: <20230118161110.521504-4-arnd@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [PATCH 5/5] ASoC: remove
+ snd_dmaengine_pcm_config->compat_request_channel
+Date: Wed, 18 Jan 2023 17:10:49 +0100
+Message-Id: <20230118161110.521504-5-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230118161110.521504-1-arnd@kernel.org>
 References: <20230118161110.521504-1-arnd@kernel.org>
@@ -80,217 +82,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-ux500_pcm_request_chan() is never called because the dma channels
-are already set up from DT. Remove this, along with the
-ux500_msp_dma_params structure.
+The last reference to this struct member is gone, so the caller
+can be removed as well.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- sound/soc/ux500/ux500_msp_dai.c |  4 +--
- sound/soc/ux500/ux500_msp_i2s.c | 41 +------------------------------
- sound/soc/ux500/ux500_msp_i2s.h |  9 +------
- sound/soc/ux500/ux500_pcm.c     | 43 +--------------------------------
- 4 files changed, 5 insertions(+), 92 deletions(-)
+ include/sound/dmaengine_pcm.h         | 13 ++-----------
+ sound/soc/soc-generic-dmaengine-pcm.c |  3 ---
+ 2 files changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/ux500/ux500_msp_dai.c b/sound/soc/ux500/ux500_msp_dai.c
-index 6e86efd06ec1..6fb1a5c207bc 100644
---- a/sound/soc/ux500/ux500_msp_dai.c
-+++ b/sound/soc/ux500/ux500_msp_dai.c
-@@ -670,8 +670,8 @@ static int ux500_msp_dai_of_probe(struct snd_soc_dai *dai)
- 	if (!capture_dma_data)
- 		return -ENOMEM;
+diff --git a/include/sound/dmaengine_pcm.h b/include/sound/dmaengine_pcm.h
+index a497d1f81cab..9965d59ff8f0 100644
+--- a/include/sound/dmaengine_pcm.h
++++ b/include/sound/dmaengine_pcm.h
+@@ -93,8 +93,8 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
+ 	struct dma_chan *chan);
  
--	playback_dma_data->addr = drvdata->msp->playback_dma_data.tx_rx_addr;
--	capture_dma_data->addr = drvdata->msp->capture_dma_data.tx_rx_addr;
-+	playback_dma_data->addr = drvdata->msp->tx_rx_addr;
-+	capture_dma_data->addr = drvdata->msp->tx_rx_addr;
+ /*
+- * Try to request the DMA channel using compat_request_channel or
+- * compat_filter_fn if it couldn't be requested through devicetree.
++ * Try to request the DMA channel using compat_filter_fn if it
++ * couldn't be requested through devicetree.
+  */
+ #define SND_DMAENGINE_PCM_FLAG_COMPAT BIT(0)
+ /*
+@@ -112,8 +112,6 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
+  * struct snd_dmaengine_pcm_config - Configuration data for dmaengine based PCM
+  * @prepare_slave_config: Callback used to fill in the DMA slave_config for a
+  *   PCM substream. Will be called from the PCM drivers hwparams callback.
+- * @compat_request_channel: Callback to request a DMA channel for platforms
+- *   which do not use devicetree.
+  * @process: Callback used to apply processing on samples transferred from/to
+  *   user space.
+  * @compat_filter_fn: Will be used as the filter function when requesting a
+@@ -126,18 +124,11 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
+  * @pcm_hardware: snd_pcm_hardware struct to be used for the PCM.
+  * @prealloc_buffer_size: Size of the preallocated audio buffer.
+  *
+- * Note: If both compat_request_channel and compat_filter_fn are set
+- * compat_request_channel will be used to request the channel and
+- * compat_filter_fn will be ignored. Otherwise the channel will be requested
+- * using dma_request_channel with compat_filter_fn as the filter function.
+  */
+ struct snd_dmaengine_pcm_config {
+ 	int (*prepare_slave_config)(struct snd_pcm_substream *substream,
+ 			struct snd_pcm_hw_params *params,
+ 			struct dma_slave_config *slave_config);
+-	struct dma_chan *(*compat_request_channel)(
+-			struct snd_soc_pcm_runtime *rtd,
+-			struct snd_pcm_substream *substream);
+ 	int (*process)(struct snd_pcm_substream *substream,
+ 		       int channel, unsigned long hwoff,
+ 		       void *buf, unsigned long bytes);
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 3b99f619e37e..a3d92eb645f2 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -190,9 +190,6 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+ 		return pcm->chan[0];
  
- 	playback_dma_data->maxburst = 4;
- 	capture_dma_data->maxburst = 4;
-diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
-index bfca5553381f..fbfeefa418ca 100644
---- a/sound/soc/ux500/ux500_msp_i2s.c
-+++ b/sound/soc/ux500/ux500_msp_i2s.c
-@@ -360,20 +360,6 @@ static int enable_msp(struct ux500_msp *msp, struct ux500_msp_config *config)
- 				__func__, status);
- 	}
- 
--	/* Make sure the correct DMA-directions are configured */
--	if ((config->direction & MSP_DIR_RX) &&
--			!msp->capture_dma_data.dma_cfg) {
--		dev_err(msp->dev, "%s: ERROR: MSP RX-mode is not configured!",
--			__func__);
--		return -EINVAL;
--	}
--	if ((config->direction == MSP_DIR_TX) &&
--			!msp->playback_dma_data.dma_cfg) {
--		dev_err(msp->dev, "%s: ERROR: MSP TX-mode is not configured!",
--			__func__);
--		return -EINVAL;
--	}
+-	if (pcm->config->compat_request_channel)
+-		return pcm->config->compat_request_channel(rtd, substream);
 -
- 	reg_val_DMACR = readl(msp->registers + MSP_DMACR);
- 	if (config->direction & MSP_DIR_RX)
- 		reg_val_DMACR |= RX_DMA_ENABLE;
-@@ -638,40 +624,17 @@ int ux500_msp_i2s_close(struct ux500_msp *msp, unsigned int dir)
- 
+ 	return snd_dmaengine_pcm_request_channel(pcm->config->compat_filter_fn,
+ 						 dma_data->filter_data);
  }
- 
--static int ux500_msp_i2s_of_init_msp(struct platform_device *pdev,
--				struct ux500_msp *msp);
--{
--	msp->playback_dma_data.dma_cfg = devm_kzalloc(&pdev->dev,
--					sizeof(struct stedma40_chan_cfg),
--					GFP_KERNEL);
--	if (!msp->playback_dma_data.dma_cfg)
--		return -ENOMEM;
--
--	msp->capture_dma_data.dma_cfg = devm_kzalloc(&pdev->dev,
--					sizeof(struct stedma40_chan_cfg),
--					GFP_KERNEL);
--	if (!msp->capture_dma_data.dma_cfg)
--		return -ENOMEM;
--
--	return 0;
--}
--
- int ux500_msp_i2s_init_msp(struct platform_device *pdev,
- 			struct ux500_msp **msp_p)
- {
- 	struct resource *res = NULL;
- 	struct ux500_msp *msp;
--	int ret;
- 
- 	*msp_p = devm_kzalloc(&pdev->dev, sizeof(struct ux500_msp), GFP_KERNEL);
- 	msp = *msp_p;
- 	if (!msp)
- 		return -ENOMEM;
- 
--	ret = ux500_msp_i2s_of_init_msp(pdev, msp);
--	if (ret)
--		return ret;
--
- 	msp->dev = &pdev->dev;
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-@@ -681,9 +644,7 @@ int ux500_msp_i2s_init_msp(struct platform_device *pdev,
- 		return -ENOMEM;
- 	}
- 
--	msp->playback_dma_data.tx_rx_addr = res->start + MSP_DR;
--	msp->capture_dma_data.tx_rx_addr = res->start + MSP_DR;
--
-+	msp->tx_rx_addr = res->start + MSP_DR;
- 	msp->registers = devm_ioremap(&pdev->dev, res->start,
- 				      resource_size(res));
- 	if (msp->registers == NULL) {
-diff --git a/sound/soc/ux500/ux500_msp_i2s.h b/sound/soc/ux500/ux500_msp_i2s.h
-index 6b353423b75a..69d4ebc409fc 100644
---- a/sound/soc/ux500/ux500_msp_i2s.h
-+++ b/sound/soc/ux500/ux500_msp_i2s.h
-@@ -462,18 +462,11 @@ struct ux500_msp_config {
- 	unsigned int iodelay;
- };
- 
--struct ux500_msp_dma_params {
--	unsigned int data_size;
--	dma_addr_t tx_rx_addr;
--	struct stedma40_chan_cfg *dma_cfg;
--};
--
- struct ux500_msp {
- 	int id;
- 	void __iomem *registers;
- 	struct device *dev;
--	struct ux500_msp_dma_params playback_dma_data;
--	struct ux500_msp_dma_params capture_dma_data;
-+	dma_addr_t tx_rx_addr;
- 	enum msp_state msp_state;
- 	int def_elem_len;
- 	unsigned int dir_busy;
-diff --git a/sound/soc/ux500/ux500_pcm.c b/sound/soc/ux500/ux500_pcm.c
-index ca87517d80c9..53b5649cfdda 100644
---- a/sound/soc/ux500/ux500_pcm.c
-+++ b/sound/soc/ux500/ux500_pcm.c
-@@ -13,7 +13,6 @@
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
- #include <linux/slab.h>
--#include <linux/platform_data/dma-ste-dma40.h>
- 
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -29,44 +28,6 @@
- #define UX500_PLATFORM_PERIODS_MAX		48
- #define UX500_PLATFORM_BUFFER_BYTES_MAX		(2048 * PAGE_SIZE)
- 
--static struct dma_chan *ux500_pcm_request_chan(struct snd_soc_pcm_runtime *rtd,
--	struct snd_pcm_substream *substream)
--{
--	struct snd_soc_dai *dai = asoc_rtd_to_cpu(rtd, 0);
--	u16 per_data_width, mem_data_width;
--	struct stedma40_chan_cfg *dma_cfg;
--	struct ux500_msp_dma_params *dma_params;
--
--	dma_params = snd_soc_dai_get_dma_data(dai, substream);
--	dma_cfg = dma_params->dma_cfg;
--
--	mem_data_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
--
--	switch (dma_params->data_size) {
--	case 32:
--		per_data_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
--		break;
--	case 16:
--		per_data_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
--		break;
--	case 8:
--		per_data_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
--		break;
--	default:
--		per_data_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
--	}
--
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		dma_cfg->src_info.data_width = mem_data_width;
--		dma_cfg->dst_info.data_width = per_data_width;
--	} else {
--		dma_cfg->src_info.data_width = per_data_width;
--		dma_cfg->dst_info.data_width = mem_data_width;
--	}
--
--	return snd_dmaengine_pcm_request_channel(stedma40_filter, dma_cfg);
--}
--
- static int ux500_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
- 		struct snd_pcm_hw_params *params,
- 		struct dma_slave_config *slave_config)
-@@ -98,7 +59,6 @@ static int ux500_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
- }
- 
- static const struct snd_dmaengine_pcm_config ux500_dmaengine_of_pcm_config = {
--	.compat_request_channel = ux500_pcm_request_chan,
- 	.prepare_slave_config = ux500_pcm_prepare_slave_config,
- };
- 
-@@ -107,8 +67,7 @@ int ux500_pcm_register_platform(struct platform_device *pdev)
- 	int ret;
- 
- 	ret = snd_dmaengine_pcm_register(&pdev->dev,
--					 &ux500_dmaengine_of_pcm_config,
--					 SND_DMAENGINE_PCM_FLAG_COMPAT);
-+					 &ux500_dmaengine_of_pcm_config, 0);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev,
- 			"%s: ERROR: Failed to register platform '%s' (%d)!\n",
 -- 
 2.39.0
 

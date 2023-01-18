@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBE16721F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 16:47:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4310B6721F8
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Jan 2023 16:47:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B27147982;
-	Wed, 18 Jan 2023 16:46:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B27147982
+	by alsa0.perex.cz (Postfix) with ESMTPS id D35E4798B;
+	Wed, 18 Jan 2023 16:47:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D35E4798B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674056842;
-	bh=HeJFlbJgTEjmKRxegxuUKiHDC7mS+RaEzO/lzVVy+pM=;
+	s=default; t=1674056870;
+	bh=021QYA+fr59YRtKUTkVgQNccHeVWnfLUUmLZp3ZGi5o=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=E4MZoGmWoldOewa2xB6Fq0B/J/8iHz6hYK0pdj68Xg9KMie5pc520Tr7LxWsCmWLn
-	 STaOiK0e9jq9+3KRmAnTWTSfzOvteypNu33URiRAhSVxFWg2U1leXywb8RnVFRAaLf
-	 486a79eJI7oBzvos9unev+ROXAXoWpvD4zxqhnF8=
+	b=Kq0TnseomMmUDi2xOghmB3vjENZmqkqU7wPyuPB+Y6FvZV4zPdSCdxFE26rgxcEAf
+	 BYK4WunnpccxLqzBb7lTv8xZXza70BvGxiGK78RaB/sTG40qHnezu4RNUrJ1fj49VK
+	 m7tTosaX/XDloQ3uFOdMGOJuNmwLbVvNjpnGAaSU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59D13F8026D;
-	Wed, 18 Jan 2023 16:46:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18E9AF804BC;
+	Wed, 18 Jan 2023 16:46:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72C36F80482; Wed, 18 Jan 2023 16:46:22 +0100 (CET)
+ id AD2FFF80520; Wed, 18 Jan 2023 16:46:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEF5EF8024C
- for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 16:46:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEF5EF8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AF3AF80083
+ for <alsa-devel@alsa-project.org>; Wed, 18 Jan 2023 16:46:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AF3AF80083
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eWGrB8/H
+ header.s=k20201202 header.b=PGHYWs4s
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 170FCB81D8C;
- Wed, 18 Jan 2023 15:46:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE000C433EF;
- Wed, 18 Jan 2023 15:46:06 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AC3B06189A;
+ Wed, 18 Jan 2023 15:46:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0E8C433D2;
+ Wed, 18 Jan 2023 15:46:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674056770;
- bh=HeJFlbJgTEjmKRxegxuUKiHDC7mS+RaEzO/lzVVy+pM=;
+ s=k20201202; t=1674056775;
+ bh=021QYA+fr59YRtKUTkVgQNccHeVWnfLUUmLZp3ZGi5o=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=eWGrB8/HkfTH3h59VMsK4s4GBKnyLCVnZP+EYV6SEsxYN0j7Av3MZThwzfsuIZ281
- wy1M/GHrxqnr0np2ComLyg8PbO0MODNx+B5x8BWJc1RL2ODvplUyIgvl/7c2eTW15/
- X1eLprIydkDATkGMKpRbPQEZepOgpOwf1JLX8tcT2FIQGHMV9m8a1VEUTqLsqI5Upx
- 27CmDsLeRgnEjqUm7U2ADV6SLxcASK0cxzl7yrdviu/upKwoiux3I3RStQCQw9PWUd
- tDQBMcyxhDX92rWhcLfBL1+qkDmGuAw2HO6G55IYhBRrcKnrWkihJ/RxMCNuK/jxBh
- UgkJCFqAshKmA==
+ b=PGHYWs4sxjmzeaDoM6gENdDB6SOS5cujeOuHKNqL0d3TXKoBRMzaoZPZNjUSlFCCl
+ 2eG5zyrGhlCkUZb1/BRfZjKPW2TDIR8F1AGZIkBrP/SfpACroxGC9yJWgdopUEgUUX
+ MDtgCSu2Rh2EonI1Yt8uusloWSe4uKWVHQ7uga6mhB93laAu32yBtpxRhwWUid/YTF
+ Go2OnmEHlYQjhwEJ+5oC2VXInVXiVEQFPSW72FTtNtOJhzfhVHeq8228zJeQQqEW2M
+ BUmk7Pv1vOyYYnyEFK7HTcUcA4n3v/NSwgBDtn3yHtvm5dCIfzo+12uD+b5h3TB2sp
+ 6hchgJMs8rxyg==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230116125506.27989-1-peter.ujfalusi@linux.intel.com>
-References: <20230116125506.27989-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v2 0/3] ASoC: SOF: sof-audio: Fixes for widget prepare
- and unprepare
-Message-Id: <167405676616.930478.14281486958909516294.b4-ty@kernel.org>
-Date: Wed, 18 Jan 2023 15:46:06 +0000
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20230117122533.201708-1-daniel.baluta@oss.nxp.com>
+References: <20230117122533.201708-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/4 v2] Add support to compress API to ipc_msg_data /
+ set_stream_data_offset
+Message-Id: <167405677113.930478.14660513986939036146.b4-ty@kernel.org>
+Date: Wed, 18 Jan 2023 15:46:11 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -81,22 +82,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- rander.wang@intel.com, yung-chuan.liao@linux.intel.com,
+Cc: alsa-devel@alsa-project.org, Allen-KH.Cheng@mediatek.com,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.come,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ linux-imx@nxp.com, yc.hung@mediatek.com, Vsujithkumar.Reddy@amd.com,
+ peter.ujfalusi@linux.intel.com, AjitKumar.Pandey@amd.com,
  angelogioacchino.delregno@collabora.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Jan 2023 14:55:03 +0200, Peter Ujfalusi wrote:
-> Changes since v1:
-> - patches got re-ordered to make them (hopefully) apply on stable when picked
-> - Added stable tag for 6.1 for the patches
-> - Added Fixes tag for the swidget NULL check on unprepare
+On Tue, 17 Jan 2023 14:25:29 +0200, Daniel Baluta wrote:
+> This patch series adds compress API support to ipc_msg_data /
+> set_stream_data_offset callbacks.
 > 
-> This series contains one fix (first patch) followed by a nice to have safety
-> belts in case we get a widget from topology which is not handled by SOF and will
-> not have corresponding swidget associated with.
+> Changes since v1:
+> 	- fixed reviewed-by list (+Peter, -Pierre). Since github had
+> 	  some glitches I added the reviews received manually in the
+>           commits.
+> 	- Github PR link: https://github.com/thesofproject/linux/pull/4133
 > 
 > [...]
 
@@ -106,12 +109,14 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: SOF: sof-audio: Unprepare when swidget->use_count > 0
-      (no commit info)
-[2/3] ASoC: SOF: sof-audio: skip prepare/unprepare if swidget is NULL
-      commit: 0ad84b11f2f8dd19d62d0b2ffd95ece897e6c3dc
-[3/3] ASoC: SOF: sof-audio: keep prepare/unprepare widgets in sink path
-      (no commit info)
+[1/4] ASoC: SOF: Prepare ipc_msg_data to be used with compress API
+      commit: 1b905942d6cd182b7ef14e9f095178376d3847e6
+[2/4] ASoC: SOF: Prepare set_stream_data_offset for compress API
+      commit: 249f186d6b0211fc59d83db128030f2b298063a1
+[3/4] ASoC: SOF: Add support for compress API for stream data/offset
+      commit: 090349a9feba3ceee3997d31d68ffe54e5b57acb
+[4/4] ASoC: SOF: compress: Set compress data offset
+      commit: a9737808b3e4e2313cc2aab2e807836a06576277
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

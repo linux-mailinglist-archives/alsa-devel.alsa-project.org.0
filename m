@@ -2,93 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE26673550
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 11:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C5F673586
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 11:30:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B12357F99;
-	Thu, 19 Jan 2023 11:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B12357F99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 271A17FD2;
+	Thu, 19 Jan 2023 11:30:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271A17FD2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674123458;
-	bh=5PaNR9REzdoVOJJe+R7d5d9HzB8gxECduYvylZbeXow=;
+	s=default; t=1674124250;
+	bh=hRXUdudLuZeO+VgVDbNxLMQxsYdg7P29jf/yofds3iw=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=H4pe3sT9+xYj5cG3UYuIhv6yiAVbkpn3Iyj6RNAQM1iVee6lCQsYMDw/wRNC6EKRc
-	 b88VfcgAj96Xc29222k7cqOJrNVa5GZarTaPx4KEwJ+4JByGR8z0h6g5u6IXmLh4S/
-	 4tBNH6k0wAxnxywwfDo11igNLZu4PbTpjPbGazGM=
+	b=qTNwoVFDRc/NcS9GqFYUTkWpQcDDJqIvVqtmBKehOqjARIKTpvC7LjTrapfau8keF
+	 48lZ6S88ARxc1TMOnqiyowNwHEjaPa75iyEG6fq0vnJxHoO5NkJiSQS8iIH9rY+Aa+
+	 GuG3Mw23H1NQ/RDSmgzi+7OyrIVgFPiaI2YvP/s8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9689DF804DE;
-	Thu, 19 Jan 2023 11:16:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D948AF804DE;
+	Thu, 19 Jan 2023 11:29:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1145FF8047B; Thu, 19 Jan 2023 11:16:46 +0100 (CET)
+ id 0B5BAF8047B; Thu, 19 Jan 2023 11:29:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55B9DF8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 11:16:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55B9DF8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F2E9F80083
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 11:29:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F2E9F80083
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=sKmonegD; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=k0ic+1V+; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=R0FjVJpJ
+ header.s=susede2_ed25519 header.b=IPhbZ9Ej
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4C7DD38413;
- Thu, 19 Jan 2023 10:16:41 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 597FC5CC2F;
+ Thu, 19 Jan 2023 10:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674123401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674124183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L8GaUcxwMAhwYM3qUgsX/z2RYQWBpfZrbM64PXzVuiY=;
- b=sKmonegDxsAPqcEn5rRQmxfhSrVaPXDI3TSENMApltShpMEcxyA9HCg5AW/e95xkWcbcDN
- wy74cS8c2Lh0zAJf2Jke94EiwCLVeymo/u0ZmAYjJuStOCB/1FbuINO6dsIUqzxjzheP1h
- 9s9pxhCKtstKW/EuTWyFQ3tcFc3FCDY=
+ bh=8KlZvB/UZYoksWT8hu741iFNZtBsBPjxTGyRD6uI2Ko=;
+ b=k0ic+1V+fKvyIIFs/LqlGPRvOUUHZVkeHkWDW004aaWTKsGZ3EXfpIXL/X5TutMdq0RS6/
+ Zps69tLDQf13QMeOgU9VSzVljwAtVYoRbvEDH+FB7LM+GGfPb4ftN+JIQjDlf1631uk5km
+ QlOrHXOB/T98YRidodHAULA3xQCUKjg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674123401;
+ s=susede2_ed25519; t=1674124183;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L8GaUcxwMAhwYM3qUgsX/z2RYQWBpfZrbM64PXzVuiY=;
- b=R0FjVJpJRUJP0QSEATZEtB/CyPwi6GoL7tQExk9uHoN/PJV2FOs2JlZAkz6LuLquZHva9K
- 1jv94kpQdnYGG0CQ==
+ bh=8KlZvB/UZYoksWT8hu741iFNZtBsBPjxTGyRD6uI2Ko=;
+ b=IPhbZ9EjkvqmGUIZ4C2Y+sFXn75Ef5eDpMFoum3Woe46eGFKF3Rrh3sCajGcCn/nS43V4w
+ AX6jqcqyb1M9CUAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3021E139ED;
- Thu, 19 Jan 2023 10:16:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 374A3139ED;
+ Thu, 19 Jan 2023 10:29:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ol2dCokYyWPnFwAAMHmgww
- (envelope-from <tiwai@suse.de>); Thu, 19 Jan 2023 10:16:41 +0000
-Date: Thu, 19 Jan 2023 11:16:40 +0100
-Message-ID: <87zgaerfqv.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id jk/VDJcbyWO2HgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Thu, 19 Jan 2023 10:29:43 +0000
+Date: Thu, 19 Jan 2023 11:29:42 +0100
+Message-ID: <87wn5irf55.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mike FABIAN <mfabian@redhat.com>
-Subject: Re: No sound on HDMI by default on Lenovo T14s using Fedora 37
-In-Reply-To: <877cxj65s3.wl-tiwai@suse.de>
-References: <s9dy1pzx3ki.fsf@hathi.site> <87k01j6cw6.wl-tiwai@suse.de>
- <s9dfsc7ixik.fsf@hathi.site> <877cxj65s3.wl-tiwai@suse.de>
+To: Artemii Karasev <karasev@ispras.ru>
+Subject: Re: [PATCH] ALSA: hda/via: Avoid potential array out-of-bound in
+ add_secret_dac_path()
+In-Reply-To: <20230119082259.3634-1-karasev@ispras.ru>
+References: <20230119082259.3634-1-karasev@ispras.ru>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,76 +98,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, Xiang wangx <wangxiang@cdjrlc.com>,
+ lvc-project@linuxtesting.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Jan 2023 19:45:16 +0100,
-Takashi Iwai wrote:
+On Thu, 19 Jan 2023 09:22:59 +0100,
+Artemii Karasev wrote:
 > 
-> On Wed, 18 Jan 2023 18:05:23 +0100,
-> Mike FABIAN wrote:
-> > 
-> > Takashi Iwai <tiwai@suse.de> さんはかきました:
-> > 
-> > > On Wed, 18 Jan 2023 16:30:53 +0100,
-> > > Mike FABIAN wrote:
-> > >> 
-> > >> 
-> > >> With a Lenovo Thinkpad T14s (Gen1, Intel version), I tried to get sound
-> > >> on the monitor speakers via the HDMI cable.
-> > >> 
-> > >> It didn’t work out of the box and after a bit of googling I found:
-> > >> 
-> > >>     https://forums.lenovo.com/t5/ThinkPad-T400-T500-and-newer-T-series-Laptops/T14s-AMD-no-HDMI-audio-on-Linux/m-p/5081195?page=2
-> > >> 
-> > >> 
-> > >> which suggested to put
-> > >> 
-> > >>     snd_rn_pci_acp3x.dmic_acpi_check=0
-> > >> 
-> > >> on the kernel command line.
-> > >> 
-> > >> So I tried this:
-> > >> 
-> > >> $ cat /etc/modprobe.d/lenovot14s.conf 
-> > >> options snd-rn-pci-acp3x dmic_acpi_check=0
-> > >> 
-> > >> And that did make it work indeed.
-> > >> 
-> > >> I have no idea what this means and why this makes it work.
-> > >
-> > > The option basically should influence on the driver's behavior whether
-> > > to probe the built-in d-mic or not, and it has no direct relationship
-> > > with HDMI (supposedly via HD-audio bus), so it's puzzling how this
-> > > fixes the problem.
-> > >
-> > > Could you run alsa-info.sh (with --no-upload option) on both working
-> > > and non-working cases, and attach both outputs for comparison?
-> > 
-> > I removed /etc/modprobe.d/lenovot14s.conf but now it still works ☹
-> > 
-> > I did a “sudo dnf --enablerepo=updates-testing update”
-> > 
-> > since I last rebooted, so it is possible that an update fixed this.
-> > 
-> > So unfortunately I cannot produce a “alsa-info.sh --no-upload” output
-> > for the non-working case anymore (I attached the output for the working
-> > case *without* /etc/modprobe.d/lenovot14s.conf (i.e. without snd_rn_pci_acp3x.dmic_acpi_check=0)
+> snd_hda_get_connections() can return a negative error code.
+> It may lead to accessing 'conn' array at a negative index.
 > 
-> Hm, I see no snd-rn-pci-acp3x module is loaded there, so something
-> might prevent it loaded (e.g. blacklist or such)?
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 > 
-> And, with this state, can you use the built-in mic?  Also, how after
-> restoring the module option?
+> Signed-off-by: Artemii Karasev <karasev@ispras.ru>
+> Fixes: 30b4503378c9 ("ALSA: hda - Expose secret DAC-AA connection of some VIA codecs")
 
-Also, maybe more fundamental question: how exactly "it didn't work"?
-Does the HDMI device appear on pipewire / PulseAudio, but the output
-results in silence?  Or Is no HDMI listed there?
-
-BTW, the lack of AMD SoC stuff might be related with the device power
-state.  A cold boot might change the situation (or trying back to an
-older known kernel).
+Thanks, applied.
 
 
 Takashi

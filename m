@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A20DE673F6E
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 18:00:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22177673FAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 18:15:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22078851;
-	Thu, 19 Jan 2023 17:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22078851
+	by alsa0.perex.cz (Postfix) with ESMTPS id A350934DD;
+	Thu, 19 Jan 2023 18:14:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A350934DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674147608;
-	bh=RF7r/yCO3++XGdA6LiIF6KXulOuZEe98+/7LlxVZQH0=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674148507;
+	bh=3PfvGA6LG6n0VOKqUA3+pvpEy/KwfivVBi7XGfFWq54=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=SL/2YubAYbsjogw33yS+4V+wMOrc8SHyjBR7jHp/YseolsDysguaTZSwaPHogn/e8
-	 7olidGGVSsjF/G4vZ+0M/ZceX8MOprbzD+xM1lhWY474DPo3mgq8dyB6wxsY0tNoao
-	 /+1M8UAPaPcQtqSza7rxrDwp/oD0m1Ep4Xv1Rn7E=
+	b=ed9SwsaGY5gAz3bW+8yiclJnCrSehs8kRWD/ZlqCT26iNmflKThEKVREdukpAtxXu
+	 fxBPxjGn30L6lgGN+gA7NcLwJggL4m2+vllFiJIBRRPDhlmO7/CAZGni+3Y8XUsg/L
+	 zo0ZrIAnsAEXLTmn/dQdB35HJyId6hRiHqS+ADGE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4FE4F8024D;
-	Thu, 19 Jan 2023 17:59:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECE22F80083;
+	Thu, 19 Jan 2023 18:14:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14803F8047B; Thu, 19 Jan 2023 17:59:08 +0100 (CET)
+ id E9C85F8047B; Thu, 19 Jan 2023 18:14:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64054F80083
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:59:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64054F80083
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GQoiqCvp
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8FD4961CC1;
- Thu, 19 Jan 2023 16:59:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85341C433F1;
- Thu, 19 Jan 2023 16:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674147544;
- bh=RF7r/yCO3++XGdA6LiIF6KXulOuZEe98+/7LlxVZQH0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GQoiqCvpDUa/QybJ5jQbTus0Ja3L42zIp3CXFNNBQP4Xlnb9lds2RMM4gFocuVpGj
- qLy1YiCfZsavYjAE+nNIy6OGPmZ2X8GKk1bXMUs7LGVxGkWCEKGwq18iMqs5SZPTpn
- Vyq3aImgkKElrrDXpMiW49C1q+HsPz1eP3DndMul2VfU3bwK1YEgrpd+/3TEMzpzmZ
- jmNwSEV0ARGnsnjvz84OOUFXkTZ32MTLsc5WOR1H0MTa9jQJ7cxeQZZvxYSdMSoQEp
- AsLy9GuTBDWnaNuXGdvsZIxi8PWneHED/nUbbJP2g7Em2Bnq54PaH6AvsG7ovcq9io
- 0OT8HHx2A5GZQ==
-Date: Thu, 19 Jan 2023 16:59:00 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
-Message-ID: <Y8l21Kb42l2ZcIC+@sirena.org.uk>
-References: <20230118161110.521504-1-arnd@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABCE0F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 18:14:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABCE0F8024D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=nfPsGYXD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674148447; x=1705684447;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=3PfvGA6LG6n0VOKqUA3+pvpEy/KwfivVBi7XGfFWq54=;
+ b=nfPsGYXDmH1FjvuPLbzsuokKBSyMOQeOEmPlUGKMumztSABD99rDpugS
+ IVx5AGxSUeGeCwRrVVu3LvzQqIGjsYRch6cBKAxiXBTAmNcNmQoOe7uuM
+ 8wj09q9+vBZ59tNPMlFm/4TlIw/51Rig5BjeW2GH/G/LVPh907iDm32Wn
+ k60EDvf1k6Crl5rUzFzfuaIraI8Wnb/ivLWsHtnBxhl5sMX8nfPfN7/aV
+ JqxLHPOqCoh+Z1MGTBJgxDitPgVD2CdyX93XlswTIusBjc1aGWRrfY8PL
+ 55LCkNny3asznfFBAyMS+qYpRbk1n6slZhgJ3IRjBoHaLsl9B84lTlYV+ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="325391661"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="325391661"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 09:12:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="728786641"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="728786641"
+Received: from sahamad-mobl1.amr.corp.intel.com (HELO [10.213.187.97])
+ ([10.213.187.97])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 09:12:05 -0800
+Message-ID: <c05a6791-96a7-2b10-d353-eb7b316aefc8@linux.intel.com>
+Date: Thu, 19 Jan 2023 11:12:04 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bzVt0O2u5Oo2htJ5"
-Content-Disposition: inline
-In-Reply-To: <20230118161110.521504-1-arnd@kernel.org>
-X-Cookie: What is the sound of one hand clapping?
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to
+ register IRQ handlers
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
+References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
+ <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +91,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
+Cc: patches@opensource.cirrus.com, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+No objection on this addition, just a couple of comments to improve it:
 
---bzVt0O2u5Oo2htJ5
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>  EXPORT_SYMBOL(sdw_bus_master_add);
+> @@ -158,6 +183,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
+>  	mutex_lock(&bus->bus_lock);
+>  
+>  	if (slave->dev_num) { /* clear dev_num if assigned */
+> +		irq_dispose_mapping(irq_find_mapping(bus->domain, slave->dev_num));
+> +
 
-On Wed, Jan 18, 2023 at 05:10:45PM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> This data is no longer passed by the platform code, so
-> there is no point passing it down at all.
+could this be done conditionally. e.g.
 
-This breaks an x86 allmodconfig build:
+if (slave->prop.irq)
+    irq_dispose_mapping(irq_find_mapping(bus->domain, slave->dev_num));
 
-/build/stage/linux/sound/soc/samsung/s3c24xx-i2s.c: In function =E2=80=98s3=
-c24xx_iis_dev_probe=E2=80=99:
-/build/stage/linux/sound/soc/samsung/s3c24xx-i2s.c:436:56: error: passing a=
-rgument 4 of =E2=80=98samsung_asoc_dma_platform_register=E2=80=99 from inco=
-mpatible pointer type [-Werror=3Dincompatible-pointer-types]
-  436 |                                                  "tx", "rx", NULL);
-      |                                                        ^~~~
-      |                                                        |
-      |                                                        char *
-In file included from /build/stage/linux/sound/soc/samsung/s3c24xx-i2s.c:21:
-/build/stage/linux/sound/soc/samsung/dma.h:17:55: note: expected =E2=80=98s=
-truct device *=E2=80=99 but argument is of type =E2=80=98char *=E2=80=99
-   17 |                                        struct device *dma_dev);
-      |                                        ~~~~~~~~~~~~~~~^~~~~~~
-/build/stage/linux/sound/soc/samsung/s3c24xx-i2s.c:435:15: error: too many =
-arguments to function =E2=80=98samsung_asoc_dma_platform_register=E2=80=99
-  435 |         ret =3D samsung_asoc_dma_platform_register(&pdev->dev, NULL,
-      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/samsung/dma.h:15:5: note: declared here
-   15 | int samsung_asoc_dma_platform_register(struct device *dev,
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+...
 
---bzVt0O2u5Oo2htJ5
-Content-Type: application/pgp-signature; name="signature.asc"
+>  		clear_bit(slave->dev_num, bus->assigned);
+>  		if (bus->dev_num_ida_min)
+>  			ida_free(&sdw_peripheral_ida, slave->dev_num);
+> @@ -178,6 +205,9 @@ static int sdw_delete_slave(struct device *dev, void *data)
+>  void sdw_bus_master_delete(struct sdw_bus *bus)
+>  {
+>  	device_for_each_child(bus->dev, NULL, sdw_delete_slave);
+> +
+> +	irq_domain_remove(bus->domain);
+> +
+>  	sdw_master_device_del(bus);
+>  
+>  	sdw_bus_debugfs_exit(bus);
+> @@ -717,6 +747,12 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
+>  			slave->dev_num = dev_num;
+>  			slave->dev_num_sticky = dev_num;
+>  			new_device = true;
+> +
+> +			slave->irq = irq_create_mapping(bus->domain, dev_num);
+> +			if (!slave->irq) {
+> +				dev_err(bus->dev, "Failed to map IRQ\n");
+> +				return -EINVAL;
+> +			}
 
------BEGIN PGP SIGNATURE-----
+...and here....
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPJdtQACgkQJNaLcl1U
-h9DgjwgAgU0/cJsXAH8jVFRez5j0+Ywfwgj3yHcHuFoz+nMGVyWiantq0Ngpc4hl
-A2xXiyPAUihszEWIB8CsTZZ6QkinxuTVzhvCfZsBHP9cxv4N+wLUkCEZyFof1V9T
-Y260keksOWfsGEv2j4kiwf/sjEUp7rpiBhRal7Anf3wB9RDRuRhEVTIIWXqoFfZd
-l4NnvS9Nzis5VdmtlUd9mmz3EOPZ/MCjeaZk3Su5Wq4B2tCxxR3zhINn6Fugkk7p
-pF4BzZvVHKiO2TACVEd22dyF4Jl5e7tDnFNaWB4SVr8AyKg4XbPxJueIoNp0Ix80
-vwaqN+MsmKDjZvMhsU4KsP9HmfzP9w==
-=aHDc
------END PGP SIGNATURE-----
+if (slave->prop.irq) {
+	slave->irq = irq_create_mapping(bus->domain, dev_num);
+	if (!slave->irq) {
+		dev_err(bus->dev, "Failed to map IRQ\n");
+		return -EINVAL;
+	}
+}
 
---bzVt0O2u5Oo2htJ5--
+>  		} else {
+>  			slave->dev_num = slave->dev_num_sticky;
+>  		}
+> @@ -1682,6 +1718,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+>  				struct device *dev = &slave->dev;
+>  				struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
+>  
+> +				if (slave->prop.irq && slave->irq)
+> +					handle_nested_irq(slave->irq);
+
+.... that would be consistent with this conditional use.
+
+
+> @@ -369,6 +371,7 @@ struct sdw_dpn_prop {
+>   * @clock_reg_supported: the Peripheral implements the clock base and scale
+>   * registers introduced with the SoundWire 1.2 specification. SDCA devices
+>   * do not need to set this boolean property as the registers are required.
+> + * @irq: call actual IRQ handler on slave, as well as callback
+>   */
+>  struct sdw_slave_prop {
+>  	u32 mipi_revision;
+> @@ -393,6 +396,7 @@ struct sdw_slave_prop {
+>  	u8 scp_int1_mask;
+>  	u32 quirks;
+>  	bool clock_reg_supported;
+> +	bool irq;
+
+this can be confused with the 'wake_capable' property.
+
+maybe 'out_of_band_irq' ?
+
+There should be an explanation and something checking that both are not
+used concurrently.

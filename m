@@ -2,97 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423EB673DB7
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 16:40:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834FA673E1E
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 17:01:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBEA673C9;
-	Thu, 19 Jan 2023 16:39:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBEA673C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C45268151;
+	Thu, 19 Jan 2023 17:00:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C45268151
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674142816;
-	bh=xS2Z9TgsEdYkRLO3MUtTEHFJDwIjTfyXLKP658WCP3U=;
+	s=default; t=1674144083;
+	bh=fkz6W+8oe7AF2kbjLpiFNi/1nHNBNuf1YhZOvWYPSc8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=d5I1RS7n1KxvmpHi/FEDOO0dWjbzO2NeEBMTkatanRXh2PfX4ICLCQE82QIjYi62R
-	 1LwCXSFQ1EFLXuOOtA8plNa5RQvUx2c9qyXC2tLQh+MAKPh8piarAuPNXOXcw5IqEE
-	 N9+xvdcn5+sKqe7jJuRuAm8AP54v2ntd0pjSFqOw=
+	b=D5KycgFim1m1eHjw0387Vi/cHbpxPNZ2hXxB+sUGIr5k3y0zfBhxeNO8iSZ4O/9Wy
+	 0UVdD5UYqxv29TYK+GhSp3YoLAuylD2E5OZgBG7lNYrfP8lpyGc99inTgRW7nJG8EA
+	 1S1CUKv6h8KqxFs660uobpxvjimnfFV+oWE8F56Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86E5EF800F0;
-	Thu, 19 Jan 2023 16:39:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F6EF800F0;
+	Thu, 19 Jan 2023 17:00:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81776F8047B; Thu, 19 Jan 2023 16:39:18 +0100 (CET)
+ id EAF3AF8047B; Thu, 19 Jan 2023 17:00:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0EEBF8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 16:39:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0EEBF8024D
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=RzbKzm23
-Received: by mail-wr1-x42b.google.com with SMTP id e3so2232773wru.13
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 07:39:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OOhxRkaK5iJsPmgu7cE4ichYw4bJxnhNB1oQShnuPiw=;
- b=RzbKzm235PZAcKc7WeZAK6jCGYYnK4e2HJxFybcU+CbC/oAe/unT6TT0MwdrpHKAsj
- RRUNd3X+YacYM5A2vApQLC3G1GD9/d8eIweSSVzatbqb5N6GdpgMxpgq4R6e20qiUWM6
- K/U7FqDMSbYwMiO2tywoqCgXZ4qeoDgMcu1pKj0BtE4dAoroKbdF91Qi6bPNUU8qFIgI
- wj47VfIf8eT3AvXTjigfzfDBSOOK5/Y7n3fnlD6B7oUcZYDjZbfK8PLIvA4S/0XoRJ41
- rCmxG9WuaF4qO5SpIGutLo/aVmZnc3JL1dsMfCri595JTaEI6rh2rLGJdTkJva3CMRiD
- vN9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OOhxRkaK5iJsPmgu7cE4ichYw4bJxnhNB1oQShnuPiw=;
- b=JApWx1CpYWgXwu9dVL6r9v1LYbSAGfu3d41xOIYj1WvDoR1S2oCdDLbhmSImPtNHsZ
- lf1+VQl3Hpw8AY5BtLwVk6n+d+e5JHCX8UFx0wMJCTxXBV4ZeSLdiY5y4ObS6+F7Ol6L
- mlAFHpF/ylQriNUKGv99bx/pZrk0TCwz7YRrq/ByzcatsUA1OS0QMReHuIOputzKCAaT
- whH/D9cEtkNgIrZd7pwp2VxwIdF5xRKExwp0pIZYxbu8zRRk+kuoBJw1SBuREOpaNAdb
- mVa6Q1G41lezjTC83Mbdh/9kjIva3zuiAaOeY6MmSycXYcZ6XgEYsneRz2Urqfu1L9Bk
- jgkA==
-X-Gm-Message-State: AFqh2kqn2AIpdx/+iPVkvsS4ry9KeA74dG7KQh8COlIohLf9+P7mjqmg
- mSPUL/JvARGmWp6mUgKzrOn1fA==
-X-Google-Smtp-Source: AMrXdXtwYxY5U66bazeYqy96ygdXa4/ViKWR2UtRp2JjJBOGMcGXo6hk/d07aUoCXYWnvDgztytwnw==
-X-Received: by 2002:adf:f6cf:0:b0:2bc:858a:3def with SMTP id
- y15-20020adff6cf000000b002bc858a3defmr18528056wrp.5.1674142749637; 
- Thu, 19 Jan 2023 07:39:09 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- n13-20020a5d67cd000000b002bdcce37d31sm23591319wrw.99.2023.01.19.07.39.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Jan 2023 07:39:09 -0800 (PST)
-Message-ID: <479bc3b3-b923-d7c7-5c5c-b6b8b8eec7a8@linaro.org>
-Date: Thu, 19 Jan 2023 16:39:07 +0100
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD049F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:00:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD049F8024D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=axis.com header.i=@axis.com
+ header.a=rsa-sha256 header.s=axis-central1 header.b=HkW8Ph1J; 
+ dkim=pass (1024-bit key,
+ unprotected) header.d=axis365.onmicrosoft.com
+ header.i=@axis365.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-axis365-onmicrosoft-com header.b=jTYLwMn0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1674144019;
+ x=1705680019; h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Hs06Qo7oAoofI08dQn6aFgHJ1YUSmmef9AUGmmqhEVk=;
+ b=HkW8Ph1J1HtpxfxOvE+PV/zxFtc9ZGsWMLjieJlu0KbkdU1YgdCWTEuA
+ 2ZeUZ730mGwKA/yNwTUdh7nxAzkYmTb5da9/CjdlUNzVE39GUcC4GZW8K
+ z723MFwoTtG3W+Z2/IiMOjiu5GSNfp/s4L9TTeeTqU8kAyl19RhjjrYy6
+ R/JWZEnT1EgKnsP8tijmfYQNRfTRuyw3L+CBIR8+QzwRUCqSaYyd212gk
+ oDEPfI0LHAelxVyTMucs9CSCgiuzvFxJFU+oYX4dDKlJ/E+gJFMW2738I
+ rEs104YPiTG3WKpkpdV3SE2cpuY2LQ6YZuLjwaWY7fi3+VEwPsBApv+89 A==;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pv2I6vjkMUexEsvFbNfsuhXLid8GUYIHMeIeCWYqMxNunF/6/+hLMd/8AL5ev797iayrssruvVWNk21O3DTHdVwipT3gdXBQgLc4KVN4Dpf6gfGTpnJFGHFyeYHRfeCNHsgArYwzUqd0VgOwZlrAV9oJHKvgdyGbfJCENYTEhKa7y9aqSvjWOrgXB0FNTcYDAd9fdiEotaV1BLH874ay5iVMRyId4rkBLVDWkNh7ccMbhcF+B5nNmS5qK+uOxOLtIgJsQNUWcRrisy0maCotxpuCZpKXffBUYYcCJKTrXLFlHyfY5XasxsfNKmwBdp8w6YPl2Gmqhoz1psGKWXO0uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hs06Qo7oAoofI08dQn6aFgHJ1YUSmmef9AUGmmqhEVk=;
+ b=SO13Ikxp6+PbASFEgzsfMyQF60/UA2MED6sQZgkUt/KmAj1t/J+60rEzxXMIWEd/Puwi79yLg4hOmhEKZyVOOEg0gA2wRAjNHHEvA8rl5HGbs6KtiRDbl1uRBivQJ038BDHrCW68CCpkKLnScrUcxV6P+bMn3miiV6BFzfkqcNM2lJlFjWF2nlONR66ZlYIwUF4mA7dGP5WkhRaS0OUKSUacBby4RamYEPXlhqfJI+W3TRcdgeRvSNQJZfPdBHENFFpjk+5WAkC1uk9laLPWnt73ZsN7dIQAUmjyeXrLOZo97rREYGWWEfER+4DedeNIK+3CxVJLVkl3eM+9A9/aCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis365.onmicrosoft.com; s=selector2-axis365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hs06Qo7oAoofI08dQn6aFgHJ1YUSmmef9AUGmmqhEVk=;
+ b=jTYLwMn0PP0s2WcKsChNuq76lU8YN0/02loHs28BFLvWx+5Digdl0XWzXr6lo7knM1MEYBYggv+WC5jZT9tNZbxsTEqER+csrZHwepC+73SclXN8u+m1INRjRrdhUk+cr8yF6K/FwQ/PjELQrap4nbFKNQHSlZDLQ9mErj/aO2U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Message-ID: <832d7919-af7e-b765-e91d-a09e0cc89644@axis.com>
+Date: Thu, 19 Jan 2023 17:00:11 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v1 4/4] ASoC: dt-bindings: simple-card: create jack for
+ aux_devs
 Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Mark Brown <broonie@kernel.org>
-References: <20230118161110.521504-1-arnd@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230118161110.521504-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Astrid Rost
+ <astrid.rost@axis.com>, Mark Brown <broonie@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20230118125226.333214-1-astrid.rost@axis.com>
+ <20230118125226.333214-5-astrid.rost@axis.com>
+ <d5ae4755-26df-f4e7-b69a-83d9431bfbee@linaro.org>
+From: Astrid Rost <astridr@axis.com>
+In-Reply-To: <d5ae4755-26df-f4e7-b69a-83d9431bfbee@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0097.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:9::6)
+ To DU0PR02MB9467.eurprd02.prod.outlook.com
+ (2603:10a6:10:41b::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR02MB9467:EE_|VI1PR02MB5968:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdee5af0-d626-4f06-19ec-08dafa36401d
+X-LD-Processed: 78703d3c-b907-432f-b066-88f7af9ca3af,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: anxnespDo770DXzzjvITbCXhilXmT1M156Z5KIdTAnaBDgXwBw9/304aVhD1XX7Ec7SRz/h6hmhFQIk4Bea85UZ0NMiFakGE92tziKzDIQ9wfINrwuo7usa61NWVF3v5u+7AmbvdOBcL2Kt2df86SlfUg5375Dv+MqeyEVYKr2vkNS2pjbNFIYI7jcZV1u4FlxAQwpR6nlnMlCScquCIcddlorIBYWq3AsVcyEyItQ2wT/qKg4/B2nHD4i8yJVes5Nbj+MAHSlVDHvmPVq+jJFXmgfYONOY5LMcyqlW3pOexSLtj843gTmif3AjBPkYqPhdPqkZNMYxeDDclCsXdfJ9ItpO2Cgd5gIOxA90KonmCVsy5yTyyS0LsM3s8tkvmvXTUleuku1/JHNyCgHARbMmyxhRjzvo3uCwfvNA1FpuSp4lgZ6COOU4Se+Jv3E963SyftP4RcKLYJ+KEErBf6j8XHo+FTTCiUIy6lgAUHKLEleSqTrXYl9Kv6yAuZRWsODiP3/X1sjeMqXNRlOikl3GP+iklHZXVzfnLX7q+1v5SBWBXWRBg4Yhb+4OD+EYqUhCrzZOSwi+KE8C7eUbWy45I9hTHwMrBXexJg449bhTv0NnLWA6rfaJPcT6JaLPMzEn5PnmVF9gBFn4DsRG4kZ0OAZ52QfqYRBRVgp+5eLGrCt/qA0Y9xtKpcd4bJR+vv/orKDXmoXLLSiOHfKQKlxtgf08u43ILP+M+sZ8czTQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DU0PR02MB9467.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(451199015)(31686004)(36756003)(6506007)(31696002)(186003)(478600001)(110136005)(6666004)(26005)(53546011)(6512007)(2616005)(8936002)(6486002)(8676002)(83380400001)(5660300002)(66556008)(66476007)(4326008)(41300700001)(66946007)(316002)(38100700002)(2906002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzFqVW5Ccjlwc1VRT1NqMWNPWUl2ZWdnQUJQWGVyQ0ZBQXhaaEVHemR3STJi?=
+ =?utf-8?B?T0lSdUZUQTFnN0duNGx3TllRT2ZGQVpXMm95cjNLNmxrNVI0U1VFU2dIek9H?=
+ =?utf-8?B?R2FnUElKeDZKNFNuQk1HYVplYmxrUm5HZTZNd2Vsc3RIekhJakh6UUlVYmdI?=
+ =?utf-8?B?ekMvZnJOdnRZd09zMzkzTkExR1d6SEhYRW4xdUdiRlFDWG00ZlNZVzRUVmN2?=
+ =?utf-8?B?RGt4dTJUYnNEVVEveEl0M1NVNVowaWQzanVIcmg1eXZTWmtFMnlxaXZMTHI0?=
+ =?utf-8?B?a0Q2ZVZhcG5WcEdWUDIyNk1vWlRXS2ZtUkFlZGc1UU9paDVzWVh6YmQwY1h1?=
+ =?utf-8?B?OXduclpGaktNMno5QmNlcW81UnZ2SEVrLzZJNngxckJwcXpHQ1Zuc1RHTVg4?=
+ =?utf-8?B?UGswQi9XeWE4TGk2STNGYVpidlROM2o0QzVncnl1YnJMTkZDODdjUjVnYzRr?=
+ =?utf-8?B?eGRtM0FtZ0p6WHFoUGRiMEFiRkNySjZHNWhJR3c5Wm5ObWtLTHpkL1NlYWJt?=
+ =?utf-8?B?dXYzaGcra3psYXkwMURQKy9OdVpLdmpLVDJzVzYzYWJHaFhSdDJITXFsN3RH?=
+ =?utf-8?B?R3VabEdvQ3FObDl2aWRFNHcwVE43eXNMYlBIYkZGZlIzUlFNdWZDVVB4U3dI?=
+ =?utf-8?B?ZVV4bWlrZ2FiSXN0NGV5K0F1M2U3LytvNktVQmNTRzgzbWJCU0p1NmZQMTB0?=
+ =?utf-8?B?UEdDcExPMjVkcUpjN0NyR3NWREhqWmRHSTJoQ3o0Zk1uUHNZRjBLdStHWXI1?=
+ =?utf-8?B?bVkraXlRT0g0RHlvRSs4UWp4U1VuTkVCM0JLbmRXRGlwVGVaRHBsMHc4NFBH?=
+ =?utf-8?B?NVpwT3pERVlrbDg5QUNjdVFnM0x1VDdQNVd5NXRqSjRxM3lBR2t6dlBmWWF5?=
+ =?utf-8?B?WllNY3Jsb0JNNjZmT0NRTnZHbmVORnRLQ1JGelNOQzZ4em8vQWdLM3d6T0V0?=
+ =?utf-8?B?M2xVditKa3dUZUhadEhjVjgzeVhEYnhuYk9OZTJxN0JHQll0TDJiMytQY0la?=
+ =?utf-8?B?b2Q0SCtBcUZ2VXU5REFiYWo1RXVlZWJ1ZFdtV0lieVlWQnM1VEx6ZW5kbDY2?=
+ =?utf-8?B?WGhtdzFxU1FJUzlBTURUOVpLQ21sMDNIb3B3VFFybHUvSnBZMElqYUVOeG1T?=
+ =?utf-8?B?MkNpRFdzVE5iRVhFSUkvQ2pCaEdOamRuTFFSVGhRYzVxbzZhUHRqdWJLNktj?=
+ =?utf-8?B?VUF5aEhBQXJ4dXQ5QWZYVEoyeFZQMFZ1eFVmOHFGWk9Cb3MwWExRR3dET2lX?=
+ =?utf-8?B?cE93T1lQZWoxaE1adWZkVlZwUEQxVTZJczJxUGVncXVvbFZheGJkS3NMMTJY?=
+ =?utf-8?B?VmRYNGtENzQyaGI1TnlFZERlZ1ZaZDZNUFRFTFB1aVFuMjVBMUt4SVZnbmxP?=
+ =?utf-8?B?YkEyNm8xZTJKNUN2aCtKa21oQkJvRS92Z01iWHpySWhFWThZOWV5OG8zYnpY?=
+ =?utf-8?B?MFdSLzFHTzlpRCtOeGkyeTFCK0M2UVVIVktnb0dwbmZselhweEUyYzZoUmFN?=
+ =?utf-8?B?Vjd5UlBrbTkxbGR2cWMzU0tLN3ZLd0ZoblhtQmwrR2g3c3NGU0J0bXpYdmVD?=
+ =?utf-8?B?M3ZBdkUxV3Z4czJHYkEyS21haGpQSktmdVlJeHRqY05TL1lkZDRuN1NCK01j?=
+ =?utf-8?B?d1JMU245aFRlNnZwTFBJMGZXUnZsa2IxeGVyNGptTVo1Ni9lNEc0aUdzMitn?=
+ =?utf-8?B?bVRwYUxYUzR6QnRDNU1wOVl0a29SSmxmU1dwRVlpRHcwdlloNC83eFVyMjY2?=
+ =?utf-8?B?R1NBY2lXUnhZTS9SK3RxV0l3VStKSVdLTENxbk0rS1hHQTdhVzhvUGVPVE1H?=
+ =?utf-8?B?Zi9SQ2hnczQzUi9hbEU4ODRhUFhSQlc0YktXK3ozYlhzODhQMUFCWndVSVRC?=
+ =?utf-8?B?ZjQwcDRxZUhjMHJOb1FCeE9JQUp3ZzlLRkxQMWNvQWlWbUhQanFpMnEyL2Ra?=
+ =?utf-8?B?MXI3clk3QUw2T3VIRG5QMkM1akhhRUJ5Y2ZwOTV1bUVxK0gwRjFacCtUemJz?=
+ =?utf-8?B?ZFZmNittd3kwZ01qMkVMcDRqRDlwN0ZyTG8vYW00NmhST3VxUURyVkRGUDVZ?=
+ =?utf-8?B?SnNtaU1lMTFTRTF5S2xxbXBQNzVuWGlydUtOaU5ZVWhuSmlZMnBxRURqVC9Z?=
+ =?utf-8?Q?yVas=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdee5af0-d626-4f06-19ec-08dafa36401d
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR02MB9467.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 16:00:13.8402 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: egU6cVvdud9EaqBBpLzsfOhd8sfV4ihnmuhhG5PUM73vHv9yE59qRoH148DjvF9pjOOG+/bzY1RfD6Nxlmdk8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR02MB5968
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,32 +166,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kernel@axis.com,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/01/2023 17:10, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+Hello,
+
+Thank you! Yes this makes things much easier. I will fix it.
+
+Astrid
+
+On 1/19/23 12:18, Krzysztof Kozlowski wrote:
+> On 18/01/2023 13:52, Astrid Rost wrote:
+>> Add simple-card,aux-jack-types:
+>> Array of snd_jack_type to create jack-input-event for jack devices in
+>> aux-devs. If the setting is 0, the supported type of the device is used.
+>> A device which has the functions set_jack and get_jack_supported_type
+>> counts as jack device.
 > 
-> This data is no longer passed by the platform code, so
-> there is no point passing it down at all.
+> How a device can have "set_jack"? Isn't this part of code? Are you sure
+> you describe here hardware, not Linux driver behavior?
 > 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  include/linux/platform_data/asoc-s3c.h |  6 ------
->  sound/soc/samsung/dma.h                |  2 +-
->  sound/soc/samsung/dmaengine.c          |  3 +--
->  sound/soc/samsung/i2s.c                | 21 +++------------------
->  sound/soc/samsung/pcm.c                | 11 +----------
->  sound/soc/samsung/spdif.c              |  9 +--------
->  6 files changed, 7 insertions(+), 45 deletions(-)
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+>>
+>> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
+>> ---
+>>   .../bindings/sound/simple-card.yaml           | 35 +++++++++++++++++++
+>>   1 file changed, 35 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+>> index ed19899bc94b..2635b1c04fc9 100644
+>> --- a/Documentation/devicetree/bindings/sound/simple-card.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+>> @@ -199,6 +199,13 @@ properties:
+>>       maxItems: 1
+>>     simple-audio-card,mic-det-gpio:
+>>       maxItems: 1
+>> +  simple-audio-card,aux-jack-types:
+>> +    $ref: "/schemas/types.yaml#/definitions/uint32-array"
+> 
+> Drop quotes.
+> 
+>> +    description: |
+>> +      Array of snd_jack_type to create jack-input-event for jack
+>> +      devices in aux-devs. If the setting is 0, the supported
+>> +      type of the device is used. A device which has the functions
+>> +      set_jack and get_jack_supported_type counts as jack device.
+> 
+> Same problems.
+> 
+> Additionally, if this is a type of aux-dev, then maybe it should be just
+> added as argument to aux-dev?
+> 
+>>   
+>>   patternProperties:
+>>     "^simple-audio-card,cpu(@[0-9a-f]+)?$":
+>> @@ -498,3 +505,31 @@ examples:
+>>               };
+>>           };
+>>       };
+>> +#--------------------
+>> +# Add a headphone and a headset mic jack,
+>> +# which use an auxiliary jack detector e.g. via i2c.
+>> +# The events, which should be enabled are:
+>> +# SND_JACK_HEADPHONE = 1
+>> +# SND_JACK_MICROPHONE = 2
+>> +#--------------------
+> 
+> No new examples, integrate it into some existing one.
+> 
+>> +    sound {
+>> +        compatible = "simple-audio-card";
+>> +        simple-audio-card,widgets =
+>> +            "Headphone", "Headphone Jack",
+>> +            "Headset Mic", "Headset Mic Jack";
+>> +        simple-audio-card,routing =
+>> +            "Headphone Jack", "HPLEFT",
+>> +            "Headphone Jack", "HPRIGHT",
+>> +            "LEFTIN", "Headset Mic",
+>> +            "RIGHTIN", "Headset Mic";
+>> +        simple-audio-card,aux-devs = <&hp_jack>, <&hs_mic_jack>;
+>> +        simple-audio-card,aux-jack-types = <1 2>;
+>> +        simple-audio-card,cpu {
+>> +            sound-dai = <&ssi2>;
+>> +        };
+>> +        simple-audio-card,codec {
+>> +            sound-dai = <&codec>;
+>> +            clocks = <&clocks>;
+>> +        };
+>> +    };
+> 
+> Best regards,
+> Krzysztof
+> 

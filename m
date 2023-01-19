@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22177673FAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 18:15:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C461673FEC
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 18:28:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A350934DD;
-	Thu, 19 Jan 2023 18:14:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A350934DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2BC63628;
+	Thu, 19 Jan 2023 18:27:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2BC63628
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674148507;
-	bh=3PfvGA6LG6n0VOKqUA3+pvpEy/KwfivVBi7XGfFWq54=;
+	s=default; t=1674149299;
+	bh=hvKnPzV818Q2MTrJsqR3kbZNsGKViKmjEv5oxYAd76U=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ed9SwsaGY5gAz3bW+8yiclJnCrSehs8kRWD/ZlqCT26iNmflKThEKVREdukpAtxXu
-	 fxBPxjGn30L6lgGN+gA7NcLwJggL4m2+vllFiJIBRRPDhlmO7/CAZGni+3Y8XUsg/L
-	 zo0ZrIAnsAEXLTmn/dQdB35HJyId6hRiHqS+ADGE=
+	b=BfuYoYsdZHB1kLailknWPw56GslYndx/M44YIr+8+J8tzFWjZ5FGFDSKrjOVxSiZ6
+	 MYv/DMOYnACEfWb1FbQk+/06V9Lv/wgI9IaePfPlp/hlS486UPlfpjEp2wuHnhEufW
+	 wEmObcholMYjO6iblD96IMHkAKVcNYGgotWl1SF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECE22F80083;
-	Thu, 19 Jan 2023 18:14:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2968DF80083;
+	Thu, 19 Jan 2023 18:27:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C85F8047B; Thu, 19 Jan 2023 18:14:08 +0100 (CET)
+ id 29ED4F8047B; Thu, 19 Jan 2023 18:27:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABCE0F8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 18:14:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABCE0F8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0EE0F80083
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 18:27:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0EE0F80083
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=nfPsGYXD
+ header.s=Intel header.b=SLpkTRgh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674148447; x=1705684447;
+ t=1674149240; x=1705685240;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=3PfvGA6LG6n0VOKqUA3+pvpEy/KwfivVBi7XGfFWq54=;
- b=nfPsGYXDmH1FjvuPLbzsuokKBSyMOQeOEmPlUGKMumztSABD99rDpugS
- IVx5AGxSUeGeCwRrVVu3LvzQqIGjsYRch6cBKAxiXBTAmNcNmQoOe7uuM
- 8wj09q9+vBZ59tNPMlFm/4TlIw/51Rig5BjeW2GH/G/LVPh907iDm32Wn
- k60EDvf1k6Crl5rUzFzfuaIraI8Wnb/ivLWsHtnBxhl5sMX8nfPfN7/aV
- JqxLHPOqCoh+Z1MGTBJgxDitPgVD2CdyX93XlswTIusBjc1aGWRrfY8PL
- 55LCkNny3asznfFBAyMS+qYpRbk1n6slZhgJ3IRjBoHaLsl9B84lTlYV+ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="325391661"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="325391661"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 09:12:06 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="728786641"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="728786641"
+ bh=hvKnPzV818Q2MTrJsqR3kbZNsGKViKmjEv5oxYAd76U=;
+ b=SLpkTRghd6DTKLUWJTYiSEkoqVvGHbTYrE9hm9QujqAqpABj315pvtkn
+ BPJxOgbvHg/VwAn++bKiBMkRX52Y6qUWc4oLWdogvD0oSByVpxl1Q0uhO
+ vIFVRHHZ1lPzzCbgwTmyz/r+hpE1ljcEdcnu8O0cGpctB8EYlRF8ykRHp
+ jxJcSCy+Z77uaTNTWi5qIDidosBWBZl3NlUl6S+yfm4XGKRmCFYnbfRQC
+ PdlgZ9/RTzPVIHl+3aH38Xpzo/axkKkcOzORBwP5BK0Zl67nOn4PK15t7
+ bT5cpzBG1OxVoucASEBaIZw78CaGd+Aa+rYo12SRJ9JAwIhpZl+Eahqt6 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="313243573"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="313243573"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 09:27:15 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="905621057"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="905621057"
 Received: from sahamad-mobl1.amr.corp.intel.com (HELO [10.213.187.97])
  ([10.213.187.97])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 09:12:05 -0800
-Message-ID: <c05a6791-96a7-2b10-d353-eb7b316aefc8@linux.intel.com>
-Date: Thu, 19 Jan 2023 11:12:04 -0600
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 09:27:15 -0800
+Message-ID: <db571218-1adb-cb46-5b76-55eaf379f6ca@linux.intel.com>
+Date: Thu, 19 Jan 2023 11:27:14 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to
- register IRQ handlers
+Subject: Re: [PATCH 1/2] soundwire: bus: Don't filter slave alerts
 Content-Language: en-US
 To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
 References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
- <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -91,93 +90,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, linux-kernel@vger.kernel.org,
+ sanyog.r.kale@intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-No objection on this addition, just a couple of comments to improve it:
 
->  EXPORT_SYMBOL(sdw_bus_master_add);
-> @@ -158,6 +183,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
->  	mutex_lock(&bus->bus_lock);
+
+On 1/19/23 10:51, Charles Keepax wrote:
+> Currently the SoundWire core will loop handling slave alerts but it will
+> only handle those present when the alert was first raised. This causes
+> some issues with the Cadence SoundWire IP, which only generates an IRQ
+> when alert changes state. This means that if a new alert arrives whilst
+> old alerts are being handled it will not be handled in the currently
+> loop and then no further alerts will be processed since alert never
+> changes state to trigger a new IRQ.
+> 
+> Correct this issue by allowing the core to handle all pending alerts in
+> the IRQ handling loop. The code will still only loop up to
+> SDW_READ_INTR_CLEAR_RETRY times, so it shouldn't be possible for it get
+> completely stuck and if you are generating IRQs faster than you can
+> handle them you likely have bigger problems anyway.
+
+The change makes sense, but it's a bit odd to change the way the
+interrupts are handled because of a specific design. The bus should be
+able to deal with various designs, not force a one-size-fits-all policy
+that may not be quite right in all cases.
+
+Could we have a new flag at the bus level that says that peripheral
+interrupts are not filtered, and set if for the Intel case?
+
+We could similarly make the SDW_READ_INTR_CLEAR_RETRY constant
+bus/platform specific. The SoundWire spec mandates that we re-read the
+status after clearing the interrupt, but it doesn't say how to deal with
+recurring interrupts.
+
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+>  drivers/soundwire/bus.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index 633d411b64f35..daee2cca94a4d 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -1560,7 +1560,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+>  	unsigned long port;
+>  	bool slave_notify;
+>  	u8 sdca_cascade = 0;
+> -	u8 buf, buf2[2], _buf, _buf2[2];
+> +	u8 buf, buf2[2];
+>  	bool parity_check;
+>  	bool parity_quirk;
 >  
->  	if (slave->dev_num) { /* clear dev_num if assigned */
-> +		irq_dispose_mapping(irq_find_mapping(bus->domain, slave->dev_num));
-> +
-
-could this be done conditionally. e.g.
-
-if (slave->prop.irq)
-    irq_dispose_mapping(irq_find_mapping(bus->domain, slave->dev_num));
-
-...
-
->  		clear_bit(slave->dev_num, bus->assigned);
->  		if (bus->dev_num_ida_min)
->  			ida_free(&sdw_peripheral_ida, slave->dev_num);
-> @@ -178,6 +205,9 @@ static int sdw_delete_slave(struct device *dev, void *data)
->  void sdw_bus_master_delete(struct sdw_bus *bus)
->  {
->  	device_for_each_child(bus->dev, NULL, sdw_delete_slave);
-> +
-> +	irq_domain_remove(bus->domain);
-> +
->  	sdw_master_device_del(bus);
->  
->  	sdw_bus_debugfs_exit(bus);
-> @@ -717,6 +747,12 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
->  			slave->dev_num = dev_num;
->  			slave->dev_num_sticky = dev_num;
->  			new_device = true;
-> +
-> +			slave->irq = irq_create_mapping(bus->domain, dev_num);
-> +			if (!slave->irq) {
-> +				dev_err(bus->dev, "Failed to map IRQ\n");
-> +				return -EINVAL;
-> +			}
-
-...and here....
-
-if (slave->prop.irq) {
-	slave->irq = irq_create_mapping(bus->domain, dev_num);
-	if (!slave->irq) {
-		dev_err(bus->dev, "Failed to map IRQ\n");
-		return -EINVAL;
-	}
-}
-
->  		} else {
->  			slave->dev_num = slave->dev_num_sticky;
+> @@ -1716,9 +1716,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+>  				"SDW_SCP_INT1 recheck read failed:%d\n", ret);
+>  			goto io_err;
 >  		}
-> @@ -1682,6 +1718,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
->  				struct device *dev = &slave->dev;
->  				struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
+> -		_buf = ret;
+> +		buf = ret;
 >  
-> +				if (slave->prop.irq && slave->irq)
-> +					handle_nested_irq(slave->irq);
-
-.... that would be consistent with this conditional use.
-
-
-> @@ -369,6 +371,7 @@ struct sdw_dpn_prop {
->   * @clock_reg_supported: the Peripheral implements the clock base and scale
->   * registers introduced with the SoundWire 1.2 specification. SDCA devices
->   * do not need to set this boolean property as the registers are required.
-> + * @irq: call actual IRQ handler on slave, as well as callback
->   */
->  struct sdw_slave_prop {
->  	u32 mipi_revision;
-> @@ -393,6 +396,7 @@ struct sdw_slave_prop {
->  	u8 scp_int1_mask;
->  	u32 quirks;
->  	bool clock_reg_supported;
-> +	bool irq;
-
-this can be confused with the 'wake_capable' property.
-
-maybe 'out_of_band_irq' ?
-
-There should be an explanation and something checking that both are not
-used concurrently.
+> -		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, _buf2);
+> +		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, buf2);
+>  		if (ret < 0) {
+>  			dev_err(&slave->dev,
+>  				"SDW_SCP_INT2/3 recheck read failed:%d\n", ret);
+> @@ -1736,12 +1736,8 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+>  		}
+>  
+>  		/*
+> -		 * Make sure no interrupts are pending, but filter to limit loop
+> -		 * to interrupts identified in the first status read
+> +		 * Make sure no interrupts are pending
+>  		 */
+> -		buf &= _buf;
+> -		buf2[0] &= _buf2[0];
+> -		buf2[1] &= _buf2[1];
+>  		stat = buf || buf2[0] || buf2[1] || sdca_cascade;
+>  
+>  		/*

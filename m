@@ -2,82 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFDA7674115
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 19:37:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4943E674263
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 20:11:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBF106C0;
-	Thu, 19 Jan 2023 19:36:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBF106C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63F4984D;
+	Thu, 19 Jan 2023 20:11:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63F4984D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674153466;
-	bh=1PBJY2HxmhqL3ULv3BR0DK9xsDZWMIDSE7ENT7WjC+c=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674155518;
+	bh=CrRJ2XnwBEIEFXP6rqIkKmdpLDmFEA3HUL2N3JLKVzI=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=CJwFcof6w6WlxORRNEL4f4bZsO9m7koxMUjzNiC7qbuEPcCkNl3ov54k8MxSu+NF2
-	 G+YKYlHZxPHx5OHGsWpDlp5R+672U1rcXsY+Xfw32tCfeohQCvtJWEEGhv5jkV39Qs
-	 TUx0T7Kaz8AopJIz6a8U+UEro8lGpLuSA+99OOeo=
+	b=KCGWXccx1mGuwi/wsxRhhR5omwXe/CWrpzNSdsHoZ0rIjQyOElBmeKaYyq0V2VqBs
+	 fvcPxcXbfUWyig1sF05F0X/syxEwapmxaG4678S82eW2jkQbiWMDGcuF9ERKsY3m/G
+	 lsRu6AkUkQ03b2c6dlXdSLkte/VRSLWUCRvCqK/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94E69F804DE;
-	Thu, 19 Jan 2023 19:36:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AFD7F800F0;
+	Thu, 19 Jan 2023 20:11:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D89C9F8024D; Thu, 19 Jan 2023 19:36:46 +0100 (CET)
+ id E1A4AF8047B; Thu, 19 Jan 2023 20:11:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2045.outbound.protection.outlook.com [40.107.21.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FB06F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 19:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FB06F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F280F800F0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 20:10:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F280F800F0
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZuIuqOKb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674153400; x=1705689400;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=1PBJY2HxmhqL3ULv3BR0DK9xsDZWMIDSE7ENT7WjC+c=;
- b=ZuIuqOKbcsPr7pbg1QVZMuKH5tG9uDjbQIFt1t1WgF6GyCMrVxOAe6gB
- RlbY/Z+1uxzZvVcFaI0x8MyrVSUcPoyzVJhDGSruaKBLxhKyMEEoNhKa1
- zPRH0RiWe/oOZlZHBUUmhbJr7OrIgpx1gCyKT+osxZ8PTxlf3RMFLpCoo
- nrGo7iaRGKTnCUCowJJ21ucS0DtrWCsjZDHXt1iyGDB3/alzCEpMbkMlL
- uAZJQyfQdB2paStj6H57Zj5oxYFJCWKZbHMa9Iu4rES3xHUujTzThdkqb
- SgyaYpcle/aKaTvCaKrHTZdGei468NAl5Uoo8PjleMuzDiDBAEayQ5+Hv w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="389895182"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="389895182"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 10:36:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="768345085"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="768345085"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2023 10:36:06 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pIZld-0001jQ-1W;
- Thu, 19 Jan 2023 18:36:05 +0000
-Date: Fri, 20 Jan 2023 02:35:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org,
- vkoul@kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 04/19] soundwire: amd: enable build for AMD soundwire
- master driver
-Message-ID: <202301200258.mTFnFc1h-lkp@intel.com>
-References: <20230111090222.2016499-5-Vijendar.Mukunda@amd.com>
+ unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
+ header.s=selector1 header.b=D6CnGq2m
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J3uHezwUvB+IM3Rfkjq2HdCGN9dclx/IHSDhSpwUTK2qpX+F9HmOrcJ7Hen4wdCVms56kjc44ohNtJZFWTP79+kFuEoXmxP1uFzoMpS5TF2fkkW/pUwotWGpbqurr5jX1prp6CAnhMGdXVDdtNFFV2xTBivvjMXMhS+A4A1pmJGXNE25/VhQqMM1/g4MWvfXd2bsxowcN2dCPILx366KoTsKh/AVemC1moWKCQUmlwwmMzVBeW0wOpNqXLVLyKzqx/jtvHk/X3ak7yCTiyMi0ycuCk+ZKLlVqX1TO4s7pDqCJR9DpGMeqiLStQNdyDl4XDPXgriY0SvNduCOHLksEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S/ydqbVYoGu1dC2qotGH8QQawBdORCNycD6Idjm6xok=;
+ b=iwOodviHt7S8MVsc10Uq7UB8MleCz2SM9qbYcvDnbIBYmy3FX8D1ssZqEO9Nsud5fPIlrnUh4x+awbZfZYbIp03ruLsjBtlkszNhLqD/2B1dd6peN2K5GFK2iQkDeNHmIU9d2R5Xl45A0h5owMHQPRef9vgD3MU3xnsaP0ztolVceuDBqLGeng7Wfe0kUf4ECMp9B7JSZR9KHfssNA8B0odjQUSmHsDStzH8EhDCwQBMf0aC1hRYG9lmOIuHB6EanYNLH/czGvwOfKvz3Se21h1JDOw4eCQZfAGHwfLMHWWNWrJPTJtTsWMVAhk9ReCG0zQ1166ziVnq7hkrDWzheQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
+ dkim=pass header.d=seco.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S/ydqbVYoGu1dC2qotGH8QQawBdORCNycD6Idjm6xok=;
+ b=D6CnGq2m5f+OzmVIQDWiBAc/qrxeRqrLVcqYGcna6ywrJ+GVGD3Fkmm3AtY5DySatZMB2oqUAnNxbSSqBlSQZuCTVx4ePeElIHQe74GWRujxJglPrmd852jLfjGL4k+Uup0kAH6TqwvX4h1TFRX1nCNDTdQAIoSzh1MvZfb30Eu9T5wL/zP1cRxODKbz+nKmiY8mI86Yz6UvzmsGpF3ZC9okmG16pViACBxqx4/4gxUL3eZjgDKaZETL9YZzW4YRba1zfzRV5ob4RFPGNMVmIoLWLCzdDs5kC2fwkKtnyfXQbsgc+qE83T3Cv2Sy49ZJaz61sjEEjt/OsVzQXxnR8g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=seco.com;
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
+ by DB9PR03MB8259.eurprd03.prod.outlook.com (2603:10a6:10:307::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Thu, 19 Jan
+ 2023 19:10:57 +0000
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::6b03:ac16:24b5:9166]) by DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::6b03:ac16:24b5:9166%2]) with mapi id 15.20.5986.023; Thu, 19 Jan 2023
+ 19:10:57 +0000
+From: Sean Anderson <sean.anderson@seco.com>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 2/3] iommu/sound: Use component_match_add_of helper
+Date: Thu, 19 Jan 2023 14:10:38 -0500
+Message-Id: <20230119191040.1637739-3-sean.anderson@seco.com>
+X-Mailer: git-send-email 2.35.1.1320.gc452695387.dirty
+In-Reply-To: <20230119191040.1637739-1-sean.anderson@seco.com>
+References: <20230119191040.1637739-1-sean.anderson@seco.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BL0PR02CA0047.namprd02.prod.outlook.com
+ (2603:10b6:207:3d::24) To DB9PR03MB8847.eurprd03.prod.outlook.com
+ (2603:10a6:10:3dd::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230111090222.2016499-5-Vijendar.Mukunda@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB8847:EE_|DB9PR03MB8259:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0df6410-229b-42d1-bdb0-08dafa50e51d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jwEJ2HzgHfRobeCKv6OTf6t3Eo6YJ8mm0ivtHPceVdyvpIbN81R5Q5d3JK0tRpEyXepvIGDT03XR5/gTyB4L63nUyakuMjaWYhKOCn7I8RGS5t9rU/Yi0uiCFboQfLO2v+GJK5H9ZKaJSNuWoXelEBmCtYH/g0XR644p2dDxXLSO4seZjjdMI2KwOuYxyUhkYPcN6bfTchChOzEq1+x6EdHL6HKboEwX++FcuL/W0XQyYFu0PCfBtFJ4yStPBu/80TOANJM/j/dW6hacxI+eLHJoNt2SKEhBdiJ5N6Gqg0IcFxJ3DwHKdX3EOcoA8fO7IDkrgaRToqMPZFi/qn3kAzRKfprZjff5oySfiFMuapjwRwdBG2O3btDbYGnWeQu5HVe5n74au0FwaSIj10GJadr7RLLTV8V+OJrIAqv2Z1Zcbq787lPhfsz7A4EjQ3OFH114UAOWH6cOtV53JT4rLv/9oXZSt9bZ5ItMSQW1Ij6GP8wh8zkXswP33+l3GxcDZR7Lpf7xcmMm3SvifTep+z9B9DiMmfRGPKsPQ6GgTblFpBePKUppgRFw3xuSqJ0WiEVCN2l1WNPYUxZdPRkPSjOuWQbSgQadTBWDMfL8tQxWm0ZLYm5dtFs6nxrUcyhnpQOQ6u6LJE2id4O9Zif3NrwpErrbQMeD2qtbG1FZRMqVKoQZzaipCeECuNzFpe8D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB8847.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(39850400004)(366004)(346002)(136003)(396003)(376002)(451199015)(66556008)(44832011)(5660300002)(8936002)(7416002)(54906003)(41300700001)(2906002)(316002)(66946007)(4326008)(110136005)(8676002)(66476007)(478600001)(38350700002)(6486002)(52116002)(38100700002)(26005)(6512007)(6506007)(36756003)(6666004)(186003)(1076003)(86362001)(2616005)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gNF7W/Osnd2lAyHfU34iesACmNRA7yO1rq/lCh/vhiqJQgjekgWb8OM2BvYA?=
+ =?us-ascii?Q?Nltu6pJuKWlnLagyxOPc5Ak60YO5OrGOY0m9et3kr7fOD86ZbAqoghDsI6sV?=
+ =?us-ascii?Q?8b45NFf6IMLwo0D8GoOOErjCe+W+MaVlv4PAttRtCrfaj/QibVLkQSr2G76Q?=
+ =?us-ascii?Q?I73DmSiDBrq6k0CixYj1HuR3tnqJw43a74VrCt4VI9x74Nx8R1zT6ieIWZPa?=
+ =?us-ascii?Q?6cWSK7Lh8xl1iDW5JJ9rRgI4ZDXXnh2UBWv3GmB7hUCYzNDmW3X+zx61jjt0?=
+ =?us-ascii?Q?bYTq1EVQa3eR6sHxEw4Z/YZ6x1AsORWN6KeplIGPXym9sr24ajdMg9kTQnRk?=
+ =?us-ascii?Q?vw7YiHRG8hcJYXmhtNX1FZCXFpIbqgO/+3/FOeWtJoB5Ufk7SppTniwH94MR?=
+ =?us-ascii?Q?rBpSp6g2ajrgta8NGPWwBR1qKhuDPerKsOnUnxO+TeX0CkcV01U0rAE5q1Q6?=
+ =?us-ascii?Q?dbH3TAN+K14D38uQicR/DTeDbrsFneV4R3CMbBnLjmv0Ywk2ZGNirFbQ/6Nd?=
+ =?us-ascii?Q?6oehfwa6B7TpzwoVkZt8fzZ0GDBOZjBu3FjMKTdVCLM/dhfB8PYec3Ui55fR?=
+ =?us-ascii?Q?SEBvmlFdcrvNpp8qKTFZqeHa8fIEu6H5d0hYpYUq1oZk7oR0KjVRBWXhB0J0?=
+ =?us-ascii?Q?YfPoiXt6+vG2tovWQQ8a1qdVeOQldsgnV7NTeJ5445bmM1UUKBQd2LXvFpQz?=
+ =?us-ascii?Q?F4I7PBd6fhxEt95mrsyeGsz5sdlmGRg1n+QT3m5I19347nlB7IyzMnmpi8CF?=
+ =?us-ascii?Q?bOcOpr7M3rrSq3o59NMzFJK2HVR7prJIppx1I4bixPX5vYpsYF62KmDIK1Ln?=
+ =?us-ascii?Q?qncCicY6WMPNxw3CgOgT3bRtl/KT7Gh4kbCjxo3O0f8gYEqO7klvcPgUtCov?=
+ =?us-ascii?Q?D9LHS3z7ol2Huh5XFgRdv1BB9ABUbOYrbEKHdF65GTe06X7qxGBpb0glJwI9?=
+ =?us-ascii?Q?nULKOO19pWHcvmtPFIhNCiSX3wxls9Oly79vLmDkHgvQTecPRydpFdD55ihi?=
+ =?us-ascii?Q?yd25fNWPMe337pEKohOLlHCGulaa3UGkQs3h29xkbrJ9hOOgJZMrKRP5jcJq?=
+ =?us-ascii?Q?e20+iJ9MpFBfDXBxb6oqmJ88YgYqya/eBQwNuoehuiSuqmKJ89QAwdWABd1f?=
+ =?us-ascii?Q?Nl65upD5hgqG+nNxyesaWnECz7Ap6sEzvM7fJ6j3KfEuWBOps8a5g2haJTvT?=
+ =?us-ascii?Q?uuSKBTkSZ9ISltPwhHfguqjYooeaZEjvlnz7a9Nh2A+vHGhKZm9b61yl+EpW?=
+ =?us-ascii?Q?TL38pLfYvTC7ZGgnO3us1Fnlhm28FN4qr57HGyaiddMcjsAYQfx6R1KTVifu?=
+ =?us-ascii?Q?ggBZTeTDoRN2LevukteNcSD8382hzz9WtIAoxmE5H4nLReSDJ+Kl9wfNv2m2?=
+ =?us-ascii?Q?zBcNPivMP7CU9LujZxUv86A89Vli4zI3Kf+OeapaAyuLm7tQmW2k28LTaBKK?=
+ =?us-ascii?Q?ZnhBMvl48gzVRJ+BAWN7F0n0MBbcbaXyqLJwX/Oa7zBbVekkqcLkllnIvX26?=
+ =?us-ascii?Q?d1e9lRZrHfJ7e5QV3XFEj1iK8F+bVzb1wUYi71M7otpaMcbPVr/DkLn7Bwqp?=
+ =?us-ascii?Q?tDVDOn1OD9KPIc2GJek/zvP73zdBHHXyKwGJkVX4fWcndJrsYEPi6Y3ldMbe?=
+ =?us-ascii?Q?oA=3D=3D?=
+X-OriginatorOrg: seco.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0df6410-229b-42d1-bdb0-08dafa50e51d
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8847.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 19:10:57.5542 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tHs8UYndZ/e5HGDQNjTSU4IiJn2JF1fF07DlkgHnI8Sn2T+UxzUOG4Ec+KhY1jTQ9I2XSj4Oj8Ikuh256sECSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB8259
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,302 +146,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
- open list <linux-kernel@vger.kernel.org>, Basavaraj.Hiregoudar@amd.com,
- llvm@lists.linux.dev, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mario.Limonciello@amd.com, oe-kbuild-all@lists.linux.dev,
- arungopal.kondaveeti@amd.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, Sean Anderson <sean.anderson@seco.com>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Yong Wu <yong.wu@mediatek.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vijendar,
+Convert users of component_match_add_release with component_release_of
+and component_compare_of to component_match_add_of.
 
-Thank you for the patch! Perhaps something to improve:
+Signed-off-by: Sean Anderson <sean.anderson@seco.com>
+Acked-by: Mark Brown <broonie@kernel.org>
+---
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on next-20230119]
-[cannot apply to vkoul-dmaengine/next linus/master v6.2-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Changes in v3:
+- Rebase onto drm/drm-next
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Vijendar-Mukunda/ASoC-amd-ps-create-platform-devices-based-on-acp-config/20230111-170749
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230111090222.2016499-5-Vijendar.Mukunda%40amd.com
-patch subject: [PATCH 04/19] soundwire: amd: enable build for AMD soundwire master driver
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20230120/202301200258.mTFnFc1h-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/52f32d2187adf9e16e4d4a3108e8ca47efa26aa2
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Vijendar-Mukunda/ASoC-amd-ps-create-platform-devices-based-on-acp-config/20230111-170749
-        git checkout 52f32d2187adf9e16e4d4a3108e8ca47efa26aa2
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/soundwire/
+Changes in v2:
+- Split off from helper addition
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
+ drivers/iommu/mtk_iommu_v1.c | 3 +--
+ sound/soc/codecs/wcd938x.c   | 6 ++----
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-All warnings (new ones prefixed by >>):
-
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 4 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 5 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 6 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 5 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   note: (skipping 6 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:358:22: note: expanded from macro 'compiletime_assert'
-           _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:346:23: note: expanded from macro '_compiletime_assert'
-           __compiletime_assert(condition, msg, prefix, suffix)
-           ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:338:9: note: expanded from macro '__compiletime_assert'
-                   if (!(condition))                                       \
-                         ^~~~~~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   include/linux/bitfield.h:129:30: note: expanded from macro 'FIELD_GET'
-                   (typeof(_mask))(((_reg) & (_mask)) >> __bf_shf(_mask)); \
-                                              ^~~~~
->> drivers/soundwire/amd_master.c:569:26: warning: shift count is negative [-Wshift-count-negative]
-           slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-                         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/soundwire/amd_master.h:184:38: note: expanded from macro 'AMD_SDW_MCP_SLAVE_STAT_4_11'
-   #define AMD_SDW_MCP_SLAVE_STAT_4_11             GENMASK(39, 24)
-                                                   ^
-   include/linux/bits.h:38:31: note: expanded from macro 'GENMASK'
-           (GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-                                        ^
-   include/linux/bits.h:36:11: note: expanded from macro '__GENMASK'
-            (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-                    ^
-   include/linux/bitfield.h:129:50: note: expanded from macro 'FIELD_GET'
-                   (typeof(_mask))(((_reg) & (_mask)) >> __bf_shf(_mask)); \
-                                                         ~~~~~~~~~^~~~~~
-   include/linux/bitfield.h:45:38: note: expanded from macro '__bf_shf'
-   #define __bf_shf(x) (__builtin_ffsll(x) - 1)
-                                        ^
-   11 warnings generated.
-
-
-vim +569 drivers/soundwire/amd_master.c
-
-1e349784c25702 Vijendar Mukunda 2023-01-11  559  
-1e349784c25702 Vijendar Mukunda 2023-01-11  560  static u32 amd_sdwc_read_ping_status(struct sdw_bus *bus)
-1e349784c25702 Vijendar Mukunda 2023-01-11  561  {
-1e349784c25702 Vijendar Mukunda 2023-01-11  562  	struct amd_sdwc_ctrl *ctrl = to_amd_sdw(bus);
-1e349784c25702 Vijendar Mukunda 2023-01-11  563  	u64 response;
-1e349784c25702 Vijendar Mukunda 2023-01-11  564  	u32 slave_stat = 0;
-1e349784c25702 Vijendar Mukunda 2023-01-11  565  
-1e349784c25702 Vijendar Mukunda 2023-01-11  566  	response = amd_sdwc_send_cmd_get_resp(ctrl, 0, 0);
-1e349784c25702 Vijendar Mukunda 2023-01-11  567  	/* slave status from ping response*/
-1e349784c25702 Vijendar Mukunda 2023-01-11  568  	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
-1e349784c25702 Vijendar Mukunda 2023-01-11 @569  	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-1e349784c25702 Vijendar Mukunda 2023-01-11  570  	dev_dbg(ctrl->dev, "%s: slave_stat:0x%x\n", __func__, slave_stat);
-1e349784c25702 Vijendar Mukunda 2023-01-11  571  	return slave_stat;
-1e349784c25702 Vijendar Mukunda 2023-01-11  572  }
-1e349784c25702 Vijendar Mukunda 2023-01-11  573  
-
+diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
+index 69682ee068d2..14019ba1e41c 100644
+--- a/drivers/iommu/mtk_iommu_v1.c
++++ b/drivers/iommu/mtk_iommu_v1.c
+@@ -670,8 +670,7 @@ static int mtk_iommu_v1_probe(struct platform_device *pdev)
+ 		}
+ 		data->larb_imu[i].dev = &plarbdev->dev;
+ 
+-		component_match_add_release(dev, &match, component_release_of,
+-					    component_compare_of, larbnode);
++		component_match_add_of(dev, &match, larbnode);
+ 	}
+ 
+ 	platform_set_drvdata(pdev, data);
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index fcac763b04d1..0663b15fa757 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -4474,8 +4474,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+ 	}
+ 
+ 	of_node_get(wcd938x->rxnode);
+-	component_match_add_release(dev, matchptr, component_release_of,
+-				    component_compare_of, wcd938x->rxnode);
++	component_match_add_of(dev, matchptr, wcd938x->rxnode);
+ 
+ 	wcd938x->txnode = of_parse_phandle(np, "qcom,tx-device", 0);
+ 	if (!wcd938x->txnode) {
+@@ -4483,8 +4482,7 @@ static int wcd938x_add_slave_components(struct wcd938x_priv *wcd938x,
+ 		return -ENODEV;
+ 	}
+ 	of_node_get(wcd938x->txnode);
+-	component_match_add_release(dev, matchptr, component_release_of,
+-				    component_compare_of, wcd938x->txnode);
++	component_match_add_of(dev, matchptr, wcd938x->txnode);
+ 	return 0;
+ }
+ 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.35.1.1320.gc452695387.dirty
+

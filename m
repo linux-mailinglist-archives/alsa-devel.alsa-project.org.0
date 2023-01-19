@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C429D673E72
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 17:19:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A84673EC7
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 17:28:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A3E4818C;
-	Thu, 19 Jan 2023 17:18:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A3E4818C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E8702D9B;
+	Thu, 19 Jan 2023 17:27:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E8702D9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674145142;
-	bh=GYi8Bi4t/ZI7zXyAEEkPisiiYt35ZMSnaPxght6gbY0=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674145707;
+	bh=EzV80YrxebRUHuKIKvpev2GAI8oUOLaQkTdDBDXUvOI=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=eZcLmcB1RfwdEG1jW9augRfj05N6VT55YbBgjHlRneCGhn00iM9PyNGHYYArMOjsa
-	 HIM0xbYqlojbLVJRigt9j2RVSe0JWXsslUN7MbFbOhyaWDPBm2UZaq+ZkRE3dFSpPS
-	 6vmelpKaLSp70/gZHP/tc7dyvO6sJSACJV2TC4zU=
+	b=HrBerDQTtWkswmwd/p/e+0uRLiuad6tii7fMW6x0Ukz9yKuBviKEA4y9Sp+yej7Sn
+	 eRLzt/7cZunRE+uukuUX7yzbndVg+TbGQ9LM8Y9s4hF6jGxqC1rvJc2TQP22v+lUPc
+	 pObVpReU1TxEheleNYw+vNjhBP0hFPJdLX7uH/Xw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6868F800F0;
-	Thu, 19 Jan 2023 17:18:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FD76F80083;
+	Thu, 19 Jan 2023 17:27:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0598CF8047B; Thu, 19 Jan 2023 17:18:03 +0100 (CET)
+ id 9A94EF8047B; Thu, 19 Jan 2023 17:27:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41D57F8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:18:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41D57F8024D
-Received: by mail-oi1-f170.google.com with SMTP id i5so2065120oih.11
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 08:18:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=s/53TQZW6r1zwjASQ4lZJdhbvckS1KV0aS6PofzSPkk=;
- b=TGfjWKgQxsp1/gReP8Q1eg3aAfx/MPb13TZttyFIVuEBx+t0Ljuq6fqll+5KvWWkpU
- ZeUGmkbSZZje2VYt7PaOaQB95cJrdC+W3uqqnV1oWDIqPHElQsbrA97b3bF/wMEoHiwU
- HVxSH5EOhalu8YB+MhJycE5l8TYl5eVyUyMgyvQYuQHB9w+snvydf22U5hMRoz4F6mtb
- +QfNsYyrakQxVXxRwmvTqODyafI/wdCoXEgfszZxQdZ88gQZIGkjAj+G4bPIWnl+6DRb
- F/IqfXdC2v8gUiixv8RDxC80/1CGTTAWryqkZlI3EJz9gMOcQZx3oYt1F75ZRY5gxWBR
- BILA==
-X-Gm-Message-State: AFqh2kpGIrqPxpdrC7MONPZt9ZQWHi0TSY0wjnC+KDT7L3el5W1HqeT3
- ut+8QQG8E8aDLcoTM+ycnA==
-X-Google-Smtp-Source: AMrXdXt1/e8p21lDMD81LUtAdmC9sW2dgNdOlCMjCvqrbAlT/E0IC+wziF1ov3qWxFpRUOB6UMdX6g==
-X-Received: by 2002:aca:f2d7:0:b0:364:de8b:dddc with SMTP id
- q206-20020acaf2d7000000b00364de8bdddcmr3754167oih.29.1674145079100; 
- Thu, 19 Jan 2023 08:17:59 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- a14-20020a9d3e0e000000b00670523bf1cfsm4203541otd.47.2023.01.19.08.17.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Jan 2023 08:17:58 -0800 (PST)
-Received: (nullmailer pid 1976357 invoked by uid 1000);
- Thu, 19 Jan 2023 16:17:57 -0000
-Date: Thu, 19 Jan 2023 10:17:57 -0600
-From: Rob Herring <robh@kernel.org>
-To: Astrid Rost <astrid.rost@axis.com>
-Subject: Re: [PATCH v1 4/4] ASoC: dt-bindings: simple-card: create jack for
- aux_devs
-Message-ID: <20230119161757.GA1969308-robh@kernel.org>
-References: <20230118125226.333214-1-astrid.rost@axis.com>
- <20230118125226.333214-5-astrid.rost@axis.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5014CF8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5014CF8024D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=EmWpQzIY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674145646; x=1705681646;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=EzV80YrxebRUHuKIKvpev2GAI8oUOLaQkTdDBDXUvOI=;
+ b=EmWpQzIYBA+WNRAVjZA35VywAci1qD6G9DixpQq91kzFu/IQVb8p45dh
+ zM0dtbabCMYbUf06SFs1XeetQd/muG2aLb5qT2x0rxeHVN9YOdjT6Ydh7
+ 14eA2Fp5OogVtNH8g1YaZnQd5RvOfd4BvNYXAvDfT7RblmH7zjtBuyrNY
+ wOJzOvAWB1xAJKYdgAcYn1qWfD46p047jGpId3Bt6KanmDTfKrqmfBal7
+ 9unHBbL75alzRXZX/HwehmNcXB1CkeIXfDC85XtGRjq5Yf5olnrqHXLz2
+ VxgcXp7gPZq01MgTkc/yufs7snsUrS/2PlnElJp643XBSrEtYYWMKr2H0 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="326614550"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="326614550"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:27:23 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="905577374"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="905577374"
+Received: from sahamad-mobl1.amr.corp.intel.com (HELO [10.213.187.97])
+ ([10.213.187.97])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:27:22 -0800
+Message-ID: <c45d34ba-1aee-16aa-1ccf-79c43c8c4ed4@linux.intel.com>
+Date: Thu, 19 Jan 2023 10:27:21 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230118125226.333214-5-astrid.rost@axis.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH v2 6/8] ASoC: cs42l42: Add Soundwire support
+Content-Language: en-US
+To: Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
+ <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
+ <33130336-b2ce-330e-fdec-166eee977e13@linux.intel.com>
+ <418f6b73-b5ac-8d87-a856-3413ec103f91@opensource.cirrus.com>
+ <6ea1b85f-22e2-8744-9638-6321a5a21acf@linux.intel.com>
+ <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,50 +97,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, kernel@axis.com,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 18, 2023 at 01:52:26PM +0100, Astrid Rost wrote:
-> Add simple-card,aux-jack-types:
-> Array of snd_jack_type to create jack-input-event for jack devices in
-> aux-devs. If the setting is 0, the supported type of the device is used.
-> A device which has the functions set_jack and get_jack_supported_type
-> counts as jack device.
+
+>> You lost me here. Are you saying the soundwire bus clock is only known
+>> in the prepare stage?
+>>
 > 
-> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
-> ---
->  .../bindings/sound/simple-card.yaml           | 35 +++++++++++++++++++
->  1 file changed, 35 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
-> index ed19899bc94b..2635b1c04fc9 100644
-> --- a/Documentation/devicetree/bindings/sound/simple-card.yaml
-> +++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
-> @@ -199,6 +199,13 @@ properties:
->      maxItems: 1
->    simple-audio-card,mic-det-gpio:
->      maxItems: 1
-> +  simple-audio-card,aux-jack-types:
+> hw_params() doesn't know the Soundwire bus clock so it can't do the
+> check. We need to wait until we have both the sample rate and the
+> chosen SWIRE_CLK.
 
-Drop 'simple-audio-card,'. That way we can reuse this for the 
-not-simple cases.
-
-I'm pretty sure we have some vendor specific properties for this 
-already. Use those for inspiration and to create something which could 
-replace them.
-
-> +    $ref: "/schemas/types.yaml#/definitions/uint32-array"
-> +    description: |
-> +      Array of snd_jack_type to create jack-input-event for jack
-> +      devices in aux-devs. If the setting is 0, the supported
-> +      type of the device is used. A device which has the functions
-> +      set_jack and get_jack_supported_type counts as jack device.
-
-Sounds like Linux details. How does BSD use this property?
-
-Rob
+Yes, makes sense. I forgot that all the stream management and bandwidth
+allocation takes place in the prepare stage at the dailink level, and
+the dai prepare happens after that. Thanks for the clarification.

@@ -2,77 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3779D6736BE
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 12:26:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797606737F8
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 13:10:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0EE68009;
-	Thu, 19 Jan 2023 12:25:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0EE68009
+	by alsa0.perex.cz (Postfix) with ESMTPS id C273A64BE;
+	Thu, 19 Jan 2023 13:09:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C273A64BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674127584;
-	bh=ucmdndhx2ldEW8Ntxz2+NaxP/d3s99VF6HcjEO5YG60=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674130206;
+	bh=t/s2UfVNfXZ74ABSKzm9V2zdch9aLkeCT9UMo9bCRqY=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ZyRsl9CHrV+LI5T8ke+q7hWphKWB2Utg3UYrrvEMHuoa7w2d+xSMQ7ywak7CE+6ub
-	 ZBd3EE2D1vUSion/LbSYVHOu65lVHBHPZeQ0i0bskLb9dh/SgMNmbuwBkY06LipNeI
-	 2kJRYxC+7UBdibzVnZn9jcBMNxAbykub7jacBzyA=
+	 From;
+	b=bFhi/fHTzEIXEAv95BgT8V134Q9LWjoaqtcdA6YevD57YBbzaSlFm8Noq58soVopo
+	 /uUj5hZbm/dz9lQRmMUX7yDYEFW3ClkEa5vbEUZBr0nDrlS61efMfpobbUub11G48a
+	 9nilPWsazGcycjWtqxeA5Ajlxtu0aXKmJO23yZ00=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57603F800F0;
-	Thu, 19 Jan 2023 12:25:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B264F804DE;
+	Thu, 19 Jan 2023 13:09:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C03E3F8047B; Thu, 19 Jan 2023 12:25:25 +0100 (CET)
+ id 8796EF8047B; Thu, 19 Jan 2023 13:09:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0DE79F8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 12:25:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DE79F8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA9DEF8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 13:09:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA9DEF8024D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=utZMdilA
+ header.s=k20201202 header.b=TpofgGV9
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D117461AC8;
- Thu, 19 Jan 2023 11:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196A9C433F1;
- Thu, 19 Jan 2023 11:25:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A657160AD6;
+ Thu, 19 Jan 2023 12:09:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0A9C433D2;
+ Thu, 19 Jan 2023 12:08:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674127520;
- bh=ucmdndhx2ldEW8Ntxz2+NaxP/d3s99VF6HcjEO5YG60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=utZMdilAabOCYMs988b1pmuGE9FaOXS7EUAZ3RT7a+h2i+2+135A0d57rqgqYFb7a
- W3z7pJImWfZOMkJF/bl6bE3qLGG6NMQWmrqPENQp74Cq2Nz3cKYnf+8U0zc4e+SrFk
- zom5yfnRpQHwa1JyxqDqLTHSR8DlWEBtyw8fhNqyfObQxHiIsdDac+X93bBPKNXbjw
- fkbG1QXw9ECB/cjjH2x4rgpcECyXQoPd4Ip3OOlo549yTJ8tk7w+7mySWd3t8aDSaw
- Qct4ldH2zy9zEOIZNFxFPmyu0Lt3kHH5raDLf7/4L1KDj2EuTnnb0f7FykTB8coeFW
- mVWA5FCWfPEZQ==
-Date: Thu, 19 Jan 2023 11:25:18 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ki-Seok Jo <kiseok.jo@irondevice.com>
-Subject: Re: [PATCH v2 1/2] ASoC: sma1303: Add driver for Iron Device SMA1303
- Amp
-Message-ID: <Y8konjHXimUfm4NH@sirena.org.uk>
-References: <20230109091402.11790-3-kiseok.jo@irondevice.com>
- <Y8F5+7vgl+f9rytb@sirena.org.uk>
- <SLXP216MB0077F86978B363B5F4ECEBC78CC49@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+ s=k20201202; t=1674130140;
+ bh=t/s2UfVNfXZ74ABSKzm9V2zdch9aLkeCT9UMo9bCRqY=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=TpofgGV9X8knhWWj2CfyNxxyWXGp397tyvqL3rWIPUVFS5n6XKGLzCyW6nKbppVVq
+ hXaYyIGC06uHdgcqv+7QsosRsNjnVilgcrKKtol3tEqG8lR5sXt0ssxkuvs2ACZ/Bz
+ ZB+Q9E/6MK7kR9YUZ83NfJTLEm0x2oc8lVR7FOfJhkSDUawUoyVe58Q1pWlRZ5AKUl
+ JHe7Bkxw5YI/6KNFhUmu14kUtpVnGy9OpofGYODLGRJFIZUJJKF4s+u+W0KUfnsCak
+ +WFNUaW4bvwBfbPKqpFX82QAHyrYGRiT+BwMtBEr4mOlc6eIcXa9zEmLPkh6GEnioD
+ Sya1f6xTo7Hiw==
+Message-ID: <a67ae6ac-10ff-a7ab-7c75-05218dd0c05f@kernel.org>
+Date: Thu, 19 Jan 2023 13:08:48 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="GdfkrMm9KWq8FFah"
-Content-Disposition: inline
-In-Reply-To: <SLXP216MB0077F86978B363B5F4ECEBC78CC49@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: Serving suggestion.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Subject: Re: [PATCH 1/3] ASoC: qcom: dt-bindings: lpass-va-macro: Update clock
+ name
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+ andersson@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, quic_plai@quicinc.com, bgoswami@quicinc.com,
+ perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org,
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ swboyd@chromium.org, judyhsiao@chromium.org, devicetree@vger.kernel.org
+References: <1674108674-8392-1-git-send-email-quic_srivasam@quicinc.com>
+ <1674108674-8392-2-git-send-email-quic_srivasam@quicinc.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <1674108674-8392-2-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,64 +92,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Application <application@irondevice.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 19/01/2023 07:11, Srinivasa Rao Mandadapu wrote:
+> Upadte clock name from core to macro in lpass-va-macro node
 
---GdfkrMm9KWq8FFah
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC.  It might happen, that command when run on an older
+kernel, gives you outdated entries.  Therefore please be sure you base
+your patches on recent Linux kernel.
 
-On Thu, Jan 19, 2023 at 08:16:52AM +0000, Ki-Seok Jo wrote:
+> to make it compatible with existing driver and device tree node.
+> 
+> Fixes: 67d99b23c881 ("ASoC: qcom: dt-bindings: add bindings for lpass va macro codec")
+> 
 
-> > > +	if (!(sma1303->amp_power_status)) {
-> > > +		dev_info(component->dev, "%s : %s\n",
-> > > +			__func__, "Already AMP Shutdown");
-> > > +		return ret;
-> > > +	}
-> > > +
-> > > +	cancel_delayed_work_sync(&sma1303->check_fault_work);
-> > > +
-> > > +	msleep(55);
+Drop blank line,
 
-> > That sleep looks odd - what are we delaying after? =20
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> Tested-by: Ratna Deepthi Kudaravalli <quic_rkudarv@quicinc.com>
 
-> It need for IC(Amp) issue.
+Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Right, but what is the issue?  It's not clear what event we're
-delaying for so it's not clear it'll work properly.
+https://lore.kernel.org/all/838e7657-817c-e5bd-5a45-d852560c7fe1@linaro.org/
 
-> > > +static void sma1303_check_fault_worker(struct work_struct *work) {
-> > > +	struct sma1303_priv *sma1303 =3D
-> > > +		container_of(work, struct sma1303_priv, check_fault_work.work);
-> > > +	int ret =3D 0;
-> > > +	unsigned int over_temp, ocp_val, uvlo_val;
-> > > +
-> > > +	mutex_lock(&sma1303->lock);
+> ---
+>  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> index 26f0343..e468adb 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+> @@ -36,7 +36,7 @@ properties:
+>      oneOf:
+>        - items:   #for ADSP based platforms
+>            - const: mclk
+> -          - const: core
+> +          - const: macro
+>            - const: dcodec
+>        - items:   #for ADSP bypass based platforms
+>            - const: mclk
 
-> > It looks like this mutex is only taken in this function, is it needed?
+Best regards,
+Krzysztof
 
-> This function is in workqueue. So, I think it can be done at the same tim=
-e.=20
-
-A given work_struct should only be schedulable once.
-
---GdfkrMm9KWq8FFah
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPJKJ0ACgkQJNaLcl1U
-h9DCIQf/W7w17tZo7XnJefKxuVy0vzifo0juHeMfXtV3k2Db4zKDVPtmwK+NqDCz
-1FYqmbJicOMHPuhEIf6+uWljBfc5M0oaTjM8LGB+rc7zeQeqyBknJO83po40luuo
-dBS22QN1V3VxAt1Fxfm6qe72yx5UctWlDs/OQ73wcfeOilS2jpf3jaXeV2NRASVO
-+q97q+oJcIrUBYckZGhr3U1rJ7YimvZjjt8JjyjmysI4jrudRONJmtpl/gVNX+Rr
-wFHYpZ1T1ZCQFzzUbVJbR6qiCI0hZSs6Y5tn6BgssV9RyLYor1nmlzfh0CYsSSyI
-2XQwC261vqA6p8vRDEgj3j1/ZmEBqA==
-=uevX
------END PGP SIGNATURE-----
-
---GdfkrMm9KWq8FFah--

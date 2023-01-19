@@ -2,77 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB4367326D
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 08:26:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5DD0673290
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 08:35:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2982E5878;
-	Thu, 19 Jan 2023 08:25:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2982E5878
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6008E7131;
+	Thu, 19 Jan 2023 08:34:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6008E7131
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674113164;
-	bh=vexI4bXkLQNgnzQp46b1BOfBvYLiQ1hk43f3ShONtl8=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ixZ6/aBAY0pgsTPn40S6I/rxw5EJjMFE/w4ZRcLxGqC7F/mUx2SJo01MJCyL7utjh
-	 Ez5EaN2cwJgbQmc5FOMzWLwp2FwPWiDdiehyzlvh6rP4EYA33VV8JnmOjdzqWqViLE
-	 cWKmB2XHsJ1oVJBRiqqfSbKdEjDzSlTb9NGkcF28=
+	s=default; t=1674113723;
+	bh=QNqCGqy7oOHaUpzWBbZafswn3J9kXKRvXI3Zf84+HzQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=NHQ83TFnuGMpPjnOWhWjXyqD9h8stSAhru41BJ7A4pMb6og2t4o8QBQnePVfNuXLi
+	 OAdgI3sIERV5lM944KYoK4sen1GHKDdSVlXx3RPrLgaYXSxexRz9Rruet6VCkzUwno
+	 NRgQpwTCwih8aoXVsla+ewujDy89YZaTGC+ZmpYM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDC24F80558;
-	Thu, 19 Jan 2023 08:24:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB348F80083;
+	Thu, 19 Jan 2023 08:34:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9359F80557; Thu, 19 Jan 2023 08:23:57 +0100 (CET)
+ id 45DE6F8047B; Thu, 19 Jan 2023 08:34:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47920F80548
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 08:23:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47920F80548
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=n1X18AGW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674113036; x=1705649036;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vexI4bXkLQNgnzQp46b1BOfBvYLiQ1hk43f3ShONtl8=;
- b=n1X18AGWpEHQbZiFJY7Pk2tC/V+7uNzf5kyLWPzH60Pjz4T+R6AklHT/
- 5CZNATNMYz+BoezcfhRzwp2iFA2ShPZnoJyelIflPmShXP1hU60bUKG/V
- B/Y2LAjcFnT/4hlEy2ksgUhXpujP84gqLrNawpg3NNW4sBRWSmCZTGLLv
- MuXGquzcchXe6fCJH7ooRuZYaQL5LYLgKL+AjcHG9Yb3TQe7DL2kukipJ
- dyISKKdUzs04OujxZRHoRYCHqpE7DCQuJ7naK277OZAi/2x5k90Uz8rVk
- UCqNX4ZBI5pvwxTGte20ZPzB9SKXJu1l6J+cm1Sni5UZIL2MTOHLmz6Uc Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="322902683"
-X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="322902683"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 23:23:51 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="662028052"
-X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="662028052"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 23:23:46 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v2 4/4] soundwire: cadence: further simplify low-level
- xfer_msg_defer() callback
-Date: Thu, 19 Jan 2023 15:32:11 +0800
-Message-Id: <20230119073211.85979-5-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230119073211.85979-1-yung-chuan.liao@linux.intel.com>
-References: <20230119073211.85979-1-yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02D78F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 08:34:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D78F8024D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=tq-group.com
+ header.i=@tq-group.com header.a=rsa-sha256 header.s=key1 header.b=iL9AnlYQ; 
+ dkim=pass (2048-bit key) header.d=tq-group.com header.i=@tq-group.com
+ header.a=rsa-sha256 header.s=key1 header.b=Uk88ARAj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1674113662; x=1705649662;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=s94IzfBcezUwrrXvkeXbHYzla1KnXTUynqvpSNJ59RI=;
+ b=iL9AnlYQofjPaJWQ8kyuG3X1dRW1KZwSpcy52CqQ3qlOApnWd/ka3W6q
+ R+96dA2jvAhR48dcEXazuDOrksagzlDWNYm8JQPwiDuLmz6lFpGfL5HP0
+ iFBhdRC4sMW22o/AcjCFUavpVGfq2YiixFFHNZL0SQeS04ab/lXvhqvgx
+ 71Hq20KcqFPBa4M2s9VF/FVitBJ1lJHdusqZXe7ucn7FXPDqOQDHMgf9/
+ zFegG5/i0qxdSVx2/Wjhk1hy4mxnOnRLBZR3iSbYNsPaEqq92cKnpioPC
+ 7OMurBhtyn6l0L/su1RWrxq3KJ2L+UrHYIKPGEv3nFKZdUNYp2yYba8M6 g==;
+X-IronPort-AV: E=Sophos;i="5.97,228,1669071600"; d="scan'208";a="28520959"
+Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
+ by mx1-pgp.tq-group.com with ESMTP; 19 Jan 2023 08:34:20 +0100
+Received: from mx1.tq-group.com ([192.168.6.7])
+ by tq-pgp-pr1.tq-net.de (PGP Universal service);
+ Thu, 19 Jan 2023 08:34:20 +0100
+X-PGP-Universal: processed;
+ by tq-pgp-pr1.tq-net.de on Thu, 19 Jan 2023 08:34:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1674113660; x=1705649660;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=s94IzfBcezUwrrXvkeXbHYzla1KnXTUynqvpSNJ59RI=;
+ b=Uk88ARAj4LAJjXbqgehHSp08D5NjYOd82SLwdcb7QLhxQf+8l5fULH2w
+ jUlknjpLUxLXfVXgNSyy5NHsb1PYKmH0ePb2/4Gj6EJDVY4rmhWNRvfeo
+ cdNB8BRb0u90yMwcqn9k9UYiTU6IscLDoZiyu93pvDgQWHNc58qN6Cufa
+ /+NMTLS3ZK7xQWxovMebD+2yASNoYNcAYqUHmnsRjnhwRc5iR3yjvslki
+ SF+xxj8HNonlA+sI10ZjcV/rlWx7iaI2UksR2rVC7uX56MqlTdAvTWE5U
+ Aea3vrDVeW1BQW2fLAGgR1dADhYp/qfNMLgIOAW0Gk0vEdbymOdD8PG3g A==;
+X-IronPort-AV: E=Sophos;i="5.97,228,1669071600"; d="scan'208";a="28520958"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 19 Jan 2023 08:34:19 +0100
+Received: from steina-w.tq-net.de (unknown [10.123.53.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 7508A280056;
+ Thu, 19 Jan 2023 08:34:19 +0100 (CET)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH 1/1] ASoC: imx-hdmi: Use dev_err_probe
+Date: Thu, 19 Jan 2023 08:34:16 +0100
+Message-Id: <20230119073416.3064918-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -87,94 +105,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- bard.liao@intel.com, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+This silences -517 errors and helps figuring out why the device probe
+is deferred.
 
-The message pointer is already stored in the bus->defer structure, not
-need to pass it as an argument.
-
-Suggested-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- drivers/soundwire/bus.c            | 2 +-
- drivers/soundwire/cadence_master.c | 5 +++--
- drivers/soundwire/cadence_master.h | 2 +-
- include/linux/soundwire/sdw.h      | 5 +++--
- 4 files changed, 8 insertions(+), 6 deletions(-)
+ sound/soc/fsl/imx-hdmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index fc192d0c61e7..ed94c92bc575 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -237,7 +237,7 @@ static inline int do_transfer_defer(struct sdw_bus *bus,
- 	init_completion(&defer->complete);
+diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+index a780cf5a65ffa..b6cc7e6c2a320 100644
+--- a/sound/soc/fsl/imx-hdmi.c
++++ b/sound/soc/fsl/imx-hdmi.c
+@@ -202,7 +202,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
+ 	snd_soc_card_set_drvdata(&data->card, data);
+ 	ret = devm_snd_soc_register_card(&pdev->dev, &data->card);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
++		dev_err_probe(&pdev->dev, ret, "snd_soc_register_card failed\n");
+ 		goto fail;
+ 	}
  
- 	for (i = 0; i <= retry; i++) {
--		resp = bus->ops->xfer_msg_defer(bus, msg);
-+		resp = bus->ops->xfer_msg_defer(bus);
- 		ret = find_response_code(resp);
- 		/* if cmd is ok or ignored return */
- 		if (ret == 0 || ret == -ENODATA)
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 2365395cb181..ece0ad89746f 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -749,10 +749,11 @@ cdns_xfer_msg(struct sdw_bus *bus, struct sdw_msg *msg)
- EXPORT_SYMBOL(cdns_xfer_msg);
- 
- enum sdw_command_response
--cdns_xfer_msg_defer(struct sdw_bus *bus,
--		    struct sdw_msg *msg)
-+cdns_xfer_msg_defer(struct sdw_bus *bus)
- {
- 	struct sdw_cdns *cdns = bus_to_cdns(bus);
-+	struct sdw_defer *defer = &bus->defer_msg;
-+	struct sdw_msg *msg = defer->msg;
- 	int cmd = 0, ret;
- 
- 	/* for defer only 1 message is supported */
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index 53029d22822d..63c58b9b1f59 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -187,7 +187,7 @@ enum sdw_command_response
- cdns_xfer_msg(struct sdw_bus *bus, struct sdw_msg *msg);
- 
- enum sdw_command_response
--cdns_xfer_msg_defer(struct sdw_bus *bus, struct sdw_msg *msg);
-+cdns_xfer_msg_defer(struct sdw_bus *bus);
- 
- u32 cdns_read_ping_status(struct sdw_bus *bus);
- 
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index fb2bd1524a26..86e320cf27b1 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -837,7 +837,8 @@ struct sdw_defer {
-  * @read_prop: Read Master properties
-  * @override_adr: Override value read from firmware (quirk for buggy firmware)
-  * @xfer_msg: Transfer message callback
-- * @xfer_msg_defer: Defer version of transfer message callback
-+ * @xfer_msg_defer: Defer version of transfer message callback. The message is handled with the
-+ * bus struct @sdw_defer
-  * @reset_page_addr: Reset the SCP page address registers
-  * @set_bus_conf: Set the bus configuration
-  * @pre_bank_switch: Callback for pre bank switch
-@@ -852,7 +853,7 @@ struct sdw_master_ops {
- 	enum sdw_command_response (*xfer_msg)
- 			(struct sdw_bus *bus, struct sdw_msg *msg);
- 	enum sdw_command_response (*xfer_msg_defer)
--			(struct sdw_bus *bus, struct sdw_msg *msg);
-+			(struct sdw_bus *bus);
- 	enum sdw_command_response (*reset_page_addr)
- 			(struct sdw_bus *bus, unsigned int dev_num);
- 	int (*set_bus_conf)(struct sdw_bus *bus,
 -- 
-2.25.1
+2.34.1
 

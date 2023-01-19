@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A76C673D92
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 16:34:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CDF3673D95
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 16:34:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2D3F4064;
-	Thu, 19 Jan 2023 16:33:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2D3F4064
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0942E4066;
+	Thu, 19 Jan 2023 16:34:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0942E4066
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674142466;
-	bh=H771fSfWeWB3a/8kw3DPz5R4e39zQUSOubvNIKtjKX4=;
+	s=default; t=1674142494;
+	bh=p6aXoNH+Xl7bz5o7hgp1e5JW4LIRZI9qnO1uIjevRYo=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=dBkUA267rHrG91O0lwZ0nSPwZgj9MYA4qHqlLVmFHNtKDBifg15Q57VMyl3perf75
-	 oIt8Y4mmDmSNl9B+mSbXSwyYJQKHhLiCueKOujtt8fxQmZcI9i61kIFrg1EDM/dvPl
-	 yZbjRmLHHfCDgkrSSB+Thmc0tnAUJVXDa2aRJ1JA=
+	b=f7aVAt9EclVO6RyQ91n1PnN34u+nxSXNk8/Ta+SZp9mUiCj5hRI895upp1MrrCfKc
+	 wPGaAAfLzGEh8rP368KhpVgyl200RR5dXY+cAHrRvYT1wlhBpDJtg16SmGi4LPulqE
+	 ZwcOdhxMD7uABau83ywCyolL8gZMdBE4hEBmO9Lg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 590AAF800F0;
-	Thu, 19 Jan 2023 16:33:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64DDEF8025D;
+	Thu, 19 Jan 2023 16:33:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24CB5F804DE; Thu, 19 Jan 2023 16:33:28 +0100 (CET)
+ id DC966F80542; Thu, 19 Jan 2023 16:33:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2E60F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 16:33:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2E60F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06924F8025D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 16:33:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06924F8025D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=B6h7r9Sx
+ header.s=k20201202 header.b=BjLQ8GU5
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE8C561C52;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 66F0BB82568;
+ Thu, 19 Jan 2023 15:33:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7A8C433F0;
  Thu, 19 Jan 2023 15:33:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9AFC433EF;
- Thu, 19 Jan 2023 15:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674142399;
- bh=H771fSfWeWB3a/8kw3DPz5R4e39zQUSOubvNIKtjKX4=;
+ s=k20201202; t=1674142403;
+ bh=p6aXoNH+Xl7bz5o7hgp1e5JW4LIRZI9qnO1uIjevRYo=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=B6h7r9Sxi4wnsa4Ax46HpkHlw4IIIf68GlWNrLMp/2RQqeCOQzmUzcaoXSgOpT0/6
- R4UCZJaClvRt5uKNh988KwdDhf176o2hoHU06zbrr8fQ/Lfjv8ukY+BsacoD2iEVZi
- KTEg+3gRD37fDSKXL5uwERrATcHuxjZvGxCyPtDJ9fkxnEzY30rq39l+1qBzi4od1u
- szO/1qdEto4avW2HFYjTjrVvgvN0pBiMOe3Xl9195cvSSOWWuekwBxPCBcL4S5G16l
- eY9qsO2hc9l9eZO59uH6ViYwtJd4MC9OSSnZ6J3N3iH8pwQQfaIFJZwOCKKf9F+ojf
- TaidLFyl9nzOw==
+ b=BjLQ8GU5EF1J+K+BfQgqv+w3LNBo/r3IhKeAfNTbiQm26VTI3I4cYw2eDK+LVkukq
+ 6HMZpBoOs5xmCyhhPUhZ/q1OoludQk+qIVcQaHRCkSV4OAEAq0YP6okqh6vZCQnmCv
+ REpNLq8bEHtn8oOz6Jy+o+hiktYgQfXHqvbB4oZZbtYeE4OcIius/1U0372bY5iYFA
+ 9yma8nAfh19984urw7gQO0Y3IEp9FGe6fPqdS22PoJq0fQWDYujklevqhj31DEjQUc
+ HLF1Ne6CW9qG1eJJfxPJUu6pTxfm7GN8aRa9cFt3UzGQTzXRlIW7skWBU+DhMsMt5i
+ E2YIlE7cpUcPA==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org, 
- krzysztof.kozlowski+dt@linaro.org, matthias.bgg@gmail.com, 
- p.zabel@pengutronix.de, Trevor Wu <trevor.wu@mediatek.com>
-In-Reply-To: <20230116034131.23943-1-trevor.wu@mediatek.com>
-References: <20230116034131.23943-1-trevor.wu@mediatek.com>
-Subject: Re: [RESEND,v5 00/13] ASoC: mediatek: Add support for MT8188 SoC
-Message-Id: <167414239535.1082520.4972233422127115256.b4-ty@kernel.org>
-Date: Thu, 19 Jan 2023 15:33:15 +0000
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20230117122533.201708-1-daniel.baluta@oss.nxp.com>
+References: <20230117122533.201708-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/4 v2] Add support to compress API to ipc_msg_data /
+ set_stream_data_offset
+Message-Id: <167414239956.1082520.13862629476632639710.b4-ty@kernel.org>
+Date: Thu, 19 Jan 2023 15:33:19 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -83,21 +82,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+Cc: alsa-devel@alsa-project.org, Allen-KH.Cheng@mediatek.com,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.come,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ linux-imx@nxp.com, yc.hung@mediatek.com, Vsujithkumar.Reddy@amd.com,
+ peter.ujfalusi@linux.intel.com, AjitKumar.Pandey@amd.com,
  angelogioacchino.delregno@collabora.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Jan 2023 11:41:18 +0800, Trevor Wu wrote:
-> This series of patches adds support for Mediatek AFE of MT8188 SoC.
-> Patches are based on broonie tree "for-next" branch.
+On Tue, 17 Jan 2023 14:25:29 +0200, Daniel Baluta wrote:
+> This patch series adds compress API support to ipc_msg_data /
+> set_stream_data_offset callbacks.
 > 
-> Changes since v4:
->   - refine etdm dai driver based on reviewer's suggestions
->   - refine dt-binding files based on reviewer's suggestions
+> Changes since v1:
+> 	- fixed reviewed-by list (+Peter, -Pierre). Since github had
+> 	  some glitches I added the reviews received manually in the
+>           commits.
+> 	- Github PR link: https://github.com/thesofproject/linux/pull/4133
 > 
 > [...]
 
@@ -107,32 +109,12 @@ Applied to
 
 Thanks!
 
-[01/13] ASoC: mediatek: common: add SMC ops and SMC CMD
-        commit: 7d40cc8eedbad7cce77226c5d01d891a40373eeb
-[02/13] ASoC: mediatek: mt8188: add common header
-        commit: f90f0dd809e6600cf20ab74f07237241925f5cf8
-[03/13] ASoC: mediatek: mt8188: support audsys clock
-        commit: fdd4e1a28d69648c35bea020c0df3735ddc74889
-[04/13] ASoC: mediatek: mt8188: support adda in platform driver
-        commit: 5d1c8e881ae0e6e931396952534d422facbebdbe
-[05/13] ASoC: mediatek: mt8188: support etdm in platform driver
-        commit: 2babb47774891bc8e68ae229d42ee7df90db9fd9
-[06/13] ASoC: mediatek: mt8188: support pcmif in platform driver
-        commit: 5d43bdd71200e1b08b7c4b7f3d3c86fdd23c4a3d
-[07/13] ASoC: mediatek: mt8188: support audio clock control
-        commit: f6b026479b1392b4b2aa51ed1edbfa99f6d49b59
-[08/13] ASoC: mediatek: mt8188: add platform driver
-        commit: bf106bf09376608e4992f9806c21842a4223f18b
-[09/13] ASoC: mediatek: mt8188: add control for timing select
-        commit: da387d3223aea9505fcd740105b7494df5bb44ad
-[10/13] ASoC: dt-bindings: mediatek,mt8188-afe: add audio afe document
-        commit: 692d25b67e1089a7683978d1860e511f2ca86e7b
-[11/13] ASoC: mediatek: common: add soundcard driver common code
-        commit: 4302187d955f166c03b4fa7c993b89ffbabfca4e
-[12/13] ASoC: mediatek: mt8188: add machine driver with mt6359
-        commit: 96035d46d4b45274208327826608b873ec6d7f06
-[13/13] ASoC: dt-bindings: mediatek,mt8188-mt6359: add mt8188-mt6359 document
-        commit: ce0382384e88c75d2506d4e49929ab8c22527dc7
+[1/4] ASoC: SOF: Prepare ipc_msg_data to be used with compress API
+      commit: 1b905942d6cd182b7ef14e9f095178376d3847e6
+[3/4] ASoC: SOF: Add support for compress API for stream data/offset
+      commit: 090349a9feba3ceee3997d31d68ffe54e5b57acb
+[4/4] ASoC: SOF: compress: Set compress data offset
+      commit: a9737808b3e4e2313cc2aab2e807836a06576277
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

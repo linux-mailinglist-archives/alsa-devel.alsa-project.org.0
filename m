@@ -2,109 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CD0B673894
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 13:30:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1A56738A7
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 13:34:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B45857FFB;
-	Thu, 19 Jan 2023 13:29:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B45857FFB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9FF0377C;
+	Thu, 19 Jan 2023 13:33:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9FF0377C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674131445;
-	bh=xJ3niIobiT5wu9dLQRgeJL6Mh6ilkBq3tkn/eBly4uA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1674131677;
+	bh=5x0SvKJqvjuZbR/iEndWuXxT6RFHpx58XowNytiWCDA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=oXN2D5SZPXPMr2g/l5CN1t3ik5bQSSarBpDE/g3QmyAh/NWAOMvvGqh03UQ+E81PX
-	 w49CSYphuarolAjLY6fWOwY4W+f1LOoT8Qg6+2CR/jLwLIPNmfm56AmyAPWR9fmgHg
-	 hFxAI/3wqxCe97jDE4guh7z54O1tgpZaPSa7RBiw=
+	 From;
+	b=eC7j9nRp/gheyxblX9GVe27YOWbqWOcXTPX5XLYnAy2wDuf1I+WdIeid529LvlsTm
+	 k10yWuncQib4Y2orCvtPFixCtnDwqEm+6vBbDRgDsTIHhXFbeT208dzAeL55qFIiqh
+	 wH46bQJzK3HViHbm/IGWj3ym4YalEtFuLtJUvooY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 378D1F8025D;
-	Thu, 19 Jan 2023 13:28:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 102DDF80083;
+	Thu, 19 Jan 2023 13:33:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACF77F8053D; Thu, 19 Jan 2023 13:28:17 +0100 (CET)
+ id 0DDC4F8047B; Thu, 19 Jan 2023 13:33:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6178BF8057D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 13:28:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6178BF8057D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9CC1F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 13:33:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9CC1F8024D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=XDfvDCDn
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30JBkKaO024665; Thu, 19 Jan 2023 12:28:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=9WGsjJvP+1/um8Hd8VhI/0r92/XxI99jW+WUww0Bjj0=;
- b=XDfvDCDngqYEvmt9n9W+dMopR3nMfHCqJqRto9/JLjjNFintTFr4qKtMXzfC1FuojQer
- fD+9x1uUto/yKSDlp+FOJaKiMoMwYF4B3c96NHlV7jMS9rv8gGzhdojkYlKo2C4XI2Em
- Jb/8vfpfHoaeAwr4hhkstXagPstWjtDpn1MzJjw2bDCCo3LlKBcedo3tK5UNA5F0kKXG
- o4Dlfvfl6rDlaVZCldFmMHId7eUIhP/oLTDaEND4w03A1j+uN+2gubQzpW/2dY4lIjlS
- ATx2lUKqO4GVt0eHVWh0HLvf4u3jfqlA/MX9dx31o+5Cyzt+pOxJ7rlgA+Tf0U7/Y8SM Fw== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n7593r36b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Jan 2023 12:28:12 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30JCSB3S002872
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Jan 2023 12:28:11 GMT
-Received: from hu-srivasam-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.36; Thu, 19 Jan 2023 04:28:06 -0800
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-To: <vkoul@kernel.org>, <agross@kernel.org>, <andersson@kernel.org>,
- <robh+dt@kernel.org>, <broonie@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <quic_rohkumar@quicinc.com>, <srinivas.kandagatla@linaro.org>,
- <dianders@chromium.org>, <swboyd@chromium.org>,
- <judyhsiao@chromium.org>, <alsa-devel@alsa-project.org>,
- <quic_rjendra@quicinc.com>, <konrad.dybcio@somainline.org>,
- <mka@chromium.org>
-Subject: [PATCH v3 7/7] dt-bindings: remoteproc: qcom: sc7280-adsp-pil: Add
- missing properties
-Date: Thu, 19 Jan 2023 17:57:07 +0530
-Message-ID: <1674131227-26456-8-git-send-email-quic_srivasam@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1674131227-26456-1-git-send-email-quic_srivasam@quicinc.com>
-References: <1674131227-26456-1-git-send-email-quic_srivasam@quicinc.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=uVzH5ljA
+Received: by mail-wr1-x432.google.com with SMTP id r2so1706523wrv.7
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 04:33:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=n8rfEMuDyZxUr/lsXYzAmRQq2T1KGzsa28lJ/dp8Na0=;
+ b=uVzH5ljAauUiCFlvukItmwkf22rMDfOGSirz90QzPyVNy9A1Nzas9Lyh/1l3ZKigGm
+ GNjswLxOXkN+FBh33Od9dmamLU2yf5gapgJrgg7P1DQezLfU9ccHz/scMB/zgSE/tegV
+ 6rjLDrbdb7HUVuWw9l0uOuJionnr7wMgKfN4XGOIC4DFLp+eLEBeUXB0POsZZMWakV08
+ eCzrf8Vqtci0edsFH9/Vi13Xb/vSVSBJtGY4C0n3OUYwq0xZQDG6XctrNKEcJd+r3SAT
+ adWb1ZLX8Fbq6ftdt2xQ94VojSKVYw40WY/GYz1l9OuALzdFR0IKc+PdSf++RVQ7pOJ6
+ GCRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=n8rfEMuDyZxUr/lsXYzAmRQq2T1KGzsa28lJ/dp8Na0=;
+ b=dykFiGnOKklwzp8Gby9oaxcn68CBaAq5xfzN5eV/otNfRX7N5M5/Lr+dI7/NmTho+Y
+ CUwYXqV7VFDD8B5wdX3T7fViDbEehW5IsAJXQ5vSeeOclig4py+BIYNc8dqllWA0qzyl
+ Sg0681xh0WvOxrMn8kuqP0BHknjhmMy+bEnlUot9zGYdd+vomGhwwBqvDiV/2wDE1oU1
+ DSRnlu0Xc1UAqAcbDieR2n9HzYT13ou1C5uQN9vpYZ30j4WApgkObRJFs4JanT2JBd2R
+ qxJeHNEmrdyD5JhfMtLeRoSEDofC2kMNWOaCi8x6LmCzeLrUWfKf++klEMdZtv8xHT6B
+ 2emg==
+X-Gm-Message-State: AFqh2kpC5GU5Td+S8Kd1qsI0pB77p9znizetUxk2lzSGrhwp1Ge6JtjO
+ f6z4fDegeHSPxaMDttO44OJEDA==
+X-Google-Smtp-Source: AMrXdXvzVVbesAd0ZmGM9ysqilbbXkk1wRoX+XB1+gxFbmc3m9tTTSqEwRqVqqLxwV35oAz7m3k7/w==
+X-Received: by 2002:a05:6000:1b85:b0:2be:f21:6af6 with SMTP id
+ r5-20020a0560001b8500b002be0f216af6mr9229691wru.23.1674131612583; 
+ Thu, 19 Jan 2023 04:33:32 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ c13-20020adffb0d000000b00241fde8fe04sm33247124wrr.7.2023.01.19.04.33.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jan 2023 04:33:32 -0800 (PST)
+Message-ID: <af7824c3-ebdf-5913-1fa8-1c167911d06a@linaro.org>
+Date: Thu, 19 Jan 2023 13:33:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ZjBx5kd-ESFFDMycv3g1ezGz7maVHjeY
-X-Proofpoint-ORIG-GUID: ZjBx5kd-ESFFDMycv3g1ezGz7maVHjeY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-19_09,2023-01-19_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 mlxscore=0 adultscore=0
- clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2301190098
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Subject: Re: [PATCH v3 7/7] dt-bindings: remoteproc: qcom: sc7280-adsp-pil:
+ Add missing properties
+Content-Language: en-US
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, vkoul@kernel.org,
+ agross@kernel.org, andersson@kernel.org, robh+dt@kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
+ srinivas.kandagatla@linaro.org, dianders@chromium.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, alsa-devel@alsa-project.org,
+ quic_rjendra@quicinc.com, konrad.dybcio@somainline.org, mka@chromium.org
+References: <1674131227-26456-1-git-send-email-quic_srivasam@quicinc.com>
+ <1674131227-26456-8-git-send-email-quic_srivasam@quicinc.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <1674131227-26456-8-git-send-email-quic_srivasam@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,108 +113,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add reg-names and power-domain-names for remoteproc ADSP pheripheral
-loader. Add firmware-name property to distinguish and load different
-firmware binaries of various vendors.
-Change qcom,halt-regs property phandle to tcsr_1 from tcsr_mutex.
-Also add required-opps property and change power domain from LCX to CX,
-which is actual PD to be controlled, for setting appropriate
-performance state.
-This is to make compatible with remoteproc ADSP PIL driver and
-latest device tree changes.
+On 19/01/2023 13:27, Srinivasa Rao Mandadapu wrote:
+> Add reg-names and power-domain-names for remoteproc ADSP pheripheral
+> loader. Add firmware-name property to distinguish and load different
+> firmware binaries of various vendors.
+> Change qcom,halt-regs property phandle to tcsr_1 from tcsr_mutex.
+> Also add required-opps property and change power domain from LCX to CX,
+> which is actual PD to be controlled, for setting appropriate
+> performance state.
+> This is to make compatible with remoteproc ADSP PIL driver and
+> latest device tree changes.
+> 
+> Fixes: 8490a99586ab ("dt-bindings: remoteproc: qcom: Add SC7280 ADSP support")
+> 
 
-Fixes: 8490a99586ab ("dt-bindings: remoteproc: qcom: Add SC7280 ADSP support")
+Here and in all other patches you sent recently - no blank lines between
+the tags.
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
----
- .../bindings/remoteproc/qcom,sc7280-adsp-pil.yaml  | 30 +++++++++++++++++++---
- 1 file changed, 26 insertions(+), 4 deletions(-)
+> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+> ---
+>  .../bindings/remoteproc/qcom,sc7280-adsp-pil.yaml  | 30 +++++++++++++++++++---
+>  1 file changed, 26 insertions(+), 4 deletions(-)
+> 
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sc7280-adsp-pil.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sc7280-adsp-pil.yaml
-index 94ca7a0..7addc7d 100644
---- a/Documentation/devicetree/bindings/remoteproc/qcom,sc7280-adsp-pil.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/qcom,sc7280-adsp-pil.yaml
-@@ -23,6 +23,11 @@ properties:
-       - description: qdsp6ss register
-       - description: efuse q6ss register
- 
-+  reg-names:
-+    items:
-+      - const: qdsp6ss_base
-+      - const: lpass_efuse
-+
-   iommus:
-     items:
-       - description: Phandle to apps_smmu node with sid mask
-@@ -57,7 +62,11 @@ properties:
- 
-   power-domains:
-     items:
--      - description: LCX power domain
-+      - description: CX power domain
-+
-+  power-domain-names:
-+    items:
-+      - const: cx
- 
-   resets:
-     items:
-@@ -73,6 +82,12 @@ properties:
-     maxItems: 1
-     description: Reference to the reserved-memory for the Hexagon core
- 
-+  firmware-name:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      The name of the firmware which should be loaded for this remote
-+      processor.
-+
-   qcom,halt-regs:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     description:
-@@ -80,7 +95,7 @@ properties:
-       four offsets within syscon for q6, modem, nc and qv6 halt registers.
-     items:
-       - items:
--          - description: phandle to TCSR_MUTEX registers
-+          - description: phandle to TCSR_1 registers
-           - description: offset to the Q6 halt register
-           - description: offset to the modem halt register
-           - description: offset to the nc halt register
-@@ -100,6 +115,10 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: Reference to the AOSS side-channel message RAM.
- 
-+  required-opps:
-+    description:
-+      A phandle to an OPP node describing required MMCX performance point.
-+
-   glink-edge:
-     $ref: qcom,glink-edge.yaml#
-     type: object
-@@ -167,13 +186,16 @@ examples:
-                  <&gcc GCC_CFG_NOC_LPASS_CLK>;
-         clock-names = "xo", "gcc_cfg_noc_lpass";
- 
--        power-domains = <&rpmhpd SC7280_LCX>;
-+        power-domains = <&rpmhpd SC7280_CX>;
-+        power-domain-names = "cx";
-+
-+        required-opps = <&rpmhpd_opp_nom>;
- 
-         resets = <&pdc_reset PDC_AUDIO_SYNC_RESET>,
-                  <&aoss_reset AOSS_CC_LPASS_RESTART>;
-         reset-names = "pdc_sync", "cc_lpass";
- 
--        qcom,halt-regs = <&tcsr_mutex 0x23000 0x25000 0x28000 0x33000>;
-+        qcom,halt-regs = <&tcsr_1 0x23000 0x25000 0x28000 0x33000>;
- 
-         memory-region = <&adsp_mem>;
- 
--- 
-2.7.4
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 

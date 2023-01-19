@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7CF4673F53
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 17:52:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB21A673F56
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Jan 2023 17:52:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 739BF1614;
-	Thu, 19 Jan 2023 17:51:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 739BF1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6AA51911;
+	Thu, 19 Jan 2023 17:51:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6AA51911
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674147133;
-	bh=YCzm+8PNge29ixl3/6h3jhDekAGaMIXKFHUbBlanzw0=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=ZJC+LyoeSCoDhtsu+YiggkoKT3D96WmFufmFI6B3mJotKRSAN9BUymLrIIRr6gcGt
-	 NUL2V+KDrAc9H006dg9QLuC1Fl6q9mLvuRBINWk+gLPfR/krTapwi2J2zXgAmhQuzK
-	 ziXpUu59D/XLqmwm5A+eECCj+ulAc5kiLJJD5p74=
+	s=default; t=1674147162;
+	bh=lneEbC8R5hvhmjzCyPKdyQqTu25WD3lNwrukEBD738o=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=Vl56Z7ejH9LaPN5pASeFSUYPkHVGA+Qoej8qa1L1n+u82pmrxGRkWI2PpH3ePphFy
+	 N7V/omyyw+iKn7WuHFxTNIoT13NdWfQ11JLwlBTs/7a+2uVbtVB3R3Llnqu2qYgHFk
+	 XlDV7BBncxJHVactuGDxBo8cuYvyXKv5Mu4Lxy3w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD3BCF804E6;
-	Thu, 19 Jan 2023 17:51:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A152F80083;
+	Thu, 19 Jan 2023 17:51:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBC03F804DE; Thu, 19 Jan 2023 17:51:13 +0100 (CET)
+ id 3A93DF8025D; Thu, 19 Jan 2023 17:51:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,50 +35,53 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1336FF80083
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:51:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1336FF80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1360F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:51:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1360F8024D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=QP9K8tch
+ header.s=PODMain02222019 header.b=od1uJdNx
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
  by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30J1KBde020876; Thu, 19 Jan 2023 10:51:06 -0600
+ 30J1KBdf020876; Thu, 19 Jan 2023 10:51:07 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=CkQ7VPfrmIC/WzRHmQdR/avtEQWObcg9xXhXG0ZGX5w=;
- b=QP9K8tch1hW17mbzxWgDq9rPVEJfD6WXM4BrZ0+QclR/CqBjmKcnbzkTtu4NPB/Szexr
- iImDRFs3OYviLhZ5H8Zwq1uOfI5I8N13GQ8jX7TCTENjlRH1+E5qu7HneodUEErQ2mOW
- CAAfaIiEYOADP3whEo5e83P5ZZdfl1Zxb9JDFP99xv7OK7bCgXah2nFpcM1tsOOQuUe0
- xzUfwdt8xdJKX0qCbHKt2DqF8VnsXOkMnSKliuf8g/IoA7g+zrPi4l9d2g85v6qpKxOP
- 4n4Gu0cQ/2yDYvzKii4Gm65dynSbeatXSIUVJTLFzC7ea3AQ9row4wBXIa9o11/YT/sM rw== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=PODMain02222019;
+ bh=SftSV7gvE+qMf6Vai8FZHIFOJ0BkZ4KenaMUMu6OZGU=;
+ b=od1uJdNxKbfqBeIw8DpVyiOWn/dLGvG/w5pVBF+4SHCCaIcBBG8a+9ByWJy/Z/a5d+Pd
+ IFcE6CXiIz68b8xkNjx4QOmOLEMjVNneMsCSodhu0BhmLtlxAeOPBYdQwyTzf8yNBNNT
+ eA4el5nUeCKrq3XHn2u2Im8Bec3o484ZN8kwa1/1CKRijyJhAgmwuEOlpyQ2upnvXAn3
+ Rk1Aj/iTHbXFvScmtBqiR66f0PY9m+uE7zOV4lVLqX/CBDOpyVTicq6/wCVvOmYuuvnJ
+ hJqMLrZIEYjrBE8wDDhBg3FGf6R9Zu06/HmKyRi5kNEZkgFqo97JQ2aPU2LLHOu6DAuV IQ== 
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n3tp6ga7w-1
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n3tp6ga7w-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Jan 2023 10:51:06 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ Thu, 19 Jan 2023 10:51:07 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 19 Jan
  2023 10:51:04 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via
- Frontend Transport; Thu, 19 Jan 2023 10:51:04 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Thu, 19 Jan 2023 10:51:04 -0600
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6568AB12;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6BD3D11CB;
  Thu, 19 Jan 2023 16:51:04 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <vkoul@kernel.org>
-Subject: [PATCH 1/2] soundwire: bus: Don't filter slave alerts
-Date: Thu, 19 Jan 2023 16:51:03 +0000
-Message-ID: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to register
+ IRQ handlers
+Date: Thu, 19 Jan 2023 16:51:04 +0000
+Message-ID: <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
+References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: IfEzvwbMwPqsRAnyGbfZaY2ssxED5uhT
-X-Proofpoint-GUID: IfEzvwbMwPqsRAnyGbfZaY2ssxED5uhT
+X-Proofpoint-ORIG-GUID: dv3xlRQxIx3faMjWQx2X1KI5vfyzj45L
+X-Proofpoint-GUID: dv3xlRQxIx3faMjWQx2X1KI5vfyzj45L
 X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -97,64 +101,174 @@ Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently the SoundWire core will loop handling slave alerts but it will
-only handle those present when the alert was first raised. This causes
-some issues with the Cadence SoundWire IP, which only generates an IRQ
-when alert changes state. This means that if a new alert arrives whilst
-old alerts are being handled it will not be handled in the currently
-loop and then no further alerts will be processed since alert never
-changes state to trigger a new IRQ.
+From: Lucas Tanure <tanureal@opensource.cirrus.com>
 
-Correct this issue by allowing the core to handle all pending alerts in
-the IRQ handling loop. The code will still only loop up to
-SDW_READ_INTR_CLEAR_RETRY times, so it shouldn't be possible for it get
-completely stuck and if you are generating IRQs faster than you can
-handle them you likely have bigger problems anyway.
+Allow SoundWire peripherals to register a normal IRQ handler to receive
+SoundWire alerts. This allows sharing the IRQ code between I2C/SPI which
+typically use a normal IRQ handler, and SoundWire which historically
+used a callback.
 
+Signed-off-by: Lucas Tanure <tanureal@opensource.cirrus.com>
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- drivers/soundwire/bus.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/soundwire/bus.c       | 39 +++++++++++++++++++++++++++++++++++
+ include/linux/soundwire/sdw.h |  9 ++++++++
+ 2 files changed, 48 insertions(+)
 
 diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 633d411b64f35..daee2cca94a4d 100644
+index daee2cca94a4d..49087e0ca3c3c 100644
 --- a/drivers/soundwire/bus.c
 +++ b/drivers/soundwire/bus.c
-@@ -1560,7 +1560,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	unsigned long port;
- 	bool slave_notify;
- 	u8 sdca_cascade = 0;
--	u8 buf, buf2[2], _buf, _buf2[2];
-+	u8 buf, buf2[2];
- 	bool parity_check;
- 	bool parity_quirk;
+@@ -3,6 +3,7 @@
  
-@@ -1716,9 +1716,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 				"SDW_SCP_INT1 recheck read failed:%d\n", ret);
- 			goto io_err;
+ #include <linux/acpi.h>
+ #include <linux/delay.h>
++#include <linux/irq.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/soundwire/sdw_registers.h>
+@@ -25,6 +26,23 @@ static int sdw_get_id(struct sdw_bus *bus)
+ 	return 0;
+ }
+ 
++static int sdw_irq_map(struct irq_domain *h, unsigned int virq,
++		       irq_hw_number_t hw)
++{
++	struct sdw_bus *bus = h->host_data;
++
++	irq_set_chip_data(virq, bus);
++	irq_set_chip(virq, &bus->irq_chip);
++	irq_set_nested_thread(virq, 1);
++	irq_set_noprobe(virq);
++
++	return 0;
++}
++
++static const struct irq_domain_ops sdw_domain_ops = {
++	.map	= sdw_irq_map,
++};
++
+ /**
+  * sdw_bus_master_add() - add a bus Master instance
+  * @bus: bus instance
+@@ -142,6 +160,13 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
+ 	bus->params.curr_bank = SDW_BANK0;
+ 	bus->params.next_bank = SDW_BANK1;
+ 
++	bus->irq_chip.name = dev_name(bus->dev);
++	bus->domain = irq_domain_add_linear(NULL, SDW_MAX_DEVICES, &sdw_domain_ops, bus);
++	if (!bus->domain) {
++		dev_err(bus->dev, "Failed to add IRQ domain\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL(sdw_bus_master_add);
+@@ -158,6 +183,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
+ 	mutex_lock(&bus->bus_lock);
+ 
+ 	if (slave->dev_num) { /* clear dev_num if assigned */
++		irq_dispose_mapping(irq_find_mapping(bus->domain, slave->dev_num));
++
+ 		clear_bit(slave->dev_num, bus->assigned);
+ 		if (bus->dev_num_ida_min)
+ 			ida_free(&sdw_peripheral_ida, slave->dev_num);
+@@ -178,6 +205,9 @@ static int sdw_delete_slave(struct device *dev, void *data)
+ void sdw_bus_master_delete(struct sdw_bus *bus)
+ {
+ 	device_for_each_child(bus->dev, NULL, sdw_delete_slave);
++
++	irq_domain_remove(bus->domain);
++
+ 	sdw_master_device_del(bus);
+ 
+ 	sdw_bus_debugfs_exit(bus);
+@@ -717,6 +747,12 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
+ 			slave->dev_num = dev_num;
+ 			slave->dev_num_sticky = dev_num;
+ 			new_device = true;
++
++			slave->irq = irq_create_mapping(bus->domain, dev_num);
++			if (!slave->irq) {
++				dev_err(bus->dev, "Failed to map IRQ\n");
++				return -EINVAL;
++			}
+ 		} else {
+ 			slave->dev_num = slave->dev_num_sticky;
  		}
--		_buf = ret;
-+		buf = ret;
+@@ -1682,6 +1718,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+ 				struct device *dev = &slave->dev;
+ 				struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
  
--		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, _buf2);
-+		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, buf2);
- 		if (ret < 0) {
- 			dev_err(&slave->dev,
- 				"SDW_SCP_INT2/3 recheck read failed:%d\n", ret);
-@@ -1736,12 +1736,8 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		}
++				if (slave->prop.irq && slave->irq)
++					handle_nested_irq(slave->irq);
++
+ 				if (drv->ops && drv->ops->interrupt_callback) {
+ 					slave_intr.sdca_cascade = sdca_cascade;
+ 					slave_intr.control_port = clear;
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 3cd2a761911ff..7627c459ab20f 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -5,6 +5,8 @@
+ #define __SOUNDWIRE_H
  
- 		/*
--		 * Make sure no interrupts are pending, but filter to limit loop
--		 * to interrupts identified in the first status read
-+		 * Make sure no interrupts are pending
- 		 */
--		buf &= _buf;
--		buf2[0] &= _buf2[0];
--		buf2[1] &= _buf2[1];
- 		stat = buf || buf2[0] || buf2[1] || sdca_cascade;
+ #include <linux/bug.h>
++#include <linux/irq.h>
++#include <linux/irqdomain.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/bitfield.h>
  
- 		/*
+@@ -369,6 +371,7 @@ struct sdw_dpn_prop {
+  * @clock_reg_supported: the Peripheral implements the clock base and scale
+  * registers introduced with the SoundWire 1.2 specification. SDCA devices
+  * do not need to set this boolean property as the registers are required.
++ * @irq: call actual IRQ handler on slave, as well as callback
+  */
+ struct sdw_slave_prop {
+ 	u32 mipi_revision;
+@@ -393,6 +396,7 @@ struct sdw_slave_prop {
+ 	u8 scp_int1_mask;
+ 	u32 quirks;
+ 	bool clock_reg_supported;
++	bool irq;
+ };
+ 
+ #define SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY	BIT(0)
+@@ -638,6 +642,7 @@ struct sdw_slave_ops {
+  * struct sdw_slave - SoundWire Slave
+  * @id: MIPI device ID
+  * @dev: Linux device
++ * @irq: IRQ number
+  * @status: Status reported by the Slave
+  * @bus: Bus handle
+  * @prop: Slave properties
+@@ -667,6 +672,7 @@ struct sdw_slave_ops {
+ struct sdw_slave {
+ 	struct sdw_slave_id id;
+ 	struct device dev;
++	int irq;
+ 	enum sdw_slave_status status;
+ 	struct sdw_bus *bus;
+ 	struct sdw_slave_prop prop;
+@@ -884,6 +890,7 @@ struct sdw_master_ops {
+  * is used to compute and program bus bandwidth, clock, frame shape,
+  * transport and port parameters
+  * @debugfs: Bus debugfs
++ * @domain: IRQ domain
+  * @defer_msg: Defer message
+  * @clk_stop_timeout: Clock stop timeout computed
+  * @bank_switch_timeout: Bank switch timeout computed
+@@ -917,6 +924,8 @@ struct sdw_bus {
+ #ifdef CONFIG_DEBUG_FS
+ 	struct dentry *debugfs;
+ #endif
++	struct irq_chip irq_chip;
++	struct irq_domain *domain;
+ 	struct sdw_defer defer_msg;
+ 	unsigned int clk_stop_timeout;
+ 	u32 bank_switch_timeout;
 -- 
 2.30.2
 

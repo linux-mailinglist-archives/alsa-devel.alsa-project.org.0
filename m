@@ -2,142 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B0B677693
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:43:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378DE677694
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:44:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF44A41E6;
-	Mon, 23 Jan 2023 09:42:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF44A41E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B55941F8;
+	Mon, 23 Jan 2023 09:43:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B55941F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674463416;
-	bh=WLGG8JwIOAUgiV+zlZrIawcmMrOjnNfCyzOi4KNEGDg=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=cT4e1cxOWawzSVeyuFHOaEmrZjIMfycMia5dT/b7FPX85FyU8VMmm4/bCvVw0Ybzp
-	 bBbG94ZqnKYNHklNcsGTbvFC1RNARMM/ZEthDQZ3khfefZZ3DOSfwMIjtuuc5QVgxt
-	 Ox8EN5BQtdWCj/cFzoHyUDYz5TgL0y+++oVQtwhQ=
+	s=default; t=1674463441;
+	bh=4TEQrft3SKzpn3ESsK/GfuIHZsSa0akIkdLUfsv43GQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=kHbAznJYqaDOWahOByQvZH5lmU4J3Ao8hw5PELVO5wnpbIWk40g8csiqg63+0ziJ+
+	 yH/W0tP0ME/8+noAnQDqSO1Cm7g85B2DqR+blDeu0LwHKf2Z8DudwYEkGB6pDMpiEz
+	 7DtC+ntwzxG/getXP/7Bry/3lAL4M2vNTYVRnPxk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 904D5F800FB;
-	Mon, 23 Jan 2023 09:42:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F049F80542;
+	Mon, 23 Jan 2023 09:42:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAC1EF8047B; Thu, 19 Jan 2023 12:02:42 +0100 (CET)
+ id 61038F8024D; Thu, 19 Jan 2023 20:11:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
  SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2112.outbound.protection.outlook.com [40.107.114.112])
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2045.outbound.protection.outlook.com [40.107.21.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FF86F800F0
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 12:02:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FF86F800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=Sh2ygkDQ
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9E07F8024D
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 20:10:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9E07F8024D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
+ header.s=selector1 header.b=WG4gSkqW
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M5apvSaJvQ18/EWjGtND9e7A4NWlcXgRNys+szUuh1w901eMLBBUiIr14LS79BkePiwbgvFQ2Xe3/bMnnyMCJ8f+5GlA6bk0tBXMyeiLre8LKELOx9ZsJzqGHetXBarv3iJope6LVvC7x3vi2XnH4u5Rod0nsDCzwbu0ZGOEnQDJKahTtJ+0ElC0UojICY17aCFn0FvBeUabbDN8kWr+uq11Sl22XeZkVR24UGwOUZPt5TfbtXYKlI3hR81brSc9wKo+yKfxVRgIv6B9KwGIlG6dGzW7OAO1wDKif/emGsCxqTdyUPeWN8jXnrAt91ewPpb/mricaBJylSLQ22emGA==
+ b=Q8oNTPs96fwsTN2J1iHzUe8T4NzzRhrKnpWH8FK8qfhxZ/9fpUNozNil65JI0cdrdVV32SZaL8Z0SVhrIJlm2okKCVcXOQvyDbCWuiaponfc2DTn3w9Nz//cnMJ9WEOIuh6rDUFbuIT45UAio1ahBFf0SzjVTnm/rAwdAu0mK/9qw+tCIpq7jk+rm/pDgkcCmZvuMIUSBz2xjaqn+pc7ar1f3y9ITZcRjrhnc0zA6Yq+LarwdorLiH9+bOzDu+eZf6XzoCNddRjDUTHzlEIYL1Y8gShyawl1NauVQbdI5uFEUig2zPxbDTR2dT6MN9elADmbfTLbKGwoCvrmsSMiYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=peBMV7DtHD1lOVtJafsp4qWSNJ6ZuEWxN5i3yZSUS1Q=;
- b=ff197CQCGpgjIiOOdx1TB7vPaXN60vnJ37mdc/QLYIkrqcSPG+6AQ42Sz6QwhI7/4zNB3USJvVqtlVkK3kEQzB6N57hhZlzIp0arGqjgJh5X9WD/CGiTmKTXJ5I71ftjSPMOguDc+hBo1hzTlYDyXPHMLb9VL4hXoKTzweuCTJfGkG/HTBpQ9eSyDN0sWzxyHgiMr5K9akPyxa7hEIduwX5KcLW7IhJYF0sqU9COGqYYFLyikTK1sumBI0+A1rk35TWOOT83Xbv5nnOT76wIQXsz6zVmiFltqClmHjvkIsttPWQdxuEBa8JKgqwWWgkmD1yD6qWF3wwqzNn8iXV9iQ==
+ bh=q4yVKGEYAJ1JxUJ3P+i0jWX8PR5LYdfiOQPVsQw9op0=;
+ b=L2c9Z++JOFRThXIXaPxG/JAbUY7T8fsi0Hatc5XRcGfeL1zBqALnPuvpkQEg8I4cK6DiKgo9DMPszTHMOv6MT+5FfxPVq9aqyS04ppGO4yicFWDTAsvyq38DhHFqlIQ7l1cLZWLaF897QKqK07ZdnjcfnwjA7mfzbYhtbxE+YQFGSAzYMKM92qOYe4FsdUWjDUeG8+crjqzqfRo4EQ3CDp1d6s1abppje5/PR3gYMUyPI/rnJTtPlmIeUajTXmzvfxW0F/6/0TyvJcYdyGrXSdGY2RGLaT4fpVlXxiYO+zMlC5sSASoqWXinzlHrzfAIPFEXNQ8FdV8jNCUgH/yMpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
+ dkim=pass header.d=seco.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=peBMV7DtHD1lOVtJafsp4qWSNJ6ZuEWxN5i3yZSUS1Q=;
- b=Sh2ygkDQV5LEnEjwl0n17UAOXMh3H51JtPIuRgFpO4BQXRMqQ+KDJfJm/IC540itSVmLlsGM7jshWcNct4xFtBOl4yHT5Y4x/5CSpOmyo5StgEqHxPK9Q4nKiPkmsCgm8XyFQTwoZG4sdIxtb6wQgWdPm0a3ODEAiDemoWUFZYE=
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
- by TY3PR01MB10402.jpnprd01.prod.outlook.com (2603:1096:400:253::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Thu, 19 Jan
- 2023 11:02:25 +0000
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::8059:793b:71e3:72af]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::8059:793b:71e3:72af%4]) with mapi id 15.20.6002.026; Thu, 19 Jan 2023
- 11:02:25 +0000
-From: David Rau <david.rau.zg@renesas.com>
-To: Guenter Roeck <linux@roeck-us.net>, David Rau <we730128@gmail.com>
-Subject: RE: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Thread-Topic: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Thread-Index: AQHY/Wc8EHyTvYawJkGeL+1XJ6BDpa6jYNiAgAIOc/A=
-Date: Thu, 19 Jan 2023 11:02:25 +0000
-Message-ID: <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
-References: <20221121050744.2278-1-david.rau.zg@renesas.com>
- <20230117195645.GA83401@roeck-us.net>
-In-Reply-To: <20230117195645.GA83401@roeck-us.net>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB6641:EE_|TY3PR01MB10402:EE_
-x-ms-office365-filtering-correlation-id: d2c973d5-7a37-4c2d-ffeb-08dafa0ca5c6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8nGBxGP8Bn64dVRL5zqckT1S4OOv4iHCeHhZ4tPPUbinN1os2QnUGD0FZxP8Li5FjllY5mjgPQbWO/jHQV9NSjxXH7NNHvENpXcDxYMkmXP3rs5aaZ6q6GwQIT6tAIkie2diZQxwbWxqGCbTzgdc6MgeAXIVsSx/B84hVfFp3D1oAiwyEU/QouatQ6226N4nOV1rghhFuxV/leSmPatgBjv4ZeyAxoXmOhE9NesJ00DQtdL3HUm1s0h5k/0nL3nSIrdH1FUXHe9GOe110uswlExsoIoCDB4h12evJaL+BIDRtlRvZQ9Z1JER+IInqdwMi7v/3o51R0WnYDDgFq4fQIpuWtIBnFsaW8TyXUXSzkaQ/eZvhSyJosEP2kBYhtG52ilSotFshRJ0XbxuaPt8fOkm1FxP0dJURzs3uL1fimfN3JV+EuTkX0qU3k6xshzD1LdqcgUEIQASrG8PZGHUWVtsA/GnKDkyZcNtnxYR5XFroRZmQuZl0M8Zzxmg2Ld0sIGEtaZtfMDZrD8i3U6yIQT9nzGncZ32uvgyZniyEvhxWH/EiicqziDzMmx8sqCu8H8F2nrZ+cx96//sHawSibaqQ0oB7CJUtgdZ5aa4IdscmULsd8ivHruq3ortLX6cHh4Lr7zde7/TyDb+NCILcrXMscMdvyF/fXkI6zmtjRWlPHdCLd8k7IYypc3D7fQ72IMvsPlj7i6mx6Y5NKSX7A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB6641.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(346002)(39860400002)(136003)(376002)(396003)(451199015)(2906002)(122000001)(38100700002)(55016003)(33656002)(54906003)(71200400001)(316002)(110136005)(7696005)(86362001)(38070700005)(5660300002)(4326008)(41300700001)(76116006)(66556008)(66446008)(66476007)(8676002)(66946007)(64756008)(6506007)(53546011)(83380400001)(52536014)(9686003)(186003)(8936002)(478600001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BpW6CP9LLcto3w4PywSD2U5PTPJHMz3IGCgDflQmgU6BcrfsBM6Gtx1Ojcml?=
- =?us-ascii?Q?ykZ27DrJ1gtihws764aLKdxSApstUvQGkZ6by7YjSmfhkiPPTr8XqHPhl5pV?=
- =?us-ascii?Q?1A/JrfEUyGtnelruruZiGtubt44nwTIK3oyH2YamXnOGbYRyb5wP8NO34Pvu?=
- =?us-ascii?Q?1Pc4P/wvjriI5WZ+n2BS5t/fW+A52QQS4VxRAScFaKb3FcMZsKOl98DighgZ?=
- =?us-ascii?Q?DgmU2uVTsJxL7yz0Vwh5wJgR9EzgicpqDZ6DPb1cqM4Y/kdcSyhzIK/bneSl?=
- =?us-ascii?Q?GBzYwRmmSVu4eWhMlwCX+8bkGD585XvY5P77rh3TR4zMmhFrJ07mkL2s7Sa0?=
- =?us-ascii?Q?uKrNqL8GdtwTZqbGH9ZNFy9WSvFwaow++6XJLvMpY+6s+71PhlycxH5k4mOa?=
- =?us-ascii?Q?+K+GICJuwEIfgZ0Za/QQGY/YR2ldl6vX28pk0GJHgjYcFnBaDBfIuOM2qVvR?=
- =?us-ascii?Q?JOiRVSq6oz3FBmtEdLLolzBZS5oShGZeiYIVhdUqYxwCfw/Br2V+doGYJfsj?=
- =?us-ascii?Q?Jy6AVwicArONUmYZRSBoJgs5QJfpa8ieNNZIq7AgUKUw/ZdPmO6QyXPi4krB?=
- =?us-ascii?Q?wJ8yqKpJhUcGVD03pZwslux03YZsBwSc5/2z72TNC5u2TRevqnTbviq47BpW?=
- =?us-ascii?Q?IB9K2RbuwaKT6xt5NtofDgzMlWulIRbQXv9uReARpMna7t7LbR44yZ9X3E9u?=
- =?us-ascii?Q?nn/dErrpyvIKJ6gxGKYpUEgBA0MwxdjUmfOStQyAm1fwCdMRp6rzX2sJclAc?=
- =?us-ascii?Q?uQD+T4T0CfqVHlZ1YYw/vSMeNgj4G9fOrPyjIxKCT2z9C5Y9nNqJe8zPMioJ?=
- =?us-ascii?Q?5N0Fp8wCUZussZj34Y3/LLOGib45k4Uboiwth94yUI0ViUZ3XwcyI8rcFUvR?=
- =?us-ascii?Q?+5lqafFahOAQq4e2feCTWQBR/sDco8ioAWmvjpB+GHtibeip9yKxvcM2R46w?=
- =?us-ascii?Q?eWaIc0/4vYuk4rVmAVSE8KtPcRQ6rdaVfVJ5AO7J4A8/KCqhrYhkCUT5Ni9E?=
- =?us-ascii?Q?x68chO3AHc1AkDtJuJ9JgtSAdlt7zs8fCECwLdrScTin+U5w/LNwUAM7yCIv?=
- =?us-ascii?Q?nQlrVYcpi1joGsGKId5zUtXTgbUigrZZ4EPUZRH4pNvJcivYl+avCrOmP8hZ?=
- =?us-ascii?Q?LlHmO9Ks7pvyDhVQMk8sAIZNeCr+8wEHBy7M+meL4uVeYM9d25acCEWapK5o?=
- =?us-ascii?Q?PvuYaYNZMinkwe0CmZ7vOX6IqzPMlFOrGbrOEUuDfCl0brjjtxA2zuPhbHGl?=
- =?us-ascii?Q?SVlXDQkXxjeQYNOMSOZIznGxkDXzdHDKyX6UAUnsEx3CwxuYG1DPKoroGJ93?=
- =?us-ascii?Q?xbyGTgulqWglUyNPK2TJ5zAkzSY+STQEgnQec9PWVgDn6rSL/fO9c0dejaca?=
- =?us-ascii?Q?96z1kRy/+XufRm8Jc+h96+rCz90Vrw0nkqlxpFuKdPAxbOy454mDiSmKTA/j?=
- =?us-ascii?Q?nSQwAuslkxZ34+fLJaY+P1tkXSJniPa7YxiXU5BiZCQjLOmpXDib1cOHQxqX?=
- =?us-ascii?Q?yrPUdH7Z9XwNaAw1egbxketTIKBstGNsF5WQeNBQfaJxPH76WeJhcleQ2Yty?=
- =?us-ascii?Q?LcJXCsHxd6OBOpiTruTcdkaw6c8JM779WOJ87mAo+xq6G/GLaoecXl4Q5U6A?=
- =?us-ascii?Q?oIA4iFxs+jKI9cd9EKg0+ImSTliedCiC+Estu5WiK+vtMVzIcGesA236qe90?=
- =?us-ascii?Q?wo74Bw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=q4yVKGEYAJ1JxUJ3P+i0jWX8PR5LYdfiOQPVsQw9op0=;
+ b=WG4gSkqWYVxfNPP2lYLVeljWWsY1F37O0gL66e23yfs7efAWHl8Jhhg5kxzvTnNg9oD7H0J8eMYD0eTiqvRRgGWmkZfJ5r5ap65rXNLh79ikbjqWvcVlCip9GhothfXLCuh0MtxM/zzc4gq6tdekPURUn8wC6nWRQ04Rgf9g7Ua26D57wvRitq3BxBQILOm7Das0dGerm8vWwEZ6xBei4+CvLfzaYXsPgSkGpSKgFxhruC46jqcnQUba7sbSFnboymLVaUsQ7k4D7+LDFdXL2PdjQMM7WuEOJqb5/lHAB9SbefgFe5X39fITivAnlQ489hxMxCKox//+9Swo/NXVQw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=seco.com;
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
+ by DB9PR03MB8259.eurprd03.prod.outlook.com (2603:10a6:10:307::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Thu, 19 Jan
+ 2023 19:10:54 +0000
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::6b03:ac16:24b5:9166]) by DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::6b03:ac16:24b5:9166%2]) with mapi id 15.20.5986.023; Thu, 19 Jan 2023
+ 19:10:54 +0000
+From: Sean Anderson <sean.anderson@seco.com>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 0/3] drm: Add component_match_add_of and convert users of
+ drm_of_component_match_add
+Date: Thu, 19 Jan 2023 14:10:36 -0500
+Message-Id: <20230119191040.1637739-1-sean.anderson@seco.com>
+X-Mailer: git-send-email 2.35.1.1320.gc452695387.dirty
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL0PR02CA0047.namprd02.prod.outlook.com
+ (2603:10b6:207:3d::24) To DB9PR03MB8847.eurprd03.prod.outlook.com
+ (2603:10a6:10:3dd::13)
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB8847:EE_|DB9PR03MB8259:EE_
+X-MS-Office365-Filtering-Correlation-Id: acee74f2-4797-4454-9ac2-08dafa50e2fb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2OjThEFm+mVkWgaYQIqcDEN9IEMpLSdBEmxordzg5y+hZbEPS2sIbcfgNSCUNmkLHib3/Ke+R/X7FySfz5hy4Td9UfpOGfZsvHfnQ62ZAqtD6PQM92F7a/EyyVB1CE7AR81l9Q9RCR3bil38k8AY2JywUMxW/ypSznUPmO9FCE8o/bIQ0Qw2NeS1rgNWOOrNPLkKwR9Nqn5NvjoZlb1oyKwtCCSybvD8Xfmgm7B9NLm5c8M+PWDL0XDKt9/o9LrFUdwLUb3YjCidMpXWDlEe9aqcl73jDaK3RBL3g0n6Pq7VRSDYqb+w/CXddYR8aB4oXBh/LpzDD5SpYK9L5M6GtJJ7CA3xQvC6usVYJaaVTqijsIxdtWZlvfJQIOixvbv3sYbyz9cB2ZgGoydLhpCxjwuytqXkhfBM1LJ3Ks8iBmQ+kNLoN+iSedI0QHo463FdDwzbczz61QOGAkDq5AQSye2GC1P6zSEnIExZO7ol8cIrD/fuCndPP2sCjWlVjv2RhYIkb/t/ulUnv/Boha+zxuAjO0wAcsq0X5FtvsIayuZqb3lRZv181nWe/sD3+QCg8LcrP/kStnPZ+OZiY0YIgRi3gGvFIl7p+RMrz06uUy77qclT3IA7tmczw/RoNjsiHS0Y4BKx6PYiHylHGzgdSQd7Hl9l1EvayRRXD5LVkc0XJx6RSgCGg0LI1uISObQGdLHCEOH3RbNZusRdYqHtAg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB8847.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(39850400004)(366004)(346002)(136003)(396003)(376002)(451199015)(66556008)(44832011)(5660300002)(8936002)(7416002)(7406005)(7366002)(54906003)(41300700001)(2906002)(316002)(66946007)(4326008)(110136005)(8676002)(66476007)(478600001)(38350700002)(6486002)(52116002)(38100700002)(26005)(6512007)(6506007)(36756003)(6666004)(186003)(1076003)(86362001)(2616005)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1dEZDVwM2lNSXJuQW85aXJibkZJWXRoT256SFNRM3Qra2NTdEx4SFBMcXRL?=
+ =?utf-8?B?L2hUUlRJU3BSZFRBM2luT1orWUVSc0tpaXZYMlpZMTBFYklCMFhHVG1JYytn?=
+ =?utf-8?B?eVJsTnBHcEpaUmprd2Q5TmlsWnVETEpPU0VPZ0dCNFdYNGpiTFZjU1h5ZitB?=
+ =?utf-8?B?SERNa0U0R2lmQ0lWQTZ5U0llTUxrYU5BRUIzVUtIaTN0YnFFWkl3U1BSdFZS?=
+ =?utf-8?B?SFFCZXRzQ0dSV3l5NHVET2Vhc3ZubDJyekhNYmpTYzlGOTd2T1NoMnZ5czdj?=
+ =?utf-8?B?YkZiYUdUaXpRMXBuNE9EcXdWU1owSnpheWp4TkFmUHZhUHA3aXE2bjRqTWRH?=
+ =?utf-8?B?VTRMcDNiY3pBcmhHTjNocDNJbTVTbTdlMTZYb2N0R2VmMG9yTmY5aUxqWDA4?=
+ =?utf-8?B?dHlqOXdCbi8yZTloR2Y2VE9tSWhrUnNqckpkWHc0NmtQWENTOWVlQ2hITlla?=
+ =?utf-8?B?enFwV0FYOTdwTkpxLytFenpOSEh6OWgxeExIQU54WEhUZnArWnB2eDBhZ3My?=
+ =?utf-8?B?QTU5WmNsSnc1QXp4bmVLYzNreHlKVkVaZmdrdXVBKzhDSzRFclBwcHVOU0Iy?=
+ =?utf-8?B?TFhIWVVuZlJiTDA2SkN1bDZRc1ZhVWo4OTcvUkFUbnQrWXhwZFo0SHRzVXVm?=
+ =?utf-8?B?SGFXeDBKWVlZZEYxUUttYzd3Z0FWd3RSWHBsQmpiMDAxT2ZVQ2tXblh5QVBD?=
+ =?utf-8?B?OVVGZHlkdFZxc2VLMENEeGVsQ21KdmQ3RzA3YTZWOVI1R0tISjhNUm5SZ3E1?=
+ =?utf-8?B?eGZTaEwxUVA2SlJCdGQ4RlQ4ei92TFJxTlVoN2VZVXQ0WUZ3SG5BY2RnU1NB?=
+ =?utf-8?B?SWF1UWx4Zi9pOHQ2M1ZXekdxUWdKQTZnVnhyejhMdWJxNzZFS3RMUDhYdTJu?=
+ =?utf-8?B?eUUyNGYrSVJnaEh5cnhYamFmTVhFRXEwREhYVlJzbmg0MVVEVkRBVUFUWXpR?=
+ =?utf-8?B?UDM4Rk1ZVm5mVGUvRTJjV0tOWHRpYndIOEErMTdqTDB1NVc2S0NwVzFaTm8y?=
+ =?utf-8?B?dENEcC8raThkQUV6Z2taNWh3K1dUMzF6UWIxQlczMzRPZitSWmYzd1VHWXNq?=
+ =?utf-8?B?T3FwYW9MUXN2QkhtY1hhSlA4MVc2NXhJRyt2cGZCR2FjTWpNcmh6TVRCRjVP?=
+ =?utf-8?B?dExGdWVlcG1yOGpsZzFWalhzVGdlQmVMSXRrSmlzNkhDMmZiNzkzTXViQUZu?=
+ =?utf-8?B?L2ppdjlTQ2Q5Si9KVU1xQmlIclBBaWttbGxuNTMwU3hiRTAySGliaWd5dVc1?=
+ =?utf-8?B?T1YwRld0cHBJblVIVnVXZXB4NiszSjFWVTlxcEFmWDBBQjBaMC9pbEdVWm16?=
+ =?utf-8?B?Sk5BNkRoeHBjM1dBMGFyQnVWWnZqZkhtTHE0T3NoblphUFd3NXVJVWRvbWxI?=
+ =?utf-8?B?UWU3RlRuOEJhSlQxZm9UdlNIYkM1VlpTbG5TNDd0eXAvM0hBei9abVBTZ01z?=
+ =?utf-8?B?VDl6a2MrckdBTmZkQWp1VjExZmd5c2ZXQ1A4QU02VGxhYi9CMDZnRmM0QllR?=
+ =?utf-8?B?NEZ5Z2RVY1ZIRGRZb0lJaHd5MERZeVlXWVZ5ZUxTellRNVhFV0gwR1J3bVRD?=
+ =?utf-8?B?NUZZQ05FZEFiUWdsa1o0Zi9WQkJvaE4xbXZXOTNydVgvU2tybnRNZmVsLzNH?=
+ =?utf-8?B?ZitFQkovUDhGKzBhZ2NUVWh0a3FQbWR3cmhFdjZKQ3ZvM09YSkwwVmVWNDM3?=
+ =?utf-8?B?bzcvNXdnRTdvNzliTnBlZHQ0bGNmczRmd3Z0MlREL0ozVnJ6cit6UDltNDda?=
+ =?utf-8?B?amtQYzdxYUtEOEpvS25uLzNlZ2M4dDFKeHZuMWtEUjdveDliSVpXY0ZOSmVR?=
+ =?utf-8?B?YkYxYmlESHRDeERLczRiK05wd3kzNnpRQ2JRV1pYQnkyTHZKcEdITFdhUG5V?=
+ =?utf-8?B?bVFPTFJYRmJIUmJ3eThxRjh4cjlEOGw5Q01JUVpDTWJoQURhNDRvMUwzOWEz?=
+ =?utf-8?B?WFB2Q2J3QURjQmlnTlpPWnFTblhuV2pKMUQ2ZmorNm1WTTNXUXNlMnV1NmpP?=
+ =?utf-8?B?bFdYK0JZQWFtdlBVMnJmMEFhRDM3ZytqS083cmxKamRoUm42UUxsUXFML0Z6?=
+ =?utf-8?B?TVhRSkc1YzRwZVEvaUZXb1UxREQvZnhKMDI3ejBQK2JaQU85M3hSODJhdFZs?=
+ =?utf-8?B?U3Zxd1JoZVRZRUo5SnVIQUNZV0hrZEFGdmk4NEZGUnNtUjk2UlpwY2Q1TUhy?=
+ =?utf-8?B?RWc9PQ==?=
+X-OriginatorOrg: seco.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acee74f2-4797-4454-9ac2-08dafa50e2fb
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8847.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2c973d5-7a37-4c2d-ffeb-08dafa0ca5c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2023 11:02:25.3711 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9jSO48x1isLABY3vUwr71ZzgKPILRQn/F4+UWFFhWRalojnTqyHCY6k3Ai8ZWweyC7jyAyL8worTe5ry3VhV3rKD4w26lXfXDdl/chCw0aM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10402
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 19:10:54.0688 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TExj+ppozAjreSiOV9g4J2ykelKHdKd0NP0WBONLswrnOPWFM+8GVX0rfp3A3TZoY2g0nV9DtTpWGarMmalpFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB8259
 X-Mailman-Approved-At: Mon, 23 Jan 2023 09:42:43 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -151,167 +154,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Xinliang Liu <xinliang.liu@linaro.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, John Stultz <jstultz@google.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Will Deacon <will@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
+ Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mali DP Maintainers <malidp@foss.arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ etnaviv@lists.freedesktop.org, Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ Yong Wu <yong.wu@mediatek.com>, linux-mips@vger.kernel.org,
+ Tomi Valkeinen <tomba@kernel.org>, iommu@lists.linux.dev,
+ Robin Murphy <robin.murphy@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Tian Tao <tiantao6@hisilicon.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Brian Starkey <brian.starkey@arm.com>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Would you please provide me the related error messages when hung task crash=
-es in da7219_aad_irq_thread()?
-BTW, "gnd_switch_delay =3D 256" is an unusual use case of the longer jack d=
-etection latency.=20
+This series adds a new function component_match_add_of to simplify the
+common case of calling component_match_add_release with
+component_release_of and component_compare_of. There is already
+drm_of_component_match_add, which allows for a custom compare function.
+However, all existing users just use component_compare_of (or an
+equivalent).
 
------Original Message-----
-From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
-Sent: Wednesday, January 18, 2023 03:57
-To: David Rau <we730128@gmail.com>
-Cc: perex@perex.cz; lgirdwood@gmail.com; broonie@kernel.org; tiwai@suse.com=
-; support.opensource@diasemi.com; alsa-devel@alsa-project.org; linux-kernel=
-@vger.kernel.org; David Rau <david.rau.zg@renesas.com>
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP h=
-eadsets when playing music
+Changes in v3:
+- Rebase onto drm/drm-next
 
-On Mon, Nov 21, 2022 at 05:07:44AM +0000, David Rau wrote:
-> The OMTP pin define headsets can be mis-detected as line out instead=20
-> of OMTP, causing obvious issues with audio quality.
-> This patch is to put increased resistances within the device at a=20
-> suitable point.
->=20
-> To solve this issue better, the new mechanism setup ground switches=20
-> with conditional delay control and these allow for more stabile=20
-> detection process to operate as intended. This conditional delay=20
-> control will not impact the hardware process but use extra system=20
-> resource.
->=20
-> This commit improves control of ground switches in the AAD logic.
->=20
-> Signed-off-by: David Rau <david.rau.zg@renesas.com>
-> ---
->  sound/soc/codecs/da7219-aad.c | 42=20
-> ++++++++++++++++++++++++++++++-----
->  sound/soc/codecs/da7219-aad.h |  1 +
->  2 files changed, 37 insertions(+), 6 deletions(-)
->=20
-> diff --git a/sound/soc/codecs/da7219-aad.c=20
-> b/sound/soc/codecs/da7219-aad.c index bba73c44c219..08200ec259f9=20
-> 100644
-> --- a/sound/soc/codecs/da7219-aad.c
-> +++ b/sound/soc/codecs/da7219-aad.c
-> @@ -352,9 +352,14 @@ static irqreturn_t da7219_aad_irq_thread(int irq, vo=
-id *data)
->  	struct snd_soc_dapm_context *dapm =3D snd_soc_component_get_dapm(compon=
-ent);
->  	struct da7219_priv *da7219 =3D snd_soc_component_get_drvdata(component)=
-;
->  	u8 events[DA7219_AAD_IRQ_REG_MAX];
-> -	u8 statusa;
-> +	u8 statusa, srm_st;
->  	int i, report =3D 0, mask =3D 0;
-> =20
-> +	srm_st =3D snd_soc_component_read(component, DA7219_PLL_SRM_STS) & DA72=
-19_PLL_SRM_STS_MCLK;
-> +	msleep(da7219_aad->gnd_switch_delay * ((srm_st =3D=3D 0x0) ? 2 : 1) -=20
-> +4);
+Changes in v2:
+- Split off conversion from helper addition
+- Rebase onto drm/drm-next
 
-Ever since this patch was applied to ChromeOS, we have observed hung task c=
-rashes in da7219_aad_irq_thread().
+Sean Anderson (3):
+  component: Add helper for device nodes
+  iommu/sound: Use component_match_add_of helper
+  drm: Convert users of drm_of_component_match_add to
+    component_match_add_of
 
-Is it really appropriate to sleep up to (256 * 2) - 4 =3D 508 ms in an inte=
-rrupt handler ?
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |  6 ++--
+ drivers/gpu/drm/arm/hdlcd_drv.c               |  9 +-----
+ drivers/gpu/drm/arm/malidp_drv.c              | 11 +------
+ drivers/gpu/drm/armada/armada_drv.c           | 10 ++++---
+ drivers/gpu/drm/drm_of.c                      | 29 +++----------------
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         |  4 +--
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  3 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  3 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  4 +--
+ drivers/gpu/drm/msm/msm_drv.c                 | 14 ++++-----
+ drivers/gpu/drm/sti/sti_drv.c                 |  3 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |  3 +-
+ drivers/gpu/drm/tilcdc/tilcdc_external.c      | 10 ++-----
+ drivers/iommu/mtk_iommu_v1.c                  |  3 +-
+ include/drm/drm_of.h                          | 12 --------
+ include/linux/component.h                     |  9 ++++++
+ sound/soc/codecs/wcd938x.c                    |  6 ++--
+ 17 files changed, 45 insertions(+), 94 deletions(-)
 
-Thanks,
-Guenter
+-- 
+2.35.1.1320.gc452695387.dirty
 
-> +	/* Enable ground switch */
-> +	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> +
->  	/* Read current IRQ events */
->  	regmap_bulk_read(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
->  			 events, DA7219_AAD_IRQ_REG_MAX);
-> @@ -454,8 +459,8 @@ static irqreturn_t da7219_aad_irq_thread(int irq, voi=
-d *data)
->  			snd_soc_dapm_disable_pin(dapm, "Mic Bias");
->  			snd_soc_dapm_sync(dapm);
-> =20
-> -			/* Enable ground switch */
-> -			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> +			/* Disable ground switch */
-> +			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x00);
->  		}
->  	}
-> =20
-> @@ -831,6 +836,32 @@ static void da7219_aad_handle_pdata(struct snd_soc_c=
-omponent *component)
->  	}
->  }
-> =20
-> +static void da7219_aad_handle_gnd_switch_time(struct=20
-> +snd_soc_component *component) {
-> +	struct da7219_priv *da7219 =3D snd_soc_component_get_drvdata(component)=
-;
-> +	struct da7219_aad_priv *da7219_aad =3D da7219->aad;
-> +	u8 jack_det;
-> +
-> +	jack_det =3D snd_soc_component_read(component, DA7219_ACCDET_CONFIG_2)
-> +		& DA7219_JACK_DETECT_RATE_MASK;
-> +	switch (jack_det) {
-> +	case 0x00:
-> +		da7219_aad->gnd_switch_delay =3D 32;
-> +		break;
-> +	case 0x10:
-> +		da7219_aad->gnd_switch_delay =3D 64;
-> +		break;
-> +	case 0x20:
-> +		da7219_aad->gnd_switch_delay =3D 128;
-> +		break;
-> +	case 0x30:
-> +		da7219_aad->gnd_switch_delay =3D 256;
-> +		break;
-> +	default:
-> +		da7219_aad->gnd_switch_delay =3D 32;
-> +		break;
-> +	}
-> +}
-> =20
->  /*
->   * Suspend/Resume
-> @@ -908,9 +939,6 @@ int da7219_aad_init(struct snd_soc_component *compone=
-nt)
->  	snd_soc_component_update_bits(component, DA7219_ACCDET_CONFIG_1,
->  			    DA7219_BUTTON_CONFIG_MASK, 0);
-> =20
-> -	/* Enable ground switch */
-> -	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> -
->  	INIT_WORK(&da7219_aad->btn_det_work, da7219_aad_btn_det_work);
->  	INIT_WORK(&da7219_aad->hptest_work, da7219_aad_hptest_work);
-> =20
-> @@ -928,6 +956,8 @@ int da7219_aad_init(struct snd_soc_component *compone=
-nt)
->  	regmap_bulk_write(da7219->regmap, DA7219_ACCDET_IRQ_MASK_A,
->  			  &mask, DA7219_AAD_IRQ_REG_MAX);
-> =20
-> +	da7219_aad_handle_gnd_switch_time(component);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(da7219_aad_init);
-> diff --git a/sound/soc/codecs/da7219-aad.h=20
-> b/sound/soc/codecs/da7219-aad.h index f48a12012ef3..21fdf53095cc=20
-> 100644
-> --- a/sound/soc/codecs/da7219-aad.h
-> +++ b/sound/soc/codecs/da7219-aad.h
-> @@ -187,6 +187,7 @@ enum da7219_aad_event_regs {  struct=20
-> da7219_aad_priv {
->  	struct snd_soc_component *component;
->  	int irq;
-> +	int gnd_switch_delay;
-> =20
->  	u8 micbias_pulse_lvl;
->  	u32 micbias_pulse_time;
-> --
-> 2.17.1
->=20

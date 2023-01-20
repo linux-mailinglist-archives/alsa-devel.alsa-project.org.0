@@ -2,83 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16518674ED7
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 09:02:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B2FE674EED
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 09:05:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90B5C2E84;
-	Fri, 20 Jan 2023 09:01:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B5C2E84
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0B642E94;
+	Fri, 20 Jan 2023 09:04:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0B642E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674201732;
-	bh=KdobaH4syO7V+kdAWH+wnONXay4qKevv10bWKbL7ssQ=;
+	s=default; t=1674201919;
+	bh=oWjRVrsMC0WCPzyo1xIgB09wccCH8PecYaF7U/x49z8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=axEAc8Yz2RHe9B5kqUuDgnnTH8AYAaBd8zlrzUP3wI0GHY7KbFTj7S1SbLGlZqztG
-	 wAOX8epQYjExvXl+IJy3HM+k8eOyUvEDacDLyHlsm1mlDo7NdCnH9ii6PgCMlVMBhF
-	 oSE7UBMsYgra9S6INZbsLR+lvgCpG+Ionu0ltjho=
+	 From;
+	b=CftGk2ArxnK0yavYZnhBhiYe0k+6AoApqmbyLtY2FfTHKcEljaVVuxDq9ebd92DyR
+	 7rdL5kNGW9PkTmUzehyK3Di+brS7WiqeLAGCyBrZ23LVDuzvNbU93LdfqQ/KIdgCWI
+	 xvFQVxNwaDEQR6PbdoQ8ZHjWmYHJybEnFP/1kJFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF8A5F80246;
-	Fri, 20 Jan 2023 09:01:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74878F80246;
+	Fri, 20 Jan 2023 09:04:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0F96F8026D; Fri, 20 Jan 2023 09:01:12 +0100 (CET)
+ id 05902F8026D; Fri, 20 Jan 2023 09:04:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41247F8024C
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 09:01:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41247F8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3D20F8024C
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 09:04:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D20F8024C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=mRJ9gQP1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674201670; x=1705737670;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KdobaH4syO7V+kdAWH+wnONXay4qKevv10bWKbL7ssQ=;
- b=mRJ9gQP1Yb1s0IIGDQViefequWrCdEsy4rh/rbAZObk6RNSpw4Be1dwZ
- l5A/yrJvKZbPeW/pjbhQrvTVS/1Hl36nSMSpCs4yc4b1dyvtDpFE+2MFW
- 2qsK4W9j8CpXINLVRf+ujd/+xlH24b+QQ7oxwjcSwx8VilUPQEfmiTzfP
- 0VzX08BtWeVbuiUbmfyf6HVEzNUrkbtpzpP+jQZdmw45bS/iv99iPTAqA
- 8/U6yTuZt+IJXsceCjZzfhVWpQjJyZzHb9/19so3zW3lexsCztNL8MLbQ
- dD7ea/5IHoPmAWjuUPqUBqgs3uSkv3Z1MnF5kboe5SiZcJ+/0gwDyTKW2 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="305894442"
-X-IronPort-AV: E=Sophos;i="5.97,231,1669104000"; d="scan'208";a="305894442"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 00:01:03 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="660505480"
-X-IronPort-AV: E=Sophos;i="5.97,231,1669104000"; d="scan'208";a="660505480"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 00:00:58 -0800
-Message-ID: <6f047ec5-4055-761d-c1ea-c2d0b606e53a@linux.intel.com>
-Date: Fri, 20 Jan 2023 09:00:55 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=gd4l01rh
+Received: by mail-wr1-x433.google.com with SMTP id q10so4109957wrs.2
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 00:04:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=V6LXkIx8BANILDQmoLHswehPH28NdMe4BBg+GYgmQJc=;
+ b=gd4l01rhpsa8H54xUMgiQ+zJGbH0SoJyTrI51hbsZysaJi8L40ZQIGPyyul0z7Ocg4
+ zpTey7QZIqkSZ7gD5mfJdzGH+L4xP/Jxx56pspJ6DDz/Nuu1VfZEFelRQ4fi1j2kbkDG
+ w6trpgj2whXf8arw9tAjTnPhr22VOyiu53zB5CjdInNNnTHdHsFAf3a3zOM2pa3gRF1e
+ JnyE9UIa+CjL/Wu7vll6UEQG/D9fdAAnH4sEvkUbrmMjEHAcpAzpaIhiQwydr0b83pxt
+ 4aCsRknCcqzwyo8rJRE4R7ChWA6EjnQh9pcWq482df90gL/dh5ZcxXYq5aygoTOLg8md
+ 5CUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=V6LXkIx8BANILDQmoLHswehPH28NdMe4BBg+GYgmQJc=;
+ b=TiuMkChBC2pGyTb7GEf0hsM7NMWmVYSiYyitbdtLDYV0vDNRSibcgSWUdlNEk4gTuC
+ fq3iV/nqcxMOyeIZBt2fLokw1UmwUVuI3yMoQ3QSFzKWff5hwTbxhmdw1tS9V1ZHW6eA
+ uUD23Nv/tJJwOmdnKhVFtonpv6y5MRDxx4YdDw2NScJT3GpijLh/Wk9j9ija+xTC0r+f
+ CaQHaneXCZZQyedp6wE+jOxT8czvNJifNanohf0o2cWYSvA1jwtLpGh1pVFMxbF6vGUT
+ u3zAX2SZkXxKLBJjCdU9ohFbx1DGutIxdazpQ3iI1GYkBE7a2MoBrLeT7IWT/c8nvr6Q
+ AaCg==
+X-Gm-Message-State: AFqh2krtJJ3cnn/ZbmZtqVUNF/UU4JWsMcxgoBPH17MOJgqBXIofsVVt
+ c+0IZwBc+Eh+a7yJaIbllhUZ7g==
+X-Google-Smtp-Source: AMrXdXsMXAoaC0AHQ2YBbTngF/qLL6GGMIQ5qXh9iHZwnWh7GupAm7r9lc0MoGv9BvDY3wk+bH3dTg==
+X-Received: by 2002:adf:8b1c:0:b0:2bf:9478:a91d with SMTP id
+ n28-20020adf8b1c000000b002bf9478a91dmr1393wra.39.1674201855853; 
+ Fri, 20 Jan 2023 00:04:15 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ e11-20020a5d6d0b000000b002bdda9856b5sm1822404wrq.50.2023.01.20.00.04.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Jan 2023 00:04:15 -0800 (PST)
+Message-ID: <4be5a020-c9a3-cab9-921a-c4cdfe6ce979@linaro.org>
+Date: Fri, 20 Jan 2023 09:04:12 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 22/25] ASoC: soc-dai.c: use helper function
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Subject: Re: [PATCH v3 4/7] arm64: dts: qcom: sc7280: Update VA/RX/TX macro
+ clock nodes
 Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87a62dlmmn.wl-kuninori.morimoto.gx@renesas.com>
- <87edrpk7qb.wl-kuninori.morimoto.gx@renesas.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <87edrpk7qb.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, vkoul@kernel.org,
+ agross@kernel.org, andersson@kernel.org, robh+dt@kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
+ srinivas.kandagatla@linaro.org, dianders@chromium.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, alsa-devel@alsa-project.org,
+ quic_rjendra@quicinc.com, konrad.dybcio@somainline.org, mka@chromium.org
+References: <1674131227-26456-1-git-send-email-quic_srivasam@quicinc.com>
+ <1674131227-26456-5-git-send-email-quic_srivasam@quicinc.com>
+ <17b895c0-3985-a012-9b02-94d5ebb11ff9@linaro.org>
+ <9ae3b1b0-e9d6-6370-667b-88af5d0efa2e@quicinc.com>
+ <7d874a5d-5a26-1ae1-58bc-dd819774190d@linaro.org>
+ <3299b57b-7260-0189-ba6f-824db391d81c@quicinc.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <3299b57b-7260-0189-ba6f-824db391d81c@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -92,60 +117,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Heiko Stuebner <heiko@sntech.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 1/20/2023 8:03 AM, Kuninori Morimoto wrote:
+On 20/01/2023 07:35, Srinivasa Rao Mandadapu wrote:
 > 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> On 1/20/2023 11:54 AM, Krzysztof Kozlowski wrote:
+> Thanks for your valuable suggestion Krzysztof!!!
+>> On 20/01/2023 05:47, Srinivasa Rao Mandadapu wrote:
+>>> On 1/19/2023 7:01 PM, Krzysztof Kozlowski wrote:
+>>> Thanks for your time Krzysztof!!!
+>>>> On 19/01/2023 13:27, Srinivasa Rao Mandadapu wrote:
+>>>>> Update VA, RX and TX macro and lpass_tlmm clock properties and
+>>>>> enable them.
+>>>> Everything is an update and this does not explain what exactly you are
+>>>> updating in the nodes and why.
+>>>>
+>>>>> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+>>>>> Tested-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+>>>>> ---
+>>>>>    .../qcom/sc7280-herobrine-audioreach-wcd9385.dtsi  | 59 ++++++++++++++++++++++
+>>>>>    1 file changed, 59 insertions(+)
+>>>>>
+>>>>> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+>>>>> index 81e0f3a..674b01a 100644
+>>>>> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+>>>>> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+>>>>> @@ -8,8 +8,67 @@
+>>>>>    
+>>>>>    #include <dt-bindings/sound/qcom,q6afe.h>
+>>>>>    
+>>>>> +/delete-node/ &lpass_rx_macro;
+>>>> Why?
+>>> Actually in SoC dtsi (sc7280.dtsi) power domains property used.
+>>>
+>>> Which is not required for ADSP based solution. As there is no way to delete
+>>>
+>>> individual property, deleting node and recreating it here.
+>>>
+>> You can delete property - delete-property. However why in AudioReach
+>> device comes without power domains? What does it mean "power domains
+>> property is not required"? DTS describes the hardware and the rx macro
+>> is powered, isn't it?
 > 
-> Current ASoC has many helper function.
-> This patch use it.
+> Actually in case ADSP bypass solution power domains are handled in HLOS 
+> clock driver.
 > 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   sound/soc/soc-dai.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
+> Whereas in ADSP based solution they are handled in ADSP firmware, and 
+> from HLOS
 > 
-> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-> index 29a75fdf90e0..e01b87ea04d4 100644
-> --- a/sound/soc/soc-dai.c
-> +++ b/sound/soc/soc-dai.c
-> @@ -267,6 +267,11 @@ int snd_soc_dai_set_tdm_slot(struct snd_soc_dai *dai,
->   			     int slots, int slot_width)
->   {
->   	int ret = -ENOTSUPP;
-> +	int stream;
-> +	unsigned int tdm_mask[] = {
-> +		tx_mask,
-> +		rx_mask,
-> +	};
->   
->   	if (dai->driver->ops &&
->   	    dai->driver->ops->xlate_tdm_slot_mask)
-> @@ -275,8 +280,8 @@ int snd_soc_dai_set_tdm_slot(struct snd_soc_dai *dai,
->   	else
->   		snd_soc_xlate_tdm_slot_mask(slots, &tx_mask, &rx_mask);
->   
-> -	dai->tx_mask = tx_mask;
-> -	dai->rx_mask = rx_mask;
-> +	for_each_pcm_streams(stream)
-> +		snd_soc_dai_tdm_mask_set(dai, stream, tdm_mask[stream]);
+> voted as clocks.
+> 
+> Below is the reference commit.
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9e3d83c52844f955aa2975f78cee48bf9f72f5e1
 
-Does this work? There are functions earlier which modify the values of 
-tx_mask/rx_mask and you copy their old values on tdm_mask[] init?
+I am sorry, but this is one big mess. Hardware is one. I understand that
+Linux drivers can be entirely different but here - and in the past with
+few clocks - the hardware description keeps changing depending on the
+wishes of developers. That's not how bindings and DTS work. This suggest
+that DTS is being pushed to satisfy driver needs, not to properly
+describe the hardware. I am sorry, but hardware does not change.
 
->   
->   	if (dai->driver->ops &&
->   	    dai->driver->ops->set_tdm_slot)
+Best regards,
+Krzysztof
 

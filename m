@@ -2,73 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C74F36758F7
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 16:44:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E311675DC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 20:17:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 636033361;
-	Fri, 20 Jan 2023 16:43:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 636033361
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58B77349E;
+	Fri, 20 Jan 2023 20:17:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58B77349E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674229486;
-	bh=3s+a21jOuSUozVrGaavCBkqBzcDsMozFYa/XE/2Un+w=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1674242272;
+	bh=w2pg29GHRHLoIcIIyn5qgQAb3vzo6OXjuMsGiS2pt9Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=gUtxvOvV+9aiLH5pEK/vMVqsbvPfBrHBJU63PW6Nb+fmhbNg94lftrW90QzecsE/B
-	 Nk6boteUXxa8bA44f3tjR2OW25ZIjqDRHAUVfLUARj+Tyg3gH+jHL93FSo/b9HffXQ
-	 nuSYSxe9xHsQCvjCDCZ2BrkdNmNbUo8DnN4U8BJg=
+	b=FwsH3SSms+uP4Hd7hp5i3i/eRInoQ8ew7u5JtSTTcjXwO7QUQYVKQDo1hkfmh9ztu
+	 YsCTgdHR47V1hmoXf6CF1IL/QyTsfBBz750Z7itH4PKlVmhQDxmf/i5gN9CCcnfvAO
+	 vLuBK7gb6o1/8YiS06agH4AtP8HazrH72avhfY0I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 006D8F80246;
-	Fri, 20 Jan 2023 16:43:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02249F8024C;
+	Fri, 20 Jan 2023 20:16:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E8F6F8024C; Fri, 20 Jan 2023 16:43:47 +0100 (CET)
+ id 8BFD7F80482; Fri, 20 Jan 2023 20:16:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60258F8024C
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 16:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60258F8024C
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A+K4w7Wa
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C20C861F99;
- Fri, 20 Jan 2023 15:43:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1FE5C433D2;
- Fri, 20 Jan 2023 15:43:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674229421;
- bh=3s+a21jOuSUozVrGaavCBkqBzcDsMozFYa/XE/2Un+w=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=A+K4w7WaLrqkE8kedQFXC+9ojkJFgIrKoGED1GRXp7oI7fD74L0+Gmo6ZbpEPrEqs
- Pzckdy11E6CO6NvmVUi1Ixjk5MfHhcvPJnrb+N+yTG1niQDbmPNQuGM/KqaPkXFOOJ
- 6t01oFLhNMQaLWGtvNCoQ6coeMn9pfxxPB2fq159E2A2K7T/qWY8GH3J4a8mPwi9wX
- fOiddFO7PFsQAU02Rcu6ea0b+5VkUcyr6hDJQyef7g4qOZ0175hTH0Ie4g9jDK+w+Y
- fl5SUE6EOA8qFgfgnNX+m6/1bbUYB9953uyC/rFQR4/OVZlICx7PHOMSUEh6Z/3CRT
- INn/dMnHdO4Ww==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230120102125.30653-1-peter.ujfalusi@linux.intel.com>
-References: <20230120102125.30653-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: sof-audio: prepare_widgets: Check swidget
- for NULL on sink failure
-Message-Id: <167422941865.1350653.16158325897991167721.b4-ty@kernel.org>
-Date: Fri, 20 Jan 2023 15:43:38 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C9FBF8024C
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 20:16:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C9FBF8024C
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=TMWaIW04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674242207; x=1705778207;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=w2pg29GHRHLoIcIIyn5qgQAb3vzo6OXjuMsGiS2pt9Q=;
+ b=TMWaIW04NzsBl8udOXFO18AEpmP5q2Y6nbG680t6f0250ciihUOVwUeG
+ K8UiMagb4WImCyZwAZgnPhLjidtwX4d6ab3X/t7IvRLyIeJwmLGBCyz16
+ vANCaAiIpkFKLiyz0jYe3wY8bz35kNRE3oNwgO3eNQkxInvWN+5hLznef
+ s4Ha39O5thlM6ponQacR+LDaZ2PHDYPMspJkJRG9zaSVt+6xPs6ZCMiau
+ J/YXaHYuhYICjGBiFbq4yL9x1sZEjnaBnhpfBv57yjtOdCkMUss7Wwq1F
+ p56m98M/tBi9kgrtqFWqIjF8iT8rOX8GwCFm9IFX6FOGyavG3iW/55KDg Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="388026921"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="388026921"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 11:16:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="691156075"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="691156075"
+Received: from gallegos-mobl1.amr.corp.intel.com (HELO [10.212.24.2])
+ ([10.212.24.2])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 11:16:40 -0800
+Message-ID: <cb69c3dc-e7bc-d893-6df2-e8c431d33972@linux.intel.com>
+Date: Fri, 20 Jan 2023 10:11:32 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [PATCH 1/2] soundwire: bus: Don't filter slave alerts
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
+ <db571218-1adb-cb46-5b76-55eaf379f6ca@linux.intel.com>
+ <20230120101415.GM36097@ediswmail.ad.cirrus.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230120101415.GM36097@ediswmail.ad.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12-dev-77e06
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,49 +91,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, error27@gmail.com,
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, linux-mm@kvack.org,
- oe-kbuild-all@lists.linux.dev, angelogioacchino.delregno@collabora.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 Jan 2023 12:21:25 +0200, Peter Ujfalusi wrote:
-> If the swidget is NULL we skip the preparing of the widget and jump to
-> handle the sink path of the widget.
-> If the prepare fails in this case we would undo the prepare but the swidget
-> is NULL (we skipped the prepare for the widget).
+
+
+On 1/20/23 04:14, Charles Keepax wrote:
+> On Thu, Jan 19, 2023 at 11:27:14AM -0600, Pierre-Louis Bossart wrote:
+>> On 1/19/23 10:51, Charles Keepax wrote:
+>>> Currently the SoundWire core will loop handling slave alerts but it will
+>>> only handle those present when the alert was first raised. This causes
+>>> some issues with the Cadence SoundWire IP, which only generates an IRQ
+>>> when alert changes state. This means that if a new alert arrives whilst
+>>> old alerts are being handled it will not be handled in the currently
+>>> loop and then no further alerts will be processed since alert never
+>>> changes state to trigger a new IRQ.
+>>>
+>>> Correct this issue by allowing the core to handle all pending alerts in
+>>> the IRQ handling loop. The code will still only loop up to
+>>> SDW_READ_INTR_CLEAR_RETRY times, so it shouldn't be possible for it get
+>>> completely stuck and if you are generating IRQs faster than you can
+>>> handle them you likely have bigger problems anyway.
+>>
+>> The change makes sense, but it's a bit odd to change the way the
+>> interrupts are handled because of a specific design. The bus should be
+>> able to deal with various designs, not force a one-size-fits-all policy
+>> that may not be quite right in all cases.
+>>
+>> Could we have a new flag at the bus level that says that peripheral
+>> interrupts are not filtered, and set if for the Intel case?
+>>
+>> We could similarly make the SDW_READ_INTR_CLEAR_RETRY constant
+>> bus/platform specific. The SoundWire spec mandates that we re-read the
+>> status after clearing the interrupt, but it doesn't say how to deal with
+>> recurring interrupts.
 > 
-> To avoid NULL pointer dereference in this case we must check swidget
-> against NULL pointer once again.
+> Perhaps I should have phrased the commit message differently
+> here. To be honest I am not really convince the old code makes
+> a huge amount of sense. So I would prefer not to add a flag
+> enabling the weird behaviour.
 > 
-> [...]
+> I would be of the opinion that there are really two options
+> for IRQ handling code like this that make sense:
+> 
+> 1) Loop until the IRQs are handled, ie. it is the soundwire
+> core's responsibility to make sure all the IRQs are handled
+> before moving on.
+> 
+> 2) Just handle the IRQs available when the function is called,
+> ie. it is the drivers responsibility to keep calling the core
+> until the IRQs are handled.
+> 
+> That way there is a clearly defined who that is responsible.
+> The old code is a weird mix of the two where most of the time
+> it is the soundwire core's responsibly to handle recurring
+> IRQs unless a new one happens in which case it is the drivers
+> responsibilty to recall the core.
+> 
+> Also the new code will still work for drivers that have level
+> IRQs and recall the core, without any modification of those
+> drivers. So I don't see what anyone would be gaining from the
+> old system.
 
-Applied to
+I think the intent of the 'old code' was the option 2), expect that it's
+broken on Intel platforms and not possible because of the hardware design.
 
-   broonie/sound.git for-next
+I am good with your two suggested options.
 
-Thanks!
+> Regarding making the clear retries platform specific that makes
+> sense to me but is clearly a separate patch. I will add it onto
+> my soundwire todo list.
 
-[1/1] ASoC: SOF: sof-audio: prepare_widgets: Check swidget for NULL on sink failure
-      commit: fb4293600cc651cfe4d48ec489f1d175adf6e2f8
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+yes, it's a separate patch indeed.
 

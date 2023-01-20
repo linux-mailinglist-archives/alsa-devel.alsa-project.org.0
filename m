@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FCF9675425
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:08:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD245675437
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:11:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C54631CA;
-	Fri, 20 Jan 2023 13:07:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C54631CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7103931CA;
+	Fri, 20 Jan 2023 13:10:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7103931CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674216518;
-	bh=59rSi/VRPu6xeT5pr3e5nabXo3izJ7s9J6YeNyStd2s=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674216693;
+	bh=/04hQlZBbYWx+35NJ6zIsaqmxa83rpr2E3FGWoY7FLo=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AWJOdmtAk6YDc3CurBaiGqyv0OrsKlTTqH323VpoKJ/i/YAaXJ92ts9Hz3zF7cVtk
-	 N9eKMmbzl9bPbzbn2YrFHWbEwM+m4cddJqF1ygoEBphYty37aFGD3vTiAfV8s4jlPJ
-	 mB8Pmy8z2ZbB1i8sQj1qz9KRiPg7eZVjaRE0zWCE=
+	b=Yq0/5I/3edsN3j/pszVBqty/l09aC7vvrFPU7du9wOW9LqXeJ89HwCC3xgDS8bsT9
+	 asbFuAypsZjG0xdn3uw7hScYVP21gb0+Sf2MRXJHf5kqpLIXR2FSMD2EjNPSWTwu52
+	 B6gtmYrg8a7cL9wKxj4/nI74KDHbKY6Qyl617G3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E479F80246;
-	Fri, 20 Jan 2023 13:07:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34962F800F0;
+	Fri, 20 Jan 2023 13:10:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29BD2F8026D; Fri, 20 Jan 2023 13:07:46 +0100 (CET)
+ id 093D1F8024D; Fri, 20 Jan 2023 13:10:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71116F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:07:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71116F800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tPAmeqmt
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDFFDF800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:10:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDFFDF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=o/C+6Mh3; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=9leN01Ea
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 584E961F3F;
- Fri, 20 Jan 2023 12:07:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE9DC433EF;
- Fri, 20 Jan 2023 12:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674216460;
- bh=59rSi/VRPu6xeT5pr3e5nabXo3izJ7s9J6YeNyStd2s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tPAmeqmt2csu9VnCd1sjLPw+uhI+ttnEjDiNSoQEKBWdSiJncvZbUAdbXrm6FmLWV
- u3a4B59YF7EW03Gn7+KA6UrjUM7am35gpX6LndaIfZTC9PHiKbJ0JMBpeGg4l4e3Lc
- KTbf5qLgoZx9ETajRwnFWTCcCkZmvn+GbEDVjndQTVfwqEdrEGQpnufB6cAyCoTc7v
- gDfi2aHSU3lJP2o1Qp/0Opln/LsGkbRhdbp3b/xBVv4mU2Nmyz+S6XJyuEfElOJDt5
- y0F+/AFa/z9MjcZ97912liNTqh+XwHdOrIHxMe9OQ1jIEUU3r5xX/Is8ji8EhdjRvf
- 4KSDxnrLqrxsA==
-Date: Fri, 20 Jan 2023 12:07:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
-Message-ID: <Y8qECf4CgsNkLNho@sirena.org.uk>
-References: <20230118161110.521504-1-arnd@kernel.org>
- <Y8l21Kb42l2ZcIC+@sirena.org.uk>
- <99519eb0-399d-4972-ae09-955a34830b55@app.fastmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hWy1TWofl5oPHiyo"
-Content-Disposition: inline
-In-Reply-To: <99519eb0-399d-4972-ae09-955a34830b55@app.fastmail.com>
-X-Cookie: Serving suggestion.
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 660F321CFB;
+ Fri, 20 Jan 2023 12:10:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674216631; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BvmabtLkUJGBDuww6d8rSwlZ5xoLyZVCIVffHELl9Bg=;
+ b=o/C+6Mh3ROVjMqONKdcNKZkld0cWAPrehb95GJr9fHT36feTtWKfHhV4QbpTG9bNq+VHbb
+ YnlGPy8O2kkefpunvyGfFb7WlYCGpbBr0lztEkW82RgCDwdEPWw16GSnqKOnm0p7T8xfY0
+ bZH8SEfOYGfZ42lmCNoENt4ZvVqRgNs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674216631;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BvmabtLkUJGBDuww6d8rSwlZ5xoLyZVCIVffHELl9Bg=;
+ b=9leN01EaRqm/GWfvTKOzOm7Nc/gu6GRvtVOX0qlGDRWr09cdXtaPssO+Ahwok4Tp7jxLgv
+ WWmIqHXwlluCYMCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B3F61390C;
+ Fri, 20 Jan 2023 12:10:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id xleaEbeEymOLDwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 20 Jan 2023 12:10:31 +0000
+Date: Fri, 20 Jan 2023 13:10:30 +0100
+Message-ID: <87bkmtpft5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mike FABIAN <mfabian@redhat.com>
+Subject: Re: No sound on HDMI by default on Lenovo T14s using Fedora 37
+In-Reply-To: <s9dbkmtigfe.fsf@hathi.site>
+References: <s9dy1pzx3ki.fsf@hathi.site> <87k01j6cw6.wl-tiwai@suse.de>
+ <s9dfsc7ixik.fsf@hathi.site> <877cxj65s3.wl-tiwai@suse.de>
+ <87zgaerfqv.wl-tiwai@suse.de> <s9dbkmtigfe.fsf@hathi.site>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-2022-JP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +99,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 20 Jan 2023 12:39:01 +0100,
+Mike FABIAN wrote:
+> 
+> Takashi Iwai <tiwai@suse.de> さんはかきました:
+> 
+> >> And, with this state, can you use the built-in mic?  Also, how after
+> >> restoring the module option?
+> 
+> Yes, I can use the microphone built into the laptop. I think I can use
+> that always, independent on whether I use the module option or not.
 
---hWy1TWofl5oPHiyo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Aha, then that's a different system from what I've thought.
+The mic is routed apparently via Intel SOF driver.
 
-On Fri, Jan 20, 2023 at 10:05:59AM +0100, Arnd Bergmann wrote:
+> > Also, maybe more fundamental question: how exactly "it didn't work"?
+> > Does the HDMI device appear on pipewire / PulseAudio, but the output
+> > results in silence?  Or Is no HDMI listed there?
+> 
+> HDMI is listed in pavucontrol.
+> 
+> Actually it is listed there 3 times:
+> 
+>     HDMI/Displayport 3 Output (unplugged)
+>     HDMI/Displayport 2 Output (unplugged)
+>     HDMI/Displayport 1 Output (plugged in)
+> 
+> But when I select it, I heards nothing from the monitor speakers.
+> I tried all 3 HDMI/Displayport in pavucontrol because I was not sure
+> which one was the right one, but I didn’t hear anything when trying to
+> use any of them.
+> 
+> xrandr showed me the following outputs:
+> 
+>     $ xrandr | grep connected
+>     eDP-1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 309mm x 174mm
+>     HDMI-1 disconnected (normal left inverted right x axis y axis)
+>     DP-1 disconnected (normal left inverted right x axis y axis)
+>     DP-2 disconnected (normal left inverted right x axis y axis)
+>     DP-3 disconnected (normal left inverted right x axis y axis)
+>     DP-4 disconnected (normal left inverted right x axis y axis)
+>     DP-3-1 disconnected (normal left inverted right x axis y axis)
+>     DP-3-2 disconnected (normal left inverted right x axis y axis)
+>     DP-3-3 connected 3840x2160+1920+0 (normal left inverted right x axis y axis) 600mm x 340mm
+> 
+> DP-3-3 is my external monitor which has speakers.
 
-> I see, this patch still depends on the s3c24xx removal, which
-> is in soc/for-next and I used for testing. I see a similar
-> problem with the MMP platform in patch 2/5. The series here
-> is mostly older patches I did a while ago and rebased on top
-> of the boardfile removal, but it breaks when it gets applied
-> first.
+Please check /proc/asound/card0/eld#* (for the card number 0, as
+found in /proc/asound/cards as sof-hda-dsp).  One of them should have
+a valid ELD entry.  This is the first step.  If no proper monitor and
+ELD is found in those, something wrong at the detection in the
+kernel.
 
-> Unless there is anything in here that you really want to apply
-> for 6.3, lets drop all five for now, and I'll resend it
-> after the dust has settled on the boardfile removal.
+The next is to test aplay directly with the device.
+"aplay -L" will show the possible option, and you can try like
 
-I'd left the ux500 stuff running through my testing, no
-particular urgency just it saves rereviewing anything.  Assuming
-it's fine (seems so thus far) I'll push it out.
+  % apaly -Dhdmi:CARD=xxx,DEV=x -vv foo.wav
 
---hWy1TWofl5oPHiyo
-Content-Type: application/pgp-signature; name="signature.asc"
+for a WAV file in a format matching with the supported device
+(typically 2 channel stereo 44.1kHz or 48kHz 16 or 32bit format).
+If this gets a busy error, stop wireplumber once during the test:
+  % systemctl --user stop wireplumber
+  % aplay ....
+  % systemctl --user start wireplumber
 
------BEGIN PGP SIGNATURE-----
+If the aplay test doesn't work, again, it means that there's something
+wrong in the kernel.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPKhAgACgkQJNaLcl1U
-h9BUrAf/UMkGgrt0kpEybfiAhWigEbFnU1JOMdv5V+73qzx1D4vcLNB0qcRCKRsJ
-avfFIgqgKKlMewmj0Ndy3JtNpza7jn7Rkfewtu+V51hTVDasZOBfZIuxsloY+gZK
-aR+x0tuZIZcbDavJtchai3QD6PxZIZWP4efyNvlZMd4dokFwX4lom4rMycVsF4Mp
-nS3TSfg3Zf6++dW59iduEZMG4XESx6TtS86AjIRqc6pBt1Y3YSEneV4klfQX2BzO
-tOHAO9pWPxSq3DElsgnRPmfkixguKapT3+lvaseqZZw9V1AZLIbNBXjq2ujiLEYK
-jBNJdGuNqVv3dfSknaSd6eB/APHYkw==
-=s2qN
------END PGP SIGNATURE-----
+> After I did set that module option with modprobe and rebooted, I could
+> select
+> 
+>     HDMI/Displayport 1 Output (plugged in)
+> 
+> in pavucontrol and hear sound from the monitor speakers. So what xrandr
+> calls DP-3-3 seems to be HDMI/Displayport 1 (plugged in) in pavucontrol.
+>
+> > BTW, the lack of AMD SoC stuff might be related with the device power
+> > state.  A cold boot might change the situation (or trying back to an
+> > older known kernel).
+> 
+> I’ll try to boot again and see whether it breaks again.
+> Currently I booted without the module option and it still works, but
+> there was a kernel update.
 
---hWy1TWofl5oPHiyo--
+That might explain.  There were a few fixes about HDMI HD-audio stuff
+recently.
+
+
+thanks,
+
+Takashi

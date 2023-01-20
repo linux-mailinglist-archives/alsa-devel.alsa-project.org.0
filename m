@@ -2,89 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E6A675E75
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 20:56:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE42A676025
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 23:23:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89D7734D1;
-	Fri, 20 Jan 2023 20:55:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89D7734D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7995F35CA;
+	Fri, 20 Jan 2023 23:23:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7995F35CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674244579;
-	bh=BBdBbDkOeQZTC5ebPeDBvlm+1/6DpUsVVDUC9OEfcSM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1674253438;
+	bh=deX7jDxlX/W6uQkqoupHiyuH1WVUYRSy7lZvPqAJLbk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=GtNALglWtH/Fd1zgX0K9AZami//i9+wZjvePydnjHMT2o9LdIhAYd/QsXWCxejDUT
-	 wp8f1YoW+nGZ95IqPatBk7DFvn3aTTgDfqV0BjmP7KUqnnGUfI16xs90O4CUab+MNt
-	 HqDPvIxsIERJdpqRyM3Ab5qWJZtbvpF9lwEHaxDQ=
+	b=kGuVVR65mg6IjHAZpeow+nHbK/y5aDxXHaZGHVbMjiKhqWsnivGDpqJHYJS0p0/VH
+	 zukYaBn3cFxt252ooX5+kewfxnyAYxADAFuJUEu5NEwVkpbXvUWHExt0QXIKz84E/C
+	 4Ox7KHK2ZDiDhmp413XNsFzUQk2Canx3ArlNRQkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C106F800F0;
-	Fri, 20 Jan 2023 20:55:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A087F80246;
+	Fri, 20 Jan 2023 23:23:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39D6EF8026D; Fri, 20 Jan 2023 20:55:20 +0100 (CET)
+ id 5C38FF8026D; Fri, 20 Jan 2023 23:22:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5740BF80246
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 23:22:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5740BF80246
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MX2hM4TQ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 501C3F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 20:55:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 501C3F800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RYwZcl6i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674244512; x=1705780512;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=BBdBbDkOeQZTC5ebPeDBvlm+1/6DpUsVVDUC9OEfcSM=;
- b=RYwZcl6i6uAKbhiGBm4dPRtZwE2/M5B2H2qNvhus4YkVld4DA7bj3ArW
- 3Uh93Pdi9ZdfNIvN5SluHTBZreGnZlfwGaHSzLKdwi2grfIfA8Dz7cxYc
- 0gfC9FM7/c/bRTbYB8mytE7Mb9HWUDfYi/EZr+kOaVhjSWY7mzEHXUIpV
- tSBc2gNbOcGSJrtvTAyFlaULSXMqzpKlu5dBNK69k9IwGRJgLuG47iqK9
- 2KuGJS3Mx4Eg9mCfddPpH0z2eqqpMkEQUImeUduWGPcq9J0bhN7okADsO
- HNJEWH7LtGNxApRvDZodyCnp4ryMJNcz4tOW7B48/of+qcRMzLPhlmvgT A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="352933743"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="352933743"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 11:55:07 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="768800209"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="768800209"
-Received: from gallegos-mobl1.amr.corp.intel.com (HELO [10.212.24.2])
- ([10.212.24.2])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 11:55:01 -0800
-Message-ID: <c8a9ff9b-d1d0-1cef-bf51-e7fa247d24f4@linux.intel.com>
-Date: Fri, 20 Jan 2023 13:55:00 -0600
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F2D5620A0;
+ Fri, 20 Jan 2023 22:22:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876B7C4339B;
+ Fri, 20 Jan 2023 22:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674253369;
+ bh=deX7jDxlX/W6uQkqoupHiyuH1WVUYRSy7lZvPqAJLbk=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=MX2hM4TQ+A95PgAsk2oSMOmtuYi/CNxMzUFd3n4OdNLbpv6oGxxm0gT4btzep0acC
+ JZRnNbOPfsos+fym+BNN4eEqc5STi/cRQzTQlb4wQHSLn4M+Y9wuwMAH/J7+NpHQxp
+ J3n1rFozIqrpYCqZosyt561/jgpnqYz8acIaZzdt0yQzzd5fpDsWBLSj3GNDbDBjji
+ Tvb+svcNol1LcxOwjk1Ovikt85ll9zMILbCmgg/pN0dLxGu2j5RYf5Imudq7LIyegk
+ XausqtoetS97YMu2auFuaOLykRX/6CTCUP6vgsYUMBIytotxpiYV5ob61zvv/dkIgz
+ /n2ilaDAPvxbg==
+From: Mark Brown <broonie@kernel.org>
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Arnd Bergmann <arnd@kernel.org>
+In-Reply-To: <20230118161110.521504-1-arnd@kernel.org>
+References: <20230118161110.521504-1-arnd@kernel.org>
+Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
+Message-Id: <167425336610.1425934.15022702108965764366.b4-ty@kernel.org>
+Date: Fri, 20 Jan 2023 22:22:46 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v2 6/8] ASoC: cs42l42: Add Soundwire support
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
- <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
- <33130336-b2ce-330e-fdec-166eee977e13@linux.intel.com>
- <418f6b73-b5ac-8d87-a856-3413ec103f91@opensource.cirrus.com>
- <6ea1b85f-22e2-8744-9638-6321a5a21acf@linux.intel.com>
- <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12-dev-77e06
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,98 +82,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 1/19/23 09:35, Richard Fitzgerald wrote:
-> On 19/1/23 14:48, Pierre-Louis Bossart wrote:
->>
->>>>> +static int cs42l42_sdw_dai_startup(struct snd_pcm_substream
->>>>> *substream,
->>>>> +                   struct snd_soc_dai *dai)
->>>>> +{
->>>>> +    struct cs42l42_private *cs42l42 =
->>>>> snd_soc_component_get_drvdata(dai->component);
->>>>> +
->>>>> +    if (!cs42l42->init_done)
->>>>> +        return -ENODEV;
->>>>
->>>> Can this happen? IIRC the ASoC framework would use
->>>> pm_runtime_resume_and_get() before .startup, which would guarantee that
->>>> the device is initialized, no?
->>>>
->>>
->>> Yes, this can happen. Because of the way that the SoundWire enumeration
->>> was implemented in the core code, it isn't a probe event so we cannot
->>> call snd_soc_register_component() on enumeration because -EPROBE_DEFER
->>> wouldn't be handled. So the snd_soc_register_component() must be called
->>> from probe(). This leaves a limbo situation where we've registered the
->>> driver but in fact don't yet have any hardware. ALSA/ASoC doesn't know
->>> that we've registered before we are functional so they are happy to
->>> go ahead and try to use the soundcard. If for some reason the hardware
->>> failed to enumerate we can get here without having enumerated.
->>
->> Humm, yes, but you've also made the regmap cache-only, so is there
->> really a problem?
->>
+On Wed, 18 Jan 2023 17:10:45 +0100, Arnd Bergmann wrote:
+> This data is no longer passed by the platform code, so
+> there is no point passing it down at all.
 > 
-> It's true that normally we go past these stages in cache-only, but that
-> is because normally (non-Soundwire) we already initialized the hardware
-> to good state during probe().
-> If we just carry on when it hasn't enumerated and we haven't initialized
-> it yet, who knows what will happen if it enumerates some time later.
 > 
-> We could just ignore it and see if anyone has a problem but for the sake
-> of a couple of lines of code I feel like I'd rather check for it.
-> 
->> FWIW I don't see a startup callback in any other codec driver. It may be
->> wrong but it's also a sign that this isn't a problem we've seen so far
->> on existing Intel-based platforms.
->>
-> 
-> It's nicer to do the check in startup() because then the application
-> open() will fail cleanly. We could delay until prepare - which is the
-> point we really need the hardware to be accessible - and hope the
-> hardware enumerated and initialized by that time. But that's not so
-> nice from the app point of view.
 
-Another way to avoid problems is to rely on the codec component .probe
-to check if the SoundWire device is initialized before registering a card.
+Applied to
 
-I just tried with a system where the ACPI info exposes a codec which is
-not connected, it fails nicely. That avoids the pitfalls of creating a
-card which isn't functional since all dependencies are not met.
+   broonie/sound.git for-next
 
-[   64.616530] snd_soc_sof_sdw:mc_probe: sof_sdw sof_sdw: Entry
-[   64.616549] snd_soc_sof_sdw:log_quirks: sof_sdw sof_sdw: quirk
-SOF_SDW_PCH_DMIC enabled
-[   64.616559] snd_soc_sof_sdw:sof_card_dai_links_create: sof_sdw
-sof_sdw: sdw 2, ssp 0, dmic 2, hdmi 0
-[   64.616587] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
-dai link SDW0-Playback, id 0
-[   64.616600] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
-dai link SDW0-Capture, id 1
-[   64.616607] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
-dai link dmic01, id 2
-[   64.616614] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
-dai link dmic16k, id 3
-[   69.757115] rt5682 sdw:0:025d:5682:00: Initialization not complete,
-timed out
-[   69.757128] rt5682 sdw:0:025d:5682:00: ASoC: error at
-snd_soc_component_probe on sdw:0:025d:5682:00: -110
-[   69.757224] sof_sdw sof_sdw: ASoC: failed to instantiate card -110
-[   69.757734] sof_sdw sof_sdw: snd_soc_register_card failed -110
+Thanks!
 
-see
-https://elixir.bootlin.com/linux/latest/source/sound/soc/codecs/rt5682.c#L2927
+[1/5] ASoC: samsung: remove DMA filter function and data
+      (no commit info)
+[2/5] ASoC: pxa: remove snd_dmaengine_pcm_open_request_chan()
+      (no commit info)
+[3/5] ASoC: ux500: remove platform_data support
+      commit: 1766ac5248063c25d1fe46e04bb936c46313ed89
+[4/5] ASoC: ux500: remove stedma40 references
+      commit: aafe9375b386010e28614f58499d199250a16874
+[5/5] ASoC: remove snd_dmaengine_pcm_config->compat_request_channel
+      (no commit info)
 
-I think this is compatible with the device model and bind/unbind, but it
-could be improved with the removal of the wait if we had a way to return
--EPROBEDEFER, and have a mechanism to force the deferred probe work to
-be triggered when a device actually shows up. It's a generic problem
-that the probe cannot always be a synchronous function but may complete
-'later'.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

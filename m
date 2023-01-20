@@ -2,136 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5730C677698
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:45:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A495D677699
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:45:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95ADA4206;
-	Mon, 23 Jan 2023 09:44:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95ADA4206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B32741BF;
+	Mon, 23 Jan 2023 09:44:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B32741BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674463509;
-	bh=V47DMhzujlD8lkKMRQFgJDAX8SedZE0oNyS/uYLwwl4=;
-	h=From:Subject:To:In-Reply-To:References:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=tNDg8NQiBPLl6nNA4r/MpsaYGZ6IplFMesEeK37QoIG+aN1aSBb0mF3NkemiFg+Go
-	 3TKM2GXZD4TNKh438S1DdG5KlX8rCY+Vqt7xNVJfyu970vSsut7EYeqwxyfHwuiLL4
-	 IzwwBI9o4Q7zlfMReuczVI2SLw/ed8iKqPlnJ/nY=
+	s=default; t=1674463518;
+	bh=tC+CGs7sBAiatvMr4pW1B+zKRG8R6GX3JV2WINecwAg=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VXf70azwc2WN5Bd/HtgUx6UsMG1XFjsPYD0kh/zemPx/nxHsezMUrjpQNX/6HJH8I
+	 I0mE5d6HvLf+rcaw9rkXSC2Ux5ohCvx2fU8lfACwXWeMn5KBICgc8QVSiEEw56YNwr
+	 B5W2VbNI3Mogs2FS3/RcH5HFE6DZ8i7NLuG0MLOU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EEEAF80564;
-	Mon, 23 Jan 2023 09:42:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 241F1F8056F;
+	Mon, 23 Jan 2023 09:42:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06935F8026D; Fri, 20 Jan 2023 07:53:37 +0100 (CET)
+ id ADDBBF8026D; Fri, 20 Jan 2023 08:23:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2128.outbound.protection.outlook.com [40.107.113.128])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B150F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 07:53:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B150F800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=XHk/4E/p
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B49UG64rbooPI/Dn7/nULrLgWestsFA7AS6GH043g7sZJ5cf1xln6CQ4KnS/9kLTziJ9JvdzC0GgiVeft7n6qyyL926kEJ2YrqSR0ARctZqa43vuNFkDci7KCs9j5I7k8vllfgpraurPitT5HQcpmWtRLpHH+48sUfgi1mGXAhtqRfjJ9nHYRV5rgf/LMYMli4j+oWvTxyLO14oqENRiYIyFaGn4fp6ZBG5FxLQAP5QAk3T9K4MsVy/KbMce8K4+1rGuSEpbF9wM1zUMp1m0ttvB/XcB/warA6NBRiyf1pbDmM0CQDgfoJub7TEMpxB7bCuHLc9t3i49shw5xFkTzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kbUf7FIXhuxp5YkwEzio47MaaB++EAepzwExKVfidvM=;
- b=ch6gl3P7F9K9zoVYlGfgKYLRa4txCb7nTlMKqv6Ers4xNc9izzKC5W353d24tCnMJecoXOTOFzrwqm873073/W2Mh6z7LKQlNjl/jSitwyxeeD2EJoR2R2fCZSXkOrqK/d2A9K4m8TYvLOiYSEBYK37E/B6inH7QDEYSDXTI2c0Nt9E6l2fANKsM9zXAWwgzyAd6UJxRBC1XdObZcZBYq617dttrZQd4H16A31XAqty4QnyhtN4PGmCgYWOpFiv663JK2YyPHEA+Xsm11FGqdqzfLrRqrzcYHodl905UDVAjSYnXVkmb4uZypg0wOX8beXqwomT3d4uD6tqd7Dpz5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kbUf7FIXhuxp5YkwEzio47MaaB++EAepzwExKVfidvM=;
- b=XHk/4E/pqrM6GcmB88gN/eq5WV70UndBTNNuf5Fpztgh5tIZnOhQxOeN+wdncFwNX2jZiNpnwkg90x+n6L3puY9yTaZLUCEe4p92lpuBcDTK97jO4HkTNitZQ+IZgNvmyDANOQ2j5YMLGw5EzeNx81/OX21PWukTD0cyqjAJqp0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by OS3PR01MB9638.jpnprd01.prod.outlook.com (2603:1096:604:1ce::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Fri, 20 Jan
- 2023 06:53:27 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3cd7:a7b5:ea86:9ae]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::3cd7:a7b5:ea86:9ae%4]) with mapi id 15.20.6002.012; Fri, 20 Jan 2023
- 06:53:27 +0000
-Message-ID: <87cz79lmsg.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 04/25] ASoC: soc-dai.h: add
- snd_soc_dai_get/set_widget_playback/capture() helper
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <87ilh1lnbq.wl-kuninori.morimoto.gx@renesas.com>
-References: <87ilh1lnbq.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 20 Jan 2023 06:53:26 +0000
-X-ClientProxiedBy: TYCP286CA0119.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29c::18) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A263F80246
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 08:23:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A263F80246
+Received: by mail-il1-f200.google.com with SMTP id
+ i7-20020a056e021b0700b003033a763270so3237112ilv.19
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 23:23:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=K0w/mrFJeCc6+JHbVg55B4KycHMZB5GYr8KfUIDltfA=;
+ b=pFNp6kC79B+kOsWN6X6l2f9alF60IAJqIkOvZQMIvtfBVZVEkQX/qPipFnIZRR33sJ
+ LwYGTo7eaJ63y9fl4QY3Nk59u3D+7sxEwX3cFNPmS4rMFueqlvxJtTI3zxqdauG++gr0
+ 0yUTrZ34VCvGyu/EW+k5mdHFI80/43tBPQ/grPdPLnmwpAvzxe0U1qqPV+sW2LWEkxcZ
+ phAvmVr0CTWGqVEiAXL9IzOf5wgyUbxDimhzkzDg9iXcBZMdOaqyYDK4cXxKz0F0fDOa
+ sGP998vJwgf7gXdNbK40p5sPNvt1pSf+txIz2TCkYDYJz83h/DYkD8bP5Gf91ckL6k8r
+ n2TQ==
+X-Gm-Message-State: AFqh2kqIxL3M+h3I4Zaw+mp1auf5ADPa0gGAgSHFK4Qxkc8KIwfJtx0l
+ qn7m10p0c+WEdbaHP55BrQOxeRkNcN86tmAPA4JfSDiFrBAJ
+X-Google-Smtp-Source: AMrXdXsSs1+xbKe+dkBkGkuxHXiK83x/G/VWQOLvwA7vgEXMvMddovUYximgsCG5KyhbMJVuCbMRxYgrakI8d/H2w+hM/FP7KST/
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS3PR01MB9638:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8c85342-a7fe-4f87-5b36-08dafab3088f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: foh7nbkVZa9B/f6SbnbrB0Ro28X3EmAFYw2Sl/2wIUyXsTUtKi5g1fD40t+xWTafEHZLf3kGPYhAjpp107IY58jgUP/brLdWi+ASqmJCIi7bpMpcqSi8eAtYh0poo0MFnC5qO5JX+4+bYpafa4GBhKg+TkOhCQUGEV4aflXua5Q2lAzAyQawCQgZcHUDX8koU8fouQH7hut14ed3Onkx1fDwPx+zxOY4iZfaiCTADWe+2cy/oHWTeQL6/meAQHZd5vMZguB9y3KcA/ufYsyoxHr2bnNhr8dvhZ00zi1GUuXEKNzba8e/qUjxQPsDbmgkGWMEmpNYd/8e619AAHt4wyruROM5oJJeuVNmjg8P64YdA+I2hovsjZf7HIBK4Evg74pZCX1/oU6fEHfMM8qIjVhg+Nl6oRRaaPXFJ9wSQbTa6KP94T0zjkeJtaFJfiuGMx3Z153d2HEoEf8/INOnCBPprNb5R5M+hf+h3uIsAeRTVAz7uh43Bzc/piH35073c3VZiPH7V7f2X7KXf1F7TrYevXTyUUZQ/0q0MYVhZ5lpCjbQk1HhZPDVWJqe16ZTI8c+LDiLk6rVNUx32mpb6Tp7ho0dHeNc3fslqUzcN8w7aOgB4S3QuFwwiX4P2dATMjjMEeGZ9E6rW10a5BPRw7AH8jMDJpCkgqt4ZQNL/yThtT03I1wvrdHl3v5Ej+VNxmMvKUPacb6ZiZOIbNK5Ng==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(376002)(366004)(346002)(136003)(451199015)(2906002)(7416002)(7406005)(5660300002)(8936002)(66946007)(316002)(83380400001)(86362001)(66556008)(54906003)(41300700001)(36756003)(4326008)(66476007)(6916009)(8676002)(52116002)(2616005)(6486002)(6506007)(186003)(6512007)(26005)(38350700002)(38100700002)(478600001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9LIdY5EBFugzi7pttTcNVRH4TtxschBb/kA0PvubqLl8PA8q00WqHc/QpMhx?=
- =?us-ascii?Q?a4YJvNWugN21rJ0nc7etPERqwlrRZWgV/s4kMU9NFuI4ysV6q6VeFO3XQWty?=
- =?us-ascii?Q?1GSKybhUJSlvn3GJf0gl1tnB7gvucZzfdD8UX2fLrLQA9YnLl0axzUwwx2H0?=
- =?us-ascii?Q?M1qaOFlHCuzJVKmXGydFGxlsFOMpA/bR5MRYgvdY2KcGWRWhXgtOw//FDPDj?=
- =?us-ascii?Q?JPFUq+2ZcojIbkQTFo2ozrCPcTsCfCPS5zP5tIkad876H8Bg7EOoOzi23CRp?=
- =?us-ascii?Q?f2ljCak+JMNgd4EthIPcS681mHZDDO5aRQ799Uu+ZeZ2xL6WHCtvHaZcKzp+?=
- =?us-ascii?Q?QnNO/KKYAuW4IXt6qGEsFm/0ht49pIWVnbsBZpob4FCrObFkXdQv0i6QcEUU?=
- =?us-ascii?Q?n6Q/YPaIrHbbVi5ucghbBd8If/zzdGaTmT3isOwOywggjPVdRIQWi+HJVPIO?=
- =?us-ascii?Q?iYhNM8ggFC/6I6GxaoP3NDGAB9ncxxxdj5nV1fYcsO7/budrRyQo9rmJ6rzA?=
- =?us-ascii?Q?oLEWsu8ef+eyIxetd5wmMEas0XRFq0aHJ+6OVH8u1pOBvPtRdmkckRYX0BWA?=
- =?us-ascii?Q?YXuUbMf8mhUYpmsgCZkqs2TfP67sABllI3DnRL3G9bckqDGRAN4SsUT6DSEZ?=
- =?us-ascii?Q?H/+5AH+Lm65ZExQfuDNT0sMuEpB0sFZjSuxvIxkVRhl/MOe+sqa0xW+Wrp0U?=
- =?us-ascii?Q?OxEBnV7ZFyBDrtCsC2l5fIasoDVs5MQgQJjcrTZDUCkBiQ0RjVhm9i/E40Fm?=
- =?us-ascii?Q?6KnRHFb8reYdB826ITCIa8gwYR9Fi6LxQdudT3iNxBMfKk/fhSENQRb/TzK+?=
- =?us-ascii?Q?nHUiJiq24S0sQBIOCfDPlJEj9I78bv9G/+jGyeNla4vga9O3jKGr8tnR/Qjj?=
- =?us-ascii?Q?97WRoEPx0x7Ya5xCUoCLTvUXSZ5Sl2AuaYxyDcR+TKdrMRYb5AfycA0SeqX0?=
- =?us-ascii?Q?qXbwG3Gr0hXRS4wnH+GW25cpMijkgaLD4rlHMgFm7VQ0eg5xaK05S2VrDiV7?=
- =?us-ascii?Q?ff4gkgZMDfXvRbcB3Y8ZUPIHiMNHBDg4v98gTlSG56CriuhglISUZfQu3mU8?=
- =?us-ascii?Q?MkL+s81A2w+vQFBEiyZxTyv4QpFP1d45JpNyr3G9v8ogr9tmr6Cqd/EFmmXk?=
- =?us-ascii?Q?j9DVM51MZucEm15eJ413ROi2llRgPnNNiitpEbg1vV3Ybau0nA3ZxqftFK/W?=
- =?us-ascii?Q?gmRxMYwCDAxdoFVZIqhSBa40XYBSkCaYtuQaFbyRAJunuadfvXNZj3JBO+pX?=
- =?us-ascii?Q?pIVFPeD/LTguC4c/MrPM3X7KctDJhoK2vRAkBTADlb0aVtU9jf8XAFaX5nE2?=
- =?us-ascii?Q?8pEuF650mVQyQnWzOEbxxNQjP4oJDjwPjBp/kdj22k1U7guJuemU7VaYmcR2?=
- =?us-ascii?Q?eo0Sbs+uo3JTECgsAU6YhFaxpNwraHE8/1PQKQ6Gm9BXha9U5b0jlYwwwDeY?=
- =?us-ascii?Q?nU51jIqt31r6d0zSMnIg8xSBQ6QQVThwGFpHQ9g78L3k0ieXueqfibHwtvqj?=
- =?us-ascii?Q?qbmnJ6asSRug4NoOUNXwMYRkR+Q8kricMEHNpc3XyRYlPWBcY/ij2kIyKADz?=
- =?us-ascii?Q?QLXPc50h/H9cxwx7MbTm7EeTM1eQMfjMxpbVHv5/b1wfyAk0T8tzzXHatHhV?=
- =?us-ascii?Q?5e4yDs/I/SHEXMLhDsKVeQE=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8c85342-a7fe-4f87-5b36-08dafab3088f
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 06:53:27.8080 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z9KoSN7szGcKe6fUi21D9/9z8k1uOb5S2DhE2Gldn7vm9igIkSYQM0SGzz/txVJjilbHSR5Ckhfp+V6jIUizhdQBjjScGdYmKig4wm7Vh8EEF4wPwlwBmAriK4u3JP6+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9638
+X-Received: by 2002:a05:6638:3d87:b0:38a:460b:d431 with SMTP id
+ ci7-20020a0566383d8700b0038a460bd431mr1026312jab.93.1674199425098; Thu, 19
+ Jan 2023 23:23:45 -0800 (PST)
+Date: Thu, 19 Jan 2023 23:23:45 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000042f4005f2acee02@google.com>
+Subject: [syzbot] general protection fault in snd_rawmidi_kernel_write1
+From: syzbot <syzbot+d7cf279f42a3353263b2@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 23 Jan 2023 09:42:43 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -145,66 +82,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Chunxu Li <chunxu.li@mediatek.com>,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Rander Wang <rander.wang@intel.com>, Thierry Reding <thierry.reding@gmail.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, Dmitry Osipenko <digetx@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Colin Ian King <colin.i.king@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Oder Chiou <oder_chiou@realtek.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- =?ISO-8859-2?Q?=22Amadeusz_S=B3awi=F1ski?= =?ISO-8859-2?Q?=22?=
- <amadeuszx.slawinski@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Hello,
 
-snd_soc_dai_get_widget() requests SNDRV_PCM_STREAM_PLAYBACK/CAPTURE.
-This patch adds helper for it.
+syzbot found the following issue on:
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+HEAD commit:    0a093b2893c7 Add linux-next specific files for 20230112
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=108e6329480000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=835f3591019836d5
+dashboard link: https://syzkaller.appspot.com/bug?extid=d7cf279f42a3353263b2
+compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8111a570d6cb/disk-0a093b28.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ecc135b7fc9a/vmlinux-0a093b28.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ca8d73b446ea/bzImage-0a093b28.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d7cf279f42a3353263b2@syzkaller.appspotmail.com
+
+general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] PREEMPT SMP KASAN
+KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+CPU: 0 PID: 5386 Comm: syz-executor.2 Not tainted 6.2.0-rc3-next-20230112-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+RIP: 0010:snd_rawmidi_kernel_write1+0x82/0x870 sound/core/rawmidi.c:1517
+Code: a0 00 00 00 0f 84 44 05 00 00 e8 d9 a3 e7 f9 49 8d 44 24 10 48 89 c2 48 89 44 24 28 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 cf 07 00 00 49 83 7c 24 10 00 0f 84 da 05 00 00
+RSP: 0018:ffffc90004f77b88 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ffff888026110500 RCX: ffffc900040a1000
+RDX: 0000000000000002 RSI: ffffffff879a1907 RDI: ffff8880261105a0
+RBP: 0000000000001000 R08: 0000000000000001 R09: 0000000000000001
+R10: ffffed1004c220a6 R11: 0000000000000000 R12: 0000000000000000
+R13: 000000007f078000 R14: 0000000000000000 R15: ffffc90004f77cc0
+FS:  00007fc907fb2700(0000) GS:ffff8880b9800000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020f86000 CR3: 000000007a7c6000 CR4: 00000000003506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ snd_rawmidi_write+0x277/0xbb0 sound/core/rawmidi.c:1616
+ vfs_write+0x2db/0xe10 fs/read_write.c:582
+ ksys_write+0x1ec/0x250 fs/read_write.c:637
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7fc90728c0c9
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 f1 19 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc907fb2168 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fc9073ac050 RCX: 00007fc90728c0c9
+RDX: 00000000fffffd2c RSI: 0000000020000000 RDI: 0000000000000007
+RBP: 00007fc9072e7ae9 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffc1a5a1b9f R14: 00007fc907fb2300 R15: 0000000000022000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:snd_rawmidi_kernel_write1+0x82/0x870 sound/core/rawmidi.c:1517
+Code: a0 00 00 00 0f 84 44 05 00 00 e8 d9 a3 e7 f9 49 8d 44 24 10 48 89 c2 48 89 44 24 28 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 cf 07 00 00 49 83 7c 24 10 00 0f 84 da 05 00 00
+----------------
+Code disassembly (best guess):
+   0:	a0 00 00 00 0f 84 44 	movabs 0x544840f000000,%al
+   7:	05 00
+   9:	00 e8                	add    %ch,%al
+   b:	d9 a3 e7 f9 49 8d    	fldenv -0x72b60619(%rbx)
+  11:	44 24 10             	rex.R and $0x10,%al
+  14:	48 89 c2             	mov    %rax,%rdx
+  17:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  23:	fc ff df
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 cf 07 00 00    	jne    0x803
+  34:	49 83 7c 24 10 00    	cmpq   $0x0,0x10(%r12)
+  3a:	0f 84 da 05 00 00    	je     0x61a
+
+
 ---
- include/sound/soc-dai.h | 4 ++++
- 1 file changed, 4 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 9b18e230e5b3..197dc1629708 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -477,6 +477,8 @@ snd_soc_dai_get_pcm_stream(const struct snd_soc_dai *dai, int stream)
- 		&dai->driver->playback : &dai->driver->capture;
- }
- 
-+#define snd_soc_dai_get_widget_playback(dai)	snd_soc_dai_get_widget(dai, SNDRV_PCM_STREAM_PLAYBACK)
-+#define snd_soc_dai_get_widget_capture(dai)	snd_soc_dai_get_widget(dai, SNDRV_PCM_STREAM_CAPTURE)
- static inline
- struct snd_soc_dapm_widget *snd_soc_dai_get_widget(struct snd_soc_dai *dai, int stream)
- {
-@@ -484,6 +486,8 @@ struct snd_soc_dapm_widget *snd_soc_dai_get_widget(struct snd_soc_dai *dai, int
- 		dai->playback_widget : dai->capture_widget;
- }
- 
-+#define snd_soc_dai_set_widget_playback(dai, widget)	snd_soc_dai_set_widget(dai, SNDRV_PCM_STREAM_PLAYBACK, widget)
-+#define snd_soc_dai_set_widget_capture(dai,  widget)	snd_soc_dai_set_widget(dai, SNDRV_PCM_STREAM_CAPTURE,  widget)
- static inline
- void snd_soc_dai_set_widget(struct snd_soc_dai *dai, int stream, struct snd_soc_dapm_widget *widget)
- {
--- 
-2.25.1
-
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

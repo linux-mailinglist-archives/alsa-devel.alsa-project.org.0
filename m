@@ -2,145 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 378DE677694
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:44:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43E6A677695
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:44:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B55941F8;
-	Mon, 23 Jan 2023 09:43:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B55941F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4296841FB;
+	Mon, 23 Jan 2023 09:43:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4296841FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674463441;
-	bh=4TEQrft3SKzpn3ESsK/GfuIHZsSa0akIkdLUfsv43GQ=;
+	s=default; t=1674463466;
+	bh=XwivJvWKjSqfnR5WmCM8/LofVxyRRGKMkePa8VOgZ2U=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=kHbAznJYqaDOWahOByQvZH5lmU4J3Ao8hw5PELVO5wnpbIWk40g8csiqg63+0ziJ+
-	 yH/W0tP0ME/8+noAnQDqSO1Cm7g85B2DqR+blDeu0LwHKf2Z8DudwYEkGB6pDMpiEz
-	 7DtC+ntwzxG/getXP/7Bry/3lAL4M2vNTYVRnPxk=
+	b=co+Ppkjuzg+xv/assVVesUUxQ8iPNcGs/nR7GSf0g6p4kWmnZuuAYVGWrI7frnmRw
+	 k4sOkDJgTSfHg1JL4T0roAaKV6Tui6SmSSKBN0TMxC9TZ9+CCGpaE6pCyY2kQZGOBZ
+	 4WqTyPoZrrrrgkydNkVu1dtZA30LCxFq3o5HzIMU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F049F80542;
+	by alsa1.perex.cz (Postfix) with ESMTP id CC744F80132;
 	Mon, 23 Jan 2023 09:42:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61038F8024D; Thu, 19 Jan 2023 20:11:03 +0100 (CET)
+ id 8512BF8025D; Fri, 20 Jan 2023 02:18:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2045.outbound.protection.outlook.com [40.107.21.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HK_RANDOM_ENVFROM,
+ HK_RANDOM_FROM,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9E07F8024D
- for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 20:10:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9E07F8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 424C3F8024D
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 02:18:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 424C3F8024D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
- header.s=selector1 header.b=WG4gSkqW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q8oNTPs96fwsTN2J1iHzUe8T4NzzRhrKnpWH8FK8qfhxZ/9fpUNozNil65JI0cdrdVV32SZaL8Z0SVhrIJlm2okKCVcXOQvyDbCWuiaponfc2DTn3w9Nz//cnMJ9WEOIuh6rDUFbuIT45UAio1ahBFf0SzjVTnm/rAwdAu0mK/9qw+tCIpq7jk+rm/pDgkcCmZvuMIUSBz2xjaqn+pc7ar1f3y9ITZcRjrhnc0zA6Yq+LarwdorLiH9+bOzDu+eZf6XzoCNddRjDUTHzlEIYL1Y8gShyawl1NauVQbdI5uFEUig2zPxbDTR2dT6MN9elADmbfTLbKGwoCvrmsSMiYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q4yVKGEYAJ1JxUJ3P+i0jWX8PR5LYdfiOQPVsQw9op0=;
- b=L2c9Z++JOFRThXIXaPxG/JAbUY7T8fsi0Hatc5XRcGfeL1zBqALnPuvpkQEg8I4cK6DiKgo9DMPszTHMOv6MT+5FfxPVq9aqyS04ppGO4yicFWDTAsvyq38DhHFqlIQ7l1cLZWLaF897QKqK07ZdnjcfnwjA7mfzbYhtbxE+YQFGSAzYMKM92qOYe4FsdUWjDUeG8+crjqzqfRo4EQ3CDp1d6s1abppje5/PR3gYMUyPI/rnJTtPlmIeUajTXmzvfxW0F/6/0TyvJcYdyGrXSdGY2RGLaT4fpVlXxiYO+zMlC5sSASoqWXinzlHrzfAIPFEXNQ8FdV8jNCUgH/yMpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
- dkim=pass header.d=seco.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q4yVKGEYAJ1JxUJ3P+i0jWX8PR5LYdfiOQPVsQw9op0=;
- b=WG4gSkqWYVxfNPP2lYLVeljWWsY1F37O0gL66e23yfs7efAWHl8Jhhg5kxzvTnNg9oD7H0J8eMYD0eTiqvRRgGWmkZfJ5r5ap65rXNLh79ikbjqWvcVlCip9GhothfXLCuh0MtxM/zzc4gq6tdekPURUn8wC6nWRQ04Rgf9g7Ua26D57wvRitq3BxBQILOm7Das0dGerm8vWwEZ6xBei4+CvLfzaYXsPgSkGpSKgFxhruC46jqcnQUba7sbSFnboymLVaUsQ7k4D7+LDFdXL2PdjQMM7WuEOJqb5/lHAB9SbefgFe5X39fITivAnlQ489hxMxCKox//+9Swo/NXVQw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=seco.com;
-Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
- by DB9PR03MB8259.eurprd03.prod.outlook.com (2603:10a6:10:307::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Thu, 19 Jan
- 2023 19:10:54 +0000
-Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
- ([fe80::6b03:ac16:24b5:9166]) by DB9PR03MB8847.eurprd03.prod.outlook.com
- ([fe80::6b03:ac16:24b5:9166%2]) with mapi id 15.20.5986.023; Thu, 19 Jan 2023
- 19:10:54 +0000
-From: Sean Anderson <sean.anderson@seco.com>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/3] drm: Add component_match_add_of and convert users of
- drm_of_component_match_add
-Date: Thu, 19 Jan 2023 14:10:36 -0500
-Message-Id: <20230119191040.1637739-1-sean.anderson@seco.com>
-X-Mailer: git-send-email 2.35.1.1320.gc452695387.dirty
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=DGjiIbB9
+Received: by mail-wm1-x332.google.com with SMTP id
+ iv8-20020a05600c548800b003db04a0a46bso373024wmb.0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Jan 2023 17:18:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mQS0UPbaBoarfLXOGtyFBjEzAD9Dxq+lDRq2U9zCnqg=;
+ b=DGjiIbB9aw1rfohZXvXIM3LiXbbCeUhtxz4CSgt/4LclPcNh8AHWJnTi7YyxAtaKDR
+ Wsdb5hJLbJZ6O5iwPKC5779WIBOhwyMZJHBlKw5nFtMafymVrQrlc3O8PSvnHRS3iCB9
+ F0FU/4NwElAsfHNmwFGHmNfMLn+KQ8c8VTQ2rC1bKcL/NLRng6Sg4v8wKosKPwjutGOr
+ RQNoi5EACd3mPzLsHThjfz2hScy7MLlWd6YRokBp9rYShxUXGEmYh+9L6j92/lly4+4S
+ qFjSWbmBqX8JlJLeAybhD3hlbcLNzEhjuR92/IZcSAuSRNjK+yciPkqYlxG7Fr9RgFgZ
+ lTFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mQS0UPbaBoarfLXOGtyFBjEzAD9Dxq+lDRq2U9zCnqg=;
+ b=SAuu3cFXaAywCfd0J4ZoUauqZClqvwlxivSVl1jT3q0Do6oAuv5i2rsMFRg3eKTmjK
+ 3rjIPuGEywzi7vVyZAjnibxJNQG53vKDrvDIP4xor5NbmsavfmHCIom1uomUZXmlcVbz
+ QboNbdqiZtVNwYHq+KLVI8aU5v0Pc4yKFVMaAwWGdXnIctBSXsqA7pGaZNqtrn50mB2n
+ urejdXWs8sUt3kX1Qe4xSQy6unckHpVQ5gsNx/6qvb7XMhRVB2FqZMfnPsOiRbScb8jA
+ Yg+Bsw9LoYVoCV62gXsKH6n4RGIf7ita55UHfhDryQTvMs+pK49c4E2713YeTl1lhLmT
+ v6uQ==
+X-Gm-Message-State: AFqh2krj+Ei+aiZfVMeYuK/1xobdWQ9eVWPgyb4cFn9TFCuhQaJSt1Hq
+ 5reBNDhu1MLySqSBcIAlme0=
+X-Google-Smtp-Source: AMrXdXv57EVOqsHRdscs+3XcGB88r4I/YioRgQpMS2rKNUR+B7M3EDAQBG/JVryNMXHj8tkX91IyIA==
+X-Received: by 2002:a05:600c:225a:b0:3d3:5c21:dd99 with SMTP id
+ a26-20020a05600c225a00b003d35c21dd99mr11996935wmm.18.1674177494240; 
+ Thu, 19 Jan 2023 17:18:14 -0800 (PST)
+Received: from fedora.36 ([78.10.206.41]) by smtp.gmail.com with ESMTPSA id
+ p16-20020a05600c359000b003da105437besm715696wmq.29.2023.01.19.17.18.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Jan 2023 17:18:12 -0800 (PST)
+From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <mchl.grzlk@gmail.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: sound: audio-graph-port: Add capture and playback
+Date: Fri, 20 Jan 2023 02:17:44 +0100
+Message-Id: <20230120011744.550701-1-mchl.grzlk@gmail.com>
+X-Mailer: git-send-email 2.37.3
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR02CA0047.namprd02.prod.outlook.com
- (2603:10b6:207:3d::24) To DB9PR03MB8847.eurprd03.prod.outlook.com
- (2603:10a6:10:3dd::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB8847:EE_|DB9PR03MB8259:EE_
-X-MS-Office365-Filtering-Correlation-Id: acee74f2-4797-4454-9ac2-08dafa50e2fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2OjThEFm+mVkWgaYQIqcDEN9IEMpLSdBEmxordzg5y+hZbEPS2sIbcfgNSCUNmkLHib3/Ke+R/X7FySfz5hy4Td9UfpOGfZsvHfnQ62ZAqtD6PQM92F7a/EyyVB1CE7AR81l9Q9RCR3bil38k8AY2JywUMxW/ypSznUPmO9FCE8o/bIQ0Qw2NeS1rgNWOOrNPLkKwR9Nqn5NvjoZlb1oyKwtCCSybvD8Xfmgm7B9NLm5c8M+PWDL0XDKt9/o9LrFUdwLUb3YjCidMpXWDlEe9aqcl73jDaK3RBL3g0n6Pq7VRSDYqb+w/CXddYR8aB4oXBh/LpzDD5SpYK9L5M6GtJJ7CA3xQvC6usVYJaaVTqijsIxdtWZlvfJQIOixvbv3sYbyz9cB2ZgGoydLhpCxjwuytqXkhfBM1LJ3Ks8iBmQ+kNLoN+iSedI0QHo463FdDwzbczz61QOGAkDq5AQSye2GC1P6zSEnIExZO7ol8cIrD/fuCndPP2sCjWlVjv2RhYIkb/t/ulUnv/Boha+zxuAjO0wAcsq0X5FtvsIayuZqb3lRZv181nWe/sD3+QCg8LcrP/kStnPZ+OZiY0YIgRi3gGvFIl7p+RMrz06uUy77qclT3IA7tmczw/RoNjsiHS0Y4BKx6PYiHylHGzgdSQd7Hl9l1EvayRRXD5LVkc0XJx6RSgCGg0LI1uISObQGdLHCEOH3RbNZusRdYqHtAg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB9PR03MB8847.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(39850400004)(366004)(346002)(136003)(396003)(376002)(451199015)(66556008)(44832011)(5660300002)(8936002)(7416002)(7406005)(7366002)(54906003)(41300700001)(2906002)(316002)(66946007)(4326008)(110136005)(8676002)(66476007)(478600001)(38350700002)(6486002)(52116002)(38100700002)(26005)(6512007)(6506007)(36756003)(6666004)(186003)(1076003)(86362001)(2616005)(83380400001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1dEZDVwM2lNSXJuQW85aXJibkZJWXRoT256SFNRM3Qra2NTdEx4SFBMcXRL?=
- =?utf-8?B?L2hUUlRJU3BSZFRBM2luT1orWUVSc0tpaXZYMlpZMTBFYklCMFhHVG1JYytn?=
- =?utf-8?B?eVJsTnBHcEpaUmprd2Q5TmlsWnVETEpPU0VPZ0dCNFdYNGpiTFZjU1h5ZitB?=
- =?utf-8?B?SERNa0U0R2lmQ0lWQTZ5U0llTUxrYU5BRUIzVUtIaTN0YnFFWkl3U1BSdFZS?=
- =?utf-8?B?SFFCZXRzQ0dSV3l5NHVET2Vhc3ZubDJyekhNYmpTYzlGOTd2T1NoMnZ5czdj?=
- =?utf-8?B?YkZiYUdUaXpRMXBuNE9EcXdWU1owSnpheWp4TkFmUHZhUHA3aXE2bjRqTWRH?=
- =?utf-8?B?VTRMcDNiY3pBcmhHTjNocDNJbTVTbTdlMTZYb2N0R2VmMG9yTmY5aUxqWDA4?=
- =?utf-8?B?dHlqOXdCbi8yZTloR2Y2VE9tSWhrUnNqckpkWHc0NmtQWENTOWVlQ2hITlla?=
- =?utf-8?B?enFwV0FYOTdwTkpxLytFenpOSEh6OWgxeExIQU54WEhUZnArWnB2eDBhZ3My?=
- =?utf-8?B?QTU5WmNsSnc1QXp4bmVLYzNreHlKVkVaZmdrdXVBKzhDSzRFclBwcHVOU0Iy?=
- =?utf-8?B?TFhIWVVuZlJiTDA2SkN1bDZRc1ZhVWo4OTcvUkFUbnQrWXhwZFo0SHRzVXVm?=
- =?utf-8?B?SGFXeDBKWVlZZEYxUUttYzd3Z0FWd3RSWHBsQmpiMDAxT2ZVQ2tXblh5QVBD?=
- =?utf-8?B?OVVGZHlkdFZxc2VLMENEeGVsQ21KdmQ3RzA3YTZWOVI1R0tISjhNUm5SZ3E1?=
- =?utf-8?B?eGZTaEwxUVA2SlJCdGQ4RlQ4ei92TFJxTlVoN2VZVXQ0WUZ3SG5BY2RnU1NB?=
- =?utf-8?B?SWF1UWx4Zi9pOHQ2M1ZXekdxUWdKQTZnVnhyejhMdWJxNzZFS3RMUDhYdTJu?=
- =?utf-8?B?eUUyNGYrSVJnaEh5cnhYamFmTVhFRXEwREhYVlJzbmg0MVVEVkRBVUFUWXpR?=
- =?utf-8?B?UDM4Rk1ZVm5mVGUvRTJjV0tOWHRpYndIOEErMTdqTDB1NVc2S0NwVzFaTm8y?=
- =?utf-8?B?dENEcC8raThkQUV6Z2taNWh3K1dUMzF6UWIxQlczMzRPZitSWmYzd1VHWXNq?=
- =?utf-8?B?T3FwYW9MUXN2QkhtY1hhSlA4MVc2NXhJRyt2cGZCR2FjTWpNcmh6TVRCRjVP?=
- =?utf-8?B?dExGdWVlcG1yOGpsZzFWalhzVGdlQmVMSXRrSmlzNkhDMmZiNzkzTXViQUZu?=
- =?utf-8?B?L2ppdjlTQ2Q5Si9KVU1xQmlIclBBaWttbGxuNTMwU3hiRTAySGliaWd5dVc1?=
- =?utf-8?B?T1YwRld0cHBJblVIVnVXZXB4NiszSjFWVTlxcEFmWDBBQjBaMC9pbEdVWm16?=
- =?utf-8?B?Sk5BNkRoeHBjM1dBMGFyQnVWWnZqZkhtTHE0T3NoblphUFd3NXVJVWRvbWxI?=
- =?utf-8?B?UWU3RlRuOEJhSlQxZm9UdlNIYkM1VlpTbG5TNDd0eXAvM0hBei9abVBTZ01z?=
- =?utf-8?B?VDl6a2MrckdBTmZkQWp1VjExZmd5c2ZXQ1A4QU02VGxhYi9CMDZnRmM0QllR?=
- =?utf-8?B?NEZ5Z2RVY1ZIRGRZb0lJaHd5MERZeVlXWVZ5ZUxTellRNVhFV0gwR1J3bVRD?=
- =?utf-8?B?NUZZQ05FZEFiUWdsa1o0Zi9WQkJvaE4xbXZXOTNydVgvU2tybnRNZmVsLzNH?=
- =?utf-8?B?ZitFQkovUDhGKzBhZ2NUVWh0a3FQbWR3cmhFdjZKQ3ZvM09YSkwwVmVWNDM3?=
- =?utf-8?B?bzcvNXdnRTdvNzliTnBlZHQ0bGNmczRmd3Z0MlREL0ozVnJ6cit6UDltNDda?=
- =?utf-8?B?amtQYzdxYUtEOEpvS25uLzNlZ2M4dDFKeHZuMWtEUjdveDliSVpXY0ZOSmVR?=
- =?utf-8?B?YkYxYmlESHRDeERLczRiK05wd3kzNnpRQ2JRV1pYQnkyTHZKcEdITFdhUG5V?=
- =?utf-8?B?bVFPTFJYRmJIUmJ3eThxRjh4cjlEOGw5Q01JUVpDTWJoQURhNDRvMUwzOWEz?=
- =?utf-8?B?WFB2Q2J3QURjQmlnTlpPWnFTblhuV2pKMUQ2ZmorNm1WTTNXUXNlMnV1NmpP?=
- =?utf-8?B?bFdYK0JZQWFtdlBVMnJmMEFhRDM3ZytqS083cmxKamRoUm42UUxsUXFML0Z6?=
- =?utf-8?B?TVhRSkc1YzRwZVEvaUZXb1UxREQvZnhKMDI3ejBQK2JaQU85M3hSODJhdFZs?=
- =?utf-8?B?U3Zxd1JoZVRZRUo5SnVIQUNZV0hrZEFGdmk4NEZGUnNtUjk2UlpwY2Q1TUhy?=
- =?utf-8?B?RWc9PQ==?=
-X-OriginatorOrg: seco.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acee74f2-4797-4454-9ac2-08dafa50e2fb
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8847.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 19:10:54.0688 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TExj+ppozAjreSiOV9g4J2ykelKHdKd0NP0WBONLswrnOPWFM+8GVX0rfp3A3TZoY2g0nV9DtTpWGarMmalpFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB8259
 X-Mailman-Approved-At: Mon, 23 Jan 2023 09:42:43 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -154,72 +99,254 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Xinliang Liu <xinliang.liu@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>, John Stultz <jstultz@google.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Will Deacon <will@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
- Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
- Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mali DP Maintainers <malidp@foss.arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- etnaviv@lists.freedesktop.org, Christian Gmeiner <christian.gmeiner@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- Yong Wu <yong.wu@mediatek.com>, linux-mips@vger.kernel.org,
- Tomi Valkeinen <tomba@kernel.org>, iommu@lists.linux.dev,
- Robin Murphy <robin.murphy@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Tian Tao <tiantao6@hisilicon.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Brian Starkey <brian.starkey@arm.com>, Lucas Stach <l.stach@pengutronix.de>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <mchl.grzlk@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series adds a new function component_match_add_of to simplify the
-common case of calling component_match_add_release with
-component_release_of and component_compare_of. There is already
-drm_of_component_match_add, which allows for a custom compare function.
-However, all existing users just use component_compare_of (or an
-equivalent).
+Running 'make DT_SCHEMA_FILES=renesas,rsnd.yaml dt_binding_check'
+gives following warning:
 
-Changes in v3:
-- Rebase onto drm/drm-next
+bindings/sound/renesas,rsnd.example.dtb:
+sound@ec500000: port:endpoint: Unevaluated properties are not allowed
+('capture', 'playback' were unexpected)
+        From schema: bindings/sound/renesas,rsnd.yaml
 
-Changes in v2:
-- Split off conversion from helper addition
-- Rebase onto drm/drm-next
+Running 'make ARCH=arm64 DT_SCHEMA_FILES=renesas,rsnd.yaml dtbs_check'
+gives 140 warnings presented under tag [WARNINGS].
 
-Sean Anderson (3):
-  component: Add helper for device nodes
-  iommu/sound: Use component_match_add_of helper
-  drm: Convert users of drm_of_component_match_add to
-    component_match_add_of
+Fix all of them by allowing capture and playback in subnode 'endpoint'
+in sound/audio-graph-port.yaml.
 
- .../gpu/drm/arm/display/komeda/komeda_drv.c   |  6 ++--
- drivers/gpu/drm/arm/hdlcd_drv.c               |  9 +-----
- drivers/gpu/drm/arm/malidp_drv.c              | 11 +------
- drivers/gpu/drm/armada/armada_drv.c           | 10 ++++---
- drivers/gpu/drm/drm_of.c                      | 29 +++----------------
- drivers/gpu/drm/etnaviv/etnaviv_drv.c         |  4 +--
- .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  3 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  3 +-
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  4 +--
- drivers/gpu/drm/msm/msm_drv.c                 | 14 ++++-----
- drivers/gpu/drm/sti/sti_drv.c                 |  3 +-
- drivers/gpu/drm/sun4i/sun4i_drv.c             |  3 +-
- drivers/gpu/drm/tilcdc/tilcdc_external.c      | 10 ++-----
- drivers/iommu/mtk_iommu_v1.c                  |  3 +-
- include/drm/drm_of.h                          | 12 --------
- include/linux/component.h                     |  9 ++++++
- sound/soc/codecs/wcd938x.c                    |  6 ++--
- 17 files changed, 45 insertions(+), 94 deletions(-)
+While editing audio-graph-port.yaml, drop quotes after referencing some
+schemas.
 
+Regarding files referencing audio-graph-port.yaml, no new errors were
+observed after applying this change, tested with DT_SCHEMA_FILES set to:
+	marvell,mmp-sspa.yaml          nvidia,tegra186-asrc.yaml
+	nvidia,tegra186-dspk.yaml      nvidia,tegra210-admaif.yaml
+	nvidia,tegra210-adx.yaml       nvidia,tegra210-ahub.yaml
+	nvidia,tegra210-amx.yaml       nvidia,tegra210-dmic.yaml
+	nvidia,tegra210-i2s.yaml       nvidia,tegra210-mixer.yaml
+	nvidia,tegra210-mvc.yaml       nvidia,tegra210-ope.yaml
+	nvidia,tegra210-sfc.yaml       renesas,rsnd.yaml
+	sgtl5000.yaml                  socionext,uniphier-aio.yaml
+	socionext,uniphier-evea.yaml   st,stm32-sai.yaml
+	wlf,wm8962.yaml
+
+[WARNINGS]:
+
+sound@ec500000: ports:port:endpoint: Unevaluated properties are not
+allowed ('capture', 'playback' were unexpected)
+	arch/arm64/boot/dts/renesas/r8a77995-draak.dtb
+
+sound@ec500000: ports:port@0:endpoint: Unevaluated properties are not
+allowed ('capture', 'playback' were unexpected)
+	arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-beacon-rzg2n-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-beacon-rzg2h-kit.dtb
+
+sound@ec500000: ports:port@1:endpoint: Unevaluated properties are not
+allowed ('playback' was unexpected)
+	arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-beacon-rzg2n-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-beacon-rzg2h-kit.dtb
+
+sound@ec500000: ports:port@2:endpoint: Unevaluated properties are not
+allowed ('playback' was unexpected)
+	arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dtb
+
+sound@ec500000: ports:port@3:endpoint: Unevaluated properties are not
+allowed ('capture' was unexpected)
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dtb
+
+sound@ec500000: port:endpoint: Unevaluated properties are not allowed
+('playback' was unexpected)
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex-mipi-2.1.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex-mipi-2.1.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex-mipi-2.1.dtb
+
+sound@ec500000: Unevaluated properties are not allowed ('ports' was
+unexpected)
+	arch/arm64/boot/dts/renesas/r8a774a1-beacon-rzg2m-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-beacon-rzg2h-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-beacon-rzg2n-kit.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77950-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77951-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77960-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-x.dtb
+	arch/arm64/boot/dts/renesas/r8a77961-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a77965-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a77995-draak.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dtb
+	arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dtb
+	arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dtb
+
+sound@ec500000: Unevaluated properties are not allowed ('port' was
+unexpected)
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-ex-mipi-2.1.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774a1-hihope-rzg2m-rev2-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-ex-mipi-2.1.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774b1-hihope-rzg2n-rev2-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex-idk-1110wr.dtb
+	arch/arm64/boot/dts/renesas/r8a774e1-hihope-rzg2h-ex-mipi-2.1.dtb
+From schema: bindings/sound/renesas,rsnd.yaml
+
+Signed-off-by: Michał Grzelak <mchl.grzlk@gmail.com>
+---
+ .../bindings/sound/audio-graph-port.yaml         | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+index f5b8b6d13077..4238128eb52e 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+@@ -19,11 +19,11 @@ properties:
+     description: "device name prefix"
+     $ref: /schemas/types.yaml#/definitions/string
+   convert-rate:
+-    $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-sample-rate"
++    $ref: /schemas/sound/dai-params.yaml#/$defs/dai-sample-rate
+   convert-channels:
+-    $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-channels"
++    $ref: /schemas/sound/dai-params.yaml#/$defs/dai-channels
+   convert-sample-format:
+-    $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-sample-format"
++    $ref: /schemas/sound/dai-params.yaml#/$defs/dai-sample-format
+ 
+ patternProperties:
+   "^endpoint(@[0-9a-f]+)?":
+@@ -67,12 +67,16 @@ patternProperties:
+             - pdm
+             - msb
+             - lsb
++      playback:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++      capture:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
+       convert-rate:
+-        $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-sample-rate"
++        $ref: /schemas/sound/dai-params.yaml#/$defs/dai-sample-rate
+       convert-channels:
+-        $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-channels"
++        $ref: /schemas/sound/dai-params.yaml#/$defs/dai-channels
+       convert-sample-format:
+-        $ref: "/schemas/sound/dai-params.yaml#/$defs/dai-sample-format"
++        $ref: /schemas/sound/dai-params.yaml#/$defs/dai-sample-format
+ 
+       dai-tdm-slot-num:
+         description: Number of slots in use.
 -- 
-2.35.1.1320.gc452695387.dirty
+2.37.3
 

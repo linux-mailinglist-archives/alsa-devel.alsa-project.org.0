@@ -2,115 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AECD674954
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 03:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 514F2674AE3
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 05:39:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E4772AAF;
-	Fri, 20 Jan 2023 03:24:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E4772AAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CF852C2D;
+	Fri, 20 Jan 2023 05:38:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CF852C2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674181547;
-	bh=3GsIyYQdsjwr0hN6WfKBIrPC3gTA8HbIZYkjYyYEpyc=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674189589;
+	bh=KtbcSRas+V8YTHjdkV9WUYkVGPAjnHz28ao17I7tMV0=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=pC4JGUaRqLEUrMDU355fRy/13cALzJ7jR1N51ubD9HtOlKI87PmAa1XDpUdVhKzEj
-	 Q0qZW/sv/Uk2AIAQ3jjpCS4sFgGv721wV7NkMyZIlSEGx21HvV1HAddfRk52KkEhd1
-	 VSV9W/DcfR9DMUlj9T0ShCATbETyqY4hK8yHnPAk=
+	b=QY1qvFWC2GbpZqEQmr6pmEcJTGNJMDO5P88HNZlIgCTA1Keh4VS81awpzXO7gm4RC
+	 Am1iV+d3bB2rSFcwO5IOSv1ITBeSKvSlbNshqfCXz3dNLuWYWCiG2uzyeG60c4jpN9
+	 xBk1AV9DvOqgOeJUmmrTL4RtTAcZ31XX2dyOBmgs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34AE1F804DE;
-	Fri, 20 Jan 2023 03:24:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5541F800F0;
+	Fri, 20 Jan 2023 05:38:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 886B4F8047B; Fri, 20 Jan 2023 03:24:48 +0100 (CET)
+ id 82E29F8024D; Fri, 20 Jan 2023 05:38:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2134.outbound.protection.outlook.com [40.107.114.134])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8930FF800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 03:24:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8930FF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com
- header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3
- header.b=iyY6Eys1; dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=JW70Vdau
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 1AC535C0074;
- Thu, 19 Jan 2023 21:24:35 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 19 Jan 2023 21:24:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1674181475; x=
- 1674267875; bh=uT4kLza8RlIsxn5amzQpafEHIu72ROvuvN7Ka1p3Neo=; b=i
- yY6Eys1rrIBe4qah9SQ6BQ3zwqqtPX2N1XTGpHmYRNKrNb7T/rG+y7wUHPRRfUbd
- CSUcNnWybtT1Dc5Tmth0k5R5GBR3SGaRKSUDTN2UMzJCt7Q/u8poy/lezudYUO+g
- FWYhCrCxL5tNbD/6e+bisq1N8Pn7vb7JuQ9yF71hCf3RfO3VY4a7rQL7odr7XegD
- TTS9gA5pxceUjrDLiTBt/epdeoZmgse1KfKrEIGNPWbRSD64iEAN1LQ/wPvxRRCi
- bhQ5RNt6ztt3TBpBvcJP94YNqOT8skwIW+fi4VM34CdUTgmezSdwrEjtq46ZXJjZ
- 6WJj1jl6bhlNycQwQParg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1674181475; x=1674267875; bh=uT4kLza8RlIsxn5amzQpafEHIu72
- ROvuvN7Ka1p3Neo=; b=JW70VdauCDdyldhnsBinXCnlajza+p2y2nqdfsXhH1iz
- ZzI5xeXupL5/qDM5kWMmO7mqOOozmRR9pGPQx8iuBlCn4uT4s5BrHy8avUlwlCOu
- EYd/QVqDt3swXTqiWej3U2Y59BzrA632uDKFO52CX2fl4cwBFR1vx3MzBo9J3st9
- VgUqxlpDzPI0FC/dE7YvOsf7+c1E+/p0x4CtOi4Pa6OhW2yzcuXNo123gya03NSt
- 9EZZsZ/ZgDF3KbnnpKPkh5sgkmx3EcjxZ8BI9mJRWqsAU1ELOlgsT44yI+hZU9SQ
- +UcqRDEdZBvkQQlzyUfSjzc0qAUqRNG7uW9dpL0WFg==
-X-ME-Sender: <xms:YvvJY_xOWHXE8PFrahSmLwFAIVaeezCwWzDeiMuhPpSp5aCXoEc3vw>
- <xme:YvvJY3Ql1u1Dp1jmNGSjwuef6dOEX_MvRwD78X1R534m19OB767AxsyiMCu91PV8n
- CKnDXb1T8c-6Q>
-X-ME-Received: <xmr:YvvJY5WCJMDBMMY9kDFRzylmcc0PrjRamBiiuBZA33lt5bH8qaFMD4rG6WG08rbzWwx23-BZO_CaIy4jydLN1iaxRmsfpwBjYw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudduuddggeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
- khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
- hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepieel
- uddvkeejueekhfffteegfeeiffefjeejvdeijedvgfejheetuddvkeffudeinecuffhomh
- grihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
- mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
- hlrggsrdgtohhm
-X-ME-Proxy: <xmx:YvvJY5jjHHmzvusfftIC1qJ0zVhr8KJsWhli8suv8c9o0z5HBNJAyQ>
- <xmx:YvvJYxA8K2KNH-COd-jvUq2SeuMySXCoO1Oj9HT4SNJfGGqQmyZJBQ>
- <xmx:YvvJYyKPBWS5av6xFqJpjly-snI5pw-FMudndzzFXLgLN5EK5Yxefw>
- <xmx:Y_vJY0O7-9xj7KqZp4f2ZXRxH1PxJqsEIt5WAsWw91t-nkjOrgOrig>
-Feedback-ID: i1568416f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Jan 2023 21:24:33 -0500 (EST)
-Date: Fri, 20 Jan 2023 03:24:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-Message-ID: <Y8n7XkbM0aIEshlX@mail-itl>
-References: <Y8aIPPcPuDeNkVEy@mail-itl> <Y8au5JiQ3w1YPZ8d@mail-itl>
- <87tu0p6xix.wl-tiwai@suse.de> <Y8bRmWMBVFVk0WZc@mail-itl>
- <874jsp6r3q.wl-tiwai@suse.de> <Y8cGVGCWjODvMXUe@mail-itl>
- <87sfg85ic1.wl-tiwai@suse.de> <Y8fMVtWshr+yFLWk@mail-itl>
- <87fsc8t3s3.wl-tiwai@suse.de> <Y8nqIBJISq9Vm710@mail-itl>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D3C0F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 05:38:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3C0F800F0
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=QNhh1X8j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GYbgQv6nKJhpykKrRyacIWpeNEWvJa5tNKHQK1QhM+eJt0SCo0mRankafmylCWhsV9MSu8kaQaFp/wczhZC+l4PZwdftwxjioeX8x8ExBXQUuo1dYWjiZBhSC5dVwGWhY5QQSGeRfV3anJx9GhlwbDknI85gm9GemSE3pqSxUwSZuvdCWRcojbhJA8rYEGOhO8JyrNXYBjZHLYUZaYjTgL50VDTjfaRC29bV4lkJWp4xB+wRUmIL366lVkQi3Ho43lYUbrV0Z/U6dLE4ZfM2ufMjp+POsZ4qRfrbE7p2bVLeEu7zUulCwB9oTyX2Ib65tOhAPHBS7jeMTe0KMUiayA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xi2kwd1mmwsb17BpSTFMKO77fkGsBOzbMaIz8fiGSBA=;
+ b=YKqCCm8HgELQSZJHSAA9bJP/WKcofzHYr9qAI2NUlZB+1uaQwwnRgGNVCU+8uxnxF7TkHa0TBGSEioPqopkEsR40qdhSxn1EdxzB6r1zwN/CANIBQq+PS2SYBINOy3hp32aLtdep5w5sRtBOKzELtPNAt5V6dCV/jRg8r24BvkHeWXXLShWKTVSHHlCHCVe9JBtyOxp0Rlxpl+4TTmI44V0Apf0DaHZH8uivMIgppulwPJtkYj6NyBvXTdr3w2E8BaegCR02Mkuo9PuOyG+rHHdQ6bQ7cztb9nS+dIN1mRcZNLrL+a3RlvSmxIkepZJFtDxHunQmf+LeSQgv1nAuCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xi2kwd1mmwsb17BpSTFMKO77fkGsBOzbMaIz8fiGSBA=;
+ b=QNhh1X8jeg4TUL7/IdjuPb3tkzUaaDuQMqHKdTNZlrBhWgbTlkX1x2VWJQBuHtfCt2hrcRmXOO/MFRyRdvrdz2UfI9NFeeaFwyTxtZcx9t9MafJSwbmrz3Tgl3W/3An4uIWx15AlHXNkfzYS/G7t87fgoE737+HbmlfyhySDcgc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by OSZPR01MB8435.jpnprd01.prod.outlook.com (2603:1096:604:16e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.27; Fri, 20 Jan
+ 2023 04:38:28 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::3cd7:a7b5:ea86:9ae]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::3cd7:a7b5:ea86:9ae%4]) with mapi id 15.20.6002.012; Fri, 20 Jan 2023
+ 04:38:28 +0000
+Message-ID: <87lelxlt18.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: =?ISO-8859-2?Q?Micha=B3?= Grzelak <mchl.grzlk@gmail.com>
+Subject: Re: [PATCH] dt-bindings: sound: audio-graph-port: Add capture and
+ playback
+In-Reply-To: <20230120011744.550701-1-mchl.grzlk@gmail.com>
+References: <20230120011744.550701-1-mchl.grzlk@gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Jan 2023 04:38:28 +0000
+X-ClientProxiedBy: TY2PR02CA0067.apcprd02.prod.outlook.com
+ (2603:1096:404:e2::31) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="DZT1vfsoSyjwyXKB"
-Content-Disposition: inline
-In-Reply-To: <Y8nqIBJISq9Vm710@mail-itl>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OSZPR01MB8435:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea8e22ed-1236-4be2-366c-08dafaa02d2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: og1SMvgrJGWU+WYLQ9HI7t0YhrdbnrObsgLXY/eoKaJ1eUaq6mZ0u0RYq12SY0iZ1lfUcF+44XWZZXeHnmFL/Ge67a1ucu2vYJuLBcweUV2lU3eVDx9iLCTFVcMQ5rLM7umcOm7k2DH7KlrUmLLgdtVn8tSP4HCG09ZO61QQVZ98V1T3/OX+Jt8FoQYqGZYk9vEinMqfnKrcVFAmP7VMolPDKU4qZO6+2dKtWctpm+8UA5cDddYobLcBckGr+sUknJVGJR1fxhqTIQvy8FXvCBwHEO8xTV1cdfeRF+47UpsWin91zjtUaapqRpd3ljZwMTnO3oFh+0r7WZ7s/63iAISv/BIBMBNqPKhlRsE2bN2IA5relc6pR/Ez/gg9R/TQx6ulQP257U+sGxfvCmdAmJKbbEGF8KOPY8Z1UI0Qpa8UR8M1GLdZLfbzrdXtMGdznAddfbJCociq3JIK3hs9KoBAYBKAW474mR+qtszowKGY/0aHfL7Rhb9XAreRtPJY1wIuRwGFrNE5LLV1E1qxq2FqKaPUqMNFeiegEQ9aGz+HoGHG97Ohi4W5it3lV5PQUBwk3dLZBpS1GVLErIH9GfEIitP4xL1zKRTspSTasIQR1M602LyrnWqqWBWWjT7OCfqOiQKVHAr/l0djQ6hCNgfjHNMhPEpwVE55Bz5ZsuzIJsbt92vFo9u6kj/dU1hWF6L4RCRjHDE8LG31LAXEd2fYng1H8ZepRKK072SxJfU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199015)(66476007)(8676002)(4326008)(6916009)(66556008)(66946007)(2616005)(966005)(6486002)(478600001)(26005)(6512007)(186003)(6506007)(316002)(36756003)(83380400001)(52116002)(38350700002)(38100700002)(2906002)(41300700001)(86362001)(5660300002)(4744005)(8936002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-2?Q?4Lz1tyhSFXy2RcGNXAzdgz5qSCdlC68HV9StrwaPgJUBTqnxJeg60qWUYS?=
+ =?iso-8859-2?Q?sYKM9d5AFkKk2ol4AyyepIMmOnU6s9PMYmPmp6TDwu3lZw4PJ5MlFaJa6L?=
+ =?iso-8859-2?Q?JQdNz4iyQu1PJHD1CR+LjItVnj3aM8BLKh7KogjeyupCqC5es0iZ41CbuN?=
+ =?iso-8859-2?Q?cVme5DxT11UoVG8RpQ7k1YuS7yFuNuuWz52URvz9pnk147qunJbDR9VHc+?=
+ =?iso-8859-2?Q?+WBOABkw0aWARywlfabjGO1RMaOojT1Qf58JuIOTVWLYW0QLTr7XQ56CwR?=
+ =?iso-8859-2?Q?itGSmcPsj8wOD97oqhzt4hIR0C5jS77fWl7ubDR7YhWNK/mm80oULUgi4U?=
+ =?iso-8859-2?Q?PkzlJuZW0KKPit1m0VVrbiZAqPP7flhWEeqx/pufftXnCG3j9kcpneDcA0?=
+ =?iso-8859-2?Q?6+Jjer+ZH+ZQsFrUiIDqwUe5xj6DCpoLhGDGfsz2ur7IOLPaynwbQR6/T3?=
+ =?iso-8859-2?Q?QXFnRyGPGgw+KAcdYWHEFdt+4wSVzdkAVV2c5w1UQHTP3a1zm0eY0ZPPVT?=
+ =?iso-8859-2?Q?KIEYJ+tUEetXLzMgnU8Kg2Y1LahvBhRr+7GQpJcFTZk6ROSnJFXUdRvPnJ?=
+ =?iso-8859-2?Q?osalSnM0DKh+hxdFNHcwRTFYqLvfy7WCadry0g75R5fPVUyOaYM9daZtJm?=
+ =?iso-8859-2?Q?lZ3RcfHvGZCOXvESdz4oEA/WGSqmj0GmdLnIuKFSiqgfqTvMn72BHkhYUa?=
+ =?iso-8859-2?Q?1L2rA9OQxcK9qKRKrCB5Fl0K+fR70ZwCwguYOY+cazocYLIpsXXfZi5UvI?=
+ =?iso-8859-2?Q?O6AlsX0qSKavuApmgi6OfpPr/4kT2f6y8HKxORpq4GfVUCv7O9gua4cRN1?=
+ =?iso-8859-2?Q?ILt5vghWYfiaiaR/VA8ryemduKv3RQV0uaTbppmLFuAD+r8Ne1kLSnRuTS?=
+ =?iso-8859-2?Q?SagdDPBFYm9zS5GVR2bTBOrqTlo3cpvMHl4ivFGNviaUjkNzWau4Q36RJB?=
+ =?iso-8859-2?Q?JQJUUyM9eV6JSMt93wxmiokb7pTJGwGDly8WokpQ+kr8x480WRhVlXw5st?=
+ =?iso-8859-2?Q?3EIUlsYUKS60RuZqb2fcKKk0pufXtQN2RsNVQxlRo3iGri4ozHXsbHaECG?=
+ =?iso-8859-2?Q?086pmoNFV834toMKrHtxpBB9IS+wC7Xpoj/IFmhE6ex4skt863+RnwgKCQ?=
+ =?iso-8859-2?Q?nUkGnvlz7gcj+7OOw8wJljpUb2ic5c6fYfx1LsAMszEJbPY1dd0mnPi8Bj?=
+ =?iso-8859-2?Q?+sop4X4C1NuQ7oXzwFcvI+QODT4g3DWFhTlLY6azMIRrFpvuDI+oKYGrNq?=
+ =?iso-8859-2?Q?dmcFz38kgMazZ09c4jIXhheAqVcJcianewQRf+nqjPiwgbyenXjJn3wVEx?=
+ =?iso-8859-2?Q?REfYpBbPonP0ZPqWviUe+Hh1a7EUoWVpQ7n047t49X82IJu/C9qhqdFE14?=
+ =?iso-8859-2?Q?5ppG/2ag1u0CQDpu5lWjaQLlrzRtQP5JtZAYfmLSBPspmxoqOGcU1WwcFH?=
+ =?iso-8859-2?Q?GjFe8obActQ60Nxs5xdXpzRBSuHgpW1SRxGPtT/EZ3Lt3xNdBSrEXngren?=
+ =?iso-8859-2?Q?93b1FMif1YZDYJo0ZtVWMxaLKmIDccg4UYlhq73Tm2VbjCczQLP3nSf/nP?=
+ =?iso-8859-2?Q?+s5XVfoMR0plTpNMGNYYVMtCbCz4LDg6278cQgMfSzdjkGh+fMvojek2pN?=
+ =?iso-8859-2?Q?lj9GqJbpe2h3BrRKXaGYT9BHj29MyrMzYbN+fchqmmsT2lgwYkzybjpYw9?=
+ =?iso-8859-2?Q?QKS6tAcO7+MDsamyJbE=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea8e22ed-1236-4be2-366c-08dafaa02d2b
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 04:38:28.6958 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ndvhe2es13FdMKebuIe3EdTkX8e3xVCj5GJShUV/igOau6rgDMr9V3tBvF+pGdyaMQ9cxvECSDj+CeeLZ15M/LFlHVyigYrze89AGautUMHH4TvmA40pdFwHptx3t9U/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8435
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,269 +146,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---DZT1vfsoSyjwyXKB
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Jan 2023 03:24:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Alex Xu <alex_y_xu@yahoo.ca>,
-	Harald Arnesen <harald@skogtun.org>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
+Hi Micha=B3
 
-On Fri, Jan 20, 2023 at 02:10:37AM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Wed, Jan 18, 2023 at 01:39:56PM +0100, Takashi Iwai wrote:
-> > On Wed, 18 Jan 2023 11:39:18 +0100,
-> > Marek Marczykowski-G=C3=B3recki wrote:
-> > >=20
-> > > On Wed, Jan 18, 2023 at 09:59:26AM +0100, Takashi Iwai wrote:
-> > > > On Tue, 17 Jan 2023 21:34:11 +0100,
-> > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > >=20
-> > > > > On Tue, Jan 17, 2023 at 05:52:25PM +0100, Takashi Iwai wrote:
-> > > > > > On Tue, 17 Jan 2023 17:49:28 +0100,
-> > > > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > >=20
-> > > > > > > On Tue, Jan 17, 2023 at 03:33:42PM +0100, Takashi Iwai wrote:
-> > > > > > > > On Tue, 17 Jan 2023 15:21:23 +0100,
-> > > > > > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > >=20
-> > > > > > > > > On Tue, Jan 17, 2023 at 12:36:28PM +0100, Marek Marczykow=
-ski-G=C3=B3recki wrote:
-> > > > > > > > > > On Tue, Jan 17, 2023 at 08:58:57AM +0100, Takashi Iwai =
-wrote:
-> > > > > > > > > > > On Mon, 16 Jan 2023 16:55:11 +0100,
-> > > > > > > > > > > Takashi Iwai wrote:
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > On Tue, 27 Dec 2022 16:26:54 +0100,
-> > > > > > > > > > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > On Thu, Dec 22, 2022 at 09:09:15AM +0100, Takashi=
- Iwai wrote:
-> > > > > > > > > > > > > > On Sat, 10 Dec 2022 17:17:42 +0100,
-> > > > > > > > > > > > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > On Sat, Dec 10, 2022 at 02:00:06AM +0100, Mar=
-ek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > > > > > > > > On Fri, Dec 09, 2022 at 01:40:15PM +0100, M=
-arek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > > > > > > > > > On Fri, Dec 09, 2022 at 09:10:19AM +0100,=
- Takashi Iwai wrote:
-> > > > > > > > > > > > > > > > > > On Fri, 09 Dec 2022 02:27:30 +0100,
-> > > > > > > > > > > > > > > > > > Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > > > Hi,
-> > > > > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > > > Under Xen PV dom0, with Linux >=3D 5.=
-17, sound stops working after few
-> > > > > > > > > > > > > > > > > > > hours. pavucontrol still shows meter =
-bars moving, but the speakers
-> > > > > > > > > > > > > > > > > > > remain silent. At least on some occas=
-ions I see the following message in
-> > > > > > > > > > > > > > > > > > > dmesg:
-> > > > > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > > >   [ 2142.484553] snd_hda_intel 0000:0=
-0:1f.3: Unstable LPIB (18144 >=3D 6396); disabling LPIB delay counting
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > Hit the issue again, this message did not a=
-ppear in the log (or at least
-> > > > > > > > > > > > > > > > not yet).
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > (...)
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > > In anyway, please check the behavior wi=
-th 6.1-rc8 + the commit
-> > > > > > > > > > > > > > > > > > cc26516374065a34e10c9a8bf3e940e42cd96e2a
-> > > > > > > > > > > > > > > > > >     ALSA: memalloc: Allocate more conti=
-guous pages for fallback case
-> > > > > > > > > > > > > > > > > > from for-next of my sound git tree (whi=
-ch will be in 6.2-rc1).
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > This did not helped.
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > Looking at the mentioned commits, there i=
-s one specific aspect of Xen PV
-> > > > > > > > > > > > > > > > > that may be relevant. It configures PAT d=
-ifferently than native Linux.
-> > > > > > > > > > > > > > > > > Theoretically Linux adapts automatically =
-and using proper API (like
-> > > > > > > > > > > > > > > > > set_memory_wc()) should just work, but at=
- least for i915 driver it
-> > > > > > > > > > > > > > > > > causes issues (not fully tracked down yet=
-). Details about that bug
-> > > > > > > > > > > > > > > > > report include some more background:
-> > > > > > > > > > > > > > > > > https://lore.kernel.org/intel-gfx/Y5Hst0b=
-CxQDTN7lK@mail-itl/
-> > > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > Anyway, I have tested it on a Xen modifie=
-d to setup PAT the same way as
-> > > > > > > > > > > > > > > > > native Linux and the audio issue is still=
- there.
-> > > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > > > If the problem persists, another thing =
-to check is the hack below
-> > > > > > > > > > > > > > > > > > works.
-> > > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > > Trying this one now.
-> > > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > > And this one didn't either :/
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > (Sorry for the late reply, as I've been off in =
-the last weeks.)
-> > > > > > > > > > > > > >=20
-> > > > > > > > > > > > > > I think the hack doesn't influence on the PCM b=
-uffer pages, but only
-> > > > > > > > > > > > > > about BDL pages.  Could you check the patch bel=
-ow instead?
-> > > > > > > > > > > > > > It'll disable the SG-buffer handling on x86 com=
-pletely.=20
-> > > > > > > > > > > > >=20
-> > > > > > > > > > > > > This seems to "fix" the issue, thanks!
-> > > > > > > > > > > > > I guess I'll run it this way for now, but a prope=
-r solution would be
-> > > > > > > > > > > > > nice. Let me know if I can collect any more info =
-that would help with
-> > > > > > > > > > > > > that.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Then we seem to go back again with the coherent mem=
-ory allocation for
-> > > > > > > > > > > > the fallback sg cases.  It was changed because the =
-use of
-> > > > > > > > > > > > dma_alloc_coherent() caused a problem with IOMMU ca=
-se for retrieving
-> > > > > > > > > > > > the page addresses, but since the commit 9736a32513=
-7b, we essentially
-> > > > > > > > > > > > avoid the fallback when IOMMU is used, so it should=
- be fine again.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Let me know if the patch like below works for you i=
-nstead of the
-> > > > > > > > > > > > previous hack to disable SG-buffer (note: totally u=
-ntested!)
-> > > > > > > > > > >=20
-> > > > > > > > > > > Gah, there was an obvious typo, scratch that.
-> > > > > > > > > > >=20
-> > > > > > > > > > > Below is a proper patch.  Please try this one instead.
-> > > > > > > > > >=20
-> > > > > > > > > > Thanks, I'll give it a try.
-> > > > > > > > >=20
-> > > > > > > > > Unfortunately, it doesn't help, it stopped working again,=
- after about 3h
-> > > > > > > > > uptime.
-> > > > > > > >=20
-> > > > > > > > Aha, then it might be rather other way round;
-> > > > > > > > dma_alloc_noncontiguous() doesn't work on Xen properly.
-> > > > > > > >=20
-> > > > > > > > Could you try the one below instead of the previous?
-> > > > > > >=20
-> > > > > > > Unfortunately, this one doesn't fix it either :/
-> > > > > >=20
-> > > > > > Hmm.  Then how about applying both of the last two patches?  Th=
-e last
-> > > > > > one to enforce the fallback allocation and the previous one to =
-use
-> > > > > > dma_alloc_coherent().  It should be essentially reverting to th=
-e old
-> > > > > > way.
-> > > > >=20
-> > > > > Oh, I noticed only now: the last patch made it fail to initialize.
-> > > >=20
-> > > > The "last patch" means the patch to enforce the fallback allocation?
-> > >=20
-> > > Yes, the one about dma_alloc_noncontiguous().
-> > >=20
-> > > > > I
-> > > > > don't see obvious errors in dmesg, but when trying aplay, I get:
-> > > > >=20
-> > > > >     ALSA lib pcm_direct.c:1284:(snd1_pcm_direct_initialize_slave)=
- unable to install hw params
-> > > > >     ALSA lib pcm_dmix.c:1087:(snd_pcm_dmix_open) unable to initia=
-lize slave
-> > > > >     aplay: main:830: audio open error: Cannot allocate memory
-> > > >=20
-> > > > It's -ENOMEM, so it must be from there.  Does it appear always?  If
-> > > > yes, your system is with IOMMU, and the patch made return always NU=
-LL
-> > > > intentionally.
-> > >=20
-> > > While the system do have IOMMU, it isn't configured by Linux, but by
-> > > Xen. And it maps all the memory that Linux see.
-> > >=20
-> > > > If that's the case, the problem is that IOMMU doesn't handle the
-> > > > coherent memory on Xen.
-> > > >=20
-> > > > Please check more explicitly, whether get_dma_ops(dmab->dev.dev) ca=
-ll
-> > > > in snd_dma_noncontig_alloc() returns NULL or not.
-> > >=20
-> > > Will do.
-> >=20
-> > If get_dma_ops() is non-NULL,=20
+Thank you for your patch
+
+> Running 'make DT_SCHEMA_FILES=3Drenesas,rsnd.yaml dt_binding_check'
+> gives following warning:
 >=20
-> Yes, it's non-NULL.
->=20
-> > it means we need some Xen-specific
-> > workaround not to use dma_alloc_noncontiguous().
-> > What's the best way to see whether the driver is running on Xen PV?
->=20
-> Usually it's this: cpu_feature_enabled(X86_FEATURE_XENPV)
->=20
-> > Meanwhile, it's helpful if you can try the combo of my last two
-> > patches, too.  It should work, and if it doesn't, it implies that
-> > we're looking at a wrong place.
->=20
-> It doesn't because the last of them causes "Cannot allocate memory".
-> I'm trying now with this on top:
->=20
-> ---8<---
-> diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-> index 97d7b8106869..e927d18d1ebb 100644
-> --- a/sound/core/memalloc.c
-> +++ b/sound/core/memalloc.c
-> @@ -545,7 +545,7 @@ static void *snd_dma_noncontig_alloc(struct snd_dma_b=
-uffer *dmab, size_t size)
->  	// sgt =3D dma_alloc_noncontiguous(dmab->dev.dev, size, dmab->dev.dir,
->  	//	      DEFAULT_GFP, 0);
->  #ifdef CONFIG_SND_DMA_SGBUF
-> -	if (!sgt && !get_dma_ops(dmab->dev.dev)) {
-> +	if (!sgt) { // && !get_dma_ops(dmab->dev.dev)) {
->  		if (dmab->dev.type =3D=3D SNDRV_DMA_TYPE_DEV_WC_SG)
->  			dmab->dev.type =3D SNDRV_DMA_TYPE_DEV_WC_SG_FALLBACK;
->  		else
-> ---8<---
+> bindings/sound/renesas,rsnd.example.dtb:
+> sound@ec500000: port:endpoint: Unevaluated properties are not allowed
+> ('capture', 'playback' were unexpected)
+>         From schema: bindings/sound/renesas,rsnd.yaml
 
-Unfortunately, the above doesn't help. I mean, I don't get an error
-anymore, but no sound output either (even though pavucontrol says I
-should hear it). So, it's like the original issue, but without any
-delay, just straight from the start.
+Now I'm posting the patch for it.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+	https://lore.kernel.org/r/87358hj2ub.wl-kuninori.morimoto.gx@renesas.com
 
---DZT1vfsoSyjwyXKB
-Content-Type: application/pgp-signature; name="signature.asc"
+Thank you for your help !!
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPJ+14ACgkQ24/THMrX
-1yyjJwf/dYqiARRQHpYXQ/3Up1GFmZMb2dUqC7U3HZ0lJekSKitvWCnFWaS/ud0R
-wq3hQRUn7oJDvns2VlcRf9OIT66VGsYh3oILYWpyFcw/EYzPcG2ybXggbyj/og0l
-OXYWX/RRqojJwbKe1/qdvSRFgVZS1h5H6RWahzlH+46vuhnwLnHlFcRY2CPvzakm
-s7KH2Cg5AwVR9sDglkKZVC28QzIxhn47gktIUSnWWG5Tpj7VRo7Z8VbqMh9xqABP
-buO0hgB7pW3b6GuVOspy2cBd2PQCSGUUV2T8At+4pDy5Y/39GR0vkMcKd2fN/Fnn
-MqrDSYX5tYqljOADeMzKACEdXGiksA==
-=u46k
------END PGP SIGNATURE-----
-
---DZT1vfsoSyjwyXKB--
+Best regards
+---
+Kuninori Morimoto

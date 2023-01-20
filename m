@@ -2,107 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447D3675034
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 10:07:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2A06751A1
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 10:51:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 446EB2F6A;
-	Fri, 20 Jan 2023 10:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 446EB2F6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36BA32FEF;
+	Fri, 20 Jan 2023 10:50:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BA32FEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674205649;
-	bh=w79DVaXrHnyraGFT5ZBwAtxG+cPulvZJxuU7EmcVMbw=;
-	h=In-Reply-To:References:Date:From:To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=C+QiReWexfRyWHfibQyli5hflr/WdmBOZDx2XYZ2TpAbOvM2XA2bbCA2+QHrZUDlb
-	 yCMdGj+2TMXAvwE7zPH9UJmejtvYEfvCCtXzcX9lpEwZuitUjn6t+B7N0+WWM/8x0U
-	 XR2l1np3ih0uGkODN6oc2Rc7L+2nH3relxa5qaEM=
+	s=default; t=1674208302;
+	bh=X81Q/bt3eC/BuNr9iHLnfRHrufHa/iKLRfKSNSW98yc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=XBs5nUbFd9j82OX8SpfP9tpwUIPDXMjZX3eggf3hru/f9l7LXW41TZvFaaxNnIXRw
+	 XGcJbcSmzOs/IPCL5vJGojJicDohQ7oSV+FVP7Ob4cIdF72p+bAbfHKV23cJgI8cG+
+	 6Kta6kUpOoPG84/X1BKE/J+Es3XsuJPPo2TcHY5I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C747CF804A9;
-	Fri, 20 Jan 2023 10:06:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B01C4F804A9;
+	Fri, 20 Jan 2023 10:50:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 749CCF800F0; Fri, 20 Jan 2023 10:06:36 +0100 (CET)
+ id 9DAF6F8026D; Fri, 20 Jan 2023 10:50:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ECBBCF800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 10:06:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECBBCF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de
- header.a=rsa-sha256 header.s=fm2 header.b=ZlhYy8M9; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=Mr/ryk1k
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id D50965C00CA;
- Fri, 20 Jan 2023 04:06:29 -0500 (EST)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Fri, 20 Jan 2023 04:06:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1674205589; x=1674291989; bh=tWpnQxdaIe
- bR2vFTYRJDrsRnibO6QCYzydQzBInxGiY=; b=ZlhYy8M9iRVinsdEPBu3dK4cYM
- lsH48zEfMvo/b8iZ0yFGJW6cH0n96N7woZsxAI9lqvsi8pe1lX6oI11vLbEKCeFn
- Io0/yI2YrgQD0uZzDxbEfB48yl43H5l6+Ag/kkyjuz1U636nZcT9vDOG3l+TbXo8
- Pdq2U60OVmxO4YBm/Icjww0tMKWqSfd/zeGXShU+sHuWOEcsVdWu15jB3WxgXwQz
- u5ZVTN5RMZZevxkkweHTsWTgmUZh2RTawvAd9Z2GYXvSvxijoB0fcBxa7+emZuny
- T53I9Tw5RQ/SpA/32Jgfs2gLytOjeWsVoAqbO4QMjzXKnMbrX7kaHsX+iNrw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1674205589; x=1674291989; bh=tWpnQxdaIebR2vFTYRJDrsRnibO6
- QCYzydQzBInxGiY=; b=Mr/ryk1ktCsXUeJMJo5VUad5iBAIkJkm3w7+my0oMYlM
- qi7VSwH9m7FMsNV1ETwSFt55OwzEe9axQH8fJDD/tHNfhrnnrIsjWsE3ebfFLUwy
- gbn7yKXv6bRDgK8pmTksshwbvj5Sns5nezmyW5iHUOMUQdwMo2KTqE0eWZFwXXec
- QRQUzIRlohMaMH5v2DgTuH/EDShQPdIgmq4EX7xdoYcHqXUOBY1xcgzQRwLi56zj
- Fxdy/m0JJJ08UrOeXABWALUbFQHC0fr1nushNxDIY6/hat+mQ6o1ZJXVNfERi7pN
- H9yl+E8+CDUEmrBFBH+T83tssAl3kn7q21LG4SsP4A==
-X-ME-Sender: <xms:lVnKY9mn4XMOKeLMLqdsNLT2HLfZa5kr2HU9xARgwlEaunuQgucd7w>
- <xme:lVnKY42J40UbF22QfjPz0fEqc9PLc9_g6_c5jEtJw-XmB3JQ-sVCz2vSGWD-7kzse
- HOn75xDzUSbGEn06SQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudduuddgudeftdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
- rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
- htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
- keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grrhhnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:lVnKYzqX0jokflOnT4bvbeWh5Hfw5Jn4jQwzfb76oY4k8WiduGeh9A>
- <xmx:lVnKY9nr4zlVnsnJYXWJvNJbZS9QwG-LoENZBVXbEwTeqWSUUyn81Q>
- <xmx:lVnKY70lQEJ_8W0--wa79jubU5IbLOiIyY7FhXvKYW_8Bb_vdbvVXg>
- <xmx:lVnKY0uhn9xLi7xQvQ2ma-5mgaTApvhnCJeUxFkjTv-qUdn-AjDfeA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 939BCB60086; Fri, 20 Jan 2023 04:06:29 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-85-gd6d859e0cf-fm-20230116.001-gd6d859e0
-Mime-Version: 1.0
-Message-Id: <99519eb0-399d-4972-ae09-955a34830b55@app.fastmail.com>
-In-Reply-To: <Y8l21Kb42l2ZcIC+@sirena.org.uk>
-References: <20230118161110.521504-1-arnd@kernel.org>
- <Y8l21Kb42l2ZcIC+@sirena.org.uk>
-Date: Fri, 20 Jan 2023 10:05:59 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
-Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
-Content-Type: text/plain
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2513FF80246
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 10:50:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2513FF80246
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=cV+FiBTW
+Received: (Authenticated sender: herve.codina@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPA id BF483FF810;
+ Fri, 20 Jan 2023 09:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1674208243;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lhmoz3o5whEWeMQjpRNQYi4NdVypuHsB2pUQfSBp09A=;
+ b=cV+FiBTWA5HBwpddXDbEkqJt1WcV6bG6R1zMmPTLcBKYWDOp/IY5jF6dl2tlqf+guLHUhA
+ ymJlJIAbqVlnZp8N5BBTNfMfwagzJjQ3iFAvXLfe5bAuYUTBPk1oQJqKj4trCYL64b5TUa
+ gZKpI5UO3nHyi1fL+jg7o6CZYjkzsdqZvFG8wEAvgqy113s2lMKZQ2DKyTeq7TfN9Vh4uU
+ N4P87OdGkme28/3mgoYkjjkX7Wqm7IlFa+GyvKDxBQMlYUnDBRxNNW5qtFyAg8R+unKmpu
+ 4yvLSt5HuLWCiAwdsj/+LDG8BS6w0kBskS64+FJ//i5azLpKZhyJ5iPCsHVzeg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2 0/3] Add the Renesas IDT821034 codec support
+Date: Fri, 20 Jan 2023 10:50:33 +0100
+Message-Id: <20230120095036.514639-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,33 +81,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ linux-gpio@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 19, 2023, at 17:59, Mark Brown wrote:
-> On Wed, Jan 18, 2023 at 05:10:45PM +0100, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->> 
->> This data is no longer passed by the platform code, so
->> there is no point passing it down at all.
->
-> This breaks an x86 allmodconfig build:
+Hi,
 
-I see, this patch still depends on the s3c24xx removal, which
-is in soc/for-next and I used for testing. I see a similar
-problem with the MMP platform in patch 2/5. The series here
-is mostly older patches I did a while ago and rebased on top
-of the boardfile removal, but it breaks when it gets applied
-first.
+The Renesas IDT821034 codec is four channel PCM codec with on-chip
+filters and programmable gain setting.
+It also provides SLIC (Subscriber Line Interface Circuit) signals as
+GPIOs.
 
-Unless there is anything in here that you really want to apply
-for 6.3, lets drop all five for now, and I'll resend it
-after the dust has settled on the boardfile removal.
+Based on previous iteration:
+  https://lore.kernel.org/all/20230111134905.248305-1-herve.codina@bootlin.com/
+the bigger change is the codec driver rework in order to remove the
+regmap virtual registers layer.
 
-     Arnd
+Best regards,
+Herve Codina
+
+Changes v1 -> v2:
+  - All patches
+    Reformat commit log
+
+  - Patch 1
+    Remove '$ref: /schemas/gpio/gpio.yaml#'
+    Use 'unevaluatedProperties: false'
+    Update the node name and remove the sound node in the example
+
+  - Patch 2
+    Change the file header comment format
+    Rework in order to remove the regmap virtual registers
+
+Herve Codina (3):
+  dt-bindings: sound: Add Renesas IDT821034 codec
+  ASoC: codecs: Add support for the Renesas IDT821034 codec
+  MAINTAINERS: add the Renesas IDT821034 codec entry
+
+ .../bindings/sound/renesas,idt821034.yaml     |   75 ++
+ MAINTAINERS                                   |    7 +
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/idt821034.c                  | 1200 +++++++++++++++++
+ 5 files changed, 1296 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/renesas,idt821034.yaml
+ create mode 100644 sound/soc/codecs/idt821034.c
+
+-- 
+2.39.0
+

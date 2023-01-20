@@ -2,114 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14103674E38
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 08:38:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16518674ED7
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 09:02:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BD882E5A;
-	Fri, 20 Jan 2023 08:37:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BD882E5A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90B5C2E84;
+	Fri, 20 Jan 2023 09:01:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B5C2E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674200295;
-	bh=B6Kxjq+MaHtAv8vtoRKQymp8UXhlkMgsuOFH7tc4q8M=;
+	s=default; t=1674201732;
+	bh=KdobaH4syO7V+kdAWH+wnONXay4qKevv10bWKbL7ssQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pvye33XwWyszOvUaw7giT1tH4sLVeIYUcFZ5Ylfe2YanrMKKHMxtDH+GuLegaWqD9
-	 urRzwa4FSl/NWgJXaVH8iIXzWd5J9qqzY5xob2vD2XsOXkoHhDZGEPhhI6SWgsZGms
-	 B3dthaIGmMjJ4cl0Pv2RGkv7tYL7m1sHVp6vx02Q=
+	 Cc:From;
+	b=axEAc8Yz2RHe9B5kqUuDgnnTH8AYAaBd8zlrzUP3wI0GHY7KbFTj7S1SbLGlZqztG
+	 wAOX8epQYjExvXl+IJy3HM+k8eOyUvEDacDLyHlsm1mlDo7NdCnH9ii6PgCMlVMBhF
+	 oSE7UBMsYgra9S6INZbsLR+lvgCpG+Ionu0ltjho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CB5BF80246;
-	Fri, 20 Jan 2023 08:37:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF8A5F80246;
+	Fri, 20 Jan 2023 09:01:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69706F8024C; Fri, 20 Jan 2023 08:37:16 +0100 (CET)
+ id F0F96F8026D; Fri, 20 Jan 2023 09:01:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2C13F8024D
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 08:37:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2C13F8024D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41247F8024C
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 09:01:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41247F8024C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=STsjpiGb
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30K7UiDM012953; Fri, 20 Jan 2023 07:37:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=T+HRskxYu1v9Bh5a0v2OBHQYbed3GESNbOqvsftlHyk=;
- b=STsjpiGbsSLJL3G0unLvsaid7PcrnqNTLqFarwvimj/7T10gfdMX77q2yeIYr3fi16mH
- k3GnioLhekiZgDb7w8xagGCIc5Aq7QA1RhN5+jvBJh2SPBuBl1Y8CrdwIHmmmRPqhUo+
- 7UCGaq5E7AeAvOkVnVuToedgl1CHMw8cMMuReQvABicycaI3mXvTmFojgnDi/5C6PiKK
- p5DaOue+6WpFLsiOCoclhUnA2LV81ZKl1hFYaPZ5hNUyvx+oeWVHm3rYuxq5CGVFTX2g
- sbclNx2ejdcXkkX0FPGi0YklMkduIlrP1BOqo/lo/qDbHjzHoXfP7WyLRBC6oNME7hVI RA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3n6xktkaag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 Jan 2023 07:37:02 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30K7b1f0000598
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 Jan 2023 07:37:01 GMT
-Received: from [10.216.43.228] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 19 Jan
- 2023 23:36:55 -0800
-Message-ID: <9c4d2ce8-11e0-bfbb-7062-078255d1d60b@quicinc.com>
-Date: Fri, 20 Jan 2023 13:06:52 +0530
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=mRJ9gQP1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674201670; x=1705737670;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KdobaH4syO7V+kdAWH+wnONXay4qKevv10bWKbL7ssQ=;
+ b=mRJ9gQP1Yb1s0IIGDQViefequWrCdEsy4rh/rbAZObk6RNSpw4Be1dwZ
+ l5A/yrJvKZbPeW/pjbhQrvTVS/1Hl36nSMSpCs4yc4b1dyvtDpFE+2MFW
+ 2qsK4W9j8CpXINLVRf+ujd/+xlH24b+QQ7oxwjcSwx8VilUPQEfmiTzfP
+ 0VzX08BtWeVbuiUbmfyf6HVEzNUrkbtpzpP+jQZdmw45bS/iv99iPTAqA
+ 8/U6yTuZt+IJXsceCjZzfhVWpQjJyZzHb9/19so3zW3lexsCztNL8MLbQ
+ dD7ea/5IHoPmAWjuUPqUBqgs3uSkv3Z1MnF5kboe5SiZcJ+/0gwDyTKW2 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="305894442"
+X-IronPort-AV: E=Sophos;i="5.97,231,1669104000"; d="scan'208";a="305894442"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 00:01:03 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="660505480"
+X-IronPort-AV: E=Sophos;i="5.97,231,1669104000"; d="scan'208";a="660505480"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 00:00:58 -0800
+Message-ID: <6f047ec5-4055-761d-c1ea-c2d0b606e53a@linux.intel.com>
+Date: Fri, 20 Jan 2023 09:00:55 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 2/3] ASoC: google: dt-bindings: sc7280: Add platform
- property
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 22/25] ASoC: soc-dai.c: use helper function
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>, <agross@kernel.org>,
- <andersson@kernel.org>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <robh+dt@kernel.org>, <quic_plai@quicinc.com>, <bgoswami@quicinc.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
- <quic_rohkumar@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
- <swboyd@chromium.org>, <judyhsiao@chromium.org>,
- <devicetree@vger.kernel.org>
-References: <1674108674-8392-1-git-send-email-quic_srivasam@quicinc.com>
- <1674108674-8392-3-git-send-email-quic_srivasam@quicinc.com>
- <f0c5e40e-e59d-152d-31f1-1ad3da0a6d34@kernel.org>
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Organization: Qualcomm
-In-Reply-To: <f0c5e40e-e59d-152d-31f1-1ad3da0a6d34@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87a62dlmmn.wl-kuninori.morimoto.gx@renesas.com>
+ <87edrpk7qb.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87edrpk7qb.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: _wR1aeK0lfk6LSFW66KY625n85nZc-Ax
-X-Proofpoint-GUID: _wR1aeK0lfk6LSFW66KY625n85nZc-Ax
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-20_04,2023-01-19_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- clxscore=1011 spamscore=0 mlxlogscore=999 lowpriorityscore=0 bulkscore=0
- malwarescore=0 priorityscore=1501 mlxscore=0 phishscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2301200071
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,57 +92,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Heiko Stuebner <heiko@sntech.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 1/20/2023 8:03 AM, Kuninori Morimoto wrote:
+> 
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> Current ASoC has many helper function.
+> This patch use it.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>   sound/soc/soc-dai.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index 29a75fdf90e0..e01b87ea04d4 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -267,6 +267,11 @@ int snd_soc_dai_set_tdm_slot(struct snd_soc_dai *dai,
+>   			     int slots, int slot_width)
+>   {
+>   	int ret = -ENOTSUPP;
+> +	int stream;
+> +	unsigned int tdm_mask[] = {
+> +		tx_mask,
+> +		rx_mask,
+> +	};
+>   
+>   	if (dai->driver->ops &&
+>   	    dai->driver->ops->xlate_tdm_slot_mask)
+> @@ -275,8 +280,8 @@ int snd_soc_dai_set_tdm_slot(struct snd_soc_dai *dai,
+>   	else
+>   		snd_soc_xlate_tdm_slot_mask(slots, &tx_mask, &rx_mask);
+>   
+> -	dai->tx_mask = tx_mask;
+> -	dai->rx_mask = rx_mask;
+> +	for_each_pcm_streams(stream)
+> +		snd_soc_dai_tdm_mask_set(dai, stream, tdm_mask[stream]);
 
-On 1/19/2023 5:43 PM, Krzysztof Kozlowski wrote:
-> On 19/01/2023 07:11, Srinivasa Rao Mandadapu wrote:
->> Update sc7280 machine driver bindings with platform property for
->> supporting ADSP based platform's DAI links.
-> Subject:
-> ASoC: dt-bindings: google,sc7280-herobrine:
->
->> Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
->> Tested-by: Ratna Deepthi Kudaravalli <quic_rkudarv@quicinc.com>
-> This tested tag is a bit unusual. How were they tested? If
-> dt_bindings_check why this is not the same person as you (submitter)?
-Okay. Will remove Tested-by tag.
->
->> ---
->>   .../devicetree/bindings/sound/google,sc7280-herobrine.yaml    | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
->> index 869b403..ccf1b1d 100644
->> --- a/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
->> +++ b/Documentation/devicetree/bindings/sound/google,sc7280-herobrine.yaml
->> @@ -75,6 +75,17 @@ patternProperties:
->>   
->>           additionalProperties: false
->>   
->> +      platform:
->> +        description: Holds subnode which indicates platform dai.
-> Neither commit msg nor this here explains why do you need it and what it
-> really represents. Basically description repeats "platform" name of
-> property - there is no single new information.
-Will modify accordingly and re-spin.
->
->> +        type: object
->> +        properties:
->> +          sound-dai: true
-> maxItems
-Sorry. why max items required here?
->
->> +
->> +        required:
->> +          - sound-dai
->> +
->> +        additionalProperties: false
->> +
->>       required:
->>         - link-name
->>         - cpu
-> Best regards,
-> Krzysztof
->
+Does this work? There are functions earlier which modify the values of 
+tx_mask/rx_mask and you copy their old values on tdm_mask[] init?
+
+>   
+>   	if (dai->driver->ops &&
+>   	    dai->driver->ops->set_tdm_slot)
+

@@ -2,109 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C971A67547C
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:30:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 353D2675490
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:33:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 587E431F1;
-	Fri, 20 Jan 2023 13:29:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 587E431F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E47531F1;
+	Fri, 20 Jan 2023 13:32:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E47531F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674217846;
-	bh=9WBnXH/2XKLFhe2TJN1HH5X+qHzvn4D+oPTPzTwnbxQ=;
-	h=In-Reply-To:References:Date:From:To:Subject:List-Id:
+	s=default; t=1674217982;
+	bh=qHlpnuZc/1TU4LoeJdx4/XW/ITx0Lff/PERzrx3Vhk8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=p95XZYVPwQ1/1kK0zd4Fcn64zhMgZg9QY/GNCsoYUs2vCRGDAhiDSTeYpHiotgvDX
-	 gjmMXp5sMH8qNVseVl4rKrBS4tUNNl2KTNxyBaSv9PltU0HEHCExRLVxE3Mm+QgpA8
-	 2QDy6KEQnf45gAks4luGvEYbvy/5gT52TF0sL6ZY=
+	b=DlcFVNvqVNsJZUUBi8H4qhJtQ2xqhdVWStcR8sijcLeUi1seFEnpUNJLTJolgb9jS
+	 91ZjnOR1IMII+LHqtiCKFAbonMOxQHObPPHpBkQ/IP9RJ/gH+4QSQzLFhg3YlavB2a
+	 wz4phKRBD/eZTPTyZl/B25exi+cYgJjjgfnaViJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC87DF800F0;
-	Fri, 20 Jan 2023 13:29:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55113F800F0;
+	Fri, 20 Jan 2023 13:32:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F14EF8024D; Fri, 20 Jan 2023 13:29:47 +0100 (CET)
+ id D5AC1F8024D; Fri, 20 Jan 2023 13:32:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09B49F800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:29:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09B49F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de
- header.a=rsa-sha256 header.s=fm2 header.b=rux4CAb4; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=sNkbFT26
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 4E16B32007F1;
- Fri, 20 Jan 2023 07:29:35 -0500 (EST)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Fri, 20 Jan 2023 07:29:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1674217774; x=1674304174; bh=T7pXkt1im0
- XkgrRF7s8ug2WaTIjQhbFut8+JpcuyoNU=; b=rux4CAb4H6VEAOuKVya4Y9UqMg
- BOBFVAHKYqkNOzJDynMNzhUSHRE1HqJeJCz0Slqyfgq198hMGQOzGdRT3DxT6Xc7
- Nx0CumAqQFrWfyB0bXBU5Vfqj+LBmNG+8QFI9e//9Cn469sF+dubbdoe54C8NMEd
- LeO7d8VusS2P4/wTaRrYBcNJTwYrpV89skgIONCUE4kwJ3LStM3TI3Pk004vhK5J
- ht1CzQOrORrhngvnFA9P8//1xp9Ge3pQQcVBkDkguTxAYHmY1UciDtNEJvGFetnm
- m7sbCIevPrJ4eF/tQPR/5CCeQsc+sZuKLquCF1V+dAXYlzAxv3IuDZlcwhMA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1674217774; x=1674304174; bh=T7pXkt1im0XkgrRF7s8ug2WaTIjQ
- hbFut8+JpcuyoNU=; b=sNkbFT267yRDW9bP+T+i+ckNdAcxUHgwzJBehoZUOqGq
- 8aZla/P6mORJB3xaWxhMrN9VIamPtRWGZmSFSEIlLtTRGorcK4ewLZbZ5K3eEzIV
- 3fTcUOKQ5dOit4cCrlUuorDWTYWP9Cs+p4IFqHkkZmhoqzwwjIe93MkWJEdzBer2
- 60d7V8EnTmdDopW4MdZlF/EHKdEPULiBGovr2f/oQ4S65RzVhPOV/pxkyjaQpjIJ
- R8K8s4xwGvpDmQ7yvrBOk8Jk/oNPQ74akUEBwTKIEFh5eXYOXGqLg/5eQJTgguwb
- dli3bXcJx3EYDgSsURWgvWnzlUsL8QxXg+L0PNZdUw==
-X-ME-Sender: <xms:LYnKY2TKEF3GHUWc4BWosOGUu7U_HTsIxYOarmm9sgjZRKmal0ZCnw>
- <xme:LYnKY7wgIkpUs01AVxd__e6iFQT1Au4yiiK3M-mO41VY1z3aoQtQpK1ejsi_5HHzj
- sXowEuuoJe9TElhpvY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudduvddggedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
- teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:LonKYz0woWZD93l9h2XtQvnhbEC_CViAEOxH_HIgzLqMNgZL86NN8Q>
- <xmx:LonKYyDEFyczK02lHcLJXAdFQz9yt61hp9l6Q6AjfPgBxItVgnuPtw>
- <xmx:LonKY_gFF8nPjA2Lg6LhCCi7B9qvb0koAwloZGV42dY5P-a1B1f_Zw>
- <xmx:LonKY0YGq4Gum6EUr0JDNjAG6NlVvArXj4FT3L2S8FXkeIWoO7KIug>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id E0639B60089; Fri, 20 Jan 2023 07:29:33 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-85-gd6d859e0cf-fm-20230116.001-gd6d859e0
-Mime-Version: 1.0
-Message-Id: <e70c12d1-84e8-40ff-8ee5-075960497305@app.fastmail.com>
-In-Reply-To: <Y8qECf4CgsNkLNho@sirena.org.uk>
-References: <20230118161110.521504-1-arnd@kernel.org>
- <Y8l21Kb42l2ZcIC+@sirena.org.uk>
- <99519eb0-399d-4972-ae09-955a34830b55@app.fastmail.com>
- <Y8qECf4CgsNkLNho@sirena.org.uk>
-Date: Fri, 20 Jan 2023 13:29:13 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Mark Brown" <broonie@kernel.org>
-Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
-Content-Type: text/plain
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A2E5F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2E5F800F0
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Om3QHFd7
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30KBhexR013434; Fri, 20 Jan 2023 06:31:55 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=ISvx4QPRI255I7DbCcL2cdTfvRFtbsUPzekrvWHQ+0k=;
+ b=Om3QHFd7YBZM5pgGz0DkO728Rxk972BYum+K1mr7NtM7gtKqPLiEz/XC7mwLPZCQ+9Ni
+ 8JTJwpQHfEJ5u1qteezgPotZK6Fq4kE75AW/BJEriCCtZvLceTy6Uvax+g3Hel08UCPR
+ EcG70RN/2r2pgGnuH7vuAAa7iAowQXzGfgbteasMEAKPhlSgthukS8A1CeXzkpM7HjlM
+ f0Ba1PNRPS8/PBLDNsiLJCMJPoQmP0ZmF3gX/ThmrQdBqJA9wm5PAetE33zHXGlQwW3x
+ fsZKIrvm4UTLhODdmbZqBksMXeXlcMwfIY5NFlzOqvfAdBXhR9x9d7svW8JkZ9dUtOom 8g== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n3tp6hwt6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 Jan 2023 06:31:55 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Fri, 20 Jan
+ 2023 06:31:53 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Fri, 20 Jan 2023 06:31:53 -0600
+Received: from [198.61.64.248] (EDIN4L06LR3.ad.cirrus.com [198.61.64.248])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3F6562A1;
+ Fri, 20 Jan 2023 12:31:53 +0000 (UTC)
+Message-ID: <a082e0c9-64de-3e27-5889-0207944aac85@opensource.cirrus.com>
+Date: Fri, 20 Jan 2023 12:31:53 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 6/8] ASoC: cs42l42: Add Soundwire support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Stefan
+ Binding <sbinding@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>
+References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
+ <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
+ <33130336-b2ce-330e-fdec-166eee977e13@linux.intel.com>
+ <418f6b73-b5ac-8d87-a856-3413ec103f91@opensource.cirrus.com>
+ <6ea1b85f-22e2-8744-9638-6321a5a21acf@linux.intel.com>
+ <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
+ <c45d34ba-1aee-16aa-1ccf-79c43c8c4ed4@linux.intel.com>
+Content-Language: en-US
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <c45d34ba-1aee-16aa-1ccf-79c43c8c4ed4@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: wxr_x9Qw8jM7HfxAM-NY7ZLJPgiRK8ao
+X-Proofpoint-GUID: wxr_x9Qw8jM7HfxAM-NY7ZLJPgiRK8ao
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,34 +104,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 20, 2023, at 13:07, Mark Brown wrote:
-> On Fri, Jan 20, 2023 at 10:05:59AM +0100, Arnd Bergmann wrote:
->
->> I see, this patch still depends on the s3c24xx removal, which
->> is in soc/for-next and I used for testing. I see a similar
->> problem with the MMP platform in patch 2/5. The series here
->> is mostly older patches I did a while ago and rebased on top
->> of the boardfile removal, but it breaks when it gets applied
->> first.
->
->> Unless there is anything in here that you really want to apply
->> for 6.3, lets drop all five for now, and I'll resend it
->> after the dust has settled on the boardfile removal.
->
-> I'd left the ux500 stuff running through my testing, no
-> particular urgency just it saves rereviewing anything.  Assuming
-> it's fine (seems so thus far) I'll push it out.
+On 19/1/23 16:27, Pierre-Louis Bossart wrote:
+> 
+>>> You lost me here. Are you saying the soundwire bus clock is only known
+>>> in the prepare stage?
+>>>
+>>
+>> hw_params() doesn't know the Soundwire bus clock so it can't do the
+>> check. We need to wait until we have both the sample rate and the
+>> chosen SWIRE_CLK.
+> 
+> Yes, makes sense. I forgot that all the stream management and bandwidth
+> allocation takes place in the prepare stage at the dailink level, and
+> the dai prepare happens after that. Thanks for the clarification.
 
-Yes, sounds good to me, I don't see any risk of missed
-dependencies for that.
+Also, this isn't validating the params passed by the application.
+The application cannot pass us "bad" params that would cause pll_config
+to fail.
 
-       Arnd
+The only way the pll_config could fail is if the SoundWire core code
+chose a SWIRE_CLK that CS42L42 cannot support. This should never happen
+and if it does it means there's an error in the ACPI or the machine
+driver.

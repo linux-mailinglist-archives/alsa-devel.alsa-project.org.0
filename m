@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706CF675896
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 16:31:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55E4D675897
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 16:31:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DABE3301;
-	Fri, 20 Jan 2023 16:30:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DABE3301
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE2D9333B;
+	Fri, 20 Jan 2023 16:31:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE2D9333B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674228691;
-	bh=OPWCSzL0kgX3MhQNHssu5JAZAbXOa5rX7yTE8Hagm8Q=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s/Dg0ZONkVDFPCEFCITXNJm7nNEJOvtMKCSnTSdDgvTR86ynt1WPvbW+JfNiyV8VP
-	 mis/GC6wgWeZ/lO2BAS/zzX5ZqfrlenbHN/obuZw6itoYahnffbxoAqWRbOaFaedVW
-	 Zg39B7ZbpBm4QEmo+2Hxay1FH9cvJ+y0mCTLd3r4=
+	s=default; t=1674228717;
+	bh=gte6EMLgKAgmVFUq+EX5ihh4HFxZhYxU0Fvsdi0efTg=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=t7oI63UV0xs5bFyJsvROjl/9sPINgFIrsQCvBVJ5ArAKz+jGsX3kdsT3ytmyknfNP
+	 XnPFVIaOIRLXQZktqJG7Q9IOYdQqO2oaJHypAc8GZ+dlm7laT6HFiNNGXRY0f0CXXA
+	 KpBF7JuDIPkuXYNsYxQeByaSk57+pr/rcitNPNz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 675D2F80495;
-	Fri, 20 Jan 2023 16:30:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E11AF80246;
+	Fri, 20 Jan 2023 16:30:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F4DDF8026D; Fri, 20 Jan 2023 16:30:31 +0100 (CET)
+ id 503B9F80246; Fri, 20 Jan 2023 16:30:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3DE6F8024C
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 16:30:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3DE6F8024C
+ by alsa1.perex.cz (Postfix) with ESMTPS id B59A3F80246
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 16:30:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B59A3F80246
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=vEo7y196
-Received: by mail-wr1-x433.google.com with SMTP id r2so5171353wrv.7
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 07:30:25 -0800 (PST)
+ header.s=google header.b=s0azl5fc
+Received: by mail-wr1-x42f.google.com with SMTP id h12so1180042wrv.10
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 07:30:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=xuVxCSRKQLNd9GgHEZgvIYxMnKDSeW8InDAdMgr5zKo=;
- b=vEo7y196UmHH2AcUarKpqDKid/Y8IQovAOBy70QKBeuru3MA4/Lrq4W1ZIlPjMWBbx
- JzVNe4vLkufAmIAjnyjlQm0480nLGW74Rrowz9XFXsRblQ9qCf1I7ajzzT4tZqekoUiX
- najS9Zl1WiXcAcd5CX7q4BqxqdSIENheyiSm8mfn+W4n+JEfOAZiyUJsr9PTtaTFdUpj
- +QcU0ooNWCeS1F2aZRf2v9s++sj1SniItwkRCO7vPfRaLg8X0N5320l4UQAIvYdkvd9J
- W0x3GKtRdBJ6krbIKaUmuJXebzcLT38LU1/0jYUMzbz6hd3WFYZM6n8PRchDJrxzZjAk
- VAlQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=CSUzHZD5LBKJ/g0Aj/l6k1M45nF+70c3QfWVTVNtyEc=;
+ b=s0azl5fcwGm0b+MKCDTVQOHFd7Si70F6Gn9ADXnrY3sfUu1UZuBbpVYt4JONmM1o/8
+ QtTTQkWVOV4208Os9+WQXmBjmRChaZpQqO8d1m+QswUS7RfLtEAvfYwXQlEwqunGwCW8
+ QP1efwv2QGe9Wpy/xtDWO8FJiUWsG4ISaWiCZUQkSr1MqRfHUdftiFAVLTMT8ZDNpZ5U
+ dkYz3jU7wmZ1CmnFq8IK3Sx2vL0Unpih639jKQLtu+aHDqbQsVLkyPa4AiiMw60999Ox
+ Xu3cfybEsWLpoCDLSpjXR3lFqIB8gSnUET9CbgqBvAwx9edeq2538ce45ikLiWtWkqlJ
+ dANQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xuVxCSRKQLNd9GgHEZgvIYxMnKDSeW8InDAdMgr5zKo=;
- b=bXhGOfDBFJc5o43KkPf3Ri411vqPW8gpLoEjXQc08aDyid1DKX6Egh0HevN99fPTA5
- bJy5TOOzbjCPsNdOOLd8tUpi0xKhTpjwcV2gBmRdCtDm60hfd5517wxrxW0wbynIRN7Q
- 60NTnCpCfldWdR8HO7XaSRcTGYWEdH6k0MALw6v9bliG4f+b/uEcKRaHY2PoyAnwdexM
- KqPZjM1xqTLzuRogTUlJv371ZJMBMi+RB6o5PA0pYJZrN9IHlX3EvGqTR3Y1IL2X3Evk
- WNKv3/tWOoIqYqkXPzfPkU5FEn2+2XzGorNHn/48bcnb5dp1kNRyMGMefO9Qmr9j2YhO
- SVJA==
-X-Gm-Message-State: AFqh2ko+5Y1xM6Jioi+FD2KELeP9km4mDO63ykwWuN0GzAzjOnr4VO0v
- d1rWbn/pCdt0E5Z9yexDbeHrCw==
-X-Google-Smtp-Source: AMrXdXuDedGGPCSe3AnMnFgzhlNaMnZo41l2cd67+nrDKJOM0Ns+kQBgKLcaTxjfW8Fmj1xQCQz/Uw==
-X-Received: by 2002:a5d:6a4f:0:b0:2be:596a:2029 with SMTP id
- t15-20020a5d6a4f000000b002be596a2029mr2694330wrw.29.1674228624063; 
- Fri, 20 Jan 2023 07:30:24 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CSUzHZD5LBKJ/g0Aj/l6k1M45nF+70c3QfWVTVNtyEc=;
+ b=Uw8nvG5ZkaZpOlwhopxbnKxkYLFb95SblpavNDLTmzdizDRv1uGIJBMrUHNfbWCLIx
+ yk221TRK0GGxBq1lzEl/AM4+zE24nJNYu2WwL6fnd2FTOxANHz9jKLTmubkgXLZ95ms0
+ Y7QDJVFJlDOv4GCZHo4o/F6Wv5SsuxPUK3Ec9/E8qTQ0mmr9v7Atv01iRfnl5rf0Nd3Q
+ 1ds9+woy2S1JNGyUFnRXVqTFKv8hGUYQAxOPEMBEdgwcnVaP2nUq2jUdrUqSfSyYIBrm
+ 26RqFqtLVstxIc9QZogFRaq7vGy/A+CklC/Uyf7a6O3LSXQa5ycgKYRTLHJ31SVtL7eS
+ hCYQ==
+X-Gm-Message-State: AFqh2kruN2Htu1epgyvITFCt4c22Tulc1iOuyRxm00HVIKj4xADsS0pj
+ Be/3WX4pWqvLJF9l7gW1zLmYNw==
+X-Google-Smtp-Source: AMrXdXtjFXEFy4S+oOquTBe7z/6bYcrA51xEzgiLxJ73uN7p9eekRWSBewsGXzfVek6fmjkEbR7t4A==
+X-Received: by 2002:adf:f2c4:0:b0:2be:3503:2dcf with SMTP id
+ d4-20020adff2c4000000b002be35032dcfmr8215441wrp.44.1674228625836; 
+ Fri, 20 Jan 2023 07:30:25 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- w5-20020adfcd05000000b002bdc914a139sm27656470wrm.108.2023.01.20.07.30.22
+ w5-20020adfcd05000000b002bdc914a139sm27656470wrm.108.2023.01.20.07.30.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:30:23 -0800 (PST)
+ Fri, 20 Jan 2023 07:30:25 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
@@ -82,11 +84,13 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] ASoC: dt-bindings: samsung,
- odroid: correct codec DAI phandles
-Date: Fri, 20 Jan 2023 16:30:19 +0100
-Message-Id: <20230120153020.320270-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 2/2] ASoC: dt-bindings: samsung-i2s: drop unneeded
+ assigned-clock*
+Date: Fri, 20 Jan 2023 16:30:20 +0100
+Message-Id: <20230120153020.320270-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230120153020.320270-1-krzysztof.kozlowski@linaro.org>
+References: <20230120153020.320270-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -104,31 +108,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The order of codec DAI phandles is reversed - first comes HDMI (always
-present) and then codec (physically not present on Odroid XU4).
+assigned-clock-parents and assigned-clocks are coming from dtschema, so
+there is no need anymore to keep them in bindings.  Their presence were
+also causing false positives:
 
-Fixes: 97709d365bbd ("ASoC: dt-bindings: Centralize the 'sound-dai' definition")
+  exynos5422-odroidxu3.dtb: i2s@3830000: Unevaluated properties are not allowed ('assigned-clock-rates' was unexpected)
+
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/sound/samsung,odroid.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/samsung-i2s.yaml | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-index 7b4e08ddef6a..7774543b8819 100644
---- a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-+++ b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-@@ -43,9 +43,10 @@ properties:
-     type: object
-     properties:
-       sound-dai:
-+        minItems: 1
-         items:
--          - description: phandle of the MAX98090 CODEC
-           - description: phandle of the HDMI IP block node
-+          - description: phandle of the MAX98090 CODEC
+diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.yaml b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+index 7ae007591080..30b3b6e9824b 100644
+--- a/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+@@ -75,9 +75,6 @@ properties:
+           - const: rx
+           - const: tx-sec
  
-   samsung,audio-routing:
-     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-  assigned-clock-parents: true
+-  assigned-clocks: true
+-
+   clocks:
+     minItems: 1
+     maxItems: 3
 -- 
 2.34.1
 

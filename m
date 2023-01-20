@@ -2,75 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6335767543E
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:13:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C971A67547C
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Jan 2023 13:30:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A372B31E2;
-	Fri, 20 Jan 2023 13:12:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A372B31E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 587E431F1;
+	Fri, 20 Jan 2023 13:29:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 587E431F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674216829;
-	bh=bYTCpxpMUaj0u9NVrjzlxJiwlSH7GhZL8wVTYhvi1kk=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674217846;
+	bh=9WBnXH/2XKLFhe2TJN1HH5X+qHzvn4D+oPTPzTwnbxQ=;
+	h=In-Reply-To:References:Date:From:To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=E23WLX4NOhvNRhtfEvmCJQZaQn6CrZXEEFl/eRitmWWlnJYQp0mIC75KYBE34CUyT
-	 m7/HFUCf9x9Uzvg03zZ9jF00jed5Nh8ChDXCQhZguGZVyzr+1kVuiK3hTjH7BB1p8z
-	 bssmJqQkKrPCmPPlsGLPBgklZx3PD0jmG4jVNac0=
+	b=p95XZYVPwQ1/1kK0zd4Fcn64zhMgZg9QY/GNCsoYUs2vCRGDAhiDSTeYpHiotgvDX
+	 gjmMXp5sMH8qNVseVl4rKrBS4tUNNl2KTNxyBaSv9PltU0HEHCExRLVxE3Mm+QgpA8
+	 2QDy6KEQnf45gAks4luGvEYbvy/5gT52TF0sL6ZY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69F39F8026D;
-	Fri, 20 Jan 2023 13:12:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC87DF800F0;
+	Fri, 20 Jan 2023 13:29:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD690F800F0; Fri, 20 Jan 2023 13:12:50 +0100 (CET)
+ id 7F14EF8024D; Fri, 20 Jan 2023 13:29:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 471DEF800F0
- for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:12:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 471DEF800F0
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qoXeMA5I
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4E3BFB82714;
- Fri, 20 Jan 2023 12:12:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983BCC433EF;
- Fri, 20 Jan 2023 12:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674216767;
- bh=bYTCpxpMUaj0u9NVrjzlxJiwlSH7GhZL8wVTYhvi1kk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qoXeMA5IEcu8/YWtvxIdMEIAJOVuAuu0rHb3KldXH7yvXPpMMaipN0ptWsqquCLLr
- YGpaGwaJkGMl75bP9I0beehAiUZEgbK9RI6zxQnT/xueeKtx7wNbYnc7tRY3496dYc
- c7czRz4IT1hCuVGnsxUyTrnrmJVVs+18GGWLVZCDpG59qSXolyCdAP7YIdSHSqBx5/
- UeexsOh/Fq6NppIEkNK24lneWzF3Dfby1XsJyRYL5Kc5TusGA0mDLgghVpG+WQ7bXN
- oCeL6JDyMeZF8q0zsiEz1X5i+sAE6drGy8w+fNtsWsAEf2i1BNlmEkHRL5MzczBuKk
- V8FBgyAgoqqsw==
-Date: Fri, 20 Jan 2023 12:12:44 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v2 2/3] ASoC: codecs: Add support for the Renesas
- IDT821034 codec
-Message-ID: <Y8qFPBEYJ1gH/Ycv@sirena.org.uk>
-References: <20230120095036.514639-1-herve.codina@bootlin.com>
- <20230120095036.514639-3-herve.codina@bootlin.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wlRMvD60qIyTikCQ"
-Content-Disposition: inline
-In-Reply-To: <20230120095036.514639-3-herve.codina@bootlin.com>
-X-Cookie: Serving suggestion.
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09B49F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 20 Jan 2023 13:29:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09B49F800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de
+ header.a=rsa-sha256 header.s=fm2 header.b=rux4CAb4; 
+ dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=sNkbFT26
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 4E16B32007F1;
+ Fri, 20 Jan 2023 07:29:35 -0500 (EST)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Fri, 20 Jan 2023 07:29:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1674217774; x=1674304174; bh=T7pXkt1im0
+ XkgrRF7s8ug2WaTIjQhbFut8+JpcuyoNU=; b=rux4CAb4H6VEAOuKVya4Y9UqMg
+ BOBFVAHKYqkNOzJDynMNzhUSHRE1HqJeJCz0Slqyfgq198hMGQOzGdRT3DxT6Xc7
+ Nx0CumAqQFrWfyB0bXBU5Vfqj+LBmNG+8QFI9e//9Cn469sF+dubbdoe54C8NMEd
+ LeO7d8VusS2P4/wTaRrYBcNJTwYrpV89skgIONCUE4kwJ3LStM3TI3Pk004vhK5J
+ ht1CzQOrORrhngvnFA9P8//1xp9Ge3pQQcVBkDkguTxAYHmY1UciDtNEJvGFetnm
+ m7sbCIevPrJ4eF/tQPR/5CCeQsc+sZuKLquCF1V+dAXYlzAxv3IuDZlcwhMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1674217774; x=1674304174; bh=T7pXkt1im0XkgrRF7s8ug2WaTIjQ
+ hbFut8+JpcuyoNU=; b=sNkbFT267yRDW9bP+T+i+ckNdAcxUHgwzJBehoZUOqGq
+ 8aZla/P6mORJB3xaWxhMrN9VIamPtRWGZmSFSEIlLtTRGorcK4ewLZbZ5K3eEzIV
+ 3fTcUOKQ5dOit4cCrlUuorDWTYWP9Cs+p4IFqHkkZmhoqzwwjIe93MkWJEdzBer2
+ 60d7V8EnTmdDopW4MdZlF/EHKdEPULiBGovr2f/oQ4S65RzVhPOV/pxkyjaQpjIJ
+ R8K8s4xwGvpDmQ7yvrBOk8Jk/oNPQ74akUEBwTKIEFh5eXYOXGqLg/5eQJTgguwb
+ dli3bXcJx3EYDgSsURWgvWnzlUsL8QxXg+L0PNZdUw==
+X-ME-Sender: <xms:LYnKY2TKEF3GHUWc4BWosOGUu7U_HTsIxYOarmm9sgjZRKmal0ZCnw>
+ <xme:LYnKY7wgIkpUs01AVxd__e6iFQT1Au4yiiK3M-mO41VY1z3aoQtQpK1ejsi_5HHzj
+ sXowEuuoJe9TElhpvY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudduvddggedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+ teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:LonKYz0woWZD93l9h2XtQvnhbEC_CViAEOxH_HIgzLqMNgZL86NN8Q>
+ <xmx:LonKYyDEFyczK02lHcLJXAdFQz9yt61hp9l6Q6AjfPgBxItVgnuPtw>
+ <xmx:LonKY_gFF8nPjA2Lg6LhCCi7B9qvb0koAwloZGV42dY5P-a1B1f_Zw>
+ <xmx:LonKY0YGq4Gum6EUr0JDNjAG6NlVvArXj4FT3L2S8FXkeIWoO7KIug>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id E0639B60089; Fri, 20 Jan 2023 07:29:33 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-85-gd6d859e0cf-fm-20230116.001-gd6d859e0
+Mime-Version: 1.0
+Message-Id: <e70c12d1-84e8-40ff-8ee5-075960497305@app.fastmail.com>
+In-Reply-To: <Y8qECf4CgsNkLNho@sirena.org.uk>
+References: <20230118161110.521504-1-arnd@kernel.org>
+ <Y8l21Kb42l2ZcIC+@sirena.org.uk>
+ <99519eb0-399d-4972-ae09-955a34830b55@app.fastmail.com>
+ <Y8qECf4CgsNkLNho@sirena.org.uk>
+Date: Fri, 20 Jan 2023 13:29:13 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Mark Brown" <broonie@kernel.org>
+Subject: Re: [PATCH 1/5] ASoC: samsung: remove DMA filter function and data
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +117,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 20, 2023, at 13:07, Mark Brown wrote:
+> On Fri, Jan 20, 2023 at 10:05:59AM +0100, Arnd Bergmann wrote:
+>
+>> I see, this patch still depends on the s3c24xx removal, which
+>> is in soc/for-next and I used for testing. I see a similar
+>> problem with the MMP platform in patch 2/5. The series here
+>> is mostly older patches I did a while ago and rebased on top
+>> of the boardfile removal, but it breaks when it gets applied
+>> first.
+>
+>> Unless there is anything in here that you really want to apply
+>> for 6.3, lets drop all five for now, and I'll resend it
+>> after the dust has settled on the boardfile removal.
+>
+> I'd left the ux500 stuff running through my testing, no
+> particular urgency just it saves rereviewing anything.  Assuming
+> it's fine (seems so thus far) I'll push it out.
 
---wlRMvD60qIyTikCQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Yes, sounds good to me, I don't see any risk of missed
+dependencies for that.
 
-On Fri, Jan 20, 2023 at 10:50:35AM +0100, Herve Codina wrote:
-
-> +static int idt821034_kctrl_gain_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct soc_mixer_control *mc = (struct soc_mixer_control *)kcontrol->private_value;
-> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-> +	struct idt821034 *idt821034 = snd_soc_component_get_drvdata(component);
-> +	struct idt821034_amp *amp;
-
-> +
-> +	amp->gain = val;
-> +	ret = 0;
-> +end:
-> +	mutex_unlock(&idt821034->mutex);
-> +	return ret;
-
-_put() methods should return 1 if the value changed to generate
-events - if you use the mixer-test selftest it'll spot this and
-other issues for you.
-
-Otherwise this looks fine.
-
---wlRMvD60qIyTikCQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPKhTsACgkQJNaLcl1U
-h9AQ4Af8De8E5PJEpMZ8aXgoqJ5oNtOF6fOh2uOEQ0Sl+8/7usPM9y8GqpAlyIxy
-09ITOezWYsh9XvhCuHefFVr/Tr7KVbz34OoXwo1XNmzmkWXcezr6PrS1VAb1DaGT
-qdOP6wEG+ei0PqHg6CX+oaRLnsqSVi1ojAbbN9GHAqNDRlXAzJfal0hIZuCUw9cp
-JA9r1B+7/G83PP5UWFXYOydws1OqGg9fsny9D1FfEt1uuVWu/uXfGMAYCg0XeqOD
-0y0yD4PaCUsv4g6Qp+eevMbsTHERfGb2YzjsZf73kE2YacIY4wATPBrt8SnFSYew
-hVXpJFtOdhIyKL+8p1tHnJ0AtZDDYw==
-=nMiM
------END PGP SIGNATURE-----
-
---wlRMvD60qIyTikCQ--
+       Arnd

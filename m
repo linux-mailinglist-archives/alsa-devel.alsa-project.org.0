@@ -2,68 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076D46776A1
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:46:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368746776A2
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:46:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56EDD41E9;
-	Mon, 23 Jan 2023 09:45:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56EDD41E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60F931CF;
+	Mon, 23 Jan 2023 09:45:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60F931CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674463568;
-	bh=gsccqyhXgczWujfYNuc8IWNveSbdGH+ZyHwJN2WZqFM=;
+	s=default; t=1674463584;
+	bh=IWzHSKDutY57ttpTf3ANVNFzATdomb1H5EJNNtEGG1Y=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=IT7T1yKPnGJII5t0CiTkcjTHhe4tjsx9LuWPh2YkjE0yFcqfbaqmgIAO2K8Bev7IJ
-	 QYZr6V+IH61urDfvjZ3o7dxzr3QojfTKMFIsA/3Sx2kC1COLxlVfPy1k3H+IjrixwN
-	 VEZFFu5MfYX/v/asgJWHinmQU+Pc9k8Dgp2ZBhKQ=
+	b=FFBbQZhDbHV/F3KaIOhyJmZkxSwe6JgMofxd0dZB8uxzHi9wN7Bxxt2DTbGObXf1a
+	 6EMqDkIUbSN53930y8FQSwUhQBHYW0YPfNdwB7g7vy1YVRdjdD8wFtaSprX2ub2Qtm
+	 UR4FJsNnAe8zSA3raIRU9jVCZomIquyv+j7WcRpA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BF26F8057E;
+	by alsa1.perex.cz (Postfix) with ESMTP id C9495F80589;
 	Mon, 23 Jan 2023 09:42:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACB0CF8027D; Sun, 22 Jan 2023 19:48:48 +0100 (CET)
+ id 2F105F8027D; Sun, 22 Jan 2023 22:07:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0ED4CF80132
- for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 19:48:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ED4CF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA799F80254
+ for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 22:07:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA799F80254
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PZzAU6my
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E85D360C86;
- Sun, 22 Jan 2023 18:48:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32CF3C433EF;
- Sun, 22 Jan 2023 18:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674413318;
- bh=gsccqyhXgczWujfYNuc8IWNveSbdGH+ZyHwJN2WZqFM=;
- h=From:To:Cc:Subject:Date:From;
- b=PZzAU6myHzlfwwNDBAp7BM5f5SfE6HBGwNawDwelEREuKD8hzBnSWdJYeuTXkFNND
- N+VSv5Obu/gt3kxFgQCbzqPMAcJ85Nvi5OFfh4bhpaR91aSD5CMZjDPQY+a9+yz4Dp
- WNTgF3S8Xe2NcLfQOq/EFCEZnnRSY4WmFkACfP+0+khAeTDd4JNEBvaFmkMLHX8n04
- IuauBpOYga+cs2xjxZmeEmhBCqYrXwP3+g2dUCDbEQG8ymRrAnlGWU6q35upGddfBh
- J8wAEm9wuvjASDyI3azF9SCn4Q6DKoNhU95FkxrdPbuRBIP7oGyvlpvL4FmmgeGQ9i
- X1Du+uzXPnzpg==
-From: SeongJae Park <sj@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v2 1/1] Docs/subsystem-apis: Remove '[The ]Linux' prefixes
- from titles of listed documents
-Date: Sun, 22 Jan 2023 18:48:34 +0000
-Message-Id: <20230122184834.181977-1-sj@kernel.org>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=Rrp4V89f
+Received: by mail-wm1-x32e.google.com with SMTP id
+ iv8-20020a05600c548800b003db04a0a46bso3631156wmb.0
+ for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 13:07:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kCboDqVUUsDGgqRY72gSPVjixyNxdK1vSMMQPv4p8+U=;
+ b=Rrp4V89fMuHgqiVMQpLfX9L+gVN/BTlzKsOMTLGHxO64PcM80m8UGAdVQ8cZ5c/bQp
+ /Sb2lyij/Yik7BMMrFfxW0P2IV2KQyuAGWzy4bOiEJTLT4WopzSnucHyyD2GpkMvR2KT
+ 5PNwcObQx7VMkdkeKOW60V4R/9+JjzxRzAPqzwRf92rE69PRTh66MpJO5lYdatMcYBUH
+ be8wuku3jJmGyKXmMRdy/92j2sbVKXm1LEgQnK8GkejiYYhfYn60ht6Ee0jxVfPzzFMQ
+ M5G0mdTcmWVQUboTwALFhSJ+02+g9aGVHOS8Nw185wSicZNWhW39fh4iLNg5ExPP28Ee
+ dzJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kCboDqVUUsDGgqRY72gSPVjixyNxdK1vSMMQPv4p8+U=;
+ b=otPLqp5zCh+v/E7+6L0nJ/OberAZ9lE9rknczdXRKVDE5KlrhSIh+PwrCCbS+v07Ae
+ jaAoU0hmb9Bt6yR5tG2T8I7YrxNmLWGLmJHXJ3AXZ5zERQFBSAQt72FhPQqVf57ZIrzt
+ o+IyaLS8+JymSzr1jKZCgcNp0Wug2THLWMAC3pjRGouHHhsaiqJswf4xbpiivJLDuM6K
+ XE737pEopWR08hpsr/es5dCM2tpMoSz/WPIA0vtYMtbv7o27PIQ0UGZazrpz7Y2zM1dW
+ JzkCP8FSEXWfTSJPrA79Vj3JVnJmwtRxgtJTPZuRGpvM4gwcJy94WKPCjRdMgSDVB97V
+ IxxA==
+X-Gm-Message-State: AFqh2kpRtcvFfaMkZ/PaMOXldNOpKhzLaZzPAi3Xxk9K49vjE+YMCHfl
+ bnn1UgVY8fc6hmeFaDuK0Xc=
+X-Google-Smtp-Source: AMrXdXvQBrFKD6GvoZiyZVRXF/33cCqAKT8qkp6S0xHaAhZoxpWRnjl+rlHCvaeLceU3E2GMR1K9GA==
+X-Received: by 2002:a05:600c:4e0f:b0:3db:3695:11b4 with SMTP id
+ b15-20020a05600c4e0f00b003db369511b4mr9093682wmq.33.1674421629518; 
+ Sun, 22 Jan 2023 13:07:09 -0800 (PST)
+Received: from localhost.localdomain
+ (2a02-8428-46a0-7c01-43c0-f52a-beed-541b.rev.sfr.net.
+ [2a02:8428:46a0:7c01:43c0:f52a:beed:541b])
+ by smtp.gmail.com with ESMTPSA id
+ o21-20020a05600c4fd500b003c6f8d30e40sm9822404wmq.31.2023.01.22.13.07.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Jan 2023 13:07:09 -0800 (PST)
+From: Christophe Branchereau <cbranchereau@gmail.com>
+To: paul@crapouillou.net, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, linux-mips@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: codecs/jz4760: add digital gain controls
+Date: Sun, 22 Jan 2023 22:07:03 +0100
+Message-Id: <20230122210703.2552384-1-cbranchereau@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Jan 2023 09:42:43 +0100
@@ -79,262 +103,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, dri-devel@lists.freedesktop.org,
- Takashi Iwai <tiwai@suse.com>, linux-mm@kvack.org,
- David Airlie <airlied@gmail.com>, linux-watchdog@vger.kernel.org,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Iwona Winiarska <iwona.winiarska@intel.com>, openbmc@lists.ozlabs.org,
- linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-hwmon@vger.kernel.org, SeongJae Park <sj@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+Cc: Christophe Branchereau <cbranchereau@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some documents that listed on subsystem-apis have 'Linux' or 'The Linux'
-title prefixes.  It's duplicated information, and makes finding the
-document of interest with human eyes not easy.  Remove the prefixes from
-the titles.
+Both the DAC and ADC have digital gain controls available
+for their mixers, which go from -31 to 0db by step of 1db.
 
-Signed-off-by: SeongJae Park <sj@kernel.org>
+Signed-off-by: Christophe Branchereau <cbranchereau@gmail.com>
 ---
-Changes from v1
-(https://lore.kernel.org/lkml/20230114194741.115855-1-sj@kernel.org/)
-- Drop second patch (will post later for each subsystem)
+ sound/soc/codecs/jz4760.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- Documentation/PCI/index.rst        | 6 +++---
- Documentation/cpu-freq/index.rst   | 6 +++---
- Documentation/crypto/index.rst     | 6 +++---
- Documentation/driver-api/index.rst | 6 +++---
- Documentation/gpu/index.rst        | 6 +++---
- Documentation/hwmon/index.rst      | 6 +++---
- Documentation/input/index.rst      | 6 +++---
- Documentation/mm/index.rst         | 6 +++---
- Documentation/peci/index.rst       | 6 +++---
- Documentation/scheduler/index.rst  | 6 +++---
- Documentation/scsi/index.rst       | 6 +++---
- Documentation/sound/index.rst      | 6 +++---
- Documentation/virt/index.rst       | 6 +++---
- Documentation/watchdog/index.rst   | 6 +++---
- 14 files changed, 42 insertions(+), 42 deletions(-)
-
-diff --git a/Documentation/PCI/index.rst b/Documentation/PCI/index.rst
-index c17c87af1968..e73f84aebde3 100644
---- a/Documentation/PCI/index.rst
-+++ b/Documentation/PCI/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0
+diff --git a/sound/soc/codecs/jz4760.c b/sound/soc/codecs/jz4760.c
+index d96a4f6c9183..9df58e23d360 100644
+--- a/sound/soc/codecs/jz4760.c
++++ b/sound/soc/codecs/jz4760.c
+@@ -287,6 +287,7 @@ static const DECLARE_TLV_DB_MINMAX_MUTE(dac_tlv, -3100, 100);
+ static const DECLARE_TLV_DB_SCALE(adc_tlv, 0, 100, 0);
+ static const DECLARE_TLV_DB_MINMAX(out_tlv, -2500, 100);
+ static const DECLARE_TLV_DB_SCALE(linein_tlv, -2500, 100, 0);
++static const DECLARE_TLV_DB_MINMAX(mixer_tlv, -3100, 0);
  
--=======================
--Linux PCI Bus Subsystem
--=======================
-+=================
-+PCI Bus Subsystem
-+=================
+ /* Unconditional controls. */
+ static const struct snd_kcontrol_new jz4760_codec_snd_controls[] = {
+@@ -299,6 +300,14 @@ static const struct snd_kcontrol_new jz4760_codec_snd_controls[] = {
+ 			 JZ4760_CODEC_REG_GCR4, JZ4760_CODEC_REG_GCR3,
+ 			 REG_GCR_GAIN_OFFSET, REG_GCR_GAIN_MAX, 1, linein_tlv),
  
- .. toctree::
-    :maxdepth: 2
-diff --git a/Documentation/cpu-freq/index.rst b/Documentation/cpu-freq/index.rst
-index 2fe32dad562a..de25740651f7 100644
---- a/Documentation/cpu-freq/index.rst
-+++ b/Documentation/cpu-freq/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--==============================================================================
--Linux CPUFreq - CPU frequency and voltage scaling code in the Linux(TM) kernel
--==============================================================================
-+========================================================================
-+CPUFreq - CPU frequency and voltage scaling code in the Linux(TM) kernel
-+========================================================================
- 
- Author: Dominik Brodowski  <linux@brodo.de>
- 
-diff --git a/Documentation/crypto/index.rst b/Documentation/crypto/index.rst
-index 21338fa92642..da5d5ad2bdf3 100644
---- a/Documentation/crypto/index.rst
-+++ b/Documentation/crypto/index.rst
-@@ -1,6 +1,6 @@
--=======================
--Linux Kernel Crypto API
--=======================
-+==========
-+Crypto API
-+==========
- 
- :Author: Stephan Mueller
- :Author: Marek Vasut
-diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/index.rst
-index d3a58f77328e..b208e0dac3a0 100644
---- a/Documentation/driver-api/index.rst
-+++ b/Documentation/driver-api/index.rst
-@@ -1,6 +1,6 @@
--========================================
--The Linux driver implementer's API guide
--========================================
-+==============================
-+Driver implementer's API guide
-+==============================
- 
- The kernel offers a wide variety of interfaces to support the development
- of device drivers.  This document is an only somewhat organized collection
-diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-index b99dede9a5b1..eee5996acf2c 100644
---- a/Documentation/gpu/index.rst
-+++ b/Documentation/gpu/index.rst
-@@ -1,6 +1,6 @@
--==================================
--Linux GPU Driver Developer's Guide
--==================================
-+============================
-+GPU Driver Developer's Guide
-+============================
- 
- .. toctree::
- 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index fe2cc6b73634..c2b3c1a822dd 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -1,6 +1,6 @@
--=========================
--Linux Hardware Monitoring
--=========================
-+===================
-+Hardware Monitoring
-+===================
- 
- .. toctree::
-    :maxdepth: 1
-diff --git a/Documentation/input/index.rst b/Documentation/input/index.rst
-index 9888f5cbf6d5..35581cd18e91 100644
---- a/Documentation/input/index.rst
-+++ b/Documentation/input/index.rst
-@@ -1,6 +1,6 @@
--=============================
--The Linux Input Documentation
--=============================
-+===================
-+Input Documentation
-+===================
- 
- Contents:
- 
-diff --git a/Documentation/mm/index.rst b/Documentation/mm/index.rst
-index 4aa12b8be278..5a94a921ea40 100644
---- a/Documentation/mm/index.rst
-+++ b/Documentation/mm/index.rst
-@@ -1,6 +1,6 @@
--=====================================
--Linux Memory Management Documentation
--=====================================
-+===============================
-+Memory Management Documentation
-+===============================
- 
- Memory Management Guide
- =======================
-diff --git a/Documentation/peci/index.rst b/Documentation/peci/index.rst
-index 989de10416e7..930e75217c33 100644
---- a/Documentation/peci/index.rst
-+++ b/Documentation/peci/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0-only
- 
--====================
--Linux PECI Subsystem
--====================
-+==============
-+PECI Subsystem
-+==============
- 
- .. toctree::
- 
-diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
-index b430d856056a..1aac972a652f 100644
---- a/Documentation/scheduler/index.rst
-+++ b/Documentation/scheduler/index.rst
-@@ -1,6 +1,6 @@
--===============
--Linux Scheduler
--===============
-+=========
-+Scheduler
-+=========
- 
- .. toctree::
-     :maxdepth: 1
-diff --git a/Documentation/scsi/index.rst b/Documentation/scsi/index.rst
-index 7c5f5f8f614e..919f3edfe1bf 100644
---- a/Documentation/scsi/index.rst
-+++ b/Documentation/scsi/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--====================
--Linux SCSI Subsystem
--====================
-+==============
-+SCSI Subsystem
-+==============
- 
- .. toctree::
-    :maxdepth: 1
-diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
-index 4d7d42acf6df..5abed5fc6485 100644
---- a/Documentation/sound/index.rst
-+++ b/Documentation/sound/index.rst
-@@ -1,6 +1,6 @@
--===================================
--Linux Sound Subsystem Documentation
--===================================
-+=============================
-+Sound Subsystem Documentation
-+=============================
- 
- .. toctree::
-    :maxdepth: 2
-diff --git a/Documentation/virt/index.rst b/Documentation/virt/index.rst
-index 56e003ff28ff..7fb55ae08598 100644
---- a/Documentation/virt/index.rst
-+++ b/Documentation/virt/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--============================
--Linux Virtualization Support
--============================
-+======================
-+Virtualization Support
-+======================
- 
- .. toctree::
-    :maxdepth: 2
-diff --git a/Documentation/watchdog/index.rst b/Documentation/watchdog/index.rst
-index c177645081d8..4603f2511f58 100644
---- a/Documentation/watchdog/index.rst
-+++ b/Documentation/watchdog/index.rst
-@@ -1,8 +1,8 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--======================
--Linux Watchdog Support
--======================
-+================
-+Watchdog Support
-+================
- 
- .. toctree::
-     :maxdepth: 1
++	SOC_SINGLE_TLV("Mixer Capture Volume",
++		       JZ4760_CODEC_REG_MIX1,
++		       REG_GCR_GAIN_OFFSET, REG_GCR_GAIN_MAX, 1, mixer_tlv),
++
++	SOC_SINGLE_TLV("Mixer Playback Volume",
++		       JZ4760_CODEC_REG_MIX2,
++		       REG_GCR_GAIN_OFFSET, REG_GCR_GAIN_MAX, 1, mixer_tlv),
++
+ 	SOC_SINGLE("High-Pass Filter Capture Switch",
+ 		   JZ4760_CODEC_REG_CR4,
+ 		   REG_CR4_ADC_HPF_OFFSET, 1, 0),
 -- 
-2.25.1
+2.39.0
 

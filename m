@@ -2,100 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22CE7676D8F
-	for <lists+alsa-devel@lfdr.de>; Sun, 22 Jan 2023 15:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 639106772D0
+	for <lists+alsa-devel@lfdr.de>; Sun, 22 Jan 2023 22:38:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6A6241EF;
-	Sun, 22 Jan 2023 15:16:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A6241EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A667C4128;
+	Sun, 22 Jan 2023 22:37:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A667C4128
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674397042;
-	bh=KYsA32FjghfM9CiTBJn9agyiRFALCbugiHn68j9XK9U=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=NMbu1PnSZ8OXChV0/MYnk9Ne21P06nhwllrO0rrFIJBCEMGIdSnMX3xX0gL7cJO9W
-	 No6TWxsUbxTMbDYOurLGDniMnYh5LjzVWvgwEWotcyoVS5u0GDmgWGmF6M6KVudNUC
-	 o8sxCimmsYBWHkqAfz9RKdw9E+iAU3u6iCRg49q4=
+	s=default; t=1674423485;
+	bh=+kFCj2QmQqaqkQtiLOFfyT0VJOQjHQOx/aIvyvGdoLs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=UKNpbfUZuX2IbMHIlgxFPV676otUz/z5U4bx16RHnZFGGavZ55D8mVUFuJtvfb0Sv
+	 ifAmS7wGGvZ4iAj6E2NWsXoiH4Iex3UL0hktCPbSHfDhyDHwbhc/BWXvG3lNLh+k28
+	 5fLexnF3/X+dT2sT6phLzLxsj6BJiIE1nXFy1tO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35870F801D5;
-	Sun, 22 Jan 2023 15:16:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28F3AF80254;
+	Sun, 22 Jan 2023 22:37:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F8E8F8027D; Sun, 22 Jan 2023 15:16:23 +0100 (CET)
+ id EF897F8027D; Sun, 22 Jan 2023 22:37:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D56EF80254
- for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 15:16:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D56EF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40BBAF80254
+ for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 22:36:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40BBAF80254
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=a44FoSuX
-Received: by mail-wr1-x435.google.com with SMTP id n7so8634524wrx.5
- for <alsa-devel@alsa-project.org>; Sun, 22 Jan 2023 06:16:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hltLV3ya8ktIesbWW9B+JQxvC7+ys0Pz05F3BDmcVzQ=;
- b=a44FoSuX5jQrA63CqI55Xa498Vxdg/Tyc/vx0ArZx69NHf06EiaeeqYYYTD6nSB3M5
- AoRrEOOoHHuWaZphy/SEaHCfRu3yOY6NM1JGJ10LGJ6AHb5ZwtrtR7GhkW0h+eoU4O/V
- jYTrFyoL/BtKKyInYzziNGBSTg+2ArFNCZCEeHw4zZu83+QbfsdIk3YOCGZT+KtIDjpT
- A/4bKdz3YuaebBoipcG9xgBlmlRBTEVJH3TtJyCimA5zd8fDvYE30QqFXISaqSsRx6Yp
- brpEAryraPeICh5RlyJU5Qo7M2RiaQ0c6hkwTzeBoaMBxesGtxCWmAhqokq1T6F2SROn
- +vhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hltLV3ya8ktIesbWW9B+JQxvC7+ys0Pz05F3BDmcVzQ=;
- b=RvyFcfExyGtNoMxuW2+64V3/D10Xp0sOmxe4yGyueX7Im08A6otMZghyUvBJmW8Kqv
- eto72tOHW1XbkCntCOh1On4bIC51pJRZYoeoa8/p++wrFup6dHquyVotzvb+UnADxEGL
- iGA4/Coly3TMB+u8VUbt58KdjpfZb/C7tfJsOGigcyDPzhg57unScaD20Q3WlRQddVnx
- jBfq/quS7mOM0iiZ5axR6uP3ifrKLBW+iwfB5Sq9Ho2aMRFmr8gpmp7tXYZJ1QREwerF
- KoIti9I6ArZT541ey0YX/BmYDRFaO48+rhrrvc4a6iMYE5bgQKDi+jmD4Ucw507uMJID
- uhWg==
-X-Gm-Message-State: AFqh2krv8XO9/2s+WT5HY/4pM+h6ONtAemquvWHfX2PW8qp5GCEo54En
- ri8XvJWbheandOM3JNMmRhowBg==
-X-Google-Smtp-Source: AMrXdXtU1a/dtmjJRUOHbLcFPO22+9D4XFjXFgfo5x1g6EzxrL/TMMrC9eQPuZR1P+f2mLUk2uRuug==
-X-Received: by 2002:a05:6000:603:b0:2bd:f651:3a67 with SMTP id
- bn3-20020a056000060300b002bdf6513a67mr21144691wrb.64.1674396976540; 
- Sun, 22 Jan 2023 06:16:16 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- d3-20020adfe843000000b00241bd7a7165sm2549584wrn.82.2023.01.22.06.16.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Jan 2023 06:16:16 -0800 (PST)
-Message-ID: <2d05a943-3510-5ee9-9906-247a6344190a@linaro.org>
-Date: Sun, 22 Jan 2023 15:16:14 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qdLvj6w6
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0A62EB80B59;
+ Sun, 22 Jan 2023 21:36:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7E3C433D2;
+ Sun, 22 Jan 2023 21:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674423415;
+ bh=+kFCj2QmQqaqkQtiLOFfyT0VJOQjHQOx/aIvyvGdoLs=;
+ h=From:To:Cc:Subject:Date:From;
+ b=qdLvj6w6684w6d/X9zYg2BFZL54G4t/TuI0Ru07Dj8kOCPAVoymyXtBQGBX0RPJgO
+ vFWVq0fHA9L+aPQE+N5MOg+6YTtOcP4dTjZmtyPALYNYrzyNnIhD9D4Cg+s1dLoWRn
+ MTJ0fd1Mc4eMZu8t+o6Ry0xiUg+4vXPCoYAc9LUiLo09CPpbxmYMwjiHz020m3S/KF
+ r0/s0x+hi+U9rpO1ef709JJU1EFLq9kdQwc68nhiBS1+PYEhvp8sB6o3uWPwvR8rBs
+ YtF0hwHJxaiHHqqishvWLDP0UhZxVIOo4CWWoXdjGwNsbqYkC59+fkVed2OcOVwT1C
+ rPI2g6AG2BcFw==
+From: SeongJae Park <sj@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v2 0/8] Docs: Add missing SPDX license identifiers of
+Date: Sun, 22 Jan 2023 21:36:42 +0000
+Message-Id: <20230122213650.187710-1-sj@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-Subject: Re: [PATCH v2 4/4] ASoC: dt-bindings: ti, ts3a227e.yaml: add jack-type
-Content-Language: en-US
-To: Astrid Rost <astrid.rost@axis.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Dylan Reid <dgreid@chromium.org>
-References: <20230120102555.1523394-1-astrid.rost@axis.com>
- <20230120102555.1523394-5-astrid.rost@axis.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230120102555.1523394-5-astrid.rost@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,52 +77,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kernel@axis.com,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ David Airlie <airlied@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ Jean Delvare <jdelvare@suse.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-hwmon@vger.kernel.org,
+ SeongJae Park <sj@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 20/01/2023 11:25, Astrid Rost wrote:
-> Add jack-type: Bitmap value of snd_jack_type to allow combining
-> card drivers to create a jack for it.
+Some subsystem documents are missing SPDX license identifiers on index
+files.  This patchset adds those.
 
-Subject: drop "yaml". We do not filename extensions to subject prefix.
-Nowhere.
+Changes from v1
+(https://lore.kernel.org/lkml/20230114194741.115855-2-sj@kernel.org/)
+- Separate from index file content changes
+- Separate patch for each subsystem doc (Alex Deucher)
+- Use MIT license for gpu (Alex Deucher)
 
-> 
-> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
-> ---
->  Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
-> index 785930658029..1d949b805f98 100644
-> --- a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
-> +++ b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
-> @@ -27,6 +27,14 @@ properties:
->    interrupts:
->      maxItems: 1
->  
-> +  jack-type:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Bitmap value of snd_jack_type to allow combining
-> +      card drivers to create a jack for it. Supported is
+SeongJae Park (8):
+  Docs/crypto/index: Add missing SPDX License Identifier
+  Docs/driver-api/index: Add missing SPDX License Identifier
+  Docs/gpu/index: Add missing SPDX License Identifier
+  Docs/hwmon/index: Add missing SPDX License Identifier
+  Docs/input/index: Add missing SPDX License Identifier
+  Docs/mm/index: Add missing SPDX License Identifier
+  Docs/scheduler/index: Add missing SPDX License Identifier
+  Docs/sound/index: Add missing SPDX License Identifier
 
-Why the device would once support (allow) headphone and once not? Device
-either always supports them or never...
+ Documentation/crypto/index.rst     | 2 ++
+ Documentation/driver-api/index.rst | 2 ++
+ Documentation/gpu/index.rst        | 2 ++
+ Documentation/hwmon/index.rst      | 2 ++
+ Documentation/input/index.rst      | 2 ++
+ Documentation/mm/index.rst         | 2 ++
+ Documentation/scheduler/index.rst  | 2 ++
+ Documentation/sound/index.rst      | 2 ++
+ 8 files changed, 16 insertions(+)
 
-
-> +        1 SND_JACK_HEADPHONE
-> +        2 SND_JACK_MICROPHONE
-
-minimum and maximum
-
-> +    default: 3
-> +
->    ti,micbias:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      description: Intended MICBIAS voltage (datasheet section 9.6.7).
-
-Best regards,
-Krzysztof
+-- 
+2.25.1
 

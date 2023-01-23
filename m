@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E69677AA7
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 13:19:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F485677A86
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 13:05:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB5041FB;
-	Mon, 23 Jan 2023 13:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB5041FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CEB841FE;
+	Mon, 23 Jan 2023 13:04:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CEB841FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674476340;
-	bh=gpKQRGZw8jDinmfqA00+ZXuNq6arpZGThUUNUl1njO4=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=vqx5fRadT84jPAKwzOkNct966u9T7473LG/BFI9lvYDeOfj1n7spuDMlkC9FyqLG7
-	 W2VaqdsNte8Kp3PUQ6CU7WN1hCYrm67gdaT9/6JDtl5a2FeIK9eSnWleRWS5hNQzhI
-	 wBoJcRUcUgJwvg1soAD4kYa5o+7DAgpqPrSVSyZs=
+	s=default; t=1674475537;
+	bh=gr6Yuo3I6+ldp2z56tMGOkQzM3vS3O1j0msUR4Kdo6U=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Z0Qo6yrVKrcPH+r7YJslmekOrS48KMP6drMUm8G09w/965RcW6VFKUadKTDaA25Nc
+	 0wDKpo6C9+k0afKpFmNHsn0v06Ew6wXN9qbkviQlWqEBOhS3NzvZUUg/Q4sFIhnTwA
+	 1L0zJMPv1QbCiiAIdJ1ScnScDnkTlusPQLHFZXuk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C69AEF801D5;
-	Mon, 23 Jan 2023 13:18:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02BAAF80132;
+	Mon, 23 Jan 2023 13:04:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6CB0F804C2; Mon, 23 Jan 2023 13:18:00 +0100 (CET)
+ id C366CF804C2; Mon, 23 Jan 2023 13:04:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3645F80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 13:17:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3645F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BCF2F80132
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 13:04:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BCF2F80132
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=ZUpvTT/3
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 3049E6000D;
- Mon, 23 Jan 2023 12:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1674476278;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dSrbZZvovpWvlJHm56TjukjpU0bsgrOflMKyVZ5eOVU=;
- b=ZUpvTT/3DPBE39G475z/z5eC8dHh8fjFkfRsufenoyMfstAS1QlsDlP5CT7iV5uJMu7wTO
- BEBr7iXCJBRFNpOI4TNrN3zAzXR4gMuwa4xgg6xpf/n7z51tAQSVwHQiQW1EPZTVhqZGF6
- QUAaDSOaLVwOD5iWrv7hgFQIjKYfW9xUaYWS21lhFoVQlHS14rpSVrp2nE+7DtorSijkTR
- QAdh4mVKt4CUAKavRYZp/dMiudCY9guBu7MgoYN5/q/1wbnm4GDlrxGFRPWF420y0kcYG+
- jlIuARTLmRcX4/T8v/PehW8FfjViib6KecXH6P/yn0mmrFGrfXaUt+7avtmc/Q==
-Date: Mon, 23 Jan 2023 13:17:55 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Christophe Leroy <christophe.leroy@csgroup.eu>
-Subject: Re: [PATCH v2 2/3] ASoC: codecs: Add support for the Renesas
- IDT821034 codec
-Message-ID: <20230123131755.1f5702be@bootlin.com>
-In-Reply-To: <eb20dc66-f564-ed7e-8873-65621e5970de@csgroup.eu>
-References: <20230120095036.514639-1-herve.codina@bootlin.com>
- <20230120095036.514639-3-herve.codina@bootlin.com>
- <d51b826b-e71f-393c-586b-6a1ca953f26f@csgroup.eu>
- <20230123095631.4aba35d6@bootlin.com>
- <eb20dc66-f564-ed7e-8873-65621e5970de@csgroup.eu>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=NZaA2JBd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674475473; x=1706011473;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=gr6Yuo3I6+ldp2z56tMGOkQzM3vS3O1j0msUR4Kdo6U=;
+ b=NZaA2JBdW7yPYLrCoGjjaIzU2NlyGdc9wiXzb2ec35smGcKDpCSbY0NC
+ srJdOhROnZHMI4mT7PvnCNCDYoKUq7HzazH/A5hwi9FPb55MrBgqwKfNe
+ TwyUC5ZGHl1h9vjLJyN1/yXP67t2tYPZdq5qHi9h53vGGerFqGQcCvcJG
+ zwbazaJEgk0QD27NtxiKXA2WiUChpU4y/s456jRgc5r1tP6NUpJMFC+4s
+ XSAz7IhD/dlFIhFMfq00gNT+pqjK/eY05t8snZr5BYWK7Vua/1GC3fzpB
+ GNQDoEZ1Y3c6zSlj6V3YG794r4hm/oKn1DruW/Z4uUIJDF63X9WuRd2n3 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10598"; a="353285699"
+X-IronPort-AV: E=Sophos;i="5.97,239,1669104000"; d="scan'208";a="353285699"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2023 04:04:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10598"; a="769779486"
+X-IronPort-AV: E=Sophos;i="5.97,239,1669104000"; d="scan'208";a="769779486"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga002.fm.intel.com with ESMTP; 23 Jan 2023 04:04:28 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: Intel: avs: Simplify probe-component implementation
+Date: Mon, 23 Jan 2023 13:21:44 +0100
+Message-Id: <20230123122144.1356890-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,130 +84,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, hdegoede@redhat.com,
+ amadeuszx.slawinski@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Christophe,
+There is no need for the probe-component to be part of the PCM component
+list as it does not make use of ASoC-topology and does not participate
+in creating any PCM streams.
 
-On Mon, 23 Jan 2023 11:13:23 +0000
-Christophe Leroy <christophe.leroy@csgroup.eu> wrote:
+To achieve that, remove probe() and remove() functions.
 
-> Hi Herv=C3=A9,
->=20
-> Le 23/01/2023 =C3=A0 09:56, Herve Codina a =C3=A9crit=C2=A0:
-> >=20
-> > gpiochip_get_data() is defined only when CONFIG_GPIOLIB is set.
-> > That's why the #if section is used. =20
->=20
-> gpiochip_get_data() is still declared when CONFIG_GPIOLIB is not set, so=
-=20
-> it is not a problem, the call to it will be eliminated at buildtime.
->=20
-> By the way, at the time being I get the following warnings:
->=20
->    CC      sound/soc/codecs/idt821034.o
-> sound/soc/codecs/idt821034.c:310:12: warning: 'idt821034_read_slic_raw'=20
-> defined but not used [-Wunused-function]
->    310 | static int idt821034_read_slic_raw(struct idt821034 *idt821034,=
-=20
-> u8 ch, u8 *slic_raw)
->        |            ^~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/codecs/idt821034.c:305:11: warning:=20
-> 'idt821034_get_written_slic_raw' defined but not used [-Wunused-function]
->    305 | static u8 idt821034_get_written_slic_raw(struct idt821034=20
-> *idt821034, u8 ch)
->        |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/codecs/idt821034.c:276:12: warning: 'idt821034_write_slic_raw'=
-=20
-> defined but not used [-Wunused-function]
->    276 | static int idt821034_write_slic_raw(struct idt821034=20
-> *idt821034, u8 ch, u8 slic_raw)
->        |            ^~~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/codecs/idt821034.c:271:11: warning: 'idt821034_get_slic_conf'=20
-> defined but not used [-Wunused-function]
->    271 | static u8 idt821034_get_slic_conf(struct idt821034 *idt821034,=20
-> u8 ch)
->        |           ^~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/codecs/idt821034.c:250:12: warning: 'idt821034_set_slic_conf'=20
-> defined but not used [-Wunused-function]
->    250 | static int idt821034_set_slic_conf(struct idt821034 *idt821034,=
-=20
-> u8 ch, u8 slic_dir)
->        |            ^~~~~~~~~~~~~~~~~~~~~~~
->=20
->=20
-> With the following changes I have no warning and an objdump -x on=20
-> idt821034.o shows no reference to gpiochip_get_data()
->=20
-> diff --git a/sound/soc/codecs/idt821034.c b/sound/soc/codecs/idt821034.c
-> index 5eb93fec6042..8b75388e22ce 100644
-> --- a/sound/soc/codecs/idt821034.c
-> +++ b/sound/soc/codecs/idt821034.c
-> @@ -968,7 +968,6 @@ static const struct snd_soc_component_driver=20
-> idt821034_component_driver =3D {
->   	.endianness		=3D 1,
->   };
->=20
-> -#if IS_ENABLED(CONFIG_GPIOLIB)
->   #define IDT821034_GPIO_OFFSET_TO_SLIC_CHANNEL(_offset) (((_offset) /=20
-> 5) % 4)
->   #define IDT821034_GPIO_OFFSET_TO_SLIC_MASK(_offset)    BIT((_offset) % =
-5)
->=20
-> @@ -1133,12 +1132,6 @@ static int idt821034_gpio_init(struct idt821034=20
-> *idt821034)
->   	return devm_gpiochip_add_data(&idt821034->spi->dev,=20
-> &idt821034->gpio_chip,
->   				      idt821034);
->   }
-> -#else /* IS_ENABLED(CONFIG_GPIOLIB) */
-> -static int idt821034_gpio_init(struct idt821034 *idt821034)
-> -{
-> -	return 0;
-> -}
-> -#endif
->=20
->   static int idt821034_spi_probe(struct spi_device *spi)
->   {
-> @@ -1165,6 +1158,9 @@ static int idt821034_spi_probe(struct spi_device *s=
-pi)
->   	if (ret)
->   		return ret;
->=20
-> +	if (!IS_ENABLED(CONFIG_GPIOLIB))
-> +		return 0;
-> +
->   	ret =3D idt821034_gpio_init(idt821034);
->   	if (ret)
->   		return ret;
->=20
->=20
-> Christophe
+Fixes: ed914a2a45a4 ("ASoC: Intel: avs: Data probing soc-component")
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
 
-Right, I did the test too and indeed, I can remove the #if section.
+This change should be part of the initial series [1] from the get-go,
+differences between the internal tree and the external one caused me to
+miss the change when upstreaming. And thus the "fixes" tag.
 
-I will use (I think is clearer) at idt821034_spi_probe():
-	if (!IS_ENABLED(CONFIG_GPIOLIB)) {
-   		ret =3D idt821034_gpio_init(idt821034);
-		if (ret)
-   			return ret;
-	}
 
-Is that ok for you ?
+[1]: https://lore.kernel.org/all/20221202152841.672536-1-cezary.rojewski@intel.com/
 
-Thanks,
-Herv=C3=A9
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+ sound/soc/intel/avs/probes.c | 23 -----------------------
+ 1 file changed, 23 deletions(-)
+
+diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
+index 29d63f2a9616..b04f2d1a4c07 100644
+--- a/sound/soc/intel/avs/probes.c
++++ b/sound/soc/intel/avs/probes.c
+@@ -277,31 +277,8 @@ static struct snd_soc_dai_driver probe_cpu_dais[] = {
+ },
+ };
+ 
+-static int avs_probe_component_probe(struct snd_soc_component *component)
+-{
+-	struct avs_soc_component *acomp = to_avs_soc_component(component);
+-	struct avs_dev *adev = to_avs_dev(component->dev);
+-
+-	mutex_lock(&adev->comp_list_mutex);
+-	list_add_tail(&acomp->node, &adev->comp_list);
+-	mutex_unlock(&adev->comp_list_mutex);
+-	return 0;
+-}
+-
+-static void avs_probe_component_remove(struct snd_soc_component *component)
+-{
+-	struct avs_soc_component *acomp = to_avs_soc_component(component);
+-	struct avs_dev *adev = to_avs_dev(component->dev);
+-
+-	mutex_lock(&adev->comp_list_mutex);
+-	list_del(&acomp->node);
+-	mutex_unlock(&adev->comp_list_mutex);
+-}
+-
+ static const struct snd_soc_component_driver avs_probe_component_driver = {
+ 	.name			= "avs-probe-compr",
+-	.probe			= avs_probe_component_probe,
+-	.remove			= avs_probe_component_remove,
+ 	.compress_ops		= &avs_probe_compress_ops,
+ 	.module_get_upon_open	= 1, /* increment refcount when a stream is opened */
+ };
+-- 
+2.25.1
+

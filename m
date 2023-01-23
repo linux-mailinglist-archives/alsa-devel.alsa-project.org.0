@@ -2,114 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF7E6789BB
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 22:32:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F304A678A62
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 23:10:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5AA4AE76;
-	Mon, 23 Jan 2023 22:32:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AA4AE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C59AE77;
+	Mon, 23 Jan 2023 23:09:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C59AE77
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674509577;
-	bh=GAjjIq3XjvWZAINonQw0q61M7dadW556/tnGFN8GfiY=;
+	s=default; t=1674511835;
+	bh=0ymHrUm5jDfJLjqCaXzDm+ZmDku6aDdu/f84BssNsIU=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=kMprF1qaB4c84cxSaPooayEvKj9DEo6P3EYazeUWUEbisZmFTeRSQWYzGd8wp2HdB
-	 qqO+hA8x4Xmwl4sX26w2Fd5HfoyR3QwtMQUXhWguGvC6mLG2Khhonyjyk2XflkPlE+
-	 q/MkNj2Ih3KOCtxywlOU+ag/uCKaZu1kC/w6EIxU=
+	b=gMMVEytnTOQ/nRd7LF59JHYwt4hvFOEIb1YRYIbo+4vRfTucTCc+3nk9szAGXcvET
+	 eQgF4cnbSm1A0ZpE1I9IKpgNnxrGSVVK+v0gQXbTYfm5T+nkwFTE7agIMRAa0wHh1H
+	 DAXr11CfFP47ea48BYiKizZXObt7L8eGvZW3OLqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEA52F80132;
-	Mon, 23 Jan 2023 22:31:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E544F80132;
+	Mon, 23 Jan 2023 23:09:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58878F804C2; Mon, 23 Jan 2023 22:31:57 +0100 (CET)
+ id A8EB6F804C2; Mon, 23 Jan 2023 23:09:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=0.6 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
+ [209.85.167.170])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B0B0F80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 22:31:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B0B0F80132
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com
- header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3
- header.b=l5P1k9VR; dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=StnIgDVN
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 60AF83200915;
- Mon, 23 Jan 2023 16:31:45 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 23 Jan 2023 16:31:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1674509504; x=
- 1674595904; bh=5Nn3c2F56jjrxPcKUmzx8TX+ydLIXQP/7I8gJ3T6tZw=; b=l
- 5P1k9VRWpBhy+Sfi/h1DjIQekoKcxwl366MTIR/fFF93kA9UIA6xNR49vy+sH5FY
- Nx8ZviMSPSpq83/iNlhqaS5JK0Q1Au0InEbpobhG25mFJ6OGNCKctKqG0NnLORA0
- VgHw3YnPdqdWpM38TY6gQTvtRsls6TBa8MTwGxiw2CKReGQ1i7ZZRp3vnN35FHQ0
- wZg7GKtLzZ9sEkr9jYRVvuCAX0/5DSrEfNstcGYtzHEiNuokCboAs7M/tlrYJuik
- dvazrd4CK7y78YGb8+DXRbS267+xgJYc6sANvQ1aNbraz2lP6L5LGPaa/IkC50gY
- +vlef0kj8TqKxhF4D9I6w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1674509504; x=1674595904; bh=5Nn3c2F56jjrxPcKUmzx8TX+ydLI
- XQP/7I8gJ3T6tZw=; b=StnIgDVN3UP2fLLat18WAnGVtw2us+SRCbNbh3QvtNhI
- 01erGbpxDOmFLSNZFpRpCLxAEydO9/0eNO4t/wzFN13GVKDamuPyF/T8EM7tlgig
- WCRmXjvWu4j0KE6Bu3n0g7X9rTqe77WnYbTdzvdeXBlArmanNxpIpWIDjPK1x7mR
- ZIiRKpL72/YVkfzpkMOmT41Vtxk241oxIzpZ5Fw4k30LyNr4o1ChML+rJI8f++Fy
- WzIfCPrFDCkZEhMq4Tkh3xD+yX0gr1RrCvPZ0z3WfSkZ9t//ap4dij121C368VMh
- AVruFJtwC6Er/CWKSmnrD3jqRtwyTLZprYeGv0Rs/A==
-X-ME-Sender: <xms:wPzOY4hoF5WvZXyBpjENdFaUb9kpkw8hxoNMr1qBBpmZU-QiddCP7A>
- <xme:wPzOYxDONxg0FU227TYUscxM3SZpGlv1ADRxqt1KW793Ujqo_LnhNCvbwYhjMSWwE
- ianHwLmFqTG9w>
-X-ME-Received: <xmr:wPzOYwF1BUGc5nf1RMa0SFeqkSZ7sOmKywtZBQve-R2YblTOCKS1eW8jpAB7RWmW92JbXeowdvexLWFLxSdWgyvXVOdhYDyev-k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddukedgudeflecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
- vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
- hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
- udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
- hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
- khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:wPzOY5QjQZYKbD1knBxtZTEQUJv1325wxCLJ8lPTrpkCruYg3pizVg>
- <xmx:wPzOY1ziZuCCcLBE4DNPrewZPtt4lXbTI6rojboo6T8Wtm2CJ6vg3w>
- <xmx:wPzOY36l4_ASuuTFTEZ9b0p0gmH-rsFlgjNNiahR1Vupx-UslhDx2A>
- <xmx:wPzOYw9f8WvBYGHRT2Zv2wEHmKn25ggQvT43JQsAoBkpIW0aAZ5bXQ>
-Feedback-ID: i1568416f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 23 Jan 2023 16:31:43 -0500 (EST)
-Date: Mon, 23 Jan 2023 22:31:39 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
-Message-ID: <Y878uwEqfQ9WWPZV@mail-itl>
-References: <874jsp6r3q.wl-tiwai@suse.de> <Y8cGVGCWjODvMXUe@mail-itl>
- <87sfg85ic1.wl-tiwai@suse.de> <Y8fMVtWshr+yFLWk@mail-itl>
- <87fsc8t3s3.wl-tiwai@suse.de> <Y8nqIBJISq9Vm710@mail-itl>
- <Y8n7XkbM0aIEshlX@mail-itl> <87zgadpsz2.wl-tiwai@suse.de>
- <Y8qE9qBUi6Tuj0SS@mail-itl> <878rhxpcmr.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 025CDF801D5
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 23:09:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 025CDF801D5
+Received: by mail-oi1-f170.google.com with SMTP id r132so11668075oif.10
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 14:09:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3+oBU6QhiMJWJA5PyjPdZyGxoFfBGQTI7dLnT9GRQYQ=;
+ b=KAm4KqIn2zhkiTy3er2JRZerZQMYnxT0WsV5HaPI07KcZc3xLGSgQDid0oid87camg
+ 3Gu8uQYq2fw3KulSntU5PkWP9ijj6ZIqpgdbsnIhLmHtMIF6iRHA6Y4vvth7NzYfLSn6
+ +qC/pSv76QsLarKMaNIREsIzSQaHWaC5k7DrqOR0H4Uh2ml0vl8HbPGnLfQp5J4WPTOP
+ XsGw703NcODlY72t6lV8PxX2STXmDa3lYTvxca/RxRXYeOCmWs1aBPVsvfeRWGPl4RIo
+ 7idCXPDSeAkQRpMbGnZ/SIOKQsScOnNaPDPWhd5PEHFE9/S8s8uMv1BrnQLs5QTZwTfv
+ Nk9g==
+X-Gm-Message-State: AFqh2kpCuoq5bElTdUxtXW77SJoxktOqVknoplhZFtF3XRDIqdlesuFF
+ Y3FCABk7MYgk22HO7th5qQ==
+X-Google-Smtp-Source: AMrXdXuvsZxGtJD0l6UXaq6gtyP+fr1yafFDygzbhBdWeEIl1O6lOPBYCXkauU3R3RjEhpDssOuYPw==
+X-Received: by 2002:a54:4810:0:b0:35e:2d5c:6114 with SMTP id
+ j16-20020a544810000000b0035e2d5c6114mr12298293oij.25.1674511769870; 
+ Mon, 23 Jan 2023 14:09:29 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ t10-20020a9d728a000000b006706cd202b0sm209190otj.11.2023.01.23.14.09.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Jan 2023 14:09:29 -0800 (PST)
+Received: (nullmailer pid 2726293 invoked by uid 1000);
+ Mon, 23 Jan 2023 22:09:28 -0000
+Date: Mon, 23 Jan 2023 16:09:28 -0600
+From: Rob Herring <robh@kernel.org>
+To: Astrid Rost <astrid.rost@axis.com>
+Subject: Re: [PATCH v2 4/4] ASoC: dt-bindings: ti, ts3a227e.yaml: add jack-type
+Message-ID: <20230123220928.GA2720169-robh@kernel.org>
+References: <20230120102555.1523394-1-astrid.rost@axis.com>
+ <20230120102555.1523394-5-astrid.rost@axis.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="TE0qJaHlS2X1vFX1"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <878rhxpcmr.wl-tiwai@suse.de>
+In-Reply-To: <20230120102555.1523394-5-astrid.rost@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,61 +90,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Harald Arnesen <harald@skogtun.org>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, kernel@axis.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dylan Reid <dgreid@chromium.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jan 20, 2023 at 11:25:54AM +0100, Astrid Rost wrote:
+> Add jack-type: Bitmap value of snd_jack_type to allow combining
+> card drivers to create a jack for it.
+> 
+> Signed-off-by: Astrid Rost <astrid.rost@axis.com>
+> ---
+>  Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
+> index 785930658029..1d949b805f98 100644
+> --- a/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
+> +++ b/Documentation/devicetree/bindings/sound/ti,ts3a227e.yaml
+> @@ -27,6 +27,14 @@ properties:
+>    interrupts:
+>      maxItems: 1
+>  
+> +  jack-type:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Bitmap value of snd_jack_type to allow combining
 
---TE0qJaHlS2X1vFX1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Jan 2023 22:31:39 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Alex Xu <alex_y_xu@yahoo.ca>,
-	Harald Arnesen <harald@skogtun.org>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: Intel HD Audio: sound stops working in Xen PV dom0 in >=5.17
+snd_jack_type? Is that a Linux thing? Bindings are independent of Linux.
 
-On Fri, Jan 20, 2023 at 02:19:08PM +0100, Takashi Iwai wrote:
-> On Fri, 20 Jan 2023 13:11:34 +0100,
-> Marek Marczykowski-G=C3=B3recki wrote:
-> >=20
-> It's puzzling, then.  The patch changes the allocation with the
-> dma_alloc_coherent(), and that's what does with the Kconfig hack
-> you've tested.  One possible significant difference is the use of the
-> DMA address.
->=20
-> > BTW, xen_domain() will also return true on PVH/HVM domain, which should
-> > not need any of this special treatment. It's PV that is weird.
->=20
-> OK, then it can be an overkill.
->=20
-> Below is another try: it changes the different use of the DMA buffer
-> address.  Let's cross fingers.
+> +      card drivers to create a jack for it. Supported is
+> +        1 SND_JACK_HEADPHONE
+> +        2 SND_JACK_MICROPHONE
+> +    default: 3
 
-3 days update and it still works!
+I'm pretty sure jack properties are more complicated than just headphone 
+and/or microphone. There's buttons which are detected in differing ways.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---TE0qJaHlS2X1vFX1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPO/LwACgkQ24/THMrX
-1yyImgf/au0XzUJ+OEKpQg8b7Gm1T6GYQPBEE1xNc6JNxIxgxHsMYk3fX+W+ehQC
-ZzSZrWfXf4wjDCS7mdG+u0jKbVem03PXxw9hzAOfB4RHq3m4QEIj7CRZuJ3Ei4Rb
-lYu0r/tqWAUc3/q6pfvwrjRQZ7zGhMBPJP9OeNPQ8BRledVbauVfAkC0rehP6IwQ
-wAagyAChdfVqYPv5jQ5EX5TxBnGrEC3m7t1Z39CQ2MHbOux1sV508mwkpwK6dqF6
-3mCLQimI5qCiPeg4dWjC0L+UXFjwmAwC+3qmOKFGABLimjOsObyMS2ujD2fZqKgD
-aycdhsg6KzORTa4760o6yOKm+fpkTw==
-=CYWS
------END PGP SIGNATURE-----
-
---TE0qJaHlS2X1vFX1--
+Rob

@@ -2,68 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F162D678208
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:44:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE1ED67820F
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:44:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52C751DA;
-	Mon, 23 Jan 2023 17:43:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52C751DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F5ED851;
+	Mon, 23 Jan 2023 17:43:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F5ED851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674492242;
-	bh=Gp/sHUAF/Y3sVRfaZNIQFlqIoGtOg5ivA5AeoKmU7nU=;
+	s=default; t=1674492270;
+	bh=yVswVCV3rpo6pRLtM1xxdVAc0/UTV0lZ6oclhcJUEWs=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=j41gtkArf/35klj2CkxDIe/82u+rrFS0MZ/URnmNiAya8weU41udQMleLqELI2h18
-	 wrkQzIuD504DME3sU1g8OiHzgxQv4Oe8ImnsvUkc9fySGqKqTnnF2AJxycDMKmK655
-	 jlhP9b0NrBDrNmVL9/T+M0nTZVI6SdZixdRH1et8=
+	 From;
+	b=acK4LTzIlV3U8nbtSV4hc/G0Tu/lAc+Ql/0yHi+3x/bwTcJxbHvPpixEFLNJCaMOF
+	 QYR098hFwvdnGx4iJBZgJkNl2iNJTgCf0iuu1NlR0UhXRrv+hnPRcKf0kSkvobBFnY
+	 aSpvSpcraxXFYgpGi76ZOSEn+HG72Xveb9QmFIQQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A90B1F801D5;
-	Mon, 23 Jan 2023 17:43:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6003FF804FD;
+	Mon, 23 Jan 2023 17:43:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CEF7F804A9; Mon, 23 Jan 2023 17:43:02 +0100 (CET)
+ id CC936F804FD; Mon, 23 Jan 2023 17:43:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05ABDF80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:42:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05ABDF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83AA7F80132
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:43:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83AA7F80132
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BYFJLINb
+ header.s=k20201202 header.b=bKuWY1ea
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9CB1E60F6F;
+ by ams.source.kernel.org (Postfix) with ESMTPS id A5CBCB80E1A;
+ Mon, 23 Jan 2023 16:43:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF77C433EF;
  Mon, 23 Jan 2023 16:42:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14C7C433D2;
- Mon, 23 Jan 2023 16:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674492176;
- bh=Gp/sHUAF/Y3sVRfaZNIQFlqIoGtOg5ivA5AeoKmU7nU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=BYFJLINb1MVlmux8e0wgfeCtt2XTXSejtsdRVSTGO3jhyuxPuk1165Y0/ag40/fzn
- v7ZJ2e2gyLMdKkvT8tvvNSWPDV2fEAvE56eGrwcW57oZIL9Rx5GxFR63wDWU6FKcfF
- 3fPbPaERoSLO4C38Cd4Y/BqFaW6BZJWgoI4tDbKTtXumipDzRLUFuVoI+QoVgac8Tf
- r57Rnj7CarrFVwi6b3/uyrE4hscmuQ56XCSx6kXVTYiGHwnWpWqxkhJRb3pXF/RdeM
- HIMFoemrsMxp8TIgNs3tzA9kBOiht1e0kwah7J1l/kf+hchezULDOikhAltdCFV/b4
- ipQKdBiaq8s7Q==
+ s=k20201202; t=1674492180;
+ bh=yVswVCV3rpo6pRLtM1xxdVAc0/UTV0lZ6oclhcJUEWs=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=bKuWY1eaAfXuFWEMD8pXG7JEG5uZGmSqXAsAQDJ5+dMKnj+Z+jzKXS36dWDlfAGrO
+ xhoKpPwcbuYrRBnyU94xNn/hmcnuP21SfZJEJfzY71UY11MpXs0UYKRRzUgHo+PUEV
+ HPRYld4mauT7+E4CDLTE6Ux+qm00CO50i9vyVcBYictQmyFdPxPhl8FAB8Hp+6U3tC
+ VkrOA7vef3+K8K1X3Dlnb4tdPtq0KL4iHkDXDGylA0YMnE7DC+6hlYgXg/v2sF675p
+ lqS661UKVFpEbKSM+Z54N0arlJC4+a1saK2IOG2kR7MJ6n2QCwsf5mZ7JfAyp+nJ0m
+ /2tF5v/1yFIwQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20230123122144.1356890-1-cezary.rojewski@intel.com>
-References: <20230123122144.1356890-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Simplify probe-component implementation
-Message-Id: <167449217425.1484410.9989028192081889435.b4-ty@kernel.org>
-Date: Mon, 23 Jan 2023 16:42:54 +0000
+To: agross@kernel.org, andersson@kernel.org, lgirdwood@gmail.com, 
+ robh+dt@kernel.org, quic_plai@quicinc.com, bgoswami@quicinc.com, 
+ perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org, 
+ quic_rohkumar@quicinc.com, linux-arm-msm@vger.kernel.org, 
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, 
+ swboyd@chromium.org, judyhsiao@chromium.org, devicetree@vger.kernel.org, 
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+In-Reply-To: <1673508617-27410-1-git-send-email-quic_srivasam@quicinc.com>
+References: <1673508617-27410-1-git-send-email-quic_srivasam@quicinc.com>
+Subject: Re: [PATCH] ASoC: qdsp6: audioreach: Add ADSP ready check
+Message-Id: <167449217624.1484410.5375459304519764541.b4-ty@kernel.org>
+Date: Mon, 23 Jan 2023 16:42:56 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -80,20 +87,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: hdegoede@redhat.com, amadeuszx.slawinski@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Jan 2023 13:21:44 +0100, Cezary Rojewski wrote:
-> There is no need for the probe-component to be part of the PCM component
-> list as it does not make use of ASoC-topology and does not participate
-> in creating any PCM streams.
+On Thu, 12 Jan 2023 13:00:17 +0530, Srinivasa Rao Mandadapu wrote:
+> Check for SPF readiness in prm driver probe to avoid race conditions
+> during ADSP pil loading.
+> This patch is to avoid, sending requests to ADSP before it's
+> power domains are up and ready.
 > 
-> To achieve that, remove probe() and remove() functions.
 > 
-> 
-> [...]
 
 Applied to
 
@@ -101,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: avs: Simplify probe-component implementation
-      commit: f337703b229f6031a40199dfe050e04065cea0e8
+[1/1] ASoC: qdsp6: audioreach: Add ADSP ready check
+      commit: 47bc8cf60e926d1fb0c5d990bf6f5e01e9b3352e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

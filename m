@@ -2,100 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80326782DB
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 18:19:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043C36782EA
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 18:20:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1043AEA;
-	Mon, 23 Jan 2023 18:18:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1043AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9930DE10;
+	Mon, 23 Jan 2023 18:19:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9930DE10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674494343;
-	bh=d+rYvWT3ODOXGMqTlaZYmYWnw/1q7YsyF/sBSiBSvJs=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=SQ14yFW3QDAhtLQ703h+NG9sBZhaFsCwDTxf1S/jpqDv7RYQyjcUfzZrNV/S/xnki
-	 +u4KCbuWtVdN40el5I1Ds161wq/01oB5jsOXO5VlFuxzzdQMC6JXIhr4/3/QYLLRgL
-	 3qRLH7rWI+3spIIS5ZZVyuMLW+nNlbaV+ZTMTP+o=
+	s=default; t=1674494427;
+	bh=QxKTXC1q61zdzF23NI5tLZ2E5StXSr3Z/SKaZ/ipFdc=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=BuuDVII2/Xk4Synclrnl1O3FTAMzx6upwoC/0pQtNycyF2ayZCyU1ayJSY07IqVFM
+	 R/N1f+bUGpdePC0aQLdkTtRIzG7A5PTheKw3C8wn+gW8iQRMUhhlyMemYx9AVItK/3
+	 +ojgngcCXjVj2C9/KK0hVAoohrSG1rnzK1ax0KpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16DC2F804F3;
-	Mon, 23 Jan 2023 18:18:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B603F804C2;
+	Mon, 23 Jan 2023 18:19:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 236E8F804A9; Mon, 23 Jan 2023 18:18:02 +0100 (CET)
+ id A3EC3F804A9; Mon, 23 Jan 2023 18:19:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A4B6F80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 18:17:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A4B6F80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 409CBF801D5
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 18:19:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 409CBF801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=JdqJUiOK
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30NCQVVr019412; Mon, 23 Jan 2023 11:17:55 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=ikFhvFMwhwbSTa3ZoN4u9/ntqlbcXVmKikN+51+w++s=;
- b=JdqJUiOKTJWNyc6UUQWImMObDlEGWdtGns40B2VmLyH8uQPPTUyyALf84z0yTwvVwmYI
- TSHNMNDhJrf8xcAUE6BC0wQNzCXnYoVA8QvDjt7jQR++hJKMMg9db4t/y6NIMAid+njA
- 6Avy4VN9agusdEF1dwQr4mahsQKRbLoo+S3XCI9BDfBHMlq5wlKoMmN/dBIojLjLLmha
- YbDZJPg7VcXVPg87c+hjiphYing+9xhGMpPw4YH79fF2t/KJxZIrae0PDfpA5T1ZbjDq
- 1tdXSmXRZ9rYdf8cmIn6Q30MA+zlpCJNXjVdZmbXpHmHidb3oOoUMfCC9cqDUeFkjsjG 1A== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n8eb5ud9r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Jan 2023 11:17:55 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 23 Jan
- 2023 11:17:52 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.7 via Frontend Transport; Mon, 23 Jan 2023 11:17:52 -0600
-Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EC93FB06;
- Mon, 23 Jan 2023 17:17:52 +0000 (UTC)
-Message-ID: <8a05bb50-9743-d3cc-cff7-8b93aa1f68df@opensource.cirrus.com>
-Date: Mon, 23 Jan 2023 17:17:52 +0000
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WGKeX4wy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674494362; x=1706030362;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QxKTXC1q61zdzF23NI5tLZ2E5StXSr3Z/SKaZ/ipFdc=;
+ b=WGKeX4wyS3KtR3bljhLESefhccap/QnC3k1L7CP6t5pi8WXOEsb6uX+f
+ H3WS6q4+2zeuScemBaydw6teRfLRyrNjkQnEfxAF1uj5ZgYsqCYh3StYx
+ b195Zl7UtF2wxFiJoUPG6N5HT80dJVuf4JtfkO05FHd93/UTDU7FsZsGa
+ P53Xk9p9jjFIHx6z7oNnxlo3ChPUlCKW53pcO3w9O7ZlfL5tg5UoBhGTs
+ 5eQRrpJFff9fVrfaDG8iiJj34j6MMCD6V0YnKaQOm5kDJN5hMAly05TGf
+ ohEdbwWxfj42QuxsmNY7jRj7s2BKkrzO6sL8M814RvjDiEZVSew5oyBuS A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="306451044"
+X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="306451044"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2023 09:19:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="661791647"
+X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="661791647"
+Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 23 Jan 2023 09:19:15 -0800
+Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pK0TS-0005mq-0v;
+ Mon, 23 Jan 2023 17:19:14 +0000
+Date: Tue, 24 Jan 2023 01:18:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 691781f561e9868a94c3ed7daf4adad7f8af5d16
+Message-ID: <63cec15f.4eitr3XQwks0MqhA%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to
- register IRQ handlers
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Charles
- Keepax <ckeepax@opensource.cirrus.com>
-References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
- <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
- <c05a6791-96a7-2b10-d353-eb7b316aefc8@linux.intel.com>
- <20230120095941.GL36097@ediswmail.ad.cirrus.com>
- <881088ad-95d7-2462-20d2-72a6a9d3ba68@linux.intel.com>
- <20230123145353.GX36097@ediswmail.ad.cirrus.com>
- <034245f8-50b7-e801-7961-58c77dbc00b1@linux.intel.com>
- <05a00da2-2ff8-b234-3959-b451849b8cdb@opensource.cirrus.com>
- <638af695-3874-7c1f-830a-09cf353f45fb@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <638af695-3874-7c1f-830a-09cf353f45fb@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: PMVdj0bbhGczgy6a1MICN2d_HlrQs0Jr
-X-Proofpoint-ORIG-GUID: PMVdj0bbhGczgy6a1MICN2d_HlrQs0Jr
-X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,95 +87,193 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 23/01/2023 16:38, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 1/23/23 10:08, Richard Fitzgerald wrote:
->> On 23/01/2023 15:50, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 1/23/23 08:53, Charles Keepax wrote:
->>>> On Fri, Jan 20, 2023 at 10:20:50AM -0600, Pierre-Louis Bossart wrote:
->>>>> On 1/20/23 03:59, Charles Keepax wrote:
->>>>>> On Thu, Jan 19, 2023 at 11:12:04AM -0600, Pierre-Louis Bossart wrote:
->>>>>>> There should be an explanation and something checking that both
->>>>>>> are not
->>>>>>> used concurrently.
->>>>>>
->>>>>> I will try to expand the explanation a litte, but I dont see any
->>>>>> reason to block calling both handlers, no ill effects would come
->>>>>> for a driver having both and it is useful if any soundwire
->>>>>> specific steps are needed that arn't on other control buses.
->>>>>
->>>>> I think it's problematic if the peripheral tries to wake-up the manager
->>>>> from clock-stop with both an in-band wake (i.e. drive the data line
->>>>> high) and a separate GPIO-based interrupt. It's asking for trouble
->>>>> IMHO.
->>>>> We spent hours in the MIPI team to make sure there were no races
->>>>> between
->>>>> the manager-initiated restarts and peripheral-initiated restarts,
->>>>> adding
->>>>> a 3rd mechanism in the mix gives me a migraine already.
->>>>
->>>> Apologies but I am struggling see why this has any bearing on
->>>> the case of a device that does both an in-band and out-of-band
->>>> wake. The code we are adding in this patch will only be called in the
->>>> in-band case. handle_nested_irq doesn't do any hardware magic or
->>>> schedule any threads, it just calls a function that was provided
->>>> when the client called request_threaded_irq. The only guarantee
->>>> of atomicity you have on the interrupt_callback is sdw_dev_lock
->>>> and that is being held across both calls after the patch.
->>>>
->>>> Could you be a little more specific on what you mean by this
->>>> represents a 3rd mechanism, to me this isn't a new mechanism just
->>>> an extra callback? Say for example this patch added an
->>>> interrupt_callback_early to sdw_slave_ops that is called just
->>>> before interrupt_callback.
->>>
->>> Well, the main concern is exiting the clock-stop. That is handled by the
->>> manager and could be done
->>> a) as the result of the framework deciding that something needs to be
->>> done (typically as a result of user/applications starting a stream)
->>> b) by the device with an in-band wake in case of e.g. jack detection or
->>> acoustic events detected
->>> c) same as b) but with a separate out-of-band interrupt.
->>>
->>> I'd like to make sure b) and c) are mutually-exclusive options, and that
->>> the device will not throw BOTH an in-band wake and an external interrupt.
->>
->> Why would it be a problem if the device did (b) and (c)?
->> (c) is completely invisible to the SoundWire core and not something
->> that it has to handle. The handler for an out-of-band interrupt must
->> call pm_runtime_get_sync() or pm_runtime_resume_and_get() and that
->> would wake its own driver and the host controller.
-> 
-> The Intel hardware has a power optimization for the clock-stop, which
-> leads to different paths to wake the system. The SoundWire IP can deal
-> with the data line staying high, but in the optimized mode the wakes are
-> signaled as DSP interrupts at a higher level. That's why we added this
-> intel_link_process_wakeen_event() function called from
-> hda_dsp_interrupt_thread().
-> 
-> So yes on paper everything would work nicely, but that's asking for
-> trouble with races left and right. In other words, unless you have a
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 691781f561e9868a94c3ed7daf4adad7f8af5d16  Add linux-next specific files for 20230123
 
-Wake up from a hard INT is simply a runtime_resume of the codec driver.
-That is no different from ASoC runtime resuming the driver to perform
-some audio activity, or to access a volatile register. An event caused
-a runtime-resume - the driver and the host controller must resume.
+Error/Warning: (recently discovered and may have been fixed)
 
-The Intel code _must_ be able to safely wakeup from clock-stop if
-something runtime-resumes the codec driver. ASoC relies on that, and
-pm_runtime would be broken if that doesn't work.
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+drivers/gpio/gpio-zevio.c:174:40: error: invalid use of undefined type 'struct platform_device'
+drivers/gpio/gpio-zevio.c:178:9: error: implicit declaration of function 'platform_set_drvdata' [-Werror=implicit-function-declaration]
+drivers/gpio/gpio-zevio.c:184:28: error: implicit declaration of function 'devm_platform_ioremap_resource'; did you mean 'devm_ioremap_resource'? [-Werror=implicit-function-declaration]
+drivers/gpio/gpio-zevio.c:211:15: error: variable 'zevio_gpio_driver' has initializer but incomplete type
+drivers/gpio/gpio-zevio.c:211:31: error: storage size of 'zevio_gpio_driver' isn't known
+drivers/gpio/gpio-zevio.c:212:10: error: 'struct platform_driver' has no member named 'driver'
+drivers/gpio/gpio-zevio.c:212:27: error: extra brace group at end of initializer
+drivers/gpio/gpio-zevio.c:217:10: error: 'struct platform_driver' has no member named 'probe'
+drivers/gpio/gpio-zevio.c:219:1: error: type defaults to 'int' in declaration of 'builtin_platform_driver' [-Werror=implicit-int]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
 
-> very good reason for using two wake-up mechanisms, pick a single one.
-> 
-> (a) and (c) are very similar in that all the exit is handled by
-> pm_runtime so I am not worried too much. I do worry about paths that
-> were never tested and never planned for.
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/block/virtio_blk.c:721:9: sparse:    bad type *
+drivers/block/virtio_blk.c:721:9: sparse:    unsigned int *
+drivers/block/virtio_blk.c:721:9: sparse: sparse: incompatible types in comparison expression (different base types):
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 [addressable] virtio_cread_v'
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 virtio_cread_v'
+drivers/media/i2c/max9286.c:771 max9286_s_stream() error: buffer overflow 'priv->fmt' 4 <= 32
+drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
+mm/hugetlb.c:3100 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
+net/devlink/leftover.c:7160 devlink_fmsg_prepare_skb() error: uninitialized symbol 'err'.
+sound/ac97/bus.c:465:1: sparse: sparse: symbol 'dev_attr_vendor_id' was not declared. Should it be static?
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-randconfig-m031-20230123
+|   `-- drivers-media-i2c-max9286.c-max9286_s_stream()-error:buffer-overflow-priv-fmt
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-buildonly-randconfig-r005-20230123
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-randconfig-r023-20230123
+|   |-- drivers-gpio-gpio-zevio.c:error:extra-brace-group-at-end-of-initializer
+|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-devm_platform_ioremap_resource
+|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-platform_set_drvdata
+|   |-- drivers-gpio-gpio-zevio.c:error:invalid-use-of-undefined-type-struct-platform_device
+|   |-- drivers-gpio-gpio-zevio.c:error:storage-size-of-zevio_gpio_driver-isn-t-known
+|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-driver
+|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-probe
+|   |-- drivers-gpio-gpio-zevio.c:error:type-defaults-to-int-in-declaration-of-builtin_platform_driver
+|   `-- drivers-gpio-gpio-zevio.c:error:variable-zevio_gpio_driver-has-initializer-but-incomplete-type
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- csky-randconfig-s033-20230123
+|   |-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+|   `-- sound-ac97-bus.c:sparse:sparse:symbol-dev_attr_vendor_id-was-not-declared.-Should-it-be-static
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- parisc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- riscv-randconfig-s053-20230123
+|   |-- drivers-block-virtio_blk.c:sparse:bad-type
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-base-types):
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-addressable-virtio_cread_v
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-virtio_cread_v
+|   `-- drivers-block-virtio_blk.c:sparse:unsigned-int
+|-- s390-allmodconfig
+|   |-- ERROR:devm_platform_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
+|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- x86_64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+
+elapsed time: 721m
+
+configs tested: 85
+configs skipped: 4
+
+gcc tested configs:
+x86_64                            allnoconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+i386                                defconfig
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+x86_64                              defconfig
+sh                        edosk7705_defconfig
+ia64                             allmodconfig
+x86_64                               rhel-8.3
+i386                 randconfig-a004-20230123
+arm                         axm55xx_defconfig
+i386                 randconfig-a003-20230123
+x86_64                           allyesconfig
+sh                           se7722_defconfig
+sh                                  defconfig
+arm                        spear6xx_defconfig
+i386                 randconfig-a002-20230123
+m68k                             allmodconfig
+arm                           u8500_defconfig
+i386                 randconfig-a001-20230123
+x86_64               randconfig-a002-20230123
+arc                        nsimosci_defconfig
+arc                  randconfig-r043-20230123
+powerpc                           allnoconfig
+sh                            hp6xx_defconfig
+arc                              allyesconfig
+x86_64               randconfig-a004-20230123
+mips                             allyesconfig
+alpha                            allyesconfig
+x86_64               randconfig-a003-20230123
+i386                 randconfig-a005-20230123
+mips                     loongson1b_defconfig
+x86_64               randconfig-a005-20230123
+arm                                 defconfig
+x86_64                           rhel-8.3-syz
+i386                             allyesconfig
+i386                 randconfig-a006-20230123
+x86_64                         rhel-8.3-kunit
+m68k                             allyesconfig
+powerpc                          allmodconfig
+x86_64                           rhel-8.3-kvm
+x86_64                           rhel-8.3-bpf
+arm                  randconfig-r046-20230123
+sh                               allmodconfig
+x86_64               randconfig-a001-20230123
+mips                  decstation_64_defconfig
+sh                          rsk7203_defconfig
+xtensa                  nommu_kc705_defconfig
+arm                           imxrt_defconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+powerpc                     rainier_defconfig
+ia64                             allyesconfig
+powerpc              randconfig-c003-20230123
+i386                 randconfig-c001-20230123
+arc                                 defconfig
+s390                             allmodconfig
+alpha                               defconfig
+s390                                defconfig
+s390                             allyesconfig
+
+clang tested configs:
+x86_64                          rhel-8.3-rust
+hexagon              randconfig-r041-20230123
+hexagon              randconfig-r045-20230123
+powerpc                   microwatt_defconfig
+s390                 randconfig-r044-20230123
+x86_64               randconfig-a015-20230123
+mips                     cu1000-neo_defconfig
+mips                           ip22_defconfig
+x86_64               randconfig-a011-20230123
+i386                 randconfig-a014-20230123
+mips                          ath79_defconfig
+x86_64               randconfig-a013-20230123
+arm                   milbeaut_m10v_defconfig
+riscv                randconfig-r042-20230123
+x86_64               randconfig-a012-20230123
+mips                        maltaup_defconfig
+i386                 randconfig-a012-20230123
+x86_64               randconfig-a014-20230123
+i386                 randconfig-a013-20230123
+i386                 randconfig-a011-20230123
+i386                 randconfig-a015-20230123
+arm                       aspeed_g4_defconfig
+mips                          ath25_defconfig
+arm                         socfpga_defconfig
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp

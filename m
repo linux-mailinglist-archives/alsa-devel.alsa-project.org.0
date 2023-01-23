@@ -2,91 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3FF677E76
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 15:55:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0234D677E9E
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 16:03:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48B5E2F61;
-	Mon, 23 Jan 2023 15:54:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48B5E2F61
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84B883336;
+	Mon, 23 Jan 2023 16:03:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84B883336
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674485706;
-	bh=Dwj6Ee3++ZsVsGR3kk+/mfURagVWWjWW+pweIvXcf6M=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674486232;
+	bh=CclE03KygtDHtfeXJDWAfP/Pao8MYAQFo8WO4viasOM=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=mSIb+ufNVIRVy12CHThq+ddHvIbV0e2NwQtkckwdkdicfgQZW2z+1pGTEchPi+Lkc
-	 kv6MIOBWb1wF5EXnrahkUEBF10vUB92FJPRas0uy8eiLUg+D+6nsirOtRZoJorXM4B
-	 IMStYt/Pf1dGiXz7m+76l46HbrpNT95hqAYzE8T4=
+	b=DLtkFDkrCY4aJtjCza9ruU4raczkyO5l2pclpq34uyKcpdr0A6n4c+BHz+47xRmR5
+	 N7B5o8QSAvdGxePhOz/ugUO0T1IxgxQUvshTcAzw43IzBfUUhCB9Py4BQzxTbnmlp+
+	 IBvIIa8VbttdyrgWHPv+S2c7mBRfYHSwpBzbLCmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82686F800FB;
-	Mon, 23 Jan 2023 15:54:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC388F804F3;
+	Mon, 23 Jan 2023 16:02:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 412A5F804C2; Mon, 23 Jan 2023 15:54:06 +0100 (CET)
+ id 5C963F804C2; Mon, 23 Jan 2023 16:02:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96EBDF800FB
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 16:02:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96EBDF800FB
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256
+ header.s=20201203 header.b=NmRRM54u
+Received: from localhost (unknown [IPv6:2601:281:8300:73::5f6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F8C7F80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 15:53:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F8C7F80132
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=EnwT3GLe
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30NAP68i007057; Mon, 23 Jan 2023 08:53:55 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=Bx/RMP4XHYqKD8cltwOGavnKoMUm1WeokLMyFEzYkts=;
- b=EnwT3GLekMNE27UUzOrp6DZ2Vjkhi2ZvEpJrI9kkuTY9t8lcMaW6n7KMirCNhT8rjbpR
- UrBiCugy0hOKDvF/Gbl1/ktSCJsBQDPZJaedO7O9ozJu4Hz74zyUCAwav2M1ijubMLur
- PiTj+JB8y8JspEY8MtXDVjGPGibxfvlHw8NLAYk79omkcAo7eL9xhryRneEFdExZ2OmZ
- ykK5dsqNhLOlZO4jUega2QNfmQwkewBf4GQf/+rSYs1OBMD1iKYC6/lJsxjViG89/HRS
- GrDqGIkK7oxchyKAm2Orcx5Di/XU5F6cfAaeaTJkSayFTb8w1YiA+4G4ysiK0iIENIFF LQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n8eb5u624-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Jan 2023 08:53:55 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 23 Jan
- 2023 08:53:53 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.7 via Frontend Transport; Mon, 23 Jan 2023 08:53:53 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1BD48B06;
- Mon, 23 Jan 2023 14:53:53 +0000 (UTC)
-Date: Mon, 23 Jan 2023 14:53:53 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to
- register IRQ handlers
-Message-ID: <20230123145353.GX36097@ediswmail.ad.cirrus.com>
-References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
- <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
- <c05a6791-96a7-2b10-d353-eb7b316aefc8@linux.intel.com>
- <20230120095941.GL36097@ediswmail.ad.cirrus.com>
- <881088ad-95d7-2462-20d2-72a6a9d3ba68@linux.intel.com>
+ by ms.lwn.net (Postfix) with ESMTPSA id 8D62E4E5;
+ Mon, 23 Jan 2023 15:02:37 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 8D62E4E5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1674486157; bh=wxSnxIUwdkEE3c/KbtJ9Rj/dEJdzd01IhaDBd3YRbOA=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=NmRRM54uhrNW9CPQE0Rj7FopmjfzAKSU48AkFmXI0PBahR3aZFhVv/eI2ez+LoQdt
+ GAwYh6oeA5wECwc1VQwN51GdGKYJ3pRv9sjFAyB5PU6NyuPRJB5Fj49M9rtpAg90hA
+ mGPUpT3XUv7qqmpuYvcPec8YgT+TOBIcluJ1TZ6CAVlJnVS8pi6FNVqF+QhufMW4B+
+ FV+OdLKAsAKEypABjdte4J85m/2O/g6sbTnwMqgqCRN+jZ4f78bASoJqxscJz6dI3F
+ Hho+mHPNvcZo038OgNds35wZPvtdAVg0kaVxnJntVPoQ1g5X7wLgwH/M1nzD8v/OGH
+ XykY+7P/t3Ggg==
+From: Jonathan Corbet <corbet@lwn.net>
+To: SeongJae Park <sj@kernel.org>
+Subject: Re: [PATCH v2 0/8] Docs: Add missing SPDX license identifiers of
+In-Reply-To: <20230122213650.187710-1-sj@kernel.org>
+References: <20230122213650.187710-1-sj@kernel.org>
+Date: Mon, 23 Jan 2023 08:02:36 -0700
+Message-ID: <874jshl2er.fsf@meer.lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <881088ad-95d7-2462-20d2-72a6a9d3ba68@linux.intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 3UlUz6r3RxxsCUMhUMY3bY03itKLaihM
-X-Proofpoint-ORIG-GUID: 3UlUz6r3RxxsCUMhUMY3bY03itKLaihM
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,64 +77,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, sanyog.r.kale@intel.com,
- yung-chuan.liao@linux.intel.com
+Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ David Airlie <airlied@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-input@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ Jean Delvare <jdelvare@suse.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-hwmon@vger.kernel.org,
+ SeongJae Park <sj@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, "David
+ S. Miller" <davem@davemloft.net>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jan 20, 2023 at 10:20:50AM -0600, Pierre-Louis Bossart wrote:
-> On 1/20/23 03:59, Charles Keepax wrote:
-> > On Thu, Jan 19, 2023 at 11:12:04AM -0600, Pierre-Louis Bossart wrote:
-> >> There should be an explanation and something checking that both are not
-> >> used concurrently.
-> > 
-> > I will try to expand the explanation a litte, but I dont see any
-> > reason to block calling both handlers, no ill effects would come
-> > for a driver having both and it is useful if any soundwire
-> > specific steps are needed that arn't on other control buses.
-> 
-> I think it's problematic if the peripheral tries to wake-up the manager
-> from clock-stop with both an in-band wake (i.e. drive the data line
-> high) and a separate GPIO-based interrupt. It's asking for trouble IMHO.
-> We spent hours in the MIPI team to make sure there were no races between
-> the manager-initiated restarts and peripheral-initiated restarts, adding
-> a 3rd mechanism in the mix gives me a migraine already.
+SeongJae Park <sj@kernel.org> writes:
 
-Apologies but I am struggling see why this has any bearing on
-the case of a device that does both an in-band and out-of-band
-wake. The code we are adding in this patch will only be called in the
-in-band case. handle_nested_irq doesn't do any hardware magic or
-schedule any threads, it just calls a function that was provided
-when the client called request_threaded_irq. The only guarantee
-of atomicity you have on the interrupt_callback is sdw_dev_lock
-and that is being held across both calls after the patch.
+> Some subsystem documents are missing SPDX license identifiers on index
+> files.  This patchset adds those.
 
-Could you be a little more specific on what you mean by this
-represents a 3rd mechanism, to me this isn't a new mechanism just
-an extra callback? Say for example this patch added an
-interrupt_callback_early to sdw_slave_ops that is called just
-before interrupt_callback.
+Documentation/ is far behind on the SPDX front, and I'm all in favor of
+fixing that.  I do worry, though, about sticking license declarations
+onto files that did not previously have them; do we know what the
+original contributor's intent was?
 
-@@ -1681,6 +1681,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
-                                struct device *dev = &slave->dev;
-                                struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
- 
-+                         if (drv->ops && drv->ops->interrupt_callback_early)
-+                                 drv->ops->interrupt_callback_early(slave);
-+
-                                if (drv->ops && drv->ops->interrupt_callback) {
-                                        slave_intr.sdca_cascade = sdca_cascade;
-                                        slave_intr.control_port = clear;
+> Changes from v1
+> (https://lore.kernel.org/lkml/20230114194741.115855-2-sj@kernel.org/)
+> - Separate from index file content changes
+> - Separate patch for each subsystem doc (Alex Deucher)
+> - Use MIT license for gpu (Alex Deucher)
+>
+> SeongJae Park (8):
+>   Docs/crypto/index: Add missing SPDX License Identifier
+>   Docs/driver-api/index: Add missing SPDX License Identifier
+>   Docs/gpu/index: Add missing SPDX License Identifier
+>   Docs/hwmon/index: Add missing SPDX License Identifier
+>   Docs/input/index: Add missing SPDX License Identifier
+>   Docs/mm/index: Add missing SPDX License Identifier
+>   Docs/scheduler/index: Add missing SPDX License Identifier
+>   Docs/sound/index: Add missing SPDX License Identifier
+>
+>  Documentation/crypto/index.rst     | 2 ++
+>  Documentation/driver-api/index.rst | 2 ++
 
-Would that similarly worry you? As in is it the client driver
-writer dealing with 2 points of entry that worries you, or
-something deeper relating to the IRQs?
+I added this one, and GPLv2 is fine there.
 
-Also if it helps I could go over in a little more detail how
-the IRQs on our device works and why that means I would prefer
-to have the option to use both. There are alternatives but they
-arn't really as pretty.
+>  Documentation/gpu/index.rst        | 2 ++
+>  Documentation/hwmon/index.rst      | 2 ++
+>  Documentation/input/index.rst      | 2 ++
+>  Documentation/mm/index.rst         | 2 ++
+>  Documentation/scheduler/index.rst  | 2 ++
+>  Documentation/sound/index.rst      | 2 ++
+>  8 files changed, 16 insertions(+)
 
 Thanks,
-Charles
+
+jon

@@ -2,75 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C97677A38
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 12:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60116677A70
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 13:02:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B89141E4;
-	Mon, 23 Jan 2023 12:37:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B89141E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E1BB41F5;
+	Mon, 23 Jan 2023 13:01:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E1BB41F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674473885;
-	bh=piWmNlmE3+MCVvamvJ42lMN6E5O7WJ0RO0N8yjjRmtY=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1674475362;
+	bh=T8OXRkrHxy3NkHWATjgYaIRI6VNAsIcLGBZEaL9yM/o=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=rP1ghnNOKdSsErf3wBTbGCWBHa6J0926ueAh+DcPZvzEKnv5bP5kRjJo/Wu0EcTBK
-	 BQQlo2njvkE22IbSwI/X5zgSgSDJjgmSkqm33eQPBcUr0uOnAGs5BcvNUsHWujY9K/
-	 sUK0qBJz8iZab6qXW/mVdi1+FmMdWXjdEsgPI4dk=
+	b=Ttae3Y3VMFR0JBqVORe1waoqXb8fdl9+WlRDgT9Yeoa/Awmar8X6NS/G4LInWplCe
+	 qj3l3QE8+GbKfOuyeax7FGoJABO594meZWUhcyJwCZOOstqMvzf4QAovNFNiVlIxrl
+	 HvGkqQtmIoqVXTz/APFGxm6LHgITIJlTQ1RDPTqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E918EF800FB;
-	Mon, 23 Jan 2023 12:37:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03D1EF80132;
+	Mon, 23 Jan 2023 13:01:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 893E2F804C2; Mon, 23 Jan 2023 12:37:06 +0100 (CET)
+ id 757A2F804C2; Mon, 23 Jan 2023 13:01:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20A26F800FB
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 12:36:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20A26F800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 843E4F80132
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 13:01:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 843E4F80132
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=Vvqt8+5/
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 6FC67240008;
- Mon, 23 Jan 2023 11:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1674473815;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=n+igJAl/pqifZR0SzjchX5EdGz+pfJPGF0MNYlXIniw=;
- b=Vvqt8+5/D4t75o0MWtOWszmDjoeLxz0d8GCcpsXlPFGEQO1h5IYdfDvR0ZBPmABm5ZiMpa
- ka78Q+jnKGZ43b1E0oh4TOvLRXwDmpLGvLjwiDqiO6hp6nAy2cNcdPyJoKdroPvl3ibrlh
- M01++3vd0cD96YDOahpAvLZUEfs2hrRS1MQVQlOd9dkRMVWbyPozee6jS0v965m76BM20h
- QXEkbkYFnAY12818WdmLjliG53OSuBQb4MeEtBbqcB1HDqe4Z4QnpUY/shkyP3x4szYy1p
- 1rvhbnJoA81ZEiZcFQ0+7E9GUQg/sDWXCr2Qa4tM4nbEOxY+FnNlTOO0427nrw==
-Date: Mon, 23 Jan 2023 12:36:49 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v3 01/10] dt-bindings: soc: fsl: cpm_qe: Add TSA controller
-Message-ID: <20230123123649.63f17dad@bootlin.com>
-In-Reply-To: <20230117145529.GA3044055-robh@kernel.org>
-References: <20230113103759.327698-1-herve.codina@bootlin.com>
- <20230113103759.327698-2-herve.codina@bootlin.com>
- <20230117145529.GA3044055-robh@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=aDVBk3f/
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30N7Fv1T020060; Mon, 23 Jan 2023 06:01:36 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=izTgtVzxPHcMXYUQT4fT9Lgt910Hc0xQkh8SkYDYybU=;
+ b=aDVBk3f/tr1HKCI8EI7kpFMnKeu8wohA+AxZ50hBhYAfyZp5rvZu0rHBIB4MrsJFrf9l
+ AuEP+yNROCCFlX44orBuS/uFJGxYa/lYEpVzvGnApb7EtDprI2K8FiMP4JAdw7JHQaOw
+ M8Nw/HnzPbZPwe3c9VgtjWPNP+8WsXcCYq/Bb3Yi7eNg77Ixw8jIPxHG70+2srUomVGs
+ mUsrCN4H5GCIz9Pw0uZp4HW031eZJ0pkejGbMkYfrHO9ZsOserREaBJv+upFqJubQkT7
+ h9kYpQX+dhNaiF9g7LKrfb4JIfsMYSNAz6Fp5Ht0MXccwN6ajCJt8a256Ah2kSd9JxQ4 PA== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n8dbsk93g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Jan 2023 06:01:36 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 23 Jan
+ 2023 06:01:34 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via
+ Frontend Transport; Mon, 23 Jan 2023 06:01:34 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C722511CB;
+ Mon, 23 Jan 2023 12:01:34 +0000 (UTC)
+Date: Mon, 23 Jan 2023 12:01:34 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: Question about DPCM private_data of soc-compress.c
+Message-ID: <20230123120134.GW36097@ediswmail.ad.cirrus.com>
+References: <87tu0i6j7j.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <87tu0i6j7j.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: bUUrGy2PgqUKq0gYjz6nlMasaHlLsg5G
+X-Proofpoint-GUID: bUUrGy2PgqUKq0gYjz6nlMasaHlLsg5G
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,402 +94,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, Li Yang <leoyang.li@nxp.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Mark Brown <broonie@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Qiang Zhao <qiang.zhao@nxp.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+On Mon, Jan 23, 2023 at 03:08:49AM +0000, Kuninori Morimoto wrote:
+> 
+> Hi ALSA ML
+> 
+> I'm not familiar with soc-compress.c, but I think dpcm_capture case don't need "else" ?
+> I think it is same as soc-pcm.c :: soc_new_pcm().
+> I'm happy to post patch if someone acknowledge this question.
+> 
+> 	--- soc-compress.c --------
+> 	int snd_soc_new_compress(...)
+> 	{
+> 		...
+> 		if (rtd->dai_link->dynamic) {
+> 			...
+> 			if (rtd->dai_link->dpcm_playback)
+> 				be_pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream->private_data = rtd;
+> -			else if (rtd->dai_link->dpcm_capture)
+> +			if (rtd->dai_link->dpcm_capture)
+> 				be_pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream->private_data = rtd;
+> 			...
+> 		}
+> 		...
+> 	}
+> 
+> 	--- soc-pcm.c ---------------
+> 	int soc_new_pcm(...)
+> 	{
+> 		...
+> 		if (rtd->dai_link->no_pcm || rtd->dai_link->params) {
+> 			if (playback)
+> 				pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream->private_data = rtd;
+> =>			if (capture)
+> 				pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream->private_data = rtd;
+> 			goto out;
+> 		}
+> 		...
+> 	}
+> 
 
-On Tue, 17 Jan 2023 08:55:29 -0600
-Rob Herring <robh@kernel.org> wrote:
+I would certainly agree, pretty sure the else is redundant.
 
-> On Fri, Jan 13, 2023 at 11:37:50AM +0100, Herve Codina wrote:
-> > Add support for the time slot assigner (TSA)
-> > available in some PowerQUICC SoC such as MPC885
-> > or MPC866. =20
->=20
-> An odd line wrap length...=20
-
-Will be changed in v4.
-
->=20
-> >=20
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  .../bindings/soc/fsl/cpm_qe/fsl,tsa.yaml      | 260 ++++++++++++++++++
-> >  include/dt-bindings/soc/fsl,tsa.h             |  13 +
-> >  2 files changed, 273 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fs=
-l,tsa.yaml
-> >  create mode 100644 include/dt-bindings/soc/fsl,tsa.h
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.y=
-aml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
-> > new file mode 100644
-> > index 000000000000..eb17b6119abd
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,tsa.yaml
-> > @@ -0,0 +1,260 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/soc/fsl/cpm_qe/fsl,tsa.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: PowerQUICC CPM Time-slot assigner (TSA) controller
-> > +
-> > +maintainers:
-> > +  - Herve Codina <herve.codina@bootlin.com>
-> > +
-> > +description: | =20
->=20
-> Don't need '|' if no formatting.
-
-Will be changed in v4.
-
->=20
-> > +  The TSA is the time-slot assigner that can be found on some
-> > +  PowerQUICC SoC.
-> > +  Its purpose is to route some TDM time-slots to other internal
-> > +  serial controllers. =20
->=20
-> Wrap at 80.
-
-Will be fixed in v4.
-
->=20
-> > +
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - enum:
-> > +          - fsl,mpc885-tsa
-> > +          - fsl,mpc866-tsa
-> > +      - const: fsl,cpm1-tsa
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: SI (Serial Interface) register base
-> > +      - description: SI RAM base
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: si_regs
-> > +      - const: si_ram
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> > +
-> > +patternProperties:
-> > +  '^tdm@[0-1]$':
-> > +    description:
-> > +      The TDM managed by this controller
-> > +    type: object =20
->=20
->        additionalProperties: false
-
-Will be added in v4.
-
->=20
-> > +
-> > +    properties:
-> > +      reg:
-> > +        minimum: 0
-> > +        maximum: 1
-> > +        description:
-> > +          The TDM number for this TDM, 0 for TDMa and 1 for TDMb
-> > +
-> > +      fsl,common-rxtx-pins:
-> > +        $ref: /schemas/types.yaml#/definitions/flag
-> > +        description:
-> > +          The hardware can use four dedicated pins for Tx clock,
-> > +          Tx sync, Rx clock and Rx sync or use only two pins,
-> > +          Tx/Rx clock and Rx/Rx sync.
-> > +          Without the 'fsl,common-rxtx-pins' property, the four
-> > +          pins are used. With the 'fsl,common-rxtx-pins' property,
-> > +          two pins are used.
-> > +
-> > +      clocks:
-> > +        minItems: 2
-> > +        maxItems: 4
-> > +
-> > +      clock-names:
-> > +        minItems: 2
-> > +        maxItems: 4
-> > +
-> > +      fsl,mode: =20
->=20
-> 'mode' is a bit vague. It's already used as well which can be a problem=20
-> if there are differing types. (There's not in this case)
-
-What do you think about:
-      fsl,diagnostic-mode:
-        $ref: /schemas/types.yaml#/definitions/string
-        enum: [disabled, echo, internal-loopback, control-loopback]
-        default: disabled
-        description: |
-          The diagnostic mode can be used to diagnose some communication is=
-sues.
-          It should not be present (or set to 'disabled') when diagnostic i=
-s not
-          needed.
-          Diagnostic mode:
-            - disabled:
-                Diagnostic disabled (ie. normal operation)
-            - echo:
-                Automatic echo. Rx data is resent on Tx
-            - internal-loopback:
-                The TDM transmitter is connected to the receiver.
-                Data appears on Tx pin.
-            - control-loopback:
-                The TDM transmitter is connected to the receiver.
-                The Tx pin is disconnected.
-
->=20
-> > +        $ref: /schemas/types.yaml#/definitions/string
-> > +        enum: [normal, echo, internal-loopback, control-loopback]
-> > +        default: normal
-> > +        description: |
-> > +          Operational mode:
-> > +            - normal:
-> > +                Normal operation
-> > +            - echo:
-> > +                Automatic echo. Rx data is resent on Tx
-> > +            - internal-loopback:
-> > +                The TDM transmitter is connected to the receiver.
-> > +                Data appears on Tx pin.
-> > +            - control-loopback:
-> > +                The TDM transmitter is connected to the receiver.
-> > +                The Tx pin is disconnected.
-> > +
-> > +      fsl,rx-frame-sync-delay-bits:
-> > +        enum: [0, 1, 2, 3]
-> > +        default: 0
-> > +        description: |
-> > +          Receive frame sync delay in number of bits.
-> > +          Indicates the delay between the Rx sync and the first bit of=
- the
-> > +          Rx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits d=
-elay.
-> > +
-> > +      fsl,tx-frame-sync-delay-bits:
-> > +        enum: [0, 1, 2, 3]
-> > +        default: 0
-> > +        description: |
-> > +          Transmit frame sync delay in number of bits.
-> > +          Indicates the delay between the Tx sync and the first bit of=
- the
-> > +          Tx frame. 0 for no bit delay. 1, 2 or 3 for 1, 2 or 3 bits d=
-elay.
-> > +
-> > +      fsl,clock-falling-edge:
-> > +        $ref: /schemas/types.yaml#/definitions/flag
-> > +        description: |
-> > +          Data is sent on falling edge of the clock (and received on t=
-he
-> > +          rising edge).
-> > +          If 'clock-falling-edge' is not present, data is sent on the
-> > +          rising edge (and received on the falling edge).
-> > +
-> > +      fsl,fsync-rising-edge:
-> > +        $ref: /schemas/types.yaml#/definitions/flag
-> > +        description:
-> > +          Frame sync pulses are sampled with the rising edge of the ch=
-annel
-> > +          clock. If 'fsync-rising-edge' is not present, pulses are sam=
-ple
-> > +          with e falling edge.
-> > +
-> > +      fsl,double-speed-clock:
-> > +        $ref: /schemas/types.yaml#/definitions/flag
-> > +        description:
-> > +          The channel clock is twice the data rate.
-> > +
-> > +      fsl,tx-ts-routes:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> > +        description: |
-> > +          A list of tupple that indicates the Tx time-slots routes.
-> > +            tx_ts_routes =3D
-> > +               < 2 0 >, /* The first 2 time slots are not used */
-> > +               < 3 1 >, /* The next 3 ones are route to SCC2 */
-> > +               < 4 0 >, /* The next 4 ones are not used */
-> > +               < 2 2 >; /* The nest 2 ones are route to SCC3 */
-> > +        items:
-> > +          items:
-> > +            - description:
-> > +                The number of time-slots
-> > +              minimum: 1
-> > +              maximum: 64
-> > +            - description: |
-> > +                The source serial interface (dt-bindings/soc/fsl,tsa.h
-> > +                defines these values)
-> > +                 - 0: No destination
-> > +                 - 1: SCC2
-> > +                 - 2: SCC3
-> > +                 - 3: SCC4
-> > +                 - 4: SMC1
-> > +                 - 5: SMC2
-> > +              enum: [0, 1, 2, 3, 4, 5]
-> > +        minItems: 1
-> > +        maxItems: 64
-> > +
-> > +      fsl,rx-ts-routes:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> > +        description: |
-> > +          A list of tupple that indicates the Rx time-slots routes.
-> > +            tx_ts_routes =3D
-> > +               < 2 0 >, /* The first 2 time slots are not used */
-> > +               < 3 1 >, /* The next 3 ones are route from SCC2 */
-> > +               < 4 0 >, /* The next 4 ones are not used */
-> > +               < 2 2 >; /* The nest 2 ones are route from SCC3 */
-> > +        items:
-> > +          items:
-> > +            - description:
-> > +                The number of time-slots
-> > +              minimum: 1
-> > +              maximum: 64
-> > +            - description: |
-> > +                The destination serial interface (dt-bindings/soc/fsl,=
-tsa.h
-> > +                defines these values)
-> > +                 - 0: No destination
-> > +                 - 1: SCC2
-> > +                 - 2: SCC3
-> > +                 - 3: SCC4
-> > +                 - 4: SMC1
-> > +                 - 5: SMC2
-> > +              enum: [0, 1, 2, 3, 4, 5]
-> > +        minItems: 1
-> > +        maxItems: 64
-> > +
-> > +    allOf:
-> > +      # If fsl,common-rxtx-pins is present, only 2 clocks are needed.
-> > +      # Else, the 4 clocks must be present.
-> > +      - if:
-> > +          required:
-> > +            - fsl,common-rxtx-pins
-> > +        then:
-> > +          properties:
-> > +            clocks:
-> > +              items:
-> > +                - description: External clock connected to L1RSYNC pin
-> > +                - description: External clock connected to L1RCLK pin
-> > +            clock-names:
-> > +              items:
-> > +                - const: l1rsync
-> > +                - const: l1rclk
-> > +        else:
-> > +          properties:
-> > +            clocks:
-> > +              items:
-> > +                - description: External clock connected to L1RSYNC pin
-> > +                - description: External clock connected to L1RCLK pin
-> > +                - description: External clock connected to L1TSYNC pin
-> > +                - description: External clock connected to L1TCLK pin
-> > +            clock-names:
-> > +              items:
-> > +                - const: l1rsync
-> > +                - const: l1rclk
-> > +                - const: l1tsync
-> > +                - const: l1tclk =20
->=20
-> As the names are the same, just the length varies between 2 or 4, move=20
-> all this to the main definition and here just put constraints on the=20
-> length.
-
-Ok, will be done in v4.
-
->=20
-> > +
-> > +    required:
-> > +      - reg
-> > +      - clocks
-> > +      - clock-names
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reg-names
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/soc/fsl,tsa.h>
-> > +
-> > +    tsa@ae0 {
-> > +        compatible =3D "fsl,mpc885-tsa", "fsl,cpm1-tsa";
-> > +        reg =3D <0xae0 0x10>,
-> > +              <0xc00 0x200>;
-> > +        reg-names =3D "si_regs", "si_ram";
-> > +
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        tdm@0 {
-> > +            /* TDMa */
-> > +            reg =3D <0>;
-> > +
-> > +            clocks =3D <&clk_l1rsynca>, <&clk_l1rclka>;
-> > +            clock-names =3D "l1rsync", "l1rclk";
-> > +
-> > +            fsl,common-rxtx-pins;
-> > +            fsl,fsync-rising-edge;
-> > +
-> > +            fsl,tx-ts-routes =3D < 2 0 >,             /* TS 0..1 */
-> > +                           < 24 FSL_CPM_TSA_SCC4 >, /* TS 2..25 */
-> > +                           < 1 0 >,                 /* TS 26 */
-> > +                           < 5 FSL_CPM_TSA_SCC3 >;  /* TS 27..31 */
-> > +
-> > +            fsl,rx-ts-routes =3D < 2 0 >,             /* TS 0..1 */
-> > +                           < 24 FSL_CPM_TSA_SCC4 >, /* 2..25 */
-> > +                           < 1 0 >,                 /* TS 26 */
-> > +                           < 5 FSL_CPM_TSA_SCC3 >;  /* TS 27..31 */
-> > +        };
-> > +    };
-> > diff --git a/include/dt-bindings/soc/fsl,tsa.h b/include/dt-bindings/so=
-c/fsl,tsa.h
-> > new file mode 100644
-> > index 000000000000..2cc44e867dbe
-> > --- /dev/null
-> > +++ b/include/dt-bindings/soc/fsl,tsa.h
-> > @@ -0,0 +1,13 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +
-> > +#ifndef __DT_BINDINGS_SOC_FSL_TSA_H
-> > +#define __DT_BINDINGS_SOC_FSL_TSA_H
-> > +
-> > +#define FSL_CPM_TSA_NU		0	/* Pseuso Cell Id for not used item */
-> > +#define FSL_CPM_TSA_SCC2	1
-> > +#define FSL_CPM_TSA_SCC3	2
-> > +#define FSL_CPM_TSA_SCC4	3
-> > +#define FSL_CPM_TSA_SMC1	4
-> > +#define FSL_CPM_TSA_SMC2	5
-> > +
-> > +#endif
-> > --=20
-> > 2.38.1
-> >  =20
-
-Thanks for the review,
-
-Herv=C3=A9
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks,
+Charles

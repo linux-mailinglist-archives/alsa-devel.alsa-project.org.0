@@ -2,136 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168796774E5
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 06:27:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E746774E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 06:27:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D2D54206;
-	Mon, 23 Jan 2023 06:26:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D2D54206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C4811FC;
+	Mon, 23 Jan 2023 06:27:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C4811FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674451651;
-	bh=jVCZwL46MYuWLWFAh4H910pzVkc6KBP08fchTNndpNI=;
+	s=default; t=1674451673;
+	bh=k/gmM0E9WRQ8QwJ+xMqjI2MVz+b9APi+4+gOlmZ0YLc=;
 	h=From:Subject:To:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=nQnWX/hTA6PrXD9uJ4in/7k1Hr1nSGF0ysmhCFtyPuY78budu8BBtKn1q7+kp8Loq
-	 TAC/+6Q93yRPftcX3R+P8IgeV7f5qDSgHzB/GxiSawKRZ9nkEB6d6YDVGWD2onzQ+a
-	 nKurR5wr06Z0QJf4IqV25uL5G0Cwytwn32+kJlvM=
+	b=Bm68El8MKtfSCLZ49foy+OoF+ClJPyQVzkvXPgqRHfoQagEyjrJ041oqwA3Zd72Or
+	 Qn+hTboR7Q5rLrWlEa2aX33XOE6m2ixGbssFtWF3Rw4iUrMPZG/S34GciPqZ5m85Oa
+	 zLOt1hkwXjtrlwa47xi12d9AvNqbOQC99GE5C1/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ABEDF8055A;
-	Mon, 23 Jan 2023 06:25:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18F04F8057C;
+	Mon, 23 Jan 2023 06:25:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DA5CF8055C; Mon, 23 Jan 2023 06:25:49 +0100 (CET)
+ id 92388F8057A; Mon, 23 Jan 2023 06:25:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
  SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2124.outbound.protection.outlook.com [40.107.113.124])
+ (mail-os0jpn01on2111.outbound.protection.outlook.com [40.107.113.111])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34707F80542
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 06:25:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34707F80542
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0E90F80570
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 06:25:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E90F80570
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=VM5m3MIe
+ header.s=selector1 header.b=Cr8d/LB+
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YfQkQyM4p5Q/vwR3HJAbjGL6+RIzopTN1lL3aYs2p3r3EAkSAwhQcPSxvNVholJ+0aPKcQX+D9c0SRtyL6LGLvq/oMfspH8uEZVtLyfnYosLn3dpWehM/wq8O00Chr7v0bbu6ylq0nfPilA7B3J2RpZklCY24YBjuZqnLjd9maNcfjCd99Sg7ly+LIm11RbO1sekRml8qUtuUHZcRwTbMMvb1UhCOPmrDXUX+em+0G4SYwhhqQ17BYvyxEo5sWujrwcQQq0dpkxQC1EXtUYNw1FyOcegK1xPqffhg6tSM+4XrW/G00gxBLd5h+YDVPjDJFIX3En0GK0T3gTIKdetCA==
+ b=VCp43zsyGjEPu3NDThtBt5lCeqciFEkznIeh8p9f4zeQX0ph85QtJvho7sFcrFp98rWCoCWE8kRJPFmeXyIethAOtTRk9/T9HYeqmBJ4urKlllkVz+IF+FKJT8O3BfAnyTdpsHP/MERDYd0uTLLX32IpPY854ipNnUrW6kE79U1RwwHUGQdQfk48vBS7BFJJNziZCW3hWWhMFelw93LuNmxrt/sfUz15oJOMaN5euHBdzOKlzsabqEFVEEBW8TRjIhFOUrG/DzbL4qZUDtVdALFvpKhw0j7jVeZATnDmpFtq/lX4L3lQRLzJNaz+lc8JqmT7ABzDy+vDSGMoG+wnmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3uUsIW+Z08UIyagnXS0GUsOsdli/f+B20mLongTSf34=;
- b=QHZQKsbUckLkb6NcsSOVGTwbpg+Ex4CksMLOvlgAU3MvqyzzOnDhi88gqvOhUOEMPiK9jvyBe8nR0QA4lShJ0wza/3rKCABrYVCQUyDx+QiqDX5znf0kTsqKXNWlwNYcKzVAaGKccJC3xOat1f5A+iosxWlc/oGsc5lPHi2xkbBhbxCMj2fQpF9SHNEFAq1AY0XcQI9h6K+x55MOPn26PRPt1fQYJceBwjVswBa5QMaqv/Bewxd00xmE+/SKtVH4MXasjCUUqFuBvCyVBdrgsE4Ji35dN0lmPFit4iShZyyi/djFFX9jk7XbQTUyJxs6oC9bTikD6YoRYoufxc5buw==
+ bh=XRgm++DGcGMR/XBHPihqtCtqEqDlu0vKgNaaecP1goI=;
+ b=UuGxbj6cIj5tsPj/yRE3fbefipShpJyj3iGEQhptMDBAukW1lMJbKtKIfhua7jXpU7+fbOwMW0TlsQttRzj9ytMzwqxYNLprR66ugccvsWI6nnSVbMRh5anBmcwOug+d8tD9o0LatyepmAoJ1s5dI1ax/yqe/Sw6nLmQqGvp48AEvjtRZherf4+OHHIrUqWcWuTHS/b/z3I8V13bWhGQRRr3txL7RkjAFgYYy9+Q+77+b4qrKd1OICGqXKFmZRnnAusICAOGrcVgrIYqQ/IF8D6IMp9IJccasCqRFN52y6aj5AwpEExqjQdVRORgKXy6KMTQZuegNpBxgtCYi/ISAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3uUsIW+Z08UIyagnXS0GUsOsdli/f+B20mLongTSf34=;
- b=VM5m3MIehT27eo7EFYjLZM0LqQ/wBjXV9e+DEK9Y3cF+7VPFsbH6kBOJ3QZp9uhFvvDyKDAb5w4euaB7amXoiFXWRHCsx7dmCNTyopDbzrCsV7rDnowV1xtNMI4Z78ZSrojMapzenqM/xciK0frSNkPNlf8H/F0Ct4bcdhpolmw=
+ bh=XRgm++DGcGMR/XBHPihqtCtqEqDlu0vKgNaaecP1goI=;
+ b=Cr8d/LB+qlUSTKJ6aT0014ylo1/oUjLRTYWOr2gfZkUuYjbtv1P08IgAxVonN2D2+ZWWW3Xyr/btAAuIZvnALgJchel9HF1q5GObRa3Y/dpLDIhobhmPnpe4kr7TAvJnmpIM+zVcm1wsy6DWag/Lgu0vwjq9WsdyiDUKurR5VA8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
  by TYYPR01MB10497.jpnprd01.prod.outlook.com (2603:1096:400:2f6::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.28; Mon, 23 Jan
- 2023 05:25:41 +0000
+ 2023 05:25:47 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3cd7:a7b5:ea86:9ae]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3cd7:a7b5:ea86:9ae%6]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
- 05:25:41 +0000
-Message-ID: <87k01d7rfv.wl-kuninori.morimoto.gx@renesas.com>
+ 05:25:47 +0000
+Message-ID: <87ilgx7rfp.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v3 06/11] ASoC: dt-bindings: ti,
- pcm3168a: Convert to json-schema
+Subject: [PATCH v3 07/11] ASoC: dt-bindings: ak4613: enable Of-graph
+ (Audio-Graph-Card) style
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 In-Reply-To: <87sfg17rjq.wl-kuninori.morimoto.gx@renesas.com>
 References: <87sfg17rjq.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 23 Jan 2023 05:25:41 +0000
-X-ClientProxiedBy: TYCP301CA0043.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:380::19) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Mon, 23 Jan 2023 05:25:46 +0000
+X-ClientProxiedBy: TYCP286CA0129.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b6::17) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYYPR01MB10497:EE_
-X-MS-Office365-Filtering-Correlation-Id: 079884cb-460c-4a92-b4e7-08dafd0244bd
+X-MS-Office365-Filtering-Correlation-Id: 2feeb7e1-1aac-47df-1c06-08dafd02483c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OcRNsUhzjF0C6FHgDF4DC+LZHa8IcI3UOgy3D3e6SV5zWX6d0cAsde9UCI6J8l/g/mcOC61sLb+VDg9gB5OgWMezrtrS0yA2asbBio6OK6nh/AxyqN/0CekiMekJ2jg/yF3RhMXHR+5BuHnpy1hCO09fraZHSdkfxtlm7ksrtvyNnT18f8ZHXbfi1q4s5xGmsD9mjsBrv6kUPFycRK8cNJfiw35i+/QJAl6/cJ9DRVigLKrKALwoLIRKqQNY8xXiUIKqlFD6qlrsVqtVlsgnU0xRdRcjWxSNAFBbBRm7UknE+mqVU4tRbHPAL9Qt0Dx4DsQG3/d5XRejcmpXZKI3WRZzmqdkgHIS0T36zMPcqpmQxFziLNIM13hPGi9VqgsOeBwy6C6xk8FoJKrfCsMrqbJttc+7zHu/7iYwSHkAJtcOy5aG3okg1rHZRvROWAkWb3OYWaEHP9USw7WJ8RomcdZuDxlbUVwdkIc9FHm7NdmPdiJc2OyonSq0sx2CTchHmrp7ZuTW4NUDN/W1ky2Tew1d9Jxu52BOWEZ5MawrrGLkaYcrVtKJC2tbmi1edp9hdKlem/JTfv/eOhbP64CFaTSVLrpObSL8wzSfVSm0KE3hO2Zy2tKmEDmwYP+1MXFrHzEEjq6C9Oz9R7QoEFnaFsks5BI3+pOlfmIEmHdDYD8E+04GRvSUVaaQ3cS/KCQqYvHqpyLuigNNGz9Hbv1dcMK/zqWldY4HcmlwUB7X1q+lmVk3diruLL/NVZwnSqI2
+X-Microsoft-Antispam-Message-Info: bVNDfGJXBSqA4Kxc6pne3bkMtEti7Lxpzvh6h/V5dcfwOr99+MVwf8hMi/Pf/kz7BhkjuDBfUmDSDebqXB4m5aa1tv8aV8JprgQX8+fvDMlrz9uwJxuUiEZ24YDGRZ75wBilLIUleZlelVADzIyBDQTgMlibLBAETajZaAbuiORblQyy20BnhmemU4WCZ5UGkYx/hdQy9oHjK2MwQjtLfLyBWN7hutBCHXO7ioB7NFMeTu+kTsYfrgnY7YC4DYaaUFPh7uF5/EqynsS/txqcbSkptuPguj2gTkyRMZs4g0/RlpsNFiuJFytkECiLsB5OUaLH+ah/ML6aJ6HIjbwmzX0LzwGaR1Gba9HVVpNDMyQKW0B17PS812bLEZaIc6VhzkNOH5+cf3O6DgERoQDWImhQRF12zmjD2VVoczH5TM5iNzTuhdJ6H7jUmG+SljVM7flHUSXWgPSoE/otZvzM+RAlmvyZ2Qp7EdkCyrUTuhK/DTFNdHnoRjsdwZF3QqzxytLxFSzNXOv4bMo0HuirpnepeR2MVQpqkw41GYCEvEsPPFxt1scOSQPkxoNg9jZp67YK0bSnioDQVSuHsyi8X9rCQ01OP0ysyMYVeolEYkBqwl7+991P2Eq3BJ/SYvQDu/hIGCMDJ4+9H/N1HFFKILr30naSkUOqqUa9aerUOU6QixVUI3Okuu8yyYDxuI3Z7VKBiV9WOlKmP43fbSrSDg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(376002)(366004)(39860400002)(396003)(451199015)(86362001)(36756003)(316002)(54906003)(110136005)(8676002)(4326008)(66946007)(66556008)(66476007)(186003)(6512007)(478600001)(26005)(6506007)(2616005)(966005)(6486002)(52116002)(38350700002)(38100700002)(83380400001)(41300700001)(8936002)(2906002)(5660300002);
+ SFS:(13230022)(4636009)(346002)(136003)(376002)(366004)(39860400002)(396003)(451199015)(86362001)(36756003)(316002)(54906003)(110136005)(8676002)(4326008)(66946007)(66556008)(66476007)(186003)(6512007)(478600001)(26005)(6506007)(2616005)(6486002)(52116002)(38350700002)(38100700002)(83380400001)(41300700001)(8936002)(2906002)(5660300002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XhfrufyxT2n8ZIOvJV4hFnxuhKDsq49iNmABzIZAP7pADnwdRt6c7YBzl1hJ?=
- =?us-ascii?Q?VQBDpiHgNkKP7lnzppKaoHYKJQZSFqHEeOOhp8VhHUTyMtjFNit4LmTEDsKj?=
- =?us-ascii?Q?k9vhfevLM0cH9X2/iOw3n7jyoxw6b0SGy7YjO0oUi5fT8USFLUjqc8zc/SKk?=
- =?us-ascii?Q?/Qvz4jMaaw+HJxZBWzrfraPh3cABSYftaAKExyvVRkLhBQC4eGHDJu4GgQzS?=
- =?us-ascii?Q?lQfxWXUpR01mjJ28vBlIB0nI2KDNPubpjJObC/6Quw/NBcNYbghTJgZwyEWd?=
- =?us-ascii?Q?Ck0WGbxuo1hWkXF7JTw2Ls9h/baL7QgSxY040xfFPuOEXzhcbvWLG1VKka1Y?=
- =?us-ascii?Q?wjGFI8+VZ249hyYEuK5jYKXqxPD3itnSPvFxZOnRRJhTZFihFVvXtGYfLpUl?=
- =?us-ascii?Q?xgNsA8KsyuJ1Sb6asy/Zl0yEJs80gk3UAFbZhFdCq98sWhDv5Mx3WXe8dLLa?=
- =?us-ascii?Q?iclNqM1JVrK86zWZh1ecwr1vfaRDvPxrvH7qTD8sMjrAXy4+Z7lLq22GvFUB?=
- =?us-ascii?Q?ixdnyxqOztn4G33eGTgDbLlgU9fX/VNp72zJ82F8HHSp7zeV11zrRUObEi29?=
- =?us-ascii?Q?k6+OsltDHYEE2At+qbZkM1NdQM8nA0NS93S/TBsLHOup9Ay4U34WBSffVrMj?=
- =?us-ascii?Q?Rk3lTs4iAwLjK8N9hap3Ym0hZQgfEa9sS+6zlE5cVBHsUEN72NyDi8knp9R6?=
- =?us-ascii?Q?WwV4sSINTp7Uxb6SKdFtgynVPlBYRYiIBvx5HPkgx7VgYfIyC5WDAK2iNBm6?=
- =?us-ascii?Q?OzFfUibLM8sbxP76gvc9qwQYJuHWde5AhlCoiNFs4XK3Qts3PnVcafeFjHbe?=
- =?us-ascii?Q?XCGyS0Mw2vbRQ+CBHrEIL+CBgb/9LqKWHcAjVWkzr+W5NRiesSPNxIDM+BOQ?=
- =?us-ascii?Q?zEPTE0IRCvXz0/rlH+g0cI74kzL8wA/Fe1htHkvpFvyKx5KwzlB1Apbsz76c?=
- =?us-ascii?Q?V4JQikPVTrvBgqOXVnVlN/JNiNTLePLSHoykkzdJClLXJlORGnb88DBw1qMG?=
- =?us-ascii?Q?SjePfn6lqhAax86lHZHtfXrns7cCGIzxv7ygXNpnccK0rxLE65pUvPjwxSTp?=
- =?us-ascii?Q?ZaQwZE1tKc8EcmZjqjGekYGiGzWG2fDowUgQdsKnIAZr+h2F+S/z3K06/uqr?=
- =?us-ascii?Q?LH0+q3hJECkwdhvZOaQMUgat22gzbYxx8OYHEVDOxO0PxwRXVViA/+oyRJMV?=
- =?us-ascii?Q?VHCUdAWcDfzYEZQf7XZt0f1OzueBuIYa9msSbyKFI6mCW75uQZ/qE38tWAml?=
- =?us-ascii?Q?UVlwEhQIk+wUG7qwPNHwp4c0HMt5FmDokIhFrtcpzUsVFlohHtPwhoWpXniP?=
- =?us-ascii?Q?DCM491ASewKDWIPi+0DFf6MP+KWl0vjh8Hs+sT8b61YT7JOcqXHCSlh4D0oh?=
- =?us-ascii?Q?iVOmgURs8Yd7ow+f2NffYnn2eiWUUrm2EMHF1NImFQNcZ7kZI0pW/YQAYBrI?=
- =?us-ascii?Q?/gWRDOweGdYX53gVL2AfZcgb0q6vkv2nb1Bg+aP+iEtoa2RsJrcsKheeQnA+?=
- =?us-ascii?Q?3WdVlCIvYxN4TrxcgogQpKtBw0e6q3zDETT1w64nstL8RAhNsxcNP8+kQhH7?=
- =?us-ascii?Q?/UfIN+RQN5JYQW8dkb2x5MktLA0tugfnLjTzqMVjXDpqYn71Z/mF09Z35TK4?=
- =?us-ascii?Q?rnS9mwBApsRNxRlIvANOFWg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?U406SkRvVzflnB+ChUq2dgV3hGhkVLcREEOZ6zXpgg/5wp+bQLd2lYfw5lwM?=
+ =?us-ascii?Q?vIg4KBNgeqq/1iCs/HPhJhNRaV68mxHpS0znp8RHfkcV3MgiTVSzrhMHaqzE?=
+ =?us-ascii?Q?LSyftTNXOfHKQt4kT6HUGsMVKrftvBjt+eTdreAsv9Icp1NPyJDahWRDm/gy?=
+ =?us-ascii?Q?W7QmJ22AoudGWagtkLXl8L3vP5HcJfCtHPnbc/cdKV896jyd/3YE3LTYw2am?=
+ =?us-ascii?Q?UPus85Hg8M1e8kbMTIvljCfiZq07RryNOiD8s81lIGHHjauvCGbJpA3a0gIH?=
+ =?us-ascii?Q?LfQIrShVuU5GZUFQACVpQPbv2Zb2IqMFJhpv7mdMlTWU3oofznBBZjIB62b/?=
+ =?us-ascii?Q?rDXblLQdBh0ewfJFBVxuEE7Rck/tjvtqkFn0avkxmZUfDW4Yvk5RdiwAR2fH?=
+ =?us-ascii?Q?OcMDQxveXxihu5lZ93oAA86N3a2yB5VXEMCEg6MfOdvUhtOUm6EpgbD2j3GV?=
+ =?us-ascii?Q?2HdqTBdNWomUBPvNNZ//sXDMh1IHc2jYE2JIYCgjmPw3+0ts/QMxbAcOUigI?=
+ =?us-ascii?Q?rvEAp4UNVvYbmvw3QsREk4+o1tnkMrSfG1sxUbOTa7Mlk0J5+/b4yTgs2sFO?=
+ =?us-ascii?Q?iFc0wbVmvzSUf6/KhTkDgmOmig+rCvJUTRfYNh+xZ5ZfakDj042asMvil/Nz?=
+ =?us-ascii?Q?HDloIggSuaTECDYofyODmzqnpg6WJWksTSliNxqzBv0schF3Mm16q9LNLwdn?=
+ =?us-ascii?Q?lFNfEZk7sqa1Wygmk1Ta0/OByyAij/Eyr5LyCV52diorNHxxJsKL5Iw48464?=
+ =?us-ascii?Q?dDbdnbxqLaJZnD13lc6cKzqwkszcLnFPGCqzvwWZvpa+Pmxql1llvslVcTMt?=
+ =?us-ascii?Q?zpCRk5DdzSct9JgKmNfHsGW9IO8DkhgK5h5gfKTDOCGruUyjh49p/RRWiKKF?=
+ =?us-ascii?Q?JpoO8Gyw1NC+26mDzxch1COhzb+phre9d4aSAJE0UpIlRIZG1DE+Hk066p3B?=
+ =?us-ascii?Q?QezD/FPCOHEwj3IJ4a5kDic59C2TERsI4fALBVvIbAsSW7x+QqFEDH9BygLE?=
+ =?us-ascii?Q?tzhrZEfhdvV6ISICNBXW7mQgKDvRNGmLqSRZOUQxrq8bHxdBHqPtYSm80dIt?=
+ =?us-ascii?Q?Tl2HkqpAs3MagI2StHAqLUxPESHbLQ6jmrCW8mIUHO5tDazAp/MBhmZzu+Fc?=
+ =?us-ascii?Q?bSUDrENCbbgqy8I1M+vTrfTbnwv9c+asPMSWgsSc6s2Ofe78R2jV/W3hE3mx?=
+ =?us-ascii?Q?k3lmQAGgS0XRderZ4VsRqSt3gSV/rATrG7j5tpdGPYpY/8tXYKUNb2CgarWv?=
+ =?us-ascii?Q?U2tIy7K0lbCZzDJWxlNf8YfbZQrQ7Re9yzkUkpl5jC3aao7fwwn/pxMSy/tP?=
+ =?us-ascii?Q?FzI0rxNDt1pBj13/0UTL+DZRJG2C6VH1p0T93C8mccu5oBp9ssXb8O+0GlUa?=
+ =?us-ascii?Q?a+kkzLG8Wm/smbcSDngdu3c4P+BvO3qDmZjlBU4ZDBvs4OkYK5BOdDAuK6L6?=
+ =?us-ascii?Q?iypQIHUwsYRu8VS/p5SoK1XsOi3Gcw+rf5Bak/nrYnWt6f7klDIaGc5/A8Ck?=
+ =?us-ascii?Q?tQSHvn5po36h42FpUepObh1J1z8+lRk2eCqKqxQAGVukX8h2Sbwz9YqIqgyK?=
+ =?us-ascii?Q?xZvGGSQRfkRULxCRGYNZn0z2hd7cYOHzuLXHAvmDywQgcLN7fyTfjxRaIgVG?=
+ =?us-ascii?Q?irZBz/0uSKcZGjMZjJGiCVo=3D?=
 X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 079884cb-460c-4a92-b4e7-08dafd0244bd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2feeb7e1-1aac-47df-1c06-08dafd02483c
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 05:25:41.3110 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 05:25:47.3600 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iN7eVcx5kHCiGCIzgFOt2/vXNF+wOpaYhoXhdMMJu20pFmZIYrDruL49L+qkosTm9g6SnUmmz+OlxMntbRcaEJSAKRh/dpOeCmRfMM+rCNMv3tijBy5JjZhlHQhyiCZs
+X-MS-Exchange-CrossTenant-UserPrincipalName: 95EdePd+hZKLeAoItRChBK4wLZgejiEUwA7gl2PFc4E336QpSubUAWeIYdwSC8wUd0FCQO9t6bxDOvjTbp4n25PiG+PlHJLNSyZnWvNxZqkoa4epU2ipmk6432JNXtAW
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB10497
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -150,201 +150,38 @@ Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Geert Uytterhoeven <geert+renesas@glider.be>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Convert the Texas Instruments PCM3168A Audio Codec Device Tree binding
-documentation to json-schema.
+ak4613 is possible to use Of-graph (Audio-Graph-Card) style,
+but we need to indicate it. Otherwise we will get below warning.
+This patch add it.
 
-Add missing properties.
-Drop unneeded pinctrl properties from example.
+${LINUX}/arch/arm64/boot/dts/renesas/r8a77950-salvator-x.dtb: codec@10: 'port' does not match any of the regexes: '^asahi-kasei,in[1-2]-single-end$', '^asahi-kasei,out[1-6]-single-end$', 'pinctrl-[0-9]+'
+	From schema: ${LINUX}/Documentation/devicetree/bindings/sound/ak4613.yaml
 
-Link: https://lore.kernel.org/r/cover.1669980383.git.geert+renesas@glider.be
-Link: https://lore.kernel.org/r/87mt7qpylw.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../devicetree/bindings/sound/ti,pcm3168a.txt |  56 ---------
- .../bindings/sound/ti,pcm3168a.yaml           | 107 ++++++++++++++++++
- 2 files changed, 107 insertions(+), 56 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
- create mode 100644 Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
+ Documentation/devicetree/bindings/sound/ak4613.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt b/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
-deleted file mode 100644
-index a02ecaab5183..000000000000
---- a/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
-+++ /dev/null
-@@ -1,56 +0,0 @@
--Texas Instruments pcm3168a DT bindings
--
--This driver supports both SPI and I2C bus access for this codec
--
--Required properties:
--
--  - compatible: "ti,pcm3168a"
--
--  - clocks : Contains an entry for each entry in clock-names
--
--  - clock-names : Includes the following entries:
--	"scki"	The system clock
--
--  - VDD1-supply : Digital power supply regulator 1 (+3.3V)
--
--  - VDD2-supply : Digital power supply regulator 2 (+3.3V)
--
--  - VCCAD1-supply : ADC power supply regulator 1 (+5V)
--
--  - VCCAD2-supply : ADC power supply regulator 2 (+5V)
--
--  - VCCDA1-supply : DAC power supply regulator 1 (+5V)
--
--  - VCCDA2-supply : DAC power supply regulator 2 (+5V)
--
--For required properties on SPI/I2C, consult SPI/I2C device tree documentation
--
--Optional properties:
--
--  - reset-gpios : Optional reset gpio line connected to RST pin of the codec.
--		  The RST line is low active:
--		  RST = low: device power-down
--		  RST = high: device is enabled
--
--Examples:
--
--i2c0: i2c0@0 {
--
--	...
--
--	pcm3168a: audio-codec@44 {
--		compatible = "ti,pcm3168a";
--		reg = <0x44>;
--		reset-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
--		clocks = <&clk_core CLK_AUDIO>;
--		clock-names = "scki";
--		VDD1-supply = <&supply3v3>;
--		VDD2-supply = <&supply3v3>;
--		VCCAD1-supply = <&supply5v0>;
--		VCCAD2-supply = <&supply5v0>;
--		VCCDA1-supply = <&supply5v0>;
--		VCCDA2-supply = <&supply5v0>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&dac_clk_pin>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml b/Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
-new file mode 100644
-index 000000000000..b6a4360ab845
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
-@@ -0,0 +1,107 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,pcm3168a.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments PCM3168A Audio Codec
-+
-+maintainers:
-+  - Damien Horsley <Damien.Horsley@imgtec.com>
-+  - Geert Uytterhoeven <geert+renesas@glider.be>
-+  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-+
-+description:
-+  The Texas Instruments PCM3168A is a 24-bit Multi-channel Audio CODEC with
-+  96/192kHz sampling rate, supporting both SPI and I2C bus access.
-+
-+properties:
-+  compatible:
-+    const: ti,pcm3168a
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: System clock input
-+
-+  clock-names:
-+    items:
-+      - const: scki
-+
-+  reset-gpios:
-+    items:
-+      - description: |
-+          GPIO line connected to the active-low RST pin of the codec.
-+            RST = low: device power-down
-+            RST = high: device is enabled
-+
-+  "#sound-dai-cells":
-+    enum: [0, 1]
-+
-+  VDD1-supply:
-+    description: Digital power supply regulator 1 (+3.3V)
-+
-+  VDD2-supply:
-+    description: Digital power supply regulator 2 (+3.3V)
-+
-+  VCCAD1-supply:
-+    description: ADC power supply regulator 1 (+5V)
-+
-+  VCCAD2-supply:
-+    description: ADC power supply regulator 2 (+5V)
-+
-+  VCCDA1-supply:
-+    description: DAC power supply regulator 1 (+5V)
-+
-+  VCCDA2-supply:
-+    description: DAC power supply regulator 2 (+5V)
-+
+diff --git a/Documentation/devicetree/bindings/sound/ak4613.yaml b/Documentation/devicetree/bindings/sound/ak4613.yaml
+index 010574645e6a..75e13414d6eb 100644
+--- a/Documentation/devicetree/bindings/sound/ak4613.yaml
++++ b/Documentation/devicetree/bindings/sound/ak4613.yaml
+@@ -25,6 +25,13 @@ properties:
+   "#sound-dai-cells":
+     const: 0
+ 
 +  ports:
-+    $ref: audio-graph-port.yaml#/definitions/port-base
-+    properties:
-+      port@0:
-+        $ref: audio-graph-port.yaml#
-+        description: Audio input port.
++    $ref: audio-graph-port.yaml#/definitions/ports
 +
-+      port@1:
-+        $ref: audio-graph-port.yaml#
-+        description: Audio output port.
++  port:
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - VDD1-supply
-+  - VDD2-supply
-+  - VCCAD1-supply
-+  - VCCAD2-supply
-+  - VCCDA1-supply
-+  - VCCDA2-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pcm3168a: audio-codec@44 {
-+            compatible = "ti,pcm3168a";
-+            reg = <0x44>;
-+            reset-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
-+            clocks = <&clk_core 42>;
-+            clock-names = "scki";
-+            VDD1-supply = <&supply3v3>;
-+            VDD2-supply = <&supply3v3>;
-+            VCCAD1-supply = <&supply5v0>;
-+            VCCAD2-supply = <&supply5v0>;
-+            VCCDA1-supply = <&supply5v0>;
-+            VCCDA2-supply = <&supply5v0>;
-+        };
-+    };
+ patternProperties:
+   "^asahi-kasei,in[1-2]-single-end$":
+     description: Input Pin 1 - 2.
 -- 
 2.25.1
 

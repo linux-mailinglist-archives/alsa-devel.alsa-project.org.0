@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D642767761A
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:11:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACCA1677620
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:12:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 544BA41E8;
-	Mon, 23 Jan 2023 09:11:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 544BA41E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BEF241B4;
+	Mon, 23 Jan 2023 09:12:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BEF241B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674461513;
-	bh=xycE+mBLrSS6DcedfNuAo7DeXGMcHIT5cVFp4pRjLHs=;
+	s=default; t=1674461574;
+	bh=EVWKKjHZGKYUMuQ/Hq80WIQqWOQljIbB0QkcubI5wE8=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ChRmrJfGXU9LSjTx5rp8+FggRwr592BGCj0eZFS/z/QwfX0xByHRNxtTdXCrxlZvU
-	 u5jnDnJ4CVND4Q1ySJlZhAndZLHU0yczhd/W/lXYcsP4tsf0u2pv/yuTgq4fNxCUWt
-	 GtsJ6BSEBMWGxi0xY5w1vg8GPgj2bQMUWL6XCRo0=
+	b=Vo2KifzhZiFgeG2vi5vlmoaEkVpML8MNKv55z5j83TzvSGT3OE8DvLejdr7rDP+1U
+	 UGbg9dOI7V5C2JbsJC+rNhPCVMeHF6pcpgqq4c5PocWCBkUULw1gMWRz8f9zM2AM66
+	 Q+gewEVFwX5O3QOC1UDtSwfhyuv/7whiuqLIFMAE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 332DBF80132;
-	Mon, 23 Jan 2023 09:10:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0035DF804A9;
+	Mon, 23 Jan 2023 09:11:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75F39F804C2; Mon, 23 Jan 2023 09:10:53 +0100 (CET)
+ id 08EF8F800FB; Mon, 23 Jan 2023 09:11:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,54 +36,52 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80A1DF800FB
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 09:10:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80A1DF800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76D2CF800FB
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 09:11:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76D2CF800FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=DYn9tEj2; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=T8Y8frbC; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=JNKCHDnx
+ header.s=susede2_ed25519 header.b=+cVp2IwI
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9B1D01F388;
- Mon, 23 Jan 2023 08:10:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 13F601F385;
+ Mon, 23 Jan 2023 08:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674461449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674461511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5VoBW3IYDW8+n8dbX4lAv1TdoB1Gu8ExhR4mxgHRBhg=;
- b=DYn9tEj2gW856z+p+xj/gdx90U9nrvHGnmD0ivIEzDdV4n96rhgFr+s2vjzxQZeTwZwyvT
- SceyNhS1TUu/1jWRHGm8V9heqKzgSm/kWNXxQwnJZNEUtpETMMiUIxfsZQSU3Okmvt52h/
- vokCMvjTOleiBYBF5oE96rhF+dpLTck=
+ bh=d/F6NvY7PQRwJWUMaY7EZrImgYwgt5pp7gp/HblNSXA=;
+ b=T8Y8frbC9v8rSRTuV5uuXVSp+z9OtX0bwnECMhve/MC0aHnrZy4lm/CScFzQtmtdyUpp2X
+ dxZ6MrU3ItiKTJw+TzJfFxP/Y6BHVrMMUZXQvipDEW9IZkvPpit6aun8vxJHUa8q1EsZi2
+ fpqCbBiqCr364p0BMNFnGuu799ETRC0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674461449;
+ s=susede2_ed25519; t=1674461511;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5VoBW3IYDW8+n8dbX4lAv1TdoB1Gu8ExhR4mxgHRBhg=;
- b=JNKCHDnxHBUz7+kfNKvSofs+LJpms2uAh7EOEh+xtFprY6Wm9J2KmqEiR+3oTiOhIOANhP
- jTf9wXFHsz3aoECw==
+ bh=d/F6NvY7PQRwJWUMaY7EZrImgYwgt5pp7gp/HblNSXA=;
+ b=+cVp2IwIKAJWBtH5VB7lP0Af2ryThWS7Fs+ZuNgtFn9nk/1rpPbyY6fLxsfRR++wW9Dvb3
+ Y9IxC1FjBthrGIBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 760941357F;
- Mon, 23 Jan 2023 08:10:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB0EF1357F;
+ Mon, 23 Jan 2023 08:11:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wBQfHAlBzmP1SQAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 23 Jan 2023 08:10:49 +0000
-Date: Mon, 23 Jan 2023 09:10:48 +0100
-Message-ID: <875ycxr7qv.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id oX+dMEZBzmNoSgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 23 Jan 2023 08:11:50 +0000
+Date: Mon, 23 Jan 2023 09:11:50 +0100
+Message-ID: <874jshr7p5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: SeongJae Park <sj@kernel.org>
-Subject: Re: [PATCH v2 8/8] Docs/sound/index: Add missing SPDX License
- Identifier
-In-Reply-To: <20230122213650.187710-9-sj@kernel.org>
-References: <20230122213650.187710-1-sj@kernel.org>
- <20230122213650.187710-9-sj@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2] ALSA: hda: Do not unset preset when cleaning up codec
+In-Reply-To: <20230119143235.1159814-1-cezary.rojewski@intel.com>
+References: <20230119143235.1159814-1-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -99,40 +97,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Jonathan Corbet <corbet@lwn.net>, alsa-devel@alsa-project.org,
- linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 22 Jan 2023 22:36:50 +0100,
-SeongJae Park wrote:
+On Thu, 19 Jan 2023 15:32:35 +0100,
+Cezary Rojewski wrote:
 > 
-> Add missing SPDX License Identifier for sound documentation index file.
+> Several functions that take part in codec's initialization and removal
+> are re-used by ASoC codec drivers implementations. Drivers mimic the
+> behavior of hda_codec_driver_probe/remove() found in
+> sound/pci/hda/hda_bind.c with their component->probe/remove() instead.
 > 
-> Signed-off-by: SeongJae Park <sj@kernel.org>
+> One of the reasons for that is the expectation of
+> snd_hda_codec_device_new() to receive a valid pointer to an instance of
+> struct snd_card. This expectation can be met only once sound card
+> components probing commences.
+> 
+> As ASoC sound card may be unbound without codec device being actually
+> removed from the system, unsetting ->preset in
+> snd_hda_codec_cleanup_for_unbind() interferes with module unload -> load
+> scenario causing null-ptr-deref. Preset is assigned only once, during
+> device/driver matching whereas ASoC codec driver's module reloading may
+> occur several times throughout the lifetime of an audio stack.
+> 
+> Suggested-by: Takashi Iwai <tiwai@suse.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+> 
+> Changes in v2:
+> - relocated the operation to routines found in hda_bind.c rather than
+>   just removing it from the cleanup function
+> 
+> 
+> This is a continuation of a discussion that begun in the middle of 2022
+> [1] and was part of a larger series addressing several HDAudio topics.
+> 
+> Single rmmod on ASoC's codec driver module is enough to cause a panic.
+> Given our results, no regression shows up with modprobe/rmmod on
+> snd_hda_intel side with this patch applied.
+> 
+> [1]: https://lore.kernel.org/alsa-devel/20220706120230.427296-2-cezary.rojewski@intel.com/
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
+Thanks, applied now.
 
-
-thanks,
 
 Takashi
-
-> ---
->  Documentation/sound/index.rst | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
-> index 5abed5fc6485..7e67e12730d3 100644
-> --- a/Documentation/sound/index.rst
-> +++ b/Documentation/sound/index.rst
-> @@ -1,3 +1,5 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
->  =============================
->  Sound Subsystem Documentation
->  =============================
-> -- 
-> 2.25.1
-> 

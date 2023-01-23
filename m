@@ -2,79 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043C36782EA
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 18:20:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766A067830D
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 18:26:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9930DE10;
-	Mon, 23 Jan 2023 18:19:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9930DE10
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECB00DF8;
+	Mon, 23 Jan 2023 18:25:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB00DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674494427;
-	bh=QxKTXC1q61zdzF23NI5tLZ2E5StXSr3Z/SKaZ/ipFdc=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1674494787;
+	bh=qfUudCFzb8HxWifwe9JCu4GEdzd8XI6XBh77W9eooms=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=BuuDVII2/Xk4Synclrnl1O3FTAMzx6upwoC/0pQtNycyF2ayZCyU1ayJSY07IqVFM
-	 R/N1f+bUGpdePC0aQLdkTtRIzG7A5PTheKw3C8wn+gW8iQRMUhhlyMemYx9AVItK/3
-	 +ojgngcCXjVj2C9/KK0hVAoohrSG1rnzK1ax0KpQ=
+	b=atFCaW6I04y6DskM5goPRkBpyxkO28zxVm3d9TRWxBRUY7dzNPzvL3E1YMtsQ9XG5
+	 eq2A3RX72D2OkKDpurOhRRUTB37QwZ/XWJ9MDotEbNX8heRp9UjO3BEVeiXvpymebQ
+	 8LKT7WdjC7k1NBeI8PHNtirlW3UylfM14RlofbHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B603F804C2;
-	Mon, 23 Jan 2023 18:19:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A053F804C2;
+	Mon, 23 Jan 2023 18:25:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3EC3F804A9; Mon, 23 Jan 2023 18:19:24 +0100 (CET)
+ id 1E152F804A9; Mon, 23 Jan 2023 18:25:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 409CBF801D5
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 18:19:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 409CBF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B92BCF800FB
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 18:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B92BCF800FB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WGKeX4wy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674494362; x=1706030362;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=QxKTXC1q61zdzF23NI5tLZ2E5StXSr3Z/SKaZ/ipFdc=;
- b=WGKeX4wyS3KtR3bljhLESefhccap/QnC3k1L7CP6t5pi8WXOEsb6uX+f
- H3WS6q4+2zeuScemBaydw6teRfLRyrNjkQnEfxAF1uj5ZgYsqCYh3StYx
- b195Zl7UtF2wxFiJoUPG6N5HT80dJVuf4JtfkO05FHd93/UTDU7FsZsGa
- P53Xk9p9jjFIHx6z7oNnxlo3ChPUlCKW53pcO3w9O7ZlfL5tg5UoBhGTs
- 5eQRrpJFff9fVrfaDG8iiJj34j6MMCD6V0YnKaQOm5kDJN5hMAly05TGf
- ohEdbwWxfj42QuxsmNY7jRj7s2BKkrzO6sL8M814RvjDiEZVSew5oyBuS A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="306451044"
-X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="306451044"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2023 09:19:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="661791647"
-X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="661791647"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by orsmga002.jf.intel.com with ESMTP; 23 Jan 2023 09:19:15 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pK0TS-0005mq-0v;
- Mon, 23 Jan 2023 17:19:14 +0000
-Date: Tue, 24 Jan 2023 01:18:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 691781f561e9868a94c3ed7daf4adad7f8af5d16
-Message-ID: <63cec15f.4eitr3XQwks0MqhA%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=YIZBgrKs
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30N9hVtL020791; Mon, 23 Jan 2023 11:25:22 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=NpDgslDK1ayNWniug1IvgLrf8tEcC4MbeDjEHxsnddw=;
+ b=YIZBgrKsH+zjG8PumM3rytDEG/VF/UIn33u3VrrXUHRCBdHueVWvxDq7vtcmQRQwUn60
+ aic37TbVt/j4kbHp+1Kn0gVunLlSqzih2Lt4wcVvEWNZd7smkKP+Md1sPjjPMn8/I8B9
+ HTZb8UOH7bG0QNhnobIzncKGLKDQZ8RoWM1Dkrkg1XN9VABSsZBzWU9Yxx2aeHSJCldR
+ 6EVZ5yXVshO+Q+B2RNZme2CzQEFDHy8ZWaL1MvXqJ4nJ6QvieSR2rm5yKXVn3r8z7PcG
+ axBWMOUXYp5gQh/Q453KTZ5TIqWHgG7Wzr9DRPcWy4qsW28Kdb0Jk/PmXdJ+atsp1eQR qQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n8dbskqkg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Jan 2023 11:25:22 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 23 Jan
+ 2023 11:25:20 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Mon, 23 Jan 2023 11:25:20 -0600
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E2212B06;
+ Mon, 23 Jan 2023 17:25:20 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+Subject: [PATCH v2] soundwire: bus_type: Avoid lockdep assert in
+ sdw_drv_probe()
+Date: Mon, 23 Jan 2023 17:25:20 +0000
+Message-ID: <20230123172520.339367-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: cn94IY4-ERbQUqPSKuBsqyGPgGbunahu
+X-Proofpoint-GUID: cn94IY4-ERbQUqPSKuBsqyGPgGbunahu
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,193 +94,277 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
- netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 691781f561e9868a94c3ed7daf4adad7f8af5d16  Add linux-next specific files for 20230123
+Don't hold sdw_dev_lock while calling the peripheral driver
+probe() and remove() callbacks.
 
-Error/Warning: (recently discovered and may have been fixed)
+Holding sdw_dev_lock around the probe() and remove() calls causes
+a theoretical mutex inversion which lockdep will assert on.
 
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-drivers/gpio/gpio-zevio.c:174:40: error: invalid use of undefined type 'struct platform_device'
-drivers/gpio/gpio-zevio.c:178:9: error: implicit declaration of function 'platform_set_drvdata' [-Werror=implicit-function-declaration]
-drivers/gpio/gpio-zevio.c:184:28: error: implicit declaration of function 'devm_platform_ioremap_resource'; did you mean 'devm_ioremap_resource'? [-Werror=implicit-function-declaration]
-drivers/gpio/gpio-zevio.c:211:15: error: variable 'zevio_gpio_driver' has initializer but incomplete type
-drivers/gpio/gpio-zevio.c:211:31: error: storage size of 'zevio_gpio_driver' isn't known
-drivers/gpio/gpio-zevio.c:212:10: error: 'struct platform_driver' has no member named 'driver'
-drivers/gpio/gpio-zevio.c:212:27: error: extra brace group at end of initializer
-drivers/gpio/gpio-zevio.c:217:10: error: 'struct platform_driver' has no member named 'probe'
-drivers/gpio/gpio-zevio.c:219:1: error: type defaults to 'int' in declaration of 'builtin_platform_driver' [-Werror=implicit-int]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+During probe() the sdw_dev_lock mutex is taken first and then
+ASoC/ALSA locks are taken by the probe() implementation.
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+During normal operation ASoC can take its locks and then trigger
+a runtime resume of the component. The SoundWire resume will then
+take sdw_dev_lock. This is the reverse order compared to probe().
 
-drivers/block/virtio_blk.c:721:9: sparse:    bad type *
-drivers/block/virtio_blk.c:721:9: sparse:    unsigned int *
-drivers/block/virtio_blk.c:721:9: sparse: sparse: incompatible types in comparison expression (different base types):
-drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 [addressable] virtio_cread_v'
-drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 virtio_cread_v'
-drivers/media/i2c/max9286.c:771 max9286_s_stream() error: buffer overflow 'priv->fmt' 4 <= 32
-drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
-mm/hugetlb.c:3100 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
-net/devlink/leftover.c:7160 devlink_fmsg_prepare_skb() error: uninitialized symbol 'err'.
-sound/ac97/bus.c:465:1: sparse: sparse: symbol 'dev_attr_vendor_id' was not declared. Should it be static?
+It's not necessary to hold sdw_dev_lock when calling the probe()
+and remove(), it is only used to prevent the bus core calling the
+driver callbacks if there isn't a driver or the driver is removing.
 
-Error/Warning ids grouped by kconfigs:
+All calls to the driver callbacks are guarded by the 'probed' flag.
+So if sdw_dev_lock is held while setting and clearing the 'probed'
+flag this is sufficient to guarantee the safety of callback
+functions.
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-randconfig-m031-20230123
-|   `-- drivers-media-i2c-max9286.c-max9286_s_stream()-error:buffer-overflow-priv-fmt
-|-- arm-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-buildonly-randconfig-r005-20230123
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-randconfig-r023-20230123
-|   |-- drivers-gpio-gpio-zevio.c:error:extra-brace-group-at-end-of-initializer
-|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-devm_platform_ioremap_resource
-|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-platform_set_drvdata
-|   |-- drivers-gpio-gpio-zevio.c:error:invalid-use-of-undefined-type-struct-platform_device
-|   |-- drivers-gpio-gpio-zevio.c:error:storage-size-of-zevio_gpio_driver-isn-t-known
-|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-driver
-|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-probe
-|   |-- drivers-gpio-gpio-zevio.c:error:type-defaults-to-int-in-declaration-of-builtin_platform_driver
-|   `-- drivers-gpio-gpio-zevio.c:error:variable-zevio_gpio_driver-has-initializer-but-incomplete-type
-|-- arm64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- csky-randconfig-s033-20230123
-|   |-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|   `-- sound-ac97-bus.c:sparse:sparse:symbol-dev_attr_vendor_id-was-not-declared.-Should-it-be-static
-|-- i386-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- ia64-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- ia64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- mips-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- parisc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- powerpc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- riscv-randconfig-s053-20230123
-|   |-- drivers-block-virtio_blk.c:sparse:bad-type
-|   |-- drivers-block-virtio_blk.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-base-types):
-|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-addressable-virtio_cread_v
-|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-virtio_cread_v
-|   `-- drivers-block-virtio_blk.c:sparse:unsigned-int
-|-- s390-allmodconfig
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
-|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- x86_64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+Removing the mutex from around the call to probe() means that it
+is now possible for a bus event (PING response) to be handled in
+parallel with the probe(). But sdw_bus_probe() already has
+handling for this by calling the device update_status() after
+the probe() has completed.
 
-elapsed time: 721m
+Example lockdep assert:
+[   46.098514] ======================================================
+[   46.104736] WARNING: possible circular locking dependency detected
+[   46.110961] 6.1.0-rc4-jamerson #1 Tainted: G            E
+[   46.116842] ------------------------------------------------------
+[   46.123063] mpg123/1130 is trying to acquire lock:
+[   46.127883] ffff8b445031fb80 (&slave->sdw_dev_lock){+.+.}-{3:3}, at: sdw_update_slave_status+0x26/0x70
+[   46.137225]
+               but task is already holding lock:
+[   46.143074] ffffffffc1455310 (&card->pcm_mutex){+.+.}-{3:3}, at: dpcm_fe_dai_open+0x49/0x830
+[   46.151536]
+               which lock already depends on the new lock.[   46.159732]
+               the existing dependency chain (in reverse order) is:
+[   46.167231]
+               -> #4 (&card->pcm_mutex){+.+.}-{3:3}:
+[   46.173428]        __mutex_lock+0x94/0x920
+[   46.177542]        snd_soc_dpcm_runtime_update+0x2e/0x100
+[   46.182958]        snd_soc_dapm_put_enum_double+0x1c2/0x200
+[   46.188548]        snd_ctl_elem_write+0x10c/0x1d0
+[   46.193268]        snd_ctl_ioctl+0x126/0x850
+[   46.197556]        __x64_sys_ioctl+0x87/0xc0
+[   46.201845]        do_syscall_64+0x38/0x90
+[   46.205959]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.211553]
+               -> #3 (&card->controls_rwsem){++++}-{3:3}:
+[   46.218188]        down_write+0x2b/0xd0
+[   46.222038]        snd_ctl_add_replace+0x39/0xb0
+[   46.226672]        snd_soc_add_controls+0x53/0x80
+[   46.231393]        soc_probe_component+0x1e4/0x2a0
+[   46.236202]        snd_soc_bind_card+0x51a/0xc80
+[   46.240836]        devm_snd_soc_register_card+0x43/0x90
+[   46.246079]        mc_probe+0x982/0xfe0 [snd_soc_sof_sdw]
+[   46.251500]        platform_probe+0x3c/0xa0
+[   46.255700]        really_probe+0xde/0x390
+[   46.259814]        __driver_probe_device+0x78/0x180
+[   46.264710]        driver_probe_device+0x1e/0x90
+[   46.269347]        __driver_attach+0x9f/0x1f0
+[   46.273721]        bus_for_each_dev+0x78/0xc0
+[   46.278098]        bus_add_driver+0x1ac/0x200
+[   46.282473]        driver_register+0x8f/0xf0
+[   46.286759]        do_one_initcall+0x58/0x310
+[   46.291136]        do_init_module+0x4c/0x1f0
+[   46.295422]        __do_sys_finit_module+0xb4/0x130
+[   46.300321]        do_syscall_64+0x38/0x90
+[   46.304434]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.310027]
+               -> #2 (&card->mutex){+.+.}-{3:3}:
+[   46.315883]        __mutex_lock+0x94/0x920
+[   46.320000]        snd_soc_bind_card+0x3e/0xc80
+[   46.324551]        devm_snd_soc_register_card+0x43/0x90
+[   46.329798]        mc_probe+0x982/0xfe0 [snd_soc_sof_sdw]
+[   46.335219]        platform_probe+0x3c/0xa0
+[   46.339420]        really_probe+0xde/0x390
+[   46.343532]        __driver_probe_device+0x78/0x180
+[   46.348430]        driver_probe_device+0x1e/0x90
+[   46.353065]        __driver_attach+0x9f/0x1f0
+[   46.357437]        bus_for_each_dev+0x78/0xc0
+[   46.361812]        bus_add_driver+0x1ac/0x200
+[   46.366716]        driver_register+0x8f/0xf0
+[   46.371528]        do_one_initcall+0x58/0x310
+[   46.376424]        do_init_module+0x4c/0x1f0
+[   46.381239]        __do_sys_finit_module+0xb4/0x130
+[   46.386665]        do_syscall_64+0x38/0x90
+[   46.391299]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.397416]
+               -> #1 (client_mutex){+.+.}-{3:3}:
+[   46.404307]        __mutex_lock+0x94/0x920
+[   46.408941]        snd_soc_add_component+0x24/0x2c0
+[   46.414345]        devm_snd_soc_register_component+0x54/0xa0
+[   46.420522]        cs35l56_common_probe+0x280/0x370 [snd_soc_cs35l56]
+[   46.427487]        cs35l56_sdw_probe+0xf4/0x170 [snd_soc_cs35l56_sdw]
+[   46.434442]        sdw_drv_probe+0x80/0x1a0
+[   46.439136]        really_probe+0xde/0x390
+[   46.443738]        __driver_probe_device+0x78/0x180
+[   46.449120]        driver_probe_device+0x1e/0x90
+[   46.454247]        __driver_attach+0x9f/0x1f0
+[   46.459106]        bus_for_each_dev+0x78/0xc0
+[   46.463971]        bus_add_driver+0x1ac/0x200
+[   46.468825]        driver_register+0x8f/0xf0
+[   46.473592]        do_one_initcall+0x58/0x310
+[   46.478441]        do_init_module+0x4c/0x1f0
+[   46.483202]        __do_sys_finit_module+0xb4/0x130
+[   46.488572]        do_syscall_64+0x38/0x90
+[   46.493158]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.499229]
+               -> #0 (&slave->sdw_dev_lock){+.+.}-{3:3}:
+[   46.506737]        __lock_acquire+0x1121/0x1df0
+[   46.511765]        lock_acquire+0xd5/0x300
+[   46.516360]        __mutex_lock+0x94/0x920
+[   46.520949]        sdw_update_slave_status+0x26/0x70
+[   46.526409]        sdw_clear_slave_status+0xd8/0xe0
+[   46.531783]        intel_resume_runtime+0x139/0x2a0
+[   46.537155]        __rpm_callback+0x41/0x120
+[   46.541919]        rpm_callback+0x5d/0x70
+[   46.546422]        rpm_resume+0x531/0x7e0
+[   46.550920]        __pm_runtime_resume+0x4a/0x80
+[   46.556024]        snd_soc_pcm_component_pm_runtime_get+0x2f/0xc0
+[   46.562611]        __soc_pcm_open+0x62/0x520
+[   46.567375]        dpcm_be_dai_startup+0x116/0x210
+[   46.572661]        dpcm_fe_dai_open+0xf7/0x830
+[   46.577597]        snd_pcm_open_substream+0x54a/0x8b0
+[   46.583145]        snd_pcm_open.part.0+0xdc/0x200
+[   46.588341]        snd_pcm_playback_open+0x51/0x80
+[   46.593625]        chrdev_open+0xc0/0x250
+[   46.598129]        do_dentry_open+0x15f/0x430
+[   46.602981]        path_openat+0x75e/0xa80
+[   46.607575]        do_filp_open+0xb2/0x160
+[   46.612162]        do_sys_openat2+0x9a/0x160
+[   46.616922]        __x64_sys_openat+0x53/0xa0
+[   46.621767]        do_syscall_64+0x38/0x90
+[   46.626352]        entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.632414]
+               other info that might help us debug this:[   46.641862] Chain exists of:
+                 &slave->sdw_dev_lock --> &card->controls_rwsem --> &card->pcm_mutex[   46.655145]  Possible unsafe locking scenario:[   46.662048]        CPU0                    CPU1
+[   46.667080]        ----                    ----
+[   46.672108]   lock(&card->pcm_mutex);
+[   46.676267]                                lock(&card->controls_rwsem);
+[   46.683382]                                lock(&card->pcm_mutex);
+[   46.690063]   lock(&slave->sdw_dev_lock);
+[   46.694574]
+                *** DEADLOCK ***[   46.701942] 2 locks held by mpg123/1130:
+[   46.706356]  #0: ffff8b4457b22b90 (&pcm->open_mutex){+.+.}-{3:3}, at: snd_pcm_open.part.0+0xc9/0x200
+[   46.715999]  #1: ffffffffc1455310 (&card->pcm_mutex){+.+.}-{3:3}, at: dpcm_fe_dai_open+0x49/0x830
+[   46.725390]
+               stack backtrace:
+[   46.730752] CPU: 0 PID: 1130 Comm: mpg123 Tainted: G            E      6.1.0-rc4-jamerson #1
+[   46.739703] Hardware name: AAEON UP-WHL01/UP-WHL01, BIOS UPW1AM19 11/10/2020
+[   46.747270] Call Trace:
+[   46.750239]  <TASK>
+[   46.752857]  dump_stack_lvl+0x56/0x73
+[   46.757045]  check_noncircular+0x102/0x120
+[   46.761664]  __lock_acquire+0x1121/0x1df0
+[   46.766197]  lock_acquire+0xd5/0x300
+[   46.770292]  ? sdw_update_slave_status+0x26/0x70
+[   46.775432]  ? lock_is_held_type+0xe2/0x140
+[   46.780143]  __mutex_lock+0x94/0x920
+[   46.784241]  ? sdw_update_slave_status+0x26/0x70
+[   46.789387]  ? find_held_lock+0x2b/0x80
+[   46.793750]  ? sdw_update_slave_status+0x26/0x70
+[   46.798894]  ? lock_release+0x147/0x2f0
+[   46.803262]  ? lockdep_init_map_type+0x47/0x250
+[   46.808315]  ? sdw_update_slave_status+0x26/0x70
+[   46.813456]  sdw_update_slave_status+0x26/0x70
+[   46.818422]  sdw_clear_slave_status+0xd8/0xe0
+[   46.823302]  ? pm_generic_runtime_suspend+0x30/0x30
+[   46.828706]  intel_resume_runtime+0x139/0x2a0
+[   46.833583]  ? _raw_spin_unlock_irq+0x24/0x50
+[   46.838462]  ? pm_generic_runtime_suspend+0x30/0x30
+[   46.843866]  __rpm_callback+0x41/0x120
+[   46.848142]  ? pm_generic_runtime_suspend+0x30/0x30
+[   46.853550]  rpm_callback+0x5d/0x70
+[   46.857568]  rpm_resume+0x531/0x7e0
+[   46.861578]  ? _raw_spin_lock_irqsave+0x62/0x70
+[   46.866634]  __pm_runtime_resume+0x4a/0x80
+[   46.871258]  snd_soc_pcm_component_pm_runtime_get+0x2f/0xc0
+[   46.877358]  __soc_pcm_open+0x62/0x520
+[   46.881634]  ? dpcm_add_paths.isra.0+0x35d/0x4c0
+[   46.886784]  dpcm_be_dai_startup+0x116/0x210
+[   46.891592]  dpcm_fe_dai_open+0xf7/0x830
+[   46.896046]  ? debug_mutex_init+0x33/0x50
+[   46.900591]  snd_pcm_open_substream+0x54a/0x8b0
+[   46.905658]  snd_pcm_open.part.0+0xdc/0x200
+[   46.910376]  ? wake_up_q+0x90/0x90
+[   46.914312]  snd_pcm_playback_open+0x51/0x80
+[   46.919118]  chrdev_open+0xc0/0x250
+[   46.923147]  ? cdev_device_add+0x90/0x90
+[   46.927608]  do_dentry_open+0x15f/0x430
+[   46.931976]  path_openat+0x75e/0xa80
+[   46.936086]  do_filp_open+0xb2/0x160
+[   46.940194]  ? lock_release+0x147/0x2f0
+[   46.944563]  ? _raw_spin_unlock+0x29/0x50
+[   46.949101]  do_sys_openat2+0x9a/0x160
+[   46.953377]  __x64_sys_openat+0x53/0xa0
+[   46.957733]  do_syscall_64+0x38/0x90
+[   46.961829]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+[   46.967402] RIP: 0033:0x7fa6397ccd3b
+[   46.971506] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
+[   46.991413] RSP: 002b:00007fff838e8990 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+[   46.999580] RAX: ffffffffffffffda RBX: 0000000000080802 RCX: 00007fa6397ccd3b
+[   47.007311] RDX: 0000000000080802 RSI: 00007fff838e8b50 RDI: 00000000ffffff9c
+[   47.015047] RBP: 00007fff838e8b50 R08: 0000000000000000 R09: 0000000000000011
+[   47.022787] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000080802
+[   47.030539] R13: 0000000000000004 R14: 0000000000000000 R15: 00007fff838e8b50
+[   47.038289]  </TASK>
 
-configs tested: 85
-configs skipped: 4
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+Changes since V1:
+Only changes are to the commit message
+ - Rewrite to try to make the explanation clearer
+ - Include a sample lockdep assert
+---
+ drivers/soundwire/bus_type.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-gcc tested configs:
-x86_64                            allnoconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-i386                                defconfig
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-sh                        edosk7705_defconfig
-ia64                             allmodconfig
-x86_64                               rhel-8.3
-i386                 randconfig-a004-20230123
-arm                         axm55xx_defconfig
-i386                 randconfig-a003-20230123
-x86_64                           allyesconfig
-sh                           se7722_defconfig
-sh                                  defconfig
-arm                        spear6xx_defconfig
-i386                 randconfig-a002-20230123
-m68k                             allmodconfig
-arm                           u8500_defconfig
-i386                 randconfig-a001-20230123
-x86_64               randconfig-a002-20230123
-arc                        nsimosci_defconfig
-arc                  randconfig-r043-20230123
-powerpc                           allnoconfig
-sh                            hp6xx_defconfig
-arc                              allyesconfig
-x86_64               randconfig-a004-20230123
-mips                             allyesconfig
-alpha                            allyesconfig
-x86_64               randconfig-a003-20230123
-i386                 randconfig-a005-20230123
-mips                     loongson1b_defconfig
-x86_64               randconfig-a005-20230123
-arm                                 defconfig
-x86_64                           rhel-8.3-syz
-i386                             allyesconfig
-i386                 randconfig-a006-20230123
-x86_64                         rhel-8.3-kunit
-m68k                             allyesconfig
-powerpc                          allmodconfig
-x86_64                           rhel-8.3-kvm
-x86_64                           rhel-8.3-bpf
-arm                  randconfig-r046-20230123
-sh                               allmodconfig
-x86_64               randconfig-a001-20230123
-mips                  decstation_64_defconfig
-sh                          rsk7203_defconfig
-xtensa                  nommu_kc705_defconfig
-arm                           imxrt_defconfig
-arm                              allyesconfig
-arm64                            allyesconfig
-powerpc                     rainier_defconfig
-ia64                             allyesconfig
-powerpc              randconfig-c003-20230123
-i386                 randconfig-c001-20230123
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-s390                                defconfig
-s390                             allyesconfig
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-hexagon              randconfig-r041-20230123
-hexagon              randconfig-r045-20230123
-powerpc                   microwatt_defconfig
-s390                 randconfig-r044-20230123
-x86_64               randconfig-a015-20230123
-mips                     cu1000-neo_defconfig
-mips                           ip22_defconfig
-x86_64               randconfig-a011-20230123
-i386                 randconfig-a014-20230123
-mips                          ath79_defconfig
-x86_64               randconfig-a013-20230123
-arm                   milbeaut_m10v_defconfig
-riscv                randconfig-r042-20230123
-x86_64               randconfig-a012-20230123
-mips                        maltaup_defconfig
-i386                 randconfig-a012-20230123
-x86_64               randconfig-a014-20230123
-i386                 randconfig-a013-20230123
-i386                 randconfig-a011-20230123
-i386                 randconfig-a015-20230123
-arm                       aspeed_g4_defconfig
-mips                          ath25_defconfig
-arm                         socfpga_defconfig
-
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index 04b3529f8929..963498db0fd2 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -105,20 +105,19 @@ static int sdw_drv_probe(struct device *dev)
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&slave->sdw_dev_lock);
+-
+ 	ret = drv->probe(slave, id);
+ 	if (ret) {
+ 		name = drv->name;
+ 		if (!name)
+ 			name = drv->driver.name;
+-		mutex_unlock(&slave->sdw_dev_lock);
+ 
+ 		dev_err(dev, "Probe of %s failed: %d\n", name, ret);
+ 		dev_pm_domain_detach(dev, false);
+ 		return ret;
+ 	}
+ 
++	mutex_lock(&slave->sdw_dev_lock);
++
+ 	/* device is probed so let's read the properties now */
+ 	if (drv->ops && drv->ops->read_prop)
+ 		drv->ops->read_prop(slave);
+@@ -167,14 +166,12 @@ static int sdw_drv_remove(struct device *dev)
+ 	int ret = 0;
+ 
+ 	mutex_lock(&slave->sdw_dev_lock);
+-
+ 	slave->probed = false;
++	mutex_unlock(&slave->sdw_dev_lock);
+ 
+ 	if (drv->remove)
+ 		ret = drv->remove(slave);
+ 
+-	mutex_unlock(&slave->sdw_dev_lock);
+-
+ 	dev_pm_domain_detach(dev, false);
+ 
+ 	return ret;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.30.2
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACCA1677620
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:12:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247D567763C
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 09:23:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BEF241B4;
-	Mon, 23 Jan 2023 09:12:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BEF241B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2D9841E4;
+	Mon, 23 Jan 2023 09:23:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2D9841E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674461574;
-	bh=EVWKKjHZGKYUMuQ/Hq80WIQqWOQljIbB0QkcubI5wE8=;
+	s=default; t=1674462234;
+	bh=K21Rcq62OlGPrCW58Rvk8glXMpzPAK+IzaIjzY78W1k=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Vo2KifzhZiFgeG2vi5vlmoaEkVpML8MNKv55z5j83TzvSGT3OE8DvLejdr7rDP+1U
-	 UGbg9dOI7V5C2JbsJC+rNhPCVMeHF6pcpgqq4c5PocWCBkUULw1gMWRz8f9zM2AM66
-	 Q+gewEVFwX5O3QOC1UDtSwfhyuv/7whiuqLIFMAE=
+	b=LakCcFSUrLFNaMnfyYLFOgLvhdeFrNRPafNUy2yvdJ4uJkXLUWUoXEAmVN0iGhSaq
+	 xAXyoxLiNmV8Pv9bP/eUtc+/yOJQg6N0CcWTiAPTN1BahwHUUABcokAp/LG9sDxahO
+	 fbhAANPE8c5YaXSzQECEj7y419BhxnIFAdPq12sQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0035DF804A9;
-	Mon, 23 Jan 2023 09:11:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6122CF80132;
+	Mon, 23 Jan 2023 09:22:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08EF8F800FB; Mon, 23 Jan 2023 09:11:55 +0100 (CET)
+ id 60D39F804C2; Mon, 23 Jan 2023 09:22:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,52 +36,53 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76D2CF800FB
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 09:11:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76D2CF800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 111DBF80132
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 09:22:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 111DBF80132
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=T8Y8frbC; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=RIiODfSj; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=+cVp2IwI
+ header.s=susede2_ed25519 header.b=ru3Jd8Kj
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 13F601F385;
- Mon, 23 Jan 2023 08:11:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 249071F385;
+ Mon, 23 Jan 2023 08:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674461511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674462172; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d/F6NvY7PQRwJWUMaY7EZrImgYwgt5pp7gp/HblNSXA=;
- b=T8Y8frbC9v8rSRTuV5uuXVSp+z9OtX0bwnECMhve/MC0aHnrZy4lm/CScFzQtmtdyUpp2X
- dxZ6MrU3ItiKTJw+TzJfFxP/Y6BHVrMMUZXQvipDEW9IZkvPpit6aun8vxJHUa8q1EsZi2
- fpqCbBiqCr364p0BMNFnGuu799ETRC0=
+ bh=9S3d9XpHeGuULUvYh2u9GnMdpgnX7Vr1sxgou+oqhcM=;
+ b=RIiODfSjIAZVLq+Zqi/CT6oUJel9GTxnFWXV0wD6F0vKhpd4sBS635DZMLpgcVyF4YeZMd
+ qUtnRNv+INUo0i1mghXxFQ1LcUfbdKzFRp7zfJQWY9HB07HQ5Za0TR6TS1afu1Feqm59KI
+ tgYGEOS8KiR6okLpLVypuWTAaujywzU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674461511;
+ s=susede2_ed25519; t=1674462172;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d/F6NvY7PQRwJWUMaY7EZrImgYwgt5pp7gp/HblNSXA=;
- b=+cVp2IwIKAJWBtH5VB7lP0Af2ryThWS7Fs+ZuNgtFn9nk/1rpPbyY6fLxsfRR++wW9Dvb3
- Y9IxC1FjBthrGIBg==
+ bh=9S3d9XpHeGuULUvYh2u9GnMdpgnX7Vr1sxgou+oqhcM=;
+ b=ru3Jd8KjgAWQTVPTRriIkv30mH7tJFA7ktp7cjObXVz0VD9XokQVCxE4lDq9L8YOvc0n0N
+ r8rxYQ0CYBHxn8Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB0EF1357F;
- Mon, 23 Jan 2023 08:11:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 038D51357F;
+ Mon, 23 Jan 2023 08:22:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oX+dMEZBzmNoSgAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 23 Jan 2023 08:11:50 +0000
-Date: Mon, 23 Jan 2023 09:11:50 +0100
-Message-ID: <874jshr7p5.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1xYrANxDzmN0UQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 23 Jan 2023 08:22:52 +0000
+Date: Mon, 23 Jan 2023 09:22:51 +0100
+Message-ID: <873581r76s.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2] ALSA: hda: Do not unset preset when cleaning up codec
-In-Reply-To: <20230119143235.1159814-1-cezary.rojewski@intel.com>
-References: <20230119143235.1159814-1-cezary.rojewski@intel.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH 0/3] firewire: use single object for user space listeners
+ to dispatch request to IEC 61883-1 FCP region
+In-Reply-To: <20230120090344.296451-1-o-takashi@sakamocchi.jp>
+References: <20230120090344.296451-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,51 +98,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- tiwai@suse.com, hdegoede@redhat.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+Cc: alsa-devel@alsa-project.org, stefanr@s5r6.in-berlin.de,
+ linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 Jan 2023 15:32:35 +0100,
-Cezary Rojewski wrote:
+On Fri, 20 Jan 2023 10:03:41 +0100,
+Takashi Sakamoto wrote:
 > 
-> Several functions that take part in codec's initialization and removal
-> are re-used by ASoC codec drivers implementations. Drivers mimic the
-> behavior of hda_codec_driver_probe/remove() found in
-> sound/pci/hda/hda_bind.c with their component->probe/remove() instead.
+> Hi,
 > 
-> One of the reasons for that is the expectation of
-> snd_hda_codec_device_new() to receive a valid pointer to an instance of
-> struct snd_card. This expectation can be met only once sound card
-> components probing commences.
+> This patch solves long standing issue mentioned by code comment[1] and a
+> commit 281e20323ab7 ("firewire: core: fix use-after-free regression in FCP
+> handler")[2]. This patchset is based on the kernel tree to which another
+> fix is applied[3].
 > 
-> As ASoC sound card may be unbound without codec device being actually
-> removed from the system, unsetting ->preset in
-> snd_hda_codec_cleanup_for_unbind() interferes with module unload -> load
-> scenario causing null-ptr-deref. Preset is assigned only once, during
-> device/driver matching whereas ASoC codec driver's module reloading may
-> occur several times throughout the lifetime of an audio stack.
-> 
-> Suggested-by: Takashi Iwai <tiwai@suse.com>
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
-> 
-> Changes in v2:
-> - relocated the operation to routines found in hda_bind.c rather than
->   just removing it from the cleanup function
-> 
-> 
-> This is a continuation of a discussion that begun in the middle of 2022
-> [1] and was part of a larger series addressing several HDAudio topics.
-> 
-> Single rmmod on ASoC's codec driver module is enough to cause a panic.
-> Given our results, no regression shows up with modprobe/rmmod on
-> snd_hda_intel side with this patch applied.
-> 
-> [1]: https://lore.kernel.org/alsa-devel/20220706120230.427296-2-cezary.rojewski@intel.com/
+> To Iwai-san, I would like to ask you picking them to your local
+> tree, then send them to mainline tree as well as sound patches when
+> the merge window is open for v6.3 kernel, unless any question and
+> objection is posted. (Additionally, I have prepared the other patchset for
+> the subsystem.)
 
-Thanks, applied now.
+As those are spontaneous small fixes, now I merged all three patches
+on topic/firewire branch (on top of the for-linus including your
+previous FireWire core fix), merged back to for-next branch for 6.3.
 
+But, I have no will to keep doing this in a long term.  I suppose the
+best would be that you'd step up as a maintainer for FireWire
+stack...
+
+
+thanks,
 
 Takashi

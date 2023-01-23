@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03844678211
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:44:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D58678212
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:45:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1F31AE9;
-	Mon, 23 Jan 2023 17:43:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1F31AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0B9420F;
+	Mon, 23 Jan 2023 17:44:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0B9420F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674492286;
-	bh=I6q+1TqaHhwNsgg4BdDkxDvo9F1rclT1/qSrFDqO+YM=;
+	s=default; t=1674492301;
+	bh=JmW7ERfPWXKm8wFtciy8l7lBJ/Sw3XypeD7gPISuKyY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=jmR4iaMFJbd98nIwXpngZgeTrtrmD7kEjickiXmMgr6rRr5apb18sN8xBWy4tuQbi
-	 hG1yfDLExh1jalTrrw7d02I8RSQwx2N6Pt73RYwQNYIX+Nk8bah/fvDQYuGhTXTboz
-	 DfIj2eG2JP/UbzB2/Z2+rXUfmPjsCrKIRaSUkMwY=
+	b=SR/+XWghAKc7Z59CPcS+m+t5AjL/PS9uhOi1qYReh1sPr47zf7TRb/wG2jxSzFx3p
+	 fFoPRjt4TxFoQfPaLPMKW+xrIsoopgcEs+XCg+NaVbmF8Kmnif7/c4ya8ojBbbDnTx
+	 bxO8MB7JnRHmzFUZSD5BzAftoS084UdMJMe+GWxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05F15F80515;
-	Mon, 23 Jan 2023 17:43:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D54EF80542;
+	Mon, 23 Jan 2023 17:43:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9FA8F8053D; Mon, 23 Jan 2023 17:43:07 +0100 (CET)
+ id BB92CF8053D; Mon, 23 Jan 2023 17:43:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5023FF80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:43:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5023FF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79661F80515
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:43:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79661F80515
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ptp60oyT
+ header.s=k20201202 header.b=Crjh49DX
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C0FD360FB1;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 256ED60FBD;
+ Mon, 23 Jan 2023 16:43:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9503C4339C;
  Mon, 23 Jan 2023 16:43:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B3AC433A0;
- Mon, 23 Jan 2023 16:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674492183;
- bh=I6q+1TqaHhwNsgg4BdDkxDvo9F1rclT1/qSrFDqO+YM=;
+ s=k20201202; t=1674492186;
+ bh=JmW7ERfPWXKm8wFtciy8l7lBJ/Sw3XypeD7gPISuKyY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Ptp60oyTKkwQPeovyuULop1bZsBG02hFVIVxS02La7Mktoop9wmWl4boWnW8aDB23
- tW96Nx+Mip0+JAlOU+E+0otkxbCzZuOezqq/zO4S0y6BPT/xD4Z85q3KlkjT1rvla2
- agDbOfqKOjI+p4kdxFQu/Yuh09y6JlFb5vpms+16nRzaES/AW9oMjjTjC7zxzpU5rV
- FtEVH/v9b9NOWw3siPzDxn3ffBOpZuTwEo+wngpN/8I81m3GSbD3Nep1rH8SzHrnT9
- oaA5mXkUL6Kpt14DYPac10PAX1ECenIvQhUEfd4ARNImIUraMixKamPE+K7wCC3uTI
- QHpIWUP6phTFw==
+ b=Crjh49DXCdmPmqVDmSNvRrnl6Mqg3DbPTsE8OHDkG8CB3A6uEdCAeh8+JgwPZaLZJ
+ JVsgUaCK97elgZnRd8v+d/Gtg59vD3KrslYWFNXGw1FcIFMOMGxeQ9gaaXDLJxvGYl
+ hF4V3k9nOGU1lTilmArbwKFYYXe66eWhRmykY1bdVp0wz9dABtR5v/xOF24MTRfO5y
+ OHPCdFKEBZS7M37fYlMMatTbR4zOwW2cRxKlpFQWo9p3XF6aAPbMrs2PZS0zDv+ldw
+ RZ5dBhc7TuHqiVEL95Q3f3qKWbku7N43nSmtNO7sXbJu2X6vcUGczTifVC5j9TG+QS
+ uuj3IuYLAXjEw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, angelogioacchino.delregno@collabora.com, 
- jiaxin.yu@mediatek.com, Chunxu Li <chunxu.li@mediatek.com>
-In-Reply-To: <20230110092623.13035-1-chunxu.li@mediatek.com>
-References: <20230110092623.13035-1-chunxu.li@mediatek.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8186: add AFE_DAC_CON0 to volatile
- register list
-Message-Id: <167449218051.1484410.8537098920978259746.b4-ty@kernel.org>
-Date: Mon, 23 Jan 2023 16:43:00 +0000
+To: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ alsa-devel@alsa-project.org, Faiz Abbas <faiz.abbas@arm.com>
+In-Reply-To: <20230105160346.29018-1-faiz.abbas@arm.com>
+References: <20230105160346.29018-1-faiz.abbas@arm.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: simple-card: Document
+ simple-audio-card,plat
+Message-Id: <167449218337.1484410.12928081501203145393.b4-ty@kernel.org>
+Date: Mon, 23 Jan 2023 16:43:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -82,16 +82,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- project_global_chrome_upstream_group@mediatek.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
+ Deepak.Pandey@arm.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ Anurag.Koul@arm.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Jan 2023 17:26:23 +0800, Chunxu Li wrote:
-> Mark AFE_DAC_CON0 as volatile since DSP firmware will access this
-> register too.
+On Thu, 05 Jan 2023 21:33:46 +0530, Faiz Abbas wrote:
+> The simple card driver has support for adding cpu, codec and platform
+> nodes with the simple-audio-card prefix. Add documentation for the plat
+> binding.
 > 
 > 
 
@@ -101,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8186: add AFE_DAC_CON0 to volatile register list
-      commit: 42fc858cc7e3f9e7a5762b29f9daaf23a15e45ef
+[1/1] ASoC: dt-bindings: simple-card: Document simple-audio-card,plat
+      commit: e7e2b92e609f82cd164209509f852de941e1285b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

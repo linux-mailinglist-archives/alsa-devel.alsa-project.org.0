@@ -2,90 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4068B6780F1
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:07:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6216780F6
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jan 2023 17:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B677C12C0;
-	Mon, 23 Jan 2023 17:07:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B677C12C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BF7A822;
+	Mon, 23 Jan 2023 17:08:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BF7A822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674490073;
-	bh=tZaw3zsdtxxYGbmV/cEBHlWxxBcj5qE7158PLJuVKqk=;
+	s=default; t=1674490149;
+	bh=1J2HwjqTbedaLb0XdpYQ0Pex/MJrf5/fVjvmNT0KB94=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=As8x/OcrSzS0pX8h/VtHHy+T1YC5UIsIiQNiCbagS3Aq+zgVvG9edfbaEf1+BIpi+
-	 25I8RMByiff1h/GC0I8W+C147QD0aTdvpaXoAFmmBQwL0qeeKYn2nWIi26GODqAH+k
-	 GefXQ62y8epPo5Ydz1SSzOV/Z5Pudsp+eCT7YeI4=
+	b=Ta7/pQlUkDyQLFoDZksgG7e9wEQekhkmWAGmFP/buHisnvRFsQEecR2FgS9gHBApb
+	 WPmEv/ezT4hBXb7oRqEG6Qu8NlM7l5C6ilT88LZXTvFJIEuo6OSshcZL21IyZe3B35
+	 kTxqXDkLQ2F+HmK6rfwS7Jnt+695qJNbxSh875HY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D179F804FC;
-	Mon, 23 Jan 2023 17:06:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 253E4F80132;
+	Mon, 23 Jan 2023 17:08:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5318BF804C2; Mon, 23 Jan 2023 17:06:53 +0100 (CET)
+ id 76435F804C2; Mon, 23 Jan 2023 17:08:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D494BF80132
- for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:06:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D494BF80132
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C0CAF801D5
+ for <alsa-devel@alsa-project.org>; Mon, 23 Jan 2023 17:08:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C0CAF801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=mo4Wg5nC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674490012; x=1706026012;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=tZaw3zsdtxxYGbmV/cEBHlWxxBcj5qE7158PLJuVKqk=;
- b=mo4Wg5nCsIDB0H0EtPZTwfwW9DhnQD5feJIEZh3c11Y3iG/nUE21U7nf
- 1HnTkhWP4n5Gdl/GBc9bqr68R2H2BDPpMxJ/8Q0vCXaR7u/NBY7IiKx1C
- zNio+opPS+aXC0O4KZrWWsVOVwa4v/U0x508rQIucHpnDpMa3ehiuTAzZ
- ucW8izq2ObETiTngiJ0n4ck3cPlWpZIukR5PWkgiYzemx3DPdofAWuRf1
- m8IxxjJ0vozCxoHnjsqN9NhVQmHupQUIBdoDE9LsMuLqybwoD1djKTm0T
- N4QuOtAP1ZluIiJytrrt/Pu8w10q+AuHaWsv+qGa3bTf88B1O6ozpNA6V A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="388426465"
-X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="388426465"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2023 08:05:52 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="693962003"
-X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="693962003"
-Received: from rgrachek-mobl.amr.corp.intel.com (HELO [10.212.113.123])
- ([10.212.113.123])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2023 08:05:51 -0800
-Message-ID: <a54bf135-70ba-4c8f-b373-690a9ad8e7ef@linux.intel.com>
-Date: Mon, 23 Jan 2023 10:05:50 -0600
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=kwUSzGDe
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30NAQc7K009195; Mon, 23 Jan 2023 10:08:05 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=RVfnSLhOLaLfi6M49TyAlTRurkbQvUP+PVV+XGSoDRE=;
+ b=kwUSzGDeCSgdyrC2Kit4hlxhJzOlOKmnEo76AQWldAMoDGU/Du3wyCSva8I1P9uBhcGs
+ s8hFflMa6AGQaBfFQamH8BrpBqfQYDeh/3ktufUd2nwNd2TLZwrkWx79bZyip1H6u7/Q
+ jb3FHxUJxqYx3WGvDld8fjc0gmrkT2mKzLPdMXkShnuDKr6a19j0lpzAx7wTrdT6FM0T
+ 2QuqLMc/ipdKRhJ+toGDJrQ7UxP1frFTqS3mBbrH1qkvhAr21YOnn07HAhlK+YL8chVw
+ kThXLsyKUcDVDDQQQCxn/+ctHmj3sa0yE9rJjv9TZVP7p7Dg+FpWtX5mpNsh9UfaqsMJ CA== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n8eb5u9vq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Jan 2023 10:08:05 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 23 Jan
+ 2023 10:08:02 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Mon, 23 Jan 2023 10:08:02 -0600
+Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA4D12C5;
+ Mon, 23 Jan 2023 16:08:02 +0000 (UTC)
+Message-ID: <05a00da2-2ff8-b234-3959-b451849b8cdb@opensource.cirrus.com>
+Date: Mon, 23 Jan 2023 16:08:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v2 6/8] ASoC: cs42l42: Add Soundwire support
+ Thunderbird/102.6.0
+Subject: Re: [PATCH 2/2] soundwire: bus: Allow SoundWire peripherals to
+ register IRQ handlers
 Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230118160452.2385494-1-sbinding@opensource.cirrus.com>
- <20230118160452.2385494-7-sbinding@opensource.cirrus.com>
- <33130336-b2ce-330e-fdec-166eee977e13@linux.intel.com>
- <418f6b73-b5ac-8d87-a856-3413ec103f91@opensource.cirrus.com>
- <6ea1b85f-22e2-8744-9638-6321a5a21acf@linux.intel.com>
- <32fd1755-0128-8f32-9a88-a92f1647f903@opensource.cirrus.com>
- <c8a9ff9b-d1d0-1cef-bf51-e7fa247d24f4@linux.intel.com>
- <3bac8055-2e6e-dc53-d143-f493e18a1e43@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <3bac8055-2e6e-dc53-d143-f493e18a1e43@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Charles
+ Keepax <ckeepax@opensource.cirrus.com>
+References: <20230119165104.3433290-1-ckeepax@opensource.cirrus.com>
+ <20230119165104.3433290-2-ckeepax@opensource.cirrus.com>
+ <c05a6791-96a7-2b10-d353-eb7b316aefc8@linux.intel.com>
+ <20230120095941.GL36097@ediswmail.ad.cirrus.com>
+ <881088ad-95d7-2462-20d2-72a6a9d3ba68@linux.intel.com>
+ <20230123145353.GX36097@ediswmail.ad.cirrus.com>
+ <034245f8-50b7-e801-7961-58c77dbc00b1@linux.intel.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <034245f8-50b7-e801-7961-58c77dbc00b1@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: -kOyOzxdZwUdkUX4DCf-htTy87Jm2znY
+X-Proofpoint-ORIG-GUID: -kOyOzxdZwUdkUX4DCf-htTy87Jm2znY
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,60 +106,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, sanyog.r.kale@intel.com,
+ yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->>> It's nicer to do the check in startup() because then the application
->>> open() will fail cleanly. We could delay until prepare - which is the
->>> point we really need the hardware to be accessible - and hope the
->>> hardware enumerated and initialized by that time. But that's not so
->>> nice from the app point of view.
->>
->> Another way to avoid problems is to rely on the codec component .probe
->> to check if the SoundWire device is initialized before registering a
->> card.
->>
->> I just tried with a system where the ACPI info exposes a codec which is
->> not connected, it fails nicely. That avoids the pitfalls of creating a
->> card which isn't functional since all dependencies are not met.
->>
->> [   64.616530] snd_soc_sof_sdw:mc_probe: sof_sdw sof_sdw: Entry
->> [   64.616549] snd_soc_sof_sdw:log_quirks: sof_sdw sof_sdw: quirk
->> SOF_SDW_PCH_DMIC enabled
->> [   64.616559] snd_soc_sof_sdw:sof_card_dai_links_create: sof_sdw
->> sof_sdw: sdw 2, ssp 0, dmic 2, hdmi 0
->> [   64.616587] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
->> dai link SDW0-Playback, id 0
->> [   64.616600] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
->> dai link SDW0-Capture, id 1
->> [   64.616607] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
->> dai link dmic01, id 2
->> [   64.616614] snd_soc_sof_sdw:init_dai_link: sof_sdw sof_sdw: create
->> dai link dmic16k, id 3
->> [   69.757115] rt5682 sdw:0:025d:5682:00: Initialization not complete,
->> timed out
->> [   69.757128] rt5682 sdw:0:025d:5682:00: ASoC: error at
->> snd_soc_component_probe on sdw:0:025d:5682:00: -110
->> [   69.757224] sof_sdw sof_sdw: ASoC: failed to instantiate card -110
->> [   69.757734] sof_sdw sof_sdw: snd_soc_register_card failed -110
->>
->> see
->> https://elixir.bootlin.com/linux/latest/source/sound/soc/codecs/rt5682.c#L2927
->>
->> I think this is compatible with the device model and bind/unbind, but it
->> could be improved with the removal of the wait if we had a way to return
->> -EPROBEDEFER, and have a mechanism to force the deferred probe work to
->> be triggered when a device actually shows up. It's a generic problem
->> that the probe cannot always be a synchronous function but may complete
->> 'later'.
+On 23/01/2023 15:50, Pierre-Louis Bossart wrote:
 > 
-> I see what you've done in your patch, but I had already experimented
-> with this idea and found that the wait_for_completion() can deadlock the
-> Soundwire core.
+> 
+> On 1/23/23 08:53, Charles Keepax wrote:
+>> On Fri, Jan 20, 2023 at 10:20:50AM -0600, Pierre-Louis Bossart wrote:
+>>> On 1/20/23 03:59, Charles Keepax wrote:
+>>>> On Thu, Jan 19, 2023 at 11:12:04AM -0600, Pierre-Louis Bossart wrote:
+>>>>> There should be an explanation and something checking that both are not
+>>>>> used concurrently.
+>>>>
+>>>> I will try to expand the explanation a litte, but I dont see any
+>>>> reason to block calling both handlers, no ill effects would come
+>>>> for a driver having both and it is useful if any soundwire
+>>>> specific steps are needed that arn't on other control buses.
+>>>
+>>> I think it's problematic if the peripheral tries to wake-up the manager
+>>> from clock-stop with both an in-band wake (i.e. drive the data line
+>>> high) and a separate GPIO-based interrupt. It's asking for trouble IMHO.
+>>> We spent hours in the MIPI team to make sure there were no races between
+>>> the manager-initiated restarts and peripheral-initiated restarts, adding
+>>> a 3rd mechanism in the mix gives me a migraine already.
+>>
+>> Apologies but I am struggling see why this has any bearing on
+>> the case of a device that does both an in-band and out-of-band
+>> wake. The code we are adding in this patch will only be called in the
+>> in-band case. handle_nested_irq doesn't do any hardware magic or
+>> schedule any threads, it just calls a function that was provided
+>> when the client called request_threaded_irq. The only guarantee
+>> of atomicity you have on the interrupt_callback is sdw_dev_lock
+>> and that is being held across both calls after the patch.
+>>
+>> Could you be a little more specific on what you mean by this
+>> represents a 3rd mechanism, to me this isn't a new mechanism just
+>> an extra callback? Say for example this patch added an
+>> interrupt_callback_early to sdw_slave_ops that is called just
+>> before interrupt_callback.
+> 
+> Well, the main concern is exiting the clock-stop. That is handled by the
+> manager and could be done
+> a) as the result of the framework deciding that something needs to be
+> done (typically as a result of user/applications starting a stream)
+> b) by the device with an in-band wake in case of e.g. jack detection or
+> acoustic events detected
+> c) same as b) but with a separate out-of-band interrupt.
+> 
+> I'd like to make sure b) and c) are mutually-exclusive options, and that
+> the device will not throw BOTH an in-band wake and an external interrupt.
 
-That's not good. Do you have any logs or explanation on what the
-root-cause of this deadlock might be? If something's broken, we might as
-well fix it.
+Why would it be a problem if the device did (b) and (c)?
+(c) is completely invisible to the SoundWire core and not something
+that it has to handle. The handler for an out-of-band interrupt must
+call pm_runtime_get_sync() or pm_runtime_resume_and_get() and that
+would wake its own driver and the host controller.

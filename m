@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9CA67C534
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 08:57:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E6267C535
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 08:58:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 914A6DEC;
-	Thu, 26 Jan 2023 08:57:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 914A6DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E79E184C;
+	Thu, 26 Jan 2023 08:57:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E79E184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674719876;
+	s=default; t=1674719894;
 	bh=jfgAKBr+wWgX+JuHVp2Rh+tVWp94MYmfONGyWuUG9cQ=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=um1ov68Op0rBDSzORJ5CtrZ5zBhZ+5V3lAhB7jM63feJIv5uJjyalhlzEGp4ejSBx
-	 Ll0WZ9iFLdqNJD4Cxiak586aG0BpDpbWR4/HxVX/fOHLb3wV9j/2dD53mHC1MAGyXg
-	 z7RKWAMt199rYD6WEH9AzMbQqIcFJSQBk4nvo+QE=
+	b=VNsH8B3M8XRDkhwthXoLovGXsv6vQJCnOFUJIWdeOuSQ88oUdkVrpyfN+ls0+Zyhw
+	 tQYMFLG/OPur1km2dEjRyKEUgnF5AqdtX/EcT3wdaarqfznr3sJ3E0MckAwL0K0bBd
+	 0wMHQUcWWNYZ+XuVzF3A1fsTi4zGUPFJT3yb3wh0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7964DF803DC;
-	Thu, 26 Jan 2023 08:55:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46A02F8057E;
+	Thu, 26 Jan 2023 08:55:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE19AF8027D; Wed, 25 Jan 2023 00:01:16 +0100 (CET)
+ id 98597F8027D; Wed, 25 Jan 2023 00:02:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FB38F801D5
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 00:00:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FB38F801D5
-Received: by mail-ot1-f45.google.com with SMTP id
- d6-20020a056830138600b0068585c52f86so10155558otq.4
- for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 15:00:52 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0CFFF801D5
+ for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 00:02:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0CFFF801D5
+Received: by mail-oi1-f182.google.com with SMTP id r132so14755528oif.10
+ for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 15:02:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
  bh=GI/5UOaSfmciN645orkiQBi7mLRaRF0ZS1ZUuYBdNvc=;
- b=PhIsgnMr4d+0HEUiUF2qZLYg09OxdUtCWhzAE2FG62UjqkI5jUIAp4GBhLTyp+oKfV
- eoOTmv5mKNChZCNxGQtJC2/jEFw6TBv7r+fGsHXgJ8y6JgUdZPsfrYYsez9ZmhC+5a9v
- 0ZwLoo7LPFXK3MJsGYYZ6JsJHbALlKNLJ6HaCaekgEga/fooezPkDTrP1yQQLW/W3x3H
- JrxRqzkmPGMle0/yTMIYNn6weJo2CEjpyjMu5azAElWomfADqFe/nd/fPWY6zKEhjIbO
- LkYVpZilxgRl8lrg+dF/8ToXnG8qHeCHBiXyZqNwo7vTX0TDmUF1qR5rGgvPGF/MGXG0
- sWqg==
-X-Gm-Message-State: AFqh2krM3FlO2dQZ4C6nY5E4aXbE5PwcfTBfH9OfBSCKjR9rUsz3g40l
- HgzZw3KyS2Ac2zitT1qFUQ==
-X-Google-Smtp-Source: AMrXdXtwZAvSnvJGaUSS3u1UoHFrxbCEGZ5ra6dbyH4du4dP2dJIPhqJdNtyQ1xoNiu1fbBJcFGzZA==
-X-Received: by 2002:a9d:3c5:0:b0:684:d418:573b with SMTP id
- f63-20020a9d03c5000000b00684d418573bmr14339968otf.29.1674601250284; 
- Tue, 24 Jan 2023 15:00:50 -0800 (PST)
+ b=j35N/fIAX/Bu69mur2WY9XqS9+91EZR4f3T4VOjoFOfRGU2MjSaaPZe7vXph/4uy+/
+ yGAPZmR0bK3DEBS0B3DSKFOGszr5/VJs73yDYU1dZ4f45cKpke5qXGca45XbpGaw5ZPj
+ ZzLQKg4iN6RQIkWSysDglvPN6eOyaFk8QQqUpm2DdTEjRyzS5YUIpP0iDP12zUDRhOvr
+ Va3yzOfa5Ad2Ay4v9Dn47baJLcWAkz3aPkgPsVIjmZHj1vgiFfjtBfQz0otkkLfwQ3Pj
+ XhXQn1757pZmhPvwXDpGjTsmtqfGjXxRxy0ppV2M41ZnuYy5rcIIPXNdD9qSqNBMnr+l
+ QO+g==
+X-Gm-Message-State: AFqh2kpCc0sAblFBlG673JuTAuFUk9c3Bw0beltiMOW1+vt4GmLQnlfk
+ BEU2bPcOjhc8xuyBcSdoxA==
+X-Google-Smtp-Source: AMrXdXvdr0agArHpsAjC0SYwsKJoe5IWZplu6bM//bvuJYMGkb3h85lvSOD5D3tM8CDFXlVRI5Kcdw==
+X-Received: by 2002:a05:6808:2191:b0:361:8570:d3cf with SMTP id
+ be17-20020a056808219100b003618570d3cfmr19282175oib.6.1674601349894; 
+ Tue, 24 Jan 2023 15:02:29 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- f10-20020a9d2c0a000000b0068848d6b231sm322689otb.30.2023.01.24.15.00.48
+ q64-20020acac043000000b0035e7ed5daa1sm1555463oif.26.2023.01.24.15.02.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 15:00:49 -0800 (PST)
-Received: (nullmailer pid 371735 invoked by uid 1000);
- Tue, 24 Jan 2023 23:00:48 -0000
+ Tue, 24 Jan 2023 15:02:29 -0800 (PST)
+Received: (nullmailer pid 373886 invoked by uid 1000);
+ Tue, 24 Jan 2023 23:02:28 -0000
 From: Rob Herring <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -81,8 +80,8 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: [PATCH] dt-bindings: Add missing (unevaluated|additional)Properties
  on child node schemas
-Date: Tue, 24 Jan 2023 17:00:48 -0600
-Message-Id: <20230124230048.371144-1-robh@kernel.org>
+Date: Tue, 24 Jan 2023 17:02:28 -0600
+Message-Id: <20230124230228.372305-1-robh@kernel.org>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit

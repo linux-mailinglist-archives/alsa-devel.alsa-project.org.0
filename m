@@ -2,99 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D416794AE
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 11:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C154E67961C
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 12:05:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53FD0A4A;
-	Tue, 24 Jan 2023 11:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FD0A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8C49A4E;
+	Tue, 24 Jan 2023 12:04:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8C49A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674554651;
-	bh=5CxZRAGyzhuspslfn7V+ADRfYI37Rleg8n2yeATe/i4=;
+	s=default; t=1674558302;
+	bh=c7rwFTilVrOZNcOXpqSZCuIj1ZlwXY7Pn4yaXa6ma2s=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=fUYhaTMC4M2acRZJZDZ/FxYmEDVIegbY2y8dvZhK5CDhp9o+VedwG+EZvqeMAc/hq
-	 kxZdBPTjpqy20v9hWTWjGKm+RJN68m2SPod9w3bAeg7VBsa2iA8KOn2CtFPFyoc8yE
-	 IySb0RP1vDqKQbUxVfb/FEFc/EPmQM1b/Peei5Jc=
+	b=Meb7NKzwfGG/gefjuf4nr08sC6ukARQP8HOrHlwfteOc2Ld2uE/n5KayBGDfrlHcK
+	 M2yxum30HSbn3pdFfJjy0Od+7eCKBEC4eE9rgL2UT4H8LRTh0CnuxxEKiN7LS/hM07
+	 rEJ/+QCegLOjxTeRpX0ovgVuStkJ4SE6wSy/2DrQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA7B3F802DF;
-	Tue, 24 Jan 2023 11:03:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2BADF800FB;
+	Tue, 24 Jan 2023 12:04:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59DDFF8027D; Tue, 24 Jan 2023 11:03:10 +0100 (CET)
+ id 9750AF8027D; Tue, 24 Jan 2023 12:04:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60D99F80163
- for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 11:02:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D99F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1327AF800FB
+ for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 12:03:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1327AF800FB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Qrm3AJfL
-Received: by mail-wm1-x32d.google.com with SMTP id
- iv8-20020a05600c548800b003db04a0a46bso804787wmb.0
- for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 02:02:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=e7+2ObP6hwGfYv8AoClcbY4T+NA4DE6TZB+TmM9ZmmE=;
- b=Qrm3AJfL/kw1YbFePRK1oUcqKcOxpjENw5HzCbfcFTD48Htaa1hSvGC/HSbVSuigeD
- ymfmSmQwAPDkCVcJcDW797QKZOEqV8gWVGpvLohdmWBS7UVfq5MhfwlocVGOSjaT4pu6
- tZBtmjY3y/CJL6GQGIF5bHV258lDpHDnVdOPU5NABATZywZhILE7m2QCYZIJx7niHVnK
- ePzHLlc/I408cWUSeDAalrRBA11wkadAxv92tDdWVQRgXkDqaAzyyhqm4HkO+AYCB5oI
- yJMYm/e/PceuZGu/c9tonmlvYQYpGl0BVdyFJe2RxvzG41bbzAf11WY+j2EtQjuepJsY
- gGQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=e7+2ObP6hwGfYv8AoClcbY4T+NA4DE6TZB+TmM9ZmmE=;
- b=fPQIDY5G0FpuxbPxB12hEwPGas8qb9W7GKUra1InI1ciR/FMHlClgX1QuiGP9L3QZx
- VarQaWHzx1eFZGW3MVaGmQgDSqXr1/3p26Poo3GrVjEe4XvXuVZOdM3v6ooGfK57IVrt
- Ogsk37cCQ25bNZdefK9djix0f3X78lfotJkdNwFRw9NbNKKHInr336Z4kRiwZg0lrDG+
- c1M2cS8HOZ4RNJ/IUBSqQSzpupaD3+frYpjkKJA/KqPOcxQN6/7RtqC+YMChHrHnv15D
- Tlc2UIXa1y8DuMIUQ5x0SWgkVfdPnhZ3SmYZ3xAjmx97QbmcRxfnOm0x5lpQ3eZrv4PV
- EY/w==
-X-Gm-Message-State: AFqh2kqS/Gq43lHidYgzpuPmg82eI0Bm/82TqeCvxTRGZ9rGaSvt9Woo
- 7mNaHwM+nNa5qmbguo3tApN1ug==
-X-Google-Smtp-Source: AMrXdXuVShf4vzB3MRnsGM1yCSL18NhLSOQCh97phU6rXE44vNaCzhjcUEtLDEHz4IHu5gDEqcTYNw==
-X-Received: by 2002:a05:600c:89a:b0:3cf:6e78:e2ca with SMTP id
- l26-20020a05600c089a00b003cf6e78e2camr34965451wmp.5.1674554575278; 
- Tue, 24 Jan 2023 02:02:55 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- l15-20020a05600c4f0f00b003d9df9e59c4sm13866978wmq.37.2023.01.24.02.02.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jan 2023 02:02:54 -0800 (PST)
-Message-ID: <37a95380-ee68-5c3a-3b96-48cc8b525f19@linaro.org>
-Date: Tue, 24 Jan 2023 11:02:52 +0100
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=DCwEBBqa
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id B49196602E2A;
+ Tue, 24 Jan 2023 11:03:54 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1674558235;
+ bh=c7rwFTilVrOZNcOXpqSZCuIj1ZlwXY7Pn4yaXa6ma2s=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DCwEBBqaLYMAAnzeL323Dd4c1qrmPLoi2Wi93tqWWlK8Wobk+NevjcO6FlN+HLuof
+ 3u5yEO2Ae/UkdfbDvcIgoJOYnfOj91MTYvp9c9wEnByV98jgf+7+hkGpuikfWhfz7c
+ TYkIP2DhR6SPEO9Cjgtk1jmhqwO8XKPKoCOyv6hqF2pWZ9Vpjx4/89Mv7pJmPpAIfG
+ xWY3s698u0GjScCLWRxcfrq8WxAhbX4dnrkYFz+Vz4zX/v1mI68JrK90V7DuguFOaw
+ zpSc3z1COxQJbZh29DrCO+b+GyzTm+aoY3zCb5+vE3WvfYbfwPRdqblEiXZ9Nl3GX5
+ qGlpGh7PCzc7g==
+Message-ID: <2ae768dc-ac83-eda2-c425-014251c40a74@collabora.com>
+Date: Tue, 24 Jan 2023 12:03:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.0
-Subject: Re: [PATCH v3 05/10] dt-bindings: soc: fsl: cpm_qe: Add QMC controller
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 14/25] ASoC: mediatek: use helper function
 Content-Language: en-US
-To: Herve Codina <herve.codina@bootlin.com>
-References: <20230113103759.327698-1-herve.codina@bootlin.com>
- <20230113103759.327698-6-herve.codina@bootlin.com>
- <316ddb81-8d13-71dd-3396-412e31cfb880@linaro.org>
- <20230124104232.183cc9ff@bootlin.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230124104232.183cc9ff@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87y1psu1m1.wl-kuninori.morimoto.gx@renesas.com>
+ <87edrku1cy.wl-kuninori.morimoto.gx@renesas.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <87edrku1cy.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -108,106 +87,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Takashi Iwai <tiwai@suse.com>, Nicholas Piggin <npiggin@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Li Yang <leoyang.li@nxp.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, Mark Brown <broonie@kernel.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Qiang Zhao <qiang.zhao@nxp.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Chunxu Li <chunxu.li@mediatek.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Minghao Chi <chi.minghao@zte.com.cn>, linux-mediatek@lists.infradead.org,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24/01/2023 10:42, Herve Codina wrote:
-> Hi Krzysztof,
+Il 24/01/23 03:12, Kuninori Morimoto ha scritto:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> On Tue, 17 Jan 2023 12:31:09 +0100
-> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+> Current ASoC has many helper function.
+> This patch use it.
 > 
->> On 13/01/2023 11:37, Herve Codina wrote:
->>> Add support for the QMC (QUICC Multichannel Controller)
->>> available in some PowerQUICC SoC such as MPC885 or MPC866.
->>>
->>> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
->>> ---
->>>  .../bindings/soc/fsl/cpm_qe/fsl,qmc.yaml      | 164 ++++++++++++++++++
->>>  1 file changed, 164 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
->>> new file mode 100644
->>> index 000000000000..3ec52f1635c8
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
->>> @@ -0,0 +1,164 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/soc/fsl/cpm_qe/fsl,qmc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: PowerQUICC CPM QUICC Multichannel Controller (QMC)
->>> +
->>> +maintainers:
->>> +  - Herve Codina <herve.codina@bootlin.com>
->>> +
->>> +description: |
->>> +  The QMC (QUICC Multichannel Controller) emulates up to 64 channels within
->>> +  one serial controller using the same TDM physical interface routed from
->>> +  TSA.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - enum:
->>> +          - fsl,mpc885-scc-qmc
->>> +          - fsl,mpc866-scc-qmc
->>> +      - const: fsl,cpm1-scc-qmc
->>> +
->>> +  reg:
->>> +    items:
->>> +      - description: SCC (Serial communication controller) register base
->>> +      - description: SCC parameter ram base
->>> +      - description: Dual port ram base
->>> +
->>> +  reg-names:
->>> +    items:
->>> +      - const: scc_regs
->>> +      - const: scc_pram
->>> +      - const: dpram
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +    description: SCC interrupt line in the CPM interrupt controller
->>> +
->>> +  fsl,tsa:
->>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>> +    description: phandle to the TSA
->>> +
->>> +  fsl,tsa-cell-id:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    enum: [1, 2, 3]
->>> +    description: |
->>> +      TSA cell ID (dt-bindings/soc/fsl,tsa.h defines these values)
->>> +       - 1: SCC2
->>> +       - 2: SCC3
->>> +       - 3: SCC4  
->>
->> Is this used as argument to tsa? If so, this should be part of fsl,tsa
->> property, just like we do for all syscon-like phandles.
-> 
-> Yes, indeed.
-> I will move 'fsl,tsa' to 'fsl,tsa-cell' with 'fsl,tsa-cell' a phandle/number
-> pair (the phandle to TSA node and the TSA cell id to use)
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Move to fsl,tsa, not from.
-
-
-Best regards,
-Krzysztof
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 

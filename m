@@ -2,57 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43BC667A457
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 21:54:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D0567A562
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 23:05:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A086A4D;
-	Tue, 24 Jan 2023 21:53:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A086A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F072DEF;
+	Tue, 24 Jan 2023 23:05:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F072DEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674593650;
-	bh=ao3IQfca2gfcldxcbhjPEzoqUEq2D7MXRLDcntp2R8Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1674597956;
+	bh=ZHq8B2Hnd3lqzLjoIA1kbqbJqNYmrOFHMoVPDe/yQEo=;
+	h=From:To:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=iAqKsvZMx3hOPX/IiY6L2wDZTu/ZIUgCjb+vKTG6jBsuklp726obYJsFmLZ0dNMmL
-	 1aB4vUzz3+AFLtAjVXvBnBBOw3edo+YwjNeU2YIB27qC7zAhZcqQQyerTAeAkwu6+3
-	 GdYh6OupeIitoCfdiWRP5gdOf7gD3OG5X5SjOHPQ=
+	b=p57UgUK048ozv8i3L3/c8JB7tELGb+uq6FjSeF2vyl3KKmReBo5XCQ1irt36Tivyr
+	 OptctzF8Ne2pKu7w1Go8HfBerZ8z29EgJuZ6ZfDjBYYKkCUvIzXpPgiSvlClWYGr96
+	 8XHMROMieVI+PaH0LgTehdJC9y+OPgGeQUpBmBCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D25FBF802DF;
-	Tue, 24 Jan 2023 21:53:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2442FF802DF;
+	Tue, 24 Jan 2023 23:04:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BF35F8027D; Tue, 24 Jan 2023 21:53:10 +0100 (CET)
+ id ECFB1F801D5; Tue, 24 Jan 2023 23:04:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,SPF_PASS,
- T_SPF_HELO_TEMPERROR shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A475F800FB
- for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 21:53:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A475F800FB
-Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
- helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1pKQHp-0002d3-AO; Tue, 24 Jan 2023 21:52:57 +0100
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: Kconfig: fix spelling of "up to"
-Date: Tue, 24 Jan 2023 21:52:56 +0100
-Message-ID: <4117400.1IzOArtZ34@diego>
-In-Reply-To: <20230124181746.19028-1-rdunlap@infradead.org>
-References: <20230124181746.19028-1-rdunlap@infradead.org>
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44A4DF801D5
+ for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 23:04:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44A4DF801D5
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256
+ header.s=20201203 header.b=XhVGgJiG
+Received: from localhost (unknown [IPv6:2601:281:8300:73::5f6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id E2B0399C;
+ Tue, 24 Jan 2023 22:04:45 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net E2B0399C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1674597886; bh=b9wX+EPKF8LMzFlBp7moLL2r723CGwKnPFthU9QqeaM=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=XhVGgJiGradEM2ZdmLm0ziXiZEPA1MeFVU+3tHp6jyu+gAlPOiGWwuN5s6Hm0pR+j
+ TL/q6elhIhsjnDNmkiPH5z0k9rCxg8/D72X5dQquBgT5TsbaKFOxqbp4ummxkKeAI9
+ 2Y5LPFErpAMePR5Pu/so6zxaZxzaFIbefuTi6HnzlFhBQCnbMz9Z067NeZSDIEcwv8
+ QpGYd62dmeQ+iqHaoMub7/eCZZIsZTlWlJ2NdjkFpMzVvC25OhsDAe5FwQB/9xKqvN
+ yo93VfmGm2NXuR9Sf2cVLKtVD7DhwwbvlcecbhotAT1e6YHlYL2hoTAMJpUHfjZMyf
+ WLpZhnTc0AK5A==
+From: Jonathan Corbet <corbet@lwn.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Takashi
+ Iwai <tiwai@suse.de>, SeongJae Park <sj@kernel.org>
+Subject: Re: [PATCH v2 8/8] Docs/sound/index: Add missing SPDX License
+ Identifier
+In-Reply-To: <268823a3-f453-a38b-3fd7-500306675890@linux.intel.com>
+References: <20230122213650.187710-1-sj@kernel.org>
+ <20230122213650.187710-9-sj@kernel.org> <875ycxr7qv.wl-tiwai@suse.de>
+ <268823a3-f453-a38b-3fd7-500306675890@linux.intel.com>
+Date: Tue, 24 Jan 2023 15:04:45 -0700
+Message-ID: <87r0vjfv2a.fsf@meer.lwn.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,32 +81,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-doc@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Am Dienstag, 24. Januar 2023, 19:17:46 CET schrieb Randy Dunlap:
-> Fix spelling in sound/soc/ Kconfig files:
-> s/upto/up to/
-> (reported by codespell)
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: alsa-devel@alsa-project.org
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
+Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> writes:
 
-> ---
->  sound/soc/rockchip/Kconfig |    2 +-
+> On 1/23/23 02:10, Takashi Iwai wrote:
+>> On Sun, 22 Jan 2023 22:36:50 +0100,
+>> SeongJae Park wrote:
+>>>
+>>> Add missing SPDX License Identifier for sound documentation index file.
+>>>
+>>> Signed-off-by: SeongJae Park <sj@kernel.org>
+>> 
+>> Acked-by: Takashi Iwai <tiwai@suse.de>
+>
+> Isn't GPL-2.0 deprecated? It should be GPL-2.0-only, no?
+>
+> https://spdx.org/licenses/GPL-2.0.html
+>
+> https://spdx.org/licenses/GPL-2.0-only.html
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de> #rockchip
+The kernel community hasn't really followed along with that change on
+the part of the SPDX folks; as far as I know, GPL-2.0 is considered to
+be just fine.  There are currently more than twice as many GPL-2.0
+declarations than GPL-2.0-only.
 
+Thanks,
 
-
+jon

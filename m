@@ -2,81 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E089679EAF
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 17:33:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2C5679EFA
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jan 2023 17:41:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85F73E79;
-	Tue, 24 Jan 2023 17:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F73E79
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6768584C;
+	Tue, 24 Jan 2023 17:40:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6768584C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674577994;
-	bh=bbQ68vp4p70cezHKpSPtAyagsGbylpmeadaY4+e+QHY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=k+fyTwf2px5hjv25GoVfmfYzl5BpDEIr3mcf0jgn9/lzJNq9G5dHrHjvSgDyaR1p6
-	 2ATzGU4ym3nBKbgLWE6Yk6a4AfJezZHnh9QTFNNYXG77ySWjoRgIA0qpte8jIE0LYx
-	 Gj1/z/1qfm4KMQQi5AhiN4c5zD1pjdofLj4Rigrk=
+	s=default; t=1674578463;
+	bh=dpJYabd19+WYJAYBDZp15QU5ZkMBcH50pgzhLIrhBJA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=MaYI32oZT9ZjOns+HuvMb/buR3wejIXMw/cyBZsHHL6piAe0gI6jM7g0yy9gmlEXf
+	 ECiAKPI92UiosPT2wi4qidWxLDTyXt+mqabRdPSVq8xo7NcJlw69OIed9R53BbG12O
+	 Kx67wkjU/ptmONKkalVSrQrI2enfYkcb1nYr8J6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BB84F800FB;
-	Tue, 24 Jan 2023 17:32:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B49DF8027D;
+	Tue, 24 Jan 2023 17:40:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D5D1F8027D; Tue, 24 Jan 2023 17:32:13 +0100 (CET)
+ id ECB9DF8030F; Tue, 24 Jan 2023 17:40:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D8BDF801D5
- for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 17:32:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D8BDF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88BCDF801D5
+ for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 17:39:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88BCDF801D5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=SxFTFaP3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674577929; x=1706113929;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=bbQ68vp4p70cezHKpSPtAyagsGbylpmeadaY4+e+QHY=;
- b=SxFTFaP3whGEWq7FMQv4JULsf9AunWkA8GIQYn89jmaIicuYK4RTicIb
- l8KRTtfJl2jk/akyqI+GOZlAj++BiQdtH1wxEVnFd6qeQhgRop972cGVP
- ePdDIwhwPz+ADKlKR+j9yMK7OE47AraaZbbiz089dDRu2+F+8iy9EKXSt
- NETROk4OC/GJk6QX0bD9CIGbxC67Wn1Fm2LhjsAxFB0nJgsuW/szamifG
- zCYOGLKzbVg4cmz0y+1kmFZ7RVkO2DohrXzfE7cASm8wGuzZ7SGW+WN0c
- Cq9cA8jBf3KtW4yGGopMBSk8OBwxZP6G1ju1CNPfq8EkQZlDXwty7ufT6 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="309907101"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="309907101"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 08:32:04 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="907560803"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="907560803"
-Received: from spark7-mobl112.amr.corp.intel.com (HELO [10.212.105.13])
- ([10.212.105.13])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 08:32:03 -0800
-Message-ID: <47d687e3-50e4-967e-3c4a-846cfa4e3755@linux.intel.com>
-Date: Tue, 24 Jan 2023 10:32:03 -0600
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=yFOqlXOB
+Received: by mail-wm1-x335.google.com with SMTP id
+ q10-20020a1cf30a000000b003db0edfdb74so1205882wmq.1
+ for <alsa-devel@alsa-project.org>; Tue, 24 Jan 2023 08:39:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vSku+g0bwjaLrkc/iXNsucUFnEKlTzMW68UCbPKqtB8=;
+ b=yFOqlXOBrsDarRfGGNu9VLdX1sSQsW/82WpbKLgzNC2xsN5o7iNl/lZYlWDTcNMZqd
+ zn7utDsMYHgEY3q49J8p2vdCk/tAXYtnehqj8G27K0JlZCsw8J8j9hJ/hwmVwH5peUYG
+ p7VKsKshkkRnQ6Pe6/xcfWOYkYxw20qb7P2BYCGarMiQKkjSkaMUyGFDZTdkkxq/nHuq
+ 0NPI8ml/nIWG/nwcAm/FzPLilKGP3h6cj3uFHaqxbnLxcurWXGMvcB1IPqohtx4/k/w1
+ hy3f10sZwjCee6fOtRj//UQjsjzDx2qiJUTKwQ4Ll/lSZFPo6lu5jEjSyriCUxh5GgUj
+ jMlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vSku+g0bwjaLrkc/iXNsucUFnEKlTzMW68UCbPKqtB8=;
+ b=HMcarIyfvGjAgQRMXv6l9ULLphncqDPjM21saqHXl0AWZXCGdRtmokXYLp+mT40DcH
+ 8jR8839zo2ho9z2yHR0k0TZJ/yuRt+/sfe/87c1jgAwpwwDJIci6DAeBRZluMsjFU0E9
+ GAX0Zoia6wydG6Q/hPXZOP+KP+vObA7eq4/T/pxtuK89ABaNmpIvV9XSFoMUl4MZReeS
+ STWte8nWhBeBynGqFf5exVP48I0qu+doFTCtwaS8XNV187uDdZWyE5713N0Y3jWSao9K
+ LDxwtYGi2wllswqF8nlONVtGD2w+01QDsvj52n8Het0IGdkyd3ZWQc81oNUkqIqHcvnW
+ Wf/w==
+X-Gm-Message-State: AFqh2kp7CPhK7YP+M99FVS5/RLYBkfWZLLpMeafeR1bVgPwdUjsaymro
+ OXQ88SIgeIKk2CknJUKyqiY38w==
+X-Google-Smtp-Source: AMrXdXujBZ5t7YodisYosOp+ESpSQ34PhMPaTAchZYG+gNWDBcGkBAPdonoMnLaX4x3c/2wIZll2aA==
+X-Received: by 2002:a05:600c:3d19:b0:3db:1810:8c9e with SMTP id
+ bh25-20020a05600c3d1900b003db18108c9emr24306739wmb.38.1674578396592; 
+ Tue, 24 Jan 2023 08:39:56 -0800 (PST)
+Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
+ h20-20020a1ccc14000000b003dafbd859a6sm13477147wmb.43.2023.01.24.08.39.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Jan 2023 08:39:56 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] ASoC: codecs: constify static sdw_slave_ops struct
+Date: Tue, 24 Jan 2023 17:39:51 +0100
+Message-Id: <20230124163953.345949-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: Intel sof-hda-dsp breaks suspend after using Pro Audio UCM
-Content-Language: en-US
-To: Jesse Hathaway <jesse@mbuki-mvuki.org>, alsa-devel@alsa-project.org
-References: <CANSNSoUqROMDVAVb9ZFQbxRdBEAg7k86YHcyihp6hjoEokti6Q@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <CANSNSoUqROMDVAVb9ZFQbxRdBEAg7k86YHcyihp6hjoEokti6Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,19 +102,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The struct sdw_slave_ops is not modified and sdw_driver takes pointer to
+const, so make it a const for code safety.
 
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ sound/soc/codecs/rt1316-sdw.c     | 2 +-
+ sound/soc/codecs/rt1318-sdw.c     | 2 +-
+ sound/soc/codecs/rt711-sdca-sdw.c | 2 +-
+ sound/soc/codecs/rt715-sdca-sdw.c | 2 +-
+ sound/soc/codecs/wcd938x-sdw.c    | 2 +-
+ sound/soc/codecs/wsa881x.c        | 2 +-
+ sound/soc/codecs/wsa883x.c        | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-On 1/24/23 10:22, Jesse Hathaway wrote:
-> PipeWire added the Pro Audio profile for UCM devices[^1]. After that
-> patch was included with PipeWire 0.3.64, my laptop was no longer able to
-> suspend after the profile was loaded. The problem appears to be on the
-> kernel side. A bug was opened on PipeWire[^2] as well as the kernel's
-> bugzilla[^3]. Here is the relevant output from dmesg:
+diff --git a/sound/soc/codecs/rt1316-sdw.c b/sound/soc/codecs/rt1316-sdw.c
+index e6294cc7a995..45a3eff31915 100644
+--- a/sound/soc/codecs/rt1316-sdw.c
++++ b/sound/soc/codecs/rt1316-sdw.c
+@@ -584,7 +584,7 @@ static int rt1316_sdw_pcm_hw_free(struct snd_pcm_substream *substream,
+  * slave_ops: callbacks for get_clock_stop_mode, clock_stop and
+  * port_prep are not defined for now
+  */
+-static struct sdw_slave_ops rt1316_slave_ops = {
++static const struct sdw_slave_ops rt1316_slave_ops = {
+ 	.read_prop = rt1316_read_prop,
+ 	.update_status = rt1316_update_status,
+ };
+diff --git a/sound/soc/codecs/rt1318-sdw.c b/sound/soc/codecs/rt1318-sdw.c
+index f85f5ab2c6d0..c6ec86e97a6e 100644
+--- a/sound/soc/codecs/rt1318-sdw.c
++++ b/sound/soc/codecs/rt1318-sdw.c
+@@ -697,7 +697,7 @@ static int rt1318_sdw_pcm_hw_free(struct snd_pcm_substream *substream,
+  * slave_ops: callbacks for get_clock_stop_mode, clock_stop and
+  * port_prep are not defined for now
+  */
+-static struct sdw_slave_ops rt1318_slave_ops = {
++static const struct sdw_slave_ops rt1318_slave_ops = {
+ 	.read_prop = rt1318_read_prop,
+ 	.update_status = rt1318_update_status,
+ };
+diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
+index 88a8392a58ed..e23cec4c457d 100644
+--- a/sound/soc/codecs/rt711-sdca-sdw.c
++++ b/sound/soc/codecs/rt711-sdca-sdw.c
+@@ -338,7 +338,7 @@ static int rt711_sdca_interrupt_callback(struct sdw_slave *slave,
+ 	return ret;
+ }
+ 
+-static struct sdw_slave_ops rt711_sdca_slave_ops = {
++static const struct sdw_slave_ops rt711_sdca_slave_ops = {
+ 	.read_prop = rt711_sdca_read_prop,
+ 	.interrupt_callback = rt711_sdca_interrupt_callback,
+ 	.update_status = rt711_sdca_update_status,
+diff --git a/sound/soc/codecs/rt715-sdca-sdw.c b/sound/soc/codecs/rt715-sdca-sdw.c
+index 3f981a9e7fb6..75468e91ffef 100644
+--- a/sound/soc/codecs/rt715-sdca-sdw.c
++++ b/sound/soc/codecs/rt715-sdca-sdw.c
+@@ -172,7 +172,7 @@ static int rt715_sdca_read_prop(struct sdw_slave *slave)
+ 	return 0;
+ }
+ 
+-static struct sdw_slave_ops rt715_sdca_slave_ops = {
++static const struct sdw_slave_ops rt715_sdca_slave_ops = {
+ 	.read_prop = rt715_sdca_read_prop,
+ 	.update_status = rt715_sdca_update_status,
+ };
+diff --git a/sound/soc/codecs/wcd938x-sdw.c b/sound/soc/codecs/wcd938x-sdw.c
+index 1bf3c06a2b62..33d1b5ffeaeb 100644
+--- a/sound/soc/codecs/wcd938x-sdw.c
++++ b/sound/soc/codecs/wcd938x-sdw.c
+@@ -191,7 +191,7 @@ static int wcd9380_interrupt_callback(struct sdw_slave *slave,
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct sdw_slave_ops wcd9380_slave_ops = {
++static const struct sdw_slave_ops wcd9380_slave_ops = {
+ 	.update_status = wcd9380_update_status,
+ 	.interrupt_callback = wcd9380_interrupt_callback,
+ 	.bus_config = wcd9380_bus_config,
+diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+index 7a5d31483cfc..35bd6f7727ed 100644
+--- a/sound/soc/codecs/wsa881x.c
++++ b/sound/soc/codecs/wsa881x.c
+@@ -1106,7 +1106,7 @@ static int wsa881x_bus_config(struct sdw_slave *slave,
+ 	return 0;
+ }
+ 
+-static struct sdw_slave_ops wsa881x_slave_ops = {
++static const struct sdw_slave_ops wsa881x_slave_ops = {
+ 	.update_status = wsa881x_update_status,
+ 	.bus_config = wsa881x_bus_config,
+ 	.port_prep = wsa881x_port_prep,
+diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+index be211422d38f..4fc7c01c27ae 100644
+--- a/sound/soc/codecs/wsa883x.c
++++ b/sound/soc/codecs/wsa883x.c
+@@ -1073,7 +1073,7 @@ static int wsa883x_port_prep(struct sdw_slave *slave,
+ 	return 0;
+ }
+ 
+-static struct sdw_slave_ops wsa883x_slave_ops = {
++static const struct sdw_slave_ops wsa883x_slave_ops = {
+ 	.update_status = wsa883x_update_status,
+ 	.port_prep = wsa883x_port_prep,
+ };
+-- 
+2.34.1
 
-can you please file an issue here:
-https://github.com/thesofproject/linux/issues
-
-Thanks!

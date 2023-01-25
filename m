@@ -2,71 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0EC567C57A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 09:05:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0431867B96C
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Jan 2023 19:35:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77CB2EAA;
-	Thu, 26 Jan 2023 09:04:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77CB2EAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DC4A1DE;
+	Wed, 25 Jan 2023 19:35:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DC4A1DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674720340;
-	bh=gnfy9ccrFjcqJMF/X5d4P5SKVQGZlWkCPRfO/c26GNs=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674671754;
+	bh=WFoJYI40GhN4kH+1n/Su0dbONVytayO4iz1UGAa80SY=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LyYk8KAkWlo3r6btRnUZFm1cCd0GRoFv1akExjmvGYxcoiP3vwhkPzDbDCjrSLMIz
-	 LaSfr9FnmVJweO2HLz15ohE8k1t7W3hKSntYBSPjrsuGrklAnoQP0kaLF77+JygqRv
-	 CLMtLZTIurSKqGqDRXX2f+ogdGFRt3Es0CMyefT8=
+	b=qYYnZCdbx4a+Dp0zngy2f8ojGkpc0n9eICkWYSBMEkINaswgAz7grZVo7gDvifAnQ
+	 PyLKljssI1Ry3G+aPoiL6AaYbPUuRzakQXnLPOz5jsMYsqC5io3kb0q9enBDP8rIbm
+	 c6zYrx2mS0UZgZlvaPxPW03Ntl7B8Ao4T7NvngYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3860AF8061D;
-	Thu, 26 Jan 2023 08:55:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94EEBF800FB;
+	Wed, 25 Jan 2023 19:34:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5DC6F804A9; Wed, 25 Jan 2023 19:39:43 +0100 (CET)
+ id 410CEF80424; Wed, 25 Jan 2023 19:34:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E08D7F80163
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 19:39:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E08D7F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2213F80163
+ for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 19:34:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2213F80163
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
- header.s=casper.20170209 header.b=mx74wVm8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=WhE3p5nMlMDjaV/irGLArTSJUCL3MW0izpTScdbc1OU=; b=mx74wVm8uyXRMzRkznkmPv14f3
- DM5mkZY0d2Y454KV/p1DBO6bVWUBYmLnjNwq5de4oOCp4K1tzlZ+pYhblaAnUsgNim9Cg22n4lXC7
- YVziRodKlXV3h1dcA4wCil3iZ6I2W+LteukgjO5nFw9bnJFOnLJvx0ni4Ju6wCzLw38ztU2xqwXDF
- Hz7a4pCnrIPatIpdvDFmrtxTdMVr7eH9j59LSpJj79ys6zGb7fhMV69syzXZoxm/q67WE7IxkNx+x
- YR6wIJfVUlSwCzFkthS2vqR79CZmfDxbuiYrAaQdlm8CD16FJpwzTtCFj0zPf7AtdmoIV8Mlhhb7E
- KwDK04uQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pKkaL-0066XZ-MG; Wed, 25 Jan 2023 18:33:25 +0000
-Date: Wed, 25 Jan 2023 18:33:25 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
-Message-ID: <Y9F19QEDX5d/44EV@casper.infradead.org>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ThXHZj4p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674671691; x=1706207691;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=WFoJYI40GhN4kH+1n/Su0dbONVytayO4iz1UGAa80SY=;
+ b=ThXHZj4pgVSZlXgthHIpQvpCsUm3bdxY1bxfCQChyGBkl8pOkqyOX3/s
+ D++6+rITiHQBlVoJAGjpH/MO6tuE+54faYQDSNdOc2uzPB1bR7hdyE+25
+ 9FAd3RCELfDXYAKtiOjdDAdPUP+owRpP7a+bp5jzP+Hco8ppRpub8giCn
+ wrndOC8pD03FDQtsLS1Vc4CImJkSkZoOPh54M5n49W4AvJ3OdZ/fVgaSm
+ SHki+Dsf6fAJo8gsCA4nZjS/ThG8Bwusi8OdBF/XFzX86jNB/LgHBWPdu
+ TCRbFef+O4ZOpvDtGNWul6iY/LOQ2Mwc/X07uC4r6k3qEIrMmdTzDpzwl g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="306984908"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="306984908"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 10:34:44 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="907969301"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="907969301"
+Received: from bshunt-mobl.amr.corp.intel.com (HELO [10.212.37.80])
+ ([10.212.37.80])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 10:34:44 -0800
+Message-ID: <971a9d17-58ec-3655-6cc4-42c59da6e0af@linux.intel.com>
+Date: Wed, 25 Jan 2023 12:34:43 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-2-surenb@google.com>
-X-Mailman-Approved-At: Thu, 26 Jan 2023 08:55:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: struct snd_pcm_ops callbacks
+Content-Language: en-US
+To: Muni Sekhar <munisekharrms@gmail.com>
+References: <CAHhAz+gxrjB04c-GHa1YzahyKDQcW3+xoDt9iUnkj9THKvG_TA@mail.gmail.com>
+ <53e3919e-48cc-81a0-365e-015235d10c9b@linux.intel.com>
+ <CAHhAz+gTrToehWki8h17DdR_u8uKmRPsDWeEygijpm51MLvz1g@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <CAHhAz+gTrToehWki8h17DdR_u8uKmRPsDWeEygijpm51MLvz1g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,85 +91,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, jglisse@google.com,
- arjunroy@google.com, m.szyprowski@samsung.com, linux-arch@vger.kernel.org,
- qianweili@huawei.com, linux-samsung-soc@vger.kernel.org,
- aneesh.kumar@linux.ibm.com, chenhuacai@kernel.org, kasan-dev@googlegroups.com,
- linux-acpi@vger.kernel.org, rientjes@google.com,
- xen-devel@lists.xenproject.org, devel@lists.orangefs.org, robdclark@gmail.com,
- minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
- etnaviv@lists.freedesktop.org, npiggin@gmail.com, alex.williamson@redhat.com,
- viro@zeniv.linux.org.uk, luto@kernel.org, gthelen@google.com,
- tglx@linutronix.de, ldufour@linux.ibm.com, linux-sgx@vger.kernel.org,
- martin.petersen@oracle.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-media@vger.kernel.org,
- freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
- linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
- dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
- edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, gurua@google.com, dgilbert@interlog.com,
- xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
- quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
- linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
- sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
- zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- posk@google.com, lstoakes@gmail.com, peterjung1337@gmail.com,
- yoshfuji@linux-ipv6.org, linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org,
- kent.overstreet@linux.dev, kexec@lists.infradead.org, tiwai@suse.com,
- krzysztof.kozlowski@linaro.org, tzimmermann@suse.de, hannes@cmpxchg.org,
- dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
- mgorman@techsingularity.net, linux-accelerators@lists.ozlabs.org,
- l.stach@pengutronix.de
+Cc: alsa-devel <alsa-devel@alsa-project.org>, linux-sound@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
-> +/* Use when VMA is not part of the VMA tree and needs no locking */
-> +static inline void init_vm_flags(struct vm_area_struct *vma,
-> +				 unsigned long flags)
-> +{
-> +	vma->vm_flags = flags;
 
-vm_flags are supposed to have type vm_flags_t.  That's not been
-fully realised yet, but perhaps we could avoid making it worse?
 
->  	pgprot_t vm_page_prot;
-> -	unsigned long vm_flags;		/* Flags, see mm.h. */
-> +
-> +	/*
-> +	 * Flags, see mm.h.
-> +	 * WARNING! Do not modify directly.
-> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> +	 */
-> +	unsigned long vm_flags;
+On 1/25/23 12:06, Muni Sekhar wrote:
+> On Wed, Jan 25, 2023 at 8:30 PM Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> wrote:
+>>
+>>
+>>
+>> On 1/25/23 05:21, Muni Sekhar wrote:
+>>> Hi,
+>>>
+>>> struct snd_pcm_ops callbacks can be used for sending\receiving PDM
+>>> audio data to and from a sound card? Or is it only designed for PCM
+>>> audio data?
+>>
+>> It depends what side of the sound card you are looking at, the physical
+>> interface with external devices or the userspace interface.
+> I am looking at the userspace interface side.
 
-Including changing this line to vm_flags_t
+that's not possible without some sort of formatting of 1-bit audio in
+bytes or more likely 24/32-bit words that look like PCM and can be
+handled by existing DMA/FIFO hardware. That solution works for HDMI/DP
+and USB.
+
+>> PDM can be supported at the physical interface level as long as there is
+>> a conversion to PCM somewhere in the hardware. Userspace will
+>> play/record PCM. See examples in many codecs and SOCs.
+>>
+>> There is also the possibility of packing PDM (aka DSD) as pseudo-PCM,
+>> that's a trick used by several USB cards. In that case of course the
+>> sound card cannot apply any processing to the data and is just a
+>> pass-through module.
+>>
+>>
+> 
+> 

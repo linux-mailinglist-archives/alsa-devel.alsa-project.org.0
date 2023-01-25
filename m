@@ -2,89 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13EDB67C569
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 09:03:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A02E267B3F2
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Jan 2023 15:11:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AAEDE7C;
-	Thu, 26 Jan 2023 09:02:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AAEDE7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E41B2827;
+	Wed, 25 Jan 2023 15:10:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E41B2827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674720187;
-	bh=5jIvH9CqETzpDoXn8tJjdWQRzQEgf/6OxsR8sHRfP2U=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=oJx8LBC3+2ct18i9BtX//zDZou9tI7HnhERw1dOM+JycPD6IhAq37LGsbI4yGTse0
-	 55eZHeGD+rLiFP6Vfaskom9dvLhQIiugmghHoh7Bo2r8DOO6DbqERRrqb+mS3Gm1qn
-	 4NUytSekq9WW8a7mFxpBgPOzXZbCId6sr7TMQQQ4=
+	s=default; t=1674655884;
+	bh=XsNiruwMU+8flFDOS6YqzthhJODwBWRtu0/CkSAUdzM=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=DnUQZGSCPk8hmzJnYWrRVDf0y04TshXoIwzIm0q3KAxZOrTDsNE+GF/NoHIoXHWCw
+	 LfJVuXBxh+YAsvtoji5NUGn4XOv8ZaEGTKB+XR6pbqjmO+5C9u0yhUw8q5Ow81+IYQ
+	 BukSvPxbd2wa00MVoU+nH1XyGaWlHSc4uqVYzryA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 132E8F805F6;
-	Thu, 26 Jan 2023 08:55:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66D70F804A9;
+	Wed, 25 Jan 2023 15:10:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00C2FF80424; Wed, 25 Jan 2023 14:02:20 +0100 (CET)
+ id 79257F80424; Wed, 25 Jan 2023 15:10:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6316BF80163
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 14:02:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6316BF80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71C2BF800FB
+ for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 15:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71C2BF800FB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bgdev-pl.20210112.gappssmtp.com
- header.i=@bgdev-pl.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=ZWujWps5
-Received: by mail-lf1-x133.google.com with SMTP id j17so28863275lfr.3
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 05:02:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WUlWEcztX7LC+YPVdX7zQ3TiSCzemn77YbP9UmZzYSE=;
- b=ZWujWps5xV+1Wp9WkpTktZV8uw9uUYoO8g5XV6hX5GoFex0wS6QvPRwAG/2X2m1TpC
- AnHeNzLJDDtn53tWfoYWTefbTDjXDAE0nyphHivQZvoRdrxbqpV+7GwZiiMjSczRHu8S
- 2+wR907XANDw+tY9iJAZ7kQb7uGdBtK+VXYG5abfl8fMtfvdNrdyGPXGOMxIoU9QKeVu
- 4IlTBODyMAWFOY81r6JOyh5Fa315CiPWT2rXXbjFQEfpJSeF4VXVDJglh9UTsnUwh9su
- TYGOZhQhykmGOSX5lbdOvzn5eD1DRAR9mumAOcV1QbWLinLDbhcnO/qlNyd2Axsp+wEi
- p/4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WUlWEcztX7LC+YPVdX7zQ3TiSCzemn77YbP9UmZzYSE=;
- b=3yg4RGhvzNA4H+xAZlwEszAlJ8A2NFp7Fvx5Ppp4fvl5XK+rCYXRNAcfXcvrCvDAtQ
- rU1/jves7KOy18+3zXHQeNir6EqQ7IbaQTZI8x2Opzg7hFqwSyTAhlvTnJnRIl6Abr9a
- bU6+8g6LdFU+QXd3r23HYvcg5qFeUJfEbZVLNWQ2HygTq/F8UfmTlcg+/Y2ju9JfTMQQ
- LTKn8bJOESxZYmUgc/3OP9KU8xZABdXL7I+yvS7SGafsQPGHvOPVQnDegtGffnBsAGoB
- tbwrCH2iz5/kH56phDvYjIkYYxHOEuTB97BSVUojICVRXFSgt1iXwQYXd9oWqcumpX7k
- 8B3g==
-X-Gm-Message-State: AFqh2kowtqWYXBuwzjXJ26+d8lRA8tbYlQ+J7d8jtLmbOHZV3OBLmcra
- 8JhRXoQTQsONyYf1VXmE9PMz4QXiRYNyQnaoHbXLXg==
-X-Google-Smtp-Source: AMrXdXua3Xzk3n+mAS+SHWDmCwyiaUE3a82cF5mU8PKvzbJFSacMHuyCjbHJ/PWxjesRw9CjRh1dmLPf3Blx2uP0BXc=
-X-Received: by 2002:a05:6512:3984:b0:4ca:faca:5b59 with SMTP id
- j4-20020a056512398400b004cafaca5b59mr2768406lfu.615.1674651728174; Wed, 25
- Jan 2023 05:02:08 -0800 (PST)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=CLoR5w7k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674655818; x=1706191818;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=XsNiruwMU+8flFDOS6YqzthhJODwBWRtu0/CkSAUdzM=;
+ b=CLoR5w7kvN+uAVD4WpokZB/FErtlbWP3tw2nS65krQbHl+vf51j2V1Pq
+ LZiLrPaiycUZt/H0/QzBWzIMYLf+GTJnKRd5sWJDFoYXYRpHEx6FzBQlK
+ gTpVU3e9le4PxoLiPkipkOcw2/MhoDapo+ukgAmkgg13xz9Ym6F4GTuWg
+ E07eH6pWU4sO361NwT0dnOwdIms5b8cY9toWZFVJVc+WtfjTULYvVqohz
+ 9pfJvVjHpeZzhV6hjH/wHUiBrtBjWG5wEnUTAVObfx1lAZdL1DDleONVG
+ UrZqs5ZdeetHY2TF6HEH1yXXFvXS/YRJ2sXK8N2VvAP0Tput2YIDDt6jg g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="326589157"
+X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="326589157"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 06:10:13 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="692964410"
+X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="692964410"
+Received: from kpotent-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.30.21])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 06:10:10 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: ipc4-topology: use different channel mask for each sdw
+ amp feedback
+Date: Wed, 25 Jan 2023 16:10:16 +0200
+Message-Id: <20230125141016.29487-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-References: <20230124230048.371144-1-robh@kernel.org>
-In-Reply-To: <20230124230048.371144-1-robh@kernel.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 25 Jan 2023 14:01:55 +0100
-Message-ID: <CAMRc=MfdDv5teeQx802Qi3otwfXtZ1jAX_bzvH4DQMvdas9YtQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Add missing
- (unevaluated|additional)Properties on child node schemas
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 26 Jan 2023 08:55:02 +0100
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,59 +86,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, Lee Jones <lee@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, Marc Zyngier <maz@kernel.org>,
- openbmc@lists.ozlabs.org, Jassi Brar <jassisinghbrar@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
- linux-spi@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Richard Weinberger <richard@nod.at>
+Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 25, 2023 at 12:00 AM Rob Herring <robh@kernel.org> wrote:
->
-> Just as unevaluatedProperties or additionalProperties are required at
-> the top level of schemas, they should (and will) also be required for
-> child node schemas. That ensures only documented properties are
-> present.
->
-> Add unevaluatedProperties or additionalProperties as appropriate, and
-> then add any missing properties flagged by the addition.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[...]
+Currently, we use the same channel mask for aggregated speakers.
+It works fine for playback because we duplicate the audio data for all
+aggregated speakers. But we need to get audio data from each aggregated
+speaker and combine them to the captured audio. So we need to set
+non-overlapping channel mask for aggregated ALH DAIs.
 
->  .../devicetree/bindings/gpio/x-powers,axp209-gpio.yaml |  1 +
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/ipc4-topology.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-[...]
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 59f4d42f9011..34586cbb461f 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1203,8 +1203,11 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 			struct sof_ipc4_copier_data *alh_data;
+ 			struct sof_ipc4_copier *alh_copier;
+ 			struct snd_sof_widget *w;
++			u32 ch_count = 0;
+ 			u32 ch_mask = 0;
+ 			u32 ch_map;
++			u32 step;
++			u32 mask;
+ 			int i;
+ 
+ 			blob = (struct sof_ipc4_alh_configuration_blob *)ipc4_copier->copier_config;
+@@ -1214,11 +1217,15 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 			/* Get channel_mask from ch_map */
+ 			ch_map = copier_data->base_config.audio_fmt.ch_map;
+ 			for (i = 0; ch_map; i++) {
+-				if ((ch_map & 0xf) != 0xf)
++				if ((ch_map & 0xf) != 0xf) {
+ 					ch_mask |= BIT(i);
++					ch_count++;
++				}
+ 				ch_map >>= 4;
+ 			}
+ 
++			step = ch_count / blob->alh_cfg.count;
++			mask =  GENMASK(step - 1, 0);
+ 			/*
+ 			 * Set each gtw_cfg.node_id to blob->alh_cfg.mapping[]
+ 			 * for all widgets with the same stream name
+@@ -1233,7 +1240,22 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 				alh_copier = (struct sof_ipc4_copier *)dai->private;
+ 				alh_data = &alh_copier->data;
+ 				blob->alh_cfg.mapping[i].alh_id = alh_data->gtw_cfg.node_id;
+-				blob->alh_cfg.mapping[i].channel_mask = ch_mask;
++				/*
++				 * Set the same channel mask for playback as the audio data is
++				 * duplicated for all speakers. For capture, split the channels
++				 * among the aggregated DAIs. For example, with 4 channels on 2
++				 * aggregated DAIs, the channel_mask should be 0x3 and 0xc for the
++				 * two DAI's.
++				 * The channel masks used depend on the cpu_dais used in the
++				 * dailink at the machine driver level, which actually comes from
++				 * the tables in soc_acpi files depending on the _ADR and devID
++				 * registers for each codec.
++				 */
++				if (w->id == snd_soc_dapm_dai_in)
++					blob->alh_cfg.mapping[i].channel_mask = ch_mask;
++				else
++					blob->alh_cfg.mapping[i].channel_mask = mask << (step * i);
++
+ 				i++;
+ 			}
+ 			if (blob->alh_cfg.count > 1) {
+-- 
+2.39.1
 
-> diff --git a/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml b/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml
-> index 7f26f6b1eea1..31906c253940 100644
-> --- a/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml
-> @@ -35,6 +35,7 @@ properties:
->  patternProperties:
->    "^.*-pins?$":
->      $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +    additionalProperties: false
->
->      properties:
->        pins:
-
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-[...]

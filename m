@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381E467C56D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 09:03:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9350867C56E
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 09:04:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CC29E96;
-	Thu, 26 Jan 2023 09:03:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CC29E96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32B6FE88;
+	Thu, 26 Jan 2023 09:03:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B6FE88
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674720232;
-	bh=v+B+KDBEA50AHtVt9lQ1BTuMYwoPUgbIgH8/Amio1lE=;
+	s=default; t=1674720248;
+	bh=TofsbXpZihSKZUVsy9XrANh9lc730J6wSOc2QP9eoTI=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=N3dxznonw+1UjWi2nUzaXVecajFnYsAzv5XFTaecPs9R1GhV2gaxgaXu97f9u0ool
-	 Exu0BoZalyBSp93M3hEFw8BalQATCQ54hXe0I7GkNsc29Uc8kjS6GtfTz618K8sAUg
-	 cpSKOwuzxfrH6sbNcn4v6XaWcfLOTdxJ84+Ddkdc=
+	b=E+wwapRKcF7idL+OMLyTC4cMQyOtAM7AtpCzF46woYIrz7tXwKyEW6oYN9y2AqKKo
+	 jBz2nAQQf28DJ7D8rsA7u9Cqp/Jt4u0zoqaeRc8wqGlFQSKrEwmlFLXYGXnKttGMCQ
+	 BSCkwiQLzfHMdJTbTqDaTJC4vgRqMyTvXP3KiPMI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 003FFF80603;
-	Thu, 26 Jan 2023 08:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92EFBF80605;
+	Thu, 26 Jan 2023 08:55:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24AE5F80424; Wed, 25 Jan 2023 16:09:12 +0100 (CET)
+ id F3796F80424; Wed, 25 Jan 2023 16:10:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3670F800FB
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 16:09:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3670F800FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB2BAF800FB
+ for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 16:10:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB2BAF800FB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hSoessef
+ header.s=k20201202 header.b=PWvP9JOJ
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B706DB819F3;
- Wed, 25 Jan 2023 15:09:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC81C433EF;
- Wed, 25 Jan 2023 15:08:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C548161494;
+ Wed, 25 Jan 2023 15:10:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53B0C4339E;
+ Wed, 25 Jan 2023 15:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674659344;
- bh=v+B+KDBEA50AHtVt9lQ1BTuMYwoPUgbIgH8/Amio1lE=;
+ s=k20201202; t=1674659447;
+ bh=TofsbXpZihSKZUVsy9XrANh9lc730J6wSOc2QP9eoTI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hSoessefOv16Xt7Qbj98AdgmJicOcikMVtEdI8hVuvfe5IRYVPezihO/irb3buQZt
- 3ZFdNvsViDwPHeE3Jm/XuN6iGzIm1ESIZsv0lbDa1vk4s6rEEf6cKYM+bN/iuQe9VW
- P/Svjep8k+fSgfN9zyFG7lQqfCHheo29BxDr+K+4T3lE67taLSodJ3E7d4EG4RrRqe
- 73RJMrkg3YqzKBZH4GY2t14YGyMJND9cOXmrIKdYBcHjYwCgCzhERtbbPGPR5fu5EG
- NLAP3xoucfO28ZdQF16a1/t4V81l7sTg4luWlxs+aH+wX1wDHuET+t7+76hhEK6te3
- 8HtxOatriltJw==
-Date: Wed, 25 Jan 2023 15:08:54 +0000
+ b=PWvP9JOJGFWee6ASV9x3ADUxkKdcW+FrahCSA7zAki85HcwH0S+Qlftb5AVSx76V4
+ qBpzvZbPNozQG37LDylg+pITOqfq3rlpjhbTAHNw0Oafns2nuDLECj60B1OrLEWMnV
+ /DBCokptbh1fiSNjleo4CBNt1NKQdn8kPf8iqz68WINnJ4LRJldl0YhHV/lKBLFxj7
+ iiB6+dKsKTB+B07SQ3EH4R91GxqW6sbp7ZwJOpScy+CeEyBddDco4n5ScTpc1xMwwc
+ EyMfjtYYEe2OMD5XlBJx97JPAnsmnx3im+jMYOD9UXRGxoX7/db0GPAIhfy7NJWA1c
+ KRS15JP4gUAzw==
+Date: Wed, 25 Jan 2023 15:10:38 +0000
 From: Lee Jones <lee@kernel.org>
 To: Rob Herring <robh@kernel.org>
 Subject: Re: [PATCH] dt-bindings: Add missing
  (unevaluated|additional)Properties on child node schemas
-Message-ID: <Y9FGBqFKMxL3XraK@google.com>
-References: <20230124230228.372305-1-robh@kernel.org>
+Message-ID: <Y9FGbr8LB9dEHx1Z@google.com>
+References: <20230124230048.371144-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230124230228.372305-1-robh@kernel.org>
+In-Reply-To: <20230124230048.371144-1-robh@kernel.org>
 X-Mailman-Approved-At: Thu, 26 Jan 2023 08:55:02 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -186,7 +185,7 @@ On Tue, 24 Jan 2023, Rob Herring wrote:
 >  Documentation/devicetree/bindings/usb/qcom,dwc3.yaml   |  1 +
 >  36 files changed, 65 insertions(+), 8 deletions(-)
 
-Acked-by: Lee Jones <lee@kernel.org>
+Is this the same as the patch I just reviewed?
 
 -- 
 Lee Jones [李琼斯]

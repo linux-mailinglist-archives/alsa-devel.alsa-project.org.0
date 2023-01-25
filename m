@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DC4F67C548
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 08:59:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A320F67B6F3
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Jan 2023 17:30:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CDD7A4B;
-	Thu, 26 Jan 2023 08:58:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CDD7A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 128771FB;
+	Wed, 25 Jan 2023 17:29:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 128771FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674719970;
-	bh=QYtWQMPFTpWedQzexNKu+u0XGUOt9qJPJ9mZ5Zgcq4Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=dZEuCRc7m5fi5mBfwJ6i6/W+BL/EOzQVwO32bGn5N6OPq4BYysz88Cfv/UCjW/kwS
-	 /XDL8/95aux23CqDyemAOjBLhUfByeDKDM0/a5SU8q1OkkkvmlADu1R136T3rYZcMF
-	 reUb7sbP+g4c0yhkLMtbfhY+8wEI7imXr0TG4JPs=
+	s=default; t=1674664201;
+	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m2ez4b/Uo3ntmoH7DcSU/0d8yh6hsu6hkKJPri8F/d/edM+0TRioVnQXzhxnbZSoD
+	 oxqEEZ7uPmkj2+fk27eBZ/q3WNHkeFQDo6atBjugSKOWwbcuc0bQEvmHVN1eJGc4oA
+	 TyoEqWxvmKkSf8gyiXDcXSd0khp9deqU+tVwrkRU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D14AFF805B2;
-	Thu, 26 Jan 2023 08:55:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16573F800AE;
+	Wed, 25 Jan 2023 17:29:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66BBCF802E8; Wed, 25 Jan 2023 17:26:53 +0100 (CET)
+ id 30E13F802E8; Wed, 25 Jan 2023 17:28:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A039BF800FB
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 17:26:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A039BF800FB
+X-Spam-Status: No, score=-4.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+ HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC81AF800FB
+ for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 17:28:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC81AF800FB
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=o4j8nJom
-Received: by mail-ed1-x536.google.com with SMTP id w11so7049984edv.0
- for <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 08:26:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1ilN6S2DYFu/DESx5TOWbGLPHlfDmzvINI2SI+/X/LA=;
- b=o4j8nJomybIx4kE59DRw52ujqDVZ1WQewtiJ58C37pZX/5DWWR3us5SruXAAGyfGBc
- 0oxAeGxQTdIDM++/ONptAOL1nO0F6K6FiZC1F/r6Qme1XRV2lBzY485x0B9dWJnV3W0W
- TnQMulrN7yyZXGHFTiOyWDC1wY59f/tjlS5vjPAnXkbmCVxXIc2maTfx3FlJemGXPbEd
- oIhFRB2EHA0oTv8BIEwV/oq0Vp9kY4A8qUg2UpNdvj82VIuPM+pGvvRPDGd+iKkdN0iE
- fMhuNZyuRhr5wQD9uKjHTu0/dBcgt18B09bb5lO3wvYzPbjdtZ4zCb8IaUuWGDUTVpmZ
- 9R4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1ilN6S2DYFu/DESx5TOWbGLPHlfDmzvINI2SI+/X/LA=;
- b=gW9qBGmaW+ChzwPzLkTiZjDEtHC+GtUiNyAIQa2Jatqt+myGXyHN9pf2WQDy2QG4fM
- UpaxW4R2PRu/M6dKX83E1dZ4Q9bgRCBTsJkVqe3uxGdczte/uRy4d1XGcMRE3H3HjvLR
- 1/rZ/HbMjvXC18OC43XW2x5sIxD9T6NDwZiquS3dhHLpfOufo6cN4JcDnWOp4lmtUvwE
- kYVV4SUAliXOOB2v2k2El77DMG53Rn+VT8vtOmEDgxAQdiyCdz0kPpkv8hKblRat3Nbj
- qoH96mIv8q+01ceyWoOoQ3z1Ew+QkYEmziye/ZsdZrekbWD7J0L2eFa6cAIghhlPfWf/
- 6gdg==
-X-Gm-Message-State: AO0yUKU8L6nyV+OxrxvUWCymnnmFunjgC5bX6RCiuZ7u54ww4MWIYdci
- mxPfOI9Y5zNHf1PqhLABUge4P73vt5NXg6/AbDc=
-X-Google-Smtp-Source: AK7set8Ywx0iAQrGoEEkgv3qLgP8YXwI3+TvqWY8ReSLX18XMQnjssyGUpWN7izePXDq8V+lj0t2lykY83BEM5yxFts=
-X-Received: by 2002:a05:6402:d59:b0:4a0:90da:4653 with SMTP id
- ec25-20020a0564020d5900b004a090da4653mr814683edb.153.1674664006555; Wed, 25
- Jan 2023 08:26:46 -0800 (PST)
+ secure) header.d=gmx.de header.i=@gmx.de header.a=rsa-sha256
+ header.s=s31663417 header.b=G9fLi44m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1674664126; bh=MwGCgZCa0ZAwgTdGagV0PnHQy3i5AXOHDInRTdPQ1BM=;
+ h=X-UI-Sender-Class:Date:Subject:From:To;
+ b=G9fLi44mMFiHYmQMUzXJgOpDYiTax8jSQtQNohXZ1KZOBPt55kJLfIB6S95YDkUC7
+ UipKeXzciGMFeiLwV8IZt6X3oRoMCbOLC4X++UBlEpd3lCq+Blsfz+d92HjqYJfeV9
+ t+wSddDXOlL7duwXtztATEGpv+QMk+q+ANXHQPzSJpluau2dPoHx1GyEIRcc4j8fXi
+ tFksHnIsqI33VIOoAAsGAMaAa+GwSDxlRSAkOWM/nIxyRYQ4NTUtw3kzlMgb5lQ2mF
+ fb5gDylraR1OFIcQ03tbmym3DNrIROdpkcZ7eISMNi8xP3fcQqbLA+3smRrBo5qd3/
+ 1Twn+mA8xHT/g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.0.66] ([77.20.255.95]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MUXpQ-1pBsx34BYO-00QPJ5 for
+ <alsa-devel@alsa-project.org>; Wed, 25 Jan 2023 17:28:46 +0100
+Date: Wed, 25 Jan 2023 17:28:44 +0100
+Subject: Firewire ALSA Motu and Phase24
+X-Priority: 3
+Message-ID: <sokos1-r6xj933yn42y-hmy3gsrfgsma-mnwe9a-cahiug-3btbiljo1il7-8lhisz-trzq63b9es27-41z6o2wylkgf-tjvaeo3olqkz-elr571-us6u4977mlo1-p2gxkncmroem-foujcu-jg85lg-sqi612.1674640678660@email.android.com>
+From: "M. Armsby" <m.armsby@gmx.de>
+To: ALSA mail List <alsa-devel@alsa-project.org>
+X-Provags-ID: V03:K1:W/+z9g+vIkNiAQMS0JUoiIAtnY2CxZ/veGqMazI26WppH6PDHJ2
+ lr54yvpu3dalstTUReT1LjTI/HUssiyCQOZduaaGd64HgTrwyCBambKdPpEY4vpkSTH4tHJ
+ TZ25lsvquYFanVpMwhmHlGmAdQAF9wXtwqW5xtt4ilVwMkebxnxbdn+cxM+QdiKm53kMfyn
+ FD3jhQV5FkTr8snl4w3wQ==
+UI-OutboundReport: notjunk:1;M01:P0:DN8vp+h08s0=;nXnvu87xvinFTiqE8cbTQXrH/vw
+ +bGHq3sizbRQe5MlnQ4PW118Kl8RNP418d5ZdwSdGNjJsBrchIo8N3anjDzK7tc1KapNmXrRp
+ WQMnvqUQy4NGGICrf5i0DpWIrtzMbxyYQonXWSbH4JZaD9PrUGlai1RF73MNn3JuAhsmQbVPQ
+ tRRHRlo1UXL90E6zaiGGtc9ohgsctbjPBr20Ds0LyiJI2SDMTCxx3xJaqk+zcwE+w7DDrMjUW
+ XAH/7tSTWbCLNBpTp+cZRnc6Mx5tRPHAQBiXIva0yJ8306e022eTqPewYouTsa1iDx57iDe7W
+ tf9cVb2c6dYy9Xvjr3rB+rU6BCX6dwimoYp7CnVIBjFfqeVUXbZr+g6Z7VOdYTH9hK/kQnnAY
+ Y+jcVTuKaEOYb7ga91l1A8oNNUgu0KRYHhtAce1KoqTc3IxBR7CjNOUGbkoDzQJjhQlbn2VNm
+ wxQlgazbgi3pbxZbxmMdt24JdotJLVk8Z9l1vuUNsIJSZNpGYd2iuA6HDesXQcFELjGQh3shl
+ moOWPhSn5+m4O6Cl43O1kHLOJgRwUgrggLrTtt5/XyMZc+LDDJJKMRsNVzvGNemQNLphJnux+
+ TQoq07GHkT3jm8BHki/FPjZbXSc+C0UmkDCoIl7or/wUNSXyMTCOZZV30ujGJXqC+ijyIGMvX
+ XKFl7xAAstgAA034iqBp/Agv+NiaVgSzSGdFgBFDg67jI79cOivm4EhLv44cV5taeQzN8rbnB
+ hGCA21LTwPL4KdHSyDCss32h/i/EDNFpvhYEh+tAjuThz+TybJYvqWVuiaJqUliZOTMKErIEu
+ RXHt42/bsNShiJ/5rEtewfQqQkmb/+uXD7uQgXoVttJyPZPf6hJ9G5Ra9olyhvYV43Sf+lrgA
+ +byTBAIkSBptyzexeNM9eWTjQ5UM/JoYuT1w5HFPXG+i8nPW64n2hjbGHDXZT7f8qrskvFXqS
+ S7h0NFi/AG7W5fT5O+Xk+p1QrDQ=
 MIME-Version: 1.0
-References: <20230124230048.371144-1-robh@kernel.org>
-In-Reply-To: <20230124230048.371144-1-robh@kernel.org>
-From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Wed, 25 Jan 2023 10:26:35 -0600
-Message-ID: <CABb+yY3FwCwEsNYuNP8MBi+2TUra5O7+-GWMzWr06x1g4MJUyg@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Add missing
- (unevaluated|additional)Properties on child node schemas
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 26 Jan 2023 08:55:01 +0100
+Content-Type: text/plain; charset="utf-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,38 +95,6 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Vignesh Raghavendra <vigneshr@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, Marc Zyngier <maz@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Lee Jones <lee@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
- linux-spi@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Richard Weinberger <richard@nod.at>, openbmc@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jan 24, 2023 at 5:00 PM Rob Herring <robh@kernel.org> wrote:
->
-> Just as unevaluatedProperties or additionalProperties are required at
-> the top level of schemas, they should (and will) also be required for
-> child node schemas. That ensures only documented properties are
-> present.
->
-> Add unevaluatedProperties or additionalProperties as appropriate, and
-> then add any missing properties flagged by the addition.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-For the mailbox change,
-   Acked-by: Jassi Brar <jassisinghbrar@gmail.com>

@@ -2,74 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B0267CD3F
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 15:04:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51ACC67CD52
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 15:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E960EA7;
-	Thu, 26 Jan 2023 15:04:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E960EA7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C37AAEAF;
+	Thu, 26 Jan 2023 15:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C37AAEAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674741891;
-	bh=XFAbkKczz3+vE6lYAyx7yD6xSlpObyC5TMkTWoIuhAU=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=N6B7SYXyx8Vn3n5bcB4vnKVRBrU8uOO3PCxUjN8d2QZ59CK+AM0Cw9fVXPgPU5BSL
-	 jGXAa3r4NO8idW0/g267+e2L8vwf0t10QEZ0la/ul2uPFvyMf4Wtdh+AMLhpOJ/jmG
-	 PacCkI6x0rdG7TBcxFLXmmlX8Pm5y8I+zBDdFNEM=
+	s=default; t=1674742369;
+	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pVvpAL351Y9F1qXtFsohzuqUFUcv3g/sLYoPgqJ4wzzSRyDb5QEc0hB2WYLtulHjL
+	 Iy7EE7k5iEhPS2jtPCzOLLNsbJTjCuoHqArmXb2N55614RdIhjkKeginQfwRjRteg+
+	 ZNtoJ7QvegCwebwdzh23LF6o/VV34SajaOWQiODM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CAC9F8025D;
-	Thu, 26 Jan 2023 15:03:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D133F800AE;
+	Thu, 26 Jan 2023 15:11:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95C50F8027D; Thu, 26 Jan 2023 15:03:50 +0100 (CET)
+ id 606ABF8027D; Thu, 26 Jan 2023 15:11:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 020D1F800AE
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 020D1F800AE
+X-Spam-Status: No, score=-4.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+ HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0B4FF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:11:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B4FF8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E2DcAfVA
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4703EB81DBC;
- Thu, 26 Jan 2023 14:03:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CA9C433D2;
- Thu, 26 Jan 2023 14:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674741819;
- bh=XFAbkKczz3+vE6lYAyx7yD6xSlpObyC5TMkTWoIuhAU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=E2DcAfVA+WAdLstmscrckFhOGZ5QUSDK040SfeFG+csk1tOA3gVraDr4vd0PhbUZ8
- 3arOgtwV0V7+N7SeohQXCYNWUrYDrWssHwwlaPR4yGF3p/pIBVGQeL1fpXZlC+o4/E
- 53cipUURYP76keojquLPmbOAK6Kmpl2NWZ2HZxl1mjYuMu0QO0SZl0/07FouXzfB++
- tiCghX0h+IevcKu6itYm/nmHZTS4a3Qc6wLHxly3KoRzm0SC2f6byJzIGqln4kVNls
- s7Vty1Af5JzM1T4LCXU6Q6yLee9t0zuYdKcWrjkzJQBaC1gpnl//s8P6FNQfkKC0Zo
- fyoWsE5DDA8hg==
-Date: Thu, 26 Jan 2023 14:03:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH] ASoC: cs42l56: fix DT probe
-Message-ID: <Y9KIN7GerLd4ziw0@sirena.org.uk>
-References: <20230126135552.3625887-1-arnd@kernel.org>
+ secure) header.d=gmx.de header.i=@gmx.de header.a=rsa-sha256
+ header.s=s31663417 header.b=X/n6fg96
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+ t=1674742300; bh=4ag8qqf0hgl6mi1tK1y0Sa/qXyqvkCGeCvesphSWnbQ=;
+ h=X-UI-Sender-Class:Date:Subject:From:To;
+ b=X/n6fg96z5s8//ILNdqGA7OMsuJIq5xPVDeZEUvCS48ZpWmRiBxDUvGJW/8OnZ4Ci
+ ekkDO6L+MZEpqWH5Mx8jXzFqDReOXD6IDV5tZDP7CJF3aVCMNFTuP3CnX8dmuzmZHm
+ Uwobk8p1fstzPBFWRO8CYaIYqN1JKdRAg9d/Oi7auaE/Js6wzUbz0KS22l3XPhcjxz
+ SXDT6C0LB71VD13AYehnIG+Hjz7kM7npeoKzjsd1Y7OQboEkze4vz9ZZ2OBmnbJc4p
+ V9tA9zAlXlnyOFOc+GV8flgrELAkjXZVWEilPdGxTOeZxZ4BtJaPZNJ9b2KyhcBJYy
+ e8pz2uxF9ej9w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.0.66] ([77.20.255.105]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N1fii-1ofCvz3lwu-011vtF for
+ <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:11:40 +0100
+Date: Thu, 26 Jan 2023 15:11:38 +0100
+Subject: Firewire Motu ALSA (Re-post) 
+X-Priority: 3
+Message-ID: <v6inx6-fwmr0r-kvajcd-kfs8u9l6m2qn2cnogd-2odpkz-d7vadu94fw76-iv1ohfsnh0nxdhq3hl-irmx6t-3alyitjtt3oq-m2jt5z8uktj3-1khriq-w6pr0c-bitxl26qa5mx-sc4dcno22ycq-2x7a4f.1674740730928@email.android.com>
+From: "M. Armsby" <m.armsby@gmx.de>
+To: ALSA mail List <alsa-devel@alsa-project.org>
+X-Provags-ID: V03:K1:JWuWG2L/7VDBTvcrpd8S8G8yizzQ0X3Z7uW9OEwyP7yf4ZZS8Ll
+ aIxfAm6KBJlJd/RxJ5t4rVCWwCWEPjsCgwSEkaj7jpM8KryVyS6vXvQrAWMrYaQlvqB80jX
+ uYIw716dlflQhkMrxYdN3uPvWvk/9GV3OKtUkB2ximahQom2UT2JUEUTdmULmmdeaDppSzB
+ ajXBvvqtXZRf9NDJ7qcQA==
+UI-OutboundReport: notjunk:1;M01:P0:ouC/tkqZKgo=;SuMpjc2eIk538nE0g5YjppNU3QA
+ hX84xQm4Wncx9V/exU4L1zpTp3jaIldI/618SW345WFe46OVuE/PsM9ILagXTCCAHbr/yaern
+ F/UUwzgi3DaPZAns4kCxXYZrX5lsy5tsm9eCsM26MRH2hx35jrviwC3Hc4WiRbkV1L2QMzen8
+ x3FCpPOTxEksmtd3+3knuSiK0iH/KsXxvrMcaXkHeVcGkUzDc5T45ek9AfSr6MmWy//rW6GOI
+ vQOwWIvbi231ZFGx6ZzAp1vUj9ZBCian3SoDIgNefX54DfcIn/nO2M8h42W8xhycW6vtoA/Cs
+ yZTOujI6igCeDDZfB79dCASVS8aB5ghG8Q9ROhRpKvJZvmVxTvjZrK5ysVilmQx/JLD9EvTnz
+ 66X5GeDHf0amcH48IRu7WZ9iAEJ9O1Nx7jD52I8aki0a2kYN3G+HqLdfsUctMWpMycf6zHNoD
+ uRfFUea1HDxdesHsXVxYB5ypS6be06PtoZcx48wG6MIQznrNcNCRxnp0wxqEcrCe64BlOzdy2
+ DbMFVCG/GfKhYl36PY+sBHjgiEmdi4elsuebqWuI2sZRDOUF4g7G3j2DMbZE1wCVvV1C3UHLk
+ eEaMzAsgT9BE3O+ogwDHXQWkksqTjPx2MMukzTxJhmQ7lp9kcujKs6MnO76FyPWiEIRy+GV2T
+ lWGuzM4o+C5kn+UmtcN3prKnXwKDkOCJgIfSvN0sL41yRU49gbCp187XQD4p6GoRcHpj87JMs
+ IeOwZUPjfFOOBSzDPPmSlqHLLDiMJ9mYax1SBRrUVkJfy089dhJE8DgVgz1n1NTwXqfD/xAFA
+ QnidIu08IAdDUwh4hHjI3I2gXNr8sz5ZbOExVPxPjty5f5dWezwAwq/tIlHckYHbC+Rob4tMM
+ kuvE9PveMpTp0cfdSsbdPfaEQN6T+eRFm2znFEF4tYCKeSRIR132i/d6k5mRGdYjKwFecPTyc
+ dL3ccg==
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/kMxXhANnbSaD4Sh"
-Content-Disposition: inline
-In-Reply-To: <20230126135552.3625887-1-arnd@kernel.org>
-X-Cookie: Serving suggestion.
+Content-Type: text/plain; charset="utf-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,50 +95,6 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
- Wolfram Sang <wsa@kernel.org>, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---/kMxXhANnbSaD4Sh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jan 26, 2023 at 02:55:29PM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> While looking through legacy platform data users, I noticed that
-> this one could never be used with DT based probing as the
-> platform_data structure gets overwritten directly after it
-> is initialized.
->=20
-> There have never been any boards defining the platform_data in
-> the mainline kernel either, so this driver so far only worked
-> with patched kernels.
-
-Or there is no mandatory properties/platform data and the
-defaults are fine for most systems (which is a common case).
-
---/kMxXhANnbSaD4Sh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPSiDYACgkQJNaLcl1U
-h9BGGQf/TmJrEJHbdrJ/VUHGDohENM3/hBKqq91KIQ+9c/SMW3FrprCItWsdeZwJ
-a2vHCpn65dwHzDWVg3SxRFEFaaCQncgPW/H+uicMq8RVuFh9CufTMOAwpP4AobUW
-dxn0BMyu+bLqeC9/PSFo/TiixsqMVmb724ETP9QFzVl4sLnFQ753/ejmgsHnu/gW
-vEqw/RJOOjTIZlrAvso99yymE/NDQsNXw2vo8XPyNYowRnHBtKqkYBhP16qcps3t
-6eB02jpiMr8ggPig4sNjafe2aqWvOzVFI6goWvZEHdw4QtNM2+C7U658etEgBpOM
-L6koux7hs7dDBBjIlHoIqJ86CAiyaw==
-=eCk5
------END PGP SIGNATURE-----
-
---/kMxXhANnbSaD4Sh--

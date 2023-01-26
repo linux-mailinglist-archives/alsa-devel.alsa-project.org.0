@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBBDE67D1E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:40:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A03CA67E426
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:52:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CD6EE7E;
-	Thu, 26 Jan 2023 17:39:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CD6EE7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29535828;
+	Fri, 27 Jan 2023 12:51:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29535828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674751231;
-	bh=4y5T8Z1YzTy28i7M/tIXpNDOtq+YX0jkW9G/xOmLxUs=;
+	s=default; t=1674820327;
+	bh=TJwB9xWefUtenAJhobcnuA3/dr44yh/1qZH05naV3dA=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=gcFulmw0ghGfvDK8mjm9vq9SPK5VZWECdqA129QB05Tim3HtD6LQR3cNzeC6p3UgD
-	 aDVkR14kga8x7okgbNLyT/ETEcUD3Ke7q+zMKXJH63BmUFzsbCMknh5Jih5gGmUHa5
-	 /CB2Dj/ti7BeFj+V71yeozoXIsmvrunEsELUZvVs=
+	b=BgeJLKJHl6QCNc9iAX0uzIRng41Wds7+VNfvZdSLOeCONIt4IBGKybGcbfZi0xd1/
+	 x9tTrSgPgxnrr/FVU/YwRFc5ly9NPlK70/8B/K9y7ieO7KEDXSsdg8r5bYBFy2oLYc
+	 puQxm+QtBTTN6m2L0v2iZ2IpqLvAlSs3aOt6fshw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72D2DF802DF;
-	Thu, 26 Jan 2023 17:39:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C113F804A9;
+	Fri, 27 Jan 2023 12:51:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4AB26F8027D; Thu, 26 Jan 2023 17:39:30 +0100 (CET)
+ id A6537F8027D; Thu, 26 Jan 2023 18:07:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F34CDF800AE
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:39:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F34CDF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47E5FF8016E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 18:07:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E5FF8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=nTJd3UqQ
-Received: by mail-wr1-x42d.google.com with SMTP id m14so1906288wrg.13
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 08:39:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=WcIULWf1hJO2aSG6ip1Q2Tbo7KEX8l8vfq1u07hQEUU=;
- b=nTJd3UqQHJYIgHfYtrJfyHF3jy6yesQbAxKnBfhlrW7ZZYv5vss1/BwpzGKnU//+pW
- zpEWqlJSU1UJSI1ZnMW1/fpJO+yHRhfSOrbz1DMeeefUw11iYpnJNzq7lutcwL4sdVQA
- M8u0eJoyy7W8bYrQw3m8zo2lACqWAzDw3gWKispcuaQug6tcfxcDGjBfRUSmloFUhxGM
- Sw/XwIM7yxzH/86FHVCW4XrLFoPQQKBIX3LLkuUfneMt47tO5zFJRor1KAkP1FlI503l
- rgytrxiJuJYtCArZvzsNUT3M8ZVe4MODcWS2KQ1S65g210VjD1EB76AaowZCvsQ/VBqY
- zIkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WcIULWf1hJO2aSG6ip1Q2Tbo7KEX8l8vfq1u07hQEUU=;
- b=BbI/iN2t75MuB5y6AmCPAq1Vs9j0yTAAq8dVjMAQQ89wvbWn4VY3OZXdzwYCKMQTnp
- K8ZBsDqVumSUYXmf4YAIoLhCMnPViXNsivzusUyhn6bx0XxMunMr0Oehg74lWn8Zb2Ed
- wgYT7WPmQRNuV4Wtj0qY/CnSUzCsGBijNmgrvsa9se2Djni2vFjMDZkYCAjt3r7fUBFg
- uRqZObied8A2CyeQRJmoBuPCj2g5f74hZweyLMamba7cJ0G/4ntM2f4jZI8cuO34XBrS
- 9kBYEgmAzCPehnbFTIlC+yVnL/7dc8/9aFTVtk+uGlWL+mI9Z+xmg3QOpp/K5Tm6+iSd
- 8RiQ==
-X-Gm-Message-State: AFqh2kr+nzd6EGurPpH0MOAJWL+AonfSrHsjgPeYV9+NkFyj9LYqmi5r
- qzYZ2ydP4y9Z4svlcRBey0k=
-X-Google-Smtp-Source: AMrXdXsrjgrGETIMbiJakho1CzIks0SH953VqlAvOj6xcJEoDaMM1z2UyXPlB7L/3oOwE6z5TxzZag==
-X-Received: by 2002:a05:6000:1f95:b0:2bc:371a:8a2 with SMTP id
- bw21-20020a0560001f9500b002bc371a08a2mr32915198wrb.37.1674751157968; 
- Thu, 26 Jan 2023 08:39:17 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- l16-20020adffe90000000b002b8fe58d6desm1716079wrr.62.2023.01.26.08.39.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 08:39:17 -0800 (PST)
-Date: Thu, 26 Jan 2023 19:39:06 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: pci: lx6464es: fix a debug loop
-Message-ID: <Y9KsqpFRrlhX57WJ@kadam>
-References: <Y9JIGt0HT8mLkUXF@kili>
- <878rhptq36.wl-tiwai@suse.de>
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=HIAeawkS
+Received: from mercury (dyndsl-037-138-191-219.ewe-ip-backbone.de
+ [37.138.191.219])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7E2906602E6E;
+ Thu, 26 Jan 2023 17:07:41 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1674752861;
+ bh=TJwB9xWefUtenAJhobcnuA3/dr44yh/1qZH05naV3dA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HIAeawkSMl4wLK9atphFO2PYIuQtn0mXWrQTGJkp27Vvwen4RmNJXIKy0KOcMN2qu
+ MGji/BoqRh//5quIKkg+7Jg9a4rlT6zYnOxKnHRve8IRt32uZ0O2J9C6ByA7KSG9ni
+ ooI+f+xDzdj/4Xv/XqAW1ZMOqMbxlnaE69Ns4AaVsCb09DHvVD+xjXrJ7HkcJ65ZDs
+ 0FKkR9qOOchTbFQKw+Lbe8GJsd/K96q/WWSPWtyPUY4G0yRJ/G34tsJUBI/vL5q95x
+ a6dIJ/I/0Glk/75yhzfiBv6PLPN/HUTuWOcS4vpdAGRdicde5HTb77Vj3shLRE2rZN
+ snAuQFm3yL5CQ==
+Received: by mercury (Postfix, from userid 1000)
+ id 8DAD710609C7; Thu, 26 Jan 2023 18:07:39 +0100 (CET)
+Date: Thu, 26 Jan 2023 18:07:39 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH v2 3/6] mm: replace vma->vm_flags direct modifications
+ with modifier calls
+Message-ID: <20230126170739.mlka2jivn3mfstyf@mercury.elektranox.org>
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-4-surenb@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qcyccrleajamxo75"
 Content-Disposition: inline
-In-Reply-To: <878rhptq36.wl-tiwai@suse.de>
+In-Reply-To: <20230125083851.27759-4-surenb@google.com>
+X-Mailman-Approved-At: Fri, 27 Jan 2023 12:51:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,56 +88,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Maxime Ripard <mripard@kernel.org>
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, jglisse@google.com,
+ arjunroy@google.com, m.szyprowski@samsung.com, linux-arch@vger.kernel.org,
+ qianweili@huawei.com, linux-samsung-soc@vger.kernel.org,
+ aneesh.kumar@linux.ibm.com, chenhuacai@kernel.org, kasan-dev@googlegroups.com,
+ linux-acpi@vger.kernel.org, rientjes@google.com,
+ xen-devel@lists.xenproject.org, devel@lists.orangefs.org, robdclark@gmail.com,
+ minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
+ etnaviv@lists.freedesktop.org, npiggin@gmail.com, alex.williamson@redhat.com,
+ viro@zeniv.linux.org.uk, luto@kernel.org, gthelen@google.com,
+ tglx@linutronix.de, ldufour@linux.ibm.com, linux-sgx@vger.kernel.org,
+ martin.petersen@oracle.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-media@vger.kernel.org,
+ freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
+ linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
+ dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
+ edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
+ gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
+ jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
+ mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
+ hughlynch@google.com, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
+ linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
+ kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
+ anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
+ mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
+ peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
+ kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
+ tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
+ johannes@sipsolutions.net, mgorman@techsingularity.net,
+ linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 26, 2023 at 01:53:01PM +0100, Takashi Iwai wrote:
-> On Thu, 26 Jan 2023 10:30:02 +0100,
-> Dan Carpenter wrote:
-> > 
-> > This loop accidentally reuses the "i" iterator for both the inside and
-> > the outside loop.  The value of MAX_STREAM_BUFFER is 5.  I believe that
-> > chip->rmh.stat_len is in the 2-12 range.  If the value of .stat_len is
-> > 4 or more then it will loop exactly one time, but if it's less then it
-> > is a forever loop.
-> > 
-> > Fixes: 8e6320064c33 ("ALSA: lx_core: Remove useless #if 0 .. #endif")
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
-> > ---
-> >  sound/pci/lx6464es/lx_core.c | 12 +++++-------
-> >  1 file changed, 5 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/sound/pci/lx6464es/lx_core.c b/sound/pci/lx6464es/lx_core.c
-> > index d3f58a3d17fb..7c1b380a54c0 100644
-> > --- a/sound/pci/lx6464es/lx_core.c
-> > +++ b/sound/pci/lx6464es/lx_core.c
-> > @@ -493,13 +493,11 @@ int lx_buffer_ask(struct lx6464es *chip, u32 pipe, int is_capture,
-> >  		dev_dbg(chip->card->dev,
-> >  			"CMD_08_ASK_BUFFERS: needed %d, freed %d\n",
-> >  			    *r_needed, *r_freed);
-> > -		for (i = 0; i < MAX_STREAM_BUFFER; ++i) {
-> > -			for (i = 0; i != chip->rmh.stat_len; ++i)
-> > -				dev_dbg(chip->card->dev,
-> > -					"  stat[%d]: %x, %x\n", i,
-> > -					    chip->rmh.stat[i],
-> > -					    chip->rmh.stat[i] & MASK_DATA_SIZE);
-> > -		}
-> > +		for (i = 0; i < chip->rmh.stat_len; ++i)
-> 
-> Judging from the previous lines, the access over MAX_STREAM_BUFFER
-> might be unsafe.  So I guess a more safer change would be something
-> like:
-> 
-> 		for (i = 0; i < MAX_STREAM_BUFFER && chip->rmh.stat_len; ++i)
 
-&& i < chip->rmh.stat_len
+--qcyccrleajamxo75
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-TBH, I'd prefer to just delete all this code since it used be ifdef 0.
+Hi,
 
-But I'll resend as you have suggested.
+On Wed, Jan 25, 2023 at 12:38:48AM -0800, Suren Baghdasaryan wrote:
+> Replace direct modifications to vma->vm_flags with calls to modifier
+> functions to be able to track flag changes and to keep vma locking
+> correctness.
+>=20
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+> [...]
+>  drivers/hsi/clients/cmt_speech.c                   |  2 +-
+>  120 files changed, 188 insertions(+), 199 deletions(-)
+> [...]
+> diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_s=
+peech.c
+> index 8069f795c864..952a31e742a1 100644
+> --- a/drivers/hsi/clients/cmt_speech.c
+> +++ b/drivers/hsi/clients/cmt_speech.c
+> @@ -1264,7 +1264,7 @@ static int cs_char_mmap(struct file *file, struct v=
+m_area_struct *vma)
+>  	if (vma_pages(vma) !=3D 1)
+>  		return -EINVAL;
+> =20
+> -	vma->vm_flags |=3D VM_IO | VM_DONTDUMP | VM_DONTEXPAND;
+> +	set_vm_flags(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
+>  	vma->vm_ops =3D &cs_char_vm_ops;
+>  	vma->vm_private_data =3D file->private_data;
+> =20
 
-regards,
-dan carpenter
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
+-- Sebastian
+
+--qcyccrleajamxo75
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmPSs1EACgkQ2O7X88g7
++pquLBAAkw9lw9lxNRCI6jvqLy98JsUBgSQigNB6Eh8JVWsySHMm1OszFCcvTpoc
+vinC/VPMOa6JwEw5e9naXRF2UJahO+Cx+e5MYIKos3QyIUPfi0YM7Cv96h6+c4l/
+NdcxLS8+9ElitTuA47UVgPSeZwzdZ1kU5VUV1X2fx+6aGA+dBfWVBgWDqU6AB0Sa
+ehU4betso5Ypl26YEmLPHmY+8Xx2jXNwwBEgsHgO2/YjRn9YPDeMAqb4lWs99h0d
+nUV1VqwTClRrExtNDvidHryknmyCIBpYt38gn0i9+uIf9mFoBmUDN+/zAdRguGBT
+r1CQAwvRvHmEyGJ4dp1nijyt/PWxDBlCWytlmzXrK/rkeH8sQCRdCr9L83/d5DM0
+iU98ehmbH9kx8rD4y0L91xmsnegNYNKSfAvz3EP4KYFOHjTw2SOCYoazPu3z62bN
+d3HL+08LeZpm1XwVPydZqBd5UpBK8NaQYCJ3BjsLUefsSJE+SWzsnoYFnbUrL1X9
+1XfU6LGtVvjCPUsjk7oqh5PjtRGQsdtUhSZJLwNzTeh4I0nSzL1pj8vRFZ7UTcV4
+RmFYsjBbKhja2fC13eM4tKzfx53harnHVNuUPw2aoLKshpkQaOTUqWBnRXtbJZkb
+dSRKObxfPlHVI+awnfN6owpXF86Owew2+XJcXILOPxaBk8PI/Ns=
+=/0TB
+-----END PGP SIGNATURE-----
+
+--qcyccrleajamxo75--

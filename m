@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51ACC67CD52
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 15:12:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBFA467CEAD
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 15:47:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C37AAEAF;
-	Thu, 26 Jan 2023 15:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C37AAEAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A2A4ECE;
+	Thu, 26 Jan 2023 15:46:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A2A4ECE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674742369;
-	bh=frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pVvpAL351Y9F1qXtFsohzuqUFUcv3g/sLYoPgqJ4wzzSRyDb5QEc0hB2WYLtulHjL
-	 Iy7EE7k5iEhPS2jtPCzOLLNsbJTjCuoHqArmXb2N55614RdIhjkKeginQfwRjRteg+
-	 ZNtoJ7QvegCwebwdzh23LF6o/VV34SajaOWQiODM=
+	s=default; t=1674744469;
+	bh=NFwY2BWIpL7kH9CM4E4HGuWFLWH3bgEikOO/eVjO/3A=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=uSQPzKMx+S1B3fAweRH6XCpWvcCPZDMCp7N3hgUFRynR+zx26A/HGaqNiP/8tty2z
+	 J8ibCQGdgpceWjz041mLnUjrvuNUL7oGgP+rMO5av68LVSulbzzzPtkEtX4rsk1/4o
+	 9C+dDa1IXEbGqY1WY2X4ejEVfJDtreJIGw4Y1qSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D133F800AE;
-	Thu, 26 Jan 2023 15:11:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B2BAF802DF;
+	Thu, 26 Jan 2023 15:46:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 606ABF8027D; Thu, 26 Jan 2023 15:11:48 +0100 (CET)
+ id B2054F8027D; Thu, 26 Jan 2023 15:46:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
- HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0B4FF8016E
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:11:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B4FF8016E
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C26CF80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:46:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C26CF80224
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- secure) header.d=gmx.de header.i=@gmx.de header.a=rsa-sha256
- header.s=s31663417 header.b=X/n6fg96
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1674742300; bh=4ag8qqf0hgl6mi1tK1y0Sa/qXyqvkCGeCvesphSWnbQ=;
- h=X-UI-Sender-Class:Date:Subject:From:To;
- b=X/n6fg96z5s8//ILNdqGA7OMsuJIq5xPVDeZEUvCS48ZpWmRiBxDUvGJW/8OnZ4Ci
- ekkDO6L+MZEpqWH5Mx8jXzFqDReOXD6IDV5tZDP7CJF3aVCMNFTuP3CnX8dmuzmZHm
- Uwobk8p1fstzPBFWRO8CYaIYqN1JKdRAg9d/Oi7auaE/Js6wzUbz0KS22l3XPhcjxz
- SXDT6C0LB71VD13AYehnIG+Hjz7kM7npeoKzjsd1Y7OQboEkze4vz9ZZ2OBmnbJc4p
- V9tA9zAlXlnyOFOc+GV8flgrELAkjXZVWEilPdGxTOeZxZ4BtJaPZNJ9b2KyhcBJYy
- e8pz2uxF9ej9w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.0.66] ([77.20.255.105]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N1fii-1ofCvz3lwu-011vtF for
- <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:11:40 +0100
-Date: Thu, 26 Jan 2023 15:11:38 +0100
-Subject: Firewire Motu ALSA (Re-post) 
-X-Priority: 3
-Message-ID: <v6inx6-fwmr0r-kvajcd-kfs8u9l6m2qn2cnogd-2odpkz-d7vadu94fw76-iv1ohfsnh0nxdhq3hl-irmx6t-3alyitjtt3oq-m2jt5z8uktj3-1khriq-w6pr0c-bitxl26qa5mx-sc4dcno22ycq-2x7a4f.1674740730928@email.android.com>
-From: "M. Armsby" <m.armsby@gmx.de>
-To: ALSA mail List <alsa-devel@alsa-project.org>
-X-Provags-ID: V03:K1:JWuWG2L/7VDBTvcrpd8S8G8yizzQ0X3Z7uW9OEwyP7yf4ZZS8Ll
- aIxfAm6KBJlJd/RxJ5t4rVCWwCWEPjsCgwSEkaj7jpM8KryVyS6vXvQrAWMrYaQlvqB80jX
- uYIw716dlflQhkMrxYdN3uPvWvk/9GV3OKtUkB2ximahQom2UT2JUEUTdmULmmdeaDppSzB
- ajXBvvqtXZRf9NDJ7qcQA==
-UI-OutboundReport: notjunk:1;M01:P0:ouC/tkqZKgo=;SuMpjc2eIk538nE0g5YjppNU3QA
- hX84xQm4Wncx9V/exU4L1zpTp3jaIldI/618SW345WFe46OVuE/PsM9ILagXTCCAHbr/yaern
- F/UUwzgi3DaPZAns4kCxXYZrX5lsy5tsm9eCsM26MRH2hx35jrviwC3Hc4WiRbkV1L2QMzen8
- x3FCpPOTxEksmtd3+3knuSiK0iH/KsXxvrMcaXkHeVcGkUzDc5T45ek9AfSr6MmWy//rW6GOI
- vQOwWIvbi231ZFGx6ZzAp1vUj9ZBCian3SoDIgNefX54DfcIn/nO2M8h42W8xhycW6vtoA/Cs
- yZTOujI6igCeDDZfB79dCASVS8aB5ghG8Q9ROhRpKvJZvmVxTvjZrK5ysVilmQx/JLD9EvTnz
- 66X5GeDHf0amcH48IRu7WZ9iAEJ9O1Nx7jD52I8aki0a2kYN3G+HqLdfsUctMWpMycf6zHNoD
- uRfFUea1HDxdesHsXVxYB5ypS6be06PtoZcx48wG6MIQznrNcNCRxnp0wxqEcrCe64BlOzdy2
- DbMFVCG/GfKhYl36PY+sBHjgiEmdi4elsuebqWuI2sZRDOUF4g7G3j2DMbZE1wCVvV1C3UHLk
- eEaMzAsgT9BE3O+ogwDHXQWkksqTjPx2MMukzTxJhmQ7lp9kcujKs6MnO76FyPWiEIRy+GV2T
- lWGuzM4o+C5kn+UmtcN3prKnXwKDkOCJgIfSvN0sL41yRU49gbCp187XQD4p6GoRcHpj87JMs
- IeOwZUPjfFOOBSzDPPmSlqHLLDiMJ9mYax1SBRrUVkJfy089dhJE8DgVgz1n1NTwXqfD/xAFA
- QnidIu08IAdDUwh4hHjI3I2gXNr8sz5ZbOExVPxPjty5f5dWezwAwq/tIlHckYHbC+Rob4tMM
- kuvE9PveMpTp0cfdSsbdPfaEQN6T+eRFm2znFEF4tYCKeSRIR132i/d6k5mRGdYjKwFecPTyc
- dL3ccg==
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=P59Tw6WW
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30QEkccP016162; Thu, 26 Jan 2023 08:46:38 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=1it7hPA2inysBeJabD1ZO5LdTjzt22MjxOWqMTFDfuo=;
+ b=P59Tw6WWZ+ii/DiKrvxex7CLWC6cDKRZngNrfSRCsi9dPxilFoRDHgEpcmV91n3ZnkPg
+ fuHZ2b1ZBi+QQjwbFZ9myYTJ7dcIiSD4cQPmNYMoXnUzN65Jj1BuIO/2stRQwHd3t2/d
+ bGIDx/skVahdUCCK3UDCVdV5zPgaVvk7InN55o5XOI+2afN/wWjWsVQxBOLeqJMrAunl
+ MipSgCEp+fXjbNJt2f9Td9qnSoe7OHxt9XhteJldbtUhFgio55Inm3s24LH67Bb4Kp1I
+ oDSyIimNSmJ1SmsnGMxYCA/F3+eZX9xBZ188x49o2G1Hp+54/3trRIAWdcnV0X6KkDJe vQ== 
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n8eb60t4b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Jan 2023 08:46:38 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 26 Jan
+ 2023 08:46:35 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via
+ Frontend Transport; Thu, 26 Jan 2023 08:46:35 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 88DDD11CC;
+ Thu, 26 Jan 2023 14:46:35 +0000 (UTC)
+Date: Thu, 26 Jan 2023 14:46:35 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: cs42l56: fix DT probe
+Message-ID: <20230126144635.GA36097@ediswmail.ad.cirrus.com>
+References: <20230126135552.3625887-1-arnd@kernel.org>
+ <Y9KIN7GerLd4ziw0@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <Y9KIN7GerLd4ziw0@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: VbqhXAb8-NZ7R5_DRLhPEJawqKGXlLr3
+X-Proofpoint-ORIG-GUID: VbqhXAb8-NZ7R5_DRLhPEJawqKGXlLr3
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,6 +95,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
+ Arnd Bergmann <arnd@arndb.de>, Lucas
+ Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Wolfram Sang <wsa@kernel.org>,
+ linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jan 26, 2023 at 02:03:35PM +0000, Mark Brown wrote:
+> On Thu, Jan 26, 2023 at 02:55:29PM +0100, Arnd Bergmann wrote:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> > 
+> > While looking through legacy platform data users, I noticed that
+> > this one could never be used with DT based probing as the
+> > platform_data structure gets overwritten directly after it
+> > is initialized.
+> > 
+> > There have never been any boards defining the platform_data in
+> > the mainline kernel either, so this driver so far only worked
+> > with patched kernels.
+> 
+> Or there is no mandatory properties/platform data and the
+> defaults are fine for most systems (which is a common case).
+
+I think Arnd is right here, the driver appears to allocate a big
+block of zeros and then blat that over the top of everything it
+read from device tree. So you can literally never use any of the
+DT properties as it stands.
+
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

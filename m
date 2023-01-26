@@ -2,68 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FD5C67D13C
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:23:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED0367D194
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:27:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2468E7E;
-	Thu, 26 Jan 2023 17:22:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2468E7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC8E2E89;
+	Thu, 26 Jan 2023 17:26:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC8E2E89
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674750198;
-	bh=SQ5jhsryjRdmabv2oRisOi9tQKyvrV7uZidDTYhHI+4=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=IMQvupJgi6aD2S65kIimMp5I7WNvc3uSSJBTnkqQ2lNaHBEHL9JuX1rsGWhht/2rL
-	 CebLlGoV+AjIWUDtzejRwrqSOyaPeSv5Cr4a16POCyWas8oBgAjfo2OL5UqsGlIUZc
-	 5SqAt/RNVhHdkspp727c6RDYbvUuQJJr4Bewzxe4=
+	s=default; t=1674750450;
+	bh=VoCnjpuatxN+O2Dg71Cb0IcLA9Rb+BbQQjLiUoOMEUc=;
+	h=Date:From:Subject:To:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=ob9Agumz/agW4rtPqOlYwTuhZAfBAQpnXpj47jAZvWIJkxyE4YmMbVJQfv9E1wdUH
+	 ET+ss/YzNI3hp3pWY2Ju/PitCXdng+uWTEMDZlmUk4h5d7ZltRquslbtmEIZzTJLSe
+	 YQ8fw4yk8cVjBM9GnCGvLkWFBURFfuZWsFx6de5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C04BF800AE;
-	Thu, 26 Jan 2023 17:22:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56CE4F8057A;
+	Thu, 26 Jan 2023 17:25:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BFB7F8027D; Thu, 26 Jan 2023 17:22:18 +0100 (CET)
+ id A8EE8F80563; Thu, 26 Jan 2023 17:24:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0DFDF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:22:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0DFDF80224
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tKJBVZ/7
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4B9F5618C8;
- Thu, 26 Jan 2023 16:22:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F9FC4339B;
- Thu, 26 Jan 2023 16:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674750131;
- bh=SQ5jhsryjRdmabv2oRisOi9tQKyvrV7uZidDTYhHI+4=;
- h=From:To:Cc:Subject:Date:From;
- b=tKJBVZ/7CYeBmXjWhJfISoo9OgvN+nP8c6o/lEwoWCEA00cwyMVwJtPCKFZLxD0vl
- Q3FM+145xjx8ORpanpSKifs4LiSRp2gVje4g1u8R7jzd9R/OxVdORNc7YihRoj2aH7
- 4EEOiRUoG0UHW1KE1FPzd+xK+f3OmhNXmuplTwjEhYb79YU4vDR3O6MnMhuUGgkBmE
- GO4HvXPRl52Nfck9OUn3XXgGUQ9Bt9Sst1W33Yzqj0yhiSxvRhkxBAooVp2d0GmD/n
- VjxsznI8CqNG3BA36PdUJCnyAL3v00x11Dz+cB8ZN3e63rdlKWwYtiHT4s0yktVKtt
- uN+xGm5XebOVw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] [v2] ASoC: cs42l56: fix DT probe
-Date: Thu, 26 Jan 2023 17:21:24 +0100
-Message-Id: <20230126162203.2986339-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE242F802DF
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:24:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE242F802DF
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=FwKzXYgJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674750288; x=1706286288;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=VoCnjpuatxN+O2Dg71Cb0IcLA9Rb+BbQQjLiUoOMEUc=;
+ b=FwKzXYgJOPH0TEfk3MnnNRtbf8a4nSpUa85m0VhEC/C//6gv+LED1Hjt
+ 3gIr4GRlp+OzwUHDO5N/t8Vi7HqjIwJe0zcqw1TEoaDvfJMfXFhHNAkNG
+ 7dXDLnqo1a26UFwoGt/7Pc7sGphGvwgxaTOSB/WCtrBDlaEqcncyGbUYR
+ Orz0Kefob2PjWElcmKB/6s4t4KV22hMUGK2ol7tesxm6VoiWB4BSO3OGo
+ iMD0ljeBwK9jMgYQ30zhVuwZqedtbN0NSlckJJRTfK9nf8TRDu8N+oMRb
+ DJ5XAcuwgl6ws0jDm8yjFODVcJikuXCqZW4qGLY1rbsYw+eX/Ss+8NfYZ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="354154746"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="354154746"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2023 08:24:46 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="612855103"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="612855103"
+Received: from nmani1-mobl2.amr.corp.intel.com (HELO [10.209.167.178])
+ ([10.209.167.178])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2023 08:24:44 -0800
+Message-ID: <ad9e375e-fe4f-b4bd-aebd-26f5f0a6317b@linux.intel.com>
+Date: Thu, 26 Jan 2023 10:22:56 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [RFC PATCH v2 00/22] Introduce QC USB SND audio offloading support
+To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
+ andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
+ bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,60 +94,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Zheyu Ma <zheyuma97@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+This version has lots of improvements, but I am concerned
+about hard-coded ops/callbacks that look racy and assume dependencies
+between driver probes. How does this work if the probe is delayed on one
+side for some reason? What happens is a driver is 'blacklisted' and
+manually added later? The code has to deal with this sort of known unknowns.
 
-While looking through legacy platform data users, I noticed that
-the DT probing never uses data from the DT properties, as the
-platform_data structure gets overwritten directly after it
-is initialized.
+I also still have a bit of heartburn with the notion that there would be
+a completely separate card with all the control for volume/mute/etc
+having to be duplicated.
 
-There have never been any boards defining the platform_data in
-the mainline kernel either, so this driver so far only worked
-with patched kernels or with the default values.
+It's still a lot of good work so thanks for sharing and pushing for this
+capability.
 
-For the benefit of possible downstream users, fix the DT probe
-by no longer overwriting the data.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-v2: reword changelog
----
- sound/soc/codecs/cs42l56.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
-index 26066682c983..3b0e715549c9 100644
---- a/sound/soc/codecs/cs42l56.c
-+++ b/sound/soc/codecs/cs42l56.c
-@@ -1191,18 +1191,12 @@ static int cs42l56_i2c_probe(struct i2c_client *i2c_client)
- 	if (pdata) {
- 		cs42l56->pdata = *pdata;
- 	} else {
--		pdata = devm_kzalloc(&i2c_client->dev, sizeof(*pdata),
--				     GFP_KERNEL);
--		if (!pdata)
--			return -ENOMEM;
--
- 		if (i2c_client->dev.of_node) {
- 			ret = cs42l56_handle_of_data(i2c_client,
- 						     &cs42l56->pdata);
- 			if (ret != 0)
- 				return ret;
- 		}
--		cs42l56->pdata = *pdata;
- 	}
- 
- 	if (cs42l56->pdata.gpio_nreset) {
--- 
-2.39.0
 

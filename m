@@ -2,102 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B6667D1C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:37:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBBDE67D1E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:40:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DE0FE7E;
-	Thu, 26 Jan 2023 17:36:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DE0FE7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CD6EE7E;
+	Thu, 26 Jan 2023 17:39:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CD6EE7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674751020;
-	bh=V/yKMg/Zih7KzTuXcz/KJSetw/FOegDR/tnmbXTxaYY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1674751231;
+	bh=4y5T8Z1YzTy28i7M/tIXpNDOtq+YX0jkW9G/xOmLxUs=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Co3f7o/VxM7L/0Kjyk3XUiDfxvjSAqeg5pwsgZmvOctI3PA7MyWTdmyWX+ssw2Vq2
-	 Q2QlgjprCOmBmPtetj9COBtBsStbHpgMdBuL4p2VRwOKw+R5SJcu6AZgVmCcaBKTxt
-	 GjLQul+fD0Qe/YVsfxNt6oaFP4K18xR2imugJDes=
+	b=gcFulmw0ghGfvDK8mjm9vq9SPK5VZWECdqA129QB05Tim3HtD6LQR3cNzeC6p3UgD
+	 aDVkR14kga8x7okgbNLyT/ETEcUD3Ke7q+zMKXJH63BmUFzsbCMknh5Jih5gGmUHa5
+	 /CB2Dj/ti7BeFj+V71yeozoXIsmvrunEsELUZvVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE480F800AE;
-	Thu, 26 Jan 2023 17:36:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72D2DF802DF;
+	Thu, 26 Jan 2023 17:39:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91CF5F8027D; Thu, 26 Jan 2023 17:35:59 +0100 (CET)
+ id 4AB26F8027D; Thu, 26 Jan 2023 17:39:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D540AF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:35:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D540AF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id F34CDF800AE
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:39:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F34CDF800AE
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=cvhnX0fW
-Received: by mail-ed1-x530.google.com with SMTP id g11so2349068eda.12
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 08:35:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=afez1nsKlZmE+ENEERE7Oo/V5VhLLIWK6OgZUW8xIho=;
- b=cvhnX0fWR5gLtPdV8uzCMk0K87aF0P1NkjL7UbHZZwQwDjKaLGLKdJuiGcE9pO3Ne6
- jYpCr4xptwHNwgB4Yw3ba8yohEdlfpwPyGGZy4LX4u5vay/33iWUpx4O3LrATSGkQw/b
- jhXV/KJ8SKTr0pM8z4X1BiZb2FM0fMKE2r3fe8WbyjmdBHvpRwE6BS39v0n8izjR0vfW
- 1LmFvibAgrN2OD1nE7VoUj6oImoD7PgLaDYWIfo8AwPcR2lgcIdeSHFBgwk8JcU7crQh
- cObk+cmzFvq+LxN1f7JfrRfdvhktdkNgH8dYTnxNRo97I5IT17Y1cbjQjHpb0MGWmG41
- dcHw==
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=nTJd3UqQ
+Received: by mail-wr1-x42d.google.com with SMTP id m14so1906288wrg.13
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 08:39:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=WcIULWf1hJO2aSG6ip1Q2Tbo7KEX8l8vfq1u07hQEUU=;
+ b=nTJd3UqQHJYIgHfYtrJfyHF3jy6yesQbAxKnBfhlrW7ZZYv5vss1/BwpzGKnU//+pW
+ zpEWqlJSU1UJSI1ZnMW1/fpJO+yHRhfSOrbz1DMeeefUw11iYpnJNzq7lutcwL4sdVQA
+ M8u0eJoyy7W8bYrQw3m8zo2lACqWAzDw3gWKispcuaQug6tcfxcDGjBfRUSmloFUhxGM
+ Sw/XwIM7yxzH/86FHVCW4XrLFoPQQKBIX3LLkuUfneMt47tO5zFJRor1KAkP1FlI503l
+ rgytrxiJuJYtCArZvzsNUT3M8ZVe4MODcWS2KQ1S65g210VjD1EB76AaowZCvsQ/VBqY
+ zIkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=afez1nsKlZmE+ENEERE7Oo/V5VhLLIWK6OgZUW8xIho=;
- b=VaEOEwPl6pqQVKmX5qvXW3SvQ+yCM5gqSofJjO/L8Mr6Mc5NOrY8lOezmhywZ4/JKc
- O+nHgF3gQNyonRjjPIYwmUfCHlDjYDLLA+gkwRCKO8Kd6EA9Muj779VH6PuD33UTWH40
- 87c9oqpr6AbSSlrzcqqvNXsSRosT8JVTxZ0ynZBSRHWE+18NLE52KLEMj3e/Nz6XAmDH
- nLZ2oST9nqf0qpCuNb2xIuonY+I6LRyryPA9QqYPf/KE87l92pS/OcSdQMJaOjEUy0J0
- E5hlUAuQcuamTevqCeNQBcWB8Zs9v9V4T7STV6NC5mHujq7Ps34k+NMNLKXZa0AZ1J9o
- cgjA==
-X-Gm-Message-State: AFqh2koFozvniTzNejiiKEdQ85Iu4m0mebrnrJ+PtCNXSJ2nQUziwcZp
- PU1kYnZtBoRkN068+nOkpIwC7g==
-X-Google-Smtp-Source: AMrXdXu/trqwU0wO6hcbTWNdvL7JmToL9lOSDZ0+tnzXlz5ZWkKoQjyYDauMEG0SU0okMmsikNA/Jw==
-X-Received: by 2002:aa7:de95:0:b0:49d:be2b:b9b1 with SMTP id
- j21-20020aa7de95000000b0049dbe2bb9b1mr37564501edv.36.1674750952116; 
- Thu, 26 Jan 2023 08:35:52 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- w25-20020aa7d299000000b0048789661fa2sm952239edq.66.2023.01.26.08.35.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jan 2023 08:35:51 -0800 (PST)
-Message-ID: <e1291152-2c74-514c-00a5-526564d7d827@linaro.org>
-Date: Thu, 26 Jan 2023 16:35:50 +0000
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WcIULWf1hJO2aSG6ip1Q2Tbo7KEX8l8vfq1u07hQEUU=;
+ b=BbI/iN2t75MuB5y6AmCPAq1Vs9j0yTAAq8dVjMAQQ89wvbWn4VY3OZXdzwYCKMQTnp
+ K8ZBsDqVumSUYXmf4YAIoLhCMnPViXNsivzusUyhn6bx0XxMunMr0Oehg74lWn8Zb2Ed
+ wgYT7WPmQRNuV4Wtj0qY/CnSUzCsGBijNmgrvsa9se2Djni2vFjMDZkYCAjt3r7fUBFg
+ uRqZObied8A2CyeQRJmoBuPCj2g5f74hZweyLMamba7cJ0G/4ntM2f4jZI8cuO34XBrS
+ 9kBYEgmAzCPehnbFTIlC+yVnL/7dc8/9aFTVtk+uGlWL+mI9Z+xmg3QOpp/K5Tm6+iSd
+ 8RiQ==
+X-Gm-Message-State: AFqh2kr+nzd6EGurPpH0MOAJWL+AonfSrHsjgPeYV9+NkFyj9LYqmi5r
+ qzYZ2ydP4y9Z4svlcRBey0k=
+X-Google-Smtp-Source: AMrXdXsrjgrGETIMbiJakho1CzIks0SH953VqlAvOj6xcJEoDaMM1z2UyXPlB7L/3oOwE6z5TxzZag==
+X-Received: by 2002:a05:6000:1f95:b0:2bc:371a:8a2 with SMTP id
+ bw21-20020a0560001f9500b002bc371a08a2mr32915198wrb.37.1674751157968; 
+ Thu, 26 Jan 2023 08:39:17 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ l16-20020adffe90000000b002b8fe58d6desm1716079wrr.62.2023.01.26.08.39.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Jan 2023 08:39:17 -0800 (PST)
+Date: Thu, 26 Jan 2023 19:39:06 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: pci: lx6464es: fix a debug loop
+Message-ID: <Y9KsqpFRrlhX57WJ@kadam>
+References: <Y9JIGt0HT8mLkUXF@kili>
+ <878rhptq36.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [RFC PATCH v2 11/22] ASoC: qcom: Add USB backend ASoC driver for
- Q6
-To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
- perex@perex.cz, lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, gregkh@linuxfoundation.org,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-12-quic_wcheng@quicinc.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230126031424.14582-12-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <878rhptq36.wl-tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,51 +100,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Maxime Ripard <mripard@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jan 26, 2023 at 01:53:01PM +0100, Takashi Iwai wrote:
+> On Thu, 26 Jan 2023 10:30:02 +0100,
+> Dan Carpenter wrote:
+> > 
+> > This loop accidentally reuses the "i" iterator for both the inside and
+> > the outside loop.  The value of MAX_STREAM_BUFFER is 5.  I believe that
+> > chip->rmh.stat_len is in the 2-12 range.  If the value of .stat_len is
+> > 4 or more then it will loop exactly one time, but if it's less then it
+> > is a forever loop.
+> > 
+> > Fixes: 8e6320064c33 ("ALSA: lx_core: Remove useless #if 0 .. #endif")
+> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> > ---
+> >  sound/pci/lx6464es/lx_core.c | 12 +++++-------
+> >  1 file changed, 5 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/sound/pci/lx6464es/lx_core.c b/sound/pci/lx6464es/lx_core.c
+> > index d3f58a3d17fb..7c1b380a54c0 100644
+> > --- a/sound/pci/lx6464es/lx_core.c
+> > +++ b/sound/pci/lx6464es/lx_core.c
+> > @@ -493,13 +493,11 @@ int lx_buffer_ask(struct lx6464es *chip, u32 pipe, int is_capture,
+> >  		dev_dbg(chip->card->dev,
+> >  			"CMD_08_ASK_BUFFERS: needed %d, freed %d\n",
+> >  			    *r_needed, *r_freed);
+> > -		for (i = 0; i < MAX_STREAM_BUFFER; ++i) {
+> > -			for (i = 0; i != chip->rmh.stat_len; ++i)
+> > -				dev_dbg(chip->card->dev,
+> > -					"  stat[%d]: %x, %x\n", i,
+> > -					    chip->rmh.stat[i],
+> > -					    chip->rmh.stat[i] & MASK_DATA_SIZE);
+> > -		}
+> > +		for (i = 0; i < chip->rmh.stat_len; ++i)
+> 
+> Judging from the previous lines, the access over MAX_STREAM_BUFFER
+> might be unsafe.  So I guess a more safer change would be something
+> like:
+> 
+> 		for (i = 0; i < MAX_STREAM_BUFFER && chip->rmh.stat_len; ++i)
 
+&& i < chip->rmh.stat_len
 
-On 26/01/2023 03:14, Wesley Cheng wrote:
-> +}
-> +
-> +static int q6usb_dai_dev_probe(struct platform_device *pdev)
-> +{
-...
-> +	data->priv.domain = iommu_domain_alloc(pdev->dev.bus);
-> +	if (!data->priv.domain) {
-> +		dev_err(&pdev->dev, "failed to allocate iommu domain\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	/* attach to external processor iommu */
-> +	ret = iommu_attach_device(data->priv.domain, &pdev->dev);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to attach device ret = %d\n", ret);
-> +		goto free_domain;
-> +	}
-> +
-Why are we doing this manually here? device core should take care of 
-attaching iommu to the device instance.
+TBH, I'd prefer to just delete all this code since it used be ifdef 0.
 
-...
+But I'll resend as you have suggested.
 
+regards,
+dan carpenter
 
-> +detach_device:
-> +	iommu_detach_device(data->priv.domain, &pdev->dev);
-> +free_domain:
-> +	iommu_domain_free(data->priv.domain);
-> +
-> +	return ret;
-> +}
-> +
-> +static int q6usb_dai_dev_remove(struct platform_device *pdev)
-> +{
-> +	struct q6usb_port_data *data = platform_get_drvdata(pdev);
-> +
-> +	iommu_detach_device(data->priv.domain, &pdev->dev);
-> +	iommu_domain_free(data->priv.domain);
-> +

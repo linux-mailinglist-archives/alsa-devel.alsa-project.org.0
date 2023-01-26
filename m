@@ -2,86 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8433867D31A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 18:26:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A856C67D8E9
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 23:57:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9C0CDF5;
-	Thu, 26 Jan 2023 18:25:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9C0CDF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4402F86E;
+	Thu, 26 Jan 2023 23:56:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4402F86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674754003;
-	bh=JD9httDWUUglNMzfg7+AehAvGFbv725T8Se4OJY02UQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1674773825;
+	bh=lUlV7aiI0si0/W517FBDa/HeRq2i5wQgYiZ8e4/VPhs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LAzvSkY5K0TnB9i1PqRfFPsCKC7khot7k34WbUxdSEHMkHmcQ3vz+tPsdPmcppe2x
-	 VDHFXnKJlDWt3rmThwuZHX/PfnvzFB0JpLhyuzm54X36FSV7lvJ5/Aucmxwdd5792J
-	 BDo8Emo6WqnGJzuTtk/w8+HiNgueGzw6c2mHh4C4=
+	b=Z6Ca7g/Z46rmMlvCMNNfqpLSbcaC9+m9e81GI5FtVOWVC7tH6Sn5Z1DCtSeeUTD3C
+	 0Vzy811yykZ59SVpzrCAApCZnp9GW1LXs5sCWzQ8loPde9O1DAFZSNeWe8DG0Al0ex
+	 WyeN4MQRPZhwtIWPwEGHa9RelxsSQumlD8RvEUXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46992F802DF;
-	Thu, 26 Jan 2023 18:25:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 876DBF8030F;
+	Thu, 26 Jan 2023 23:56:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC274F8027D; Thu, 26 Jan 2023 18:25:42 +0100 (CET)
+ id 9A069F8027D; Thu, 26 Jan 2023 23:56:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4AE1F80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 23:55:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4AE1F80224
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=NJ8I2pTH
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1B35F8016E
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 18:25:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1B35F8016E
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=eR8oVYOm
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30Q6f0P8017579; Thu, 26 Jan 2023 11:25:38 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=+7e5BFB25/sG52OaE6KhwkTP0Mh+mscqtoxl33gubHQ=;
- b=eR8oVYOmaW6FDjTg8Oy/V8uK9aMkAVDuBM6D8ksSfnT5mUlx4gLwbUiykSKEQ0uYRQc0
- /NsYza/JKMFJuGkgBRAY9bqJs2PchCE8hBSUgauhB0oM1gsi+kbpKPkKoxtpH0rPohIa
- lzJ715owR+d+/SO9BHgHgtuuugcBx9x16LE2YQa2q26O9FTypbcZbrmM4r//BvYLl8hR
- BelkjPYvFn0vtfuwqfVGmCCq+L/BF3dOk9ULYwpK+CUvVYvX0uM86LrE0Za8D1UiL6km
- S4kr1Z1Y3rToqH757FirX8oBLRNmpwSaNaZtviMwSWtnAt4caLyx84uSgyEcT9Qg5jVA yQ== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n8dbst2rm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Jan 2023 11:25:38 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 26 Jan
- 2023 11:25:36 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.7 via Frontend Transport; Thu, 26 Jan 2023 11:25:36 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7398311CC;
- Thu, 26 Jan 2023 17:25:36 +0000 (UTC)
-Date: Thu, 26 Jan 2023 17:25:36 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH] [v2] ASoC: cs42l56: fix DT probe
-Message-ID: <20230126172536.GB36097@ediswmail.ad.cirrus.com>
-References: <20230126162203.2986339-1-arnd@kernel.org>
+ by ams.source.kernel.org (Postfix) with ESMTPS id E526EB81C5E;
+ Thu, 26 Jan 2023 22:55:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBA7C433D2;
+ Thu, 26 Jan 2023 22:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674773757;
+ bh=lUlV7aiI0si0/W517FBDa/HeRq2i5wQgYiZ8e4/VPhs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=NJ8I2pTHBLWb9hqw76GjVnV6JAeuMwrghH7OCL69Ywnzcw0hma9owHEn0ajjkcR+2
+ LDPToCsgG14hdUcA1a71FHfrreEjFtpjY5lyDWaTsJp2yLsyJDgyMG36v/SwuT+D0a
+ hXXGPROBCuaiQoTpNbVqWtw2TE/G3+H39NbPP91qI24Y9LGZrpht/e8kQXcx6jUp/V
+ 4OM2AJpgoMtuOjANAvLc3QL806WDoHVtRAu3jjbhqGgs+9I62knDXsh2kxSgtFqrH8
+ Blumk/pfW4u8siG8Ljt3B/8XnxVu2GBLuAtuShCCoGgRFQxP3RlzKIusfqZ4ngyacJ
+ qIKP5PQHppuEg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Dan Carpenter <error27@gmail.com>
+In-Reply-To: <Y9JHSwcfdNcfMjjt@kili>
+References: <Y9JHSwcfdNcfMjjt@kili>
+Subject: Re: [PATCH] ASoC: mediatek: mt8188: remove some dead code
+Message-Id: <167477375499.524795.3525968034845691950.b4-ty@kernel.org>
+Date: Thu, 26 Jan 2023 22:55:54 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230126162203.2986339-1-arnd@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: NeF1VDHUKtXiNmzqz1XuC46pMvODmjXU
-X-Proofpoint-GUID: NeF1VDHUKtXiNmzqz1XuC46pMvODmjXU
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,34 +81,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Zheyu Ma <zheyuma97@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Lucas Tanure <tanureal@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Yang Li <yang.lee@linux.alibaba.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 26, 2023 at 05:21:24PM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Thu, 26 Jan 2023 12:26:35 +0300, Dan Carpenter wrote:
+> We know that "irq < 0", so delete the unnecessary check.
 > 
-> While looking through legacy platform data users, I noticed that
-> the DT probing never uses data from the DT properties, as the
-> platform_data structure gets overwritten directly after it
-> is initialized.
 > 
-> There have never been any boards defining the platform_data in
-> the mainline kernel either, so this driver so far only worked
-> with patched kernels or with the default values.
-> 
-> For the benefit of possible downstream users, fix the DT probe
-> by no longer overwriting the data.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Applied to
+
+   broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: mediatek: mt8188: remove some dead code
+      commit: aa326917f58fa577bfba8976da214080bdec2699
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark
+

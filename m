@@ -2,77 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5F267C969
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 12:07:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE01167CA56
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 12:56:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24548E12;
-	Thu, 26 Jan 2023 12:06:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24548E12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16AA4828;
+	Thu, 26 Jan 2023 12:55:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16AA4828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674731265;
-	bh=LT+PAcjm7d57hkH2/6nYDqvElwEeNEyKWXRMecpzszM=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=KkaoZnA57GkljFVbiMraaxeVqbAxxJ+jOHJH0z4EZT4Ks3xL0TeFJBBZ8gfoGI2Os
-	 KIKWl4dqymtUgvSyfcoBZb8ujn1nSyl7V+rywcY+1yJMjFVupzUsXeFIDrPULAF9qr
-	 tua7D1ytc9jiXe8Sj0lhNshYBKfqwjEAg9Uyq4c4=
+	s=default; t=1674734195;
+	bh=RW/1a8sYhBwIrTM8yXUWUmwOiDpdnm5AcV0o58n5OW8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=bkghTb/+A1iubUahKhLz3N+18JqZQL+TMrxognvo9vS6PrITeqekFA+zqGN/Agtmi
+	 JsapgEvFYJDNluBiAOfSURiCN8M8G1LjWiI6yQmWjy1XMBo9zUOChL3Uf0wJdjdNG3
+	 DvaAnUtD2j7s4QTtkq/38SRW/QP8pX8L24Wgawq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2C0CF800AE;
-	Thu, 26 Jan 2023 12:06:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 341A3F802DF;
+	Thu, 26 Jan 2023 12:55:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C84B4F8027D; Thu, 26 Jan 2023 12:06:43 +0100 (CET)
+ id 81AA5F8027D; Thu, 26 Jan 2023 12:55:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEFBDF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 12:06:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEFBDF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F589F80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 12:55:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F589F80224
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WH/tK4wF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674731197; x=1706267197;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LT+PAcjm7d57hkH2/6nYDqvElwEeNEyKWXRMecpzszM=;
- b=WH/tK4wFhRdgpSJXqmqS1jPerzs+ru7hPp6uUXhjCcqXUg9Nva2ikxmM
- iBunHm1bXxX9eD9J7+/tEMiDTBxRk2+441Wt5zBzE9xijv0i5ujIlJ64j
- +BtXymNei1H7LQdRr4k049YziZLiTfjiKeW+JFWzcRJP/qaScD+08ZEVQ
- +QgtYLZK+qnQxDTPyBW4tkzdi1ZFDP/U1l3L9mEEy5UPPoDemJLCjAUX4
- VDJnKy/coZWYIJt+7uwGGETPLxACAfnYYqmu69+gyn4Ju/+ghPjy5NoKl
- iFBCWCkS0hSoj2OliTI7O+QuQ0JNC0tmfqCh5+zxWIas2kzgjR0lAsKm6 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="328037396"
-X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="328037396"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 03:06:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="731368941"
-X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="731368941"
-Received: from mericx-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.29.93])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 03:06:30 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: ipc4-topology: add buffer type support
-Date: Thu, 26 Jan 2023 13:06:37 +0200
-Message-Id: <20230126110637.25542-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.39.1
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=pTbd3ZJC
+Received: by mail-wr1-x436.google.com with SMTP id y1so1528456wru.2
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 03:55:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5yP0BywDAnuuMbf+32a07Q6Ygejqs/wXSQRU+sh7FeI=;
+ b=pTbd3ZJCw9QkBCVFBLLz7s12GMYqKUxPMsNWFVb0xVjETIqqg8a1SYtG7M4T4xtcYS
+ EX8QJFOwqFCbF4E0kcBu3fdLUhbzHs0lYk5o1fHs+2wGBXTGxCp2pdy0MSwr3bfpOCtt
+ iwwNN6tBZMLMDlXKZCOoy3whFNnGfh7ZWa0iJirmFc/FIPjpnrWEDYvBvv+OuU+LEfuw
+ UFIOhyHGt4JmN3eq8hs9GR66BgK6PTw7RPxqWg0sp2hQBLBJgBvuidoojbaupcegM6Ha
+ SJiLu8o8nzc+t2IC3ay3yYkX9x5EE2oy9l0eZ9hFy2QnDtBG9skdx+/M0a2JuSZ4u3u6
+ GAmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5yP0BywDAnuuMbf+32a07Q6Ygejqs/wXSQRU+sh7FeI=;
+ b=bLP5JbYbN4P2xWxYEclcB1V755F1DqLhM44aC9gpgGZkPAb1Ndd7oLTWixqrRPSvwM
+ ZnKOMBW0t0m5auUpNzAVI7VJtWYCzAkAHhQ3ULeZxBwKzDkwYMLJ8aNltLgAUCQ0HE8H
+ 5WoTxGRC5K82qnCt3BlCNaR+MsBd8SN3e2CF3L3sSDDtCaOejiQ+E0NZVtlqXZAeZjMk
+ RapaRQkqGuA8LifW0ESFOP6Hiw3LEKPbHyNmQk6ICn1e6a3S2RiHEkZ42+MCI6sCbr+J
+ nk5AT7IefAt4b3WbXdoHymQ5ygBlQqaWlv15KK4TYfpoXz/0tfNC8ebvSp/cUFsMsZN5
+ PM6Q==
+X-Gm-Message-State: AO0yUKXEwkkDWTKrhOPK+Gd6QwDAQBPzF5TwxxhnlzuLlAn1HQ8LSIo0
+ t+d7Oc231PPNZhmCPwK0Tj0vjQ==
+X-Google-Smtp-Source: AK7set9qt9nTQzZdQh3JcvKhICbeSSBvdsDbg5AZQS8AybL0RpuPHM+dTgnRZcLj2lVpBsg2yesVVA==
+X-Received: by 2002:a5d:480b:0:b0:2bf:c748:b8bd with SMTP id
+ l11-20020a5d480b000000b002bfc748b8bdmr1588634wrq.53.1674734126483; 
+ Thu, 26 Jan 2023 03:55:26 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ h4-20020adfaa84000000b002bfbf4c3f9fsm1149608wrc.17.2023.01.26.03.55.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jan 2023 03:55:26 -0800 (PST)
+Message-ID: <62207c21-38f2-eb37-ea1d-2f6eef2202ff@linaro.org>
+Date: Thu, 26 Jan 2023 12:55:23 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Subject: Re: [RFC PATCH v2 08/22] ASoC: dt-bindings: Add USB_RX port
+Content-Language: en-US
+To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
+ andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
+ bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-9-quic_wcheng@quicinc.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230126031424.14582-9-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,175 +109,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
- ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+On 26/01/2023 04:14, Wesley Cheng wrote:
+> Q6DSP supports handling of USB playback audio data if USB audio offloading
+> is enabled.  Add a new definition for the USB_RX AFE port, which is
+> referenced when the AFE port is started.
 
-The corresponding IPC4 module of snd_soc_dapm_buffer widget is module
--to-module copier.
-The module-to-module copier is a buffer-like component with demuxing
-capabilities.
-Rename the host_token_list to common_copier_token_list since it will
-be used by host copier and module-to-module copier.
-The setup callback is almost the same as sof_ipc4_widget_setup_pcm except
-the gtw_cfg data, and the free callback is exactly the same as
-sof_ipc4_widget_free_comp_pcm. To reduce the duplication, the commit
-reuses the setup and free callbacks.
+Subject prefix:
+ASoC: dt-bindings: qcom,q6dsp-lpass-ports:
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/ipc4-topology.c | 57 ++++++++++++++++++++++++++++++-----
- sound/soc/sof/ipc4-topology.h |  2 ++
- 2 files changed, 52 insertions(+), 7 deletions(-)
+because you are not adding USB_RX port to all bindings in ASoC.
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 59f4d42f9011..a807a6952e42 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -354,6 +354,13 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
- 		goto free_available_fmt;
- 	}
- 
-+	/*
-+	 * This callback is used by host copier and module-to-module copier,
-+	 * and only host copier needs to set gtw_cfg.
-+	 */
-+	if (!WIDGET_IS_AIF(swidget->id))
-+		goto skip_gtw_cfg;
-+
- 	ret = sof_update_ipc_object(scomp, available_fmt->dma_buffer_size,
- 				    SOF_COPIER_GATEWAY_CFG_TOKENS, swidget->tuples,
- 				    swidget->num_tuples, sizeof(u32),
-@@ -380,7 +387,7 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
- 	}
- 	dev_dbg(scomp->dev, "host copier '%s' node_type %u\n", swidget->widget->name, node_type);
- 
--	ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
-+skip_gtw_cfg:
- 	ipc4_copier->gtw_attr = kzalloc(sizeof(*ipc4_copier->gtw_attr), GFP_KERNEL);
- 	if (!ipc4_copier->gtw_attr) {
- 		ret = -ENOMEM;
-@@ -391,6 +398,21 @@ static int sof_ipc4_widget_setup_pcm(struct snd_sof_widget *swidget)
- 	ipc4_copier->data.gtw_cfg.config_length =
- 		sizeof(struct sof_ipc4_gtw_attributes) >> 2;
- 
-+	switch (swidget->id) {
-+	case snd_soc_dapm_aif_in:
-+	case snd_soc_dapm_aif_out:
-+		ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
-+		break;
-+	case snd_soc_dapm_buffer:
-+		ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_INVALID_NODE_ID;
-+		ipc4_copier->ipc_config_size = 0;
-+		break;
-+	default:
-+		dev_err(scomp->dev, "invalid widget type %d\n", swidget->id);
-+		ret = -EINVAL;
-+		goto free_gtw_attr;
-+	}
-+
- 	/* set up module info and message header */
- 	ret = sof_ipc4_widget_setup_msg(swidget, &ipc4_copier->msg);
- 	if (ret)
-@@ -951,7 +973,7 @@ static void sof_ipc4_unprepare_copier_module(struct snd_sof_widget *swidget)
- 	pipeline = pipe_widget->private;
- 	pipeline->mem_usage = 0;
- 
--	if (WIDGET_IS_AIF(swidget->id)) {
-+	if (WIDGET_IS_AIF(swidget->id) || swidget->id == snd_soc_dapm_buffer) {
- 		ipc4_copier = swidget->private;
- 	} else if (WIDGET_IS_DAI(swidget->id)) {
- 		struct snd_sof_dai *dai = swidget->private;
-@@ -1177,6 +1199,22 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 
- 		break;
- 	}
-+	case snd_soc_dapm_buffer:
-+	{
-+		ipc4_copier = (struct sof_ipc4_copier *)swidget->private;
-+		copier_data = &ipc4_copier->data;
-+		available_fmt = &ipc4_copier->available_fmt;
-+
-+		/*
-+		 * base_config->audio_fmt represent the input audio formats. Use
-+		 * the input format as the reference to match pcm params
-+		 */
-+		available_fmt->ref_audio_fmt = &available_fmt->base_config->audio_fmt;
-+		ref_audio_fmt_size = sizeof(struct sof_ipc4_base_module_cfg);
-+		ref_params = pipeline_params;
-+
-+		break;
-+	}
- 	default:
- 		dev_err(sdev->dev, "unsupported type %d for copier %s",
- 			swidget->id, swidget->widget->name);
-@@ -1465,6 +1503,7 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		break;
- 	case snd_soc_dapm_aif_in:
- 	case snd_soc_dapm_aif_out:
-+	case snd_soc_dapm_buffer:
- 	{
- 		struct sof_ipc4_copier *ipc4_copier = swidget->private;
- 
-@@ -1970,7 +2009,7 @@ static int sof_ipc4_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 	return 0;
- }
- 
--static enum sof_tokens host_token_list[] = {
-+static enum sof_tokens common_copier_token_list[] = {
- 	SOF_COMP_TOKENS,
- 	SOF_AUDIO_FMT_NUM_TOKENS,
- 	SOF_AUDIO_FORMAT_BUFFER_SIZE_TOKENS,
-@@ -2026,12 +2065,12 @@ static enum sof_tokens src_token_list[] = {
- 
- static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TYPE_COUNT] = {
- 	[snd_soc_dapm_aif_in] =  {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
--				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
--				  sof_ipc4_prepare_copier_module,
-+				  common_copier_token_list, ARRAY_SIZE(common_copier_token_list),
-+				  NULL, sof_ipc4_prepare_copier_module,
- 				  sof_ipc4_unprepare_copier_module},
- 	[snd_soc_dapm_aif_out] = {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
--				  host_token_list, ARRAY_SIZE(host_token_list), NULL,
--				  sof_ipc4_prepare_copier_module,
-+				  common_copier_token_list, ARRAY_SIZE(common_copier_token_list),
-+				  NULL, sof_ipc4_prepare_copier_module,
- 				  sof_ipc4_unprepare_copier_module},
- 	[snd_soc_dapm_dai_in] = {sof_ipc4_widget_setup_comp_dai, sof_ipc4_widget_free_comp_dai,
- 				 dai_token_list, ARRAY_SIZE(dai_token_list), NULL,
-@@ -2041,6 +2080,10 @@ static const struct sof_ipc_tplg_widget_ops tplg_ipc4_widget_ops[SND_SOC_DAPM_TY
- 				  dai_token_list, ARRAY_SIZE(dai_token_list), NULL,
- 				  sof_ipc4_prepare_copier_module,
- 				  sof_ipc4_unprepare_copier_module},
-+	[snd_soc_dapm_buffer] = {sof_ipc4_widget_setup_pcm, sof_ipc4_widget_free_comp_pcm,
-+				 common_copier_token_list, ARRAY_SIZE(common_copier_token_list),
-+				 NULL, sof_ipc4_prepare_copier_module,
-+				 sof_ipc4_unprepare_copier_module},
- 	[snd_soc_dapm_scheduler] = {sof_ipc4_widget_setup_comp_pipeline,
- 				    sof_ipc4_widget_free_comp_pipeline,
- 				    pipeline_token_list, ARRAY_SIZE(pipeline_token_list), NULL,
-diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 0aa87a8add5d..8dbbf69b0eb7 100644
---- a/sound/soc/sof/ipc4-topology.h
-+++ b/sound/soc/sof/ipc4-topology.h
-@@ -53,6 +53,8 @@
- 
- #define ALH_MAX_NUMBER_OF_GTW   16
- 
-+#define SOF_IPC4_INVALID_NODE_ID	0xffffffff
-+
- /*
-  * The base of multi-gateways. Multi-gateways addressing starts from
-  * ALH_MULTI_GTW_BASE and there are ALH_MULTI_GTW_COUNT multi-sources
--- 
-2.39.1
+With subject fixes:
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
 

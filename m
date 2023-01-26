@@ -2,74 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD54167D2CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 18:11:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F049967D2CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 18:11:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC52FE7E;
-	Thu, 26 Jan 2023 18:10:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC52FE7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B7D1E78;
+	Thu, 26 Jan 2023 18:11:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B7D1E78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674753086;
-	bh=if+ZZR9mriJNhiK1akAY2Str+irW5BQMixOqBjyg1fM=;
+	s=default; t=1674753118;
+	bh=jTbGFoPfo25hRqx1ZCzHGIrxhtUHBDBBhH41wY0atkg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Viv3X30eEnIS0y5xs+yrYU6pdLmhRefARmlE48b70HGOGq9CaPzqmQwaaIigT5Fxf
-	 5fOCkTWZv9HisMozMxUljMuHqYc2imRqJmHZTA4xoTsBDBPhAX4EJ/pnrcXiLEcJnI
-	 SWAbgeiLZjAC4i+zRLFFGtRYRWVFVidiD2tphE1M=
+	 Cc:From;
+	b=ReVHa0SFCqRS6f5bdWq15NoxUqq/egsBUdOT6foUBrrl15a7h3Agw//LP9hQtkLev
+	 t9dA7tuu1GFoFdVYMW4q98VEPw1zQME3r83EFnb21CAcp07khXD5J4DiRNVhGgrlq2
+	 c7dtv2Pvf+97YVKnPIq478UaOa7NlqKJo9uul1XU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8707DF803DC;
-	Thu, 26 Jan 2023 18:10:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A959F80557;
+	Thu, 26 Jan 2023 18:10:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D70D3F8025D; Thu, 26 Jan 2023 18:09:58 +0100 (CET)
+ id CE07CF80557; Thu, 26 Jan 2023 18:10:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC0A4F8025D
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 18:09:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC0A4F8025D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C13ADF80552
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 18:09:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C13ADF80552
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dTNlG/bH
+ header.s=k20201202 header.b=Y0DdeS0s
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 512EEB81E6E;
- Thu, 26 Jan 2023 17:09:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDACBC433D2;
- Thu, 26 Jan 2023 17:09:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E043B618D1;
+ Thu, 26 Jan 2023 17:09:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9C8C4339C;
+ Thu, 26 Jan 2023 17:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674752995;
- bh=if+ZZR9mriJNhiK1akAY2Str+irW5BQMixOqBjyg1fM=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=dTNlG/bHwQJv9i2yhSDxGCUewNDtoybJyCqWIrugN0Jpb295ax9aY4nGKEmKP33Uw
- GYuZRCfjhKSfgxqDDsuphTvev2OsO/+kjoNLeIwWtvsnQjRZfRss+G8KChgu+PMpd/
- e/KMWxvoMJH1LoM7K3kYXkuIGIDy+/aB6Ve81kqFCsKg3D8VhT+Jybjrbjgpf1t/wB
- LrD+VIBKmc3cX6ZRFB1n0zwRWwOO/Ji0+ASh4NlM+jUcbx6tNE3yeKcbKRtssH5jVF
- DAGeom+4sOJM0SQmXRZhyn64CIsWj8kB8mHjE4Aw9EwYNE//BH18qXjD7LfsUf/rf0
- PcYnR0edZqKiA==
+ s=k20201202; t=1674752997;
+ bh=jTbGFoPfo25hRqx1ZCzHGIrxhtUHBDBBhH41wY0atkg=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Y0DdeS0sGiG6hy/rfdlWk04WuQrxmzJ7Jn0bZU2t7fGDGeb9UaezNyJcIGXs+POqX
+ wikkES5aUX9CJgtSHQZ0XWgmYH6rJRjtoi1CCSyu5sBPahHREwgPr22FI5wL3JJoyD
+ NEmnSaxwfHYJ6QNyJeFDyGpzpgO5t99AD7c3L0Z00txQ3NeeuhdjS3CrOKGM8KlrxO
+ nNwtZQyWpk7U0xSXzhg3v0S+0w/5Xrl4UuM79AMADPwHBJir7uJPxFyXBXYSYKEd0h
+ k6G4Xy8eLaUSgiuzxeGg1x9kDLphUaXJONc/RnZ1OWg6nSZcLV6hfht55LEugwSvU9
+ INvziIFO2geXQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230126100722.9473-1-krzysztof.kozlowski@linaro.org>
-References: <20230126100722.9473-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: renesas,rsnd: simplify list of
- compatibles
-Message-Id: <167475299258.4003145.8163069094653403292.b4-ty@kernel.org>
-Date: Thu, 26 Jan 2023 17:09:52 +0000
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230126110637.25542-1-peter.ujfalusi@linux.intel.com>
+References: <20230126110637.25542-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: add buffer type support
+Message-Id: <167475299515.4003145.12026179635725917344.b4-ty@kernel.org>
+Date: Thu, 26 Jan 2023 17:09:55 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -86,15 +80,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ rander.wang@intel.com, yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 26 Jan 2023 11:07:22 +0100, Krzysztof Kozlowski wrote:
-> The fallback compatible in a list (the last one) cannot be enum, because
-> it is always fixed.  Also if such fallback is used alone ("Generic"
-> case), it's not a list anymore.
+On Thu, 26 Jan 2023 13:06:37 +0200, Peter Ujfalusi wrote:
+> The corresponding IPC4 module of snd_soc_dapm_buffer widget is module
+> -to-module copier.
+> The module-to-module copier is a buffer-like component with demuxing
+> capabilities.
+> Rename the host_token_list to common_copier_token_list since it will
+> be used by host copier and module-to-module copier.
+> The setup callback is almost the same as sof_ipc4_widget_setup_pcm except
+> the gtw_cfg data, and the free callback is exactly the same as
+> sof_ipc4_widget_free_comp_pcm. To reduce the duplication, the commit
+> reuses the setup and free callbacks.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -102,8 +106,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: renesas,rsnd: simplify list of compatibles
-      commit: 167b3a2b23c86ce44518afde93c82b65295ea60a
+[1/1] ASoC: SOF: ipc4-topology: add buffer type support
+      commit: 7d573425d87642539480929e0172ad9a1917aced
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

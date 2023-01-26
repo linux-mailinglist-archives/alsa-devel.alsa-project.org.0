@@ -2,87 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBFA467CEAD
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 15:47:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A62CF67E43A
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:54:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A2A4ECE;
-	Thu, 26 Jan 2023 15:46:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A2A4ECE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C688E98;
+	Fri, 27 Jan 2023 12:53:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C688E98
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674744469;
-	bh=NFwY2BWIpL7kH9CM4E4HGuWFLWH3bgEikOO/eVjO/3A=;
+	s=default; t=1674820448;
+	bh=WNohoknU9nLfbwIXeO77neZ4yMyv64MASZK2UIAfOfc=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=uSQPzKMx+S1B3fAweRH6XCpWvcCPZDMCp7N3hgUFRynR+zx26A/HGaqNiP/8tty2z
-	 J8ibCQGdgpceWjz041mLnUjrvuNUL7oGgP+rMO5av68LVSulbzzzPtkEtX4rsk1/4o
-	 9C+dDa1IXEbGqY1WY2X4ejEVfJDtreJIGw4Y1qSs=
+	b=moE9p/5ba11aWPtiyzrx4nJKTIS4hXSS3WJjARNRiBZyoK2n/+Mmc6lUOOm2Oczxa
+	 UpafqARdTT2YFX2GtN64W9fviyQ0Ij1vntHSk1MTxVAqEptFJ1jiIYK0M59mWi7iXy
+	 JewNKl9A5Y0OCuvanNjSdUdhwtxEzx3e44JHDtpc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B2BAF802DF;
-	Thu, 26 Jan 2023 15:46:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0995EF80571;
+	Fri, 27 Jan 2023 12:51:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2054F8027D; Thu, 26 Jan 2023 15:46:47 +0100 (CET)
+ id 3392CF8027D; Thu, 26 Jan 2023 15:49:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D621F80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:48:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D621F80224
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=OyaVsT5e
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C26CF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:46:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C26CF80224
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=P59Tw6WW
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30QEkccP016162; Thu, 26 Jan 2023 08:46:38 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=1it7hPA2inysBeJabD1ZO5LdTjzt22MjxOWqMTFDfuo=;
- b=P59Tw6WWZ+ii/DiKrvxex7CLWC6cDKRZngNrfSRCsi9dPxilFoRDHgEpcmV91n3ZnkPg
- fuHZ2b1ZBi+QQjwbFZ9myYTJ7dcIiSD4cQPmNYMoXnUzN65Jj1BuIO/2stRQwHd3t2/d
- bGIDx/skVahdUCCK3UDCVdV5zPgaVvk7InN55o5XOI+2afN/wWjWsVQxBOLeqJMrAunl
- MipSgCEp+fXjbNJt2f9Td9qnSoe7OHxt9XhteJldbtUhFgio55Inm3s24LH67Bb4Kp1I
- oDSyIimNSmJ1SmsnGMxYCA/F3+eZX9xBZ188x49o2G1Hp+54/3trRIAWdcnV0X6KkDJe vQ== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3n8eb60t4b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Jan 2023 08:46:38 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 26 Jan
- 2023 08:46:35 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via
- Frontend Transport; Thu, 26 Jan 2023 08:46:35 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 88DDD11CC;
- Thu, 26 Jan 2023 14:46:35 +0000 (UTC)
-Date: Thu, 26 Jan 2023 14:46:35 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: cs42l56: fix DT probe
-Message-ID: <20230126144635.GA36097@ediswmail.ad.cirrus.com>
-References: <20230126135552.3625887-1-arnd@kernel.org>
- <Y9KIN7GerLd4ziw0@sirena.org.uk>
+ by ams.source.kernel.org (Postfix) with ESMTPS id A5903B81D69;
+ Thu, 26 Jan 2023 14:48:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05241C4339B;
+ Thu, 26 Jan 2023 14:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674744532;
+ bh=WNohoknU9nLfbwIXeO77neZ4yMyv64MASZK2UIAfOfc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OyaVsT5ePzTFS76R1FH5KLxOUgzscan6sLv55lgf+totKkalpj5P4hTJ0CFzpg2nB
+ FjnAcEI6WBL0tfwF/TTw8b+wwY6a9pfQDEoFaNDhDzv4Bx4E//TKL2HIis05iqFTqA
+ 6cWnwUhcKJagQmydnhE9MWdKN98RZA7QH0/g2op6Qc+WX5kkWc6P8AxP1IQok4d4Iv
+ rC+rDq5bfpCpp87TX2zmlNbavkxhh4pjEZT5VQ1/5GQQQR5j3P3SiDxYUla0TLmDmY
+ tHoanGw9DWG+oAt/RnrhsxsQ7gltrsJN75kvWssUX4MOKayClNcjWM9UluK5fqquNs
+ P9OGQuC06AeFQ==
+Date: Thu, 26 Jan 2023 16:48:04 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH v2 6/6] mm: export dump_mm()
+Message-ID: <Y9KSpNJ4y0GMwkrW@kernel.org>
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-7-surenb@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Y9KIN7GerLd4ziw0@sirena.org.uk>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: VbqhXAb8-NZ7R5_DRLhPEJawqKGXlLr3
-X-Proofpoint-ORIG-GUID: VbqhXAb8-NZ7R5_DRLhPEJawqKGXlLr3
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <20230125083851.27759-7-surenb@google.com>
+X-Mailman-Approved-At: Fri, 27 Jan 2023 12:51:04 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,38 +81,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, Lucas
- Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>, Wolfram Sang <wsa@kernel.org>,
- linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- James Schulman <james.schulman@cirrus.com>, linux-kernel@vger.kernel.org
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, jglisse@google.com,
+ arjunroy@google.com, m.szyprowski@samsung.com, linux-arch@vger.kernel.org,
+ qianweili@huawei.com, linux-samsung-soc@vger.kernel.org,
+ aneesh.kumar@linux.ibm.com, chenhuacai@kernel.org, kasan-dev@googlegroups.com,
+ linux-acpi@vger.kernel.org, rientjes@google.com,
+ xen-devel@lists.xenproject.org, devel@lists.orangefs.org, robdclark@gmail.com,
+ minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
+ etnaviv@lists.freedesktop.org, npiggin@gmail.com, alex.williamson@redhat.com,
+ viro@zeniv.linux.org.uk, luto@kernel.org, gthelen@google.com,
+ tglx@linutronix.de, ldufour@linux.ibm.com, linux-sgx@vger.kernel.org,
+ martin.petersen@oracle.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-media@vger.kernel.org,
+ freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
+ linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
+ dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
+ edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
+ gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
+ jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
+ mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
+ hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
+ linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ davem@davemloft.net, mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
+ peterz@infradead.org, bigeasy@linutronix.de, alexandre.torgue@foss.st.com,
+ dhowells@redhat.com, linux-mm@kvack.org, ray.huang@amd.com,
+ adilger.kernel@dilger.ca, kuba@kernel.org, sparclinux@vger.kernel.org,
+ airlied@gmail.com, anton.ivanov@cambridgegreys.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
+ x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
+ jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
+ liam.howlett@oracle.com, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
+ dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
+ lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
+ kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
+ tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
+ johannes@sipsolutions.net, mgorman@techsingularity.net,
+ linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 26, 2023 at 02:03:35PM +0000, Mark Brown wrote:
-> On Thu, Jan 26, 2023 at 02:55:29PM +0100, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> > 
-> > While looking through legacy platform data users, I noticed that
-> > this one could never be used with DT based probing as the
-> > platform_data structure gets overwritten directly after it
-> > is initialized.
-> > 
-> > There have never been any boards defining the platform_data in
-> > the mainline kernel either, so this driver so far only worked
-> > with patched kernels.
+On Wed, Jan 25, 2023 at 12:38:51AM -0800, Suren Baghdasaryan wrote:
+> mmap_assert_write_locked() is used in vm_flags modifiers. Because
+> mmap_assert_write_locked() uses dump_mm() and vm_flags are sometimes
+> modified from from inside a module, it's necessary to export
+> dump_mm() function.
 > 
-> Or there is no mandatory properties/platform data and the
-> defaults are fine for most systems (which is a common case).
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-I think Arnd is right here, the driver appears to allocate a big
-block of zeros and then blat that over the top of everything it
-read from device tree. So you can literally never use any of the
-DT properties as it stands.
+Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
+> ---
+>  mm/debug.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/mm/debug.c b/mm/debug.c
+> index 9d3d893dc7f4..96d594e16292 100644
+> --- a/mm/debug.c
+> +++ b/mm/debug.c
+> @@ -215,6 +215,7 @@ void dump_mm(const struct mm_struct *mm)
+>  		mm->def_flags, &mm->def_flags
+>  	);
+>  }
+> +EXPORT_SYMBOL(dump_mm);
+>  
+>  static bool page_init_poisoning __read_mostly = true;
+>  
+> -- 
+> 2.39.1
+> 

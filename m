@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE01167CA56
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 12:56:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36A667CA72
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 13:02:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16AA4828;
-	Thu, 26 Jan 2023 12:55:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16AA4828
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECEBD1DB;
+	Thu, 26 Jan 2023 13:02:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECEBD1DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674734195;
-	bh=RW/1a8sYhBwIrTM8yXUWUmwOiDpdnm5AcV0o58n5OW8=;
+	s=default; t=1674734577;
+	bh=dQId4p7nxTR8eFZubKzKPubj+/XIr6DRlFpWy4UBq6U=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=bkghTb/+A1iubUahKhLz3N+18JqZQL+TMrxognvo9vS6PrITeqekFA+zqGN/Agtmi
-	 JsapgEvFYJDNluBiAOfSURiCN8M8G1LjWiI6yQmWjy1XMBo9zUOChL3Uf0wJdjdNG3
-	 DvaAnUtD2j7s4QTtkq/38SRW/QP8pX8L24Wgawq4=
+	b=dcbxwIoNnVntKiRHuEpt4UxfBx5kXW54CLB/D8AfMQmC9+LdXlgSeD8MY3VL1dZ6K
+	 ftyHPZ7rVx9gtL+9ryVR+EM4BbA/w7+CoeD+kctJ36+G8MCAIeg0T0cbGJ7twwFz96
+	 KnKAg0WNs3Eyr57D/Sw2ZlHkw3bYnfLlijBdN+bc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 341A3F802DF;
-	Thu, 26 Jan 2023 12:55:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A773F8016E;
+	Thu, 26 Jan 2023 13:01:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81AA5F8027D; Thu, 26 Jan 2023 12:55:34 +0100 (CET)
+ id 21C56F8027D; Thu, 26 Jan 2023 13:01:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F589F80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 12:55:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F589F80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C444F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 13:01:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C444F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=pTbd3ZJC
-Received: by mail-wr1-x436.google.com with SMTP id y1so1528456wru.2
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 03:55:28 -0800 (PST)
+ header.s=google header.b=Rswj04CG
+Received: by mail-wr1-x42d.google.com with SMTP id h12so1513749wrv.10
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 04:01:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5yP0BywDAnuuMbf+32a07Q6Ygejqs/wXSQRU+sh7FeI=;
- b=pTbd3ZJCw9QkBCVFBLLz7s12GMYqKUxPMsNWFVb0xVjETIqqg8a1SYtG7M4T4xtcYS
- EX8QJFOwqFCbF4E0kcBu3fdLUhbzHs0lYk5o1fHs+2wGBXTGxCp2pdy0MSwr3bfpOCtt
- iwwNN6tBZMLMDlXKZCOoy3whFNnGfh7ZWa0iJirmFc/FIPjpnrWEDYvBvv+OuU+LEfuw
- UFIOhyHGt4JmN3eq8hs9GR66BgK6PTw7RPxqWg0sp2hQBLBJgBvuidoojbaupcegM6Ha
- SJiLu8o8nzc+t2IC3ay3yYkX9x5EE2oy9l0eZ9hFy2QnDtBG9skdx+/M0a2JuSZ4u3u6
- GAmw==
+ bh=jxZC6LLZuJ2Wkp1f5+/EfRQ8da/gCgTKGWvHnHflOhU=;
+ b=Rswj04CGt0Ro3ujr1S3ZR7Y4N7ASGIziExdcXQQ1t0tAHoOBAp+Rv5Ajen5TTCq6Uz
+ V+gbLHslr8DIqj/sRgvvvf8NUzKPPd6cmc9xvD1L7rcVbwPmzDsw3cAt+hTyMsnIl2PM
+ rgekxtRTULXWNdJGG/boM6Zhy9E4nKwbd+2Nja0PJkbK/LewLdXrLTCKK7crMd27onpI
+ n8C54T/Wl9738vrpLNe2zjqr1R6cr0NVVjTzmHzTSL6zGTDH6BsMb/kPsihpsNZP6JV2
+ 4KMrSIN3h6M0XEtV1Vs7I6kkZoOtFnpJKm+11aqUHNkqsMd0Fezu0O+W/aj2Dutu8cc/
+ TFuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5yP0BywDAnuuMbf+32a07Q6Ygejqs/wXSQRU+sh7FeI=;
- b=bLP5JbYbN4P2xWxYEclcB1V755F1DqLhM44aC9gpgGZkPAb1Ndd7oLTWixqrRPSvwM
- ZnKOMBW0t0m5auUpNzAVI7VJtWYCzAkAHhQ3ULeZxBwKzDkwYMLJ8aNltLgAUCQ0HE8H
- 5WoTxGRC5K82qnCt3BlCNaR+MsBd8SN3e2CF3L3sSDDtCaOejiQ+E0NZVtlqXZAeZjMk
- RapaRQkqGuA8LifW0ESFOP6Hiw3LEKPbHyNmQk6ICn1e6a3S2RiHEkZ42+MCI6sCbr+J
- nk5AT7IefAt4b3WbXdoHymQ5ygBlQqaWlv15KK4TYfpoXz/0tfNC8ebvSp/cUFsMsZN5
- PM6Q==
-X-Gm-Message-State: AO0yUKXEwkkDWTKrhOPK+Gd6QwDAQBPzF5TwxxhnlzuLlAn1HQ8LSIo0
- t+d7Oc231PPNZhmCPwK0Tj0vjQ==
-X-Google-Smtp-Source: AK7set9qt9nTQzZdQh3JcvKhICbeSSBvdsDbg5AZQS8AybL0RpuPHM+dTgnRZcLj2lVpBsg2yesVVA==
-X-Received: by 2002:a5d:480b:0:b0:2bf:c748:b8bd with SMTP id
- l11-20020a5d480b000000b002bfc748b8bdmr1588634wrq.53.1674734126483; 
- Thu, 26 Jan 2023 03:55:26 -0800 (PST)
+ bh=jxZC6LLZuJ2Wkp1f5+/EfRQ8da/gCgTKGWvHnHflOhU=;
+ b=ieQ1b+st/xlnbGyhLOniD5JuIoAoAqO7zuYp84kKGfiPNuH/BcvEGtWiK5jVFVBfOG
+ HyPa/Zx7nGlUcnJSNS1XIXFCRXegs7aDS2RNyenmC5C3piho1WBwsR44pDG0DO/rO9x5
+ H7T5OzleCk8xB/nP61snNzOvMGD0LKh/AGywXjHOEhCFQUaOTaaXPgQhtWRmYYEdMPqp
+ fX4j6A79aZTFKtAQDPd/sKUbBLPiDu/EfNd5bgBusv7IJ8nAuvBo/6VUJOgr3ilr+OWY
+ 0Vxps4f/yQLZCVWyjHzIPG/ZcXKGut+K83pFud+h7+lh+SyjWI+eFdUSmsS5tr3cvhr3
+ 5/VQ==
+X-Gm-Message-State: AFqh2koWAZK9OWvG9zIgVGGukjPKRkifXb5SnCjAwfed60D6i3b4/II/
+ jLsx6UTGobE5AkS1rEbXqQFfZA==
+X-Google-Smtp-Source: AMrXdXvJKL26MJpG47M527MVT8QsOcuIjm1qzs/c5EZqKeKst2KGGu2u0oX9JCS35u+WUqsyvQMexQ==
+X-Received: by 2002:a5d:67d2:0:b0:2be:50a7:cfa9 with SMTP id
+ n18-20020a5d67d2000000b002be50a7cfa9mr20937182wrw.63.1674734506461; 
+ Thu, 26 Jan 2023 04:01:46 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- h4-20020adfaa84000000b002bfbf4c3f9fsm1149608wrc.17.2023.01.26.03.55.24
+ z2-20020a5d6542000000b00267bcb1bbe5sm1153739wrv.56.2023.01.26.04.01.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jan 2023 03:55:26 -0800 (PST)
-Message-ID: <62207c21-38f2-eb37-ea1d-2f6eef2202ff@linaro.org>
-Date: Thu, 26 Jan 2023 12:55:23 +0100
+ Thu, 26 Jan 2023 04:01:46 -0800 (PST)
+Message-ID: <05e55db1-5181-8025-8aee-e398200b047c@linaro.org>
+Date: Thu, 26 Jan 2023 13:01:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.0
-Subject: Re: [RFC PATCH v2 08/22] ASoC: dt-bindings: Add USB_RX port
+Subject: Re: [RFC PATCH v2 14/22] dt-bindings: usb: dwc3: Add
+ snps,num-hc-interrupters definition
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
@@ -92,9 +93,9 @@ To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
  bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
 References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-9-quic_wcheng@quicinc.com>
+ <20230126031424.14582-15-quic_wcheng@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230126031424.14582-9-quic_wcheng@quicinc.com>
+In-Reply-To: <20230126031424.14582-15-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -116,19 +117,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 26/01/2023 04:14, Wesley Cheng wrote:
-> Q6DSP supports handling of USB playback audio data if USB audio offloading
-> is enabled.  Add a new definition for the USB_RX AFE port, which is
-> referenced when the AFE port is started.
+> Add a new definition for specifying how many XHCI secondary interrupters
+> can be allocated.  XHCI in general can potentially support up to 1024
+> interrupters, which some uses may want to limit depending on how many
+> users utilize the interrupters.
 
-Subject prefix:
-ASoC: dt-bindings: qcom,q6dsp-lpass-ports:
+I cannot find in the code any user of this. Your next patch stores it,
+but which other patch uses stored value?
 
-because you are not adding USB_RX port to all bindings in ASoC.
+What I still don't get how is this exactly hardware property, not policy
+or driver choice.
 
-With subject fixes:
+> 
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>  Documentation/devicetree/bindings/usb/snps,dwc3.yaml | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
+> index 6d78048c4613..4faaec9655e0 100644
+> --- a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
+> @@ -349,6 +349,18 @@ properties:
+>      items:
+>        enum: [1, 4, 8, 16, 32, 64, 128, 256]
+>  
+> +  snps,num-hc-interrupters:
+> +    description:
+> +      Defines the maximum number of XHCI host controller interrupters that can
+> +      be supported.  The XHCI host controller has support to allocate multiple
+> +      event rings, which can be assigned to different clients/users.  The DWC3
+> +      controller has a maximum of 8 interrupters.  If this is not defined then
+> +      the value will be defaulted to 1.  This parameter is used only when
+> +      operating in host mode.
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    minimum: 1
+> +    maximum: 8
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+default: 1
 
+> +
+>    port:
+>      $ref: /schemas/graph.yaml#/properties/port
+>      description:
 
 Best regards,
 Krzysztof

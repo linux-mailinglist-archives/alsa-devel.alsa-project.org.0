@@ -2,102 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5240867CF4A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 16:08:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EC8C67E43E
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:54:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6236CFA;
-	Thu, 26 Jan 2023 16:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6236CFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C2F2EA0;
+	Fri, 27 Jan 2023 12:53:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C2F2EA0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674745708;
-	bh=a+pFolE6tDG9Wjx38cPMfU9oC1zEt3JhRSnG8mGodJM=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1674820479;
+	bh=YDpHb4C0LKggwnwgXJvjm4mKI3DnxF/Ca8mwP8kOu5U=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ZIvFsxLdQ7kP0MTp+9P+T0Fj8/+RdbF19huymmtcS2sLtv1qmL/pcYk4wxpjEU4sA
-	 ZLcnT71DLJOhZSOaq6eh0YLwQxu+HXUhUw8WImgRkV0rTjxPiwGvMgsWShM9nZWxWn
-	 1qPlc1yYLZrruIU7V46fSf44lvtOlD2VJGZgXM40=
+	b=CF/LLy12odvErDvZe0/oOml73f0U1O+igktJYUFJXSS8+IKB2pA68dV8nnaXK/0bS
+	 a8EBXX+Nas/o3Vhcxt5w1w5nR5WPO+VPTRV1dorsGYc7c1pzKeFbxZ7oC7p5EOIsEH
+	 NbpDdTTml9hzQqGF+71Xe99Zc3ZM9ni2dTrJe0dA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59708F802DF;
-	Thu, 26 Jan 2023 16:07:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A173F8057E;
+	Fri, 27 Jan 2023 12:51:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76AA3F8027D; Thu, 26 Jan 2023 16:07:27 +0100 (CET)
+ id 5050CF8027D; Thu, 26 Jan 2023 16:12:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED5ACF8016E
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 16:07:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED5ACF8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45353F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 16:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45353F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=AP1k9frV
-Received: by mail-wr1-x42d.google.com with SMTP id r2so2068922wrv.7
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 07:07:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6shoRYEs1CkIBPKDxWvhLJWSNRIDyTkyEk5S7uOgluA=;
- b=AP1k9frVvsdfdnmZAygMYo8DJf9kextQ2MpACcY3IfDm0ANg6d4ZscppLMqTlbNpRP
- 3JheQNYrc1ROPxLtXvA5No32Cv1bL6fa6coc8f3McDDgRd76L5IT13a5E9lss6gpBa41
- YMKfbfTB6ydbc6yBv1ixchrrR1zoNG+RU4USe3u6WQBDhj5zyyGkiFSX0yj3k8MHVdIE
- aDAbkpjM4mH0hv4WQ76+bonsutq6j+YvLa6lVAduvzrbHAGfORQj/JMeKGdEPgyfTAZ8
- kFSjXig39C5JpwCCCAvYUjNmOYuluRU9QxrjGB+hNB9qcHOxxwwuVA87Uy9q19OwzU50
- oKtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6shoRYEs1CkIBPKDxWvhLJWSNRIDyTkyEk5S7uOgluA=;
- b=3H0wuSqJRecGHjjDCRptAgt8F+2Ly5TsR758ocsFXdPLVvV8C3JNa4GRCfzhy92F8M
- IhpWCTv7O6AY79LnipOYXCRmIM3JnKcCrYtHBK05NzJSMlClLLP7Pal5AsrEFyFVjXuv
- C2rzksNxhvj96xdVg4RK09UoP9RCfYXecQRchvLxkjabPwzuu6ByC52A63UJt0o3NCmm
- eymmyrUpcCKnEcS3SM1iBoR4lbPf/1/qkl/ljcSOLl5jTaKhtFN08HyAfshEaSQ5eAyT
- Z1HhUGcsK0bIXCSTFEAmzqFq/jKcY3u34ULs2x5cbQ5VAMPhlnVlHJEGYELVPHHTUK8j
- 1FHQ==
-X-Gm-Message-State: AO0yUKUhNS/Y3+tghyeTDVQ7KAY6vS6FyHlJu0Lmxv+9Xc9tqODkz7mt
- fVsnAwd1ugTmR++veFIIviTGwQ==
-X-Google-Smtp-Source: AK7set++ifK6p01OSaQfZ1l5OYDHeOSNnZB8kV0o+dbOEpVVrbfxWlcNnqp/ATeDiqydrzActVThvg==
-X-Received: by 2002:a5d:554d:0:b0:2bf:c0d3:430c with SMTP id
- g13-20020a5d554d000000b002bfc0d3430cmr3283181wrw.11.1674745633963; 
- Thu, 26 Jan 2023 07:07:13 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- o1-20020adfcf01000000b002bfb6b9f55bsm1593197wrj.16.2023.01.26.07.07.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jan 2023 07:07:13 -0800 (PST)
-Message-ID: <2fe088e1-5183-0305-df58-ee045a7d9e6a@linaro.org>
-Date: Thu, 26 Jan 2023 15:07:11 +0000
+ secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
+ header.s=casper.20170209 header.b=iqmwaHjx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=EH9adbDOpWNaGYEHl4xrAV40gwHDwqK76tq84Z0eyXc=; b=iqmwaHjxa8hZXZrYCzuWMxG2Kd
+ gUi1Y8eYsd0omFHjfmpVdNaehwIHED+H1VzLiTscJu/MXykaHjjIUo4/UeePSQ/3qO2Scxl5KBcbs
+ rwafzWiMp0gW54lDXpQNTGojrzBrhUSE24qBNrz9Eu8wZKUKM+VJeNVRGRDui4Mjh6zNrJRA9uXJe
+ 2WKv1rttzI5041i+Ny9WQoRsYwvuy+Pu29+WLEfQrszB7lQZjKA+bZ/4URx7/yXNldScNG2l8YeYl
+ moQR7vt2oRKUKukioTBGNdLmNI+GiODuZUH9eGz4sLFdnhDHr8CijQAXVN9xNJqlnGwrCU0R4Kh9h
+ Kpe2WfSQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1pL3s4-006q4a-Hd; Thu, 26 Jan 2023 15:09:00 +0000
+Date: Thu, 26 Jan 2023 15:09:00 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Mike Rapoport <rppt@kernel.org>
+Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
+Message-ID: <Y9KXjLaFFUvqqdd4@casper.infradead.org>
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-2-surenb@google.com>
+ <Y9JFFYjfJf9uDijE@kernel.org> <Y9KTUw/04FmBVplw@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [RFC PATCH v2 09/22] ASoC: qcom: qdsp6: Introduce USB AFE port to
- q6dsp
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
- perex@perex.cz, lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, gregkh@linuxfoundation.org,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-10-quic_wcheng@quicinc.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230126031424.14582-10-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y9KTUw/04FmBVplw@kernel.org>
+X-Mailman-Approved-At: Fri, 27 Jan 2023 12:51:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,574 +80,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, jglisse@google.com,
+ arjunroy@google.com, m.szyprowski@samsung.com, linux-arch@vger.kernel.org,
+ qianweili@huawei.com, linux-samsung-soc@vger.kernel.org,
+ aneesh.kumar@linux.ibm.com, chenhuacai@kernel.org, kasan-dev@googlegroups.com,
+ linux-acpi@vger.kernel.org, rientjes@google.com,
+ xen-devel@lists.xenproject.org, devel@lists.orangefs.org, robdclark@gmail.com,
+ minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
+ etnaviv@lists.freedesktop.org, npiggin@gmail.com, alex.williamson@redhat.com,
+ viro@zeniv.linux.org.uk, luto@kernel.org, gthelen@google.com,
+ tglx@linutronix.de, ldufour@linux.ibm.com,
+ Suren Baghdasaryan <surenb@google.com>, linux-sgx@vger.kernel.org,
+ martin.petersen@oracle.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-media@vger.kernel.org,
+ freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
+ linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
+ dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
+ edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, gurua@google.com, dgilbert@interlog.com,
+ xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
+ quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
+ linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
+ sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
+ linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
+ kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
+ anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
+ mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ posk@google.com, lstoakes@gmail.com, peterjung1337@gmail.com,
+ yoshfuji@linux-ipv6.org, linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org,
+ kent.overstreet@linux.dev, kexec@lists.infradead.org, tiwai@suse.com,
+ krzysztof.kozlowski@linaro.org, tzimmermann@suse.de, hannes@cmpxchg.org,
+ dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
+ mgorman@techsingularity.net, linux-accelerators@lists.ozlabs.org,
+ l.stach@pengutronix.de
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Wesley for the work,
-
-Minor nits.
-
-On 26/01/2023 03:14, Wesley Cheng wrote:
-> The QC ADSP is able to support USB playback endpoints, so that the main
-> application processor can be placed into lower CPU power modes.  This adds
-> the required AFE port configurations and port start command to start an
-> audio session.
+On Thu, Jan 26, 2023 at 04:50:59PM +0200, Mike Rapoport wrote:
+> On Thu, Jan 26, 2023 at 11:17:09AM +0200, Mike Rapoport wrote:
+> > On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> > > +/* Use when VMA is not part of the VMA tree and needs no locking */
+> > > +static inline void init_vm_flags(struct vm_area_struct *vma,
+> > > +				 unsigned long flags)
+> > 
+> > I'd suggest to make it vm_flags_init() etc.
 > 
-> Specifically, the QC ADSP can support all potential endpoints that are
-> exposed by the audio data interface.  This includes, feedback endpoints
-> (both implicit and explicit) as well as the isochronous (data) endpoints.
-> The size of audio samples sent per USB frame (microframe) will be adjusted
-> based on information received on the feedback endpoint.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->   sound/soc/qcom/qdsp6/q6afe-dai.c         |  48 ++++++
->   sound/soc/qcom/qdsp6/q6afe.c             | 183 +++++++++++++++++++++++
->   sound/soc/qcom/qdsp6/q6afe.h             |  46 +++++-
->   sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c |  23 +++
->   sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h |   1 +
->   sound/soc/qcom/qdsp6/q6routing.c         |   8 +
->   6 files changed, 308 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-> index 8bb7452b8f18..0773a0882d9b 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-> @@ -111,6 +111,40 @@ static int q6hdmi_hw_params(struct snd_pcm_substream *substream,
->   	return 0;
->   }
->   
+> Thinking more about it, it will be even clearer to name these vma_flags_xyz()
 
-<---
-> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
-> +			   struct snd_pcm_hw_params *params,
-> +			   struct snd_soc_dai *dai)
-> +{
-> +	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
-> +	int channels = params_channels(params);
-> +	int rate = params_rate(params);
-> +	struct q6afe_usb_cfg *usb = &dai_data->port_config[dai->id].usb_audio;
-> +
-> +	usb->sample_rate = rate;
-> +	usb->num_channels = channels;
-> +
-> +	switch (params_format(params)) {
-> +	case SNDRV_PCM_FORMAT_U16_LE:
-> +	case SNDRV_PCM_FORMAT_S16_LE:
-> +	case SNDRV_PCM_FORMAT_SPECIAL:
-> +		usb->bit_width = 16;
-> +		break;
-> +	case SNDRV_PCM_FORMAT_S24_LE:
-> +	case SNDRV_PCM_FORMAT_S24_3LE:
-> +		usb->bit_width = 24;
-> +		break;
-> +	case SNDRV_PCM_FORMAT_S32_LE:
-> +		usb->bit_width = 32;
-> +		break;
-> +	default:
-> +		dev_err(dai->dev, "%s: invalid format %d\n",
-> +			__func__, params_format(params));
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
--->
-This one looks like duplicate of q6slim_hw_params, you could probably 
-use it.
+Perhaps vma_VERB_flags()?
 
-> +
->   static int q6i2s_hw_params(struct snd_pcm_substream *substream,
->   			   struct snd_pcm_hw_params *params,
->   			   struct snd_soc_dai *dai)
-> @@ -411,6 +445,10 @@ static int q6afe_dai_prepare(struct snd_pcm_substream *substream,
->   		q6afe_cdc_dma_port_prepare(dai_data->port[dai->id],
->   					   &dai_data->port_config[dai->id].dma_cfg);
->   		break;
-> +	case USB_RX:
-> +		q6afe_usb_port_prepare(dai_data->port[dai->id],
-> +					   &dai_data->port_config[dai->id].usb_audio);
+vma_init_flags()
+vma_reset_flags()
+vma_set_flags()
+vma_clear_flags()
+vma_mod_flags()
 
-indentation.
-
-> +		break;
->   	default:
->   		return -EINVAL;
->   	}
-> @@ -495,6 +533,8 @@ static int q6afe_mi2s_set_sysclk(struct snd_soc_dai *dai,
->   }
->   
->   static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
-> +	/* USB playback AFE port receives data for playback, hence use the RX port */
-> +	{"USB Playback", NULL, "USB_RX"},
-
-Normally we add new entries at the end of this list.
-
->   	{"HDMI Playback", NULL, "HDMI_RX"},
->   	{"Display Port Playback", NULL, "DISPLAY_PORT_RX"},
->   	{"Slimbus Playback", NULL, "SLIMBUS_0_RX"},
-> @@ -639,6 +679,12 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
->   	{"RX_CODEC_DMA_RX_7 Playback", NULL, "RX_CODEC_DMA_RX_7"},
->   };
->   
-> +static const struct snd_soc_dai_ops q6usb_ops = {
-> +	.prepare	= q6afe_dai_prepare,
-> +	.hw_params	= q6usb_hw_params,
-> +	.shutdown	= q6afe_dai_shutdown,
-> +};
-> +
->   static const struct snd_soc_dai_ops q6hdmi_ops = {
->   	.prepare	= q6afe_dai_prepare,
->   	.hw_params	= q6hdmi_hw_params,
-> @@ -703,6 +749,7 @@ static int msm_dai_q6_dai_remove(struct snd_soc_dai *dai)
->   }
->   
->   static const struct snd_soc_dapm_widget q6afe_dai_widgets[] = {
-> +	SND_SOC_DAPM_AIF_IN("USB_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
-
-same here.
-
->   	SND_SOC_DAPM_AIF_IN("HDMI_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
->   	SND_SOC_DAPM_AIF_IN("SLIMBUS_0_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
->   	SND_SOC_DAPM_AIF_IN("SLIMBUS_1_RX", NULL, 0, SND_SOC_NOPM, 0, 0),
-> @@ -1068,6 +1115,7 @@ static int q6afe_dai_dev_probe(struct platform_device *pdev)
->   	cfg.q6i2s_ops = &q6i2s_ops;
->   	cfg.q6tdm_ops = &q6tdm_ops;
->   	cfg.q6dma_ops = &q6dma_ops;
-> +	cfg.q6usb_ops = &q6usb_ops;
->   	dais = q6dsp_audio_ports_set_config(dev, &cfg, &num_dais);
->   
->   	return devm_snd_soc_register_component(dev, &q6afe_dai_component, dais, num_dais);
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-> index 919e326b9462..ca799fc3820e 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe.c
-> @@ -34,6 +34,8 @@
->   #define AFE_MODULE_TDM			0x0001028A
->   
->   #define AFE_PARAM_ID_CDC_SLIMBUS_SLAVE_CFG 0x00010235
-> +#define AFE_PARAM_ID_USB_AUDIO_DEV_PARAMS    0x000102A5
-> +#define AFE_PARAM_ID_USB_AUDIO_DEV_LPCM_FMT 0x000102AA
->   
->   #define AFE_PARAM_ID_LPAIF_CLK_CONFIG	0x00010238
->   #define AFE_PARAM_ID_INT_DIGITAL_CDC_CLK_CONFIG	0x00010239
-> @@ -43,6 +45,7 @@
->   #define AFE_PARAM_ID_TDM_CONFIG	0x0001029D
->   #define AFE_PARAM_ID_PORT_SLOT_MAPPING_CONFIG	0x00010297
->   #define AFE_PARAM_ID_CODEC_DMA_CONFIG	0x000102B8
-> +#define AFE_PARAM_ID_USB_AUDIO_CONFIG    0x000102A4
->   #define AFE_CMD_REMOTE_LPASS_CORE_HW_VOTE_REQUEST	0x000100f4
->   #define AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST   0x000100f5
->   #define AFE_CMD_REMOTE_LPASS_CORE_HW_DEVOTE_REQUEST	0x000100f6
-> @@ -71,12 +74,16 @@
->   #define AFE_PORT_CONFIG_I2S_WS_SRC_INTERNAL	0x1
->   #define AFE_LINEAR_PCM_DATA				0x0
->   
-> +#define AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG 0x1
->   
->   /* Port IDs */
->   #define AFE_API_VERSION_HDMI_CONFIG	0x1
->   #define AFE_PORT_ID_MULTICHAN_HDMI_RX	0x100E
->   #define AFE_PORT_ID_HDMI_OVER_DP_RX	0x6020
->   
-> +/* USB AFE port */
-> +#define AFE_PORT_ID_USB_RX                       0x7000
-> +
->   #define AFE_API_VERSION_SLIMBUS_CONFIG 0x1
->   /* Clock set API version */
->   #define AFE_API_VERSION_CLOCK_SET 1
-> @@ -512,12 +519,109 @@ struct afe_param_id_cdc_dma_cfg {
->   	u16	active_channels_mask;
->   } __packed;
->   
-> +struct afe_param_id_usb_cfg {
-> +/* Minor version used for tracking USB audio device configuration.
-> + * Supported values: AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + */
-> +	u32                  cfg_minor_version;
-> +/* Sampling rate of the port.
-> + * Supported values:
-> + * - AFE_PORT_SAMPLE_RATE_8K
-> + * - AFE_PORT_SAMPLE_RATE_11025
-> + * - AFE_PORT_SAMPLE_RATE_12K
-> + * - AFE_PORT_SAMPLE_RATE_16K
-> + * - AFE_PORT_SAMPLE_RATE_22050
-> + * - AFE_PORT_SAMPLE_RATE_24K
-> + * - AFE_PORT_SAMPLE_RATE_32K
-> + * - AFE_PORT_SAMPLE_RATE_44P1K
-> + * - AFE_PORT_SAMPLE_RATE_48K
-> + * - AFE_PORT_SAMPLE_RATE_96K
-> + * - AFE_PORT_SAMPLE_RATE_192K
-> + */
-> +	u32                  sample_rate;
-> +/* Bit width of the sample.
-> + * Supported values: 16, 24
-> + */
-> +	u16                  bit_width;
-> +/* Number of channels.
-> + * Supported values: 1 and 2
-> + */
-> +	u16                  num_channels;
-> +/* Data format supported by the USB. The supported value is
-> + * 0 (#AFE_USB_AUDIO_DATA_FORMAT_LINEAR_PCM).
-> + */
-> +	u16                  data_format;
-> +/* this field must be 0 */
-> +	u16                  reserved;
-> +/* device token of actual end USB aduio device */
-> +	u32                  dev_token;
-> +/* endianness of this interface */
-> +	u32                   endian;
-> +/* service interval */
-> +	u32                  service_interval;
-> +} __packed;
-> +
-> +/**
-> + * struct afe_param_id_usb_audio_dev_params
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @dev_token: device token of actual end USB aduio device
-> + **/
-> +struct afe_param_id_usb_audio_dev_params {
-> +	u32	cfg_minor_version;
-> +	u32	dev_token;
-> +} __packed;
-> +
-> +/**
-> + * struct afe_param_id_usb_audio_dev_lpcm_fmt
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @endian: endianness of this interface
-> + **/
-> +struct afe_param_id_usb_audio_dev_lpcm_fmt {
-> +	u32	cfg_minor_version;
-> +	u32	endian;
-> +} __packed;
-> +
-> +/**
-> + * struct afe_param_id_usb_audio_dev_latency_mode
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_LATENCY_MODE
-> + * @mode: latency mode for the USB audio device
-> + **/
-> +struct afe_param_id_usb_audio_dev_latency_mode {
-> +	u32	minor_version;
-> +	u32	mode;
-> +} __packed;
-> +
-> +#define AFE_PARAM_ID_USB_AUDIO_SVC_INTERVAL     0x000102B7
-> +
-> +/**
-> + * struct afe_param_id_usb_audio_svc_interval
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @svc_interval: service interval
-> + **/
-> +struct afe_param_id_usb_audio_svc_interval {
-> +	u32	cfg_minor_version;
-> +	u32	svc_interval;
-> +} __packed;
-> +
->   union afe_port_config {
->   	struct afe_param_id_hdmi_multi_chan_audio_cfg hdmi_multi_ch;
->   	struct afe_param_id_slimbus_cfg           slim_cfg;
->   	struct afe_param_id_i2s_cfg	i2s_cfg;
->   	struct afe_param_id_tdm_cfg	tdm_cfg;
->   	struct afe_param_id_cdc_dma_cfg	dma_cfg;
-> +	struct afe_param_id_usb_cfg usb_cfg;
->   } __packed;
->   
->   
-> @@ -577,6 +681,7 @@ struct afe_port_map {
->    */
->   
->   static struct afe_port_map port_maps[AFE_PORT_MAX] = {
-> +	[USB_RX] = { AFE_PORT_ID_USB_RX, USB_RX, 1, 1},
-
-same
-
->   	[HDMI_RX] = { AFE_PORT_ID_MULTICHAN_HDMI_RX, HDMI_RX, 1, 1},
->   	[SLIMBUS_0_RX] = { AFE_PORT_ID_SLIMBUS_MULTI_CHAN_0_RX,
->   				SLIMBUS_0_RX, 1, 1},
-> @@ -1289,6 +1394,82 @@ void q6afe_tdm_port_prepare(struct q6afe_port *port,
->   }
->   EXPORT_SYMBOL_GPL(q6afe_tdm_port_prepare);
->   
-> +static int afe_port_send_usb_dev_param(struct q6afe_port *port, struct q6afe_usb_cfg *cfg)
-> +{
-> +	union afe_port_config *pcfg = &port->port_cfg;
-> +	struct afe_param_id_usb_audio_dev_params usb_dev;
-> +	struct afe_param_id_usb_audio_dev_lpcm_fmt lpcm_fmt;
-> +	struct afe_param_id_usb_audio_svc_interval svc_int;
-> +	int ret = 0;
-> +
-> +	if (!pcfg) {
-> +		dev_err(port->afe->dev, "%s: Error, no configuration data\n", __func__);
-> +		ret = -EINVAL;
-> +		goto exit;
-> +	}
-> +
-> +	memset(&usb_dev, 0, sizeof(usb_dev));
-> +	memset(&lpcm_fmt, 0, sizeof(lpcm_fmt));
-> +
-> +	usb_dev.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-> +	q6afe_port_set_param_v2(port, &usb_dev,
-> +					AFE_PARAM_ID_USB_AUDIO_DEV_PARAMS,
-> +					AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(usb_dev));
-indentation.
-
-> +	if (ret) {
-> +		dev_err(port->afe->dev, "%s: AFE device param cmd failed %d\n",
-> +			__func__, ret);
-> +		goto exit;
-> +	}
-> +
-> +	lpcm_fmt.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-> +	lpcm_fmt.endian = pcfg->usb_cfg.endian;
-> +	ret = q6afe_port_set_param_v2(port, &lpcm_fmt,
-> +					AFE_PARAM_ID_USB_AUDIO_DEV_LPCM_FMT,
-> +					AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(lpcm_fmt));
-> +	if (ret) {
-> +		dev_err(port->afe->dev, "%s: AFE device param cmd LPCM_FMT failed %d\n",
-> +			__func__, ret);
-> +		goto exit;
-> +	}
-> +
-> +	svc_int.cfg_minor_version =
-> +		AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-
-this can go in 100 chars line.
-
-> +	svc_int.svc_interval = pcfg->usb_cfg.service_interval;
-> +	ret = q6afe_port_set_param_v2(port, &svc_int,
-> +					AFE_PARAM_ID_USB_AUDIO_SVC_INTERVAL,
-> +					AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(svc_int));
-> +	if (ret) {
-> +		dev_err(port->afe->dev, "%s: AFE device param cmd svc_interval failed %d\n",
-> +			__func__, ret);
-> +		ret = -EINVAL;
-> +		goto exit;
-> +	}
-> +exit:
-> +	return ret;
-> +}
-> +
-> +/**
-> + * q6afe_usb_port_prepare() - Prepare usb afe port.
-> + *
-> + * @port: Instance of afe port
-> + * @cfg: USB configuration for the afe port
-> + *
-> + */
-> +void q6afe_usb_port_prepare(struct q6afe_port *port,
-> +			     struct q6afe_usb_cfg *cfg)
-> +{
-> +	union afe_port_config *pcfg = &port->port_cfg;
-> +
-> +	pcfg->usb_cfg.cfg_minor_version =
-> +					AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-same here single line.
-
-> +	pcfg->usb_cfg.sample_rate = cfg->sample_rate;
-> +	pcfg->usb_cfg.num_channels = cfg->num_channels;
-> +	pcfg->usb_cfg.bit_width = cfg->bit_width;
-> +
-> +	afe_port_send_usb_dev_param(port, cfg);
-> +}
-> +EXPORT_SYMBOL_GPL(q6afe_usb_port_prepare);
-> +
->   /**
->    * q6afe_hdmi_port_prepare() - Prepare hdmi afe port.
->    *
-> @@ -1611,6 +1792,8 @@ struct q6afe_port *q6afe_port_get_from_id(struct device *dev, int id)
->   		break;
->   	case AFE_PORT_ID_WSA_CODEC_DMA_RX_0 ... AFE_PORT_ID_RX_CODEC_DMA_RX_7:
->   		cfg_type = AFE_PARAM_ID_CODEC_DMA_CONFIG;
-
-break seems to be missing.
-
-> +	case AFE_PORT_ID_USB_RX:
-> +		cfg_type = AFE_PARAM_ID_USB_AUDIO_CONFIG;
->   	break;
->   	default:
->   		dev_err(dev, "Invalid port id 0x%x\n", port_id);
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-> index 30fd77e2f458..88550a08e57d 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.h
-> +++ b/sound/soc/qcom/qdsp6/q6afe.h
-> @@ -5,7 +5,7 @@
->   
->   #include <dt-bindings/sound/qcom,q6afe.h>
->   
-> -#define AFE_PORT_MAX		129
-> +#define AFE_PORT_MAX		130
->   
->   #define MSM_AFE_PORT_TYPE_RX 0
->   #define MSM_AFE_PORT_TYPE_TX 1
-> @@ -205,6 +205,47 @@ struct q6afe_cdc_dma_cfg {
->   	u16	active_channels_mask;
->   };
->   
-> +/**
-> + * struct q6afe_usb_cfg
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @sample_rate: Sampling rate of the port
-> + *    Supported values:
-> + *      AFE_PORT_SAMPLE_RATE_8K
-> + *      AFE_PORT_SAMPLE_RATE_11025
-> + *      AFE_PORT_SAMPLE_RATE_12K
-> + *      AFE_PORT_SAMPLE_RATE_16K
-> + *      AFE_PORT_SAMPLE_RATE_22050
-> + *      AFE_PORT_SAMPLE_RATE_24K
-> + *      AFE_PORT_SAMPLE_RATE_32K
-> + *      AFE_PORT_SAMPLE_RATE_44P1K
-> + *      AFE_PORT_SAMPLE_RATE_48K
-> + *      AFE_PORT_SAMPLE_RATE_96K
-> + *      AFE_PORT_SAMPLE_RATE_192K
-> + * @bit_width: Bit width of the sample.
-> + *    Supported values: 16, 24
-> + * @num_channels: Number of channels
-> + *    Supported values: 1, 2
-> + * @data_format: Data format supported by the USB
-> + *    Supported values: 0
-> + * @reserved: this field must be 0
-> + * @dev_token: device token of actual end USB aduio device
-> + * @endian: endianness of this interface
-> + * @service_interval: service interval
-> + **/
-> +struct q6afe_usb_cfg {
-> +	u32	cfg_minor_version;
-> +	u32     sample_rate;
-> +	u16	bit_width;
-> +	u16	num_channels;
-> +	u16	data_format;
-> +	u16	reserved;
-> +	u32	dev_token;
-> +	u32	endian;
-> +	u32	service_interval;
-> +};
->   
->   struct q6afe_port_config {
->   	struct q6afe_hdmi_cfg hdmi;
-> @@ -212,6 +253,7 @@ struct q6afe_port_config {
->   	struct q6afe_i2s_cfg i2s_cfg;
->   	struct q6afe_tdm_cfg tdm;
->   	struct q6afe_cdc_dma_cfg dma_cfg;
-> +	struct q6afe_usb_cfg usb_audio;
->   };
->   
->   struct q6afe_port;
-> @@ -221,6 +263,8 @@ int q6afe_port_start(struct q6afe_port *port);
->   int q6afe_port_stop(struct q6afe_port *port);
->   void q6afe_port_put(struct q6afe_port *port);
->   int q6afe_get_port_id(int index);
-> +void q6afe_usb_port_prepare(struct q6afe_port *port,
-> +			     struct q6afe_usb_cfg *cfg);
->   void q6afe_hdmi_port_prepare(struct q6afe_port *port,
->   			    struct q6afe_hdmi_cfg *cfg);
->   void q6afe_slim_port_prepare(struct q6afe_port *port,
-> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
-> index f67c16fd90b9..39719c3f1767 100644
-> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
-> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
-> @@ -81,6 +81,26 @@
->   
->   
->   static struct snd_soc_dai_driver q6dsp_audio_fe_dais[] = {
-> +	{
-> +		.playback = {
-> +			.stream_name = "USB Playback",
-> +			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |
-> +					SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |
-> +					SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
-> +					SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
-> +					SNDRV_PCM_RATE_192000,
-> +			.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S16_BE |
-> +					SNDRV_PCM_FMTBIT_U16_LE | SNDRV_PCM_FMTBIT_U16_BE |
-> +					SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S24_BE |
-> +					SNDRV_PCM_FMTBIT_U24_LE | SNDRV_PCM_FMTBIT_U24_BE,
-> +			.channels_min = 1,
-> +			.channels_max = 2,
-> +			.rate_min =	8000,
-> +			.rate_max = 192000,
-> +		},
-> +		.id = USB_RX,
-> +		.name = "USB_RX",
-> +	},
->   	{
->   		.playback = {
->   			.stream_name = "HDMI Playback",
-> @@ -616,6 +636,9 @@ struct snd_soc_dai_driver *q6dsp_audio_ports_set_config(struct device *dev,
->   		case WSA_CODEC_DMA_RX_0 ... RX_CODEC_DMA_RX_7:
->   			q6dsp_audio_fe_dais[i].ops = cfg->q6dma_ops;
->   			break;
-> +		case USB_RX:
-> +			q6dsp_audio_fe_dais[i].ops = cfg->q6usb_ops;
-> +			break;
->   		default:
->   			break;
->   		}
-> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
-> index 7f052c8a1257..d8dde6dd0aca 100644
-> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
-> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.h
-> @@ -11,6 +11,7 @@ struct q6dsp_audio_port_dai_driver_config {
->   	const struct snd_soc_dai_ops *q6i2s_ops;
->   	const struct snd_soc_dai_ops *q6tdm_ops;
->   	const struct snd_soc_dai_ops *q6dma_ops;
-> +	const struct snd_soc_dai_ops *q6usb_ops;
->   };
->   
->   struct snd_soc_dai_driver *q6dsp_audio_ports_set_config(struct device *dev,
-> diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-> index 928fd23e2c27..683ae2ae8e50 100644
-> --- a/sound/soc/qcom/qdsp6/q6routing.c
-> +++ b/sound/soc/qcom/qdsp6/q6routing.c
-> @@ -514,6 +514,9 @@ static int msm_routing_put_audio_mixer(struct snd_kcontrol *kcontrol,
->   	return 1;
->   }
->   
-> +static const struct snd_kcontrol_new usb_mixer_controls[] = {
-> +	Q6ROUTING_RX_MIXERS(USB_RX) };
-> +
->   static const struct snd_kcontrol_new hdmi_mixer_controls[] = {
->   	Q6ROUTING_RX_MIXERS(HDMI_RX) };
->   
-> @@ -733,6 +736,10 @@ static const struct snd_kcontrol_new mmul8_mixer_controls[] = {
->   
->   static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
->   	/* Mixer definitions */
-> +	SND_SOC_DAPM_MIXER("USB Mixer", SND_SOC_NOPM, 0, 0,
-> +			   usb_mixer_controls,
-> +			   ARRAY_SIZE(usb_mixer_controls)),
-> +
-at the end of the list.
->   	SND_SOC_DAPM_MIXER("HDMI Mixer", SND_SOC_NOPM, 0, 0,
->   			   hdmi_mixer_controls,
->   			   ARRAY_SIZE(hdmi_mixer_controls)),
-> @@ -952,6 +959,7 @@ static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
->   };
->   
->   static const struct snd_soc_dapm_route intercon[] = {
-> +	Q6ROUTING_RX_DAPM_ROUTE("USB Mixer", "USB_RX"),
-same.
-
->   	Q6ROUTING_RX_DAPM_ROUTE("HDMI Mixer", "HDMI_RX"),
->   	Q6ROUTING_RX_DAPM_ROUTE("DISPLAY_PORT_RX Audio Mixer",
->   				"DISPLAY_PORT_RX"),
-
---srini

@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3602D67CBF4
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 14:23:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C9C67CCF9
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 14:57:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA347868;
-	Thu, 26 Jan 2023 14:22:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA347868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27646E97;
+	Thu, 26 Jan 2023 14:56:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27646E97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674739398;
-	bh=PFjk7Lwomgg5i2CpzGsGjt10RBQ/x3BeqMztijLbhMw=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=ImcRuc8exAOpkYCMHPECjZSyyLIlsVeg9aPPY2gZ5ax3wdP2XG+XMwjCt+evaV5qP
-	 Loj1StfyFE9ShnTqDWbRGVyNZJJPAZKh+eLf5mdAv++fK+/uoJ8zKJLFkHtbnEBElb
-	 EsPVpd371furXIAg3hzkU2SmKAtk6eYTG+nAcCfg=
+	s=default; t=1674741434;
+	bh=+zcnVOvMv0ffroVlt9v3selx4PLrSDPJU27GIQqf5CI=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=TcaYSbJTLMcr8KGGEO3dx2il06wTwqkpc+0vRr5geBVnlU8jh3Ccs74bj+HIi3yug
+	 W+A49H1+zWUFZ03/Y0punxvoS+Go1fw8CIN7MapAFjZMu89Yq1Iy/OrPuTMZaJ34b6
+	 /YdkDf6F+H3pT2Tl8SQoOCIbcUA3iRvaGwdm4tD8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18B0CF800AE;
-	Thu, 26 Jan 2023 14:22:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B251EF802DF;
+	Thu, 26 Jan 2023 14:56:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8507F8027D; Thu, 26 Jan 2023 14:22:17 +0100 (CET)
+ id 158E8F8027D; Thu, 26 Jan 2023 14:56:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81A7DF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 14:22:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81A7DF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81ABAF800AE
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 14:56:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81ABAF800AE
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=L1rfx53K
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 23F5C6602E70;
- Thu, 26 Jan 2023 13:22:12 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1674739332;
- bh=PFjk7Lwomgg5i2CpzGsGjt10RBQ/x3BeqMztijLbhMw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=L1rfx53K/+HWdvL1cFrlzGxZv387Xj8Ya90h3fuTz4wMoksDSXelcJszna55ZhRbL
- g4USt4nnYYxPHhEAHfCu8fQxK6Q8cfPl+A1FEMKC1MUNkbEBBYVhYcbM8hsLjRQmtc
- J0aHr59lUYz6GUfuZrH5I6yJAoJtJEV1kr0aGGPtn94D9nwsBgUYIRvQ31PffMO8HF
- EkgrUEk2lau+3IpH6suc9ngYFTg6cp5dWk7CbOnYXPbiTCRuHZdmcikQmU8lD5e12P
- 7kFZniCswiQV0vwKifCAMoeMwEEnuTWVZ+GzvOCW11ZOkxyvrHGkZy8ULBaUAyBpfp
- a0PFtoVdaPJmA==
-Message-ID: <6f376bb9-2f44-b705-6843-795c0c1da742@collabora.com>
-Date: Thu, 26 Jan 2023 14:22:09 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=J+zABWma
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BB33CB81DBE;
+ Thu, 26 Jan 2023 13:56:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526B0C433EF;
+ Thu, 26 Jan 2023 13:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674741359;
+ bh=+zcnVOvMv0ffroVlt9v3selx4PLrSDPJU27GIQqf5CI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=J+zABWmav20VRHzPY06ARHMEbCGnJ0Uw/wiRy/BiN4s57VOAn9bMYGW97ll3NRNth
+ BbowmeIp/RsueWsVjFiO/oWS0EfEUTZrp1dw4vA9DAWvJNb4zVB2FPFcKo4VNnuB75
+ vtounBE55vnd87GjrqyqQ4aGNfFZqVPGZYEK33RjPntUPOg2npp4aZbpmerJweEcjP
+ i5LgP7E8yldMVmt3+LVvgEjxBUB4d0YG1D+6w0VogOl9MpWtpDK/tWYs4WGL5Vi7UN
+ s+YBYjxTxFGigs4H2uaJgcyIYVHQEMKn4+thdjtTfInYHnxdpMaHUsEVSilbHEobEi
+ esTwUg22PgY7g==
+From: Arnd Bergmann <arnd@kernel.org>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs42l56: fix DT probe
+Date: Thu, 26 Jan 2023 14:55:29 +0100
+Message-Id: <20230126135552.3625887-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] ASoC: mediatek: mt8188: remove some dead code
-Content-Language: en-US
-To: Dan Carpenter <error27@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>
-References: <Y9JHSwcfdNcfMjjt@kili>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <Y9JHSwcfdNcfMjjt@kili>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,17 +80,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Yang Li <yang.lee@linux.alibaba.com>, Trevor Wu <trevor.wu@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Wolfram Sang <wsa@kernel.org>, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Il 26/01/23 10:26, Dan Carpenter ha scritto:
-> We know that "irq < 0", so delete the unnecessary check.
-> 
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+While looking through legacy platform data users, I noticed that
+this one could never be used with DT based probing as the
+platform_data structure gets overwritten directly after it
+is initialized.
+
+There have never been any boards defining the platform_data in
+the mainline kernel either, so this driver so far only worked
+with patched kernels.
+
+For the benefit of possible downstream users, fix the DT probe
+by no longer overwriting the data.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/codecs/cs42l56.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
+index 26066682c983..3b0e715549c9 100644
+--- a/sound/soc/codecs/cs42l56.c
++++ b/sound/soc/codecs/cs42l56.c
+@@ -1191,18 +1191,12 @@ static int cs42l56_i2c_probe(struct i2c_client *i2c_client)
+ 	if (pdata) {
+ 		cs42l56->pdata = *pdata;
+ 	} else {
+-		pdata = devm_kzalloc(&i2c_client->dev, sizeof(*pdata),
+-				     GFP_KERNEL);
+-		if (!pdata)
+-			return -ENOMEM;
+-
+ 		if (i2c_client->dev.of_node) {
+ 			ret = cs42l56_handle_of_data(i2c_client,
+ 						     &cs42l56->pdata);
+ 			if (ret != 0)
+ 				return ret;
+ 		}
+-		cs42l56->pdata = *pdata;
+ 	}
+ 
+ 	if (cs42l56->pdata.gpio_nreset) {
+-- 
+2.39.0
 

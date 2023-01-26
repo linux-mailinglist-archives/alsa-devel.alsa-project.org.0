@@ -2,133 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A4F67C29D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 03:01:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1290B67C2A0
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 03:04:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C9EA207;
-	Thu, 26 Jan 2023 03:00:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C9EA207
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE21E204;
+	Thu, 26 Jan 2023 03:03:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE21E204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674698479;
-	bh=QAFK2/OGrzQvtJe4kLCFbb0eorBXpcd0AU0IWFPUpfo=;
-	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1674698652;
+	bh=Itw0ojualiGi3C+17wpMdN8ncrcEJ3kCo55ra8bfqgY=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=jyEfuIvj3n5MP85/FsJDVwgk4XtD8h9x9xTu3L5CMA/9ODAU/2Fn6SGBzWEiQVzrz
-	 Ff/YdUGOkH32PjnrUz+4CDdoXl9w3ItVjQILv6K7HGgQmW0KQ4Igm6Cq5EVtdy46jy
-	 hdfRB4jOzLH1Eay0pei9oFeniaCESWClm0vdNXsw=
+	b=bKJdbnCduoE+LWFm9imfHzCV5YZ4IGvxjTIowh9PoouDhS2BzHghUpw2NRGCWacyg
+	 tICEa6cIj3bT2zX24cgM2ARDyXiF4joVr1dDr6Lccj7Ln8A6QjzBntraY//ij2Hdsw
+	 cO5LR6wYLTOdcub+s7czT9A9ulicLgdC+yqseB7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 625B9F80163;
-	Thu, 26 Jan 2023 03:00:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D45FF800FB;
+	Thu, 26 Jan 2023 03:02:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B03BFF80424; Thu, 26 Jan 2023 03:00:19 +0100 (CET)
+ id 2ACB5F804F3; Thu, 26 Jan 2023 03:02:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.7 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
 Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2096.outbound.protection.outlook.com [40.107.255.96])
+ (mail-psaapc01on2045.outbound.protection.outlook.com [40.107.255.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C57A1F80163
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 03:00:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C57A1F80163
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=kqzeFXf6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3328AF800FB
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 03:02:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3328AF800FB
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HOUraXoGcHmb9mXWF+bKDlHcpsfubn7/7u4gPHMcOVQrP8K7zpIXvCUynsCxfkGlaV/i7nrS2NXZVZBV7/jWekk1joCNk4kxJq6/E/yiKeeAd7wy37hrnJ5BAkZ4d9/5VklI/drVtmvDC4geum65YPHkJnKpB4bSD49LvvanXaNxk2Ws3jcMq911Fgnx59q3qaAXUiBsxioLPDEAipzKYef+wuciaqVRdfWFooE68I/5Qs4niz0+qwLwn+07F3LU6wOUj6r6KLiH1b3dV/CPq+LUVZvrRK/nlxmpbJeJIprD3A3KbDaXkm/T0Aqx17dl8QihxFigCYE5yL65XV+g0w==
+ b=bPGsnTu4o9JeGXriHzIT81osgnD8Qvf6rqfUgDX6P/kQWlFKbW8fXxWilWIJc2qd0g2QDHDv22tolP3legcijkYa6nmnMhiB0eWwqm+510s1ih45NC9TUptEpHSymzoDT4cqsedfBE4/liQatxqTdoB/Zzz1+anBuskI9wxXBnc+fZ6qPxu6/XaoL2UtiSWFJBaul3tN0+iQOze8E/xynGIqTmGWLSEeqUSP1M/GaXyxyQOsjLB8fQhgxXiLhecVeYJYyGhorUtyiSHmn26bkYhnNlkULhc/dRU5YePk5XrwZlkRFGMtAhjeGYAynyjcV8v+oN+eyoJ3eGak+XObRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AYrmBJqpEpvx4B6JntZACiEW0Ne0DktWyhh/1w2+ZFQ=;
- b=nPjgOkA91iH0h9tJYUmNJ4LSnu7Ts+iM4VfCO/V3G1cs/Xhp+QfScKdgeag02BtzlUxKTxWVVLV3Dxrwt/JZY4s0lBNMhJSe7KYsMhD16ka5beAd3BZ02SPMuHxMXl0YQLTtMRycAbcWVxgtFcPZaGm2ZuTmZBMwSr47mi0n52zaCQhI0T4E7/WV+Q0WYXqC7WRXlUTeuvkfpesMyZ8m8gciU4vyzjarrwp+KKAgaaIgJzl/WmNpGxaXnauaEBh1Qq67xWq4j5VulmlJvuiJriFXbpNz1JtJf++i0hgK9847rzKVbOFOa649oPE77Q4Ip7d/QlwniFiozQP1FJX0MA==
+ bh=zwnYuGiolOHpIgCGkEY5L+JXakQRN9A/iNNsEQTH9yI=;
+ b=ZzY87RfGiNeH9B0OAaOMrTWQRBqW+xRSwMAozn1bAVnQI8MewKCV/8CaijoOK6wK/KxgUlKTc4viJ/NR0byYbvpr2XuwlubucdjYDBBzieslVldA51Rnq008k/+XtYuax+j8K7bE2mnO+HhzZE+j7eehGc9ITNVnbW1Il/l6UVAwDISueXa1VgQoEopRasLtV/+V+u14MM6Xa9AS2gBgCjS3PhKs+XzStwa7Pzu5u1xljBVBXrSJq8IGtfJcycPd75xxy6wuHYv3Awax+h1H3oM2CuyUcv0deQ2rVkJ564HAPcGIN4qvSsyyUqxrAn4Jv2fpQZyG2QX0n1oVzv5UsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AYrmBJqpEpvx4B6JntZACiEW0Ne0DktWyhh/1w2+ZFQ=;
- b=kqzeFXf6vxyU7iDiPvGpCROYJb+ATE9Y9jf320IJaL0BukRiLsz4BKWz3Llvilma0TonZDpe7Jl6L7e6PS0Jp1lroucM48IfJiv+W8lWaCXSFfYhT4Y9qKvEGBdHwAFxGhGw6DoPWg8bmBYcTlM1CT8/lwRYB3QAo+PCAudr/LU=
+ smtp.mailfrom=irondevice.com; dmarc=pass action=none
+ header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYCPR01MB10102.jpnprd01.prod.outlook.com (2603:1096:400:1ee::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22; Thu, 26 Jan
- 2023 02:00:00 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860%4]) with mapi id 15.20.6043.022; Thu, 26 Jan 2023
- 02:00:00 +0000
-Message-ID: <87zga6t5r4.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: dt-bindings: renesas: add R8A779G0 V4H
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 26 Jan 2023 01:59:59 +0000
-X-ClientProxiedBy: TYCPR01CA0179.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::14) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ header.d=none;dmarc=none action=none header.from=irondevice.com;
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM (2603:1096:100:7::23) by
+ PU4P216MB1256.KORP216.PROD.OUTLOOK.COM (2603:1096:301:a8::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.22; Thu, 26 Jan 2023 02:02:31 +0000
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3d9:7f82:fa73:e727]) by SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3d9:7f82:fa73:e727%7]) with mapi id 15.20.6043.021; Thu, 26 Jan 2023
+ 02:02:31 +0000
+From: Kiseok Jo <kiseok.jo@irondevice.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH v4 1/2] The Iron Device SMA1303 is a boosted Class-D audio
+ amplifier.
+Date: Thu, 26 Jan 2023 02:01:55 +0000
+Message-Id: <20230126020156.3252-3-kiseok.jo@irondevice.com>
+X-Mailer: git-send-email 2.20.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2PR03CA0006.apcprd03.prod.outlook.com
+ (2603:1096:100:55::18) To SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:100:7::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB10102:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ed50cc7-c3c3-4287-a103-08daff410803
+X-MS-TrafficTypeDiagnostic: SLXP216MB0077:EE_|PU4P216MB1256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8840bb06-9462-4ae8-3fda-08daff4161d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RdxsJNLqGjeymufT1PuNs3ZvyZegPhBlvgScEDP9ilRGt8F7iOPxH53iDnrhOfZfzsYWf1wgcVEpWFm+8pw5GBs9tPNEmWC8+GUDreyTi/B+QckZlgwDL7fsrOeE928/qIWooilCnkB1vVnPb3XT+lWbCU+syqbIFp4a6s9p/+fLibVdZ2o00IHXr9xhY9k9AaOAzc9wxtRPd+ifVNoFC/+/BhKcjpxx+xDOaln427GzQZP8cLWGc1VLa6Lqj2TCkKx9akhWs5qo8LL6TSsGOZ+ZtzGSDuEKJ6Zryqyj98NVlR0iMoQjm22lxY4pQR7kVtBgnoydtu8w+mIewhF2L2IeVLhbYuDdVDRa1wu/Xpy7iqIQsG1Yg2MujF9mOAE1cwS4aUtM3bLP0rgopuhkS4VfF3RO8Xy53Zar44DOxGHJ6W6FLZtxi7q7j56O5YvyzhD86kDedT+rbe7OgIiHiyZz6HtayFufftA1z1QjzRrOdiSnmBStaZFXWMvJ8SEHJGKxa3TJcKWRLz2l2dJoE0P8z6wv27xV2CVHlTWIvy2ZT8YyMgGb5y4EtIvazHvmOek1VoScE1ALPxisd9So1pN/XCELr1HUqNpzyxJARaCSdjuWVNfV/prYv/joI918ApKv2F9oD8Cjf63i4KjbJ6AOySbtr5T51bWQ7qSDxIEBVqMRSnc2Tv5duK2zm45o5AI7OpaSi1khNfcm8JAhKw==
+X-Microsoft-Antispam-Message-Info: 7Id999CQPDlHqesRf78JB8LI+UOmP2wMGf3Eb1Hkp2Q0TVw35akt/JnQ3SrCuFKs0MNVC/+Tig81uK8vZDCVeZTxx7Ef4iD6+d8sooAqaJoLvXyaoDqkqcL8MX5ODm3AUt0n+I1a58IrrSYU4YP+FUMiLDlI+/BasnCUXEJbPKVMVFQaPXXkponPXOYxJN60/aEf3zBptxsTaikoDiNayi6v+40YtWOR2q1SSCAsAk3tTYWM3LRnds0briMKO4jbjmgbctM5rBWnsN8Jw1uSjaSJRuKL4Ex6plBJc0F0ZkowAdG3a6T7NHLqLH5fcWjTrwJaTmtzayMt+gj6ZSPyQlgfcSD8Z5jE8uzTk9L+sHsxs+55VCTRAnFqQz3o/BraSQJUi9fqqG1CjT53RUEv8sCabsmkSO9n0iVrDibWKcc2R8CoNgMUXYAFS/o/4FmW8Bx+7HhJFp4NTJx/qLXJu9igILrkEff007v0jt9p1sHhu9FPb1rzV5Irev0+sUYHzRQTwnFNhZgiYivR2nToPeSRqiKXITUaoYWDzfHbeAN9f9KXiYk1e6Gi/CxrmvOqz47ebCGp6TtvRPVHU+q+2sNYRZ/299MEAxN4eIyPf0PZrhx9D6vm3It+9zrZGnsdGMyK2fXRukSyxd4gZxBw2IWBbiiNPv1CZC7KYmebszmmvDi6IY6JHYf7Aqp8sU7TcxwnpGgiuWFl4Ernko78gA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(366004)(39860400002)(346002)(376002)(136003)(451199018)(66476007)(66556008)(8936002)(41300700001)(4744005)(36756003)(5660300002)(2906002)(66946007)(8676002)(110136005)(478600001)(4326008)(52116002)(6486002)(38350700002)(38100700002)(86362001)(2616005)(316002)(186003)(26005)(6512007)(6506007);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:SLXP216MB0077.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230025)(396003)(39840400004)(376002)(346002)(136003)(366004)(451199018)(83380400001)(38350700002)(86362001)(36756003)(38100700002)(30864003)(5660300002)(44832011)(41300700001)(4326008)(66556008)(6916009)(66946007)(8676002)(66476007)(316002)(8936002)(2906002)(2616005)(6512007)(26005)(186003)(478600001)(6486002)(52116002)(6506007)(1076003)(6666004)(107886003)(579004)(559001);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?K6IuGElJ2X59f2jYjznQB4fWf/HVCd2H1qVRf22oG+tcfXLzI/oSiQ4bufA5?=
- =?us-ascii?Q?CGNDpGwyxtIBdiLvm/ZX65jIu88SJh6xQZ/JbUYJ2JfqS2p/nXPO77gXzu3W?=
- =?us-ascii?Q?QrkWcRfPrsx+8xDhJHrqVNprmahpBXOxkL7e+8EM1MzcLeHk/PjBuFeTQnaU?=
- =?us-ascii?Q?Ac++DtunPiO6y6iClCpAdivCuxMhroAhvURtHk4m3A8rlIicACtkyND2B8F9?=
- =?us-ascii?Q?sDBTQwiRFHkgVR9jES8PcrPjyM+IaFDmnRBE743y+FIehVmpL2YlK1GpsRcA?=
- =?us-ascii?Q?3BCuPhqN1EODje/gpGxavgHjl3NxAKmgM+jC7eF2Y6mQsfLmSLGVLrAL/quK?=
- =?us-ascii?Q?PERiwYEW9hP8+Sx/t8+9OBwRn/KbdYGF3wO0S28RT0EYxWjbvNSwkA+vvsdS?=
- =?us-ascii?Q?5oHonJu3r8lu+WR2lpjmCGfWnWpMetK8FExmHX5wSnd1WgibtBTKQjeTxaQf?=
- =?us-ascii?Q?4ugFyzHN04EEIOSY84nMibNKAqVi+gllkqisBS3yOY9zXvLLf+RqNWG3O5/7?=
- =?us-ascii?Q?Kmf06VjxkTY9K7otGHH+h7nKCsF4QGqsgmwvFkwzb1KRewS+Hl6gkt+BzKVa?=
- =?us-ascii?Q?S9DHWEOyu5lE74oAMjEr903Q47PjDjZ2z5mTSPxZLUqR9jdWN2CdRK9jxC/p?=
- =?us-ascii?Q?r4OBDDRGdXHQmeY2GJf9/uH2TmPWKJ5pJMSikOGYl6v6bId8lmXF9Ve74IRV?=
- =?us-ascii?Q?5wiXCgOOdbvaYb9hX+oabBQTB69IXrEYO0pmgLor6C77E6aNI9keRurSuVnF?=
- =?us-ascii?Q?1nMvbdrnZMfWuCsco1bULSkDiur/5loYWKpkAQayjqiv0Wx11HXXhwZrXmTl?=
- =?us-ascii?Q?jlo4xpP1L3oxAfT8VYHP6J2u6mcp6gd5xe9qDWGlB042OPG6CfCEO4SRevVu?=
- =?us-ascii?Q?nWjkdz+IIU6BbE5cpZa6+MTO3Q8yabYlt7FF45KegVYwgA+rgPUvJWVMK4Oh?=
- =?us-ascii?Q?/BVEqtPn4Tl/ihzGtvxxQCFTcPcdYhz3QOJV7/lXY2ICwHibEGigcewG955q?=
- =?us-ascii?Q?D3P4EO3TFfzRj5BdNsowWKrENMhnyI+V446l2cMQUlOFY0EADECaCO8vANyf?=
- =?us-ascii?Q?yI2K9zDEI/G/HajeWl9eg2OHm9OzMRMzgaQXjQGJBrW3Lxar6kvkoWiHPY8u?=
- =?us-ascii?Q?S/mdjb9U1riqOZKlHA5lg69uW0R2wu7r0cmFLgA/Q855FfyK1LUEzrrRila1?=
- =?us-ascii?Q?zeRMQwFW4hc+xBUceISyLUuToDi3CJpcDY6fS6fJdZc19WjGtW17jaMZEHVV?=
- =?us-ascii?Q?JJA4dkEyb2S5YTlre5Dg8j8YjdnphzWoi6cH1tSIJ0Sfr4bdZGeztPFJ+3V2?=
- =?us-ascii?Q?279EjZNq1UYAIHLSXxsc9VFSsio0Ct1WoZRkZW0hjaAko2bHRP/Rb520LS7t?=
- =?us-ascii?Q?EtUU/dCyHkyjJxpJNMyimvQiwUNc5ta4PcwlPaln14VzFenuaAEPb0Wwugma?=
- =?us-ascii?Q?W4M7wgkAMWqcjlVH3X3e42/ArwmVrlIFO0qK9SmYJn/X6zWGawu9Vr++/nvz?=
- =?us-ascii?Q?+lW1mHVVogmkTg7voOuEPxO4359jGxDQe5RDQqMb/BRAInn1oIl9ZaDyNZzP?=
- =?us-ascii?Q?FR4l8PYjyF076Cv2sgmmwC7aqyw+quceHbkqdt2KoAKvCcSgkgeuORIddomX?=
- =?us-ascii?Q?WqeUTr9LM6lFE8TX2/Hob9I=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ed50cc7-c3c3-4287-a103-08daff410803
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3PccqoHGvZYeVK6T1qQazVEMMTXWeGvz4sutCy4Xy/csOGzMl7/dE+/pP1Cg?=
+ =?us-ascii?Q?mOh/9rehwVJ42MSog5ixg3ia1lJx2rX5Q8/XYm1hZyrUyGovsJcX2zoQsCxA?=
+ =?us-ascii?Q?cVMTmLqgLOzcrWVtNO7ooh1jKK8gKhLmKA8hF8lHZnHBB0iz+DocnQzv0xT+?=
+ =?us-ascii?Q?QNnHtXrUbgXZ+cKIYTxAqN3ywqCCWWaMKABWfI4IM7A4erIeO7omhFJfLGVy?=
+ =?us-ascii?Q?y638hCKCUKETBQgHmwY3/appLgDkn3WsanvyG1MMKluxtMxkeV+m7C/OBJKl?=
+ =?us-ascii?Q?PyFoj79dHJZzqCVNEhHVyPm/n+QnedmTC6tEPz2C4Y94Ca3rieTjI+jLDQPs?=
+ =?us-ascii?Q?JGZVugmpxoc6F/r4tkmORrQgRNlYGZOhEw+tF8aTQMHcjM24BKEWmlbQSYft?=
+ =?us-ascii?Q?3pdrqlaDOUFxWrmQZT0yl6aaOm8wt60Ai4thgPvTePKXhXEt5qCprNU5KxhC?=
+ =?us-ascii?Q?mWFHpI0Vu07tkvc2iYqPp0nNV+J+XtMwJopYLCBlH2iSW9AKfXqcyS/MkZf3?=
+ =?us-ascii?Q?tWD3fXF9gy7HcMg54KKepK/eISbp3r5tuTQfuA/JqeOWqtCkLO6xys4ZDKLF?=
+ =?us-ascii?Q?rMvyc38R+CoBAy13WWAGVuY2HPNQyjpgx32rggwMaDaYiEqo07Z5M615Emg3?=
+ =?us-ascii?Q?qYTHMay+RqEcAFnrKIgP2lMUSQRetToXN0suuv/TE4+g+V3VgTT85mdFUXvO?=
+ =?us-ascii?Q?OCRaeIIqNKwf8XCYuSZ/cLK7/ZsfgmkjKa1/AxEsQmCL46iOi4mONh7OlSun?=
+ =?us-ascii?Q?AC8EWalnRVkxKEQEZ0Tlfjtlqde9y3nFLQaJGfCrgFpGKgQ4IHxIxZQiFzCj?=
+ =?us-ascii?Q?zrbJ3nwB2NipaTvvgT1yHpMqU6iZjiKEh33Z1/qUhng23jcWk2Hew0gFoSdo?=
+ =?us-ascii?Q?q85I30QQRmcZKxfMYRF/qxAwOoPGAxBYItnVn2vRYr6fYgy69GLjSc09iMh2?=
+ =?us-ascii?Q?W5cTGe/QmFZBgDqR7kdhR3+ggS8ZQxNqcuLg7I7OBuk3l+oaC5vFu0kWl417?=
+ =?us-ascii?Q?UWYcvSvS+dNYz1GIWE9cSU7UTnp6ZuTqfdPHqrnAS7tPkUcE67qJzZkBkA2G?=
+ =?us-ascii?Q?reJVUB/d9yiW4/TGtQX8Cjio1OWDQM3Ddfc/2XmHSZuK+taArMlwlAtea7Lq?=
+ =?us-ascii?Q?7RvuTJ+7sDhFQ2LUllNBpbWGHy+v78ngUsGe19wRzhNqTLL0l10bmF8Fz1uj?=
+ =?us-ascii?Q?Q5Fo4Bp+YJhIqGPlwYNFAehHWK8HDDPC/C+KgS5qrKAZZu5CCsfjITnPYqgX?=
+ =?us-ascii?Q?bA7//XCPmdjcv22/8nN4nLI5KCC0ardhssvQlMOg3h180O7jW1VHmruyepHQ?=
+ =?us-ascii?Q?5b8EbNQGz2Xv+uJxelTLLbq7P1AwXYw8yvlo/xmyMMS39+N5tyN4cd4V9Giu?=
+ =?us-ascii?Q?dNe3oJ5RC71/OxEal5pMjCiu/SVuV55VROjEpcikH6NtexDJ2A4Xi7ena7cV?=
+ =?us-ascii?Q?4H8LYZ9O4dcZVm8U96TnpcrTnOZVGBqvqhQ8ez+z6gkzjYze2bxe+mJcrTs7?=
+ =?us-ascii?Q?ejMV5363W6nWGas1m+LtTBp2XEeGc+lldqZS/xRppIbqb2FIoxslj8p562Uo?=
+ =?us-ascii?Q?LESi0cXXJldfRfWNJmaTDNVfrbyumrkjIpO5uc5XCpoTDZ9LfSRZjhgnIIIJ?=
+ =?us-ascii?Q?zA=3D=3D?=
+X-OriginatorOrg: irondevice.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8840bb06-9462-4ae8-3fda-08daff4161d5
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 02:00:00.0008 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 02:02:31.2231 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-Id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q+Koh81dEQhA5dMTCVZrtwUGj//y5lvq0SVUgE6gSuF0jNYuNpglsTjGMThAiJwYXYGBwSlwpqkWBmU427DFvVuxvOiyfXw/6SjMSg0+4n403LI7YnCOpLyXXqF9Cl+3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10102
+X-MS-Exchange-CrossTenant-UserPrincipalName: JTF2MoRRjfxOTnJaVyBxnK7GC694wlNo3Z78h5MGuQkaosU/GTn8PxX+XdtGBSaXAYCPNyx2CrgaVfLiy8AkT4fP2Jd0ImF06441n42igfU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU4P216MB1256
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,46 +133,2499 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, application@irondevice.com,
+ KiseokJo <kiseok.jo@irondevice.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: KiseokJo <kiseok.jo@irondevice.com>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-
-Document R-Car V4H (R8A779G0), and R-Car Gen4 SoC bindings.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: KiseokJo <kiseok.jo@irondevice.com>
+Reported-by: Mark Brown <broonie@kernel.org>
 ---
- .../devicetree/bindings/sound/renesas,rsnd.yaml          | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v2: Modified to match kernel coding style.
+v3: Fixed based on feedback.
+v4: Removed unnecessary content.
+---
+---
+ sound/soc/codecs/Kconfig   |    7 +
+ sound/soc/codecs/Makefile  |    2 +
+ sound/soc/codecs/sma1303.c | 1804 ++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/sma1303.h |  609 ++++++++++++
+ 4 files changed, 2422 insertions(+)
+ create mode 100644 sound/soc/codecs/sma1303.c
+ create mode 100644 sound/soc/codecs/sma1303.h
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index 679a246dd666..5319abdda8a2 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -49,12 +49,21 @@ properties:
-               - renesas,rcar_sound-r8a77995  # R-Car D3
-           - enum:
-               - renesas,rcar_sound-gen3
-+
-+      # for Gen4 SoC
-+      - items:
-+          - enum:
-+              - renesas,rcar_sound-r8a779g0  # R-Car V4H
-+          - enum:
-+              - renesas,rcar_sound-gen4
-+
-       # for Generic
-       - items:
-           - enum:
-               - renesas,rcar_sound-gen1
-               - renesas,rcar_sound-gen2
-               - renesas,rcar_sound-gen3
-+              - renesas,rcar_sound-gen4
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 6b4ee14640ab..6902628f0d10 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -206,6 +206,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_SI476X
+ 	imply SND_SOC_SIMPLE_AMPLIFIER
+ 	imply SND_SOC_SIMPLE_MUX
++	imply SND_SOC_SMA1303
+ 	imply SND_SOC_SPDIF
+ 	imply SND_SOC_SRC4XXX_I2C
+ 	imply SND_SOC_SSM2305
+@@ -1492,6 +1493,12 @@ config SND_SOC_SIMPLE_MUX
+ 	tristate "Simple Audio Mux"
+ 	depends on GPIOLIB
  
-   reg:
-     minItems: 1
++config SND_SOC_SMA1303
++	tristate "Iron Device SMA1303 Audio Amplifier"
++	depends on I2C
++	help
++	  Enable support for Iron Device SMA1303 Boosted Class-D amplifier
++
+ config SND_SOC_SPDIF
+ 	tristate "S/PDIF CODEC"
+ 
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 71d3ce5867e4..89ffd06e9290 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -233,6 +233,7 @@ snd-soc-sigmadsp-objs := sigmadsp.o
+ snd-soc-sigmadsp-i2c-objs := sigmadsp-i2c.o
+ snd-soc-sigmadsp-regmap-objs := sigmadsp-regmap.o
+ snd-soc-si476x-objs := si476x.o
++snd-soc-sma1303-objs := sma1303.o
+ snd-soc-spdif-tx-objs := spdif_transmitter.o
+ snd-soc-spdif-rx-objs := spdif_receiver.o
+ snd-soc-src4xxx-objs := src4xxx.o
+@@ -588,6 +589,7 @@ obj-$(CONFIG_SND_SOC_SIGMADSP)	+= snd-soc-sigmadsp.o
+ obj-$(CONFIG_SND_SOC_SIGMADSP_I2C)	+= snd-soc-sigmadsp-i2c.o
+ obj-$(CONFIG_SND_SOC_SIGMADSP_REGMAP)	+= snd-soc-sigmadsp-regmap.o
+ obj-$(CONFIG_SND_SOC_SI476X)	+= snd-soc-si476x.o
++obj-$(CONFIG_SND_SOC_SMA1303)	+= snd-soc-sma1303.o
+ obj-$(CONFIG_SND_SOC_SPDIF)	+= snd-soc-spdif-rx.o snd-soc-spdif-tx.o
+ obj-$(CONFIG_SND_SOC_SRC4XXX)	+= snd-soc-src4xxx.o
+ obj-$(CONFIG_SND_SOC_SRC4XXX_I2C)	+= snd-soc-src4xxx-i2c.o
+diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
+new file mode 100644
+index 000000000000..d3ee831e88f0
+--- /dev/null
++++ b/sound/soc/codecs/sma1303.c
+@@ -0,0 +1,1804 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++//
++// sma1303.c -- sma1303 ALSA SoC Audio driver
++//
++// Copyright 2023 Iron Device Corporation
++//
++// Auther: Gyuhwa Park <gyuhwa.park@irondevice.com>
++//         Kiseok Jo <kiseok.jo@irondevice.com>
++
++#include <linux/module.h>
++#include <linux/moduleparam.h>
++#include <linux/kernel.h>
++#include <linux/init.h>
++#include <linux/delay.h>
++#include <linux/pm.h>
++#include <linux/i2c.h>
++#include <linux/regmap.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/initval.h>
++#include <sound/tlv.h>
++#include <linux/of_device.h>
++#include <linux/slab.h>
++#include <asm/div64.h>
++
++#include "sma1303.h"
++
++#define CHECK_PERIOD_TIME 1 /* sec per HZ */
++#define MAX_CONTROL_NAME 48
++
++#define PLL_MATCH(_input_clk_name, _output_clk_name, _input_clk,\
++		_post_n, _n, _vco,  _p_cp)\
++{\
++	.input_clk_name		= _input_clk_name,\
++	.output_clk_name	= _output_clk_name,\
++	.input_clk		= _input_clk,\
++	.post_n			= _post_n,\
++	.n			= _n,\
++	.vco			= _vco,\
++	.p_cp		= _p_cp,\
++}
++
++enum sma1303_type {
++	SMA1303,
++};
++
++struct sma1303_pll_match {
++	char *input_clk_name;
++	char *output_clk_name;
++	unsigned int input_clk;
++	unsigned int post_n;
++	unsigned int n;
++	unsigned int vco;
++	unsigned int p_cp;
++};
++
++struct sma1303_priv {
++	enum sma1303_type devtype;
++	struct attribute_group *attr_grp;
++	struct delayed_work check_fault_work;
++	struct device *dev;
++	struct kobject *kobj;
++	struct regmap *regmap;
++	struct sma1303_pll_match *pll_matches;
++	bool amp_power_status;
++	bool force_mute_status;
++	int num_of_pll_matches;
++	int retry_cnt;
++	unsigned int amp_mode;
++	unsigned int cur_vol;
++	unsigned int format;
++	unsigned int frame_size;
++	unsigned int init_vol;
++	unsigned int last_bclk;
++	unsigned int last_ocp_val;
++	unsigned int last_over_temp;
++	unsigned int rev_num;
++	unsigned int sys_clk_id;
++	unsigned int tdm_slot_rx;
++	unsigned int tdm_slot_tx;
++	unsigned int tsdw_cnt;
++	long check_fault_period;
++	long check_fault_status;
++};
++
++static struct sma1303_pll_match sma1303_pll_matches[] = {
++PLL_MATCH("1.411MHz",  "24.595MHz", 1411200,  0x07, 0xF4, 0x8B, 0x03),
++PLL_MATCH("1.536MHz",  "24.576MHz", 1536000,  0x07, 0xE0, 0x8B, 0x03),
++PLL_MATCH("3.072MHz",  "24.576MHz", 3072000,  0x07, 0x70, 0x8B, 0x03),
++PLL_MATCH("6.144MHz",  "24.576MHz", 6144000,  0x07, 0x70, 0x8B, 0x07),
++PLL_MATCH("12.288MHz", "24.576MHz", 12288000, 0x07, 0x70, 0x8B, 0x0B),
++PLL_MATCH("19.2MHz",   "24.343MHz", 19200000, 0x07, 0x47, 0x8B, 0x0A),
++PLL_MATCH("24.576MHz", "24.576MHz", 24576000, 0x07, 0x70, 0x8B, 0x0F),
++};
++
++static int sma1303_startup(struct snd_soc_component *);
++static int sma1303_shutdown(struct snd_soc_component *);
++
++static const struct reg_default sma1303_reg_def[] = {
++	{ 0x00, 0x80 },
++	{ 0x01, 0x00 },
++	{ 0x02, 0x00 },
++	{ 0x03, 0x11 },
++	{ 0x04, 0x17 },
++	{ 0x09, 0x00 },
++	{ 0x0A, 0x31 },
++	{ 0x0B, 0x98 },
++	{ 0x0C, 0x84 },
++	{ 0x0D, 0x07 },
++	{ 0x0E, 0x3F },
++	{ 0x10, 0x00 },
++	{ 0x11, 0x00 },
++	{ 0x12, 0x00 },
++	{ 0x14, 0x5C },
++	{ 0x15, 0x01 },
++	{ 0x16, 0x0F },
++	{ 0x17, 0x0F },
++	{ 0x18, 0x0F },
++	{ 0x19, 0x00 },
++	{ 0x1A, 0x00 },
++	{ 0x1B, 0x00 },
++	{ 0x23, 0x19 },
++	{ 0x24, 0x00 },
++	{ 0x25, 0x00 },
++	{ 0x26, 0x04 },
++	{ 0x33, 0x00 },
++	{ 0x36, 0x92 },
++	{ 0x37, 0x27 },
++	{ 0x3B, 0x5A },
++	{ 0x3C, 0x20 },
++	{ 0x3D, 0x00 },
++	{ 0x3E, 0x03 },
++	{ 0x3F, 0x0C },
++	{ 0x8B, 0x07 },
++	{ 0x8C, 0x70 },
++	{ 0x8D, 0x8B },
++	{ 0x8E, 0x6F },
++	{ 0x8F, 0x03 },
++	{ 0x90, 0x26 },
++	{ 0x91, 0x42 },
++	{ 0x92, 0xE0 },
++	{ 0x94, 0x35 },
++	{ 0x95, 0x0C },
++	{ 0x96, 0x42 },
++	{ 0x97, 0x95 },
++	{ 0xA0, 0x00 },
++	{ 0xA1, 0x3B },
++	{ 0xA2, 0xC8 },
++	{ 0xA3, 0x28 },
++	{ 0xA4, 0x40 },
++	{ 0xA5, 0x01 },
++	{ 0xA6, 0x41 },
++	{ 0xA7, 0x00 },
++};
++
++static bool sma1303_readable_register(struct device *dev, unsigned int reg)
++{
++	bool result;
++
++	if (reg > SMA1303_FF_DEVICE_INDEX)
++		return false;
++
++	switch (reg) {
++	case SMA1303_00_SYSTEM_CTRL ... SMA1303_04_INPUT1_CTRL4:
++	case SMA1303_09_OUTPUT_CTRL ... SMA1303_0E_MUTE_VOL_CTRL:
++	case SMA1303_10_SYSTEM_CTRL1 ... SMA1303_12_SYSTEM_CTRL3:
++	case SMA1303_14_MODULATOR ... SMA1303_1B_BASS_SPK7:
++	case SMA1303_23_COMP_LIM1 ... SMA1303_26_COMP_LIM4:
++	case SMA1303_33_SDM_CTRL ... SMA1303_34_OTP_DATA1:
++	case SMA1303_36_PROTECTION  ... SMA1303_38_OTP_TRM0:
++	case SMA1303_3B_TEST1  ... SMA1303_3F_ATEST2:
++	case SMA1303_8B_PLL_POST_N ... SMA1303_92_FDPEC_CTRL:
++	case SMA1303_94_BOOST_CTRL1 ... SMA1303_97_BOOST_CTRL4:
++	case SMA1303_A0_PAD_CTRL0 ... SMA1303_A7_CLK_MON:
++	case SMA1303_FA_STATUS1 ... SMA1303_FB_STATUS2:
++		result = true;
++		break;
++	case SMA1303_FF_DEVICE_INDEX:
++		result = true;
++		break;
++	default:
++		result = false;
++		break;
++	}
++	return result;
++}
++
++static bool sma1303_writeable_register(struct device *dev, unsigned int reg)
++{
++	bool result;
++
++	if (reg > SMA1303_FF_DEVICE_INDEX)
++		return false;
++
++	switch (reg) {
++	case SMA1303_00_SYSTEM_CTRL ... SMA1303_04_INPUT1_CTRL4:
++	case SMA1303_09_OUTPUT_CTRL ... SMA1303_0E_MUTE_VOL_CTRL:
++	case SMA1303_10_SYSTEM_CTRL1 ... SMA1303_12_SYSTEM_CTRL3:
++	case SMA1303_14_MODULATOR ... SMA1303_1B_BASS_SPK7:
++	case SMA1303_23_COMP_LIM1 ... SMA1303_26_COMP_LIM4:
++	case SMA1303_33_SDM_CTRL:
++	case SMA1303_36_PROTECTION  ... SMA1303_37_SLOPE_CTRL:
++	case SMA1303_3B_TEST1  ... SMA1303_3F_ATEST2:
++	case SMA1303_8B_PLL_POST_N ... SMA1303_92_FDPEC_CTRL:
++	case SMA1303_94_BOOST_CTRL1 ... SMA1303_97_BOOST_CTRL4:
++	case SMA1303_A0_PAD_CTRL0 ... SMA1303_A7_CLK_MON:
++		result = true;
++		break;
++	default:
++		result = false;
++		break;
++	}
++	return result;
++}
++
++static bool sma1303_volatile_register(struct device *dev, unsigned int reg)
++{
++	bool result;
++
++	switch (reg) {
++	case SMA1303_FA_STATUS1 ... SMA1303_FB_STATUS2:
++		result = true;
++		break;
++	case SMA1303_FF_DEVICE_INDEX:
++		result = true;
++		break;
++	default:
++		result = false;
++		break;
++	}
++	return result;
++}
++
++static const DECLARE_TLV_DB_SCALE(sma1303_spk_tlv, -6000, 50, 0);
++
++static int sma1303_regmap_write(struct sma1303_priv *sma1303,
++				unsigned int reg, unsigned int val)
++{
++	int ret = 0;
++	int cnt = sma1303->retry_cnt;
++
++	while (cnt--) {
++		ret = regmap_write(sma1303->regmap, reg, val);
++		if (ret < 0) {
++			dev_err(sma1303->dev,
++					"Failed to write [0x%02X]\n", reg);
++		} else
++			break;
++	}
++	return ret;
++}
++
++static int sma1303_regmap_update_bits(struct sma1303_priv *sma1303,
++	unsigned int reg, unsigned int mask, unsigned int val, bool *change)
++{
++	int ret = 0;
++	int cnt = sma1303->retry_cnt;
++
++	while (cnt--) {
++		ret = regmap_update_bits_check(sma1303->regmap, reg,
++				mask, val, change);
++		if (ret < 0) {
++			dev_err(sma1303->dev,
++					"Failed to update [0x%02X]\n", reg);
++		} else
++			break;
++	}
++	return ret;
++}
++
++static int sma1303_regmap_read(struct sma1303_priv *sma1303,
++			unsigned int reg, unsigned int *val)
++{
++	int ret = 0;
++	int cnt = sma1303->retry_cnt;
++
++	while (cnt--) {
++		ret = regmap_read(sma1303->regmap, reg, val);
++		if (ret < 0) {
++			dev_err(sma1303->dev,
++					"Failed to read [0x%02X]\n", reg);
++		} else
++			break;
++	}
++	return ret;
++}
++
++static const char * const sma1303_aif_in_source_text[] = {
++	"Mono", "Left", "Right"};
++static const char * const sma1303_aif_out_source_text[] = {
++	"Disable", "After_FmtC", "After_Mixer", "After_DSP", "After_Post",
++		"Clk_PLL", "Clk_OSC"};
++
++static const struct soc_enum sma1303_aif_in_source_enum =
++	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(sma1303_aif_in_source_text),
++			sma1303_aif_in_source_text);
++static const struct soc_enum sma1303_aif_out_source_enum =
++	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(sma1303_aif_out_source_text),
++			sma1303_aif_out_source_text);
++
++static int sma1303_force_mute_get(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = (int)sma1303->force_mute_status;
++	dev_dbg(sma1303->dev, "%s : Force Mute %s\n", __func__,
++			sma1303->force_mute_status ? "ON" : "OFF");
++
++	return 0;
++}
++
++static int sma1303_force_mute_put(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	bool change = false, val = (bool)ucontrol->value.integer.value[0];
++
++	if (sma1303->force_mute_status == val)
++		change = false;
++	else {
++		change = true;
++		sma1303->force_mute_status = val;
++	}
++	dev_dbg(sma1303->dev, "%s : Force Mute %s\n", __func__,
++			sma1303->force_mute_status ? "ON" : "OFF");
++
++	return change;
++}
++
++static int sma1303_postscaler_get(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int val, ret;
++
++	ret = sma1303_regmap_read(sma1303, SMA1303_90_POSTSCALER, &val);
++	if (ret < 0)
++		return -EINVAL;
++
++	ucontrol->value.integer.value[0] = (val & 0x7E) >> 1;
++
++	return 0;
++}
++
++static int sma1303_postscaler_put(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret, val = (int)ucontrol->value.integer.value[0];
++	bool change;
++
++	ret = sma1303_regmap_update_bits(sma1303,
++			SMA1303_90_POSTSCALER, 0x7E, (val << 1), &change);
++	if (ret < 0)
++		return -EINVAL;
++
++	return change;
++}
++
++static int sma1303_startup(struct snd_soc_component *component)
++{
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	bool change = false, temp = false;
++
++	sma1303_regmap_update_bits(sma1303, SMA1303_8E_PLL_CTRL,
++			SMA1303_PLL_PD2_MASK, SMA1303_PLL_OPERATION2, &temp);
++	if (temp == true)
++		change = true;
++
++	sma1303_regmap_update_bits(sma1303, SMA1303_00_SYSTEM_CTRL,
++			SMA1303_POWER_MASK, SMA1303_POWER_ON, &temp);
++	if (temp == true)
++		change = true;
++
++	if (sma1303->amp_mode == SMA1303_MONO) {
++		sma1303_regmap_update_bits(sma1303,
++				SMA1303_10_SYSTEM_CTRL1,
++				SMA1303_SPK_MODE_MASK,
++				SMA1303_SPK_MONO,
++				&temp);
++		if (temp == true)
++			change = true;
++
++	} else {
++		sma1303_regmap_update_bits(sma1303,
++				SMA1303_10_SYSTEM_CTRL1,
++				SMA1303_SPK_MODE_MASK,
++				SMA1303_SPK_STEREO,
++				&temp);
++		if (temp == true)
++			change = true;
++	}
++
++	if (sma1303->check_fault_status) {
++		if (sma1303->check_fault_period > 0)
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					sma1303->check_fault_period * HZ);
++		else
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					CHECK_PERIOD_TIME * HZ);
++	}
++
++	sma1303->amp_power_status = true;
++
++	return change;
++}
++
++static int sma1303_shutdown(struct snd_soc_component *component)
++{
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	bool change = false, temp = false;
++
++	cancel_delayed_work_sync(&sma1303->check_fault_work);
++
++	sma1303_regmap_update_bits(sma1303, SMA1303_10_SYSTEM_CTRL1,
++			SMA1303_SPK_MODE_MASK, SMA1303_SPK_OFF, &temp);
++	if (temp == true)
++		change = true;
++
++	sma1303_regmap_update_bits(sma1303, SMA1303_00_SYSTEM_CTRL,
++			SMA1303_POWER_MASK, SMA1303_POWER_OFF, &temp);
++	if (temp == true)
++		change = true;
++	sma1303_regmap_update_bits(sma1303, SMA1303_8E_PLL_CTRL,
++			SMA1303_PLL_PD2_MASK, SMA1303_PLL_PD2, &temp);
++	if (temp == true)
++		change = true;
++
++	sma1303->amp_power_status = false;
++
++	return change;
++}
++
++static int sma1303_aif_in_event(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++			snd_soc_dapm_to_component(w->dapm);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	unsigned int mux = dapm_kcontrol_get_value(w->kcontrols[0]);
++	int ret = 0;
++	bool change = false, temp = false;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		switch (mux) {
++		case 0:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_11_SYSTEM_CTRL2,
++					SMA1303_MONOMIX_MASK,
++					SMA1303_MONOMIX_ON,
++					&change);
++			sma1303->amp_mode = SMA1303_MONO;
++			break;
++		case 1:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_11_SYSTEM_CTRL2,
++					SMA1303_MONOMIX_MASK,
++					SMA1303_MONOMIX_OFF,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_11_SYSTEM_CTRL2,
++					SMA1303_LR_DATA_SW_MASK,
++					SMA1303_LR_DATA_SW_NORMAL,
++					&temp);
++			if (temp == true)
++				change = true;
++			sma1303->amp_mode = SMA1303_STEREO;
++			break;
++		case 2:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_11_SYSTEM_CTRL2,
++					SMA1303_MONOMIX_MASK,
++					SMA1303_MONOMIX_OFF,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_11_SYSTEM_CTRL2,
++					SMA1303_LR_DATA_SW_MASK,
++					SMA1303_LR_DATA_SW_NORMAL,
++					&temp);
++			if (temp == true)
++				change = true;
++			sma1303->amp_mode = SMA1303_STEREO;
++			break;
++		default:
++			dev_err(sma1303->dev, "%s : Invald value (%d)\n",
++								__func__, mux);
++			return -EINVAL;
++		}
++
++		dev_dbg(sma1303->dev, "%s : Source : %s\n", __func__,
++					sma1303_aif_in_source_text[mux]);
++		break;
++	}
++	if (ret < 0)
++		return -EINVAL;
++	return change;
++}
++
++static int sma1303_aif_out_event(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++			snd_soc_dapm_to_component(w->dapm);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	unsigned int mux = dapm_kcontrol_get_value(w->kcontrols[0]);
++	int ret = 0;
++	bool change = false, temp = false;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		switch (mux) {
++		case 0:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_NORMAL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_09_OUTPUT_CTRL,
++					SMA1303_PORT_OUT_SEL_MASK,
++					SMA1303_OUT_SEL_DISABLE,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 1:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_NORMAL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_09_OUTPUT_CTRL,
++					SMA1303_PORT_OUT_SEL_MASK,
++					SMA1303_FORMAT_CONVERTER,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 2:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_NORMAL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_09_OUTPUT_CTRL,
++					SMA1303_PORT_OUT_SEL_MASK,
++					SMA1303_MIXER_OUTPUT,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 3:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_NORMAL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_09_OUTPUT_CTRL,
++					SMA1303_PORT_OUT_SEL_MASK,
++					SMA1303_SPEAKER_PATH,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 4:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_NORMAL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_09_OUTPUT_CTRL,
++					SMA1303_PORT_OUT_SEL_MASK,
++					SMA1303_POSTSCALER_OUTPUT,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 5:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_CLK_OUT_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_MON_OSC_PLL_MASK,
++					SMA1303_PLL_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		case 6:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_TEST_CLKO_EN_MASK,
++					SMA1303_CLK_OUT_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A3_TOP_MAN2,
++					SMA1303_MON_OSC_PLL_MASK,
++					SMA1303_OSC_SDO,
++					&temp);
++			if (temp == true)
++				change = true;
++			break;
++		default:
++			dev_err(sma1303->dev, "%s : Invald value (%d)\n",
++								__func__, mux);
++			return -EINVAL;
++		}
++
++		dev_dbg(sma1303->dev, "%s : Source : %s\n", __func__,
++					sma1303_aif_out_source_text[mux]);
++		break;
++	}
++	if (ret < 0)
++		return -EINVAL;
++	return change;
++}
++
++static int sma1303_sdo_event(struct snd_soc_dapm_widget *w,
++		struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++	bool change = false, temp = false;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		dev_dbg(sma1303->dev,
++			"%s : SND_SOC_DAPM_PRE_PMU\n", __func__);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_09_OUTPUT_CTRL,
++				SMA1303_PORT_CONFIG_MASK,
++				SMA1303_OUTPUT_PORT_ENABLE,
++				&temp);
++		if (temp == true)
++			change = true;
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A3_TOP_MAN2,
++				SMA1303_SDO_OUTPUT_MASK,
++				SMA1303_NORMAL_OUT,
++				&temp);
++		if (temp == true)
++			change = true;
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		dev_dbg(sma1303->dev,
++			"%s : SND_SOC_DAPM_POST_PMD\n", __func__);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_09_OUTPUT_CTRL,
++				SMA1303_PORT_CONFIG_MASK,
++				SMA1303_INPUT_PORT_ONLY,
++				&temp);
++		if (temp == true)
++			change = true;
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A3_TOP_MAN2,
++				SMA1303_SDO_OUTPUT_MASK,
++				SMA1303_HIGH_Z_OUT,
++				&temp);
++		if (temp == true)
++			change = true;
++		break;
++	}
++	if (ret < 0)
++		return -EINVAL;
++	return change;
++}
++
++static int sma1303_post_scaler_event(struct snd_soc_dapm_widget *w,
++		struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++	bool change = false;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		dev_dbg(sma1303->dev,
++				"%s : SND_SOC_DAPM_PRE_PMU\n", __func__);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_90_POSTSCALER,
++				SMA1303_BYP_POST_MASK,
++				SMA1303_EN_POST_SCALER,
++				&change);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		dev_dbg(sma1303->dev,
++				"%s : SND_SOC_DAPM_POST_PMD\n", __func__);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_90_POSTSCALER,
++				SMA1303_BYP_POST_MASK,
++				SMA1303_BYP_POST_SCALER,
++				&change);
++		break;
++	}
++	if (ret < 0)
++		return -EINVAL;
++	return change;
++}
++
++static int sma1303_power_event(struct snd_soc_dapm_widget *w,
++		struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		dev_dbg(sma1303->dev,
++			"%s : SND_SOC_DAPM_POST_PMU\n", __func__);
++		ret = sma1303_startup(component);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		dev_dbg(sma1303->dev,
++			"%s : SND_SOC_DAPM_PRE_PMD\n", __func__);
++		ret = sma1303_shutdown(component);
++		break;
++	}
++	return ret;
++}
++
++static const struct snd_kcontrol_new sma1303_aif_in_source_control =
++	SOC_DAPM_ENUM("AIF IN Source", sma1303_aif_in_source_enum);
++static const struct snd_kcontrol_new sma1303_aif_out_source_control =
++	SOC_DAPM_ENUM("AIF OUT Source", sma1303_aif_out_source_enum);
++static const struct snd_kcontrol_new sma1303_sdo_control =
++	SOC_DAPM_SINGLE_VIRT("Switch", 1);
++static const struct snd_kcontrol_new sma1303_post_scaler_control =
++	SOC_DAPM_SINGLE_VIRT("Switch", 1);
++static const struct snd_kcontrol_new sma1303_enable_control =
++	SOC_DAPM_SINGLE_VIRT("Switch", 1);
++
++static const struct snd_kcontrol_new sma1303_snd_controls[] = {
++	SOC_SINGLE_TLV("Speaker Volume", SMA1303_0A_SPK_VOL,
++		0, 167, 1, sma1303_spk_tlv),
++	SOC_SINGLE_BOOL_EXT("Force Mute Switch", 0,
++		sma1303_force_mute_get, sma1303_force_mute_put),
++	SOC_SINGLE_EXT("Postscaler Gain", SMA1303_90_POSTSCALER, 1, 0x30, 0,
++		sma1303_postscaler_get, sma1303_postscaler_put),
++};
++
++static const struct snd_soc_dapm_widget sma1303_dapm_widgets[] = {
++	/* platform domain */
++	SND_SOC_DAPM_OUTPUT("SPK"),
++	SND_SOC_DAPM_INPUT("SDO"),
++
++	/* path domain */
++	SND_SOC_DAPM_MUX_E("AIF IN Source", SND_SOC_NOPM, 0, 0,
++			&sma1303_aif_in_source_control,
++			sma1303_aif_in_event,
++			SND_SOC_DAPM_PRE_PMU),
++	SND_SOC_DAPM_MUX_E("AIF OUT Source", SND_SOC_NOPM, 0, 0,
++			&sma1303_aif_out_source_control,
++			sma1303_aif_out_event,
++			SND_SOC_DAPM_PRE_PMU),
++	SND_SOC_DAPM_SWITCH_E("SDO Enable", SND_SOC_NOPM, 0, 0,
++			&sma1303_sdo_control,
++			sma1303_sdo_event,
++			SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MIXER("Entry", SND_SOC_NOPM, 0, 0, NULL, 0),
++	SND_SOC_DAPM_SWITCH_E("Post Scaler", SND_SOC_NOPM, 0, 1,
++			&sma1303_post_scaler_control,
++			sma1303_post_scaler_event,
++			SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_OUT_DRV_E("AMP Power", SND_SOC_NOPM, 0, 0, NULL, 0,
++			sma1303_power_event,
++			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_SWITCH("AMP Enable", SND_SOC_NOPM, 0, 1,
++			&sma1303_enable_control),
++
++	/* stream domain */
++	SND_SOC_DAPM_AIF_IN("AIF IN", "Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("AIF OUT", "Capture", 0, SND_SOC_NOPM, 0, 0),
++};
++
++static const struct snd_soc_dapm_route sma1303_audio_map[] = {
++	/* Playback */
++	{"AIF IN Source", "Mono", "AIF IN"},
++	{"AIF IN Source", "Left", "AIF IN"},
++	{"AIF IN Source", "Right", "AIF IN"},
++
++	{"SDO Enable", "Switch", "AIF IN"},
++	{"AIF OUT Source", "Disable", "SDO Enable"},
++	{"AIF OUT Source", "After_FmtC", "SDO Enable"},
++	{"AIF OUT Source", "After_Mixer", "SDO Enable"},
++	{"AIF OUT Source", "After_DSP", "SDO Enable"},
++	{"AIF OUT Source", "After_Post", "SDO Enable"},
++	{"AIF OUT Source", "Clk_PLL", "SDO Enable"},
++	{"AIF OUT Source", "Clk_OSC", "SDO Enable"},
++
++	{"Entry", NULL, "AIF OUT Source"},
++	{"Entry", NULL, "AIF IN Source"},
++
++	{"Post Scaler", "Switch", "Entry"},
++	{"AMP Power", NULL, "Entry"},
++	{"AMP Power", NULL, "Entry"},
++
++	{"AMP Enable", "Switch", "AMP Power"},
++	{"SPK", NULL, "AMP Enable"},
++
++	/* Capture */
++	{"AIF OUT", NULL, "AMP Enable"},
++};
++
++static int sma1303_setup_pll(struct snd_soc_component *component,
++		unsigned int bclk)
++{
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++
++	int i = 0, ret = 0;
++
++	dev_dbg(component->dev, "%s : BCLK = %dHz\n",
++		__func__, bclk);
++
++	if (sma1303->sys_clk_id == SMA1303_PLL_CLKIN_MCLK) {
++		dev_dbg(component->dev, "%s : MCLK is not supported\n",
++		__func__);
++	} else if (sma1303->sys_clk_id == SMA1303_PLL_CLKIN_BCLK) {
++		for (i = 0; i < sma1303->num_of_pll_matches; i++) {
++			if (sma1303->pll_matches[i].input_clk == bclk)
++				break;
++		}
++		if (i == sma1303->num_of_pll_matches) {
++			dev_dbg(component->dev, "%s : No matching value between pll table and SCK\n",
++					__func__);
++			return -EINVAL;
++		}
++
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A2_TOP_MAN1,
++				SMA1303_PLL_PD_MASK|SMA1303_PLL_REF_CLK_MASK,
++				SMA1303_PLL_OPERATION|SMA1303_PLL_SCK,
++				NULL);
++	}
++
++	ret += sma1303_regmap_write(sma1303,
++			SMA1303_8B_PLL_POST_N,
++			sma1303->pll_matches[i].post_n);
++
++	ret += sma1303_regmap_write(sma1303,
++			SMA1303_8C_PLL_N,
++			sma1303->pll_matches[i].n);
++
++	ret += sma1303_regmap_write(sma1303,
++			SMA1303_8D_PLL_A_SETTING,
++			sma1303->pll_matches[i].vco);
++
++	ret += sma1303_regmap_write(sma1303,
++			SMA1303_8F_PLL_P_CP,
++			sma1303->pll_matches[i].p_cp);
++	if (ret < 0)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int sma1303_dai_hw_params_amp(struct snd_pcm_substream *substream,
++		struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	unsigned int bclk = 0;
++	int ret = 0;
++
++	if (sma1303->format == SND_SOC_DAIFMT_DSP_A)
++		bclk = params_rate(params) * sma1303->frame_size;
++	else
++		bclk = params_rate(params) * params_physical_width(params)
++			* params_channels(params);
++
++	dev_dbg(component->dev,
++			"%s : rate = %d : bit size = %d : channel = %d\n",
++			__func__, params_rate(params), params_width(params),
++			params_channels(params));
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++
++		if (sma1303->sys_clk_id == SMA1303_PLL_CLKIN_MCLK
++			|| sma1303->sys_clk_id == SMA1303_PLL_CLKIN_BCLK) {
++
++			if (sma1303->last_bclk != bclk) {
++				sma1303_setup_pll(component, bclk);
++				sma1303->last_bclk = bclk;
++			}
++		}
++
++		switch (params_rate(params)) {
++		case 8000:
++		case 12000:
++		case 16000:
++		case 24000:
++		case 32000:
++		case 44100:
++		case 48000:
++		case 96000:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A2_TOP_MAN1,
++					SMA1303_DAC_DN_CONV_MASK,
++					SMA1303_DAC_DN_CONV_DISABLE,
++					NULL);
++
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_01_INPUT1_CTRL1,
++					SMA1303_LEFTPOL_MASK,
++					SMA1303_LOW_FIRST_CH,
++					NULL);
++			break;
++
++		case 192000:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A2_TOP_MAN1,
++					SMA1303_DAC_DN_CONV_MASK,
++					SMA1303_DAC_DN_CONV_ENABLE,
++					NULL);
++
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_01_INPUT1_CTRL1,
++					SMA1303_LEFTPOL_MASK,
++					SMA1303_HIGH_FIRST_CH,
++					NULL);
++			break;
++
++		default:
++			dev_err(component->dev, "%s not support rate : %d\n",
++				__func__, params_rate(params));
++
++			return -EINVAL;
++		}
++
++	} else {
++
++		switch (params_format(params)) {
++
++		case SNDRV_PCM_FORMAT_S16_LE:
++			dev_dbg(component->dev,
++				"%s set format SNDRV_PCM_FORMAT_S16_LE\n",
++				__func__);
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A4_TOP_MAN3,
++					SMA1303_SCK_RATE_MASK,
++					SMA1303_SCK_32FS,
++					NULL);
++			break;
++
++		case SNDRV_PCM_FORMAT_S24_LE:
++			dev_dbg(component->dev,
++				"%s set format SNDRV_PCM_FORMAT_S24_LE\n",
++				__func__);
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A4_TOP_MAN3,
++					SMA1303_SCK_RATE_MASK,
++					SMA1303_SCK_64FS,
++					NULL);
++			break;
++		case SNDRV_PCM_FORMAT_S32_LE:
++			dev_dbg(component->dev,
++				"%s set format SNDRV_PCM_FORMAT_S32_LE\n",
++				__func__);
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A4_TOP_MAN3,
++					SMA1303_SCK_RATE_MASK,
++					SMA1303_SCK_64FS,
++					NULL);
++			break;
++		default:
++			dev_err(component->dev,
++				"%s not support data bit : %d\n", __func__,
++						params_format(params));
++			return -EINVAL;
++		}
++	}
++
++	switch (sma1303->format) {
++	case SND_SOC_DAIFMT_I2S:
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_I2S_MODE_MASK,
++				SMA1303_STANDARD_I2S,
++				NULL);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A4_TOP_MAN3,
++				SMA1303_O_FORMAT_MASK,
++				SMA1303_O_FMT_I2S,
++				NULL);
++		break;
++	case SND_SOC_DAIFMT_LEFT_J:
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_I2S_MODE_MASK,
++				SMA1303_LJ,
++				NULL);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A4_TOP_MAN3,
++				SMA1303_O_FORMAT_MASK,
++				SMA1303_O_FMT_LJ,
++				NULL);
++		break;
++	case SND_SOC_DAIFMT_RIGHT_J:
++		switch (params_width(params)) {
++		case 16:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_01_INPUT1_CTRL1,
++					SMA1303_I2S_MODE_MASK,
++					SMA1303_RJ_16BIT,
++					NULL);
++			break;
++		case 24:
++		case 32:
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_01_INPUT1_CTRL1,
++					SMA1303_I2S_MODE_MASK,
++					SMA1303_RJ_24BIT,
++					NULL);
++			break;
++		}
++		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_I2S_MODE_MASK,
++				SMA1303_STANDARD_I2S,
++				NULL);
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A4_TOP_MAN3,
++				SMA1303_O_FORMAT_MASK,
++				SMA1303_O_FMT_TDM,
++				NULL);
++		break;
++	}
++
++	switch (params_width(params)) {
++	case 16:
++	case 24:
++	case 32:
++		break;
++	default:
++		dev_err(component->dev,
++			"%s not support data bit : %d\n", __func__,
++					params_format(params));
++		return -EINVAL;
++	}
++	if (ret < 0)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int sma1303_dai_set_sysclk_amp(struct snd_soc_dai *dai,
++				int clk_id, unsigned int freq, int dir)
++{
++	struct snd_soc_component *component = dai->component;
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++
++	switch (clk_id) {
++	case SMA1303_EXTERNAL_CLOCK_19_2:
++		break;
++	case SMA1303_EXTERNAL_CLOCK_24_576:
++		break;
++	case SMA1303_PLL_CLKIN_MCLK:
++		break;
++	case SMA1303_PLL_CLKIN_BCLK:
++		break;
++	default:
++		dev_err(component->dev, "Invalid clk id: %d\n", clk_id);
++		return -EINVAL;
++	}
++	sma1303->sys_clk_id = clk_id;
++	return 0;
++}
++
++static int sma1303_dai_mute(struct snd_soc_dai *dai, int mute, int stream)
++{
++	struct snd_soc_component *component = dai->component;
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++
++	if (stream == SNDRV_PCM_STREAM_CAPTURE)
++		return ret;
++
++	if (mute) {
++		dev_dbg(component->dev, "%s : %s\n", __func__, "MUTE");
++
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_0E_MUTE_VOL_CTRL,
++				SMA1303_SPK_MUTE_MASK,
++				SMA1303_SPK_MUTE,
++				NULL);
++
++		/* Need to wait time for mute slope */
++		msleep(55);
++	} else {
++		if (!sma1303->force_mute_status) {
++			dev_dbg(component->dev, "%s : %s\n",
++					__func__, "UNMUTE");
++			ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_0E_MUTE_VOL_CTRL,
++					SMA1303_SPK_MUTE_MASK,
++					SMA1303_SPK_UNMUTE,
++					NULL);
++		} else {
++			dev_dbg(sma1303->dev,
++					"%s : FORCE MUTE!!!\n", __func__);
++		}
++	}
++
++	if (ret < 0)
++		return -EINVAL;
++	return 0;
++}
++
++static int sma1303_dai_set_fmt_amp(struct snd_soc_dai *dai,
++					unsigned int fmt)
++{
++	struct snd_soc_component *component  = dai->component;
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++
++	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
++
++	case SND_SOC_DAIFMT_CBC_CFC:
++		dev_dbg(component->dev,
++				"%s : %s\n", __func__, "I2S/TDM Device mode");
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_CONTROLLER_DEVICE_MASK,
++				SMA1303_DEVICE_MODE,
++				NULL);
++		break;
++
++	case SND_SOC_DAIFMT_CBP_CFP:
++		dev_dbg(component->dev,
++			"%s : %s\n", __func__, "I2S/TDM Controller mode");
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_CONTROLLER_DEVICE_MASK,
++				SMA1303_CONTROLLER_MODE,
++				NULL);
++		break;
++
++	default:
++		dev_err(component->dev,
++			"Unsupported Controller/Device : 0x%x\n", fmt);
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++
++	case SND_SOC_DAIFMT_I2S:
++	case SND_SOC_DAIFMT_RIGHT_J:
++	case SND_SOC_DAIFMT_LEFT_J:
++	case SND_SOC_DAIFMT_DSP_A:
++	case SND_SOC_DAIFMT_DSP_B:
++		sma1303->format = fmt & SND_SOC_DAIFMT_FORMAT_MASK;
++		break;
++	default:
++		dev_err(component->dev,
++			"Unsupported Audio Interface Format : 0x%x\n", fmt);
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++
++	case SND_SOC_DAIFMT_IB_NF:
++		dev_dbg(component->dev, "%s : %s\n",
++			__func__, "Invert BCLK + Normal Frame");
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_SCK_RISING_MASK,
++				SMA1303_SCK_RISING_EDGE,
++				NULL);
++		break;
++	case SND_SOC_DAIFMT_IB_IF:
++		dev_dbg(component->dev, "%s : %s\n",
++			__func__, "Invert BCLK + Invert Frame");
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_LEFTPOL_MASK|SMA1303_SCK_RISING_MASK,
++				SMA1303_HIGH_FIRST_CH|SMA1303_SCK_RISING_EDGE,
++				NULL);
++		break;
++	case SND_SOC_DAIFMT_NB_IF:
++		dev_dbg(component->dev, "%s : %s\n",
++			__func__, "Normal BCLK + Invert Frame");
++		ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_01_INPUT1_CTRL1,
++				SMA1303_LEFTPOL_MASK,
++				SMA1303_HIGH_FIRST_CH,
++				NULL);
++		break;
++	case SND_SOC_DAIFMT_NB_NF:
++		dev_dbg(component->dev, "%s : %s\n",
++			__func__, "Normal BCLK + Normal Frame");
++		break;
++	default:
++		dev_err(component->dev,
++				"Unsupported Bit & Frameclock : 0x%x\n", fmt);
++		return -EINVAL;
++	}
++
++	if (ret < 0)
++		return -EINVAL;
++	return 0;
++}
++
++static int sma1303_dai_set_tdm_slot(struct snd_soc_dai *dai,
++				unsigned int tx_mask, unsigned int rx_mask,
++				int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++
++	dev_dbg(component->dev, "%s : slots = %d, slot_width - %d\n",
++			__func__, slots, slot_width);
++
++	sma1303->frame_size = slot_width * slots;
++
++	ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A4_TOP_MAN3,
++				SMA1303_O_FORMAT_MASK,
++				SMA1303_O_FMT_TDM,
++				NULL);
++
++	switch (slot_width) {
++	case 16:
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A6_TDM2,
++					SMA1303_TDM_DL_MASK,
++					SMA1303_TDM_DL_16,
++					NULL);
++		break;
++	case 32:
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A6_TDM2,
++					SMA1303_TDM_DL_MASK,
++					SMA1303_TDM_DL_32,
++					NULL);
++		break;
++	default:
++		dev_err(component->dev, "%s not support TDM %d slot_width\n",
++					__func__, slot_width);
++		break;
++	}
++
++	switch (slots) {
++	case 4:
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A6_TDM2,
++					SMA1303_TDM_N_SLOT_MASK,
++					SMA1303_TDM_N_SLOT_4,
++					NULL);
++		break;
++	case 8:
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A6_TDM2,
++					SMA1303_TDM_N_SLOT_MASK,
++					SMA1303_TDM_N_SLOT_8,
++					NULL);
++		break;
++	default:
++		dev_err(component->dev, "%s not support TDM %d slots\n",
++				__func__, slots);
++		break;
++	}
++
++	if (sma1303->tdm_slot_rx < slots)
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A5_TDM1,
++					SMA1303_TDM_SLOT1_RX_POS_MASK,
++					(sma1303->tdm_slot_rx) << 3,
++					NULL);
++	else
++		dev_err(component->dev, "%s Incorrect tdm-slot-rx %d set\n",
++					__func__, sma1303->tdm_slot_rx);
++
++	ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A5_TDM1,
++				SMA1303_TDM_CLK_POL_MASK,
++				SMA1303_TDM_CLK_POL_RISE,
++				NULL);
++
++	ret += sma1303_regmap_update_bits(sma1303,
++				SMA1303_A5_TDM1,
++				SMA1303_TDM_TX_MODE_MASK,
++				SMA1303_TDM_TX_MONO,
++				NULL);
++
++	if (sma1303->tdm_slot_tx < slots)
++		ret += sma1303_regmap_update_bits(sma1303,
++					SMA1303_A6_TDM2,
++					SMA1303_TDM_SLOT1_TX_POS_MASK,
++					(sma1303->tdm_slot_tx) << 3,
++					NULL);
++	else
++		dev_err(component->dev, "%s Incorrect tdm-slot-tx %d set\n",
++				__func__, sma1303->tdm_slot_tx);
++
++	if (ret < 0)
++		return -EINVAL;
++	return 0;
++}
++
++static const struct snd_soc_dai_ops sma1303_dai_ops_amp = {
++	.set_sysclk = sma1303_dai_set_sysclk_amp,
++	.set_fmt = sma1303_dai_set_fmt_amp,
++	.hw_params = sma1303_dai_hw_params_amp,
++	.mute_stream = sma1303_dai_mute,
++	.set_tdm_slot = sma1303_dai_set_tdm_slot,
++};
++
++#define SMA1303_RATES SNDRV_PCM_RATE_8000_192000
++#define SMA1303_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE | \
++		SNDRV_PCM_FMTBIT_S32_LE)
++
++static struct snd_soc_dai_driver sma1303_dai[] = {
++	{
++		.name = "sma1303-amplifier",
++		.id = 0,
++		.playback = {
++			.stream_name = "Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = SMA1303_RATES,
++			.formats = SMA1303_FORMATS,
++		},
++		.capture = {
++			.stream_name = "Capture",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = SMA1303_RATES,
++			.formats = SMA1303_FORMATS,
++		},
++		.ops = &sma1303_dai_ops_amp,
++	},
++};
++
++static void sma1303_check_fault_worker(struct work_struct *work)
++{
++	struct sma1303_priv *sma1303 =
++		container_of(work, struct sma1303_priv, check_fault_work.work);
++	int ret = 0;
++	unsigned int over_temp, ocp_val, uvlo_val;
++
++	if (sma1303->tsdw_cnt)
++		ret = sma1303_regmap_read(sma1303,
++			SMA1303_0A_SPK_VOL, &sma1303->cur_vol);
++	else
++		ret = sma1303_regmap_read(sma1303,
++			SMA1303_0A_SPK_VOL, &sma1303->init_vol);
++
++	if (ret != 0) {
++		dev_err(sma1303->dev,
++			"failed to read SMA1303_0A_SPK_VOL : %d\n", ret);
++		return;
++	}
++
++	ret = sma1303_regmap_read(sma1303, SMA1303_FA_STATUS1, &over_temp);
++	if (ret != 0) {
++		dev_err(sma1303->dev,
++			"failed to read SMA1303_FA_STATUS1 : %d\n", ret);
++		return;
++	}
++
++	ret = sma1303_regmap_read(sma1303, SMA1303_FB_STATUS2, &ocp_val);
++	if (ret != 0) {
++		dev_err(sma1303->dev,
++			"failed to read SMA1303_FB_STATUS2 : %d\n", ret);
++		return;
++	}
++
++	ret = sma1303_regmap_read(sma1303, SMA1303_FF_DEVICE_INDEX, &uvlo_val);
++	if (ret != 0) {
++		dev_err(sma1303->dev,
++			"failed to read SMA1303_FF_DEVICE_INDEX : %d\n", ret);
++		return;
++	}
++
++	if (~over_temp & SMA1303_OT1_OK_STATUS) {
++		dev_crit(sma1303->dev,
++			"%s : OT1(Over Temperature Level 1)\n", __func__);
++
++		if ((sma1303->cur_vol + 6) <= 0xFF)
++			sma1303_regmap_write(sma1303,
++				SMA1303_0A_SPK_VOL, sma1303->cur_vol + 6);
++
++		sma1303->tsdw_cnt++;
++	} else if (sma1303->tsdw_cnt) {
++		sma1303_regmap_write(sma1303,
++				SMA1303_0A_SPK_VOL, sma1303->init_vol);
++		sma1303->tsdw_cnt = 0;
++		sma1303->cur_vol = sma1303->init_vol;
++	}
++
++	if (~over_temp & SMA1303_OT2_OK_STATUS) {
++		dev_crit(sma1303->dev,
++			"%s : OT2(Over Temperature Level 2)\n", __func__);
++	}
++	if (ocp_val & SMA1303_OCP_SPK_STATUS) {
++		dev_crit(sma1303->dev,
++			"%s : OCP_SPK(Over Current Protect SPK)\n", __func__);
++	}
++	if (ocp_val & SMA1303_OCP_BST_STATUS) {
++		dev_crit(sma1303->dev,
++			"%s : OCP_BST(Over Current Protect Boost)\n", __func__);
++	}
++	if ((ocp_val & SMA1303_CLK_MON_STATUS) && (sma1303->amp_power_status)) {
++		dev_crit(sma1303->dev,
++			"%s : CLK_FAULT(No clock input)\n", __func__);
++	}
++	if (uvlo_val & SMA1303_UVLO_BST_STATUS) {
++		dev_crit(sma1303->dev,
++			"%s : UVLO(Under Voltage Lock Out)\n", __func__);
++	}
++
++	if ((over_temp != sma1303->last_over_temp) ||
++		(ocp_val != sma1303->last_ocp_val)) {
++
++		dev_crit(sma1303->dev, "Please check AMP status");
++		dev_dbg(sma1303->dev, "STATUS1=0x%02X : STATUS2=0x%02X\n",
++				over_temp, ocp_val);
++		sma1303->last_over_temp = over_temp;
++		sma1303->last_ocp_val = ocp_val;
++	}
++
++	if (sma1303->check_fault_status) {
++		if (sma1303->check_fault_period > 0)
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					sma1303->check_fault_period * HZ);
++		else
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					CHECK_PERIOD_TIME * HZ);
++	}
++
++	if (!(~over_temp & SMA1303_OT1_OK_STATUS)
++			&& !(~over_temp & SMA1303_OT2_OK_STATUS)
++			&& !(ocp_val & SMA1303_OCP_SPK_STATUS)
++			&& !(ocp_val & SMA1303_OCP_BST_STATUS)
++			&& !(ocp_val & SMA1303_CLK_MON_STATUS)
++			&& !(uvlo_val & SMA1303_UVLO_BST_STATUS)) {
++	}
++}
++
++static int sma1303_probe(struct snd_soc_component *component)
++{
++	struct snd_soc_dapm_context *dapm =
++		snd_soc_component_get_dapm(component);
++
++	snd_soc_dapm_sync(dapm);
++
++	return 0;
++}
++
++static void sma1303_remove(struct snd_soc_component *component)
++{
++	struct sma1303_priv *sma1303 = snd_soc_component_get_drvdata(component);
++
++	cancel_delayed_work_sync(&sma1303->check_fault_work);
++}
++
++static const struct snd_soc_component_driver sma1303_component = {
++	.probe = sma1303_probe,
++	.remove = sma1303_remove,
++	.controls = sma1303_snd_controls,
++	.num_controls = ARRAY_SIZE(sma1303_snd_controls),
++	.dapm_widgets = sma1303_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(sma1303_dapm_widgets),
++	.dapm_routes = sma1303_audio_map,
++	.num_dapm_routes = ARRAY_SIZE(sma1303_audio_map),
++};
++
++const struct regmap_config sma_i2c_regmap = {
++	.reg_bits = 8,
++	.val_bits = 8,
++
++	.max_register = SMA1303_FF_DEVICE_INDEX,
++	.readable_reg = sma1303_readable_register,
++	.writeable_reg = sma1303_writeable_register,
++	.volatile_reg = sma1303_volatile_register,
++
++	.cache_type = REGCACHE_NONE,
++	.reg_defaults = sma1303_reg_def,
++	.num_reg_defaults = ARRAY_SIZE(sma1303_reg_def),
++};
++
++static ssize_t check_fault_period_show(struct device *dev,
++	struct device_attribute *devattr, char *buf)
++{
++	struct sma1303_priv *sma1303 = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%ld\n", sma1303->check_fault_period);
++}
++
++static ssize_t check_fault_period_store(struct device *dev,
++	struct device_attribute *devattr, const char *buf, size_t count)
++{
++	struct sma1303_priv *sma1303 = dev_get_drvdata(dev);
++	int ret;
++
++	ret = kstrtol(buf, 10, &sma1303->check_fault_period);
++
++	if (ret)
++		return -EINVAL;
++
++	return (ssize_t)count;
++}
++
++static DEVICE_ATTR_RW(check_fault_period);
++
++static ssize_t check_fault_status_show(struct device *dev,
++	struct device_attribute *devattr, char *buf)
++{
++	struct sma1303_priv *sma1303 = dev_get_drvdata(dev);
++
++	return sysfs_emit(buf, "%ld\n", sma1303->check_fault_status);
++}
++
++static ssize_t check_fault_status_store(struct device *dev,
++	struct device_attribute *devattr, const char *buf, size_t count)
++{
++	struct sma1303_priv *sma1303 = dev_get_drvdata(dev);
++	int ret;
++
++	ret = kstrtol(buf, 10, &sma1303->check_fault_status);
++
++	if (ret)
++		return -EINVAL;
++
++	if (sma1303->check_fault_status) {
++		if (sma1303->check_fault_period > 0)
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					sma1303->check_fault_period * HZ);
++		else
++			queue_delayed_work(system_freezable_wq,
++				&sma1303->check_fault_work,
++					CHECK_PERIOD_TIME * HZ);
++	}
++
++	return (ssize_t)count;
++}
++
++static DEVICE_ATTR_RW(check_fault_status);
++
++static struct attribute *sma1303_attr[] = {
++	&dev_attr_check_fault_period.attr,
++	&dev_attr_check_fault_status.attr,
++	NULL,
++};
++
++static struct attribute_group sma1303_attr_group = {
++	.attrs = sma1303_attr,
++};
++
++static int sma1303_i2c_probe(struct i2c_client *client,
++				const struct i2c_device_id *id)
++{
++	struct sma1303_priv *sma1303;
++	struct device_node *np = client->dev.of_node;
++	int ret, i = 0;
++	u32 value = 0;
++	unsigned int device_info, status, otp_stat;
++
++	sma1303 = devm_kzalloc(&client->dev,
++				sizeof(struct sma1303_priv), GFP_KERNEL);
++	if (!sma1303)
++		return -ENOMEM;
++	sma1303->dev = &client->dev;
++
++	sma1303->regmap = devm_regmap_init_i2c(client, &sma_i2c_regmap);
++	if (IS_ERR(sma1303->regmap)) {
++		ret = PTR_ERR(sma1303->regmap);
++		dev_err(&client->dev,
++			"Failed to allocate register map: %d\n", ret);
++
++		return ret;
++	}
++
++	if (np) {
++		if (!of_property_read_u32(np, "i2c-retry", &value)) {
++			if (value > 50 || value <= 0) {
++				sma1303->retry_cnt = SMA1303_I2C_RETRY_COUNT;
++				dev_dbg(&client->dev, "%s : %s\n", __func__,
++					"i2c-retry out of range (up to 50)");
++			} else {
++				sma1303->retry_cnt = value;
++				dev_dbg(&client->dev, "%s : %s = %u\n",
++					__func__, "i2c-retry count", value);
++			}
++		} else {
++			dev_dbg(&client->dev, "%s : %s = %d\n", __func__,
++				"i2c-retry count", SMA1303_I2C_RETRY_COUNT);
++			sma1303->retry_cnt = SMA1303_I2C_RETRY_COUNT;
++		}
++		if (!of_property_read_u32(np, "tdm-slot-rx", &value)) {
++			dev_dbg(&client->dev,
++				"tdm slot rx is '%d' from DT\n", value);
++			sma1303->tdm_slot_rx = value;
++		} else {
++			dev_dbg(&client->dev,
++				"Default setting of tdm slot rx is '0'\n");
++			sma1303->tdm_slot_rx = 0;
++		}
++		if (!of_property_read_u32(np, "tdm-slot-tx", &value)) {
++			dev_dbg(&client->dev,
++				"tdm slot tx is '%u' from DT\n", value);
++			sma1303->tdm_slot_tx = value;
++		} else {
++			dev_dbg(&client->dev,
++				"Default setting of tdm slot tx is '0'\n");
++			sma1303->tdm_slot_tx = 0;
++		}
++		if (!of_property_read_u32(np, "sys-clk-id", &value)) {
++			switch (value) {
++			case SMA1303_EXTERNAL_CLOCK_19_2:
++			case SMA1303_EXTERNAL_CLOCK_24_576:
++			case SMA1303_PLL_CLKIN_MCLK:
++				dev_dbg(&client->dev, "MCLK is not supported\n");
++				break;
++			case SMA1303_PLL_CLKIN_BCLK:
++				dev_dbg(&client->dev,
++				"Take an BCLK(SCK) and covert it to an internal PLL for use\n");
++				break;
++			default:
++				dev_err(&client->dev,
++					"Invalid sys-clk-id: %u\n", value);
++				return -EINVAL;
++			}
++			sma1303->sys_clk_id = value;
++		} else {
++			dev_dbg(&client->dev, "Use the internal PLL clock by default\n");
++			sma1303->sys_clk_id = SMA1303_PLL_CLKIN_BCLK;
++		}
++	} else {
++		dev_err(&client->dev,
++			"device node initialization error\n");
++		devm_kfree(&client->dev, sma1303);
++		return -ENODEV;
++	}
++
++	ret = sma1303_regmap_read(sma1303,
++			SMA1303_FF_DEVICE_INDEX, &device_info);
++
++	if ((ret != 0) || ((device_info & 0xF8) != SMA1303_DEVICE_ID)) {
++		dev_err(&client->dev, "device initialization error (%d 0x%02X)",
++				ret, device_info);
++	}
++	dev_dbg(&client->dev, "chip version 0x%02X\n", device_info);
++
++	ret += sma1303_regmap_update_bits(sma1303,
++			SMA1303_00_SYSTEM_CTRL,
++			SMA1303_RESETBYI2C_MASK, SMA1303_RESETBYI2C_RESET,
++			NULL);
++
++	ret += sma1303_regmap_read(sma1303, SMA1303_FF_DEVICE_INDEX, &status);
++	sma1303->rev_num = status & SMA1303_REV_NUM_STATUS;
++	if (sma1303->rev_num == SMA1303_REV_NUM_TV0)
++		dev_dbg(&client->dev, "SMA1303 Trimming Version 0\n");
++	else if (sma1303->rev_num == SMA1303_REV_NUM_TV1)
++		dev_dbg(&client->dev, "SMA1303 Trimming Version 1\n");
++
++	ret += sma1303_regmap_read(sma1303, SMA1303_FB_STATUS2, &otp_stat);
++	if (ret < 0)
++		dev_err(&client->dev,
++			"failed to read, register: %02X, ret: %d\n",
++				SMA1303_FF_DEVICE_INDEX, ret);
++
++	if (((sma1303->rev_num == SMA1303_REV_NUM_TV0) &&
++		((otp_stat & 0x0E) == SMA1303_OTP_STAT_OK_0)) ||
++		((sma1303->rev_num != SMA1303_REV_NUM_TV0) &&
++		((otp_stat & 0x0C) == SMA1303_OTP_STAT_OK_1)))
++		dev_dbg(&client->dev, "SMA1303 OTP Status Successful\n");
++	else
++		dev_dbg(&client->dev, "SMA1303 OTP Status Fail\n");
++
++	for (i = 0; i < (unsigned int)ARRAY_SIZE(sma1303_reg_def); i++)
++		ret += sma1303_regmap_write(sma1303,
++				sma1303_reg_def[i].reg,
++				sma1303_reg_def[i].def);
++
++	sma1303->amp_mode = SMA1303_MONO;
++	sma1303->amp_power_status = false;
++	sma1303->check_fault_period = CHECK_PERIOD_TIME;
++	sma1303->check_fault_status = true;
++	sma1303->force_mute_status = false;
++	sma1303->init_vol = 0x31;
++	sma1303->cur_vol = sma1303->init_vol;
++	sma1303->last_bclk = 0;
++	sma1303->last_ocp_val = 0x08;
++	sma1303->last_over_temp = 0xC0;
++	sma1303->tsdw_cnt = 0;
++
++	sma1303->dev = &client->dev;
++	sma1303->kobj = &client->dev.kobj;
++
++	INIT_DELAYED_WORK(&sma1303->check_fault_work,
++		sma1303_check_fault_worker);
++
++	i2c_set_clientdata(client, sma1303);
++
++	sma1303->pll_matches = sma1303_pll_matches;
++	sma1303->num_of_pll_matches =
++		ARRAY_SIZE(sma1303_pll_matches);
++
++	ret = devm_snd_soc_register_component(&client->dev,
++			&sma1303_component, sma1303_dai, 1);
++	if (ret) {
++		dev_err(&client->dev, "Failed to register component");
++
++		return ret;
++	}
++
++	sma1303->attr_grp = &sma1303_attr_group;
++	ret = sysfs_create_group(sma1303->kobj, sma1303->attr_grp);
++	if (ret) {
++		dev_err(&client->dev,
++			"failed to create attribute group [%d]\n", ret);
++		sma1303->attr_grp = NULL;
++	}
++
++	return ret;
++}
++
++static void sma1303_i2c_remove(struct i2c_client *client)
++{
++	struct sma1303_priv *sma1303 =
++		(struct sma1303_priv *) i2c_get_clientdata(client);
++
++	cancel_delayed_work_sync(&sma1303->check_fault_work);
++}
++
++static const struct i2c_device_id sma1303_i2c_id[] = {
++	{"sma1303", 0},
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, sma1303_i2c_id);
++
++static const struct of_device_id sma1303_of_match[] = {
++	{ .compatible = "irondevice,sma1303", },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, sma1303_of_match);
++
++static struct i2c_driver sma1303_i2c_driver = {
++	.driver = {
++		.name = "sma1303",
++		.of_match_table = sma1303_of_match,
++	},
++	.probe = sma1303_i2c_probe,
++	.remove = sma1303_i2c_remove,
++	.id_table = sma1303_i2c_id,
++};
++
++module_i2c_driver(sma1303_i2c_driver);
++
++MODULE_DESCRIPTION("ALSA SoC SMA1303 driver");
++MODULE_AUTHOR("Gyuhwa Park, <gyuhwa.park@irondevice.com>");
++MODULE_AUTHOR("Kiseok Jo, <kiseok.jo@irondevice.com>");
++MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/sma1303.h b/sound/soc/codecs/sma1303.h
+new file mode 100644
+index 000000000000..ae70f207adde
+--- /dev/null
++++ b/sound/soc/codecs/sma1303.h
+@@ -0,0 +1,609 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * sma1303.h -- sma1303 ALSA SoC Audio driver
++ *
++ * Copyright 2023 Iron Device Corporation
++ *
++ * Author: Kiseok Jo <kiseok.jo@irondevice.com>
++ *
++ */
++
++#ifndef _SMA1303_H
++#define _SMA1303_H
++
++#define  SMA1303_I2C_ADDR_00		0x1e
++#define  SMA1303_I2C_ADDR_01		0x3e
++#define  SMA1303_I2C_ADDR_10		0x5e
++#define  SMA1303_I2C_ADDR_11		0x7e
++
++#define  SMA1303_EXTERNAL_CLOCK_19_2	0x00
++#define  SMA1303_EXTERNAL_CLOCK_24_576	0x01
++#define  SMA1303_PLL_CLKIN_MCLK		0x02
++#define  SMA1303_PLL_CLKIN_BCLK		0x03
++
++#define  SMA1303_MONO			0x00
++#define  SMA1303_STEREO			0x01
++
++#define  SMA1303_I2C_RETRY_COUNT	3
++
++/*
++ * SMA1303 Register Definition
++ */
++
++/* SMA1303 Register Addresses */
++#define  SMA1303_00_SYSTEM_CTRL		0x00
++#define  SMA1303_01_INPUT1_CTRL1	0x01
++#define  SMA1303_02_INPUT1_CTRL2	0x02
++#define  SMA1303_03_INPUT1_CTRL3	0x03
++#define  SMA1303_04_INPUT1_CTRL4	0x04
++/* 0x05 ~ 0x08 : Reserved */
++#define  SMA1303_09_OUTPUT_CTRL		0x09
++#define  SMA1303_0A_SPK_VOL		0x0a
++#define  SMA1303_0B_BST_TEST		0x0b
++#define  SMA1303_0C_BST_TEST1		0x0c
++#define  SMA1303_0D_SPK_TEST		0x0d
++#define  SMA1303_0E_MUTE_VOL_CTRL	0x0e
++/* 0x0F : Reserved */
++#define  SMA1303_10_SYSTEM_CTRL1	0x10
++#define  SMA1303_11_SYSTEM_CTRL2	0x11
++#define  SMA1303_12_SYSTEM_CTRL3	0x12
++/* 0x13 : Reserved */
++#define  SMA1303_14_MODULATOR		0x14
++#define  SMA1303_15_BASS_SPK1		0x15
++#define  SMA1303_16_BASS_SPK2		0x16
++#define  SMA1303_17_BASS_SPK3		0x17
++#define  SMA1303_18_BASS_SPK4		0x18
++#define  SMA1303_19_BASS_SPK5		0x19
++#define  SMA1303_1A_BASS_SPK6		0x1a
++#define  SMA1303_1B_BASS_SPK7		0x1b
++/* 0x1C ~ 0x22 : Reserved */
++#define  SMA1303_23_COMP_LIM1		0x23
++#define  SMA1303_24_COMP_LIM2		0x24
++#define  SMA1303_25_COMP_LIM3		0x25
++#define  SMA1303_26_COMP_LIM4		0x26
++/* 0x27 ~ 0x32 : Reserved */
++#define  SMA1303_33_SDM_CTRL		0x33
++#define  SMA1303_34_OTP_DATA1		0x34
++/* 0x35 : Reserved */
++#define  SMA1303_36_PROTECTION		0x36
++#define  SMA1303_37_SLOPE_CTRL		0x37
++#define  SMA1303_38_OTP_TRM0		0x38
++/* 0x39 ~ 0x3A : Reserved */
++#define  SMA1303_3B_TEST1		0x3b
++#define  SMA1303_3C_TEST2		0x3c
++#define  SMA1303_3D_TEST3		0x3d
++#define  SMA1303_3E_ATEST1		0x3e
++#define  SMA1303_3F_ATEST2		0x3f
++/* 0x40 ~ 0x8A : Reserved */
++#define	 SMA1303_8B_PLL_POST_N		0x8b
++#define	 SMA1303_8C_PLL_N		0x8c
++#define	 SMA1303_8D_PLL_A_SETTING	0x8d
++#define	 SMA1303_8E_PLL_CTRL		0x8e
++#define	 SMA1303_8F_PLL_P_CP		0x8f
++#define  SMA1303_90_POSTSCALER		0x90
++#define  SMA1303_91_CLASS_G_CTRL	0x91
++#define  SMA1303_92_FDPEC_CTRL		0x92
++/* 0x93 : Reserved */
++#define  SMA1303_94_BOOST_CTRL1		0x94
++#define  SMA1303_95_BOOST_CTRL2		0x95
++#define  SMA1303_96_BOOST_CTRL3		0x96
++#define  SMA1303_97_BOOST_CTRL4		0x97
++/* 0x98 ~ 0x9F : Reserved */
++#define  SMA1303_A0_PAD_CTRL0		0xa0
++#define  SMA1303_A1_PAD_CTRL1		0xa1
++#define	 SMA1303_A2_TOP_MAN1		0xa2
++#define	 SMA1303_A3_TOP_MAN2		0xa3
++#define	 SMA1303_A4_TOP_MAN3		0xa4
++#define  SMA1303_A5_TDM1		0xa5
++#define  SMA1303_A6_TDM2		0xa6
++#define  SMA1303_A7_CLK_MON		0xa7
++/* 0xA8 ~ 0xF9 : Reserved */
++#define	 SMA1303_FA_STATUS1		0xfa
++#define	 SMA1303_FB_STATUS2		0xfb
++/* 0xFC ~ 0xFE : Reserved */
++#define	 SMA1303_FF_DEVICE_INDEX	0xff
++
++/* SMA1303 Registers Bit Fields */
++
++/* SYSTEM_CTRL : 0x00 */
++#define SMA1303_RESETBYI2C_MASK (1<<1)
++#define SMA1303_RESETBYI2C_NORMAL (0<<1)
++#define SMA1303_RESETBYI2C_RESET (1<<1)
++
++#define SMA1303_POWER_MASK (1<<0)
++#define SMA1303_POWER_OFF (0<<0)
++#define SMA1303_POWER_ON (1<<0)
++
++/* INTPUT CTRL1 : 0x01 */
++#define SMA1303_CONTROLLER_DEVICE_MASK (1<<7)
++#define SMA1303_DEVICE_MODE	(0<<7)
++#define SMA1303_CONTROLLER_MODE	(1<<7)
++
++#define SMA1303_I2S_MODE_MASK	(7<<4)
++#define SMA1303_STANDARD_I2S	(0<<4)
++#define SMA1303_LJ		(1<<4)
++#define SMA1303_RJ_16BIT	(4<<4)
++#define SMA1303_RJ_18BIT	(5<<4)
++#define SMA1303_RJ_20BIT	(6<<4)
++#define SMA1303_RJ_24BIT	(7<<4)
++
++#define SMA1303_LEFTPOL_MASK	(1<<3)
++#define SMA1303_LOW_FIRST_CH	(0<<3)
++#define SMA1303_HIGH_FIRST_CH	(1<<3)
++
++#define SMA1303_SCK_RISING_MASK	(1<<2)
++#define SMA1303_SCK_FALLING_EDGE	(0<<2)
++#define SMA1303_SCK_RISING_EDGE	(1<<2)
++
++/* INTPUT CTRL2 : 0x02 */
++#define SMA1303_IMODE_MASK (3<<6)
++#define SMA1303_I2S	(0<<6)
++#define SMA1303_PCM_SHORT (1<<6)
++#define SMA1303_PCM_LONG (2<<6)
++
++#define RSMA1303_IGHT_FIRST_MASK (1<<5)
++#define SMA1303_LEFT_NORMAL (0<<5)
++#define SMA1303_RIGHT_INVERTED (1<<5)
++
++#define SMA1303_PCM_ALAW_MASK (1<<4)
++#define SMA1303_PCM_U_DECODING (0<<4)
++#define SMA1303_PCM_A_DECODING (1<<4)
++
++#define SMA1303_PCM_COMP_MASK (1<<3)
++#define SMA1303_PCM_LINEAR (0<<3)
++#define SMA1303_PCM_COMPANDING (1<<3)
++
++#define SMA1303_INPUTSEL_MASK (1<<2)
++#define SMA1303_PCM_8KHZ (0<<2)
++#define SMA1303_PCM_16KHZ (1<<2)
++
++#define SMA1303_PCM_STEREO_MASK (1<<1)
++#define SMA1303_PCM_MONO (0<<1)
++#define SMA1303_PCM_STEREO (1<<1)
++
++#define SMA1303_PCM_DL_MASK (1<<0)
++#define SMA1303_PCM_8BIT (0<<0)
++#define SMA1303_PCM_16BIT (1<<0)
++
++/* INTPUT CTRL3 : 0x03 */
++#define SMA1303_PCM_N_SLOT_MASK (15<<0)
++#define SMA1303_PCM_N_SLOT1 (0<<0)
++#define SMA1303_PCM_N_SLOT2 (1<<0)
++#define SMA1303_PCM_N_SLOT3 (2<<0)
++#define SMA1303_PCM_N_SLOT4 (3<<0)
++#define SMA1303_PCM_N_SLOT5 (4<<0)
++#define SMA1303_PCM_N_SLOT6 (5<<0)
++#define SMA1303_PCM_N_SLOT7 (6<<0)
++#define SMA1303_PCM_N_SLOT8 (7<<0)
++#define SMA1303_PCM_N_SLOT9 (8<<0)
++#define SMA1303_PCM_N_SLOT10 (9<<0)
++#define SMA1303_PCM_N_SLOT11 (10<<0)
++#define SMA1303_PCM_N_SLOT12 (11<<0)
++#define SMA1303_PCM_N_SLOT13 (12<<0)
++#define SMA1303_PCM_N_SLOT14 (13<<0)
++#define SMA1303_PCM_N_SLOT15 (14<<0)
++#define SMA1303_PCM_N_SLOT16 (15<<0)
++
++/* INTPUT CTRL4 : 0x04 */
++#define SMA1303_PCM1_SLOT_MASK (15<<4)
++#define SMA1303_PCM1_SLOT1 (0<<4)
++#define SMA1303_PCM1_SLOT2 (1<<4)
++#define SMA1303_PCM1_SLOT3 (2<<4)
++#define SMA1303_PCM1_SLOT4 (3<<4)
++#define SMA1303_PCM1_SLOT5 (4<<4)
++#define SMA1303_PCM1_SLOT6 (5<<4)
++#define SMA1303_PCM1_SLOT7 (6<<4)
++#define SMA1303_PCM1_SLOT8 (7<<4)
++#define SMA1303_PCM1_SLOT9 (8<<4)
++#define SMA1303_PCM1_SLOT10 (9<<4)
++#define SMA1303_PCM1_SLOT11 (10<<4)
++#define SMA1303_PCM1_SLOT12 (11<<4)
++#define SMA1303_PCM1_SLOT13 (12<<4)
++#define SMA1303_PCM1_SLOT14 (13<<4)
++#define SMA1303_PCM1_SLOT15 (14<<4)
++#define SMA1303_PCM1_SLOT16 (15<<4)
++
++#define SMA1303_PCM2_SLOT_MASK (15<<0)
++#define SMA1303_PCM2_SLOT1 (0<<0)
++#define SMA1303_PCM2_SLOT2 (1<<0)
++#define SMA1303_PCM2_SLOT3 (2<<0)
++#define SMA1303_PCM2_SLOT4 (3<<0)
++#define SMA1303_PCM2_SLOT5 (4<<0)
++#define SMA1303_PCM2_SLOT6 (5<<0)
++#define SMA1303_PCM2_SLOT7 (6<<0)
++#define SMA1303_PCM2_SLOT8 (7<<0)
++#define SMA1303_PCM2_SLOT9 (8<<0)
++#define SMA1303_PCM2_SLOT10 (9<<0)
++#define SMA1303_PCM2_SLOT11 (10<<0)
++#define SMA1303_PCM2_SLOT12 (11<<0)
++#define SMA1303_PCM2_SLOT13 (12<<0)
++#define SMA1303_PCM2_SLOT14 (13<<0)
++#define SMA1303_PCM2_SLOT15 (14<<0)
++#define SMA1303_PCM2_SLOT16 (15<<0)
++
++/* OUTPUT CTRL : 0x09 */
++#define SMA1303_PORT_CONFIG_MASK (3<<5)
++#define SMA1303_INPUT_PORT_ONLY (0<<5)
++#define SMA1303_OUTPUT_PORT_ENABLE (2<<5)
++
++#define SMA1303_PORT_OUT_SEL_MASK (7<<0)
++#define SMA1303_OUT_SEL_DISABLE (0<<0)
++#define SMA1303_FORMAT_CONVERTER (1<<0)
++#define SMA1303_MIXER_OUTPUT (2<<0)
++#define SMA1303_SPEAKER_PATH (3<<0)
++#define SMA1303_POSTSCALER_OUTPUT (4<<0)
++
++/* BST_TEST : 0x0B */
++#define SMA1303_BST_OFF_SLOPE_MASK (3<<6)
++#define SMA1303_BST_OFF_SLOPE_6_7ns (0<<6)
++#define SMA1303_BST_OFF_SLOPE_4_8ns (1<<6)
++#define SMA1303_BST_OFF_SLOPE_2_6ns (2<<6)
++#define SMA1303_BST_OFF_SLOPE_1_2ns (3<<6)
++
++#define SMA1303_OCP_TEST_MASK (1<<5)
++#define SMA1303_OCP_NORMAL_MODE (0<<5)
++#define SMA1303_OCP_TEST_MODE (1<<5)
++
++#define SMA1303_BST_FAST_LEBN_MASK (1<<4)
++#define SMA1303_BST_SHORT_LEB (0<<4)
++#define SMA1303_BST_LONG_LEB (1<<4)
++
++#define SMA1303_HIGH_PGAIN_MASK (1<<3)
++#define SMA1303_NORMAL_P_GAIN (0<<3)
++#define SMA1303_HIGH_P_GAIN (1<<3)
++
++#define SMA1303_VCOMP_MASK (1<<2)
++#define SMA1303_VCOMP_NORMAL_MODE (0<<2)
++#define SMA1303_VCOMP_V_MON_MODE (1<<2)
++
++#define SMA1303_PMOS_ON_MASK (1<<1)
++#define SMA1303_PMOS_NORMAL_MODE (0<<1)
++#define SMA1303_PMOS_TEST_MODE (1<<1)
++
++#define SMA1303_NMOS_ON_MASK (1<<0)
++#define SMA1303_NMOS_NORMAL_MODE (0<<0)
++#define SMA1303_NMOS_TEST_MODE (1<<0)
++
++/* BST_TEST1 : 0x0C */
++#define SMA1303_SET_OCP_H_MASK (3<<6)
++#define SMA1303_HIGH_OCP_4_5_LVL (0<<6)
++#define SMA1303_HIGH_OCP_3_2_LVL (1<<6)
++#define SMA1303_HIGH_OCP_2_1_LVL (2<<6)
++#define SMA1303_HIGH_OCP_0_9_LVL (3<<6)
++
++#define SMA1303_OCL_TEST_MASK (1<<5)
++#define SMA1303_OCL_NORMAL_MODE (0<<5)
++#define SMA1303_OCL_TEST_MODE (1<<5)
++
++#define SMA1303_LOOP_CHECK_MASK (1<<4)
++#define SMA1303_BST_LOOP_NORMAL_MODE (0<<4)
++#define SMA1303_BST_LOOP_CHECK_MODE (1<<4)
++
++#define SMA1303_EN_SH_PRT_MASK (1<<3)
++#define SMA1303_EN_SH_PRT_DISABLE (0<<3)
++#define SMA1303_EN_SH_PRT_ENABLE (1<<3)
++
++/* SPK_TEST : 0x0D */
++#define SMA1303_VREF_MON_MASK (1<<3)
++#define SMA1303_VREF_NORMAL_MODE (0<<3)
++#define SMA1303_VREF_V_MON_MODE (1<<3)
++
++#define SMA1303_SPK_OCP_DLYN_MASK (1<<2)
++#define SMA1303_SPK_OCP_LONG_DELAY (0<<2)
++#define SMA1303_SPK_OCP_NORMAL (1<<2)
++
++#define SMA1303_SPK_OFF_SLOPE_MASK (3<<0)
++#define SMA1303_SPK_OFF_SLOPE_SLOW (0<<0)
++#define SMA1303_SPK_OFF_SLOPE_FAST (3<<0)
++
++/* MUTE_VOL_CTRL : 0x0E */
++#define SMA1303_VOL_SLOPE_MASK (3<<6)
++#define SMA1303_VOL_SLOPE_OFF (0<<6)
++#define SMA1303_VOL_SLOPE_SLOW (1<<6)
++#define SMA1303_VOL_SLOPE_MID (2<<6)
++#define SMA1303_VOL_SLOPE_FAST (3<<6)
++
++#define SMA1303_MUTE_SLOPE_MASK (3<<4)
++#define SMA1303_MUTE_SLOPE_OFF (0<<4)
++#define SMA1303_MUTE_SLOPE_SLOW (1<<4)
++#define SMA1303_MUTE_SLOPE_MID (2<<4)
++#define SMA1303_MUTE_SLOPE_FAST (3<<4)
++
++#define SMA1303_SPK_MUTE_MASK (1<<0)
++#define SMA1303_SPK_UNMUTE (0<<0)
++#define SMA1303_SPK_MUTE (1<<0)
++
++/* SYSTEM_CTRL1 :0x10 */
++#define SMA1303_SPK_MODE_MASK (7<<2)
++#define SMA1303_SPK_OFF (0<<2)
++#define SMA1303_SPK_MONO (1<<2)
++#define SMA1303_SPK_STEREO (4<<2)
++
++/* SYSTEM_CTRL2 : 0x11 */
++#define SMA1303_SPK_BS_MASK (1<<6)
++#define SMA1303_SPK_BS_BYP (0<<6)
++#define SMA1303_SPK_BS_EN (1<<6)
++#define SMA1303_SPK_LIM_MASK (1<<5)
++#define SMA1303_SPK_LIM_BYP (0<<5)
++#define SMA1303_SPK_LIM_EN (1<<5)
++
++#define SMA1303_LR_DATA_SW_MASK (1<<4)
++#define SMA1303_LR_DATA_SW_NORMAL (0<<4)
++#define SMA1303_LR_DATA_SW_SWAP (1<<4)
++
++#define SMA1303_MONOMIX_MASK (1<<0)
++#define SMA1303_MONOMIX_OFF (0<<0)
++#define SMA1303_MONOMIX_ON (1<<0)
++
++/* SYSTEM_CTRL3 : 0x12 */
++#define SMA1303_INPUT_MASK (3<<6)
++#define SMA1303_INPUT_0_DB (0<<6)
++#define SMA1303_INPUT_M6_DB (1<<6)
++#define SMA1303_INPUT_M12_DB (2<<6)
++#define SMA1303_INPUT_INFI_DB (3<<6)
++#define SMA1303_INPUT_R_MASK (3<<4)
++#define SMA1303_INPUT_R_0_DB (0<<4)
++#define SMA1303_INPUT_R_M6_DB (1<<4)
++#define SMA1303_INPUT_R_M12_DB (2<<4)
++#define SMA1303_INPUT_R_INFI_DB (3<<4)
++
++/* Modulator : 0x14 */
++#define SMA1303_SPK_HYSFB_MASK (3<<6)
++#define SMA1303_HYSFB_625K (0<<6)
++#define SMA1303_HYSFB_414K (1<<6)
++#define SMA1303_HYSFB_297K (2<<6)
++#define SMA1303_HYSFB_226K (3<<6)
++#define SMA1303_SPK_BDELAY_MASK (63<<0)
++
++/* SDM CONTROL : 0x33 */
++#define SMA1303_SDM_Q_SEL_MASK (1<<2)
++#define SMA1303_QUART_SEL_1_DIV_4 (0<<2)
++#define SMA1303_QUART_SEL_1_DIV_8 (1<<2)
++
++/* OTP_DATA1 : 0x34 */
++#define SMA1303_OTP_LVL_MASK (1<<5)
++#define SMA1303_OTP_LVL_NORMAL (0<<5)
++#define SMA1303_OTP_LVL_LOW (1<<5)
++
++/* PROTECTION : 0x36 */
++#define SMA1303_EDGE_DIS_MASK (1<<7)
++#define SMA1303_EDGE_DIS_ENABLE (0<<7)
++#define SMA1303_EDGE_DIS_DISABLE (1<<7)
++
++#define SMA1303_SPK_OCP_DIS_MASK (1<<3)
++#define SMA1303_SPK_OCP_ENABLE (0<<3)
++#define SMA1303_SPK_OCP_DISABLE (1<<3)
++
++#define SMA1303_OCP_MODE_MASK (1<<2)
++#define SMA1303_AUTO_RECOVER (0<<2)
++#define SMA1303_SHUT_DOWN_PERMANENT (1<<2)
++
++#define SMA1303_OTP_MODE_MASK (3<<0)
++#define SMA1303_OTP_MODE_DISABLE (0<<0)
++#define SMA1303_IG_THR1_SHUT_THR2 (1<<0)
++#define SMA1303_REC_THR1_SHUT_THR2 (2<<0)
++#define SMA1303_SHUT_THR1_SHUT_THR2 (3<<0)
++
++/* TEST2 : 0x3C */
++#define SMA1303_SPK_HSDM_BP_MASK (1<<4)
++#define SMA1303_SPK_HSDM_ENABLE (0<<4)
++#define SMA1303_SPK_HSDM_BYPASS (1<<4)
++
++#define SMA1303_SDM_SYNC_DIS_MASK (1<<5)
++#define SMA1303_SDM_SYNC_NORMAL (0<<5)
++#define SMA1303_SDM_SYNC_DISABLE (1<<5)
++
++/* ATEST2 : 0x3F */
++#define SMA1303_SPK_OUT_FREQ_MASK (1<<2)
++#define SMA1303_SPK_OUT_FREQ_360K (0<<2)
++#define SMA1303_SPK_OUT_FREQ_410K (1<<2)
++
++#define SMA1303_LOW_POWER_MODE_MASK (1<<3)
++#define SMA1303_LOW_POWER_MODE_DISABLE (0<<3)
++#define SMA1303_LOW_POWER_MODE_ENABLE (1<<3)
++
++#define SMA1303_THERMAL_ADJUST_MASK (3<<5)
++#define SMA1303_THERMAL_150_110 (0<<5)
++#define SMA1303_THERMAL_160_120 (1<<5)
++#define SMA1303_THERMAL_140_100 (2<<5)
++
++#define SMA1303_FAST_OFF_DRIVE_SPK_MASK (1<<0)
++#define SMA1303_FAST_OFF_DRIVE_SPK_DISABLE (0<<0)
++#define SMA1303_FAST_OFF_DRIVE_SPK_ENABLE (1<<0)
++
++/* PLL_CTRL : 0x8E */
++#define SMA1303_TRM_LVL_MASK (1<<4)
++#define SMA1303_TRM_LVL_NORMAL (0<<4)
++#define SMA1303_TRM_LVL_LOW (1<<4)
++
++#define SMA1303_LOW_OCL_MODE_MASK (1<<3)
++#define SMA1303_LOW_OCL_MODE (0<<3)
++#define SMA1303_NORMAL_OCL_MODE (1<<3)
++
++#define SMA1303_PLL_PD2_MASK (7<<0)
++#define SMA1303_PLL_PD2 (7<<0)
++#define SMA1303_PLL_OPERATION2 (0<<0)
++
++/* POSTSCALER : 0x90 */
++#define SMA1303_BYP_POST_MASK (1<<0)
++#define SMA1303_EN_POST_SCALER (0<<0)
++#define SMA1303_BYP_POST_SCALER (1<<0)
++
++/* FDPEC CONTROL : 0x92 */
++#define SMA1303_FLT_VDD_GAIN_MASK (15<<4)
++#define SMA1303_FLT_VDD_GAIN_2P40 (0<<4)
++#define SMA1303_FLT_VDD_GAIN_2P45 (1<<4)
++#define SMA1303_FLT_VDD_GAIN_2P50 (2<<4)
++#define SMA1303_FLT_VDD_GAIN_2P55 (3<<4)
++#define SMA1303_FLT_VDD_GAIN_2P60 (4<<4)
++#define SMA1303_FLT_VDD_GAIN_2P65 (5<<4)
++#define SMA1303_FLT_VDD_GAIN_2P70 (6<<4)
++#define SMA1303_FLT_VDD_GAIN_2P75 (7<<4)
++#define SMA1303_FLT_VDD_GAIN_2P80 (8<<4)
++#define SMA1303_FLT_VDD_GAIN_2P85 (9<<4)
++#define SMA1303_FLT_VDD_GAIN_2P90 (10<<4)
++#define SMA1303_FLT_VDD_GAIN_2P95 (11<<4)
++#define SMA1303_FLT_VDD_GAIN_3P00 (12<<4)
++#define SMA1303_FLT_VDD_GAIN_3P05 (13<<4)
++#define SMA1303_FLT_VDD_GAIN_3P10 (14<<4)
++#define SMA1303_FLT_VDD_GAIN_3P15 (15<<4)
++
++#define SMA1303_DIS_FCHG_MASK (1<<2)
++#define SMA1303_EN_FAST_CHARGE (0<<2)
++#define SMA1303_DIS_FAST_CHARGE (1<<2)
++
++/* BOOST_CONTROL4 : 0x97 */
++#define SMA1303_TRM_VBST_MASK (7<<2)
++#define SMA1303_TRM_VBST_5P5 (0<<2)
++#define SMA1303_TRM_VBST_5P6 (1<<2)
++#define SMA1303_TRM_VBST_5P7 (2<<2)
++#define SMA1303_TRM_VBST_5P8 (3<<2)
++#define SMA1303_TRM_VBST_5P9 (4<<2)
++#define SMA1303_TRM_VBST_6P0 (5<<2)
++#define SMA1303_TRM_VBST_6P1 (6<<2)
++#define SMA1303_TRM_VBST_6P2 (7<<2)
++
++/* TOP_MAN1 : 0xA2 */
++#define SMA1303_PLL_LOCK_SKIP_MASK (1<<7)
++#define SMA1303_PLL_LOCK_ENABLE (0<<7)
++#define SMA1303_PLL_LOCK_DISABLE (1<<7)
++
++#define SMA1303_PLL_PD_MASK (1<<6)
++#define SMA1303_PLL_OPERATION (0<<6)
++#define SMA1303_PLL_PD (1<<6)
++
++#define SMA1303_PLL_DIV_MASK (3<<4)
++#define SMA1303_PLL_OUT (0<<4)
++#define SMA1303_PLL_OUT_2 (1<<4)
++#define SMA1303_PLL_OUT_4 (2<<4)
++#define SMA1303_PLL_OUT_8 (3<<4)
++
++#define SMA1303_PLL_REF_CLK_MASK (1<<3)
++#define SMA1303_PLL_REF_CLK1 (0<<3)
++#define SMA1303_PLL_SCK (1<<3)
++
++#define SMA1303_DAC_DN_CONV_MASK (1<<2)
++#define SMA1303_DAC_DN_CONV_DISABLE (0<<2)
++#define SMA1303_DAC_DN_CONV_ENABLE (1<<2)
++
++#define SMA1303_SDO_IO_MASK (1<<1)
++#define SMA1303_HIGH_Z_LRCK_H (0<<1)
++#define SMA1303_HIGH_Z_LRCK_L (1<<1)
++
++#define SMA1303_SDO_OUTPUT2_MASK (1<<0)
++#define SMA1303_SDO_NORMAL (0<<0)
++#define SMA1303_SDO_OUTPUT_ONLY (1<<0)
++
++/* TOP_MAN2 : 0xA3 */
++#define SMA1303_MON_OSC_PLL_MASK (1<<7)
++#define SMA1303_PLL_SDO (0<<7)
++#define SMA1303_OSC_SDO (1<<7)
++
++#define SMA1303_TEST_CLKO_EN_MASK (1<<6)
++#define SMA1303_NORMAL_SDO (0<<6)
++#define SMA1303_CLK_OUT_SDO (1<<6)
++
++#define SMA1303_SDO_OUTPUT_MASK (1<<3)
++#define SMA1303_NORMAL_OUT (0<<3)
++#define SMA1303_HIGH_Z_OUT (1<<3)
++
++#define SMA1303_CLOCK_MON_MASK (1<<1)
++#define SMA1303_CLOCK_MON (0<<1)
++#define SMA1303_CLOCK_NOT_MON (1<<1)
++
++#define SMA1303_OSC_PD_MASK (1<<0)
++#define SMA1303_NORMAL_OPERATION_OSC (0<<0)
++#define SMA1303_POWER_DOWN_OSC (1<<0)
++
++/* TOP_MAN3 0xA4 */
++#define SMA1303_O_FORMAT_MASK (7<<5)
++#define SMA1303_O_FMT_LJ (1<<5)
++#define SMA1303_O_FMT_I2S (2<<5)
++#define SMA1303_O_FMT_TDM (4<<5)
++
++#define SMA1303_SCK_RATE_MASK (1<<3)
++#define SMA1303_SCK_64FS (0<<3)
++#define SMA1303_SCK_32FS (2<<3)
++
++#define SMA1303_LRCK_POL_MASK (1<<0)
++#define SMA1303_L_VALID (0<<0)
++#define SMA1303_R_VALID (1<<0)
++
++/* TDM1 FORMAT : 0xA5 */
++#define SMA1303_TDM_CLK_POL_MASK (1<<7)
++#define SMA1303_TDM_CLK_POL_RISE (0<<7)
++#define SMA1303_TDM_CLK_POL_FALL (1<<7)
++
++#define SMA1303_TDM_TX_MODE_MASK (1<<6)
++#define SMA1303_TDM_TX_MONO (0<<6)
++#define SMA1303_TDM_TX_STEREO (1<<6)
++
++#define SMA1303_TDM_SLOT1_RX_POS_MASK (7<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_0 (0<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_1 (1<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_2 (2<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_3 (3<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_4 (4<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_5 (5<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_6 (6<<3)
++#define SMA1303_TDM_SLOT1_RX_POS_7 (7<<3)
++
++#define SMA1303_TDM_SLOT2_RX_POS_MASK (7<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_0 (0<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_1 (1<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_2 (2<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_3 (3<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_4 (4<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_5 (5<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_6 (6<<0)
++#define SMA1303_TDM_SLOT2_RX_POS_7 (7<<0)
++
++/* TDM2 FORMAT : 0xA6 */
++#define SMA1303_TDM_DL_MASK (1<<7)
++#define SMA1303_TDM_DL_16 (0<<7)
++#define SMA1303_TDM_DL_32 (1<<7)
++
++#define SMA1303_TDM_N_SLOT_MASK (1<<6)
++#define SMA1303_TDM_N_SLOT_4 (0<<6)
++#define SMA1303_TDM_N_SLOT_8 (1<<6)
++
++#define SMA1303_TDM_SLOT1_TX_POS_MASK (7<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_0 (0<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_1 (1<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_2 (2<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_3 (3<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_4 (4<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_5 (5<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_6 (6<<3)
++#define SMA1303_TDM_SLOT1_TX_POS_7 (7<<3)
++
++#define SMA1303_TDM_SLOT2_TX_POS_MASK (7<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_0 (0<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_1 (1<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_2 (2<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_3 (3<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_4 (4<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_5 (5<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_6 (6<<0)
++#define SMA1303_TDM_SLOT2_TX_POS_7 (7<<0)
++
++/* STATUS1 : 0xFA */
++#define SMA1303_OT1_OK_STATUS (1<<7)
++#define SMA1303_OT2_OK_STATUS (1<<6)
++
++/* STATUS2 : 0xFB */
++#define SMA1303_OCP_SPK_STATUS (1<<5)
++#define SMA1303_OCP_BST_STATUS (1<<4)
++#define SMA1303_OTP_STAT_OK_0 (5<<1)
++#define SMA1303_OTP_STAT_OK_1 (2<<2)
++
++#define SMA1303_CLK_MON_STATUS (1<<0)
++
++/* DEVICE_INFO : 0xFF */
++#define SMA1303_DEVICE_ID (2<<3)
++#define SMA1303_UVLO_BST_STATUS (1<<2)
++#define SMA1303_REV_NUM_STATUS (3<<0)
++#define SMA1303_REV_NUM_TV0 (0<<0)
++#define SMA1303_REV_NUM_TV1 (1<<0)
++
++#endif
 -- 
-2.25.1
+2.20.1
 

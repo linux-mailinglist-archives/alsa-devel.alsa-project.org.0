@@ -2,93 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6850067C808
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 11:08:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4884667C809
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 11:09:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3CB3E7E;
-	Thu, 26 Jan 2023 11:07:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3CB3E7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADCEFE99;
+	Thu, 26 Jan 2023 11:08:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADCEFE99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674727718;
-	bh=LPtKBgBPGW2XCs/sGvAns4+JZzY1exrCf8GIGF3YziM=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=sg/jLTD8aFKu8lXxkeLmx5jVPBN05aGgNGrJtO8CAS15OaCEPHIyC/WPEeNyXkHlZ
-	 y3QYItoPnA9Swk3327I6BzOmVEl7MZ3C9rJPvzVeOHruOAsBiMRpROUE401gWWtRbE
-	 m/gz9MJZNRkn/v4CAHm+Whe55nFGNEUU0oAKKhZ0=
+	s=default; t=1674727767;
+	bh=wb6ILCQ1cTC9pBv2u2C6lULUzFkV5Mzo0cqauuI6ykw=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=Wwv32AZ+AcygV3opo4EjmFRj/9RsBv9sFE6prqDDgNi49Ix7o7IwILcoL+D2xMBAQ
+	 dNQSQ+alEuZnU/Px5xvD1PCftCTu6udeZtpyVIPxG4XRu0+xFGQcfDW+dpCq/p9gOF
+	 a2s4cwH8kE7L5uyBLIi7fyzuGi1+d1eJ9PlNkl8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FA82F802DF;
-	Thu, 26 Jan 2023 11:07:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 484EFF80224;
+	Thu, 26 Jan 2023 11:08:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D55FF80224; Thu, 26 Jan 2023 11:07:36 +0100 (CET)
+ id 7C61BF80224; Thu, 26 Jan 2023 11:08:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33EBEF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 11:07:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33EBEF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D3CAF80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 11:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D3CAF80224
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=V8GT72ww
-Received: by mail-wm1-x32f.google.com with SMTP id j17so792585wms.0
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 02:07:29 -0800 (PST)
+ header.s=google header.b=CmBV4M5C
+Received: by mail-wr1-x429.google.com with SMTP id n7so1215713wrx.5
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 02:08:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=0/C64VDfxrfMZ/1uEiB9zDHpUFLh7m1+xnmbS1pFOyk=;
- b=V8GT72wwmpsgfPbJCh3bZau3EqF2A4BmUXRINxha+xoOrYdxcwh7sGQJkDcYSMVt7d
- OEWhNIynscbTDMOde6Scdc3iOpLWjwbl0fDFquAtRZ2lvtpmDtFi4FGJLQLpx9+mmbAz
- WMCA5HMP7sCJQbCqtw1DXcsWpiwaSU6vwzCpxsdHeutZ1zotQeDyf/i7FbDxsmwAjcBf
- SC0ksg3nz1JTQ+jWQ4yGHPgt4wQlbaLLxcrcFydXqIEbTGqFeSGS/ubVFCT/vW4Kw65L
- 2EFVzCsmXCMCB0wxJQTzW+Yn36mK8A50GcTo4kFXIEF4+CRyPfw8obfnqRd6wdCOVCs5
- ThRQ==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OCMpSj2qX/TvzjoL4WBA0wHs1RQU0xmnM0hsa+C5VYk=;
+ b=CmBV4M5Cp06VI+Bqc7KdM3VcQ7S5S3Ya4+rhl5CQbTLwdmq8TgJH7H1pjh/lDWlW/k
+ IsE4YUY+WWqWDFcQJ1tQcpL+zrUwzmpwFI6vzgIBLHDm7laszZjy+4x+7VqdRl6Y3sLr
+ l2B+gd7SXtNOtZ+2eHG6licGhpHzZlBEo4gKiwFQlOJ/s9MwjKdbXaFnEYVC2KnGtweo
+ IQfnFSyBoBUt9Zq50b7egWunrtCCKHxjEqeMbXA0TJbMTb3rKuCeHGNLpU7uTNxFAEmz
+ CwaxpYnmn+X9T+hHO/q+VNkggupSgIFd97nBfhodCR5mL47OZj8/rP8UnNyKnZ8UeoGP
+ XppA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0/C64VDfxrfMZ/1uEiB9zDHpUFLh7m1+xnmbS1pFOyk=;
- b=wQmI+d1BJ9lpdUgvIt/9JMgnQnxCTidFIMZtGHgz4SWCl9t3DBiTamdml1aH8FwlR4
- 8vY8Jx9dNkF1DGqm69Vx9RuVRoNO9D/ULH9W08ZndOlKmDSubxc58wKywnkLxctvHrBb
- /NKhSVf/tJ3seVTNUX1FsDDag5shdqXuqqb7BWs9uLmAVo1xYnTsXWlqAIkgXrjlGh7k
- TrAuIf6/PeNLnv0Oz9NnoW2XI+nwcpI07Mi68H7QtKz8I3CH2SGULEqHHmYZZNiQn02v
- sRcYqWyEwWWSPYpTWtQ65fHMgf3JewCzBwt3P+E/K5qSwy1ndqSgi1hkckfLRncbeDr6
- YoFQ==
-X-Gm-Message-State: AFqh2koxToMeT21YfA2G41Zq9Tho33Sxp8BhQMDLXENqcqk2B0OKYON+
- iZ9ffe1KjlBoCJT5L3MQ7NQBjA==
-X-Google-Smtp-Source: AMrXdXuJjP3gif07dsS93YMwa0ud5oEd8szdXezHlD3wXohWvaPMrwT/AMVBSYVQSnEovOilt2svNQ==
-X-Received: by 2002:a05:600c:3d16:b0:3d0:6a57:66a5 with SMTP id
- bh22-20020a05600c3d1600b003d06a5766a5mr35013737wmb.0.1674727648285; 
- Thu, 26 Jan 2023 02:07:28 -0800 (PST)
-Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- l16-20020a7bc350000000b003d9aa76dc6asm5198839wmj.0.2023.01.26.02.07.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 02:07:27 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: dt-bindings: renesas, rsnd: simplify list of compatibles
-Date: Thu, 26 Jan 2023 11:07:22 +0100
-Message-Id: <20230126100722.9473-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OCMpSj2qX/TvzjoL4WBA0wHs1RQU0xmnM0hsa+C5VYk=;
+ b=PqcvuDN+UMJk6fHEPFdHzHIcthoiUrpWEMObJT2w/AGhuIFw2hXu5s6PRslLFAt03V
+ Z/ukO/BubF9BoVh5UCuj23hsGHs5OvD093yG2WbGZrYsINrmm6PTQo0UcU+sbihytDto
+ Q5BUu4NRZfvR8bk/uwW33fZQVJsgXWvVibMJyA3KZ5A/ZofQdSsEeXozJxYv6UwaPgUu
+ POZmTVhtMGB39s6WDAg6RLbD1qosfJHz14y0NLJgIcsCpWJh5o608e+25iXyi5qvIGvM
+ /XlhQWDMkcbL3PoiQuhNo61I/NPwZcdZtUff37x31BBaMYqWIQq2XrInFqOt0H+Sb9Ou
+ 8moA==
+X-Gm-Message-State: AFqh2koyKbpX+1tD20Dag6e08jeutICZrC65zKRTj8h7EjwcxaQtQjay
+ HQwL2Vb7vz6QpX2rcEubOO5Y8w==
+X-Google-Smtp-Source: AMrXdXvkdqGYnmBaXPcM4k99z+W9QBzHNjb5GVMx2Ejf2Dv7jLU2bRlGzTrG4Cmx6n5GRBCzwMkNfg==
+X-Received: by 2002:a5d:5b0e:0:b0:250:22e4:b89e with SMTP id
+ bx14-20020a5d5b0e000000b0025022e4b89emr33781953wrb.65.1674727709017; 
+ Thu, 26 Jan 2023 02:08:29 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ u14-20020a5d434e000000b002bfbda53b98sm841421wrr.35.2023.01.26.02.08.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jan 2023 02:08:28 -0800 (PST)
+Message-ID: <a7b9d4b9-892d-a131-a223-c286efdc9b9c@linaro.org>
+Date: Thu, 26 Jan 2023 11:08:27 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+Subject: Re: [PATCH] ASoC: dt-bindings: renesas: add R8A779G0 V4H
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <87zga6t5r4.wl-kuninori.morimoto.gx@renesas.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <87zga6t5r4.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,67 +106,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The fallback compatible in a list (the last one) cannot be enum, because
-it is always fixed.  Also if such fallback is used alone ("Generic"
-case), it's not a list anymore.
+On 26/01/2023 02:59, Kuninori Morimoto wrote:
+> 
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+There is stray blank line before your "From".
 
----
+> 
+> Document R-Car V4H (R8A779G0), and R-Car Gen4 SoC bindings.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  .../devicetree/bindings/sound/renesas,rsnd.yaml          | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> index 679a246dd666..5319abdda8a2 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> @@ -49,12 +49,21 @@ properties:
+>                - renesas,rcar_sound-r8a77995  # R-Car D3
+>            - enum:
+>                - renesas,rcar_sound-gen3
+> +
+> +      # for Gen4 SoC
+> +      - items:
+> +          - enum:
+> +              - renesas,rcar_sound-r8a779g0  # R-Car V4H
+> +          - enum:
+> +              - renesas,rcar_sound-gen4
 
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- .../bindings/sound/renesas,rsnd.yaml           | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+This is not enum but const. I send a fix for the rest, please rebase on
+top of it.
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index cb90463c7297..b1f08d6af38d 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -18,8 +18,7 @@ properties:
-           - enum:
-               - renesas,rcar_sound-r8a7778   # R-Car M1A
-               - renesas,rcar_sound-r8a7779   # R-Car H1
--          - enum:
--              - renesas,rcar_sound-gen1
-+          - const: renesas,rcar_sound-gen1
-       # for Gen2 SoC
-       - items:
-           - enum:
-@@ -32,8 +31,7 @@ properties:
-               - renesas,rcar_sound-r8a7791   # R-Car M2-W
-               - renesas,rcar_sound-r8a7793   # R-Car M2-N
-               - renesas,rcar_sound-r8a7794   # R-Car E2
--          - enum:
--              - renesas,rcar_sound-gen2
-+          - const: renesas,rcar_sound-gen2
-       # for Gen3 SoC
-       - items:
-           - enum:
-@@ -47,14 +45,12 @@ properties:
-               - renesas,rcar_sound-r8a77965  # R-Car M3-N
-               - renesas,rcar_sound-r8a77990  # R-Car E3
-               - renesas,rcar_sound-r8a77995  # R-Car D3
--          - enum:
--              - renesas,rcar_sound-gen3
-+          - const: renesas,rcar_sound-gen3
-       # for Generic
--      - items:
--          - enum:
--              - renesas,rcar_sound-gen1
--              - renesas,rcar_sound-gen2
--              - renesas,rcar_sound-gen3
-+      - enum:
-+          - renesas,rcar_sound-gen1
-+          - renesas,rcar_sound-gen2
-+          - renesas,rcar_sound-gen3
- 
-   reg:
-     minItems: 1
--- 
-2.34.1
+Best regards,
+Krzysztof
 

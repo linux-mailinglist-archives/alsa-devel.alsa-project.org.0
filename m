@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF1A67C1A9
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 01:30:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B58B67C1A7
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 01:30:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 416D820B;
-	Thu, 26 Jan 2023 01:29:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 416D820B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1991E209;
+	Thu, 26 Jan 2023 01:29:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1991E209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674693029;
-	bh=fbBRAdPn9UFXEiL+pTgBGg0Ie4LQZr2rftDpSDQY9mQ=;
+	s=default; t=1674693001;
+	bh=gubbhzGaviSeApE3IdtZWRMvA0UHhr8l5Bb71wx7pHE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Sp4pN5HXtwlANB8hAg0XzhczHwRx2p45Se5SpLmM8/VxViQerXtqSHCzoLU535/GN
-	 tqSqs36qJW12/3Os3R0t3BmmQEjaKfXKP3iGtPbKHOJ55+A4W7DGAyqZm6fOpwXN+u
-	 U71uYvwxOVGSUS4xxC5piCrbG8TX9/5ZfTutbp9c=
+	b=ofTjzlVgQWMc3pd8GY3ajwj4XuwspX1M88IoTNWpDsMgnLVf+ygfbhYqU5fJPiqHr
+	 9I5yvkvDp/0pf8PkKGQ4Zo50nO3ydpw+MmWSGdssPuc0i2LaiZjIl/M+9/grHpwiPY
+	 Scgx2sQDW6pefdm1dxvTbO+EHXSZIS6fDo8GnDJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B6FBF804FD;
-	Thu, 26 Jan 2023 01:29:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CED9F800FB;
+	Thu, 26 Jan 2023 01:29:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDA30F804C2; Thu, 26 Jan 2023 01:28:58 +0100 (CET)
+ id DC6B8F804A9; Thu, 26 Jan 2023 01:28:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,40 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2A89F80163
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 01:28:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2A89F80163
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6AFCF802E8
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 01:28:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AFCF802E8
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=J2htSXXH
+ header.s=k20201202 header.b=tuIKNqm4
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BB07CB81C68;
- Thu, 26 Jan 2023 00:28:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65302C4339B;
- Thu, 26 Jan 2023 00:28:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4CBD9B81C6A;
+ Thu, 26 Jan 2023 00:28:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5B2C4339C;
+ Thu, 26 Jan 2023 00:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674692930;
- bh=fbBRAdPn9UFXEiL+pTgBGg0Ie4LQZr2rftDpSDQY9mQ=;
+ s=k20201202; t=1674692933;
+ bh=gubbhzGaviSeApE3IdtZWRMvA0UHhr8l5Bb71wx7pHE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=J2htSXXHT0yD60LqM36NP78mUMK3vdQZPm3sPfBw0ylOPx8uAF5HuQiUSYi7hbzwH
- jdDNJLFsF/ezK4qmwcuVPdd/3LAnAxsba6JHrD2EzzbwBBLCqnWdrLcsFuX4Vnkh+N
- G6BL9SaoxeHbOnOEogTRcDQncFNaXHydmJcOCXKKFOQ4sXdtC9EnTPLLhcV71Fp/V5
- mDMOuKy1OobLePtLrMuzF9nf/DC+GtAHAKSu7snlPZnodGhOCUGi4zyfvVnGuBbTHc
- SYdCe7G0uTJSXQmaXF65Ku5S1FeGg9+cZ9gxmUP+VjXReWrp2JyS6s/l/IKTak/JXe
- XecrCqRjSSGTw==
+ b=tuIKNqm4mU2Li0CLx3FjM1AU7UJSU4+yfdyi0iYXnnatFEF1v57rvOic1GS2TLqk/
+ 5kuA0L8CiRqoJr61ikJLH11e/0Pjf087rVIsL9X+zCgsoEErlmwTW6ryrKNN11l+2f
+ yu2kdJwnbMx6s/W6nIQ7Qw03SP1GkTCGh7/CxEpu+wPFmIBGaaS/FwMN/4yjNzq3jF
+ kXkHwnfTJGwG1hTaUTw7RYsqJFeq6rZO9m9iDcrhjJT9BFhhMcSzzcEdOOnCspfrFt
+ Qluy9+VnBfG9N5jPTin0UNkY16poI0H+otWEjcTlsvmpBa9ilrmxueMwQt3dfhIx/B
+ 9JwUuYGlhGYRg==
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230124181746.19028-1-rdunlap@infradead.org>
-References: <20230124181746.19028-1-rdunlap@infradead.org>
-Subject: Re: [PATCH] ASoC: Kconfig: fix spelling of "up to"
-Message-Id: <167469292812.2696228.156727580350360808.b4-ty@kernel.org>
-Date: Thu, 26 Jan 2023 00:28:48 +0000
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230124123049.285395-1-krzysztof.kozlowski@linaro.org>
+References: <20230124123049.285395-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: codecs: wsa883x: correct playback min/max rates
+Message-Id: <167469293063.2696228.862026813738827424.b4-ty@kernel.org>
+Date: Thu, 26 Jan 2023 00:28:50 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -80,16 +84,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Cc: stable@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 Jan 2023 10:17:46 -0800, Randy Dunlap wrote:
-> Fix spelling in sound/soc/ Kconfig files:
-> s/upto/up to/
-> (reported by codespell)
+On Tue, 24 Jan 2023 13:30:49 +0100, Krzysztof Kozlowski wrote:
+> Correct reversed values used in min/max rates, leading to incorrect
+> playback constraints.
 > 
 > 
 
@@ -99,8 +100,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Kconfig: fix spelling of "up to"
-      commit: 636be128d659131739df62e08455bbf6678fc58b
+[1/1] ASoC: codecs: wsa883x: correct playback min/max rates
+      commit: 100c94ffde489ee11e23400f2a07b236144b048f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

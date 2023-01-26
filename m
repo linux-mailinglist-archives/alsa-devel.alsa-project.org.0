@@ -2,102 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D7C67CF56
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 16:10:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C61AD67D007
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 16:23:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6BB4A4C;
-	Thu, 26 Jan 2023 16:09:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6BB4A4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55311DE5;
+	Thu, 26 Jan 2023 16:22:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55311DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674745813;
-	bh=mOqBM3UiSivT0tfqT6j3BTaaF2WEjZfMDPsFSh2cMY4=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=jgAdpSG6SH0w3Vb0ADxJxsfrPVXaaoNTVFLucc/KChAAKaE/Ak4GokqH4Ukg1aUrY
-	 d7mKpjQf95f1YehLAAyKcevOohAnUVomVjR/nXzYdMuyvZBsbDCJFbUmdolnTOei/q
-	 4JfTTE2UYIjffnhpGGS3B68P9nDtUIqYvkiE92Uw=
+	s=default; t=1674746597;
+	bh=Ed9wa2fV1wbOY8IMHeazEmGfR4XI1bTAMQsycXfc6bI=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=ExCG7HZ9Ne0TseDlItVfK+l4RbZjeE9hil4HgYcRDdy27x/AweBYCuMCoXIPehyYw
+	 fvGhLoKcnn6zhd6haUZGOCqDwArbUI9yhr60wIA8SnAvXG7aXwjpKKr1ZawciadPwp
+	 Ki2HaxtSTP1scrUCqn6PswzjMLbKOmcGHgb3IYVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90050F80224;
-	Thu, 26 Jan 2023 16:09:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97314F8016E;
+	Thu, 26 Jan 2023 16:22:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0A36F8027D; Thu, 26 Jan 2023 16:09:12 +0100 (CET)
+ id 10D3BF8027D; Thu, 26 Jan 2023 16:22:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48D8BF80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 16:09:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48D8BF80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DA5FF80224
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 16:22:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DA5FF80224
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=FYSBmhD1
-Received: by mail-wm1-x32e.google.com with SMTP id
- f19-20020a1c6a13000000b003db0ef4dedcso3422591wmc.4
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 07:09:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ajpze3MQAtAYvqF9cQldA9cf7OwdmlVDcuG8wHeoRgs=;
- b=FYSBmhD19DPaZ+sYkioR8rvsR1S61pjCm2F6hhPKO9Wx6aQe6lG7AKj6WZ/pbnqifH
- erq7dkFAAnezOLndNVdIhyFxmpWo6gtG/q5n//0JUQe+qPFfFXZXoeKXpcafhfOJO6Rp
- h2OubWFiQ4j7ObP2RFI3WJMzzxY1p+m9zRUhcBSLYVSs7md26wfTJoVJQHyM37kyN6ZP
- WHDuLaKPrO6jqyFNh+I4wf1ZjuqUyn4uto8kBOxptMbq+5kDHkGcKI+N3aFKP3UwOCPk
- R4ujUrAa7WTfU7Yo4RXVGtj4ViBKak1EFBaoTAD1+sE6LStM1qHPI5iZfaYqGbuzH3Y+
- 0LjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ajpze3MQAtAYvqF9cQldA9cf7OwdmlVDcuG8wHeoRgs=;
- b=Ey5bnyilF680HBxy/boUnyRZREGgkL+TKmYPJ9HJA/WRK53xQ8r8UeiJEP2mHdZ/YK
- p/H7bMAIhjmnGhfiQB57yIG9xHsIyYOiAenPEX9ayQdxgJ5SSul/L5Za289KZbjvPUws
- jDK8Ti7CysQtopa66IJLHwntNIEmiB75DpP5CWFRQqPdhX9BFM3o6LbsGIzTI0WJ07LV
- v2ECSbnyT7G7RiA/gjMt7GpPfEmaEDnXor77Wup9kXFG8lU8qYeGnD8v+kXwHzwGqQoE
- M3YqUkllCOaZ+EgsKGIjFf6eI2TkchcNZZwHGqutvvGy9HTYRfOomSiaP36753QCJcSL
- lUSA==
-X-Gm-Message-State: AFqh2kqBorohukHnLSK/7e6LMltKNCGhJEPjV9qWRnrk4hBTRODWo71n
- e779nEHRvIAoE4mJdf6GBiUYOQ==
-X-Google-Smtp-Source: AMrXdXtgFJtcW/CyDSscF5zX4thhHfrzGW2wYzmuzbbfzlkbA0G2ExYJ6Y5m6PB09MYvx9PJPN8JNw==
-X-Received: by 2002:a05:600c:3b02:b0:3da:1bb0:4d71 with SMTP id
- m2-20020a05600c3b0200b003da1bb04d71mr43595511wms.11.1674745747349; 
- Thu, 26 Jan 2023 07:09:07 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- ip6-20020a05600ca68600b003d04e4ed873sm4834628wmb.22.2023.01.26.07.09.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jan 2023 07:09:06 -0800 (PST)
-Message-ID: <c27b5fc4-9153-0682-38d1-65b4adf14082@linaro.org>
-Date: Thu, 26 Jan 2023 15:09:05 +0000
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=n4O/TPhP
+Received: from booty.fritz.box (unknown [77.244.183.192])
+ (Authenticated sender: luca.ceresoli@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPA id CCC7724000B;
+ Thu, 26 Jan 2023 15:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1674746531;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=y4XXZUb/eXTVLt3Io7nRJONtjd6MFURYEBCczeziRlI=;
+ b=n4O/TPhP8ss3Yw55rWDZdfKA5BDB3pD/eXKOubNenym/Wz0Z3oFGqXygem7AXQ4QxtQUs0
+ aTFUIxv3UvBbXaXdfjKt/+DxdiIH3m9pjffuOqX3kEawUd0mIoICswgkMt7Cl2V+9f/nlP
+ wZtZJUP9mFhHT8NCsMwnF+uxqasFUWG+4xeiWbYsWAqegNctl6/A3D+q+p+1IifdAbD+ru
+ UjJ9ogApnYQW65IA/tLjadQBDynMEBwsEPvMih4MQzWaAqI8kJqr9zHQN6Oc88cQ1ZyKA8
+ qBD027A6BojfXIfwIovLnoGdIEzq5/ovTr1GPKV7MYxKP8XDojIjVN3rfVcGNQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Pravin B Shelar <pshelar@ovn.org>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH] scripts/spelling.txt: add "exsits" pattern and fix typo
+ instances
+Date: Thu, 26 Jan 2023 16:22:05 +0100
+Message-Id: <20230126152205.959277-1-luca.ceresoli@bootlin.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [RFC PATCH v2 10/22] ASoC: qdsp6: q6afe: Increase APR timeout
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
- perex@perex.cz, lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, gregkh@linuxfoundation.org,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-11-quic_wcheng@quicinc.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230126031424.14582-11-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,41 +81,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: dev@openvswitch.org, alsa-devel@alsa-project.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linuxppc-dev@lists.ozlabs.org, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Fix typos and add the following to the scripts/spelling.txt:
 
+  exsits||exists
 
-On 26/01/2023 03:14, Wesley Cheng wrote:
-> For USB offloading situations, the AFE port start command will result in a
-> QMI handshake between the Q6DSP and the main processor.  Depending on if
-> the USB bus is suspended, this routine would require more time to complete,
-> as resuming the USB bus has some overhead associated with it.  Increase the
-> timeout to 3s to allow for sufficient time for the USB QMI stream enable
-> handshake to complete.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+ drivers/infiniband/ulp/iser/iscsi_iser.c | 2 +-
+ net/openvswitch/flow_table.c             | 2 +-
+ scripts/spelling.txt                     | 1 +
+ sound/soc/fsl/fsl-asoc-card.c            | 2 +-
+ 4 files changed, 4 insertions(+), 3 deletions(-)
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+diff --git a/drivers/infiniband/ulp/iser/iscsi_iser.c b/drivers/infiniband/ulp/iser/iscsi_iser.c
+index 620ae5b2d80d..6b7603765383 100644
+--- a/drivers/infiniband/ulp/iser/iscsi_iser.c
++++ b/drivers/infiniband/ulp/iser/iscsi_iser.c
+@@ -446,7 +446,7 @@ iscsi_iser_conn_create(struct iscsi_cls_session *cls_session,
+  * @is_leading:      indicate if this is the session leading connection (MCS)
+  *
+  * Return: zero on success, $error if iscsi_conn_bind fails and
+- *         -EINVAL in case end-point doesn't exsits anymore or iser connection
++ *         -EINVAL in case end-point doesn't exists anymore or iser connection
+  *         state is not UP (teardown already started).
+  */
+ static int iscsi_iser_conn_bind(struct iscsi_cls_session *cls_session,
+diff --git a/net/openvswitch/flow_table.c b/net/openvswitch/flow_table.c
+index 0a0e4c283f02..cfac54cbafdf 100644
+--- a/net/openvswitch/flow_table.c
++++ b/net/openvswitch/flow_table.c
+@@ -1012,7 +1012,7 @@ static int flow_mask_insert(struct flow_table *tbl, struct sw_flow *flow,
+ 
+ 	mask = flow_mask_find(tbl, new);
+ 	if (!mask) {
+-		/* Allocate a new mask if none exsits. */
++		/* Allocate a new mask if none exists. */
+ 		mask = mask_alloc();
+ 		if (!mask)
+ 			return -ENOMEM;
+diff --git a/scripts/spelling.txt b/scripts/spelling.txt
+index ded8bcfc0247..0147bd8dc6e2 100644
+--- a/scripts/spelling.txt
++++ b/scripts/spelling.txt
+@@ -625,6 +625,7 @@ exeuction||execution
+ existance||existence
+ existant||existent
+ exixt||exist
++exsits||exists
+ exlcude||exclude
+ exlcusive||exclusive
+ exmaple||example
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index 8d14b5593658..2f25358196ee 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -811,7 +811,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 	priv->card.num_links = 1;
+ 
+ 	if (asrc_pdev) {
+-		/* DPCM DAI Links only if ASRC exsits */
++		/* DPCM DAI Links only if ASRC exists */
+ 		priv->dai_link[1].cpus->of_node = asrc_np;
+ 		priv->dai_link[1].platforms->of_node = asrc_np;
+ 		priv->dai_link[2].codecs->dai_name = codec_dai_name;
+-- 
+2.34.1
 
---srini
-> ---
->   sound/soc/qcom/qdsp6/q6afe.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-> index ca799fc3820e..41b4871e2ca1 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe.c
-> @@ -365,7 +365,7 @@
->   #define AFE_API_VERSION_SLOT_MAPPING_CONFIG	1
->   #define AFE_API_VERSION_CODEC_DMA_CONFIG	1
->   
-> -#define TIMEOUT_MS 1000
-> +#define TIMEOUT_MS 3000
->   #define AFE_CMD_RESP_AVAIL	0
->   #define AFE_CMD_RESP_NONE	1
->   #define AFE_CLK_TOKEN		1024

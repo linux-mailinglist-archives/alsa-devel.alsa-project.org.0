@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62CF67E43A
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:54:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87CE467E43D
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:54:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C688E98;
-	Fri, 27 Jan 2023 12:53:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C688E98
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03181E7B;
+	Fri, 27 Jan 2023 12:53:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03181E7B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674820448;
-	bh=WNohoknU9nLfbwIXeO77neZ4yMyv64MASZK2UIAfOfc=;
+	s=default; t=1674820467;
+	bh=vTtNm5B4uxkFGkyUcD6bt7bUv740cC5zoLQ3n4iCXig=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=moE9p/5ba11aWPtiyzrx4nJKTIS4hXSS3WJjARNRiBZyoK2n/+Mmc6lUOOm2Oczxa
-	 UpafqARdTT2YFX2GtN64W9fviyQ0Ij1vntHSk1MTxVAqEptFJ1jiIYK0M59mWi7iXy
-	 JewNKl9A5Y0OCuvanNjSdUdhwtxEzx3e44JHDtpc=
+	b=IPrOvgT/Almpl3TT890SAL1BZbk9GyGVGS187vWo062kDYr0Dy9hErQRX1VmGokEw
+	 O4tcp/3KOvWG7HYHTXyd5Vn+fttwS7pwgfm9RX4dMLJsI4+XmMw6iUOs1nphzR9tzJ
+	 0dzFIjBS4cCNlK3LwTOdPepUszOJg3N4oiHHVduE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0995EF80571;
+	by alsa1.perex.cz (Postfix) with ESMTP id 92BA7F80578;
 	Fri, 27 Jan 2023 12:51:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3392CF8027D; Thu, 26 Jan 2023 15:49:05 +0100 (CET)
+ id DEEADF8027D; Thu, 26 Jan 2023 15:51:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D621F80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:48:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D621F80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00974F8016E
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 15:51:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00974F8016E
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OyaVsT5e
+ header.s=k20201202 header.b=r54XDevq
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A5903B81D69;
- Thu, 26 Jan 2023 14:48:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05241C4339B;
- Thu, 26 Jan 2023 14:48:14 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1199FB81DC9;
+ Thu, 26 Jan 2023 14:51:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3695EC433EF;
+ Thu, 26 Jan 2023 14:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674744532;
- bh=WNohoknU9nLfbwIXeO77neZ4yMyv64MASZK2UIAfOfc=;
+ s=k20201202; t=1674744706;
+ bh=vTtNm5B4uxkFGkyUcD6bt7bUv740cC5zoLQ3n4iCXig=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OyaVsT5ePzTFS76R1FH5KLxOUgzscan6sLv55lgf+totKkalpj5P4hTJ0CFzpg2nB
- FjnAcEI6WBL0tfwF/TTw8b+wwY6a9pfQDEoFaNDhDzv4Bx4E//TKL2HIis05iqFTqA
- 6cWnwUhcKJagQmydnhE9MWdKN98RZA7QH0/g2op6Qc+WX5kkWc6P8AxP1IQok4d4Iv
- rC+rDq5bfpCpp87TX2zmlNbavkxhh4pjEZT5VQ1/5GQQQR5j3P3SiDxYUla0TLmDmY
- tHoanGw9DWG+oAt/RnrhsxsQ7gltrsJN75kvWssUX4MOKayClNcjWM9UluK5fqquNs
- P9OGQuC06AeFQ==
-Date: Thu, 26 Jan 2023 16:48:04 +0200
+ b=r54XDevqCxaIthjhpV90e/3PReNDit6CxkjYziBMldcr+DpwGPcGH7s0yFhPlYu8B
+ NohDoJ7KVIUCX5Zs7V0ydKB7t9XQRchAYOCR8XLnEbVPCZ8e7MIHv0UEcp73VODAq8
+ aFhcsGcrVCc28IZRly/gODnl3cguu4R9trJCc4u2GtQ9ygUwR4IFSGftEKj188geBR
+ 3987kGANtDLWA/GzBI6W69E/F450ClXU14kAngo3y+A1wCivQR2InkOef4HeCwIwVj
+ QYEspA95Wv7WS3mfCUr9QMGnsDd2HsZvTUBOWl52ZSZiQBqHvpwy1Yy3PsmXixNWVQ
+ B28KDvwGClVRQ==
+Date: Thu, 26 Jan 2023 16:50:59 +0200
 From: Mike Rapoport <rppt@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 6/6] mm: export dump_mm()
-Message-ID: <Y9KSpNJ4y0GMwkrW@kernel.org>
+Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
+Message-ID: <Y9KTUw/04FmBVplw@kernel.org>
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-7-surenb@google.com>
+ <20230125083851.27759-2-surenb@google.com>
+ <Y9JFFYjfJf9uDijE@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-7-surenb@google.com>
+In-Reply-To: <Y9JFFYjfJf9uDijE@kernel.org>
 X-Mailman-Approved-At: Fri, 27 Jan 2023 12:51:04 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -141,32 +143,42 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 25, 2023 at 12:38:51AM -0800, Suren Baghdasaryan wrote:
-> mmap_assert_write_locked() is used in vm_flags modifiers. Because
-> mmap_assert_write_locked() uses dump_mm() and vm_flags are sometimes
-> modified from from inside a module, it's necessary to export
-> dump_mm() function.
+On Thu, Jan 26, 2023 at 11:17:09AM +0200, Mike Rapoport wrote:
+> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> > vm_flags are among VMA attributes which affect decisions like VMA merging
+> > and splitting. Therefore all vm_flags modifications are performed after
+> > taking exclusive mmap_lock to prevent vm_flags updates racing with such
+> > operations. Introduce modifier functions for vm_flags to be used whenever
+> > flags are updated. This way we can better check and control correct
+> > locking behavior during these updates.
+> > 
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > ---
+> >  include/linux/mm.h       | 37 +++++++++++++++++++++++++++++++++++++
+> >  include/linux/mm_types.h |  8 +++++++-
+> >  2 files changed, 44 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index c2f62bdce134..b71f2809caac 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -627,6 +627,43 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
+> >  	INIT_LIST_HEAD(&vma->anon_vma_chain);
+> >  }
+> >  
+> > +/* Use when VMA is not part of the VMA tree and needs no locking */
+> > +static inline void init_vm_flags(struct vm_area_struct *vma,
+> > +				 unsigned long flags)
 > 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> I'd suggest to make it vm_flags_init() etc.
 
-Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
+Thinking more about it, it will be even clearer to name these vma_flags_xyz()
 
-> ---
->  mm/debug.c | 1 +
->  1 file changed, 1 insertion(+)
+> Except that
 > 
-> diff --git a/mm/debug.c b/mm/debug.c
-> index 9d3d893dc7f4..96d594e16292 100644
-> --- a/mm/debug.c
-> +++ b/mm/debug.c
-> @@ -215,6 +215,7 @@ void dump_mm(const struct mm_struct *mm)
->  		mm->def_flags, &mm->def_flags
->  	);
->  }
-> +EXPORT_SYMBOL(dump_mm);
->  
->  static bool page_init_poisoning __read_mostly = true;
->  
-> -- 
-> 2.39.1
+> Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 > 
+
+--
+Sincerely yours,
+Mike.

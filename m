@@ -2,71 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7204C67D016
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 16:25:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2090B67D167
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:26:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 078A11ED;
-	Thu, 26 Jan 2023 16:24:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 078A11ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12154E81;
+	Thu, 26 Jan 2023 17:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12154E81
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674746724;
-	bh=bF7nec78rpML/twTF5G820YDlfuFSX4IR2BuisZbFr4=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=nvyVKwjBj9itBfM5ZlguGS5FkBWvm9xT3PKA66abLDAjVBSGtdH3pRn2c5VchfWMp
-	 sGCTdqRMJ7epEMzZ81HuuvJnlhxg8cOOpDQK0f2MbPAM1LmStw39QpbhZnupX3+ssn
-	 JJ87VGfhwxvQs1KlqTEEVogS7ty/ECLRW5j5tGDM=
+	s=default; t=1674750374;
+	bh=93H4NJ0aDtqwd3Naz7sPnC3imkr/4n5yoYxInWivNHg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=h2nwaT9btb/oXilWKccDnjk6cNWm33fmQ8n6dHdAicbg7qFGxAHqTeL0mdGSTJLz5
+	 oVYzKS1iAfQXSi/pFOqnnXO8tq2qgJjPJKOg/U0MrbMRohMoxMvDSLT8Pcg729nGNt
+	 p+Er93VJc1Z8nnGR7jVlXTlvCsIPA06XYB7/fv6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89DCCF8030F;
-	Thu, 26 Jan 2023 16:24:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4A39F80539;
+	Thu, 26 Jan 2023 17:24:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC36BF8027D; Thu, 26 Jan 2023 16:24:23 +0100 (CET)
+ id BD839F803DC; Thu, 26 Jan 2023 17:24:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC235F8016E
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 16:24:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC235F8016E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65923F800AE
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:24:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65923F800AE
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=T4/5HVZH
-Received: from booty.fritz.box (unknown [77.244.183.192])
- (Authenticated sender: luca.ceresoli@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPA id F296E24000C;
- Thu, 26 Jan 2023 15:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1674746660;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=rxsciDeqntpVUYn5FLc+E1Uob0ovb8UfCOdsWZY5uwU=;
- b=T4/5HVZHxuMKo5KmRiXxx+syO4WcZeO6SScPR0KZgsHpfL+MczFljwh8BDAa0pmVyshuHe
- IJ1bxcFRQoNIYs+TwFHmKtVae8oqPmNS2noDNR95QdHobXLbdYqyJ6jZDzI8T/3a41JeNz
- k3gW/nYR1B5QmTiEx34iIP865Qb18W47bpNTKL7l2WHCbIWp0wByjjFtg0td73d9x1KGzF
- pTawqkzou34elhGXElMrgpLo76xcxjZ6sxvfb9lCvPRUa09EJG5eKh5ajq9oQrqj5IB/Ik
- ZpDuUhVqRc5VOxnWJhbtOIkrYFz6p4IkOGx922R+dpD2GRVLFxwu/b/4nNAsUg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: fsl-asoc-card: constify fsl_asoc_card_dai
-Date: Thu, 26 Jan 2023 16:24:12 +0100
-Message-Id: <20230126152412.959574-1-luca.ceresoli@bootlin.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=XflHrG59
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674750281; x=1706286281;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=93H4NJ0aDtqwd3Naz7sPnC3imkr/4n5yoYxInWivNHg=;
+ b=XflHrG59IhZ/OVXt0EsanmCrzOapsaB2PPExnz0jK5hYeadxY8gzkhBc
+ Y+MCWVtK5KZgdDDZeT/yVr6IhwQ9ajsLrn11/ya/e7Ybtl4q2gem3T/nK
+ Ij/ma6sekxpXkyzNvUNp/dwhDYEapnVXHi0/Hu8Gimfqnvi5rPCOYnS12
+ 6IbDOD9rAsbqjmEpMr9ziRcKrrTg4tvSJqjfH/8VQwr8d+0aVPWWF9uMl
+ nufQQnqgyy+rQAZ+1P4ldOqwGPaBpsYSA5TIYoa4PK/Y3P6D1afhxwnf8
+ JvKpRgJ5weYPdbmzYmGLfmixR1ehth7X8vkNR+MfOr6JoOdoJTSPpQ44r A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="354154585"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="354154585"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2023 08:24:31 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="612855043"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="612855043"
+Received: from nmani1-mobl2.amr.corp.intel.com (HELO [10.209.167.178])
+ ([10.209.167.178])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2023 08:24:28 -0800
+Message-ID: <64b60c9a-5f9b-6377-1307-095a42d18dc3@linux.intel.com>
+Date: Thu, 26 Jan 2023 09:32:17 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [RFC PATCH v2 07/22] ASoC: Add SOC USB APIs for adding an USB
+ backend
+To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
+ andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
+ bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-8-quic_wcheng@quicinc.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230126031424.14582-8-quic_wcheng@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,32 +96,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is never modified and can be made const.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- sound/soc/fsl/fsl-asoc-card.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 2f25358196ee..00118a75d126 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -297,7 +297,7 @@ SND_SOC_DAILINK_DEFS(hifi_be,
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 	DAILINK_COMP_ARRAY(COMP_DUMMY()));
- 
--static struct snd_soc_dai_link fsl_asoc_card_dai[] = {
-+static const struct snd_soc_dai_link fsl_asoc_card_dai[] = {
- 	/* Default ASoC DAI Link*/
- 	{
- 		.name = "HiFi",
--- 
-2.34.1
+On 1/25/23 21:14, Wesley Cheng wrote:
+> Some platforms may want to register its USB port to be handled by the ASoC
+> framework.  Audio playback/capture support is also handled entirely by the
+> vendor ASoC drivers.
 
+Can you clarify what you mean by 'port'?
+
+> +/**
+> + * snd_soc_usb_add_port() - Add a USB backend port
+> + * @dev: USB backend device
+> + * @connection_cb: connection status callback
+> + *
+> + * Register a USB backend device to the SND USB SOC framework.  Memory is
+> + * allocated as part of the USB backend device.
+> + *
+> + */
+> +struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev,
+> +			int (*connection_cb)(struct snd_soc_usb *usb, int card_idx,
+> +			int connected))
+> +{
+> +	struct snd_soc_usb *usb;
+> +
+> +	usb = devm_kzalloc(dev, sizeof(*usb), GFP_KERNEL);
+> +	if (!usb)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	usb->connection_status_cb = connection_cb;
+> +	usb->dev = dev;
+> +
+> +	mutex_lock(&ctx_mutex);
+> +	list_add_tail(&usb->list, &usb_ctx_list);
+> +	mutex_unlock(&ctx_mutex);
+> +
+> +	return usb;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_usb_add_port);
+
+Can a backend have more than one ports?
+
+Is there any relationship between port and USB endpoint, and if yes
+where is this determined?
+
+> +
+> +/**
+> + * snd_soc_usb_remove_port() - Remove a USB backend port
+> + * @dev: USB backend device
+> + *
+> + * Remove a USB backend device from USB SND SOC.  Memory is freed when USB
+> + * backend is removed.
+> + *
+> + */
+> +int snd_soc_usb_remove_port(struct device *dev)
+> +{
+> +	struct snd_soc_usb *ctx, *tmp;
+> +
+> +	mutex_lock(&ctx_mutex);
+> +	list_for_each_entry_safe(ctx, tmp, &usb_ctx_list, list) {
+> +		if (ctx->dev == dev) {
+> +			list_del(&ctx->list);
+> +			break;
+> +		}
+> +	}
+> +	mutex_unlock(&ctx_mutex);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_usb_remove_port);
+
+What happens if the ASoC driver probes/initialize AFTER the USB device
+is plugged?
+
+Likewise, can the ASoC driver be removed 'safely' with a fallback to
+normal non-offloaded operation happening on remove?
+
+> +
+> +/**
+> + * snd_soc_usb_connect() - Notification of USB device connection
+> + * @usbdev: USB bus device
+> + * @card_idx: USB SND card instance
+> + *
+> + * Notify of a new USB SND device connection.  The card_idx can be used to
+> + * handle how the USB backend selects, which device to enable offloading on.
+> + *
+> + */
+> +int snd_soc_usb_connect(struct device *usbdev, int card_idx)
+> +{
+> +	struct snd_soc_usb *ctx;
+> +
+> +	if (!usbdev)
+> +		return -ENODEV;
+> +
+> +	ctx = snd_soc_find_usb_ctx(usbdev);
+> +	if (!ctx)
+> +		return -ENODEV;
+> +
+> +	if (ctx->connection_status_cb)
+> +		ctx->connection_status_cb(ctx, card_idx, 1);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_usb_connect);
+> +
+> +/**
+> + * snd_soc_usb_connect() - Notification of USB device connection
+> + * @usbdev: USB bus device
+> + *
+> + * Notify of a new USB SND device disconnection to the USB backend.
+> + *
+> + */
+> +int snd_soc_usb_disconnect(struct device *usbdev)
+> +{
+> +	struct snd_soc_usb *ctx;
+> +
+> +	if (!usbdev)
+> +		return -ENODEV;
+> +
+> +	ctx = snd_soc_find_usb_ctx(usbdev);
+> +	if (!ctx)
+> +		return -ENODEV;
+> +
+> +	if (ctx->connection_status_cb)
+> +		ctx->connection_status_cb(ctx, -1, 0);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_soc_usb_disconnect);
+
+Similar concern on connect/disconnect, does this assume any specific
+order for the driver probe?

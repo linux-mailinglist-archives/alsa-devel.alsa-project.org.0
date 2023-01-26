@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D60567D15C
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:25:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E8967D176
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Jan 2023 17:26:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 899C4E78;
-	Thu, 26 Jan 2023 17:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 899C4E78
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0AA81CE;
+	Thu, 26 Jan 2023 17:25:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0AA81CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674750344;
-	bh=/S4O1xQUstj71vMufDuTxZtrxS0kRcuRW6nd5unpPcQ=;
+	s=default; t=1674750395;
+	bh=7tKbBPC9aDVVfGKolDI9/dBbPmFzcQG7teudBkR6D2c=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Vp57CaHIZ1mZTB4gTVXs10eVT/IlPd2Fs86qQmGEzlzt7UlNsA3uVatRO7yF+1DlK
-	 1S9GqlpSUR5iwP9Uz6dGAIlXzttXTDtywFrCUoq8ARYmMNjgQvqaF1JXCELVe+EXIE
-	 nmq+xShc7SNm3ZYVaUqxeOA+/M7MryQmOdb+2yYs=
+	b=PZPLelgDfGqRRFSrI8G0N//t5E+7Z+yLjJUIAoKtTmtbATScsdOgJ1cwqqbRr/1v0
+	 h4m7X2ee5kKyLHh9gbaIjFwMAnZX8JQ0sbcpANSoI8uWCavSyDK3Qxx2WgyA1CFwqY
+	 4yixs2JYyK//mWJOEolBER3ze5TI+HUuIHIbaKIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 149A1F80508;
-	Thu, 26 Jan 2023 17:24:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1EDDF80549;
+	Thu, 26 Jan 2023 17:24:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 687F7F803DC; Thu, 26 Jan 2023 17:24:43 +0100 (CET)
+ id 190CEF8025D; Thu, 26 Jan 2023 17:24:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,42 +36,42 @@ X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3A05F80224
- for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:24:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3A05F80224
+ by alsa1.perex.cz (Postfix) with ESMTPS id 724B2F802DF
+ for <alsa-devel@alsa-project.org>; Thu, 26 Jan 2023 17:24:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724B2F802DF
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZZ1AJ7eo
+ header.s=Intel header.b=Un/EQ5jD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674750280; x=1706286280;
+ t=1674750282; x=1706286282;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=/S4O1xQUstj71vMufDuTxZtrxS0kRcuRW6nd5unpPcQ=;
- b=ZZ1AJ7eoTLtI8ygYPzMHWdu2c2bAG3ZhSEyMTYXGzFQx3W9T15uaPuqU
- iaUQ4OaWxbKg4dBbNGYiwiHqjlZV9AV/Za27sdi1p7xjsWp5Zg8WPPkdz
- rU7FPH8Tx8eBoGr/MSUx0xC6PJC6PdfLWMxTjk6AfgENPAARBUI3y3yJI
- qFO8vUZeSNauoDBfFFQ83GNV6LN+W2GijgaS27BrVQWkPMe7sL9K1T0R8
- gWypnfVWC/cgZzQIsSCahUQlJAD0jyVpRy3CGAMKniq6Z+K1Zot673TTo
- 3/voKfEVhTABQPIJJlavZ/X6Zl9YhANztRjGG+pdDFvU7HskvS2ZXRhrq Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="354154598"
-X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="354154598"
+ bh=7tKbBPC9aDVVfGKolDI9/dBbPmFzcQG7teudBkR6D2c=;
+ b=Un/EQ5jDGRdWqmB/rphbv1ULONhtlpxXVF7+bC7+iLtvlaIWWc44V5JP
+ Y1iD7glnWsKc3qsx1IYtkZoZYKOO7kPMZ1dGtkwXlmAgUv3EFljM9toxL
+ rfU0v49TltScmWQWChHtMMzCMh+OXvlxdp0ddCICmcWGB1yeCANqnnpkY
+ NBjcbzv9ng39OJnvYGHqWwpjNlK0IFe7Ct2AQFZtqkEuGD2FIFr1kygmK
+ paAoqNeHiG19GX98KkuE7ccZxblUru72fSnCA208G3vr7TxQyYZTxRplW
+ Si+eX2s9+btY5kT6SybpQVcOcNXrqJubIBzoD5PcTZdVV4shaxTl9OAfY A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="354154636"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="354154636"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 08:24:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="612855051"
-X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="612855051"
+ 26 Jan 2023 08:24:36 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="612855059"
+X-IronPort-AV: E=Sophos;i="5.97,248,1669104000"; d="scan'208";a="612855059"
 Received: from nmani1-mobl2.amr.corp.intel.com (HELO [10.209.167.178])
  ([10.209.167.178])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 08:24:31 -0800
-Message-ID: <dea77277-6971-fe27-1ae0-ed551e84b6e4@linux.intel.com>
-Date: Thu, 26 Jan 2023 09:38:57 -0600
+ 26 Jan 2023 08:24:34 -0800
+Message-ID: <7f471960-0909-4680-e192-261d1fdfe6d7@linux.intel.com>
+Date: Thu, 26 Jan 2023 09:44:23 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [RFC PATCH v2 09/22] ASoC: qcom: qdsp6: Introduce USB AFE port to
- q6dsp
+Subject: Re: [RFC PATCH v2 11/22] ASoC: qcom: Add USB backend ASoC driver for
+ Q6
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
@@ -79,9 +79,9 @@ To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
  bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
 References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-10-quic_wcheng@quicinc.com>
+ <20230126031424.14582-12-quic_wcheng@quicinc.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230126031424.14582-10-quic_wcheng@quicinc.com>
+In-Reply-To: <20230126031424.14582-12-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -105,37 +105,39 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 1/25/23 21:14, Wesley Cheng wrote:
-> The QC ADSP is able to support USB playback endpoints, so that the main
-> application processor can be placed into lower CPU power modes.  This adds
-> the required AFE port configurations and port start command to start an
-> audio session.
-> 
-> Specifically, the QC ADSP can support all potential endpoints that are
-> exposed by the audio data interface.  This includes, feedback endpoints
-> (both implicit and explicit) as well as the isochronous (data) endpoints.
-> The size of audio samples sent per USB frame (microframe) will be adjusted
-> based on information received on the feedback endpoint.
+> Create a USB BE component that will register a new USB port to the ASoC USB
+> framework.  This will handle determination on if the requested audio
+> profile is supported by the USB device currently selected.
 
-I think you meant "support all potential endpoint types"
-
-It's likely that some USB devices have more endpoints than what the DSP
-can handle, no?
-
-And that brings me back to the question: what is a port and the
-relationship between port/backend/endpoints?
-
-Sorry for being picky on terminology, but if I learned something in days
-in standardization it's that there shouldn't be any ambiguity on
-concepts, otherwise everyone is lost at some point.
+Can you clarify how? because ...
 
 
->  static struct afe_port_map port_maps[AFE_PORT_MAX] = {
-> +	[USB_RX] = { AFE_PORT_ID_USB_RX, USB_RX, 1, 1},
->  	[HDMI_RX] = { AFE_PORT_ID_MULTICHAN_HDMI_RX, HDMI_RX, 1, 1},
->  	[SLIMBUS_0_RX] = { AFE_PORT_ID_SLIMBUS_MULTI_CHAN_0_RX,
->  				SLIMBUS_0_RX, 1, 1},
+> +static struct snd_soc_dai_driver q6usb_be_dais[] = {
+> +	{
+> +		.playback = {
+> +			.stream_name = "USB BE RX",
+> +			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |
+> +				SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |
+> +				SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
+> +				SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
+> +				SNDRV_PCM_RATE_192000,
+> +			.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S16_BE |
+> +				SNDRV_PCM_FMTBIT_U16_LE | SNDRV_PCM_FMTBIT_U16_BE |
+> +				SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S24_BE |
+> +				SNDRV_PCM_FMTBIT_U24_LE | SNDRV_PCM_FMTBIT_U24_BE,
+> +			.channels_min = 1,
+> +			.channels_max = 2,
+> +			.rate_max =     192000,
+> +			.rate_min =	8000,
+> +		},
+> +		.id = USB_RX,
+> +		.name = "USB_RX_BE",
+> +		.ops = &q6usb_ops,
+> +	},
+> +};
 
-And if I look here a port seems to be a very specific AFE concept
-related to interface type? Do we even need to refer to a port in the USB
-parts?
+... here I see a single DAI, so presumably ONE endpoint can be supported?
+
+I didn't see in the rest of the code how a card with multiple endpoint
+would be rejected, nor how the capabilities are checked?
 

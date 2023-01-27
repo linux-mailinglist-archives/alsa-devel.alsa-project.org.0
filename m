@@ -2,88 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D1467EBAD
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:54:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F85C67EBB7
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:55:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3C00EBC;
-	Fri, 27 Jan 2023 17:53:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3C00EBC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7794E7F;
+	Fri, 27 Jan 2023 17:54:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7794E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674838480;
-	bh=pRrzuFU0Sdj+BiG397B0vyKGZ1+du5sFUArMrs5a2Mw=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1674838514;
+	bh=tX6Hu2TaAusytQSjE9p1hDzaGLxbM3u1risW+gCEWhU=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=UDH2QjfWynQQHEVM15TvZ/rw/Oms2mZAOYJnzjq3ZkpFeuDzmUqV/BmKIJy1f/oI+
-	 AVCtLjzFowmluZIQuP+y739RTj0KQQcodOq3AzFgaCHzvzitPAYelroWkQSTIrAwkq
-	 vTLgfwMLneeWAi3GDYFZmmGw+9gykw1V+krdIuRY=
+	b=OF+4qDm92Z2mwqxgtJnKX1H0L5MbMJI1DH2UlLI911JpB7R2LY5UyugYAZbLsgbEv
+	 ud9BWJGn/bv977HvXTxfBk/dd71m9vVDEl+iEXReIVL2hNKnKs9LS9J9m5d9/BQoCx
+	 chLkZFDn60IlPfr+5N0EYCs1zDAerqt30hG7RNTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664ECF8057C;
-	Fri, 27 Jan 2023 17:51:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F75DF80494;
+	Fri, 27 Jan 2023 17:53:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3926F80553; Fri, 27 Jan 2023 17:51:40 +0100 (CET)
+ id 6EA57F80431; Fri, 27 Jan 2023 17:53:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9D2FF80074
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:53:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D2FF80074
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=swI08zdG
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 953CDF801F7
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:51:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 953CDF801F7
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=jFZbsW3f
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30R9k8LV030633; Fri, 27 Jan 2023 10:51:33 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=U/maz5mq7SDVzaMNMiD4HWoXA0LOACVlnq93oey3UBM=;
- b=jFZbsW3fNWzSXVtTVtqLfUylJ9G7+7ANLZnP8Fy7QfjqoytQ3y4dVLbB2b66TPRQkPCW
- f1vjkw8ho825Slg7jsN0yqcyBu6Pr2Hbe93V+aIFFD+u2xfYgvx9+tKKD7kf4k+n7etV
- k795p3z8r7Ihi2lbJArz/vrKvgaVdp6Kpfi9lE2fexx4+dueuFknxR5rMWPOARPflOdR
- clMQMg9eezpXoYafE+9Q+afJ7KuQP586gVnFgaBkKBxp0JTpvCMhxfszGNNGs7+3zC3G
- VK9WNWEUkAeIJNcAXzyoF2zDwxgyQyummbKogQMUKq9sGp8QvZ3SU8W2uDAUN2o5ZLGr oA== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n8dbsvrd1-7
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Jan 2023 10:51:33 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Fri, 27 Jan
- 2023 10:51:29 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.7 via Frontend Transport; Fri, 27 Jan 2023 10:51:29 -0600
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7E92511DC;
- Fri, 27 Jan 2023 16:51:29 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v3 8/8] ASoC: cs42l42: Wait for debounce interval after resume
-Date: Fri, 27 Jan 2023 16:51:11 +0000
-Message-ID: <20230127165111.3010960-9-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230127165111.3010960-1-sbinding@opensource.cirrus.com>
-References: <20230127165111.3010960-1-sbinding@opensource.cirrus.com>
+ by sin.source.kernel.org (Postfix) with ESMTPS id 844F4CE2943;
+ Fri, 27 Jan 2023 16:53:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68950C4339B;
+ Fri, 27 Jan 2023 16:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674838383;
+ bh=tX6Hu2TaAusytQSjE9p1hDzaGLxbM3u1risW+gCEWhU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=swI08zdG+0/kur7LG6CY3Rcsn79X4Nug/bqiOuig/8wcci3/ALH7I2WeO5MoyNj0Y
+ 9R7FrVBAgon8EHoYIbZScA1hDaFvkPNepG2mCc6599D2pTJHqTEdkI51DSV1I8pVYa
+ bA8fdwZBpOy90OOytiX1RSVdMFknY1fK/HJq1o5UI4Xo/NXy63dLvzfpY9QR5V2vFc
+ M6M1eYnAUt/vnAhjxtRpEaBDq1+dsGXWm/0+s3olQ6EtXu/pPUB0gPRlIPjItciYMr
+ soecef+3uEFOJ0eB0ANoSZcLNoC1Gp/L2AUSZbygRu8Ti2VDDk869OaT0R4phkR7D4
+ MQEhVW4+2O6AA==
+Date: Fri, 27 Jan 2023 16:53:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
+Message-ID: <Y9QBbPtopFD1DGsD@sirena.org.uk>
+References: <20230127160134.2658-1-mario.limonciello@amd.com>
+ <20230127160134.2658-2-mario.limonciello@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: aAvAmRBgvSBVNp_iapDEzhgWA-nkGonO
-X-Proofpoint-GUID: aAvAmRBgvSBVNp_iapDEzhgWA-nkGonO
-X-Proofpoint-Spam-Reason: safe
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="yiJUccDQT0wf+nib"
+Content-Disposition: inline
+In-Reply-To: <20230127160134.2658-2-mario.limonciello@amd.com>
+X-Cookie: Serving suggestion.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,50 +82,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org,
+ Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <jkysela@redhat.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Saba Kareem Syed <Syed.SabaKareem@amd.com>,
+ Mukunda Vijendar <Vijendar.Mukunda@amd.com>,
+ Mark Pearson <mpearson@lenovo.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since clock stop causes bus reset on Intel controllers, we need
-to wait for the debounce interval on resume, to ensure all the
-interrupt status registers are set correctly.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/soc/codecs/cs42l42-sdw.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+--yiJUccDQT0wf+nib
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/cs42l42-sdw.c b/sound/soc/codecs/cs42l42-sdw.c
-index 0de370b40eaf0..79023268d4c1b 100644
---- a/sound/soc/codecs/cs42l42-sdw.c
-+++ b/sound/soc/codecs/cs42l42-sdw.c
-@@ -447,7 +447,9 @@ static int __maybe_unused cs42l42_sdw_handle_unattach(struct cs42l42_private *cs
- 
- static int __maybe_unused cs42l42_sdw_runtime_resume(struct device *dev)
- {
-+	static const unsigned int ts_dbnce_ms[] = { 0, 125, 250, 500, 750, 1000, 1250, 1500};
- 	struct cs42l42_private *cs42l42 = dev_get_drvdata(dev);
-+	unsigned int dbnce;
- 	int ret;
- 
- 	dev_dbg(dev, "Runtime resume\n");
-@@ -456,8 +458,14 @@ static int __maybe_unused cs42l42_sdw_runtime_resume(struct device *dev)
- 		return 0;
- 
- 	ret = cs42l42_sdw_handle_unattach(cs42l42);
--	if (ret < 0)
-+	if (ret < 0) {
- 		return ret;
-+	} else if (ret > 0) {
-+		dbnce = max(cs42l42->ts_dbnc_rise, cs42l42->ts_dbnc_fall);
-+
-+		if (dbnce > 0)
-+			msleep(ts_dbnce_ms[dbnce]);
-+	}
- 
- 	regcache_cache_only(cs42l42->regmap, false);
- 
--- 
-2.34.1
+On Fri, Jan 27, 2023 at 10:01:28AM -0600, Mario Limonciello wrote:
+> A number of users for Lenovo Rembrandt based laptops are
+> reporting that the microphone is too quiet relative to
+> Windows with a dual boot.
+>=20
+> Increase the PDM gain to overcome this problem.
 
+Why not just make this a regular control that can be adjusted as
+users see fit?
+
+--yiJUccDQT0wf+nib
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPUAWsACgkQJNaLcl1U
+h9AMGQf/WLxAXs66o2bKsf8C/AxaOD4g6vZ+YhuhVh8hplnc4JSJfUoOtKcS8HQD
+wMDx8GGGNTyIKmZJgMA64ROOyzP6s5Bu1nHv2b7Jbls8Pd0AI3tG/zinHLkGofsW
+8RWrpaJHeeCycV9ODZbDylukad1sImsJE5qhkRJ1dwqqb4ies2ceSVZ76rXtzwb5
+3J7+RNRedHBoZ2iYPbv2CSJRz4v7pypxG6p8Fc3AzUYapMs1zQWtG0z36tRti+i1
+LZahat22UVWs2fzCh8u+6cvpdf1LtzVu15stej7Jy7Nse5JMuGrRKWhzeVOn8he0
+CbrL4j2mvbRGW+NTVUSaK8QOeQX74Q==
+=Uen9
+-----END PGP SIGNATURE-----
+
+--yiJUccDQT0wf+nib--

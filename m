@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E5467E471
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 13:03:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B53767E475
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 13:03:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC350ECD;
-	Fri, 27 Jan 2023 13:02:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC350ECD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63D6CEC0;
+	Fri, 27 Jan 2023 13:02:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D6CEC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674820991;
-	bh=2SerIkFyJLI9Kvb9oAS46V2qXRic/jO3U+kVf4WmVAY=;
+	s=default; t=1674821002;
+	bh=H3MuiZXEd2x/7QMkMjwGfQ6eGimV78IlHXWNjuFSlN0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=R47yT+m88JrhYlrRld9PpDK4/OZcQZ5xvstWCMT7R5M08BYUU1ZKsl1+iBRHOGChL
-	 Rrd6En6S0J63Qf1N/ne0hxbEw7VHEBLdpGLwoHo8xyH58ESrA9HgvRPwvs3wF4U95w
-	 u/2r/rm/ShJles2YQT5iBJWgZIgCb+f/FxIUTKzY=
+	b=TfduLLZJ4uvDf2GEpEX/9n+OeY7e8E078nR1NiRDbYrMvgRvsJC7gfulOn95Xs7El
+	 eTCAqv7qX/ddZA4yefJ3Ekaocdetgn7+SH2OlDdHiI2PKPJRSh1lEhBJHXdFj9Uqfj
+	 Ad9pJnUONnay7j3ZEU5W/M9VXvmyL1SpILqDF198=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65296F80570;
-	Fri, 27 Jan 2023 13:01:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3D5CF8057B;
+	Fri, 27 Jan 2023 13:01:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C82F0F80549; Fri, 27 Jan 2023 13:00:44 +0100 (CET)
+ id AFFA4F8055B; Fri, 27 Jan 2023 13:00:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,42 +35,42 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B416F80543
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 13:00:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B416F80543
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA7AAF80544
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 13:00:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA7AAF80544
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=hqmHXQVV
+ header.s=Intel header.b=WYmr3OcI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674820840; x=1706356840;
+ t=1674820843; x=1706356843;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2SerIkFyJLI9Kvb9oAS46V2qXRic/jO3U+kVf4WmVAY=;
- b=hqmHXQVVGKIx1bFFQoo5wqc2Ht/bJdLIV0is1qa1ucJx30hvvjn05Ihf
- nCltE7ft0lI3TORNYkU7BZXax1a+he8S0u8+mVnYug7X4Ms+QJNQrgGPH
- Ip5WQYmFJ5AW+k1HHj4f9npNs2b+SZkHswInOkXXMwCBe0aXyHpeLfkjq
- 1DoSi3IBi+jR7kDcd/oucubmxKZsYbnxTZKgl9UblzVU19t3YaviqbDOr
- 0PKtG83VlKQwIE6kI0LF/dnJHM5RQ84MLzrIQmbeQKUxDYnNWC/xsOBgH
- jtv6LEMsWr5bcJA9o6Ojou1nivzgkX6X6wHv1FIYy6tBlRfukF7JGVSnh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="327091828"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="327091828"
+ bh=H3MuiZXEd2x/7QMkMjwGfQ6eGimV78IlHXWNjuFSlN0=;
+ b=WYmr3OcIbuJbeut6OC1ETP149Ye4RYdxhtuBbUj41U8QguSa4qvVMcHn
+ 9Wp+16Xhcsr/Rs6rp498iysxYliMNx44Pi10C39XwkGzApf2tXHpxvmzF
+ lWICawG7cd1Af6N5OeEmERkyMNJianmXaqls+WqkSellnLyyxnyyCSK8e
+ CvkF0tG+IZbHnQHyAKHmfx3l1/YcUEABf/zKEfHm8hoYW228LeWfsz4qW
+ TIW0H0aeOIAga8no/yhhp+OLnLUwfHjYuealvtDdsEwe9nUJ0TNT9x8tz
+ HqgOJB7MvC9Cty7KjmzgAsdrrtGBu41lKFm5QGUe0xXLeI+LWkRJpv7HI A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="327091839"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="327091839"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 04:00:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="805782137"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="805782137"
+ 27 Jan 2023 04:00:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="805782150"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="805782150"
 Received: from aaralsto-mobl.amr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.30.130])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 04:00:36 -0800
+ 27 Jan 2023 04:00:39 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 05/18] ASoC: SOF: pcm: do not free widgets during suspend
- trigger
-Date: Fri, 27 Jan 2023 14:00:18 +0200
-Message-Id: <20230127120031.10709-6-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 06/18] ASoC: SOF: topology: Set IPC-specific trigger order for
+ DAI links
+Date: Fri, 27 Jan 2023 14:00:19 +0200
+Message-Id: <20230127120031.10709-7-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230127120031.10709-1-peter.ujfalusi@linux.intel.com>
 References: <20230127120031.10709-1-peter.ujfalusi@linux.intel.com>
@@ -97,24 +97,10 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-IPC3 and IPC4 have different requirements for the order in which the FE
-CPU and BE CPU DAI trigger callbacks must be invoked. With a regular PCM
-start/stop, pipeline widgets are set up during hw_params and freed
-during hw_free.
-
-But when the system is suspended when a PCM is running,
-pipeline widgets are freed during the SUSPEND trigger callback for the
-FE CPU DAI. In order to avoid freeing the pipeline widgets before the BE
-CPU DAI trigger is executed, the trigger order was modified in previous
-contributions in the PCM dai_link_fixup callback to make sure that the BE
-CPU DAI trigger stop/suspend is always invoked before the FE CPU DAI
-trigger. But this contradicts the firmware requirement for IPC4 w.r.t.
-ordering of pipeline triggers.
-
-So, remove the freeing of pipeline widgets during FE CPU DAI suspend
-trigger and handle it during system suspend when the
-tear_down_all_pipelines() IPC op is invoked. This will be followed up
-with a patch to fix the trigger order for IPC4.
+Add a new topology IPC op to set up DAI links and set the link trigger
+order to match the expectation based on the IPC type. Note that the
+link_setup op implementations for IPC3 and IPC4 are not identical and
+have contrasting trigger orders for playback and capture.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -122,98 +108,140 @@ Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/ipc3-topology.c |  2 +-
- sound/soc/sof/ipc4-pcm.c      | 12 ------------
- sound/soc/sof/ipc4-topology.c |  2 +-
- sound/soc/sof/pcm.c           |  5 +----
- 4 files changed, 3 insertions(+), 18 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 19 +++++++++++++++++++
+ sound/soc/sof/ipc4-topology.c | 19 +++++++++++++++++++
+ sound/soc/sof/sof-audio.h     |  2 ++
+ sound/soc/sof/topology.c      | 25 +++++++------------------
+ 4 files changed, 47 insertions(+), 18 deletions(-)
 
 diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
-index 989395999d6e..72ac1725af0d 100644
+index 72ac1725af0d..3f52dfb19e01 100644
 --- a/sound/soc/sof/ipc3-topology.c
 +++ b/sound/soc/sof/ipc3-topology.c
-@@ -2264,7 +2264,7 @@ static int sof_tear_down_left_over_pipelines(struct snd_sof_dev *sdev)
- 		for_each_pcm_streams(dir) {
- 			struct snd_pcm_substream *substream = spcm->stream[dir].substream;
+@@ -2426,6 +2426,24 @@ static int sof_ipc3_parse_manifest(struct snd_soc_component *scomp, int index,
+ 	return 0;
+ }
  
--			if (!substream || !substream->runtime)
-+			if (!substream || !substream->runtime || spcm->stream[dir].suspend_ignored)
- 				continue;
- 
- 			if (spcm->stream[dir].list) {
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-index 96941bebc1f1..23de58d7d06b 100644
---- a/sound/soc/sof/ipc4-pcm.c
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -183,7 +183,6 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
- 	struct sof_ipc4_copier *ipc4_copier;
--	struct snd_soc_dpcm *dpcm;
- 
- 	if (!dai) {
- 		dev_err(component->dev, "%s: No DAI found with name %s\n", __func__,
-@@ -205,17 +204,6 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 	rate->min = ipc4_copier->available_fmt.base_config->audio_fmt.sampling_frequency;
- 	rate->max = rate->min;
- 
--	/*
--	 * Set trigger order for capture to SND_SOC_DPCM_TRIGGER_PRE. This is required
--	 * to ensure that the BE DAI pipeline gets stopped/suspended before the FE DAI
--	 * pipeline gets triggered and the pipeline widgets are freed.
--	 */
--	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm) {
--		struct snd_soc_pcm_runtime *fe = dpcm->fe;
--
--		fe->dai_link->trigger[SNDRV_PCM_STREAM_CAPTURE] = SND_SOC_DPCM_TRIGGER_PRE;
--	}
--
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_SSP:
- 		ipc4_ssp_dai_config_pcm_params_match(sdev, (char *)rtd->dai_link->name, params);
++static int sof_ipc3_link_setup(struct snd_sof_dev *sdev, struct snd_soc_dai_link *link)
++{
++	if (link->no_pcm)
++		return 0;
++
++	/*
++	 * set default trigger order for all links. Exceptions to
++	 * the rule will be handled in sof_pcm_dai_link_fixup()
++	 * For playback, the sequence is the following: start FE,
++	 * start BE, stop BE, stop FE; for Capture the sequence is
++	 * inverted start BE, start FE, stop FE, stop BE
++	 */
++	link->trigger[SNDRV_PCM_STREAM_PLAYBACK] = SND_SOC_DPCM_TRIGGER_PRE;
++	link->trigger[SNDRV_PCM_STREAM_CAPTURE] = SND_SOC_DPCM_TRIGGER_POST;
++
++	return 0;
++}
++
+ /* token list for each topology object */
+ static enum sof_tokens host_token_list[] = {
+ 	SOF_CORE_TOKENS,
+@@ -2537,4 +2555,5 @@ const struct sof_ipc_tplg_ops ipc3_tplg_ops = {
+ 	.set_up_all_pipelines = sof_ipc3_set_up_all_pipelines,
+ 	.tear_down_all_pipelines = sof_ipc3_tear_down_all_pipelines,
+ 	.parse_manifest = sof_ipc3_parse_manifest,
++	.link_setup = sof_ipc3_link_setup,
+ };
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index ae8ec98bb4eb..3938ff2d998b 100644
+index 3938ff2d998b..b07a405516b1 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -2025,7 +2025,7 @@ static int sof_ipc4_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
- 		for_each_pcm_streams(dir) {
- 			struct snd_pcm_substream *substream = spcm->stream[dir].substream;
- 
--			if (!substream || !substream->runtime)
-+			if (!substream || !substream->runtime || spcm->stream[dir].suspend_ignored)
- 				continue;
- 
- 			if (spcm->stream[dir].list) {
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 952fc698a586..34d40c5c629a 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -282,7 +282,6 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 	const struct sof_ipc_pcm_ops *pcm_ops = sof_ipc_get_ops(sdev, pcm);
- 	struct snd_sof_pcm *spcm;
- 	bool reset_hw_params = false;
--	bool free_widget_list = false;
- 	bool ipc_first = false;
- 	int ret = 0;
- 
-@@ -326,7 +325,6 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 			spcm->stream[substream->stream].suspend_ignored = true;
- 			return 0;
- 		}
--		free_widget_list = true;
- 		fallthrough;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		ipc_first = true;
-@@ -353,8 +351,7 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
- 
- 	/* free PCM if reset_hw_params is set and the STOP IPC is successful */
- 	if (!ret && reset_hw_params)
--		ret = sof_pcm_stream_free(sdev, substream, spcm, substream->stream,
--					  free_widget_list);
-+		ret = sof_pcm_stream_free(sdev, substream, spcm, substream->stream, false);
- 
- 	return ret;
+@@ -2038,6 +2038,24 @@ static int sof_ipc4_tear_down_all_pipelines(struct snd_sof_dev *sdev, bool verif
+ 	return 0;
  }
+ 
++static int sof_ipc4_link_setup(struct snd_sof_dev *sdev, struct snd_soc_dai_link *link)
++{
++	if (link->no_pcm)
++		return 0;
++
++	/*
++	 * set default trigger order for all links. Exceptions to
++	 * the rule will be handled in sof_pcm_dai_link_fixup()
++	 * For playback, the sequence is the following: start BE,
++	 * start FE, stop FE, stop BE; for Capture the sequence is
++	 * inverted start FE, start BE, stop BE, stop FE
++	 */
++	link->trigger[SNDRV_PCM_STREAM_PLAYBACK] = SND_SOC_DPCM_TRIGGER_POST;
++	link->trigger[SNDRV_PCM_STREAM_CAPTURE] = SND_SOC_DPCM_TRIGGER_PRE;
++
++	return 0;
++}
++
+ static enum sof_tokens common_copier_token_list[] = {
+ 	SOF_COMP_TOKENS,
+ 	SOF_AUDIO_FMT_NUM_TOKENS,
+@@ -2144,4 +2162,5 @@ const struct sof_ipc_tplg_ops ipc4_tplg_ops = {
+ 	.parse_manifest = sof_ipc4_parse_manifest,
+ 	.dai_get_clk = sof_ipc4_dai_get_clk,
+ 	.tear_down_all_pipelines = sof_ipc4_tear_down_all_pipelines,
++	.link_setup = sof_ipc4_link_setup,
+ };
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index 8e4abb1f5f73..28062a0c3a43 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -180,6 +180,7 @@ struct sof_ipc_tplg_widget_ops {
+  * @set_up_all_pipelines: Function pointer for setting up all topology pipelines
+  * @tear_down_all_pipelines: Function pointer for tearing down all topology pipelines
+  * @parse_manifest: Function pointer for ipc4 specific parsing of topology manifest
++ * @link_setup: Function pointer for IPC-specific DAI link set up
+  *
+  * Note: function pointers (ops) are optional
+  */
+@@ -201,6 +202,7 @@ struct sof_ipc_tplg_ops {
+ 	int (*tear_down_all_pipelines)(struct snd_sof_dev *sdev, bool verify);
+ 	int (*parse_manifest)(struct snd_soc_component *scomp, int index,
+ 			      struct snd_soc_tplg_manifest *man);
++	int (*link_setup)(struct snd_sof_dev *sdev, struct snd_soc_dai_link *link);
+ };
+ 
+ /** struct snd_sof_tuple - Tuple info
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 560771ba8fb9..f67c39c47930 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1813,26 +1813,15 @@ static int sof_link_load(struct snd_soc_component *scomp, int index, struct snd_
+ 	}
+ 	link->platforms->name = dev_name(scomp->dev);
+ 
+-	/*
+-	 * Set nonatomic property for FE dai links as their trigger action
+-	 * involves IPC's.
+-	 */
++	if (tplg_ops && tplg_ops->link_setup) {
++		ret = tplg_ops->link_setup(sdev, link);
++		if (ret < 0)
++			return ret;
++	}
++
++	/* Set nonatomic property for FE dai links as their trigger action involves IPC's */
+ 	if (!link->no_pcm) {
+ 		link->nonatomic = true;
+-
+-		/*
+-		 * set default trigger order for all links. Exceptions to
+-		 * the rule will be handled in sof_pcm_dai_link_fixup()
+-		 * For playback, the sequence is the following: start FE,
+-		 * start BE, stop BE, stop FE; for Capture the sequence is
+-		 * inverted start BE, start FE, stop FE, stop BE
+-		 */
+-		link->trigger[SNDRV_PCM_STREAM_PLAYBACK] =
+-					SND_SOC_DPCM_TRIGGER_PRE;
+-		link->trigger[SNDRV_PCM_STREAM_CAPTURE] =
+-					SND_SOC_DPCM_TRIGGER_POST;
+-
+-		/* nothing more to do for FE dai links */
+ 		return 0;
+ 	}
+ 
 -- 
 2.39.1
 

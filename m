@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F100867E92C
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 16:14:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF3067E92D
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 16:14:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E23E851;
-	Fri, 27 Jan 2023 16:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E23E851
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA969E87;
+	Fri, 27 Jan 2023 16:13:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA969E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674832452;
-	bh=qHFv32Sphq3shdPGA48KxW70YX1Wi01oojb+PZVT0JE=;
+	s=default; t=1674832470;
+	bh=nD9stkrLrT5BglI11fXrao9wpCwGGGCwogO9XxndKZ4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=LQq7ckVEHRjB08DPRv+dDB/H3EAAsxhHSmc+20mybwpgI6vEFSmlENp0TNQ7rjLV7
-	 k4DRf8qCj5XZI0FJlTtK46kjDp8C/9aXYMacGKo/QH2/Ll6dIWT/6edgufoqmVewa6
-	 dCfN4Lj1Uhh2GSKzX10YY5/HoWP6+LKGkelDeFxM=
+	b=a+6SSdCr6LaozrhlS/RJ4enFX2Y6WjBq9k9MFA/LL80qou4pXV1sRhy9sQEBryaAz
+	 Sdn9xl/ClQbKbCP6N405g/Ga79+XFPJB/kQ58HbOcEQq10ixIqCrxr7It2l3qyg6Gz
+	 2n7AvcdvohgvyPt5LK32poXSxQXTq4xv4bkETHXg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04147F805A0;
-	Fri, 27 Jan 2023 16:10:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0BFF9F805AF;
+	Fri, 27 Jan 2023 16:10:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9F1CF8057B; Fri, 27 Jan 2023 16:10:32 +0100 (CET)
+ id 6636BF8057C; Fri, 27 Jan 2023 16:10:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BEBDF80567
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:10:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEBDF80567
+ by alsa1.perex.cz (Postfix) with ESMTPS id D34B0F8057C
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:10:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D34B0F8057C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ElezYAdU
+ header.s=Intel header.b=iutlgIm+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674832230; x=1706368230;
+ t=1674832234; x=1706368234;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qHFv32Sphq3shdPGA48KxW70YX1Wi01oojb+PZVT0JE=;
- b=ElezYAdUEKySAbcD2nHEkAWD3WFSnPBm7tXmyqiIcaLs3F2NqaPHi+jP
- ORStIadsceia+0gVBWm37SCDJluxuonp60MRn0c62WDv0Rzp/K4zuZPHo
- ahEP3qXR3Us7DvmqlBL/orp4bVjhlFXTJUkWpy00wTy8GAqpLze1MPhrS
- aeBzxHEthvMOEexGX2Fkkvbljf8Z//PYJeJT7D1WxYPmpkuX4vxkfXam8
- 4fXeSzZ1j+z95Non157niBXN6qdivTTdccXF15mIHjkhH+HigVCMX/y7W
- gmfOY4Erv58jQujr6pqhT9cRS+47GdL6mYiIC6Lio1Bwg2Gb3f5Ofltfs w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="324795855"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="324795855"
+ bh=nD9stkrLrT5BglI11fXrao9wpCwGGGCwogO9XxndKZ4=;
+ b=iutlgIm+k1/X+WhRkzGoT21wDZPPP8Jc22zFsnNNuL1kd9CIMFq94+bi
+ mtHeU95uHZcDpZ6Sgv8Kruy/sa/lSU1nrbjRsE6buWrw7zN7UCf6imRrA
+ t2+GkD66bGumSTooIs6nVNQ0lglODbkNJPwRMUCVn9JkVKk48I9C0TmZT
+ loyfDGhOG+fn0NhyRl8EatsFFQ3I0YKLjdK4lIBbdryfcTmRpX0PKGq0Y
+ ErF2EeNJx9r86JGb6RgfnKGk4/bZ9gUIShJtQ4ZYwnzrVKSrwmKt8nfXG
+ 8mJPVmsyvfoiD/iFrpnyYMBqOm5DyIcauRjfP+A2zwI/vkY8SiR0IXPcQ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="324795867"
+X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="324795867"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 07:10:29 -0800
+ 27 Jan 2023 07:10:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="908709034"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="908709034"
+X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="908709038"
+X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="908709038"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by fmsmga006.fm.intel.com with ESMTP; 27 Jan 2023 07:10:27 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 27 Jan 2023 07:10:29 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 09/11] ASoC: Topology: Remove unnecessary check for EOF
-Date: Sat, 28 Jan 2023 00:11:09 +0100
-Message-Id: <20230127231111.937721-10-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 10/11] ASoC: topology: Unify kcontrol removal code
+Date: Sat, 28 Jan 2023 00:11:10 +0100
+Message-Id: <20230127231111.937721-11-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
 References: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
@@ -96,50 +96,83 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Caller already checks if hdr_pos is behind EOF, before calling
-soc_tplg_valid_header(), so there is no need to recheck it again. This
-also allows to remove behaviour of return 0 - forcing the caller to
-break out of while loop.
+Functions removing bytes, enum and mixer kcontrols are identical. Unify
+them under one function and use it to free associated kcontrols.
 
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/soc-topology.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ sound/soc/soc-topology.c | 48 +++++-----------------------------------
+ 1 file changed, 6 insertions(+), 42 deletions(-)
 
 diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 08dd55f94584..6689cf44464c 100644
+index 6689cf44464c..9f527d9baf1c 100644
 --- a/sound/soc/soc-topology.c
 +++ b/sound/soc/soc-topology.c
-@@ -2389,9 +2389,6 @@ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
- static int soc_tplg_valid_header(struct soc_tplg *tplg,
- 	struct snd_soc_tplg_hdr *hdr)
- {
--	if (soc_tplg_get_hdr_offset(tplg) >= tplg->fw->size)
--		return 0;
--
- 	if (le32_to_cpu(hdr->size) != sizeof(*hdr)) {
- 		dev_err(tplg->dev,
- 			"ASoC: invalid header size for type %d at offset 0x%lx size 0x%zx.\n",
-@@ -2442,7 +2439,7 @@ static int soc_tplg_valid_header(struct soc_tplg *tplg,
- 		return -EINVAL;
- 	}
- 
--	return 1;
-+	return 0;
+@@ -350,41 +350,9 @@ static int soc_tplg_add_kcontrol(struct soc_tplg *tplg,
+ 				tplg->dev, k, comp->name_prefix, comp, kcontrol);
  }
  
- /* check header type and call appropriate handler */
-@@ -2528,8 +2525,6 @@ static int soc_tplg_process_headers(struct soc_tplg *tplg)
- 				dev_err(tplg->dev,
- 					"ASoC: topology: invalid header: %d\n", ret);
- 				return ret;
--			} else if (ret == 0) {
--				break;
- 			}
+-/* remove a mixer kcontrol */
+-static void soc_tplg_remove_mixer(struct snd_soc_component *comp,
+-	struct snd_soc_dobj *dobj, int pass)
+-{
+-	struct snd_card *card = comp->card->snd_card;
+-
+-	if (pass != SOC_TPLG_PASS_CONTROL)
+-		return;
+-
+-	if (dobj->ops && dobj->ops->control_unload)
+-		dobj->ops->control_unload(comp, dobj);
+-
+-	snd_ctl_remove(card, dobj->control.kcontrol);
+-	list_del(&dobj->list);
+-}
+-
+-/* remove an enum kcontrol */
+-static void soc_tplg_remove_enum(struct snd_soc_component *comp,
+-	struct snd_soc_dobj *dobj, int pass)
+-{
+-	struct snd_card *card = comp->card->snd_card;
+-
+-	if (pass != SOC_TPLG_PASS_CONTROL)
+-		return;
+-
+-	if (dobj->ops && dobj->ops->control_unload)
+-		dobj->ops->control_unload(comp, dobj);
+-
+-	snd_ctl_remove(card, dobj->control.kcontrol);
+-	list_del(&dobj->list);
+-}
+-
+-/* remove a byte kcontrol */
+-static void soc_tplg_remove_bytes(struct snd_soc_component *comp,
+-	struct snd_soc_dobj *dobj, int pass)
++/* remove kcontrol */
++static void soc_tplg_remove_kcontrol(struct snd_soc_component *comp, struct snd_soc_dobj *dobj,
++				     int pass)
+ {
+ 	struct snd_card *card = comp->card->snd_card;
  
- 			/* load the header object */
+@@ -2618,14 +2586,10 @@ int snd_soc_tplg_component_remove(struct snd_soc_component *comp)
+ 			list) {
+ 
+ 			switch (dobj->type) {
+-			case SND_SOC_DOBJ_MIXER:
+-				soc_tplg_remove_mixer(comp, dobj, pass);
+-				break;
+-			case SND_SOC_DOBJ_ENUM:
+-				soc_tplg_remove_enum(comp, dobj, pass);
+-				break;
+ 			case SND_SOC_DOBJ_BYTES:
+-				soc_tplg_remove_bytes(comp, dobj, pass);
++			case SND_SOC_DOBJ_ENUM:
++			case SND_SOC_DOBJ_MIXER:
++				soc_tplg_remove_kcontrol(comp, dobj, pass);
+ 				break;
+ 			case SND_SOC_DOBJ_GRAPH:
+ 				soc_tplg_remove_route(comp, dobj, pass);
 -- 
 2.25.1
 

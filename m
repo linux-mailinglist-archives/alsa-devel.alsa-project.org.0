@@ -2,73 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F85C67EBB7
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:55:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 928C467EBB9
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:56:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7794E7F;
-	Fri, 27 Jan 2023 17:54:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7794E7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC5C4EC2;
+	Fri, 27 Jan 2023 17:55:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC5C4EC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674838514;
-	bh=tX6Hu2TaAusytQSjE9p1hDzaGLxbM3u1risW+gCEWhU=;
+	s=default; t=1674838595;
+	bh=bTz2eUDKOKZm+oWfhF3ey90BYY+4xCfRxt06V8SDl0E=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=OF+4qDm92Z2mwqxgtJnKX1H0L5MbMJI1DH2UlLI911JpB7R2LY5UyugYAZbLsgbEv
-	 ud9BWJGn/bv977HvXTxfBk/dd71m9vVDEl+iEXReIVL2hNKnKs9LS9J9m5d9/BQoCx
-	 chLkZFDn60IlPfr+5N0EYCs1zDAerqt30hG7RNTY=
+	b=WSMs8PymFazfp48H3N+xPAzFyOdfX2JWYy2MFoOkx6BXaho9EOAwxBmJh+euAFI00
+	 s/u9N9NWx5nXQRHpVSipwo5nsOIhbrIXNc0ILPl/SaAzLBRFj5PFrYQ5D7RZmDbuKb
+	 KMfnVIRfA70CsZDAwwifBInDRDY0aWJl/NcsSqQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F75DF80494;
-	Fri, 27 Jan 2023 17:53:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0588CF80074;
+	Fri, 27 Jan 2023 17:55:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6EA57F80431; Fri, 27 Jan 2023 17:53:10 +0100 (CET)
+ id 562E7F80272; Fri, 27 Jan 2023 17:55:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9D2FF80074
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:53:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D2FF80074
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC815F8007C
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:55:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC815F8007C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=swI08zdG
+ header.s=k20201202 header.b=nayQ+EFK
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 844F4CE2943;
- Fri, 27 Jan 2023 16:53:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68950C4339B;
- Fri, 27 Jan 2023 16:53:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B939661C1A;
+ Fri, 27 Jan 2023 16:55:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCDDC433D2;
+ Fri, 27 Jan 2023 16:55:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674838383;
- bh=tX6Hu2TaAusytQSjE9p1hDzaGLxbM3u1risW+gCEWhU=;
+ s=k20201202; t=1674838530;
+ bh=bTz2eUDKOKZm+oWfhF3ey90BYY+4xCfRxt06V8SDl0E=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=swI08zdG+0/kur7LG6CY3Rcsn79X4Nug/bqiOuig/8wcci3/ALH7I2WeO5MoyNj0Y
- 9R7FrVBAgon8EHoYIbZScA1hDaFvkPNepG2mCc6599D2pTJHqTEdkI51DSV1I8pVYa
- bA8fdwZBpOy90OOytiX1RSVdMFknY1fK/HJq1o5UI4Xo/NXy63dLvzfpY9QR5V2vFc
- M6M1eYnAUt/vnAhjxtRpEaBDq1+dsGXWm/0+s3olQ6EtXu/pPUB0gPRlIPjItciYMr
- soecef+3uEFOJ0eB0ANoSZcLNoC1Gp/L2AUSZbygRu8Ti2VDDk869OaT0R4phkR7D4
- MQEhVW4+2O6AA==
-Date: Fri, 27 Jan 2023 16:53:00 +0000
+ b=nayQ+EFKxpA12DU+e6NZsNGOyeU0JPAhCGn7yYbp3+P1OhGdVJYeUNUH3dLBlhaIY
+ eN850QcPoIIb55smPBD4qQ5p2Ly7AtA4bqAdfstWommtFflVZmtajkv8mRIUyFrDzj
+ tAEZNHDdDmn4UkGTL7It3lxmufAElC04NOaAUpowUesSwsoyWzHAPbarr9ruZrqRGQ
+ PnOjloB3Jz10RI9r4UBDxf6WOYorObHXXYhQ0eJEIplfkbRzbvC7buNAZO/dX0n+rQ
+ u4CpFhr/n2nonKb5O1usOJKjdr6Qzzbnpm0VgUslr85ORzwqbrzOaaBCzxYjyfJtG0
+ MvpN4IbirrCaQ==
+Date: Fri, 27 Jan 2023 16:55:27 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
-Message-ID: <Y9QBbPtopFD1DGsD@sirena.org.uk>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 2/6] ASoC: amd: yc: Add a module parameter to influence
+ pdm_gain
+Message-ID: <Y9QB/xT8Wd5lMiLU@sirena.org.uk>
 References: <20230127160134.2658-1-mario.limonciello@amd.com>
- <20230127160134.2658-2-mario.limonciello@amd.com>
+ <20230127160134.2658-3-mario.limonciello@amd.com>
+ <2e9f4301-0211-04f5-5b38-caf2be9f4fd1@perex.cz>
+ <MN0PR12MB61014C004C798F7DE8682AAFE2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
+ <e9733e9a-ac70-846f-c3a2-f96a6787b9bc@perex.cz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yiJUccDQT0wf+nib"
+ protocol="application/pgp-signature"; boundary="bwfZNF5CsTa1dqLU"
 Content-Disposition: inline
-In-Reply-To: <20230127160134.2658-2-mario.limonciello@amd.com>
+In-Reply-To: <e9733e9a-ac70-846f-c3a2-f96a6787b9bc@perex.cz>
 X-Cookie: Serving suggestion.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -82,45 +86,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org,
- Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <jkysela@redhat.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Saba Kareem Syed <Syed.SabaKareem@amd.com>,
- Mukunda Vijendar <Vijendar.Mukunda@amd.com>,
- Mark Pearson <mpearson@lenovo.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Pananchikkal,
+ Renjith" <Renjith.Pananchikkal@amd.com>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>, Mark Pearson <mpearson@lenovo.com>,
+ "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---yiJUccDQT0wf+nib
+--bwfZNF5CsTa1dqLU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 27, 2023 at 10:01:28AM -0600, Mario Limonciello wrote:
-> A number of users for Lenovo Rembrandt based laptops are
-> reporting that the microphone is too quiet relative to
-> Windows with a dual boot.
->=20
-> Increase the PDM gain to overcome this problem.
+On Fri, Jan 27, 2023 at 05:41:44PM +0100, Jaroslav Kysela wrote:
+> On 27. 01. 23 17:25, Limonciello, Mario wrote:
 
-Why not just make this a regular control that can be adjusted as
-users see fit?
+> > > >    	pdm_ctrl = acp6x_readl(acp_base + ACP_WOV_MISC_CTRL);
+> > > > -	pdm_ctrl |= ACP_WOV_MISC_CTRL_MASK;
+> > > > +	pdm_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, pdm_gain);
 
---yiJUccDQT0wf+nib
+> > > The bits should be zeroed (AND - &) before OR to make sure that the correct
+> > > value is written to the register. More related patches are affected.
+
+> > I had consider this, but the hardware default at reset is 0x0.  Do you think it's
+> > still necessary for posterity?
+
+> You're using 0644 permissions for the module parameter, so the value can be
+> changed by root using sysfs anytime (between SNDRV_PCM_TRIGGER calls).
+
+Plus even if the value were never changed it just saves anyone
+having to wonder if this has been taken care of, and means that
+if there's any future hardware using this driver that uses a
+different default (or a stale value in the hardware somehow) then
+things will just work.
+
+--bwfZNF5CsTa1dqLU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPUAWsACgkQJNaLcl1U
-h9AMGQf/WLxAXs66o2bKsf8C/AxaOD4g6vZ+YhuhVh8hplnc4JSJfUoOtKcS8HQD
-wMDx8GGGNTyIKmZJgMA64ROOyzP6s5Bu1nHv2b7Jbls8Pd0AI3tG/zinHLkGofsW
-8RWrpaJHeeCycV9ODZbDylukad1sImsJE5qhkRJ1dwqqb4ies2ceSVZ76rXtzwb5
-3J7+RNRedHBoZ2iYPbv2CSJRz4v7pypxG6p8Fc3AzUYapMs1zQWtG0z36tRti+i1
-LZahat22UVWs2fzCh8u+6cvpdf1LtzVu15stej7Jy7Nse5JMuGrRKWhzeVOn8he0
-CbrL4j2mvbRGW+NTVUSaK8QOeQX74Q==
-=Uen9
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPUAf4ACgkQJNaLcl1U
+h9DANgf+PhAveOMDrC3H87sS+njOjlFAcRfbUl7pTy1/E0mocbRvqOIsS/nAcZ5S
+wJxj0/thBR2bhcnTiB6EwaurS4AKgRpoSXHy5dmkbQKzgmYSSSUehDji4v/eQy4G
+Cejv2N4deKh5TzaexwsCUT8RjaWp+oNKUKKZdx/iEnjXq7QAywg2OZ9RSrau05Ls
+b5svIh+XOvEAypxLmSff653PTLNKt4q6XJ4qvq9uX2WNOd0WXcIhPiRBfHF7Rni4
+7I7jniMGUKp0fgLF9vGiyCzJt9xGG1cBH33wR5nX3buf91UuaSqblIM2oLQi1QDX
+sjsdxWWn85VGOfoMiOlkE2oWTS7Gqg==
+=5b/n
 -----END PGP SIGNATURE-----
 
---yiJUccDQT0wf+nib--
+--bwfZNF5CsTa1dqLU--

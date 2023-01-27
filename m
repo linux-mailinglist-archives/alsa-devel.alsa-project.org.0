@@ -2,107 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45AB367FD98
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Jan 2023 09:24:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEC8967EB99
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:53:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ED79DF9;
-	Sun, 29 Jan 2023 09:23:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ED79DF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4758CE78;
+	Fri, 27 Jan 2023 17:52:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4758CE78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674980651;
-	bh=fNmgdZUN2/2Uu/E39EHKHM8jOiAEPnx0mWMZL8FZ7OI=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=DZEyyQtGQwxkOSdlc18OwrFJ6/GCRhcMTtPeiYoHtdL/YPf+BND6J3xG9topzoDwD
-	 xUlxWd1azEMRkoHREo0P9iekgROgdG8sbjdUQonHfa1nB9wkO23/IgXDzX8UNZT9CU
-	 8nht4efJf+oYkametCz+qX6h5SFaV7KU32rAMWGU=
+	s=default; t=1674838384;
+	bh=93e8yg6Y8YTnh7X9R4f7Mpp20YHgB4FJLQ7q6VzMpsM=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=XV4dAezsYYdd6NK4GObHt5IDn0HhANAEhcKcjZCl6CxR+JvqSGI6gvwsd+STxgyJP
+	 i6an3TzpHmpHCr01CT4XSmwZm/Y26GC48ZiTH01HKo3H41jqr/v4+qduVifCgWrEmG
+	 cBezPLXDrITMg2Q6IcoA5EBb7hnGoDGVfFkkdZP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 932C9F80155;
-	Sun, 29 Jan 2023 09:23:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9774AF80542;
+	Fri, 27 Jan 2023 17:51:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04899F80431; Fri, 27 Jan 2023 17:49:21 +0100 (CET)
+ id CC176F804F3; Fri, 27 Jan 2023 17:51:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD956F801F7
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:49:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD956F801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75D6BF801F7
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:51:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D6BF801F7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=p0bN2yAu
-Received: by mail-wm1-x329.google.com with SMTP id
- q10-20020a1cf30a000000b003db0edfdb74so5746031wmq.1
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 08:49:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MwxIin163802ACvSCq0jg4HlDZfjOU+b7ag/1i6mXEE=;
- b=p0bN2yAu28MNGvTlRbQWr0+f8dRrN7+Tn627u0K/x42EmNDLphayIf9NlMev0wqj8h
- /EmzHfmLQqKOVu8ZgIciDK/fUJr6PvWPKCTqRsZtsPxIDrQvOH3aJeQUvnun7rNkTSUQ
- 6/KZMhpjpBCdTsrlPk0Pq1AqbefuhemfseqENDs+CCppSNm6HT2vKHwFAalheOqTayxm
- dtjoNuM92e8Dp5V+KrvfMQYfpqoVE/fUi7G9DPER5YIOirUmedqSV5KeWbBKvr23C7Je
- C0hL4yNzr1apQ8T4Xaqa5bA4xfUJep3aF5qWXf5H1dWiQl4NI8yI1oLJqFFQ+XguiBLe
- Z84Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MwxIin163802ACvSCq0jg4HlDZfjOU+b7ag/1i6mXEE=;
- b=mfe5jUOeu1wtvhvHy7PYllX4LgPOXwhr5GU2NqqSDdeJDIMfk9CVrX2jKgxrFpcBJA
- dz3Dd575/ZSriHFE9Ak7ao1Z9AlJmlGGOEFbhMGwnGK1yQt9CNVjB9Qy9iUVGP7HgUFq
- KOlaiVHqYop/fFdJ2S//ZCgwKZslwamHebQsbtayp4l9l5tdWy1VM71MMQk1ALYmMRX9
- SuTlYVbdR5o+Xt+MuIwXFWrVdVAOmehgzWYrQkiYEUjHDkqU1E6MTpzWXLKSl7PVFrxE
- NjyUqiUMK2c4VOKVMZm9tSR14MKi/u+PZjjdoAuNNxBEvg+eY+LQU8J0Bi3C/FHT3DsC
- eooA==
-X-Gm-Message-State: AO0yUKXFgFmDfSt3hAovSmN6IYMxVO3hUquHXjth8zwmkvLiznGTBX7F
- SbIvHClfDOIwKg8EhkSNZxZ+sQ==
-X-Google-Smtp-Source: AK7set91BwRn6DZssbXKyvbz30nnUQMYADbkS+Drm/RA9jZHFwp9Oe0M3rmb1c4Tgb8gUCp8+I209g==
-X-Received: by 2002:a05:600c:3151:b0:3dc:443e:420e with SMTP id
- h17-20020a05600c315100b003dc443e420emr40585wmo.2.1674838156833; 
- Fri, 27 Jan 2023 08:49:16 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- p24-20020a05600c1d9800b003dafadd2f77sm8990779wms.1.2023.01.27.08.49.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Jan 2023 08:49:16 -0800 (PST)
-Message-ID: <1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org>
-Date: Fri, 27 Jan 2023 17:49:13 +0100
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=nmP4VnrK
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30R9k8LN030633; Fri, 27 Jan 2023 10:51:30 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=lY5UIsZ69hx/4gHdwcW0N1VKa4Qb9oFZA+396K23HMk=;
+ b=nmP4VnrKi5tWiANdAKVn1dx+iUsTW94X+9EQP7+jCs0ZnPc5pbfgDj4KBx+HSgiG6OTu
+ j7gN1EUfjSUYOVNMneCE5FtUWiKL+HHxGdEzED8akj50hwNHCy2h9euxBrXskiItQyIH
+ PqdKasikiZp76e6CkR+O84zZw+vKPS7sRFAuC414Si5LIHW3nXzVet3OdtgAgbe+333G
+ 2+v0Gu6zOHNu9ekEwqipaOgZjYsk2f8rV6sKq7vek08ORq58gYHqIs4Qjz7Tg73Ktd3O
+ tOyLwS8JTkUIsL8n6yL6+WGQOrdtNbk5wy0tTm3NiAQN5OXU7RjO5wuiMAhd92cCfGRn 5A== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3n8dbsvrd1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Jan 2023 10:51:29 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Fri, 27 Jan
+ 2023 10:51:28 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.7 via Frontend Transport; Fri, 27 Jan 2023 10:51:28 -0600
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 34237475;
+ Fri, 27 Jan 2023 16:51:28 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v3 0/8] ASoC: cs42l42: Add SoundWire support
+Date: Fri, 27 Jan 2023 16:51:03 +0000
+Message-ID: <20230127165111.3010960-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v3 1/6] dt-bindings: Document common device controller
- bindings
-Content-Language: en-US
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
- herbert@gondor.apana.org.au, davem@davemloft.net, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, alexandre.torgue@foss.st.com,
- vkoul@kernel.org, jic23@kernel.org, olivier.moysan@foss.st.com,
- arnaud.pouliquen@foss.st.com, mchehab@kernel.org,
- fabrice.gasnier@foss.st.com, ulf.hansson@linaro.org, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com
-References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
- <20230127164040.1047583-2-gatien.chevallier@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230127164040.1047583-2-gatien.chevallier@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sun, 29 Jan 2023 09:23:11 +0100
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: ld2F_qA2ieOHzm2HVUV8Vbzu6z-BGsLr
+X-Proofpoint-GUID: ld2F_qA2ieOHzm2HVUV8Vbzu6z-BGsLr
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,36 +93,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27/01/2023 17:40, Gatien Chevallier wrote:
-> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-> 
-> Introducing of the common device controller bindings for the controller
-> provider and consumer devices. Those bindings are intended to allow
-> divided system on chip into muliple domains, that can be used to
-> configure hardware permissions.
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> ---
-> 
-> No change since V1. I'm letting this patch for dependency with bindings to
-> avoid noise with dt/bindings checks. Therefore, it should be reviewed on the
-> appropriate thread.
+The CS42L42 has a SoundWire interface for control and audio. This
+chain of patches adds support for this.
 
-There was a v6 already, this is v3 and I don't understand this comment.
-What do you let? Whom? If it is not for review and not for merging,
-please annotate it in the title ([IGNORE PATCH] or something).
+Patches #1 .. #5 split out various changes to the existing code that
+are needed for adding Soundwire. These are mostly around clocking and
+supporting the separate probe and enumeration stages in SoundWire.
 
-Best regards,
-Krzysztof
+Patches #6 .. #8 actually adds the SoundWire handling.
+
+Changes since v1:
+- fixes for various review comments from v1
+- add support for wakeup from clock stop using hardware interrupts
+- use port_prep callback to prepare/deprepare codec
+
+Changes since v2:
+- fix various comments
+- enable pm_runtime during probe
+
+Richard Fitzgerald (6):
+  ASoC: cs42l42: Add SOFT_RESET_REBOOT register
+  ASoC: cs42l42: Ensure MCLKint is a multiple of the sample rate
+  ASoC: cs42l42: Separate ASP config from PLL config
+  ASoC: cs42l42: Export some functions for SoundWire
+  ASoC: cs42l42: Add SoundWire support
+  ASoC: cs42l42: Don't set idle_bias_on
+
+Stefan Binding (2):
+  soundwire: stream: Add specific prep/deprep commands to port_prep
+    callback
+  ASoC: cs42l42: Wait for debounce interval after resume
+
+ drivers/soundwire/stream.c     |   4 +-
+ include/linux/soundwire/sdw.h  |   8 +-
+ include/sound/cs42l42.h        |   5 +
+ sound/soc/codecs/Kconfig       |   8 +
+ sound/soc/codecs/Makefile      |   2 +
+ sound/soc/codecs/cs42l42-sdw.c | 610 +++++++++++++++++++++++++++++++++
+ sound/soc/codecs/cs42l42.c     | 133 ++++---
+ sound/soc/codecs/cs42l42.h     |   9 +-
+ 8 files changed, 729 insertions(+), 50 deletions(-)
+ create mode 100644 sound/soc/codecs/cs42l42-sdw.c
+
+-- 
+2.34.1
 

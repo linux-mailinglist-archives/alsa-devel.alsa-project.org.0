@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEEF267E998
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 16:36:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9B367E9BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 16:42:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B636851;
-	Fri, 27 Jan 2023 16:35:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B636851
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0FF0827;
+	Fri, 27 Jan 2023 16:42:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0FF0827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674833762;
-	bh=lqYHfLAspTue4Gogwm+cjNqIXqdO7zzfk2vC3bjJyww=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=DP3d3wD1GBxPR1FLKK+9VNZ0ixHWokoynrZsxLH6ig0cQTO1ug6k2nXfyn2812H7z
-	 /PBcm+wYQeQS8KVoHg/F0TV8f+zLD1CX1ghfN00ATkO86qUR5LwgiE1hbLF+xQjOps
-	 SSrimMgoMAExliicllt0n6Gmlr2b+qG7MkLX+8HY=
+	s=default; t=1674834176;
+	bh=aD1OBZKremSLIPsPBKHDbNEiTmYoH/MrfvnLAF1kfM0=;
+	h=Date:To:From:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RZKm+lJ+rd+2vzqW62fAw1nxJf7Sg8YPls0jPWjWaRA+oVltvwTPvheo3UE9i8cm6
+	 EjWHB1TIQm/ykOkCq5RCscQX5JBGH2Wen5ZF7h2KrYYDVVOzvvLpJiiQQayf53FfyC
+	 am4qegWC06ElBmBfXPLFpZBJdLJoBETFUPfkL6ms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C87FF8007C;
-	Fri, 27 Jan 2023 16:35:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3093DF80074;
+	Fri, 27 Jan 2023 16:41:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CE54F80272; Fri, 27 Jan 2023 16:35:00 +0100 (CET)
+ id 0D1FCF801F7; Fri, 27 Jan 2023 16:41:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ts201-relay02.ddc.teliasonera.net
+ (ts201-relay02.ddc.teliasonera.net [81.236.60.203])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5103F8007C
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:34:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5103F8007C
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kKwlElqw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674833695; x=1706369695;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=lqYHfLAspTue4Gogwm+cjNqIXqdO7zzfk2vC3bjJyww=;
- b=kKwlElqwwsU7TDSX/V7/9fbyIAQBkP3zWvrYixGvNgRCsKYvGekpM2Lk
- BGEDjXl7Sg4T2ZRSNopOstv0VoaZR/Oc218ZR5IpZXTSLYs8MC6a8V7gs
- R25xO592tmifTEKOdh0WL5sYRDuMmNdIgW2YGhZVpm+JjUptLlpAWMj6F
- 09fs6L17en69uJg29vfhgYIPEcziVhI5DKphHJodp2fThEsxpyal7IIWk
- ANtoEQpjUfH1rS5VsBo8SXhd9bbmGKoRmMSEaEwmPDZqSvKt+0lw/Id5S
- Y9BKC9wuySjr2WBlS8uYUS1Wr6UDZaZResmStDOT9MzEa7hUPwNy2a4+3 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="306759855"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="306759855"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 07:34:52 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="640734625"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="640734625"
-Received: from vmodi-mobl2.amr.corp.intel.com (HELO [10.212.9.128])
- ([10.212.9.128])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 07:34:51 -0800
-Message-ID: <c14e9cec-ff7b-c229-ce28-fd1d7c99ec0d@linux.intel.com>
-Date: Fri, 27 Jan 2023 09:34:50 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8D25F80074
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D25F80074
+X-Amavis-Alert: BAD HEADER SECTION, Improper folded header field made up
+ entirely of whitespace (char 20 hex): X-Spam_report: ...t@localhost
+ for details.  Content previ[...]
+Received: from mail.aio.nu (90-228-210-9-no78.tbcn.telia.com [90.228.210.9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ts201-relay02.ddc.teliasonera.net (Postfix) with ESMTPS id B0FFF8075D1
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:41:47 +0100 (CET)
+Received: from lwaxana.aio.vpn ([10.1.2.16] helo=lwaxana.aio.nu)
+ by mail.aio.nu with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <aio.alsadevel@aio.nu>)
+ id 1pLQrJ-000GZi-1y for alsa-devel@alsa-project.org;
+ Fri, 27 Jan 2023 16:41:46 +0100
+Received: from [10.1.2.20] ([10.1.2.20]) by lwaxana.aio.nu with ESMTPSA
+ id tk4EIbbw02MPmAAA88T9bw (envelope-from <aio.alsadevel@aio.nu>)
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:41:45 +0100
+Message-ID: <8e1c4dee-7643-807b-737c-276708a3ab8d@aio.nu>
+Date: Fri, 27 Jan 2023 16:41:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH 11/11] ASoC: topology: Use unload() op directly
+ Thunderbird/102.7.0
 Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
- <20230127231111.937721-12-amadeuszx.slawinski@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230127231111.937721-12-amadeuszx.slawinski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: alsa-devel@alsa-project.org
+From: AiO <aio.alsadevel@aio.nu>
+Subject: Bug? Strange crash with snd_hdspm and RME RayDAT on MIDI-input
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -1.0
+X-Spam_score_int: -9
+X-Spam_bar: -
+X-Spam_report: Spam detection software,
+ running on the system "christine.aio.vpn", 
+ has NOT identified this incoming email as spam.  The original
+ message has been attached to this so you can view it or label
+ similar future email.  If you have any questions, see
+ root@localhost for details. Content preview:  Hello there,
+ I've tried to find some insights in a weird problem
+ I have with snd_hdspm. I guess it is an error-report/bug-posting. Audio-wise
+ everything is super-duper, so don't worry. However... MIDI only works outbound
+ from the on-board MIDI interface. 
+ Content analysis details:   (-1.0 points, 5.0 required)
+ pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ -1.0 ALL_TRUSTED            Passed through trusted hosts only via SMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,39 +94,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello there,
 
+I've tried to find some insights in a weird problem I have with 
+snd_hdspm. I guess it is an error-report/bug-posting.
 
-On 1/27/23 17:11, Amadeusz Sławiński wrote:
-> struct snd_soc_dobj only needs pointer to the unload function, instead
-> however, there is pointer to all topology operations. Change code to use
-> the function pointer instead of pointer to structure containing all
-> operations.
+Audio-wise everything is super-duper, so don't worry. However... MIDI 
+only works outbound from the on-board MIDI interface.
 
-I still don't see what we gain with this change.
+MIDI-out always works perfectly from the card during normal operations.
 
-what we had was:
+Whenever I connect anything to the MIDI-in and start feeding some 
+MIDI-data, it seems ALSA crashes on me. here's a more detailed description:
 
-	sbe->dobj.ops = tplg->ops;
+* I'm running linux-rt 6.0.5.14.realtime1-3-rt #1 SMP PREEMPT_RT (Arch)
 
-	if (dobj->ops && dobj->ops->control_unload)
-		dobj->ops->control_unload(comp, dobj);
+* When i give it a stream of MIDI data on the MIDI-in while playing
+   some audio that application (e.g. mplayer or live inputs) logs:
 
-	
-and now we have this:
+   ALSA: poll time out, polled for 1999005 usecs, Retrying with a
+   recovery, retry cnt = 1 (2, 3, 4, 5, and so on)
 
-	if (tplg->ops)
-		sbe->dobj.unload = tplg->ops->control_unload;
-	
-	if (dobj->unload)
-		dobj->unload(comp, dobj);
+   And ALSA seem stuck in looping the last buffer over and over.
 
-The improvement is far from obvious to me.
+* Nothing in journal, nothing in dmesg tells anything more about it
 
-Not going to lay on the tracks for this though.
+What did I run in to?! :)
 
+Kind regards,
+AiO

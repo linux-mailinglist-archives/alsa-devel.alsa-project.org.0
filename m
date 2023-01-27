@@ -2,76 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EAFB67DF18
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 09:28:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDBE67E2DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 12:14:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 586BC886;
-	Fri, 27 Jan 2023 09:27:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586BC886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B2A2868;
+	Fri, 27 Jan 2023 12:13:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B2A2868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674808103;
-	bh=RErM03IW//HfZaeJ01FoiMSUgaL2isHa9E4NESwtMjg=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1674818042;
+	bh=BM+4344hA//hm+S8NKm14kMPGZIP0OpVEzCnk4QHcPw=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=jKkR9IStzrI4bzJBNahGSuzpECZdybuGXgqD12jXMWnSSqHgi920vEEn2P9WzQo+x
-	 39/bhHRZVxICCyojsxSQRlNGoXH1/c9dpdUD5wGWSmZ6IUaZzijDImRxlhdLMQXPL8
-	 oH6L3dUvTSLEjxpToVHyXT8CU8PUT8Bc4sytPD3U=
+	b=GuKQ6XgIZEBUBapE/+ykT84/+Wky5uo7YdA4pvSeF2Wjr0UyzLEJkoBu4aWweXMMz
+	 Z5OGRoPMgxJkOg9g/iH0nybPspzBT/7TIdX2F2Z65R5vU9tkUeOBQr1xuBLQtbNlFH
+	 GhLJAEliE4hopHdo9UqlVlIU2EiuaSAXo6CmfR3w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AD96F804A9;
-	Fri, 27 Jan 2023 09:27:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EB58F80224;
+	Fri, 27 Jan 2023 12:13:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19310F80424; Fri, 27 Jan 2023 09:27:21 +0100 (CET)
+ id 6C8C4F80424; Fri, 27 Jan 2023 12:12:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::222])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FF63F80238
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 09:27:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FF63F80238
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21FF5F80224
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 12:12:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21FF5F80224
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=kz/9gVbM
-Received: from booty (unknown [77.244.183.192])
- (Authenticated sender: luca.ceresoli@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 35C3440012;
- Fri, 27 Jan 2023 08:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1674808033;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Lv7ewrCAvVErHpI7gEVltoemr6ftqALjKTyaA7BAA5M=;
- b=kz/9gVbMcBfzuF5NuB1JYn52NbhQxvOpuk40tZWkVTEp4NsySfuSzWFlpCej5onQD8DtzC
- TSvDRXO2FoUtFg58DJ+T4Kp1A05artpCbwJyzPxAMu6aT5J42TUKlP2Ahl3F2bbzOLAFfT
- yq/L+/a1ISoDaJ5c7t87knlCgdcMZlbaeXYZsBy4HfnltPkZbHI7O7j5PTxWBOC6Tb3pgT
- WhR7dR81Hy0quUooSXLcpK65PjfzBuPzCmkykN6yAFeCf29yx85clMRykicEWo7UhPBsoY
- EIGWH9Zi7KpFFM9Uhti1pxW/C65tfZpOf0z/mu++BuZh75AMGo3iDewPiLBsUA==
-Date: Fri, 27 Jan 2023 09:27:08 +0100
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH] scripts/spelling.txt: add "exsits" pattern and fix typo
- instances
-Message-ID: <20230127092708.43247f7e@booty>
-In-Reply-To: <20230126155526.3247785a@kernel.org>
-References: <20230126152205.959277-1-luca.ceresoli@bootlin.com>
- <20230126155526.3247785a@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VNP0E+L2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674817969; x=1706353969;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=BM+4344hA//hm+S8NKm14kMPGZIP0OpVEzCnk4QHcPw=;
+ b=VNP0E+L2KbS3o8rv4i64usZgRDhqEG26+2NwmQgLjUkEejXqjo90MyTS
+ cyCp0d7PbO9eAtZMNv68u8C/MMoSHbaoMfoGXLoJvx56xJsppx2AXXACs
+ wNwMEmwREkb3VxVmmOFmjI4J31YSQhuOCn9brEOEt/k7dol9TkNYkWOXY
+ rnAgZ36+qrwtev1XwbcJqHMM/IzmDSdyNSBmWW2814X3ep0zuJBH74juQ
+ iMt4vPhqMO6W9Hsl33Y84StqJMdPiKuDLheWriT+mDURF9lPh8kowVQo4
+ edTIj1w5M6e7L4levZ4EQQ3EiIaSpfzpdgSjQyPHRDyRIhP5/RvaW1bur A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="329192630"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="329192630"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2023 03:12:43 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="787186784"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="787186784"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2023 03:12:42 -0800
+Message-ID: <5f7e9b31-ad1f-0948-5673-0732d73a185e@linux.intel.com>
+Date: Fri, 27 Jan 2023 12:12:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 11/11] ASoC: topology: Unify kcontrol removal code
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20230125194649.3485731-1-amadeuszx.slawinski@linux.intel.com>
+ <20230125194649.3485731-12-amadeuszx.slawinski@linux.intel.com>
+ <40207a2a-3f2a-bbef-74f6-9e85ced3150a@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <40207a2a-3f2a-bbef-74f6-9e85ced3150a@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,39 +93,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: dev@openvswitch.org, alsa-devel@alsa-project.org,
- Leon Romanovsky <leon@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Pravin B Shelar <pshelar@ovn.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Fabio Estevam <festevam@gmail.com>,
- Colin Ian King <colin.i.king@gmail.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Jakub,
-
-thanks for our review.
-
-On Thu, 26 Jan 2023 15:55:26 -0800
-Jakub Kicinski <kuba@kernel.org> wrote:
-
-> On Thu, 26 Jan 2023 16:22:05 +0100 Luca Ceresoli wrote:
-> > Fix typos and add the following to the scripts/spelling.txt:
-> > 
-> >   exsits||exists
-> > 
-> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>  
+On 1/25/2023 4:15 PM, Pierre-Louis Bossart wrote:
 > 
-> You need to split this up per subsystem, I reckon :(
+> 
+> On 1/25/23 13:46, Amadeusz Sławiński wrote:
+>> Functions removing bytes, enum and mixer kcontrols are identical. Unify
+> 
+> they are identical because of the change in patch10.
+> 
+> Please clarify that this is not a cleanup removing duplicated code
+> that's been there forever, it's become useless as a result of the
+> previous patch.
+> 
 
-Ironically, it was the case initially but I have squashed my commits
-based on several prior commits that do it together. Now I rechecked
-and it seems like this happened only until July 2019, so apparently the
-policy has changed. Will split.
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+There is no dependency on previous patch - it is just order I've send 
+them in - those functions have same implementation in current code.

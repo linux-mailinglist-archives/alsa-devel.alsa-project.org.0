@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37A5A67E482
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 13:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56F567E485
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 13:04:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46D9BEDB;
-	Fri, 27 Jan 2023 13:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46D9BEDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33569EBB;
+	Fri, 27 Jan 2023 13:03:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33569EBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674821051;
-	bh=kGFffIQ+TZLB+Io2ley2iXEMkqrlz19ht5/2zQw9TqQ=;
+	s=default; t=1674821067;
+	bh=w9n5zT80vCbdVvQ5MJ7or2NBoNtNjWK0nKVW2cFHFYE=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=FFMJRP1nKb1gLJPsmhiZTVZxbYyyKVk/oYBgBH/IXXzJFSnXgDqHTSArzOM/kb/mP
-	 CyXL4RB9LMLMZ/GkJyTAoP64Qjoj/akEnQpi7Y1hFb1ibEE5aB3LyuKso3bQPx7zmV
-	 i9QC6R+MKy1yodLp2V5BJrnWIvu42CABkIdYaBuQ=
+	b=kYwJrAkV8Nr3UP4IGiE5LIv3AzUtFG/CAeGyPpvYWlCSs9YPkHqb1uT8F8hcFmA4e
+	 8Joaz/U0vnIxXWlRbQsnOQ/qlSVAGwAKejOhLQxfaKV5hatQuxQxd+kYVw7ZXnZWXP
+	 calI9hdxzTf7LPaJZmKGkIuI1YlEdAd7n7yXJtpY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04D57F805A1;
-	Fri, 27 Jan 2023 13:01:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D044F805AA;
+	Fri, 27 Jan 2023 13:01:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF478F8056F; Fri, 27 Jan 2023 13:00:54 +0100 (CET)
+ id 90B84F8056F; Fri, 27 Jan 2023 13:00:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,42 +35,42 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D19A7F80548
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 13:00:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D19A7F80548
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA081F80563
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 13:00:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA081F80563
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DKiGmqF5
+ header.s=Intel header.b=BXP40Fn0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674820852; x=1706356852;
+ t=1674820854; x=1706356854;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kGFffIQ+TZLB+Io2ley2iXEMkqrlz19ht5/2zQw9TqQ=;
- b=DKiGmqF5xuupJ+A8vOn9kbbuaFHQBhZILoVj1C375s2OsgDsVOuSx5sL
- /cprIDBRYzYx377X+yEZacJTx0cXJ09sSvo9B/0rLBWGNxw1N51jd8VYx
- H74C4rW+2pzjBOPumRgwIJg8qpOdqi9Ms6zY9tj26uGyH3tM1jfolNgBz
- DRKcr1pqfNV0BDE9lucbkJHWhfR+3jJeSj8sqyIKtnc6pB6vkkmKKCS+Y
- N+4jW/L6X9pBazkF0tNpIxE+qJCm2qm/dUEB+M2AAuEJlM+7FOkykfuad
- qt1ply+2X2lZvXyRnf3VF2WaHSmh3HS8WVR9bO5EPRoDOHQfM145rzGuo Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="327091875"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="327091875"
+ bh=w9n5zT80vCbdVvQ5MJ7or2NBoNtNjWK0nKVW2cFHFYE=;
+ b=BXP40Fn0GF3QnIeaBQ6x5ktBbTKRNmmBhYVN8WhAdEZ/agw3DiY2+Z1J
+ 6HqJxKYyxcwVYkv28CqO1hOSoUN2MbBT81J9R7KyWKdsFgdObHkRVVLkK
+ esQT08I5RI31O8vEg2VyJc/xpTWoTypoiQHk7dJjZQFzdiT49sXklk6ar
+ DvH/k7peuDJMy73hlIvri8dNMIK7449YM4GIGC1nwuio45pnTQtjlq466
+ vKXkyFvjaG4yYhIyvzOwgYqKqaypM0twqVcd01Jc3hWgETiNBmU2335vv
+ 1QUUO37Z0RFrjRRgTxVtW8s/Sdps/uhMs3X/e/dp6d6wfJzntD3kA2edE g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="327091883"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="327091883"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 04:00:48 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="805782200"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="805782200"
+ 27 Jan 2023 04:00:51 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="805782215"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="805782215"
 Received: from aaralsto-mobl.amr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.30.130])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 04:00:46 -0800
+ 27 Jan 2023 04:00:49 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 09/18] ASoC: SOF: ipc4: Add flag to skip triggering pipelines
- during FE DAI trigger
-Date: Fri, 27 Jan 2023 14:00:22 +0200
-Message-Id: <20230127120031.10709-10-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 10/18] ASoC: SOF: sof-audio: Populate the PCM stream
+ pipeline_info
+Date: Fri, 27 Jan 2023 14:00:23 +0200
+Message-Id: <20230127120031.10709-11-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230127120031.10709-1-peter.ujfalusi@linux.intel.com>
 References: <20230127120031.10709-1-peter.ujfalusi@linux.intel.com>
@@ -97,17 +97,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Add a new flag, skip_during_fe_trigger, to struct sof_ipc4_pipeline to
-skip triggering pipelines in the FE DAI trigger. Set this flag for the
-HDA DAI BE pipelines so that their BE pipeline will not be triggered in
-the FE DAI trigger. Also, move the trigger handling for all commands
-include START/PAUSE_RELEASE for the HDA DAI's to the backend DAI trigger
-ops.
-
-For the SSP/DMIC/SDW cases, remove the BE DAI trigger as they involve no
-DMA operations and can be triggered in the FE DAI trigger. This is in
-preparation to perform batch triggering of all pipelines for the non-HDA
-case.
+Populate the pipeline_info for the PCM stream with the list of pipeline
+widgets that need to be handled during the PCM trigger. This will be
+used in the IPC-specific PCM trigger op to trigger the pipelines.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Libin Yang <libin.yang@intel.com>
@@ -115,222 +107,189 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 92 +++++++----------------------------
- sound/soc/sof/ipc4-pcm.c      | 17 +------
- sound/soc/sof/ipc4-topology.c |  1 +
- sound/soc/sof/ipc4-topology.h |  2 +
- 4 files changed, 21 insertions(+), 91 deletions(-)
+ sound/soc/sof/sof-audio.c | 69 +++++++++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 1c3d4887aa30..98eebb4b07e6 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -450,6 +450,8 @@ static int ipc4_hda_dai_trigger(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index b127b304298c..e6796c59e04b 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -367,8 +367,9 @@ sof_prepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget
+  * (DAI type for capture, AIF type for playback)
+  */
+ static int sof_free_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *widget,
+-				    int dir, struct snd_soc_dapm_widget_list *list)
++				    int dir, struct snd_sof_pcm *spcm)
  {
- 	struct hdac_ext_stream *hext_stream = snd_soc_dai_get_dma_data(dai, substream);
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(dai->component);
++	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
+ 	struct snd_soc_dapm_path *p;
+ 	int err;
+ 	int ret = 0;
+@@ -387,7 +388,7 @@ static int sof_free_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dap
+ 
+ 			p->walking = true;
+ 
+-			err = sof_free_widgets_in_path(sdev, p->sink, dir, list);
++			err = sof_free_widgets_in_path(sdev, p->sink, dir, spcm);
+ 			if (err < 0)
+ 				ret = err;
+ 			p->walking = false;
+@@ -403,17 +404,44 @@ static int sof_free_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dap
+  * The error path in this function ensures that all successfully set up widgets getting freed.
+  */
+ static int sof_set_up_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *widget,
+-				      int dir, struct snd_soc_dapm_widget_list *list)
++				      int dir, struct snd_sof_pcm *spcm)
+ {
++	struct snd_sof_pcm_stream_pipeline_list *pipeline_list = &spcm->stream[dir].pipeline_list;
++	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
++	struct snd_sof_widget *swidget = widget->dobj.private;
 +	struct snd_sof_widget *pipe_widget;
-+	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_soc_pcm_runtime *rtd;
- 	struct snd_sof_widget *swidget;
- 	struct snd_soc_dapm_widget *w;
-@@ -466,18 +468,30 @@ static int ipc4_hda_dai_trigger(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dapm_path *p;
+ 	int ret;
  
- 	w = snd_soc_dai_get_widget(dai, substream->stream);
- 	swidget = w->dobj.private;
-+	pipe_widget = swidget->pipe_widget;
-+	pipeline = pipe_widget->private;
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		snd_hdac_ext_stream_start(hext_stream);
-+		if (pipeline->state != SOF_IPC4_PIPE_PAUSED) {
-+			ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
-+							  SOF_IPC4_PIPE_PAUSED);
-+			if (ret < 0)
-+				return ret;
-+			pipeline->state = SOF_IPC4_PIPE_PAUSED;
+-	if (widget->dobj.private) {
++	if (swidget) {
++		int i;
++
+ 		ret = sof_widget_setup(sdev, widget->dobj.private);
+ 		if (ret < 0)
+ 			return ret;
++
++		/* skip populating the pipe_widgets array if it is NULL */
++		if (!pipeline_list->pipe_widgets)
++			goto sink_setup;
++
++		/*
++		 * Add the widget's pipe_widget to the list of pipelines to be triggered if not
++		 * already in the list. This will result in the pipelines getting added in the
++		 * order source to sink.
++		 */
++		for (i = 0; i < pipeline_list->count; i++) {
++			pipe_widget = pipeline_list->pipe_widgets[i];
++			if (pipe_widget == swidget->pipe_widget)
++				break;
 +		}
 +
-+		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
-+						  SOF_IPC4_PIPE_RUNNING);
-+		if (ret < 0)
-+			return ret;
-+		pipeline->state = SOF_IPC4_PIPE_RUNNING;
- 		break;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	{
--		struct snd_sof_widget *pipe_widget = swidget->pipe_widget;
--		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
--
- 		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
- 						  SOF_IPC4_PIPE_PAUSED);
- 		if (ret < 0)
-@@ -503,9 +517,6 @@ static int ipc4_hda_dai_trigger(struct snd_pcm_substream *substream,
++		if (i == pipeline_list->count) {
++			pipeline_list->count++;
++			pipeline_list->pipe_widgets[i] = swidget->pipe_widget;
++		}
  	}
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 	{
--		struct snd_sof_widget *pipe_widget = swidget->pipe_widget;
--		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
--
- 		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
- 						  SOF_IPC4_PIPE_PAUSED);
- 		if (ret < 0)
-@@ -703,64 +714,6 @@ static const struct snd_soc_dai_ops ipc3_ssp_dai_ops = {
- 	.shutdown = ssp_dai_shutdown,
- };
  
--static int ipc4_be_dai_common_trigger(struct snd_soc_dai *dai, int cmd, int stream)
--{
--	struct snd_sof_widget *pipe_widget;
--	struct sof_ipc4_pipeline *pipeline;
--	struct snd_sof_widget *swidget;
--	struct snd_soc_dapm_widget *w;
--	struct snd_sof_dev *sdev;
--	int ret;
--
--	w = snd_soc_dai_get_widget(dai, stream);
--	swidget = w->dobj.private;
--	pipe_widget = swidget->pipe_widget;
--	pipeline = pipe_widget->private;
--	sdev = snd_soc_component_get_drvdata(swidget->scomp);
--
--	switch (cmd) {
--	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_STOP:
--		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
--						  SOF_IPC4_PIPE_PAUSED);
--		if (ret < 0)
--			return ret;
--		pipeline->state = SOF_IPC4_PIPE_PAUSED;
--
--		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
--						  SOF_IPC4_PIPE_RESET);
--		if (ret < 0)
--			return ret;
--		pipeline->state = SOF_IPC4_PIPE_RESET;
--		break;
--	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
--						  SOF_IPC4_PIPE_PAUSED);
--		if (ret < 0)
--			return ret;
--		pipeline->state = SOF_IPC4_PIPE_PAUSED;
--		break;
--	default:
--		break;
--	}
--
--	return 0;
--}
--
--static int ipc4_be_dai_trigger(struct snd_pcm_substream *substream,
--			       int cmd, struct snd_soc_dai *dai)
--{
--	return ipc4_be_dai_common_trigger(dai, cmd, substream->stream);
--}
--
--static const struct snd_soc_dai_ops ipc4_dmic_dai_ops = {
--	.trigger = ipc4_be_dai_trigger,
--};
--
--static const struct snd_soc_dai_ops ipc4_ssp_dai_ops = {
--	.trigger = ipc4_be_dai_trigger,
--};
--
- void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
++sink_setup:
+ 	snd_soc_dapm_widget_for_each_sink_path(widget, p) {
+ 		if (!p->walking) {
+ 			if (!widget_in_list(list, p->sink))
+@@ -421,11 +449,11 @@ static int sof_set_up_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_d
+ 
+ 			p->walking = true;
+ 
+-			ret = sof_set_up_widgets_in_path(sdev, p->sink, dir, list);
++			ret = sof_set_up_widgets_in_path(sdev, p->sink, dir, spcm);
+ 			p->walking = false;
+ 			if (ret < 0) {
+-				if (widget->dobj.private)
+-					sof_widget_free(sdev, widget->dobj.private);
++				if (swidget)
++					sof_widget_free(sdev, swidget);
+ 				return ret;
+ 			}
+ 		}
+@@ -435,16 +463,20 @@ static int sof_set_up_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_d
+ }
+ 
+ static int
+-sof_walk_widgets_in_order(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget_list *list,
++sof_walk_widgets_in_order(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm,
+ 			  struct snd_pcm_hw_params *fe_params,
+ 			  struct snd_sof_platform_stream_params *platform_params, int dir,
+ 			  enum sof_widget_op op)
  {
++	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
+ 	struct snd_soc_dapm_widget *widget;
+ 	char *str;
+ 	int ret = 0;
  	int i;
-@@ -785,14 +738,6 @@ void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
- 		struct sof_ipc4_fw_data *ipc4_data = sdev->private;
  
- 		for (i = 0; i < ops->num_drv; i++) {
--			if (strstr(ops->drv[i].name, "DMIC")) {
--				ops->drv[i].ops = &ipc4_dmic_dai_ops;
--				continue;
--			}
--			if (strstr(ops->drv[i].name, "SSP")) {
--				ops->drv[i].ops = &ipc4_ssp_dai_ops;
--				continue;
--			}
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
- 			if (strstr(ops->drv[i].name, "iDisp") ||
- 			    strstr(ops->drv[i].name, "Analog") ||
-@@ -804,9 +749,6 @@ void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
- 		if (!hda_use_tplg_nhlt)
- 			ipc4_data->nhlt = intel_nhlt_init(sdev->dev);
++	if (!list)
++		return 0;
++
+ 	for_each_dapm_widgets(list, i, widget) {
+ 		/* starting widget for playback is AIF type */
+ 		if (dir == SNDRV_PCM_STREAM_PLAYBACK && widget->id != snd_soc_dapm_aif_in)
+@@ -456,11 +488,11 @@ sof_walk_widgets_in_order(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget_l
  
--		if (IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE))
--			sdw_callback.trigger = ipc4_be_dai_common_trigger;
--
- 		break;
+ 		switch (op) {
+ 		case SOF_WIDGET_SETUP:
+-			ret = sof_set_up_widgets_in_path(sdev, widget, dir, list);
++			ret = sof_set_up_widgets_in_path(sdev, widget, dir, spcm);
+ 			str = "set up";
+ 			break;
+ 		case SOF_WIDGET_FREE:
+-			ret = sof_free_widgets_in_path(sdev, widget, dir, list);
++			ret = sof_free_widgets_in_path(sdev, widget, dir, spcm);
+ 			str = "free";
+ 			break;
+ 		case SOF_WIDGET_PREPARE:
+@@ -514,16 +546,16 @@ int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm,
+ 	 * Prepare widgets for set up. The prepare step is used to allocate memory, assign
+ 	 * instance ID and pick the widget configuration based on the runtime PCM params.
+ 	 */
+-	ret = sof_walk_widgets_in_order(sdev, list, fe_params, platform_params,
++	ret = sof_walk_widgets_in_order(sdev, spcm, fe_params, platform_params,
+ 					dir, SOF_WIDGET_PREPARE);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	/* Set up is used to send the IPC to the DSP to create the widget */
+-	ret = sof_walk_widgets_in_order(sdev, list, fe_params, platform_params,
++	ret = sof_walk_widgets_in_order(sdev, spcm, fe_params, platform_params,
+ 					dir, SOF_WIDGET_SETUP);
+ 	if (ret < 0) {
+-		ret = sof_walk_widgets_in_order(sdev, list, fe_params, platform_params,
++		ret = sof_walk_widgets_in_order(sdev, spcm, fe_params, platform_params,
+ 						dir, SOF_WIDGET_UNPREPARE);
+ 		return ret;
  	}
- 	default:
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-index 05515e8e6f57..db9d0adb2717 100644
---- a/sound/soc/sof/ipc4-pcm.c
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -58,25 +58,10 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 		if (!swidget)
- 			continue;
+@@ -567,15 +599,16 @@ int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm,
+ 	return 0;
  
--		/*
--		 * set pipeline state for both FE and BE pipelines for RUNNING state.
--		 * For PAUSE/RESET, set the pipeline state only for the FE pipeline.
--		 */
--		switch (state) {
--		case SOF_IPC4_PIPE_PAUSED:
--		case SOF_IPC4_PIPE_RESET:
--			if (!WIDGET_IS_AIF(swidget->id))
--				continue;
--			break;
--		default:
--			break;
--		}
--
--		/* find pipeline widget for the pipeline that this widget belongs to */
- 		pipeline_widget = swidget->pipe_widget;
- 		pipeline = (struct sof_ipc4_pipeline *)pipeline_widget->private;
+ widget_free:
+-	sof_walk_widgets_in_order(sdev, list, fe_params, platform_params, dir,
++	sof_walk_widgets_in_order(sdev, spcm, fe_params, platform_params, dir,
+ 				  SOF_WIDGET_FREE);
+-	sof_walk_widgets_in_order(sdev, list, NULL, NULL, dir, SOF_WIDGET_UNPREPARE);
++	sof_walk_widgets_in_order(sdev, spcm, NULL, NULL, dir, SOF_WIDGET_UNPREPARE);
  
--		if (pipeline->state == state)
-+		if (pipeline->state == state || pipeline->skip_during_fe_trigger)
- 			continue;
+ 	return ret;
+ }
  
- 		/* first set the pipeline to PAUSED state */
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index b07a405516b1..f3b1a7f81216 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1869,6 +1869,7 @@ static int sof_ipc4_dai_config(struct snd_sof_dev *sdev, struct snd_sof_widget *
- 	case SOF_DAI_INTEL_HDA:
- 		gtw_attr = ipc4_copier->gtw_attr;
- 		gtw_attr->lp_buffer_alloc = pipeline->lp_mode;
-+		pipeline->skip_during_fe_trigger = true;
- 		fallthrough;
- 	case SOF_DAI_INTEL_ALH:
- 		copier_data->gtw_cfg.node_id &= ~SOF_IPC4_NODE_INDEX_MASK;
-diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 8dbbf69b0eb7..028b5d91b9db 100644
---- a/sound/soc/sof/ipc4-topology.h
-+++ b/sound/soc/sof/ipc4-topology.h
-@@ -73,6 +73,7 @@
-  * @mem_usage: Memory usage
-  * @state: Pipeline state
-  * @msg: message structure for pipeline
-+ * @skip_during_fe_trigger: skip triggering this pipeline during the FE DAI trigger
-  */
- struct sof_ipc4_pipeline {
- 	uint32_t priority;
-@@ -80,6 +81,7 @@ struct sof_ipc4_pipeline {
- 	uint32_t mem_usage;
- 	int state;
- 	struct sof_ipc4_msg msg;
-+	bool skip_during_fe_trigger;
- };
+ int sof_widget_list_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int dir)
+ {
++	struct snd_sof_pcm_stream_pipeline_list *pipeline_list = &spcm->stream[dir].pipeline_list;
+ 	struct snd_soc_dapm_widget_list *list = spcm->stream[dir].list;
+ 	int ret;
  
- /**
+@@ -584,14 +617,16 @@ int sof_widget_list_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm, int
+ 		return 0;
+ 
+ 	/* send IPC to free widget in the DSP */
+-	ret = sof_walk_widgets_in_order(sdev, list, NULL, NULL, dir, SOF_WIDGET_FREE);
++	ret = sof_walk_widgets_in_order(sdev, spcm, NULL, NULL, dir, SOF_WIDGET_FREE);
+ 
+ 	/* unprepare the widget */
+-	sof_walk_widgets_in_order(sdev, list, NULL, NULL, dir, SOF_WIDGET_UNPREPARE);
++	sof_walk_widgets_in_order(sdev, spcm, NULL, NULL, dir, SOF_WIDGET_UNPREPARE);
+ 
+ 	snd_soc_dapm_dai_free_widgets(&list);
+ 	spcm->stream[dir].list = NULL;
+ 
++	pipeline_list->count = 0;
++
+ 	return ret;
+ }
+ 
 -- 
 2.39.1
 

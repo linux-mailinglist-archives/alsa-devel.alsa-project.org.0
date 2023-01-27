@@ -2,82 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8093767EB46
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 17:43:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45AB367FD98
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Jan 2023 09:24:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7AF493A;
-	Fri, 27 Jan 2023 17:42:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7AF493A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ED79DF9;
+	Sun, 29 Jan 2023 09:23:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ED79DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674837785;
-	bh=y5WiWYoPmeWRQTq+h3ADF9qMzdRYPVjguNQ/7zr5ZKc=;
+	s=default; t=1674980651;
+	bh=fNmgdZUN2/2Uu/E39EHKHM8jOiAEPnx0mWMZL8FZ7OI=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=PPfFK/+lNB490Wyf22rj6DiW4mBtB9xhnu7ljHfpvUDCTVDrQvuwMzvzuiygLZ2U6
-	 oNZBMAZIcQFI6r9QswL0uy0UM30Tze0SAFhBNocLNmfLv/8xVUpvbj6hLkLd0VVJ4E
-	 gyQfkgyOv4BTMoI6n9W2LmsOMrzj8ZuTv52KX+rM=
+	b=DZEyyQtGQwxkOSdlc18OwrFJ6/GCRhcMTtPeiYoHtdL/YPf+BND6J3xG9topzoDwD
+	 xUlxWd1azEMRkoHREo0P9iekgROgdG8sbjdUQonHfa1nB9wkO23/IgXDzX8UNZT9CU
+	 8nht4efJf+oYkametCz+qX6h5SFaV7KU32rAMWGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA8C4F8007C;
-	Fri, 27 Jan 2023 17:42:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 932C9F80155;
+	Sun, 29 Jan 2023 09:23:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 194ABF8007C; Fri, 27 Jan 2023 17:42:05 +0100 (CET)
+ id 04899F80431; Fri, 27 Jan 2023 17:49:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 673F6F8007C
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:41:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 673F6F8007C
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=qsE7WeDh
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 664B911E4;
- Fri, 27 Jan 2023 17:41:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 664B911E4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1674837714; bh=72VCcJJxXXJ2bRu6xheDpCpxeIDPr4x7r7Bh9fqdkxo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=qsE7WeDhAIYITdqIx4QhUbq4ukEd81gGTxkWg1gHEcz+MM2p8mXAQfT8rrss4d7h9
- il6oXy/w1cphUQ2yixydix3aek4tCPlzUOzZcVYBqmDVH1MupuJH8ydK42YwtKOcmH
- VHRs/5VZvRdjtNQ0qJtzKkbmKhBKAP/TLElU0uOw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 27 Jan 2023 17:41:44 +0100 (CET)
-Message-ID: <e9733e9a-ac70-846f-c3a2-f96a6787b9bc@perex.cz>
-Date: Fri, 27 Jan 2023 17:41:44 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD956F801F7
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 17:49:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD956F801F7
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=p0bN2yAu
+Received: by mail-wm1-x329.google.com with SMTP id
+ q10-20020a1cf30a000000b003db0edfdb74so5746031wmq.1
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 08:49:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MwxIin163802ACvSCq0jg4HlDZfjOU+b7ag/1i6mXEE=;
+ b=p0bN2yAu28MNGvTlRbQWr0+f8dRrN7+Tn627u0K/x42EmNDLphayIf9NlMev0wqj8h
+ /EmzHfmLQqKOVu8ZgIciDK/fUJr6PvWPKCTqRsZtsPxIDrQvOH3aJeQUvnun7rNkTSUQ
+ 6/KZMhpjpBCdTsrlPk0Pq1AqbefuhemfseqENDs+CCppSNm6HT2vKHwFAalheOqTayxm
+ dtjoNuM92e8Dp5V+KrvfMQYfpqoVE/fUi7G9DPER5YIOirUmedqSV5KeWbBKvr23C7Je
+ C0hL4yNzr1apQ8T4Xaqa5bA4xfUJep3aF5qWXf5H1dWiQl4NI8yI1oLJqFFQ+XguiBLe
+ Z84Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MwxIin163802ACvSCq0jg4HlDZfjOU+b7ag/1i6mXEE=;
+ b=mfe5jUOeu1wtvhvHy7PYllX4LgPOXwhr5GU2NqqSDdeJDIMfk9CVrX2jKgxrFpcBJA
+ dz3Dd575/ZSriHFE9Ak7ao1Z9AlJmlGGOEFbhMGwnGK1yQt9CNVjB9Qy9iUVGP7HgUFq
+ KOlaiVHqYop/fFdJ2S//ZCgwKZslwamHebQsbtayp4l9l5tdWy1VM71MMQk1ALYmMRX9
+ SuTlYVbdR5o+Xt+MuIwXFWrVdVAOmehgzWYrQkiYEUjHDkqU1E6MTpzWXLKSl7PVFrxE
+ NjyUqiUMK2c4VOKVMZm9tSR14MKi/u+PZjjdoAuNNxBEvg+eY+LQU8J0Bi3C/FHT3DsC
+ eooA==
+X-Gm-Message-State: AO0yUKXFgFmDfSt3hAovSmN6IYMxVO3hUquHXjth8zwmkvLiznGTBX7F
+ SbIvHClfDOIwKg8EhkSNZxZ+sQ==
+X-Google-Smtp-Source: AK7set91BwRn6DZssbXKyvbz30nnUQMYADbkS+Drm/RA9jZHFwp9Oe0M3rmb1c4Tgb8gUCp8+I209g==
+X-Received: by 2002:a05:600c:3151:b0:3dc:443e:420e with SMTP id
+ h17-20020a05600c315100b003dc443e420emr40585wmo.2.1674838156833; 
+ Fri, 27 Jan 2023 08:49:16 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ p24-20020a05600c1d9800b003dafadd2f77sm8990779wms.1.2023.01.27.08.49.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Jan 2023 08:49:16 -0800 (PST)
+Message-ID: <1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org>
+Date: Fri, 27 Jan 2023 17:49:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 2/6] ASoC: amd: yc: Add a module parameter to influence
- pdm_gain
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v3 1/6] dt-bindings: Document common device controller
+ bindings
 Content-Language: en-US
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
- "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20230127160134.2658-1-mario.limonciello@amd.com>
- <20230127160134.2658-3-mario.limonciello@amd.com>
- <2e9f4301-0211-04f5-5b38-caf2be9f4fd1@perex.cz>
- <MN0PR12MB61014C004C798F7DE8682AAFE2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <MN0PR12MB61014C004C798F7DE8682AAFE2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
+ herbert@gondor.apana.org.au, davem@davemloft.net, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alexandre.torgue@foss.st.com,
+ vkoul@kernel.org, jic23@kernel.org, olivier.moysan@foss.st.com,
+ arnaud.pouliquen@foss.st.com, mchehab@kernel.org,
+ fabrice.gasnier@foss.st.com, ulf.hansson@linaro.org, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
+ <20230127164040.1047583-2-gatien.chevallier@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230127164040.1047583-2-gatien.chevallier@foss.st.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sun, 29 Jan 2023 09:23:11 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,60 +115,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Pananchikkal,
- Renjith" <Renjith.Pananchikkal@amd.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Mark Pearson <mpearson@lenovo.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27. 01. 23 17:25, Limonciello, Mario wrote:
-> [AMD Official Use Only - General]
+On 27/01/2023 17:40, Gatien Chevallier wrote:
+> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 > 
+> Introducing of the common device controller bindings for the controller
+> provider and consumer devices. Those bindings are intended to allow
+> divided system on chip into muliple domains, that can be used to
+> configure hardware permissions.
 > 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> ---
 > 
->> -----Original Message-----
->> From: Jaroslav Kysela <perex@perex.cz>
->> Sent: Friday, January 27, 2023 10:23
->> To: Limonciello, Mario <Mario.Limonciello@amd.com>; Mukunda, Vijendar
->> <Vijendar.Mukunda@amd.com>; Saba Kareem, Syed
->> <Syed.SabaKareem@amd.com>; linux-kernel@vger.kernel.org
->> Cc: Pananchikkal, Renjith <Renjith.Pananchikkal@amd.com>; Mark Pearson
->> <mpearson@lenovo.com>; Liam Girdwood <lgirdwood@gmail.com>; Mark
->> Brown <broonie@kernel.org>; Takashi Iwai <tiwai@suse.com>; alsa-
->> devel@alsa-project.org
->> Subject: Re: [PATCH 2/6] ASoC: amd: yc: Add a module parameter to
->> influence pdm_gain
->>
->> On 27. 01. 23 17:01, Mario Limonciello wrote:
->>> In case of regressions for any users that the new pdm_gain value is
->>> too high and for additional debugging, introduce a module parameter
->>> that would let them configure it.
->>>
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>>    sound/soc/amd/yc/acp6x-pdm-dma.c | 7 ++++++-
->>>    sound/soc/amd/yc/acp6x.h         | 2 +-
->>>    2 files changed, 7 insertions(+), 2 deletions(-)
->>
->> ...
->>
->>>    	pdm_ctrl = acp6x_readl(acp_base + ACP_WOV_MISC_CTRL);
->>> -	pdm_ctrl |= ACP_WOV_MISC_CTRL_MASK;
->>> +	pdm_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, pdm_gain);
->>
->> The bits should be zeroed (AND - &) before OR to make sure that the correct
->> value is written to the register. More related patches are affected.
-> 
-> I had consider this, but the hardware default at reset is 0x0.  Do you think it's
-> still necessary for posterity?
+> No change since V1. I'm letting this patch for dependency with bindings to
+> avoid noise with dt/bindings checks. Therefore, it should be reviewed on the
+> appropriate thread.
 
-You're using 0644 permissions for the module parameter, so the value can be 
-changed by root using sysfs anytime (between SNDRV_PCM_TRIGGER calls).
+There was a v6 already, this is v3 and I don't understand this comment.
+What do you let? Whom? If it is not for review and not for merging,
+please annotate it in the title ([IGNORE PATCH] or something).
 
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Best regards,
+Krzysztof
 

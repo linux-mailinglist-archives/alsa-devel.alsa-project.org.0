@@ -2,152 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E9A467EBEA
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 18:03:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62EFA67EDF0
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 20:01:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42D01EA7;
-	Fri, 27 Jan 2023 18:02:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42D01EA7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8200F829;
+	Fri, 27 Jan 2023 20:00:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8200F829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674839013;
-	bh=APAzfgQBSSdxyTACHcm36vVek2ojD4CgAHg8i23bY1g=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=LvJ2mOhzzr38HNpycRJ+anBAlcMzzG1ukWndzqU3soMQrG5VW4elh/8yOfJaD1vhi
-	 WU8+f5tlSOKZpFoEDGrlwT14K0b9lIya4q/SG8ZK0zVhTONiAl8WBEurgkQZcGlIk5
-	 jtoKrLqMdvkP8TLHwC9O1e2rWqlWY0yOnNNTJwow=
+	s=default; t=1674846082;
+	bh=O+tD5fblGsqRDBL6erGYbOCFHwVJLL8ot69itGrgjbc=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=PfHqIacI+X1XheoQRyCwUxKfnw/60xG+kg5Pl0GTyDfQylzvJZBkzxH6NwjkNSICB
+	 K/ZnceAPryrW861GkNnHSuYxwiOB4ji5MSB3RLgZA0fqZDNjxFhor1LM+R2+0lN7M1
+	 3RgtvyNUNJ13mv+TiSpzlb6f19DS+ZJHjJ4+QqYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE780F8028B;
-	Fri, 27 Jan 2023 18:02:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B07A0F8007C;
+	Fri, 27 Jan 2023 20:00:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 052BDF8007C; Fri, 27 Jan 2023 18:02:33 +0100 (CET)
+ id 45D91F80272; Fri, 27 Jan 2023 20:00:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 707ABF8007C
+ for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 20:00:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 707ABF8007C
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=TYeIFbNV
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CEFA6F8007C
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 18:02:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEFA6F8007C
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=tXBXgYGh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FE4Z4vlRBJExMapM4kaeFmh4EePkQr9W8lQcygM2WZjPn8OqC8ZlHxDKaa5/wn0j9nYuibkIeqGcdqoF5CmUxCNMallwzTrr+caBLa43XIMyYykpXy0BUdxCqSKbhGoqG4k8JxRWu2HDWrUMbWdOZzcteVpYDr9vqGOR6346ZD0vyq4nAlKt2pq7hJrkwDwzn04pU6ZOiEQvAsS2xP3TD/gOoOu43ACcxpY/jGNffBpy0gBZYNVMpA/xHNWR02qLfdayu2LDg3J5XCWmDJBgsiwcIihdDAAEkR56zgEqAFz5DomJSPFbh4X71M6kpS5DkNoGrciM1A1cZPREQSWp4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=moG79oVLcCypNCLgXUPopwoDQUkfRhc90/izjGb2pWc=;
- b=c6ereqRi5h2maOCNJi/5cxBmp5WHiJ08AOyD9ngkYKnCcTf/HDRLvVqnlUiWr12e9qsGssCQKhtjrrY9HpqtQqcqeb1QVStWqVmSNVHqRo7KVKR1rgvq5abYq+TnXXtHHcITE16eqeiq7bo4r+hXGCd1D5yGlfQB7eBm3nlXSm0RN1ZAFGptLkXJn0apBBorap7Fp1/30D3UFpiNKyRGtGkax5hst/bJ7PSNvGuvf6+OFng06C917V8P1zsPWqSK4wx7/3Zq747bYNW7rGD+SRjKGD/9a5GT6ZCNsGgV7a0Jikhlq5QxlefbM5rIhAc9MeXF9TrKzw+/OATHYbz7Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=moG79oVLcCypNCLgXUPopwoDQUkfRhc90/izjGb2pWc=;
- b=tXBXgYGhumxVzMwMcG8FuB6xOiUQ2WYwwPIQ6nG7C4uMPUpF2sNZOMFe9Z4r6pHA0N0eMUqs/M9OolAGoEeRGpjJzmEx+w4qpCOpRaHaiCv1Jfl1QKXQLPHZXPXkBpbuSd6ANw3cNn37NEBv+23XLuUYsujqS0sRJSEOLI5Lpog=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SJ1PR12MB6122.namprd12.prod.outlook.com (2603:10b6:a03:45b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.23; Fri, 27 Jan
- 2023 17:02:25 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::a59e:bafb:f202:313c]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::a59e:bafb:f202:313c%7]) with mapi id 15.20.6043.022; Fri, 27 Jan 2023
- 17:02:25 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
-Thread-Topic: [PATCH 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
-Thread-Index: AQHZMmi4VeY+7wtNKUGUzjnMkPoj6a6yes4AgAABj1A=
-Date: Fri, 27 Jan 2023 17:02:25 +0000
-Message-ID: <MN0PR12MB61013899FFB60BF73E7EB484E2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20230127160134.2658-1-mario.limonciello@amd.com>
- <20230127160134.2658-2-mario.limonciello@amd.com>
- <Y9QBbPtopFD1DGsD@sirena.org.uk>
-In-Reply-To: <Y9QBbPtopFD1DGsD@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-01-27T17:02:23Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4e2376a1-63a5-4ec2-b304-4a436afd0faa;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-01-27T17:02:23Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 71231f46-10bc-47ef-88a0-4be53d3a6c53
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|SJ1PR12MB6122:EE_
-x-ms-office365-filtering-correlation-id: 1ef6db93-222e-449c-8d96-08db00884388
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KbuvrJZT2FRMBTCBuflgmzIcHSVUjc2sE/Z1z+tuufopDKsHyVELQOj2SAZoJsRpIvGumPMK6x+VvehJQJ8Emc0x6FDHkPXDdzTeUkyp7uszv2QKmQUYOnTKOZY6y+BRd9KJhFbWEemtaShVDJIaBWlTvcl54u/XLoZGLrhkjgU7LINKC+lNSobDYYb3GCcApChdBoJDrJhnJGNaLPQI4SyGGSjBluTEU97cpNgpchW4G4JAIF3YyEMf9XoFEPFkUVeegcScpTOY6ug98LYuclR/jnI3sW5+Xf0QxeTung24AoSz+0Pe6ck6BZnLO2ZX4qmwy35iScOTTcjqaShulOI1DaQYnJp701JRAXhGnc2+L5tCvIqHzM62qvHFCWEj9NQTIkWdjNRxeGKpqKqvEPxP4zxMAMHRcwNQv7hCRO8Pnb4G31+BwVF2x4xrJNbmT0oP4qkWzl3WksqLnq73TY534CFKQ000ifwOswThSG4CIDWB6Eurk+eOOXmv6LVSZuJA18/Nn1YAcCmk2nFZNpxQ2pK7bFXpv5iVgub/v5kBsaxIS+sFefDBZszHDoY2T9Uj5IgkBRdqI6QPOgDwGm9k2wfkBlmDVluJeaNF6DU5tPBgHbPFFCfN6Iz18Nb7LiKrzsj88y/zfZVKxf8lfh4RsY6cldre0BmzsjohAMnjqYN+63ot8MGLSyA8aD6uMvVOp1rhqQGOkgI8SkBVDQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(396003)(39860400002)(366004)(136003)(346002)(451199018)(122000001)(8676002)(4326008)(64756008)(6506007)(66446008)(54906003)(76116006)(6916009)(38100700002)(86362001)(66946007)(66476007)(66556008)(53546011)(26005)(186003)(9686003)(5660300002)(478600001)(41300700001)(2906002)(38070700005)(33656002)(83380400001)(55016003)(316002)(7696005)(8936002)(71200400001)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qcmYapEPsRW+6CtNz9KiAagIwdGinibx8FQaHguUQGlTYX2RUR7oxroL1GNk?=
- =?us-ascii?Q?L4X2V67ReFx2DT1zOz+5ruP6c1rVwODzF7GQVAFzlOsURXAeBMim2rG2VC4h?=
- =?us-ascii?Q?/gEfbJA/I47+y4LSlipQwKqkvNQGcvmjwadtc8KQRA8wyILctH05HUSYqWxR?=
- =?us-ascii?Q?XT/kuw/KX1XvlrBxPAQ7qUomMou3yOLhRnMQ91s2KnQcfkydTIjbwUSto/vs?=
- =?us-ascii?Q?RnKlwWOStxstDWvDhSSnEPnkTnbI7+lh8yhocFQqsHdiB4LmGhoCxpfZsTnc?=
- =?us-ascii?Q?3ES9xgclG1dSFNkWTwsPizdeuuD2hd7FL8i/YHnkL7YOcIc79beBIRkLJ+k2?=
- =?us-ascii?Q?ZsXqNzvboHgbeeSVezksDCbqwQZY+mEWq9NjDqrWq5Rew7AnMpKd/GP6fq5w?=
- =?us-ascii?Q?RQUEVBdiUHGtg4ZyNpP+r2mYYgwCFXf5lgW0kooIZIWGwLKPL7ro5ZRKBw4Z?=
- =?us-ascii?Q?Lyb0VryLjDpXrrXelKDJnGwfTLunyo5+nnL4nsAhIlHCGoxKY5IUbp5mR6WA?=
- =?us-ascii?Q?JF3hng3Y77jO8LKG3YYbFHWDn9s5VagIg2SqcO5E/yFi1Cphlcb7d5c7MzHh?=
- =?us-ascii?Q?jEB314ehisiiYG5jgRbOFP4mqU4jzbFyyWJwHvzqujx0fuICKkCz9Qttij08?=
- =?us-ascii?Q?hYpnZDOfbJuVvfekWT0DKINUtsNvjcCBN636thB5EZZ7qFllfIhD8ejeEEK/?=
- =?us-ascii?Q?MjrkUmtIMu943KMWFpEf8V6ZsY9QiBkEa1Ad131/EaVMueB95ZYpnmCQEN1W?=
- =?us-ascii?Q?3zQ3+g26ebbBTyNSY3GkA0rwCFgTCZC8AvSTRR61pdaqPfCaGHjAes2T8ThW?=
- =?us-ascii?Q?t2+/2zomfcgLh54xrX8hquEKdcf4ZQ/8tNYjcgVD0mvBmmxB9hAtn7Yb/OEw?=
- =?us-ascii?Q?66n7Rp9PGNqDsa0kE5Ljxw0wHIXaWsjEArjlI9nMr59RIRJY7ogTp6QP5R1J?=
- =?us-ascii?Q?GYIdBFvK6+nTrTliNPDXTXP0rhUJ7bxj38KkDmwvguO7QLt71tNLTwcJoQ+p?=
- =?us-ascii?Q?HHN4gZ2TLzzJSbAOe3tyFbdPzCWKabWye6f7kw2eEG+8OiZpdt8JyxoZaodo?=
- =?us-ascii?Q?jIjkGgMbn2utxDQUAa1Uy1DUj61KlTgbgj8WGoShhVJ13S89l+CAogSrhFys?=
- =?us-ascii?Q?BOBhyLnd3LbdGJgw3Gw3bn0BaFvRjBhL7ykYCiPo0m1ulKr9CMKmm+b3Cy3F?=
- =?us-ascii?Q?Q8i2GMTMbQTTQuQXXxgJ4Sril/ighAuNwqObDQqPrCKhChf1zy/PHUdHn95M?=
- =?us-ascii?Q?gZrQ2iM2SBTUtYqe6TdK5OvRiBE89qBDRtkhCubM3SjucvFwu3bDXHi9W8SQ?=
- =?us-ascii?Q?62RQ5UAkEjRDePMTSrhWIXpdOvjRJAi6SfJQPUaJhGfYVvNep+PkOeev7MWs?=
- =?us-ascii?Q?xtGeu1cxRIq1QPNCLtcADYMQpAH2u5oh14SMF61NzUt7iNQeR/rbvUgp52m/?=
- =?us-ascii?Q?6kjiJGFUAbkzihX9YppjNzdo7A4gL2GQYGo7PviCTF0N/VYvEuuEcxtRZbUm?=
- =?us-ascii?Q?J1dxTgA5C7U8DDdHObjRBpzq0AR+AWFEc9LkUn1UREyztQmArltLSVnrmJbM?=
- =?us-ascii?Q?KdaV+y2KBYe0UL7FFJQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ef6db93-222e-449c-8d96-08db00884388
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2023 17:02:25.1163 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VLRRX4TDl414ezM0eKAMeqPKRSlyicrVM4jAz0z7hNzxwzW0RQPSudkJOmsEqCtz6vqByBEkWE0YpYgKJ8kqdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6122
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4E21FB821AD;
+ Fri, 27 Jan 2023 19:00:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA13C433EF;
+ Fri, 27 Jan 2023 19:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674846005;
+ bh=O+tD5fblGsqRDBL6erGYbOCFHwVJLL8ot69itGrgjbc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=TYeIFbNVGu9QLH2tuzIBKj/4go3FwI0f4/YcW1zB44aUQUlKGfey4fEiWlVpIZ+29
+ j9aUR0qrJa2b71KXDBtHa/d+shvwqfMN4t1ZIMmVEphscchm5C09O5bwO+gokFvYnr
+ 9tKrUUeDag6/5rx1IMAD//cHnurUb1MWWarQzUer+QJrvuBEWw5xJNT21NXAklUpPn
+ P0LknPJKZnnEwgIo86XqMUAD9qnWKORxrpEEWJfFCibG3SxNW8G5nBPXeKnBD71pi3
+ JzCZGPy5cs9wUXSlXCfAsq6xHVsZfXVjLHCDQ8ECMOp7AEww5MWuRaScaKsvkMbuhY
+ ebzFkox4Hhl8A==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [GIT PULL] ASoC fixes for v6.2-rc5
+Date: Fri, 27 Jan 2023 18:59:49 +0000
+Message-Id: <20230127190002.2BA13C433EF@smtp.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,50 +74,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Pananchikkal,
- Renjith" <Renjith.Pananchikkal@amd.com>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jaroslav Kysela <jkysela@redhat.com>, Liam Girdwood <lgirdwood@gmail.com>,
- "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>, "Mukunda,
- Vijendar" <Vijendar.Mukunda@amd.com>, Mark Pearson <mpearson@lenovo.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[AMD Official Use Only - General]
+The following changes since commit 242fc66ae6e1e2b8519daacc7590a73cd0e8a6e4:
 
+  ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets (2023-01-10 12:45:22 +0000)
 
+are available in the Git repository at:
 
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Friday, January 27, 2023 10:53
-> To: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Cc: Jaroslav Kysela <jkysela@redhat.com>; Mukunda, Vijendar
-> <Vijendar.Mukunda@amd.com>; Saba Kareem, Syed
-> <Syed.SabaKareem@amd.com>; linux-kernel@vger.kernel.org;
-> Pananchikkal, Renjith <Renjith.Pananchikkal@amd.com>; Mark Pearson
-> <mpearson@lenovo.com>; Liam Girdwood <lgirdwood@gmail.com>;
-> Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; alsa-
-> devel@alsa-project.org
-> Subject: Re: [PATCH 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
->=20
-> On Fri, Jan 27, 2023 at 10:01:28AM -0600, Mario Limonciello wrote:
-> > A number of users for Lenovo Rembrandt based laptops are
-> > reporting that the microphone is too quiet relative to
-> > Windows with a dual boot.
-> >
-> > Increase the PDM gain to overcome this problem.
->=20
-> Why not just make this a regular control that can be adjusted as
-> users see fit?
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc5
 
-Maximum HW gain is what we probably should have been setting from the
-beginning.  The module parameter stuff was in case we need to debug it.
+for you to fetch changes up to e18c6da62edc780e4f4f3c9ce07bdacd69505182:
 
-My thought is if we find some reported problems with the series we ask
-users to try the module parameters.  If we're finding that certain paramete=
-rs
-make sense for different systems then we tear out the module parameter
-and instead export a control and set policy from ucm.
+  ASoC: cs42l56: fix DT probe (2023-01-26 17:42:36 +0000)
 
-If nothing is reported, we can probably drop the parameters at some time
-in the future.
+----------------------------------------------------------------
+ASoC: Fixes for v6.2
+
+An unfortunately large batch of fixes here, the numbers amplified
+by several repeated fixes for patterns of bugs in multiple
+drivers.  Most of this is in the x86 drivers which are very
+actively developed, the implementation of PCI shutdown is a fix
+for issues with spamming warnings into the logs with a leaked
+reference to the i915 driver.
+
+----------------------------------------------------------------
+Amadeusz Sławiński (1):
+      ASoC: Intel: avs: Implement PCI shutdown
+
+Andy Shevchenko (6):
+      ASoC: amd: acp-es8336: Drop reference count of ACPI device after use
+      ASoC: Intel: bytcht_es8316: Drop reference count of ACPI device after use
+      ASoC: Intel: bytcr_rt5651: Drop reference count of ACPI device after use
+      ASoC: Intel: bytcr_rt5640: Drop reference count of ACPI device after use
+      ASoC: Intel: bytcr_wm5102: Drop reference count of ACPI device after use
+      ASoC: Intel: sof_es8336: Drop reference count of ACPI device after use
+
+Arnd Bergmann (1):
+      ASoC: cs42l56: fix DT probe
+
+Bard Liao (3):
+      ASoC: SOF: sof-audio: start with the right widget type
+      ASoC: SOF: sof-audio: unprepare when swidget->use_count > 0
+      ASoC: SOF: keep prepare/unprepare widgets in sink path
+
+Dan Carpenter (1):
+      ASoC: SOF: ipc4-mtrace: prevent underflow in sof_ipc4_priority_mask_dfs_write()
+
+Krzysztof Kozlowski (1):
+      ASoC: codecs: wsa883x: correct playback min/max rates
+
+Kuninori Morimoto (1):
+      ASoC: hdmi-codec: zero clear HDMI pdata
+
+Mark Brown (2):
+      ASoC: SOF: sof-audio: Fixes for widget prepare and
+      ASoC: Intel: set dpcm_capture for amps
+
+Peter Ujfalusi (1):
+      ASoC: SOF: sof-audio: prepare_widgets: Check swidget for NULL on sink failure
+
+Pierre-Louis Bossart (4):
+      ASoC: Intel: sof_rt5682: always set dpcm_capture for amplifiers
+      ASoC: Intel: sof_cs42l42: always set dpcm_capture for amplifiers
+      ASoC: Intel: sof_nau8825: always set dpcm_capture for amplifiers
+      ASoC: Intel: sof_ssp_amp: always set dpcm_capture for amplifiers
+
+Ranjani Sridharan (1):
+      ASoC: SOF: sof-audio: skip prepare/unprepare if swidget is NULL
+
+Syed Saba Kareem (1):
+      ASoC: amd: yc: Add DMI support for new acer/emdoor platforms
+
+fengwk (1):
+      ASoC: amd: yc: Add Xiaomi Redmi Book Pro 15 2022 into DMI table
+
+ .../gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c    |  1 +
+ sound/soc/amd/acp-es8336.c                         |  6 ++++--
+ sound/soc/amd/yc/acp6x-mach.c                      | 21 +++++++++++++++++++
+ sound/soc/codecs/cs42l56.c                         |  6 ------
+ sound/soc/codecs/wsa883x.c                         |  4 ++--
+ sound/soc/intel/avs/core.c                         | 24 ++++++++++++++++++++++
+ sound/soc/intel/boards/bytcht_es8316.c             | 20 ++++++++++--------
+ sound/soc/intel/boards/bytcr_rt5640.c              | 12 +++++------
+ sound/soc/intel/boards/bytcr_rt5651.c              |  2 +-
+ sound/soc/intel/boards/bytcr_wm5102.c              |  2 +-
+ sound/soc/intel/boards/sof_cs42l42.c               |  3 +++
+ sound/soc/intel/boards/sof_es8336.c                | 14 +++++++------
+ sound/soc/intel/boards/sof_nau8825.c               |  5 +++--
+ sound/soc/intel/boards/sof_rt5682.c                |  5 +++--
+ sound/soc/intel/boards/sof_ssp_amp.c               |  5 ++---
+ sound/soc/sof/ipc4-mtrace.c                        |  7 ++++---
+ sound/soc/sof/sof-audio.c                          | 16 ++++++++-------
+ 17 files changed, 104 insertions(+), 49 deletions(-)

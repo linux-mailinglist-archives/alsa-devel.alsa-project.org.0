@@ -2,79 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA21067E92F
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jan 2023 16:14:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF8867F60E
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 09:19:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61563EA6;
-	Fri, 27 Jan 2023 16:13:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61563EA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F77BEE7;
+	Sat, 28 Jan 2023 09:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F77BEE7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674832483;
-	bh=J0eeab6Vdo7hKXtLUsOwjfKjWW5PmfnD+/w56aq5ABU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1674893953;
+	bh=o37SBcs06McsQTmu6SZUGhkix4dSCwwiXuQm9A5J7sM=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ExMb8lOT/an6IfibwBKsN/Fis2zV18px7l9iXcLMb1saVcaJj6DRpavabYemzwL1j
-	 AhsUe4qvkFUVlX9I9PKQa5Xa5ejwJnJWleR8ejFyvMwveOxOEvD5ynsC/yIuWf2oXk
-	 lk9vkN+TiidaYnNPsYDt1OnZsaKBXB+NKIseeWVY=
+	b=sIPqghlfJnpHZ9iNlA1gWYuU8bTT56Ok+DJXhpJA82ENb+YpgirwAEq85ey98LalX
+	 DUyFdKSK1id+7m4j4VlFi5nfUpgGbgGvRrfSvEHSZMktozSyWwpnKR0MpGzMi2drbR
+	 PGLO4HYw2jsFzSfypmv+TQu9gRsDcn/ydxbSZG4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97330F805B1;
-	Fri, 27 Jan 2023 16:10:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA404F80171;
+	Sat, 28 Jan 2023 09:18:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CA3DF805A1; Fri, 27 Jan 2023 16:10:38 +0100 (CET)
+ id 2FD76F802DF; Sat, 28 Jan 2023 09:18:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
- DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77898F80580
- for <alsa-devel@alsa-project.org>; Fri, 27 Jan 2023 16:10:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77898F80580
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E1B5F8007C
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 09:17:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E1B5F8007C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OA5cJBlr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674832234; x=1706368234;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=J0eeab6Vdo7hKXtLUsOwjfKjWW5PmfnD+/w56aq5ABU=;
- b=OA5cJBlrsCRfHf0xl0WwA60IxbMjMsyP8v3quR2jnUMCf0bPPJxcWeUU
- yqVvOALZ2fV5HnwzDScQjpH1muoduCmMMcPvfBTVgSPGXc6L+pBs68z2n
- hIT4tsmD4J0m56V3lH+81YAakcpgNp3Cp6O7U13WOsn4hLp3bWjo8cbFK
- JkzvK26GRTvZMiujRFC9Fy5zwEDjDkHGFb6Y8NzqTLhIEyJ3gOt5T08w6
- paCYd5lKqu+nzSzCd7txXgRxiGHu6K1emXnJ8nnTIfvReQKv4VQcoa1Yq
- oF2cxez9/nGBtgACVkZOAFJFi2zSX0vppnNMO1wbnUeZUVlruSyXxiMgp w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="324795877"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="324795877"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 07:10:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="908709042"
-X-IronPort-AV: E=Sophos;i="5.97,251,1669104000"; d="scan'208";a="908709042"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
- by fmsmga006.fm.intel.com with ESMTP; 27 Jan 2023 07:10:31 -0800
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 11/11] ASoC: topology: Use unload() op directly
-Date: Sat, 28 Jan 2023 00:11:11 +0100
-Message-Id: <20230127231111.937721-12-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
+ unprotected) header.d=shruggie-ro.20210112.gappssmtp.com
+ header.i=@shruggie-ro.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=Bqj2Jiku
+Received: by mail-lj1-x22b.google.com with SMTP id h17so7881249ljq.4
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 00:17:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=shruggie-ro.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=53nqeNoFm5cGW/b7SjrZlk+jdyxOpAxbJL7zhFYFgng=;
+ b=Bqj2Jiku5i7gmtnF+rBxhhCNZ6hSlVXKz9RuTUEcPFB2SRyR7BZ4x40U1e1kAPAb0U
+ A+pcQ/aU8Ebp53WyC2MWkz9gp+n7sEl+razU425ITcXy0/XnaRPuhCxzFtri38pKhcKI
+ eYVoPEsTVWMuo65xRS+4mZn5PYB1QYSW8E3kvXiUZA50dfW+xwo78EM9PPraM3aZvRgG
+ cX5kWbQCbfAS+IBIOXgYX6cET2FdojgS/DSXMp1XCENnVvAhPLZQ9n1CMv1eILFie3+V
+ 2fa1oVZaNSz4JTPdCdyoZZvI4zV83IdLaDrO00zadmttEZqkCyzFoRqP/AS9CxYsOJKC
+ 3oNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=53nqeNoFm5cGW/b7SjrZlk+jdyxOpAxbJL7zhFYFgng=;
+ b=ub38SamEvzPeRU0pIoYOTW6NZ1SfPZJyCSxNLvb2Vud3twsMIQTvwNTzdgEvRMGjMF
+ aCTTjKOg3dw39JCx7DR6JRnBw1rQD7jMdy6nHLxByD9ikc+QO/2qGOPgAuIA6eyRs5Cj
+ Zjy626/OIaBiRgyuxpn9pC9fnCWjYLU/6R8YU2rQpX1SrXQfa6SM+2Qdq/IcM7xoZRvP
+ jslszPLs7zpkr8MFjjdxe1dDwoOL0e6jgLKKBK1V4hd8RvBE/aLhC+DMlxwtsuBRVE5P
+ iGYbnmXeP7dz4ajrBR+3iCASuYkStzIDmRg1UQr9QK70EJdESVbBvqKCt0AilWyJ/vFT
+ DFGA==
+X-Gm-Message-State: AFqh2kr+nkKQVfZB/lyMKSXkzAFATHQtkUTgPopWKevGs0yKeRbO7VE5
+ hPfItT+dIetrho+4LAQV2TW0IyNxnur9RCxgbVOOzw==
+X-Google-Smtp-Source: AMrXdXssLxSDXeddk6+bRROQjB6xuqS120gYZH0VMMqt1w7Ces3q+6jLsUbYVjU8C8WHNC7OZWrGFoTW8NUayh85rP4=
+X-Received: by 2002:a2e:8e84:0:b0:289:ae03:644b with SMTP id
+ z4-20020a2e8e84000000b00289ae03644bmr2867874ljk.66.1674893877620; Sat, 28 Jan
+ 2023 00:17:57 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230115193347.24190-1-alex@shruggie.ro>
+ <20230115193347.24190-2-alex@shruggie.ro>
+ <Y9E7a/erXV/xd3lz@sirena.org.uk>
+In-Reply-To: <Y9E7a/erXV/xd3lz@sirena.org.uk>
+From: Alexandru Ardelean <alex@shruggie.ro>
+Date: Sat, 28 Jan 2023 10:17:46 +0200
+Message-ID: <CAH3L5QrvuRuSi_5dOHSrhe6mK0ZTM3e7BzCUfR_Dx8uxkBKdhQ@mail.gmail.com>
+Subject: Re: [PATCH 2/4] ASoC: codecs: tas5720: add support for TAS5720A-Q1
+ (automotive) variant
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,195 +100,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ steffen.aschbacher@stihl.de, tiwai@suse.com, lgirdwood@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-struct snd_soc_dobj only needs pointer to the unload function, instead
-however, there is pointer to all topology operations. Change code to use
-the function pointer instead of pointer to structure containing all
-operations.
+On Wed, Jan 25, 2023 at 4:23 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Sun, Jan 15, 2023 at 09:33:45PM +0200, Alexandru Ardelean wrote:
+>
+> >  static int tas5720_mute_soc_component(struct snd_soc_component *compon=
+ent, int mute)
+> >  {
+> > +     unsigned int reg, mask, val;
+> >       int ret;
+> >
+> > -     ret =3D snd_soc_component_update_bits(component, TAS5720_DIGITAL_=
+CTRL2_REG,
+> > -                               TAS5720_MUTE, mute ? TAS5720_MUTE : 0);
+> > +     switch (tas5720->devtype) {
+> > +     case TAS5720A_Q1:
+>
+> This doesn't build:
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- include/sound/soc-topology.h |  2 +-
- sound/soc/soc-topology.c     | 48 +++++++++++++++++++++---------------
- 2 files changed, 29 insertions(+), 21 deletions(-)
+My bad.
+Will fix
 
-diff --git a/include/sound/soc-topology.h b/include/sound/soc-topology.h
-index b4b896f83b94..f055c6917f6c 100644
---- a/include/sound/soc-topology.h
-+++ b/include/sound/soc-topology.h
-@@ -62,7 +62,7 @@ struct snd_soc_dobj {
- 	enum snd_soc_dobj_type type;
- 	unsigned int index;	/* objects can belong in different groups */
- 	struct list_head list;
--	struct snd_soc_tplg_ops *ops;
-+	int (*unload)(struct snd_soc_component *comp, struct snd_soc_dobj *dobj);
- 	union {
- 		struct snd_soc_dobj_control control;
- 		struct snd_soc_dobj_widget widget;
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 9f527d9baf1c..e66b0d9e387a 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -359,8 +359,8 @@ static void soc_tplg_remove_kcontrol(struct snd_soc_component *comp, struct snd_
- 	if (pass != SOC_TPLG_PASS_CONTROL)
- 		return;
- 
--	if (dobj->ops && dobj->ops->control_unload)
--		dobj->ops->control_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	snd_ctl_remove(card, dobj->control.kcontrol);
- 	list_del(&dobj->list);
-@@ -373,8 +373,8 @@ static void soc_tplg_remove_route(struct snd_soc_component *comp,
- 	if (pass != SOC_TPLG_PASS_GRAPH)
- 		return;
- 
--	if (dobj->ops && dobj->ops->dapm_route_unload)
--		dobj->ops->dapm_route_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	list_del(&dobj->list);
- }
-@@ -391,8 +391,8 @@ static void soc_tplg_remove_widget(struct snd_soc_component *comp,
- 	if (pass != SOC_TPLG_PASS_WIDGET)
- 		return;
- 
--	if (dobj->ops && dobj->ops->widget_unload)
--		dobj->ops->widget_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	if (!w->kcontrols)
- 		goto free_news;
-@@ -418,8 +418,8 @@ static void soc_tplg_remove_dai(struct snd_soc_component *comp,
- 	if (pass != SOC_TPLG_PASS_PCM_DAI)
- 		return;
- 
--	if (dobj->ops && dobj->ops->dai_unload)
--		dobj->ops->dai_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	for_each_component_dais_safe(comp, dai, _dai)
- 		if (dai->driver == dai_drv)
-@@ -438,8 +438,8 @@ static void soc_tplg_remove_link(struct snd_soc_component *comp,
- 	if (pass != SOC_TPLG_PASS_PCM_DAI)
- 		return;
- 
--	if (dobj->ops && dobj->ops->link_unload)
--		dobj->ops->link_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	list_del(&dobj->list);
- 	snd_soc_remove_pcm_runtime(comp->card,
-@@ -453,8 +453,8 @@ static void remove_backend_link(struct snd_soc_component *comp,
- 	if (pass != SOC_TPLG_PASS_LINK)
- 		return;
- 
--	if (dobj->ops && dobj->ops->link_unload)
--		dobj->ops->link_unload(comp, dobj);
-+	if (dobj->unload)
-+		dobj->unload(comp, dobj);
- 
- 	/*
- 	 * We don't free the link here as what soc_tplg_remove_link() do since BE
-@@ -678,7 +678,8 @@ static int soc_tplg_dbytes_create(struct soc_tplg *tplg, size_t size)
- 
- 	sbe->max = le32_to_cpu(be->max);
- 	sbe->dobj.type = SND_SOC_DOBJ_BYTES;
--	sbe->dobj.ops = tplg->ops;
-+	if (tplg->ops)
-+		sbe->dobj.unload = tplg->ops->control_unload;
- 	INIT_LIST_HEAD(&sbe->dobj.list);
- 
- 	/* map io handlers */
-@@ -754,8 +755,9 @@ static int soc_tplg_dmixer_create(struct soc_tplg *tplg, size_t size)
- 	sm->invert = le32_to_cpu(mc->invert);
- 	sm->platform_max = le32_to_cpu(mc->platform_max);
- 	sm->dobj.index = tplg->index;
--	sm->dobj.ops = tplg->ops;
- 	sm->dobj.type = SND_SOC_DOBJ_MIXER;
-+	if (tplg->ops)
-+		sm->dobj.unload = tplg->ops->control_unload;
- 	INIT_LIST_HEAD(&sm->dobj.list);
- 
- 	/* map io handlers */
-@@ -900,7 +902,8 @@ static int soc_tplg_denum_create(struct soc_tplg *tplg, size_t size)
- 	se->mask = le32_to_cpu(ec->mask);
- 	se->dobj.index = tplg->index;
- 	se->dobj.type = SND_SOC_DOBJ_ENUM;
--	se->dobj.ops = tplg->ops;
-+	if (tplg->ops)
-+		se->dobj.unload = tplg->ops->control_unload;
- 	INIT_LIST_HEAD(&se->dobj.list);
- 
- 	switch (le32_to_cpu(ec->hdr.ops.info)) {
-@@ -1077,7 +1080,8 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
- 
- 		/* add route dobj to dobj_list */
- 		route->dobj.type = SND_SOC_DOBJ_GRAPH;
--		route->dobj.ops = tplg->ops;
-+		if (tplg->ops)
-+			route->dobj.unload = tplg->ops->control_unload;
- 		route->dobj.index = tplg->index;
- 		list_add(&route->dobj.list, &tplg->comp->dobj_list);
- 
-@@ -1443,7 +1447,8 @@ static int soc_tplg_dapm_widget_create(struct soc_tplg *tplg,
- 
- 	widget->dobj.type = SND_SOC_DOBJ_WIDGET;
- 	widget->dobj.widget.kcontrol_type = kcontrol_type;
--	widget->dobj.ops = tplg->ops;
-+	if (tplg->ops)
-+		widget->dobj.unload = tplg->ops->widget_unload;
- 	widget->dobj.index = tplg->index;
- 	list_add(&widget->dobj.list, &tplg->comp->dobj_list);
- 
-@@ -1621,8 +1626,9 @@ static int soc_tplg_dai_create(struct soc_tplg *tplg,
- 	}
- 
- 	dai_drv->dobj.index = tplg->index;
--	dai_drv->dobj.ops = tplg->ops;
- 	dai_drv->dobj.type = SND_SOC_DOBJ_PCM;
-+	if (tplg->ops)
-+		dai_drv->dobj.unload = tplg->ops->dai_unload;
- 	list_add(&dai_drv->dobj.list, &tplg->comp->dobj_list);
- 
- 	/* register the DAI to the component */
-@@ -1691,8 +1697,9 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 	link->num_platforms = 1;
- 
- 	link->dobj.index = tplg->index;
--	link->dobj.ops = tplg->ops;
- 	link->dobj.type = SND_SOC_DOBJ_DAI_LINK;
-+	if (tplg->ops)
-+		link->dobj.unload = tplg->ops->link_unload;
- 
- 	if (strlen(pcm->pcm_name)) {
- 		link->name = devm_kstrdup(tplg->dev, pcm->pcm_name, GFP_KERNEL);
-@@ -2099,8 +2106,9 @@ static int soc_tplg_link_config(struct soc_tplg *tplg,
- 
- 	/* for unloading it in snd_soc_tplg_component_remove */
- 	link->dobj.index = tplg->index;
--	link->dobj.ops = tplg->ops;
- 	link->dobj.type = SND_SOC_DOBJ_BACKEND_LINK;
-+	if (tplg->ops)
-+		link->dobj.unload = tplg->ops->link_unload;
- 	list_add(&link->dobj.list, &tplg->comp->dobj_list);
- 
- 	return 0;
--- 
-2.25.1
-
+>
+> /build/stage/linux/sound/soc/codecs/tas5720.c:217:17: error: =E2=80=98tas=
+5720=E2=80=99 undeclare
+> d (first use in this function); did you mean =E2=80=98TAS5720=E2=80=99?
+>   217 |         switch (tas5720->devtype) {
+>       |                 ^~~~~~~
+>       |                 TAS5720
+> /build/stage/linux/sound/soc/codecs/tas5720.c:217:17: note: each undeclar=
+ed iden
+> tifier is reported only once for each function it appears in
+> /build/stage/linux/sound/soc/codecs/tas5720.c:214:33: error: unused varia=
+ble =E2=80=98va
+> l=E2=80=99 [-Werror=3Dunused-variable]
+>   214 |         unsigned int reg, mask, val;
+>       |                                 ^~~
+> cc1: all warnings being treated as errors

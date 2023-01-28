@@ -2,74 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0B3967F9D4
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 18:20:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0CD67F9D3
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 18:20:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E98DEEB7;
-	Sat, 28 Jan 2023 18:20:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E98DEEB7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96EDFE99;
+	Sat, 28 Jan 2023 18:19:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96EDFE99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674926456;
-	bh=UykfPTbGDvILC/tRy7XI1XkGj0Yf2yNGJ45GzxQQ+ZQ=;
+	s=default; t=1674926445;
+	bh=CYsbxqBiwNN6kV+T+y7Z3+5fCWxPTpOVKOI2BKhO11Y=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=p95pJug0fQTiOZO9SuQgPflaqpA2KoSEhfPyFoDOlcYG3CjpFmy9fr4fvIfnWp6F2
-	 a/Bb0Bmserb+4Rv9CCzWGqvLMyiaD+Blytu4Qyxsm8Tsef7sghgKvU8WGvcWcriWYH
-	 aXqTzOtd9/tnNIxAtK5NQA7Ik7t0wpuVBen8OP5w=
+	b=DZVmu7ymCaIe2stV7HdqRmq8T2MRN0ckwXnO951DVK3T09PFPQdsxdVwVfLQTBslN
+	 BO4znZGyiBYo0DXdn2xYRtpfsqmf5AttqdGcHKGHBAd+/51UeDJNEG70nB8ScLLaaD
+	 fQoNmwJnUlKxpwn0eqWg0yOQYRVUrPZG9pxOuEFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AB0AF80551;
-	Sat, 28 Jan 2023 18:19:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57894F80543;
+	Sat, 28 Jan 2023 18:19:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD1AEF802DF; Sat, 28 Jan 2023 18:19:04 +0100 (CET)
+ id 28CD0F8053A; Sat, 28 Jan 2023 18:19:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58CACF8027D
- for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 18:18:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58CACF8027D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07043F8007C
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 18:18:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07043F8007C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Q/h7ILGe
+ header.s=k20201202 header.b=FXV1A4SX
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8854CB8069C;
- Sat, 28 Jan 2023 17:18:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F1FC433EF;
- Sat, 28 Jan 2023 17:18:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 393B260B4D;
+ Sat, 28 Jan 2023 17:18:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB57AC433D2;
+ Sat, 28 Jan 2023 17:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674926336;
- bh=UykfPTbGDvILC/tRy7XI1XkGj0Yf2yNGJ45GzxQQ+ZQ=;
+ s=k20201202; t=1674926337;
+ bh=CYsbxqBiwNN6kV+T+y7Z3+5fCWxPTpOVKOI2BKhO11Y=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Q/h7ILGefhpfAwyN2R6Cfm0yd3vzqOWqf1/37XqBIzM6FUeS9VfVVZlUDMiNDuHnO
- yrXf0bhwP30iGJVmoFviQ7RMQ+q78tKuo87b8kyTJRvFz+B249R6cSGI3A10GlGO9A
- HqVM1QevzjZJ0Vx4Zra/k+Df1MsKAd0RjrmsgAuwpfWNKtx6H3vgZgHdwRUiIV5x3N
- tp2Y5e4xYbjdKVAzQNydZhlqM7+5VyaqzsbevEXPtvoQkK6T4RpjoCZhgu0bntAXbO
- tpE5K5UJZJdZNdqP5iAXLXAWChDA4BoffIXIBjc6BhqORr18cblKGmmrooV1FZS2Z+
- T1bOSnNX00f4w==
+ b=FXV1A4SX7LVrcTUtDefUEUD6yFkkGFm1wzQqafXkUI3iCy6ZiwP9olWe0cHhp9J32
+ 1sY0dBCyejuvU/uhr2Fp1EPhi0rTQ5eL6htsa3EtJiUIx8FA46FP/3BXppJslIPE15
+ XqvRFQXWUE0O4XhtgGzxcjFt4oMb5MFgNx2w1FEVJVzaC3eE/JHAgb6iYqHAGYojke
+ /jMtZ62eyQD4NIGZnZGg0LcUt54h1cpDF78G4bZx9yvPO5oU4J5ptew3Vk4yWwEi15
+ PsOwNihqUMjnasRVvw+7J/HzxQAjUTrtNplV5M81OGxoQCzJ9SO4nfgAXK6HtYhWVt
+ AgrHtx98OHA2Q==
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-In-Reply-To: <20230119073416.3064918-1-alexander.stein@ew.tq-group.com>
-References: <20230119073416.3064918-1-alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH 1/1] ASoC: imx-hdmi: Use dev_err_probe
-Message-Id: <167492633131.2479102.10605156106740609522.b4-ty@kernel.org>
-Date: Sat, 28 Jan 2023 17:18:51 +0000
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+In-Reply-To: <20230126020156.3252-3-kiseok.jo@irondevice.com>
+References: <20230126020156.3252-3-kiseok.jo@irondevice.com>
+Subject: Re: [PATCH v4 1/2] The Iron Device SMA1303 is a boosted Class-D
+ audio amplifier.
+Message-Id: <167492633558.2479102.3539691390712703265.b4-ty@kernel.org>
+Date: Sat, 28 Jan 2023 17:18:55 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -86,17 +82,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: alsa-devel@alsa-project.org, application@irondevice.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 Jan 2023 08:34:16 +0100, Alexander Stein wrote:
-> This silences -517 errors and helps figuring out why the device probe
-> is deferred.
+On Thu, 26 Jan 2023 02:01:55 +0000, Kiseok Jo wrote:
 > 
-> 
+
 
 Applied to
 
@@ -104,8 +96,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: imx-hdmi: Use dev_err_probe
-      commit: 362e8d0f27c40864b4f8994624409f7b4316d2dd
+[1/2] The Iron Device SMA1303 is a boosted Class-D audio amplifier.
+      commit: 68cd394efd0fdce25d0def8d6cb1b8898b2c13d9
+[2/2] Modified the schema binding and added the vendor prefixes.
+      commit: dcf6d2ef0e823346a3c1eae3f96e733e92ca656c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

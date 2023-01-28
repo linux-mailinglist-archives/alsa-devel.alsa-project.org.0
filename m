@@ -2,74 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B17B867F9D5
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 18:21:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C41467FA0B
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 18:42:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CF0AE86;
-	Sat, 28 Jan 2023 18:20:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CF0AE86
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71520950;
+	Sat, 28 Jan 2023 18:41:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71520950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674926473;
-	bh=Sf8e39xlrlBgctvAjNmyaVJ8lTKFI4W3ruclNnksOWQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1674927754;
+	bh=UsFqkHpq+zecSpbileA8oE88rqAqGP2pVfXbVmj47MI=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=r2kjtTiPaYQypmFLBKvLA4cbEbvMQE/0/vgyzMn0lXXe+ZVM9+wCPKeUyBKrdzSX0
-	 AUwQ1RxScp4Qi/q4hOkJxtprfLg7ZgkuOAGEgOZprFg7j5Tkb7A4rKWfxpRIXtbleu
-	 bUWeNGchmZpyehFR2LJxpXRdlNO+TBEYbgQLIU1w=
+	b=azeUZpWKmnExzY216F57y2oU4tKWUOwQZPGHHvbBYDzHnUvyEwF5V2qMedK/fO9JV
+	 SGtWHrat7259lKSqxIRpJpPbO0TIt8Oy13Ul9DRcRw3iWumkn3OPfYIpJ6vPpCUHK0
+	 wrMp/CYUenywUboZekk/shXqYgrK/6t09+hJrmBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6F65F80171;
-	Sat, 28 Jan 2023 18:19:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84C14F802DF;
+	Sat, 28 Jan 2023 18:41:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39A3AF8053D; Sat, 28 Jan 2023 18:19:40 +0100 (CET)
+ id 7E035F8027D; Sat, 28 Jan 2023 18:41:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EA44F80171
- for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 18:19:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EA44F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D339F8007C
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 18:41:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D339F8007C
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qlXG48eQ
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E74B460C38;
- Sat, 28 Jan 2023 17:18:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DF1C4339C;
- Sat, 28 Jan 2023 17:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674926339;
- bh=Sf8e39xlrlBgctvAjNmyaVJ8lTKFI4W3ruclNnksOWQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qlXG48eQCOe3z8Urz+wDffxl9GdN0pgqSbrDxcIex7q6Hqmy33aeIetLf/n5jEiJF
- uans6w2v3EkhTjky0H+k3K2LM6E6k3q+j78XU1WgDlV9QSZzBhCpqg7wmYhjpZWRe0
- tg9RIYRlPcCP5vmdjYuxaTlzUxsCRixOwBvPXAX382RNGXYjsvY6OkLm4MfXYFJbRw
- RBl1/leHXfhzCzbYXtpns/ZQF7X8PaiidX1amryL0fV2afygTusdcpLbqpJVMT2Whc
- 0oZ5otwv8jNpNqz19KyoWx4cZLtHJKMbGOwUWdJ/cQyetJ7dwGllEZudVZlcE0EOq4
- ERourzK8scoyg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Kees Cook <keescook@chromium.org>
-In-Reply-To: <20230127224128.never.410-kees@kernel.org>
-References: <20230127224128.never.410-kees@kernel.org>
-Subject: Re: [PATCH] ASoC: kirkwood: Iterate over array indexes instead of
- using pointer math
-Message-Id: <167492633694.2479102.1677977069431569775.b4-ty@kernel.org>
-Date: Sat, 28 Jan 2023 17:18:56 +0000
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=L0lEN66n
+Received: by mail-pj1-x102a.google.com with SMTP id
+ b24-20020a17090a551800b0022beefa7a23so11633134pji.5
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 09:41:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=UsFqkHpq+zecSpbileA8oE88rqAqGP2pVfXbVmj47MI=;
+ b=L0lEN66nLcsX0ghB6goBIntsba9sN7PcE6bVsX8ySLBl+BTHGRTq/G8B6WBORTZd6u
+ QpRKoxp5+i6akpcFjzK2ozQ7uT1mvJfm2pj9NIyqGZyOU1/JICy3371dSy0F7VEEFGQb
+ 1mzVZ+hDE+u7xApSKYzyaNS0IX4NidUm7LCXdKwQCz6J+izOvZPCgV4zBCKj5PSvFbaj
+ ulv47WxfAQYIo1MtAl6JBMfhz5KMJJKIL6em1ktwODZjbBn0V6OFS9B9yW+OCc1bNqxD
+ obbktN3BLzYa/z8JlgPVZv+wIqcWBMQm+Vi9gf2fTD6cf5MttxmUrh9RfvUMVqFShXvw
+ GaGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UsFqkHpq+zecSpbileA8oE88rqAqGP2pVfXbVmj47MI=;
+ b=uijRbg+8h7UJeyQOilEdZAF6c06sMPJmCzBio9pn4oqyMl2b5V7rrjxwvRhSFC+/gV
+ X0emSLYjLePnoBRTFwy8sbXIhH5UxzEDDnh8Nh0+e5t8iL0c0JD25U/tNcA1UPlZiwN1
+ anz6+r5+0KsFb4u1bQjlmrSyohHUtxm/GjyMny2IlVxB9IwKp1JNsnKimjq8Kb0r4ry7
+ MdshYJ2IWwp3czgw7cpvxzrICk+AZSOx/SNKLp/hsduyXfwXJ98nKL2OpvXcCkBkb5rC
+ BElGQHOh6aD4wrlLj0ruWDaM3wB0kjNlEg1LtUWzCTVOyf903n4xK11XcDI8C4rl899+
+ sUgQ==
+X-Gm-Message-State: AFqh2kpi3nrQCujkvlCrHVzRkRq2K09IgIbtp1O15VQm5wYaydG1qWVp
+ vDMovtlVGX2Xv6wJ1YVhieC0LDnBDMhF8COTzJ4=
+X-Google-Smtp-Source: AMrXdXvG34XZO6eEJVvN5aHCgWL4ph6DjbkuCqQRHM0QoQwGRZFixeab9z7mufGs9srhIPdEp+/zj5Lq4CAL4PyhNTA=
+X-Received: by 2002:a17:90a:8404:b0:228:d64f:ddbe with SMTP id
+ j4-20020a17090a840400b00228d64fddbemr6866466pjn.40.1674927686993; Sat, 28 Jan
+ 2023 09:41:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
+References: <CAOMZO5CVCm5bpVThYW7V379PyTfyVQLBrN03cUfOxLRyBXp0gw@mail.gmail.com>
+ <CAEnQRZAUx0Xg_3J161VG=m9oCQFNBT3aFHwExFbWWOTK6xsSTA@mail.gmail.com>
+ <CAOMZO5DECuV17T+1u9WKXdZfGqQ84kMCm2Yt+b0cuOuFFUiBLw@mail.gmail.com>
+In-Reply-To: <CAOMZO5DECuV17T+1u9WKXdZfGqQ84kMCm2Yt+b0cuOuFFUiBLw@mail.gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Sat, 28 Jan 2023 14:41:14 -0300
+Message-ID: <CAOMZO5DPLdt2BqPVrwd9+TCYnJAGQowKqL=7g6i_-Fr7qktDPw@mail.gmail.com>
+Subject: Re: i.MX8MN: SAI: First playback failure, second succeeds
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,50 +97,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-hardening@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 27 Jan 2023 14:41:29 -0800, Kees Cook wrote:
-> Walking the dram->cs array was seen as accesses beyond the first array
-> item by the compiler. Instead, use the array index directly. This allows
-> for run-time bounds checking under CONFIG_UBSAN_BOUNDS as well. Seen
-> with GCC 13 with -fstrict-flex-arrays:
-> 
-> ../sound/soc/kirkwood/kirkwood-dma.c: In function
-> 'kirkwood_dma_conf_mbus_windows.constprop':
-> ../sound/soc/kirkwood/kirkwood-dma.c:90:24: warning: array subscript 0 is outside array bounds of 'const struct mbus_dram_window[0]' [-Warray-bounds=]
->    90 |                 if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
->       |                      ~~^~~~~~
-> 
-> [...]
+Hi Daniel,
 
-Applied to
+On Wed, Jan 25, 2023 at 11:51 PM Fabio Estevam <festevam@gmail.com> wrote:
 
-   broonie/sound.git for-next
+> They also match in the working and non-working cases.
+>
+> I have also tried applying your patch:
+> https://lore.kernel.org/lkml/20190308173904.27298-1-daniel.baluta@nxp.com/
+>
+> but it did not help.
 
-Thanks!
+It is working now. The error was caused by an out-of-tree patch to handle MCLK.
 
-[1/1] ASoC: kirkwood: Iterate over array indexes instead of using pointer math
-      commit: b3bcedc0402fcdc5c8624c433562d9d1882749d8
+Without such a patch, it works well.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Thanks

@@ -2,94 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B8867F652
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 09:30:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A6967F65E
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 09:34:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 254C8EEB;
-	Sat, 28 Jan 2023 09:29:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 254C8EEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6BCD86F;
+	Sat, 28 Jan 2023 09:33:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6BCD86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674894612;
-	bh=3B3vkN1sWvv+jJA+eruD391VnHkUWkeJjdq7x5rYycE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1674894862;
+	bh=u+f3pIg4JCfKW16bEPpW4Ue3I6OGquWtfPjUx7NpaMk=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=GLIIDI9DEKHavVmTfKA06OTBiOLVnEVungcryRghvEInF35wfaCFOV5UfUgXfRn1I
-	 d6Ymx5cIVnOLOy1zU4CGLk/mDNQQOCEjI/9QE6ROyQ+Sm1Ntq+1y7JWd0x8KBoKYc+
-	 6iQorUIGT3zGimgfv8JgUgtoEomzkRnxxXS4+o8M=
+	b=LfWoLVFmp/MALPFNmO8CLc4vEtwIOM08hB7u/Q5cgFNBh6+muheGZMwclFAlvppqn
+	 +Q3iZqdM1t6noaHBfGhFzOvW2ElwA7mpdCo7gj0wm/jqpiQgNU7j0B3dd+xQ9gCtaD
+	 RmCdrlFEdie35uf23QzRtSBW+7aH6krfHUh/tTGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32478F80549;
-	Sat, 28 Jan 2023 09:28:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC379F802DF;
+	Sat, 28 Jan 2023 09:33:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91BB6F803DC; Sat, 28 Jan 2023 09:28:26 +0100 (CET)
+ id C3FA6F8027D; Sat, 28 Jan 2023 09:33:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42880F80171
- for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 09:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42880F80171
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=shruggie-ro.20210112.gappssmtp.com
- header.i=@shruggie-ro.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=rZT95hm6
-Received: by mail-wr1-x42b.google.com with SMTP id a3so209697wrt.6
- for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 00:28:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=shruggie-ro.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9lMGU9rK9OB+8LEnGHVaRIc7MkDB7sJchlMUQDFM0y0=;
- b=rZT95hm6VQ/dlTbnr5z6N8UBMsvLchadHMEBFMV2XBGkUsGHD/QU6n79nClcObpn1F
- kZ1u7qoE3HHGHLdTExOQbKq7fxX4xpw8sX8reg/4wxQW+49VnNTttFu9WUrrj8ngtazc
- R2v+fAQSFD9IG/M0OLBdTYCZuttfeKyGCycpWAtJe6HehLpKcjFotFzo3UPgVerWsPzN
- /LY+EaIdi0bowkLb2llHseF+GLlumd1HYKjnbB/GSTUBF3Hzq5xkrqCYUS1jpFOj6TH+
- 4godhj/H9s6ABtxRHD2vJop06pBMu5Thhw0NHswBxuXH5oatFwHLtni0/S2wjkM3weK5
- CJZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9lMGU9rK9OB+8LEnGHVaRIc7MkDB7sJchlMUQDFM0y0=;
- b=31uctuJ76CMvSxReAO2b+EbeMsH8tizF0crZgXcABbUdWXcy8FguGdd+bM+FhAqjzF
- EEQasb9HCa/jODMKgOQ6EWdKEcgBqChEsUlq8CQEy0NSSpJ9xYyrBAZymrVh92f3VxLY
- UPjejnrtsrKmjIRzeumfxUKB8zJHxGtFBonh2TWdjO72KQhzMJ3L3CMC83X1a03PKYj+
- cbByFNahFxiFwwtyIfA2nIoV9dOARoAzxPbo81WLeT1qiSuaITfNwWG6e1CmxXVlm4cl
- iu9fDBmOiZz4/L2QTN3WKEC+6HlPqNyZ1yXMXDxkL9j/PvRbTtGzKH5C4q4xUSbdyaGm
- 0esQ==
-X-Gm-Message-State: AO0yUKWHn9EU7XyV9EI9kHBdjEbUmbWW6FAo64j0P6+s98Jl23VmyJmk
- Q7CevqRP4i11WZbde+T2/MZmiw==
-X-Google-Smtp-Source: AK7set9oxXFIdFSQ0KSzUdDUbKWvmM3nTWEb9JSr0orKabeTKM8Oto3DClgUXqezk8BKyXibl5ayZg==
-X-Received: by 2002:adf:ffcf:0:b0:2bf:c134:befc with SMTP id
- x15-20020adfffcf000000b002bfc134befcmr8591012wrs.18.1674894486339; 
- Sat, 28 Jan 2023 00:28:06 -0800 (PST)
-Received: from neptune.. ([188.27.130.91]) by smtp.gmail.com with ESMTPSA id
- c17-20020a5d4cd1000000b002bfd52f31f6sm3815338wrt.9.2023.01.28.00.28.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Jan 2023 00:28:05 -0800 (PST)
-From: Alexandru Ardelean <alex@shruggie.ro>
-To: devicetree@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH v2 4/4] ASoC: dt-bindings: add entry for TAS5720A-Q1 driver
-Date: Sat, 28 Jan 2023 10:27:44 +0200
-Message-Id: <20230128082744.41849-4-alex@shruggie.ro>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230128082744.41849-1-alex@shruggie.ro>
-References: <20230128082744.41849-1-alex@shruggie.ro>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24DF7F8007C
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 09:33:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24DF7F8007C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=YVoU1EXp; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=GjMRb/sM
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52A231FF34;
+ Sat, 28 Jan 2023 08:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674894794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=kqK1RCCxqlzsFBt4peAgP1Q8O2k0ex7ImD/D4lS9Uog=;
+ b=YVoU1EXprCYC5Ka0G7myRXyHEjy4x9HcCC3vDo8wJTEelOqF2kPzSlQLVb50064WKNI6Q/
+ Qj6iTaQ/yt5xEX6f9i20Q59Xj6UtTGaqpjF8shoRxPsK6Q9DjHM79gaKFmZtcIYD4wP5hM
+ MjPhsV1pYE1gyyEZjbYPSY8lMpdwemQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674894794;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=kqK1RCCxqlzsFBt4peAgP1Q8O2k0ex7ImD/D4lS9Uog=;
+ b=GjMRb/sMMzDwEVgK4R/pUv8YegdYh5IDYK946JB1Ac3Qd90zWRIH3CyucSyqRPsavKYLRo
+ taj57mzCzYiiX6DA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 379AE139BD;
+ Sat, 28 Jan 2023 08:33:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Yr/VDMrd1GPDHwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 28 Jan 2023 08:33:14 +0000
+Date: Sat, 28 Jan 2023 09:33:13 +0100
+Message-ID: <874jsbqcs6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v6.2-rc5
+In-Reply-To: <20230127190002.2BA13C433EF@smtp.kernel.org>
+References: <20230127190002.2BA13C433EF@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,46 +97,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: steffen.aschbacher@stihl.de, tiwai@suse.com, lgirdwood@gmail.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Alexandru Ardelean <alex@shruggie.ro>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Steffen Aschbacher <steffen.aschbacher@stihl.de>
+On Fri, 27 Jan 2023 19:59:49 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit 242fc66ae6e1e2b8519daacc7590a73cd0e8a6e4:
+> 
+>   ASoC: fsl-asoc-card: Fix naming of AC'97 CODEC widgets (2023-01-10 12:45:22 +0000)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc5
+> 
+> for you to fetch changes up to e18c6da62edc780e4f4f3c9ce07bdacd69505182:
+> 
+>   ASoC: cs42l56: fix DT probe (2023-01-26 17:42:36 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.2
+> 
+> An unfortunately large batch of fixes here, the numbers amplified
+> by several repeated fixes for patterns of bugs in multiple
+> drivers.  Most of this is in the x86 drivers which are very
+> actively developed, the implementation of PCI shutdown is a fix
+> for issues with spamming warnings into the logs with a leaked
+> reference to the i915 driver.
 
-Add entry for the TAS5720A-Q1 driver in the dt-bindings doc.
+Thanks, pulled now.  This slipped from the PR for 6.2-rc6, and it'll
+be in rc7 together with other pending fixes in my side.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Steffen Aschbacher <steffen.aschbacher@stihl.de>
-Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
----
 
-Changelog v1 -> v2:
-- https://lore.kernel.org/alsa-devel/20230115193347.24190-4-alex@shruggie.ro/
-- Added Krzysztof's Acked-by tag
-
- Documentation/devicetree/bindings/sound/tas5720.txt | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/sound/tas5720.txt b/Documentation/devicetree/bindings/sound/tas5720.txt
-index df99ca9451b0..7d851ae2bba2 100644
---- a/Documentation/devicetree/bindings/sound/tas5720.txt
-+++ b/Documentation/devicetree/bindings/sound/tas5720.txt
-@@ -6,11 +6,13 @@ audio playback. For more product information please see the links below:
- 
- https://www.ti.com/product/TAS5720L
- https://www.ti.com/product/TAS5720M
-+https://www.ti.com/product/TAS5720A-Q1
- https://www.ti.com/product/TAS5722L
- 
- Required properties:
- 
- - compatible : "ti,tas5720",
-+               "ti,tas5720a-q1",
-                "ti,tas5722"
- - reg : I2C slave address
- - dvdd-supply : phandle to a 3.3-V supply for the digital circuitry
--- 
-2.34.1
-
+Takashi

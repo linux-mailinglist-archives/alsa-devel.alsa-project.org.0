@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A0567F75F
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Jan 2023 11:50:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1C367FD9A
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Jan 2023 09:24:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2507CED6;
-	Sat, 28 Jan 2023 11:49:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2507CED6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 819A4E95;
+	Sun, 29 Jan 2023 09:24:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 819A4E95
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1674903013;
-	bh=X9g24zwHYHzuWSbHrdtBTwJcaKn7C4eDSMB8zCgqzYM=;
+	s=default; t=1674980696;
+	bh=Y432cQgFP5F34pSdT8J5cN2U4/Abh03N/7/nnZFsfgA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=g3Lgh2rtrQOeizdfKlP9RhhjtS5cDBJWIxMou9lTH/wTwVxGg0LDtwGEBss3gUm32
-	 2CpWjlvozQ6fbo4yFx1t2CJnh40wFWt3E+FoTPQXZr3BL0cs6expqpJKO5kD38GspL
-	 9rodxbbDQ8C3TIcTI13WLnRMxhb0KbEJPg3x+Gew=
+	b=nzbRX2C4N2gKEB14RtrvN8Ikmfj1Qi/VCaqS8LXfPN90+o5LpSiRVF421JbW0rtmj
+	 NZu44G5vUZy7B9Lfsv0+b8UrBBd2imXHNzWXjjhrMuqLUJ15IxItTKOjuu6HokQyo1
+	 X0xQuucZS64aOoly/TFULwCnlEZ7qy1YmtzO0yis=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB5E6F80551;
-	Sat, 28 Jan 2023 11:49:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 148E3F80543;
+	Sun, 29 Jan 2023 09:23:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02992F80549; Sat, 28 Jan 2023 11:49:02 +0100 (CET)
+ id 73ED9F80549; Sat, 28 Jan 2023 11:48:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 577C2F802DF
- for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 11:48:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 577C2F802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37FD0F80542
+ for <alsa-devel@alsa-project.org>; Sat, 28 Jan 2023 11:48:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37FD0F80542
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cInG9ZbX
+ header.s=k20201202 header.b=ucQIwNrY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6F084B8016A;
- Sat, 28 Jan 2023 10:48:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6586C4339B;
- Sat, 28 Jan 2023 10:48:06 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C648060B51;
+ Sat, 28 Jan 2023 10:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F057DC433D2;
+ Sat, 28 Jan 2023 10:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674902888;
- bh=X9g24zwHYHzuWSbHrdtBTwJcaKn7C4eDSMB8zCgqzYM=;
+ s=k20201202; t=1674902917;
+ bh=Y432cQgFP5F34pSdT8J5cN2U4/Abh03N/7/nnZFsfgA=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=cInG9ZbXv3rWjk3KrXGYMnTes/ngAQ77H7cyCUrvd6emb68vGG5wTcZ7JOEYH4CqH
- IjMHAaagJMdhPY6JkQzzkwH7nFpMgghkKpn0rONHJvoVXFTeQeZJFlXLoHNHzWkYmL
- sfkzNZWMq1B0VMiGyOU2nVRvlIto/j2USJFYOUSk7e6rdG1DEeZH+gydhzcv3SlrdI
- Kc4JmEFIVmf+NP/Jvt3lTJo9xJ9w2oJ+sG3zFfwZ1u8BjVmIroTWJxsCPEOJkrXBUa
- BmaPUxjUpgDAL2CT4JdtkbJ4kQ7nbcKy0l1E+qWl1ooPVElnj3+WerZl/h7HLfZOGH
- JUwqpuptPWjjw==
+ b=ucQIwNrYn1j82n5kEO9WaLijY1byLMow61bm47krLw9/rm4ppKVrlbLz6phB9zNbS
+ qYY9lfErpOzRey8+JWhrlP2K20ge8aTXRGAB1RaAXSma5mb3gsVcM7JjsMlaYHRq6p
+ 5Sc6Wb+I4Y9+t6nEP7exbyKAI00PmKAmlmdPi+RpRtLkxQxgwEsoweOc60InbgtjXH
+ FqvZ8MvQZkaZTFpjHfucUR24TwuTg8tFdRbslI7LaInKzs0Rwp3ur5+5MyfOIl4uaR
+ 6DEA3qekp8dP3oIUZTw+yBhAfVg6biPer6tOhWjPLMuQk2/uOpgUZPcQmhGK5/Sihz
+ AcjSu+HZd6TdA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Astrid Rost <astrid.rost@axis.com>
-In-Reply-To: <20230123135913.2720991-1-astrid.rost@axis.com>
-References: <20230123135913.2720991-1-astrid.rost@axis.com>
-Subject: Re: [PATCH v3 0/3] ASoC: simple-card-utils: create jack inputs for
- aux_devs
-Message-Id: <167490288646.2145828.6069622969761502857.b4-ty@kernel.org>
-Date: Sat, 28 Jan 2023 10:48:06 +0000
+To: linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230127064005.1558-1-rdunlap@infradead.org>
+References: <20230127064005.1558-1-rdunlap@infradead.org>
+Subject: Re: (subset) [PATCH 00/35] Documentation: correct lots of spelling
+ errors (series 1)
+Message-Id: <167490289567.2145989.15703368734300500078.b4-ty@kernel.org>
+Date: Sat, 28 Jan 2023 10:48:15 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12.0
+X-Mailman-Approved-At: Sun, 29 Jan 2023 09:23:11 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,35 +83,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org
+Cc: Miaohe Lin <linmiaohe@huawei.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Henrik Rydberg <rydberg@bitmath.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, dri-devel@lists.freedesktop.org,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Pavel Machek <pavel@ucw.cz>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Evgeniy Polyakov <zbr@ioremap.net>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, James Morris <jmorris@namei.org>,
+ linux-acpi@vger.kernel.org, Len Brown <len.brown@intel.com>,
+ linux-pm@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ linux-sgx@vger.kernel.org, Karsten Keil <isdn@linux-pingi.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-spi@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, alsa-devel@alsa-project.org,
+ linux-doc@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
+ keyrings@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-s390@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ Helge Deller <deller@gmx.de>, Lee Jones <lee@kernel.org>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Daniel Jordan <daniel.m.jordan@oracle.com>, linux-trace-kernel@vger.kernel.org,
+ linux-xtensa@linux-xtensa.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Stafford Horne <shorne@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Chris Zankel <chris@zankel.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Wolfram Sang <wsa@kernel.org>,
+ Jarkko Sakkinen <jarkko@kernel.org>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Will Deacon <will@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jonathan Corbet <corbet@lwn.net>, isdn4linux@listserv.isdn4linux.de,
+ linux-input@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>,
+ Fenghua Yu <fenghua.yu@intel.com>, Jiri Kosina <jikos@kernel.org>,
+ Akinobu Mita <akinobu.mita@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ linux-crypto@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+ linux-fbdev@vger.kernel.org, Reinette Chatre <reinette.chatre@intel.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Naoya Horiguchi <naoya.horiguchi@nec.com>, target-devel@vger.kernel.org,
+ bpf@vger.kernel.org, Petr Mladek <pmladek@suse.com>,
+ Peter Zijlstra <peterz@infradead.org>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, linux-trace-devel@vger.kernel.org,
+ live-patching@vger.kernel.org, Miroslav Benes <mbenes@suse.cz>,
+ linux-leds@vger.kernel.org, Steffen Klassert <steffen.klassert@secunet.com>,
+ linux-scsi@vger.kernel.org, Marc Zyngier <maz@kernel.org>, x86@kernel.org,
+ Russell King <linux@armlinux.org.uk>, Ingo Molnar <mingo@redhat.com>,
+ Jonas Bonn <jonas@southpole.se>, Heiko Carstens <hca@linux.ibm.com>,
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ linux-block@vger.kernel.org,
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>,
+ openrisc@lists.librecores.org, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-security-module@vger.kernel.org,
+ Daniel Bristot de Oliveira <bristot@kernel.org>, linuxppc-dev@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Jan 2023 14:59:10 +0100, Astrid Rost wrote:
-> Add a generic way to create jack inputs for auxiliary jack detection
-> drivers (e.g. via i2c, spi), which are not part of any real codec.
-> The simple-card can be used as combining card driver to add the jacks,
-> no new one is required.
+On Thu, 26 Jan 2023 22:39:30 -0800, Randy Dunlap wrote:
+> Correct many spelling errors in Documentation/ as reported by codespell.
 > 
-> Create a jack (for input-events) for jack devices in the auxiliary
-> device list (aux_devs). A device which returns a valid value on
-> get_jack_type counts as jack device; set_jack is required
-> to add the jack to the device.
+> Maintainers of specific kernel subsystems are only Cc-ed on their
+> respective patches, not the entire series. [if all goes well]
+> 
+> These patches are based on linux-next-20230125.
 > 
 > [...]
 
 Applied to
 
-   broonie/sound.git for-next
+   broonie/spi.git for-next
 
 Thanks!
 
-[1/3] ASoC: soc-component: add get_jack_type
-      commit: df55122ba0955951a85ef3ffb19f0dcb0ad3ffbb
-[2/3] ASoC: simple-card-utils: create jack inputs for aux_devs
-      commit: 9b271207ac83db362fac757d367923bde57dce86
-[3/3] ASoC: ts3a227e: add set_jack and get_jack_type
-      commit: 087b9dda8658052a33031ef82a8d8ef77a7c94ea
+[27/35] Documentation: spi: correct spelling
+        commit: 0f6d2cee58f1ff2ebf66f0bceb113d79f66ecb07
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

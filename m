@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6E16868FD
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 15:54:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 900CE686901
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 15:54:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3587B1FB;
-	Wed,  1 Feb 2023 15:53:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3587B1FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3FB9F6;
+	Wed,  1 Feb 2023 15:53:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3FB9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675263261;
-	bh=CPkS3RCMJsIApZjzxSV7AqoFj7doClkqekwrbrro1x4=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZPRr+KGK+jKBF/PCciDZyL0vIot68ADcwc3UUzKa0IOSRsmm6Z3GHy2y60dp+QQ46
-	 GnvHqTvOesIRX7uXi7VjdqYA/yegCqWAI6+SqfTgxAJYxQjCWOynsDBYeEFFQXBcg9
-	 L6TR/K/bjFCbTCe8hrk1nMl1tTk+cOKYD0u4/TPk=
+	s=default; t=1675263276;
+	bh=IIIAwVilRWbK/VxJ9R07BpYKGovKnA/g9pkFp6lqOE0=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=MF/5cQ/17QpA5cAxbYKTuOKw0U13imSiyXpMABj8JP1q5vmUQ9nLT9BzGKf/5+eu1
+	 QrR1T2g1gOdGfgg69AGzjX25WokoXbVY7+Jlj8VMIHfLtro3Dfph5aVSQIBSL8jIWR
+	 8TR0L8Q0mS392SQseiWrsCMgkdzP/m+t05Ffv0fk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B39FF8047D;
+	by alsa1.perex.cz (Postfix) with ESMTP id 87801F80543;
 	Wed,  1 Feb 2023 15:52:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E503F804B2; Sun, 29 Jan 2023 22:53:13 +0100 (CET)
+ id 09028F804B2; Mon, 30 Jan 2023 00:51:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89C10F80171
- for <alsa-devel@alsa-project.org>; Sun, 29 Jan 2023 22:53:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89C10F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A495F80155
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 00:51:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A495F80155
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=U/VxjGZs
-Received: by mail-ej1-x62f.google.com with SMTP id hx15so7415244ejc.11
- for <alsa-devel@alsa-project.org>; Sun, 29 Jan 2023 13:53:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Jx2VCByZ+N3uCS/GwdsGW2lTgWOCKj3QTeKZBIjVOyo=;
- b=U/VxjGZsg+7mEX49nEtB4C57ikWLYLNuGS5+IgmLl8cDQpNTlaYv40DuGEdrHrpG4n
- DKbH5ZOJl8NHWdkpFGBYwZ1AJWRdfPlc3fzQQK0ZS4Ft+Vq7RlTnKCcGJVDS7IbMXcIq
- X6gzLt28kV77jv65M0LVtn/jzAF4DtIjxlIjV9/VJ+PymXUJFvcunjUfwBV4SXzoWWuV
- XcaG8E905Bd6LyYi9qhYtEkKdX6VKFMkxNEDxRM7qwbxRfiIrlCkzCkV5I53YCM+IyGK
- ni+trzXbEp5GJlDobGfMIZ2ltm5Dn8atgFZDttvNI2q4rWgE8A0zFG9OP38rWw262HXt
- zNGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Jx2VCByZ+N3uCS/GwdsGW2lTgWOCKj3QTeKZBIjVOyo=;
- b=sThT326KdcsaSq94qLJSBn+oSerf8n1LiuViyGTl3K++rhYgndVdpRK3VBgBuVBgFB
- gAkkuLaCgtkWoKUfBaj+isTbGyYMTo8+pFMxuDsyTK+ypm8JBHn0SG1Y8mNHvMn75z/C
- IN4+XRz5dggpoa4gWFWrxrq6DVauPSAiMugFhg1INro6cn/eHEOQ0cxKQ6OaWQS82PfE
- rnsBeoX5/UkCTD8cB1bjKFO4Ew5QWjFbq2lUsWsaYvI1IkSXLShHC+O/7YeyiXj5tywb
- NHdT0a3oj/Op3uWD5fNEUtSg6Ct8uipBFcV+uKlAt/fuZW2ok9SwVaY/6B8TcBx5JwXE
- +CZA==
-X-Gm-Message-State: AFqh2krKlcQnefLFHRf/KFvbSWgh3y1CKgxJNH1TiZlCmowCHyLDg6JT
- ygqSLndYAwl10NZnVRLvRvzVEtLsLjQ6vYsW8wB+sGj9
-X-Google-Smtp-Source: AMrXdXvMdhGlwM6qHop3qz5W9WGIcRRL82nkxu4/8dNLwXD7K0HmVE0pItROoRjVxZ9Pl5qT+pasvjuEIilVfVqiBE8=
-X-Received: by 2002:a17:906:b14b:b0:870:5fc6:210c with SMTP id
- bt11-20020a170906b14b00b008705fc6210cmr7483690ejb.257.1675029185625; Sun, 29
- Jan 2023 13:53:05 -0800 (PST)
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=BqkFNT0Z
+Received: from mercury (unknown [185.209.196.162])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: sre)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 64034660086E;
+ Sun, 29 Jan 2023 23:51:36 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1675036296;
+ bh=IIIAwVilRWbK/VxJ9R07BpYKGovKnA/g9pkFp6lqOE0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BqkFNT0Zs/lQ4ZAdZec7R7noK9RCNBkqilV/t1bQhOMZbIlDsCTR8QIJkJbNxvyOU
+ VbE7ue6VTg0M3DdOWcJ6aGjsAcjTr2+ZxqzGv8a4wgAiwvMHBZJQ6DDXAkuexFJSWl
+ X/R91K3+3QzQ9ulj8z1XnphRoMblYCn+zpF9EVSp+xN1/FLHdO8Hkm6XRWqdErQRuJ
+ XeOTeXAI9WSIaEqngDpgSjhUg3RwspINiAkv6i7zlzWrTopqAX91YHvKTxV3bw79iu
+ MRFOyiLlAzyqG/4UwvkFeNkVVuel8NH5rRpODeuULeaiH/bQDGOlXtMZ5C14IPTwFL
+ k7BwaWsFHnZdQ==
+Received: by mercury (Postfix, from userid 1000)
+ id 44F4B1060A24; Mon, 30 Jan 2023 00:51:34 +0100 (CET)
+Date: Mon, 30 Jan 2023 00:51:34 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Add missing
+ (unevaluated|additional)Properties on child node schemas
+Message-ID: <20230129235134.bmlr33mmxkges22h@mercury.elektranox.org>
+References: <20230124230228.372305-1-robh@kernel.org>
 MIME-Version: 1.0
-From: Stefan Alexe <stefanalexe802@gmail.com>
-Date: Sun, 29 Jan 2023 23:52:54 +0200
-Message-ID: <CAFBfLLcrTQ6_X85XWDdkcQgYUYFfRmJr1eYW29TP0=PFAVsmgg@mail.gmail.com>
-Subject: Is there any way to install alsa-lib with the suid bit set?
-To: alsa-devel@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gicruapujo3hf3sv"
+Content-Disposition: inline
+In-Reply-To: <20230124230228.372305-1-robh@kernel.org>
 X-Mailman-Approved-At: Wed, 01 Feb 2023 15:52:51 +0100
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,10 +86,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, Lee Jones <lee@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@gmail.com>, Marc Zyngier <maz@kernel.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Richard Weinberger <richard@nod.at>,
+ openbmc@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I am trying to only use a static /dev. I have opened an issue about this on
-GitHub and got it to work only as the root user. This resembles my
-experience with xorg. In that case I had to use the suid use flag. Is there
-an equivalent in this situation?
+
+--gicruapujo3hf3sv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Tue, Jan 24, 2023 at 05:02:28PM -0600, Rob Herring wrote:
+> Just as unevaluatedProperties or additionalProperties are required at
+> the top level of schemas, they should (and will) also be required for
+> child node schemas. That ensures only documented properties are
+> present.
+>=20
+> Add unevaluatedProperties or additionalProperties as appropriate, and
+> then add any missing properties flagged by the addition.
+>=20
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+> [...]
+> diff --git a/Documentation/devicetree/bindings/power/supply/ti,lp8727.yam=
+l b/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
+> index ce6fbdba8f6b..0542d4126cf5 100644
+> --- a/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/ti,lp8727.yaml
+> @@ -28,6 +28,7 @@ properties:
+>  patternProperties:
+>    '^(ac|usb)$':
+>      type: object
+> +    additionalProperties: false
+>      description: USB/AC charging parameters
+>      properties:
+>        charger-type:
+
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+-- Sebastian
+
+--gicruapujo3hf3sv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmPXBoUACgkQ2O7X88g7
++ppJ7Q/9G9KiN17FVwYLLs8SnUjgqv/kYKrPVShDKerSSX6M0f7jyOVMBZz/QMpm
+Qzn0tl5laK3KtKo8zTuT/nHHQrwIyURSi8k3pEYUNc4KW8lTxLA4gLOCNjU+mA3r
+hFuUUvRcrmDnS9e+du/tWzYg8mSp0eucjWzURwTq+OA2qeUlEfH+1YAb+8LWHxWP
+O1pnLG9pGJMA1D3WDQzfXB0YfKpOkPYhxczD3VK0xqO77Z/PFANzD0Us/1XKtoFn
+NcsoPPSPBA/KpyjVWi94Rgy7zCXxKTeodChRqTVNUpms71aK75cO7z13ZOSYj3Kh
+5ZDpVLxWk2Yp5UujqxsMBYkJ31nQHS63CirMS84oPRR6WKbWzl9Qavl9VdPLMDe5
+9lwmcjlHoe0MSwwwuBDuwJRuO2Yr6KcOYvepEbv0/aes6hCB0e4IGq716JG2clLQ
+ZDVV5R3dmZk3KR3Ctu5twKz22MXyzqmoemtciqIsHkrLePBXwK6ylrLJfadUpgc1
+9hvsiNNTMntVlLI3gIQvsqw3W89s8UmTQAV02ykLZ19yAXhSQW34aslkoG204Dbk
+JRW+Mp6cXkXwNoMyqq1rCt4yFIG3ys3ELjFNGRX4we4+XJ7ZVU6agwxNMbyrFuUt
+UKXHATWoGucDR6hd83W0A7eREcm/GZzUnBKCAMTu4FUu1UBEOqM=
+=p8Fr
+-----END PGP SIGNATURE-----
+
+--gicruapujo3hf3sv--

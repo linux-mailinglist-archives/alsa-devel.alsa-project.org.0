@@ -2,112 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C84681DA0
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 23:03:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD2F681DB9
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 23:09:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED0FC85D;
-	Mon, 30 Jan 2023 23:03:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED0FC85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EEE6DEE;
+	Mon, 30 Jan 2023 23:08:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EEE6DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675116238;
-	bh=ojPz9OXzDmAGtMcojCo8zWwF/P2fB9XVSaqZBC6tw6Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=s+qCAKVk5tvz9MDrh6wKTZ00eYs2GkhCacc0MD72Zh1sx1Kv6HEaL/0uX5lV2Jowa
-	 ale5lUsMW+Wb8+LZDNU90S3mphsjE0hFr86RemxGDhXiXS8aSvQjlIZjb1Cj8scZK/
-	 jFse2o289VWXN+25qlKcZwd55MoHHAAvN9j7lyis=
+	s=default; t=1675116586;
+	bh=fvNWEnI1/adIYH8WRcvgklnkoj5XjpF2MRedYckCo7Y=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=jKlbaLiucF8UU68HWuhWu+3G868dv3lnhljfDY6lepx6jFIEyi8oUrvyRKXKyNkX6
+	 eCDN1qhYANWzKzAnNjtxL4cO50A5uHBqbgM0dMEpBseEtvI2OCvT7JsIz0YzlEfkRt
+	 g9WFM8fYiXGczZ+Lv0rOkZ2I3MOW4UzYEsLVhlTA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39378F80423;
-	Mon, 30 Jan 2023 23:03:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B15FF804EB;
+	Mon, 30 Jan 2023 23:08:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B259CF8032B; Mon, 30 Jan 2023 23:02:58 +0100 (CET)
+ id 1555CF804C2; Mon, 30 Jan 2023 23:08:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::60a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71800F80155
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 23:02:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71800F80155
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=CM53rTJI
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30ULsVXN017941; Mon, 30 Jan 2023 22:02:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ILW2ve8L0jEt9qEsEsaaeIOpHW9pUVZIoAQxIT5Y2Eg=;
- b=CM53rTJIuODJJOlNE7LUXbBP8s4euiMXtzMlkTYKN8kPKs8MgoojnVD+6VCXib/OT9/N
- 680mb4xbAEH5FO6msq9EvwSj2WsN7dhXU02av1zpTFYfiAnOQ4p42kftehfS+qnpgj/B
- BLTgL7yXgB5z8APTqsmgP+iZlhTexvqJCF/YipUhzM5aoco8/HnCOq7R6CwMs3iqi4hx
- mOMJZ43I1Hul9fXslk16Sc1PL5+jKXfBZrXXHLuwmT+ZOyqpBYib2MFkK/TjV41b+9UW
- M70rp6COAyl8hsJ8czOJvipO47kZGd5a0u1OfpsEsAdpxmV2xMVqi/AODs3U/u4kSSxY xQ== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nefmfrwp3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 22:02:52 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30UM2psh025299
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 22:02:51 GMT
-Received: from [10.110.113.14] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 30 Jan
- 2023 14:02:50 -0800
-Message-ID: <6655bd97-61e8-e03b-b782-bcfcc2138717@quicinc.com>
-Date: Mon, 30 Jan 2023 14:02:49 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9402F80155
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 23:08:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9402F80155
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=llAszdgg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CceslceGnInLKqt5973zqf3wAzuhgGQWVXxMar64KmP2IpUMZYtGahUO4DEdmz7Vt6hPHhTGCMzvAalljTzmCuWNoSBZmrwst/hCKyeqPo2FXekLxsssW/NPDkz2X3M4RX9lSFwbiYUHL/IYgdV1YN7FH5cpZfUvCe8v/BK20RnGg6wxqepXd+ucxxy5dIZxVKOW+t9PXa3h67IZGVfH8cJR9+Sgdnu1a/BisCrSLeJyO0EfPmZXo026P/Ljw19dwYBAQFf6BemyaVpt01lRFp7JoNZu6SUFN9iExjTc/hWAWRHv01k47w5SZh8Gn1ssFq65lc9R2Zn40U5kc7W1jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gk5VuF/tUECiPO0M/J21GeVdnS5OIatNM7/v3BXfRfs=;
+ b=J5z9zcT5nBUXa6snGrPA0ukzIF7XKDEmOHc/znhc7JVBKUSmojSuCRWCmcfwNgjQFsEPUvyHxjiqpa0uLzpOW/0cuOHgssFVd1m6yfSKPCQ2SjPiAPzm1bOiuFipKO6QczVgAafZpuAmdp0MTSfFOkoah8Ed6/2mt86ZozZnwG+qLsNYKpNPCd0ZHgoR3jUHUDWBjA1Ws5GBxKTkv61lKHRO0kK1TgxfRD0MBQBSvB9PMKCBdnVWiJzU6bVMfJ5gkfdNoYTCM2h9MxB9HbxyBqzYp43/5cs6rM33TsmzVSia0zdXV/WJeAq/EQpgTGquApwyMmUybwGJ1Wgi0Ohx5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gk5VuF/tUECiPO0M/J21GeVdnS5OIatNM7/v3BXfRfs=;
+ b=llAszdggqCRgxJh774UFhKfG3GLAYoITLZjxax/7WlV8lGT7QJR2suEQeGyl1rxvSLKClNsp34Bnp4fLvLOyZg8wxmSzih+hnqcxTx2K8YYSeOkZwlbBlPpQ272q4e+HEzen+PTwo8IXk52gXRn3Q1u2xfu3whRcM+2rltfJE+I=
+Received: from DM6PR07CA0039.namprd07.prod.outlook.com (2603:10b6:5:74::16) by
+ BL1PR12MB5996.namprd12.prod.outlook.com (2603:10b6:208:39c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.33; Mon, 30 Jan
+ 2023 22:08:06 +0000
+Received: from DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::2c) by DM6PR07CA0039.outlook.office365.com
+ (2603:10b6:5:74::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36 via Frontend
+ Transport; Mon, 30 Jan 2023 22:08:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT093.mail.protection.outlook.com (10.13.172.235) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.33 via Frontend Transport; Mon, 30 Jan 2023 22:08:06 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 30 Jan
+ 2023 16:08:05 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Jaroslav Kysela <jkysela@redhat.com>, Mukunda Vijendar
+ <Vijendar.Mukunda@amd.com>, Saba Kareem Syed <Syed.SabaKareem@amd.com>
+Subject: [PATCH v2 0/6] Fix default DMIC gain on AMD PDM drivers
+Date: Mon, 30 Jan 2023 16:07:48 -0600
+Message-ID: <20230130220754.8379-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH v2 14/22] dt-bindings: usb: dwc3: Add
- snps,num-hc-interrupters definition
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
- <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
- <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
- <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <agross@kernel.org>
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-15-quic_wcheng@quicinc.com>
- <05e55db1-5181-8025-8aee-e398200b047c@linaro.org>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <05e55db1-5181-8025-8aee-e398200b047c@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Yz_E4BLFiZ2GtEA--tQbffoSRNPjd3yO
-X-Proofpoint-GUID: Yz_E4BLFiZ2GtEA--tQbffoSRNPjd3yO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-30_17,2023-01-30_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- priorityscore=1501 mlxlogscore=353 suspectscore=0 bulkscore=0 mlxscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2301300202
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT093:EE_|BL1PR12MB5996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34661cb8-f3e7-4584-d414-08db030e76db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ev2QQ4z6uwwb57YSISASyZWH+CuUTy4F2ctvTx3kTvaIw9zTcCQhzOA7xUEIKGvcse+l5vF1o/HrhE0yz3jKq0/eTprRmNnId9Ktk7/QYkWbesBqly2izJ9zg4ZEsqWUTd9P8b71bc1e+R2HUJiInQ6mSOxlcgUcab5A6TdECpX7+VxOKrKyqN0mc4SV8s12Wp6Uiox9hgTITmLEuyoyg13Q0dTgBmssEKRRLzJspOUIcNFvpu39gOzwKUP6gBtCRU8boAA8wkrHNc/k5wI0lpXGZsqcPbo9H830o1T8V+IK2EGCcXld3X/FGlypuhpOBuvt/LP1bTEtao8RV6DdM7VaVsy7q4Hl8nHQWWtINFu7BW/8XtDd8+y6cIZHFjQ6Iy4AbFZQ0M0rppyHVFx8NF/AvevklyuRqBk0LXT76MjYKMm8A490UxonwtpApuY0/E2031Vs5QTuH50UCiIDV7yHgeyGXTAOBayntHkUg+x9Vy+ld0eN9g/zfsL9h5GJt2DBS952i9tiIYziTJhSX4KsqCkzcDGlqqqAoP4Z3wcRUyJMs1fDNNLeKC2dLQN9rTGIs/cegNtdRHzgsyhDJthtKExMgJIxQr5asdp/3IOvCFknjx4ZDWJ1iVAPc9c9WifD4K10Q3xK3nkIjD/2MO16ZUg7SOb8vG6svfPFH+6R28JsqAxZeZSNziB4uL8DNI0+4pKoVbG2pJQTkocSlFcC8vIHiNwfuLj7wNkii6s=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199018)(46966006)(40470700004)(36840700001)(70586007)(336012)(70206006)(2616005)(4326008)(82740400003)(40460700003)(36756003)(54906003)(36860700001)(6636002)(86362001)(356005)(110136005)(5660300002)(81166007)(40480700001)(316002)(2906002)(44832011)(426003)(83380400001)(82310400005)(8936002)(41300700001)(47076005)(16526019)(26005)(478600001)(8676002)(66899018)(186003)(6666004)(1076003)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2023 22:08:06.0819 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34661cb8-f3e7-4584-d414-08db030e76db
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5996
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,76 +128,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Pearson <mpearson@lenovo.com>,
+ Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Krzysztof,
+It's been reported that a number of laptops have a low volume
+level from the digital microphone compared to Windows.
 
-On 1/26/2023 4:01 AM, Krzysztof Kozlowski wrote:
-> On 26/01/2023 04:14, Wesley Cheng wrote:
->> Add a new definition for specifying how many XHCI secondary interrupters
->> can be allocated.  XHCI in general can potentially support up to 1024
->> interrupters, which some uses may want to limit depending on how many
->> users utilize the interrupters.
-> 
-> I cannot find in the code any user of this. Your next patch stores it,
-> but which other patch uses stored value?
-> 
-> What I still don't get how is this exactly hardware property, not policy
-> or driver choice.
-> 
+AMD offers a register that can adjust the gain for PDM which is not
+configured at maximum gain by default.
 
-Sorry I must have missed that patchset when rebasing over Mathias' xHCI 
-changes.  It was there previously in my initial submission where the 
-property is carried over into xhci-plat from dwc3/host.c.
+To fix this change the default for all 3 drivers to raise the gain
+but also offer a module parameter. The module parameter can be used
+for debugging if the gain is too high on a given laptop.
 
-So the xHC controller has a HCSPARAMs field that defines the number of 
-interrupters it can support.  It does potentially have the capability of 
-having 1024 interrupters.  Each interrupter has to have its own set of 
-interrupt register sets, which depending on the vendor implementing it 
-could limit the maximum.  For example, as stated below, DWC3 only allows 
-for 8 interrupters to be allocated.
+This is intentionally split into multiple patches for default and
+parameter so that if the default really does behave better universally
+we can bring it back to stable too later.
 
-The purpose for this property is to allow the user/driver to not have to 
-allocate memory for supporting 1024 event rings, if they are only going 
-to utilize one.  Likewise, if the user attempts to allocate more than 
-what is supported by the HW, then Mathias' SW will cross check to ensure 
-that isn't allowed. (by checking the HCSPARAMs against the DT property 
-below)
+v1->v2:
+ * Add guards for parameter usage
+ * More comments in commit messages
 
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   Documentation/devicetree/bindings/usb/snps,dwc3.yaml | 12 ++++++++++++
->>   1 file changed, 12 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
->> index 6d78048c4613..4faaec9655e0 100644
->> --- a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
->> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
->> @@ -349,6 +349,18 @@ properties:
->>       items:
->>         enum: [1, 4, 8, 16, 32, 64, 128, 256]
->>   
->> +  snps,num-hc-interrupters:
->> +    description:
->> +      Defines the maximum number of XHCI host controller interrupters that can
->> +      be supported.  The XHCI host controller has support to allocate multiple
->> +      event rings, which can be assigned to different clients/users.  The DWC3
->> +      controller has a maximum of 8 interrupters.  If this is not defined then
->> +      the value will be defaulted to 1.  This parameter is used only when
->> +      operating in host mode.
->> +    $ref: /schemas/types.yaml#/definitions/uint8
->> +    minimum: 1
->> +    maximum: 8
-> 
-> default: 1
-> 
+Mario Limonciello (6):
+  ASoC: amd: yc: Adjust the gain for PDM DMIC
+  ASoC: amd: yc: Add a module parameter to influence pdm_gain
+  ASoC: amd: renoir: Adjust the gain for PDM DMIC
+  ASoC: amd: renoir: Add a module parameter to influence pdm_gain
+  ASoC: amd: ps: Adjust the gain for PDM DMIC
+  ASoC: amd: ps: Add a module parameter to influence pdm_gain
 
-Got it.
+ sound/soc/amd/ps/acp63.h             |  2 +-
+ sound/soc/amd/ps/ps-pdm-dma.c        | 10 +++++++++-
+ sound/soc/amd/renoir/acp3x-pdm-dma.c | 10 +++++++++-
+ sound/soc/amd/renoir/rn_acp3x.h      |  2 +-
+ sound/soc/amd/yc/acp6x-pdm-dma.c     | 10 +++++++++-
+ sound/soc/amd/yc/acp6x.h             |  2 +-
+ 6 files changed, 30 insertions(+), 6 deletions(-)
 
-Thanks
-Wesley Cheng
+-- 
+2.34.1
+

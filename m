@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B26681C16
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:02:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EBAE681C20
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:02:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7916DF1;
-	Mon, 30 Jan 2023 22:01:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7916DF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85799E7B;
+	Mon, 30 Jan 2023 22:01:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85799E7B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675112546;
-	bh=4kTM7qZTPCTN7vtUc2O1W4p+zcVF/sa0deMNMF+1J5o=;
+	s=default; t=1675112557;
+	bh=iRg99z3vTaLGUvQvUebXqz6g0jHz4G5yj786/Gc2mwE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=mRhHzvmTzA0tUlyVHNOxPTE79syVRmuVYwqLGF8Ry65elX/nQ1/je07ro/ae8uL8N
-	 i5LKnWzA6PEushgB1YRQh5UDaDHsuzsD3L/LGiaa4D6cmekR0cpgVKZat+9SbnbfoK
-	 ildO42YSnicoyE7y3WHtcp1oZh0K0UQtLFj1wuJM=
+	b=VZiL14df9fukQbGK5yixgorAJz7JIjs7m88EGMZGnhm6eW8UxoupyVgorAO67P3xi
+	 qYz7DiqA4kQmxpVdUYQdeFBVKPP0rXVgaJme2bRt4efTWK0mVvvlwga0gj6M0Xpk7s
+	 m9S+D3/sDLc/zCORoSX13O8mydh6RF7hib5sFjRA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B84C1F80558;
-	Mon, 30 Jan 2023 22:00:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AED7FF80567;
+	Mon, 30 Jan 2023 22:00:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49344F80557; Mon, 30 Jan 2023 22:00:30 +0100 (CET)
+ id 78A62F80557; Mon, 30 Jan 2023 22:00:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8B71F80549
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:00:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8B71F80549
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A615F80548
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:00:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A615F80548
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PG1ECVPt
+ header.s=k20201202 header.b=qjiH7a22
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A6E3E61263;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7FC78B8169A;
+ Mon, 30 Jan 2023 21:00:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75B2C433A1;
  Mon, 30 Jan 2023 21:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D4FC433EF;
- Mon, 30 Jan 2023 21:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675112418;
- bh=4kTM7qZTPCTN7vtUc2O1W4p+zcVF/sa0deMNMF+1J5o=;
+ s=k20201202; t=1675112420;
+ bh=iRg99z3vTaLGUvQvUebXqz6g0jHz4G5yj786/Gc2mwE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=PG1ECVPtvhUFMQEyQ9udjXNZeOuPi8QpZSWJSqRjiQIYL8Djne8Gqu2DH+WkwjCaT
- PQBalZJ6ekV4ZreDtCBtwkh5okBTObHB9BmEW7q83pnaEMcLHGVP1pQs6+mp5gSJGU
- yueSg9Ta/IvdJeGYR+DfOwNBBnKDNYXLb/DInGK95rMtI6YgHOJAM1Xr5vygZVQxGk
- QXiq62aVpZLuGfGWKlGdkNPTlzL7c5lVgBKnQZSuqSOkU0b9XWGZSQEEcHpZb+eczA
- ZSE9DF7sVXALaK7n+gy+g7ZZQcWPS8dMLA8+AobyTgmMEF6cKRHjr5SRg4hRmbSgNR
- L2D3fwL0SJHVw==
+ b=qjiH7a22voIpZqzZfJhuZkB59RtLvWyNkSNcSmGiiR7/tMIkojqaMBwsoQbTi5NCW
+ TOSOGTtmaU67yXRl2oasjHK7GIj+S6lnMZlhAGdGUhfZT3on5uoEwo5e2latHKru2o
+ fhB2rxlme5bCKlDICnQSUbf1YsxIRzdJa9Tdewenw/Qv1m0oRImRPRER7Z8UgJURmm
+ zFS8yujJRdZOD8zggoxRVNWC81Jc0fict1tevjFx6kSXlrd+EvW6h2UTKyK3ENIt7y
+ jDafXzARWIEmRvH6uOfiychd3OIvGzZUEtSyBVszB5Q4PfToKDjG2QVw+4QjIH+4ly
+ abX70CPF6CRWg==
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, 
- Alexandru Ardelean <alex@shruggie.ro>
-In-Reply-To: <20230128082744.41849-1-alex@shruggie.ro>
-References: <20230128082744.41849-1-alex@shruggie.ro>
-Subject: Re: [PATCH v2 1/4] ASoC: codecs: tas5720: split a
- tas5720_mute_soc_component() function
-Message-Id: <167511241532.2141894.5359389287914359338.b4-ty@kernel.org>
-Date: Mon, 30 Jan 2023 21:00:15 +0000
+To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
+References: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 00/11] ASoC: topology: Fixes and cleanups
+Message-Id: <167511241838.2141894.15213514873056641200.b4-ty@kernel.org>
+Date: Mon, 30 Jan 2023 21:00:18 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.12.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -82,18 +82,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: steffen.aschbacher@stihl.de, tiwai@suse.com, lgirdwood@gmail.com,
- krzysztof.kozlowski+dt@linaro.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 28 Jan 2023 10:27:41 +0200, Alexandru Ardelean wrote:
-> This is to be re-used in tas5720_mute() (which is part of the dai_ops) and
-> also in the tas5720_fault_check_work() hook.
+On Sat, 28 Jan 2023 00:11:00 +0100, Amadeusz Sławiński wrote:
+> Following is series of fixes and cleanups for core topology code. Few
+> patches fixing various problems all around and few fixing function
+> names.
 > 
-> The benefit here isn't too great (now).
-> It's only when we add support for a new device with a slightly different
-> regmap that this becomes more useful.
+> v2:
+>  - fix commit messages
+>  - change order of last two patches
+>  - as there is no code changes, add Reviewed-by from Ranjani
 > 
 > [...]
 
@@ -103,14 +106,28 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: codecs: tas5720: split a tas5720_mute_soc_component() function
-      commit: 879142be618c05d234db31cbf69f101c53b7892f
-[2/4] ASoC: codecs: tas5720: add support for TAS5720A-Q1 (automotive) variant
-      commit: c24a62be09d8a0c7ede1c209055a4ac6760a45ee
-[3/4] ASoC: tas5720: set bit 7 in ANALOG_CTRL_REG for TAS5720A-Q1 during probe
-      commit: 88f748e38b283702a620e635820f1864bf32db0e
-[4/4] ASoC: dt-bindings: add entry for TAS5720A-Q1 driver
-      commit: 8d076a992eb86b99afb04980ac4b57e3a79f6704
+[01/11] ASoC: topology: Properly access value coming from topology file
+        commit: c5d184c92df2b631fb81fe2ce6e96bfc5ba720e5
+[02/11] ASoC: topology: Remove unused SOC_TPLG_PASS_PINS constant
+        commit: 6257d224b894b676540998ae9563c211410c9436
+[03/11] ASoC: topology: Fix typo in functions name
+        commit: 8f9974d9d767d11ce17280bec0d0f2e95e91954d
+[04/11] ASoC: topology: Fix function name
+        commit: 23e591dc0f8ce0298857a1445993fa7549a1f2e0
+[05/11] ASoC: topology: Rename remove_ handlers
+        commit: 2abfd4bd7b0700df4996ae2b60a12f22a0ef633d
+[06/11] ASoC: topology: Remove unnecessary forward declarations
+        commit: 70a7cd09a6368e0c9d351185a8fbfb3bae5a74f3
+[07/11] ASoC: topology: Pass correct pointer instead of casting
+        commit: 9e2ee00039a8ff236ae4db2366f4d2325658bea6
+[08/11] ASoC: topology: Return an error on complete() failure
+        commit: b784617a407c4f7e079e1694c3161ab29eb4bab1
+[09/11] ASoC: Topology: Remove unnecessary check for EOF
+        commit: d9b07b790a5c47dd4fd66c9264a3b38a103fa09b
+[10/11] ASoC: topology: Unify kcontrol removal code
+        commit: fdfa3661f830c98fb0f6380c3876fae33bc83b1d
+[11/11] ASoC: topology: Use unload() op directly
+        commit: 31e9273912bf5e4c23a876b5dfe0760fbecde92c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

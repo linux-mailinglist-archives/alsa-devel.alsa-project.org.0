@@ -2,77 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E49680BC7
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 12:21:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4C6F680C0D
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 12:33:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D36FA1ED;
-	Mon, 30 Jan 2023 12:20:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D36FA1ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 316EADF4;
+	Mon, 30 Jan 2023 12:32:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 316EADF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675077669;
-	bh=BQbpGEMNrIZticfkHYba4joXZTxYOMQh1GtvTJH6AdY=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675078398;
+	bh=JiMBbPMMdi6zKz45CXPL4XOHYUF7TMMq08+9fA/IcRg=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=E50xe/PAIHyzCgcH2EyGrEQLWEovc/eBcWR+dvvdcoc7fjIwR85nWGdBfibOjnoOS
-	 JIqoqsgIorB+rPFIxMpv95+FO8riv1oSSlgNvoidxxg3SuftZ7m5uCC2ZdxQ1d9DkS
-	 Ra82ujBzcN7oxKCRPxhK9LIWieIvGsM6jqgJQDw8=
+	b=TQYsvANb60kbcVuJhNy6AXx6EhmDKKIkvxKTm64hM2R4VeD9T23WrVeizNH+1BnxC
+	 yQnVpWxoI3plsrnTEPZmQXAnXk0Wvsp0U0eqz/3Ragcnl2aSt9U0aed/91BGdQiAlb
+	 NwSZchO8V+Q9JkzxDeQqr7rAkak+BPyMEmqnshTE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAAF1F8007C;
-	Mon, 30 Jan 2023 12:20:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D9BBF8007C;
+	Mon, 30 Jan 2023 12:32:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90FD1F8032B; Mon, 30 Jan 2023 12:20:09 +0100 (CET)
+ id B845AF80236; Mon, 30 Jan 2023 12:32:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ HTML_MESSAGE,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0390F8007C
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 12:20:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0390F8007C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C513F800A7
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 12:32:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C513F800A7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JooE6Sio
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4987FB80F9E;
- Mon, 30 Jan 2023 11:20:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF36C433EF;
- Mon, 30 Jan 2023 11:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675077604;
- bh=BQbpGEMNrIZticfkHYba4joXZTxYOMQh1GtvTJH6AdY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JooE6SioIhzCxw1gX2MPn4PCYR/tJ6RKdnT87crEBM1fvRVXguzneQFVcHIyCPy9u
- hWa1+EH+QBZAMr1QKd3lpuoHqVB7/qbmW6jH98GSGgkZV/GXYXnlgcwokv6JW11p8f
- TeAYvviEsjHhNanzQjYR0U2vYicRQbpeU8a3NwMQuyop/H2XBcoptCzqCMJEmUOpfm
- 0FetQSTFtycQGyuRzvHp77Lb8NxBNsss5+hT+84IN5/3TCXux+DGGelkwcMRIm9lPK
- uaEevFIi+y4k56GlKvAMm4+xLxDSoJjVOiAUnSQIn3WMBtzBPgcKk0980Y+9bC1a8s
- 6hFNFL1jJT/5A==
-Date: Mon, 30 Jan 2023 11:19:57 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ki-Seok Jo <kiseok.jo@irondevice.com>
-Subject: Re: FW: [PATCH v4 1/2] The Iron Device SMA1303 is a boosted Class-D
- audio amplifier.
-Message-ID: <Y9en3RI2/UXzURYI@sirena.org.uk>
-References: <20230126020156.3252-3-kiseok.jo@irondevice.com>
- <167492633558.2479102.3539691390712703265.b4-ty@kernel.org>
- <SLXP216MB0077C55D61BA6F29EE2751838CD39@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=mY7qIjBs
+Received: by mail-pl1-x630.google.com with SMTP id d3so11242367plr.10
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 03:32:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nNqwaHoyDJ6oIABjnw374JO+nZ/hjHyOL9XFjyaSxKk=;
+ b=mY7qIjBs8r1DuAYy1v0/svKeZzQoyE8iszvCNLuibg8uM6Y6C8pOHFsW0iZx9osL5U
+ G0SdA57wgNbr6yKld4Pi376NpeD24u/3iqwZHzOoUPicZzKOHCkpBiIempp9VTqRGnAE
+ sTF+vVngJgmCeChIFU/HewZGUcYzbB3CRoSkMP4X2SIlE6kiFt1t3AAOUmNM3mSLiISC
+ cBV2E5QNctfJ46tWhPJKcblUWkAl3/53xWY+Dn3fGcYdm/dcvI+6YTBaWPSTlJBbnb2C
+ 68/AUTVD/rZC0w2ttJm5xDO0zfTCfpzIftbcGF7Uoo21Jq8GQhL9gxfsfw7/Lv5frDpV
+ vRwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=nNqwaHoyDJ6oIABjnw374JO+nZ/hjHyOL9XFjyaSxKk=;
+ b=0dtuXb38M7hSK5bv2RL9QjpxL/7ZENctzds9j8XPyhEHz38pkdm69xfkMBwaM0SX73
+ ySI9CedGJ9cS8qaQMI/4/LM/Oy3FvU+NFJIrMs+da8frykCkOSgZpqSxAnLpWKIDpoig
+ hKhWxpd43BziUlAYKlvuSVd7b4WnUW2t1qBJXR7LUyXgQ8copcNe+prl/blk5Ea6lesg
+ YcsCXg4bSQc3E6XTYjfSLHyCeg0C6z450ViSbtWw2t3UK6RiXb+HJbe8zhStd4tzsdFU
+ C9+cObKWGREIaDeWGUArq+D7cGPbBi49XbsZP3XF88ay139Is70bkxc161BusNOJ2ZnN
+ I0kw==
+X-Gm-Message-State: AO0yUKXrV/h3Gg6KYSGKz8XL8oB9n+7a6Xl4UqNSmppY05E7M1B01c1k
+ ovYzcuNROhNSlyN11FoW6fg=
+X-Google-Smtp-Source: AK7set8EQJRfl+tjYSrhoSGwRO1r4Hyk5VGR/A24ClthMF0QXXC1Kk3RAZ0nKKkldcxRZkLtehYf1A==
+X-Received: by 2002:a17:90b:4c46:b0:22c:b2bf:e462 with SMTP id
+ np6-20020a17090b4c4600b0022cb2bfe462mr2206432pjb.34.1675078325124; 
+ Mon, 30 Jan 2023 03:32:05 -0800 (PST)
+Received: from [172.20.10.4] (42-72-249-34.emome-ip.hinet.net. [42.72.249.34])
+ by smtp.gmail.com with ESMTPSA id
+ n19-20020a637213000000b0044ed37dbca8sm6677285pgc.2.2023.01.30.03.32.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Jan 2023 03:32:04 -0800 (PST)
+Message-ID: <76e2e7a4-a9c6-1291-9995-beddd13f2e4d@gmail.com>
+Date: Mon, 30 Jan 2023 19:32:00 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="RRxR2WqiuA5kQUXl"
-Content-Disposition: inline
-In-Reply-To: <SLXP216MB0077C55D61BA6F29EE2751838CD39@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: Some restrictions may apply.
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.0.3
+Subject: Re: [PATCH] ASoC: nau8821: Implement DRC controls
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Seven Lee <wtli@nuvoton.com>
+References: <20230110031622.459686-1-wtli@nuvoton.com>
+ <Y71eG0VgAkntqH0I@sirena.org.uk>
+From: LeeWeiTse <scott6986@gmail.com>
+In-Reply-To: <Y71eG0VgAkntqH0I@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,36 +106,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Gyu-Hwa Park <gyuhwa.park@irondevice.com>
+Cc: alsa-devel@alsa-project.org, SJLIN0@nuvoton.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com,
+ dardar923@gmail.com, supercraig0719@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---RRxR2WqiuA5kQUXl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mark Brown 寫道:
+> On Tue, Jan 10, 2023 at 11:16:22AM +0800, Seven Lee wrote:
+>> This patch is support dynamic range compression controls.
+>>
+>> Signed-off-by: Seven Lee<wtli@nuvoton.com>
+> This still isn't applying for me, for example on my for-6.3 branch:
+>
+> Applying: ASoC: nau8821: Implement DRC controls
+> Using index info to reconstruct a base tree...
+> error: patch failed: sound/soc/codecs/nau8821.c:322
+> error: sound/soc/codecs/nau8821.c: patch does not apply
+> error: patch failed: sound/soc/codecs/nau8821.h:350
+> error: sound/soc/codecs/nau8821.h: patch does not apply
+> error: Did you hand edit your patch?
+> It does not apply to blobs recorded in its index.
+> Patch failed at 0002 ASoC: nau8821: Implement DRC controls
+>
+> Are you sure you don't have any other changes in your tree?
 
-On Mon, Jan 30, 2023 at 02:26:57AM +0000, Ki-Seok Jo wrote:
-
-> (Should I need to edit the MAINTAINERS file in root?)
-
-You don't *need* to but it would be good to do so so that you get copied
-on patches anyone else sends for the driver.
-
---RRxR2WqiuA5kQUXl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPXp9wACgkQJNaLcl1U
-h9DWXAf+P9qen/b3Gfefd1i5TbOknaPxl5vNXLS/u71yQioYUfFXNy2oIPlh7+Dq
-uGeB73de0Qvc+V4FVig5mBd33ekH6lBppzOB/4BKQRVJ0EVFMhcEZk+atH8MsOl/
-vjdRUQRZry4MyXarvebMYFVaXfFIp3SneZgEdGzlRbikRJTAEGEFdejTmg1/xHv3
-0jFL++tPPvW8l4IGLaoJ2EmVTd3cjQMYa4qiCxu74tqz6EA4ASc78ZMCthV5o/bo
-ULzekKFISEX4oAFCdbvw1Jf0IGPp4ik3+5MeephJFB3ADVLCGnZ2cQxS7oCoug3J
-MZJjEs0aeDJmnF+qGZkVJr/nfoLtwA==
-=luR7
------END PGP SIGNATURE-----
-
---RRxR2WqiuA5kQUXl--
+Sorry, this is my company mail server setup for network security.
+I will send the patch again by my Gmail, thanks.

@@ -2,85 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26999680782
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 09:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B9EC680866
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 10:23:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 469F7DED;
-	Mon, 30 Jan 2023 09:35:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469F7DED
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9BDF1EF;
+	Mon, 30 Jan 2023 10:22:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9BDF1EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675067776;
-	bh=GBIpIc+A10cwgQqoTcUX1briJX8R+8iaF6VJFNW2w1o=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=hEN3sOgGagAfbFqth3iIvrHmXg8PqKturJz/8/6hvWbgxrYbeu2x7rWePLQ18w6Dv
-	 DB9MoaYSM0QcmcLdJqj1SmHwrR7eDfjFjDmq7A8EUwjePiPZxOznOtufupVCT+Lmlq
-	 YbEKv+3VGULVNqFf/dZQATicZk3q4RwyrY7Ni850=
+	s=default; t=1675070588;
+	bh=WX6TuRBI8e3/bf52Yz9fx1s/v4OHiXvVZajYeOk30Bk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=n/m9V0idMNTGCS2i5ejj0Vp0fzhThK06N0a+DER9aiN75nvmdBu6y5y2fYvMbF8bc
+	 fpdhNf9qRq5rjpME6l+yOfHaVVPaqrtnBIGcvKUx75E8nbZszK+TL/XCKNFWzW7rQS
+	 EjCK+zHYz6MJef1qMVdIeQrcaBc4ygjeyDZyOitI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7A3DF8047D;
-	Mon, 30 Jan 2023 09:35:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC78AF80423;
+	Mon, 30 Jan 2023 10:22:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C135F8045D; Mon, 30 Jan 2023 09:35:19 +0100 (CET)
+ id ECF41F8032B; Mon, 30 Jan 2023 10:22:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3657F800A7
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 09:35:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3657F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5AF8F800A7
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 10:22:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5AF8F800A7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lFOKeQfu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675067712; x=1706603712;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=GBIpIc+A10cwgQqoTcUX1briJX8R+8iaF6VJFNW2w1o=;
- b=lFOKeQfuqq1yXhB2q1wAzdZqIeNedZvG+Zbh/3CeOP3scyoFL477g5Ua
- 2hwEeMrVKRroO4FtD1sladdJ5uW6HEklDyFrXZKZeUXLk4Uogg39Vw6qV
- PImsOWJ0qA/9Ls70xwTSChES6imfBsnNODVARfOZYORy0KsN+tyM5goK1
- aMpeZA2p95FSvAfteCmaOCqQO6/flWawxsVq5W0YA26WOBkVQpLEAaDIx
- JwGZmBG/bXgvQwhUvm9yGnrrrskNujtbfz6mbF90f33Ni2ucx8eTvDipi
- rffODSFhpTm4/l8YKpPmlFl05Uc+cL8Ez1Rs+pMJUyHNOiOChgvzDgV11 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="327521044"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="327521044"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 00:35:08 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="772405473"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="772405473"
-Received: from zhoufuro-mobl.ccr.corp.intel.com (HELO [10.249.170.163])
- ([10.249.170.163])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 00:35:01 -0800
-Message-ID: <7f461661-2dcf-056d-f78a-93c409388f29@linux.intel.com>
-Date: Mon, 30 Jan 2023 16:34:58 +0800
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=heFkggjZ
+Received: by mail-wm1-x334.google.com with SMTP id bg26so1646181wmb.0
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 01:22:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GGUEVcAPqc3ntFlXLDsn+VtadZ+2wmI0bSmlamuFI1w=;
+ b=heFkggjZxYLMIntkP1VjyCKEUKwu6aOiFm6NB0rJJTLoOYIZISDNYEAWvEFRajqXL6
+ kK44PaSkuRHigjnWxLRS/ggB91RDuh9mj6z7mSYuDD7Lj8QDNc3g2tgc56ly8yXs+8q8
+ 5aR9YePGg2D9zhTP63ufenslUPaZ3NKjakW9ZY0BiIWoOUnmSEtUdBKfao8RP8DyhOa3
+ dL2heRT+utCzhrG1XFB2AvkaUiT6imMgmUykFjSJQSmsTsCznfhlglGlumwFAXTFHSe6
+ yyL0T9Kv5nvTeA5EZK4Q6Fli3hha8qxzv87z+OijRYGSFirWEroUrC9NnKaH6LhZSuKw
+ 9A5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GGUEVcAPqc3ntFlXLDsn+VtadZ+2wmI0bSmlamuFI1w=;
+ b=g/S+436eGacjpthJcpUdec17ZiovuBPbU7lrGV3PwRlIjx5Dcfg0bDp3PPq8TLRN3B
+ x1uNMsbXSa5Vlbn5iwVrrvR/SaNrgoJGaPVpr+/K/vGtzo2P7hE5zywmaSJr9g9MILkj
+ AoqfMjPGqLBif8fFlwg9c7VmGLOD6wZK4DJSwl5mNLYsaQ5h08ylVSMcDcemMJWz/HHC
+ 0msob0nTF06c86v3f0klLEhv/Twf1eChJf9dG3ZyGMQmmRGAqa2aM1/CatcSeglEQLgI
+ /exyDuqAPyp1EBkqnVEjHCgfVaONRtVShkYprKe1og7IoSl/uT4UoUxsz1kZ6BKRWrB9
+ O3NQ==
+X-Gm-Message-State: AFqh2kphNailhoeEA864qhPRb/qRswbkJ5rYMXWjCBQ9t2Lg8SI5x7Oz
+ +YUnd4qRw7EkjXA+e52cXEA=
+X-Google-Smtp-Source: AMrXdXvH4jwg86yGTRFJ5HRm3uZIAeg7hodaP8VUpLyT2Nuwyprlwgapu+iRrvgaS05M5aPObfeymg==
+X-Received: by 2002:a05:600c:5114:b0:3db:254e:59a9 with SMTP id
+ o20-20020a05600c511400b003db254e59a9mr39478716wms.15.1675070518868; 
+ Mon, 30 Jan 2023 01:21:58 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ d11-20020a05600c3acb00b003db30be4a54sm15357905wms.38.2023.01.30.01.21.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Jan 2023 01:21:58 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ KiseokJo <kiseok.jo@irondevice.com>, alsa-devel@alsa-project.org
+Subject: [PATCH][next] ASoC: SMA1303: Fix spelling mistake "Invald" ->
+ "Invalid"
+Date: Mon, 30 Jan 2023 09:21:57 +0000
+Message-Id: <20230130092157.36446-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [RFC PATCH v2 07/22] ASoC: Add SOC USB APIs for adding an USB
- backend
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-8-quic_wcheng@quicinc.com> <Y9UiiMbJFjkzyEol@kroah.com>
- <7c1d80b6-5db3-9955-0a67-908455bd77fa@linux.intel.com>
- <Y9YbumlV9qh+k68h@kroah.com>
-Content-Language: en-US
-From: Zhou Furong <furong.zhou@linux.intel.com>
-In-Reply-To: <Y9YbumlV9qh+k68h@kroah.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,44 +101,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org, bgoswami@quicinc.com, mathias.nyman@intel.com,
- Thinh.Nguyen@synopsys.com, andersson@kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, agross@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-arm-msm@vger.kernel.org,
- quic_plai@quicinc.com, Wesley Cheng <quic_wcheng@quicinc.com>,
- linux-kernel@vger.kernel.org, quic_jackp@quicinc.com
+Cc: kernel-janitors@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+There are spelling mistakes in dev_err messages. Fix them.
 
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ sound/soc/codecs/sma1303.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-On 2023/1/29 15:09, Greg KH wrote:
-> On Sun, Jan 29, 2023 at 02:54:43PM +0800, Zhou Furong wrote:
->>
->>
->>>> +void *snd_soc_usb_get_priv_data(struct device *usbdev)
->>>> +{
->>>> +	struct snd_soc_usb *ctx;
->>>> +
->>>> +	if (!usbdev)
->>>> +		return NULL;
->>>
->>> How could usbdev ever be NULL?
->> The method is exported to public, valid check should be reasonable
->> as someone may call it by mistake
-> 
-> We do not protect the kernel from itself like this, no need to check
-> things that should never happen.  If the caller gets it wrong, their
-> code will break :)
-> 
-> thanks,
-> 
-> greg k-h
-
-Thank you Greg!
-
-This has been confused me for long time when I found Linux kernel don't 
-check input even for public method.
+diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
+index d3ee831e88f0..3d8e3900f5c3 100644
+--- a/sound/soc/codecs/sma1303.c
++++ b/sound/soc/codecs/sma1303.c
+@@ -500,7 +500,7 @@ static int sma1303_aif_in_event(struct snd_soc_dapm_widget *w,
+ 			sma1303->amp_mode = SMA1303_STEREO;
+ 			break;
+ 		default:
+-			dev_err(sma1303->dev, "%s : Invald value (%d)\n",
++			dev_err(sma1303->dev, "%s : Invalid value (%d)\n",
+ 								__func__, mux);
+ 			return -EINVAL;
+ 		}
+@@ -640,7 +640,7 @@ static int sma1303_aif_out_event(struct snd_soc_dapm_widget *w,
+ 				change = true;
+ 			break;
+ 		default:
+-			dev_err(sma1303->dev, "%s : Invald value (%d)\n",
++			dev_err(sma1303->dev, "%s : Invalid value (%d)\n",
+ 								__func__, mux);
+ 			return -EINVAL;
+ 		}
+-- 
+2.30.2
 

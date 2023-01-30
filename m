@@ -2,74 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBAE681C20
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:02:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE2F681D65
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:53:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85799E7B;
-	Mon, 30 Jan 2023 22:01:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85799E7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63705846;
+	Mon, 30 Jan 2023 22:52:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63705846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675112557;
-	bh=iRg99z3vTaLGUvQvUebXqz6g0jHz4G5yj786/Gc2mwE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1675115600;
+	bh=BLhEcl/JyIamMUm5UlXqvUh3ZTuM9IHM6yExfn1i5yA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VZiL14df9fukQbGK5yixgorAJz7JIjs7m88EGMZGnhm6eW8UxoupyVgorAO67P3xi
-	 qYz7DiqA4kQmxpVdUYQdeFBVKPP0rXVgaJme2bRt4efTWK0mVvvlwga0gj6M0Xpk7s
-	 m9S+D3/sDLc/zCORoSX13O8mydh6RF7hib5sFjRA=
+	b=scTRcVlbiFRbJA+mEFySz1dBiyBxHVoUyFRGfwWBW2k4n64aA+s08pPor829VIxXy
+	 hWDMqsHMyEaIEKNwLEUDU08qSNnlqeZEKXPuGXjwZ5tMSBRgsXUiArrpLV+qyJg6Px
+	 iPr1SBlPuhdfffyDx8RPtRyfixOUbffTQ0pjhIJ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AED7FF80567;
-	Mon, 30 Jan 2023 22:00:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79798F80423;
+	Mon, 30 Jan 2023 22:52:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78A62F80557; Mon, 30 Jan 2023 22:00:33 +0100 (CET)
+ id D7DE1F8032B; Mon, 30 Jan 2023 22:52:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A615F80548
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:00:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A615F80548
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qjiH7a22
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7FC78B8169A;
- Mon, 30 Jan 2023 21:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75B2C433A1;
- Mon, 30 Jan 2023 21:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675112420;
- bh=iRg99z3vTaLGUvQvUebXqz6g0jHz4G5yj786/Gc2mwE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=qjiH7a22voIpZqzZfJhuZkB59RtLvWyNkSNcSmGiiR7/tMIkojqaMBwsoQbTi5NCW
- TOSOGTtmaU67yXRl2oasjHK7GIj+S6lnMZlhAGdGUhfZT3on5uoEwo5e2latHKru2o
- fhB2rxlme5bCKlDICnQSUbf1YsxIRzdJa9Tdewenw/Qv1m0oRImRPRER7Z8UgJURmm
- zFS8yujJRdZOD8zggoxRVNWC81Jc0fict1tevjFx6kSXlrd+EvW6h2UTKyK3ENIt7y
- jDafXzARWIEmRvH6uOfiychd3OIvGzZUEtSyBVszB5Q4PfToKDjG2QVw+4QjIH+4ly
- abX70CPF6CRWg==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230127231111.937721-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 00/11] ASoC: topology: Fixes and cleanups
-Message-Id: <167511241838.2141894.15213514873056641200.b4-ty@kernel.org>
-Date: Mon, 30 Jan 2023 21:00:18 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D11BF80155
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:52:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D11BF80155
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=n8a2VbTM
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30ULUVkK022923; Mon, 30 Jan 2023 21:52:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=pMeGehCvjIxyYq3VnzuG3YS/OHemqj7G5eJpv4FbH1M=;
+ b=n8a2VbTM36K8tEzsZLzv/vieAeKN9eGYyT2UZx64+Nx0Au/09/KwvR2Jr4UucnY7B2dA
+ Zwrl5FQ/X3dUCf7ePaoh+F4uDOD48jUHtBlC8/HbxmOIAx2HrtZOgMq74ODQ+Icva/st
+ K36Y0rJ1GewHb5fI+J/CxNXxkrzQ3vqH7+f9dJtfpJq3e9QxVwv1XQ3K/nOjTne8pAok
+ wWg2LeZVjuCd4sEUO0o5DvXuxD6HG55oubk0h5BBku/T0hpfgfeI/+Gk+/tcGZpKXbsK
+ mB5jd1AkDh1BSeAjKXy59JRfRBwrWcPqcCbyDrlLglxGhRUyeYRvmy78IXoIuJwneaKp Jw== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ncvfpcmgg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Jan 2023 21:52:09 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30ULq8RN014878
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Jan 2023 21:52:09 GMT
+Received: from [10.110.113.14] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 30 Jan
+ 2023 13:52:07 -0800
+Message-ID: <e040a41c-8004-a5c0-eb3d-e1b2b06eeb1a@quicinc.com>
+Date: Mon, 30 Jan 2023 13:51:52 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH v2 00/22] Introduce QC USB SND audio offloading support
+Content-Language: en-US
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+ <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+ <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+ <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+ <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <agross@kernel.org>
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <1e889754-6492-4c53-27f0-796002d5680c@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <1e889754-6492-4c53-27f0-796002d5680c@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.12.0
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: EXurEiNRKHrMlBe5HsV4k8Of91RkhGfa
+X-Proofpoint-ORIG-GUID: EXurEiNRKHrMlBe5HsV4k8Of91RkhGfa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-30_17,2023-01-30_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0
+ spamscore=0 mlxscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 mlxlogscore=999 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301300201
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,69 +118,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 28 Jan 2023 00:11:00 +0100, Amadeusz Sławiński wrote:
-> Following is series of fixes and cleanups for core topology code. Few
-> patches fixing various problems all around and few fixing function
-> names.
+Hi Mathias,
+
+On 1/26/2023 1:23 AM, Mathias Nyman wrote:
+> On 26.1.2023 5.14, Wesley Cheng wrote:
+>> Changes in v2:
+>>
+>> XHCI:
+>> - Replaced XHCI and HCD changes with Mathias' XHCI interrupter changes
+>> in his tree:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
+>>
+>>
 > 
-> v2:
->  - fix commit messages
->  - change order of last two patches
->  - as there is no code changes, add Reviewed-by from Ranjani
+> I'll submit the first three patches from that branch myself to usb-next, 
+> might modify
+> them slightly.
+> Just need to make sure they don't cause regression. Those are changes I 
+> want done anyway.
 > 
-> [...]
 
-Applied to
+Sounds good! Thanks!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>> Adjustments made to Mathias' changes:
+>>    - Created xhci-intr.h to export/expose interrupter APIs versus 
+>> exposing xhci.h.
 
-Thanks!
+Do you think using the xhci-intr.h is a viable solution for class 
+drivers to request for a secondary interrupter?
 
-[01/11] ASoC: topology: Properly access value coming from topology file
-        commit: c5d184c92df2b631fb81fe2ce6e96bfc5ba720e5
-[02/11] ASoC: topology: Remove unused SOC_TPLG_PASS_PINS constant
-        commit: 6257d224b894b676540998ae9563c211410c9436
-[03/11] ASoC: topology: Fix typo in functions name
-        commit: 8f9974d9d767d11ce17280bec0d0f2e95e91954d
-[04/11] ASoC: topology: Fix function name
-        commit: 23e591dc0f8ce0298857a1445993fa7549a1f2e0
-[05/11] ASoC: topology: Rename remove_ handlers
-        commit: 2abfd4bd7b0700df4996ae2b60a12f22a0ef633d
-[06/11] ASoC: topology: Remove unnecessary forward declarations
-        commit: 70a7cd09a6368e0c9d351185a8fbfb3bae5a74f3
-[07/11] ASoC: topology: Pass correct pointer instead of casting
-        commit: 9e2ee00039a8ff236ae4db2366f4d2325658bea6
-[08/11] ASoC: topology: Return an error on complete() failure
-        commit: b784617a407c4f7e079e1694c3161ab29eb4bab1
-[09/11] ASoC: Topology: Remove unnecessary check for EOF
-        commit: d9b07b790a5c47dd4fd66c9264a3b38a103fa09b
-[10/11] ASoC: topology: Unify kcontrol removal code
-        commit: fdfa3661f830c98fb0f6380c3876fae33bc83b1d
-[11/11] ASoC: topology: Use unload() op directly
-        commit: 31e9273912bf5e4c23a876b5dfe0760fbecde92c
+>>      Moved dependent structures to this file as well. (so clients can 
+>> parse out
+>>      information from "struct xhci_interrupter")
+>>    - Added some basic locking when requesting interrupters.
+>>    - Fixed up some sanity checks.
+>>    - Removed clearing of the ERSTBA during freeing of the interrupter. 
+>> (pending
+>>      issue where SMMU fault occurs if DMA addr returned is 64b - TODO)
+> 
+> Was this solvable by first clearing high 32 bits and then low 32 bits?
+> 
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+During the freeing of the secondary interrupter, the SMMU fault wasn't 
+resolvable with clearing the high bits first.  This does somewhat give 
+me the notion that the xHC is attempting to access the event ring base 
+address every time the ERSTBA is written.  I believe the hi-lo write 
+didn't work, as this time we are zero'ing out the base address. (SMMU 
+FAR=0x0)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+As stated in Table 5-40 in the XHCI spec, when we write a 0 to the 
+secondary interrupter ERSTSZ, it should disable that event ring.  In 
+this case, do we really need to explicitly clear the base address 
+register?  If I don't clear the ERSTBA (during free), then I don't see a 
+SMMU fault even after the event ring has been freed. (ie event ring 
+memory has been unmapped from the SMMU)  So this should mean the xHC 
+hasn't attempted to access that unmapped region for the memory address 
+stored in the ERSTBA.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Likewise, we'll write the ERSTBA again during the alloc phase to a valid 
+and mapped address.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Thanks
+Wesley Cheng

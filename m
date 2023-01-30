@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE2F681D65
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:53:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E257681D71
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:53:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63705846;
-	Mon, 30 Jan 2023 22:52:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63705846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37B6DDEC;
+	Mon, 30 Jan 2023 22:53:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37B6DDEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675115600;
-	bh=BLhEcl/JyIamMUm5UlXqvUh3ZTuM9IHM6yExfn1i5yA=;
+	s=default; t=1675115637;
+	bh=KA/Zm4n7aGzTwIIZacPrZqr73AGWUao3rmfYUvqpbQw=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=scTRcVlbiFRbJA+mEFySz1dBiyBxHVoUyFRGfwWBW2k4n64aA+s08pPor829VIxXy
-	 hWDMqsHMyEaIEKNwLEUDU08qSNnlqeZEKXPuGXjwZ5tMSBRgsXUiArrpLV+qyJg6Px
-	 iPr1SBlPuhdfffyDx8RPtRyfixOUbffTQ0pjhIJ8=
+	b=TscIWTyK96ucrQib+Cw8i2rrXJtwFpWiZgoQ/2xGE7Ie9lGEg45kloo11+U3vh4Gu
+	 u98O6mVx+ShOjGf5rWm6VPX+kW8cMXKWbE3PHCgo7YFhEseJrKlFuKpKxogY94LV+U
+	 ImesZDNvLBdwQFDSZ3mUyaQZ5hz9HsnrPQgLD17s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79798F80423;
-	Mon, 30 Jan 2023 22:52:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B853EF80496;
+	Mon, 30 Jan 2023 22:53:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7DE1F8032B; Mon, 30 Jan 2023 22:52:19 +0100 (CET)
+ id 1EA76F8047D; Mon, 30 Jan 2023 22:53:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,47 +36,47 @@ Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D11BF80155
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:52:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D11BF80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28F24F80155
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:53:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28F24F80155
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=n8a2VbTM
+ header.s=qcppdkim1 header.b=RbLeJmbC
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30ULUVkK022923; Mon, 30 Jan 2023 21:52:10 GMT
+ 30UHmtRR011612; Mon, 30 Jan 2023 21:52:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=pMeGehCvjIxyYq3VnzuG3YS/OHemqj7G5eJpv4FbH1M=;
- b=n8a2VbTM36K8tEzsZLzv/vieAeKN9eGYyT2UZx64+Nx0Au/09/KwvR2Jr4UucnY7B2dA
- Zwrl5FQ/X3dUCf7ePaoh+F4uDOD48jUHtBlC8/HbxmOIAx2HrtZOgMq74ODQ+Icva/st
- K36Y0rJ1GewHb5fI+J/CxNXxkrzQ3vqH7+f9dJtfpJq3e9QxVwv1XQ3K/nOjTne8pAok
- wWg2LeZVjuCd4sEUO0o5DvXuxD6HG55oubk0h5BBku/T0hpfgfeI/+Gk+/tcGZpKXbsK
- mB5jd1AkDh1BSeAjKXy59JRfRBwrWcPqcCbyDrlLglxGhRUyeYRvmy78IXoIuJwneaKp Jw== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=qudzAMrZbd7azpkah8g2SJrTMXVcZj9v+kNdtX9wKs8=;
+ b=RbLeJmbCE1ECwKEYfszYJAJBVShpwxFbOB502z7qMwH1jfsBauVwThO3GlXwxpl5DynC
+ h/6KbNgvELhFvstLlc3MFQSNvGo+Uth9rVd5C0TLAjkrNl7NXmLWoUM9AZJ12iYpO1d/
+ lHdeKdK1Djvb2J/b3hRGf9AImZx/Ay6hV3q79b3SW5VJgK+ch4bQOJToRSHLytaUHlCg
+ FTDHAHkRIr17MQrjO35RYJiDFXfpOgY0qemuG3qpNLCfgN5W+fbib7uuYb4Dq7QVBudF
+ xTnVxfZWQcuAD2w1BhawsUEiO0HzcFIWC5hjWwGoyMoDHYECRClGn5SUpKOhqmVcXfAO UQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ncvfpcmgg-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ncvfpcmjw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 21:52:09 +0000
+ Mon, 30 Jan 2023 21:52:58 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30ULq8RN014878
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30ULqv9L028311
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 21:52:09 GMT
+ Mon, 30 Jan 2023 21:52:57 GMT
 Received: from [10.110.113.14] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 30 Jan
- 2023 13:52:07 -0800
-Message-ID: <e040a41c-8004-a5c0-eb3d-e1b2b06eeb1a@quicinc.com>
-Date: Mon, 30 Jan 2023 13:51:52 -0800
+ 2023 13:52:56 -0800
+Message-ID: <1f48b69d-d727-8453-01b0-0ffeb01a011b@quicinc.com>
+Date: Mon, 30 Jan 2023 13:52:56 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [RFC PATCH v2 00/22] Introduce QC USB SND audio offloading support
+Subject: Re: [RFC PATCH v2 08/22] ASoC: dt-bindings: Add USB_RX port
 Content-Language: en-US
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
  <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
  <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
@@ -84,26 +84,27 @@ To: Mathias Nyman <mathias.nyman@linux.intel.com>,
  <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
  <agross@kernel.org>
 References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <1e889754-6492-4c53-27f0-796002d5680c@linux.intel.com>
+ <20230126031424.14582-9-quic_wcheng@quicinc.com>
+ <62207c21-38f2-eb37-ea1d-2f6eef2202ff@linaro.org>
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <1e889754-6492-4c53-27f0-796002d5680c@linux.intel.com>
+In-Reply-To: <62207c21-38f2-eb37-ea1d-2f6eef2202ff@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: EXurEiNRKHrMlBe5HsV4k8Of91RkhGfa
-X-Proofpoint-ORIG-GUID: EXurEiNRKHrMlBe5HsV4k8Of91RkhGfa
+X-Proofpoint-GUID: cqq5Uzm1peeX_7CEIorL75kNcKH8Q4Tt
+X-Proofpoint-ORIG-GUID: cqq5Uzm1peeX_7CEIorL75kNcKH8Q4Tt
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
  definitions=2023-01-30_17,2023-01-30_01,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
+ clxscore=1011 adultscore=0
  spamscore=0 mlxscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 mlxlogscore=999 bulkscore=0
+ priorityscore=1501 phishscore=0 mlxlogscore=630 bulkscore=0
  impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2212070000 definitions=main-2301300201
 X-BeenThere: alsa-devel@alsa-project.org
@@ -124,65 +125,21 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mathias,
+Hi Krysztof,
 
-On 1/26/2023 1:23 AM, Mathias Nyman wrote:
-> On 26.1.2023 5.14, Wesley Cheng wrote:
->> Changes in v2:
->>
->> XHCI:
->> - Replaced XHCI and HCD changes with Mathias' XHCI interrupter changes
->> in his tree:
->> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
->>
->>
+On 1/26/2023 3:55 AM, Krzysztof Kozlowski wrote:
+> On 26/01/2023 04:14, Wesley Cheng wrote:
+>> Q6DSP supports handling of USB playback audio data if USB audio offloading
+>> is enabled.  Add a new definition for the USB_RX AFE port, which is
+>> referenced when the AFE port is started.
 > 
-> I'll submit the first three patches from that branch myself to usb-next, 
-> might modify
-> them slightly.
-> Just need to make sure they don't cause regression. Those are changes I 
-> want done anyway.
+> Subject prefix:
+> ASoC: dt-bindings: qcom,q6dsp-lpass-ports:
+> 
+> because you are not adding USB_RX port to all bindings in ASoC.
 > 
 
-Sounds good! Thanks!
-
->> Adjustments made to Mathias' changes:
->>    - Created xhci-intr.h to export/expose interrupter APIs versus 
->> exposing xhci.h.
-
-Do you think using the xhci-intr.h is a viable solution for class 
-drivers to request for a secondary interrupter?
-
->>      Moved dependent structures to this file as well. (so clients can 
->> parse out
->>      information from "struct xhci_interrupter")
->>    - Added some basic locking when requesting interrupters.
->>    - Fixed up some sanity checks.
->>    - Removed clearing of the ERSTBA during freeing of the interrupter. 
->> (pending
->>      issue where SMMU fault occurs if DMA addr returned is 64b - TODO)
-> 
-> Was this solvable by first clearing high 32 bits and then low 32 bits?
-> 
-
-During the freeing of the secondary interrupter, the SMMU fault wasn't 
-resolvable with clearing the high bits first.  This does somewhat give 
-me the notion that the xHC is attempting to access the event ring base 
-address every time the ERSTBA is written.  I believe the hi-lo write 
-didn't work, as this time we are zero'ing out the base address. (SMMU 
-FAR=0x0)
-
-As stated in Table 5-40 in the XHCI spec, when we write a 0 to the 
-secondary interrupter ERSTSZ, it should disable that event ring.  In 
-this case, do we really need to explicitly clear the base address 
-register?  If I don't clear the ERSTBA (during free), then I don't see a 
-SMMU fault even after the event ring has been freed. (ie event ring 
-memory has been unmapped from the SMMU)  So this should mean the xHC 
-hasn't attempted to access that unmapped region for the memory address 
-stored in the ERSTBA.
-
-Likewise, we'll write the ERSTBA again during the alloc phase to a valid 
-and mapped address.
+Thanks will fix this on the next revision.
 
 Thanks
 Wesley Cheng

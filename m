@@ -2,112 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7FA3681F42
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 00:01:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C39268204C
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 01:01:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65F7FDFA;
-	Tue, 31 Jan 2023 00:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F7FDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7117BE78;
+	Tue, 31 Jan 2023 01:00:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7117BE78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675119693;
-	bh=+zjXQxEoxn4tcPQYQulz2rSi6Mg+LtUKA3MI9jJfLI4=;
+	s=default; t=1675123289;
+	bh=NxMa5bJdffBaqxCEjJ47Ei59YQ+ioElnc5bDUaZ3lyo=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=XEmlP2wAJi6d3CKp4NUerdOWl60HxRyt4Xn84ndcOEAO6g0TgSMJMXcf2/ETsa6tq
-	 0U2/W8JloCr85f4+X2/LCYa4kGUSDj0W5H6fALasom8zikbsB84ZHWG1MWsx2te/if
-	 jzbyYtCfdMdA5LyUf+H5bncyjphzZ4XDWwRtvFs8=
+	b=HIZdn6ZCgtRg3f8kXUALbeVhXhlf6osDQjyE9MGwdFE/wpiCqONiwJd2FE2TGvyjQ
+	 WnfmJ+3EgXh911Zc7yMjbxt4feTxEDgxdmNrl+0/5kpAQCn3rshMmSEYyUXwjx2c7W
+	 qwBuWAI/crskr6awCbCfCQJAevypFwckTGpZG3xk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02C48F80236;
-	Tue, 31 Jan 2023 00:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCF0AF800A7;
+	Tue, 31 Jan 2023 01:00:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 003FCF8032B; Tue, 31 Jan 2023 00:00:40 +0100 (CET)
+ id 557CCF80423; Tue, 31 Jan 2023 01:00:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8625F800A7
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 00:00:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8625F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43FDBF80155
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 01:00:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43FDBF80155
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=f5lINehj
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30UM2b88009878; Mon, 30 Jan 2023 23:00:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=99WODW3J7GhU0EkcLJZeiwYlNeOFNhO6mFi3Lr6ZqLM=;
- b=f5lINehjc3BTKPiZNHGnx0WFVoTqm+4+cqwjKKBY+kA29Kg7/ev3gnwX2Ef0ZGHZA1Kw
- qw3OgxJIBoxWwC0qYW7zq1YS61CrQQWjfzRZ3iShGL8z6fImX91e+ZW9qPs/um8MsluP
- CuCkCUoIod02UaiqX3YDE86E4yj3wOPDQ1oQ3IT7LnkiNiR74uPPCEhqTiZKP/d7Tt+5
- vi/Vf0oyKyo85kZMy3+KNdvX5qCgX3suhtrx3NtQR8qO/r01o7lqO+BA6FNWJ8HGQrWO
- nUw+yGVhFpp1yEM3M/gOsmHqe1Dq2/pXkUkJzLccu2lv6hXzzHa3gXAHq7aYYGsLjqoD 2Q== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ncuxamtj8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 23:00:34 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 30UN0XQ1023427
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Jan 2023 23:00:33 GMT
-Received: from [10.110.113.14] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Mon, 30 Jan
- 2023 15:00:32 -0800
-Message-ID: <63ef99b7-c6c4-497d-da08-a3966291de9f@quicinc.com>
-Date: Mon, 30 Jan 2023 15:00:32 -0800
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=D0yzNFM6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675123223; x=1706659223;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NxMa5bJdffBaqxCEjJ47Ei59YQ+ioElnc5bDUaZ3lyo=;
+ b=D0yzNFM6cAPmcQ0NdgWwHTxlMRnT6dL7JZEDE0ytrTEHLhzeKrKVyeb/
+ w+/9R9/gPJQO9amIMG2GGyPjop3cJu8tt7NCgalZ6CDYI1ItE4fLwdzIb
+ TwKf4WNzgjWgq86cGbXQ5g5JNbe6r0lunMqSDeUA2M13tiFsqq9O30z1u
+ 8M1cdgIePc+uqbtKsQmZXsS8YDTq018/ZFca5LcUj6wejmCMuIDtcbToU
+ xFBRYBXTO9yaY0xEvKyY0EssYUTOSSlt4OjY3338ZcULC5n3A/kwJpEHd
+ 8zAK5FCKQoKFFjvHlzTr5kypXVQKv9OVA7aaUlayF2QZJpzhIvoFT3chT A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="327726700"
+X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="327726700"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2023 16:00:17 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="614227900"
+X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="614227900"
+Received: from inuber-mobl5.amr.corp.intel.com (HELO [10.212.58.60])
+ ([10.212.58.60])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2023 16:00:15 -0800
+Message-ID: <8f827e42-e5d8-1190-b5ae-2f99c71fbeee@linux.intel.com>
+Date: Mon, 30 Jan 2023 17:50:23 -0600
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH v2 12/22] sound: usb: card: Introduce USB SND platform
- op callbacks
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: [RFC PATCH v2 11/22] ASoC: qcom: Add USB backend ASoC driver for
+ Q6
 Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
- <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
- <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
- <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
- <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
- <agross@kernel.org>
+To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
+ andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
+ bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
 References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-13-quic_wcheng@quicinc.com>
- <1013f667-c11f-25a2-ab2b-87b9368ad456@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <1013f667-c11f-25a2-ab2b-87b9368ad456@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: YxBG3Jnkvw4vvbPrO9t0zF_PiC2Ra7GI
-X-Proofpoint-GUID: YxBG3Jnkvw4vvbPrO9t0zF_PiC2Ra7GI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-30_17,2023-01-30_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0
- malwarescore=0 bulkscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 mlxlogscore=762 impostorscore=0 phishscore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2301300211
+ <20230126031424.14582-12-quic_wcheng@quicinc.com>
+ <7f471960-0909-4680-e192-261d1fdfe6d7@linux.intel.com>
+ <4a255518-6fbb-122a-ba97-1e995785c35f@quicinc.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <4a255518-6fbb-122a-ba97-1e995785c35f@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,59 +103,52 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Pierre,
 
-On 1/26/2023 7:50 AM, Pierre-Louis Bossart wrote:
+>>> +static struct snd_soc_dai_driver q6usb_be_dais[] = {
+>>> +    {
+>>> +        .playback = {
+>>> +            .stream_name = "USB BE RX",
+>>> +            .rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |
+>>> +                SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |
+>>> +                SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
+>>> +                SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
+>>> +                SNDRV_PCM_RATE_192000,
+>>> +            .formats = SNDRV_PCM_FMTBIT_S16_LE |
+>>> SNDRV_PCM_FMTBIT_S16_BE |
+>>> +                SNDRV_PCM_FMTBIT_U16_LE | SNDRV_PCM_FMTBIT_U16_BE |
+>>> +                SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S24_BE |
+>>> +                SNDRV_PCM_FMTBIT_U24_LE | SNDRV_PCM_FMTBIT_U24_BE,
+>>> +            .channels_min = 1,
+>>> +            .channels_max = 2,
+>>> +            .rate_max =     192000,
+>>> +            .rate_min =    8000,
+>>> +        },
+>>> +        .id = USB_RX,
+>>> +        .name = "USB_RX_BE",
+>>> +        .ops = &q6usb_ops,
+>>> +    },
+>>> +};
+>>
+>> ... here I see a single DAI, so presumably ONE endpoint can be supported?
+>>
 > 
+> One USB audio device can be supported.
+> one AFE port = one USB audio device
 > 
+>> I didn't see in the rest of the code how a card with multiple endpoint
+>> would be rejected, nor how the capabilities are checked?
+>>
 > 
->> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
->> +{
->> +	if (platform_ops)
->> +		return -EEXIST;
->> +
->> +	platform_ops = ops;
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(snd_usb_register_platform_ops);
->> +
->> +int snd_usb_unregister_platform_ops(void)
->> +{
->> +	platform_ops = NULL;
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(snd_usb_unregister_platform_ops);
+> Need to take a look at this query a bit more.  Let me try to pass in a
+> format that can't be supported by the audio DSP, and see if the formats
+> specified in this structure will not allow userspace to start the session.
 > 
-> I find this super-racy.
-> 
-> If the this function is called just before ...
-> 
->>   
->>   /*
->>    * disconnect streams
->> @@ -910,6 +928,10 @@ static int usb_audio_probe(struct usb_interface *intf,
->>   	usb_set_intfdata(intf, chip);
->>   	atomic_dec(&chip->active);
->>   	mutex_unlock(&register_mutex);
->> +
->> +	if (platform_ops->connect_cb)
->> +		platform_ops->connect_cb(intf, chip);
->> +
-> 
-> ... this, then you have a risk of using a dandling pointer.
-> 
-> You also didn't test that the platform_ops != NULL, so there's a risk of
-> dereferencing a NULL pointer.
-> 
-> Not so good, eh?
-> 
-> It's a classic (I've had the same sort of issues with SoundWire), when
-> you export ops from one driver than can be removed, then additional
-> protection is needed when using those callbacks.
-> 
-> 
+> When you say a "card with multiple endpoints" are you referring to a USB
+> device that exposes multiple data (ISOC let's say) eps for its data
+> interface?  I haven't run into a device like that.
 
-Yep, will take a look at this a bit more to improve it.
-
-Thanks
-Wesley Cheng
+A headset will typically only have two isoc endpoints for playback and
+capture respectively, but while that's a very large market USB audio is
+far from restricted to this configuration. It's not uncommon for the pro
+or prosumer market to see devices with multiple input/output
+capabilities and run-time mixing on the host.

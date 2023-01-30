@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD74681DC2
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 23:10:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CE5681DBA
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 23:10:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E57EBDED;
-	Mon, 30 Jan 2023 23:10:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E57EBDED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20E3EE0E;
+	Mon, 30 Jan 2023 23:09:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20E3EE0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675116654;
-	bh=AqlnzWPRF+uEjVv/UozyuoSzWlkU2O5O2wEg5CwY4xs=;
+	s=default; t=1675116606;
+	bh=gneaJEkqB4aHYWjxuQig8OCrMZyrRQNKP51dZ/hhJaE=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=IS/4MH/LiCJ6mvWiJfGog5cjr+gVsXAtRAVYDQsmIoW0kqamzUfGgkWT2T8HePf3b
-	 Cgp0n+BXbA+3WdBVZ6sMPHAvkVGZa2jbpjCXQgGFj3EPQgCWgwLSM/9QBAYeVZ5IoA
-	 daH1N8OW+e4Hpxu1cnec/iX7JM5znfM1dW14YZLk=
+	b=T5lAiuYpgUQthYPg5P6pX5WandzsOKF3u4ebfle2BbYgcjEqO9/YpQaM1SYr6t51e
+	 g7vXSPeszZLEiKiVr5xEQEL+TQ6ivv151hArFRdg9z05EyD+ImhwZXV7r5S1fl4mc4
+	 HFLFtfUpkMAGC7CS1qyF2HMo4QXqiDMBebrl3Ytc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFBF8F80567;
-	Mon, 30 Jan 2023 23:08:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA961F80557;
+	Mon, 30 Jan 2023 23:08:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF668F80563; Mon, 30 Jan 2023 23:08:28 +0100 (CET)
+ id 5A71AF80544; Mon, 30 Jan 2023 23:08:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::60e])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20603.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::603])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17912F80423
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 23:08:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17912F80423
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3E5EF800A7
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 23:08:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3E5EF800A7
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=WIDvcg3/
+ header.s=selector1 header.b=mlGV5BZJ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=erMNaNB8BnFQxTJLc/svYfQ+F01L7owz+ll6vaA2kjxrFFiIq/JwgXiqNDCgkrH+ZWp2L1h3ye/0Y8DsXmkralt/oN+J7EShy9rzsVhOM6VTwYAq+lIsnYizz0h90nUOg7qGjeQZXyJraIThg/sfsROQwO72wNrGZfaopIXqYgEVGLWEWlMzDjbXmG6bJYrkrkJavotVvM567yQNHU4wYSsk2BOhkjw8SDtcak33khGCpcj1VWEN7yL+tvPxKsiEwDhq6RTdehWjsAbsz+o04+LirkO9cI9lfHI+W1caNNfRGvTqP4T5O46b7mdEQbt8CwttbgGErjUQ0DjUfcPo2w==
+ b=Ji+rGmFhK6N+cvVBRGJtmMX84dds583YdSi3YLPoYJRsv5Ip8tLtmluBmhGE1Gr12uD8n51ZrA1NssaoUYjGOwvpfYjrWfduy1qRpun4wz5BiGXS8wE1l1y/GlKKuwTKm79d+AeaATGeaharqnkqO4yBn6OksYhY6NMm4HAUE6hHdFRTwhrcnxdNFnL32ZGQvcumlnmSLcLOAg11ViqCHBNWPL9ZyPuQJUZE+6eNLhXeIW3zJ2BE6VdshR0Sctu62GZXzTVN9k+sx1MIUogt6JqBS6PbZGn9AhZNRB7tozN+BPy3XJT5JMPvKhfnFfUYaFK0sFw4fx77I0+x81NvTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F/8511HDqNx9BFiFOeiqBy0XH6KI5pNo1EYEK/Be4Fo=;
- b=D+BfSltUediaHcWZM8p+jl2Vq/UjrgqcpIWLxmIpHhVIQhcedk4Fkr2SWMqeiQHc1GBTPv9WtndexAhbesTGVfb6m6gvYt+yw4Iz7bSkvU3Xn03EqG+3q2v3+iLzkJX9odLryo/TCG2TPW2Vv9XUL1hMh41GfrBN8o9NPrbaVRQcjavA6BWTnT8CAPMIKfuSbP7pZIhgqjXRJrEDqOgxAGTtHJ29g4+z7Z1ttfPwhQVxMp8uulAqZ5JayOSlANcfasyQefMWMY/JT2GbqgvZbC3dCtYLRA1/CP0ZKBby3of+igf85W4fzqqj87QTD2/JWPl6rTu+HF5fntAWEEX5aQ==
+ bh=7myppTcR7oW5npvdU5XwvzSX65cR7yfxVbtsMstF1lM=;
+ b=PZv6iW1084G/iqMJHozQ83t5yRjyVwa+GMOX2R4ebRJpdUnrOoQSp+coTRj7i7Ze6ScLghS4lfCKUzJ1BidqT5ldxY0LV631+gJA/cp1zGESEW9rcO0MhAVseHU0bfb5nY8QYQ6nCTgx5MbKxVK8AwII74clTChu6Z9ZZBvaLHA7NPKVOB73WOtJb+qc5G1LqrWBL/eB8wtfvFJHpr2ATrRwcCSen/GjeVYyqqG0vA7VvKrnbdRfi/JgTpehb+on7f+NaKaH2uiATFUSpZk91ewCfL3DBNRG7iJoOknepW314kcToxCPpWjqKVEB4GhJwMS90RaKQFEDMQsFqMAMiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F/8511HDqNx9BFiFOeiqBy0XH6KI5pNo1EYEK/Be4Fo=;
- b=WIDvcg3/AoYMNnNJxbvQUqsz6TSvL+Bty0e104Z32f0ILK1op3okJUmu6xBltHo5JUNby6XObk22aAUrklqgXOhmN3SusJp5LdfEMf+t2jtNodL3RWhAO84YjxitSt7FyT9+XAEVYWscHCBkyHI0/OBSYVvvSn0Je7fFoFVAhxk=
-Received: from DM6PR17CA0001.namprd17.prod.outlook.com (2603:10b6:5:1b3::14)
- by MN2PR12MB4552.namprd12.prod.outlook.com (2603:10b6:208:24f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Mon, 30 Jan
- 2023 22:08:12 +0000
+ bh=7myppTcR7oW5npvdU5XwvzSX65cR7yfxVbtsMstF1lM=;
+ b=mlGV5BZJJT84p/jw9nWwRO9jQKWBtgmPmNrELgSetAl3y6XqNKmy5IUZj0j7Y5Xd4eUuyYFN2auXtaZjkBc3K1b9bl3dHM28psQZGH29kgzZ5qaMY6mvdZKJQ5CKxV+nCWSKsvG197d/T9QoHh1m2BoACOF8NmNrDqVtLMtCRjw=
+Received: from DM6PR17CA0026.namprd17.prod.outlook.com (2603:10b6:5:1b3::39)
+ by DM4PR12MB6133.namprd12.prod.outlook.com (2603:10b6:8:ae::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.36; Mon, 30 Jan 2023 22:08:12 +0000
 Received: from DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1b3:cafe::5) by DM6PR17CA0001.outlook.office365.com
- (2603:10b6:5:1b3::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:1b3:cafe::9e) by DM6PR17CA0026.outlook.office365.com
+ (2603:10b6:5:1b3::39) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36 via Frontend
  Transport; Mon, 30 Jan 2023 22:08:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -81,15 +79,14 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 30 Jan
- 2023 16:08:10 -0600
+ 2023 16:08:11 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Jaroslav Kysela <jkysela@redhat.com>, Mukunda Vijendar
  <Vijendar.Mukunda@amd.com>, Saba Kareem Syed <Syed.SabaKareem@amd.com>,
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 4/6] ASoC: amd: renoir: Add a module parameter to influence
- pdm_gain
-Date: Mon, 30 Jan 2023 16:07:52 -0600
-Message-ID: <20230130220754.8379-5-mario.limonciello@amd.com>
+Subject: [PATCH v2 5/6] ASoC: amd: ps: Adjust the gain for PDM DMIC
+Date: Mon, 30 Jan 2023 16:07:53 -0600
+Message-ID: <20230130220754.8379-6-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230130220754.8379-1-mario.limonciello@amd.com>
 References: <20230130220754.8379-1-mario.limonciello@amd.com>
@@ -101,26 +98,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|MN2PR12MB4552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51ccd41d-1839-4af0-202e-08db030e7a73
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|DM4PR12MB6133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 406f0b7f-c0d1-41dc-7c5e-08db030e7ad2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SlP+CFJog3VmnKxTgtaNr76pppN+B3ySbPM4Z4duNBZ2pscOC1XA3xb/LaXHlttXPXaxbYovqqzHidjqhHvR7Ynh0lp9M6VUBcNC1UJVwM0hlA7v3vtLdRshDIMsIEhzzSTR5MRNve5vKQi9lN0J10phP50MUaMy76jfTQ70PU8AdOJAlEI05TbQTdeOJsfIiJZIDwTPThjPbFCWcx4nMGqCZ1MlJOjUSy/Zic9p934l/dLBdvu9oUUyWJRgZ2wXgDjUEmro08JpqGZljQ5/9nxnVBCodRfoBiemswa5/QT03O6n0brxwUT6KUUudFzUMt1pGBD4VlQELNh0c2tDiXnXu/nCG/M/dKElFQBAaUwyNTDFOFOZ2zvQALM1DS9BEIFy5mdrzPF85Cij83jEkZivRIceNxPPvU1T8GYFhzWGyN73qDFE8xkaT6oE3Rngmm8Cvj6S++YQH3ldmW362FOORX6ZCcIp2nXjdL0Ai9ZG6IXBpIiQ/hF8nlnsKwYKNojlXHcuLIQW+K/cxCeA0i1PV/Wyzlfv79kkoI7xjbCnJOVBuiv1Oww9/7cORpzg0zyZLECjV5PLaabTTj2rz0CcvCqvHSZbssinrBGphXT3pEeH2ANFYAxeJUWxPZ/djOPzJ2Qa8oC4+gejoFBNpftl8Lzw8qhcICYc0wjheh30meRZdfP5v/kcvW07d2BcG/BcB7FTgZAO4OHzbcV9seonFcVAIAAvIzjeFJehHHA=
+X-Microsoft-Antispam-Message-Info: hLDCKK0AaeHaf6Q7hAKw4pENjvqbJ6zSMwrYCETAcyJpbs1fxU7/oQcvVsD5iSAMJJXROmuvYmu9Wa8g6+Bs7dKcjTX5nf7JdngYcnO+0DdeZCfbc8F0DaB4vuyG9sl6vo2PAtoZeMSeJuqWDZbhucqi99WNinpGfV5Bv/VIIvIjrmISHg9TNuHTrhYerkHrKtyJN4IDmGNK594iJntZ9jbWZ8CGSthyhrq8+VqDa+5k5Pnj0ZsobTGcakMnJquQWdYTL70BDIjMTUQtunyLodirfKtMitQkUBxlPTloKcWgTUu6EKgRfb3NXikKTWhzW6p7/K6cFvfOJeESlJ0pE4TkncxbvxyvMGJASaZ8MdXzEh/3r7WTIytfwjDTfkM13NJaFurS7I2aE5eaycczbY5JYsUBoiFJ8pRrvCeqJ/Y9kdOOKPppaRPotDjlq0JSDnZYTtHXxC0EQvHa993a4lGfuW27mteOcaPYVNLtjlXFcZxGJXNDMHnB/d486G6OE041IWidRgNnImueTgAIAcyQp6zRSdKqWfOcX2XEKkaJAGmLgN35veBfwtg0eqg6TKWHGugg0t3UtHx1/51+WhDsvDW+koiZECqGrqZhjG81BdTtX5g5TW/hfnlLfUiHjz9SHuMPgCCWwLVIZnfdfGYcVvn2zJfBjWKAMJycmo+6W99F7BurL3fnOXVy6VfUfMoCo/1pt9gP3ue23V9+UegDn60795YqzFWIwy+riDw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199018)(40470700004)(36840700001)(46966006)(2906002)(316002)(186003)(5660300002)(356005)(44832011)(1076003)(16526019)(36756003)(110136005)(54906003)(2616005)(40460700003)(26005)(81166007)(6666004)(82310400005)(40480700001)(86362001)(47076005)(7696005)(426003)(336012)(83380400001)(82740400003)(478600001)(4326008)(70206006)(8676002)(70586007)(8936002)(36860700001)(41300700001)(36900700001);
+ SFS:(13230025)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199018)(36840700001)(40470700004)(46966006)(82310400005)(2906002)(5660300002)(86362001)(44832011)(4744005)(47076005)(336012)(426003)(83380400001)(81166007)(8936002)(40460700003)(41300700001)(356005)(36756003)(478600001)(26005)(1076003)(7696005)(6666004)(186003)(82740400003)(2616005)(36860700001)(110136005)(54906003)(4326008)(70206006)(8676002)(40480700001)(70586007)(316002)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2023 22:08:12.1066 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ccd41d-1839-4af0-202e-08db030e7a73
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2023 22:08:12.7316 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 406f0b7f-c0d1-41dc-7c5e-08db030e7ad2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4552
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6133
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,74 +139,30 @@ Cc: alsa-devel@alsa-project.org,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In case of regressions for any users that the new pdm_gain value is
-too high and for additional debugging, introduce a module parameter
-that would let them configure it.
+No issues have been reported yet for DMIC audio level on ps platforms,
+but as problems were found both on YC (Rembrandt) and Renoir based
+designs it's very likely they happen on ps too.
 
-This parameter should be removed in the future:
- * If it's determined that the parameter is not needed, just hardcode
-   the correct value as before
- * If users do end up using it to debug and report different values
-   we should introduce a config knob that can have policy set by ucm.
+Increase the PDM gain to solve this problem.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-v1->v2:
- * Add a guard for values > 3 to overflow the FIELD_PREP
- * Clear ACP_WOV_GAIN_CONTROL before setting it
----
- sound/soc/amd/renoir/acp3x-pdm-dma.c | 10 +++++++++-
- sound/soc/amd/renoir/rn_acp3x.h      |  2 +-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ sound/soc/amd/ps/acp63.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-index 7203c6488df0e..4582d4b8cdf73 100644
---- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
-+++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-@@ -6,6 +6,7 @@
- 
- #include <linux/platform_device.h>
- #include <linux/module.h>
-+#include <linux/bitfield.h>
- #include <linux/err.h>
- #include <linux/io.h>
- #include <linux/pm_runtime.h>
-@@ -17,6 +18,10 @@
- 
- #define DRV_NAME "acp_rn_pdm_dma"
- 
-+static int pdm_gain = 3;
-+module_param(pdm_gain, int, 0644);
-+MODULE_PARM_DESC(pdm_gain, "Gain control (0-3)");
-+
- static const struct snd_pcm_hardware acp_pdm_hardware_capture = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
-@@ -80,7 +85,10 @@ static void enable_pdm_clock(void __iomem *acp_base)
- 
- 	rn_writel(pdm_clk_enable, acp_base + ACP_WOV_CLK_CTRL);
- 	pdm_ctrl = rn_readl(acp_base + ACP_WOV_MISC_CTRL);
--	pdm_ctrl |= ACP_WOV_MISC_CTRL_MASK;
-+	pdm_ctrl &= FIELD_PREP(ACP_WOV_GAIN_CONTROL, 0);
-+	if (pdm_gain > 3)
-+		pdm_gain = 3;
-+	pdm_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, pdm_gain);
- 	rn_writel(pdm_ctrl, acp_base + ACP_WOV_MISC_CTRL);
- }
- 
-diff --git a/sound/soc/amd/renoir/rn_acp3x.h b/sound/soc/amd/renoir/rn_acp3x.h
-index c174f84650d24..7d0f4e6a2834d 100644
---- a/sound/soc/amd/renoir/rn_acp3x.h
-+++ b/sound/soc/amd/renoir/rn_acp3x.h
-@@ -34,7 +34,7 @@
- #define ACP_ERROR_STAT 29
- #define PDM_DECIMATION_FACTOR 0x2
- #define ACP_PDM_CLK_FREQ_MASK 0x07
--#define ACP_WOV_MISC_CTRL_MASK 0x18
-+#define ACP_WOV_GAIN_CONTROL	GENMASK(4, 3)
- #define ACP_PDM_ENABLE 0x01
- #define ACP_PDM_DISABLE 0x00
- #define ACP_PDM_DMA_EN_STATUS 0x02
+diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+index 5e7f9c1c1b0e8..bae8288d8231c 100644
+--- a/sound/soc/amd/ps/acp63.h
++++ b/sound/soc/amd/ps/acp63.h
+@@ -30,7 +30,7 @@
+ #define ACP_ERROR_STAT	29
+ #define PDM_DECIMATION_FACTOR	2
+ #define ACP_PDM_CLK_FREQ_MASK	7
+-#define ACP_WOV_MISC_CTRL_MASK	0x10
++#define ACP_WOV_MISC_CTRL_MASK	0x18
+ #define ACP_PDM_ENABLE		1
+ #define ACP_PDM_DISABLE		0
+ #define ACP_PDM_DMA_EN_STATUS	2
 -- 
 2.34.1
 

@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BD44681C13
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:02:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B26681C16
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Jan 2023 22:02:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2545E81;
-	Mon, 30 Jan 2023 22:01:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2545E81
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7916DF1;
+	Mon, 30 Jan 2023 22:01:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7916DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675112523;
-	bh=WTWM7SqB8xXGbuN9mo4glH+GptrM7/5tgGaUtKQXtpQ=;
+	s=default; t=1675112546;
+	bh=4kTM7qZTPCTN7vtUc2O1W4p+zcVF/sa0deMNMF+1J5o=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=uHGfr4HiVPP2HBseHzrgl9qbDXkG3ftTs7u7fBRTilwL0fllfrWncILVauwDxhIb1
-	 oVSAdfqv7p/id6OoUDWqjLEo6zGMBn9xd87Dz8yUMh7VT7M5HFk8SQlfPvEJQyPdSv
-	 /T9GOZrzSnJvzI2m4FXILYhxqaCukgtHRNlIRKoI=
+	b=mRhHzvmTzA0tUlyVHNOxPTE79syVRmuVYwqLGF8Ry65elX/nQ1/je07ro/ae8uL8N
+	 i5LKnWzA6PEushgB1YRQh5UDaDHsuzsD3L/LGiaa4D6cmekR0cpgVKZat+9SbnbfoK
+	 ildO42YSnicoyE7y3WHtcp1oZh0K0UQtLFj1wuJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3262BF800A7;
+	by alsa1.perex.cz (Postfix) with ESMTP id B84C1F80558;
 	Mon, 30 Jan 2023 22:00:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56EA0F800A7; Mon, 30 Jan 2023 22:00:27 +0100 (CET)
+ id 49344F80557; Mon, 30 Jan 2023 22:00:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD196F800A7
- for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:00:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD196F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8B71F80549
+ for <alsa-devel@alsa-project.org>; Mon, 30 Jan 2023 22:00:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8B71F80549
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mxoaS9Sz
+ header.s=k20201202 header.b=PG1ECVPt
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A163761262;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A6E3E61263;
+ Mon, 30 Jan 2023 21:00:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D4FC433EF;
  Mon, 30 Jan 2023 21:00:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6BEC433EF;
- Mon, 30 Jan 2023 21:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675112415;
- bh=WTWM7SqB8xXGbuN9mo4glH+GptrM7/5tgGaUtKQXtpQ=;
+ s=k20201202; t=1675112418;
+ bh=4kTM7qZTPCTN7vtUc2O1W4p+zcVF/sa0deMNMF+1J5o=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=mxoaS9Szvk11r18aDgzPv5EHN8uf2loNzdolvsRUP33FG0qZVipXM+1LolBBnrlpH
- nnWRZDOBHObGLpSM89sarZbs6c4z6UHZl2a/fuQ5N5tQUnmGwSca39J+W04lwSxmCy
- lSQysC8vmF5mjQalJJ1I5Hb/yz1eKHeCfL/GZJK16s4UPwlxu5ceOiBDNqd53TacBM
- DcKphWL4CaKg8CSqFogEXolyS21amV6BuaF2VSolK1WX84IWrlroMiNNJaKiuuzj8D
- U2lgOfe+dZnVLerZYw8j8j++gu0gZ2pXjcFKNoldtOtOyOAG0+7bqcg4GVKRDGLKX0
- DkeNJlA+JmKkw==
+ b=PG1ECVPtvhUFMQEyQ9udjXNZeOuPi8QpZSWJSqRjiQIYL8Djne8Gqu2DH+WkwjCaT
+ PQBalZJ6ekV4ZreDtCBtwkh5okBTObHB9BmEW7q83pnaEMcLHGVP1pQs6+mp5gSJGU
+ yueSg9Ta/IvdJeGYR+DfOwNBBnKDNYXLb/DInGK95rMtI6YgHOJAM1Xr5vygZVQxGk
+ QXiq62aVpZLuGfGWKlGdkNPTlzL7c5lVgBKnQZSuqSOkU0b9XWGZSQEEcHpZb+eczA
+ ZSE9DF7sVXALaK7n+gy+g7ZZQcWPS8dMLA8+AobyTgmMEF6cKRHjr5SRg4hRmbSgNR
+ L2D3fwL0SJHVw==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87sfg17rjq.wl-kuninori.morimoto.gx@renesas.com>
-References: <87sfg17rjq.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v3 00/11] ASoC: dt-bindings: audio-graph-port related
- update
-Message-Id: <167511241281.2141894.852476687405190205.b4-ty@kernel.org>
-Date: Mon, 30 Jan 2023 21:00:12 +0000
+To: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, 
+ Alexandru Ardelean <alex@shruggie.ro>
+In-Reply-To: <20230128082744.41849-1-alex@shruggie.ro>
+References: <20230128082744.41849-1-alex@shruggie.ro>
+Subject: Re: [PATCH v2 1/4] ASoC: codecs: tas5720: split a
+ tas5720_mute_soc_component() function
+Message-Id: <167511241532.2141894.5359389287914359338.b4-ty@kernel.org>
+Date: Mon, 30 Jan 2023 21:00:15 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -84,19 +82,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: steffen.aschbacher@stihl.de, tiwai@suse.com, lgirdwood@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Jan 2023 05:23:22 +0000, Kuninori Morimoto wrote:
-> Cc Geert
+On Sat, 28 Jan 2023 10:27:41 +0200, Alexandru Ardelean wrote:
+> This is to be re-used in tas5720_mute() (which is part of the dai_ops) and
+> also in the tas5720_fault_check_work() hook.
 > 
-> These v3 patches fixups audio-graph-port, and its related DT schema.
-> Audio-Graph-Card and Simple-Audio-Card are similar Card
-> and are sharing same utils. Thus we can also sharing same schema.
-> 
-> This patch-set fixup some Renesas's "make dtbs_check".
+> The benefit here isn't too great (now).
+> It's only when we add support for a new device with a slightly different
+> regmap that this becomes more useful.
 > 
 > [...]
 
@@ -106,28 +103,14 @@ Applied to
 
 Thanks!
 
-[01/11] ASoC: dt-bindings: audio-graph-port: use definitions for port/endpoint
-        commit: bbda859e02a4df3ef3f841c72e55d220ca75f90d
-[02/11] ASoC: dt-bindings: audio-graph-port: add definitions/ports
-        commit: 6a7216db63c884863db8200334ddaf991935ff45
-[03/11] ASoC: dt-bindings: audio-graph-port: add missing mclk-fs
-        commit: a2fabeaaf5e29df03ff90ec4ad8ecc8663c5ef16
-[04/11] ASoC: dt-bindings: audio-graph-port: add clocks on endpoint
-        commit: 2f0be75c9ff9351b4968b52e536cef9614ccf4b7
-[05/11] ASoC: dt-bindings: audio-graph-port: remove prefix
-        commit: f2a7ef1acffee5804c00029d7f273a8b7ca46227
-[06/11] ASoC: dt-bindings: ti,pcm3168a: Convert to json-schema
-        commit: 13a7d9e992fa47bb94f55149a3a3b80e7148dc17
-[07/11] ASoC: dt-bindings: ak4613: enable Of-graph (Audio-Graph-Card) style
-        commit: 2657e28b28aee9da8d7c43ba3022c8fcd446ef59
-[08/11] ASoC: dt-bindings: renesas,rsnd: add missing playback/capture
-        commit: fcedf6547e650ae42bc4afc15389c840edc2b2f8
-[09/11] ASoC: dt-bindings: renesas,rsnd: tidyup rcar_sound,src
-        commit: f292f4d36744fb8369055d3dd7e50705babdce37
-[10/11] ASoC: dt-bindings: renesas,rsnd: #sound-dai-cells is not mandatory
-        commit: 60cc61a68c98f23f6fe543bd5ad830a815537677
-[11/11] ASoC: dt-bindings: simple-card: add missing #address-cells/#size-cells
-        commit: 9e8593ec9ef74a4731ab1a07ba0838fc48c98466
+[1/4] ASoC: codecs: tas5720: split a tas5720_mute_soc_component() function
+      commit: 879142be618c05d234db31cbf69f101c53b7892f
+[2/4] ASoC: codecs: tas5720: add support for TAS5720A-Q1 (automotive) variant
+      commit: c24a62be09d8a0c7ede1c209055a4ac6760a45ee
+[3/4] ASoC: tas5720: set bit 7 in ANALOG_CTRL_REG for TAS5720A-Q1 during probe
+      commit: 88f748e38b283702a620e635820f1864bf32db0e
+[4/4] ASoC: dt-bindings: add entry for TAS5720A-Q1 driver
+      commit: 8d076a992eb86b99afb04980ac4b57e3a79f6704
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

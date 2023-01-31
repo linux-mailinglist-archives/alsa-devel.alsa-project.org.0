@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D56A683930
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 23:20:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A28E683933
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 23:20:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2CFFA4D;
-	Tue, 31 Jan 2023 23:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2CFFA4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79FCA829;
+	Tue, 31 Jan 2023 23:19:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79FCA829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675203624;
-	bh=1k+bgDHjFw33vi2FYCvnMsD2v6XTns/PIAju5+u3Wh4=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675203638;
+	bh=+4pP4aZIVuYUiorSRqW2o3O3DmDW8pntZFPIjn4fwAI=;
+	h=Date:From:Subject:To:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=c8pwPi30ocwCrV/DSFHzmNS8os7DxLccBNjrSO71wCSmIbcrTXUSNSkOxhRBHM/Q6
-	 IbiA8vpXzxPVITfja6aNsOsbFQmgtF14pvJ4NtN8gqplYgSovMCL5xykYO3nPWjy2O
-	 gRPYlm8BM8FrA7Pai3yLBxullT9F70cQGklwBpLk=
+	b=Q0KmbErVfG/c5SdJEe64HmENUxbHwvo8OmMvYhBrcIrXd71JmYbBC3Ukrz6MF3f+6
+	 k6GdOCgatONMg+WG+aJ0yVhdSpM0yk1luFVnIL2pBKRVeeWACfpB/PjSeZT3vCvNgV
+	 E6XsMJEf+J6VTIbRuLYl25PoAR5bxtYiGc/eIBy8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87215F80155;
-	Tue, 31 Jan 2023 23:19:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AC39F80245;
+	Tue, 31 Jan 2023 23:19:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 580FCF804E0; Tue, 31 Jan 2023 23:19:33 +0100 (CET)
+ id CCFF7F80519; Tue, 31 Jan 2023 23:19:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -35,55 +35,56 @@ X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65C81F80155
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 23:19:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65C81F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A869F804C2
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 23:19:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A869F804C2
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TJwrEM65
+ header.s=Intel header.b=Lk8UVgJ+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675203569; x=1706739569;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=1k+bgDHjFw33vi2FYCvnMsD2v6XTns/PIAju5+u3Wh4=;
- b=TJwrEM65Jq5qiAkT84bnS6w+ifdJOmWXAZmq/oV2SlwzwPx0eevbydn4
- BEN9L634fP6ENQ9DtCPj40D1xn42wtPDpVHcY/lyVSKQMFmQAmGFYMQvM
- Z0HPU3T/ZRKiGareh8pw7sLSloORtLezKd7eLEu/PD1kTAQisaaEDoSxU
- stSDt7O7Y/ZdpG0OAxRmpKVic95TodriSxyRBapbX/d2jXSQgVQHp4PTw
- 0XW95W2DMjcdI7FjJnE7ijOQUpOUih0kHG9d57IyCs087JzQ8b9Tkg9da
- m7h/QiTSbEAcBDQERZIM1EMF0wmEMQuf0heOG1Q6jlb+HL3+CKLzWpFya g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="308318503"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="308318503"
+ t=1675203571; x=1706739571;
+ h=message-id:date:mime-version:from:subject:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=+4pP4aZIVuYUiorSRqW2o3O3DmDW8pntZFPIjn4fwAI=;
+ b=Lk8UVgJ+E3NQVvh2bwehmRoV8HBSNmmXd5nGTePFVRbXE96jLRdTt3jr
+ KLw53UMhX24iMUvWfmeW8EmrYvAup/EAUYnYtMVcmGOucWLT0dGoNzSXf
+ bZdMivqiVHxkofEQDjNjJNb9P3R36Cp/ydM0sa1fGhSVFgzPiidF4IHOe
+ 2w5ZuXw84tNCn/Z30sW8GQIdr9eUT0TBbpFa8dVYlkxkBYOpw9gWqSiOX
+ scf/piHEMN6XND30y+ui9fVrb1+nfu9ayrmNQ4923iZfZqn6AJT9kyuRh
+ rwAfQnNif3WwvYBID78f14rlcKvMf4VJQnuWJkyMSebFDV+XNlhvciDl7 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="308318514"
+X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="308318514"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2023 14:19:26 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="788615794"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="788615794"
+ 31 Jan 2023 14:19:28 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="788615806"
+X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="788615806"
 Received: from ncollins-mobl.amr.corp.intel.com (HELO [10.212.85.244])
  ([10.212.85.244])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2023 14:19:25 -0800
-Message-ID: <12b10990-8f06-e0a3-df6a-33fa20ba2cd9@linux.intel.com>
-Date: Tue, 31 Jan 2023 09:52:22 -0600
+ 31 Jan 2023 14:19:26 -0800
+Message-ID: <fa4cdd91-b430-eb1b-a151-d144f62e827d@linux.intel.com>
+Date: Tue, 31 Jan 2023 10:00:54 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: [PATCH v3 8/8] ASoC: cs42l42: Wait for debounce interval after
- resume
-Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230127165111.3010960-1-sbinding@opensource.cirrus.com>
- <20230127165111.3010960-9-sbinding@opensource.cirrus.com>
- <1e5e1312-18f5-e70f-3237-c2ffc851eef7@linux.intel.com>
- <cb52e4cf-47d8-33be-f77d-fc2d0b868a5c@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <cb52e4cf-47d8-33be-f77d-fc2d0b868a5c@opensource.cirrus.com>
+Subject: Re: [PATCH 01/19] ASoC: amd: ps: create platform devices based on acp
+ config
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org,
+ vkoul@kernel.org, alsa-devel@alsa-project.org
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-2-Vijendar.Mukunda@amd.com>
+ <9f2229fb-499b-f802-993b-56a7ad2ce361@linux.intel.com>
+ <257b6f1e-f403-573f-3978-13ffb14342ad@amd.com>
+ <2b4c12ce-2586-0277-ede0-560f8317e4e4@linux.intel.com>
+ <27eabbf2-eff2-0964-b72b-f9db251c3b57@amd.com>
+ <87ddd91b-fb5f-4f27-942b-dc439b32ce20@amd.com>
+Content-Language: en-US
+In-Reply-To: <87ddd91b-fb5f-4f27-942b-dc439b32ce20@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,39 +97,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Mastan.Katragadda@amd.com, Sunil-kumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Mario.Limonciello@amd.com,
+ arungopal.kondaveeti@amd.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 1/31/23 05:03, Richard Fitzgerald wrote:
-> On 30/01/2023 16:45, Pierre-Louis Bossart wrote:
->>
->>
->> On 1/27/23 10:51, Stefan Binding wrote:
->>> Since clock stop causes bus reset on Intel controllers, we need
->>
->> nit-pick: It's more that the Intel controller has a power optimization
->> where the context is lost when stopping the clock, which requires a bus
->> reset and full re-enumeration/initialization when the clock resumes.
->>
-> 
-> Ok, it's true that clock stop doesn't _cause_ bus reset, bus reset is
-> necessary when exiting clock stop. We can re-word if you want us to
-> describe that accurately.
-> 
-> But from the codec driver's point of view, a clock stop causes a bus
-> reset.
-
-it's fine, we all agree here.
-
->> The rest of the patch is fine so
->>
->> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>
->>> to wait for the debounce interval on resume, to ensure all the
->>> interrupt status registers are set correctly.
+On 1/31/23 07:09, Mukunda,Vijendar wrote:
+> On 16/01/23 13:32, Mukunda,Vijendar wrote:
+>> On 13/01/23 22:41, Pierre-Louis Bossart wrote:
+>>>>>> +		if (is_dmic_dev && is_sdw_dev) {
+>>>>>> +			switch (acp_data->sdw_master_count) {
+>>>>>> +			case 1:
+>>>>>> +				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
+>>>>>> +				acp_data->pdev_count = ACP63_SDW0_PDM_MODE_DEVS;
+>>>>>> +				break;
+>>>>>> +			case 2:
+>>>>>> +				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
+>>>>>> +				acp_data->pdev_count = ACP63_SDW0_SDW1_PDM_MODE_DEVS;
+>>>>>> +				break;
+>>>>> so the cover letter is indeed wrong and confuses two controllers for two
+>>>>> managers.
+>>>> ACP IP has two independent manager instances driven by separate controller
+>>>> each which are connected in different power domains.
+>>>>
+>>>> we should create two separate ACPI companion devices for separate
+>>>> manager instance.  Currently we have limitations with BIOS.
+>>>> we are going with single ACPI companion device.
+>>>> We will update the changes later.
+>>> Humm, this is tricky. The BIOS interface isn't something that can be
+>>> changed at will on the kernel side, you'd have to maintain two solutions
+>>> with a means to detect which one to use.
 >>>
->>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+>>> Or is this is a temporary issue on development devices, then that part
+>>> should probably not be upstreamed.
+>> It's a temporary issue on development devices.
+>> We had discussion with Windows dev team and BIOS team.
+>> They have agreed to modify ACPI companion device logic.
+>> We will update the two companion devices logic for two manager
+>> instances in V2 version.
+> After experimenting, two ACPI companion devices approach,
+> we got an update from Windows team, there is a limitation
+> on windows stack. For current platform, we can't proceed
+> with two ACPI companion devices.
+
+so how would the two controllers be declared then in the DSDT used by
+Windows? There's a contradiction between having a single companion
+device and the ability to set the 'manager-number' to one.
+
+You probably want to give an example of what you have, otherwise we
+probably will talk past each other.
+> 
+> Even on Linux side, if we create two ACPI companion devices
+> followed by creating a single soundwire manager instance per
+> Soundwire controller, we have observed an issue in a scenario,
+> where similar codec parts(UID are also same) are connected on
+> both soundwire manager instances.
+
+We've been handling this case of two identical amplifiers on two
+different links for the last 3 years. I don't see how this could be a
+problem, the codecs are declared in the scope of the companion device
+and the _ADR defines in bits [51..48] which link the codec is connected to.
+
+see example below from a TigerLake device with two identical amsp on
+link 1 and 2.
+
+   Scope (_SB.PC00.HDAS.SNDW)
+    {
+       Device (SWD1)
+        {
+            Name (_ADR, 0x000131025D131601)  // _ADR: Address
+
+	Device (SWD2)
+        {
+            Name (_ADR, 0x000230025D131601)  // _ADR: Address
+
+> As per MIPI Disco spec, for single link controllers Link ID should
+> be set to zero.
+> If we use Link ID as zero, for the soundwire manager which is on
+> the second soundwire controller ACPI device scope, then soundwire
+> framework is not allowing to create peripheral device node as its
+> duplicate one.
+
+I still don't see how it's possible. There is an IDA used in the bus
+allocation
+
+static int sdw_get_id(struct sdw_bus *bus)
+{
+	int rc = ida_alloc(&sdw_bus_ida, GFP_KERNEL);
+
+	if (rc < 0)
+		return rc;
+
+	bus->id = rc;
+	return 0;
+}
+
+and that's used for debugfs
+
+	/* create the debugfs master-N */
+	snprintf(name, sizeof(name), "master-%d-%d", bus->id, bus->link_id);
+
+as well as in sdw_master_device_add():
+	dev_set_name(&md->dev, "sdw-master-%d", bus->id);
+
+can you clarify what part of the 'SoundWire framework' is problematic? I
+guess the problem is that you have identical devices with the same _ADR
+under the same manager, which is problematic indeed, but that's not a
+SoundWire framework issue, just not a supported configuration.
+
+> If we want to support two ACPI companion device approach
+> on our future platforms, how to proceed?
+
+Well how about dealing with a single companion device first, cause
+that's what you have now and that's already problematic.

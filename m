@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4165B68267E
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:34:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4098A682693
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:35:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A07BAE87;
-	Tue, 31 Jan 2023 09:33:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A07BAE87
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9114AE81;
+	Tue, 31 Jan 2023 09:35:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9114AE81
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675154048;
-	bh=COwHdh7Cw7mYuUPox64TbMSGJ8+ae+BRD98txjBg494=;
+	s=default; t=1675154157;
+	bh=nHXnU+9XDfYF2OnuuJ6EDljcNQ7qa+HitfCkvqK2v+o=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=cogAY6hIW+s5S/JJIyT40onSJVp6RZ4SdxECflgTOaxx5KrLYnH2GjzK8yEGSVRx5
-	 qRr5G/6dvCuCshKvdc2QrmU1+ETfKCBAs/njqcqLwXT9jD4bnWi3d6N7S/I+VKSYpx
-	 yWw2FPGUKSxFti5vdVZydoJAvXu/sZNY+F7UogWA=
+	b=E2nj5O+cgz/6T9su/bIwF4Pc+zoikwNm2aqLolC/Ijv55M2Af5sQgk/8tEdh+ayAj
+	 kldnlLQclZ/+Dwi8Qjr92Gjn95Qt9nhYuTKasYgmsRjdVx9ZyjZeMdFHKhi+d7OGpj
+	 zn2Bc7OEAQLDCY3cvPfaHqNmcd9GvNNegPFGd0rQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28DADF804DF;
-	Tue, 31 Jan 2023 09:33:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38BE6F80169;
+	Tue, 31 Jan 2023 09:35:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91128F804C2; Tue, 31 Jan 2023 09:33:09 +0100 (CET)
+ id EF584F800A7; Tue, 31 Jan 2023 09:34:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91726F80169
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:33:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91726F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B6C3F800A7
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:34:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6C3F800A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=oYm7HzW5; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=c8XJcfI0; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Xy4IT27r
+ header.s=susede2_ed25519 header.b=7p5WJJTp
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 71F7822432;
- Tue, 31 Jan 2023 08:33:04 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A00952043F;
+ Tue, 31 Jan 2023 08:34:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675153984; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675154091; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=85fTq5NYof6ox1/plwgNt287rPeZxlqnGz3fiJo7uyM=;
- b=oYm7HzW55icfr6+1rDO21jZlJ+uV7fV0aCk7VQ76O2OWlxjaXKVGgSiren9UnrlTZ6HLQD
- jjGDCWkzAygeOh8n9A9Fs9WStzrp5lo48YNfuW7Xogdk9J7qfuc5hhwLcMcQWckfVNwCkq
- TXzOPCU9tXgLbX4cDxJ2lh0Rt/TfRkA=
+ bh=OaZFrQIRLxMBN8GalJDihMwDhfB7pdrWRt2BYXcozeg=;
+ b=c8XJcfI0ngoQWUtK0Rg/9J7YE19ccNBLiq0pm6nKq6Ue+LnT6erzC3SFgOVcsTIZC9LvP0
+ calfW9h1IoiNrxdZv9YkF9C0tLJ46v4WWqLBsbuNc/LAPLRILYAsfEYBrQV8NME9MPCA29
+ nFfsF3mhB8yr34lbWOCJqgYXRjnnwq0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675153984;
+ s=susede2_ed25519; t=1675154091;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=85fTq5NYof6ox1/plwgNt287rPeZxlqnGz3fiJo7uyM=;
- b=Xy4IT27rE0Axl1qsK/Y83NhW+3NhCHsJBkGD5k+trCwv28WXmIkpb55fUuCrYer/IRBpsI
- s2P8I5kNlHvcitBQ==
+ bh=OaZFrQIRLxMBN8GalJDihMwDhfB7pdrWRt2BYXcozeg=;
+ b=7p5WJJTpyqqOAjZtLcNS88AGynr42EW8Ow4uoH/uGyBslyJWLdBBu/Qjs5Fi5jBKIIC5DS
+ st12tEun8z+vebBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 551F713585;
- Tue, 31 Jan 2023 08:33:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8778413585;
+ Tue, 31 Jan 2023 08:34:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id H8TpE0DS2GOqGQAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:33:04 +0000
-Date: Tue, 31 Jan 2023 09:33:03 +0100
-Message-ID: <87sffrp0hs.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id IUtpIKvS2GN9GgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:34:51 +0000
+Date: Tue, 31 Jan 2023 09:34:51 +0100
+Message-ID: <87r0vbp0es.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-lib: fix uninitialized local variable
-In-Reply-To: <20230130141532.102838-1-o-takashi@sakamocchi.jp>
-References: <20230130141532.102838-1-o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: firewire-motu: fix unreleased lock warning in hwdep
+ device
+In-Reply-To: <20230130141540.102854-1-o-takashi@sakamocchi.jp>
+References: <20230130141540.102854-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -101,20 +102,18 @@ Cc: alsa-devel@alsa-project.org, Dan Carpenter <error27@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Jan 2023 15:15:32 +0100,
+On Mon, 30 Jan 2023 15:15:40 +0100,
 Takashi Sakamoto wrote:
 > 
-> The function local variable, curr_cycle_time is declared without
-> initialization. When tracepoints event is not probed, it looks to be
-> used as is. This commit fixes it. Fortunately, the value of local variable
-> is not used unless the event is probed, thus this commit is for better
-> coding.
+> Smatch static analysis tool detects that acquired lock is not released
+> in hwdep device when condition branch is passed due to no event. It is
+> unlikely to occur, while fulfilling is preferable for better coding.
 > 
 > Reported-by: Dan Carpenter <error27@gmail.com>
-> Fixes: fef4e61b0b7 ("ALSA: firewire-lib: extend tracepoints event including CYCLE_TIME of 1394 OHCI")
+> Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
 > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Thanks, applied now (with the correction of Fixes tag).
+Applied now.  Thanks.
 
 
 Takashi

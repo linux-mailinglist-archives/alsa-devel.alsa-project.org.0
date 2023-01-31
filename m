@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DAEC68392F
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 23:19:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A42E68392B
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 23:19:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C08C9F6;
-	Tue, 31 Jan 2023 23:19:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C08C9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95761826;
+	Tue, 31 Jan 2023 23:18:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95761826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675203595;
-	bh=LM+Q1L66VNrohk2KsCb097ycRFTc55Zp5fivS41VsiU=;
+	s=default; t=1675203550;
+	bh=LLcNxSE4SLlifZTzUQTA5PD8kN1CvgpUaTvEsKPhn88=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=bsupspIdq24mTfaIfh/aq2L8KNwBuDkMK1jlqQYNQ8Z1m02tAXHNTdp9UPW5QT84X
-	 Nmdu4HHdlDG5g1+Q+eBR42G4nWzviz5nDlKFujIeLgRRQ4pEhGBDKVLfODyozlDHIs
-	 qQ+U6iLv3+4SYQvLy99ikWmTth0GRE7zIHe7BmI0=
+	b=szGVQbdI9bkiiO/0HBg8ikQYwdJrG6+LmQykPCKfrHPLjNuaDH1vcFEWsEQ7YmTl0
+	 JdPgQ7dsInf9cI9pax7c0SpGKerGXy6TfOXPKAWOnwChNtwrRO4VftGLqTwM6b5+WJ
+	 jgMKt05yMbhzNTMSK1LlT/KINYPdTUqUsJr+NzLw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E758AF8053D;
-	Tue, 31 Jan 2023 23:18:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CABEDF80245;
+	Tue, 31 Jan 2023 23:18:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B0A3F804E2; Tue, 31 Jan 2023 23:18:14 +0100 (CET)
+ id B72B4F804E0; Tue, 31 Jan 2023 23:18:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9087F80155
+ by alsa1.perex.cz (Postfix) with ESMTPS id 370A4F80245
  for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 23:18:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9087F80155
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 370A4F80245
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FQWtluPt
+ header.s=k20201202 header.b=ptqcFF3t
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7963C61736;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1E3B1B81EB5;
+ Tue, 31 Jan 2023 22:18:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573C7C4339B;
  Tue, 31 Jan 2023 22:18:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66694C433D2;
- Tue, 31 Jan 2023 22:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675203479;
- bh=LM+Q1L66VNrohk2KsCb097ycRFTc55Zp5fivS41VsiU=;
+ s=k20201202; t=1675203480;
+ bh=LLcNxSE4SLlifZTzUQTA5PD8kN1CvgpUaTvEsKPhn88=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=FQWtluPtEFrxtp5goJezeECWbLdi5vo6TKrMsrAGZJPIG9T6Pvh+4YGKjUs+VZkXY
- 2LK74xKt3wfsExnCfRjDZjgn25l3Suv2ZYooMY4GQczfYEzIwpNfpMy0LFcBOuGPC6
- bJnrscbl8SVhgcV6pZBT7uUovaTuM/A8fh3UftqHGLbdLSi44OSuvt48RcKPWkqDAf
- xb2Mwtw70NUenw77cFaxvRDBO9VhpH+XqtQCQBkQC7FOqzOuHQJVKS97Pj2W0Uocoz
- S7ZG7gP4+OqDA9nBNmdskRYV+l3OQfKgz55iXVjAHvnIYkGsdOl0x/AK2ZY6LNNJhy
- phqjfCJ5YWZKA==
+ b=ptqcFF3tuRDobhjycPewhTpx0ENnwTvwxhvlCZrRJWehWIm37C/QrrjFRuIv112kA
+ VrzIUfleRrpjw42W6lHmaSxXGZ7nt3w3rHxImO4W8CQL5eitomMsT601rgw255xUNH
+ BTEC5IybHVhX8Gv4nqfN17PCUNOGzEw1q0SeQZj09YtAu7Itz98wb+yUmpYBF7QM1c
+ cD79u1mCLts34dW27CEcLak5bRfgEvahsCUovc+tW7QinGWkDgEvqv0gsoJEN2I0/B
+ W76QPQBd3uTMN2YqQSi09PEO5vmTlFS69xu5tsm3J0vxcioVhphnPiqRkm8ImRlDuT
+ XajYIb8zmdmNw==
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y1psu1m1.wl-kuninori.morimoto.gx@renesas.com>
-References: <87y1psu1m1.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 00/25] ASoC: use helper function and cleanup
-Message-Id: <167520347913.1362284.16856323521695657016.b4-ty@kernel.org>
-Date: Tue, 31 Jan 2023 22:17:59 +0000
+In-Reply-To: <87cz6vfosc.wl-kuninori.morimoto.gx@renesas.com>
+References: <87cz6vfosc.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v3 00/25] ASoC: use helper function and cleanup
+Message-Id: <167520348008.1362284.8508782621531012931.b4-ty@kernel.org>
+Date: Tue, 31 Jan 2023 22:18:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -85,15 +84,15 @@ Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 Jan 2023 02:07:19 +0000, Kuninori Morimoto wrote:
-> These are v2 patch-set to use helper function on ASoC.
-> 
-> I'm posting about DT schema fixup, but it seems take longer time.
-> This patch-set is 100% independent from it, so I will post it.
+On Tue, 31 Jan 2023 01:58:27 +0000, Kuninori Morimoto wrote:
+> These are v3 patch-set to use helper function on ASoC.
 > 
 > struct snd_soc_dai need to have info for playback/capture,
 > but it is using "playback/capture_xxx" or "tx/tx_xxx" or array.
 > This kind of random definition is very difficult to read.
+> 
+> This patch-set add helper functions and each driver use it.
+> And cleanup the definition.
 > 
 > [...]
 

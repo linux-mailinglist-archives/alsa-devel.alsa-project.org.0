@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38ABB682696
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:37:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF71682705
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:43:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3318E823;
-	Tue, 31 Jan 2023 09:36:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3318E823
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD71CE71;
+	Tue, 31 Jan 2023 09:42:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD71CE71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675154225;
-	bh=M7tt1Dq9CUjggR6B5yzRZvHm6dcsup9EeLWO6DRsacc=;
+	s=default; t=1675154601;
+	bh=Pl1T/cKheKdr8IKPdNwYvfgQ4bj/gBweVuiywijjsKw=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=jh57cTgvT3BdrNAP+4UxH38rzHuUMYWPDaVtPLg6V9JB+vHRVIWSuJ6D3dtW/86fQ
-	 Hmfwih2giKLHN0iG0KS+NNiGrGig5wH6+tsJfMeHPpuMF+VH6x3MoMdxm3ARIwmAOF
-	 jBKT3dK6YrzI9F+XnaKotWqWLUKXORO0sWjYHKuE=
+	b=gcO4C1YxtGOZSX9u4he6UjMAdOb4t7FuUGGuWT8DbhJApGCR9fkZF0TqDfN6N9dn3
+	 V45wI0IuxuapBLKNqS45zW2EAQYFbFrRTAzZzuh8KgqD3DVWVEW4ffQj9Grz9r5PVO
+	 oweVRMUt61chS4uTM+XHnZePQskKoipn+xQHAfXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48BF1F800A7;
-	Tue, 31 Jan 2023 09:36:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4128BF804DF;
+	Tue, 31 Jan 2023 09:42:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59444F80169; Tue, 31 Jan 2023 09:36:06 +0100 (CET)
+ id 959F6F804C2; Tue, 31 Jan 2023 09:42:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71892F80169
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:36:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71892F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13F47F80169
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:42:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13F47F80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=ZXRGu+Ra; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=bAZZ3DT6; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=lAWuTRrV
+ header.s=susede2_ed25519 header.b=Ijb/M36D
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 39C872031A;
- Tue, 31 Jan 2023 08:36:03 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 43C112044A;
+ Tue, 31 Jan 2023 08:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675154163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675154537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BlijzaJZHgjXQCkupBtgz374LBFS0tcYfWZdWnEAn3o=;
- b=ZXRGu+RaiZSPwRbRYbLrgYa+4XRWH4W4PpVoi4TyBwz/UIVi+iWbVrYSoRe6VUkfxl+AVq
- cWTHPhEoz9S/ayzY+99gck+r7cE/eJy2mHbsuL5D0ap20jVts69GdIbPjbNfCRMnAvmEe8
- 0drU+JlwYj7k10jonGWqd6PpFihmMDQ=
+ bh=6IzR7OIYzC8EYOZdG4b7A56eKO0AXznAEjTYVO2Q9r8=;
+ b=bAZZ3DT6egOxwAJx+GkZJBuuI94wJD2Ijgd9fscIUOQZFwaTD1l14y817bgd1Z0Z8qzAtW
+ NM4jfDtO6JNAGxnScUVL6ToBGMGMPIZBeXr3rOlpZxBknx/9AnXhmDwxF19ILUfBGGkYQv
+ wPPPm2/2QGVQSxVTbkhA2B07SgDzUj8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675154163;
+ s=susede2_ed25519; t=1675154537;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BlijzaJZHgjXQCkupBtgz374LBFS0tcYfWZdWnEAn3o=;
- b=lAWuTRrV69OCXNHA2N9EU3J5d8Q9i1PbwgoZ1RoYzRZGFqDhHS0k/QzGBsYKhG8JRPTE/J
- rUEw1BdI0vIgJfAg==
+ bh=6IzR7OIYzC8EYOZdG4b7A56eKO0AXznAEjTYVO2Q9r8=;
+ b=Ijb/M36DVaIAU1p6ftT1NLQ/sxPS2yDx8VEcikwG1tlrVhcpjQLkePsMdnl2rqmtfPmL75
+ qxML3w30xB7YX1DA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECFCD13585;
- Tue, 31 Jan 2023 08:36:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2BDE213585;
+ Tue, 31 Jan 2023 08:42:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id H2wpOfLS2GP8GgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:36:02 +0000
-Date: Tue, 31 Jan 2023 09:36:02 +0100
-Message-ID: <87o7qfp0ct.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id qPEECmnU2GODHQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:42:17 +0000
+Date: Tue, 31 Jan 2023 09:42:16 +0100
+Message-ID: <87mt5zp02f.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH RESEND] ALSA: doc: Fix PCM interface section typos
-In-Reply-To: <20230130162924.119389-1-miquel.raynal@bootlin.com>
-References: <20230130162924.119389-1-miquel.raynal@bootlin.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] [RFC] ALSA: hda: Fix the control element identification
+ for multiple codecs
+In-Reply-To: <20230130082118.3267980-1-perex@perex.cz>
+References: <20230130082118.3267980-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,33 +98,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
+Cc: ALSA development <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Jan 2023 17:29:24 +0100,
-Miquel Raynal wrote:
+On Mon, 30 Jan 2023 09:21:18 +0100,
+Jaroslav Kysela wrote:
 > 
-> Fix two mistakes in the PCM interface section:
-> 1/ Members of the snd_pcm_hardware structure are channels_{min,max}
->    and not channel_{min,max} (mind the 's').
-> 2/ Another sentence is incomplete as the reference to one structure
->    member (period_bytes_max) is missing.
+> [This is a RFC for the discussion]
 > 
-> There is no relevant 'Fixes:' tag to apply as both typos predate the
-> Git era.
+> Some motherboards have multiple HDA codecs connected to the serial bus.
+> The current code may create multiple mixer controls with the almost
+> identical identification.
 > 
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
+> The current code use id.device field from the control element structure
+> to store the codec address to avoid such clashes for multiple codecs.
+> Unfortunately, the user space do not handle this correctly. For mixer
+> controls, only name and index are used for the identifiers.
 > 
-> Hello, I wrote and sent this patch in 2019 but I likely only Cc'd Jon
-> and the doc ML, which might have not been enough, so just in case, here
-> is a resend.
-> Link: https://lore.kernel.org/linux-doc/20190829145512.3752-1-miquel.raynal@bootlin.com/
+> This patch fixes this problem to compose the index using the codec
+> address as an offset in case, when the control already exists. It is
+> really unlikely that one codec will create 10 similar controls.
+> 
+> This patch adds new kernel module parameter 'ctl_dev_id' to allow
+> select the old behaviour, too.
+> 
+> BugLink: https://github.com/alsa-project/alsa-lib/issues/294
+> BugLink: https://github.com/alsa-project/alsa-lib/issues/205
+> Fixes: 54d174031576 ("[ALSA] hda-codec - Fix connection list parsing")
+> Fixes: 1afe206ab699 ("ALSA: hda - Try to find an empty control index when it's occupied")
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> 
+> --
+> 
+> Discussion:
+> 
+> There are several possibilities to handle the old behaviour - a kernel
+> module parameter (proposed), a kernel configuration option or drop
+> the old behaviour completely.
 
-Thanks, applied now.
+Dropping is likely no-go, as we don't even know whether it really
+breaks or is safe, I suppose.  The module option sounds like a
+feasible workaround, maybe with the default behavior defined by
+kconfig.  And we can put some message for the old behavior to mention
+it'll be deprecated, for example.  Then after some time, we can really
+drop the old behavior, too.
 
+One more question is which driver provides the option.  Does this
+problem happen with SOF HDA driver, too?
+
+
+thanks,
 
 Takashi

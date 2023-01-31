@@ -2,124 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0FE86835A6
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 19:50:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB6C06835B1
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 19:52:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2E0E857;
-	Tue, 31 Jan 2023 19:49:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2E0E857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E8F91F4;
+	Tue, 31 Jan 2023 19:51:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E8F91F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675191015;
-	bh=8Vs4g0Z+x6vRLUMChZD29qhI5YtyQe6FwGx2revHYbA=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1675191145;
+	bh=XBzNqrPKLDVCYB7ZPL+g88+C10SZR/oyAgYW8k1uAuI=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=nZwKwZTMg+NCIKE+8ssSwe/xz5tO2EN5FWoZbAXXZfm7ZPujBiZV8dIAHCm1PeBpW
-	 yuuWwuC7BgnMdCTGlDyyL8z2VZ7nMap7/p8t/Boe5lyyMOrTyde1+faFO0/6FyVnNo
-	 hkQkSD9M8kUgEiuGGQ93iiW3Sy6e9NdZyWz8huYc=
+	b=DFsanHfbtlAsYfnZNBOG7GXWiH62qwddoJcjX+bNy/3ERhZTjeLayoeOZw9UIam0t
+	 34PLoMUM/zKuR50aBHNNyLJefhEFzErnZida0CvcEkmoa37qjNoDbwFXJ9vnkPB+CK
+	 8CiDAxsxkFpJ4m/D/2kHOopfd3ifEVcfTMjh+A7s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB4F9F8057B;
-	Tue, 31 Jan 2023 19:47:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CFABF800A7;
+	Tue, 31 Jan 2023 19:51:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E114BF80567; Tue, 31 Jan 2023 19:47:38 +0100 (CET)
+ id CDCF3F804C2; Tue, 31 Jan 2023 19:51:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2062d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::62d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EAC1F804E2
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 19:47:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EAC1F804E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 051F0F80169
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 19:51:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 051F0F80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=dhmRTstU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l0zzAyTCkP/Huu/wYZ1L0gVlm5cbaX4OuqYkODWwhCq82AgaYs+HB4D2uPwds9ZC+2/FO8rbQjlZzVV/VTiYfeGEV0NKD1Odv/dDQdIBMXW/v6+a77frRnQwG0IZyE1nQhwKPlL7Sy222f5Gy5lVLamgob4YWXHi4yqNLipuzIxjyUXSwdSgkN4yXV7omdU/7qADxCHpcjqDjkLumYffvgul+DfYW8doYSgqprOT/JrZ2tl6No5wo9qfmqJfG67n+QGT8qbwn2HV1yDavL/WiVUQwCM93mwGuAmFq4yL740yh+hqh3WtYm20Ygve5W7f1+4dIDNEJiyyUMXAg4RaBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pMb27UoT51F2jiZ+qfluHAb9UnvJXc5ynlPkyyqTRsw=;
- b=BsiCCAXRWl+4qPEMgwJUO6njUqJM/eKLcSV5eHFKhhOI4P8IEdUP3BTTXwC0QxAzpte526ntI1g34KeuycAstGI8siYx10ewQ7G5SmCxtI6ZVXb3EvPMGJvkxcxcJ9se7tpFQHdEc0BDWBdCQGjrIwWSK9EHkPyqB9mQ0W3bIk3dGD7kdiGnKHWlZ4tvuxT200XansYNcdfT5tXGvB7kC9GY7ZyFmILji78EqMXBZSBmLIB0UlHxbrcdn9sG5wUo6vZnW/rxmjmaX10mjYEC3t8aP2wwNeaa0AomH0q/6F7YN9oMIyF/N7jRKPXI9gNtBfTt2TA/Lu1nohDgjHASKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pMb27UoT51F2jiZ+qfluHAb9UnvJXc5ynlPkyyqTRsw=;
- b=dhmRTstUI1xmGdyiBNegmT4OoYlvCwmv/p0lsIb/feEvLjJ7s4wyF7tDJJFpWOPJaUJHaeR72Y3MSOGNAThWAEpkO1s5J3GnUU1bVjOd/vu+qrWytFIYhboFTEeN0S4x4vSCky+qmrV8mTvOlRzVUrfi63JFySjC/DJK/st1NZ8=
-Received: from BL1PR13CA0389.namprd13.prod.outlook.com (2603:10b6:208:2c0::34)
- by SA1PR12MB8597.namprd12.prod.outlook.com (2603:10b6:806:251::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.22; Tue, 31 Jan
- 2023 18:47:15 +0000
-Received: from BL02EPF0000C404.namprd05.prod.outlook.com
- (2603:10b6:208:2c0:cafe::50) by BL1PR13CA0389.outlook.office365.com
- (2603:10b6:208:2c0::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.21 via Frontend
- Transport; Tue, 31 Jan 2023 18:47:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C404.mail.protection.outlook.com (10.167.241.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.17 via Frontend Transport; Tue, 31 Jan 2023 18:47:13 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 31 Jan
- 2023 12:47:12 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Jaroslav Kysela <jkysela@redhat.com>, Mukunda Vijendar
- <Vijendar.Mukunda@amd.com>, Saba Kareem Syed <Syed.SabaKareem@amd.com>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 6/6] ASoC: amd: ps: Add a module parameter to influence
- pdm_gain
-Date: Tue, 31 Jan 2023 12:46:52 -0600
-Message-ID: <20230131184653.10216-7-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230131184653.10216-1-mario.limonciello@amd.com>
-References: <20230131184653.10216-1-mario.limonciello@amd.com>
+ secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
+ header.s=default header.b=GXZnwlhS
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BC972400;
+ Tue, 31 Jan 2023 19:51:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BC972400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1675191080; bh=3nzYCZcw7/+jFcY6pwONKDi/Zj110sMOebq8ZsrjNjM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GXZnwlhSkswK+mEpgA8fhz/5fjAo+UljjKdsOQUj/76cW3/l1wXao2eYvA2xrWt+k
+ 9U//imSekCazruTt4GWYc1/fE3xerxyBGTU/Onrv5r+I3dJvg6iMi/3pDyPp9EdIF9
+ wW1J9k6z66TOvVwXIioU1XIzpr2Y5pU7LiZE8uj8=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 31 Jan 2023 19:51:12 +0100 (CET)
+Message-ID: <9d61d3c1-c94c-a9c6-2d0d-3368e02e1943@perex.cz>
+Date: Tue, 31 Jan 2023 19:51:11 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C404:EE_|SA1PR12MB8597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36063a56-cb39-433d-6227-08db03bb9167
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ASHpDunfo4jXRUMO5HB/Nh3AxEod4Ui36qbNYF/jTP/USUm12sxug8/oqwqOXKXXB3xHlCazGPGMJvX17gJJrkYsyGeY1NhphHC4qi/Ih/DDxCIiLfWQFp+3RK72aEpybTsG8A8vvB00CJv2aewRkoGLonDbfhnU3H7wYCJIZs7Ks+E2I+tGZ///scd3x53bAVgLJmUkSd5u9PPDmwj/XasJbXIsfcv2lupO+Vx01+escXWptFRq+JbCAhyxJsKdeLwjQTbFYZlPKSUG8FznJ1uuILnpthiZQaYHXsKx/UjM/VX5H3eyrJdQSe6JsgvzeTVtW3rmt/a7RK0ra7p+zxbnBMqSGXB4eTbzr86T8In0dss89nvkB1MFcsRKWgM0h4a/e8IxplgPXzRU5Qce5Nv9Jy2u/WfOcmKECzx7t2dqgRA2CEY+ezFcpHfg3/jHbf1K+DOaZz8+t9n5hDL5TsYqovYlDSmsaAKqFidqo0oOc78BSBylV7QdlLyurA5XnFOyVjEOtXCpANa1nUDA134KoOVJ6a52SiNsNFPz6mBvyJsssStu7fHFfTbLhR6rVSma60vhDdpZVjz+0LdXv4wt4QnmifbNKF1AUMQZAOYf5BliR4NB8DbwuhHflWe2zh1Yniq2nLUUgkezyD2t1kw1SHEA7o3zlEpOtM34miz9DngoJT5hmbZqVRx2LcVLTuntDEaEiQRqchJgLm3WNdNjXsPA+dJ50BdDRYdRrTE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199018)(36840700001)(46966006)(40470700004)(81166007)(86362001)(36756003)(82310400005)(356005)(6666004)(336012)(83380400001)(426003)(1076003)(82740400003)(36860700001)(47076005)(2616005)(26005)(16526019)(186003)(316002)(7696005)(110136005)(8676002)(54906003)(478600001)(40480700001)(2906002)(5660300002)(70586007)(4326008)(70206006)(44832011)(40460700003)(41300700001)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 18:47:13.5828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36063a56-cb39-433d-6227-08db03bb9167
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C404.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8597
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v3 0/6] Fix default DMIC gain on AMD PDM drivers
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Jaroslav Kysela <jkysela@redhat.com>,
+ Mukunda Vijendar <Vijendar.Mukunda@amd.com>,
+ Saba Kareem Syed <Syed.SabaKareem@amd.com>
+References: <20230131184653.10216-1-mario.limonciello@amd.com>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230131184653.10216-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,81 +88,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Cc: alsa-devel@alsa-project.org,
  Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
- Takashi Iwai <tiwai@suse.com>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mark Pearson <mpearson@lenovo.com>
+ linux-kernel@vger.kernel.org, Mark Pearson <mpearson@lenovo.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In case of regressions for any users that the new pdm_gain value is
-too high and for additional debugging, introduce a module parameter
-that would let them configure it.
+On 31. 01. 23 19:46, Mario Limonciello wrote:
+> It's been reported that a number of laptops have a low volume
+> level from the digital microphone compared to Windows.
+> 
+> AMD offers a register that can adjust the gain for PDM which is not
+> configured at maximum gain by default.
+> 
+> To fix this change the default for all 3 drivers to raise the gain
+> but also offer a module parameter. The module parameter can be used
+> for debugging if the gain is too high on a given laptop.
+> 
+> This is intentionally split into multiple patches for default and
+> parameter so that if the default really does behave better universally
+> we can bring it back to stable too later.
+> 
+> v2->v3:
+>   * Use clamp and clear properly
+> 
+> Mario Limonciello (6):
+>    ASoC: amd: yc: Adjust the gain for PDM DMIC
+>    ASoC: amd: yc: Add a module parameter to influence pdm_gain
+>    ASoC: amd: renoir: Adjust the gain for PDM DMIC
+>    ASoC: amd: renoir: Add a module parameter to influence pdm_gain
+>    ASoC: amd: ps: Adjust the gain for PDM DMIC
+>    ASoC: amd: ps: Add a module parameter to influence pdm_gain
 
-This parameter should be removed in the future:
- * If it's determined that the parameter is not needed, just hardcode
-   the correct value as before
- * If users do end up using it to debug and report different values
-   we should introduce a config knob that can have policy set by ucm.
+For all patches:
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v2->v3:
- * Use clamp() and clear bits appropriately
-v1->v2:
- * Add a guard for values > 3 to overflow the FIELD_PREP
- * Clear ACP_WOV_GAIN_CONTROL before setting it
----
- sound/soc/amd/ps/acp63.h      | 2 +-
- sound/soc/amd/ps/ps-pdm-dma.c | 8 +++++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index bae8288d8231c..bed4d51e226a5 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -30,7 +30,7 @@
- #define ACP_ERROR_STAT	29
- #define PDM_DECIMATION_FACTOR	2
- #define ACP_PDM_CLK_FREQ_MASK	7
--#define ACP_WOV_MISC_CTRL_MASK	0x18
-+#define ACP_WOV_GAIN_CONTROL	GENMASK(4, 3)
- #define ACP_PDM_ENABLE		1
- #define ACP_PDM_DISABLE		0
- #define ACP_PDM_DMA_EN_STATUS	2
-diff --git a/sound/soc/amd/ps/ps-pdm-dma.c b/sound/soc/amd/ps/ps-pdm-dma.c
-index eea71a9d2ef1a..91f1631f42c6b 100644
---- a/sound/soc/amd/ps/ps-pdm-dma.c
-+++ b/sound/soc/amd/ps/ps-pdm-dma.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/platform_device.h>
- #include <linux/module.h>
-+#include <linux/bitfield.h>
- #include <linux/err.h>
- #include <linux/io.h>
- #include <sound/pcm_params.h>
-@@ -18,6 +19,10 @@
- 
- #define DRV_NAME "acp_ps_pdm_dma"
- 
-+static int pdm_gain = 3;
-+module_param(pdm_gain, int, 0644);
-+MODULE_PARM_DESC(pdm_gain, "Gain control (0-3)");
-+
- static const struct snd_pcm_hardware acp63_pdm_hardware_capture = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
-@@ -55,7 +60,8 @@ static void acp63_enable_pdm_clock(void __iomem *acp_base)
- 
- 	acp63_writel(pdm_clk_enable, acp_base + ACP_WOV_CLK_CTRL);
- 	pdm_ctrl = acp63_readl(acp_base + ACP_WOV_MISC_CTRL);
--	pdm_ctrl |= ACP_WOV_MISC_CTRL_MASK;
-+	pdm_ctrl &= ~ACP_WOV_GAIN_CONTROL;
-+	pdm_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, clamp(pdm_gain, 0, 3));
- 	acp63_writel(pdm_ctrl, acp_base + ACP_WOV_MISC_CTRL);
- }
- 
 -- 
-2.34.1
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

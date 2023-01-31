@@ -2,75 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13846825BA
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 08:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEBA9682645
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:22:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 074E8EAE;
-	Tue, 31 Jan 2023 08:45:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 074E8EAE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C261CDF3;
+	Tue, 31 Jan 2023 09:21:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C261CDF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675151197;
-	bh=v03axUqUzZVnY3iI84y+/6pjPsO1/opxjUDA03lxtMU=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=QYjmVCDUHX0DAeIrTbMIJfwxoqY/UCBlEUQO1dTwrbVXhT5zc1awLN1/PxcMuCjW1
-	 5vFQtI5/MYb6EAK2kUhF+fOaWxc2EpxPtbrTXHsypIgACW+ua5tQIkDoc4TtvJSa2D
-	 jwTNLU28ZyHQ8d+ovh3SXaqzWXdxt8RCL9SN5oWs=
+	s=default; t=1675153363;
+	bh=yFQ1qG0jsHqm+BUmxpFhla3Gby6Zs7EEkbLzeChKoEQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=GLeEzdnBxg6oYwdQDpvTKYC8dMpywnmqP2Vm5BgEFyIO3iLqTEl5GpNJW7MkpQ49D
+	 KjmVVIdEXcRKSOPEsJYNRcrCkSJQV5/rOS10zcSbZmg6Iatcun2J4jAnfx6MZcnoXN
+	 k8cGo511mjR6/nB4cWLpnby/McCb4jvQL5DR8iMU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 156E3F804C2;
-	Tue, 31 Jan 2023 08:45:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDC03F804DF;
+	Tue, 31 Jan 2023 09:21:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69387F804E2; Tue, 31 Jan 2023 08:45:19 +0100 (CET)
+ id 2625AF804C2; Tue, 31 Jan 2023 09:21:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::225])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89A78F804C2
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 08:45:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A78F804C2
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=kut/azU7
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 40C181C0004;
- Tue, 31 Jan 2023 07:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1675151114;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wMe+6sH9kAIkOp6zpYrCxiYnhxYIO5nkKGD3Z8ma8r0=;
- b=kut/azU7sBFwJKKha2Hf0Qt0ZLGEVip7CNkI2Hx1xDS2aW9gbjDBCVPYMFN0t5YhIGVEyF
- hYiBnzl0ipwhmV/lrsSteBmr1Zu+OLvnxoeCywGzWHVdv+8ySOKo/qyOkpd+FvrP3eMIZz
- RvoOqoh6E4nBbOeNQ83gcZFm+nAGAfMQge79AxgkzGmMoN/WrwksO3Eez8J3qvGlDzMLzW
- xWdg9eAnBa88KKiAlbj5gtNSjFMHT3BmNaA9/qbSJaEtKj/VSQQYauN/ZZbeVGd1djLBPL
- 7Z4vDPDnYaRDN4adENmDTXiZuLnMoFxbnKXGaKqp8h1ErfazEJDupN/PRANAEg==
-Date: Tue, 31 Jan 2023 08:45:08 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v4 05/10] dt-bindings: soc: fsl: cpm_qe: Add QMC controller
-Message-ID: <20230131084508.32b80a1b@bootlin.com>
-In-Reply-To: <20230130183037.GA3076426-robh@kernel.org>
-References: <20230126083222.374243-1-herve.codina@bootlin.com>
- <20230126083222.374243-6-herve.codina@bootlin.com>
- <20230130183037.GA3076426-robh@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3AD5F80169
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3AD5F80169
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pMltM-0007oW-3v; Tue, 31 Jan 2023 09:21:24 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pMltM-001eGQ-2U; Tue, 31 Jan 2023 09:21:23 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1pMltK-00HHJH-1Y; Tue, 31 Jan 2023 09:21:22 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: sma1303: Convert to i2c's .probe_new()
+Date: Tue, 31 Jan 2023 09:21:07 +0100
+Message-Id: <20230131082107.174739-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1589;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=yFQ1qG0jsHqm+BUmxpFhla3Gby6Zs7EEkbLzeChKoEQ=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBj2M9vRn4DB7ysoONzHdytsuBjbeh1Znx1FjVLUusJ
+ MtJfvPeJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY9jPbwAKCRDB/BR4rcrsCdEnCA
+ CLIr5eij7+AXJA2NME28CnR2uDVyIEkknNBtrG3ORLK6H8hzS6acapJLDIHWRBg+UDdoDOnkWqkmLO
+ yD+NUP3bW8/uelqYoIiOKqocY00kr+1i06DukLD5EmCCcohvQARYTtAgpZpYnzTVpFILXb2WNF22VF
+ oIDYbNeWkrguvNBSjx4BndJMbHK/4aIzSgyZPQrrzv/9qOdFH5KRGAqRQPTaRqcjNRRbM14EyAeDo6
+ GdeCEj2iYMr3Py1Y9ckmeeGiICn+WB4As2HfBPdMgZNp5SH2vIlLfBgw9BhMhP0hvBechl9/vxWpCe
+ BrqYmf9Wupm6odfS6bprqUtpWdzeCs
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,252 +89,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, Li Yang <leoyang.li@nxp.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Mark Brown <broonie@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Qiang Zhao <qiang.zhao@nxp.com>
+Cc: Wolfram Sang <wsa@kernel.org>, alsa-devel@alsa-project.org,
+ kernel@pengutronix.de, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+The probe function doesn't make use of the i2c_device_id * parameter so it
+can be trivially converted.
 
-On Mon, 30 Jan 2023 12:30:37 -0600
-Rob Herring <robh@kernel.org> wrote:
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+Hello,
 
-> On Thu, Jan 26, 2023 at 09:32:17AM +0100, Herve Codina wrote:
-> > Add support for the QMC (QUICC Multichannel Controller)
-> > available in some PowerQUICC SoC such as MPC885 or MPC866.
-> >=20
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  .../bindings/soc/fsl/cpm_qe/fsl,qmc.yaml      | 167 ++++++++++++++++++=
- =20
->=20
-> fsl,cpm1-scc-qmc.yaml
+there is an ongoing effort to convert all drivers to .probe_new to
+eventually drop .probe with the i2c_device_id parameter. This driver
+currently sits in next so wasn't on my radar before.
 
-Ok, will be changed in the next iteration.
+My plan is to tackle that after the next merge window. So I ask you to
+either apply this patch during the next merge window or accept that it
+will go in via the i2c tree together with the patch that drops .probe().
 
->=20
-> >  1 file changed, 167 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fs=
-l,qmc.yaml
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.y=
-aml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
-> > new file mode 100644
-> > index 000000000000..9141a8ca183b
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,qmc.yaml
-> > @@ -0,0 +1,167 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/soc/fsl/cpm_qe/fsl,qmc.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: PowerQUICC CPM QUICC Multichannel Controller (QMC)
-> > +
-> > +maintainers:
-> > +  - Herve Codina <herve.codina@bootlin.com>
-> > +
-> > +description:
-> > +  The QMC (QUICC Multichannel Controller) emulates up to 64 channels w=
-ithin one
-> > +  serial controller using the same TDM physical interface routed from =
-TSA.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - enum:
-> > +          - fsl,mpc885-scc-qmc
-> > +          - fsl,mpc866-scc-qmc
-> > +      - const: fsl,cpm1-scc-qmc
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: SCC (Serial communication controller) register ba=
-se
-> > +      - description: SCC parameter ram base
-> > +      - description: Dual port ram base
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: scc_regs
-> > +      - const: scc_pram
-> > +      - const: dpram
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +    description: SCC interrupt line in the CPM interrupt controller
-> > +
-> > +  fsl,tsa-serial:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +    items:
-> > +      - items:
-> > +          - description: phandle to TSA node
-> > +          - enum: [1, 2, 3]
-> > +            description: |
-> > +              TSA serial interface (dt-bindings/soc/fsl,tsa.h defines =
-these
-> > +              values)
-> > +               - 1: SCC2
-> > +               - 2: SCC3
-> > +               - 3: SCC4
-> > +    description:
-> > +      Should be a phandle/number pair. The phandle to TSA node and the=
- TSA
-> > +      serial interface to use.
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> > +
-> > +  '#chan-cells':
-> > +    const: 1 =20
->=20
-> What's this?
+Best regards
+Uwe
 
-A QMC consumer, such as "QMC audio" in this series, can have a phandle with
-an argument that points to this QMC node. For instance, in the "QMC audio"
-node, we have:
-  fsl,qmc-chan =3D <&qmc 16>;
+ sound/soc/codecs/sma1303.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-The #chan-cells property in TSA specify the presence of this argument.
+diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
+index 3d8e3900f5c3..fbedba574ff4 100644
+--- a/sound/soc/codecs/sma1303.c
++++ b/sound/soc/codecs/sma1303.c
+@@ -1597,8 +1597,7 @@ static struct attribute_group sma1303_attr_group = {
+ 	.attrs = sma1303_attr,
+ };
+ 
+-static int sma1303_i2c_probe(struct i2c_client *client,
+-				const struct i2c_device_id *id)
++static int sma1303_i2c_probe(struct i2c_client *client)
+ {
+ 	struct sma1303_priv *sma1303;
+ 	struct device_node *np = client->dev.of_node;
+@@ -1791,7 +1790,7 @@ static struct i2c_driver sma1303_i2c_driver = {
+ 		.name = "sma1303",
+ 		.of_match_table = sma1303_of_match,
+ 	},
+-	.probe = sma1303_i2c_probe,
++	.probe_new = sma1303_i2c_probe,
+ 	.remove = sma1303_i2c_remove,
+ 	.id_table = sma1303_i2c_id,
+ };
 
-What do you think if I add the following description:
-   '#chan-cells':
-     const: 1
-     description:
-       QMC consumers that use a phandle to QMC need to pass the channel
-       number with this phandle.
-       For instance "fsl,qmc-chan =3D <&qmc 16>;".
+base-commit: 5b28c049ff53cf49e3a97d80cebd2e9c2779ea96
+-- 
+2.39.0
 
->=20
-> > +
-> > +patternProperties:
-> > +  '^channel@([0-9]|[1-5][0-9]|6[0-3])$':
-> > +    description:
-> > +      A channel managed by this controller
-> > +    type: object
-> > +
-> > +    properties:
-> > +      reg:
-> > +        minimum: 0
-> > +        maximum: 63
-> > +        description:
-> > +          The channel number
-> > +
-> > +      fsl,operational-mode:
-> > +        $ref: /schemas/types.yaml#/definitions/string
-> > +        enum: [transparent, hdlc]
-> > +        default: transparent
-> > +        description: |
-> > +          The channel operational mode
-> > +            - hdlc: The channel handles HDLC frames
-> > +            - transparent: The channel handles raw data without any pr=
-ocessing
-> > +
-> > +      fsl,reverse-data:
-> > +        $ref: /schemas/types.yaml#/definitions/flag
-> > +        description:
-> > +          The bit order as seen on the channels is reversed,
-> > +          transmitting/receiving the MSB of each octet first.
-> > +          This flag is used only in 'transparent' mode.
-> > +
-> > +      fsl,tx-ts-mask:
-> > +        $ref: /schemas/types.yaml#/definitions/uint64
-> > +        description:
-> > +          Channel assigned Tx time-slots within the Tx time-slots rout=
-ed by the
-> > +          TSA to this cell.
-> > +
-> > +      fsl,rx-ts-mask:
-> > +        $ref: /schemas/types.yaml#/definitions/uint64
-> > +        description:
-> > +          Channel assigned Rx time-slots within the Rx time-slots rout=
-ed by the
-> > +          TSA to this cell.
-> > +
-> > +    required:
-> > +      - reg
-> > +      - fsl,tx-ts-mask
-> > +      - fsl,rx-ts-mask
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reg-names
-> > +  - interrupts
-> > +  - fsl,tsa-serial
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +  - '#chan-cells'
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/soc/fsl,tsa.h>
-> > +
-> > +    qmc@a60 {
-> > +        compatible =3D "fsl,mpc885-scc-qmc", "fsl,cpm1-scc-qmc";
-> > +        reg =3D <0xa60 0x20>,
-> > +              <0x3f00 0xc0>,
-> > +              <0x2000 0x1000>;
-> > +        reg-names =3D "scc_regs", "scc_pram", "dpram";
-> > +        interrupts =3D <27>;
-> > +        interrupt-parent =3D <&CPM_PIC>;
-> > +
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +        #chan-cells =3D <1>;
-> > +
-> > +        fsl,tsa-serial =3D <&tsa FSL_CPM_TSA_SCC4>;
-> > +
-> > +        channel@16 {
-> > +            /* Ch16 : First 4 even TS from all routed from TSA */
-> > +            reg =3D <16>;
-> > +            fsl,mode =3D "transparent";
-> > +            fsl,reverse-data;
-> > +            fsl,tx-ts-mask =3D <0x00000000 0x000000aa>;
-> > +            fsl,rx-ts-mask =3D <0x00000000 0x000000aa>;
-> > +        };
-> > +
-> > +        channel@17 {
-> > +            /* Ch17 : First 4 odd TS from all routed from TSA */
-> > +            reg =3D <17>;
-> > +            fsl,mode =3D "transparent";
-> > +            fsl,reverse-data;
-> > +            fsl,tx-ts-mask =3D <0x00000000 0x00000055>;
-> > +            fsl,rx-ts-mask =3D <0x00000000 0x00000055>;
-> > +        };
-> > +
-> > +        channel@19 {
-> > +            /* Ch19 : 8 TS (TS 8..15) from all routed from TSA */
-> > +            reg =3D <19>;
-> > +            fsl,mode =3D "hdlc";
-> > +            fsl,tx-ts-mask =3D <0x00000000 0x0000ff00>;
-> > +            fsl,rx-ts-mask =3D <0x00000000 0x0000ff00>;
-> > +        };
-> > +    };
-> > --=20
-> > 2.39.0
-> >  =20
-
-Thanks for the review,
-Herv=C3=A9
-
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com

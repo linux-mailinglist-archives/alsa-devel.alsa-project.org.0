@@ -2,81 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7728683281
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 17:25:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86CE6683486
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 19:00:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C1061F6;
-	Tue, 31 Jan 2023 17:24:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C1061F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F77C1EB;
+	Tue, 31 Jan 2023 18:59:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F77C1EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675182315;
-	bh=blhwIt4pXs4RZFwAJ+0oJ/pbR/6npPnMEeUr9ldlKgc=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675188040;
+	bh=MROeDG2X+qvCzyYSXJc7B0nitjtYj9YALJ3wBWO7px0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=GdGhYtBCW/ehWq8TW2W3dROVcCInshjap6vvBooF8AQ7nYccT0lqPIlaVQh5LPsJr
-	 SiKK00p2DPwEUP+NgynslB737Kx7ppw+I/oIjQDgSpsCBqnkfnZdoGfxzlmoZ/qFFU
-	 ZivqZ3qSvAwLS3gO5NA3hmvaUmPydw9xURcS/3EY=
+	b=m8icnN027S6COZdFsXdWyZjltvwobFghQnXCLwtuPPs/GFh1tA6Hl3ceSZHNu3+/L
+	 SroUflUKaR0NNjDEAPizIH+oaPZ/nYFAom8yLYffHz3cXli5Qqifk1OxNUmz5+qqz8
+	 MWq22d2oRgiogIHSZ95FWuqvuW3BBairHPyjV3ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 972B7F800A7;
-	Tue, 31 Jan 2023 17:24:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15FD4F80169;
+	Tue, 31 Jan 2023 18:59:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DD6CF804C2; Tue, 31 Jan 2023 17:24:15 +0100 (CET)
+ id 750FEF804C2; Tue, 31 Jan 2023 18:59:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2953F800A7
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 17:24:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2953F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DB73F80155
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 18:59:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB73F80155
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZS/LVXQJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675182250; x=1706718250;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=blhwIt4pXs4RZFwAJ+0oJ/pbR/6npPnMEeUr9ldlKgc=;
- b=ZS/LVXQJGFjEZM7k2+IKEZzAg9NaKLPPEq2yjHOB3CHxs1oyIgHEWGh4
- aFg+CFo+IsrIe68k0GZVtWkK6yTHc9p9VXiKkKk91ggYLScrufjXeH0Q8
- VU3sQlfVVU9yvjT3rdhpB0VG4YAYlFfv3npAf1g9a8Gs+uX5XFyfQ1FoG
- jzhfVsoO0B4bJdUAUwSIy/Z0oHxCCkSYpiAzH6ncpl3G1QH0Drc7xBnoI
- yBNdyWYmfSEAcnk+AXXhmscbfUbrytXyiCm0ZCuhlFY4M/KloKYs6xnPP
- j2QVGltJv55KQkBiCUNxG7A8XlVfGxxgREjiDbi/lkd3liKPaCED6RhhL g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="311504551"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="311504551"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2023 08:24:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="909970895"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="909970895"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 31 Jan 2023 08:24:01 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pMtQO-0004YL-2f;
- Tue, 31 Jan 2023 16:24:00 +0000
-Date: Wed, 1 Feb 2023 00:23:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shenghao Ding <13916275206@139.com>, broonie@kernel.org,
- lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com
-Subject: Re: [PATCH v2] ASoC: tas2781: Add tas2781 driver.
-Message-ID: <202302010039.V0TFjmXX-lkp@intel.com>
-References: <20230131131701.7097-1-13916275206@139.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=SsXUyMMS
+Received: by mail-wm1-x32b.google.com with SMTP id
+ c4-20020a1c3504000000b003d9e2f72093so13081455wma.1
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:59:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/szpvn7y9gec1tyWJQBadgKS8WeEN4pwAXM4ABHxKUU=;
+ b=SsXUyMMSeCP/y7sVGkHIr+wpXtG+lNexPqRpKCZMGeB2LOgMxzjBwleq77KDiUrHwp
+ SNs3p6Z2ZLyYZyDrWO99h05TxvEa3nX9dSE2k+4IWs1ABGkpDK0yH3ARbya2Y2DQLBLQ
+ PvOrQ+aPNQM49D/a08vbA2DJI9XwdMVecs7CvJnVw6kN7/HNI1cny2fSHFE8B17TNitz
+ Hrk8XloenIKFWf8a2/EWU+eLCsv9MyWD/I1S/EQ3F4d0Jk3E9cK1fhDH/4Ol0DOOkqwO
+ MwVpmttmVDVLqScMFYgRYN0BrQ6Qgvr2Y2fyTQw/ths+an/9+uhimFl0fZk2bfFQXVLQ
+ U9RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/szpvn7y9gec1tyWJQBadgKS8WeEN4pwAXM4ABHxKUU=;
+ b=SaUZWe8TRIfE6EUtlnhe8+nXME+tMWgSn3CBd2dxWQtoEw+d6PIFinp676Z84X2Daq
+ SMuhEcN9d5XwaXclqshzlgQW9mpgdMEjOYCGW9uN8dU+4xKfRrvF5EwmInOv3ec56+IN
+ L4jpLI3zA5DvLCn4U8Agq2/+bin0gcrhjKVjt2PzNdhILRoUUKByqTFjFnGrByzH1wXo
+ a1MddlwPahBpBxYs9KYbeou9FWj90nnG8lIVJyWbyzlWl6Lc+2jmxjdrXaciNZINUePH
+ gBPyYDw418JpcHmul7hXfjtNc4NPFP9AU3fhCljLrUkjuIvzREgB98aCwb0JUOxTOv5U
+ viRg==
+X-Gm-Message-State: AO0yUKX9a2pduhCYzEn76ugxcvcsZkJ+GDYgInQe5clZ1C4MiEgjONHc
+ h2Sjt25wixqAtkJZEbzd7KyKHg==
+X-Google-Smtp-Source: AK7set/mH8G8arPE9aWgo+oZwj285W4mdjXlicy8LcplDLyXvEcpmpH/9UUR/d6w07g+gluxQr8aGQ==
+X-Received: by 2002:a7b:c853:0:b0:3dc:5342:4132 with SMTP id
+ c19-20020a7bc853000000b003dc53424132mr10709426wml.4.1675187964539; 
+ Tue, 31 Jan 2023 09:59:24 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ p7-20020a1c5447000000b003dc433355aasm13191576wmi.18.2023.01.31.09.59.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 Jan 2023 09:59:24 -0800 (PST)
+Message-ID: <5ecabe9e-84f2-cc3a-c213-3b623f90842e@linaro.org>
+Date: Tue, 31 Jan 2023 18:59:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230131131701.7097-1-13916275206@139.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v5] ASoC: dt-bindings: Add tas2781 amplifier.
+Content-Language: en-US
+To: Shenghao Ding <13916275206@139.com>, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, broonie@kernel.org, lgirdwood@gmail.com
+References: <20230131131735.7118-1-13916275206@139.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230131131735.7118-1-13916275206@139.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,201 +106,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- shenghao-ding@ti.com, kevin-lu@ti.com, oe-kbuild-all@lists.linux.dev,
- Shenghao Ding <13916275206@139.com>
+Cc: kevin-lu@ti.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, shenghao-ding@ti.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shenghao,
+On 31/01/2023 14:17, Shenghao Ding wrote:
+> Create tas2781.yaml for tas2781 driver.
 
-Thank you for the patch! Perhaps something to improve:
+You treat my feedback selectively... some things improved, but not
+everything. I am literally repeating the same and expect different
+results from you... isn't that the definition of insanity?
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on linus/master v6.2-rc6 next-20230131]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Let me paste ignored parts:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shenghao-Ding/ASoC-tas2781-Add-tas2781-driver/20230131-212221
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230131131701.7097-1-13916275206%40139.com
-patch subject: [PATCH v2] ASoC: tas2781: Add tas2781 driver.
-config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20230201/202302010039.V0TFjmXX-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/d0782b52a1274657458fa49356eacb7c56eddf6b
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Shenghao-Ding/ASoC-tas2781-Add-tas2781-driver/20230131-212221
-        git checkout d0782b52a1274657458fa49356eacb7c56eddf6b
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sh olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sh SHELL=/bin/bash sound/soc/
+1. Your patches are still not correctly threaded. There is no threading
+at all.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
+I said it multiple times. What else should I say here?
 
-All warnings (new ones prefixed by >>):
+2. Subject: ASoC: dt-bindings: Add tas2781 amplifier
+(drop the full stop - why did you add it there?)
 
-   sound/soc/codecs/tas2781-dsp.c:591:5: warning: no previous prototype for 'fw_parse_variable_header_git' [-Wmissing-prototypes]
-     591 | int fw_parse_variable_header_git(struct tasdevice_priv *tas_dev,
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:650:5: warning: no previous prototype for 'fw_parse_variable_header_cal' [-Wmissing-prototypes]
-     650 | int fw_parse_variable_header_cal(struct tasdevice_priv *tas_dev,
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from include/linux/device.h:15,
-                    from include/linux/acpi.h:15,
-                    from include/linux/i2c.h:13,
-                    from sound/soc/codecs/tas2781-dsp.c:16:
-   sound/soc/codecs/tas2781-dsp.c: In function 'fw_parse_block_data':
->> sound/soc/codecs/tas2781-dsp.c:809:25: warning: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-     809 |                         "%s: File Size(%lu) error offset = %d n = %d\n",
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
-     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                        ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:808:17: note: in expansion of macro 'dev_err'
-     808 |                 dev_err(tas_fmw->dev,
-         |                 ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:809:42: note: format string is defined here
-     809 |                         "%s: File Size(%lu) error offset = %d n = %d\n",
-         |                                        ~~^
-         |                                          |
-         |                                          long unsigned int
-         |                                        %u
-   sound/soc/codecs/tas2781-dsp.c: In function 'fw_parse_header':
->> sound/soc/codecs/tas2781-dsp.c:1199:39: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-    1199 |                 dev_err(tas_dev->dev, "File size not match, %ld %u", fmw->size,
-         |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
-     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                        ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:1199:17: note: in expansion of macro 'dev_err'
-    1199 |                 dev_err(tas_dev->dev, "File size not match, %ld %u", fmw->size,
-         |                 ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:1199:63: note: format string is defined here
-    1199 |                 dev_err(tas_dev->dev, "File size not match, %ld %u", fmw->size,
-         |                                                             ~~^
-         |                                                               |
-         |                                                               long int
-         |                                                             %d
-   sound/soc/codecs/tas2781-dsp.c: In function 'tas2781_load_calibration':
-   sound/soc/codecs/tas2781-dsp.c:1819:33: warning: format '%ld' expects argument of type 'long int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-    1819 |                                 "%s: file read error: size = %ld\n",
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
-     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                        ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:1818:25: note: in expansion of macro 'dev_err'
-    1818 |                         dev_err(tas_dev->dev,
-         |                         ^~~~~~~
-   sound/soc/codecs/tas2781-dsp.c:1819:64: note: format string is defined here
-    1819 |                                 "%s: file read error: size = %ld\n",
-         |                                                              ~~^
-         |                                                                |
-         |                                                                long int
-         |                                                              %d
+3. Missing changelog under ---.
+I mentioned it already few times, didn't I?
+
+> 
+> Signed-off-by: Shenghao Ding <13916275206@139.com>
+> 
+> ---
+>  Changes to be committed:
+> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> ---
+>  .../devicetree/bindings/sound/ti,tas2781.yaml | 87 +++++++++++++++++++
+>  1 file changed, 87 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> new file mode 100644
+> index 000000000..9a440d29f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2022 - 2023 Texas Instruments Incorporated
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments TAS2781 SmartAMP
+> +
+> +maintainers:
+> +  - Shenghao Ding <shenghao-ding@ti.com>
+> +  - Kevin Lu <kevin-lu@ti.com>
+> +
+> +description: |
+> +  The TAS2781 is a mono, digital input Class-D audio amplifier
+> +  optimized for efficiently driving high peak power into small
+> +  loudspeakers. Integrated an on-chip DSP supports Texas Instruments
+> +  Smart Amp speaker protection algorithm. The integrated speaker
+> +  voltage and current sense provides for real time
+> +  monitoring of loudspeaker behavior.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,tas2781
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: |
+> +      I2C address of the device can be in range from 0x38 to 0x40.
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: |
+> +      A GPIO line handling reset of the chip. As the line is active high,
+> +      it should be marked GPIO_ACTIVE_HIGH (see ../gpio/gpio.txt)
+
+Drop the reference to gpio.txt.
+
+I give up. I spent too much time on it while being also ignored a bit
+too much.
 
 
-vim +809 sound/soc/codecs/tas2781-dsp.c
+Best regards,
+Krzysztof
 
-   740	
-   741	static int fw_parse_block_data(struct tasdevice_fw *tas_fmw,
-   742		struct tasdevice_block *block, const struct firmware *fmw, int offset)
-   743	{
-   744		unsigned char *data = (unsigned char *)fmw->data;
-   745		int n;
-   746	
-   747		if (offset + 4 > fmw->size) {
-   748			dev_err(tas_fmw->dev, "%s: mnType error\n", __func__);
-   749			offset = -1;
-   750			goto out;
-   751		}
-   752		block->type = SMS_HTONL(data[offset], data[offset + 1],
-   753			data[offset + 2], data[offset + 3]);
-   754		offset  += 4;
-   755	
-   756		if (tas_fmw->fw_hdr.fixed_hdr.drv_ver >=
-   757			PPC_DRIVER_CRCCHK) {
-   758			if (offset + 1 > fmw->size) {
-   759				dev_err(tas_fmw->dev, "%s: mbPChkSumPresent error\n",
-   760					__func__);
-   761				offset = -1;
-   762				goto out;
-   763			}
-   764			block->is_pchksum_present = data[offset];
-   765			offset++;
-   766	
-   767			if (offset + 1 > fmw->size) {
-   768				dev_err(tas_fmw->dev, "%s: mnPChkSum error\n",
-   769					__func__);
-   770				offset = -1;
-   771				goto out;
-   772			}
-   773			block->pchksum = data[offset];
-   774			offset++;
-   775	
-   776			if (offset + 1 > fmw->size) {
-   777				dev_err(tas_fmw->dev, "%s: mbYChkSumPresent error\n",
-   778					__func__);
-   779				offset = -1;
-   780				goto out;
-   781			}
-   782			block->is_ychksum_present = data[offset];
-   783			offset++;
-   784	
-   785			if (offset + 1 > fmw->size) {
-   786				dev_err(tas_fmw->dev, "%s: mnYChkSum error\n",
-   787					__func__);
-   788				offset = -1;
-   789				goto out;
-   790			}
-   791			block->ychksum = data[offset];
-   792			offset++;
-   793		} else {
-   794			block->is_pchksum_present = 0;
-   795			block->is_ychksum_present = 0;
-   796		}
-   797		if (offset + 4 > fmw->size) {
-   798			dev_err(tas_fmw->dev, "%s: mnCommands error\n", __func__);
-   799			offset = -1;
-   800			goto out;
-   801		}
-   802		block->n_cmds = SMS_HTONL(data[offset], data[offset + 1],
-   803			data[offset + 2], data[offset + 3]);
-   804		offset  += 4;
-   805	
-   806		n = block->n_cmds * 4;
-   807		if (offset + n > fmw->size) {
-   808			dev_err(tas_fmw->dev,
- > 809				"%s: File Size(%lu) error offset = %d n = %d\n",
-   810				__func__, fmw->size, offset, n);
-   811			offset = -1;
-   812			goto out;
-   813		}
-   814		block->data = kmemdup(&data[offset], n, GFP_KERNEL);
-   815		if (block->data == NULL) {
-   816			offset = -1;
-   817			goto out;
-   818		}
-   819		offset  += n;
-   820	out:
-   821		return offset;
-   822	}
-   823	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests

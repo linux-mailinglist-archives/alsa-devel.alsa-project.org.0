@@ -2,98 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86CE6683486
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 19:00:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62C5B683596
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 19:48:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F77C1EB;
-	Tue, 31 Jan 2023 18:59:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F77C1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BD984E;
+	Tue, 31 Jan 2023 19:47:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BD984E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675188040;
-	bh=MROeDG2X+qvCzyYSXJc7B0nitjtYj9YALJ3wBWO7px0=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=m8icnN027S6COZdFsXdWyZjltvwobFghQnXCLwtuPPs/GFh1tA6Hl3ceSZHNu3+/L
-	 SroUflUKaR0NNjDEAPizIH+oaPZ/nYFAom8yLYffHz3cXli5Qqifk1OxNUmz5+qqz8
-	 MWq22d2oRgiogIHSZ95FWuqvuW3BBairHPyjV3ew=
+	s=default; t=1675190905;
+	bh=CkSiCt34JIm2+WPuSBV+Bc27zgq2mm/29/rC6boUr8U=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=grZSR3iH0+qFe8SVNR1qMIFpjqwRamv3PvNVmb7WaNAPHK+J73UShv+90Ral4Msz9
+	 LEYjmHcSMr7vznuDF0e4RG2SMrjr6DjCO+6Yn55cpR2WRH8rL4VZW8p9TOXSKnIbsB
+	 BVdPMKQSYYuJiUDR+tkc5wFSazvcRx+j+xie8S2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15FD4F80169;
-	Tue, 31 Jan 2023 18:59:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC861F80169;
+	Tue, 31 Jan 2023 19:47:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 750FEF804C2; Tue, 31 Jan 2023 18:59:39 +0100 (CET)
+ id 31E60F80520; Tue, 31 Jan 2023 19:47:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20616.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::616])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DB73F80155
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 18:59:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB73F80155
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=SsXUyMMS
-Received: by mail-wm1-x32b.google.com with SMTP id
- c4-20020a1c3504000000b003d9e2f72093so13081455wma.1
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:59:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/szpvn7y9gec1tyWJQBadgKS8WeEN4pwAXM4ABHxKUU=;
- b=SsXUyMMSeCP/y7sVGkHIr+wpXtG+lNexPqRpKCZMGeB2LOgMxzjBwleq77KDiUrHwp
- SNs3p6Z2ZLyYZyDrWO99h05TxvEa3nX9dSE2k+4IWs1ABGkpDK0yH3ARbya2Y2DQLBLQ
- PvOrQ+aPNQM49D/a08vbA2DJI9XwdMVecs7CvJnVw6kN7/HNI1cny2fSHFE8B17TNitz
- Hrk8XloenIKFWf8a2/EWU+eLCsv9MyWD/I1S/EQ3F4d0Jk3E9cK1fhDH/4Ol0DOOkqwO
- MwVpmttmVDVLqScMFYgRYN0BrQ6Qgvr2Y2fyTQw/ths+an/9+uhimFl0fZk2bfFQXVLQ
- U9RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/szpvn7y9gec1tyWJQBadgKS8WeEN4pwAXM4ABHxKUU=;
- b=SaUZWe8TRIfE6EUtlnhe8+nXME+tMWgSn3CBd2dxWQtoEw+d6PIFinp676Z84X2Daq
- SMuhEcN9d5XwaXclqshzlgQW9mpgdMEjOYCGW9uN8dU+4xKfRrvF5EwmInOv3ec56+IN
- L4jpLI3zA5DvLCn4U8Agq2/+bin0gcrhjKVjt2PzNdhILRoUUKByqTFjFnGrByzH1wXo
- a1MddlwPahBpBxYs9KYbeou9FWj90nnG8lIVJyWbyzlWl6Lc+2jmxjdrXaciNZINUePH
- gBPyYDw418JpcHmul7hXfjtNc4NPFP9AU3fhCljLrUkjuIvzREgB98aCwb0JUOxTOv5U
- viRg==
-X-Gm-Message-State: AO0yUKX9a2pduhCYzEn76ugxcvcsZkJ+GDYgInQe5clZ1C4MiEgjONHc
- h2Sjt25wixqAtkJZEbzd7KyKHg==
-X-Google-Smtp-Source: AK7set/mH8G8arPE9aWgo+oZwj285W4mdjXlicy8LcplDLyXvEcpmpH/9UUR/d6w07g+gluxQr8aGQ==
-X-Received: by 2002:a7b:c853:0:b0:3dc:5342:4132 with SMTP id
- c19-20020a7bc853000000b003dc53424132mr10709426wml.4.1675187964539; 
- Tue, 31 Jan 2023 09:59:24 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
- by smtp.gmail.com with ESMTPSA id
- p7-20020a1c5447000000b003dc433355aasm13191576wmi.18.2023.01.31.09.59.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Jan 2023 09:59:24 -0800 (PST)
-Message-ID: <5ecabe9e-84f2-cc3a-c213-3b623f90842e@linaro.org>
-Date: Tue, 31 Jan 2023 18:59:21 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DD41F80169
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 19:47:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DD41F80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=y+5BgAk8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PV57meXeHmCz9qPXcmnWhs3dzfU7sgdm62pMuXW7L0UW6nFyrv2Q89xvTFQUL8aHO1SSk/NtknwUwOFje+a6pTYNjzOwBy2TXgq/EsSjF4m05z7GKcpvp6r20e/EP3P1R3sfqHZXJeMW8ZpQNf64460Z9TfZj5aLQYXT/RjenXSh8J5ib/F/bXAgmgEkBLNoLwWs2sfntL9figeIZOliusJiBLNgquA8WA1aZ9QkMO9MgKFhbOlcsJ1pPKZiieYvjjTTm3ffLhEuL7xHKkZZqQae8kEWsgTMYYe4vP4+oQF9zcdqgvRX2X58wSy2wuWPocwhu6M/3sIfBRqgFCUAKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mAp7VZ3TKj4X5FUzmfezDbSjp2xsJm8OBrvdfGHEa1E=;
+ b=KmnRKFEsNDD6d8F6BBfxs5cuVHQE+ZQn603j24SmCFhirJpJ6p+yTD0rJsxskiQpnt0lWiUNc0oudYVthdLqfpTdKhxs19h3hNNoW+DjaukPQt6Kh2Yu7AWgeah5R55M2E44IO83WwIQFgHaUh6R/dw1xGC+65eQEBt6hS6R0YybROYjO/fjL0aRaUjH7EYY9bpwfNiRw4/uL9IP66lunZEtYl3VlXAitwXrBjdS21VkWOMjxZH/2fW6lS+z+UFQJjE9t0JG9g34bgQuHo4Bx0neo68tzoxEueK6fOoO3ACav0We0/9tQu0WY33AHXlYqnau6t6fZoq7W296HRz7Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mAp7VZ3TKj4X5FUzmfezDbSjp2xsJm8OBrvdfGHEa1E=;
+ b=y+5BgAk8Ve2fkukD/dYbHvyzSndpJDfJ02jJaJY4NA02eYpd6oqQVi+QkHREENad1lXRK277cRbfw6OLjTF06pNEHSytZbfhyPR7jzirIYGkaO9czaJ/PzeRF1x/TmuHZXfjLOieRnFWZt2zm7f4g+o+cmX9/9qJCZFlqcLiHlA=
+Received: from BN1PR10CA0013.namprd10.prod.outlook.com (2603:10b6:408:e0::18)
+ by DS7PR12MB5717.namprd12.prod.outlook.com (2603:10b6:8:70::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Tue, 31 Jan
+ 2023 18:47:07 +0000
+Received: from BL02EPF0000C409.namprd05.prod.outlook.com
+ (2603:10b6:408:e0:cafe::53) by BN1PR10CA0013.outlook.office365.com
+ (2603:10b6:408:e0::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38 via Frontend
+ Transport; Tue, 31 Jan 2023 18:47:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C409.mail.protection.outlook.com (10.167.241.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6064.17 via Frontend Transport; Tue, 31 Jan 2023 18:47:06 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 31 Jan
+ 2023 12:47:05 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Jaroslav Kysela <jkysela@redhat.com>, Mukunda Vijendar
+ <Vijendar.Mukunda@amd.com>, Saba Kareem Syed <Syed.SabaKareem@amd.com>
+Subject: [PATCH v3 0/6] Fix default DMIC gain on AMD PDM drivers
+Date: Tue, 31 Jan 2023 12:46:46 -0600
+Message-ID: <20230131184653.10216-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v5] ASoC: dt-bindings: Add tas2781 amplifier.
-Content-Language: en-US
-To: Shenghao Ding <13916275206@139.com>, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, broonie@kernel.org, lgirdwood@gmail.com
-References: <20230131131735.7118-1-13916275206@139.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230131131735.7118-1-13916275206@139.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C409:EE_|DS7PR12MB5717:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9261604-e9e7-4712-eae3-08db03bb8d3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gUQqKL99wRi+ce0Z0gp3ArQ+tcVS/VBteJo/IMlPZlH6NsfSOAGt8J0J5uaIbPtLLDXs/TYsoYc3agTDZ7PPx1Gg2ob66n4fpuKV2zwJD5/w5bijXoPh8j0xYHJ5pFygb5L2iV5WamxvqYQDN180xc9lEUN6eJweVJGQ6o3Igt6bBsfV5V8sqwsPcx9NK83C7OXcbG/98AIpXvfQ/2T3nezU7WhFRyo8H0x5uKrOiCTYGOnNxiR/JGLp4UV6Q4TyJ5nu6PvSt8HRaXGUBHERlhMXzBOL1ZfHHfePEV6FmjR6+QIlVOKT7UotovD/EKERFBHcF0Isy+yyvmDvqxDE1TQK4/sbR5ze3/loBBQUh4gfFPlOw5sGdqAqEOYwS822SczFz28AkZt6bgeMwHTxUGGQeKLPLh5WwqpMPHp6K/Xq1++rkUjKSp6K/zYjao0ryH1o/fxE/1fKQKH1CPjyp3TD4gLctwzmy3eiPY9WTeCyFohJNuEFuhVJe5Sqf4l8lriyc3uj3DtMjwYvYpqpNrfXqLGjrrcBXmt7R7QFhdz3u9MlsTcikK0cBK/oa3BNJAlaZzsTrAItNI3vz4P8A+RT/zIOT04BzB4+O7A/15FwBkzjm9gJY0qYs1Nz7Y5scpORpElDgOvkXt1n/raKa9E4H3Bqw1scAIwWacsgjAbucSi4DEzy2AJFpLIy1MMzvrDWwkK2alHFf5y5rdVHFLghvSCikzyGAVxEPxeMKAU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199018)(40470700004)(36840700001)(46966006)(86362001)(82310400005)(478600001)(356005)(336012)(7696005)(36756003)(54906003)(110136005)(2906002)(6636002)(6666004)(44832011)(40480700001)(5660300002)(8936002)(41300700001)(4326008)(316002)(40460700003)(70586007)(83380400001)(81166007)(186003)(16526019)(26005)(70206006)(82740400003)(36860700001)(8676002)(426003)(47076005)(1076003)(2616005)(66899018)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 18:47:06.6066 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9261604-e9e7-4712-eae3-08db03bb8d3e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C409.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5717
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,91 +128,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: kevin-lu@ti.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, shenghao-ding@ti.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Pearson <mpearson@lenovo.com>,
+ Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 31/01/2023 14:17, Shenghao Ding wrote:
-> Create tas2781.yaml for tas2781 driver.
+It's been reported that a number of laptops have a low volume
+level from the digital microphone compared to Windows.
 
-You treat my feedback selectively... some things improved, but not
-everything. I am literally repeating the same and expect different
-results from you... isn't that the definition of insanity?
+AMD offers a register that can adjust the gain for PDM which is not
+configured at maximum gain by default.
 
-Let me paste ignored parts:
+To fix this change the default for all 3 drivers to raise the gain
+but also offer a module parameter. The module parameter can be used
+for debugging if the gain is too high on a given laptop.
 
-1. Your patches are still not correctly threaded. There is no threading
-at all.
+This is intentionally split into multiple patches for default and
+parameter so that if the default really does behave better universally
+we can bring it back to stable too later.
 
-I said it multiple times. What else should I say here?
+v2->v3:
+ * Use clamp and clear properly
 
-2. Subject: ASoC: dt-bindings: Add tas2781 amplifier
-(drop the full stop - why did you add it there?)
+Mario Limonciello (6):
+  ASoC: amd: yc: Adjust the gain for PDM DMIC
+  ASoC: amd: yc: Add a module parameter to influence pdm_gain
+  ASoC: amd: renoir: Adjust the gain for PDM DMIC
+  ASoC: amd: renoir: Add a module parameter to influence pdm_gain
+  ASoC: amd: ps: Adjust the gain for PDM DMIC
+  ASoC: amd: ps: Add a module parameter to influence pdm_gain
 
-3. Missing changelog under ---.
-I mentioned it already few times, didn't I?
+ sound/soc/amd/ps/acp63.h             | 2 +-
+ sound/soc/amd/ps/ps-pdm-dma.c        | 8 +++++++-
+ sound/soc/amd/renoir/acp3x-pdm-dma.c | 8 +++++++-
+ sound/soc/amd/renoir/rn_acp3x.h      | 2 +-
+ sound/soc/amd/yc/acp6x-pdm-dma.c     | 8 +++++++-
+ sound/soc/amd/yc/acp6x.h             | 2 +-
+ 6 files changed, 24 insertions(+), 6 deletions(-)
 
-> 
-> Signed-off-by: Shenghao Ding <13916275206@139.com>
-> 
-> ---
->  Changes to be committed:
-> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> ---
->  .../devicetree/bindings/sound/ti,tas2781.yaml | 87 +++++++++++++++++++
->  1 file changed, 87 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> new file mode 100644
-> index 000000000..9a440d29f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> @@ -0,0 +1,87 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments TAS2781 SmartAMP
-> +
-> +maintainers:
-> +  - Shenghao Ding <shenghao-ding@ti.com>
-> +  - Kevin Lu <kevin-lu@ti.com>
-> +
-> +description: |
-> +  The TAS2781 is a mono, digital input Class-D audio amplifier
-> +  optimized for efficiently driving high peak power into small
-> +  loudspeakers. Integrated an on-chip DSP supports Texas Instruments
-> +  Smart Amp speaker protection algorithm. The integrated speaker
-> +  voltage and current sense provides for real time
-> +  monitoring of loudspeaker behavior.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,tas2781
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: |
-> +      I2C address of the device can be in range from 0x38 to 0x40.
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: |
-> +      A GPIO line handling reset of the chip. As the line is active high,
-> +      it should be marked GPIO_ACTIVE_HIGH (see ../gpio/gpio.txt)
-
-Drop the reference to gpio.txt.
-
-I give up. I spent too much time on it while being also ignored a bit
-too much.
-
-
-Best regards,
-Krzysztof
+-- 
+2.34.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4098A682693
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:35:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38ABB682696
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 09:37:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9114AE81;
-	Tue, 31 Jan 2023 09:35:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9114AE81
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3318E823;
+	Tue, 31 Jan 2023 09:36:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3318E823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675154157;
-	bh=nHXnU+9XDfYF2OnuuJ6EDljcNQ7qa+HitfCkvqK2v+o=;
+	s=default; t=1675154225;
+	bh=M7tt1Dq9CUjggR6B5yzRZvHm6dcsup9EeLWO6DRsacc=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=E2nj5O+cgz/6T9su/bIwF4Pc+zoikwNm2aqLolC/Ijv55M2Af5sQgk/8tEdh+ayAj
-	 kldnlLQclZ/+Dwi8Qjr92Gjn95Qt9nhYuTKasYgmsRjdVx9ZyjZeMdFHKhi+d7OGpj
-	 zn2Bc7OEAQLDCY3cvPfaHqNmcd9GvNNegPFGd0rQ=
+	b=jh57cTgvT3BdrNAP+4UxH38rzHuUMYWPDaVtPLg6V9JB+vHRVIWSuJ6D3dtW/86fQ
+	 Hmfwih2giKLHN0iG0KS+NNiGrGig5wH6+tsJfMeHPpuMF+VH6x3MoMdxm3ARIwmAOF
+	 jBKT3dK6YrzI9F+XnaKotWqWLUKXORO0sWjYHKuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38BE6F80169;
-	Tue, 31 Jan 2023 09:35:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48BF1F800A7;
+	Tue, 31 Jan 2023 09:36:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF584F800A7; Tue, 31 Jan 2023 09:34:56 +0100 (CET)
+ id 59444F80169; Tue, 31 Jan 2023 09:36:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,53 +36,52 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B6C3F800A7
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:34:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6C3F800A7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71892F80169
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 09:36:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71892F80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=c8XJcfI0; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=ZXRGu+Ra; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=7p5WJJTp
+ header.s=susede2_ed25519 header.b=lAWuTRrV
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A00952043F;
- Tue, 31 Jan 2023 08:34:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 39C872031A;
+ Tue, 31 Jan 2023 08:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675154091; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675154163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OaZFrQIRLxMBN8GalJDihMwDhfB7pdrWRt2BYXcozeg=;
- b=c8XJcfI0ngoQWUtK0Rg/9J7YE19ccNBLiq0pm6nKq6Ue+LnT6erzC3SFgOVcsTIZC9LvP0
- calfW9h1IoiNrxdZv9YkF9C0tLJ46v4WWqLBsbuNc/LAPLRILYAsfEYBrQV8NME9MPCA29
- nFfsF3mhB8yr34lbWOCJqgYXRjnnwq0=
+ bh=BlijzaJZHgjXQCkupBtgz374LBFS0tcYfWZdWnEAn3o=;
+ b=ZXRGu+RaiZSPwRbRYbLrgYa+4XRWH4W4PpVoi4TyBwz/UIVi+iWbVrYSoRe6VUkfxl+AVq
+ cWTHPhEoz9S/ayzY+99gck+r7cE/eJy2mHbsuL5D0ap20jVts69GdIbPjbNfCRMnAvmEe8
+ 0drU+JlwYj7k10jonGWqd6PpFihmMDQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675154091;
+ s=susede2_ed25519; t=1675154163;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OaZFrQIRLxMBN8GalJDihMwDhfB7pdrWRt2BYXcozeg=;
- b=7p5WJJTpyqqOAjZtLcNS88AGynr42EW8Ow4uoH/uGyBslyJWLdBBu/Qjs5Fi5jBKIIC5DS
- st12tEun8z+vebBw==
+ bh=BlijzaJZHgjXQCkupBtgz374LBFS0tcYfWZdWnEAn3o=;
+ b=lAWuTRrV69OCXNHA2N9EU3J5d8Q9i1PbwgoZ1RoYzRZGFqDhHS0k/QzGBsYKhG8JRPTE/J
+ rUEw1BdI0vIgJfAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8778413585;
- Tue, 31 Jan 2023 08:34:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECFCD13585;
+ Tue, 31 Jan 2023 08:36:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IUtpIKvS2GN9GgAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:34:51 +0000
-Date: Tue, 31 Jan 2023 09:34:51 +0100
-Message-ID: <87r0vbp0es.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id H2wpOfLS2GP8GgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 31 Jan 2023 08:36:02 +0000
+Date: Tue, 31 Jan 2023 09:36:02 +0100
+Message-ID: <87o7qfp0ct.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: firewire-motu: fix unreleased lock warning in hwdep
- device
-In-Reply-To: <20230130141540.102854-1-o-takashi@sakamocchi.jp>
-References: <20230130141540.102854-1-o-takashi@sakamocchi.jp>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH RESEND] ALSA: doc: Fix PCM interface section typos
+In-Reply-To: <20230130162924.119389-1-miquel.raynal@bootlin.com>
+References: <20230130162924.119389-1-miquel.raynal@bootlin.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -98,22 +97,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Dan Carpenter <error27@gmail.com>
+Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Jan 2023 15:15:40 +0100,
-Takashi Sakamoto wrote:
+On Mon, 30 Jan 2023 17:29:24 +0100,
+Miquel Raynal wrote:
 > 
-> Smatch static analysis tool detects that acquired lock is not released
-> in hwdep device when condition branch is passed due to no event. It is
-> unlikely to occur, while fulfilling is preferable for better coding.
+> Fix two mistakes in the PCM interface section:
+> 1/ Members of the snd_pcm_hardware structure are channels_{min,max}
+>    and not channel_{min,max} (mind the 's').
+> 2/ Another sentence is incomplete as the reference to one structure
+>    member (period_bytes_max) is missing.
 > 
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Fixes: 634ec0b2906e ("ALSA: firewire-motu: notify event for parameter change in register DSP model")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> There is no relevant 'Fixes:' tag to apply as both typos predate the
+> Git era.
+> 
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+> 
+> Hello, I wrote and sent this patch in 2019 but I likely only Cc'd Jon
+> and the doc ML, which might have not been enough, so just in case, here
+> is a resend.
+> Link: https://lore.kernel.org/linux-doc/20190829145512.3752-1-miquel.raynal@bootlin.com/
 
-Applied now.  Thanks.
+Thanks, applied now.
 
 
 Takashi

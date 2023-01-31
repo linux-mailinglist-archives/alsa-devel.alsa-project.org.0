@@ -2,142 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8620D682318
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 04:59:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35216823A8
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Jan 2023 06:12:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2B1B1E1;
-	Tue, 31 Jan 2023 04:58:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2B1B1E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05434AE9;
+	Tue, 31 Jan 2023 06:11:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05434AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675137583;
-	bh=TjGmxAofN0bMeWp4aIFao2dEsOckAi84zeeRjImLkuI=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=d3SNMVn1bNZSv/xwyh+NVncBnx8QuKGw0CNlSxBd6ajq3EbZOtvWsmzdyJuwn6LOk
-	 PbuWNhHfF+SKqEyV8sbfyx9CtOBRVPyzlALNxQG0vTzrcHG6X4/YLLqmCofLDDvLn+
-	 mOZ5U0T6dePtewbd1+gJockWhHKV/iFUkCJXdRjU=
+	s=default; t=1675141927;
+	bh=9GbCXSqYRiDK8rPE8U+a8KlczTmgaUnbs9cwqpRBtjQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=jqYRKmlcqzn5co08lEd/c0BZ1Pk+/txcBGRrhr6TPCIh91XHQGyHaPYvazqZwWz4p
+	 oXg3iB1mnNwbp5+umlUPLVT+wM8tciDb9BwRxnFRXH/ff5gwB/TcyNlBM+oqawIWr3
+	 0/U+I6oN0U036mL1601O0piAQ9J3asrgxz+wfd/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0962AF80155;
-	Tue, 31 Jan 2023 04:58:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3E0CF80155;
+	Tue, 31 Jan 2023 06:11:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB473F80155; Tue, 31 Jan 2023 04:58:43 +0100 (CET)
+ id D7EC6F804C2; Tue, 31 Jan 2023 06:11:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
 Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2119.outbound.protection.outlook.com [40.107.215.119])
+ (mail-sgaapc01on2060e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feab::60e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7337AF80155
- for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 04:58:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7337AF80155
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=eRw7Cvhm
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4EE2F80155
+ for <alsa-devel@alsa-project.org>; Tue, 31 Jan 2023 06:10:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4EE2F80155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hJw3WFThIfQ6XE//zXzUetBHU4ymJvaw92z91cRLuR9H9Gv/vLOKEbBVYFES08lp4rz5BH33VHXnI5+wyZMi/TV0wJE8VZLHFOXobIQP1gMwF+HNwI3rSz/p1exeJA5bSVbsRQfhmaWgZqrYi6e6PJbRKDr1cVUhFBd7vfT514QwGcQhjqzxU8obr//oFsv7PCSZVDrOi9RzEEkKQbGpKMuhoWyL+2Pj0j9CbIupSY8MvUZUN5BGgonactGN1BaJnVQQto1BCKA3MIz7hV3YG1i9DkHakxQ2gHrsHBHuPdhSaRLhHnCZvIjvnfXM1LB+RX9YSY1Onz1Easojm7gCRw==
+ b=fGVshe/UedCgRw13A01xYPTssQMV5Nb87YBm6vLaGv1zxpel0mXhg8xybeP94fjneN2X/zhImf09rwg6dIr/0By7aF+P3WmeumERJuW7caNnlCtEMeSluBP7Jt/EjFEDVR3Y01GPprVCp2FSAVBmdRM8apUv5kiIkiZ5vqTftvWcpsK/p56jCUtKlV9wltnIQOo4NOXsHJcmF2xlQlI7juPq+6aTci2M217sIorwaGUmhEy4VXyvSTsO6TSyh0xWQ4+BnBRum7UkQw6uxk4MPGE96vHrOq3ls1hZK+l5hYTJ3jWrEqgJl9vlakWQ3DFRcJ6oegQNNu/U4riVfk4h0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kPJYAkYtmtHb8RSllivrVAxpQmHKwZaRqtyVfMHCZAM=;
- b=TDdS8kzLc4Y50dTDy2QnIqadkus/iSXYLtBhbQsF3v9RImpXIr/hUk2KuP8wAOydc/uBZhagWb08zd7Q8DLxYkXkJ5CUZ0jOyq0xIsaxar7tK6H2r2sFLfO/yTuElGyZrSg3ut4W2tJy3Uo8LR5qt+FQY2Kcun0cdOIp1hjTUmu5CMSuf+yrQ+xvDhktbWaeESHQR7ju/NNGO2j+U+bol0xTpniy70n+iS2FYin67H1RJL8EZQJhUG4f7KCVgAzDMr0CxOoqTR0o6czt1xn26VNtusqw/JHD7woeIO00pHe2Ao0Igy8F7zFSH+shF9atC3ONguF/MluPd6txTc84Hg==
+ bh=k/5VWxDRGHZA6W6SxsX9/7G0JZla3SuEEesO99geB1s=;
+ b=XnAm9ihh6IljRbhwxrsrSveyfxyR+uzHgcEcgF90PfwKLwiHZNt+xNJnF7Jx3ZQaucmralSNw2NgXvDji/ehfHcQ1CdoEcJ6zAoinAwr8oMQdkOhfQv4RLjbDUCzNB9UoKncD/muUJVTrWO2Ox8wNBlbqdfqCWj5jqJJdTGeOOYabwgVbKDb7HMEVqN3UvqZlT2RWtAilqP4A3WzaWxCA4bA+6Bgq3Jpaypja/tU1vtbZovr8BTxVLG1Jr6008jxdNafL3Oe2QzEI1Nr8D3ixNS/BVYTL6+Np2y6UtZORUVQnZvIJnWrn0+N2k1KoMvM/b3tVTGfcg59wx//xeAW4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kPJYAkYtmtHb8RSllivrVAxpQmHKwZaRqtyVfMHCZAM=;
- b=eRw7CvhmZK5XHSqahQgsD1SSGZqbivHrIKlTqQuCMRX4APygAjmHUFaGMad1pOmPrN9W4rfLppvEGLHBJTLBtIwEWesBWcIZDXrJe0bt+HF8LEYmOpy/8RZunoBLWpY3nuuB4ElnYC6U4AX9EhFO9f55WIZuj1ImwDjnXYGCslw=
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
- by TYCPR01MB8455.jpnprd01.prod.outlook.com (2603:1096:400:15d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Tue, 31 Jan
- 2023 03:58:19 +0000
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::9438:5139:7952:d8b0]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::9438:5139:7952:d8b0%7]) with mapi id 15.20.6043.036; Tue, 31 Jan 2023
- 03:58:19 +0000
-From: David Rau <david.rau.zg@renesas.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: RE: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Thread-Topic: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Thread-Index: AQHY/Wc8EHyTvYawJkGeL+1XJ6BDpa6jYNiAgAIOc/CAANeEgIASDP8A
-Date: Tue, 31 Jan 2023 03:58:19 +0000
-Message-ID: <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
-References: <20221121050744.2278-1-david.rau.zg@renesas.com>
- <20230117195645.GA83401@roeck-us.net>
- <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <20230119161221.GA981953@roeck-us.net>
-In-Reply-To: <20230119161221.GA981953@roeck-us.net>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB6641:EE_|TYCPR01MB8455:EE_
-x-ms-office365-filtering-correlation-id: 9d389b75-9fac-4501-53fa-08db033f638c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LY1FOj4bMsG8pmPf0VqRr8EGXtW6/Lgl24XQwyQXO61/z3Wvu2+Q5rlqCN+LwNikEERvRkcj6GdVaORXsEBUJ2NsY6Sy3t+A9JYwfnvax8g9uBCY5RkoVr5QmfgpdrWoONf68YCxpoZftGWcqT6SAmLk1IaEou8v4ir9Hzz2tg1E1BHsAC1qh4lAhTapnjOcpSG+ulRkABy7nES6uOuKLNTNkApR5/IgBYTVoogNW2Q+xoTRxqDvhF+qfZZfxKUTu4TYuyOPKlSl6ofBRTofQvWDY2B2KUI+BJthlnYh7ENeJeN6IKVWs0FunvvLZ13HaVFJKO+oK0UrFalKUXmY2pf/uQDaXiTEzfS8q0L+SBlWTKF50mNEODSTWOgXI2xME4ZrD3Q6IemqaXoIqCTGS6J8BRkvf1B+WvAhvjGOEvRnKrA5uP5HnH5Iqk2Pjg6sTwk4OY3y2S/4n1EHn2HmlCeOFgIsibyKQWZk/B9kiTQdG50FEhnn2BYbPMvxPT5Ac/WL8SeMRbULP4hur+sJqFg+tXpzHXXKHznT0UmXv8ESkf+gqBGt+5tEoRdPhCJ5D5I/OR9Te8J+SlNpHVmIq2x4wnu0+CogeWUfrMOo48g9DzAb+JZClWFFjkQ7epQBEeGarNtEgl09l8AasmBAlZFkzvroTmEY7Whw/TFN8ipmqOA6THyFXRM2iXmvVeaF++CKg+A1xleGUFhe96fRAA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB6641.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(376002)(396003)(39860400002)(366004)(346002)(451199018)(71200400001)(7696005)(2906002)(83380400001)(6916009)(4326008)(66946007)(8676002)(64756008)(66476007)(66556008)(66446008)(76116006)(478600001)(41300700001)(8936002)(38070700005)(316002)(6506007)(33656002)(55016003)(9686003)(53546011)(55236004)(5660300002)(54906003)(122000001)(38100700002)(52536014)(26005)(186003)(86362001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ScC2KQ0eTjGQUrQuC2PG05Eg0MjOh2g1DZq5AUCg6RJhwdWhq0/FvF5Fr6Hf?=
- =?us-ascii?Q?SRClofxrWDKqEfOzx+CyKRfVxREPrsJioyMj9REWN3khe+1T8zAD5DR9jT3K?=
- =?us-ascii?Q?WeINokXH6W+8J60QGX0WwSi9Crh55z3QjLUiVyuCSz/IDziZljPlYoGDQiZF?=
- =?us-ascii?Q?OYpoYFtyqTDLf/RLmMuqIr5hdsNQvhQPdZZ+IdyGNFyee9en+vlZ8nGrLKOP?=
- =?us-ascii?Q?4pefsx6hIVskFqlIZO2v9QMg9U3+LFgnTM6NcXWXTZmYpl32mxVq9QnVMlHl?=
- =?us-ascii?Q?sEkZuDEx/6DSU1s+vg7gFLfsn9GOXKaGmkWc5Dh9GbS2OgYPuQc5iNOFwUMb?=
- =?us-ascii?Q?bO4/c/J5B6ShDLbyxk5LEYmATI9RmK6SEUnTlrViPKP7QIdIpBWxoNyOhI0e?=
- =?us-ascii?Q?ovY6Fn/+Z7utUEqn9nyGWHR3pTo4/pbAe7mG5o85IjD2Z7qlAFHOhmNKHx/3?=
- =?us-ascii?Q?Rl/imj8+SMuGrPGSBUSyR8mp9Mb5fNbI/DwLdRk1jB5W5RLvf/5KQUIxI38b?=
- =?us-ascii?Q?oexnGYFqqTMycMajvShwiPE6foLDxuI/Zrrpyl2cwFJIFJUNsA1JY927A9B1?=
- =?us-ascii?Q?h+4hWImLMcLpdPeGA7LSINppSZlA5bC9NQDcuQaHaW/RhDTjNnYzTRBz7iiT?=
- =?us-ascii?Q?jBX7hJyJbT9znbpn1GdEb/6f5Qqz+xePXEqUBakiOJom2XRINNr8tAHicY16?=
- =?us-ascii?Q?V/eOXxIFjiqkkF9yC7VmOn7edwwKFe4vNLDQAjpbq95vb6Boaef2kvRJgMHJ?=
- =?us-ascii?Q?br8iEQhtaErv63NbANZ8WkoclyzUjx7ZXbawXBkpD58hxfXdnI+JJJNuNrr/?=
- =?us-ascii?Q?t7xIYWupak6TbBIE8HCLShbPtxtC669ehnfAnOidn1NdkmqIDjXtZEoQ0+hA?=
- =?us-ascii?Q?yB6E9Uq7WjDDon6lSMpzmrA9j/Q2j7fx6H5GHNmgBVWMhyGSrGAvt+yoRgfS?=
- =?us-ascii?Q?evfsQjSABFPViE4u9rXzcbhE5qwTEwQvBYGNmNquYyk2JW5jyKqm9je3rA7y?=
- =?us-ascii?Q?C6gxR9QoKLnrwHuYjrvwd9fDk7vzgUxck2S8KQRE0oTS1u87R0utOmvPSlqi?=
- =?us-ascii?Q?ui0XZ/po2kB6C+ieO6QS6s6iQ4P3FPmUdyOO1xkrbyi+0NEpsPTKCddbjTwv?=
- =?us-ascii?Q?1dwf0keR4EDfio8+k7sOTEl/SDf+l7d5QJvTur31BzDXWU1CJiQBkcWUgBA5?=
- =?us-ascii?Q?F6foVWnr7+lpomeoBVNaPUh5ZmQ15i0J0+ONG30mVZuqpmjBbZ8k52LyIHFm?=
- =?us-ascii?Q?iuRiTNC85SXi+lkXlvWSoe2MQxgR/9yvjPC52L3nYwc/Wi9z1q+yIV9o5pRS?=
- =?us-ascii?Q?lHHyrM6oAPP/4eO/RbO9CiP10AZZ1QUeVLa7/xeQOfIk3VQHkdk/6I5BWLqP?=
- =?us-ascii?Q?4CLno5mOVZDxl1Tkg4A+OBahrqcIutw98rAKz/R+tEPDWb0GFrCRO225QkrL?=
- =?us-ascii?Q?VMMOQfc/UrJbRmkwM43lzRzWsd+57/sUbcGuFGD0pMzi9/4oQ0c8TQZxRbdB?=
- =?us-ascii?Q?xc7bLbR1z7yhFUxAiGN1MPnHHljNfhGkVCCD8tpdRaa3vVDiKznjVMV2uICw?=
- =?us-ascii?Q?RihoxubbKn15DZV1UlKJW2yO1dFXKweE1fil5+qD?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ smtp.mailfrom=irondevice.com; dmarc=pass action=none
+ header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=irondevice.com;
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM (2603:1096:100:7::23) by
+ PSXP216MB0984.KORP216.PROD.OUTLOOK.COM (2603:1096:300:11::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.36; Tue, 31 Jan 2023 05:10:48 +0000
+Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3d9:7f82:fa73:e727]) by SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3d9:7f82:fa73:e727%7]) with mapi id 15.20.6043.036; Tue, 31 Jan 2023
+ 05:10:48 +0000
+From: Kiseok Jo <kiseok.jo@irondevice.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Subject: [PATCH] ASoC: dt-bindings: irondevice,
+ sma1303.yaml: Fix about breaking the checks
+Date: Tue, 31 Jan 2023 05:09:47 +0000
+Message-Id: <20230131050946.14385-1-kiseok.jo@irondevice.com>
+X-Mailer: git-send-email 2.20.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0216.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:18::11) To SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:100:7::23)
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SLXP216MB0077:EE_|PSXP216MB0984:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb4ee2a6-fc2a-422b-8dc2-08db034983c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: s5uvlAWgeVtgFoct8asT8K3SUDuyOjT1/EaaHo3taXavrl8a5X+868Ydt4ZWGwOVpkDLvRHBBNEAR5EIcAwQcp+RNhACoS5ScsQQJlgAZqtoSijPzqGnU2ZJnZc9XKn+h7L7M9A9DwCTMypaz6DfdgPUXpDXLMyzMSaHP6skZgtwDlCrYK79iAaSmZMxOM2AGRGyLv5G8zYJVOdIBn3JblTwQs4cBndl5q0GGSPpQmc0qHwO6IMesuJytsFXT2jMoiEk6FEuwiUDy2dwJ/cvsy85Hf1i7LieW9Bjd+8SUJPzMmPmXT/DZdQMu2GEK4g6qzsoZyPIdr/lHxHBZx4cDkP9/sxIdzYO+drlDydX5mJkmUdHrXOoE/cTSkLaIHLRhmeNyjSV9/0k9ByEBm67brKujtHuStX7cH44ucriidRCubmNAGWO6go1eEGduXex8hg77z7/t4QB1xoxA0CRd/Y8xlR+iHWUICM7GAzGaWvmPoCHVHevBem1z/r9G/41urdCyWo63bKnP+HKMqB3wyD7rl0ygdEkkCYLeMdelecO2UaUZh/8DrvMnoi/xRWBzh34wdaPJkdDdMdchlt0teR1+zZ+XhLnagc5lKuO8MJV0AgiO73CxU7/ZZkVH9p3eqYF31TnEXLCpqXDK87M1cXsBlnSEHAuMdOFihcnpGZ139kv3f08Xu1KGWUh4L/Xd7xuoaejpXJ15ynbN4jzvQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SLXP216MB0077.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230025)(376002)(346002)(396003)(136003)(366004)(39830400003)(451199018)(52116002)(66556008)(8676002)(66476007)(4326008)(41300700001)(66946007)(8936002)(83380400001)(86362001)(478600001)(316002)(2906002)(38100700002)(6486002)(38350700002)(26005)(1076003)(6506007)(5660300002)(44832011)(4744005)(186003)(6512007)(36756003)(110136005)(54906003)(2616005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rL1t2m4Nj7F2RuxweJ1GpZZgnhYa/aus2MLYk3PkoGDbOY098P+Nk78Y64wK?=
+ =?us-ascii?Q?EztXEJcisdpmmIIQIicVGmhFszKYLI3MXzULsnHxBHXTvbdXzVmuvH7iL9gh?=
+ =?us-ascii?Q?DIskTIDqmi/c2f6B9CBjcZyb9QtZ4IJ/8uHrlmJAvv6LVRLRACks+ElM/bHY?=
+ =?us-ascii?Q?rU/1vVAd/cYCHPb/MRy2UlWn+vE3Wd53KeIK9RAnG7jaTzIRFf9xXVMSmyBb?=
+ =?us-ascii?Q?6xTwQe9R+9iW10FuVaPPUq58PV6QOTQvhLiPdb7BFhAWaCVOJBLZgWjB6cbb?=
+ =?us-ascii?Q?dJZAQyMKsvxJsmGaSU5xmWR5rQHrAfBoDlr0Lv/ZlpkqhVBiQXzw8n3DNkM3?=
+ =?us-ascii?Q?MHWtQCHHubUyE+ymeDavsq4KrmJpM20ZntgQjzOP57SdZn8UxOWRLNqHv45U?=
+ =?us-ascii?Q?4d20g5SKiGq6Mn60LlkGkgnKDD7Z50OeM+huheyrutXGJ6ff1IrY1VPvg6ey?=
+ =?us-ascii?Q?3vsAE+B5pTgpWssLU8pNg+Ce1p/JRQP17TduqQvoahP8pP0yq1j0sFMFtIdu?=
+ =?us-ascii?Q?bH1agz5xuglKWhywMABALFerrKvW67fV4/LxttpRg4DxEf5hYBFeK9jT95Sk?=
+ =?us-ascii?Q?82q5o2o2/49Nurp0JpdaJDHiUawhHwe1TucSXKZuP+1u8EcvPn7NHs8TYO8w?=
+ =?us-ascii?Q?eGcYZMunxyNgCjVfqX/AHVVu/OjnqhtX0YHdN0DlKZwGYJu2FQt5fe5ye/YK?=
+ =?us-ascii?Q?pCSeE8T9ImxArS6Mf6LHp4BIr92TAiFEbpWKNsH//kBONu2/OgTH0pg3z3Oq?=
+ =?us-ascii?Q?fLtDpgsOBFF7aHBLs4qcYv/mQruHOHCi7sPztUbDHC5hGGgu1z/BK27sZY2M?=
+ =?us-ascii?Q?xptJ+69p5vWPrXWI+3F+L24clmD9BkSHUQ5jTWtQvmMjVSUz4gSmoJEM55c5?=
+ =?us-ascii?Q?STH7BxkyqT7JBaHNQ/AQvqsSQGjzkcIL125PPse8GF9a0xGHWG5aZAyewmbw?=
+ =?us-ascii?Q?x+MNgfmsLjEDeOkiO0dAnTNtwTPfa0uB6cZ+FWvK3XFpu746eWVW6+duXUjN?=
+ =?us-ascii?Q?+3vDytN+av7Grc3+HsnQa5icBr4G+w28ZnEQyPdw8tmb905PD3r3VN6+wcA0?=
+ =?us-ascii?Q?8KSbHZzM7ZFmqHioGqt5EuG2xTRVE60kbzh41RZNBeTvHyTed+AeLZeNmsG2?=
+ =?us-ascii?Q?kOy/hyFbUcE1VCtuKA69lche3O5ld7X+qG2YM0utJe0lTrQwx0wq5RjFZC0B?=
+ =?us-ascii?Q?3dH86URwKRBEpAimQMEmePSPxdW3Z+bKywnmkoQPHu1/hDOadRe9DlptfNiq?=
+ =?us-ascii?Q?1X02R0diiKTMHYmHOL/kEaZmtTgpvKNdRREtTtbLgGQ7SaffQBJuT+t5C90Q?=
+ =?us-ascii?Q?yBFKJ0FVQy6xLgQHsb+FoLJdwAFuHu7L0vDvLiY+Jj6EZtRjkb7jCDLI2y7E?=
+ =?us-ascii?Q?kxyRtMOpuYuKO1utqJ2G/OQ7lKYXzCWOm82ohW1J6M4hGube0+RqnjWAoOCl?=
+ =?us-ascii?Q?VjbuL4tSXjdliN06Ql14dOwu5GgqbcN86xcDX2iELLW2PGHymPxaW9GGBcvP?=
+ =?us-ascii?Q?Aa8kvIWq07YyxfvtemKuNPKeaU0NwX81XuEyxe3p7WBGEVLpDob6DWyeRVKf?=
+ =?us-ascii?Q?FImjzzFVJYc9rYeFOVg/k7NO9/fbZQuO5nxThl1cxYtajakbZ1XeVuzrdTBX?=
+ =?us-ascii?Q?bw=3D=3D?=
+X-OriginatorOrg: irondevice.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb4ee2a6-fc2a-422b-8dc2-08db034983c5
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d389b75-9fac-4501-53fa-08db033f638c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jan 2023 03:58:19.0396 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: heFz/kPTs+jED4KIp1/dOczXfdfNOJDRh9gimVutn/yCeStqOzCZX7qbKxso8kXAiRL9KfX0lbUR6c2W30GAi+LWZoXJQm5aOPRdlDSI+ck=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8455
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 05:10:48.3033 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PdNZX813qNXvvkZr/zRUXOdmKa/dyj4nJNQ37U7S4m+8+fXg7IY4Trm5eJiByBDkIHrIrWkzhCXiyXKYF+oMvhJHYGO/8E+YJoSwL07N4yw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSXP216MB0984
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,215 +136,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kiseok Jo <kiseok.jo@irondevice.com>, Rob Herring <robh@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the kind feedback.
-Would you please let me know what kinds of environment such error appears y=
-ou ever meet?
-Ex: da7219_aad->gnd_switch_delay =3D ?
+Fix the bindings checks like syntax error.
 
+Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+Reported-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/sound/irondevice,sma1303.yaml          | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
------Original Message-----
-From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
-Sent: Friday, January 20, 2023 00:12
-To: David Rau <david.rau.zg@renesas.com>
-Cc: David Rau <we730128@gmail.com>; perex@perex.cz; lgirdwood@gmail.com; br=
-oonie@kernel.org; tiwai@suse.com; support.opensource@diasemi.com; alsa-deve=
-l@alsa-project.org; linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP h=
-eadsets when playing music
+diff --git a/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml b/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
+index eb87374cc812..162c52606635 100644
+--- a/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
++++ b/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
+@@ -19,14 +19,13 @@ required:
+   - compatible
+   - reg
+ 
+-additionalProperties: true
++additionalProperties: false
+ 
+ examples:
+   - |
+-    #include <dt-bindings/gpio/gpio.h>
+     i2c_bus {
+-		sma1303_amp: sma1303@1e {
+-			compatible = "irondevice,sma1303";
+-			reg = <0x1e>;
+-		};
+-	};
++        amplifier@1e {
++            compatible = "irondevice,sma1303";
++            reg = <0x1e>;
++        };
++    };
 
-On Thu, Jan 19, 2023 at 11:02:25AM +0000, David Rau wrote:
-> Would you please provide me the related error messages when hung task cra=
-shes in da7219_aad_irq_thread()?
-> BTW, "gnd_switch_delay =3D 256" is an unusual use case of the longer jack=
- detection latency.=20
->=20
+base-commit: eeb6b0feb597e8fb88c4e1459323060e17350752
+-- 
+2.20.1
 
-Here is a typical traceback.
-
-<3>[ 246.919057] INFO: task irq/105-da7219-:2854 blocked for more than 122 =
-seconds.
-<3>[ 246.919065] Not tainted 5.10.159-20927-g317f62e2494d #1 <3>[ 246.91906=
-8] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message=
-.
-<6>[ $PHONE_NUMBER] task:irq/105-da7219- state:D stack: 0 pid: 2854 ppid: 2=
- flags:0x00004080 <6>[ 246.919075] Call Trace:
-<6>[ 246.919084] __schedule+0x3b0/0xdaf
-<6>[ 246.919090] schedule+0x44/0xa8
-<6>[ 246.919093] schedule_timeout+0xb6/0x290 <6>[ 246.919098] ? run_local_t=
-imers+0x4e/0x4e <6>[ 246.919102] msleep+0x2c/0x38 <6>[ 246.919108] da7219_a=
-ad_irq_thread+0x66/0x2b0 [snd_soc_da7219 cd5a76eef6e777074216b9d61f7918f756=
-1bf7ec]
-<6>[ 246.919113] ? irq_forced_thread_fn+0x5f/0x5f <6>[ 246.919116] irq_thre=
-ad_fn+0x22/0x4d <6>[ 246.919120] irq_thread+0x120/0x19d <6>[ 246.919123] ? =
-irq_thread_fn+0x4d/0x4d <6>[ 246.919128] kthread+0x142/0x153 <6>[ 246.91913=
-2] ? irq_forced_secondary_handler+0x21/0x21
-<6>[ 246.919135] ? kthread_blkcg+0x31/0x31 <6>[ 246.919139] ret_from_fork+0=
-x1f/0x30
-
-The underlying question is if it really appropriate to have an
-msleep() of any kind in an interrupt handler. If this is about debouncing a=
- signal, it should be handled with a delayed timer.
-
-Guenter
-
-> -----Original Message-----
-> From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
-> Sent: Wednesday, January 18, 2023 03:57
-> To: David Rau <we730128@gmail.com>
-> Cc: perex@perex.cz; lgirdwood@gmail.com; broonie@kernel.org;=20
-> tiwai@suse.com; support.opensource@diasemi.com;=20
-> alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org; David Rau=20
-> <david.rau.zg@renesas.com>
-> Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on=20
-> OMTP headsets when playing music
->=20
-> On Mon, Nov 21, 2022 at 05:07:44AM +0000, David Rau wrote:
-> > The OMTP pin define headsets can be mis-detected as line out instead=20
-> > of OMTP, causing obvious issues with audio quality.
-> > This patch is to put increased resistances within the device at a=20
-> > suitable point.
-> >=20
-> > To solve this issue better, the new mechanism setup ground switches=20
-> > with conditional delay control and these allow for more stabile=20
-> > detection process to operate as intended. This conditional delay=20
-> > control will not impact the hardware process but use extra system=20
-> > resource.
-> >=20
-> > This commit improves control of ground switches in the AAD logic.
-> >=20
-> > Signed-off-by: David Rau <david.rau.zg@renesas.com>
-> > ---
-> >  sound/soc/codecs/da7219-aad.c | 42
-> > ++++++++++++++++++++++++++++++-----
-> >  sound/soc/codecs/da7219-aad.h |  1 +
-> >  2 files changed, 37 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/sound/soc/codecs/da7219-aad.c=20
-> > b/sound/soc/codecs/da7219-aad.c index bba73c44c219..08200ec259f9
-> > 100644
-> > --- a/sound/soc/codecs/da7219-aad.c
-> > +++ b/sound/soc/codecs/da7219-aad.c
-> > @@ -352,9 +352,14 @@ static irqreturn_t da7219_aad_irq_thread(int irq, =
-void *data)
-> >  	struct snd_soc_dapm_context *dapm =3D snd_soc_component_get_dapm(comp=
-onent);
-> >  	struct da7219_priv *da7219 =3D snd_soc_component_get_drvdata(componen=
-t);
-> >  	u8 events[DA7219_AAD_IRQ_REG_MAX];
-> > -	u8 statusa;
-> > +	u8 statusa, srm_st;
-> >  	int i, report =3D 0, mask =3D 0;
-> > =20
-> > +	srm_st =3D snd_soc_component_read(component, DA7219_PLL_SRM_STS) & DA=
-7219_PLL_SRM_STS_MCLK;
-> > +	msleep(da7219_aad->gnd_switch_delay * ((srm_st =3D=3D 0x0) ? 2 : 1) -=
-=20
-> > +4);
->=20
-> Ever since this patch was applied to ChromeOS, we have observed hung task=
- crashes in da7219_aad_irq_thread().
->=20
-> Is it really appropriate to sleep up to (256 * 2) - 4 =3D 508 ms in an in=
-terrupt handler ?
->=20
-> Thanks,
-> Guenter
->=20
-> > +	/* Enable ground switch */
-> > +	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> > +
-> >  	/* Read current IRQ events */
-> >  	regmap_bulk_read(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
-> >  			 events, DA7219_AAD_IRQ_REG_MAX); @@ -454,8 +459,8 @@ static=20
-> > irqreturn_t da7219_aad_irq_thread(int irq, void *data)
-> >  			snd_soc_dapm_disable_pin(dapm, "Mic Bias");
-> >  			snd_soc_dapm_sync(dapm);
-> > =20
-> > -			/* Enable ground switch */
-> > -			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> > +			/* Disable ground switch */
-> > +			snd_soc_component_update_bits(component, 0xFB, 0x01, 0x00);
-> >  		}
-> >  	}
-> > =20
-> > @@ -831,6 +836,32 @@ static void da7219_aad_handle_pdata(struct snd_soc=
-_component *component)
-> >  	}
-> >  }
-> > =20
-> > +static void da7219_aad_handle_gnd_switch_time(struct
-> > +snd_soc_component *component) {
-> > +	struct da7219_priv *da7219 =3D snd_soc_component_get_drvdata(componen=
-t);
-> > +	struct da7219_aad_priv *da7219_aad =3D da7219->aad;
-> > +	u8 jack_det;
-> > +
-> > +	jack_det =3D snd_soc_component_read(component, DA7219_ACCDET_CONFIG_2=
-)
-> > +		& DA7219_JACK_DETECT_RATE_MASK;
-> > +	switch (jack_det) {
-> > +	case 0x00:
-> > +		da7219_aad->gnd_switch_delay =3D 32;
-> > +		break;
-> > +	case 0x10:
-> > +		da7219_aad->gnd_switch_delay =3D 64;
-> > +		break;
-> > +	case 0x20:
-> > +		da7219_aad->gnd_switch_delay =3D 128;
-> > +		break;
-> > +	case 0x30:
-> > +		da7219_aad->gnd_switch_delay =3D 256;
-> > +		break;
-> > +	default:
-> > +		da7219_aad->gnd_switch_delay =3D 32;
-> > +		break;
-> > +	}
-> > +}
-> > =20
-> >  /*
-> >   * Suspend/Resume
-> > @@ -908,9 +939,6 @@ int da7219_aad_init(struct snd_soc_component *compo=
-nent)
-> >  	snd_soc_component_update_bits(component, DA7219_ACCDET_CONFIG_1,
-> >  			    DA7219_BUTTON_CONFIG_MASK, 0);
-> > =20
-> > -	/* Enable ground switch */
-> > -	snd_soc_component_update_bits(component, 0xFB, 0x01, 0x01);
-> > -
-> >  	INIT_WORK(&da7219_aad->btn_det_work, da7219_aad_btn_det_work);
-> >  	INIT_WORK(&da7219_aad->hptest_work, da7219_aad_hptest_work);
-> > =20
-> > @@ -928,6 +956,8 @@ int da7219_aad_init(struct snd_soc_component *compo=
-nent)
-> >  	regmap_bulk_write(da7219->regmap, DA7219_ACCDET_IRQ_MASK_A,
-> >  			  &mask, DA7219_AAD_IRQ_REG_MAX);
-> > =20
-> > +	da7219_aad_handle_gnd_switch_time(component);
-> > +
-> >  	return 0;
-> >  }
-> >  EXPORT_SYMBOL_GPL(da7219_aad_init);
-> > diff --git a/sound/soc/codecs/da7219-aad.h=20
-> > b/sound/soc/codecs/da7219-aad.h index f48a12012ef3..21fdf53095cc
-> > 100644
-> > --- a/sound/soc/codecs/da7219-aad.h
-> > +++ b/sound/soc/codecs/da7219-aad.h
-> > @@ -187,6 +187,7 @@ enum da7219_aad_event_regs {  struct=20
-> > da7219_aad_priv {
-> >  	struct snd_soc_component *component;
-> >  	int irq;
-> > +	int gnd_switch_delay;
-> > =20
-> >  	u8 micbias_pulse_lvl;
-> >  	u32 micbias_pulse_time;
-> > --
-> > 2.17.1
-> >=20

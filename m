@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2689668658E
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 12:48:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5446865C0
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:13:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60949100;
-	Wed,  1 Feb 2023 12:47:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60949100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C3051E4;
+	Wed,  1 Feb 2023 13:12:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C3051E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675252128;
-	bh=/ALzJVdP2Kp36MbSmFOUicnglPjjzV+XSKJYlOzn1Gs=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675253617;
+	bh=cvV4n3AMccS0dEjXyasCg7taHlejGkGoiM9PoEm4WqU=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=TFu2QPtJtC2fWeDm9BIAmZG6X7HpfdpxGr9w1G9nA33I1it4M9jSjPzo3YVIxAETW
-	 AmFH0Z/IYCaYlZ26UD9lH0gY3uSNkI0+3WIP7FjC3cp2QeaqFxKZ1O/lCdAhHK2yT7
-	 25bfUhoAIbbd4cvYX0iIKSgdMNgAMqCu5iqgJDEo=
+	b=RP7+GgxapBbx8C9jVsGP7X6f3+v9ya/nEUMibThsYfH+mendXdVogCk4AHGXpUWSF
+	 lWoCzQkg6UoiX3BXMdHT7EQS/BhT9YKc3ubk59Bg7FB19A0XuoA5yAsa+bmUFjvURH
+	 f59Ulu63T706s5TCx/+FmOmj453Py7aEZS6JnQQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E7ADF8032B;
-	Wed,  1 Feb 2023 12:47:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DD88F8045D;
+	Wed,  1 Feb 2023 13:12:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A6D0F80423; Wed,  1 Feb 2023 12:47:48 +0100 (CET)
+ id 2A219F80423; Wed,  1 Feb 2023 13:12:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B262CF80246
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 12:47:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B262CF80246
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=l6cuKOOv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675252065; x=1706788065;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=/ALzJVdP2Kp36MbSmFOUicnglPjjzV+XSKJYlOzn1Gs=;
- b=l6cuKOOvAP/o2y/0osYruSvPVy9ub8GFoOFxzKtup80IR0Zvy2Asd4DY
- 9KgrGRmYtKyF9wKh1mtpmoYz4TAGxAR8n+wW+L3N3GmDMhj1Q/RVUhjyP
- v7EVoRxfWSC9PkQijjPCMxG+ScIhFHeHNIqfyN/SWs/AZT0u/nBWmj4H7
- gFrGeKvOkBs4BzKnwx07PVHNy8y00j4YVI5AFWvLO86SO9CTJTyox0IT7
- BIvOBOs5UttMZ/lM2+qdOa6+832z3VNoHbpzS2kN6npBvr7SsmGp1XiG8
- vq7EcQSxNvAAX3f3eG6IYyCtZeNX1T2dBLzC9U0CgEwD/CyG0wDh4FeKA Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="325820903"
-X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="325820903"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2023 03:47:42 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="642379629"
-X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="642379629"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2023 03:47:39 -0800
-Message-ID: <9720a055-2b61-80b8-4009-cc7448af25e5@linux.intel.com>
-Date: Wed, 1 Feb 2023 12:47:37 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/2] ASoC: topology: Set correct unload callback for graph
- type
-Content-Language: en-US
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org, kuninori.morimoto.gx@renesas.com
-References: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
- <20230201112846.27707-3-peter.ujfalusi@linux.intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230201112846.27707-3-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96D23F80169
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:12:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96D23F80169
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=aMZ6tlcY; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=vfNYhiOU
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 41D3B20DA6;
+ Wed,  1 Feb 2023 12:12:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1675253549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hskn5wbLCyMCr9B8BR8CQUkQzxcpqNiKf8xyLuw6SZE=;
+ b=aMZ6tlcYqeCBSkH9uqfQ7T78seVdU5VNY0rue/rpNAiMRKbhWeDFP1Gx7+3CCxwmCFugrn
+ ATmqBntDf2URpHP3hhDBGg/CRslPzkPGamiGr6aNSdK43Q/fn7+C7S3rKpU8ZklP/nu/2N
+ 1ZLfkJB+eCBR10dCg6zmGw2vDmO00jA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1675253549;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hskn5wbLCyMCr9B8BR8CQUkQzxcpqNiKf8xyLuw6SZE=;
+ b=vfNYhiOUFhufPJ5hpWo8f58YHFOOnre+8rJHdG6D58eJRZ6WpqJ2bdz+Kjz3TYaApD5xOM
+ pub6cdoVOn3w8MDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 321921348C;
+ Wed,  1 Feb 2023 12:12:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id lkrtCy1X2mPrMwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 01 Feb 2023 12:12:29 +0000
+Date: Wed, 01 Feb 2023 13:12:28 +0100
+Message-ID: <87a61xy47n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH] ALSA: emu10k1: clean up some inconsistent indenting
+In-Reply-To: <20230131084304.12920-1-jiapeng.chong@linux.alibaba.com>
+References: <20230131084304.12920-1-jiapeng.chong@linux.alibaba.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,22 +97,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- kai.vehmanen@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- ranjani.sridharan@linux.intel.com
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Abaci Robot <abaci@linux.alibaba.com>, tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/1/2023 12:28 PM, Peter Ujfalusi wrote:
-> Using the control_unload for graph type of elem will lead surprises on
-> module unload.
+On Tue, 31 Jan 2023 09:43:04 +0100,
+Jiapeng Chong wrote:
 > 
-> The correct callback to use is the dapm_route_unload.
+> No functional modification involved.
 > 
-> Fixes: 31e9273912bf ("ASoC: topology: Use unload() op directly")
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> sound/pci/emu10k1/memory.c:446 snd_emu10k1_synth_free() warn: inconsistent indenting.
 
-LGTM, thanks!
+How is this warning generated?  Does it come from clang or any other
+compiler, or is it just some tool?
 
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+In general, I take such a white-space-fix-only patch when it's tied
+with other real fix patches.  But if the compiler warns, it's worth to
+pick up, of course.
 
+
+thanks,
+
+Takashi
+
+> 
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3903
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>  sound/pci/emu10k1/memory.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/emu10k1/memory.c b/sound/pci/emu10k1/memory.c
+> index edb3f1763719..6a7406014f81 100644
+> --- a/sound/pci/emu10k1/memory.c
+> +++ b/sound/pci/emu10k1/memory.c
+> @@ -443,7 +443,7 @@ snd_emu10k1_synth_free(struct snd_emu10k1 *emu, struct snd_util_memblk *memblk)
+>  		unmap_memblk(emu, blk);
+>  	spin_unlock_irqrestore(&emu->memblk_lock, flags);
+>  	synth_free_pages(emu, blk);
+> -	 __snd_util_mem_free(hdr, memblk);
+> +	__snd_util_mem_free(hdr, memblk);
+>  	mutex_unlock(&hdr->block_mutex);
+>  	return 0;
+>  }
+> -- 
+> 2.20.1.7.g153144c
+> 

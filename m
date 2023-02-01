@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5446865C0
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:13:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52CE6865DD
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:24:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C3051E4;
-	Wed,  1 Feb 2023 13:12:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C3051E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 173441E4;
+	Wed,  1 Feb 2023 13:23:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 173441E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675253617;
-	bh=cvV4n3AMccS0dEjXyasCg7taHlejGkGoiM9PoEm4WqU=;
+	s=default; t=1675254256;
+	bh=7mCdQ1iozLn0rcg/87dFe8MryrX4X15b7S2VYCypRZg=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=RP7+GgxapBbx8C9jVsGP7X6f3+v9ya/nEUMibThsYfH+mendXdVogCk4AHGXpUWSF
-	 lWoCzQkg6UoiX3BXMdHT7EQS/BhT9YKc3ubk59Bg7FB19A0XuoA5yAsa+bmUFjvURH
-	 f59Ulu63T706s5TCx/+FmOmj453Py7aEZS6JnQQU=
+	b=MQ0nGugRjhhV2nhfk5AkNzCH75CspzW9HF5l5fb9gWFBbofxUEjBfT974Hr5WgK0d
+	 zpaqpyYuf1TKHAMs+0Pa3JW+r8Uge1lewlfH++YskIAqC3tzTjBSYubki1NW8m77X/
+	 J+XPTKcnzMEeCnh7hh8wAzQEOAvjFIwFRCQ2LYUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5DD88F8045D;
-	Wed,  1 Feb 2023 13:12:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 474ECF80169;
+	Wed,  1 Feb 2023 13:23:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A219F80423; Wed,  1 Feb 2023 13:12:38 +0100 (CET)
+ id 81862F80423; Wed,  1 Feb 2023 13:23:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96D23F80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:12:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96D23F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C1CBF80169
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:23:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C1CBF80169
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=aMZ6tlcY; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=FERQPGtJ; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=vfNYhiOU
+ header.s=susede2_ed25519 header.b=DbG+f8DT
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 41D3B20DA6;
- Wed,  1 Feb 2023 12:12:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0A70620DFF;
+ Wed,  1 Feb 2023 12:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675253549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675254191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hskn5wbLCyMCr9B8BR8CQUkQzxcpqNiKf8xyLuw6SZE=;
- b=aMZ6tlcYqeCBSkH9uqfQ7T78seVdU5VNY0rue/rpNAiMRKbhWeDFP1Gx7+3CCxwmCFugrn
- ATmqBntDf2URpHP3hhDBGg/CRslPzkPGamiGr6aNSdK43Q/fn7+C7S3rKpU8ZklP/nu/2N
- 1ZLfkJB+eCBR10dCg6zmGw2vDmO00jA=
+ bh=ISPFAssdKTREKF1mv5BU3ewT5bNGU7OV/5fRIf6LT4Q=;
+ b=FERQPGtJ1J4T/mOGkm82NrELUH92uLOFT4GYNrH0QjW6sxcf2xRSOwi5wHaWrKrePRl7Co
+ ZJGR5xlq8vvKEJFzkcLKEWqcFFRnFNQahlB6mWSb/BUSbi7yz4z6cOmr39DfvWjdu5PB1W
+ NZvszHZBuaIxa4yzM53YOuoM6QvzGGs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675253549;
+ s=susede2_ed25519; t=1675254191;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hskn5wbLCyMCr9B8BR8CQUkQzxcpqNiKf8xyLuw6SZE=;
- b=vfNYhiOUFhufPJ5hpWo8f58YHFOOnre+8rJHdG6D58eJRZ6WpqJ2bdz+Kjz3TYaApD5xOM
- pub6cdoVOn3w8MDg==
+ bh=ISPFAssdKTREKF1mv5BU3ewT5bNGU7OV/5fRIf6LT4Q=;
+ b=DbG+f8DTU3GBBcbA5RzOygPXnJP0gzrqTtGAtaraJ7/oy/o0sXGzAPU+4+E8QtDCgjC4j2
+ GQEehltngTSEgQAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 321921348C;
- Wed,  1 Feb 2023 12:12:29 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EAC6B1348C;
+ Wed,  1 Feb 2023 12:23:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lkrtCy1X2mPrMwAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 01 Feb 2023 12:12:29 +0000
-Date: Wed, 01 Feb 2023 13:12:28 +0100
-Message-ID: <87a61xy47n.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id MlHzOK5Z2mMNOQAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 01 Feb 2023 12:23:10 +0000
+Date: Wed, 01 Feb 2023 13:23:10 +0100
+Message-ID: <878rhhy3pt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH] ALSA: emu10k1: clean up some inconsistent indenting
-In-Reply-To: <20230131084304.12920-1-jiapeng.chong@linux.alibaba.com>
-References: <20230131084304.12920-1-jiapeng.chong@linux.alibaba.com>
+To: Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH v2] ALSA: pci: lx6464es: fix a debug loop
+In-Reply-To: <Y9jnJTis/mRFJAQp@kili>
+References: <Y9jnJTis/mRFJAQp@kili>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -97,51 +97,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Abaci Robot <abaci@linux.alibaba.com>, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 31 Jan 2023 09:43:04 +0100,
-Jiapeng Chong wrote:
+On Tue, 31 Jan 2023 11:02:13 +0100,
+Dan Carpenter wrote:
 > 
-> No functional modification involved.
+> This loop accidentally reuses the "i" iterator for both the inside and
+> the outside loop.  The value of MAX_STREAM_BUFFER is 5.  I believe that
+> chip->rmh.stat_len is in the 2-12 range.  If the value of .stat_len is
+> 4 or more then it will loop exactly one time, but if it's less then it
+> is a forever loop.
 > 
-> sound/pci/emu10k1/memory.c:446 snd_emu10k1_synth_free() warn: inconsistent indenting.
+> It looks like it was supposed to combined into one loop where
+> conditions are checked.
+> 
+> Fixes: 8e6320064c33 ("ALSA: lx_core: Remove useless #if 0 .. #endif")
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> ---
+> v2: In the first version I just deleted the outside loop but that was
+> not the correct fix.  Combine the conditions instead.
 
-How is this warning generated?  Does it come from clang or any other
-compiler, or is it just some tool?
+Thanks, applied.
 
-In general, I take such a white-space-fix-only patch when it's tied
-with other real fix patches.  But if the compiler warns, it's worth to
-pick up, of course.
-
-
-thanks,
 
 Takashi
-
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3903
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  sound/pci/emu10k1/memory.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/pci/emu10k1/memory.c b/sound/pci/emu10k1/memory.c
-> index edb3f1763719..6a7406014f81 100644
-> --- a/sound/pci/emu10k1/memory.c
-> +++ b/sound/pci/emu10k1/memory.c
-> @@ -443,7 +443,7 @@ snd_emu10k1_synth_free(struct snd_emu10k1 *emu, struct snd_util_memblk *memblk)
->  		unmap_memblk(emu, blk);
->  	spin_unlock_irqrestore(&emu->memblk_lock, flags);
->  	synth_free_pages(emu, blk);
-> -	 __snd_util_mem_free(hdr, memblk);
-> +	__snd_util_mem_free(hdr, memblk);
->  	mutex_unlock(&hdr->block_mutex);
->  	return 0;
->  }
-> -- 
-> 2.20.1.7.g153144c
-> 

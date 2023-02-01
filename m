@@ -2,72 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7635C686587
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 12:45:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2689668658E
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 12:48:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A273784B;
-	Wed,  1 Feb 2023 12:44:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A273784B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60949100;
+	Wed,  1 Feb 2023 12:47:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60949100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675251916;
-	bh=J0K9S8yFXiKlvm+y0wcMBTPEZqcD2PGq3EBiajeeAlM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1675252128;
+	bh=/ALzJVdP2Kp36MbSmFOUicnglPjjzV+XSKJYlOzn1Gs=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=B9ij5mJy/6rf8q5nlHRxPiB22EY+HN8Md3IJW3+TMFoEv77iOQ55HcT8xwWA6S5it
-	 QatBkB7p1+/LBgVms5r8kp7ctWzjn4jIXJbGYg7uxwg2Z1KNuUpzNXvaSi/sTZxEWK
-	 GpqeVhUxRnMeT9FWVc+fzqvtQccF2DPgI7qAJaJ0=
+	b=TFu2QPtJtC2fWeDm9BIAmZG6X7HpfdpxGr9w1G9nA33I1it4M9jSjPzo3YVIxAETW
+	 AmFH0Z/IYCaYlZ26UD9lH0gY3uSNkI0+3WIP7FjC3cp2QeaqFxKZ1O/lCdAhHK2yT7
+	 25bfUhoAIbbd4cvYX0iIKSgdMNgAMqCu5iqgJDEo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4FE5F80246;
-	Wed,  1 Feb 2023 12:43:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E7ADF8032B;
+	Wed,  1 Feb 2023 12:47:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A518FF80169; Wed,  1 Feb 2023 12:43:49 +0100 (CET)
+ id 1A6D0F80423; Wed,  1 Feb 2023 12:47:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E19F3F80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 12:43:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E19F3F80169
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Hrll9uS8
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 438C5616B5;
- Wed,  1 Feb 2023 11:43:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E91C4339B;
- Wed,  1 Feb 2023 11:43:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675251820;
- bh=J0K9S8yFXiKlvm+y0wcMBTPEZqcD2PGq3EBiajeeAlM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Hrll9uS812177H3TZChP2TRRwrck2UYmWHT02AlTbtkwTCp2TXn1+svofJr78+Vii
- 6NBW6HHavvUt+JwkEwclA16GvbH66nYBVofVOEoekwGCs37zh9zOWTugNA+lSxIyGv
- wrl0nPdR+RHxtxa7rNraYXlqU9cVWtr/w5AyUC4oBdWCSdJSoYQoSl9X35mWJl20Qb
- syEtke4Dpa9mw97uceIFkMHDBBHAEmwRNNvWm9SY9Z3LaN6hz0sN4ZzDOP8wljX0zf
- PYsgsPrnjQZ+QSH+Ah760hU6jm4SVYbE8h7m1tZh+kisMJzC4D25FmvmXWfuNwDXz8
- 3663/8ShiI7/A==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87bkme6vp5.wl-kuninori.morimoto.gx@renesas.com>
-References: <87bkme6vp5.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: cs42l42: use helper function
-Message-Id: <167525181975.63465.3386268959455951743.b4-ty@kernel.org>
-Date: Wed, 01 Feb 2023 11:43:39 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id B262CF80246
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 12:47:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B262CF80246
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=l6cuKOOv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675252065; x=1706788065;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/ALzJVdP2Kp36MbSmFOUicnglPjjzV+XSKJYlOzn1Gs=;
+ b=l6cuKOOvAP/o2y/0osYruSvPVy9ub8GFoOFxzKtup80IR0Zvy2Asd4DY
+ 9KgrGRmYtKyF9wKh1mtpmoYz4TAGxAR8n+wW+L3N3GmDMhj1Q/RVUhjyP
+ v7EVoRxfWSC9PkQijjPCMxG+ScIhFHeHNIqfyN/SWs/AZT0u/nBWmj4H7
+ gFrGeKvOkBs4BzKnwx07PVHNy8y00j4YVI5AFWvLO86SO9CTJTyox0IT7
+ BIvOBOs5UttMZ/lM2+qdOa6+832z3VNoHbpzS2kN6npBvr7SsmGp1XiG8
+ vq7EcQSxNvAAX3f3eG6IYyCtZeNX1T2dBLzC9U0CgEwD/CyG0wDh4FeKA Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="325820903"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="325820903"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 03:47:42 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="642379629"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="642379629"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 03:47:39 -0800
+Message-ID: <9720a055-2b61-80b8-4009-cc7448af25e5@linux.intel.com>
+Date: Wed, 1 Feb 2023 12:47:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 2/2] ASoC: topology: Set correct unload callback for graph
+ type
+Content-Language: en-US
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, kuninori.morimoto.gx@renesas.com
+References: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
+ <20230201112846.27707-3-peter.ujfalusi@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230201112846.27707-3-peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,41 +93,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
+ kai.vehmanen@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ ranjani.sridharan@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Feb 2023 01:06:15 +0000, Kuninori Morimoto wrote:
-> Current ASoC has many helper function.
+On 2/1/2023 12:28 PM, Peter Ujfalusi wrote:
+> Using the control_unload for graph type of elem will lead surprises on
+> module unload.
 > 
+> The correct callback to use is the dapm_route_unload.
 > 
+> Fixes: 31e9273912bf ("ASoC: topology: Use unload() op directly")
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-Applied to
+LGTM, thanks!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: cs42l42: use helper function
-      commit: cbfa85a5c5ab123f4dc99efae1b0182d2f8d956c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 

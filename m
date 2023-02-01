@@ -2,76 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A381268662D
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:45:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56792686652
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 14:00:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E32A81F3;
-	Wed,  1 Feb 2023 13:44:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E32A81F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3ACC51F3;
+	Wed,  1 Feb 2023 13:59:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ACC51F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675255517;
-	bh=gkD6HRgfOl2ffKtHR7tQZwvitttJ6AZILFMJL8aBzXU=;
+	s=default; t=1675256404;
+	bh=dMt8iEaOiOYFVfe4qci84OXVcLQudVjlDGmhvN4AHKQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=YgRzGuFVT5NyfPsj2DAYQq81Pvsbm1krYG2NPd1b4BpTaKSB4iCoPaWIzQpwWC2we
-	 Zzg3I7NEknvb/LYiPPyl6koSyKfI/Xwy6NxDTotdMasJl2kpetMvM3tTSA3y6p0X1N
-	 TY59s1ZrVyRw9PseexmkKOTPjEbr572YZEicfmSE=
+	b=tZvW6IsX8MOJw+paKhhwz19jXz9XtUSzFiXSnamht9+9sdhA1TnSjf/LaLnrlINAl
+	 +8OK1WVMXt/yJK/nzNLrA9xSEqLg9qeVDSXDzHHwdX9vyW/3MEHwEwCRVyBUvEnT6f
+	 NBqBB06nDINQXq6BMjeHYci7I3b30KJJTii7QWO4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DA6DF80155;
-	Wed,  1 Feb 2023 13:44:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5984F80155;
+	Wed,  1 Feb 2023 13:59:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A0B1F80423; Wed,  1 Feb 2023 13:44:16 +0100 (CET)
+ id CE28AF80423; Wed,  1 Feb 2023 13:59:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9314F80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:44:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9314F80169
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=xe0mCmtk
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id ADACD400;
- Wed,  1 Feb 2023 13:44:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz ADACD400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1675255451; bh=/Yd2TOqlsMlmjlL8fFy/F70AA/X9hqlI6H9gn+IdeP8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=xe0mCmtk+/5jBU6sNVDwU+z6vaJPldinmMzYjcQxU83PKKfbd/nfdKJaBaVAzO3Xq
- M4+qBmhQap/EX7Zxr0jvW7OXkOrLKUJ6MuQQOJMQNZV0vmA+uUo3X/TsbKpN0kmd9l
- Svuivh04SmRGLp7fxuCp54Sd7doX+2x/Hjhbm6xs=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  1 Feb 2023 13:44:02 +0100 (CET)
-Message-ID: <d5f6aa34-4fff-9e23-0811-de1ee6d8a2e9@perex.cz>
-Date: Wed, 1 Feb 2023 13:44:01 +0100
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A93DF80169
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:59:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A93DF80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=hBTgJjuM
+Received: by mail-wr1-x42e.google.com with SMTP id m7so17221039wru.8
+ for <alsa-devel@alsa-project.org>; Wed, 01 Feb 2023 04:59:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TkRgoBvsamoZEywHKvCbV9XJyi8yWA+6MbvImGKamXs=;
+ b=hBTgJjuMuqMdpBJHlKBExlPRRNfyr43zRQIVCYYhHv3Pj/65MJVea6JwDlt9kIVcnS
+ rq+pDRMRQk5aFUKi4QxPpbhagu0uVnI3llVEkytALJ9BIseU1fqj34s9KHM/QA+jJu+a
+ aFffmNTQYWGBeCleAZLH3hSwTItAMWv+UgZVKcuGAYRtXFytvtECeXB0/G4xDAeroYMD
+ CAhIZ6yaDQe5+aEwequcRV8W3HOkErwd6tVkxnx1WN2M1EGu0iFsIknKTU9RMW2ex62I
+ Bh6j6dZIvGic4WKnFuE9WOULb6MIRe0GN2wcoEvLlBhjRXOn1CbhDSW40Ge62HQf741c
+ 4g0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TkRgoBvsamoZEywHKvCbV9XJyi8yWA+6MbvImGKamXs=;
+ b=6qefgKxu/tl1kpWqvqwtzyF1HChindF7UmDY9coaqPyav72tQuZf/7Cs2eMQRYR3pY
+ oYQs1MW/p1eFhPagtIdY8Jj+ZcvtTnDWA7UeTlU74JZe5wlP29W1UqzRMwSlMvYbCf25
+ Ggjpe1YYg3lnh/r750eE5gBDP3tZOwE3zy2MHkgz70kba8Q/KNN/B4fevRUR9s5NZvyg
+ AdDsgaGKDWvRgiyNNBZlpk5Yz4oOYta5xMcc/aclNFeLB2LNCKZtmFh5dOsXdZTg4FFP
+ J6519PqzxEmF4/xq3P5L2YiD1cyzy8ApY9MWfCQrPkqAcUwQVb8n6MMY2YMxrwY9Ct6L
+ REiQ==
+X-Gm-Message-State: AO0yUKW8P5+4narOfOWIQju35UxusLBHfS9UVHaUPtHELEoKD1kHhG7b
+ DlKZodDzrSCo9Qb01EtdBxey5Q==
+X-Google-Smtp-Source: AK7set+ETqVjMTMjZpLUkwhOb9Vi3pV69kQ/Xge9mO9uq+whMqZKH4SBd3uJuKrlCR1q6hKJS1jMbw==
+X-Received: by 2002:a5d:53ca:0:b0:2bf:cefa:fd8f with SMTP id
+ a10-20020a5d53ca000000b002bfcefafd8fmr1584833wrw.44.1675256338708; 
+ Wed, 01 Feb 2023 04:58:58 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ k7-20020adfb347000000b002bfe5efca78sm10431486wrd.98.2023.02.01.04.58.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Feb 2023 04:58:57 -0800 (PST)
+Message-ID: <a6e89f75-7391-171e-3cab-77d3b9f9a0cf@linaro.org>
+Date: Wed, 1 Feb 2023 13:58:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 9/9] ASoC: SOF: ipc4-pcm: add delay function support
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] ASoC: dt-bindings: irondevice,sma1303.yaml: Fix about
+ breaking the checks
+To: Kiseok Jo <kiseok.jo@irondevice.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230131050946.14385-1-kiseok.jo@irondevice.com>
 Content-Language: en-US
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org
-References: <20230201123231.26361-1-peter.ujfalusi@linux.intel.com>
- <20230201123231.26361-10-peter.ujfalusi@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230201123231.26361-10-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230131050946.14385-1-kiseok.jo@irondevice.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -85,42 +107,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- rander.wang@intel.com, yung-chuan.liao@linux.intel.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Rob Herring <robh@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01. 02. 23 13:32, Peter Ujfalusi wrote:
+On 31/01/2023 06:09, Kiseok Jo wrote:
+> Fix the bindings checks like syntax error.
+> 
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> Reported-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../bindings/sound/irondevice,sma1303.yaml          | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml b/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
+> index eb87374cc812..162c52606635 100644
+> --- a/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
+> +++ b/Documentation/devicetree/bindings/sound/irondevice,sma1303.yaml
 
-> +static snd_pcm_sframes_t sof_ipc4_pcm_delay(struct snd_soc_component *component,
-> +					    struct snd_pcm_substream *substream)
-> +{
+I would actually prefer to revert... patch was never reviewed (never
+CC'ed to all maintainers as requested by get_maintainer.pl) and will
+need more fixes after that fix. Eh, more patches to come.
 
-...
-
-> +
-> +	/*
-> +	 * Handle 32-bit counter wrap around, which would happen
-> +	 * for a 48khz 2ch stream in 24.855 hours
-> +	 */
-> +	link_ptr = tmp_ptr & UINT_MAX;
-> +
-> +	host_ptr = substream->runtime->status->hw_ptr;
-> +
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +		return host_ptr - link_ptr;
-> +
-> +	return link_ptr - host_ptr;
-
-I don't think that this calculation is fine for the wrap point. The hw_ptr is 
-in range 0..pcm_boundary not UINT_MAX. Also, you should consider the 
-underrun/overrun situations. The simple substraction is not enough to handle 
-this correctly.
-
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Best regards,
+Krzysztof
 

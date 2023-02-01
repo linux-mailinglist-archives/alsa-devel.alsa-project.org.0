@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C81068656A
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 12:29:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE5F68656F
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 12:30:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DAA3828;
-	Wed,  1 Feb 2023 12:29:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DAA3828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DDAC868;
+	Wed,  1 Feb 2023 12:29:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DDAC868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675250993;
-	bh=K40Lt57OPAP1h+2SzTXpQNiv7apJHAs07JXKz58s6u4=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=XuY1Ht/4S8E19bdKWWRrVlloS+9bulOxvOY88AD1qvspl4Sizyfw8npgfcFvemP2+
-	 G3ZdTe9MuFu02Vr07MhBTrZOXjICgR2o0/iyRJ4ZoBCTDdUnH9/XrEdR+c3WtAf6DL
-	 iK6BlbLF/6ykt6+FlKPBp/Ce507OTgmmSVOgjEHg=
+	s=default; t=1675251038;
+	bh=f/IuMQXWQgsvip32dGWCsB0+gTrfk/NU8TOVayzClK0=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=IVv9csld/1Gr+oW12Pd3NbcAZcYAw+ozVaPVBlJHUuYH15bMHeM2H6ry0K0Tgui2h
+	 Izo1qkVnOsXZ1cwsds+IboAJqJCZ9FbLvQQI278of5QJJcdqnLFCt8rCrYpCUUGMgV
+	 nCLd3cUqvEwZmZT2wpuT9mkEYzLkIRR8sl0pAm3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19121F80169;
-	Wed,  1 Feb 2023 12:28:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B138FF80528;
+	Wed,  1 Feb 2023 12:28:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93DA3F8047D; Wed,  1 Feb 2023 12:28:49 +0100 (CET)
+ id 4DA2DF80423; Wed,  1 Feb 2023 12:28:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +35,45 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8D2AF80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 12:28:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8D2AF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id B48C3F80155
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 12:28:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B48C3F80155
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EZrWWMIw
+ header.s=Intel header.b=VrDBZeU2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675250923; x=1706786923;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=K40Lt57OPAP1h+2SzTXpQNiv7apJHAs07JXKz58s6u4=;
- b=EZrWWMIwUFXhqWJhsaq+1orh3iTooe1EXayW+FJcVRHLIDdTdTz/+Or0
- jH52gSvP4AXTVvYqofKSQiNb2p/HZfxNpOC6ZpTVF+QOqbtQ8+ZAG0wG6
- HsKhavRn3qNL315slCjp9SZ4EPCg/jwEuCX1TOUNAPghQ5yia/4eCqbxm
- R0Fu+DNBxrWbljHzMpZ4X+wnmPB7zVWBXoaB36A9n2VbHIGRufyUd7D3O
- wIG7uJRo0jHJzeQROYp1t2bc8Z7ZQeayD0sG/azP1YQ+l8elqeou1q7GS
- Mxud2WD4Zx+YYCpIfDPuFW1KgqnmDxJiEdh/KSepZUcU6doRHzEy0DzA8 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="329409365"
-X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="329409365"
+ t=1675250925; x=1706786925;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=f/IuMQXWQgsvip32dGWCsB0+gTrfk/NU8TOVayzClK0=;
+ b=VrDBZeU2EeUqqhMhP6sdblFqSbGoHESPp4KxYQTzhz2Lf4huLhQlCm0l
+ HG03Ka+vYQwNoK2svBEz++G6fNB8WFuYv0EHbqfngVkjjNVwZOzBNJp9l
+ n821bYcyjCM7+11TBS3dtl1+c1Ol2MWTaaSIHM6GhxGZ3grrfXtFZ6YP2
+ BmsUpH2u4vcIl8Gwc7FR42kk3Z+x2kWYLRnnNhg1l97NFKWY6lQX1hedW
+ eoP21b4LrQdzGPMTMO3k268GiN6+EtQPUccjr7UdFlZKEMh0ar3fhczs2
+ Qpsl5c9r954oHKZWFxAjkQqVxmFn94RhwPa93gflr6H4l/8iW7+nremLH A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="329409377"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="329409377"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2023 03:28:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="642374164"
-X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="642374164"
+ 01 Feb 2023 03:28:42 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="642374223"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="642374223"
 Received: from jehdildi-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.31.67])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Feb 2023 03:28:36 -0800
+ 01 Feb 2023 03:28:39 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com, broonie@kernel.org, kuninori.morimoto.gx@renesas.com,
  amadeuszx.slawinski@linux.intel.com
-Subject: [PATCH 0/2] ASoC: (SOF) topology: Regression fixes for next
-Date: Wed,  1 Feb 2023 13:28:44 +0200
-Message-Id: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: SOF: topology: Add missed "else" in
+ sof_connect_dai_widget
+Date: Wed,  1 Feb 2023 13:28:45 +0200
+Message-Id: <20230201112846.27707-2-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
+References: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -90,30 +94,28 @@ Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The conversion to use generic helpers missed the else for the dai
+direction check which leads to failure when loading playback widgets
 
-Today I came across two regressions in next with SOF:
-
-The topology would not load with a failure of creating playback DAI
-the first patch is fixing this which was caused by a missing 'else' in the patch
-
-After fixing the topology loading, the module unloading caused kernel panic.
-The second patch is correcting that which is I likely caused by copy-paste to
-set wrong unload callback for the graph element.
-
-With these patches applied SOF is working on next and modules can be unloaded
-
-Regards,
-Peter
+Fixes: 323f09a61d43 ("ASoC: sof: use helper function")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
-Peter Ujfalusi (2):
-  ASoC: SOF: topology: Add missed "else" in sof_connect_dai_widget
-  ASoC: topology: Set correct unload callback for graph type
-
- sound/soc/soc-topology.c | 2 +-
  sound/soc/sof/topology.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 3cfdf782afca..4a62ccc71fcb 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1065,7 +1065,7 @@ static int sof_connect_dai_widget(struct snd_soc_component *scomp,
+ 
+ 	if (w->id == snd_soc_dapm_dai_out)
+ 		stream = SNDRV_PCM_STREAM_CAPTURE;
+-	if (w->id == snd_soc_dapm_dai_in)
++	else if (w->id == snd_soc_dapm_dai_in)
+ 		stream = SNDRV_PCM_STREAM_PLAYBACK;
+ 	else
+ 		goto end;
 -- 
 2.39.1
 

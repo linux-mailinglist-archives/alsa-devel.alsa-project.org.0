@@ -2,89 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52CE6865DD
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:24:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 411476865F6
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 13:33:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 173441E4;
-	Wed,  1 Feb 2023 13:23:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 173441E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF7B082E;
+	Wed,  1 Feb 2023 13:32:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF7B082E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675254256;
-	bh=7mCdQ1iozLn0rcg/87dFe8MryrX4X15b7S2VYCypRZg=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=MQ0nGugRjhhV2nhfk5AkNzCH75CspzW9HF5l5fb9gWFBbofxUEjBfT974Hr5WgK0d
-	 zpaqpyYuf1TKHAMs+0Pa3JW+r8Uge1lewlfH++YskIAqC3tzTjBSYubki1NW8m77X/
-	 J+XPTKcnzMEeCnh7hh8wAzQEOAvjFIwFRCQ2LYUQ=
+	s=default; t=1675254817;
+	bh=tFddUHtOVgwvjVM+0gmJXWsjIARB5Qfbh97T0KNUV2w=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=NeNJETM7R/4XrnOJkxi/6kz8bzokuEZwg96JL1Amz+JfEUrTFptB0pb6ttx9xJoB8
+	 j2J2Fsxv0REuDkrLCQ4FMDTJcLbYcZVHiHfMcWVFj4jrG3MS5k266nP1M5/XBsuuoU
+	 HFtAJdgea0kLy33Z+UqI6UwLO8O0mM2lHrIFrqeI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 474ECF80169;
-	Wed,  1 Feb 2023 13:23:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44663F80169;
+	Wed,  1 Feb 2023 13:32:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81862F80423; Wed,  1 Feb 2023 13:23:15 +0100 (CET)
+ id EDBA0F80169; Wed,  1 Feb 2023 13:32:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C1CBF80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:23:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C1CBF80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=FERQPGtJ; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=DbG+f8DT
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0A70620DFF;
- Wed,  1 Feb 2023 12:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675254191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ISPFAssdKTREKF1mv5BU3ewT5bNGU7OV/5fRIf6LT4Q=;
- b=FERQPGtJ1J4T/mOGkm82NrELUH92uLOFT4GYNrH0QjW6sxcf2xRSOwi5wHaWrKrePRl7Co
- ZJGR5xlq8vvKEJFzkcLKEWqcFFRnFNQahlB6mWSb/BUSbi7yz4z6cOmr39DfvWjdu5PB1W
- NZvszHZBuaIxa4yzM53YOuoM6QvzGGs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675254191;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ISPFAssdKTREKF1mv5BU3ewT5bNGU7OV/5fRIf6LT4Q=;
- b=DbG+f8DTU3GBBcbA5RzOygPXnJP0gzrqTtGAtaraJ7/oy/o0sXGzAPU+4+E8QtDCgjC4j2
- GQEehltngTSEgQAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EAC6B1348C;
- Wed,  1 Feb 2023 12:23:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MlHzOK5Z2mMNOQAAMHmgww
- (envelope-from <tiwai@suse.de>); Wed, 01 Feb 2023 12:23:10 +0000
-Date: Wed, 01 Feb 2023 13:23:10 +0100
-Message-ID: <878rhhy3pt.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH v2] ALSA: pci: lx6464es: fix a debug loop
-In-Reply-To: <Y9jnJTis/mRFJAQp@kili>
-References: <Y9jnJTis/mRFJAQp@kili>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49775F80169
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 13:32:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49775F80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RlKT37IR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675254750; x=1706790750;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tFddUHtOVgwvjVM+0gmJXWsjIARB5Qfbh97T0KNUV2w=;
+ b=RlKT37IRQE3envsJfGhyUI+oUwiDsdFn2Q17DwtlRmRbWBVLSgVlTPlw
+ m50M3qCNj+1r14lMghovl1UZrc+cHlZWzysnonu/xoWKVxet0HjVArvpQ
+ 0rOzFEZ3pcEguvoScQYsZyxhtVXWZ72vDmtA14EP4pyUa/CtEZDytHQZ9
+ VZ7zbbyhYdgn+2JWn2EIgsm8ER65+aslKUm6QWBW9Da1bAK5qAkfYLVaR
+ jfaidXFwxgg2aE3nRWdCuqbQfocjXTN7ijhxwVwdDBIGITF2VVJNvIzTM
+ gLayI8l91rbNTHwN/fj+B9+tR77T1tVdw5FZAgVmRBipa3D6wnVQx52Om A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="328143499"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="328143499"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 04:32:26 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10607"; a="788865663"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="788865663"
+Received: from jehdildi-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.31.67])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 04:32:21 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH 0/9] ASoC: SOF: core/ipc4/mtl: Add support for PCM delay
+ reporting
+Date: Wed,  1 Feb 2023 14:32:22 +0200
+Message-Id: <20230201123231.26361-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,31 +85,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 31 Jan 2023 11:02:13 +0100,
-Dan Carpenter wrote:
-> 
-> This loop accidentally reuses the "i" iterator for both the inside and
-> the outside loop.  The value of MAX_STREAM_BUFFER is 5.  I believe that
-> chip->rmh.stat_len is in the 2-12 range.  If the value of .stat_len is
-> 4 or more then it will loop exactly one time, but if it's less then it
-> is a forever loop.
-> 
-> It looks like it was supposed to combined into one loop where
-> conditions are checked.
-> 
-> Fixes: 8e6320064c33 ("ALSA: lx_core: Remove useless #if 0 .. #endif")
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
-> ---
-> v2: In the first version I just deleted the outside loop but that was
-> not the correct fix.  Combine the conditions instead.
+Hi,
 
-Thanks, applied.
+The following series adds support for the PCM delay reporting in SOF core level
+and implements the needed infrastructure with IPC4 to finally enable it for MTL.
 
+Currently this is only supported on MTL (and via IPC4), but with the
+infrastructure in place it will be possible to support other platforms with
+DeepBuffer.
 
-Takashi
+Regards,
+Peter
+---
+Rander Wang (9):
+  ASoC: SOF: add ipc4_fw_reg header file
+  ASoC: SOF: add fw_info_box support
+  ASoC: SOF: add time info structure for ipc4 path
+  ASoC: SOF: ipc4-pcm: allocate time info for pcm delay feature
+  ASoC: SOF: ipc4-pcm: add hw_params
+  ASoC: SOF: add delay function support in sof framework
+  ASoC: SOF: add get_stream_position ops for pcm delay
+  ASoC: SOF: Intel: mtl: add get_stream_position support
+  ASoC: SOF: ipc4-pcm: add delay function support
+
+ sound/soc/sof/intel/mtl.c   |  14 +++
+ sound/soc/sof/intel/mtl.h   |   6 +
+ sound/soc/sof/ipc4-fw-reg.h | 155 ++++++++++++++++++++++++
+ sound/soc/sof/ipc4-pcm.c    | 230 ++++++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc4-priv.h   |  15 +++
+ sound/soc/sof/ipc4.c        |   3 +
+ sound/soc/sof/ops.h         |  10 ++
+ sound/soc/sof/pcm.c         |  13 ++
+ sound/soc/sof/sof-audio.h   |   6 +
+ sound/soc/sof/sof-priv.h    |  10 ++
+ 10 files changed, 462 insertions(+)
+ create mode 100644 sound/soc/sof/ipc4-fw-reg.h
+
+-- 
+2.39.1
+

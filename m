@@ -2,77 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096CD686973
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 16:02:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D34686994
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 16:08:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C1C2839;
-	Wed,  1 Feb 2023 16:01:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C1C2839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8618ADF;
+	Wed,  1 Feb 2023 16:07:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8618ADF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675263726;
-	bh=YmsUF8dYyS1t9iHkHZl4QyzCYaAaEk1KI4sRfdsRaIg=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675264129;
+	bh=d58t2J7M4cJC009oe8cHwuEZwsLyzQHFoAEOxTPLj8U=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=piCDn4Xi2bCK51DC2MuWGsGemVb2+vz+x1GA5yujcDLIBjwOBqEQ7DKh6BQFYkMIw
-	 xPCiJENsZCPoXbgUtzUmbtqqKSW8McWwGwxW2TMUA1kDIPaTFSSQV5XfOKFWvZshGM
-	 6C3CrohJUfdnkDExdlbycJR93M56pfnmpZaN8PdQ=
+	b=s9+yEX9x+A0rEfslVFRkjeg6cRp1ZVrnZp/N6dICH5vEWOJPxnbz0pJ9W1a+f+Ulj
+	 vW66YIs3rnNRKeF9fv7iMnxbnBi3SrC/CFKwh1Zjf5COhrWiAsyob7o6EVwEhgbsyL
+	 zdeQcEGsQ3MHVWYuRR42PJcvu0SH/5MJjQBm8pU0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E189CF80155;
-	Wed,  1 Feb 2023 16:01:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B824F8045D;
+	Wed,  1 Feb 2023 16:07:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62432F80423; Wed,  1 Feb 2023 16:01:06 +0100 (CET)
+ id 947E1F80423; Wed,  1 Feb 2023 16:07:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B4E8F80155
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 16:01:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B4E8F80155
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uWU/uBx6
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00DB7F80155
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 16:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00DB7F80155
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=a7N88MBn; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=TYrX0X1X
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3A9CF6179C;
- Wed,  1 Feb 2023 15:01:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699B2C433D2;
- Wed,  1 Feb 2023 15:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675263660;
- bh=YmsUF8dYyS1t9iHkHZl4QyzCYaAaEk1KI4sRfdsRaIg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uWU/uBx64dGc2xdxP94hbFndKoMOooiLvGJW9syKl5VW9CNhcBGfe7leZ3+USFgBz
- END1RF7ldrpYmDuxzDaiVcl6IPJ5pG9QQ53bx1raIxWCcQDSxdCpDsa6rssURWBx4e
- bmLZbMGPyovn5XkJpVagXH4LHEqA26B+k55d0yAn5S9Bdbc3rMwlI5PXi9yqc3QPWt
- 1PlU3MdR5rEhCNKRaOyca1wGW2JCQ/cV0KO634+pEjX3Bqgb89r47NsWW97LSRSIpp
- GZGUqfY++Cvcb1L2sVUcukcpP72lKIVYac2xVj//PRSeeF3lXLJk+e2Pvl8LawP++J
- cIUrK0SftDKPA==
-Date: Wed, 1 Feb 2023 15:00:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Drop broken irondevice, sma1303 binding
-Message-ID: <Y9p+p6wt8WugDBuH@sirena.org.uk>
-References: <20230201131059.65527-1-krzysztof.kozlowski@linaro.org>
- <1bcd61d6-810f-1239-1b6e-367e0fe87370@linaro.org>
- <Y9pxGUMWyMeXQpZM@sirena.org.uk>
- <6491d6fb-2a10-1c80-d422-8300d5a75ce4@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qLcimmkhW1yYyJm9"
-Content-Disposition: inline
-In-Reply-To: <6491d6fb-2a10-1c80-d422-8300d5a75ce4@linaro.org>
-X-Cookie: Oh no, not again.
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B323B1FD9A;
+ Wed,  1 Feb 2023 15:07:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1675264065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rCK8t0N+klofL5r+4F/N4Is+F5OlehSi4QaUBXRPs2w=;
+ b=a7N88MBnJzF1CGL+PYcVLKonwdh6W6DRW9mcRWqcYJzKnVyuaXLftwAVUXjL9lsNzEbd5g
+ 7snhXFym/O8nqHzfMra9/MKW/HTmmstxNhmlht7CdWcZGd+ikPC3py3dx+pQXKqvITHJdE
+ Z/jqVdf1C7FRKRufm1hiikJ2ksKw1eI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1675264065;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rCK8t0N+klofL5r+4F/N4Is+F5OlehSi4QaUBXRPs2w=;
+ b=TYrX0X1XTFPJRq6xSOjFg1SG79/MaqtFabuOZ+yz1PAhnXK1P29xAyBI1gGyqmrkCqXnn+
+ OL35mGG6yuaV8aDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A7DFE13A10;
+ Wed,  1 Feb 2023 15:07:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0namKEGA2mMTCgAAMHmgww
+ (envelope-from <tiwai@suse.de>); Wed, 01 Feb 2023 15:07:45 +0000
+Date: Wed, 01 Feb 2023 16:07:45 +0100
+Message-ID: <87cz6twhj2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Guillaume Pinot <texitoi@texitoi.eu>
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix the speaker output on Samsung
+ Galaxy Book2 Pro 360
+In-Reply-To: <20230129171338.17249-1-texitoi@texitoi.eu>
+References: <20230129171338.17249-1-texitoi@texitoi.eu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +98,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kiseok Jo <kiseok.jo@irondevice.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 29 Jan 2023 18:13:38 +0100,
+Guillaume Pinot wrote:
+> 
+> Samsung Galaxy Book2 Pro 360 (13" 2022 NP930QED-KA1FR) with codec SSID
+> 144d:ca03 requires the same workaround for enabling the speaker amp
+> like other Samsung models with ALC298 codec.
+> 
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Guillaume Pinot <texitoi@texitoi.eu>
+> ---
+> I've tested this fix on my laptop with success. I've took "inspiration" from
+> https://lore.kernel.org/all/20221115170235.18875-1-tiwai@suse.de/
+> 
+> This is my first contribution, so feel free to give me feedbacks!
 
---qLcimmkhW1yYyJm9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks, applied now.
+At the next time, though, please put maintainers to Cc.
 
-On Wed, Feb 01, 2023 at 03:43:12PM +0100, Krzysztof Kozlowski wrote:
 
-> I tried. I started writing patch to fix few things in this binding and
-> then noticed that it is entirely empty and documents nothing.
-
-I really don't see an empty binding as a major problem in and of itself,
-we can always add properties later.  Again, I can't tell what the
-problems you're seeing are.
-
-> The trouble is that soon you will send it to Linus and then it becomes
-> the ABI even though no one ever approved or reviewed the actual ABI.
-
-So send a patch to delete the property parsing code then, like I say
-removing the entire driver is very much an overraction.  The properties
-are all optional in the code.
-
---qLcimmkhW1yYyJm9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPafqYACgkQJNaLcl1U
-h9B4SQf/V/sdNWAHAktgLl/T/dtFKrx37Qe9wxNlsIs5nCLDx+P4A075LhmLQC7/
-CBRhMIjVPmWoXMvMz+QcrL1YZw4Yuqt+pMg0vOxkKuQQplPLK+sj1Os36jT+NLAR
-VXmvhhsy/ohXtnTdD7tx+YycrlQBw25Wd/iMBKzBRHoqjBFCYSyJqKcYtqxw2jqQ
-wAoxYuNJi3NIZYHlOd4qVLJTp8zGmW023L+MomhTFTimbr94npCTbz49CjVZ8B5v
-a9YHAKi3jsDWpIz45hLso5GQZvrvbvRbst3u92dAN2CXSQpb3mW75EDm+rn21TuF
-ANteV+q5cPoO2CT9zGdGYBhFYe5pLw==
-=mFhz
------END PGP SIGNATURE-----
-
---qLcimmkhW1yYyJm9--
+Takashi

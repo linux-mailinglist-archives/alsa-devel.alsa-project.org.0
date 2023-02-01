@@ -2,73 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0CF686A2C
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 16:24:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4286686B4A
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Feb 2023 17:12:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62BB4DF;
-	Wed,  1 Feb 2023 16:23:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62BB4DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E42482E;
+	Wed,  1 Feb 2023 17:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E42482E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675265049;
-	bh=k073vJl0WTiBoaGQQ9tAhHMBenhKUSYdg+RdPLDDN2c=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1675267969;
+	bh=1WRzhheT0far4uWXe5/27l5EWuUFvZB4LXQCLYYjMl4=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=B/sOCAMQARsymEjf6cqwaenaArod7Oq5OscyIzETUCz8X4MJqx2RQsws8jSQRSPCd
-	 jtSlb5lnl85hsVbchAjOM6L5pWUAq7d++2IgaOwGGv5QTbVvn+RB6rPIv7N/L0jzEe
-	 /X13XrffdTUNIm3wBUPVInf2dMFxBOi9KFhKQlRQ=
+	b=Ak0mf2+NrMYzb842sCAROdE+kqvmgczglH5JhlNHllUbzK2dzj9Mji4RHMIuKHEHK
+	 1gVy0gUKvfjWmWaIBCKzhwxM2xb22RGMhNMdQctMlDtmpDDYxI2OcWrqUV1N4YioOL
+	 kwdbZo8N/tt2Od5JmkYdhplQffD1blQcOBcHVg4o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5913F80155;
-	Wed,  1 Feb 2023 16:23:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A0EEF80155;
+	Wed,  1 Feb 2023 17:11:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04844F80423; Wed,  1 Feb 2023 16:23:09 +0100 (CET)
+ id 1DE14F80423; Wed,  1 Feb 2023 17:11:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E54FAF80169
- for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 16:23:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E54FAF80169
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jG77iaMB
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AAB0E6176D;
- Wed,  1 Feb 2023 15:23:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C8AC433EF;
- Wed,  1 Feb 2023 15:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675264984;
- bh=k073vJl0WTiBoaGQQ9tAhHMBenhKUSYdg+RdPLDDN2c=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=jG77iaMB2HkTaRksdoFQ4JRKIhAtS3P31MUbZLJS8VtD5ZZhtmKFdde8gdWNYB1LK
- GjY5jE/mjXEbdJUMwc+JB2eAV/In9xE56bgVUKmHAnVcBZNeVC5nuDlQRHp8NW5HKO
- s0b8YTUNIQA1zZUCA6FqcHbuMa3Rh3Q6vwC5aDbXzr3os5LvYW5+Ceqm6N9WBsBjAQ
- fh6Ia4j9tDNy25kzxreNyKdfN3K3fw+r1otmW07yM+B5BLQqH+M6AavtnAWM5ToAQM
- qZFFH09pDnJJLDynPtbGvRzXPDGeZUC5Zx5/4OwzV9zzp4YUWUh4NoV7GDYafzkSHE
- E3gutemD5fZ6w==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a61y6t8e.wl-kuninori.morimoto.gx@renesas.com>
-References: <87a61y6t8e.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 00/15] ASoC: rsnd: cleanup add R-Car Gen4 Sound support
-Message-Id: <167526498330.445826.16606223243397883957.b4-ty@kernel.org>
-Date: Wed, 01 Feb 2023 15:23:03 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD67AF80155
+ for <alsa-devel@alsa-project.org>; Wed,  1 Feb 2023 17:11:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD67AF80155
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RKkTWeBV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675267898; x=1706803898;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=1WRzhheT0far4uWXe5/27l5EWuUFvZB4LXQCLYYjMl4=;
+ b=RKkTWeBVRvREqosDdFtrewoqawrDbhYtU9sLfPJDzAnvSKCTw0Vo32SQ
+ 7MvTvtPwU5y/aSuBoe57eLqZZI99XIxgenFoQzjEqTOLUs95OA2IZa9jN
+ MyzoKpm0haJvQ09nOM3Gggk+wNZVDvgk2860lQhbva5ZguKDGzCzTF2dB
+ my95Skx7B8DqVrT4goz0q3jud7jbmjY2uw6YvqavuZyA/x75DwZZtYa6n
+ G7cU0uhHdc27wEDGSNT76ecZEiromBVc1mfQy5MwDPGyPinvVvM8prqap
+ WD7tx2XDDryxpdubNVyV86p3642GMyYWkHhiu7f0zIvRSuD6bIhFgT2Fs Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="392762611"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="392762611"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2023 08:10:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="664918209"
+X-IronPort-AV: E=Sophos;i="5.97,263,1669104000"; d="scan'208";a="664918209"
+Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 01 Feb 2023 08:10:33 -0800
+Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pNFgu-0005Z7-2i;
+ Wed, 01 Feb 2023 16:10:32 +0000
+Date: Thu, 2 Feb 2023 00:09:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+ krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
+ andersson@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, quic_plai@quicinc.com, bgoswami@quicinc.com,
+ srinivas.kandagatla@linaro.org, quic_rohkumar@quicinc.com,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org,
+ judyhsiao@chromium.org, devicetree@vger.kernel.org,
+ konrad.dybcio@linaro.org
+Subject: Re: [PATCH 08/14] ASoC: q6dsp: q6apm-dai: Add open/free compress DAI
+ callbacks
+Message-ID: <202302012337.pC5Q3lLy-lkp@intel.com>
+References: <20230201134947.1638197-9-quic_mohs@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230201134947.1638197-9-quic_mohs@quicinc.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +97,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: Mohammad Rafi Shaik <quic_mohs@quicinc.com>, oe-kbuild-all@lists.linux.dev
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Feb 2023 01:59:29 +0000, Kuninori Morimoto wrote:
-> This patch-set adds R-Car Gen4 support on Renesas sound driver.
-> To add it, it needs some cleanups / prepares which makes
-> easy to review the patch.
-> 
-> 
-> Kuninori Morimoto (15):
->   ASoC: rsnd: check whether playback/capture property exists
->   ASoC: rsnd: fixup #endif position
->   ASoC: rsnd: Remove unnecessary rsnd_dbg_dai_call()
->   ASoC: rsnd: indicate necessary error when clock start failed
->   ASoC: rsnd: indicate warning once if it can't handle requested rule
->   ASoC: rsnd: use same debug message format on clkout
->   ASoC: rsnd: remove unnecessary ADG flags
->   ASoC: rsnd: rename clk to clkin
->   ASoC: rsnd: moves clkout_name to top of the file
->   ASoC: rsnd: use clkin/out_size
->   ASoC: rsnd: use array for 44.1kHz/48kHz rate handling
->   ASoC: rsnd: tidyup rsnd_dma_addr()
->   ASoC: rsnd: dma.c: tidyup rsnd_dma_probe()
->   ASoC: dt-bindings: renesas: add R8A779G0 V4H
->   ASoC: rsnd: add R-Car Gen4 Sound support
-> 
-> [...]
+Hi Mohammad,
 
-Applied to
+Thank you for the patch! Perhaps something to improve:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on next-20230201]
+[cannot apply to tiwai-sound/for-next tiwai-sound/for-linus linus/master v6.2-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks!
+url:    https://github.com/intel-lab-lkp/linux/commits/Mohammad-Rafi-Shaik/ALSA-compress-Update-compress-set-params-for-gapless-playback/20230201-215622
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230201134947.1638197-9-quic_mohs%40quicinc.com
+patch subject: [PATCH 08/14] ASoC: q6dsp: q6apm-dai: Add open/free compress DAI callbacks
+config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20230201/202302012337.pC5Q3lLy-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/78a6016e006a8e405679fd335940ee710416c43f
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mohammad-Rafi-Shaik/ALSA-compress-Update-compress-set-params-for-gapless-playback/20230201-215622
+        git checkout 78a6016e006a8e405679fd335940ee710416c43f
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash sound/soc/qcom/qdsp6/
 
-[01/15] ASoC: rsnd: check whether playback/capture property exists
-        commit: 68a410aff971e59b9e94aa22c4c5cb6a6af30729
-[02/15] ASoC: rsnd: fixup #endif position
-        commit: 49123b51cd896e00b256a27c2ce9e6bfe1bbc22f
-[03/15] ASoC: rsnd: Remove unnecessary rsnd_dbg_dai_call()
-        commit: e5a3c491e194768f4899e8d1746301542cd7c1e8
-[04/15] ASoC: rsnd: indicate necessary error when clock start failed
-        commit: c12dc0f6655bbf41d32a863b8e314f18f746fb0b
-[05/15] ASoC: rsnd: indicate warning once if it can't handle requested rule
-        commit: 6d612f67a8d430ab1905f795fb440e6e3545d94f
-[06/15] ASoC: rsnd: use same debug message format on clkout
-        commit: 3e262e9592bb18c4f491c2db8fd6cc49d9e23c38
-[07/15] ASoC: rsnd: remove unnecessary ADG flags
-        commit: 184d82e142eeb0a741ba9335601c075fc45b34aa
-[08/15] ASoC: rsnd: rename clk to clkin
-        commit: 4bbff16d26e83a150851e19a1e24f4ee71125863
-[09/15] ASoC: rsnd: moves clkout_name to top of the file
-        commit: da2f9e859413465c11d8aff01ff6f112d516c58e
-[10/15] ASoC: rsnd: use clkin/out_size
-        commit: efaab61588c4a85814ebf1fe983710bceb662d58
-[11/15] ASoC: rsnd: use array for 44.1kHz/48kHz rate handling
-        commit: 662721ece4f0146a09a0fe4108e7a05274723d7e
-[12/15] ASoC: rsnd: tidyup rsnd_dma_addr()
-        commit: c20bc7c9ce3a3ad8d51b26823e2ad2ba9b8bb447
-[13/15] ASoC: rsnd: dma.c: tidyup rsnd_dma_probe()
-        commit: beab0aad7276795952d4bb52f88fe6bd2406404c
-[14/15] ASoC: dt-bindings: renesas: add R8A779G0 V4H
-        commit: f76fec606d07b43d21475a0dda6294613379e224
-[15/15] ASoC: rsnd: add R-Car Gen4 Sound support
-        commit: c2bc65274a307e11743d0f56a762f8e57f279b9e
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+All warnings (new ones prefixed by >>):
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+>> sound/soc/qcom/qdsp6/q6apm-dai.c:135:6: warning: no previous prototype for 'event_handler_compr' [-Wmissing-prototypes]
+     135 | void event_handler_compr(uint32_t opcode, uint32_t token,
+         |      ^~~~~~~~~~~~~~~~~~~
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+vim +/event_handler_compr +135 sound/soc/qcom/qdsp6/q6apm-dai.c
 
-Thanks,
-Mark
+   134	
+ > 135	void event_handler_compr(uint32_t opcode, uint32_t token,
+   136					uint32_t *payload, void *priv)
+   137	{
+   138		struct q6apm_dai_rtd *prtd = priv;
+   139		struct snd_compr_stream *substream = prtd->cstream;
+   140		unsigned long flags;
+   141		uint32_t wflags = 0;
+   142		uint64_t avail;
+   143		uint32_t bytes_written, bytes_to_write;
+   144		bool is_last_buffer = false;
+   145	
+   146		switch (opcode) {
+   147		case APM_CLIENT_EVENT_CMD_EOS_DONE:
+   148			spin_lock_irqsave(&prtd->lock, flags);
+   149			if (prtd->notify_on_drain) {
+   150				snd_compr_drain_notify(prtd->cstream);
+   151				prtd->notify_on_drain = false;
+   152			} else {
+   153				prtd->state = Q6APM_STREAM_STOPPED;
+   154			}
+   155			spin_unlock_irqrestore(&prtd->lock, flags);
+   156			break;
+   157		case APM_CLIENT_EVENT_DATA_WRITE_DONE:
+   158			spin_lock_irqsave(&prtd->lock, flags);
+   159			bytes_written = token >> APM_WRITE_TOKEN_LEN_SHIFT;
+   160			prtd->copied_total += bytes_written;
+   161			snd_compr_fragment_elapsed(substream);
+   162	
+   163			if (prtd->state != Q6APM_STREAM_RUNNING) {
+   164				spin_unlock_irqrestore(&prtd->lock, flags);
+   165				break;
+   166			}
+   167	
+   168			avail = prtd->bytes_received - prtd->bytes_sent;
+   169	
+   170			if (avail > prtd->pcm_count) {
+   171				bytes_to_write = prtd->pcm_count;
+   172			} else {
+   173				if (substream->partial_drain || prtd->notify_on_drain)
+   174					is_last_buffer = true;
+   175				bytes_to_write = avail;
+   176			}
+   177	
+   178			if (bytes_to_write) {
+   179				if (substream->partial_drain && is_last_buffer)
+   180					wflags |= APM_LAST_BUFFER_FLAG;
+   181	
+   182				q6apm_write_async_compr(prtd->graph,
+   183							bytes_to_write, 0, 0, wflags);
+   184	
+   185				prtd->bytes_sent += bytes_to_write;
+   186	
+   187				if (prtd->notify_on_drain && is_last_buffer)
+   188					audioreach_shared_memory_send_eos(prtd->graph);
+   189			}
+   190	
+   191			spin_unlock_irqrestore(&prtd->lock, flags);
+   192			break;
+   193		default:
+   194			break;
+   195		}
+   196	}
+   197	
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

@@ -2,104 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91651687ECB
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:38:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A9ED687EE4
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:40:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDDA0E92;
-	Thu,  2 Feb 2023 14:37:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDDA0E92
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA10CEA8;
+	Thu,  2 Feb 2023 14:39:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA10CEA8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675345104;
-	bh=6/EgTt7JuCy1PTRpQOe36pguPJ7+Pxp4QJLEI8XA38k=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=F4Kq1rvQB9ZG95W08rhBZzdVsrI0spZInTmeEj8IEKyp2lXPIzFRc2djP7BsOpx39
-	 NgDFP6F6muxCHGXssNLqvbLF/xlPe/vL1XaVJm1KwhVXCupIX+clhsEnzQqJUsKPDm
-	 c7KWk/a6ne5L6t9hGBAxgxCf1PzjUY2/64m25pks=
+	s=default; t=1675345211;
+	bh=tRK67lIsuaxHWGYC5KfXDz0Z68wq0OFfmWMrYU1CJT8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=Lt/XzeFN0KeRrxsyM1kFmo3+I/CZUFeckOhexCW0oknTndEiLc10Oz0q8bqHP8eOm
+	 2EgfqsdM7y/rS9c9s1rUP4TtBPNfWE6IQzmum342XQGy7saJR6ScduCZzMYhbZzV9v
+	 V2sWUabRh5weeaD0DN9TDV2ZCIME9FLvhWu4yid0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33814F804DF;
-	Thu,  2 Feb 2023 14:37:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51D2BF800E3;
+	Thu,  2 Feb 2023 14:39:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9844F804C2; Thu,  2 Feb 2023 14:37:22 +0100 (CET)
+ id 7B1BAF800E3; Thu,  2 Feb 2023 14:39:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::61e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47AEBF80169
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:37:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47AEBF80169
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=e84ZMUHe; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=onqGLus/
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 39D0C32003C0;
- Thu,  2 Feb 2023 08:37:13 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 02 Feb 2023 08:37:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-transfer-encoding:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1675345032; x=1675431432; bh=89sIOUVWUw
- kN1bm7THHRbQb6iNz8H9x7HGaB0Zkj/RA=; b=e84ZMUHe3QtqGEHqnGISXh3QOX
- Yt/ez9s4EOAQVmuRCK/W5ilG99mbUJuWPTSVGYOSjbPAvPD2JvF1eb9Q/IUvbLu+
- r9kIdcRPMarD6AuimF3rlIx+fIU5A8v1MhZPOGPhFZamgGAuva5mfyfleWASpG5h
- N9m7QdrNw84+DNAbquC3Br0fpf4WfziJMg8tOW549mi1m+Axl0wlW9UF6r14jeHj
- qqEdxQ3q5Wv6dSNUL7FlebTZrgzt2Ha205PPk/b9CUf8HwvWb8H6GcpiMNjZx79C
- EaZvhvoik+7FBwlENqd3cVn0WsjEwArVnRqlrI71oWRCURc8F2MN7P9R6Fbg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1675345032; x=1675431432; bh=89sIOUVWUwkN1bm7THHRbQb6iNz8H9x7HGa
- B0Zkj/RA=; b=onqGLus/Zj/27kXo0n9IRb2jPGTfyElL7YZmGX15kFhOQCREA4Z
- OUD4q4be1AT6AwbcUWXil7KCkw3Qk3pBF44WHuCnJ2CjBGz0xch1Uu2haTBIxcn1
- FOHPC43M3MBbWknXat0Q5ZiusGpu0SjYzlH44rwO4tw7rqiUK7J4Rool+nW6T1kc
- UmUODOw3XcNIZPr9GD0T7TyxRpYVC6piO+g7ETtaS6HJf1dFYl/B2WlYKO1BR6wk
- 3v2B9hUT0yXd90XoDXcabOqThPvQBq89/8yAvH7okceFeKaQ3WlOCKYxEvDc3hpk
- KYqQzg7Zv9Jnko8z86LH6/xqEi1YFW3H5Bg==
-X-ME-Sender: <xms:iLzbYz6VucjRwZRfMLsgGxe9xznYKQuEAXHhSRmm4JU5k6mjjZgFnA>
- <xme:iLzbY45bONSENFRpJD3gjomANSyHnuJcJ8swiyHnMj1zrIyhQXt8FIlQD9293U9Nx
- G6P-_R_AacvgXkH_Ms>
-X-ME-Received: <xmr:iLzbY6fniIBnchZN5VhQ_FgPZqpu55clHBNnaSWy_5JIdl3VsPY-7vy_2NH6UKxP_vxJx3eY-gILjyUpi8rDTOiK6wFvxB-jHKyl89Wr0Zx5kMtQqwDbYrM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudefkedgheduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeeggfehleehje
- eileehveefkefhtdeffedtfeeghfekffetudevjeegkeevhfdvueenucffohhmrghinhep
- khgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
- hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:iLzbY0IYQl_mLz88hSGjE3jiNWqsGl4I0x8oPQfB9pXtw3YzkiGlRg>
- <xmx:iLzbY3JkC8ZkFCAFNubkUO_t2WJHdUJjf-vC3-fB1JQpDcFonVrPjw>
- <xmx:iLzbY9zMFoW61znnGzfo50c56cJ7zESwVCdkHvy6KXYgd6N0w3HyCg>
- <xmx:iLzbY5yy9vUWQH-L-hIJx530PSXqwf22uKCQjsRuotqnL7wY4wMXdg>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Feb 2023 08:37:11 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: fireface: add field for the number of messages copied
- to user space
-Date: Thu,  2 Feb 2023 22:37:08 +0900
-Message-Id: <20230202133708.163936-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CBCDF800E3
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:39:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CBCDF800E3
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=LEc90BtZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SMGj1qpTcKGT+sUTDwv2gJ9UkJZ8vtD7yqaQw9zCC8vZXt8azZENniIOQzAa6tXnukyNJ/7zaOdUVpWp8KvQcl0x1dd+8Ngh/0uXetDaE9CwuJqae/4Nix2JFuwY8WDB1rNQihEeHHV11sBgIlI+pG7dWLwBclwSQDPWqN8E0uYmfe9s7vvSDKAee+ITB+XddLfkfzYWLa+EhhyA43gIqarHxuGSJDY2f05LvuqrX+GIm24jk66elVUzN6pYB3Qp6NDdjWbEQR7QaAXXKhcsoQBJEbjrzVvhpEALBDPT2RJTJGvj+9viLPERa/LfSC1AQxBaFuMdkFBLmEgPo3MXwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dXz0NLyOdeSnttQSUz0LDQI2NwhdCO5Edd2oCzv2gn8=;
+ b=jD3aD41YtNOUNMJ3f9CzdHuFkwWV0DjhNmETJAmPz2x0GESHPh71zN221IAECS4D9/+af0hHvZmismKn6WuVAOKap8ThOkz2MqUGqnrVFahF6DUDeIgarlhL3RqSnR7z4PaWNnwlx/q21iVjAJzSO2KBQ3JwKI6ElPN8pVmBDqQoK2zJmc9vR0z0diG+AEk1b2jqBo3OpKUvGxJo60w9/PNGaIoDaAvu3Qobbb/F/iAD0mCOfmoSPlk0lu7y/QbXDBISzDWdu+Q1heSIPPzNKT5RP6MrPM72crtcrnxiu4r5kA2KszbAs2a5afQS33mQeQqmVJl3S3qGxMxgQp1d2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dXz0NLyOdeSnttQSUz0LDQI2NwhdCO5Edd2oCzv2gn8=;
+ b=LEc90BtZ94cJwTyRGYdfPwMEhYUCFNMOgSQV0VV7lZV7R6d558SgbjfxBukMvjmAu4N9fg89GBoxUWGTJTDey+1e5gGI8CO+DD7z3Tw7xdv5O4xSe+vQUIxtUXKwYherVV6ZGCVu8knxxyU70ThOLluA3yxO1ZUkA7u8Urx+/q4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by SA1PR12MB6773.namprd12.prod.outlook.com (2603:10b6:806:258::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.27; Thu, 2 Feb
+ 2023 13:38:57 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::a59e:bafb:f202:313c]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::a59e:bafb:f202:313c%6]) with mapi id 15.20.6064.027; Thu, 2 Feb 2023
+ 13:38:57 +0000
+Message-ID: <270a6bf0-8774-2f0d-9b0e-4f1eb9a986e6@amd.com>
+Date: Thu, 2 Feb 2023 07:38:55 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH v3 1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+References: <20230131184653.10216-1-mario.limonciello@amd.com>
+ <20230131184653.10216-2-mario.limonciello@amd.com>
+ <Y9uhkEo9INU0IPEr@sirena.org.uk>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <Y9uhkEo9INU0IPEr@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR18CA0027.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::22) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SA1PR12MB6773:EE_
+X-MS-Office365-Filtering-Correlation-Id: f375d802-93b0-4c66-577e-08db0522d5aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IgFHPlkmp8nk6JjPNSdyW8ww0qpKvnBSRNEL7ne3mg8Aoz4lAb6HGYzgF/5znBzXYmFSwsvr2KWAhqGCfPp2w+Wfeyl1xEfvppyo8mnaeIua8+YYf0F9xAq8QjJ4ztAZgz/lIaiXYaDKIgefP1bQF9h7bueWMYsAE1NJ+scMyOCfVRlxiFy6Qe9OrMyvtrXJmk2c3EjfW7J1EO+TQ8Je2tHkRTgxZfCua8YYmMSPygQDu8Do4GAnYt/PLP/Moi/Z+4QJW6IwJUboepb0AW9Blyz5+emeTpL+FaMWxhUa0U01QDLbgDbkpzdNBs2Wi4rDH3opA7y7/eD1QxaB77Gj7EInkT82KA4U3FOWbQu2pmzYt2fIkqrqlSGhs668FQzBHiQr9oW2q6jeV/hr3OBD+wOylnPu3FtchREDvAWBEdAOCCIxnZoB0/SInkh3kIQK1BOoPuqTw6n8lGb2lvoMZe/3OLuy8S3oUCzYL4MlodXXGSpx15Rm8SdbWV7xKUPfTrO7m3jx8lwpdHU8B80/GZ763kmMDioYK2LvYhx9LsQ74RcgYiBPYq88DRqE2OKmwHIzymFTL6VxCCUUVWsmEm3Z6jKZYwuCWbLa8emUtjf5XP0vnIVptFUJSkV+NzVAeFEMLx0raal9FKzlRYfgiDuHsHuTsaEGAHMS4eHXcfbDWua+lDcjoAaA7gs6MBXwAiR4nS2vw+aC9pDLjA61rumGqjFBjwEyqZIKjNCucZs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(451199018)(8936002)(316002)(6506007)(86362001)(53546011)(31696002)(478600001)(6486002)(38100700002)(2616005)(6512007)(186003)(4744005)(5660300002)(36756003)(44832011)(54906003)(2906002)(4326008)(6916009)(8676002)(41300700001)(66476007)(31686004)(66556008)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WldDTmtFT0ZJSG9nMlcyTEY0YXp2TnM4YjI3eTRlQ2NjMFRDVG5MUElabEk5?=
+ =?utf-8?B?YTBkTnNJODNzWW1GbjNkUTVCMVJlNU80VEw1WW1NdXcvczZvOEVJcUFXQkVR?=
+ =?utf-8?B?Zk9zZWdTNjNTNFpDaXJwbWwxbk8xcGowTURFSUZOYnJHYU0zV3RWSGkrSkdz?=
+ =?utf-8?B?Tjk4eWRrcVpFWDIrTC9zWHJNRjIzQSs0VVdpd25SNWVuc1hndEhDemg5WEhU?=
+ =?utf-8?B?ZWZkNVg5UElaYW1NNXZudGVrb0NWbm45NFJ1Yi9Oekdra0pXcjRxRWV1ZDNU?=
+ =?utf-8?B?VDRhT1djcForUGxhd1pCQ2grVm91ZUdObzNKWHZkTVRlaFRQYTZweGVMYU9l?=
+ =?utf-8?B?bGJWWERVWkJObWxCc1Rnd1VDZlp5emY2YmZjUG5QZ3M0YWxtTU91UWxEc3l5?=
+ =?utf-8?B?UmxHSDlxWFRsU1ZmY3NGRzNicnVWTGxUTHNkZ2xva05lWHk0OXpVV1pqQUVE?=
+ =?utf-8?B?a1ZYNlV5NU9ybDd4R3NEZWFxcEtlNngvNVk2YzFmVVdEMzhXRS90azFLcEZh?=
+ =?utf-8?B?VGd4ZGRtNkpzZklsNWRLbmg5RXk0Q2Vsd2FnMDRCT2tSbFo5bEF2YlphYU1Z?=
+ =?utf-8?B?Z2tNZ2x4eHRQVmN1eWpOVWlCbmEyY3h3bnlHRmJtY1hTNWZOMU94eVVrVklt?=
+ =?utf-8?B?bTVJNjdta2o5dzl2QmZnMHpBTUdCN3hGcFE2YkRBQ0Y0MGFVWWk3UVlzeFJF?=
+ =?utf-8?B?QVNSdlRKbXl5bENVRzhlalFGR2EyblIwSCtwbW91TW1MdThza2llNmFSN3Np?=
+ =?utf-8?B?WHFFVGcrNjM3aWdyektIWnlwOHhrRlNhY1cwYXc2dnpBTmZjR1NuMGd6dEd4?=
+ =?utf-8?B?NEx0MkFjQ08vYVpKa0dRL1NpRWNHTlI4YmdqUGVoY1g4d1ZXNjdKZVN4ckZE?=
+ =?utf-8?B?aXdtY0p2ZlpnSUliNmZIMzNGQ1dhbEp5U0htUjJMRkhtengvYjYyb3NaZTNF?=
+ =?utf-8?B?SFQ0cjRyNzdmOTJySldOQmVXdUJSSTVoeUd4M2M1aVJYcWlOSks2dnZtSDhX?=
+ =?utf-8?B?cjNyNVh3dER1V2sreU1jNEQvUXF3U2xWWHVoTC9tTldIMjhtVUJQRjVRb29X?=
+ =?utf-8?B?WnJYdUx2NzEwZFM4RllvUHZ2Q1luT3dJSzUyK1VLQ2NqTG5CMFdidTgrcTlU?=
+ =?utf-8?B?TVhYVTk5MEw1d0xNTmdycXlwTGhTeFBna2RZQW9XOEdqZlZRenk4QjhHdVJD?=
+ =?utf-8?B?REpieHRKTmRxN0VVUmtyejkySXhKN2lBeGV4Y2hYMjYzVlMzVTVuY0xvZUtP?=
+ =?utf-8?B?TDlTY2crWWdDamNjWTltNG1OSXUvbVYzNUVhdi9XdGlhYXZOT2ZyRXV3MW5X?=
+ =?utf-8?B?NkZtdVNCbDRVSk1BSkZFVG5MRDV4MWpiUUsxVUs2YTdGajFwbXJEN1hDUWRx?=
+ =?utf-8?B?ZmVkSzVsWnFVNmlyTVBkNzFvWkZNem03a3RYL0hiTnVsTE83WlFxV2EzdW1E?=
+ =?utf-8?B?ZmV5ZXZoUlh3TnJ4VkRRSFkyenpzYlhTRGhJdEN6TWxXSFJ3VzhUN3B2WUgz?=
+ =?utf-8?B?MUFFdXljTkIvZXJrbzMxT25PemQzV3RTcFZxMlc0Y2IwZC9aRFYvS1Axclhl?=
+ =?utf-8?B?Y1JkNmZhVlZjSFZGZm5HUG1udXVodnQveGx1a3VuNjB0ZlBabkVESk5LUml5?=
+ =?utf-8?B?UEJOWU1aVUtjWFhnTDlGb1FTUUtJSjdFN1R4OXU1NG5ScnFrL3dCZHRjRXAr?=
+ =?utf-8?B?b0IyY3pmUFZJaHZSdEVYR21leG1LNkZNeWxjaDlzVzJlUXY0NHVxeVVpbVN0?=
+ =?utf-8?B?V0pla0FGc0pXSlVmMjd1NDFyYzRUUjNhQVRlY2g3L3JROWFoUmppRFYxd2g3?=
+ =?utf-8?B?Z2VCNGMwaXZSRnRJbFhBOTBWd2dtNDE0K21UYUlHendKa3ZoZXZhbytIOGVP?=
+ =?utf-8?B?T2UvWjRUQWlTV2pYTVNYeExjTURkRDhPY0ZmZ0NnT2doLzNISXBCbHZDQWdr?=
+ =?utf-8?B?OS9GYjJYTmJ2MDVmZnN2TjRSYjN3bXBlYWlNalZDanJGQ0RaSlNwOGZYRkt2?=
+ =?utf-8?B?QUtMMk9wT1VyNUlzbmxySUVMYklyLzRwRUtCeHZPYktkQnVYNnBNTG13WnVB?=
+ =?utf-8?B?RWxsRC9oM2RYVWJ3bzRtUkJHamRCUUxISDRHbnZncXUrRlJkczBnVjNHSm9j?=
+ =?utf-8?B?UGVjaFZWQTNuemJ0S1lJTnR3MXdaaVFaL2FaaHRDTEp1LzVTZ1g1b0R6RUVi?=
+ =?utf-8?Q?ntXNIyeC9YFH0RGRLJRbCLSSk3yjIMbh9OUnoJdxm/Im?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f375d802-93b0-4c66-577e-08db0522d5aa
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 13:38:57.6356 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y19njyzzly6rMbcQSKpiykKq1Bgz1sqnSx/35vdNnnAHwHoi7kG2gV71EU4n4LTcQnorpAE0DEtmKjup73yHJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6773
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,103 +157,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org,
+ Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <jkysela@redhat.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Saba Kareem Syed <Syed.SabaKareem@amd.com>,
+ Mukunda Vijendar <Vijendar.Mukunda@amd.com>,
+ Mark Pearson <mpearson@lenovo.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current structure includes no field to express the number of messages
-copied to user space, thus user space application needs to information
-out of the structure to parse the content of structure.
+On 2/2/23 05:42, Mark Brown wrote:
+> On Tue, Jan 31, 2023 at 12:46:47PM -0600, Mario Limonciello wrote:
+>> A number of users for Lenovo Rembrandt based laptops are
+>> reporting that the microphone is too quiet relative to
+>> Windows with a dual boot.
+> 
+> If you're sending a cover letter for a series you should send it to the
+> maintainers as well, not just the patches.
 
-This commit adds a field to express the number of messages copied to user
-space since It is more preferable to use self-contained structure.
+My apologies.  My scripts to get maintainers to send to sometimes fail 
+on cover letters and I didn't do a manual fix up.
 
-Kees Cook proposed an idea of annotation for bound of flexible arrays
-in his future improvement for flexible-length array in kernel. The
-additional field for message count is suitable to the idea as well.
-
-Reference: https://people.kernel.org/kees/bounded-flexible-arrays-in-c
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- include/uapi/sound/firewire.h                |  2 ++
- sound/firewire/fireface/ff-protocol-former.c | 28 +++++++++++---------
- 2 files changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
-index 50917581dd2b..1e86872c151f 100644
---- a/include/uapi/sound/firewire.h
-+++ b/include/uapi/sound/firewire.h
-@@ -78,6 +78,7 @@ struct snd_firewire_event_motu_register_dsp_change {
-  *					     operating hardware knob.
-  *
-  * @type: Fixed to SNDRV_FIREWIRE_EVENT_FF400_MESSAGE.
-+ * @message_count: The number of messages.
-  * @messages.message: The messages expressing hardware knob operation.
-  * @messages.tstamp: The isochronous cycle at which the request subaction of asynchronous
-  *		     transaction was sent to deliver the message. It has 16 bit unsigned integer
-@@ -89,6 +90,7 @@ struct snd_firewire_event_motu_register_dsp_change {
-  */
- struct snd_firewire_event_ff400_message {
- 	unsigned int type;
-+	unsigned int message_count;
- 	struct {
- 		__u32 message;
- 		__u32 tstamp;
-diff --git a/sound/firewire/fireface/ff-protocol-former.c b/sound/firewire/fireface/ff-protocol-former.c
-index fa41de978756..efd59e9d9935 100644
---- a/sound/firewire/fireface/ff-protocol-former.c
-+++ b/sound/firewire/fireface/ff-protocol-former.c
-@@ -677,23 +677,19 @@ static void ff400_handle_msg(struct snd_ff *ff, unsigned int offset, const __le3
- 
- static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long count)
- {
-+	struct snd_firewire_event_ff400_message ev = {
-+		.type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE,
-+		.message_count = 0,
-+	};
- 	struct ff400_msg_parser *parser = ff->msg_parser;
--	u32 type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE;
- 	long consumed = 0;
--	int ret = 0;
-+	long ret = 0;
- 
--	if (count < 8)
-+	if (count < sizeof(ev) || parser->pull_pos == parser->push_pos)
- 		return 0;
- 
--	spin_unlock_irq(&ff->lock);
--	if (copy_to_user(buf, &type, sizeof(type)))
--		ret = -EFAULT;
--	spin_lock_irq(&ff->lock);
--	if (ret)
--		return ret;
--
--	count -= sizeof(type);
--	consumed += sizeof(type);
-+	count -= sizeof(ev);
-+	consumed += sizeof(ev);
- 
- 	while (count >= sizeof(*parser->msgs) && parser->pull_pos != parser->push_pos) {
- 		spin_unlock_irq(&ff->lock);
-@@ -707,10 +703,18 @@ static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long cou
- 		++parser->pull_pos;
- 		if (parser->pull_pos >= FF400_QUEUE_SIZE)
- 			parser->pull_pos = 0;
-+		++ev.message_count;
- 		count -= sizeof(*parser->msgs);
- 		consumed += sizeof(*parser->msgs);
- 	}
- 
-+	spin_unlock_irq(&ff->lock);
-+	if (copy_to_user(buf, &ev, sizeof(ev)))
-+		ret = -EFAULT;
-+	spin_lock_irq(&ff->lock);
-+	if (ret)
-+		return ret;
-+
- 	return consumed;
- }
- 
--- 
-2.37.2
-
+Would you like me to resend the series?

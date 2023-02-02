@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B640687BD9
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 12:12:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0C3687BDB
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 12:13:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACB741DA;
-	Thu,  2 Feb 2023 12:12:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACB741DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7490DF3;
+	Thu,  2 Feb 2023 12:12:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7490DF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675336378;
-	bh=aiF6/8a6SS1hHhHKbLczSkALMVzusrvlToxYPNO/+4c=;
+	s=default; t=1675336403;
+	bh=hqGPiTb3SAUmJcU9PUxVFwsufiYM6BS1FXIonficbCo=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=BODP3+BH6Vo+P3/Cznl6/X3xMlm9DdP195/LH+DwnDo/ja1DmwOamEss6HH0hKr/8
-	 WBTGnUtJ8YaemLiORqc/9ZhrwtBC9c33OJirtArHlAjQ7dxIclnkXe4B/gu4RvXcd0
-	 pGofEPyY/vnXRFj+AW0obSQtJRjnWoJO+pwtRqmM=
+	b=IHPlunGpppeFMex2M2EBSEODOikh4ew3zLc3zS2589mxF801DZ0KOzHRLOLqafryf
+	 u5KZANPSHgj0P9H/BPzoKDY/GhDTtJazfLa7ldQ40r937J0p9y1S6HbM/wDnoAdpKJ
+	 pN70gGPDGZCKrR/MrtdMqCeAJocrguxqifh0SL9M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05EF0F80544;
-	Thu,  2 Feb 2023 12:11:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78758F80558;
+	Thu,  2 Feb 2023 12:11:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C065AF8053D; Thu,  2 Feb 2023 12:11:35 +0100 (CET)
+ id 0EA1AF80557; Thu,  2 Feb 2023 12:11:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11A58F80271
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 12:11:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11A58F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 921E3F804C2
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 12:11:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 921E3F804C2
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=jIUlGmkm
+ header.s=Intel header.b=dOnq6zmQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675336285; x=1706872285;
+ t=1675336289; x=1706872289;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aiF6/8a6SS1hHhHKbLczSkALMVzusrvlToxYPNO/+4c=;
- b=jIUlGmkmF+XLhTWPR7pIXWrdLnUgXnx8cA5K+NWJ0oi7y64BbXUg3Zbf
- xGB8XkFG8k5N4zq30yl8L81NivFzSaheS1bkWPW7S2YkRTyKg+VxhjykW
- zXhLxq9Jstm143TGlUwOmx9k6okT7y1/8QzhWacW3rjEi9sKKoK/BnD6r
- 7yJ9pwnekGlFr6FA1fQF29ON8DD4iXZjNYMiqLks9txCdDKb5yUSkprkL
- yFx0lK9hydPORXB6NB/59/TnYTTj/dOc4UFY3EnXbsXSV8d34wSPbX//b
- bYsI5txrtCRVsBPljTKb7n1hpCxVBwO9f2joLp4GZSPBUhWWx481wfH2/ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="414625148"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="414625148"
+ bh=hqGPiTb3SAUmJcU9PUxVFwsufiYM6BS1FXIonficbCo=;
+ b=dOnq6zmQVCh68V3dJnfMWtR+GJDgqL296DbBCPtpIOO8C/E3hXHGGePe
+ SsqRzv0pbhuwfHwDvPlR+Rsjssim5VIVVBHk8vvvAbaV0LRuOpQE0Zt6N
+ y89DozZWthkoKoqpTjxrEw1/n4Mmmd25ugRQWSbR30iu3ioAiBL3gj4gL
+ 0TIXU4Z7QSb9jiSZNAI+CIww+jGGgP69SMlBu+HrrPele3TOv7efTILE1
+ J9InFauLJ2+gOYXH0bly7wdMlH7av/Dp6+6z/GPxM7tUcG2uSGNQnRAvs
+ Nj/+Bx4LS81Ak84tuvx9HvGYkbOhAG8pZJIxZBiOr/upwRAPU24XZlJD/ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="414625166"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="414625166"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 03:11:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="695747672"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="695747672"
+ 02 Feb 2023 03:11:26 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="695747682"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="695747682"
 Received: from jpdamery-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.1.104])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 03:11:20 -0800
+ 02 Feb 2023 03:11:23 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz
-Subject: [PATCH v2 2/9] ASoC: SOF: add fw_info_box support
-Date: Thu,  2 Feb 2023 13:11:16 +0200
-Message-Id: <20230202111123.25231-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v2 3/9] ASoC: SOF: add time info structure for ipc4 path
+Date: Thu,  2 Feb 2023 13:11:17 +0200
+Message-Id: <20230202111123.25231-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230202111123.25231-1-peter.ujfalusi@linux.intel.com>
 References: <20230202111123.25231-1-peter.ujfalusi@linux.intel.com>
@@ -96,11 +96,9 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Rander Wang <rander.wang@intel.com>
 
-FW can share some information with host driver, .e.g fw status, pipeline
-status and volume status. On ipc4 platform it is located in memory
-windows 0 with size of struct sof_ipc4_fw_reg.
-
-With this patch, ipc4 driver can find fw information in fw_info_box
+Start_stream_offset is used to strip invalid sample count in dai
+for some cases like dai is started before host. llp_offset is used
+to get current dai position from memory windows.
 
 Signed-off-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -108,56 +106,49 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/ipc4-priv.h | 1 +
- sound/soc/sof/ipc4.c      | 3 +++
- sound/soc/sof/sof-priv.h  | 1 +
- 3 files changed, 5 insertions(+)
+ sound/soc/sof/ipc4-priv.h | 14 ++++++++++++++
+ sound/soc/sof/sof-audio.h |  3 +++
+ 2 files changed, 17 insertions(+)
 
 diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index 38bb3d7df42e..8f8259a7e21c 100644
+index 8f8259a7e21c..f461b8c70df3 100644
 --- a/sound/soc/sof/ipc4-priv.h
 +++ b/sound/soc/sof/ipc4-priv.h
-@@ -14,6 +14,7 @@
- #include "sof-priv.h"
+@@ -87,6 +87,20 @@ struct sof_ipc4_fw_data {
+ 	struct mutex pipeline_state_mutex; /* protect pipeline triggers, ref counts and states */
+ };
  
- /* The DSP window indices are fixed */
-+#define SOF_IPC4_INBOX_WINDOW_IDX	0
- #define SOF_IPC4_OUTBOX_WINDOW_IDX	1
- #define SOF_IPC4_DEBUG_WINDOW_IDX	2
++/**
++ * struct sof_ipc4_timestamp_info - IPC4 timestamp info
++ * @host_copier: the host copier of the pcm stream
++ * @dai_copier: the dai copier of the pcm stream
++ * @stream_start_offset: reported by fw in memory window
++ * @llp_offset: llp offset in memory window
++ */
++struct sof_ipc4_timestamp_info {
++	struct sof_ipc4_copier *host_copier;
++	struct sof_ipc4_copier *dai_copier;
++	u64 stream_start_offset;
++	u32 llp_offset;
++};
++
+ extern const struct sof_ipc_fw_loader_ops ipc4_loader_ops;
+ extern const struct sof_ipc_tplg_ops ipc4_tplg_ops;
+ extern const struct sof_ipc_tplg_control_ops tplg_ipc4_control_ops;
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index b0593b46d477..334b715b17c8 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -311,6 +311,9 @@ struct snd_sof_pcm_stream {
+ 	 */
+ 	bool suspend_ignored;
+ 	struct snd_sof_pcm_stream_pipeline_list pipeline_list;
++
++	/* used by IPC implementation and core does not touch it */
++	void *private;
+ };
  
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index 35c9f3913d9a..f3c0c839d177 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -13,6 +13,7 @@
- #include <sound/sof/ipc4/header.h>
- #include "sof-priv.h"
- #include "sof-audio.h"
-+#include "ipc4-fw-reg.h"
- #include "ipc4-priv.h"
- #include "ops.h"
- 
-@@ -542,6 +543,8 @@ static int ipc4_fw_ready(struct snd_sof_dev *sdev, struct sof_ipc4_msg *ipc4_msg
- 	outbox_offset = snd_sof_dsp_get_window_offset(sdev, SOF_IPC4_OUTBOX_WINDOW_IDX);
- 	outbox_size = SOF_IPC4_MSG_MAX_SIZE;
- 
-+	sdev->fw_info_box.offset = snd_sof_dsp_get_window_offset(sdev, SOF_IPC4_INBOX_WINDOW_IDX);
-+	sdev->fw_info_box.size = sizeof(struct sof_ipc4_fw_registers);
- 	sdev->dsp_box.offset = inbox_offset;
- 	sdev->dsp_box.size = inbox_size;
- 	sdev->host_box.offset = outbox_offset;
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 208a30ff3db9..fd1c3b17a396 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -548,6 +548,7 @@ struct snd_sof_dev {
- 
- 	/* IPC */
- 	struct snd_sof_ipc *ipc;
-+	struct snd_sof_mailbox fw_info_box;	/* FW shared memory */
- 	struct snd_sof_mailbox dsp_box;		/* DSP initiated IPC */
- 	struct snd_sof_mailbox host_box;	/* Host initiated IPC */
- 	struct snd_sof_mailbox stream_box;	/* Stream position update */
+ /* ALSA SOF PCM device */
 -- 
 2.39.1
 

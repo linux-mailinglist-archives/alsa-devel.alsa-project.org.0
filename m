@@ -2,89 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 297DB6882EB
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 16:43:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24FB6688316
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 16:52:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5AC4EAD;
-	Thu,  2 Feb 2023 16:42:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5AC4EAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FB95E87;
+	Thu,  2 Feb 2023 16:51:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FB95E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675352629;
-	bh=X0iIGUlUCiu9UMGQlIecnpMbvDH/zQf5dAi8eM3tICI=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1675353135;
+	bh=Y9xqbz51S397OO9AGGIlpQv4kUC2bme5ue2mifphKRk=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=tZUC2SskjqcN8ZFLw8HzwVE7H70vtqKsFmVxO0ZPrCoFh+Tbl3/6QpT/+4UHLFBZM
-	 h5DcA5kXIpCSomyY7YfnHfUpFlpM6rp3tLaO+gUSyQhbQtIwfJrZGleMbYa3v9ISIP
-	 +m8BLsGTSeOQ0k41/JcF2evycx2X8ONA45wQHMSY=
+	b=SkZqbl05cGXh5MkR7UKJcYB4KggviLM5tknNbijcCjefKzHEdVjwV52jN5rSRxl3+
+	 rYMtYap1+LMJqKzIoVQAq7MO4DpsXJKc0LIJ3Dhp+w6EflErSpGWcnDrSnHtefE02J
+	 gtbBCP5fX3eXpRNNExZsDX46H3LcJU4YuW/0ElA8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAC9BF80169;
-	Thu,  2 Feb 2023 16:42:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF758F800E3;
+	Thu,  2 Feb 2023 16:51:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30B4DF80528; Thu,  2 Feb 2023 16:42:23 +0100 (CET)
+ id EBC4AF804C2; Thu,  2 Feb 2023 16:51:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33B30F804C2
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 16:42:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33B30F804C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C15C1F80169
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 16:51:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C15C1F80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=G4zay/Ev
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3128sUnb006230; Thu, 2 Feb 2023 09:42:15 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=qHX4Vtwm/1eGcLZA2epkScZnQv8rS+tXSdtmt+QwEQQ=;
- b=G4zay/EvBXtFIUwSz/uCferu0OcgNSslHqNRcMCrO9UWDt/KXeImhfPeEvMPI1K0Yxb+
- k5mYZiTIujY9ylkIBue1DuDL1KJzQfuwhuIH/A9LZn8u39yCA++uaLFRl9M0XcyFc2zK
- VUoF9KhQKXjCQQKTv/DhdpwHigvUr0QPEDMcM7AmjPJlPtLE0yVTweX2qur8obwdKIIh
- XdathYKjvsaC35Q/yRlhQNt+WFLbxwDlokD8p3B7ewQUg7XbMIbKi3PmJnIMneX+aCh4
- FST9pvmd6oQGxXrRS68CiRBe7HnyE1bS6TvLbcJK8j/uqU3tlwMQFoYofxhuyMe4nQiO jw== 
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3nfqvj1qk6-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Feb 2023 09:42:14 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 2 Feb
- 2023 09:42:12 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.21 via Frontend Transport; Thu, 2 Feb 2023 09:42:12 -0600
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 377BD15A0;
- Thu,  2 Feb 2023 15:42:12 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH 2/2] soundwire: bandwidth allocation: Use hweight32() to
- calculate set bits
-Date: Thu, 2 Feb 2023 15:42:12 +0000
-Message-ID: <20230202154212.1098736-3-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230202154212.1098736-1-rf@opensource.cirrus.com>
-References: <20230202154212.1098736-1-rf@opensource.cirrus.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=H1C4HgP0
+Received: by mail-ot1-x32e.google.com with SMTP id
+ f5-20020a9d5f05000000b00684c0c2eb3fso562279oti.10
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 07:51:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=yHdnGHGya01Jv0VuLki3dw4SIg6d4Y5ozkEOLFh106s=;
+ b=H1C4HgP0+4cLGdmQvHXhQ3i0Vkr9SlgDZWxF4hOHH2AGXebPuzKKwW99Yh4YTpP1eP
+ DCo9lGGq4Uaskn0A/qpE/587NZUAp8TpYnHQptkb3vr98DKbUSc+S/gjs8EDUgMqdMHC
+ 1Fm21hBVnVxea7Mamzac0GhsUcc4/b/0FRcOgoa6X0FSffmLYIv39p8fwlSC5D69msYa
+ xm8OYvlbzvhjK8bwQpPhDpTZYnNrDa8XACIuBaI1w171jbOli829AYrvjq6Xtlcaq53+
+ SXOJsABhmccDXYVkDBtb974H/G2+nxW5DmGQV2vzaHBDw9bstdCiYf0YqeEz0HgTT7SN
+ 7cEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yHdnGHGya01Jv0VuLki3dw4SIg6d4Y5ozkEOLFh106s=;
+ b=WT59HG7REi9d37+N/H7jtX3PuE6U0bMmh+gYnXPQQi26OSGDED6pPA5dqFuHPC/GSz
+ jI2HYcAaqTUKcHojY96jdoC/IskJKrrcVridu7eNIVBnGd/+wjdki3qcuyxJoPlJ+aID
+ x69th516ixpxwI+U8VYnfpy1wpwh1Zi7dipBidJjdScV3C8QhVyX019/Xbb8NnmeAlZc
+ /D3bnY1y+d6S7xDqSf13rv8urwT2aMOSLR6x6hf2fO/s1HHZsp20PtCpIny3pQysT33r
+ NVdPy0MmDfTuqsohvG3mOBGV1r62l0DDYpV1UV0GFI3t90EzCdq79sqlZ1FmCQAhxOFC
+ n5vw==
+X-Gm-Message-State: AO0yUKWrEShvrVOhJAFp5NblFR8zi8JXBLKWJbPqgkvQvVeNM1k9FQah
+ g1e7+dctyOELcnO/vbMkKsk=
+X-Google-Smtp-Source: AK7set8yIDY8bSn1xg+ZZWxJIPoyhQiBcGeEppFiitpyMYHL/QXHUa0PabTEfahvJWo8bR0FD9YgLw==
+X-Received: by 2002:a05:6830:1686:b0:68b:d347:2457 with SMTP id
+ k6-20020a056830168600b0068bd3472457mr3411625otr.21.1675353063689; 
+ Thu, 02 Feb 2023 07:51:03 -0800 (PST)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ s10-20020a9d58ca000000b006865223e532sm3173925oth.51.2023.02.02.07.51.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Feb 2023 07:51:03 -0800 (PST)
+Date: Thu, 2 Feb 2023 07:51:01 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
+ headsets when playing music
+Message-ID: <20230202155101.GB1373010@roeck-us.net>
+References: <20221121050744.2278-1-david.rau.zg@renesas.com>
+ <20230117195645.GA83401@roeck-us.net>
+ <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+ <20230119161221.GA981953@roeck-us.net>
+ <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+ <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
+ <Y9kE1cSUg2CQM5vq@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: uqgusPKHeFYIjWDNcIzxx8WygJvQTzXu
-X-Proofpoint-ORIG-GUID: uqgusPKHeFYIjWDNcIzxx8WygJvQTzXu
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y9kE1cSUg2CQM5vq@sirena.org.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,66 +109,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ David Rau <david.rau.zg@renesas.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Replace the call to sdw_ch_mask_to_ch() with a call to hweight32().
+On Tue, Jan 31, 2023 at 12:08:53PM +0000, Mark Brown wrote:
+> On Mon, Jan 30, 2023 at 10:16:06PM -0800, Guenter Roeck wrote:
+> > On 1/30/23 19:58, David Rau wrote:
+> 
+> > > Thanks for the kind feedback.
+> > > Would you please let me know what kinds of environment such error appears you ever meet?
+> > > Ex: da7219_aad->gnd_switch_delay = ?
+> 
+> > We are seeing the problem on various Chromebooks.
+> 
+> > Never mind, though. I really don't have time to keep arguing about this.
+> > I would have assumed that it is obvious that a long msleep() in an
+> > interrupt handler is not appropriate, but obviously I was wrong.
+> 
+> This is a threaded interrupt handler so it's a bit less clear that it's
+> meaningfully different to just disabling the interrupt for debounce or
+> whatever.  Not to say it's ideal.
+> 
+> > I'll see if I can implement a downstream fix.
+> 
+> If you implement something I don't see a reason not to post it upstream.
 
-sdw_ch_mask_to_ch() is counting the number of set bits. The hweight()
-family of functions already do this, and they have an advantage of
-using a bit-counting instruction if it is available on the target CPU.
+I had a look into the code, and concluded that it is too complex for anyone
+who doesn't know it to find a proper fix. For example, for an outsider it
+is not conceivable (or explained) why the ground switch is enabled only
+to be disabled immediately afterwards if a jack was removed.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/bus.h                          | 11 -----------
- drivers/soundwire/generic_bandwidth_allocation.c |  3 ++-
- 2 files changed, 2 insertions(+), 12 deletions(-)
+This is now the top crash reason on affected Chromebooks (so far I
+identified Asus C424, HP SeaStar, and HP StingRay) with this patch
+applied. I am inclined to revert it from all ChromeOS kernel branches.
+At least for us the cure for the problem is much worse than the problem
+itself.
 
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 28bedc919b78..4ce8d708a39c 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -159,17 +159,6 @@ int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg,
- int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
- 		 u32 addr, size_t count, u16 dev_num, u8 flags, u8 *buf);
- 
--/* Retrieve and return channel count from channel mask */
--static inline int sdw_ch_mask_to_ch(unsigned int ch_mask)
--{
--	int c = 0;
--
--	for (c = 0; ch_mask; ch_mask >>= 1)
--		c += ch_mask & 1;
--
--	return c;
--}
--
- /* Fill transport parameter data structure */
- static inline void sdw_fill_xport_params(struct sdw_transport_params *params,
- 					 int port_num, bool grp_ctrl_valid,
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index f7c66083a4dd..ea3e8ef408e4 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -6,6 +6,7 @@
-  *
-  */
- 
-+#include <linux/bitops.h>
- #include <linux/device.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
-@@ -54,7 +55,7 @@ static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
- 		slave_total_ch = 0;
- 
- 		list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
--			ch = sdw_ch_mask_to_ch(p_rt->ch_mask);
-+			ch = hweight32(p_rt->ch_mask);
- 
- 			sdw_fill_xport_params(&p_rt->transport_params,
- 					      p_rt->num, false,
--- 
-2.30.2
-
+Guenter

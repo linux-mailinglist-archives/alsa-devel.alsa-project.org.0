@@ -2,91 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B4D96883F7
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 17:18:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADF56881C9
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 16:24:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44FD3EBA;
-	Thu,  2 Feb 2023 17:17:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44FD3EBA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C71C886;
+	Thu,  2 Feb 2023 16:23:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C71C886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675354707;
-	bh=4e6BC4NTOr3CWC6ti8Bb3vrMG2t91KKoYvhqNKu8ZOs=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675351483;
+	bh=0YIlhLQM4vruCq5Gzqgsdm7w/F6iwRUJvFRBV7ba3nU=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=tmRquM1Vu/K3NnUhapSoLBy3m4bJy1s5dKtZhaPpl6WPDTwDQcbFXarnEBGfG1/He
-	 PfRL+aNxrwK515JHXs+Wubkw6Lpp/+i/B0/O0FPr2RCcnkfPR88ZhdUdNd1hFHfUcZ
-	 mrlv+Oqv3ajqD7u8jt0g9hMzrZodFBLRKh96a96o=
+	b=k9POfTIRW0WCY76nAyWWVLAQc6y4fZIc0deQn/Wkj44xOAojo7YBcO1ciaOEIuRAH
+	 2oB4FGIy7rR77JEKB0bR5WT5OC4+T9DHNc/VBrvru87kEpWhBjS7pyaDWV6CviaWNA
+	 CsA5rolNcy5gJZJjtNHHAMiN0t+u/3qGwGhRJOO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0456F800E3;
-	Thu,  2 Feb 2023 17:17:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 734CAF804DF;
+	Thu,  2 Feb 2023 16:23:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B078F804C2; Thu,  2 Feb 2023 17:17:26 +0100 (CET)
+ id 9C218F804C2; Thu,  2 Feb 2023 16:23:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57BB2F800ED
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 17:17:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57BB2F800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 565DAF800E3
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 16:23:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 565DAF800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=QskZxot5
-Received: by mail-wm1-x32d.google.com with SMTP id bg26so1847455wmb.0
- for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 08:17:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=tM2tAG1KHS9gAyhcPLjkjYt8F4gMNaekAqdi+Z0D3jE=;
- b=QskZxot5mc2Exa8IWCLZzUy0ZgCN5SeK2vwVanKyB2t7of02G81jkeeZ/2Bzj7lfmm
- 2siEjAcnKKBmmU+NNSxvq35ExnO+IKq1JiytOwRetZunBwuOXuBdHP+v2T/0QnfArYxL
- b4uRxVGr3Ta5mfPQ3az1H8E3HzVuK9SnsMsq9ArYDnmFyrX3bfmJENN9M0tnBt1pSnqd
- KaatnXYDhoUurnrXaq6szgyFW7CZenyM/A3vZ/1qqoas2SUy0uAdyewjiBH/VCzBAzOt
- h4OrQA/KW8RrhdN0a1as7vg4+4gFdK4ql0TK7adPFUlZY/cGovr5c4V1yUZ76c48blqk
- zhaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tM2tAG1KHS9gAyhcPLjkjYt8F4gMNaekAqdi+Z0D3jE=;
- b=rByc+A2vUT4G9wcOMglqOgV8L/V3/K7Y7/TDq7bukm6wJ+LkjHiGBW7ytxaY758piI
- /XHe/8jiEE3URzsVtVuMj0x9dSQ/zNOOTv8khongtKJof7RSo46y4TDPFsnxtkt58yb1
- Sts2w+M/Sa2EQ9k4zvArfuRQEgum091v8sOeAyP8shD3C6GWS7AbtmNzvjVNwD6yqo+g
- L/c99U7RRh4Ar9wbGmwVGXANgGvq/7ZZmouVVfXhqLHYn57AGtYEBNeVDnMAekJstMhK
- UkkA5tiOOGCE+psc/FtRA0fKwBYSOdjzRy0l10y31ZYLviyFG1yFSRyUVfNsHfWIB7AC
- v1eA==
-X-Gm-Message-State: AO0yUKWE/ZAZ2Dug7KUfFw2SG09PrhyDvxaDWwjfe4Zg84wjxe/brBpP
- PHoNyBCb17CCY+DaVgDhfno=
-X-Google-Smtp-Source: AK7set+px4qLsaBOaUEfLm/zCt9ycrIHjHt1QgT6ErzvraazA3Tx2vnHVt3VDBi6Er2VVCrDXjc4dw==
-X-Received: by 2002:a05:600c:3d06:b0:3df:dc0d:f0b3 with SMTP id
- bh6-20020a05600c3d0600b003dfdc0df0b3mr2521516wmb.9.1675354641972; 
- Thu, 02 Feb 2023 08:17:21 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- r17-20020a05600c459100b003dee8c5d814sm5332469wmo.24.2023.02.02.08.17.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Feb 2023 08:17:21 -0800 (PST)
-Date: Thu, 2 Feb 2023 15:17:04 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Trevor Wu <trevor.wu@mediatek.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8188: remove etdm dead code
-Message-ID: <Y9upwNAzXzSxmiFo@kadam>
-References: <20230202103704.15626-1-trevor.wu@mediatek.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hGHOPS9h
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5004EB826AD;
+ Thu,  2 Feb 2023 15:23:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD114C433D2;
+ Thu,  2 Feb 2023 15:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675351414;
+ bh=0YIlhLQM4vruCq5Gzqgsdm7w/F6iwRUJvFRBV7ba3nU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=hGHOPS9h9OO2OydzGQsguIxn9y10+P6scImajKzEEcw0MwvTg6k5dxz20bertJZqk
+ taPrZikLRyw4da7wNVyfOBx0VNrZloTZQLhgTSlkR3zfvB98JnOs9uZZBKgxWlOQW/
+ E87kdo5y+I0bPnXVADWiaDujfx7O0Y+/rC8pXRchZhZKKs9fiLiBKsjk3uEu4ntbzM
+ 1bo//LsrbKKgrJQL+FOvGkGqzICKwZyfRrPqkVNeGni39D4QJ62Ds2q5CKph/iJNUm
+ CYYdRLQ/BnP/bl7zAYNir+i8rSWgiyLbVFqdTLIoHEHIS6/P15n1CvDWZdJRG163P1
+ ZO17vvtE96nuw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bruce zhao <zhaolei@awinic.com>, 
+ Weidong Wang <wangweidong.a@awinic.com>, Nick Li <liweilei@awinic.com>, 
+ alsa-devel@alsa-project.org, Colin Ian King <colin.i.king@gmail.com>
+In-Reply-To: <20230202103236.270057-1-colin.i.king@gmail.com>
+References: <20230202103236.270057-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] ASoC: codecs: aw88395: Fix spelling mistake
+ "cersion" -> "version"
+Message-Id: <167535141146.392917.9691227972443524961.b4-ty@kernel.org>
+Date: Thu, 02 Feb 2023 15:23:31 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230202103704.15626-1-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,45 +84,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Feb 02, 2023 at 06:37:04PM +0800, Trevor Wu wrote:
-> Some Smatch static checker warning like below was found.
+On Thu, 02 Feb 2023 10:32:36 +0000, Colin Ian King wrote:
+> There are spelling mistakes in dev_err messages. Fix them.
 > 
-> sound/soc/mediatek/mt8188/mt8188-dai-etdm.c:2487
-> mt8188_dai_etdm_parse_of()
-> warn: 'ret' returned from snprintf() might be larger than 48
 > 
->     2479         for (i = 0; i < MT8188_AFE_IO_ETDM_NUM; i++) {
->     2480                 dai_id = ETDM_TO_DAI_ID(i);
->     2481                 etdm_data = afe_priv->dai_priv[dai_id];
->     2482
->     2483                 ret = snprintf(prop, sizeof(prop),
->     2484                                "mediatek,%s-multi-pin-mode",
->     2485                                of_afe_etdms[i].name);
->     2486                 if (ret < 0) {
-> --> 2487                         dev_err(afe->dev, "%s snprintf
-> err=%d\n",
->     2488
-> 
-> In linux kernel, snprintf() never returns negatives. On the other hand,
-> the format string like "mediatek,%s-multi-pin-mode" must be smaller
-> than sizeof(prop)=48.
-> 
-> After discussing in the mail thread[1], I remove the dead code to fix
-> the Smatch warnings.
-> 
-> [1]: https://lore.kernel.org/all/Y9EdBg641tJDDrt%2F@kili/
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
 Thanks!
 
-Regards,
-dan carpenter
+[1/1] ASoC: codecs: aw88395: Fix spelling mistake "cersion" -> "version"
+      commit: 2a096315be7d8ccad883203876c4b53e7b024f12
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

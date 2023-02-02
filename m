@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6961C687EB0
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:31:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB13687EB1
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:31:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC794E93;
-	Thu,  2 Feb 2023 14:30:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC794E93
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3EA8EA4;
+	Thu,  2 Feb 2023 14:30:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3EA8EA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675344660;
-	bh=Zo/BZGqBARSKZd47+qdf1MiEwycN4NKfr5cIx+FysXY=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=Z5LJJOXaf/AT9HzE+p0BphuvPGDST3oZRUgCusnGYMBVURchjsZk+HutPwmGWVhP5
-	 efo5tAdqxPwuXut8IHImL2/l6A0+EsYfeZcxAqpHaHNhZTU+hB9iWj+09aXorPD2CF
-	 bbzXqz4/cLP5vJNBd1b909IsrwJBbxq7sdV5iXi0=
+	s=default; t=1675344685;
+	bh=gtpmEEHuWfTcPgw2xIUUgfvSBembuZyyZRCd2hCYkI8=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=F5J9ipbS7wics8Oi9TXiLx5BYA4mc5mn1kfWUcpKoWGVbI3L5kBD9v0bzC+ZQvEw1
+	 QWEojyz3BgNCTmzzcHv8Wdk+fdKfljvIPw0oZcS+imVnaL7K76Jy1wT0V5YUf1mkDz
+	 cxFB9VRWH34eajXLnx2WzPLUHMvSmKZl+6pgV9sE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 072C6F804EB;
-	Thu,  2 Feb 2023 14:30:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BFD0F80558;
+	Thu,  2 Feb 2023 14:30:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A00CEF804E0; Thu,  2 Feb 2023 14:29:58 +0100 (CET)
+ id CF66EF80551; Thu,  2 Feb 2023 14:30:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,44 +35,45 @@ X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E598F80169
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:29:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E598F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68AFFF800E3
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:29:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68AFFF800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Gdp9RUX0
+ header.s=Intel header.b=c2Ir/Qig
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675344592; x=1706880592;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Zo/BZGqBARSKZd47+qdf1MiEwycN4NKfr5cIx+FysXY=;
- b=Gdp9RUX0GFPzj2ri+cyTenbIjRkTq1s6OswEsXL1xZgsQFdpqwOG1CBn
- pBLQcmjlMXQnURXncSJhmQ3y3CQI6v2f4l36YtzqjXyd35hYy6KkADuu3
- 8t1+DTd9JPa2Zle8isiQE2SFwbrE6oEmf7JeGWQRNoQDDX1tdcUxzoMVC
- o82SOKQ4GnYb4LSMmrIB/wOeDGfvyd6bUunJkY6XcEGtiTQ+BiWKWAa6h
- jXckhVsfPwRenJAWif9WHvPzSTzwTlHUiPyR2hhUF3BFNDV4tRNMKxvQv
- AyE1BPGTnd6+43AKx1KG1scSrZC6FG2Y0oFnLiEPCq2HjTRku6J/t+hUU Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="308783230"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="308783230"
+ t=1675344594; x=1706880594;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gtpmEEHuWfTcPgw2xIUUgfvSBembuZyyZRCd2hCYkI8=;
+ b=c2Ir/Qig8ucyUhgbhVtVMAVXTDsgJVW3U9PAJ33mKvzDhFcYsHC4zaG5
+ pcczsjiwH9rh8iR/XRB7WZKF1+rfLuYlc/ieehoiODmnBfbMTujCWOEvg
+ QztPdsuRiBWg7E0Euo8BPxCFm0DDdXOyxvWJf6Ah0NMM0IBm0xOPkwot0
+ efokGxg8kPDZ1Enihh5bZfvi6+i5/p/mmKsvg1XvMnlcvEVyA8uYOLO6r
+ rgvoqOYf5T19CKCNfnjVXzRfYsuxSg1WlZ9jDTNLq0osNENY73DGBGptK
+ 4HkOMguE62pVrFP0ajbXlrji5twEXWiasCK/LMA52I4pOqVHzc6zam3Ul w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="308783240"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="308783240"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 05:29:47 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="658727273"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="658727273"
+ 02 Feb 2023 05:29:50 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="658727291"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="658727291"
 Received: from jpdamery-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.1.104])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 05:29:44 -0800
+ 02 Feb 2023 05:29:47 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz
-Subject: [PATCH v3 0/9] ASoC: SOF: core/ipc4/mtl: Add support for PCM delay
- reporting
-Date: Thu,  2 Feb 2023 15:29:45 +0200
-Message-Id: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v3 1/9] ASoC: SOF: add ipc4_fw_reg header file
+Date: Thu,  2 Feb 2023 15:29:46 +0200
+Message-Id: <20230202132954.26773-2-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
+References: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -92,49 +94,183 @@ Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+From: Rander Wang <rander.wang@intel.com>
 
-Changes since v2:
-- Use div64_u64_rem() to make the code compile and work on non 64bit architectures
+Ipc4_fw_reg defines the content of memory window 0 shared by fw.
+Host driver can get fw information by data structure defined in
+this file.
 
-Changes since v1:
-- The delay calculation updated to take into account the counter wrapping on both
-  ends (host and link side).
-
-The following series adds support for the PCM delay reporting in SOF core level
-and implements the needed infrastructure with IPC4 to finally enable it for MTL.
-
-Currently this is only supported on MTL (and via IPC4), but with the
-infrastructure in place it will be possible to support other platforms with
-DeepBuffer.
-
-Regards,
-Peter
+Signed-off-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
-Rander Wang (9):
-  ASoC: SOF: add ipc4_fw_reg header file
-  ASoC: SOF: add fw_info_box support
-  ASoC: SOF: add time info structure for ipc4 path
-  ASoC: SOF: ipc4-pcm: allocate time info for pcm delay feature
-  ASoC: SOF: ipc4-pcm: add hw_params
-  ASoC: SOF: add delay function support in sof framework
-  ASoC: SOF: add get_stream_position ops for pcm delay
-  ASoC: SOF: Intel: mtl: add get_stream_position support
-  ASoC: SOF: ipc4-pcm: add delay function support
-
- sound/soc/sof/intel/mtl.c   |  14 +++
- sound/soc/sof/intel/mtl.h   |   6 +
- sound/soc/sof/ipc4-fw-reg.h | 155 ++++++++++++++++++++++++
- sound/soc/sof/ipc4-pcm.c    | 232 ++++++++++++++++++++++++++++++++++++
- sound/soc/sof/ipc4-priv.h   |  15 +++
- sound/soc/sof/ipc4.c        |   3 +
- sound/soc/sof/ops.h         |  10 ++
- sound/soc/sof/pcm.c         |  13 ++
- sound/soc/sof/sof-audio.h   |   6 +
- sound/soc/sof/sof-priv.h    |  10 ++
- 10 files changed, 464 insertions(+)
+ sound/soc/sof/ipc4-fw-reg.h | 155 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 155 insertions(+)
  create mode 100644 sound/soc/sof/ipc4-fw-reg.h
 
+diff --git a/sound/soc/sof/ipc4-fw-reg.h b/sound/soc/sof/ipc4-fw-reg.h
+new file mode 100644
+index 000000000000..7226161e57e1
+--- /dev/null
++++ b/sound/soc/sof/ipc4-fw-reg.h
+@@ -0,0 +1,155 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * This file is provided under a dual BSD/GPLv2 license.  When using or
++ * redistributing this file, you may do so under either license.
++ *
++ * Copyright(c) 2022 Intel Corporation. All rights reserved.
++ */
++
++#ifndef __IPC4_FW_REG_H__
++#define __IPC4_FW_REG_H__
++
++#define SOF_IPC4_INVALID_STREAM_POSITION	ULLONG_MAX
++
++/**
++ * struct sof_ipc4_pipeline_registers - Pipeline start and end information in fw
++ * @stream_start_offset: Stream start offset (LPIB) reported by mixin
++ * module allocated on pipeline attached to Host Output Gateway when
++ * first data is being mixed to mixout module. When data is not mixed
++ * (right after creation/after reset) value "(u64)-1" is reported
++ * @stream_end_offset: Stream end offset (LPIB) reported by mixin
++ * module allocated on pipeline attached to Host Output Gateway
++ * during transition from RUNNING to PAUSED. When data is not mixed
++ * (right after creation or after reset) value "(u64)-1" is reported.
++ * When first data is mixed then value "0"is reported.
++ */
++struct sof_ipc4_pipeline_registers {
++	u64 stream_start_offset;
++	u64 stream_end_offset;
++} __packed __aligned(4);
++
++#define SOF_IPC4_PV_MAX_SUPPORTED_CHANNELS 8
++
++/**
++ * struct sof_ipc4_peak_volume_regs - Volume information in fw
++ * @peak_meter: Peak volume value in fw
++ * @current_volume: Current volume value in fw
++ * @target_volume: Target volume value in fw
++ */
++struct sof_ipc4_peak_volume_regs {
++	u32 peak_meter[SOF_IPC4_PV_MAX_SUPPORTED_CHANNELS];
++	u32 current_volume[SOF_IPC4_PV_MAX_SUPPORTED_CHANNELS];
++	u32 target_volume[SOF_IPC4_PV_MAX_SUPPORTED_CHANNELS];
++} __packed __aligned(4);
++
++/**
++ * struct sof_ipc4_llp_reading - Llp information in fw
++ * @llp_l: Lower part of 64-bit LLP
++ * @llp_u: Upper part of 64-bit LLP
++ * @wclk_l: Lower part of 64-bit Wallclock
++ * @wclk_u: Upper part of 64-bit Wallclock
++ */
++struct sof_ipc4_llp_reading {
++	u32 llp_l;
++	u32 llp_u;
++	u32 wclk_l;
++	u32 wclk_u;
++} __packed __aligned(4);
++
++/**
++ * struct of sof_ipc4_llp_reading_extended - Extended llp info
++ * @llp_reading: Llp information in memory window
++ * @tpd_low: Total processed data (low part)
++ * @tpd_high: Total processed data (high part)
++ */
++struct sof_ipc4_llp_reading_extended {
++	struct sof_ipc4_llp_reading llp_reading;
++	u32 tpd_low;
++	u32 tpd_high;
++} __packed __aligned(4);
++
++/**
++ * struct sof_ipc4_llp_reading_slot - Llp slot information in memory window
++ * @node_id: Dai gateway node id
++ * @reading: Llp information in memory window
++ */
++struct sof_ipc4_llp_reading_slot {
++	u32 node_id;
++	struct sof_ipc4_llp_reading reading;
++} __packed __aligned(4);
++
++/* ROM information */
++#define SOF_IPC4_FW_FUSE_VALUE_MASK		GENMASK(7, 0)
++#define SOF_IPC4_FW_LOAD_METHOD_MASK		BIT(8)
++#define SOF_IPC4_FW_DOWNLINK_IPC_USE_DMA_MASK	BIT(9)
++#define SOF_IPC4_FW_LOAD_METHOD_REV_MASK	GENMASK(11, 10)
++#define SOF_IPC4_FW_REVISION_MIN_MASK		GENMASK(15, 12)
++#define SOF_IPC4_FW_REVISION_MAJ_MASK		GENMASK(19, 16)
++#define SOF_IPC4_FW_VERSION_MIN_MASK		GENMASK(23, 20)
++#define SOF_IPC4_FW_VERSION_MAJ_MASK		GENMASK(27, 24)
++
++/* Number of dsp core supported in FW Regs. */
++#define SOF_IPC4_MAX_SUPPORTED_ADSP_CORES	8
++
++/* Number of host pipeline registers slots in FW Regs. */
++#define SOF_IPC4_MAX_PIPELINE_REG_SLOTS		16
++
++/* Number of PeakVol registers slots in FW Regs. */
++#define SOF_IPC4_MAX_PEAK_VOL_REG_SLOTS		16
++
++/* Number of GPDMA LLP Reading slots in FW Regs. */
++#define SOF_IPC4_MAX_LLP_GPDMA_READING_SLOTS	24
++
++/* Number of Aggregated SNDW Reading slots in FW Regs. */
++#define SOF_IPC4_MAX_LLP_SNDW_READING_SLOTS	15
++
++/* Current ABI version of the Fw registers layout. */
++#define SOF_IPC4_FW_REGS_ABI_VER		1
++
++/**
++ * struct sof_ipc4_fw_registers - FW Registers exposes additional
++ * DSP / FW state information to the driver
++ * @fw_status: Current ROM / FW status
++ * @lec: Last ROM / FW error code
++ * @fps: Current DSP clock status
++ * @lnec: Last Native Error Code(from external library)
++ * @ltr: Copy of LTRC HW register value(FW only)
++ * @rsvd0: Reserved0
++ * @rom_info: ROM info
++ * @abi_ver: Version of the layout, set to the current FW_REGS_ABI_VER
++ * @slave_core_sts: Slave core states
++ * @rsvd2: Reserved2
++ * @pipeline_regs: State of pipelines attached to host output  gateways
++ * @peak_vol_regs: State of PeakVol instances indexed by the PeakVol's instance_id
++ * @llp_gpdma_reading_slots: LLP Readings for single link gateways
++ * @llp_sndw_reading_slots: SNDW aggregated link gateways
++ * @llp_evad_reading_slot: LLP Readings for EVAD gateway
++ */
++struct sof_ipc4_fw_registers {
++	u32 fw_status;
++	u32 lec;
++	u32 fps;
++	u32 lnec;
++	u32 ltr;
++	u32 rsvd0;
++	u32 rom_info;
++	u32 abi_ver;
++	u8 slave_core_sts[SOF_IPC4_MAX_SUPPORTED_ADSP_CORES];
++	u32 rsvd2[6];
++
++	struct sof_ipc4_pipeline_registers
++		pipeline_regs[SOF_IPC4_MAX_PIPELINE_REG_SLOTS];
++
++	struct sof_ipc4_peak_volume_regs
++		peak_vol_regs[SOF_IPC4_MAX_PEAK_VOL_REG_SLOTS];
++
++	struct sof_ipc4_llp_reading_slot
++		llp_gpdma_reading_slots[SOF_IPC4_MAX_LLP_GPDMA_READING_SLOTS];
++
++	struct sof_ipc4_llp_reading_slot
++		llp_sndw_reading_slots[SOF_IPC4_MAX_LLP_SNDW_READING_SLOTS];
++
++	struct sof_ipc4_llp_reading_slot llp_evad_reading_slot;
++} __packed __aligned(4);
++
++#endif
 -- 
 2.39.1
 

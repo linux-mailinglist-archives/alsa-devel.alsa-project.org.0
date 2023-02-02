@@ -2,82 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1136687829
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 10:03:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234FC687832
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 10:04:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B7E8826;
-	Thu,  2 Feb 2023 10:02:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B7E8826
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5BAB847;
+	Thu,  2 Feb 2023 10:03:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BAB847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675328615;
-	bh=LDDs5HFwk3RKv81l2LtmKwv1GfoDxgJexqkSPa/jwW4=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675328690;
+	bh=4uGx4yay+6lyQnqcpulVDm/b0lAJ05l2PoyxcLQhiK0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ILppWl4Ja3R96vs0jeB/5P/wfKA/dKo2kOnH++XMkGndC2zIm7K6Dugl9blnlrDEf
-	 kBOIOXSgOYXgVj7mF7u2AdTuGn/VJjvtkZYDoxo4W9rn0ZWPA8OguJ/i8zn6OpaRzl
-	 oEugnZ7ieRG3/kqmUXBSFJcgqwVJDqCf4WE9sTSI=
+	b=JPSphtKyhdzniq7RcA9N5RkEn22OO0PGbuD+rYyVE9yfdiC/o4DNSSCVOjN5kseOy
+	 RXF7CfNZ7p3TlIjEnCYHN72Ck757A00hOVinvdH1MltUeyhQEj7OKcaTe+JEZSBTTQ
+	 o0uljBtXg5AWbJBsLy8151kHP33M3gtWZKAmvdbI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F695F800E3;
-	Thu,  2 Feb 2023 10:02:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34702F800E3;
+	Thu,  2 Feb 2023 10:03:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF669F80169; Thu,  2 Feb 2023 10:02:32 +0100 (CET)
+ id 9DA34F804C2; Thu,  2 Feb 2023 10:03:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52789F80169
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 10:02:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52789F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2492FF80169
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 10:03:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2492FF80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Bf+E8mOY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675328546; x=1706864546;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=LDDs5HFwk3RKv81l2LtmKwv1GfoDxgJexqkSPa/jwW4=;
- b=Bf+E8mOYOzr1nHFoo0ZlDoKG/6mzg/mbMU4Pbvy0Bn61s1yaFrifOBPi
- pngdTmTzTLoC2X/z+sOvyZSIYnBWGsysNUHTkbIwg1Cl4YVRwa09OLFAK
- OBNDj45NNDb6KxcY9ytmbeQu4Fi4KXdQXPXPfM9m17mqA0tBJphyyhdzr
- JzDMbkijHWw5CXTWPBlCPeQW1Nu6EhVzQm8yAmqYVq+uRrAX0e0X8sW+P
- Za77bs9tA+FxRUjhdz7uFBRF5tuxltIljbS32T5m4n4UyBa0PPxDBJikh
- K71IDhpvMBLuataVk2peTds0qgniS03LMvTS2M2FbRJn+QWrQeu2wtkmK g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="414603282"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="414603282"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 01:02:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="807902694"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="807902694"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 02 Feb 2023 01:02:21 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pNVU4-0006M8-2k;
- Thu, 02 Feb 2023 09:02:20 +0000
-Date: Thu, 2 Feb 2023 17:01:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH] ALSA: hda: Fix the control element identification for
- multiple codecs
-Message-ID: <202302021656.nqNSqtwW-lkp@intel.com>
-References: <20230131094215.3545993-1-perex@perex.cz>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=YRPfCH+G
+Received: by mail-wm1-x331.google.com with SMTP id bg26so845600wmb.0
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 01:03:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7F5YTzHrVyr8QuuHkXVmJUZpVCaBRGUSFsoCx+3N03A=;
+ b=YRPfCH+G/7MHufVPyLtQ5D6FdhMqwLFJYSOac8c/Rj1F2Jbm+ohgMFD5UqVOzA9n+N
+ zXg/aNARZWYNUeouOB6k/YqLD3EfqO1J6wzwMs+J7FuaMnQwn+DU/qRwvsoQZanwlmA3
+ sfAPy1q3gHeva2N+wieTu4yxYo9TCnFXGLrt8aokgh0ChRIAqMfcVuJiLhmcsDXXfqK8
+ HQTXR7anVDaTR/8M+X3+cVq/DYB051MgGJ/tNGPkixjwlPM5aZOjMiMDO6ExEwZAffRZ
+ XojjWXnGuUNdEZx4ai8C7958LsMP3SdayNjk08nH6vVeSksYfzLeqTMYKwxrJbifaNbP
+ I5pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7F5YTzHrVyr8QuuHkXVmJUZpVCaBRGUSFsoCx+3N03A=;
+ b=m5JcKz2COhyKwGkGcMSsv0U+dHzchk5PDBKQKMGm613DGcFbvFZwuyRb1uy+43+i/+
+ P+UZoi0AjJatnrQ47bzHafrxl4luRygB57J4oqSMaBbvl7wgBeZmoXj+DPPinkCfAoXn
+ 2o0FSRQeV/vy/GboGmw/Xbf+7P+E4EldkZZ+L2fgN5y1KAlr9GtbJJ+hM01X39/vLIRj
+ 4KyAg7nitIA7vF3HRJXfEqD81rJ9t86aa5nf529TVTPh79wGc62h0YxsUFKApI3xF1Ma
+ mEaMjmfr4FfQxTlj2y+mtXRFQJ0PWzqPz7/JQPSw7J8Z4MO4CSuvklguCeTNr3Zkmlhp
+ a2Gw==
+X-Gm-Message-State: AO0yUKXZzHM4JZHQoBJwoo2ND65H1A1wb1lb/47AFGjhrthFkSSgSW21
+ s2fKWdFrpCQMnEzKSBU4g0eUpg==
+X-Google-Smtp-Source: AK7set9lAC5MNe/nu7qxCknw/Oxh/cCzvtvfddKrsencwwfHUr3rd+VCW9H823WXjZIkxGD/S6ERcg==
+X-Received: by 2002:a05:600c:4f03:b0:3dd:e86e:8827 with SMTP id
+ l3-20020a05600c4f0300b003dde86e8827mr5019102wmq.4.1675328613859; 
+ Thu, 02 Feb 2023 01:03:33 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ ip23-20020a05600ca69700b003dc59d6f2f8sm3877475wmb.17.2023.02.02.01.03.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Feb 2023 01:03:33 -0800 (PST)
+Message-ID: <a21e7783-cb1c-8fec-78e7-bdffcd5e25f1@linaro.org>
+Date: Thu, 2 Feb 2023 10:03:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230131094215.3545993-1-perex@perex.cz>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] ASoC: dt-bindings: Drop broken irondevice, sma1303 binding
+Content-Language: en-US
+To: Ki-Seok Jo <kiseok.jo@irondevice.com>, Mark Brown <broonie@kernel.org>
+References: <20230201131059.65527-1-krzysztof.kozlowski@linaro.org>
+ <1bcd61d6-810f-1239-1b6e-367e0fe87370@linaro.org>
+ <Y9pxGUMWyMeXQpZM@sirena.org.uk>
+ <6491d6fb-2a10-1c80-d422-8300d5a75ce4@linaro.org>
+ <Y9p+p6wt8WugDBuH@sirena.org.uk>
+ <SLXP216MB00776F066D70DB2F3F77B09E8CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+ <SLXP216MB0077228B6071F62B183F4D648CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+ <6439a587-0b65-a037-1013-b697e19000a4@linaro.org>
+ <SLXP216MB0077847FB6CF0EF4511E3A628CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <SLXP216MB0077847FB6CF0EF4511E3A628CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,74 +112,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>, oe-kbuild-all@lists.linux.dev
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+On 02/02/2023 09:58, Ki-Seok Jo wrote:
+>>> Is there anything else I should do?
+>>
+>> Correct the binding:
+>> 1. Add all properties - just open example-schema and your file and
+>> document everything 2. Fix non-existing reference (there is no such file
+>> as name-prefix.yaml) 3. i2c_bus -> i2c
+> 
+> Fortunately, I modified the 3thigns you said, and I also tested with the
+> above command with the contents.
+> 
+> So, I'll send the patch file again.
+> If it has any other problems, please give me feedback.
 
-I love your patch! Yet something to improve:
+My revert was not applied, thus please send incremental fix to the bindings.
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on tiwai-sound/for-linus linus/master v6.2-rc6 next-20230202]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Best regards,
+Krzysztof
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jaroslav-Kysela/ALSA-hda-Fix-the-control-element-identification-for-multiple-codecs/20230131-174413
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230131094215.3545993-1-perex%40perex.cz
-patch subject: [PATCH] ALSA: hda: Fix the control element identification for multiple codecs
-config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20230202/202302021656.nqNSqtwW-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/8dfc91ec424bfc92232d31eadddd1901fa5c65f6
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Jaroslav-Kysela/ALSA-hda-Fix-the-control-element-identification-for-multiple-codecs/20230131-174413
-        git checkout 8dfc91ec424bfc92232d31eadddd1901fa5c65f6
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=x86_64 olddefconfig
-        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
->> sound/pci/hda/hda_intel.c:123:41: error: 'CONFIG_SND_HDA_CTL_DEV_ID' undeclared here (not in a function); did you mean 'CONFIG_SND_HDA_CORE'?
-     123 |                                         CONFIG_SND_HDA_CTL_DEV_ID};
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-         |                                         CONFIG_SND_HDA_CORE
-
-
-vim +123 sound/pci/hda/hda_intel.c
-
-   101	
-   102	
-   103	static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;
-   104	static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;
-   105	static bool enable[SNDRV_CARDS] = SNDRV_DEFAULT_ENABLE_PNP;
-   106	static char *model[SNDRV_CARDS];
-   107	static int position_fix[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] = -1};
-   108	static int bdl_pos_adj[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] = -1};
-   109	static int probe_mask[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] = -1};
-   110	static int probe_only[SNDRV_CARDS];
-   111	static int jackpoll_ms[SNDRV_CARDS];
-   112	static int single_cmd = -1;
-   113	static int enable_msi = -1;
-   114	#ifdef CONFIG_SND_HDA_PATCH_LOADER
-   115	static char *patch[SNDRV_CARDS];
-   116	#endif
-   117	#ifdef CONFIG_SND_HDA_INPUT_BEEP
-   118	static bool beep_mode[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] =
-   119						CONFIG_SND_HDA_INPUT_BEEP_MODE};
-   120	#endif
-   121	static bool dmic_detect = 1;
-   122	static bool ctl_dev_id[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] =
- > 123						CONFIG_SND_HDA_CTL_DEV_ID};
-   124	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests

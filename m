@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1581C687EBC
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:33:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E1EC687EB4
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:31:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AB23E95;
-	Thu,  2 Feb 2023 14:32:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AB23E95
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E4BDEAE;
+	Thu,  2 Feb 2023 14:31:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E4BDEAE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675344796;
-	bh=hqGPiTb3SAUmJcU9PUxVFwsufiYM6BS1FXIonficbCo=;
+	s=default; t=1675344711;
+	bh=vBHxm0ECjItpDsr4NygqyeYSNweCZZ0kvTU94VSrlDA=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=CTgekhHPO7FYReASFuD+FSNQ7293iV5+tVrVUYisOk0k2QC4n/uKryTmsm61nAsD4
-	 DAhdsWDz+T59JpMFqqO2+fEQYigpSAosX8opaEvuXTuVG40FZNy8jGFlf4F62S10UX
-	 gzVkBM9MYZpshnWLXQSIYnSk63MpPVMs7ilCPRLQ=
+	b=qGUY6V2ByUg5DhVGIlfeSlokT6Uae/WLffP/JDLyHPyYoCHZF0gPJoDFq6c+3DRry
+	 Bf9lv6qVe8+bWRW6S21oJYm2RYYSz0+BIo/QX6p2wZ5auaknVlwEudCcHE/SiVR+PC
+	 vspVJpO7qqv9Z2UmiVkmh27nSr34N0T2LVuAZd/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A0ABF80169;
-	Thu,  2 Feb 2023 14:30:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D113BF80271;
+	Thu,  2 Feb 2023 14:30:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BF1DF8053D; Thu,  2 Feb 2023 14:30:39 +0100 (CET)
+ id 449F3F80548; Thu,  2 Feb 2023 14:30:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2B09F80169
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:29:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2B09F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2561F80548
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:30:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2561F80548
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=M2NCOTRD
+ header.s=Intel header.b=VpXhTNEi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675344599; x=1706880599;
+ t=1675344601; x=1706880601;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hqGPiTb3SAUmJcU9PUxVFwsufiYM6BS1FXIonficbCo=;
- b=M2NCOTRDdsTbz/qsUW/q3qCtC2WBvwrU55H7j++BHmjubSVLD5y9dz2j
- XGxmkW46k1WYIcFv/400pS0HbEEHzA+tcbU/Rznczlwhwr7XmUjOYIb1r
- BXepfPj1hBNjzdJVvHguKiXAa6968mDmiN1s9fLEbJH1Lk0qw2LFVG9qf
- 1Q8nzShkjtp5/9fidAh4DJHw1kYURC1RTHbYXNsbVnyoMKaIPLiBYXH1M
- 2mvuR1RLC5I/GbNlg4uoz5zmpFZ8/cXKV/YGevnj+zRwTDkpsEUf7HQJR
- Kqe5hFdI8UueKYSy7KMea64cuhbUBFTU3/0dIvUwkwuW2QIS95BjPWUnZ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="308783269"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="308783269"
+ bh=vBHxm0ECjItpDsr4NygqyeYSNweCZZ0kvTU94VSrlDA=;
+ b=VpXhTNEiYzubk56W9kjyV0jIEcefyjzBOZlL3LeWGAG1KRMm8Gq78v/b
+ bjwPQ4T39iRXKi1NbdGw5+LbeMwYTSCmVEU3aa2wW3Ci22ZDLjd4lq+l6
+ 2FTIXN6Why6EzDMVA94EUZ3Xz2On3qT+KW0umJaYdvx54Q5P0GmTnHx/r
+ CDBFFXZFkNdxvspVKTRI3c9i2IIgpaA+XfY10bBUynCoizYcIw97y9SOn
+ jhFfBI5f1VS8M2iER9dqMfiB+wA9k6r25wvqzet5oLEWMvvAnnONUePt4
+ w8dbjHPVFksVtx/nNaQwzoAHonO1qCScUIKltF0jsF4izfBJ4yCRt911Q w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="308783281"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="308783281"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 05:29:56 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="658727330"
-X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="658727330"
+ 02 Feb 2023 05:29:59 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="658727348"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="658727348"
 Received: from jpdamery-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.1.104])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 05:29:53 -0800
+ 02 Feb 2023 05:29:56 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz
-Subject: [PATCH v3 3/9] ASoC: SOF: add time info structure for ipc4 path
-Date: Thu,  2 Feb 2023 15:29:48 +0200
-Message-Id: <20230202132954.26773-4-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH v3 4/9] ASoC: SOF: ipc4-pcm: allocate time info for pcm delay
+ feature
+Date: Thu,  2 Feb 2023 15:29:49 +0200
+Message-Id: <20230202132954.26773-5-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
 References: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
@@ -96,9 +97,8 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Rander Wang <rander.wang@intel.com>
 
-Start_stream_offset is used to strip invalid sample count in dai
-for some cases like dai is started before host. llp_offset is used
-to get current dai position from memory windows.
+Allocate time info when pcm is loaded by topology
+and free it when pcm is unloaded by topology.
 
 Signed-off-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -106,49 +106,68 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/ipc4-priv.h | 14 ++++++++++++++
- sound/soc/sof/sof-audio.h |  3 +++
- 2 files changed, 17 insertions(+)
+ sound/soc/sof/ipc4-pcm.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index 8f8259a7e21c..f461b8c70df3 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -87,6 +87,20 @@ struct sof_ipc4_fw_data {
- 	struct mutex pipeline_state_mutex; /* protect pipeline triggers, ref counts and states */
- };
+diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
+index 521090d4498d..8071db487815 100644
+--- a/sound/soc/sof/ipc4-pcm.c
++++ b/sound/soc/sof/ipc4-pcm.c
+@@ -12,6 +12,7 @@
+ #include "sof-priv.h"
+ #include "ipc4-priv.h"
+ #include "ipc4-topology.h"
++#include "ipc4-fw-reg.h"
  
-+/**
-+ * struct sof_ipc4_timestamp_info - IPC4 timestamp info
-+ * @host_copier: the host copier of the pcm stream
-+ * @dai_copier: the dai copier of the pcm stream
-+ * @stream_start_offset: reported by fw in memory window
-+ * @llp_offset: llp offset in memory window
-+ */
-+struct sof_ipc4_timestamp_info {
-+	struct sof_ipc4_copier *host_copier;
-+	struct sof_ipc4_copier *dai_copier;
-+	u64 stream_start_offset;
-+	u32 llp_offset;
-+};
-+
- extern const struct sof_ipc_fw_loader_ops ipc4_loader_ops;
- extern const struct sof_ipc_tplg_ops ipc4_tplg_ops;
- extern const struct sof_ipc_tplg_control_ops tplg_ipc4_control_ops;
-diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
-index b0593b46d477..334b715b17c8 100644
---- a/sound/soc/sof/sof-audio.h
-+++ b/sound/soc/sof/sof-audio.h
-@@ -311,6 +311,9 @@ struct snd_sof_pcm_stream {
- 	 */
- 	bool suspend_ignored;
- 	struct snd_sof_pcm_stream_pipeline_list pipeline_list;
-+
-+	/* used by IPC implementation and core does not touch it */
-+	void *private;
- };
+ static int sof_ipc4_set_multi_pipeline_state(struct snd_sof_dev *sdev, u32 state,
+ 					     struct ipc4_pipeline_set_state_data *trigger_list)
+@@ -410,6 +411,8 @@ static void sof_ipc4_pcm_free(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm
+ 		pipeline_list = &spcm->stream[stream].pipeline_list;
+ 		kfree(pipeline_list->pipelines);
+ 		pipeline_list->pipelines = NULL;
++		kfree(spcm->stream[stream].private);
++		spcm->stream[stream].private = NULL;
+ 	}
+ }
  
- /* ALSA SOF PCM device */
+@@ -417,8 +420,19 @@ static int sof_ipc4_pcm_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm
+ {
+ 	struct snd_sof_pcm_stream_pipeline_list *pipeline_list;
+ 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
++	struct sof_ipc4_timestamp_info *stream_info;
++	bool support_info = true;
++	u32 abi_version;
++	u32 abi_offset;
+ 	int stream;
+ 
++	abi_offset = offsetof(struct sof_ipc4_fw_registers, abi_ver);
++	sof_mailbox_read(sdev, sdev->fw_info_box.offset + abi_offset, &abi_version,
++			 sizeof(abi_version));
++
++	if (abi_version < SOF_IPC4_FW_REGS_ABI_VER)
++		support_info = false;
++
+ 	for_each_pcm_streams(stream) {
+ 		pipeline_list = &spcm->stream[stream].pipeline_list;
+ 
+@@ -429,6 +443,17 @@ static int sof_ipc4_pcm_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm
+ 			sof_ipc4_pcm_free(sdev, spcm);
+ 			return -ENOMEM;
+ 		}
++
++		if (!support_info)
++			continue;
++
++		stream_info = kzalloc(sizeof(*stream_info), GFP_KERNEL);
++		if (!stream_info) {
++			sof_ipc4_pcm_free(sdev, spcm);
++			return -ENOMEM;
++		}
++
++		spcm->stream[stream].private = stream_info;
+ 	}
+ 
+ 	return 0;
 -- 
 2.39.1
 

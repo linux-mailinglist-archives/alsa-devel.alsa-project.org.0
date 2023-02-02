@@ -2,82 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B9368850D
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 18:05:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189F0688596
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 18:38:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD5E893A;
-	Thu,  2 Feb 2023 18:04:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD5E893A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 503FC1E8;
+	Thu,  2 Feb 2023 18:37:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 503FC1E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675357544;
-	bh=O+n0bScI1b+Csmx6NP1smlNv95Wxbe7eRqMRrzOG2Iw=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675359483;
+	bh=KP9QG+sF1vvAP8/fJTd2GxrPLXDXXes9zY/KqqcMzXQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=r9BCBajKrNt4t69OYypf8uKP7DxeKwmoVNMk+pUkjoR1CzyatRXzaQPI0yqFguOgg
-	 ESvhczHteqQakBQlKFaQJyhiBOJwXKIgn7h6oqfCojwpokoe1mQmhTxd1iwcIidtPJ
-	 CgAW6cM1GxW3RE9r/tiMAlqx5YX5y3t5wQ8NVLno=
+	b=IBdLgwrd8yCopA5djzOky9vWIZfzAZuxykIdCeU37ya8lvJbFtJMcVglrC4o8WG1E
+	 ElnpjzhltmHn7Dl+tcj0GyYtuGWBRWTynUP4h2TldQ40ncrNHiJMHMrnme0NM3oxwx
+	 X9c0tNZK129mzV2uJJ/kIqE5yeqEnifUUxfnwhfw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E57CF800E3;
-	Thu,  2 Feb 2023 18:04:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2A01F804DF;
+	Thu,  2 Feb 2023 18:37:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC692F800ED; Thu,  2 Feb 2023 18:04:44 +0100 (CET)
+ id AF15CF804C2; Thu,  2 Feb 2023 18:37:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82E0FF800ED
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 18:04:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82E0FF800ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C6CFF80169;
+ Thu,  2 Feb 2023 18:36:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C6CFF80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DECHE5pO
+ header.s=k20201202 header.b=qJgdXMIO
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6547CB825C2;
- Thu,  2 Feb 2023 17:04:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0604C433EF;
- Thu,  2 Feb 2023 17:04:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5F2ABB8275C;
+ Thu,  2 Feb 2023 17:36:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0ADCC433EF;
+ Thu,  2 Feb 2023 17:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675357478;
- bh=O+n0bScI1b+Csmx6NP1smlNv95Wxbe7eRqMRrzOG2Iw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DECHE5pOMZozf21iVk83OAvCNUndcACIyeG6ZlHtEWgMmX0Ue6qfiSNi1WZwKJyEZ
- TB+VfmTuo8qJkPTtMCX44L7nV/DSEBhnJ3gH8JJVfu9vS1c0ISrc7LR3/oB2fEVG/5
- M+rWU6llXCSrL2soZ6lolUdPTZSsjpAYrwUmZY/LwYRwLyGvV7M/Vu1q3E/9p6J3La
- CKnGRor4P5m5rV1RY8VmARVNFvyfZQjxD1JHKwLza20DvWZlxoBC+TmebhipJF/m5c
- cZRWVPxanvYKVK8fisJ8z2U87c21csQlyY1dktgmHhJelQ4xjU4Z6LdO6E88bpLOBS
- HC+/VZY59Ha9g==
-Date: Thu, 2 Feb 2023 17:04:32 +0000
+ s=k20201202; t=1675359411;
+ bh=KP9QG+sF1vvAP8/fJTd2GxrPLXDXXes9zY/KqqcMzXQ=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=qJgdXMIOKV+BIEjYZHCjYi0ndbfkZikCDfUjoKCzrcUQtarRubsV6+lKykcbbnMze
+ VxEy0cBTDBiab9BBFXFMmmCQt3uwkdTEisKHs9+dyB19LF36i8XYUFj2hzji8lTpyj
+ oqs3djFZfAM5aWSzGjHVYrH57LOMbwojMGRaMiLdv2qxuusATlJQoeem1+51QBMfhM
+ GOjDGECr3IxaAoCyLItm9LK2egmjAGk1Fxus2MMqPDvaTWxE+8g8zuLZmhx+GZnzPK
+ oJSSCA9/6HghTfGM29l62ITB32XMot5iUdf0+/AuGVKrO22mLbGnOlwxFSuky36Vn0
+ OtzAo2eQePIag==
 From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Message-ID: <Y9vtIISfmpICi+9u@sirena.org.uk>
-References: <20221121050744.2278-1-david.rau.zg@renesas.com>
- <20230117195645.GA83401@roeck-us.net>
- <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <20230119161221.GA981953@roeck-us.net>
- <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
- <Y9kE1cSUg2CQM5vq@sirena.org.uk>
- <20230202155101.GB1373010@roeck-us.net>
+To: alsa-devel@alsa-project.org, 
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+In-Reply-To: <20230203123254.1898794-1-Vsujithkumar.Reddy@amd.com>
+References: <20230203123254.1898794-1-Vsujithkumar.Reddy@amd.com>
+Subject: Re: [PATCH] ASoC: SOF: amd: Fix for handling spurious interrupts
+ from DSP
+Message-Id: <167535940664.1002862.2489220522555148757.b4-ty@kernel.org>
+Date: Thu, 02 Feb 2023 17:36:46 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SmIgde9nY4pmZ7FZ"
-Content-Disposition: inline
-In-Reply-To: <20230202155101.GB1373010@roeck-us.net>
-X-Cookie: Swim at your own risk.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,106 +83,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- David Rau <david.rau.zg@renesas.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Sunil-kumar.Dommati@amd.com,
+ ssabakar@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ venkataprasad.potturu@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Basavaraj.Hiregoudar@amd.com, Takashi Iwai <tiwai@suse.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Vijendar.Mukunda@amd.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 03 Feb 2023 18:02:52 +0530, V sujith kumar Reddy wrote:
+> As interrupts are Level-triggered,unless and until we deassert the register
+> the interrupts are generated which causes spurious interrupts unhandled.
+> 
+> Now we deasserted the interrupt at top half which solved the below
+> "nobody cared" warning.
+> 
+> warning reported in dmesg:
+> 	irq 80: nobody cared (try booting with the "irqpoll" option)
+> 	CPU: 5 PID: 2735 Comm: irq/80-AudioDSP
+> 		Not tainted 5.15.86-15817-g4c19f3e06d49 #1 1bd3fd932cf58caacc95b0504d6ea1e3eab22289
+> 	Hardware name: Google Skyrim/Skyrim, BIOS Google_Skyrim.15303.0.0 01/03/2023
+> 	Call Trace:
+> 	<IRQ>
+> 	dump_stack_lvl+0x69/0x97
+> 	 __report_bad_irq+0x3a/0xae
+> 	note_interrupt+0x1a9/0x1e3
+> 	handle_irq_event_percpu+0x4b/0x6e
+> 	handle_irq_event+0x36/0x5b
+> 	handle_fasteoi_irq+0xae/0x171
+> 	 __common_interrupt+0x48/0xc4
+> 	</IRQ>
+> 
+> [...]
 
---SmIgde9nY4pmZ7FZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Feb 02, 2023 at 07:51:01AM -0800, Guenter Roeck wrote:
-> On Tue, Jan 31, 2023 at 12:08:53PM +0000, Mark Brown wrote:
-> > On Mon, Jan 30, 2023 at 10:16:06PM -0800, Guenter Roeck wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > > I'll see if I can implement a downstream fix.
+Thanks!
 
-> > If you implement something I don't see a reason not to post it upstream.
+[1/1] ASoC: SOF: amd: Fix for handling spurious interrupts from DSP
+      commit: 2e7c6652f9b86c01cbd4e988057a746a3a461969
 
-> I had a look into the code, and concluded that it is too complex for anyone
-> who doesn't know it to find a proper fix. For example, for an outsider it
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-It's definitely unclear, there's a datasheet at [1] which does appear to
-explicitly call for a 512ms delay though (see figure 20 on page 50).  It
-does look like it should only be applied in the case where an inserted
-jack is detected (ie, when identifying an accessory or button press) and
-not when removal is detected though.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> is not conceivable (or explained) why the ground switch is enabled only
-> to be disabled immediately afterwards if a jack was removed.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-It smells like there's a power benefit to leaving it disabled when
-unplugged (which seems plausible), and possibly like the detection is
-more stable with the ground switch enabled.  The ground switch is not
-documented AFAICT (it's in register 0xfb which isn't named and doesn't
-appear to appear in the datsheet from a quick search).  The code is
-leaving the switch enabled so long as an accessory is plugged.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> This is now the top crash reason on affected Chromebooks (so far I
-> identified Asus C424, HP SeaStar, and HP StingRay) with this patch
-> applied. I am inclined to revert it from all ChromeOS kernel branches.
-> At least for us the cure for the problem is much worse than the problem
-> itself.
+Thanks,
+Mark
 
-Are you saying this is actually crashing, or just that you're getting
-warnings about threads being blocked for too long (that was what was
-posted earlier in the thread)?  The only things I can see that look like
-they have the potential to actually lock up are the cancel_work_sync()
-calls but they were unchanged and the backtrace you showed was showing
-the thread in the msleep().  My guess would be that you've got systems
-where there are very frequent jack detection events (potentiallly with
-broken accessories, or possibly due to the ground switch putting things
-into the wrong priority) and that the interrupt is firing again as soon
-as the thread unmasks the primary interrupt which means it never
-actually stops running.
-
-It's possible that reordering things so that the delay is only applied
-if DA7219_JACK_INSERTION_STS_MASK is set would help, that'd need some
-motion of the interrupt acking as well.  That's probably a good idea in
-general, it's what the datasheet seems to call for and would lead to
-prompter removal detection.  However if the issue is systems with broken
-accessories constantly firing spurious button events they'd still be
-seeing the delay.
-
-My other guess would be that moving the delay that's been added to a
-delayed work would avoid the warnings, though you might want to manually
-keep the physical interrupt disabled while that's running which is fun.
-Possibly also tuning down the delay given that as you say 500ms is
-rather a long potential delay even in the context of jack debounces,
-though if it is bad accessories then there's probably a bit of luck
-involved in the original code not triggering issues and any debounce is
-likely to cause fun, and like I say the datasheet does seem to say that
-this is the appropriate delay.
-
-You'd end up with something along the lines of
-
-	disable_irq();
-	schedule_delayed_work(delay, current_irq_code);
-
-in the IRQ handler then call enable_irq() on the way out of the new
-delayed_work.  That would keep the same flow but not look like the task
-is running which should avoid setting off the hung task alarm.
-
-[1] https://www.renesas.com/us/en/document/dst/da7219-datasheet?r=1563341
-
---SmIgde9nY4pmZ7FZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPb7R8ACgkQJNaLcl1U
-h9Dftwf8CEeKBxOBN+LR391T+vfagYayeUgWpszKvH+RTKbdwHTojhO+dbenXF1c
-d+7JKOcfvFhI8TEBhW+PcUri3v/8kBQoYz5drbzLHUt3mryXvn2pfXmvx7Uf0wjj
-US/5UO3btNTAuDKWS8x54NPVk63vLib0SBHLAII90pv8xh23sivOD+c3qan9KOTR
-5s8qD/BlK/Cd3ePv7/Wlyy/lnHvR6kJYHVR/Ml9XnPvxtdGm9ny3kVBnLCJ+/pNf
-9hhvPLVk3tt9d15r8d+w7630c2e7Zjdrp4eYeKZyBqNEDB+ByeDLRHiQlTwIfBIf
-NxNU1ulQGiB909PyOt26k3B84A1hkw==
-=PcdV
------END PGP SIGNATURE-----
-
---SmIgde9nY4pmZ7FZ--

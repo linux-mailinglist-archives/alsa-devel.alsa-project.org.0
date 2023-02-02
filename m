@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660976886C6
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 19:40:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 996186886CA
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 19:40:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80F0CEC3;
-	Thu,  2 Feb 2023 19:39:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80F0CEC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 397CEEB9;
+	Thu,  2 Feb 2023 19:39:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 397CEEB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675363204;
-	bh=ir5uEs0+NGQnpv+7siuppV6HBv4BstdB3wEb7vvLJCM=;
+	s=default; t=1675363217;
+	bh=VMgVntpefhdW9lrxT8x3V7/hexDZboWnf9VJiHuw+w4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=EzcUhbieZB2aXiijlMwhXRwrzvH5wAvRzrcgni7hjTkJbtY+L+lbGlWpQFCH8LRNe
-	 QBJyprVh6uCDDyiCeHf+uid4ibdpEKzdEeFp5sp7l2/P+H5+J4+tbKflC/g/+fcIFX
-	 7lOKPhG52JlBdf9ZqUQhYRwacMgWKUAUx2h65gjE=
+	b=NupvvupPpBq55LDVMUZBfX8qDqAlfe6FUcqm5HRfIhsfVQNxBJtL9TCYyPYsNTsSl
+	 DZK6QfKiA91WvLXLDD5LuGZeHTsO54VWOTuWLQIltu5yMi9lOe8WGWLuH9U75OlzR9
+	 C91n1O/4uEShjjDprGk71pMimLH6o7OlDic2honM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8752CF8057D;
-	Thu,  2 Feb 2023 19:37:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22165F80557;
+	Thu,  2 Feb 2023 19:37:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 554CFF8057B; Thu,  2 Feb 2023 19:37:46 +0100 (CET)
+ id 0174FF8057F; Thu,  2 Feb 2023 19:37:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71E00F80557
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 19:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71E00F80557
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0620F8056F
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 19:37:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0620F8056F
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20210112.gappssmtp.com
  header.i=@baylibre-com.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=K6j+Xbgi
-Received: by mail-wr1-x42e.google.com with SMTP id t18so2578536wro.1
- for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 10:37:43 -0800 (PST)
+ header.s=20210112 header.b=FOpoHF3f
+Received: by mail-wr1-x42d.google.com with SMTP id d14so2544941wrr.9
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 10:37:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8C7ku/hdu5/TzCYZjswOMzLUyQCwBVMzHPFGN9cKzy0=;
- b=K6j+XbgiXMKA4me6MPCQUDOi7uYQTQpYaO+uCV6lbFgsRH3NnCqmx/HSMYzBbP0FlP
- 1AX9OXdTocgEAi76fVpp4BCazKbE2kI5j8A9zZtINn7iOm1Wr92dIs0/JqCWUObBn5sv
- bP6wzmFdk6YVVQrNM7TkU2WBJHqrrL1tnaIzriIckujVTXHqidrL3x7Rn8iBX60PMHRj
- wSLX5jlAefjq8ul/YUxbNBo4htf15B6FmN0qBCKFK8Map+JQX7NXB1YP/OY0fHb/xwSh
- fSog8uAtx8A0RL5EPgPudL90JFs0XWQb+xQrc960qoLDq6frjJutDeJAmNXLbv8ft0Zm
- PZEw==
+ bh=/qzWJ+PJWjjXt1zQX9IH2K8XJiUf6DeC3wzgQPgc4GE=;
+ b=FOpoHF3f8QzmBlP4tl0/Yl5Eb99/+m1gDJTugenbzY8kup1MBbDbxZmTLbURQXOMeS
+ Gx4qKZJIhYyjaGRlQk3ceTo2nSf+ALBZD0JZy8Ced9QTim/z7DSctzKjORaTmeMaq8He
+ iWP7XRNFWI8I7n2V5jc/AGauFGnQy2rTKzaU+f/ZoPNbm+Gy0PfB+qR5S8kKRWxDaEra
+ Bv8IR6aN5kFwjGQao/5nSDDu5YrHO1i7bxcRs2FGdsGt3MQpxPYhrRTxsry8t/gpw3LN
+ pfJFNywFnH6ieUuSToVTsMyeT3QXaa58Nj7pi45zDbH07DifystOpcm7wOfCfE6NUx2o
+ WKog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8C7ku/hdu5/TzCYZjswOMzLUyQCwBVMzHPFGN9cKzy0=;
- b=cYdFcypXe0yuD8nCp7yv0r75n8piCKa9e+WaHByEeJU4WVOgnqqUX1wJCBcSEAYIdZ
- R83R6yru3QTuF0Ks3KRn8QIbWCSfdjC1z4Es8E9+blMXup7zY7XsCRpiX3hAS/JT2OL/
- YfE52vmLGyoGR+Ri5nlvVuu1xExcLnK/vCcPB1fkieP2WUjzc+hYPIyk565itfpoEMnu
- RQ9fepKP3ib1AJmbxqbdQ2pvSuZLDfPC4yE7Q8OxoMIAsjf3uUSoadZ/EQqxz+DUZvYc
- qtupP8oiTGROLEs5hLkOoQxLkdUkVJFk4pSfJy+uqk8a2y2CSRN2Orb8XuzHU33Au2y9
- 6l1g==
-X-Gm-Message-State: AO0yUKXVnYIwwMXyiRojVBFEvR8mrcvumF7LtSSHg0yOEEfNTczqBJIQ
- sVEQ14ns+dAt+ovnnVb60P5WuQ==
-X-Google-Smtp-Source: AK7set9GEst5k0yE0VCUCrw/5WgzY3bbUupi4GHxUPPVXRNzsllK9jWdJzCeKvEvJc434Ov6GNCQUQ==
-X-Received: by 2002:adf:c70b:0:b0:2bf:9478:a91d with SMTP id
- k11-20020adfc70b000000b002bf9478a91dmr6840276wrg.39.1675363061634; 
- Thu, 02 Feb 2023 10:37:41 -0800 (PST)
+ bh=/qzWJ+PJWjjXt1zQX9IH2K8XJiUf6DeC3wzgQPgc4GE=;
+ b=NZDoXqyIo4rYs5wZGnb3W4k6dzCzDWOeposL9YLOXzIuEAGiRPWCrGntxrlMgtuzVV
+ ukspNlfpl0XcmXszEnMThRfe3LP4g5Dgd2pscd1vw26OJKsosxhAel5xZDwLwP0cWcoB
+ 1/7/gpINfecoprRNEW+M7IbkJWU9oXQtklDyNkSls0wi803gOVAm+DnJsl7jYAk7aAO8
+ xKkKRvZ0EOa7BNcHk5kudyF7XYvDGSvEhJopFHb5MMqji/XPWGpbuMmXQsuyM2sNnY7N
+ mdgtmjxmPEG7SeyVCHXjq8fA1Y8ONsVuaFutpQB4fHvlI6O3hxEJPhJp+WK1WQl3fkv6
+ djyQ==
+X-Gm-Message-State: AO0yUKUAt4dei4eEqmHQcLFUMB5DqysKx+jEt8WLjXtleMtR47aHiYDx
+ clLTfkGvscv+P/ZLM0lDzwQPtQ==
+X-Google-Smtp-Source: AK7set8onuVp4cHeXmcTC8LpsEEAQcnGWYTri6tZ8J2QzpQkkVkE/HiDhb+ly+kJ1rLPravbxzeOUQ==
+X-Received: by 2002:a05:6000:15cd:b0:2bf:d8ed:ba46 with SMTP id
+ y13-20020a05600015cd00b002bfd8edba46mr8007620wry.47.1675363065020; 
+ Thu, 02 Feb 2023 10:37:45 -0800 (PST)
 Received: from localhost.localdomain (82-65-169-74.subs.proxad.net.
  [82.65.169.74]) by smtp.googlemail.com with ESMTPSA id
- p12-20020a5d48cc000000b00241fab5a296sm164664wrs.40.2023.02.02.10.37.38
+ p12-20020a5d48cc000000b00241fab5a296sm164664wrs.40.2023.02.02.10.37.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Feb 2023 10:37:41 -0800 (PST)
+ Thu, 02 Feb 2023 10:37:44 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org
-Subject: [PATCH 5/9] ASoC: dt-bindings: meson: convert axg pdm to schema
-Date: Thu,  2 Feb 2023 19:36:49 +0100
-Message-Id: <20230202183653.486216-6-jbrunet@baylibre.com>
+Subject: [PATCH 6/9] ASoC: dt-bindings: meson: convert axg fifo to schema
+Date: Thu,  2 Feb 2023 19:36:50 +0100
+Message-Id: <20230202183653.486216-7-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230202183653.486216-1-jbrunet@baylibre.com>
 References: <20230202183653.486216-1-jbrunet@baylibre.com>
@@ -112,65 +112,70 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the DT binding documentation for the Amlogic axg PDM device to
+Convert the DT binding documentation for the Amlogic axg audio FIFOs to
 schema.
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- .../bindings/sound/amlogic,axg-pdm.txt        | 29 -------
- .../bindings/sound/amlogic,axg-pdm.yaml       | 86 +++++++++++++++++++
- 2 files changed, 86 insertions(+), 29 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+ .../bindings/sound/amlogic,axg-fifo.txt       |  34 -----
+ .../bindings/sound/amlogic,axg-fifo.yaml      | 116 ++++++++++++++++++
+ 2 files changed, 116 insertions(+), 34 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
 deleted file mode 100644
-index 716878107a24..000000000000
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
+index fa4545ed81ca..000000000000
+--- a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
 +++ /dev/null
-@@ -1,29 +0,0 @@
--* Amlogic Audio PDM input
+@@ -1,34 +0,0 @@
+-* Amlogic Audio FIFO controllers
 -
 -Required properties:
--- compatible: 'amlogic,axg-pdm' or
--	      'amlogic,g12a-pdm' or
--	      'amlogic,sm1-pdm'
+-- compatible: 'amlogic,axg-toddr' or
+-	      'amlogic,axg-toddr' or
+-	      'amlogic,g12a-frddr' or
+-	      'amlogic,g12a-toddr' or
+-	      'amlogic,sm1-frddr' or
+-	      'amlogic,sm1-toddr'
 -- reg: physical base address of the controller and length of memory
 -       mapped region.
--- clocks: list of clock phandle, one for each entry clock-names.
--- clock-names: should contain the following:
--  * "pclk"   : peripheral clock.
--  * "dclk"   : pdm digital clock
--  * "sysclk" : dsp system clock
+-- interrupts: interrupt specifier for the fifo.
+-- clocks: phandle to the fifo peripheral clock provided by the audio
+-	  clock controller.
+-- resets: list of reset phandle, one for each entry reset-names.
+-- reset-names: should contain the following:
+-  * "arb" : memory ARB line (required)
+-  * "rst" : dedicated device reset line (optional)
 -- #sound-dai-cells: must be 0.
+-- amlogic,fifo-depth: The size of the controller's fifo in bytes. This
+-  		      is useful for determining certain configuration such
+-		      as the flush threshold of the fifo
 -
--Optional property:
--- resets: phandle to the dedicated reset line of the pdm input.
+-Example of FRDDR A on the A113 SoC:
 -
--Example of PDM on the A113 SoC:
--
--pdm: audio-controller@ff632000 {
--	compatible = "amlogic,axg-pdm";
--	reg = <0x0 0xff632000 0x0 0x34>;
+-frddr_a: audio-controller@1c0 {
+-	compatible = "amlogic,axg-frddr";
+-	reg = <0x0 0x1c0 0x0 0x1c>;
 -	#sound-dai-cells = <0>;
--	clocks = <&clkc_audio AUD_CLKID_PDM>,
--		 <&clkc_audio AUD_CLKID_PDM_DCLK>,
--		 <&clkc_audio AUD_CLKID_PDM_SYSCLK>;
--	clock-names = "pclk", "dclk", "sysclk";
+-	interrupts = <GIC_SPI 88 IRQ_TYPE_EDGE_RISING>;
+-	clocks = <&clkc_audio AUD_CLKID_FRDDR_A>;
+-	resets = <&arb AXG_ARB_FRDDR_A>;
+-	fifo-depth = <512>;
 -};
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
 new file mode 100644
-index 000000000000..d3da2f8ba7b1
+index 000000000000..f6222ad08880
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
-@@ -0,0 +1,86 @@
++++ b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
+@@ -0,0 +1,116 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/sound/amlogic,axg-pdm.yaml#
++$id: http://devicetree.org/schemas/sound/amlogic,axg-fifo.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Amlogic Audio AXG PDM input
++title: Amlogic AXG Audio FIFO controllers
 +
 +maintainers:
 +  - Jerome Brunet <jbrunet@baylibre.com>
@@ -186,13 +191,20 @@ index 000000000000..d3da2f8ba7b1
 +    oneOf:
 +      - items:
 +          - enum:
-+              - amlogic,g12a-pdm
-+              - amlogic,sm1-pdm
-+          - const:
-+              amlogic,axg-pdm
++              - amlogic,axg-toddr
++              - amlogic,axg-frddr
 +      - items:
++          - enum:
++              - amlogic,g12a-toddr
++              - amlogic,sm1-toddr
 +          - const:
-+              amlogic,axg-pdm
++              amlogic,axg-toddr
++      - items:
++          - enum:
++              - amlogic,g12a-frddr
++              - amlogic,sm1-frddr
++          - const:
++              amlogic,axg-frddr
 +
 +  reg:
 +    maxItems: 1
@@ -203,52 +215,75 @@ index 000000000000..d3da2f8ba7b1
 +  clocks:
 +    items:
 +      - description: Peripheral clock
-+      - description: PDM digital clock
-+      - description: DSP system clock
 +
-+  clock-names:
++  interrupts:
++    maxItems: 1
++
++  resets:
 +    items:
-+      - const: pclk
-+      - const: dclk
-+      - const: sysclk
++      - description: Memory ARB line
++      - description: Dedicated device reset line
++
++  reset-names: true
++
++  amlogic,fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Size of the controller's fifo in bytes
 +
 +required:
 +  - compatible
 +  - reg
 +  - "#sound-dai-cells"
 +  - clocks
-+  - clock-names
++  - interrupts
++  - resets
++  - amlogic,fifo-depth
 +
 +if:
 +  properties:
 +    compatible:
 +      contains:
 +        enum:
-+          - amlogic,g12a-pdm
-+          - amlogic,sm1-pdm
++          - amlogic,g12a-toddr
++          - amlogic,sm1-toddr
++          - amlogic,g12a-frddr
++          - amlogic,sm1-frddr
 +then:
 +  properties:
 +    resets:
++      minItems: 2
++    reset-names:
 +      items:
-+        - description: Dedicated device reset line
-+
++        - const: arb
++        - const: rst
 +  required:
-+    - resets
++    - reset-names
++else:
++  properties:
++    resets:
++      maxItems: 1
++    reset-names:
++      const: arb
 +
 +unevaluatedProperties: false
 +
 +examples:
 +  - |
 +    #include <dt-bindings/clock/axg-audio-clkc.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/amlogic,meson-axg-audio-arb.h>
++    #include <dt-bindings/reset/amlogic,meson-g12a-audio-reset.h>
 +
-+    pdm: audio-controller@ff632000 {
-+        compatible = "amlogic,axg-pdm";
-+        reg = <0xff632000 0x34>;
++    frddr_a: audio-controller@1c0 {
++        compatible = "amlogic,g12a-frddr", "amlogic,axg-frddr";
++        reg = <0x1c0 0x1c>;
 +        #sound-dai-cells = <0>;
-+        clocks = <&clkc_audio AUD_CLKID_PDM>,
-+                 <&clkc_audio AUD_CLKID_PDM_DCLK>,
-+                 <&clkc_audio AUD_CLKID_PDM_SYSCLK>;
-+        clock-names = "pclk", "dclk", "sysclk";
++        clocks = <&clkc_audio AUD_CLKID_FRDDR_A>;
++        interrupts = <GIC_SPI 88 IRQ_TYPE_EDGE_RISING>;
++        resets = <&arb>, <&clkc_audio AUD_RESET_FRDDR_A>;
++        reset-names = "arb", "rst";
++        amlogic,fifo-depth = <512>;
 +    };
 -- 
 2.39.0

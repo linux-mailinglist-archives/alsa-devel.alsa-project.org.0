@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCD0D687336
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 02:56:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4FA068753D
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 06:30:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECFBC1E9;
-	Thu,  2 Feb 2023 02:55:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECFBC1E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C36867F1;
+	Thu,  2 Feb 2023 06:29:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C36867F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675302971;
-	bh=EaE5OYwz4Ww39JLYoKjHM389MkZHK5Lcb4iR0B+MVjM=;
+	s=default; t=1675315848;
+	bh=jN5jbye6BvFPGfPjLOUKy5XjzOaNuAd/ZDZuWh/qEyM=;
 	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=AmSGTe8vfnBNtQ2w7mKxkQ0nQ+TsA6QTkDHKoUhsn3fSC13Y4Z3NH/cSbvu1y195l
-	 kSXe1zlvvPc+OK90259T6/ykR7Y6HSPfJ1+mT6f24dEsS4znRjY9ka5l4rEsyNYtXM
-	 6P7FQgWfhrxBxbf1mNEhP8i/Eyc3JEGp5oqrR+GU=
+	b=DHD/i7XOhN+zqsJZtld7j0kQJBxWVixQsl6UzX9d3ngJdCajZHWFgCSiVJv+Bfm3+
+	 wqwsOIL8e2ZZozj4Zk85hD54P+TpC42WOUj48lHq24L33OQLNKGuSUX+LYp0F4+GCb
+	 FQYUI1+awsTNmEmU3+Sr+t4FWucqN77FATX+XYu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DE4FF8045D;
-	Thu,  2 Feb 2023 02:55:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8B78F800E3;
+	Thu,  2 Feb 2023 06:29:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2E77F80423; Thu,  2 Feb 2023 02:55:08 +0100 (CET)
+ id CF857F804C2; Thu,  2 Feb 2023 06:29:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
 Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::62c])
+ (mail-psaapc01on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feae::62e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41E8EF80246
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 02:54:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41E8EF80246
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECB29F800ED
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 06:28:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECB29F800ED
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JE7n6RfVKlIuN6cKgZcT90oRcyMJKj+oTUx3K6OsJevs8HpYgtXuPVCO7aklfpFaGlEyV4DgG81VPtgBllByPAiT2l0A1nbNmf6IEzPdVuVI6Vhob6UpHCREkXDNlfn3rb5g3X1K3iT+yFRk2WaDwsC1NR/WcZXp8M996fITpkA3eGEcFYXxTZ3vb6Q4R3fy1Xfnct3fY7qtT+Y5ojOxnYA3k94wiNIK4YdrRjPYGwJ87z6NrAXx/XiHE05igC77eqow6m1STm5YosL4IZfcI0gzLrK0WCb/BFmfHaMVqqDRHiqwM2Yy4O8+9/ySdzLdYYsCb1CMKBAfJ9G9RijtKA==
+ b=lsn8sm1c932Xz3VytaN+C0rKl4D7xbTqmtKCf5d9/qREHUccYcsEw5D3u04sPGfYV45iaBWgaH9elqGQTzpfz8D/SEJIOfnUSWqI6NJqVOnr/nACzlTvLYr6paIhQYYehKeS63R3xAu4hXHs5QICwLAErPR8nHpQo9A2CQ21xxqM9v8cpRHCNDnUP4xf/YKOMhBsw2bhUudxRgQoeSjJGerVPU7lZ8u8GYDzTxH09b74kTjEx/1HYoN7eUA+Kmh/Ie4qc5wJKBWV1K2/nI3Ho/mwL0L9MxE1X9PVMYn8RdGgoR4iBk8AYnGba1nRVxdKuYL14pbfTH1dLhVm5TaYWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/YAx88bP+6qDwTpthDiGWjcZiebBQVfUHZBcK26d0LU=;
- b=nGC25M2mVHKeouyDztVVav5I+i5HgjAN5cdFhqWc3WB3DLT4ts1RS12VzZgWr9pyQ3ryL105N8IUBiiTXljO8QyN1LJYbihncfUbVHCLykIeuXf2xotzq26BD9evvBm0MMToJ+wJq4OqOJUtmQxRqeEb2gzhaznH368LYtAYz6rc8iRXqHT7fB/nuTykNuAgbibIFg/twS5KXwLLy0yG9S+xoYKZ2Aw0ABq7T/NT5aS9u/JACqEiIyq/qgS4/1fhFYiAKuB2p9IvAJi7kjqujNFYyJ6ZRFicVyMKS4zVUVJDzgkUbxDD4LmT6Y3VpPryf4N6RWXpRekI8LY3zsPjvw==
+ bh=Yn/jLHOUUYWvqBWojaKlGdt92vSwQyBVM/02A+t/0z4=;
+ b=bJ5VuuefLq/lAIx6JOuNX5nihayvbeu2NHFCypXZM5KGkqD6KnZU7NQOUAJFlio16SAAlfswz4QNI0MpUdMLZcYgl7x/NTJaEJDDAI4ZbQnlxiozdVmGbGr5N+dNdcZeDs6mD1lwzykSaraoo+JL1enwb4oDz2nRpzTfj4rcVDjl9ifBRFOdjmb0WJz0+1poKz82BDPON53cjnKfhLh0MHQsbH0Z8JtJIbKAXMCNx2ubAU09RYL6c8N4GLWsqpd9y82johSY/WsoEqirLUWyFEmLHLJ8A/pxTwYHB5xKbQ6nOp0w38UAR5JmbJR6WXTDOAKSsfq2uVrYr1VuPJoRAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=irondevice.com; dmarc=pass action=none
  header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
 Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM (2603:1096:100:7::23) by
- PS2P216MB1282.KORP216.PROD.OUTLOOK.COM (2603:1096:301:a0::10) with
+ SL2P216MB1816.KORP216.PROD.OUTLOOK.COM (2603:1096:101:101::12) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6064.25; Thu, 2 Feb 2023 01:54:40 +0000
+ 15.20.6064.27; Thu, 2 Feb 2023 05:28:21 +0000
 Received: from SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
  ([fe80::3d9:7f82:fa73:e727]) by SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
  ([fe80::3d9:7f82:fa73:e727%7]) with mapi id 15.20.6064.022; Thu, 2 Feb 2023
- 01:54:40 +0000
+ 05:28:21 +0000
 From: Ki-Seok Jo <kiseok.jo@irondevice.com>
 To: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski@linaro.org>
 Subject: Re: [PATCH] ASoC: dt-bindings: Drop broken irondevice, sma1303 binding
 Thread-Topic: [PATCH] ASoC: dt-bindings: Drop broken irondevice,sma1303 binding
-Thread-Index: AQHZNj6z/oQKqHubAEaPcBezJAe7N666EYoAgAANx4CAAAs2AIAABPOAgAC2qMA=
-Date: Thu, 2 Feb 2023 01:54:40 +0000
-Message-ID: <SLXP216MB00776F066D70DB2F3F77B09E8CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+Thread-Index: AQHZNj6z/oQKqHubAEaPcBezJAe7N666EYoAgAANx4CAAAs2AIAABPOAgAC2qMCAADu0cA==
+Date: Thu, 2 Feb 2023 05:28:21 +0000
+Message-ID: <SLXP216MB0077228B6071F62B183F4D648CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
 References: <20230201131059.65527-1-krzysztof.kozlowski@linaro.org>
  <1bcd61d6-810f-1239-1b6e-367e0fe87370@linaro.org>
  <Y9pxGUMWyMeXQpZM@sirena.org.uk>
  <6491d6fb-2a10-1c80-d422-8300d5a75ce4@linaro.org>
  <Y9p+p6wt8WugDBuH@sirena.org.uk>
-In-Reply-To: <Y9p+p6wt8WugDBuH@sirena.org.uk>
+ <SLXP216MB00776F066D70DB2F3F77B09E8CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+In-Reply-To: <SLXP216MB00776F066D70DB2F3F77B09E8CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
 Accept-Language: ko-KR, en-US
 Content-Language: ko-KR
 X-MS-Has-Attach: yes
@@ -79,57 +80,57 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=irondevice.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SLXP216MB0077:EE_|PS2P216MB1282:EE_
-x-ms-office365-filtering-correlation-id: 2cc8de75-e744-47fd-8ecf-08db04c07288
+x-ms-traffictypediagnostic: SLXP216MB0077:EE_|SL2P216MB1816:EE_
+x-ms-office365-filtering-correlation-id: 70294a38-a72d-487c-6acd-08db04de4c50
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6nxEzAn5hXDtQyZIy6Vkm7MoQ5EBVO4o/tvdaHh2VU+H2wXAQVBWN6W0iNTVSkt2rV1GwzGjIRVzH9TYbZD9oThxikcva5YHBPUeOvnHRkiJ1lKfq/2XIezC4beRPE/fuZkkkHoeGa+FLw3y2CLPWZsWumrJd7UXvkrHS71ieBxYxqLs74f+04rvMsxEAUwBq/dKnNJkBLnRpx8JmwKMpuA/EXYSNQRuLqwTJOD2rF77ZwJuHRiZGaKbmPih6V223LbZ4oMVj104/7SefsxyvXpaavUMztucrzwegrz4EAjfzul3eNyMtISEkCh34DU/myr4Drtzg+TKayTU6o4itb4LqsnDgvDNxC52akXvTang9cWPx3z+SkOLdMBTupyWRXTt9Nf0VL4oeP9JRYqO7JLdjBLeJNqKKq12tZ4P2g79bQjXZ0LCk5gqTvWdutX81fT70Ft+zkjbD/fzUavS4VVpAgUBMD5MnPBNy41xAMf90mwZOzzTdhjsdNahLiMAkyZapesDxThqSMgXur6yIIMIOFyb1P38nqd1ZdVmucr5cfExcLPUqZU2KDpAsYZIDUowCQdRuWcYyWKhozRBk4edfQBmkbQuty+CvYmWaN0y1ZNtznFoUX6Pd/lDqz9NbrBGA1rqSBBBlGoRxjxlhjKHpUQtRg2ZcRwlyqgTDn/WH9D7m7Rhv/y6qaxM2R9l
+x-microsoft-antispam-message-info: Ejsn35EVewYQB3BBfXZjDWuT9J2N13fafgR9H7Y1bXY4pBZA0KOdPx+SiD76kHtAQ71FN4lSpA8fzV2x5VauZkqxitDjYIJ/e+F1Q7qt0vwLbwZQ96cAzBmx0Vp8kqhbeR7jCk/1HUV+xHFOFXNdToFwUEn7wkdFZzBUaXRHRz78rYlsX+D3UlVTPLOUe9Vj10UErXpH1semeK+xZX2XMD5BJtvk26ccH/BcbLtwtRw/6DjACvGM28HdADnaoDS3DBYqA5dmFxk6UnDmQ5LcyIvxToHHtBIA0OWbVWR/hSgUprky/ps6hhPqz/1/cXaCNhOCbG3vq/AWtslFpOEtyCUBsL+79xIuY1CsxqDinibgMW/LiZ47lgg5XKrugFbaskED5ZkGju8fyCOnPlZ244gzHMwaWHK4OYpYmr2F79jA2TzckDKjeZ0FWjH2/yI3NAL8V6KcpJSa8laV9DIu2Ch/1trRHJa3OKI3g6EwXVFTskH09WZKeMAM9wBPA1fEkS4+VmI260EoF+TuMWT19HilcfB9/E/RTsTp3tFmVFqE9xLf8EzL9wEnKIYPwMSbkopu3nrnlSRz8aKNBSP2DhCjNnTCohEU8r8jY8XtXyxgFOI1gRJfskD53jdVQguoil0wqnmOVO7qOMs3qC9OEvFFsqMc8yXHlcQtomeVLcwH4u8AoIZp9buBBd4e2d2G
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SLXP216MB0077.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(376002)(136003)(39840400004)(396003)(346002)(451199018)(478600001)(122000001)(110136005)(54906003)(316002)(38100700002)(71200400001)(83380400001)(7696005)(7416002)(6506007)(99936003)(86362001)(5660300002)(2906002)(38070700005)(33656002)(186003)(52536014)(8676002)(26005)(9686003)(4326008)(76116006)(41300700001)(66476007)(66556008)(66946007)(64756008)(8936002)(66446008)(55016003);
+ SFS:(13230025)(376002)(136003)(396003)(346002)(366004)(39840400004)(451199018)(478600001)(76116006)(64756008)(66476007)(66556008)(66446008)(66946007)(38100700002)(83380400001)(8676002)(4326008)(54906003)(110136005)(99936003)(122000001)(316002)(6506007)(2940100002)(9686003)(26005)(186003)(33656002)(7416002)(5660300002)(86362001)(41300700001)(38070700005)(55016003)(71200400001)(7696005)(8936002)(52536014)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VYduGrpM/6iaWRYTP/mcoGo2NpuHnPC0MYtG2iPAs/FIh8K7ET9FiSgTcR7N?=
- =?us-ascii?Q?RB+mYGBNK17mHLVz1IhTYVUtPoV/gbsnArQzWxdzv6faEZ9XOO6LqsdQ92/v?=
- =?us-ascii?Q?MN1K/08KtU3RYsc/CQKIHS76VPUHB8G4JJfeDS9UTnb5tvtWaDls9c//bK3c?=
- =?us-ascii?Q?jP0UruPQjtr/eoiO4ciIOGWb7+UIlCXBLjm5DLSdK8HzgTLcP0qUh8+EF9eW?=
- =?us-ascii?Q?WgaUI11m/hgErEfrMl8YNjludaodOjNci9BB+60pDrpVqw0rtXpoADr8laNV?=
- =?us-ascii?Q?D5xp1G8YW/uyqyHUhYPw1W/MIFJMM/+fLrU72WqT9PM+Oxmyvzcgq76Qy+bD?=
- =?us-ascii?Q?dt8/ufuV4uwTIeRr1zRfJYsRtk6eUL9vauU7EGH6FISDj0O2gLzkcadgE0iS?=
- =?us-ascii?Q?ZoY1SpBQE6rxZr8CVS9NAJey+rfU7Ws5PVLWFPN+vuo9xHXUDLY3EoEpWFtL?=
- =?us-ascii?Q?bqB7iRwfPRp8oJr4KxzbTN4ZrsFAD7S/yqgb+2Z0YV2shQFloNI1ijC8uP+Q?=
- =?us-ascii?Q?ABPfoDsxesooAD2z5+pr4ADXi6aN4O8wZQl/PTq/43/+Nm8EBtRxdGZ+MBAD?=
- =?us-ascii?Q?sE8yujEiNK+l/iOZAWCki/LRUuQS5BzMWMsQ+3qvHZH3Wfs0FuVsazzqBl8O?=
- =?us-ascii?Q?vnzaNy6PC8ihfBNqm8FEB5xPVBjjpAVgjCF8svyqmLDdY69OFMuLjFrXyXiq?=
- =?us-ascii?Q?Z8o/3TjkX0AAtwsjAtjpibvIjZXo91QXNivkl66owHQSu006fhls/5UXAdSD?=
- =?us-ascii?Q?icVJ3YWRbY9v07SQ4gnZSSv1w1Y/KNyMQlz6m5NLTcVQffnJG2onlQIIqwxh?=
- =?us-ascii?Q?9lbjMKOa0cJ4hz66qNu4+VaijpRKRKQU5swiccKDvtp4vO+wobAKmh+JwU0g?=
- =?us-ascii?Q?8WhhNf+iqKLUp2GAzzBR80ZQnkAgYZ+jzUfobEBydRzbTvJ98WnpjVOBeNII?=
- =?us-ascii?Q?ScB44GYi6jzh4PwwWHJeUGlIXf10JGqSV3IC6dU/7PQm11lyBsHI+Srt1+tF?=
- =?us-ascii?Q?XDLwWT83H55nZrwrxSxRpxC8fI+ZCKRmqXp2GPTQd/DRA3oTJRGw40pC9IuB?=
- =?us-ascii?Q?4MAbnwpMnIg4i708ZrLlZ+Nx0gWiccJzd2ixBDO3P3yJezfG8W4inOqeg/0/?=
- =?us-ascii?Q?OYiQe7TgmHhYly8qwFKE1og4MziiRsMPi0CpnxOljjPkk7m0R3vTxQwZZTWH?=
- =?us-ascii?Q?Oyt7t7LO6Vne/60JtgJ/Wxmvjsb2CD0gg3qv0dgg0QXP6E0LFdC7IC6S5Zbp?=
- =?us-ascii?Q?1wGEsQIoKZZgMCXLSNAnfeRi4LUDK2XyEr+q5cSxxw8m3RhtoQfNnbFnCPx5?=
- =?us-ascii?Q?liurLIUjwW+QYpSH5agmRK2jxzAZgnCIucZWVWRX9ouIrn0FjT4kctpZUbyu?=
- =?us-ascii?Q?wg1rgHAQHeRlinPXzqTpaxEWXC14S6ZsnmHeo7s9LnDa/Q71n68PAcyOJ4IQ?=
- =?us-ascii?Q?4CeksdIfCCdlO5f8IedIhL+H/pBU9NHe5CLPAw+aDHIYFdKZDSI9XjQSuVXC?=
- =?us-ascii?Q?ls4FLTf2qdK/Xwc4Fp95XDsZYOFHP5zt9hD65tNHu7tlm9VWXLhBJg5T1kVZ?=
- =?us-ascii?Q?v7C6VxTDwH8ZcthhmSxgI6pbiMD6UE/D19dmTEjb?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uc4VEgExXWl1ZtFgP+ffhd+6fC3vqGuZDLhsK4ou9YQUrv3QCR9/4EF85JVh?=
+ =?us-ascii?Q?dbw9MiyUIoF8ra3ts3rKSUj09nG7DIEWQMOhCHrW1K2d0WHm7xejdPCTunxN?=
+ =?us-ascii?Q?GbeJjAufzI6n7t+i4xM6UYMTrIqB8BVD6Fk6RvoQTEH8IImFy3uFGbyUGeRV?=
+ =?us-ascii?Q?xyRgx2xwwbU7I2AcWQcl91dovIElXpoF7niSRcL4WdTgSe46YhVex6YLyyu3?=
+ =?us-ascii?Q?P3z5gkNjpE89engs/5PdrEsOR83ky5xNxTuyHjl3v8g8a1DfL59iY5up7kzO?=
+ =?us-ascii?Q?IuL/s9D21lo6IQMlp5/ukyUj38S5s5qJbi2GzHodr3VHqvgbGV5u/vSgBb1/?=
+ =?us-ascii?Q?DKp27CzykZo9w2m4npr4NzE6XAM+rGW/Qo9z6Bp52iMvtZ+eHHyZS7OCgJYj?=
+ =?us-ascii?Q?Ez2R89f3+HkeLWbhm8Gc5iSGdrjK8+DcM5q6jafFA/2vAJsmH13YVXYSQkrU?=
+ =?us-ascii?Q?z8K8x5nxQbHVHkZFuASrhv97X9sg8lwq+1wlO4UcS0eqnZCQf61ZXHD6lYCM?=
+ =?us-ascii?Q?wzXAxi768HZs92tldQ51+gwkxJOHM3/tHCaEWvhr2qEkEoBxLc5rmv0/CN9X?=
+ =?us-ascii?Q?WKRdB1w4TXsWK14if++MYMJLG5dIocxjDFuUQ3lts+MStK/S94FISael/6nY?=
+ =?us-ascii?Q?warSBdgque185YXU59O3JjkRtKOvNEjN7arUExZz+n348cPAvJ2HVmKYJe0L?=
+ =?us-ascii?Q?SrtDTaBru4o+R8bn8EIE1PhpdbmKNw4U/dQ8IltYWg+/AsqHhEh3lbEPCMWL?=
+ =?us-ascii?Q?fXOBT5d7uFdBpo/UeTahC2t1mRO5cbX4Ezij/vJxk9ZFw6Hgd0BCDtdhrk4p?=
+ =?us-ascii?Q?S0/7J3mJJ8cPp3icrsJYpYSTtQ/w0f1dUerUBHhecwkceU1kN4oaN2g5Ui9C?=
+ =?us-ascii?Q?qrl6EaGyBpfltzgLwjk5JrT6+BwtM5Nms+uI+Cclezn8JfGxM9zeb0O+7z/c?=
+ =?us-ascii?Q?UVrIRFE2z0F6gV+ncI/UkTmsj202bV6cAlbEhs6cBylePop3efP31PQEJzZD?=
+ =?us-ascii?Q?SA/z6f5Bkfkzu40Usdb9GQhZARrihk2Xoo9zfDaj3v+TsiW7BII07Rl776Nn?=
+ =?us-ascii?Q?11kvMuNb5RdkzqsFNFXXcxaiE83cYdpa8cqJ4QLG0ZspaE8Qcmd5pfXphNcB?=
+ =?us-ascii?Q?OPKB48PIIXLlU3C9hmEqHjBP53wU/yVzlnD9gFA7MwOMvkW5sW3nul6h69mz?=
+ =?us-ascii?Q?9Nigo9hWgbk++JTT/sSKQHoU0IDlz8kvR6f7D29Lh5GXILouBKSyuVhMHCfR?=
+ =?us-ascii?Q?pNzPtfnlvRAi5J6sYs1dDX+kpjWklMVT2EeaaEa5mHnetG8GUi4HV7t50Dfn?=
+ =?us-ascii?Q?tdeLe3OJ3D5WmHZBN+SGx7qQFwWZuYZYyss6khkW83at1ClrXn+wlOBO840h?=
+ =?us-ascii?Q?eXyMZ7zgiTSwmIKGMvnhf/8KYIR1hmuG8PuWoGY2+bkhURfTQED1U5XouJBO?=
+ =?us-ascii?Q?0rVP11OG1A5+EyNknZW6Ibqd94mINpOp/qfw/18dzc7sNwup6gq92mTJBtA5?=
+ =?us-ascii?Q?Tm7OGp9BOztjaWUZFjdQOoLQ2k92VfC/NXOXfEJWBbL+T0ZQDhpuoten53+n?=
+ =?us-ascii?Q?OiVM6w6dCgWFX2P0c3fUhwAAcxZUpGK4CaGrqe8o?=
 Content-Type: multipart/mixed;
- boundary="_002_SLXP216MB00776F066D70DB2F3F77B09E8CD69SLXP216MB0077KORP_"
+ boundary="_002_SLXP216MB0077228B6071F62B183F4D648CD69SLXP216MB0077KORP_"
 MIME-Version: 1.0
 X-OriginatorOrg: irondevice.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB0077.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc8de75-e744-47fd-8ecf-08db04c07288
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2023 01:54:40.4216 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70294a38-a72d-487c-6acd-08db04de4c50
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2023 05:28:21.2177 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: j5KnsCfeR7RUhiIhnP9mSg/Y9dubxSpgIeFx2pcSz7K6QoWM2BsVZTr7xudn+uYpp+RoAS2YFgs9DJQhYoQjXdfUacF6GPRxqfJP3VDrYG8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS2P216MB1282
+X-MS-Exchange-CrossTenant-userprincipalname: 8S00MM53tpcFuBpFo+ybRlldnTbDM775z/A8iPr0ksM11vDFcU8OZpsDMOnHFSCu+t7uAXxVhydNkNaSuLn+XRMLg+40hJPeduCYwPzVnAg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2P216MB1816
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,51 +152,63 @@ Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_SLXP216MB00776F066D70DB2F3F77B09E8CD69SLXP216MB0077KORP_
+--_002_SLXP216MB0077228B6071F62B183F4D648CD69SLXP216MB0077KORP_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-> On Wed, Feb 01, 2023 at 03:43:12PM +0100, Krzysztof Kozlowski wrote:
+> > > I tried. I started writing patch to fix few things in this binding
+> > > and then noticed that it is entirely empty and documents nothing.
+> >
+> > I really don't see an empty binding as a major problem in and of
+> > itself, we can always add properties later.  Again, I can't tell what
+> > the problems you're seeing are.
+> >
+> > > The trouble is that soon you will send it to Linus and then it
+> > > becomes the ABI even though no one ever approved or reviewed the
+> actual ABI.
+> >
+> > So send a patch to delete the property parsing code then, like I say
+> > removing the entire driver is very much an overraction.  The
+> > properties are all optional in the code.
 >=20
-> > I tried. I started writing patch to fix few things in this binding and
-> > then noticed that it is entirely empty and documents nothing.
+> Ok. I'm sorry for not checking correctly.
+> I only reviewed using the full source build and checkpatch.pl.
+> But I missed the config setting...
 >=20
-> I really don't see an empty binding as a major problem in and of itself,
-> we can always add properties later.  Again, I can't tell what the problem=
-s
-> you're seeing are.
+> So, could I get the information how to test the binding files?
+> From what I've checked now, using make dt_binding_check, right?
 >=20
-> > The trouble is that soon you will send it to Linus and then it becomes
-> > the ABI even though no one ever approved or reviewed the actual ABI.
+> I'll try to read again like submitting-patches.rst and writing-
+> bindings.rst.
+> And then re-write the patch. I'm sorry again for not checking properly.
 >=20
-> So send a patch to delete the property parsing code then, like I say
-> removing the entire driver is very much an overraction.  The properties a=
-re
-> all optional in the code.
+>=20
+> Thanks Mark and Krzysztof to feedback.
+>=20
+> Best Regards,
+> Kiseok Jo
 
-Ok. I'm sorry for not checking correctly.
-I only reviewed using the full source build and checkpatch.pl.
-But I missed the config setting...
+So, was the entire thing dropped, or was only the binding dropped?
+If they are not also, can I just patch in the current state?
 
-So, could I get the information how to test the binding files?
-From what I've checked now, using make dt_binding_check, right?
+And I tested the rewritten file with the following command.
 
-I'll try to read again like submitting-patches.rst and writing-bindings.rst=
-.
-And then re-write the patch. I'm sorry again for not checking properly.
+  make dt_binding_check DT_SCHEMA_FILES=3Dirondevice,sma1303.yaml
 
+Is there anything else I should do?
 
-Thanks Mark and Krzysztof to feedback.
+Thanks to your help, I think I am becoming a better developer.
+I'll try harder. Thanks so much!
 
-Best Regards,
+Best regards,
 Kiseok Jo
 
---_002_SLXP216MB00776F066D70DB2F3F77B09E8CD69SLXP216MB0077KORP_
+--_002_SLXP216MB0077228B6071F62B183F4D648CD69SLXP216MB0077KORP_
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: signature.asc
 Content-Disposition: attachment; filename="signature.asc"; size=499;
 	creation-date="Thu, 02 Feb 2023 01:54:40 GMT";
-	modification-date="Thu, 02 Feb 2023 01:54:40 GMT"
+	modification-date="Thu, 02 Feb 2023 05:28:20 GMT"
 Content-Transfer-Encoding: base64
 
 LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0NCg0KaVFFekJBQUJDZ0FkRmlFRXJlWm9xbWRY
@@ -208,4 +221,4 @@ cjk0bnBDVGJ6NDlDalZaOEI1dg0KYTlZSEFLaTNqc0RXcEl6NDVoTHNvNUdRWnZydmJ2UmJzdDN1
 OTJkQU4yQ1hTUXBiM21XNzVFRG0rcm4yMVR1Rg0KQU50ZVYrcTVjUG9PMkNUOXpHZEdZQmhGWWU1
 cEx3PT0NCj1tRmh6DQotLS0tLUVORCBQR1AgU0lHTkFUVVJFLS0tLS0NCg==
 
---_002_SLXP216MB00776F066D70DB2F3F77B09E8CD69SLXP216MB0077KORP_--
+--_002_SLXP216MB0077228B6071F62B183F4D648CD69SLXP216MB0077KORP_--

@@ -2,72 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21493687A1C
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 11:24:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C96687A4D
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 11:33:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0ED36836;
-	Thu,  2 Feb 2023 11:23:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ED36836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14817832;
+	Thu,  2 Feb 2023 11:33:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14817832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675333448;
-	bh=qquQFaEWfR08XHbhtVrLnIslga9ScfKDaL9hdZA2H4Y=;
+	s=default; t=1675334036;
+	bh=SFAiI9Z41+K/0TTJpl6qj2Kl7Zrp/jha4IDaciCWcgo=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=OhaKWfjSG0eA+A9wJq52+fe7m2cCegqNnNRKSET7/yb0J5BPgMgKq43zwWrmwl8zV
-	 9fUJ7O+f21a0K/8IXln/UYCh/V0NAcZgm+IB+WhUORuOnN5c3D5xsQpjdj946uatVf
-	 SIxA9/TNADxFB4lnwiSLwAK9jxcbiR//ytP/XdeE=
+	b=MTkNTodDiQXF8PPmvCVpFcyElL/h0YDxH4zc6kFtUZ6yUBnwW+Hr8csJaA6nzrhU4
+	 oUaRF36H0mZ7iAnH4JmbKSkkuKFchLTbP61HpRo32LLmzCQsVuw5by0GPSwzLDksBW
+	 x0ag7osqaagHXn9NlHSw+5qWtmrwCEVoIjy6dEEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BCA8F804DF;
-	Thu,  2 Feb 2023 11:23:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E734F804DF;
+	Thu,  2 Feb 2023 11:32:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85B77F804C2; Thu,  2 Feb 2023 11:23:04 +0100 (CET)
+ id EFB03F804C2; Thu,  2 Feb 2023 11:32:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13A47F80169;
- Thu,  2 Feb 2023 11:22:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13A47F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id E69A7F80169
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 11:32:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E69A7F80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IT5dN+zp
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 93095B82272;
- Thu,  2 Feb 2023 10:22:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D773EC433D2;
- Thu,  2 Feb 2023 10:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675333373;
- bh=qquQFaEWfR08XHbhtVrLnIslga9ScfKDaL9hdZA2H4Y=;
- h=From:To:Cc:Subject:Date:From;
- b=IT5dN+zpWq7CejGt94SSoFmwzkAO1PfAE9oVNwVK4pMhXeObyrYw1idm4bCrIfuo+
- dbkf60lkFjZgoAnmxLojR4i/06y4btpEvwu9aApRKMt0jKwLfoNH8EpnIa5OOplbUw
- 13d28dWpxt5KVGBrN1ElCCSetGxsdo9Qz0AI1byILWRoz0W+oU41W/dpAyjZLIlOvx
- kPsBU776MN/MoBl4Ucnm19/bVsEp1E/Lon0vrYv8kPl3A84Jj061WLaj21/vZDjFFB
- U4eLTmFycUWbiTtLLVLzSnaLcwhcQW3O2+hpgpnupSfj0gFykIyvxBmAXHnWFJXyvi
- C4UMlEL5EVmPA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: SOF: fix intel-soundwire link failure
-Date: Thu,  2 Feb 2023 11:22:30 +0100
-Message-Id: <20230202102247.806749-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=lkaOghGg
+Received: by mail-wr1-x430.google.com with SMTP id a2so973793wrd.6
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 02:32:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EejFREaRcGB12MROc0EjjXorli5U5zGmeKKwC+PD69Y=;
+ b=lkaOghGgKEQfqkgsXwmtwNQu620B8HWmBvHbt38srdgUNTDNN05Th8aLCqnBgb6VAx
+ ua3g8NumFJ08kJCBV0N0auJgpyo2Ffg7eNGBbDVcTIrq4jrgLp85fG2Xeb31asM3TY1l
+ q+TpSafFUrp0VhfvO0Vxx8r/JXY25T6ZFLFMILS6LVaMGBCFsR7ozAfKqwGpXdzFDVjO
+ it2+korIam7YnPh0UMeXmgAzG7r2YeaYZ6OB2J44ieMxlWhY0QlrCaxPVqIHh8ykkkx4
+ ikYVQNH46nff01C71lhV9E8qavSMde/Yd2940+5AoHarT41x1KG6U2TRDU/zxKdFprOh
+ q9sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EejFREaRcGB12MROc0EjjXorli5U5zGmeKKwC+PD69Y=;
+ b=7NSasEDpWBhyJu8S+sucFp1O/crFzBBme9Im9FWOkxCjVCh6BZkeUkp7GY1QJ0LgMY
+ 9Peokul1KKCp6C1YVTtDAz8FgvcgASnF4yIFsJhGf/3C9Jc9l/xHe1KOa3hhw4/YgNLf
+ VMFdyeVa7j0vdObwj0D4e8e2E82OjC33TmPVYYYq9CEuk34rA32HTbvDjT9aaLVetPE/
+ M/6intgrl+794Wp4A/9qyM1X/yOUuR64L4OcCk9pUSKb7JrUvylwPOpp4GMHdu4lRe9x
+ Bj+QDG0r+gYupi+ezq32g0YaYNztiHKZKLWQNnp13kX3Hx7UmcpmgrMRrsxCXaIrzFXi
+ 8XNQ==
+X-Gm-Message-State: AO0yUKVP1NJp3dv8WZcSwV3NYpE9P1r8ciDiBv+YLwRJqB6JJ0ePSg/o
+ NyH9+jCR5J0G71/Sq23aJTk=
+X-Google-Smtp-Source: AK7set8HdyNKLMuUjW2H8YE/xzHf42PoOyS1nBg2jpeu/DVWNlu8unfSe9+oQS4qNg3TDRb9x0a4og==
+X-Received: by 2002:a5d:5984:0:b0:2c3:bbfa:d509 with SMTP id
+ n4-20020a5d5984000000b002c3bbfad509mr4366725wri.61.1675333957908; 
+ Thu, 02 Feb 2023 02:32:37 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ h4-20020adfaa84000000b002bfbf4c3f9fsm19533001wrc.17.2023.02.02.02.32.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Feb 2023 02:32:37 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Bruce zhao <zhaolei@awinic.com>, Weidong Wang <wangweidong.a@awinic.com>,
+ Nick Li <liweilei@awinic.com>, alsa-devel@alsa-project.org
+Subject: [PATCH][next] ASoC: codecs: aw88395: Fix spelling mistake "cersion"
+ -> "version"
+Date: Thu,  2 Feb 2023 10:32:36 +0000
+Message-Id: <20230202103236.270057-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -81,72 +102,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+There are spelling mistakes in dev_err messages. Fix them.
 
-My randconfig build setup ran into a rare build failure with
-
-CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE=y
-CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE=m
-CONFIG_SOUNDWIRE=y
-CONFIG_SOUNDWIRE_INTEL=m
-CONFIG_SND_SOC_SOF_HDA=y
-CONFIG_SND_SOC_SOF_INTEL_TGL=y
-
-x86_64-linux-ld: sound/soc/sof/intel/hda.o: in function `hda_init_caps':
-hda.c:(.text+0x691): undefined reference to `sdw_intel_cnl_hw_ops'
-x86_64-linux-ld: hda.c:(.text+0x6f2): undefined reference to `sdw_intel_probe'
-x86_64-linux-ld: sound/soc/sof/intel/hda.o: in function `hda_sdw_startup':
-hda.c:(.text+0x1c40): undefined reference to `sdw_intel_startup'
-x86_64-linux-ld: sound/soc/sof/intel/hda.o: in function `hda_sdw_process_wakeen':
-hda.c:(.text+0x1cb6): undefined reference to `sdw_intel_process_wakeen_event'
-x86_64-linux-ld: sound/soc/sof/intel/hda.o: in function `hda_dsp_interrupt_thread':
-hda.c:(.text+0x1d67): undefined reference to `sdw_intel_thread'
-x86_64-linux-ld: sound/soc/sof/intel/hda.o: in function `hda_dsp_remove':
-hda.c:(.text+0x2655): undefined reference to `sdw_intel_exit'
-
-My best understanding is that the definition of
-SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE was intended to avoid this
-problem, but got it wrong for the SND_SOC_SOF_INTEL_SOUNDWIRE=m case,
-where the 'select' is meant to set SOUNDWIRE_INTEL to the value of
-SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE rather than the intersection of
-SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE and SND_SOC_SOF_INTEL_SOUNDWIRE.
-
-Change the condition to check for SND_SOC_SOF_INTEL_SOUNDWIRE to be a
-boolean rather than a tristate expression in order to propagate this
-as intended.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
-I could not figure out if this is a recent regression or if the
-problem has existed for a long time and is just really hard to
-trigger. I first saw it on linux-next-20230201.
----
- sound/soc/sof/intel/Kconfig | 4 ++--
+ sound/soc/codecs/aw88395/aw88395_lib.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 36a0e2bf30ff..715ba8a7f2f8 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -322,8 +322,8 @@ config SND_SOC_SOF_HDA_PROBES
- 
- config SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
- 	tristate
--	select SOUNDWIRE_INTEL if SND_SOC_SOF_INTEL_SOUNDWIRE
--	select SND_INTEL_SOUNDWIRE_ACPI if SND_SOC_SOF_INTEL_SOUNDWIRE
-+	select SOUNDWIRE_INTEL if SND_SOC_SOF_INTEL_SOUNDWIRE != n
-+	select SND_INTEL_SOUNDWIRE_ACPI if SND_SOC_SOF_INTEL_SOUNDWIRE != n
- 
- config SND_SOC_SOF_INTEL_SOUNDWIRE
- 	tristate "SOF support for SoundWire"
+diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
+index 34ae405bb43d..64dde972f3f0 100644
+--- a/sound/soc/codecs/aw88395/aw88395_lib.c
++++ b/sound/soc/codecs/aw88395/aw88395_lib.c
+@@ -890,7 +890,7 @@ int aw88395_dev_cfg_load(struct aw_device *aw_dev, struct aw_container *aw_cfg)
+ 	case AW88395_CFG_HDR_VER:
+ 		ret = aw_dev_load_cfg_by_hdr(aw_dev, cfg_hdr);
+ 		if (ret < 0) {
+-			dev_err(aw_dev->dev, "hdr_cersion[0x%x] parse failed",
++			dev_err(aw_dev->dev, "hdr_version[0x%x] parse failed",
+ 						cfg_hdr->hdr_version);
+ 			return ret;
+ 		}
+@@ -898,7 +898,7 @@ int aw88395_dev_cfg_load(struct aw_device *aw_dev, struct aw_container *aw_cfg)
+ 	case AW88395_CFG_HDR_VER_V1:
+ 		ret = aw_dev_load_cfg_by_hdr_v1(aw_dev, aw_cfg);
+ 		if (ret < 0) {
+-			dev_err(aw_dev->dev, "hdr_cersion[0x%x] parse failed",
++			dev_err(aw_dev->dev, "hdr_version[0x%x] parse failed",
+ 						cfg_hdr->hdr_version);
+ 			return ret;
+ 		}
 -- 
-2.39.0
+2.30.2
 

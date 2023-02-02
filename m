@@ -2,76 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 266306882CC
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 16:38:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7CC76882EC
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 16:44:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 703C99F6;
-	Thu,  2 Feb 2023 16:37:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 703C99F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1B96EBC;
+	Thu,  2 Feb 2023 16:43:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1B96EBC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675352314;
-	bh=Py0H+lR98VdNfeq5TJiyrbOPlLPA72osn5rSa82lGpo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=FWWpWs3wRm7+I9j4qCax7Jvl661TZs71JPMJiZ/j3tXWVKQ+0BApmj2Rf2MFrlyCH
-	 DE4w2b0IHG9ZX+VvZNYbrH0b6ttpNprXH35xlOU78lYtkwrNSuHRbSixaAmD0QnhJe
-	 x7PIrfxGnHgEG13mVs/G5RzlCB20CUj0YEgiJyZY=
+	s=default; t=1675352644;
+	bh=Dy1I5r8MsHQkrIjQo/4D6tmPyJ5K5IesevuANxMtkZU=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=Kljpr2QUa5cA7UVJB6bZoQiuaQ93gFxcyK3/IYJwK3AesgmgJFZnNdOnp3Hf7dEBs
+	 9wNHahEKyyvu6TxeL9TProHz8jfPg7IzsEgxgTRfcITnc84P7Ec+Lzs1Dy9oxqhx4A
+	 4ic9Q2vGcmojMQjuES8uJlB+SpkhuDAKPzJdn53k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6DC1F80169;
-	Thu,  2 Feb 2023 16:37:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60112F80544;
+	Thu,  2 Feb 2023 16:42:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06156F804C2; Thu,  2 Feb 2023 16:37:33 +0100 (CET)
+ id 8BB67F804E2; Thu,  2 Feb 2023 16:42:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40BACF800E3
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 16:37:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40BACF800E3
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DfelU0cW
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8ED77B821D8;
- Thu,  2 Feb 2023 15:37:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18B1C4339B;
- Thu,  2 Feb 2023 15:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675352246;
- bh=Py0H+lR98VdNfeq5TJiyrbOPlLPA72osn5rSa82lGpo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DfelU0cWLmnpu9pmhBNkE5BnsH4UoUpyeNEeW8/bszy/AIWZueG8cyAsePHLMS8XM
- +JtnYJ7QRIBH+6Imxqb1xXgtmdCQ6SkMCPbdvX97KqJG2w+2dlwCETLiOTU8hSx0yf
- UqXmyFP+xZnLqn8yCgiDqI6+B1gfZTlhe2GmkuCAlQdqutBPgdJ/F/J4jGLSx4ppLh
- 4wkdXxs5TSsDEpy32cACPy47CzSTJTOHpH+C1lQQIZOP0EgWiuBTtEUf+wARCqjCff
- JtfkxmJ/lE8RGn7M1CIDQRIwkQxMt9ceYtewKh60tFZRoRVl4h2MX4yUXRNwC+xVpO
- 9Nfze4ubFqg6g==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <jkysela@redhat.com>, 
- Mukunda Vijendar <Vijendar.Mukunda@amd.com>, 
- Saba Kareem Syed <Syed.SabaKareem@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20230131184653.10216-1-mario.limonciello@amd.com>
-References: <20230131184653.10216-1-mario.limonciello@amd.com>
-Subject: Re: [PATCH v3 0/6] Fix default DMIC gain on AMD PDM drivers
-Message-Id: <167535224445.408582.16811199790062194600.b4-ty@kernel.org>
-Date: Thu, 02 Feb 2023 15:37:24 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4B1EF80169
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 16:42:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4B1EF80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=L26ceYX7
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3128sUna006230; Thu, 2 Feb 2023 09:42:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=xMHV4CLWUb6PJcec7V3W92cUq1tvU/om/xhGtlKhqIA=;
+ b=L26ceYX7gAK7obVwfsL0dtxJ/AmXLFjAQC4P94IQZvIU2Ew25J/p8ULb6WUiRRhxUyn2
+ pdiJcKyZKU/J1udfHVnNBD0848Lxn9B/A3MuQwccBnXN7fV3K3lFmwu1Ctgo722WQIpB
+ Pe5g4cursqi/woFf4XnGG5NeDsCfur+FWEIQ0/kwMU1s8501ICBvcDSWLYV/N7ONW959
+ VGcosf7Dngq6tQrtRLL2OyjGuMUJnLwIOyMkTt0CHm2QEOtXu99DcqVv5GwhE2cm0z4r
+ XKQi4Z7QGuoXIE9WuH49ZwKZxh+FVFldj5jlYxKfvN5WY3oVZEB8XCDYXzhnKWKpXchV QQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3nfqvj1qk6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Feb 2023 09:42:14 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 2 Feb
+ 2023 09:42:12 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.21 via Frontend Transport; Thu, 2 Feb 2023 09:42:12 -0600
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 157A32A1;
+ Thu,  2 Feb 2023 15:42:12 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+ <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
+Subject: [PATCH 0/2] soundwire: bus: Prevent infinite loop in
+ sdw_ch_mask_to_ch()
+Date: Thu, 2 Feb 2023 15:42:10 +0000
+Message-ID: <20230202154212.1098736-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: diV5BAf5ozNS9-SugnjdEbV_Sq1BrcxD
+X-Proofpoint-ORIG-GUID: diV5BAf5ozNS9-SugnjdEbV_Sq1BrcxD
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,60 +94,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Mark Pearson <mpearson@lenovo.com>,
- Pananchikkal Renjith <Renjith.Pananchikkal@amd.com>,
- linux-kernel@vger.kernel.org
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 31 Jan 2023 12:46:46 -0600, Mario Limonciello wrote:
-> It's been reported that a number of laptops have a low volume
-> level from the digital microphone compared to Windows.
-> 
-> AMD offers a register that can adjust the gain for PDM which is not
-> configured at maximum gain by default.
-> 
-> To fix this change the default for all 3 drivers to raise the gain
-> but also offer a module parameter. The module parameter can be used
-> for debugging if the gain is too high on a given laptop.
-> 
-> [...]
+sdw_ch_mask_to_ch() would loop forever if bit 31 of the mask was set.
+The entire function is unnecessary because the existing standard
+function hweight32() already does the same thing, and hweight32() is
+safe. But the change has been made in two steps.
 
-Applied to
+Richard Fitzgerald (2):
+  soundwire: bus: Prevent infinite loop in sdw_ch_mask_to_ch()
+  soundwire: bandwidth allocation: Use hweight32() to calculate set bits
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+ drivers/soundwire/bus.h                          | 11 -----------
+ drivers/soundwire/generic_bandwidth_allocation.c |  3 ++-
+ 2 files changed, 2 insertions(+), 12 deletions(-)
 
-Thanks!
-
-[1/6] ASoC: amd: yc: Adjust the gain for PDM DMIC
-      commit: 6d6f62c868a8ad9c451c22f9f20f08a6149f8487
-[2/6] ASoC: amd: yc: Add a module parameter to influence pdm_gain
-      commit: 02ea45d10fab99040c87d0267656930accb91e3c
-[3/6] ASoC: amd: renoir: Adjust the gain for PDM DMIC
-      commit: 47dc601a067d9a79989310c8a1f93ea390ae9ead
-[4/6] ASoC: amd: renoir: Add a module parameter to influence pdm_gain
-      commit: b7d8d4ec80ee380a82d6748c1d4e9fd89ce6e595
-[5/6] ASoC: amd: ps: Adjust the gain for PDM DMIC
-      commit: 99ecc7889bee68fdf377f328c21ad0f953f8b05e
-[6/6] ASoC: amd: ps: Add a module parameter to influence pdm_gain
-      commit: 5579a966229c3365d0e2c91e9a96fc40e293dffa
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.30.2
 

@@ -2,119 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14AC687D55
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 13:29:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6961C687EB0
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 14:31:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F88E6C1;
-	Thu,  2 Feb 2023 13:28:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F88E6C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC794E93;
+	Thu,  2 Feb 2023 14:30:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC794E93
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675340977;
-	bh=xPey4hUhX6ENuwkL5sEETNz9LUIedmKF6aa69pXhh6o=;
+	s=default; t=1675344660;
+	bh=Zo/BZGqBARSKZd47+qdf1MiEwycN4NKfr5cIx+FysXY=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=MN7d4De165PrrXLR48lOBBfwXgYexLeBng16jGji+PJeVskhKxuo9GveVK2pixbag
-	 Yb0sfe+3HBibLTPUMQq6j64qmERNiQB62BZPOrf/FnOUIIY7Ln1Qg8pIOKEPNf4/yJ
-	 qBY4R4P+VYDzxo/NOFCZD2NB6LzEO05t0Mb1Mgfc=
+	b=Z5LJJOXaf/AT9HzE+p0BphuvPGDST3oZRUgCusnGYMBVURchjsZk+HutPwmGWVhP5
+	 efo5tAdqxPwuXut8IHImL2/l6A0+EsYfeZcxAqpHaHNhZTU+hB9iWj+09aXorPD2CF
+	 bbzXqz4/cLP5vJNBd1b909IsrwJBbxq7sdV5iXi0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3256F800ED;
-	Thu,  2 Feb 2023 13:28:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 072C6F804EB;
+	Thu,  2 Feb 2023 14:30:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D42FF804C2; Thu,  2 Feb 2023 13:28:31 +0100 (CET)
+ id A00CEF804E0; Thu,  2 Feb 2023 14:29:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_FUTURE_24_48,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20613.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::613])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1FFDF800ED;
- Thu,  2 Feb 2023 13:28:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1FFDF800ED
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=fXNPmzX8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TEAgwpfbQ9CWyUOc5mvhSw3pXc2YTuE/sIjYkxIg971seydfHmnNYsGupga43YsojeE+buq0UfbzZsU5p2fUudqCWw5zwv/Y20oNVm0wbfdeFaWrreZTMZYss6YfY1PDgqXB/gPcuMEmBlvQxTrtuu11GqRJh6/iOGF77j6D8WhV6tUdUj/sdrPmhD6bpVPNcVBJgPjPjympz863+oULcf8xrPFXEb14KH9UTSDuSSMR/N/wSwSYwyuA3aOmcggIPaPMAUusLZmz04FU7rK1p/W+9rM3sae+B7eYM/HsfLSkI3YO7SqUbhP2anXL4tLfhabXjcA5WaR2P37iJF736g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i7N1bJaz6MlWIOxfR8rOi2BGCsogP/eGeNfYjP0oXdM=;
- b=JNJqVFY2VUm43rdqiIuT7kIK5BqlkWkcNwbiKlsdBCmNtaq7/gDkmlhQNq/IKkxOPp79Yd7kj0AasKi78G0mdkE6Ceo1pC8pgLlOjqTGCg8CsqC3/LYxks74aTUb5YHFf/Gu9PqDZaQDauTmTcfX8cny3iQWBNLWGOROYMaz9a5iM0eNZEASibu2NEl0FVyQo5ntxID2JkDIg3VqSbo6BGQ4lRlUawFF9NJ4r/05GeAi/dnBGLngz9xFiPNOxVYVu5Hjx9kJuULUEZnh2c6qxxCZDySHnJaf5exHmNVQVY+/gCIlcCU+sHsF6JVx8vxhsWvAjM9LDa+0j44z0Ta+jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i7N1bJaz6MlWIOxfR8rOi2BGCsogP/eGeNfYjP0oXdM=;
- b=fXNPmzX8O+Ats3xMehmcGAWA/7JEfCN0YF8+IhdpkGxxrODwmX/zlNGg6br+gZY12j0ikbWZ5tPiFjfw65opXwuPSQEAgiXnCHHlNcj0cLEU/L9zuRa9vqLPjdljX84+q7G0MDyIH63ckgpS5MYde8QBqvKi9Bp9dFi1lGhFOhU=
-Received: from CY5PR15CA0227.namprd15.prod.outlook.com (2603:10b6:930:88::25)
- by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Thu, 2 Feb
- 2023 12:28:18 +0000
-Received: from CY4PEPF0000C964.namprd02.prod.outlook.com
- (2603:10b6:930:88:cafe::5b) by CY5PR15CA0227.outlook.office365.com
- (2603:10b6:930:88::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.27 via Frontend
- Transport; Thu, 2 Feb 2023 12:28:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000C964.mail.protection.outlook.com (10.167.241.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.17 via Frontend Transport; Thu, 2 Feb 2023 12:28:17 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 2 Feb
- 2023 06:28:16 -0600
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 2 Feb 2023 06:28:11 -0600
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: SOF: amd: Fix for handling spurious interrupts from DSP
-Date: Fri, 3 Feb 2023 18:02:52 +0530
-Message-ID: <20230203123254.1898794-1-Vsujithkumar.Reddy@amd.com>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E598F80169
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 14:29:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E598F80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Gdp9RUX0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675344592; x=1706880592;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Zo/BZGqBARSKZd47+qdf1MiEwycN4NKfr5cIx+FysXY=;
+ b=Gdp9RUX0GFPzj2ri+cyTenbIjRkTq1s6OswEsXL1xZgsQFdpqwOG1CBn
+ pBLQcmjlMXQnURXncSJhmQ3y3CQI6v2f4l36YtzqjXyd35hYy6KkADuu3
+ 8t1+DTd9JPa2Zle8isiQE2SFwbrE6oEmf7JeGWQRNoQDDX1tdcUxzoMVC
+ o82SOKQ4GnYb4LSMmrIB/wOeDGfvyd6bUunJkY6XcEGtiTQ+BiWKWAa6h
+ jXckhVsfPwRenJAWif9WHvPzSTzwTlHUiPyR2hhUF3BFNDV4tRNMKxvQv
+ AyE1BPGTnd6+43AKx1KG1scSrZC6FG2Y0oFnLiEPCq2HjTRku6J/t+hUU Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="308783230"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="308783230"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2023 05:29:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="658727273"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="658727273"
+Received: from jpdamery-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.1.104])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2023 05:29:44 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz
+Subject: [PATCH v3 0/9] ASoC: SOF: core/ipc4/mtl: Add support for PCM delay
+ reporting
+Date: Thu,  2 Feb 2023 15:29:45 +0200
+Message-Id: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C964:EE_|CY5PR12MB6551:EE_
-X-MS-Office365-Filtering-Correlation-Id: 254767e3-0de9-491c-c880-08db0518f6a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zyDQduxVeOk9WODGGBunmzzTpav+bOATYpFlz+IlzabehttlTbT5q0Y9SwG1ZlsFuZriuqfH6CWttMnLBq6wxsy0/S/DLHlufgjAC2DD2LtwBmICvgLtK830RK5at2W2rn2R/kMB3CjScSp8u4T2zVLHnWzUUnKMNW2+s8g8FUrvmHCV/jO7bUvrzjV1aOyZTQHSSTMeMAbsF+pP0QdJ74mQ1dR5G4JOV3A6tIcTDx/pvVZKzr8XgTED0DbIL4LKNL4euRHq71Fe9dFiAVhC2s/saUHOwg4fftAV+ZIZxZM4VPMD8R2wAXawMU1Bwd+BWOd2jCdIeKyq7j/IfS1PWNraj/4Jhlc2RpwwGy8v2qdetDxSauX5t2ZJqkTozfCPwiLWsWAzCPIfqG++qs8c383SCfj14xAxXlLdvPiz8eEmd+n2XE/L5r35xaGFyp+as2uYdLizfWyXwiJ2hAYJWv8lDZW2ucoEF81TCuWKoHeovam6lVhH9WGO/GV8yupgMvIfbcTNwItiGxgIPkC0HjUMVEXJEULYxQM7JSlNfITeoG+oOTPAPnr2Kuc5acrl+SxhsOd2TdVVpJkbrBlbWBwPZMUv9eIuhgaT20skMVv3itO74Wg2qE8vgILx+ncrJGtwqImRRo7P6DulIK/D7GQ9VO/pVrQqAYe502S6xDhq2+y25xvyqMdYbulZttXpoFSyUPJn5O+V8ARLVtEVNVQq8IAiP30y14RVNRqHcRo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199018)(46966006)(40470700004)(36840700001)(110136005)(86362001)(82740400003)(54906003)(7416002)(5660300002)(356005)(81166007)(40460700003)(6666004)(36756003)(1076003)(26005)(186003)(2616005)(316002)(2906002)(82310400005)(47076005)(40480700001)(70206006)(83380400001)(426003)(7696005)(8676002)(336012)(478600001)(8936002)(4326008)(70586007)(41300700001)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 12:28:17.7573 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 254767e3-0de9-491c-c880-08db0518f6a8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C964.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,120 +86,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Sunil-kumar.Dommati@amd.com,
- ssabakar@amd.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- venkataprasad.potturu@amd.com, Bard
- Liao <yung-chuan.liao@linux.intel.com>, Basavaraj.Hiregoudar@amd.com,
- Takashi Iwai <tiwai@suse.com>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Vijendar.Mukunda@amd.com, V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Ajit Kumar
- Pandey <AjitKumar.Pandey@amd.com>, open
- list <linux-kernel@vger.kernel.org>, "moderated list:SOUND - SOUND
- OPEN FIRMWARE \(SOF\) DRIVERS" <sound-open-firmware@alsa-project.org>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, rander.wang@intel.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As interrupts are Level-triggered,unless and until we deassert the register
-the interrupts are generated which causes spurious interrupts unhandled.
+Hi,
 
-Now we deasserted the interrupt at top half which solved the below
-"nobody cared" warning.
+Changes since v2:
+- Use div64_u64_rem() to make the code compile and work on non 64bit architectures
 
-warning reported in dmesg:
-	irq 80: nobody cared (try booting with the "irqpoll" option)
-	CPU: 5 PID: 2735 Comm: irq/80-AudioDSP
-		Not tainted 5.15.86-15817-g4c19f3e06d49 #1 1bd3fd932cf58caacc95b0504d6ea1e3eab22289
-	Hardware name: Google Skyrim/Skyrim, BIOS Google_Skyrim.15303.0.0 01/03/2023
-	Call Trace:
-	<IRQ>
-	dump_stack_lvl+0x69/0x97
-	 __report_bad_irq+0x3a/0xae
-	note_interrupt+0x1a9/0x1e3
-	handle_irq_event_percpu+0x4b/0x6e
-	handle_irq_event+0x36/0x5b
-	handle_fasteoi_irq+0xae/0x171
-	 __common_interrupt+0x48/0xc4
-	</IRQ>
+Changes since v1:
+- The delay calculation updated to take into account the counter wrapping on both
+  ends (host and link side).
 
-	handlers:
-	acp_irq_handler [snd_sof_amd_acp] threaded [<000000007e089f34>] acp_irq_thread [snd_sof_amd_acp]
-	Disabling IRQ #80
+The following series adds support for the PCM delay reporting in SOF core level
+and implements the needed infrastructure with IPC4 to finally enable it for MTL.
 
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Currently this is only supported on MTL (and via IPC4), but with the
+infrastructure in place it will be possible to support other platforms with
+DeepBuffer.
+
+Regards,
+Peter
 ---
- sound/soc/sof/amd/acp.c | 36 +++++++++++++++---------------------
- 1 file changed, 15 insertions(+), 21 deletions(-)
+Rander Wang (9):
+  ASoC: SOF: add ipc4_fw_reg header file
+  ASoC: SOF: add fw_info_box support
+  ASoC: SOF: add time info structure for ipc4 path
+  ASoC: SOF: ipc4-pcm: allocate time info for pcm delay feature
+  ASoC: SOF: ipc4-pcm: add hw_params
+  ASoC: SOF: add delay function support in sof framework
+  ASoC: SOF: add get_stream_position ops for pcm delay
+  ASoC: SOF: Intel: mtl: add get_stream_position support
+  ASoC: SOF: ipc4-pcm: add delay function support
 
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index 6bd2888fbb66..d5ccd4d09278 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -318,7 +318,6 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
- {
- 	struct snd_sof_dev *sdev = context;
- 	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
--	unsigned int base = desc->dsp_intr_base;
- 	unsigned int val, count = ACP_HW_SEM_RETRY_COUNT;
- 
- 	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->ext_intr_stat);
-@@ -328,28 +327,20 @@ static irqreturn_t acp_irq_thread(int irq, void *context)
- 		return IRQ_HANDLED;
- 	}
- 
--	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET);
--	if (val & ACP_DSP_TO_HOST_IRQ) {
--		while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset)) {
--			/* Wait until acquired HW Semaphore lock or timeout */
--			count--;
--			if (!count) {
--				dev_err(sdev->dev, "%s: Failed to acquire HW lock\n", __func__);
--				return IRQ_NONE;
--			}
-+	while (snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset)) {
-+		/* Wait until acquired HW Semaphore lock or timeout */
-+		count--;
-+		if (!count) {
-+			dev_err(sdev->dev, "%s: Failed to acquire HW lock\n", __func__);
-+			return IRQ_NONE;
- 		}
--
--		sof_ops(sdev)->irq_thread(irq, sdev);
--		val |= ACP_DSP_TO_HOST_IRQ;
--		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET, val);
--
--		/* Unlock or Release HW Semaphore */
--		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset, 0x0);
--
--		return IRQ_HANDLED;
- 	}
- 
--	return IRQ_NONE;
-+	sof_ops(sdev)->irq_thread(irq, sdev);
-+	/* Unlock or Release HW Semaphore */
-+	snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->hw_semaphore_offset, 0x0);
-+
-+	return IRQ_HANDLED;
- };
- 
- static irqreturn_t acp_irq_handler(int irq, void *dev_id)
-@@ -360,8 +351,11 @@ static irqreturn_t acp_irq_handler(int irq, void *dev_id)
- 	unsigned int val;
- 
- 	val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET);
--	if (val)
-+	if (val) {
-+		val |= ACP_DSP_TO_HOST_IRQ;
-+		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET, val);
- 		return IRQ_WAKE_THREAD;
-+	}
- 
- 	return IRQ_NONE;
- }
+ sound/soc/sof/intel/mtl.c   |  14 +++
+ sound/soc/sof/intel/mtl.h   |   6 +
+ sound/soc/sof/ipc4-fw-reg.h | 155 ++++++++++++++++++++++++
+ sound/soc/sof/ipc4-pcm.c    | 232 ++++++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc4-priv.h   |  15 +++
+ sound/soc/sof/ipc4.c        |   3 +
+ sound/soc/sof/ops.h         |  10 ++
+ sound/soc/sof/pcm.c         |  13 ++
+ sound/soc/sof/sof-audio.h   |   6 +
+ sound/soc/sof/sof-priv.h    |  10 ++
+ 10 files changed, 464 insertions(+)
+ create mode 100644 sound/soc/sof/ipc4-fw-reg.h
+
 -- 
-2.25.1
+2.39.1
 

@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25CD06886B5
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 19:38:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B8946886C0
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Feb 2023 19:39:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F1B9EBE;
-	Thu,  2 Feb 2023 19:37:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F1B9EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74B47ECD;
+	Thu,  2 Feb 2023 19:38:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74B47ECD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675363115;
-	bh=jPhJ0w/caLAg+lwWjFwGWLSpTe+WTiUVxsBlNix8P8c=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=F9K1epXQxZ+1fRImWusFgWAuNHKptUUrL9DwDWDQoVVbYBslG/ZVGuXuZJRXqEHFq
-	 vQvRXKYYlugpCONzN9TzIumHeqZBFjAIvT1ZPsQ+mlArHbDNygEowF9tBsmKoRICWt
-	 KlvZfc+crKcrnIIDMCO7jLQXpOuqFgaKOHsKdMos=
+	s=default; t=1675363157;
+	bh=UejLPaoKYCRvJ51W6iWmn45OlArgnITusSv92XIVh78=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=UryWa7r82xDAZlv+sRw+wB2y0EA/SfVqXxGuEMgHMw2ABBxkHq4KJWmNUMTqwPaT+
+	 7X/JjtwncsLggFzBiP+sGFkgzWxm+9EpFFiolTLflQEcwJI6kjyWodLOrtVj8/FvyQ
+	 YBHDTkLdjBZWQwWQIXE3NDpa9tUnq6gUCYt2s11U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93CC2F80271;
-	Thu,  2 Feb 2023 19:37:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69290F800ED;
+	Thu,  2 Feb 2023 19:37:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5104F804E0; Thu,  2 Feb 2023 19:37:33 +0100 (CET)
+ id B8F01F80553; Thu,  2 Feb 2023 19:37:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18FFCF80169
- for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 19:37:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18FFCF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42972F800ED
+ for <alsa-devel@alsa-project.org>; Thu,  2 Feb 2023 19:37:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42972F800ED
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20210112.gappssmtp.com
  header.i=@baylibre-com.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=IbFgd4TJ
-Received: by mail-wr1-x435.google.com with SMTP id q5so2605795wrv.0
- for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 10:37:24 -0800 (PST)
+ header.s=20210112 header.b=T35BJJth
+Received: by mail-wr1-x433.google.com with SMTP id a2so2281069wrd.6
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 10:37:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=H85BNtbicOdZEb38uhjtGBMxJZW5JkXIotuHsx7Jfnk=;
- b=IbFgd4TJ33+H4SaOwRyEWu6cWJiQiPeX9lhQApCcR7ems5iUP2ftxi1ogXy60RDAH3
- EQB5FEo0lzHU016yPfz3Gl0swVHOUsKVKlXteWQI40qYhCT6YWBM/ZZtLck1TpU+HdJF
- oiUWrOki6KugGbsRQ0bo0aUuADU2QZEr3VUD58M8KhGjy5GPcDjaHUFnxEFJuyrDEqZh
- rL6IHIAKB6OGmXwnjw1Qc7KXXM4YXNuKQzn6x1yT52ZA+Temm2XxFL+dxOV9dacF22Y8
- EIsPjJlVBSVT4QNR/qfs5kNDYvzjK8dcFTjsZ5ThvMYirB+641tpIWORaVrYJDGGjwiN
- bGvg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=it81YP95JIRPJswh/FgK8dhTohEGTS21tUAjm96BPMQ=;
+ b=T35BJJthNSXWGuipJ/S57/Vin4LoRONI1yOJ2iw8a6ampM/SH/alQlaM3pwJXbfIto
+ rhB/lH9b1SfkOR19HeWTkVB7VSSsTJgHyiavcYsEoM/cXzmWt6zg2rxDTIV6fKG7uY6C
+ R59zbQQItYpdbiiKXP3AQ7Vsyoc4Swh2MVx05ksPml3KYRaXwgZdpVxGAzQzbmS6ZsUk
+ hFKqBE/i/V1NnVVjwq0cZN7FQRbfbNj0VLT9zzJo0vI2vf1zI2ghqgOOttCZZN4+N/qR
+ OJNFfbUx3uQyls1lZ4AVo++FolCmlr1lg3WtFc0TRW0TSRpiuvX8jLi/jVecCpg+wtgK
+ voEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=H85BNtbicOdZEb38uhjtGBMxJZW5JkXIotuHsx7Jfnk=;
- b=erS5WR/FYXVNA0UlPJYe8Cu+LE0FwS5IqXD2MTd3xDDdUOK8SwFfI2UAH4J7VYbSK2
- eBo2jknCyCzbG4l2a2ypCZY/RjUji2Mzvlvr0DSA6y54Hbrjba7aMmmeQIdoWzx8V/wO
- maLmwgcp3tvPci+Y1bszDwiAUDFWxTXNH6rUomizuH1wJB1lxIPOHT1l3wepYVwcxlHO
- K6mo6pmEwWYs8IlX5QwjYxd7qP9h5c6Q4EFV9gC2nHTGtmwAnvS6YVXBUt3uv5sOAHXh
- tE9PUz7bPV/ekfKguI86Syv3L1JaW1c9he8clYGaGhx37wL1iNdv2raZm6k2pA/MuaLa
- A+wg==
-X-Gm-Message-State: AO0yUKWuwf/xlZz/OqhELAdc6DvgSRjyOcvlFUonffDpxKKBGdSbNtje
- 2cLUwAI61LGAHn7BHptBaYT/hg==
-X-Google-Smtp-Source: AK7set+VKQzzzrAghb4KlHvOyHw5gRfGxFCvlSyBRvRuD7rBtzhM9j1p4cLIk2Ze/JvU6OPDnwyIHw==
-X-Received: by 2002:a05:6000:188f:b0:2bf:bd69:234b with SMTP id
- a15-20020a056000188f00b002bfbd69234bmr8166688wri.32.1675363043086; 
- Thu, 02 Feb 2023 10:37:23 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=it81YP95JIRPJswh/FgK8dhTohEGTS21tUAjm96BPMQ=;
+ b=3HI/zVpawhY3t6Yud/QuKmLjm85yJ4OQ/bo6O1SXgrvFLS/jhQM39hkv0FlrAcdAQC
+ QO80crRUGgSOkb65mG1g0ira8qGF1xcN71y0XOL3EBpTWtYB6e92xYvt03YiFYDnC/qr
+ vzSc6K1ib85xvSJ3myS1FD2RxvVbSuaq//Okveoz73hlfIQSFg4o9fTa5H2tpxpumVaa
+ s8ShxiGe1RRtBzv5Xz2ErEJL5UC7rukLda2TceJxlI2pgD6dsFiYkKvCKVC96OE12aja
+ lo3sRUhL34T7Irk2/QiFG9MS1PF7lTn1gfIcKDVPamf+Ei0Yo1A6f663LD9FgXv5fWwz
+ htdA==
+X-Gm-Message-State: AO0yUKWh+wOdt3prbmddbj5a/8vRTFVQh7PFsE7IByVZbg+zPQZtbMEk
+ AFglP/uu4YsWOIx9vfuZe26dHA==
+X-Google-Smtp-Source: AK7set9UbIruMnv6kKNSa19q5j5yp9TO2ovfLKQ/UNar58Gc9j9V2Mg4N6Ph1JnAFCA//MyCXwBx+Q==
+X-Received: by 2002:a05:6000:1285:b0:2bf:b036:ffe3 with SMTP id
+ f5-20020a056000128500b002bfb036ffe3mr6707490wrx.45.1675363047162; 
+ Thu, 02 Feb 2023 10:37:27 -0800 (PST)
 Received: from localhost.localdomain (82-65-169-74.subs.proxad.net.
  [82.65.169.74]) by smtp.googlemail.com with ESMTPSA id
- p12-20020a5d48cc000000b00241fab5a296sm164664wrs.40.2023.02.02.10.37.19
+ p12-20020a5d48cc000000b00241fab5a296sm164664wrs.40.2023.02.02.10.37.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Feb 2023 10:37:22 -0800 (PST)
+ Thu, 02 Feb 2023 10:37:26 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org
-Subject: [PATCH 0/9] ASoC: dt-bindings: meson: covert axg audio to schema
-Date: Thu,  2 Feb 2023 19:36:44 +0100
-Message-Id: <20230202183653.486216-1-jbrunet@baylibre.com>
+Subject: [PATCH 1/9] ASoC: dt-bindings: create component common schema
+Date: Thu,  2 Feb 2023 19:36:45 +0100
+Message-Id: <20230202183653.486216-2-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230202183653.486216-1-jbrunet@baylibre.com>
+References: <20230202183653.486216-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
@@ -108,53 +112,67 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert AXG audio dt-binding documentation to schema
+All DAIs are component but not all components are DAI.
+Move the component properties (sound-name-prefix ATM) to a separate schema
+file so it can be used by non-DAI components, such as auxiliary devices.
 
-Jerome Brunet (9):
-  ASoC: dt-bindings: create component common schema
-  ASoC: dt-bindings: meson: fix gx-card codec node regex
-  ASoC: dt-bindings: meson: convert axg tdm interface to schema
-  ASoC: dt-bindings: meson: convert axg tdm formatters to schema
-  ASoC: dt-bindings: meson: convert axg pdm to schema
-  ASoC: dt-bindings: meson: convert axg fifo to schema
-  ASoC: dt-bindings: meson: convert axg spdif input to schema
-  ASoC: dt-bindings: meson: convert axg spdif output to schema
-  ASoC: dt-bindings: meson: convert axg sound card control to schema
-
- .../bindings/sound/amlogic,axg-fifo.txt       |  34 ----
- .../bindings/sound/amlogic,axg-fifo.yaml      | 116 +++++++++++
- .../bindings/sound/amlogic,axg-pdm.txt        |  29 ---
- .../bindings/sound/amlogic,axg-pdm.yaml       |  86 +++++++++
- .../bindings/sound/amlogic,axg-sound-card.txt | 124 ------------
- .../sound/amlogic,axg-sound-card.yaml         | 182 ++++++++++++++++++
- .../bindings/sound/amlogic,axg-spdifin.txt    |  27 ---
- .../bindings/sound/amlogic,axg-spdifin.yaml   |  90 +++++++++
- .../bindings/sound/amlogic,axg-spdifout.txt   |  25 ---
- .../bindings/sound/amlogic,axg-spdifout.yaml  |  83 ++++++++
- .../sound/amlogic,axg-tdm-formatters.txt      |  36 ----
- .../sound/amlogic,axg-tdm-formatters.yaml     |  90 +++++++++
- .../bindings/sound/amlogic,axg-tdm-iface.txt  |  22 ---
- .../bindings/sound/amlogic,axg-tdm-iface.yaml |  59 ++++++
- .../bindings/sound/amlogic,gx-sound-card.yaml |   2 +-
- .../bindings/sound/component-common.yaml      |  21 ++
- .../devicetree/bindings/sound/dai-common.yaml |  11 +-
- 17 files changed, 731 insertions(+), 306 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-tdm-iface.txt
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-tdm-iface.yaml
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ .../bindings/sound/component-common.yaml      | 21 +++++++++++++++++++
+ .../devicetree/bindings/sound/dai-common.yaml | 11 +++-------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/sound/component-common.yaml
 
+diff --git a/Documentation/devicetree/bindings/sound/component-common.yaml b/Documentation/devicetree/bindings/sound/component-common.yaml
+new file mode 100644
+index 000000000000..37766c5f3974
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/component-common.yaml
+@@ -0,0 +1,21 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/component-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Audio Component Common Properties
++
++maintainers:
++  - Jerome Brunet <jbrunet@baylibre.com>
++
++properties:
++  sound-name-prefix:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: |
++      Card implementing the routing property define the connection between
++      audio components as list of string pair. Component using the same
++      sink/source names may use this property to prepend the name of their
++      sinks/sources with the provided string.
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sound/dai-common.yaml b/Documentation/devicetree/bindings/sound/dai-common.yaml
+index d858eea73ed7..1aed2f0f1775 100644
+--- a/Documentation/devicetree/bindings/sound/dai-common.yaml
++++ b/Documentation/devicetree/bindings/sound/dai-common.yaml
+@@ -9,15 +9,10 @@ title: Digital Audio Interface Common Properties
+ maintainers:
+   - Jerome Brunet <jbrunet@baylibre.com>
+ 
+-properties:
+-  sound-name-prefix:
+-    $ref: /schemas/types.yaml#/definitions/string
+-    description: |
+-      Card implementing the routing property define the connection between
+-      audio components as list of string pair. Component using the same
+-      sink/source names may use this property to prepend the name of their
+-      sinks/sources with the provided string.
++allOf:
++  - $ref: component-common.yaml#
+ 
++properties:
+   '#sound-dai-cells': true
+ 
+ additionalProperties: true
 -- 
 2.39.0
 

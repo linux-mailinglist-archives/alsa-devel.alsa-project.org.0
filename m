@@ -2,94 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DBDC68BE64
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C350568BE67
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FDD01DC;
-	Mon,  6 Feb 2023 14:36:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FDD01DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ADFB83A;
+	Mon,  6 Feb 2023 14:37:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ADFB83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675690661;
-	bh=fBB/NWvlvHUroREOHDw6YLLGYRCM5i5djYUlj6RNAmQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1675690672;
+	bh=06llItq3OgrONTHisa13nIfm5l9ZtJLDr8aom1oC+R0=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=FphS7U/MH6jxeffh2OWF4T6GzaI7Z8YblJn9Jz6Ge4cM84tEIKfo4Knh+KDfcpJ3m
-	 0K5cVSKEH3mS6+RPgzp0w1ewRCEYOq+SlT0UGEdrWvXYVTg9R3/dBSH2thMxkec9rT
-	 xrgJ4/gB0hFgWRVv6IlXFjUEXJZIF5J6xvrejNlM=
+	b=EcSDG+4BFVNQdR60daNnUc8DhD/YfRae+tbLDzq4AliSKnKjgodd35gycAksnG7UH
+	 IK2KhiePReB6ajUM9H/aKvYvYdgx3Zi/XAWfumVpYs3MTj4cy+KmcIBnjxcJU9+8tN
+	 qDihFOfLooWrhMikkCXlSatU2+c4OQ9p9gks0BOw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4642F8055C;
-	Mon,  6 Feb 2023 14:35:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F5BBF80568;
+	Mon,  6 Feb 2023 14:35:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66D93F80022; Fri,  3 Feb 2023 17:05:09 +0100 (CET)
+ id 713CDF80169; Fri,  3 Feb 2023 21:57:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
- [209.85.160.180])
+X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2AADF80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:05:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2AADF80022
-Received: by mail-qt1-f180.google.com with SMTP id bb40so5956182qtb.2
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 08:05:04 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D697F8001D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 21:57:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D697F8001D
+Received: by mail-ot1-f52.google.com with SMTP id
+ g21-20020a9d6495000000b0068bb336141dso1737690otl.11
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 12:57:51 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7wIYdPVdo9w8wJeFawgcWpGlCHgpXqP0aU2proD/z4A=;
- b=R2r3y8mqWi+a60pjFCjxNGBg3YcqGQuozGGOxDukEWCtG9kgKVwvO2meyZadDgieqg
- JfdnDPWMopypDjzoFT3s4qc0ASb/7WHYl1MNAIgMJIIPU6rTWdPwy3codLoeOVriqmsi
- 2Z6GBd6XEV86qzdd6aOpRjrXkjVuJr2Xl9PloOVIkRm3rN6HXvfvSOIGsAiumhFeSvoY
- TNVPG1rJN8bRBSf/LnW6gRz3cOeGJnwV04rjjgrtXkrgreBedD6lOj0+bf+XE6sK23Xr
- JmbuU7zAxLggKHU3A6Js0Q2b0aCZMeKuTWujXjPd1QQxKdMNmsEgOaKmo5JOG4SDHqqB
- Ey3A==
-X-Gm-Message-State: AO0yUKVdFnEkOW8RCIe9lxtpJpQGcWWNDC+fEqcibvISxr3shCMBjzBg
- yg+tj7X3mrdUKaMGZBmo/oQWOqo2Iq6TEQ==
-X-Google-Smtp-Source: AK7set8e0siRrI8Mo+2w/iAWHXlCdY7aAGYXx0X+Wx135AoDkaWTRoV7pcIAvu/Kvus84HbCmKvZ8w==
-X-Received: by 2002:ac8:5c43:0:b0:3b8:6c97:e5de with SMTP id
- j3-20020ac85c43000000b003b86c97e5demr21413868qtj.41.1675440302644; 
- Fri, 03 Feb 2023 08:05:02 -0800 (PST)
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com.
- [209.85.219.181]) by smtp.gmail.com with ESMTPSA id
- b9-20020a05620a270900b0071df8b60681sm2044463qkp.94.2023.02.03.08.05.01
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 08:05:02 -0800 (PST)
-Received: by mail-yb1-f181.google.com with SMTP id g2so6781314ybk.8
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 08:05:01 -0800 (PST)
-X-Received: by 2002:a5b:941:0:b0:865:e214:f4e3 with SMTP id
- x1-20020a5b0941000000b00865e214f4e3mr352487ybq.604.1675440301482; Fri, 03 Feb
- 2023 08:05:01 -0800 (PST)
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DTUpcYkNxPIlJHACYCYR7pDb1Buy+e4lFP4bk5Zgp34=;
+ b=NyVKYchIRv3ha/CLOAGt3R6mUbUM9V7sT99EsF6fLvnSrHI8zgFeii63jf3rHt7nv6
+ 8x+pfyR84Cr5R45mSslbyOiwlbThhpdv74jw1XPl0ppxo9x3OLWNPtEQEPpihE1VoVUw
+ P4iLFUvy6pREY+5Lf4OIdtNwUuXQl9sBV06uoGAB83fcjgrQe1J+zr4dFTpq4qINi/xU
+ NptxWX9ddQulWdzkLp4cK/EF2713rFiheUeSUft8BZaPNhi/pVV+QXkFIHA0Yazl2xBU
+ +i5c1JpVmsULw/RMHQOvwqbSj8v/v389OKJ7Htget/Gd2O0v9lZxcwECd08z2QocF5GJ
+ ckIw==
+X-Gm-Message-State: AO0yUKUN3ET4hlZWVG3+q1qb0pK7WLDMdrvpKihNei9OxWvokygryd5E
+ 6h5Dq96jLHQVAs3oBGKFlA==
+X-Google-Smtp-Source: AK7set/idxy63+ygBDyPnMqtJWkCkCzx9MyU4A+nT1Br4FymPkR4Z0JILK7N/Htqiz/3btTinW8cgQ==
+X-Received: by 2002:a05:6830:1e57:b0:68b:b721:8f1c with SMTP id
+ e23-20020a0568301e5700b0068bb7218f1cmr6718583otj.27.1675457869992; 
+ Fri, 03 Feb 2023 12:57:49 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ c22-20020a9d6856000000b0068bd5af9b82sm1611458oto.43.2023.02.03.12.57.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Feb 2023 12:57:49 -0800 (PST)
+Received: (nullmailer pid 873929 invoked by uid 1000);
+ Fri, 03 Feb 2023 20:57:48 -0000
+Date: Fri, 3 Feb 2023 14:57:48 -0600
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Subject: Re: [PATCH v3 2/6] dt-bindings: treewide: add feature-domains
+ description in binding files
+Message-ID: <20230203205748.GA860175-robh@kernel.org>
+References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
+ <20230127164040.1047583-3-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
-References: <20230113062339.1909087-1-hch@lst.de>
- <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
- <20230116071306.GA15848@lst.de>
- <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
- <20230203071423.GA24833@lst.de>
- <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
- <20230203083037.GA30738@lst.de>
- <d10fe31b2af6cf4e03618f38ca9d3ca5c72601ed.camel@physik.fu-berlin.de>
- <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
- <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
-In-Reply-To: <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 3 Feb 2023 17:04:49 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWJ3XOBewDoU8umAHc6b83hJQge5xjY3Cxx03AvoiR7iQ@mail.gmail.com>
-Message-ID: <CAMuHMdWJ3XOBewDoU8umAHc6b83hJQge5xjY3Cxx03AvoiR7iQ@mail.gmail.com>
-Subject: Re: remove arch/sh
-To: Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230127164040.1047583-3-gatien.chevallier@foss.st.com>
 X-Mailman-Approved-At: Mon, 06 Feb 2023 14:35:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -103,46 +93,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org,
+ alexandre.torgue@foss.st.com, edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, herbert@gondor.apana.org.au,
+ olivier.moysan@foss.st.com, kuba@kernel.org, arnaud.pouliquen@foss.st.com,
+ pabeni@redhat.com, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-serial@vger.kernel.org, alsa-devel@alsa-project.org,
+ fabrice.gasnier@foss.st.com, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, vkoul@kernel.org,
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmaengine@vger.kernel.org, davem@davemloft.net, jic23@kernel.org,
+ linux-i2c@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Randy,
+On Fri, Jan 27, 2023 at 05:40:36PM +0100, Gatien Chevallier wrote:
+> feature-domains is an optional property that allows a peripheral to
+> refer to one or more feature domain controller(s).
+> 
+> Description of this property is added to all peripheral binding files of
+> the peripheral under the STM32 System Bus. It allows an accurate
+> representation of the hardware, where various peripherals are connected
+> to this firewall bus. The firewall can then check the peripheral accesses
+> before allowing it to probe.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> Patch not present in V1 and V2.
+> 
+>  Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml | 5 +++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dma.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml  | 5 +++++
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml | 5 +++++
+>  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml | 5 +++++
+>  Documentation/devicetree/bindings/media/st,stm32-cec.yaml   | 5 +++++
+>  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml  | 5 +++++
+>  .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml      | 5 +++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml | 5 +++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml  | 6 ++++++
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml        | 5 +++++
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml      | 5 +++++
+>  .../devicetree/bindings/phy/phy-stm32-usbphyc.yaml          | 5 +++++
+>  .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/rng/st,stm32-rng.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 5 +++++
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml   | 5 +++++
+>  Documentation/devicetree/bindings/sound/st,stm32-sai.yaml   | 5 +++++
+>  .../devicetree/bindings/sound/st,stm32-spdifrx.yaml         | 5 +++++
+>  Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml    | 5 +++++
+>  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/usb/dwc2.yaml             | 5 +++++
+>  24 files changed, 121 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> index 4ccb335e8063..cb2ad7d5fdb5 100644
+> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> @@ -41,6 +41,11 @@ properties:
+>      maximum: 2
+>      default: 0
+>  
+> +  feature-domains:
+> +    $ref: /schemas/feature-controllers/feature-domain-controller.yaml#/properties/feature-domains
 
-On Fri, Feb 3, 2023 at 4:57 PM Randy Dunlap <rdunlap@infradead.org> wrote:
-> Is this "sh64" still accurate and applicable? from Documentation/kbuild/kbuild.rst:
->
-> But some architectures such as x86 and sparc have aliases.
->
-> - x86: i386 for 32 bit, x86_64 for 64 bit
-> - sh: sh for 32 bit, sh64 for 64 bit <<<<<<<<<<<<<<<
-> - sparc: sparc32 for 32 bit, sparc64 for 64 bit
+Not how common properties work. Consumer properties should be in a 
+schema with 'select: true' (the one you are referencing) and here you 
+just need to define the entries. Like clocks, power-domains, etc.
 
-No, support for sh64 was removed in commit 37744feebc086908
-("sh: remove sh5 support") in v5.8.
+> +    minItems: 1
+> +    maxItems: 3
 
-Gr{oetje,eeting}s,
+Why is this variable and what is each entry?
 
-                        Geert
+I still don't like the naming. Everything is a feature and a domain... 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+It might be a bit easier to come up with a name with multiple users of 
+this binding presented. I'm hesistant to define any new common binding 
+with only 1 user as I've said multiple times on this binding.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rob

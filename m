@@ -2,77 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE154688B95
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 01:13:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B19688BE5
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 01:35:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F34331E7;
-	Fri,  3 Feb 2023 01:12:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F34331E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A04826C0;
+	Fri,  3 Feb 2023 01:34:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A04826C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675383194;
-	bh=gqxwPeNlRx+kG+3R5N+r3/ZF+0RUbb6MkLeIP15eV5Q=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675384548;
+	bh=rd2jpbHSBQLXiM0eHy0iWR4fPsO4zdF/vUUs7PxdqBA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Sx4DHcNn5FoAzrS/YmV80ZM2xRZ8Gf8T77XudKC3bBVDkQmIPfiTPJ2/RTa1IuIm0
-	 BW0JN9997n5pVJWeIJDZhftS+4pX3xgOCRedfF7q/iQSccjjhDOVgcbfwY5Rgc8l08
-	 VxzmQ9ynTTLJhV6fs5yEbG8zpRa5iKZDp7glmh9o=
+	 Cc:From;
+	b=OrNhalsRBWuiy4n+7bSMw6RX77TICnUAJx9koEFpIEkk1r5ExZUVoF7AdnJ9wI/sB
+	 JRREsufq7Kh9+bYhvA8H+uvlYatUAV1zyb3YfjB2eb2gfiaRPmkKT9whY/aSvb5hUl
+	 CRMqTrt2wJg6o5Ua6yndVC8dUZlYZpVp1TO3lk+A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3C9BF804DF;
-	Fri,  3 Feb 2023 01:12:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B47EBF804DF;
+	Fri,  3 Feb 2023 01:34:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3134EF804C2; Fri,  3 Feb 2023 01:12:13 +0100 (CET)
+ id C5B90F804C2; Fri,  3 Feb 2023 01:34:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=HTML_MESSAGE,NICE_REPLY_A,
- RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from 5.mo552.mail-out.ovh.net (5.mo552.mail-out.ovh.net
- [188.165.45.220])
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 937ECF800ED
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 01:12:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 937ECF800ED
-Received: from mxplan2.mail.ovh.net (unknown [10.108.1.237])
- by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 974DD2B8AB
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 00:12:07 +0000 (UTC)
-Received: from gnuinos.org (37.59.142.97) by DAG5EX1.mxp2.local (172.16.2.9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Fri, 3 Feb
- 2023 01:12:07 +0100
-Authentication-Results: garm.ovh; auth=pass
- (GARM-97G002421b4ed4-7ef3-40b7-8000-3b5690505430,
- AF3C1994F3CAB3BA2770C3D535EE4C8A39E6775B) smtp.auth=aitor_czr@gnuinos.org
-X-OVh-ClientIp: 88.11.110.122
-Message-ID: <61f8c285-9be5-4842-81c5-ac319e3f0485@gnuinos.org>
-Date: Fri, 3 Feb 2023 01:12:06 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC063F800ED
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 01:34:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC063F800ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
+ header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=qbxz0Jif; 
+ dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=o+LSMLSE
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1D37A5C00A0;
+ Thu,  2 Feb 2023 19:34:35 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Thu, 02 Feb 2023 19:34:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1675384475; x=
+ 1675470875; bh=ls3QJBMTEbPHVfAcVhN6P9TipGx254UEU47tQcG7ILY=; b=q
+ bxz0JifNTE+8ml5CINNSRdTnihPDow5RxeUjVz3EvsyhkWJz2sPSFwq/8xegVHnu
+ dkmuSSWRPO+MKC+K9DLS3X2wMcS2v5/4C8ojPYm3i4WQ9Ul9MGo7zdmRFLpiDKU9
+ /rJHw8anVVR0BQNsaPFOOLpcN/TA6+bEimbOsd+TWlkiG+dIQ5rwe4vLusPNgd5p
+ 2lAKLQKDgp90GJcHnZ7AoVZq8JHtz30eCEeTQkJ/34Ap1KC7WavakfPdtbbyD3Fm
+ N8/JMrvfiIsy3VETl3GzNmM/EFr972U+EzuFhUgqPESY0bePDC/YsgyggrowH1nW
+ ZBMG52AIRR2FPTfCxQzqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1675384475; x=
+ 1675470875; bh=ls3QJBMTEbPHVfAcVhN6P9TipGx254UEU47tQcG7ILY=; b=o
+ +LSMLSEm5oY0UoUxgr/C6KypVgQfvHhK76V63kIvJI+EhS+3s2FcM0a9PflCWGjN
+ 1j9a7K5VujeDYPpCIN3r0qh6RbbUsy7iF6aXvmM1AVyIksh4YxLZVkzqEx37isoI
+ HZUL4c8x1m28+N1yHoDZb4bre/PL3OC2YYZPjn3VjuYUcyKmrrtx0VNeTAl2FzbS
+ BY75a1o4MGLeGBFbG3MXMedFLJfTskiWGeSYkW3yJsRjfqCFXhiyVkmMSegRrjSd
+ mJbf70EToDJC27NbqVCqOaFzFsjkGAPn8/shUTYoLRuNGo+Pd4o5w7lFTZC2/6EK
+ PGMzuzs3uqZEk/cpUOW5g==
+X-ME-Sender: <xms:mlbcYyl6TSwFsTYrmC9TrOqNe-s1NOLHcg3N9rCh84_32Lq9Qj-Jew>
+ <xme:mlbcY531f-xfV7EQYeoTD4svM268_iYcLv9qPcTXfV-ZrCRwbyUmzzFMUkhfRxgEK
+ hWlsbbiMMqrIeK_x6E>
+X-ME-Received: <xmr:mlbcYwr6QjMEBtvIQJttIjYVqwDxywe_yPFEkttAH6eGJI6SqockZD6bTI5X8l05ih46lGlsQNo5n8Jeew3a6uTMhx1DKHTlqr8G>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudefledgvddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjgesth
+ ekredttddtudenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgr
+ khgrshhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepuddthf
+ ejhfefkeetkefhudefgfetueetgfdvffejtdehtefhuddufeeghffgtddtnecuvehluhhs
+ thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhih
+ esshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:mlbcY2neRHJI6lbX0UR6jsx8wl43aJ2X9zdmMTn9LfigBCdKpsjKBg>
+ <xmx:mlbcYw3NNNpJcb_C6qtxlrlAm-9MYfys3pCpxLtY_GcoAYcItsa2jg>
+ <xmx:mlbcY9uYlyc3zlgOoG-LfHfHRMJBgvzXJJ9x1By7a4LKCk-oyz_91Q>
+ <xmx:m1bcY1-OrbZJv0ELZThgx1f7MuOHgxFIUabpPeEVcagY3EMFWlD9yw>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Feb 2023 19:34:33 -0500 (EST)
+Date: Fri, 3 Feb 2023 09:34:29 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Alan Young <consult.awy@gmail.com>
+Subject: Re: Overflow in calculating audio timestamp
+Message-ID: <Y9xWlbhPg3PteH5G@workstation>
+Mail-Followup-To: Alan Young <consult.awy@gmail.com>,
+ alsa-devel@alsa-project.org
+References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: Is there any way to install alsa-lib with the suid bit set?
-To: <alsa-devel@alsa-project.org>
-References: <CAFBfLLcrTQ6_X85XWDdkcQgYUYFfRmJr1eYW29TP0=PFAVsmgg@mail.gmail.com>
-Content-Language: en-US
-From: aitor <aitor_czr@gnuinos.org>
-In-Reply-To: <CAFBfLLcrTQ6_X85XWDdkcQgYUYFfRmJr1eYW29TP0=PFAVsmgg@mail.gmail.com>
-X-Originating-IP: [37.59.142.97]
-X-ClientProxiedBy: DAG2EX2.mxp2.local (172.16.2.4) To DAG5EX1.mxp2.local
- (172.16.2.9)
-X-Ovh-Tracer-GUID: 2a102a6f-6827-4ce1-8e8c-e08c2c6c4667
-X-Ovh-Tracer-Id: 5861153441797105175
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrudefledgudekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpegtkfffgggfuffvfhfhjghisegrtderredtfeejnecuhfhrohhmpegrihhtohhruceorghithhorhgptgiirhesghhnuhhinhhoshdrohhrgheqnecuggftrfgrthhtvghrnhepkeefgfejffduteejledtjeejuddvheeikeekkedvfffggeehveevvedvvdffledunecuffhomhgrihhnpehmrghnjedrohhrghenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeorghithhorhgptgiirhesghhnuhhinhhoshdrohhrgheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprghlshgrqdguvghvvghlsegrlhhsrgdqphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.29
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,32 +119,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Stefan,
+Hi,
 
-On 29/1/23 22:52, Stefan Alexe wrote:
-> I am trying to only use a static /dev. I have opened an issue about this on
-> GitHub and got it to work only as the root user. This resembles my
-> experience with xorg. In that case I had to use the suid use flag. Is there
-> an equivalent in this situation?
+Thank you for the report.
 
-The suid flag can be applied only to executables. Whereas there are examples
-of libraries marked executable that can be run as standalone applications [*],
-the point of setting this executable bit is to show some info about the library,
-like the version number and so on. Nothing to do with the routines it provides
-to every program linked against the library then. So, the answer is no. On the
-other hand, the same goes for linux capabilities:
+On Thu, Feb 02, 2023 at 01:55:24PM +0000, Alan Young wrote:
+> sound/core/pcm_lib.c:update_audio_tstamp() contains the following
+> calculation:
+> 
+>         audio_nsecs = div_u64(audio_frames * 1000000000LL,
+>                 runtime->rate);
+> 
+> This will result in a 64-bit overflow after 4.4 days at 48000 Hz, or 1.1
+> days at 192000.
+> 
+> Are you interested in a patch to improve this?
+> 
+> The same calculation occurs in a couple of other places.
 
-https://man7.org/linux/man-pages/man7/capabilities.7.html
+I'm interested in your patch. Would you please post it C.C.ed to the
+list and me?  As you noted, we can see the issue in ALSA PCM core and
+Intel HDA stuffs at least.
 
-Hope this helps,
+ * sound/core/pcm_lib.c
+ * sound/pci/hda/hda_controller.c
+ * sound/soc/intel/skylake/skl-pcm.c
 
-Aitor.
+I note that 'NSEC_PER_SEC' macro is available once including
+'linux/time.h'. It is better to use instead of the literal.
+The macro is defined in 'include/vdso/time64.h'.
 
-[*] For the sake of example, try running *|libc.so.6*|
 
-   
+As another issue, the value of 'audio_frames' comes from the value of
+'struct snd_pcm_runtime.hw_ptr_wrap'. In ALSA PCM core, the value is
+increased by the size of PCM buffer every time hw_ptr cross the boundary
+of PCM buffer, thus multiples of the size is expected. Nevertheless,
+there is no check for overflow within 64 bit storage. In my opinion, the
+committer had less care of it since user does not practically playback or
+capture PCM substream so long. But the additional check is preferable as
+long as it does not break the fallback implementation of audio time stamp.
 
-  
+
+Regards
+
+Takashi Sakamoto

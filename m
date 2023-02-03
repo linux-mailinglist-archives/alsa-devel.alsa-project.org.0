@@ -2,115 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A02076899A9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 14:28:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCAB6899F7
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 14:44:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B899DFA;
-	Fri,  3 Feb 2023 14:27:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B899DFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id B784C7F1;
+	Fri,  3 Feb 2023 14:43:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B784C7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675430881;
-	bh=9zvCM+eD3HFAM/JHI9K9Jo747SBmayBE6kxnuy/yG1Q=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675431870;
+	bh=hPsY8aCZasv9t9B1xk6z24UjKT5ajybwZsEwPLgvmZQ=;
+	h=References:From:To:Subject:Date:In-reply-to:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=PnT+LLqN016aGRCbSVroTH5QtCopGUxMBh9QuYdRwobMUQmzPTr8QbUO/3FhDPe/P
-	 HClqvylJffR15V74NXYok6gO6tZTKxjNIc6NwgOiNpRJ2HNoJpqCu7bPBYOFSPcVBZ
-	 ee2CaG8mX8sFzlrQ6CtxxUHBGmluG/eJo1wME+JA=
+	b=MaGQNKDHpj/9twSX3ECEEiDiVvd3S43IRy2Z/rOornUADJ1ajanUMib5WD9kf6Use
+	 8vcZIU/nSBjBztSEstmBGEO9LfHP7mr4mGDxHFcOYcbvRcsbsEwl4KmBL/CUX+DNBe
+	 BJ8VA0C0mvlbyfaTBdvCqxHZlWIAivmIsy2xGXxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 200C6F80169;
-	Fri,  3 Feb 2023 14:27:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5361F800E3;
+	Fri,  3 Feb 2023 14:43:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5D19F8032B; Fri,  3 Feb 2023 14:26:59 +0100 (CET)
+ id 8354AF8032B; Fri,  3 Feb 2023 14:43:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
  autolearn=ham autolearn_force=no version=3.4.6
-Received: from omta039.useast.a.cloudfilter.net
- (omta039.useast.a.cloudfilter.net [44.202.169.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B96CFF80169
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 14:26:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B96CFF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29D28F80169
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 14:43:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29D28F80169
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=embeddedor.com header.i=@embeddedor.com
- header.a=rsa-sha256 header.s=default header.b=GS02NFii
-Received: from eig-obgw-5009a.ext.cloudfilter.net ([10.0.29.176])
- by cmsmtp with ESMTP
- id NlX7p5LifJlHBNw5WpkhDl; Fri, 03 Feb 2023 13:26:46 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTP
- id Nw5VpYU0RVU6VNw5VpzQfY; Fri, 03 Feb 2023 13:26:45 +0000
-X-Authority-Analysis: v=2.4 cv=Z/j/oVdA c=1 sm=1 tr=0 ts=63dd0b95
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=wTog8WU66it3cfrESHnF4A==:17
- a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10 a=m04uMKEZRckA:10
- a=wYkD_t78qR0A:10 a=iox4zFpeAAAA:8 a=foHCeV_ZAAAA:8 a=VwQbUJbxAAAA:8
- a=IyAp9IQCZIwS9LQYF3AA:9 a=QEXdDO2ut3YA:10 a=WzC6qhA0u3u7Ye7llzcV:22
- a=h8a9FgHX5U4dIE3jaWyr:22 a=AjGcO6oz07-iQ99wixmX:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ySRLWLu89+QMAMhoYmt4n2D42TaV++/FIinnTamcjbs=; b=GS02NFii4yxQLyVGj/NN0afEyL
- bqHdDW4OS28UVvoUtrWf6om+Oj5dQPby7lzks+R1AX1wzPzsLBI/w+K8Zlb7ptOJ8f3HMb/kAqyy7
- PV/fEcq0lJ/YxFA2uZV89NwL/VyE+h9IM82MSZD5Gl9re/nmdMA2izsiLhMBHUQCol1GYCRiXbboM
- hNyfa6TKNgk0003wmNMHrk1eM35xBw9tpTt2x2/af6S5BcQy9EWj/2gPMHZZj7HZ/aPqiFIRQd2+e
- 3MkSMrWWj2pIGvY2vE5lP8or6pTuKstNcZ9CtWzxbv4WUeRSS04Tl30xqpLewJxS05BTW0hlXKk9q
- sADZxnAw==;
-Received: from 187-162-31-110.static.axtel.net ([187.162.31.110]:35378
- helo=[192.168.15.7])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
- (envelope-from <gustavo@embeddedor.com>) id 1pNw5U-0030IK-IW;
- Fri, 03 Feb 2023 07:26:44 -0600
-Message-ID: <652684af-bd10-99da-1ed8-104407493428@embeddedor.com>
-Date: Fri, 3 Feb 2023 07:27:03 -0600
+ unprotected) header.d=baylibre-com.20210112.gappssmtp.com
+ header.i=@baylibre-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=SoaciP0t
+Received: by mail-wm1-x329.google.com with SMTP id q8so3893339wmo.5
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 05:43:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ugc/Mf7gmptS4sxRo47lha6Z1ILO8fTg7LLtEjNneFs=;
+ b=SoaciP0tiX4p1fUCbCA4vQIOtc0ihsGJTT654jpN5I372gNWZquSKEnF2CuI6cRwhq
+ O1ng6H23VGd9bpb+EHMYvbITmdN/tTM32EOPdec5fCgN5jtTTGjpZFEQwX5h1+CpnPV/
+ dH/zwHOilwFzcJ+JZ+O0QkfFZkzLjMZmLiku2NEaVcAZwLmi+t78q1ywLpRcWvSSIfQT
+ fhOFCLQAqThE+0Ob/clHdDUTd5ObPn6UvMapgCuMk0zReCXPUZ38yqAk8eyd7/KMks42
+ 8b2elC8bGFWgi4aPZJVNNUIR5zzCDNVS4pSlCJDRhgqQgWG/akslxJEgDm0lRX2x99DN
+ NF5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ugc/Mf7gmptS4sxRo47lha6Z1ILO8fTg7LLtEjNneFs=;
+ b=5bO7t5WjckRoAXjqkOce5nC0d8mWxqQVSJ66y1p48npITU3J8bgJYmsXIF2Y/EQqFD
+ RmOE+KWU3JYY6Ubdq6yEcsIJ2b+3WxkEJ0gu4hyiDDqeco/UoJBfWrylWYF78nbbL2K0
+ ZJrg4R/a1JQCAk+0PSfYGMK0YrR94HgK1enYK3B/Z12PxITfOIaMG/N27+2Pb2iaNN3Z
+ nW6pA5dgeqlI+xCa+4srDnOkwDsPSCn54WLi+lmDlywcWXMFRrsZN3Ed2hEQlTfomms8
+ KAPHEzMHMzycBL2YLGDCm7mkA5BDvkuLtNBIgJ9/T5BOi7JkfMbUbqKMq5FQcmog8qaZ
+ Je1A==
+X-Gm-Message-State: AO0yUKXpAvrghfW6iuy8Q2dWda6Sw8IhNS1MQTo0T+4FQdgQpVcZWt/g
+ JrmgbY19TNBGkIBSG3ulNB/Jdg==
+X-Google-Smtp-Source: AK7set9drg9MA5H07h22uzZUlBFGRMcQpErN2uGMh/pn7M4dkwP/6Oix641g7LbENbXJC+E4TYujVw==
+X-Received: by 2002:a05:600c:cca:b0:3db:bc5:b2ae with SMTP id
+ fk10-20020a05600c0cca00b003db0bc5b2aemr8940843wmb.41.1675431796833; 
+ Fri, 03 Feb 2023 05:43:16 -0800 (PST)
+Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31]) by smtp.gmail.com with ESMTPSA id
+ v16-20020a05600c471000b003dd1bd66e0dsm3127550wmo.3.2023.02.03.05.43.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Feb 2023 05:43:16 -0800 (PST)
+References: <20230202183653.486216-1-jbrunet@baylibre.com>
+ <20230202183653.486216-7-jbrunet@baylibre.com>
+ <6e6ed493-4748-46ca-7a26-fe9cf6e2377a@linaro.org>
+User-agent: mu4e 1.8.10; emacs 28.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Mark Brown
+ <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH 6/9] ASoC: dt-bindings: meson: convert axg fifo to schema
+Date: Fri, 03 Feb 2023 14:27:50 +0100
+In-reply-to: <6e6ed493-4748-46ca-7a26-fe9cf6e2377a@linaro.org>
+Message-ID: <1jmt5un9u4.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH][next] ASoC: uapi: Replace zero-length arrays with
- __DECLARE_FLEX_ARRAY() helper
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <YzIzUjUuJKf0mkKg@work>
- <fcd83e77-a3fb-9061-771a-8509ea6f5950@embeddedor.com>
- <Y9wmnfTi/p4FuRmd@sirena.org.uk>
- <bb43c410-bd8c-66fe-19a1-0f41442838eb@embeddedor.com>
- <Y90ExljX2qCsowhu@sirena.org.uk>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <Y90ExljX2qCsowhu@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.31.110
-X-Source-L: No
-X-Exim-ID: 1pNw5U-0030IK-IW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-31-110.static.axtel.net ([192.168.15.7])
- [187.162.31.110]:35378
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 3
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfH7FM6L5rRFwrZoA4/Aa6rxQJ5/219ew8fHju0w7eLdTABDIpFCpameynkHvAN7W2hShcrDIwjr4/WYx4hBRzEKXa5W8nFYFUHj3ddTAVCee6cBlT2vR
- wlEPFAbAihbJ7dQHi/6Qz3yHEDK16wSasI43UQyGNMwEDoHLsZyXuSYcVVc5LPGfAypcvloc00DScxFackWyDdgCBLgw/+8is+lyck/bMSMlDDJS0JxFv985
+Content-Type: text/plain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,48 +105,178 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-hardening@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-amlogic@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+On Fri 03 Feb 2023 at 09:02, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 
-On 2/3/23 06:57, Mark Brown wrote:
-> On Thu, Feb 02, 2023 at 03:18:47PM -0600, Gustavo A. R. Silva wrote:
->> On 2/2/23 15:09, Mark Brown wrote:
->>> On Thu, Feb 02, 2023 at 02:34:17PM -0600, Gustavo A. R. Silva wrote:
-> 
->>> As documented in submitting-patches.rst please send patches to the
->>> maintainers for the code you would like to change.  The normal kernel
->>> workflow is that people apply patches from their inboxes, if they aren't
->>> copied they are likely to not see the patch at all and it is much more
->>> difficult to apply patches.
-> 
->> Yep; that's exactly what I did. :)
-> 
->> scripts/get_maintainer.pl --nokeywords --nogit --nogit-fallback include/uapi/sound/asoc.h
->> Jaroslav Kysela <perex@perex.cz> (maintainer:SOUND)
->> Takashi Iwai <tiwai@suse.com> (maintainer:SOUND)
->> alsa-devel@alsa-project.org (moderated list:SOUND)
->> linux-kernel@vger.kernel.org (open list)
-> 
->> If you're one the maintainers of that file, you're clearly not listed as such.
-> 
-> You did manage to figure out that it's an ASoC patch given the subject
-> line...
+> On 02/02/2023 19:36, Jerome Brunet wrote:
+>> Convert the DT binding documentation for the Amlogic axg audio FIFOs to
+>> schema.
+>> 
+>> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+>> ---
+>>  .../bindings/sound/amlogic,axg-fifo.txt       |  34 -----
+>>  .../bindings/sound/amlogic,axg-fifo.yaml      | 116 ++++++++++++++++++
+>>  2 files changed, 116 insertions(+), 34 deletions(-)
+>>  delete mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+>>  create mode 100644 Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
+>> 
+>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+>> deleted file mode 100644
+>> index fa4545ed81ca..000000000000
+>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+>> +++ /dev/null
+>> @@ -1,34 +0,0 @@
+>> -* Amlogic Audio FIFO controllers
+>> -
+>> -Required properties:
+>> -- compatible: 'amlogic,axg-toddr' or
+>> -	      'amlogic,axg-toddr' or
+>> -	      'amlogic,g12a-frddr' or
+>> -	      'amlogic,g12a-toddr' or
+>> -	      'amlogic,sm1-frddr' or
+>> -	      'amlogic,sm1-toddr'
+>> -- reg: physical base address of the controller and length of memory
+>> -       mapped region.
+>> -- interrupts: interrupt specifier for the fifo.
+>> -- clocks: phandle to the fifo peripheral clock provided by the audio
+>> -	  clock controller.
+>> -- resets: list of reset phandle, one for each entry reset-names.
+>> -- reset-names: should contain the following:
+>> -  * "arb" : memory ARB line (required)
+>> -  * "rst" : dedicated device reset line (optional)
+>> -- #sound-dai-cells: must be 0.
+>> -- amlogic,fifo-depth: The size of the controller's fifo in bytes. This
+>> -  		      is useful for determining certain configuration such
+>> -		      as the flush threshold of the fifo
+>> -
+>> -Example of FRDDR A on the A113 SoC:
+>> -
+>> -frddr_a: audio-controller@1c0 {
+>> -	compatible = "amlogic,axg-frddr";
+>> -	reg = <0x0 0x1c0 0x0 0x1c>;
+>> -	#sound-dai-cells = <0>;
+>> -	interrupts = <GIC_SPI 88 IRQ_TYPE_EDGE_RISING>;
+>> -	clocks = <&clkc_audio AUD_CLKID_FRDDR_A>;
+>> -	resets = <&arb AXG_ARB_FRDDR_A>;
+>> -	fifo-depth = <512>;
+>> -};
+>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
+>> new file mode 100644
+>> index 000000000000..f6222ad08880
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml
+>> @@ -0,0 +1,116 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/amlogic,axg-fifo.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Amlogic AXG Audio FIFO controllers
+>> +
+>> +maintainers:
+>> +  - Jerome Brunet <jbrunet@baylibre.com>
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +
+>> +properties:
+>> +  $nodename:
+>> +    pattern: "^audio-controller@.*"
+>> +
+>> +  compatible:
+>> +    oneOf:
+>> +      - items:
+>> +          - enum:
+>> +              - amlogic,axg-toddr
+>> +              - amlogic,axg-frddr
+>> +      - items:
+>> +          - enum:
+>> +              - amlogic,g12a-toddr
+>> +              - amlogic,sm1-toddr
+>> +          - const:
+>> +              amlogic,axg-toddr
+>> +      - items:
+>> +          - enum:
+>> +              - amlogic,g12a-frddr
+>> +              - amlogic,sm1-frddr
+>> +          - const:
+>> +              amlogic,axg-frddr
+>> +
+>
+> All usual comments apply.
+>
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#sound-dai-cells":
+>> +    const: 0
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: Peripheral clock
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  resets:
+>> +    items:
+>> +      - description: Memory ARB line
+>> +      - description: Dedicated device reset line
+>
+> This won't work without minItems and you should see errors on your DTS
+> or in dt_binding_check
+>
 
-As with the list of maintainers, I use a tool to get that info:
+The example provided here worked but there is indeed a warning with the
+axg-frddr variant.
 
-git log --oneline include/uapi/sound/asoc.h
+I'm adding a 2nd example so it does not happen again.
 
-I think we have run into this same issue (you not being listed in the
-MAINTAINERS file) at least once in the past, right? (thinkingface)
+>> +
+>> +  reset-names: true
+>
+> minItems
+> maxItems
 
-IMHO, the sensible solution for this is to keep the MAINTAINERS file
-up-to-date. So, get_maintainer.pl can continue to be useful for people.
+Adding this causes troubles with the reset-names definitions in the 'if'
+clause. If I put min: 1, max: 2 and min: 2 in the 'then' clause I get:
 
---
-Gustavo
+> Documentation/devicetree/bindings/sound/amlogic,axg-fifo.yaml: allOf:1:then:properties:reset-names: 'oneOf' conditional failed, one must be fixed:
+>        [{'const': 'arb'}, {'const': 'rst'}] is too long
+>        [{'const': 'arb'}, {'const': 'rst'}] is too short
+>        False schema does not allow 2
+>        1 was expected
+>        hint: "minItems" is only needed if less than the "items" list length
+>        from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+
+The older devices just have the 'arb' reset.
+Newer devices have a 2nd reset line (called rst here)
+
+If I just restrict the min and max, it would be valid for the older
+devices to have 'rst' only - but it is not valid.
+
+With just 'true', it works as expected (throw errors if an incorrect
+name or number of names is passed). Min and Max comes from the items list.
+
+Any suggestions ?
+
+>
+>> +
+>> +  amlogic,fifo-depth:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description: Size of the controller's fifo in bytes
+>> +
+>> +required:
+>
+> Best regards,
+> Krzysztof
 

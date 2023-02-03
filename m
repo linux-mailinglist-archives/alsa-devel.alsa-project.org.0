@@ -2,75 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF96968BE62
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C597B68BE63
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EC2B829;
-	Mon,  6 Feb 2023 14:36:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EC2B829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E939832;
+	Mon,  6 Feb 2023 14:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E939832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675690622;
-	bh=kHTeO7fdLoZ5/9N7FtwNPvxiVI7qsyMzw0nuJNAUkTE=;
-	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
+	s=default; t=1675690641;
+	bh=nLaN6niuDgmuORXdhUtclIEwbrHGlwBcGootV3J3l2s=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ghOHoC/um8SLqUqE+xUnCV8NX0AU8oqO+XT/Ui7NB4XAoKE731Ejq7EZhzKwKJGL6
-	 HufkM/raH7pVmWbJW3kMu1ai5bG5jRSyVGUyKL0Z2PcZSXkukGazpoEWHXtuQT1gur
-	 iRG1wN4OuJB+uL9wkWMwLRn1SlWuPFHFYJpXtTuQ=
+	b=kfxS585LGJUKBQYlM8l4x4YyAaSswHaPnSBMtXT4jfgUQ3lQYJyWIGG973O/S7H5/
+	 2LRZ1Rl8DSzO5AD8aT9T4oqORJgclQ/Gy3Gt8Ih1HgRxdS0FnfNWFsiEbiZOlMuru7
+	 6UVN4Ki50QQ7DalmIBjIlm1zF9ke2axMVpkzxu84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7684BF800F5;
-	Mon,  6 Feb 2023 14:35:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44E71F80551;
+	Mon,  6 Feb 2023 14:35:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F721F8032B; Fri,  3 Feb 2023 11:36:57 +0100 (CET)
+ id 31D8EF8032B; Fri,  3 Feb 2023 13:30:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8885BF80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 11:36:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8885BF80022
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1pNtQu-0005LU-Pm; Fri, 03 Feb 2023 11:36:40 +0100
-Received: from p57bd9464.dip0.t-ipconnect.de ([87.189.148.100]
- helo=[192.168.178.81]) by inpost2.zedat.fu-berlin.de (Exim 4.95)
- with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1pNtQu-000Qu4-EY; Fri, 03 Feb 2023 11:36:40 +0100
-Message-ID: <1c4be6be8aa9f69af71c967b4cc0b77344d374de.camel@physik.fu-berlin.de>
-Subject: Re: remove arch/sh
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 03 Feb 2023 11:36:35 +0100
-In-Reply-To: <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
-References: <20230113062339.1909087-1-hch@lst.de>
- <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
- <20230116071306.GA15848@lst.de>
- <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
- <20230203071423.GA24833@lst.de>
- <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
- <20230203083037.GA30738@lst.de>
- <d10fe31b2af6cf4e03618f38ca9d3ca5c72601ed.camel@physik.fu-berlin.de>
- <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00632F80169
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 13:30:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00632F80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=PC6jnhpr
+Received: by mail-wm1-x32b.google.com with SMTP id o36so3759533wms.1
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 04:30:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=oliUtLWESo3lQu6iHKqwx+2QOwN2sNCjDu921E6eImU=;
+ b=PC6jnhprbBOYA5gQ8hht4uhJybrq7/0C64ACU2Gt9qfbW1pk9VfapwtzsEQiHMXbWG
+ 1JppW/crId+0Ce/5NY+vbYD8aQrWah3VOr/cgyiKfrz+CsV1xjGADT9tWMUyPppehNBX
+ SC0wy/PcQSuekQwM7g/y6t2SL8B/Gkosz5mtmibN43bNv0b1mD4tCXB0banPcItFJwfc
+ i54CE0XoHTzA+jAmoTtBHleO+mnp2xAR7FyjhdHzEDNwwY9TdNXm+ghb8j6ArobpiwRR
+ 9hn30hxFYj4ol+bMYzOz9KNKlsouP5G6WIVr/nA+qavbwuBMicrP2QKe1d5rCLF7jiXP
+ ViLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=oliUtLWESo3lQu6iHKqwx+2QOwN2sNCjDu921E6eImU=;
+ b=qFbVuvna5XaK0cw/zNkdqxFiObO2DXVwadNECNNQTWduxn5x9lK04jHawPBV4LtP06
+ v+nGCIE/xMMBj3eQeOFQHfFP01PR1vwbw4S0y3YSsMXgfgjQHpaZZl9q5gp2vVToG0OG
+ 9VEAAQXSszGj/cNWZx3/pfZf3I6LGz7wOTzH0hI1WrqCBWhUtogeE0vdJe60SwM9dzTl
+ zsLDVvcp4JBdzbwJrqURF0O1NuuF2Gz2Z9tYyCis+072BdxJmx/xR33n9knj04wgFm6h
+ s4YKIbEL6OtkpAK/OCFTkq4QjzThqb6KXhtVaA00TWz9ndVV/jwnGOSAXYM4MK+ipK3E
+ 7NZg==
+X-Gm-Message-State: AO0yUKVOTWo4ID7sIjnHXGBVQFbBuIhbhs8PSP0ANRQOGXlKF0jZ6Ap7
+ t4x+wLicjzNikt2nT2A8DhzrKg==
+X-Google-Smtp-Source: AK7set8hvfzN5yvSx0vn3SHDYBE0Cu37jFl12DeSADMr5lTBdrNCrV6wJaZ+esFXBrp8t+sFKTfd2w==
+X-Received: by 2002:a05:600c:4395:b0:3df:9858:c02c with SMTP id
+ e21-20020a05600c439500b003df9858c02cmr4411370wmn.1.1675427409090; 
+ Fri, 03 Feb 2023 04:30:09 -0800 (PST)
+Received: from [192.168.2.104] ([79.115.63.122])
+ by smtp.gmail.com with ESMTPSA id
+ h27-20020a05600c2cbb00b003db12112fcfsm2871505wmc.4.2023.02.03.04.30.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Feb 2023 04:30:08 -0800 (PST)
+Message-ID: <e50fe7d3-0c73-d4af-9a61-74d1279202cc@linaro.org>
+Date: Fri, 3 Feb 2023 12:30:06 +0000
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 87.189.148.100
-X-Mailman-Approved-At: Mon, 06 Feb 2023 14:35:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] tree-wide: trivial: s/ a SPI/ an SPI/
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20230203101624.474611-1-tudor.ambarus@linaro.org>
+ <CAMuHMdVeDbTGLBAk5QWGQGf=o6g25t341FjGTmNsHw0_sDOceg@mail.gmail.com>
+ <Y9z0bQ8TeFROA0Fj@sirena.org.uk>
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <Y9z0bQ8TeFROA0Fj@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 06 Feb 2023 14:35:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,77 +107,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-staging@lists.linux.dev,
+ linux-acpi@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ trivial@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Geert!
 
-On Fri, 2023-02-03 at 11:33 +0100, Geert Uytterhoeven wrote:
-> Hi Adrian,
->=20
-> On Fri, Feb 3, 2023 at 11:29 AM John Paul Adrian Glaubitz
-> <glaubitz@physik.fu-berlin.de> wrote:
-> > On Fri, 2023-02-03 at 09:30 +0100, Christoph Hellwig wrote:
-> > > On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz w=
-rote:
-> > > > Since this is my very first time stepping up as a kernel maintainer=
-, I was hoping
-> > > > to get some pointers on what to do to make this happen.
-> > > >=20
-> > > > So far, we have set up a new kernel tree and I have set up a local =
-development and
-> > > > test environment for SH kernels using my SH7785LCR board as the tar=
-get platform.
-> > > >=20
-> > > > Do I just need to send a patch asking to change the corresponding e=
-ntry in the
-> > > > MAINTAINERS file?
-> > >=20
-> > > I'm not sure a there is a document, but:
-> > >=20
-> > >  - add the MAINTAINERS change to your tree
-> > >  - ask Stephen to get your tree included in linux-next
-> > >=20
-> > > then eventually send a pull request to Linus with all of that.  Make
-> > > sure it's been in linux-next for a while.
-> >=20
-> > OK, thanks for the pointers! Will try to get this done by next week.
-> >=20
-> > We're still discussing among SuperH developer community whether there w=
-ill be a second
-> > maintainer, so please bear with us a few more days. I will collect patc=
-hes in the
-> > meantime.
->=20
-> Thanks a lot!
->=20
-> If you need any help with process, setup, ... don't hesitate to ask
-> (on e.g. #renesas-soc on Libera).
 
-Thanks a lot! I've got some real-life tasks to do today, but I will join la=
-ter today.
+On 2/3/23 11:47, Mark Brown wrote:
+> On Fri, Feb 03, 2023 at 11:28:03AM +0100, Geert Uytterhoeven wrote:
+>> On Fri, Feb 3, 2023 at 11:17 AM Tudor Ambarus <tudor.ambarus@linaro.org> wrote:
+> 
+>>> The deciding factor for when a/an should be used is the sound
+>>> that begins the word which follows these indefinite articles,
+>>> rather than the letter which does. Use "an SPI" (SPI begins
+>>> with the consonant letter S, but the S is pronounced with its
+>>> letter name, "es.").
+> 
+>> While I agree with your pronunciation, I believe the SPI maintainer
+>> (which you forgot to CC) pronounces it in James Bond-style, i.e. rhymes
+>> with "spy" ;-)
+> 
+> Yes, I do.  To the best of my knowledge most people just say "spy"
+> rather than pronouncing the letters or anything.
+> 
+> In any case as I said in reply to one of the individual patches English
+> isn't regular enough to go with hard and fast rules on anything, and the
+> letter rule is much more commonly used where something is needed.  Using
+> an here looks wrong to me, and the fact that a is so widely used does
+> suggest that usage has escaped whatever rule there is.
 
-And I will ask questions ;-).
+Indeed:
+$ git grep " a SPI" | wc -l
+131
+$ git grep " an SPI" | wc -l
+88
 
-Adrian
+Ok, let's drop this patch.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Cheers,
+ta

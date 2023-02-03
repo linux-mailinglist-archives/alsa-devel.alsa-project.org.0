@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5AF689C59
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 15:57:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FEA4689C5F
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 15:57:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13241826;
-	Fri,  3 Feb 2023 15:56:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13241826
+	by alsa0.perex.cz (Postfix) with ESMTPS id A44E0832;
+	Fri,  3 Feb 2023 15:56:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44E0832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675436235;
-	bh=AfximO0XA1qQ5K6AIumXt+j709lhqdJgdcHy1k/Idq4=;
+	s=default; t=1675436264;
+	bh=bHTwdQUfTMFSZm5VtpOoEQH5hZ/O5gwP6aGVUcpUMpI=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=IaJEHqfcu7R41m+qgf9u7EV5QtuGSKAXoH9ft1eqU+3cTMzP+vQr6f6cghFAzf/LC
-	 YJpH2bjhkzYr17XSRVueFSqBK32zCrMucXrfD13+Tvp6xpdk8gT9hSJRapHzZbkYVz
-	 ji0bHjLaygsBA0+Gei7CQFuwLCs9zxk4IrwW4epo=
+	b=q/E3Ni6dyTF7k0vfaOhYxH19M6TFBX6qFLkKV1JMRNwo3dz67sNu+lt3pCjBaQ7gl
+	 hiS4f2iBucR46fN4qgUx782mKlKPVH6slzlUVLDX4ppOR3alkWASC1zlmiQQqrfM3g
+	 YrdeLWP6KeNWkCpCjic8oYDGZrsJPm0kReYlEe58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F216F80494;
-	Fri,  3 Feb 2023 15:56:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C892EF800E3;
+	Fri,  3 Feb 2023 15:56:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99F86F8045D; Fri,  3 Feb 2023 15:56:12 +0100 (CET)
+ id 91E81F8045D; Fri,  3 Feb 2023 15:56:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23344F80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 15:56:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23344F80022
+ by alsa1.perex.cz (Postfix) with ESMTPS id C72AAF800E3
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 15:56:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C72AAF800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fw/YutoM
+ header.s=k20201202 header.b=T2KVSpJU
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A58AC61F45;
+ by ams.source.kernel.org (Postfix) with ESMTPS id E313AB82ADD;
+ Fri,  3 Feb 2023 14:56:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D1CC4339B;
  Fri,  3 Feb 2023 14:56:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF43C433EF;
- Fri,  3 Feb 2023 14:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675436161;
- bh=AfximO0XA1qQ5K6AIumXt+j709lhqdJgdcHy1k/Idq4=;
+ s=k20201202; t=1675436163;
+ bh=bHTwdQUfTMFSZm5VtpOoEQH5hZ/O5gwP6aGVUcpUMpI=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fw/YutoMkTSVcNAuUumbadfIP1DTq3wHkZasJnKpNmUlriIz12bQLKMt0eHKBdqNI
- zOhFMYosVD79zv65pxs00eYYrCrl9/yg4gxzi5LYcO75R94NvPZulMI4TuZuotmfjG
- QEBsILnz4krnlK4vlap+IhNgtBRO7Od5J47sgdo/3j7W2RiWmMXfrQ2tE0bl4XJSvs
- f4n23CvVaSI+UNSKaKq7dxuZ6dWPF2n91z/tCkaCYoN3HyaGI2mElAkwOyledJ3X68
- ARQoKbAuJIDimv01jMWqwg3PwwkiqLxKbDzpeJTDsCIvvzukVela5XPFuIX22s/53n
- fGZF/uTA1tfoQ==
+ b=T2KVSpJUj9K690EgAN5EuTtJGGxDCTHELFkwiKcrgx8WIw8ACPr0OdzILjMcuGVHH
+ w/nwhMDgvMyG5luAYTt/Atp0Fkwe02Dc2ezLQseA0dVRCUXnlpJ+9ea6glnCUfRbmh
+ yKKRudgzhFJoKR2Z9gb8CWEql9vGIAS7FC1Z/ViFNF5dkvryXoelnQPi9nP9nc+sUK
+ VUma/CzQzhj+1cbiU0aTddu23R3ZpzjCOmFiPUlxgrQDbNDzVXXRmic06VuWh7O0i8
+ ezt45RNs1R4ZaOpniUVkHtYwS4gS/5/+mfY97oIpNvzPGJ8OGED9v6CjOuPbDIlOG1
+ nARdhXFeG2IwQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com, 
- amadeuszx.slawinski@linux.intel.com, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
-References: <20230201112846.27707-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: (SOF) topology: Regression fixes for next
-Message-Id: <167543615882.928818.7736386383877714681.b4-ty@kernel.org>
-Date: Fri, 03 Feb 2023 14:55:58 +0000
+To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20230202183653.486216-1-jbrunet@baylibre.com>
+References: <20230202183653.486216-1-jbrunet@baylibre.com>
+Subject: Re: (subset) [PATCH 0/9] ASoC: dt-bindings: meson: covert axg
+ audio to schema
+Message-Id: <167543616131.928818.17902040818579023398.b4-ty@kernel.org>
+Date: Fri, 03 Feb 2023 14:56:01 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -82,21 +82,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- kai.vehmanen@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- ranjani.sridharan@linux.intel.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-amlogic@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Feb 2023 13:28:44 +0200, Peter Ujfalusi wrote:
-> Today I came across two regressions in next with SOF:
+On Thu, 02 Feb 2023 19:36:44 +0100, Jerome Brunet wrote:
+> Convert AXG audio dt-binding documentation to schema
 > 
-> The topology would not load with a failure of creating playback DAI
-> the first patch is fixing this which was caused by a missing 'else' in the patch
-> 
-> After fixing the topology loading, the module unloading caused kernel panic.
-> The second patch is correcting that which is I likely caused by copy-paste to
-> set wrong unload callback for the graph element.
+> Jerome Brunet (9):
+>   ASoC: dt-bindings: create component common schema
+>   ASoC: dt-bindings: meson: fix gx-card codec node regex
+>   ASoC: dt-bindings: meson: convert axg tdm interface to schema
+>   ASoC: dt-bindings: meson: convert axg tdm formatters to schema
+>   ASoC: dt-bindings: meson: convert axg pdm to schema
+>   ASoC: dt-bindings: meson: convert axg fifo to schema
+>   ASoC: dt-bindings: meson: convert axg spdif input to schema
+>   ASoC: dt-bindings: meson: convert axg spdif output to schema
+>   ASoC: dt-bindings: meson: convert axg sound card control to schema
 > 
 > [...]
 
@@ -106,10 +112,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: topology: Add missed "else" in sof_connect_dai_widget
-      commit: afd7c141c750f3f043c755bd8d01a2ffee7e95b2
-[2/2] ASoC: topology: Set correct unload callback for graph type
-      commit: dd184c400e10295631e5742fc7318ba071c67007
+[1/9] ASoC: dt-bindings: create component common schema
+      commit: e398bbb9834a2f6cbe27cbd72956159ecc92055f
+[2/9] ASoC: dt-bindings: meson: fix gx-card codec node regex
+      commit: 480b26226873c88e482575ceb0d0a38d76e1be57
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

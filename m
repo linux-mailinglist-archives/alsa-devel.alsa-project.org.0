@@ -2,134 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40DF7688C6E
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 02:24:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F316688C7A
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 02:24:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 602BA1E3;
-	Fri,  3 Feb 2023 02:23:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 602BA1E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D43D82A;
+	Fri,  3 Feb 2023 02:24:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D43D82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675387443;
-	bh=iJLEnVB5s59TnsrBqpwjZElE5PE+4Q23BMEhFzSr8wQ=;
-	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=FLaM3d14yrNJgeymnlw1r+T5BkX+HBc+eKbnyYVNRqMNHW0JHrg13jN/BGatSFfut
-	 huDfKZMBqlZa1JG5hDdzUVKGgP5BAfL+FzRhvKoc57CHmSejHIXsquLQ5WFbHRGvUJ
-	 xx0JOSFySdEFbjxoBsenZvyKNVqbF0pe3qvhhyFU=
+	s=default; t=1675387494;
+	bh=N9AGR3MQf0cBHsh7tA+9wcB+qsNusnlGGweFvOe5Lbo=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=piV3/E/QDjH5OtAsSvnc/SWL5pxeOoQrA0SOl+SodTkTotrjOZUqQ8tOEbznUt3b0
+	 22+HCJiMe93UXpvwL5hCFK4JV1dbouY8qTykhKaJwxm/6cuZynFt/NprW3Np3SSGwf
+	 w7pbWWsA2LhGGgbk1GwHWO9tFY2RVSxX7Jw/OtgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1EEDF80169;
-	Fri,  3 Feb 2023 02:23:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2E22F804E2;
+	Fri,  3 Feb 2023 02:24:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1544DF804C2; Fri,  3 Feb 2023 02:23:02 +0100 (CET)
+ id 2825EF804E0; Fri,  3 Feb 2023 02:24:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01on20724.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:704b::724])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23C71F80169
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 02:22:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23C71F80169
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=AsNjfo6N
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JuP9DY3MoNqzys9ZW+EaIso7FmfBsfRkk+Y9wKKRMt7SfqKMEt7DhWTgx8IybTCSEu6pOfo0Jt0NhPoeRIwrjRGDdFodYSaAOFwOeqwe43Rk7agEzMMBhOT+94zyWJDe2/9C+tkFlapxV3ZT1l5PhOb6OM0FiC+VWu6q17WqwzMJaLm/uOhmicUleLernwGlOum+/31l+RllvD4IO6xkUBpaD+vnqzOSObPjCMnI4InH2RpUUSqz5sOFer08xcnpF505Fii33BZ1RTgT4wFdEkRdaSC0GJBuKbdgsaXln7IUXF/C1sm9piVdzrTSefKfeO8eRoj04idcp6Ei9QUjOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZJyboJAOwTZlQ724itRhzRTmgScbaosF3rGpjm9bTwg=;
- b=ZRoGz9Ohq6YoygxurBFuZI58SFmMbQHX7K7Tx5tU3NJNb8ccRWNd1rQrE6UQRezb0YXBfSm9bMug8852tVWFgEYEZU3DlKw7ob6EXyXITKRcJuDu8bhs/QKha3pOViBv4s4Ueo0iqeQHCORA5uu0MUacRp/7n5G+nJM/b9dhu+5B4NUFTc4lE5+M2TDxoZCiQiw83gPnpZ7bO/WZQ6kN1aWjaC6LQC43GwpnPDbS/mJJPtoHtL3yblUgXwLed9+i93aAHERxTVp3OYyZFrhz8HOC/B+WVnPwd/LuKm17e9oVy4dGVgvc6BQGLsyfvAsTW0XhT5ogNqLWtO85ieUvJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZJyboJAOwTZlQ724itRhzRTmgScbaosF3rGpjm9bTwg=;
- b=AsNjfo6NLPjUr1ZOXisy616kc2TWPZ89LIOKq1yi5hC+yBWpKk1XLprN5NsaO7HdZYZCOBDnMR2F6H6lOPu8CphuEl7fnyVqWtUduXj06EKphYFfG6WD4ipVrD+E4mTXoucmgEZSJvk78MrLZs40biuzSWarCsSVTw1aB+ZuEC0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYCPR01MB11121.jpnprd01.prod.outlook.com (2603:1096:400:362::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.28; Fri, 3 Feb
- 2023 01:22:47 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860%8]) with mapi id 15.20.6043.036; Fri, 3 Feb 2023
- 01:22:47 +0000
-Message-ID: <87zg9vk0ex.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: dt-bindings: renesas: adjust to R-Car Gen4
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-To: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 3 Feb 2023 01:22:47 +0000
-X-ClientProxiedBy: TYCP286CA0137.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31b::15) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56E0DF804DF
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 02:23:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56E0DF804DF
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=Qh9sG0gA
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3131JYgp025024; Fri, 3 Feb 2023 01:23:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=OsB6/Mh/Ws2MNKlRmvc0v3bTZKseg4POlIFzfO/1NAk=;
+ b=Qh9sG0gAHDo2lKmx/xs1rvmbPJ+i8zhcHscS8oXrqyF7wZR3fUoOMSxqVRPO98jgyeHs
+ ugrtxb0EyRHTvi2mz0uoOu0gpSR3s+ytGurdKLC6rrrB6LuMI4ucqVYWMWN0mfe9vm89
+ UcwmIdBCVOaQdwxhZwgscLpGZjQREXk/DdbZkDSDXAToRQRwItrM0jdj5EkKq9mjs0B7
+ QDfUd/8fn9ANOvcuQaVBFhSrmATWPTEQemAlobqDomSQvDqPlbknunt1m9K5SrYrqPEV
+ AXnTI48RQcp6xEwXaSB+U2cF0MN/d4j2m8uyOXRkTF9J8nAoOoKecLNHh+BLqfUEPAK3 aQ== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nfnyhmcbf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Feb 2023 01:23:48 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3131NlCa016718
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 3 Feb 2023 01:23:47 GMT
+Received: from [10.110.106.32] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 2 Feb 2023
+ 17:23:46 -0800
+Message-ID: <a494e063-f0a0-2a71-5b7b-cb247efa245c@quicinc.com>
+Date: Thu, 2 Feb 2023 17:23:46 -0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB11121:EE_
-X-MS-Office365-Filtering-Correlation-Id: f06fd344-b5de-4968-9902-08db058528aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0hRfVI6iqKc9dhg5e0R7+3bD/2HvSZDfzgRiDtnFIrwqXpK24YQwLSSwoyOdavojjMeWW2lx6L40Ex+n1Mqt7OJ7AW0gauYXtzRsJpu2iJL283fcfdpHVuhr0SD0GDfDfgTTkkkGc+Obcvuwg8eFd26OPOTK0xntK9zaiUSZ1f/3bMM3YJ0wTwnb+lTsykOsxu6vE1ltjSkDJCpmjs93MOhmgnPfOHiIYCkJ8d8j0BOLtVJfEPvlrcVI86qMnTnlodrMgl0zV+2ViJDj+vsSYV8Pw9PG2Nqo2kqADF/s778KQp6EZ42wRjKNJ7RcFz8LJ5PbWf/z4OP8S3QGumUOWHeIvFmFa4ZR1rocKMBFbU7edh2dJLQL2Qhd1g7aNCFSBj81IpWno+OFEM7uCnw2j0ZenE9Y8pFGH6SPYw2W2ozX6UNskxOnN+2BjDVTTF2vaGQkQiGXxGs8bfEyLA/o2d/dPUOzXchodEKzmIRzLCmrsuPHx5ZlVWyWBXctnPcKGRECJXuSQMsw89S+qTCcF2hABjQ0pgbv1HLkPUmCe37Cp/S+EJ+656O3h5AFo/0eSVd330meMnKpg/t4dIYd9sXYs1sOTDXvqawpUQ9tA9Av/YP89mnWsfMEyJRDXTFqoFGNYDU9+rP6f2U3gw6ndP6pjn30amTPO3cJXJZyipKff+HBSeYLrjfEaI0NGEAduDKug+Uh7MLfAoD0NatUXA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8426.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(39860400002)(346002)(366004)(376002)(396003)(451199018)(2906002)(41300700001)(26005)(66476007)(5660300002)(8936002)(8676002)(4326008)(86362001)(316002)(110136005)(478600001)(6486002)(52116002)(36756003)(2616005)(6506007)(186003)(38100700002)(38350700002)(6512007)(66556008)(66946007)(83380400001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9osGdMMtCU9jplZKQaJmHEExTSJuwp4l5X778N1sv2i34qAe9FZ6j19XFhxX?=
- =?us-ascii?Q?STccZKRwHVQY1rXFVBW8NhEY38AfWikLB969sAT1SST//LiAhQK9+doM4nFU?=
- =?us-ascii?Q?ahhLFzJ6xJFXBPcwueWZUYVu0fnLqeUOJts8Je4WnB2HoZ8RrfQu/JhC+0dd?=
- =?us-ascii?Q?Jk75CKf4pfTyZFbE30GsLM6XwSI+jVJV2t1q0u7xUcuQyM+jbryoNMI+OgzJ?=
- =?us-ascii?Q?YOLgeJaZxzfw0mMUBE60zGpCSWnzlWApaG2PUzE/2BhxhnP7A6K8A9oQ+NTt?=
- =?us-ascii?Q?vVqYMDpy4D4oowElW6grszlJDBWJfFN9Q6zQu62tDBv4cCD1H1FQvgJKCinc?=
- =?us-ascii?Q?QA7jfwWqOV5DZyGFA3wAmsf1mXSNOpn48qjJJGdPiu3rEOlK+eRbVDv212H6?=
- =?us-ascii?Q?AKXynZlAKgM/rYy+5Krl8y3zF+BRz4lbFpwFGWUFTOmwLUS7rfbAmDIlYfhy?=
- =?us-ascii?Q?rgWbXkCzmoJkDRiRcVyaAestRUSQQsY687aJhTnN2JJSyRYgRiEkbIYjgkiH?=
- =?us-ascii?Q?tHjgKbxs1M4gQS1e0gwdlQ4HxTFT+DgntmfqWoJqQeURKThiSq2HJFmiHxYT?=
- =?us-ascii?Q?wIT2kvidpTgru3mRqwvRtQVhFRIzU+AQ6TELZuyz0VQFfoDdlcXo7EWWapcP?=
- =?us-ascii?Q?NkeMnxYAw+nQdF8E5A9xlqo/UVtQI9IKcn6aIXnejTF4XEs7bnDdkNPDKaDY?=
- =?us-ascii?Q?RvdPvum5zl233gziDBfXZmtjeg6+Ouvr5uZ/6Fc07imU38w2sPjbDfmiMBWL?=
- =?us-ascii?Q?Tif5UxhiJ9HfunQjEjf7dlSQ78zDX8hMhS8RxGzBKXMoW3K51go6niYGmeDk?=
- =?us-ascii?Q?Wr6JKilaSCe8gPD7D0p880KEGB21WwNBtNoLW8GYa1Tr2VAfenNA1sXgA+Iw?=
- =?us-ascii?Q?elog5UwjJeDykd5W+sBxToqPkaN1rDUISmfAloUv9OqwN3k8EkXvXxW68QTp?=
- =?us-ascii?Q?C6xxt4tVyLNZleC0+TWMEDp6B9/EvuYjsXP0UxeCHVSwT/ojaYClUBwwx/0M?=
- =?us-ascii?Q?oDU9Zfrd6adCuXKO1jeTE7H+j88Z5WAhZT0Al2S358SN4AVtof6XFfcaQxyP?=
- =?us-ascii?Q?iY9XSVqLkO3eVpgsEwSRZIOKfODFXjAQ1Tv0L1kh1o8JdxtI+x6MJJ9NM2ni?=
- =?us-ascii?Q?3/U4EPcN0ettUfGARGgxYbGbtAsANyzi5HL69gis5+lO5/gKL/rKxmgfgErL?=
- =?us-ascii?Q?dxkS5KPndXoC42BSWIJ8/tDVEfUvzzg3bimf4/Y3joPc1yTfU9KSBO4rYjWJ?=
- =?us-ascii?Q?d6uQjrvbfThEoIYEJDB+rwoDmsAh5n4YGhkVbglhhUvEK3OD8otVXT1Kfcj9?=
- =?us-ascii?Q?goPwlV2wGgRNkrObXzWTFW7iu38gkvxTk5YHKqbPJuopFlv5en1+e+4HkAa9?=
- =?us-ascii?Q?5y1V5cZG5aHL8v1h87HZ8lvQinv4vOM6ARyvcSqq+5FIHMA3FfZ+NjDAiUbG?=
- =?us-ascii?Q?mXfTP5lhxLKw7jk34+V3eq4/H5IcjEXbDfeZh+9mFId6waoTQSH3CFkl2cBs?=
- =?us-ascii?Q?e9/HyVtpeXfID9tGXJ18dPHGJMrQr6tTz2YBLaf8L+2mHEjNyi0Abx55iyqJ?=
- =?us-ascii?Q?VrimWZZdZwwQhuSZ0+8rdDqUrvucrd5puwbg89EPo0sp8rrEMrw+okaBZJYT?=
- =?us-ascii?Q?M0xq6jFI+oC4UGLujm205lc=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f06fd344-b5de-4968-9902-08db058528aa
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2023 01:22:47.5990 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: peyYwgyDydbpv5HKMuDjDDKhMENBgBVcweBr6+qesIJNVVc+4wjDXvMvPz57gDx6j/gDpgTCTj8ItsUuXW4MHHtYzYCaFIHKzSqUk9gwfQ3u5uUSC0nbF7IFA2LQCdjG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11121
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH v2 09/22] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+ <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+ <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+ <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+ <agross@kernel.org>
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-10-quic_wcheng@quicinc.com>
+ <dea77277-6971-fe27-1ae0-ed551e84b6e4@linux.intel.com>
+ <5dec443d-9894-2d06-1798-c56b8f2e1e5e@quicinc.com>
+ <ebf8ebed-ef79-bf18-4635-360f916877a6@linux.intel.com>
+ <fa35124c-682f-8045-6733-c71f9ce8df9e@quicinc.com>
+ <de03c6b1-b6d6-0045-ea60-6ae800913e95@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <de03c6b1-b6d6-0045-ea60-6ae800913e95@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: KCqg9973o3enm9jrQAYKp0I7rG7EY1SL
+X-Proofpoint-ORIG-GUID: KCqg9973o3enm9jrQAYKp0I7rG7EY1SL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-02-02_16,2023-02-02_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=502
+ priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 suspectscore=0 mlxscore=0 lowpriorityscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302030011
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,113 +124,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Pierre,
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On 1/31/2023 7:02 PM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 1/31/23 20:40, Wesley Cheng wrote:
+>> Hi Pierre,
+>>
+>> On 1/30/2023 3:59 PM, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>> On 1/30/23 16:54, Wesley Cheng wrote:
+>>>> Hi Pierre,
+>>>>
+>>>> On 1/26/2023 7:38 AM, Pierre-Louis Bossart wrote:
+>>>>>
+>>>>>
+>>>>> On 1/25/23 21:14, Wesley Cheng wrote:
+>>>>>> The QC ADSP is able to support USB playback endpoints, so that the
+>>>>>> main
+>>>>>> application processor can be placed into lower CPU power modes.  This
+>>>>>> adds
+>>>>>> the required AFE port configurations and port start command to
+>>>>>> start an
+>>>>>> audio session.
+>>>>>>
+>>>>>> Specifically, the QC ADSP can support all potential endpoints that are
+>>>>>> exposed by the audio data interface.  This includes, feedback
+>>>>>> endpoints
+>>>>>> (both implicit and explicit) as well as the isochronous (data)
+>>>>>> endpoints.
+>>>>>> The size of audio samples sent per USB frame (microframe) will be
+>>>>>> adjusted
+>>>>>> based on information received on the feedback endpoint.
+>>>>>
+>>>>> I think you meant "support all potential endpoint types"
+>>>>>
+>>>>> It's likely that some USB devices have more endpoints than what the DSP
+>>>>> can handle, no?
+>>>>>
+>>>>
+>>>> True, as we discussed before, we only handle the endpoints for the audio
+>>>> interface.  Other endpoints, such as HID, or control is still handled by
+>>>> the main processor.
+>>>
+>>> The number of isoc/audio endpoints can be larger than 1 per direction,
+>>> it's not uncommon for a USB device to have multiple connectors on the
+>>> front side for instruments, mics, monitor speakers, you name it. Just
+>>> google 'motu' or 'rme usb' and you'll see examples of USB devices that
+>>> are very different from plain vanilla headsets.
+>>>
+>>
+>> Thanks for the reference.
+>>
+>> I tried to do some research on the RME USB audio devices, and they
+>> mentioned that they do have a "class compliant mode," which is for
+>> compatibility w/ Linux hosts.  I didn't see a vendor specific USB SND
+>> driver matching the USB VID/PID either, so I am assuming that it uses
+>> the USB SND driver as is.(and that Linux doesn't currently support their
+>> vendor specific mode)  In that case, the device should conform to the
+>> UAC2.0 spec (same statement seen on UAC3.0), which states in Section
+>> 4.9.1 Standard AS Interface Descriptor Table 4-26:
+>>
+>> "4 bNumEndpoints 1 Number Number of endpoints used by this
+>> interface (excluding endpoint 0). Must be
+>> either 0 (no data endpoint), 1 (data
+>> endpoint) or 2 (data and explicit feedback
+>> endpoint)."
+>>
+>> So each audio streaming interface should only have 1 data and
+>> potentially 1 feedback.  However, this device does expose a large number
+>> of channels (I saw up to 18 channels), which the USB backend won't be
+>> able to support.  I still need to check how ASoC behaves if I pass in a
+>> profile that the backend can't support.
+>>
+>> Maybe in the non-class compliant/vendor based class driver, they have
+>> the support for multiple EPs per data interface?  I don't have one of
+>> these devices on hand, so I can't confirm that.
+> 
+> Look at Figure 3-1 in the UAC2 spec, it shows it's perfectly legal to
+> have multiple Audio Streaming interfaces - but one Audio Control
+> interface only.
+> 
+> The fact that there is a restriction to 1 or 2 endpoints per Audio
+> Streaming interface does not really matter if in the end there are
+> multiple endpoints and concurrent isoc transfers happening to/from the
+> same USB device.
 
-R-Car Gen4 is not compatible with Gen3, this patch adjusts
-to R-Car Gen4.
+So the reason I wanted to mention the max number of EPs within the audio 
+streaming descriptor is because the USB SND driver currently creates 
+streams based off of the number of AS desc:
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
-The "required" with if - then - else on "rcar_sound,ssi" is
-always match to "then" even though it is checking "renesas,rcar_sound-gen4" or not.
-Why ?? Is it my fault ??
+static int snd_usb_create_streams(struct snd_usb_audio *chip, int ctrlif)
+{
+...
+	for (i = 0; i < assoc->bInterfaceCount; i++) {
+		int intf = assoc->bFirstInterface + i;
+		if (intf != ctrlif)
+			snd_usb_create_stream(chip, ctrlif, intf);
+	}
 
- .../bindings/sound/renesas,rsnd.yaml          | 62 ++++++++++++++-----
- 1 file changed, 46 insertions(+), 16 deletions(-)
+"assoc" is the audio control interface desc.  In the end, when userspace 
+initiates a playback session, it operates on the streams created (which 
+contains at max 1 isoc and 1 feedback ep)
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index d106de00c6b2..9a88b1c34e72 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -106,7 +106,9 @@ properties:
-     items:
-       oneOf:
-         - const: ssi-all
-+        - const: clkin
-         - pattern: '^ssi\.[0-9]$'
-+        - pattern: '^ssiu\.[0-9]$'
-         - pattern: '^src\.[0-9]$'
-         - pattern: '^mix\.[0-1]$'
-         - pattern: '^ctu\.[0-1]$'
-@@ -254,10 +256,20 @@ properties:
-           no-busif:
-             description: BUSIF is not used when [mem -> SSI] via DMA case
-             $ref: /schemas/types.yaml#/definitions/flag
--        required:
--          - interrupts
--          - dmas
--          - dma-names
-+        allOf:
-+          - if:
-+              properties:
-+                compatible:
-+                  contains:
-+                    const: renesas,rcar_sound-gen4
-+            then:
-+              required:
-+                - interrupts
-+            else:
-+              required:
-+                - interrupts
-+                - dmas
-+                - dma-names
-     additionalProperties: false
- 
-   # For DAI base
-@@ -307,18 +319,36 @@ allOf:
-               - ssi
-               - adg
-     else:
--      properties:
--        reg:
--          maxItems: 5
--        reg-names:
--          maxItems: 5
--          items:
--            enum:
--              - scu
--              - adg
--              - ssiu
--              - ssi
--              - audmapp
-+      if:
-+        properties:
-+          compatible:
-+            contains:
-+              const: renesas,rcar_sound-gen4
-+      then:
-+        properties:
-+          reg:
-+            maxItems: 4
-+          reg-names:
-+            maxItems: 4
-+            items:
-+              enum:
-+                - adg
-+                - ssiu
-+                - ssi
-+                - sdmc
-+      else:
-+        properties:
-+          reg:
-+            maxItems: 5
-+          reg-names:
-+            maxItems: 5
-+            items:
-+              enum:
-+                - scu
-+                - adg
-+                - ssiu
-+                - ssi
-+                - audmapp
- 
- unevaluatedProperties: false
- 
--- 
-2.25.1
+In short, the audio DSP doesn't need to consider handling more than 1 
+isoc ep (and potentially 1 feedback).  I believe that each audio stream 
+creates a separate PCM device, so userspace is still free to attempt to 
+activate another audio stream.  I believe # of PCM devices created 
+matches the # of streams, so when userspace does activate another 
+session, it would be on an entirely different substream, and can be 
+handled through the USB SND (non-offload) path.  If attempted to open 
+the substream used by the offload path, then we would reject is based on 
+the new change.
 
+Thanks
+Wesley Cheng

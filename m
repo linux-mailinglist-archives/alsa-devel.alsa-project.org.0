@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5ECD689C67
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 15:58:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 926FC689C6C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 15:58:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE697823;
-	Fri,  3 Feb 2023 15:57:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE697823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7F9B844;
+	Fri,  3 Feb 2023 15:57:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F9B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675436314;
-	bh=0esXNRdz1LITyce3Po30mtH5bicSbH0BxNc5ZfhkZlI=;
+	s=default; t=1675436327;
+	bh=HBW7gQQhXYjcv51yj9Mg8t0xqUMKWXdcmuW5/POrA4I=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Swrmc9Bcw+8fXwB+YJQ3S66Z+CpFHQzDmiE685bLGxMQA+X/qoaVXneqiHgCXEe+G
-	 jqo7I0B3yAOktcR93MpnrP75+fCB5mgrjpvVH8SS4YW4z8wgwC5RndNEJ2omWZUpE4
-	 KY3/lVUb8nLlCoOUrRGlLzFVniMC6kUYulUvOQro=
+	b=Rnb+OUjPWrTcHwNV3qwpSuegcCx6CAlpdJkqArA4Al9CZQaEG3MoWa1wjfTBGEslX
+	 Ji1cU4BljIQFcgXBrzcxojxk0uvBjVW+u814PjOj7WicTCG4iiRhBmB9Kj8XIjlRFs
+	 2XKuGh9icql7ipzahTaI+mCY8HXo8K6DZ1VzALGw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32F3AF8055A;
+	by alsa1.perex.cz (Postfix) with ESMTP id BDD18F80567;
 	Fri,  3 Feb 2023 15:56:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D5E4F8045D; Fri,  3 Feb 2023 15:56:17 +0100 (CET)
+ id C6CF4F80543; Fri,  3 Feb 2023 15:56:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7C39F8047D;
- Fri,  3 Feb 2023 15:56:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C39F8047D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A333F80022
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 15:56:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A333F80022
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LFVrAEnV
+ header.s=k20201202 header.b=rJ69gpF9
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 727CBB82AEA;
- Fri,  3 Feb 2023 14:56:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A618FC4339B;
- Fri,  3 Feb 2023 14:56:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B7FFC61F65;
+ Fri,  3 Feb 2023 14:56:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF24C433A0;
+ Fri,  3 Feb 2023 14:56:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675436171;
- bh=0esXNRdz1LITyce3Po30mtH5bicSbH0BxNc5ZfhkZlI=;
+ s=k20201202; t=1675436174;
+ bh=HBW7gQQhXYjcv51yj9Mg8t0xqUMKWXdcmuW5/POrA4I=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LFVrAEnVB/id308L965VYGcEQITfC2CyM8wtYN+3D1j+G+AEDHA9+nig6TTGRDKNM
- EFhd7Sl5WumjD6bzNO2mdjhqvDOrcYm/ZkZsIgDIenXBpk0k/1T8AAveGiy8098Wmx
- ME1iRksR/FvHcLtFCazp02X0bc4MvC7tcyG7XtafaylZBQM1FPq4ikCuZfLItZn0ia
- o2kg+R57/Oa4YXeL4qr70hOSnyfvf/DmvPc1x/ZOxhXJmSGH4UNLXiMw9C0SFx6tab
- WcBz2SLHLS0od9HSO19QSZr4Bsi1jM0QXTM0WDZ3cIt6Hg12zwmLc0XUFASaUmkbZu
- xlNMxEHLdvwtw==
+ b=rJ69gpF9aipo4mKw2c/YxbUOTxC9hSsdzvi2N6dixE54ys38FTHnMDle5M9hPbvBr
+ 8X5xuBSYak2+bVBIEVqZVuA58z4qW6MOLZ3m0i0u7JxXMpL2ELo/TUQIr+5+h58ZJr
+ JyWfj8hkOSE/FQuVgomrX2FA31hdMIwSuXIvzo9gAnGyXQdIhw4Ep6U411acOtIxOa
+ Co4G1BXvJv89u/mItFYOI+nl1N53XLiDnONGLE1iPbP1xPYr2ZBJKwJ6YWu3F/ljL0
+ GeW23JfwFjhz4kIpzLgplML4md+fwK2pGF++KLkRLPnw0ycYVR2zUfK92ZJCkA94FF
+ VhSGrgIpOMXoQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
- Daniel Baluta <daniel.baluta@nxp.com>, Arnd Bergmann <arnd@kernel.org>
-In-Reply-To: <20230202102247.806749-1-arnd@kernel.org>
-References: <20230202102247.806749-1-arnd@kernel.org>
-Subject: Re: [PATCH] ASoC: SOF: fix intel-soundwire link failure
-Message-Id: <167543616838.928818.16684996806941827936.b4-ty@kernel.org>
-Date: Fri, 03 Feb 2023 14:56:08 +0000
+To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, 
+ matthias.bgg@gmail.com, Trevor Wu <trevor.wu@mediatek.com>
+In-Reply-To: <20230202103704.15626-1-trevor.wu@mediatek.com>
+References: <20230202103704.15626-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8188: remove etdm dead code
+Message-Id: <167543617210.928818.16034479848573995520.b4-ty@kernel.org>
+Date: Fri, 03 Feb 2023 14:56:12 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -85,23 +82,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ error27@gmail.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 02 Feb 2023 11:22:30 +0100, Arnd Bergmann wrote:
-> My randconfig build setup ran into a rare build failure with
+On Thu, 02 Feb 2023 18:37:04 +0800, Trevor Wu wrote:
+> Some Smatch static checker warning like below was found.
 > 
-> CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE=y
-> CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE=m
-> CONFIG_SOUNDWIRE=y
-> CONFIG_SOUNDWIRE_INTEL=m
-> CONFIG_SND_SOC_SOF_HDA=y
-> CONFIG_SND_SOC_SOF_INTEL_TGL=y
+> sound/soc/mediatek/mt8188/mt8188-dai-etdm.c:2487
+> mt8188_dai_etdm_parse_of()
+> warn: 'ret' returned from snprintf() might be larger than 48
+> 
+>     2479         for (i = 0; i < MT8188_AFE_IO_ETDM_NUM; i++) {
+>     2480                 dai_id = ETDM_TO_DAI_ID(i);
+>     2481                 etdm_data = afe_priv->dai_priv[dai_id];
+>     2482
+>     2483                 ret = snprintf(prop, sizeof(prop),
+>     2484                                "mediatek,%s-multi-pin-mode",
+>     2485                                of_afe_etdms[i].name);
+>     2486                 if (ret < 0) {
+> --> 2487                         dev_err(afe->dev, "%s snprintf
+> err=%d\n",
+>     2488
 > 
 > [...]
 
@@ -111,8 +115,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: fix intel-soundwire link failure
-      commit: c5a61db9bf897494fb0657eeb24dfdcb1aab1fc4
+[1/1] ASoC: mediatek: mt8188: remove etdm dead code
+      commit: 66b9e94cb7783d3c632e2c1b436b26ece8c14e5d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,69 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E184168BE5A
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:36:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBDC68BE64
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 343A61E4;
-	Mon,  6 Feb 2023 14:35:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 343A61E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FDD01DC;
+	Mon,  6 Feb 2023 14:36:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FDD01DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675690567;
-	bh=DrSwxjkFAAX2EJQKx6EFPodKze9FWg8UlocWmWLGPxk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675690661;
+	bh=fBB/NWvlvHUroREOHDw6YLLGYRCM5i5djYUlj6RNAmQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=ITI2FJzgfvp/yc610G3qFUT9CuAkriEy8RSt1gkezqUbrMJYwOgs8fLBk/XZw7s4d
-	 c795NoW2TmBwnV23jSpE7uk6vE+pkrUi2hkewSz45JDBQoYVDERPMTzwIYDlbSaMz9
-	 meqExjlrhnFMLr9ynsbyt6eKBF/Jw/Yiit1m2L1A=
+	b=FphS7U/MH6jxeffh2OWF4T6GzaI7Z8YblJn9Jz6Ge4cM84tEIKfo4Knh+KDfcpJ3m
+	 0K5cVSKEH3mS6+RPgzp0w1ewRCEYOq+SlT0UGEdrWvXYVTg9R3/dBSH2thMxkec9rT
+	 xrgJ4/gB0hFgWRVv6IlXFjUEXJZIF5J6xvrejNlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52610F800E3;
-	Mon,  6 Feb 2023 14:35:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4642F8055C;
+	Mon,  6 Feb 2023 14:35:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 494CDF80254; Fri,  3 Feb 2023 16:57:49 +0100 (CET)
+ id 66D93F80022; Fri,  3 Feb 2023 17:05:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37820F80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 16:57:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37820F80022
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
- header.s=bombadil.20210309 header.b=mxbhKN8e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=RABYZKQEnf0QK23SEeW3xVSQhJGlQ3o0a9xB2pxXdFg=; b=mxbhKN8eDLHf3sRbpUD1Pm5ad9
- DUxn/adCxDe6jPyxHF/gdCrJDf3lsIsIixEOuV8CpNuzkiX752ZBaf0wsnY0b2i3cM9FUEcN20eX2
- rIR05AXVLD17i/oQNhbkjja3UIifH2qUWnxDkJqAUC7NG8o6c1/1J2q0zeQmeJMRLojURzkVBUv7W
- j9O4rmt4LMN1wjI6tRgPyBaBqiFphCrvwmB0uTJBDK4DzjkMj6rO8E5wNKaysJXqmttqL9r4yHFrh
- f47+XS3tx6LOOWc7AZ91W6sFA96KtfzRuvr3oItFzuKm5u8MGjDHAAIf0SDJC5iX+lV71N215QhEo
- +ggV+adQ==;
-Received: from [2601:1c2:d00:6a60::9526]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pNyR8-002pf0-3m; Fri, 03 Feb 2023 15:57:14 +0000
-Message-ID: <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
-Date: Fri, 3 Feb 2023 07:57:12 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2AADF80022
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:05:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2AADF80022
+Received: by mail-qt1-f180.google.com with SMTP id bb40so5956182qtb.2
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 08:05:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7wIYdPVdo9w8wJeFawgcWpGlCHgpXqP0aU2proD/z4A=;
+ b=R2r3y8mqWi+a60pjFCjxNGBg3YcqGQuozGGOxDukEWCtG9kgKVwvO2meyZadDgieqg
+ JfdnDPWMopypDjzoFT3s4qc0ASb/7WHYl1MNAIgMJIIPU6rTWdPwy3codLoeOVriqmsi
+ 2Z6GBd6XEV86qzdd6aOpRjrXkjVuJr2Xl9PloOVIkRm3rN6HXvfvSOIGsAiumhFeSvoY
+ TNVPG1rJN8bRBSf/LnW6gRz3cOeGJnwV04rjjgrtXkrgreBedD6lOj0+bf+XE6sK23Xr
+ JmbuU7zAxLggKHU3A6Js0Q2b0aCZMeKuTWujXjPd1QQxKdMNmsEgOaKmo5JOG4SDHqqB
+ Ey3A==
+X-Gm-Message-State: AO0yUKVdFnEkOW8RCIe9lxtpJpQGcWWNDC+fEqcibvISxr3shCMBjzBg
+ yg+tj7X3mrdUKaMGZBmo/oQWOqo2Iq6TEQ==
+X-Google-Smtp-Source: AK7set8e0siRrI8Mo+2w/iAWHXlCdY7aAGYXx0X+Wx135AoDkaWTRoV7pcIAvu/Kvus84HbCmKvZ8w==
+X-Received: by 2002:ac8:5c43:0:b0:3b8:6c97:e5de with SMTP id
+ j3-20020ac85c43000000b003b86c97e5demr21413868qtj.41.1675440302644; 
+ Fri, 03 Feb 2023 08:05:02 -0800 (PST)
+Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com.
+ [209.85.219.181]) by smtp.gmail.com with ESMTPSA id
+ b9-20020a05620a270900b0071df8b60681sm2044463qkp.94.2023.02.03.08.05.01
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Feb 2023 08:05:02 -0800 (PST)
+Received: by mail-yb1-f181.google.com with SMTP id g2so6781314ybk.8
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 08:05:01 -0800 (PST)
+X-Received: by 2002:a5b:941:0:b0:865:e214:f4e3 with SMTP id
+ x1-20020a5b0941000000b00865e214f4e3mr352487ybq.604.1675440301482; Fri, 03 Feb
+ 2023 08:05:01 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: remove arch/sh
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 References: <20230113062339.1909087-1-hch@lst.de>
  <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
  <20230116071306.GA15848@lst.de>
@@ -74,10 +81,15 @@ References: <20230113062339.1909087-1-hch@lst.de>
  <20230203083037.GA30738@lst.de>
  <d10fe31b2af6cf4e03618f38ca9d3ca5c72601ed.camel@physik.fu-berlin.de>
  <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
+In-Reply-To: <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 3 Feb 2023 17:04:49 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWJ3XOBewDoU8umAHc6b83hJQge5xjY3Cxx03AvoiR7iQ@mail.gmail.com>
+Message-ID: <CAMuHMdWJ3XOBewDoU8umAHc6b83hJQge5xjY3Cxx03AvoiR7iQ@mail.gmail.com>
+Subject: Re: remove arch/sh
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 06 Feb 2023 14:35:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
@@ -100,6 +112,7 @@ Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
  linux-input@vger.kernel.org, linux-media@vger.kernel.org,
  devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
  Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
@@ -109,55 +122,27 @@ Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi--
+Hi Randy,
 
-On 2/3/23 02:33, Geert Uytterhoeven wrote:
-> Hi Adrian,
-> 
-> On Fri, Feb 3, 2023 at 11:29 AM John Paul Adrian Glaubitz
-> <glaubitz@physik.fu-berlin.de> wrote:
->> On Fri, 2023-02-03 at 09:30 +0100, Christoph Hellwig wrote:
->>> On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz wrote:
->>>> Since this is my very first time stepping up as a kernel maintainer, I was hoping
->>>> to get some pointers on what to do to make this happen.
->>>>
->>>> So far, we have set up a new kernel tree and I have set up a local development and
->>>> test environment for SH kernels using my SH7785LCR board as the target platform.
->>>>
->>>> Do I just need to send a patch asking to change the corresponding entry in the
->>>> MAINTAINERS file?
->>>
->>> I'm not sure a there is a document, but:
->>>
->>>  - add the MAINTAINERS change to your tree
->>>  - ask Stephen to get your tree included in linux-next
->>>
->>> then eventually send a pull request to Linus with all of that.  Make
->>> sure it's been in linux-next for a while.
->>
->> OK, thanks for the pointers! Will try to get this done by next week.
->>
->> We're still discussing among SuperH developer community whether there will be a second
->> maintainer, so please bear with us a few more days. I will collect patches in the
->> meantime.
-> 
-> Thanks a lot!
-> 
-> If you need any help with process, setup, ... don't hesitate to ask
-> (on e.g. #renesas-soc on Libera).
+On Fri, Feb 3, 2023 at 4:57 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+> Is this "sh64" still accurate and applicable? from Documentation/kbuild/kbuild.rst:
+>
+> But some architectures such as x86 and sparc have aliases.
+>
+> - x86: i386 for 32 bit, x86_64 for 64 bit
+> - sh: sh for 32 bit, sh64 for 64 bit <<<<<<<<<<<<<<<
+> - sparc: sparc32 for 32 bit, sparc64 for 64 bit
 
-While Adrian and Geert are reading this, I have a question:
+No, support for sh64 was removed in commit 37744feebc086908
+("sh: remove sh5 support") in v5.8.
 
-Is this "sh64" still accurate and applicable? from Documentation/kbuild/kbuild.rst:
+Gr{oetje,eeting}s,
 
-But some architectures such as x86 and sparc have aliases.
+                        Geert
 
-- x86: i386 for 32 bit, x86_64 for 64 bit
-- sh: sh for 32 bit, sh64 for 64 bit <<<<<<<<<<<<<<<
-- sparc: sparc32 for 32 bit, sparc64 for 64 bit
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
-
-Thanks.
--- 
-~Randy
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

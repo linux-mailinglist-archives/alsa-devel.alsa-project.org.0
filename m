@@ -2,60 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7710D689277
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 09:39:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC26C68932D
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 10:11:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C09AA4B;
-	Fri,  3 Feb 2023 09:38:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C09AA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E86B682A;
+	Fri,  3 Feb 2023 10:10:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E86B682A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675413578;
-	bh=/PA5B2UfTLW8o56P3800UFEzmzZSk6ZCDfweudu2H5U=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675415470;
+	bh=pcqJQ61wBtH+RmebpWk/duoXIFKOmZlUCkldd1eNdqE=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=BtgCJE2UBPmZZULhaumuOabNlO9MdmgvnFOD/IqdBGvoKxsfnYqv/fY3fNlxO/cr/
-	 tq2Yuc6euPMXVVDtO1HHOx2EhkBLxHxrl/7ACCmhRd4b5EqLFRuFbdnLuayEs0q1Xe
-	 FiariHpD7joyIYMd44xkOy27IrbULB4w3nrvUDWU=
+	b=bLjA77qBavh9XfImI+R6zO7cXP8pTOa1jKK2Jaz7Yst4RZyQSrg5mbkN3lhn4U7Su
+	 AnOwYXF4aOJppztxjWFIMBQKIY8CZyC6NPRMYM9B9paC19XRsi2AO43RY6EuI06SR6
+	 5HQrNPotEZMGTGkiyBLfR3u860vk2qQN1z9dpAys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE966F8053D;
-	Fri,  3 Feb 2023 09:37:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC1CEF800E3;
+	Fri,  3 Feb 2023 10:10:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49F1FF8032B; Fri,  3 Feb 2023 09:30:45 +0100 (CET)
+ id C582BF80254; Fri,  3 Feb 2023 10:09:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 276B2F800E3
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 09:30:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 276B2F800E3
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 494A367373; Fri,  3 Feb 2023 09:30:38 +0100 (CET)
-Date: Fri, 3 Feb 2023 09:30:37 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Subject: Re: remove arch/sh
-Message-ID: <20230203083037.GA30738@lst.de>
-References: <20230113062339.1909087-1-hch@lst.de>
- <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
- <20230116071306.GA15848@lst.de>
- <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
- <20230203071423.GA24833@lst.de>
- <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD3E8F80169
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 10:09:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD3E8F80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=AMN5K4po
+Received: by mail-wr1-x432.google.com with SMTP id r2so4014667wrv.7
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 01:09:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MHn45+vnENK/TVFtx99s7WoA9gA2YZddyjnUzP5s16c=;
+ b=AMN5K4po0wih1uiCioK2NDKoMhZFPH7TpH9vUPEsXKmokVADyzbPdoWoVoFMz1jRD7
+ mcSs4Z9hgfq5SsEakOIiz1qASOlNVRvCpGuodPSZEvdMIP2bKxJ6AnUb9mOSrJqbaqyh
+ WIiEYKwRuBWljB1udt3BVDR1cBJCNRm7FhwTsvRzCSs5SXRJHQrO3BzNlYVkSCd5A6VG
+ PO9Tcx38k31bAUvAe5YgpnJo7d/hacCaYIVzA6XTJyBG06y+tUHqNoEkxWPL17QKEXlD
+ sEESzc5OYdKaBfnhGc8XDj0Gos37AH5EsUjvwDARWezGpHlrVlHwh/7g3ebCAiRevVjw
+ Fh1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MHn45+vnENK/TVFtx99s7WoA9gA2YZddyjnUzP5s16c=;
+ b=8DNszY4hYLTYZvTp9977LqsaH4iLOgGIW9mJJergJTBPi0MCiiionGCv+sGij//i+q
+ VAFlE+Hkdcw8hvy4IpRs98AgR9N2tztUZVpbyWefjP675anaNTrnpnJtvmnjR036vOzs
+ 22zJc/LcjfpS7bt4dj7neIKomgiJjadrYpswDXnTVN9eADfeVpTbtYoZxEYBeUoogz0W
+ qQ8ZQSfBF+M7yiA9LaNrhhuG1LrhaMIPvC/E/oaWHWL9EtcEUGMI5j673ELEkc/q/mn7
+ 5177Jzc2MIZ0J3v5a8JjzHB+CfmRi1BsqSanIMi3rgUHjYd5lJJtLtkqRUyHTvqVzgW4
+ c+3Q==
+X-Gm-Message-State: AO0yUKWOnvtveZmqqY1mHCXTDrb4yOS5IF9Lc8tEUuue7PmydZqJnzBJ
+ d2cabjgclJ/hpMEB6+slz+B2oA==
+X-Google-Smtp-Source: AK7set84hsw/7fWJrGnI1HI7nN5pusbfTFUXGtJoj7Z/splNoJLWpDd3zxqfsMBSwstHnOGC7Hp9iw==
+X-Received: by 2002:a5d:61ca:0:b0:2bf:d14a:21dd with SMTP id
+ q10-20020a5d61ca000000b002bfd14a21ddmr10487360wrv.29.1675415384078; 
+ Fri, 03 Feb 2023 01:09:44 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ f9-20020a5d4dc9000000b002bfb37497a8sm1478281wru.31.2023.02.03.01.09.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Feb 2023 01:09:43 -0800 (PST)
+Message-ID: <46974ae7-5f7f-8fc1-4ea8-fe77b58f5bfb@linaro.org>
+Date: Fri, 3 Feb 2023 10:09:42 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Fri, 03 Feb 2023 09:37:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] ASoC: dt-bindings: renesas: adjust to R-Car Gen4
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>
+References: <87zg9vk0ex.wl-kuninori.morimoto.gx@renesas.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <87zg9vk0ex.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +105,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
- Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz wrote:
-> Since this is my very first time stepping up as a kernel maintainer, I was hoping
-> to get some pointers on what to do to make this happen.
+On 03/02/2023 02:22, Kuninori Morimoto wrote:
 > 
-> So far, we have set up a new kernel tree and I have set up a local development and
-> test environment for SH kernels using my SH7785LCR board as the target platform.
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Do I just need to send a patch asking to change the corresponding entry in the
-> MAINTAINERS file?
+> R-Car Gen4 is not compatible with Gen3, this patch adjusts
+> to R-Car Gen4.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+> The "required" with if - then - else on "rcar_sound,ssi" is
+> always match to "then" even though it is checking "renesas,rcar_sound-gen4" or not.
+> Why ?? Is it my fault ??
+> 
+>  .../bindings/sound/renesas,rsnd.yaml          | 62 ++++++++++++++-----
+>  1 file changed, 46 insertions(+), 16 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> index d106de00c6b2..9a88b1c34e72 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> @@ -106,7 +106,9 @@ properties:
+>      items:
+>        oneOf:
+>          - const: ssi-all
+> +        - const: clkin
+>          - pattern: '^ssi\.[0-9]$'
+> +        - pattern: '^ssiu\.[0-9]$'
+>          - pattern: '^src\.[0-9]$'
+>          - pattern: '^mix\.[0-1]$'
+>          - pattern: '^ctu\.[0-1]$'
+> @@ -254,10 +256,20 @@ properties:
+>            no-busif:
+>              description: BUSIF is not used when [mem -> SSI] via DMA case
+>              $ref: /schemas/types.yaml#/definitions/flag
+> -        required:
+> -          - interrupts
+> -          - dmas
+> -          - dma-names
+> +        allOf:
+> +          - if:
+> +              properties:
+> +                compatible:
+> +                  contains:
+> +                    const: renesas,rcar_sound-gen4
+> +            then:
+> +              required:
+> +                - interrupts
+> +            else:
+> +              required:
+> +                - interrupts
 
-I'm not sure a there is a document, but:
+This does not make sense - you just require it always.
 
- - add the MAINTAINERS change to your tree
- - ask Stephen to get your tree included in linux-next
 
-then eventually send a pull request to Linus with all of that.  Make
-sure it's been in linux-next for a while.
+
+> +                - dmas
+> +                - dma-names
+>      additionalProperties: false
+>  
+>    # For DAI base
+> @@ -307,18 +319,36 @@ allOf:
+>                - ssi
+>                - adg
+>      else:
+> -      properties:
+> -        reg:
+> -          maxItems: 5
+> -        reg-names:
+> -          maxItems: 5
+> -          items:
+> -            enum:
+> -              - scu
+> -              - adg
+> -              - ssiu
+> -              - ssi
+> -              - audmapp
+> +      if:
+
+Please do not embed if within another if, unless strictly necessary. It
+gets unmanageable.
+
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: renesas,rcar_sound-gen4
+> +      then:
+> +        properties:
+> +          reg:
+
+minItems
+
+> +            maxItems: 4
+> +          reg-names:
+> +            maxItems: 4
+
+Drop
+
+> +            items:
+> +              enum:
+> +                - adg
+> +                - ssiu
+> +                - ssi
+> +                - sdmc
+> +      else:
+> +        properties:
+> +          reg:
+
+minItems
+
+> +            maxItems: 5
+> +          reg-names:
+> +            maxItems: 5
+
+Drop
+
+
+Best regards,
+Krzysztof
+

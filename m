@@ -2,78 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D1DA68A11D
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 19:03:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D49668A205
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 19:28:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11D8982E;
-	Fri,  3 Feb 2023 19:02:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11D8982E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39E2F82B;
+	Fri,  3 Feb 2023 19:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39E2F82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675447410;
-	bh=sQb0GgmuPk/w0KwhkbnpYfxa//MqyJrzNDEQLsCm8+s=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675448894;
+	bh=/gGZ9DwGLZg6jeLZ/Wca9dGvDkPShPONk1yE/DS5X2U=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=JIXfwPGWztCS2ukclUQGIOivU5BUdg7xQjxLb/CJ4RA4dYYYTbZLIxnVNRNXvnTJc
-	 6qBpg2Bxswx2j/coZdi3oal92xJ29/zeyX5nGGfIBUMeS13dp583wvJGyVD5QjsFH/
-	 A20GCN5IaLYbPFYMqA50UgZHfVVGh2QAxNvVOgkg=
+	b=Xdn5loE6V00a38hvMnlvZzwJUasjD1E1hbSackuBCvgXD5P13mEpcw/WLYb+lbGrJ
+	 bC9x1+my11ZKBVPoG/CF5zxrD2J/S1t5XYnHW/Ak+Bp076XJOcM1SylfPelW5eIgdS
+	 ZOoYJ4KtVwXF9DuXieRxPctvN0iCauAt1HJnhGxo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33127F800E3;
-	Fri,  3 Feb 2023 19:02:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4C70F802E8;
+	Fri,  3 Feb 2023 19:27:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 582BCF80254; Fri,  3 Feb 2023 19:02:28 +0100 (CET)
+ id EEAE6F80254; Fri,  3 Feb 2023 19:27:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4EFAF800E3
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 19:02:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4EFAF800E3
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- secure) header.d=perex.cz header.i=@perex.cz header.a=rsa-sha256
- header.s=default header.b=V8ALx5mM
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 073E211C2;
- Fri,  3 Feb 2023 19:02:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 073E211C2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1675447333; bh=njGj/3RyhwetM4ZyrXkA91f7Rr8egjSHMWgICgHmVAw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=V8ALx5mM3twEANe4cBHxbReyLHzrmSPimf+bgHo/yk59HSMb1u719fKUs/IjWGhnh
- YWerY/RvIiHe6X9NBs2NTy8igsp3Vxf7wlP6UNuBa960jNus8A0qfy6YiS249zqd6M
- ZoNlDDpHmMu5vGC6iU1WZvYSEOQDTZDaj2T/NUPw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  3 Feb 2023 19:02:08 +0100 (CET)
-Message-ID: <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
-Date: Fri, 3 Feb 2023 19:02:08 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BC50F800E3
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 19:27:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BC50F800E3
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Ibou1Av0
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A4B5D61F51;
+ Fri,  3 Feb 2023 18:27:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962ACC433D2;
+ Fri,  3 Feb 2023 18:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675448826;
+ bh=/gGZ9DwGLZg6jeLZ/Wca9dGvDkPShPONk1yE/DS5X2U=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ibou1Av0ziWyc38GTlFFW39X3zPS+WgBGY9WIaLThXolJ3efOkr1EZJyJrLrfw1xT
+ tPsjJ/HXBfiaQcE1GBWhcrL8Rl1gsTqdryBHtoKSWn4o/Ol4cTUff2ZSDvxDx37Q4z
+ ZvpU1Bp1cXCImIzgi1toeJwkkesVNjWXqL4x9qHsDlAQFwI05qkVMLiTIpLW2zXEzN
+ 8tLSKve7+4BAMp3k+ovNYkyjt/5/ZBXsIcV6zS+u2yYXoCvmhVeR2+vYS4nL2Yc5Fv
+ rkrNOFcSc1NWGPXwfQLQ2FDwTw/eESW8T4AM5WzPYH3ePz61OZdqYDnz8DqCcHB6vS
+ 9JJBRxDMSQS+w==
+Date: Fri, 3 Feb 2023 10:27:04 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Dawei Li <set_pte_at@outlook.com>
+Subject: Re: [PATCH v3] powerpc: macio: Make remove callback of macio driver
+ void returned
+Message-ID: <20230203102704.66f6b59a@kernel.org>
+In-Reply-To: <TYCP286MB232391520CB471E7C8D6EA84CAD19@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+References: <TYCP286MB232391520CB471E7C8D6EA84CAD19@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: Overflow in calculating audio timestamp
-Content-Language: en-US
-To: Alan Young <consult.awy@gmail.com>, o-takashi@sakamocchi.jp,
- pierre-louis.bossart@linux.intel.com
-References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
- <Y9xWlbhPg3PteH5G@workstation>
- <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,111 +80,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org, mpe@ellerman.id.au,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ christophe.leroy@csgroup.eu, linux-ide@vger.kernel.org, npiggin@gmail.com,
+ linux-serial@vger.kernel.org, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03. 02. 23 17:11, Alan Young wrote:
+On Wed,  1 Feb 2023 22:36:19 +0800 Dawei Li wrote:
+> Commit fc7a6209d571 ("bus: Make remove callback return void") forces
+> bus_type::remove be void-returned, it doesn't make much sense for any
+> bus based driver implementing remove callbalk to return non-void to
+> its caller.
 > 
-> On 03/02/2023 00:34, Takashi Sakamoto wrote:
->> Hi,
->>
->> Thank you for the report.
->>
->> On Thu, Feb 02, 2023 at 01:55:24PM +0000, Alan Young wrote:
->>> sound/core/pcm_lib.c:update_audio_tstamp() contains the following
->>> calculation:
->>>
->>>           audio_nsecs = div_u64(audio_frames * 1000000000LL,
->>>                   runtime->rate);
->>>
->>> This will result in a 64-bit overflow after 4.4 days at 48000 Hz, or 1.1
->>> days at 192000.
->>>
->>> Are you interested in a patch to improve this?
->>>
->>> The same calculation occurs in a couple of other places.
->> I'm interested in your patch. Would you please post it C.C.ed to the
->> list and me?  As you noted, we can see the issue in ALSA PCM core and
->> Intel HDA stuffs at least.
->>
->>    * sound/core/pcm_lib.c
->>    * sound/pci/hda/hda_controller.c
->>    * sound/soc/intel/skylake/skl-pcm.c
->>
->> I note that 'NSEC_PER_SEC' macro is available once including
->> 'linux/time.h'. It is better to use instead of the literal.
->> The macro is defined in 'include/vdso/time64.h'.
->>
->>
->> As another issue, the value of 'audio_frames' comes from the value of
->> 'struct snd_pcm_runtime.hw_ptr_wrap'. In ALSA PCM core, the value is
->> increased by the size of PCM buffer every time hw_ptr cross the boundary
->> of PCM buffer, thus multiples of the size is expected. Nevertheless,
->> there is no check for overflow within 64 bit storage. In my opinion, the
->> committer had less care of it since user does not practically playback or
->> capture PCM substream so long. But the additional check is preferable as
->> long as it does not break the fallback implementation of audio time stamp.
+> This change is for macio bus based drivers.
 > 
-> 
-> I have not yet finished testing various alternatives. I want to extend
-> the overflow by "enough" and also am conscious of the need to keep the
-> overhead down.
-> 
-> I actually think, on reflection, that the only case that matters is the
-> call from update_audio_tstamp(). The others only deal with codec delays
-> which will be small (unless I misunderstand those drivers).
-> 
-> This is what I have so far but I'll submit a proper patch when I have it
-> refined.
-> 
-> static u64 snd_pcm_lib_frames_to_nsecs(u64 frames, unsigned int rate)
-> {
->       /*
->        *  Avoid 64-bit calculation overflow after:
->        *  - 4.8 days @ 44100
->        *  - 0.56 days @ 384000
->        *  extending these intervals by a factor of 100.
->        */
->       if (frames < 0xffffffffffffffffLLU / NSEC_PER_SEC)
->           return div_u64(frames * NSEC_PER_SEC, rate);
-> 
->       if (rate % 100 == 0)
->           return div_u64(frames * (NSEC_PER_SEC/100), (rate/100));
-> 
->       /* Fallback: reduce precision to approximately deci-micro-seconds: 1.28e-7 */
->       return div_u64(frames * (NSEC_PER_SEC >> 7), rate) << 7;
-> }
+> Signed-off-by: Dawei Li <set_pte_at@outlook.com>
 
-Thank you for your suggestion, but I think that the *whole* code for 
-!get_time_info in update_audio_tstamp() should be recoded. The calling of 
-ns_to_timespec64() is not enough to handle the boundary wraps in a decent 
-range (tenths years for 24x7 operation) and the bellow code is dangerous for 
-32-bit apps / system:
-
-      if (crossed_boundary) {
-                 snd_BUG_ON(crossed_boundary != 1);
-                 runtime->hw_ptr_wrap += runtime->boundary;
-      }
-
-I would probably propose to have just hw_ptr_wrap +1 counter (we can 
-reconstruct the frame position back by multiplication and do range check 
-later), remove snd_BUG_ON and improve the timespec64 calculation.
-
-The calculation should be split to two parts (tv_sec / tv_nsec):
-
-1) calculate seconds: (frames / rate)
-2) calculate the remainder (ns): ((frames % rate) * NSEC_PER_SEC) / rate
-
-With 64-bit integer range, we should go up to (for 384000Hz rate):
-
-2**64 / 384000 / 3600 / 24 / 365 = ~1523287 years
-
-Maybe I did a mistake somewhere. I'm open for comments.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+Acked-by: Jakub Kicinski <kuba@kernel.org>

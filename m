@@ -2,71 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CAA16890BE
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 08:26:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762E66890F5
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 08:36:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9705F82C;
-	Fri,  3 Feb 2023 08:25:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9705F82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8BDC82A;
+	Fri,  3 Feb 2023 08:35:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8BDC82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675409185;
-	bh=w/73Uc/n5KxsufzX5CddSnsJWhi8Tl5rHcWOUj980gE=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675409774;
+	bh=vtgHs20RYHaPFo6z8sgw5yOQwRuoTFBP60/fqVmysN8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=F8U60nQvtolDBR3evYxaxD2/BX4Dz5YayvYy5I1lsDbVk3iyO8UkEyDz2Jf8gHnsd
-	 X5W+7LN+A8xofm6rpKES5FzRxblYv7ZmzoGzlkdKDvV3shDwId1/GYFYzje8iR/vJT
-	 ZtYOHwjPYt+tt0K0MoWHF2Rhzea6kv/0GxN9MBuA=
+	b=NyH02L8nUmikp6DcP2eTLsr/KTCzdiX2YYrmxNVs0ilFLOEefPks0z85rwapQarHP
+	 fZev2BAx89nupC9jpV9bRY43gvF/N4IUtdCJIFIvQAm/joTiomkFLrlz9O2L7ugY+Y
+	 nKkX2t3+KO0vEDusqW3HciJ0LuCd1yrN1fcv5w8A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72B50F800E3;
-	Fri,  3 Feb 2023 08:25:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6B39F80423;
+	Fri,  3 Feb 2023 08:35:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A19CCF8032B; Fri,  3 Feb 2023 08:25:23 +0100 (CET)
+ id 5C619F8032B; Fri,  3 Feb 2023 08:35:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02C39F800E3
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 08:25:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02C39F800E3
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=KvD8eTpj
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 479EEB82913;
- Fri,  3 Feb 2023 07:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9EAC433D2;
- Fri,  3 Feb 2023 07:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1675409118;
- bh=w/73Uc/n5KxsufzX5CddSnsJWhi8Tl5rHcWOUj980gE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KvD8eTpjLOtWB+UEaur78gdbkDk2uNg4iTyG7EduGBBQeFYYfDMJR0zI5M46iGXgI
- B/g60xlZj15BQnrefnVhdWcwV0eYwBhVI1fWaHKJRFJ022Eb8m0gihPo6B9goL/ROM
- S4BKuWCyK0zSKt6MO3m0b0jgs8LUO3Xke14ThSpk=
-Date: Fri, 3 Feb 2023 08:25:15 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 02/22] usb: remove the dead USB_OHCI_SH option
-Message-ID: <Y9y221RalpLWJE0S@kroah.com>
-References: <20230113062339.1909087-1-hch@lst.de>
- <20230113062339.1909087-3-hch@lst.de> <Y8EEbCP6PRMzWP5y@kroah.com>
- <20230203071542.GC24833@lst.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8D7EF80169
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 08:35:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D7EF80169
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=uvHAkCKK
+Received: by mail-wm1-x330.google.com with SMTP id
+ j32-20020a05600c1c2000b003dc4fd6e61dso5368380wms.5
+ for <alsa-devel@alsa-project.org>; Thu, 02 Feb 2023 23:35:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9gvQASbJh6yblI9HLyL9BA1AkxK02X0X1bUuLfHjS6Y=;
+ b=uvHAkCKKv9jaLTrqclc+YVwEWVbeYCsDqBz5CikpYJdSmwzrCleQR62GK7K0D37bNP
+ fmkOAhkd8wqfq9PwXnM6BD9S9VCCX/B2KjvMtxnQMB79KwGzHfl+fyv45gqf+0YkuJXD
+ jD1CRBgqm24LZfS5q1DDLSr6KqrPZTQfUrb5kTm0aGFMeq5G5kTlKf71CQEuWnOC651g
+ mojiFDvUpnYjnbMosKrLsbFFoYJQevpLHYCI48lQlq0HqN3YapZ3ekn5v9yYMiijh2Mb
+ jId3jJaz/grbRiGMbHEm8k8F00U4fjqYfxbuK6ddJXHgvhJtEgJxzppUVE1dMuD7uOWy
+ jnNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9gvQASbJh6yblI9HLyL9BA1AkxK02X0X1bUuLfHjS6Y=;
+ b=pwOxYanKbV+V49v696cHhb+CQKqIwwX1KSrS7XcCvg+JiWxHkZ3h6huTy8LQtmHVHc
+ ftDSmV/DeQLEnxDhr5oypHXqNfge9ZGUQcOqCxaODFMJ5NDqHEfnrk77q+MErVi6Do+i
+ Enu/qs3SbycB/e56U6bENlCYHtdPrCIiJvKyPoR/skpzlRlnovmP2n39oHg9rJTAMTsQ
+ 3UUkQc/xG3HTsRjA7TeLfD+BnA0kCOnHgGBSxr39jA4sZJlGD5Pacf3R9IFwAKuW9aRn
+ RKiMrlj6p0cgVrYBHxgOjXTks2MfZ9YxX41v/FYsKdYtIp08eBHs+2ln1U2Ssz2tKLWV
+ 0tGw==
+X-Gm-Message-State: AO0yUKVGQzwcME/jSZ4EytpRe4EiC7lgpXKVc63Wm2lY2HClUyuG2Aud
+ hW5oX8gEbRYPfcSPwRupmEjECA==
+X-Google-Smtp-Source: AK7set+7EQCDSY4lF1NxTlzO55C4gJXKZ5UPoTpj3TVQyOoTlojUpxEF5Vu/3xdr8QIeYTz6cspCPQ==
+X-Received: by 2002:a05:600c:198b:b0:3df:3bd6:63e5 with SMTP id
+ t11-20020a05600c198b00b003df3bd663e5mr6822647wmq.12.1675409703874; 
+ Thu, 02 Feb 2023 23:35:03 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ r13-20020a05600c35cd00b003dc5b59ed7asm2021121wmq.11.2023.02.02.23.35.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Feb 2023 23:35:03 -0800 (PST)
+Message-ID: <1b2e69f2-a527-2db9-d45a-3b493b6bad5e@linaro.org>
+Date: Fri, 3 Feb 2023 08:35:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230203071542.GC24833@lst.de>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] Fixed the schema binding according to test
+Content-Language: en-US
+To: Ki-Seok Jo <kiseok.jo@irondevice.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230202090715.18384-1-kiseok.jo@irondevice.com>
+ <ac140660-0df0-8b43-3585-17511a280830@linaro.org>
+ <SLXP216MB0077A1B1F744D74A5B338F0C8CD69@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+ <4111d645-478a-e55f-60bd-4ecbef077183@linaro.org>
+ <SLXP216MB00777901D3E60C271FB54E3E8CD79@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <SLXP216MB00777901D3E60C271FB54E3E8CD79@SLXP216MB0077.KORP216.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +112,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
- linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-arch@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-gpio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Feb 03, 2023 at 08:15:42AM +0100, Christoph Hellwig wrote:
-> On Fri, Jan 13, 2023 at 08:12:44AM +0100, Greg Kroah-Hartman wrote:
-> > Do you want all of these to go through a single tree, or can they go
-> > through the different driver subsystem trees?
+On 03/02/2023 06:06, Ki-Seok Jo wrote:
+>>>>> +  sys-clk-id:
+>>>>> +    description: select the using system clock.
+>>>>
+>>>> What does it mean? Why do you need such property instead of clocks?
+>>>
+>>> This can receive an external clock, but it can use internal clock.
+>>> Should I write all the clock descriptions in case?
+>>
+>> How do you configure and enable external clock with this property? I don't
+>> see it. If the device has clock input, this should be "clocks". If it is
+>> omitted, then internal clock is used.
+>>
 > 
-> Looks like the big removal isn't going in for this merge winodw,
-> so can you queue this patch up after all Greg?
+> Basically, this value is set with set_sysclk in the dai operations.
+> So, I also get the clk_id from this function and set it.
+> From the point of view of the codec driver, there are case where the machine
+> driver does not give this value(clk_id).
 
-Sure, I'll go apply it right now, thanks.
+It's entirely different discussion. You did not document the
+clocks/values for it and just wrote "select the using", so like a "bool"
+property.
 
-greg k-h
+You need bindings documenting the clocks. Use the same name as here:
+https://lore.kernel.org/all/20221022162742.21671-2-aidanmacdonald.0x0@gmail.com/
+
+
+Best regards,
+Krzysztof
+

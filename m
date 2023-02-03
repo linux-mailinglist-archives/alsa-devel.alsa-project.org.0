@@ -2,85 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA7F2689601
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 11:29:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB107689606
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 11:30:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 519571E7;
-	Fri,  3 Feb 2023 11:28:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 519571E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1D54844;
+	Fri,  3 Feb 2023 11:30:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1D54844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675420171;
-	bh=rlPEthmutRJ/POVaAzMPR5fkyIXzopzfec53+RzpDco=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	s=default; t=1675420254;
+	bh=swhnE7w3sg8iL5aZivT2WY1Fn93DZa0qbBZd/P4mbHw=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=s16Nx5E62jF1vUo3Cq1nWJOmS0YJy0jBpeIMLLuqfGK5o6WX6US0vhnxJhDkMbY2G
-	 YBKEmHDueSpnxLehJSFfn81h9udFf+cvEtkDIxoF88zLi3wdAi4YUSnh+28U5Jz5Oz
-	 pV7sauY8CtRPZQqr3SYxGJ8b0ae7pAcjkBd1efao=
+	b=US6D9lMldRW32B60CUVYUvACFkcYOhpEbPvTVD4ez1BQVZNSi0obw1zJO95DaKoX1
+	 oRXo1CD77mCOIsb1c7m1UOt3Es6ZFhRel6swX+fBIQ5ppYFDybyTzYglJbd1qKgp/k
+	 BQW+hT58RsKbyWVO/WtJOBXOW7fmaSPU4OIESjPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E915F80022;
-	Fri,  3 Feb 2023 11:28:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03876F80022;
+	Fri,  3 Feb 2023 11:29:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FCFAF8032B; Fri,  3 Feb 2023 11:28:26 +0100 (CET)
+ id C3AEFF8032B; Fri,  3 Feb 2023 11:29:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
  RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
  shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DED36F80169
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 11:28:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DED36F80169
-Received: by mail-qt1-f178.google.com with SMTP id v17so4924534qto.3
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 02:28:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OONFnhP6I7zS1Y45r5yPBZWg15dDNXvDl8f/Zu5HTcU=;
- b=FYz5f6BAf7DxBsE4nPDIgh+izmlzm8PjaYHYCO2gbhHrIv9cUlVk1uSIZU0/nVh6g+
- ku7H0xeEdlUgSTmtaPbjPC+5tKam3T9y5Ci0P27nUc1DnOS3CeqcSXTdReeLSwwvwJof
- WD1LA5Hv1Nqx/9WwoOu7ox5uiRmKsRqtHDRn+jdrENz9Q3hXyFIYOk99JWJ8ZyX78dnK
- 1u3YSvdOkIKRzQw9KI/N9RjfYH6NClcHBCapJRc2Z2cR2IHXlpSPxGgD3Xjnaq+3qj8N
- LHJ3+lAkgYxr/j7sROhfmgCvHow8p0SviqdK/lzY4XP3j0L/ihLXbSmxFWGaqIm6HsLU
- rGdw==
-X-Gm-Message-State: AO0yUKVr3xD30YEhewyGpPdvEaQHELYUuk/w/LayyFALlWJ2O6N1nj7j
- RqJJBRrveoFQErRk3utvro5FeGOygOvw3A==
-X-Google-Smtp-Source: AK7set8kLcNza4wi7Fs0tXX3XkV2ecJNasuIvhuHWAYqjKpPOJq04QYrdYz/ze3obsP6Z7wixvCL1g==
-X-Received: by 2002:a05:622a:1a8d:b0:3b8:ca09:e01d with SMTP id
- s13-20020a05622a1a8d00b003b8ca09e01dmr18639282qtc.53.1675420096181; 
- Fri, 03 Feb 2023 02:28:16 -0800 (PST)
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com.
- [209.85.219.170]) by smtp.gmail.com with ESMTPSA id
- f11-20020ac8014b000000b003b86d5c4fbbsm1363153qtg.1.2023.02.03.02.28.15
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 02:28:15 -0800 (PST)
-Received: by mail-yb1-f170.google.com with SMTP id x4so5709564ybp.1
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 02:28:15 -0800 (PST)
-X-Received: by 2002:a25:820a:0:b0:7d5:b884:3617 with SMTP id
- q10-20020a25820a000000b007d5b8843617mr1035225ybk.380.1675420094927; Fri, 03
- Feb 2023 02:28:14 -0800 (PST)
-MIME-Version: 1.0
-References: <20230203101624.474611-1-tudor.ambarus@linaro.org>
-In-Reply-To: <20230203101624.474611-1-tudor.ambarus@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 3 Feb 2023 11:28:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVeDbTGLBAk5QWGQGf=o6g25t341FjGTmNsHw0_sDOceg@mail.gmail.com>
-Message-ID: <CAMuHMdVeDbTGLBAk5QWGQGf=o6g25t341FjGTmNsHw0_sDOceg@mail.gmail.com>
-Subject: Re: [PATCH] tree-wide: trivial: s/ a SPI/ an SPI/
-To: Tudor Ambarus <tudor.ambarus@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19B88F80022
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 11:29:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19B88F80022
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1pNtJx-0002fq-Hz; Fri, 03 Feb 2023 11:29:29 +0100
+Received: from p57bd9464.dip0.t-ipconnect.de ([87.189.148.100]
+ helo=[192.168.178.81]) by inpost2.zedat.fu-berlin.de (Exim 4.95)
+ with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1pNtJx-000PVD-9p; Fri, 03 Feb 2023 11:29:29 +0100
+Message-ID: <d10fe31b2af6cf4e03618f38ca9d3ca5c72601ed.camel@physik.fu-berlin.de>
+Subject: Re: remove arch/sh
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Christoph Hellwig <hch@lst.de>
+Date: Fri, 03 Feb 2023 11:29:27 +0100
+In-Reply-To: <20230203083037.GA30738@lst.de>
+References: <20230113062339.1909087-1-hch@lst.de>
+ <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+ <20230116071306.GA15848@lst.de>
+ <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
+ <20230203071423.GA24833@lst.de>
+ <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
+ <20230203083037.GA30738@lst.de>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 
+MIME-Version: 1.0
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 87.189.148.100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,42 +80,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-staging@lists.linux.dev,
- linux-acpi@vger.kernel.org, linux-input@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-arch@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org, trivial@kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-gpio@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, linux-rtc@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Tudor,
+Hi Christoph!
 
-On Fri, Feb 3, 2023 at 11:17 AM Tudor Ambarus <tudor.ambarus@linaro.org> wrote:
-> The deciding factor for when a/an should be used is the sound
-> that begins the word which follows these indefinite articles,
-> rather than the letter which does. Use "an SPI" (SPI begins
-> with the consonant letter S, but the S is pronounced with its
-> letter name, "es.").
+On Fri, 2023-02-03 at 09:30 +0100, Christoph Hellwig wrote:
+> On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz wrote=
+:
+> > Since this is my very first time stepping up as a kernel maintainer, I =
+was hoping
+> > to get some pointers on what to do to make this happen.
+> >=20
+> > So far, we have set up a new kernel tree and I have set up a local deve=
+lopment and
+> > test environment for SH kernels using my SH7785LCR board as the target =
+platform.
+> >=20
+> > Do I just need to send a patch asking to change the corresponding entry=
+ in the
+> > MAINTAINERS file?
+>=20
+> I'm not sure a there is a document, but:
+>=20
+>  - add the MAINTAINERS change to your tree
+>  - ask Stephen to get your tree included in linux-next
+>=20
+> then eventually send a pull request to Linus with all of that.  Make
+> sure it's been in linux-next for a while.
 
-While I agree with your pronunciation, I believe the SPI maintainer
-(which you forgot to CC) pronounces it in James Bond-style, i.e. rhymes
-with "spy" ;-)
+OK, thanks for the pointers! Will try to get this done by next week.
 
-Gr{oetje,eeting}s,
+We're still discussing among SuperH developer community whether there will =
+be a second
+maintainer, so please bear with us a few more days. I will collect patches =
+in the
+meantime.
 
-                        Geert
+Adrian
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913

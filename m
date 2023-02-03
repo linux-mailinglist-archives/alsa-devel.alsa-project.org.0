@@ -2,97 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C597B68BE63
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:37:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E184168BE5A
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:36:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E939832;
-	Mon,  6 Feb 2023 14:36:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E939832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 343A61E4;
+	Mon,  6 Feb 2023 14:35:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 343A61E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675690641;
-	bh=nLaN6niuDgmuORXdhUtclIEwbrHGlwBcGootV3J3l2s=;
+	s=default; t=1675690567;
+	bh=DrSwxjkFAAX2EJQKx6EFPodKze9FWg8UlocWmWLGPxk=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=kfxS585LGJUKBQYlM8l4x4YyAaSswHaPnSBMtXT4jfgUQ3lQYJyWIGG973O/S7H5/
-	 2LRZ1Rl8DSzO5AD8aT9T4oqORJgclQ/Gy3Gt8Ih1HgRxdS0FnfNWFsiEbiZOlMuru7
-	 6UVN4Ki50QQ7DalmIBjIlm1zF9ke2axMVpkzxu84=
+	b=ITI2FJzgfvp/yc610G3qFUT9CuAkriEy8RSt1gkezqUbrMJYwOgs8fLBk/XZw7s4d
+	 c795NoW2TmBwnV23jSpE7uk6vE+pkrUi2hkewSz45JDBQoYVDERPMTzwIYDlbSaMz9
+	 meqExjlrhnFMLr9ynsbyt6eKBF/Jw/Yiit1m2L1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44E71F80551;
-	Mon,  6 Feb 2023 14:35:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52610F800E3;
+	Mon,  6 Feb 2023 14:35:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31D8EF8032B; Fri,  3 Feb 2023 13:30:18 +0100 (CET)
+ id 494CDF80254; Fri,  3 Feb 2023 16:57:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00632F80169
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 13:30:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00632F80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37820F80022
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 16:57:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37820F80022
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=PC6jnhpr
-Received: by mail-wm1-x32b.google.com with SMTP id o36so3759533wms.1
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 04:30:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oliUtLWESo3lQu6iHKqwx+2QOwN2sNCjDu921E6eImU=;
- b=PC6jnhprbBOYA5gQ8hht4uhJybrq7/0C64ACU2Gt9qfbW1pk9VfapwtzsEQiHMXbWG
- 1JppW/crId+0Ce/5NY+vbYD8aQrWah3VOr/cgyiKfrz+CsV1xjGADT9tWMUyPppehNBX
- SC0wy/PcQSuekQwM7g/y6t2SL8B/Gkosz5mtmibN43bNv0b1mD4tCXB0banPcItFJwfc
- i54CE0XoHTzA+jAmoTtBHleO+mnp2xAR7FyjhdHzEDNwwY9TdNXm+ghb8j6ArobpiwRR
- 9hn30hxFYj4ol+bMYzOz9KNKlsouP5G6WIVr/nA+qavbwuBMicrP2QKe1d5rCLF7jiXP
- ViLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oliUtLWESo3lQu6iHKqwx+2QOwN2sNCjDu921E6eImU=;
- b=qFbVuvna5XaK0cw/zNkdqxFiObO2DXVwadNECNNQTWduxn5x9lK04jHawPBV4LtP06
- v+nGCIE/xMMBj3eQeOFQHfFP01PR1vwbw4S0y3YSsMXgfgjQHpaZZl9q5gp2vVToG0OG
- 9VEAAQXSszGj/cNWZx3/pfZf3I6LGz7wOTzH0hI1WrqCBWhUtogeE0vdJe60SwM9dzTl
- zsLDVvcp4JBdzbwJrqURF0O1NuuF2Gz2Z9tYyCis+072BdxJmx/xR33n9knj04wgFm6h
- s4YKIbEL6OtkpAK/OCFTkq4QjzThqb6KXhtVaA00TWz9ndVV/jwnGOSAXYM4MK+ipK3E
- 7NZg==
-X-Gm-Message-State: AO0yUKVOTWo4ID7sIjnHXGBVQFbBuIhbhs8PSP0ANRQOGXlKF0jZ6Ap7
- t4x+wLicjzNikt2nT2A8DhzrKg==
-X-Google-Smtp-Source: AK7set8hvfzN5yvSx0vn3SHDYBE0Cu37jFl12DeSADMr5lTBdrNCrV6wJaZ+esFXBrp8t+sFKTfd2w==
-X-Received: by 2002:a05:600c:4395:b0:3df:9858:c02c with SMTP id
- e21-20020a05600c439500b003df9858c02cmr4411370wmn.1.1675427409090; 
- Fri, 03 Feb 2023 04:30:09 -0800 (PST)
-Received: from [192.168.2.104] ([79.115.63.122])
- by smtp.gmail.com with ESMTPSA id
- h27-20020a05600c2cbb00b003db12112fcfsm2871505wmc.4.2023.02.03.04.30.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 04:30:08 -0800 (PST)
-Message-ID: <e50fe7d3-0c73-d4af-9a61-74d1279202cc@linaro.org>
-Date: Fri, 3 Feb 2023 12:30:06 +0000
+ secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
+ header.s=bombadil.20210309 header.b=mxbhKN8e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=RABYZKQEnf0QK23SEeW3xVSQhJGlQ3o0a9xB2pxXdFg=; b=mxbhKN8eDLHf3sRbpUD1Pm5ad9
+ DUxn/adCxDe6jPyxHF/gdCrJDf3lsIsIixEOuV8CpNuzkiX752ZBaf0wsnY0b2i3cM9FUEcN20eX2
+ rIR05AXVLD17i/oQNhbkjja3UIifH2qUWnxDkJqAUC7NG8o6c1/1J2q0zeQmeJMRLojURzkVBUv7W
+ j9O4rmt4LMN1wjI6tRgPyBaBqiFphCrvwmB0uTJBDK4DzjkMj6rO8E5wNKaysJXqmttqL9r4yHFrh
+ f47+XS3tx6LOOWc7AZ91W6sFA96KtfzRuvr3oItFzuKm5u8MGjDHAAIf0SDJC5iX+lV71N215QhEo
+ +ggV+adQ==;
+Received: from [2601:1c2:d00:6a60::9526]
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pNyR8-002pf0-3m; Fri, 03 Feb 2023 15:57:14 +0000
+Message-ID: <f6a60193-a5d1-c42c-158a-4b0bfe9c7538@infradead.org>
+Date: Fri, 3 Feb 2023 07:57:12 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] tree-wide: trivial: s/ a SPI/ an SPI/
+ Thunderbird/102.6.1
+Subject: Re: remove arch/sh
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20230203101624.474611-1-tudor.ambarus@linaro.org>
- <CAMuHMdVeDbTGLBAk5QWGQGf=o6g25t341FjGTmNsHw0_sDOceg@mail.gmail.com>
- <Y9z0bQ8TeFROA0Fj@sirena.org.uk>
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <Y9z0bQ8TeFROA0Fj@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+References: <20230113062339.1909087-1-hch@lst.de>
+ <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
+ <20230116071306.GA15848@lst.de>
+ <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
+ <20230203071423.GA24833@lst.de>
+ <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
+ <20230203083037.GA30738@lst.de>
+ <d10fe31b2af6cf4e03618f38ca9d3ca5c72601ed.camel@physik.fu-berlin.de>
+ <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <CAMuHMdUitVfW088YOmqYm4kwbKwkwb22fAakHcu6boxv7dXDfQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 06 Feb 2023 14:35:03 +0100
 X-BeenThere: alsa-devel@alsa-project.org
@@ -107,53 +91,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-leds@vger.kernel.org, linux-rtc@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-staging@lists.linux.dev,
- linux-acpi@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- trivial@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-sh@vger.kernel.org,
+ linux-rtc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, linux-arch@vger.kernel.org,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi--
 
-
-On 2/3/23 11:47, Mark Brown wrote:
-> On Fri, Feb 03, 2023 at 11:28:03AM +0100, Geert Uytterhoeven wrote:
->> On Fri, Feb 3, 2023 at 11:17 AM Tudor Ambarus <tudor.ambarus@linaro.org> wrote:
+On 2/3/23 02:33, Geert Uytterhoeven wrote:
+> Hi Adrian,
 > 
->>> The deciding factor for when a/an should be used is the sound
->>> that begins the word which follows these indefinite articles,
->>> rather than the letter which does. Use "an SPI" (SPI begins
->>> with the consonant letter S, but the S is pronounced with its
->>> letter name, "es.").
+> On Fri, Feb 3, 2023 at 11:29 AM John Paul Adrian Glaubitz
+> <glaubitz@physik.fu-berlin.de> wrote:
+>> On Fri, 2023-02-03 at 09:30 +0100, Christoph Hellwig wrote:
+>>> On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz wrote:
+>>>> Since this is my very first time stepping up as a kernel maintainer, I was hoping
+>>>> to get some pointers on what to do to make this happen.
+>>>>
+>>>> So far, we have set up a new kernel tree and I have set up a local development and
+>>>> test environment for SH kernels using my SH7785LCR board as the target platform.
+>>>>
+>>>> Do I just need to send a patch asking to change the corresponding entry in the
+>>>> MAINTAINERS file?
+>>>
+>>> I'm not sure a there is a document, but:
+>>>
+>>>  - add the MAINTAINERS change to your tree
+>>>  - ask Stephen to get your tree included in linux-next
+>>>
+>>> then eventually send a pull request to Linus with all of that.  Make
+>>> sure it's been in linux-next for a while.
+>>
+>> OK, thanks for the pointers! Will try to get this done by next week.
+>>
+>> We're still discussing among SuperH developer community whether there will be a second
+>> maintainer, so please bear with us a few more days. I will collect patches in the
+>> meantime.
 > 
->> While I agree with your pronunciation, I believe the SPI maintainer
->> (which you forgot to CC) pronounces it in James Bond-style, i.e. rhymes
->> with "spy" ;-)
+> Thanks a lot!
 > 
-> Yes, I do.  To the best of my knowledge most people just say "spy"
-> rather than pronouncing the letters or anything.
-> 
-> In any case as I said in reply to one of the individual patches English
-> isn't regular enough to go with hard and fast rules on anything, and the
-> letter rule is much more commonly used where something is needed.  Using
-> an here looks wrong to me, and the fact that a is so widely used does
-> suggest that usage has escaped whatever rule there is.
+> If you need any help with process, setup, ... don't hesitate to ask
+> (on e.g. #renesas-soc on Libera).
 
-Indeed:
-$ git grep " a SPI" | wc -l
-131
-$ git grep " an SPI" | wc -l
-88
+While Adrian and Geert are reading this, I have a question:
 
-Ok, let's drop this patch.
+Is this "sh64" still accurate and applicable? from Documentation/kbuild/kbuild.rst:
 
-Cheers,
-ta
+But some architectures such as x86 and sparc have aliases.
+
+- x86: i386 for 32 bit, x86_64 for 64 bit
+- sh: sh for 32 bit, sh64 for 64 bit <<<<<<<<<<<<<<<
+- sparc: sparc32 for 32 bit, sparc64 for 64 bit
+
+
+
+Thanks.
+-- 
+~Randy

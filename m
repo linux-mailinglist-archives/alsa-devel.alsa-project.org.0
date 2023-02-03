@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B549689F0C
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 17:23:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EA7F689F11
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 17:23:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C09E61CF;
-	Fri,  3 Feb 2023 17:22:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09E61CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C626847;
+	Fri,  3 Feb 2023 17:22:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C626847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675441382;
-	bh=c5Yb4CvieEMH6z1eaCXGEpKpzV4F17X6esawTPxH/LQ=;
+	s=default; t=1675441423;
+	bh=BPfj5iAMzxcYPZ6pP/YG+tBgaZZbuL/WkXUogph0egc=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=f+2OqZ/P8+ASDCvaHfbZUqBv01az2p4VEdmGeAs8c0f23ahH6ziHWvCPAbirWf/6x
-	 ADMiwhy+Jfe+hqRi16Oh/W7SJy3H9uPsN985GeXtPXfAeXtXtJV5nRONeWgCPH1h2A
-	 attm6y25+gy41eQNWn+YIR4LWHG+dfEjlGgSXW6M=
+	b=lFxbFOD6hBOVy4oRp98evulD2LQikm5V1dCO810Crk71EIQbscWxBphgdccA+eVhJ
+	 yzn7weXgZ5hUNM6P0UaFZIjhXpjzSug5UPgowbXzMmUmi34qZRYng6QySt+b6gqoz4
+	 si4YuCFoEPzMGQ2KCniMKrRuih42FqUiRTVzuDT4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05C25F800E3;
-	Fri,  3 Feb 2023 17:22:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97737F8001D;
+	Fri,  3 Feb 2023 17:22:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 175DDF80254; Fri,  3 Feb 2023 17:22:01 +0100 (CET)
+ id 00AD3F802E8; Fri,  3 Feb 2023 17:22:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02702F80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:21:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02702F80022
+ by alsa1.perex.cz (Postfix) with ESMTPS id 583A3F802E8
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:22:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 583A3F802E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=K6MgkdOb; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=r1nKRdcM; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=d/IRgZ4T
+ header.s=susede2_ed25519 header.b=HuwPBGhJ
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7641C5C06B;
- Fri,  3 Feb 2023 16:21:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 431845C074;
+ Fri,  3 Feb 2023 16:22:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675441317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675441361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vtaRyUq6YHmzQI7kjvLWsZyU/TtCCYnveE1jpxfQ4R0=;
- b=K6MgkdObvsgBHkZVBXvIDRo+dbQqK4063CszwKPpb07eMIm4X2BpMqv+qbbwvzv9gRMDvT
- jFY1f5UoY4yozJp6efN5k+e51vSUIuF1IQWmcu0ewXZ2B81NNYbmCQ14I8F++PpclHz69c
- xMxbG9tC5llLUfDHR0p1h0cBm3eOebA=
+ bh=ruiS8r62boHPUD28CXHa7CeYgA4FuS4HOK4WAFem4H0=;
+ b=r1nKRdcMrIiDe7mSHTXosVpP0xRaHW2zQqKx/wdx2LD3rQgDEn1AA7GoWjKLPo32VtVpLT
+ D2QcrIFMCGm/GqHnqjwFLFv1RiLWx9tGkhBu8xX/ltXWzACAMWU3+abXtmAHOOMILhI0Fv
+ EvJOrFLqiGVUCRPHew36gozAdWUCXy0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675441317;
+ s=susede2_ed25519; t=1675441361;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vtaRyUq6YHmzQI7kjvLWsZyU/TtCCYnveE1jpxfQ4R0=;
- b=d/IRgZ4T2sUpUKlyQzOebyGBbTuzeeOUq77zvIp97L5pcszlG5ZHu1yFooLzhsBq6iGv8q
- wvnrQBkm0h3X4UAw==
+ bh=ruiS8r62boHPUD28CXHa7CeYgA4FuS4HOK4WAFem4H0=;
+ b=HuwPBGhJRA8m88RtstUKq8jTYKkTDAQgPxTsVmqi1nYi3Dw89U2B+swdAzC7YHdBJD6bNy
+ dWoUgQXaP+4RDfAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5AB3B1358A;
- Fri,  3 Feb 2023 16:21:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D8451358A;
+ Fri,  3 Feb 2023 16:22:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +0RBFaU03WPgVwAAMHmgww
- (envelope-from <tiwai@suse.de>); Fri, 03 Feb 2023 16:21:57 +0000
-Date: Fri, 03 Feb 2023 17:21:56 +0100
-Message-ID: <87h6w2n2hn.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 939wCtE03WMyWAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 03 Feb 2023 16:22:41 +0000
+Date: Fri, 03 Feb 2023 17:22:40 +0100
+Message-ID: <87fsbmn2gf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2] ALSA: hda: Fix the control element identification for
- multiple codecs
-In-Reply-To: <20230202092013.4066998-1-perex@perex.cz>
-References: <20230202092013.4066998-1-perex@perex.cz>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH] ALSA: fireface: add field for the number of messages
+ copied to user space
+In-Reply-To: <20230202133708.163936-1-o-takashi@sakamocchi.jp>
+References: <20230202133708.163936-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -98,37 +98,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 02 Feb 2023 10:20:13 +0100,
-Jaroslav Kysela wrote:
+On Thu, 02 Feb 2023 14:37:08 +0100,
+Takashi Sakamoto wrote:
 > 
-> Some motherboards have multiple HDA codecs connected to the serial bus.
-> The current code may create multiple mixer controls with the almost
-> identical identification.
+> Current structure includes no field to express the number of messages
+> copied to user space, thus user space application needs to information
+> out of the structure to parse the content of structure.
 > 
-> The current code use id.device field from the control element structure
-> to store the codec address to avoid such clashes for multiple codecs.
-> Unfortunately, the user space do not handle this correctly. For mixer
-> controls, only name and index are used for the identifiers.
+> This commit adds a field to express the number of messages copied to user
+> space since It is more preferable to use self-contained structure.
 > 
-> This patch fixes this problem to compose the index using the codec
-> address as an offset in case, when the control already exists. It is
-> really unlikely that one codec will create 10 similar controls.
+> Kees Cook proposed an idea of annotation for bound of flexible arrays
+> in his future improvement for flexible-length array in kernel. The
+> additional field for message count is suitable to the idea as well.
 > 
-> This patch adds new kernel module parameter 'ctl_dev_id' to allow
-> select the old behaviour, too. The CONFIG_SND_HDA_CTL_DEV_ID Kconfig
-> option sets the default value.
-> 
-> BugLink: https://github.com/alsa-project/alsa-lib/issues/294
-> BugLink: https://github.com/alsa-project/alsa-lib/issues/205
-> Fixes: 54d174031576 ("[ALSA] hda-codec - Fix connection list parsing")
-> Fixes: 1afe206ab699 ("ALSA: hda - Try to find an empty control index when it's occupied")
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Reference: https://people.kernel.org/kees/bounded-flexible-arrays-in-c
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Applied now.  Thanks.
+Wouldn't changing this break the existing application that talks with
+the older ABI?  Just to be sure...
 
+
+thanks,
 
 Takashi
+
+> ---
+>  include/uapi/sound/firewire.h                |  2 ++
+>  sound/firewire/fireface/ff-protocol-former.c | 28 +++++++++++---------
+>  2 files changed, 18 insertions(+), 12 deletions(-)
+> 
+> diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
+> index 50917581dd2b..1e86872c151f 100644
+> --- a/include/uapi/sound/firewire.h
+> +++ b/include/uapi/sound/firewire.h
+> @@ -78,6 +78,7 @@ struct snd_firewire_event_motu_register_dsp_change {
+>   *					     operating hardware knob.
+>   *
+>   * @type: Fixed to SNDRV_FIREWIRE_EVENT_FF400_MESSAGE.
+> + * @message_count: The number of messages.
+>   * @messages.message: The messages expressing hardware knob operation.
+>   * @messages.tstamp: The isochronous cycle at which the request subaction of asynchronous
+>   *		     transaction was sent to deliver the message. It has 16 bit unsigned integer
+> @@ -89,6 +90,7 @@ struct snd_firewire_event_motu_register_dsp_change {
+>   */
+>  struct snd_firewire_event_ff400_message {
+>  	unsigned int type;
+> +	unsigned int message_count;
+>  	struct {
+>  		__u32 message;
+>  		__u32 tstamp;
+> diff --git a/sound/firewire/fireface/ff-protocol-former.c b/sound/firewire/fireface/ff-protocol-former.c
+> index fa41de978756..efd59e9d9935 100644
+> --- a/sound/firewire/fireface/ff-protocol-former.c
+> +++ b/sound/firewire/fireface/ff-protocol-former.c
+> @@ -677,23 +677,19 @@ static void ff400_handle_msg(struct snd_ff *ff, unsigned int offset, const __le3
+>  
+>  static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long count)
+>  {
+> +	struct snd_firewire_event_ff400_message ev = {
+> +		.type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE,
+> +		.message_count = 0,
+> +	};
+>  	struct ff400_msg_parser *parser = ff->msg_parser;
+> -	u32 type = SNDRV_FIREWIRE_EVENT_FF400_MESSAGE;
+>  	long consumed = 0;
+> -	int ret = 0;
+> +	long ret = 0;
+>  
+> -	if (count < 8)
+> +	if (count < sizeof(ev) || parser->pull_pos == parser->push_pos)
+>  		return 0;
+>  
+> -	spin_unlock_irq(&ff->lock);
+> -	if (copy_to_user(buf, &type, sizeof(type)))
+> -		ret = -EFAULT;
+> -	spin_lock_irq(&ff->lock);
+> -	if (ret)
+> -		return ret;
+> -
+> -	count -= sizeof(type);
+> -	consumed += sizeof(type);
+> +	count -= sizeof(ev);
+> +	consumed += sizeof(ev);
+>  
+>  	while (count >= sizeof(*parser->msgs) && parser->pull_pos != parser->push_pos) {
+>  		spin_unlock_irq(&ff->lock);
+> @@ -707,10 +703,18 @@ static long ff400_copy_msg_to_user(struct snd_ff *ff, char __user *buf, long cou
+>  		++parser->pull_pos;
+>  		if (parser->pull_pos >= FF400_QUEUE_SIZE)
+>  			parser->pull_pos = 0;
+> +		++ev.message_count;
+>  		count -= sizeof(*parser->msgs);
+>  		consumed += sizeof(*parser->msgs);
+>  	}
+>  
+> +	spin_unlock_irq(&ff->lock);
+> +	if (copy_to_user(buf, &ev, sizeof(ev)))
+> +		ret = -EFAULT;
+> +	spin_lock_irq(&ff->lock);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return consumed;
+>  }
+>  
+> -- 
+> 2.37.2
+> 

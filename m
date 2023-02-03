@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5841368A383
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 21:22:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83AD968A389
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 21:29:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5BE4823;
-	Fri,  3 Feb 2023 21:21:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5BE4823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B92C6826;
+	Fri,  3 Feb 2023 21:28:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92C6826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675455759;
-	bh=hWnuCkylBvZ2ZCgcBHAkmiGoTfRn5uLBPRGdI5ayX28=;
+	s=default; t=1675456154;
+	bh=YqeBhjjV+lW4B2bmKEqd84qE4MV9JNhIkam5v/WyErE=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VeAtYTh2C7sx0Upq26WTshDTyzr62/4guiz6JUCKNFTkQXIrSJr5yUCjlEQrwqp5L
-	 dT99uYGTkqi08CJEheqaCZUGl4kfweAtPUvhR/aT+V9Q83UKGISi4GfePMS+Rgl6NK
-	 MUv+lJmaYoHXAkiKN1A39hYzAdccG8YabxAH1jpg=
+	b=EFLJtjqMA2tZq1SM/8be/sAyupmz4YMBuTAEui+dcA3U5bceWUgI1eyq8dmUrmKXD
+	 VvyAOjFH2ocJxchc18AmhrC367q7tcOuQjW3WEY+Nx/ORmAuBYKKSWKiQ4a4avN1CZ
+	 0tNlyogqTEVAi/Siufqz2EZm9Q78rottfzk3C3Nk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8452F8001D;
-	Fri,  3 Feb 2023 21:21:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E70CF8001D;
+	Fri,  3 Feb 2023 21:28:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF724F80254; Fri,  3 Feb 2023 21:21:37 +0100 (CET)
+ id A50CBF80254; Fri,  3 Feb 2023 21:28:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8902BF800E3
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 21:21:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8902BF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id F013FF8001D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 21:28:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F013FF8001D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=HLoFOX9M
-Received: by mail-wm1-x32c.google.com with SMTP id
- f47-20020a05600c492f00b003dc584a7b7eso6804923wmp.3
- for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 12:21:34 -0800 (PST)
+ header.s=google header.b=SezcXEcW
+Received: by mail-wm1-x32b.google.com with SMTP id
+ m5-20020a05600c4f4500b003db03b2559eso4742098wmq.5
+ for <alsa-devel@alsa-project.org>; Fri, 03 Feb 2023 12:28:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=m5sLjr7aYK315tj89Xz8yTzw8nhiBSznb+bT5o725x0=;
- b=HLoFOX9M38kF2qyUXFQwXqSnMduKtNxMFBrU5CvSYknJxcduZ84ZUxf/VVFfkk+dwR
- /WLjnjiBsb1y6V6GqLtfXH8j5KJDNyoWTaR76slT+yDk3LZqAJB1XDDj/ITC4vfTaEDc
- qFfA1b2qa/H9ba7GlMKHQAetHgjPTM8d4A5x2BWt0AEtogp1MPI5kISnP7fI+Rk6HQNR
- h71USPCrKliJYX5PoXeGf3p8mOTdD+tGnDRL5uvNeBQpeuYIDUzK7vnKZM0nDi3JChGc
- rML/UuG3wp30vrDrWJF1gFFn9XzjnHdc5MkgTBcQ5cZL/ZP8JUtO3UVYFG8JILgMYRMf
- 2gQQ==
+ bh=OcaR471TXAjGr31MjNbqXuBFmDxa1S6cNX7l4YGYmRI=;
+ b=SezcXEcWF/dRKemlQQqQWL8NAYRbNZuSckOdAlUWdAlQWpoWXU5+usWAHMA82BZBLg
+ CXMBSlZbEGaxjypt6Nfl0LkI9duN6m5fNPGEgGmIGAZOb5oCE5TO/Od8nQwCnEPL40N0
+ zbUDICs8/GZ8i596nTr05XvUC7rjuRvdgdoAkptotziPI32OLe9w9GB3a75qEeMMne0x
+ UeQMPNIIWo2T08GbT02VdVoXOskEeQOdTZohR5myokK1bR3slxoQ7DzJMiGISiAKXEuk
+ 5d6EiVdMUeAWT2NKr/JXCVXQ6bLsF6Hnct6TneOHGvketNvDbD5c9etecDSFFEnA+AJj
+ EcOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=m5sLjr7aYK315tj89Xz8yTzw8nhiBSznb+bT5o725x0=;
- b=Rqiq8CLTaadC4VQApzgqo2OtXOnDDyjYH3tmJ5KDj0cTkfUla7S5ds5WmOG7fTjPFD
- ZTH/JS5QsE3J/fSjaNkf+QMldcnB4DY4gWKFCDeqHSWEBFlm3LCA7+0HCCmVznkwswy4
- 1Mjgx5Mt2jkCCsVEfuZh7HU7iYN6qXX0oi4jSjA7sNj0gFIkHqhkP7f5XwEqHFnpxGiM
- WuqXQaCBbiSUeHDANclHHBagqshIfjb6Q5Aiy1glRdiSIV8kCDmms2QDgECnEx05GQ82
- mIfIvjKbb56oL9m+Q4OvtSRNoDGAITcd+bNigRwu6zodOFfQjwC8+QANV7yz45/jKQsQ
- MgtQ==
-X-Gm-Message-State: AO0yUKU2JeP0Fq4Fab9FBPTK0iLrpbXCkXR0x74nZYr3kdBX/8IQLXp5
- IlVnfqhu04V/RF/1/u3obb3cPA==
-X-Google-Smtp-Source: AK7set8Gpfp/Oz+hFP5DrhCusCPg/cotAzMpidE7HBO1Avb+cX25jy40Vo3VZeQupr3Q20OM5Hxk4g==
-X-Received: by 2002:a05:600c:444f:b0:3da:c07:c5fe with SMTP id
- v15-20020a05600c444f00b003da0c07c5femr10596494wmn.5.1675455692569; 
- Fri, 03 Feb 2023 12:21:32 -0800 (PST)
+ bh=OcaR471TXAjGr31MjNbqXuBFmDxa1S6cNX7l4YGYmRI=;
+ b=USknWbzzsUKAlDbEIcZ2YhC8/Qw8HX3errDBLVrfwSbSx+ookjLlz1iqcWMHA+QUuW
+ Te51JLuG6uiknAC+hzxKF1bXhv8IwKfQi0UN5VCOStbPt7guJ6AVjeiFpKuPVMnuier8
+ g2ZL7V0lFYdNu9TANMfNgpf8Xb5VM/dylxp+a+OXHLBsYDZ5kraEVkM7Ah1FufolYfA7
+ 1hLmKRX+NjOKwTiMnEP6sWaNsf2wizwWGg14Jv/j0rw/AE6BY8S1cUNvFM7fbNyvnzNu
+ g2s0Y6rGHXxlSq3/mxt+Vlm2G8pYCKewLE9oDNpuKIVnVH3zQgvpjLNwf7Ttv6h8R2MA
+ f6nw==
+X-Gm-Message-State: AO0yUKXG5XXPGsbFWymHkaezLudlL7C/3FTU1m22gZY8QsQ8PPYiT3t3
+ 8L0jMKTF3vSBTuLBD2/YQutMFw==
+X-Google-Smtp-Source: AK7set96RpaTqpX9Bfu005sId7DrlnJXnLTXqwwUkaTAzF2cO0cHdxloiYdhXNMOBbDNxsyHPR3krw==
+X-Received: by 2002:a05:600c:1c06:b0:3d9:fb89:4e3d with SMTP id
+ j6-20020a05600c1c0600b003d9fb894e3dmr11971335wms.28.1675456081778; 
+ Fri, 03 Feb 2023 12:28:01 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- g10-20020a05600c310a00b003de77597f16sm3803784wmo.21.2023.02.03.12.21.31
+ q9-20020a1ce909000000b003dc34edacf8sm8466662wmc.31.2023.02.03.12.28.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 12:21:32 -0800 (PST)
-Message-ID: <f9d9bbfc-507d-2092-6ae8-f80ab3d23bd1@linaro.org>
-Date: Fri, 3 Feb 2023 21:21:30 +0100
+ Fri, 03 Feb 2023 12:28:01 -0800 (PST)
+Message-ID: <79474344-0bf1-ba0e-6bae-0ccb4e3a3aee@linaro.org>
+Date: Fri, 3 Feb 2023 21:27:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
@@ -144,16 +144,9 @@ On 03/02/2023 20:34, Jerome Brunet wrote:
 >> Then define it as having cells:
 >>
 >> https://elixir.bootlin.com/linux/v5.18-rc1/source/Documentation/devicetree/bindings/soc/samsung/exynos-usi.yaml#L42
->>
-> 
-> The card is provided with the phandle.
-> Whether or not the phandle has cells or not has nothing do with card
-> driver. The card just consums sound-dai. I don't understand this comment.
 
-You said this is only a phandle. Then you have just two options - either
-this is one phandle without arguments (then change it as I asked
-originally) or this is one phandle with arguments (then change it to
-define the arguments like in example I gave you).
+Eh, it is already defined, so my advice is incorrect. Drop the ref and
+define maxItems.
 
 Best regards,
 Krzysztof

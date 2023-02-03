@@ -2,95 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A10689EFC
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 17:19:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B549689F0C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 17:23:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22BB5826;
-	Fri,  3 Feb 2023 17:18:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22BB5826
+	by alsa0.perex.cz (Postfix) with ESMTPS id C09E61CF;
+	Fri,  3 Feb 2023 17:22:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09E61CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675441180;
-	bh=61KGv653ez1zkWQrAqGKxv2SeAzUpEy/Tq6E7TVWmpw=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	s=default; t=1675441382;
+	bh=c5Yb4CvieEMH6z1eaCXGEpKpzV4F17X6esawTPxH/LQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Yeqps7v6nhPcwq5/VZ21DxjYEOtI3JHxOlw3wtFS6gNtRiJArHL6p6eRN2ZVWhj/u
-	 Uzu7Vd0W/oo45v1anLHwCAEo4kWjD2+6baSWLg2eHb2IeQfwJrhec7Z98bue6dR4oM
-	 cUDdNzkAGfKBMXwWX8vP8WmVMtMonLLZIFuoCFFc=
+	b=f+2OqZ/P8+ASDCvaHfbZUqBv01az2p4VEdmGeAs8c0f23ahH6ziHWvCPAbirWf/6x
+	 ADMiwhy+Jfe+hqRi16Oh/W7SJy3H9uPsN985GeXtPXfAeXtXtJV5nRONeWgCPH1h2A
+	 attm6y25+gy41eQNWn+YIR4LWHG+dfEjlGgSXW6M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09E22F80022;
-	Fri,  3 Feb 2023 17:18:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05C25F800E3;
+	Fri,  3 Feb 2023 17:22:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EAC9F80254; Fri,  3 Feb 2023 17:18:39 +0100 (CET)
+ id 175DDF80254; Fri,  3 Feb 2023 17:22:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65714F80022
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:18:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65714F80022
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=n/iP52/X
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3135VLJe006873; Fri, 3 Feb 2023 10:18:33 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=BnYGLNTq8h0hMRcu1a2dAht1uvid0WksodfxullA1h4=;
- b=n/iP52/XawhwGmrHOWt27ygD5euHuzAHpdgR3F8FTG1IJlfcv2lxNSa8lNvJFmlc8qOr
- qn+C7JUvApPoxUerGRv3+MlL0hEFW8gnyPyU/dnthJzFXtMetW/sDy/EInRCVnMoB0Ww
- LRXv1fhZZ6EvikQ1Juxa1/pJhULSMpTpa5JuOcWlDbeN7EPf3HUrOkK2B6I9cOPvJo6r
- 58b3NwhaHJRpQlzGjQY0ecJmJ3NxeRoR+bSWQ4/qAaNUNw5OdB/RH8YnaLp+WP+gFY/9
- 92al1Kr+nuSGnvlx1i2j+e2dNR3SuI9O7Trp5Z6BNntwCJpTR9EKrYq/ej3Y3ZNUDNDl aA== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nfqv9krnp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Feb 2023 10:18:32 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Fri, 3 Feb
- 2023 10:18:31 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.21 via Frontend Transport; Fri, 3 Feb 2023 10:18:31 -0600
-Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3F2042A9;
- Fri,  3 Feb 2023 16:18:31 +0000 (UTC)
-Message-ID: <2d1f1bc1-afaa-b1f4-1a93-df1bfa00405b@opensource.cirrus.com>
-Date: Fri, 3 Feb 2023 16:18:30 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 1/2] soundwire: bus: Prevent infinite loop in
- sdw_ch_mask_to_ch()
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <sanyog.r.kale@intel.com>
-References: <20230202154212.1098736-1-rf@opensource.cirrus.com>
- <20230202154212.1098736-2-rf@opensource.cirrus.com>
- <0b49c924-5994-c1cd-a174-4a2e2cfaf0d2@linux.intel.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <0b49c924-5994-c1cd-a174-4a2e2cfaf0d2@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: E_TKrm5iu3B59QLHCLnnsZE8uvGSNP1K
-X-Proofpoint-ORIG-GUID: E_TKrm5iu3B59QLHCLnnsZE8uvGSNP1K
-X-Proofpoint-Spam-Reason: safe
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02702F80022
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 17:21:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02702F80022
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=K6MgkdOb; 
+ dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=d/IRgZ4T
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7641C5C06B;
+ Fri,  3 Feb 2023 16:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1675441317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vtaRyUq6YHmzQI7kjvLWsZyU/TtCCYnveE1jpxfQ4R0=;
+ b=K6MgkdObvsgBHkZVBXvIDRo+dbQqK4063CszwKPpb07eMIm4X2BpMqv+qbbwvzv9gRMDvT
+ jFY1f5UoY4yozJp6efN5k+e51vSUIuF1IQWmcu0ewXZ2B81NNYbmCQ14I8F++PpclHz69c
+ xMxbG9tC5llLUfDHR0p1h0cBm3eOebA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1675441317;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vtaRyUq6YHmzQI7kjvLWsZyU/TtCCYnveE1jpxfQ4R0=;
+ b=d/IRgZ4T2sUpUKlyQzOebyGBbTuzeeOUq77zvIp97L5pcszlG5ZHu1yFooLzhsBq6iGv8q
+ wvnrQBkm0h3X4UAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5AB3B1358A;
+ Fri,  3 Feb 2023 16:21:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +0RBFaU03WPgVwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Fri, 03 Feb 2023 16:21:57 +0000
+Date: Fri, 03 Feb 2023 17:21:56 +0100
+Message-ID: <87h6w2n2hn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2] ALSA: hda: Fix the control element identification for
+ multiple codecs
+In-Reply-To: <20230202092013.4066998-1-perex@perex.cz>
+References: <20230202092013.4066998-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,56 +98,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: ALSA development <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03/02/2023 14:35, Pierre-Louis Bossart wrote:
+On Thu, 02 Feb 2023 10:20:13 +0100,
+Jaroslav Kysela wrote:
 > 
+> Some motherboards have multiple HDA codecs connected to the serial bus.
+> The current code may create multiple mixer controls with the almost
+> identical identification.
 > 
-> On 2/2/23 09:42, Richard Fitzgerald wrote:
->> Define the ch_mask argument of sdw_ch_mask_to_ch() as an unsigned
->> so that the shift right is guaranteed to eventually make the
->> value of ch_mask==0.
->>
->> Previously ch_mask was defined as a signed int, but a right
->> shift of a signed value preserves the sign bit. So if the sign
->> bit was 1, ch_mask would never become 0 and the for loop would
->> be infinite.
->> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->> ---
->>   drivers/soundwire/bus.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
->> index 7631ef5e71fb..28bedc919b78 100644
->> --- a/drivers/soundwire/bus.h
->> +++ b/drivers/soundwire/bus.h
->> @@ -160,7 +160,7 @@ int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
->>   		 u32 addr, size_t count, u16 dev_num, u8 flags, u8 *buf);
->>   
->>   /* Retrieve and return channel count from channel mask */
->> -static inline int sdw_ch_mask_to_ch(int ch_mask)
->> +static inline int sdw_ch_mask_to_ch(unsigned int ch_mask)
->>   {
->>   	int c = 0;
->>   
+> The current code use id.device field from the control element structure
+> to store the codec address to avoid such clashes for multiple codecs.
+> Unfortunately, the user space do not handle this correctly. For mixer
+> controls, only name and index are used for the identifiers.
 > 
-> This patch1 is fine, but you remove this function in patch2, so is this
-> patch needed at all?
+> This patch fixes this problem to compose the index using the codec
+> address as an offset in case, when the control already exists. It is
+> really unlikely that one codec will create 10 similar controls.
 > 
-> -/* Retrieve and return channel count from channel mask */
-> -static inline int sdw_ch_mask_to_ch(unsigned int ch_mask)
-> -{
-> -	int c = 0;
-> -
-> -	for (c = 0; ch_mask; ch_mask >>= 1)
-> -		c += ch_mask & 1;
-> -
-> -	return c;
-> -}
-> -
+> This patch adds new kernel module parameter 'ctl_dev_id' to allow
+> select the old behaviour, too. The CONFIG_SND_HDA_CTL_DEV_ID Kconfig
+> option sets the default value.
+> 
+> BugLink: https://github.com/alsa-project/alsa-lib/issues/294
+> BugLink: https://github.com/alsa-project/alsa-lib/issues/205
+> Fixes: 54d174031576 ("[ALSA] hda-codec - Fix connection list parsing")
+> Fixes: 1afe206ab699 ("ALSA: hda - Try to find an empty control index when it's occupied")
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-I'm happy to squash them, I did it in two steps so it didn't get
-overlooked that there's a bugfix happening.
+Applied now.  Thanks.
+
+
+Takashi

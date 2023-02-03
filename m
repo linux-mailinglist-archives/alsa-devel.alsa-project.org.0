@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B625689CF6
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 16:09:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D2E689D3C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Feb 2023 16:09:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA4A342;
-	Fri,  3 Feb 2023 16:08:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA4A342
+	by alsa0.perex.cz (Postfix) with ESMTPS id 300AE84C;
+	Fri,  3 Feb 2023 16:08:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 300AE84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675436943;
-	bh=vLcSxG6OxueRtNft61IytUHlS5UMOS0PFEatfvka+LI=;
+	s=default; t=1675436969;
+	bh=BBtPJZjlylan3yySZw9Gkl+gnno+wj0wx5HgGd6te1A=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VQwc46rco9NTPo9hLgn9D5q6hs0mmYE+YUSjTMFMISCF1Y9dnweBVEw5a6HLv6Vpr
-	 3zx1sCFS6MI9Xyw8fXLVjG87ciSqbsjJ9aY3oxsXB5O4EcwtbUpHiWuO6w2mLSmEEO
-	 UIPXrCz9BYMVszbEXsVmJbr9s1x5QO7MNlbFh9bA=
+	b=A6nDVmfU/PtntwwuZ0sdfIdonotaJh2zk7G1QfshMxETx6SpNTqO+Y1EBKM6hWuWW
+	 kGDlSYoeV74Tv1+8JI3ZdoBXAbAhUhNaLXJS/uo7y+qnaRxZdMtyW7V4UYYj72bdpT
+	 xJ8jLkMym7OfvRZxLhUYJjAKDypT0BsFbcoL1de8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA38F802E8;
-	Fri,  3 Feb 2023 16:08:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6241AF80543;
+	Fri,  3 Feb 2023 16:08:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DB48F8001D; Fri,  3 Feb 2023 16:08:02 +0100 (CET)
+ id 7815DF8047D; Fri,  3 Feb 2023 16:08:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99AD1F8001D
- for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 16:07:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99AD1F8001D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AC5CF8001D
+ for <alsa-devel@alsa-project.org>; Fri,  3 Feb 2023 16:08:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AC5CF8001D
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Bb5CC5r3
+ header.s=k20201202 header.b=cqmNiM/v
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 70071B82AEE;
- Fri,  3 Feb 2023 15:07:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509B5C4339B;
- Fri,  3 Feb 2023 15:07:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AB5BCB829B9;
+ Fri,  3 Feb 2023 15:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908B3C433EF;
+ Fri,  3 Feb 2023 15:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675436877;
- bh=vLcSxG6OxueRtNft61IytUHlS5UMOS0PFEatfvka+LI=;
+ s=k20201202; t=1675436879;
+ bh=BBtPJZjlylan3yySZw9Gkl+gnno+wj0wx5HgGd6te1A=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Bb5CC5r3OHYm1XOaJCsOj04pbFL8ArxG6GZPPacqLz0OOAikoj46QmVOjwEhT3Q4+
- FWqYETbQe6mVKNTQtrjLY8y5J0y+iDGSA9CtaIA1lNNhIatEVbNd63dajJfrGteXVS
- YxlEWxQvloZY7yhcoVngODz2VUa6pRbroiE/g3eSI9eyYruOC5Qu8yrh9dT6tsC87p
- izbJO5uEqbbILCqmazaaFz0Kg9RArKt3VkIAvTTi/FOBIf/rakHLdEqp9thFoakn6Z
- +Rbdupu3FKlEdRt5NahGPG/2hwHcFVB7TuIZTvyvn3bH4e687x0jGrvzl/hqsXLKnJ
- +oWPW7d0isYVw==
+ b=cqmNiM/vmUWjfu5UIdHDS06LkTXPNcwuxjtWCDiGubMtuOzjLeSmPM/aEowuOAOSD
+ vdIkKQ8/ynzLH8WFqX+sEEC5cU8ACpPyTdXBfinJR0R7AdkcdGKFx+lZGRxTxB2F89
+ uGlPUr4brkQOW80S0R77mYuswNfNLf/Y54/5h1MyPFAAEQXIuNSmKURzpdqk9PEPWZ
+ 4QtLwnMb1pGeRtCLcIpuWBkeod0FrUjZ8oQXWIUT6AQ2tmk1kBV+Hp6RML5uQTZ9XP
+ qG5jskKSi8F9sTzz1XsZYatbtrDj02VBsmIKyVQxIXmSWz9i8Z0wHxaKmYK1HTLZ7t
+ uS8Uvh1KwnWsg==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230201123231.26361-1-peter.ujfalusi@linux.intel.com>
-References: <20230201123231.26361-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/9] ASoC: SOF: core/ipc4/mtl: Add support for PCM
+To: lgirdwood@gmail.com, perex@perex.cz, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
+References: <20230202132954.26773-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v3 0/9] ASoC: SOF: core/ipc4/mtl: Add support for PCM
  delay reporting
-Message-Id: <167543687504.955300.7802819124628276586.b4-ty@kernel.org>
-Date: Fri, 03 Feb 2023 15:07:55 +0000
+Message-Id: <167543687729.955300.8575073693335113237.b4-ty@kernel.org>
+Date: Fri, 03 Feb 2023 15:07:57 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -88,13 +88,13 @@ Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 01 Feb 2023 14:32:22 +0200, Peter Ujfalusi wrote:
-> The following series adds support for the PCM delay reporting in SOF core level
-> and implements the needed infrastructure with IPC4 to finally enable it for MTL.
+On Thu, 02 Feb 2023 15:29:45 +0200, Peter Ujfalusi wrote:
+> Changes since v2:
+> - Use div64_u64_rem() to make the code compile and work on non 64bit architectures
 > 
-> Currently this is only supported on MTL (and via IPC4), but with the
-> infrastructure in place it will be possible to support other platforms with
-> DeepBuffer.
+> Changes since v1:
+> - The delay calculation updated to take into account the counter wrapping on both
+>   ends (host and link side).
 > 
 > [...]
 

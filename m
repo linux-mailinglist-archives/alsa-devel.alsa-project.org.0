@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6655D68C0DD
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:01:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E18468C139
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:21:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDECD1E7;
-	Mon,  6 Feb 2023 16:00:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDECD1E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF08A1EB;
+	Mon,  6 Feb 2023 16:20:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF08A1EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675695706;
-	bh=oAcshapgTeZs4802VgYAZ0uVAFYrv4hY1YSIi10UEDw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=WyvxqhHqgIDhaQRN59NU6312igZHQqzvgnHXzD9cmaxFS/Jp3K52HPq0G048LNH8v
-	 J25JAC8YdJIX1qFjKCXvyQBxlZ7k4rWA8v8d83Vkzd1EIYTAL3t605coC3sjSXtTOp
-	 3iqHbd3UpE84ys3TZkfjBDaHDTxmUnMF3WfLofGg=
+	s=default; t=1675696875;
+	bh=VY/4txuOr/CHvl+E4Ut2tqQwAqaXZViNwIEQb0oI0f0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=HXZ0ve2PS+Pd+cPs2Er3qD3XWe843q9A8yZuQ7389IfIqtdvcbVZOdp4pZbLlPCK5
+	 azXO4/u5i74CfwKBXRL+O2YP8SqOI/6NzHeNHsuASZnmrPx09NVHWymsQ0hPI40eCS
+	 peW5d3aS25tPkMEGRr+I/JJkvAVd3HLlf3DfDchY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D76C4F800E3;
-	Mon,  6 Feb 2023 16:00:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1C57F804E7;
+	Mon,  6 Feb 2023 16:20:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D4F3F804F1; Mon,  6 Feb 2023 16:00:46 +0100 (CET)
+ id 21282F804FB; Mon,  6 Feb 2023 16:20:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0286AF8014B
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:00:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0286AF8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F109F800E3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:20:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F109F800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=n6rhygeo
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 316BqM0S002041; Mon, 6 Feb 2023 09:00:26 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=QYdOhby/b5tYO8DIOi6LljJwi9QVEQ1B07mtLXDq7/M=;
- b=n6rhygeouS/c7IAa3PXJHuTErmJu5uGD5jU4dRqwt4NnE2ETSGpy+py789Gl9aNOhDNb
- 7g6Rj0VhEFa1KaZqlPA3Xi0gNDIEm8CbSTdP0kDq073dt+d/goto/rHxwiZFOBG+h7+8
- y/du0Vj5QrQPlDtE/UyEOPNMwflb8YgCVNFgCR1Z1FY1To49FkFg8c+9JggDkKJsNEHQ
- moocn6QIBn8FGwA4WA+716P1ZpyBaQZnFQwLFy3WK/3QGq+fnti/6r1PsL7Lf/DZ9AC2
- zeSS03wZCaN+v32pVmWYgvvFCKjerwLgVslaFDcmCCR/kt4L6Gi0HCbadq0XV/ITS8+5 Yw== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nhmnutkh9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Feb 2023 09:00:26 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 6 Feb
- 2023 09:00:25 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via
- Frontend Transport; Mon, 6 Feb 2023 09:00:25 -0600
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C81F7475;
- Mon,  6 Feb 2023 15:00:24 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1] ALSA: hda/realtek: Add quirk for ASUS UM3402 using CS35L41
-Date: Mon, 6 Feb 2023 15:00:19 +0000
-Message-ID: <20230206150019.3825120-1-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bWODPXG1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675696810; x=1707232810;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=VY/4txuOr/CHvl+E4Ut2tqQwAqaXZViNwIEQb0oI0f0=;
+ b=bWODPXG19R6y3irt2iQAZafA60ZM9repLjW61xLPyX8EnDMeGeFuRdli
+ cy+JhG55QGeH8rT4cL5tF84Mjo7i1TEz7XhWbnP60YzHw1n8wEWrneNgr
+ x0hibH9mlqIkq0g8FFvNG6eiIXw3uqdY4wl4KAW83TIxfFhB1dVwmETzk
+ gq+IE81ineWE3qKyBBnKlecYruAF9P2ba56+gZVe30tJfyYxTF29sbJJx
+ oWthu2FsdtFsQr79OAI2rQZhoM+lD4aNZHAWtr5+OhCtrtkmFqzoKLMKC
+ nHgMHvj20fSas9KEcTXPrgl+7JrhxNg6KAl6/znhbDyIIGQeNccBAfHdN A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="331360719"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="331360719"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2023 07:20:02 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="696888657"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="696888657"
+Received: from pmagdum-mobl1.amr.corp.intel.com (HELO [10.209.159.190])
+ ([10.209.159.190])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2023 07:20:01 -0800
+Message-ID: <4398e3f3-ea2f-1e23-d64b-39723e4790d2@linux.intel.com>
+Date: Fri, 3 Feb 2023 18:54:00 -0600
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Subject: Re: Overflow in calculating audio timestamp
+To: Jaroslav Kysela <perex@perex.cz>, Alan Young <consult.awy@gmail.com>,
+ o-takashi@sakamocchi.jp
+References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
+ <Y9xWlbhPg3PteH5G@workstation>
+ <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
+ <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 8eOnuoD3DHaBWN4RwAuZCK7oBqsR8Gsy
-X-Proofpoint-ORIG-GUID: 8eOnuoD3DHaBWN4RwAuZCK7oBqsR8Gsy
-X-Proofpoint-Spam-Reason: safe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,31 +93,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This Asus Zenbook laptop use Realtek HDA codec combined with
-2xCS35L41 Amplifiers using I2C with External Boost.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4055a8f5880a..251b58069d6c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9480,6 +9480,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1d4e, "ASUS TM420", ALC256_FIXUP_ASUS_HPE),
- 	SND_PCI_QUIRK(0x1043, 0x1e02, "ASUS UX3402", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
-+	SND_PCI_QUIRK(0x1043, 0x1e12, "ASUS UM3402", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1043, 0x1e51, "ASUS Zephyrus M15", ALC294_FIXUP_ASUS_GU502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x1e5e, "ASUS ROG Strix G513", ALC294_FIXUP_ASUS_G513_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
--- 
-2.34.1
+On 2/3/23 12:02, Jaroslav Kysela wrote:
+> On 03. 02. 23 17:11, Alan Young wrote:
+>>
+>> On 03/02/2023 00:34, Takashi Sakamoto wrote:
+>>> Hi,
+>>>
+>>> Thank you for the report.
+>>>
+>>> On Thu, Feb 02, 2023 at 01:55:24PM +0000, Alan Young wrote:
+>>>> sound/core/pcm_lib.c:update_audio_tstamp() contains the following
+>>>> calculation:
+>>>>
+>>>>           audio_nsecs = div_u64(audio_frames * 1000000000LL,
+>>>>                   runtime->rate);
+>>>>
+>>>> This will result in a 64-bit overflow after 4.4 days at 48000 Hz, or
+>>>> 1.1
+>>>> days at 192000.
+>>>>
+>>>> Are you interested in a patch to improve this?
+>>>>
+>>>> The same calculation occurs in a couple of other places.
+>>> I'm interested in your patch. Would you please post it C.C.ed to the
+>>> list and me?  As you noted, we can see the issue in ALSA PCM core and
+>>> Intel HDA stuffs at least.
+>>>
+>>>    * sound/core/pcm_lib.c
+>>>    * sound/pci/hda/hda_controller.c
+>>>    * sound/soc/intel/skylake/skl-pcm.c
+>>>
+>>> I note that 'NSEC_PER_SEC' macro is available once including
+>>> 'linux/time.h'. It is better to use instead of the literal.
+>>> The macro is defined in 'include/vdso/time64.h'.
+>>>
+>>>
+>>> As another issue, the value of 'audio_frames' comes from the value of
+>>> 'struct snd_pcm_runtime.hw_ptr_wrap'. In ALSA PCM core, the value is
+>>> increased by the size of PCM buffer every time hw_ptr cross the boundary
+>>> of PCM buffer, thus multiples of the size is expected. Nevertheless,
+>>> there is no check for overflow within 64 bit storage. In my opinion, the
+>>> committer had less care of it since user does not practically
+>>> playback or
+>>> capture PCM substream so long. But the additional check is preferable as
+>>> long as it does not break the fallback implementation of audio time
+>>> stamp.
+>>
+>>
+>> I have not yet finished testing various alternatives. I want to extend
+>> the overflow by "enough" and also am conscious of the need to keep the
+>> overhead down.
+>>
+>> I actually think, on reflection, that the only case that matters is the
+>> call from update_audio_tstamp(). The others only deal with codec delays
+>> which will be small (unless I misunderstand those drivers).
+>>
+>> This is what I have so far but I'll submit a proper patch when I have it
+>> refined.
+>>
+>> static u64 snd_pcm_lib_frames_to_nsecs(u64 frames, unsigned int rate)
+>> {
+>>       /*
+>>        *  Avoid 64-bit calculation overflow after:
+>>        *  - 4.8 days @ 44100
+>>        *  - 0.56 days @ 384000
+>>        *  extending these intervals by a factor of 100.
+>>        */
+>>       if (frames < 0xffffffffffffffffLLU / NSEC_PER_SEC)
+>>           return div_u64(frames * NSEC_PER_SEC, rate);
+>>
+>>       if (rate % 100 == 0)
+>>           return div_u64(frames * (NSEC_PER_SEC/100), (rate/100));
+>>
+>>       /* Fallback: reduce precision to approximately
+>> deci-micro-seconds: 1.28e-7 */
+>>       return div_u64(frames * (NSEC_PER_SEC >> 7), rate) << 7;
+>> }
+> 
+> Thank you for your suggestion, but I think that the *whole* code for
+> !get_time_info in update_audio_tstamp() should be recoded. The calling
+> of ns_to_timespec64() is not enough to handle the boundary wraps in a
+> decent range (tenths years for 24x7 operation) and the bellow code is
+> dangerous for 32-bit apps / system:
+> 
+>      if (crossed_boundary) {
+>                 snd_BUG_ON(crossed_boundary != 1);
+>                 runtime->hw_ptr_wrap += runtime->boundary;
+>      }
+> 
+> I would probably propose to have just hw_ptr_wrap +1 counter (we can
+> reconstruct the frame position back by multiplication and do range check
+> later), remove snd_BUG_ON and improve the timespec64 calculation.
+> 
+> The calculation should be split to two parts (tv_sec / tv_nsec):
+> 
+> 1) calculate seconds: (frames / rate)
+> 2) calculate the remainder (ns): ((frames % rate) * NSEC_PER_SEC) / rate
+> 
+> With 64-bit integer range, we should go up to (for 384000Hz rate):
+> 
+> 2**64 / 384000 / 3600 / 24 / 365 = ~1523287 years
+> 
+> Maybe I did a mistake somewhere. I'm open for comments.
 
+I am not following how the boundary comes into play for cases where the
+timestamp comes directly from a link counter, and is not related to the
+DMA hw_ptr at all.

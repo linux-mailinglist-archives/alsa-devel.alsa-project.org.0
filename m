@@ -2,90 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 740BB68A901
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 09:38:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962B268A926
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 10:12:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF3456C1;
-	Sat,  4 Feb 2023 09:37:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF3456C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEBE66C1;
+	Sat,  4 Feb 2023 10:11:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEBE66C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675499905;
-	bh=+nI47mWoagSGGdL78gK5LOsPimhiwpMUiIAGFf7yIsE=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1675501949;
+	bh=7xO0RqND9Dy1lYuIaIMMgs9soW0y24ZZdU5MSt+/fQ0=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=Vmfqnu0Df/2wwNBRBFPfQJXVViho7lcujVMqUqVVTzgGQsAHjvquDfnf8E8QeSYnF
-	 nSXBuj8G0SLPsg/0UpY4pSXmabTFd90EAjL/76O+3l4itMZsX+1vSZBoAfQQQhGqhy
-	 qO/Y3YPsed12thB354zAP2XjYqCuUM2Jr3l+26YI=
+	b=YmW4NHsWO17ZhEaw58FIx+dJWUhLf5E7SZV0qWWCeyXT5U5kCSO4QcwGAm/2IlItv
+	 sm3zmhp2cPwU7cv76v285UVR8EIH6binL8Za1PqjXe7WxvF+sb5pcLlj4wFVit1mIN
+	 iL5DT6bkZTQYUgDLVSH+gQV5oMuULGASxbIeyi4c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C732F8001D;
-	Sat,  4 Feb 2023 09:37:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE13F8001D;
+	Sat,  4 Feb 2023 10:11:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86BBDF804C2; Sat,  4 Feb 2023 09:37:24 +0100 (CET)
+ id 3270BF804C2; Sat,  4 Feb 2023 10:11:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB92CF8001D
- for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 09:37:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB92CF8001D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=OlK2dRKW; 
- dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=IN+7TwKw
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 87BD438269;
- Sat,  4 Feb 2023 08:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675499837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RcLMsHWahnKCSaF9S8/IpKCRhGBLv3jN3QszBd2oUrE=;
- b=OlK2dRKWt+azF90YkaeXIbGPBgQpN9AoCAuHLHSqchVc40cDyU4PaK/vO45OXl1ZPEWrAH
- eYGihhb8BCiKcPL5Zga796MKkBsRilYWlvXhPBd14exdJDYO9Vzflu0oLanOwSXM3sO++n
- Kaslvjsiq/Wz8P0HR/o9rSvjx1B5258=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675499837;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RcLMsHWahnKCSaF9S8/IpKCRhGBLv3jN3QszBd2oUrE=;
- b=IN+7TwKwomq87Iez9hcudSyREJdmtMuUtMwSgGaEddwOYtSrNqJ19Xav1pmhzadjCM2v/2
- oVqarOK0C5CuNNDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59334133F5;
- Sat,  4 Feb 2023 08:37:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XU+4FD0Z3mNqKwAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 04 Feb 2023 08:37:17 +0000
-Date: Sat, 04 Feb 2023 09:37:16 +0100
-Message-ID: <877cwxn7wj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] kselftest/alsa: Run PCM tests for multiple cards in
- parallel
-In-Reply-To: <20230203-alsa-pcm-test-card-thread-v1-1-59941640ebba@kernel.org>
-References: <20230203-alsa-pcm-test-card-thread-v1-1-59941640ebba@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57170F8001D
+ for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 10:11:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57170F8001D
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=C+LOBijV
+Received: by mail-wm1-x32a.google.com with SMTP id n13so5442382wmr.4
+ for <alsa-devel@alsa-project.org>; Sat, 04 Feb 2023 01:11:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Z+fyEQJdyZKHk6WP1rXB92TckjDQgAvy5f309oa8ysw=;
+ b=C+LOBijVhPzgnj8bGGXvyE+s3Elx7P/B9I2sq1kQ7KT1Cy5QdcrF+/N9SeHw7fz2Vy
+ PV7g05mv6fvWf5XstFgkzCf79f0r+UjMjWBhosdZj0zJ/KAuemsawZFCPEs1USOChdJf
+ mAhRXOrzGa9Et4+mQtXDDkm2aTDeV+n+2d1lYgzdOzfRqxLH6GbJNfgqqAq3JP96rMnZ
+ 6dD9yXJBq8UkjQ7QgoQzhHtqz2EGqA6PjLaMyD1pWP3z2d9JjCG5Jcn8OgnWlLiH8pa9
+ /wP5wirrCfC8PomTpbImMhu9G+CqY3JPARKRgOO6Qm/o1mzr4DI5bCJplOOTjxrwJ420
+ 1lwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Z+fyEQJdyZKHk6WP1rXB92TckjDQgAvy5f309oa8ysw=;
+ b=wdYPq7ZilJZGaRktq3iO2K6kp+l68BHoc9YVeuO9s/yRQvq3AWrp6fZPxa8CqRE/6M
+ hOJgl93epXYcOU4kkj3YTKzRuhqmVQ3UDQHNw7pXxzkCFbsw+a3l66LN7rLziIX70GHO
+ h5bulFITUQW8YqLKSrBZWJIyg3easbZSxpVmihL/NmR4MCK6Iu9PURYd4YGiIpZZTBbU
+ t3qCE6lFhrt8j3RJ1Dllbmf3UnIT58BFBLyss/8c+Z3H3WZdkS0Wi3x3eo3q39ukfPTF
+ MhEl1EU77AWyh8gvZKDqsmn9cMlqAFMYOoAhU7jj1UNxWgNst7JLbr0WscuabSHFuaGY
+ 2ZgQ==
+X-Gm-Message-State: AO0yUKV5GAbuV0T+r4fNaWKtZnWyx3ov8o3hfgXgUHclYKRx3sqQxAZC
+ ysN1YooCpogxbcEnXtL721w=
+X-Google-Smtp-Source: AK7set9Frs2+3UBvsAzqRMsnS3LyGYs2+5rfFbIAaA9yRhlrRaJNdWyAP/BNOBRLCkN2Brmv51/IEQ==
+X-Received: by 2002:a05:600c:3b16:b0:3d3:4f99:bb32 with SMTP id
+ m22-20020a05600c3b1600b003d34f99bb32mr11830481wms.36.1675501871362; 
+ Sat, 04 Feb 2023 01:11:11 -0800 (PST)
+Received: from [192.168.21.204] (surfbythesea.plus.com. [81.174.134.71])
+ by smtp.gmail.com with ESMTPSA id
+ p17-20020a05600c205100b003dd1bd0b915sm7101585wmg.22.2023.02.04.01.11.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Feb 2023 01:11:10 -0800 (PST)
+Message-ID: <e2ab7f52-4fc9-bcff-5051-5590ca4f8496@gmail.com>
+Date: Sat, 4 Feb 2023 09:11:09 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: Overflow in calculating audio timestamp
+Content-Language: en-GB
+To: Jaroslav Kysela <perex@perex.cz>, o-takashi@sakamocchi.jp,
+ pierre-louis.bossart@linux.intel.com
+References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
+ <Y9xWlbhPg3PteH5G@workstation>
+ <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
+ <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+From: Alan Young <consult.awy@gmail.com>
+In-Reply-To: <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.29
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,52 +109,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
- Shuah Khan <shuah@kernel.org>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 03 Feb 2023 20:52:47 +0100,
-Mark Brown wrote:
-> 
-> With each test taking 4 seconds the runtime of pcm-test can add up. Since
-> generally each card in the system is physically independent and will be
-> unaffected by what's going on with other cards we can mitigate this by
-> testing each card in parallel. Make a list of cards as we enumerate the
-> system and then start a thread for each, then join the threads to ensure
-> they have all finished. The threads each run the same tests we currently
-> run for each PCM on the card before exiting.
-> 
-> The list of PCMs is kept global since it helps with global operations
-> like working out our planned number of tests and identifying missing PCMs
-> and it seemed neater to check for PCMs on the right card in the card
-> thread than make every PCM loop iterate over cards as well.
-> 
-> We don't run per-PCM tests in parallel since in embedded systems it can
-> be the case that resources are shared between the PCMs and operations on
-> one PCM on a card may constrain what can be done on another PCM on the same
-> card leading to potentially unstable results.
-> 
-> We use a mutex to ensure that the reporting of results is serialised and we
-> don't have issues with anything like the current test number, we could do
-> this in the kselftest framework but it seems like this might cause problems
-> for other tests that are doing lower level testing and building in
-> constrained environments such as nolibc so this seems more sensible.
-> 
-> Note that the ordering of the tests can't be guaranteed as things stand,
-> this does not seem like a major problem since the numbering of tests often
-> changes as test programs are changed so results parsers are expected to
-> rely on the test name rather than the test numbers. We also now prefix the
-> machine generated test name when printing the description of the test since
-> this is logged before streaming starts.
-> 
-> On my two card desktop system this reduces the overall runtime by a
-> third.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Thanks, applied now.
+On 03/02/2023 18:02, Jaroslav Kysela wrote:
+> Thank you for your suggestion, but I think that the *whole* code for 
+> !get_time_info in update_audio_tstamp() should be recoded. The calling 
+> of ns_to_timespec64() is not enough to handle the boundary wraps in a 
+> decent range (tenths years for 24x7 operation) 
+
+Yes, indeed. My ambition was unnecessarily short.
 
 
-Takashi
+> and the bellow code is dangerous for 32-bit apps / system:
+>
+>      if (crossed_boundary) {
+>                 snd_BUG_ON(crossed_boundary != 1);
+>                 runtime->hw_ptr_wrap += runtime->boundary;
+>      }
+>
+I don't understand why?
+
+
+> I would probably propose to have just hw_ptr_wrap +1 counter (we can 
+> reconstruct the frame position back by multiplication and do range 
+> check later), 
+
+Would that really help that much? It would extend the total possible 
+duration but perhaps ~1523287 years(below) is sufficient.
+
+> remove snd_BUG_ON
+
+Again, why?
+
+
+> and improve the timespec64 calculation.
+>
+> The calculation should be split to two parts (tv_sec / tv_nsec):
+>
+> 1) calculate seconds: (frames / rate)
+> 2) calculate the remainder (ns): ((frames % rate) * NSEC_PER_SEC) / rate
+>
+> With 64-bit integer range, we should go up to (for 384000Hz rate):
+>
+> 2**64 / 384000 / 3600 / 24 / 365 = ~1523287 years
+
+
+Yes indeed. How about this?
+
+static inline void snd_pcm_lib_frames_to_timespec64(u64 frames, unsigned int rate, struct timespec64 *audio_tstamp)
+{
+	u32 remainder;
+	audio_tstamp->tv_sec = div_u64_rem(frames, rate, &remainder);
+	audio_tstamp->tv_nsec = div_u64(mul_u32_u32(remainder, NSEC_PER_SEC), rate);
+}
+
+Alan.

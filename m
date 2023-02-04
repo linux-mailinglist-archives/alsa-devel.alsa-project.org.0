@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973B368A8FE
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 09:37:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 740BB68A901
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Feb 2023 09:38:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6A36820;
-	Sat,  4 Feb 2023 09:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6A36820
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF3456C1;
+	Sat,  4 Feb 2023 09:37:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF3456C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675499839;
-	bh=Mr483l0cNZfj/mLinattr2GkaqjR9/ZT/arvVUaiCmo=;
+	s=default; t=1675499905;
+	bh=+nI47mWoagSGGdL78gK5LOsPimhiwpMUiIAGFf7yIsE=;
 	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=beRp27IMMn2WyMKxzkXHTFZkgZjYlnq/+jtfqCpKIdK64+ZR7X3ezr1zbvGg0djIR
-	 cV9gZkDpOrqEMG2TW8TfkTR+yFazh4iWJnAYoToVJCnR/4LBkfRdlf0LKYZJNhOxUU
-	 Rm1AYr2AubXwdF0KnYnhGxytsZ/aTLiiZlG8nETQ=
+	b=Vmfqnu0Df/2wwNBRBFPfQJXVViho7lcujVMqUqVVTzgGQsAHjvquDfnf8E8QeSYnF
+	 nSXBuj8G0SLPsg/0UpY4pSXmabTFd90EAjL/76O+3l4itMZsX+1vSZBoAfQQQhGqhy
+	 qO/Y3YPsed12thB354zAP2XjYqCuUM2Jr3l+26YI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CFB3F80162;
-	Sat,  4 Feb 2023 09:36:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C732F8001D;
+	Sat,  4 Feb 2023 09:37:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29277F804C2; Sat,  4 Feb 2023 09:36:13 +0100 (CET)
+ id 86BBDF804C2; Sat,  4 Feb 2023 09:37:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9F59F8001D
- for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 09:36:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9F59F8001D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB92CF8001D
+ for <alsa-devel@alsa-project.org>; Sat,  4 Feb 2023 09:37:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB92CF8001D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=e2GufLHr; 
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=OlK2dRKW; 
  dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=tCeQ9E1G
+ header.s=susede2_ed25519 header.b=IN+7TwKw
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 07BAA37F63;
- Sat,  4 Feb 2023 08:36:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 87BD438269;
+ Sat,  4 Feb 2023 08:37:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675499761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1675499837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Buk3NDCdlTgAYPp6Ez02hXr56d4eIuV1vdTPRA6lO4c=;
- b=e2GufLHrEam16iNPf9bEwzEeRBCYkhHApKifXzugUg1LWM1ZwbOYbkq0az14EX2SYSoZ85
- f2vNU3MivScBJtn5gIZvpcwJGxxz2NyXtwh3JRw6UGv78OYGIkay5s4Rt/k7hODX2phQwm
- cM037/tQwT4wreB5/XGievKhl3k12eY=
+ bh=RcLMsHWahnKCSaF9S8/IpKCRhGBLv3jN3QszBd2oUrE=;
+ b=OlK2dRKWt+azF90YkaeXIbGPBgQpN9AoCAuHLHSqchVc40cDyU4PaK/vO45OXl1ZPEWrAH
+ eYGihhb8BCiKcPL5Zga796MKkBsRilYWlvXhPBd14exdJDYO9Vzflu0oLanOwSXM3sO++n
+ Kaslvjsiq/Wz8P0HR/o9rSvjx1B5258=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675499761;
+ s=susede2_ed25519; t=1675499837;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Buk3NDCdlTgAYPp6Ez02hXr56d4eIuV1vdTPRA6lO4c=;
- b=tCeQ9E1GcE7x8tCyn4yx2eEHW2Dayuj5gbe15vgTcFT8m4zKZpFDj67Lh8NJZRE8ZBz7cr
- tPkQ7dI0sMMvUgDQ==
+ bh=RcLMsHWahnKCSaF9S8/IpKCRhGBLv3jN3QszBd2oUrE=;
+ b=IN+7TwKwomq87Iez9hcudSyREJdmtMuUtMwSgGaEddwOYtSrNqJ19Xav1pmhzadjCM2v/2
+ oVqarOK0C5CuNNDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB3FB133F5;
- Sat,  4 Feb 2023 08:36:00 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59334133F5;
+ Sat,  4 Feb 2023 08:37:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nZfBM/AY3mNXKwAAMHmgww
- (envelope-from <tiwai@suse.de>); Sat, 04 Feb 2023 08:36:00 +0000
-Date: Sat, 04 Feb 2023 09:36:00 +0100
-Message-ID: <878rhdn7yn.wl-tiwai@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id XU+4FD0Z3mNqKwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 04 Feb 2023 08:37:17 +0000
+Date: Sat, 04 Feb 2023 09:37:16 +0100
+Message-ID: <877cwxn7wj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: fireface: add field for the number of messages
- copied to user space
-In-Reply-To: <Y92s/z+41aKOii/b@workstation>
-References: <20230202133708.163936-1-o-takashi@sakamocchi.jp>
- <87fsbmn2gf.wl-tiwai@suse.de> <Y92s/z+41aKOii/b@workstation>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] kselftest/alsa: Run PCM tests for multiple cards in
+ parallel
+In-Reply-To: <20230203-alsa-pcm-test-card-thread-v1-1-59941640ebba@kernel.org>
+References: <20230203-alsa-pcm-test-card-thread-v1-1-59941640ebba@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -99,46 +98,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kselftest@vger.kernel.org,
+ Shuah Khan <shuah@kernel.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 04 Feb 2023 01:55:27 +0100,
-Takashi Sakamoto wrote:
+On Fri, 03 Feb 2023 20:52:47 +0100,
+Mark Brown wrote:
 > 
-> Hi,
+> With each test taking 4 seconds the runtime of pcm-test can add up. Since
+> generally each card in the system is physically independent and will be
+> unaffected by what's going on with other cards we can mitigate this by
+> testing each card in parallel. Make a list of cards as we enumerate the
+> system and then start a thread for each, then join the threads to ensure
+> they have all finished. The threads each run the same tests we currently
+> run for each PCM on the card before exiting.
 > 
-> On Fri, Feb 03, 2023 at 05:22:40PM +0100, Takashi Iwai wrote:
-> > On Thu, 02 Feb 2023 14:37:08 +0100,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Current structure includes no field to express the number of messages
-> > > copied to user space, thus user space application needs to information
-> > > out of the structure to parse the content of structure.
-> > > 
-> > > This commit adds a field to express the number of messages copied to user
-> > > space since It is more preferable to use self-contained structure.
-> > > 
-> > > Kees Cook proposed an idea of annotation for bound of flexible arrays
-> > > in his future improvement for flexible-length array in kernel. The
-> > > additional field for message count is suitable to the idea as well.
-> > > 
-> > > Reference: https://people.kernel.org/kees/bounded-flexible-arrays-in-c
-> > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> > 
-> > Wouldn't changing this break the existing application that talks with
-> > the older ABI?  Just to be sure...
+> The list of PCMs is kept global since it helps with global operations
+> like working out our planned number of tests and identifying missing PCMs
+> and it seemed neater to check for PCMs on the right card in the card
+> thread than make every PCM loop iterate over cards as well.
 > 
-> You may well have the concern, indeed.
+> We don't run per-PCM tests in parallel since in embedded systems it can
+> be the case that resources are shared between the PCMs and operations on
+> one PCM on a card may constrain what can be done on another PCM on the same
+> card leading to potentially unstable results.
 > 
-> The structure is not exposed to user space yet, since it was added by a
-> commit ab811cfffa9 ("ALSA: fireface: update UAPI for data of knob
-> control"). It just exists in your (and mine) tree at present.
+> We use a mutex to ensure that the reporting of results is serialised and we
+> don't have issues with anything like the current test number, we could do
+> this in the kselftest framework but it seems like this might cause problems
+> for other tests that are doing lower level testing and building in
+> constrained environments such as nolibc so this seems more sensible.
+> 
+> Note that the ordering of the tests can't be guaranteed as things stand,
+> this does not seem like a major problem since the numbering of tests often
+> changes as test programs are changed so results parsers are expected to
+> rely on the test name rather than the test numbers. We also now prefix the
+> machine generated test name when printing the description of the test since
+> this is logged before streaming starts.
+> 
+> On my two card desktop system this reduces the overall runtime by a
+> third.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Ah I see, then that's OK, better to change now.
-Applied now to for-next branch.
+Thanks, applied now.
 
-
-thanks,
 
 Takashi

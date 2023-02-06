@@ -2,76 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E540C68C864
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 22:15:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE81F68C8D8
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 22:39:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 448641CF;
-	Mon,  6 Feb 2023 22:14:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 448641CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8EC3E7;
+	Mon,  6 Feb 2023 22:38:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8EC3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675718145;
-	bh=riTB1YokzEFFDU4GzUfnUbRbAWC2sdyJCh34WVA0iyU=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675719552;
+	bh=3iD31edkdUHtR+qWce/Oi3JEyusbFB/JSiYqBPNRtAs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=KkbmdL7EBQTdRUoh+vAbwuEDBCjY0838Br8pUXngHrMpHhc87c4/AAiX8+StD+Z+b
-	 F2nT9jX3Wf774hbQ2XYBkUIAk2Nk70rc8mFOtajP+heEHzXHO7bjR/OS1jXqnix8XT
-	 +JiQGiearPIB19bN/ufAbe+yh3cTEC2ePiYCNIVA=
+	b=J2nLUuQcHFvZlGCLoKjEPhILH1H58IDLmVUYolozU9B0ozUhpdnb4Crp8m1y4uQ+N
+	 QidgdFvcuQpp3SX8ka4+WnnqhpL/5mySml8zJEKVlx7GxxK/wyNh3nWeN01cARLkr7
+	 pmoTSaw8BxSHpdgK8PkQMAke0SBdV/wLScyW9qMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88F65F800E3;
-	Mon,  6 Feb 2023 22:14:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5C72F804FF;
+	Mon,  6 Feb 2023 22:37:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60CBAF804F1; Mon,  6 Feb 2023 22:14:44 +0100 (CET)
+ id 10080F80533; Mon,  6 Feb 2023 22:37:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
  SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AF89F800E3
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 22:14:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AF89F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0AA6F800F5
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 22:37:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0AA6F800F5
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uOlR740q
+ header.s=k20201202 header.b=BC7npsMj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A1C716101E;
- Mon,  6 Feb 2023 21:14:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC1FC433EF;
- Mon,  6 Feb 2023 21:14:37 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id E44B2CE1A9C;
+ Mon,  6 Feb 2023 21:37:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E87EC433D2;
+ Mon,  6 Feb 2023 21:37:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675718078;
- bh=riTB1YokzEFFDU4GzUfnUbRbAWC2sdyJCh34WVA0iyU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uOlR740qcEbFNWHQHLtvWGGe0sBxuYEHajtCVC4uTaWPl9L7gjr5Toz2/gJ1nlkrJ
- 08lZ39/Xu4Ca+NHu1hj1PflPTSodIkpRR3CYt/cpDvUgPWIM6Q+AZtHa2ptzPZG68M
- cu1p5vVZpGmHn0vdKrph9ALM9hMhYTAQ9In4FhzdDI7XgRsFr1n3J803akkOk14V9X
- C8voOKR36DMXk3kFL6rRQeuCKD7zfmOIeTwahOWNALnd2fkSej2onXJa7rns3fZFRA
- lUqmfwqBJtLewY78tYpzz1zE3a5JQnB/cgaeUTASknGOHJ2dgs+JNR+vraEgCcL0uU
- JNKoQCyCYexyg==
-Date: Mon, 6 Feb 2023 21:14:34 +0000
+ s=k20201202; t=1675719450;
+ bh=3iD31edkdUHtR+qWce/Oi3JEyusbFB/JSiYqBPNRtAs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=BC7npsMjyT4OxrtrtrU1hSPVABbayP64phjkZ6mT5iMZUW/BiHrUjMR2UgY9LH2P5
+ HRhnxliIwkJTXdV7V9mlwq8S4elOdbyFtlovIc3eLdDPIFGOSBTt9sV7VFHzd5wkZq
+ 25BQfAjvYLt5nLUuyKzHEKCgcI9vicezocTaTZGFGR/o68nXxIqXkYtN61mT9JZov1
+ CEG2q1I1K4T/9ZTWz5Y4W5/kafRJk2Zx6Zg2IJ+d8gGck7HRQ4NSKLV+8r3QvB3oCm
+ VWnXCSBHYua9hDxSEvgEJUDVbRghD8QKNtAd10BqW9wPEd6JBVKSMlKBehC2fNibg2
+ jNXL2xvx4FYKw==
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Beer <daniel.beer@igorinstitute.com>
-Subject: Re: [PATCH v3 2/2] ASoC: tas5805m: add missing page switch.
-Message-ID: <Y+FtutYjJFlrFtvP@sirena.org.uk>
+To: alsa-devel@alsa-project.org, Daniel Beer <daniel.beer@igorinstitute.com>
+In-Reply-To: <cover.1675497326.git.daniel.beer@igorinstitute.com>
 References: <cover.1675497326.git.daniel.beer@igorinstitute.com>
- <1fea38a71ea6ab0225d19ab28d1fa12828d762d0.1675497326.git.daniel.beer@igorinstitute.com>
- <Y+D8bf/19aOL7Wzl@sirena.org.uk>
- <20230206204546.GA233871@nyquist.nev>
+Subject: Re: [PATCH v3 0/2] Two bug fixes for tas5805m codec driver
+Message-Id: <167571944937.1296981.10882189914536189021.b4-ty@kernel.org>
+Date: Mon, 06 Feb 2023 21:37:29 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="dCj5T8jTG3AIPXcS"
-Content-Disposition: inline
-In-Reply-To: <20230206204546.GA233871@nyquist.nev>
-X-Cookie: Hope is a waking dream.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,58 +81,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Andy Liu <andy-liu@ti.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Cc: Andy Liu <andy-liu@ti.com>, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, 04 Feb 2023 20:55:26 +1300, Daniel Beer wrote:
+> This pair of patches fixes two issues which crept in while revising the
+> original submission, at a time when I no longer had access to test
+> hardware.
+> 
+> The fixes here have been tested and verified on hardware.
+> 
+> Changes v2 -> v3:
+>   - Resubmit with cover letter
+> 
+> [...]
 
---dCj5T8jTG3AIPXcS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Feb 07, 2023 at 09:45:46AM +1300, Daniel Beer wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> We did discuss this a while back when the driver first went in.
-> Unfortunately the vendor software tools provide configuration for the
-> part in the form of a sequence of raw register writes, including
-> explicit page changes:
+Thanks!
 
->     https://lore.kernel.org/lkml/Yd85bjKEX9JnoOlI@sirena.org.uk/
+[1/2] ASoC: tas5805m: rework to avoid scheduling while atomic.
+      commit: 147323792693bf013f60dca160be1d32bd4d180a
+[2/2] ASoC: tas5805m: add missing page switch.
+      commit: e0576cd642ced1ac65370b4516b7be9f536a0498
 
-That seems surmountable, either bypassing regmap or parsing the
-configuration files.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> Aside from this, I have two other practical issues.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> The first is that I'm not sure how exactly to implement the paging
-> scheme in terms of regmap_range_cfg (assuming this is what you're
-> referring to). This chip has multi-level paging (books/pages), with the
-> book selection register itself requiring paging to access. A sequence of
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-That's absolutely fine, this isn't the first device which has such a
-setup and the code handles nested windows fine.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> Secondly, the patches as submitted here have been tested, but I don't
-> currently have access to hardware. I'm very hesitant to make a
-> significant change without retesting and leave the driver in a broken
-> state again.
+Thanks,
+Mark
 
-Presumably someone does given that the problem was noticed?
-
---dCj5T8jTG3AIPXcS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPhbbkACgkQJNaLcl1U
-h9C9Ewf+KewXF5GyAN4ZUwICEK/KJH2L6ZUXWmLiuhWilIkEZaxZb9Dc3zW29GHv
-P1OSQba9GM+o+FyQX1lQaGp7lwt3POmUF4nVlxyDnuHZrSGJwbeS0ermaomFstJe
-4n9PY1CpIsxAFyhXLaeOO5mFpYins/crft0TIgT03bLn5BaM5xu8bn9ywQYNHdpI
-0u3Qy/k8KpO32qheL99/Xcb1twsZLEbLIRwpAaLAE+r0NXeCU9B4fnov/S33a9cF
-PnlMk9384GoGtwqUjUcWZ5cDMjNffDZNLFht97JlTzC8hbaDj84zfolZ4vlyQEYw
-QhRF7Id4KquZJZKzWuzWSoBYkm5ZBg==
-=0Hl7
------END PGP SIGNATURE-----
-
---dCj5T8jTG3AIPXcS--

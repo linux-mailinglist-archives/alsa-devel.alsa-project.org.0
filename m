@@ -2,91 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B742168BF0F
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:59:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82D1868BF28
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 15:01:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07FA6F7;
-	Mon,  6 Feb 2023 14:58:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07FA6F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E50A41;
+	Mon,  6 Feb 2023 15:01:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E50A41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675691988;
-	bh=/hngscjINzSgKXSuYx5IHnlxm7V3RsCQg/q7xqkkprg=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=oN33tDzj7u0VYPz500o55FTr1P/rim6bsociJXY6ORb/btkKFMIK5fTOQ9Rk/Mhij
-	 ule8F9d5USNyfT9emM3DCPrIVTrJOjGfvAAY5j/7kbQr1gsPYaGiMgfDPyhqkA4ziY
-	 8al2GAwnGsyMykBF3ZUvuFKvHcME8iXMYXXto4rI=
+	s=default; t=1675692110;
+	bh=WHmuZ4HOQhS+Ld/3mBNiQinI0Q/poYTTVhw9vo4zWAo=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=YeJxKkaSLUe7SpJ+sSBE1UPGqhoiTGZ5JtoJAx/IL8od/1D335utRHm6qAtQVulo4
+	 EWWee4fqud4FYZnDNW948FlgWRjfVW6MbOCa0IwuY3OKbbh+Y66r2Z/WyafpBEzgVe
+	 B5L2rtp5zG5Xv+rMSpWusE/mIBllh7oQSBqUUBhk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35834F804F1;
-	Mon,  6 Feb 2023 14:58:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26706F800E3;
+	Mon,  6 Feb 2023 15:00:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6C45F804F1; Mon,  6 Feb 2023 14:58:46 +0100 (CET)
+ id 4E44FF804F1; Mon,  6 Feb 2023 15:00:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
- autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+ SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6D38BF800E3
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 14:58:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D38BF800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B199F800E3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 15:00:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B199F800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=RTout/gg
-Received: by mail-wm1-x332.google.com with SMTP id
- k8-20020a05600c1c8800b003dc57ea0dfeso10854829wms.0
- for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 05:58:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=u9BgtJ4so9KwHhE8rorYQ5JnQdesAnEyOYjdic9MTfc=;
- b=RTout/ggpHfdGBZVfYR89ad+hgiP0Eb6NEBtrAjuAZtS5HlHGYlt6HOQf1A7UqrBue
- qm/ZfeS8bs/s1nRE4MgBhcyVDZq+4NwvPL1zY/CtaNolQkoypGoGzrYohc1woRsIiQYw
- Z1rhjxBtZaEVphFcZshQsVn9D9jUd/po6Gt9fbDlYNM8bCbQKaoySCIYJUCoB2JrWJAG
- 7fG0TQ5ldCXIE0zL0bE0MYj1Gs4WQ2RT5d07F5hsbe+nBlPIXqqMAn3hpEnFrAWz7x19
- ixvApe1G/mC87L/adlORLPJGgwjDzVRhyDfWL6dx19TLTq9nMdSie81kj14F2O1Lim4T
- PWew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u9BgtJ4so9KwHhE8rorYQ5JnQdesAnEyOYjdic9MTfc=;
- b=3ss9UdL0ceXNbW/akBlsX791sBxr7lmyAttJ6xIlFsRaF6UcXOPJ+6woCP6V0KGvSv
- Id9WOD+GP+xUZM2uI9v7pUlZF+QNmpy4WZRIaD0eLBcAaeh9Q2wSRx9KzEk5/0u6ACQf
- LdVVNWeS1fp0ZGLanwLfjvjfzNhkW+aWsHtOKe/pC2mPNBp/eH/T2XVvHEZfLKA80Q2W
- fVLCcGXOGHNk6zPUTGa5sFAPxWVlKFEVeKlsrA+bg5yM7vGxB1sawSKZD8ZJTgAJFX+9
- 9EISjiVYHncNyKMG9tpa7kpo6cBZ0oDLGaPoaDntR+rG7r81NaN6vgxJlm0Lwbx8jzG3
- BMAA==
-X-Gm-Message-State: AO0yUKVT8ukVlWR31JUy0m3Vm6P2+QuuAf6c8ML/cV+2JEWgQ5cXDX9P
- loYySVwoSlG+7v/k1b1CLVn04ljKZN8=
-X-Google-Smtp-Source: AK7set/lsRA0W5X4iJwzoXeGyM8eEf3KsDdv4IP8UG2N0ozVzaPlKmjU1xAsfIAkmUt8JS6LFE+2Dw==
-X-Received: by 2002:a05:600c:1d96:b0:3dd:af7a:53db with SMTP id
- p22-20020a05600c1d9600b003ddaf7a53dbmr19346118wms.11.1675691921772; 
- Mon, 06 Feb 2023 05:58:41 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- j33-20020a05600c1c2100b003db0ad636d1sm18549148wms.28.2023.02.06.05.58.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 05:58:41 -0800 (PST)
-Date: Mon, 6 Feb 2023 16:58:37 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Weidong Wang <wangweidong.a@awinic.com>
-Subject: [PATCH] ASoC: codecs: aw88395: Uninitialized variable bug in
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gR7dHSyk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BF8C060EA2;
+ Mon,  6 Feb 2023 14:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D38DC433D2;
+ Mon,  6 Feb 2023 14:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675692045;
+ bh=WHmuZ4HOQhS+Ld/3mBNiQinI0Q/poYTTVhw9vo4zWAo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gR7dHSykZ5YFuPkcFzcN3fEKmpKVUR5vCog6Nymhup0iMTfawYgAEY6asKI6c1+0S
+ uaYLLsN50+QwTyoT6AJ9apGVdH4dveKzBEsfLXslqNPs3mOE4lK+oyGam9U9DHbk3c
+ 6VjBA7MYuWJ4AG4Gg9Y60J8/DxEb1v+mwIhxe9CBdzprzoZQuT7Ax+pdqB73IYOaKF
+ rW9f11x/5G92S59NKFqaBL5pHukb/AC8RnLffeIiQHw9nAwyhDq2xsi9gWK+h3B257
+ 7Hd8/dEiCD9/4IsbS1ud2rUYdK9i0jaTqHkMOoDmtltNwXflXu4G6EwpzZ34yCXf5P
+ 0lgJqQ8o6gscw==
+Date: Mon, 6 Feb 2023 14:00:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: aw88395: Uninitialized variable bug in
  aw_dev_parse_dev_type_v1()
-Message-ID: <Y+EHjQ0+QCAXxmlh@kili>
+Message-ID: <Y+EIB2UrQ3+5Ax72@sirena.org.uk>
+References: <Y+EHjQ0+QCAXxmlh@kili>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/4JoUgpNFgE7fxsI"
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+In-Reply-To: <Y+EHjQ0+QCAXxmlh@kili>
+X-Cookie: Hope is a waking dream.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,39 +83,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+Cc: Nick Li <liweilei@awinic.com>, alsa-devel@alsa-project.org,
+ Weidong Wang <wangweidong.a@awinic.com>, kernel-janitors@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Bruce zhao <zhaolei@awinic.com>,
- Nick Li <liweilei@awinic.com>, Mark Brown <broonie@kernel.org>,
- Colin Ian King <colin.i.king@gmail.com>
+ Liam Girdwood <lgirdwood@gmail.com>, Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The "cur_scene_id" variable is never initialized.  It needs to be set
-to zero for the code to work.
 
-Fixes: 4345865b003b ("ASoC: codecs: ACF bin parsing and check library file for aw88395")
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
-Presumably this code was tested with CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO=y
-or whatever to automatically initialize it to zero or it would have died
-specatularly.  ;)
+--/4JoUgpNFgE7fxsI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
- sound/soc/codecs/aw88395/aw88395_lib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, Feb 06, 2023 at 04:58:37PM +0300, Dan Carpenter wrote:
+> The "cur_scene_id" variable is never initialized.  It needs to be set
+> to zero for the code to work.
 
-diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
-index 64dde972f3f0..d7c31a202adc 100644
---- a/sound/soc/codecs/aw88395/aw88395_lib.c
-+++ b/sound/soc/codecs/aw88395/aw88395_lib.c
-@@ -769,7 +769,7 @@ static int aw_dev_parse_dev_type_v1(struct aw_device *aw_dev,
- {
- 	struct aw_cfg_dde_v1 *cfg_dde =
- 		(struct aw_cfg_dde_v1 *)((char *)prof_hdr + prof_hdr->hdr_offset);
--	int cur_scene_id;
-+	int cur_scene_id = 0;
- 	unsigned int i;
- 	int ret;
- 
--- 
-2.35.1
+Someone already sent a fix for this.
 
+--/4JoUgpNFgE7fxsI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPhCAYACgkQJNaLcl1U
+h9Cijgf/YHHuQ9XpwusAnVzXrs2tRILYwpZOHfRv+NDdSvXG2FH5HuYOtRyH6lbg
+e/ulk+Co/6L51zkVFBnkeyyHFmLxl3LG49h+dnCaFcf8WqwjllacASz98ZAe3D1w
+si5IH1h8l+tX6WhCXDI0paTH3PlqOpNsz9ikLAlLiiHiFOHgiIxgfKuCpRMjMY5X
+YRzTJ78U0tGC1V0ZOIQyR3nygywlu/TNn2uyPq/+cfjLC4Kgz0tRIraSFrWPp/iS
+ID13trYgCM4WmKxTANyPSaeFmJZ4l2WsPklLn3MtIYfdcH02AC8F6qa9bkh0z64E
+NENYjZ+uVbOIrn6alMRkjO7/wYgKHA==
+=Limx
+-----END PGP SIGNATURE-----
+
+--/4JoUgpNFgE7fxsI--

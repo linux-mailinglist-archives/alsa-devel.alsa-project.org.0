@@ -2,84 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A6D68BE76
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:39:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B742168BF0F
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 14:59:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2319852;
-	Mon,  6 Feb 2023 14:39:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2319852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07FA6F7;
+	Mon,  6 Feb 2023 14:58:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07FA6F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675690792;
-	bh=hbMUg4C2FzxOpw8ToaDb493iL0oyBf4eM+3FJYiu9Z8=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=V/icPmaxmzaU7KizniHEjsmE5LxwDfl7PjO6pva201ABnaWPpglZQ2bWhrqAZNXWc
-	 41NE0HIZYIKk2eyEG/8UHRCuTUrOhn6qgFS0f3jCQXjPq4iIFyWJeNtMnQPs+Z9QyT
-	 u5/m0QJVq5UDlg+N+ho9EteZVhELY1AtseUWXfyc=
+	s=default; t=1675691988;
+	bh=/hngscjINzSgKXSuYx5IHnlxm7V3RsCQg/q7xqkkprg=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=oN33tDzj7u0VYPz500o55FTr1P/rim6bsociJXY6ORb/btkKFMIK5fTOQ9Rk/Mhij
+	 ule8F9d5USNyfT9emM3DCPrIVTrJOjGfvAAY5j/7kbQr1gsPYaGiMgfDPyhqkA4ziY
+	 8al2GAwnGsyMykBF3ZUvuFKvHcME8iXMYXXto4rI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16142F800F5;
-	Mon,  6 Feb 2023 14:38:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35834F804F1;
+	Mon,  6 Feb 2023 14:58:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A11CF804F1; Mon,  6 Feb 2023 14:37:57 +0100 (CET)
+ id D6C45F804F1; Mon,  6 Feb 2023 14:58:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
- SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+ autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BB7EF804E7
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 14:37:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BB7EF804E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D38BF800E3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 14:58:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D38BF800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MOvccU8D
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3F5F060EEA;
- Mon,  6 Feb 2023 13:37:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4816FC433D2;
- Mon,  6 Feb 2023 13:37:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675690670;
- bh=hbMUg4C2FzxOpw8ToaDb493iL0oyBf4eM+3FJYiu9Z8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MOvccU8DLF2RyW2GqDr91cER6HgSvApo2LAIYyjrppFwcho3QdBkaJRkdPMvb4R/C
- HacD4WWviRPVp34zz9n8kmzrkTRNpISeaweiSErurgG8Qg3g0Xtm+Y7y4LZb5BDwYd
- ZXpEldlugOzaWL4nWA0hxeKZ05n0lQu3s2ndaDVbGqpp1z61QU7zYHldQV9/yQoN/w
- u91pZ/F4EKhfWHmwpKEKX65E/QODY489sBdhgwVY0J5aCeLL4CEjL7gaVk4s5vIN2D
- WtBWcRQjHQAExtDQIDMIZSuwvGwkWuYrd01deidVHapn4/89dIzjmAeqJrPadmmLza
- hoY9u8wOsCjSA==
-Date: Mon, 6 Feb 2023 13:37:45 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
-Message-ID: <Y+ECqY/vyT2Iz2zJ@sirena.org.uk>
-References: <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <20230119161221.GA981953@roeck-us.net>
- <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
- <Y9kE1cSUg2CQM5vq@sirena.org.uk>
- <20230202155101.GB1373010@roeck-us.net>
- <Y9vtIISfmpICi+9u@sirena.org.uk>
- <8f89eeac-b3ef-4137-80df-6cf044873b05@roeck-us.net>
- <Y9wQygzbFyOWl54r@sirena.org.uk>
- <20230204154222.GA877819@roeck-us.net>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=RTout/gg
+Received: by mail-wm1-x332.google.com with SMTP id
+ k8-20020a05600c1c8800b003dc57ea0dfeso10854829wms.0
+ for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 05:58:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=u9BgtJ4so9KwHhE8rorYQ5JnQdesAnEyOYjdic9MTfc=;
+ b=RTout/ggpHfdGBZVfYR89ad+hgiP0Eb6NEBtrAjuAZtS5HlHGYlt6HOQf1A7UqrBue
+ qm/ZfeS8bs/s1nRE4MgBhcyVDZq+4NwvPL1zY/CtaNolQkoypGoGzrYohc1woRsIiQYw
+ Z1rhjxBtZaEVphFcZshQsVn9D9jUd/po6Gt9fbDlYNM8bCbQKaoySCIYJUCoB2JrWJAG
+ 7fG0TQ5ldCXIE0zL0bE0MYj1Gs4WQ2RT5d07F5hsbe+nBlPIXqqMAn3hpEnFrAWz7x19
+ ixvApe1G/mC87L/adlORLPJGgwjDzVRhyDfWL6dx19TLTq9nMdSie81kj14F2O1Lim4T
+ PWew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=u9BgtJ4so9KwHhE8rorYQ5JnQdesAnEyOYjdic9MTfc=;
+ b=3ss9UdL0ceXNbW/akBlsX791sBxr7lmyAttJ6xIlFsRaF6UcXOPJ+6woCP6V0KGvSv
+ Id9WOD+GP+xUZM2uI9v7pUlZF+QNmpy4WZRIaD0eLBcAaeh9Q2wSRx9KzEk5/0u6ACQf
+ LdVVNWeS1fp0ZGLanwLfjvjfzNhkW+aWsHtOKe/pC2mPNBp/eH/T2XVvHEZfLKA80Q2W
+ fVLCcGXOGHNk6zPUTGa5sFAPxWVlKFEVeKlsrA+bg5yM7vGxB1sawSKZD8ZJTgAJFX+9
+ 9EISjiVYHncNyKMG9tpa7kpo6cBZ0oDLGaPoaDntR+rG7r81NaN6vgxJlm0Lwbx8jzG3
+ BMAA==
+X-Gm-Message-State: AO0yUKVT8ukVlWR31JUy0m3Vm6P2+QuuAf6c8ML/cV+2JEWgQ5cXDX9P
+ loYySVwoSlG+7v/k1b1CLVn04ljKZN8=
+X-Google-Smtp-Source: AK7set/lsRA0W5X4iJwzoXeGyM8eEf3KsDdv4IP8UG2N0ozVzaPlKmjU1xAsfIAkmUt8JS6LFE+2Dw==
+X-Received: by 2002:a05:600c:1d96:b0:3dd:af7a:53db with SMTP id
+ p22-20020a05600c1d9600b003ddaf7a53dbmr19346118wms.11.1675691921772; 
+ Mon, 06 Feb 2023 05:58:41 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ j33-20020a05600c1c2100b003db0ad636d1sm18549148wms.28.2023.02.06.05.58.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Feb 2023 05:58:41 -0800 (PST)
+Date: Mon, 6 Feb 2023 16:58:37 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Weidong Wang <wangweidong.a@awinic.com>
+Subject: [PATCH] ASoC: codecs: aw88395: Uninitialized variable bug in
+ aw_dev_parse_dev_type_v1()
+Message-ID: <Y+EHjQ0+QCAXxmlh@kili>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="a+zr94RLtWLGe1ik"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230204154222.GA877819@roeck-us.net>
-X-Cookie: Hope is a waking dream.
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,42 +99,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- David Rau <david.rau.zg@renesas.com>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Bruce zhao <zhaolei@awinic.com>,
+ Nick Li <liweilei@awinic.com>, Mark Brown <broonie@kernel.org>,
+ Colin Ian King <colin.i.king@gmail.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The "cur_scene_id" variable is never initialized.  It needs to be set
+to zero for the code to work.
 
---a+zr94RLtWLGe1ik
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 4345865b003b ("ASoC: codecs: ACF bin parsing and check library file for aw88395")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+Presumably this code was tested with CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO=y
+or whatever to automatically initialize it to zero or it would have died
+specatularly.  ;)
 
-On Sat, Feb 04, 2023 at 07:42:22AM -0800, Guenter Roeck wrote:
+ sound/soc/codecs/aw88395/aw88395_lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Solve the problem by enabling the ground switch immediately and only
-> after an insertion has been detected. Delay pole orientation detection
-> until after the chip reports that detection is complete plus an
-> additional time depending on the chip configuration. Do this by
-> implementing ground switch detection in a delayed worker.
+diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
+index 64dde972f3f0..d7c31a202adc 100644
+--- a/sound/soc/codecs/aw88395/aw88395_lib.c
++++ b/sound/soc/codecs/aw88395/aw88395_lib.c
+@@ -769,7 +769,7 @@ static int aw_dev_parse_dev_type_v1(struct aw_device *aw_dev,
+ {
+ 	struct aw_cfg_dde_v1 *cfg_dde =
+ 		(struct aw_cfg_dde_v1 *)((char *)prof_hdr + prof_hdr->hdr_offset);
+-	int cur_scene_id;
++	int cur_scene_id = 0;
+ 	unsigned int i;
+ 	int ret;
+ 
+-- 
+2.35.1
 
-This looks sensible to me.
-
---a+zr94RLtWLGe1ik
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPhAqgACgkQJNaLcl1U
-h9DIzQf/ekcpkZmkGRQDURuwwftcrEUxbs2H5KsMirLXEuoNwaQojXwZr0IP60hj
-OuJ6qR8EivksADWUXbFlo7GpOaWtryeyLBeG26NvX6O2JOMKAfeBkra0K8Feu2Xj
-1JeudIecUb8Ysf6pG8LxO8+ZySXd4QORUeILSOHmjSC4meMnLfEScu1JjT7OpBxr
-iP7HuPqiWSwaIUw+Pka+ff7PywsvIqU0DWoN/OAblYaEIXrWpMtVCggK4vd3Ewze
-6NPGKpqbogRFiL3C+BbEUGqVyjhQZUZfVrIAUkVD6qg7LYCe3tkjLCR+J8r7dz2O
-IDJCY5LYLbf8IGrJ4QrCSt03xolSng==
-=jcdD
------END PGP SIGNATURE-----
-
---a+zr94RLtWLGe1ik--

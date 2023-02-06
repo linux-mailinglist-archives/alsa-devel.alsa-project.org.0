@@ -2,73 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D400568B763
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 09:31:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5711D68B796
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 09:43:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C8AF1ED;
-	Mon,  6 Feb 2023 09:30:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C8AF1ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1CE01E2;
+	Mon,  6 Feb 2023 09:42:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1CE01E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675672300;
-	bh=XkiBppBiIGQdLDHhwFlK1XOAqy+D5oUzH8XdOSMWNUs=;
-	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1675673026;
+	bh=9ZLvvMIwzcCdLn0lD2aAUua8JawGII/4z+2nZPG7Ik0=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=d0tMcNPGRZgytUYbXVo9LzqBWkRbgx4/a+G9nZPuXTUFPgAZYsfnQVuiGtka1uWxN
-	 o0jaXoeobRmISo3glswybo80PipTHRpeALSaOVrSYuYkcnU1EsWGNdcXQcouJnxufd
-	 fszr88mq85FmwPU+OC4MFr8hiVlPqj5CqDAN4zg8=
+	b=YyJEhrIrD3U+ir76CoChbd5RWDv/wl13cp+VAwJdG/QP4rGm5tEWjOULRVB11tu1Z
+	 EHady+1S2pXxHv0tpYaY/itvVC7T1i+qc556JVnbfbSvbHhZhYdJL9SYqg0rGobtK+
+	 JwUgbvk0UkIqOMycPt4y1V89WabOzlbd7bTtQkOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13293F800E3;
-	Mon,  6 Feb 2023 09:30:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF034F804FB;
+	Mon,  6 Feb 2023 09:42:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7B09F804F1; Mon,  6 Feb 2023 09:30:38 +0100 (CET)
+ id 318CCF804F1; Mon,  6 Feb 2023 09:42:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-3.4 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2222F800E3
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 09:30:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2222F800E3
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=SNEwGb9P
-Received: (Authenticated sender: herve.codina@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 75D241C0012;
- Mon,  6 Feb 2023 08:30:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1675672229;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=OMj5Fs+cE7htz9baKVtZ700BYz9yyPIfXJqXxrqoEi4=;
- b=SNEwGb9Pn9HOlCtzKReMZNxO+N3A3DzDLn4rSE1lREh4Z5ybrWudDu+Qeky0Bnj4EJQe46
- 7LspwC0yNko51n52GuRycvGg0NFbqR6NVdIciW1TCZSp9pAEB4WEwLI8yWOskN+S/11UDx
- SFruYQ/YqOC80gNV39hVpAIySvDCpN5lmU3KKTtdxJFqEAbzgk0pLUKX0EjSzUQ6dLN2h7
- JNhHlbNDcnyzA0uGh0uc9HA4AdkyrEd5S2wEGY8ElYRqBLM0KA6DSYYq4oXPtbFS69U4Bx
- yK4gs3Z8mfOUhhK1RegMGagcHvfQS7CPz0O6OjP0BuoMaF5kxlQnNwNaYL4TYg==
-Date: Mon, 6 Feb 2023 09:30:26 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH] ASoC: codecs: Fix unsigned comparison with less than zero
-Message-ID: <20230206093026.6236eea2@bootlin.com>
-In-Reply-To: <20230206075518.84169-1-jiapeng.chong@linux.alibaba.com>
-References: <20230206075518.84169-1-jiapeng.chong@linux.alibaba.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DB05F800F5
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 09:42:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DB05F800F5
+Received: from dggpemm100007.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4P9KTz41dKzJsJP;
+ Mon,  6 Feb 2023 16:40:55 +0800 (CST)
+Received: from [10.174.178.174] (10.174.178.174) by
+ dggpemm100007.china.huawei.com (7.185.36.116) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Mon, 6 Feb 2023 16:42:34 +0800
+Subject: Re: [PATCH] ASoC: codecs: es8326: Fix DTS properties reading
+To: Alexey Firago <a.firago@yadro.com>, <linux-kernel@vger.kernel.org>
+References: <20230204195106.46539-1-a.firago@yadro.com>
+From: Yang Yingliang <yangyingliang@huawei.com>
+Message-ID: <96c99731-a5e9-778d-24f5-cb42a5c2d840@huawei.com>
+Date: Mon, 6 Feb 2023 16:42:34 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20230204195106.46539-1-a.firago@yadro.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [10.174.178.174]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm100007.china.huawei.com (7.185.36.116)
+X-CFilter-Loop: Reflected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,49 +73,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, zhuning0077@gmail.com,
+ yangxiaohua@everest-semi.com, tiwai@suse.com
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon,  6 Feb 2023 15:55:18 +0800
-Jiapeng Chong <jiapeng.chong@linux.alibaba.com> wrote:
+Hi,
 
-> The val is defined as unsigned int type, if(val<0) is redundant, so
-> delete it.
->=20
-> sound/soc/codecs/idt821034.c:449 idt821034_kctrl_gain_put() warn: unsigne=
-d 'val' is never less than zero.
->=20
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D3947
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  sound/soc/codecs/idt821034.c | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/sound/soc/codecs/idt821034.c b/sound/soc/codecs/idt821034.c
-> index 5d01787b1c1f..2cc7b9166e69 100644
-> --- a/sound/soc/codecs/idt821034.c
-> +++ b/sound/soc/codecs/idt821034.c
-> @@ -446,8 +446,6 @@ static int idt821034_kctrl_gain_put(struct snd_kcontr=
-ol *kcontrol,
->  	u8 ch;
-> =20
->  	val =3D ucontrol->value.integer.value[0];
-> -	if (val < 0)
-> -		return -EINVAL;
->  	if (val > max - min)
->  		return -EINVAL;
-> =20
+On 2023/2/5 3:51, Alexey Firago wrote:
+> Seems like properties parsing and reading was copy-pasted,
+> so "everest,interrupt-src" and "everest,interrupt-clk" are saved into
+> the es8326->jack_pol variable. This might lead to wrong settings
+> being saved into the reg 57 (ES8326_HP_DET).
+>
+> Fix this by using proper variables while reading properties.
+>
+> Signed-off-by: Alexey Firago <a.firago@yadro.com>
 
-Acked-by: Herve Codina <herve.codina@bootlin.com>
+Fix tag is needed, it should be 5c439937775d ("ASoC: codecs: add support 
+for ES8326")
 
-Thanks,
-Herv=C3=A9
+Reviewed-by: Yang Yingliang <yangyingliang@huawei.com
 
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com

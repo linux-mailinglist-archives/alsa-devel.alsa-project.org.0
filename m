@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9FB68C56D
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 19:09:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE4168C56F
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 19:09:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D07886E;
-	Mon,  6 Feb 2023 19:08:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D07886E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FCB383B;
+	Mon,  6 Feb 2023 19:09:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FCB383B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675706982;
-	bh=p4PK9fiV2BbKMqZAfIXByxuFG3SScP0B9yc/0rbK0Wk=;
+	s=default; t=1675706998;
+	bh=xgEuzuyuvjKXrDv5I8KcSEEuFUoDeBJ8yQDgkrwgim0=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=b8EJtT5g7/6/ZA7r/DEWRKVMsmkFHasdt6Q8bAVnvcQFoFMhVhIHOeQK2q/BfX8sM
-	 mFd9KDOPEnWqEtj2t00+YbNElSDeD72WcV3xHrFoA8D5doWOndyg7Q4mw1U7A5Sajn
-	 4iEyiuQb+Se/CGErIMP2zcEJ5aBGJJCOAQEX2g3Y=
+	b=frRrPrBe6NrQTEtVTstSrV8C/sZpNf4jmRpKMjT2pDHGXlIW4hU0gF8ufwmYk/+Mi
+	 B+kQufoI44B0MXMHoFibCyqextg8J0nPfZG6OENb+WZSEsaDu8WJ16CXW42VEj38wq
+	 fdZtBbcxmLQ4FJAQgAMPM6hYuLa0uvu8LAnAqZX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD688F80548;
-	Mon,  6 Feb 2023 19:08:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93473F804E7;
+	Mon,  6 Feb 2023 19:08:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1752EF804FB; Mon,  6 Feb 2023 19:08:17 +0100 (CET)
+ id 65908F80549; Mon,  6 Feb 2023 19:08:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00A20F800F5
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 19:08:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00A20F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C167F804E7
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 19:08:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C167F804E7
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=li8K7Lik
-Received: by mail-wr1-x42d.google.com with SMTP id i5so4039629wrc.0
- for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 10:08:11 -0800 (PST)
+ header.s=google header.b=ucFAJXzr
+Received: by mail-wr1-x42c.google.com with SMTP id m14so11176608wrg.13
+ for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 10:08:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tn5oHPpbipDMcz7STqyrZPY8+V7f853nhQ3tf36w4Eo=;
- b=li8K7Lik3LGY7JOaQ7GiUdzLXPHgOnG1lFTZlz8/YpiYdkE/lkZGLo6epPXMts6GON
- kBwXRaV1MYXx6zDSdCrsdad/d8JLDqpubAbNtkrJLpwRRp6tCK0cSZDCV+2bqAIFew+j
- bip60U5h8FtqNzjDABYqo6+7U+ZX2DQ2bWqCrcEFTD9Rm5jKt/0cxfodJPbSDjcan/Pu
- ckM62PF2lTwyBYmiONAK5dENFmT1hBy1No3p7FN35GD+YKISb3ag/ses6i37SbulBoQR
- bZdFco0aGOq7yYqhl4zsb3v4w8SzXPq7b79ilbjmKJ9soli9twQinp0rKHGB6r2ICtdL
- bjQw==
+ bh=8HvOrHkIP8SbO+sqt+8GIffUexPmit/k/GSAi9C9ZLA=;
+ b=ucFAJXzrJn53Zv+WFCeSBra+jaWVuMvLGrhQesAWslLqtngBNFeqOZ1sclvsw6z/Ql
+ Oyn3wD+ev+7fbKgHDrwzRf41Gs+qdvGjUlXbGAvyIriSQ+6LA7FYYOxwmoHeuao9xQ0w
+ No8YIRXi5ognFZ/fMQS1dcMRxUmFwI7Wlp6mPVhaPtlDhQSVeC0RPf618Q9ttflv5RAU
+ 8U0CftKGQrUQ0mqS99VTJFAgOfNCLBRjE7L8Tixn6zIdMeeVPb3KwaYxmiquslHTNQaK
+ 6I/2SmmJ76BBhJUofjYW4+gXoqBRLq0p0vtpqnD4abCqcy+Ew1zihoJ5FSuI9ubKsDJn
+ xB6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tn5oHPpbipDMcz7STqyrZPY8+V7f853nhQ3tf36w4Eo=;
- b=AEd2YfUaF55RV69pdr4iI/bGl+MM02ffJHkf+BJ1pTxlQFkAD+DwwCOXd7uGeSbO1X
- hFeKuipf4FlNgKbiNGLoIqWQmAFs+KfxrdipWQRYnMQjdN3fVZUjBzZrUV50ZJhkFlmq
- biQj8KXI4lgYKCHy4xGlQ+yBCg/B9tcNhPs3TRH8B9D9uHZXGK1F+8GPq3XnzQRMlxmy
- ssbZlm9hL14lLIVGYYJnE3Tkd6Vr38zRGub1hZxbQi9Q5xxBbG/xbdr4gu71T7VJAsPc
- o2/jEcFytzfbO1PJoysQ1f3/IA/1S33UBDhwdGJFSU4UlxtZjRe7gR4pd1ySxWVK+1lS
- Z+YQ==
-X-Gm-Message-State: AO0yUKU5WMQhXm4yyLcM5kHqVPkB4sHTDXhO+a2GrRigTXreoE1lUwct
- bmFrR1PXOfxwgumc+CROWpGkAw==
-X-Google-Smtp-Source: AK7set9dnqk2147Pm0mc3fAGlCuyJDoc1kM1Q9A0N2U32IxhrwhVkkjlG7LBYt4A8Oy8QWwh5NAw0w==
-X-Received: by 2002:a5d:6805:0:b0:2c3:eda4:adde with SMTP id
- w5-20020a5d6805000000b002c3eda4addemr2518807wru.53.1675706890160; 
- Mon, 06 Feb 2023 10:08:10 -0800 (PST)
+ bh=8HvOrHkIP8SbO+sqt+8GIffUexPmit/k/GSAi9C9ZLA=;
+ b=Tq/BWEjK2EVQczLOEKwcHx+7aUkOZC9DaRhWKGfD1w+CkLoVqxH1KWcdZP+91SoCe7
+ 8T5C2HhyyA0vXn+fqkJh3tJKdthvMLAwGOxsl1znBVgyjMw2dMwzTrKstgUx4XbwDper
+ wd2TV3VF6C+dWsXTKzcaI/1TRzm0IOIzr3/x5LlW/XzBzFXMdmQqDhSb5ayAXD7242YZ
+ wD1ZdKF5Et3J52ZlKSXeGfMlBqWeC4aD+0QFajbCWzD/gyKD9Bb1JRWdHu6UTnEToWAx
+ 446pmTj4mH5IRO0/NTaA3kBLvngAlqdraLjyMOO3T4o+bCH030JYodvkKB/8tfj++pGK
+ Rb0A==
+X-Gm-Message-State: AO0yUKWnsWyAPVuUd9ikatHsflFjPG9G4qyJwVDW8U1tNNLuQS7DX06L
+ 4cSjiDoxZ4qgHOIruN6QRmq9ig==
+X-Google-Smtp-Source: AK7set/0BWk0xFD529JMx3PTnPQ1jw0SboYPgHS35Qq0UkDSwKopgOTCywFPtlZ6jfvnsqgedRLbNg==
+X-Received: by 2002:adf:c60b:0:b0:2bd:c1de:a33f with SMTP id
+ n11-20020adfc60b000000b002bdc1dea33fmr18720910wrg.19.1675706891758; 
+ Mon, 06 Feb 2023 10:08:11 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- d18-20020a5d6452000000b002c3f1214e33sm365451wrw.100.2023.02.06.10.08.08
+ d18-20020a5d6452000000b002c3f1214e33sm365451wrw.100.2023.02.06.10.08.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 10:08:09 -0800 (PST)
+ Mon, 06 Feb 2023 10:08:11 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
@@ -88,10 +88,10 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH 2/3] ASoC: dt-bindings: qcom,
- wcd934x: Describe slim-ifc-dev
-Date: Mon,  6 Feb 2023 19:08:04 +0100
-Message-Id: <20230206180805.6621-2-krzysztof.kozlowski@linaro.org>
+Subject: [RESEND PATCH 3/3] ASoC: dt-bindings: qcom,
+ wcd934x: Allow usage as IFD device
+Date: Mon,  6 Feb 2023 19:08:05 +0100
+Message-Id: <20230206180805.6621-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230206180805.6621-1-krzysztof.kozlowski@linaro.org>
 References: <20230206180805.6621-1-krzysztof.kozlowski@linaro.org>
@@ -114,30 +114,95 @@ Cc: Rob Herring <robh@kernel.org>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The "slim-ifc-dev" property should not be just "true", because it allows
-any type.
+The WCD9340 audio codec appears on Slimbus twice: as IFD device without
+properties and the actual audio-codec referencing the former via
+wcd9340_ifd.  Allow in the binding both versions to fix several warnings
+like:
+
+  sdm850-samsung-w737.dtb: ifd@0,0: 'reset-gpios' is a required property
+  sdm850-samsung-w737.dtb: ifd@0,0: 'slim-ifc-dev' is a required property
+  sdm850-samsung-w737.dtb: ifd@0,0: 'interrupt-controller' is a required property
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
+
 ---
- Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+
+oneOf: interrupts-extended|interrupts is needed to avoid dtschema
+limitation.
+---
+ .../bindings/sound/qcom,wcd934x.yaml          | 58 ++++++++++++++-----
+ 1 file changed, 43 insertions(+), 15 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
-index 184e8ccbdd13..39b27126cfc1 100644
+index 39b27126cfc1..ea09590bfa30 100644
 --- a/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
 +++ b/Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
-@@ -28,7 +28,9 @@ properties:
-     description: GPIO spec for reset line to use
-     maxItems: 1
+@@ -149,21 +149,49 @@ patternProperties:
+ required:
+   - compatible
+   - reg
+-  - reset-gpios
+-  - slim-ifc-dev
+-  - interrupts
+-  - interrupt-controller
+-  - clock-frequency
+-  - clock-output-names
+-  - qcom,micbias1-microvolt
+-  - qcom,micbias2-microvolt
+-  - qcom,micbias3-microvolt
+-  - qcom,micbias4-microvolt
+-  - "#interrupt-cells"
+-  - "#clock-cells"
+-  - "#sound-dai-cells"
+-  - "#address-cells"
+-  - "#size-cells"
++
++allOf:
++  - if:
++      required:
++        - slim-ifc-dev
++    then:
++      required:
++        - reset-gpios
++        - slim-ifc-dev
++        - interrupt-controller
++        - clock-frequency
++        - clock-output-names
++        - qcom,micbias1-microvolt
++        - qcom,micbias2-microvolt
++        - qcom,micbias3-microvolt
++        - qcom,micbias4-microvolt
++        - "#interrupt-cells"
++        - "#clock-cells"
++        - "#sound-dai-cells"
++        - "#address-cells"
++        - "#size-cells"
++      oneOf:
++        - required:
++            - interrupts-extended
++        - required:
++            - interrupts
++    else:
++      properties:
++        reset-gpios: false
++        slim-ifc-dev: false
++        interrupts: false
++        interrupt-controller: false
++        clock-frequency: false
++        clock-output-names: false
++        qcom,micbias1-microvolt: false
++        qcom,micbias2-microvolt: false
++        qcom,micbias3-microvolt: false
++        qcom,micbias4-microvolt: false
++        "#interrupt-cells": false
++        "#clock-cells": false
++        "#sound-dai-cells": false
++        "#address-cells": false
++        "#size-cells": false
  
--  slim-ifc-dev: true
-+  slim-ifc-dev:
-+    description: IFC device interface
-+    $ref: /schemas/types.yaml#/definitions/phandle
+ additionalProperties: false
  
-   clocks:
-     maxItems: 1
 -- 
 2.34.1
 

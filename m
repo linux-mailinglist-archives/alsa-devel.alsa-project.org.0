@@ -2,91 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A2768AFA0
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Feb 2023 12:56:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3F468B39B
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 02:06:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC2181CE;
-	Sun,  5 Feb 2023 12:55:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC2181CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE8A1F0;
+	Mon,  6 Feb 2023 02:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE8A1F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675598159;
-	bh=JnPFHgVzmMiDfUiJ92Z3Mob1MPztODvR9dmnacBCHZ8=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675645598;
+	bh=14SsX4wXuFPez+4rxuuVIvHeeTDzLjTCCQbANgOtUqU=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=eqU/POrMHIf3ZlE4TGNIVVFIoMaGGsk/qg7ZBL7N8Bq8uZZDuKRtSQfR5MmFWkyyg
-	 9J8AvUURbz1kI16w74w4voxrAvJGWzmkwKA/ImGtk1zO0xkNMo8/imNnwTjp8DcrDr
-	 8bMlafjZKn01tIpmz5AiqLIo3Cs6r2tTjtDu87g8=
+	 Cc:From;
+	b=escw3Ebkej3+bu7dizWwV/THANvP8Oev6KER+Xk8JK59TdMr/yXHrD8qb7bKIGu++
+	 sIKzExy3+LxAwHEm3He3j7mcwh3OOwOwOUpG4JkTqhTWGYOE8zJFFbp5Dc8hb6Fsxi
+	 qtGLbJYT0NMq1CVljNYDjD7uB/hq2Ri63w7w0P1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA0C0F804CF;
-	Sun,  5 Feb 2023 12:54:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6CDEF800E3;
+	Mon,  6 Feb 2023 02:05:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE6FBF804AA; Sun,  5 Feb 2023 12:54:55 +0100 (CET)
+ id 64B5AF804AA; Mon,  6 Feb 2023 02:05:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,STOX_BOUND_090909_B,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
  version=3.4.6
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75E04F8014B
- for <alsa-devel@alsa-project.org>; Sun,  5 Feb 2023 12:54:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75E04F8014B
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- secure) header.d=gmx.de header.i=@gmx.de header.a=rsa-sha256
- header.s=s31663417 header.b=Pry+w96S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1675598080; bh=JnPFHgVzmMiDfUiJ92Z3Mob1MPztODvR9dmnacBCHZ8=;
- h=X-UI-Sender-Class:Date:From:To:Subject:References:In-Reply-To;
- b=Pry+w96Soc5CVQN7+lZLfN7N1ZN5WCG+mn3Es9vg3fAD0ku0xukxqj2Q5MZ3BTi04
- jP9mmdv+6u7Q37HUQeTIo+WJuThe42FVjRid2595k8K3Ome5X1bZ7KfL6l15ZOkuTY
- sxlojKCoVzlJP4hj7/Suq6F8mN8GtaLDBLic0CRY8jgwUeJFWevFKHJvk3Q1SL0Eu4
- xEmKEjB6jN1UTwtjFML40QED3s9VnVhb39/2JVi2wViroC/NGzXn3WBmR71BRTxLRk
- tpmEN9PUwCBjWGrvhWv5w8UPimd9EtiNLbzm8Nik69pbHoOb63fYsEdrXjXizc43Br
- FtoWxI4WOatGA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.1.11] ([77.20.255.105]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mjj8D-1ov6bE44Nf-00lEJj; Sun, 05
- Feb 2023 12:54:40 +0100
-Message-ID: <63DF98FE.2060604@gmx.de>
-Date: Sun, 05 Feb 2023 12:54:38 +0100
-From: Martin Armsby on GMX <m.armsby@gmx.de>
-User-Agent: Mozilla/5.0 (Windows NT 5.1;
- rv:31.0) Gecko/20100101 Thunderbird/31.0
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on20715.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feab::715])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BF24F8001D
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 02:05:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BF24F8001D
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=C09TRbIA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N2LZCaZiznfQ7VBFWebthdCknnqLNmJ6rQBNLmP8PrTFShZ0VFVX4N2X6uK6YFnTpE6e6Sw49GJN3nk6zwdaskl42s47bSE81E0KrZYHWd5X7XdpkLtU05dtlyXg1ad2on0a1c2T/tYQyl11AGprRHMH+bBhh45LBKNLpa9YQEZaHwGjaw4IAu8NAdZlmOxm/nVUfCcDjPbRAuEvv4tgXCNq/GI88eRScWvoYjzcAk59nB4903olq58v0KwB/n3bcrfvycfjJ/6vaYSpvNobdHYD2sRHMoFDyuOjtfORZkp7Werb/kWuYnn2Uw6IdQpreqomgl74d6aj3eac0Q9cTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zBl08KEPDMHPDWgVPLEpP8RBx+zX9fnZtQHDItAt/5Q=;
+ b=jc7JMsArbyXXQfWFIq9fMiyP76kojLN38k1sKv0mPRkOOJ8cLVXbFBmqegeqL7f5eE/cV5oOj9Ehob8hMw7h9jbsxbGPBcEXxo/nfxIwq3RLbKmjr2GeEvS25YwjI0BtW03tHGky24/JMbc+RNw1mC/WZ50J3lb3OWCYalRZcXuAGfx6pMaVennGDYTGBNpWk7hZFdYxYjBUqtYOu2lYKE3H7dThfmoK2nwNbT+FIb4TuYrHL2xO3UpoKgV6sDOoErRZ6JNELqkuLLl+r/Ypvd0DDP35sUoJPSvauOHUieOAranWliDWDYAqD9rFxS3XWUmakT79HQH0O1efDRZbeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zBl08KEPDMHPDWgVPLEpP8RBx+zX9fnZtQHDItAt/5Q=;
+ b=C09TRbIAyhMlKP7KucwnlSHiOgLMruT+Z1aquF2IanV4O0qU6VEFQRwha9ohAmjyg3SEZ+jxUHkXsO6UUUv1xZI4nA16bhDKY7GRGtUCbwTMwW/jhvNYRnosOm+nnyRwHjBq3gyh+Ytl4L+t5voajoN5rQN23r3p0NGnN3TmAog=
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
+ by TYWPR01MB11908.jpnprd01.prod.outlook.com (2603:1096:400:3fb::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
+ 2023 01:05:14 +0000
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::9438:5139:7952:d8b0]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::9438:5139:7952:d8b0%7]) with mapi id 15.20.6064.034; Mon, 6 Feb 2023
+ 01:05:13 +0000
+From: David Rau <david.rau.zg@renesas.com>
+To: Mark Brown <broonie@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Subject: RE: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
+ headsets when playing music
+Thread-Topic: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
+ headsets when playing music
+Thread-Index: AQHY/Wc8EHyTvYawJkGeL+1XJ6BDpa6jYNiAgAIOc/CAANeEgIASDP8AgAAoZACAAGKRgIADYrqAgAAUigCAABqigIAAD+IAgACSkbA=
+Date: Mon, 6 Feb 2023 01:05:13 +0000
+Message-ID: <OS3PR01MB66412D895E26CC3327A186A3CDDA9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+References: <20221121050744.2278-1-david.rau.zg@renesas.com>
+ <20230117195645.GA83401@roeck-us.net>
+ <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+ <20230119161221.GA981953@roeck-us.net>
+ <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+ <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
+ <Y9kE1cSUg2CQM5vq@sirena.org.uk> <20230202155101.GB1373010@roeck-us.net>
+ <Y9vtIISfmpICi+9u@sirena.org.uk>
+ <8f89eeac-b3ef-4137-80df-6cf044873b05@roeck-us.net>
+ <Y9wQygzbFyOWl54r@sirena.org.uk>
+In-Reply-To: <Y9wQygzbFyOWl54r@sirena.org.uk>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OS3PR01MB6641:EE_|TYWPR01MB11908:EE_
+x-ms-office365-filtering-correlation-id: 4ef47dd5-3df5-4c69-87b0-08db07de33d4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: iezF0Pisd2k9O4xELv1M0hHqUS59y4F+IjTUjNWn2kCzuP44/vf851qN5v5xalsS+yVhnWO/qswfnl8l9ce21993Iwav8gi4RHAepiG7MQpnkZQHkHMBjf7uuHqrUDgcDWSOfWCS5ocQpIwmloTSbL6rRybMDEdzj1ed1IYDFgHA/1W7kwQjLg7OK6FPr/PIttmqc+5iF+uIr1OUB2DuJrClnAZJOcOZWUIx4r7Rn+oPL/mpFoeFRDIYe2Desv03c3L4szoeBOjHB8hj5voiaYgyG9defzULKKzqNhI1GmnWoNo7IjC0rFXLIrfDB7+ZPFZzLvyVdPfOaKiyHKVwF4TIXscT+alWYlkC3IvuPhJ4nfGATIQFLehzY0mnNlokXpy5xBAUrDyF52bmVmmUch/4RD3YaRySZZflfBqfNq7Fs4I7SKrzXn7i4Eot8O5848qNYkuzecN52rNIONmpTkaj+3zFSvccOSGX9JuhqlN7QNB8tx8d9kSe4Whe91OJYchcZn8d+O3BMVZHl+jFBVMprZcqEbLVskXNsWQTJIrFJR6he4jQP+ebOtpc3UOjyyqyO+w0Wlg+bBGr2drIPXgRMgwDy8fq+gO8vFLypWMP34IlPRpLcFAiMXW3lAkiV/74OhfX7V2LonK5Biv4xQbU2sSVWA0A2FaqW1ubM9dekdzosWPSdleDD8hZ7xptZ2FksA0NFYsspdWxmAvY4g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB6641.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(39860400002)(396003)(366004)(346002)(136003)(451199018)(316002)(110136005)(54906003)(66556008)(2906002)(122000001)(86362001)(38070700005)(5660300002)(33656002)(8676002)(4326008)(76116006)(66476007)(38100700002)(66946007)(64756008)(66446008)(83380400001)(41300700001)(8936002)(55016003)(52536014)(9686003)(478600001)(7696005)(71200400001)(66899018)(26005)(186003)(6506007)(53546011);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uPGR+Pf2cVvyKnjJxKJ84Np5198iiS3/IUHjUpnAYEl3pjcExfF+ju8ATZ0f?=
+ =?us-ascii?Q?UtxnmZiQDjre+4C85YBVlMw2DQn1iU2xeMKo8vFD47k04myvaKje/RMCwoJN?=
+ =?us-ascii?Q?zvbSMhuyblL8Ugz/CdogdExOt23iyv5tGyBDC0FfNVq8nDlO2hvZrlodmIFF?=
+ =?us-ascii?Q?YGeCebYsjGubbbNvSas5BDBZrQ0alX8scU5VXwMrLR/+n+/rvJ/LPcu/rbee?=
+ =?us-ascii?Q?Ys8G/PjwuXngffLX+ALb4zroVP4NshrJPMk1xidpZmU1l1RCrrvXJL+jGdCu?=
+ =?us-ascii?Q?R4md0ZoqW2y0+NfzSD90OpqM8y6veKImgIEvA869yspaZjRk9o0bAQlhm28r?=
+ =?us-ascii?Q?8QVY91ekYdtvqaWV2GqNIfCwJXH1AIXOas6SCgXTZuuGB3iPuHg8WEMhW69C?=
+ =?us-ascii?Q?X9Mcch9CmkUqgo1yjTZyFDKuVDsBD8JXmawb4hxpoOcYqhQGciyrJG1p6zjs?=
+ =?us-ascii?Q?E/0W0v5sD5q5L11TwvrZvWSapci5VjkXz5bq9jVIfzvDOJFCuG3tjKFs+KMc?=
+ =?us-ascii?Q?dGpD8I1i7p1h59ereepGfhaVCbqxmb77bwqUC6vct0Arcdal+bq49QX2xcVx?=
+ =?us-ascii?Q?Mi6yZVtx7DXS2flVbTrpEwmr2pIFpmHEtMcrOsW3iIIBG/zhJLnQ/LpjsvCq?=
+ =?us-ascii?Q?FlettP2uO9vKAkS0suSlB4Ybbzps8ODX6YMGqD8qg2lm9b0TNg1BQKT9BjEo?=
+ =?us-ascii?Q?vjIg3pxH7WaKGeAChSCq5iqxXRC1vQniwMblVNx9H3aNiHH7mnkVPYpZg/L8?=
+ =?us-ascii?Q?dUltRikKue0MX2HoYbWvL5XCmoS/a4aO56oJRCDTWM5EOO/IgwubIgDIITr0?=
+ =?us-ascii?Q?jrw18coSVYx+Uudl3cokZ/Bhl3W8Sh/qc0LcFY6aBI+m/aSeKQ3rNRCfWeg5?=
+ =?us-ascii?Q?WwfumsVdfE7x9c6vm+Cqln3kuvcRYqh0S5fjqj3FvP/dIvH1rhb6nEf/m3KT?=
+ =?us-ascii?Q?itztqkji1kXDA9+K1IoZbTP3RcLP83T3GrMNMdRVhhwIXPaHVz9TEyW46wq6?=
+ =?us-ascii?Q?vzsxbjYburwXtnesoLhUYzS7VHcdmxqCuWizD2c5Jq+2ctbUEEAx8B2OA3Wj?=
+ =?us-ascii?Q?mDGyoCW/bM0ev2arlQn4b6xtvIZUw34EPhKP6uCLyXZ0zkEw7yekyVyEJFwJ?=
+ =?us-ascii?Q?3YCqf4a+KC+c2qiEmViI2cBWnDbwNeAZaWxfAGodz/EEXdFYkAdkZhkQtTGO?=
+ =?us-ascii?Q?Osa/R68rAtNSUg1SAMhqFae24xyDEAJQjFN/YuJbpXCLDC+j0uF0ZDSjHv6e?=
+ =?us-ascii?Q?nIufR/UBhqdMWLWc1ZdgKPLy2Z0WUC+q8T8OAs36AczW9a5eKXmqTmiMo/Qd?=
+ =?us-ascii?Q?9Ta5KJSgLWG3TL8skV688uvLSddbe6Q0YgqoMLTDAzQCVnqxjBLMu+ako12j?=
+ =?us-ascii?Q?vknhleVKl8gmkvNxl6/9YBM1pdofMC5uJuz88GIbFgPqmwZ0UONj8odPvTaU?=
+ =?us-ascii?Q?T1yBe/T9gGKdYmGlyIlGQ06VesRyjK375SrYy/HME+bx/5B4PvlGczefJgMn?=
+ =?us-ascii?Q?0slTJobZe2aBTrU7VHMUJ30cKa4FSgWQ8CjMMl014G43o8xG6RH0d0Kugib3?=
+ =?us-ascii?Q?02+T+6tbwkQgn0rgyttwVsJucz33vzWvtrCZ9KdT?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-To: alsa-devel@alsa-project.org, perex@perex.cz, o-takashi@sakamocchi.jp
-Subject: Motu 896Mk3Hybrid dump
-References: <clpqss6u2nl2-tqmbic2pqf4x-fl7n8ufasb45-1to1x7160p65-86skuflc32uf-b435ds-2dqjqzzi2x9r-n26ssw-jjzxq0-aeknhb-drcr4x44iip67z8kfz-gayyzivnj1e3-exbx9z-ayuv2umcdyh1.1675078615418@email.android.com>
- <Y9fD0Nzg+bwKsDEZ@workstation>
-In-Reply-To: <Y9fD0Nzg+bwKsDEZ@workstation>
-Content-Type: multipart/mixed; boundary="------------080105060007090804030609"
-X-Provags-ID: V03:K1:jUj+PVcKpD149WI1EBr/DtNwJvaM27t/iKlhs4FdZcIRvTM/vlC
- v5Isyby9ASsce8IBQIpxog0TdI7iCA0LAVFu8v1euY99yi27KSrjZQvnM9hrU5CBrC6DaKr
- M4NLsiX8Q+/OKz1m8VruItedR/MbrxSyIWlkuu95U24ufh1Z0cvHDg1g8WD9VFMhrpiQ9kf
- JSc+gS5BSILyZY+6dgGAA==
-UI-OutboundReport: notjunk:1;M01:P0:6PDPsQoeNmA=;wqtpDg0SEB5d3T3yQy7D7eUphx8
- oaL5OgpnNHvHliz/9BV1bPSUmD+uE4sx1+AR1ucF+i92FiTEX7xUvF/rIPho7PeRYAqSuon30
- 0sOpuTERnDaNzAZdEokj7iVntW4i+LuX9XD6iCh8jGimhQ/oQNCzZLLFCXLQMiMvzDiUOzRJl
- LHXKlWDCVMAiM8QovqAxWsg+PSErJT1YFBo1jJR86yIzlatcMips7oojB34rkaG8HC2fpX748
- 1jXvdGN5B7+Tp971XmYOjluzCK36KaBxlX4aDDL/zxAzDvgfNmFGNG30WIOHt+6LZnXnN8k2F
- m+P1Y/rp4242jV0tBYl5aGc08tq0uL62dxWBSsbOE/EIK+FnMLxhgYkClI9qYQJhkcEQPcLTc
- AuSYDFsFoLHNxRW+BdIzX5bwP6LsJlFveJMsNVkRdYnfsFIHa0yAaCeVshAtKTacQ7PnmSOYs
- rlEXN5a+wXmwWpuR1d/HSxv3BTSeNcYlgCt3cdwVVK7tFbLBBRvR7/Qme/U84rzQ5GHijKydy
- iS4x5+3Uoi/7ABR5ozofUyjIJ+qdz6fhX782hJeLSn+sbP27oIlkN8QEav7slgZI8xZEhMwB1
- xyA2sYgCFd3n9wGds8V4hONcGobiHsLTXcMVVBU8Fvn6Sd8IMhKH7miyg/E8MQHM2cYGq3i9O
- cKTbVtLUOTKeK0MbMpFAWYHKJ/dQE82Xh/nLcOIpcTQzCFJzxdIZO21Wnac3YMcwLeJtH/6+L
- ltUxJMqhnVIFPTRs5DMfCf23JjKtQthT1+Ixr5MC+g79BH/sfSPzlvoiKzRnUmBXwqbUJ20ds
- 5RP2tUGXwQchYItS9zU1hdGI7b090MD3SN3grx6gM/GgfzZdLuhGGkfgfoYA6VnryYngLE53s
- uQv0k2Qn/3obJV6QNpgHHniWErAYpO1w8dmh2Ol8Chtfft1RJ1q8KhUv8ZiDNYt83zItK+K/p
- sazG+Q==
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ef47dd5-3df5-4c69-87b0-08db07de33d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2023 01:05:13.6289 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QmwESmAyJpVrHzqNow2gplwllAAopWQwix4Me/iOu4s/ntE84+I4tzoPDeBznP0xVjRUzBhKIrau8w+WKfkDtJvVaST/7iANn2K++7HVo1U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11908
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,172 +157,181 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------080105060007090804030609
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: quoted-printable
 
 
-On 30.01.2023 14:19, Takashi Sakamoto wrote:
-> Hi,
->
-> (C.C.ed to administrator of alsa-devel mailing list)
->
-> On Mon, Jan 30, 2023 at 12:40:06PM +0100, M. Armsby wrote:
->>     Hi Takashi,
->>     I'm writing direct because I cannot seem to get a post on AlsaDevel
->>     list.
-> I've realized your two posts, but no reaction since they have no message
-> body:
->
-> * Firewire ALSA Motu and Phase24
->      * https://lore.kernel.org/alsa-devel/sokos1-r6xj933yn42y-hmy3gsrfgs=
-ma-mnwe9a-cahiug-3btbiljo1il7-8lhisz-trzq63b9es27-41z6o2wylkgf-tjvaeo3olqk=
-z-elr571-us6u4977mlo1-p2gxkncmroem-foujcu-jg85lg-sqi612.1674640678660@emai=
-l.android.com/
-> * Firewire Motu ALSA (Re-post)
->      * https://lore.kernel.org/alsa-devel/v6inx6-fwmr0r-kvajcd-kfs8u9l6m=
-2qn2cnogd-2odpkz-d7vadu94fw76-iv1ohfsnh0nxdhq3hl-irmx6t-3alyitjtt3oq-m2jt5=
-z8uktj3-1khriq-w6pr0c-bitxl26qa5mx-sc4dcno22ycq-2x7a4f.1674740730928@email=
-.android.com/
->
-> Jaroslav, would I ask your opinion for the problem which perhaps dropped
-> the message body from his messages?
->
->>     I need to repair my two Phase X24 (defekt caps?) and I'm having
->>     problems with Traveler and other Motu interfaces on Linux.
->>     Thanks for any hints or where I should post.
->>     Here's  a copy of my post:
->>     Hello everyone!
->>     Thank you for all the hard work on this.
->>     Especially Mr. Takashi Sakamoto.
->>     I'm an experienced studio engineer and was a Beta tester for Sampli=
-tude
->>     for years.
->>     Not a programmer and have very little experience with Linux.
->>     So please excuse me blundering in on this professional programmer f=
-orum
->>     but I'm hoping my experience will help somehow to find bugs. I'll
->>     provide any information I can or test following instructions.
->>     I really would love to completely change over to Linux but I need
->>     reliable drivers.
->>     How can I help?
->>     Here's my experience so far.
->>     Around November I started testing Linux for audio as I have
->>     occasionally over the last years. I was pleased to find Manjaro and
->>     Sparky would detect Traveler Mk1 and Mk3 and to run so efficiently
->>     compared to Win10.
->>     But things would freeze.
->>     Reaper has a long standing Midi bug so it was difficult at first to=
- see
->>     why my laptop would freeze on occasion.  I dissabled hardware midi =
-in
->>     the software.
->>     Then I updated Sparky beginning of December and to my surprise Fire=
-wire
->>     didn't work anymore. The Firewire stack must have been removed.
->>     I use:
->>     Dell Laptops 4310, 6510, M4800
->>     Tested platforms Ardour and Reaper using Pianoteq 8
->>     No JACK
->>     Manjaro Kernel from 6.0 rc4? and 6.1.1 work for a limited time.
->>     Sparky only works with special kernels Xanmod1 6.1.7-x64v2 but the
->>     audio is completely distorted.
->>     CachyOS Kernel 6.2 rc4 sounds good.
->>     Common problem is freezing or loosing audio. Ardour is less sensiti=
-ve
->>     than Reaper but Reaper is far more efficient on CPU
->>     (20% compared to 90%and more with one instance of Pianoteq 7 or 8)
->>     Motu Traveler MK3 and MK1 wrong channel assignment from 1+2 (3+4 ar=
-e
->>     actually 1+2) and freezing or just loosing audio.
->>     Motu 896Mk3 Hybrid not recognised in firewire or USB mode.
->>     Shame cause its the best.
->>     Motu 8pre working similarly.
->>     Phase 24 working much better but still freezes or looses audio afte=
-r
->>     long period.
->>     Tested in Ardour and Reaper.
->>     I hope that's not too much at once.
->>     Martin Armsby
->>     M. Armsby
-> Thanks for the report including many issues. I apologize to trouble you.
-> In my opinion, the issues are not so easy since each application uses AL=
-SA
-> PCM device by slightly different ways. So we need to investigate the
-> issue step by step to take relevant longer time than easy issues.
->
-> Before discussing about the issue, I need to ask a help about MOTU
-> devices. As you realized, 896 mk3 is neither supported yet, FireWire onl=
-y
-> nor Hybrid, in IEEE 1394 bus nor Universal Serial Bus. For example, you
-> can see no entry for the device in module device table[1] in the file
-> which consists of snd-firewire-motu driver.
->
-> The reason is apparent; no one provides information enough to support
-> it. Then I would like you to help me to integrate for it in the case in
-> IEEE 1394 bus.
->
-> I maintain a remote repository for my collection of configuration ROM
-> image which includes identity information of each node in IEEE 1394 bus[=
-2].
-> The information is useful both to make the entry of module device table
-> and to make hardware database[3] in systemd project.
->
-> When 896 mk3 Hybrid is connected to IEEE 1394 bus and only connected to
-> the bus, Linux FireWire subsystem detects it as '/dev/fw1'. Then the
-> rom image is exported to an node on sysfs. You can retrieve the content
-> by the command line below:
->
-> $ cat /sys/bus/firewire/devices/fw1/config_rom > motu-896mk3hybrid.img
->
-> If retrieved successfully, please send it to me. I don't mind to receive
-> it to private message, mailing list, any upload services.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/t=
-ree/sound/firewire/motu/motu.c#n162
-> [2] https://github.com/takaswie/am-config-roms
-> [3] https://github.com/systemd/systemd/blob/main/hwdb.d/80-ieee1394-unit=
--function.hwdb
->
->
-> Thanks
->
-> Takashi Sakamoto
->
-Ok, Im pleased to help with the drivers for Motu 896 Mk3 Hybrid
-I followed your instruction and dumped an .img
-Just for comparison I also dumped an .img for Traveler Mk1
-These are both in the zip file - (or how would ou like it)
-The img seems ver small - I hope it's usefull :)
+-----Original Message-----
+From: Mark Brown <broonie@kernel.org>=20
+Sent: Friday, February 3, 2023 03:37
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: David Rau <david.rau.zg@renesas.com>; perex@perex.cz; lgirdwood@gmail.c=
+om; tiwai@suse.com; support.opensource@diasemi.com; alsa-devel@alsa-project=
+.org; linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP h=
+eadsets when playing music
 
-BTW
-Manjaro update with Kernel 6.2.Rc6 is running very well with Terratec
-Phase24 and both Motu Travelers.
-Not perfeclty but I was able (for the first time) to edit productions
-using Reaper for over an hour with no problem!
+On Thu, Feb 02, 2023 at 10:39:51AM -0800, Guenter Roeck wrote:
+> On 2/2/23 09:04, Mark Brown wrote:
 
-Note:
-Traveler have wrong output numbering.
+> > > It's definitely unclear, there's a datasheet at [1] which does=20
+> > > appear to explicitly call for a 512ms delay though (see figure 20 on=
+=20
+> > > page 50).  It does look like it should only be applied in the case=20
+> > > where an inserted jack is detected (ie, when identifying an=20
+> > > accessory or button press) and not when removal is detected though.
 
-Cheers,
+> > The datasheet doesn't really suggest that a delay shall be applied=20
+> > using msleep (ie in the code). The chip presumably debounces=20
+> > internally (see
 
-Martin
+> Obviously it doesn't call for an explicit implementation in the host.
 
---------------080105060007090804030609
-Content-Type: application/octet-stream;
- name="Motu-img.7z"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="Motu-img.7z"
+> > jackdet_debounce and jackdet_rem_deb), and there is also=20
+> > jack_detect_rate to configure the detection rate. The table seems to=20
+> > suggest (to me) that there is an e_jack_insertion event, which would=20
+> > then be followed 64-512 ms later with an e_jack_detect_complete event.
 
-N3q8ryccAAJLSbXv6wAAAAAAAAAiAAAAAAAAAHOagOUACqRh8EGrcMpLK4ZET2tC7lrZlcwZ
-dfExVKsFzF357TNmy/pdoY2JRZllOHCXngzduk4XMG/dehRnxdV4m0yu4zlqYv/gHaf9n/qp
-OK1ZL1zWhqDCxQG9Av//x1d4gAAAgTMHrg/Tgvy9QMCQ00PE4fnoodUi3aHPXAeTvTXdnWLL
-N2CVVO12YvJw94+cfrsbO8Vf+Za/mwCpDzisdInVBMkFjHPYqBrU7jp/Ajy8BMNiPw2b8OFr
-w6A9bTG/Eu8TVw+9Y+d+4y3mluiU9m0/lQr+uiq+QCb++p+LY9co5ViusEzMcu3qX4AAFwZf
-AQmAjAAHCwEAASMDAQEFXQAEAAAMgKkKAazPBKoAAA==
---------------080105060007090804030609--
+> Right, I think what I was looking at was that in combination of the fact =
+that there's a *much* longer window before the host clears the interrupt sh=
+own on the first JACK_IN. =20
+> It could be spurious and possibly just due to the host type check thing i=
+n the diagram but it smells real bad, like the hardware state machine has r=
+obustness issues or something. =20
+> The diagram currently doesn't quite correspond to the code since we have =
+the delay applied unconditionally, and there's that undocumented register f=
+or the ground switch being managed.
+
+> > Whatever is done in software is on top of that, or at least that is my=
+=20
+> > understanding, and not explained by anything in the datasheet.
+
+> > Given that the chip itself supports debouncing internally, it is not=20
+> > clear to me what the delay is actually supposed to accomplish. Soft=20
+> > debounce on top of chip debounce ? I don't see that explained=20
+> > anywhere, though of course I might be missing it.
+
+> That's what it looks like it's trying to accomplish but as you say it's n=
+ot exactly explicit.  I *suspect* it's trying to debounce in more cases tha=
+n is needed.
+
+> > > > is not conceivable (or explained) why the ground switch is enabled=
+=20
+> > > > only to be disabled immediately afterwards if a jack was removed.
+
+> > > It smells like there's a power benefit to leaving it disabled when=20
+> > > unplugged (which seems plausible), and possibly like the detection=20
+> > > is more stable with the ground switch enabled.  The ground switch is=
+=20
+> > > not documented AFAICT (it's in register 0xfb which isn't named and=20
+> > > doesn't appear to appear in the datsheet from a quick search).  The=20
+> > > code is leaving the switch enabled so long as an accessory is plugged=
+.
+
+> > I understand. What I don't understand is that it is always enabled in=20
+> > the interrupt handler, no matter if a jack was inserted or not, only=20
+> > to be disabled immediately if the jack was disabled or after insertion=
+=20
+> > detection work is complete.
+
+> My guess was that it was making the detection more stable, it's surprisin=
+g that it'd help with simple presence detection though.
+I added this software debouncing to make DA7219 more stable to do Jack dete=
+ction.
+
+> > > Are you saying this is actually crashing, or just that you're=20
+> > > getting warnings about threads being blocked for too long (that was=20
+> > > what was posted earlier in the thread)?  The only things I can see=20
+> > > that look like
+
+> > ChromeOS is configured to crash after stalled threads are detected (ie=
+=20
+> > after 120 seconds), so this is actually causing crashes.
+
+> Ah, that's much more serious than I'd understood from the log you posted.
+Sorry to hear about that.
+Now I am refactoring the mechanism that remove the pervious delay in IRQ th=
+read to avoid such race condition problem.
+
+
+> > > they have the potential to actually lock up are the=20
+> > > cancel_work_sync() calls but they were unchanged and the backtrace=20
+> > > you showed was showing the thread in the msleep().  My guess would=20
+> > > be that you've got systems where there are very frequent jack=20
+> > > detection events (potentiallly with broken accessories, or possibly=20
+> > > due to the ground switch putting things into the wrong priority) and=
+=20
+> > > that the interrupt is firing again as soon as the thread unmasks the=
+=20
+> > > primary interrupt which means it never actually stops running.
+
+> > That is what I strongly suspect is happening. I don't know why exactly=
+=20
+> > the interrupt is firing continuously, but the hang is always in msleep(=
+).
+> > One possibility might be that the event is actually a disconnect=20
+> > event, and that enabling and immediately disabling the ground switch=20
+> > causes another interrupt, which is then handled immediately, causing th=
+e hang.
+
+> Could be.  I'd be willing to guess that it's not just one event but rathe=
+r a stream of events of some kind. =20
+> Possibly if it's due to the ground switch it's spuriously detecting a con=
+stant stream of button presses for the affected systems,=20
+> which don't produce any UI visible result which would cause users to pull=
+ the accessory for whatever reason?  Whatever's going on I bet it's broken =
+accessories triggering it.
+
+> > > My other guess would be that moving the delay that's been added to a=
+=20
+> > > delayed work would avoid the warnings, though you might want to=20
+> > > manually keep the physical interrupt disabled while that's running wh=
+ich is fun.
+
+> > I am not sure if that would fix anything. The current code sleeps,=20
+> > then enables the ground switch and does the rest of the detection. I'd=
+=20
+> > somewhat understand the code if it would enable the ground switch=20
+> > after an "insertion detected" interrupt, then wait for some amount of=20
+> > time and handle the rest of the detection after waiting (even though=20
+> > that should really be handled by the "detection complete" interrupt). B=
+ut that isn't what it does.
+> > If we were to implement the above, I suspect the result would be that=20
+> > the interrupt still happens all the time, and the only difference=20
+> > would be that it would be "silenced" while the delayed work is waiting =
+to be scheduled.
+> > That doesn't really fix the problem, it only works around it. But,=20
+> > sure, it would be much better than the current situation.
+
+> Yes, exactly - I was just looking at a refactoring in the code which woul=
+d mitigate the immediate problem while keeping the current partially docume=
+nted algorithm in place.
+
+> > My "wild shot" fix would be to enable the ground switch after an=20
+> > insertion event and to drop the software sleep entirely.
+
+> That's entirely plausible to me, either together or possibly just one of =
+those is actually needed.  Do you want to send a patch?
+I will send a patch after the complete verification and waveform measuremen=
+t.
+
+> > However, it is really impossible to know what the delay is for in the=20
+> > first place. Looking into the code further, the sleep time actually=20
+> > matches the configured jack detection rate. I have no idea why it=20
+> > would make sense to wait for a detection cycle after an event, then=20
+> > enable the ground switch and actually handle the event (which by then=20
+> > probably reports that jack detection is complete after an insertion).=20
+> > I really don't understand the logic behind that.
+
+> This all smells like there's either a race condition in a state machine s=
+omewhere or the button detection needs a bit of help (though if it's the la=
+tter then it'd be conditional on a microphone having been detected).
+
+> Hopefully David will get back to us with some explanation and ideally fix=
+.

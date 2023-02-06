@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976EA68C67A
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 20:12:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574A968C67E
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 20:13:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10D7711C;
-	Mon,  6 Feb 2023 20:11:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10D7711C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A67FA100;
+	Mon,  6 Feb 2023 20:12:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67FA100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675710722;
-	bh=0Wi/xWrfyelpAy3BhtyAW2AVtlKWMDZL/ONE7HFHQ9Y=;
+	s=default; t=1675710788;
+	bh=Xk6+icmqwpGgR2V1F3Mgl3fuZNcA1Os/yycBeinLnLE=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=W/tYt0f/htmSB+RBa55yL67YiS9/uI7Vpc5YBy/AbMje/y+KKV+JrQWUEkOm2Pn3c
-	 k2qyXXVW7YlE7PuN8lVMOU+JksOsFn/rpOARm+f4PsKMQOIjoBxAlaSeI9WPJbVIuh
-	 RM7EeATA59sR6QqkcEhLd0XmaU1vtJKMu3N17lQA=
+	b=PoijY9sQZyH8DwrAxUbgCto7oXVuk6rB82cevtJhsSVzrLp5q+5DzPgmTqYaU53YF
+	 dlJbCGGu+Yi265kkZ2Gs/gZTlYXGtNeauREsMxEfsY98nLjKGTPYWewVqAVxlfyKxQ
+	 wQBQG66LJw4xc887pHulfG2pVgG4Jc4hLhCon4M4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41F65F800E3;
-	Mon,  6 Feb 2023 20:11:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6183F800E3;
+	Mon,  6 Feb 2023 20:12:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFFD4F800F5; Mon,  6 Feb 2023 20:11:01 +0100 (CET)
+ id 1F8E4F804F1; Mon,  6 Feb 2023 20:12:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F51EF800F5
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 20:10:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F51EF800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEDC7F800E3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 20:12:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEDC7F800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=kFCqpf2J
-Received: by mail-wm1-x331.google.com with SMTP id
- m16-20020a05600c3b1000b003dc4050c94aso9647773wms.4
- for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 11:10:57 -0800 (PST)
+ header.s=google header.b=NgFUTRlQ
+Received: by mail-wm1-x335.google.com with SMTP id q8so9409758wmo.5
+ for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 11:12:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=BJ35SbYv7NGdql48VXYsLrxi0PK6KgusSlcq8eJhSMU=;
- b=kFCqpf2J9E7tr/qLs0vt5jthfd1kKsH5kNiqeeanBtEGDD7CYpUbZ5H1ONcf27h24Z
- SV/dmPXgho9c1ScWFIYGYP3cCDEoHspFirS+FSQeLxHS0oRE6gV0GCyDVK5NEuufrQoD
- aJ+N3QURBexzVe/QFmteNE/jkL8D2PbHFNCTN6Ms/78nv30Q2bZMS03inIyCkuNTEU2w
- yK6wDEu8j/DOLOSYq5IvLB500bGEBFkMNmDNgryfQDCkYVtxDpHOfXwSPcrclnfgCem7
- kvwoj4ILSQC7fDvY/8wu84saoGffain2ipVRySoeehUsUS5cexd8t+/19rmwWkTLsMIw
- 4E6A==
+ bh=Z7TeXUZSUDSF6HYQKz6bhsTXkRAHdJ9pyS5ZC6tmFPI=;
+ b=NgFUTRlQYbLYTeTRD3Of8qS5nSQO0qb3dJ1o8dKsyUFGdBMO1OxY2HZZ0w3wNnPT0n
+ Bgk0rpi0vqTs47pPAjXLCthSv65D4CnAgr3ry6aejPYzTwJKkDX6qxYQDodu/WphR/nl
+ 2HuQwuVRMAg2cPEmPcaDgdQ3MzZXaWcuSebyalKpO1XictcReXjkNuFsO6k78OiAJ0zP
+ td/N3aGqV4OarT5yCRattp/A8AvFVwM5GA4USh9ltvu2v1EWMjarpDmlwX840Y9/qxVM
+ b1Dfu7Es8slXSthDPkdGSUNEtfvhOE62GgkfQ1CfseD9CyCxjS11t9Mw5QZKqaL1Hwt+
+ B6FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BJ35SbYv7NGdql48VXYsLrxi0PK6KgusSlcq8eJhSMU=;
- b=I6rZ6FutbPrG0rVHVqBsE0UuWl4SZ7BcLSfxxsK9QCOq1AmmCjLkTmLTPTW0RUcSJ4
- LzvyRZIQdpICs4amtD8gduHmMJ63RSvU1TJkuF3Uu9n+3GTKBV6d99c84fYn8Qk8SjTe
- x8r89vXLBXPEEHZoPx+6w5l2ZMdryG0RSS2wPjNihAD+oH5u2jWXCMR+wSCNRTEUqfiS
- mJIjy8piEQ1zb4Jqw0bmbhjan7OLInJ/Jd96VZsE/cDIufFO69/XdwlP0fd/lRfCI2K1
- 7bjSdvACnkKBgLjNluo5r0JPBfwUsvEZSA+J/zA0Ac0ypzMANG25h/UUKkEEGX6G6jKg
- lwxw==
-X-Gm-Message-State: AO0yUKW+7/jBLeZKrit8zKk6SnJQedmzhtHV50CxgoeA3EjYkYvCRQgo
- DwrwQ4Ju/1x6zXh8ORwlRGwD1Q==
-X-Google-Smtp-Source: AK7set/n8vlvMulK6/8IoZIsLl8tl4ERJICO0rXpurEpfoRkJl63bdL+Fskt8n2wb8Pwgoo61c+SwA==
-X-Received: by 2002:a05:600c:807:b0:3dc:eaef:c1bb with SMTP id
- k7-20020a05600c080700b003dceaefc1bbmr690356wmp.35.1675710656403; 
- Mon, 06 Feb 2023 11:10:56 -0800 (PST)
+ bh=Z7TeXUZSUDSF6HYQKz6bhsTXkRAHdJ9pyS5ZC6tmFPI=;
+ b=uyYCvfA+DUP/TiUA73MRfI9iQ2tcgPny5Ppc4T9JmGpitEGz5S4tnI6hih7uIJOUXn
+ s0rusqR7CU2t2Y6JU0UhdR71QjB4IkYnngtUVX37+d/ToI7OnfWWIM2trKiiN8Hr77/A
+ aGfxGJR7D07/zI2h/AkkX1TOJg5C2ZVopWjNtF+IwoNVjGhA4nmZ1cElHYrqEXKnm/+q
+ TSI02VN8rE2uQ5aGtz1MPloYqHrBmZpUglM+0iYS6wr6tJPZzfk7GWayNjqsISoXGTac
+ VIJODi8wA6QpXOrSqcDMyvwv9H3jujSRIfqAiJlBnuWzBpJZxhLOS7DtUnu8/ZyEDfgx
+ BqTA==
+X-Gm-Message-State: AO0yUKUvUSuykT0JosHoBRiEcnkbMp90DZ7+05wAR88R2U3v6yZfvODT
+ fbSWiQew5dZ0PTdZidAHPRpQtw==
+X-Google-Smtp-Source: AK7set8uZ5B2m9aXDXsHQl3JhF94bRUla/vOWPgrTbzuMopuJzj/areKdz860Av+Y/KvoolzxtJ7yg==
+X-Received: by 2002:a05:600c:4484:b0:3de:b1ec:7f95 with SMTP id
+ e4-20020a05600c448400b003deb1ec7f95mr690448wmo.18.1675710724147; 
+ Mon, 06 Feb 2023 11:12:04 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
  by smtp.gmail.com with ESMTPSA id
- j14-20020a05600c190e00b003daf681d05dsm12848398wmq.26.2023.02.06.11.10.54
+ n10-20020a05600c4f8a00b003e0010a9f67sm4404639wmq.44.2023.02.06.11.12.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 11:10:55 -0800 (PST)
-Message-ID: <7617f172-e3c7-f60a-f3c2-f02403ec9047@linaro.org>
-Date: Mon, 6 Feb 2023 20:10:53 +0100
+ Mon, 06 Feb 2023 11:12:03 -0800 (PST)
+Message-ID: <7452928c-f134-8f11-a966-1f3bdc792cb8@linaro.org>
+Date: Mon, 6 Feb 2023 20:12:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: meson: convert axg tdm
- interface to schema
+Subject: Re: [PATCH v2 2/7] ASoC: dt-bindings: meson: convert axg tdm
+ formatters to schema
+Content-Language: en-US
 To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org
 References: <20230206153449.596326-1-jbrunet@baylibre.com>
- <20230206153449.596326-2-jbrunet@baylibre.com>
-Content-Language: en-US
+ <20230206153449.596326-3-jbrunet@baylibre.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230206153449.596326-2-jbrunet@baylibre.com>
+In-Reply-To: <20230206153449.596326-3-jbrunet@baylibre.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -117,11 +116,10 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 06/02/2023 16:34, Jerome Brunet wrote:
-> Convert the DT binding documentation for the Amlogic tdm interface to
+> Convert the DT binding documentation for the Amlogic tdm formatters to
 > schema.
 > 
 > Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E18468C139
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:21:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6D4E68C13A
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:21:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF08A1EB;
-	Mon,  6 Feb 2023 16:20:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF08A1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C89A1F0;
+	Mon,  6 Feb 2023 16:20:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C89A1F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675696875;
-	bh=VY/4txuOr/CHvl+E4Ut2tqQwAqaXZViNwIEQb0oI0f0=;
+	s=default; t=1675696903;
+	bh=SmEtjgYS88GoKO+Jlag8lErD47phbH2mwUwDEnVaPJ4=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=HXZ0ve2PS+Pd+cPs2Er3qD3XWe843q9A8yZuQ7389IfIqtdvcbVZOdp4pZbLlPCK5
-	 azXO4/u5i74CfwKBXRL+O2YP8SqOI/6NzHeNHsuASZnmrPx09NVHWymsQ0hPI40eCS
-	 peW5d3aS25tPkMEGRr+I/JJkvAVd3HLlf3DfDchY=
+	b=YgoEqseHo291CgWHSHL+1ue7jW1ryhhQJ09f4UnlUsejPh9eNi9y3D6gPYMJOis3t
+	 EedUvDANrk7EyqXPXx5ZzJYofqla62is1A2i6u7W/VXjVNVNHVGPZBFqod35n/S6TN
+	 7PfC2MOji147G97hN9Qo/NNcwooGBNFNSDAb7ifc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1C57F804E7;
-	Mon,  6 Feb 2023 16:20:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86BB6F80534;
+	Mon,  6 Feb 2023 16:20:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21282F804FB; Mon,  6 Feb 2023 16:20:14 +0100 (CET)
+ id 4A2B3F8014B; Mon,  6 Feb 2023 16:20:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,50 +35,67 @@ X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F109F800E3
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F109F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93EBBF8014B
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:20:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93EBBF8014B
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bWODPXG1
+ header.s=Intel header.b=W+Lyitai
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675696810; x=1707232810;
+ t=1675696812; x=1707232812;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=VY/4txuOr/CHvl+E4Ut2tqQwAqaXZViNwIEQb0oI0f0=;
- b=bWODPXG19R6y3irt2iQAZafA60ZM9repLjW61xLPyX8EnDMeGeFuRdli
- cy+JhG55QGeH8rT4cL5tF84Mjo7i1TEz7XhWbnP60YzHw1n8wEWrneNgr
- x0hibH9mlqIkq0g8FFvNG6eiIXw3uqdY4wl4KAW83TIxfFhB1dVwmETzk
- gq+IE81ineWE3qKyBBnKlecYruAF9P2ba56+gZVe30tJfyYxTF29sbJJx
- oWthu2FsdtFsQr79OAI2rQZhoM+lD4aNZHAWtr5+OhCtrtkmFqzoKLMKC
- nHgMHvj20fSas9KEcTXPrgl+7JrhxNg6KAl6/znhbDyIIGQeNccBAfHdN A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="331360719"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="331360719"
+ bh=SmEtjgYS88GoKO+Jlag8lErD47phbH2mwUwDEnVaPJ4=;
+ b=W+LyitaiK3JFLncWeD3t9THcuJrpJwmizuRNa7LL5lOAO7KA6m9oG142
+ tn4oW9fnUlJc3O/D28X/XriAzgDaLxNEkkmsdTiDCHbMD5N55HOoYmk8M
+ 3Qpnu4/FcYhqvmEQP7yU0odsmpleFXXCZlMsL0DtXBFM3f5jnZE+bexVG
+ J8WktAI+PUuuhuboHWgSRddJdQrEE39Q3GpcgUn9aICPdtBxmtYKkGd22
+ 0VWGgnsAcyfm/f3+I5kMwTv4qJQNPiCNMAxGGHo5GbospBjbU4gssJ5Dc
+ dIsOUgjIbmraOWpmsaeVx7QhsSMkKRcBQ3AM7/vwx/MAH2yzpkMcwAfpT g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="331360731"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="331360731"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 07:20:02 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="696888657"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="696888657"
+ 06 Feb 2023 07:20:04 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="696888685"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="696888685"
 Received: from pmagdum-mobl1.amr.corp.intel.com (HELO [10.209.159.190])
  ([10.209.159.190])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 07:20:01 -0800
-Message-ID: <4398e3f3-ea2f-1e23-d64b-39723e4790d2@linux.intel.com>
-Date: Fri, 3 Feb 2023 18:54:00 -0600
+ 06 Feb 2023 07:20:03 -0800
+Message-ID: <8ff49f42-95c5-dbe0-e9a4-f4982185dd63@linux.intel.com>
+Date: Mon, 6 Feb 2023 08:50:09 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.4.2
-Subject: Re: Overflow in calculating audio timestamp
-To: Jaroslav Kysela <perex@perex.cz>, Alan Young <consult.awy@gmail.com>,
- o-takashi@sakamocchi.jp
-References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
- <Y9xWlbhPg3PteH5G@workstation>
- <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
- <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+Subject: Re: [PATCH 01/19] ASoC: amd: ps: create platform devices based on acp
+ config
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "vkoul@kernel.org" <vkoul@kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <20230111090222.2016499-1-Vijendar.Mukunda@amd.com>
+ <20230111090222.2016499-2-Vijendar.Mukunda@amd.com>
+ <9f2229fb-499b-f802-993b-56a7ad2ce361@linux.intel.com>
+ <257b6f1e-f403-573f-3978-13ffb14342ad@amd.com>
+ <2b4c12ce-2586-0277-ede0-560f8317e4e4@linux.intel.com>
+ <27eabbf2-eff2-0964-b72b-f9db251c3b57@amd.com>
+ <87ddd91b-fb5f-4f27-942b-dc439b32ce20@amd.com>
+ <fa4cdd91-b430-eb1b-a151-d144f62e827d@linux.intel.com>
+ <MN0PR12MB6101DBF0419C2C565F7F6840E2D09@MN0PR12MB6101.namprd12.prod.outlook.com>
+ <c5161bc3-62cb-d0a1-2ba2-d670285b6958@linux.intel.com>
+ <2ea354bc-4263-1db6-4423-4de1b0d4e535@amd.com>
+ <815ab487-a1a3-1978-94fc-b60e931c2848@linux.intel.com>
+ <ac734e4e-2f61-b9b8-0751-4e3293084696@amd.com>
+ <7b8fe2b6-84cb-e8c8-22aa-2d940a5c68b7@linux.intel.com>
+ <9e6200ee-9b21-66d1-6bb1-832ec7399111@amd.com>
+ <1473e1e9-b368-d8f3-c1f5-1b64e6e2ed90@linux.intel.com>
+ <4c860ef0-d22d-5c2a-9657-7e2436b00101@amd.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+In-Reply-To: <4c860ef0-d22d-5c2a-9657-7e2436b00101@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -93,115 +110,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org
+Cc: "Katragadda, Mastan" <Mastan.Katragadda@amd.com>, "Dommati,
+ Sunil-kumar" <Sunil-kumar.Dommati@amd.com>, "Hiregoudar,
+ Basavaraj" <Basavaraj.Hiregoudar@amd.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, "Saba Kareem,
+ Syed" <Syed.SabaKareem@amd.com>, "kondaveeti,
+ Arungopal" <Arungopal.kondaveeti@amd.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+>>>>>>> In above case, two manager instances will be created.
+>>>>>>> When manager under SWC1 scope tries to add peripheral
+>>>>>>> device, In sdw_slave_add() API its failing because peripheral
+>>>>>>> device descriptor uses link id followed by 48bit encoded address.
+>>>>>>> In above scenarios, both the manager's link id is zero only.
 
-On 2/3/23 12:02, Jaroslav Kysela wrote:
-> On 03. 02. 23 17:11, Alan Young wrote:
->>
->> On 03/02/2023 00:34, Takashi Sakamoto wrote:
->>> Hi,
->>>
->>> Thank you for the report.
->>>
->>> On Thu, Feb 02, 2023 at 01:55:24PM +0000, Alan Young wrote:
->>>> sound/core/pcm_lib.c:update_audio_tstamp() contains the following
->>>> calculation:
->>>>
->>>>           audio_nsecs = div_u64(audio_frames * 1000000000LL,
->>>>                   runtime->rate);
->>>>
->>>> This will result in a 64-bit overflow after 4.4 days at 48000 Hz, or
->>>> 1.1
->>>> days at 192000.
->>>>
->>>> Are you interested in a patch to improve this?
->>>>
->>>> The same calculation occurs in a couple of other places.
->>> I'm interested in your patch. Would you please post it C.C.ed to the
->>> list and me?  As you noted, we can see the issue in ALSA PCM core and
->>> Intel HDA stuffs at least.
->>>
->>>    * sound/core/pcm_lib.c
->>>    * sound/pci/hda/hda_controller.c
->>>    * sound/soc/intel/skylake/skl-pcm.c
->>>
->>> I note that 'NSEC_PER_SEC' macro is available once including
->>> 'linux/time.h'. It is better to use instead of the literal.
->>> The macro is defined in 'include/vdso/time64.h'.
->>>
->>>
->>> As another issue, the value of 'audio_frames' comes from the value of
->>> 'struct snd_pcm_runtime.hw_ptr_wrap'. In ALSA PCM core, the value is
->>> increased by the size of PCM buffer every time hw_ptr cross the boundary
->>> of PCM buffer, thus multiples of the size is expected. Nevertheless,
->>> there is no check for overflow within 64 bit storage. In my opinion, the
->>> committer had less care of it since user does not practically
->>> playback or
->>> capture PCM substream so long. But the additional check is preferable as
->>> long as it does not break the fallback implementation of audio time
->>> stamp.
->>
->>
->> I have not yet finished testing various alternatives. I want to extend
->> the overflow by "enough" and also am conscious of the need to keep the
->> overhead down.
->>
->> I actually think, on reflection, that the only case that matters is the
->> call from update_audio_tstamp(). The others only deal with codec delays
->> which will be small (unless I misunderstand those drivers).
->>
->> This is what I have so far but I'll submit a proper patch when I have it
->> refined.
->>
->> static u64 snd_pcm_lib_frames_to_nsecs(u64 frames, unsigned int rate)
->> {
->>       /*
->>        *  Avoid 64-bit calculation overflow after:
->>        *  - 4.8 days @ 44100
->>        *  - 0.56 days @ 384000
->>        *  extending these intervals by a factor of 100.
->>        */
->>       if (frames < 0xffffffffffffffffLLU / NSEC_PER_SEC)
->>           return div_u64(frames * NSEC_PER_SEC, rate);
->>
->>       if (rate % 100 == 0)
->>           return div_u64(frames * (NSEC_PER_SEC/100), (rate/100));
->>
->>       /* Fallback: reduce precision to approximately
->> deci-micro-seconds: 1.28e-7 */
->>       return div_u64(frames * (NSEC_PER_SEC >> 7), rate) << 7;
->> }
-> 
-> Thank you for your suggestion, but I think that the *whole* code for
-> !get_time_info in update_audio_tstamp() should be recoded. The calling
-> of ns_to_timespec64() is not enough to handle the boundary wraps in a
-> decent range (tenths years for 24x7 operation) and the bellow code is
-> dangerous for 32-bit apps / system:
-> 
->      if (crossed_boundary) {
->                 snd_BUG_ON(crossed_boundary != 1);
->                 runtime->hw_ptr_wrap += runtime->boundary;
->      }
-> 
-> I would probably propose to have just hw_ptr_wrap +1 counter (we can
-> reconstruct the frame position back by multiplication and do range check
-> later), remove snd_BUG_ON and improve the timespec64 calculation.
-> 
-> The calculation should be split to two parts (tv_sec / tv_nsec):
-> 
-> 1) calculate seconds: (frames / rate)
-> 2) calculate the remainder (ns): ((frames % rate) * NSEC_PER_SEC) / rate
-> 
-> With 64-bit integer range, we should go up to (for 384000Hz rate):
-> 
-> 2**64 / 384000 / 3600 / 24 / 365 = ~1523287 years
-> 
-> Maybe I did a mistake somewhere. I'm open for comments.
+So here you're reporting that the issue is that all devices use link0 ...
 
-I am not following how the boundary comes into play for cases where the
-timestamp comes directly from a link counter, and is not related to the
-DMA hw_ptr at all.
+>>>>>> what fails exactly? The device_register() ?
+>>>>>>
+>>>>>> If yes, what the issue. the device name?
+>>>>> device_register() is failing because of duplication of
+>>>>> device name.
+>>>>>> I wonder if we need to use something like
+>>>>>>
+>>>>>> "name shall be sdw:bus_id:link:mfg:part:class"
+>>>>>>
+>>>>>> so as to uniquify the device name, if that was the problem.
+>>>>> Yes correct.
+>>>> can you check https://github.com/thesofproject/linux/pull/4165 and see
+>>>> if this works for you? I tested it on Intel platforms.
+>>> It's working fine on our platform. As mentioned earlier in this thread,
+>>> we can't go with two ACPI companion device approach due to
+>>> limitations on windows stack for current platform.
+>> Thanks for testing.
+>>
+>> So if you can't go with 2 ACPI companion devices, what does the
+>> 'Windows' DSDT look like and how would you identify that there are two
+>> controllers on the platform?
+> We are not populating two controller devices. Instead of it, we are populating
+> single controller device with two independent manager instances under the same
+> ACPI device scope.
+> We have configuration register to identify sound wire manager instances on the platform.
+> Below is the sample DSDT for Windows & Linux.
+> 
+> Scope (\_SB.ACP)
+>     {
+>     
+>         Device (SDWC)
+>         {
+>             Name (_ADR, 0x05)  // _ADR: Address
+>         Name(_DSD, Package() {
+>                                         ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+>                                         Package () {
+>                                         Package (2) {"mipi-sdw-sw-interface-revision", 0x00010000},
+>                                         Package (2) {"mipi-sdw-manager-list", 2},
+>                                         },
+>                                         ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+>                                         Package () {
+>                                         Package (2) {"mipi-sdw-link-0-subproperties", "SWM0"},
+>                                         Package (2) {"mipi-sdw-link-1-subproperties", "SWM1"},
+>                                         }
+>                                         }) // End _DSD
+>         Name(SWM0, Package() {
+>                                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+>                                 Package () {
+>                                 Package (2) {"mipi-sdw-sw-interface-revision", 0x00010000},                                 
+>                                 
+>                                 // ... place holder for SWM0 additional properties
+>                                 }
+>                                 }) // End SWM0.SWM
+>        Name(SWM1,Package(){
+>                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+>                                 Package () {
+>                                 Package (2) {"mipi-sdw-sw-interface-revision", 0x00010000},                                
+>                                 
+>                                 // ... place holder for SWM1 additional properties
+>                                 }
+>                                 }) // End SWM1.SWM
+> 
+>     Device (SLV0) { // SoundWire Slave 0
+>                         Name(_ADR, 0x000032025D131601)
+>         } // END SLV0
+> 
+>     Device (SLV1) { // SoundWire Slave 1
+>                         Name(_ADR, 0x000130025D131601)
+>             } // END SLV1   
+
+... but here you have two different link numbers.
+
+I interpret this as SLV0 on link0 and SLV1 on link1.
+
+So what's the issue?

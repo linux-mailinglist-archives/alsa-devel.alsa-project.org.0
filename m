@@ -2,97 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747F268C0EA
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:06:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 178DD68C147
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Feb 2023 16:26:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C40331E4;
-	Mon,  6 Feb 2023 16:05:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C40331E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C263FA;
+	Mon,  6 Feb 2023 16:25:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C263FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675696002;
-	bh=xj7MQynLBpo+XB3+sKlUiA5fGyS2Apw1llbssqMWXzo=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=J2VPyKB2Kzu73A10G0+Nm+lRGCuAAFjAt/v+u0WDzJ/bE9jOlt5KkAJNMX4ij0dyK
-	 G8XG63AJlgc16/atWFKwivZ7tD6ITHrG5EwSlhuBLlaf76BCA/gxGnAiiltRJc8OKj
-	 gzbKznCUi4wWwSvRSURrFBsBpx53GMnWjOHVM9xY=
+	s=default; t=1675697177;
+	bh=OPV7fBrNq8/Xo71sRPntj5HhKlY8I/b14Hm6sBeyN+8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=rpOqstmbDVCWEdGapqiRdKfLr8wfivRL8Ntye/A2SO/NMi9uy3NEt8kLiaPVibclT
+	 c6k3IbEQt85BARZYpl6agQWf1UfuWP0X0riI8pyRmibqJskq27F8M14R1xjjt7Ksux
+	 dNxt0R8ryd3gXHOUMU2tE6OUBP1bIxXmo61sh9Bs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0664F800E3;
-	Mon,  6 Feb 2023 16:05:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92526F800E3;
+	Mon,  6 Feb 2023 16:25:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A42E4F804F1; Mon,  6 Feb 2023 16:05:42 +0100 (CET)
+ id 9D267F804F1; Mon,  6 Feb 2023 16:25:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+ RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0900F800E3
- for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:05:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0900F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BC54F800E3
+ for <alsa-devel@alsa-project.org>; Mon,  6 Feb 2023 16:25:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BC54F800E3
 Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wyheIegP
-Received: by mail-wr1-x42c.google.com with SMTP id k13so3251274wrh.8
- for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 07:05:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=amhvuQJiOyM43SbMnQxHq99ru2XL4cfNPHdX1Hxtb1E=;
- b=wyheIegPWInE+xuWRmetJaDQ6503y6u+ZY4Z/UZOQjNiKTXIDL9x4feew6EE7T8u97
- ZzuCwIHrchMRL8gxV+f9j9YMxTO2FGa+vCzRrj5o5rSKyH2DGEiZ5gTFY8ysGLPw+7QD
- 5JkqDA+GzCE5VrVW3k3d2VoLwqjNaRiJiaiU0G0xbh53O4hoLaSVcMy11OooGTv5ftIb
- jnUFO7yWjmptevIW67Fwx0V/tzyylKvZSsFvjU5KH9UCGMqi81UaotxPDh6o8+7CzSmx
- Oqv+TC5CYH9Ocaiz9pl0mX6/S0uycTWNiJpdfFKChHlE7/JX5UU2cBCua/Oisf8JN3SF
- YWfg==
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=XVj8pkml
+Received: by mail-wm1-x330.google.com with SMTP id
+ az4-20020a05600c600400b003dff767a1f1so3839584wmb.2
+ for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 07:25:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2nMe8GsG73JtrRY8L76K8cwAKXUQFf+VX6Y6nrNRGi0=;
+ b=XVj8pkml7MiCc7rZl7cFHH1blnDwraUfb3LHhc2VbQCfibve7wexpOiy/W31KZqoI2
+ oy3n5fg+yAclfkxXdLyQuA6qvzk8KX6aC0t7Iw9OCED5IZkI/WH/ImYAupUK03YSuMFF
+ rBLMsVTADUAI9W6RWuzTnm3lEZp9sTu6iYvn5MZj3Ub2bXRtebzrSBEIRj5wzJXPUKm+
+ 7bPKrSJm2GPrrQJ5MlbFFW8Pkm5rZza/PfzS1OfDwUGUhhrY2Zhj/simzJBpDNvns/8c
+ KjYFxiEJoNDlknrCDyy9ICxqOintotGKqnTdGr6r7d+uRUTKr5PvUmTVqLyX6XPiYiJG
+ HB0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=amhvuQJiOyM43SbMnQxHq99ru2XL4cfNPHdX1Hxtb1E=;
- b=4HT53crgg/dSpPC2AcaotQT8jOqTDR/1TTJMQwsHkfS5KxwEG7CojXm4Ac2gcIx+bp
- jU4s3zMj/Ou+NFEiJns5eKr/A4cgJ+sW5ruMxYBrJxz9zGQg9CKC/pIQtmgmzh6Sti9j
- z7roYWc2CPRWr2zeYhUwwXJ44LVzKVVGZJ4bgUK0+xQ/t952k/4t7aVZMGfiY2s9DcPa
- W3qt5WeBo048ibNwTydw+EAG95Sz7fN5ndp1U28may/U5dNaz/KaGn6FQ0ttV8LC0WEH
- jHkj1RpIc2kAis7AowVyrbtRhFj6kAEslo4E1exnLUmmCPxYoPkdkyduQskuFDlDMK0i
- WhrA==
-X-Gm-Message-State: AO0yUKVXitP+4+iCKbw6n432uuGcaachva/F1ueVSH5nOcL7UcR/wSkW
- UmACs7yAya4slwyZR24T9Whxmg==
-X-Google-Smtp-Source: AK7set87ORlIh4onmuZwhL5ZeCR/96bwUDAU2cystvVCwMKhtFZxhlwVf6cQZ1UtL61nGykNveZhfg==
-X-Received: by 2002:adf:e192:0:b0:2bd:fd81:b503 with SMTP id
- az18-20020adfe192000000b002bdfd81b503mr18911355wrb.1.1675695937848; 
- Mon, 06 Feb 2023 07:05:37 -0800 (PST)
-Received: from krzk-bin.. ([178.197.216.144]) by smtp.gmail.com with ESMTPSA id
- i14-20020a0560001ace00b002bfb8f829eesm9543492wry.71.2023.02.06.07.05.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 07:05:37 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: dt-bindings: qcom,
- q6apm-dai: adjust iommus for SM8550 ADSP
-Date: Mon,  6 Feb 2023 16:05:32 +0100
-Message-Id: <20230206150532.513468-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2nMe8GsG73JtrRY8L76K8cwAKXUQFf+VX6Y6nrNRGi0=;
+ b=Fnai4Vffj4VCD/bVGK0UoTZv545NV+3XNldp5kuO8armAY9COWvOk3gE8tuV0qtetR
+ Dbhlsm17gDw7hMu27xKVQxbvuW66NSDfaZVGN1RBoQ2TdMlq9GLsBl1r/AfvOaMPPL+d
+ O/06O/Wg1ReTAEN+cofJ3bOVg5v/Gt/zkAZKo1OAeLVVyPlxpdZxZMyNPn9XsAYcCPtB
+ 4VmOoDx4ZOn//2NZ5iiut3ZU9pRmocV+EMZc+mxcgwJex+VZUcfBUfFbW2SMfGVFtQAQ
+ jFevZv3CLSMxcjFhEgTXr4C9o5rzvmoMc88cIv0IRChUEIqaaDj+FM6rlJl6HezfG9K+
+ lGmA==
+X-Gm-Message-State: AO0yUKUUVkE2IyLjFyKulTzQZoX4lMeKUM2jKZbn4n0nwtISy5xxLytN
+ vbHoiXFxp1y74XGtLGP0ENirVTIIvLI=
+X-Google-Smtp-Source: AK7set/rpzn1InDqbYCt7SOwog1HsznUpuVYczFy969TUtec7KdXKGyCuAYRjLiv1c7LTdjoH7eLBA==
+X-Received: by 2002:a05:600c:1716:b0:3df:f7cc:4da2 with SMTP id
+ c22-20020a05600c171600b003dff7cc4da2mr101383wmn.16.1675697110085; 
+ Mon, 06 Feb 2023 07:25:10 -0800 (PST)
+Received: from [192.168.21.204] (surfbythesea.plus.com. [81.174.134.71])
+ by smtp.gmail.com with ESMTPSA id
+ l4-20020adff484000000b002c3ed120cf8sm1714727wro.61.2023.02.06.07.25.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Feb 2023 07:25:09 -0800 (PST)
+Message-ID: <2695b295-7814-09e3-f93f-95e6e66c1108@gmail.com>
+Date: Mon, 6 Feb 2023 15:25:08 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: Overflow in calculating audio timestamp
+Content-Language: en-GB
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, o-takashi@sakamocchi.jp
+References: <70ff4e3a-b171-131c-a039-4fc99aa4bbfc@gmail.com>
+ <Y9xWlbhPg3PteH5G@workstation>
+ <2598bf64-708c-cf62-e634-44db5a850226@gmail.com>
+ <74350bce-a6ea-c3b8-7b00-4deb47f7e623@perex.cz>
+ <4398e3f3-ea2f-1e23-d64b-39723e4790d2@linux.intel.com>
+From: Alan Young <consult.awy@gmail.com>
+In-Reply-To: <4398e3f3-ea2f-1e23-d64b-39723e4790d2@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,31 +110,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: alsa-devel@alsa-project.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It seems that SM8550 ADSP remote processor uses two IOMMUs.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 04/02/2023 00:54, Pierre-Louis Bossart wrote:
+> I am not following how the boundary comes into play for cases where the
+> timestamp comes directly from a link counter, and is not related to the
+> DMA hw_ptr at all.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-index a53c9ef938fa..cdbb4096fa44 100644
---- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-@@ -17,7 +17,8 @@ properties:
-     const: qcom,q6apm-dais
- 
-   iommus:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
- 
- required:
-   - compatible
--- 
-2.34.1
+
+I don't think it does. This is all only for the 
+SNDRV_PCM_AUDIO_TSTAMP_TYPE_DEFAULT case.
 

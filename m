@@ -2,95 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC8A68E419
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A74168E4B5
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 01:02:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C427836;
-	Wed,  8 Feb 2023 00:02:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C427836
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC255827;
+	Wed,  8 Feb 2023 01:01:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC255827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675811015;
-	bh=0WUfWkx3WXMvy1NiSACkhw5M/JH64HxliKyyiJCmmoM=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1675814551;
+	bh=tt5lrHlIVInMq27wdZG33n5kYVhMCWLk9XkuAdem+b0=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pdc9B4taLEf9VcFilje+PPbBoGuMGNIPGFzjJR7x5k5BKk/rnT8zZDAUgsPtMq2HV
-	 SxAxP/Oyflm+CtG3thnX9nBGdBLXnuAT6BvPMyP11lIOwUxGjmMGis0XUZKtkeDyQf
-	 JhH81cR8b+wxFeiaWnpGgrhn8kFXpvp69O+6E1G4=
+	b=DSL1f/icueLmw5suuHCqmOprEtr6Jh7Ue5rmpV3BvEPdZ+hoCc0VT8WEbkp4zX61l
+	 j4WQrqTVBWBX4tcJfwd5b9jV/NoNQUxd2ZnhTNKX5RFHoQ5+3w5LnLWTgxD2JfYiLZ
+	 RADWoTwies5jLW8RZnQ3svdPErXlPROajusjwzMQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17891F8010B;
-	Wed,  8 Feb 2023 00:02:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 662C7F8010B;
+	Wed,  8 Feb 2023 01:01:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BBF8F8012B; Wed,  8 Feb 2023 00:02:41 +0100 (CET)
+	id EC032F8012B; Wed,  8 Feb 2023 01:01:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [46.235.227.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0B3AF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:02:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B3AF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id CAFD5F80095
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 01:01:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAFD5F80095
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GbghwzCF
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=SFSUuLCr
+Received: from [192.168.86.246]
+ (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net [82.11.51.62])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D994560DD9;
-	Tue,  7 Feb 2023 15:17:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA007C433D2;
-	Tue,  7 Feb 2023 15:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675783034;
-	bh=Q151YrDjhoMhmpGuvpiLtseqfC4fVjDbC/y8Ns++CsI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=GbghwzCFhEMQs40x17kyuerW4g6D2KZndDylwZZI4H/oJGBymTGgjxfdBO1+/CL0Z
-	 N5ks1PnLaFOISUER7nIebA724EBf8nZQlvL3DuhegUj4mP+lk6AHW75X9UV/uPjMnB
-	 UjRdt0mhuIhQkcHffDZLUuQAxUfNmzwBSf1hfnmhGz9XcECVeI3XzmfbBO9LQdyYys
-	 GWtmJUj891vatpVEw0vpvwfQqzoTkNrqfyH2vutMSFYzLg8BwbxlkKspH1ngcsZlAy
-	 ZO1qKdqCJMYMKxIqjdrWGdl0EYsg1eplyU1VTctnhs9cJ5SMmiaod4Zj65OToHAah+
-	 JpO2MTKKi5T2Q==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230207210428.2076354-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230207210428.2076354-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: topology: Return -ENOMEM on memory allocation
- failure
-Message-Id: <167578303267.230357.2123593541021713335.b4-ty@kernel.org>
-Date: Tue, 07 Feb 2023 15:17:12 +0000
+	(Authenticated sender: tanureal)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 9D0686602077;
+	Tue,  7 Feb 2023 15:46:08 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1675784768;
+	bh=tt5lrHlIVInMq27wdZG33n5kYVhMCWLk9XkuAdem+b0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SFSUuLCrMTSOqxVXNcSnMi/bv6tL1Zrzdke2be//6XLQKUihpkqdmp+027ZFDz2sZ
+	 AtmS/ua3flrVRaKtuN/U8HPiolzhl8xniuQ2gz4NfEhsikXX3TtgQu+F0pV100wDnI
+	 yPHfIWGiFXNMbvx56QMNdSu+WdwPh78FQgEcQ+URT74uc+3ThHudOGt2zH2LIrp6Mb
+	 k0Cwglw9oDerHuoldUOsuaFNC5WB7mtTNu8IvcAOlPGAGkSNDKj0D3vm22Xt6UqA0z
+	 5vT+MmZ7q98eWQr41f9vBZaxi76qATAKa+MmcJOpMs69TmNJflZ5FvDprkt0Qk0pXa
+	 OSX+K1mSR8Ysg==
+Message-ID: <e7257f9a-86c5-74e8-c538-6f6d2ba13274@collabora.com>
+Date: Tue, 7 Feb 2023 15:46:06 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.12.0
-Message-ID-Hash: SYNQFU7QNKTHNVV75Q27A55PSMILQX5G
-X-Message-ID-Hash: SYNQFU7QNKTHNVV75Q27A55PSMILQX5G
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 2/2] Documentation: cs35l41: Shared boost properties
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20230207104021.2842-1-lucas.tanure@collabora.com>
+ <20230207104021.2842-3-lucas.tanure@collabora.com>
+ <44faeca1-94c9-4423-d87a-03d80e286812@linaro.org>
+Content-Language: en-US
+From: Lucas Tanure <lucas.tanure@collabora.com>
+In-Reply-To: <44faeca1-94c9-4423-d87a-03d80e286812@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 5VSHAAUGA4PHVZP7OVIHCGTSKCCG3SJ5
+X-Message-ID-Hash: 5VSHAAUGA4PHVZP7OVIHCGTSKCCG3SJ5
+X-MailFrom: lucas.tanure@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Dan Carpenter <error27@gmail.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jaska Uimonen <jaska.uimonen@linux.intel.com>,
- kernel test robot <lkp@intel.com>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SYNQFU7QNKTHNVV75Q27A55PSMILQX5G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5VSHAAUGA4PHVZP7OVIHCGTSKCCG3SJ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,29 +107,49 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-Content-Transfer-Encoding: base64
 
-T24gVHVlLCAwNyBGZWIgMjAyMyAyMjowNDoyOCArMDEwMCwgQW1hZGV1c3ogU8WCYXdpxYRza2kg
-d3JvdGU6DQo+IFdoZW4gaGFuZGxpbmcgZXJyb3IgcGF0aCwgcmV0IG5lZWRzIHRvIGJlIHNldCB0
-byBjb3JyZWN0IHZhbHVlLg0KPiANCj4gDQoNCkFwcGxpZWQgdG8NCg0KICAgaHR0cHM6Ly9naXQu
-a2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9zb3VuZC5naXQgZm9y
-LW5leHQNCg0KVGhhbmtzIQ0KDQpbMS8xXSBBU29DOiB0b3BvbG9neTogUmV0dXJuIC1FTk9NRU0g
-b24gbWVtb3J5IGFsbG9jYXRpb24gZmFpbHVyZQ0KICAgICAgY29tbWl0OiBjMTczZWU1YjJmYTYx
-OTUwNjY2NzRkNjZkMWQ3ZTE5MTAxMGZiMWZmDQoNCkFsbCBiZWluZyB3ZWxsIHRoaXMgbWVhbnMg
-dGhhdCBpdCB3aWxsIGJlIGludGVncmF0ZWQgaW50byB0aGUgbGludXgtbmV4dA0KdHJlZSAodXN1
-YWxseSBzb21ldGltZSBpbiB0aGUgbmV4dCAyNCBob3VycykgYW5kIHNlbnQgdG8gTGludXMgZHVy
-aW5nDQp0aGUgbmV4dCBtZXJnZSB3aW5kb3cgKG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgp
-LCBob3dldmVyIGlmDQpwcm9ibGVtcyBhcmUgZGlzY292ZXJlZCB0aGVuIHRoZSBwYXRjaCBtYXkg
-YmUgZHJvcHBlZCBvciByZXZlcnRlZC4NCg0KWW91IG1heSBnZXQgZnVydGhlciBlLW1haWxzIHJl
-c3VsdGluZyBmcm9tIGF1dG9tYXRlZCBvciBtYW51YWwgdGVzdGluZw0KYW5kIHJldmlldyBvZiB0
-aGUgdHJlZSwgcGxlYXNlIGVuZ2FnZSB3aXRoIHBlb3BsZSByZXBvcnRpbmcgcHJvYmxlbXMgYW5k
-DQpzZW5kIGZvbGxvd3VwIHBhdGNoZXMgYWRkcmVzc2luZyBhbnkgaXNzdWVzIHRoYXQgYXJlIHJl
-cG9ydGVkIGlmIG5lZWRlZC4NCg0KSWYgYW55IHVwZGF0ZXMgYXJlIHJlcXVpcmVkIG9yIHlvdSBh
-cmUgc3VibWl0dGluZyBmdXJ0aGVyIGNoYW5nZXMgdGhleQ0Kc2hvdWxkIGJlIHNlbnQgYXMgaW5j
-cmVtZW50YWwgdXBkYXRlcyBhZ2FpbnN0IGN1cnJlbnQgZ2l0LCBleGlzdGluZw0KcGF0Y2hlcyB3
-aWxsIG5vdCBiZSByZXBsYWNlZC4NCg0KUGxlYXNlIGFkZCBhbnkgcmVsZXZhbnQgbGlzdHMgYW5k
-IG1haW50YWluZXJzIHRvIHRoZSBDQ3Mgd2hlbiByZXBseWluZw0KdG8gdGhpcyBtYWlsLg0KDQpU
-aGFua3MsDQpNYXJrDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0IC0tIGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
-Lm9yZwpUbyB1bnN1YnNjcmliZSBzZW5kIGFuIGVtYWlsIHRvIGFsc2EtZGV2ZWwtbGVhdmVAYWxz
-YS1wcm9qZWN0Lm9yZwo=
+On 07-02-2023 10:42, Krzysztof Kozlowski wrote:
+> On 07/02/2023 11:40, Lucas Tanure wrote:
+>> Describe the properties used for shared boost
+>> configuration.
+> 
+> Use subject prefixes matching the subsystem (which you can get for
+> example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+> your patch is touching).
+ack
+> 
+>>
+>> Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
+>> ---
+>>   .../devicetree/bindings/sound/cirrus,cs35l41.yaml     | 11 ++++++++++-
+>>   1 file changed, 10 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+>> index 18fb471aa891..6f5f01bec6f1 100644
+>> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l41.yaml
+>> @@ -85,11 +85,20 @@ properties:
+>>         boost-cap-microfarad.
+>>         External Boost must have GPIO1 as GPIO output. GPIO1 will be set high to
+>>         enable boost voltage.
+>> +      Shared boost allows two amplifiers to share a single boost circuit by
+>> +      communicating on the MDSYNC bus. The passive amplifier does not control
+>> +      the boost and receives data from the active amplifier. GPIO1 should be
+>> +      configured for Sync when shared boost is used. Shared boost is not
+>> +      compatible with External boost. Active amplifier requires
+>> +      boost-peak-milliamp, boost-ind-nanohenry and boost-cap-microfarad.
+>>         0 = Internal Boost
+>>         1 = External Boost
+>> +      2 = Reserved
+> 
+> How binding can be reserved? For what and why? Drop. 2 is shared active,
+> 3 is shared passive.
+2 Is shared boost without VSPK switch, a mode not supported for new 
+system designs. But there is laptops using it, so we need to keep 
+supporting in the driver.
+
+> 
+> Best regards,
+> Krzysztof
+> 
+

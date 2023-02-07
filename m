@@ -2,113 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED3D668D6B3
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 13:29:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DF868D6C5
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 13:31:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD5C20C;
-	Tue,  7 Feb 2023 13:28:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD5C20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90FD020B;
+	Tue,  7 Feb 2023 13:30:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90FD020B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675772951;
-	bh=pBfQGjbVge1SgQyFYrAhg5cuvIDoSPGHcZRCJ07FlCc=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1675773100;
+	bh=FFwwDf+UCQzbJgF3M6gFgTEfu+yzCFegido4Rysx/Ik=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=X419oKdUF2xbVF7XHwjRoy8deI08DL6Me39lp0GyCBen4MPhXsfnM5tYLEqlX1dVT
-	 HGg9FARYaLzI9n1tv2m+IXupZhDe3a9A7aloRK8sntfEmnQ/z6fVcZWB89YqqsrtOw
-	 4a0KhO5zolP8jDCryOaRaBcnCemQpF7Bs7DVCTZA=
+	b=IOeRVcg5y+sdL0mvvTcxW5TaL1YTq6DbiPfWSqZakHRa21Cs67YsJPwiTMCIN6Ygc
+	 zQ1drTlyxZWkUG0OS+JGIQW3qHitTfm+k+SxZE4PHQqjwzJwL3yZFFJGPgV3cbWPO1
+	 HMXWMReU5CAj2XMg1NcZ69sxAhNORmHksHgI1EKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80F41F8014E;
-	Tue,  7 Feb 2023 13:28:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9657F800E3;
+	Tue,  7 Feb 2023 13:30:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2EFCF8045D; Tue,  7 Feb 2023 13:28:01 +0100 (CET)
+ id 71F1DF8045D; Tue,  7 Feb 2023 13:30:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07A60F800E3
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 13:27:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A60F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
- header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=bRp/IPFY; 
- dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=V4/Rw8X6
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 4E02932003C0;
- Tue,  7 Feb 2023 07:27:50 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 07 Feb 2023 07:27:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1675772869; x=1675859269; bh=kq
- ljyEYgfGDzvSsb9snqt65CBohX1IP73D/5I5IuQPo=; b=bRp/IPFYqjx4YDumSB
- puEGB3ypUPpR0pGOYulUEFrm8q7wwtM/XgjVDlSNkO16UefpdvwfxXzQFiBsUZTc
- U8Ybz8WnjSFIyetQGvPlWBDSu6EPV6ZNI73B3KlEKius7jLO0XEnnsInZE3Oa8YY
- 6mmMIug9lzQZzr2filmaE5GVwExRt9MnFExBeTY/KDxjV98/0TvjHtS8maXfVbu+
- YJm88+aVJDRlkZMWlwqQTkFxQ2J9f3QsKTN4tbOactXM9uiscWZXyIK4nEe7tYtZ
- AJG5ycYqQGu97ZPY7UfWti4xHiOL3u9846X9R+hGHyySPlNh/gsU0GnJFQDkoz+j
- CJYw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1675772869; x=1675859269; bh=kqljyEYgfGDzvSsb9snqt65CBohX
- 1IP73D/5I5IuQPo=; b=V4/Rw8X6RbPcX14MvO8ku6oygmHLNH6OSdMX+yKypKsg
- +HvJlv1B/IIogWDJElQtdozVfjYxCqIyF07zgfghRcp12aLEkZV8hFbnjN0MItCf
- 5Av0S762QWbQ8g9t0aHWjXhv4EP1arsjpuN8sSs8sWc0sl3Pm1kPlMafUILu+0+i
- 5fTkqRBPiqOPvkekprtHfbnTmgPvkbvr1SmKzOd2OZ1c3veisvSkleRnNYjB51Zl
- 1bzKALzkCnbOrxXPrfiN8gW49jDc8NpCxRTH9ELC8PXWDHtn7ThCYZifVYtsynpq
- J4fAhV1AaF4nSlgADM4JzSN/dIenbtZ4cjw9ssfouA==
-X-ME-Sender: <xms:xUPiYy7HcrQF44zbbWdNbzXz108tqQvKDAp2yY0jCMgvYbMP0L-ADQ>
- <xme:xUPiY74-ML6u3_uWr9pebqwYhi7fhO1gnGlIYV24gwFLpKrcbW8H_ZIezWkNGwrMx
- 2D2EacpE8Vh8ePJjns>
-X-ME-Received: <xmr:xUPiYxfDceWfffSJINVdAi3u3S_W4vd4821QMigkPbmJGtCrcEZbGfXcmRPMdBEl8yuT6eiWEPpfq03bTEtrV3vDbYv7fszMr5lV>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegkedgfeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecuggftrfgrthhtvghrnhepveeigeevvdelkefhteejueeigeeitdejffejffdu
- veelvdfhgeehvdduveeifeffnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpthhrrg
- hnshhfvghrnhhofidrnhgvthenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
- mhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:xUPiY_ImzvbFPSX4CzB5Yo4zhTZqNQfqeKjwP97Z-Bh920Ypak-c-g>
- <xmx:xUPiY2LFH0yBIvT64gAWcQWCOAQwj2_vNwPsKzoM8ydZYKjIE5VTzQ>
- <xmx:xUPiYwyzG2iq_lf-xEaTAz2V8v4xXwCpPVa9Iw1qasg99yvt_Bijjw>
- <xmx:xUPiYwyMdd_9mhsWXCtDmhC3pf32j2JDiqQ9byyLRmHhl4adMjOIEQ>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Feb 2023 07:27:48 -0500 (EST)
-Date: Tue, 7 Feb 2023 21:27:45 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: "M. Armsby" <m.armsby@gmx.de>
-Subject: Re: Motu 896Mk3Hybrid dump
-Message-ID: <Y+JDwWHZAI8BRgu9@workstation>
-Mail-Followup-To: "M. Armsby" <m.armsby@gmx.de>,
- ALSA mail List <alsa-devel@alsa-project.org>
-References: <clpqss6u2nl2-tqmbic2pqf4x-fl7n8ufasb45-1to1x7160p65-86skuflc32uf-b435ds-2dqjqzzi2x9r-n26ssw-jjzxq0-aeknhb-drcr4x44iip67z8kfz-gayyzivnj1e3-exbx9z-ayuv2umcdyh1.1675078615418@email.android.com>
- <Y9fD0Nzg+bwKsDEZ@workstation> <63DF98FE.2060604@gmx.de>
- <Y+BXPeHLp+qoKJcv@workstation>
- <rbih9oyihq4crt3olr-o19zohmq8w36-ipfswlyypvjp5a8src-wcww6tahyaki-q7v6tx-j5yh81-vzf7pq-qn78wo-tww8q3-2h35ww-sk0mu3-7fsog578xr2k-jfqgg5-rvg5aw-mhtapx-pch8v9t7epgq.1675704644475@email.android.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA1A0F80240
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 13:30:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA1A0F80240
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=lD9EZ7RP
+Received: by mail-wr1-x433.google.com with SMTP id j25so9853269wrc.4
+ for <alsa-devel@alsa-project.org>; Tue, 07 Feb 2023 04:30:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=uo8Ualo99d53mmVi49FY+l820ilSRXIZGdKs4k2O74k=;
+ b=lD9EZ7RPG6IizC5UEkDoAl2VLeg5YjRQJ9YuKzsS3PDhjFqSwmEkcfqb42JvX1M6PO
+ jPwtqoYOWqmM8JxVJeAoMdRkwyLbWEWCf8iYoetSVVUw016uSm8r2XFY05mJ72meJu4b
+ KLAaRI0zu3/9Slfx96CHzXB5AYW4gdj64B1X21R3beCnHSIQUsQfLV7RJB0IDWNv6wDz
+ gJe+jj4fgugWXWjR5iOZMGNBsM2KDOLHH6cvvJuNQMmfcNmw1RFam2SYz8uCgWjP84Bk
+ vsXdFu4q9yz6zrJ0t0507194GRN7eVBQr09dQLvVkrO0gaI53cfYu8ltm+OkSQMFA3Wc
+ 4PdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uo8Ualo99d53mmVi49FY+l820ilSRXIZGdKs4k2O74k=;
+ b=4Eqp1oAOE9HHpQmhhMyRpmAltYDYkFRkO75Pn4GFmg36/IkRyl86BsSs13uzWbEIhp
+ 2G0Ygwu6toQO4KBZUrse3X1kf6ltktXrpPbk+A3sFh0wVvZ/mq/ZJCCy4DKf6boe5+eT
+ k/pGxnnF5EfqVXuPxGTbAXz/xUuO/pFMkQeT8G9odFCUM0wwhjijQX2vTbs5fNAHU58a
+ V20TV7pQDSqB6BK4XDrT6BoOKEYhTkHWfy6N2y/ABdPvngt7VxFfqP8Ye6gTYC3tecNP
+ 6HR1AwKREULCJdrf+CZL02wXgf82KuY9At6NG1/nWORB8hofhVgF+or+34Y4+phuMjgv
+ p7gw==
+X-Gm-Message-State: AO0yUKW2fRtxI+YXH/nlnNU2B6HReVsDZNi+kiHdTEIiWp8UEdfJfrJh
+ 8OAaAlpCozA1dqB1CHgXfTGDudLKUYdOASYk
+X-Google-Smtp-Source: AK7set/FHB9i8kE1subd+a6lk2/Py5IpC82cHNa3nwC0OUd/lRxJYlOvxC7g0sC/El2fSuhrlQBR6A==
+X-Received: by 2002:adf:f6c6:0:b0:2bf:b571:1f18 with SMTP id
+ y6-20020adff6c6000000b002bfb5711f18mr3028904wrp.61.1675773027151; 
+ Tue, 07 Feb 2023 04:30:27 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+ by smtp.gmail.com with ESMTPSA id
+ k10-20020a5d6e8a000000b002bdda9856b5sm11214256wrz.50.2023.02.07.04.30.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Feb 2023 04:30:26 -0800 (PST)
+Message-ID: <6804adf4-2fba-e4f9-36ef-a6b8bacae76d@linaro.org>
+Date: Tue, 7 Feb 2023 13:30:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rbih9oyihq4crt3olr-o19zohmq8w36-ipfswlyypvjp5a8src-wcww6tahyaki-q7v6tx-j5yh81-vzf7pq-qn78wo-tww8q3-2h35ww-sk0mu3-7fsog578xr2k-jfqgg5-rvg5aw-mhtapx-pch8v9t7epgq.1675704644475@email.android.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v2 7/7] ASoC: dt-bindings: meson: convert axg sound card
+ control to schema
+Content-Language: en-US
+To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+References: <20230206153449.596326-1-jbrunet@baylibre.com>
+ <20230206153449.596326-8-jbrunet@baylibre.com>
+ <a711905e-dbfb-4258-62be-250a9549a9c4@linaro.org>
+ <1jbkm53jvg.fsf@starbuckisacylon.baylibre.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <1jbkm53jvg.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,83 +109,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: ALSA mail List <alsa-devel@alsa-project.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-amlogic@lists.infradead.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Mon, Feb 06, 2023 at 06:30:44PM +0100, M. Armsby wrote:
-> Hi there Takashi,
+On 07/02/2023 10:25, Jerome Brunet wrote:
 > 
-> please send me your instructions.
+> On Mon 06 Feb 2023 at 20:21, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 > 
-> I will do everything to get these MOTU devices working properly.
- 
-Okay. As a first step, would I ask you to build `linux-firewire-utils`?
-
- * https://github.com/cladisch/linux-firewire-utils
-
-In the top level of directory, execute below commands:
-
-$ autoreconf -i
-$ ./configure
-$ make
-
-When building successfully, you can find `firewire-request` in `src`
-directory. It is useful to read the status of device and required for
-our investigation.
-
-Before building, I think you need to install some package required for
-the work (e.g. compiler), but I'm not Manjaro user so contact to Manjaro
-user to ask it...
-
-> The problem with device allocation is this:
+>>> +
+>>> +  audio-routing:
+>>> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>>> +    description: |
+>>
+>> You still have everywhere | which should be removed. Here and in almost
+>> every other description when no special formatting is needed.
 > 
-> Ardour and Reaper see the ALSA driver and automatically choose 1+2
-> for main stereo out.
+> I'm sorry if I misunderstood your comment. I thought the problem was
+> with the '-' of '|-', which I removed here.
 > 
-> But - there is no connection.
-> 
-> If I choose 3+4 then Motu hardware actually gets sound output on 1+2
-> 
-> That means all Motu outs are shifted by 2 in the Linux protocol.
-> 
-> This is true for Traveler MK1 and MK3 so I assume it is an error in
-> all snd_motu_spec
-> 
-> I made a short video demonstrating this.
-> 
-> https://www.transfernow.net/dl/20230206jG0fet84/OFRBRajr
+> Should I use '>' for the YAML multiline format instead ?
 
-Thanks for your taking and uploading the video.
+I asked to remove "|-". Don't add any other character - why do you need
+it? Multiline descriptions don't need block scalar headers unless you
+want to preserve some format.
 
-The below figure illustrates your cases:
+Best regards,
+Krzysztof
 
- ++======================++    +-------+    ++===============++
- ||       Traveler       ||    | frame |    ||  Application  ||
- ||                      ||    |       |    ||               ||
- || headphone output 1/2 || <- |  0/1  | <- ||  Output 1/2   ||
- || analog output 1/2    || <- |  2/3  | <- ||  Output 3/4   ||
- || analog output 3/4    || <- |  4/5  | <- ||  Output 5/6   ||
- || analog output 5/6    || <- |  6/7  | <- ||  Output 7/8   ||
- || analog output 7/8    || <- |  8/9  | <- ||  Output 9/10  ||
- || AES/EBU (XLR) 1/2    || <- | 10/11 | <- ||  Output 11/12 ||
- || S/PDIF (opt) 1/2     || <- | 12/13 | <- ||  Output 13/14 ||
- ++======================++    +-------+    ++===============++
-
-I note that the effective source of headphone output is selectable
-between the above 7 pairs. Additionally, when enabling ADAT optical
-output, 8 channels are newly added to the frame thus 22 channels are
-available in a view of application.
-
-Well, inconveniently to you, the above mapping is expected. ALSA
-firewire-motu driver passes no information to the application about
-what the channel of frame is assigned to, due to technical reason of
-ALSA interface to user space application. As a result, the application
-just enumerates audio sample in its order.
-
-
-Regards
-
-Takashi Sakamoto

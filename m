@@ -2,82 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF4868E499
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:49:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D496668E4CB
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 01:10:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C14620B;
-	Wed,  8 Feb 2023 00:48:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C14620B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F11643E8;
+	Wed,  8 Feb 2023 01:09:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F11643E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675813774;
-	bh=MSOBHuptKQh+Vis/NZF17skKNEjY1BhRVlPjpCBLRaE=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jQaBJpJFXQXt4Ho4jwz0vs3Zj+D7tTpaPpIa3Ufnw9AybjdgnP5IdEUx962U84pPK
-	 w58EULRHjkg4bLShXM0WVe6XQKguRDFmt1dj64YWnoftnbStSPS5aaKgoy25lgtySj
-	 sOMFlmwoHdyX3vLgf4fv7ed9YoRV+//EP8B70CE0=
+	s=default; t=1675815032;
+	bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=LY8afRPbfLprxXWnrikY/FE9LUakKVAKoiw/QXCpNgpT519n47I5bR+LCj3Lp8Bn5
+	 hu3u/i8MIbBpmJtrT1ghADWk0WPBocOEudePVrA0pdVmmBLBKIutLumtqj6LIYVHPf
+	 N1CezWE5CZfW1wJKmJHi2sQzeSn32nYhHRXnWTcs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D559F8010B;
-	Wed,  8 Feb 2023 00:48:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DC46F8010B;
+	Wed,  8 Feb 2023 01:09:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5F3AF8012B; Wed,  8 Feb 2023 00:48:39 +0100 (CET)
+	id 07F9BF8012B; Wed,  8 Feb 2023 01:09:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0F8CF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:48:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0F8CF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 48716F800AF
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 01:09:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48716F800AF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A4AHhf84
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id EEE7DB819AA;
-	Tue,  7 Feb 2023 16:43:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216E3C433EF;
-	Tue,  7 Feb 2023 16:43:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675788201;
-	bh=MSOBHuptKQh+Vis/NZF17skKNEjY1BhRVlPjpCBLRaE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=A4AHhf84pnIOfOt7NPZN/z/IuRYfeHdLwT5eWEX8DI+wc0xQa6Ha+TKxfkBvXiKqT
-	 ptmRJEpJAYwC3Ete8GSmEWIm4rBoUFiu+BUR9SBpu44VZTYy6U6TfnEpznEDgcytjD
-	 //D1g6bmPw/HObu1/1Qa4SQDnQSe0ERtXG/AYPYgkkiTc6oZhTNPkHiDjV47PbTc2o
-	 xF0fXXPbLSq3Tq9XFL1tnngdu4KIokyHqhwz39hNdq1AiCoq1xJu4Sm+5fzHDnfMYu
-	 WBlWmZxP0po0YlkN/kO+hGuPkZ/PVlyLiJUEjRbfQJaKgSvedjuhy2sSPo47DSGuQl
-	 PBMsd/Chllp4w==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v6.2-rc7
-Date: Tue, 07 Feb 2023 16:43:17 +0000
-Message-Id: <20230207164321.216E3C433EF@smtp.kernel.org>
-Message-ID-Hash: STAPMXIV5IGAVYVMCPVO6D2NPKWHLX5M
-X-Message-ID-Hash: STAPMXIV5IGAVYVMCPVO6D2NPKWHLX5M
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ZVmVyDjS
+Received: by mail-ej1-x62d.google.com with SMTP id u22so2545960ejj.10
+        for <alsa-devel@alsa-project.org>;
+ Tue, 07 Feb 2023 16:09:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
+        b=ZVmVyDjSx6EgkFT8iA42dx4e6NkiFFvRjgyVg3vEwOo0sTodqpf/6xC7Kg8zvu5zOi
+         +i12SLbbl4EZG+LN97qWe6I+1nf7msNnuZujHBy1cutT62jCNnRsC29vzSbwShTGLJk1
+         qZYaDyl5UTtWP6oEC2vJLZfbjaQlWRcfn9s1g62TU2LJurA6KpeBdnISuwk0MQw6cNY5
+         892USyFUbQ90GHznIUqrP6DW2lUZ+wf44TCj8WwXad3JpTV4x64SRgkhtbuXHVcqTGJK
+         MFbAe8tiuizvuNYAJkNKmLvFSSDg+Gxjp6mXLkKvCTbo5ygU/iFBvdk1NlblLIO98PDs
+         M9iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
+        b=eenkebOQQvvKn4JIJG9dtGFVwjthTpx65txGJjsTcLRNfuv5/PCjJ2HInIw150EeAw
+         L2M8o7uw01Y3H3v4sktKKobpzs+3eIUeesGGHO5t5eVFHFi12QLjlDnFxL7KO14mELC8
+         Py2x+TkbuypP9uf3auDkBEiUDCRkMJg18lNaqxtmKs5HwqnaA3+LK+DvJQRdi0yslt0V
+         YU2erABfdjQ38rG0aA2ltu5TLR4UhhVc+NRKbjNJJLjOVXOhfzh0+BXkh9+SDs6fSFHL
+         ocByjCRZhsRY65JMpsiUEePPLpSc03Dml2ZfxZxBIlU1x7Wg+SCa07BMnWH93ilHXyn+
+         +Pxg==
+X-Gm-Message-State: AO0yUKU+bMR50fJ84MOH1RT4FdScYu40VOg+brrgknaacbF2d3wPKLiG
+	yyeOD3i5EsSRY/1Phy0uJLENyOAwFvW1eljB
+X-Google-Smtp-Source: 
+ AK7set8TXIFkWABojtv5YPhyN5r9CAIvfLXqNjua96/e+MfEknoAwWnL/akisqL1H78whXRbC2TL6A==
+X-Received: by 2002:a5d:4bc2:0:b0:2c1:28e7:5081 with SMTP id
+ l2-20020a5d4bc2000000b002c128e75081mr3490785wrt.68.1675788495656;
+        Tue, 07 Feb 2023 08:48:15 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+        by smtp.gmail.com with ESMTPSA id
+ i6-20020adffc06000000b002c3e28d0343sm7732034wrr.85.2023.02.07.08.48.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Feb 2023 08:48:15 -0800 (PST)
+Message-ID: <1dad040e-fb18-8291-5e11-31ab35a8e4a2@linaro.org>
+Date: Tue, 7 Feb 2023 17:48:13 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v2 4/5] ASoC: cs35l41: Document CS35l41 external boost
+ without VSPK
+Content-Language: en-US
+To: Lucas Tanure <lucas.tanure@collabora.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20230207162526.1024286-1-lucas.tanure@collabora.com>
+ <20230207162526.1024286-5-lucas.tanure@collabora.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230207162526.1024286-5-lucas.tanure@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634
+X-Message-ID-Hash: GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/STAPMXIV5IGAVYVMCPVO6D2NPKWHLX5M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,51 +129,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit e18c6da62edc780e4f4f3c9ce07bdacd69505182:
+On 07/02/2023 17:25, Lucas Tanure wrote:
+> External Boost without GPIO1 as VSPK switch
+> is no longer supported, but there is laptop
+> models using this feature.
 
-  ASoC: cs42l56: fix DT probe (2023-01-26 17:42:36 +0000)
 
-are available in the Git repository at:
+No, because:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc7
+1. We did not finish discussion
+2. Subject prefix is still not correct.
+3. Please wrap commit message according to Linux coding style /
+submission process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v5.18-rc4/source/Documentation/process/submitting-patches.rst#L586
 
-for you to fetch changes up to c173ee5b2fa6195066674d66d1d7e191010fb1ff:
 
-  ASoC: topology: Return -ENOMEM on memory allocation failure (2023-02-07 14:06:26 +0000)
+Best regards,
+Krzysztof
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.2
-
-A few more fixes for v6.2, all driver specific and small.  It's larger
-than is ideal but we can't really control when people find problems.
-
-----------------------------------------------------------------
-Alexey Firago (1):
-      ASoC: codecs: es8326: Fix DTS properties reading
-
-Amadeusz Sławiński (1):
-      ASoC: topology: Return -ENOMEM on memory allocation failure
-
-Daniel Beer (2):
-      ASoC: tas5805m: rework to avoid scheduling while atomic.
-      ASoC: tas5805m: add missing page switch.
-
-Jack Yu (1):
-      ASoC: rt715-sdca: fix clock stop prepare timeout issue
-
-Mark Brown (1):
-      Two bug fixes for tas5805m codec driver
-
-Shengjiu Wang (1):
-      ASoC: fsl_sai: fix getting version from VERID
-
-V sujith kumar Reddy (1):
-      ASoC: SOF: amd: Fix for handling spurious interrupts from DSP
-
- sound/soc/codecs/es8326.c         |   6 +-
- sound/soc/codecs/rt715-sdca-sdw.c |   2 +-
- sound/soc/codecs/tas5805m.c       | 131 ++++++++++++++++++++++++++------------
- sound/soc/fsl/fsl_sai.c           |   1 +
- sound/soc/soc-topology.c          |   8 ++-
- sound/soc/sof/amd/acp.c           |  36 +++++------
- 6 files changed, 117 insertions(+), 67 deletions(-)

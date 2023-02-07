@@ -2,86 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0302268D12C
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 09:01:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFA7A68D17A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 09:32:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63EAB1DE;
-	Tue,  7 Feb 2023 09:01:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63EAB1DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF86F832;
+	Tue,  7 Feb 2023 09:31:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF86F832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675756913;
-	bh=/TvDgivwfzXR4eor6oGjM02JabWx1PoviK9AyE7ZjxQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=fniiqGfCdFea6l9sjiallE5fnS7O8sZmFNapP1WeIT1Cu3oV/Ra+IGRxtTFzUGoXW
-	 YLVBgY3tq4eUumJ81EH4Bjbr6rR2yzPgoiqN9AtO9sSHLI3kKIE4YXnBzoKfwFaof1
-	 YSUgV9kafA/3MNYDYVxQMkj+GjVy//WqgqCJytxU=
+	s=default; t=1675758735;
+	bh=oBXBvOXk3wOERFeUI3KqXN5jvBrlSly8gjeBLoQh8aQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=HBTz78DtVNW6InDE4I1596dCRcSiMQFmz+ew+f8xKEYh/aLzPDbxganzgTzxGLWsD
+	 0gW3HlYcVXde6b56f4U34UBu+ofxbtzEpmbq9Hxv65HQ+2jSxy07fd3UFH3vMFvWu9
+	 MFk64/dykm5RSEskaOb1UDXlFHO52DXoKtb6wcbY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2622BF804AA;
-	Tue,  7 Feb 2023 09:00:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2BF0F804AA;
+	Tue,  7 Feb 2023 09:31:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D324F8045D; Tue,  7 Feb 2023 09:00:29 +0100 (CET)
+ id D8C40F8045D; Tue,  7 Feb 2023 09:31:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
- shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+ autolearn_force=no version=3.4.6
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83546F800E3
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 09:00:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83546F800E3
-Received: by mail-qt1-f173.google.com with SMTP id m12so15808478qth.4
- for <alsa-devel@alsa-project.org>; Tue, 07 Feb 2023 00:00:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Mex+jfAmaUpIUDmTe8kPqw4pgJV7GY+mCAfjiClmLdg=;
- b=Vx4+wVhMs+kqKhFDdsjTSOsr4Kq8TwbvZupxlLOH1GKNDEP28DuMtcTe/FZe+Xp/QV
- uPKejWIo5MJwY6gPuUUyN8dDng3PbQ6RvQ+xhzfTMIOgB46oIsvHYSsUi6+ENqAmFZ29
- RvtE8zZqtPdHww2aD3v8p4eqxnUk+FZZMwBgBLLkBLbjycPHOnMSX7mqYfEnm2uyIDWk
- kkIx6nIoCQ0ivK9eBGmrMuT0qtrFPRuyYvksOTmzvI9M2CzdDb5ADRDHF8gIgzFMD7JN
- g8OK1Nhdca2qIIz2cxdLHH1gr6hyaSoehCJjRL0uWYmqlPiG001k24Jc/ITnQ1azOYqp
- jdSg==
-X-Gm-Message-State: AO0yUKUiBRsFnwJcGta4AdJgJKvMZTHQZAdDV5PEPHvT8lVvXbSCLt6y
- g5nxZzA7YVn5VyQKY4yfk74zpnOVhk4lHQ==
-X-Google-Smtp-Source: AK7set/DbPx9/CYWacleXHNv4BV7+Da8G69mXkqzsQCp+iPkHZaMR3WKK9z97cmyjSh2lfTJ0FSdhw==
-X-Received: by 2002:a05:622a:1a0c:b0:3b8:ea9b:cbc6 with SMTP id
- f12-20020a05622a1a0c00b003b8ea9bcbc6mr3850126qtb.56.1675756824413; 
- Tue, 07 Feb 2023 00:00:24 -0800 (PST)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
- [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
- m15-20020ac85b0f000000b003a591194221sm9147522qtw.7.2023.02.07.00.00.23
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Feb 2023 00:00:24 -0800 (PST)
-Received: by mail-yb1-f179.google.com with SMTP id d132so17498986ybb.5
- for <alsa-devel@alsa-project.org>; Tue, 07 Feb 2023 00:00:23 -0800 (PST)
-X-Received: by 2002:a25:eb04:0:b0:7b4:6a33:d89f with SMTP id
- d4-20020a25eb04000000b007b46a33d89fmr204752ybs.543.1675756823230; Tue, 07 Feb
- 2023 00:00:23 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 352AFF8014C
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 09:31:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 352AFF8014C
+Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
+ unprotected) header.d=canonical.com header.i=@canonical.com
+ header.a=rsa-sha256 header.s=20210705 header.b=AOGLN2M5
+Received: from localhost.localdomain (unknown [10.101.197.31])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0425D428D4; 
+ Tue,  7 Feb 2023 08:30:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1675758661;
+ bh=RX8W3mFnoYHX95Y8s7hMAv7+ZHWXmRl7KuYFA5MlRDY=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=AOGLN2M5Ni06I7JCK+xzYUqtS38r+SuE5bCXX6mWylwZ6n5CieOUTkexGOiuiFlDd
+ JRmihm4od3jkpJY5uKHuVvfHn324Lz7va8bM7dzg0VIsWBteprxCN8cNqes7V9Khot
+ 8Ps/JyL4ov8h+dg7KxWXwTmvfbA0cq2HPHTxJEE/5u67Qwj17818OOSzQ8mT6PC0zs
+ J1sZp9z+hgatpWlTuPMzJziZXqviUiwaTSCLvPKKKE6HecRQESJU6F7jLekQL8bqXh
+ 6XG1oK9UM4CAYh2KQkGQ+ocbTcyk1qKLfSwnCAJdZkBMKggAI7AdJqcY2U6v++S8Uz
+ oxbL6e/D2awhw==
+From: Andy Chi <andy.chi@canonical.com>
+To: 
+Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs don't work for a HP
+ platform.
+Date: Tue,  7 Feb 2023 16:30:09 +0800
+Message-Id: <20230207083011.100189-1-andy.chi@canonical.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 7 Feb 2023 09:00:11 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
-Message-ID: <CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/2] ASoC: dt-bindings: renesas,rsnd.yaml: adjust to
- R-Car Gen4
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,34 +79,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
+ alsa-devel@alsa-project.org, Yuchi Yang <yangyuchi66@gmail.com>,
+ Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
+ Gabriele Mazzotta <gabriele.mzt@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Tim Crawford <tcrawford@system76.com>, andy.chi@canonical.com,
+ =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
+There is a HP platform needs ALC236_FIXUP_HP_GPIO_LED quirk to
+make mic-mute/audio-mute working.
 
-On Tue, Feb 7, 2023 at 2:12 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
-> This is [RFC] patches.
->
-> This patch-set adjust to R-Car Gen4 on renesas,rsnd.yaml.
-> It works and no error reported.
-> But by this patch, non-Gen4 leaks from "ssi-[0-9]" checking.
-> I'm not sure why it happens.
+Signed-off-by: Andy Chi <andy.chi@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-If the logic becomes too complex, you can also split the binding
-description in 4 files, one per R-Car generation.
-That would lead to lots of duplication, though.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 4055a8f5880a..d1258dd803e8 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9433,6 +9433,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5d, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5e, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b7d, "HP", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b8a, "HP", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b8b, "HP", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b8d, "HP", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+-- 
+2.34.1
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

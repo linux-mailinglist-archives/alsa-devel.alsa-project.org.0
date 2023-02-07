@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FFEF68E45C
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:24:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC8A68E419
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:03:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 640B820B;
-	Wed,  8 Feb 2023 00:23:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 640B820B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C427836;
+	Wed,  8 Feb 2023 00:02:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C427836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675812274;
-	bh=YqDF29yTDTzZofC0OrRusN/jw+sSqFWwWjB3YnAN8mA=;
+	s=default; t=1675811015;
+	bh=0WUfWkx3WXMvy1NiSACkhw5M/JH64HxliKyyiJCmmoM=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=urvw8rykGjyLHc7tPBrzVkhctOXE73MFeDL19cRCgILUeTNOUKWg8/bGt4b/E4OQ3
-	 +dJnITcrIPW0I24EXewodbK9HsvUmIDSIbnA1SJnGyo/JMUAqHe8rXsF4owOEFW+kU
-	 R0yCROxIkmbioZgfTwBrwbGV7CUnxeq3KZWLtYzc=
+	b=Pdc9B4taLEf9VcFilje+PPbBoGuMGNIPGFzjJR7x5k5BKk/rnT8zZDAUgsPtMq2HV
+	 SxAxP/Oyflm+CtG3thnX9nBGdBLXnuAT6BvPMyP11lIOwUxGjmMGis0XUZKtkeDyQf
+	 JhH81cR8b+wxFeiaWnpGgrhn8kFXpvp69O+6E1G4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF2EBF8010B;
-	Wed,  8 Feb 2023 00:23:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17891F8010B;
+	Wed,  8 Feb 2023 00:02:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F428F8012B; Wed,  8 Feb 2023 00:23:39 +0100 (CET)
+	id 7BBF8F8012B; Wed,  8 Feb 2023 00:02:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C399DF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:23:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C399DF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0B3AF800E2
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:02:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B3AF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=asZxJim1
+ header.s=k20201202 header.b=GbghwzCF
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 1DD2BB8198E;
-	Tue,  7 Feb 2023 15:06:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A4AC433EF;
-	Tue,  7 Feb 2023 15:06:03 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D994560DD9;
+	Tue,  7 Feb 2023 15:17:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA007C433D2;
+	Tue,  7 Feb 2023 15:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675782365;
-	bh=YqDF29yTDTzZofC0OrRusN/jw+sSqFWwWjB3YnAN8mA=;
+	s=k20201202; t=1675783034;
+	bh=Q151YrDjhoMhmpGuvpiLtseqfC4fVjDbC/y8Ns++CsI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=asZxJim1OThPT7N/ebQJty/PhYOPN7aFj6sKP/aVDIQUStFsecBWjYU/z1Fwo4eor
-	 6ElGV8nV1q4aW+V2wdnhw7ENQbNQqV5fVShFAZRy5vAFuFaU3miDJKqOQYnAE5mD/P
-	 vCvk5dFDVixQFm4zarCpiEraFsialIIpxdIHrAoBxmldRTYNwRxUNU+jHEQUqV8LBW
-	 MA8X0lf0/kfczCAOln2DWdu4hac1ib2WjoD1HploTeNTz+P8BxL3QqPjjRnjPY1kGN
-	 O06lj23OOqxzUp9BStpP+K+64A38HMwWIhbbrUnlNS938ik+nXlmz9H5vdQKG21cRO
-	 iTTTOoHtOR3nQ==
+	b=GbghwzCFhEMQs40x17kyuerW4g6D2KZndDylwZZI4H/oJGBymTGgjxfdBO1+/CL0Z
+	 N5ks1PnLaFOISUER7nIebA724EBf8nZQlvL3DuhegUj4mP+lk6AHW75X9UV/uPjMnB
+	 UjRdt0mhuIhQkcHffDZLUuQAxUfNmzwBSf1hfnmhGz9XcECVeI3XzmfbBO9LQdyYys
+	 GWtmJUj891vatpVEw0vpvwfQqzoTkNrqfyH2vutMSFYzLg8BwbxlkKspH1ngcsZlAy
+	 ZO1qKdqCJMYMKxIqjdrWGdl0EYsg1eplyU1VTctnhs9cJ5SMmiaod4Zj65OToHAah+
+	 JpO2MTKKi5T2Q==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20230206153449.596326-1-jbrunet@baylibre.com>
-References: <20230206153449.596326-1-jbrunet@baylibre.com>
-Subject: Re: (subset) [PATCH v2 0/7] ASoC: dt-bindings: meson: covert axg
- audio to schema
-Message-Id: <167578236315.223502.6627129328138282057.b4-ty@kernel.org>
-Date: Tue, 07 Feb 2023 15:06:03 +0000
+To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230207210428.2076354-1-amadeuszx.slawinski@linux.intel.com>
+References: <20230207210428.2076354-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH] ASoC: topology: Return -ENOMEM on memory allocation
+ failure
+Message-Id: <167578303267.230357.2123593541021713335.b4-ty@kernel.org>
+Date: Tue, 07 Feb 2023 15:17:12 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12.0
-Message-ID-Hash: 7HPQ47UWUZDWNPD2LIMFYC5RBJ6E7HKM
-X-Message-ID-Hash: 7HPQ47UWUZDWNPD2LIMFYC5RBJ6E7HKM
+Message-ID-Hash: SYNQFU7QNKTHNVV75Q27A55PSMILQX5G
+X-Message-ID-Hash: SYNQFU7QNKTHNVV75Q27A55PSMILQX5G
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,16 +78,19 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-amlogic@lists.infradead.org, Kevin Hilman <khilman@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org
+CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Dan Carpenter <error27@gmail.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jaska Uimonen <jaska.uimonen@linux.intel.com>,
+ kernel test robot <lkp@intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HPQ47UWUZDWNPD2LIMFYC5RBJ6E7HKM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SYNQFU7QNKTHNVV75Q27A55PSMILQX5G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,53 +98,29 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+Content-Transfer-Encoding: base64
 
-On Mon, 06 Feb 2023 16:34:42 +0100, Jerome Brunet wrote:
-> Convert AXG audio dt-binding documentation to schema
-> 
-> Changes since v1:
-> * Drop 2 patches applied with v1
-> * Drop node name patterns
-> * Fix examples indentation
-> * Yaml fixups requested by Krzysztof
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/7] ASoC: dt-bindings: meson: convert axg tdm interface to schema
-      commit: cdff91122de52f480bea730fee6665a7404d758c
-[2/7] ASoC: dt-bindings: meson: convert axg tdm formatters to schema
-      commit: c5536e7be70cf2ab55c674b3c2120565e9559c50
-[3/7] ASoC: dt-bindings: meson: convert axg pdm to schema
-      commit: 4d37c72ec42374c5ad416f851b572a9fb794e8ef
-[4/7] ASoC: dt-bindings: meson: convert axg fifo to schema
-      commit: 6b6f5ea7ab0062d152a3bc9192cee45c7fc31387
-[5/7] ASoC: dt-bindings: meson: convert axg spdif input to schema
-      commit: ede6aa4087abfac527267c4ac5bb6eebdfe958ba
-[6/7] ASoC: dt-bindings: meson: convert axg spdif output to schema
-      commit: 32f7b9102bfc48a210bf655e049145f6450b03a0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+T24gVHVlLCAwNyBGZWIgMjAyMyAyMjowNDoyOCArMDEwMCwgQW1hZGV1c3ogU8WCYXdpxYRza2kg
+d3JvdGU6DQo+IFdoZW4gaGFuZGxpbmcgZXJyb3IgcGF0aCwgcmV0IG5lZWRzIHRvIGJlIHNldCB0
+byBjb3JyZWN0IHZhbHVlLg0KPiANCj4gDQoNCkFwcGxpZWQgdG8NCg0KICAgaHR0cHM6Ly9naXQu
+a2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9zb3VuZC5naXQgZm9y
+LW5leHQNCg0KVGhhbmtzIQ0KDQpbMS8xXSBBU29DOiB0b3BvbG9neTogUmV0dXJuIC1FTk9NRU0g
+b24gbWVtb3J5IGFsbG9jYXRpb24gZmFpbHVyZQ0KICAgICAgY29tbWl0OiBjMTczZWU1YjJmYTYx
+OTUwNjY2NzRkNjZkMWQ3ZTE5MTAxMGZiMWZmDQoNCkFsbCBiZWluZyB3ZWxsIHRoaXMgbWVhbnMg
+dGhhdCBpdCB3aWxsIGJlIGludGVncmF0ZWQgaW50byB0aGUgbGludXgtbmV4dA0KdHJlZSAodXN1
+YWxseSBzb21ldGltZSBpbiB0aGUgbmV4dCAyNCBob3VycykgYW5kIHNlbnQgdG8gTGludXMgZHVy
+aW5nDQp0aGUgbmV4dCBtZXJnZSB3aW5kb3cgKG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgp
+LCBob3dldmVyIGlmDQpwcm9ibGVtcyBhcmUgZGlzY292ZXJlZCB0aGVuIHRoZSBwYXRjaCBtYXkg
+YmUgZHJvcHBlZCBvciByZXZlcnRlZC4NCg0KWW91IG1heSBnZXQgZnVydGhlciBlLW1haWxzIHJl
+c3VsdGluZyBmcm9tIGF1dG9tYXRlZCBvciBtYW51YWwgdGVzdGluZw0KYW5kIHJldmlldyBvZiB0
+aGUgdHJlZSwgcGxlYXNlIGVuZ2FnZSB3aXRoIHBlb3BsZSByZXBvcnRpbmcgcHJvYmxlbXMgYW5k
+DQpzZW5kIGZvbGxvd3VwIHBhdGNoZXMgYWRkcmVzc2luZyBhbnkgaXNzdWVzIHRoYXQgYXJlIHJl
+cG9ydGVkIGlmIG5lZWRlZC4NCg0KSWYgYW55IHVwZGF0ZXMgYXJlIHJlcXVpcmVkIG9yIHlvdSBh
+cmUgc3VibWl0dGluZyBmdXJ0aGVyIGNoYW5nZXMgdGhleQ0Kc2hvdWxkIGJlIHNlbnQgYXMgaW5j
+cmVtZW50YWwgdXBkYXRlcyBhZ2FpbnN0IGN1cnJlbnQgZ2l0LCBleGlzdGluZw0KcGF0Y2hlcyB3
+aWxsIG5vdCBiZSByZXBsYWNlZC4NCg0KUGxlYXNlIGFkZCBhbnkgcmVsZXZhbnQgbGlzdHMgYW5k
+IG1haW50YWluZXJzIHRvIHRoZSBDQ3Mgd2hlbiByZXBseWluZw0KdG8gdGhpcyBtYWlsLg0KDQpU
+aGFua3MsDQpNYXJrDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0IC0tIGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
+Lm9yZwpUbyB1bnN1YnNjcmliZSBzZW5kIGFuIGVtYWlsIHRvIGFsc2EtZGV2ZWwtbGVhdmVAYWxz
+YS1wcm9qZWN0Lm9yZwo=

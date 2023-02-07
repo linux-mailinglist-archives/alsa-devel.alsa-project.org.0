@@ -2,113 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049A068E4B4
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 01:00:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6397268E4A9
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:54:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 358FD20B;
-	Wed,  8 Feb 2023 01:00:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 358FD20B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0F701EB;
+	Wed,  8 Feb 2023 00:53:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0F701EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675814456;
-	bh=MquVMAf3/BoZTo6VkzVjE/2X2pvOnnCwJXu+dLBD/aw=;
+	s=default; t=1675814061;
+	bh=fiHwx1QeMPt+DsYxhkk7Rh8I9hMhkeRIK9B2EQA/e1o=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WykgNtNcHPHsMr6ZXdjE1LlBfjxLwPE2T+YfBAU+veFuX8c4CpZT9jNSSM+pDzUbi
-	 XQmvkqsiFDc8MLVvXiiYreh0NPgdqJmywsiF0HRS2ImWa4l9UgU9TVz0Dx7O5a86oD
-	 vAjlC37I7msD1V6ZRIyN4+/hWLty8fwLa/A0X9ew=
+	b=PYJNeD0XdqAVA8KnDtjpUNPGfIY11uDO+XcmSnZL/mibpa0+f7hezeZJV0pE3cH6Y
+	 lxvlVEPbNP+kYrkSC+Fz9zoKgV0GnANrva8wPCK7fk/MimujrpoOTxCimI4a5JLMwj
+	 dI5IYx8zfvM9guOZw8JuhOOeWvvhDhsYpfyHO0MU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 606D3F8010B;
-	Wed,  8 Feb 2023 01:00:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C10B5F80529;
+	Wed,  8 Feb 2023 00:52:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D508AF8012B; Wed,  8 Feb 2023 01:00:00 +0100 (CET)
+	id E708EF8012B; Wed,  8 Feb 2023 00:52:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BE356F80095
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:59:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE356F80095
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=qQLwVhZ2
-Received: by mail-pj1-x1034.google.com with SMTP id pj3so16696952pjb.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 07 Feb 2023 15:59:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=W57wzZYsbIJZQpPVkemrOHsbaIu0hnor4kfOcH0Od4c=;
-        b=qQLwVhZ270H3VGVANdcjtqqRppTerXYZ6I40r+1bS9MWm1u73znQl4be/O4+sRGhkl
-         Ce35RngMI2NJZsHTbjqmF1nrYBbSc3Cu5JvJOHqP0dfOM9e8aR36jlj5e4Z5uQ8IhLQn
-         k5b5AircWsWO3B4DrR9mSrxsITztRhtFKjkVJNFgLoIZrlgbCYiV0T62L11TeRh+fCTQ
-         /69D1GLmS65UqVL937ee3EVEfbxTEhGZ/qybf+uJujuY5c9VNaRe3wkqB9od37qWI6Xi
-         tGgx2cdvOgLw7/vcn/wuFGK7PfFW3H1XwUO/BVQMCeLDZKd9BFQa6UQUgUK1iGXPHA/f
-         vgzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W57wzZYsbIJZQpPVkemrOHsbaIu0hnor4kfOcH0Od4c=;
-        b=rUZkvyPlNiY8Jg3FOls2VRoD/m4gslGZkSv0MokqcflNWN/JWqvXAMpcEE4/YUWOsb
-         eWXx1Dieo64cMEo2CyM/Gqbq8vMAm5bbVHIzFpuZSJHbNuXH8Rmk7PDcH9c8tKyJpoo+
-         fd24E5wRDVXxBF5KAGW5+1fybArsm5Agfcv45oaJRdqBCL93M5tqsvYfI31fONgi2VVk
-         kAVOc0d31ihSnpAoitOLNnvebcjddc5YIEe4fNSw1BFPoUCpEJz4RKKFXG5kCt4htBj3
-         KEqo8hqYwLa2lAODOn/aZf9E8AmV65xLPHQaTnq2/5+GQjyC9+1oeys4NnSOoceuqWAW
-         HNZA==
-X-Gm-Message-State: AO0yUKUXh0+1C+P3cqgrZIEMiHPBUZaQhcFPXM/QmwhrIOw0Mpk4r1BU
-	8uMVKw5c+GNViN2fvi9D/MLXoCR56MAQRg==
-X-Google-Smtp-Source: 
- AK7set8EQJJrF3sqkkw6+s06OzoOlz8vfZY+v0BYwKhl+DAPy0UmiD+hZ1iTgYzy5ldhZ+BBuk7oLQ==
-X-Received: by 2002:a05:6870:328b:b0:166:fc4a:aec7 with SMTP id
- q11-20020a056870328b00b00166fc4aaec7mr1880532oac.41.1675799172607;
-        Tue, 07 Feb 2023 11:46:12 -0800 (PST)
-Received: from policorp.cardume.local (177.207.126.10.dynamic.adsl.gvt.net.br.
- [177.207.126.10])
-        by smtp.gmail.com with ESMTPSA id
- c5-20020a056870a58500b0010c727a3c79sm1027497oam.26.2023.02.07.11.46.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Feb 2023 11:46:12 -0800 (PST)
-From: drosdeck <edson.drosdeck@gmail.com>
-To: perex@perex.cz
-Subject: [PATCH] ALSA: hda/realtek: Add Positivo N14KP6-TG
-Date: Tue,  7 Feb 2023 15:37:20 -0300
-Message-Id: <20230207183720.2519-1-edson.drosdeck@gmail.com>
-X-Mailer: git-send-email 2.30.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA5DF80095
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:52:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA5DF80095
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pPTVE-0008RO-Dk; Tue, 07 Feb 2023 20:19:40 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pPTV7-003Lv6-9E; Tue, 07 Feb 2023 20:19:34 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pPTV7-001ew5-M9; Tue, 07 Feb 2023 20:19:33 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Michael Ellerman <mpe@ellerman.id.au>
+Subject: [PATCH 0/3] ALSA: core: Make some functions return void
+Date: Tue,  7 Feb 2023 20:19:04 +0100
+Message-Id: <20230207191907.467756-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=808;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=fiHwx1QeMPt+DsYxhkk7Rh8I9hMhkeRIK9B2EQA/e1o=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBj4qQba27+3E/GrUTCtoY8yibTKJga/4v6pQi9yw9y
+ 8kw05T+JATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY+KkGwAKCRDB/BR4rcrsCSE8B/
+ kB3nfLGneK7JgKBpkJOKm715kZQQMwmDYOvxE2w1QqfLmP6AizVyYscXzABq7ILR8Xvn+9/h9qV+T3
+ ijinLE8JYkwqFju+23tc63hZO/R2W2qsf+ktqWxUKhM7dtuCeN4k/rLBlxQosqp3Y2p15xbyVF8C7B
+ o+n6nRReddxVoFQY8y39Ur2YlPP9tVYke+5oTGtDBp2+ZqCWQKShnKAB28Qlz4skEmLHud/nMyZ64n
+ iZU//pEqdZ+gEUZ8QWhYb53qfmyx2vNA0epaqPcjdEx8byNHVz6xvRMNUt/kcj7NIOjfMqAZupVZAY
+ mf7oYTZ0vibp7ftk9H6/st8cosaCe7
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VMQGSBTOWM6FAOE7YMKU2TUREZ74A6KR
-X-Message-ID-Hash: VMQGSBTOWM6FAOE7YMKU2TUREZ74A6KR
-X-MailFrom: edson.drosdeck@gmail.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: HSTLJ2NCPFPA6PO4BY2DD4GHNH5CGU6X
+X-Message-ID-Hash: HSTLJ2NCPFPA6PO4BY2DD4GHNH5CGU6X
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, tcrawford@system76.com, sbinding@opensource.cirrus.com,
- tangmeng@uniontech.com, kai.heng.feng@canonical.com, p.jungkamp@gmx.net,
- kasper93@gmail.com, gabriele.mzt@gmail.com, yangyuchi66@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- edson.drosdeck@gmail.com
+CC: alsa-devel@alsa-project.org, kernel@pengutronix.de,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, linux-tegra@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VMQGSBTOWM6FAOE7YMKU2TUREZ74A6KR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HSTLJ2NCPFPA6PO4BY2DD4GHNH5CGU6X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,26 +108,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Positivo N14KP6-TG (1c6c:1251)
-require quirk for enabling headset-mic
+Hello,
 
-Signed-off-by: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+while checking in which cases hda_tegra_remove() can return a non-zero value, I
+found that actually cannot happen. This series makes the involved functions
+return void to make this obvious.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index db9518de9343..ee5d3347354c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9701,6 +9701,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1b7d, 0xa831, "Ordissimo EVE2 ", ALC269VB_FIXUP_ORDISSIMO_EVE2), /* Also known as Malata PC-B1303 */
- 	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
- 	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
-+	SND_PCI_QUIRK(0x1c6c, 0x1251, "Positivo N14KP6-TG", ALC288_FIXUP_DELL1_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1d05, 0x1132, "TongFang PHxTxX1", ALC256_FIXUP_SET_COEF_DEFAULTS),
- 	SND_PCI_QUIRK(0x1d05, 0x1096, "TongFang GMxMRxx", ALC269_FIXUP_NO_SHUTUP),
- 	SND_PCI_QUIRK(0x1d05, 0x1100, "TongFang GKxNRxx", ALC269_FIXUP_NO_SHUTUP),
+This is a preparation for making platform_driver::remove return void, too.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (3):
+  ALSA: core: Make snd_card_disconnect() return void
+  ALSA: core: Make snd_card_free_when_closed() return void
+  ALSA: core: Make snd_card_free() return void
+
+ include/sound/core.h      |  6 +++---
+ sound/core/init.c         | 40 ++++++++++++++-------------------------
+ sound/pci/hda/hda_tegra.c |  6 ++----
+ sound/ppc/snd_ps3.c       |  4 +---
+ 4 files changed, 20 insertions(+), 36 deletions(-)
+
+
+base-commit: 05ecb680708a1dbe6554d6fc17e5d9a8a7cb5e6a
 -- 
-2.30.2
+2.39.0
 

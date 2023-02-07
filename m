@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE1B468E477
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:34:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E80368E472
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:33:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53393857;
-	Wed,  8 Feb 2023 00:33:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53393857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30448839;
+	Wed,  8 Feb 2023 00:32:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30448839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675812854;
-	bh=hp7+RIW8t0DhnlPrsaa9bOGMIlvjoMtViuNy75rPkCg=;
+	s=default; t=1675812799;
+	bh=TiZq1Wii21IU0MryzQcGfwKXjljEku6Vg5b3YJnDQzE=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uXyNKdMITCy1kWHZDt8YcuUW58ScqDl1O1OA91bJWDzA+ylKc5KLoEXp3bbaG0OwX
-	 DYalaMsWbKsepuelgnp7mCqKOjf1muN/acvjJElCA9b1FKL2uvurt7yFAtMriKIVfE
-	 kn7rMftJQnIJS0Xrq/IfGv4MiTwzYt8Q/nJzH+UM=
+	b=c++Xh2V6ODlniHJ9WcYuzRY8XRzhhX008cT9kYKqPSzteBdT/h25JV0sHhq5yR4sK
+	 0f3LRP+76jfFnDJt3RVfsaigc/rfNxe6FkQsKIBW37UKurs4kX/vpqNEWCKLlIMDxr
+	 BRmP3VU4hkxwXBKPHHmhOl0a8Tjdv5N3/WLPYcWg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C605F8055B;
-	Wed,  8 Feb 2023 00:31:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 122E9F80224;
+	Wed,  8 Feb 2023 00:31:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A94CF80526; Wed,  8 Feb 2023 00:31:41 +0100 (CET)
+	id 7F307F80518; Wed,  8 Feb 2023 00:31:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -31,17 +31,17 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1D75F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 95C12F8010B
 	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:31:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1D75F80152
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95C12F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=T6om5oGS
+ header.a=rsa-sha256 header.s=mail header.b=RUA7d5rG
 Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
  [82.11.51.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -49,18 +49,18 @@ Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: tanureal)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 1D4696602090;
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 7435C66020A4;
 	Tue,  7 Feb 2023 16:25:38 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1675787138;
-	bh=hp7+RIW8t0DhnlPrsaa9bOGMIlvjoMtViuNy75rPkCg=;
+	bh=TiZq1Wii21IU0MryzQcGfwKXjljEku6Vg5b3YJnDQzE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=T6om5oGSoaBuk5i3e5uXbGBuH62ti3Anqox9E4aBwfC1NgDLqHudhjyZGO4WfXVeX
-	 P6G4K7562ru38HVf9zBYAHZP+ve5DxINWdKquM2gKQ7ZPU2jOX5nLd5eA5v+1ZB2de
-	 H3Skg6S3+BeLuivuxfYIMQ+Oy5Pp9jHvFo9KVMvzUrlnv6ZCxMEJyGJ4EkV3Y7spaJ
-	 YaPRrewqHZ1a1zoj12H9mFET4xvzQlqpvvQauD+jZJ/tdxtIO1h38AKeD9MF7E32vO
-	 xf7f9q330q8L2VKHaWbDC5P1pHH/0d7rdMhSL0YwrY+/PGJrs6m3e80fRAuuR0HuY/
-	 PnvUKLVFpUPPQ==
+	b=RUA7d5rGvd01jUB3MgQQGZggCf5/kKSQFCCeKbRAiSzOUxw1dtt/isSNLnKgJsEsB
+	 lf6F5fwj1zw3i2dyA7q2+fw1dk7JsbW27PPZM1t5NvkV7LYikY76Lu1yeJ0Nu+u8Ww
+	 t26l7LnwiJyuuIe8OymTF4y0jFOd5tnPC5ejpgYD5aM2RBXzgmGH1CIaiSuGpF1cvK
+	 YE/sSlpavBsbXv33OIudoQJgkcHApWj1P4Z5YvH1HNL157OOqaUIE5O6aDy7ePJVXF
+	 he40XSdBD9hJmpg6iy/m0gdSgU4xq6DODd+y/s7SHnouR1g3TLg3u3QLtu2UCZmTqL
+	 UEwj1PtQHcGwg==
 From: Lucas Tanure <lucas.tanure@collabora.com>
 To: David Rhodes <david.rhodes@cirrus.com>,
 	Charles Keepax <ckeepax@opensource.cirrus.com>,
@@ -70,16 +70,16 @@ To: David Rhodes <david.rhodes@cirrus.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 2/5] ASoC: cs35l41: Refactor error release code
-Date: Tue,  7 Feb 2023 16:25:23 +0000
-Message-Id: <20230207162526.1024286-3-lucas.tanure@collabora.com>
+Subject: [PATCH v2 3/5] ALSA: cs35l41: Add shared boost feature
+Date: Tue,  7 Feb 2023 16:25:24 +0000
+Message-Id: <20230207162526.1024286-4-lucas.tanure@collabora.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230207162526.1024286-1-lucas.tanure@collabora.com>
 References: <20230207162526.1024286-1-lucas.tanure@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OE7XJEQ6USNLWTREHX33EJP6XFY76TTT
-X-Message-ID-Hash: OE7XJEQ6USNLWTREHX33EJP6XFY76TTT
+Message-ID-Hash: OEKEVUT4IFYLPMEZR5G476U7ZIZAAZRW
+X-Message-ID-Hash: OEKEVUT4IFYLPMEZR5G476U7ZIZAAZRW
 X-MailFrom: lucas.tanure@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OE7XJEQ6USNLWTREHX33EJP6XFY76TTT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEKEVUT4IFYLPMEZR5G476U7ZIZAAZRW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,126 +104,292 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add cs35l41_error_release function to handle
-error release sequences.
+Shared boost allows two amplifiers to share a single boost
+circuit by communicating on the MDSYNC bus.
+The passive amplifier does not control the boost and receives
+data from the active amplifier.
+
+Shared Boost is not supported in HDA Systems.
+Based on David Rhodes shared boost patches.
 
 Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
 ---
- sound/soc/codecs/cs35l41.c | 64 ++++++++++----------------------------
- 1 file changed, 16 insertions(+), 48 deletions(-)
+ include/sound/cs35l41.h        | 10 +++++-
+ sound/pci/hda/cs35l41_hda.c    |  6 ++--
+ sound/soc/codecs/cs35l41-lib.c | 56 +++++++++++++++++++++++++++++++++-
+ sound/soc/codecs/cs35l41.c     | 27 ++++++++++++++--
+ sound/soc/codecs/cs35l41.h     |  1 +
+ 5 files changed, 93 insertions(+), 7 deletions(-)
 
+diff --git a/include/sound/cs35l41.h b/include/sound/cs35l41.h
+index 9ac5918269a5..a034ebe03a0e 100644
+--- a/include/sound/cs35l41.h
++++ b/include/sound/cs35l41.h
+@@ -11,6 +11,7 @@
+ #define __CS35L41_H
+ 
+ #include <linux/regmap.h>
++#include <linux/completion.h>
+ #include <linux/firmware/cirrus/cs_dsp.h>
+ 
+ #define CS35L41_FIRSTREG		0x00000000
+@@ -677,6 +678,7 @@
+ 
+ #define CS35L36_PUP_DONE_IRQ_UNMASK	0x5F
+ #define CS35L36_PUP_DONE_IRQ_MASK	0xBF
++#define CS35L41_SYNC_EN_MASK		BIT(8)
+ 
+ #define CS35L41_AMP_SHORT_ERR		0x80000000
+ #define CS35L41_BST_SHORT_ERR		0x0100
+@@ -686,6 +688,7 @@
+ #define CS35L41_BST_DCM_UVP_ERR		0x80
+ #define CS35L41_OTP_BOOT_DONE		0x02
+ #define CS35L41_PLL_UNLOCK		0x10
++#define CS35L41_PLL_LOCK		BIT(1)
+ #define CS35L41_OTP_BOOT_ERR		0x80000000
+ 
+ #define CS35L41_AMP_SHORT_ERR_RLS	0x02
+@@ -705,6 +708,8 @@
+ #define CS35L41_INT1_MASK_DEFAULT	0x7FFCFE3F
+ #define CS35L41_INT1_UNMASK_PUP		0xFEFFFFFF
+ #define CS35L41_INT1_UNMASK_PDN		0xFF7FFFFF
++#define CS35L41_INT3_PLL_LOCK_SHIFT	1
++#define CS35L41_INT3_PLL_LOCK_MASK	BIT(CS35L41_INT3_PLL_LOCK_SHIFT)
+ 
+ #define CS35L41_GPIO_DIR_MASK		0x80000000
+ #define CS35L41_GPIO_DIR_SHIFT		31
+@@ -743,6 +748,8 @@ enum cs35l41_boost_type {
+ 	CS35L41_INT_BOOST,
+ 	CS35L41_EXT_BOOST,
+ 	CS35L41_EXT_BOOST_NO_VSPK_SWITCH,
++	CS35L41_SHD_BOOST_ACTV,
++	CS35L41_SHD_BOOST_PASS,
+ };
+ 
+ enum cs35l41_clk_ids {
+@@ -891,6 +898,7 @@ int cs35l41_exit_hibernate(struct device *dev, struct regmap *regmap);
+ int cs35l41_init_boost(struct device *dev, struct regmap *regmap,
+ 		       struct cs35l41_hw_cfg *hw_cfg);
+ bool cs35l41_safe_reset(struct regmap *regmap, enum cs35l41_boost_type b_type);
+-int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable);
++int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable,
++			  struct completion *pll_lock);
+ 
+ #endif /* __CS35L41_H */
+diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+index f7815ee24f83..38c0079ef303 100644
+--- a/sound/pci/hda/cs35l41_hda.c
++++ b/sound/pci/hda/cs35l41_hda.c
+@@ -515,13 +515,13 @@ static void cs35l41_hda_playback_hook(struct device *dev, int action)
+ 		break;
+ 	case HDA_GEN_PCM_ACT_PREPARE:
+ 		mutex_lock(&cs35l41->fw_mutex);
+-		ret = cs35l41_global_enable(reg, cs35l41->hw_cfg.bst_type, 1);
++		ret = cs35l41_global_enable(reg, cs35l41->hw_cfg.bst_type, 1, NULL);
+ 		mutex_unlock(&cs35l41->fw_mutex);
+ 		break;
+ 	case HDA_GEN_PCM_ACT_CLEANUP:
+ 		mutex_lock(&cs35l41->fw_mutex);
+ 		regmap_multi_reg_write(reg, cs35l41_hda_mute, ARRAY_SIZE(cs35l41_hda_mute));
+-		ret = cs35l41_global_enable(reg, cs35l41->hw_cfg.bst_type, 0);
++		ret = cs35l41_global_enable(reg, cs35l41->hw_cfg.bst_type, 0, NULL);
+ 		mutex_unlock(&cs35l41->fw_mutex);
+ 		break;
+ 	case HDA_GEN_PCM_ACT_CLOSE:
+@@ -673,7 +673,7 @@ static int cs35l41_runtime_suspend(struct device *dev)
+ 	if (cs35l41->playback_started) {
+ 		regmap_multi_reg_write(cs35l41->regmap, cs35l41_hda_mute,
+ 				       ARRAY_SIZE(cs35l41_hda_mute));
+-		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 0);
++		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 0, NULL);
+ 		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
+ 				   CS35L41_AMP_EN_MASK, 0 << CS35L41_AMP_EN_SHIFT);
+ 		if (cs35l41->hw_cfg.bst_type == CS35L41_EXT_BOOST)
+diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
+index 04be71435491..138eb352551a 100644
+--- a/sound/soc/codecs/cs35l41-lib.c
++++ b/sound/soc/codecs/cs35l41-lib.c
+@@ -1114,12 +1114,31 @@ static const struct reg_sequence cs35l41_reset_to_safe[] = {
+ 	{ 0x00000040,			0x00000033 },
+ };
+ 
++static const struct reg_sequence cs35l41_actv_seq[] = {
++	/* SYNC_BST_CTL_RX_EN = 0; SYNC_BST_CTL_TX_EN = 1 */
++	{CS35L41_MDSYNC_EN,        0x00001000},
++	/* BST_CTL_SEL = CLASSH */
++	{CS35L41_BSTCVRT_VCTRL2,    0x00000001},
++};
++
++static const struct reg_sequence cs35l41_pass_seq[] = {
++	/* SYNC_BST_CTL_RX_EN = 1; SYNC_BST_CTL_TX_EN = 0 */
++	{CS35L41_MDSYNC_EN,        0x00002000},
++	/* BST_EN = 0 */
++	{CS35L41_PWR_CTRL2,        0x00003300},
++	/* BST_CTL_SEL = MDSYNC */
++	{CS35L41_BSTCVRT_VCTRL2,    0x00000002},
++};
++
+ int cs35l41_init_boost(struct device *dev, struct regmap *regmap,
+ 		       struct cs35l41_hw_cfg *hw_cfg)
+ {
+ 	int ret;
+ 
+ 	switch (hw_cfg->bst_type) {
++	case CS35L41_SHD_BOOST_ACTV:
++		regmap_multi_reg_write(regmap, cs35l41_actv_seq, ARRAY_SIZE(cs35l41_actv_seq));
++		fallthrough;
+ 	case CS35L41_INT_BOOST:
+ 		ret = cs35l41_boost_config(dev, regmap, hw_cfg->bst_ind,
+ 					   hw_cfg->bst_cap, hw_cfg->bst_ipk);
+@@ -1138,6 +1157,9 @@ int cs35l41_init_boost(struct device *dev, struct regmap *regmap,
+ 		ret = regmap_update_bits(regmap, CS35L41_PWR_CTRL2, CS35L41_BST_EN_MASK,
+ 					 CS35L41_BST_DIS_FET_OFF << CS35L41_BST_EN_SHIFT);
+ 		break;
++	case CS35L41_SHD_BOOST_PASS:
++		regmap_multi_reg_write(regmap, cs35l41_pass_seq, ARRAY_SIZE(cs35l41_pass_seq));
++		break;
+ 	default:
+ 		dev_err(dev, "Boost type %d not supported\n", hw_cfg->bst_type);
+ 		ret = -EINVAL;
+@@ -1165,11 +1187,43 @@ bool cs35l41_safe_reset(struct regmap *regmap, enum cs35l41_boost_type b_type)
+ }
+ EXPORT_SYMBOL_GPL(cs35l41_safe_reset);
+ 
+-int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable)
++int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable,
++			  struct completion *pll_lock)
+ {
+ 	int ret;
++	unsigned int gpio1;
+ 
+ 	switch (b_type) {
++	case CS35L41_SHD_BOOST_ACTV:
++	case CS35L41_SHD_BOOST_PASS:
++		regmap_update_bits(regmap, CS35L41_PWR_CTRL3, CS35L41_SYNC_EN_MASK, 0);
++
++		gpio1 = enable ? CS35L41_GPIO1_MDSYNC : CS35L41_GPIO1_HIZ;
++		regmap_update_bits(regmap, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO1_CTRL_MASK,
++				   gpio1 << CS35L41_GPIO1_CTRL_SHIFT);
++
++		ret = regmap_update_bits(regmap, CS35L41_PWR_CTRL1, CS35L41_GLOBAL_EN_MASK,
++					 enable << CS35L41_GLOBAL_EN_SHIFT);
++		usleep_range(3000, 3100);
++		if (!enable)
++			break;
++
++		if (!pll_lock)
++			return -EINVAL;
++
++		ret = wait_for_completion_timeout(pll_lock, msecs_to_jiffies(1000));
++		if (ret == 0) {
++			ret = -ETIMEDOUT;
++		} else {
++			regmap_update_bits(regmap, CS35L41_PWR_CTRL3, CS35L41_SYNC_EN_MASK, 0);
++			regmap_update_bits(regmap, CS35L41_PWR_CTRL1, CS35L41_GLOBAL_EN_MASK,
++								 0 << CS35L41_GLOBAL_EN_SHIFT);
++			usleep_range(3000, 3100);
++			regmap_update_bits(regmap, CS35L41_PWR_CTRL1, CS35L41_GLOBAL_EN_MASK,
++								 1 << CS35L41_GLOBAL_EN_SHIFT);
++			usleep_range(3000, 3100);
++		}
++		break;
+ 	case CS35L41_INT_BOOST:
+ 		ret = regmap_update_bits(regmap, CS35L41_PWR_CTRL1, CS35L41_GLOBAL_EN_MASK,
+ 					 enable << CS35L41_GLOBAL_EN_SHIFT);
 diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index f2b5032daa6a..c006364e5335 100644
+index c006364e5335..1624510d09c0 100644
 --- a/sound/soc/codecs/cs35l41.c
 +++ b/sound/soc/codecs/cs35l41.c
-@@ -369,6 +369,16 @@ static void cs35l41_boost_enable(struct cs35l41_private *cs35l41, unsigned int e
- 	}
- }
- 
-+
-+static void cs35l41_error_release(struct cs35l41_private *cs35l41, unsigned int irq_err_bit,
-+				  unsigned int rel_err_bit)
-+{
-+	regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1, irq_err_bit);
-+	regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
-+	regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, rel_err_bit, rel_err_bit);
-+	regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, rel_err_bit, 0);
-+}
-+
- static irqreturn_t cs35l41_irq(int irq, void *data)
+@@ -360,6 +360,7 @@ static void cs35l41_boost_enable(struct cs35l41_private *cs35l41, unsigned int e
  {
- 	struct cs35l41_private *cs35l41 = data;
-@@ -405,54 +415,26 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 	 */
- 	if (status[0] & CS35L41_AMP_SHORT_ERR) {
- 		dev_crit_ratelimited(cs35l41->dev, "Amp short error\n");
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_AMP_SHORT_ERR);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_AMP_SHORT_ERR_RLS,
--				   CS35L41_AMP_SHORT_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_AMP_SHORT_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_AMP_SHORT_ERR, CS35L41_AMP_SHORT_ERR_RLS);
+ 	switch (cs35l41->hw_cfg.bst_type) {
+ 	case CS35L41_INT_BOOST:
++	case CS35L41_SHD_BOOST_ACTV:
+ 		enable = enable ? CS35L41_BST_EN_DEFAULT : CS35L41_BST_DIS_FET_OFF;
+ 		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2, CS35L41_BST_EN_MASK,
+ 				enable << CS35L41_BST_EN_SHIFT);
+@@ -455,6 +456,12 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
  		ret = IRQ_HANDLED;
  	}
  
- 	if (status[0] & CS35L41_TEMP_WARN) {
- 		dev_crit_ratelimited(cs35l41->dev, "Over temperature warning\n");
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_TEMP_WARN);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_TEMP_WARN_ERR_RLS,
--				   CS35L41_TEMP_WARN_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_TEMP_WARN_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_TEMP_WARN, CS35L41_TEMP_WARN_ERR_RLS);
- 		ret = IRQ_HANDLED;
- 	}
++	if (status[2] & CS35L41_PLL_LOCK) {
++		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS3, CS35L41_PLL_LOCK);
++		complete(&cs35l41->pll_lock);
++		ret = IRQ_HANDLED;
++	}
++
+ done:
+ 	pm_runtime_mark_last_busy(cs35l41->dev);
+ 	pm_runtime_put_autosuspend(cs35l41->dev);
+@@ -492,10 +499,12 @@ static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
+ 						cs35l41_pup_patch,
+ 						ARRAY_SIZE(cs35l41_pup_patch));
  
- 	if (status[0] & CS35L41_TEMP_ERR) {
- 		dev_crit_ratelimited(cs35l41->dev, "Over temperature error\n");
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_TEMP_ERR);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_TEMP_ERR_RLS,
--				   CS35L41_TEMP_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_TEMP_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_TEMP_ERR, CS35L41_TEMP_ERR_RLS);
- 		ret = IRQ_HANDLED;
- 	}
+-		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 1);
++		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 1,
++				      &cs35l41->pll_lock);
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
+-		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 0);
++		cs35l41_global_enable(cs35l41->regmap, cs35l41->hw_cfg.bst_type, 0,
++				      &cs35l41->pll_lock);
  
- 	if (status[0] & CS35L41_BST_OVP_ERR) {
- 		dev_crit_ratelimited(cs35l41->dev, "VBST Over Voltage error\n");
- 		cs35l41_boost_enable(cs35l41, 0);
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_BST_OVP_ERR);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_OVP_ERR_RLS,
--				   CS35L41_BST_OVP_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_OVP_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_BST_OVP_ERR, CS35L41_BST_OVP_ERR_RLS);
- 		cs35l41_boost_enable(cs35l41, 1);
- 		ret = IRQ_HANDLED;
- 	}
-@@ -460,14 +442,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 	if (status[0] & CS35L41_BST_DCM_UVP_ERR) {
- 		dev_crit_ratelimited(cs35l41->dev, "DCM VBST Under Voltage Error\n");
- 		cs35l41_boost_enable(cs35l41, 0);
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_BST_DCM_UVP_ERR);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_UVP_ERR_RLS,
--				   CS35L41_BST_UVP_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_UVP_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_BST_DCM_UVP_ERR, CS35L41_BST_UVP_ERR_RLS);
- 		cs35l41_boost_enable(cs35l41, 1);
- 		ret = IRQ_HANDLED;
- 	}
-@@ -475,14 +450,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 	if (status[0] & CS35L41_BST_SHORT_ERR) {
- 		dev_crit_ratelimited(cs35l41->dev, "LBST error: powering off!\n");
- 		cs35l41_boost_enable(cs35l41, 0);
--		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
--			     CS35L41_BST_SHORT_ERR);
--		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_SHORT_ERR_RLS,
--				   CS35L41_BST_SHORT_ERR_RLS);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
--				   CS35L41_BST_SHORT_ERR_RLS, 0);
-+		cs35l41_error_release(cs35l41, CS35L41_BST_SHORT_ERR, CS35L41_BST_SHORT_ERR_RLS);
- 		cs35l41_boost_enable(cs35l41, 1);
- 		ret = IRQ_HANDLED;
- 	}
+ 		ret = regmap_read_poll_timeout(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+ 					       val, val &  CS35L41_PDN_DONE_MASK,
+@@ -802,6 +811,10 @@ static const struct snd_pcm_hw_constraint_list cs35l41_constraints = {
+ static int cs35l41_pcm_startup(struct snd_pcm_substream *substream,
+ 			       struct snd_soc_dai *dai)
+ {
++	struct cs35l41_private *cs35l41 = snd_soc_component_get_drvdata(dai->component);
++
++	reinit_completion(&cs35l41->pll_lock);
++
+ 	if (substream->runtime)
+ 		return snd_pcm_hw_constraint_list(substream->runtime, 0,
+ 						  SNDRV_PCM_HW_PARAM_RATE,
+@@ -1252,6 +1265,10 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
+ 	/* Set interrupt masks for critical errors */
+ 	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1,
+ 		     CS35L41_INT1_MASK_DEFAULT);
++	if (cs35l41->hw_cfg.bst_type == CS35L41_SHD_BOOST_PASS ||
++	    cs35l41->hw_cfg.bst_type == CS35L41_SHD_BOOST_ACTV)
++		regmap_update_bits(cs35l41->regmap, CS35L41_IRQ1_MASK3, CS35L41_INT3_PLL_LOCK_MASK,
++				   0 << CS35L41_INT3_PLL_LOCK_SHIFT);
+ 
+ 	ret = devm_request_threaded_irq(cs35l41->dev, cs35l41->irq, NULL, cs35l41_irq,
+ 					IRQF_ONESHOT | IRQF_SHARED | irq_pol,
+@@ -1275,6 +1292,8 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
+ 	if (ret < 0)
+ 		goto err;
+ 
++	init_completion(&cs35l41->pll_lock);
++
+ 	pm_runtime_set_autosuspend_delay(cs35l41->dev, 3000);
+ 	pm_runtime_use_autosuspend(cs35l41->dev);
+ 	pm_runtime_mark_last_busy(cs35l41->dev);
+@@ -1317,6 +1336,10 @@ void cs35l41_remove(struct cs35l41_private *cs35l41)
+ 	pm_runtime_disable(cs35l41->dev);
+ 
+ 	regmap_write(cs35l41->regmap, CS35L41_IRQ1_MASK1, 0xFFFFFFFF);
++	if (cs35l41->hw_cfg.bst_type == CS35L41_SHD_BOOST_PASS ||
++	    cs35l41->hw_cfg.bst_type == CS35L41_SHD_BOOST_ACTV)
++		regmap_update_bits(cs35l41->regmap, CS35L41_IRQ1_MASK3, CS35L41_INT3_PLL_LOCK_MASK,
++				   1 << CS35L41_INT3_PLL_LOCK_SHIFT);
+ 	kfree(cs35l41->dsp.system_name);
+ 	wm_adsp2_remove(&cs35l41->dsp);
+ 	cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type);
+diff --git a/sound/soc/codecs/cs35l41.h b/sound/soc/codecs/cs35l41.h
+index c85cbc1dd333..34d967d4372b 100644
+--- a/sound/soc/codecs/cs35l41.h
++++ b/sound/soc/codecs/cs35l41.h
+@@ -33,6 +33,7 @@ struct cs35l41_private {
+ 	int irq;
+ 	/* GPIO for /RST */
+ 	struct gpio_desc *reset_gpio;
++	struct completion pll_lock;
+ };
+ 
+ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *hw_cfg);
 -- 
 2.39.1
 

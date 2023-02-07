@@ -2,112 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D0F68CCDA
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 03:49:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA5368CF59
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 07:13:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FF2CF7;
-	Tue,  7 Feb 2023 03:48:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FF2CF7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EE60206;
+	Tue,  7 Feb 2023 07:12:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EE60206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675738180;
-	bh=dSMy3DQlJqeQY5OqS3iuTDkhHjtK4BRjXWrXFi/uji0=;
+	s=default; t=1675750385;
+	bh=QiUM1isd9ir2sYqendNnsfVCh0cI/CyXB+uL1gH0Yd8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=G9+k27XMWNbHuXGZgmd7CNVTsO6zT9q30pu9keQoVVISpNWZq8L+3RZjgNrQeiahX
-	 MnD6Qr9Pe4w6N7Zhg0tg3ApBiToed4QASEQX8z3of9SYdMOA95bGQVFKRV21Tcn0/2
-	 v8i2nXD6wtYMftNu1jLFzN8uOVBvBXh0GySJH2GU=
+	b=fX8vSOxMAiblc1Zr3DqxAU/kg0gEvi0+SzP+h4lu8bs2hl92rqt4e5KPQLlemt5PL
+	 UOQ3EC5FUkIsHIEyLlOEN61KUEk9R2AsOHuGRvGhq2/MncS0CAunasZtU8ZTg7HUuJ
+	 SCX1eMCBM+yhFqEH9kh4nEcFJVdjwv+KpsbiQKSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57908F8014C;
-	Tue,  7 Feb 2023 03:48:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D75CF804AA;
+	Tue,  7 Feb 2023 07:12:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25DD6F8045D; Tue,  7 Feb 2023 03:48:39 +0100 (CET)
+ id D98E1F8045D; Tue,  7 Feb 2023 07:11:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,
- RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::62c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03981F8014E
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 03:48:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03981F8014E
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=bH089nlk
-Received: by mail-ot1-x32d.google.com with SMTP id
- e21-20020a9d5615000000b006884e5dce99so3806028oti.5
- for <alsa-devel@alsa-project.org>; Mon, 06 Feb 2023 18:48:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:from:to:cc:subject:date:message-id:reply-to;
- bh=caqrxhzay3mKppVJOFKLbO06SUDxdUdgwwK4Eikrq+o=;
- b=bH089nlkTreKVHkiZa2crACt5xJ5s/P+zEaQ4knbhNTR9gd6X6nlQUBkk1J4fgHEeE
- h4GB+yBhCCFUB9u0a72qZiNqXcqwsbJ/NQszaNZQvmzdh7lV83oUlPW73pp09OyrBjvu
- ovqNwG8hldY+3k3L7s6RrQfth1J71vsiSQxKWqJ5Hro8N5nRFRMKLXx1/LZqQ7V09Bfg
- +uZcb5JrFYIFz1y2mTvcg+Uj3QoofqIX9LS4r+C4DnvltX4gAC5s2jC/Y67YSEZnQ7kF
- 1lBefHrYWgn3FTf3SnJTlYRArRPYYUYs4bbMfakPr2r7IKRnZfcv4E0OI3CNI3w64v2S
- tQOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=caqrxhzay3mKppVJOFKLbO06SUDxdUdgwwK4Eikrq+o=;
- b=TCBD8lFzaWdMfGD3CJjtBgt2ii3kjDhd8m1cIJZmF062UdHS+LmEJ8JcX0s6xFqYUD
- QMdyzhn+rdpw01xitYtTHswUH9pl88pRpFGQNpJgdf+i5eYlDkwijgylCXnMBNAW5QG3
- ap3obX3t88x32KEo3WY8P+hL8QJi0B0WixZQEL40GEL85dFFldYo+myYoHCH9f0Vz/0k
- Ycnh227U/qQtA9s55YkA2ARIKzUcEUfWkIc3KUfUjJx+bQdKgCZ4YYkdJ+eVBiTi9ne6
- Fvs7bHXeNu0XDRoNzwK8d7zc7GB3N8fXLqVHAehJLiAtPpnohYSk/hOgVir1EdmfFqCd
- sniA==
-X-Gm-Message-State: AO0yUKX1nOHvjcV4Y+l2MKbSUTaGDsMRoBTfJNjHkaWRkD1BaJ8OWCa4
- wiZTvZqstwV0rpm2nK+xpys=
-X-Google-Smtp-Source: AK7set9gWvkzZQcrkGmJxERTHD9VgrcyYi4keIZtMsESuITS5vtOx7F8GQq9HcaNIdBVAfCl/B3Ddg==
-X-Received: by 2002:a9d:1b09:0:b0:68b:c06f:5e67 with SMTP id
- l9-20020a9d1b09000000b0068bc06f5e67mr975323otl.37.1675738111402; 
- Mon, 06 Feb 2023 18:48:31 -0800 (PST)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- l5-20020a056808020500b0037834b1a20bsm5081181oie.0.2023.02.06.18.48.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 18:48:30 -0800 (PST)
-Message-ID: <a8a8990d-ac65-f980-2c96-610b54f4f7ef@roeck-us.net>
-Date: Mon, 6 Feb 2023 18:48:28 -0800
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C32EAF8014C
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 07:11:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C32EAF8014C
+Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=X3r2fz32
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EX5jRl0CWgoSNuT+dyIxvoYqXi/dox/9VDw2/ZaWTlMSRLMRKLNjhIVQrcdYxhoOOTfNCixjl4W4+V6HZx1WYISqbn/eI3b+7fsnkNQNMgdiI8DM529mOXU0ENbOphXXeqW/+RQV40S2/5icZ8+E/bMpRwKRxIWppYADuE+DWlKDS7TwwNl12vVib43HlgUEvt9i2Dow+NEOIWd2E6NevxiNM3SfoKyP4uCoUHZd81t5go2VuLDVguoN1/XTNsIQ7Y4WuRcMKXhzHoZjGaGjWe9XMR7rdeC2xQ2NiArB7j559nz/FT5zsr2JgsyETxW4Q2iiHssf3HqQx5X1xfJOkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PV6v/WkswbVjsPWdPZSOcb5/h7qKanj/McBDREErgfg=;
+ b=MJl4bjZkpXWhpThbEjbdVRdxHU7Ri/91ykk7f/WMTg4E2Xnu+ePspg/zq+wRF/delmFFleEkKbBm0vXgQ30HeHfPR10HJ5qEg7XVUxkTU8nd/Zjoqjy1JHEX9Q4AFnQ+XCn6anW/mLB9TreWxwY+xSOMD7wtokCdUsF8PFfF1NvGB9TUaVRyOSVvWzMki2/rBv6dCLuU/Yuam0lXFbmqNheh355xC9dVYQtffa2XvfSNi05v1qul0pCL0Ky3bvxeJa8VOvFz5Ezz+dY8jgUapxRXGIyrRtOzEQriRkDq0kkOgIvHvlZQKtBCJksyHkuT9/96lR/cq6VKhZ2knRTfaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PV6v/WkswbVjsPWdPZSOcb5/h7qKanj/McBDREErgfg=;
+ b=X3r2fz32ODtdx4hTLrGi2UmNRsGxnSKKcMJ2Gsuei3fqWdCBeAXhByES0aM3Mhx1F+shSnZflulsrrwnidU3I/PxL2+8mmH5QjUx/zDCGj47Lf47yWMzxk8s5v9Mb5qCAhMXI1AfeS5Y/NaC0LoSg1p+SlFyKAEywwolAqcRcUo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by SJ0PR12MB5663.namprd12.prod.outlook.com (2603:10b6:a03:42a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.32; Tue, 7 Feb
+ 2023 06:11:33 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6064.034; Tue, 7 Feb 2023
+ 06:11:33 +0000
+Message-ID: <21972585-503c-da7e-6b9c-bd6c0f01a882@amd.com>
+Date: Tue, 7 Feb 2023 11:44:16 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP
- headsets when playing music
+Subject: Re: [PATCH] soundwire: export sdw_compute_slave_ports() function
 Content-Language: en-US
-To: David Rau <david.rau.zg@renesas.com>, Mark Brown <broonie@kernel.org>
-References: <20230117195645.GA83401@roeck-us.net>
- <OS3PR01MB66416CEF9F6E5AE62D194BACCDC49@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <20230119161221.GA981953@roeck-us.net>
- <OS3PR01MB66416C10BF8E6400C84DAD02CDD09@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <38f09c4d-70d1-f65f-6e9b-4ad84eda4059@roeck-us.net>
- <Y9kE1cSUg2CQM5vq@sirena.org.uk> <20230202155101.GB1373010@roeck-us.net>
- <Y9vtIISfmpICi+9u@sirena.org.uk>
- <8f89eeac-b3ef-4137-80df-6cf044873b05@roeck-us.net>
- <Y9wQygzbFyOWl54r@sirena.org.uk> <20230204154222.GA877819@roeck-us.net>
- <OS3PR01MB6641CA1DB8524BCA0F9867D9CDDA9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
- <1ba5cedb-0f0f-69a9-96f0-d93ba060745e@roeck-us.net>
- <OS3PR01MB6641BD5C3B3BA89F82245627CDDB9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <OS3PR01MB6641BD5C3B3BA89F82245627CDDB9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, alsa-devel@alsa-project.org,
+ "vkoul@kernel.org" <vkoul@kernel.org>
+References: <20230201165944.3169125-1-Vijendar.Mukunda@amd.com>
+ <84adef23-fecf-76ec-c597-5f8b4be214da@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <84adef23-fecf-76ec-c597-5f8b4be214da@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::21) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SJ0PR12MB5663:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb8dfbf5-80a6-4e69-f4a2-08db08d21dcf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uhB2HPTb6GUfw5uuAO2Kw2XPNW3+Er8d3G6SLIZjM1agLP3clxjkREfOotpnPMsZzIL0smMe1QZy6zXYUpjLy7SZ3iEpqVsX/gIGixNA9o8QGY0EpshDy4yDzCRks9Fh8uv+jlg9hvEEM7qk1j8yKGKHpEOhQqXUAFdawbQYexi4xU1n1Bt2MeukakZxLxq+MvueLv2IgheWT/YeV5s9YCqJXsdmC4ySbLh1rCcVD2IL3I4+6R/qrH7EhdViKKu8I218Tzs4lAGH2F8tQ9eYgNg2hrZADV21cqyRpsD4JulKSrEOY2RhOMxtdm2epWN8Rfo83DLVGh7zOK6Lr1N2RfjOTHqz/Pgbve4B/oxF2BvyoEfquHrFGiCMX4txbRCYXrGnd5/wph+TytyPJeJ+BLsRiZuEVtOM947+78a3V/2DYgjArCQz/kV234q3M95k3InH2UZ9nRr4yNOb0cU4kQxMp9hk4IzonsKTYRck6Vyi6u+LdbueWiLCYUVB52L56vA+UvW67Poju0ANu0+VgFvwk8MIhkVkgOx61mhovyARXBM0n2k6MKJa0wAkj7A/cL2mpAmEA67ybie8Gp8rbWutRQcljCHbBBrxnhajKAUrJ3ZSRUofN4fnVFzWejhZoLRvTNagZ+Zb3ABUkNJ2OLtuElwn9yKzLG4pigpkWumxLkEntbxQ0RlI3TulvHelJ1EjEdXtt67xuz1/9H23RV1WBeFlpiTrraYrVWO7qJc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(451199018)(31696002)(54906003)(110136005)(8936002)(316002)(36756003)(86362001)(6666004)(186003)(478600001)(6486002)(6506007)(53546011)(2616005)(38100700002)(26005)(5660300002)(6512007)(2906002)(31686004)(83380400001)(41300700001)(8676002)(66946007)(66476007)(66556008)(4326008)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEMxK3cwbVFVQ3FseXIvRXVFc3gzMllxeXhmSHdFUmhXVjJGTUYyUDVSR3hj?=
+ =?utf-8?B?aDBSYUdMNzVBR2p4MkVWNkZCbGl5RktEN1ZwUU9WdlVDUG02RVBLUzVpWUtG?=
+ =?utf-8?B?MXZhQ2NSVVhBdzRmejF0bmpDTktyM0wvK3ZmZkhzcE1VdEVzaXNFYVgvdFlk?=
+ =?utf-8?B?UnA4WFRmZVptUlIzeHc3ajNZSWFrbXJoNGhJczhnMlNMUjdKL3pZNXc1VlA5?=
+ =?utf-8?B?UEdiSWtSUkI1OVdsS0hDM3N0UklUOGUwNllBSURGU3lHaFh4WGxSR2w0b2lY?=
+ =?utf-8?B?MHVGN1VPdktFVkZJL05zRFkydDRpZ2tCRHcySDJTdXlSMTdGalBqeGVrNll0?=
+ =?utf-8?B?eDJ2NTZib3hEMTc4bFZFSkovZXRiMjRPYzNqTUFrTXpTQncwMWxtZmxqaUJv?=
+ =?utf-8?B?S1NNa3Y4MnBwc0RMRTVJSUh4OHd4UFpGZWdNcEg1ZzNaZ2hZVTlxZkRsN3pu?=
+ =?utf-8?B?ZVZmWjlQUWR5MGJaSEZPKzhFSlNuSHZrOFpXWjN4ZGxyNHZ0Q1RNblZYc2ht?=
+ =?utf-8?B?WEtLQUI1MHoxWnFINGR2QW9Tb0FKdVRFSC9zTmlvVkRrMnFXWVIrWkVEejRV?=
+ =?utf-8?B?VGUrRmRxR0NvZjZZNy9MMEZNK2E4dTEvSFUwMnpRKzlYV1c3bHZXbE5vSVVF?=
+ =?utf-8?B?b0JPQ3Bid2tiQzRMWFdTZXRMb3NSUkNBWm1OT1R3UWlRc09ma3pRcklrQlNL?=
+ =?utf-8?B?cG9McTJCVm9kT0xQT3lPZmlJUFhmdC9lbmFqL1l0M0pEc1Q2UXg4RnZMMzRl?=
+ =?utf-8?B?UjFMWURBY2dtZmdiTUJaRWJpc0dsZ09GVnV6Ui9CZm9KYXRYT1lpM2p5ZllJ?=
+ =?utf-8?B?UWxQcVR3bmIra3ZOQUhJOTJHNEtwVWVxNWxFM3RCYkc5TGwzWUJUOHBwd1Jo?=
+ =?utf-8?B?T1hFY3dtdTRBdkZWT1hoVUtGOUk3b0JFd24vSkZUbW5YRlBqNzkvYklVWTUz?=
+ =?utf-8?B?emk0UzVHRFlZWnEwNUlIZ1JPVUpLcFp6RldGNEZMcGVPMnlQUytNUnlvcXVX?=
+ =?utf-8?B?RC9IL2JhWVpBV1Z0d1RSZ1gxZHVSeG1JSWlyTEl6K3U3b0RKWGFGOVhBcmhj?=
+ =?utf-8?B?U2Q3cm9jQmRwbmNKaWJjMVNMSHRTNXJ5ck5KZ3BpcGhVbCt3ZUpvU0ZURm92?=
+ =?utf-8?B?RjZhZkVQdGpmKzAwV2VvSU1lbzRLWDBNUjhDRVdnMy9qcWtMd243M1pLTlJu?=
+ =?utf-8?B?SFkvTlJOem0zdU5qUW4rc0lIZGlacHVTRmQ2aGxTYTV0TlNqWE9MR0FnWWc4?=
+ =?utf-8?B?Wk0rNmIyRThNWWVKaTVYcjAxMVAyVUtPTWZyQUZHNlN2cEFZRjRQMDl3Z3lt?=
+ =?utf-8?B?Y3FBTDc5dUl5TS92aGN3Q2xXeTdmRzRFZGRNdEQ0ekRmMGltbFVvOFJaZlV4?=
+ =?utf-8?B?dGJzZGVtem92bFFkMG1NNFEwYzR2TjJOQlJWSjV3cmY0TTNscUxxZTg1S2I4?=
+ =?utf-8?B?QkVXS05jNGN1UFJVeTZRbjNyY1d6TjVtMktsUU5xeTcwWGJseWZ2Mm9XRkFq?=
+ =?utf-8?B?bE1zTmJKdno4WGNtZlRzdysrakJnbUczWXpOSEd5eTdrQWdGVjJ4d1RtUEpk?=
+ =?utf-8?B?K3R4N3FkQ2YzQkpSVUVNYk9Mak9nY1JiNGgxSHZoOEVrV3lXQ1BBYTF3cnlr?=
+ =?utf-8?B?WHJJRlVORnhULzZ4blB4eEdCUnZxNWhPSUJxVnY0R2NienY3REQ5NFIyaHBL?=
+ =?utf-8?B?dVFVWFUrV3NMb0JBQ3R4c3ZKQkFaMkEvTHptaEpITVVpd3Jrb1FmekMySC9k?=
+ =?utf-8?B?T1ZBK1I2UW5GY29neE5BTUFDekpzV2NrUGdxd3QzMDhNb1pMNnJGZVFsc2Zo?=
+ =?utf-8?B?Z2NiUU5vNFo3bzRLV2FDc3pWV2dsZ2d2cC9nSnNMOWxKSVZVVzQ5MStsYmpT?=
+ =?utf-8?B?dkNidXJYa1lYOC8zTnNUK2JDRzRPeEE0OVd0TDc4bTQ2YzRTN0J5TmVWSmpv?=
+ =?utf-8?B?TzVsWlhTS0ZaTml1TWRMUHZ1VWpYS1lhMjF0bUxab2JSL01FUnpLSDBsSEN6?=
+ =?utf-8?B?YzFJa3ZIWGxEakIySEVyQmlrSXViVURWUTRxbm5FRU8wT1NudnhtWXZoQ2Yx?=
+ =?utf-8?B?TFlkMTBUOGdsNDFkZU5sWkdleEZRb1BBNEFxNHVLR2RyYTI3M3VDOXp3YklW?=
+ =?utf-8?Q?V/NAr9kLFLqRMR+4xihalPZcp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb8dfbf5-80a6-4e69-f4a2-08db08d21dcf
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 06:11:33.5511 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aOjHGcalCHXCtQBp2GkwRXrTKxBqF7UtAlGZkFZT+8Tugw8YHWN6vDBl45FPuHi6tbKg1fLm0bQw9yX1d+Fr3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5663
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,108 +157,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>
+Cc: Mastan.Katragadda@amd.com, Sunilkumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
+ Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/6/23 18:42, David Rau wrote:
-> 
-> 
-> -----Original Message-----
-> From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
-> Sent: Monday, February 6, 2023 22:05
-> To: David Rau <david.rau.zg@renesas.com>; Mark Brown <broonie@kernel.org>
-> Cc: perex@perex.cz; lgirdwood@gmail.com; tiwai@suse.com; support.opensource@diasemi.com; alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on OMTP headsets when playing music
-> 
-> On 2/5/23 21:38, David Rau wrote:
->>>
->>>
->>> -----Original Message-----
->>> From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
->>> Sent: Saturday, February 4, 2023 23:42
->>> To: Mark Brown <broonie@kernel.org>
->>> Cc: David Rau <david.rau.zg@renesas.com>; perex@perex.cz;
->>> lgirdwood@gmail.com; tiwai@suse.com; support.opensource@diasemi.com;
->>> alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
->>> Subject: Re: [PATCH] ASoC: da7219: Fix pole orientation detection on
->>> OMTP headsets when playing music
->>>
->>> On Thu, Feb 02, 2023 at 07:36:42PM +0000, Mark Brown wrote:
->>>>
->>>>>> they have the potential to actually lock up are the
->>>>>> cancel_work_sync() calls but they were unchanged and the backtrace
->>>>>> you showed was showing the thread in the msleep().  My guess would
->>>>>> be that you've got systems where there are very frequent jack
->>>>>> detection events (potentiallly with broken accessories, or possibly
->>>>>> due to the ground switch putting things into the wrong
->>>>>> priority) and that the interrupt is firing again as soon as the
->>>>>> thread unmasks the primary interrupt which means it never actually stops running.
->>>>
->>>>> That is what I strongly suspect is happening. I don't know why
->>>>> exactly the interrupt is firing continuously, but the hang is always in msleep().
->>>>> One possibility might be that the event is actually a disconnect
->>>>> event, and that enabling and immediately disabling the ground switch
->>>>> causes another interrupt, which is then handled immediately, causing the hang.
->>>>
->>>> Could be.  I'd be willing to guess that it's not just one event but
->>>> rather a stream of events of some kind.  Possibly if it's due to the
->>>> ground switch it's spuriously detecting a constant stream of button
->>>> presses for the affected systems, which don't produce any UI visible
->>>> result which would cause users to pull the accessory for whatever
->>>> reason?  Whatever's going on I bet it's broken accessories triggering it.
->>>>
->>>
->>> That seems to be unlikely. The average number of crashes per affected system is 1.92, which points to something the users are doing and less to a broken accessory.
->>>> We do observe crashes due to broken accessories, but in those cases the number of crashes per system tends to be much > higher.
->>>
->>>> Anyway, below is a patch with a possible fix. Of course, I still don't know what the patch originally tried to fix, so it might not do much if anything good.
->>> I added the software debouncing before insertion task to ensue the better compatibility of OMTP Jack.
->>>> For example, it keeps button detection in the interrupt handler to avoid dropping button events, so if spurious button detection as you suspected is indeed (part of) the problem we might still see a large number of interrupts.
->>>
->>>> Guenter
->>>>
->>> Thanks a lot for your big efforts to implement the temporary fix and verifications.
->>> Would you please let me know the average number of crashes per affected system if you rollback to the pervious fix?
->>> Ref:
->>> https://jpn01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.
->>> kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2
->>> Fcommit%2Fsound%2Fsoc%2Fcodecs%3Fid%3D2d969e8f35b1849a43156029a7a6e294
->>> 3b89d0c0&data=05%7C01%7Cdavid.rau.zg%40renesas.com%7Cae6910f8ff4e4e299
->>> bc408db084b1a2a%7C53d82571da1947e49cb4625a166a4a2a%7C0%7C0%7C638112890
->>> 873388020%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIi
->>> LCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=8KgHP%2FOD%2BTDcr
->>> rUVSATFkDCDDmhiCu7d5%2FKhyOszThA%3D&reserved=0
->>> https://jpn01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.
->>> kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2
->>> Fcommit%2Fsound%2Fsoc%2Fcodecs%3Fid%3D06f5882122e3faa183d76c4ec2c92f4c
->>> 38e2c7bb&data=05%7C01%7Cdavid.rau.zg%40renesas.com%7Cae6910f8ff4e4e299
->>> bc408db084b1a2a%7C53d82571da1947e49cb4625a166a4a2a%7C0%7C0%7C638112890
->>> 873388020%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIi
->>> LCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=WosfvANk0YxeJD5PG
->>> %2FnAuAWVqt7m4U3mMaYXefLLdS4%3D&reserved=0
->>>
-> 
->> You mean just keep the above two patches and revert 969357ec94e6 ?
->> Sure, I can do that, but feedback from the field would take some
->> 2-3 months. Is that what you recommend to do for now ?
-> 
->> Thanks,
->> Guenter
-> 
-> Thanks for the feedback.
-> What I mean is just do rollback to remove the "sleep" patch I did in your repository.
-> 
-> After the rollback, could you please let me know the average number of crashes per affected system with the same test conditions?
-> Will it still take some 2-3 months?
-> 
-
-Yes, due to our rollout schedules. Those are crashes observed in the field,
-after all.
-
-Guenter
+On 02/02/23 04:51, Pierre-Louis Bossart wrote:
+>
+> On 2/1/23 10:59, Vijendar Mukunda wrote:
+>> Export sdw_compute_slave_ports() function to use it in another
+>> soundwire manager module.
+>> Move sdw_transport_data structure to bus header file to export
+>> sdw_compute_slave_ports() function.
+>>
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>
+> If a specific platform has a need to modify parts of the bit allocation
+> but can reuse parts of the code, that's fine. The 'generic bandwidth
+> allocation' was meant to be a reference, not a one-size-fits-all solution.
+>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+We will use vkoul soundwire git repository as base and will post the
+patch.
+>> ---
+>>  drivers/soundwire/bus.h                          |  9 +++++++++
+>>  drivers/soundwire/generic_bandwidth_allocation.c | 12 +++---------
+>>  2 files changed, 12 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+>> index 7631ef5e71fb..141b99ac58de 100644
+>> --- a/drivers/soundwire/bus.h
+>> +++ b/drivers/soundwire/bus.h
+>> @@ -144,6 +144,13 @@ struct sdw_master_runtime {
+>>  	struct list_head bus_node;
+>>  };
+>>  
+>> +struct sdw_transport_data {
+>> +	int hstart;
+>> +	int hstop;
+>> +	int block_offset;
+>> +	int sub_block_offset;
+>> +};
+>> +
+>>  struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
+>>  					    enum sdw_data_direction direction,
+>>  					    unsigned int port_num);
+>> @@ -213,5 +220,7 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
+>>  
+>>  void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
+>>  int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
+>> +void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+>> +			     struct sdw_transport_data *t_data);
+>>  
+>>  #endif /* __SDW_BUS_H */
+>> diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+>> index f7c66083a4dd..39543048baa7 100644
+>> --- a/drivers/soundwire/generic_bandwidth_allocation.c
+>> +++ b/drivers/soundwire/generic_bandwidth_allocation.c
+>> @@ -28,15 +28,8 @@ struct sdw_group {
+>>  	unsigned int *rates;
+>>  };
+>>  
+>> -struct sdw_transport_data {
+>> -	int hstart;
+>> -	int hstop;
+>> -	int block_offset;
+>> -	int sub_block_offset;
+>> -};
+>> -
+>> -static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+>> -				    struct sdw_transport_data *t_data)
+>> +void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+>> +			     struct sdw_transport_data *t_data)
+>>  {
+>>  	struct sdw_slave_runtime *s_rt = NULL;
+>>  	struct sdw_port_runtime *p_rt;
+>> @@ -85,6 +78,7 @@ static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+>>  		}
+>>  	}
+>>  }
+>> +EXPORT_SYMBOL(sdw_compute_slave_ports);
+>>  
+>>  static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
+>>  				     struct sdw_group_params *params,
 

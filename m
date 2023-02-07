@@ -2,71 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA7A68D17A
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 09:32:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A0068D2D4
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 10:31:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF86F832;
-	Tue,  7 Feb 2023 09:31:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF86F832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 778D982C;
+	Tue,  7 Feb 2023 10:30:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 778D982C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675758735;
-	bh=oBXBvOXk3wOERFeUI3KqXN5jvBrlSly8gjeBLoQh8aQ=;
+	s=default; t=1675762274;
+	bh=Mb1FKRQwKMP7gGg6MSMYD0pJ1yeNk4inkYK3BWSdVoA=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=HBTz78DtVNW6InDE4I1596dCRcSiMQFmz+ew+f8xKEYh/aLzPDbxganzgTzxGLWsD
-	 0gW3HlYcVXde6b56f4U34UBu+ofxbtzEpmbq9Hxv65HQ+2jSxy07fd3UFH3vMFvWu9
-	 MFk64/dykm5RSEskaOb1UDXlFHO52DXoKtb6wcbY=
+	b=W+zi8ohbDmOchY1KKxJw1N7HsZytLQ15ySaR/jLZsSCE21qD4Rp1nKQxErSTGCeZ7
+	 lerRdvftg0ScD5LiSSI5Jjp2ID+jPgLSbpK9PvDTTAWJyyZWPZI+gAGG/VCeS6tjf7
+	 Ple8uh5not9K9jW9cXdvxVT1KqzX9LSyKlKzeLqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2BF0F804AA;
-	Tue,  7 Feb 2023 09:31:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E36FDF8014C;
+	Tue,  7 Feb 2023 10:30:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8C40F8045D; Tue,  7 Feb 2023 09:31:14 +0100 (CET)
+ id B9531F8045D; Tue,  7 Feb 2023 10:30:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+ SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
  autolearn_force=no version=3.4.6
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 352AFF8014C
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 09:31:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 352AFF8014C
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=AOGLN2M5
-Received: from localhost.localdomain (unknown [10.101.197.31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0425D428D4; 
- Tue,  7 Feb 2023 08:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1675758661;
- bh=RX8W3mFnoYHX95Y8s7hMAv7+ZHWXmRl7KuYFA5MlRDY=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=AOGLN2M5Ni06I7JCK+xzYUqtS38r+SuE5bCXX6mWylwZ6n5CieOUTkexGOiuiFlDd
- JRmihm4od3jkpJY5uKHuVvfHn324Lz7va8bM7dzg0VIsWBteprxCN8cNqes7V9Khot
- 8Ps/JyL4ov8h+dg7KxWXwTmvfbA0cq2HPHTxJEE/5u67Qwj17818OOSzQ8mT6PC0zs
- J1sZp9z+hgatpWlTuPMzJziZXqviUiwaTSCLvPKKKE6HecRQESJU6F7jLekQL8bqXh
- 6XG1oK9UM4CAYh2KQkGQ+ocbTcyk1qKLfSwnCAJdZkBMKggAI7AdJqcY2U6v++S8Uz
- oxbL6e/D2awhw==
-From: Andy Chi <andy.chi@canonical.com>
-To: 
-Subject: [PATCH] ALSA: hda/realtek: fix mute/micmute LEDs don't work for a HP
- platform.
-Date: Tue,  7 Feb 2023 16:30:09 +0800
-Message-Id: <20230207083011.100189-1-andy.chi@canonical.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67912F8014C
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 10:30:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67912F8014C
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 83126200301;
+ Tue,  7 Feb 2023 10:30:08 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4C8052013CC;
+ Tue,  7 Feb 2023 10:30:08 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id B4804183ABF0;
+ Tue,  7 Feb 2023 17:30:06 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: fsl_sai: fix getting version from VERID
+Date: Tue,  7 Feb 2023 17:04:24 +0800
+Message-Id: <1675760664-25193-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,40 +68,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
- alsa-devel@alsa-project.org, Yuchi Yang <yangyuchi66@gmail.com>,
- Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
- Gabriele Mazzotta <gabriele.mzt@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Tim Crawford <tcrawford@system76.com>, andy.chi@canonical.com,
- =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is a HP platform needs ALC236_FIXUP_HP_GPIO_LED quirk to
-make mic-mute/audio-mute working.
+The version information is at the bit31 ~ bit16 in the VERID
+register, so need to right shift 16bit to get it, otherwise
+the result of comparison "sai->verid.version >= 0x0301" is
+wrong.
 
-Signed-off-by: Andy Chi <andy.chi@canonical.com>
+Fixes: 99c1e74f25d4 ("ASoC: fsl_sai: store full version instead of major/minor")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/pci/hda/patch_realtek.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/fsl/fsl_sai.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4055a8f5880a..d1258dd803e8 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9433,6 +9433,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8b5d, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8b5e, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8b7d, "HP", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8b8a, "HP", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8b8b, "HP", ALC236_FIXUP_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8b8d, "HP", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index c365afd6c4ea..1b197478b3d9 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1142,6 +1142,7 @@ static int fsl_sai_check_version(struct device *dev)
+ 
+ 	sai->verid.version = val &
+ 		(FSL_SAI_VERID_MAJOR_MASK | FSL_SAI_VERID_MINOR_MASK);
++	sai->verid.version >>= FSL_SAI_VERID_MINOR_SHIFT;
+ 	sai->verid.feature = val & FSL_SAI_VERID_FEATURE_MASK;
+ 
+ 	ret = regmap_read(sai->regmap, FSL_SAI_PARAM, &val);
 -- 
 2.34.1
 

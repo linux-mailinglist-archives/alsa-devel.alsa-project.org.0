@@ -2,149 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA5368CF59
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 07:13:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9896668D055
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 08:15:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EE60206;
-	Tue,  7 Feb 2023 07:12:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EE60206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99A09204;
+	Tue,  7 Feb 2023 08:14:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99A09204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675750385;
-	bh=QiUM1isd9ir2sYqendNnsfVCh0cI/CyXB+uL1gH0Yd8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Cc:From;
-	b=fX8vSOxMAiblc1Zr3DqxAU/kg0gEvi0+SzP+h4lu8bs2hl92rqt4e5KPQLlemt5PL
-	 UOQ3EC5FUkIsHIEyLlOEN61KUEk9R2AsOHuGRvGhq2/MncS0CAunasZtU8ZTg7HUuJ
-	 SCX1eMCBM+yhFqEH9kh4nEcFJVdjwv+KpsbiQKSA=
+	s=default; t=1675754100;
+	bh=VnyDW5LruC5ilhH9TtQ1pEu00fWiNPXGnQS5VjXnfDw=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Cc:From;
+	b=GtHJVaAYt6r6FrG0xNiGWKmX1aP0bAA/0rjLlC10v0r3Y1oMLpJZUpWK+9Aqvla0y
+	 lVA5FZpNs+ZuQS7JNImhY3Lii1QM1E7o9lZAUqxddUBEinKcqZJFaOADkf5fHcdQse
+	 N0lrWOqoSkVqIGff8Ypcyvfc/IvtQLMNQdIEWz6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D75CF804AA;
-	Tue,  7 Feb 2023 07:12:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEE50F8014C;
+	Tue,  7 Feb 2023 08:14:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D98E1F8045D; Tue,  7 Feb 2023 07:11:53 +0100 (CET)
+ id A3B9BF8045D; Tue,  7 Feb 2023 08:13:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
- autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::62c])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::62a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C32EAF8014C
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 07:11:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C32EAF8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FA38F8014E
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 08:13:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA38F8014E
 Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=X3r2fz32
+ header.s=selector1 header.b=bPXp1/tt
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EX5jRl0CWgoSNuT+dyIxvoYqXi/dox/9VDw2/ZaWTlMSRLMRKLNjhIVQrcdYxhoOOTfNCixjl4W4+V6HZx1WYISqbn/eI3b+7fsnkNQNMgdiI8DM529mOXU0ENbOphXXeqW/+RQV40S2/5icZ8+E/bMpRwKRxIWppYADuE+DWlKDS7TwwNl12vVib43HlgUEvt9i2Dow+NEOIWd2E6NevxiNM3SfoKyP4uCoUHZd81t5go2VuLDVguoN1/XTNsIQ7Y4WuRcMKXhzHoZjGaGjWe9XMR7rdeC2xQ2NiArB7j559nz/FT5zsr2JgsyETxW4Q2iiHssf3HqQx5X1xfJOkQ==
+ b=jkKNCLKYAzCJHHxf1jPRmx6i11rpydmGnlM+USVTkmwW7pzRdncaDSx8OyPUYAu9pd0CsXCTmLcV3CmU3ys9TuIkHKJmWL6zeArXDWJ3Pt7ABWAmWLQtwyAk715UGJwXkWJYRdujrMhZogjTExdivCClScLmM2u19LxIFZ7x8ga3yiAo1brGX5XygqoKdHfQdIAHHjol/O5ltApsnkNxCS+FaIVFRjq+8PVFxdMmZHJXlt3eRlxfZ69aFv1P35fpGakaFljgLFF8hoEvysN8Cj1xGMeXFGRZaBco8E17lEuPMRRG6pttYDacTy0Tg576BQ/c2L7x7kulOcCEyRLAmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PV6v/WkswbVjsPWdPZSOcb5/h7qKanj/McBDREErgfg=;
- b=MJl4bjZkpXWhpThbEjbdVRdxHU7Ri/91ykk7f/WMTg4E2Xnu+ePspg/zq+wRF/delmFFleEkKbBm0vXgQ30HeHfPR10HJ5qEg7XVUxkTU8nd/Zjoqjy1JHEX9Q4AFnQ+XCn6anW/mLB9TreWxwY+xSOMD7wtokCdUsF8PFfF1NvGB9TUaVRyOSVvWzMki2/rBv6dCLuU/Yuam0lXFbmqNheh355xC9dVYQtffa2XvfSNi05v1qul0pCL0Ky3bvxeJa8VOvFz5Ezz+dY8jgUapxRXGIyrRtOzEQriRkDq0kkOgIvHvlZQKtBCJksyHkuT9/96lR/cq6VKhZ2knRTfaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ThjrIk1AmcpUcepBcD8FfoNqcnyKYININc+4TCz0DVM=;
+ b=IJS/3rN1hDZBw8OwTWBfQt5TiA7jxZEKuA0rauP/+ex5LnnFCnOjmFcDAtI/8hgTkph9IVY21tWPFl3oQUJBXew2ri+hRyop1OEFgUatnp+FvSwG3PT+1fYHQ2UXJ5rX4BrjuEwGMuQ7CQmTiDHNK+OTkIqhbOd9lPrR9kCFNfcjvCAYdDfbaBjKVMHtddJbHBWIM1MEmZLSHZljiqnWzlWzD2toMPso+1Go/iRF/Cx0AAo8Z/eD7xkqPeYfkHCzAAlaigdf+1JTF8PD5mRngWAhYQlsGE5IYqScYuZlvkSulcGNI0CnjpCo5xdFVdbr9YOUbz2gHNSqBQtjWHMFGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PV6v/WkswbVjsPWdPZSOcb5/h7qKanj/McBDREErgfg=;
- b=X3r2fz32ODtdx4hTLrGi2UmNRsGxnSKKcMJ2Gsuei3fqWdCBeAXhByES0aM3Mhx1F+shSnZflulsrrwnidU3I/PxL2+8mmH5QjUx/zDCGj47Lf47yWMzxk8s5v9Mb5qCAhMXI1AfeS5Y/NaC0LoSg1p+SlFyKAEywwolAqcRcUo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by SJ0PR12MB5663.namprd12.prod.outlook.com (2603:10b6:a03:42a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.32; Tue, 7 Feb
- 2023 06:11:33 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6064.034; Tue, 7 Feb 2023
- 06:11:33 +0000
-Message-ID: <21972585-503c-da7e-6b9c-bd6c0f01a882@amd.com>
-Date: Tue, 7 Feb 2023 11:44:16 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] soundwire: export sdw_compute_slave_ports() function
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, alsa-devel@alsa-project.org,
- "vkoul@kernel.org" <vkoul@kernel.org>
-References: <20230201165944.3169125-1-Vijendar.Mukunda@amd.com>
- <84adef23-fecf-76ec-c597-5f8b4be214da@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <84adef23-fecf-76ec-c597-5f8b4be214da@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:96::21) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ bh=ThjrIk1AmcpUcepBcD8FfoNqcnyKYININc+4TCz0DVM=;
+ b=bPXp1/tt0nwsfn9z36DgGxwT5L5WpWyD59p9Ki7QkslkWGSAVi8RVO0cix+62veYAvE4+Xfxa30UgxVedoLaT3qCScWWHm5pb+13X9S1N9LMjJN2ON+r/h+XKhlt1tvf3MxN5ZVbgHfMoU9GnTlNT9m3rJAFWSkKH8mjJ7b9+Ts=
+Received: from BN6PR17CA0049.namprd17.prod.outlook.com (2603:10b6:405:75::38)
+ by MW6PR12MB7071.namprd12.prod.outlook.com (2603:10b6:303:238::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Tue, 7 Feb
+ 2023 07:13:41 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:75:cafe::a4) by BN6PR17CA0049.outlook.office365.com
+ (2603:10b6:405:75::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.36 via Frontend
+ Transport; Tue, 7 Feb 2023 07:13:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6064.32 via Frontend Transport; Tue, 7 Feb 2023 07:13:40 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Feb
+ 2023 01:13:40 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Feb
+ 2023 01:13:39 -0600
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 7 Feb 2023 01:13:38 -0600
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+Subject: [PATCH] soundwire: export sdw_compute_slave_ports() function
+Date: Tue, 7 Feb 2023 12:46:44 +0530
+Message-ID: <20230207071644.3757-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SJ0PR12MB5663:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb8dfbf5-80a6-4e69-f4a2-08db08d21dcf
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|MW6PR12MB7071:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2ee4bfe-f557-4c3c-e5fd-08db08dad6fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uhB2HPTb6GUfw5uuAO2Kw2XPNW3+Er8d3G6SLIZjM1agLP3clxjkREfOotpnPMsZzIL0smMe1QZy6zXYUpjLy7SZ3iEpqVsX/gIGixNA9o8QGY0EpshDy4yDzCRks9Fh8uv+jlg9hvEEM7qk1j8yKGKHpEOhQqXUAFdawbQYexi4xU1n1Bt2MeukakZxLxq+MvueLv2IgheWT/YeV5s9YCqJXsdmC4ySbLh1rCcVD2IL3I4+6R/qrH7EhdViKKu8I218Tzs4lAGH2F8tQ9eYgNg2hrZADV21cqyRpsD4JulKSrEOY2RhOMxtdm2epWN8Rfo83DLVGh7zOK6Lr1N2RfjOTHqz/Pgbve4B/oxF2BvyoEfquHrFGiCMX4txbRCYXrGnd5/wph+TytyPJeJ+BLsRiZuEVtOM947+78a3V/2DYgjArCQz/kV234q3M95k3InH2UZ9nRr4yNOb0cU4kQxMp9hk4IzonsKTYRck6Vyi6u+LdbueWiLCYUVB52L56vA+UvW67Poju0ANu0+VgFvwk8MIhkVkgOx61mhovyARXBM0n2k6MKJa0wAkj7A/cL2mpAmEA67ybie8Gp8rbWutRQcljCHbBBrxnhajKAUrJ3ZSRUofN4fnVFzWejhZoLRvTNagZ+Zb3ABUkNJ2OLtuElwn9yKzLG4pigpkWumxLkEntbxQ0RlI3TulvHelJ1EjEdXtt67xuz1/9H23RV1WBeFlpiTrraYrVWO7qJc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(451199018)(31696002)(54906003)(110136005)(8936002)(316002)(36756003)(86362001)(6666004)(186003)(478600001)(6486002)(6506007)(53546011)(2616005)(38100700002)(26005)(5660300002)(6512007)(2906002)(31686004)(83380400001)(41300700001)(8676002)(66946007)(66476007)(66556008)(4326008)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: D9ERvBpFCf8T1imtDs8zUZvLULJrJAH4Qxor/9DgT4UP028RSLgvRxAl2QIPiYuyldP56e813ISy/a9jKW17XkT4H/Ty1F2IRf2BHwGkiHJY4cXOMGV+jYwGRSBAp1GSzqvsUkZZy9umRj0V2FFniNp6lE0y+mf0bi01wS4MsA0xSmOAbua8hd0ClZhy1E/4grRajquAQD0ob2QnvJx8eMRMBZSyP10K7GkYgY/kzeGCHQxwvw6gB/PJRnSJ62254BHEu48GIAqH+TOMDe4A+s2IGjhODO1zj1syoRu+LVlYrlgTqRbuwPx25xFfvTIlQdv7xuxMZDpMBKoH8Qqr+g7EeEOnzv9ktZxv53Q5rPDN/xJDYxZppLRn6ypZdmnkt5Vw01Ylo1mDmJs9qYZ1Iqx4Z4Wg7MtjA3lH1F2hHs9L0npjfZBjJY+1DAaI57RHFTFhRAvQ/rb1ONI95NADF4xEW9rCHPXtzhzocp2kHeWmbn7Gfbpi739ly65ZL/6PgHRmlFi3kLuphjxP89XQkTxVYg27/J/G7nhVPkmbn0pPICfWwEyHcyQGGdPs8tikoruzmDA0UBItoTq6e2JA+lRsxE2fwaxamwOQr6vMLnlFNTCi1JLNKmduLM3T1VrE4OZgxbyxHKZoLX+PTGEM6yDT3SXocZp/pWJdD7OaVJXseEaKeMyxRnrN0l1NMhpBE+uCXHKGhEbpio50XOyOQTuF/bTMFWDzThVPFJ+uxcs/temkIkU0epSrBLMVgbxTiw+HOokGlJlFLRiXotbebg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199018)(40470700004)(36840700001)(46966006)(40460700003)(36756003)(7696005)(478600001)(6666004)(316002)(54906003)(4326008)(1076003)(966005)(8676002)(8936002)(70206006)(2906002)(5660300002)(70586007)(6916009)(26005)(36860700001)(82740400003)(356005)(86362001)(40480700001)(81166007)(426003)(83380400001)(336012)(186003)(2616005)(41300700001)(82310400005)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEMxK3cwbVFVQ3FseXIvRXVFc3gzMllxeXhmSHdFUmhXVjJGTUYyUDVSR3hj?=
- =?utf-8?B?aDBSYUdMNzVBR2p4MkVWNkZCbGl5RktEN1ZwUU9WdlVDUG02RVBLUzVpWUtG?=
- =?utf-8?B?MXZhQ2NSVVhBdzRmejF0bmpDTktyM0wvK3ZmZkhzcE1VdEVzaXNFYVgvdFlk?=
- =?utf-8?B?UnA4WFRmZVptUlIzeHc3ajNZSWFrbXJoNGhJczhnMlNMUjdKL3pZNXc1VlA5?=
- =?utf-8?B?UEdiSWtSUkI1OVdsS0hDM3N0UklUOGUwNllBSURGU3lHaFh4WGxSR2w0b2lY?=
- =?utf-8?B?MHVGN1VPdktFVkZJL05zRFkydDRpZ2tCRHcySDJTdXlSMTdGalBqeGVrNll0?=
- =?utf-8?B?eDJ2NTZib3hEMTc4bFZFSkovZXRiMjRPYzNqTUFrTXpTQncwMWxtZmxqaUJv?=
- =?utf-8?B?S1NNa3Y4MnBwc0RMRTVJSUh4OHd4UFpGZWdNcEg1ZzNaZ2hZVTlxZkRsN3pu?=
- =?utf-8?B?ZVZmWjlQUWR5MGJaSEZPKzhFSlNuSHZrOFpXWjN4ZGxyNHZ0Q1RNblZYc2ht?=
- =?utf-8?B?WEtLQUI1MHoxWnFINGR2QW9Tb0FKdVRFSC9zTmlvVkRrMnFXWVIrWkVEejRV?=
- =?utf-8?B?VGUrRmRxR0NvZjZZNy9MMEZNK2E4dTEvSFUwMnpRKzlYV1c3bHZXbE5vSVVF?=
- =?utf-8?B?b0JPQ3Bid2tiQzRMWFdTZXRMb3NSUkNBWm1OT1R3UWlRc09ma3pRcklrQlNL?=
- =?utf-8?B?cG9McTJCVm9kT0xQT3lPZmlJUFhmdC9lbmFqL1l0M0pEc1Q2UXg4RnZMMzRl?=
- =?utf-8?B?UjFMWURBY2dtZmdiTUJaRWJpc0dsZ09GVnV6Ui9CZm9KYXRYT1lpM2p5ZllJ?=
- =?utf-8?B?UWxQcVR3bmIra3ZOQUhJOTJHNEtwVWVxNWxFM3RCYkc5TGwzWUJUOHBwd1Jo?=
- =?utf-8?B?T1hFY3dtdTRBdkZWT1hoVUtGOUk3b0JFd24vSkZUbW5YRlBqNzkvYklVWTUz?=
- =?utf-8?B?emk0UzVHRFlZWnEwNUlIZ1JPVUpLcFp6RldGNEZMcGVPMnlQUytNUnlvcXVX?=
- =?utf-8?B?RC9IL2JhWVpBV1Z0d1RSZ1gxZHVSeG1JSWlyTEl6K3U3b0RKWGFGOVhBcmhj?=
- =?utf-8?B?U2Q3cm9jQmRwbmNKaWJjMVNMSHRTNXJ5ck5KZ3BpcGhVbCt3ZUpvU0ZURm92?=
- =?utf-8?B?RjZhZkVQdGpmKzAwV2VvSU1lbzRLWDBNUjhDRVdnMy9qcWtMd243M1pLTlJu?=
- =?utf-8?B?SFkvTlJOem0zdU5qUW4rc0lIZGlacHVTRmQ2aGxTYTV0TlNqWE9MR0FnWWc4?=
- =?utf-8?B?Wk0rNmIyRThNWWVKaTVYcjAxMVAyVUtPTWZyQUZHNlN2cEFZRjRQMDl3Z3lt?=
- =?utf-8?B?Y3FBTDc5dUl5TS92aGN3Q2xXeTdmRzRFZGRNdEQ0ekRmMGltbFVvOFJaZlV4?=
- =?utf-8?B?dGJzZGVtem92bFFkMG1NNFEwYzR2TjJOQlJWSjV3cmY0TTNscUxxZTg1S2I4?=
- =?utf-8?B?QkVXS05jNGN1UFJVeTZRbjNyY1d6TjVtMktsUU5xeTcwWGJseWZ2Mm9XRkFq?=
- =?utf-8?B?bE1zTmJKdno4WGNtZlRzdysrakJnbUczWXpOSEd5eTdrQWdGVjJ4d1RtUEpk?=
- =?utf-8?B?K3R4N3FkQ2YzQkpSVUVNYk9Mak9nY1JiNGgxSHZoOEVrV3lXQ1BBYTF3cnlr?=
- =?utf-8?B?WHJJRlVORnhULzZ4blB4eEdCUnZxNWhPSUJxVnY0R2NienY3REQ5NFIyaHBL?=
- =?utf-8?B?dVFVWFUrV3NMb0JBQ3R4c3ZKQkFaMkEvTHptaEpITVVpd3Jrb1FmekMySC9k?=
- =?utf-8?B?T1ZBK1I2UW5GY29neE5BTUFDekpzV2NrUGdxd3QzMDhNb1pMNnJGZVFsc2Zo?=
- =?utf-8?B?Z2NiUU5vNFo3bzRLV2FDc3pWV2dsZ2d2cC9nSnNMOWxKSVZVVzQ5MStsYmpT?=
- =?utf-8?B?dkNidXJYa1lYOC8zTnNUK2JDRzRPeEE0OVd0TDc4bTQ2YzRTN0J5TmVWSmpv?=
- =?utf-8?B?TzVsWlhTS0ZaTml1TWRMUHZ1VWpYS1lhMjF0bUxab2JSL01FUnpLSDBsSEN6?=
- =?utf-8?B?YzFJa3ZIWGxEakIySEVyQmlrSXViVURWUTRxbm5FRU8wT1NudnhtWXZoQ2Yx?=
- =?utf-8?B?TFlkMTBUOGdsNDFkZU5sWkdleEZRb1BBNEFxNHVLR2RyYTI3M3VDOXp3YklW?=
- =?utf-8?Q?V/NAr9kLFLqRMR+4xihalPZcp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb8dfbf5-80a6-4e69-f4a2-08db08d21dcf
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 06:11:33.5511 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 07:13:40.5666 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2ee4bfe-f557-4c3c-e5fd-08db08dad6fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aOjHGcalCHXCtQBp2GkwRXrTKxBqF7UtAlGZkFZT+8Tugw8YHWN6vDBl45FPuHi6tbKg1fLm0bQw9yX1d+Fr3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5663
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7071
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,90 +131,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: Mastan.Katragadda@amd.com, Sunilkumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, open list <linux-kernel@vger.kernel.org>,
- Mario.Limonciello@amd.com, arungopal.kondaveeti@amd.com,
+Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, pierre-louis.bossart@linux.intel.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
  Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard Liao <yung-chuan.liao@linux.intel.com>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02/02/23 04:51, Pierre-Louis Bossart wrote:
->
-> On 2/1/23 10:59, Vijendar Mukunda wrote:
->> Export sdw_compute_slave_ports() function to use it in another
->> soundwire manager module.
->> Move sdw_transport_data structure to bus header file to export
->> sdw_compute_slave_ports() function.
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->
-> If a specific platform has a need to modify parts of the bit allocation
-> but can reuse parts of the code, that's fine. The 'generic bandwidth
-> allocation' was meant to be a reference, not a one-size-fits-all solution.
->
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-We will use vkoul soundwire git repository as base and will post the
-patch.
->> ---
->>  drivers/soundwire/bus.h                          |  9 +++++++++
->>  drivers/soundwire/generic_bandwidth_allocation.c | 12 +++---------
->>  2 files changed, 12 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
->> index 7631ef5e71fb..141b99ac58de 100644
->> --- a/drivers/soundwire/bus.h
->> +++ b/drivers/soundwire/bus.h
->> @@ -144,6 +144,13 @@ struct sdw_master_runtime {
->>  	struct list_head bus_node;
->>  };
->>  
->> +struct sdw_transport_data {
->> +	int hstart;
->> +	int hstop;
->> +	int block_offset;
->> +	int sub_block_offset;
->> +};
->> +
->>  struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
->>  					    enum sdw_data_direction direction,
->>  					    unsigned int port_num);
->> @@ -213,5 +220,7 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
->>  
->>  void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
->>  int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
->> +void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
->> +			     struct sdw_transport_data *t_data);
->>  
->>  #endif /* __SDW_BUS_H */
->> diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
->> index f7c66083a4dd..39543048baa7 100644
->> --- a/drivers/soundwire/generic_bandwidth_allocation.c
->> +++ b/drivers/soundwire/generic_bandwidth_allocation.c
->> @@ -28,15 +28,8 @@ struct sdw_group {
->>  	unsigned int *rates;
->>  };
->>  
->> -struct sdw_transport_data {
->> -	int hstart;
->> -	int hstop;
->> -	int block_offset;
->> -	int sub_block_offset;
->> -};
->> -
->> -static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
->> -				    struct sdw_transport_data *t_data)
->> +void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
->> +			     struct sdw_transport_data *t_data)
->>  {
->>  	struct sdw_slave_runtime *s_rt = NULL;
->>  	struct sdw_port_runtime *p_rt;
->> @@ -85,6 +78,7 @@ static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
->>  		}
->>  	}
->>  }
->> +EXPORT_SYMBOL(sdw_compute_slave_ports);
->>  
->>  static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
->>  				     struct sdw_group_params *params,
+Export sdw_compute_slave_ports() function to use it in another
+soundwire manager module.
+Move sdw_transport_data structure to bus header file to export
+sdw_compute_slave_ports() function.
+
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/lkml/20230201165944.3169125-1-Vijendar.Mukunda@amd.com
+---
+ drivers/soundwire/bus.h                          |  9 +++++++++
+ drivers/soundwire/generic_bandwidth_allocation.c | 12 +++---------
+ 2 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 7631ef5e71fb..141b99ac58de 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -144,6 +144,13 @@ struct sdw_master_runtime {
+ 	struct list_head bus_node;
+ };
+ 
++struct sdw_transport_data {
++	int hstart;
++	int hstop;
++	int block_offset;
++	int sub_block_offset;
++};
++
+ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
+ 					    enum sdw_data_direction direction,
+ 					    unsigned int port_num);
+@@ -213,5 +220,7 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
+ 
+ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
+ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
++void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
++			     struct sdw_transport_data *t_data);
+ 
+ #endif /* __SDW_BUS_H */
+diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+index f7c66083a4dd..39543048baa7 100644
+--- a/drivers/soundwire/generic_bandwidth_allocation.c
++++ b/drivers/soundwire/generic_bandwidth_allocation.c
+@@ -28,15 +28,8 @@ struct sdw_group {
+ 	unsigned int *rates;
+ };
+ 
+-struct sdw_transport_data {
+-	int hstart;
+-	int hstop;
+-	int block_offset;
+-	int sub_block_offset;
+-};
+-
+-static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+-				    struct sdw_transport_data *t_data)
++void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
++			     struct sdw_transport_data *t_data)
+ {
+ 	struct sdw_slave_runtime *s_rt = NULL;
+ 	struct sdw_port_runtime *p_rt;
+@@ -85,6 +78,7 @@ static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
+ 		}
+ 	}
+ }
++EXPORT_SYMBOL(sdw_compute_slave_ports);
+ 
+ static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
+ 				     struct sdw_group_params *params,
+-- 
+2.34.1
 

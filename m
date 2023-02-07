@@ -2,123 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9896668D055
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 08:15:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0302268D12C
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 09:01:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99A09204;
-	Tue,  7 Feb 2023 08:14:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99A09204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63EAB1DE;
+	Tue,  7 Feb 2023 09:01:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63EAB1DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675754100;
-	bh=VnyDW5LruC5ilhH9TtQ1pEu00fWiNPXGnQS5VjXnfDw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:Cc:From;
-	b=GtHJVaAYt6r6FrG0xNiGWKmX1aP0bAA/0rjLlC10v0r3Y1oMLpJZUpWK+9Aqvla0y
-	 lVA5FZpNs+ZuQS7JNImhY3Lii1QM1E7o9lZAUqxddUBEinKcqZJFaOADkf5fHcdQse
-	 N0lrWOqoSkVqIGff8Ypcyvfc/IvtQLMNQdIEWz6A=
+	s=default; t=1675756913;
+	bh=/TvDgivwfzXR4eor6oGjM02JabWx1PoviK9AyE7ZjxQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 Cc:From;
+	b=fniiqGfCdFea6l9sjiallE5fnS7O8sZmFNapP1WeIT1Cu3oV/Ra+IGRxtTFzUGoXW
+	 YLVBgY3tq4eUumJ81EH4Bjbr6rR2yzPgoiqN9AtO9sSHLI3kKIE4YXnBzoKfwFaof1
+	 YSUgV9kafA/3MNYDYVxQMkj+GjVy//WqgqCJytxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEE50F8014C;
-	Tue,  7 Feb 2023 08:14:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2622BF804AA;
+	Tue,  7 Feb 2023 09:00:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3B9BF8045D; Tue,  7 Feb 2023 08:13:58 +0100 (CET)
+ id 6D324F8045D; Tue,  7 Feb 2023 09:00:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
- version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+ shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FA38F8014E
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 08:13:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA38F8014E
-Authentication-Results: alsa1.perex.cz; dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=bPXp1/tt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jkKNCLKYAzCJHHxf1jPRmx6i11rpydmGnlM+USVTkmwW7pzRdncaDSx8OyPUYAu9pd0CsXCTmLcV3CmU3ys9TuIkHKJmWL6zeArXDWJ3Pt7ABWAmWLQtwyAk715UGJwXkWJYRdujrMhZogjTExdivCClScLmM2u19LxIFZ7x8ga3yiAo1brGX5XygqoKdHfQdIAHHjol/O5ltApsnkNxCS+FaIVFRjq+8PVFxdMmZHJXlt3eRlxfZ69aFv1P35fpGakaFljgLFF8hoEvysN8Cj1xGMeXFGRZaBco8E17lEuPMRRG6pttYDacTy0Tg576BQ/c2L7x7kulOcCEyRLAmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ThjrIk1AmcpUcepBcD8FfoNqcnyKYININc+4TCz0DVM=;
- b=IJS/3rN1hDZBw8OwTWBfQt5TiA7jxZEKuA0rauP/+ex5LnnFCnOjmFcDAtI/8hgTkph9IVY21tWPFl3oQUJBXew2ri+hRyop1OEFgUatnp+FvSwG3PT+1fYHQ2UXJ5rX4BrjuEwGMuQ7CQmTiDHNK+OTkIqhbOd9lPrR9kCFNfcjvCAYdDfbaBjKVMHtddJbHBWIM1MEmZLSHZljiqnWzlWzD2toMPso+1Go/iRF/Cx0AAo8Z/eD7xkqPeYfkHCzAAlaigdf+1JTF8PD5mRngWAhYQlsGE5IYqScYuZlvkSulcGNI0CnjpCo5xdFVdbr9YOUbz2gHNSqBQtjWHMFGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ThjrIk1AmcpUcepBcD8FfoNqcnyKYININc+4TCz0DVM=;
- b=bPXp1/tt0nwsfn9z36DgGxwT5L5WpWyD59p9Ki7QkslkWGSAVi8RVO0cix+62veYAvE4+Xfxa30UgxVedoLaT3qCScWWHm5pb+13X9S1N9LMjJN2ON+r/h+XKhlt1tvf3MxN5ZVbgHfMoU9GnTlNT9m3rJAFWSkKH8mjJ7b9+Ts=
-Received: from BN6PR17CA0049.namprd17.prod.outlook.com (2603:10b6:405:75::38)
- by MW6PR12MB7071.namprd12.prod.outlook.com (2603:10b6:303:238::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Tue, 7 Feb
- 2023 07:13:41 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:75:cafe::a4) by BN6PR17CA0049.outlook.office365.com
- (2603:10b6:405:75::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.36 via Frontend
- Transport; Tue, 7 Feb 2023 07:13:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.32 via Frontend Transport; Tue, 7 Feb 2023 07:13:40 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Feb
- 2023 01:13:40 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Feb
- 2023 01:13:39 -0600
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 7 Feb 2023 01:13:38 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-Subject: [PATCH] soundwire: export sdw_compute_slave_ports() function
-Date: Tue, 7 Feb 2023 12:46:44 +0530
-Message-ID: <20230207071644.3757-1-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83546F800E3
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 09:00:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83546F800E3
+Received: by mail-qt1-f173.google.com with SMTP id m12so15808478qth.4
+ for <alsa-devel@alsa-project.org>; Tue, 07 Feb 2023 00:00:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Mex+jfAmaUpIUDmTe8kPqw4pgJV7GY+mCAfjiClmLdg=;
+ b=Vx4+wVhMs+kqKhFDdsjTSOsr4Kq8TwbvZupxlLOH1GKNDEP28DuMtcTe/FZe+Xp/QV
+ uPKejWIo5MJwY6gPuUUyN8dDng3PbQ6RvQ+xhzfTMIOgB46oIsvHYSsUi6+ENqAmFZ29
+ RvtE8zZqtPdHww2aD3v8p4eqxnUk+FZZMwBgBLLkBLbjycPHOnMSX7mqYfEnm2uyIDWk
+ kkIx6nIoCQ0ivK9eBGmrMuT0qtrFPRuyYvksOTmzvI9M2CzdDb5ADRDHF8gIgzFMD7JN
+ g8OK1Nhdca2qIIz2cxdLHH1gr6hyaSoehCJjRL0uWYmqlPiG001k24Jc/ITnQ1azOYqp
+ jdSg==
+X-Gm-Message-State: AO0yUKUiBRsFnwJcGta4AdJgJKvMZTHQZAdDV5PEPHvT8lVvXbSCLt6y
+ g5nxZzA7YVn5VyQKY4yfk74zpnOVhk4lHQ==
+X-Google-Smtp-Source: AK7set/DbPx9/CYWacleXHNv4BV7+Da8G69mXkqzsQCp+iPkHZaMR3WKK9z97cmyjSh2lfTJ0FSdhw==
+X-Received: by 2002:a05:622a:1a0c:b0:3b8:ea9b:cbc6 with SMTP id
+ f12-20020a05622a1a0c00b003b8ea9bcbc6mr3850126qtb.56.1675756824413; 
+ Tue, 07 Feb 2023 00:00:24 -0800 (PST)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
+ [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
+ m15-20020ac85b0f000000b003a591194221sm9147522qtw.7.2023.02.07.00.00.23
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Feb 2023 00:00:24 -0800 (PST)
+Received: by mail-yb1-f179.google.com with SMTP id d132so17498986ybb.5
+ for <alsa-devel@alsa-project.org>; Tue, 07 Feb 2023 00:00:23 -0800 (PST)
+X-Received: by 2002:a25:eb04:0:b0:7b4:6a33:d89f with SMTP id
+ d4-20020a25eb04000000b007b46a33d89fmr204752ybs.543.1675756823230; Tue, 07 Feb
+ 2023 00:00:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|MW6PR12MB7071:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2ee4bfe-f557-4c3c-e5fd-08db08dad6fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: D9ERvBpFCf8T1imtDs8zUZvLULJrJAH4Qxor/9DgT4UP028RSLgvRxAl2QIPiYuyldP56e813ISy/a9jKW17XkT4H/Ty1F2IRf2BHwGkiHJY4cXOMGV+jYwGRSBAp1GSzqvsUkZZy9umRj0V2FFniNp6lE0y+mf0bi01wS4MsA0xSmOAbua8hd0ClZhy1E/4grRajquAQD0ob2QnvJx8eMRMBZSyP10K7GkYgY/kzeGCHQxwvw6gB/PJRnSJ62254BHEu48GIAqH+TOMDe4A+s2IGjhODO1zj1syoRu+LVlYrlgTqRbuwPx25xFfvTIlQdv7xuxMZDpMBKoH8Qqr+g7EeEOnzv9ktZxv53Q5rPDN/xJDYxZppLRn6ypZdmnkt5Vw01Ylo1mDmJs9qYZ1Iqx4Z4Wg7MtjA3lH1F2hHs9L0npjfZBjJY+1DAaI57RHFTFhRAvQ/rb1ONI95NADF4xEW9rCHPXtzhzocp2kHeWmbn7Gfbpi739ly65ZL/6PgHRmlFi3kLuphjxP89XQkTxVYg27/J/G7nhVPkmbn0pPICfWwEyHcyQGGdPs8tikoruzmDA0UBItoTq6e2JA+lRsxE2fwaxamwOQr6vMLnlFNTCi1JLNKmduLM3T1VrE4OZgxbyxHKZoLX+PTGEM6yDT3SXocZp/pWJdD7OaVJXseEaKeMyxRnrN0l1NMhpBE+uCXHKGhEbpio50XOyOQTuF/bTMFWDzThVPFJ+uxcs/temkIkU0epSrBLMVgbxTiw+HOokGlJlFLRiXotbebg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199018)(40470700004)(36840700001)(46966006)(40460700003)(36756003)(7696005)(478600001)(6666004)(316002)(54906003)(4326008)(1076003)(966005)(8676002)(8936002)(70206006)(2906002)(5660300002)(70586007)(6916009)(26005)(36860700001)(82740400003)(356005)(86362001)(40480700001)(81166007)(426003)(83380400001)(336012)(186003)(2616005)(41300700001)(82310400005)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 07:13:40.5666 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2ee4bfe-f557-4c3c-e5fd-08db08dad6fe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7071
+References: <87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 7 Feb 2023 09:00:11 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
+Message-ID: <CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/2] ASoC: dt-bindings: renesas,rsnd.yaml: adjust to
+ R-Car Gen4
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,83 +94,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>, pierre-louis.bossart@linux.intel.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Export sdw_compute_slave_ports() function to use it in another
-soundwire manager module.
-Move sdw_transport_data structure to bus header file to export
-sdw_compute_slave_ports() function.
+Hi Morimoto-san,
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/lkml/20230201165944.3169125-1-Vijendar.Mukunda@amd.com
----
- drivers/soundwire/bus.h                          |  9 +++++++++
- drivers/soundwire/generic_bandwidth_allocation.c | 12 +++---------
- 2 files changed, 12 insertions(+), 9 deletions(-)
+On Tue, Feb 7, 2023 at 2:12 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> This is [RFC] patches.
+>
+> This patch-set adjust to R-Car Gen4 on renesas,rsnd.yaml.
+> It works and no error reported.
+> But by this patch, non-Gen4 leaks from "ssi-[0-9]" checking.
+> I'm not sure why it happens.
 
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 7631ef5e71fb..141b99ac58de 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -144,6 +144,13 @@ struct sdw_master_runtime {
- 	struct list_head bus_node;
- };
- 
-+struct sdw_transport_data {
-+	int hstart;
-+	int hstop;
-+	int block_offset;
-+	int sub_block_offset;
-+};
-+
- struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
- 					    enum sdw_data_direction direction,
- 					    unsigned int port_num);
-@@ -213,5 +220,7 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
- 
- void sdw_clear_slave_status(struct sdw_bus *bus, u32 request);
- int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
-+void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
-+			     struct sdw_transport_data *t_data);
- 
- #endif /* __SDW_BUS_H */
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index f7c66083a4dd..39543048baa7 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -28,15 +28,8 @@ struct sdw_group {
- 	unsigned int *rates;
- };
- 
--struct sdw_transport_data {
--	int hstart;
--	int hstop;
--	int block_offset;
--	int sub_block_offset;
--};
--
--static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
--				    struct sdw_transport_data *t_data)
-+void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
-+			     struct sdw_transport_data *t_data)
- {
- 	struct sdw_slave_runtime *s_rt = NULL;
- 	struct sdw_port_runtime *p_rt;
-@@ -85,6 +78,7 @@ static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
- 		}
- 	}
- }
-+EXPORT_SYMBOL(sdw_compute_slave_ports);
- 
- static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
- 				     struct sdw_group_params *params,
--- 
-2.34.1
+If the logic becomes too complex, you can also split the binding
+description in 4 files, one per R-Car generation.
+That would lead to lots of duplication, though.
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

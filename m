@@ -2,87 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C76E68D5F5
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 12:50:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3D668D6B3
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Feb 2023 13:29:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4A6B1EB;
-	Tue,  7 Feb 2023 12:49:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A6B1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD5C20C;
+	Tue,  7 Feb 2023 13:28:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD5C20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675770611;
-	bh=QkOhgTog0yWL5vHY8cLoDKEaFmWYa/SkJGNb7c0x8xM=;
+	s=default; t=1675772951;
+	bh=pBfQGjbVge1SgQyFYrAhg5cuvIDoSPGHcZRCJ07FlCc=;
 	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 Cc:From;
-	b=VhOtgL7G5o7W3p/B0xamchRhaJAtEdtPkvbZ4gVmaw4T/xWYo4B7SNs2oGzaTgZAK
-	 rUZEqXQJY6xLojTBZewqxNOnV3jTXP0iqbgaDRcjVTUNnpmqYVjE0ir+RkB8ESBB3B
-	 U4vbEjl9dKqb3xgMu4dFTLrJv/vBZIaFc9hf1MKs=
+	b=X419oKdUF2xbVF7XHwjRoy8deI08DL6Me39lp0GyCBen4MPhXsfnM5tYLEqlX1dVT
+	 HGg9FARYaLzI9n1tv2m+IXupZhDe3a9A7aloRK8sntfEmnQ/z6fVcZWB89YqqsrtOw
+	 4a0KhO5zolP8jDCryOaRaBcnCemQpF7Bs7DVCTZA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AC08F804AA;
-	Tue,  7 Feb 2023 12:49:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80F41F8014E;
+	Tue,  7 Feb 2023 13:28:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B7F2F8045D; Tue,  7 Feb 2023 12:49:08 +0100 (CET)
+ id B2EFCF8045D; Tue,  7 Feb 2023 13:28:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+ version=3.4.6
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAF4DF8014C
- for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 12:49:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAF4DF8014C
-Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=PjvypHyI
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3173S6Nm007675; Tue, 7 Feb 2023 05:48:57 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=CEQoKeIqdAwiQ6wPnUjUCRHwSd68NoFwTD35rQ5ARaQ=;
- b=PjvypHyI81Cn6voAhebOX1tVAM3KH1vk52YT8li7P94QFH8zuPUKM4d8ElI5OVMBlXQs
- wYsIymPlbgRaD+fJYnztCTlQN9VX98/GDhTkkDwm6zvEYhA6UGE/zwle86EI/8iFm42n
- 5FkCV3q4EvTC5hQXFiunsdfVBc0nPhlIhhgCQWVPfrC3qVvXuDL7n0jB8aOkUJiNoqI7
- +njN4dowHGhhxAIlXAFotBLJYN7ZEaOC0O6g0rCjnh7YUKp4lNf5GLTsKOvRVlbz6cCu
- IcBNrEn1uSlBzIq29IWeGb1ps9EM4W4Al8q8O5+9pSbpqk+BOc/4hv/gyEIt25uGgLH2 Ug== 
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3nhnn7v1jb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Feb 2023 05:48:57 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Tue, 7 Feb
- 2023 05:48:55 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.21 via Frontend Transport; Tue, 7 Feb 2023 05:48:55 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0414015A0;
- Tue,  7 Feb 2023 11:48:55 +0000 (UTC)
-Date: Tue, 7 Feb 2023 11:48:55 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lucas Tanure <lucas.tanure@collabora.com>
-Subject: Re: [PATCH 1/2] ALSA: cs35l41: Add shared boost feature
-Message-ID: <20230207114855.GC36097@ediswmail.ad.cirrus.com>
-References: <20230207104021.2842-1-lucas.tanure@collabora.com>
- <20230207104021.2842-2-lucas.tanure@collabora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07A60F800E3
+ for <alsa-devel@alsa-project.org>; Tue,  7 Feb 2023 13:27:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A60F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp
+ header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=bRp/IPFY; 
+ dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=V4/Rw8X6
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 4E02932003C0;
+ Tue,  7 Feb 2023 07:27:50 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Tue, 07 Feb 2023 07:27:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=cc:cc:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm3; t=1675772869; x=1675859269; bh=kq
+ ljyEYgfGDzvSsb9snqt65CBohX1IP73D/5I5IuQPo=; b=bRp/IPFYqjx4YDumSB
+ puEGB3ypUPpR0pGOYulUEFrm8q7wwtM/XgjVDlSNkO16UefpdvwfxXzQFiBsUZTc
+ U8Ybz8WnjSFIyetQGvPlWBDSu6EPV6ZNI73B3KlEKius7jLO0XEnnsInZE3Oa8YY
+ 6mmMIug9lzQZzr2filmaE5GVwExRt9MnFExBeTY/KDxjV98/0TvjHtS8maXfVbu+
+ YJm88+aVJDRlkZMWlwqQTkFxQ2J9f3QsKTN4tbOactXM9uiscWZXyIK4nEe7tYtZ
+ AJG5ycYqQGu97ZPY7UfWti4xHiOL3u9846X9R+hGHyySPlNh/gsU0GnJFQDkoz+j
+ CJYw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1675772869; x=1675859269; bh=kqljyEYgfGDzvSsb9snqt65CBohX
+ 1IP73D/5I5IuQPo=; b=V4/Rw8X6RbPcX14MvO8ku6oygmHLNH6OSdMX+yKypKsg
+ +HvJlv1B/IIogWDJElQtdozVfjYxCqIyF07zgfghRcp12aLEkZV8hFbnjN0MItCf
+ 5Av0S762QWbQ8g9t0aHWjXhv4EP1arsjpuN8sSs8sWc0sl3Pm1kPlMafUILu+0+i
+ 5fTkqRBPiqOPvkekprtHfbnTmgPvkbvr1SmKzOd2OZ1c3veisvSkleRnNYjB51Zl
+ 1bzKALzkCnbOrxXPrfiN8gW49jDc8NpCxRTH9ELC8PXWDHtn7ThCYZifVYtsynpq
+ J4fAhV1AaF4nSlgADM4JzSN/dIenbtZ4cjw9ssfouA==
+X-ME-Sender: <xms:xUPiYy7HcrQF44zbbWdNbzXz108tqQvKDAp2yY0jCMgvYbMP0L-ADQ>
+ <xme:xUPiY74-ML6u3_uWr9pebqwYhi7fhO1gnGlIYV24gwFLpKrcbW8H_ZIezWkNGwrMx
+ 2D2EacpE8Vh8ePJjns>
+X-ME-Received: <xmr:xUPiYxfDceWfffSJINVdAi3u3S_W4vd4821QMigkPbmJGtCrcEZbGfXcmRPMdBEl8yuT6eiWEPpfq03bTEtrV3vDbYv7fszMr5lV>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegkedgfeekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuggftrfgrthhtvghrnhepveeigeevvdelkefhteejueeigeeitdejffejffdu
+ veelvdfhgeehvdduveeifeffnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpthhrrg
+ hnshhfvghrnhhofidrnhgvthenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+ mhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:xUPiY_ImzvbFPSX4CzB5Yo4zhTZqNQfqeKjwP97Z-Bh920Ypak-c-g>
+ <xmx:xUPiY2LFH0yBIvT64gAWcQWCOAQwj2_vNwPsKzoM8ydZYKjIE5VTzQ>
+ <xmx:xUPiYwyzG2iq_lf-xEaTAz2V8v4xXwCpPVa9Iw1qasg99yvt_Bijjw>
+ <xmx:xUPiYwyMdd_9mhsWXCtDmhC3pf32j2JDiqQ9byyLRmHhl4adMjOIEQ>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 7 Feb 2023 07:27:48 -0500 (EST)
+Date: Tue, 7 Feb 2023 21:27:45 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: "M. Armsby" <m.armsby@gmx.de>
+Subject: Re: Motu 896Mk3Hybrid dump
+Message-ID: <Y+JDwWHZAI8BRgu9@workstation>
+Mail-Followup-To: "M. Armsby" <m.armsby@gmx.de>,
+ ALSA mail List <alsa-devel@alsa-project.org>
+References: <clpqss6u2nl2-tqmbic2pqf4x-fl7n8ufasb45-1to1x7160p65-86skuflc32uf-b435ds-2dqjqzzi2x9r-n26ssw-jjzxq0-aeknhb-drcr4x44iip67z8kfz-gayyzivnj1e3-exbx9z-ayuv2umcdyh1.1675078615418@email.android.com>
+ <Y9fD0Nzg+bwKsDEZ@workstation> <63DF98FE.2060604@gmx.de>
+ <Y+BXPeHLp+qoKJcv@workstation>
+ <rbih9oyihq4crt3olr-o19zohmq8w36-ipfswlyypvjp5a8src-wcww6tahyaki-q7v6tx-j5yh81-vzf7pq-qn78wo-tww8q3-2h35ww-sk0mu3-7fsog578xr2k-jfqgg5-rvg5aw-mhtapx-pch8v9t7epgq.1675704644475@email.android.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230207104021.2842-2-lucas.tanure@collabora.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: LT0ClOeyo46aHiFsO2O_O1aKjOTwlnE9
-X-Proofpoint-ORIG-GUID: LT0ClOeyo46aHiFsO2O_O1aKjOTwlnE9
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <rbih9oyihq4crt3olr-o19zohmq8w36-ipfswlyypvjp5a8src-wcww6tahyaki-q7v6tx-j5yh81-vzf7pq-qn78wo-tww8q3-2h35ww-sk0mu3-7fsog578xr2k-jfqgg5-rvg5aw-mhtapx-pch8v9t7epgq.1675704644475@email.android.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,89 +121,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@collabora.com, patches@opensource.cirrus.com,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Rhodes <david.rhodes@cirrus.com>, linux-kernel@vger.kernel.org
+Cc: ALSA mail List <alsa-devel@alsa-project.org>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Feb 07, 2023 at 10:40:20AM +0000, Lucas Tanure wrote:
-> Shared boost allows two amplifiers to share a single boost
-> circuit by communicating on the MDSYNC bus.
-> The passive amplifier does not control the boost and receives
-> data from the active amplifier.
+Hi,
+
+On Mon, Feb 06, 2023 at 06:30:44PM +0100, M. Armsby wrote:
+> Hi there Takashi,
 > 
-> Shared Boost is not supported in HDA Systems.
+> please send me your instructions.
 > 
+> I will do everything to get these MOTU devices working properly.
+ 
+Okay. As a first step, would I ask you to build `linux-firewire-utils`?
 
-Probably would be nice to put at least a note to say based on
-David's patches.
+ * https://github.com/cladisch/linux-firewire-utils
 
-> +static const struct reg_sequence cs35l41_shd_boost_seq[] = {
-> +	{CS35L41_PWR_CTRL3,	0x01000110},
+In the top level of directory, execute below commands:
 
-This will blat whatever the user set in the DRE switch.
-Technically blats the CLASS H enable from the DAPM widget too,
-but as that always turns on should be a no-op. Probably should
-either not register the DRE switch or have setting it return an
-error for these boost modes.
+$ autoreconf -i
+$ ./configure
+$ make
 
-> +int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable,
-> +			  struct completion *pll_lock)
->  {
->  	int ret;
-> +	unsigned int gpio1;
->  
->  	switch (b_type) {
-> +	case CS35L41_SHD_BOOST_ACTV:
-> +	case CS35L41_SHD_BOOST_PASS:
-> +		regmap_update_bits(regmap, CS35L41_PWR_CTRL3, CS35L41_SYNC_EN_MASK, 0);
-> +
-> +		gpio1 = enable ? CS35L41_GPIO1_MDSYNC : CS35L41_GPIO1_HIZ;
-> +		regmap_update_bits(regmap, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO1_CTRL_MASK,
-> +				   gpio1 << CS35L41_GPIO1_CTRL_SHIFT);
-> +
-> +		ret = regmap_update_bits(regmap, CS35L41_PWR_CTRL1, CS35L41_GLOBAL_EN_MASK,
-> +					 enable << CS35L41_GLOBAL_EN_SHIFT);
-> +		usleep_range(3000, 3100);
-> +		if (!enable)
-> +			break;
-> +
-> +		if (!pll_lock)
-> +			return -EINVAL;
-> +
-> +		ret = wait_for_completion_timeout(pll_lock, msecs_to_jiffies(1000));
-> +		if (ret == 0)
-> +			ret = -ETIMEDOUT;
+When building successfully, you can find `firewire-request` in `src`
+directory. It is useful to read the status of device and required for
+our investigation.
 
-This feels kinda scary, in that you are relying on a 1 to 1
-correspondence between this code running and getting a PLL lock
-signal. The datasheet is helpfully completely vague on when PLL
-locks are triggered.
+Before building, I think you need to install some package required for
+the work (e.g. compiler), but I'm not Manjaro user so contact to Manjaro
+user to ask it...
 
-The PLL enable seems to be set through set_sysclk, which could
-be called multiple times, per DAPM power up.  Does the PLL
-lock only go once global enable has been set? Can't help
-but wonder if a reinit_completion should probably go somewhere
-to ensure we are getting this lock of the PLL not a past one.
+> The problem with device allocation is this:
+> 
+> Ardour and Reaper see the ALSA driver and automatically choose 1+2
+> for main stereo out.
+> 
+> But - there is no connection.
+> 
+> If I choose 3+4 then Motu hardware actually gets sound output on 1+2
+> 
+> That means all Motu outs are shifted by 2 in the Linux protocol.
+> 
+> This is true for Traveler MK1 and MK3 so I assume it is an error in
+> all snd_motu_spec
+> 
+> I made a short video demonstrating this.
+> 
+> https://www.transfernow.net/dl/20230206jG0fet84/OFRBRajr
 
-> @@ -483,6 +483,11 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
->  		ret = IRQ_HANDLED;
->  	}
->  
-> +	if (status[2] & CS35L41_PLL_LOCK) {
-> +		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS3, CS35L41_PLL_LOCK);
-> +		complete(&cs35l41->pll_lock);
-> +	}
-> +
+Thanks for your taking and uploading the video.
 
-If you fall into any of the error cases in this IRQ handler above
-this, it will blat values you don't want into BST_EN although, to
-be fair that does look currently broken for external boost as
-well.
+The below figure illustrates your cases:
 
-Thanks,
-Charles
+ ++======================++    +-------+    ++===============++
+ ||       Traveler       ||    | frame |    ||  Application  ||
+ ||                      ||    |       |    ||               ||
+ || headphone output 1/2 || <- |  0/1  | <- ||  Output 1/2   ||
+ || analog output 1/2    || <- |  2/3  | <- ||  Output 3/4   ||
+ || analog output 3/4    || <- |  4/5  | <- ||  Output 5/6   ||
+ || analog output 5/6    || <- |  6/7  | <- ||  Output 7/8   ||
+ || analog output 7/8    || <- |  8/9  | <- ||  Output 9/10  ||
+ || AES/EBU (XLR) 1/2    || <- | 10/11 | <- ||  Output 11/12 ||
+ || S/PDIF (opt) 1/2     || <- | 12/13 | <- ||  Output 13/14 ||
+ ++======================++    +-------+    ++===============++
+
+I note that the effective source of headphone output is selectable
+between the above 7 pairs. Additionally, when enabling ADAT optical
+output, 8 channels are newly added to the frame thus 22 channels are
+available in a view of application.
+
+Well, inconveniently to you, the above mapping is expected. ALSA
+firewire-motu driver passes no information to the application about
+what the channel of frame is assigned to, due to technical reason of
+ALSA interface to user space application. As a result, the application
+just enumerates audio sample in its order.
+
+
+Regards
+
+Takashi Sakamoto

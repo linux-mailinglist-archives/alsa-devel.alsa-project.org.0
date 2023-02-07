@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D496668E4CB
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 01:10:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB2968E41C
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 00:04:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F11643E8;
-	Wed,  8 Feb 2023 01:09:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F11643E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E08C847;
+	Wed,  8 Feb 2023 00:03:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E08C847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675815032;
-	bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
+	s=default; t=1675811066;
+	bh=Tv0qwjL36Zj7V/yJ92hZWmfaFgCQZjhp5s76520fDgQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LY8afRPbfLprxXWnrikY/FE9LUakKVAKoiw/QXCpNgpT519n47I5bR+LCj3Lp8Bn5
-	 hu3u/i8MIbBpmJtrT1ghADWk0WPBocOEudePVrA0pdVmmBLBKIutLumtqj6LIYVHPf
-	 N1CezWE5CZfW1wJKmJHi2sQzeSn32nYhHRXnWTcs=
+	b=JQiIC+usUSl34Y4wj+LuZW5Fi9GO0MUb24uY8ISonwyCJS4KJXzpngNOiuRJPVvlE
+	 fky7Trt2DYtNDsU/gZcVMGUkkvOQO3rAh4zqELmTn/UalVHgZ4B6wPrW9FhkJW7brW
+	 uGrOCpoLBkfYHdlJU22MMPz3wXz2H853nrjO9M0k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DC46F8010B;
-	Wed,  8 Feb 2023 01:09:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFDF2F804CC;
+	Wed,  8 Feb 2023 00:03:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07F9BF8012B; Wed,  8 Feb 2023 01:09:36 +0100 (CET)
+	id E2BD4F80518; Wed,  8 Feb 2023 00:03:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 48716F800AF
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 01:09:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48716F800AF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2DA3FF8012B
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 00:03:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DA3FF8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ZVmVyDjS
-Received: by mail-ej1-x62d.google.com with SMTP id u22so2545960ejj.10
+ header.s=google header.b=bgfak1jD
+Received: by mail-lf1-x12b.google.com with SMTP id bp15so24508431lfb.13
         for <alsa-devel@alsa-project.org>;
- Tue, 07 Feb 2023 16:09:31 -0800 (PST)
+ Tue, 07 Feb 2023 15:03:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
-        b=ZVmVyDjSx6EgkFT8iA42dx4e6NkiFFvRjgyVg3vEwOo0sTodqpf/6xC7Kg8zvu5zOi
-         +i12SLbbl4EZG+LN97qWe6I+1nf7msNnuZujHBy1cutT62jCNnRsC29vzSbwShTGLJk1
-         qZYaDyl5UTtWP6oEC2vJLZfbjaQlWRcfn9s1g62TU2LJurA6KpeBdnISuwk0MQw6cNY5
-         892USyFUbQ90GHznIUqrP6DW2lUZ+wf44TCj8WwXad3JpTV4x64SRgkhtbuXHVcqTGJK
-         MFbAe8tiuizvuNYAJkNKmLvFSSDg+Gxjp6mXLkKvCTbo5ygU/iFBvdk1NlblLIO98PDs
-         M9iQ==
+        bh=gQ6efCB61TIYLPpmHdBk+1/LSUB0gQyc/JjMU48i42c=;
+        b=bgfak1jDvCOVHQQGElWmnD2lEOMEwTBINLogn9Eq0pKQvrNoRAXz8j0EjilZ4k4JYP
+         Vmw1eHnC760O26q7ev3uIE0BV6+vlXEgBj9WZuAF5e66h3wBo485l/vcuMKvan2wuHS9
+         uIuDOePMn2u7AxdEg1LCq6cSzyJdVmnweP3F/9KzJzC72dHF+4vH+mX10ivzZVBVOho6
+         JkVdG1kEid5uJS9lG3OqmKHUgTw4VWggv5Y3fp+saqbVXt7SMQPYQ1sclQWTrrzEHYht
+         9Q0FUICTHFi4DO3gHhDSKvWkENjBFuJPlokc1Z8D9JP89mJyHhZl60+6O7RwwyyQhirs
+         ml5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ky7HAXJkS1X4hEgrcJjQQo7al6D+HHtf9urEyCKlGps=;
-        b=eenkebOQQvvKn4JIJG9dtGFVwjthTpx65txGJjsTcLRNfuv5/PCjJ2HInIw150EeAw
-         L2M8o7uw01Y3H3v4sktKKobpzs+3eIUeesGGHO5t5eVFHFi12QLjlDnFxL7KO14mELC8
-         Py2x+TkbuypP9uf3auDkBEiUDCRkMJg18lNaqxtmKs5HwqnaA3+LK+DvJQRdi0yslt0V
-         YU2erABfdjQ38rG0aA2ltu5TLR4UhhVc+NRKbjNJJLjOVXOhfzh0+BXkh9+SDs6fSFHL
-         ocByjCRZhsRY65JMpsiUEePPLpSc03Dml2ZfxZxBIlU1x7Wg+SCa07BMnWH93ilHXyn+
-         +Pxg==
-X-Gm-Message-State: AO0yUKU+bMR50fJ84MOH1RT4FdScYu40VOg+brrgknaacbF2d3wPKLiG
-	yyeOD3i5EsSRY/1Phy0uJLENyOAwFvW1eljB
+        bh=gQ6efCB61TIYLPpmHdBk+1/LSUB0gQyc/JjMU48i42c=;
+        b=EO/RyDTz+dxWRD7VL7oYewwy4Oq65rGiWpW6W78Y7JK9zoGRMtfHMK67HWGwlFuuhB
+         WWzcq6gwIwxwz8dUCsn5Yjy24Qo+Hmrm9xaTFDUL9FWBsHHFH73pigA2mob2HCW4/A5d
+         7DYfQ1C4fR1+X+w/xOQRGGa/IjA+cyZYPDiEVMOe9AmdTXW7+YH3UqgwcBI4pJu+jV8g
+         hDA6PqDNGB5zXFSwEfiMu4dBzeqths2L/wP5bO5B31vg1shZ1MBokUMa38CXcj31sqZc
+         xcUv8082Meb1A3lko/wJDAEi4XMFf07aUerxmQ6W8hForTacjXUqngudyDJU9Qujqo1K
+         /zqA==
+X-Gm-Message-State: AO0yUKXppiru0khC+0N8rxatd/ocjO+zu+iGOI7ECERs3IIBjXcTD/qP
+	GaNRHsDHQm6+A5rerHZkL8xp1lfDu2M/duZl
 X-Google-Smtp-Source: 
- AK7set8TXIFkWABojtv5YPhyN5r9CAIvfLXqNjua96/e+MfEknoAwWnL/akisqL1H78whXRbC2TL6A==
-X-Received: by 2002:a5d:4bc2:0:b0:2c1:28e7:5081 with SMTP id
- l2-20020a5d4bc2000000b002c128e75081mr3490785wrt.68.1675788495656;
-        Tue, 07 Feb 2023 08:48:15 -0800 (PST)
+ AK7set/wpe72cljXd1fwohTpF1E1pBpcSt320AhZrTM3txhgwmGemUE2cxJ3yvXcCkWxTecsGoIF1w==
+X-Received: by 2002:a05:600c:1d8b:b0:3dc:198c:dde with SMTP id
+ p11-20020a05600c1d8b00b003dc198c0ddemr3515818wms.41.1675788541619;
+        Tue, 07 Feb 2023 08:49:01 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- i6-20020adffc06000000b002c3e28d0343sm7732034wrr.85.2023.02.07.08.48.14
+ p10-20020a05600c468a00b003e0015c8618sm7074580wmo.6.2023.02.07.08.49.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Feb 2023 08:48:15 -0800 (PST)
-Message-ID: <1dad040e-fb18-8291-5e11-31ab35a8e4a2@linaro.org>
-Date: Tue, 7 Feb 2023 17:48:13 +0100
+        Tue, 07 Feb 2023 08:49:01 -0800 (PST)
+Message-ID: <56ce2617-4fd1-d597-a4dc-918654cdd3f6@linaro.org>
+Date: Tue, 7 Feb 2023 17:48:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH v2 4/5] ASoC: cs35l41: Document CS35l41 external boost
- without VSPK
+Subject: Re: [PATCH 2/2] Documentation: cs35l41: Shared boost properties
 Content-Language: en-US
 To: Lucas Tanure <lucas.tanure@collabora.com>,
  David Rhodes <david.rhodes@cirrus.com>,
@@ -97,14 +96,16 @@ To: Lucas Tanure <lucas.tanure@collabora.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20230207162526.1024286-1-lucas.tanure@collabora.com>
- <20230207162526.1024286-5-lucas.tanure@collabora.com>
+References: <20230207104021.2842-1-lucas.tanure@collabora.com>
+ <20230207104021.2842-3-lucas.tanure@collabora.com>
+ <44faeca1-94c9-4423-d87a-03d80e286812@linaro.org>
+ <e7257f9a-86c5-74e8-c538-6f6d2ba13274@collabora.com>
+ <44c7274f-8a5e-0235-413a-6c3260018601@linaro.org>
+ <4efe9796-6d3e-09d1-d5f7-cfb25a439061@collabora.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230207162526.1024286-5-lucas.tanure@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634
-X-Message-ID-Hash: GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634
+In-Reply-To: <4efe9796-6d3e-09d1-d5f7-cfb25a439061@collabora.com>
+Message-ID-Hash: FVHH5LAH2ICB4T2OM4QNS4TM6IDD7CYJ
+X-Message-ID-Hash: FVHH5LAH2ICB4T2OM4QNS4TM6IDD7CYJ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -120,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGWAWXWDH3M6CAVTGQ6CJJQECZPKL634/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVHH5LAH2ICB4T2OM4QNS4TM6IDD7CYJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,22 +129,53 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On 07/02/2023 17:25, Lucas Tanure wrote:
-> External Boost without GPIO1 as VSPK switch
-> is no longer supported, but there is laptop
-> models using this feature.
+On 07/02/2023 17:34, Lucas Tanure wrote:
+> On 07-02-2023 16:13, Krzysztof Kozlowski wrote:
+>> On 07/02/2023 16:46, Lucas Tanure wrote:
+>>>>> +      Shared boost allows two amplifiers to share a single boost circuit by
+>>>>> +      communicating on the MDSYNC bus. The passive amplifier does not control
+>>>>> +      the boost and receives data from the active amplifier. GPIO1 should be
+>>>>> +      configured for Sync when shared boost is used. Shared boost is not
+>>>>> +      compatible with External boost. Active amplifier requires
+>>>>> +      boost-peak-milliamp, boost-ind-nanohenry and boost-cap-microfarad.
+>>>>>          0 = Internal Boost
+>>>>>          1 = External Boost
+>>>>> +      2 = Reserved
+>>>>
+>>>> How binding can be reserved? For what and why? Drop. 2 is shared active,
+>>>> 3 is shared passive.
+>>> 2 Is shared boost without VSPK switch, a mode not supported for new
+>>> system designs. But there is laptops using it, so we need to keep
+>>> supporting in the driver.
+>>
+>> That's not the answer. 2 is nothing here, so it cannot be reserved.
+>> Aren't you mixing now some register value with bindings?
+>>
+>> Best regards,
+>> Krzysztof
+>>
+>>
+> I have added a new patch with propper documentation.
+> And I would like to use 3 and 4 for shared boost as 
+> CS35L41_EXT_BOOST_NO_VSPK_SWITCH already exist as 2 and is used in the 
+> current driver.
 
+I don't see CS35L41_EXT_BOOST_NO_VSPK_SWITCH in the bindings.
 
-No, because:
+> The laptop that uses CS35L41_EXT_BOOST_NO_VSPK_SWITCH doesn't have the 
+> property "cirrus,boost-type", but to make everything consistent I would 
+> prefer to use 3 and 4 for the new boost types.
+> Is that ok with you?
 
-1. We did not finish discussion
-2. Subject prefix is still not correct.
-3. Please wrap commit message according to Linux coding style /
-submission process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v5.18-rc4/source/Documentation/process/submitting-patches.rst#L586
-
+I don't see how it is related. The value does not exist, so whether
+laptop has that property or not, is not really related, right?
 
 Best regards,
 Krzysztof
 
+_______________________________________________
+Alsa-devel mailing list -- alsa-devel@alsa-project.org
+To unsubscribe send an email to alsa-devel-leave@alsa-project.org

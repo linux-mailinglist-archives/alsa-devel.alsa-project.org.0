@@ -2,104 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1B068E9AD
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 09:17:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB9E68E9C2
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 09:21:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48B117F8;
-	Wed,  8 Feb 2023 09:16:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48B117F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D6553E8;
+	Wed,  8 Feb 2023 09:20:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D6553E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675844251;
-	bh=NtEjRYilq6VvDilIMKHVShcQsKB1IWBn6tWeb08Kku4=;
+	s=default; t=1675844472;
+	bh=CFV5hN4r5pnxWtjCn1WbI+PV5fTfiihhAvUGQtR7sro=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=g9vHsswnmrGQvuv63AyZ3lDgi5ceuVkt0e/myL7y8vQy6U0P3h5h6qAe0suAgK3eS
-	 a4xkAmX2ewTx7y4E7t4JAZQYWZbugKZVKplO1I5RRiSeScgGdjomChqOLkHfH8aJG+
-	 RJbLNgBjROKrwC/iELyZ5T/0jAZBWPH0nerZf2mY=
+	b=rdXJC6SdxuJaQ3sKzzfw98+4DxyUtIJ05p+5LMm9W7sqxZeWrZpftwTp3GI2JaSTp
+	 NPYUeOjRuwHiMNtrX0AW/DX9Yx7yahXs78rR7csE4/0mWlkxE6B8TRHo32N0GwT2V/
+	 /BEvUUOSWob5K4xWnS6u8xUFTOMknbVsAfFT7feE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68BC0F8010B;
-	Wed,  8 Feb 2023 09:16:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11CDFF8010B;
+	Wed,  8 Feb 2023 09:20:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C58C3F8012B; Wed,  8 Feb 2023 09:16:35 +0100 (CET)
+	id 110D7F8012B; Wed,  8 Feb 2023 09:20:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F57FF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 09:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F57FF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 28B35F800E2
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 09:20:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28B35F800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=XZ+YSr1O
-Received: by mail-wr1-x42d.google.com with SMTP id r2so15881262wrv.7
+ header.s=google header.b=H/nofoqI
+Received: by mail-wr1-x430.google.com with SMTP id g6so7911711wrv.1
         for <alsa-devel@alsa-project.org>;
- Wed, 08 Feb 2023 00:16:29 -0800 (PST)
+ Wed, 08 Feb 2023 00:20:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RIHBZkbNrO62XMNrJJK8z4cLpR4TSFuzo5oIxTwhhE0=;
-        b=XZ+YSr1O8bGdAtUUD06C/G0MN+cIjt6SMBMjZJtvGe5f1MFkb0fWa3gLTd3ygER3P3
-         jW7svKKXmDDQlT8BNfhh54ouct0fORZPbyM2R61X/e36T8e6Hp0JrV8hjjt6fHEwPpwG
-         INYLUcSiZWxI4BU6WcmdrXLN33UAcqRqmZGELZ06VhA5bhP/dcMfUGBU/r7JY6P8YW+j
-         YT4rlWmKzc1JikFqd6m1Bl/GUPDrqyga4kZ1JI1F/ZMvwh6X4Zvm5gxNvaeAO2pNdLcm
-         Rf7w1oVySK7B9OuC0IpKyg62/G8zPZf8DJuAIvUXCGVdxyksSVbc6sNBaaprG/JzcQAA
-         Bmvg==
+        bh=rL8LBItn4StHZi6ZJiCbES8DujHjLAlePtXEF4dNf0g=;
+        b=H/nofoqIUmp53A1gy27FWZ/m0jJJznQ/E/KZPS80H3GOLmSOB4nm0pO/duSckPYhNg
+         AVXMeq1840d1Qa0wNphY03L3u0TgrtcBvHZRz/kUIo75jq4GRha2P6Gh/bohMJwvIvOb
+         yChvJipGdl5ODYy2btTWHsJlEu+MttL+hnKtgpLRimD6eSrT1n8BBYFKhjt7uNBtVlOJ
+         2sD4eAfr6ruQJumXpUzDjzZBmy6KDApknk9ZrPh4RlbjznvAUdkZlBr9fUyyeoGeeXJq
+         xJJVMlP7TaIaz9P5B/o4Exd4aw4rYP7dLETT+oQ1c9H32aB8ZH11F4ndlxT7gHfwCchr
+         73aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RIHBZkbNrO62XMNrJJK8z4cLpR4TSFuzo5oIxTwhhE0=;
-        b=QQqoF7eW6GCGkzPNeTOv1FVVYXPreGK+43+/WM98LZ0ngJnGbFWjGbpw5cN7WxH2oR
-         j/HBxL2pCfYeH8v+E0eJwuCeNOQV0ZgwXZ61STTLhPAQEPKuHbLbkjoRvL6siDKromZl
-         IGoCBE8TlKDumb40T0dlLL7FV1h8mZq2KEZ3vdeEZVfCjQpJ10oHfqvjZdyDhy5tZKKk
-         /S96f4wKwQ187ZkR0JqFmtC9QYsVHp7vDNDydYrpho/onKpBbGx2oIns4jR7HCr7oeNk
-         xo/Jv5c27xoxNKiMt1bP0r0H1QcyWFapZkUP0Hd60br9ZXuCEYG/eGmMT3YKSswLCsyU
-         sczQ==
-X-Gm-Message-State: AO0yUKUcerRvr/fKXtIL1w6JIB6qV1u4Z3tLsOznDJzlDMLHh6+HJV4D
-	jWt+GF/vk4Ee2EuEvqBX0ktBEg==
+        bh=rL8LBItn4StHZi6ZJiCbES8DujHjLAlePtXEF4dNf0g=;
+        b=bjyzmL1UNOZXmXYh1xIm3EtB4AMZonFAFQNrad3ZW8QakKthh5bXDhQAUkdS+HmuN9
+         EuB4RCGRqmzFv3oiAHFnNHogijm5GhVq9JSeHPBFQhNEor2UCvQhLcjPVE3+2mRiMPt2
+         0J6Oz3dKdpbFnqTTun9ugt1fhKamfRS75Qo7tvT1OgFeXqSWu7jhY4lc0Hz3Q8zB5zY8
+         2+oknmz1ap0fZJWYZB7w+PSpZmEdEI/NYG7LFBM9PVN408gUomWhxSLOebHPx0D1BaaT
+         xPK3FUOskCR3XWE9zzad1CHKrdpbfm+K1vmwJHdYeBjlcdzR7GD2BucHRjRdFDBE1/wz
+         1zNw==
+X-Gm-Message-State: AO0yUKULxFAOFwh7TPxoWmiPmfCQoktbQ3sZ9oUMC7KKVR4p5tve3+Hq
+	n6jBKWYqgAELhcYRtr9fF621kPiFYG7kfCFF
 X-Google-Smtp-Source: 
- AK7set+SVBDj4BO5fl38Hh82paJ/TAHcWytuuayTi6LTqfHjo8burdCkPBlLF/pMYrOvOORLEmOw3A==
-X-Received: by 2002:adf:fa10:0:b0:2bf:ad43:8f08 with SMTP id
- m16-20020adffa10000000b002bfad438f08mr5956744wrr.14.1675844187560;
-        Wed, 08 Feb 2023 00:16:27 -0800 (PST)
+ AK7set+8uThdO0z7pThPVeFWUZwaQVGSujdTBqV6nNjhDNcCzQS1w5bFHAVYpw4AaPnYueRPtqVU8A==
+X-Received: by 2002:adf:ed11:0:b0:2bd:d45c:3929 with SMTP id
+ a17-20020adfed11000000b002bdd45c3929mr5331107wro.54.1675844409094;
+        Wed, 08 Feb 2023 00:20:09 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- h10-20020a5d504a000000b002c3efca57e1sm5086542wrt.110.2023.02.08.00.16.26
+ o21-20020a5d58d5000000b002c3f0a78e39sm4368258wrf.9.2023.02.08.00.20.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Feb 2023 00:16:27 -0800 (PST)
-Message-ID: <a743cc0d-7a6d-d5e2-2c7b-53baaeb87ba0@linaro.org>
-Date: Wed, 8 Feb 2023 09:16:26 +0100
+        Wed, 08 Feb 2023 00:20:08 -0800 (PST)
+Message-ID: <8fa6a9eb-df09-73c0-528b-a2efd9b262e7@linaro.org>
+Date: Wed, 8 Feb 2023 09:20:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: renesas,rsnd.yaml: tidyup
- reg/reg-name
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: renesas,rsnd.yaml: adjust to R-Car
+ Gen4
 Content-Language: en-US
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>
 References: <87r0v1t02h.wl-kuninori.morimoto.gx@renesas.com>
- <87pmalt01x.wl-kuninori.morimoto.gx@renesas.com>
+ <87o7q5t012.wl-kuninori.morimoto.gx@renesas.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <87pmalt01x.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o7q5t012.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: P65BA7FBWEMMBUKSGCT56SWGL7GPQ5N3
-X-Message-ID-Hash: P65BA7FBWEMMBUKSGCT56SWGL7GPQ5N3
+Message-ID-Hash: QEVKKGSJEWHZNNX4B5X2OXZU3BTTBS2K
+X-Message-ID-Hash: QEVKKGSJEWHZNNX4B5X2OXZU3BTTBS2K
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P65BA7FBWEMMBUKSGCT56SWGL7GPQ5N3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEVKKGSJEWHZNNX4B5X2OXZU3BTTBS2K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,19 +124,136 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08/02/2023 02:31, Kuninori Morimoto wrote:
-> 
-
-All your commits still have this blank line before.
-
+On 08/02/2023 02:32, Kuninori Morimoto wrote:
 > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Tidyup reg/reg-name "maxItems".
-> Pointed by Krzysztof, and corrected by Rob.
+> R-Car Gen4 is not compatible with Gen3, this patch adjusts
+> to R-Car Gen4.
 
-Drop the sentence, you should instead explain what is here to correct.
+Do not use "This commit/patch".
+https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Same below.
+
+> 
+> By this patch, "dmas/dma-names" under "rcar_sound,ssi" are dropped
+> from "required:" property, because (A) these are not mandatory if it
+> was PIO transfer mode, (B) Json schema if-then-else doesn't work
+> correctly on there for some reasons. see the Link for detail.
+
+You gave three links, so why? You should rather explain why it does not
+work.
+
+> 
+> Link: https://lore.kernel.org/r/CAMuHMdW_QHmODAKvn_GwHHUWw-=z4Tdq0NkhdK2u2piG_YgB-Q@mail.gmail.com
+> Link: https://lore.kernel.org/all/87zg9vk0ex.wl-kuninori.morimoto.gx@renesas.com/#r
+> Link: https://lore.kernel.org/all/87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com/#r
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  .../bindings/sound/renesas,rsnd.yaml          | 72 ++++++++++++++-----
+>  1 file changed, 55 insertions(+), 17 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> index c3bea5b0ec40..3214ca9bcc78 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> @@ -99,20 +99,6 @@ properties:
+>      minItems: 1
+>      maxItems: 31
+>  
+> -  clock-names:
+> -    description: List of necessary clock names.
+> -    minItems: 1
+> -    maxItems: 31
+
+Don't remove properties from top-level.
+
+> -    items:
+> -      oneOf:
+> -        - const: ssi-all
+> -        - pattern: '^ssi\.[0-9]$'
+> -        - pattern: '^src\.[0-9]$'
+> -        - pattern: '^mix\.[0-1]$'
+> -        - pattern: '^ctu\.[0-1]$'
+> -        - pattern: '^dvc\.[0-1]$'
+> -        - pattern: '^clk_(a|b|c|i)$'
+> -
+>    ports:
+>      $ref: audio-graph-port.yaml#/definitions/port-base
+>      unevaluatedProperties: false
+> @@ -256,8 +242,6 @@ properties:
+>              $ref: /schemas/types.yaml#/definitions/flag
+>          required:
+>            - interrupts
+> -          - dmas
+> -          - dma-names
+
+Even with your explanation in commit this does not look related to this
+patch. Don't mix features and fixes.
+
+>      additionalProperties: false
+>  
+>    # For DAI base
+> @@ -305,7 +289,14 @@ allOf:
+>                - scu
+>                - ssi
+>                - adg
+> -    else:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - renesas,rcar_sound-gen2
+> +              - renesas,rcar_sound-gen3
+> +    then:
+>        properties:
+>          reg:
+>            minItems: 5
+> @@ -317,6 +308,53 @@ allOf:
+>                - ssiu
+>                - ssi
+>                - audmapp
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,rcar_sound-gen4
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 4
+
+
+You now add the same mistakes you corrected in 1/2. Really - the same.
+
+> +        reg-names:
+> +          items:
+> +            enum:
+> +              - adg
+> +              - ssiu
+> +              - ssi
+> +              - sdmc
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,rcar_sound-gen4
+> +    then:
+> +      properties:
+> +        clock-names:
+> +          description: List of necessary clock names.
+> +          minItems: 3
+
+maxItems
+
+> +          items:
+> +            enum:
+> +              - ssi.0
+> +              - ssiu.0
+> +              - clkin
+> +    else:
 
 Best regards,
 Krzysztof

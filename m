@@ -2,87 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C454F68ECA4
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 11:18:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3CE768ECA7
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 11:18:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3870F207;
-	Wed,  8 Feb 2023 11:17:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3870F207
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4AC8E85;
+	Wed,  8 Feb 2023 11:17:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4AC8E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675851490;
-	bh=x0OAhCWI98C7X40UhGCZCKEbS/LwlbB9r5n8T7K1d4w=;
+	s=default; t=1675851511;
+	bh=MWXccWTzbOmpFsf9xppUHaHKx15SfVhSJ1GmnPvEIE4=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QxsXA1BQAamGf/NZtZd7SX3nnt+Xda7Rvkhp/EEIiDnnqYkDoSuXLiT8AP84ttV+Y
-	 hiCekjK3Q/wWrI22pI3YaaRV7hGPxHUepwGo30F2X1ZiT4xBgn28cNLCbSMLbnykOV
-	 tiZpcOI6ptFmgLqOjohOj06fwNXm804zDgPMMm1s=
+	b=SBH/IcZkSVPK4s77VyFcsENolSF+gSGFqMn7E+5YVti++lpkJmb9LF1ldv1Ooa/Xz
+	 ce33Yw4IKAgr4QBmQHcKcTcdqsNWLUwEfSLEuDadUjtAVB0myX3j3IjIT/kC5jBLMb
+	 C5JU/bAelO+qyOt7/tu85JperSFwT/166OmlwaM0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3861AF80529;
-	Wed,  8 Feb 2023 11:16:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17ED3F80544;
+	Wed,  8 Feb 2023 11:16:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B46A3F80518; Wed,  8 Feb 2023 11:16:02 +0100 (CET)
+	id 16FD3F8051E; Wed,  8 Feb 2023 11:16:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0DBDF800AF
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 11:15:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0DBDF800AF
+	by alsa1.perex.cz (Postfix) with ESMTPS id D94AAF8012B
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 11:15:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D94AAF8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=otB5oI1h
-Received: by mail-wm1-x32c.google.com with SMTP id
- f47-20020a05600c492f00b003dc584a7b7eso1043954wmp.3
+ header.s=google header.b=gA3+N5HC
+Received: by mail-wm1-x32b.google.com with SMTP id n13so12949132wmr.4
         for <alsa-devel@alsa-project.org>;
- Wed, 08 Feb 2023 02:15:57 -0800 (PST)
+ Wed, 08 Feb 2023 02:15:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7AX0KvsHNXIwnS/VJd4Zm7BJ6Z2WcU4zrwjwY9zApro=;
-        b=otB5oI1h2JjdnPTN1uupxEvdwOdGJFMuwogAF3TapP0WoZkknD9Ir79LtK5kA8SIMi
-         iJwSnkoxqtECHPDMRzgQHfmIiccFRY6jyy3EllP4YZPfOUScCxib0YDMY8XiqcoYfapF
-         YixXF5FqGyzIZ9Oo5YVZK3HRr2u0e8PkFJ2CFJ5tf2B+exRAUUHuKPzaWlO0t8E4IDT4
-         Nbse+sG1sO4pBXqNdrWKxgrMR1dq2/oq2uf8Co6dnxOwxymkuU/vF0vw9A+PUIl0dVsq
-         oJhj6Wl4xajS7UzXwMw9yJLvVK4RLBV6X3N1g+89BY0jhk33VyRzhBewiBaM8TmHDrcx
-         BS2A==
+        bh=49xfQXijB76l60qaT7Z6y5pL81SUu0qI+8WlIubqbjg=;
+        b=gA3+N5HCQCDSfTWCK2lAx7KSNX5Hgzhutg1Rt0iIsmzBXjmyOwn5ijz0CFXd6Dbhsk
+         skuHIVhtJGMwbMbJUdnOXu2NxvJd/+yvOsCXIaKvRGyxVnn6Xs2NtiwKrVvuEwJM0kCS
+         5Txpn44mlT2mdIgjoeVS2iD21KzP8Pqb+/9dEgyg9NCsvkd+LdUZgblIPZ/GeF0X9mXt
+         7Fqf/Fswa21N+/CSvMtXNleg3DXzEkYVHzI0ecwz0Kx20UAHQZzjU136DQMu52SwLv6q
+         LQbF9BN7SVS1E0m47zABYoNrlbHlRWRVZirrXA5ewXHXYzMtLlSZPh9ZIeq8ADMsGQLi
+         o8Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7AX0KvsHNXIwnS/VJd4Zm7BJ6Z2WcU4zrwjwY9zApro=;
-        b=EKr80R3fVNoO7t2jA1rzfpa9n4xa5OO3vvlZUAXADY0egwd6f7xPfO07lz72askQii
-         RGp9/rKp7EfCzlSYnqCXQvK010huNXmvfZbNkZHGcYAtn/eGT1QwoAADNEUsUqo9KXfR
-         fQIRYPDQL/x6Uad7uARYtxX+ACOaUd3pAEvTTJNlzc6VnET8vOJ5wUZroCZeSAMR1HMs
-         fPC0wBDuYpL5iJ6sBo0tCEWRLPtqlmr6zDqDoMWzz7n8Kuo/1H40i7oxHWbJEUI0Shii
-         DvCJHQBMlyMWgsvhCGnjUXRh1BbM/QmShiuJP2fK/SCJnry5tc46+fNbhZJ3Kiu6egbz
-         nt+g==
-X-Gm-Message-State: AO0yUKWXwoUBva0h7JY2Z+xZCfFgeqhePAWSt1vSCrcJt10yyuBxQVX4
-	T0W9+tjN95tKA0iK44Z/Wp3ONw==
+        bh=49xfQXijB76l60qaT7Z6y5pL81SUu0qI+8WlIubqbjg=;
+        b=iAlo862p2Dea6cIZ9URGWPOnZpL18u5xIu/8CqozZwr0E6nKNB5VfYwnPDRN2rzyLY
+         kHUk9MG77pMwLFStem3MoKbUsI4eSSj+ReErnc3BTvjWPfcIJBYoWuYjrZMEKcNh0GHp
+         CwUystoHS0wnsGW82rNNGlkiQ+EH+EYOmAYeLBHqWqw3SsLYpRR40paL0yUWu2/hRrRg
+         Bbp6/eagL7lp0l3x2pLzBNPoTzkQTajJpy9XTUx3gO0NP4G20zTzbVz6wg/XppMDv9Ry
+         dm9Zl1/Ao8U5iSOgDeynRnC2ulqOvg6TA5T9P7YBBAdCRtCWyRFued03OrXm1tHEMx2J
+         Ga7Q==
+X-Gm-Message-State: AO0yUKXObkiq8CGH2ToYo6w8RfHjVxST4h6RgdmbA8EmUbVtjBoFf7E1
+	5N2ZCYuYkgPSWgDXv629wfRQoQ==
 X-Google-Smtp-Source: 
- AK7set/KVAJ9urDvdx9Mib0W5fhtxUGBPc2Cgcsin9K4324Fl6UNdsN4sun4S8bzZmC8WB1eg90eOg==
-X-Received: by 2002:a05:600c:708:b0:3df:fcbd:3159 with SMTP id
- i8-20020a05600c070800b003dffcbd3159mr1354532wmn.3.1675851356081;
-        Wed, 08 Feb 2023 02:15:56 -0800 (PST)
+ AK7set8+a67vFQhEsNOGq72ebMc7Hy74DAStJ4dxQG5w7ZrdDobR6OOZ8N1+Q5kFi4stZWp5ErdDkQ==
+X-Received: by 2002:a05:600c:1604:b0:3d2:3be4:2d9a with SMTP id
+ m4-20020a05600c160400b003d23be42d9amr6073107wmn.20.1675851357957;
+        Wed, 08 Feb 2023 02:15:57 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- t14-20020a05600c198e00b003dc4ecfc4d7sm1496328wmq.29.2023.02.08.02.15.54
+ t14-20020a05600c198e00b003dc4ecfc4d7sm1496328wmq.29.2023.02.08.02.15.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Feb 2023 02:15:55 -0800 (PST)
+        Wed, 08 Feb 2023 02:15:57 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -99,17 +98,16 @@ To: Andy Gross <agross@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-remoteproc@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH v2 4/7] dt-bindings: mailbox: qcom,apcs-kpss-global: drop
- mbox-names from example
-Date: Wed,  8 Feb 2023 11:15:42 +0100
-Message-Id: <20230208101545.45711-4-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 5/7] dt-bindings: soc: qcom,apr: correct qcom,intents type
+Date: Wed,  8 Feb 2023 11:15:43 +0100
+Message-Id: <20230208101545.45711-5-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230208101545.45711-1-krzysztof.kozlowski@linaro.org>
 References: <20230208101545.45711-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TLX2SCIW7TJJEGHKQS7ZY7EH6QWHE5LL
-X-Message-ID-Hash: TLX2SCIW7TJJEGHKQS7ZY7EH6QWHE5LL
+Message-ID-Hash: 36PUS7TA5PWUQUIAERU4RBQYO5NCK3QF
+X-Message-ID-Hash: 36PUS7TA5PWUQUIAERU4RBQYO5NCK3QF
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +120,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/36PUS7TA5PWUQUIAERU4RBQYO5NCK3QF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,36 +130,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Qualcomm G-Link RPM edge bindings do not allow and do not use mbox-names
-property.
+The qcom,intents property is a list of pairs, thus it should be defined
+as uint32-matrix.
 
+Fixes: b2d7616e13c4 ("dt-bindings: soc: qcom: apr: add missing properties")
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
 Changes since v1:
-1. None.
-2. Previously was sent as separate patch.
-
-There are no strict dependencies. This can go anytime. The next patch
-(glink-rpm-edge) should be applied in the same or later cycle (could be
-via different trees).
+1. New patch
 ---
- .../devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml       | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-index 943f9472ae10..56b386b688b3 100644
---- a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-+++ b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml
-@@ -155,7 +155,6 @@ examples:
-         interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
-         qcom,rpm-msg-ram = <&rpm_msg_ram>;
-         mboxes = <&apcs_glb 0>;
--        mbox-names = "rpm_hlos";
-     };
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+index 6026c21736d8..4502458b0669 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,apr.yaml
+@@ -62,7 +62,14 @@ properties:
+     maxItems: 1
  
-   # Example apcs with qcs404
+   qcom,intents:
+-    $ref: /schemas/types.yaml#/definitions/uint32-array
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    minItems: 1
++    maxItems: 32
++    items:
++      items:
++        - description: size of each intent to preallocate
++        - description: amount of intents to preallocate
++          minimum: 1
+     description:
+       List of (size, amount) pairs describing what intents should be
+       preallocated for this virtual channel. This can be used to tweak the
 -- 
 2.34.1
 

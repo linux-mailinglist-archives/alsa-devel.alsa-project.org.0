@@ -2,142 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3B168E537
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 02:04:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F1C68E57A
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 02:32:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F64F3E7;
-	Wed,  8 Feb 2023 02:03:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F64F3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35DAB3E8;
+	Wed,  8 Feb 2023 02:31:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35DAB3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675818280;
-	bh=+w7R3Y+eozLCfTNJqAScDfE5ME9QVI9Q4m1yX+5YQcg=;
-	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bpZUhfGdFFjkelRN8KjdIhS+LSb21fRUKge0zk9anv0Js0jF/fAVp/NNscItsfoiR
-	 5cbQ6vAuAb8WvHRamD/squ1c46hdUAiVmjK3P4j0GaUjSI55AO+BDIZ0fWiBPYPLR9
-	 iVo8+hXRVkeqBNnohUh8Y5Xm5aORP7MeLbz11Dz4=
+	s=default; t=1675819944;
+	bh=9YXHci03Vh2WlGOEkCOOWuFsIQxOcS3VivNut7U2wPQ=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LFeiXcdyNaTGTdeywb1Q6tFK5judUS94Z8vNuVzo5Lw0k4ffgLd9XHJEi7rVVT50B
+	 O1Eq/qaWFDuFYZimXpKlz3Qgei/f1mN9ekwBWGMwqF0eIad95uJHEcP0Lf98Vrw2/F
+	 q2y+czx3WRm/Vo/7WQrsQqmCRMRw25RrsO8K7rn8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B5EEF800AF;
-	Wed,  8 Feb 2023 02:03:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 723E5F8010B;
+	Wed,  8 Feb 2023 02:31:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 393DFF8012B; Wed,  8 Feb 2023 02:03:46 +0100 (CET)
+	id ED31CF8012B; Wed,  8 Feb 2023 02:31:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2071b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::71b])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2072e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:704b::72e])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8680F800AF
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 02:03:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8680F800AF
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1D8BF800E2
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 02:31:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1D8BF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=iCEyrrrS
+ header.s=selector1 header.b=bl0WhLvJ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MaIIvrHW0KWqf74JSgkkVQ8V99L2HRBLogck5gXjtAhEK/ZbHgV/uc8B/fi7373K1VQySYD2pawjbclBmfuo94HXUz8K+XNIIhrwaEyF7UfAASrNarjsD03R+7rE4osYocoglh8iMvqgLrD/cW6dDz7DM2M96Iws2ny42FCqyUvCf8qwP2naO0KnfcADcP6HJe/KZhgyZj84BrCaLAUXLWbPWECwUFBTv9wKOWYw29YNcp/XSWU73lXqzWW8Q2vrxJFkclkODXNwAxqXhtuq3f820s4JpUme1fj7MCxWlmObmsQz0ABbjBajIiEWXum97ULamKheF40T1koTM+vMCw==
+ b=mPTqWHylPI0h/VqjROZ5suvZpRLqyfzHEIHSkiPE4oD9aXT1+BaJMTCzLnzfhy5eq/iQsO3SIzL2z1K/fa3JbhDbbJgzTWfscFjZ+/sm6DoE7sBuxqlO2lGZ0S9Xgms3GW2Lvf8h702Z07CwR3QCjYuIb4usgsliVxtgKrQrulDhxLZ5qQ7Zjm1L9+HXyr1eH/CdlLoSZ/xT7EytnciEQWjJG49cOSI3BSVqv0EsMAM8OJ/g/yfUDZr5a7Otg5nXnMENEDh7dN/q7KCR8MM5ZvOgCkG25uEE7yrpLYoaTP6R8q+Vzmj73IOSu2PE8zUuayKXPxdC65e0CHsGpQtwnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cjk4szjfe9yfjpz0zCIcH6lhBIifNe7pN15R2OQQnS0=;
- b=mbFbNvK7bQCiUvyfDc9tMN1RXenOtGWLhtEKKet1MguCxr1DpWGpBpBgBZJKMC0XkfLHzI2CJQXCOrBdi66gAaQ7F7I/BrsdB0m8UIdhNiOEBYvV1E82dlR8G/nSYn+a3nZieFenXCcuTJl5J2ayJYMwHdIvmDBa26qfmwoalaIZv9GgHA6G7FB59yC7q6i/XN1cblmsIsKMu+wOhsVJIaUw8vhilhNC2fRX/LWvtl/UTA0dtbOEUefiU4shtd+57lhqbteY8uhQKPEhHkqXPNz6VgtQJaV6QuYDgPlAM7CFUet40lLqRbdIrb8bhsJ3tOUfep8BccaIMzAZofRzpg==
+ bh=oQ7kixLp2xP7PWYSHM7KlfezriiLQPZu72PGAl+gDak=;
+ b=eowJN263zBK1qFDvqSQCFescljalA5c67GybuVv5uaLwxxvq5+xZ/9OPdvCvOluTD2MzCBql8V7wkBLLxuMD2HnocNoIr2oaO6ZiPa95YhZlYwW6OmjRUqkn+b1r35Nvq0qCNpqoWgrSVrEsp3ROsMXevn7ZZ04ESTHxHHPFg+kDpttN74Sbb4zIIK3HDEeqbSaFbbvIoY8bDVrzBCRm2DujYhStZ1p6NG85uISA0bxCxl1FOgIzh3M91bT67K9/fgPf9TvV+4RmVYGi/mK1pWDnWwOGC5/krUc4xj6O4cgzWNVRhkDRnJTQgJT7vz2fysAzcL3jnArict40OYWzFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cjk4szjfe9yfjpz0zCIcH6lhBIifNe7pN15R2OQQnS0=;
- b=iCEyrrrS6lfeizpPBQ+RCbZLLAuoaKAphd9eEaCsp1U+YV9O0EsS/lOB+mlqF/jx7ZK1IcUm7JoH5yieCkEqiot3Loyly2pbDu6vAx0+nswLnp8jGFNVoFBM43M3BJvCREuz7pHVOxcrWrEDi08252OuJLMGJvjvKlN8X11Yjz8=
+ bh=oQ7kixLp2xP7PWYSHM7KlfezriiLQPZu72PGAl+gDak=;
+ b=bl0WhLvJa4/boxYOEZBdfO8zxxgnpCFJnpqjI4FK/FTCVANgSIH70VaZcxnLdBRyxKzHMzZFrzIMDCNCCzMWMeYISe3MyOFghzWHdGcSfuy/RNcK1beAOeKBEDYN5gHi050qcIluc5otA6MZ1JjptoYigacJCn+L8Xuv6HXSynE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by OS3PR01MB8474.jpnprd01.prod.outlook.com (2603:1096:604:195::11) with
+ by OSZPR01MB8702.jpnprd01.prod.outlook.com (2603:1096:604:15e::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Wed, 8 Feb
- 2023 01:03:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.35; Wed, 8 Feb
+ 2023 01:31:19 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::4b75:8d8e:d89a:7860]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::4b75:8d8e:d89a:7860%9]) with mapi id 15.20.6064.035; Wed, 8 Feb 2023
- 01:03:24 +0000
-Message-ID: <87sffht1d0.wl-kuninori.morimoto.gx@renesas.com>
+ 01:31:19 +0000
+Message-ID: <87r0v1t02h.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH RFC 0/2] ASoC: dt-bindings: renesas,rsnd.yaml: adjust to
- R-Car Gen4
-In-Reply-To: 
- <CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
-References: <87r0v2uvm7.wl-kuninori.morimoto.gx@renesas.com>
-	<CAMuHMdXYwW8bk+a+7Fb7DA7kT0DdQyJSGaSnFzdgfWZxpmPHAA@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 0/2] ASoC: dt-bindings: renesas,rsnd.yaml: adjust to R-Car
+ Gen4
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 8 Feb 2023 01:03:24 +0000
-X-ClientProxiedBy: TYCPR01CA0178.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::19) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Wed, 8 Feb 2023 01:31:19 +0000
+X-ClientProxiedBy: TYBP286CA0027.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:404:10a::15) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS3PR01MB8474:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43b8ecab-b0fb-44ef-1245-08db097047c1
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OSZPR01MB8702:EE_
+X-MS-Office365-Filtering-Correlation-Id: 684be59c-f5b0-43bd-94ff-08db09742e17
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	YMn/diM27E6fUYLJ1rI4j0nUELltaolCmp6znVGEbviKFum0tPQM/lJIvA4OQyGuhsH3fQbbSB+eFXb3dHJ3/o9bAMk57AemznOsGNULhJzCvEuvaxAPuschUeOK3leSothFL/f6tWYMXgo4RGV9n7XjEKNh1ek8DPH7WdXbVzkkyFnKgkRLn5BzIkcrQLMIzKLofCU64TqOW+i55neqjlHGw617RcouKRz5xgd+CwIYlCVW9NhUivEQdxfoWN4fLyC60cerQ6QZF7BCQTkkoyCVOB7oKYl78+cjTVQUAf8Ra9REB5rxqzhtK3W7FG5OxsgKiO1nUQdIYqPmUnB4VWzMwWQwTlZEHY8gWtaf5jxjKt60SOsmdi54PvuaiFNw5f/91SaaupvOKikCZcDjcYzno0FmS+4Zg0pwvnRIewncz4QbpWW5yElLUwznP2bbyaN5sxwDWeqVsClbDqPm3JwU8hB9q3fnqNKwlV/1UdbB3USztK7f2zXdCm8a0ApXWvnEnuAh6M1cHFFVVF0e8XyVYtTVr+quBJFFhvdjaSO2PFmSnBueeLYCjCvF1f6tAKBiXENJMaD0dTE9OXhwjFt+sg3SjFJMRS9a/inMl4XDJxJ0xUYwXBQzv2ZFVkEfTysV+DuRYqShBvRjlaEP60dAnHMcNfk4uQ65E5dTDzRVk5iLBngjUXyoCZ+BuDxjWVoWtGCBheOu0LXQfhZonfK0KnGs6vZvKw4puK5z9gs=
+	M+k15w78WxpFwuDyPey8B6SSThIhZuKjZwWcRu/40uVhlCQKqif2u53V0dGqC2XNnAoh1+UPCx+Qn7sjHdJ+Ql/enm4H6jT8X4PTXCus+OLVkVEDn7pbxynJliN6nFh8gi93VtG01i2RbscVQZvMBCMPG+RBtpW1wFC9LOaC4Ija0aXxG9c9MX/AvaOy9V5+/JvbYBRB0MzKm6X2jtdqrWz3RsR9U+UXhLzxadwn7z5vzCpCYe/z5x184WThlZPJ88QmkISodp45PDO19zEGIeDRFm7kRpThWIVUrKwIO+0IFcRkKLQi/dJl+ylgV12T/a0HLgXLmC060z8HkWJoW4/oUi6ctMy+Y5HeDXlP5xUnHwpdqgcHl2zAyNNozsCwr6yzp2fbVtcDU7KGjzfYKq+I+Nmg4mPmXWpb95ZMxbMqJsaXdtyJwrJKpWuFNe/tzBdyWEpqbC6T2waBPmMAl6C0YHWCO84h+sWzMNXD+SE8IiVqkvjAvQGL5cDjsR3E6MoXdmd9Eo3Jgep40LS4Yk5gxrRcKG4T0ARyEpdRRn9sbwFL59PU6uJCDeSOGlPZzO9FOtEsBQwVpBgWQVDcisJlbE9UqLVmEaQ6rjkejk0fbnNnyWxkg7KTFoEWUuMGaoIjY0/iQiTT3lVxAVp+tfmFoU3hdCHjgWoQCSjndqgHibfW1X8ncwsgOT+akdprPzRGJB4y8PQbKsBmAnrwLQ==
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(39860400002)(376002)(366004)(136003)(346002)(451199018)(4744005)(41300700001)(2906002)(4326008)(6916009)(316002)(8676002)(54906003)(66476007)(66556008)(66946007)(52116002)(6486002)(5660300002)(2616005)(36756003)(86362001)(478600001)(186003)(26005)(6506007)(6512007)(8936002)(38100700002)(38350700002)(21314003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(136003)(39860400002)(346002)(396003)(366004)(451199018)(38100700002)(316002)(83380400001)(2906002)(8936002)(66476007)(66556008)(41300700001)(6506007)(6486002)(66946007)(5660300002)(38350700002)(4744005)(8676002)(478600001)(2616005)(4326008)(6512007)(186003)(26005)(86362001)(36756003)(110136005)(54906003)(52116002);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?kFT/zN0L5NrLDdsWEHx2ZGVj/6nXxTIjQUwy8fcNbt45CpHkuUxSozNnQCLG?=
- =?us-ascii?Q?6KJRSU3dRikHVOZepMhgtol9Y1cIl8+DylMbSGJ9QRg3P47BcRZ843RF2thZ?=
- =?us-ascii?Q?p7WKXLdq26lhf3rvx6l4DR1JaiiJ80VGcYfhM0IxuWeZOzkJcNQwO1JxpnmN?=
- =?us-ascii?Q?lyXUe8vLpn+rMKUnpGX3bJWESlXGXW/PLxPHXHCXh+AiAOOI//fn7hUzBibN?=
- =?us-ascii?Q?kC2V7yPLyfasG+BjwFhpxrGwn7W0f1tk52V2jtRgMpP/JJAW79fR1O4+KvbR?=
- =?us-ascii?Q?fcMiAoFOmWuTM2VM8Ya8Lz4nsbpPp9T3EBk5SixrVZvsUw5T31dpgPE9Z15k?=
- =?us-ascii?Q?u2tYRXbr3NTwslk2XVqzJ4OziLpbjc5xjnhxwegif0+qcvgFk/kli0Jh4Pes?=
- =?us-ascii?Q?THzt6/oXv/zODFWRbGtlhTeR8+947MyAz5GkZ4037Tt3wF1xMGxTdCjSEowC?=
- =?us-ascii?Q?LUY7qap1FnJDDLAWxSZGnvu0ZLSU6YyAoFJbeWjwDHAY2o5ZUU1p+1iWsKb8?=
- =?us-ascii?Q?RGu7Fywbz+dAyFTdDGTG3ibQpMgpy+du/4Frr5c4XY6KBbmhusmK2Dtc+a4E?=
- =?us-ascii?Q?Fu2aJjgxvRFfOxw1RqVWLQzLbkokRb2E1xFaHSuFkYEwJx4pZKt3IpU0woKJ?=
- =?us-ascii?Q?y6/U2rzs7bzwQHwir2xIR7IRPxdXY/oZULwRCo2mWuFtiRVvGsK73FGqOTmi?=
- =?us-ascii?Q?AhUOFo8UEeCjyZqbCxHelWGhf9ATRs3zaqtcpYJtZH5Rm7mtjKDnUz3wS6YO?=
- =?us-ascii?Q?Voo+TMY0wl1RY+Jmw3eu/oakclAMmOCb7SwMuiovWtTKdRs9NHqfW/ph7iBM?=
- =?us-ascii?Q?DfOjYbU/fW+CnsMWeou0g2Fe+M4m69X2B5nUZs2qva7WPLqKKQ+h1w5wD8xr?=
- =?us-ascii?Q?l3jjfWx7yiZZMQqu4WhMT6pgMNID5T4+wsZjJ6Z0Na0uFUIVJlPxOeqy+C2m?=
- =?us-ascii?Q?rPNt72S+i1XaH0eEv14g1UuPXKgncvrqploWNSQJfCQgEdtD2lKztgAuR9Sn?=
- =?us-ascii?Q?yp9YiZEd41T/dBAk80nzDNHkrB6yi0oVNGuBOISCyAgTXuMg0gEId65Ul4HL?=
- =?us-ascii?Q?7FNLbM5NBtXxh0kbCcWf7PPNc/OJHc/h67KQE3rOErC8vhfJRHN3UtIl0s0A?=
- =?us-ascii?Q?iCuh/LlGEKTRveGNCpaGdQDox+dns2cXDombi6XPyNzYuE5wmUBjZDzURvDy?=
- =?us-ascii?Q?HbkJ8v78aof0+8VmmSb1MH3td8U5i9jxthcAjqHPAS8RdN4DkBxQFLlqacqA?=
- =?us-ascii?Q?SKh4MXKuWTDaKy+y23BXfp/Hj7NLeYJbUaj/qf9G662drnfrT2vTXKVovjvk?=
- =?us-ascii?Q?97QljC7l3tcdCF7bBBNFM7stkND/3P3YlIG+YS53rqFrTzxePeQxq2/bBioF?=
- =?us-ascii?Q?HQ55hqJrTiWPtCAsnnG0I/oa7XXJ123E6gPxNbiCPyEDVdGZ60qCd1F8jc7D?=
- =?us-ascii?Q?aEIyEB6CE/nyBtaLXlc3T2kT22f/CsFuWv9fUHs7zFKUk6l6puVmUPIToh3a?=
- =?us-ascii?Q?RgRiJQAatw3tijYnHuyDYfsb79JNOV6wiN4ZsMhWZMfzEDDmoSAkhjATYeNC?=
- =?us-ascii?Q?Q4MfKukwLYEPG3dTKxr7WstvBalbqM9vmI6EXuNddTwr8xAy3r8qeWgli08E?=
- =?us-ascii?Q?JjjyzlIygNkLc/cTV17GmD4=3D?=
+	=?us-ascii?Q?ar3Flgza/7VGZGATAa7srx0HOJT1r4piPXCyLjoTUVUWs0bWIHs5BbGgj8Dn?=
+ =?us-ascii?Q?DYf3b9n8w29ll65yL/jgEggl2NjkCxsnF5vVcUCukU5JUllkcm3vm2dDgLD1?=
+ =?us-ascii?Q?MxQAtdb8lnDffiRapMViLX1K/ZO5t8VlMPS39hEQtzG1Z71Grr3i19zhW2jt?=
+ =?us-ascii?Q?fAvO+ASnZs89DVvHKy9b3llPp2Gj2Mj/RMeDKyz0cuDthUG8S4wDMEX6DRNo?=
+ =?us-ascii?Q?1BOBa6LChqoAF9+bhIfNeUpzrN+G8v1vU999v30VuE4Jn2T4lPKv+/kmhmYz?=
+ =?us-ascii?Q?vGTQWg2BjeIRBgT6AMw3Twrry+Z6NZ5fFHXdeAMm2MNxIiIBBUImq1HoWYSm?=
+ =?us-ascii?Q?FGE9qv2xab6K/haliNAJaQdf4nTiYEUv+Dw65/nhnYdeWXhR/pHEPYlb/xlO?=
+ =?us-ascii?Q?huXtaJeIkzrUwwAyKVxRdO5gvKnkL8XZ3rXrBdDRva15fTzu1RnKEEcVsMXa?=
+ =?us-ascii?Q?aDTuLtu2ILsl0JglrOVEvgnGerGNB+BrazJuIts5HGTZmnJQfYPeKsuXPP8D?=
+ =?us-ascii?Q?7JfGkqYWstzj8B5w+aTO7dTcLpTm2LpggBiA0xAJc1rwls75yWLRAYTq4XIK?=
+ =?us-ascii?Q?3BPsI9oWXltcrMYX0OQHyNYf7P22zTxEiNKKZwVfMOIQKRyws5fPaJcXAnIH?=
+ =?us-ascii?Q?w46ytStX3oHY9sY7KmYnVvuUc5xVKvG0kSxHd2MBfbQEAYI/ICXMp6cey0wW?=
+ =?us-ascii?Q?GbwWEgainX/3PQJGfznuS00sTyCIjvF0wIT7RoBpMxGi6aO1BBJr9mkycg7E?=
+ =?us-ascii?Q?EIP3ccso6KTFVJmX2fyU5Pkp2Og5MUEHBUAj4mQqh8EUk+pzc/Ls6mS5yAGM?=
+ =?us-ascii?Q?rxf5KU7SOPzyO1CYOKxHqa1fnt1446aDOZWp8rqmBRfoqeKShej02ko8laHq?=
+ =?us-ascii?Q?GfkS9ON9h4GlsNS2dNhexbgV3IawkMhjsi7o6M8qvuxlRdUNt1Tllak1py6I?=
+ =?us-ascii?Q?h09WWD9SyyR77GLaDvDIqERfywAlSSYl5p82IPrI4LYMPVvwwu87LufdaZUm?=
+ =?us-ascii?Q?2e4No8BSwCXeGGA//0LrMzacVyrRJkXkpRp17oXeTpjKcvXTnaHjMyFbdrM0?=
+ =?us-ascii?Q?BQfUkEeaxB+Pg1ZZXiDmF1tY2daxTPKDGX7ge9dr9yrCzFr8RQWB+4ycz2Wx?=
+ =?us-ascii?Q?t53iVBrXHq/uHqK7gZYMC+gCE+X2O85m0yZFpzy86ytfoE7PMhs1WNWpO+aE?=
+ =?us-ascii?Q?FpdPpcpNn7kLdWPDNOod+o6jHOjjmGNwQFzmyE5HOhumiewB4K2mvtKXmkYh?=
+ =?us-ascii?Q?2QwIiFIeq1eQ21hKsn6U4xlHzNCE50n1hmGjfk3A5egKqankuVntkignXG5q?=
+ =?us-ascii?Q?TBGwHa0RhV4r6b3iwDnOk9/1MX+X0DxXQGGagILT3t90SYKs6eI/2YmsK3nL?=
+ =?us-ascii?Q?7Oq4ltrF/zYoLMcsqS9sdkOCk/Y8uieqR9bZW6O+Z90Hs5QyiGKVoR2urRir?=
+ =?us-ascii?Q?peI9TDrcnkE4uRcYcL/qoDxrTZNmPhqwpkp5BJcy8ad+Ym9zPdg+tT/uvsw3?=
+ =?us-ascii?Q?WYRPeVZwkcnJayvSJYkiijcuwXWLyfgeC9ouEqg5SuFDBgh6OQtjNmyiBB4s?=
+ =?us-ascii?Q?NbAZs3fqro3yqhAR8ahKZHqvB5juL/nGV8Vc6uxERfMycUc957gKoQmg058s?=
+ =?us-ascii?Q?54jkqXjbho6KMzSDJ53Xm1c=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 43b8ecab-b0fb-44ef-1245-08db097047c1
+ 684be59c-f5b0-43bd-94ff-08db09742e17
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 01:03:24.8973
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 01:31:19.8304
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- FfFGcu3er50FFnB5IQwTQREwu+uDiyphNKJj52gYFdNxZvyX4qhUna+ehvZ9CqfxkvuWWB1lAQkIeXtT4mVBkukI+fq96HJtSmq2TCr1tY4ahu9wbi8JyASv++3prX1A
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8474
-Message-ID-Hash: QJ6FSRKS264UBFUZO4GPVG2U3F5AN22F
-X-Message-ID-Hash: QJ6FSRKS264UBFUZO4GPVG2U3F5AN22F
+ EzhCCiejQr2UyngXpBFxViEEwP+Ci1X8MFl1OmPYMxN8nHESN4cCKFYG1z3rl5yR3ccMgnTWsoMDecoyCBNFURYBWsIa+iNzCRBZIT/LLBOjUTGag/IqyzhmTZq9gh1h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8702
+Message-ID-Hash: W4GODZ25POXVTCA2NC6NLIHPP76PLERT
+X-Message-ID-Hash: W4GODZ25POXVTCA2NC6NLIHPP76PLERT
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -145,15 +143,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- devicetree@vger.kernel.org
+CC: Linux-DT <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJ6FSRKS264UBFUZO4GPVG2U3F5AN22F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W4GODZ25POXVTCA2NC6NLIHPP76PLERT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,37 +161,30 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-Hi Geert
+Hi Mark, Rob, Krzysztof
+Cc Geert
 
-> > This patch-set adjust to R-Car Gen4 on renesas,rsnd.yaml.
-> > It works and no error reported.
-> > But by this patch, non-Gen4 leaks from "ssi-[0-9]" checking.
-> > I'm not sure why it happens.
-> 
-> If the logic becomes too complex,
+These are R-Car Gen4 support for Renesas sound driver.
 
-The logic itself is very simple IMO. The problem is that
-all case hits to if-then for some reasons under certain conditions.
-Under "patternProperties" or "xxx,yyy" style are the point ?
-I'm not sure.
+I have posted these patches as [RFC], because the schemas
+doesn't work correctly for me under certain conditions.
+"required: dmas/dma-names" always hits to "if-then" and
+never hits to "else" for some reasons. I'm still not sure why...
 
-> you can also split the binding
-> description in 4 files, one per R-Car generation.
-> That would lead to lots of duplication, though.
+But to be very strict, actually, this schemas is not mandatory,
+because there is PIO transfer mode which doesn't need to have
+DMA settings.
 
-It is nightmare for me...
+Thus, this patch-set dropped the schemas for now,
+and ignore the issue, but it is *not* a wrong schemas IMO.
 
-Actually, to be very strict, dmas/dma-names are not mandatory,
-because it supports PIO transfer mode.
+Kuninori Morimoto (2):
+  ASoC: dt-bindings: renesas,rsnd.yaml: tidyup reg/reg-name
+  ASoC: dt-bindings: renesas,rsnd.yaml: adjust to R-Car Gen4
 
-I'm still trying to solve this issue by using many kind of schemas ways,
-but all cases doesn't work for me...
+ .../bindings/sound/renesas,rsnd.yaml          | 76 ++++++++++++++-----
+ 1 file changed, 56 insertions(+), 20 deletions(-)
 
-Let's remove dmas/dma-names from required for now.
-It is not a wrong schema.
+-- 
+2.25.1
 
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto

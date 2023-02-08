@@ -2,99 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F16E468E8BC
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 08:12:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE4368E8D0
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 08:17:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED6443E7;
-	Wed,  8 Feb 2023 08:11:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED6443E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E10F8827;
+	Wed,  8 Feb 2023 08:16:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E10F8827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675840325;
-	bh=o4WYO5GPIC1x/dtE+wgo7H/NBdFCTJpkcXbjzugf3LM=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1675840667;
+	bh=qxOkRKMNkXWngKAtReZpwVJvH3E/fir7ln6ffaavgKc=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h54BRwrB4xnCPed+dZ+dt7YC/R1oiFQFmuyr31G8XGNXS4myIEvCe2pVvNnLlOgUE
-	 IxfkbLK0cKymKMtIs4Wh4RXZPEPalL3XVTjdM5TIcHRqdcTQAc2sewJssjl43n2pA3
-	 Z2hKN5kELgN5WPoplyrFLCzSySrattM8ftljOm/A=
+	b=KL74Sjyc7bXPCWmEA9VyBlQj1Lj7hK080hkaQnB4b8eyb2/MtzL4N2nEL1WZpTnF9
+	 1N+17DNd+iHiaqMnfJLWpkbxpn6exD9DwiCfV2osQtOtWr6JKCMXdU6Gu1KAj5sCUo
+	 P093AbZYwTQJ2BVBaqrlspuS5fudJXtVH4hrMBoM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4308DF8010B;
-	Wed,  8 Feb 2023 08:11:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 850A5F8010B;
+	Wed,  8 Feb 2023 08:16:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06DEDF8012B; Wed,  8 Feb 2023 08:11:02 +0100 (CET)
+	id 58914F8012B; Wed,  8 Feb 2023 08:16:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::61b])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21065F800AF
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 08:10:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21065F800AF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 043DEF80095
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 08:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 043DEF80095
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=OMnfkutD
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 3DEF8240005;
-	Wed,  8 Feb 2023 07:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1675840251;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aMJxOP//3lmrdw4Ez3gU5F4BL9UKnlN7VOGF3OJa748=;
-	b=OMnfkutDt91abAJjp/6eauDG4dn+ggxo319G0cGWyRerN8lLWv11QT+Q2aXz0hYl18sfcr
-	1nyuc2cnZez0LUK59e9ONCp7mG1JLW/oSfTh+nmn3GefZ7tf8GDA2pSi2dwnFSxNjVzN3m
-	7xvfUg5TGFKW2/bauuCcMxiG4W4bw/i6PYUyQe7F4tWnZQM6CtT9yJ92d9Hr24dqzNgmVM
-	duzmoNKG8VJJHzy2h8n2IkgRFNZpo30RPq0LCK6DCkCgKXheSLd3PaKT3CIkP28nfX7zYG
-	yp5ZngE3YFdFDtbWkb0z+1aYLotqX8/B3KtQwIwovQ9yES4CESUYt0scjA+56Q==
-Date: Wed, 8 Feb 2023 08:10:48 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH 2/3] ASoC: codecs: Add support for the Infineon PEB2466
- codec
-Message-ID: <20230208081048.0708037f@bootlin.com>
-In-Reply-To: <fd3ccda3-f964-6904-6056-f93c43b85a0f@wanadoo.fr>
-References: <20230206144904.91078-1-herve.codina@bootlin.com>
-	<20230206144904.91078-3-herve.codina@bootlin.com>
-	<fd3ccda3-f964-6904-6056-f93c43b85a0f@wanadoo.fr>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=3mWG91kJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Uz26Kfa4zeAR6u+EJiOGBqAeKblEg/LPdBTPELFJkOXIa84p2esGLUDkyXf5oGcfjlig/iFoRxjbtWIsQAvxuOINQKpsem1U8nRIbx+dEf2bEHuKrwzTg+R3i2lt1bVNeL9Rg8Sr3zjHqH9F4DV8U/x4XArMc50cEunDBcSo+eQvH/2pIzRvTl+qHbgRMWWYnj6hrdR6nw+88TRzwtyvRYqWh5Ycpz5Vujq28BpMsC7+ZJihu/o/UwPySZg7QElROP2rnzcHrlrr67qAq1ZGMvJIdpvdd5p1BdnAqZoOk99IHvriHXOI+sUlWEMdHLMxr65dbkyB7qYFQ7T16zR5OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qxOkRKMNkXWngKAtReZpwVJvH3E/fir7ln6ffaavgKc=;
+ b=LCo5Zv5otIkhKNGKjsoKmmk4souN6YRn1cv9g54FOuubDBmcrgQ/A0bdscn/XcQOJZaSXBdFGgt6LO3W+e7X4/JAUPSDNyIaF2G7c2egAniNo4eO8WPxJLT7SyJWToT9s6/NpReHkb8BECikEB7aUApQs3oQJ+vi6n4zFWVw0c3tCP3LkXLK9PVP0D+e74d0ZSeLgbrD1T9bA62MbiFmOOiDbfLPdlnsGNnADxQXCzLymOxqoxezU+MRW4T7mU4XXUDXtIziUN0p6OC5Cq+XBrQGndR62oiiJy9ydesH9hiKNNmEPI0S4RxuOsDp6wYqKmORmBeShj7bY6GnbvA0kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qxOkRKMNkXWngKAtReZpwVJvH3E/fir7ln6ffaavgKc=;
+ b=3mWG91kJ+HIEeWau1XddeINejxXDS0WtcqIhCA/xzcJhKWEMhdPCP3pgbel0MbX1cIaCVHJSVlrapChD4N13vC9+H0UmesrX6RBdpR9EweAL40CAOMsr2VtrA6X0ngrrstw5gLle5PcVqyvHX5W64ax3uIrYbNJQbZd9Si05KPw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by PH8PR12MB7109.namprd12.prod.outlook.com (2603:10b6:510:22f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.31; Wed, 8 Feb
+ 2023 07:16:31 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6064.034; Wed, 8 Feb 2023
+ 07:16:30 +0000
+Message-ID: <f1d1268d-6232-0428-4aef-a002eab6e16d@amd.com>
+Date: Wed, 8 Feb 2023 12:49:29 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] soundwire: export sdw_compute_slave_ports() function
+Content-Language: en-US
+To: Christoph Hellwig <hch@infradead.org>
+References: <20230201165944.3169125-1-Vijendar.Mukunda@amd.com>
+ <Y+NCL1MdgwcuLTLk@infradead.org>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <Y+NCL1MdgwcuLTLk@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: SV7CNIDRZ2G4QSDPBFUI5WSFXWV3PWKD
-X-Message-ID-Hash: SV7CNIDRZ2G4QSDPBFUI5WSFXWV3PWKD
-X-MailFrom: herve.codina@bootlin.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0228.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:eb::16) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH8PR12MB7109:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a8caacb-1871-4036-e1c0-08db09a466a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	YFVmX9vBspkDTVcObS1+zrRruzM8zKjF7DDCfaWmaG9UnURYYWry6iaRw0/r2Uw+nMROT9C6N5ZG7/OAeFjvW6+lkGjOD/cR8ZeuYxaxg9AILr3eSep6UTL/EbcTKAq3DpyHACojOTMXMFPpNhA+YKZV2WAjsuHIyHGvhhU9Vy4t6otviiwY8oI9NHWtgjac3/4jzVvA9lDfwoCRZ4lQeLnwGKmq5b87pA9mMlmrqKp1/aW+uQ1rjjOTYjGNDiZBQPTtGRFOgEDnW4HxiKtNC1jgqPOngd3Rh+KhLdXYe17QZVGSE4Ust3UUiU1yQtfNj3+uS+i9B392GOJGBAKJjq9Y4O1naeI6m4ViX8EwjwoOdYdLpoDMz6kVDXXXoh8P/mFULly9B4OKObXNnRSvUAA721Kwg16iDwSvCEakl0tiYbolxzK85OoFCVzp/Z09P+u86AvglGuAYvq4Bm19PK8uH+dyNxOH5vLuehPVzfclrMRgwFRQHepZGmyFKIEcu+2bZpmInWO0h9BzGsmQ9kD1TjH9wm8Lnt+r+D0V1JwweErQ/uL8soLJH7a3oycEKQKJvP11nrF5HCzdUMdqfH/Oc1OjKdOIuyEJWYj0DHOr5PjdgLN/jAj8kqxvAjAj0BYxDH4ezuDvlWzACFZOQUg6Hq10Z5yDl5Z4dQBMfGyA/sdHb8tC5+91VEwH2cphRJi+RbEuE4kIWaxjEF9r5M2q5HlSaR6cX5/LuLtxUYs=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(39860400002)(396003)(366004)(376002)(451199018)(5660300002)(6506007)(86362001)(53546011)(4744005)(26005)(6512007)(31686004)(186003)(8936002)(2906002)(8676002)(66946007)(66556008)(66476007)(6916009)(4326008)(38100700002)(41300700001)(316002)(2616005)(31696002)(478600001)(6486002)(54906003)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?ejl3dU1vTGZOQnZzV3RSL3hsR25mOTJ3Q3ptMWQ0U1hYZlBIWm0rUG9lU1l1?=
+ =?utf-8?B?WGJuT2EwSmIzN3BBb0FPVTBsR05CYzlnenpicVVKNjNuYXQ1L1VSL3dLdGYv?=
+ =?utf-8?B?R3luNDF3d0VNY2tTdGhNamlzUksvUmlEUFQ5MnRqcVRia1Z2RkpuVmh1eFVZ?=
+ =?utf-8?B?aGpjZCtsWFJNLzlCYWU2Qlh3dEhtUTRZS25lZGRGSnlodU80RE94RHZaZ3Rs?=
+ =?utf-8?B?U01FYmVtR29IWjVtTkZ6aTFYanNJSlNidnBGWHRPckF4WlBRTWlMVUUzNXls?=
+ =?utf-8?B?RElDSlRrK0dYMlZhdkdwcW9jK3R2dVRWQ1F5Um9UdGtNSDFXdkpDR0pIbHFJ?=
+ =?utf-8?B?VEo0UGduK01NMEUzclczUk9WViszNW80WG1WWnVUNkRGckRJQUVQcUJ1bWJy?=
+ =?utf-8?B?UnZxQWN6NllUMDNjZnYyaTN2T2FTMmdIaGdrdGV6RW1sN0ZzRmNhV0IxWmJE?=
+ =?utf-8?B?akd4UVVCV0tkbzIveFd5d1V0OUMwOEp1bGFzOHk2bjBhRFN0WXdVb0YvRVFz?=
+ =?utf-8?B?OUdlZkIxWWtGS2libjBnWmlTRnB2K01DZ2Y2bElIbkR6MUlpa3dWSFRVcjRz?=
+ =?utf-8?B?MngrTWdlbWozOFprclN3L1FxL1QzVWlXaUVWY0p2WGttVXZ0Um5QOFRUR1Nl?=
+ =?utf-8?B?aDZhbm1PcnZ3WkVPbzA1OGRGUnJNdXZlbFdraFYwQmx1SlEvYTZGR2VUdFRi?=
+ =?utf-8?B?a3RsNHc2OGFtK0tqd2NjcjV5S0RPQ0NGeDBYaXY0OC93N2xLcXlrMWZuZ2VT?=
+ =?utf-8?B?UmFCRnpjMG5lV081ekVmQ0NCaHdNSDBzMUhxTkVUanJpSjYvNHJjaFRLbUhT?=
+ =?utf-8?B?Nm4rRFJpc3dycVc3WERXUmY1cnR5VjU5dzh2M2twTmFPRkhLRGoreW5aZEZS?=
+ =?utf-8?B?c1c0MDAvR1BRb1pjeEd6SmRBRUtMNk9vcmxEdU05OU1qZkpFMk9oQ1lsT2t0?=
+ =?utf-8?B?WmgzVDJpdFJ5Z0tTZ3VFUjRLTHdVanM4U1NxaWJNY0o1Mk5DRWV0bGlmQWJm?=
+ =?utf-8?B?b0pGakFPNG5EelAzbURwTUh4NGtOc2M0a3hNcnU2c0dqMC9BQlBNSTRzY1ha?=
+ =?utf-8?B?aXdmcjZId3czdGIwdWpOTXRuV0grdjVoV2tLbFJjQzNIeGN1bEdYVEM1UWFI?=
+ =?utf-8?B?YzdYSXkycXFpNllwMGJZSGhCOXo5K3g5R2lQRzIxak1zY2cwcjVoenJUZWNZ?=
+ =?utf-8?B?TUc1Vksycm55ZDFldWp4TXRtUmFzTjI4UTRsdXg0QTFHQXVzUUROTWJLWGxM?=
+ =?utf-8?B?Z0JscmZiMTN3Z2lSMUptb1NuU0FCc3BBWGxJQXdER2p6ZFRtWXdEcW1Jb0Rr?=
+ =?utf-8?B?cHd1NE5RU1B3SG9rdElLQk9YMDg5Q1hpdkpMeXVjQVJvdUpGOHh6Z1FyQU9w?=
+ =?utf-8?B?QU1QYTVjSFBFY0JocG92V05LbXZpNXlyNUw2N2N3UkxRblJyRWRyM3ZIQXZL?=
+ =?utf-8?B?RDhEMmZWa3BmYXlrR3VoUTBPbGVHVkdJclF4YndGdVQrTy9hc0dhMFlkdzJM?=
+ =?utf-8?B?eEJ4bDRPbE9SQmI2S0VpeDlhSkpDb0JYZDkyaFk5RWZFMDMvTjdkeC91ekJI?=
+ =?utf-8?B?b21obzFOOVlzMVI5b1AwRXZMK1lUa01aWEE0ZzhZRnQ2RG1tdjBSVERjVExm?=
+ =?utf-8?B?R3diT1hSNGQ3Vm5MekV0dmZIUHhHU0JlNTUrMFU0V2t0VElwK1BKdUcwQ0hK?=
+ =?utf-8?B?V082MU9xVHFVc1F5NXdwZTZQSG9zZHphR3FWWnZldEdadjVDQWpxNUhXbnM1?=
+ =?utf-8?B?ejdYNWx3THdVY1FXcDNjVUoyUG9GOXZ5VS9hQXcwamREbG9oZU9jdFpmR3o0?=
+ =?utf-8?B?c3J1ZkdCQ28ybUxCS0VHMW56dElGbWpIOGcvL2U2TEgvTHBaM1FydkNyZXNK?=
+ =?utf-8?B?Um1pVDQyaHVVcm9HWjFnWnZOTjFZRnJUUmhDWHRUbXdORWZTMExoU1d5R0p3?=
+ =?utf-8?B?TUd1SXV5NmZ1eGFzcGdHK1hORVVmdFFiOFp3ZTZ3c3dyS21sbU16L09aeDNn?=
+ =?utf-8?B?TmgybGwwQnBoWExid3pPY2RmZWFYV3lLWEFwQ0pkRDBjQWgrSEFmcm82TFBY?=
+ =?utf-8?B?aXZad0MvQ2Vja2JGMk0zUVRLeWR5dUlzOTZ1TUVMYWxJZnRxNkxVRkc5cFdj?=
+ =?utf-8?Q?Ki25NEQY2Dd8shXfcFGRtb8Ix?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5a8caacb-1871-4036-e1c0-08db09a466a1
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 07:16:30.7832
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ GVkgOR7gOb3sn9Lf4GCl7rML15iYUQPzZ2pgfJQv38UXoJ/sFsCQsE6phbiKm4hYsFHLMR/F/8E61V/cL6pdVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7109
+Message-ID-Hash: KFW4QUDTLXI6TXDH7DCAI3ZP76SQ3DKW
+X-Message-ID-Hash: KFW4QUDTLXI6TXDH7DCAI3ZP76SQ3DKW
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: broonie@kernel.org, alsa-devel@alsa-project.org,
+ Basavaraj.Hiregoudar@amd.com, Sunilkumar.Dommati@amd.com,
+ Mario.Limonciello@amd.com, Mastan.Katragadda@amd.com,
+ arungopal.kondaveeti@amd.com, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SV7CNIDRZ2G4QSDPBFUI5WSFXWV3PWKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KFW4QUDTLXI6TXDH7DCAI3ZP76SQ3DKW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,151 +176,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 7 Feb 2023 22:17:39 +0100
-Hi Christophe,
-
-Christophe JAILLET <christophe.jaillet@wanadoo.fr> wrote:
-
-> Le 06/02/2023 =C3=A0 15:49, Herve Codina a =C3=A9crit=C2=A0:
-> > The Infineon PEB2466 codec is a programmable DSP-based four channels
-> > codec with filters capabilities.
-> > It also provides signals as GPIOs.
-> >=20
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >   sound/soc/codecs/Kconfig   |   12 +
-> >   sound/soc/codecs/Makefile  |    2 +
-> >   sound/soc/codecs/peb2466.c | 2071 ++++++++++++++++++++++++++++++++++++
-> >   3 files changed, 2085 insertions(+)
-> >   create mode 100644 sound/soc/codecs/peb2466.c
-> >  =20
->=20
-> [...]
->=20
-> > +static int peb2466_spi_probe(struct spi_device *spi)
-> > +{
-> > +	struct peb2466 *peb2466;
-> > +	unsigned long mclk_rate;
-> > +	int ret;
-> > +	u8 xr5;
-> > +
-> > +	spi->bits_per_word =3D 8;
-> > +	ret =3D spi_setup(spi);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	peb2466 =3D devm_kzalloc(&spi->dev, sizeof(*peb2466), GFP_KERNEL);
-> > +	if (!peb2466)
-> > +		return -ENOMEM;
-> > +
-> > +	peb2466->spi =3D spi;
-> > +
-> > +	peb2466->regmap =3D devm_regmap_init(&peb2466->spi->dev, NULL, peb246=
-6,
-> > +					   &peb2466_regmap_config);
-> > +	if (IS_ERR(peb2466->regmap))
-> > +		return PTR_ERR(peb2466->regmap);
-> > +
-> > +	peb2466->reset_gpio =3D devm_gpiod_get_optional(&peb2466->spi->dev,
-> > +						      "reset", GPIOD_OUT_LOW);
-> > +	if (IS_ERR(peb2466->reset_gpio))
-> > +		return PTR_ERR(peb2466->reset_gpio);
-> > +
-> > +	peb2466->mclk =3D devm_clk_get(&peb2466->spi->dev, "mclk"); =20
->=20
-> Hi,
->=20
-> Up to you to decide if it is a good idea or not, but using=20
-> devm_clk_get_enabled() would save the 'mclk' field in peb2466 ...
->=20
-> > +	if (IS_ERR(peb2466->mclk))
-> > +		return PTR_ERR(peb2466->mclk);
-> > +	ret =3D clk_prepare_enable(peb2466->mclk);
-> > +	if (ret)
-> > +		return ret; =20
->=20
-> ... these 3 lines ...
->=20
-> > +
-> > +	if (peb2466->reset_gpio) {
-> > +		gpiod_set_value_cansleep(peb2466->reset_gpio, 1);
-> > +		udelay(4);
-> > +		gpiod_set_value_cansleep(peb2466->reset_gpio, 0);
-> > +		udelay(4);
-> > +	}
-> > +
-> > +	spi_set_drvdata(spi, peb2466); =20
->=20
-> ... this spi_set_drvdata() call ...
->=20
-> > +
-> > +	mclk_rate =3D clk_get_rate(peb2466->mclk);
-> > +	switch (mclk_rate) {
-> > +	case 1536000:
-> > +		xr5 =3D PEB2466_XR5_MCLK_1536;
-> > +		break;
-> > +	case 2048000:
-> > +		xr5 =3D PEB2466_XR5_MCLK_2048;
-> > +		break;
-> > +	case 4096000:
-> > +		xr5 =3D PEB2466_XR5_MCLK_4096;
-> > +		break;
-> > +	case 8192000:
-> > +		xr5 =3D PEB2466_XR5_MCLK_8192;
-> > +		break;
-> > +	default:
-> > +		dev_err(&peb2466->spi->dev, "Unsupported clock rate %lu\n",
-> > +			mclk_rate);
-> > +		ret =3D -EINVAL;
-> > +		goto failed;
-> > +	}
-> > +	ret =3D regmap_write(peb2466->regmap, PEB2466_XR5, xr5);
-> > +	if (ret) {
-> > +		dev_err(&peb2466->spi->dev, "Setting MCLK failed (%d)\n", ret);
-> > +		goto failed;
-> > +	}
-> > +
-> > +	ret =3D devm_snd_soc_register_component(&spi->dev, &peb2466_component=
-_driver,
-> > +					      &peb2466_dai_driver, 1);
-> > +	if (ret)
-> > +		goto failed;
-> > +
-> > +	if (IS_ENABLED(CONFIG_GPIOLIB)) {
-> > +		ret =3D peb2466_gpio_init(peb2466);
-> > +		if (ret)
-> > +			goto failed;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +failed:
-> > +	clk_disable_unprepare(peb2466->mclk);
-> > +	return ret; =20
->=20
-> ... this error handling path ...
->=20
-> > +}
-> > +
-> > +static void peb2466_spi_remove(struct spi_device *spi)
-> > +{
-> > +	struct peb2466 *peb2466 =3D spi_get_drvdata(spi);
-> > +
-> > +	clk_disable_unprepare(peb2466->mclk);
-> > +} =20
->=20
-> ... and the remove function.
->=20
-> CJ
->=20
-
-Thanks for pointing this.
-I will use devm_clk_get_enabled() in the next series iteration as suggested.
-
-Best regards,
-Herv=C3=A9
-
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On 08/02/23 12:03, Christoph Hellwig wrote:
+> On Wed, Feb 01, 2023 at 10:29:44PM +0530, Vijendar Mukunda wrote:
+>> Export sdw_compute_slave_ports() function to use it in another
+>> soundwire manager module.
+>> Move sdw_transport_data structure to bus header file to export
+>> sdw_compute_slave_ports() function.
+> You might want to send this along with the actual user.
+This is a dependent patch for our soundwire manager driver
+patch series. Yesterday we have pushed this patch based on soundwire
+git tree. If the patch is not picked, then we will resend this patch
+as part of our patch series.

@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4749A68F036
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 14:57:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F175768F037
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Feb 2023 14:57:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23EE3827;
-	Wed,  8 Feb 2023 14:56:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23EE3827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9354B832;
+	Wed,  8 Feb 2023 14:56:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9354B832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675864619;
-	bh=F98qRLabAYvPIMOUac9Fv02Zwd2Ur3nKKMMVcYlpHMs=;
+	s=default; t=1675864669;
+	bh=DeQ1r4YPsQy0hvx8QKDPEGZkDrtPXdHip9bsSqdMKQ4=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MZCOvGaIOnLUfgNocbTCGej/2GsD/IRbUaO6AppyHrnr19yoSIbluMmhhw99jTPY+
-	 cyu4c+kjE1Jr52R9NveQzb8I3tL4K7WrSXRRmXHajMx3LinOW6N+qR0PBRDqAF58lZ
-	 Jf8MBDWwYmdGb3x/v5rFvL6tivaam1iEG1Oqh9Uc=
+	b=SyCrZwPp3BSDWq0xydMXPLx3pfDB/+YoOxZK2jM9HOSiVPV3Hcm9B59UFnugznDZk
+	 jwAsobwxVwqQxW+foktl3D+UH2Vk2GuB0PxfLLGJir/AOX7A7820jhY6Z8vMR8pTpC
+	 gbnyWGRCTzfvVGzICosLi1HkwuXIpfRi34WZTpSw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AC7DF80152;
-	Wed,  8 Feb 2023 14:56:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4FD1F80518;
+	Wed,  8 Feb 2023 14:56:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26377F80224; Wed,  8 Feb 2023 14:56:05 +0100 (CET)
+	id DD609F8051D; Wed,  8 Feb 2023 14:56:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BDCFAF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 14:56:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDCFAF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id B20FCF80095
+	for <alsa-devel@alsa-project.org>; Wed,  8 Feb 2023 14:56:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B20FCF80095
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=o6jbxEbg
+ header.s=k20201202 header.b=EpTJ3QT4
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id AD7A5B81E2A;
-	Wed,  8 Feb 2023 13:55:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8F0C433D2;
-	Wed,  8 Feb 2023 13:55:56 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AAE90616CF;
+	Wed,  8 Feb 2023 13:56:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6195C4339B;
+	Wed,  8 Feb 2023 13:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675864558;
-	bh=F98qRLabAYvPIMOUac9Fv02Zwd2Ur3nKKMMVcYlpHMs=;
+	s=k20201202; t=1675864560;
+	bh=DeQ1r4YPsQy0hvx8QKDPEGZkDrtPXdHip9bsSqdMKQ4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=o6jbxEbgvHwxp59ajodrlirNC61TayqmgjLW25TcIOayXfNQRAr7Tqn1uM8/zNyOp
-	 A+TFVb6SmWoD/RkhEwt7AGP3itbQCa2jXlHP40l7+fgt7a4znZtEqOqZVjIPFrTkiT
-	 LRhVcgxUDXorTbz+Z9UYYN5goLRRsVLkagczR9rb477kHXYLKMKdCogwbd1gcgKDrB
-	 MbkPABEtFB3qoZ6asxgAXbk+bLim2SM2jScmluKIoJNEioViz546sHeM05b8SOI2Ut
-	 83g8iNOo1yh4XRJrcfzyyi6CAv5nWR3WptNTXYZIF7EYQucxsQq4czMZn9sa7vIozp
-	 hJ9S5mtLOYsLA==
+	b=EpTJ3QT4xKcH3+6YdBKvVP7sMeEa7zWbhu5hLFNMWNIozWVM0olIF95S8ih5I34N2
+	 WbxDTOV1Syf+5CWM+W+b03JwLNvpz2LvEvbpSRMzXS+8XNwDZzsMwWYVs2UvMm5k7l
+	 XoBsg8D+E2NrJRUlRaFAhSNBmF+KWrDmmcKYj4avVoh5JUhyPsuEUe+MTouH0UTorF
+	 0NWmHBOsLsdZPbAbmiZJBE9if8NCsVksVubeQiYBwnwIz7cUMZLABAl6ImKO0OgLzC
+	 9QS8V/VIuunoghV9NeCjfTagpc6FN9LLmVUh3dC4U8PHdRxtpzxgyR2pd+0VhLaW8p
+	 C5rX3+EshO5Sw==
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Kiseok Jo <kiseok.jo@irondevice.com>
-In-Reply-To: <20230208092420.5037-5-kiseok.jo@irondevice.com>
-References: <20230208092420.5037-5-kiseok.jo@irondevice.com>
-Subject: Re: (subset) [PATCH v2 1/4] ASoC: SMA1303: Remove the I2C Retry
- property in devicetree
-Message-Id: <167586455684.136560.5295803600085339125.b4-ty@kernel.org>
-Date: Wed, 08 Feb 2023 13:55:56 +0000
+To: Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r0v1t02h.wl-kuninori.morimoto.gx@renesas.com>
+References: <87r0v1t02h.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: (subset) [PATCH 0/2] ASoC: dt-bindings: renesas,rsnd.yaml:
+ adjust to R-Car Gen4
+Message-Id: <167586455859.136560.17907345236016567230.b4-ty@kernel.org>
+Date: Wed, 08 Feb 2023 13:55:58 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12.0
-Message-ID-Hash: BRH7YGXXWQDDPNBVWZVMFED4QSKHP4WD
-X-Message-ID-Hash: BRH7YGXXWQDDPNBVWZVMFED4QSKHP4WD
+Message-ID-Hash: 4GHJ7PSFY6UIO3O5IARLGP2MWFCAQ27C
+X-Message-ID-Hash: 4GHJ7PSFY6UIO3O5IARLGP2MWFCAQ27C
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,13 +80,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+CC: Linux-DT <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRH7YGXXWQDDPNBVWZVMFED4QSKHP4WD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4GHJ7PSFY6UIO3O5IARLGP2MWFCAQ27C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,10 +97,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 08 Feb 2023 09:24:17 +0000, Kiseok Jo wrote:
-> It's necessary to set the value for each device, so remove that.
+On Wed, 08 Feb 2023 01:31:19 +0000, Kuninori Morimoto wrote:
+> Cc Geert
 > 
+> These are R-Car Gen4 support for Renesas sound driver.
 > 
+> I have posted these patches as [RFC], because the schemas
+> doesn't work correctly for me under certain conditions.
+> "required: dmas/dma-names" always hits to "if-then" and
+> never hits to "else" for some reasons. I'm still not sure why...
+> 
+> [...]
 
 Applied to
 
@@ -106,12 +115,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: SMA1303: Remove the I2C Retry property in devicetree
-      commit: 1edc70c3a4c2b07dceac3ab7d564a283549a2534
-[2/4] ASoC: SMA1303: Convert the TDM slot properties in devicetree to mixer
-      commit: 1f5ffd57c1bcdf02e5a35bf301734476c1bf6612
-[4/4] ASoC: dt-bindings: irondevice,sma1303: Rework binding and add missing properties
-      commit: 677e3ab71f83c71e1482d9698bd8159c44fed93d
+[1/2] ASoC: dt-bindings: renesas,rsnd.yaml: tidyup reg/reg-name
+      commit: 55194032620ae97338ac435505f1296e13fbe821
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

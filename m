@@ -2,124 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFA3968FBF7
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 01:27:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B319068FC98
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 02:21:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707A982A;
-	Thu,  9 Feb 2023 01:26:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707A982A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73D42828;
+	Thu,  9 Feb 2023 02:20:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73D42828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675902430;
-	bh=I4zfv741cOHBtsvZ8z0o90h6DQRRji59RKvdy2xQ7S4=;
+	s=default; t=1675905705;
+	bh=JkAg7I4xX2ZHwLyXN7kQS5+LcN1xcKDz/x6WfiZGuXM=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hse1FVMMFr1gmzkfFOaF5KO3oRMb1psUB0ZivW/hRxOCPEaYMVpLII0mM38Lmt+Q/
-	 LyXTSOyVqnCs+Mr0tT4IhQu8fCf2C7msMvS9lvZQ8BuDvnuveT9gw/xN02HNqsLvhE
-	 MdgTCo3WEXp+zLsOOZ5Nr4ZpWEbMaveD+7+eyPKI=
+	b=Kr/Xvg3fcNIgidT8vE4Yk5cyS6mMmzfGdCg4ah+fUgCC+eSbLCqsLCdiHoxNP9Idb
+	 FDVWj2w6GchjVnmydVGieVWgkRT5aAWtaYilFFlJEokLBDZ21uRgQxBK0Gj+d+Lefo
+	 l/Rb615c3+JS15DaHyUfdmtjLixWFhj18ykcPYNU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BECA0F800B8;
-	Thu,  9 Feb 2023 01:26:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D58DFF800B8;
+	Thu,  9 Feb 2023 02:20:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4A36F800E4; Thu,  9 Feb 2023 01:26:12 +0100 (CET)
+	id 0C6AFF800E4; Thu,  9 Feb 2023 02:20:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 096C4F80094
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 01:25:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 096C4F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 119D0F80094
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 02:20:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 119D0F80094
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=ayYPRFRF;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=JAcstYwf
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id CBE605C01C7;
-	Wed,  8 Feb 2023 19:25:54 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute5.internal (MEProxy); Wed, 08 Feb 2023 19:25:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1675902354; x=1675988754; bh=IS
-	ylmDo1PvzbcG0O/hloppgEbrUHpBMoX+L9zeXLvYY=; b=ayYPRFRFQ3O6tqUwHW
-	NoKdoFNG4g+jNwC8QtxiPqBP/vXCcxLONZVsRSGIEq3mljGsA7Y9/YykC05E7gSH
-	/aCqDL+S4B7Er5sDY46+HBeGYOl+F6gUgrxAP4sgLtJJaZVl/Rm2TkVozN69PNd0
-	iUTdcl/Snm8m+Tgh15EiTgVa9azxgvGPXx0016Jfrgmdq9EOkahEaN4T3nDRBQdF
-	+M9eLylXPWV6a6m4d4R9w8aeHmu7FmstQfQkck6yenv9hMNAwRwbc8WnbDWd1CrJ
-	oVVPv4Irk3eEDMdaVMRfwiDiGDe8yOe7MbaF3ypt1+tu/6vPzIEVe30M7nx6TVCW
-	YqiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1675902354; x=1675988754; bh=ISylmDo1Pvzbc
-	G0O/hloppgEbrUHpBMoX+L9zeXLvYY=; b=JAcstYwfD4mu4OiJT5w9gl+l0Zpcb
-	icbmqhfV2Ct0bDzF5KU5WndzmQ/IiQzku1y+bA+3W0nxW5BmXTHJO145V5YlWjkw
-	g+VMVCcXKcowPAvnjh4uIIeuZKGA50Y8bQuovyEdOL2hdaQC69ukeHOHVGRwd+gq
-	q/HcviQonYjVj9979L8Cpd93iKwrHvkz4JfcB8LFlbVdQjJ3HUuyz3RfeTFPjIOw
-	YTMVe0kKxt8+LojUoKdp6QuLell/DjKpPuOukDQDYhOItMSiven60x0M6s0Ze2mS
-	kv7chrbSMVDQ3SJUVe/NJUuYlT94l+/nGqvFz1VDzrBmV9/TvtRaFnU1g==
-X-ME-Sender: <xms:kT3kY_VlDhhLgUBZPPF7j2UGOpDyGmdPB-U3mfZj44gM9GnvQl_7Ug>
-    <xme:kT3kY3mjjenGwVc8mCW_DGb7ZdYTdKhUkUrEjDDy1njq9PjC-rhkwrUjzxgcOItMm
-    mRvLhTc2E2JqUHwsqY>
-X-ME-Received: 
- <xmr:kT3kY7aoGUvqdkaAbnNIbYwg-MWAjiMP5xp3gklE2VfFQmeE3tOLd4cAIB3P4RB2WcLdySh_KxQ-3JOLh3u-NgAa31DPEkZ5mabUGHsP9gO5N77-AQDRCQw>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrudehuddguddvudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofggtgfgsehtke
-    ertdertdejnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
-    rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpefffeefle
-    eivdejffeltdekjeejgfdvjeegieffjeejieeijeeitdeljeejveeijeenucffohhmrghi
-    nhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:kT3kY6XFK6hbc7X_H3SvMbMc3hrQMO6UaJKReU5GVbgmovN28E7KKw>
-    <xmx:kT3kY5kplXRctn8q8Ip375Ko6hWGGiVUZys1po60uis0FNxMv8bXyA>
-    <xmx:kT3kY3fI1C4l_pg7tFw6na2GS2pkl3urDumOhNcWuThPT62xkGRuHA>
-    <xmx:kj3kY-xw-HJGM2WTvGdy8OIuo3zUFWAS4B-TPds-IZBdI-IKM6RK-g>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 8 Feb 2023 19:25:52 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Subject: [PATCH] ALSA: ppc: fix unused function local variable
-Date: Thu,  9 Feb 2023 09:25:48 +0900
-Message-Id: <20230209002548.94496-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.37.2
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=NkUqlJEj
+Received: by mail-il1-x12b.google.com with SMTP id a5so272696ilk.6
+        for <alsa-devel@alsa-project.org>;
+ Wed, 08 Feb 2023 17:20:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=c4B/fP2D/WU+gvJrKKscgdRErT41eDBoC5g7skBzasQ=;
+        b=NkUqlJEjSov6W2wIEnq48XFTKiW5FzL+wHt0lB8O7+5qepak1bLdF+ealyW5nlTKoZ
+         R8WVT9oDjgCa5PTbHJDSjUqTaQ3Emw95eyyahcVuOWAS1J+vEKh/V3iNGOe5WPoPS+7F
+         i0ewRT6s/2PRIPWclUIcBjYqUZZx3afRiZx8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c4B/fP2D/WU+gvJrKKscgdRErT41eDBoC5g7skBzasQ=;
+        b=wvU+hmWVmmue0V5U1XLd6hP2Pbl37V3PdNtk/RNlqICSSVOdoeyzlzQ7zseSW3Lmb+
+         ZIbt1h6px86dBr6uZp25a+1FHr6Hidu3eRkh4lDQblxCo0kXwKCRNHkSEyd4DrRREwD4
+         hyHdsXHZE1F/ho+bL50UM3JA+z8FdLhGrFUBsNKbdA66JTOPk2xkXxQdYHP5FU6Ogq/+
+         X39bvUmPmHsWNDuPMeX8q3PB9BTajB/rn/uAiOdl4mXqsMH/C6+2VqOw4Q2mNoSiJ6rX
+         vHfEbQTIU5THhJPUk5dqYuk8xn+7AeYGTbSfEGHUw6F0khDPrMlPKKjE08WLU+qiPYQh
+         zuRQ==
+X-Gm-Message-State: AO0yUKW5q/9GDLyRxjnxvV8kmSiat1ygNdJB1rix+fTWnG/rpCfosQn0
+	tcpJKIZDemNW8RKaCCPvz7Bc0Q==
+X-Google-Smtp-Source: 
+ AK7set/BMy8+uzdHTjc28D58ZB+OLGxa38IJBo8tQeuPQ/aQ4jNRmPt1RTq9/JLVWjl906HZlLggUg==
+X-Received: by 2002:a05:6e02:12ed:b0:310:e9f4:1e32 with SMTP id
+ l13-20020a056e0212ed00b00310e9f41e32mr10892050iln.19.1675905631149;
+        Wed, 08 Feb 2023 17:20:31 -0800 (PST)
+Received: from localhost (30.23.70.34.bc.googleusercontent.com. [34.70.23.30])
+        by smtp.gmail.com with UTF8SMTPSA id
+ j18-20020a02cc72000000b003a60e059970sm2253jaq.84.2023.02.08.17.20.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Feb 2023 17:20:30 -0800 (PST)
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] SoC: rt5682s: Disable jack detection interrupt during suspend
+Date: Thu,  9 Feb 2023 01:20:23 +0000
+Message-Id: 
+ <20230209012002.1.Ib4d6481f1d38a6e7b8c9e04913c02ca88c216cf6@changeid>
+X-Mailer: git-send-email 2.39.1.519.gcb327c4b5f-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2632G6CDZRGKO5OQMBKMD5O22PFFPSD2
-X-Message-ID-Hash: 2632G6CDZRGKO5OQMBKMD5O22PFFPSD2
-X-MailFrom: o-takashi@sakamocchi.jp
+Message-ID-Hash: WJVD2DNRBWRH2PHPSISI6NXKKB7WISZA
+X-Message-ID-Hash: WJVD2DNRBWRH2PHPSISI6NXKKB7WISZA
+X-MailFrom: mka@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Stephen Rothwell <sfr@canb.auug.org.au>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+CC: alsa-devel@alsa-project.org, Douglas Anderson <dianders@chromium.org>,
+ Judy Hsiao <judyhsiao@chromium.org>, linux-kernel@vger.kernel.org,
+ Matthias Kaehlcke <mka@chromium.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2632G6CDZRGKO5OQMBKMD5O22PFFPSD2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJVD2DNRBWRH2PHPSISI6NXKKB7WISZA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,31 +116,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The function local variable is not used anymore, while it is left.
+The rt5682s driver switches its regmap to cache-only when the
+device suspends and back to regular mode on resume. When the
+jack detect interrupt fires rt5682s_irq() schedules the jack
+detect work. This can result in invalid reads from the regmap
+in cache-only mode if the work runs before the device has
+resumed:
 
-This commit deletes it.
+[   19.672162] rt5682s 2-001a: ASoC: error at soc_component_read_no_lock on rt5682s.2-001a for register: [0x000000f0] -16
 
-Fixes: 25a5a77ae0bc ("ALSA: core: Make snd_card_free() return void")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Link: https://lore.kernel.org/r/20230209104823.45899e76@canb.auug.org.au/
-Cc: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Disable the jack detection interrupt during suspend and
+re-enable it on resume. The driver already schedules the
+jack detection work on resume, so any state change during
+suspend is still handled.
+
+Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
 ---
- sound/ppc/snd_ps3.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/sound/ppc/snd_ps3.c b/sound/ppc/snd_ps3.c
-index 8d349231205e..a6cff2c46ac7 100644
---- a/sound/ppc/snd_ps3.c
-+++ b/sound/ppc/snd_ps3.c
-@@ -1046,7 +1046,6 @@ static int snd_ps3_driver_probe(struct ps3_system_bus_device *dev)
- /* called when module removal */
- static void snd_ps3_driver_remove(struct ps3_system_bus_device *dev)
+ sound/soc/codecs/rt5682s.c | 10 +++++++++-
+ sound/soc/codecs/rt5682s.h |  1 +
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index f5e5dbc3b0f0..59117ebc5ecd 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -2895,6 +2895,9 @@ static int rt5682s_suspend(struct snd_soc_component *component)
  {
--	int ret;
- 	pr_info("%s:start id=%d\n", __func__,  dev->match_id);
+ 	struct rt5682s_priv *rt5682s = snd_soc_component_get_drvdata(component);
  
- 	/*
++	if (rt5682s->irq)
++		disable_irq(rt5682s->irq);
++
+ 	cancel_delayed_work_sync(&rt5682s->jack_detect_work);
+ 	cancel_delayed_work_sync(&rt5682s->jd_check_work);
+ 
+@@ -2919,6 +2922,9 @@ static int rt5682s_resume(struct snd_soc_component *component)
+ 			&rt5682s->jack_detect_work, msecs_to_jiffies(0));
+ 	}
+ 
++	if (rt5682s->irq)
++		enable_irq(rt5682s->irq);
++
+ 	return 0;
+ }
+ #else
+@@ -3259,7 +3265,9 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c)
+ 		ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL, rt5682s_irq,
+ 			IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 			"rt5682s", rt5682s);
+-		if (ret)
++		if (!ret)
++			rt5682s->irq = i2c->irq;
++		else
+ 			dev_err(&i2c->dev, "Failed to reguest IRQ: %d\n", ret);
+ 	}
+ 
+diff --git a/sound/soc/codecs/rt5682s.h b/sound/soc/codecs/rt5682s.h
+index 67f86a38a1cc..caa7733b430f 100644
+--- a/sound/soc/codecs/rt5682s.h
++++ b/sound/soc/codecs/rt5682s.h
+@@ -1472,6 +1472,7 @@ struct rt5682s_priv {
+ 	int pll_comb;
+ 
+ 	int jack_type;
++	unsigned int irq;
+ 	int irq_work_delay_time;
+ 	int wclk_enabled;
+ };
 -- 
-2.37.2
+2.39.1.519.gcb327c4b5f-goog
 

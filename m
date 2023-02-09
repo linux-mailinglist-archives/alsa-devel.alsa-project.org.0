@@ -2,93 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EBD6906EA
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 12:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E35690786
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 12:31:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2466E82;
-	Thu,  9 Feb 2023 12:20:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2466E82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 220F1E87;
+	Thu,  9 Feb 2023 12:30:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220F1E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675941710;
-	bh=sbmjl7ztF6Ua+/t9QmN41jrbGtE5gH5IK6zXP5ztTGY=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=dkHZ+ikuGUyfh/VbspBzEF4QnWmc2PagSA5uYXHu6AhLsoi54165bLlXg0WfgHRra
-	 mQpuSxqOXLd1Pp2nDbOGfEFy8V2AoelUJhM3p2FbXPdqBmNX3i02CI7ib1wNJc1YnR
-	 i1C5itMYWbNhFfgQIAlL4ES/wm+2v7+h4KqhP/7M=
+	s=default; t=1675942277;
+	bh=+7RFwa1I0v/qKrQVzAsd84ldsHARLTjT4cNOA/yPUC0=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QqNqHWASmY5n9w+48j8ZBZw58u+ur2Kq6kbvIhvRaLWkzd2zRMngisiYG2zCJSP0t
+	 UxubfkRlq8nfQ/bf4GIEaHoRin+PfdCoqC5IKjwsHsEL1zKKnm5tIBXcp5J1YZugho
+	 pWlFLdlTE8oBXq4kujpne/EDgzSCjdWK54M1D3F8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E29F5F80526;
-	Thu,  9 Feb 2023 12:20:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A979CF80027;
+	Thu,  9 Feb 2023 12:29:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D18A0F80527; Thu,  9 Feb 2023 12:20:06 +0100 (CET)
+	id 35699F800E4; Thu,  9 Feb 2023 12:29:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BFDABF804F2
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 12:20:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFDABF804F2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D7AA2F80094
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 12:29:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7AA2F80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bq2hbDiG
+ header.s=k20201202 header.b=lLfzzJ/t
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7CEC1619E8;
-	Thu,  9 Feb 2023 11:20:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC23C4339B;
-	Thu,  9 Feb 2023 11:20:01 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 321EB619E8;
+	Thu,  9 Feb 2023 11:29:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32EFBC433EF;
+	Thu,  9 Feb 2023 11:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675941602;
-	bh=sbmjl7ztF6Ua+/t9QmN41jrbGtE5gH5IK6zXP5ztTGY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=bq2hbDiGcyi0lZleFAJ+8vw8CaYQtt0RJbWipNQzj8Ovqbgwr5KrDBQAqEY0M6TIh
-	 rS3eAJl0PEaMVgTN/gi9MIqeNABWiDTHOA5mJCcKi77c4Pz6ANRFl0oOUUAK2EZebn
-	 aAwypSL6LChJet06GmP6t3793v/ZO5pCxwibeRwHdRLzymskbkVzGkt71c0CZfwpNk
-	 O/yrdR3eqkkjile8ldxAraM6IvWJ7B8d+iFTBwxK2MjbpP+HJdsITB927WdSeLaceN
-	 fCHEBcMm6YR0IosaMBlX0QPA2R6p5VUk0ZlUC382APYy9fs+wstVnaFECHfrvpPgHu
-	 GgnzqIe1agnAA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 1/6] ASoC: cs42l56: fix DT probe
-Date: Thu,  9 Feb 2023 06:19:54 -0500
-Message-Id: <20230209111959.1893269-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.0
+	s=k20201202; t=1675942182;
+	bh=+7RFwa1I0v/qKrQVzAsd84ldsHARLTjT4cNOA/yPUC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lLfzzJ/toiiIvdAXYMATPZYY4XGwRWvtURK9D0ck+oulllRjswUl6RY9ie4zwStdM
+	 G8wBnNd1mqol/Y7wVHgWGbj/waa1/VyDHsLxsGNYl8+no9hbaBTZ2lZKHdaNSA0zjC
+	 uVGdl6wAma73Iyvkh0Igqx9FWg8t+N9j+ziUrzkItsH8hT0dFOZg46AyWS3QyoKcj1
+	 4Ss2uCjFD2yh/E6DXQhwl+W2iqyy/nUd9VCzFdpRzgsm6C4Ql/mJXH01+HuL3dXwgE
+	 cmLqMQNifwW0R4jbMtuE8U5w47l6YckejXGofKgUynKiUDrMIgSpC5LfJ8OoXcoLm2
+	 e4Nv6R4xLICpw==
+Date: Thu, 9 Feb 2023 11:29:35 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Subject: Re: [PATCH v3] ASoC: SMA1303: Remove the sysclk setting in devicetree
+Message-ID: <Y+TZH6qQ7Old+53F@sirena.org.uk>
+References: <20230209084903.13000-2-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BGIEDKUOENMT57TYCFEJD4DGEN4G5SM2
-X-Message-ID-Hash: BGIEDKUOENMT57TYCFEJD4DGEN4G5SM2
-X-MailFrom: sashal@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wBHpl9UONE0UrCV5"
+Content-Disposition: inline
+In-Reply-To: <20230209084903.13000-2-kiseok.jo@irondevice.com>
+X-Cookie: Anger is momentary madness.
+Message-ID-Hash: VIQLHENMDKXZC6XPGXFTZIIBJOP6KNM6
+X-Message-ID-Hash: VIQLHENMDKXZC6XPGXFTZIIBJOP6KNM6
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Arnd Bergmann <arnd@arndb.de>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>,
- james.schulman@cirrus.com, david.rhodes@cirrus.com,
- tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
- lgirdwood@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com
+CC: Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BGIEDKUOENMT57TYCFEJD4DGEN4G5SM2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VIQLHENMDKXZC6XPGXFTZIIBJOP6KNM6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,54 +95,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit e18c6da62edc780e4f4f3c9ce07bdacd69505182 ]
+--wBHpl9UONE0UrCV5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-While looking through legacy platform data users, I noticed that
-the DT probing never uses data from the DT properties, as the
-platform_data structure gets overwritten directly after it
-is initialized.
+On Thu, Feb 09, 2023 at 08:49:03AM +0000, Kiseok Jo wrote:
+> In SMA1303, this device does not support MCLK.
+> So it need to remove sysclk setting in devicetree.
+> v2: Modify the sysclk setting - using devm_clk_get for mclk.
 
-There have never been any boards defining the platform_data in
-the mainline kernel either, so this driver so far only worked
-with patched kernels or with the default values.
+Don't worry about it for now but the v2 above should go after the ---
 
-For the benefit of possible downstream users, fix the DT probe
-by no longer overwriting the data.
+>=20
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20230126162203.2986339-1-arnd@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/cs42l56.c | 6 ------
- 1 file changed, 6 deletions(-)
+here.  This means the tools know they can remove it from the commit when
+applying things to git.  Like I say no need to worry about it for this
+submission - I'll fix it up locally, no need to resend.
 
-diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
-index deaad703a7dbf..a4826a7d0a98c 100644
---- a/sound/soc/codecs/cs42l56.c
-+++ b/sound/soc/codecs/cs42l56.c
-@@ -1204,18 +1204,12 @@ static int cs42l56_i2c_probe(struct i2c_client *i2c_client,
- 	if (pdata) {
- 		cs42l56->pdata = *pdata;
- 	} else {
--		pdata = devm_kzalloc(&i2c_client->dev, sizeof(*pdata),
--				     GFP_KERNEL);
--		if (!pdata)
--			return -ENOMEM;
--
- 		if (i2c_client->dev.of_node) {
- 			ret = cs42l56_handle_of_data(i2c_client,
- 						     &cs42l56->pdata);
- 			if (ret != 0)
- 				return ret;
- 		}
--		cs42l56->pdata = *pdata;
- 	}
- 
- 	if (cs42l56->pdata.gpio_nreset) {
--- 
-2.39.0
+--wBHpl9UONE0UrCV5
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPk2R4ACgkQJNaLcl1U
+h9CHTAf/U4ONdeOv8dyg+zb9EsLhCd9SAg6M8ohWpb0TghO+oXLMBN+0kPU3vJvB
+FGhHRGjj8bJ8kMWDgLfG5pX+edXuPBTgVYyCHUdlFHSToSw42txhGMD7ht8G9xbb
+zoeWvSpWOMQrRuXxeYIAKsx3R6zazcs3Sl6yHCIwr5eZUSD0ntq/gVXWszg62rSd
+wlbf508nitHgP4fNmNEoqvFpcwbihJsDeVRyBwLfXGXFmAh07I7gqnKTEew25l34
+ME92dlDr/U+FsZBB8Kuk8n5Qmd63zatDGayeTMh5ZYU4FPTAIpRoz999aiPljPlO
+uEjBOsdFOs7U4WtxyX9Yz2w/NEl/Vg==
+=xGrV
+-----END PGP SIGNATURE-----
+
+--wBHpl9UONE0UrCV5--

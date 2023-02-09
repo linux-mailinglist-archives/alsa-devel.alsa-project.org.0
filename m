@@ -2,121 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91188690D9F
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 16:53:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A20A690DE4
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 17:06:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47E9CDF8;
-	Thu,  9 Feb 2023 16:52:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47E9CDF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B1E8E7A;
+	Thu,  9 Feb 2023 17:05:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B1E8E7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675958010;
-	bh=KyI39rCp+846z2cOEhHnATKQ5Ha/pf/SwmuOkoAM2cI=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=R4sk1yU/qcU3FDeXTJUuzvEeQTvnjFBllWRB2bVkAE/x/hwwP9GvGMBoH5R0cGEKg
-	 r7mWj6d/QZ+gA2Pehb+92Rd3fcscmvlHEWrpr6aESSi5iJwm4Is88rG1VVaRlwRUqF
-	 4EwQZ5v5mUUhqOfGv5M2O9oZyAiiGpMKqdmlRFsk=
+	s=default; t=1675958774;
+	bh=e2tiDbyTw1fd2c2MTiUbrVJIJV38GUVtw5eT7IfWsng=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=WOairuvpLw7QizciqVJ0ohZJBH4QGiF8BepuL4kCQ3VEzEOupnboYbEEmiwtLX5QL
+	 D8+3hF2D5jWdhwfbiga3TgbqFFmEnTlY01msUXP3W50Ee23ShMcWLfBaL2wOwUlniF
+	 nU/KznHkA9+fMvc6ieX07tmg0KtkqTlFARvZ/6gI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBFCDF800B8;
-	Thu,  9 Feb 2023 16:52:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04FABF8051F;
+	Thu,  9 Feb 2023 17:04:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CC90F800E4; Thu,  9 Feb 2023 16:52:36 +0100 (CET)
+	id 5CA1BF8021D; Thu,  9 Feb 2023 17:04:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C7D2FF80027
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 16:52:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D2FF80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7FEE7F80027
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 17:04:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FEE7F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=e7OsjVre
-Received: by mail-ed1-x532.google.com with SMTP id eq11so2476523edb.6
-        for <alsa-devel@alsa-project.org>;
- Thu, 09 Feb 2023 07:52:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SSxJT407mpQM/sfujjprCzUonXMB9AqQ1ZgxPyXpTX8=;
-        b=e7OsjVreLGfBEhctvfV6QWAN28rVFPAKIayr3q5300W7LrhQ7p0mUxtEeAYOCybWiQ
-         8ccIC/gX9lZF67TmUoLMvag3SdbrjO+JvEbPOYkqilQkRZ827jp1/e/lutfwcrF/6NBf
-         aMTFj6fOjWCWgSOjHqmUZR5ZHVJRZIlBXxqC6znK2+bGpPVlw3ovaQ0talm+uAFiMrOl
-         VVpPMMToXbw4jUyGeh9W3UR6jdbVwXIXHOXx9CcZIiKvLOiJSFtaL3s6Z5ir5AsCKWin
-         a6sSmj5TDMCw7k23EvAgv933Zln1r9fhsiIbkd4XWa+lViadLORG3R40nqYnAdF9cPud
-         /dgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SSxJT407mpQM/sfujjprCzUonXMB9AqQ1ZgxPyXpTX8=;
-        b=VvSHxPCATy8U3Q9Jdp7zMBspVFwaJ/h+qxR5yiD0rvsl1idsUKrdwyfuNJpUh4I2+m
-         afMLwjT3VQJx0NhH48SeQlssrdtyVgdV0dOr2OcpfRRgWdh+B6vOxDvWd8It5RJ5tuZ5
-         Tpffkq07m02/63iLlHGMF9V2tXpl+VBkbnDuE8sIJ3dYdm/MkrUWGUHMOD02+hgJRo/Y
-         0RHfyQlx2IjKQJiqfHNRPBXn5rkgDMK0MmUWEdUtcTStEqznx1sVyxBQ+r7C31dXV0Dp
-         Qp4JfiwCIBlmCR94PZ9djZeuyx4RfiXHQgCifHwx3pnuNyj3BKNpiNarKKRVXV/TT9xG
-         /twQ==
-X-Gm-Message-State: AO0yUKVG8L8I+85R6WjlnS+4O9oguKO1q02qJMbtaV8MFQRhG5eADMz/
-	4Fo8gYaavxN+mV96zA/nfbEpnvYfC9/LXiX8
-X-Google-Smtp-Source: 
- AK7set/2woOLRZfteYt602imz3nkRjsn1+ZxM/g1hTCg5gH54kR2Y08/Qdf2bSwjhsGobxnuLk2Llg==
-X-Received: by 2002:a50:cd9d:0:b0:4ab:16a8:bc64 with SMTP id
- p29-20020a50cd9d000000b004ab16a8bc64mr4487385edi.24.1675957950932;
-        Thu, 09 Feb 2023 07:52:30 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- b2-20020a50b402000000b004a245d70f17sm941598edh.54.2023.02.09.07.52.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Feb 2023 07:52:30 -0800 (PST)
-Message-ID: <a1d79008-3ec4-d7b5-12b5-ea5c6c5a8370@linaro.org>
-Date: Thu, 9 Feb 2023 15:52:29 +0000
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=U4a/nNj4
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 319EbGUx024199;
+	Thu, 9 Feb 2023 10:04:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=NZ7xBDBXQMgPcMlUjfpxYnKxvMVKqHABd3ZIXatEoA4=;
+ b=U4a/nNj4bpRQ0pwcA/2JHt71b7rAcHlbE7NrAn6QQU7vxc+RY1qXAtsaBTTXs0IGCIG6
+ 41/jxBlvHsssQKenJkYJoFr9Fy4Cr6T+43Sx3hDGj66BJVUWRBJiByryOfNEgJrPvQ/M
+ Fs2FKBlYPblOQ/ybs58Y1DWmFP+frSC26/1wsC2ghvPMLl2LSXnIxsSyR371w5FpRLDo
+ l08+TEIAmIquILRuB6rg6ncXouNsA/4jZw1gQeTqw35Zk9nsQr60HmXPAcONyMIpwszm
+ 9d/rbIO+nP7lCbBYse7HJx7zCEzIziyI9AEM+qq8QpNh0IRQyyJlwiXw5eoG/viPI9Kh sw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nhmnv02nc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Feb 2023 10:04:14 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 9 Feb
+ 2023 10:04:13 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via Frontend
+ Transport; Thu, 9 Feb 2023 10:04:13 -0600
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D358D45;
+	Thu,  9 Feb 2023 16:04:12 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v1 0/3] Various Fixes/Improvements for CS35L41 HDA
+Date: Thu, 9 Feb 2023 16:04:00 +0000
+Message-ID: <20230209160403.838326-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 3/5] soundwire: qcom: wait for fifo to be empty before
- suspend
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20230209131336.18252-1-srinivas.kandagatla@linaro.org>
- <20230209131336.18252-4-srinivas.kandagatla@linaro.org>
- <dbec6aab-6456-72b3-39b6-3490dfdf083c@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <dbec6aab-6456-72b3-39b6-3490dfdf083c@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: BOXZWYE3AZPRSRXMIY22BSH4BUAGH275
-X-Message-ID-Hash: BOXZWYE3AZPRSRXMIY22BSH4BUAGH275
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: _wHsKOHLrv6YF-8VMDhYu3XtDC86CVDy
+X-Proofpoint-ORIG-GUID: _wHsKOHLrv6YF-8VMDhYu3XtDC86CVDy
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: UOB4AZQKEXT76YVH7BDAJ6NVVVS2ZA5I
+X-Message-ID-Hash: UOB4AZQKEXT76YVH7BDAJ6NVVVS2ZA5I
+X-MailFrom: prvs=74048fb3a3=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, steev@kali.org, johan+linaro@kernel.org,
- quic_bjorande@quicinc.com
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com,
+ Stefan Binding <sbinding@opensource.cirrus.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOXZWYE3AZPRSRXMIY22BSH4BUAGH275/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UOB4AZQKEXT76YVH7BDAJ6NVVVS2ZA5I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,86 +105,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Fixes issue in calibration, where return codes were misinterpreted.
+Enable High Pass filter to reduce pops and clicks.
+Add improvement to ensure firmware and tuning files are always loaded
+together.
 
+Stefan Binding (2):
+  ALSA: hda: cs35l41: Ensure firmware/tuning pairs are always loaded
+  ALSA: hda: cs35l41: Enable Amp High Pass Filter
 
-On 09/02/2023 15:23, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 2/9/23 07:13, Srinivas Kandagatla wrote:
->> Wait for Fifo to be empty before going to suspend or before bank
->> switch happens. Just to make sure that all the reads/writes are done.
-> 
-> For the suspend case that seems like a valid approach, but for bank
-> switch don't we already have a bus->msg_lock mutex that will prevent the
-> bank switch command from being sent before the other commands are handled?
+Vitaly Rodionov (1):
+  ALSA: hda/cs35l41: Fix error condition check
 
-All read/writes are fifo based, so writes could be still pending.
+ sound/pci/hda/cs35l41_hda.c | 117 ++++++++++++++++++------------------
+ 1 file changed, 58 insertions(+), 59 deletions(-)
 
---srini
-> 
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   drivers/soundwire/qcom.c | 29 +++++++++++++++++++++++++++++
->>   1 file changed, 29 insertions(+)
->>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index b2363839624c..465b2a2ef0d5 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -325,6 +325,32 @@ static int swrm_wait_for_wr_fifo_avail(struct qcom_swrm_ctrl *swrm)
->>   	return 0;
->>   }
->>   
->> +static bool swrm_wait_for_wr_fifo_done(struct qcom_swrm_ctrl *swrm)
->> +{
->> +	u32 fifo_outstanding_cmds, value;
->> +	int fifo_retry_count = SWR_OVERFLOW_RETRY_COUNT;
->> +
->> +	/* Check for fifo overflow during write */
->> +	swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
->> +	fifo_outstanding_cmds = FIELD_GET(SWRM_WR_CMD_FIFO_CNT_MASK, value);
->> +
->> +	if (fifo_outstanding_cmds) {
->> +		while (fifo_retry_count) {
->> +			usleep_range(500, 510);
->> +			swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
->> +			fifo_outstanding_cmds = FIELD_GET(SWRM_WR_CMD_FIFO_CNT_MASK, value);
->> +			fifo_retry_count--;
->> +			if (fifo_outstanding_cmds == 0)
->> +				return true;
->> +		}
->> +	} else {
->> +		return true;
->> +	}
->> +
->> +
->> +	return false;
->> +}
->> +
->>   static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
->>   				     u8 dev_addr, u16 reg_addr)
->>   {
->> @@ -356,6 +382,7 @@ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
->>   		usleep_range(150, 155);
->>   
->>   	if (cmd_id == SWR_BROADCAST_CMD_ID) {
->> +		swrm_wait_for_wr_fifo_done(swrm);
->>   		/*
->>   		 * sleep for 10ms for MSM soundwire variant to allow broadcast
->>   		 * command to complete.
->> @@ -1122,6 +1149,7 @@ static void qcom_swrm_shutdown(struct snd_pcm_substream *substream,
->>   {
->>   	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dai->dev);
->>   
->> +	swrm_wait_for_wr_fifo_done(ctrl);
->>   	sdw_release_stream(ctrl->sruntime[dai->id]);
->>   	ctrl->sruntime[dai->id] = NULL;
->>   	pm_runtime_mark_last_busy(ctrl->dev);
->> @@ -1558,6 +1586,7 @@ static int __maybe_unused swrm_runtime_suspend(struct device *dev)
->>   	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
->>   	int ret;
->>   
->> +	swrm_wait_for_wr_fifo_done(ctrl);
->>   	if (!ctrl->clock_stop_not_supported) {
->>   		/* Mask bus clash interrupt */
->>   		ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
+-- 
+2.34.1
+

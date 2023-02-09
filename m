@@ -2,128 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95721690C07
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 15:38:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11794690C08
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 15:39:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7A4A847;
-	Thu,  9 Feb 2023 15:37:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A4A847
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC81ADF6;
+	Thu,  9 Feb 2023 15:38:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC81ADF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675953526;
-	bh=CcZbzpjxkXf/yppUm71x4oVZrbpvq5NXcPoSaaVEHaQ=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oEGtNZZ/mtxHc2lcjwpL2Gg99+ebAzDq7zqV21CvXwfwl+ecwEoMSEJVS76rqVeOf
-	 +HYPQEmPqC/M8hUgL/QVzFwC6x4huqxSXCJ7uoF+bo+D41or60KVT2m53Fxrd9AFXT
-	 X6mjXIBfcmGg4poTpoVo/wKW0gYESjSQMp0/vXCk=
+	s=default; t=1675953576;
+	bh=ZDVBhVgjP2swMKgVumpjhsY3AnR1J1UuP/nXsLuyA58=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=sV33NzddEzLsmSedR8KM2P2r/G07kxjpIzzIknN/AbDDOYX1CeQ4a6/XEjIQEJSju
+	 6lnA1e1zF5f/yjQphdRKNDECdRI+GUErgkuUgKOIlCT+cgsI2f8hlHibC3i2lNijvp
+	 rXZjXtN7kB7BxUhXfarehGtsyZGzPQjXk2wvyeLU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5333F800B8;
-	Thu,  9 Feb 2023 15:37:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 639BDF804F2;
+	Thu,  9 Feb 2023 15:37:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3494FF8021D; Thu,  9 Feb 2023 15:37:52 +0100 (CET)
+	id 9E515F8018A; Thu,  9 Feb 2023 15:37:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::61a])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::61e])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5321F800B8
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 15:37:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5321F800B8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 43B95F80094
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 15:37:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43B95F80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=XWgDWsnD
+ header.s=selector2 header.b=qXB609Mi
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yqwq2daZqbw2xoVElPMHJI8WnnIpcyzs+ZXLZBc3vd25HdfGB4E5jH2/1BUtRe2IjOm9OFG2cfRElt5SBVi4xtfgg6Rk3cxR5cjZAvpJk7w4Hv2IYzp38T+p+z1f4JUUj17wWStI6nVr0KSgmdFC8L4pkgdJz6fWrXKUlhf4vSDm+ztAzEfPnRxfylTaorN5zhHqwHa9YInoWMvv4v5O34OKv6cFFowasyZImMeb5P80cHnBbCdq5ubZIuTbZ9RtQLG3Te5n5hQ/7icPhHKQRhGE4QeJPKdeRStjmYunk5P89gTJvIINs7hrFnU5kBnLh7wk49SBhnLCmfgVVCTs2g==
+ b=gv2VDPSC4PRsW18k88FmpStB8t1u4WeNLMs1oM2av2A4YU1bWIUCtMiHHiFljCivBW9Wlz29TR2OGW2gXaiKuH2dK/7iFT/hWlIJwt8/UaHWmg9XxtkXKs7pTCdhuMycZ0nIYUHyRjXdAfhmGqqnzQHFXCyeCwXmWM3g44Co/N+uhu9WNH9eUK+sM1WbTXQdE/lHpchNufYuFECgpfPnALWirsiSqdJPRZW8n/1zsWHOaA34vhRZzdmxIrKvTqi/x+golvmBcbxKK3GlbDdPHzv5EI39jy9eOuTe3U4Vp33ARML1orhqDv1YAjWmGnT7AtdZxHQ1Ysa6IkU0TUkRWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YMdaSqPKE55bR7qk1vw7VG/3FkD/erVs22Kw0FyP3VI=;
- b=fGDk+JRs3Ob7N1mpXoUFMd+1tjTCptKPAupw/kw59wT07r5GTmpqgb+pUC8BElmWTdJAd0NpEiri0cACNpcomdKZjWRoijwamlVNgtC+K/ZT51hqyCZ7L62n4Lf2dAl40V39+IeLr7fvpl8Z1594Ev7d0vkZkrwAWL3/jNAlP+ofY+IN3di7IPWIcXJMcVATqOzMo+VgIHoLSMbWyf2TA2rhcHjmABJYdP9KEPBNTVpgik+fVuiK7mHLW9+SwGCtMqVwka0vLJvpuQx6CLvUxkZHKS8tdXKUyUxp3Mu/WFihOcCu9rIWPfwsHVSz0EeAIIBKp/tYTSJkNybeBEG+3Q==
+ bh=A1Vrw+KmgrBuYN8RiEbxbcp9/YV4AyN28BkvaDqU5xc=;
+ b=bNX0IvwRHV4ifnabgWbJwRP+Ylg0XWBaXIeOLxI/dUT3XYefeWX+8BTyN0L7mUeyq4tgyPSkzwUdkEhaajrFqenXHYdrZ4CpQbwZqPCcHic8bAW2HeXmOzTMrpMjCxyzzTWr4BS2NtuqeC90KqLgTcNEg1O0hm0QjSd+E34jMyPA+zbFhjrSBj/+eFz7TkhVh8Ng6bnkz8YQw1oNnOAobA8XffToVcB6d4CjSsJMhIFn74fSD5ULkg2jKNSMq3l5Nso4xPk6KUdg8CEmvRLn2AK5xXZn4pnYmMHKjoUidlrbU/iBYCXAfHnmd0TjS6y8XC7jvbfciYLZavbsra/CLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YMdaSqPKE55bR7qk1vw7VG/3FkD/erVs22Kw0FyP3VI=;
- b=XWgDWsnDBq8PCTC3290W/cOO2vosIIw6wC0fzUKr2MeGvF1Wugq5O4QIQXHQ9GOuVtAZ7a6gYh+JpaIIt24u3+UiUTJ2ChHpC/UNdcsGvAw3IDK66WMGQFb1xlj7X+oMN7MhNazYaS8mLd8GtuYIXrY5GtrxMfsQLHFeHRnGo1m9JGi22nRva9KBr2q8NfSsSwJtzcRh+9oIfrsIa2uzJCHYoRYdlN17dNGsCZFgqgDQDeG8g94QHy37IIxv41Gg/SiiZ4rN18oVYLjWowwlcxCAzwZykyRoHAkwacYV8SJxb9YUCbPzHsRVjOhut4CKL7H2m6Wk9IbQRqAxcWMlbQ==
-Received: from BN0PR03CA0035.namprd03.prod.outlook.com (2603:10b6:408:e7::10)
- by MN2PR12MB4357.namprd12.prod.outlook.com (2603:10b6:208:262::19) with
+ bh=A1Vrw+KmgrBuYN8RiEbxbcp9/YV4AyN28BkvaDqU5xc=;
+ b=qXB609MiCbwpRWdYluKU5AQhTjQnFDdWULxzn/Sg3zR61f5RyqGX51OPf1qQUd1BJm3JYmVKVazwIeE/nU2tgwf3MF7ooaqNuF/Y/W0aKkIlXy1AjEJwuxpb7mtQ4ESmD5WmJ2hY+w90XcJ8q5PzFKKu4eJuCFbEkYhj+w1lvzQrGyWLK/afZX6DcbIVxh/+vg9mX4RizPvTXQ3WlGHElKGYysIc4T9+h7D2OjoZ37hVizTKFwTNMovwOM5yqcjtEh+teaO60xHzXRVdrr1X1H6Hf/wkuu3DxpE0Gq1GfPzdvUnAIDy3KCU5TZ1ofJqTuWXpmXfLR4u56SlSKVjBZQ==
+Received: from MW4PR04CA0253.namprd04.prod.outlook.com (2603:10b6:303:88::18)
+ by CH2PR12MB4103.namprd12.prod.outlook.com (2603:10b6:610:7e::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Thu, 9 Feb
- 2023 14:37:37 +0000
-Received: from BN8NAM11FT069.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e7:cafe::f2) by BN0PR03CA0035.outlook.office365.com
- (2603:10b6:408:e7::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Thu, 9 Feb
+ 2023 14:37:34 +0000
+Received: from CO1NAM11FT081.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:88:cafe::cb) by MW4PR04CA0253.outlook.office365.com
+ (2603:10b6:303:88::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19 via Frontend
- Transport; Thu, 9 Feb 2023 14:37:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ Transport; Thu, 9 Feb 2023 14:37:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN8NAM11FT069.mail.protection.outlook.com (10.13.176.152) with Microsoft SMTP
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1NAM11FT081.mail.protection.outlook.com (10.13.174.80) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6086.19 via Frontend Transport; Thu, 9 Feb 2023 14:37:36 +0000
+ 15.20.6086.19 via Frontend Transport; Thu, 9 Feb 2023 14:37:34 +0000
 Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 9 Feb 2023
- 06:37:25 -0800
+ 06:37:29 -0800
 Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
  (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Thu, 9 Feb 2023
- 06:37:24 -0800
+ 06:37:29 -0800
 Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com
  (10.129.68.10) with Microsoft SMTP Server id 15.2.986.36 via Frontend
- Transport; Thu, 9 Feb 2023 06:37:20 -0800
+ Transport; Thu, 9 Feb 2023 06:37:25 -0800
 From: Sameer Pujar <spujar@nvidia.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<thierry.reding@gmail.com>, <jonathanh@nvidia.com>, <oder_chiou@realtek.com>,
 	<broonie@kernel.org>
-Subject: [PATCH 0/2] Codec support on Jetson AGX Orin
-Date: Thu, 9 Feb 2023 20:06:55 +0530
-Message-ID: <1675953417-8686-1-git-send-email-spujar@nvidia.com>
+Subject: [PATCH 1/2] ASoC: rt5640: Update MCLK rate in set_sysclk()
+Date: Thu, 9 Feb 2023 20:06:56 +0530
+Message-ID: <1675953417-8686-2-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1675953417-8686-1-git-send-email-spujar@nvidia.com>
+References: <1675953417-8686-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT069:EE_|MN2PR12MB4357:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8dc4222-2731-4003-8124-08db0aab3064
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT081:EE_|CH2PR12MB4103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4da1e8e1-5550-4743-6739-08db0aab2f06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	YuPsamz+Z+gprN3hFIcS9iYrMX+aV0oY48JfrsY3xIvSTLdSzBKutAcNtDVwKPH2zhbEkQv77hRZCG7sJ0JjG25fA6IFU4BHyCFEjPbUMk2wMMlbk4Aal/qVB6C6Z3AXApC9bPxsFD6Dx5jmE4W52NXH4yZ4qxQLGL20Bhj9FyxszIkPVNZwS/77ycyQa+7RV2DxEcGnmqDZmdBV1hJEYKLR64KiLC1WJJtgisjvVm6AKNygNOMZ/9eq3BX1kFt7n8lH0IXNvxTi0iPewrnSYltOYwSQiYu3u/SySRhzWrjtMFl8pCa+HFMzKgy+D9MR1aeW+5+EfafzLp19AOChbbOQbEnY4TaqiHDyLO4L8ls4FKo3uqJYHg7VQvRjz0oZ0ZuXGfL6Dv16ukd1WipquXxbUkG8HoBiEBZ8FG1U9vuZXRJsNgLdiXIB4qtWUNHQ6rukGJr8PSJF8AEkfbG94hsBKAVsRei7nFInXhmloqskGJsNXN68ZJyZVBIgBrEB7GTJhXAYgGy+zUPcawmfeDISoR3BkX6wbxwQ9qdDpjwVx+WPOz7OsOAw7dDQ4tifPjaDubWUKz6hdLXEdKMkV5tn9V/hXawJZoVzzJz2mjjW0pbFwqE0NeaRW2yTbTkbw26mpl+rkBwifqMvA/TtJdKyw2VuSrRgPM4aZsL+ILmJ+7av6S+THup08/aOZ4tGmQVJ+Fu41VFVNtNr7Cl0xw==
+	h3mdkD8plsMGpl9ihB9tw46/F778T+AMFCXUMv3XEtj2EAI4G/Fl6bYW1sBFirSi+jQcJ/gBxPKObl/vTctc6C9UWDvAv8dhnmRojpUOaHEVB/yeM3LUb8j5URV6LwjQ4n+765Ckw+DVZHXwm6O2FZoqKGb4dFfWmiEmlKZBu4PPMutAs8nYXxtIZee1NhEssdiG7gGhuqRqtyojs3f3SJSiGcwPVmtTtA7vTvBAhVTijTqZbMdDWL47B+vq8OJ4F3xqY9wdvi78BjOkWIG6o55R0AjH9MNgiQNWSmGVPptnchwXDD/FxUJyMuKj+EIgBOvLjMQQz0hLG9okeUuxZhTqszS6epTPysOmHiyy+aMpUOVMHmqy4uWYhSKNz0Fg1tq7eKoZd4a27yFaQG6IGYsW9U6k5Foezxy26usAsh8Tl9fhxCGvXrRWlUzy4aqnpjUIBwJtpmnbqljCsSZ4tb/Vqh8jo28uTKtoON7e9kvxBqNgMZDdQC39xX08yQVp5Mblh9nNM9uHnjKV8nOl2ZPMfDlq3nnF8sBSdnpscxRKZFaPedB5o2SzsMPt3qJTzi0ScPZ9F8wcFGL7hxTNgh6QI4+Si9ZUPMcruN5C8jbDIFje2RXkY+FDfV12euZWPFv10/xeaFA4tGzcY009nIUt6yPskVQLXkmSpuDywanXmUGy5SnUrUGuVsc4hDXPlV8yyGeTf+iLzjskWt1hQg==
 X-Forefront-Antispam-Report: 
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230025)(4636009)(136003)(396003)(346002)(39860400002)(376002)(451199018)(36840700001)(46966006)(40470700004)(36756003)(2906002)(82310400005)(40480700001)(478600001)(36860700001)(26005)(7696005)(2616005)(336012)(186003)(83380400001)(47076005)(426003)(8676002)(6666004)(4326008)(40460700003)(107886003)(41300700001)(70206006)(70586007)(4744005)(86362001)(7416002)(5660300002)(8936002)(7636003)(82740400003)(316002)(356005)(54906003)(110136005);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230025)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199018)(46966006)(36840700001)(40470700004)(186003)(26005)(2906002)(15650500001)(36756003)(6666004)(107886003)(7416002)(5660300002)(356005)(478600001)(82740400003)(82310400005)(8936002)(41300700001)(7696005)(40480700001)(2616005)(47076005)(8676002)(36860700001)(336012)(70586007)(70206006)(4326008)(83380400001)(86362001)(426003)(110136005)(54906003)(40460700003)(316002)(7636003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2023 14:37:36.8604
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2023 14:37:34.6597
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b8dc4222-2731-4003-8124-08db0aab3064
+ 4da1e8e1-5550-4743-6739-08db0aab2f06
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+ TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BN8NAM11FT069.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT081.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4357
-Message-ID-Hash: YOPLYFM36I2LU2RWWXKXPOZBIAI73LXV
-X-Message-ID-Hash: YOPLYFM36I2LU2RWWXKXPOZBIAI73LXV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4103
+Message-ID-Hash: 77Q5JUSGIXASMFBP7G4TTW25FWRV6FDN
+X-Message-ID-Hash: 77Q5JUSGIXASMFBP7G4TTW25FWRV6FDN
 X-MailFrom: spujar@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOPLYFM36I2LU2RWWXKXPOZBIAI73LXV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/77Q5JUSGIXASMFBP7G4TTW25FWRV6FDN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,18 +152,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Jetson AGX Orin has onboard RT5640 audio codec and uses I2S1 interface.
-Add DT bindings to enable codec support. Series also contains a clock
-fix in the codec driver.
+Simple-card/audio-graph-card drivers do not handle MCLK clock when it
+is specified in the codec device node. The expectation here is that,
+the codec should actually own up the MCLK clock and do necessary setup
+in the driver.
 
-Sameer Pujar (2):
-  ASoC: rt5640: Update MCLK rate in set_sysclk()
-  arm64: tegra: Audio codec support on Jetson AGX Orin
+This is inspired from,
+commit dbf54a953435 ("ASoC: rt5659: Update MCLK rate in set_sysclk()").
 
- .../dts/nvidia/tegra234-p3737-0000+p3701-0000.dts  | 47 +++++++++++++++++++++-
- sound/soc/codecs/rt5640.c                          |  5 +++
- 2 files changed, 51 insertions(+), 1 deletion(-)
+Cc: Oder Chiou <oder_chiou@realtek.com>
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/codecs/rt5640.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 9e6341a..1392570 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -1838,9 +1838,14 @@ static int rt5640_set_dai_sysclk(struct snd_soc_dai *dai,
+ 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
+ 	unsigned int reg_val = 0;
+ 	unsigned int pll_bit = 0;
++	int ret;
+ 
+ 	switch (clk_id) {
+ 	case RT5640_SCLK_S_MCLK:
++		ret = clk_set_rate(rt5640->mclk, freq);
++		if (ret)
++			return ret;
++
+ 		reg_val |= RT5640_SCLK_SRC_MCLK;
+ 		break;
+ 	case RT5640_SCLK_S_PLL1:
 -- 
 2.7.4
 

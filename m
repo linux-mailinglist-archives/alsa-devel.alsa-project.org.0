@@ -2,97 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611916997CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:47:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FC16699845
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:03:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2FC2E84;
-	Thu, 16 Feb 2023 15:46:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2FC2E84
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9144BF36;
+	Thu, 16 Feb 2023 16:03:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9144BF36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676558859;
-	bh=LCnYvIINjyxCa3G+TEGs6sBnENrcAhNBZIdvdQRNokM=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=QrNAiYIGpx1Xqq5BMQLn73CuzdFhuTq4VCieQuP0OkUSOQXe+mP+5hqi3wcRDTfzN
-	 LSTi6sNKQ5+HuIvVZfhvyITemowBhm/6WuJmuPMHJm8W7je3do1D14oFV8+F4L00uJ
-	 W2pUt1IEMSEFCT3TMkfZxF8oBshZCN7ahTm9v9TU=
+	s=default; t=1676559835;
+	bh=BLhFFCKHm0oII2gyoV1aB9Sk1JL4f2g73gTx0u/oBCg=;
+	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gDnhK7uSPfRf98YH9N/9iGzYU345DU4Ivce54IeUaODfu5e41KGrwgtuUmUGd610U
+	 W/jRASzPq6V7w+aKw8IPzkl3Sl3VgvEf9n1bDaaDszF0NWsmVxGj3MXcnZM4h79Vfa
+	 rH2Ift2ipfcNU65vKePmFShJ35FNK/B/Uq3ZZGVM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 079ECF800E4;
-	Thu, 16 Feb 2023 15:46:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F2B2F80549;
+	Thu, 16 Feb 2023 15:56:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 540F3F80171; Thu, 16 Feb 2023 15:46:45 +0100 (CET)
+	id 7DAD2F800E4; Thu,  9 Feb 2023 14:03:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-19.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	HK_RANDOM_ENVFROM,HK_RANDOM_FROM,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CC68F80083
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 15:46:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CC68F80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD5B2F80027
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 14:03:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD5B2F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dWikivDp
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 83715B82845;
-	Thu, 16 Feb 2023 14:46:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98418C433D2;
-	Thu, 16 Feb 2023 14:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676558800;
-	bh=LCnYvIINjyxCa3G+TEGs6sBnENrcAhNBZIdvdQRNokM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dWikivDp9g3uqJMnhF5qkq9wSlzEUtynfuG1Py8cYJC4MBSyICywQ+WoX9BB+DvxX
-	 s5KjPz6w8/VFI8UBwrD9wzm7IItOP9ei3SwC7c9X1LHl22BF2optDGqNESNad8gaJ4
-	 3d8wujLi88RxAbY/ni8u+HAzbtvonJjG+2WfO9jzQx/iL5DCdZcKJKt8PYgqWKzl+r
-	 bXJuB/cPvEt/4b6zYg17Ofhr6EzC7GM9z4s5AY9J+EDETJz+P/DM5oVm/4QDgrLFTG
-	 c3EYCxCnY1Jlu8rcZcehKtLlzFC8BhJkX4N2ecPLeXrqcGma2/VoyUkl5HFm/5VWRC
-	 1IzvqH7ImqfOQ==
-Date: Thu, 16 Feb 2023 14:46:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
- microchip,startup-delay-us binding
-Message-ID: <Y+5BzEJBaTn3twBH@sirena.org.uk>
-References: <20230214161435.1088246-1-claudiu.beznea@microchip.com>
- <20230214161435.1088246-3-claudiu.beznea@microchip.com>
- <485d74fe-bfb5-c55e-724f-304476624abd@linaro.org>
- <954cdf90-c41a-4e21-31e0-88a0baf26065@microchip.com>
- <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=SsrSgA7W
+Received: by mail-io1-xd33.google.com with SMTP id j17so620274ioa.9
+        for <alsa-devel@alsa-project.org>;
+ Thu, 09 Feb 2023 05:03:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=BLhFFCKHm0oII2gyoV1aB9Sk1JL4f2g73gTx0u/oBCg=;
+        b=SsrSgA7W7bB4sFMXfTS+q0CH/gxFqWUiJCqRSd3KHmT3Xa4ioR8qzUJ+TBoG/IfQNi
+         8WRNpqu1r0iylVt1tQR8sjkU75SX1H2X/ZtPkZGsA4KdrbrEkAR8IJQxfUYEKsFfgynb
+         CSkjD06fekzjYYLvY7I4uj+cVix9r6uFDm4ZmIMpSuCMvMwYJ3Txu9V5QBDggBHhlROt
+         5Kp0XWqXLQRcE+6OglHnkOOZ00f80cYU57P7iMazOIiruVzUNaGKFodOavcdl4OYeS20
+         XMfTMCdz3nJj3xivbK4fg1kbVqNVYzhfqTgW37MIZVE6d5tgLIKQtWo3p2mmFljO10c5
+         7hyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BLhFFCKHm0oII2gyoV1aB9Sk1JL4f2g73gTx0u/oBCg=;
+        b=O95J3F3E40pw94BsWElsM1ya+pSzGaOmqeWoyGGYH3u4csecVIXZfXFwo9ZL4fS5UZ
+         D0CVMk8TJzB0h/K9zVBugpL+YMx2ZwtvMKQOztkHQkNy9YBkudl3dA4fREr+G9OVrysd
+         it8RnQPyzHDY8LnTcqocm+jB+ZKStaN+IM3scFktS2aHQI+7a/0/DpAhrdeKILbtdgGI
+         Gu8cpytiG6RsCKPEa64RTCR02XQnP8mG23KB8WFB6MWv2jJNUelDvMDv3NS1h3EO2G5+
+         73EjO0iks4jGBfbs6vgnttD2CWfwZuDEi2aGV3gG/xtfFwo2n99kbBg5GT/cQEV4wr3y
+         o4KA==
+X-Gm-Message-State: AO0yUKVqXLuixjA0FiOU/ZTt8HDqGlrUcbYOQElxdsJ+cyNl9GVE/xSY
+	7hY+WnsZtQd7mhDtUsbm0nXuNzbX0G7uFwOIr+9a8A==
+X-Google-Smtp-Source: 
+ AK7set/JihrZo9EK10tzAFsgIJq8Bjy8Qq/bLGfpFP5vdpqkdr/gvIREuns5dE8LD107MiBMBB1OcM+YYfX6Qz+c08M=
+X-Received: by 2002:a02:cc64:0:b0:3c2:c93f:e40 with SMTP id
+ j4-20020a02cc64000000b003c2c93f0e40mr3000524jaq.126.1675947789836; Thu, 09
+ Feb 2023 05:03:09 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TxVDayxViJvYQhLz"
-Content-Disposition: inline
-In-Reply-To: <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN
-X-Message-ID-Hash: D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN
-X-MailFrom: broonie@kernel.org
+From: Albert Wang <albertccwang@google.com>
+Date: Thu, 9 Feb 2023 21:02:58 +0800
+Message-ID: 
+ <CANqn-rhFH+RivRdiGtdFpjFKEpsJ497Z-NrtJ+naSHE+gJrzMg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 05/22] usb: xhci: Add XHCI APIs to support USB
+ offloading
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+X-MailFrom: albertccwang@google.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: Claudiu.Beznea@microchip.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, lars@metafoo.de, tiwai@suse.com,
- Nicolas.Ferre@microchip.com, alexandre.belloni@bootlin.com,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: UU5NYBOYOS5NQ36AA2LE335I6USGUW4N
+X-Message-ID-Hash: UU5NYBOYOS5NQ36AA2LE335I6USGUW4N
+X-Mailman-Approved-At: Thu, 16 Feb 2023 14:56:51 +0000
+CC: Thinh.Nguyen@synopsys.com, agross@kernel.org, alsa-devel@alsa-project.org,
+ andersson@kernel.org, bgoswami@quicinc.com, broonie@kernel.org,
+ devicetree@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+ krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, mathias.nyman@intel.com,
+ Jack Pham <quic_jackp@quicinc.com>, quic_plai@quicinc.com,
+ robh+dt@kernel.org, srinivas.kandagatla@linaro.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UU5NYBOYOS5NQ36AA2LE335I6USGUW4N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,44 +115,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Wesley,
 
---TxVDayxViJvYQhLz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It looks like I can get the transfer ring address by calling
+xhci_get_xfer_resource,
+and the xhci_get_ir_resource() is called to get access to the new structure
+"xhci_interrupter" for the event ring address. From code review, I can
+say these
+APIs allow us to get the information we need.
 
-On Thu, Feb 16, 2023 at 11:18:16AM +0100, Krzysztof Kozlowski wrote:
-> On 16/02/2023 11:15, Claudiu.Beznea@microchip.com wrote:
+Of course, we will integrate this patchset to verify if compatible
+with our design.
 
-> >>> +  microchip,startup-delay-us:
-> >>> +    description: |
-> >>> +      Specifies the delay in microseconds that needs to be applied after
-> >>> +      enabling the PDMC microphones to avoid unwanted noise due to microphones
-> >>> +      not being ready.
-
-> >> Is this some hardware delay? Or OS? If OS, why Linux specific delay is
-> >> put into DT?
-
-> > It's the delay used in software workaround that IP needs to filter noises.
-
-> Then this sounds like OS? Linux related properties usually do not belong
-> to DT.
-
-This is a hardware property, it's the time needed for the input
-to settle.
-
---TxVDayxViJvYQhLz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuQcwACgkQJNaLcl1U
-h9AmJQf/TgHpEIGKbPryBe3ZR4YcUQhPbFNTGdI63vitiShh+bX3JzzEnswt6j41
-/RVENFOLuUfoh9viCWf/ulK9vT4YCfwsz2nZ1OHdFGkoJQ+loNNutpcgVUXUgmy/
-YSBs3uvJv1OCTM+1pPfzyiMKLK/ycbwrEi7N/xL8SDSZyW0DKLJCJgw/yjGEDNvg
-WYOi3VMr0Eo1SeJaPej+o8+BKHh63GBLvOwlMoMKT9YALS+pQtEAWdysVGfL4i1h
-JKpQHC3o5DDRT7qgAVhRLD1w7I26PdJZUJVB4ADbrnWjFQpKyV0Nvi517eaBKeTO
-mPTUYrEw348SwZ872VcV384YXSFffQ==
-=Ijuf
------END PGP SIGNATURE-----
-
---TxVDayxViJvYQhLz--
+Thanks,
+Albert

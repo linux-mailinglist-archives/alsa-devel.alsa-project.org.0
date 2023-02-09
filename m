@@ -2,104 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 814AE6910A4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 19:48:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0956913CC
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 23:57:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F98083D;
-	Thu,  9 Feb 2023 19:47:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F98083D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3E19847;
+	Thu,  9 Feb 2023 23:56:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3E19847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675968506;
-	bh=d63iRJWOdS7dprxJvaMZDkB9M+DKxugWNdmHqG86+4s=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vhUrAwKRPSRO5rEBtoFStmKEy0RtqjWfbdrqbw5IDBSB5r+UPC/V+ad6Os1Z7J4Zb
-	 Ka9aHWj2S6tf2I6F+xyDE7KAg3CaNDYRbbA7LC4AT4tAFc9XsfBbg+2D1RgXeVZCO/
-	 36HfgM/Ws51IJKqC9DezdRohakN/6pMKy9iNFKL0=
+	s=default; t=1675983442;
+	bh=ttewvO45whZlagAG368dI44z8psgoKsPAj+R9BqxVE8=;
+	h=In-Reply-To:References:From:Date:Subject:To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=SZNGNEqyj7VNxV8yVmNiIgXZMmVKvf5p8fIUDtBFmY5t0MwhxyUm7wdvGFYBj+cjq
+	 LrJP49UZh3YdeA/yUm0f9NP0c8egIMDG4anOyhK5UZUZOgmR/5HNKCl/Z/ozW4Xm97
+	 OCU0VrVUqtxdZEd7VOFc6GY9DK2ksNUh2+9Yo5yk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC16DF800E4;
-	Thu,  9 Feb 2023 19:47:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B99C9F800B8;
+	Thu,  9 Feb 2023 23:56:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02E10F800E4; Thu,  9 Feb 2023 19:47:33 +0100 (CET)
+	id B3B46F800E4; Thu,  9 Feb 2023 23:56:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
- [209.85.160.51])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0A21F80086
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 19:47:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0A21F80086
-Received: by mail-oa1-f51.google.com with SMTP id
- 586e51a60fabf-1636eae256cso3855287fac.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 01F4FF80027
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 23:55:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01F4FF80027
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=aRzGLdiN
+Received: by mail-lj1-x22e.google.com with SMTP id g14so3903253ljh.10
         for <alsa-devel@alsa-project.org>;
- Thu, 09 Feb 2023 10:47:28 -0800 (PST)
+ Thu, 09 Feb 2023 14:55:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=to:subject:message-id:date:user-agent:from:references:in-reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=+/3WdsTnQdOHde9msyQKMoio/ECH8a5tpAu+T/cYiEY=;
+        b=aRzGLdiNL3eF8phfIt/X7mZWoYj/8IzoLLTcAaXgn7QP0njSJYpssKCVpXQg9rIbDg
+         kk/kyO3fWq0ZDRcQmQGXPqMLHMkvxIP+PCrcQz5fxtiWTx3IQjcqBqCTK68551Dgyz88
+         Lww+qF8HyOkYhI4VNqfUUfdRZEZFaM0SFtpvU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qNaA54ncyf5PWWN1fTCkDz/pbo/DWHHSJveDPsBxHU4=;
-        b=EFTnB2N7JdUBN5jzg47ARy88ef2xfjKDh0ZrPz5ycmnwFzlcHC6H0XzL5oww4nQI4u
-         2tfjA+ML3yggv8nPMweF70yW2ZyvFXRXT074s/Q4tlghIJa5muSWLnzSTvZKxg7WTcnv
-         73MtwrmnVrQYb7q0fBhk2qUCWHFw+GRMrNHAGmahH+Q/nnrPWFKA5YizBeAfdIut5ld1
-         M1MzfxFUdJY+OrSVoDILODP4mV12lEEX2RM46g5rXHYbAS8xVNNXGywvxiWNtWeZqUcO
-         zMSUAJOb2Z+RoavqVXxdbmNTSZAe6Un89wGnDR5jSpAu+WgB5c1UB2izwr1B7nB3F59P
-         Ymqg==
-X-Gm-Message-State: AO0yUKVYHkKxXbiCmdjXyPC1EwUXUG1DKKqKcWeD/0GC75KMbCvS8SH8
-	+ItH6VqPHRlByUkzlWN+jA==
+        h=to:subject:message-id:date:user-agent:from:references:in-reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+/3WdsTnQdOHde9msyQKMoio/ECH8a5tpAu+T/cYiEY=;
+        b=CWp/U9aOfto2g/HC3qeReeJJzXZd+dg79upfjPstX+JmK4/lz2aSGv4dFgJRAC+aVa
+         fdUS6e/RDb9c3Ye7aL5UKaNwemO0BJEncc4s5a/Gjd0RVPOK7Td24b9psHgFdpkONgYl
+         GRUH87SnBPTxWhukrGttEMC/51an1r2kewnuv2WVL/6p2aDSsmZ4sTNyL1SZjGKpYgGS
+         lsWfeEztY8RhG4zdjStD5tnPv7svISmO7LRnFn/6ppDMQdLZ6o9M08LEg+QYsa+MpR2H
+         M+72qP/33g1GUOZ+ARmc7f4aH2J2wHAv9/GbWuOkHKc8wDeDE9pI7eOrEdyQJ2AqGuO1
+         pwDA==
+X-Gm-Message-State: AO0yUKVpzjUOZtc6FpdfboshzDxON+Wh1eM/alMaSHavyADNPClfCKcs
+	iLhOEWXaEfDDiG3c87JAuUgjCS/gLG0yNF/DRYFDqQ==
 X-Google-Smtp-Source: 
- AK7set+LpAAQrdDi21BmP35c4QuiXWbAckRokthyKVqKkwsAlsFerd9xp/Vfd28aqzRs2F+J01ZqkQ==
-X-Received: by 2002:a05:6870:428f:b0:163:3f73:b0fc with SMTP id
- y15-20020a056870428f00b001633f73b0fcmr6970166oah.18.1675968446460;
-        Thu, 09 Feb 2023 10:47:26 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id
- u36-20020a056870b0e400b0014ff15936casm1008335oag.40.2023.02.09.10.47.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 10:47:26 -0800 (PST)
-Received: (nullmailer pid 622962 invoked by uid 1000);
-	Thu, 09 Feb 2023 18:47:25 -0000
-Date: Thu, 9 Feb 2023 12:47:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: wlf,wm8994: Convert to dtschema
-Message-ID: <167596844504.622906.11149464288778013778.robh@kernel.org>
-References: <20230208195235.453774-1-krzysztof.kozlowski@linaro.org>
+ AK7set+i6F2muyublkl3zPHwaGKHmip/aE9IKN/2NWtEl3MCsCwksdVhnIOPhSnHD2GYLH1+A2DsbkPPT6t5/4vraiE=
+X-Received: by 2002:a2e:8206:0:b0:290:5b9d:e97 with SMTP id
+ w6-20020a2e8206000000b002905b9d0e97mr2076244ljg.187.1675983357541; Thu, 09
+ Feb 2023 14:55:57 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 9 Feb 2023 17:55:56 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230208195235.453774-1-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: NNDGGX6SKCGGLMQ7JZJWXNQGSBF64GSQ
-X-Message-ID-Hash: NNDGGX6SKCGGLMQ7JZJWXNQGSBF64GSQ
-X-MailFrom: robherring2@gmail.com
+In-Reply-To: <1675700201-12890-4-git-send-email-quic_srivasam@quicinc.com>
+References: <1675700201-12890-1-git-send-email-quic_srivasam@quicinc.com>
+ <1675700201-12890-4-git-send-email-quic_srivasam@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 9 Feb 2023 17:55:56 -0500
+Message-ID: 
+ <CAE-0n53uReg41RrHrBDaNt+BgaPem_JO-2Wwq8e_g0NeNCvgXg@mail.gmail.com>
+Subject: Re: [PATCH v5 3/8] arm64: dts: qcom: sc7280: Add LPASS PIL node
+To: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, agross@kernel.org,
+	alsa-devel@alsa-project.org, andersson@kernel.org, broonie@kernel.org,
+	devicetree@vger.kernel.org, dianders@chromium.org, judyhsiao@chromium.org,
+	konrad.dybcio@somainline.org, krzysztof.kozlowski+dt@linaro.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mka@chromium.org,
+	quic_mohs@quicinc.com, quic_rjendra@quicinc.com, quic_rohkumar@quicinc.com,
+	robh+dt@kernel.org, srinivas.kandagatla@linaro.org, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: VYUPBAKDDVLBPOPIEKF5HFU37GYA4RF6
+X-Message-ID-Hash: VYUPBAKDDVLBPOPIEKF5HFU37GYA4RF6
+X-MailFrom: swboyd@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, - <patches@opensource.cirrus.com>,
- alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NNDGGX6SKCGGLMQ7JZJWXNQGSBF64GSQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VYUPBAKDDVLBPOPIEKF5HFU37GYA4RF6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,37 +117,137 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Quoting Srinivasa Rao Mandadapu (2023-02-06 08:16:36)
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+> index 1810a36..5e99f49 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
+> @@ -107,3 +107,7 @@
+>                 };
+>         };
+>  };
+> +
+> +&remoteproc_adsp {
+> +       status = "okay";
+> +};
 
-On Wed, 08 Feb 2023 20:52:35 +0100, Krzysztof Kozlowski wrote:
-> Convert the Wolfson WM1811/WM8994/WM8958 audio codecs bindings to DT
-> schema.
-> 
-> Changes against original binding:
-> 1. Add missing LDO1VDD-supply and LDO2VDD-supply.
-> 2. Use "gpios" suffix for wlf,ldo1ena and wlf,ldo2ena (Linux kernel's
->    gpiolib already looks for both variants).
-> 3. Do not require AVDD1-supply and DCVDD-supply, because at least on
->    Arndale board with Exynos5250 these are being supplied by internal
->    LDOs.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Changes since v1:
-> 1. Add LDO2VDD-supply.
-> 2. Do not require AVDD1-supply on WM8994.
-> 3. Move requiring of common supplies to top-level "required:".
-> 
-> DTS is being corrected here:
-> https://lore.kernel.org/linux-samsung-soc/20230208172634.404452-1-krzysztof.kozlowski@linaro.org/T/#t
-> ---
->  .../devicetree/bindings/sound/wlf,wm8994.yaml | 194 ++++++++++++++++++
->  .../devicetree/bindings/sound/wm8994.txt      | 112 ----------
->  2 files changed, 194 insertions(+), 112 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8994.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/wm8994.txt
-> 
+Sort this file by phandle alphabetically?
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 6908bca..27ab992 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -3439,6 +3441,97 @@
+>                         status = "disabled";
+>                 };
+>
+> +               remoteproc_adsp: remoteproc@3000000 {
 
+This should be sorted on physical address. I think the node above is
+spi@88dc000 so this is in the wrong place.
+
+> +                       compatible = "qcom,sc7280-adsp-pil";
+> +                       reg = <0 0x03000000 0 0x5000>, <0 0x0355b000 0 0x10>;
+> +                       reg-names = "qdsp6ss_base", "lpass_efuse";
+> +
+> +                       interrupts-extended = <&pdc 6 IRQ_TYPE_LEVEL_HIGH>,
+> +                                             <&adsp_smp2p_in 0 IRQ_TYPE_NONE>,
+
+Can these have proper irq flags? Doubtful they're IRQ_TYPE_NONE.
+
+> +                                             <&adsp_smp2p_in 1 IRQ_TYPE_NONE>,
+> +                                             <&adsp_smp2p_in 2 IRQ_TYPE_NONE>,
+> +                                             <&adsp_smp2p_in 3 IRQ_TYPE_NONE>,
+> +                                             <&adsp_smp2p_in 7 IRQ_TYPE_NONE>;
+> +
+> +                       interrupt-names = "wdog", "fatal", "ready",
+> +                                         "handover", "stop-ack",
+> +                                         "shutdown-ack";
+> +
+> +                       qcom,qmp = <&aoss_qmp>;
+> +
+> +                       clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +                                <&gcc GCC_CFG_NOC_LPASS_CLK>;
+> +
+
+Drop newline so clocks properties are together please.
+
+> +                       clock-names = "xo", "gcc_cfg_noc_lpass";
+> +
+> +                       iommus = <&apps_smmu 0x1800 0x0>;
+> +
+> +                       power-domains = <&rpmhpd SC7280_CX>;
+> +                       power-domain-names = "cx";
+> +
+> +                       required-opps = <&rpmhpd_opp_nom>;
+> +
+> +                       resets = <&pdc_reset PDC_AUDIO_SYNC_RESET>,
+> +                                <&aoss_reset AOSS_CC_LPASS_RESTART>;
+> +
+
+Drop newline so reset properties are together please.
+
+> +                       reset-names =  "pdc_sync", "cc_lpass";
+> +                       qcom,halt-regs = <&tcsr_1 0x3000 0x5000 0x8000 0x13000>;
+> +
+> +                       memory-region = <&adsp_mem>;
+> +
+> +                       qcom,smem-states = <&adsp_smp2p_out 0>;
+> +                       qcom,smem-state-names = "stop";
+> +
+> +                       status = "disabled";
+> +
+> +                       glink-edge {
+> +                               interrupts-extended = <&ipcc IPCC_CLIENT_LPASS
+> +                                                      IPCC_MPROC_SIGNAL_GLINK_QMP
+> +                                                      IRQ_TYPE_EDGE_RISING>;
+> +
+> +                               mboxes = <&ipcc IPCC_CLIENT_LPASS
+> +                                        IPCC_MPROC_SIGNAL_GLINK_QMP>;
+> +
+> +                               label = "lpass";
+> +                               qcom,remote-pid = <2>;
+> +
+> +                               gpr {
+
+This node name should be apr per the qcom,glink-edge.yaml binding?
+
+> +                                       compatible = "qcom,gpr";
+> +                                       qcom,glink-channels = "adsp_apps";
+> +                                       qcom,domain = <GPR_DOMAIN_ID_ADSP>;
+> +                                       qcom,intents = <512 20>;
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
+> +
+> +                                       q6apm: service@1 {
+> +                                               compatible = "qcom,q6apm";
+> +                                               reg = <GPR_APM_MODULE_IID>;
+> +                                               #sound-dai-cells = <0>;
+> +
+> +                                               q6apmdai: dais {
+> +                                                       compatible = "qcom,q6apm-dais";
+> +                                                       iommus = <&apps_smmu 0x1801 0x0>;
+> +                                               };
+> +
+> +                                               q6apmbedai: bedais {
+> +                                                       compatible = "qcom,q6apm-lpass-dais";
+> +                                                       #sound-dai-cells = <1>;
+> +                                               };
+> +                                       };
+> +
+> +                                       q6prm: service@2 {
+> +                                               compatible = "qcom,q6prm";
+> +                                               reg = <GPR_PRM_MODULE_IID>;
+> +
+> +                                               q6prmcc: clock-controller {
+> +                                                       compatible = "qcom,q6prm-lpass-clocks";
+
+This is clk binding but not a clk driver? I'll look away now.
+
+> +                                                       #clock-cells = <2>;
+> +                                               };
+> +                                       };
+> +                               };
+> +                       };
+> +               };
+> +

@@ -2,100 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE2B36909AF
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 14:16:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE7DF6909B0
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 14:16:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ED6B93A;
-	Thu,  9 Feb 2023 14:15:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ED6B93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 271F9DF2;
+	Thu,  9 Feb 2023 14:15:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271F9DF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675948590;
-	bh=YpUC/NNZCttaGWgcQUrhszQEVYAmOb60e2JhlDsr2VE=;
+	s=default; t=1675948596;
+	bh=QIzgqJo1PbgT8kMvAqhqZSCWFoTb7LfwfgQrbOyf8p8=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZyTIDNnP4EuMoxlIws1cruPhZoYHWmwlpuT+gUnuxPMKNfkOJ4ZTq8ST48Lv0DpyR
-	 gBHAZhq139Y4uTMmDt2EF42GyKT8CCOq8AS91GvOPP8iLV124Q1TNCs8A4Bd76CgGF
-	 zVqUZLaz1+7Svv0pcLLSpf4s8ryrUdrf5h3V/kCQ=
+	b=NelYxhPaNwOa6y2+SYmDXbvgJaDk2XNF8KSyGKTTYRQnkOsuuUdNjWOeFHYoBRRO3
+	 FaDlGmu2D+h00f1owOsj7lEZEavOpKtbknS6/bLAit5dUuQDkYudF8SKp4Yn5MXR5c
+	 8VdG/fcF3vWsgWPTrbzAn4RM0PjcutItRXHq2DA4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 549A3F8021D;
-	Thu,  9 Feb 2023 14:14:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F411CF80558;
+	Thu,  9 Feb 2023 14:14:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06554F80557; Thu,  9 Feb 2023 14:14:44 +0100 (CET)
+	id 76D41F80553; Thu,  9 Feb 2023 14:14:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 379C3F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 14:13:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 379C3F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1BC40F80086
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 14:13:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BC40F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Hm2UVZKn
-Received: by mail-wm1-x331.google.com with SMTP id
- l21-20020a05600c1d1500b003dfe462b7e4so4091593wms.0
+ header.s=google header.b=P5/7vAmo
+Received: by mail-wm1-x336.google.com with SMTP id
+ bg5-20020a05600c3c8500b003e00c739ce4so1472697wmb.5
         for <alsa-devel@alsa-project.org>;
- Thu, 09 Feb 2023 05:13:53 -0800 (PST)
+ Thu, 09 Feb 2023 05:13:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=efw37swPmywJmQt7P4bh+b3QJPTdP5Sd+iv+/8BqF9I=;
-        b=Hm2UVZKn8j00Xjy+/2jHbryM9Im/P1TEbXrvCJSQWCI6WDeX7JKZNB+r2LeTFR8Duw
-         52SEspmzdvCK7mZpMpE6Agh8BZZJihf+YT70iQ1F4ISTC7PC3AOpxn9ITwD8rZ+JfnoI
-         HOvRf/nRzH9eqPec2J9G+fldT14gl3Rt7V/8u6ZrQ2pAJYnunMy+MIxLx219gj5BUEM7
-         6GKNHu1jwzOCT8D3gVJWXcntWIifvc4H8c9q/fdeGKyghfeMfbS9X5WY/dfG1PxFYu/i
-         McaheEHsr8hGwE0cqZi0umwPzXKer2TiGkMMnBSXrisXnd3RzyOpGL/JY22nDtqROyfR
-         Fg9Q==
+        bh=NPMNrqeZWO55o8AuAcgfBuwWh3I0TkN1wM5VoUAdYRc=;
+        b=P5/7vAmoDhtyUlDOFPxWWFRqeYKHw8doDPEZBBNdtIVq/tXEgqP6HDXkgsDHQG75uj
+         BuJV5vmjH4QrQCnfFzzcRmVT3ejoinm3y5GEBKxcEeeD05XKfjCBAClKGnST3B8MQWBn
+         Oc9ahTVyT17Vg+/x06m23nWOiXJ4PHkiIM5dWbGETfG8UKXs8GnE9P+l+9vGNhAOPryv
+         SB4acICvJP0dUJDt6xotz75JpNVjolbpfbeHUVPmCeXC2RzRWI3hzObNL8NU/+9JNPDt
+         2mOU8jfUcVHMFTisSeQ4GxV8m4O9Zrv8n5ZG1Pox+2DVnyTohSu+1Kuswuhi67g9tHme
+         /3zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=efw37swPmywJmQt7P4bh+b3QJPTdP5Sd+iv+/8BqF9I=;
-        b=b2NzH8Vv7C0WD2lpwrL35Mp8qMWM6+6D9jFCqJWSLMs3OhtXetIRnSj9MR8Bpi0155
-         di8UaWVUCYplxz5un1rLXcsJdAx9pH1PZwF1TcvxnjLIF/3uMX5NuC2il1RFu4namDSR
-         IOHV3woh7Yvp3fYg/3duoUfmBz1k2X0qD4IRqR+WqprPbN12co5Z9QziRJcEawgU1UUu
-         qvBOxbfsYruYPrqdW+5hfXYRumEqDzV2ZxnJaSXA6MuR46jY+sauqBE848L/wKqYgz66
-         Sc1sg0PxrfqoC1DMJGy5fWvI5ehAA37itjcbmvrlKKDrXQ/uOughcZlPGcP6VixmnwFS
-         8m0A==
-X-Gm-Message-State: AO0yUKXpiMcyMdrktVhvE5adUfenWpy6h5FDSJXOCx3XYgWXepmM+34v
-	RovE0iB9xu63KT4AIM3+5+G/Ng==
+        bh=NPMNrqeZWO55o8AuAcgfBuwWh3I0TkN1wM5VoUAdYRc=;
+        b=XvUYrBT4DfQePUWQgC29jsC1KwUI+wPwRSqqrZpfWbuOzYZ1QJjApc2nrSk/tSC5lP
+         oYpM1XuX72IrCDYK85rMiEKHAhzJoBT3qap5C9QvE75oo7rL1HB2R1O2+bAFVIVt6sXH
+         lBMvnKa3aDJWHtVbne/b33tLpRbG/5Gd4M96oU/s0e4/wlmxqQiqy1a2SUH0T8gUXO4r
+         v9vlmAM/jTUwJ0572JCYjh2jyF9xL2OGf0tezXFp+58NNxIJV1Ep8mld9iq5U4y1kw8i
+         j/8ykD5oQfqd3p41PfduHZgCoMqFjRcxQqXWhkYmbPAaBcPqj/+5Qw7p9A84sNt69ONG
+         9sHA==
+X-Gm-Message-State: AO0yUKXL2waIYmlMjM9IuU2tOK5/dD3B5vN2I43XWihLmv4u+OT8atUr
+	ZEjm2p/vTEyfvtorqoqEs/HWXg==
 X-Google-Smtp-Source: 
- AK7set/5t4R6vkbCi7xHYljKhRpCdrMwM173eSMG153XkPcECEZOP9zQsPoLSZqZJbWVxrvSBb6VEA==
-X-Received: by 2002:a05:600c:1686:b0:3db:2df0:f2b8 with SMTP id
- k6-20020a05600c168600b003db2df0f2b8mr5574813wmn.36.1675948432059;
-        Thu, 09 Feb 2023 05:13:52 -0800 (PST)
+ AK7set8+KF1qJ63RGYOjxvONT/0dXdAeON0gJzSIfKGxOdbH/Nq2pMAk1kkn/QWQI4j+NQDJQZfcUQ==
+X-Received: by 2002:a05:600c:4485:b0:3dc:51ad:9dc4 with SMTP id
+ e5-20020a05600c448500b003dc51ad9dc4mr9701331wmo.18.1675948433322;
+        Thu, 09 Feb 2023 05:13:53 -0800 (PST)
 Received: from localhost.localdomain ([5.133.47.210])
         by smtp.gmail.com with ESMTPSA id
- ja13-20020a05600c556d00b003dc4b4dea31sm1789394wmb.27.2023.02.09.05.13.50
+ ja13-20020a05600c556d00b003dc4b4dea31sm1789394wmb.27.2023.02.09.05.13.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 05:13:51 -0800 (PST)
+        Thu, 09 Feb 2023 05:13:52 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Subject: [PATCH 4/5] soundwire: qcom: add software workaround for bus clash
- interrupt assertion
-Date: Thu,  9 Feb 2023 13:13:35 +0000
-Message-Id: <20230209131336.18252-5-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 5/5] soundwire: qcom: set clk stop need reset flag at runtime
+Date: Thu,  9 Feb 2023 13:13:36 +0000
+Message-Id: <20230209131336.18252-6-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20230209131336.18252-1-srinivas.kandagatla@linaro.org>
 References: <20230209131336.18252-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FPJVOLVUDPPOWVOXBMOSJUGHMHZLBX3B
-X-Message-ID-Hash: FPJVOLVUDPPOWVOXBMOSJUGHMHZLBX3B
+Message-ID-Hash: B5A5BFUYETU7XAADJZ4D4BSFNPHK4QGC
+X-Message-ID-Hash: B5A5BFUYETU7XAADJZ4D4BSFNPHK4QGC
 X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -112,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FPJVOLVUDPPOWVOXBMOSJUGHMHZLBX3B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B5A5BFUYETU7XAADJZ4D4BSFNPHK4QGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,104 +120,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Sometimes Hard reset does not clear some of the registers,
-this sometimes results in firing a bus clash interrupt.
-Add workaround for this during power up sequence, as
-suggested by hardware manual.
+WSA Soundwire controller needs an full reset if clock stop support
+is not available in slave devices. WSA881x does not support clock stop
+however WSA883x supports clock stop.
+
+Make setting this flag at runtime to address above issue.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/soundwire/qcom.c | 55 ++++++++++++++++++++++++----------------
- 1 file changed, 33 insertions(+), 22 deletions(-)
+ drivers/soundwire/qcom.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 465b2a2ef0d5..74e38c0d651b 100644
+index 74e38c0d651b..0224a5a866de 100644
 --- a/drivers/soundwire/qcom.c
 +++ b/drivers/soundwire/qcom.c
-@@ -697,6 +697,26 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
- 	return ret;
- }
+@@ -536,10 +536,14 @@ static int qcom_swrm_enumerate(struct sdw_bus *bus)
  
-+static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *swrm)
-+{
-+	int retry = SWRM_LINK_STATUS_RETRY_CNT;
-+	int comp_sts;
+ 		sdw_extract_slave_id(bus, addr, &id);
+ 		found = false;
++		ctrl->clock_stop_not_supported = false;
+ 		/* Now compare with entries */
+ 		list_for_each_entry_safe(slave, _s, &bus->slaves, node) {
+ 			if (sdw_compare_devid(slave, id) == 0) {
+ 				qcom_swrm_set_slave_dev_num(bus, slave, i);
++				if (!slave->prop.simple_clk_stop_capable)
++					ctrl->clock_stop_not_supported = true;
 +
-+	do {
-+		swrm->reg_read(swrm, SWRM_COMP_STATUS, &comp_sts);
-+
-+		if (comp_sts & SWRM_FRM_GEN_ENABLED)
-+			return true;
-+
-+		usleep_range(500, 510);
-+	} while (retry--);
-+
-+	dev_err(swrm->dev, "%s: link status %s\n", __func__,
-+		comp_sts & SWRM_FRM_GEN_ENABLED ? "connected" : "disconnected");
-+
-+	return false;
-+}
-+
- static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
- {
- 	u32 val;
-@@ -741,16 +761,27 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
- 				SWRM_RD_WR_CMD_RETRIES);
- 	}
+ 				found = true;
+ 				break;
+ 			}
+@@ -1500,15 +1504,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 		 (ctrl->version >> 24) & 0xff, (ctrl->version >> 16) & 0xff,
+ 		 ctrl->version & 0xffff);
  
-+	/* COMP Enable */
-+	ctrl->reg_write(ctrl, SWRM_COMP_CFG_ADDR, SWRM_COMP_CFG_ENABLE_MSK);
-+
- 	/* Set IRQ to PULSE */
- 	ctrl->reg_write(ctrl, SWRM_COMP_CFG_ADDR,
--			SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK |
--			SWRM_COMP_CFG_ENABLE_MSK);
-+			SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK);
-+
-+	ctrl->reg_write(ctrl, SWRM_INTERRUPT_CLEAR, 0xFFFFFFFF);
- 
- 	/* enable CPU IRQs */
- 	if (ctrl->mmio) {
- 		ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN,
- 				SWRM_INTERRUPT_STATUS_RMSK);
- 	}
-+
-+	/* Set IRQ to PULSE */
-+	ctrl->reg_write(ctrl, SWRM_COMP_CFG_ADDR,
-+			SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK |
-+			SWRM_COMP_CFG_ENABLE_MSK);
-+
-+	swrm_wait_for_frame_gen_enabled(ctrl);
- 	ctrl->slave_status = 0;
- 	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
- 	ctrl->rd_fifo_depth = FIELD_GET(SWRM_COMP_PARAMS_RD_FIFO_DEPTH, val);
-@@ -1504,26 +1535,6 @@ static int qcom_swrm_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
--static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *swrm)
--{
--	int retry = SWRM_LINK_STATUS_RETRY_CNT;
--	int comp_sts;
+-	/* Clk stop is not supported on WSA Soundwire masters */
+-	if (ctrl->version <= 0x01030000) {
+-		ctrl->clock_stop_not_supported = true;
+-	} else {
+-		ctrl->reg_read(ctrl, SWRM_COMP_MASTER_ID, &val);
+-		if (val == MASTER_ID_WSA)
+-			ctrl->clock_stop_not_supported = true;
+-	}
 -
--	do {
--		swrm->reg_read(swrm, SWRM_COMP_STATUS, &comp_sts);
--
--		if (comp_sts & SWRM_FRM_GEN_ENABLED)
--			return true;
--
--		usleep_range(500, 510);
--	} while (retry--);
--
--	dev_err(swrm->dev, "%s: link status not %s\n", __func__,
--		comp_sts & SWRM_FRM_GEN_ENABLED ? "connected" : "disconnected");
--
--	return false;
--}
--
- static int __maybe_unused swrm_runtime_resume(struct device *dev)
- {
- 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
+ #ifdef CONFIG_DEBUG_FS
+ 	ctrl->debugfs = debugfs_create_dir("qualcomm-sdw", ctrl->bus.debugfs);
+ 	debugfs_create_file("qualcomm-registers", 0400, ctrl->debugfs, ctrl,
 -- 
 2.21.0
 

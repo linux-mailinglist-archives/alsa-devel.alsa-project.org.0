@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C25690249
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 09:38:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2830469024A
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 09:39:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1E2483B;
-	Thu,  9 Feb 2023 09:37:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1E2483B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01DF9857;
+	Thu,  9 Feb 2023 09:38:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01DF9857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675931917;
-	bh=6EQxMlnnbv5hQCSpawkKi8+yCzwMB/cj6uq7qeXpAmU=;
+	s=default; t=1675931968;
+	bh=F1FJX8KWz7ePMXO2jFUGwxcuUUQznSnDllwZj34W8vA=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fUOH3ZglSz0wjp0aL0uYAub0kAZm3/5AAqVrM67DWjXiCAbTWf+kGRKzW0zmJXZMM
-	 KoTh3Dn3iV1jr6l16e0z48EPi2w1X8TXmyCKpBXXnfA8YqoOZ/OAXkIucGtKqHI86I
-	 yexGomrZacKrRi5z0mvVTmQH9fcM0bK4S9PPfoL0=
+	b=kg6yJR2bmIKJpYLdREL9YIGDDxi5sqDtxrfcUgsa1tXDGy2eBPV5omMqgPksLFFsk
+	 hrMSQiLDNug1p1KtJW2SDE6jZyMlmYnp9NcRQR3CL0UHhn7Dq5oJh7zzSUNZapyzuI
+	 b0Gbho/h2H5FaJxzTu6QiKmd4FTnQIg8qtIQUxrU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8714BF800E4;
-	Thu,  9 Feb 2023 09:37:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F7A9F8051F;
+	Thu,  9 Feb 2023 09:37:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 613D3F804F2; Thu,  9 Feb 2023 09:37:41 +0100 (CET)
+	id CB0F6F80269; Thu,  9 Feb 2023 09:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,16 +33,15 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D298F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 332CAF8018A
 	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 09:37:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D298F80094
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 332CAF8018A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=OEDKEnGw
+ header.a=rsa-sha256 header.s=mail header.b=DKyFNlE7
 Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
  [82.11.51.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -50,18 +49,18 @@ Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: tanureal)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 0598A66020BA;
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 55FF566020C3;
 	Thu,  9 Feb 2023 08:37:31 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1675931851;
-	bh=6EQxMlnnbv5hQCSpawkKi8+yCzwMB/cj6uq7qeXpAmU=;
+	bh=F1FJX8KWz7ePMXO2jFUGwxcuUUQznSnDllwZj34W8vA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OEDKEnGwq0WaKBIPMCdjyQxejNWgA6ms537VUQtSXitxVRQptGYv6T/GQlfHXGAtx
-	 gQSmoHMPzdD6QXCig14ZZ2vvr/0F9MSI9xp5Lg+52/2jAxhgeZsuorNcT/2EDUaENJ
-	 NrnF9gBixJ8CttKend3AUKhbq7Z6RlQeVN6I+tRv3ojUpdDhmkA9FQKTxiH7DyaK8y
-	 J96DlhiHnu+mx4IFwI3YUbu3yGRyfnB9qGO9s6d1glTUJca5rYlVHO6dXr8bo8qsjQ
-	 srHQum2EEpYeBgLKMDCVgqMJ1yURRIaafB2KHQUfWHG++USiNDL6y4GROuF+dmfLff
-	 yVWqmfYi+80Bw==
+	b=DKyFNlE7TdIDKPcpvwXuiQ0VT+k2/m9JWgsg8l55Xfo0lMl5iAKgevRPd9GIQuKx6
+	 YOss+Ph5MpCHA2aXP5s/6IvSZNNUHNW0aWnQEpV3upxpPuxsS0J2vOT4pfGv1waM4Q
+	 3TNDVP/4toRiniCPxEfmV4Ai1x8cGObcAufvDKTI8ywCm60lpQF7HizwFK8aZsA3iq
+	 1CLFYEe27N4sm7X+oK8sfkdeuoOd7sMC1zaa4JkYF8BTs9KOfctvKKYnx6wLvaxUoO
+	 W3CP2QWJxNR/fM6cEiAEarGBJ1jNmqXzT4yBT0DT8NchQu1Fad/GxpPRi2FLHKRYQS
+	 nrtuecfAEujyQ==
 From: Lucas Tanure <lucas.tanure@collabora.com>
 To: David Rhodes <david.rhodes@cirrus.com>,
 	Charles Keepax <ckeepax@opensource.cirrus.com>,
@@ -71,16 +70,16 @@ To: David Rhodes <david.rhodes@cirrus.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v4 1/4] ASoC: cs35l41: Only disable internal boost
-Date: Thu,  9 Feb 2023 08:37:23 +0000
-Message-Id: <20230209083726.1337150-2-lucas.tanure@collabora.com>
+Subject: [PATCH v4 2/4] ASoC: cs35l41: Refactor error release code
+Date: Thu,  9 Feb 2023 08:37:24 +0000
+Message-Id: <20230209083726.1337150-3-lucas.tanure@collabora.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230209083726.1337150-1-lucas.tanure@collabora.com>
 References: <20230209083726.1337150-1-lucas.tanure@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QBNFYI3Y2T7DF6CRHMUI5Z5HZBUDTPSE
-X-Message-ID-Hash: QBNFYI3Y2T7DF6CRHMUI5Z5HZBUDTPSE
+Message-ID-Hash: Z4OZYCPIK7NPRY5YHKBLDITPDKJYAP3A
+X-Message-ID-Hash: Z4OZYCPIK7NPRY5YHKBLDITPDKJYAP3A
 X-MailFrom: lucas.tanure@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,109 +95,135 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBNFYI3Y2T7DF6CRHMUI5Z5HZBUDTPSE/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z4OZYCPIK7NPRY5YHKBLDITPDKJYAP3A/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In error situations, only the internal boost case should be disabled and
-re-enabled.
-Also, for other boost cases re-enabling the boost to the default internal
-boost config is incorrect.
+Add cs35l41_error_release function to handle error release sequences.
 
-Fixes: 6450ef559056 ("ASoC: cs35l41: CS35L41 Boosted Smart Amplifier")
 Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs35l41.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ sound/soc/codecs/cs35l41.c | 64 ++++++++++----------------------------
+ 1 file changed, 16 insertions(+), 48 deletions(-)
 
 diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index c223d83e02cf..f2b5032daa6a 100644
+index f2b5032daa6a..c006364e5335 100644
 --- a/sound/soc/codecs/cs35l41.c
 +++ b/sound/soc/codecs/cs35l41.c
-@@ -356,6 +356,19 @@ static const struct snd_kcontrol_new cs35l41_aud_controls[] = {
- 	WM_ADSP_FW_CONTROL("DSP1", 0),
- };
+@@ -369,6 +369,16 @@ static void cs35l41_boost_enable(struct cs35l41_private *cs35l41, unsigned int e
+ 	}
+ }
  
-+static void cs35l41_boost_enable(struct cs35l41_private *cs35l41, unsigned int enable)
++
++static void cs35l41_error_release(struct cs35l41_private *cs35l41, unsigned int irq_err_bit,
++				  unsigned int rel_err_bit)
 +{
-+	switch (cs35l41->hw_cfg.bst_type) {
-+	case CS35L41_INT_BOOST:
-+		enable = enable ? CS35L41_BST_EN_DEFAULT : CS35L41_BST_DIS_FET_OFF;
-+		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2, CS35L41_BST_EN_MASK,
-+				enable << CS35L41_BST_EN_SHIFT);
-+		break;
-+	default:
-+		break;
-+	}
++	regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1, irq_err_bit);
++	regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
++	regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, rel_err_bit, rel_err_bit);
++	regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, rel_err_bit, 0);
 +}
 +
  static irqreturn_t cs35l41_irq(int irq, void *data)
  {
  	struct cs35l41_private *cs35l41 = data;
-@@ -431,8 +444,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
+@@ -405,54 +415,26 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
+ 	 */
+ 	if (status[0] & CS35L41_AMP_SHORT_ERR) {
+ 		dev_crit_ratelimited(cs35l41->dev, "Amp short error\n");
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_AMP_SHORT_ERR);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_AMP_SHORT_ERR_RLS,
+-				   CS35L41_AMP_SHORT_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_AMP_SHORT_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_AMP_SHORT_ERR, CS35L41_AMP_SHORT_ERR_RLS);
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
+ 	if (status[0] & CS35L41_TEMP_WARN) {
+ 		dev_crit_ratelimited(cs35l41->dev, "Over temperature warning\n");
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_TEMP_WARN);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_TEMP_WARN_ERR_RLS,
+-				   CS35L41_TEMP_WARN_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_TEMP_WARN_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_TEMP_WARN, CS35L41_TEMP_WARN_ERR_RLS);
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
+ 	if (status[0] & CS35L41_TEMP_ERR) {
+ 		dev_crit_ratelimited(cs35l41->dev, "Over temperature error\n");
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_TEMP_ERR);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_TEMP_ERR_RLS,
+-				   CS35L41_TEMP_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_TEMP_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_TEMP_ERR, CS35L41_TEMP_ERR_RLS);
+ 		ret = IRQ_HANDLED;
+ 	}
  
  	if (status[0] & CS35L41_BST_OVP_ERR) {
  		dev_crit_ratelimited(cs35l41->dev, "VBST Over Voltage error\n");
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK, 0);
-+		cs35l41_boost_enable(cs35l41, 0);
- 		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
- 			     CS35L41_BST_OVP_ERR);
- 		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
-@@ -441,16 +453,13 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 				   CS35L41_BST_OVP_ERR_RLS);
- 		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
- 				   CS35L41_BST_OVP_ERR_RLS, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK,
--				   CS35L41_BST_EN_DEFAULT << CS35L41_BST_EN_SHIFT);
-+		cs35l41_boost_enable(cs35l41, 1);
+ 		cs35l41_boost_enable(cs35l41, 0);
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_BST_OVP_ERR);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_OVP_ERR_RLS,
+-				   CS35L41_BST_OVP_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_OVP_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_BST_OVP_ERR, CS35L41_BST_OVP_ERR_RLS);
+ 		cs35l41_boost_enable(cs35l41, 1);
  		ret = IRQ_HANDLED;
  	}
- 
+@@ -460,14 +442,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
  	if (status[0] & CS35L41_BST_DCM_UVP_ERR) {
  		dev_crit_ratelimited(cs35l41->dev, "DCM VBST Under Voltage Error\n");
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK, 0);
-+		cs35l41_boost_enable(cs35l41, 0);
- 		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
- 			     CS35L41_BST_DCM_UVP_ERR);
- 		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
-@@ -459,16 +468,13 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 				   CS35L41_BST_UVP_ERR_RLS);
- 		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
- 				   CS35L41_BST_UVP_ERR_RLS, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK,
--				   CS35L41_BST_EN_DEFAULT << CS35L41_BST_EN_SHIFT);
-+		cs35l41_boost_enable(cs35l41, 1);
+ 		cs35l41_boost_enable(cs35l41, 0);
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_BST_DCM_UVP_ERR);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_UVP_ERR_RLS,
+-				   CS35L41_BST_UVP_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_UVP_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_BST_DCM_UVP_ERR, CS35L41_BST_UVP_ERR_RLS);
+ 		cs35l41_boost_enable(cs35l41, 1);
  		ret = IRQ_HANDLED;
  	}
- 
+@@ -475,14 +450,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
  	if (status[0] & CS35L41_BST_SHORT_ERR) {
  		dev_crit_ratelimited(cs35l41->dev, "LBST error: powering off!\n");
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK, 0);
-+		cs35l41_boost_enable(cs35l41, 0);
- 		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
- 			     CS35L41_BST_SHORT_ERR);
- 		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
-@@ -477,9 +483,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
- 				   CS35L41_BST_SHORT_ERR_RLS);
- 		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
- 				   CS35L41_BST_SHORT_ERR_RLS, 0);
--		regmap_update_bits(cs35l41->regmap, CS35L41_PWR_CTRL2,
--				   CS35L41_BST_EN_MASK,
--				   CS35L41_BST_EN_DEFAULT << CS35L41_BST_EN_SHIFT);
-+		cs35l41_boost_enable(cs35l41, 1);
+ 		cs35l41_boost_enable(cs35l41, 0);
+-		regmap_write(cs35l41->regmap, CS35L41_IRQ1_STATUS1,
+-			     CS35L41_BST_SHORT_ERR);
+-		regmap_write(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN, 0);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_SHORT_ERR_RLS,
+-				   CS35L41_BST_SHORT_ERR_RLS);
+-		regmap_update_bits(cs35l41->regmap, CS35L41_PROTECT_REL_ERR_IGN,
+-				   CS35L41_BST_SHORT_ERR_RLS, 0);
++		cs35l41_error_release(cs35l41, CS35L41_BST_SHORT_ERR, CS35L41_BST_SHORT_ERR_RLS);
+ 		cs35l41_boost_enable(cs35l41, 1);
  		ret = IRQ_HANDLED;
  	}
- 
 -- 
 2.39.1
 

@@ -2,104 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 883DD690DEC
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 17:06:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B43690DF2
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 17:07:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC5A4DF6;
-	Thu,  9 Feb 2023 17:05:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC5A4DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1264E85;
+	Thu,  9 Feb 2023 17:06:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1264E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675958800;
-	bh=UW3/dMgGlEwKul84yflMnZdq3FYQMRieO4BlZn30rys=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1675958853;
+	bh=Hd5wMGWSXhYUc7Fz/5I9lG7OSwU+bPyOWklhykUOozs=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZbKQiM9W/MsSvn+PQ+uamh6x+UAMCcbck8Nj4gF/Yz+dzETGZ8px3IkGdLPA4q195
-	 8Z/+RfFl824SHAietfaX2ftx7Y5W/niX2NG2JAf6+lVkw0ZjiIb9pD9CBXzTTqEEcW
-	 o/DWvqlgTYCmFI8g4JLrZO5P4Xv80hxq1qSBQxeg=
+	b=i+S+J1laTzQ6XNo8BDcQ8r+Jnm4/keSEgzzVmHSHH5sFN7H7JOc+3D+tB35CVAuqZ
+	 or2lMRWQrApw6aCiIqdOYBaOBP654hf79NKxyIrPnVfWIMUWjxk1Ldl7abuqupjbS2
+	 dWk90l53hSSQhupiD+2Enhxcj1aVxi3mLCl78KBY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 998FCF800B8;
-	Thu,  9 Feb 2023 17:05:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA163F800B8;
+	Thu,  9 Feb 2023 17:06:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9674F80027; Thu,  9 Feb 2023 17:05:47 +0100 (CET)
+	id 1BC02F804F2; Thu,  9 Feb 2023 17:06:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFF04F800B8
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 17:04:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFF04F800B8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 83B56F80094
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 17:06:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83B56F80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=qIxf5u3h
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 319EawIK008427;
-	Thu, 9 Feb 2023 10:04:17 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=BM1yxcdjNXs85nym5mJVfycm4b6RfBMPbew5+AT8ngk=;
- b=qIxf5u3hYbMmT93dG7ep2ucTjQDwSPq+LhPEvF83oOWb1F++0pASvsTxzRRtwlm5aELM
- IvwWfoqMRd4VLpU3GOsIsmBF11C49VJ4+U6g8cO0FDdwdPoMnaZ7K7bWEwkrukTlCWEU
- 01RJS32Vs23pmI6XdJBU0xcIiXOHHmvwu5VXFnt+Vgf23ASVvaXAS/JY1TDpGF1LaYEq
- iRH9OVoKu6WMZqn2El0/dTnypjM/Wkrma0bAnZN2RK45rDFWimr4WtIH6tqNe0X/yyLt
- cy03a/24+GjZmwK/qOzvALVbf842PZj5ZlwrwfhHpPgOsZADGoMZz/0gq94zGbywyWlF yg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3nhnn807j2-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Feb 2023 10:04:16 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 9 Feb
- 2023 10:04:13 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via Frontend
- Transport; Thu, 9 Feb 2023 10:04:13 -0600
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.202.160])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 413DF11AC;
-	Thu,  9 Feb 2023 16:04:13 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 3/3] ALSA: hda: cs35l41: Enable Amp High Pass Filter
-Date: Thu, 9 Feb 2023 16:04:03 +0000
-Message-ID: <20230209160403.838326-4-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230209160403.838326-1-sbinding@opensource.cirrus.com>
-References: <20230209160403.838326-1-sbinding@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=X38YgFZB
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4835861B11;
+	Thu,  9 Feb 2023 16:06:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B1EC433D2;
+	Thu,  9 Feb 2023 16:06:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1675958793;
+	bh=Hd5wMGWSXhYUc7Fz/5I9lG7OSwU+bPyOWklhykUOozs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=X38YgFZBgZCyg9wfqfHaDcwVGVtRcVoMsHYGnPAMrSo75YCtPhqUGo+ioqhggWsJh
+	 1Q793+GsjtSu8uBKspHrHg1tct28JGfPTcui/uC/SyYA0y1eExWYA86OYCWvnpMDXT
+	 1MQ3iteZyJZRIsJPwnnBvtGj1N6up63ZJUIhRBUdlBdjhP0TiQttFNQla9WtDZtzEY
+	 gyaUzJqJx2HhZHfGyx4wt+apoNyLKNAuID8SnsuSEZNNrCLUprdz0a+koiWyRbLka6
+	 ctR/eSEiLVmcBHbr4pBQdBrHf4U7z8CFFfvuhpAR8iShK4URDnbUK+ICKUrtCzg1b2
+	 csNvh6Y3rWYUA==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kiseok Jo <kiseok.jo@irondevice.com>
+In-Reply-To: <20230209084903.13000-2-kiseok.jo@irondevice.com>
+References: <20230209084903.13000-2-kiseok.jo@irondevice.com>
+Subject: Re: [PATCH v3] ASoC: SMA1303: Remove the sysclk setting in
+ devicetree
+Message-Id: <167595879198.443322.14924870138902391536.b4-ty@kernel.org>
+Date: Thu, 09 Feb 2023 16:06:31 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 6MNjxwLXgpwbIkpvcTBshl3OAKmYwGnJ
-X-Proofpoint-ORIG-GUID: 6MNjxwLXgpwbIkpvcTBshl3OAKmYwGnJ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: S2NV2EBF33G24LNJAZ4STBY7P37KZEOA
-X-Message-ID-Hash: S2NV2EBF33G24LNJAZ4STBY7P37KZEOA
-X-MailFrom: prvs=74048fb3a3=sbinding@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.0
+Message-ID-Hash: 3S24WAPUNZ7JRZFFGYAZLPVSG47C4WNX
+X-Message-ID-Hash: 3S24WAPUNZ7JRZFFGYAZLPVSG47C4WNX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com,
- Stefan Binding <sbinding@opensource.cirrus.com>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2NV2EBF33G24LNJAZ4STBY7P37KZEOA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3S24WAPUNZ7JRZFFGYAZLPVSG47C4WNX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,42 +96,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This helps smooth out pops and clicks in the amps.
+On Thu, 09 Feb 2023 08:49:03 +0000, Kiseok Jo wrote:
+> In SMA1303, this device does not support MCLK.
+> So it need to remove sysclk setting in devicetree.
+> v2: Modify the sysclk setting - using devm_clk_get for mclk.
+> 
+> 
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/cs35l41_hda.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Applied to
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index f577b20c241e..dc047c93bb63 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -58,7 +58,7 @@ static const struct reg_sequence cs35l41_hda_config[] = {
- 	{ CS35L41_DSP1_RX3_SRC,         0x00000018 }, // DSP1RX3 SRC = VMON
- 	{ CS35L41_DSP1_RX4_SRC,         0x00000019 }, // DSP1RX4 SRC = IMON
- 	{ CS35L41_DSP1_RX5_SRC,         0x00000020 }, // DSP1RX5 SRC = ERRVOL
--	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00000000 }, // AMP_VOL_PCM  0.0 dB
-+	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00008000 }, // AMP_HPF_PCM_EN = 1, AMP_VOL_PCM  0.0 dB
- 	{ CS35L41_AMP_GAIN_CTRL,	0x00000084 }, // AMP_GAIN_PCM 4.5 dB
- };
- 
-@@ -82,13 +82,13 @@ static const struct reg_sequence cs35l41_hda_config_dsp[] = {
- 	{ CS35L41_DSP1_RX3_SRC,         0x00000018 }, // DSP1RX3 SRC = VMON
- 	{ CS35L41_DSP1_RX4_SRC,         0x00000019 }, // DSP1RX4 SRC = IMON
- 	{ CS35L41_DSP1_RX5_SRC,         0x00000029 }, // DSP1RX5 SRC = VBSTMON
--	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00000000 }, // AMP_VOL_PCM  0.0 dB
-+	{ CS35L41_AMP_DIG_VOL_CTRL,	0x00008000 }, // AMP_HPF_PCM_EN = 1, AMP_VOL_PCM  0.0 dB
- 	{ CS35L41_AMP_GAIN_CTRL,	0x00000233 }, // AMP_GAIN_PCM = 17.5dB AMP_GAIN_PDM = 19.5dB
- };
- 
- static const struct reg_sequence cs35l41_hda_mute[] = {
- 	{ CS35L41_AMP_GAIN_CTRL,	0x00000000 }, // AMP_GAIN_PCM 0.5 dB
--	{ CS35L41_AMP_DIG_VOL_CTRL,	0x0000A678 }, // AMP_VOL_PCM Mute
-+	{ CS35L41_AMP_DIG_VOL_CTRL,	0x0000A678 }, // AMP_HPF_PCM_EN = 1, AMP_VOL_PCM Mute
- };
- 
- static void cs35l41_add_controls(struct cs35l41_hda *cs35l41)
--- 
-2.34.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: SMA1303: Remove the sysclk setting in devicetree
+      commit: 2512839dd648ffa2c2a752e1403aaeb928cff71a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

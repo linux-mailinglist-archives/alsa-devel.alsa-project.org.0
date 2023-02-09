@@ -2,93 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932BD690CC7
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 16:21:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D1F690D1D
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Feb 2023 16:36:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCE1BDF1;
-	Thu,  9 Feb 2023 16:20:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCE1BDF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6380BDF4;
+	Thu,  9 Feb 2023 16:35:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6380BDF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675956082;
-	bh=2g/p79IvwubldBThkzYcMNLfYDNVFSIxGP9Bl4yot2E=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1675956972;
+	bh=QsleGwQt2tIddWytBaD5JbNmXTkOYJR8IEaq6F4sxO8=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=E6CeSe4s9b1y8xrjNfmO3i8isxMuA0GRsClfTHIEY5c4P3pdeaSqlXWFm9SHnLhPq
-	 qdBNeUKVP1BztZS9Mqq6X1dMOzKEpF39pRarwZaxeyqk4aLZw95x4DtNdl3QeJ781f
-	 fMXD5L0ejh6RCf9IVqeAHeGSIZu073+1Pq3YWQhM=
+	b=EDmdRcPasdfh9Pm4jPTHVW8jqw3+vYLVwd3aarSE07X4kicMocEM/2m2pL4zzUCzY
+	 plcLUONGd6+GWPmhggpc+4tqxCD5bKGcwg+yJGaOEp+FaigR8hcYvqwXnHIaqIaCa1
+	 Jgra+RbYDDFs3wz+gQda48EAtanv2rBjf6HxHvVI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15580F80094;
-	Thu,  9 Feb 2023 16:20:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2791CF800E4;
+	Thu,  9 Feb 2023 16:35:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83645F800E4; Thu,  9 Feb 2023 16:20:28 +0100 (CET)
+	id B0B07F8021D; Thu,  9 Feb 2023 16:35:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07261F80027
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 16:20:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07261F80027
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mHeYIICF
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2D3AA61AD2;
-	Thu,  9 Feb 2023 15:20:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EDF0C433D2;
-	Thu,  9 Feb 2023 15:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675956021;
-	bh=2g/p79IvwubldBThkzYcMNLfYDNVFSIxGP9Bl4yot2E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mHeYIICFuWexoDo+WVFBfDJ82Mpz5FmzWkwbx1I+z1JumRgEzFK+/yFY7sv7cRWlH
-	 le1a5o9UMtm1CtvyETk+AK/dFnt1E85ZC1SlsFWYv6XvtgTS0mQ7iXapQRPVIGpcgW
-	 smqoGs6FI2mB/KyQ24CQwhPqJdCgn1j6yUGl+Y29JDFZU2uILECSwrv1Fze9W0VeMj
-	 QWAxp2pGgc0Ml95+qHbVDP64O+PQvYQZu60bPVC/+O6r5dLCZCiQQsZNi1WVOqBXsU
-	 P0PUZBA+sqAgnbA9XWhgVa9LCCkNK8ARBfU7O3VGrZgFTppU9bi+DU7m9nQUpNIY+j
-	 yD31xu4ThnE1A==
-Date: Thu, 9 Feb 2023 15:20:15 +0000
-From: Mark Brown <broonie@kernel.org>
-To: shumingf@realtek.com
-Subject: Re: [PATCH] ASoC: rt712-sdca: Add RT712 SDCA driver for Jack and Amp
- topology
-Message-ID: <Y+UPL4nK7yZ2pWgP@sirena.org.uk>
-References: <20230207090946.20659-1-shumingf@realtek.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id F2B28F80027
+	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 16:35:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2B28F80027
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IKx6SuIb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1675956908; x=1707492908;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=QsleGwQt2tIddWytBaD5JbNmXTkOYJR8IEaq6F4sxO8=;
+  b=IKx6SuIbiRzy0RpT8lZTvSFUvpKjoWFqV9IgfvfEqJvKNSdBMyK0wJba
+   cieGn0bIG2Rfb8wkvLk5X6t7JU5wQZUB869VGghg1Zt3+YAD/88/i1XV9
+   o+eFJUFE2xO00XvTInB1RvNYyMIqmp4yfXNTFlsK8WgxWAYj5Py1NZZwG
+   7CQ8iY4bDvXMsAkdfJ5Tm31TKCnb/m8ffy3nsu1Yn+sP/7JHKw8BtMf4Q
+   n/t03DO8xLd5qWU+fcr+mJLZ2z2p/u9ycHGix5eMASoKwfqWu8WPkUOzK
+   tM+vQA71ElMWb4yMtiq9lgPq03MjwP/3hgm2IK9BnY4iFptHBaFl7KIpT
+   w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="309782432"
+X-IronPort-AV: E=Sophos;i="5.97,284,1669104000";
+   d="scan'208";a="309782432"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2023 07:35:04 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="776528830"
+X-IronPort-AV: E=Sophos;i="5.97,284,1669104000";
+   d="scan'208";a="776528830"
+Received: from fpastor-mobl4.amr.corp.intel.com (HELO [10.212.74.130])
+ ([10.212.74.130])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2023 07:35:03 -0800
+Message-ID: <92a2560a-74cd-aa13-fea6-7619e355b26e@linux.intel.com>
+Date: Thu, 9 Feb 2023 09:21:31 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IXN99ClnvCK3IB0G"
-Content-Disposition: inline
-In-Reply-To: <20230207090946.20659-1-shumingf@realtek.com>
-X-Cookie: Anger is momentary madness.
-Message-ID-Hash: XOGFEANDNYBEMJBP6JU7S5WBVBAY2BXX
-X-Message-ID-Hash: XOGFEANDNYBEMJBP6JU7S5WBVBAY2BXX
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.1
+Subject: Re: [PATCH 2/5] soundwire: qcom: enable runtime pm before controller
+ is registered
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
+References: <20230209131336.18252-1-srinivas.kandagatla@linaro.org>
+ <20230209131336.18252-3-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230209131336.18252-3-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: VHHP7KNZR4TJZQWHQKBIGCP5TDMYRXZY
+X-Message-ID-Hash: VHHP7KNZR4TJZQWHQKBIGCP5TDMYRXZY
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- flove@realtek.com, oder_chiou@realtek.com, jack.yu@realtek.com,
- derek.fang@realtek.com, pierre-louis.bossart@intel.com, bard.liao@intel.com
+CC: yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, steev@kali.org, johan+linaro@kernel.org,
+ quic_bjorande@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XOGFEANDNYBEMJBP6JU7S5WBVBAY2BXX/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VHHP7KNZR4TJZQWHQKBIGCP5TDMYRXZY/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -96,69 +107,53 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---IXN99ClnvCK3IB0G
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Tue, Feb 07, 2023 at 05:09:46PM +0800, shumingf@realtek.com wrote:
+On 2/9/23 07:13, Srinivas Kandagatla wrote:
+> Registering controller even before pm runtime is enabled will result
+> in pm runtime underflow warnings. Fix this by properly moving
+> the runtime pm enable before registering controller.
 
-> +static int rt712_sdca_mux_put(struct snd_kcontrol *kcontrol,
-> +			struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +		snd_soc_dapm_kcontrol_component(kcontrol);
-> +	struct snd_soc_dapm_context *dapm =
-> +		snd_soc_dapm_kcontrol_dapm(kcontrol);
-> +	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item = ucontrol->value.enumerated.item;
-> +	unsigned int mask_sft;
+That seems very odd. The Intel code configures the pm_runtime stuff
+*after* the call to sdw_bus_master_add(), and we've not seen any
+underflow warnings? We even configure pm_runtime after starting the bus.
+Likewise for peripherals the pm_runtime part is enabled after the device
+is initialized.
 
+Not following the problem and suggested solution.
+
+> Fixes: 74e79da9fd46 ("soundwire: qcom: add runtime pm support")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  drivers/soundwire/qcom.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 9d8ae77bad0a..b2363839624c 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -1417,6 +1417,12 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>  		}
+>  	}
+>  
+> +	pm_runtime_set_autosuspend_delay(dev, 3000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_mark_last_busy(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
 > +
-> +	snd_soc_dapm_mux_update_power(dapm, kcontrol,
-> +		item[0], e, NULL);
-> +
-> +	return 1;
-> +}
-
-This unconditionally returns 1 if the value written is in bounds which
-means that an event will always be signalled.  Please use mixer-test to
-check for this and other issues.
-
-> +	/* set sampling frequency */
-> +	if (dai->id == RT712_AIF1) {
-> +		regmap_write(rt712->regmap,
-> +			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS01, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
-> +			sampling_rate);
-> +		regmap_write(rt712->regmap,
-> +			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS11, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
-> +			sampling_rate);
-> +	}
-> +
-> +	if (dai->id == RT712_AIF2)
-> +		regmap_write(rt712->regmap,
-> +			SDW_SDCA_CTL(FUNC_NUM_AMP, RT712_SDCA_ENT_CS31, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
-> +			sampling_rate);
-
-This would be better written as a switch statement, there were some
-other checks for variants that looked to have similar issues.  It makes
-it clearer that only one option can be selected and allows you to have a
-default check that makes sure that any new variant with another AIF gets
-handled.
-
---IXN99ClnvCK3IB0G
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPlDy8ACgkQJNaLcl1U
-h9BfJAf/Rhj/OYwqiE8Yupwa+75HWQZbeAo3AN51DFf+79dTNF3emDvhpfPxkgG7
-G95mCYsMR9P7+DrpCzGgzGs0M3bL98t837iIOde8OebYZACYqe0lh0OKW5e9mpRi
-9U6GOpCyI1855Z3ywYqw19OeDjGc4stb8GcNfoem7kUw/6mnF62bMU3UhS7fF6e6
-TZObT14/OkORhcUzmxFkTEbL2HUSR+0KVjTAI9sTyoLWiMJUbcKOuuzclAcO1J8O
-cVEfw5UWHxj5AIB5ftIXCR19lgHAL7NvW+mUv+ed+GbzpS38CeyfFQi+Q3QAiEGB
-G/A6+dwmoZsl66VpgLHoErzpCl0rAg==
-=ZX1H
------END PGP SIGNATURE-----
-
---IXN99ClnvCK3IB0G--
+>  	ret = sdw_bus_master_add(&ctrl->bus, dev, dev->fwnode);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to register Soundwire controller (%d)\n",
+> @@ -1435,12 +1441,6 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>  		 (ctrl->version >> 24) & 0xff, (ctrl->version >> 16) & 0xff,
+>  		 ctrl->version & 0xffff);
+>  
+> -	pm_runtime_set_autosuspend_delay(dev, 3000);
+> -	pm_runtime_use_autosuspend(dev);
+> -	pm_runtime_mark_last_busy(dev);
+> -	pm_runtime_set_active(dev);
+> -	pm_runtime_enable(dev);
+> -
+>  	/* Clk stop is not supported on WSA Soundwire masters */
+>  	if (ctrl->version <= 0x01030000) {
+>  		ctrl->clock_stop_not_supported = true;

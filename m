@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05171692636
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 20:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4DC692675
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 20:34:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E983D83B;
-	Fri, 10 Feb 2023 20:19:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E983D83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 139A883B;
+	Fri, 10 Feb 2023 20:34:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139A883B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676056834;
-	bh=9joRaultstfzrxgf6XwfkXXHD6fBtvgv2ExfAzQTI1w=;
+	s=default; t=1676057691;
+	bh=wuYTt/zD0XFJgkCJev0VkUuWzzy9G332AMg83Db8eNk=;
 	h=Date:Subject:From:To:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TnAbu8QmpOX4UgCrlsvyowJUrd8JR6EHjXi6V73jOaKc943pYbj/q+cGcCWhMNxUl
-	 90ujgG3JIpS+ehBmtL0+TmkgIl7NYQ5vzU+k5u0cAabM9BBjsSRKLFnZMoyuvSt3Kj
-	 NQej2TWukEmH/BOljgqBlH/xobV1FGMasGfpyck8=
+	b=GcjFHGtKczEqj9C8k5lkUv0zRqtS4NFKbp2Trukt3nNp0xOv3gcxDYMILorIBwbPW
+	 sKODfTEirguYOjeiTrTeDBIx1//wCSpn4G/ZZUV/VCpfnSM7UEgZLbjhyo1boHtDLA
+	 I4GXa/S/UauLaiFO8TO1TTAJ4bz5wfyU7S+FJcCo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56CE4F800B8;
-	Fri, 10 Feb 2023 20:19:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BCA0F800B8;
+	Fri, 10 Feb 2023 20:34:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39CEEF800E4; Fri, 10 Feb 2023 20:19:40 +0100 (CET)
+	id 7EA54F800E4; Fri, 10 Feb 2023 20:33:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,64 +36,64 @@ Received: from us-smtp-delivery-124.mimecast.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9CF70F8001E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 20:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CF70F8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE39EF80086
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 20:33:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE39EF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=MytzUYK1
+ header.s=mimecast20190719 header.b=LysO3tFr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676056772;
+	s=mimecast20190719; t=1676057611;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gwSrY4DltmA/yFlYQvFrP0zXeruXNly6+GpVcGdaJm4=;
-	b=MytzUYK1MHFOGQODOOdSLgxsWmryjJuDBx13OjEHqYKBED0wdq7IYuxGk9++AaaoFlxZuU
-	49TdR53h6OJEQCTGyc5B0U1zOE3/eWVSMrXhblocsDYNcdM5cJI/x07jkVHJaHul75Pymh
-	j2hr+YefNzbCrh5XFWut6kVwBojiC8w=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=lgPGguAIupQ40Gj3yYs0g6D0wN93UBUjTZwAvya27/Q=;
+	b=LysO3tFreq2lLJs7lF4Pyba6fmHTT0Xq5kBx/hF5uvbIZVrPxuflV6CHZsko/hXDhE5zs1
+	3HgzQ77hfsT81TkWSQJCgzc2Zg7r/Lkpi4LUWFdy5XjP5drAGJDAQqDqBlLxg45gBOwnVe
+	L8jj1nqw6to4um94c4p8dsZPL/ZNcnQ=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-194-cTtbrPcGNTmq6cpcQrDzJQ-1; Fri, 10 Feb 2023 14:19:30 -0500
-X-MC-Unique: cTtbrPcGNTmq6cpcQrDzJQ-1
-Received: by mail-ed1-f70.google.com with SMTP id
- d21-20020aa7c1d5000000b004a6e1efa7d0so4122289edp.19
+ us-mta-388-gwssLLuRPb6OFhpYUe8KYQ-1; Fri, 10 Feb 2023 14:33:29 -0500
+X-MC-Unique: gwssLLuRPb6OFhpYUe8KYQ-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ w3-20020a056402268300b00487e0d9b53fso4157553edd.10
         for <alsa-devel@alsa-project.org>;
- Fri, 10 Feb 2023 11:19:30 -0800 (PST)
+ Fri, 10 Feb 2023 11:33:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:references:cc:to:from
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gwSrY4DltmA/yFlYQvFrP0zXeruXNly6+GpVcGdaJm4=;
-        b=lDu26/WgLWe7WbgoZTiW1aBa9/MIUYKSqdpDgxF0BugdOFtu9Bndmiqm3m/zyWiHx2
-         NDFBQHxILwN1f4SojISYtcMJM4c7ZUPoPr/4jFYLdJ2qt6mChXYNoiyJxMPGGz5l/sQA
-         5jc9OKryQrtZP6C8OEeEOycMiROkSe9b/d0WRK2dhfL0MXxoLX0zQ+50JFldKEythx29
-         WhRIEOL42nn3U99lkmtGJZn9b8tIFWlTc444PT08z2SOHgoCb0ZeiZ3De3S/emLhdjhD
-         WMZdMyQ8NM5GXhIWIQAnKmPN81MLWYqqMGj/Rj93g/GzH4LpwDoDBIaV1OE+mlHRQe2W
-         Ou2A==
-X-Gm-Message-State: AO0yUKUjoSA7mmNYj8SWSl9O+o9Y8Evfu7GKE2AeMgbYaTriqpLxYYQH
-	P4IiPI2+yh2ZMVY/WzAvndbqfU00CXOQ4AknZNGETBM9xUkgnHbKW3RQ3o1JCFzGE0+uupNzio8
-	U8vgimEIuGjNcPdetmZVRjE8=
-X-Received: by 2002:a17:906:308e:b0:88a:da35:dd51 with SMTP id
- 14-20020a170906308e00b0088ada35dd51mr16539107ejv.14.1676056769345;
-        Fri, 10 Feb 2023 11:19:29 -0800 (PST)
+        bh=lgPGguAIupQ40Gj3yYs0g6D0wN93UBUjTZwAvya27/Q=;
+        b=spw/1+K6ZiOxy9yoya4iN715cixDX1m4bZGdIqCTFp+h/AWZE7TvG/Pv8jpu8WHVh9
+         84FwV1ElkGUHMIiwNbIBqModfUAEnHw4POvcqeOmP6FQUxPZRDNNUPw+zP6MlDbBqk0K
+         eAlShBUQl7Wb7vVw0TPjm2SCUu8XiJWfbC1NLvrIvYEYauiGUDBZnC0D6JIkOzQjJOTj
+         wS8iRsxz0OxVjFzt/GfjvEGSqneG/hBdHIHtQjYlHHrenO9JsYqyLRjjoVU6tpF6soDR
+         hLy/XovF4hXkxhCkBs+PLaO62hffLJ7W6QaiO5VqX9Mi3YXpMzNuOe5AD9l1IRgL5IE1
+         RUOg==
+X-Gm-Message-State: AO0yUKWrd+U5IgYvLTXH8+f6aqZAvkxZhgX/NBqws070kbo0kAbScDnf
+	niP7aadTdznsGozX7ObAB3ba7yLYu/cpUZpbDHh60Si1w2gnoF9I0vPSxNBlhbUhxooUcpluUGI
+	OQxw9Cc+b1KBcryuFtwsr3FM=
+X-Received: by 2002:a50:a45a:0:b0:472:1436:73ab with SMTP id
+ v26-20020a50a45a000000b00472143673abmr17550392edb.28.1676057608630;
+        Fri, 10 Feb 2023 11:33:28 -0800 (PST)
 X-Google-Smtp-Source: 
- AK7set/LjslSqRW4K+lvECJSA5kEr2lyEGJrPcE6CF5MmtIxPBIdllG3b8htAgAt5ndbUDTe3go1qA==
-X-Received: by 2002:a17:906:308e:b0:88a:da35:dd51 with SMTP id
- 14-20020a170906308e00b0088ada35dd51mr16539083ejv.14.1676056769183;
-        Fri, 10 Feb 2023 11:19:29 -0800 (PST)
+ AK7set9lIWI+15QivdoTZK+NEIYP5AV1VIY+nIPcZiME3QwhYRDhgoA8GEIQ9OR9X+Zok/bVlZR+qw==
+X-Received: by 2002:a50:a45a:0:b0:472:1436:73ab with SMTP id
+ v26-20020a50a45a000000b00472143673abmr17550370edb.28.1676057608402;
+        Fri, 10 Feb 2023 11:33:28 -0800 (PST)
 Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
  (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
  [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
         by smtp.gmail.com with ESMTPSA id
- h14-20020a17090634ce00b00877e1bb54b0sm2770373ejb.53.2023.02.10.11.19.27
+ b2-20020a50b402000000b004a245d70f17sm2701859edh.54.2023.02.10.11.33.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Feb 2023 11:19:28 -0800 (PST)
-Message-ID: <74e3c9ae-b1f1-1e7b-4af1-56f918471b36@redhat.com>
-Date: Fri, 10 Feb 2023 20:19:27 +0100
+        Fri, 10 Feb 2023 11:33:27 -0800 (PST)
+Message-ID: <990b254c-b55f-539d-d6b5-fa4499078527@redhat.com>
+Date: Fri, 10 Feb 2023 20:33:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
@@ -112,8 +112,8 @@ X-Mimecast-Originator: redhat.com
 Content-Language: en-US, nl
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: IEZ4F2S2WVO2RL6AF6FCGTHH5YQG4NBV
-X-Message-ID-Hash: IEZ4F2S2WVO2RL6AF6FCGTHH5YQG4NBV
+Message-ID-Hash: JP532WJ7KJLNKYCX2YZ53GQFMZKVBOMD
+X-Message-ID-Hash: JP532WJ7KJLNKYCX2YZ53GQFMZKVBOMD
 X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -144,7 +144,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IEZ4F2S2WVO2RL6AF6FCGTHH5YQG4NBV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JP532WJ7KJLNKYCX2YZ53GQFMZKVBOMD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,69 +190,20 @@ On 2/10/23 20:09, Hans de Goede wrote:
 > The ioport / indexed-ioport accessed apple_gmux-es likely are (part of?)
 > LPC bus devices . Looking at the bus level you are now changing 4 io
 > accesses with a size of 1 byte, to 1 32 bit io-access.
-> 
-> Depending on the decoding hw in the chip this may work fine,
-> or this may work not at all.
-> 
-> I realized that you have asked for more testing, but most surviving
-> macbooks from the older apple-gmux era appear to be models without
-> a discrete GPU (which are often the first thing to break) and thus
-> without a gmux.
-> 
-> Unless we get a bunch of testers to show up, which I doubt. I would
-> prefer slightly bigger / less pretty code and not change the functional
-> behavior of the driver on these older models.
 
-A quick follow up on this, I just noticed that only the pio_write32
-is doing the one byte at a time thing:
+Correction to myself, re-reading the LPC specification, then
+if I'm right and this is a LPC device then all IO in/out accesses
+are always 1 byte accesses. Since the LPC bus only supports 16 / 32
+bit accesses for DMA cycles.
 
-static u32 gmux_pio_read32(struct apple_gmux_data *gmux_data, int port)
-{
-        return inl(gmux_data->iostart + port);
-}
-
-static void gmux_pio_write32(struct apple_gmux_data *gmux_data, int port,
-                             u32 val)
-{
-        int i;
-        u8 tmpval;
-
-        for (i = 0; i < 4; i++) {
-                tmpval = (val >> (i * 8)) & 0xff;
-                outb(tmpval, gmux_data->iostart + port + i);
-        }
-}
-
-And if you look closely gmux_pio_write32() is not swapping
-the order to be32 at all, it is just taking the bytes
-in little-endian memory order, starting with the first
-(index 0) byte which is the least significant byte of
-the value.
-
-On x86 the original code is no different then doing:
-
-static void gmux_pio_write32(struct apple_gmux_data *gmux_data, int port,
-                             u32 val)
-{
-        u8 *data = (u8 *)&val;
-        int i;
-
-        for (i = 0; i < 4; i++)
-                outb(data[i], gmux_data->iostart + port + i);
-}
-
-So yeah this patch is definitely wrong, it actually swaps
-the byte order compared to the original code. Which becomes
-clear when you look the weird difference between the read32 and
-write32 functions after this patch.
-
-Presumably there is a specific reason why gmux_pio_write32()
-is not already doing a single outl(..., val) and byte-ordering
-is not the reason.
+So presumably the outl() would get split into 4 separate 8 bit
+(port) IO accesses.
 
 Regards,
 
 Hans
+
+
 
 
 

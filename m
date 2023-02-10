@@ -2,187 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 103B1699808
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:56:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6C55699809
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:56:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A162EE3;
-	Thu, 16 Feb 2023 15:55:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A162EE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6BBCEEA;
+	Thu, 16 Feb 2023 15:55:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6BBCEEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676559382;
-	bh=KxpEDeTf9E17Ydj8/5wdVALLUfACV4v70g86LYsEQ38=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1676559396;
+	bh=l2YGrt49hcqjg8vdyOW492MJw1kNrt0YOjMdbMQhLTM=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OOV6bM4kFQtnHLkNWUyKGury+VzG4oGLqjUWqGySZkXNAP3w96XfjoY94tdDgxhL7
-	 nBuMlD9+qDx3AuKGIhd6VQIumNE8tG4PCOL0YAT9pXYZEwzo73kRQNLrYrpEKXln+c
-	 v1X7/Agl7Z3f/n++pD9H6GdrnM3FfECUhFgBqT1I=
+	b=DjBMbVJlpgykQI6i9+BINdM1spWxAlfXnOQIcv5wgBPLkZCUBoNybbjMBhUBiow5L
+	 Xk1J1jfBp+g9PpnjXBFfY0N6hM6GMDsasgP+knoK0ps1iflU1xF4Tn8xbmX59Rj1Q/
+	 n6bb0OUq9wjvQYYMjUySOYSC0xESHLe3uVT+FxE4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A605F80542;
-	Thu, 16 Feb 2023 15:54:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71991F80563;
+	Thu, 16 Feb 2023 15:55:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDB30F8018A; Fri, 10 Feb 2023 20:44:05 +0100 (CET)
+	id D0AA6F800E4; Sat, 11 Feb 2023 00:30:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::604])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4697F80086
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 20:43:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4697F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B2B7F80094
+	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 00:30:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B2B7F80094
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=nVKlxqAo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RBh59YWoNUeJ0OV2NiLIPX+dOg1Hngkr/rOhAxBwrxarZVDHP0aVkEgslIXY3RJeupeWUl7u6i6/IZj34Jw8eCL5+RdarSsOuAnETe3cBAY3MT/7i8dTMxsbbcjvMYC3KO/anJ6VmrHTyvzx08RMF5Zl09Rx+H/1UQt7Qrl6nUdVoRgg0R00eK4d9Z1S41vGOI4AiYyGFdew1bDHCEwqWWg0nvocAn6bulklExr3d+LZQouUuOJ2nhFfVBuIvm6os91HLlh231Zd7n/0OOaMF+Sdt52vnQjEV2nTcsKy3lEwygR/Czc8R2npp0a/s+ujn9sFx1CCjpx2EwM/LgZlFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2pEjyARU/iDHF4qEL808MswcLI+5ZEPTvCc976Kw1g4=;
- b=kmMAulDukidVJBGfPA07XsMyS/r2FhQCdk4iBKdqk5C4+g18fKyXKOoos+3f1QdgzXheqTUtyCzHNkHQGY+oXSP2NP2QhOacXB15xP++pWzXKBZEc8p9D1/AJ9HrkbWv1uZ6xcADS+HlhSK4mJcMiuRvZKZavhIxB7xmpS59kCB0VWLMzcuEAhXaDvU0RIhs6Gmo2v2L6QYSOnHlpfu4UnjZImCqwR5sOgvdJ6bzqDV4Nrk80VRuqefJDrQ37bBAZ7vIjxmeYfqmxzvZ8FoVjv4yiDQKoEQAPWf8ZeRxq9s2+4klMcrDDC6ni5R1fFPVLpEJ01Ze5jvXishgf7I/6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2pEjyARU/iDHF4qEL808MswcLI+5ZEPTvCc976Kw1g4=;
- b=nVKlxqAo4Bocpx2c+2xoaI1tTQxycj04jmV1zNZB6nWmgdE0XFcXqFY2Cmo4OHUaz/Yr4LixPFcEH+egWlP9lpwKQd6p9GG6+LOr4b5b3ykQt0rxsY9L5tbtQZJgEDeujORIkTKN6fwV3bMLqGmwzukuBPytpJMNNb9RbfsH8PM=
-Received: from MW4PR04CA0220.namprd04.prod.outlook.com (2603:10b6:303:87::15)
- by BL1PR12MB5030.namprd12.prod.outlook.com (2603:10b6:208:313::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21; Fri, 10 Feb
- 2023 19:43:55 +0000
-Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::3c) by MW4PR04CA0220.outlook.office365.com
- (2603:10b6:303:87::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21 via Frontend
- Transport; Fri, 10 Feb 2023 19:43:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.21 via Frontend Transport; Fri, 10 Feb 2023 19:43:54 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Feb
- 2023 13:43:54 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Feb
- 2023 13:43:53 -0600
-Received: from xhdsneeli40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 10 Feb 2023 13:43:27 -0600
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: <broonie@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
-	<vigneshr@ti.com>, <jic23@kernel.org>, <tudor.ambarus@microchip.com>,
-	<pratyush@kernel.org>, <sanju.mehta@amd.com>, <chin-ting_kuo@aspeedtech.com>,
-	<clg@kaod.org>, <kdasu.kdev@gmail.com>, <f.fainelli@gmail.com>,
-	<rjui@broadcom.com>, <sbranden@broadcom.com>, <eajames@linux.ibm.com>,
-	<olteanv@gmail.com>, <han.xu@nxp.com>, <john.garry@huawei.com>,
-	<shawnguo@kernel.org>, <s.hauer@pengutronix.de>, <narmstrong@baylibre.com>,
-	<khilman@baylibre.com>, <matthias.bgg@gmail.com>, <haibo.chen@nxp.com>,
-	<linus.walleij@linaro.org>, <daniel@zonque.org>, <haojian.zhuang@gmail.com>,
-	<robert.jarzmik@free.fr>, <agross@kernel.org>, <bjorn.andersson@linaro.org>,
-	<heiko@sntech.de>, <krzysztof.kozlowski@linaro.org>, <andi@etezian.org>,
-	<mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>, <wens@csie.org>,
-	<jernej.skrabec@gmail.com>, <samuel@sholland.org>,
-	<masahisa.kojima@linaro.org>, <jaswinder.singh@linaro.org>,
-	<rostedt@goodmis.org>, <mingo@redhat.com>, <l.stelmach@samsung.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <alex.aring@gmail.com>, <stefan@datenfreihafen.org>,
-	<kvalo@kernel.org>, <james.schulman@cirrus.com>, <david.rhodes@cirrus.com>,
-	<tanureal@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
-	<perex@perex.cz>, <tiwai@suse.com>, <npiggin@gmail.com>,
-	<christophe.leroy@csgroup.eu>, <mpe@ellerman.id.au>, <oss@buserror.net>,
-	<windhl@126.com>, <yangyingliang@huawei.com>
-Subject: [PATCH v4 15/15] spi: spi-zynqmp-gqspi: Add parallel memories support
- in GQSPI driver
-Date: Sat, 11 Feb 2023 01:06:46 +0530
-Message-ID: <20230210193647.4159467-16-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
-References: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=k6bTErh6
+Received: by mail-pl1-x62f.google.com with SMTP id r8so8294670pls.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 10 Feb 2023 15:30:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tEj/ZRqPDHV3euzaw9BypxOqQolHXZURobYLo7ytqXI=;
+        b=k6bTErh6BD3tS2w9e8Y+lmT5iUB/rtXLoMAdR6LQzp/Hj0e8QI0Doow4kLuhK/WVgD
+         EEhawPGKaxLdC1cWeVTpWQ366TQHM9kxQdfoBTFb8tKkvKgat540Zwf86/3PxIQnLaKc
+         ZxnB5LgADmHaXuFnIC8qZk9RdoX+8AaOxk33PGVjllCKwNssPXtXUtDsPDha4+gHOKOB
+         HU/vHVagW/39wK2GwRnko1YXPQzur36hnYF2VqKM9BN9JtJYyzjzRUy8yVoq8tWe0C6A
+         pRjr5rFimvBwWTcr7VUz1wiUYak6x+b3yr1l0EVG7v9wJc0EFvnlbIL5+7jgznUeZOz/
+         RFVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tEj/ZRqPDHV3euzaw9BypxOqQolHXZURobYLo7ytqXI=;
+        b=vzJsOUYmGvKQgjRx6mjwuL5Jvhc1Yc/W7ivIcFyMpUbR3swwSgfGqzQDsY6Ss7rxru
+         amnUDlBDYDdgPMYI6liRSCG79TlnZ+ejlF45SGYFyvAPL+RpxBE0D0R973CSIcq5Pu41
+         vYteO1DYyfdF0NFobZp9c5HalDzXyI97Vk5QokwdPzLPB/zav3N+2ELsVPU6lV+EFJ52
+         mpBoHLqQy+EuYNTlLggzO5d0pmO+Bmsjh9C2SML4MX3yhtcTGcvl5HjtxPZZXrf9cFmu
+         +1nupymHZNZr4gzdY1oZfFkwpMCnwwFHFd6vJItOPEX7eOOo0oNEEvjQEpsBQHlWkpCH
+         oIAQ==
+X-Gm-Message-State: AO0yUKUphVmrt8wHeCtm1ZFL4PJOP4xyM511vfaQ3g2QX4a8F5IkHq3N
+	EJlzGLXGhq4PC2uboZLW/68=
+X-Google-Smtp-Source: 
+ AK7set/cBhHgTRDkorSIdrM2NOdlYlVW66+6n2lvyjBtTHp7SCfKc/citVEd3wdFWlNuqWSayBvocg==
+X-Received: by 2002:a05:6a21:2c8b:b0:bf:1b09:5cda with SMTP id
+ ua11-20020a056a212c8b00b000bf1b095cdamr13393488pzb.12.1676071839038;
+        Fri, 10 Feb 2023 15:30:39 -0800 (PST)
+Received: from redecorated-mbp ([202.53.32.211])
+        by smtp.gmail.com with ESMTPSA id
+ h6-20020a63b006000000b0049f5da82b12sm3456028pgf.93.2023.02.10.15.30.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Feb 2023 15:30:38 -0800 (PST)
+Date: Sat, 11 Feb 2023 10:30:24 +1100
+From: Orlando Chamberlain <orlandoch.dev@gmail.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual
+ reorder
+Message-ID: <20230211103024.2a204487@redecorated-mbp>
+In-Reply-To: <74e3c9ae-b1f1-1e7b-4af1-56f918471b36@redhat.com>
+References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+	<20230210044826.9834-2-orlandoch.dev@gmail.com>
+	<3af65b5e-1f52-79f6-4130-03901ce76d2f@redhat.com>
+	<74e3c9ae-b1f1-1e7b-4af1-56f918471b36@redhat.com>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.35; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT017:EE_|BL1PR12MB5030:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a41c5ad-c5cb-49d1-dec8-08db0b9f2497
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	ahkxxtplneOGUGnzkrkW4XoS/1TyIlwpHPNgptyHgBxYWr4qS0X91lcBWaJVeshoin3Cb6Svotu/t3O7pXJqpoz8oG/ZZEJP6ldNyex/OkvcNUwFpDdfeWrCMnIu5BLo8ovAA5UQC/B2k7c0OvSkL0hVdkA8zD5SjHJ3nIzv0qAdiVeIExAbxCD0KTJ7+z2qbDt7jde6svkhT5/c/adLWNPV+2c42LF/KBs188BCpvVjnAj26VoHAr48yGLYbIhfSZxoLsFM/q7VF1bZKgaced4rWChjTfR9p/3+j1Jec0KkIWvxVSwJ/57R8VufPbgJCXJchyC4uf32ngHbv3ah1dCAmQG1muIVSS80z2seh01n/8pjU/JAfxBqZ0NorI1ab6rwKogkU7i93dqSH/6w4XyCWppAFWzIxq0AMu1PlHk4RhjaP0GONHrd7N1zzxcu9YXxTYZlmRqx5yq+F+Off3a14mG4jb+J83NuuTt+36oHCkUuYwU22MUhqiOO35oEpmNHsKRqp23CZpc8XeQZmuwKhStzJTWe1nBV/GgXuqRB8wC+jxhvkbIUk781tW3sUb+xrGVS8ZxAWPJwvGADLRrO6XQw51xJSM5zuSSBOwfM5yv/WN6y3OzKmQ4VSyYjvmZg0aezXkHeSO9pyK2OzhbfsG+Q5budDqoRPoheM3nJgrgj/+KVo+2JdSUPuR7b5nQNW1RPncfC+In0hx0FI+bTQ/6S8yprEdVSdORnD1lXoC+kSeycZHBQkFiO78lBorEwYB6XaFf8w3zWKFErQmoJO6kRaFDHJPbmfX+s97KQU2mKhHsuws60hpNz8mecDYLbHvBKgTFBCTBQeBacocfSZKV6GrT5AHFCQHpQHDI=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199018)(36840700001)(46966006)(40470700004)(8676002)(316002)(110136005)(5660300002)(4326008)(8936002)(54906003)(70206006)(41300700001)(70586007)(82740400003)(81166007)(356005)(36756003)(86362001)(921005)(26005)(1076003)(6666004)(186003)(2616005)(7276002)(7336002)(7406005)(7416002)(7366002)(40460700003)(40480700001)(47076005)(1191002)(82310400005)(478600001)(2906002)(426003)(36860700001)(83380400001)(336012)(36900700001)(2101003)(83996005)(84006005)(41080700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 19:43:54.2664
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 5a41c5ad-c5cb-49d1-dec8-08db0b9f2497
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5030
-X-MailFrom: amit.kumar-mahapatra@amd.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-MailFrom: orlandoch.dev@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O74N7POWCPOL46PCMX5BRSYPGDP3X3D5
-X-Message-ID-Hash: O74N7POWCPOL46PCMX5BRSYPGDP3X3D5
-X-Mailman-Approved-At: Thu, 16 Feb 2023 14:54:47 +0000
-CC: git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- joel@jms.id.au, andrew@aj.id.au, radu_nicolae.pirea@upb.ro,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@microchip.com, bcm-kernel-feedback-list@broadcom.com,
- fancer.lancer@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
- linux-imx@nxp.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
- avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
- venture@google.com, yuenn@google.com, benjaminfair@google.com,
- yogeshgaur.83@gmail.com, konrad.dybcio@somainline.org,
- alim.akhtar@samsung.com, ldewangan@nvidia.com, thierry.reding@gmail.com,
- jonathanh@nvidia.com, michal.simek@amd.com, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
- linux-wpan@vger.kernel.org, libertas-dev@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-mtd@lists.infradead.org,
- lars@metafoo.de, Michael.Hennerich@analog.com, linux-iio@vger.kernel.org,
- michael@walle.cc, palmer@dabbelt.com, linux-riscv@lists.infradead.org,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linuxppc-dev@lists.ozlabs.org, amitrkcian2002@gmail.com,
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Message-ID-Hash: PUMDGRKCA6VYH4K3CVO52O3FFKAVC52K
+X-Message-ID-Hash: PUMDGRKCA6VYH4K3CVO52O3FFKAVC52K
+X-Mailman-Approved-At: Thu, 16 Feb 2023 14:54:48 +0000
+CC: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Mark Gross <markgross@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>, Evan Quan <evan.quan@amd.com>,
+ Kerem Karabay <kekrby@gmail.com>, Aditya Garg <gargaditya08@live.com>,
+ Aun-Ali Zaidi <admin@kodeit.net>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O74N7POWCPOL46PCMX5BRSYPGDP3X3D5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PUMDGRKCA6VYH4K3CVO52O3FFKAVC52K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -191,107 +140,136 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-During GQSPI driver probe set ctlr->multi-cs-cap for enabling multi CS
-capability of the controller. In parallel mode the controller can either
-split the data between both the flash or can send the same data to both the
-flashes, this is determined by the STRIPE bit. While sending commands to
-the flashes the GQSPI driver send the same command to both the flashes by
-resetting the STRIPE bit, but while writing/reading data to & from the
-flash the GQSPI driver splits the data evenly between both the flashes by
-setting the STRIPE bit.
+On Fri, 10 Feb 2023 20:19:27 +0100
+Hans de Goede <hdegoede@redhat.com> wrote:
 
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
----
- drivers/spi/spi-zynqmp-gqspi.c | 39 +++++++++++++++++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
+> Hi,
+> 
+> On 2/10/23 20:09, Hans de Goede wrote:
+> > Hi,
+> > 
+> > On 2/10/23 05:48, Orlando Chamberlain wrote:  
+> >> Currently it manually flips the byte order, but we can instead use
+> >> cpu_to_be32(val) for this.
+> >>
+> >> Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
+> >> ---
+> >>  drivers/platform/x86/apple-gmux.c | 18 ++----------------
+> >>  1 file changed, 2 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/drivers/platform/x86/apple-gmux.c
+> >> b/drivers/platform/x86/apple-gmux.c index
+> >> 9333f82cfa8a..e8cb084cb81f 100644 ---
+> >> a/drivers/platform/x86/apple-gmux.c +++
+> >> b/drivers/platform/x86/apple-gmux.c @@ -94,13 +94,7 @@ static u32
+> >> gmux_pio_read32(struct apple_gmux_data *gmux_data, int port)
+> >> static void gmux_pio_write32(struct apple_gmux_data *gmux_data,
+> >> int port, u32 val) {
+> >> -	int i;
+> >> -	u8 tmpval;
+> >> -
+> >> -	for (i = 0; i < 4; i++) {
+> >> -		tmpval = (val >> (i * 8)) & 0xff;
+> >> -		outb(tmpval, gmux_data->iostart + port + i);
+> >> -	}
+> >> +	outl(cpu_to_be32(val), gmux_data->iostart + port);
+> >>  }
+> >>  
+> >>  static int gmux_index_wait_ready(struct apple_gmux_data
+> >> *gmux_data)  
+> > 
+> > The ioport / indexed-ioport accessed apple_gmux-es likely are (part
+> > of?) LPC bus devices . Looking at the bus level you are now
+> > changing 4 io accesses with a size of 1 byte, to 1 32 bit io-access.
+> > 
+> > Depending on the decoding hw in the chip this may work fine,
+> > or this may work not at all.
+> > 
+> > I realized that you have asked for more testing, but most surviving
+> > macbooks from the older apple-gmux era appear to be models without
+> > a discrete GPU (which are often the first thing to break) and thus
+> > without a gmux.
+> > 
+> > Unless we get a bunch of testers to show up, which I doubt. I would
+> > prefer slightly bigger / less pretty code and not change the
+> > functional behavior of the driver on these older models.  
+> 
+> A quick follow up on this, I just noticed that only the pio_write32
+> is doing the one byte at a time thing:
+> 
+> static u32 gmux_pio_read32(struct apple_gmux_data *gmux_data, int
+> port) {
+>         return inl(gmux_data->iostart + port);
+> }
+> 
+> static void gmux_pio_write32(struct apple_gmux_data *gmux_data, int
+> port, u32 val)
+> {
+>         int i;
+>         u8 tmpval;
+> 
+>         for (i = 0; i < 4; i++) {
+>                 tmpval = (val >> (i * 8)) & 0xff;
+>                 outb(tmpval, gmux_data->iostart + port + i);
+>         }
+> }
+> 
+> And if you look closely gmux_pio_write32() is not swapping
+> the order to be32 at all, it is just taking the bytes
+> in little-endian memory order, starting with the first
+> (index 0) byte which is the least significant byte of
+> the value.
+> 
+> On x86 the original code is no different then doing:
+> 
+> static void gmux_pio_write32(struct apple_gmux_data *gmux_data, int
+> port, u32 val)
+> {
+>         u8 *data = (u8 *)&val;
+>         int i;
+> 
+>         for (i = 0; i < 4; i++)
+>                 outb(data[i], gmux_data->iostart + port + i);
+> }
+> 
+> So yeah this patch is definitely wrong, it actually swaps
+> the byte order compared to the original code. Which becomes
+> clear when you look the weird difference between the read32 and
+> write32 functions after this patch.
+> 
+> Presumably there is a specific reason why gmux_pio_write32()
+> is not already doing a single outl(..., val) and byte-ordering
+> is not the reason.
+> 
+> Regards,
+> 
+> Hans
 
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 4759f704bf5c..9e44371bfda2 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -23,6 +23,7 @@
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
- #include <linux/spi/spi-mem.h>
-+#include <linux/mtd/spi-nor.h>
- 
- /* Generic QSPI register offsets */
- #define GQSPI_CONFIG_OFST		0x00000100
-@@ -192,6 +193,7 @@ struct qspi_platform_data {
-  * @op_lock:		Operational lock
-  * @speed_hz:          Current SPI bus clock speed in hz
-  * @has_tapdelay:	Used for tapdelay register available in qspi
-+ * @is_parallel:		Used for multi CS support
-  */
- struct zynqmp_qspi {
- 	struct spi_controller *ctlr;
-@@ -214,8 +216,33 @@ struct zynqmp_qspi {
- 	struct mutex op_lock;
- 	u32 speed_hz;
- 	bool has_tapdelay;
-+	bool is_parallel;
- };
- 
-+/**
-+ * zynqmp_gqspi_update_stripe - For GQSPI controller data stripe capabilities
-+ * @op:	Pointer to mem ops
-+ * Return:      Status of the data stripe
-+ *
-+ * Returns true if data stripe need to be enabled, else returns false
-+ */
-+bool zynqmp_gqspi_update_stripe(const struct spi_mem_op *op)
-+{
-+	if (op->cmd.opcode ==  SPINOR_OP_BE_4K ||
-+	    op->cmd.opcode ==  SPINOR_OP_BE_32K ||
-+	    op->cmd.opcode ==  SPINOR_OP_CHIP_ERASE ||
-+	    op->cmd.opcode ==  SPINOR_OP_SE ||
-+	    op->cmd.opcode ==  SPINOR_OP_BE_32K_4B ||
-+	    op->cmd.opcode ==  SPINOR_OP_SE_4B ||
-+	    op->cmd.opcode == SPINOR_OP_BE_4K_4B ||
-+	    op->cmd.opcode ==  SPINOR_OP_WRSR ||
-+	    op->cmd.opcode ==  SPINOR_OP_BRWR ||
-+	    (op->cmd.opcode ==  SPINOR_OP_WRSR2 && !op->addr.nbytes))
-+		return false;
-+
-+	return true;
-+}
-+
- /**
-  * zynqmp_gqspi_read - For GQSPI controller read operation
-  * @xqspi:	Pointer to the zynqmp_qspi structure
-@@ -470,7 +497,14 @@ static void zynqmp_qspi_chipselect(struct spi_device *qspi, bool is_high)
- 
- 	genfifoentry |= GQSPI_GENFIFO_MODE_SPI;
- 
--	if (qspi->cs_index_mask & GQSPI_SELECT_UPPER_CS) {
-+	if ((qspi->cs_index_mask & GQSPI_SELECT_LOWER_CS) &&
-+	    (qspi->cs_index_mask & GQSPI_SELECT_UPPER_CS)) {
-+		zynqmp_gqspi_selectslave(xqspi,
-+					 GQSPI_SELECT_FLASH_CS_BOTH,
-+					 GQSPI_SELECT_FLASH_BUS_BOTH);
-+		if (!xqspi->is_parallel)
-+			xqspi->is_parallel = true;
-+	} else if (qspi->cs_index_mask & GQSPI_SELECT_UPPER_CS) {
- 		zynqmp_gqspi_selectslave(xqspi,
- 					 GQSPI_SELECT_FLASH_CS_UPPER,
- 					 GQSPI_SELECT_FLASH_BUS_LOWER);
-@@ -1139,6 +1173,8 @@ static int zynqmp_qspi_exec_op(struct spi_mem *mem,
- 	}
- 
- 	if (op->data.nbytes) {
-+		if (xqspi->is_parallel && zynqmp_gqspi_update_stripe(op))
-+			genfifoentry |= GQSPI_GENFIFO_STRIPE;
- 		reinit_completion(&xqspi->data_completion);
- 		if (op->data.dir == SPI_MEM_DATA_OUT) {
- 			xqspi->txbuf = (u8 *)op->data.buf.out;
-@@ -1334,6 +1370,7 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
- 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
- 	ctlr->dev.of_node = np;
- 	ctlr->auto_runtime_pm = true;
-+	ctlr->multi_cs_cap = true;
- 
- 	ret = devm_spi_register_controller(&pdev->dev, ctlr);
- 	if (ret) {
--- 
-2.25.1
+Sounds like it may be better to just drop this patch as there's very
+little benefit for the risk of causing a regression.
+
+> 
+> 
+> 
+> >> @@ -177,16 +171,8 @@ static u32 gmux_index_read32(struct
+> >> apple_gmux_data *gmux_data, int port) static void
+> >> gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+> >> u32 val) {
+> >> -	int i;
+> >> -	u8 tmpval;
+> >> -
+> >>  	mutex_lock(&gmux_data->index_lock);
+> >> -
+> >> -	for (i = 0; i < 4; i++) {
+> >> -		tmpval = (val >> (i * 8)) & 0xff;
+> >> -		outb(tmpval, gmux_data->iostart + GMUX_PORT_VALUE
+> >> + i);
+> >> -	}
+> >> -
+> >> +	outl(cpu_to_be32(val), gmux_data->iostart +
+> >> GMUX_PORT_VALUE); gmux_index_wait_ready(gmux_data);
+> >>  	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
+> >>  	gmux_index_wait_complete(gmux_data);  
+> >   
+> 
 

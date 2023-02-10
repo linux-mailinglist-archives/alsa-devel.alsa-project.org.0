@@ -2,113 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51281691978
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 09:02:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4315B6919EE
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 09:23:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1755846;
-	Fri, 10 Feb 2023 09:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1755846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F379846;
+	Fri, 10 Feb 2023 09:22:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F379846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676016170;
-	bh=P1XnzjGegY61JFSmPV+ffdm9JK/nFL2PE1ZLOy5XOnw=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=EQjDaJMAK0MZSHntA5XbwBD3CHC/WXhvAdJu7WqovrY4Vmq1oZqsp8Y9gkPJgkXgC
-	 BjkTcInGzyMDrEog+0HAwPJcjU6C6U22n7ejz/2zDodQJ4gOMqDhnWKJVZPcacczlC
-	 1PRfwbiJNaYheVN3lvGrXFkyvf22d6rW8Ps+lxAI=
+	s=default; t=1676017380;
+	bh=eWtoGF52KDNVxOUxtIGPJfL5prPzyMRzWiCsq1FwsjA=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ZGli4O03Iqv43TKAASDTD1cEKOxoSKYSVkiFFO/PcLr8zUP8e+eWoBXnCCJTs59BJ
+	 bxKjy2qoUs+I1JfARxMNg0iWBxDGf8RJW5Fs80oJ/gkI2jJ9kVh+skCJEHK9NqRuFP
+	 /vvA7a+hajHg44FCElpjREN0K4bDq9aVSrM+NUCk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03873F800B8;
-	Fri, 10 Feb 2023 09:02:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA204F800B8;
+	Fri, 10 Feb 2023 09:22:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 783B5F800E4; Fri, 10 Feb 2023 09:01:35 +0100 (CET)
+	id 69CBCF800E4; Fri, 10 Feb 2023 09:22:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1068F80086
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 09:01:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1068F80086
-Received: by mail-qt1-f171.google.com with SMTP id m12so4941270qth.4
-        for <alsa-devel@alsa-project.org>;
- Fri, 10 Feb 2023 00:01:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kI8PQ2ugfDhm2FkPLEtWMsmZfNCcA7o5O0RvlqX8c74=;
-        b=3Vvb7ogeJKcOaDUvIhxZg8VkOo2cWrskZRnDaH+JxMTGj69/LHrVNJbB8sUspTjAkT
-         SQ/ih4zX5GkBLTuixnKxIG725PRHA5musqjp4nOyc5CzEC/ykx5WLwKPogb/GA/sApDr
-         PZN6ce3a9Dmf+DKU9Hp+Fr9R69j+m9smheKu6DNjTXzS2Z5/u3ZWS2t8D2TsZBXXrh2D
-         k+YuN0fB6bdw7iZSRNyv70OMWTpeLBVCvQsBepvuMQfmi7+PQGfBMrOjVPJd1kvU0tOS
-         DrVbntvC3A/RsuVt5a3j9bYUHq1yQSWcgUFcn/VXnIpIv01lN0YegF4aQrXpa95YBKJz
-         1SqQ==
-X-Gm-Message-State: AO0yUKWQf9b0ECSNnsYy94D4PjZ2kxcyBurjPFwr7e6W8r0W1y/8iPsW
-	RICTAapohYFF/ptSck+fw54r+2XRiNjG0RsQ
-X-Google-Smtp-Source: 
- AK7set/SJqHMjOhtmnND3KjPz4P23Kb0U+wiZQMvUF4SrQ5Us1/B1xSTkzqqTVIqCXKF/P0fOTOq7g==
-X-Received: by 2002:a05:622a:1a8d:b0:39c:da21:6bb3 with SMTP id
- s13-20020a05622a1a8d00b0039cda216bb3mr24078540qtc.56.1676016074235;
-        Fri, 10 Feb 2023 00:01:14 -0800 (PST)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com.
- [209.85.219.178])
-        by smtp.gmail.com with ESMTPSA id
- 128-20020a370586000000b00721b773b40asm3164203qkf.4.2023.02.10.00.01.13
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Feb 2023 00:01:13 -0800 (PST)
-Received: by mail-yb1-f178.google.com with SMTP id x71so4515966ybg.6
-        for <alsa-devel@alsa-project.org>;
- Fri, 10 Feb 2023 00:01:13 -0800 (PST)
-X-Received: by 2002:a5b:24c:0:b0:87a:68fd:181a with SMTP id
- g12-20020a5b024c000000b0087a68fd181amr1746337ybp.36.1676016073446; Fri, 10
- Feb 2023 00:01:13 -0800 (PST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C9D4F80086
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 09:21:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C9D4F80086
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 31A8LlOR2023653,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 31A8LlOR2023653
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
+	Fri, 10 Feb 2023 16:21:47 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Fri, 10 Feb 2023 16:21:47 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Fri, 10 Feb 2023 16:21:47 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt712-sdca: fix coding style and unconditionally return
+ issues
+Date: Fri, 10 Feb 2023 16:21:41 +0800
+Message-ID: <20230210082141.24077-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <87y1p7bpma.wl-kuninori.morimoto.gx@renesas.com>
- <87v8kbbpl4.wl-kuninori.morimoto.gx@renesas.com>
- <072724aa-2bf3-32a6-dee8-e74c74b01019@linaro.org>
- <87fsbe1i9e.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87fsbe1i9e.wl-kuninori.morimoto.gx@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 10 Feb 2023 09:00:58 +0100
-X-Gmail-Original-Message-ID: 
- <CAMuHMdVOgnxSkAyy_3MGYeQyRcsr5aM00qSfhrXTMBLy1aa7yA@mail.gmail.com>
-Message-ID: 
- <CAMuHMdVOgnxSkAyy_3MGYeQyRcsr5aM00qSfhrXTMBLy1aa7yA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: renesas,rsnd.yaml: add R-Car
- Gen4 support
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: 6QN3BSP6UEAOSCCHEHLM62YQKHDDFNPX
-X-Message-ID-Hash: 6QN3BSP6UEAOSCCHEHLM62YQKHDDFNPX
-X-MailFrom: geert.uytterhoeven@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: 
+	=?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzUvMjQgpFekyCAwNjoxNDowMA==?=
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
+Message-ID-Hash: VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D
+X-Message-ID-Hash: VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D
+X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
- Linux-DT <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
+ pierre-louis.bossart@intel.com, bard.liao@intel.com,
+ Shuming Fan <shumingf@realtek.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6QN3BSP6UEAOSCCHEHLM62YQKHDDFNPX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,57 +102,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Morimoto-san,
+From: Shuming Fan <shumingf@realtek.com>
 
-On Fri, Feb 10, 2023 at 1:22 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
-> > > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > >
-> > > There are no compatible for "reg/reg-names" and "clock-name"
-> > > between previous R-Car series and R-Car Gen4.
-> > >
-> > > "reg/reg-names" needs 3 categorize (for Gen1, for Gen2/Gen3, for Gen4),
-> > > therefore, use 3 if-then to avoid nested if-then-else.
-> > >
-> > > Move "clock-name" property to under allOf to use if-then-else.
-> (snip)
-> > > -  clock-names:
-> > > -    description: List of necessary clock names.
-> > > -    minItems: 1
-> > > -    maxItems: 31
-> >
-> > No improvements here. Your argument that you need to remove it to
-> > customize is not correct.
->
-> ???
->
->         Move "clock-name" property to under allOf to use if-then-else.
->         ^^^^
->
-> "move", not "remove".
+This patch fixes
+1. coding style issues
+2. check if the setting was set already in rt712_sdca_mux_put callback
 
-The point is that you did remove the common
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt712-sdca.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-      clock-names:
-        description: List of necessary clock names.
+diff --git a/sound/soc/codecs/rt712-sdca.c b/sound/soc/codecs/rt712-sdca.c
+index cc3f6dae1871..8d2fa769bb2e 100644
+--- a/sound/soc/codecs/rt712-sdca.c
++++ b/sound/soc/codecs/rt712-sdca.c
+@@ -366,8 +366,9 @@ static void rt712_sdca_btn_check_handler(struct work_struct *work)
+ 				break;
+ 			}
+ 		}
+-	} else
++	} else {
+ 		rt712->jack_type = 0;
++	}
+ 
+ 	dev_dbg(&rt712->slave->dev, "%s, btn_type=0x%x\n",	__func__, btn_type);
+ 	snd_soc_jack_report(rt712->hs_jack, rt712->jack_type | btn_type,
+@@ -707,6 +708,7 @@ static int rt712_sdca_mux_put(struct snd_kcontrol *kcontrol,
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	unsigned int *item = ucontrol->value.enumerated.item;
+ 	unsigned int mask_sft;
++	unsigned int val;
+ 
+ 	if (item[0] >= e->items)
+ 		return -EINVAL;
+@@ -718,6 +720,11 @@ static int rt712_sdca_mux_put(struct snd_kcontrol *kcontrol,
+ 	else
+ 		return -EINVAL;
+ 
++	rt712_sdca_index_read(rt712, RT712_VENDOR_HDA_CTL, RT712_MIXER_CTL1, &val);
++	val = (val >> mask_sft) & 0x3;
++	if (!val)
++		return 0;
++
+ 	rt712_sdca_index_write(rt712, RT712_VENDOR_HDA_CTL,
+ 		RT712_MIXER_CTL1, 0x3fff);
+ 	rt712_sdca_index_update_bits(rt712, RT712_VENDOR_HDA_CTL,
+@@ -1094,19 +1101,24 @@ static int rt712_sdca_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	/* set sampling frequency */
+-	if (dai->id == RT712_AIF1) {
++	switch (dai->id) {
++	case RT712_AIF1:
+ 		regmap_write(rt712->regmap,
+ 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS01, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
+ 			sampling_rate);
+ 		regmap_write(rt712->regmap,
+ 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS11, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
+ 			sampling_rate);
+-	}
+-
+-	if (dai->id == RT712_AIF2)
++		break;
++	case RT712_AIF2:
+ 		regmap_write(rt712->regmap,
+ 			SDW_SDCA_CTL(FUNC_NUM_AMP, RT712_SDCA_ENT_CS31, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
+ 			sampling_rate);
++		break;
++	default:
++		dev_err(component->dev, "Wrong DAI id\n");
++		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.38.1
 
-from the top level, and added two copies of it under if/then/else.
-
-Please keep common stuff as high up in the hierarchy as possible,
-to avoid the need for duplication.
-In this case, that means:
-  - Keep the description at the top level,
-  - Put only {min,max}Items and items under if/then/else.
-
-I hope my explanation helps.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds

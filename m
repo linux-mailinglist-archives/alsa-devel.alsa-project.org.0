@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 576A569983A
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:01:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13C6C69983B
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:02:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73CCEF2B;
-	Thu, 16 Feb 2023 16:01:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73CCEF2B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD7FAF2C;
+	Thu, 16 Feb 2023 16:01:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD7FAF2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676559714;
-	bh=6o9aBCf+FJfHYX5BjmM4YjEliz9Vvs+NYIzqx9nCGck=;
+	s=default; t=1676559732;
+	bh=YKCyeT6FKjPEqAGcXOSJVvOkTS/ElCK1kMPyX4qQG+E=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u25PuPQmpUmOQDzDWjP8dMjvLI2ZSTwSjFp0ETWBwT/+W2HDG5vcVCkygpSjRHlxu
-	 qfMtZIrUnDQkhhUCKZGcD8wMNnOctySzj2hVOl/JbjXyq79/oRMLN0qcIczYxTMx/O
-	 h5WOmUra/BS4TmknHUf5nMjaf2hCe3GXMCmEn92w=
+	b=RuUHhHcOadZWx0TmjilxN2EEDDLMMyOsfwZ5QaoBQ+6FqQKdLO5tkMV+uGioUDufA
+	 /B79nB2jcKe4Ti9JX6/GcyOZGUtDXdyLG33VmxiCBGZmfhmmAx69KRK1ByYPbF2bak
+	 t/EnFHV8GKqJpTkKctl0CPJvO/qc4g6LrOCiBch4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2AB7F805F4;
-	Thu, 16 Feb 2023 15:55:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50394F805FE;
+	Thu, 16 Feb 2023 15:56:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 050C4F800E4; Fri, 10 Feb 2023 05:51:07 +0100 (CET)
+	id C5F64F8018A; Fri, 10 Feb 2023 05:51:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7129BF80086
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 05:50:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7129BF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 486CCF80094
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 05:51:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 486CCF80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=bSSBBpxu
-Received: by mail-pg1-x529.google.com with SMTP id x31so2972989pgl.6
+ header.s=20210112 header.b=AI5OkR5n
+Received: by mail-pf1-x436.google.com with SMTP id 144so2738529pfv.11
         for <alsa-devel@alsa-project.org>;
- Thu, 09 Feb 2023 20:50:58 -0800 (PST)
+ Thu, 09 Feb 2023 20:51:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=csEKku7VeftqKMa/oZ1aoU6u0+L74zJO0Dt8b/66dVA=;
-        b=bSSBBpxuvLfNjDZVjz2+AmmgvNUi2UbO+qebR9jIEeWWG+ugnaK53p6mQpKFqVYTgh
-         iuXQ4Y9y0HhXStihsMX1+bZmICz5JbJdj3Y5RDYwvHd0Fvm4BpohBTo0+84VXZE3pNkJ
-         nHj3jMdQ2ECfz5zkBQU+zZ3Ou5aDNBg3gocOMdRkFgPV5bhYgSG4gvzu93r5S6Dh3JOb
-         tLAJgLetD5xYT4Q8PSDp7jNYdLB5EoV7IW4Gq2iVdsp9WjCgK5g+crXN5OaIjS/YWKOv
-         swXVeyoRy+mQbFKKCf26aGILb+pL93OyQTh9/2z5UaawmtNzWkhbwVdkID9qJ/kh2j6p
-         N03Q==
+        bh=tEls10WodkspsIvZIvxa4LCxo5R1yCy5xPl31tNRCfY=;
+        b=AI5OkR5ngOdIYwA82Bd2NHyMJ+O2BLu1AlHUiAUk5u2mES8050ILPnIi34V/HwnVmn
+         UCnnl/NNHpnSFBN3X0R580Y09W5YGDjQXorCqi2JWHAwRM3mAVXKAyPB7q7B66d3DoWt
+         zBvfn3AmAyRezdi5kNYRSaoRxCZe3u4hC11prURWNE0PK6ZNCw5117fr7UHA3ZhhHI6z
+         ua9y3dmza6fdLajFD3iCgQy+ca3vadxm1QgxmG6b53N46lfItM+tP6BzFu/BuB6LbEC1
+         2TmnClABN6Fxc12v6c0kbWm8LL7Al2NDRYIr/vhwsP9jpjc8vOPXdePVWan8RRrIxgG1
+         ma/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=csEKku7VeftqKMa/oZ1aoU6u0+L74zJO0Dt8b/66dVA=;
-        b=BspihZq9SzWLs+v2c7Q7dH5uhxNv/TIW5BoP/myOEZdXZLusJ8YWSnUf9gtugB9Bs/
-         WILn1EEJZ681h4GcY2N8Enb17J9WjrdCSmsKOyqizGqX0hOx7ZkmI56UnCT42dA7jBXU
-         /GgZ8lW6/T1QPylaXqp7Fhx9pfVyMzc230kELgo6nYKCKLLT4MUjCPIOMOkMLrcKVUQi
-         ATzZrLEmooZB0QSw2kvzw1wqTb2e8TKNC4nR+DEwEM2aNxT+gWT24/Fb1ToN2k1FDr8Z
-         G/11q7QEbptLBzrU6HFPMB3Jsttwn4aEXOLIG5PRIDZ0xHQ6hNAGkD5qLQGV96oyhixs
-         6NFw==
-X-Gm-Message-State: AO0yUKVsnfvRbB1o/jFB7eIN+T7mhtKMvUZe3YaSRf2oTtm6dT09jSaj
-	SRiOWXm0/mUQV13T2bC0tkg=
+        bh=tEls10WodkspsIvZIvxa4LCxo5R1yCy5xPl31tNRCfY=;
+        b=0wxUWo4dnkyqHy3j2VT1LRKstRA6dJdSK3vClu+nJtqT+y+t+jSzQfBFDaZ7bX2vtp
+         I71JVH4qAUpDgsw2p12YTF+2o/RzoGHXQvRI2N0URDtsOfztdBU9n53CmbrcuA1XZ6PN
+         XE9vwWHI42069nU1y4Zzy1IR4kyvI2gmu36h2vgBCanDmJIAkN1uK+MZZIZPip3jT7Mi
+         TPD9zoW8gnqcaWEjBWMx/BZHcjgfDdlAUl4FtOmPn4YXfnGUOeT7FuUiHW6v7Yx95jp8
+         OFJ1Zc4k+mxoDq8iesgCOH/AWC21MMMB/VZ7xsYRVCB4kuhnDgNmOjkPUSE2cc1Yde/G
+         cung==
+X-Gm-Message-State: AO0yUKV2ovghBVmd32DJP3Z5+z23Yd84oNMVyptxEe582+Dd7Kn2uoD+
+	KovWugmeZHSnZ30LNKNqicwqSQTZVhEllA==
 X-Google-Smtp-Source: 
- AK7set+6nR3PdC+bLUM0mRD3ICNqYx6AqEbULf57vUUimaqPU/GNepSkLhGvqGxzIrfzk/FsdYaw+w==
-X-Received: by 2002:a62:2782:0:b0:5a8:16b7:ce6e with SMTP id
- n124-20020a622782000000b005a816b7ce6emr2853223pfn.10.1676004657775;
-        Thu, 09 Feb 2023 20:50:57 -0800 (PST)
+ AK7set+I/CPPxHXAhf5qBsL4mcZeaWR1Cid3atIIseLpDh1NtpOroP8ski833jPHpzXBgHHcqOiaLw==
+X-Received: by 2002:a62:15d3:0:b0:5a8:4db3:266e with SMTP id
+ 202-20020a6215d3000000b005a84db3266emr3828885pfv.10.1676004667360;
+        Thu, 09 Feb 2023 20:51:07 -0800 (PST)
 Received: from localhost.localdomain ([202.53.32.211])
         by smtp.gmail.com with ESMTPSA id
- t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.48
+ t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 20:50:57 -0800 (PST)
+        Thu, 09 Feb 2023 20:51:07 -0800 (PST)
 From: Orlando Chamberlain <orlandoch.dev@gmail.com>
 To: platform-driver-x86@vger.kernel.org,
 	amd-gfx@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [RFC PATCH 6/9] apple-gmux: support MMIO gmux on T2 Macs
-Date: Fri, 10 Feb 2023 15:48:23 +1100
-Message-Id: <20230210044826.9834-7-orlandoch.dev@gmail.com>
+Subject: [RFC PATCH 7/9] apple-gmux: add sysfs interface
+Date: Fri, 10 Feb 2023 15:48:24 +1100
+Message-Id: <20230210044826.9834-8-orlandoch.dev@gmail.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230210044826.9834-1-orlandoch.dev@gmail.com>
 References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
@@ -101,8 +101,8 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: QWDG373PVRMCMZGMURI5U4O2LM7RZG7S
-X-Message-ID-Hash: QWDG373PVRMCMZGMURI5U4O2LM7RZG7S
+Message-ID-Hash: DV3ZH55NIA6XOZH5Y6FIRUDWHPKTGSTW
+X-Message-ID-Hash: DV3ZH55NIA6XOZH5Y6FIRUDWHPKTGSTW
 X-Mailman-Approved-At: Thu, 16 Feb 2023 14:55:48 +0000
 CC: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan,
@@ -129,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWDG373PVRMCMZGMURI5U4O2LM7RZG7S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DV3ZH55NIA6XOZH5Y6FIRUDWHPKTGSTW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,319 +138,186 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In some newer dual gpu MacBooks, gmux is controlled by the T2 security
-chip, and acessed with MMIO. Add support for these gmux controllers
+Allow reading gmux ports from userspace. When the unsafe module
+parameter allow_user_writes is true, writing 1 byte
+values is also allowed.
 
-Interestingly, the ACPI table only allocates 8 bytes for GMUX, but we
-actually need 16, and as such we request 16 with request_mem_region.
+For example:
 
-Reading and writing from ports:
-    16 bytes from 0xfe0b0200 are used. 0x0 to 0x4 are where data
-    to read appears, and where data to write goes. Writing to 0xe
-    sets the gmux port being accessed, and writing to 0xf sends commands.
+cd /sys/bus/acpi/devices/APP000B:00/physical_node/
+echo 4 > gmux_selected_port
+cat gmux_selected_port_data | xxd -p
 
-    These commands are 0x40 & data_length for write, and data_length for
-    read, where data_length is 1, 2 or 4. Once byte base+0xf is 0, the
-    command is done.
-
-Interrupts:
-    Clearing interrupts on T2 macs seems different to older models,
-    0 has to be written for them to stop, but this isn't what macOS
-    does and further investigation may be needed.
-
-Issues:
-    As with other retina models, we can't switch DDC lines so
-    switching at runtime doesn't work if the inactive gpu driver
-    already disabled eDP due to it not being connected when that
-    driver loaded.
-
-    Additionally, turning on the dgpu back on T2 macs doesn't work,
-    and it fails in amdgpu's code for bringing the gpu back online.
+Will show the gmux version information (00000005 in this case)
 
 Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 134 ++++++++++++++++++++++++++++--
- include/linux/apple-gmux.h        |  34 +++++---
- 2 files changed, 149 insertions(+), 19 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 129 ++++++++++++++++++++++++++++++
+ 1 file changed, 129 insertions(+)
 
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index c605f036ea0b..c38d6ef0c15a 100644
+index c38d6ef0c15a..756059d48393 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -28,15 +28,17 @@
-  * DOC: Overview
-  *
-  * gmux is a microcontroller built into the MacBook Pro to support dual GPUs:
-- * A `Lattice XP2`_ on pre-retinas, a `Renesas R4F2113`_ on retinas.
-+ * A `Lattice XP2`_ on pre-retinas, a `Renesas R4F2113`_ on pre-T2 retinas.
-+ * The chip used on T2 Macs is not known.
-  *
-  * (The MacPro6,1 2013 also has a gmux, however it is unclear why since it has
-  * dual GPUs but no built-in display.)
-  *
-  * gmux is connected to the LPC bus of the southbridge. Its I/O ports are
-  * accessed differently depending on the microcontroller: Driver functions
-- * to access a pre-retina gmux are infixed ``_pio_``, those for a retina gmux
-- * are infixed ``_index_``.
-+ * to access a pre-retina gmux are infixed ``_pio_``, those for a pre-T2
-+ * retina gmux are infixed ``_index_``, and those on T2 Macs are infixed
-+ * with ``_mmio_``.
-  *
-  * .. _Lattice XP2:
-  *     http://www.latticesemi.com/en/Products/FPGAandCPLD/LatticeXP2.aspx
-@@ -47,6 +49,7 @@
- struct apple_gmux_config;
+@@ -66,6 +66,11 @@ struct apple_gmux_data {
+ 	enum vga_switcheroo_client_id switch_state_external;
+ 	enum vga_switcheroo_state power_state;
+ 	struct completion powerchange_done;
++
++#ifdef CONFIG_SYSFS
++	/* sysfs data */
++	int selected_port;
++#endif /* CONFIG_SYSFS */
+ };
  
- struct apple_gmux_data {
-+	u8 *__iomem iomem_base;
- 	unsigned long iostart;
- 	unsigned long iolen;
- 	const struct apple_gmux_config *config;
-@@ -193,6 +196,79 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
- 	mutex_unlock(&gmux_data->index_lock);
+ static struct apple_gmux_data *apple_gmux_data;
+@@ -651,6 +656,121 @@ static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
+ 		complete(&gmux_data->powerchange_done);
  }
  
-+static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
-+{
-+	int i = 200;
-+	u8 gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++/**
++ * DOC: Sysfs Interface
++ *
++ * gmux ports can be read from userspace as a sysfs interface. For example:
++ *
++ * # echo 4 > /sys/bus/acpi/devices/APP000B:00/physical_node/gmux_selected_port
++ * # cat /sys/bus/acpi/devices/APP000B:00/physical_node/gmux_selected_port_data | xxd -p
++ * 00000005
++ *
++ * Reads 4 bytes from port 4 (GMUX_PORT_VERSION_MAJOR).
++ *
++ * Single byte writes are also supported, however this must be enabled with the
++ * unsafe allow_user_writes module parameter.
++ *
++ */
 +
-+	while (i && gwr) {
-+		gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+		udelay(100);
-+		i--;
++#ifdef CONFIG_SYSFS
++
++static bool allow_user_writes;
++module_param_unsafe(allow_user_writes, bool, 0);
++MODULE_PARM_DESC(allow_user_writes, "Allow userspace to write to gmux ports (default: false) (bool)");
++
++static ssize_t gmux_selected_port_store(struct device *dev,
++		struct device_attribute *attr, const char *sysfsbuf, size_t count)
++{
++	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
++	u8 port;
++
++	if (kstrtou8(sysfsbuf, 10, &port) < 0)
++		return -EINVAL;
++
++	/* On pio gmux's, make sure the user doesn't access too high of a port. */
++	if ((gmux_data->config == &apple_gmux_pio) &&
++		port > (gmux_data->iolen - 4))
++		return -EINVAL;
++
++	gmux_data->selected_port = port;
++	return count;
++}
++
++static ssize_t gmux_selected_port_show(struct device *dev,
++		struct device_attribute *attr, char *sysfsbuf)
++{
++	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
++
++	return sysfs_emit(sysfsbuf, "%d\n", gmux_data->selected_port);
++}
++
++DEVICE_ATTR_RW(gmux_selected_port);
++
++static ssize_t gmux_selected_port_data_store(struct device *dev,
++		struct device_attribute *attr, const char *sysfsbuf, size_t count)
++{
++	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
++
++	if (count == 1)
++		gmux_write8(gmux_data, gmux_data->selected_port, *sysfsbuf);
++	else
++		return -EINVAL;
++
++	return count;
++}
++
++static ssize_t gmux_selected_port_data_show(struct device *dev,
++		struct device_attribute *attr, char *sysfsbuf)
++{
++	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
++	u32 data;
++
++	data = gmux_read32(gmux_data, gmux_data->selected_port);
++	memcpy(sysfsbuf, &data, sizeof(data));
++
++	return sizeof(data);
++}
++
++struct device_attribute dev_attr_gmux_selected_port_data_rw = __ATTR_RW(gmux_selected_port_data);
++struct device_attribute dev_attr_gmux_selected_port_data_ro = __ATTR_RO(gmux_selected_port_data);
++
++static int gmux_init_sysfs(struct pnp_dev *pnp)
++{
++	int ret;
++
++	ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port);
++	if (ret)
++		return ret;
++	if (allow_user_writes)
++		ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port_data_rw);
++	else
++		ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port_data_ro);
++	if (ret)
++		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port);
++	return ret;
++}
++
++static void gmux_fini_sysfs(struct pnp_dev *pnp)
++{
++	device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port);
++	if (allow_user_writes)
++		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port_data_rw);
++	else
++		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port_data_ro);
++}
++
++#else
++
++static int gmux_init_sysfs(struct pnp_dev *pnp)
++{
++	return 0;
++}
++static void gmux_fini_sysfs(struct pnp_dev *pnp)
++{
++}
++
++#endif /* CONFIG_SYSFS */
++
+ static int gmux_suspend(struct device *dev)
+ {
+ 	struct pnp_dev *pnp = to_pnp_dev(dev);
+@@ -846,8 +966,16 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 		goto err_register_handler;
+ 	}
+ 
++	ret = gmux_init_sysfs(pnp);
++	if (ret) {
++		pr_err("Failed to register gmux sysfs entries\n");
++		goto err_sysfs;
 +	}
 +
-+	return !!i;
-+}
-+
-+static u8 gmux_mmio_read8(struct apple_gmux_data *gmux_data, int port)
-+{
-+	u8 val;
-+
-+	mutex_lock(&gmux_data->index_lock);
-+	gmux_mmio_wait(gmux_data);
-+	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+	iowrite8(GMUX_MMIO_READ | sizeof(val),
-+		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+	gmux_mmio_wait(gmux_data);
-+	val = ioread8(gmux_data->iomem_base);
-+	mutex_unlock(&gmux_data->index_lock);
-+
-+	return val;
-+}
-+
-+static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
-+			      u8 val)
-+{
-+	mutex_lock(&gmux_data->index_lock);
-+	gmux_mmio_wait(gmux_data);
-+	iowrite8(val, gmux_data->iomem_base);
-+
-+	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
-+		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+
-+	gmux_mmio_wait(gmux_data);
-+	mutex_unlock(&gmux_data->index_lock);
-+}
-+
-+static u32 gmux_mmio_read32(struct apple_gmux_data *gmux_data, int port)
-+{
-+	u32 val;
-+
-+	mutex_lock(&gmux_data->index_lock);
-+	gmux_mmio_wait(gmux_data);
-+	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+	iowrite8(GMUX_MMIO_READ | sizeof(val),
-+		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+	gmux_mmio_wait(gmux_data);
-+	val = be32_to_cpu(ioread32(gmux_data->iomem_base));
-+	mutex_unlock(&gmux_data->index_lock);
-+
-+	return val;
-+}
-+
-+static void gmux_mmio_write32(struct apple_gmux_data *gmux_data, int port,
-+			       u32 val)
-+{
-+	mutex_lock(&gmux_data->index_lock);
-+	iowrite32(cpu_to_be32(val), gmux_data->iomem_base);
-+	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
-+		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+	gmux_mmio_wait(gmux_data);
-+	mutex_unlock(&gmux_data->index_lock);
-+}
-+
- static u8 gmux_read8(struct apple_gmux_data *gmux_data, int port)
- {
- 	return gmux_data->config->read8(gmux_data, port);
-@@ -486,6 +562,18 @@ static const struct apple_gmux_config apple_gmux_index = {
- 	.name = "indexed"
- };
+ 	return 0;
  
-+static const struct apple_gmux_config apple_gmux_mmio = {
-+	.read8 = &gmux_mmio_read8,
-+	.write8 = &gmux_mmio_write8,
-+	.read32 = &gmux_mmio_read32,
-+	.write32 = &gmux_mmio_write32,
-+	.gmux_handler = &gmux_handler_no_ddc,
-+	.handler_flags = VGA_SWITCHEROO_NEEDS_EDP_CONFIG,
-+	.resource_type = IORESOURCE_MEM,
-+	.name = "T2"
-+};
-+
-+
- /**
-  * DOC: Interrupt
-  *
-@@ -538,7 +626,7 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
- {
- 	u8 status;
- 
--	/* to clear interrupts write back current status */
-+	/* to clear interrupts write back current status. */
- 	status = gmux_interrupt_get_status(gmux_data);
- 	if (status) {
- 		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
-@@ -616,6 +704,25 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	pnp_set_drvdata(pnp, gmux_data);
- 
- 	switch (type) {
-+	case APPLE_GMUX_TYPE_MMIO:
-+		gmux_data->config = &apple_gmux_mmio;
-+		mutex_init(&gmux_data->index_lock);
-+
-+		res = pnp_get_resource(pnp, IORESOURCE_MEM, 0);
-+		gmux_data->iostart = res->start;
-+		/* Although the ACPI table only allocates 8 bytes, we need 16. */
-+		gmux_data->iolen = 16;
-+		if (!request_mem_region(gmux_data->iostart, gmux_data->iolen,
-+					"Apple gmux")) {
-+			pr_err("gmux I/O already in use\n");
-+			goto err_free;
-+		}
-+		gmux_data->iomem_base = ioremap(gmux_data->iostart, gmux_data->iolen);
-+		if (!gmux_data->iomem_base) {
-+			pr_err("couldn't remap gmux mmio region");
-+			goto err_release;
-+		}
-+		goto get_version;
- 	case APPLE_GMUX_TYPE_INDEXED:
- 		gmux_data->config = &apple_gmux_index;
- 		mutex_init(&gmux_data->index_lock);
-@@ -635,6 +742,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 		goto err_free;
- 	}
- 
-+get_version:
- 	version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
- 	ver_major = (version >> 24) & 0xff;
- 	ver_minor = (version >> 16) & 0xff;
-@@ -660,7 +768,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 					 gmux_data, &gmux_bl_ops, &props);
- 	if (IS_ERR(bdev)) {
- 		ret = PTR_ERR(bdev);
--		goto err_release;
-+		goto err_unmap;
- 	}
- 
- 	gmux_data->bdev = bdev;
-@@ -727,7 +835,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	/*
- 	 * Retina MacBook Pros cannot switch the panel's AUX separately
- 	 * and need eDP pre-calibration. They are distinguishable from
--	 * pre-retinas by having an "indexed" gmux.
-+	 * pre-retinas by having an "indexed" or "T2" gmux.
- 	 *
- 	 * Pre-retina MacBook Pros can switch the panel's DDC separately.
- 	 */
-@@ -752,8 +860,14 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 					   &gmux_notify_handler);
- err_notify:
- 	backlight_device_unregister(bdev);
-+err_unmap:
-+	if (gmux_data->iomem_base)
-+		iounmap(gmux_data->iomem_base);
- err_release:
--	release_region(gmux_data->iostart, gmux_data->iolen);
-+	if (gmux_data->config->resource_type == IORESOURCE_MEM)
-+		release_mem_region(gmux_data->iostart, gmux_data->iolen);
-+	else
-+		release_region(gmux_data->iostart, gmux_data->iolen);
- err_free:
- 	kfree(gmux_data);
- 	return ret;
-@@ -774,7 +888,11 @@ static void gmux_remove(struct pnp_dev *pnp)
- 
- 	backlight_device_unregister(gmux_data->bdev);
- 
--	release_region(gmux_data->iostart, gmux_data->iolen);
-+	if (gmux_data->iomem_base) {
-+		iounmap(gmux_data->iomem_base);
-+		release_mem_region(gmux_data->iostart, gmux_data->iolen);
-+	} else
-+		release_region(gmux_data->iostart, gmux_data->iolen);
++err_sysfs:
++	vga_switcheroo_unregister_handler();
+ err_register_handler:
+ 	gmux_disable_interrupts(gmux_data);
  	apple_gmux_data = NULL;
- 	kfree(gmux_data);
+@@ -877,6 +1005,7 @@ static void gmux_remove(struct pnp_dev *pnp)
+ {
+ 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
  
-diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
-index 25c1de4a716e..55b18f0f320d 100644
---- a/include/linux/apple-gmux.h
-+++ b/include/linux/apple-gmux.h
-@@ -34,11 +34,18 @@
- #define GMUX_PORT_READ			0xd0
- #define GMUX_PORT_WRITE			0xd4
- 
-+#define GMUX_MMIO_PORT_SELECT		0x0e
-+#define GMUX_MMIO_COMMAND_SEND		0x0f
-+
-+#define GMUX_MMIO_READ			0x00
-+#define GMUX_MMIO_WRITE			0x40
-+
- #define GMUX_MIN_IO_LEN			(GMUX_PORT_BRIGHTNESS + 4)
- 
- enum apple_gmux_type {
- 	APPLE_GMUX_TYPE_PIO,
--	APPLE_GMUX_TYPE_INDEXED
-+	APPLE_GMUX_TYPE_INDEXED,
-+	APPLE_GMUX_TYPE_MMIO
- };
- 
- #if IS_ENABLED(CONFIG_APPLE_GMUX)
-@@ -92,16 +99,21 @@ static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, enum apple_gmux_ty
- 	}
- 
- 	res = pnp_get_resource(pnp_dev, IORESOURCE_IO, 0);
--	if (!res || resource_size(res) < GMUX_MIN_IO_LEN)
--		goto out;
--
--	/*
--	 * Invalid version information may indicate either that the gmux
--	 * device isn't present or that it's a new one that uses indexed io.
--	 */
--	if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
--		if (apple_gmux_is_indexed(res->start))
--			type = APPLE_GMUX_TYPE_INDEXED;
-+	if (res && resource_size(res) >= GMUX_MIN_IO_LEN) {
-+		/*
-+		 * Invalid version information may indicate either that the gmux
-+		 * device isn't present or that it's a new one that uses indexed io.
-+		 */
-+		if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
-+			if (apple_gmux_is_indexed(res->start))
-+				type = APPLE_GMUX_TYPE_INDEXED;
-+			else
-+				goto out;
-+		}
-+	} else {
-+		res = pnp_get_resource(pnp_dev, IORESOURCE_MEM, 0);
-+		if (res)
-+			type = APPLE_GMUX_TYPE_MMIO;
- 		else
- 			goto out;
- 	}
++	gmux_fini_sysfs(pnp);
+ 	vga_switcheroo_unregister_handler();
+ 	gmux_disable_interrupts(gmux_data);
+ 	if (gmux_data->gpe >= 0) {
 -- 
 2.39.1
 

@@ -2,198 +2,181 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C534869154F
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 01:23:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8AA691701
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 04:02:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 290AD843;
-	Fri, 10 Feb 2023 01:23:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 290AD843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AEB2846;
+	Fri, 10 Feb 2023 04:01:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AEB2846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1675988635;
-	bh=3KhzouuVl+bXYZDo/pt7VZhtHbIHZwrEbSNoEoHqOiE=;
-	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
+	s=default; t=1675998159;
+	bh=3kSSHS3rTf8f911liVlR1RdsREcGi30GaFaP1/KZvCY=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HKYK5xlh/U3naNV4v2a8AbFOIghuQrRvbPijoEcSEEGDeKl7f1MpvqcyB1dd8gCWE
-	 Rd1AM5Jy9Gx8JAo0ljgToKaYyiUiSTwufKL7xrQ5YwUwQ5SHN/mI2qrWxDg718V51h
-	 UcU82YTH9Uy/c3Igb9fmSOgTsbpiw43rdcXNtgl0=
+	b=co4MrGcLkAAm8ygAk6KyOs5gsqifZiB5w80H/0hEyfw1p7XvuuXugq9IA0zG0OzwV
+	 X4/99StTHXqacN1EwEKIu9me6Sa18MhD9taOSpto/M5ZiCNBBzL7fNqfVlrmiElnjO
+	 lvODeOn5L2ChVvzNAcLrjnrAtMHK8Hq1rwmS3Fbs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EB48F800B8;
-	Fri, 10 Feb 2023 01:23:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4C0BF800B8;
+	Fri, 10 Feb 2023 04:01:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26321F800E4; Fri, 10 Feb 2023 01:23:00 +0100 (CET)
+	id 2066EF800E4; Fri, 10 Feb 2023 04:01:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on20721.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::721])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9AC2EF80094
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 01:22:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AC2EF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id F09AAF80094
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 04:01:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F09AAF80094
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=jeL0/2G9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IS2If1Yl92XIqE+iPEVKVQOxCvd2hU2r/4tMGlAWP07d79TunUSw4WbZHto/oAKebbR7reB+d9oUeqJCV44OEpapmxPxxB08i+MALQXbILQdBYLmKklKarl+YqGDgzKrexMD5FgIlIHYVRAhe4rUMctLB3MW6XQQj1q/H6H1ArHWkuG0xavwIu4T3lOj/GrN1Cm+KPx3/tw5A2t+BnSEDEjp/4eS12xLIrigcfKYeoHrhpk6i0RIQH05yHpEyTJAcwntlUVlWXZPPtVfNtgIkDqaiHnxMR0cYY+ZQCG+/Rym6HDvG8scXyjDu9Az4L15qD8uXZQr0sn+gw/972TtaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wzDgPIvX8xgAC608dGMnSNKWX0ldgVR1mt6ABDj+0xI=;
- b=AOQYHSrRjTzczCk+yFhloTkNQ2f3jTXDuq9cp/T/qIM9tRnkXY93WMihR6VUS3O5Fxorx7due+a3Co+3NN+w7BXFpvPnuHRwA4f7oajbHCSAoTnAqcZ6ii6bh51zKOKZ+UBNoATOG+trsvgTHsI7VzbxuBkW3GL0qp7QKrJl4ZCaXL+mKUeVYvQOvZk5eGiw1344ugUeiQsbh/6bBNm7c1Tu1rkaOaALniy9Sv/0U56SFUqJj6RYHEaaZpvMWOT4ADzvsKafXQT88XqmVC6boz56M1hWkuzsp97pYj57L6KmIUqTfygK6Bwwi7eOvaCmUdE4ZCNeZbM2Xd4gdM2ANA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wzDgPIvX8xgAC608dGMnSNKWX0ldgVR1mt6ABDj+0xI=;
- b=jeL0/2G9XyUtUqaWBn33msxEhbmpdoz0nc4T8jBvVnID/mEw/66tlFMFfPv2Y2DH1iIQzKfJtVwMbwj4weqGnX2cexUVsnZpkU6jI8V0sjD0U6Di1uVxE+7DvC3G/Ggya11eQ85xoYBLQ2woN4xzhW819i9cirrA/Zk6wQPPLR8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by OS3PR01MB10280.jpnprd01.prod.outlook.com (2603:1096:604:1e1::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Fri, 10 Feb
- 2023 00:22:38 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::4b75:8d8e:d89a:7860%9]) with mapi id 15.20.6086.019; Fri, 10 Feb 2023
- 00:22:37 +0000
-Message-ID: <87fsbe1i9e.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: renesas,rsnd.yaml: add R-Car
- Gen4 support
-In-Reply-To: <072724aa-2bf3-32a6-dee8-e74c74b01019@linaro.org>
-References: <87y1p7bpma.wl-kuninori.morimoto.gx@renesas.com>
-	<87v8kbbpl4.wl-kuninori.morimoto.gx@renesas.com>
-	<072724aa-2bf3-32a6-dee8-e74c74b01019@linaro.org>
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 10 Feb 2023 00:22:37 +0000
-X-ClientProxiedBy: TYCP286CA0112.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29c::7) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm1 header.b=MzId62Z9;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=saE4QLew
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 8C0255C0052;
+	Thu,  9 Feb 2023 22:01:05 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Thu, 09 Feb 2023 22:01:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm1; t=1675998065; x=1676084465; bh=3k
+	SSHS3rTf8f911liVlR1RdsREcGi30GaFaP1/KZvCY=; b=MzId62Z9IJE4WMzh25
+	RH6Sb6KPQwOwvX44V1DaU1KxIHJ/lbwUnTMp7Rk1g8xfU+IG1JjUucNWH678/vhK
+	UDT9opEBHaIm6SYrxvujvIbOaGNDMxxrHhYumO2dWGWXGr27x8X5sHA5YUfH9uYE
+	gYk2HZxiC3gY8Pf1bsF3NJ61OoVlE59esXCZlMJzq5dCSf9eAuHPsh64sBfauVFp
+	d3A/d1VSFU3VMoYiUsgXWM67pfq/XCFjikWWL9ZqDAVGF2kjYMNOZWlXqlSuWjrM
+	LQx4lOLMLKEXzd8GIUST+A8IVRkx83kNwe14TF4dZygJl5oTtjgaiftqCq4DUqnS
+	vv+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1675998065; x=1676084465; bh=3kSSHS3rTf8f911liVlR1RdsREcG
+	i30GaFaP1/KZvCY=; b=saE4QLewN5ZcQzuezLPzI1TT1gH3QMw/++ZLnlp+9v9n
+	gvx/khKBUo+YClhYUrW629bUKunvZtwriLLkrLvE4VYVK/0nxNgCOBsPX1JBGodk
+	X3r3dk0IXj8BlVJmpOb8kuv50Lce40k51SoqQGE0zo3K5in0RDVn9hAxGgwGwpVI
+	6SvabPFDQHBQ4R6O0ylpe2SFzTjF8rwhN+E9ZIvjSJL1O5HBTEr69cT2xjaKbr2l
+	0Sr05BR/+/WCPYeou8k6eWKhiCSS7Vsf2TSiLwzhyasfW6tntkP3BHvoswGcTulY
+	N/tlrngLjN314luJPzNWDc/DufnGwTawmfApZglA8g==
+X-ME-Sender: <xms:cbPlY5NPQMt-LeN1PrtkNARXJFyP1guChoisemmcvwnlHeYcQvRFaA>
+    <xme:cbPlY78PWm8Ho7_Apj4dWUPY_twoEMeBrKNjIMmEXH_2beUOtoXUUBNsPumbSNnW1
+    DddXdrTqapkbE48Fz4>
+X-ME-Received: 
+ <xmr:cbPlY4Sm8nDi3sUFwgGdq7JSeO3pMBkHpODNO0ZIwsNqnTHjiuKASH0ovIO6qA1qUGdSMKEfD5sN7YUZxMw1YKaztn0rfePdq8-u>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrudehgedghedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+    hjpheqnecuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeei
+    ieetvdelfedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+    hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:cbPlY1vqflfWjTgIzXaNB7sIMlGalwFpMqsLIAFnBf5xIGOMNGflBA>
+    <xmx:cbPlYxdPv3lLV-IlXljT7SZuvBqCWTDK1ud6m967RODZdLjCgy7ssQ>
+    <xmx:cbPlYx3znRN-3JT5yJYGMol6NHqy98hs3Htaao3wQoYYihydsul75A>
+    <xmx:cbPlYxmQFHru56YXDT8CBJQp7icM-uMh9av9PlpDN3x_8MBqsoYdTA>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Feb 2023 22:01:04 -0500 (EST)
+Date: Fri, 10 Feb 2023 12:01:02 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: "M. Armsby" <m.armsby@gmx.de>
+Subject: Re: Motu 896Mk3Hybrid dump
+Message-ID: <Y+WzbnsmcpKvAtsg@workstation>
+Mail-Followup-To: "M. Armsby" <m.armsby@gmx.de>,
+	ALSA mail List <alsa-devel@alsa-project.org>
+References: 
+ <clpqss6u2nl2-tqmbic2pqf4x-fl7n8ufasb45-1to1x7160p65-86skuflc32uf-b435ds-2dqjqzzi2x9r-n26ssw-jjzxq0-aeknhb-drcr4x44iip67z8kfz-gayyzivnj1e3-exbx9z-ayuv2umcdyh1.1675078615418@email.android.com>
+ <Y9fD0Nzg+bwKsDEZ@workstation>
+ <63DF98FE.2060604@gmx.de>
+ <Y+BXPeHLp+qoKJcv@workstation>
+ <rbih9oyihq4crt3olr-o19zohmq8w36-ipfswlyypvjp5a8src-wcww6tahyaki-q7v6tx-j5yh81-vzf7pq-qn78wo-tww8q3-2h35ww-sk0mu3-7fsog578xr2k-jfqgg5-rvg5aw-mhtapx-pch8v9t7epgq.1675704644475@email.android.com>
+ <Y+JDwWHZAI8BRgu9@workstation>
+ <-9ql34ax08baa-u8njs4ojzl8k9qj8kusba8u-119dm2-3md8uqbmil7lckunia-ijl9m4n5xuto-76roex-ucqm5h-1c3kdf-5ahx5l1oy29o-no4drk-5wjqfzqre34j-p7he4b9rr95u-3lcrfi-9o14b8.1675872031471@email.android.com>
+ <Y+R3Trgr8gM7A1KC@workstation>
+ <dthyo67qd7oj-30ctll-vrg1evnr7efht4ec6d-vumue675livm-arck14-npbh32-o2k9duez9ilsuaqtqxlx8623-kq6ura-pddtnlaydil563o5b0waa3tw-27ybk4y6e3x5-nxupxe-wmtcs3-6w8h10.1675945189061@email.android.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS3PR01MB10280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c221d79-5f44-49e8-ecd7-08db0afcea09
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	57xAQtKwH0WNCN59E2a6BglCfw2noL+FuuuFN9XkMWRBWULG0+ljWF344MXNAW/VlY/Y0pSaHfstfRem9VEPpZQce17m0vPCzW+IRZDyJy+Q3cXXU+lZWVoeNwK/8H+1yhuHA/sf2vkpxtdrNDBfQxrRIkyCELg4ZRtvZkAUzdz1AKGSkv06NqzYjOc02/5TB9uY+77SJMw3giATBzMlC48RSVN8lor22KwsRkwhW6j/jRyhUKCfm8CM7YBDDqhUszZtopE9sDU5jbU5HO/c9TC4Z/+EGoxv13kDFb5ifbld+KpCwOAV9TE7r6wlkxydnmGWkpuug+5KhndNplkkwa08DsiahlOVABPMB9LLGpKNmjmvzp3HPn6F9+ETihyT7SRjjGTWwvldCnm/1/XFsFbnTSngO2326wYI1toC9ngiL7Zt1S2SZoaiCbwVKF/izPqoarhOk6qm13ChYDLlL0u8HBrY7Atiuc3f1wDnZRdeW3wl4MOIeroT/uxUgikVH6sD/pBoDy1MXYHFP/HWrSd0zpyu2TU/XdDasCP1SFIJQ7n8LcsSJ+e/JcCIYKdLygSFO3kh6tOqAd5S2KumBYMSrTVbYyy10orXIlrdcrtc1yOczm2ltbgrVkTzh8cl/AhNltLch1vxbjJAWwD2G1DiiZIH8robAHj2M1oPabxeqJYBz8ztBB3RNnEnWFtvXxM/M8TICUwcSuSePHE4LA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(451199018)(38100700002)(38350700002)(5660300002)(8936002)(41300700001)(6916009)(8676002)(66946007)(66556008)(66476007)(4326008)(86362001)(4744005)(2616005)(316002)(478600001)(54906003)(6506007)(6512007)(186003)(26005)(52116002)(6486002)(2906002)(36756003)(83380400001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?LgIz1iK26pzPfMe0WZFACQq7CSf+ALR3AVv9omMySbFo9FXUlQ1f5v7ZsTe+?=
- =?us-ascii?Q?Xy6vokxhaO6Hn0k4vXIEEoF7EKmAzW+pA9vooAZ6t/hCLQIF9W11ZCOMV2AC?=
- =?us-ascii?Q?Kbpbw4CMuh0o/iQiuosaX1Y8n6x9JAr+a+IcTcc/vj6a48E//Opo8UqoZCsD?=
- =?us-ascii?Q?bX3gwJ1REfIxAR3ZL80DRznF52DGWYrFYu6VFJT/57praUpTYJpFqJj2JiAV?=
- =?us-ascii?Q?gwnyM3gSU1aAk+AOnbdanVw79B63nsN6kV48Pi8EuHSeUMqAISlxAfzbWBDz?=
- =?us-ascii?Q?1nLcXEhtl/ebtkDtxjYa6TBgzMz9shCMVJng60Gx88SAK/DUNSgSWHEWMCpr?=
- =?us-ascii?Q?QekzD2JQ9Qd8lVNstIsuk8Q4GuQCWheDOqGsKBKGhoDtIsKy7xKq6qenBpR8?=
- =?us-ascii?Q?OVtFquWjvZhrIVKyNEMF20xShiE0npAtj6QL2iZgI//T1CuzKjvtIWBZQRpg?=
- =?us-ascii?Q?QKbMrb2XjKXaSVKODOlPW2Ft2435ErA+iKbvfUvkxJKg5Jkf9H3U/TmRlKp7?=
- =?us-ascii?Q?k6LgQYoMWosgdTjDn0xcEkFt0dOUxpRAkE8wcvwcv97ljZbYIkNlG6mruPQJ?=
- =?us-ascii?Q?Atw63k2YipaT+2K9tbLvn1JBiJ6FMlTCC+maK93cSUS70lzbAWhNuzlQ6bFr?=
- =?us-ascii?Q?iV2ObfJ49JDJIH51u6oFq8jdlTtSkWUs/8iGdH70I4G7R04U5DSIjNFf8a9g?=
- =?us-ascii?Q?bCx4PyTxSCVpHh6+EZu6gWxhaKRqREEDRmF7DQZzp5bwvrfcwAalwXpJVkE4?=
- =?us-ascii?Q?VJieluTCr12DC+W3/+ftIaRZHxF+m93O5zDmwF1xQbxSREDofIuAf7yiT3CO?=
- =?us-ascii?Q?77w9w7oDLLTEnP29vY/BGycEH3ZcsotUPv0z8jqK7s4Lg9YAUxnA9aNEZucO?=
- =?us-ascii?Q?CBzaRdbbqXdbNkWAdY2y/0vwYIII1j/GsZa+Lru0Ty1Hu2y7F/reD1it5fEL?=
- =?us-ascii?Q?Lrbiyp9y5SP8VqVhCynCxR1the6oQhFD45OWAMQYiX24ECF+Z9t5CEoVWBcS?=
- =?us-ascii?Q?z1INSXZfqxoO0NQYlF8FPNLFo7i9bVK44I1YGnf4PYlMTA13enxKG1ILp1pi?=
- =?us-ascii?Q?n/0Y5jPTNopIXCZp9lEJWYvR63f9rh+kxt0VwNkO+Hvl+Zl0Fl65JF+3Cun1?=
- =?us-ascii?Q?xLGxZ2SaQQupuLMwL/q7e10SqWdBHJpsNq8xsLTwko3otZBGqk00fBUJ1ISU?=
- =?us-ascii?Q?Tx/yXDx04/ndsk858j/q/3AQ1cmKERShu2Z9squj/OyYK5VB5XzRy5DVrIfS?=
- =?us-ascii?Q?I+k2qwDcKrv//6u0wlXWRJPu4gLskbZzf+3LS4g1heOmxWiV/1gPXRr3RzpF?=
- =?us-ascii?Q?oTuf+BGxvaXDEj8/bndl0t5+0IPmGGOh9uSx1kbnkeaBVQ58R5lAKgGGf7Gs?=
- =?us-ascii?Q?SsmJd4NKgTzrKVF4XIhvFZwseVz5rSq42SwPa6dtnACOvMc++UrkT2J1rXhy?=
- =?us-ascii?Q?fIp2liqUFOZBARcWTm3PdJISnZKxJGkZqwejtmqeGBPhCR8myesdReZAHX4X?=
- =?us-ascii?Q?0PN6JiO/5CVUMPPSOe3Wjc+9ISnoi1nibvxvyYyi60H30lys3Mc0wmT+q4mh?=
- =?us-ascii?Q?hlRmkPPzqRguEe88icjt+V6u6eGlkuikGuMAabiyuESI4HBcUC+YRFK+fGjb?=
- =?us-ascii?Q?fiTN/uFXmb0ABAat+cNm9dk=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 9c221d79-5f44-49e8-ecd7-08db0afcea09
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 00:22:37.8549
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- gfgC/Xjf5CepabvqFEJAaE87/xV1U25o8mWeKzp9jFYQrfxRFv6ivSEDDZv7YbVqzcJGNQ8wU+l05oiQPSgAZxc2eaRH75Wv8SjuwrzzoRTVqEqLUVhXBxdhfaIUMmEz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10280
-Message-ID-Hash: QUATWQFZVUVZ3GHBKBPW6OIXNRMYKSCY
-X-Message-ID-Hash: QUATWQFZVUVZ3GHBKBPW6OIXNRMYKSCY
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <dthyo67qd7oj-30ctll-vrg1evnr7efht4ec6d-vumue675livm-arck14-npbh32-o2k9duez9ilsuaqtqxlx8623-kq6ura-pddtnlaydil563o5b0waa3tw-27ybk4y6e3x5-nxupxe-wmtcs3-6w8h10.1675945189061@email.android.com>
+Message-ID-Hash: G74YAOOVXWVSVGJMIZME3YWZTBIZPOAD
+X-Message-ID-Hash: G74YAOOVXWVSVGJMIZME3YWZTBIZPOAD
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
- Linux-DT <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>
+CC: ALSA mail List <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QUATWQFZVUVZ3GHBKBPW6OIXNRMYKSCY/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G74YAOOVXWVSVGJMIZME3YWZTBIZPOAD/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
-Hi Krzysztof
+On Thu, Feb 09, 2023 at 01:19:49PM +0100, M. Armsby wrote:
+> Ok, sorry for pictures.
+> I will try the instructions you gave me in the coming days.
+> The Arch system (manjaro) I'm using is the only one I know that uses a
+> current Kernels and now runs very well with ALSA Firewire.
+> Should I use a better Distro?
 
-> > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > 
-> > There are no compatible for "reg/reg-names" and "clock-name"
-> > between previous R-Car series and R-Car Gen4.
-> > 
-> > "reg/reg-names" needs 3 categorize (for Gen1, for Gen2/Gen3, for Gen4),
-> > therefore, use 3 if-then to avoid nested if-then-else.
-> > 
-> > Move "clock-name" property to under allOf to use if-then-else.
-(snip)
-> > -  clock-names:
-> > -    description: List of necessary clock names.
-> > -    minItems: 1
-> > -    maxItems: 31
-> 
-> No improvements here. Your argument that you need to remove it to
-> customize is not correct.
+ALSA firewire-motu driver has no changes since v5.19 kernel. In theory,
+you are free to select which version of kernel as long as using the later
+version. Therefore, when selecting Linux distribution, you should take
+care of the other items, at least:
 
-???
+ * Preferred version of software is provided; e.g. Ardour
+ * Easy access to information about development environment
 
-	Move "clock-name" property to under allOf to use if-then-else.
-	^^^^
+When building linux-firewire-utils, you need to install GNU Compiler
+Collection and GNU Autotools. I think they are available by package
+manager even if using Arch Linux or derivative distributions, however
+I have never used them. If you find information about them in Arch Wiki
+or somewhere, you try to continue using it.
 
-"move", not "remove".
+> Indeed, it is inconvenient in the view of user. But let us focus on how
+> to support MOTU 896 mk3 hybrid at present, since the issue includes many
+> technical topics; each application, drivers in kernel, libraries, and
+> interface between them.
+>
+>> See Pictures taken from Reaper in Windows 10
+>
+> Would I ask you to avoid attaching pictures to open mailing list?
+> The message with many files is easily judged as spam message.
 
-Thank you for your help !!
+Additionally, HTML message is not favourable, since it is used for the
+typical spam message.
 
-Best regards
----
-Kuninori Morimoto
+
+Regards
+
+Takashi Sakamoto

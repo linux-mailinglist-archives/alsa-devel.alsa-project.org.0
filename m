@@ -2,88 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B6B6997EF
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:53:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C466997F4
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:54:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4BCFEB3;
-	Thu, 16 Feb 2023 15:52:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BCFEB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73E24EBD;
+	Thu, 16 Feb 2023 15:53:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73E24EBD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676559224;
-	bh=VLveq/1QuSpfLPcElWNQdpg/fE9ibKjW1yqVE49W7s4=;
+	s=default; t=1676559275;
+	bh=z8ZNE2ZtxjwVyZAbmSngctbfHv+T3MuUcnCHbXnwl3A=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZNbLTiTzo8ypnDFIGQhDldEig2XUw5gjb9b0zI/lhQEMID3ajCqcVqZwDsgaitnUI
-	 hRIBIjaPSbRcB0OkCMqEzepJhbOSnU+Kvafb3wUAZ5Yw+ecB6FyhZJTOJQFwK9i4gd
-	 TD/qJmPcjWNUV81KIJO5BCXKMghlzRBNNA+HVIIk=
+	b=JTocvN+xp7+alg0MVuJadCc5Xt4Bx/e8seyXl9hRtDkvNwC4FU4GSIRHq6rOSO3rQ
+	 ra3NGJN8DO4EkLxACdZN2u13eiDC2WRqmXFsCJWHVDeVYzxa4dfYg+sqgSkA4dOAT/
+	 /pz/qsaRxP10Ry0cNVAxb/0LYe6BFSA+UQU4hufg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD141F800E4;
-	Thu, 16 Feb 2023 15:52:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9060EF80496;
+	Thu, 16 Feb 2023 15:52:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BDFBF800E4; Thu,  9 Feb 2023 13:17:55 +0100 (CET)
+	id B5A01F8021D; Fri, 10 Feb 2023 05:50:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by alsa1.perex.cz (Postfix) with SMTP id 28F7CF80027
-	for <alsa-devel@alsa-project.org>; Thu,  9 Feb 2023 13:17:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28F7CF80027
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with SMTP id AQAAfwA33O_D5ORjhcs9Bg--.16476S2;
-	Thu, 09 Feb 2023 20:19:15 +0800 (CST)
-Received: from phytium.com.cn (unknown [218.68.211.205])
-	by mail (Coremail) with SMTP id AQAAfwDH1CFi5ORj8mgRAA--.4393S3;
-	Thu, 09 Feb 2023 20:17:43 +0800 (CST)
-From: Zhang Yiqun <zhangyiqun@phytium.com.cn>
-To: cezary.rojewski@intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	kuninori.morimoto.gx@renesas.com,
-	ckeepax@opensource.cirrus.com
-Subject: [PATCH] ALSA: hda: remove redundant variable in
- snd_hdac_stream_start()
-Date: Thu,  9 Feb 2023 20:17:23 +0800
-Message-Id: <20230209121723.14328-1-zhangyiqun@phytium.com.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: AQAAfwDH1CFi5ORj8mgRAA--.4393S3
-X-CM-SenderInfo: x2kd0wp1lt30o6sk53xlxphulrpou0/
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=zhangyiqun
-	@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoWxKw4rGF4kXF4xJw47ZF1rXrb_yoW7ArWrpw
-	4kZa4rKFW3tF10vF4UGw15KF17KF1kKasxtry5t348Aw4UJr1FqFyjkryxZryFkry5Wr9x
-	Z3W2y34UGw43WFDanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
-X-MailFrom: zhangyiqun@phytium.com.cn
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12850F80086
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 05:50:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12850F80086
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=XbfKMKai
+Received: by mail-pf1-x433.google.com with SMTP id b1so2771232pft.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 09 Feb 2023 20:50:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fmf+C+18uqHbrtjkcU8WtNHqdNX45uutvQ0nNnjGiio=;
+        b=XbfKMKaiygftk+3FCoymQo0fjqqta8on7sN0Tah7vrlnRm06+fFEvNRRQkpxFgCYwk
+         aN+aNZv4f8RmuYDwfAtZg4d5wCmLNGDYrulxaErNYDhjqqLH9ENZBQsHO64XNdBmVUca
+         cG+4wwUPHIKnkLVQNVYyKX9BbTvA+VfTM3u2fh3UJAmhwFfQAWz+5qHkXOwdUfXU2d5D
+         4ttDFUw+l+tQczr0v5GaMxLcqn+qbyUnx3AOexAQ21SeCVzuZQy2cPblGNgPFGr+Ll0V
+         gv9aUSgaje+b9bxNqFb9rTehY/PwX9tnnQVvWUZNKJth4bqSm0POQGhuLB+hwe+F1Qgb
+         mxaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fmf+C+18uqHbrtjkcU8WtNHqdNX45uutvQ0nNnjGiio=;
+        b=mbKMJSHayZIB7P+jWsh0sCYDbUJu1vOZcbR0En2h2bV2EIxyp5QxSJP5sp/2AoFFf3
+         U1CJ3OZwtmIQEoFgwg9uwYLLzghvLn9qWTTSIZvdsvVckWJ5NWzt3XstdXWnBRv844s1
+         ZHHcAjGNCVFM/0nzWj369XnX8zaK3HkzekJTWDuThiXapFFPL4X6RVz1hPPYXEWgE3nt
+         ccDvSAzwV3YmYWnkpOOfji8m+ALG21+WhDHDwxhr3zG116TTiRRX7nUt+WjN20dD6VWp
+         3CyjLXm8LsD6P3pvyrJvZZ9ozjUJ4KphTPJOcauehLUoD7W4d+TjDRzIIhRgyNbgHCr/
+         R0CA==
+X-Gm-Message-State: AO0yUKWqb9iF/RFP/slrmEddctxH11UXPP7WxxeD0RZsSHVGQgDwWsZX
+	YAu8tp+coYaGz/+eR9585Jc=
+X-Google-Smtp-Source: 
+ AK7set84McKVzgWzKB8PF4jKgFcuYCiQmlSa+pybg0QvHszf1ptNzpEuIbQiERcJYVwtm+ogtuqE6Q==
+X-Received: by 2002:a62:64d1:0:b0:5a8:6463:8f77 with SMTP id
+ y200-20020a6264d1000000b005a864638f77mr2587105pfb.11.1676004599534;
+        Thu, 09 Feb 2023 20:49:59 -0800 (PST)
+Received: from localhost.localdomain ([202.53.32.211])
+        by smtp.gmail.com with ESMTPSA id
+ t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.49.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Feb 2023 20:49:59 -0800 (PST)
+From: Orlando Chamberlain <orlandoch.dev@gmail.com>
+To: platform-driver-x86@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [RFC PATCH 0/9] apple-gmux: support MMIO gmux type on T2 Macs
+Date: Fri, 10 Feb 2023 15:48:17 +1100
+Message-Id: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MailFrom: orlandoch.dev@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OBJLFIXSEVSJIZE4LPJXQY365HI7YVIA
-X-Message-ID-Hash: OBJLFIXSEVSJIZE4LPJXQY365HI7YVIA
+Message-ID-Hash: B4ERAELS5C5HMBRKQWB2TGZNY6REWKOD
+X-Message-ID-Hash: B4ERAELS5C5HMBRKQWB2TGZNY6REWKOD
 X-Mailman-Approved-At: Thu, 16 Feb 2023 14:52:48 +0000
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Zhang Yiqun <zhangyiqun@phytium.com.cn>
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Gross <markgross@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Kerem Karabay <kekrby@gmail.com>,
+ Aditya Garg <gargaditya08@live.com>, Aun-Ali Zaidi <admin@kodeit.net>,
+ Orlando Chamberlain <orlandoch.dev@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBJLFIXSEVSJIZE4LPJXQY365HI7YVIA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4ERAELS5C5HMBRKQWB2TGZNY6REWKOD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,128 +134,146 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This 2nd variables are all set as true in treewide. So I think
-it can be removed for easy understanding.
+Hi All,
 
-Signed-off-by: Zhang Yiqun <zhangyiqun@phytium.com.cn>
----
- include/sound/hdaudio.h           | 2 +-
- sound/hda/hdac_stream.c           | 7 ++-----
- sound/pci/hda/hda_controller.c    | 2 +-
- sound/soc/intel/avs/pcm.c         | 2 +-
- sound/soc/intel/avs/probes.c      | 2 +-
- sound/soc/intel/skylake/skl-pcm.c | 4 ++--
- 6 files changed, 8 insertions(+), 11 deletions(-)
+This patch series adds support for the MMIO based gmux present on these
+Dual GPU Apple T2 Macs: MacBookPro15,1, MacBookPro15,3, MacBookPro16,1,
+MacBookPro16,4 (although amdgpu isn't working on MacBookPro16,4 [1]).
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index a6872537724d..536612c6ab0c 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -575,7 +575,7 @@ void snd_hdac_stream_cleanup(struct hdac_stream *azx_dev);
- int snd_hdac_stream_setup_periods(struct hdac_stream *azx_dev);
- int snd_hdac_stream_set_params(struct hdac_stream *azx_dev,
- 				unsigned int format_val);
--void snd_hdac_stream_start(struct hdac_stream *azx_dev, bool fresh_start);
-+void snd_hdac_stream_start(struct hdac_stream *azx_dev);
- void snd_hdac_stream_stop(struct hdac_stream *azx_dev);
- void snd_hdac_stop_streams(struct hdac_bus *bus);
- void snd_hdac_stop_streams_and_chip(struct hdac_bus *bus);
-diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-index 547adbc22590..1f56fd33b9af 100644
---- a/sound/hda/hdac_stream.c
-+++ b/sound/hda/hdac_stream.c
-@@ -124,11 +124,10 @@ EXPORT_SYMBOL_GPL(snd_hdac_stream_init);
- /**
-  * snd_hdac_stream_start - start a stream
-  * @azx_dev: HD-audio core stream to start
-- * @fresh_start: false = wallclock timestamp relative to period wallclock
-  *
-  * Start a stream, set start_wallclk and set the running flag.
-  */
--void snd_hdac_stream_start(struct hdac_stream *azx_dev, bool fresh_start)
-+void snd_hdac_stream_start(struct hdac_stream *azx_dev)
- {
- 	struct hdac_bus *bus = azx_dev->bus;
- 	int stripe_ctl;
-@@ -136,8 +135,6 @@ void snd_hdac_stream_start(struct hdac_stream *azx_dev, bool fresh_start)
- 	trace_snd_hdac_stream_start(bus, azx_dev);
- 
- 	azx_dev->start_wallclk = snd_hdac_chip_readl(bus, WALLCLK);
--	if (!fresh_start)
--		azx_dev->start_wallclk -= azx_dev->period_wallclk;
- 
- 	/* enable SIE */
- 	snd_hdac_chip_updatel(bus, INTCTL,
-@@ -966,7 +963,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_dsp_prepare);
- void snd_hdac_dsp_trigger(struct hdac_stream *azx_dev, bool start)
- {
- 	if (start)
--		snd_hdac_stream_start(azx_dev, true);
-+		snd_hdac_stream_start(azx_dev);
- 	else
- 		snd_hdac_stream_stop(azx_dev);
- }
-diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
-index 0ff286b7b66b..c19d45618a09 100644
---- a/sound/pci/hda/hda_controller.c
-+++ b/sound/pci/hda/hda_controller.c
-@@ -257,7 +257,7 @@ static int azx_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 		azx_dev = get_azx_dev(s);
- 		if (start) {
- 			azx_dev->insufficient = 1;
--			snd_hdac_stream_start(azx_stream(azx_dev), true);
-+			snd_hdac_stream_start(azx_stream(azx_dev));
- 		} else {
- 			snd_hdac_stream_stop(azx_stream(azx_dev));
- 		}
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index f930c5e86a84..b673b84ead32 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -647,7 +647,7 @@ static int avs_dai_fe_trigger(struct snd_pcm_substream *substream, int cmd, stru
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		spin_lock_irqsave(&bus->reg_lock, flags);
--		snd_hdac_stream_start(hdac_stream(host_stream), true);
-+		snd_hdac_stream_start(hdac_stream(host_stream));
- 		spin_unlock_irqrestore(&bus->reg_lock, flags);
- 
- 		/* Timeout on DRSM poll shall not stop the resume so ignore the result. */
-diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
-index 29d63f2a9616..741565c6465a 100644
---- a/sound/soc/intel/avs/probes.c
-+++ b/sound/soc/intel/avs/probes.c
-@@ -190,7 +190,7 @@ static int avs_probe_compr_trigger(struct snd_compr_stream *cstream, int cmd,
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 		spin_lock_irqsave(&bus->reg_lock, cookie);
--		snd_hdac_stream_start(hdac_stream(host_stream), true);
-+		snd_hdac_stream_start(hdac_stream(host_stream));
- 		spin_unlock_irqrestore(&bus->reg_lock, cookie);
- 		break;
- 
-diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index dc627d18518d..a4209d88b0c6 100644
---- a/sound/soc/intel/skylake/skl-pcm.c
-+++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -449,7 +449,7 @@ static int skl_decoupled_trigger(struct snd_pcm_substream *substream,
- 	spin_lock_irqsave(&bus->reg_lock, cookie);
- 
- 	if (start) {
--		snd_hdac_stream_start(hdac_stream(stream), true);
-+		snd_hdac_stream_start(hdac_stream(stream));
- 		snd_hdac_stream_timecounter_init(hstr, 0);
- 	} else {
- 		snd_hdac_stream_stop(hdac_stream(stream));
-@@ -1134,7 +1134,7 @@ static int skl_coupled_trigger(struct snd_pcm_substream *substream,
- 			continue;
- 		stream = get_hdac_ext_stream(s);
- 		if (start)
--			snd_hdac_stream_start(hdac_stream(stream), true);
-+			snd_hdac_stream_start(hdac_stream(stream));
- 		else
- 			snd_hdac_stream_stop(hdac_stream(stream));
- 	}
+It's only been tested by people on T2 Macs with MMIO based gmux's using
+t2linux [2] kernels, but some changes may impact older port io and indexed
+gmux's so testing, especially on those older Macbooks, would be
+appreciated.
+
+# 1-2:
+
+refactor code to make it easier to add the 3rd gmux type.
+
+# 3:
+
+has a slight change in how the switch state is read, I don't
+expect this to cause issues for older models (but still, please test if
+you have one!)
+
+# 4:
+
+implements a system to support more than 2 gmux types
+
+# 5:
+
+start using the gmux's GMSP acpi method when handling interrupts. This
+is needed for the MMIO gmux's, and its present in the acpi tables of some
+indexed gmux's I could find so hopefully enabling this for all models
+will be fine, but if not it can be only used on MMIO gmux's.
+
+# 6:
+
+Adds support for the MMIO based gmux on T2 macs.
+
+# 7:
+
+Add a sysfs interface to apple-gmux so data from ports can be read
+from userspace, and written to if the user enables an unsafe kernel
+parameter.
+
+This can be used for more easily researching what unknown ports do,
+and switching gpus when vga_switcheroo isn't ready (e.g. when one gpu
+is bound to vfio-pci and in use by a Windows VM, I can use this to
+switch my internal display between Linux and Windows easily).
+
+# 8-9:
+
+These patches make amdgpu and snd_hda_intel register with vga_switcheroo
+on Macbooks. I would like advice from the AMD folks on how they want
+this to work, so that both PX and apple-gmux laptops work properly.
+
+For radeon and nouveau we just register for every non-thunderbolt
+device, but this was changed for AMD cards in commit 3840c5bcc245
+("drm/amdgpu: disentangle runtime pm and vga_switcheroo") and commit
+586bc4aab878 ("ALSA: hda/hdmi - fix vgaswitcheroo detection for AMD").
+
+This meant that only gpu's with PX register. Commit #8 makes amdgpu
+register for all non-thinderbolt cards, and commit #9 makes snd_hda_intel
+register for all amd cards with the PWRD (mentioned below) acpi method.
+An alternative would be using apple-gmux-detect(), but that won't work
+after apple-gmux has probed and claimed its memory resources.
+
+# Issues:
+
+1. Switching gpus at runtime has the same issue as indexed gmux's: the
+inactive gpu can't probe the DDC lines for eDP [3]
+
+2. Powering on the amdgpu with vga_switcheroo doesn't work well. I'm
+told on the MacBookPro15,1 it works sometimes, and adding delays helps,
+but on my MacBookPro16,1 I haven't been able to get it to work at all:
+
+snd_hda_intel 0000:03:00.1: Disabling via vga_switcheroo
+snd_hda_intel 0000:03:00.1: Cannot lock devices!
+amdgpu: switched off
+amdgpu: switched on
+amdgpu 0000:03:00.0:
+	Unable to change power state from D3hot to D0, device inaccessible
+amdgpu 0000:03:00.0:
+	Unable to change power state from D3cold to D0, device inaccessible
+[drm] PCIE GART of 512M enabled (table at 0x00000080FEE00000).
+[drm] PSP is resuming...
+[drm:psp_hw_start [amdgpu]] *ERROR* PSP create ring failed!
+[drm:psp_resume [amdgpu]] *ERROR* PSP resume failed
+[drm:amdgpu_device_fw_loading [amdgpu]]
+	*ERROR* resume of IP block <psp> failed -62
+amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_resume failed (-62).
+snd_hda_intel 0000:03:00.1: Enabling via vga_switcheroo
+snd_hda_intel 0000:03:00.1:
+	Unable to change power state from D3cold to D0, device inaccessible
+snd_hda_intel 0000:03:00.1: CORB reset timeout#2, CORBRP = 65535
+snd_hda_codec_hdmi hdaudioC0D0: Unable to sync register 0x2f0d00. -5
+
+There are some acpi methods (PWRD, PWG1 [4, 5]) that macOS calls when
+changing the amdgpu's power state, but we don't use them and that could be
+a cause. Additionally unlike previous generation Macbooks which work
+better, on MacBookPro16,1 the gpu is located behind 2 pci bridges:
+
+01:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+	Navi 10 XL Upstream Port of PCI Express Switch (rev 43)
+02:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+	Navi 10 XL Downstream Port of PCI Express Switch
+03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+	Navi 14 [Radeon RX 5500/5500M / Pro 5500M] (rev 43)
+03:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI]
+	Navi 10 HDMI Audio
+
+Upon attempting to power on the gpu with vga_switcheroo, all these
+devices except 01:00.0 have their config space in `lspci -x` filled with
+0xff. `echo 1 > /sys/bus/pci/rescan` fixes that and the dmesg errors about
+changing power state, but "PSP create ring failed" still happens, and
+the gpu doesn't resume properly.
+
+[1]: https://lore.kernel.org/all/3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com/
+[2]: https://t2linux.org
+[3]: https://lore.kernel.org/all/9eed8ede6f15a254ad578e783b050e1c585d5a15.1439288957.git.lukas@wunner.de/
+[4]: https://gist.github.com/Redecorating/6c7136b7a4ac7ce3b77d8e41740dd87b
+[5]: https://lore.kernel.org/all/20120710160555.GA31562@srcf.ucam.org/
+
+Kerem Karabay (1):
+  drm/amdgpu: register a vga_switcheroo client for all GPUs that are not
+    thunderbolt attached
+
+Orlando Chamberlain (8):
+  apple-gmux: use cpu_to_be32 instead of manual reorder
+  apple-gmux: consolidate version reading
+  apple-gmux: use first bit to check switch state
+  apple-gmux: refactor gmux types
+  apple-gmux: Use GMSP acpi method for interrupt clear
+  apple-gmux: support MMIO gmux on T2 Macs
+  apple-gmux: add sysfs interface
+  hda/hdmi: Register with vga_switcheroo on Dual GPU Macbooks
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  18 +-
+ drivers/platform/x86/apple-gmux.c          | 416 +++++++++++++++++----
+ include/linux/apple-gmux.h                 |  50 ++-
+ sound/pci/hda/hda_intel.c                  |  19 +-
+ 4 files changed, 409 insertions(+), 94 deletions(-)
+
 -- 
-2.17.1
+2.39.1
 

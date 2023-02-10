@@ -2,114 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF0F3691AEF
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:11:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D9C1691B25
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:21:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0870E82C;
-	Fri, 10 Feb 2023 10:10:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0870E82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0D54A4A;
+	Fri, 10 Feb 2023 10:20:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0D54A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676020304;
-	bh=mdlPzHnlq16VcDPPK/DmbMNssybY7JdKRYpdnncSrmA=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gGC9V2rMAU8h8iob5ep3Gj6yyMsbsMuOTQy1R0vNVQtI2MO7mv6UvSaPNkiyqylSW
-	 KcJyOkBCHRc6xrqjpYTqvKlR6nnReoxCH2geQ8OH7ZY3bQK0xPjR9pIfSXTzVhPAxz
-	 T7UwVjb0MWj2XiIJZRs9Jd7cXAgszfGPzSh/N8Gc=
+	s=default; t=1676020903;
+	bh=bcTEB5behk+3CjFXvFCGBI3SS/+zk38IRBQan1mcZck=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=pJnuQsygRc/9ATeqFr9IbBIxBCqa9fWamCPBnXnINsxQSmYKrPgmY1219Wz3bxAnx
+	 x1QW5jfamznKNOy29NnMal5BCJD9C5a5eLuH35rWg2QFkuTGgq2UQ+WOfRrHmTnSp1
+	 FxPI0pJTtUpa5zKFJ4V46+nDA3vM/KDMTbdMgbZg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03CC9F80094;
-	Fri, 10 Feb 2023 10:10:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1D60F80529;
+	Fri, 10 Feb 2023 10:20:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57228F800E4; Fri, 10 Feb 2023 10:10:49 +0100 (CET)
+	id BBEE4F800E4; Fri, 10 Feb 2023 10:19:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC74EF80094
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:10:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC74EF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6EDEEF8001E
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:19:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EDEEF8001E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Zk2QgIaC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=TVcoP6/Y
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=IGKmteq2
+Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
+ [82.11.51.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 20BFB3FBE7;
-	Fri, 10 Feb 2023 09:10:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1676020241;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IF9tt9i6pRkjAdiKbukDmKj4BSuH9YjD5pGYMZ5t3hE=;
-	b=Zk2QgIaClHkiHVYi+SlaqluM1tUB+mmyTO3ySICBd41ad7PTin7ofyXiu1W13rzUBpAqQ6
-	teQIWb8NsfuATS0iI7uDQHB1vmHiK0f2q5bJRAuPIxEt5I3gErHE6VWTGZkHLQEC+GRA5G
-	zAMpWZXWjAe75nEWRAw7pPQgbId7im4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676020241;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IF9tt9i6pRkjAdiKbukDmKj4BSuH9YjD5pGYMZ5t3hE=;
-	b=TVcoP6/Y/30UqsEpANRRPaBxbBAC8eDQ9nEl3StAzkQqlsZSoCbg4wkDu/KMBa/LVWuAIL
-	eFXRyoUuELk2p+CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F103813588;
-	Fri, 10 Feb 2023 09:10:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id up08OhAK5mM3IQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 10 Feb 2023 09:10:40 +0000
-Date: Fri, 10 Feb 2023 10:10:40 +0100
-Message-ID: <87v8k9j373.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v1 1/3] ALSA: hda/cs35l41: Fix error condition check
-In-Reply-To: <20230209160403.838326-2-sbinding@opensource.cirrus.com>
-References: <20230209160403.838326-1-sbinding@opensource.cirrus.com>
-	<20230209160403.838326-2-sbinding@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4WES5PWNUFMURCESFIR4QI4IRVJRKKVS
-X-Message-ID-Hash: 4WES5PWNUFMURCESFIR4QI4IRVJRKKVS
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: tanureal)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 1E1D766020E1;
+	Fri, 10 Feb 2023 09:19:46 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1676020786;
+	bh=bcTEB5behk+3CjFXvFCGBI3SS/+zk38IRBQan1mcZck=;
+	h=From:To:Cc:Subject:Date:From;
+	b=IGKmteq2Wdd2d34t/OeHy23Ubr4WFmME7/qtFxYKJs6SAEpFqqylgDVbWhy+Dhiki
+	 KbckeAdPuYkM3Rx5nOi8Pii3iuserGBrALwnu7KNR5pvlA0nu9UvZ4LouMqhimwHGN
+	 B3TTqfXWuyBcmCfCFETGdLB8hXPAfsWpiRqRgQpXa/zBuMOMXcM2WPRTnaN317GA+m
+	 BixWoFLIV1Ej8wSJmw51vGmISPxfedJmAO3vmMgBwEBkB6tcJpu5k7pDkPMvUOl6is
+	 LBnpZAKZ7S4UEEDp2KpEaf1TLQ/2JTmgTajb+OtwJCoUJCBdU/iIECcaXcKcSI0WfK
+	 I+YaqTAAS0r3w==
+From: Lucas Tanure <lucas.tanure@collabora.com>
+To: David Rhodes <david.rhodes@cirrus.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v5 0/4] Add CS35L41 shared boost feature
+Date: Fri, 10 Feb 2023 09:19:38 +0000
+Message-Id: <20230210091942.10866-1-lucas.tanure@collabora.com>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LUSXAQ3DQE2EUTMS6XBLIN6CTSRMRG5Z
+X-Message-ID-Hash: LUSXAQ3DQE2EUTMS6XBLIN6CTSRMRG5Z
+X-MailFrom: lucas.tanure@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, Lucas Tanure <lucas.tanure@collabora.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WES5PWNUFMURCESFIR4QI4IRVJRKKVS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LUSXAQ3DQE2EUTMS6XBLIN6CTSRMRG5Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,26 +101,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 09 Feb 2023 17:04:01 +0100,
-Stefan Binding wrote:
-> 
-> From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> 
-> Function hda_cs_dsp_write_ctl() returns 3 possible values:
-> 0 - no change, 1 - value has changed and -1 - error, so value 1
-> is not an error.
-> 
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Valve's Steam Deck uses CS35L41 in shared boost mode, where both speakers
+share the boost circuit.
+Add this support in the shared lib, but for now, shared boost is not
+supported in HDA systems as would require BIOS changes.
 
-When you submit a patch, you must add your Signed-off-by line.
+Based on David Rhodes shared boost patches.
 
-Also, this looks like no new bug, so it's worth to add Fixes tag, if
-any?  (Not only about this patch but others, too.)
+Also, fix boost config overwriting in IRQ found in the review and do a
+small refactor of the code.
 
-Last but not least, please make the subject prefix consistent over the
-patch series.
+Changes from V4:
+ - Fix Document subject
 
+Changes from V3:
+ - Fix wrong code sent
+ - Fix ISO C90 mixed declarations and code 
 
-thanks,
+Changes from V2:
+ - Drop External boost without VSPK Documentation
+ - Move Shared boost to use values 2 and 3
+ - Revert back to reg_sequence but reading the value first and only update
+the necessary bits
+ - Fix bug found by Intel kernel Test Robot
 
-Takashi
+Changes from V1:
+ - Fix Documentation patch subject
+ - New patch for External boost without VSPK Documentation
+ - New patch to fix boost IRQ overwriting issue
+ - New patch to refactor IRQ release error code
+ - reinit_completion on pcm_startup
+ - fix DRE switch overwriting
+ - return IRQ_HANDLED in PLL_LOCK case
+
+Lucas Tanure (4):
+  ASoC: cs35l41: Only disable internal boost
+  ASoC: cs35l41: Refactor error release code
+  ALSA: cs35l41: Add shared boost feature
+  ASoC: dt-bindings: cirrus,cs35l41: Document CS35l41 shared boost
+
+ .../bindings/sound/cirrus,cs35l41.yaml        |  10 +-
+ include/sound/cs35l41.h                       |  13 +-
+ sound/pci/hda/cs35l41_hda.c                   |   6 +-
+ sound/soc/codecs/cs35l41-lib.c                |  73 +++++++++-
+ sound/soc/codecs/cs35l41.c                    | 125 +++++++++---------
+ sound/soc/codecs/cs35l41.h                    |   1 +
+ 6 files changed, 157 insertions(+), 71 deletions(-)
+
+-- 
+2.39.1
+

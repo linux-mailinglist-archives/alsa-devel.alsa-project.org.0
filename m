@@ -2,129 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019E2692A88
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 23:50:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36E08692A97
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 23:53:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F334839;
-	Fri, 10 Feb 2023 23:49:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F334839
+	by alsa0.perex.cz (Postfix) with ESMTPS id C957B839;
+	Fri, 10 Feb 2023 23:52:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C957B839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676069436;
-	bh=7c2D7bXv5MD9HYihT/XnlsUtJmsyxIBfrcmhgd/GOtg=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1676069626;
+	bh=ayJBEioHFUluc/usiOZrVRNY5GhRfOIHPhXyho/CY9A=;
+	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WaKgEPj0pZrjrkwmoghW66o+9x8qafD4cn1FTJqIpsQUXhSKISNqbCW1NcjHgT2Xq
-	 l8CmMzyBk99hXLK+XNfRnI+W0Zn0F/5wMKhy3dZUFVZdiV9SPGf1jBbi2jyqljfLAE
-	 k0C8mrmo1BeipA7rKrCGMUCrsbu3+uv8yUGn8qyc=
+	b=jVRI4jUBmozXf4nIWoc+Ad1eMFMPoplTVuxGR2xxp0P5uhvpUxAdor6lZISFVIfL/
+	 4a9OpDQsB6ZzLrrF31ZkFcu7XJg56D+cJrFTp5XULD2qt36eFtUXT2+/NNI2ECVe6G
+	 wajGaDxda7wC8pV8YZNzcVDsY+FDTEbyuZIxfj3E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 865F6F800B8;
-	Fri, 10 Feb 2023 23:49:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B94BF800B8;
+	Fri, 10 Feb 2023 23:52:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 354A2F800E4; Fri, 10 Feb 2023 23:49:42 +0100 (CET)
+	id 29F18F800E4; Fri, 10 Feb 2023 23:52:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08F93F8001E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 23:49:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08F93F8001E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=iVT51v3M
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31AKPovC017965;
-	Fri, 10 Feb 2023 22:49:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=h/mAMXh5kCQ0g0Z52GBqF6hgV9P8cj6Rm/BSDQE6EcI=;
- b=iVT51v3MpI7xwvFkLZ7xjf/UAguX6WRR1W6VobLi8lW4kI5d6s/TIi31B32T9CYH/c1+
- hzrolbNQQxBfnOJg2QzsZzuOSMsWeRNwG6GLGatW3BC4mqO638k+nTQXvo/HIU+sYYLI
- RB7Fj7lUGiw9lrCd2MHSHErQsu+gUU6EG4vApH04Ecklk/r9hSJJ+vaXMvexr0uzObSn
- G2raS7muJ3+BOsroTZKWyn5IprOSfrNX1o45ZtYkv4ff7EUpA6UbPPCaHjELFyFPMmoy
- vZ9TlJJFG447zpyJzfpsELgFyjgQhOQhp/fPULPKzELM6PvUHfB2J0S5qsS7tGtNa3Cb BQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3nndu5ac2c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 10 Feb 2023 22:49:37 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 31AMna0V032756
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 10 Feb 2023 22:49:36 GMT
-Received: from [10.110.21.35] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Fri, 10 Feb
- 2023 14:49:35 -0800
-Message-ID: <2c062ab0-905c-f1fe-eca2-02e23cc9fa6f@quicinc.com>
-Date: Fri, 10 Feb 2023 14:49:35 -0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA77AF8001E
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 23:52:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA77AF8001E
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-322-_dDriQfgMmGpxT3zQV6kYQ-1; Fri, 10 Feb 2023 22:52:43 +0000
+X-MC-Unique: _dDriQfgMmGpxT3zQV6kYQ-1
+Received: from AcuMS.Aculab.com (10.202.163.6) by AcuMS.aculab.com
+ (10.202.163.6) with Microsoft SMTP Server (TLS) id 15.0.1497.45; Fri, 10 Feb
+ 2023 22:52:41 +0000
+Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
+ id 15.00.1497.045; Fri, 10 Feb 2023 22:52:41 +0000
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Hans de Goede' <hdegoede@redhat.com>, Orlando Chamberlain
+	<orlandoch.dev@gmail.com>, "platform-driver-x86@vger.kernel.org"
+	<platform-driver-x86@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
+	<amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+Subject: RE: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual
+ reorder
+Thread-Topic: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual
+ reorder
+Thread-Index: AQHZPYayA1ivfjGBOEq1WtvynnRGNq7IyMig
+Date: Fri, 10 Feb 2023 22:52:41 +0000
+Message-ID: <6d733fa367e24462bf679b59e790ba4b@AcuMS.aculab.com>
+References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+ <20230210044826.9834-2-orlandoch.dev@gmail.com>
+ <3af65b5e-1f52-79f6-4130-03901ce76d2f@redhat.com>
+ <990b254c-b55f-539d-d6b5-fa4499078527@redhat.com>
+In-Reply-To: <990b254c-b55f-539d-d6b5-fa4499078527@redhat.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RFC PATCH v2 12/22] sound: usb: card: Introduce USB SND platform
- op callbacks
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
 Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-13-quic_wcheng@quicinc.com>
- <Y9Ui82OaI54Qx8Ft@kroah.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <Y9Ui82OaI54Qx8Ft@kroah.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: oGpCI2pZrg6hVncDv50aU6L1diE3-Q0s
-X-Proofpoint-GUID: oGpCI2pZrg6hVncDv50aU6L1diE3-Q0s
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-10_15,2023-02-09_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0
- phishscore=0 mlxlogscore=993 clxscore=1015 malwarescore=0 suspectscore=0
- impostorscore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302100195
-Message-ID-Hash: RMOD7DZOJWQ3K6WNB4QXZCM6KYRQ6OSO
-X-Message-ID-Hash: RMOD7DZOJWQ3K6WNB4QXZCM6KYRQ6OSO
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+Message-ID-Hash: N643PO2SET4WASPK2FE7U3UHDRYQACUF
+X-Message-ID-Hash: N643PO2SET4WASPK2FE7U3UHDRYQACUF
+X-MailFrom: david.laight@aculab.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: srinivas.kandagatla@linaro.org, mathias.nyman@intel.com,
- lgirdwood@gmail.com, andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Mark Gross <markgross@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ =?utf-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>, Yong Zhi <yong.zhi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Kerem Karabay <kekrby@gmail.com>,
+ Aditya Garg <gargaditya08@live.com>, Aun-Ali Zaidi <admin@kodeit.net>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RMOD7DZOJWQ3K6WNB4QXZCM6KYRQ6OSO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N643PO2SET4WASPK2FE7U3UHDRYQACUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,62 +119,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Greg,
+RnJvbTogSGFucyBkZSBHb2VkZQ0KPiBTZW50OiAxMCBGZWJydWFyeSAyMDIzIDE5OjMzDQo+IA0K
+PiBIaSwNCj4gDQo+IE9uIDIvMTAvMjMgMjA6MDksIEhhbnMgZGUgR29lZGUgd3JvdGU6DQo+ID4g
+SGksDQo+ID4NCj4gPiBPbiAyLzEwLzIzIDA1OjQ4LCBPcmxhbmRvIENoYW1iZXJsYWluIHdyb3Rl
+Og0KPiA+PiBDdXJyZW50bHkgaXQgbWFudWFsbHkgZmxpcHMgdGhlIGJ5dGUgb3JkZXIsIGJ1dCB3
+ZSBjYW4gaW5zdGVhZCB1c2UNCj4gPj4gY3B1X3RvX2JlMzIodmFsKSBmb3IgdGhpcy4NCj4gPj4N
+Cj4gPj4gU2lnbmVkLW9mZi1ieTogT3JsYW5kbyBDaGFtYmVybGFpbiA8b3JsYW5kb2NoLmRldkBn
+bWFpbC5jb20+DQo+ID4+IC0tLQ0KPiA+PiAgZHJpdmVycy9wbGF0Zm9ybS94ODYvYXBwbGUtZ211
+eC5jIHwgMTggKystLS0tLS0tLS0tLS0tLS0tDQo+ID4+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
+cnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkNCj4gPj4NCj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvcGxhdGZvcm0veDg2L2FwcGxlLWdtdXguYyBiL2RyaXZlcnMvcGxhdGZvcm0veDg2L2FwcGxl
+LWdtdXguYw0KPiA+PiBpbmRleCA5MzMzZjgyY2ZhOGEuLmU4Y2IwODRjYjgxZiAxMDA2NDQNCj4g
+Pj4gLS0tIGEvZHJpdmVycy9wbGF0Zm9ybS94ODYvYXBwbGUtZ211eC5jDQo+ID4+ICsrKyBiL2Ry
+aXZlcnMvcGxhdGZvcm0veDg2L2FwcGxlLWdtdXguYw0KPiA+PiBAQCAtOTQsMTMgKzk0LDcgQEAg
+c3RhdGljIHUzMiBnbXV4X3Bpb19yZWFkMzIoc3RydWN0IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9k
+YXRhLCBpbnQgcG9ydCkNCj4gPj4gIHN0YXRpYyB2b2lkIGdtdXhfcGlvX3dyaXRlMzIoc3RydWN0
+IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9kYXRhLCBpbnQgcG9ydCwNCj4gPj4gIAkJCSAgICAgdTMy
+IHZhbCkNCj4gPj4gIHsNCj4gPj4gLQlpbnQgaTsNCj4gPj4gLQl1OCB0bXB2YWw7DQo+ID4+IC0N
+Cj4gPj4gLQlmb3IgKGkgPSAwOyBpIDwgNDsgaSsrKSB7DQo+ID4+IC0JCXRtcHZhbCA9ICh2YWwg
+Pj4gKGkgKiA4KSkgJiAweGZmOw0KPiA+PiAtCQlvdXRiKHRtcHZhbCwgZ211eF9kYXRhLT5pb3N0
+YXJ0ICsgcG9ydCArIGkpOw0KPiA+PiAtCX0NCj4gPj4gKwlvdXRsKGNwdV90b19iZTMyKHZhbCks
+IGdtdXhfZGF0YS0+aW9zdGFydCArIHBvcnQpOw0KPiA+PiAgfQ0KPiA+Pg0KPiA+PiAgc3RhdGlj
+IGludCBnbXV4X2luZGV4X3dhaXRfcmVhZHkoc3RydWN0IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9k
+YXRhKQ0KPiA+DQo+ID4gVGhlIGlvcG9ydCAvIGluZGV4ZWQtaW9wb3J0IGFjY2Vzc2VkIGFwcGxl
+X2dtdXgtZXMgbGlrZWx5IGFyZSAocGFydCBvZj8pDQo+ID4gTFBDIGJ1cyBkZXZpY2VzIC4gTG9v
+a2luZyBhdCB0aGUgYnVzIGxldmVsIHlvdSBhcmUgbm93IGNoYW5naW5nIDQgaW8NCj4gPiBhY2Nl
+c3NlcyB3aXRoIGEgc2l6ZSBvZiAxIGJ5dGUsIHRvIDEgMzIgYml0IGlvLWFjY2Vzcy4NCj4gDQo+
+IENvcnJlY3Rpb24gdG8gbXlzZWxmLCByZS1yZWFkaW5nIHRoZSBMUEMgc3BlY2lmaWNhdGlvbiwg
+dGhlbg0KPiBpZiBJJ20gcmlnaHQgYW5kIHRoaXMgaXMgYSBMUEMgZGV2aWNlIHRoZW4gYWxsIElP
+IGluL291dCBhY2Nlc3Nlcw0KPiBhcmUgYWx3YXlzIDEgYnl0ZSBhY2Nlc3Nlcy4gU2luY2UgdGhl
+IExQQyBidXMgb25seSBzdXBwb3J0cyAxNiAvIDMyDQo+IGJpdCBhY2Nlc3NlcyBmb3IgRE1BIGN5
+Y2xlcy4NCj4gDQo+IFNvIHByZXN1bWFibHkgdGhlIG91dGwoKSB3b3VsZCBnZXQgc3BsaXQgaW50
+byA0IHNlcGFyYXRlIDggYml0DQo+IChwb3J0KSBJTyBhY2Nlc3Nlcy4NCg0KSSB3b25kZXIgaWYg
+dGhlcmUgaXMgc29tZXRoaW5nIG9ic2N1cmUgYW5kIHRoZSBvcmRlciBvZiB0aGUNCjQgYnl0ZXMg
+d3JpdGVzIG1hdHRlcnM/DQoNCkluIGFueSBjYXNlIHdyaXRpbmcgYXM6DQoJeHh4eCBpb3N0YXJ0
+ID0gZ211eF9kYXRhLT5pb3N0YXJ0ICsgcG9ydDsNCg0KCW91dGIodmFsLCBpb3N0YXJ0KTsNCglv
+dXRiKHZhbCA+PiA4LCBpb3N0YXJ0ICsgMSk7DQoJb3V0Yih2YWwgPj4gMTYsIGlvc3RhcnQgKyAy
+KTsNCglvdXRiKHZhbCA+PiAyNCwgaW9jdGFydCArIDMpOw0KYWxtb3N0IGNlcnRhaW5seSBnZW5l
+cmF0ZXMgYmV0dGVyIGNvZGUuDQoNCglEYXZpZA0KDQotDQpSZWdpc3RlcmVkIEFkZHJlc3MgTGFr
+ZXNpZGUsIEJyYW1sZXkgUm9hZCwgTW91bnQgRmFybSwgTWlsdG9uIEtleW5lcywgTUsxIDFQVCwg
+VUsNClJlZ2lzdHJhdGlvbiBObzogMTM5NzM4NiAoV2FsZXMpDQo=
 
-On 1/28/2023 5:28 AM, Greg KH wrote:
-> On Wed, Jan 25, 2023 at 07:14:14PM -0800, Wesley Cheng wrote:
->> Allow for different platforms to be notified on USB SND connect/disconnect
->> seqeunces.  This allows for platform USB SND modules to properly initialize
->> and populate internal structures with references to the USB SND chip
->> device.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   sound/usb/card.c | 28 ++++++++++++++++++++++++++++
->>   sound/usb/card.h | 20 ++++++++++++++++++++
->>   2 files changed, 48 insertions(+)
->>
->> diff --git a/sound/usb/card.c b/sound/usb/card.c
->> index 26268ffb8274..803230343c16 100644
->> --- a/sound/usb/card.c
->> +++ b/sound/usb/card.c
->> @@ -117,6 +117,24 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
->>   static DEFINE_MUTEX(register_mutex);
->>   static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
->>   static struct usb_driver usb_audio_driver;
->> +static struct snd_usb_platform_ops *platform_ops;
-> 
-> You can not have a single "platform_ops" pointer, this HAS to be
-> per-bus.
-> 
-
-Agreed.
-
-> And what is a "platform operations" anyway?  Shouldn't this be a driver
-> type or something like that?  "offload_operations"?
-> 
-
-The reason for going with platform operations is because every platform 
-may implement the offloading differently.  The offload operations term 
-is more direct though in terms of explaining what the ops are going to 
-be used for, so I can see the incentive of moving to that phrase.
-
->> +
->> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
->> +{
->> +	if (platform_ops)
->> +		return -EEXIST;
->> +
->> +	platform_ops = ops;
->> +	return 0;
-> 
-> No locking?  not good.
-> 
-> But again, this has to be per-USB-bus, it can NOT be system wide for
-> obvious reasons.
-> 
-
-Sure, will change that when moving to per USB bus.
-
-Thanks
-Wesley Cheng

@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7ABD699837
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:01:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB10699838
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:01:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 150F991;
-	Thu, 16 Feb 2023 16:00:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 150F991
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AB64F22;
+	Thu, 16 Feb 2023 16:00:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AB64F22
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676559682;
-	bh=VTFhfHnToEqoaqxgMbblbP/OnqOiROaDlJAGd3VNIZU=;
+	s=default; t=1676559701;
+	bh=SIQEkjvUS2UGpnkG+/ifZhF5qui1hbADj39G7KDuw+Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BsLaj1byIgpOk0FnFo94psY/MgdLRtQVRFaTXFmmmwExfvMFAytZAUte3kXHT3fLf
-	 YCIACwpy/a34HqUONeleEfQVQjGwkh8iNU6QWNm/vr4X7G18LZPaJmO/27RTFC12ea
-	 nF16y1jhyZ17j31bXDGGd3PTfL4gCTAfKTf5YaaM=
+	b=et0jfhkMjQpWi6ZmgQlnTa58cAsulr4XaYGu4dOd4WS3byMg4v7YQOlxzgqoo/yNL
+	 aOcIkotzoi64Cm2of6g4Ya/a1Av6AIOkgaaUvmOjdbxqms0YKQn2jH0kxmMUI+gfsZ
+	 e2Gpgz4Szz1G6tMQzX5h11PTkbPuET+dcYNWMj+Q=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AE9BF805EE;
-	Thu, 16 Feb 2023 15:55:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E002F805F7;
+	Thu, 16 Feb 2023 15:55:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB07DF800E4; Fri, 10 Feb 2023 05:50:48 +0100 (CET)
+	id D6DBAF800E4; Fri, 10 Feb 2023 05:50:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4F42BF80094
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 05:50:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F42BF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2027F80094
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 05:50:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2027F80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=DakxaCeF
-Received: by mail-pf1-x432.google.com with SMTP id a5so2739072pfv.10
+ header.s=20210112 header.b=B07TtWs0
+Received: by mail-pg1-x529.google.com with SMTP id x31so2972832pgl.6
         for <alsa-devel@alsa-project.org>;
- Thu, 09 Feb 2023 20:50:39 -0800 (PST)
+ Thu, 09 Feb 2023 20:50:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=llCbPbOzgkB9LqnEKDg0eJRQRzqzHegvsI/7ZgnBi0I=;
-        b=DakxaCeFrVUDK+fBPzwW0q50lGy8dfpodfy+gMycCeoLm0uDmeXFnQXXDZyLi7del7
-         JaaUcKkYa2ZMk6NKk7ql73vYJwD80tNBKd8BX9MS8jQSeiI2oGavDPYPWA6joip4Hx6U
-         TLbJ+Kk1/3UIiTtq+g00TLDRCrzTYNbB+gaBeh3Mt5sKSY007swlm4nV852KMa/uGthP
-         xLqZRWkgrgHg9wl5MbP3LDrV9cVcfLruRDM0bWbAYXXU4XhiGEZQ/DtWVnKsLeYZpIO4
-         rvMDC+rIIjsQt/LUdFi99/aFasESB8qmzDqCEijNL41XCe/zLP+GtXIzbmudLQkyprqV
-         o/cg==
+        bh=sE4704yMcD8OhEtSdIHgmuAh40caq0AjoSbBLrO0PpE=;
+        b=B07TtWs0e5YqEoHY0pl9umYy3Y4kVoKOXCI+ufw8+ducRUqCUUMQUAurZt/rS3orVs
+         6dBeAs1kD/xQ+1IwMyqIuQxioJjgxJ22r6v6gOOuUdm7xjBjBfkq8rV2dSi4mSGgIlMM
+         sVuHKT4hGDGQMumOgK84e1Ek/taIl6gUet2+h56Llgs2XE7NFMm5DhsSpn/NWYlUs3oS
+         5N2XN+oORiRhXrMvwPY8ZXJU7S16ovhWn9XyMZSYBSwFbbPG1V71CofozZup4QQw5fQ1
+         QgBa5iy3Jjn9FqZGRZlEeGcysIKlzgyZqejaCVTLgUJCFwArmizwgE/Rz9xvhjXZkDwW
+         LUAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=llCbPbOzgkB9LqnEKDg0eJRQRzqzHegvsI/7ZgnBi0I=;
-        b=yPZseybVkm/ouFbllmIBf1x7X2vWuFoljeTxbm0DGMJj92na931S/UPfj6OTE+RxJG
-         +Gnx9II1FrKpfIih3zzeMAdAVNFACuu0ycPKZudJu/8B5cXUOlR7cxy9zPewqWYizDnA
-         LMWueyjRJUTK5vdL8P5d0P/HM2af6PSpKp0Mf6vIICSYYPEbq53iKD6A5v9ulDhQMORB
-         lw8rIXZ9wAhg1tJkh+DkEvuqlNjvDSZOwYqAPkIAQj5dDZhL8eOBWNVhBJe/7hE55iEd
-         Lb7rnOOyTsmH+yEzNOZEQ46NrjlP/71bbl420oGQY4Bj+S3rBmjKlwJLBe0uxbqp+MDs
-         qdFw==
-X-Gm-Message-State: AO0yUKUQdlsEk50BCzQSa9b+iaZCT+QFVZdDrxP46swyQUjU1RXHH/B/
-	gqMiT4PpDuP9W1zwwEjFRXQ=
+        bh=sE4704yMcD8OhEtSdIHgmuAh40caq0AjoSbBLrO0PpE=;
+        b=xgt7TADMMPz4v+7FooNU89KLjhAqF0Fg42U2P3M91o7qeGe8GAzrbzHUuzZk1I9cCi
+         D56LSDARQhmTUbcd6Z39TNKVJO+mR4IMBc5aGN4vdi0TR8RJZrDwPk4D/AFSHDUX41bc
+         ALheBTDL0ZKArmhg0UzxF2J45laQ+vr5dJUD81qWlnzHGTGNgFGyEysSnD/ZFhJ/qFPP
+         ahmgNWwPNuI5Nf24IVAglXtGvSJVRRWAF9p3lOzMtDR5ma+gmptaBeYQzNmoNE7bkugc
+         lkwFkFEUzRTUf4v5NXsl3DxqaZoVkKPc3EKVF+2+PWvzUTqQjjePgCY67buSQK/SPfqz
+         d2SA==
+X-Gm-Message-State: AO0yUKUaYDlIsv8qCuJ9+Q9eR6+nl5EEW9MjGTkLYJPQqKlIp/9FnUMT
+	aADdCUX2AyVBS9OOSSnREhY=
 X-Google-Smtp-Source: 
- AK7set/SdNDaxY8RGkXC46WnRWnT+ejz/fvUgvitcGPaMPnjzk2pPPFhGYTCadje/Vq75fDjEdq/AQ==
-X-Received: by 2002:aa7:991a:0:b0:5a8:4de2:e95e with SMTP id
- z26-20020aa7991a000000b005a84de2e95emr5148288pff.18.1676004637995;
-        Thu, 09 Feb 2023 20:50:37 -0800 (PST)
+ AK7set+rB1DzlPtgtx+cW6eKyGGS40W+wG2M3MsKCsoZ+srntvMUHEbQXVftnqI/S8nvQnjv5ylLMg==
+X-Received: by 2002:aa7:96c3:0:b0:581:a8dc:8f95 with SMTP id
+ h3-20020aa796c3000000b00581a8dc8f95mr12954481pfq.12.1676004647757;
+        Thu, 09 Feb 2023 20:50:47 -0800 (PST)
 Received: from localhost.localdomain ([202.53.32.211])
         by smtp.gmail.com with ESMTPSA id
- t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.28
+ t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 20:50:37 -0800 (PST)
+        Thu, 09 Feb 2023 20:50:47 -0800 (PST)
 From: Orlando Chamberlain <orlandoch.dev@gmail.com>
 To: platform-driver-x86@vger.kernel.org,
 	amd-gfx@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [RFC PATCH 4/9] apple-gmux: refactor gmux types
-Date: Fri, 10 Feb 2023 15:48:21 +1100
-Message-Id: <20230210044826.9834-5-orlandoch.dev@gmail.com>
+Subject: [RFC PATCH 5/9] apple-gmux: Use GMSP acpi method for interrupt clear
+Date: Fri, 10 Feb 2023 15:48:22 +1100
+Message-Id: <20230210044826.9834-6-orlandoch.dev@gmail.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230210044826.9834-1-orlandoch.dev@gmail.com>
 References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
@@ -101,9 +101,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WPIUO377IC5LJKRVHWBROB2TXHW3VSDW
-X-Message-ID-Hash: WPIUO377IC5LJKRVHWBROB2TXHW3VSDW
-X-Mailman-Approved-At: Thu, 16 Feb 2023 14:55:23 +0000
+Message-ID-Hash: JAGT7OTJ6XBWHSGQJD6WQHWKXQ2N353Y
+X-Message-ID-Hash: JAGT7OTJ6XBWHSGQJD6WQHWKXQ2N353Y
+X-Mailman-Approved-At: Thu, 16 Feb 2023 14:55:24 +0000
 CC: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan,
  Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
@@ -129,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WPIUO377IC5LJKRVHWBROB2TXHW3VSDW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAGT7OTJ6XBWHSGQJD6WQHWKXQ2N353Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,263 +138,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add apple_gmux_config struct containing operations and data specific to
-each mux type.
+This is needed for interrupts to be cleared correctly on MMIO based
+gmux's. It is untested if this helps/hinders other gmux types, but I
+have seen the GMSP method in the acpi tables of a MacBook with an
+indexed gmux.
 
-This is in preparation for adding a third, MMIO based, gmux type.
+If this turns out to break support for older gmux's, this can instead
+be only done on MMIO gmux's.
+
+There is also a "GMLV" acpi method, and the "GMSP" method can be called
+with 1 as its argument, but the purposes of these aren't known and they
+don't seem to be needed.
 
 Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 91 ++++++++++++++++++++-----------
- include/linux/apple-gmux.h        | 18 ++++--
- 2 files changed, 70 insertions(+), 39 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 6109f4c2867c..760434a527c1 100644
+index 760434a527c1..c605f036ea0b 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -5,6 +5,7 @@
-  *  Copyright (C) Canonical Ltd. <seth.forshee@canonical.com>
-  *  Copyright (C) 2010-2012 Andreas Heider <andreas@meetr.de>
-  *  Copyright (C) 2015 Lukas Wunner <lukas@wunner.de>
-+ *  Copyright (C) 2023 Orlando Chamberlain <orlandoch.dev@gmail.com>
+@@ -494,8 +494,29 @@ static const struct apple_gmux_config apple_gmux_index = {
+  * MCP79, on all following generations it's GPIO pin 6 of the Intel PCH.
+  * The GPE merely signals that an interrupt occurred, the actual type of event
+  * is identified by reading a gmux register.
++ *
++ * On MMIO gmux's, we also need to call the acpi method GMSP to properly clear
++ * interrupts. TODO: Do other types need this? Does this break other types?
   */
  
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -43,10 +44,12 @@
-  *     http://www.renesas.com/products/mpumcu/h8s/h8s2100/h8s2113/index.jsp
-  */
- 
-+struct apple_gmux_config;
++static int gmux_call_acpi_gmsp(struct apple_gmux_data *gmux_data, int arg)
++{
++	acpi_status status = AE_OK;
++	union acpi_object arg0 = { ACPI_TYPE_INTEGER };
++	struct acpi_object_list arg_list = { 1, &arg0 };
 +
- struct apple_gmux_data {
- 	unsigned long iostart;
- 	unsigned long iolen;
--	bool indexed;
-+	const struct apple_gmux_config *config;
- 	struct mutex index_lock;
- 
- 	struct backlight_device *bdev;
-@@ -64,6 +67,17 @@ struct apple_gmux_data {
- 
- static struct apple_gmux_data *apple_gmux_data;
- 
-+struct apple_gmux_config {
-+	u8 (*read8)(struct apple_gmux_data *gmux_data, int port);
-+	void (*write8)(struct apple_gmux_data *gmux_data, int port, u8 val);
-+	u32 (*read32)(struct apple_gmux_data *gmux_data, int port);
-+	void (*write32)(struct apple_gmux_data *gmux_data, int port, u32 val);
-+	const struct vga_switcheroo_handler *gmux_handler;
-+	enum vga_switcheroo_handler_flags_t handler_flags;
-+	unsigned long resource_type;
-+	char *name;
-+};
++	arg0.integer.value = arg;
 +
- #define GMUX_INTERRUPT_ENABLE		0xff
- #define GMUX_INTERRUPT_DISABLE		0x00
- 
-@@ -181,35 +195,23 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
- 
- static u8 gmux_read8(struct apple_gmux_data *gmux_data, int port)
- {
--	if (gmux_data->indexed)
--		return gmux_index_read8(gmux_data, port);
--	else
--		return gmux_pio_read8(gmux_data, port);
-+	return gmux_data->config->read8(gmux_data, port);
- }
- 
- static void gmux_write8(struct apple_gmux_data *gmux_data, int port, u8 val)
- {
--	if (gmux_data->indexed)
--		gmux_index_write8(gmux_data, port, val);
--	else
--		gmux_pio_write8(gmux_data, port, val);
-+	return gmux_data->config->write8(gmux_data, port, val);
- }
- 
- static u32 gmux_read32(struct apple_gmux_data *gmux_data, int port)
- {
--	if (gmux_data->indexed)
--		return gmux_index_read32(gmux_data, port);
--	else
--		return gmux_pio_read32(gmux_data, port);
-+	return gmux_data->config->read32(gmux_data, port);
- }
- 
- static void gmux_write32(struct apple_gmux_data *gmux_data, int port,
- 			     u32 val)
- {
--	if (gmux_data->indexed)
--		gmux_index_write32(gmux_data, port, val);
--	else
--		gmux_pio_write32(gmux_data, port, val);
-+	return gmux_data->config->write32(gmux_data, port, val);
- }
- 
- /**
-@@ -449,19 +451,41 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
- 		return VGA_SWITCHEROO_DIS;
- }
- 
--static const struct vga_switcheroo_handler gmux_handler_indexed = {
-+static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
- 	.switchto = gmux_switchto,
- 	.power_state = gmux_set_power_state,
- 	.get_client_id = gmux_get_client_id,
- };
- 
--static const struct vga_switcheroo_handler gmux_handler_classic = {
-+static const struct vga_switcheroo_handler gmux_handler_ddc = {
- 	.switchto = gmux_switchto,
- 	.switch_ddc = gmux_switch_ddc,
- 	.power_state = gmux_set_power_state,
- 	.get_client_id = gmux_get_client_id,
- };
- 
-+static const struct apple_gmux_config apple_gmux_pio = {
-+	.read8 = &gmux_pio_read8,
-+	.write8 = &gmux_pio_write8,
-+	.read32 = &gmux_pio_read32,
-+	.write32 = &gmux_pio_write32,
-+	.gmux_handler = &gmux_handler_ddc,
-+	.handler_flags = VGA_SWITCHEROO_CAN_SWITCH_DDC,
-+	.resource_type = IORESOURCE_IO,
-+	.name = "classic"
-+};
-+
-+static const struct apple_gmux_config apple_gmux_index = {
-+	.read8 = &gmux_index_read8,
-+	.write8 = &gmux_index_write8,
-+	.read32 = &gmux_index_read32,
-+	.write32 = &gmux_index_write32,
-+	.gmux_handler = &gmux_handler_no_ddc,
-+	.handler_flags = VGA_SWITCHEROO_NEEDS_EDP_CONFIG,
-+	.resource_type = IORESOURCE_IO,
-+	.name = "indexed"
-+};
-+
- /**
-  * DOC: Interrupt
-  *
-@@ -551,13 +575,13 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	int ret = -ENXIO;
- 	acpi_status status;
- 	unsigned long long gpe;
--	bool indexed = false;
-+	enum apple_gmux_type type;
- 	u32 version;
- 
- 	if (apple_gmux_data)
- 		return -EBUSY;
- 
--	if (!apple_gmux_detect(pnp, &indexed)) {
-+	if (!apple_gmux_detect(pnp, &type)) {
- 		pr_info("gmux device not present\n");
- 		return -ENODEV;
- 	}
-@@ -567,6 +591,16 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 		return -ENOMEM;
- 	pnp_set_drvdata(pnp, gmux_data);
- 
-+	switch (type) {
-+	case APPLE_GMUX_TYPE_INDEXED:
-+		gmux_data->config = &apple_gmux_index;
-+		mutex_init(&gmux_data->index_lock);
-+		break;
-+	case APPLE_GMUX_TYPE_PIO:
-+		gmux_data->config = &apple_gmux_pio;
-+		break;
++	status = acpi_evaluate_object(gmux_data->dhandle, "GMSP", &arg_list, NULL);
++	if (ACPI_FAILURE(status)) {
++		pr_err("GMSP call failed: %s\n",
++		       acpi_format_exception(status));
++		return -ENODEV;
 +	}
 +
- 	res = pnp_get_resource(pnp, IORESOURCE_IO, 0);
- 	gmux_data->iostart = res->start;
- 	gmux_data->iolen = resource_size(res);
-@@ -577,18 +611,13 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 		goto err_free;
- 	}
- 
--	if (indexed) {
--		mutex_init(&gmux_data->index_lock);
--		gmux_data->indexed = true;
--	}
--
- 	version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
- 	ver_major = (version >> 24) & 0xff;
- 	ver_minor = (version >> 16) & 0xff;
- 	ver_release = (version >> 8) & 0xff;
- 
- 	pr_info("Found gmux version %d.%d.%d [%s]\n", ver_major, ver_minor,
--		ver_release, (gmux_data->indexed ? "indexed" : "classic"));
-+			ver_release, gmux_data->config->name);
- 
- 	memset(&props, 0, sizeof(props));
- 	props.type = BACKLIGHT_PLATFORM;
-@@ -678,12 +707,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	 *
- 	 * Pre-retina MacBook Pros can switch the panel's DDC separately.
- 	 */
--	if (gmux_data->indexed)
--		ret = vga_switcheroo_register_handler(&gmux_handler_indexed,
--					      VGA_SWITCHEROO_NEEDS_EDP_CONFIG);
--	else
--		ret = vga_switcheroo_register_handler(&gmux_handler_classic,
--					      VGA_SWITCHEROO_CAN_SWITCH_DDC);
-+	ret = vga_switcheroo_register_handler(gmux_data->config->gmux_handler,
-+			gmux_data->config->handler_flags);
- 	if (ret) {
- 		pr_err("Failed to register vga_switcheroo handler\n");
- 		goto err_register_handler;
-diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
-index eb2caee04abd..25c1de4a716e 100644
---- a/include/linux/apple-gmux.h
-+++ b/include/linux/apple-gmux.h
-@@ -36,6 +36,11 @@
- 
- #define GMUX_MIN_IO_LEN			(GMUX_PORT_BRIGHTNESS + 4)
- 
-+enum apple_gmux_type {
-+	APPLE_GMUX_TYPE_PIO,
-+	APPLE_GMUX_TYPE_INDEXED
-+};
++	return 0;
++}
 +
- #if IS_ENABLED(CONFIG_APPLE_GMUX)
- static inline bool apple_gmux_is_indexed(unsigned long iostart)
+ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
  {
-@@ -65,12 +70,12 @@ static inline bool apple_gmux_is_indexed(unsigned long iostart)
-  * Return: %true if a supported gmux ACPI device is detected and the kernel
-  * was configured with CONFIG_APPLE_GMUX, %false otherwise.
-  */
--static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, bool *indexed_ret)
-+static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, enum apple_gmux_type *type_ret)
- {
- 	struct device *dev = NULL;
- 	struct acpi_device *adev;
- 	struct resource *res;
--	bool indexed = false;
-+	enum apple_gmux_type type = APPLE_GMUX_TYPE_PIO;
- 	bool ret = false;
+ 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_ENABLE,
+@@ -519,7 +540,10 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
  
- 	if (!pnp_dev) {
-@@ -95,13 +100,14 @@ static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, bool *indexed_ret)
- 	 * device isn't present or that it's a new one that uses indexed io.
- 	 */
- 	if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
--		indexed = apple_gmux_is_indexed(res->start);
--		if (!indexed)
-+		if (apple_gmux_is_indexed(res->start))
-+			type = APPLE_GMUX_TYPE_INDEXED;
-+		else
- 			goto out;
- 	}
+ 	/* to clear interrupts write back current status */
+ 	status = gmux_interrupt_get_status(gmux_data);
+-	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
++	if (status) {
++		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
++		gmux_call_acpi_gmsp(gmux_data, 0);
++	}
+ }
  
--	if (indexed_ret)
--		*indexed_ret = indexed;
-+	if (type_ret)
-+		*type_ret = type;
- 
- 	ret = true;
- out:
+ static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
 -- 
 2.39.1
 

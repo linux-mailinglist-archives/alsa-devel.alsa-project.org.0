@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9A7691AC4
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:06:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF46691AD6
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:08:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF444836;
-	Fri, 10 Feb 2023 10:05:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF444836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C6FC836;
+	Fri, 10 Feb 2023 10:07:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C6FC836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676019999;
-	bh=pga/PtAy3y1FBmxbXatPUAg65ESHiSJHmYveEwKhtFE=;
+	s=default; t=1676020089;
+	bh=VsRXqSEujW+13WUYKLFUBiCQN53KU1py3umb2Oe/hU0=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PoTvtdGhlHrOaUOo9rVOe2LP5jVdipNHKIRSts9V1CZARNQ+XywBG8pOfexI9h7Wa
-	 Al8ehBP49+KURstygrdMjX3W94YiKod2lwRz+bllPlVeZCrS5TsDfMKvGhDhbi/+4Z
-	 /xvlEpcHu/zPbnmBnIJ/sMiI3aTMbagn9WnAplwQ=
+	b=vjLQZtFTGVAqhRVayv8gpzkpKex8Koe8ipKbGk+p/BO+Neoeb+zJTZVugDiuX+kOL
+	 R5AZpcfhv4cpH0EXIXt8iDyzaJ5mKWFedM5IiPPG76sWD8BviY8DK7v/jYt9paPY+b
+	 2NqB8OgV03B9NUFgV7x9NNp8S2UPO8J0gw/XvHug=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81127F800B8;
-	Fri, 10 Feb 2023 10:05:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14BD9F800B8;
+	Fri, 10 Feb 2023 10:07:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C628EF800E4; Fri, 10 Feb 2023 10:05:42 +0100 (CET)
+	id 78200F800E4; Fri, 10 Feb 2023 10:07:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,63 +36,64 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F05BF8001E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:05:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F05BF8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8CA0FF80094
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:07:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CA0FF80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=wHSzE1CN;
+ header.s=susede2_rsa header.b=xpZs3XM8;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PYU1Z9lG
+ header.s=susede2_ed25519 header.b=SBB3nyDT
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A874E38752;
-	Fri, 10 Feb 2023 09:05:37 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 57A423FA7E;
+	Fri, 10 Feb 2023 09:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1676019937;
+	t=1676020033;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VO+WNnu4rwnrV9OWFD5vGdftJZBLXt6VxRm5ZgaBjlw=;
-	b=wHSzE1CNWna8VLmZ+veLom4mKuzagsDwy06FOho7bKzPARoEEvl5UG10THn9CVpmzbH8Ou
-	fyVn8ELuJPkFLECr5TJGfiQPkeSEvMmsk88iBPq4V2TcndUX3ezgRuZYfMor50N3GlL5Bn
-	M0uR1mq4LtmWzgVNqpNW9I+dZLejS2A=
+	bh=LjZNy+MQZGuRpBcStmuiOb+yJ0cUSTi7UQsoF2yfxB0=;
+	b=xpZs3XM8TzTBn1nQhBc1DFw5Y5puQdinAr/gxOQZK//3ZqZB6dnkGwbtFUCl9oWxQApJYk
+	wSykcVoeoEPEob5CP2/G2belJeT7aVwm8MdZqnHUpwX3JZjPF9quR/Yp/W+ch3CgvVGGvc
+	GELrb/U33IW/Tf24KuAiwuHRAqmqH5Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676019937;
+	s=susede2_ed25519; t=1676020033;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VO+WNnu4rwnrV9OWFD5vGdftJZBLXt6VxRm5ZgaBjlw=;
-	b=PYU1Z9lGrIbzIiqYpisgShPqq5UpT8qiUmhX6K5lniHnxVWdYEmsFltvMvfvqfG93VZQ5u
-	qFi+7ZNwGSwaNCBA==
+	bh=LjZNy+MQZGuRpBcStmuiOb+yJ0cUSTi7UQsoF2yfxB0=;
+	b=SBB3nyDT7kYY2VDI11xTzBVYC0yoAW52kYQjQFoWHSAfAKLg/o17n4e0xPs4Egou37Lcno
+	uh11C+mYiZ4R8+AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 800E813588;
-	Fri, 10 Feb 2023 09:05:37 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CB5513588;
+	Fri, 10 Feb 2023 09:07:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id mAF7HuEI5mOFHgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 10 Feb 2023 09:05:37 +0000
-Date: Fri, 10 Feb 2023 10:05:36 +0100
-Message-ID: <87y1p5j3fj.wl-tiwai@suse.de>
+	id nvM2BkEJ5mNJHwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 10 Feb 2023 09:07:13 +0000
+Date: Fri, 10 Feb 2023 10:07:12 +0100
+Message-ID: <87wn4pj3cv.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: bo liu <bo.liu@senarytech.com>
-Subject: Re: [PATCH] ALSA:hda/conexant:add a new hda codec SN6180
-In-Reply-To: <1675908828-1012-1-git-send-email-bo.liu@senarytech.com>
-References: <1675908828-1012-1-git-send-email-bo.liu@senarytech.com>
+To: Zhang Yiqun <zhangyiqun@phytium.com.cn>
+Subject: Re: [PATCH] ALSA: hda: remove redundant variable in
+ snd_hdac_stream_start()
+In-Reply-To: <20230209121723.14328-1-zhangyiqun@phytium.com.cn>
+References: <20230209121723.14328-1-zhangyiqun@phytium.com.cn>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW
-X-Message-ID-Hash: M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW
+Message-ID-Hash: BNWVUME5PFYNNCOFN2LRXHSDCCIP56HG
+X-Message-ID-Hash: BNWVUME5PFYNNCOFN2LRXHSDCCIP56HG
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,14 +101,19 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, tangmeng@uniontech.com, huangwenhuia@uniontech.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, broonie@kernel.org, tiwai@suse.com,
+ amadeuszx.slawinski@linux.intel.com, kuninori.morimoto.gx@renesas.com,
+ ckeepax@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BNWVUME5PFYNNCOFN2LRXHSDCCIP56HG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,17 +122,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 09 Feb 2023 03:13:48 +0100,
-bo liu wrote:
+On Thu, 09 Feb 2023 13:17:23 +0100,
+Zhang Yiqun wrote:
 > 
-> From: Bo Liu <bo.liu@senarytech.com>
+> This 2nd variables are all set as true in treewide. So I think
+> it can be removed for easy understanding.
 > 
-> The current kernel does not support the SN6180 codec chip.
-> Add the SN6180 codec configuration item to kernel.
-> 
-> Signed-off-by: Bo Liu <bo.liu@senarytech.com>
+> Signed-off-by: Zhang Yiqun <zhangyiqun@phytium.com.cn>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

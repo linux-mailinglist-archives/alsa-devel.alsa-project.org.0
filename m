@@ -2,98 +2,171 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4315B6919EE
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 09:23:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A80691A16
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 09:33:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F379846;
-	Fri, 10 Feb 2023 09:22:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F379846
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF5B582C;
+	Fri, 10 Feb 2023 09:32:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF5B582C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676017380;
-	bh=eWtoGF52KDNVxOUxtIGPJfL5prPzyMRzWiCsq1FwsjA=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZGli4O03Iqv43TKAASDTD1cEKOxoSKYSVkiFFO/PcLr8zUP8e+eWoBXnCCJTs59BJ
-	 bxKjy2qoUs+I1JfARxMNg0iWBxDGf8RJW5Fs80oJ/gkI2jJ9kVh+skCJEHK9NqRuFP
-	 /vvA7a+hajHg44FCElpjREN0K4bDq9aVSrM+NUCk=
+	s=default; t=1676017983;
+	bh=sYwk5eDvenvHl+42f/Imr46w7MyV26LNPgzewbDa5wA=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=X+GwTxsgAWaIiUubai5RVEBr3+hGA8SG0uiu9yeh1NSyw19kFJOz0bpWQVYtuMRNp
+	 nFKa6dpywdnN38v90yH/Po1A0IEdtIyFqdSi+cl/zCumdKOqcZ4F1oBH23SQ2aEXRa
+	 wN2+sTp6RWFfLfi1rTWHNY+SpGJTs0CIOO9tOUbY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA204F800B8;
-	Fri, 10 Feb 2023 09:22:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31B7DF800B8;
+	Fri, 10 Feb 2023 09:32:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69CBCF800E4; Fri, 10 Feb 2023 09:22:05 +0100 (CET)
+	id 16A05F800E4; Fri, 10 Feb 2023 09:31:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::61e])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C9D4F80086
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 09:21:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C9D4F80086
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 31A8LlOR2023653,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 31A8LlOR2023653
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
-	Fri, 10 Feb 2023 16:21:47 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Fri, 10 Feb 2023 16:21:47 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 10 Feb 2023 16:21:47 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt712-sdca: fix coding style and unconditionally return
- issues
-Date: Fri, 10 Feb 2023 16:21:41 +0800
-Message-ID: <20230210082141.24077-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.38.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F3E0F8001E
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 09:31:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F3E0F8001E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=ZAtjnH8a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M2Pw3nhCuFx1qtbtOocn4b4oSoqPpqxLZK3hIF0p25GbBOvsC0Tt+3r/BaxgYwFAbqSqpAsalveVMb/8KUCd07Gpl/e9z9UtOhsOx06LBRMVuH41UI9It6APy6ZR1hP7AyJb5qdqu70rJVeyLLPZrL1YUtFv+OYI37yIB4Qm9Q4IIggmbM2Ev5XuVzRk9wJNz6X4yCxO0qU18H2Z8kdWk2yddudSyujm0LeuCdz1skLw+Dwo189tI2rJyhzItJwH0LVbIoHNrISKTyoKpOgyF9R+GWgnSr5MTnaTs6sJ6aOKCUkXWBSnO2i+jrGM7OBoYny6CCgHXGHFVsIZWQuoeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mq086VnRWNdPyyG/e4IcmM++MbNEncmgGhhUbjqgF08=;
+ b=FAIcFNx1nzzy88ys9qXuXjNQUHoQa/oOENYyJNpabS4i59Nv7ftWuPjchwqgnXKwg0DI5vQlDsyvcsUKnn+CigiOQ4WOtF3YBdPdWGKKpeqFhzcBHeEqr4glJYO9NO/8Zl50yQ5+Nw8NoS05doJGjNceYz8oaRg9C41PLrvS1hlQw1YCOe+FHdqtnW0iaA2S7Zs8yUzjhmaPB4sfTumMsTePWs0XCfwPdv4Wsn6ix14hnEIuo6mWUhkVw5jRhMD15Zxbe2b42Xh+oYGD40tgxzZ5CoBPkFcONSdDANoFS5e/NXZSZeEvenBqXQl/aMYTW4vJDKW+e8ZuoCtEPIypag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mq086VnRWNdPyyG/e4IcmM++MbNEncmgGhhUbjqgF08=;
+ b=ZAtjnH8awBN57Kimy14FJZWTQfwu/jdkmRisvGk8pBoz1VNQx16yxOtbOBLWdMOdcIaCStYHCMou5GS5W0Nq4vOFl8acH2HWOIRE51dqs/54xSWdOTGMFwWT1uVNHBV4O6c9q0haIUsIXWIMSRPGW4dMBopa14V8TZarGfBQ0C89jyDWSRm3vw8v7MMgbWqPElDUdEwe6ZN8W2N2y1I2KzxCEqNXuqd5xuoweMV1Q/xni0uc9On/Z53B9QBMPIAYWAqZHT6dvrVcQKGN0K/uEnTc2VjMsAkG76ugygeOoDgHkyPFyyq4YjxZnu0cj+5hJCoXmmdzV5XtV5k0vV6ZAw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3205.namprd12.prod.outlook.com (2603:10b6:a03:134::32)
+ by PH7PR12MB8013.namprd12.prod.outlook.com (2603:10b6:510:27c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Fri, 10 Feb
+ 2023 08:31:11 +0000
+Received: from BYAPR12MB3205.namprd12.prod.outlook.com
+ ([fe80::c035:85e0:77c4:e934]) by BYAPR12MB3205.namprd12.prod.outlook.com
+ ([fe80::c035:85e0:77c4:e934%7]) with mapi id 15.20.6086.019; Fri, 10 Feb 2023
+ 08:31:11 +0000
+Message-ID: <4a45f084-7d33-59d2-8ef9-cb95e29866a3@nvidia.com>
+Date: Fri, 10 Feb 2023 14:00:55 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 1/2] ASoC: rt5640: Update MCLK rate in set_sysclk()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <1675953417-8686-1-git-send-email-spujar@nvidia.com>
+ <1675953417-8686-2-git-send-email-spujar@nvidia.com>
+ <87lel61k3h.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+From: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <87lel61k3h.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0046.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:81::16) To BYAPR12MB3205.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::32)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: 
-	=?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIyLzUvMjQgpFekyCAwNjoxNDowMA==?=
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: protection disabled
-Message-ID-Hash: VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D
-X-Message-ID-Hash: VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D
-X-MailFrom: shumingf@realtek.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3205:EE_|PH7PR12MB8013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dea5a67-ca68-4716-5d6d-08db0b4129f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	jWpQrM3RGsH/58qhqrB7npBz2n0cyo8sKtTqSbEpSe2S8n08gWmjNnnnfo35n16hpbIvUIzSL9c10Gul8XskqBx4bJPK+tigUCmvZbFbgYqZPp7zNXBbdKyZmKztPUB5oYbelvpTsdzEMPPR8bnUELCMNAPI4DzQnZWnL51JV0N3OJURz2psLO579rZ+vdnC/skW7P/KxQXT/L+gCRbBYCR86DYtAxeNteiAS0ykfz1tHBz8slflLF6OZl95GLNwrBmjvTq60dvDD+6DI9Bj7SGYBP3bYXEMxnYMtIvs+G8xjc+Mq3WG9lwenDo4CaKFo37h7ZXJAm2dDJTYRgC1JJulWKcckVCzFEEzWWLadBYXDBv3iJQqb8KSnMp7iDnQoGn82ZO2dPAZTn9gFsfGTVpj7WNsqgW4KVtPKhJ8u8dKyz90Yr4v9BIkY8FRrBark7ZWWC7gMu3EhgsLPqpTrdPwWkZgsbn6Hs3WT32oSiFZTS/L87EHISo/BUbAgcpT5aQKVIvfsnMl0n/Zt/DslMZaMb0nUJPE6rOVAFdusZuSDbhDQC134oTGjunU2JBaNxxV5WHItqSjLCbCBUaX6T9zT6FYtgkFuhgY4k5vETz0teIi7TaQ7kf1oOJugQd9d7N4f2uNc5Vbgyl7yz6jl5h8ZRXLwR4oh61vhgiWk4gv9kA/TSPpHSD9EL492xCpuIJnr2Sd4XlkpweJ7jMEMz1arVlwhVA4vaFLt//kKl3RmSr7R94E8oFahywhIlDCCuySy3J63HQpTUeB82Y8705NY8mDFzuQO9cN48K768CLJN6Z/puv2w02ULt3WkleWrzlslhgN8+IhG4qUpET5AQH/8bqPiKW+xopvFkB+Pw=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR12MB3205.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(39860400002)(366004)(346002)(136003)(376002)(451199018)(15650500001)(5660300002)(36756003)(2906002)(7416002)(83380400001)(66476007)(38100700002)(6916009)(2616005)(8676002)(4326008)(66946007)(8936002)(6666004)(66556008)(186003)(6506007)(41300700001)(6486002)(966005)(478600001)(86362001)(26005)(316002)(31696002)(6512007)(31686004)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NmhpQURUUVd4cHdmelZrUkppYWN6amJLOU1Gd1FZaGc4cVpWanEyVkF1cUE5?=
+ =?utf-8?B?YzdZV3o5VG1JTU1yRUdQUnh2UzBzTEMwN1ZIS24yYlk3Z3I3THhrVnFoSDRs?=
+ =?utf-8?B?ODBYTHZNa0VuaUFLR0pmU1ppL2dLM1I3RHJieW1IMTdxT1RncU52RGRMalEz?=
+ =?utf-8?B?akV5czAzZy9ycHVwM29Wc2pYRFE0VXJJMFNUNmI2b2t1cno0cUcyVFR5U3pR?=
+ =?utf-8?B?cWJxSEl4cXVkUGNWdU1TTmRZRG1mMmZMbjlxajVDaWNwREpjZld3bzdJNWhL?=
+ =?utf-8?B?ZlY4WC94TU92cGhOQzB4TndtZWpzaExER1hkVi9mOXNoMmJrczFZWWJBNXNs?=
+ =?utf-8?B?b3NSNU9zb2hLMTBUM2xpRGFWa2szei9KWjkxT2NDTExUc3U4R3F2VnJNWE5J?=
+ =?utf-8?B?TjZPRC9pRUpsWmpUcmJIMGdCWk05eFFTNmxiTXQySUt3MDVvSEJMZjRLVjdT?=
+ =?utf-8?B?VlQxRkg0VnUrRXVTc2hMaDcvVm9CQ0hoNlV2eEZZVGI5czFZb0ZYSzlianJj?=
+ =?utf-8?B?b0x4bW9qSzJ5TzQxRHpkMTNIb3lBNmhZSXo4TGZUQ2tNRys3Z1hIMWdvajJz?=
+ =?utf-8?B?STgwY3FKMzlhS1NncDRtVlpSaHc2RHJhWnR6dm9PUTEzc281c3lyc3VPeVdi?=
+ =?utf-8?B?S0J3d3U3djFqYmEyVU5VWDZSZzVwYWZxbXYveVhQM2hxK0hWcmdvWjVkOVRO?=
+ =?utf-8?B?V2JtTzFHc3FkNmdQMm9KS1JxNWtRLy9WZS9tNnZURHROTUVOOTJjajFndFpk?=
+ =?utf-8?B?N0FvMTFtd2VwbVdoa1U0T2FVa3hyM1g2MkFLT0N2ZmVuQ3hQTmNCZUR5TzY2?=
+ =?utf-8?B?M1F2d20yYmFaN29lMnBuTHh3SWZvdkdFWGs2b1BkN2xCY3duejJ1a0dQR0V2?=
+ =?utf-8?B?blhsWUNjSGJ0eUZxd05UYUU4OE5HL3pHU0w1T2VqS2FzVFFhNWZHZEpqWmYx?=
+ =?utf-8?B?Z2FsV3p6d0o5dlYxa1VjcEsrN1FBdGVLWjB4VlJ0YVFUbjZvYk1IQkRYRnlx?=
+ =?utf-8?B?SDNiWmpVbUZJb3M3WmVrRHdVT003Ump2eVRrUDFJTkJIQUs0RFlHL2luUmth?=
+ =?utf-8?B?RmNuMnZudGkyVTYrbXBidzJIWWJLRS9xemh4eWdmVEJ5eXJrQlV1aEVBeitq?=
+ =?utf-8?B?SlVBVDdwc21VaTk3ZzdGbkdNQ3dQd0Y3RTBrZ01NWlBPT3A0czRKN2V5dlk2?=
+ =?utf-8?B?L2x1MGU4bzducmhoZm1TSUwwSmpOalRnNW9EYTl5NG4vSE83L3NvZWNuOS9W?=
+ =?utf-8?B?YVVTd3BCcVB3REh4TWphd3NQdkJYc2UyQXo3b0RxYWNaQ3hpMEV2RFZwS1No?=
+ =?utf-8?B?WHNOWThKeVA5dm1HdWFxbGJxTnVrSGo2MjVLRXgyOG4zSzQvNG5lbG9rSzNv?=
+ =?utf-8?B?N1ZGQWgxWUxBRm1lMWVobFA1OU1xWjBzOEZKRWpzaU5UV0hzVXRqalYxTUxv?=
+ =?utf-8?B?eWh4ZWFiZ1piNG5yaVRLNTgwdFZqaUxuSG4zTEZDSHZQMVRYdFd0QkVlMlZt?=
+ =?utf-8?B?Y2Z4eTRWQWFUc1IweEJnN3RuNmYvOTQ5ekxCWnBZZ0ZEUjdoZm04ZG4zd0Iv?=
+ =?utf-8?B?UThjcmFNTlFsZVhObEwzT3YxQWNBd3d6NGE5TjM5TXpTODJTcElCQk10Q05x?=
+ =?utf-8?B?WGJDS0RPWmFPeDV4V09uc2tTODRCVmptSWQ4K0llODA5a1JqdUNIdXQvSHJz?=
+ =?utf-8?B?YVBURHJWN29GWkdyUmRBQVZSZkRZSStsMlR4MUV2RURaL1FoYktxN3ZneHlF?=
+ =?utf-8?B?ak84S3NMeXFqdmlkZDVRK0ZqVzlVR0VnZjFjRFFwc3ZMYjc4Q2NSejV4SnJ2?=
+ =?utf-8?B?OTBxckxWOGpFYkxMaWVGdGhncTBNUUd1dUpMazBRaDR2OFpEQVN4Uy80S0Yz?=
+ =?utf-8?B?Q0FLMUh6dWgxQUxLWWJYVWVRZ1Z4U3h0ZTQyQXNncnc1M2Y4U2gwSGx0cnBY?=
+ =?utf-8?B?SmttTG8xam1ROWtHODFxTUN5WDN4Nlc3ZUlDR0lEUExQbnd0TStiTXF3Z0ZE?=
+ =?utf-8?B?TmtoVmJZeEFlVEg0bUFXOVhvQTY2RWgvWm5lRjZlMVdQK28zWC90Zk43d1d0?=
+ =?utf-8?B?RFROcjc2c2VDcmdxei9VUVhoZDdSWUlIaEpmSVAza0FMU0lzSGhXaDVESzdy?=
+ =?utf-8?Q?jJ+3WKrBI5CRWlITr6wqZHMud?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 8dea5a67-ca68-4716-5d6d-08db0b4129f1
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3205.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 08:31:11.7051
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ vhnJO4AZR5SDpuSRXwYK5UdO0G2npcwmquyZ5MR55vYsE4VDNPlFieARRkAKQARUD2Osx19Z84eQxu8OYIym1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8013
+Message-ID-Hash: 5CAOTPW75DMZJGL4OZIKARDEPHAS3SQL
+X-Message-ID-Hash: 5CAOTPW75DMZJGL4OZIKARDEPHAS3SQL
+X-MailFrom: spujar@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- pierre-louis.bossart@intel.com, bard.liao@intel.com,
- Shuming Fan <shumingf@realtek.com>
+CC: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, oder_chiou@realtek.com,
+ broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBGH6PGR5OL4B4UNASH3D67YJWDVMP6D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5CAOTPW75DMZJGL4OZIKARDEPHAS3SQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,81 +175,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Hi Morimoto-san,
 
-This patch fixes
-1. coding style issues
-2. check if the setting was set already in rt712_sdca_mux_put callback
+On 10-02-2023 05:12, Kuninori Morimoto wrote:
+>
+>> Simple-card/audio-graph-card drivers do not handle MCLK clock when it
+>> is specified in the codec device node. The expectation here is that,
+>> the codec should actually own up the MCLK clock and do necessary setup
+>> in the driver.
+> I have no objection about this patch, but have interesting about this comment.
+>
+> Simple-card/audio-graph-card both are using asoc_simple_hw_params,
+> and it calls clk_set_rate() for Codec/CPU if it has mclk.
+> But am I misunderstanding ?
+> If it was simple-card-utils side miss, I'm happy to fix it.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt712-sdca.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+The simple-card-utils driver does not populate the clock handle whenever 
+the MCLK clock is parsed from CODEC device node. So 
+asoc_simple_set_clk_rate() will not update the rate and clock 
+enable/disable won't happen either.Initially I had tried to fix this in 
+the simple-card-utils itself and it did break few things on other HW.
+Please see [0] for relevant discussion.
 
-diff --git a/sound/soc/codecs/rt712-sdca.c b/sound/soc/codecs/rt712-sdca.c
-index cc3f6dae1871..8d2fa769bb2e 100644
---- a/sound/soc/codecs/rt712-sdca.c
-+++ b/sound/soc/codecs/rt712-sdca.c
-@@ -366,8 +366,9 @@ static void rt712_sdca_btn_check_handler(struct work_struct *work)
- 				break;
- 			}
- 		}
--	} else
-+	} else {
- 		rt712->jack_type = 0;
-+	}
- 
- 	dev_dbg(&rt712->slave->dev, "%s, btn_type=0x%x\n",	__func__, btn_type);
- 	snd_soc_jack_report(rt712->hs_jack, rt712->jack_type | btn_type,
-@@ -707,6 +708,7 @@ static int rt712_sdca_mux_put(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	unsigned int *item = ucontrol->value.enumerated.item;
- 	unsigned int mask_sft;
-+	unsigned int val;
- 
- 	if (item[0] >= e->items)
- 		return -EINVAL;
-@@ -718,6 +720,11 @@ static int rt712_sdca_mux_put(struct snd_kcontrol *kcontrol,
- 	else
- 		return -EINVAL;
- 
-+	rt712_sdca_index_read(rt712, RT712_VENDOR_HDA_CTL, RT712_MIXER_CTL1, &val);
-+	val = (val >> mask_sft) & 0x3;
-+	if (!val)
-+		return 0;
-+
- 	rt712_sdca_index_write(rt712, RT712_VENDOR_HDA_CTL,
- 		RT712_MIXER_CTL1, 0x3fff);
- 	rt712_sdca_index_update_bits(rt712, RT712_VENDOR_HDA_CTL,
-@@ -1094,19 +1101,24 @@ static int rt712_sdca_pcm_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	/* set sampling frequency */
--	if (dai->id == RT712_AIF1) {
-+	switch (dai->id) {
-+	case RT712_AIF1:
- 		regmap_write(rt712->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS01, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
- 			sampling_rate);
- 		regmap_write(rt712->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT712_SDCA_ENT_CS11, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
- 			sampling_rate);
--	}
--
--	if (dai->id == RT712_AIF2)
-+		break;
-+	case RT712_AIF2:
- 		regmap_write(rt712->regmap,
- 			SDW_SDCA_CTL(FUNC_NUM_AMP, RT712_SDCA_ENT_CS31, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
- 			sampling_rate);
-+		break;
-+	default:
-+		dev_err(component->dev, "Wrong DAI id\n");
-+		return -EINVAL;
-+	}
- 
- 	return 0;
- }
--- 
-2.38.1
+Later [1] was pushed to address the issue I was facing that time.
 
+In summary, the suggestion was, clock property should be associated with 
+only devices and device driver should own up the clock handling for it. 
+The machine driver can just pass the required configuration for it.
+
+
+[0] 
+https://patchwork.ozlabs.org/project/linux-tegra/patch/1612939421-19900-2-git-send-email-spujar@nvidia.com/#2647112
+[1] 
+https://lore.kernel.org/lkml/1615829492-8972-3-git-send-email-spujar@nvidia.com/

@@ -2,111 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 732A7691F9A
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 14:12:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0403692001
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 14:44:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BDF182E;
-	Fri, 10 Feb 2023 14:12:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BDF182E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E38D82A;
+	Fri, 10 Feb 2023 14:44:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E38D82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676034770;
-	bh=Ors6grSxgwuBhPM/3ThJCElFazXKgPN4WnWqYGXUpkI=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1676036691;
+	bh=iFSIcPObySbFGHRtGmf0HiTocRiIPM0Cz32+I0mwj9c=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=reJltrNmpq7bw7+9syJmWeForNLUQuzvwJlEwv95xhY0QO+5YYuSJfwRzhzDFUm4u
-	 UhwR0Xtl8HY5031i9qhkJAxM/oVTN2xRVoxvuMzp/w8L6tddkuOSCzGjj7ywD07MhH
-	 8LynmzCQhWgi0c2XTZbb52TggH4SZk0mJSbEv+Bc=
+	b=tuLKkMaDGfdinJvAzSB+WKtwsjh2vwxop7ceyX4HLjIBLQnKRHNrbZEItcAQqTmFq
+	 qGv9qVeng5fONNHjZvKwwVhZC6YdArPKF5Xfrp189bWpVMqgAUTniUXtrZ2h9f95ZK
+	 J4nNBkl3OAi+IydcX92g7k0IOTf6e5pTx4TfNo5s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9141AF800B8;
-	Fri, 10 Feb 2023 14:11:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3637F800B8;
+	Fri, 10 Feb 2023 14:44:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1196EF800E4; Fri, 10 Feb 2023 14:11:53 +0100 (CET)
+	id 74362F800E4; Fri, 10 Feb 2023 14:43:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1DF45F80086
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 14:11:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DF45F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61D64F80086
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 14:43:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61D64F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=johptTHv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676034695; x=1707570695;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ors6grSxgwuBhPM/3ThJCElFazXKgPN4WnWqYGXUpkI=;
-  b=johptTHviT1FswsZ+qPWgf8etkj/9ea+z8huCDzLuvZsodvkqLq2lVZ9
-   Td9gQ352yB8Kmudq5fXq1Mazu5D4L7pLG+sFqBoeVjVI1/uncoKwYgQOA
-   vtvsF+GOR3PFCPvxclNygHnuk0zw7P4kfc5iCsay3urCfzomGA4+utcb8
-   NrckAH5CPAE6sqJXxGGwygaJoaZJ2sUxFCuZdQFuYajKZZgD0XNrM744r
-   L7qWTdMsXENX5DqRlnQBolJRQA//cxBsRVxPaywZZU0M/NkVKU0n8pjeI
-   iN31QsntCPhNb3JjqIshillOXE8/oxvUsb7pipAqotrX+a2ZPpaQspCA6
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="329047476"
-X-IronPort-AV: E=Sophos;i="5.97,287,1669104000";
-   d="scan'208";a="329047476"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2023 05:11:04 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="661409495"
-X-IronPort-AV: E=Sophos;i="5.97,287,1669104000";
-   d="scan'208";a="661409495"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2023 05:10:59 -0800
-Message-ID: <54d4ffb1-1488-1a4f-58b2-8b3471389729@linux.intel.com>
-Date: Fri, 10 Feb 2023 14:10:56 +0100
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=B6+AaBkb
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31A7aoKl020067;
+	Fri, 10 Feb 2023 07:43:43 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=/2qgvSwdT4zkmxpfqAeRfM31AgVNMAuCCdf8kIRZeuk=;
+ b=B6+AaBkbxVZWIXCRsCt8nJBfnWrRNOwBhLEj0g7Vh7OBaW/XtlB4JLoAVAMcH5nD9l4f
+ wcvp06XpwSNIq7CP71G/OZk5sKC0NypGWFvgd54XE95G8BgEEHZzDnKKEpxwQUFdtSnJ
+ OK2LB4I/Zr/ReiUnIdiWeF1IpsKs5AEgB3xhJNHrVcJkaz/squ/Ad6cYS1D/nnBKtcx2
+ G0SEe6Wnl/vt+j6H4nZVx36rXL/N0pT+zTv+vKqZfdhh+eSCD/0dSktAXuuCFYdh4q+F
+ h7ujh88CMu9Kp2BWHILeU/tZehVoYyQMJ7blvq5a9SDVPvvRtlXrA8LRQIgmS+BQ2zZ/ iA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nhmnv1esf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 10 Feb 2023 07:43:43 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Fri, 10 Feb
+ 2023 07:43:41 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.21 via Frontend Transport; Fri, 10 Feb 2023 07:43:41 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 72BD145;
+	Fri, 10 Feb 2023 13:43:41 +0000 (UTC)
+Date: Fri, 10 Feb 2023 13:43:41 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Lucas Tanure <lucas.tanure@collabora.com>
+Subject: Re: [PATCH v5 3/4] ALSA: cs35l41: Add shared boost feature
+Message-ID: <20230210134341.GF68926@ediswmail.ad.cirrus.com>
+References: <20230210091942.10866-1-lucas.tanure@collabora.com>
+ <20230210091942.10866-4-lucas.tanure@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH] ASoC: Intel: Skylake: Replace 1-element array with
- flex-array
-Content-Language: en-US
-To: Kees Cook <keescook@chromium.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20230210051447.never.204-kees@kernel.org>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230210051447.never.204-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: S2IJGXISWI4INHRAFBWW2NC2VZYOPF4M
-X-Message-ID-Hash: S2IJGXISWI4INHRAFBWW2NC2VZYOPF4M
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230210091942.10866-4-lucas.tanure@collabora.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: TYkW6cCZkE6aXkFUZTp5B498hGU-k32i
+X-Proofpoint-ORIG-GUID: TYkW6cCZkE6aXkFUZTp5B498hGU-k32i
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: WZSOIJKMYRJOZP74CEN3BNXCBC2E24XB
+X-Message-ID-Hash: WZSOIJKMYRJOZP74CEN3BNXCBC2E24XB
+X-MailFrom: prvs=740514a585=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Sasa Ostrouska <casaxa@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
+CC: David Rhodes <david.rhodes@cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2IJGXISWI4INHRAFBWW2NC2VZYOPF4M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZSOIJKMYRJOZP74CEN3BNXCBC2E24XB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,97 +114,129 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2/10/2023 6:14 AM, Kees Cook wrote:
-> The kernel is globally removing the ambiguous 0-length and 1-element
-> arrays in favor of flexible arrays, so that we can gain both compile-time
-> and run-time array bounds checking[1]. In this instance, struct
-> skl_cpr_cfg contains struct skl_cpr_gtw_cfg, which defined "config_data"
-> as a 1-element array.
+On Fri, Feb 10, 2023 at 09:19:41AM +0000, Lucas Tanure wrote:
+> Shared boost allows two amplifiers to share a single boost circuit by
+> communicating on the MDSYNC bus.
+> The passive amplifier does not control the boost and receives data from
+> the active amplifier.
 > 
-> Normally when switching from a 1-element array to a flex-array, any
-> related size calculations must be adjusted too. However, it seems the
-> original code was over-allocating space, since 1 extra u32 would be
-> included by the sizeof():
+> Shared Boost is not supported in HDA Systems.
+> Based on David Rhodes shared boost patches.
 > 
->                  param_size = sizeof(struct skl_cpr_cfg);
->                  param_size += mconfig->formats_config[SKL_PARAM_INIT].caps_size;
-> 
-> But the copy uses caps_size bytes, and cap_size / 4 (i.e. sizeof(u32))
-> for the length tracking:
-> 
->          memcpy(cpr_mconfig->gtw_cfg.config_data,
->                          mconfig->formats_config[SKL_PARAM_INIT].caps,
->                          mconfig->formats_config[SKL_PARAM_INIT].caps_size);
-> 
->          cpr_mconfig->gtw_cfg.config_length =
->                          (mconfig->formats_config[SKL_PARAM_INIT].caps_size) / 4;
-> 
-> Therefore, no size calculations need adjusting. Change the struct
-> skl_cpr_gtw_cfg config_data member to be a true flexible array, which
-> also fixes the over-allocation, and silences this memcpy run-time false
-> positive:
-> 
->    memcpy: detected field-spanning write (size 100) of single field "cpr_mconfig->gtw_cfg.config_data" at sound/soc/intel/skylake/skl-messages.c:554 (size 4)
-> 
-> [1] For lots of details, see both:
->      https://docs.kernel.org/process/deprecated.html#zero-length-and-one-element-arrays
->      https://people.kernel.org/kees/bounded-flexible-arrays-in-c
-> 
-> Reported-by: Sasa Ostrouska <casaxa@gmail.com>
-> Link: https://lore.kernel.org/all/CALFERdwvq5day_sbDfiUsMSZCQu9HG8-SBpOZDNPeMdZGog6XA@mail.gmail.com/
-> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-> Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: "Amadeusz Sławiński" <amadeuszx.slawinski@linux.intel.com>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
 > ---
->   sound/soc/intel/skylake/skl-topology.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
-> index 6db0fd7bad49..ad94f8020c27 100644
-> --- a/sound/soc/intel/skylake/skl-topology.h
-> +++ b/sound/soc/intel/skylake/skl-topology.h
-> @@ -115,7 +115,7 @@ struct skl_cpr_gtw_cfg {
->   	u32 dma_buffer_size;
->   	u32 config_length;
->   	/* not mandatory; required only for DMIC/I2S */
-> -	u32 config_data[1];
-> +	u32 config_data[];
->   } __packed;
->   
->   struct skl_dma_control {
 
-This fails in our validation. Maybe we can use the union workaround, to 
-leave the size as is?
+Ok I found a copy of David's internal patch which helps a litte.
 
-Following seems to work in manual test:
-diff --git a/sound/soc/intel/skylake/skl-topology.h 
-b/sound/soc/intel/skylake/skl-topology.h
-index 6db0fd7bad49..ffbd2e60fede 100644
---- a/sound/soc/intel/skylake/skl-topology.h
-+++ b/sound/soc/intel/skylake/skl-topology.h
-@@ -115,7 +115,10 @@ struct skl_cpr_gtw_cfg {
-         u32 dma_buffer_size;
-         u32 config_length;
-         /* not mandatory; required only for DMIC/I2S */
--       u32 config_data[1];
-+       union {
-+               u32 x;
-+               u32 config_data[0];
-+       };
-  } __packed;
+> --- a/sound/soc/codecs/cs35l41-lib.c
+> +++ b/sound/soc/codecs/cs35l41-lib.c
+> @@ -1114,12 +1114,31 @@ static const struct reg_sequence cs35l41_reset_to_safe[] = {
+>  	{ 0x00000040,			0x00000033 },
+>  };
+>  
+> +static const struct reg_sequence cs35l41_actv_seq[] = {
+> +	/* SYNC_BST_CTL_RX_EN = 0; SYNC_BST_CTL_TX_EN = 1 */
+> +	{CS35L41_MDSYNC_EN,        0x00001000},
 
-  struct skl_dma_control {
+David's internal patch appears to set 0x3000 on the active side,
+not sure where that difference snuck in, or which is the correct
+value. Your settings appear to make logical sense to me though, TX
+on the active side, RX on the passive side.
 
-I can also run it through validation to make sure if it is acceptable.
+> +	/* BST_CTL_SEL = CLASSH */
+> +	{CS35L41_BSTCVRT_VCTRL2,    0x00000001},
 
+BST_CTL_SEL is in BSTCVRT_VCTRL1 (or BOOST_VOLTAGE_CFG, as it
+is called in the datasheet, yay us for using the same names).
+That does not mean this write is wrong, could just be the
+comment, but what this does write is a bit odd so I would like
+David to confirm this isn't some typo in his original patch.
+
+> +};
+> +
+> +static const struct reg_sequence cs35l41_pass_seq[] = {
+> +	/* SYNC_BST_CTL_RX_EN = 1; SYNC_BST_CTL_TX_EN = 0 */
+> +	{CS35L41_MDSYNC_EN,        0x00002000},
+> +	/* BST_EN = 0 */
+> +	{CS35L41_PWR_CTRL2,        0x00003300},
+> +	/* BST_CTL_SEL = MDSYNC */
+> +	{CS35L41_BSTCVRT_VCTRL2,    0x00000002},
+
+Ditto here, comment doesn't match the write.
+
+> -int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable)
+> +int cs35l41_global_enable(struct regmap *regmap, enum cs35l41_boost_type b_type, int enable,
+> +			  struct completion *pll_lock)
+>  {
+>  	int ret;
+> +	unsigned int gpio1_func, pad_control, pwr_ctrl1, pwr_ctrl3;
+> +	struct reg_sequence cs35l41_mdsync_down_seq[] = {
+> +		{CS35L41_PWR_CTRL3,		0},
+> +		{CS35L41_GPIO_PAD_CONTROL,	0},
+> +		{CS35L41_PWR_CTRL1,		0, 3000},
+> +	};
+> +	struct reg_sequence cs35l41_mdsync_up_seq[] = {
+> +		{CS35L41_PWR_CTRL3,	0},
+> +		{CS35L41_PWR_CTRL1,	0x00000000, 3000},
+> +		{CS35L41_PWR_CTRL1,	0x00000001, 3000},
+> +	};
+>  
+>  	switch (b_type) {
+> +	case CS35L41_SHD_BOOST_ACTV:
+> +	case CS35L41_SHD_BOOST_PASS:
+> +		regmap_read(regmap, CS35L41_PWR_CTRL3, &pwr_ctrl3);
+> +		regmap_read(regmap, CS35L41_GPIO_PAD_CONTROL, &pad_control);
+> +
+> +		pwr_ctrl3 &= ~CS35L41_SYNC_EN_MASK;
+> +		pwr_ctrl1 = enable << CS35L41_GLOBAL_EN_SHIFT;
+
+Are you sure this is what you want? In the case of powering up,
+the sequence would end up being:
+
+mdsync_down
+ -> sets GLOBAL_EN on
+mdsync_up
+ -> sets GLOBAL_EN off
+ -> sets GLOBAL_EN on
+
+Feels like mdsync_down should always turn global_enable off? But
+again I don't know for sure. But then I guess why is there the
+extra write to turn it off in mdsync_up? I can't see any sign of
+GLOBAL_EN bouncing in David's internal patch.
+
+> +
+> +		gpio1_func = enable ? CS35L41_GPIO1_MDSYNC : CS35L41_GPIO1_HIZ;
+> +		gpio1_func <<= CS35L41_GPIO1_CTRL_SHIFT;
+
+Hm... this is a good point, probably would be nice to return an
+error if the user sets a shared boost mode and a specific function
+for the GPIO1 pin.
+
+> +		pad_control &= ~CS35L41_GPIO1_CTRL_MASK;
+> +		pad_control |= gpio1_func & CS35L41_GPIO1_CTRL_MASK;
+> +
+> +		cs35l41_mdsync_down_seq[0].def = pwr_ctrl3;
+> +		cs35l41_mdsync_down_seq[1].def = pad_control;
+> +		cs35l41_mdsync_down_seq[2].def = pwr_ctrl1;
+> +		ret = regmap_multi_reg_write(regmap, cs35l41_mdsync_down_seq,
+> +					     ARRAY_SIZE(cs35l41_mdsync_down_seq));
+> +		if (!enable)
+> +			break;
+> +
+> +		if (!pll_lock)
+> +			return -EINVAL;
+> +
+> +		ret = wait_for_completion_timeout(pll_lock, msecs_to_jiffies(1000));
+> +		if (ret == 0) {
+> +			ret = -ETIMEDOUT;
+> +		} else {
+> +			regmap_read(regmap, CS35L41_PWR_CTRL3, &pwr_ctrl3);
+> +			pwr_ctrl3 |= CS35L41_SYNC_EN_MASK;
+> +			cs35l41_mdsync_up_seq[0].def = pwr_ctrl3;
+> +			ret = regmap_multi_reg_write(regmap, cs35l41_mdsync_up_seq,
+> +						     ARRAY_SIZE(cs35l41_mdsync_up_seq));
+> +		}
+> +		break;
+
+Thanks,
+Charles

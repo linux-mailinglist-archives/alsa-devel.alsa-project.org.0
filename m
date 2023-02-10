@@ -2,171 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B2AA691AAC
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:03:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9A7691AC4
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Feb 2023 10:06:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA5A082B;
-	Fri, 10 Feb 2023 10:02:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA5A082B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF444836;
+	Fri, 10 Feb 2023 10:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF444836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676019821;
-	bh=as973FMwuMAacmviaNANZvP02+EdqFZY3dv6kMfeimc=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1676019999;
+	bh=pga/PtAy3y1FBmxbXatPUAg65ESHiSJHmYveEwKhtFE=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ofqfvjRf2VNCcd2lUD/OsxIi/NuuA6fOGpe3CmW/qlqyCWIfUI0QKIlv96LBw9rvQ
-	 fEKiMll3bF7hUf6xiVU6rssOMc00uA7TEdcVrA/BeuV8JCUo5K61BCcrRSyF2+redC
-	 Fsnep6Yi3a6G6CfjZrT1suBUeBIdIPuazYW/vYwQ=
+	b=PoTvtdGhlHrOaUOo9rVOe2LP5jVdipNHKIRSts9V1CZARNQ+XywBG8pOfexI9h7Wa
+	 Al8ehBP49+KURstygrdMjX3W94YiKod2lwRz+bllPlVeZCrS5TsDfMKvGhDhbi/+4Z
+	 /xvlEpcHu/zPbnmBnIJ/sMiI3aTMbagn9WnAplwQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21777F8001E;
-	Fri, 10 Feb 2023 10:02:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81127F800B8;
+	Fri, 10 Feb 2023 10:05:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D4F4F800E4; Fri, 10 Feb 2023 10:02:41 +0100 (CET)
+	id C628EF800E4; Fri, 10 Feb 2023 10:05:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::625])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7B9CF8001E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:02:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B9CF8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F05BF8001E
+	for <alsa-devel@alsa-project.org>; Fri, 10 Feb 2023 10:05:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F05BF8001E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=tIkfw8/S
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JVAfPBpgErrIRaAhCMs5lEuCpYEvQqXvi3cKjdr1lrxkOe7px+sJtM91uXHfLfOYls+M4JQnC7CwMYErtLQvNTavv0gD47MjcVUhlaUdXHfODeFYCTZFtR/+a63BYuRLE8uwCGgN8CqWP4KkRhAnvDhIBnYF7p1bi30iypN5eBmk0YI5Pmq3X2q6FZc/ZR8kVfinrJBZHYyjKNRe5XD+t7dszjza+dcuWMFcFn8PJ3YYqFeDwDxk7FRj/OOLADuHdhn8tymctLwES6OKGkNHVd1r9ICsaR46A9wvrpV7/7J1gSsuELyqR5va86YdeWvdJSZRgn3JDzCRPLjc9dY42w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JJn1CWzYccF3XHvLeIpT2l+hRL7lFOwOFFprP+/SLVI=;
- b=THWgHwmxnxQvGKwN9IVbIwbvP53hrALjGNKAeIehHm0Kl1TMEuFnDYF+YyYgOHSm470OUcxUpy4HEI1txocUNqwjvvSOSzM2/j9r5xJHdVqwt8jxasjleAiShr+T38gJWm/VGeTHyL39Y/LxyhY3lmEEkc6MgGIQUVfpXwbnD1DhRn9I/JFqqQ2YVn2rPZpahJq5VUgKYMSpRrioioBhRGcmZLhwC5M24qx3vSHz4c6uKmXfOyhVwEqOaIudlpD47YUss54QI/PxVgtwjkhyJe6H2M7NNspn9Xs5FxbzeBfZz5QFhmAAtcvkJd7Q4vKGOeBKAF3LWnWAoHL8dFh4oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JJn1CWzYccF3XHvLeIpT2l+hRL7lFOwOFFprP+/SLVI=;
- b=tIkfw8/SS7uDDH4wYoQ4MuXSAbducVzK3VukuGXziq6kCr0WQDdSHOZjiYm9FkMjMvClfeW2dlB55MPmSQXmPQg1OgqKQGZgtOPUHrEFsrtm9+g47CNa+9o5K/8A1qSFiebgD6FMi4TR6q38CSl3a9Gn9TJgB3/r2lssujY5Zk3mSWJ+GucvEltA35C+g9c8aF5JjHJhFRkS6OnM2nRAmZJ10Hg86liNr2DLJ4Qg1HVg0iB4KnI4pERePSUOk2wFZqWFL6F9YVLwPm+GDG1flkOiB3M736jFtrdfUKbLgqqfun3Ve5WBBCw8B8btPrMyrxLUFCcpOGm03faNIm4k6w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com (2603:10b6:a03:134::32)
- by SA3PR12MB8047.namprd12.prod.outlook.com (2603:10b6:806:31b::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Fri, 10 Feb
- 2023 09:02:23 +0000
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::c035:85e0:77c4:e934]) by BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::c035:85e0:77c4:e934%7]) with mapi id 15.20.6086.019; Fri, 10 Feb 2023
- 09:02:23 +0000
-Message-ID: <f967b1b3-25c7-9c81-192e-82ff9f25113e@nvidia.com>
-Date: Fri, 10 Feb 2023 14:32:07 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/2] arm64: tegra: Audio codec support on Jetson AGX Orin
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, thierry.reding@gmail.com,
- jonathanh@nvidia.com, oder_chiou@realtek.com, broonie@kernel.org
-References: <1675953417-8686-1-git-send-email-spujar@nvidia.com>
- <1675953417-8686-3-git-send-email-spujar@nvidia.com>
- <9570b0fb-1fe2-00fe-e224-229752f26a9a@linaro.org>
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <9570b0fb-1fe2-00fe-e224-229752f26a9a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::6) To BYAPR12MB3205.namprd12.prod.outlook.com
- (2603:10b6:a03:134::32)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3205:EE_|SA3PR12MB8047:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76b0cb69-b911-4739-b6dd-08db0b4585c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	DjsoWHsUhDy2M/gQUtIHVs1LxCd+EAcdvJ0BaPRYa6Ti5oKXfL3Qica4/MY1o8J3nkOu+kNgPOE4zb3TH8qnZQ9QqM+bbMhYQMQjmcaIk8qeKBcuCGTR6TBCCMjYN+ELtZDKSBz/4usz2qlWYHrQ9yl0e5JL9zuKK/ESumIhv3cAIiFwyCy2T9ZVvo1Eqk24QrtLy8RwIWYjwbVGkceFSJU8JBqL8PJ67e4V2/CUkiG+Jv3Yy9YBUPnIj+LV/MQo2xYj0a/xgrXz6f6+//fjd2IIWVJHpW1l3s9DCPP1t+Ycujjjmcb/R6ZAmW1SvOmqMNj3Up48mJVfzUbRku9XjbVURzJDMpoowylOhd1k9BRtAjVKbemeNT6ejtGlZ2XDdwkp5eG6mZAxQHgcmrIyKcK2y2v/mQJeEfO63g8rWaDz3584tCkKRqocB4ADtHLN1le/5fJqLM/Dv5D6U3xh03gen9WxVLD4WsgXbONf6uOUXHkMSsU7xw8uIYIJRzYyL3A+2HZGZ+/b/XGMRf1RcOyAt1uhrljhZ5dAwxIYXKbFem61V3bpyNmHzG1Kt/PtQiwh7oYDAbUucBRSKggZcu/uCOOEZFjb/NRM4tXyWCh1pVXRcgw77bVGxzXZYH3+YVVF7xv6KQ8rX1DxDSXtStHTHrKEQwTwkYDFdSRilBBj/+SizZkqYnu330eHkm0ZBbQBHLhvPoyUyNpS65YbJLgb5IzQGIW7K+mcFhZlAtg=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR12MB3205.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(396003)(39860400002)(136003)(366004)(376002)(451199018)(26005)(2616005)(86362001)(478600001)(6486002)(31696002)(8936002)(53546011)(6666004)(186003)(6512007)(6506007)(31686004)(66476007)(8676002)(4326008)(38100700002)(66946007)(41300700001)(66556008)(83380400001)(2906002)(316002)(5660300002)(36756003)(7416002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?OEdwa1hocFJDSDVwbStvQWlLOXcxNTJYNTdzeXM5aytVRFFoRXN0c2RLVGxn?=
- =?utf-8?B?MTRQSGQwZklyYnpTWFdjNTUray9BNytkZFhxMWMyOHlISFcxQzVsL1RQTzNJ?=
- =?utf-8?B?dURoVEh6Uk5WTm9zRW5MWXZQYTZ2RUFidTVKQVVuTWgwdXFwUGJvWTVwQmtJ?=
- =?utf-8?B?SXdmQjRCTmt0dnp1aGhWajlMWkVXY25OV0JEVU11UlhUVVJ6MXdNSHZnd0tU?=
- =?utf-8?B?VEsyVlF4YnpQb3FwMTlMVytqSWh2MDRDbWZmVERjclNIbVp2aS96ZTE4eUFE?=
- =?utf-8?B?bEVMNENnNU56M1J1TUg2eDRDVHdwZC9lakRpVkUrcjBtZnpZN3RYZ09xcjRV?=
- =?utf-8?B?VWtwcTU1MUk0S1M5M1dQcldkd1RjSmE0dTI0dExGTXVDR2dINlVtQVYvUnJW?=
- =?utf-8?B?Nll3Tm9RVTFsNjJQeERUR3JvOFY5dUgrelZjOVZLZzJpOCtzUGJaQVF1NjdI?=
- =?utf-8?B?dDZ3YUhiNHJUNWlFUnhNMkdNd2ZVd3FYZFArRHcyWVJXL3ZXckJGazdsNGIv?=
- =?utf-8?B?M1BMckREZi9UbWJudVVzSnc1cS92aFBHM0QwSHlNUVlrUzVmbDZKSW9SazJq?=
- =?utf-8?B?UGxDdDVEbUV1bWVTaWhja0hRNklKU2JZcmJXemo1bkNPS1NIbFNqVnVLL0Vq?=
- =?utf-8?B?dlNTR29rdm9rejlyeCtEbC9nYXJwRXQzcmtXaUtNcDJud216MTljOGpiSWFw?=
- =?utf-8?B?emRrZUN0R2dzb3ZkOEJSZk12QVVVUU9mZkw0ZXhMMk85L0VMNllQV0pYOEdT?=
- =?utf-8?B?SmxPMndLNFFabFFmYXE3LzJ3SldSbGh3WEt2U0hiWEpJVEdyT2tVMkhjUjJt?=
- =?utf-8?B?UE42MTBJdnFkenBPaUJsMzJHcWc5cHBNZytxNkdEREYyYlVNbmZJMklycGtv?=
- =?utf-8?B?Tmg5TUJrRER0ZEZHOC9qUGRISXNuK0MvczFsaXdSM0NveXBudXhtUHYvYWZr?=
- =?utf-8?B?QTVKQUp4RDRaQnRXT2d5UFlVbUlhQm9oMHhHcU9hcUpJVmRDbEIwemxCT01X?=
- =?utf-8?B?dmtKWXhYVjk4YkVIVEFrd2pucEFZbkt2b3l2bTBaaW5KMHVOaVB3RytlcjV0?=
- =?utf-8?B?cTIrdW1iY3F2RFlKdmVPREU5MXFvYkIvNUdPT2xnU3AwbTVZRjdQcytCRFRk?=
- =?utf-8?B?K0FBM1Q5ZklIdVNxSDZVMVd2UkJCRjZybUJjemJmNEJ3R0tmZEtzSzVlYUYz?=
- =?utf-8?B?Sm9sVmx6czdLendjaHA0NnAxSURiZzBBTHRVUDM1SDBUWFQySWxKdVZBT0li?=
- =?utf-8?B?MEJSNHlIN05sME9hKzdTWE1HV0phRkxhQXZHNUNTbXU3bnhZR2YvdzNXeHQz?=
- =?utf-8?B?T3FSS3BpakFHaVFpdzBvazZtVHBUTzRNNUJ4dnFyZ2FGQ2IyM0d0elltWXVK?=
- =?utf-8?B?Tlh6MXZ2RW1CN00zb3FCRHlJNW1RcDlyN3BIWUdsZ3VJblpuYnM3TkhkWWph?=
- =?utf-8?B?NnVYb0xCNENVZVFmaXpNeGlhalBWdU1NQUR1Y3k3R0ljOUhtZ2YwSjR1Tnli?=
- =?utf-8?B?TUFkRXoxOVlBSVJrN2ZuMC84ZHppMFhjdjU1b3BFMjE2S0pTczRHY20yUHZi?=
- =?utf-8?B?bTR1ejZJcWRVR0N6NjM4aFBpeW5TeGdteXdLYVNwdHE1ZndSYm5tdk56TEJ5?=
- =?utf-8?B?a05CRnFHa3QyNHM3VDgvc2dQanFjbzN2dmwvWXpyckp3QWIvdC9LN1dUNnRi?=
- =?utf-8?B?eXJBSndlb2V1aVFjQnNRMHhnRG5Vc0JaTjBpUEFtQ3hURVd2TWRvdEZOa3M0?=
- =?utf-8?B?VzFudzlyaHM0TU8xMUk5dFBmUlhDZ05yZmk0dytwMnlZcnptc0pJcGNCMkdS?=
- =?utf-8?B?ZFlUSG0yYmdiUUFoUUZsVzdQbkJJUWlndk82blA0K0YyS3h5V0pSNE02MjAz?=
- =?utf-8?B?S1F4bTYyS1dqUXhsakJsWks4dXVmMUlMbHJNc1BKQ0lTWktTZjlKTVFEZTAr?=
- =?utf-8?B?TG9xdnB5eEY3U3U0ZWNJQkdVYkJ6NlFzV0xRRVJ5bVFsOHBTbEt4TVZGaGpF?=
- =?utf-8?B?VFBYcHFOSDRmM2VROSs5b3BNTGYzQlk0UWNhaXpFbGs2V1FXdU8wQ1ZJOVI1?=
- =?utf-8?B?VktOUW9weW1wbEpFcGd2S3IwN3ZyTmhDTDBaZy8xaXczUFkrVUQ2U0ZoQUo3?=
- =?utf-8?Q?FpnP5v4m8YGaOQH1BN7SZBCVU?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 76b0cb69-b911-4739-b6dd-08db0b4585c1
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3205.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 09:02:23.0583
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Ei7W7n+H7EbuzNV7tN2uORH4PO63R3Qol7OLEoEhvPhcWC6/z27xlZL1tJnF5iKxg59hrgH6GuDMZUYy+J1vhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8047
-Message-ID-Hash: KNDVUCXZSFO35GGWETSCBJRMII5XV4OV
-X-Message-ID-Hash: KNDVUCXZSFO35GGWETSCBJRMII5XV4OV
-X-MailFrom: spujar@nvidia.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=wHSzE1CN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=PYU1Z9lG
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A874E38752;
+	Fri, 10 Feb 2023 09:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1676019937;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VO+WNnu4rwnrV9OWFD5vGdftJZBLXt6VxRm5ZgaBjlw=;
+	b=wHSzE1CNWna8VLmZ+veLom4mKuzagsDwy06FOho7bKzPARoEEvl5UG10THn9CVpmzbH8Ou
+	fyVn8ELuJPkFLECr5TJGfiQPkeSEvMmsk88iBPq4V2TcndUX3ezgRuZYfMor50N3GlL5Bn
+	M0uR1mq4LtmWzgVNqpNW9I+dZLejS2A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1676019937;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VO+WNnu4rwnrV9OWFD5vGdftJZBLXt6VxRm5ZgaBjlw=;
+	b=PYU1Z9lGrIbzIiqYpisgShPqq5UpT8qiUmhX6K5lniHnxVWdYEmsFltvMvfvqfG93VZQ5u
+	qFi+7ZNwGSwaNCBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 800E813588;
+	Fri, 10 Feb 2023 09:05:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id mAF7HuEI5mOFHgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 10 Feb 2023 09:05:37 +0000
+Date: Fri, 10 Feb 2023 10:05:36 +0100
+Message-ID: <87y1p5j3fj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: bo liu <bo.liu@senarytech.com>
+Subject: Re: [PATCH] ALSA:hda/conexant:add a new hda codec SN6180
+In-Reply-To: <1675908828-1012-1-git-send-email-bo.liu@senarytech.com>
+References: <1675908828-1012-1-git-send-email-bo.liu@senarytech.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW
+X-Message-ID-Hash: M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+CC: tiwai@suse.com, tangmeng@uniontech.com, huangwenhuia@uniontech.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNDVUCXZSFO35GGWETSCBJRMII5XV4OV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3VWAGPISC4MI6I2XYUBJZ4OT3WFZ5QW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,50 +116,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 09 Feb 2023 03:13:48 +0100,
+bo liu wrote:
+> 
+> From: Bo Liu <bo.liu@senarytech.com>
+> 
+> The current kernel does not support the SN6180 codec chip.
+> Add the SN6180 codec configuration item to kernel.
+> 
+> Signed-off-by: Bo Liu <bo.liu@senarytech.com>
+
+Thanks, applied.
 
 
-On 10-02-2023 14:15, Krzysztof Kozlowski wrote:
-> On 09/02/2023 15:36, Sameer Pujar wrote:
->> Jetson AGX Orin has onboard RT5640 audio codec. This patch adds the
->> codec device node and the bindings to I2S1 interface.
->>
->> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->> ---
->>   .../dts/nvidia/tegra234-p3737-0000+p3701-0000.dts  | 47 +++++++++++++++++++++-
->>   1 file changed, 46 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
->> index 8a97478..5881fbf 100644
->> --- a/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
->> +++ b/arch/arm64/boot/dts/nvidia/tegra234-p3737-0000+p3701-0000.dts
->> @@ -3,6 +3,7 @@
->>
->>   #include <dt-bindings/input/linux-event-codes.h>
->>   #include <dt-bindings/input/gpio-keys.h>
->> +#include <dt-bindings/sound/rt5640.h>
->>
->>   #include "tegra234-p3701-0000.dtsi"
->>   #include "tegra234-p3737-0000.dtsi"
->> @@ -49,7 +50,7 @@
->>
->>                                                        i2s1_dap: endpoint {
->>                                                                dai-format = "i2s";
->> -                                                             /* placeholder for external codec */
->> +                                                             remote-endpoint = <&rt5640_ep>;
->>                                                        };
->>                                                };
->>                                        };
->> @@ -2017,6 +2018,32 @@
->>                        status = "okay";
->>                };
->>
->> +             i2c@31e0000 {
->> +                     status = "okay";
->> +
-
->> +                     audio-codec@1c {
->> +                             status = "okay";
-> Are you sure you need this?
-I can drop this in v2 as it would be the default state and it is not 
-disabled anywhere else. Thanks.
-
+Takashi

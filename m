@@ -2,117 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C1C692F7A
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 09:43:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A400692FD2
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 10:53:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76DA4843;
-	Sat, 11 Feb 2023 09:42:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76DA4843
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC1EA83E;
+	Sat, 11 Feb 2023 10:52:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC1EA83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676105022;
-	bh=5xtlvae2wJ4u/uRMO0YfhPbua/bvZ6fcnrfQNyE9PNk=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1676109208;
+	bh=YQaX98P13ZzNmb+IkOio2XJA8N8pr86DRZoEmOgcGqA=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UfE+spZ/1hwJkjuSO64MurTZQ0fpOpz0UOPPcbdv+gpkBL23Jkkx6+2UERfUlhC4p
-	 DfUZu0h5ewMrEtsg+rJfx1rEkKRb1E8w/2GEaugq0154ZMMZFFORjT9ti+/jOmTTNQ
-	 7JNKUUC5pwbjfXIJp9FQw499HTKo0viLgiwiQaTA=
+	b=eXOvMB5DKa2RMRjCgMG/WnOJZrEYYlDvONlldazYxS6NlqibBqZLD/5VxsuvtbMwO
+	 NeFRvUd0Khwcq75kdTLS64ABTRqc3WTu3us0L+2oqcKD9dTrNvFFr3NQ3jXRXupX0H
+	 fhmqGul+T8LOxNR7MX7hO1jsORGjLkcIOzE1lw4w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD164F800B8;
-	Sat, 11 Feb 2023 09:42:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09CBDF800B8;
+	Sat, 11 Feb 2023 10:52:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13CB6F800E4; Sat, 11 Feb 2023 09:42:48 +0100 (CET)
+	id 8F0D1F800E4; Sat, 11 Feb 2023 10:52:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0605DF80038
-	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 09:42:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0605DF80038
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CF75F80094
+	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 10:52:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CF75F80094
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=D/iHZR8h;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ssCazD/2
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D4A311FF63;
-	Sat, 11 Feb 2023 08:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1676104964;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NQjl2BnBIRCDsFeLCejy6k4OboHxUP9crhXpuM1/Nzo=;
-	b=D/iHZR8h27AHSnoH/XFZUv9oXrJMGb50dItrTf7DX8QtbTqlgOBgMZCSUyo4BAjhKG/rGh
-	C7Hj9YQ4NKjjp5JmLQnlA5W+nluaquEhwDfjGO5ksyIKjO2nfV0KAR6GGnbyqhz9LyDBj2
-	J/Vp5ml+W7pmitQaGAKYKgCTvAnQH00=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676104964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NQjl2BnBIRCDsFeLCejy6k4OboHxUP9crhXpuM1/Nzo=;
-	b=ssCazD/2O6m4fqrdPYEErlktDsN3qsyyqdYlx8oZka40g8YaSfB8eUYShb8qLb4E50QViF
-	z5IDrRX9mXIDoeCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B068513A1F;
-	Sat, 11 Feb 2023 08:42:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id zR9ZKgRV52MLDwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 11 Feb 2023 08:42:44 +0000
-Date: Sat, 11 Feb 2023 09:42:44 +0100
-Message-ID: <87ttzsh9tn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mike FABIAN <mfabian@redhat.com>
-Subject: Re: No sound on HDMI by default on Lenovo T14s using Fedora 37
-In-Reply-To: <s9d4jrsppew.fsf@hathi.site>
-References: <s9dy1pzx3ki.fsf@hathi.site>
-	<87k01j6cw6.wl-tiwai@suse.de>
-	<s9dfsc7ixik.fsf@hathi.site>
-	<877cxj65s3.wl-tiwai@suse.de>
-	<87zgaerfqv.wl-tiwai@suse.de>
-	<s9dbkmtigfe.fsf@hathi.site>
-	<87bkmtpft5.wl-tiwai@suse.de>
-	<s9dmt5kwr3k.fsf@hathi.site>
-	<s9d4jrsppew.fsf@hathi.site>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-Message-ID-Hash: E64S7ASWBOQHISJQEF6Q2SSXV7KP7JH6
-X-Message-ID-Hash: E64S7ASWBOQHISJQEF6Q2SSXV7KP7JH6
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=QPHCBTEv
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31B9o25r001143;
+	Sat, 11 Feb 2023 09:52:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=UCfOFNP2YCsOcROG51tOllRT0Dd3aRaEdI+beQKVZS4=;
+ b=QPHCBTEvfCynbtL6N1nMAvuWvMSxhrkm2JQIzizSoBwioMTY8yVGlVuKbicySlDdHdl4
+ 9bUUQDSFg2QX2s6DcGdOosZu5GnfBo03m95wX99rKMI8zHyoQSZ0D6d6COIny+9p2w2n
+ hQDbWWEX6NOfsBdntdcYbOiSu+TalNX3gLBz9lfQ0LvCVvXxonSJap7JBzSAVnH9IlWH
+ y1GTsxsg/TatDUVTlKH4JhZ9Dz/EqXsSqLkPflbn2FT9pciW4/VEbceujRXixS5i13HU
+ xgq4N/g1JdY/3O5T7ZBgIhyFOI1CuoenoURHlYlCmdZPXqWKpsgIcPzmYxlhjv5IEzfk UQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3np389rfp5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 11 Feb 2023 09:52:11 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 31B9qAx3015736
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 11 Feb 2023 09:52:10 GMT
+Received: from [10.110.21.35] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.36; Sat, 11 Feb
+ 2023 01:52:09 -0800
+Message-ID: <60e42db4-1bbc-beea-d87d-6f93871b70c7@quicinc.com>
+Date: Sat, 11 Feb 2023 01:52:09 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH v2 20/22] sound: usb: Prevent starting of audio stream
+ if in use
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+        <agross@kernel.org>
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-21-quic_wcheng@quicinc.com>
+ <557f8f76-38f5-5e07-905e-774e03120bd2@linux.intel.com>
+ <b26c9e4c-5a9c-a2ff-19a7-78419c6b81df@quicinc.com>
+ <b532bf7b-e1fb-3a9d-1b88-02f3159be47d@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <b532bf7b-e1fb-3a9d-1b88-02f3159be47d@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 3k8nJOYHa5s5VYu4opmTp6Izyv68DjaR
+X-Proofpoint-GUID: 3k8nJOYHa5s5VYu4opmTp6Izyv68DjaR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-11_05,2023-02-09_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015
+ bulkscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 mlxscore=0 mlxlogscore=915 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2302110089
+Message-ID-Hash: 6FNQKT4ZO2IHKJ2O7ZBJFWGXX27GNO33
+X-Message-ID-Hash: 6FNQKT4ZO2IHKJ2O7ZBJFWGXX27GNO33
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+CC: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E64S7ASWBOQHISJQEF6Q2SSXV7KP7JH6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6FNQKT4ZO2IHKJ2O7ZBJFWGXX27GNO33/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,111 +137,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 11 Feb 2023 09:38:47 +0100,
-Mike FABIAN wrote:
-> 
-> And now I rebooted again after yet another kernel update (I did not
-> change anything apart from "sudo dnf update" and reboot).
-> 
-> Now it is working again. I have attached the output of alsa-info.sh for
-> the non-working case.
-> 
-> Could it be that the kernel update had nothing to do with it working now
-> and that it switches between working and not working "randomly" when rebooting?
+Hi Pierre,
 
-Well, it's hard to tell...  If it's broken silently (literally, no
-error log reported), that's likely some issue of the driver (either
-graphics or HDMI-audio).  OTOH, if you see any relevant error/warning
-log from pipewire or the kernel driver, it'd be more about the
-inconsistency in the configuration.
+On 2/7/2023 5:29 AM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 2/6/23 19:15, Wesley Cheng wrote:
+>> Hi Pierre,
+>>
+>> On 1/26/2023 8:12 AM, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>> On 1/25/23 21:14, Wesley Cheng wrote:
+>>>> With USB audio offloading, an audio session is started from the ASoC
+>>>> platform sound card and PCM devices.  Likewise, the USB SND path is
+>>>> still
+>>>> readily available for use, in case the non-offload path is desired.  In
+>>>> order to prevent the two entities from attempting to use the USB bus,
+>>>> introduce a flag that determines when either paths are in use.
+>>>>
+>>>> If a PCM device is already in use, the check will return an error to
+>>>> userspace notifying that the stream is currently busy.  This ensures
+>>>> that
+>>>> only one path is using the USB substream.
+>>>
+>>> It's good to maintain mutual exclusion, but it's still very hard for an
+>>> application to figure out which card can be used when.
+>>>
+>>> Returning -EBUSY is not super helpful. There should be something like a
+>>> notification or connection status so that routing decisions can be made
+>>> without trial-and-error.
+>>>
+>>
+>> The USB offload driver does have access to the USB substream that is
+>> being utilized/offloaded.  Maybe in addition to this check, we can also
+>> set the PCM runtime state as well (for that particular substream)?  That
+>> way userspace can fetch information about if the stream is busy or not.
+> 
+> You're missing the point. When a card is exposed but the PCM devices may
+> or may not be usable (consuming data with no sound rendered or returning
+> an error), it's much better to provide a clear connection status to
+> userspace.
+> 
+> Let me give you an example. Intel drivers can expose 3 HDMI/DP PCM
+> devices. Userspace has no idea which one to use, so there's a jack
+> control that tells userspace whether there is a receiver connected so
+> that the audio server can use the relevant PCM device.
+> 
+> Audio routing based on trial and error is really problematic, errors can
+> happen but they should be exceptional (e.g. xruns), not a means of
+> driver-userspace communication on the device status.
 
+Thanks for clarifying.  The example helped me understand a bit more on 
+how the potential use of the SND control interface.  Since we're dealing 
+with multiple sound cards here (platform sound card (offload) and USB 
+SND card (legacy)), what do you think about creating a SND control on 
+both the USB backend (platform card) and the USB SND card listing the 
+PCM device status?
 
-Takashi
+That way at least userspace can have the information about which PCM dev 
+(USB substream) is available (and not offloaded, or vice versa).  So the 
+USB SND control will contain the PCM devices (exposed by the card) and 
+if any are offloaded (if so mark them as unavailable).  Likewise, for 
+the USB backend, if the legacy path is being used, mark them as 
+unavailable for offloading.
 
-> 
-> Mike FABIAN <mfabian@redhat.com> $B$5$s$O$+$-$^$7$?(B:
-> 
-> > Now it suddenly stopped working again after a reboot although I did not
-> > change anything with the module options.
-> >
-> > The output of alsa-info.sh for the non-working state I have now is
-> > attached.
-> >
-> >
-> > Takashi Iwai <tiwai@suse.de> $B$5$s$O$+$-$^$7$?(B:
-> >
-> >> Please check /proc/asound/card0/eld#* (for the card number 0, as
-> >> found in /proc/asound/cards as sof-hda-dsp).  One of them should have
-> >> a valid ELD entry.  This is the first step.  If no proper monitor and
-> >> ELD is found in those, something wrong at the detection in the
-> >> kernel.
-> >
-> > $ cat /proc/asound/card0/eld#2.21 
-> > monitor_present         1
-> > eld_valid               1
-> > codec_pin_nid           0xc
-> > codec_dev_id            0x1
-> > codec_cvt_nid           0x3
-> > monitor_name            LG ULTRAFINE
-> > connection_type         DisplayPort
-> > eld_version             [0x2] CEA-861D or below
-> > edid_version            [0x3] CEA-861-B, C or D
-> > manufacture_id          0x6d1e
-> > product_id              0x5bc2
-> > port_id                 0x0
-> > support_hdcp            0
-> > support_ai              0
-> > audio_sync_delay        0
-> > speakers                [0x1] FL/FR
-> > sad_count               1
-> > sad0_coding_type        [0x1] LPCM
-> > sad0_channels           2
-> > sad0_rates              [0xe0] 32000 44100 48000
-> > sad0_bits               [0xe0000] 16 20 24
-> > mfabian@hathi:~
-> > $ 
-> >
-> > That is OK, right?
-> >
-> > $ cat /proc/asound/cards
-> >  0 [sofhdadsp      ]: sof-hda-dsp - sof-hda-dsp
-> >                       LENOVO-20WNS1F81R-ThinkPadT14sGen2i
-> >  1 [USB            ]: USB-Audio - ThinkPad Thunderbolt 3 Dock USB
-> >                       Lenovo ThinkPad Thunderbolt 3 Dock USB at usb-0000:52:00.0-2.1.1.2, full speed
-> > $ 
-> >
-> >> The next is to test aplay directly with the device.
-> >> "aplay -L" will show the possible option, and you can try like
-> >>
-> >>   % apaly -Dhdmi:CARD=xxx,DEV=x -vv foo.wav
-> >>
-> >> for a WAV file in a format matching with the supported device
-> >> (typically 2 channel stereo 44.1kHz or 48kHz 16 or 32bit format).
-> >> If this gets a busy error, stop wireplumber once during the test:
-> >>   % systemctl --user stop wireplumber
-> >>   % aplay ....
-> >>   % systemctl --user start wireplumber
-> >>
-> >> If the aplay test doesn't work, again, it means that there's something
-> >> wrong in the kernel.
-> >
-> > $ file /usr/share/ibus-typing-booster/data/coin9.wav 
-> > /usr/share/ibus-typing-booster/data/coin9.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
-> > mfabian@hathi:~
-> > $ aplay -Dhdmi:CARD=sofhdadsp,DEV=0 -vv /usr/share/ibus-typing-booster/data/coin9.wav
-> > ALSA lib conf.c:5671:(snd_config_expand) Unknown parameters CARD=sofhdadsp,DEV=0
-> > ALSA lib pcm.c:2666:(snd_pcm_open_noupdate) Unknown PCM hdmi:CARD=sofhdadsp,DEV=0
-> > aplay: main:831: audio open error: $BL58z$J0z?t$G$9(B
-> >
-> > I don$B!G(Bt know what that means.
-> >
-> > [...]
-> >
-> >
-> >> That might explain.  There were a few fixes about HDMI HD-audio stuff
-> >> recently.
-> 
-> -- 
-> Mike FABIAN <mfabian@redhat.com>
-> $B?gL2ITB-$O$$$$;E;v$NE($@!#(B
-> 
+Thanks
+Wesley Cheng

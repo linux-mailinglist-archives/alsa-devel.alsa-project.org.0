@@ -2,112 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CCCA6932C3
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 18:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B3F693341
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 20:14:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7977207;
-	Sat, 11 Feb 2023 18:07:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7977207
+	by alsa0.perex.cz (Postfix) with ESMTPS id E44157F8;
+	Sat, 11 Feb 2023 20:13:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E44157F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676135283;
-	bh=b8Wg/1E4Y6T0JW26G2v7+fFtAsQNxR/1jHL01IHf0Vo=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=i/l3ZJlQVGG0s2VFLF2mia5J0hhoDZVi/3tA/3Wk4NOYCZfElVsmQzPVCKWkWHNxp
-	 wtbWkrWQr2H8KOIub73n7KgspGgA9K8HYcLWgBTqfma6ZuDoSAiLlhMSjf5GNJlAEe
-	 QK7qYLJlgZMMzzzhkBs8W+Wzw8xURYWBtmQu6VmU=
+	s=default; t=1676142878;
+	bh=xuHOqL+WXXf0/MJCX0nlTAtiXaOgCfgRVbtvXbAa+94=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Js/oyokSMKXYz9XzQgsFP1W6ZYwKDgCJ0LygWW8pTYq6ya8W89Dy3zD2WhuK9Dn2G
+	 QWXT6leOmMcjSZ0kPTIAGOn5q1TymwG852yZx/M02ErnMFVut5j/vsx/HKczgrR5eK
+	 bFLlyGnWrFlGe18npmvL6YQ+CBJJ8FeWVMOkf3Fk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2075FF800B8;
-	Sat, 11 Feb 2023 18:07:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1076EF800B8;
+	Sat, 11 Feb 2023 20:13:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8CFAEF800E4; Sat, 11 Feb 2023 18:06:51 +0100 (CET)
+	id 4EBCAF800E4; Sat, 11 Feb 2023 20:13:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 411C4F80086
-	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 18:06:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 411C4F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0C148F80094
+	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 20:13:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C148F80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=laJPKcSh
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31BGwQTu025214;
-	Sat, 11 Feb 2023 11:06:41 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=aWsBvrmRXrrAQSl7t4LwL7zaKtBdqugkGyOWdPd24L4=;
- b=laJPKcShb4/NmvGCHz2pH7g4t+A/y1MthPxztUWUkknhwshkJuvy+JrqRDsaL3LBEGPI
- Mee2s/g2/qh+wLEdZSNC8apmqQ3Qs+vlGnRQMcenMXM1+oMXu6FO51QgrEs6WPBiSVzR
- eJb2L0Xbkod7oC++RJOtGBdVWQKN+rVl9aCVcJFkQe+BJc0GV49BWSci8fzOEBDm/+xx
- KAREmHUcPyAjUOkZhPeVIeyw6zh/6GMn23jXSOSYddyomvW+zvEDXVUmsby2q7mXPQat
- ELsZTMwpGGk5JrVpUXAlDoNDdZJWoyWavVUywlLXZ36SoskVgRAfUtj+8/Y9uyoR2ft7 ig==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3np8atrb4y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 11 Feb 2023 11:06:40 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Sat, 11 Feb
- 2023 11:06:39 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.21 via Frontend Transport; Sat, 11 Feb 2023 11:06:39 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E022811AB;
-	Sat, 11 Feb 2023 17:06:38 +0000 (UTC)
-Date: Sat, 11 Feb 2023 17:06:38 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lucas Tanure <lucas.tanure@collabora.com>
-Subject: Re: [PATCH v5 3/4] ALSA: cs35l41: Add shared boost feature
-Message-ID: <20230211170638.GG68926@ediswmail.ad.cirrus.com>
-References: <20230210091942.10866-1-lucas.tanure@collabora.com>
- <20230210091942.10866-4-lucas.tanure@collabora.com>
- <20230210134341.GF68926@ediswmail.ad.cirrus.com>
- <cfacc3d6-2daa-6aa3-ba19-281b7e48bb47@collabora.com>
+ unprotected) header.d=shruggie-ro.20210112.gappssmtp.com
+ header.i=@shruggie-ro.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=oFDa/o2j
+Received: by mail-wr1-x429.google.com with SMTP id j23so8420505wra.0
+        for <alsa-devel@alsa-project.org>;
+ Sat, 11 Feb 2023 11:13:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=shruggie-ro.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=V8bny6wru+I6AK3uWbXkDav+4h6cDdHFeoJVAL16cIg=;
+        b=oFDa/o2jZtC8s6SgTv4Wy7btJdsfWLs23HVTAyKPQy1XMkKJsdtlAidl1hMdghZurz
+         UBFGr2TS83DhR3y5yGsnYXu/RL0FVOqnHHW+0tVAKvn3/NVHHXsOBM6Z0a4PfMgdgc8f
+         Y7r+MJb0khzmDM6uWV4ldYJylkKmq0PsFX2m18sMNe/8Wx6uiu6tmvwuI6KrNIrgs931
+         tUu/hTN1AYO98H7SJCRdXzsLAiBGfu2qNWPokSKyScH9t8osBQR/4Qimcl6ruUyHTz56
+         CbBPSQLoKpP7OgNZ8cYVdeMfqbY1nzAhdIGXrUsExsw0dPdVT5Y35bUxFc1Et5kNHMQ6
+         pbIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=V8bny6wru+I6AK3uWbXkDav+4h6cDdHFeoJVAL16cIg=;
+        b=UUCgRpCYW72XT5D6bOWNhX8zTJIH0Zys+ZJjcsHbBP93hDezTYtJLtJZk+JqbG0ZlL
+         oT02bHRcjKn98w00/qBcvnHlAqOTHkFEm+8e51lV8i/G3IkmtseNlshkAbOsuIlabNja
+         6SFfmKD4rmdREzyX84IiLws0nOOxviqbW7+5ZAqK6UNGW9cQyi+QY0XlKmZCfzewm66O
+         e6/a4TiL6IMjgR52ccRJLQKQhfzn5QkmoLdj6XY/gY+4Do3HlnDihASlKdISuub5sKq/
+         GMwWiT9Zj9vRiPVG/hAwAva5xa/6Gg1xrn3JRvzMXliFtrlmFtTOUEDC5jpCy7ZU0glM
+         SZkQ==
+X-Gm-Message-State: AO0yUKXibeCuFQ/4lgEZk1R4e3y6Fm7ag4fRHv6fuCUzUemZdn1FLDMJ
+	Xuieb8XiCalCx4V1TWMYbX6V1+CxJjrGxuX1+4Jzmg==
+X-Google-Smtp-Source: 
+ AK7set+kzOVSpWPhhHKCeW7YAAmjEmHEhDXJaZ1A2TfuVCNnBj8wW/W9yUqUWEEF1BGkX1fLEiJI+w==
+X-Received: by 2002:a05:6000:1091:b0:2c3:e5e6:f0d8 with SMTP id
+ y17-20020a056000109100b002c3e5e6f0d8mr17306675wrw.11.1676142811154;
+        Sat, 11 Feb 2023 11:13:31 -0800 (PST)
+Received: from neptune.. ([188.27.130.91])
+        by smtp.gmail.com with ESMTPSA id
+ y9-20020adfee09000000b002c550eb062fsm1648506wrn.14.2023.02.11.11.13.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Feb 2023 11:13:30 -0800 (PST)
+From: Alexandru Ardelean <alex@shruggie.ro>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] sound: soc: codec: tlv320adcx140: fix 'ti,gpio-config' DT
+ property init
+Date: Sat, 11 Feb 2023 21:13:15 +0200
+Message-Id: <20230211191315.24554-1-alex@shruggie.ro>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <cfacc3d6-2daa-6aa3-ba19-281b7e48bb47@collabora.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: uWKbibV57kTLk2ZW6T0h6bjtA0uYAsMn
-X-Proofpoint-ORIG-GUID: uWKbibV57kTLk2ZW6T0h6bjtA0uYAsMn
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: L2BEV5BLZYDP446GDDXA4LS7XUL3EIQ4
-X-Message-ID-Hash: L2BEV5BLZYDP446GDDXA4LS7XUL3EIQ4
-X-MailFrom: prvs=74062cd2bc=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3ZNWLNK4PZZG5CAO7QFIH5GORPHHSY7B
+X-Message-ID-Hash: 3ZNWLNK4PZZG5CAO7QFIH5GORPHHSY7B
+X-MailFrom: alex@shruggie.ro
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: David Rhodes <david.rhodes@cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, kernel@collabora.com
+CC: broonie@kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ steffen.aschbacher@stihl.de, patrick.frick@stihl.de,
+ Alexandru Ardelean <alex@shruggie.ro>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L2BEV5BLZYDP446GDDXA4LS7XUL3EIQ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ZNWLNK4PZZG5CAO7QFIH5GORPHHSY7B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,94 +115,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Feb 10, 2023 at 02:39:56PM +0000, Lucas Tanure wrote:
-> On 10-02-2023 13:43, Charles Keepax wrote:
-> >On Fri, Feb 10, 2023 at 09:19:41AM +0000, Lucas Tanure wrote:
-> >>+	{CS35L41_MDSYNC_EN,        0x00001000},
-> >David's internal patch appears to set 0x3000 on the active side,
-> >not sure where that difference snuck in, or which is the correct
-> >value. Your settings appear to make logical sense to me though, TX
-> >on the active side, RX on the passive side.
-> And as the patch sets TX and RX in the same chip I changed to follow
-> the documentation.
+From: Steffen Aschbacher <steffen.aschbacher@stihl.de>
 
-Yeah I mean I suspect this is sensible, unless there is some
-reason the controller side also needs to have RX enabled. Perhaps
-for feedback or something from the passive side, but I imagine
-this is just a typo in the original patch.
+When the 'ti,gpio-config' property is not defined, the
+device_property_count_u32() will return an error, rather than zero.
 
-> >>+	/* BST_CTL_SEL = CLASSH */
-> >>+	{CS35L41_BSTCVRT_VCTRL2,    0x00000001},
-> >BST_CTL_SEL is in BSTCVRT_VCTRL1 (or BOOST_VOLTAGE_CFG, as it
-> >is called in the datasheet, yay us for using the same names).
-> >That does not mean this write is wrong, could just be the
-> >comment, but what this does write is a bit odd so I would like
-> >David to confirm this isn't some typo in his original patch.
-> I can't find BOOST_VOLTAGE_CFG on my datasheet, but BST_CTL_SEL is
-> at 0x00003804 ( BSTCVRT_VCTRL2 / VBST_CTL_2 ).
-> This write here is to select the boost control source, which for the
-> active should be "Class H tracking value".
-> So I still think this is correct.
+The current check, only handles a return value of zero, which assumes that
+the property is defined and has no elements.
 
-Yeah this one is a mistake on my part, I was reviewing some
-patches on another amp just before I think I have looked at the
-wrong datasheet here. You are correct those bits are infact
-BST_CTL_SEL. So ignore this one.
+This change extends the check to also handle for an error case (most likely
+to be hit by the case that the 'ti,gpio-config' is not defined).
+Semantically, this would be the same as 'device_property_count_u32()'
+returning zero.
 
-> >>+		regmap_read(regmap, CS35L41_PWR_CTRL3, &pwr_ctrl3);
-> >>+		regmap_read(regmap, CS35L41_GPIO_PAD_CONTROL, &pad_control);
-> >>+
-> >>+		pwr_ctrl3 &= ~CS35L41_SYNC_EN_MASK;
-> >>+		pwr_ctrl1 = enable << CS35L41_GLOBAL_EN_SHIFT;
-> >
-> >Are you sure this is what you want? In the case of powering up,
-> >the sequence would end up being:
-> >
-> >mdsync_down
-> >  -> sets GLOBAL_EN on
-> >mdsync_up
-> >  -> sets GLOBAL_EN off
-> >  -> sets GLOBAL_EN on
-> >
-> >Feels like mdsync_down should always turn global_enable off? But
-> >again I don't know for sure. But then I guess why is there the
-> >extra write to turn it off in mdsync_up?
-> 
-> For the disable case (DAPM turning everything off) SYNC and Global
-> enable are off and the code hits
-> 
-> if (!enable)
-> 	break;
+In case that 'ti,gpio-config' is defined, and returns a 'gpio_count' value
+that is incorrect, there is an 'if (gpio_count != ADCX140_NUM_GPIO_CFGS)'
+check, a few lines lower that will return -EINVAL.
+This means that someone tried to define 'ti,gpio-config', but with the
+wrong number of GPIOs.
 
-Yes, so the disable flow makes perfect sense here it is the
-enable flow that seemed odd.
+Signed-off-by: Steffen Aschbacher <steffen.aschbacher@stihl.de>
+Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
+---
+ sound/soc/codecs/tlv320adcx140.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> But for for enable case (DAPM turning everything On) the code
-> continues enabling SYNC_EN, and turning off Global enable, as
-> requested by
-> "4.10.1 Multidevice Synchronization Enable" page 70.
-> But as it is a enable path Global should be enabled again.
-> 
-> I can't see any sign of
-> >GLOBAL_EN bouncing in David's internal patch.
-> 
-> Yes, but it is required by :
-> "4.10.1 Multidevice Synchronization Enable" page 70.
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index 91a22d927915..530f321d08e9 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -925,7 +925,7 @@ static int adcx140_configure_gpio(struct adcx140_priv *adcx140)
+ 
+ 	gpio_count = device_property_count_u32(adcx140->dev,
+ 			"ti,gpio-config");
+-	if (gpio_count == 0)
++	if (gpio_count <= 0)
+ 		return 0;
+ 
+ 	if (gpio_count != ADCX140_NUM_GPIO_CFGS)
+-- 
+2.34.1
 
-Hmm... yes that does appear to suggest bouncing the global
-enable. Kinda weird, I can't help but wonder if the turning
-global enable off is actually needed, but I guess it does say
-that so probably safest. It is also rather unclear on who that
-sequence should be performed on it says:
-
-"When powering up a second (and each subsequent) CS35L41B onto a
-shared MDSYNC bus, the following protocol must
-be followed"
-
-But very unclear if that sequence should be followed on only the
-new device, the master device, or on all devices. I will try to
-find some time to chase some apps guys next week see if anyone
-has any ideas.
-
-Thanks,
-Charles

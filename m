@@ -2,103 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99ABC692F64
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 09:37:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C65A692F67
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Feb 2023 09:38:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D82CF83B;
-	Sat, 11 Feb 2023 09:36:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D82CF83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86BE5100;
+	Sat, 11 Feb 2023 09:37:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86BE5100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676104650;
-	bh=S29BtDiBm4k96NjnbHsYlRNKd1LCGp7R18AHCLsxBNc=;
+	s=default; t=1676104701;
+	bh=OT8dIPMBiw7/y5c+4ACRONXWeo1iN5efVjRFwPC5uRg=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jPlTToAtJlsXstYxeRmsNVZfUduhLCP8oCyCQOhhU2WKNX5ijUmPK+BPz/pegxTFi
-	 Lni6EYYicKRcx0u0e0geQvKsmw1ksH5QYran8LefSvBBZKyo2fUlGHpm5U19z2QQTv
-	 dvU1tm25O+vqtronHdzKqLu5/1HY9u8/A17Ci++Y=
+	b=mR3/tfRwuwiSAZtIE1/9nZxZatVr22OHebnyNNzaQ3ZsgxWQwMjaO1vVBZFMpc2gu
+	 TyXtofEBfHvrtPiLjNPvGl993IE6NE6wiChdHj6fxuMxi3h82KoXF+dPYwvlzfrnxB
+	 lPfUDTRiCaNiGSz7KeXTFFNKyJBr9MZPvUkyFrIY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF3F3F800B8;
-	Sat, 11 Feb 2023 09:36:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93978F80269;
+	Sat, 11 Feb 2023 09:37:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32076F800E4; Sat, 11 Feb 2023 09:35:33 +0100 (CET)
+	id 5ED70F804F2; Sat, 11 Feb 2023 09:37:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C3606F80094
-	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 09:35:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3606F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2947CF8018A
+	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 09:37:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2947CF8018A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=XK36eDyr;
+ header.s=susede2_rsa header.b=C7Qkr5s+;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=0ParIfZf
+ header.s=susede2_ed25519 header.b=QD4AAHQJ
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2AF9C336B1;
-	Sat, 11 Feb 2023 08:35:26 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A666D1FF63;
+	Sat, 11 Feb 2023 08:37:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1676104526;
+	t=1676104624;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lYYbM+0K88ZfEa+fPiCpOondX4x4SsOQ3u8gjmVtKqw=;
-	b=XK36eDyrE593l5T3J4SldZo0/jYEQGMme7ATKK1bn7wazY4CMPHDtBBD6DOoIayiySjYHi
-	WFpXA2rNNQ/3tFbO4AuxZmzeaAsEUTNiBRk3t4yZX5YBPZsdJy018QXvKxVaKZ8NRC+lmL
-	FtTWrG6A+OiI+bS3/iCL5HCsp3tIfAY=
+	bh=rxqUG4FW+UytzRD9sit/yMzYpMXvO/bELYRtO7bnM4Q=;
+	b=C7Qkr5s+gBQ6Png/WKlihiPIiC1BxLWt4WiDA6j7G9z5fiv+bRYrXkkYUPHO/4baytQYWz
+	cYbKM8ZC6Z8Zm571qyyfj/g/6svAAZDRPOUjbaKaHvmhxfMbFo7gqS4LvYH3C6p6zlCCdR
+	/KWpniEY/b4G1sZtnzxSrmJYWvh460c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676104526;
+	s=susede2_ed25519; t=1676104624;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lYYbM+0K88ZfEa+fPiCpOondX4x4SsOQ3u8gjmVtKqw=;
-	b=0ParIfZfEQyHZAh4roHsHmuH77U/u3/RcNolZWZkiiV4V58u4UUC6YX+BpbovUPyNkaKAR
-	/9PVYmwGfn3TG3Bw==
+	bh=rxqUG4FW+UytzRD9sit/yMzYpMXvO/bELYRtO7bnM4Q=;
+	b=QD4AAHQJ2oD9USvKYDPn8B2FRcKO08zSp4WDyWg1z6DRz1vYWpOb/Vo7d2Kzor0Av3EiKH
+	IwKpzIZqf3CH5zDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A60113A1F;
-	Sat, 11 Feb 2023 08:35:26 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6D48113A1F;
+	Sat, 11 Feb 2023 08:37:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Op7BAU5T52N8DAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 11 Feb 2023 08:35:26 +0000
-Date: Sat, 11 Feb 2023 09:35:25 +0100
-Message-ID: <87zg9kha5u.wl-tiwai@suse.de>
+	id d73jGbBT52MJDQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sat, 11 Feb 2023 08:37:04 +0000
+Date: Sat, 11 Feb 2023 09:37:03 +0100
+Message-ID: <87y1p4ha34.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mike FABIAN <mfabian@redhat.com>
-Subject: Re: No sound on HDMI by default on Lenovo T14s using Fedora 37
-In-Reply-To: <s9dmt5kwr3k.fsf@hathi.site>
-References: <s9dy1pzx3ki.fsf@hathi.site>
-	<87k01j6cw6.wl-tiwai@suse.de>
-	<s9dfsc7ixik.fsf@hathi.site>
-	<877cxj65s3.wl-tiwai@suse.de>
-	<87zgaerfqv.wl-tiwai@suse.de>
-	<s9dbkmtigfe.fsf@hathi.site>
-	<87bkmtpft5.wl-tiwai@suse.de>
-	<s9dmt5kwr3k.fsf@hathi.site>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH] ALSA: hda: Fix codec device field initializan
+In-Reply-To: <20230210165541.3543604-1-cezary.rojewski@intel.com>
+References: <20230210165541.3543604-1-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-Message-ID-Hash: 3RNYY6XUBZIJFF2JPNYDH2AFTO2R6DRE
-X-Message-ID-Hash: 3RNYY6XUBZIJFF2JPNYDH2AFTO2R6DRE
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: U4TZYBMSXKIKPBEUVF5C57EQMXTQJ7GK
+X-Message-ID-Hash: U4TZYBMSXKIKPBEUVF5C57EQMXTQJ7GK
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,13 +98,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
+CC: alsa-devel@alsa-project.org, tiwai@suse.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ hdegoede@redhat.com, jmontleo@redhat.com, casaxa@gmail.com, lma@semihalf.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3RNYY6XUBZIJFF2JPNYDH2AFTO2R6DRE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U4TZYBMSXKIKPBEUVF5C57EQMXTQJ7GK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,95 +115,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 11 Feb 2023 09:20:31 +0100,
-Mike FABIAN wrote:
+On Fri, 10 Feb 2023 17:55:41 +0100,
+Cezary Rojewski wrote:
 > 
-> Now it suddenly stopped working again after a reboot although I did not
-> change anything with the module options.
+> Commit f2bd1c5ae2cb ("ALSA: hda: Fix page fault in
+> snd_hda_codec_shutdown()") relocated initialization of several codec
+> device fields. Due to differences between codec_exec_verb() and
+> snd_hdac_bus_exec_bus() in how they handle VERB execution - the latter
+> does not touch PM - assigning ->exec_verb to codec_exec_verb() causes PM
+> to be engaged before it is configured for the device. Configuration of
+> PM for the ASoC HDAudio sound card is done with snd_hda_set_power_save()
+> during skl_hda_audio_probe() whereas the assignment happens early, in
+> snd_hda_codec_device_init().
 > 
-> The output of alsa-info.sh for the non-working state I have now is
-> attached.
-
-Thanks.  Through a quick glance, there is no significant difference
-between both outputs.
-
-> Takashi Iwai <tiwai@suse.de> さんはかきました:
+> Revert to previous behavior to avoid problems caused by too early PM
+> manipulation.
 > 
-> > Please check /proc/asound/card0/eld#* (for the card number 0, as
-> > found in /proc/asound/cards as sof-hda-dsp).  One of them should have
-> > a valid ELD entry.  This is the first step.  If no proper monitor and
-> > ELD is found in those, something wrong at the detection in the
-> > kernel.
+> Suggested-by: Jason Montleon <jmontleo@redhat.com>
+> Link: https://lore.kernel.org/regressions/CALFERdzKUodLsm6=Ub3g2+PxpNpPtPq3bGBLbff=eZr9_S=YVA@mail.gmail.com
+> Fixes: f2bd1c5ae2cb ("ALSA: hda: Fix page fault in snd_hda_codec_shutdown()")
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
 > 
-> $ cat /proc/asound/card0/eld#2.21 
-> monitor_present         1
-> eld_valid               1
-> codec_pin_nid           0xc
-> codec_dev_id            0x1
-> codec_cvt_nid           0x3
-> monitor_name            LG ULTRAFINE
-> connection_type         DisplayPort
-> eld_version             [0x2] CEA-861D or below
-> edid_version            [0x3] CEA-861-B, C or D
-> manufacture_id          0x6d1e
-> product_id              0x5bc2
-> port_id                 0x0
-> support_hdcp            0
-> support_ai              0
-> audio_sync_delay        0
-> speakers                [0x1] FL/FR
-> sad_count               1
-> sad0_coding_type        [0x1] LPCM
-> sad0_channels           2
-> sad0_rates              [0xe0] 32000 44100 48000
-> sad0_bits               [0xe0000] 16 20 24
-> mfabian@hathi:~
-> $ 
+> A result of recent discussion [1] regarding sound regression in v6.1 and
+> onward. Fix made possible by outstanding input from Jason and Sasa
+> (Cced) - Thank you!
 > 
-> That is OK, right?
-
-Yes, looks so.
-
-
-> $ cat /proc/asound/cards
->  0 [sofhdadsp      ]: sof-hda-dsp - sof-hda-dsp
->                       LENOVO-20WNS1F81R-ThinkPadT14sGen2i
->  1 [USB            ]: USB-Audio - ThinkPad Thunderbolt 3 Dock USB
->                       Lenovo ThinkPad Thunderbolt 3 Dock USB at usb-0000:52:00.0-2.1.1.2, full speed
-
-This is fine.
-
-> > The next is to test aplay directly with the device.
-> > "aplay -L" will show the possible option, and you can try like
-> >
-> >   % apaly -Dhdmi:CARD=xxx,DEV=x -vv foo.wav
-> >
-> > for a WAV file in a format matching with the supported device
-> > (typically 2 channel stereo 44.1kHz or 48kHz 16 or 32bit format).
-> > If this gets a busy error, stop wireplumber once during the test:
-> >   % systemctl --user stop wireplumber
-> >   % aplay ....
-> >   % systemctl --user start wireplumber
-> >
-> > If the aplay test doesn't work, again, it means that there's something
-> > wrong in the kernel.
+> Note: I did not receive results from our CI yet, should happen on Monday
+> but posting early so the review can be conducted.
 > 
-> $ file /usr/share/ibus-typing-booster/data/coin9.wav 
-> /usr/share/ibus-typing-booster/data/coin9.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 44100 Hz
-> mfabian@hathi:~
-> $ aplay -Dhdmi:CARD=sofhdadsp,DEV=0 -vv /usr/share/ibus-typing-booster/data/coin9.wav
-> ALSA lib conf.c:5671:(snd_config_expand) Unknown parameters CARD=sofhdadsp,DEV=0
-> ALSA lib pcm.c:2666:(snd_pcm_open_noupdate) Unknown PCM hdmi:CARD=sofhdadsp,DEV=0
-> aplay: main:831: audio open error: 無効な引数です
-> 
-> I don’t know what that means.
+> [1]: https://lore.kernel.org/regressions/CALFERdzKUodLsm6=Ub3g2+PxpNpPtPq3bGBLbff=eZr9_S=YVA@mail.gmail.com/
 
-Check the output of "aplay -L".  It'll list the possible device
-arguments.  If you still get an error, try like
+Applied now.  Thanks.
 
-	% aplay -Dhw:0,3 -vv foo.wav
-
-
-thanks,
 
 Takashi

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D157C6936E7
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Feb 2023 11:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59FB66936E8
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Feb 2023 11:55:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B59E20B;
-	Sun, 12 Feb 2023 11:51:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B59E20B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B720829;
+	Sun, 12 Feb 2023 11:54:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B720829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676199167;
-	bh=plBJ2duxjBXTPsngbZDkz+hEBGZ3VqLgmy2YaOJeeJM=;
+	s=default; t=1676199305;
+	bh=N35eq1v/dRtnlxzz3GbiwfEVDGQj6sFaOaysQTfvLWg=;
 	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OBvzw0SDjb1oiYqEbshT8vCg+8DkKWEpYk7AHkL9bsRYDxSPIIjdIxuHAMws3Iz1n
-	 bVWyvs9j0oT1/br/Ku9hwmJtJAGnvy72ccO5AUzWAPYpud0shxKdqu8hmjnEe2UQJ6
-	 mL9eQmPX+ZUCD4JClXSiFKiZlindzg+ALLDEDFkE=
+	b=X5+8TYIT5fC+0SYM8VGdpqWw3cfhv+hx37np8pU1/m22XqEbVdPQ3p7WM+7qGhXk8
+	 YFvGrcZI7u+OymsNrU3r5sKO+tdcEeKqTG7DwPes536UJ6oEHBcU/nYdRJd4DvGnq3
+	 zJ0xCNN2fCcKshEWZ+cK5DeuONeArW5FgE7oy36E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 020D2F8012A;
-	Sun, 12 Feb 2023 11:51:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D0ACF8012A;
+	Sun, 12 Feb 2023 11:54:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE32CF804B0; Sun, 12 Feb 2023 11:51:51 +0100 (CET)
+	id 75936F804B0; Sun, 12 Feb 2023 11:54:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -31,40 +31,40 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10olkn20831.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::831])
+ (mail-bn7nam10olkn2081b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::81b])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EAC79F80038
-	for <alsa-devel@alsa-project.org>; Sun, 12 Feb 2023 11:51:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAC79F80038
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1B5CDF800E4
+	for <alsa-devel@alsa-project.org>; Sun, 12 Feb 2023 11:54:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B5CDF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256
- header.s=selector1 header.b=tK4G2HuI
+ header.s=selector1 header.b=SdzpqMw+
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f78wQojMBYOtEe5GkUB2Z92DecaFMNfsycGoyS3jx22jrJ7Zh7e4rANs+e8vEU2qlSBtMsUWuE3/CzoHm9beXO7hDJl+JYfj3goKVGPCe/WDgxrXLxIEaDkinkhgV/Ln+sRJH5gb+ZyKJOB6VDQIGYCAlqgbg0h/4sVWOPv4pB2qzeG+kA7MKT2d4jp8O1jfvLFR/3y1P6Rbz6eEte4F3L8aYcxl0rNqBYhki69avHkc3SqkSkgOgRfi4zB/5qA+XQqeIBxZMUA04XCtytDSqOMoqBvGCzeXyMLPmYznybSxVPJhBS5L4u3NeBFyZ5n7uYdglrxfzkRZ2ZKZSyCgWQ==
+ b=bC2sJ9c2UCxvHfc1E0ElWND+eUxHdwEesgDNmf5ICAWR0ciIGLVgLERZ05W9dsl4Q8IXh2OttKKltTeQP9vmr/u5IMZoPVRa4u304hKZ/tmLSbbOTc0nOknccliJdHO3yP3J45TxykY+tHzsIE6vP+udI4osY9tFbyyrMRRkCYKB48SVXe3J0JSpAbEy3DPmZirqc3gTHl0BCHZ6YPBAumGY05VQL2g6QV2dSDIkn6YSNEVd7SOyO7o3UPYGMVkG7C04z1fu9PJHGgi9TI/pXV/+X/ZJ1JlpO7WyqP52H80l0zAeB/WWUUe6J2Y8jXkmVQccpI3l9fGKK3cGAnAIZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wLGw/g+sL0bsYmST8LoDnqI57HSostcEb1fRoor8yVg=;
- b=Ud6a5WxEvrTdboxrjCudsqDfL7dJQK399NrCHgjvYo9RflCYO26CsDrrLVWZ+5cJUjdB/Do72FBFdkUTzMRVX+eG2qlIsNLkQZFHDFSPMS1v8cPjQBYmKvDbv1v4FSrCmVY0zmOTPRLGq2zMt8ShW4sv3Hz1oBNUiBBUYqIuV9z56tg58qauLGrOfKHCVoeK0sT4/nIcwdC6+2uvgFDVezfGFygw8B2CGN+odWCW5tlfAlCE3IgZNkFNNXles4YPswWmR+9md88torcqSIczteKcCQHvD2Pv2e3lo02rgR0KxXp281xFYTELu/EWnTJKfj9hm0giSGR16VxmfBR4kw==
+ bh=zzgNHMs7XfRA3jA634w0WkDYTshl0LxdOtm/hjiBL9I=;
+ b=b+5kpbKEWkKO6DfTV2q5Aic2AUEWPKcwKkZf9OI7VWx66RlRFJQQy3X1AOrXcfahZJjxdU8v2BdSvsNyiywqQx00NQkj+K7cB6DfE2rQwDNHZCaAmZgx7fxwI5b2foJYEIoRqcbEiMhWxxUem/aHpCX7KkQVjiJXbkaKIxu+by4Qvh69URwSJlfG4StknwHyyOmcmBFGagz84W3PUiYxcTO4DjZT5TuS4LI1svR6Ki5fqb1Jfs9sVlRBbUQ6w3oq4dcfvpEZSJ4SJeSTop0xNDII6uQ0LnSgQFf7ng0P270JnQYCVq0cypdrxC1UU7oM0HFpFZw/9/yDW05KcpckrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wLGw/g+sL0bsYmST8LoDnqI57HSostcEb1fRoor8yVg=;
- b=tK4G2HuIYtfZwSx79ZqQpzon0i6m4nvBwizzHNY16Y5UUnnAiV2/nzL2T4FlhnNGPh9MhvIvD8WzNz3/EfxOjYa4tCUSf/4SUYWMwe6jozDxATWM7XAomSaSzvHmF5p+k5GGYA7HlFMYnBsTSwFEGvlx76JAj4+sS/VgoQpcsxDN+qBjQ/7yyF2JUAyqdmnyym/fEtFwZyJooM9afKKfVwEZrvIquR5zHldtaBhnKfjT3aDDbb45yind9DHQUwmz2W93k7jZ+T9EG8FBtnOd80Ioor+td6EUB0m0LNDHLQBwU1N2+BD1gJq0TYKAuVXlvXSyLx9dUDI+dq+WG+kCpA==
+ bh=zzgNHMs7XfRA3jA634w0WkDYTshl0LxdOtm/hjiBL9I=;
+ b=SdzpqMw+cwOXfcrUtGGXx39y2c6XPn3tEAdZ1j81NL2l4Ans/qe5X+0HolLQDPh3KDOuJe7AfSF1TnAfkEe7DwOBQwQF1cXFHYUa1rAwvmybde/Gg85cPOlHPQI1QMvdKqkUaib8EdrhE1c2c5IPUaUnqw2wj5WbDLlA9lcQlsZQiaZhy3JkB3XmmzGHFiPcUCdST6SDNlyO+mzxt38FcW+59g6U3gNwtzf1k9/7CjqzgZdIPwiw/hiEO3h63ei3GMmyOBAyWSauFnigJA2Jk7alpQ67nIK6kFZGCpgQIgqTj6yOyb6cwQWiTowAwmYexQhkCGp6j+QALEQLZP5DIw==
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com (2603:10b6:208:13c::25)
  by SJ0PR17MB5040.namprd17.prod.outlook.com (2603:10b6:a03:3ac::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23; Sun, 12 Feb
- 2023 10:51:30 +0000
+ 2023 10:53:59 +0000
 Received: from MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::7cfd:d28f:fec7:beff]) by MN2PR17MB3375.namprd17.prod.outlook.com
  ([fe80::7cfd:d28f:fec7:beff%4]) with mapi id 15.20.6086.022; Sun, 12 Feb 2023
- 10:51:29 +0000
+ 10:53:59 +0000
 From: Vanessa Page <Vebpe@outlook.com>
 To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Rob Landley
 	<rob@landley.net>, Randy Dunlap <rdunlap@infradead.org>, Christoph Hellwig
@@ -72,10 +72,10 @@ To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Rob Landley
 Subject: Re: remove arch/sh
 Thread-Topic: remove arch/sh
 Thread-Index: 
- AQHZN58k/f73IBbK60aG0mP3da8Tfq7DN8uAgAETIoCAALNngIAA+k2AgABmVwCABMcN2oAAABzTgAABdYOAAAA4WYAACMDs
-Date: Sun, 12 Feb 2023 10:51:29 +0000
+ AQHZN58k/f73IBbK60aG0mP3da8Tfq7DN8uAgAETIoCAALNngIAA+k2AgABmVwCABMcN2oAAABzTgAABdYOAAAA4WYAACMDsgAAAvxo=
+Date: Sun, 12 Feb 2023 10:53:59 +0000
 Message-ID: 
- <MN2PR17MB3375048A36FAB21FF0CB8C57B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
+ <MN2PR17MB33757F38C1966561E03C70DFB8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
 References: <20230113062339.1909087-1-hch@lst.de>
 	 <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
 	 <20230116071306.GA15848@lst.de>
@@ -90,44 +90,45 @@ References: <20230113062339.1909087-1-hch@lst.de>
  <MN2PR17MB3375C10DF139D4FFA7F3F657B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
  <MN2PR17MB33754A3835C945B57B1FDCCBB8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
  <MN2PR17MB33759663CAD3BCAB5D0987C0B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
+ <MN2PR17MB3375048A36FAB21FF0CB8C57B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
 In-Reply-To: 
- <MN2PR17MB33759663CAD3BCAB5D0987C0B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
+ <MN2PR17MB3375048A36FAB21FF0CB8C57B8DC9@MN2PR17MB3375.namprd17.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-tmn: [OWrxhoMZwfQF59jLkara1lnTAnJ8l46C]
+x-tmn: [gDhzZlnhSPlDom2Rht0r7yZHSQlWHeF0]
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MN2PR17MB3375:EE_|SJ0PR17MB5040:EE_
-x-ms-office365-filtering-correlation-id: 1f6a669c-9e72-4361-13cc-08db0ce718fa
+x-ms-office365-filtering-correlation-id: faff33b1-de39-4d25-8c29-08db0ce77222
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- FXPIc1ikKxwGo3B0ke12rmgnjGeVtBTs5M05DJzBiiZh+aNrAbHsfmKUvpl2GOD/8Ixfn9ioQlX1rbAYYSKtWapIqDs7E6+i05S/NCK7PRvWy7M8Y5lZNLC9e2vzmjSvNPSnlsgrgLOmKkTOY4FU+NOgDR++lVJz3maX9YSm+TpasssTCeYuGfyGvm50+UofwtWDprmzQNx9SuFCv9H5A58VM54/V0doyhcvDedeY6UjPE+HBqj0ARBkx+V23Y3pW5IhcCpZxWDPGGjHIBwOCAcfr3oRbUwg7XHPJ3AiiB13lacsz35D5qmRchsS3jaqYw80cuiy8PLMU7Sp67nwaEhJD/Y6oFhMa5e9blzu3mUzO3wZ3WOnmZhV97Z+pPCV8CZHF61opISB8gddk2rzN+TtS54p0AO8yzKkFTrsX3p+GU6rN34hkxaKZwf6yAl4h6BiCmgVrdRHq+CmoF4FfTyfL4AwR7/mcYu8p6RtH8j1G5VRrfKbOy23C0MdS4xImw7ZI5260SWlt0KaK0mhqMaZ3jiofyjLhmXF+WkF+hNIoBn4qIzUDHvCWAHI1DH37aG5PRYTcsoZXxqKBVrgRToFv1um5Bl+OYH/tPfI+DnDNYIkq3swF/Jo54VMKqP6ML4ujsvkovs++z4iy/cu3XYRLP7KUcgwoU72ijUDRCc=
+ YI39iqNwf48FsyRzDmwojcF4e0iewBdddpZPjkX36ALF097cFSgzwljFhv/evXnvIols+eTZr149uOA0QYuLnl+eaj4IrhrQPXoaFhBQKF6A/LzU3YodxPLO9EAHwu/aH4Z/cvNPOnmGvch9GlaxtLg/h/o66BGIaFqBOlZyln+6Gek2Tff+KgQDVjv10q4TdJWwreGQ9kKO9xAwojeuGlZCriWkmlmCtZw8JGRROn6Tc+4ZThAwcC+NvyKod57EaXu5uttnbN0zAVMcF2mHl/Twm1XGz1sP5wKZQkpGEecnnPPIljQccEl/n7XvlX/TkzKmwvpUE+XHnI/Cmzepk5VKEyERw1WkZ4NvzfUPow9t1K2xUUV3bYVbO0ICVJsYa5PJC6JpfNozu6iwEsbcmjkrK+y+qnHwX0o6Svg35bXPZba84J2rpnkHFSyTXq4HHR8GS6871yJXkPx/xfg6QPIY00t6zAK2nwZnjuXEvnomXlnOiR1SBBZkph5v4YaGHImlzNdYY+dJn6BBNhuWFN7BAXbiNKpT7A4xlWxs5UoTb9lCpK02u9KtKJhbgvCjHHgHodlV+h6BbKlRtn9dBi1rmN3sUdNQrwVvqFbsn+BfAdFw3b5qQ9CKboEdvdwyb1zh6Ey0vJzRadQpQER/nP3QMPLfOPuRSML6sbuQRaQ=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?HWqNmlKjRh5oqzGesd7JtiqCX8XR7tC7HO9RUk33oMxw+J1TtRk8z5JGdF?=
- =?iso-8859-1?Q?maint965cRtQbOZRhW3B0UNJAQNWuyXHsV5HakNQ7UqvLoOJIVXQCXVaLn?=
- =?iso-8859-1?Q?FVyD743uPdCecDaf46QBIRnfixK1oncDJlWAi4JLS24P+IxvzCtRaA1BIQ?=
- =?iso-8859-1?Q?OTIrDz8URPuIrlH9IG6HBpHZuh3VYRcIgrUAHZiFkTnsTLz31cNokHhHrd?=
- =?iso-8859-1?Q?VMFamOBz3UH5vjjj/pKit1Br54KlTv7MMWwN4+/ayuXvMfLClByZgCtopp?=
- =?iso-8859-1?Q?cKvfvKD3+PLSv05ezH3S+BhH+bkvdDU3xGst9qSfdm0IXKbkM2tF+HHN1t?=
- =?iso-8859-1?Q?vE9J3qgmh0otzNxikJGIqa8jo9E1YRxUriNuzvuH0lnhZScup9U6QI9f29?=
- =?iso-8859-1?Q?09cGY0LKK/0rdbXQPojoSdQV1CgkPqThotsm9Q7B3ZVVj6zrRMOc9AD7nS?=
- =?iso-8859-1?Q?V4ISQxR6H5IVaeEz7iqW96QChvmrFcPNcRS22vQxeI30e/nTvI1CyXi2ik?=
- =?iso-8859-1?Q?Xf6bmWvEi3bJF3RI+6DPHZQWI2vzphDxOPelrBO3eg3bFxSA0HEG7fD4uC?=
- =?iso-8859-1?Q?FBf9eNRB9RBkyfbMXLnhzNhT9DBk3S88xVdl+IwuBzWSIqwqHoR1zXUSGa?=
- =?iso-8859-1?Q?gvdLLYdyiUS3FZorkPeuy9yYTMxwYUo5lYjyszefKhNOxb5reP5AO5yZVB?=
- =?iso-8859-1?Q?hmMDflLbOwMUmDx3jEYn+dzsTfdv1WZ+2ltBjHP44OtOAGm1WFkG3/10R8?=
- =?iso-8859-1?Q?hWlUOcGv44ZxaXSWPjWHnVxYIFBff4HQDZ7Bv1unTrEQvug3VPw0hPcQNF?=
- =?iso-8859-1?Q?FbEgNL5x4yT0W1ZNgnD24luAlqL+9fP5YVusESP2Gn0ALEZVe+ICscGMaq?=
- =?iso-8859-1?Q?ZazNSVYk/P/1u/UqDOrwi8vw2qnHTLetaAcLOVIhZ4BMw05dF2exKAZOIy?=
- =?iso-8859-1?Q?HLidkeDpWA+nqep30p4grBRt+3bDdkJHFlGq/qN2/jv2pvS3lUixlQm0XI?=
- =?iso-8859-1?Q?4WAqTgYjSbjWxWzIhq5oYueqnCNVHtLsVz4Sj6x09B2w4uuJzn0eIuE7yV?=
- =?iso-8859-1?Q?mhOZfh5diVlbynYRtZiAn9h/8cKvVcfLzmXx4OZcPIW43K9RgiOh2NwK54?=
- =?iso-8859-1?Q?MoK4kETKVfLPYQFegBZrIWbwQDJv8CqUSwVBJb90oEIhiA3OapjeuSWaJ7?=
- =?iso-8859-1?Q?i4CTkAqb2lpwn48kMdw7Zke5uBQxN2EolZZJsR1344zMF/abVCdpkrsIb8?=
- =?iso-8859-1?Q?8Agrrrxxb10mhj2JltmrADM4rjcGlM7vvjcKR/Qo2pJHVk1J5a9ITQhAci?=
- =?iso-8859-1?Q?3jiz?=
+ =?Windows-1252?Q?6wJjako+KDKq2mfYE4ZuAK6g3gh65w2OUE1PQ2ttdUtTof9XWrlsg7kz?=
+ =?Windows-1252?Q?uyoaSCDTWFFpIkwqpHJi+laVAniNR9a4JStdokeMo8UcAEBYnE9iep9j?=
+ =?Windows-1252?Q?K6HWPqDTjDQEwWq2j5Ia0eQ+cGb3l5F9r/uDUORVWFTnUCf73+2Xdxiy?=
+ =?Windows-1252?Q?9e6/yR3LEj2vwH5J5m8DPSSqTkbGBk87+nK5COahccXI3nMEP5ji3tS0?=
+ =?Windows-1252?Q?lJLdFJ5hTMk/cLYNhMeP19xpju3chAHI+FCM+Z7Q5ZsPAnIJiOs57fe1?=
+ =?Windows-1252?Q?juq4HayatUNIANZYvcidB/cJjFU/xMNSk7CNiXs3PsMFIK7Bk2vPkpQq?=
+ =?Windows-1252?Q?n+5w2UCZEWaft97iZvtWpj0R8LZY4Xq4LUzXTHNDJqdBhq39PxqFhQD7?=
+ =?Windows-1252?Q?/zLqVNdGH31vjrjO5jVRbjcwzv1h4obH1NWhiT7ZtpBEKmu9mo+bIgBl?=
+ =?Windows-1252?Q?kD3kHao9T5PPbjII4x4y0qkP6Vb5ki3ykGd4TPCnP8jhljnkucV8qW84?=
+ =?Windows-1252?Q?a54Nf6rkwG9VBaNjM/tVhbt41LCsLEiIAlR5xgdp0fF1osqXMwiOmyKR?=
+ =?Windows-1252?Q?i14rqRSDdgmhc4mr6sYFXfsf2vgYMkfuy/FszmpAg+4ylQEVRK6NcQ/T?=
+ =?Windows-1252?Q?t4tSI1Ekf34OYglZzH+pT0J8XNDW0o2csoqd1bRLkIOGMN0TbRiPJ1/r?=
+ =?Windows-1252?Q?UcKtz/oNaLIF7GNwVxrFkQnJ5hnwsN6oExjUMzdaWPlrnkFQF0FWNsIm?=
+ =?Windows-1252?Q?qXSVX/za05d5td3HMpbGkq1Jx+xc6WllGKKSiKIeVeLch61JlTemZvmw?=
+ =?Windows-1252?Q?cIw+ZnXkockG3YJxLRGt7znv5jty1VYLnqbNykewBsP2zZEq3UIXVSCT?=
+ =?Windows-1252?Q?14k3KW6Sbri0uuIfPMetdDOAMUUpLTCewN/aE+VCvXEZrU29l+TYFJWo?=
+ =?Windows-1252?Q?5YcrjpMtHFmoPjqVH0oFype9tpoAAwn/D/S56hOPKHReDGXU0tt3qo8P?=
+ =?Windows-1252?Q?u4LC96EjaAE7EvfPW4ZhzCMY2RcFkcuDLK8bo/RZ4wGOm3NE/+U0+t8P?=
+ =?Windows-1252?Q?1ejC3O0fqTRvL4LuHs49Q4GfAkFyFe+IOCZ32xGgZAa9vTzlORmG4jSm?=
+ =?Windows-1252?Q?i60WMNOZsjt22gF+LxinKT1j85sfA+eZmqnKXXw5B0ooe7WqbkHI24Ke?=
+ =?Windows-1252?Q?De5lAurWqIZSbrEgjOT8kzREOOm1ED7v55YzmXnKUS8A23SBzDvwKnn8?=
+ =?Windows-1252?Q?JUqzeSpmfAbRqrEMSZuBzMu4hDv4ooldHShP1K26/KXB7J4f+HgSma5o?=
+ =?Windows-1252?Q?pjf/oKTGn4IDVKKObs9Tbav/+7PC7fsph1079gnfq3Rtjdwv?=
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
@@ -135,16 +136,16 @@ X-MS-Exchange-CrossTenant-AuthSource: MN2PR17MB3375.namprd17.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
  00000000-0000-0000-0000-000000000000
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 1f6a669c-9e72-4361-13cc-08db0ce718fa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2023 10:51:29.8921
+ faff33b1-de39-4d25-8c29-08db0ce77222
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2023 10:53:59.4433
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 
  00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR17MB5040
-Message-ID-Hash: KCSAK4HUERCNVCP5T37TFTEEHWI4NEYB
-X-Message-ID-Hash: KCSAK4HUERCNVCP5T37TFTEEHWI4NEYB
+Message-ID-Hash: JZXE7MXKRL4NTRN32QULUVSDOOVYIDHZ
+X-Message-ID-Hash: JZXE7MXKRL4NTRN32QULUVSDOOVYIDHZ
 X-MailFrom: Vebpe@outlook.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -153,7 +154,7 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: text/plain; charset="Windows-1252"
 X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 CC: Yoshinori Sato <ysato@users.sourceforge.jp>,
  Rich Felker <dalias@libc.org>, Arnd Bergmann <arnd@arndb.de>,
@@ -187,14 +188,45 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJTXAMJRS3XWE2GYNOOM5LDZM5DLUFM3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OMF32GCXKHECGA2R7KTCREECYWF3XFGE/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+
+Go ahead keep having that conversation your shit is going to be shit down r=
+eal soon. Y=92all are the reason women get abortions and I hope they keep g=
+etting them:
+________________________________
+From: Vanessa Page <Vebpe@outlook.com>
+Sent: Sunday, February 12, 2023 5:51 AM
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>; Rob Landley <=
+rob@landley.net>; Randy Dunlap <rdunlap@infradead.org>; Christoph Hellwig <=
+hch@lst.de>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>; Rich Felker <dalias@libc.o=
+rg>; Arnd Bergmann <arnd@arndb.de>; Greg Kroah-Hartman <gregkh@linuxfoundat=
+ion.org>; Laurent Pinchart <laurent.pinchart@ideasonboard.com>; Kieran Bing=
+ham <kieran.bingham+renesas@ideasonboard.com>; Geert Uytterhoeven <geert+re=
+nesas@glider.be>; linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.or=
+g>; linux-watchdog@vger.kernel.org <linux-watchdog@vger.kernel.org>; device=
+tree@vger.kernel.org <devicetree@vger.kernel.org>; linux-arch@vger.kernel.o=
+rg <linux-arch@vger.kernel.org>; dmaengine@vger.kernel.org <dmaengine@vger.=
+kernel.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.o=
+rg>; linux-renesas-soc@vger.kernel.org <linux-renesas-soc@vger.kernel.org>;=
+ linux-i2c@vger.kernel.org <linux-i2c@vger.kernel.org>; linux-input@vger.ke=
+rnel.org <linux-input@vger.kernel.org>; linux-media@vger.kernel.org <linux-=
+media@vger.kernel.org>; linux-mmc@vger.kernel.org <linux-mmc@vger.kernel.or=
+g>; linux-mtd@lists.infradead.org <linux-mtd@lists.infradead.org>; netdev@v=
+ger.kernel.org <netdev@vger.kernel.org>; linux-gpio@vger.kernel.org <linux-=
+gpio@vger.kernel.org>; linux-rtc@vger.kernel.org <linux-rtc@vger.kernel.org=
+>; linux-spi@vger.kernel.org <linux-spi@vger.kernel.org>; linux-serial@vger=
+.kernel.org <linux-serial@vger.kernel.org>; linux-usb@vger.kernel.org <linu=
+x-usb@vger.kernel.org>; linux-fbdev@vger.kernel.org <linux-fbdev@vger.kerne=
+l.org>; alsa-devel@alsa-project.org <alsa-devel@alsa-project.org>; linux-sh=
+@vger.kernel.org <linux-sh@vger.kernel.org>
+Subject: Re: remove arch/sh
 
 Emmmmm maybe y'all stupid asses have been reported now you little sick havi=
 ng dipshit.

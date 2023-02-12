@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D848E699823
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E0A6997F9
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:55:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F0B5EB9;
-	Thu, 16 Feb 2023 15:57:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F0B5EB9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33522ED1;
+	Thu, 16 Feb 2023 15:54:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33522ED1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676559486;
-	bh=hJUIVjIWcroVtvu4OXuhx/MmU7Sz2UPG988Be7bAuc8=;
-	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ws2NgFmQNRsQYP28JZVXPxrOqy22SGNfSIi5WJkGlPxoA1PV7W6QYAnkho3VRLQn3
-	 qzUVYxNmp2mNeWP1CkW58u9nVol+5yfPqkdti9ynoh3QsPYPmNuNyUq6YpUL1lhs1T
-	 o9tvXibgavzuem+TdDM6m/xAOjCxbIyveRusci6s=
+	s=default; t=1676559329;
+	bh=d6xopFInR0A/pTQ8VBQnZ0XquLmM0VM326XmH34u10g=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AdGkH4XLlGA6ditc6KUGjd9qaOAQrO/WrKqZbtMkZ9oF8EhhOSHMA12OkPyXe8zOi
+	 2blNQw4fHmNSIOmPaDTKmcLxUybIpu0kbar5kzJJoP2IDrjz63iDf7SlyysNG+OhD0
+	 6OE9k69TUF7OtaT6uuQWB7uTNXQZ1DFxLk0k7Ds4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6EF3F805A0;
-	Thu, 16 Feb 2023 15:55:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 413FBF800B6;
+	Thu, 16 Feb 2023 15:54:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E96EF800E4; Sat, 11 Feb 2023 04:34:14 +0100 (CET)
+	id AAFD2F804B0; Sun, 12 Feb 2023 16:41:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from todd.t-8ch.de (todd.t-8ch.de [IPv6:2a01:4f8:c010:41de::1])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from soltyk.jannau.net (soltyk.jannau.net [144.76.91.90])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E04A0F80086
-	for <alsa-devel@alsa-project.org>; Sat, 11 Feb 2023 04:34:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E04A0F80086
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=weissschuh.net header.i=@weissschuh.net
- header.a=rsa-sha256 header.s=mail header.b=Nlkhb7/w
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=weissschuh.net;
-	s=mail; t=1676086438;
-	bh=hJUIVjIWcroVtvu4OXuhx/MmU7Sz2UPG988Be7bAuc8=;
-	h=From:Date:Subject:To:Cc:From;
-	b=Nlkhb7/w3HVQhOPusCBshsTE2RxwP3UhboUuSlVe4kmfAXzewm6FRxuBAPonAjtDu
-	 GuXKqyfoCfmWQ8zV44Uc/GBSAy3M9vMrGgentEpTfObRWH8Hj8RL2oa+XyIoqy+1Fg
-	 ZHCHXJvxdNr68pYPqgZi+/rhGbhQ8pljY2KA7wZg=
-Date: Sat, 11 Feb 2023 03:33:53 +0000
-Subject: [PATCH] ALSA: hda: make kobj_type structure constant
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6FC1DF800E4
+	for <alsa-devel@alsa-project.org>; Sun, 12 Feb 2023 16:41:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FC1DF800E4
+Received: from robin.home.jannau.net (p579ad32f.dip0.t-ipconnect.de
+ [87.154.211.47])
+	by soltyk.jannau.net (Postfix) with ESMTPSA id E6F8126F78F;
+	Sun, 12 Feb 2023 16:41:35 +0100 (CET)
+From: Janne Grunau <j@jannau.net>
+To: Hector Martin <marcan@marcan.st>,
+	Sven Peter <sven@svenpeter.dev>,
+	Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Mark Kettenis <kettenis@openbsd.org>,
+	=?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 14/17] dt-bindings: sound: apple,mca: Add t8112-mca compatible
+Date: Sun, 12 Feb 2023 16:41:24 +0100
+Message-Id: <20230202-asahi-t8112-dt-v1-14-cb5442d1c229@jannau.net>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230202-asahi-t8112-dt-v1-0-cb5442d1c229@jannau.net>
+References: <20230202-asahi-t8112-dt-v1-0-cb5442d1c229@jannau.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20230211-kobj_type-sound-v1-1-17107ceb25b7@weissschuh.net>
-X-B4-Tracking: v=1; b=H4sIAKAM52MC/x2N0QrCMAwAf2Xk2ULTPemviEizRhcd6WicOMb+f
- cHHOzhuA+MmbHDpNmj8FZOqDnjqYBizPjlIcYYUUx8TYnhXet0/68zB6qIlxB4LIjOdmcArysa
- BWtZh9E6XaXI5N37I77+53vb9ALFIMzl2AAAA
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1676086434; l=970;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=hJUIVjIWcroVtvu4OXuhx/MmU7Sz2UPG988Be7bAuc8=;
- b=hfQTL2SZmLdiFSwlG3dnRfYwVUsBxpeQYwTuSWZgxp/oi3Uw/HmSgB6yKiqlWzlQ+YOah2NzE
- 59vxI90qCtBAQh4xuDlNWs8bIvhLqNfs7jGQPDwKIZhMB4zIu1HgMBK
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-MailFrom: linux@weissschuh.net
+X-Developer-Signature: v=1; a=openpgp-sha256; l=896; i=j@jannau.net;
+ h=from:subject:message-id; bh=d6xopFInR0A/pTQ8VBQnZ0XquLmM0VM326XmH34u10g=;
+ b=owGbwMvMwCG2UNrmdq9+ahrjabUkhuSX7Ccr21aeeiL1YfpZIaUNlz9XH+yfNfPDS7fTfEFX9
+ vA4Gl542FHKwiDGwSArpsiSpP2yg2F1jWJM7YMwmDmsTCBDGLg4BWAi2qUMv9keZW9Y+T+47c3d
+ PWsZ3yiGsKi9Ug9IYv0jYTvllMST22oM/2umt3nz/ljVdJdVuf/Yz9dNexRbDvf9iw2xXJ+4YnJ
+ aIjcA
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
+X-MailFrom: j@jannau.net
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 76SBCPPWCWIKFUHL7PIBEW7TBYURFWKS
-X-Message-ID-Hash: 76SBCPPWCWIKFUHL7PIBEW7TBYURFWKS
-X-Mailman-Approved-At: Thu, 16 Feb 2023 14:54:48 +0000
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Message-ID-Hash: 6M3UPQQCJQ5RO5D4WEHPX6COKJ4DVR3Z
+X-Message-ID-Hash: 6M3UPQQCJQ5RO5D4WEHPX6COKJ4DVR3Z
+X-Mailman-Approved-At: Thu, 16 Feb 2023 14:54:03 +0000
+CC: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76SBCPPWCWIKFUHL7PIBEW7TBYURFWKS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6M3UPQQCJQ5RO5D4WEHPX6COKJ4DVR3Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,36 +95,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Since commit ee6d3dd4ed48 ("driver core: make kobj_type constant.")
-the driver core allows the usage of const struct kobj_type.
+The block found on Apple's M2 SoC is compatible with the existing driver
+so add its per-SoC compatible.
 
-Take advantage of this to constify the structure definition to prevent
-modification at runtime.
+Signed-off-by: Janne Grunau <j@jannau.net>
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- sound/hda/hdac_sysfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This trivial dt-bindings update should be merged through the asahi-soc
+tree to ensure validation of the Apple M2 (t8112) devicetrees in this
+series.
+---
+ Documentation/devicetree/bindings/sound/apple,mca.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/hda/hdac_sysfs.c b/sound/hda/hdac_sysfs.c
-index 62a9615dcf52..60b0a70428d5 100644
---- a/sound/hda/hdac_sysfs.c
-+++ b/sound/hda/hdac_sysfs.c
-@@ -148,7 +148,7 @@ static void widget_release(struct kobject *kobj)
- 	kfree(kobj);
- }
+diff --git a/Documentation/devicetree/bindings/sound/apple,mca.yaml b/Documentation/devicetree/bindings/sound/apple,mca.yaml
+index 40e3a202f443..5c6ec08c7d24 100644
+--- a/Documentation/devicetree/bindings/sound/apple,mca.yaml
++++ b/Documentation/devicetree/bindings/sound/apple,mca.yaml
+@@ -23,6 +23,7 @@ properties:
+       - enum:
+           - apple,t6000-mca
+           - apple,t8103-mca
++          - apple,t8112-mca
+       - const: apple,mca
  
--static struct kobj_type widget_ktype = {
-+static const struct kobj_type widget_ktype = {
- 	.release	= widget_release,
- 	.sysfs_ops	= &widget_sysfs_ops,
- };
+   reg:
 
----
-base-commit: 420b2d431d18a2572c8e86579e78105cb5ed45b0
-change-id: 20230211-kobj_type-sound-031d11eeb9eb
-
-Best regards,
 -- 
-Thomas Weißschuh <linux@weissschuh.net>
+2.39.1
 

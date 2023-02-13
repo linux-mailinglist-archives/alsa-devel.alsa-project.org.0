@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE234694F48
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 19:26:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F00694F52
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 19:27:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB43C84D;
-	Mon, 13 Feb 2023 19:25:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB43C84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8614857;
+	Mon, 13 Feb 2023 19:26:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8614857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676312806;
-	bh=7YaAWm/KKRyxxvUTQf+fqxSN7Zv8wytNiNs/ZTuD2/E=;
+	s=default; t=1676312826;
+	bh=c+q7Nn9Rsvv1nO+4W6DB2XtQZhG0cfDRiAWTu+oyL1k=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RgMCvipUjKz1CvHs7blbosUPHcDYd5Q/lM3aQcubLtvTuISBYaBHbwpg4lNKDacCf
-	 UXuOLQoOHAjDgdEDXyGasiKxNctoRHn6FjGsiVElX61ee/ba0liWYMCEi6jZLH0Mol
-	 nbIFe0b7IJwqwp2rXA6awZfPCS+6SWcWYCIBI9Eo=
+	b=f/JOZJNiOji5O/m3H+NdXrEcVMoy6m67Zo47tvm/CqYmWJQHnmE2tW98AU4ZpK52f
+	 Xf1qA1biaz16km6sbACgV4pAOR/YBt8m2RoBT5wcRzxwxmZcscwQ5ONPPJXahEHfYP
+	 2HRzdU8QGGIU4lrGz9X4s6ZIE1fXDJG9gxH8GYow=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34F34F804B0;
-	Mon, 13 Feb 2023 19:25:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EF1CF80548;
+	Mon, 13 Feb 2023 19:25:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD01FF804F2; Mon, 13 Feb 2023 19:25:03 +0100 (CET)
+	id 9DD4EF8052D; Mon, 13 Feb 2023 19:25:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,56 +33,56 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8D1AF804B4
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5BEDF804D6
 	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 19:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8D1AF804B4
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5BEDF804D6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BpMoLh3Q
+ header.s=Intel header.b=d/tyMU+S
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1676312696; x=1707848696;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=7YaAWm/KKRyxxvUTQf+fqxSN7Zv8wytNiNs/ZTuD2/E=;
-  b=BpMoLh3QoGTJePtHMjZj3oosbc4TrfFEKBJ3r7dIaFgLKEpY2BadAZCz
-   tIMFTudOI8EseXIAtaGxbQZdWfQ/hoyQNGzbufb1p+494/2hJy9FXqSG9
-   HzSlmew2ZvwcELhCfkt9Ob5Qu+s9SYU1MXNvz3+CyxF7Nbiq56UuPFuY2
-   IstcMjmVnB+nQnk3N/sbTu9yL6vA4ObRHZegep3CJQQLRSHC9a1C0qcts
-   j/MxK2LYzcfBQ9aSAlHndVRLrKpTCGsPZKHXH8IXcfUZxqJpzuM+28by/
-   KsL92XWLKoDZ8KYAc05TogbyYMfnsHz0Tlu4Gr5cgoZ3Dh+gXqj9cgzSS
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="328664073"
+  bh=c+q7Nn9Rsvv1nO+4W6DB2XtQZhG0cfDRiAWTu+oyL1k=;
+  b=d/tyMU+SyPXzjzGqgs+XmViiyisATbqfUG+NlOPqjnSVJMfR+oP+/rPd
+   t4oQKXhkYjibri8Zc6aTQbBp7eYwQXzT+9C6ThEt45fDGPJYEmMd1p+H6
+   rfPmKnm1edMX9oYTZRNB/qA+uUN8SpsXBa98tEPDrk8iYEpF4uHZEEoUH
+   qDpexTqtkEz6qkl90CpGeZhbTxsbB+BPEDRmZJ3oedNbtJm/edAe76Exe
+   bD8Yy4T0EUARg4oZ26sMr4Yfr63tefQQXIBjEHH0lv66Qks4qMx7xTJXr
+   fdUDslLDbNKglprQ9iMqv8TrQ+0IHcd2lTsVwUJjHdvWklcIu+C4FEYdj
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="328664083"
 X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
-   d="scan'208";a="328664073"
+   d="scan'208";a="328664083"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
   by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2023 10:24:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="701369311"
+ 13 Feb 2023 10:24:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="701369326"
 X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
-   d="scan'208";a="701369311"
+   d="scan'208";a="701369326"
 Received: from eatoledo-mobl.amr.corp.intel.com (HELO [10.212.18.132])
  ([10.212.18.132])
   by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2023 10:24:38 -0800
-Message-ID: <9505941e-73a1-249b-08c2-83b86e7ef5c6@linux.intel.com>
-Date: Mon, 13 Feb 2023 12:15:44 -0600
+ 13 Feb 2023 10:24:40 -0800
+Message-ID: <383a8166-bc60-8557-e76b-f6287c967598@linux.intel.com>
+Date: Mon, 13 Feb 2023 12:20:14 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH V2 5/8] soundwire: amd: add soundwire manager interrupt
- handling
+Subject: Re: [PATCH V2 6/8] soundwire: amd: add runtime pm ops for AMD
+ soundwire manager driver
 Content-Language: en-US
 To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
 References: <20230213094031.2231058-1-Vijendar.Mukunda@amd.com>
- <20230213094031.2231058-6-Vijendar.Mukunda@amd.com>
+ <20230213094031.2231058-7-Vijendar.Mukunda@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230213094031.2231058-6-Vijendar.Mukunda@amd.com>
+In-Reply-To: <20230213094031.2231058-7-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: FXU53TO6TGYSUROLRU44KSMWETEZO4DY
-X-Message-ID-Hash: FXU53TO6TGYSUROLRU44KSMWETEZO4DY
+Message-ID-Hash: 37SGRVOY6HZRWC7S6PWFXD3SCIQKIUCN
+X-Message-ID-Hash: 37SGRVOY6HZRWC7S6PWFXD3SCIQKIUCN
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FXU53TO6TGYSUROLRU44KSMWETEZO4DY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37SGRVOY6HZRWC7S6PWFXD3SCIQKIUCN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,196 +114,107 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 2/13/23 03:40, Vijendar Mukunda wrote:
-> Add support for handling soundwire manager interrupts.
-
-Try using the MIPI spelling: SoundWire
-
+> Add support for runtime pm ops for AMD soundwire manager driver.
 > 
 > Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
 > ---
->  drivers/soundwire/amd_manager.c   | 132 ++++++++++++++++++++++++++++++
->  drivers/soundwire/amd_manager.h   |   1 +
->  include/linux/soundwire/sdw_amd.h |   7 ++
->  3 files changed, 140 insertions(+)
+>  drivers/soundwire/amd_manager.c   | 163 ++++++++++++++++++++++++++++++
+>  drivers/soundwire/amd_manager.h   |   3 +
+>  include/linux/soundwire/sdw_amd.h |  16 +++
+>  3 files changed, 182 insertions(+)
 > 
 > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index 14c88b80ab6d..87f9a987d93a 100644
+> index 87f9a987d93a..eced189ba6e0 100644
 > --- a/drivers/soundwire/amd_manager.c
 > +++ b/drivers/soundwire/amd_manager.c
-> @@ -417,6 +417,47 @@ static enum sdw_command_response amd_sdw_xfer_msg(struct sdw_bus *bus, struct sd
->  	return SDW_CMD_OK;
+> @@ -14,6 +14,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_registers.h>
+> +#include <linux/pm_runtime.h>
+>  #include <linux/wait.h>
+>  #include <sound/pcm_params.h>
+>  #include <sound/soc.h>
+> @@ -185,6 +186,15 @@ static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+>  	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
 >  }
 >  
-> +static void amd_sdw_process_ping_status(u64 response, struct amd_sdw_manager *amd_manager)
+> +static int amd_deinit_sdw_manager(struct amd_sdw_manager *amd_manager)
 > +{
-> +	u64 slave_stat = 0;
-
-useless init
-
-> +	u32 val = 0;
-
-useless init
-
-> +	u16 dev_index;
+> +	int ret;
 > +
-> +	/* slave status response*/
-
-response */
-
-> +	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
-> +	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-> +
-> +	dev_dbg(amd_manager->dev, "%s: slave_stat:0x%llx\n", __func__, slave_stat);
-
-newline?
-
-> +	for (dev_index = 0; dev_index <= SDW_MAX_DEVICES; ++dev_index) {
-> +		val = (slave_stat >> (dev_index * 2)) & AMD_SDW_MCP_SLAVE_STATUS_MASK;
-> +		dev_dbg(amd_manager->dev, "%s val:0x%x\n", __func__, val);
-
-you don't need __func__ in dev_dbg() logs, they can be added e.g. with
-the option dyndbg=+pmf
-
-> +		switch (val) {
-> +		case SDW_SLAVE_ATTACHED:
-> +			amd_manager->status[dev_index] = SDW_SLAVE_ATTACHED;
-> +			break;
-> +		case SDW_SLAVE_UNATTACHED:
-> +			amd_manager->status[dev_index] = SDW_SLAVE_UNATTACHED;
-> +			break;
-> +		case SDW_SLAVE_ALERT:
-> +			amd_manager->status[dev_index] = SDW_SLAVE_ALERT;
-> +			break;
-> +		default:
-> +			amd_manager->status[dev_index] = SDW_SLAVE_RESERVED;
-> +			break;
-> +		}
-> +	}
+> +	amd_disable_sdw_interrupts(amd_manager);
+> +	ret = amd_disable_sdw_manager(amd_manager);
+> +	return ret;
 > +}
 > +
-> +static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_manager)
-> +{
-> +	u64 response = 0;
-
-useless init
-
-> +
-> +	mutex_lock(&amd_manager->bus.msg_lock);
-> +	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
-> +	mutex_unlock(&amd_manager->bus.msg_lock);
-> +	amd_sdw_process_ping_status(response, amd_manager);
-> +}
-> +
->  static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
+>  static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
 >  {
->  	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-> @@ -817,6 +858,95 @@ static int amd_sdw_register_dais(struct amd_sdw_manager *amd_manager)
->  					       dais, num_dais);
+>  	u32 frame_size;
+> @@ -1043,6 +1053,12 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
+>  	INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
+>  	INIT_WORK(&amd_manager->probe_work, amd_sdw_probe_work);
+>  	schedule_work(&amd_manager->probe_work);
+> +	/* Enable runtime PM */
+> +	pm_runtime_set_autosuspend_delay(dev, AMD_SDW_MASTER_SUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_mark_last_busy(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+
+that doesn't sound good to me, why do this here and not in the work
+function? That creates a racy case where the device might suspend before
+being initialized.
+
+>  	return 0;
 >  }
 >  
-> +static void amd_sdw_update_slave_status_work(struct work_struct *work)
-> +{
-> +	struct amd_sdw_manager *amd_manager =
-> +		container_of(work, struct amd_sdw_manager, amd_sdw_work);
-> +	int retry_count = 0;
+> @@ -1057,14 +1073,161 @@ static int amd_sdw_manager_remove(struct platform_device *pdev)
+>  	amd_disable_sdw_interrupts(amd_manager);
+>  	sdw_bus_master_delete(&amd_manager->bus);
+>  	ret = amd_disable_sdw_manager(amd_manager);
+> +	pm_runtime_disable(&pdev->dev);
+
+shouldn't you do the pm_runtime_disable first?
+
+>  	return ret;
+>  }
+
+> +/* AMD pm_runtime quirk definitions */
 > +
-> +	if (amd_manager->status[0] == SDW_SLAVE_ATTACHED) {
-> +		acp_reg_writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +		acp_reg_writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +	}
+> +/*
+> + * Force the clock to stop(ClockStopMode0) when suspend callback
+> + * is invoked.
+> + */
+> +#define AMD_SDW_CLK_STOP_MODE		1
 > +
-> +update_status:
-> +	sdw_handle_slave_status(&amd_manager->bus, amd_manager->status);
-> +	if (amd_manager->status[0] == SDW_SLAVE_ATTACHED) {
-> +		if (retry_count++ < SDW_MAX_DEVICES) {
-> +			acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
-> +				       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +			acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11,
-> +				       amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +			amd_sdw_read_and_process_ping_status(amd_manager);
-> +			goto update_status;
-> +		} else {
-> +			dev_err_ratelimited(amd_manager->dev,
-> +					    "Device0 detected after %d iterations\n",
-> +					    retry_count);
-> +		}
-> +	}
+> +/*
+> + * Stop the bus when runtime suspend/system level suspend callback
+> + * is invoked. If set, a complete bus reset and re-enumeration will
+> + * be performed when the bus restarts.
+> + */
+> +#define AMD_SDW_POWER_OFF_MODE		2
 
-this seems rather inspired by the Cadence code, but is there really a
-case where you need to re-check for devices? In the Cadence case, this
-was added because we have a logical OR and new devices would not be handled.
-> +}
-> +
-> +static void amd_sdw_update_slave_status(u32 status_change_0to7, u32 status_change_8to11,
-> +					struct amd_sdw_manager *amd_manager)
-> +{
-> +	u64 slave_stat = 0;
+You need to clarify this mode, can you deal with device in-band wakes if
+the power is off?
 
-useless init
-
-> +	u32 val = 0;
-
-useless init
-
-> +	int dev_index;
-> +
-> +	if (status_change_0to7 == AMD_SDW_SLAVE_0_ATTACHED)
-> +		memset(amd_manager->status, 0, sizeof(amd_manager->status));
-> +	slave_stat = status_change_0to7;
-> +	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STATUS_8TO_11, status_change_8to11) << 32;
-> +	dev_dbg(amd_manager->dev, "%s: status_change_0to7:0x%x status_change_8to11:0x%x\n",
-> +		__func__, status_change_0to7, status_change_8to11);
-> +	if (slave_stat) {
-> +		for (dev_index = 0; dev_index <= SDW_MAX_DEVICES; ++dev_index) {
-> +			if (slave_stat & AMD_SDW_MCP_SLAVE_STATUS_VALID_MASK(dev_index)) {
-> +				val = (slave_stat >> AMD_SDW_MCP_SLAVE_STAT_SHIFT_MASK(dev_index)) &
-> +				      AMD_SDW_MCP_SLAVE_STATUS_MASK;
-> +				switch (val) {
-> +				case SDW_SLAVE_ATTACHED:
-> +					amd_manager->status[dev_index] = SDW_SLAVE_ATTACHED;
-> +					break;
-> +				case SDW_SLAVE_UNATTACHED:
-> +					amd_manager->status[dev_index] = SDW_SLAVE_UNATTACHED;
-> +					break;
-> +				case SDW_SLAVE_ALERT:
-> +					amd_manager->status[dev_index] = SDW_SLAVE_ALERT;
-> +					break;
-> +				default:
-> +					amd_manager->status[dev_index] = SDW_SLAVE_RESERVED;
-> +					break;
-> +				}
-
-the code seems identical to that in amd_sdw_process_ping_status(), is
-there a need for a helper function?
-
-> +			}
-> +		}
-> +	}
-> +}
-> +
-> +static void amd_sdw_irq_thread(struct work_struct *work)
-> +{
-> +	struct amd_sdw_manager *amd_manager =
-> +			container_of(work, struct amd_sdw_manager, amd_sdw_irq_thread);
-> +	u32 status_change_8to11;
-> +	u32 status_change_0to7;
-> +
-> +	status_change_8to11 = acp_reg_readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
-> +	status_change_0to7 = acp_reg_readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
-> +	dev_dbg(amd_manager->dev, "%s [SDW%d] SDW INT: 0to7=0x%x, 8to11=0x%x\n",
-> +		__func__, amd_manager->instance, status_change_0to7, status_change_8to11);
-
-remove __func__
-
-> +	if (status_change_8to11 & AMD_SDW_PREQ_INTR_STAT) {
-> +		amd_sdw_read_and_process_ping_status(amd_manager);
-> +	} else {
-> +		/* Check for the updated status on peripheral device */
-> +		amd_sdw_update_slave_status(status_change_0to7, status_change_8to11, amd_manager);
-> +	}
-> +	if (status_change_8to11 || status_change_0to7)
-> +		schedule_work(&amd_manager->amd_sdw_work);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
-> +}
+>  #define ACP_SDW0	0
+>  #define ACP_SDW1	1
+>  
+> @@ -57,6 +71,7 @@ struct sdw_amd_dai_runtime {
+>   * @instance: soundwire manager instance
+>   * @quirks: soundwire manager quirks
+>   * @wake_en_mask: wake enable mask per soundwire manager
+> + * @clk_stopped: flag set to true when clock is stopped
+>   * @power_mode_mask: flag interprets amd soundwire manager power mode
+>   * @dai_runtime_array: dai runtime array
+>   */
+> @@ -86,6 +101,7 @@ struct amd_sdw_manager {
+>  	u32 quirks;
+>  	u32 wake_en_mask;
+>  	u32 power_mode_mask;
+> +	bool clk_stopped;
+>  
+>  	struct sdw_amd_dai_runtime **dai_runtime_array;
+>  };

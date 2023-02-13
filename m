@@ -2,105 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90E89694657
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 13:52:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEE7369473E
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 14:42:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8541208;
-	Mon, 13 Feb 2023 13:51:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8541208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7724B208;
+	Mon, 13 Feb 2023 14:41:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7724B208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676292749;
-	bh=SqUSc0xFa6eoBF99+TocfgxvHOe2xZ/W1XkwGdDE6as=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ihpl2UFepIpvGZ4tt63ee3Tjn/lqserhc3jcxVYx+/X2hUMxWx4jZx0OqO5lS5XS8
-	 BnQC5nwboFXFQ1GPv6AdFJCClguKoZpe5f+g98ABuUOEv2OCucMGNc7Ze/r3f9GEv6
-	 O7JYBCHdmrVgOI7tWFIlav/Oj2MJXnZ7LXOwBGIo=
+	s=default; t=1676295736;
+	bh=mBtKMxoiwXj0IdHB3txPg9Cb7TlNZ5n12nvAA+b9JQ0=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=B04oa5yqkhod1pbSYQrMzjIrKNELGSRf4Uu+OIRv2LHBwhzIHXl4Tjn7z+nBeoq4f
+	 ugG4P6gj6PkgwQtOL8OeqQ2w0lbpOD2+lQcZrXq913dRYUdwYWnreOZvsajPMrYsfj
+	 MSOvzo4qzuVt+JSJqe6bdxyz+z8x1vsaDuEXsXII=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B1C0F804B0;
-	Mon, 13 Feb 2023 13:51:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3420F804B0;
+	Mon, 13 Feb 2023 14:41:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA114F804B4; Mon, 13 Feb 2023 13:51:35 +0100 (CET)
+	id 6F46DF804B4; Mon, 13 Feb 2023 14:41:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04085F800B0
-	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 13:51:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04085F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0782DF800B0
+	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 14:41:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0782DF800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FitqmEcA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676292689; x=1707828689;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SqUSc0xFa6eoBF99+TocfgxvHOe2xZ/W1XkwGdDE6as=;
-  b=FitqmEcA9hiKyZiYnvJefEnzOmxuk3onQ9l23mdBu8kOks2y/zrrUq6S
-   91ywv3YkuYzYZjXCo7119MkcVmp0gZ5WB+H7dnD4/0w8MCut9Y8MF+ZHy
-   Pl+knSK7rPF5bxYsI5EeMsEdF86FZ6oBj9cT5hxT00ivyhFFfzYfHt8Vy
-   qW1Cqr4AtZTyaDT0kQA4lZnNDtlOEC/1ansIMkEuc2t731algcLpcrtQY
-   Xkp9kz15T0jFdSScob4+aPv0/AkwNpt6BR9K5m9xBR4qMhW28Eme0lZZs
-   JOYK3jtjRt8G3tNIuB0k5qmzFlp/6Nd9fPvI6r1JRuLcD+Czwg6l6ZW2m
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10619"; a="330887230"
-X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
-   d="scan'208";a="330887230"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2023 04:51:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10619"; a="699170321"
-X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
-   d="scan'208";a="699170321"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga008.jf.intel.com with ESMTP; 13 Feb 2023 04:51:21 -0800
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: Skylake: Fix struct definition
-Date: Mon, 13 Feb 2023 21:52:23 +0100
-Message-Id: <20230213205223.2679357-1-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=FBWDFebJ
+Received: by mail-wr1-x433.google.com with SMTP id m10so3351268wrn.4
+        for <alsa-devel@alsa-project.org>;
+ Mon, 13 Feb 2023 05:41:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jniYWNW0O39wpTJxa3SQEvop6eWznu5uXxnO2EMbWgQ=;
+        b=FBWDFebJdOqOt9UisLdoEICfZUOvdzF4VjQAvexnYvTzYXlNt/8kpZ93WzcGcOScmh
+         GSGmXXBlLEH03sbYKwfyYdGJvTvt4pMuzr3QvwOk6Kpg4D/CaMXYF0kQ4MjOSvjV+bAN
+         KlEL8mdPr3o/gPPowuH8FFQXdXYrJWnq+OJMUqoW2x21lUo42IHDegHxH9wGE21goH5s
+         PTMnWdcixkpnLWd6tjeycsGC2mgjtdXIZ+dqpkzb/RsZGUW8qR8wSIkPtka0Zx/OmEYP
+         ce7lM/rKB9WmY38o5PP/PBywnkTlLPXqo5ljii1M743Mgwkq03eN214Npjdq6fbL0aIG
+         sAhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jniYWNW0O39wpTJxa3SQEvop6eWznu5uXxnO2EMbWgQ=;
+        b=pkJ6X9TRokBRALrl8926qK4pJXtugr2w6Gn9yK5Fpc4Mm48Rt5SPl5W2JKd90oFT0t
+         rtg6vuByEu1jdd5shzHXj3sEUG6ekqMDT0H4KXPx5NCjWxhdJ4cQ0067TKU+IbDL5Ik2
+         o5Q30WNExZufANRCNA2FhkC5eCJIiyh8VQTbQ5fX8V/iWAiQzE9jFXAsOKLI9SmnuGU3
+         N2npkSbhj+1aYFmL23drtmPXPwwbFqbc5++rDs3Ic+PT9CGdJmeFONIavAQVVvRr479J
+         MjQ13F29ydw3s59RkEFZFpRXT5HqF0z7T4YcCfcsOu2P1ghmYL0INb5oRq0FdaqaODsM
+         TFMw==
+X-Gm-Message-State: AO0yUKWZuZw1474z9TOkK6nvV4I6eoeIcFGMdgzyki7UlNmzV2KGqBzi
+	prA2T1aK1ic7ERlIQvicT5hxwQ==
+X-Google-Smtp-Source: 
+ AK7set9Ck5nVtGr3AA0e07USwlY0O4KmviAeT07ZvvWqq9KVybVYwczKDubU1V+AXYHkIkH/gEo6Nw==
+X-Received: by 2002:a5d:61c8:0:b0:2c5:57d5:ef6e with SMTP id
+ q8-20020a5d61c8000000b002c557d5ef6emr3328146wrv.46.1676295673210;
+        Mon, 13 Feb 2023 05:41:13 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+        by smtp.gmail.com with ESMTPSA id
+ q2-20020a5d5742000000b002c560e6ea57sm218722wrw.47.2023.02.13.05.41.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Feb 2023 05:41:12 -0800 (PST)
+Message-ID: <0c74070f-6dbe-9379-3acf-85d173217419@linaro.org>
+Date: Mon, 13 Feb 2023 14:41:10 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 14/17] dt-bindings: sound: apple,mca: Add t8112-mca
+ compatible
+To: Janne Grunau <j@jannau.net>, Hector Martin <marcan@marcan.st>,
+ Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Mark Kettenis <kettenis@openbsd.org>, =?UTF-8?Q?Martin_Povi=c5=a1er?=
+ <povik+lin@cutebit.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20230202-asahi-t8112-dt-v1-0-cb5442d1c229@jannau.net>
+ <20230202-asahi-t8112-dt-v1-14-cb5442d1c229@jannau.net>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230202-asahi-t8112-dt-v1-14-cb5442d1c229@jannau.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IYCJDQBJIGWAITJWJWPEAXBXM7KHOB37
-X-Message-ID-Hash: IYCJDQBJIGWAITJWJWPEAXBXM7KHOB37
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: RF7ABUNQMS5SHUKQCOPSKZJITN2Q2FXU
+X-Message-ID-Hash: RF7ABUNQMS5SHUKQCOPSKZJITN2Q2FXU
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Sasa Ostrouska <casaxa@gmail.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Kees Cook <keescook@chromium.org>
+CC: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IYCJDQBJIGWAITJWJWPEAXBXM7KHOB37/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RF7ABUNQMS5SHUKQCOPSKZJITN2Q2FXU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,71 +129,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The kernel is globally removing the ambiguous 0-length and 1-element
-arrays in favor of flexible arrays, so that we can gain both compile-time
-and run-time array bounds checking[1]. In this instance, struct
-skl_cpr_cfg contains struct skl_cpr_gtw_cfg, which defined "config_data"
-as a 1-element array.
+On 12/02/2023 16:41, Janne Grunau wrote:
+> The block found on Apple's M2 SoC is compatible with the existing driver
+> so add its per-SoC compatible.
+> 
+> Signed-off-by: Janne Grunau <j@jannau.net>
 
-However, case present in sound/soc/intel/skylake/skl-topology.h is not a
-simple one as the structure takes part in IPC communication. Apparently
-original definition missed one field, which while not used by AudioDSP
-firmware when there is no additional data, is still expected to be part
-of an IPC message. Currently this works because of how 'config_data' is
-declared: 'config_data[1]'. Now when one replaces it with a flexible
-array there would be one field missing. Update struct declaration to fix
-this.
 
-Reported-by: Sasa Ostrouska <casaxa@gmail.com>
-Link: https://lore.kernel.org/all/CALFERdwvq5day_sbDfiUsMSZCQu9HG8-SBpOZDNPeMdZGog6XA@mail.gmail.com/
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: alsa-devel@alsa-project.org
-CC: Kees Cook <keescook@chromium.org>
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/intel/skylake/skl-messages.c | 2 +-
- sound/soc/intel/skylake/skl-topology.h | 5 ++++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
-index 5ab0917a2b3d..d31509298a0a 100644
---- a/sound/soc/intel/skylake/skl-messages.c
-+++ b/sound/soc/intel/skylake/skl-messages.c
-@@ -549,7 +549,7 @@ static void skl_copy_copier_caps(struct skl_module_cfg *mconfig,
- 	if (mconfig->formats_config[SKL_PARAM_INIT].caps_size == 0)
- 		return;
- 
--	memcpy(cpr_mconfig->gtw_cfg.config_data,
-+	memcpy(&cpr_mconfig->gtw_cfg.config_data,
- 			mconfig->formats_config[SKL_PARAM_INIT].caps,
- 			mconfig->formats_config[SKL_PARAM_INIT].caps_size);
- 
-diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
-index 6db0fd7bad49..30a0977af943 100644
---- a/sound/soc/intel/skylake/skl-topology.h
-+++ b/sound/soc/intel/skylake/skl-topology.h
-@@ -115,7 +115,10 @@ struct skl_cpr_gtw_cfg {
- 	u32 dma_buffer_size;
- 	u32 config_length;
- 	/* not mandatory; required only for DMIC/I2S */
--	u32 config_data[1];
-+	struct {
-+		u32 gtw_attrs;
-+		u32 data[];
-+	} config_data;
- } __packed;
- 
- struct skl_dma_control {
--- 
-2.34.1
+Best regards,
+Krzysztof
 

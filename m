@@ -2,187 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB8A694D32
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 17:47:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B66E694F4C
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 19:26:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECBA483A;
-	Mon, 13 Feb 2023 17:46:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECBA483A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 833CB868;
+	Mon, 13 Feb 2023 19:26:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 833CB868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676306823;
-	bh=tZki1xdE8Z89wK20F8RafUM43rFciFjfbi2cO/hD3So=;
-	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676312812;
+	bh=RXnL+HngXrp/cyWpmOPHoDtZ6ssV4/DG94YKJsp0gME=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HvWaAP8McIuVMYEZ6DTabgolcW5s2hGT44+V0YH36NPkkZ7cbsFbVf2FkVwJ47JoN
-	 UgA1j7IR5jOylg18BHRcfFMvogV/dEJRT4X60om35ik3JOEvzxqLUl3Un2B0CfmUZ0
-	 fA8Hwgpgdmm4rlbupMXKADMl2qNLV9Xa73GSnLxE=
+	b=YEtIpM4KIyM8Sn7u1mQREDzxaioCldc31v3O4A8gHqhwWbwxkyRbPkXvY6B9lJiEA
+	 S6lS/9sfjf9LggVKQAcsszmJ2o3MKrlp7k0OnqBNpFd3JK5F3xuPoENdrUJCCKZZ53
+	 QmdCXXi0i1Z0BabHEjXTit5VPqqKMqSzK3/rPqS8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69C97F80051;
-	Mon, 13 Feb 2023 17:46:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D56BFF8053B;
+	Mon, 13 Feb 2023 19:25:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E260F804B4; Mon, 13 Feb 2023 17:46:08 +0100 (CET)
+	id D7D12F80526; Mon, 13 Feb 2023 19:25:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10olkn2080d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::80d])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 437B5F80051
-	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 17:45:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437B5F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC117F800B0
+	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 19:24:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC117F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256
- header.s=selector1 header.b=utN78DhL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nFk07U7vH+KF+Z9403YLJGv4/T7JGju7M4eImJkAydJTNGyVGVzijKpcn4pw1XC/N7P0cgWhLK7rxwj5h5KcpBLLDMMt3nJ/TvEbVe6aeELlnEUcD1BDXGAeFB8/46IKc6H1BJVWcQPwatC40B1pTLJEey4JbwwfPksFzHWAFLFIzvj/bolAdsnmhmPR2Kg3NjdAcolkrWvx5RF17ZuvzQhBUdn6UGe0B3/4ZXEVix/tAKTjFDQtMlaEDr9r06vMwVk61IbeCmPebv8q5MUy/pHHEYrvb+FOC9y2L5DRIY+ZU5v0nBZ9WJPEzxWiXgeMOvrLgTCPUdFzmLw8/KMdhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u4OaXpYkL8+vAv4ATNblajUKMrVi0olBWAms0mmzDxE=;
- b=ATViC0epB/X7ci3cdc/zgsqgU5KcMG3RkUdbX/y6xpdOR0IGvZ1Secjq3IeQUgNe1aZGAGkMXDOEWFjsraOsJiyFfvU1hMSIqC843WnKIkRMjG9ksl/0vyEQGJo4ljGt0j/WKb9jT34WU7QLU2Ckp8c8rOVaC97KE7sc6rUcIPkaZSk3NRPnnMIs51gTZoyfLz8U8Xh7fMFxry5QSzXI+px8igF2syJWl9/rqNSBDYOcXYMDvRUfqtuVU1HeKuitxNYU2z69p9tQwv2XBQ0ZGlAK6X0LAaQJiCghAxZ6V0P/CcO71XWY52G/JIDx9dnwUnkL7NEeyXwL0Dqh5raIzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u4OaXpYkL8+vAv4ATNblajUKMrVi0olBWAms0mmzDxE=;
- b=utN78DhLSsC5A8buSEseqiJ7pImY7/9fWUaNMFNG7ewWTGD97L3OAEceO0CpvLR8CuHm603kWuFQbCCYy9qcVf2t+ORfFsQDNyMVUolFQh5HiYJ+Z4KMgECjf/NPfTeerCT8QVrGTGlb3WFCejSBvawC9p+x+pO0vBOYhLFlN1rLX5ihrgNgjF8Y+L1bDDbrs41GeZj6PtyxjQ5X8lJMWNtylcwkzfrDZVE72s5Drh1faaRsSJjjFEVGlhRfNWrKrYYdGaYXOC01NoYoyZQi9mhPML3xWhhHvxcbTJqoC5wYoIYpPvlIRHBC7lNU90DEza+hnguMIIgoZA7TV5uruA==
-Received: from MN2PR17MB3375.namprd17.prod.outlook.com (2603:10b6:208:13c::25)
- by DM4PR17MB6184.namprd17.prod.outlook.com (2603:10b6:8:8e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Mon, 13 Feb
- 2023 16:45:50 +0000
-Received: from MN2PR17MB3375.namprd17.prod.outlook.com
- ([fe80::7cfd:d28f:fec7:beff]) by MN2PR17MB3375.namprd17.prod.outlook.com
- ([fe80::7cfd:d28f:fec7:beff%4]) with mapi id 15.20.6086.023; Mon, 13 Feb 2023
- 16:45:50 +0000
-From: Vanessa Page <Vebpe@outlook.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Stephen Rothwell
-	<sfr@canb.auug.org.au>
-Subject: Re: remove arch/sh
-Thread-Topic: remove arch/sh
-Thread-Index: AQHZN58k/f73IBbK60aG0mP3da8Tfq684rQAgAABooCABBoPgIAMI10AgAAEQNE=
-Date: Mon, 13 Feb 2023 16:45:50 +0000
-Message-ID: 
- <MN2PR17MB3375307520C2337FD275B626B8DD9@MN2PR17MB3375.namprd17.prod.outlook.com>
-References: <20230113062339.1909087-1-hch@lst.de>
-	 <11e2e0a8-eabe-2d8c-d612-9cdd4bcc3648@physik.fu-berlin.de>
-	 <20230116071306.GA15848@lst.de>
-	 <40dc1bc1-d9cd-d9be-188e-5167ebae235c@physik.fu-berlin.de>
-	 <20230203071423.GA24833@lst.de>
-	 <afd056a95d21944db1dc0c9708f692dd1f7bb757.camel@physik.fu-berlin.de>
-	 <20230203083037.GA30738@lst.de> <20230206100856.603a0f8f@canb.auug.org.au>
- <dbda1f6e1c280c13d963ad6e7f68a853a7741199.camel@physik.fu-berlin.de>
-In-Reply-To: 
- <dbda1f6e1c280c13d963ad6e7f68a853a7741199.camel@physik.fu-berlin.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-tmn: 
- [BjuLSR5SvRk55xrxUigDqi/i+ks1C/imys3PAubfBOvUDDV77GF84IO3Ck2fPcGp36A09yoU4+k=]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR17MB3375:EE_|DM4PR17MB6184:EE_
-x-ms-office365-filtering-correlation-id: 3fa8a3a4-1824-4707-5d3e-08db0de1c385
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- UOJreUlO2/vpU/t/P1HTykfr20bhrW8nnt+wTSaa4NuVXqehxPDwT+clGk3yPmmAutY3bvl6BJ/fq2BKtsYGIo2Mcy7TvEFhAVgHH3ZDFHlnDsr5MxzjpsADC+1K99y+QDKW/dLJYm4qLeIxcXy66YDfedz/zrbi68UQH5arxsp+CEUTvL/fc7IoEGPkuYowPbc23UC3sHk4ZRJ+iHCtowS4lUSZIR0HbtwtMZMNJVCvvD97ISF1XKQUDXx6M1SxiuZjn7kC4s90rHCYONW2x18TJw0np66xo6QbYNhbNftJLqslWiJuGazmMbHQIBzHSUGrEojToTKV8Vn6BLqYUspOr7kV1DHwDzy3h9ehLmvTwRdK4TZhrCVUWP+AHJeYvqq0VbxDcx+w3XqS4MaH/66d2Y2fRAPRtitqUhFEhcpxAhDjSuC3uDjKV/h6wIH+6RYuKJyKOs8fBg97ClDvfk/xyKBpw0ODRhcl/UdxV25vaEwL+FBt83+Rw1UeN5IBYavC+AvoX5eyC1nyLfoinyKTlJ+WEvVBuF6Sy6o+EdvXptzutT/1nW4b50B5eRDLJwpOUl1DaqHNf/HpvgkmFi6wuUmLNTJjQSMTTXBFj04gdRDX6oE3Rub+u0EhyZatgMeNwEGxx/EEgoJBeD7a4E+pYpQ1XDNOAMjPM7WoedE=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?Windows-1252?Q?7f43EiPFkkZrYxTmxVkOc3zjkfZ3bm1/7N0QWoQ55H+HRwpBdOrlL/oU?=
- =?Windows-1252?Q?Nfd0DYh1gzxRYqRkxz9rZRYZL/UyLa1Iom8UiOe+VLy1YCOGYRiL+Arp?=
- =?Windows-1252?Q?0XRQlea5miYcm7aHD18erkEOQobwD5EI+BnLKBd1B5sOYixzWt0va8Xc?=
- =?Windows-1252?Q?aqyo3sw/L/3JcdGymtrbNK/yfQ11nVHZyB0lEfzC6p45HyvTDygZTIB+?=
- =?Windows-1252?Q?Ko4TFJCPDfJfWwJ7cMCb+gvkG7sSWq6CYwdFgU9XQcXF8+Qav/6LnLsc?=
- =?Windows-1252?Q?No5rUenhixko5ZIaAsRld9NsN8wJD/2rQ5UIR9A65xFUvbTNjiCAHWPZ?=
- =?Windows-1252?Q?foZ5j9rhCI5Eh36SeSFH+nsbPyjy9ANqQRFSr0Sz+16TfUGLJuawnoDr?=
- =?Windows-1252?Q?etORBduMa/LtmT4j2va0wr9nKljPXrP0XRM1h2lRqWkvmN+JhoE3c1NJ?=
- =?Windows-1252?Q?5csW/wJNI+Z7Jl0RTWBtnQvDkQrrVMWSHiZK6zhU5zIwGp6glPfyMSos?=
- =?Windows-1252?Q?aeDcmlskYmcYaUXhDgkIxX2RRq2QXYgefqWHUSU+lESJSVwoKZGtqKV5?=
- =?Windows-1252?Q?kcvIcaeGNue5hbzCky4Zd5CAmNugwbWkyaxpAjIC0f5+lW3gl3EkFicj?=
- =?Windows-1252?Q?hKSd0+DI4XlKNLIGsykymkGx7fPQzFhuRYrl4dfnI1YynTMvFtFg5MCt?=
- =?Windows-1252?Q?DZ4QXpPrrW/FF/cUyLEoK3LSbYIg5aZ4YYsnhqZ+G0Jw76RwJy0tiLTg?=
- =?Windows-1252?Q?Mc1OIl/VZ7+0ww7YGq49WPAYzdHrQ17vHcaTMcfvetVjjdqFDx6ipvcB?=
- =?Windows-1252?Q?GxpjPZQECd6qNy6a0nkSjBx3jZihTTW6XInDXvdvBhfCFKS7ji+wosqK?=
- =?Windows-1252?Q?EqG1T8XbBaZIZVOaUbdaFlLh7eWZlfGQ5J1V1Gad6s447NiZrUDzUrE3?=
- =?Windows-1252?Q?rAYdoFIb7ieVy+85XYMKKQRbe8Lu/BYpM/jx+xwSp00dySXF60Dxn41s?=
- =?Windows-1252?Q?et5YdK7IeF1SJ9je5QobCNAS87EjUlUCwfmNUiI2KYY8eEnon/8y+fiE?=
- =?Windows-1252?Q?oTmHPsTPGaS49wPSU9RvAKKbFX3dd68Iz73DZgd+RGmLnhrtJ1R5zp2U?=
- =?Windows-1252?Q?FSVHLA/sgOZoaT1mmQAqQVQ87bgFg4BAImQ10cDL9aaBPV719C3bvREg?=
- =?Windows-1252?Q?qO4Lj4srFhyY3Fx45gisiZo8Az5eY0wSfZEVdGe8TZk2s0f5CSb8tjax?=
- =?Windows-1252?Q?z/yS5F52psCJjtPKiRbpjCilZvQL7U8eoWQ3dqNqHdW1MQ68NXYzc7SR?=
- =?Windows-1252?Q?b9G8/e3MT4DskXXqbBjE20fKvVd1RgUmQkA3ZBCcV5bEYrB/2+9NMMQd?=
- =?Windows-1252?Q?KcqsGlc46Ellhx54KbhVSQHEsjxV9lMuBYubIkJqbu0jSSC7xd/MF2Yz?=
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=EXAzIDPm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1676312693; x=1707848693;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=RXnL+HngXrp/cyWpmOPHoDtZ6ssV4/DG94YKJsp0gME=;
+  b=EXAzIDPm0XfObc6I92QXuXR7rSp2E2Y6e5k3R/IdAMX00NzZyeGGSKG9
+   gCGIfc5K5yCD3/uIeHhRUr1Gmlp6wUVcmtIdhK6spc9sDwbPdMsRLP50r
+   ZtuefFDjtzvBmTiJrM7fK9DYv8o50+yQ/543HglGydf48FfAG9CbGAYjy
+   rAJrNepMOPF9htELSoM+jx8gTvx8UITXlh0AjnRU0Wuoq45rOmy2vg7IE
+   ELtl5U4hI5qsunoy0wo45NV2rKWeOnvqFvPTosVY+7ur2s4DVjHVjcAcE
+   yfOBznX1GmtMELeA+gtUoQ5fGrSgUBC77I93RY+zZqH53bzR5w/BcN7Xo
+   w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="328664063"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
+   d="scan'208";a="328664063"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2023 10:24:36 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="701369279"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000";
+   d="scan'208";a="701369279"
+Received: from eatoledo-mobl.amr.corp.intel.com (HELO [10.212.18.132])
+ ([10.212.18.132])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2023 10:24:34 -0800
+Message-ID: <a3a75ead-5430-ae32-a6ae-78314bc637f1@linux.intel.com>
+Date: Mon, 13 Feb 2023 12:05:00 -0600
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR17MB3375.namprd17.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
- 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 3fa8a3a4-1824-4707-5d3e-08db0de1c385
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Feb 2023 16:45:50.2000
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 
- 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR17MB6184
-Message-ID-Hash: QWKWWRA4YAHWP7FWDMY7MJ6HSCBRDYEZ
-X-Message-ID-Hash: QWKWWRA4YAHWP7FWDMY7MJ6HSCBRDYEZ
-X-MailFrom: Vebpe@outlook.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.1
+Subject: Re: [PATCH V2 2/8] soundwire: amd: Add support for AMD Manager driver
+Content-Language: en-US
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
+References: <20230213094031.2231058-1-Vijendar.Mukunda@amd.com>
+ <20230213094031.2231058-3-Vijendar.Mukunda@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230213094031.2231058-3-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 7TOPAHHRV3EB7E6CXCNIKLT2T5HZBM6A
+X-Message-ID-Hash: 7TOPAHHRV3EB7E6CXCNIKLT2T5HZBM6A
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="Windows-1252"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
-CC: Christoph Hellwig <hch@lst.de>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-sh@vger.kernel.org" <linux-sh@vger.kernel.org>
+CC: amadeuszx.slawinski@linux.intel.com, Mario.Limonciello@amd.com,
+ Sunil-kumar.Dommati@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6HQY2WJCOZ4EUENTVODZE2DJJTSADSE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TOPAHHRV3EB7E6CXCNIKLT2T5HZBM6A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -191,85 +110,454 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hey dipshit this ain=92t Steve motherfucker wrong fucking inbox I told the =
-FBI about y=92all stupid asses
-________________________________
-From: linux-mtd <linux-mtd-bounces@lists.infradead.org> on behalf of John P=
-aul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Sent: Monday, February 13, 2023 11:30 AM
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Cc: Christoph Hellwig <hch@lst.de>; Yoshinori Sato <ysato@users.sourceforge=
-.jp>; Rich Felker <dalias@libc.org>; Arnd Bergmann <arnd@arndb.de>; Greg Kr=
-oah-Hartman <gregkh@linuxfoundation.org>; Laurent Pinchart <laurent.pinchar=
-t@ideasonboard.com>; Kieran Bingham <kieran.bingham+renesas@ideasonboard.co=
-m>; Geert Uytterhoeven <geert+renesas@glider.be>; linux-kernel@vger.kernel.=
-org <linux-kernel@vger.kernel.org>; linux-watchdog@vger.kernel.org <linux-w=
-atchdog@vger.kernel.org>; devicetree@vger.kernel.org <devicetree@vger.kerne=
-l.org>; linux-arch@vger.kernel.org <linux-arch@vger.kernel.org>; dmaengine@=
-vger.kernel.org <dmaengine@vger.kernel.org>; dri-devel@lists.freedesktop.or=
-g <dri-devel@lists.freedesktop.org>; linux-renesas-soc@vger.kernel.org <lin=
-ux-renesas-soc@vger.kernel.org>; linux-i2c@vger.kernel.org <linux-i2c@vger.=
-kernel.org>; linux-input@vger.kernel.org <linux-input@vger.kernel.org>; lin=
-ux-media@vger.kernel.org <linux-media@vger.kernel.org>; linux-mmc@vger.kern=
-el.org <linux-mmc@vger.kernel.org>; linux-mtd@lists.infradead.org <linux-mt=
-d@lists.infradead.org>; netdev@vger.kernel.org <netdev@vger.kernel.org>; li=
-nux-gpio@vger.kernel.org <linux-gpio@vger.kernel.org>; linux-rtc@vger.kerne=
-l.org <linux-rtc@vger.kernel.org>; linux-spi@vger.kernel.org <linux-spi@vge=
-r.kernel.org>; linux-serial@vger.kernel.org <linux-serial@vger.kernel.org>;=
- linux-usb@vger.kernel.org <linux-usb@vger.kernel.org>; linux-fbdev@vger.ke=
-rnel.org <linux-fbdev@vger.kernel.org>; alsa-devel@alsa-project.org <alsa-d=
-evel@alsa-project.org>; linux-sh@vger.kernel.org <linux-sh@vger.kernel.org>
-Subject: Re: remove arch/sh
 
-Hi Steve!
+> +static void amd_enable_sdw_pads(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 sw_pad_pulldown_val;
+> +	u32 val = 0;
 
-On Mon, 2023-02-06 at 10:08 +1100, Stephen Rothwell wrote:
-> Hi,
->
-> On Fri, 3 Feb 2023 09:30:37 +0100 Christoph Hellwig <hch@lst.de> wrote:
-> >
-> > On Fri, Feb 03, 2023 at 09:24:46AM +0100, John Paul Adrian Glaubitz wro=
-te:
-> > > Since this is my very first time stepping up as a kernel maintainer, =
-I was hoping
-> > > to get some pointers on what to do to make this happen.
-> > >
-> > > So far, we have set up a new kernel tree and I have set up a local de=
-velopment and
-> > > test environment for SH kernels using my SH7785LCR board as the targe=
-t platform.
-> > >
-> > > Do I just need to send a patch asking to change the corresponding ent=
-ry in the
-> > > MAINTAINERS file?
-> >
-> > I'm not sure a there is a document, but:
-> >
-> >  - add the MAINTAINERS change to your tree
-> >  - ask Stephen to get your tree included in linux-next
->
-> And by "Stephen", Christoph means me.  When you are ready, please send
-> me a request to include your tree/branch in linux-next (usually the
-> branch is called something like "for-next" or just "next") telling me
-> the git URL, and the contacts I should send email to if there are
-> conflicts/build issues with the branch.  I will then fetch the branch
-> every time I create a new linux-next release (most work days), so all
-> you need to do is update that branch each time you are ready to publish
-> more commits.
+useless init
 
-I'm in the MAINTAINERS now in Linus' tree. I have requested a kernel.org
-account now and will hopefully have my trees set up later this week.
+> +
+> +	mutex_lock(amd_manager->sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+> +	val |= amd_manager->reg_mask->sw_pad_enable_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+> +	usleep_range(1000, 1500);
+> +
+> +	sw_pad_pulldown_val = acp_reg_readl(amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+> +	sw_pad_pulldown_val &= amd_manager->reg_mask->sw_pad_pulldown_mask;
+> +	acp_reg_writel(sw_pad_pulldown_val, amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+> +	mutex_unlock(amd_manager->sdw_lock);
+> +}
+> +
+> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val = 0;
 
-I'll let you know about the URLs as soon as possible.
+useless init
 
-Adrian
+> +	u32 timeout = 0;
+> +	u32 retry_count = 0;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (val)
+> +			break;
+> +		usleep_range(10, 50);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +
+> +	/* Soundwire manager bus reset */
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	while (!(val & AMD_SDW_BUS_RESET_DONE)) {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+> +			break;
+> +		usleep_range(1, 5);
+> +		timeout++;
+> +	}
+> +	if (timeout == AMD_DELAY_LOOP_ITERATION)
+> +		return -ETIMEDOUT;
+> +	timeout = 0;
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	while (val) {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+> +			break;
+> +		usleep_range(1, 5);
+> +		timeout++;
+> +	}
+> +	if (timeout == AMD_DELAY_LOOP_ITERATION) {
+> +		dev_err(amd_manager->dev, "Failed to reset Soundwire manager instance%d\n",
+> +			amd_manager->instance);
+> +		return -ETIMEDOUT;
+> +	}
+> +	retry_count = 0;
+> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (!val)
+> +			break;
+> +		usleep_range(10, 50);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +	return 0;
+> +}
+> +
+> +static int amd_enable_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val = 0;
 
---
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+useless init
 
-______________________________________________________
-Linux MTD discussion mailing list
-http://lists.infradead.org/mailman/listinfo/linux-mtd/
+> +	u32 retry_count = 0;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (val)
+> +			break;
+> +		usleep_range(10, 50);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +	return 0;
+> +}
+> +
+> +static int amd_disable_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val = 0;
+
+useless init
+
+> +	u32 retry_count = 0;
+> +
+> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+> +	/*
+> +	 * After invoking manager disable sequence, check whether
+> +	 * manager has executed clock stop sequence. In this case,
+> +	 * manager should ignore checking enable status register.
+> +	 */
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
+> +	if (val)
+> +		return 0;
+> +
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (!val)
+> +			break;
+> +		usleep_range(10, 50);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +	return 0;
+> +}
+> +
+> +static void amd_enable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+> +{
+> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+> +	u32 val;
+> +
+> +	mutex_lock(amd_manager->sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	val |= reg_mask->acp_sdw_intr_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	mutex_unlock(amd_manager->sdw_lock);
+> +	dev_dbg(amd_manager->dev, "%s: acp_ext_intr_ctrl[0x%x]:0x%x\n", __func__,
+> +		ACP_EXTERNAL_INTR_CNTL(amd_manager->instance), val);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_STAT(amd_manager->instance));
+> +	if (val)
+> +		acp_reg_writel(val, amd_manager->acp_mmio +
+> +			       ACP_EXTERNAL_INTR_STAT(amd_manager->instance));
+> +
+> +	acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
+> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+> +	acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11, amd_manager->mmio +
+> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +	acp_reg_writel(AMD_SDW_IRQ_ERROR_MASK, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> +}
+> +
+> +static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+> +{
+> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+> +	u32 val;
+> +
+> +	mutex_lock(amd_manager->sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	val &= ~reg_mask->acp_sdw_intr_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	mutex_unlock(amd_manager->sdw_lock);
+> +
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> +}
+> +
+> +static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 frame_size;
+> +
+> +	frame_size = (amd_manager->rows_index << 3) | amd_manager->cols_index;
+> +	acp_reg_writel(frame_size, amd_manager->mmio + ACP_SW_FRAMESIZE);
+> +}
+> +
+> +static void amd_sdw_ctl_word_prep(u32 *low_word, u32 *high_word, u32 cmd_type,
+> +				  struct sdw_msg *msg, int cmd_offset)
+> +{
+> +	u32 low_data = 0, high_data = 0;
+
+init for high_data is useless
+
+> +	u16 addr;
+> +	u8 addr_high, addr_low;
+> +	u8 data = 0;
+> +
+> +	addr = msg->addr + cmd_offset;
+> +	addr_high = (addr & 0xFF00) >> 8;
+> +	addr_low = addr & 0xFF;
+> +
+> +	if (cmd_type == AMD_SDW_CMD_WRITE)
+> +		data = msg->buf[cmd_offset];
+> +
+> +	high_data = FIELD_PREP(AMD_SDW_MCP_CMD_DEV_ADDR, msg->dev_num);
+> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_COMMAND, cmd_type);
+> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_HIGH, addr_high);
+> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_LOW, addr_low);
+> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_DATA, data);
+> +
+> +	*high_word = high_data;
+> +	*low_word = low_data;
+> +}
+> +
+> +static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lword, u32 uword)
+> +{
+> +	u64 resp = 0;
+
+useless init
+
+> +	u32 resp_lower, resp_high;
+> +	u32 sts = 0;
+
+useless init
+
+> +	u32 timeout = 0;
+> +
+> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while (sts & AMD_SDW_IMM_CMD_BUSY) {
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x previous cmd status clear failed\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		timeout++;
+> +	}
+> +
+> +	timeout = 0;
+> +	if (sts & AMD_SDW_IMM_RES_VALID) {
+> +		dev_err(amd_manager->dev, "SDW%x manager is in bad state\n", amd_manager->instance);
+> +		acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	}
+> +	acp_reg_writel(uword, amd_manager->mmio + ACP_SW_IMM_CMD_UPPER_WORD);
+> +	acp_reg_writel(lword, amd_manager->mmio + ACP_SW_IMM_CMD_LOWER_QWORD);
+> +
+> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while (!(sts & AMD_SDW_IMM_RES_VALID)) {
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x cmd response timeout occurred\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		timeout++;
+> +	}
+> +	resp_high = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_UPPER_WORD);
+> +	resp_lower = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_LOWER_QWORD);
+> +	timeout = 0;
+> +	acp_reg_writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while ((sts & AMD_SDW_IMM_RES_VALID)) {
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x cmd status retry failed\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		timeout++;
+> +	}
+> +	resp = resp_high;
+> +	resp = (resp << 32) | resp_lower;
+> +	return resp;
+> +}
+
+> +static unsigned int _amd_sdw_xfer_msg(struct amd_sdw_manager *amd_manager, struct sdw_msg *msg,
+> +				      int cmd, int cmd_offset)
+> +{
+> +	u64 response = 0;
+
+useless init
+
+> +	u32 uword = 0, lword = 0;
+> +
+> +	amd_sdw_ctl_word_prep(&lword, &uword, cmd, msg, cmd_offset);
+> +	response = amd_sdw_send_cmd_get_resp(amd_manager, lword, uword);
+> +	return amd_sdw_fill_msg_resp(amd_manager, msg, response, cmd_offset);
+> +}
+> +
+> +static enum sdw_command_response amd_sdw_xfer_msg(struct sdw_bus *bus, struct sdw_msg *msg)
+> +{
+> +	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
+> +	int ret, i;
+> +	int cmd = 0;
+> +
+> +	ret = amd_prep_msg(amd_manager, msg, &cmd);
+> +	if (ret)
+> +		return SDW_CMD_FAIL_OTHER;
+> +	for (i = 0; i < msg->len; i++) {
+> +		ret = _amd_sdw_xfer_msg(amd_manager, msg, cmd, i);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +	return SDW_CMD_OK;
+> +}
+> +
+> +static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
+> +{
+> +	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
+> +	u64 response;
+> +	u32 slave_stat = 0;
+
+useless init
+
+> +
+> +	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
+> +	/* slave status from ping response*/
+> +	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
+> +	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
+> +	dev_dbg(amd_manager->dev, "%s: slave_stat:0x%x\n", __func__, slave_stat);
+> +	return slave_stat;
+> +}
+
+> +static void amd_sdw_probe_work(struct work_struct *work)
+> +{
+> +	struct amd_sdw_manager *amd_manager = container_of(work, struct amd_sdw_manager,
+> +							   probe_work);
+> +	struct sdw_master_prop *prop;
+> +	int ret;
+> +
+> +	prop = &amd_manager->bus.prop;
+> +	if (!prop->hw_disabled) {
+> +		amd_enable_sdw_pads(amd_manager);
+> +		ret = amd_init_sdw_manager(amd_manager);
+> +		if (ret)
+> +			return;
+> +		amd_enable_sdw_interrupts(amd_manager);
+> +		ret = amd_enable_sdw_manager(amd_manager);
+> +		if (ret)
+> +			return;
+> +		amd_sdw_set_frameshape(amd_manager);
+> +	}
+> +}
+
+There should be an explanation as to why you need a workqueue to
+complete the probe.
+
+> +
+> +static int amd_sdw_manager_probe(struct platform_device *pdev)
+> +{
+> +	const struct acp_sdw_pdata *pdata = pdev->dev.platform_data;
+> +	struct resource *res;
+> +	struct device *dev = &pdev->dev;
+> +	struct sdw_master_prop *prop;
+> +	struct sdw_bus_params *params;
+> +	struct amd_sdw_manager *amd_manager;
+> +	int ret;
+> +
+> +	if (!pdev->dev.platform_data) {
+> +		dev_err(dev, "platform_data not retrieved\n");
+> +		return -ENODEV;
+> +	}
+> +	amd_manager = devm_kzalloc(dev, sizeof(struct amd_sdw_manager), GFP_KERNEL);
+> +	if (!amd_manager)
+> +		return -ENOMEM;
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -ENOMEM;
+> +	amd_manager->acp_mmio = devm_ioremap(dev, res->start, resource_size(res));
+> +	if (IS_ERR(amd_manager->mmio)) {
+> +		dev_err(dev, "mmio not found\n");
+> +		return PTR_ERR(amd_manager->mmio);
+> +	}
+> +	amd_manager->instance = pdata->instance;
+> +	amd_manager->mmio = amd_manager->acp_mmio +
+> +			    (amd_manager->instance * SDW_MANAGER_REG_OFFSET);
+> +	amd_manager->sdw_lock = pdata->sdw_lock;
+> +	amd_manager->cols_index = sdw_find_col_index(AMD_SDW_DEFAULT_COLUMNS);
+> +	amd_manager->rows_index = sdw_find_row_index(AMD_SDW_DEFAULT_ROWS);
+> +	amd_manager->dev = dev;
+> +	amd_manager->bus.ops = &amd_sdw_ops;
+> +	amd_manager->bus.port_ops = &amd_sdw_port_ops;
+> +	amd_manager->bus.compute_params = &amd_sdw_compute_params;
+> +	amd_manager->bus.clk_stop_timeout = 200;
+> +	amd_manager->bus.link_id = amd_manager->instance;
+> +	switch (amd_manager->instance) {
+> +	case ACP_SDW0:
+> +		amd_manager->num_dout_ports = AMD_SDW0_MAX_TX_PORTS;
+> +		amd_manager->num_din_ports = AMD_SDW0_MAX_RX_PORTS;
+> +		break;
+> +	case ACP_SDW1:
+> +		amd_manager->num_dout_ports = AMD_SDW1_MAX_TX_PORTS;
+> +		amd_manager->num_din_ports = AMD_SDW1_MAX_RX_PORTS;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +	amd_manager->reg_mask = &sdw_manager_reg_mask_array[amd_manager->instance];
+> +	params = &amd_manager->bus.params;
+> +	params->max_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
+> +	params->curr_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
+> +	params->col = AMD_SDW_DEFAULT_COLUMNS;
+> +	params->row = AMD_SDW_DEFAULT_ROWS;
+> +	prop = &amd_manager->bus.prop;
+> +	prop->clk_freq = &amd_sdw_freq_tbl[0];
+> +	prop->mclk_freq = AMD_SDW_BUS_BASE_FREQ;
+> +
+> +	ret = sdw_bus_master_add(&amd_manager->bus, dev, dev->fwnode);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register Soundwire manager(%d)\n", ret);
+> +		return ret;
+> +	}
+> +	dev_set_drvdata(dev, amd_manager);
+> +	INIT_WORK(&amd_manager->probe_work, amd_sdw_probe_work);
+> +	schedule_work(&amd_manager->probe_work);
+> +	return 0;
+> +}
+> +
+> +static int amd_sdw_manager_remove(struct platform_device *pdev)
+> +{
+> +	struct amd_sdw_manager *amd_manager = dev_get_drvdata(&pdev->dev);
+> +	int ret;
+> +
+> +	if (!amd_manager)
+> +		return -ENODEV;
+
+is this possible? From the code just above wioth dev_set_drvdata() it
+seems there's no error code, so the remove can blindly use the pointer.
+
+> +	cancel_work_sync(&amd_manager->probe_work);
+> +	amd_disable_sdw_interrupts(amd_manager);
+> +	sdw_bus_master_delete(&amd_manager->bus);
+> +	ret = amd_disable_sdw_manager(amd_manager);
+> +	return ret;
+
+return amd_disable_sdw_manager(amd_manager); ?
+
+> +}
+> +
+> +static struct platform_driver amd_sdw_driver = {
+> +	.probe	= &amd_sdw_manager_probe,
+> +	.remove = &amd_sdw_manager_remove,
+> +	.driver = {
+> +		.name	= "amd_sdw_manager",
+> +	}
+> +};
+> +module_platform_driver(amd_sdw_driver);
+
+> +struct acp_sdw_pdata {
+> +	u16 instance;
+> +	/* mutex to protect acp common register access */
+> +	struct mutex *sdw_lock;
+
+may be acp_sdw_lock then? sdw_lock sounds very generic and confusing IMHO.
+
+> +};

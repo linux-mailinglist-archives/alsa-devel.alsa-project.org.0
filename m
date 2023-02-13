@@ -2,115 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BF9693EF4
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 08:39:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79067693F42
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 08:58:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CF7E83B;
-	Mon, 13 Feb 2023 08:38:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CF7E83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74A5D839;
+	Mon, 13 Feb 2023 08:57:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74A5D839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676273967;
-	bh=xtxFOAdLWmnBFRumwwzm92Ba03ib2oTomhrasZMR6U0=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=rngzS7Jy8d5nx1ttEKjB5XPB9qBRTfY8zhdLTcCQ4jFk/wCYF7VYXtU7qUiqp3yfD
-	 Z0ZdZuC7/Fk4BIoZaxJ5FydlbiKzXcTkc5+upZdVTpDuiHoR4kuxMUd29zcWd6y8ka
-	 HvOAG3juYrS61hsgrDVUeDaE1z/S3rHuCvEtkC/s=
+	s=default; t=1676275107;
+	bh=duVWByKYcGOMe88dw7mCpkjLKn0OMCGQWKjxu1DFz7c=;
+	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tJ7NRd1BT0x3yOCpzpBOHIJ/T/LOfuRG5MxhGCDnttrRPv64fsAalrNEcR1vs7/Up
+	 dphpPrJJoqA+8VxWmsIT1a/iomFJ9LWyUGakf08jxiKU7RBw1KHSIpkBNSXjGR7bXv
+	 LTEmYg8KRUdNyVIt79ufoBZwKnwrLbI7F0WoHsOw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 120CDF804B0;
-	Mon, 13 Feb 2023 08:38:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95061F804B0;
+	Mon, 13 Feb 2023 08:57:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E3D8F804B4; Mon, 13 Feb 2023 08:38:31 +0100 (CET)
+	id 46DD0F804B4; Mon, 13 Feb 2023 08:57:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.echtzeit.solutions (echtzeit.solutions [116.203.43.208])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56A7CF80038
-	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 08:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56A7CF80038
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50787F80038
+	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 08:57:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50787F80038
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=shruggie-ro.20210112.gappssmtp.com
- header.i=@shruggie-ro.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=vJlgzQvI
-Received: by mail-wr1-x430.google.com with SMTP id by3so9802338wrb.10
-        for <alsa-devel@alsa-project.org>;
- Sun, 12 Feb 2023 23:38:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=shruggie-ro.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9fES43cqBFMbD7FMaprgtpPtQ3m4cP80LvK4l63UpPU=;
-        b=vJlgzQvIHRSg6WRHi2GBSk7NctdquDT4FI9Ke3FWosrlWA4fFVbvxGA+TCTTM7vz9a
-         CnDoFZtyPy2oG0u3QwP5qErZOFN8nhSEoBqQz1qR5AwdP0J2FbqPt84ntHMXVk5Me0zX
-         W2kZkSvJHX71vAFBlSLLB4TE2w3yg1sqtKJr8CCo/afvsfw4mgaD69IOwu2pqH63Ujo2
-         Y5SYpeneDDHiQZkNL29KwGuzfdH2ENwVWIAsO4o1LLEsLBJ2qdbnFqd8D9YgqjuufalV
-         oLcHs4S+mWqH0EcAYy0rm0mZJWXWa7XmMka0STUfJOQwx3p5B2+N0vQDpxo5y4PVcks4
-         1xng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9fES43cqBFMbD7FMaprgtpPtQ3m4cP80LvK4l63UpPU=;
-        b=uwCia1k0NN/ok54BwP95s6yg+dGnt4w/fRq1rfW0bbT3X1U4/rhmiO+whfLPQp0ltP
-         JEDdR6PZVRiTpKeeGBBVsRXzIaFuy546RjRyjtHawvnNPwS4Zh120sMdyUsygN74kVan
-         NHcb+Wfvoph2G2ja+4xzEA3c8SEQaVc8E6cPvYUHJxkTnFbPgDLdZJ1x7PZ5vacIaXhO
-         ibm0s7VAvxVciTqIufNvnXsttnnJy21TREtlmTnJNwpsRq1vVREV43sTwsqpBdZdUFaS
-         PtTp7/2ec/tWJQ5e33lpgVDNP5GiQAay+htADRN7to/LNWyYA7XgLjU5750WvTliydWw
-         qmsQ==
-X-Gm-Message-State: AO0yUKVoE4DyL4LQ+8Kvh0h5002BkjxMqmInKJmP/I7CwZDwCzxL2z3B
-	tqHiz/7CpDBosfcuEeWNByuof9hOI1xOy7yBYXA=
-X-Google-Smtp-Source: 
- AK7set8brAwSZrbEmT4jujqelm+GMP8gsSH1k3lV9L2hWg+sRI3mky/dvZ4Bc1LdMVFdlIm/ly7GOg==
-X-Received: by 2002:adf:fc91:0:b0:2c5:4f06:5fe with SMTP id
- g17-20020adffc91000000b002c54f0605femr4954556wrr.57.1676273899794;
-        Sun, 12 Feb 2023 23:38:19 -0800 (PST)
-Received: from neptune.. ([82.79.69.144])
-        by smtp.gmail.com with ESMTPSA id
- e1-20020a5d5941000000b002c54241b4fesm8714108wri.80.2023.02.12.23.38.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Feb 2023 23:38:19 -0800 (PST)
-From: Alexandru Ardelean <alex@shruggie.ro>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] sound: soc: codec: tlv320adcx140: fix 'ti,gpio-config' DT
- property init
-Date: Mon, 13 Feb 2023 09:38:05 +0200
-Message-Id: <20230213073805.14640-1-alex@shruggie.ro>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230211191315.24554-1-alex@shruggie.ro>
-References: <20230211191315.24554-1-alex@shruggie.ro>
+ unprotected) header.d=echtzeit.solutions header.i=@echtzeit.solutions
+ header.a=rsa-sha256 header.s=dkim header.b=Xq3CC7fv
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 966F8DB01C
+	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 08:57:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=echtzeit.solutions;
+	s=dkim; t=1676275040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0zKmuCItsyjTN+L40cLo4yJ6IQyemtgpw4kxHgS7FtU=;
+	b=Xq3CC7fvs931j2d38+uyZSoWkqL1Xzs/pZ3JDYHf88vFj+yE+R5xAcaw9npbfqtwRb4IUE
+	KuEhpNotS27sKnC1w/jp8tAs+FYIwji21mRwxR7zVUJeb+VefKySM8x66zyOjQCupxG0ql
+	hjyaG/AhHiZ5JqTGwfTBo6Rib6vIYMD/+M7PYbPLRT6qAWWfzknJzWGIc8e7xKIJguF/e9
+	IVuo4worzIohRv+/K5Ik2b5KWEzTO3qU6mjMAN4mMwokjdJrvXrthcZbm+CvAAWUEMEnH5
+	i1E49YladUMfSrzAXdFzGjdaHimoKo0NKLKvNVmdURAoOdH7XNln+xviLigjXA==
+Message-ID: <948733d5-cbea-2c9f-95c7-6e95fdcacaba@echtzeit.solutions>
+Date: Mon, 13 Feb 2023 08:57:19 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: alsa-devel@alsa-project.org
+Content-Language: en-US
+From: =?UTF-8?Q?Florian_H=c3=a4nel?= <florian.haenel@echtzeit.solutions>
+Subject: TC-Helicon Blender
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: THYV5NZYYA26U5OOWQAEXNKIIWIZTDXN
-X-Message-ID-Hash: THYV5NZYYA26U5OOWQAEXNKIIWIZTDXN
-X-MailFrom: alex@shruggie.ro
+Message-ID-Hash: BR2SP6QQOENEPFWQVE5I5SA2GYME7BKZ
+X-Message-ID-Hash: BR2SP6QQOENEPFWQVE5I5SA2GYME7BKZ
+X-MailFrom: florian.haenel@echtzeit.solutions
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: broonie@kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
- steffen.aschbacher@stihl.de, patrick.frick@stihl.de,
- Alexandru Ardelean <alex@shruggie.ro>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/THYV5NZYYA26U5OOWQAEXNKIIWIZTDXN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BR2SP6QQOENEPFWQVE5I5SA2GYME7BKZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,48 +88,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Steffen Aschbacher <steffen.aschbacher@stihl.de>
+I have this USB device called TC-Helicon Blender which provides 12 input 
+streams, 8 output streams (6/4 stereo plugs), in addition to some midi 
+interface and internal playback and record channel.
 
-When the 'ti,gpio-config' property is not defined, the
-device_property_count_u32() will return an error, rather than zero.
+Bus 005 Device 016: ID 1220:8fe1 TC Electronic Blender
 
-The current check, only handles a return value of zero, which assumes that
-the property is defined and has nothing defined.
+If I power the device on while connected to a windows machine with its 
+driver installed, then plug it into my linux machine, it appears to work 
+correctly:
 
-This change extends the check to also check for an error case (most likely
-to be hit by the case that the 'ti,gpio-config' is not defined).
+arecord -D front:CARD=Blender  -r48000 -fS32_LE -c 12 blender.wav -d 20
+Recording WAVE 'blender.wav' : Signed 32 bit Little Endian, Rate 48000 
+Hz, Channels 12
 
-In case that the 'ti,gpio-config' and the returned 'gpio_count' is not
-correct, there is a 'if (gpio_count != ADCX140_NUM_GPIO_CFGS)' check, a few
-lines lower that will return -EINVAL.
-This means that someone tried to define 'ti,gpio-config', but with the
-wrong number of GPIOs.
+46080044 blender.wav
 
-Fixes: d5214321498a ("ASoC: tlv320adcx140: Add support for configuring GPIO pin")
-Signed-off-by: Steffen Aschbacher <steffen.aschbacher@stihl.de>
-Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
----
+However if I have it on my linux machine while powering it on, I only 
+get timeouts and no samples from arecord:
 
-Changelog v1 -> v2:
-* https://lore.kernel.org/alsa-devel/20230211191315.24554-1-alex@shruggie.ro/
-* Added 'Fixes:' tag; forgot it on the first patch (getting rusty with this)
+arecord -D front:CARD=Blender  -r48000 -fS32_LE -c 12 blender.wav -d 20
+Recording WAVE 'blender.wav' : Signed 32 bit Little Endian, Rate 48000 
+Hz, Channels 12
+arecord: pcm_read:2221: read error: Input/output error
 
- sound/soc/codecs/tlv320adcx140.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+44 blender.wav
 
-diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
-index 91a22d927915..530f321d08e9 100644
---- a/sound/soc/codecs/tlv320adcx140.c
-+++ b/sound/soc/codecs/tlv320adcx140.c
-@@ -925,7 +925,7 @@ static int adcx140_configure_gpio(struct adcx140_priv *adcx140)
- 
- 	gpio_count = device_property_count_u32(adcx140->dev,
- 			"ti,gpio-config");
--	if (gpio_count == 0)
-+	if (gpio_count <= 0)
- 		return 0;
- 
- 	if (gpio_count != ADCX140_NUM_GPIO_CFGS)
+
+What can I do to try and get this device to init correctly under linux? 
+I have captured USB packets of the init phase using wireshark on both 
+windows and linux but comparing them is tedious if I don't know what to 
+look for. Are there quirks flags I can play around with? This is my 
+first time looking at a linux device driver issue like this.
+
+Would it be ok to attach the usb captures on this mailing list?
+
+
+thanks
+
+Florian
+
 -- 
-2.34.1
+Florian Hänel
+Geschäftsführer
+
+echtzeit.solutions GmbH
+Handelsregistergericht München HRB 231056
+Ust-ID DE310379807
 

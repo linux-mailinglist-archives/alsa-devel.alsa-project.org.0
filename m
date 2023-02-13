@@ -2,74 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CD40694C52
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 17:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019F1694C58
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Feb 2023 17:21:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D4C5100;
-	Mon, 13 Feb 2023 17:19:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D4C5100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 544FC852;
+	Mon, 13 Feb 2023 17:20:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 544FC852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676305233;
-	bh=Z5wDnvOGNHRIFgJc+WGtrzbrEBxSmidUa+bQ3LSxztc=;
+	s=default; t=1676305283;
+	bh=rHZQyYd1q7ceVtb87uSYWZwLEeTojaFPZF1v1Y82AuE=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NX4dfimdIfy4FTF8/+aCkRBI8lSmTCEQdyLI4JpWkdGOWiE7ofIi6WYSeu1S726qT
-	 PIztosQxePd3DGFy7Dm+4Cz2bceE5wXLSv53wdQSVGzuTutTUq3JYmfpVE5xCHqS8y
-	 iwe8QnsREEVn8rBTcf5pKhgUMgGYjNWPcYmgeIY8=
+	b=q+aK8a2t4DZfS+e0mXGfFtkqzMT4pOh2SZYjjUQC9C1/SWUCDMFqv8I1JG4bFPNpW
+	 qjCBkv6ugJsk4YA+ek5FENrtie43cV2atFzvYC+4HTpC9ivrcEHuFiW96GcCPVNv7J
+	 viI2PDmSJ7wo8/S2ZOPYx++o0IkBFG+IpreqB+PQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF697F804DA;
-	Mon, 13 Feb 2023 17:18:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F071F80553;
+	Mon, 13 Feb 2023 17:19:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDA58F804D6; Mon, 13 Feb 2023 17:18:51 +0100 (CET)
+	id 65603F8052D; Mon, 13 Feb 2023 17:18:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 178AEF804B0
-	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 17:18:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 178AEF804B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51372F80051
+	for <alsa-devel@alsa-project.org>; Mon, 13 Feb 2023 17:18:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51372F80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BtZQE/gF
+ header.s=k20201202 header.b=HK+PgD/Y
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id AAC48B815C6;
-	Mon, 13 Feb 2023 16:18:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EDDC433EF;
-	Mon, 13 Feb 2023 16:18:45 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id EE839611D5;
+	Mon, 13 Feb 2023 16:18:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1348CC4339B;
+	Mon, 13 Feb 2023 16:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676305127;
-	bh=Z5wDnvOGNHRIFgJc+WGtrzbrEBxSmidUa+bQ3LSxztc=;
+	s=k20201202; t=1676305132;
+	bh=rHZQyYd1q7ceVtb87uSYWZwLEeTojaFPZF1v1Y82AuE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=BtZQE/gF/++2WEj5M0RL7Ph6EZp6UZ9k/BKk6EQZuca2DTZrylsJhjXN44fjVMG85
-	 jbe3E6uoOKMb0UVMsyYbtVBMCOLF5+5s/4m2esiuqqU43Wcb2MVEQyr4jsONScGHO5
-	 4pP/qQP6qoOMpBWTu9PYVlNSWj0scLk8hO+KVvMoljf5T9JkHul7ljNiKm4/BnY+rG
-	 S1HWCyetPRcOCYpIa56Jjhbi2GS3DcRmm2iRea7xGt1N0nev+EE1UgkBOmyUoIeeft
-	 cxI/ao42OiuiQD8kXOywoqY9TsDB3OIOutfoqOIVs99P7SFskygruJK6K1ve77IuPX
-	 eRw0ujLC0FsFg==
+	b=HK+PgD/YFlXDOJYpXWJPIisORcZGdoyG9M+YD+7Ucgb377TyVp39+xTMZ8EdrHnNb
+	 slWkiqkjKU+oFfmGBtX/vYsAmGyXCSt1ZbVMB4vBPNg89sX+9Myr+o2XXstyS68x6Z
+	 D+nm4Yde0P40wUt4MTPYSitCpUGGSsAklFRatwmoUlssVKyYqBPbbxtri+8nPesLId
+	 WA2HsUpeLsElJb5jGzKT8iGg2SIpnBI++Dwosy9kXB6BbHtv/7cC4mWSy1MAuDgYe4
+	 4/ZnVbHyah5oM9smiczAhIqUy754Q1SRQerG3vqUnOjWi+SrAvgFxjB9nuSri/gxHV
+	 nA3JIYcr6bfrw==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, Yang Li <yang.lee@linux.alibaba.com>
-In-Reply-To: <20230213010547.105312-1-yang.lee@linux.alibaba.com>
-References: <20230213010547.105312-1-yang.lee@linux.alibaba.com>
-Subject: Re: [PATCH -next] ASoC: codecs: Remove unneeded semicolon
-Message-Id: <167630512528.2770751.9782489444187002292.b4-ty@kernel.org>
-Date: Mon, 13 Feb 2023 16:18:45 +0000
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ krzysztof.kozlowski@linaro.org, rf@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, ckeepax@opensource.cirrus.com,
+ shumingf@realtek.com, herve.codina@bootlin.com, james.schulman@cirrus.com,
+ doug@schmorgal.com, yang.lee@linux.alibaba.com, trix@redhat.com,
+ colin.i.king@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, wangweidong.a@awinic.com
+In-Reply-To: <20230213093649.22928-1-wangweidong.a@awinic.com>
+References: <20230213093649.22928-1-wangweidong.a@awinic.com>
+Subject: Re: [PATCH 0/3][next] ASoC: codecs: Modify error implicit
+ declaration of function and misspelling
+Message-Id: <167630512772.2770751.214951401916390841.b4-ty@kernel.org>
+Date: Mon, 13 Feb 2023 16:18:47 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12.0
-Message-ID-Hash: LRFKJGE6ONRRWQ4PMFW2E7SI2CGSZSKT
-X-Message-ID-Hash: LRFKJGE6ONRRWQ4PMFW2E7SI2CGSZSKT
+Message-ID-Hash: HDKFZ4B5W3DNJPNS5TKWMCQMDN2BX7VT
+X-Message-ID-Hash: HDKFZ4B5W3DNJPNS5TKWMCQMDN2BX7VT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,15 +83,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: herve.codina@bootlin.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
+CC: liweilei@awinic.com, zhaolei@awinic.com, yijiangtao@awinic.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LRFKJGE6ONRRWQ4PMFW2E7SI2CGSZSKT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HDKFZ4B5W3DNJPNS5TKWMCQMDN2BX7VT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,11 +98,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 13 Feb 2023 09:05:47 +0800, Yang Li wrote:
-> ./sound/soc/codecs/peb2466.c:1851:2-3: Unneeded semicolon
-> ./sound/soc/codecs/peb2466.c:1887:2-3: Unneeded semicolon
+On Mon, 13 Feb 2023 17:36:46 +0800, wangweidong.a@awinic.com wrote:
+> Change the function name aw88395_plack_event to aw88395_playback_event
+> Change hdrlen to hdr_len
+> Add select GPIOLIB to the sound/soc/codecs/Kconfig file
 > 
+> Weidong Wang (3):
+>   ASoC: codecs: Fixed a spelling error in the function name
+>   ASoC: codecs: Modify the log print statement
+>   ASoC: codecs: Modify error: implicit declaration of  function
+>     'gpiod_set_value_cansleep'
 > 
+> [...]
 
 Applied to
 
@@ -106,8 +117,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: Remove unneeded semicolon
-      commit: d227116c0e216da2eceba1d51a364ff025dffa58
+[1/3] ASoC: codecs: Fixed a spelling error in the function name
+      commit: 27db41a1f73ad18ed6540e1f8a7083422e5b53d6
+[2/3] ASoC: codecs: Modify the log print statement
+      commit: 14d5d454547adae64a76731c90c37fe33f7d1d44
+[3/3] ASoC: codecs: Modify error implicit declaration of function 'gpiod_set_value_cansleep'
+      commit: 4680716d6a33f50c96eb7ce6ae9cb868baa04438
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

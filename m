@@ -2,93 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBC6696C44
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 19:04:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618CE696C90
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 19:15:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1A69AE8;
-	Tue, 14 Feb 2023 19:03:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1A69AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F92AE8;
+	Tue, 14 Feb 2023 19:14:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F92AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676397863;
-	bh=34Nen5m82Ih5JAA2jFki5nFMtCWBQprb7z0xjZpbw0U=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1676398535;
+	bh=e5l31k4He5Wbwe+okLfDpHV2VRfYIpl6dVetofwc8Rs=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cBbBfUuq4nvBLosKrWe8D8vAsw/wDP3U+AOYMD0KZYCXMzQi4q7B7IMWCvNiYHpbb
-	 pQ+dEjAADhi0qH+hbUaKTYiRP75hlW8UKebIAq12osPEsqVLC54Haj+FPeRZTvV9sZ
-	 uY4FQqigFVPN8bn5heFHTJSs+25KQGCfGsnCknOg=
+	b=A6TpYDCLuQkmBSVV8drr1CrNWXtOk31pTkKJ2z+wVW2ez6A2yFsUNt3TMn7rAu10c
+	 VjphkSsdJRqvkgd+Hy3QL3WIptTOSmN/WKhsigXwnKrInR37TMFqlxJaioL77MkbtZ
+	 f6Y2tOZkDOJjG3448qHo1ucqBdPO0Kv3yazE37gc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AB07F8055B;
-	Tue, 14 Feb 2023 19:01:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93AD9F800F0;
+	Tue, 14 Feb 2023 19:14:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D76AAF80557; Tue, 14 Feb 2023 19:01:54 +0100 (CET)
+	id 3F357F801C0; Tue, 14 Feb 2023 19:14:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 426C7F80552
-	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 19:01:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 426C7F80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id A044EF8001E
+	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 19:14:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A044EF8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eezYBiv1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F6A0617ED;
-	Tue, 14 Feb 2023 18:01:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A228AC433D2;
-	Tue, 14 Feb 2023 18:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676397709;
-	bh=34Nen5m82Ih5JAA2jFki5nFMtCWBQprb7z0xjZpbw0U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=eezYBiv1MXt1L3ERpQTVuTfDqimOqvfrVnfHMSV2RvSb3ibvEqO7EzXysP5n8m84G
-	 ya7oY0ndAThsRPkTf7wX9T0qI+uAujdxE6moVP0Ajo+pSKsTQxyOzmqohKN25u484C
-	 QoLmyjsRsGgJg78u+r421MWqMgvda4WeAaGICkWur1TO/e+cPzYu+HVmQv3gUzc3Tn
-	 pLWg87hWWKuH0b5x2AKoXqhp8Ht9waSv4Xqb/5+OXHjBic2SUS4bW3je6QhOHqW81O
-	 /wt65NCDWNtslA7eJQM2li/tnRqCfbJddhZYfIoGOv3sVFkDBVmyeuYnJB+IPmqMyP
-	 +0iGgNc67K2CA==
-From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Kaehlcke <mka@chromium.org>
-In-Reply-To: 
- <20230209012002.1.Ib4d6481f1d38a6e7b8c9e04913c02ca88c216cf6@changeid>
-References: 
- <20230209012002.1.Ib4d6481f1d38a6e7b8c9e04913c02ca88c216cf6@changeid>
-Subject: Re: [PATCH] SoC: rt5682s: Disable jack detection interrupt during
- suspend
-Message-Id: <167639770737.3067697.4910964647967248815.b4-ty@kernel.org>
-Date: Tue, 14 Feb 2023 18:01:47 +0000
+ unprotected) header.d=metafoo.de header.i=@metafoo.de header.a=rsa-sha256
+ header.s=default2002 header.b=C00pkt56
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de;
+	s=default2002; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=7UiTt2U5U+keNr7GSs36T48tk7MVL1FoJS8R8CnMXGM=; b=C00pkt563Z3KjI9vz41S1iMCTD
+	N4RfsdniXaJeA88YxA2Ww5QMTGddIyPlHXEdYSiQ+LfOXLEQMpQZcy2eV0Id+f0WtPCUiY9qn8FQz
+	U8us3U9MiV4b4sljhHsfvy2RWR3kEuFOv9mxg6P/L/XPgloVhYhItjrjSkJ61y0lwxdHUYb277jyi
+	szUNEprxBeeQ3/n44i1XSnytn2XV3ZZIOtDiU5P9X1tOhRcm4FuVidJ+XWJ7XBnwFrvOo23/YvZsn
+	vUkYSmU2a40597F9G0XYmlaHDKBg9hBtsXuVWV70KN6jqKUBWghCRkhPsNAsvrvvTMlEEhkzCb1MA
+	ticvzzig==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+	by www381.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <lars@metafoo.de>)
+	id 1pRzp2-000BdF-7q; Tue, 14 Feb 2023 19:14:32 +0100
+Received: from [2604:5500:c0e5:eb00:da5e:d3ff:feff:933b]
+	by sslproxy01.your-server.de with esmtpsa
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <lars@metafoo.de>)
+	id 1pRzp1-000KQi-N8; Tue, 14 Feb 2023 19:14:31 +0100
+Message-ID: <b065e2bb-1f11-067a-b085-45d47626927e@metafoo.de>
+Date: Tue, 14 Feb 2023 10:14:28 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH 1/3] ASoC: soc-generic-dmaengine-pcm: add option to start
+ DMA after DAI
+Content-Language: en-US
+To: Claudiu Beznea <claudiu.beznea@microchip.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ perex@perex.cz, tiwai@suse.com, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com
+References: <20230214161435.1088246-1-claudiu.beznea@microchip.com>
+ <20230214161435.1088246-2-claudiu.beznea@microchip.com>
+From: Lars-Peter Clausen <lars@metafoo.de>
+In-Reply-To: <20230214161435.1088246-2-claudiu.beznea@microchip.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
-Message-ID-Hash: 5YAXAJ276G7ZFSE6RJNRIV6UHLC2F4IS
-X-Message-ID-Hash: 5YAXAJ276G7ZFSE6RJNRIV6UHLC2F4IS
-X-MailFrom: broonie@kernel.org
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.103.7/26812/Tue Feb 14 09:53:27 2023)
+Message-ID-Hash: YDBHVB2RW7OXLTCV2GL64OQGJBBNXCK5
+X-Message-ID-Hash: YDBHVB2RW7OXLTCV2GL64OQGJBBNXCK5
+X-MailFrom: lars@metafoo.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Douglas Anderson <dianders@chromium.org>,
- Judy Hsiao <judyhsiao@chromium.org>, linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5YAXAJ276G7ZFSE6RJNRIV6UHLC2F4IS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDBHVB2RW7OXLTCV2GL64OQGJBBNXCK5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,41 +109,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 09 Feb 2023 01:20:23 +0000, Matthias Kaehlcke wrote:
-> The rt5682s driver switches its regmap to cache-only when the
-> device suspends and back to regular mode on resume. When the
-> jack detect interrupt fires rt5682s_irq() schedules the jack
-> detect work. This can result in invalid reads from the regmap
-> in cache-only mode if the work runs before the device has
-> resumed:
-> 
-> [...]
+On 2/14/23 08:14, Claudiu Beznea wrote:
+> diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+> index 3b99f619e37e..264e87af6b58 100644
+> --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> @@ -318,7 +318,7 @@ static int dmaengine_copy_user(struct snd_soc_component *component,
+>   	return 0;
+>   }
+>   
+> -static const struct snd_soc_component_driver dmaengine_pcm_component = {
+> +static struct snd_soc_component_driver dmaengine_pcm_component = {
+>   	.name		= SND_DMAENGINE_PCM_DRV_NAME,
+>   	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+>   	.open		= dmaengine_pcm_open,
+> @@ -329,7 +329,7 @@ static const struct snd_soc_component_driver dmaengine_pcm_component = {
+>   	.pcm_construct	= dmaengine_pcm_new,
+>   };
+>   
+> -static const struct snd_soc_component_driver dmaengine_pcm_component_process = {
+> +static struct snd_soc_component_driver dmaengine_pcm_component_process = {
+>   	.name		= SND_DMAENGINE_PCM_DRV_NAME,
+>   	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+>   	.open		= dmaengine_pcm_open,
+> @@ -425,7 +425,7 @@ static const struct snd_dmaengine_pcm_config snd_dmaengine_pcm_default_config =
+>   int snd_dmaengine_pcm_register(struct device *dev,
+>   	const struct snd_dmaengine_pcm_config *config, unsigned int flags)
+>   {
+> -	const struct snd_soc_component_driver *driver;
+> +	struct snd_soc_component_driver *driver;
+>   	struct dmaengine_pcm *pcm;
+>   	int ret;
+>   
+> @@ -450,6 +450,8 @@ int snd_dmaengine_pcm_register(struct device *dev,
+>   	else
+>   		driver = &dmaengine_pcm_component;
+>   
+> +	driver->start_dma_last = config->start_dma_last;
 
-Applied to
-
-   broonie/sound.git for-next
-
-Thanks!
-
-[1/1] SoC: rt5682s: Disable jack detection interrupt during suspend
-      commit: f7d00a9be147d9c6feeb19591b39f8102f70cc45
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+This will break if you have multiple sound cards in the system. 
+dmaengine_pcm_component must stay const.
 

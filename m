@@ -2,100 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E18D6960E0
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 11:36:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDB5C696100
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 11:39:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F938868;
-	Tue, 14 Feb 2023 11:35:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F938868
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5EBA828;
+	Tue, 14 Feb 2023 11:39:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5EBA828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676370984;
-	bh=wIu3wPgBRSgY9K5G+IWQTk6DTGmTl6qy6al+3EgL0Cw=;
+	s=default; t=1676371191;
+	bh=LFb+2iwGa4ZlcE9Cf8d8034IGQDN4s4caBaGpaMDIOI=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IpRsH0ksqaqcE7+cFSaLBrsu9CJoS68Rr7cMPdVVOiRjoK9c2o6fNcIXflpDQJcP4
-	 0uNrvvE1VlqByEs/140bEgYQri45ZagiavMz1RMVTs9gxQ6RRjy2lAGppxKM/uzfTp
-	 r5QzqcmYxmCVn1WBR+S+m1BUFUgzetgBA1Fvvowg=
+	b=CMU3bx4a7YY7smA8rqqL3Qyv6cgpVM8+mFyVO0bD56PS2kK4UGvawxth27Hc8M8FT
+	 oSQBZnCVFugv2XaOY3Z+TfUAoCjatTbJWYCB3OW7faxw42DPB+tQSDe6pwLX82kXPp
+	 ppXX2d293uxgX3rvZnWtBgzULUckDS978nT1A5eI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E08FF80552;
-	Tue, 14 Feb 2023 11:34:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44BA9F800F0;
+	Tue, 14 Feb 2023 11:39:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E908F8053B; Tue, 14 Feb 2023 11:33:55 +0100 (CET)
+	id 73403F801C0; Tue, 14 Feb 2023 11:38:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61E0AF8047C
-	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 11:33:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61E0AF8047C
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6216F8001E
+	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 11:38:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6216F8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cssxkaVl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676370827; x=1707906827;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wIu3wPgBRSgY9K5G+IWQTk6DTGmTl6qy6al+3EgL0Cw=;
-  b=cssxkaVlyopOYxRX0hw/ivLFgLSAXOpnEjOkncnkii+u1qJ+7qLorC+C
-   UkteqixjgLKTyKiHoUN3UPqk2CSoQXFjxpj0cPz22kM3gKtyTgaW68AFK
-   uM17Typ4xKPpOWRcaDubJbiNM++32vgOXp31fSC6wFA5b+anDtfoztKyg
-   vi551+qaVp42kekU6WaweWIP08rvXRCCH5p9xXRYwW4HoKyr5W1nD6zS/
-   B8ZhTTLcHNhOVJK3R9zsua9YvZ+KIOijJ3Ik8O6sCuFYkIRFK9MCxmGe0
-   wDmp4Brk+p6N1XH8fkthGLroxfGwitEIvQ6RxonGdnwAaKpin4JX81KpV
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="395745445"
-X-IronPort-AV: E=Sophos;i="5.97,296,1669104000";
-   d="scan'208";a="395745445"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2023 02:33:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="811971920"
-X-IronPort-AV: E=Sophos;i="5.97,296,1669104000";
-   d="scan'208";a="811971920"
-Received: from unknown (HELO pujfalus-desk.ger.corp.intel.com)
- ([10.252.18.43])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2023 02:33:43 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 5/5] ASoC: SOF: Intel: hda-dsp: Set streaming flag for d0i3
-Date: Tue, 14 Feb 2023 12:33:45 +0200
-Message-Id: <20230214103345.30669-6-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230214103345.30669-1-peter.ujfalusi@linux.intel.com>
-References: <20230214103345.30669-1-peter.ujfalusi@linux.intel.com>
+ unprotected) header.d=canonical.com header.i=@canonical.com
+ header.a=rsa-sha256 header.s=20210705 header.b=c0ZToJy2
+Received: from localhost.localdomain (unknown [10.101.197.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2B6DD400D0;
+	Tue, 14 Feb 2023 10:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1676371134;
+	bh=ZuVXdjv+rXFIm5FqjCm8KFNcTkSOuLBvCZ09G60AUVM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version;
+	b=c0ZToJy21SP6zQR0gfaNRzTkHpLaU+tQORun8UtWVMDrW0a5y+BvJ+CEt/uaboVMz
+	 0HwZSHkvwYbRXX7wBmSTKEJw+ZTZDrv/3seSqxyx1ltmeLXc2R67CE0/ycCuCA/SxA
+	 YadKklMap0lR0K9WuckJKmI0WThV/u9bX7sZWy2vrqeAUyTJa3wra6sfjzpiyB3Al8
+	 19Yii/fusQzr3Gb+h7kXEMPQik4onhBJ+BoHWtrL5P5lvq5LbtISeSHjl+rI/BEnx3
+	 TtqelmH/7rIq84pVk/srdmbO3iNBKREKZRXw7nlbOYJ6GXbMlB0OaWO79XEUORPZvA
+	 mz374DdC7MshQ==
+From: Andy Chi <andy.chi@canonical.com>
+To: 
+Subject: [PATCH v2] ALSA: hda/realtek: Enable mute/micmute LEDs support for HP
+ Laptops
+Date: Tue, 14 Feb 2023 18:37:56 +0800
+Message-Id: <20230214103757.36624-1-andy.chi@canonical.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <87y1p08rxp.wl-tiwai@suse.de>
+References: <87y1p08rxp.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EBSHJKKIC3EGNKDZJNHLISJ5M3R7XIKT
-X-Message-ID-Hash: EBSHJKKIC3EGNKDZJNHLISJ5M3R7XIKT
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Message-ID-Hash: QEXC2BYXNI23VY5VCX73ZJONMD5B4WMR
+X-Message-ID-Hash: QEXC2BYXNI23VY5VCX73ZJONMD5B4WMR
+X-MailFrom: andy.chi@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com
+CC: andy.chi@canonical.com, Takashi Iwai <tiwai@suse.com>,
+ Tim Crawford <tcrawford@system76.com>,
+ Stefan Binding <sbinding@opensource.cirrus.com>,
+ Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
+ =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
+ Gabriele Mazzotta <gabriele.mzt@gmail.com>,
+ Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBSHJKKIC3EGNKDZJNHLISJ5M3R7XIKT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEXC2BYXNI23VY5VCX73ZJONMD5B4WMR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,69 +103,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+On HP Laptops, requires the same ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED quirk to
+make its audio LEDs work.
 
-Enable d0i3 streaming if all the active streams can
-work in d0i3 state and playback is enabled.
+Signed-off-by: Andy Chi <andy.chi@canonical.com>
 
-Signed-off-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+v2: Modify the commit message to the correct quirk.
 ---
- sound/soc/sof/intel/hda-dsp.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ sound/pci/hda/patch_realtek.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index e34fe0c9bcde..68eb06f13a1f 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -405,6 +405,34 @@ static int hda_dsp_update_d0i3c_register(struct snd_sof_dev *sdev, u8 value)
- 	return 0;
- }
- 
-+/*
-+ * d0i3 streaming is enabled if all the active streams can
-+ * work in d0i3 state and playback is enabled
-+ */
-+static bool hda_dsp_d0i3_streaming_applicable(struct snd_sof_dev *sdev)
-+{
-+	struct snd_pcm_substream *substream;
-+	struct snd_sof_pcm *spcm;
-+	bool playback_active = false;
-+	int dir;
-+
-+	list_for_each_entry(spcm, &sdev->pcm_list, list) {
-+		for_each_pcm_streams(dir) {
-+			substream = spcm->stream[dir].substream;
-+			if (!substream || !substream->runtime)
-+				continue;
-+
-+			if (!spcm->stream[dir].d0i3_compatible)
-+				return false;
-+
-+			if (dir == SNDRV_PCM_STREAM_PLAYBACK)
-+				playback_active = true;
-+		}
-+	}
-+
-+	return playback_active;
-+}
-+
- static int hda_dsp_set_D0_state(struct snd_sof_dev *sdev,
- 				const struct sof_dsp_power_state *target_state)
- {
-@@ -446,6 +474,9 @@ static int hda_dsp_set_D0_state(struct snd_sof_dev *sdev,
- 		    !hda_enable_trace_D0I3_S0 ||
- 		    sdev->system_suspend_target != SOF_SUSPEND_NONE)
- 			flags = HDA_PM_NO_DMA_TRACE;
-+
-+		if (hda_dsp_d0i3_streaming_applicable(sdev))
-+			flags |= HDA_PM_PG_STREAMING;
- 	} else {
- 		/* prevent power gating in D0I0 */
- 		flags = HDA_PM_PPG;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 7b9fb38ff732..e2cd5456f2a6 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9432,6 +9432,12 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	 SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b42, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b43, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b44, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b45, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b46, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8b47, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5d, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5e, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
 -- 
-2.39.1
+2.34.1
 

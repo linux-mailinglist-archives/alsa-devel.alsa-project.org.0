@@ -2,97 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A021769678E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 16:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4BC169691C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 17:18:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F08684C;
-	Tue, 14 Feb 2023 16:02:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F08684C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E12184C;
+	Tue, 14 Feb 2023 17:17:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E12184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676386988;
-	bh=b4qXj49NhLH+VmXo0IEZTy5nxQfaEwAeDK2n+P1ywmc=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sW1s/sNK40PM0WVg+HtOetWY01kGa+8vYBlFbaqucQL45bswepvEWnL4t00rqCCvS
-	 SxNWvGLGbkcq2wHEPw4ZdKtcqA2YYjr+Br7DUZ0COTxWoyAFkH2GCkYKiD67UVEdtP
-	 iwkrfA2j5zpKrkbJNxSuUQnGeXNkTcJTgJeKpdic=
+	s=default; t=1676391482;
+	bh=Ed9OZgaBIh0K4cnf+bMJJOjsYI0DgmyhIgZsOzpMPvw=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=McuHrP0JrNpoID3OFTWLXCenjq7yk1EHPS9g2cMdkiljIoacVHI1gzZMUA54IDln0
+	 Ap9yIEIDYKwKIz7qowUBVvp/0e/eiGfXPo6v8lV4JmekoMEtwHwMfxMYCuVLC+VQSp
+	 ar1EYJ2HQ5S0OAr4KRjRW3nzJjq5QjPS4Pjj3kYQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBB60F800F0;
-	Tue, 14 Feb 2023 16:02:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C62A8F8047C;
+	Tue, 14 Feb 2023 17:17:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA595F801C0; Tue, 14 Feb 2023 16:02:13 +0100 (CET)
+	id 59B69F801C0; Tue, 14 Feb 2023 17:17:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6139CF800B6
-	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 16:02:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6139CF800B6
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EjbzqFnN
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 26E9C6154D;
-	Tue, 14 Feb 2023 15:02:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D784EC433EF;
-	Tue, 14 Feb 2023 15:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676386926;
-	bh=b4qXj49NhLH+VmXo0IEZTy5nxQfaEwAeDK2n+P1ywmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EjbzqFnN4aFc6EWXGWB6K1KNNMkCWsFg6UQAksXetf8alFsuLg9B2NxdBhl7zCRS/
-	 +gvKhyWOdAcno5Cpl0xcE0ik4HwMh+sSTf9Id5/xc0nl4cuCfc+T0+MTe0gkimr79M
-	 2SluDBB4Nin2BdCdt8dGaMygm1gEfnd8YUDfJDu6x7Z4oV5/Wb/fGAIEdFF6swYD+x
-	 Spir2LsPdDAVfoPJk3d0pdMwBiPifBiWz2QhOYoxYl51OMzMF8UamYED1XxL9O/yIL
-	 mU+Cwn1ZqY0ybO4xi+6z9jMdKNp3niKQ7TZPePXMogTgv/neYzIdoL01U6tIfu1sdS
-	 lJZlDUnn4NR3A==
-Date: Tue, 14 Feb 2023 15:02:02 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: ep93xx: Add I2S and AC'97
- descriptions
-Message-ID: <Y+uiaqvdIL4IpRlC@sirena.org.uk>
-References: <20230212232137.299005-1-alexander.sverdlin@gmail.com>
- <46d5b6af-23e1-4178-83bc-b4a435b1426e@linaro.org>
- <109868b9492aecaca0a7170cba9fb51e62de7116.camel@gmail.com>
- <c4f5f733-ce22-2dfa-30f7-cde309eadaf9@linaro.org>
- <ba51ecefb814115e977d90062ca5fe99859cb327.camel@gmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44FFDF800B6
+	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 17:16:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44FFDF800B6
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=GCBz07Xl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1676391421; x=1707927421;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Ed9OZgaBIh0K4cnf+bMJJOjsYI0DgmyhIgZsOzpMPvw=;
+  b=GCBz07XlwvQOaC30624zWeyEpCANQmrbpWUow3f0BDDj1cXnaJl/HhdL
+   so7H8Gpz3S+533ml7X8D4MxbbGPhO/VAVnSjVrJkxJ1B2TSCAwgMdquX+
+   V5ybo2fkYh7DNVZHu35oweDan3JBfKBz17cgEeB/dox/pPzopu/WPxyq6
+   Xwg2oCJ5Nz+Za2i8ABUoPCvQQU2e/jBxrRXbZVlF8cQjBPiore9pqQoaM
+   yiDiz7uu5zvg3waHTwTcecvaG5UYGIau/jZ3IMySzut/P+/2GZbmMhILk
+   AmURp1QWmcGnViDSr52XL01HEoqbi5ruO1bp3n0DNHyqEvvTjRGOOOT5b
+   A==;
+X-IronPort-AV: E=Sophos;i="5.97,297,1669100400";
+   d="scan'208";a="200644035"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 14 Feb 2023 09:16:53 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Tue, 14 Feb 2023 09:16:53 -0700
+Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.16 via Frontend Transport; Tue, 14 Feb 2023 09:16:43 -0700
+From: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>, <lars@metafoo.de>, <perex@perex.cz>,
+	<tiwai@suse.com>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>
+Subject: [PATCH 0/3] ASoC: mchp-pdmc: fix poc noises when starting capture
+Date: Tue, 14 Feb 2023 18:14:32 +0200
+Message-ID: <20230214161435.1088246-1-claudiu.beznea@microchip.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="V0fp7JQwCfap5FMO"
-Content-Disposition: inline
-In-Reply-To: <ba51ecefb814115e977d90062ca5fe99859cb327.camel@gmail.com>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: 3W4H67YJN7EPTGOJ4IAMEGWAD3TF56IG
-X-Message-ID-Hash: 3W4H67YJN7EPTGOJ4IAMEGWAD3TF56IG
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Message-ID-Hash: SDNZZI2KI6N3WKAWC5X45WP3LASAZDWJ
+X-Message-ID-Hash: SDNZZI2KI6N3WKAWC5X45WP3LASAZDWJ
+X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- devicetree@vger.kernel.org, Hartley Sweeten <hsweeten@visionengravers.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3W4H67YJN7EPTGOJ4IAMEGWAD3TF56IG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDNZZI2KI6N3WKAWC5X45WP3LASAZDWJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,43 +103,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+To start capture on Microchip PDMC the enable bits for each supported
+microphone need to be set. After this bit is set the PDMC starts to
+receive data from microphones and it considers this data as valid data.
+Thus if microphones are not ready the PDMC captures anyway data from its
+lines. This data is interpreted by the human ear as poc noises.
 
---V0fp7JQwCfap5FMO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+To avoid this the following software workaround need to be applied when
+starting capture:
+1/ enable PDMC channel
+2/ wait 150ms
+3/ execute 16 dummy reads from RHR
+4/ clear interrupts
+5/ enable interrupts
+6/ enable DMA channel
 
-On Tue, Feb 14, 2023 at 03:26:14PM +0100, Alexander Sverdlin wrote:
-> On Tue, 2023-02-14 at 15:11 +0100, Krzysztof Kozlowski wrote:
+For this workaround to work step 6 need to be executed at the end.
+For step 6 was added patch 1/3 from this series. With this, driver sets
+its struct snd_dmaengine_pcm_config::start_dma_last = 1 and proper
+action is taken based on this flag when starting DAI trigger vs DMA.
 
-> > OK, but then I like the example - if datasheet would use name
-> > "clk_clk_this_is_clk" would you still find it meaningful?
+The other solution that was identified for this was to extend the already
+existing mechanism around struct snd_soc_dai_link::stop_dma_first. The downside
+of this was that a potential struct snd_soc_dai_link::start_dma_last
+would have to be populated on sound card driver thus, had to be taken
+into account in all sound card drivers. At the moment, the mchp-pdmc is used
+only with simple-audio-card. In case of simple-audio-card a new DT
+binding would had to be introduced to specify this action on dai-link
+descriptions (as of my investigation).
 
-> > Every clock input in clocks is a clock. There is usually no need to say
-> > that a clock is a clock...
+Please advice what might be the best approach.
 
-> I see you point, but this is legacy code (sound/soc/cirrus/ep93xx-i2s.c)
-> which took these names back in platform data times... I also see that
-> rather majority of *i2s*.yaml use something "*clk", so maybe it could
-> be accepted for legacy code?
+Thank you,
+Claudiu Beznea
 
-Even ignoring the whole legacy thing these are industry standard
-names for the clocks - they are pretty much universally named and
-referred to with the clk suffix.  I can't see what removing it
-would accomplish other than reducing clarity.
+Claudiu Beznea (3):
+  ASoC: soc-generic-dmaengine-pcm: add option to start DMA after DAI
+  ASoC: dt-bindings: sama7g5-pdmc: add microchip,startup-delay-us
+    binding
+  ASoC: mchp-pdmc: fix poc noise at capture startup
 
---V0fp7JQwCfap5FMO
-Content-Type: application/pgp-signature; name="signature.asc"
+ .../sound/microchip,sama7g5-pdmc.yaml         |  6 ++
+ include/sound/dmaengine_pcm.h                 |  1 +
+ include/sound/soc-component.h                 |  2 +
+ sound/soc/atmel/mchp-pdmc.c                   | 55 +++++++++++++++++--
+ sound/soc/soc-generic-dmaengine-pcm.c         |  8 ++-
+ sound/soc/soc-pcm.c                           | 27 +++++++--
+ 6 files changed, 86 insertions(+), 13 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.34.1
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPromkACgkQJNaLcl1U
-h9DNdAf+PfDbEGrwAar/U6K2LSnAK3ainnO5AXgzSEuk3ZaWIdkd41jazqjW1RwD
-mBX9lNnquoCvsBYlvcfod9Ccs0+GzPbFDgDkxe+EuJ9HqSucvvy4Z+rtvQ1ID14b
-7TKCESoXoiIBe6V2hcBYk4bG4979bG72yNChMj59BeudkHCSYpz51D+5YfHxRR/W
-BrQVo8Ek09ACp3x8dScwvhKdr3uKWLekbT5rjLRVM1YmuMiHxc1cJwneBnTwNadS
-5NNFNJV3nT5ljqIIyOAmPW3REJzV1mc17XfDeFvHk12GnQzQB45j7KIEnns/oNbT
-Q8pVKJsSeGBT/7ptDNUajI7hZ6SMbg==
-=ZBYi
------END PGP SIGNATURE-----
-
---V0fp7JQwCfap5FMO--

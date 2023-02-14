@@ -2,119 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97101696278
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 12:28:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F0CB696421
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Feb 2023 14:03:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 247E5826;
-	Tue, 14 Feb 2023 12:27:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 247E5826
+	by alsa0.perex.cz (Postfix) with ESMTPS id C37FD827;
+	Tue, 14 Feb 2023 14:02:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C37FD827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676374103;
-	bh=JW84Kbe/rvJCWjkaEkFNC3Jqr0NityY4mytMm3pS1N0=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1676379818;
+	bh=sBul4mgzs45bE2WzuID5dXHTGBIFUQ/hKqlFkOwGiAc=;
+	h=Subject:From:To:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LJ0sPxEXlvWvFfD+oM+U/tUlH3ypki62E5k/sKV2k9A/8lbIICtdj043n6UbkKIRu
-	 5VxQVyZIEZt9I4kNVLgAn0r5V0m9KEhKeT0fQRM5h1AsY84SlOJV+3rCaxTKopsoUC
-	 W7b+o5pKwE2SMVoLaqZyRCquSdBwKCf1THrPN9UA=
+	b=M7fyxy3JRgl0PSi+2GwtrEJ12OGJEQFAZnrlyAUZtQ35QApPjVz/EUE+x0uBO4JT0
+	 USastrbsdhjrG1M35ei7bnprspwmAJAIWgqIolZ8Bnz95Od1yhYUxiLMl4vBaFB/g0
+	 gcTYLODYbXpvAgs+DnWHkqYfelUMPzIN7EQejyZ8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B3E5F800F0;
-	Tue, 14 Feb 2023 12:27:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A0E2F800B6;
+	Tue, 14 Feb 2023 14:02:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C62F6F801C0; Tue, 14 Feb 2023 12:27:28 +0100 (CET)
+	id C9B0EF801C0; Tue, 14 Feb 2023 14:02:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63FE3F800B6
-	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 12:27:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63FE3F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FE1FF8001E
+	for <alsa-devel@alsa-project.org>; Tue, 14 Feb 2023 14:02:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FE1FF8001E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=UY+jWwu4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=yuWfitZ2
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D680F1FDE8;
-	Tue, 14 Feb 2023 11:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1676374044;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A/E4T/3OgJIGaRj6v5QXzyfbS6qThchNv1eejOnY2zU=;
-	b=UY+jWwu4L0V9mLO99cjbsGHFQvCfxHrL6X8+PdAlx3zzXowR0i5usO7EMuRxHCP/jZy2yA
-	kQ7Ld5CLKwsJStp50IdSMtbNK/48RQnXAAMgyi7wh+ZAAA/ndGrTqfnvVC+5vY4/XogUnE
-	vHvKZ1sqttfBkFAU628ZgilWDvhbCZY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676374044;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A/E4T/3OgJIGaRj6v5QXzyfbS6qThchNv1eejOnY2zU=;
-	b=yuWfitZ20+sV1t3gvx48/EO39y8roFdOh9HHjzxQ7buJVp6HmhUs6bxa3OCMCAhVCzEg3c
-	nCJwIExa90JFpWCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 71A48138E3;
-	Tue, 14 Feb 2023 11:27:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 5TB+Ghxw62OxewAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 14 Feb 2023 11:27:24 +0000
-Date: Tue, 14 Feb 2023 12:27:23 +0100
-Message-ID: <87sff88p2c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andy Chi <andy.chi@canonical.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable mute/micmute LEDs support
- for HP Laptops
-In-Reply-To: <20230214103757.36624-1-andy.chi@canonical.com>
-References: <87y1p08rxp.wl-tiwai@suse.de>
-	<20230214103757.36624-1-andy.chi@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: PGDNFMIQTWIUXPICGAE5GAJTH4B2HXV6
-X-Message-ID-Hash: PGDNFMIQTWIUXPICGAE5GAJTH4B2HXV6
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=BNlMqkCx
+Received: by mail-wr1-x429.google.com with SMTP id j23so15600366wra.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 14 Feb 2023 05:02:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=sBul4mgzs45bE2WzuID5dXHTGBIFUQ/hKqlFkOwGiAc=;
+        b=BNlMqkCxB6wVRpny4TkhAV36P3pHCVa75zArBFzcfTykR1B/pSlGuLrUg5yV+S+luX
+         Iqd0Eq7e7ruG+Vi2BJxQ9jzD94Q+TsN7yZ4Ghht7bnxAUIRcCzgGRAwdNs6MGKl/alc0
+         IkltwGUTsQt8qIzLnt3jEM2WwmwmnKigqNsInawYfgwQlIclRZM7SQWxDPnf/ouomKp9
+         Tqe7g3Xyqyu4B2Vr/bpWImqTvQslQQyFjYiXRg9v5h1alwHIr4wyiC6SnM6SW4kRH1vy
+         APleaNg9titz/wA4y42tzLJ+pRlAQNdzuRhzP0jL6LKImCa7TE88uhdY5KL7GpeaoYbQ
+         LtpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sBul4mgzs45bE2WzuID5dXHTGBIFUQ/hKqlFkOwGiAc=;
+        b=dswC+zbIU7K39ul/FZeRSzOgs6VFVz5/9HDNML8InAhY0E//79Wesl/5gsB6oS8yZp
+         +ijtybWQ6Woawj+TC70xXyzmkYxMaCOkv7phn7XnVN67DE8j0wT4y95um0ZyHwMLY/CA
+         BQZcWpNNSaIkXb80kvake4lkSV30dl6swkIrnu8uv3HEc+G4PeXrQa2z62N+giD6w2oD
+         nq2v7Bzk5l6lVSsxIrDz0S9RNhKSc8g7fVQN6DNmVwzq1tVOGE2jW5PMaRl4V39M2lJf
+         KO7tUrGdLDIo45aXdqS6QxGVHDgZ01OFGhlBLfQgtte0hgjBYQt05QglYAKPeZ5XDrmK
+         XBwg==
+X-Gm-Message-State: AO0yUKUIB3lgIwA5uWvyIdBmiZEgyZOF3AMANWMDeZDktyqmlv+LBzR4
+	QuMUEmNqwOYCVOuadv7l0X4=
+X-Google-Smtp-Source: 
+ AK7set/5JzZC9z60wMQR6fIFUfEKjuQDAdJ1gaPUmOgHOtcDI3lkfCyOKYhZ/oNcsE8Jtt6Z5kDP0Q==
+X-Received: by 2002:a5d:6885:0:b0:2c5:5451:9d7a with SMTP id
+ h5-20020a5d6885000000b002c554519d7amr1847991wru.46.1676379748503;
+        Tue, 14 Feb 2023 05:02:28 -0800 (PST)
+Received: from giga-mm.home ([2a02:1210:8629:800:82ee:73ff:feb8:99e3])
+        by smtp.gmail.com with ESMTPSA id
+ g17-20020a5d5411000000b002c558f58c5bsm4997034wrv.28.2023.02.14.05.02.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Feb 2023 05:02:28 -0800 (PST)
+Message-ID: <109868b9492aecaca0a7170cba9fb51e62de7116.camel@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: ep93xx: Add I2S and AC'97
+ descriptions
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	devicetree@vger.kernel.org
+Date: Tue, 14 Feb 2023 14:02:27 +0100
+In-Reply-To: <46d5b6af-23e1-4178-83bc-b4a435b1426e@linaro.org>
+References: <20230212232137.299005-1-alexander.sverdlin@gmail.com>
+	 <46d5b6af-23e1-4178-83bc-b4a435b1426e@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 
+MIME-Version: 1.0
+Message-ID-Hash: XC2GLRHELC2UP2ZWRY6IQLKKPE2PC2KS
+X-Message-ID-Hash: XC2GLRHELC2UP2ZWRY6IQLKKPE2PC2KS
+X-MailFrom: alexander.sverdlin@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, Tim Crawford <tcrawford@system76.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>,
- Meng Tang <tangmeng@uniontech.com>, Philipp Jungkamp <p.jungkamp@gmx.net>,
- Kacper =?ISO-8859-2?Q?Michaj=B3ow?= <kasper93@gmail.com>,
- Gabriele Mazzotta <gabriele.mzt@gmail.com>,
- Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+CC: Hartley Sweeten <hsweeten@visionengravers.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGDNFMIQTWIUXPICGAE5GAJTH4B2HXV6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XC2GLRHELC2UP2ZWRY6IQLKKPE2PC2KS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,15 +124,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 14 Feb 2023 11:37:56 +0100,
-Andy Chi wrote:
-> 
-> On HP Laptops, requires the same ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED quirk to
-> make its audio LEDs work.
+Hello Krzysztof,
 
-Well, this quirk is not only about mute/mic LED but rather mainly for
-enabling the Cirrus amp.  I suppose the speaker didn't work without
-this quirk, too?
+thank you for the quick review!
 
+On Tue, 2023-02-14 at 11:58 +0100, Krzysztof Kozlowski wrote:
+> > +properties:
+> > +=C2=A0 compatible:
+> > +=C2=A0=C2=A0=C2=A0 const: cirrus,ep9301-i2s
+> > +
+> > +=C2=A0 '#sound-dai-cells':
+> > +=C2=A0=C2=A0=C2=A0 const: 0
+> > +
+> > +=C2=A0 reg:
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +
+> > +=C2=A0 interrupts:
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +
+> > +=C2=A0 clocks:
+> > +=C2=A0=C2=A0=C2=A0 minItems: 3
+>=20
+> maxItems instead
 
-Takashi
+reg and clocks are required, I suppose I should include both minItems
+and maxItems for both of them?
+
+> > +
+> > +=C2=A0 clock-names:
+> > +=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: mclk
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: sclk
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: lrclk
+>=20
+>=20
+> The clk suffixes are quite redundant. Don't these inputs have some
+> meaningful name?
+
+They are actually meaningful, as they are usually named in I2S, please
+refer to the EP93xx User's Guide:
+https://cdn.embeddedts.com/resource-attachments/ts-7000_ep9301-ug.pdf
+page 71, for instance.
+
+--=20
+Alexander Sverdlin.
+

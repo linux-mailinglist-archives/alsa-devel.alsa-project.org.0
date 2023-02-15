@@ -2,96 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95199698875
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 00:02:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD74F6988D3
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 00:40:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1FD7100;
-	Thu, 16 Feb 2023 00:01:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1FD7100
+	by alsa0.perex.cz (Postfix) with ESMTPS id A472F207;
+	Thu, 16 Feb 2023 00:39:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A472F207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676502141;
-	bh=qUAQ4o1k3Tx16YTQ5EJjEyz2cYifF3N6njNHqinnFqk=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676504445;
+	bh=FU4fdxf10/JMrEIM+vIOZ7F0L3eFJQp5iw16T7JbLA8=;
+	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C+v19bF9S9HmC53orRSHDkTkXVC6CHdSFS3+e2WS/mOB0PJ0WtpGQp1GH0XhI9vVh
-	 CAxFQIsON+WIg4m1JepRg2YWmdwIbXJnxwIB3clyKtSY3MDi+0jqWYpOycbEXcL62X
-	 0amED/erNFOpVpTy3u+gPpXko/aPys8BvE5tYEwA=
+	b=ph4j1qP4hDTiu7udStRfGOuWvoXKuuSI3yQs/XidJ6+m/ehDU0G9JsmEXloCHHUww
+	 x/fyhUiiknxwE8XkLth2lAfPIw8g0JkVKd9ZhHl9jAhSgQtA/WJ9xfbH3Ef3nEGpV0
+	 LKD/35R71AShDASq9WEpkR8eNsylhyw9qGmU+yow=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FEEEF800E4;
-	Thu, 16 Feb 2023 00:01:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EE6FF800E4;
+	Thu, 16 Feb 2023 00:39:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56F91F80171; Thu, 16 Feb 2023 00:01:24 +0100 (CET)
+	id 7F96EF80171; Thu, 16 Feb 2023 00:39:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDE7BF800E3
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 00:01:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDE7BF800E3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WCpefWQK
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20720.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::720])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 77D4DCE2772;
-	Wed, 15 Feb 2023 23:01:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63738C4339E;
-	Wed, 15 Feb 2023 23:01:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676502072;
-	bh=qUAQ4o1k3Tx16YTQ5EJjEyz2cYifF3N6njNHqinnFqk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WCpefWQKqXBMBJNBJ/9+pRNem0PAWlKM61g89lD3yJ/ioHm1Sd3cHUz20oaDrU8q0
-	 hmFi271nnK2TGxryySurJCjh8gsAPpY1TsRpnyh9tL+6+XLfCVYS1qXUooCXJrqXrG
-	 VDPFtyNsrieJIpT/1/5Wx8trJiBJg6h4gGlLnFcKaFKG93JPSCKm1U5sgEdEQ9rbtk
-	 P6xYMINwaww1aXpSAixISAsHC/tVGg5ySFRRPHAMkq+DvHpgdVA7ekjW3hweQMpEY5
-	 pjdjmCvfPTqvSkFLU0kLMRsfW33OjnpGaUj7ctmzwDh9RRskxLTTE/cdGLNY9nXgp1
-	 cnrNLV7KpdOoA==
-Date: Wed, 15 Feb 2023 23:01:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <groeck@google.com>
-Subject: Re: [PATCH] ASoC: da7219: Improve the IRQ process to increase the
- stability
-Message-ID: <Y+1kNa8KYCUzgAfo@sirena.org.uk>
-References: <20230215101045.21456-1-David.Rau.opensource@dm.renesas.com>
- <Y+zZwKFX1gMC5/ac@sirena.org.uk>
- <CABXOdTdv=+n8+UCgWUvyrZ6R0uAu48bODa3TA_2nUuMbUT7MUg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e1E9LnR+Ahmxjv3e"
-Content-Disposition: inline
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E74BF800B6
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 00:39:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E74BF800B6
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=hnKzWTYp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eQOMJc3we0ey7i9lahbL7hmqoyVDDf/TurYWnaZQx3sNBQGy4bYcoZ7GrJ9lOwwzff4xQLWbLRXEoWwEKBBQlnJmi7E5Dljd2loZ/v+2MmVEO43tDY3XUQoDNlUyN1QKQJlg3iLdVO459xlu6FZEqCP+shHHvAVLUck2ASqbgN+57YxI/Md4zQfAgrM+ELhFXdwqQNzx+SRpBvqIjJgCtpxayrQQMj0g4H27aXQCCiL8owltZjYfMY3DtY1tMrwXiO/2RPkx7R8w1hAgl2pegPh9bPBhERX+eoFF+AXYvZo5XFiG/XRujUQlsdqlOdzJAkErM5gIWMNnHsArMf5LHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uTZFy/W/uCfPP+BAdwi0zBhtVjdLng0r4KgDQHoqFdQ=;
+ b=bnXZfQcYwS7xu77VraF+/k5NzS0Z/AktDuzL3Nlzk8kswmYxh4k0HmDmtN8TbrGoo4Q2RgLVodAvgdNtdahllMt8SirUWFNxn+x5ssyjzV+A8gVwEyOMUZQedA4bmqLxZ8kBiN56xcvXBGRk/odQVmqNbU+7ugVzvFhoB8r49lQTnBefzmPfG4tugODbv3+Ea+Mp9zVgNocG9VchEHetZOZt9SIi+m5ZWwdlys2AFvqjyE1jMaXbVLaXelcUe6g+zckuKmkc2GxXG+NVJsC0rXy5iItl8Wb4Znxe8g7IBJ+uwcqYcXvMDYQnX7TvBaJdNNnk8LMWfdQeof67pWGpoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uTZFy/W/uCfPP+BAdwi0zBhtVjdLng0r4KgDQHoqFdQ=;
+ b=hnKzWTYpfmpwROJhqz+rlL7fajvhP8C0Hpd41CKiN+4wpgTxO9LjzsZjj4PH/8E3jbJhoWX7jMMXDFBL76MjzwT6b5v+0HVU78EQDf1d5j5HeUwijku9TiaTvKxt3t/8M/LhhnbjdGEfwJuYGnZjiUieTjOKTJl82X3ApWeAoz0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com (2603:1096:400:15d::5)
+ by OS7PR01MB11967.jpnprd01.prod.outlook.com (2603:1096:604:23e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.12; Wed, 15 Feb
+ 2023 23:39:29 +0000
+Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com
+ ([fe80::c012:df4d:8ba9:3291]) by TYCPR01MB8440.jpnprd01.prod.outlook.com
+ ([fe80::c012:df4d:8ba9:3291%7]) with mapi id 15.20.6086.026; Wed, 15 Feb 2023
+ 23:39:29 +0000
+Message-ID: <878rgyjy6n.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: Re: [PATCH] ASoC: rsnd: adg: Fix BRG typos
 In-Reply-To: 
- <CABXOdTdv=+n8+UCgWUvyrZ6R0uAu48bODa3TA_2nUuMbUT7MUg@mail.gmail.com>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: 2YHMKSPHMJU4H5U3VL4AMUXC7P4UBM4E
-X-Message-ID-Hash: 2YHMKSPHMJU4H5U3VL4AMUXC7P4UBM4E
-X-MailFrom: broonie@kernel.org
+ <ac6365c17861d71fbc89d823089db4aafdb763ed.1676470202.git.geert+renesas@glider.be>
+References: 
+ <ac6365c17861d71fbc89d823089db4aafdb763ed.1676470202.git.geert+renesas@glider.be>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 15 Feb 2023 23:39:28 +0000
+X-ClientProxiedBy: TYCPR01CA0143.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::15) To TYCPR01MB8440.jpnprd01.prod.outlook.com
+ (2603:1096:400:15d::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB8440:EE_|OS7PR01MB11967:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3c32f3e-c795-4856-a8d1-08db0fade16f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	PZ8xr+3oPbTj0gen+jIIt0Mn9o3WtSCUZvFPnTVsaz5kGVCdSxVw2pmQxj45xYXHHDIjdqVmwkeUgmSiyEpuz51UmeBW/tlpqLEl2EecYUQzlHzJuiWT4TITUphLQ8+GM+wI8ctv2uLy4Utlbj/nYeSGZHwV+EmO9tGW57OpMJIsFDUqsw82LNDEXT5IUaT52P4iwIJVpFFKNMuVnf0Q/NIGH39A5rCgbAhXHiGYseFf5tJuWzZntc89AGyn5kJXcKP0xC75r81mO8LjQmJpGu9BAnQwn7OT6YdroCb4xXSSgS6GnEyGn3+nomCzQeXFxcscm00QianML9JrIkGLnt0VcOU0jqUoPJMdCZEXW2ps/txXH/uZK/vNaEzdUYQ6WnmFgREm2RbLXvYDHvg8/2jiII7vx0h5gBjZIui00U4ghwolMcycFgxhueSCX4p5YFDa9T0H61T4nEss8zjyeGqXbJBaE9SZrWeotBqnZXdLjo98+5XqurTS9eim3gvfztuq9EExJmRQa6/FSSOx3+dneQrEX2ga+2DgRxZGj88pn7/X9YpSHspakHaaIpc8j+k/CLybRiSHEDBWxqpwUbd7YNR9hjGRVSddKu+DRd7gsZkqj0hDNSYOyM0XfcvGNUrznZ//MkDSjLviFyV+gWsQ7PVrJcYl+p7/hSVqKRZjZ856oqmLro4jPf+yHg1sE9R6IKJpttPZaMHMZG/CKA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB8440.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(396003)(366004)(39860400002)(346002)(376002)(451199018)(5660300002)(38350700002)(4744005)(6486002)(2906002)(6512007)(36756003)(86362001)(52116002)(6506007)(478600001)(186003)(26005)(2616005)(4326008)(8676002)(41300700001)(66556008)(83380400001)(66476007)(54906003)(38100700002)(66946007)(316002)(8936002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?5AWBRGqBpbIW7Q9c1aGkTrqkvPzTciTA4rtVdM88gMB8hKBp0nK4hVlQZtQU?=
+ =?us-ascii?Q?pUb5z8QSZmeJaJ2FB4fJjuctflXigsXpP/VCG5BU2EcHlq/YTYPz4xTtOa7X?=
+ =?us-ascii?Q?FqIsoMziP15ghEon9xWLQSmbrDHnSUCHAP6uONorZeEnZas6+EGZVoqp96+f?=
+ =?us-ascii?Q?e682WlmxXTXS2RVpwy7sT1P09t5MzusmVkEUsdpPByCxbbBn82zajhpeYH36?=
+ =?us-ascii?Q?9XRdvjZB6JCPPup9h7uZMJNWAraZebI9IBS8X8GwtgAfXtTKAmQGyiPXiUFC?=
+ =?us-ascii?Q?WAPe1sH5AwWdHHjMreVVa9Ao91xPdCyzFhkLh+05vcmqTkIlttK5QI+eb4PT?=
+ =?us-ascii?Q?dOc81rFbPPYA7Qkz3JhbJhMIuJgXP/7smK0YScMceeMKMlo4aBDOJ/Y+u8Iu?=
+ =?us-ascii?Q?3xUVrgLS3tEPAzh4rfaOYoa4AsPzax8zZ8WGM5HVss7mDurpRQQ2grJzQFFP?=
+ =?us-ascii?Q?jtZedd20FNY884242fFWC509MCkNI/dtxtRrNOyOsR0AB9Wf7TFzCvwFAD4v?=
+ =?us-ascii?Q?IU+TzaNVvbDXSM+DMUyWo+F+uYnrTLGTW3BbpirqsFdE2kH05FZ9j/yGYVJS?=
+ =?us-ascii?Q?3DnWzPJ5vRaMbbOrymgECtTqEqNfsOTm+dWxu/cYzIk/Ci+RkVvJOKilp0dp?=
+ =?us-ascii?Q?gh6LiGH8KA/wgbKWxVPBTkqLWDeJvV8/2MuRv7dRiVOC8qWJqS502olWDYox?=
+ =?us-ascii?Q?UrDaXi6IB+GVksJ5fHsMYn7MPUWw0XEW2DezZ9MIr9R1gtveTbvnQx6kRr67?=
+ =?us-ascii?Q?myZ7cVVzTcq1hhT+9x+VgOmU57tzUjAGN4F/6oo4QA7aeN+ozQ9aGEtzp9rD?=
+ =?us-ascii?Q?+hFTKspMMFGgC5C72nWgwc5QpDBMLgRO2+dmz2TszvQ92EI3NG+LKkmrjV14?=
+ =?us-ascii?Q?yTl90ARx6zZ59xIQ9ZEoASVLMGIcLKwIuylSvodZs+xI68uN7eMjWoKeLvu+?=
+ =?us-ascii?Q?MeHo+dg7HWFBiXCh6NUAlJxGSnw8k5S0Ezg9qXlJAqQabsjJv602iqlTDx3F?=
+ =?us-ascii?Q?u0cgXjt7rQUqWfd+dBOaDiKSMJ4EYvhuPYhh5eFdGV05h6xKdVwdJjNuFILy?=
+ =?us-ascii?Q?K+hdSo29iyNYPnBrPVDHMyoWggiyTbQmDnKuqRnevFV4HOusQmb0cqYEzIv5?=
+ =?us-ascii?Q?UkxYPePniwEQj+IgB+qjAyinh1hI9UqII9t4QxBEeyo+xRzdLDUJQz9eWyj0?=
+ =?us-ascii?Q?Yngl3EFZajiVjk4iWt8yLYqUkQts+l8p2woiZvn4sn2deSexh0wT1JUscKab?=
+ =?us-ascii?Q?oINYU0v9ek/EPkhuQRXo6L4+QcY6Xe5zf8dpYOajJOf4rF3LmWR6X7zqg/qB?=
+ =?us-ascii?Q?wsvuaIlmu8iEIc10rhpjrpw/qUFwC5ytolv7MKEsMfGxPaL7dwEpEodYaVs0?=
+ =?us-ascii?Q?Faz31i1YgyX2JaKSLQ06i9mbvud7nwiawD4vbRN9coWM0GJ7x3mZ6OFmcUq0?=
+ =?us-ascii?Q?UCLegeBtO7XExtXKGzfQXVvrqdPQS9iLi5uOy01CZQZ9evtSp/80Z3hhotdQ?=
+ =?us-ascii?Q?pUNikNvkV4tNVQ5QKVFzQBnkHZwD6tcD4kwTK1Coll/rNpBWBC9/m/m1AkGP?=
+ =?us-ascii?Q?/LsXE8ctpqNH6lqTUYb0aQaZSGVTeDCxWC4aimKLaT2c+/41feDMm7TljF6b?=
+ =?us-ascii?Q?FAS4W0z4TVgj1IWCFQAbk6M=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ e3c32f3e-c795-4856-a8d1-08db0fade16f
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB8440.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2023 23:39:28.9788
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ KShOL3qaUj56RpLKLT3IYa31sxGDlAoVuFVox309qzdh1v21Y+hXnAvJm4nCQM0eYHHcK2VTScEdY8ege1FTn1w5/FZhgJNOfaxETbFpgaAuxmJOsXIDI2RhMEnWVZKW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11967
+Message-ID-Hash: CUMTYEFF3NDYEDAXVCH4BWMTZ442TOQR
+X-Message-ID-Hash: CUMTYEFF3NDYEDAXVCH4BWMTZ442TOQR
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: David Rau <David.Rau.opensource@dm.renesas.com>,
- support.opensource@diasemi.com, lgirdwood@gmail.com, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- bailideng@google.com, Guenter Roeck <groeck@chromium.org>
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-renesas-soc@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2YHMKSPHMJU4H5U3VL4AMUXC7P4UBM4E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CUMTYEFF3NDYEDAXVCH4BWMTZ442TOQR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,55 +162,21 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---e1E9LnR+Ahmxjv3e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Geert
 
-On Wed, Feb 15, 2023 at 08:06:35AM -0800, Guenter Roeck wrote:
-> On Wed, Feb 15, 2023 at 5:10 AM Mark Brown <broonie@kernel.org> wrote:
+> "BRG" stands for "Baud Rate Generator", but is frequently misspelled as
+> "RBG".
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
 
-> > Copying in Guenter given the issues he raised with this, not
-> > deleting context for his benefit.  It looks like this should
-> > avoid the issues with the interrupt appearing locked up.
+Thank you for the patch.
+TBH, I have been noticed about it, but did nothing ;)
 
-> It should since it limits the delay to cases where jack_inserted is
-> false, but on the other side it hides the delay in an odd way.
->=20
-=2E..
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-> Effectively this seems to be quite similar to moving the conditional
-> sleep to the place where cancel_work_sync() is called. I would assume
-> that will fix the problem (after all, the msleep() is no longer called
-> unconditionally), but I don't see the benefit of introducing a worker
-> to do that. Also, since there is no guarantee that the worker actually
-> started by the time cancel_work_sync() is called, I would suspect that
-> it may result in unexpected behavior if the worker has not started by
-> that time, which I would assume can happen if the system is heavily
-> loaded. It also makes the use of the ground switch (i.e., when to set
-> and when to drop it) even more of a mystery than it is right now.
+Thank you for your help !!
 
-> Having said that, I don't really know or understand the code, so maybe
-> this all makes sense and my feedback should be ignored.
-
-Yes, I would certainly welcome more clarity especially around the
-ground switch.  OTOH it does seem like an improvement over the
-current situation so I think I'll go ahead and apply it for now,
-hopefully it can be improved upon in future.
-
---e1E9LnR+Ahmxjv3e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPtZDQACgkQJNaLcl1U
-h9D+3Qf7B/pdT2c5Gz6fLqeKbf9iXv7oOvDmvUhZUnPiTDyuuQ5fDNg+WDBp/i7K
-6Y7Je3c8seM0sdixYFrb3zG52ob3NMmU9a/cdcjpTaRGl7FI+BJDjApQPCY5Usbu
-7Sai0SVpv+mMPo5lzsyfAD7E0YjrfvvHWved7r8plXhsVCZK0Su4idwBczw6Axn4
-cCV7f0f0Vp2nihlDJQaSeX+j3qgkR4yq8Da33GJQnaapiens51aZDsmQrvuLOxUO
-cDr+kcKa5rlvXM77XHqX1N0xI0Ev+pESxSkcCGrOwq3CtgeWdXyeeATNEUn8rKXC
-pXmYs3mBaH3o3lywQLh9MITFtHuG/Q==
-=LJK/
------END PGP SIGNATURE-----
-
---e1E9LnR+Ahmxjv3e--
+Best regards
+---
+Kuninori Morimoto

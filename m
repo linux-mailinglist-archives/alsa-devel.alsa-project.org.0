@@ -2,114 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14116697C24
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Feb 2023 13:46:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30283697C4A
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Feb 2023 13:51:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E80382E;
-	Wed, 15 Feb 2023 13:46:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E80382E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F03D4828;
+	Wed, 15 Feb 2023 13:50:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F03D4828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676465216;
-	bh=ArTeTBl6HoOFZclYi5EBGCWmiDoltI/AT5lZ8Q0N0Tc=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VcIsWydYdo9lVWtwfTY8b8VKoSYLIzxifz4IKMM1FNQWDYON2g2wmP2CU1SJ6bPW4
-	 W49umeA11EsbDSkzNaUI161Dm1W3Se0f1v4DreTqB4bbRiNrLruypTdHSvnmA2cVV4
-	 xJvk/q+xiR+koqexjJokkgr6MPSz63t/KYzxHzXg=
+	s=default; t=1676465509;
+	bh=TAqGnfRVo8ZPmzlxc9Tt4Hx4eMnb2TXN+9YHf6Nvy1k=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iQwcHO8Jog+CDeiUjeDxrI5tui4mE7xVrhvCoUgrGbwvDKCV57XxN/KoB/SYVz4i4
+	 djIO8zOseTLbvB6yJD6TzrVgFKI4uydN6gDThcOgOlqksVmI+clqIQCZL7EEqj3dGD
+	 SvZKcBmAKpjzOxrt4SoPoZ8hAocdQGWo1wXwbU0U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0E7BF801C0;
-	Wed, 15 Feb 2023 13:46:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FE4CF801C0;
+	Wed, 15 Feb 2023 13:50:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E979BF8047C; Wed, 15 Feb 2023 13:46:01 +0100 (CET)
+	id 7E9C5F8047C; Wed, 15 Feb 2023 13:50:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 666C0F800B6
-	for <alsa-devel@alsa-project.org>; Wed, 15 Feb 2023 13:45:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 666C0F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E760F800E4
+	for <alsa-devel@alsa-project.org>; Wed, 15 Feb 2023 13:50:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E760F800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PPc3jdM+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676465156; x=1708001156;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ArTeTBl6HoOFZclYi5EBGCWmiDoltI/AT5lZ8Q0N0Tc=;
-  b=PPc3jdM+X2j5xqrJpp/NbeOO6+1Q0P+GOXblkuS5qFNRkqbIgyPPZ5QK
-   1HqQ2IwcH3uDV7GjtYDeD52ejvoxDdb2QeNmzejXQKUbnx37R2tHf7D0a
-   GW73LMe4awkzTZJuvtuDtGfDIdYS7dd6X1n/YAoyEu9UbCF86TRRgHuzd
-   B9fGpuAdRwFgIFdo+a6epHKp0aX+x2H3m2XpXPM4b8bStyDzQIpsbLMN7
-   D0PEZ4IzH/vvOEZHIf6Tqalt6+2/SWZwGZ1e/andiirweCW1tk/MfJkzE
-   TWpqgJuzPGGDo0crYe0NO+6jiET5oIyUy6ZomFP/vZ2unyM4EHTvHMbbr
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="417638102"
-X-IronPort-AV: E=Sophos;i="5.97,299,1669104000";
-   d="scan'208";a="417638102"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2023 04:45:51 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="669600690"
-X-IronPort-AV: E=Sophos;i="5.97,299,1669104000";
-   d="scan'208";a="669600690"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
-  by orsmga002.jf.intel.com with ESMTP; 15 Feb 2023 04:45:46 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1pSHAP-0009MX-35;
-	Wed, 15 Feb 2023 12:45:45 +0000
-Date: Wed, 15 Feb 2023 20:45:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Herve Codina <herve.codina@bootlin.com>, Li Yang <leoyang.li@nxp.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Qiang Zhao <qiang.zhao@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: Re: [PATCH v4 06/10] soc: fsl: cmp1: Add support for QMC
-Message-ID: <202302152037.NXHi2aFY-lkp@intel.com>
-References: <20230126083222.374243-7-herve.codina@bootlin.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=rfQBwC1F
+X-UUID: 4dc46f1cad2f11ed945fc101203acc17-20230215
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=q5UcyJ/aXUNEK20OKjGWiM1tft1sqvEVwCIYOxp3oRw=;
+	b=rfQBwC1FRAegN4TG9xZtstNkB0l1+3easYFx++ITMA7ob7OrTvQQJsOUw5pT05slWCBnk7G8/78QyO/E6Az5P2YIsGJamFXPV+JtjXr5kP3Ii8Fh4j8Oa15nUJ5TtOQ94LqsgQUbwOi0dclRsei/ptn7A2sPsAw7Hf5OOciAoTQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.19,REQID:0dcb25e6-fd84-4e59-bb90-536619ea0fbc,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:95
+X-CID-INFO: VERSION:1.1.19,REQID:0dcb25e6-fd84-4e59-bb90-536619ea0fbc,IP:0,URL
+	:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
+	:quarantine,TS:95
+X-CID-META: VersionHash:885ddb2,CLOUDID:5e8117f3-ddba-41c3-91d9-10eeade8eac7,B
+	ulkID:230215205020Y8T085S0,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,CO
+	L:0,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0
+X-UUID: 4dc46f1cad2f11ed945fc101203acc17-20230215
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
+ mailgw02.mediatek.com
+	(envelope-from <trevor.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 424138059; Wed, 15 Feb 2023 20:50:19 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.194) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.792.15; Wed, 15 Feb 2023 20:50:18 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.792.15 via Frontend Transport; Wed, 15 Feb 2023 20:50:18 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <matthias.bgg@gmail.com>
+Subject: [PATCH] ASoC: mediatek: mt8188: correct etdm control return value
+Date: Wed, 15 Feb 2023 20:50:16 +0800
+Message-ID: <20230215125017.16044-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230126083222.374243-7-herve.codina@bootlin.com>
-Message-ID-Hash: 6LOBNCDEB3JSAGCCSM2PK7QJNIMNO5CV
-X-Message-ID-Hash: 6LOBNCDEB3JSAGCCSM2PK7QJNIMNO5CV
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: UVBZSDECVMTN6XMCGJV3CKFRV4HI2EUR
+X-Message-ID-Hash: UVBZSDECVMTN6XMCGJV3CKFRV4HI2EUR
+X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: oe-kbuild-all@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6LOBNCDEB3JSAGCCSM2PK7QJNIMNO5CV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVBZSDECVMTN6XMCGJV3CKFRV4HI2EUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,43 +108,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Herve,
+In mt8188_etdm_clk_src_sel_put() function, val retrieved by FIELD_PREP
+is shifted to the corresponding bit filed, so it can compare with the
+register value directly.
 
-I love your patch! Yet something to improve:
+Originally, the redundant bit shift of the register value results in
+the wrong comparison result, so we remove bit shift operation in the
+patch.
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on robh/for-next powerpc/next powerpc/fixes linus/master v6.2-rc8 next-20230215]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: 2babb4777489 ("ASoC: mediatek: mt8188: support etdm in platform driver")
+Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+---
+ sound/soc/mediatek/mt8188/mt8188-dai-etdm.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Herve-Codina/dt-bindings-soc-fsl-cpm_qe-Add-TSA-controller/20230128-152424
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230126083222.374243-7-herve.codina%40bootlin.com
-patch subject: [PATCH v4 06/10] soc: fsl: cmp1: Add support for QMC
-config: powerpc-allyesconfig (https://download.01.org/0day-ci/archive/20230215/202302152037.NXHi2aFY-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/20ec2eacb76ca7252aa2934f53357663652edd0f
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Herve-Codina/dt-bindings-soc-fsl-cpm_qe-Add-TSA-controller/20230128-152424
-        git checkout 20ec2eacb76ca7252aa2934f53357663652edd0f
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=powerpc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=powerpc SHELL=/bin/bash
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202302152037.NXHi2aFY-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   powerpc-linux-ld: drivers/soc/fsl/qe/qmc.o: in function `qmc_probe':
->> qmc.c:(.text.qmc_probe+0xd8): undefined reference to `get_immrbase'
-
+diff --git a/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c b/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
+index 071841903c62..1c53d4cb19bb 100644
+--- a/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
++++ b/sound/soc/mediatek/mt8188/mt8188-dai-etdm.c
+@@ -679,7 +679,6 @@ static int mt8188_etdm_clk_src_sel_put(struct snd_kcontrol *kcontrol,
+ 	unsigned int old_val;
+ 	unsigned int mask;
+ 	unsigned int reg;
+-	unsigned int shift;
+ 
+ 	if (source >= e->items)
+ 		return -EINVAL;
+@@ -687,27 +686,22 @@ static int mt8188_etdm_clk_src_sel_put(struct snd_kcontrol *kcontrol,
+ 	if (!strcmp(kcontrol->id.name, "ETDM_OUT1_Clock_Source")) {
+ 		reg = ETDM_OUT1_CON4;
+ 		mask = ETDM_OUT_CON4_CLOCK_MASK;
+-		shift = ETDM_OUT_CON4_CLOCK_SHIFT;
+ 		val = FIELD_PREP(ETDM_OUT_CON4_CLOCK_MASK, source);
+ 	} else if (!strcmp(kcontrol->id.name, "ETDM_OUT2_Clock_Source")) {
+ 		reg = ETDM_OUT2_CON4;
+ 		mask = ETDM_OUT_CON4_CLOCK_MASK;
+-		shift = ETDM_OUT_CON4_CLOCK_SHIFT;
+ 		val = FIELD_PREP(ETDM_OUT_CON4_CLOCK_MASK, source);
+ 	} else if (!strcmp(kcontrol->id.name, "ETDM_OUT3_Clock_Source")) {
+ 		reg = ETDM_OUT3_CON4;
+ 		mask = ETDM_OUT_CON4_CLOCK_MASK;
+-		shift = ETDM_OUT_CON4_CLOCK_SHIFT;
+ 		val = FIELD_PREP(ETDM_OUT_CON4_CLOCK_MASK, source);
+ 	} else if (!strcmp(kcontrol->id.name, "ETDM_IN1_Clock_Source")) {
+ 		reg = ETDM_IN1_CON2;
+ 		mask = ETDM_IN_CON2_CLOCK_MASK;
+-		shift = ETDM_IN_CON2_CLOCK_SHIFT;
+ 		val = FIELD_PREP(ETDM_IN_CON2_CLOCK_MASK, source);
+ 	} else if (!strcmp(kcontrol->id.name, "ETDM_IN2_Clock_Source")) {
+ 		reg = ETDM_IN2_CON2;
+ 		mask = ETDM_IN_CON2_CLOCK_MASK;
+-		shift = ETDM_IN_CON2_CLOCK_SHIFT;
+ 		val = FIELD_PREP(ETDM_IN_CON2_CLOCK_MASK, source);
+ 	} else {
+ 		return -EINVAL;
+@@ -715,8 +709,6 @@ static int mt8188_etdm_clk_src_sel_put(struct snd_kcontrol *kcontrol,
+ 
+ 	regmap_read(afe->regmap, reg, &old_val);
+ 	old_val &= mask;
+-	old_val >>= shift;
+-
+ 	if (old_val == val)
+ 		return 0;
+ 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.18.0
+

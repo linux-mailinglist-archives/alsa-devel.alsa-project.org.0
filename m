@@ -2,196 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC1F6991F3
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 11:42:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04150699206
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 11:45:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19A4EDF4;
-	Thu, 16 Feb 2023 11:41:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A4EDF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 613E9832;
+	Thu, 16 Feb 2023 11:44:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 613E9832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676544154;
-	bh=kdMCCOULMatugT0TgbaWvDXw8oq07+6WLrQ3Fd8zs8U=;
-	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676544299;
+	bh=XnG2qJa5yivJBzXgKIOQM3DPARFcArqQ7EHB7q0CaI0=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dHPfTj5HtuWjGO0lAJw2cdYOCtxtALtVw3s+mCszKKHo5cHYmds+lSk2KDtG7kspD
-	 iCPV4wV2ED3ujMRwEPq1o2D2J1iKqp/j79UL3YZL4Y7Au8qTZ3aL9gTdb+h0jFP7YD
-	 MY5rVEk6y6Sc/6ZzSYsJsoVqqS4z77cSuApvJx/w=
+	b=EBzrQ4pzmFiQBdicyIORVJh1WG590jDWXKaUhO3y6kDcXK8gdc1Q9M5LdIGpr3B8j
+	 wu1P8SRi/UPuBzYjOd+JiLpuQKtZDsfQZApTyAk0+GdenokC4An40RDLgkzLyGOrId
+	 88KsgguEoU854yUGt1pwD4e8T9Mq7K0bwWkgmTFI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EACFDF800E4;
-	Thu, 16 Feb 2023 11:41:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DDA4F800E4;
+	Thu, 16 Feb 2023 11:44:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57673F80171; Thu, 16 Feb 2023 11:41:38 +0100 (CET)
+	id 5B5CEF80171; Thu, 16 Feb 2023 11:44:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6EFCFF80083
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 11:41:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EFCFF80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57335F80083
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 11:44:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57335F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=cKOqaDhU;
-	dkim=pass (1024-bit key,
- unprotected) header.d=microchiptechnology.onmicrosoft.com
- header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-microchiptechnology-onmicrosoft-com header.b=MrdTW9IY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1676544090; x=1708080090;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=kdMCCOULMatugT0TgbaWvDXw8oq07+6WLrQ3Fd8zs8U=;
-  b=cKOqaDhUlbCcpDg4Me7PizuSGpG+LzlOCdAe/urYrlzr0tShphnq0Q2S
-   uaLhUXgCO/1mVcBy1OgW1Dto8wL885mvoTQkFY0V4xSVsBygxFn77097p
-   jkRO3siQ+ncVb+j/1LdSx82sju2QGwfMdT9qy1tSFLgkFFEt36sefUL4E
-   +zVS/7BY/+w1JxVCdbQvLf7NDu08bbAW3fLpKD++fXUkaXPVyHHfgSj7i
-   nWK1ejUpHdZw9bTN5WvH3hqJrkeSGDEpQgxDLWNr2iUVWBtkWelcxOe1X
-   Kzhou8mBTs33rmzvE+lrHhCNMnLpAPqbvvVZfw6h8yDFN555Kq2A39nov
-   w==;
-X-IronPort-AV: E=Sophos;i="5.97,302,1669100400";
-   d="scan'208";a="200877739"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 16 Feb 2023 03:41:25 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 16 Feb 2023 03:41:22 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16 via Frontend
- Transport; Thu, 16 Feb 2023 03:41:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZwY+TyPyj7ORVCYGLatxt0mY2fCsrPy3o8GNbBKY1DZzFwqL2JK/5zW4c8t2DEkCae9kTDMwuYQ9XzRaozn2F0a3aASU9z2Ox2PZv6czhBAkj3q5jfvlJg0lbehWu53NTbDTaJdJK8Gmxzb/2h2nIPplbkNhjFH7bDv5nf/ME2aSV7aJ0o9oxhciq2By4SNgizp09Kt4LETJ4rFrILlvjU+iN+49G1LYHNqwi06XKFXcCeZ7Ea+YHoVATWOrcFdXAYwJ7Babb99u+k7PTh2g7heksu7UdY0BWWfCOE2j7900eB++lSuJF3NC0KoIE5b0CIQAPnTLZQGXNO7heFH2VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kdMCCOULMatugT0TgbaWvDXw8oq07+6WLrQ3Fd8zs8U=;
- b=cUrMRwt723igQZ9nFYUDKcm6YqJ6MVpiGkOyA/p4Wr/r8nG0KJ/72ocESR/qJHiEBJYevt8xlMo6sJS+nVplrnq5m21syu+dYshe8QD0oFDeqRWQ2EgQdysQsbI8qV7uh33Kz+PrzUX8KPrCMxtx57XHuKzFxyq4pUtmwy8NTZNxqGW+c1XWCXbx363KTNJdDBdRz/kwnop8KIPDpwQaZSTWja2gvg/tJzgnLpRrhND7qcRALwj+ZK29sG/TAo0jbzlD0oOP9IhV3aNfQv5gQ0+8AzULNTk4PXC4sO+YXiuIUOj3fwIQYuPyfdOEs33loXMhHcgSuE82aOEuJZ8/qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=vHKPZZc7
+Received: by mail-ej1-x632.google.com with SMTP id gs13so1521008ejc.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 16 Feb 2023 02:44:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kdMCCOULMatugT0TgbaWvDXw8oq07+6WLrQ3Fd8zs8U=;
- b=MrdTW9IY1qnRU6t+d0yr4/havO9A0hVJMdtbJH9Bs7h1c3gMlknqrLFl7lAf6btbOCjpHQs28T07FDvcXDCedivJ8XewsyJN7z/6LTv9mMCrqpfLfj5A6GnV5RxAS6U5pZ7oS6cF8/3segBZ7Ntan9ULmMn3yG2+5cifwECOHXU=
-Received: from BN6PR11MB1953.namprd11.prod.outlook.com (2603:10b6:404:105::14)
- by BN9PR11MB5481.namprd11.prod.outlook.com (2603:10b6:408:102::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13; Thu, 16 Feb
- 2023 10:41:20 +0000
-Received: from BN6PR11MB1953.namprd11.prod.outlook.com
- ([fe80::6eb8:36cd:3f97:ab32]) by BN6PR11MB1953.namprd11.prod.outlook.com
- ([fe80::6eb8:36cd:3f97:ab32%5]) with mapi id 15.20.6086.027; Thu, 16 Feb 2023
- 10:41:20 +0000
-From: <Claudiu.Beznea@microchip.com>
-To: <krzysztof.kozlowski@linaro.org>, <lgirdwood@gmail.com>,
-	<broonie@kernel.org>, <robh+dt@kernel.org>,
-	<krzysztof.kozlowski+dt@linaro.org>, <lars@metafoo.de>, <perex@perex.cz>,
-	<tiwai@suse.com>, <Nicolas.Ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kAeO7LNS/haa+vteM/1xuDnjwbcezFgkB2yPBvYuG9o=;
+        b=vHKPZZc7dMt/oZ8Hyn8CnfnRp+oaHTGdYYztfha3aB5aZdfeqo6epo7Kw+XANzQaiK
+         998cuNeJwYorM0k7lszHb28JbPoGJjQGARIxy+n4cYE02TJft12LwrPNAQC9z2A37aUI
+         s4TT9ggLIC4vSDrSq2cVamnijQ+wRD9qDglCTVukpSsbEDJbF4IGBzFO45/wl3IyFZVp
+         dFQObj0jkA4gkklKtP8rD8CtZV1kpZK2xlJlfvR3FCIl6aV6g2nkVr/BOfdN/ktJLUnJ
+         au323gu7WhODBH3PK5w2JzJMJQS+Q3oTkQf7oTwUHQGMVTyGrc0UP9piJZuk7O2J2Azr
+         TZzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kAeO7LNS/haa+vteM/1xuDnjwbcezFgkB2yPBvYuG9o=;
+        b=zxl7UnI7wLMNIw7oTGTSkARg4Z+gRBymPTxp+5kj4Pj3ZmdLbHXrUr59dDrYrmEhr5
+         VyusDsQ8v8hWG6e3wub3RbQA/fYi2nVHbJvCmbiQB2GayENlynCqljrkIicoU1ArVN3H
+         rwGzcO/eLpzSL/e8Y6KNDm7xtz0qOSWWDlYyezcQnX+HQm7bbnXm2h92+DSrbbc5Rbqp
+         FBeZmWf3sSeye8dCs3ShwVLK1FA71Uw05RD4shMqeAmb266E5arRnbEkK00IO7UfXB3x
+         yL39bar9V/I9JmsvpnNDr9RMYTsjVPRkyUdWDwWqYJcoHFoy0glwbwi7JmiYk6eRSHEJ
+         S/5Q==
+X-Gm-Message-State: AO0yUKVIoswp/6RgWTu5DtlgO1Oyglec1ZX/Xl6gB4fmufii/oIrG6wM
+	rMK1BCe9AzoT+40QNcViGVAn/A==
+X-Google-Smtp-Source: 
+ AK7set+Dcr4QIHZy7seJx+QjQB2BainiaUbPbSnQo765nWKDQHrz3UG8xsMgAuo4fKOCIiC3KFgjxA==
+X-Received: by 2002:a17:907:8c89:b0:8b1:781d:f9a4 with SMTP id
+ td9-20020a1709078c8900b008b1781df9a4mr172717ejc.21.1676544238957;
+        Thu, 16 Feb 2023 02:43:58 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+        by smtp.gmail.com with ESMTPSA id
+ oq15-20020a170906cc8f00b008b165948da6sm490473ejb.101.2023.02.16.02.43.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Feb 2023 02:43:47 -0800 (PST)
+Message-ID: <a235fecf-bfda-6d9d-f16f-31e1b2e3bf8f@linaro.org>
+Date: Thu, 16 Feb 2023 11:43:43 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
 Subject: Re: [PATCH 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
  microchip,startup-delay-us binding
-Thread-Topic: [PATCH 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
- microchip,startup-delay-us binding
-Thread-Index: AQHZQfM04FxaA6iPFk+Tnu1ByTX/cQ==
-Date: Thu, 16 Feb 2023 10:41:20 +0000
-Message-ID: <8a2132f6-9745-5ef2-724e-14e76fc456f0@microchip.com>
+Content-Language: en-US
+To: Claudiu.Beznea@microchip.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, lars@metafoo.de,
+ perex@perex.cz, tiwai@suse.com, Nicolas.Ferre@microchip.com,
+ alexandre.belloni@bootlin.com
 References: <20230214161435.1088246-1-claudiu.beznea@microchip.com>
  <20230214161435.1088246-3-claudiu.beznea@microchip.com>
  <485d74fe-bfb5-c55e-724f-304476624abd@linaro.org>
  <954cdf90-c41a-4e21-31e0-88a0baf26065@microchip.com>
  <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
-In-Reply-To: <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN6PR11MB1953:EE_|BN9PR11MB5481:EE_
-x-ms-office365-filtering-correlation-id: 076206f3-e184-499d-634b-08db100a5729
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- m+0CY7OR7o5D9V7vj0Ft8M0lXjqUw2rVFjDhgG50xe8sXNTmoz9wVfadhdYmal9D99D2URjpV54yzz4a8VH+JCHlMa/z2Im8Qp028HbtCw1yD+ltif5t/m2+aSICC9lZD7bQBfsOKIMIuPKiXFcRa2gFro8ovOcNSM8Oiwhb5OJTngrmGyX3XkguxNBHhFlu4rANZiJZ01bOnNBrFTnnHR6HsjELkWY2gQy6ChlM5x13TAZkJggTylCRsa53VVk9kq+bda36t15EDHl9Ibh57UM6GxLo+cJ8qqUPIXMjKgQkpItgkcw+9/Uhnegiv4ytAPq2xhKKJ0P+o/JkLnCbuQZ9YbxHaD7DvAeFvFW3laRCFj4iXmj9YMV7SSwa9eMK7l/4Wi4SUVPTFVd8fC1G/0dnmDyGoh2Zs3RGya49ZfV7u6X8HxVLBynWEjHrfOchItkN5P79cVjJTCJDlPaI75iHmJ8aE5/siAqaIma7KGp/f/KCirs5EwUP9X3BwOyYJCI35WhcBwY4PM4yo+EECiwhQ3rdy0g8X+tceHbeW+zWBFusuke4WwQVjWf/Ko/RGyeGhK5S0fuJ+xEjP+Gee8f1aCLR7EwAJVdelRn/BaHuzSEBjcHAFAVYdSGxPLyajXSg9yk789XIhvETeVkKHlClNrX8i2DKMYVD/q5TdS+FV/TJGeKNOE8Y41JviK0exENG5LuFMmN55EZCef9/pts42UO6AQV9c6m51W0cXUXVasw/q55lAu/gnbCga6lw9bo9KC94mrDDkgBA8xQQhvgjfKfxW5mxa1ICRbwefZA=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN6PR11MB1953.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(346002)(366004)(136003)(376002)(39860400002)(451199018)(38100700002)(122000001)(36756003)(86362001)(921005)(31696002)(38070700005)(8936002)(5660300002)(2906002)(7416002)(53546011)(6506007)(6512007)(186003)(91956017)(2616005)(316002)(76116006)(26005)(66946007)(4326008)(66556008)(8676002)(66476007)(66446008)(64756008)(71200400001)(6486002)(110136005)(54906003)(478600001)(41300700001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?R2tzMy9QQkErd3RqZ3QxWWVSeFZIREFXY0Fzd3d6U2NFQ3RQdHlWVXMrQW5p?=
- =?utf-8?B?WG9xK1hjUXd1Sk4remlpOWZHTGdJZEZURERsendUZHRUY3QxVE1WTEVISjVF?=
- =?utf-8?B?RDZVWHBSaDZRQjU2Q1lmYmhHSDlkdGZZNXcveWltYTY4elR6N1J6ZC9xRjQ1?=
- =?utf-8?B?VmNkVzFzWWhvQmNkaExTaTlOYjFYWTMxcEVneUs2b0tDa2lFVis4VkF2cnBo?=
- =?utf-8?B?RTlDam12REQvM2dLUlZwWHZqTkVYNjVUYlhrb2Yxb3FkVGIyM0dJcVpKVkM1?=
- =?utf-8?B?YXVYaE10M0pHSkI5OVY5VzlZS0FhdG9nK1o1cVVvWnA4QUFwaHZtZlhXTU5w?=
- =?utf-8?B?eTV1cTJ2SkdkdlgyUytuQlZ4ejRneGZtRnlzTGk2RXJTSXpwVkZuVlBnenVa?=
- =?utf-8?B?N0xtM3RsWVZicGtPVzJIVGNEUndJOVlmaDJoQ3FncGVrMWhwczh4NkJPRVV0?=
- =?utf-8?B?YmY5TmFIeWp4aFZaaU5PQzlkeGY4cDNxT0pHbWtTMG1FSXN0MlN5L0hDRTZr?=
- =?utf-8?B?WFFOZVhBOEZveWpWQTJkQ2dMcFB4S29UQnhkV25zdXZ5V1Y4TTdQbmxQSmVI?=
- =?utf-8?B?VXRrOFRIUlBOWmJNdXUxdXR2Y2tXcStkS0pUZitHRFNpUklzdXo4RFhGSGZX?=
- =?utf-8?B?Z21YaTlaT2tQR2VvTlQ4OHZjaDJ6QlV0YTVzelNhcEVtMzQ4NXJRVy9IYTNB?=
- =?utf-8?B?NU93Mmp6ZkdJUlJkMDkrYlM5SVl2N05tT2t2Z3pDMGM5ZEdSTHBSQWM5VjU4?=
- =?utf-8?B?RFFWNUZhamtMTFpvV0hkamFzZU5FcWlzcTBEd3VXZm82ejArUFl5SmszdmFt?=
- =?utf-8?B?cVY2bUpoK1BRdTJNaW5lUW94Q0tuTzYzU0Z1RlVXOVlVQXg0SkhMdGZpQUxC?=
- =?utf-8?B?YmU2dk9CaW43TmpvdzJISFBnVlRabW5yVmFOQ29vdVp5TWR4NVlWYVNMeDdH?=
- =?utf-8?B?dFhCTFovVEdSWjFvOWczQjJKU0p6S2dIM0tOc2NtV1ZpRmFnb3duNnJ1LzRl?=
- =?utf-8?B?bUU0dmdaVzc2d0ZCT1VCNndTK29JNHEzTkFSbytIaFcwMldFU1ZQcjhaUFhN?=
- =?utf-8?B?eFdSUmNQaTd0WmNvd3Z4YzhzNHRSbkZrclBEK3orcHZSMmRDWk5kUVN5TE10?=
- =?utf-8?B?M1V1WG9CV3lzU0FvTFo5REFLYTY5Qlo0MCtEMGlVditwdkhTbldON0tkNzJq?=
- =?utf-8?B?cjNtcVBvSHQ3ejQza2N2b3J4VmN4cm5FZ2FDN0h4eVRJWVRGc3hadXhHTGdM?=
- =?utf-8?B?WUF5NzhmYjk4Wks1NUFYcDhVUkJSU25jY2R5TUM1WjBVKzkwMlJkbTlOaW5B?=
- =?utf-8?B?dUV4ditObXpCTmt0Zy9tSlAwM2R0QWIzVHVLcVJmaW5WbDFqdy8wZXdHUWk2?=
- =?utf-8?B?TjFySXUwellDakJNME1IUGZXTy8zRzM5cmhnNkpOUDRLNGN0UUY3Mm9DVTBt?=
- =?utf-8?B?VUgvc1pSc1F0emZnSlh4cm5lcGJiajZXSEJmcis3ek0vTzV3TUVwaUZCTTZ5?=
- =?utf-8?B?QSt4NnN4OStWL0RzR3laUXliRVhMY0F6YklFWDYyY1N4b0JvWWZVdUxVNUxB?=
- =?utf-8?B?Vi9pajdtVlNuamMxdkZNVTBWb1hWbk1pMEFjamFNZ2dCZnlFN1ZRNk5kK29j?=
- =?utf-8?B?c0Y4WjRzQTRkNEU3ZkFGM3dPTHgzb2VhNXgvN3JNejJ5clJ2MVEwNzB3SG4y?=
- =?utf-8?B?Ukpzcmx2UkprYWxJSkFXb29oamZoVytRNDFOS2h3UzBZanMwaHVMV1gzVm9U?=
- =?utf-8?B?YmUwSkNVWEx6QVh3MWo1QWRKZWZFOGtSM29idHVjOFI1Q3B6OVg5QTk5M2NS?=
- =?utf-8?B?ejBlZnpQUVloalNmalo0dWxBZ0dmY2IzQklpVzlESWVybnM3eWpKTTc2QWpw?=
- =?utf-8?B?ZWV1a3JRdmxLNCtTYXpmaGxSSk1keTdMYVVSNVJseWhicjBmQ3RlVFFwYVIy?=
- =?utf-8?B?alN6SkRNVjhZeGlvSzJWcC96NnA1SEFWRWk0cnVwRU92a29OVkV2WDNuY2ZU?=
- =?utf-8?B?ais1V2o2OWVGNGJtcGQwcGluR1FmR0VrMk9ib09CcEVPd2tBemFBNko2ZUhq?=
- =?utf-8?B?RVhSam12OHZzZVpuTmd0V1lIUXg2eEY0dmpqckVDa0lHdmZMNlZ3REs5WXlO?=
- =?utf-8?B?UUZMQjRUUGY4S2hscTFsYTB2S0U3STJZZ01Nb2hwOUhUVENHalJkVGFBOHZ4?=
- =?utf-8?B?Wmc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4CBF9F64257EAE4E84FDF72C2208706B@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB1953.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 076206f3-e184-499d-634b-08db100a5729
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Feb 2023 10:41:20.0948
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- xrpi3WmBsny13HQeQjrDi7Ogb7QQ2X1J/KF0oLJqlj2BOUSfBNe3mw91/qCqcLz/RWUtwj+okA3p5n7ibkTAk4rnUzjN2+vElU1GetcvDyA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5481
-Message-ID-Hash: EWTAKOYYEQND6SEE2JJ7WVWPHVW6KCDB
-X-Message-ID-Hash: EWTAKOYYEQND6SEE2JJ7WVWPHVW6KCDB
-X-MailFrom: Claudiu.Beznea@microchip.com
+ <8a2132f6-9745-5ef2-724e-14e76fc456f0@microchip.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <8a2132f6-9745-5ef2-724e-14e76fc456f0@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: CFU6UEMML4R3HRHG2D45RS37SMFSHYYC
+X-Message-ID-Hash: CFU6UEMML4R3HRHG2D45RS37SMFSHYYC
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -205,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EWTAKOYYEQND6SEE2JJ7WVWPHVW6KCDB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CFU6UEMML4R3HRHG2D45RS37SMFSHYYC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -214,45 +129,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gMTYuMDIuMjAyMyAxMjoxOCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToNCj4gRVhURVJO
-QUwgRU1BSUw6IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5
-b3Uga25vdyB0aGUgY29udGVudCBpcyBzYWZlDQo+IA0KPiBPbiAxNi8wMi8yMDIzIDExOjE1LCBD
-bGF1ZGl1LkJlem5lYUBtaWNyb2NoaXAuY29tIHdyb3RlOg0KPj4gT24gMTYuMDIuMjAyMyAxMjow
-NCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToNCj4+PiBFWFRFUk5BTCBFTUFJTDogRG8gbm90
-IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBrbm93IHRoZSBjb250
-ZW50IGlzIHNhZmUNCj4+Pg0KPj4+IE9uIDE0LzAyLzIwMjMgMTc6MTQsIENsYXVkaXUgQmV6bmVh
-IHdyb3RlOg0KPj4+PiBBZGQgbWljcm9jaGlwLHN0YXJ0dXAtZGVsYXktdXMgYmluZGluZyB0byBs
-ZXQgUERNQyB1c2VycyB0byBzcGVjaWZ5DQo+Pj4+IHN0YXJ0dXAgZGVsYXkuDQo+Pj4+DQo+Pj4+
-IFNpZ25lZC1vZmYtYnk6IENsYXVkaXUgQmV6bmVhIDxjbGF1ZGl1LmJlem5lYUBtaWNyb2NoaXAu
-Y29tPg0KPj4+PiAtLS0NCj4+Pj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL21pY3Jv
-Y2hpcCxzYW1hN2c1LXBkbWMueWFtbCAgIHwgNiArKysrKysNCj4+Pj4gIDEgZmlsZSBjaGFuZ2Vk
-LCA2IGluc2VydGlvbnMoKykNCj4+Pj4NCj4+Pj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9taWNyb2NoaXAsc2FtYTdnNS1wZG1jLnlhbWwgYi9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbWljcm9jaGlwLHNhbWE3ZzUt
-cGRtYy55YW1sDQo+Pj4+IGluZGV4IGM0Y2YxZTVhYjg0Yi4uOWI0MDI2ODUzN2NiIDEwMDY0NA0K
-Pj4+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbWljcm9j
-aGlwLHNhbWE3ZzUtcGRtYy55YW1sDQo+Pj4+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9zb3VuZC9taWNyb2NoaXAsc2FtYTdnNS1wZG1jLnlhbWwNCj4+Pj4gQEAgLTY3
-LDYgKzY3LDEyIEBAIHByb3BlcnRpZXM6DQo+Pj4+ICAgICAgbWF4SXRlbXM6IDQNCj4+Pj4gICAg
-ICB1bmlxdWVJdGVtczogdHJ1ZQ0KPj4+Pg0KPj4+PiArICBtaWNyb2NoaXAsc3RhcnR1cC1kZWxh
-eS11czoNCj4+Pj4gKyAgICBkZXNjcmlwdGlvbjogfA0KPj4+PiArICAgICAgU3BlY2lmaWVzIHRo
-ZSBkZWxheSBpbiBtaWNyb3NlY29uZHMgdGhhdCBuZWVkcyB0byBiZSBhcHBsaWVkIGFmdGVyDQo+
-Pj4+ICsgICAgICBlbmFibGluZyB0aGUgUERNQyBtaWNyb3Bob25lcyB0byBhdm9pZCB1bndhbnRl
-ZCBub2lzZSBkdWUgdG8gbWljcm9waG9uZXMNCj4+Pj4gKyAgICAgIG5vdCBiZWluZyByZWFkeS4N
-Cj4+Pg0KPj4+IElzIHRoaXMgc29tZSBoYXJkd2FyZSBkZWxheT8gT3IgT1M/IElmIE9TLCB3aHkg
-TGludXggc3BlY2lmaWMgZGVsYXkgaXMNCj4+PiBwdXQgaW50byBEVD8NCj4+DQo+PiBJdCdzIHRo
-ZSBkZWxheSB1c2VkIGluIHNvZnR3YXJlIHdvcmthcm91bmQgdGhhdCBJUCBuZWVkcyB0byBmaWx0
-ZXIgbm9pc2VzLg0KPiANCj4gVGhlbiB0aGlzIHNvdW5kcyBsaWtlIE9TPyBMaW51eCByZWxhdGVk
-IHByb3BlcnRpZXMgdXN1YWxseSBkbyBub3QgYmVsb25nDQo+IHRvIERULg0KPiANCj4+IFRoZSBJ
-UCBpcyBub3QgZnVsbHkgZmVhdHVyZWQgdG8gZG8gdGhpcyBraW5kIG9mIGZpbHRlcmluZyBvbiBp
-dHMgb3duIHRodXMNCj4+IHRoaXMgc29mdHdhcmUgd29ya2Fyb3VuZC4gVGhpcyBkZWxheSBtYXkg
-ZGVwZW5kIG9uIHVzZWQgbWljcm9waG9uZXMgdGh1cw0KPj4gZm9yIGRpZmZlcmVudCBraW5kIG9m
-IHNldHVwcyAoUERNQyArIGRpZmZlcmVudCBtaWNyb3Bob25lcykgSSBpbnRyb2R1Y2VkDQo+PiB0
-aGlzIGluIERULg0KPiANCj4gSSB1bmRlcnN0YW5kIHlvdXIgZHJpdmVyIG5lZWRzIGRlbGF5IGFu
-ZCBJIGFtIG5vdCBxdWVzdGlvbmluZyB0aGlzLiBJIGFtDQo+IHF1ZXN0aW9uaW5nIHdoeSB0aGlz
-IGlzIHN1aXRhYmxlIGZvciBEVD8NCg0KQmVjYXVzZSB0aGF0IGRlbGF5IG1heSBkZXBlbmQgb24g
-dGhlIG1pY3JvcGhvbmVzIHRoYXQgYXJlIHVzZWQgd2l0aCBQRE1DLg0KRGlmZmVyZW50IGJvYXJk
-cyBtYXkgY29tZSB3aXRoIGRpZmZlcmVudCBtaWNyb3Bob25lcywgdGh1cyB0aGUgZGVmYXVsdA0K
-ZGVsYXkgbWF5IG5vdCBmaXQgdG8gZnVsbHkgZmlsdGVyIHRoZSBub2lzZS4gRHVlIHRvIHRoaXMg
-SSBjaG9zZSB0byBhZGQgaXQNCmluIERULg0KDQo+IA0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBL
-cnp5c3p0b2YNCj4gDQoNCg==
+On 16/02/2023 11:41, Claudiu.Beznea@microchip.com wrote:
+> On 16.02.2023 12:18, Krzysztof Kozlowski wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>
+>> On 16/02/2023 11:15, Claudiu.Beznea@microchip.com wrote:
+>>> On 16.02.2023 12:04, Krzysztof Kozlowski wrote:
+>>>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>>>
+>>>> On 14/02/2023 17:14, Claudiu Beznea wrote:
+>>>>> Add microchip,startup-delay-us binding to let PDMC users to specify
+>>>>> startup delay.
+>>>>>
+>>>>> Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+>>>>> ---
+>>>>>  .../devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml   | 6 ++++++
+>>>>>  1 file changed, 6 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
+>>>>> index c4cf1e5ab84b..9b40268537cb 100644
+>>>>> --- a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
+>>>>> @@ -67,6 +67,12 @@ properties:
+>>>>>      maxItems: 4
+>>>>>      uniqueItems: true
+>>>>>
+>>>>> +  microchip,startup-delay-us:
+>>>>> +    description: |
+>>>>> +      Specifies the delay in microseconds that needs to be applied after
+>>>>> +      enabling the PDMC microphones to avoid unwanted noise due to microphones
+>>>>> +      not being ready.
+>>>>
+>>>> Is this some hardware delay? Or OS? If OS, why Linux specific delay is
+>>>> put into DT?
+>>>
+>>> It's the delay used in software workaround that IP needs to filter noises.
+>>
+>> Then this sounds like OS? Linux related properties usually do not belong
+>> to DT.
+>>
+>>> The IP is not fully featured to do this kind of filtering on its own thus
+>>> this software workaround. This delay may depend on used microphones thus
+>>> for different kind of setups (PDMC + different microphones) I introduced
+>>> this in DT.
+>>
+>> I understand your driver needs delay and I am not questioning this. I am
+>> questioning why this is suitable for DT?
+> 
+> Because that delay may depend on the microphones that are used with PDMC.
+> Different boards may come with different microphones, thus the default
+> delay may not fit to fully filter the noise. Due to this I chose to add it
+> in DT.
+
+Ah, ok, that's good explanation. Thank you.
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+

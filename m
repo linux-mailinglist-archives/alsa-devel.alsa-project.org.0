@@ -2,91 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6256999F1
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 17:25:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0401699A42
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 17:40:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A37C7F09;
-	Thu, 16 Feb 2023 17:24:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A37C7F09
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D775F04;
+	Thu, 16 Feb 2023 17:39:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D775F04
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676564723;
-	bh=oLvmzj/aD1EWM31O5yP403IS6djcAMB15JbOPF/P86Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676565617;
+	bh=bOd7dvQNd6sVzPj8IyuShV6brUPSukSWIkp4BnGO/7Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PO6Sv1OivNJgMcmvI2RyQRZwN7gb8du0ha0EA7e1MRpdH0vNbEd3w/6CkglFyUC+g
-	 r5gfVPJEa4XhUieCQ2ZTftj5cWRM7nVL685r+EdN1r6v5xpJZcD/Y9p007cyVVtImG
-	 64MXKSPq2Kmq3cKQaGS4iDxiohshyRYXIBFlAGVQ=
+	b=PRo/mgfpLNeueflpvkeP5Q8JrmIqFpdHDHEHDs8EJA1WjLAEuBpxIr/Wpf8G6hVqv
+	 LaBTsQ+jSO4ueb2bJ1i7Go5syLRwAbiD42n5ZQ7YaVnTHO+SrpVJMMYxBLmpruKNvW
+	 IoH1IDpYqSQXMCjlGLNe2HmTbaxqcWdK6bqZqazA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADE00F80496;
-	Thu, 16 Feb 2023 17:24:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E971AF800E4;
+	Thu, 16 Feb 2023 17:39:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACF81F804B0; Thu, 16 Feb 2023 17:24:04 +0100 (CET)
+	id A0F95F80171; Thu, 16 Feb 2023 17:39:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDFA1F800E4
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 17:24:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDFA1F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=b1lOndDX
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0136361FFC;
-	Thu, 16 Feb 2023 16:23:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12194C433A1;
-	Thu, 16 Feb 2023 16:23:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676564638;
-	bh=oLvmzj/aD1EWM31O5yP403IS6djcAMB15JbOPF/P86Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b1lOndDXJsybp2Y/ndgl5YqHzz8Eh153f99+6Kj5X+kVjptb0AmOa8IxOe48Clag4
-	 fTiFACAsiIgg3etck8YWzVjetmzlv0OPpHRfzhXxUQjpmb7q3qG3pi79C81V7wORb7
-	 ocigi+qO5JZCuN+FgGyhxKNA/UAGpMBRIhi/5oG2eD1x0UxrLSyXJsnwIdy3tYHkD1
-	 axZKc1/ils3+jUrXDwVIPp8qrZMe8CSR+U6FgVM5YMhHqcUInQNYPwGnUNR288nXF7
-	 vxy8AqTZbnVkUzYu2qYhVZrnpo//P5F0WNx8qoOtlvw7MYS8f6IwmjFRa5yaulpp+/
-	 cfKR6O0OVs7mg==
-Date: Thu, 16 Feb 2023 16:23:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Joseph Hunkeler <jhunkeler@gmail.com>
-Subject: Re: [PATCH] soc:amd:yp:Add OMEN by HP Gaming Laptop 16z-n000 to
- quirks
-Message-ID: <Y+5Ym5rUWLK4TOAf@sirena.org.uk>
-References: <20230216155007.26143-1-jhunkeler@gmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1764EF800B6
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 17:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1764EF800B6
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IKdBvYx8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1676565559; x=1708101559;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=bOd7dvQNd6sVzPj8IyuShV6brUPSukSWIkp4BnGO/7Q=;
+  b=IKdBvYx83+ozY+Wyc1VjPbSu5/OBSlSdFegi9feCZf/IXSI0AV9OT2U/
+   KZ5ikrpm7Qa5xc1Hp8/ijmlyjwnC7wJtMxSLHDnH24gnuZtLE9p1ybWpK
+   GNMUIGwCcVQXnhuyBSytfWTDAGhAreu8ZNQjGaaMwW1HVgNYtTCT88xeN
+   RNqSdhvi27Rcgwq/8NuPfUhpl7FLvbWIsJbTDIIEqh1Ui0oyTe3zqbUiJ
+   yCbxdL+aodcfE6FLaollYBkFCCFiZc54xZ0/f5Qma4GCfYG16fI6b7KrI
+   zZgNyYehnVOyRtXsYyrpmbmheiloHRrtnh+6IlASn9Y5hIPty/65AJVlG
+   w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="333952711"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000";
+   d="scan'208";a="333952711"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 08:24:42 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="702612476"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000";
+   d="scan'208";a="702612476"
+Received: from sbadria-mobl.ger.corp.intel.com (HELO [10.252.18.21])
+ ([10.252.18.21])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 08:24:39 -0800
+Message-ID: <33fd3541-688d-74b0-cc9d-98bdb0c9e035@linux.intel.com>
+Date: Thu, 16 Feb 2023 18:24:52 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZHmiD/lW1n2dysJL"
-Content-Disposition: inline
-In-Reply-To: <20230216155007.26143-1-jhunkeler@gmail.com>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: W2VPMK7ZPRDR6U7ZW5KCAF3XJFB52OWE
-X-Message-ID-Hash: W2VPMK7ZPRDR6U7ZW5KCAF3XJFB52OWE
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.2
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda-dai: fix possible stream_tag leak
+To: Mark Brown <broonie@kernel.org>
+References: <20230216144054.26203-1-peter.ujfalusi@linux.intel.com>
+ <Y+5RjX3cB9gwnvVs@sirena.org.uk>
+Content-Language: en-US
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <Y+5RjX3cB9gwnvVs@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: X6NHXRYSCW7RCUCYYHW3ZMZNEAPJCB6U
+X-Message-ID-Hash: X6NHXRYSCW7RCUCYYHW3ZMZNEAPJCB6U
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, rander.wang@intel.com,
+ yung-chuan.liao@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W2VPMK7ZPRDR6U7ZW5KCAF3XJFB52OWE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X6NHXRYSCW7RCUCYYHW3ZMZNEAPJCB6U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,32 +108,22 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---ZHmiD/lW1n2dysJL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Feb 16, 2023 at 10:50:07AM -0500, Joseph Hunkeler wrote:
-> Enables display microphone on the HP OMEN 16z-n000 (8A42) laptop
+On 16/02/2023 17:53, Mark Brown wrote:
+> On Thu, Feb 16, 2023 at 04:40:54PM +0200, Peter Ujfalusi wrote:
+> 
+>> is there still time to send this for v6.2?
+>> If not, then I will re-send it with stable 6.2 tag.
+> 
+> In general it's best to just include the relevant Fixes: if
+> you're concerned about this...  it's rather late and Takashi was
+> looking for early pull requests, I can apply and send but now I
+> have to wait for you to tell me the commit it's fixing in case it
+> doesn't get pulled in in time which just slows things down :/
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+OK, I sent v2 with a Complement tag to guide the patch to 6.2 and I will
+try to track back the stable kernels and send a clean backport when this
+is in mainline.
 
---ZHmiD/lW1n2dysJL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuWJoACgkQJNaLcl1U
-h9BDugf+KiFB1aCtgMW8HYgkiyjEMXRY2YaLCjP00x4Q/ZM6OqsHagCyTwPglQ8W
-0rZewh1DfY9IgIdKz18aPg7FtdyvRLZFRAivGM6LOi1YcY8kg+kTB4BexybQu1UU
-PwBozdLDfJZeWZJ0sXn7P8Za3+5Z+fIJdmg7jNJFUyzSMqNM4oP2xKYgLTAhmRhf
-TtU12XPL4vEu/dOAbAnfWZv/OH0zJBxzi/DKbbNkYgdyY9X3+6WHYYHAuXyO/IK9
-UPfny2HXGaOJGiFLId3p4rRiOv4sDP9HKnPMrUXs0Tt/b8a85najXG+7hVDvbPnZ
-wBhoV9WbkRaeRoImS1nj3oALxjJvMw==
-=XVyk
------END PGP SIGNATURE-----
-
---ZHmiD/lW1n2dysJL--
+-- 
+Péter

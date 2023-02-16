@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52A66995ED
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:35:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1376995EE
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:36:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F30CE7F;
-	Thu, 16 Feb 2023 14:34:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F30CE7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEFF9E87;
+	Thu, 16 Feb 2023 14:35:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFF9E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676554528;
-	bh=Azk0Q4lGXskzB+gCX/b5qa9EBKOMPORlieMj5wXfp3s=;
+	s=default; t=1676554578;
+	bh=Lcjzcbrfjhrys2xExJQElBkLenbmhESQ4vWpSeJeJrQ=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=li+N2/w62q0cTQj5yhF6tgiF+fflO0uovguuB2fkJ6OHlqiwiqo3i22pLWM4ES7/H
-	 7Kj7wDlbRV/kbY5l5B3eEnU7uDk5zOWA48DE3fll4y9ez4jyw3V5G2J1q4IsRqqNmk
-	 VayR3NJg9WjzhL4oV2dRKJitQEvsHQ+QAGA11Zrc=
+	b=W0TM/lHuiQa0FysaSIkWOknIj0GpyOKw9rzIW1xLQ03V6b6WTiGknQ84c1m7HVpte
+	 m/rx68tU3bdjEdOIbJHUrH3dE3vx9N33i+P7buN4Gb9/wahWzB8dwvoR5rLIxfh78x
+	 JEiWM2nnz9ft1us04/5SFPdVqo2Hxj1k5fbpZE7o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7115BF800E4;
-	Thu, 16 Feb 2023 14:34:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB739F80496;
+	Thu, 16 Feb 2023 14:34:52 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90104F80171; Thu, 16 Feb 2023 14:34:33 +0100 (CET)
+	id 4B3CBF804B0; Thu, 16 Feb 2023 14:34:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F1B94F800E3
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 14:34:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1B94F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F052F8047C
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 14:34:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F052F8047C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=DLV4eg/p;
+ header.s=susede2_rsa header.b=Hw7sPvM/;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3IWq71Gs
+ header.s=susede2_ed25519 header.b=cHATyAR5
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4DA00221E5;
-	Thu, 16 Feb 2023 13:34:29 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 773CA1FDB0;
+	Thu, 16 Feb 2023 13:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1676554469;
+	t=1676554485;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LQcFS3rIWMgE+is5t7xne0GWfmauTM5b5nsz2j9V2SQ=;
-	b=DLV4eg/p8TB5fjJBVCsWAtqeqRlaUsfnkUvLifJy6C/31Ab6KSJSP8Ho/fB06o6z6Z4vMx
-	YRxwqVzCXCJA8G7XqF52Y5b5e8i0J9gSwARr3Q8hOYirbShQnSObg2B5VcFzwL3q35HfF0
-	/0XJbn7UNVzA7fXtEulQlqEoTa1+tjc=
+	bh=LVd6R3qP4q3osYsNAHWE7RP/rg7MFmjH6kJZ5PYuo3M=;
+	b=Hw7sPvM/kLIjwE5JfU29FAA62MVSaFV4wHBUjhjgGDqXYGdJk4hzEgv1A70aPwjl4P0Wdg
+	my0H2eP355FQjCMvgD/dVTiS2fs6zILtmo3D87laHwrgLceINbIp4Hh/PUcab8nR9oEvvo
+	47Kuc4N54w7v7H9fwWAzuYWNiSocKxE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1676554469;
+	s=susede2_ed25519; t=1676554485;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LQcFS3rIWMgE+is5t7xne0GWfmauTM5b5nsz2j9V2SQ=;
-	b=3IWq71GsNz7Jdgtw78hyedPnnkdG4zIsAmGWvwanV/pHanhKrmRWUqiEsQ3gYd9bKKe6sP
-	jqloBg6wbns0YjAQ==
+	bh=LVd6R3qP4q3osYsNAHWE7RP/rg7MFmjH6kJZ5PYuo3M=;
+	b=cHATyAR5gpTI0gDj6X5IFv7fr4rlMnHvIF+JEycFE0FfqH+TIHCwDjKL1CCClI/G2RS4Es
+	P5FxXKH6crhNLrAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3160213438;
-	Thu, 16 Feb 2023 13:34:29 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C59B13438;
+	Thu, 16 Feb 2023 13:34:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id nAdPC+Uw7mOUXwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 16 Feb 2023 13:34:29 +0000
-Date: Thu, 16 Feb 2023 14:34:28 +0100
-Message-ID: <874jrl7mzf.wl-tiwai@suse.de>
+	id kmDfFfUw7mOnXwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 16 Feb 2023 13:34:45 +0000
+Date: Thu, 16 Feb 2023 14:34:44 +0100
+Message-ID: <8735757myz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC fixes for v6.2-rc8
-In-Reply-To: <20230216131038.59183C433D2@smtp.kernel.org>
-References: <20230216131038.59183C433D2@smtp.kernel.org>
+Subject: Re: [GIT PULL] ASoC updates for v6.3
+In-Reply-To: <20230216131058.82848C433D2@smtp.kernel.org>
+References: <20230216131058.82848C433D2@smtp.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU
-X-Message-ID-Hash: ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU
+Message-ID-Hash: NDWRBW2BLRP6NTSELMY4XE57ABPIWCNB
+X-Message-ID-Hash: NDWRBW2BLRP6NTSELMY4XE57ABPIWCNB
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDWRBW2BLRP6NTSELMY4XE57ABPIWCNB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,31 +115,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 16 Feb 2023 14:10:30 +0100,
+On Thu, 16 Feb 2023 14:10:46 +0100,
 Mark Brown wrote:
 > 
-> The following changes since commit c173ee5b2fa6195066674d66d1d7e191010fb1ff:
+> The following changes since commit c1619ea22d9509cfbcf5c2c1cc65563179e9dc8e:
 > 
->   ASoC: topology: Return -ENOMEM on memory allocation failure (2023-02-07 14:06:26 +0000)
+>   ASoC: SOF: sof-audio: Fixes for widget prepare and (2023-01-18 15:28:17 +0000)
 > 
 > are available in the Git repository at:
 > 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc8
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.3
 > 
-> for you to fetch changes up to 5afc7eefe41645259da84898fc55f6f46cb4de47:
+> for you to fetch changes up to 76f5aaabce492aa6991c28c96bb78b00b05d06c5:
 > 
->   ASoC: SOF: ops: refine parameters order in function snd_sof_dsp_update8 (2023-02-08 11:51:45 +0000)
+>   ASoC: soc-ac97: Return correct error codes (2023-02-15 16:09:07 +0000)
 > 
 > ----------------------------------------------------------------
-> ASoC: Fix for v6.2
+> ASoC: Updates for v6.3
 > 
-> One non-urgent fix for v6.2, this could possibly wait till the
-> merge window.
+> There's been quite a lot of activity this release, but not really
+> one big feature - lots of new devices, plus a lot of cleanup and
+> modernisation work spread throughout the subsystem:
+> 
+>  - More factoring out of common operations into helper functions
+>    by Morimoto-san.
+>  - DT schema conversons and stylistic nits.
+>  - Continued work on building out the new SOF IPC4 scheme.
+>  - Support for Awinc AT88395, Infineon PEB2466, Iron Device
+>    SMA1303, Mediatek MT8188, Realtek RT712, Renesas IDT821034,
+>    Samsung/Tesla FSD SoC I2S, and TI TAS5720A-Q1.
 
 Thanks, pulled now.
-
-I'll likely postpone this to the early 6.3 PR (that I'll submit in
-today or on Saturday in anyway).
 
 
 Takashi

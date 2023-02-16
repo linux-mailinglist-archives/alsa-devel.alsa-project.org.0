@@ -2,75 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B5B6995D5
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:31:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3AD1699543
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:11:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB9AE7C;
-	Thu, 16 Feb 2023 14:30:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB9AE7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6EBDDF4;
+	Thu, 16 Feb 2023 14:10:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6EBDDF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676554280;
-	bh=IAgsBF4ANYOsWrMlLvnN+PPC4Pi1HojSN7EDP9tJSDo=;
-	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1676553106;
+	bh=nt6PfmKJY/TnSossDKDW+Qu24jU1OwjXVNwTUXTp85Y=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=O0wN9FwYquGO4SiJRFXba5/OcwU5LcOpps4TmzmWER5uQwNl/qY72iHLPdS+zw4L/
-	 7P8pQscfcVIzbiU1g33a6eYpEfh4VdSgKlDC5k1KTMHVJHmjHlkOMwh3CeC6SHLea7
-	 95mwyy4b8vCONUlJRwAkqVKleIpDiR7KyB14Gsks=
+	b=BClZZUhJSyNW3OoqApQOhpaI8lMc39+XHeCfUj2/scu1ez1DnBap0O5qE2ABadRV5
+	 OYJZboWPE27XC2HlmQKObvAaGkR04DjgidMKuyDuyy0BgKnjVoZWxGny343SfvSnzc
+	 +rCMlx4HOm5IX+0eZM2e3MoqKkweYyLA07CeQCuI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACB37F80496;
-	Thu, 16 Feb 2023 14:29:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23ED9F800E4;
+	Thu, 16 Feb 2023 14:10:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96B74F80171; Thu, 16 Feb 2023 12:33:20 +0100 (CET)
+	id ADBB1F80171; Thu, 16 Feb 2023 14:10:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DF9FEF80083
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 12:33:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF9FEF80083
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 9326C23F65;
-	Thu, 16 Feb 2023 06:33:05 -0500 (EST)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pScVd-xVv-00; Thu, 16 Feb 2023 12:33:05 +0100
-Date: Thu, 16 Feb 2023 12:33:05 +0100
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/130+] ALSA: emu10k1 & more
-Message-ID: <Y+4UcetSxH6lDPoy@ugly>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-X-MailFrom: ossi@kde.org
-X-Mailman-Rule-Hits: nonmember-moderation
+	by alsa1.perex.cz (Postfix) with ESMTPS id 97B9DF80083
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 14:10:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97B9DF80083
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=jx/GWyAJ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 6A5DFB8279F;
+	Thu, 16 Feb 2023 13:10:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59183C433D2;
+	Thu, 16 Feb 2023 13:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1676553039;
+	bh=nt6PfmKJY/TnSossDKDW+Qu24jU1OwjXVNwTUXTp85Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jx/GWyAJ+OiU9BWg+AlMkiNi8ZpLHhTg5h1MEAYZkRViet69nUd8EMShWo73TbaDP
+	 Pm2GzFhtEe2vGfUHliNVi1O1cSmcwXEconyigNA2UV89vDMFn5+RS0rMvmrjdchHn7
+	 dRNR1ckIcS4CkfMCbo6YFiR/oP/gok1yegV4zecyFv7zeyRiC/rQnVDfsT+5Qnp+zK
+	 ZjRPPO0nhsIlegUlNjaWg41QDEQ7stgDyNX8FezDkxzA2syJY3Ge089DP0B0ulaISe
+	 sM0fj3IqSPe1uabibx3aMjAA6cbeEKuYSTvzwRzjuzIMtjdjrkR63AmtdixALLjU4x
+	 QW9MjRo+9UNyw==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: [GIT PULL] ASoC fixes for v6.2-rc8
+Date: Thu, 16 Feb 2023 13:10:30 +0000
+Message-Id: <20230216131038.59183C433D2@smtp.kernel.org>
+Message-ID-Hash: XIMQWWKWE7DBR6PKOLWIS7ZY6WI6N6NK
+X-Message-ID-Hash: XIMQWWKWE7DBR6PKOLWIS7ZY6WI6N6NK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AKEPZNUEOHBOU6MVUDSGH5QGMPETKSPZ
-X-Message-ID-Hash: AKEPZNUEOHBOU6MVUDSGH5QGMPETKSPZ
-X-Mailman-Approved-At: Thu, 16 Feb 2023 13:29:37 +0000
-CC: Takashi Iwai <tiwai@suse.de>, Lee Revell <rlrevell@joe-job.com>,
- James Courtier-Dutton <James@superbug.co.uk>,
- Veli-Matti Valtonen <maligor@gmail.com>, Ctirad Fertr <c.fertr@gmail.com>,
- Pavel Hofman <dustin@seznam.cz>, michael@gernoth.net,
- Maxim Kachur <mcdebugger@duganet.ru>, shane-alsa@cm.nu,
- Thomas Zehetbauer <thomasz@hostmaster.org>,
- Alexander Samad <alex@samad.com.au>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKEPZNUEOHBOU6MVUDSGH5QGMPETKSPZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XIMQWWKWE7DBR6PKOLWIS7ZY6WI6N6NK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,39 +86,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-moin,
+The following changes since commit c173ee5b2fa6195066674d66d1d7e191010fb1ff:
 
-i got myself an old e-mu 0404 card, because i found the analog hardware 
-well hackable for dc operation.
-then i found the driver to be lacking, and got hacking that, too. hence 
-this blast from the past.
+  ASoC: topology: Return -ENOMEM on memory allocation failure (2023-02-07 14:06:26 +0000)
 
-this is a huge branch with many internal dependencies, so i'm assuming 
-i'm not supposed to post a patch series.
-instead it's on https://github.com/ossilator/linux/tree/ossis-alsa - let 
-me know if another review platform is preferable.
+are available in the Git repository at:
 
-apart from the actual driver work, this contains some alsa patches 
-unrelated to emu10k1, some patches which really shouldn't be merged via 
-the alsa route (if at all), and some patches which are just collections 
-of questions (to which i hope to receive answers on github). this is of 
-course meant to be cleaned up in due time.
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc8
 
-feel free to cherry-pick the patches you deem ready; i'll happily rebase 
-the branch.
+for you to fetch changes up to 5afc7eefe41645259da84898fc55f6f46cb4de47:
 
-some of these patches are not (fully) tested due to lack of hardware. in 
-particular, someone should check that SB Live! and Audigy cards still 
-work. then there is a whole bunch of e-mu card specific functionality 
-which targets the "bigger members of the family". all patches that need 
-testing are clearly marked as such.
-if someone wants to provide me with hardware (temporarily or 
-permanently), go ahead (i'm in berlin, germany).
+  ASoC: SOF: ops: refine parameters order in function snd_sof_dsp_update8 (2023-02-08 11:51:45 +0000)
 
-on CC is everyone who is recorded to have hacked the emu1010 part of the 
-driver or tested something. i fully expect half the addresses to bounce, 
-and the remainder to wonder what i'm smoking. ;-)
-when you reply, please do so only to the list and me.
+----------------------------------------------------------------
+ASoC: Fix for v6.2
 
-regards
+One non-urgent fix for v6.2, this could possibly wait till the
+merge window.
 
+----------------------------------------------------------------
+Rander Wang (1):
+      ASoC: SOF: ops: refine parameters order in function snd_sof_dsp_update8
+
+ sound/soc/sof/ops.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)

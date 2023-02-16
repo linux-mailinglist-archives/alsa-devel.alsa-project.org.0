@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA08699888
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91925699909
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 16:38:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7FCBED9;
-	Thu, 16 Feb 2023 16:16:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7FCBED9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2753CEEC;
+	Thu, 16 Feb 2023 16:37:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2753CEEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676560611;
-	bh=ZsMqIuzb05Ne4ViqazRmOCH133Ieiya5wrDPPquG8/M=;
+	s=default; t=1676561907;
+	bh=2+KPvuaCpQD+82YcuDgvuCuUe3Ns8wL0cUpK01igajg=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XCDszSxUOc8aUjpasSRT/To3+A68AeCAsRR3ggb6m4e3WIj+N04qnrdNAo/1d7JOo
-	 oovzDgGL0s1BAF2PbmnPZhan9MkAZMsYFuQd0edLD9Ibb5Za/DHtHq42o3FXisVF5L
-	 yTnPnbeimgrpReHNe0/kvB03v8JYrqSw1LWSZx/8=
+	b=U/FObb5pAmiv0AFSbjWmTPw7IjS8L3cLC3OP342ke9vtgbUpDPY1WeXUcOzE72mpv
+	 triKMfzFAeT50IMy6cxQZQ4hUqN7e8cO3PB27QM3a+uRC3IdoI3F2Lby7B64TwVvZw
+	 bvD+u0yq6w7lbkQYqfDT6zesUKp49KyqUwvqqF4U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E9EAF800E4;
-	Thu, 16 Feb 2023 16:16:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 934EDF80171;
+	Thu, 16 Feb 2023 16:37:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98301F80171; Thu, 16 Feb 2023 16:15:55 +0100 (CET)
+	id 59B1FF80171; Thu, 16 Feb 2023 16:37:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,45 +33,45 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81C39F80083
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 16:15:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C39F80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id D2655F80083
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 16:37:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2655F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aHXcznFk
+ header.s=k20201202 header.b=tXysuqPs
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id C4051B825DD;
-	Thu, 16 Feb 2023 15:15:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1602C433EF;
-	Thu, 16 Feb 2023 15:15:42 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 71F1CB82501;
+	Thu, 16 Feb 2023 15:37:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0770C433EF;
+	Thu, 16 Feb 2023 15:37:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676560543;
-	bh=ZsMqIuzb05Ne4ViqazRmOCH133Ieiya5wrDPPquG8/M=;
+	s=k20201202; t=1676561844;
+	bh=2+KPvuaCpQD+82YcuDgvuCuUe3Ns8wL0cUpK01igajg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aHXcznFkbedVsxumyqDWvT20Y6thvMkFgR8xuI/CfmFCAWTZqXbJDquucbTqFHavj
-	 HC7A5aXXCUlR7VvU50fCHFvN4eVm0MeyxJjNULMNAQEWJBhAW8QQGNANymkkRNdpIP
-	 iy0+IMU+sWc4P++3DJ1v6U8gs55ibvgBpqd7+NlxAwctvyaUp4Dfr/0PI7X/IhMOee
-	 CkWl/MkbS1Y3eN4AVVBodxrOfW9h+swQu2QzDxUklOHMMK50jniWxAQjlIyRK4XomN
-	 rJ9YbyY/q2x2OiR9ZpM3mGJheuuRvU1w3fLSV9hyt23W3seNtdF+bQMKVi/UcHSJri
-	 P0tlhyiM+ArRA==
-Date: Thu, 16 Feb 2023 15:15:39 +0000
+	b=tXysuqPsAs6J2ADpVDn3NaSd6flR4exuDGjBW74aRiQyJN2pDl4rAUOfH/nNfJQK1
+	 XS2Ig7Ly2vqYyyQxyRF4CeuJy/EafnvwX+bSfYLBgPPYGg/emI9CZW4KTCNNUeyk6y
+	 XAycS4nRkZK9QH2V1EHzJmuKkqVvI/qSH/Axr3GxXhwM8mU+tdhv7aMSbpcc6Jc/bS
+	 rckyp9C6ogk8/r7+ZgfXlYZb2I9viKSb+UuKEG9jyANrOxLbuEpDvvTLi/c2O7sYoi
+	 Wqv2Idj3cjcZpAwfRp7ec1J3vbVmx7MtqusrR/exBUnwjzsT3Hp35ovK2wrw2Z7VjN
+	 XWPAJuRtj1cPg==
+Date: Thu, 16 Feb 2023 15:37:20 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Lucas Tanure <lucas.tanure@collabora.com>
-Subject: Re: [PATCH 2/9] ASoC: amd: vangogh: Update code indentation
-Message-ID: <Y+5Im/6wsqNQ8FYo@sirena.org.uk>
+Subject: Re: [PATCH 8/9] ASoC: amd: vangogh: Centralize strings definition
+Message-ID: <Y+5NsB/Z5P+rVGbX@sirena.org.uk>
 References: <20230216103300.360016-1-lucas.tanure@collabora.com>
- <20230216103300.360016-3-lucas.tanure@collabora.com>
+ <20230216103300.360016-9-lucas.tanure@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5riVcraAeE+0JMsT"
+	protocol="application/pgp-signature"; boundary="qdQDcYIyMx1V5VX8"
 Content-Disposition: inline
-In-Reply-To: <20230216103300.360016-3-lucas.tanure@collabora.com>
+In-Reply-To: <20230216103300.360016-9-lucas.tanure@collabora.com>
 X-Cookie: Serving suggestion.
-Message-ID-Hash: ALMROVUMIBM5ZKDZZPMUCQ2IQ5CGGZPO
-X-Message-ID-Hash: ALMROVUMIBM5ZKDZZPMUCQ2IQ5CGGZPO
+Message-ID-Hash: THPI5QXH5WGEFHDZHX4QQ3GREREPWD6V
+X-Message-ID-Hash: THPI5QXH5WGEFHDZHX4QQ3GREREPWD6V
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ALMROVUMIBM5ZKDZZPMUCQ2IQ5CGGZPO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/THPI5QXH5WGEFHDZHX4QQ3GREREPWD6V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,57 +97,47 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---5riVcraAeE+0JMsT
+--qdQDcYIyMx1V5VX8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 16, 2023 at 10:32:53AM +0000, Lucas Tanure wrote:
-> Make use of 100 character limit and modify indentation so code is
-> easier to read.
+On Thu, Feb 16, 2023 at 10:32:59AM +0000, Lucas Tanure wrote:
 
-I'm having a hard time seeing this as a helpful=20
+> Replace occurrences of strings by their definition, avoiding bugs where
+> the string changed, but not all places have been modified
 
-> While at it:
->  - sort includes in alphabetical order
->  - sort variables declarations by line length
->  - use smaller variables names
->  - remove unnecessary "struct snd_soc_card *card" lines
->  - insert blank lines before return
->  - align defines
+>  #define DRV_NAME			"acp5x_mach"
+>  #define DUAL_CHANNEL			2
+> -#define ACP5X_NUVOTON_CODEC_DAI		"nau8821-hifi"
+>  #define VG_JUPITER			1
+> -#define ACP5X_NUVOTON_BCLK		3072000
+> -#define ACP5X_NAU8821_FREQ_OUT		12288000
+> +#define NAU8821_BCLK			3072000
+> +#define NAU8821_FREQ_OUT		12288000
+> +#define NAU8821_DAI			"nau8821-hifi"
+> +#define CS35L41_LNAME			"spi-VLV1776:00"
+> +#define CS35L41_RNAME			"spi-VLV1776:01"
+> +#define CS35L41_DAI			"cs35l41-pcm"
 
-This isn't helping make things easier to review :/
+These changes don't obviously correspond to the description of
+the patch.  It looks like there's at least some renaming and
+reindentation of things not related to DAI names here.  TBH I'm
+not sure the removal of namespacing is a good idea, it's probably
+not *super* likely but we might run into collisions.
 
-> -static int acp5x_8821_startup(struct snd_pcm_substream *substream)
-> +static int acp5x_8821_startup(struct snd_pcm_substream *sub)
-
-We do usually refer to substreams as such, I'm not sure this is
-really helping.
-
-> -	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
-> -				   &constraints_channels);
-> +	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS, &co=
-nstraints_channels);
-
-I'm having a *really* hard time seeing this as helping with
-legibility, it just makes things worse when viewed at 80 columns
-but it's hard to see what it helps.  The 100 column limit is
-flexibility we can use to avoid contortions but this is fairly
-natural.
-
---5riVcraAeE+0JMsT
+--qdQDcYIyMx1V5VX8
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuSJsACgkQJNaLcl1U
-h9Bkpgf9He+GgisvMXfHzovOeUmaexSlr7cC8udBT98h0ba00jKK6TKSwlhxQbC9
-P42L20e/Zorz014nCe42Srv9gRCllVenYG0lQZbIJ567xRuW02yP5pPHIcxJunRE
-3JNtDONZ5pxl/rJC1A/wGpPTQRVCYcudtimB3jYTTx29/8Brfv+HzWNOCHOgQvn5
-9Zw6Xo1wXSOhC3qQBHs3N8iQfyL6RJ2KRZ18twgw3aWTNs1yu9rBA2/hQEfSDJk1
-JEvlWx+q3uIta3UFMmLiaIYScpW1S7KkIOdQNN1x/0kMiVSvszC94L2eo+K/OS+c
-Ka2Q4PN+/taP2AnLQSmn1FhyqZ7DjA==
-=onrk
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuTbAACgkQJNaLcl1U
+h9CM/wgAhRWIiQuG2HbuVN3no2Nu6aNxDlLnUyWqA56pB1z0yMBH8FUpGknpjCN2
+gdXiAARXV9SzsasDJuDR7j1K7XDGV0HzQfmkRTsr7tFdvcmGqcX1VJpfPZHUaYLT
+TbrM3xmhCxJl0b4q9SErRcVnXigBqliQdQKP059F3S6QqSn0TfMu6be5Dem5AhS1
+BMuk64l4HKZkpn6zEJqmGzDv2gM+goq4gEZpo7MCwYdpSehUUT0xY1eR0T8/tUfr
+HC50ADfLeWqb3iMCN0kuUVPh/8lEELOY5dxpUSzb+B8oZ+i6lrDJQWWjUXEDw0iE
+b7W3A65dk2wwRFiL8K18FpSMdj3D9w==
+=xmrC
 -----END PGP SIGNATURE-----
 
---5riVcraAeE+0JMsT--
+--qdQDcYIyMx1V5VX8--

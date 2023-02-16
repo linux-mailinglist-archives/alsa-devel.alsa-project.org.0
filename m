@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 196226997AB
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:41:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611916997CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 15:47:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED40EEA9;
-	Thu, 16 Feb 2023 15:41:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED40EEA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2FC2E84;
+	Thu, 16 Feb 2023 15:46:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2FC2E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676558518;
-	bh=DcFzL+Mc9BQ9Hw8Juk/R8AH4j49T5gA+cKm37/xDzEE=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=SYuMYTai2tcRMz9T4/5Yr21lbQKhFkno8L4cXPYJ7s29njhyUEHAhE+YcPhhbdiNf
-	 Vxfu9m9vTo8xP/d9Me103lRGNudZJbMkWy0wzs8oVwvNb7GidryYjJfOVsGimQjM7v
-	 Qlf3DbkFUeC0cSvnRhYK1qGX8K8Wl2MGQRnCwY8U=
+	s=default; t=1676558859;
+	bh=LCnYvIINjyxCa3G+TEGs6sBnENrcAhNBZIdvdQRNokM=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QrNAiYIGpx1Xqq5BMQLn73CuzdFhuTq4VCieQuP0OkUSOQXe+mP+5hqi3wcRDTfzN
+	 LSTi6sNKQ5+HuIvVZfhvyITemowBhm/6WuJmuPMHJm8W7je3do1D14oFV8+F4L00uJ
+	 W2pUt1IEMSEFCT3TMkfZxF8oBshZCN7ahTm9v9TU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 368E2F800E4;
-	Thu, 16 Feb 2023 15:41:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 079ECF800E4;
+	Thu, 16 Feb 2023 15:46:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88025F80171; Thu, 16 Feb 2023 15:41:03 +0100 (CET)
+	id 540F3F80171; Thu, 16 Feb 2023 15:46:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4FC4F80083
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 15:40:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4FC4F80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CC68F80083
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 15:46:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CC68F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=f2ZL9dhg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676558459; x=1708094459;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=DcFzL+Mc9BQ9Hw8Juk/R8AH4j49T5gA+cKm37/xDzEE=;
-  b=f2ZL9dhgZNWP5Q7DoeuUKdhYMaryV06m7XEeqQX9DHjsI97HD9LeYRHd
-   DZR+CZS3muza/U6Ks7bslmZhMEhdNeO03wnVHfI1mqHfaEYfRRzhPb8wH
-   /ZWkOa1P7REtvHu55IPjxtp0m7MVsElNmpzORqdGuImJIbbSSZuUISatJ
-   LK5IKCVpOBkuXo2O4cnWusOjloe9Ph/RFnSnb7nIvFImMWSe7U0XJzuzK
-   xxAQv6NlVQpmcDdId257sob2fseq9HgutyKSKcdmSl3RTLq9GjOi88c6E
-   TIFjkbcnkqt4EFFH0YCX4kukEOYPjrBsLuTOfdMn33DZ1ZVUrAAK5lNxi
-   Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="394158327"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000";
-   d="scan'208";a="394158327"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 06:40:44 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="663474446"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000";
-   d="scan'208";a="663474446"
-Received: from sbadria-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.18.21])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 06:40:42 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: Intel: hda-dai: fix possible stream_tag leak
-Date: Thu, 16 Feb 2023 16:40:54 +0200
-Message-Id: <20230216144054.26203-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=dWikivDp
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 83715B82845;
+	Thu, 16 Feb 2023 14:46:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98418C433D2;
+	Thu, 16 Feb 2023 14:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1676558800;
+	bh=LCnYvIINjyxCa3G+TEGs6sBnENrcAhNBZIdvdQRNokM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dWikivDp9g3uqJMnhF5qkq9wSlzEUtynfuG1Py8cYJC4MBSyICywQ+WoX9BB+DvxX
+	 s5KjPz6w8/VFI8UBwrD9wzm7IItOP9ei3SwC7c9X1LHl22BF2optDGqNESNad8gaJ4
+	 3d8wujLi88RxAbY/ni8u+HAzbtvonJjG+2WfO9jzQx/iL5DCdZcKJKt8PYgqWKzl+r
+	 bXJuB/cPvEt/4b6zYg17Ofhr6EzC7GM9z4s5AY9J+EDETJz+P/DM5oVm/4QDgrLFTG
+	 c3EYCxCnY1Jlu8rcZcehKtLlzFC8BhJkX4N2ecPLeXrqcGma2/VoyUkl5HFm/5VWRC
+	 1IzvqH7ImqfOQ==
+Date: Thu, 16 Feb 2023 14:46:36 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
+ microchip,startup-delay-us binding
+Message-ID: <Y+5BzEJBaTn3twBH@sirena.org.uk>
+References: <20230214161435.1088246-1-claudiu.beznea@microchip.com>
+ <20230214161435.1088246-3-claudiu.beznea@microchip.com>
+ <485d74fe-bfb5-c55e-724f-304476624abd@linaro.org>
+ <954cdf90-c41a-4e21-31e0-88a0baf26065@microchip.com>
+ <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: N4ANJ5FZRTKSUSZSZPPDFFWOJQEVX4HC
-X-Message-ID-Hash: N4ANJ5FZRTKSUSZSZPPDFFWOJQEVX4HC
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TxVDayxViJvYQhLz"
+Content-Disposition: inline
+In-Reply-To: <fd2f372f-4a1c-72c0-574d-1d5ef99dbdbc@linaro.org>
+X-Cookie: Serving suggestion.
+Message-ID-Hash: D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN
+X-Message-ID-Hash: D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com, yung-chuan.liao@linux.intel.com
+CC: Claudiu.Beznea@microchip.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, lars@metafoo.de, tiwai@suse.com,
+ Nicolas.Ferre@microchip.com, alexandre.belloni@bootlin.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N4ANJ5FZRTKSUSZSZPPDFFWOJQEVX4HC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D24A5KAD4DCZXREB4QVYVRM7L7AEIIIN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,75 +101,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The HDaudio stream allocation is done first, and in a second step the
-LOSIDV parameter is programmed for the multi-link used by a codec.
+--TxVDayxViJvYQhLz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This leads to a possible stream_tag leak, e.g. if a DisplayAudio link
-is not used. This would happen when a non-Intel graphics card is used
-and userspace unconditionally uses the Intel Display Audio PCMs without
-checking if they are connected to a receiver with jack controls.
+On Thu, Feb 16, 2023 at 11:18:16AM +0100, Krzysztof Kozlowski wrote:
+> On 16/02/2023 11:15, Claudiu.Beznea@microchip.com wrote:
 
-We should first check that there is a valid multi-link entry to
-configure before allocating a stream_tag. This change aligns the
-dma_assign and dma_cleanup phases.
+> >>> +  microchip,startup-delay-us:
+> >>> +    description: |
+> >>> +      Specifies the delay in microseconds that needs to be applied after
+> >>> +      enabling the PDMC microphones to avoid unwanted noise due to microphones
+> >>> +      not being ready.
 
-Link: https://github.com/thesofproject/linux/issues/4151
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
-Hi Mark,
+> >> Is this some hardware delay? Or OS? If OS, why Linux specific delay is
+> >> put into DT?
 
-is there still time to send this for v6.2?
-If not, then I will re-send it with stable 6.2 tag.
+> > It's the delay used in software workaround that IP needs to filter noises.
 
-In fact similar change should be sent to stable kernels but due to a function
-name change in 6.2 [1], this patch is not going to apply anything older..
+> Then this sounds like OS? Linux related properties usually do not belong
+> to DT.
 
-[1]
-b0cd60f3e9f5 ("ALSA/ASoC: hda: clarify bus_get_link() and bus_link_get() helpers")
+This is a hardware property, it's the time needed for the input
+to settle.
 
-Did a snd_hdac_ext_bus_get_link() -> snd_hdac_ext_bus_get_hlink_by_name() rename
+--TxVDayxViJvYQhLz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I'm not sure if I should add the stable tag and let the stable guys figure it out,
-but I feel guilty to do so...
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Peter
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuQcwACgkQJNaLcl1U
+h9AmJQf/TgHpEIGKbPryBe3ZR4YcUQhPbFNTGdI63vitiShh+bX3JzzEnswt6j41
+/RVENFOLuUfoh9viCWf/ulK9vT4YCfwsz2nZ1OHdFGkoJQ+loNNutpcgVUXUgmy/
+YSBs3uvJv1OCTM+1pPfzyiMKLK/ycbwrEi7N/xL8SDSZyW0DKLJCJgw/yjGEDNvg
+WYOi3VMr0Eo1SeJaPej+o8+BKHh63GBLvOwlMoMKT9YALS+pQtEAWdysVGfL4i1h
+JKpQHC3o5DDRT7qgAVhRLD1w7I26PdJZUJVB4ADbrnWjFQpKyV0Nvi517eaBKeTO
+mPTUYrEw348SwZ872VcV384YXSFffQ==
+=Ijuf
+-----END PGP SIGNATURE-----
 
- sound/soc/sof/intel/hda-dai.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 193b3e74820a..8d9c38d562d3 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -216,6 +216,10 @@ static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
- 	sdev = snd_soc_component_get_drvdata(cpu_dai->component);
- 	bus = sof_to_bus(sdev);
- 
-+	hlink = snd_hdac_ext_bus_get_hlink_by_name(bus, codec_dai->component->name);
-+	if (!hlink)
-+		return -EINVAL;
-+
- 	hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
- 	if (!hext_stream) {
- 		hext_stream = hda_link_stream_assign(bus, substream);
-@@ -225,10 +229,6 @@ static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_dai_set_dma_data(cpu_dai, substream, (void *)hext_stream);
- 	}
- 
--	hlink = snd_hdac_ext_bus_get_hlink_by_name(bus, codec_dai->component->name);
--	if (!hlink)
--		return -EINVAL;
--
- 	/* set the hdac_stream in the codec dai */
- 	snd_soc_dai_set_stream(codec_dai, hdac_stream(hext_stream), substream->stream);
- 
--- 
-2.39.2
-
+--TxVDayxViJvYQhLz--

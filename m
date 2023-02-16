@@ -2,91 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456816995A3
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:24:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52A66995ED
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Feb 2023 14:35:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98CE6E71;
-	Thu, 16 Feb 2023 14:23:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98CE6E71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F30CE7F;
+	Thu, 16 Feb 2023 14:34:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F30CE7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676553875;
-	bh=zZ4rQNc8mPRkeZ0/8qJ2pJ5hmbNsF1z0HeQ280pKM6E=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1676554528;
+	bh=Azk0Q4lGXskzB+gCX/b5qa9EBKOMPORlieMj5wXfp3s=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QFq/wTYJZl30giX6ICZnlLzZXCQXJTCWGM9IjrILULaoccQ5YC722AM4bZhRlKW2y
-	 PPZcZhXX+JqkU4bPPsi3hp4YLL3HBhZh+v2xYhKE21wlWBHLl9n550ntRWLsiJ6AWS
-	 J2lSemavL24sQPONTcagNKiXXOJKIKp3+VKEydhs=
+	b=li+N2/w62q0cTQj5yhF6tgiF+fflO0uovguuB2fkJ6OHlqiwiqo3i22pLWM4ES7/H
+	 7Kj7wDlbRV/kbY5l5B3eEnU7uDk5zOWA48DE3fll4y9ez4jyw3V5G2J1q4IsRqqNmk
+	 VayR3NJg9WjzhL4oV2dRKJitQEvsHQ+QAGA11Zrc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 213F8F800E4;
-	Thu, 16 Feb 2023 14:23:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7115BF800E4;
+	Thu, 16 Feb 2023 14:34:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5687F80171; Thu, 16 Feb 2023 14:23:40 +0100 (CET)
+	id 90104F80171; Thu, 16 Feb 2023 14:34:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 17D3AF800E3
-	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 14:23:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D3AF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1B94F800E3
+	for <alsa-devel@alsa-project.org>; Thu, 16 Feb 2023 14:34:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1B94F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZUpV/cal
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=DLV4eg/p;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3IWq71Gs
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 3253BB827FA;
-	Thu, 16 Feb 2023 13:23:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9643C433D2;
-	Thu, 16 Feb 2023 13:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676553815;
-	bh=zZ4rQNc8mPRkeZ0/8qJ2pJ5hmbNsF1z0HeQ280pKM6E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZUpV/cal3CvprEvJANGAsyd4jjRMoj2iuceMPIdBzVvrvACNFdGcn7m9r7o9P+lbP
-	 j2NdFaCR6W9mlUAa9529aKRKl5210D++z7f2doAAAuWDd6TZ2Tp7N05PaTpNSJYiLI
-	 NbBHhn3/yv0yHLlRLV0mQ+tZVCclF5PYujt+jzgX+VOSyhr6PscPj9B2icQvQmBNTM
-	 z2iRSqKptCLCSOenFzS/dse6BJwSD4bsumw9EH/spJm9k9/Vtl4OxJZyQMOWlEzGfX
-	 BWjdTfauhtM9v+962YbyUCkUge/b8vunBFYUudx49t3PTC3sgR02iaiyNCdrsbnEX3
-	 FEfim0Ag+tl/Q==
-From: Mark Brown <broonie@kernel.org>
-To: David Rau <David.Rau.opensource@dm.renesas.com>
-In-Reply-To: <20230215101045.21456-1-David.Rau.opensource@dm.renesas.com>
-References: <20230215101045.21456-1-David.Rau.opensource@dm.renesas.com>
-Subject: Re: [PATCH] ASoC: da7219: Improve the IRQ process to increase the
- stability
-Message-Id: <167655381355.3676286.5725030746001526408.b4-ty@kernel.org>
-Date: Thu, 16 Feb 2023 13:23:33 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.0
-Message-ID-Hash: KNMA6WQE3OZJEE7CWJPSXIGZCKQ5P2UE
-X-Message-ID-Hash: KNMA6WQE3OZJEE7CWJPSXIGZCKQ5P2UE
-X-MailFrom: broonie@kernel.org
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4DA00221E5;
+	Thu, 16 Feb 2023 13:34:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1676554469;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LQcFS3rIWMgE+is5t7xne0GWfmauTM5b5nsz2j9V2SQ=;
+	b=DLV4eg/p8TB5fjJBVCsWAtqeqRlaUsfnkUvLifJy6C/31Ab6KSJSP8Ho/fB06o6z6Z4vMx
+	YRxwqVzCXCJA8G7XqF52Y5b5e8i0J9gSwARr3Q8hOYirbShQnSObg2B5VcFzwL3q35HfF0
+	/0XJbn7UNVzA7fXtEulQlqEoTa1+tjc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1676554469;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LQcFS3rIWMgE+is5t7xne0GWfmauTM5b5nsz2j9V2SQ=;
+	b=3IWq71GsNz7Jdgtw78hyedPnnkdG4zIsAmGWvwanV/pHanhKrmRWUqiEsQ3gYd9bKKe6sP
+	jqloBg6wbns0YjAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3160213438;
+	Thu, 16 Feb 2023 13:34:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id nAdPC+Uw7mOUXwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 16 Feb 2023 13:34:29 +0000
+Date: Thu, 16 Feb 2023 14:34:28 +0100
+Message-ID: <874jrl7mzf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v6.2-rc8
+In-Reply-To: <20230216131038.59183C433D2@smtp.kernel.org>
+References: <20230216131038.59183C433D2@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU
+X-Message-ID-Hash: ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: support.opensource@diasemi.com, lgirdwood@gmail.com, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- bailideng@google.com
+CC: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNMA6WQE3OZJEE7CWJPSXIGZCKQ5P2UE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILGJ36HV3VQ6J6UVZAZP5FU337KHJXTU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,39 +115,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 15 Feb 2023 10:10:45 +0000, David Rau wrote:
-> Remove the sleep control in IRQ thread
-> and create an individual task to handel it for Jack plug in event.
+On Thu, 16 Feb 2023 14:10:30 +0100,
+Mark Brown wrote:
 > 
-> This commit improves the control of ground switches in the AAD IRQ.
+> The following changes since commit c173ee5b2fa6195066674d66d1d7e191010fb1ff:
 > 
+>   ASoC: topology: Return -ENOMEM on memory allocation failure (2023-02-07 14:06:26 +0000)
 > 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.2-rc8
+> 
+> for you to fetch changes up to 5afc7eefe41645259da84898fc55f6f46cb4de47:
+> 
+>   ASoC: SOF: ops: refine parameters order in function snd_sof_dsp_update8 (2023-02-08 11:51:45 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fix for v6.2
+> 
+> One non-urgent fix for v6.2, this could possibly wait till the
+> merge window.
 
-Applied to
+Thanks, pulled now.
 
-   broonie/sound.git for-next
+I'll likely postpone this to the early 6.3 PR (that I'll submit in
+today or on Saturday in anyway).
 
-Thanks!
 
-[1/1] ASoC: da7219: Improve the IRQ process to increase the stability
-      commit: 7fde88eda855952766a74026c181c6270b3392fc
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Takashi

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEFA069A3A1
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 02:55:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E5B69A3A4
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 02:55:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A62EEC7;
-	Fri, 17 Feb 2023 02:54:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A62EEC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B5A2EDB;
+	Fri, 17 Feb 2023 02:55:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B5A2EDB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676598909;
-	bh=Gw5LE3twoGw4eDFOyNeOTFFuzAZaxlBPT44ZcdXStuk=;
+	s=default; t=1676598959;
+	bh=N5dU7vSeJJk7hHS+VAJUWrF+nBsAniJz+yjge9/eNtk=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vEgktZjBBVbvb12J0u8u1IX3N0yrAm7WfE8j9FzZoV4vV8hVe5jTxlpvB1+rSqLfV
-	 HBqYOV4afe0w9v1sNrKma9c9RVT1JcHm9s/JoKT1+Gb5ldB3Jwc8cYyOWVKpZpaVif
-	 IWlkhTg/OJDvJ8m88KfN/FU+djGGV/QzgcAjb63c=
+	b=nRk6UfvYlpM+DsjcUBdnvjIVju/EtXMBlV8QUYdepKWkuj322cRnP+KUm4yk6Zixr
+	 Y/Hy6kW+KwL3SKKavg3Yq95bkRcdHvS6+VnoFas+y+A7FNVzrjghZ9DQ8eG4Gzd+/R
+	 UscvEKnSB+GIymF6241xt4Y7IQhhO2ZFzzK1sn8I=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E110F801C0;
-	Fri, 17 Feb 2023 02:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6ECBF80496;
+	Fri, 17 Feb 2023 02:54:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9486F8047C; Fri, 17 Feb 2023 02:54:15 +0100 (CET)
+	id 64541F801C0; Fri, 17 Feb 2023 02:54:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,45 +33,44 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8EDADF800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 02:54:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EDADF800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id C69E2F800E4
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 02:54:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C69E2F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pMYaEO+n
+ header.s=k20201202 header.b=uYmLPg0J
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B4D9D61191;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 14DA9611FC;
+	Fri, 17 Feb 2023 01:54:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB43CC433EF;
 	Fri, 17 Feb 2023 01:54:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B961FC4339B;
-	Fri, 17 Feb 2023 01:54:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676598849;
-	bh=Gw5LE3twoGw4eDFOyNeOTFFuzAZaxlBPT44ZcdXStuk=;
+	s=k20201202; t=1676598851;
+	bh=N5dU7vSeJJk7hHS+VAJUWrF+nBsAniJz+yjge9/eNtk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=pMYaEO+nM4HYKGFOGrCC2gJ8NTppz1XUFbx7S2o42CcorIXnk5RaTfbxb9X3YstTs
-	 NoBC09X09lo6E8Wp1rYMY33QQ5+NjHLYMMvKHUqAhSHpntxnTerAY4yK7Xdn0VdyI5
-	 lCsunmp/8USEwUfWiySLAzgkgYonRJmxMxmuzfrfmimlc0a975onIagYfxp26/Egyr
-	 tDwiUZDmYYhI0nAvO+hzjacM39/rania2WmrBI2KGYMNml3l/ui3Vd6hQWw2K7yv+B
-	 x90xrZX0C3jQf0IQ/DmiTSgrJ2XFTHO1Jbq+VGybP8ixpawXN11ZPnUK5Te+KOoouf
-	 GbDq4v3MHcwdw==
+	b=uYmLPg0J7Rbdg/Hh33bGQHW6nvLgU9rOnqeSMRTv9N29+P3EgiFWYO3qlmg5hmFFU
+	 ttf6gHK5fBMusYySydkmkrdUjRLgGz2SAdQHfrQpo7KAIBn2j3StcseHjqYuMSLyFs
+	 lPheSJ+Etkc2wnDQ+s5llhHwAtSMIgfrAlNRiKLJccy6pP5RRtjmdMruiYZgtTHQBc
+	 zxQXiYOYR5Duxdr8NhXXWAk3Yy5N02brMZ5TxjfckqMAa4gbnGiGt7agPOCNV/lWMI
+	 GUSqjmO1Uj9K+fKKU0bCtfChymzsP0F/IWLnaQXJxmmrQUKUTUz1+ZZcgn5slLyz5s
+	 VLGZ4WyHwLh5Q==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Joseph Hunkeler <jhunkeler@gmail.com>
-In-Reply-To: <20230216155007.26143-1-jhunkeler@gmail.com>
-References: <20230216155007.26143-1-jhunkeler@gmail.com>
-Subject: Re: [PATCH] soc:amd:yp:Add OMEN by HP Gaming Laptop 16z-n000 to
- quirks
-Message-Id: <167659884738.51394.3064624449308276945.b4-ty@kernel.org>
-Date: Fri, 17 Feb 2023 01:54:07 +0000
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230216162340.19480-1-peter.ujfalusi@linux.intel.com>
+References: <20230216162340.19480-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: Intel: hda-dai: fix possible stream_tag
+ leak
+Message-Id: <167659884931.51394.12529347002057479214.b4-ty@kernel.org>
+Date: Fri, 17 Feb 2023 01:54:09 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.12.0
-Message-ID-Hash: JH3VQT2Z7BR4ULXG7CP53Q63CNHTJMTS
-X-Message-ID-Hash: JH3VQT2Z7BR4ULXG7CP53Q63CNHTJMTS
+Message-ID-Hash: QCVZS2OCWDOCJPQIAT5WCAAF6DA3LTMD
+X-Message-ID-Hash: QCVZS2OCWDOCJPQIAT5WCAAF6DA3LTMD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,13 +78,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com, yung-chuan.liao@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JH3VQT2Z7BR4ULXG7CP53Q63CNHTJMTS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCVZS2OCWDOCJPQIAT5WCAAF6DA3LTMD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,10 +95,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 16 Feb 2023 10:50:07 -0500, Joseph Hunkeler wrote:
-> Enables display microphone on the HP OMEN 16z-n000 (8A42) laptop
+On Thu, 16 Feb 2023 18:23:40 +0200, Peter Ujfalusi wrote:
+> The HDaudio stream allocation is done first, and in a second step the
+> LOSIDV parameter is programmed for the multi-link used by a codec.
 > 
+> This leads to a possible stream_tag leak, e.g. if a DisplayAudio link
+> is not used. This would happen when a non-Intel graphics card is used
+> and userspace unconditionally uses the Intel Display Audio PCMs without
+> checking if they are connected to a receiver with jack controls.
 > 
+> [...]
 
 Applied to
 
@@ -105,8 +112,8 @@ Applied to
 
 Thanks!
 
-[1/1] soc:amd:yp:Add OMEN by HP Gaming Laptop 16z-n000 to quirks
-      commit: 22ce6843abec19270bf69b176d7ee0a4ef781da5
+[1/1] ASoC: SOF: Intel: hda-dai: fix possible stream_tag leak
+      commit: 1f810d2b6b2fbdc5279644d8b2c140b1f7c9d43d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

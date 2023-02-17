@@ -2,121 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF0FB69AE01
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 15:25:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1973769AEA4
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 15:58:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5681F30;
-	Fri, 17 Feb 2023 15:24:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5681F30
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15A4BF24;
+	Fri, 17 Feb 2023 15:57:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15A4BF24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676643949;
-	bh=KWRIP39QLVNO5wwu3BPiUtgpzVi8E3Ox6E8mwIxj70s=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nIJ3WZyGDoCEIi5dzLhAjiagvLegzXJKQK0ZyTJVQY8HgpX2VhYwPrzb/t1Mo4GE4
-	 pXs2lH3qv39CQH07KJ3M67E5zuoslJ+J2Fb6e6dsD6AlWyqcLEO8ncPEEuI1yWUDZF
-	 sA0KF06Tibp0r3TrY9LmpJelBvx6yOhmnVbRPxlc=
+	s=default; t=1676645880;
+	bh=LpP3zihBnTBT4vlrmB+O3kptkkAUnHGgtP2zx2mqvdI=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TXNCfYQz7ctnsIi3crRq9Rr4y1xgO2DcAlt5U7W8Z4biXU7I1x8JkJ3Hz6oDebWkU
+	 7yECqFlo6vVJ5bxKGsPYXWPdmvAXtBekMe2ldzJ6KGEzgr6pqhy54PWY73Q/e/XlkX
+	 SlYyqsYVyxcIkVk+CAukpxV24XgZpGOf0wn8UwFo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1623F800E4;
-	Fri, 17 Feb 2023 15:24:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40969F8047C;
+	Fri, 17 Feb 2023 15:57:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CC45F80171; Fri, 17 Feb 2023 15:24:55 +0100 (CET)
+	id ECEECF80496; Fri, 17 Feb 2023 15:57:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D94FFF800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 15:24:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D94FFF800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id AED58F800B6
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 15:56:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AED58F800B6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=OJ7TQIHz
-Received: by mail-ed1-x529.google.com with SMTP id i28so4390127eda.8
-        for <alsa-devel@alsa-project.org>;
- Fri, 17 Feb 2023 06:24:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FFjYG4jLURw1kYo7ShDSCBnd1OYlrQohbQF4zsR/gVk=;
-        b=OJ7TQIHzJQsa9/EIpru1db+VCZ+X8QPOmP8Ua+5RufEjNaROgv5Dn9z0CgKGtVsa7X
-         CNn1AyalhSJZY4Yyk818UgKQh8HiZo36uePEcFO6JiJavsq/SrbxryXvtXI2qPYjBsHQ
-         GuF9Erxp4Uz3LxkoIF0rKcclWfy+iF8GSohzT0lI2imelyWfBKATTefqn5GExQgtaAox
-         tzoYg81uHbP/ty0VRPfsz8fo4qWr22tRn3VwyvCUoZYcAhIhl3Zt8kUoa6pAOdOIw02F
-         afh8zWhUZBDzuP3pY1+DT4w6RnVe70qzP41d4lnTSKDyX1AZljqUeG2KLhdEEUsxB0u+
-         /t9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FFjYG4jLURw1kYo7ShDSCBnd1OYlrQohbQF4zsR/gVk=;
-        b=DazmhIIDnBUccFFAWHKJp4qNjtJDj4nVD2L9xsLJkM64HKYfzNLDQMFqdWgGDPMmTK
-         GjNy2PCJcUTiDCg4cL9yH08v1yhYUTBRIb8A1b+GG4TsC/NcM6XZGL5ZLjcrtpHMhKqn
-         Tac1wdadhdXQdp+Wo8xTSXj+KsFdNpcNuPikhn0LEF0T91Js3Fm43jVGpXkEj5z6GvRG
-         KakS6upMVMdqkoy5/4ME67ejrQLNflCkg2wrfXPugIa50iVbkOxZJb9ZugnAS/iUcGWx
-         /HB3KC8Sl20xIBEUkL8DrbDUlhOZdw68EQ+h/uGxgcNxiWd2LPbkAr3socdXmmdhMrvT
-         8tDg==
-X-Gm-Message-State: AO0yUKXXFku2ULvATcrQ7/cnM9yslpF9uN60gKuDwAiPVQ0CTrjlhMbP
-	1N+sHKKZQTh0vxBbrrLNVRoUWg==
-X-Google-Smtp-Source: 
- AK7set8cRq4IQx60rnukD9fbsNxxPpGXqav2rSq1nDhiVMKrQpHtAHfPgWf+DofWiP2cGt75L4meVA==
-X-Received: by 2002:a17:906:6454:b0:8b1:4507:eec with SMTP id
- l20-20020a170906645400b008b145070eecmr758694ejn.34.1676643889054;
-        Fri, 17 Feb 2023 06:24:49 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
-        by smtp.gmail.com with ESMTPSA id
- f27-20020a170906139b00b008b14399b74fsm2155741ejc.201.2023.02.17.06.24.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Feb 2023 06:24:48 -0800 (PST)
-Message-ID: <272c1291-dfea-3dcb-9462-5f84c55f7637@linaro.org>
-Date: Fri, 17 Feb 2023 15:24:46 +0100
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=NzGLiSzk
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPA id 729CE1BF20E;
+	Fri, 17 Feb 2023 14:56:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1676645813;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=cEnX0yXLJNMgFyPNqnorJyxP7vl2c+Yzt69qZEI0Noc=;
+	b=NzGLiSzkHc4BRsbrfVAIZsexg8eNvIKWNG5PfPzY1rkwOyEPqdJ2keLi7G0W6pPAHAZoIT
+	6N2mIV88OQOLylqCvYNat2ZrUzxCT85L+zv/9Cq1FV4BaQIAcvv6QptlcNQ/byV5n20qFb
+	av0SughLIRPX9OdYqdvP/PiRC1pz4/BaQCE/k8dNMdqDjY0AaqgvVVoo4ftfz3OpPom3qe
+	eBwS2tz6FmQGBnZrUJiMexSwSFusVt31SqzxmceznojQiwSPHV7aG0yQBzxUdM3gt7AlH5
+	itsdn6lGUDD0IF6DeCm2YWFMiqWyR8Mec4lZiE/stGamPZj1bsVT0bpJ7V2PqQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	Li Yang <leoyang.li@nxp.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Qiang Zhao <qiang.zhao@nxp.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>
+Subject: [PATCH v6 00/10] Add the PowerQUICC audio support using the QMC
+Date: Fri, 17 Feb 2023 15:56:35 +0100
+Message-Id: <20230217145645.1768659-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v5 01/10] dt-bindings: soc: fsl: cpm_qe: Add TSA
- controller
-Content-Language: en-US
-To: Herve Codina <herve.codina@bootlin.com>
-References: <20230216134226.1692107-1-herve.codina@bootlin.com>
- <20230216134226.1692107-2-herve.codina@bootlin.com>
- <6ae9af19-1d52-c31f-79be-a36f06caaf80@linaro.org>
- <20230217145019.0def6f9a@bootlin.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230217145019.0def6f9a@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: E7RFU5D3J4ZV5VOSH5UT2D2LNTUDO36M
-X-Message-ID-Hash: E7RFU5D3J4ZV5VOSH5UT2D2LNTUDO36M
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: OCZNQXGX7N5OAD2IBML3RBOTKWUKCBPA
+X-Message-ID-Hash: OCZNQXGX7N5OAD2IBML3RBOTKWUKCBPA
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Li Yang <leoyang.li@nxp.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Qiang Zhao <qiang.zhao@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+CC: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
@@ -124,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7RFU5D3J4ZV5VOSH5UT2D2LNTUDO36M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OCZNQXGX7N5OAD2IBML3RBOTKWUKCBPA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,61 +103,187 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/02/2023 14:50, Herve Codina wrote:
-> Hi Krzysztof,
-> 
-> On Fri, 17 Feb 2023 10:14:48 +0100
-> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> 
->> On 16/02/2023 14:42, Herve Codina wrote:
->>> Add support for the time slot assigner (TSA)
->>> available in some PowerQUICC SoC such as MPC885
->>> or MPC866.
->>>
->>> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
->>> ---
->>>  .../bindings/soc/fsl/cpm_qe/fsl,cpm1-tsa.yaml | 234 ++++++++++++++++++
->>>  include/dt-bindings/soc/fsl,tsa.h             |  13 +
->>>  2 files changed, 247 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-tsa.yaml
->>>  create mode 100644 include/dt-bindings/soc/fsl,tsa.h
-> 
-> [...]
->>> +
->>> +patternProperties:
->>> +  '^tdm@[0-1]$':
->>> +    description:
->>> +      The TDM managed by this controller
->>> +    type: object
->>> +
->>> +    additionalProperties: false
->>> +
->>> +    properties:
->>> +      reg:
->>> +        minimum: 0
->>> +        maximum: 1
->>> +        description:
->>> +          The TDM number for this TDM, 0 for TDMa and 1 for TDMb
-> [...]
->>> +
->>> +      fsl,rx-frame-sync-delay-bits:
->>> +        enum: [0, 1, 2, 3]  
->>
->> maxItems: 1
-> 
-> The property is an enum
-> Why this maxItems value ?
+Hi,
 
-Hm, it's an array, but you are right that enum forces dtschema to
-interpret it as scalar value, so your code is correct.
-> 
-> If I add the maxItems value, I've got some dt_binding_check errors:
->   /xxxx/bindings/soc/fsl/cpm_qe/fsl,cpm1-tsa.yaml:
->   patternProperties:^tdm@[0-1]$:properties:fsl,rx-frame-sync-delay-bits:
->   'enum' should not be valid under {'enum': ['const', 'enum', 'exclusiveMaximum', 'exclusiveMinimum', 'minimum', 'maximum', 'multipleOf', 'pattern']}
-> 	hint: Scalar and array keywords cannot be mixed
-> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
+This series adds support for audio using the QMC controller available in
+some Freescale PowerQUICC SoCs.
+
+This series contains three parts in order to show the different blocks
+hierarchy and their usage in this support.
+
+The first one is related to TSA (Time Slot Assigner).
+The TSA handles the data present at the pin level (TDM with up to 64
+time slots) and dispatchs them to one or more serial controller (SCC).
+
+The second is related to QMC (QUICC Multichannel Controller).
+The QMC handles the data at the serial controller (SCC) level and splits
+again the data to creates some virtual channels.
+
+The last one is related to the audio component (QMC audio).
+It is the glue between the QMC controller and the ASoC component. It
+handles one or more QMC virtual channels and creates one DAI per QMC
+virtual channels handled.
+
+Compared to the previous iteration
+  https://lore.kernel.org/linux-kernel/20230216134226.1692107-1-herve.codina@bootlin.com/
+this v6 series mainly:
+  - fixes bindings
 
 Best regards,
-Krzysztof
+Herve Codina
+
+Changes v5 -> v6
+  - Patch 1
+    Fix blank lines and spaces
+    Remove fsl,diagnostic-mode
+    Add some maxItems values
+    Renamed fsl,tsa.h to cpm1-fsl,tsa.h
+
+  - Patch 2
+    Remove fsl,diagnostic-mode
+    Renamed fsl,tsa.h to cpm1-fsl,tsa.h
+    Add 'Acked-by: Li Yang <leoyang.li@nxp.com>'
+
+  - Patch 3
+    Renamed fsl,tsa.h to cpm1-fsl,tsa.h
+
+  - Patch 5
+    Renamed fsl,tsa.h to cpm1-fsl,tsa.h
+    Add 'Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>'
+
+Changes v4 -> v5
+  - patch 1
+    Rename fsl,tsa.yaml to fsl,cpm1-tsa.yaml
+    Rename #serial-cells to #fsl,serial-cells and add a description
+    Fix typos
+    Remove examples present in description
+    Use a pattern property for fsl,[rt]x-ts-routes
+
+  - patch 2
+    Remove one left out_8() ppc specific function call
+    Remove the no more needed PPC dependency in case of COMPILE_TEST
+
+  - patch 4
+    Add 'Acked-by: Michael Ellerman <mpe@ellerman.id.au>'
+
+  - patch 5
+    Rename fsl,qmc.yaml to fsl,cpm1-scc-qmc.yaml
+    Rename #chan-cells to #fsl,chan-cells and add a description
+
+  - patch 6
+    Add the SOC_FSL dependency in case of COMPILE_TEST (issue raised by
+    the kernel test robot).
+    Fix a typo in commit log
+    Add 'Acked-by: Li Yang <leoyang.li@nxp.com>'
+
+Changes v3 -> v4
+  - patches 2, 6 and 9
+    Update code comment format.
+
+  - patch 1
+    Fix some description formats.
+    Add 'additionalProperties: false' in subnode.
+    Move fsl,mode to fsl,diagnostic-mode.
+    Change clocks and clock-names properties.
+    Add '#serial-cells' property related to the newly introduced
+    fsl,tsa-serial phandle.
+
+  - patch 2
+    Move fsl,mode to fsl,diagnostic-mode.
+    Replace the	fsl,tsa phandle and the	fsl,tsa-cell-id	property by a
+    fsl,tsa-serial phandle and update the related API.
+    Add missing locks.
+
+  - patch 5
+    Fix some description format.
+    Replace the fsl,tsa phandle and the fsl,tsa-cell-id property by a
+    fsl,tsa-serial phandle.
+    Rename fsl,mode to fsl,operational-mode and update its description.
+
+  - patch 6
+    Replace the	fsl,tsa phandle and the	fsl,tsa-cell-id	property by a
+    fsl,tsa-serial phandle and use the TSA updated API.
+    Rename fsl,mode to fsl,operational-mode.
+
+  - patch 8
+    Add 'Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>'
+
+Changes v2 -> v3
+  - All bindings
+    Rename fsl-tsa.h to fsl,tsa.h
+    Add missing vendor prefix
+    Various fixes (quotes, node names, upper/lower case)
+
+  - patches 1 and 2 (TSA binding specific)
+    Remove 'reserved' values in the routing tables
+    Remove fsl,grant-mode
+    Add a better description for 'fsl,common-rxtx-pins'
+    Fix clocks/clocks-name handling against fsl,common-rxtx-pins
+    Add information related to the delays unit
+    Removed FSL_CPM_TSA_NBCELL
+    Fix license in binding header file fsl,tsa.h
+
+  - patches 5 and 6 (QMC binding specific)
+    Remove fsl,cpm-command property
+    Add interrupt property constraint
+
+  - patches 8 and 9 (QMC audio binding specific)
+    Remove 'items' in compatible property definition
+    Add missing 'dai-common.yaml' reference
+    Fix the qmc_chan phandle definition
+
+  - patch 2 and 6
+    Use io{read,write}be{32,16}
+    Change commit subjects and logs
+
+  - patch 4
+    Add 'Acked-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+Changes v1 -> v2:
+  - patch 2 and 6
+    Fix kernel test robot errors
+
+  - other patches
+    No changes
+
+Herve Codina (10):
+  dt-bindings: soc: fsl: cpm_qe: Add TSA controller
+  soc: fsl: cpm1: Add support for TSA
+  MAINTAINERS: add the Freescale TSA controller entry
+  powerpc/8xx: Use a larger CPM1 command check mask
+  dt-bindings: soc: fsl: cpm_qe: Add QMC controller
+  soc: fsl: cpm1: Add support for QMC
+  MAINTAINERS: add the Freescale QMC controller entry
+  dt-bindings: sound: Add support for QMC audio
+  ASoC: fsl: Add support for QMC audio
+  MAINTAINERS: add the Freescale QMC audio entry
+
+ .../soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml      |  172 ++
+ .../bindings/soc/fsl/cpm_qe/fsl,cpm1-tsa.yaml |  215 +++
+ .../bindings/sound/fsl,qmc-audio.yaml         |  117 ++
+ MAINTAINERS                                   |   25 +
+ arch/powerpc/platforms/8xx/cpm1.c             |    2 +-
+ drivers/soc/fsl/qe/Kconfig                    |   23 +
+ drivers/soc/fsl/qe/Makefile                   |    2 +
+ drivers/soc/fsl/qe/qmc.c                      | 1533 +++++++++++++++++
+ drivers/soc/fsl/qe/tsa.c                      |  846 +++++++++
+ drivers/soc/fsl/qe/tsa.h                      |   42 +
+ include/dt-bindings/soc/cpm1-fsl,tsa.h        |   13 +
+ include/soc/fsl/qe/qmc.h                      |   71 +
+ sound/soc/fsl/Kconfig                         |    9 +
+ sound/soc/fsl/Makefile                        |    2 +
+ sound/soc/fsl/fsl_qmc_audio.c                 |  735 ++++++++
+ 15 files changed, 3806 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-tsa.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+ create mode 100644 drivers/soc/fsl/qe/qmc.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.c
+ create mode 100644 drivers/soc/fsl/qe/tsa.h
+ create mode 100644 include/dt-bindings/soc/cpm1-fsl,tsa.h
+ create mode 100644 include/soc/fsl/qe/qmc.h
+ create mode 100644 sound/soc/fsl/fsl_qmc_audio.c
+
+-- 
+2.39.1
 

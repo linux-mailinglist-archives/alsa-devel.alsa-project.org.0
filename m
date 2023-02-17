@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7404269AEC8
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 15:59:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E297269AEC1
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 15:59:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2B58F68;
-	Fri, 17 Feb 2023 15:58:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2B58F68
+	by alsa0.perex.cz (Postfix) with ESMTPS id 273D3F2C;
+	Fri, 17 Feb 2023 15:58:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 273D3F2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676645989;
-	bh=EwJU31GGGgId58bp7CyafPPSBOPn+KxTJaWlfd/egFA=;
+	s=default; t=1676645952;
+	bh=IAorWFlL/XJSG5Z4bRl2tjxxeYzEwnf+Ujs5It2pM6g=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pdj0GL5+qYpi4culR1jxzAo9+D8W3Ze+2YXwsi5A3Nqu3l7FgHYyjXjE5mJ7+q7t1
-	 QNXqWSHHSvM73x7KYnlF8UTR7yH5S0WcnBB5PK4Moklga2eByaEAworqHZwYsfs7AJ
-	 iI/9pGHRL5W+oIjE3uN9W6deQdZH0PiNk/nk39/4=
+	b=J/G+OYO+GQGK1p8P66iR3r6K+ja0QfnHRSyMYS0B030M0OoFLmjDmd9dbrQx3+8eu
+	 FAWGghrUtLzSLarnC6I3bcMFBktFhckSs6AQeL1KozrsutUIQ7TxngdUQdKPQy3E7Y
+	 /rDA8KqqSOi0dcWRld82sgpdLi9BWBJPg8TJ05x4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F3D6F80567;
-	Fri, 17 Feb 2023 15:57:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEB7EF80542;
+	Fri, 17 Feb 2023 15:57:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC9FF8053D; Fri, 17 Feb 2023 15:57:16 +0100 (CET)
+	id 5A52DF80542; Fri, 17 Feb 2023 15:57:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::228])
+ [217.70.183.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 55EA3F800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 15:57:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55EA3F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5460EF801C0
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 15:57:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5460EF801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=AsOMPDgE
+ header.s=gm1 header.b=ZIHR1Z7u
 Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 880A71BF217;
-	Fri, 17 Feb 2023 14:57:01 +0000 (UTC)
+	by mail.gandi.net (Postfix) with ESMTPA id 5F7341BF213;
+	Fri, 17 Feb 2023 14:57:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1676645824;
+	t=1676645827;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=G+UNtwo9Blm4QFpeMaX/6I3K3Hv55FXb27tDybz/bIc=;
-	b=AsOMPDgE3WN1LS7viGVfjZzNw8qG9B8KZFwQ2x6lEgL3scEYC5GmRjj3WpdQl56tAPVLzl
-	TWbMyGl6X0ZT/cmuDEUmxwqi1sPRol12EN0bYkf8wtSjtdKuM28Ut0GoPHjdJHHxEhNxqk
-	6ca0H4T1Ql/KO7eUHsingq9Qj13mhJJyUsHBzwZXH6zQWdKEwKhize1FikJaImjMM9SCWX
-	emt3HefjQb8raf1uFoZWAtN/tfyIcSsDiFwYdTZs1ws4ujDKKGE6OPwAmXQ2BVXAU7PtSp
-	HQcV0hGKdQFJ06yMeKZBkbwSYMz80gyg2/n9QS2b3Yo65q90doYvUReJQ4fk/A==
+	bh=oYeCNlFKCB3z/T7XzFP/EVYPzmR0xOzrZvn1IeHi7Jo=;
+	b=ZIHR1Z7ulS6OECjLOgZtuJleXPBR2wNxZp0QbB5n0VywTUMLFTUZCkMNDpzAIp6NQ/7iVF
+	C8skIsPBcfbHrQgBW01+hEeW2H+Uz5Rdj8DkxGLHOw87nK3+5KIlbwNHKa64aC5Vdl9AEE
+	tfIYi//DFDv+0I+HS/qweRVI9CerYsMwqmMOaHL5OtjgunA9rZ8bzMatltbtxVQcqgKNcu
+	kTaplLwD637M1Vdt7xSb3xkKHxPpdsULdVYzcEME7Ni94V/FA7DG8UHU7Qj02T8BmaqQTz
+	ai84pxLbl4j5dA3Ew8TtjQFENLC6oQTdZbS4XQAuPHJmisspZxcSpGCFTXf1Qw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Li Yang <leoyang.li@nxp.com>,
@@ -73,16 +73,16 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Xiubo Li <Xiubo.Lee@gmail.com>,
 	Fabio Estevam <festevam@gmail.com>,
 	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: [PATCH v6 04/10] powerpc/8xx: Use a larger CPM1 command check mask
-Date: Fri, 17 Feb 2023 15:56:39 +0100
-Message-Id: <20230217145645.1768659-5-herve.codina@bootlin.com>
+Subject: [PATCH v6 05/10] dt-bindings: soc: fsl: cpm_qe: Add QMC controller
+Date: Fri, 17 Feb 2023 15:56:40 +0100
+Message-Id: <20230217145645.1768659-6-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230217145645.1768659-1-herve.codina@bootlin.com>
 References: <20230217145645.1768659-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HI4K3IJWXHC7BX2MN4VACETHYYJ457F5
-X-Message-ID-Hash: HI4K3IJWXHC7BX2MN4VACETHYYJ457F5
+Message-ID-Hash: YPYP325HNNLCJBCAE4QNALSSFQT3OSLA
+X-Message-ID-Hash: YPYP325HNNLCJBCAE4QNALSSFQT3OSLA
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,13 +92,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 CC: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+ alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HI4K3IJWXHC7BX2MN4VACETHYYJ457F5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YPYP325HNNLCJBCAE4QNALSSFQT3OSLA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,40 +108,194 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The CPM1 command mask is defined for use with the standard
-CPM1 command register as described in the user's manual:
-  0  |1        3|4    7|8   11|12      14| 15|
-  RST|    -     |OPCODE|CH_NUM|     -    |FLG|
-
-In the QMC extension the CPM1 command register is redefined
-(QMC supplement user's manuel) with the following mapping:
-  0  |1        3|4    7|8           13|14| 15|
-  RST|QMC OPCODE|  1110|CHANNEL_NUMBER| -|FLG|
-
-Extend the check command mask in order to support both the
-standard CH_NUM field and the QMC extension CHANNEL_NUMBER
-field.
+Add support for the QMC (QUICC Multichannel Controller)
+available in some PowerQUICC SoC such as MPC885 or MPC866.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-Acked-by: Michael Ellerman <mpe@ellerman.id.au>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- arch/powerpc/platforms/8xx/cpm1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml      | 172 ++++++++++++++++++
+ 1 file changed, 172 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
 
-diff --git a/arch/powerpc/platforms/8xx/cpm1.c b/arch/powerpc/platforms/8xx/cpm1.c
-index 8ef1f4392086..6b828b9f90d9 100644
---- a/arch/powerpc/platforms/8xx/cpm1.c
-+++ b/arch/powerpc/platforms/8xx/cpm1.c
-@@ -100,7 +100,7 @@ int cpm_command(u32 command, u8 opcode)
- 	int i, ret;
- 	unsigned long flags;
- 
--	if (command & 0xffffff0f)
-+	if (command & 0xffffff03)
- 		return -EINVAL;
- 
- 	spin_lock_irqsave(&cmd_lock, flags);
+diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+new file mode 100644
+index 000000000000..4ebbc7d52981
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+@@ -0,0 +1,172 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: PowerQUICC CPM QUICC Multichannel Controller (QMC)
++
++maintainers:
++  - Herve Codina <herve.codina@bootlin.com>
++
++description:
++  The QMC (QUICC Multichannel Controller) emulates up to 64 channels within one
++  serial controller using the same TDM physical interface routed from TSA.
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - fsl,mpc885-scc-qmc
++          - fsl,mpc866-scc-qmc
++      - const: fsl,cpm1-scc-qmc
++
++  reg:
++    items:
++      - description: SCC (Serial communication controller) register base
++      - description: SCC parameter ram base
++      - description: Dual port ram base
++
++  reg-names:
++    items:
++      - const: scc_regs
++      - const: scc_pram
++      - const: dpram
++
++  interrupts:
++    maxItems: 1
++    description: SCC interrupt line in the CPM interrupt controller
++
++  fsl,tsa-serial:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: phandle to TSA node
++          - enum: [1, 2, 3]
++            description: |
++              TSA serial interface (dt-bindings/soc/cpm1-fsl,tsa.h defines these
++              values)
++               - 1: SCC2
++               - 2: SCC3
++               - 3: SCC4
++    description:
++      Should be a phandle/number pair. The phandle to TSA node and the TSA
++      serial interface to use.
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  '#fsl,chan-cells':
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 1
++    description:
++      QMC consumers that use a phandle to QMC need to pass the channel number
++      with this phandle.
++      For instance "fsl,qmc-chan = <&qmc 16>;".
++
++patternProperties:
++  '^channel@([0-9]|[1-5][0-9]|6[0-3])$':
++    description:
++      A channel managed by this controller
++    type: object
++
++    properties:
++      reg:
++        minimum: 0
++        maximum: 63
++        description:
++          The channel number
++
++      fsl,operational-mode:
++        $ref: /schemas/types.yaml#/definitions/string
++        enum: [transparent, hdlc]
++        default: transparent
++        description: |
++          The channel operational mode
++            - hdlc: The channel handles HDLC frames
++            - transparent: The channel handles raw data without any processing
++
++      fsl,reverse-data:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          The bit order as seen on the channels is reversed,
++          transmitting/receiving the MSB of each octet first.
++          This flag is used only in 'transparent' mode.
++
++      fsl,tx-ts-mask:
++        $ref: /schemas/types.yaml#/definitions/uint64
++        description:
++          Channel assigned Tx time-slots within the Tx time-slots routed by the
++          TSA to this cell.
++
++      fsl,rx-ts-mask:
++        $ref: /schemas/types.yaml#/definitions/uint64
++        description:
++          Channel assigned Rx time-slots within the Rx time-slots routed by the
++          TSA to this cell.
++
++    required:
++      - reg
++      - fsl,tx-ts-mask
++      - fsl,rx-ts-mask
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - fsl,tsa-serial
++  - '#address-cells'
++  - '#size-cells'
++  - '#fsl,chan-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/soc/cpm1-fsl,tsa.h>
++
++    qmc@a60 {
++        compatible = "fsl,mpc885-scc-qmc", "fsl,cpm1-scc-qmc";
++        reg = <0xa60 0x20>,
++              <0x3f00 0xc0>,
++              <0x2000 0x1000>;
++        reg-names = "scc_regs", "scc_pram", "dpram";
++        interrupts = <27>;
++        interrupt-parent = <&CPM_PIC>;
++
++        #address-cells = <1>;
++        #size-cells = <0>;
++        #fsl,chan-cells = <1>;
++
++        fsl,tsa-serial = <&tsa FSL_CPM_TSA_SCC4>;
++
++        channel@16 {
++            /* Ch16 : First 4 even TS from all routed from TSA */
++            reg = <16>;
++            fsl,mode = "transparent";
++            fsl,reverse-data;
++            fsl,tx-ts-mask = <0x00000000 0x000000aa>;
++            fsl,rx-ts-mask = <0x00000000 0x000000aa>;
++        };
++
++        channel@17 {
++            /* Ch17 : First 4 odd TS from all routed from TSA */
++            reg = <17>;
++            fsl,mode = "transparent";
++            fsl,reverse-data;
++            fsl,tx-ts-mask = <0x00000000 0x00000055>;
++            fsl,rx-ts-mask = <0x00000000 0x00000055>;
++        };
++
++        channel@19 {
++            /* Ch19 : 8 TS (TS 8..15) from all routed from TSA */
++            reg = <19>;
++            fsl,mode = "hdlc";
++            fsl,tx-ts-mask = <0x00000000 0x0000ff00>;
++            fsl,rx-ts-mask = <0x00000000 0x0000ff00>;
++        };
++    };
 -- 
 2.39.1
 

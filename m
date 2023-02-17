@@ -2,84 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B8069AF05
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 16:07:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FCF069AF08
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 16:08:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FE07F48;
-	Fri, 17 Feb 2023 16:06:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FE07F48
+	by alsa0.perex.cz (Postfix) with ESMTPS id 868DAF59;
+	Fri, 17 Feb 2023 16:07:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 868DAF59
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676646458;
-	bh=7cTxXsKpBmta+jYVd9bCTzz8gFhlHV8/avn2IqAt16U=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ioi0XBnt2aqVs7ezHQjwtJJogmMj7iT3OmieeGKdM4LTLj9AKkQgtSOKa3hv7Nm3Z
-	 ZAT0jBt0dpuN4ofjV5VH9mSajLwhTCKCTTIV0WoS6H56nGTQwv4KSgnJeHOnz/Z9xt
-	 tVr+LwITZVcBeHaF+usthXZ2E+eI8OyC7/UUIbqw=
+	s=default; t=1676646508;
+	bh=4LVuRIBKQvvKNXZZ5rwUcjxzqTzIBuFiQjdOdTdaKcM=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=WgNpkiYobTMmvME+ToYH7P3KLvF2SDLOy37jxAtuspyJXSLceLXhzUzYf6Y9a4iCm
+	 xOFvLZUMEFTcdXXXUAEw2MP4sRaGa+WmQOcsFHzwN878+7dR6iQ5Rd8Vz89E1I8MRQ
+	 mlNTwX+wm402SvQNFBV1irp02d1lgi3ie5o4zsa8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7319DF800E4;
-	Fri, 17 Feb 2023 16:06:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48E34F80496;
+	Fri, 17 Feb 2023 16:06:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52AD4F801C0; Fri, 17 Feb 2023 16:06:44 +0100 (CET)
+	id EC948F80171; Fri, 17 Feb 2023 16:06:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07374F800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 16:06:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07374F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 30DF3F80083
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 16:06:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30DF3F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=rzKbDKDF
-Received: by mail-ed1-x532.google.com with SMTP id h14so5641082edz.10
+ header.s=google header.b=cPgqSYp5
+Received: by mail-ed1-x52c.google.com with SMTP id er25so5136408edb.6
         for <alsa-devel@alsa-project.org>;
- Fri, 17 Feb 2023 07:06:36 -0800 (PST)
+ Fri, 17 Feb 2023 07:06:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BVUO1aupwuc3SgbflJXaaYp+FkC1sn4UMeGDXbO6xHU=;
-        b=rzKbDKDFnboK8nfAzvrMTvJw6Y/TCnHtmj9dSm3gBcZw0H7LD1DGg32N+3QxYOeC6V
-         MSVe/+QCQ+QI8h6J+w5yWvR1qrK1d9IOLRF5J9BdQxpni7QON4pQcGDedOorfkCeeg2C
-         sZGGyIF/Ue4MSwysYFNPPNyuVrD3Sg0jwZdTCXIdSE5u/8Sv/7HNJSln6ZW/v2W721VW
-         +KcVLOxbEK8+axr0Rb9YHX7ARvLTVHD872g4BSEPPd6lSbTk3dL+IQH9I+o0REaJLaZH
-         eVEOqL8cqFSRxWTuy6Ok+uxUD8b5pMbduELxj6+MxiTz+xcUeFlTYmXWFF3FefP8RSYU
-         rosA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3z185FWU7ZfyyzhLKoYedsNlicLGBx1kFdr349Ea550=;
+        b=cPgqSYp5x0RbNey1QoYnp5yYjtPNnxIKHuV0yCV/tGu9ze+BWyKaZrgRC23xqf+aK1
+         Aa75MQoEmRnU49ts0JOKIdAsizKdLGtGQ6i3gbPmR/8+6/QlLJNRQKcZLCdwp6qESKLk
+         TNeODqdrNmmvu8AAMSwD/f+X9yYhNXjoTESvao7GPYh3/RJyInpDc8tOf328q9nSJfVK
+         uNyJqYQAaYyhcRqfLEb141/RcX5WHo476bWoSoAdMBR7U9u64E3NB8EDcq+GHSRjJp5a
+         b6Qh4FYtOa1Yw38WNUVZGEnLEWXE6z5y7xchSIgWc6sWTAckOKpnHBoSW1kh3ufDXVwb
+         krkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BVUO1aupwuc3SgbflJXaaYp+FkC1sn4UMeGDXbO6xHU=;
-        b=iRiQA8/wlWuNTi0WmKrtE2nENPafsHGKVOux/7IaOSvgNIjaISa4N4ueeCDcCSDLns
-         sDXRMey56wq4y5WgQJTYdgxXPdjr5nMemXuBMg4CjGoVK+ScRqPx3Jfm45PKu+wB61D4
-         IXU9s4Z7X/vXJ2g5muB2nEo9EHRfIvJ3I9EmOTZhaPU0dQFEkjqAcgbQBrBaQUYlUV//
-         bRBDCosy6tH2KfXs6WuJYHOe5rwHQ7XLWTH0bDDhykKXk0jSZXtFEoyItBHy8unnLV7l
-         jwWz4IvCfjuhGaZnJn9PDmQS4g239jyWDSQoZvpBh7zEHr9pB29HrACd7t6/PkzKlFGj
-         RSgg==
-X-Gm-Message-State: AO0yUKW5s5jMvQwZE5xSY2zZZOclIVSg99d0XYC0sl/22OQPuKlTJuZm
-	YxEbDkBe1cczZE9zADT/yAXRKQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3z185FWU7ZfyyzhLKoYedsNlicLGBx1kFdr349Ea550=;
+        b=BCCXnIXvH8gUokJHNX3RvNyNQi+gvx3foSP5ivhNTiX9OvyGS7Y1UYya5ByewxULeG
+         s+KDEwW8qlWD7xuoBoPNhl4bNkDpNYdd6vyypFDWHeh3lBDBVXUVcNU0vfLjiPONDmdn
+         9ZmDTU5DZ1vcx1F7yx6TOVBqIqmE3SCAL8RATdSmL53I8WVfpYdGeVJTS99QrEkUxfku
+         jlHWWFRW0WAVymPeacFHD45QHZrAdl6cvrHUlBSbC9Nopbh79yXzY47kzS1QJZY0k63K
+         BisfjQ8dFOhAu0jQ0jT6NjsER5TX/fz8nEuUbPJubha+TN9cwUnqvUGbIKoJONytc0LY
+         NoxA==
+X-Gm-Message-State: AO0yUKXTJl+MGJIcC8ZmS3e3Ygdy8bRfl/xb/Xqg1fIqasnfkaMg37vs
+	zOPaf6npr+WjLwG1pBvUW/QZDw==
 X-Google-Smtp-Source: 
- AK7set/MvpCwrmh0RJ26YKS8BemE7jtkrXyaF5g1Kn3SlB6NSMddMwdN2RsYzr6IDqPTECc1uZs1rA==
-X-Received: by 2002:a17:906:f75b:b0:88c:a43d:81bc with SMTP id
- jp27-20020a170906f75b00b0088ca43d81bcmr8775238ejb.58.1676646394818;
-        Fri, 17 Feb 2023 07:06:34 -0800 (PST)
+ AK7set/pn10vry4YigYRKtWssAPTbvwcClDP3kZTdAu0MAicSLuTBDXhSHoRKivXU0qwmTastoh1hQ==
+X-Received: by 2002:a17:906:4708:b0:8ae:e82a:3230 with SMTP id
+ y8-20020a170906470800b008aee82a3230mr10211274ejq.70.1676646399162;
+        Fri, 17 Feb 2023 07:06:39 -0800 (PST)
 Received: from krzk-bin.. ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- fx15-20020a170906b74f00b008b14ba6c954sm2221303ejb.194.2023.02.17.07.06.30
+ fx15-20020a170906b74f00b008b14ba6c954sm2221303ejb.194.2023.02.17.07.06.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Feb 2023 07:06:34 -0800 (PST)
+        Fri, 17 Feb 2023 07:06:38 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -99,14 +101,16 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH 1/3] ASoC: dt-bindings: wlf,wm8960: Convert to dtschema
-Date: Fri, 17 Feb 2023 16:06:25 +0100
-Message-Id: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 2/3] arm64: dts: imx8mm-nitrogen-r2: fix WM8960 clock name
+Date: Fri, 17 Feb 2023 16:06:26 +0100
+Message-Id: <20230217150627.779764-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
+References: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XIGYDGLYKCVCH5HBMFVCCKX3DYZUIIYE
-X-Message-ID-Hash: XIGYDGLYKCVCH5HBMFVCCKX3DYZUIIYE
+Message-ID-Hash: JBISWR4466UDDUOV2VI6NHLV2YODFGY4
+X-Message-ID-Hash: JBISWR4466UDDUOV2VI6NHLV2YODFGY4
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,13 +118,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ stable@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XIGYDGLYKCVCH5HBMFVCCKX3DYZUIIYE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JBISWR4466UDDUOV2VI6NHLV2YODFGY4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,170 +134,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the Wolfson WM8960 audio codecs bindings to DT schema.
+The WM8960 Linux driver expects the clock to be named "mclk".  Otherwise
+the clock will be ignored and not prepared/enabled by the driver.
 
-Changes against original binding:
-1. Document clocks and clock-names - already present in DTS and used
-   by Linux driver.
-
+Fixes: 40ba2eda0a7b ("arm64: dts: imx8mm-nitrogen-r2: add audio")
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
 ---
+ arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-One DTS warning still remains:
-  uniphier-pxs2-gentil.dtb: wm8960@1a: Unevaluated properties are not allowed ('port@0' was unexpected)
-
-I am not sure if this is correct usage of endpoints. I would assume the
-codec should be used only as DAI.
----
- .../devicetree/bindings/sound/wlf,wm8960.yaml | 88 +++++++++++++++++++
- .../devicetree/bindings/sound/wm8960.txt      | 42 ---------
- 2 files changed, 88 insertions(+), 42 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/wm8960.txt
-
-diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
-new file mode 100644
-index 000000000000..ee8eba7f0104
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/wlf,wm8960.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Wolfson WM8960 audio codec
-+
-+maintainers:
-+  - patches@opensource.cirrus.com
-+
-+properties:
-+  compatible:
-+    const: wlf,wm8960
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: mclk
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  wlf,capless:
-+    type: boolean
-+    description:
-+      If present, OUT3 pin will be enabled and disabled together with HP_L and
-+      HP_R pins in response to jack detect events.
-+
-+  wlf,gpio-cfg:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 2
-+    description: |
-+      A list of GPIO configuration register values.
-+       - gpio-cfg[0]: ALRCGPIO of R9 (Audio interface)
-+       - gpio-cfg[1]: {GPIOPOL:GPIOSEL[2:0]} of R48 (Additional Control 4).
-+
-+  wlf,hp-cfg:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 3
-+    description: |
-+      A list of headphone jack detect configuration register values:
-+       - hp-cfg[0]: HPSEL[1:0] of R48 (Additional Control 4).
-+       - hp-cfg[1]: {HPSWEN:HPSWPOL} of R24 (Additional Control 2).
-+       - hp-cfg[2]: {TOCLKSEL:TOEN} of R23 (Additional Control 1).
-+
-+  wlf,shared-lrclk:
-+    type: boolean
-+    description:
-+      If present, the LRCM bit of R24 (Additional control 2) gets set,
-+      indicating that ADCLRC and DACLRC pins will be disabled only when ADC
-+      (Left and Right) and DAC (Left and Right) are disabled.
-+      When WM8960 works on synchronize mode and DACLRC pin is used to supply
-+      frame clock, it will no frame clock for captrue unless enable DAC to
-+      enable DACLRC pin. If shared-lrclk is present, no need to enable DAC for
-+      captrue.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        audio-codec@1a {
-+            compatible = "wlf,wm8960";
-+            reg = <0x1a>;
-+            clocks = <&clks 0>;
-+            clock-names = "mclk";
-+            #sound-dai-cells = <0>;
-+            wlf,hp-cfg = <3 2 3>;
-+            wlf,gpio-cfg = <1 3>;
-+            wlf,shared-lrclk;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/wm8960.txt b/Documentation/devicetree/bindings/sound/wm8960.txt
-deleted file mode 100644
-index 85d3b287108c..000000000000
---- a/Documentation/devicetree/bindings/sound/wm8960.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--WM8960 audio CODEC
--
--This device supports I2C only.
--
--Required properties:
--
--  - compatible : "wlf,wm8960"
--
--  - reg : the I2C address of the device.
--
--Optional properties:
--  - wlf,shared-lrclk: This is a boolean property. If present, the LRCM bit of
--	R24 (Additional control 2) gets set, indicating that ADCLRC and DACLRC pins
--	will be disabled only when ADC (Left and Right) and DAC (Left and Right)
--	are disabled.
--	When wm8960 works on synchronize mode and DACLRC pin is used to supply
--	frame clock, it will no frame clock for captrue unless enable DAC to enable
--	DACLRC pin. If shared-lrclk is present, no need to enable DAC for captrue.
--
--  - wlf,capless: This is a boolean property. If present, OUT3 pin will be
--	enabled and disabled together with HP_L and HP_R pins in response to jack
--	detect events.
--
--  - wlf,hp-cfg: A list of headphone jack detect configuration register values.
--		The list must be 3 entries long.
--		hp-cfg[0]: HPSEL[1:0] of R48 (Additional Control 4).
--		hp-cfg[1]: {HPSWEN:HPSWPOL} of R24 (Additional Control 2).
--		hp-cfg[2]: {TOCLKSEL:TOEN} of R23 (Additional Control 1).
--
--  - wlf,gpio-cfg: A list of GPIO configuration register values.
--		  The list must be 2 entries long.
--		  gpio-cfg[0]: ALRCGPIO of R9 (Audio interface)
--		  gpio-cfg[1]: {GPIOPOL:GPIOSEL[2:0]} of R48 (Additional Control 4).
--
--Example:
--
--wm8960: codec@1a {
--	compatible = "wlf,wm8960";
--	reg = <0x1a>;
--
--	wlf,shared-lrclk;
--};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dts b/arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dts
+index 6357078185ed..0e8f0d7161ad 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-nitrogen-r2.dts
+@@ -247,7 +247,7 @@ wm8960: codec@1a {
+ 		compatible = "wlf,wm8960";
+ 		reg = <0x1a>;
+ 		clocks = <&clk IMX8MM_CLK_SAI1_ROOT>;
+-		clock-names = "mclk1";
++		clock-names = "mclk";
+ 		wlf,shared-lrclk;
+ 		#sound-dai-cells = <0>;
+ 	};
 -- 
 2.34.1
 

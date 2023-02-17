@@ -2,124 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 316E569B2B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 19:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA7E69B2E8
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 20:16:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6D6EFC8;
-	Fri, 17 Feb 2023 19:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6D6EFC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3820FB6;
+	Fri, 17 Feb 2023 20:15:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3820FB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676660116;
-	bh=078NR60TIBwo53TIeqhq3CI9BaMfwjyJvN0FyeiT96U=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1676661394;
+	bh=G/85bFWMblsbIz5H+NTur/T3kbROSsPA8F4KeWTtTxM=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G3tNmKRoHZgVVXjPVYsW3C5xEawl1LNan3APkBTGFs8rV+w4mIgYyNurlWR4uPun+
-	 oEjEYRUtDobOoRR0Mx9dxbGw3aA1ieAXsusI3cdWmRv74ev8xxfa6EXIFlYu4Kztkh
-	 fw/YNrkoN9ObZpw6edT9ndobfR+g0D26cFMXyBwg=
+	b=lD1Odgs+ewSfAkZXnZR338e896LoWeOf4USPgwmQ+bD0kFFI2dZtCQ0dYKHKOZOSF
+	 3MXTMVL039RXnbNOlXqxjbsKmZ2DqbC3olIthjJ79J0TwhN2WiZQIWTyTBhBVNxNc0
+	 Pln7nrgz9fU9gslycIqjFPqE0VHJT60ywPplAnew=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDC9BF80533;
-	Fri, 17 Feb 2023 19:53:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29C79F800E4;
+	Fri, 17 Feb 2023 20:15:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 240EFF8052D; Fri, 17 Feb 2023 19:53:20 +0100 (CET)
+	id D1C00F80171; Fri, 17 Feb 2023 20:15:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FREEMAIL_FROM,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SPF_TEMPERROR shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 67AD9F80171
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 19:53:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67AD9F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 72E5DF800AA
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 20:15:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72E5DF800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=jBbUGhXu
-Received: by mail-wr1-x42d.google.com with SMTP id a12so2025292wro.7
-        for <alsa-devel@alsa-project.org>;
- Fri, 17 Feb 2023 10:53:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cuYdi9JDEfUk3bSVOxhib3+XS2kP3hKiS/trU9amA0Y=;
-        b=jBbUGhXuPutU68xy8v1/tTsH0FNkiWcyXEw0HRthPl4z3nkGFqNw+kj5VJ7Wh9Q584
-         CIu6EA9SF2weK+TuPLhmITSGD3rWzVwFmy7XYY3YGKls9yoDKsBPPLv/VFcFViTGQ/ig
-         KCFgVY4rEeesYCejYw+zVbjhqijsiAohmzZeKk+1VKP9eXTPzaYvsHGH8y8XVbVikxrj
-         GLED2JiK1fhLGqY2ujnZyPnMkH+kzM7Bnt6RuCmxKBM/Mg9s3l3yqKcFB9Hga2l5ICR1
-         P+T8w0OicRCBtXvTBGvWuGpzL0W7dpN5artCkgvfoQD2s11ogxjcxPnazs4at/hr60V9
-         dCnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cuYdi9JDEfUk3bSVOxhib3+XS2kP3hKiS/trU9amA0Y=;
-        b=LmOm3pbhEkXETfNwfdOvBCJrG+4SXzyU0tUj9FKmdimglDpOyrRlggB8ZeUDvj84hh
-         WXesOzLxm6Nngp86naguFvZVheWpRwOk5mGOr04yY3HEPkLfD8m3s84FuhgedyMGsXmh
-         JkQ6BMD+X6g+KlYm2mcRaAsDWyLBXi6BSWeRXevZ6EsjnqJEbwHiLE0l/AH/QQfZEHjq
-         kmTuGysI75symYTw+mud1NPvzhK4fETHW2qrVpLOt5i8X3qYLmAy5O6lJXbj9UDQ3miK
-         k92coF5gOoQ+FXJGrhGIfbdfi6Nz7HnNYUDF+oPxPn5sCpFQBII2kdSoMZAHhH/8Py05
-         IOVw==
-X-Gm-Message-State: AO0yUKVqICzGphkHZ986XIw7JDPgltwc0hhYHN7MwloXVUdjNPboEFqA
-	DUBKeXg4Orl2tbHb6A6DWwo=
-X-Google-Smtp-Source: 
- AK7set8PNytjo88R/CSuQUpQ6yNfiv2mI4cAeSeVkEQxv9w+c+gUg8tywgNqdnVB1ce+k+fDvDn5Tg==
-X-Received: by 2002:adf:f646:0:b0:2c6:e87f:f19 with SMTP id
- x6-20020adff646000000b002c6e87f0f19mr2032734wrp.57.1676659980387;
-        Fri, 17 Feb 2023 10:53:00 -0800 (PST)
-Received: from prasmi.home ([2a00:23c8:2501:c701:d8bd:e692:c27f:c09d])
-        by smtp.gmail.com with ESMTPSA id
- l37-20020a05600c1d2500b003db0ad636d1sm2964514wms.28.2023.02.17.10.52.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Feb 2023 10:52:59 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 4/4] arm64: dts: renesas: r9a07g043: Update IRQ numbers for
- SSI channels
-Date: Fri, 17 Feb 2023 18:52:25 +0000
-Message-Id: <20230217185225.43310-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230217185225.43310-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20230217185225.43310-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=SrtDEi1I
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4996561F16;
+	Fri, 17 Feb 2023 19:15:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489C9C433D2;
+	Fri, 17 Feb 2023 19:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1676661325;
+	bh=G/85bFWMblsbIz5H+NTur/T3kbROSsPA8F4KeWTtTxM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SrtDEi1IVNLAktpZEhk1uI+ToDFVeSSVBgZ1ez9vN0+RG7D2uXX5SgnlxwL3xEegT
+	 C94sbFYK/5JALtaoEkcw2FnS3IPBE51MIA3vbDJIg3dUUGrjNZwbxAPcmC/5D1AWg7
+	 muCfEXNkTG36ZqSXp9JLKJhC8+0hc1Y4GTLJQ3VPu8D30oovBCHr+3QNV94QhuEXln
+	 HgvqZiK1aL5KstnK1JlPXZLECJovSIJRjY0lQjHbqoqBx4sOkU+BENovq6FAiIZp3V
+	 cOr4kQbfd0EB3DlvLvKAMLxOMyteV8x5AViB9AypQd+HuWclObS5sK1YGBBpMtQVG3
+	 ujbn+ASxOwZsw==
+Date: Fri, 17 Feb 2023 19:15:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [PATCH v5 00/10] Add the PowerQUICC audio support using the QMC
+Message-ID: <Y+/SStm9ifszrYA1@sirena.org.uk>
+References: <20230216134226.1692107-1-herve.codina@bootlin.com>
+ <87mt5dyxph.fsf@mpe.ellerman.id.au>
+ <0606f44f-bdbb-055c-6fff-440007222ce3@csgroup.eu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GM7L7EHCMMMTBYQOYIW5K523YFGQVAQN
-X-Message-ID-Hash: GM7L7EHCMMMTBYQOYIW5K523YFGQVAQN
-X-MailFrom: prabhakar.csengg@gmail.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VaNrrXW2eNrXN8Fc"
+Content-Disposition: inline
+In-Reply-To: <0606f44f-bdbb-055c-6fff-440007222ce3@csgroup.eu>
+X-Cookie: Serving suggestion.
+Message-ID-Hash: GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5
+X-Message-ID-Hash: GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Prabhakar <prabhakar.csengg@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+CC: Michael Ellerman <mpe@ellerman.id.au>, Li Yang <leoyang.li@nxp.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Herve Codina <herve.codina@bootlin.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GM7L7EHCMMMTBYQOYIW5K523YFGQVAQN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,78 +109,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
->From R01UH0968EJ0100 Rev.1.00 HW manual the interrupt numbers for SSI
-channels have been updated,
+--VaNrrXW2eNrXN8Fc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-SPI 329 - SSIF0 is now marked as reserved
-SPI 333 - SSIF1 is now marked as reserved
-SPI 335 - SSIF2 is now marked as reserved
-SPI 336 - SSIF2 is now marked as reserved
-SPI 341 - SSIF3 is now marked as reserved
+On Fri, Feb 17, 2023 at 06:32:03AM +0000, Christophe Leroy wrote:
 
-This patch drops the above IRQs from SoC DTSI.
+> Mark, is that ok for you or do you expect this series to go via soc tree ?
 
-Fixes: 559f2b0708c70 ("arm64: dts: renesas: r9a07g043: Add SSI{1,2,3} nodes and fillup the SSI0 stub node")
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/r9a07g043.dtsi | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+Sure, that sounds good to me.  I'll give it another check and
+then assuming everything is fine apply for -rc1.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a07g043.dtsi b/arch/arm64/boot/dts/renesas/r9a07g043.dtsi
-index c8a83e42c4f3..a9700654b421 100644
---- a/arch/arm64/boot/dts/renesas/r9a07g043.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a07g043.dtsi
-@@ -80,9 +80,8 @@ ssi0: ssi@10049c00 {
- 			reg = <0 0x10049c00 0 0x400>;
- 			interrupts = <SOC_PERIPHERAL_IRQ(326) IRQ_TYPE_LEVEL_HIGH>,
- 				     <SOC_PERIPHERAL_IRQ(327) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(328) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(329) IRQ_TYPE_EDGE_RISING>;
--			interrupt-names = "int_req", "dma_rx", "dma_tx", "dma_rt";
-+				     <SOC_PERIPHERAL_IRQ(328) IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "int_req", "dma_rx", "dma_tx";
- 			clocks = <&cpg CPG_MOD R9A07G043_SSI0_PCLK2>,
- 				 <&cpg CPG_MOD R9A07G043_SSI0_PCLK_SFR>,
- 				 <&audio_clk1>, <&audio_clk2>;
-@@ -101,9 +100,8 @@ ssi1: ssi@1004a000 {
- 			reg = <0 0x1004a000 0 0x400>;
- 			interrupts = <SOC_PERIPHERAL_IRQ(330) IRQ_TYPE_LEVEL_HIGH>,
- 				     <SOC_PERIPHERAL_IRQ(331) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(332) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(333) IRQ_TYPE_EDGE_RISING>;
--			interrupt-names = "int_req", "dma_rx", "dma_tx", "dma_rt";
-+				     <SOC_PERIPHERAL_IRQ(332) IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "int_req", "dma_rx", "dma_tx";
- 			clocks = <&cpg CPG_MOD R9A07G043_SSI1_PCLK2>,
- 				 <&cpg CPG_MOD R9A07G043_SSI1_PCLK_SFR>,
- 				 <&audio_clk1>, <&audio_clk2>;
-@@ -121,10 +119,8 @@ ssi2: ssi@1004a400 {
- 				     "renesas,rz-ssi";
- 			reg = <0 0x1004a400 0 0x400>;
- 			interrupts = <SOC_PERIPHERAL_IRQ(334) IRQ_TYPE_LEVEL_HIGH>,
--				     <SOC_PERIPHERAL_IRQ(335) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(336) IRQ_TYPE_EDGE_RISING>,
- 				     <SOC_PERIPHERAL_IRQ(337) IRQ_TYPE_EDGE_RISING>;
--			interrupt-names = "int_req", "dma_rx", "dma_tx", "dma_rt";
-+			interrupt-names = "int_req", "dma_rt";
- 			clocks = <&cpg CPG_MOD R9A07G043_SSI2_PCLK2>,
- 				 <&cpg CPG_MOD R9A07G043_SSI2_PCLK_SFR>,
- 				 <&audio_clk1>, <&audio_clk2>;
-@@ -143,9 +139,8 @@ ssi3: ssi@1004a800 {
- 			reg = <0 0x1004a800 0 0x400>;
- 			interrupts = <SOC_PERIPHERAL_IRQ(338) IRQ_TYPE_LEVEL_HIGH>,
- 				     <SOC_PERIPHERAL_IRQ(339) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(340) IRQ_TYPE_EDGE_RISING>,
--				     <SOC_PERIPHERAL_IRQ(341) IRQ_TYPE_EDGE_RISING>;
--			interrupt-names = "int_req", "dma_rx", "dma_tx", "dma_rt";
-+				     <SOC_PERIPHERAL_IRQ(340) IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "int_req", "dma_rx", "dma_tx";
- 			clocks = <&cpg CPG_MOD R9A07G043_SSI3_PCLK2>,
- 				 <&cpg CPG_MOD R9A07G043_SSI3_PCLK_SFR>,
- 				 <&audio_clk1>, <&audio_clk2>;
--- 
-2.25.1
+--VaNrrXW2eNrXN8Fc
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPv0kkACgkQJNaLcl1U
+h9A2ZAf+JT6rtuHjPfgpWsk/znSGdDmha4+vtlzEcAE1Dbq5/LFIShop84OCskiY
+0dIpfquVu0eN9u5F983mJtpr/jZfFZIvvJaN5ccwRNpduirs17rh3o8V0LoJRElD
+jv+lct+lydazjRFK/kmsuCtxrFvdoPI6edCHvAx8xIYUyG2cbNIpsU7X5hHGHzc6
+lxhGZDHR7DNveAVx91r1WaAzd8loxbpXkjGGsoqZr2/dkdSx5jlLiyIbMLlTdfrT
+PrkJ/ITqKSkmwMRCK0KH/gASwr7ChraDgaEIRhC+O0K+I3pL0BnInwSuv3XezGz9
+hdSU/02x5goYzdcJddt12woaNCqQYw==
+=SHcR
+-----END PGP SIGNATURE-----
+
+--VaNrrXW2eNrXN8Fc--

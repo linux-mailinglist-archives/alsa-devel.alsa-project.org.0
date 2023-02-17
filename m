@@ -2,103 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D66069AED7
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 16:01:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B582869AEE1
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 16:03:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED3A2EBD;
-	Fri, 17 Feb 2023 16:00:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED3A2EBD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20CB3F32;
+	Fri, 17 Feb 2023 16:02:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20CB3F32
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676646076;
-	bh=U1pP+Sug2DvIRjxbWORhEYOJ/l4n9Ww2MyPnebMrXo8=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=f9beao/eqfUll3QvhGWhAlC0AUxPMgpEDwH85TeTnjIKbWlQ54C1vWjrYXOSsPIef
-	 HNz4X5LNz54rqE0ydDbkhdrdaaPwJ2YCoHCD5sIres0/wfro959+/7UiutWNBDQs42
-	 x9hPK3/I9J1xu3lNrM0QF2Ib0Jkq65mUW1ZcBmHg=
+	s=default; t=1676646215;
+	bh=HpaS1b8m3yTo0si+rokaQg+vcBeSbJ3V2KiZ0HCIzgs=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tq1WthXst5nYiYu9k7uQskEoL4NSwNE5HorIGDrm02Y1Mg3fdeUa6C04ZJb0zGNwm
+	 8+SqoCGMJmidPFKSKUlyn3dNny/OaJg03fusiiG9fXqSHzQl1JlJNN+8FoPSGDBEc6
+	 0I4Mwh5eFX2borN6IfUzli0kQKjDkaJz5NjDxu7M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76999F805AB;
-	Fri, 17 Feb 2023 15:57:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AF82F800E4;
+	Fri, 17 Feb 2023 16:02:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26B4CF8057C; Fri, 17 Feb 2023 15:57:31 +0100 (CET)
+	id 94F69F80171; Fri, 17 Feb 2023 16:02:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::228])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62D03F8055C
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 15:57:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D03F8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id B2322F80083
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 16:02:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2322F80083
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=XwQIaXcr
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 209B91BF20A;
-	Fri, 17 Feb 2023 14:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1676645848;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=fJSMdM+4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1676646155;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=681RqdXqkB7I0BektlUsTSTMOLtnz60rIPybWhesz7E=;
-	b=XwQIaXcrl7Cc+b4H/eUP8uxDQHDWAyL+q37Xw0O4mAEva7oQtImwoY3RKeP/oZvc8O0OhO
-	QYfoZnbuMMwmCFSFkQAWWV/RXZPRP2A1FFYmBRccpoMJ2T33PmGDEkK2+SEbpw5pZfoRvM
-	TrdKXNzx5Uj2z5MYe5lmFCKIyyiGLsyDOyimdCR6ZVMdlk+TozH0HZxmCp4rwOS/a2BGCS
-	O7sB1p+GljyLbQBl5XsJ3OeYxYLxvASIJqVI8RbhLhhjmf9ON7qCul06RkklZoMo8RQrNf
-	q4o31DxEADMPhFf/9aSChDWlT8IOtmhXI1nFQaAJO+OJSljkNAoIrJJJwos8yg==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Li Yang <leoyang.li@nxp.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Qiang Zhao <qiang.zhao@nxp.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: [PATCH v6 10/10] MAINTAINERS: add the Freescale QMC audio entry
-Date: Fri, 17 Feb 2023 15:56:45 +0100
-Message-Id: <20230217145645.1768659-11-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230217145645.1768659-1-herve.codina@bootlin.com>
-References: <20230217145645.1768659-1-herve.codina@bootlin.com>
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hW85GbPws5PUBF8q/bKKhJZOpoiv1wJrGPLHg8Ou8WU=;
+	b=fJSMdM+4hOhh3tQAWbnD1iRaWc7KIvhBo0kXzhqRYvBpn44WUI63jbibD0gA0fJDjHkuy1
+	ugPGJ6qLYSN1HPGjPLuzPsVuwPiFmuhccWCQkiOPAFxPMRj6bvv4IIQcxHK/mJla4gJ4pq
+	YVJ0t7X7hxWXoSg1p9ZNbjtcwwewoEQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-534-EOzHjUtROJ6ubw2sVpmyqg-1; Fri, 17 Feb 2023 10:02:31 -0500
+X-MC-Unique: EOzHjUtROJ6ubw2sVpmyqg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 232A03823A20;
+	Fri, 17 Feb 2023 15:02:31 +0000 (UTC)
+Received: from shalem.redhat.com (unknown [10.39.193.199])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 26C41492C14;
+	Fri, 17 Feb 2023 15:02:30 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for the Acer Iconia One
+ 7 B1-750
+Date: Fri, 17 Feb 2023 16:02:29 +0100
+Message-Id: <20230217150229.32203-1-hdegoede@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GLOEIKNJCFKIDM4NT744ZP5UKKPWFR3P
-X-Message-ID-Hash: GLOEIKNJCFKIDM4NT744ZP5UKKPWFR3P
-X-MailFrom: herve.codina@bootlin.com
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Message-ID-Hash: BCQZP64IGXM7TOHCEJNPGEERSIV3OKX3
+X-Message-ID-Hash: BCQZP64IGXM7TOHCEJNPGEERSIV3OKX3
+X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GLOEIKNJCFKIDM4NT744ZP5UKKPWFR3P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCQZP64IGXM7TOHCEJNPGEERSIV3OKX3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,33 +104,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-After contributing the component, add myself as the maintainer
-for the Freescale QMC audio ASoC component.
+The Acer Iconia One 7 B1-750 tablet mostly works fine with the defaults
+for an Bay Trail CR tablet. Except for the internal mic, instead of
+an analog mic on IN3 a digital mic on DMIC1 is uses.
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Add a quirk with these settings for this tablet.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 47eca5b06cce..4553e5a30e9e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8440,6 +8440,14 @@ F:	sound/soc/fsl/fsl*
- F:	sound/soc/fsl/imx*
- F:	sound/soc/fsl/mpc8610_hpcd.c
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 79e0039c79a3..5a12940ef907 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -533,6 +533,18 @@ static int byt_rt5640_aif1_hw_params(struct snd_pcm_substream *substream,
  
-+FREESCALE SOC SOUND QMC DRIVER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-+L:	linuxppc-dev@lists.ozlabs.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
-+F:	sound/soc/fsl/fsl_qmc_audio.c
-+
- FREESCALE USB PERIPHERAL DRIVERS
- M:	Li Yang <leoyang.li@nxp.com>
- L:	linux-usb@vger.kernel.org
+ /* Please keep this list alphabetically sorted */
+ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
++	{	/* Acer Iconia One 7 B1-750 */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Insyde"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "VESPA2"),
++		},
++		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
++					BYT_RT5640_JD_SRC_JD1_IN4P |
++					BYT_RT5640_OVCD_TH_1500UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{	/* Acer Iconia Tab 8 W1-810 */
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
 -- 
 2.39.1
 

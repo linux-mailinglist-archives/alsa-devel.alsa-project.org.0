@@ -2,27 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3245569ABBB
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 13:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B01269ABBF
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 13:44:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABA1EF10;
-	Fri, 17 Feb 2023 13:42:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABA1EF10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9787FF1A;
+	Fri, 17 Feb 2023 13:43:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9787FF1A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676637795;
-	bh=U2iLnm4KuI3Sgwn+ds9QR6hu9ocdgvXPg7MffzvqL48=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=utdVdS6jZ53RoWkNQO6qRbFTJJzGZUWOzUWAPBdGBPwqt7blN4BYTThg1dujVYSRo
-	 VpIJDAwiocAnvU7A/T874JN4AT98sMJJjSgVlJb/UdqX0xpP53SMSstukUcxy5vtYq
-	 HhuNCV/Hi6u24+dldGGh4LQQ2P54pUa36C1MPn+c=
+	s=default; t=1676637846;
+	bh=h/jiWEOZsffwI+IMKkal/xKUjU/a6RIroqiEYcdfC9s=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=sf7ELBZJx7eusomP0hW2vwZCbkHrjMh92PO2npV+x8LO9QaqY3QoU8hyEcJW78Ljl
+	 oSzM2M/rC6su4WTBK1DfRGo5YfN9ilc3bw4Y0xCddvheZeBjbLyzemqUrfVNpuHrwS
+	 QhFeAgL3CtxVop2VQs2xLNB3qbrGTec4LZTn0Tn0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FC3DF800AA;
-	Fri, 17 Feb 2023 13:42:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F59BF80496;
+	Fri, 17 Feb 2023 13:42:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 242EFF801C0; Fri, 17 Feb 2023 13:42:20 +0100 (CET)
+	id F3B7BF800AA; Fri, 17 Feb 2023 13:42:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,51 +34,53 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1D56BF800AA
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 13:42:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D56BF800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51483F800B6
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 13:42:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51483F800B6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=wrz/iJO0
+ header.a=rsa-sha256 header.s=mchp header.b=iF5slHV8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1676637731; x=1708173731;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=U2iLnm4KuI3Sgwn+ds9QR6hu9ocdgvXPg7MffzvqL48=;
-  b=wrz/iJO0r9nWyY6o/RptJCLgZ0s8cgWCm/Jk/ZPs9MUToyPFVWm1ca7D
-   mI0p0SXuW7j5ep31wCDBYvFRjBSKdGaA1xgAh0hdbhS3jOsAeSLSceMjM
-   iCnBYg2HCeY6p4s+MbGpPotWIbjzGtJK/ME7UpZR3GkLbeuL/Mtpk9OQ2
-   IxbQmtAtguaznKa5OsYaGzSzIY702AsX9DM7BObGUqwUQmtxh7w7YH5w6
-   jS9/kWqX6SWcuF4sqBgw01LHHSpRnNW1x1IGyf4xuAwtWXqdtFP5lPDFH
-   6NKCRWoNB9oRV5zyB6f+dKuAZCZpVqYpHn+qg+tFTVV36C2G1dh6vLFmU
-   g==;
+  t=1676637733; x=1708173733;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=h/jiWEOZsffwI+IMKkal/xKUjU/a6RIroqiEYcdfC9s=;
+  b=iF5slHV8GVol0jPuEpZocXm53u9HEaPSs6GHJ2u0uWwjlJs1fKGHMaWH
+   YuVXgbfkB3FSxHdkOcjWjv1zm9Bb6u0uh2XpMXcDztrfcBCaOR0+V7I4m
+   O3cUHQa85wJRdl59ZoX4nOMR4j+ihIizlXXX9z1sNGAj/jaAjJDyMxxJ2
+   uy+2wcoeOvmGShZPKR3czrbIPnoiq2l9RZPjnsW3zuFHX/DJq/yVKyyH0
+   hWC4aWGwUsvkRnTlAMZqSlsglK1txBHd//oqiqw+S2QM7JoAaI6G6lBNH
+   X1HfqwNxpQUJVgBRP0RE5/76e2CrAMBfrDOwZuLrokT5zc3CnoQvy9dQB
+   Q==;
 X-IronPort-AV: E=Sophos;i="5.97,304,1669100400";
-   d="scan'208";a="137771389"
+   d="scan'208";a="137771533"
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
   by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 17 Feb 2023 05:42:03 -0700
+ 17 Feb 2023 05:42:11 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Fri, 17 Feb 2023 05:42:03 -0700
+ 15.1.2507.16; Fri, 17 Feb 2023 05:42:07 -0700
 Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.16 via Frontend Transport; Fri, 17 Feb 2023 05:42:00 -0700
+ 15.1.2507.16 via Frontend Transport; Fri, 17 Feb 2023 05:42:03 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
 	<krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
 	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>
-Subject: [PATCH v2 0/3] ASoC: mchp-pdmc: fix poc noises when starting capture
-Date: Fri, 17 Feb 2023 14:41:48 +0200
-Message-ID: <20230217124151.236216-1-claudiu.beznea@microchip.com>
+Subject: [PATCH v2 1/3] ASoC: soc-pcm: add option to start DMA after DAI
+Date: Fri, 17 Feb 2023 14:41:49 +0200
+Message-ID: <20230217124151.236216-2-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230217124151.236216-1-claudiu.beznea@microchip.com>
+References: <20230217124151.236216-1-claudiu.beznea@microchip.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Message-ID-Hash: MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD
-X-Message-ID-Hash: MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD
+Message-ID-Hash: GSBTLU5BBAIYYUJAMFFHRYONPUDWMUMA
+X-Message-ID-Hash: GSBTLU5BBAIYYUJAMFFHRYONPUDWMUMA
 X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSBTLU5BBAIYYUJAMFFHRYONPUDWMUMA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,50 +105,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To start capture on Microchip PDMC the enable bits for each supported
-microphone need to be set. After this bit is set the PDMC starts to
-receive data from microphones and it considers this data as valid data.
-Thus if microphones are not ready the PDMC captures anyway data from its
-lines. This data is interpreted by the human ear as poc noises.
+Add option to start DMA component after DAI trigger. This is done
+by filling the new struct snd_soc_component_driver::start_dma_last.
 
-To avoid this the following software workaround need to be applied when
-starting capture:
-1/ enable PDMC channel
-2/ wait 150ms
-3/ execute 16 dummy reads from RHR
-4/ clear interrupts
-5/ enable interrupts
-6/ enable DMA channel
+Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+---
+ include/sound/soc-component.h |  2 ++
+ sound/soc/soc-pcm.c           | 27 ++++++++++++++++++++++-----
+ 2 files changed, 24 insertions(+), 5 deletions(-)
 
-For this workaround to work step 6 need to be executed at the end.
-For step 6 was added patch 1/3 from this series. With this, component
-DAI driver sets its struct snd_soc_component_driver::start_dma_last = 1
-and proper action is taken based on this flag when starting DAI trigger
-vs DMA.
-
-Thank you,
-Claudiu Beznea
-
-Changes in v2:
-- patch 1/3 from v1 is now "ASoC: soc-pcm: add option to start DMA after DAI"
-- pass start_dma_last from component DAI driver object
-  (struct snd_soc_component_driver::start_dma_last); adapt patch 3/3 after this;
-- in patch 1/3 s/Do we need to start dma first/Do we need to start dma last
-  in comment from soc_pcm_trigger()
-- collect review tag from Krzysztof
-
-Claudiu Beznea (3):
-  ASoC: soc-pcm: add option to start DMA after DAI
-  ASoC: dt-bindings: sama7g5-pdmc: add microchip,startup-delay-us
-    binding
-  ASoC: mchp-pdmc: fix poc noise at capture startup
-
- .../sound/microchip,sama7g5-pdmc.yaml         |  6 ++
- include/sound/soc-component.h                 |  2 +
- sound/soc/atmel/mchp-pdmc.c                   | 55 +++++++++++++++++--
- sound/soc/soc-pcm.c                           | 27 +++++++--
- 4 files changed, 80 insertions(+), 10 deletions(-)
-
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 3203d35bc8c1..0814ed143864 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -190,6 +190,8 @@ struct snd_soc_component_driver {
+ 	bool use_dai_pcm_id;	/* use DAI link PCM ID as PCM device number */
+ 	int be_pcm_base;	/* base device ID for all BE PCMs */
+ 
++	unsigned int start_dma_last;
++
+ #ifdef CONFIG_DEBUG_FS
+ 	const char *debugfs_prefix;
+ #endif
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 005b179a770a..5eb056b942ce 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1088,22 +1088,39 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	int ret = -EINVAL, _ret = 0;
++	struct snd_soc_component *component;
++	int ret = -EINVAL, _ret = 0, start_dma_last = 0, i;
+ 	int rollback = 0;
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		/* Do we need to start dma last? */
++		for_each_rtd_components(rtd, i, component) {
++			if (component->driver->start_dma_last) {
++				start_dma_last = 1;
++				break;
++			}
++		}
++
+ 		ret = snd_soc_link_trigger(substream, cmd, 0);
+ 		if (ret < 0)
+ 			goto start_err;
+ 
+-		ret = snd_soc_pcm_component_trigger(substream, cmd, 0);
+-		if (ret < 0)
+-			goto start_err;
++		if (start_dma_last) {
++			ret = snd_soc_pcm_dai_trigger(substream, cmd, 0);
++			if (ret < 0)
++				goto start_err;
++
++			ret = snd_soc_pcm_component_trigger(substream, cmd, 0);
++		} else {
++			ret = snd_soc_pcm_component_trigger(substream, cmd, 0);
++			if (ret < 0)
++				goto start_err;
+ 
+-		ret = snd_soc_pcm_dai_trigger(substream, cmd, 0);
++			ret = snd_soc_pcm_dai_trigger(substream, cmd, 0);
++		}
+ start_err:
+ 		if (ret < 0)
+ 			rollback = 1;
 -- 
 2.34.1
 

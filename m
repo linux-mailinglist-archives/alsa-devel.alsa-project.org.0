@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA7E69B2E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 20:16:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B0669B3BF
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 21:19:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3820FB6;
-	Fri, 17 Feb 2023 20:15:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3820FB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8BDCF98;
+	Fri, 17 Feb 2023 21:18:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8BDCF98
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676661394;
-	bh=G/85bFWMblsbIz5H+NTur/T3kbROSsPA8F4KeWTtTxM=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676665169;
+	bh=lVqI8I1Q3SIjzTVVGYHbFL3YO1fxDiCRquZ+CxANmzc=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lD1Odgs+ewSfAkZXnZR338e896LoWeOf4USPgwmQ+bD0kFFI2dZtCQ0dYKHKOZOSF
-	 3MXTMVL039RXnbNOlXqxjbsKmZ2DqbC3olIthjJ79J0TwhN2WiZQIWTyTBhBVNxNc0
-	 Pln7nrgz9fU9gslycIqjFPqE0VHJT60ywPplAnew=
+	b=hnzxCyKluP2C55fIMJqFkhVEBCJJPW/h80boXltnRVoBLo526qmVHSNCYOvk8xlOU
+	 dhs7aHgoPGYMUTADf26axyIW9kmgQJvR7mBQ95o7/F/DspLrpC4STmso5P+MdHYCgT
+	 Zhv5wIYhvCbhp/l8jxUeLQdvlVFHYVyzSiDgKMbY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29C79F800E4;
-	Fri, 17 Feb 2023 20:15:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37252F800E4;
+	Fri, 17 Feb 2023 21:18:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1C00F80171; Fri, 17 Feb 2023 20:15:39 +0100 (CET)
+	id BC4ECF80171; Fri, 17 Feb 2023 21:18:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SPF_TEMPERROR shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
+ [217.70.178.231])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72E5DF800AA
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 20:15:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72E5DF800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9306FF800B6
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 21:18:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9306FF800B6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SrtDEi1I
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4996561F16;
-	Fri, 17 Feb 2023 19:15:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489C9C433D2;
-	Fri, 17 Feb 2023 19:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676661325;
-	bh=G/85bFWMblsbIz5H+NTur/T3kbROSsPA8F4KeWTtTxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SrtDEi1IVNLAktpZEhk1uI+ToDFVeSSVBgZ1ez9vN0+RG7D2uXX5SgnlxwL3xEegT
-	 C94sbFYK/5JALtaoEkcw2FnS3IPBE51MIA3vbDJIg3dUUGrjNZwbxAPcmC/5D1AWg7
-	 muCfEXNkTG36ZqSXp9JLKJhC8+0hc1Y4GTLJQ3VPu8D30oovBCHr+3QNV94QhuEXln
-	 HgvqZiK1aL5KstnK1JlPXZLECJovSIJRjY0lQjHbqoqBx4sOkU+BENovq6FAiIZp3V
-	 cOr4kQbfd0EB3DlvLvKAMLxOMyteV8x5AViB9AypQd+HuWclObS5sK1YGBBpMtQVG3
-	 ujbn+ASxOwZsw==
-Date: Fri, 17 Feb 2023 19:15:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Christophe Leroy <christophe.leroy@csgroup.eu>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=obYLelZ0
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 337FE100005;
+	Fri, 17 Feb 2023 20:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1676665105;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E8lIhLyYZrWOGH9acO3c8AQgJcBFOpPFrurmuqfB/DU=;
+	b=obYLelZ0JpWaeHM6XQnuEUxoArkn0+207v2TingL+S5XYm+6rwdff8zRrzHgkYLJWrd+Ph
+	fMP9ByQfat3MpOUROCd8ZI/xIlRtYV5geFdbGDqh8MtLoxR46yJPFJ9uL72EsEIp7vwUdD
+	WHJe2q4dgHghfDTa3rnFerrXAS50zXfIbxGXy9LCO3avlzWJuZ0F8UvmqBdYOoJWcI1HJC
+	3jF6uf4FB6X7h8dR1SQehYPUnMlCli6LiksbHXvRNgMuKPji4vkMkQk93+nZfPPeENfMxE
+	8YknYacLfbmAreQ6q91HJ/heB2kN7gRA7RO29JggH1vCkXQdg1Pe5pEZAjz3wg==
+Date: Fri, 17 Feb 2023 21:18:20 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH v5 00/10] Add the PowerQUICC audio support using the QMC
-Message-ID: <Y+/SStm9ifszrYA1@sirena.org.uk>
+Message-ID: <20230217211820.39fb47a7@bootlin.com>
+In-Reply-To: <Y+/SStm9ifszrYA1@sirena.org.uk>
 References: <20230216134226.1692107-1-herve.codina@bootlin.com>
- <87mt5dyxph.fsf@mpe.ellerman.id.au>
- <0606f44f-bdbb-055c-6fff-440007222ce3@csgroup.eu>
+	<87mt5dyxph.fsf@mpe.ellerman.id.au>
+	<0606f44f-bdbb-055c-6fff-440007222ce3@csgroup.eu>
+	<Y+/SStm9ifszrYA1@sirena.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VaNrrXW2eNrXN8Fc"
-Content-Disposition: inline
-In-Reply-To: <0606f44f-bdbb-055c-6fff-440007222ce3@csgroup.eu>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5
-X-Message-ID-Hash: GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 57HLGF4G2T4QK62I6ZU3QT2YFGBYUNSV
+X-Message-ID-Hash: 57HLGF4G2T4QK62I6ZU3QT2YFGBYUNSV
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Michael Ellerman <mpe@ellerman.id.au>, Li Yang <leoyang.li@nxp.com>,
+CC: Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Michael Ellerman <mpe@ellerman.id.au>, Li Yang <leoyang.li@nxp.com>,
  "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
  "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -90,7 +90,7 @@ CC: Michael Ellerman <mpe@ellerman.id.au>, Li Yang <leoyang.li@nxp.com>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Fabio Estevam <festevam@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Herve Codina <herve.codina@bootlin.com>,
+ Rob Herring <robh+dt@kernel.org>,
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKY3CWELRJ5QBD5BUOJAGHF67NPEDJW5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/57HLGF4G2T4QK62I6ZU3QT2YFGBYUNSV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,31 +109,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 17 Feb 2023 19:15:22 +0000
+Mark Brown <broonie@kernel.org> wrote:
 
---VaNrrXW2eNrXN8Fc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Fri, Feb 17, 2023 at 06:32:03AM +0000, Christophe Leroy wrote:
+>=20
+> > Mark, is that ok for you or do you expect this series to go via soc tre=
+e ?
+>=20
+> Sure, that sounds good to me.  I'll give it another check and
+> then assuming everything is fine apply for -rc1.
 
-On Fri, Feb 17, 2023 at 06:32:03AM +0000, Christophe Leroy wrote:
+Thanks a lot,
+Herv=C3=A9
 
-> Mark, is that ok for you or do you expect this series to go via soc tree ?
-
-Sure, that sounds good to me.  I'll give it another check and
-then assuming everything is fine apply for -rc1.
-
---VaNrrXW2eNrXN8Fc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPv0kkACgkQJNaLcl1U
-h9A2ZAf+JT6rtuHjPfgpWsk/znSGdDmha4+vtlzEcAE1Dbq5/LFIShop84OCskiY
-0dIpfquVu0eN9u5F983mJtpr/jZfFZIvvJaN5ccwRNpduirs17rh3o8V0LoJRElD
-jv+lct+lydazjRFK/kmsuCtxrFvdoPI6edCHvAx8xIYUyG2cbNIpsU7X5hHGHzc6
-lxhGZDHR7DNveAVx91r1WaAzd8loxbpXkjGGsoqZr2/dkdSx5jlLiyIbMLlTdfrT
-PrkJ/ITqKSkmwMRCK0KH/gASwr7ChraDgaEIRhC+O0K+I3pL0BnInwSuv3XezGz9
-hdSU/02x5goYzdcJddt12woaNCqQYw==
-=SHcR
------END PGP SIGNATURE-----
-
---VaNrrXW2eNrXN8Fc--
+--=20
+Herv=C3=A9 Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B47A69A9F8
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 12:13:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3245569ABBB
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 13:43:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A494EF2;
-	Fri, 17 Feb 2023 12:12:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A494EF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABA1EF10;
+	Fri, 17 Feb 2023 13:42:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABA1EF10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676632380;
-	bh=gbELMwYg817UFw8p4tgNjb0vJPCHEhsb/q4OUGfCW04=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LZC5MjEmAsj0Vjsj/Ues8+9lwZFP7+2TbJGTSI89tNu6f8VFBHAjJC3UrXS4bUa4t
-	 tYBM8yz/nu1SzYx4lDPjLp3O6yLwARxGi2p/ZjrEtp0szZW/uQV0o5WZR1/Hh3XVA8
-	 J7Bnrzd+8qDmvTGFH4IJANOVNnHYiyf9zsksfDgk=
+	s=default; t=1676637795;
+	bh=U2iLnm4KuI3Sgwn+ds9QR6hu9ocdgvXPg7MffzvqL48=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=utdVdS6jZ53RoWkNQO6qRbFTJJzGZUWOzUWAPBdGBPwqt7blN4BYTThg1dujVYSRo
+	 VpIJDAwiocAnvU7A/T874JN4AT98sMJJjSgVlJb/UdqX0xpP53SMSstukUcxy5vtYq
+	 HhuNCV/Hi6u24+dldGGh4LQQ2P54pUa36C1MPn+c=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE252F804B0;
-	Fri, 17 Feb 2023 12:10:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FC3DF800AA;
+	Fri, 17 Feb 2023 13:42:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD1FDF80525; Fri, 17 Feb 2023 12:10:54 +0100 (CET)
+	id 242EFF801C0; Fri, 17 Feb 2023 13:42:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00517F804B0
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 12:09:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00517F804B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1D56BF800AA
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 13:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D56BF800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=FyXNbKhA
-Received: from cryzen.lan (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net
- [82.11.51.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: tanureal)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 9DF1E66021D1;
-	Fri, 17 Feb 2023 11:09:36 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1676632176;
-	bh=gbELMwYg817UFw8p4tgNjb0vJPCHEhsb/q4OUGfCW04=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FyXNbKhAN9r8zmjYArexKlKD/sL/zm9FLMU077oMf3dyp+R8wK+zT91Oc46vl+KiY
-	 hlbPYpApmne/scmjHyIwsIni7n6RYRFS2HP7r+Ct8OlpJiw3ZQtWBVMw+h+GYdZ3Zj
-	 DWXQih9MJ5S6EJjyjyAlqR5ZKSM1i3wpqwiOmiS+o+Oc5pztwONs2ba8HB5rqCaFFH
-	 9/o/ufBwHO+FofaHUTL1y3lHtzKaYf70mu/kD89uRHUBS2BKVhm4d5b3zLTNzlMiAQ
-	 W741CtTUXSmDNOsfftyow3Qs1wrCzUoWTO4u+Mo8ZUrvbeB0k1h6mjKXujryG+tB+o
-	 UCq/bhLZf5jmA==
-From: Lucas Tanure <lucas.tanure@collabora.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH v2 9/9] ASoC: amd: vangogh: Add components prefix in structs
- and function names
-Date: Fri, 17 Feb 2023 11:08:50 +0000
-Message-Id: <20230217110850.1045250-10-lucas.tanure@collabora.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230217110850.1045250-1-lucas.tanure@collabora.com>
-References: <20230217110850.1045250-1-lucas.tanure@collabora.com>
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=wrz/iJO0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1676637731; x=1708173731;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=U2iLnm4KuI3Sgwn+ds9QR6hu9ocdgvXPg7MffzvqL48=;
+  b=wrz/iJO0r9nWyY6o/RptJCLgZ0s8cgWCm/Jk/ZPs9MUToyPFVWm1ca7D
+   mI0p0SXuW7j5ep31wCDBYvFRjBSKdGaA1xgAh0hdbhS3jOsAeSLSceMjM
+   iCnBYg2HCeY6p4s+MbGpPotWIbjzGtJK/ME7UpZR3GkLbeuL/Mtpk9OQ2
+   IxbQmtAtguaznKa5OsYaGzSzIY702AsX9DM7BObGUqwUQmtxh7w7YH5w6
+   jS9/kWqX6SWcuF4sqBgw01LHHSpRnNW1x1IGyf4xuAwtWXqdtFP5lPDFH
+   6NKCRWoNB9oRV5zyB6f+dKuAZCZpVqYpHn+qg+tFTVV36C2G1dh6vLFmU
+   g==;
+X-IronPort-AV: E=Sophos;i="5.97,304,1669100400";
+   d="scan'208";a="137771389"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 17 Feb 2023 05:42:03 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Fri, 17 Feb 2023 05:42:03 -0700
+Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.16 via Frontend Transport; Fri, 17 Feb 2023 05:42:00 -0700
+From: Claudiu Beznea <claudiu.beznea@microchip.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>, <perex@perex.cz>, <tiwai@suse.com>,
+	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>
+Subject: [PATCH v2 0/3] ASoC: mchp-pdmc: fix poc noises when starting capture
+Date: Fri, 17 Feb 2023 14:41:48 +0200
+Message-ID: <20230217124151.236216-1-claudiu.beznea@microchip.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MQQCN3HPB7HEJQUT532NHEVFGMAEFTOM
-X-Message-ID-Hash: MQQCN3HPB7HEJQUT532NHEVFGMAEFTOM
-X-MailFrom: lucas.tanure@collabora.com
+Content-Type: text/plain
+Message-ID-Hash: MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD
+X-Message-ID-Hash: MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD
+X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Lucas Tanure <lucas.tanure@collabora.com>, kernel@collabora.com
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MQQCN3HPB7HEJQUT532NHEVFGMAEFTOM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MRQ6C7HDF4VBU6ZV7HT457SMH2OIKGGD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,91 +102,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add prefixes 8821/35l41 in structs and function names so future platforms
-can be added and reference the correct sound card.
-Also include acp5x prefix to cs35l41_conf.
+To start capture on Microchip PDMC the enable bits for each supported
+microphone need to be set. After this bit is set the PDMC starts to
+receive data from microphones and it considers this data as valid data.
+Thus if microphones are not ready the PDMC captures anyway data from its
+lines. This data is interpreted by the human ear as poc noises.
 
-Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
----
- sound/soc/amd/vangogh/acp5x-mach.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+To avoid this the following software workaround need to be applied when
+starting capture:
+1/ enable PDMC channel
+2/ wait 150ms
+3/ execute 16 dummy reads from RHR
+4/ clear interrupts
+5/ enable interrupts
+6/ enable DMA channel
 
-diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
-index 367570e5c60f..e5bcd1e6eb73 100644
---- a/sound/soc/amd/vangogh/acp5x-mach.c
-+++ b/sound/soc/amd/vangogh/acp5x-mach.c
-@@ -250,7 +250,7 @@ static const struct snd_soc_ops acp5x_cs35l41_play_ops = {
- 	.hw_params = acp5x_cs35l41_hw_params,
- };
- 
--static struct snd_soc_codec_conf cs35l41_conf[] = {
-+static struct snd_soc_codec_conf acp5x_cs35l41_conf[] = {
- 	{
- 		.dlc = COMP_CODEC_CONF(ACP5X_CS35L41_COMP_LNAME),
- 		.name_prefix = "Left",
-@@ -266,7 +266,7 @@ SND_SOC_DAILINK_DEF(cs35l41, DAILINK_COMP_ARRAY(COMP_CODEC(ACP5X_CS35L41_COMP_LN
- 						COMP_CODEC(ACP5X_CS35L41_COMP_RNAME,
- 							   ACP5X_CS35L41_DAI_NAME)));
- 
--static struct snd_soc_dai_link acp5x_dai[] = {
-+static struct snd_soc_dai_link acp5x_8821_35l41_dai[] = {
- 	{
- 		.name = "acp5x-8821-play",
- 		.stream_name = "Playback/Capture",
-@@ -294,7 +294,7 @@ static struct snd_soc_dai_link acp5x_dai[] = {
- 
- 
- 
--static const struct snd_soc_dapm_widget acp5x_8821_widgets[] = {
-+static const struct snd_soc_dapm_widget acp5x_8821_35l41_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_MIC("Int Mic", NULL),
-@@ -303,7 +303,7 @@ static const struct snd_soc_dapm_widget acp5x_8821_widgets[] = {
- 			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- };
- 
--static const struct snd_soc_dapm_route acp5x_8821_audio_route[] = {
-+static const struct snd_soc_dapm_route acp5x_8821_35l41_audio_route[] = {
- 	/* HP jack connectors - unknown if we have jack detection */
- 	{ "Headphone", NULL, "HPOL" },
- 	{ "Headphone", NULL, "HPOR" },
-@@ -316,17 +316,17 @@ static const struct snd_soc_dapm_route acp5x_8821_audio_route[] = {
- 	{ "Int Mic", NULL, "Platform Clock" },
- };
- 
--static struct snd_soc_card acp5x_card = {
-+static struct snd_soc_card acp5x_8821_35l41_card = {
- 	.name = "acp5x",
- 	.owner = THIS_MODULE,
--	.dai_link = acp5x_dai,
--	.num_links = ARRAY_SIZE(acp5x_dai),
--	.dapm_widgets = acp5x_8821_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(acp5x_8821_widgets),
--	.dapm_routes = acp5x_8821_audio_route,
--	.num_dapm_routes = ARRAY_SIZE(acp5x_8821_audio_route),
--	.codec_conf = cs35l41_conf,
--	.num_configs = ARRAY_SIZE(cs35l41_conf),
-+	.dai_link = acp5x_8821_35l41_dai,
-+	.num_links = ARRAY_SIZE(acp5x_8821_35l41_dai),
-+	.dapm_widgets = acp5x_8821_35l41_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(acp5x_8821_35l41_widgets),
-+	.dapm_routes = acp5x_8821_35l41_audio_route,
-+	.num_dapm_routes = ARRAY_SIZE(acp5x_8821_35l41_audio_route),
-+	.codec_conf = acp5x_cs35l41_conf,
-+	.num_configs = ARRAY_SIZE(acp5x_cs35l41_conf),
- 	.controls = acp5x_8821_controls,
- 	.num_controls = ARRAY_SIZE(acp5x_8821_controls),
- };
-@@ -363,7 +363,7 @@ static int acp5x_probe(struct platform_device *pdev)
- 	dmi_check_system(acp5x_vg_quirk_table);
- 	switch (acp5x_machine_id) {
- 	case VG_JUPITER:
--		card = &acp5x_card;
-+		card = &acp5x_8821_35l41_card;
- 		break;
- 	default:
- 		return -ENODEV;
+For this workaround to work step 6 need to be executed at the end.
+For step 6 was added patch 1/3 from this series. With this, component
+DAI driver sets its struct snd_soc_component_driver::start_dma_last = 1
+and proper action is taken based on this flag when starting DAI trigger
+vs DMA.
+
+Thank you,
+Claudiu Beznea
+
+Changes in v2:
+- patch 1/3 from v1 is now "ASoC: soc-pcm: add option to start DMA after DAI"
+- pass start_dma_last from component DAI driver object
+  (struct snd_soc_component_driver::start_dma_last); adapt patch 3/3 after this;
+- in patch 1/3 s/Do we need to start dma first/Do we need to start dma last
+  in comment from soc_pcm_trigger()
+- collect review tag from Krzysztof
+
+Claudiu Beznea (3):
+  ASoC: soc-pcm: add option to start DMA after DAI
+  ASoC: dt-bindings: sama7g5-pdmc: add microchip,startup-delay-us
+    binding
+  ASoC: mchp-pdmc: fix poc noise at capture startup
+
+ .../sound/microchip,sama7g5-pdmc.yaml         |  6 ++
+ include/sound/soc-component.h                 |  2 +
+ sound/soc/atmel/mchp-pdmc.c                   | 55 +++++++++++++++++--
+ sound/soc/soc-pcm.c                           | 27 +++++++--
+ 4 files changed, 80 insertions(+), 10 deletions(-)
+
 -- 
-2.39.2
+2.34.1
 

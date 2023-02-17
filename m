@@ -2,78 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E90569A2D9
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 01:12:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DEE69A2F9
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Feb 2023 01:36:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BC62EC8;
-	Fri, 17 Feb 2023 01:11:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BC62EC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BDBAED2;
+	Fri, 17 Feb 2023 01:35:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BDBAED2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676592728;
-	bh=WSgwqtzcOunbPHiwKxcPqx3pkrkQMBCpjk6IB0bGudo=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676594195;
+	bh=Dr7sPxdekubOGhXaC/Mdi8p1h+2sGJHvj1t8ebnC0dY=;
+	h=Subject:From:To:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Dh74galhANFtpEaAe/tI/YFYigm7G+U42K1t7ZOTfLbEeCZf9T6eXsULkhZgcPaRU
-	 svGCH9z/EXwHtBCOjG28890rbrDjj9jzkMI+SGekR4cuPhETb107T0X15XxfbPm34t
-	 bBNQCuwfdxf4Rkh8hdC97n1riE7ZfSXxEh2W9oAU=
+	b=HclVor/MeKWBbuTWGXSWUkKlg9X5wHzCgbHLkE2Bf9FsXqYlyR9WHGvGe8ZlfFyqI
+	 KapWDhbIwDLO/36+9i5/YUB2ugF5Y3mUkji9469+z40wPheeXMaSlVgWRhhEhNmTY+
+	 7PLORjHmTrPb1q9jd+yk03n5Xvl9bG1xBLb+/CDs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15BDDF800E4;
-	Fri, 17 Feb 2023 01:11:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A76A2F800E4;
+	Fri, 17 Feb 2023 01:35:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CCA3F80171; Fri, 17 Feb 2023 01:11:12 +0100 (CET)
+	id 911CDF80171; Fri, 17 Feb 2023 01:35:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A25D6F800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 01:11:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A25D6F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57D41F800AA
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 01:35:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57D41F800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Z1bkKyKq
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id C3756B82A9D;
-	Fri, 17 Feb 2023 00:11:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC60EC433D2;
-	Fri, 17 Feb 2023 00:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676592662;
-	bh=WSgwqtzcOunbPHiwKxcPqx3pkrkQMBCpjk6IB0bGudo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z1bkKyKq0JKsZIghnMmYA3yfX9wqFhY3Y3Af+7F2laA6iUR1OxpbS0/cDweXPi2ph
-	 hL1Tn3gjg+KhZj5OcUXIeGpAiEcqg3pWuV944vNv/lbJRX9BzrFyyZB3XH6p4naONS
-	 9BdjQychn3zsXzMml8IYMUoQOHfjyKz0e8CBpxWMGVHHtyx0IqXkmAw7OQgjhIfojk
-	 jvyTZuAt25g1alg8RRevXn6EdsfhnVuz0UHB63IVljURiDJram0uAh8LrgOFwg3c2N
-	 gDuCBlx7d3p6FrT309vQtZrQjfVheba6gtwEi7fXZognf9aSboajl2zSiKi6m1bfd+
-	 j5ogVqHfJB6VQ==
-Date: Fri, 17 Feb 2023 00:10:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Joseph Hunkeler <jhunkeler@gmail.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=nddzUPxI
+Received: by mail-qt1-x82d.google.com with SMTP id h24so4005744qta.12
+        for <alsa-devel@alsa-project.org>;
+ Thu, 16 Feb 2023 16:35:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Dr7sPxdekubOGhXaC/Mdi8p1h+2sGJHvj1t8ebnC0dY=;
+        b=nddzUPxIGeqLTtrhu9EVKCFxOtCsgdttfQBKL8jlSo3Boywb3FvOBviYqH6YNd6Ovy
+         nQK4JagLMpujbYsfMkxHM74+gJP2lYYj+K/0jjQZscSlxj+iXXEHXWYiGvS79FvcnePv
+         +zhjFAUjnPjnrAnPWLlQfTc12FdKwGbcs9OK3m6LgOAyyRZeVYWB75B2CpCsD5olEIXO
+         vXJKTAIrd/xkW3IuSJuklIa/SZnXhSY5QhU3d0qQL5q7l5vsC0l90zleOgr3QiQX3y1Y
+         q7z1o7gUu7Nc8jrv8JvW7dkKnvMhIf5ozpNZ4x+3JZCWV3EUaGpMXv/c4Z7vAEq5jhXV
+         3B3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Dr7sPxdekubOGhXaC/Mdi8p1h+2sGJHvj1t8ebnC0dY=;
+        b=43RSPu7DXtuk6U2QYU2H6yDEeFsD0qbh024o9hYolu0IIDGFNNbhfZjrssa6nuKKm1
+         0sipKG56zUG5GXUsW/TJVx+5BEcq+l7WH5GsMXCWxhd7KphMMwjyHpKwvtbXpSnXV4z9
+         vfkT24q1WMNK5Ty2se8Usz6WgQSU1muwUn7tRzGiN5an550+X4rzmskJqYzdh/Z9mvPX
+         Orv7sLUNaML4X1cwdf5RDk0lEJf+CkA1jJ7pLHwcw4OmmIx44K3LDMvZADI8CrS0bvVq
+         D2JSngMvMpbGPVaj6j0xyYqT87CTYcnyKi45K53BCER1VGpynyBFw8VYLQcByYsn7+ip
+         He6A==
+X-Gm-Message-State: AO0yUKXluEWS5huRaSHflC/Gf1wVPtLDAuaNS7JNo6ptB9Y08s9r8ZdE
+	MZNzCm0jMr7MEEbLmqgq3EQ=
+X-Google-Smtp-Source: 
+ AK7set9fOWzgg5dxOQFFZT2Mi8yNhyEndcRW+3jKrBaDc9Gq5iZjBh665zQr4Y6uPod5NHO+ujyEzw==
+X-Received: by 2002:a05:622a:28b:b0:3b8:5ad9:3fe8 with SMTP id
+ z11-20020a05622a028b00b003b85ad93fe8mr14198725qtw.48.1676594130283;
+        Thu, 16 Feb 2023 16:35:30 -0800 (PST)
+Received: from ?IPv6:2601:14d:4e80:336e:6940:faac:fba5:1dee?
+ ([2601:14d:4e80:336e:6940:faac:fba5:1dee])
+        by smtp.gmail.com with ESMTPSA id
+ x1-20020ac81201000000b003b9b41a32b7sm2188523qti.81.2023.02.16.16.35.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Feb 2023 16:35:29 -0800 (PST)
+Message-ID: <ab7432c0267ade5f5c07f69c5a3bf8ac3a8d421d.camel@gmail.com>
 Subject: Re: [PATCH] soc:amd:yp:Add OMEN by HP Gaming Laptop 16z-n000 to
  quirks
-Message-ID: <Y+7GEp06snoDjrH8@sirena.org.uk>
+From: Joseph Hunkeler <jhunkeler@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Thu, 16 Feb 2023 19:35:28 -0500
+In-Reply-To: <Y+7GEp06snoDjrH8@sirena.org.uk>
 References: <20230216155007.26143-1-jhunkeler@gmail.com>
- <Y+5Ym5rUWLK4TOAf@sirena.org.uk>
- <224b230c5c8d3037b650602b5743bbf217369ecb.camel@gmail.com>
+	 <Y+5Ym5rUWLK4TOAf@sirena.org.uk>
+	 <224b230c5c8d3037b650602b5743bbf217369ecb.camel@gmail.com>
+	 <Y+7GEp06snoDjrH8@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mGJ+2Kg6cbWRtwcg"
-Content-Disposition: inline
-In-Reply-To: <224b230c5c8d3037b650602b5743bbf217369ecb.camel@gmail.com>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: SHLFWQ5M6R4XJ7JOUIB7O7YDEWP6DYFH
-X-Message-ID-Hash: SHLFWQ5M6R4XJ7JOUIB7O7YDEWP6DYFH
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: 64RVEK7B37FNVNK44JZILPP3WYI3ALKO
+X-Message-ID-Hash: 64RVEK7B37FNVNK44JZILPP3WYI3ALKO
+X-MailFrom: jhunkeler@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SHLFWQ5M6R4XJ7JOUIB7O7YDEWP6DYFH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/64RVEK7B37FNVNK44JZILPP3WYI3ALKO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,50 +123,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 2023-02-17 at 00:10 +0000, Mark Brown wrote:
+> You'd need to resend to fix it but I'm saying there's no need for
+> you to bother, I fixed it up locally.=C2=A0 Please just bear this in
+> mind for future patches.
 
---mGJ+2Kg6cbWRtwcg
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Ah now I get it. Will do.
+Thank you!
 
-On Thu, Feb 16, 2023 at 04:25:45PM -0500, Joseph Hunkeler wrote:
-> On Thu, 2023-02-16 at 16:23 +0000, Mark Brown wrote:
 
-> > There's no need to resubmit to fix this alone.
-
-> submissions. Are you suggesting I change the email subject from:
->=20
-> "[PATCH] ASoC: amd: yc: Add OMEN by HP Gaming Laptop 16z-n000 to quirks t=
-able"?
-
-Yes, exactly.
-
-> If so, do I edit my original message as new, amend=A0the subject,=A0and=
-=A0resend
-> as-is? Or do I reply to the original message with the amended subject alo=
-ng=A0
-> with the full contents of the patch body? I know you said there is no need
-> to resubmit to fix this, but it's is not=A0clear to me how to do it witho=
-ut
-> resubmitting.
-
-You'd need to resend to fix it but I'm saying there's no need for
-you to bother, I fixed it up locally.  Please just bear this in
-mind for future patches.
-
---mGJ+2Kg6cbWRtwcg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPuxhEACgkQJNaLcl1U
-h9AYXgf9FrBlba9D5DIzONucAJ6z978YedlssPxQluPcoVw0qQBdKByjfw+f9lE4
-DX6+ho2v5q1gHPahe44dnq6uUsGSTT2pl1koALpOu+ligEg0crtvjdJFvmh9fnVh
-Z2ejfaIMvSOe/6JTcDkyWggXM+p6kHsxqVKKLCO0/kHpwuR0DoKm40iquXZ3OtPf
-m45nmYEbp334+mw+mYzviaDeb6sFOwl2/bl1Fpw+J7eH/+xP6snCM6wNWplqqj4z
-e4drw5vDIJwAyVY85zLYcmFqBgzyU5DZe7sv5N9mnWiQnSeiKYkMmNNKr4l/UPAe
-Wsg/ETiwaWVd6e4PDreOnBg4DpkvyA==
-=IyJK
------END PGP SIGNATURE-----
-
---mGJ+2Kg6cbWRtwcg--

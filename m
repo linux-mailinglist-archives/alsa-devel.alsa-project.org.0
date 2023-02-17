@@ -2,126 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8B4A69B943
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Feb 2023 11:13:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5934069BDEF
+	for <lists+alsa-devel@lfdr.de>; Sun, 19 Feb 2023 00:28:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EFE3F46;
-	Sat, 18 Feb 2023 11:12:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EFE3F46
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C572EF2;
+	Sun, 19 Feb 2023 00:27:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C572EF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676715212;
-	bh=AVvN82ZW7zUg4dsHWRFIaK2sTLKl5MFZrnW6f3yqvyQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1676762900;
+	bh=o4n9TV7P8lOWD4f+6mSZVv0GFtJZ5luwHrSpvYZHeT4=;
+	h=References:From:To:Subject:Date:In-reply-to:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kcGPvH1KCpLc6ShpGULVJjpN/a9rb3uI2mVtATPI4rpqx4lBVg29e4kgxaoxVZ+gc
-	 Omiyp6cJax3xjNAVCPPopXIvrrepJuEM89/iW2gxqWCXiE2V98m0EmQx9AhIB9hRSm
-	 k+ybdD3W4Lyq5opy+/tIkxu55JuammVtT6S26MhU=
+	b=N9ObQjpwYStd3r8agmWxrTY72PXfqivKzk6uIOWO0KCGOBWxWsSvdBt2KBIMLx7qu
+	 NMjxVgg6Q5NMoFoeaQZJIhFpIf2m962Jh7Pb7UHJv/ou5dhGmpVAQkjESbi0KbyJ50
+	 KzV0JWUD30M19rKQfVpq6rmT0F81jWpnAeQHqkAk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19A69F800E4;
-	Sat, 18 Feb 2023 11:12:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EB68F8025A;
+	Sun, 19 Feb 2023 00:27:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 220FCF80171; Sat, 18 Feb 2023 11:11:54 +0100 (CET)
+	id C5FE5F80171; Fri, 17 Feb 2023 22:13:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E41E5F800E3
-	for <alsa-devel@alsa-project.org>; Sat, 18 Feb 2023 11:11:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E41E5F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9DAAF800AA
+	for <alsa-devel@alsa-project.org>; Fri, 17 Feb 2023 22:13:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9DAAF800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=GV1pVXEH
-Received: by mail-ed1-x532.google.com with SMTP id i28so1132600eda.8
-        for <alsa-devel@alsa-project.org>;
- Sat, 18 Feb 2023 02:11:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dTrZlM/1j34PmNemq7d5HYpo1rmgNzw7BezUEBROqsY=;
-        b=GV1pVXEHTU3KwzBKiZmlxiL54Wv26ipKjZ7O0pei0QV8W/TvzR5zSbbvM8TQzq6p+9
-         uo+R/o+KLvFeygL4CC8eLWB2Y6wKqfzg6mdHaAYMsF3Y78+MBJiwae8qos+Iz+U5ReTw
-         i0hqLEngqwYwvnrpgipCN/g3VsT0Ocbb6aaFqMwICxo7oOq+TgkWVWvRXaueMSSmWQtm
-         XCgbjdkXPQkmPx0/bdblYUi3AyobQ6gfRoPFEy12lTJr4HKOg0iKyHI1tvBtVduSulYM
-         Tf2FLhyxnmgjU9X5dIX8RXeMLtxudEt/Ou/JqO2vs0LECEt9+faLxnJKjmlPXc0R7WP9
-         fdgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dTrZlM/1j34PmNemq7d5HYpo1rmgNzw7BezUEBROqsY=;
-        b=jOzj2cmJajZsFyphiJFlcnExOpARJp1Ef12hUrf0xTm4pzbSz2Sh/vKzLKSmtcFy2j
-         BWiVmWqu3OH9bFauw+fPTHVvHeeNdKqmxhGJ447IThXBLXOPvh/47RO29ONLroOmBJ3h
-         Q6UMwVlDXzn9uewWnssmmfcsnrn8TY6N+weZk4Qkb1FWsqaZZgOLx3Xiii/lXdLYmvrn
-         CcO1sBO7urkuhgJWo6WvynOuZJqpbae1YLqyv7GAKme/lvt2JDm0hdPImvIeNBMCnV3D
-         /4mViqpBAO4y8nH2NdZpGCH68kuLnndx4g6jMUYmpAkEpPS7nfJZoQVT0L8GhTfovVZS
-         Teeg==
-X-Gm-Message-State: AO0yUKVHxWuQRvYvIjbHunOGjwiisxU7eOLo0xHrNqhRcYdxHhNtVyMy
-	WKjnheczun+pNjZMitjgWyZfew==
-X-Google-Smtp-Source: 
- AK7set9DV1fZtUekvagyuUQrTVveo/fbiaq0+hMrloLoKRYw7+NmcQbHmPPzdZcK10xee5YHOtLL9A==
-X-Received: by 2002:a17:906:5a42:b0:8b1:7ac6:3186 with SMTP id
- my2-20020a1709065a4200b008b17ac63186mr6106770ejc.68.1676715097203;
-        Sat, 18 Feb 2023 02:11:37 -0800 (PST)
-Received: from [192.168.1.109] ([178.197.216.144])
-        by smtp.gmail.com with ESMTPSA id
- sa14-20020a170906edae00b008b176df2899sm2638876ejb.160.2023.02.18.02.11.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 18 Feb 2023 02:11:36 -0800 (PST)
-Message-ID: <0771a2db-53b8-20c0-eb28-f254f2eb6b25@linaro.org>
-Date: Sat, 18 Feb 2023 11:11:34 +0100
+ unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256
+ header.s=smtp-20201208 header.b=YbR3L1en
+Received: from SOPL295.local (unknown
+ [IPv6:2a01:e0a:a6a:5f90:38fe:9937:c1ef:e044])
+	(Authenticated sender: robert.jarzmik@free.fr)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 068E2B0055E;
+	Fri, 17 Feb 2023 22:13:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1676668389;
+	bh=o4n9TV7P8lOWD4f+6mSZVv0GFtJZ5luwHrSpvYZHeT4=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:From;
+	b=YbR3L1enVLq5ZaRfsEnSqSPMDplJyVixP/skM+hJ3ek1fRySocXdxtGG6klgx44QT
+	 pIURdqj5OArK93keVZnZeeJI53v3hnsI+txoQ/qM8UplvfJ1aofRM0onAc3grmOhDA
+	 veBXTtKBSkwkq6elouRVtM6xRAzcxMjJd7N5CW675lCx78UWjhUBmnLvuW/vzBeU6J
+	 QBwR42KkNAU4NPj5BblXwPwK0Ylou/LS5F+sN4x3r0wq1/U2IUcoTzetF9Keg+1uy9
+	 uEEFx8OkTI0+kBaM9+zJVgUr4dpK76XtFf4QrhzsR+BTJoP1IYcfLijS+KLdfKC/mv
+	 ERpuLamhA8hAQ==
+References: <20230214090728.1737140-1-arnd@kernel.org>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Robert Jarzmik <robert.jarzmik@free.fr>
+To: Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [PATCH] Input: mainstone: fix pxa2xx_ac97 dependency
+Date: Fri, 17 Feb 2023 22:12:16 +0100
+In-reply-to: <20230214090728.1737140-1-arnd@kernel.org>
+Message-ID: <m2r0uoj8rm.fsf@free.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: renesas,rz-ssi: Update interrupts
- and interrupt-names properties
-Content-Language: en-US
-To: Prabhakar <prabhakar.csengg@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20230217185225.43310-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20230217185225.43310-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230217185225.43310-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JYHRV3PYV2FZN3B2PEHDDG2CD2LVNBOP
-X-Message-ID-Hash: JYHRV3PYV2FZN3B2PEHDDG2CD2LVNBOP
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; format=flowed
+X-MailFrom: robert.jarzmik@free.fr
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: H2FNGB7AXMZF5UVN27AVWPP6P553KNYX
+X-Message-ID-Hash: H2FNGB7AXMZF5UVN27AVWPP6P553KNYX
+X-Mailman-Approved-At: Sat, 18 Feb 2023 23:26:10 +0000
+CC: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Arnd Bergmann <arnd@arndb.de>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JYHRV3PYV2FZN3B2PEHDDG2CD2LVNBOP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2FNGB7AXMZF5UVN27AVWPP6P553KNYX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,20 +94,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/02/2023 19:52, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> From R01UH0914EJ0120 Rev.1.20 HW manual, for full duplex channels
-> (SSI0/1/3) dma_rt interrupt has now being marked as reserved and similarly
-> for half duplex channel (SSI2) dma_rx and dma_tx interrupts have now being
-> marked as reserved (this applies to RZ/G2L and alike SoC's). This patch
-> updates the binding doc to match the same.
 
-Do not use "This commit/patch".
-https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+Arnd Bergmann <arnd@kernel.org> writes:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> From: Arnd Bergmann <arnd@arndb.de>
+... zip ...
+>
+> Fixes: e217b085a1ac ("Input: touchscreen: use wrapper for pxa2xx 
+> ac97 registers")
+> Fixes: b401d1fd8053 ("ASoC: pxa: remove unused board support")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Acked-by: Robert Jarzmik <robert.jarzmik@free.fr>
 
-Best regards,
-Krzysztof
+Cheers.
 
+--
+Robert

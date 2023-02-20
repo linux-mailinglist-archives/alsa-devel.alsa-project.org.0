@@ -2,169 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FDFF69CBE3
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 14:19:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52F269D4FB
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 21:29:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16D2DEED;
-	Mon, 20 Feb 2023 14:18:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16D2DEED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21129EB3;
+	Mon, 20 Feb 2023 21:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21129EB3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676899159;
-	bh=wCEGTVYLafb8K8cCdC2uEB/u/MwPuzCNrmy0G0UDXpQ=;
-	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676924955;
+	bh=WoUsDdTqnQiHFQbNUq2TDZkO4z6hK7XK7+vzyZk9eG0=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Kyn+Ih7sfnRn9wpTY45G1PHnET1qBjGSZHMhyVKg0pxxIkLUFUzpW+9HfsZoT/Rz4
-	 ppKs+JSbvZH187NffyDeP7i7okmcngKUJ1kUf2OFt3BfYvhT+tNaRmPy4l1FhTUXMM
-	 zHFfojMzZMhCbd9QG1wq1byILcwxlobJEUmfGZgA=
+	b=TZA5+sonWZLAA7t4us0a1rwzh4dD9aPn9vpvuIEOzrD0oAVfXlFzhSaUd/ZQmS8Up
+	 LCGQLPaJ0kVKivyWalEX/9DvosPzwBVjqK1DBUeAVBUp13QHbu1tixWgs2T27+oOpK
+	 /6F1MT4HrOsal2/mSsicXT9AMdsaBYprln3MM9jg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FAD1F8025A;
-	Mon, 20 Feb 2023 14:18:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B531F8025A;
+	Mon, 20 Feb 2023 21:28:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 842D6F80266; Mon, 20 Feb 2023 14:18:24 +0100 (CET)
+	id E2C49F80266; Mon, 20 Feb 2023 18:11:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2071d.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::71d])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-14.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	HK_RANDOM_ENVFROM,HK_RANDOM_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+	SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38E41F80083
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 14:18:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38E41F80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id 618CFF800BA
+	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 18:11:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 618CFF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com
- header.a=rsa-sha256 header.s=selector1 header.b=ffKADlrX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BpH+dGVitcezQ032gAnJm+IRDgDLr1+hYdkGpB22ZDuzFFF7V6Iib48ly/n/jkL1ZeSkS0uUOzGlTRhQ3OXw425+YMZrLQSpwFLGgSRHwb9g5AXWpl3PZxMtUijcLqK1O+YWcERrgGfUH2uq15Zgb2d3Zg8Ka80JWdycB3bZqZthYs3DWbw7VeG8dEmtaKqo/NNTZcJ9mWjp/Y+7U7OJGh5Nk3aoai/uGoIY46egjHKtiX3zKroR6n3qlIzLi/Dp4S+g7XaUJ4VQ3SuzGDVb12vcaW/dgIczXS+kd2hDkse8KRQxH3zszRDwDVXd1kOornqSFHBA0roRqWYVUG8+KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t36J5Qtqjgt6Pp3RXMF7UBl3KTE6kdf2GcBjL0VOHII=;
- b=jbZ/tLS4oxyJNbh+5eLpFKDoYdk/atgLtTq9k7M6YR5OVRv57OwqNMBl6AkxpWAbLmEImJmiH7Eh5rGsVGUAzb4nlAD9w4kljfVAwKm5wXSRRs/3Uet6wGv7eQ64q2WoW9GWSzrZ1cl3YddJgb/k4r80fwOuEkScPs/4RPSb2SqQOtiA+pAStg3qElNS+8mfX531cgmTsU/gHeFf4DHEEVFuInKWkUM0L3nQWAMTMmSIRWMP3PCxsYXUvUF7hyst7Fa5RJt3MVFmz8Y0r+xcpF6LDyFsq5vZcEwVsMUAF5QUrSbGrfgOft+oDPDqF3V6WAhrQzz6dhmdwonzm+xzEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t36J5Qtqjgt6Pp3RXMF7UBl3KTE6kdf2GcBjL0VOHII=;
- b=ffKADlrXmcpxVs6OOkU+Ba96pXR5lrFELQjhDtmX9CQdgHsnya2Flb4asm3TdhC+G6q0++ganMnKIrAognFC+GWpzRbcNWf6VVhzsHCP9wgY8Gi37ID8aLKyigmZjrWFVgeI2o/qQH+eUB9uzNXzCf1vkiAVntrmI5GyK9n4iGo=
-Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
- by TYCPR01MB10760.jpnprd01.prod.outlook.com (2603:1096:400:294::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.18; Mon, 20 Feb
- 2023 13:18:10 +0000
-Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
- ([fe80::343d:7339:78e5:a46e]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
- ([fe80::343d:7339:78e5:a46e%8]) with mapi id 15.20.6111.020; Mon, 20 Feb 2023
- 13:18:08 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@linaro.org>
-Subject: RE: [PATCH RFC 0/3] Add Versa3 clock generator support
-Thread-Topic: [PATCH RFC 0/3] Add Versa3 clock generator support
-Thread-Index: AQHZRS0b8JYC5www50CVHBoCQPQrMK7X0LvQ
-Date: Mon, 20 Feb 2023 13:18:08 +0000
-Message-ID: 
- <OS0PR01MB592217664FC7D09EB968947486A49@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-References: <20230220131307.269100-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20230220131307.269100-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS0PR01MB5922:EE_|TYCPR01MB10760:EE_
-x-ms-office365-filtering-correlation-id: 58ee151a-ae7a-4f55-fdd1-08db1344e87f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- WyIyJozhWHkrZ6fmdQHJghTVTgY0nIvptTZeaYMknJPbGe4a7A9V4jVdK3vEz0SBRjlUy/94aAlewiYf+1+dCcIpZexSyMwiU0j22ugJg/eZ618vAGRr7TGn7K7ruwo0MqtWcX6jd24CIajkBWbvdEJXQWCZqQxlfkMv7UG70ZETDeWfYjVhO27nLx04N4Jvl44OZaUUJYe0cLwRiPqG0vGaK/grqPeNcPcsflfqC3ZrgAvolKjlO0GQm8zaV9LDvSIhMWwZ7j1+k9vMnC5NtZ/7GTmV7Iz5F5KhJ8Mu3QgLGo9gAEuUCMzrVTNbuoafARm99i4FFzTfPUdcndrt1Marol5FSmnY0YYw9LwlYwrGnkPEiaoNz6iwWeyBdSxYS7qELPFZR/4w6Z8bO8q0zRKW7iLQZwhA4nLJQrouc05EQxUwm13V4ssHD40uDMlT7Uo8DJK0ln8/dCcVBBACRWHQQIH/dtmlaObZGoc5a5ONLFYt4r4RHk/NLas6NXEL2VDDdktTKBsFp63Ltb0h/ZbWSCNCpbQnFprr8zb6tcAvV1Opcv9pqIbIj83ZYm2YQbqckVSwxR8Tk7HYfxM91X7Tky5VWygpqQ/YWMJMiyTLz2OAbwDhSo8SNZdAh+ZEQkwqS/68ENXKSYzggRh0YJE5MVLw77H+Ls0UHE08Dt8bmFgSIsGJowrEQkzAhtf7
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS0PR01MB5922.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(396003)(366004)(376002)(39860400002)(451199018)(38100700002)(7696005)(54906003)(110136005)(316002)(122000001)(38070700005)(76116006)(2906002)(966005)(83380400001)(64756008)(66556008)(5660300002)(66476007)(66946007)(478600001)(71200400001)(86362001)(52536014)(6506007)(55016003)(8936002)(7416002)(53546011)(66446008)(8676002)(4326008)(41300700001)(33656002)(26005)(9686003)(186003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?OavH7Zgn9O1zlUqHe9s4nre3Qkrdaor8d3etIh0UkwYDUycZJ+GIUgd/MkSM?=
- =?us-ascii?Q?kqAtM4SGnhADBzoN85w+rTGYx6OZSB/YmwFsXuJkzhMPlaNxJRfHWgWVXfoi?=
- =?us-ascii?Q?79VHXXHBwD6L58I4awxf+B8k58PUNEJJh7jh4l2X6wHVikyfPaVdfGhDJ1Vo?=
- =?us-ascii?Q?cUOw9/glvkrK493rfmgHg06YVZ+ndfsGrv9J4Iy28kj9l4WLZ5o4u67TEfjp?=
- =?us-ascii?Q?XcRtqKHlHmmxsHjLA7rXvWtY4O2wadIWx6AHbUE/Fmn7XOGeLA5iWmCrqMC3?=
- =?us-ascii?Q?mCrECNDErdQucpxsIrjmpglKCd7YB8X1id2R6tlXz8+Fk5evyJ1EJoM5m8FL?=
- =?us-ascii?Q?sUnz71buUh/pSVyb0SE0QXDzbxa4rPuEblMrmqmQ1BFtxafxDqQzsy6Er99c?=
- =?us-ascii?Q?6wJy9TDppt/JdiatqpNX2wl/+hWsJzDZWl/oZxrarvPoLvc9y0jsvQ2EX3qO?=
- =?us-ascii?Q?bbN7EOD8jgld8bta5+pI/JYyfoL9TkWHW7gV2Exs+xzpX+2f4Y6OKolbT9rR?=
- =?us-ascii?Q?44h4HutcB3/8Ys3Qw8NgIPvTMf6XZ0uxsDinHO65YbE5cF4O04XYEkYCYvlx?=
- =?us-ascii?Q?RWhcdOMclWw4YsWsdqzwzpc2IkpofJVI3pfmzGhIaaN/FADSQEeqmF3qc0Rg?=
- =?us-ascii?Q?lpe0JZMmdZIccDGkX5g4s+2PPqRpyqWWyBWheMjM+6viF5YoKCYPCRfZcKoK?=
- =?us-ascii?Q?MDOTnGvD0rgdQRyOxedqvpGa1PFyn/kxOd+3idnHWvCvlJ9iAioR2XKoZsTU?=
- =?us-ascii?Q?BPCwyABoxxdBrJGGW7nAlcHIFEvSc+qeoAosTDnOuMfm/FtHPBTDC+y7oOtG?=
- =?us-ascii?Q?9auMJQ0umzj7nBBLyz+AP2dcCbdsLYw6+d4Pg7qCCu7toq58F2Y57r8L06PD?=
- =?us-ascii?Q?t8+isuyvbDV25DqiEjCtPUElA102gHbxKC9AqpLkYs8WWOH5r6UmkmP0WbUD?=
- =?us-ascii?Q?9OMBI5/TLXjg9zXXK+Qnom4EFzPpOzesFV4UJHNPhpmunX5lBoyfmcy5ppNQ?=
- =?us-ascii?Q?QM++pN9l0/6nAIb8d2ZIrbsABfYk09I1QFAhiSnQL+356bx6IqoVnUkiC5bB?=
- =?us-ascii?Q?vhum6XwmZAoOx2m+JTxDNbqdKc1ocSt0bIkTwnHiiypWFjN8UfT8nXx1/JBA?=
- =?us-ascii?Q?ES5Xzi0iGhOyCGtVUii1BNjci476Fnwt4uoap0HLkPMGX1Q05SXr+oakRLob?=
- =?us-ascii?Q?6JizPkTWgpvbhz62S3Q4vCTR6jXVxAa+2fDM82n8Fvw1ySeQvwpZHkV1/knB?=
- =?us-ascii?Q?13PWCSiiN92RavQFrYMisl7xp2zljhGvl7myvGg3DD1rGCBLc9XzihYCP4Rz?=
- =?us-ascii?Q?Xa2W7wtYJIZnv4uN9Z1cR4B5SbKOz6iwqnvVtzm9LXN3u4UejBqY1GpxwOuL?=
- =?us-ascii?Q?VU6G38v0Xbmh+LoVlZ2j/nuVwUip4fDECLvsq4Pj/TTgA2we1r1Hobm5tVC8?=
- =?us-ascii?Q?A4tw297i5OBywKQisY0hX/angac7yoK+OZcNDif2lCl9VsRRMSPDPD1Dn8p3?=
- =?us-ascii?Q?FMHpsj6IOoOkISvxt3VbNymFeD3uRcj+Qi/URUJCI6tV6Zl6PgATCKmqf3lv?=
- =?us-ascii?Q?7u457UK+9wPRpK6/cNQ/yCHUgvKN90LGBp1TmuCUTgzZpAXccs0OesuJJIwh?=
- =?us-ascii?Q?3Q=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key,
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=Es+PiD55
+Received: by mail-io1-xd35.google.com with SMTP id y140so1327262iof.6
+        for <alsa-devel@alsa-project.org>;
+ Mon, 20 Feb 2023 09:11:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=nEOyqyX16+a0s8LVg/pF7pxqSztYrWWhg38vHHBi3tk=;
+        b=Es+PiD554nf4b0lw9BenSHvyrbUQvjUaddCdjlFQzviROGfsy+bH6ztbIzUJj8HN3D
+         kPFalkX9vL9YMjqz+RQVaezLe3n/aWJABu/mKRnRsZo/vKgmoFbWvroh6JVpowJoBHGr
+         ouIETH64oNwmqNZtENWIe7zqF1yBoI9U+pI2+rgWa0wIwTubNonQomcCnOuI+qJ1Bgyb
+         c5z1Hq8/EpN92SQK6JIMTTvJqi37WvromkSXSCfimYdo4Cphf5I8fw2JhNUTYXlvXl1y
+         1ylrOYnpce4/fJktTg6YdKuj1QoRl2oV/CPtP27vQ5fjr4KMO/oZ0fCrGc1WANg5I610
+         tb5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nEOyqyX16+a0s8LVg/pF7pxqSztYrWWhg38vHHBi3tk=;
+        b=DLGQy1TKDQH+U/1p0Dxt/2FcpP4vEzpyoVADUXD2nmH751BpwSboAHQJhpefN6h1Ij
+         Jgs1tuJ2QXlDwIty6pNw3AonQfxk1WX/xTkKAODHl9hd7yazMCCgsQN3ekMgQ9LyijOD
+         5JF9kaUhYfFqaPbV/XjpeDTBGPW4U75lPUOB7+4/nXK3wV7dRQidLpwA5Rv8LiiSmGHZ
+         8V5k135NfggbXF6yLWzQEPmzJOajEZJkuz+XjJov0fn3bwUVO8Tcgf/V2NoXXeOQapOq
+         9OMefc5z5mSEwEcR4fWND1+2o3y3cRXlvmpJXxnExkLZa34kzpcqQNf8KRYeUETiCZM7
+         Z+Ag==
+X-Gm-Message-State: AO0yUKVro3qZNzVtiypY1CX78XWWgbt+TUeycklpviu9vErN+e+H+ecM
+	sHXt7lUPRXZMuw6tECiWKGFcfclWgNvC4o9KMEXB5A==
+X-Google-Smtp-Source: 
+ AK7set+503zOSFCrMzUFKu9VpHP1CxTcABe7Y2qzNdRVr4GS9RE0Nr+Aep7G/9QRg/X7y9lOZcCc6YFmXuu71RYiegk=
+X-Received: by 2002:a6b:6207:0:b0:71c:479d:741a with SMTP id
+ f7-20020a6b6207000000b0071c479d741amr2462205iog.38.1676913075061; Mon, 20 Feb
+ 2023 09:11:15 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 58ee151a-ae7a-4f55-fdd1-08db1344e87f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2023 13:18:08.2150
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- YhY2AEyP5kEIbM1hm4O9WX7c0Cc87BlGVhQXrW/ydHENktbcH4QBpp8+niElODXTp53z39Plhj1gdzmE9aAVOkQxkRdFya+Bbn2JCtwx4hQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10760
-Message-ID-Hash: T23ZH3SLUHIJI4AL246IDAESRTBGADLP
-X-Message-ID-Hash: T23ZH3SLUHIJI4AL246IDAESRTBGADLP
-X-MailFrom: biju.das.jz@bp.renesas.com
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-13-quic_wcheng@quicinc.com>
+In-Reply-To: <20230126031424.14582-13-quic_wcheng@quicinc.com>
+From: Albert Wang <albertccwang@google.com>
+Date: Tue, 21 Feb 2023 01:11:04 +0800
+Message-ID: 
+ <CANqn-rhAWKVrSGKkoDCC+Jy6qdceSqo22KYb-5k+haHpcgQJaA@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 12/22] sound: usb: card: Introduce USB SND platform
+ op callbacks
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+X-MailFrom: albertccwang@google.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: SSSJMLSZVEMTXV4JU4EFSNLR7XDQIZHE
+X-Message-ID-Hash: SSSJMLSZVEMTXV4JU4EFSNLR7XDQIZHE
+X-Mailman-Approved-At: Mon, 20 Feb 2023 20:28:17 +0000
+CC: srinivas.kandagatla@linaro.org, mathias.nyman@intel.com,
+ lgirdwood@gmail.com, andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
+ bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZNH4WNHFXJWHQFDBBNZSLW3S5ATNJ43R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSSJMLSZVEMTXV4JU4EFSNLR7XDQIZHE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,119 +119,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-+ Rob , Krzysztof Kozlowski
+Hi Wesley,
 
-> -----Original Message-----
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> Sent: Monday, February 20, 2023 1:13 PM
-> To: Michael Turquette <mturquette@baylibre.com>; Stephen Boyd
-> <sboyd@kernel.org>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>; linux-clk@vger.kernel.org; Gee=
-rt
-> Uytterhoeven <geert+renesas@glider.be>; Kuninori Morimoto
-> <kuninori.morimoto.gx@renesas.com>; Prabhakar Mahadev Lad
-> <prabhakar.mahadev-lad.rj@bp.renesas.com>; Fabrizio Castro
-> <fabrizio.castro.jz@renesas.com>; Mark Brown <broonie@kernel.org>; Takash=
-i
-> Iwai <tiwai@suse.de>; alsa-devel@alsa-project.org; linux-renesas-
-> soc@vger.kernel.org
-> Subject: [PATCH RFC 0/3] Add Versa3 clock generator support
->=20
-> The 5P35023 is a VersaClock programmable clock generator and it provides =
-6
-> clk outputs {diff2, diff1, se3, se2, se1 and refin}.
->=20
-> It has an internal OTP memory allows the user to store the configuration =
-in
-> the device. After power up, the user can change the device register setti=
-ngs
-> through the I2C interface when I2C mode is selected.
->=20
-> This driver is for overriding OTP default values during boot based on a f=
-ull
-> register map from DT, and also minimal support to change the parent of a
-> output clock.
->=20
-> The motivation for developing this driver is for supporting 48KHz
-> playback/record with audio codec on RZ/G2L SMARC EVK.
->=20
-> On RZ/G2L SMARC EVK, By default audio mclk is connected to
-> 11.2896 MHz clk which is multiple of 44.1KHz.
->=20
-> Please see the below default OTP configuration of Dividers connected to
-> output clocks.
->=20
-> DIV3 12.2880 MHz   DIFF2--> Audio clk2
-> DIV5 11.2896 MHz   SE1  --> Audio clk1
-> DIV5 11.2896 MHz   SE2  --> Audio mck
-> DIV4 12      MHz   SE3  --> This clk Not used
-> DIV1 25 MHz        DIFF1-->Ethernet clk
-> Ref1-> 24MHz
->=20
-> With this setup, we won't be able to do 48KHz playback/record on audio
-> codec, as mck is always connected to 11.2896MHz clk.
->=20
-> But by programming the i2c, we can make use of DIV4 to generate 12.2880 M=
-Hz
-> and make that as parent of SE2 and there by supporting 48KHz
-> playback/record.
->=20
-> A block diagram with modification can be find here[1]
-> [1] https://paste.pics/a253ce7cdc8720c3b5eb6953b97b25ff=20
->=20
-> DIV3 12.2880 MHz   DIFF2--> Audio clk2
-> DIV5 11.2896 MHz   SE1  --> Audio clk1
-> DIV5 11.2896 MHz | SE2  --> Audio mck
-> DIV4 12.2880 MHz |
-> DIV2 12      MHz   SE3  --> This clk Not used
-> DIV1 25 MHz        DIFF1--> Ethernet clk
-> Ref1-> 24MHz
->=20
-> The driver can read a full register map from the DT, and will use that
-> register map to initialize the clk generator when the system boots.
-> and later, based on sampling rate, it switches the parent of SE2 and supp=
-ort
-> both 44.1 and 48 KHz playback/record at run time.
->=20
-> 48KHz playback
-> 1f: f6 --> setting Div4 as clock source for se2 Read at address  0x10049C=
-00
-> : 0x300B4022 --> Setting Audio clk2 in SSI
->        pfd2                           1        1        0    24000000
->           pll2                        1        1        0   491519897
->              div4_mux                 1        1        0   491519897
->                 div4                  1        1        0    12287998
->                    se2_mux            1        1        0    12287998
->                       se2             1        1        0    12287998
->=20
-> 44.1KHz playback
-> 1f: b6 --> setting Div5 as clock source for se2 Read at address  0x10049C=
-00:
-> 0x700B4022--> Setting Audio clk1 in SSI
->     pfd3_mux                          1        1        0    24000000
->        pfd3                           1        1        0      960000
->           pll3                        1        1        0   564480000
->              div5                     1        1        0    11289600
->                 se2_mux               1        1        0    11289600
->                    se2                1        1        0    11289600
->=20
-> Please provide your valuable comment for this patch series.
->=20
-> Biju Das (3):
->   dt-bindings: clock: Add Renesas versa3 clock generator bindings
->   drivers: clk: Add support for versa3 clock driver
->   arm64: dts: renesas: rzg2l-smarc: Use versa3 clk for audio mclk
->=20
->  .../bindings/clock/renesas,versaclock3.yaml   |  135 ++
->  .../boot/dts/renesas/rz-smarc-common.dtsi     |    7 -
->  arch/arm64/boot/dts/renesas/rzg2l-smarc.dtsi  |   35 +
->  drivers/clk/Kconfig                           |    9 +
->  drivers/clk/Makefile                          |    1 +
->  drivers/clk/clk-versaclock3.c                 | 1134 +++++++++++++++++
->  6 files changed, 1314 insertions(+), 7 deletions(-)  create mode 100644
-> Documentation/devicetree/bindings/clock/renesas,versaclock3.yaml
->  create mode 100644 drivers/clk/clk-versaclock3.c
->=20
-> --
-> 2.25.1
+It looks like your audio offload driver will fetch the required
+resources for a stream enable request. But we have different designs.
+In the integration with your patch set, we found we still need a call
+back function in card.c when the usb set interface is done, in which
+we would call the new API, xhci_get_xfer_resource(), to get the EP
+transfer ring address. Of course, we will try the
+platform_ops->connect_cb() first to see if it is able to cover what we
+need or not.
 
+
+Thanks,
+Albert Wang
+
+Albert Wang | Pixel USB Software  | albertccwang@google.com | +886-918-695-245
+
+
+On Thu, Jan 26, 2023 at 11:16 AM Wesley Cheng <quic_wcheng@quicinc.com> wrote:
+>
+> Allow for different platforms to be notified on USB SND connect/disconnect
+> seqeunces.  This allows for platform USB SND modules to properly initialize
+> and populate internal structures with references to the USB SND chip
+> device.
+>
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>  sound/usb/card.c | 28 ++++++++++++++++++++++++++++
+>  sound/usb/card.h | 20 ++++++++++++++++++++
+>  2 files changed, 48 insertions(+)
+>
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 26268ffb8274..803230343c16 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
+> @@ -117,6 +117,24 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
+>  static DEFINE_MUTEX(register_mutex);
+>  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
+>  static struct usb_driver usb_audio_driver;
+> +static struct snd_usb_platform_ops *platform_ops;
+> +
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
+> +{
+> +       if (platform_ops)
+> +               return -EEXIST;
+> +
+> +       platform_ops = ops;
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_usb_register_platform_ops);
+> +
+> +int snd_usb_unregister_platform_ops(void)
+> +{
+> +       platform_ops = NULL;
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_usb_unregister_platform_ops);
+>
+>  /*
+>   * disconnect streams
+> @@ -910,6 +928,10 @@ static int usb_audio_probe(struct usb_interface *intf,
+>         usb_set_intfdata(intf, chip);
+>         atomic_dec(&chip->active);
+>         mutex_unlock(&register_mutex);
+> +
+> +       if (platform_ops->connect_cb)
+> +               platform_ops->connect_cb(intf, chip);
+> +
+>         return 0;
+>
+>   __error:
+> @@ -943,6 +965,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+>         if (chip == USB_AUDIO_IFACE_UNUSED)
+>                 return;
+>
+> +       if (platform_ops->disconnect_cb)
+> +               platform_ops->disconnect_cb(intf);
+> +
+>         card = chip->card;
+>
+>         mutex_lock(&register_mutex);
+> @@ -1087,6 +1112,9 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+>                 chip->system_suspend = chip->num_suspended_intf;
+>         }
+>
+> +       if (platform_ops->suspend_cb)
+> +               platform_ops->suspend_cb(intf, message);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/sound/usb/card.h b/sound/usb/card.h
+> index 40061550105a..2249c411c3a1 100644
+> --- a/sound/usb/card.h
+> +++ b/sound/usb/card.h
+> @@ -206,4 +206,24 @@ struct snd_usb_stream {
+>         struct list_head list;
+>  };
+>
+> +struct snd_usb_platform_ops {
+> +       void (*connect_cb)(struct usb_interface *intf, struct snd_usb_audio *chip);
+> +       void (*disconnect_cb)(struct usb_interface *intf);
+> +       void (*suspend_cb)(struct usb_interface *intf, pm_message_t message);
+> +};
+> +
+> +#if IS_ENABLED(CONFIG_SND_USB_AUDIO)
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops);
+> +int snd_usb_unregister_platform_ops(void);
+> +#else
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
+> +{
+> +       return -EOPNOTSUPP;
+> +}
+> +
+> +int snd_usb_unregister_platform_ops(void)
+> +{
+> +       return -EOPNOTSUPP;
+> +}
+> +#endif /* IS_ENABLED(CONFIG_SND_USB_AUDIO) */
+>  #endif /* __USBAUDIO_CARD_H */

@@ -2,124 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C4869C81C
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 10:58:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0AB69C836
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 11:03:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74FFFEBF;
-	Mon, 20 Feb 2023 10:57:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74FFFEBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1A4DEC7;
+	Mon, 20 Feb 2023 11:02:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1A4DEC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676887122;
-	bh=ApIo+J5SPyd3H+ComYRGZgZSPPdoK7RE/qRtiMCInBY=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=X5gptOA3yO9UDWNyYu6lGvStaalfFVs9+jQHJ1lQkPA/ER2mcf8bJzISi+3Z8zVU0
-	 SOnni5kSfH62GMuRLhAF0Mv/ZtCN5xdPdG0yjAACM4/2WbEPQw7IeT8H47ychp1nAm
-	 WVTN51sCNmstj8npvWfcUpkRinm3ah+wheKLzTMI=
+	s=default; t=1676887416;
+	bh=tFwWCdU/Yv4yNQ4yXOaNmsFJz7hxh4wEMYrhB2fb6+o=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jWRgo1uOdP+pfMrbDhL70Ek2sE9eP1HdCNfHGK/lsXyWL/OnkDZT4fmp7noz7kGxX
+	 isRMHBveQxszL2noaufh9Dgq6EBvKvd+yfy72w97/rpv10/b9SjhmHEA7ErVotoGb3
+	 KvrJB789l6jdlTp4M/Lrajo4MasfhElN0ElVzios=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3651F80496;
-	Mon, 20 Feb 2023 10:57:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20884F804FC;
+	Mon, 20 Feb 2023 11:01:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A96FFF804B0; Mon, 20 Feb 2023 10:57:02 +0100 (CET)
+	id B097EF8047C; Mon, 20 Feb 2023 11:01:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_PASS,
+	T_SPF_HELO_TEMPERROR,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::61d])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8FD51F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 10:56:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FD51F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8BB3AF800B6
+	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 11:01:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB3AF800B6
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=pgUcemSN
-Received: by mail-ed1-x532.google.com with SMTP id s26so2284104edw.11
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 Feb 2023 01:56:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5JxyzZLWqH4CmIH4TH2Vy9MuCCxUIYLIZaOnWZ1UUbw=;
-        b=pgUcemSNzWrbFTBSg5vIkS/KJ19DqW6lzGGnd/9EwVvdHmuUQ6fluJAajuerUXNle1
-         HXLL4lz+A+3fIxpNfDmhWR3wvIZbjrpvKOVW3/rEwCCli8QDHHCquLbAGcpWJrsZVS1P
-         FvR+AKpENnJa9r7GCFa7+ZQHVylqiLuKe3qunECPpZbJWWCreVS9NlqPhkmJmQOrP2ov
-         StJgwck25ycP8owa5+xBILR72WdjJb07ckBQZcwJARh/5v2dWKu38hwLmJI91LYMcoYv
-         Uc+6ZqwFrR0VfFkaCyLwJCOBafZtYZougWKBZFUTPye7H7ZdQbeLuqWDIev2EZ4GlTiK
-         4EvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5JxyzZLWqH4CmIH4TH2Vy9MuCCxUIYLIZaOnWZ1UUbw=;
-        b=GRDV0E8vUg+vpRCl7a0xAs1/bHfG9MEdKIhrpFTcb8EwKR/gLZUVvean7kfwfLNL1r
-         7I/lkrElFeXB/aZs/EDofZEFwNcKpvCCxOrfmxxYiLviVWOcAsy4qJSxghJxa74JXuq7
-         ZPlL318hPLNwNMCk2N5YWtBZy6LotNMPD1wIjmm0YpirufIU/dqQGLyzdng2rn5p1kUZ
-         CmyZ2vOig3EgTp8t6b0AVlZCSuMG+hrhX4kDOnftAQCTKx6WtAvoH+aaL3gusKUIWmUA
-         Svyqg0FhUCLlk06nCpMwuVSdNi1bU8HUlbUoUVI5ce+UeDCn32mm0mlUyV9nrbSor/Ur
-         i6lA==
-X-Gm-Message-State: AO0yUKWOQeRbPaTw+LI8IAWROz5p8CMYXaOIcHCc0QY5GPs01fLB0qdY
-	+NeUyK3MUOV8/pSeXGbdn/700w==
-X-Google-Smtp-Source: 
- AK7set80VzeP05Tf00cqGKyKOMUVYdyTqbqPyH6ydENKRVs7GrKbjY72bowMpNFv8iFRAf2JGwPdPA==
-X-Received: by 2002:a17:906:2491:b0:878:7471:6da7 with SMTP id
- e17-20020a170906249100b0087874716da7mr7846678ejb.66.1676887009189;
-        Mon, 20 Feb 2023 01:56:49 -0800 (PST)
-Received: from krzk-bin.. ([178.197.216.144])
-        by smtp.gmail.com with ESMTPSA id
- b25-20020a17090636d900b008b129b7f4e4sm5513120ejc.167.2023.02.20.01.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Feb 2023 01:56:48 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: dt-bindings: qcom,wcd9335: Convert to dtschema
-Date: Mon, 20 Feb 2023 10:56:43 +0100
-Message-Id: <20230220095643.64898-2-krzysztof.kozlowski@linaro.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=LtF3wOQl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U+PvKdewWRH3IpYM6ZIkojpk1lWwTZyzzgbdh9YA0OzQUKs+yUj+Ky/QQ/Dm/5f0QJPX4aBE4EygsPtZwNdXHDJQa2kFw8LzxW/gaZDm5Zv3Ih6+4icLNKsOWEMN7ETA41XItRn0XeaIs984OHBdZW45/Yh5z8SKH/YHbKuo7JAG2qqG2u+3PUqx4gKwjb5QNl3jQjcjYCBEdKkCAxlIldwJjbTrB/3v9jN8Zo3O1Mth3j2OjVMbuvbU+cVOYXoVU0xd5y3bMinVemvmY8L3eSEHjFnkJXJFY7nPgzbEZ+lxwSou+lVR11TYfOc/bZYIlOVyfsMNlKYvCz2UNqcxMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QHRIQtbGZJtHLIYTcSX20BZnItPCgbV/ysJWabxp6b0=;
+ b=RdQ6/tlkqjMUss/f6vxokSUdnrtORR/rt7prqxBtEVWXkGp812gunXfEs++qS/qZ66XAqFjYtOabT+tjWLRx4QVBgxDm26LgpbyVZn597viaUqrKoHIaVBljev5Nwqu57ry+1oUqb9XfHNaONGLOcMQNxFXjDiHUku8R1ye3GqEPLebDKXAnTLq2Uml01g/9O8Y7PeSpCbxpzE30L2qM4VjqpCqPfpvNNE1Xt1ZaOFLu92sGX/FVb19JRvWWnoy94p+qe8FPrbBMvECuQp4k5PjTfqR0HhucqkltJOdeEXaNcnEVFrDcc5kGTtGYc7wrLtB6IB0V23h00y+ZWX4yxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QHRIQtbGZJtHLIYTcSX20BZnItPCgbV/ysJWabxp6b0=;
+ b=LtF3wOQlQ0NKjhIPDUH5BtqTybRKgUvsc58FxB4sc8PKgoFTM9t3wQRPdJcr3OaJc383qMqj3PmTV1tQyhfHJPJ/RNqJhdsktC8ytdtEPX5+At8QAtuu6sSZV8lkL+ahupJdcrriSWHROK4Roc1TObGLmngHSiKS1W8CAnrXpgY=
+Received: from MW3PR06CA0026.namprd06.prod.outlook.com (2603:10b6:303:2a::31)
+ by CH0PR12MB5106.namprd12.prod.outlook.com (2603:10b6:610:bd::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20; Mon, 20 Feb
+ 2023 10:01:31 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2a:cafe::b1) by MW3PR06CA0026.outlook.office365.com
+ (2603:10b6:303:2a::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20 via Frontend
+ Transport; Mon, 20 Feb 2023 10:01:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6111.20 via Frontend Transport; Mon, 20 Feb 2023 10:01:30 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Feb
+ 2023 04:01:30 -0600
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 20 Feb 2023 04:01:27 -0600
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+Subject: [PATCH V3 0/8] Add SoundWire support for AMD platforms
+Date: Mon, 20 Feb 2023 15:34:10 +0530
+Message-ID: <20230220100418.76754-1-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230220095643.64898-1-krzysztof.kozlowski@linaro.org>
-References: <20230220095643.64898-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Z6X72BOEHRSYGUJ6UG3YEXKZ37SYMUWY
-X-Message-ID-Hash: Z6X72BOEHRSYGUJ6UG3YEXKZ37SYMUWY
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT034:EE_|CH0PR12MB5106:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a337d2d-f126-4ce4-d18a-08db132970d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	lU8CDO16k8GiBrm6qvofUVKcisNd9V3UJSWtmG/FOPHHBvvihznPVvsmRvPM9N+k2AKIe/cLIy3QGqU+TcEc+W1irFu0uKUnoqmv1wXublabrXkS2w0sT/me5x1Xovtce8FvClzvKammAVju5PzG2yQW+pMLRSnjpegVXt+1kxmbkL4bHR1dTRrO1IuSZxJohs11jmUwLZnrE9e9tSHUvQdlF7+2mSWRAF8ZQCFBT4SPcQ4Po39bAFYk7aNBOVS8PwX9rUkQvJijQdsF+s1hIHkm3qNiUyKbzjeWbHnMB4rRD1TDSBIKgGVHPn5+YO5Er6Gizoaut5o9pok2KsSiQJx3syiwCoXrjcys4g2YHeGwFCwxH9kdGyao2/JYmWF4vjj4SE/MNuuT4hrwUrmFhid1tn4zZhTsBON2yJ85f0+jihMO+PHzYhkljpa/INF0pZvQA2FEfaIq6v9HHUJH8BAUk6IGgdoOzbko7SyFv9FNmkfqEfHqTE7Fu+j9s2f/uv3BBF3uIm24gfqoiunHK+g/oiOJRtmuHLtbwDsnmF/ZrfpFzZY/Q0d6LZQurso7tTwGuTytFLyD9dzVjCpz8S6z+R2yGbnkSbGGp7HEBEhziurFKWYipup5C8kwHyupgEeSGr0GCejqyVSbQ1hTrjSayz6pKfUazkRkpbDsRrmK+W6pjfwirV9rNHMPtLlCfwKVFrqfctb0Df86FVGRO6G8cpVfBiyzERVOPYTeeLQ=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199018)(46966006)(40470700004)(36840700001)(2906002)(186003)(26005)(41300700001)(356005)(82740400003)(6666004)(81166007)(1076003)(5660300002)(36860700001)(2616005)(8936002)(478600001)(316002)(40460700003)(70206006)(70586007)(86362001)(6916009)(8676002)(4326008)(336012)(7696005)(82310400005)(47076005)(426003)(40480700001)(36756003)(54906003)(83380400001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2023 10:01:30.9011
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 1a337d2d-f126-4ce4-d18a-08db132970d3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5106
+Message-ID-Hash: IAA4KCW5TKDHBGK6RJMKWDYXRX5AJBIN
+X-Message-ID-Hash: IAA4KCW5TKDHBGK6RJMKWDYXRX5AJBIN
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+CC: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ amadeuszx.slawinski@linux.intel.com, Mario.Limonciello@amd.com,
+ Sunil-kumar.Dommati@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z6X72BOEHRSYGUJ6UG3YEXKZ37SYMUWY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IAA4KCW5TKDHBGK6RJMKWDYXRX5AJBIN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,317 +144,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the Qualcomm WCD9335 audio codec binding to DT schema.
+ACP IP(v6.x) block has two SoundWire manager instance support.
+This patchset adds support for AMD SoundWire manager driver.
 
-Changes against original binding:
-1. Drop "mclk2" from clocks as neither Linux driver nor DTS uses it.
-2. Do not require vdd-micbias-supply as several DTS do not provide it.
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Changes since v2:
+	- Remove useless variable initializations.
+	- Add helper function to interpret peripheral status.
+	- Move runtime pm sequence to probe_work workqueue.
+	- Use string "SoundWire" instead of "soundwire" in code.
+	- Update comments in interrupt handler and probe sequence.
+	- Rename "sdw_lock" as "acp_sdw_lock".
+	- Remove __func__ from dev_dbg statements.
 
----
+Changes since v1:
+	- Drop asoc tree based patches. will send asoc patches as a separate series.
+	- Fixed double space errors.
+	- Use dev instead of pci->dev.
+	- Use SoundWire manager terminology.
+	- Remove amd_sdw_compute_slave_ports() function and use exported
+	  sdw_compute_slave_ports() function.
+	- Remove unused variable "num_ports" from amd_manager structure.
+	- Drop startup and shutdown dai callbacks.
+	- Drop reset_page_addr callback. - Use relative address offset to program SoundWire manager
+	  registers throughout the code.
+	- Separate wake enable interrupt handling from slave status handling logic.
+	- Use acp_mmio to program ACP common registers.
+	- Use dai_runtime_array implementation in dai_ops.
+	- Refactor port_ops callbacks.
+	- Add comments in port_ops callbacks.
+	- Add retry count logic in irq thread to address faulty case.
+	- Add helper function to interpret command response.
+	- Add generic bandwidth allocation dependency in Kconfig options.
+	- Add comments for AMD SoundWire power modes.
+	- Add missing timeout check in amd_init_sdw_manager callback.
+	- Declare frameshape parameters in probe call.
+	- Handle error case in clock stop sequence.
+	- Add comments in pm_prepare and pm_ops callbacks.
 
-Few DTS boards have incomplete WCD9335 node causing dtbs_check warnings.
-These are fixed here:
-https://lore.kernel.org/linux-arm-msm/42f7d53b-a922-760a-4be2-7498ea0d560a@linaro.org/T/#t
----
- .../bindings/sound/qcom,wcd9335.txt           | 123 --------------
- .../bindings/sound/qcom,wcd9335.yaml          | 156 ++++++++++++++++++
- 2 files changed, 156 insertions(+), 123 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9335.txt
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9335.yaml
+Vijendar Mukunda (8):
+  soundwire: export sdw_compute_slave_ports() function
+  soundwire: amd: Add support for AMD Manager driver
+  soundwire: amd: register SoundWire manager dai ops
+  soundwire: amd: enable build for AMD SoundWire manager driver
+  soundwire: amd: add SoundWire manager interrupt handling
+  soundwire: amd: add runtime pm ops for AMD SoundWire manager driver
+  soundwire: amd: handle SoundWire wake enable interrupt
+  soundwire: amd: add pm_prepare callback and pm ops support
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9335.txt b/Documentation/devicetree/bindings/sound/qcom,wcd9335.txt
-deleted file mode 100644
-index 1f75feec3dec..000000000000
---- a/Documentation/devicetree/bindings/sound/qcom,wcd9335.txt
-+++ /dev/null
-@@ -1,123 +0,0 @@
--QCOM WCD9335 Codec
--
--Qualcomm WCD9335 Codec is a standalone Hi-Fi audio codec IC, supports
--Qualcomm Technologies, Inc. (QTI) multimedia solutions, including
--the MSM8996, MSM8976, and MSM8956 chipsets. It has in-built
--Soundwire controller, interrupt mux. It supports both I2S/I2C and
--SLIMbus audio interfaces.
--
--Required properties with SLIMbus Interface:
--
--- compatible:
--	Usage: required
--	Value type: <stringlist>
--	Definition: For SLIMbus interface it should be "slimMID,PID",
--		    textual representation of Manufacturer ID, Product Code,
--		    shall be in lower case hexadecimal with leading zeroes
--		    suppressed.  Refer to slimbus/bus.txt for details.
--		    Should be:
--		    "slim217,1a0" for MSM8996 and APQ8096 SoCs with SLIMbus.
--
--- reg
--	Usage: required
--	Value type: <u32 u32>
--	Definition: Should be ('Device index', 'Instance ID')
--
--- interrupts
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: Interrupts via WCD INTR1 and INTR2 pins
--
--- interrupt-names:
--	Usage: required
--	Value type: <String array>
--	Definition: Interrupt names of WCD INTR1 and INTR2
--	Should be: "intr1", "intr2"
--
--- reset-gpios:
--	Usage: required
--	Value type: <String Array>
--	Definition: Reset gpio line
--
--- slim-ifc-dev:
--	Usage: required
--	Value type: <phandle>
--	Definition: SLIM interface device
--
--- clocks:
--	Usage: required
--	Value type: <prop-encoded-array>
--	Definition: See clock-bindings.txt section "consumers". List of
--                three clock specifiers for mclk, mclk2 and slimbus clock.
--
--- clock-names:
--	Usage: required
--	Value type: <string>
--	Definition: Must contain "mclk", "mclk2" and "slimbus" strings.
--
--- vdd-buck-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the 1.8V buck supply
--
--- vdd-buck-sido-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the 1.8V SIDO buck supply
--
--- vdd-rx-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the 1.8V rx supply
--
--- vdd-tx-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the 1.8V tx supply
--
--- vdd-vbat-supply:
--	Usage: Optional
--	Value type: <phandle>
--	Definition: Should contain a reference to the vbat supply
--
--- vdd-micbias-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the micbias supply
--
--- vdd-io-supply:
--	Usage: required
--	Value type: <phandle>
--	Definition: Should contain a reference to the 1.8V io supply
--
--- interrupt-controller:
--	Usage: required
--	Definition: Indicating that this is a interrupt controller
--
--- #interrupt-cells:
--	Usage: required
--	Value type: <int>
--	Definition: should be 1
--
--#sound-dai-cells
--	Usage: required
--	Value type: <u32>
--	Definition: Must be 1
--
--audio-codec@1{
--	compatible = "slim217,1a0";
--	reg  = <1 0>;
--	interrupts = <&msmgpio 54 IRQ_TYPE_LEVEL_HIGH>;
--	interrupt-names = "intr2"
--	reset-gpios = <&msmgpio 64 GPIO_ACTIVE_LOW>;
--	slim-ifc-dev  = <&wc9335_ifd>;
--	clock-names = "mclk", "native";
--	clocks = <&rpmcc RPM_SMD_DIV_CLK1>,
--		 <&rpmcc RPM_SMD_BB_CLK1>;
--	vdd-buck-supply = <&pm8994_s4>;
--	vdd-rx-supply = <&pm8994_s4>;
--	vdd-buck-sido-supply = <&pm8994_s4>;
--	vdd-tx-supply = <&pm8994_s4>;
--	vdd-io-supply = <&pm8994_s4>;
--	#sound-dai-cells = <1>;
--}
-diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9335.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9335.yaml
-new file mode 100644
-index 000000000000..34f8fe4da9d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/qcom,wcd9335.yaml
-@@ -0,0 +1,156 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/qcom,wcd9335.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm WCD9335 Audio Codec
-+
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-+
-+description:
-+  Qualcomm WCD9335 Codec is a standalone Hi-Fi audio codec IC with in-built
-+  Soundwire controller and interrupt mux. It supports both I2S/I2C and SLIMbus
-+  audio interfaces.
-+
-+properties:
-+  compatible:
-+    const: slim217,1a0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: mclk
-+      - const: slimbus
-+
-+  interrupts:
-+    maxItems: 2
-+
-+  interrupt-names:
-+    items:
-+      - const: intr1
-+      - const: intr2
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  slim-ifc-dev:
-+    description: SLIM IFC device interface
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  '#sound-dai-cells':
-+    const: 1
-+
-+  vdd-buck-supply:
-+    description: 1.8V buck supply
-+
-+  vdd-buck-sido-supply:
-+    description: 1.8V SIDO buck supply
-+
-+  vdd-io-supply:
-+    description: 1.8V I/O supply
-+
-+  vdd-micbias-supply:
-+    description: micbias supply
-+
-+  vdd-rx-supply:
-+    description: 1.8V rx supply
-+
-+  vdd-tx-supply:
-+    description: 1.8V tx supply
-+
-+  vdd-vbat-supply:
-+    description: vbat supply
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+  - if:
-+      required:
-+        - slim-ifc-dev
-+    then:
-+      required:
-+        - clocks
-+        - clock-names
-+        - interrupts
-+        - interrupt-names
-+        - interrupt-controller
-+        - '#interrupt-cells'
-+        - reset-gpios
-+        - slim-ifc-dev
-+        - '#sound-dai-cells'
-+        - vdd-buck-supply
-+        - vdd-buck-sido-supply
-+        - vdd-io-supply
-+        - vdd-rx-supply
-+        - vdd-tx-supply
-+    else:
-+      properties:
-+        clocks: false
-+        clock-names: false
-+        interrupts: false
-+        interrupt-names: false
-+        interrupt-controller: false
-+        '#interrupt-cells': false
-+        reset-gpios: false
-+        slim-ifc-dev: false
-+        '#sound-dai-cells': false
-+        vdd-buck-supply: false
-+        vdd-buck-sido-supply: false
-+        vdd-io-supply: false
-+        vdd-micbias-supply: false
-+        vdd-rx-supply: false
-+        vdd-tx-supply: false
-+        vdd-vbat-supply: false
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,rpmcc.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    tasha_ifd: codec@0,0 {
-+        compatible = "slim217,1a0";
-+        reg = <0 0>;
-+    };
-+
-+    codec@1,0 {
-+        compatible = "slim217,1a0";
-+        reg = <1 0>;
-+
-+        clock-names = "mclk", "slimbus";
-+        clocks = <&div1_mclk>, <&rpmcc RPM_SMD_BB_CLK1>;
-+
-+        interrupt-parent = <&tlmm>;
-+        interrupts = <54 IRQ_TYPE_LEVEL_HIGH>,
-+                     <53 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "intr1", "intr2";
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+
-+        reset-gpios = <&tlmm 64 GPIO_ACTIVE_LOW>;
-+        slim-ifc-dev = <&tasha_ifd>;
-+        #sound-dai-cells = <1>;
-+
-+        vdd-buck-supply = <&vreg_s4a_1p8>;
-+        vdd-buck-sido-supply = <&vreg_s4a_1p8>;
-+        vdd-tx-supply = <&vreg_s4a_1p8>;
-+        vdd-rx-supply = <&vreg_s4a_1p8>;
-+        vdd-io-supply = <&vreg_s4a_1p8>;
-+    };
+ drivers/soundwire/Kconfig                     |   10 +
+ drivers/soundwire/Makefile                    |    4 +
+ drivers/soundwire/amd_manager.c               | 1335 +++++++++++++++++
+ drivers/soundwire/amd_manager.h               |  275 ++++
+ drivers/soundwire/bus.h                       |    9 +
+ .../soundwire/generic_bandwidth_allocation.c  |   12 +-
+ include/linux/soundwire/sdw_amd.h             |  108 ++
+ 7 files changed, 1744 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/soundwire/amd_manager.c
+ create mode 100644 drivers/soundwire/amd_manager.h
+ create mode 100644 include/linux/soundwire/sdw_amd.h
+
 -- 
 2.34.1
 

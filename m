@@ -2,27 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BCD69C99E
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 12:18:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98CF669C99F
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 12:18:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A67DED6;
-	Mon, 20 Feb 2023 12:17:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A67DED6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1822AF08;
+	Mon, 20 Feb 2023 12:17:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1822AF08
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676891921;
-	bh=VsJRm2lzSODecEFJUfZ3q0dGV7Yw8mvC8iNuWfHwosk=;
+	s=default; t=1676891923;
+	bh=Z054cRXfzoEcExIDbRnFtnWypSCE8y6qJzowPV9d01E=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=aOWzhmRIGawFyztMY2bHeN3iTyoioLW2ABks0Xs8hpKKjS9xvNa9V6TNrFdE0RF27
-	 M5ET9XTXQymaNyvWrn3qRHHMWG6rLu9S1sBvyctzQQpiVTSiVJ04o23PuzfUV/mTW7
-	 f3zaZ9IAHfGXsJy+SMq35IMpeKJAkZrCefDcv+18=
+	b=eSmm7nZlexwQxKpgWUNTLolb7JNQpG6uNv+E86dfyqUylHyCWxGKDAKkWa0TRuhvR
+	 mrhDzIcdoAwJMwoj4760mugn/5OwlxSWP30089xkZbSaMZP1lMCQTdJD5HPcgWdo5N
+	 uexaW45xACMuZOLJYQNLyXhFhqj8kmsAHIIBfcUM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77DC0F80496;
-	Mon, 20 Feb 2023 12:17:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16AEBF80525;
+	Mon, 20 Feb 2023 12:17:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9376FF8047C; Mon, 20 Feb 2023 12:17:16 +0100 (CET)
+	id 7D510F804B0; Mon, 20 Feb 2023 12:17:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,50 +32,50 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A46ADF8047C
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 12:17:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A46ADF8047C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E2AFF80266
+	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 12:17:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E2AFF80266
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZM7Hdp5Q
+ header.s=Intel header.b=izwjCTNL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676891834; x=1708427834;
+  t=1676891836; x=1708427836;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=VsJRm2lzSODecEFJUfZ3q0dGV7Yw8mvC8iNuWfHwosk=;
-  b=ZM7Hdp5QATve0iWWDS/lE5rDLv+slmsly0N1iKMamU3hToQyQkHI+3e2
-   tnbUnAV4SVVI6m+bHf4m2VLuSl6LaihazcvWUxBnZGYH5txg0eO3B05wm
-   mBrNnw7ytaMmkrAevC3lLVpJ1liyBB+gtrR948RHq2tI8asLQ53ed2/Tj
-   V/EY68pfAq8R5EFsj+J+HwrCCTg60zktDzuIiMkkjb4xO4mAANkO629/I
-   jKyMY3DRfDchfh5EVmNvSD2AmydIFD3tgFK0PQphPxY91zwaqoG5RP4+6
-   HXu8TnIAqAa7TE/f53E7SmqDM3B8U3pWJU7yUGwOFd0a8AOXNRnat91UK
-   Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="333739472"
+  bh=Z054cRXfzoEcExIDbRnFtnWypSCE8y6qJzowPV9d01E=;
+  b=izwjCTNLIOY9d8MY0jOTtGWY03LPih11ZkDD2yA+bW54SM4lm/VuHckd
+   UUsT6tKnyGeDsm9LryDaVE9vweiVbUowwv3gr9qbWVKsk9xlKum8ZdVTq
+   p1ajNRWsD3574y8mExLqmxqiJd8wou/85Mz54Ygp9tUrVl/eXmD7tyZZr
+   A/JajJQG9TqkAG8sKEn1wOqWms/CHSiloEspB97BjK9C1HGz0nvWewjTZ
+   2VsBR4qzb9t6EBM4m4i7c1+/lXu9xiWd31uXsV6lmcTYlpY46k7J7Zv9B
+   Ujkywv+jxTIJcuX5+iG5XG1PWh5H0z8MHyhJuYzcifCnP4AKuRqmTxQ1V
+   w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="333739509"
 X-IronPort-AV: E=Sophos;i="5.97,312,1669104000";
-   d="scan'208";a="333739472"
+   d="scan'208";a="333739509"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2023 03:16:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="795150943"
+ 20 Feb 2023 03:17:09 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="795150973"
 X-IronPort-AV: E=Sophos;i="5.97,312,1669104000";
-   d="scan'208";a="795150943"
+   d="scan'208";a="795150973"
 Received: from mmocanu-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.214.33])
   by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2023 03:16:55 -0800
+ 20 Feb 2023 03:17:07 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: stable@vger.kernel.org
-Subject: [PATCH BACKPORT 5.10,
- 5.15] ASoC: SOF: Intel: hda-dai: fix possible stream_tag leak
-Date: Mon, 20 Feb 2023 13:17:10 +0200
-Message-Id: <20230220111710.32438-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH BACKPORT 5.4] ASoC: SOF: Intel: hda-dai: fix possible
+ stream_tag leak
+Date: Mon, 20 Feb 2023 13:17:21 +0200
+Message-Id: <20230220111721.32502-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: S3XZI7CFTP7HCQCSJECZ5GPFW6W2XY4N
-X-Message-ID-Hash: S3XZI7CFTP7HCQCSJECZ5GPFW6W2XY4N
+Message-ID-Hash: NDYQQPYUHUO733HNCORO22XP4CVHNNC2
+X-Message-ID-Hash: NDYQQPYUHUO733HNCORO22XP4CVHNNC2
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S3XZI7CFTP7HCQCSJECZ5GPFW6W2XY4N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDYQQPYUHUO733HNCORO22XP4CVHNNC2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,8 +102,8 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 [ Upstream commit 1f810d2b6b2fbdc5279644d8b2c140b1f7c9d43d ]
 
-There were just too many code changes since 5.10/5.15 stable to prevent
-clean picking the fix from mainline.
+There were just too many code changes since 5.4 stable to prevent clean
+picking the fix from mainline.
 
 The HDaudio stream allocation is done first, and in a second step the
 LOSIDV parameter is programmed for the multi-link used by a codec.
@@ -117,7 +117,7 @@ We should first check that there is a valid multi-link entry to
 configure before allocating a stream_tag. This change aligns the
 dma_assign and dma_cleanup phases.
 
-Cc: stable@vger.kernel.org # 5.15.x 5.10.x
+Cc: stable@vger.kernel.org # 5.4.x
 Complements: b0cd60f3e9f5 ("ALSA/ASoC: hda: clarify bus_get_link() and bus_link_get() helpers")
 Link: https://github.com/thesofproject/linux/issues/4151
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -132,10 +132,10 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index de80f1b3d7f2..a6275cc92a40 100644
+index b3cdd10c83ae..c30e450fa970 100644
 --- a/sound/soc/sof/intel/hda-dai.c
 +++ b/sound/soc/sof/intel/hda-dai.c
-@@ -212,6 +212,10 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
+@@ -211,6 +211,10 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
  	int stream_tag;
  	int ret;
  
@@ -146,7 +146,7 @@ index de80f1b3d7f2..a6275cc92a40 100644
  	/* get stored dma data if resuming from system suspend */
  	link_dev = snd_soc_dai_get_dma_data(dai, substream);
  	if (!link_dev) {
-@@ -232,10 +236,6 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
+@@ -231,10 +235,6 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
  	if (ret < 0)
  		return ret;
  
@@ -154,9 +154,9 @@ index de80f1b3d7f2..a6275cc92a40 100644
 -	if (!link)
 -		return -EINVAL;
 -
- 	/* set the hdac_stream in the codec dai */
- 	snd_soc_dai_set_stream(codec_dai, hdac_stream(link_dev), substream->stream);
- 
+ 	/* set the stream tag in the codec dai dma params */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		snd_soc_dai_set_tdm_slot(codec_dai, stream_tag, 0, 0, 0);
 -- 
 2.39.2
 

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3758E69C639
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 09:02:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ECDC69C63C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 09:02:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84060EA7;
-	Mon, 20 Feb 2023 09:01:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84060EA7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70244EB6;
+	Mon, 20 Feb 2023 09:01:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70244EB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676880115;
-	bh=EBtP6HpSmy7anHv9dfJ3RWHfs6zgDkNnOIH5LGDGv4g=;
+	s=default; t=1676880166;
+	bh=NxxuL35qJPr+B6qjnCFUkKo9tOTNUWkP+2cD/7tSF3w=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ooQg0g1Jqxyj73020sCtxklsj9Q86GKfUEUbEemeAIJRMj60BWnKvZD7DcFoAY2eK
-	 YfloDpY2VBEX59n4m7lqL46nG2MW12GPeRzjHOfwYJHIaMlfSUUOY7KtNtmvhkW86U
-	 YwwrOK0KsgT1cIL5QZethTW96RdQWHRhbPUL9hXI=
+	b=lNsdUwUqjAQXsDvRVAWlAgOB7VUZYN3rwEMk1IWMx1C26hStb33wbuqdqWpYXRQWO
+	 l/EYfi/WxcTnYmaHqm/hhrIG7yUzHuBIJO6lRCylnPNqePdGd4anapTzPm7xwp6dx7
+	 sxxvMP/lOUU5B3fzUFHDAw9jLxe06spQx6Ei2NSo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C07B7F8025A;
-	Mon, 20 Feb 2023 09:01:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7951FF80496;
+	Mon, 20 Feb 2023 09:01:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 164F8F8047C; Mon, 20 Feb 2023 08:58:13 +0100 (CET)
+	id 4D47BF802DB; Mon, 20 Feb 2023 08:58:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,52 +33,52 @@ X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE68CF80266
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 08:58:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE68CF80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id A89B0F8025A
+	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 08:58:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A89B0F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=i0O0cJua
+ header.s=Intel header.b=Y+nqxNfI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676879882; x=1708415882;
+  t=1676879883; x=1708415883;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=EBtP6HpSmy7anHv9dfJ3RWHfs6zgDkNnOIH5LGDGv4g=;
-  b=i0O0cJuaR2uPCmnWEhvH6H6DM+0vg8N+lUbiKnjoK6ylHxsQnUjacT3O
-   9zjiRQHrMahzNAkEn5RnvZTDCvgpVeVCnVVlPAPdoui2JD2PXEj2n+ByI
-   k5JZB2N5Y3i6F+ob3Wh88f/lRw9EicHbrYuT4c6nn0S2JxYWh4x1K5pRW
-   Aq3J9dCI+mQjgdAIw4orhCEzc3m6jLba30HqpQgK97AwNMU3kQbMdOaUk
-   hvhxcPam4OaZ9ioSambiq6v18wCUmvXe2EO6gjJ/5b2sd4giLb0tm74L1
-   8+v60LuRWBHtAdjRTY9tKgmia8Wr5uGdLKBVFftTDUUUENRq+kcYcDnOa
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="394827749"
+  bh=NxxuL35qJPr+B6qjnCFUkKo9tOTNUWkP+2cD/7tSF3w=;
+  b=Y+nqxNfIuoglCyMhs8i8ReaVMc+cnwhIIiK4YnCdxOs6YyM2vLK00Rwq
+   vs83CY1lHr9kzY8sj7t8Ro2Uy/+mGOxChr79myy3Xp0iRtk+wkztnumMA
+   BCd2uArw579xB9Ohcf+bnTUXpF/fyYmXTsxBXrjnGE/8DwUpIEIU40j3P
+   TQfQ192e5f1oaqrLJeXowjt+umwOO8jkrsD6khaMP32AjuAyFyJj28son
+   R80+KcH9Cpc2Bvr/M9QseAW/Qq/M51q/QhOi8RIimuvzQjJNtTzyvfLLY
+   S8nGyXMWCKtxP5U6C7q61WdVSKR8Re1eYeO4unged8Ipchnis3pQQuMZ3
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="394827760"
 X-IronPort-AV: E=Sophos;i="5.97,311,1669104000";
-   d="scan'208";a="394827749"
+   d="scan'208";a="394827760"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
   by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2023 23:57:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="845239747"
+ 19 Feb 2023 23:58:01 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="845239779"
 X-IronPort-AV: E=Sophos;i="5.97,311,1669104000";
-   d="scan'208";a="845239747"
+   d="scan'208";a="845239779"
 Received: from mmocanu-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.214.33])
   by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2023 23:57:55 -0800
+ 19 Feb 2023 23:57:58 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 2/3] ASoC: SOF: Intel: hda: Restrict DMI L1 disable workaround
-Date: Mon, 20 Feb 2023 09:58:03 +0200
-Message-Id: <20230220075804.4829-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: SOF: Intel: MTL: Enable DMI L1
+Date: Mon, 20 Feb 2023 09:58:04 +0200
+Message-Id: <20230220075804.4829-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230220075804.4829-1-peter.ujfalusi@linux.intel.com>
 References: <20230220075804.4829-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FVNCJSYFFNIMBQB7UTQEHQQKQUZOSV6A
-X-Message-ID-Hash: FVNCJSYFFNIMBQB7UTQEHQQKQUZOSV6A
+Message-ID-Hash: VZO4GQF5PVTB6VCIBIA2OIHHNKPP7F5N
+X-Message-ID-Hash: VZO4GQF5PVTB6VCIBIA2OIHHNKPP7F5N
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,8 +93,7 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVNCJSYFFNIMBQB7UTQEHQQKQUZOSV6A/>
+Archived-At: <>
 List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
@@ -104,8 +103,7 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-The workaround to disable DMI L1 should be restricted to only the CAVS
-IP's.
+DMI L1 should be enabled unconditionally after FW boot is complete.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -113,51 +111,37 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-stream.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ sound/soc/sof/intel/mtl.c | 3 +++
+ sound/soc/sof/intel/mtl.h | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index d96d9cd9e62f..c37ef581637f 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -182,6 +182,7 @@ int hda_dsp_stream_spib_config(struct snd_sof_dev *sdev,
- struct hdac_ext_stream *
- hda_dsp_stream_get(struct snd_sof_dev *sdev, int direction, u32 flags)
- {
-+	const struct sof_intel_dsp_desc *chip_info =  get_chip_info(sdev->pdata);
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct sof_intel_hda_stream *hda_stream;
-@@ -221,9 +222,10 @@ hda_dsp_stream_get(struct snd_sof_dev *sdev, int direction, u32 flags)
- 	/*
- 	 * Prevent DMI Link L1 entry for streams that don't support it.
- 	 * Workaround to address a known issue with host DMA that results
--	 * in xruns during pause/release in capture scenarios.
-+	 * in xruns during pause/release in capture scenarios. This is not needed for the ACE IP.
- 	 */
--	if (!(flags & SOF_HDA_STREAM_DMI_L1_COMPATIBLE)) {
-+	if (chip_info->hw_ip_version < SOF_INTEL_ACE_1_0 &&
-+	    !(flags & SOF_HDA_STREAM_DMI_L1_COMPATIBLE)) {
- 		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
- 					HDA_VS_INTEL_EM2,
- 					HDA_VS_INTEL_EM2_L1SEN, 0);
-@@ -236,6 +238,7 @@ hda_dsp_stream_get(struct snd_sof_dev *sdev, int direction, u32 flags)
- /* free a stream */
- int hda_dsp_stream_put(struct snd_sof_dev *sdev, int direction, int stream_tag)
- {
-+	const struct sof_intel_dsp_desc *chip_info =  get_chip_info(sdev->pdata);
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct sof_intel_hda_stream *hda_stream;
-@@ -268,7 +271,7 @@ int hda_dsp_stream_put(struct snd_sof_dev *sdev, int direction, int stream_tag)
- 	spin_unlock_irq(&bus->reg_lock);
+diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
+index 307faad2ecf4..216fd07a3a93 100644
+--- a/sound/soc/sof/intel/mtl.c
++++ b/sound/soc/sof/intel/mtl.c
+@@ -280,6 +280,9 @@ static int mtl_dsp_post_fw_run(struct snd_sof_dev *sdev)
+ 	}
  
- 	/* Enable DMI L1 if permitted */
--	if (dmi_l1_enable) {
-+	if (chip_info->hw_ip_version < SOF_INTEL_ACE_1_0 && dmi_l1_enable) {
- 		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, HDA_VS_INTEL_EM2,
- 					HDA_VS_INTEL_EM2_L1SEN, HDA_VS_INTEL_EM2_L1SEN);
- 		hda->l1_disabled = false;
+ 	hda_sdw_int_enable(sdev, true);
++
++	/* enable DMI L1 */
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, MTL_EM2, MTL_EM2_L1SEN, MTL_EM2_L1SEN);
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/sof/intel/mtl.h b/sound/soc/sof/intel/mtl.h
+index 26418fb08807..ddc05304a9d5 100644
+--- a/sound/soc/sof/intel/mtl.h
++++ b/sound/soc/sof/intel/mtl.h
+@@ -28,6 +28,8 @@
+ #define MTL_HFINTIPPTR_PTR_MASK		GENMASK(20, 0)
+ 
+ #define MTL_HDA_VS_D0I3C		0x1D4A
++#define MTL_EM2				0x1c44
++#define MTL_EM2_L1SEN			BIT(13)
+ 
+ #define MTL_DSP2CXCAP_PRIMARY_CORE	0x178D00
+ #define MTL_DSP2CXCTL_PRIMARY_CORE	0x178D04
 -- 
 2.39.2
 

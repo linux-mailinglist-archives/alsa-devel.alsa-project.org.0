@@ -2,134 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BE569C870
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 11:18:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74DBE69C998
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 12:17:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8916ED8;
-	Mon, 20 Feb 2023 11:17:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8916ED8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 975D1EB3;
+	Mon, 20 Feb 2023 12:17:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 975D1EB3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676888291;
-	bh=+seYBP2yVSyeCrgNpHDnF+pLx1SNrGlHDXKYbzR8fdQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=q32tNz1QBM5XqfDZV9sR+AIie1XxnRcKs9/Vg6MFEjg7n5MpaOpjmyp4dvGdZ7Z15
-	 87V7dGd8t06CXhQCQDrriyABOb/zkyR9/ik6hSY+8WR6pgbk2h4XPW69+Ui6Z9NOHm
-	 zFpG7sj8kBDVdWlvJjKQoa/VaPEMfFwAv1zqKDys=
+	s=default; t=1676891870;
+	bh=rOMCxEo459LVKFnJiE2YpRPZKTpzgalBc7uTVfzETJE=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ia6tuulF9k47EtN3Vb/wwSJcIb9SkNkrZkbwq8jR4/PXXPats08rTKbBvtMy/1WRc
+	 87b6438fF6Zf6ehSnEmwfcEG9e037Ay8/F7PLZWqvZvNwrNs1sqfhQimHJOU/Vx6w+
+	 HPGzHZLSkWiqzb/IY2/ZjJLgULimZipcam8qCi50=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29406F8025A;
-	Mon, 20 Feb 2023 11:17:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6D6AF8025A;
+	Mon, 20 Feb 2023 12:16:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54E2AF80266; Mon, 20 Feb 2023 11:17:13 +0100 (CET)
+	id 481B2F80266; Mon, 20 Feb 2023 12:16:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B88D2F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 11:17:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B88D2F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F357F80083
+	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 12:16:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F357F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=FKbRaf4/
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31K5bmhs025658;
-	Mon, 20 Feb 2023 04:17:05 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=4t3QpaWWouFSiBxmF3fvCCsghAJG/UHx01EbLuY8ygI=;
- b=FKbRaf4/kLURFVrQnV4+RP67tz7EEPCVUm2824VVKmOhSq6kG/zIbPdyQskLYbyK5/jK
- TKyfIXCKwxryEDSKnIb5hyvqInLZ0DEOBVeiistBtnx+cnbAVXmhd5pHJ/BpgGm5VLg7
- NQuQgS8Uist+PcyN/YpIJBUr/aD0kCrSk++qALh1jkFUgarMvCUXyLtBZpiOoVHdhOk+
- nnes6mIAbUqvCW6sqRK+AGWJj8XTEWiilm75ZM8dbeZ3z0sP7KuA0IQHTyD4WmeCUq/w
- 7pn1EzQWT4hi56vVRNOoLoktthz+ziLFpCtUXoz9m7I2nSux0cUiGkQElVJegVPwLuIq Pg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ntuyst25a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 20 Feb 2023 04:17:05 -0600
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Mon, 20 Feb
- 2023 04:17:03 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via Frontend
- Transport; Mon, 20 Feb 2023 04:17:03 -0600
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D383011A8;
-	Mon, 20 Feb 2023 10:17:03 +0000 (UTC)
-Date: Mon, 20 Feb 2023 10:17:03 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: wlf,wm8960: Convert to dtschema
-Message-ID: <20230220101703.GL68926@ediswmail.ad.cirrus.com>
-References: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=MdxN6JO6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1676891812; x=1708427812;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=rOMCxEo459LVKFnJiE2YpRPZKTpzgalBc7uTVfzETJE=;
+  b=MdxN6JO6iBQuJ9Ua0g2vVu5h2cCkQIoscCJCAjP/HCtNdLW2Zw6OKCle
+   7AB2eCLCJbNkKbE+KaWxzEtpBGwGm18erSjp+ngUOQD0yt1kxR1wPlIL4
+   umSQbR5vpQMJkz8q7gzWGBV8MwN15sbLH/0gwbvAHD5nQ9+KaiHWLKpzA
+   QDtGhfoFj0RKwlujD1mwoHCm/qaDRw+WT4HM22z4kxpzQVLR4jViRSm3j
+   pziX51UPJGj3FRBI88ewipJy3S9u7i27wcS6lvqIzmU355a3GTosadaJb
+   Hq0e8O+YA7F7c9Ht+/RkN07MnFc3bqDNPwtd4pEXz3rOq/ZNP5A1PasEi
+   Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="334578773"
+X-IronPort-AV: E=Sophos;i="5.97,312,1669104000";
+   d="scan'208";a="334578773"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2023 03:16:46 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="814109139"
+X-IronPort-AV: E=Sophos;i="5.97,312,1669104000";
+   d="scan'208";a="814109139"
+Received: from mmocanu-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.214.33])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2023 03:16:43 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: stable@vger.kernel.org
+Subject: [PATCH BACKPORT 6.0,
+ 6.1] ASoC: SOF: Intel: hda-dai: fix possible stream_tag leak
+Date: Mon, 20 Feb 2023 13:16:58 +0200
+Message-Id: <20230220111658.32256-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: vKwsPWc5Lsz0QnISxBTIqrwxYh6kG-RP
-X-Proofpoint-ORIG-GUID: vKwsPWc5Lsz0QnISxBTIqrwxYh6kG-RP
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: URWF5BX2WNQKNGBVIKDI7IXDMGTHOKEO
-X-Message-ID-Hash: URWF5BX2WNQKNGBVIKDI7IXDMGTHOKEO
-X-MailFrom: prvs=74155c8cea=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZFVHYPOPO3YXCYBKR5USXEOECKWK644R
+X-Message-ID-Hash: ZFVHYPOPO3YXCYBKR5USXEOECKWK644R
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- - <patches@opensource.cirrus.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, Randy Li <ayaka@soulik.info>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org
+CC: sashal@kernel.org, broonie@kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ gregkh@linuxfoundation.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/URWF5BX2WNQKNGBVIKDI7IXDMGTHOKEO/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZFVHYPOPO3YXCYBKR5USXEOECKWK644R/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Feb 17, 2023 at 04:06:25PM +0100, Krzysztof Kozlowski wrote:
-> Convert the Wolfson WM8960 audio codecs bindings to DT schema.
-> 
-> Changes against original binding:
-> 1. Document clocks and clock-names - already present in DTS and used
->    by Linux driver.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
+[ Upstream commit 1f810d2b6b2fbdc5279644d8b2c140b1f7c9d43d ]
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+The reason for manual backport is that in 6.2 there were a naming cleanup
+around hdac, link, hlink, for example snd_hdac_ext_bus_get_link is renamed
+to snd_hdac_ext_bus_get_hlink_by_name in 6.2.
 
-Thanks,
-Charles
+The HDaudio stream allocation is done first, and in a second step the
+LOSIDV parameter is programmed for the multi-link used by a codec.
+
+This leads to a possible stream_tag leak, e.g. if a DisplayAudio link
+is not used. This would happen when a non-Intel graphics card is used
+and userspace unconditionally uses the Intel Display Audio PCMs without
+checking if they are connected to a receiver with jack controls.
+
+We should first check that there is a valid multi-link entry to
+configure before allocating a stream_tag. This change aligns the
+dma_assign and dma_cleanup phases.
+
+Cc: stable@vger.kernel.org # 6.1.x 6.0.x
+Complements: b0cd60f3e9f5 ("ALSA/ASoC: hda: clarify bus_get_link() and bus_link_get() helpers")
+Link: https://github.com/thesofproject/linux/issues/4151
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/20230216162340.19480-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/sof/intel/hda-dai.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index 556e883a32ed..5f03ee390d54 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -216,6 +216,10 @@ static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
+ 	struct hdac_bus *bus = hstream->bus;
+ 	struct hdac_ext_link *link;
+ 
++	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
++	if (!link)
++		return -EINVAL;
++
+ 	hext_stream = snd_soc_dai_get_dma_data(cpu_dai, substream);
+ 	if (!hext_stream) {
+ 		hext_stream = hda_link_stream_assign(bus, substream);
+@@ -225,10 +229,6 @@ static int hda_link_dma_hw_params(struct snd_pcm_substream *substream,
+ 		snd_soc_dai_set_dma_data(cpu_dai, substream, (void *)hext_stream);
+ 	}
+ 
+-	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
+-	if (!link)
+-		return -EINVAL;
+-
+ 	/* set the hdac_stream in the codec dai */
+ 	snd_soc_dai_set_stream(codec_dai, hdac_stream(hext_stream), substream->stream);
+ 
+-- 
+2.39.2
+

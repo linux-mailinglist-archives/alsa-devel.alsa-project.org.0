@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 551FA69E5C9
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 18:19:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 453A269E60D
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 18:33:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30B29E73;
-	Tue, 21 Feb 2023 18:19:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30B29E73
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D1ACE78;
+	Tue, 21 Feb 2023 18:32:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D1ACE78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676999998;
-	bh=KE0ZwLnleEfjfE24fXZumIOnHls+APgC1qvyW/3aACo=;
+	s=default; t=1677000824;
+	bh=zBxHkP+hvW6AWKVa8LA4w9LQ2wLrKtOlm6w8MAFozeg=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=itj3SJbqzEF+UaXx5JSz1MEnh/AayVPOZI2vBHGTL13S+upZOU9jc7qJXlrMsm72c
-	 GpYXqb5vRw4WxpIMj7cLlr2n5V2fVsYvxmJRbQ6StVmD8Mag87sufiZPKuuz7xzXE9
-	 jL10P+EPpGb+vkjCAt1WYevf7jN1YssY4D6o9Oo8=
+	b=O8LMOz2m3Gjc7sUa1f8IuUfkVaI29od6nDqV64d8EjAKQv6sk7N6dZfeabz/q3+95
+	 0iPKrUnpuCDbAVttVsKDPt27VgpvAXaPMhFQ5NahU3kmw9c8LRweGeTzuXdr9PMWo8
+	 iocvOIFE09wf7sQvtmmg94rR44VlKDjahAS2QH0o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C854F8025A;
-	Tue, 21 Feb 2023 18:19:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E608F80266;
+	Tue, 21 Feb 2023 18:32:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62107F80266; Tue, 21 Feb 2023 18:19:04 +0100 (CET)
+	id 89819F802DB; Tue, 21 Feb 2023 18:32:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,65 +34,66 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A8A2F80125
-	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 18:18:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A8A2F80125
+	by alsa1.perex.cz (Postfix) with ESMTPS id ADEE5F80125
+	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 18:32:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADEE5F80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=ZPni5iEW
+ header.s=PODMain02222019 header.b=ND6TD4YS
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31LHHMWQ001982;
-	Tue, 21 Feb 2023 11:18:57 -0600
+ 31LHHCpN001620;
+	Tue, 21 Feb 2023 11:32:40 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=PODMain02222019;
- bh=4Uv4Wl3WLY+qPDivrAHO8fHuS3+FUjV+/MkHhUOl7OI=;
- b=ZPni5iEWPK5r4B0Aj8AxmsY/sKhOQoOr78XXRZ4dLMuYSBoafe3YL/czh47sIxTCAzgv
- f3cS+6pOursXv6PKOIbUVofnE9FACDeQhUxp281VD6SG0zhhGZCxv09Eyv9k5v2KE9rH
- MQMQPwlF6jVxTagZCqAMaADXHe1w1VD7zseoLPJpN9bDcLLvKrMObLfA5yBJpN03hl3g
- oZCzJX/NRderg4iz3W1hc3Oq5pxuqh41VXJO6+QZwIlknmRbIDZQP8OIGSNvdyn/FWI3
- rCA3nOZq+NOHtp7cWnv6ewd3d+nALlv0+OwajlY+lYrNqragvHsp5kCte9aSWPjXscXs XA==
+ bh=F5cvvJRatafBqTwx32dIEwFmS8aJ+gUQ6Rca0B7hmA8=;
+ b=ND6TD4YSedTxkcfyGqz339oiV+f2E7arGN6xLhBlMgOZNbJI7Kqw4bO+eM4BHw2Bi3ls
+ 4HmqDkaSvLvyruoR9GSFq7appC/JU2cvfVev/oTd37TE6/acKxtDILVSUsBB5YYAZx5A
+ mZ84GG+nkz8OXDwuJ4fymTdT+XqsmTDtnz3hWJDEdKZBI+eExSppX1WT4DhKv4gNaakd
+ fvpwbssZl4BESqZnjLmftWPlCbz0wQBdsyHOnCYjEJDaYzOiIzoe6uWNoBM0Ckxg7tfE
+ +ge82rkuSzqj36qVNCLmtqjmRuhUsl7/utC8VVK3J3G731pTF7H5xpfQaIveKOrZ3lgb Hw==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nvmnqrxan-1
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nvmnqrxx0-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 Feb 2023 11:18:49 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+	Tue, 21 Feb 2023 11:32:39 -0600
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Tue, 21 Feb
- 2023 11:18:47 -0600
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.21 via Frontend Transport; Tue, 21 Feb 2023 11:18:47 -0600
+ 2023 11:32:38 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.21 via Frontend
+ Transport; Tue, 21 Feb 2023 11:32:38 -0600
 Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
  [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 45FE1B0E;
-	Tue, 21 Feb 2023 17:18:47 +0000 (UTC)
-Message-ID: <59866a98-077a-4645-b85b-a18fc1d65a54@opensource.cirrus.com>
-Date: Tue, 21 Feb 2023 17:18:47 +0000
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 284A62A1;
+	Tue, 21 Feb 2023 17:32:38 +0000 (UTC)
+Message-ID: <f3d70939-49e5-1da2-c104-11b370888d7c@opensource.cirrus.com>
+Date: Tue, 21 Feb 2023 17:32:38 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH 08/10] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+Subject: Re: [PATCH 09/10] ASoC: Intel: sof_sdw: Add support for Cirrus Logic
+ CS35L56
+Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
         <broonie@kernel.org>, <cezary.rojewski@intel.com>,
         <peter.ujfalusi@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
         <kai.vehmanen@linux.intel.com>
 References: <20230217161410.915202-1-rf@opensource.cirrus.com>
- <20230217161410.915202-9-rf@opensource.cirrus.com>
- <2d55b8c9-e7f9-6b2e-aad8-5cc902d69000@linux.intel.com>
-Content-Language: en-US
+ <20230217161410.915202-10-rf@opensource.cirrus.com>
+ <dfebabad-4777-b5e3-8f58-1301faf97f7e@linux.intel.com>
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <2d55b8c9-e7f9-6b2e-aad8-5cc902d69000@linux.intel.com>
+In-Reply-To: <dfebabad-4777-b5e3-8f58-1301faf97f7e@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 2P-I37zqGJce2jihQR9oOCStcfnex5Ei
-X-Proofpoint-GUID: 2P-I37zqGJce2jihQR9oOCStcfnex5Ei
+X-Proofpoint-ORIG-GUID: P6t7Rne8EnBr7gnQsE8ZR_6kWCm8dPW7
+X-Proofpoint-GUID: P6t7Rne8EnBr7gnQsE8ZR_6kWCm8dPW7
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: VFF2Z2IDQX2QRDEH3HX4YYOM2GJDJMCX
-X-Message-ID-Hash: VFF2Z2IDQX2QRDEH3HX4YYOM2GJDJMCX
+Message-ID-Hash: 7R4FB6QWGO2OOHVZND6GOV4MRNHSJ5RV
+X-Message-ID-Hash: 7R4FB6QWGO2OOHVZND6GOV4MRNHSJ5RV
 X-MailFrom: prvs=74166771c0=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VFF2Z2IDQX2QRDEH3HX4YYOM2GJDJMCX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7R4FB6QWGO2OOHVZND6GOV4MRNHSJ5RV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,205 +117,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 21/02/2023 16:45, Pierre-Louis Bossart wrote:
+On 21/02/2023 16:49, Pierre-Louis Bossart wrote:
 > 
->> +static int cs35l56_sdw_interrupt(struct sdw_slave *peripheral,
->> +				 struct sdw_slave_intr_status *status)
+>> +static int cs35l56_init_multiple(struct snd_soc_pcm_runtime *rtd, int count)
 >> +{
->> +	struct cs35l56_private *cs35l56 = dev_get_drvdata(&peripheral->dev);
+>> +	struct snd_soc_card *card = rtd->card;
+>> +	struct snd_soc_dai *codec_dai;
+>> +	int i, ret;
 >> +
->> +	/* SoundWire core holds our pm_runtime when calling this function. */
->> +
->> +	dev_dbg(cs35l56->dev, "int control_port=%#x\n", status->control_port);
->> +
->> +	if ((status->control_port & SDW_SCP_INT1_IMPL_DEF) == 0)
->> +		return 0;
->> +
->> +	/* Prevent host controller suspending before we handle the interrupt */
->> +	pm_runtime_get_noresume(cs35l56->dev);
+>> +	card->components = devm_kasprintf(card->dev, GFP_KERNEL,
+>> +					  "%s hs:cs35l56",
 > 
-> can this happen that the manager suspends in this function?
-> 
-> Or is this needed because of the queued work which the manager has no
-> knowledge of?
+> the string is wrong here, this is an amplifier so it should be
+> amp:cs35l56 or spk:cs36l56 (not sure which of the two we ended-up using).
 > 
 
-Because you issue a Bus-Reset when you suspend and clock-stop, if we
-didn't take our pm_runtime there is a small window of time where we
-could be reset before we've handled the interrupt. It's unlikely to
-happen but better to be safe than to rely on autosuspend delays.
+Will change it.
 
+>> +					  card->components);
+>> +	if (!card->components)
+>> +		return -ENOMEM;
 >> +
->> +	/*
->> +	 * Mask and clear until it has been handled. The read of GEN_INT_STAT_1
->> +	 * is required as per the SoundWire spec for interrupt status bits
->> +	 * to clear. GEN_INT_MASK_1 masks the _inputs_ to GEN_INT_STAT1.
->> +	 * None of the interrupts are time-critical so use the
->> +	 * power-efficient queue.
->> +	 */
->> +	sdw_write_no_pm(peripheral, CS35L56_SDW_GEN_INT_MASK_1, 0);
->> +	sdw_read_no_pm(peripheral, CS35L56_SDW_GEN_INT_STAT_1);
->> +	sdw_write_no_pm(peripheral, CS35L56_SDW_GEN_INT_STAT_1, 0xFF);
->> +	queue_work(system_power_efficient_wq, &cs35l56->sdw_irq_work);
+>> +	ret = snd_soc_dapm_new_controls(&card->dapm,
+>> +					cs35l56_sof_widgets, ARRAY_SIZE(cs35l56_sof_widgets));
+>> +	if (ret) {
+>> +		dev_err(card->dev, "Widgets add failed: %d\n", ret);
+>> +		return ret;
+>> +	}
 >> +
->> +	return 0;
->> +}
+>> +	ret = snd_soc_dapm_add_routes(&card->dapm, cs35l56_sof_map, count);
+>> +	if (ret) {
+>> +		dev_err(card->dev, "Map add %d failed: %d\n", count, ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	/* Enable one feedback TX per amp on different slots */
+>> +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+>> +		ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 1 << i, 4, 16);
 > 
->> +static int __maybe_unused cs35l56_sdw_handle_unattach(struct cs35l56_private *cs35l56)
->> +{
->> +	struct sdw_slave *peripheral = cs35l56->sdw_peripheral;
->> +
->> +	if (peripheral->unattach_request) {
->> +		/* Cannot access registers until master re-attaches. */
-> 
-> not sure what the comment means, the manager does not attach. did you
-> mean resume the bus?
+> TDM slots? Not getting how this would work with SoundWire?
 > 
 
-If the manager has forced us to reset we can't access the registers
-until the manager has recovered its state.
+Strictly speaking Soundwire is TDM (the frame time is divided up into
+slots for each sample...).
 
->> +		dev_dbg(cs35l56->dev, "Wait for initialization_complete\n");
->> +		if (!wait_for_completion_timeout(&peripheral->initialization_complete,
->> +						 msecs_to_jiffies(5000))) {
->> +			dev_err(cs35l56->dev, "initialization_complete timed out\n");
->> +			return -ETIMEDOUT;
->> +		}
->> +
->> +		peripheral->unattach_request = 0;
->> +
->> +		/*
->> +		 * Don't call regcache_mark_dirty(), we can't be sure that the
->> +		 * Manager really did issue a Bus Reset.
->> +		 */
+The problem is if you have N amps on the dailink all feeding back audio
+on the same bus. Their DP slots are all programmed to the same positions
+in the frame, same as for the playback. So you have 4 amps all trying to
+send 6 audio channels in the same positions in the frame and you'll just
+get a ton of bus clash interrupts.
+
+So we use the set_tdm_slot() like we do with I2S TDM to set which slots
+are active for each amp.
+
+I can't see that there's any obvious "generic" way that the manager code
+can automatically figure out how many channels to enable on each amp and
+what order to map them, so we do it here. Just as with I2S TDM - you
+have many slots and many codecs but the machine driver has to tell it
+how to map those.
+
+>> +		if (ret < 0)
+>> +			return ret;
 >> +	}
 >> +
 >> +	return 0;
->> +}
-> ...
-> 
->> +static void cs35l56_dsp_work(struct work_struct *work)
->> +{
->> +	struct cs35l56_private *cs35l56 = container_of(work,
->> +						       struct cs35l56_private,
->> +						       dsp_work);
->> +	unsigned int reg;
->> +	unsigned int val;
->> +	int ret = 0;
->> +
->> +	if (!wait_for_completion_timeout(&cs35l56->init_completion,
->> +					 msecs_to_jiffies(5000))) {
->> +		dev_err(cs35l56->dev, "%s: init_completion timed out\n", __func__);
->> +		goto complete;
->> +	}
->> +
->> +	if (!cs35l56->init_done || cs35l56->removing)
->> +		goto complete;
->> +
->> +	cs35l56->dsp.part = devm_kasprintf(cs35l56->dev, GFP_KERNEL, "cs35l56%s-%02x",
->> +					   cs35l56->secured ? "s" : "", cs35l56->rev);
->> +
->> +	if (!cs35l56->dsp.part)
->> +		goto complete;
->> +
->> +	pm_runtime_get_sync(cs35l56->dev);
-> 
-> test that this is successful?
-> 
-
-Could do. Wasn't really expecting it to fail unless the hardware is
-already broken.
-
->> +
->> +	/*
->> +	 * Disable SoundWire interrupts to prevent race with IRQ work.
->> +	 * Setting sdw_irq_no_unmask prevents the handler re-enabling
->> +	 * the SoundWire interrupt.
->> +	 */
->> +	if (cs35l56->sdw_peripheral) {
->> +		cs35l56->sdw_irq_no_unmask = true;
->> +		cancel_work_sync(&cs35l56->sdw_irq_work);
->> +		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_MASK_1, 0);
->> +		sdw_read_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1);
->> +		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1, 0xFF);
->> +	}
->> +
->> +	ret = cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_SHUTDOWN);
->> +	if (ret) {
->> +		dev_dbg(cs35l56->dev, "%s: CS35L56_MBOX_CMD_SHUTDOWN ret %d\n", __func__, ret);
->> +		goto err;
->> +	}
->> +
->> +	if (cs35l56->rev < CS35L56_REVID_B0)
->> +		reg = CS35L56_DSP1_PM_CUR_STATE_A1;
->> +	else
->> +		reg = CS35L56_DSP1_PM_CUR_STATE;
->> +
->> +	ret = regmap_read_poll_timeout(cs35l56->regmap, reg,
->> +				       val, (val == CS35L56_HALO_STATE_SHUTDOWN),
->> +				       CS35L56_HALO_STATE_POLL_US,
->> +				       CS35L56_HALO_STATE_TIMEOUT_US);
->> +	if (ret < 0)
->> +		dev_err(cs35l56->dev, "Failed to poll PM_CUR_STATE to 1 is %d (ret %d)\n",
->> +			val, ret);
->> +
->> +	/* Use wm_adsp to load and apply the firmware patch and coefficient files */
->> +	ret = wm_adsp_power_up(&cs35l56->dsp);
->> +	if (ret) {
->> +		dev_dbg(cs35l56->dev, "%s: wm_adsp_power_up ret %d\n", __func__, ret);
->> +		goto err;
->> +	}
->> +
->> +	if (cs35l56->removing)
->> +		goto err;
->> +
->> +	mutex_lock(&cs35l56->irq_lock);
->> +
->> +	init_completion(&cs35l56->init_completion);
->> +
->> +	cs35l56_system_reset(cs35l56);
->> +
->> +	if (cs35l56->sdw_peripheral) {
->> +		if (!wait_for_completion_timeout(&cs35l56->init_completion,
->> +						 msecs_to_jiffies(5000))) {
->> +			dev_err(cs35l56->dev, "%s: init_completion timed out (SDW)\n", __func__);
-> 
-> shouldn't do the same routine as for a regular pm_runtime resume,
-> including re-synching regmaps?
-> 
-
-Not sure it would help. It's not the same as runtime_resume because
-we've changed the firmware and rebooted it (the firmware is retained
-in a runtime_suspend). We need to do some of the first-time init()
-code again, which we don't need to do in runtime_resume.
-
-Also would create a circular dependency between this driver and the
-cs35l56-sdw driver. (We _could_ call our dev->pm->runtime_resume pointer
-but that's a bit ugly)
-
-> 
->> +			goto err_unlock;
->> +		}
->> +	} else {
->> +		if (cs35l56_init(cs35l56))
->> +			goto err_unlock;
->> +	}
->> +
->> +	cs35l56->fw_patched = true;
->> +
->> +err_unlock:
->> +	mutex_unlock(&cs35l56->irq_lock);
->> +err:
->> +	pm_runtime_mark_last_busy(cs35l56->dev);
->> +	pm_runtime_put_autosuspend(cs35l56->dev);
->> +
->> +	/* Re-enable SoundWire interrupts */
->> +	if (cs35l56->sdw_peripheral) {
->> +		cs35l56->sdw_irq_no_unmask = false;
->> +		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_MASK_1,
->> +				CS35L56_SDW_INT_MASK_CODEC_IRQ);
->> +	}
->> +
->> +complete:
->> +	complete_all(&cs35l56->dsp_ready_completion);
 >> +}

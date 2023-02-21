@@ -2,106 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DE7769E6CF
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 19:05:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FB669E7A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 19:37:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B43DE76;
-	Tue, 21 Feb 2023 19:05:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B43DE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 332A6E76;
+	Tue, 21 Feb 2023 19:36:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 332A6E76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677002753;
-	bh=ihZKaLNGSWG3qNYgbisyi+AvTv2NlMGpvPTE2WUE7c0=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JJx3LF149hS1K+tn9uov7OgLahhTXclooChJBlgILfs7PagBa+btJvUqGA1vIRP+q
-	 IesIfhppDm6gc+XQCCSq9m1DHy9zsLADUFC7s90e8mD5+FoHRZgcHNLciKj0AOlEa9
-	 4Yot8d2T7madyn71RNKQjblfobyH9GipKiAKkfmA=
+	s=default; t=1677004648;
+	bh=y5f/7FD5XngEI+WAgdFrak7KGfSwx36w2Fb0H7QFUug=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MvERLNrnMDdgPpG5BU98AQDSL6oEUCgdGUnVZc0W1g3UnM796Rxq+zcGmxzuXwptN
+	 YXkOzbDZmg1Z4T3RdM/5D5LxZlRQ9pZwuov+nTQ9FiUgXkaeJ9TN5cxuLB754kwRmP
+	 s+K70OSI11caVN6CE7RI90edPnTfiTQ3PVsefDF4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C29CCF80266;
-	Tue, 21 Feb 2023 19:05:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 825D1F8025A;
+	Tue, 21 Feb 2023 19:36:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F36EF802DB; Tue, 21 Feb 2023 19:04:59 +0100 (CET)
+	id EA4BFF804FC; Tue, 21 Feb 2023 19:32:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0110DF800B6
-	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 19:04:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0110DF800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1885F800BA
+	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 19:32:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1885F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BRb4UCH7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677002696; x=1708538696;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ihZKaLNGSWG3qNYgbisyi+AvTv2NlMGpvPTE2WUE7c0=;
-  b=BRb4UCH7Lxgw77Aw6QLwKAwrUL6zwk/QVSVGbkF1Pc0hgvDtX4SSGZCj
-   zYOkpglIoKOYfX4Inhi2OrpOrla8tGw8omvZjnS75Z/ZIKGWCOQsc8fup
-   eSQkvECeCBQpoVTg9SvffHI7fbKXSgGfy3N4+gpLagEkSwQ8CxsVat+hM
-   4YXqHVJ4sivaRjPLqA/AFUoClC4JBOX3vIWj2p1+SKWYcypYgjfTtGlyv
-   wLPoMBTGQptSOr3Qy+fSo23bRWWdjjcu5wuXXEfP8nWWCu7dL30EJmnZX
-   50udJ9wgJA8vKuB1T57ssT8vlNX3YcRSddb/axAQrfOJrGis6YT3Q+lnr
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="397398174"
-X-IronPort-AV: E=Sophos;i="5.97,315,1669104000";
-   d="scan'208";a="397398174"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 10:04:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="740501480"
-X-IronPort-AV: E=Sophos;i="5.97,315,1669104000";
-   d="scan'208";a="740501480"
-Received: from taevough-mobl.amr.corp.intel.com (HELO [10.209.174.213])
- ([10.209.174.213])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 10:04:16 -0800
-Message-ID: <273e1484-0285-29b6-4852-9f5bc2d24e2a@linux.intel.com>
-Date: Tue, 21 Feb 2023 13:03:12 -0500
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=kWq4ecHF
+Received: by mail-ed1-x529.google.com with SMTP id ee7so5923742edb.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 21 Feb 2023 10:32:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0EeJlO8QUl1DZMAlcd+EODPEJDc+DBbZZnZ+JDzoEdg=;
+        b=kWq4ecHFuWXMSQZOzGBaSB3TZctWJCNGUWIu8P3VK24KihWheD/Hkgnz3BhcjBm+Ov
+         z8eahBqmrp2SwL0wBFOCTd+8Knk4Nx90ZwYEY03DeTfn6M/VqR6QPOqhy5+242r9yDzt
+         Ebj1teN7A4oA8YgIQe8byK5O6YanmP4Rk4ZeqmJR7xKaFSbu8E7tfn3utJjUFoZ988os
+         QEbB2xHc3wW1X2WPp4qC8P+OOaY4c9nDtBXBo3LdSxRv8OmHfXrfBf1SVw9icnA4wePn
+         SA8PnAH5xFwF8CR18LYgwYpvbCp28OMh9f4PgaM5DxNZ/D9Fk68DmsvDr2FtOiXzVAsJ
+         Jbqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0EeJlO8QUl1DZMAlcd+EODPEJDc+DBbZZnZ+JDzoEdg=;
+        b=oaNe71YcSpgLPS03tYGATJ0bpuUiw4Dxj8U4vRvX7Oq/XVvS/5zUx/jyCq2U42sQH5
+         ZIK0xQO2rkg2PQG6b3Z9X/3eC/NzY5W7vlXQEuHaUhah4aarvhGgxy2b0SP8BpWqtedu
+         AwNWpRgJQTYHwxGd17A3URuwxor6FbF9JCYBId3lriJCdqP8vGTrfeMrIpGfVo9YxW+B
+         hZ1PNHfexbjhMfKUq2tIQqBx615BAhMvpKHaf9W3+4GUcuw+h6Sdbq3EvjC8Oq6eaR18
+         IzMTVJYhbIvAfKITYUAOMABgkCJtfcoLW5hm8lyzOLohfw2iqo0klFenAtI+pYgQxaRX
+         PnAg==
+X-Gm-Message-State: AO0yUKXj1dfc+wHoVEO5aadIKvYl7fsMdVDsF3O5RgzNpwk82Cgfz0H0
+	GGouAEDj64+RQbQlF7bkhrY=
+X-Google-Smtp-Source: 
+ AK7set86GBsI14U6VEaKmjm3BNimI8/ZzoK6Ek4xMuPyAJKltWK2m8xRKjLbpVGkaLUsc2k/7+79Yw==
+X-Received: by 2002:a05:6402:215:b0:4af:515d:5658 with SMTP id
+ t21-20020a056402021500b004af515d5658mr2968051edv.35.1677004342754;
+        Tue, 21 Feb 2023 10:32:22 -0800 (PST)
+Received: from xeon.. ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id
+ i3-20020a50c3c3000000b004af5aa16fcasm169102edf.66.2023.02.21.10.32.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Feb 2023 10:32:22 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Maxim Schwalm <maxim.schwalm@gmail.com>,
+	Dmitry Osipenko <digetx@gmail.com>
+Subject: [PATCH v1 00/10] Fix sound on ASUS Transformers
+Date: Tue, 21 Feb 2023 20:32:01 +0200
+Message-Id: <20230221183211.21964-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH 09/10] ASoC: Intel: sof_sdw: Add support for Cirrus Logic
- CS35L56
-Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, broonie@kernel.org,
- cezary.rojewski@intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, kai.vehmanen@linux.intel.com
-References: <20230217161410.915202-1-rf@opensource.cirrus.com>
- <20230217161410.915202-10-rf@opensource.cirrus.com>
- <dfebabad-4777-b5e3-8f58-1301faf97f7e@linux.intel.com>
- <f3d70939-49e5-1da2-c104-11b370888d7c@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <f3d70939-49e5-1da2-c104-11b370888d7c@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R2JAO5VQJR3H3JUTIGLLFEBMCYL7XI2O
-X-Message-ID-Hash: R2JAO5VQJR3H3JUTIGLLFEBMCYL7XI2O
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-MailFrom: clamor95@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: IFCLOGWXTBXAN2XZWXV4KCCG2TQ2VKOR
+X-Message-ID-Hash: IFCLOGWXTBXAN2XZWXV4KCCG2TQ2VKOR
+X-Mailman-Approved-At: Tue, 21 Feb 2023 18:36:34 +0000
+CC: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
+ linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2JAO5VQJR3H3JUTIGLLFEBMCYL7XI2O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IFCLOGWXTBXAN2XZWXV4KCCG2TQ2VKOR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,56 +125,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+- add quirk for headset detection used by some T30 devices
+  (ASUS Transformers, LG Optimus 4X HD and Vu);
+- add RT5631 and MAX9808x machine drivers
+- add Fortemedia FM34NE DSP driver used by ASUS Transformers
+  and mandatory for correct sound work
+- bind everything into working configuration
 
->>> +                      card->components);
->>> +    if (!card->components)
->>> +        return -ENOMEM;
->>> +
->>> +    ret = snd_soc_dapm_new_controls(&card->dapm,
->>> +                    cs35l56_sof_widgets,
->>> ARRAY_SIZE(cs35l56_sof_widgets));
->>> +    if (ret) {
->>> +        dev_err(card->dev, "Widgets add failed: %d\n", ret);
->>> +        return ret;
->>> +    }
->>> +
->>> +    ret = snd_soc_dapm_add_routes(&card->dapm, cs35l56_sof_map, count);
->>> +    if (ret) {
->>> +        dev_err(card->dev, "Map add %d failed: %d\n", count, ret);
->>> +        return ret;
->>> +    }
->>> +
->>> +    /* Enable one feedback TX per amp on different slots */
->>> +    for_each_rtd_codec_dais(rtd, i, codec_dai) {
->>> +        ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 1 << i, 4, 16);
->>
->> TDM slots? Not getting how this would work with SoundWire?
->>
-> 
-> Strictly speaking Soundwire is TDM (the frame time is divided up into
-> slots for each sample...).
-> 
-> The problem is if you have N amps on the dailink all feeding back audio
-> on the same bus. Their DP slots are all programmed to the same positions
-> in the frame, same as for the playback. So you have 4 amps all trying to
-> send 6 audio channels in the same positions in the frame and you'll just
-> get a ton of bus clash interrupts.
-> 
-> So we use the set_tdm_slot() like we do with I2S TDM to set which slots
-> are active for each amp.
-> 
-> I can't see that there's any obvious "generic" way that the manager code
-> can automatically figure out how many channels to enable on each amp and
-> what order to map them, so we do it here. Just as with I2S TDM - you
-> have many slots and many codecs but the machine driver has to tell it
-> how to map those.
+David Heidelberg (1):
+  dt-bindings: sound: nvidia,tegra-audio: add RT5631 CODEC
 
-IIRC Bard did the same thing recently, and the order of the feedback
-channels is really defined by the order in which the peripheral devices
-are added in the dailink. See
-https://github.com/thesofproject/linux/pull/4108
+Svyatoslav Ryhel (9):
+  dt-bindings: sound: nvidia,tegra-audio-common: add new property
+  sound: soc: jack: allow multiple interrupt per gpio
+  ASoC: tegra: Support RT5631 by machine driver
+  dt-bindings: sound: nvidia,tegra-audio: add MAX9808x CODEC
+  ASoC: tegra: Support MAX9808x by machine driver
+  ARM: tegra: transformers: update bindings of sound graph
+  dt-bindings: dsp: add Fortemedia FM34 DSP
+  staging: dsp: add support for Fortemedia FM34NE DSP
+  ARM: tegra: transformers: bind FM34NE DSP on supported devices
 
-There's also another open related to the number of channels, we need to
-patch what the CPU DAI can handle, see
-https://github.com/thesofproject/linux/pull/4136 or
-https://github.com/thesofproject/linux/pull/4134
+ .../bindings/dsp/fortemedia,dsp.yaml          |  95 ++
+ .../sound/nvidia,tegra-audio-common.yaml      |   4 +
+ .../sound/nvidia,tegra-audio-max9808x.yaml    |  93 ++
+ .../sound/nvidia,tegra-audio-rt5631.yaml      |  88 ++
+ arch/arm/boot/dts/tegra20-asus-tf101.dts      |  22 +-
+ arch/arm/boot/dts/tegra30-asus-tf201.dts      |  46 +
+ arch/arm/boot/dts/tegra30-asus-tf300t.dts     |  34 +-
+ arch/arm/boot/dts/tegra30-asus-tf300tg.dts    |  36 +
+ arch/arm/boot/dts/tegra30-asus-tf700t.dts     |  36 +
+ .../dts/tegra30-asus-transformer-common.dtsi  |   9 +-
+ .../arm/boot/dts/tegra30-pegatron-chagall.dts |  29 +-
+ drivers/staging/Kconfig                       |   2 +
+ drivers/staging/Makefile                      |   1 +
+ drivers/staging/dsp/Kconfig                   |   7 +
+ drivers/staging/dsp/Makefile                  |   2 +
+ drivers/staging/dsp/dsp-fm34ne.c              | 364 ++++++++
+ drivers/staging/dsp/dsp-fm34ne.h              | 845 ++++++++++++++++++
+ sound/soc/soc-jack.c                          |   1 +
+ sound/soc/tegra/Kconfig                       |  18 +
+ sound/soc/tegra/tegra_asoc_machine.c          | 120 ++-
+ 20 files changed, 1837 insertions(+), 15 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/dsp/fortemedia,dsp.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+ create mode 100644 drivers/staging/dsp/Kconfig
+ create mode 100644 drivers/staging/dsp/Makefile
+ create mode 100644 drivers/staging/dsp/dsp-fm34ne.c
+ create mode 100644 drivers/staging/dsp/dsp-fm34ne.h
+
+-- 
+2.37.2
+

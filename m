@@ -2,108 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35DBA69DBE9
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 09:29:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56FD769DCD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 10:24:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0714E92;
-	Tue, 21 Feb 2023 09:29:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0714E92
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD94FE92;
+	Tue, 21 Feb 2023 10:23:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD94FE92
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676968194;
-	bh=qvlPvbGuS79LYZs3TMErx3YgQ/aZCqV4xqqYZO7kqnM=;
+	s=default; t=1676971484;
+	bh=9bDgLTorDx+TnEnuyLBPVsgDFXo3m2VScQOdwuKRczc=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f9ub2Jqz2yIx9nsZNZnDMf9ZjIfVmeNVlcHsQjSF03QLDqjkl+9IAmnE7v4eDfkIm
-	 zgvl6QCCWjHz8jHPKXGKnQti7PyRCL97VcTdJiU6zJ/5CKfxnyjwPngOmrs+MADE24
-	 nCumSDbbF3Cs6Z8Er0xYL+R35JKKH60C6twYYs0M=
+	b=KVIbn/UgdMgiECI+d8jTn0Rz0i6v6XuxDx9JVslLvux2jXsy+GX1FDEezZlxvKnnG
+	 DYJuyhzONkV/BgOlZ1ShfojPQpbyG/Cd/4fRBIAieDZJiHAH6FzR0XJvCV70PtcSuY
+	 JJYauVAFbFhOBPUpa11ePWyzBhljn7FNmi4eb+kc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07393F8025A;
-	Tue, 21 Feb 2023 09:29:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51354F8025A;
+	Tue, 21 Feb 2023 10:23:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26F40F80266; Tue, 21 Feb 2023 09:28:58 +0100 (CET)
+	id BFEC1F80266; Tue, 21 Feb 2023 10:23:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04541F800B6
-	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 09:28:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04541F800B6
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=ZcTrCmVC
-Received: from [192.168.86.246]
- (cpc87451-finc19-2-0-cust61.4-2.cable.virginm.net [82.11.51.62])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: tanureal)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 35A9666021BD;
-	Tue, 21 Feb 2023 08:28:45 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1676968125;
-	bh=qvlPvbGuS79LYZs3TMErx3YgQ/aZCqV4xqqYZO7kqnM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZcTrCmVC/tO+2g+9Z06OVyUlnLUbNCJzXA/O231hNqMjB/Vi0fUawgwSI8FLuJE8w
-	 qSqow9BjZNHGa1s8YmU7Z9alJbNaYnNUi9aarl8a9qymLFnIMLrh6Iv7pqYQKrBNtZ
-	 uqLZE66RmhLKOfCRf2yVwMK8p3zT59YeXW2rs6L9Ldpvau5FSv6gEcFO+g0tw08N6X
-	 ISPbZee+G46kMWTrnTelGhCF6A0JFfBxov+Ga9QULxoWLMVgETY5VtSSniLifJuuVo
-	 TB8d+HPSlt20XjOdDFOpTL1CyUdlley5f0N9hwUW1DHdJ7b3rffd1BryIHp8k+YQIo
-	 S+4vUh/HTkB6w==
-Message-ID: <09bf8e07-6275-654f-4a70-d46b54e9b853@collabora.com>
-Date: Tue, 21 Feb 2023 08:28:42 +0000
+	by alsa1.perex.cz (Postfix) with ESMTPS id 685FFF800BA
+	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 10:23:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 685FFF800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=WcNxXJgO
+Received: by mail-ed1-x533.google.com with SMTP id cy6so8886834edb.5
+        for <alsa-devel@alsa-project.org>;
+ Tue, 21 Feb 2023 01:23:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fbTzQmBbVkw2WG9RX4zaVnIA7NHcDhVJSDn4uazMha8=;
+        b=WcNxXJgOyoqCc67id0lYZ4CTspgI/DMh4vHE66IHil5A1QL/Sws+BnpfRV8jnxR9Ix
+         HK1DyCxKbxDj3p/MPxe0HIHIElhmfM9FClpRwSk8aLLoHV7oL0H+2xqa0mUaaf964fB/
+         +VcavxxMzJaSWGpXxpyABv2JYSLsr8mItxmRGKfSybSiFENIP6xIbQLGQQzeWw6DzP4t
+         RqOJLhdxMEYBZf34IhVkppik8aRYEyzDm7cr4jOjS4tbK6gM8JRCyD7EWR3OdqfSq1Nd
+         WZ40bXgSeB35rPZq7T5g3SlA4q3d2jc1AoTcoOlIZcfbh12J2jbDKkfk0tXb4J1JmlQS
+         AJFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fbTzQmBbVkw2WG9RX4zaVnIA7NHcDhVJSDn4uazMha8=;
+        b=yxn+XgK3vQwke4EKQCnxcwzqsuiajsHcwPVchXI1IYVboPgZhT1DbeToBl0ppShDtu
+         NNMdZMyjN2wnYDfspTinFxqY+2k8tWauzeZfXnR2X28peuDiyAcIKKLd9I9bzFO+goe1
+         76cu+IOUmWxFwH9TkChtHBJxrgojc2yjM0m91KdStoCyc04gR+SIDOaSeLSIyPL14ZbV
+         XiJmjzIqOKa3qNEwpW0FWSMQt8ZR+o50UtqTfsz0AFNFS7hd0bORgb80L+FOi2r4yxz9
+         BrSoMial7/UF1zfvqERApEnJpqCFoNaxibxTKnnI+5FuyjRl5v9s+kJt9nUdQmKk5l6y
+         kNWw==
+X-Gm-Message-State: AO0yUKVTO2AAsvXN0bpxG6cXA3fYM2+ZJb0ZGs4WkGHXt4V5LBbJK6Lk
+	ejY8qm7/VjbkYWu/JOXc+ydppg==
+X-Google-Smtp-Source: 
+ AK7set8KQ6AMSa9DTyyfQ/QxgDiwki3JQ/hgmlwOWKJPZgURwegSKc0oEy44DyZ6U98clGYb22w9bQ==
+X-Received: by 2002:aa7:c552:0:b0:4a0:e305:a0de with SMTP id
+ s18-20020aa7c552000000b004a0e305a0demr4899297edr.19.1676971418212;
+        Tue, 21 Feb 2023 01:23:38 -0800 (PST)
+Received: from [192.168.1.109] ([178.197.216.144])
+        by smtp.gmail.com with ESMTPSA id
+ t21-20020a50ab55000000b004acce817ab7sm1624262edc.2.2023.02.21.01.23.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Feb 2023 01:23:37 -0800 (PST)
+Message-ID: <cbe2e397-7044-277d-08a8-93010de339ad@linaro.org>
+Date: Tue, 21 Feb 2023 10:23:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v5 3/4] ALSA: cs35l41: Add shared boost feature
-To: David Rhodes <drhodes@opensource.cirrus.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-References: <20230210091942.10866-1-lucas.tanure@collabora.com>
- <20230210091942.10866-4-lucas.tanure@collabora.com>
- <20230210134341.GF68926@ediswmail.ad.cirrus.com>
- <cfacc3d6-2daa-6aa3-ba19-281b7e48bb47@collabora.com>
- <20230211170638.GG68926@ediswmail.ad.cirrus.com>
- <1e3ef067-9b39-dc19-5fbc-75436c67f206@collabora.com>
- <d86d989b-0d82-74b3-a5da-9972324e9477@opensource.cirrus.com>
+Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
+ microchip,startup-delay-us binding
+To: Claudiu.Beznea@microchip.com, robh@kernel.org
+References: <20230217124151.236216-1-claudiu.beznea@microchip.com>
+ <20230217124151.236216-3-claudiu.beznea@microchip.com>
+ <20230220225601.GA545317-robh@kernel.org>
+ <69c4eccd-9d81-ac0b-802a-8e4e0d57589a@microchip.com>
 Content-Language: en-US
-From: Lucas Tanure <lucas.tanure@collabora.com>
-In-Reply-To: <d86d989b-0d82-74b3-a5da-9972324e9477@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: A7RAPDN3UWN6SBCD762ANPHESLEJVLWW
-X-Message-ID-Hash: A7RAPDN3UWN6SBCD762ANPHESLEJVLWW
-X-MailFrom: lucas.tanure@collabora.com
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <69c4eccd-9d81-ac0b-802a-8e4e0d57589a@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 7LFJA4JOAWLWNQP2OCFG7MP6A4XHBIWG
+X-Message-ID-Hash: 7LFJA4JOAWLWNQP2OCFG7MP6A4XHBIWG
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: David Rhodes <david.rhodes@cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, kernel@collabora.com
+CC: lgirdwood@gmail.com, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, tiwai@suse.com,
+ Nicolas.Ferre@microchip.com, alexandre.belloni@bootlin.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A7RAPDN3UWN6SBCD762ANPHESLEJVLWW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7LFJA4JOAWLWNQP2OCFG7MP6A4XHBIWG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,79 +127,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 20-02-2023 19:25, David Rhodes wrote:
-> 
-> On 2/12/23 03:28, Lucas Tanure wrote:
->> On 11-02-2023 17:06, Charles Keepax wrote:
->>> On Fri, Feb 10, 2023 at 02:39:56PM +0000, Lucas Tanure wrote:
->>>> On 10-02-2023 13:43, Charles Keepax wrote:
->>>>> On Fri, Feb 10, 2023 at 09:19:41AM +0000, Lucas Tanure wrote:
->>>>>> + {CS35L41_MDSYNC_EN,        0x00001000},
->>>>> David's internal patch appears to set 0x3000 on the active side,
->>>>> not sure where that difference snuck in, or which is the correct
->>>>> value. Your settings appear to make logical sense to me though, TX
->>>>> on the active side, RX on the passive side.
->>>> And as the patch sets TX and RX in the same chip I changed to follow
->>>> the documentation.
->>>
->>> Yeah I mean I suspect this is sensible, unless there is some
->>> reason the controller side also needs to have RX enabled. Perhaps
->>> for feedback or something from the passive side, but I imagine
->>> this is just a typo in the original patch.
+On 21/02/2023 09:10, Claudiu.Beznea@microchip.com wrote:
+> On 21.02.2023 00:56, Rob Herring wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
 >>
->> Ok, but the other side doesn't have both RX and TX enabled.
->> If the active side needed RX to receive information for the other 
->> side, the passive one would need TX enabled too.
->> So if a feedback is necessary, both channels on both sides would be 
->> enabled, not one channel in one side and both on the other.
+>> On Fri, Feb 17, 2023 at 02:41:50PM +0200, Claudiu Beznea wrote:
+>>> Add microchip,startup-delay-us binding to let PDMC users to specify
+>>> startup delay.
 >>
-> Both amps need to transmit their boost targets to the MDSYNC bus. The 
-> active amp needs to receive the combined boost target from the MDSYNC 
-> bus. That is why the active amp should enable both RX and TX, and the 
-> passive amp only needs to enable TX. It is not simply a unidirectional 
-> flow of data from one amp to the other.
+>> The diff tells me all this. Why does this need to be per platform?
 > 
-> Sorry if the documentation has been mismatched or confusing at times. 
-> It's taken me a while to gather the right understanding of how this all 
-> works.
-> 
-> 
-> On 2/10/23 03:19, Lucas Tanure wrote:
->> +      Shared boost allows two amplifiers to share a single boost circuit by
->> +      communicating on the MDSYNC bus. The passive amplifier does not control
->> +      the boost and receives data from the active amplifier. GPIO1 should be
-> 
-> Not quite correct. I would suggest: "Shared boost allows two amplifiers 
-> to share a single boost circuit by communicating on the MDSYNC bus. The 
-> active amplifier controls the boost circuit using combined data from 
-> both amplifiers."
-Ok
+> PDMC can work with different kind of microphones, thus different boards
+> could have different microphones. Depending on microphone type the PDMC
+> would need to wait longer or shorter period than the default chosen period
+> to filter unwanted noise. Thus the need of having this specified though
+> device tree. Would you prefer to have this in commit message?
 
-> 
-> 
-> On 2/10/23 08:39, Lucas Tanure wrote:
->>
->> This write here is to select the boost control source, which for the 
->> active should be "Class H tracking value". 
-> 
-> Active should use the MDSYNC value. Otherwise it will not provide boost 
-> to the passive amp when there is only audio on the passive amp's channel.
-David can you confirm that both sides should use MDSYNC for boost 
-control source?
+I believe you also had explain it to me, thus as you can see having it
+in commit msg would spare you two questions...
 
-
-> 
-> 
-> I believe there is another change needed for the Deck, to handle the 
-> 'legacy' property names instead of bst-type?
-I am working with valve to update their bios.
-
-> 
-> Other than the changes needed to the reg_sequences this looks good.
-> 
-> 
-> Thanks,
-> 
-> David
-> 
+Best regards,
+Krzysztof
 

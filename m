@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60E769EA25
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 23:28:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 707BC69EA5B
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 23:42:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CFEFE85;
-	Tue, 21 Feb 2023 23:27:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CFEFE85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5474BE85;
+	Tue, 21 Feb 2023 23:42:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5474BE85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677018479;
-	bh=P06SrSSCbTF2Xgb/8rAJuCEF9liIHWSGJ4BAANKNp1s=;
+	s=default; t=1677019375;
+	bh=0jWSrZiIEN4x32uRTklDrYs3W6jpjgamnp/3khg4KpM=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aXKyflLWfAOx7qd97AhTzOhDRHsM5xZJ4NnWb/ObznOvc4f9JHuE+9DDNmcDUx27Y
-	 dh3k4n2KS6ZcTwmxm2dhTn0llO9hZj9k95kTd6l4+C9AbE1Tpb4iay8ws3bGmLKeEu
-	 02dpX2wtTbqjHZCU+ADNE9Sn2xA4uxrsJd8qtZbw=
+	b=KpYYb9jUe/Xq4OcQ9t0bmBFCrVAGNfwynIeb4hKKcX17n60S+/YPkiuPVL/IZAPe8
+	 MW93uo2Rq4kvSZIVxlIiCrLvo4DG47uWH/YSMvLf8jt3AQg/YVTx45Ax4QVVtKG1gM
+	 R6/xicXIVX5FuT0YIjGvexeAJOAq+k0CuV2uvlfM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3BFDF8025A;
-	Tue, 21 Feb 2023 23:27:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4D84F8025A;
+	Tue, 21 Feb 2023 23:42:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4A6BF80266; Tue, 21 Feb 2023 23:27:05 +0100 (CET)
+	id 9877DF80266; Tue, 21 Feb 2023 23:42:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A8E7CF80125
-	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 23:27:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E7CF80125
+	by alsa1.perex.cz (Postfix) with ESMTPS id 94455F80125
+	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 23:41:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94455F80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Tf1Ivc7R
+ header.s=k20201202 header.b=a8Cw740x
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id B9D46B810CB;
-	Tue, 21 Feb 2023 22:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4B7C433EF;
-	Tue, 21 Feb 2023 22:27:00 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 583DA611F4;
+	Tue, 21 Feb 2023 22:41:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B47C433EF;
+	Tue, 21 Feb 2023 22:41:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677018421;
-	bh=P06SrSSCbTF2Xgb/8rAJuCEF9liIHWSGJ4BAANKNp1s=;
+	s=k20201202; t=1677019309;
+	bh=0jWSrZiIEN4x32uRTklDrYs3W6jpjgamnp/3khg4KpM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Tf1Ivc7RJbuxndkFsSDprYpWOJFuUVMUrixHOsDLE0cIAeW11Lhkoai/L+JMqFc1j
-	 G3IRZ5K26SpWw4f6vFEsYb7fITg6VWoekVGOZ5K5XC6RF4MERwBYvKmhht8wf7ekz2
-	 BWM9sYFEHYoFi0C+jtVXHOH0OoTAyjBn6f9B3hndiH8mut1OYojq8r+XWBcW6R/h1o
-	 6ORgkSSWbfE+vg3yiBi/rKu0qjTapANCjQ2YJDmlhLK+xmxlv8Bt1leQ9X42ckYZ0a
-	 XQPqkaNhx3qwfBIPUIPap4mCKK9bywYWS0ts6FDNFAxvCDWEPcZdrOHfOE9/A84pq5
-	 WrXqpa2zYfkgQ==
-Date: Tue, 21 Feb 2023 22:26:58 +0000
+	b=a8Cw740x+y9QfrLGKgcC2J8j48ETLPsHL6ZB57DG9jiyQejRF3aPx3uXfKG+AU76M
+	 hnEJ0G5VrTVkQ15o8E626ubweoVSpx19c1CYVkf/krW0rlN98dt/3C0pgS7KX/tEG3
+	 7oWCM/2NtObu8QWigvFXcAeaOLQ6sAo3Ic+2IJLuQhbQq9c8LuzZJUvfg9LfSDQF3U
+	 8vlM3KCInnerWHFqeQcH6FNaC2JdIu+9jVf3T36nMAsvVHrZgK/IbyY4PnpSWqxE6l
+	 2FVrtdTK+JWX33aOgsPTLmQVrrQX7OJXBzfQATXkeyxcFA5Vg/EkntAj9oOuZvNN+9
+	 vekCI7YvuWHfw==
+Date: Tue, 21 Feb 2023 22:41:41 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v1 07/10] ARM: tegra: transformers: update bindings of
- sound graph
-Message-ID: <Y/VFMl5Darm7YEK1@sirena.org.uk>
+Subject: Re: [PATCH v1 09/10] staging: dsp: add support for Fortemedia FM34NE
+ DSP
+Message-ID: <Y/VIpVwFu5gUUcsz@sirena.org.uk>
 References: <20230221183211.21964-1-clamor95@gmail.com>
- <20230221183211.21964-8-clamor95@gmail.com>
+ <20230221183211.21964-10-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yuk3nqAxVaP3OTyz"
+	protocol="application/pgp-signature"; boundary="t+XYRlFjbWnfVnHi"
 Content-Disposition: inline
-In-Reply-To: <20230221183211.21964-8-clamor95@gmail.com>
+In-Reply-To: <20230221183211.21964-10-clamor95@gmail.com>
 X-Cookie: Serving suggestion.
-Message-ID-Hash: QKNFU7HGVKNOKOHGFCAPJZWSS7TKLDG2
-X-Message-ID-Hash: QKNFU7HGVKNOKOHGFCAPJZWSS7TKLDG2
+Message-ID-Hash: C2EO2WIFABSW3VZV5IUWH6PGJZZ7465T
+X-Message-ID-Hash: C2EO2WIFABSW3VZV5IUWH6PGJZZ7465T
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKNFU7HGVKNOKOHGFCAPJZWSS7TKLDG2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C2EO2WIFABSW3VZV5IUWH6PGJZZ7465T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,32 +104,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---yuk3nqAxVaP3OTyz
+--t+XYRlFjbWnfVnHi
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Feb 21, 2023 at 08:32:08PM +0200, Svyatoslav Ryhel wrote:
-> - fix headset detection in common device tree;
+On Tue, Feb 21, 2023 at 08:32:10PM +0200, Svyatoslav Ryhel wrote:
+> FM34NE is digital sound processing chip used for active
+> noise suppression mainly on ASUS Transformers.
 
-At least this should probably be split out as a separate change
-so it can be backported as a fix.
+This looks like it should be fairly straightforward to support
+within ASoC without too much work, and since it's in the audio
+path it should probably be referenced from the sound card it'll
+end up having an ABI impact on the card.  Take a look at wm9090
+for a moderately complex example of an analogue only device
+(which this appears to be in terms of system integration).
 
-> - diverge control and detect elements for mic;
-> - use GPIO mic detection on wm8903 devices;
-
---yuk3nqAxVaP3OTyz
+--t+XYRlFjbWnfVnHi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP1RTEACgkQJNaLcl1U
-h9A4OAf8DMi/om6e4mm8TBFtglGASJyWKbwfRlPfnmHfZe9NRFocDsboQo+U6XFK
-qxHu7nNOMUpIioEO5BEmw8UI1d3UWv28a2FLvEZODA08cBKmg2G0OPiUTQtb5kUc
-eG2PvDWMskSVbzr0eSZBWObIXM4rn/83gvsLwdFJM6PYkUHPgsDtW0wTK+S8dIWK
-BwyeF5IodplgwhhC9LQDH5rjGbXHWZIWOBCIQO4d4nhKQH/qDou2CXoENIAmZk0W
-fvrnmz/hqv6IgLI81L9Teh7Q+eko/opWAJa9r4I9SCOMW/MLlveyc2oDA0zlI93p
-fku7U+Z2zBKL5qyGRIRbhQTNPzUsXQ==
-=ZxfP
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP1SKQACgkQJNaLcl1U
+h9DDVwf+K70Y1qVzg5TOp77al5H538FgUpnrUexBgtqevxsnf2pfTG1u1FhzAIPx
+ailEywGHqikGuQiQnRlJ7QJ/nq2PVnZ48f+yjdRrvE5Y6gPfuVAVaXMUlO0cVF+g
+gHuBj6tIxjz+ovqg9plyLwp0+6Pq2hkBOfMgRLU5YrfK2uUa991io9enHztwPJ1K
+EDBwItdOm7Z7rA3eYR6SYwDaA/DrGoqcrZkj4JCsOYi6yxHUyoXWeRKUQUcC9G8b
+KBTABkNAykYsDQpp1ePy5k3DNPeTzWCTlnp6FkEeVI2CSbiCO2WCNUamZR+LPS9o
+DHJiBUmskQVX14bLBWBufAXsfXgFsw==
+=ItYQ
 -----END PGP SIGNATURE-----
 
---yuk3nqAxVaP3OTyz--
+--t+XYRlFjbWnfVnHi--

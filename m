@@ -2,88 +2,190 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B4C69D691
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Feb 2023 23:57:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7AB769DBB2
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Feb 2023 09:12:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4F2CEAB;
-	Mon, 20 Feb 2023 23:56:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4F2CEAB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77640E8C;
+	Tue, 21 Feb 2023 09:11:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77640E8C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1676933830;
-	bh=WJuNqd+dhqX9uwfgyqU5mqT9A7/qaoAIM9C2gthWC3Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1676967122;
+	bh=dSp77IrOtLKPhVZc2rI79L0ZE4Jd8PMstunqaRKumOM=;
+	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r6TJ2nMqTlhbpamQClJpuH2kKvICZL8nwmdm7a0AUrRAY0FUagh97Ny5TBhIXemML
-	 nkteRB/lvHFKfCIAa0nN6yLaE5Zjrz2w+15LyqAoX6xULRiG1r25CSTrZAHxPUl9Ox
-	 0iQ6iuFPtbcUyNKKECmxuoiV2F363/s2ySAL05g8=
+	b=mRTA6Zc78lljm9/hFytVg967oy6izHSG8PUX6UbTzTl57oKvNICcsqD48vo0H9vJB
+	 Khras6WwMPmhtcfw8YnwaEt/XntS69MhdzehYTHAO7jSfd7qRj4njrMZj2KQIuB335
+	 8k93BGkf9Y3chzMkfrJNzrTNGwWzOn2Hl81HJbXg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21691F8025A;
-	Mon, 20 Feb 2023 23:56:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16763F8025A;
+	Tue, 21 Feb 2023 09:11:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CA57F80266; Mon, 20 Feb 2023 23:56:14 +0100 (CET)
+	id 3A374F80266; Tue, 21 Feb 2023 09:10:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 12A1EF800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 Feb 2023 23:56:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A1EF800BA
-Received: by mail-oi1-f179.google.com with SMTP id w7so2569677oik.13
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 Feb 2023 14:56:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wYGFpd9GU+JENPbJLudnhXGQHElorftzXREixJ5gOhw=;
-        b=Neg9Rzz0zFh1d/BPviThCL+wWKx/cQMJcxZ1pDkuSv0hjiyodiUgMZaqGCCAnW+I8b
-         B0akmb9ua0mS3dxNU20qLz/jQsUvmI0QwSr68wt5ap7jYYba3nK3cgTsUhVhDN+3Dfqq
-         039a8QovfwequgjPcX3CWx2v63TY2DfA5SLFADO+7Xz0jARBUhiI+GY0nLC8ODoO2F8D
-         1P/mHD9rycVFIHkLvB20W+iGTnVw8kER4uiqb22s83dWNb409NDgEXrQmTG+8AAPHzkc
-         +5nCooQQM5BCxZ97yE+OI1e1SWIysd1fx3vmdjN0TwDlpZP1dn3rFdG9GYZICBv6Zp7w
-         wDbw==
-X-Gm-Message-State: AO0yUKWSu9nBCyW4zQRBjdMKSD6bgv9J5B4KqAQwg1bmCkYzPy/2fU3F
-	3MwhmIz+HgDsWV4jJ8rlIw==
-X-Google-Smtp-Source: 
- AK7set9Q1vDIBcq1JTQXLqThjuKC6KcYB16w6rpvFlIrUVN587KknWRoNx9iYitO8c5mHuJfPQqe2Q==
-X-Received: by 2002:a05:6808:3c8:b0:378:5987:6dc9 with SMTP id
- o8-20020a05680803c800b0037859876dc9mr5134784oie.9.1676933763064;
-        Mon, 20 Feb 2023 14:56:03 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id
- p84-20020acad857000000b00378ce4197casm5382660oig.8.2023.02.20.14.56.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Feb 2023 14:56:02 -0800 (PST)
-Received: (nullmailer pid 548521 invoked by uid 1000);
-	Mon, 20 Feb 2023 22:56:01 -0000
-Date: Mon, 20 Feb 2023 16:56:01 -0600
-From: Rob Herring <robh@kernel.org>
-To: Claudiu Beznea <claudiu.beznea@microchip.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E008F800BA
+	for <alsa-devel@alsa-project.org>; Tue, 21 Feb 2023 09:10:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E008F800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=PLMEIt7N;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=microchiptechnology.onmicrosoft.com
+ header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-microchiptechnology-onmicrosoft-com header.b=NfmeoW9H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1676967017; x=1708503017;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=dSp77IrOtLKPhVZc2rI79L0ZE4Jd8PMstunqaRKumOM=;
+  b=PLMEIt7NwBr/wjrJ0YwJm/XGp6z9CoELdx8KWfCD4nFMj766b3q7nsE/
+   jlj0EUWp3sqd+P2+dAIOws/KA/6YCl8cQBD086KJo55eZ8exqkDSRPIGo
+   hc/kLYA+HKmnPDy1iNzc+RmRVMtKwHqPOnJK54jjbcIPatCFbOZpcWCp0
+   3WJRi+32e8pAvwMxlz82VNUD0WX83p8pY50yP6IhhMBzDkvOvPxsH966z
+   WFyvVM8OEC9jmHlnsaXmZEf0D8ZDoTANxlRUHtB8AOmEy8a/8nC/YWqPM
+   0RAsLXWHt+yPiaK5GkCdg0lHFu2i7iCM1sv5umbUTE7LtLVBO811pI9Fw
+   g==;
+X-IronPort-AV: E=Sophos;i="5.97,315,1669100400";
+   d="scan'208";a="138234722"
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 21 Feb 2023 01:10:09 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Tue, 21 Feb 2023 01:10:04 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16 via Frontend Transport; Tue, 21 Feb 2023 01:10:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mzku0P04dt8RV+8BwhcEmXM+aiq9phZsdnoSPOsx7PuBUXSoYZFj6o9lfSVnvHu3YHjcmZp3fr2cBRMbdX/WU2rVpilP7Uu/QwAQcqwhNYqBGYbUkXfaHaabM8MNxS1lpVTtHvme750cVB/uY0dUoD5rq+ND4jKMrWPX01ipJXQ8y+REkeNZXJhQKQktx252nD83EgFW5hxDREyWieTjC9++DnZZIwgWxsWgvzblgRylRNrioGEDcmM9S5NaeXy5oaNMNBgDfRjsw+RmT7YrftT6E02jbZFusfCImf0pYLT+/TU1koJzRcCz2wmWwCZnzqlZbUS6RyCwSNefhYeUhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dSp77IrOtLKPhVZc2rI79L0ZE4Jd8PMstunqaRKumOM=;
+ b=CzDHLR29RTYpuvMmJFRnJ6P5/Kvu4adZYkdj9Kfkutx/Tb2WkyfKcbLshXL0ER6CO3bshPOBbUJlofNO0bAbsXQr+Zvj5wIyElcx5r/mHBvzXJL5adVAhZhjUbbCJIYFn8VP6n3njZNIubvoCrZDNXeAOT8tnayGEXUxDeNP7G33eLovareBAETWuA6Vwq2F95iHNvxcypigobtxAgYCROey06MZkBT8FN9wDBjLKTOox8SbmrFGgtsdU0k+NRYsk2Dzwc11o7amwtK8UD/ZMWE+EnQTo82INy9qH8DPtLRvpWoURG7hYWdAhDsFl6KC6/xOriMjG08v3BiODJRefQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microchiptechnology.onmicrosoft.com;
+ s=selector2-microchiptechnology-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dSp77IrOtLKPhVZc2rI79L0ZE4Jd8PMstunqaRKumOM=;
+ b=NfmeoW9H0u7ha0I7J/Batz29xR3WprJ6PGRMBpehKP5nZmcH+Lfh8Tg9H+gOjS5y6gXVc7hwp5vuNHkoGHRGk9su8fWXVbKEseTvlt06mhGvFGtfe3OibcDuQnGtflXUZac7A9VOjb+5F5KWBsC0gpEC9ihVpCh9DPl6FGkGqLU=
+Received: from BN6PR11MB1953.namprd11.prod.outlook.com (2603:10b6:404:105::14)
+ by CH0PR11MB5538.namprd11.prod.outlook.com (2603:10b6:610:d5::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21; Tue, 21 Feb
+ 2023 08:10:03 +0000
+Received: from BN6PR11MB1953.namprd11.prod.outlook.com
+ ([fe80::6eb8:36cd:3f97:ab32]) by BN6PR11MB1953.namprd11.prod.outlook.com
+ ([fe80::6eb8:36cd:3f97:ab32%5]) with mapi id 15.20.6111.020; Tue, 21 Feb 2023
+ 08:10:02 +0000
+From: <Claudiu.Beznea@microchip.com>
+To: <robh@kernel.org>
 Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
  microchip,startup-delay-us binding
-Message-ID: <20230220225601.GA545317-robh@kernel.org>
+Thread-Topic: [PATCH v2 2/3] ASoC: dt-bindings: sama7g5-pdmc: add
+ microchip,startup-delay-us binding
+Thread-Index: AQHZRcvmK4ii/DZHHEqD7R/0B9uoxQ==
+Date: Tue, 21 Feb 2023 08:10:02 +0000
+Message-ID: <69c4eccd-9d81-ac0b-802a-8e4e0d57589a@microchip.com>
 References: <20230217124151.236216-1-claudiu.beznea@microchip.com>
  <20230217124151.236216-3-claudiu.beznea@microchip.com>
+ <20230220225601.GA545317-robh@kernel.org>
+In-Reply-To: <20230220225601.GA545317-robh@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN6PR11MB1953:EE_|CH0PR11MB5538:EE_
+x-ms-office365-filtering-correlation-id: f16a28bf-d153-40fe-32e7-08db13e30893
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ iVpkddOgSy+TRZaYFkbUMnE0RlgUWsuTd9UQdowhlNXDe+aDttsE9WBoriYhPhhxed4451dkWH3F5cQ/zUfdf4mT9uYoeuDFu9/x7hIfXtry8KJ1NgzAS6EXX8E1tr/1PGYLJhniEc7rvQaL7Y/73St3Ib2LOM36COq0da7J/bDwecRiQrnm+yqQY50mH797Sgjdl9gEOxy3gWpE6jFOuQyQJVFFRc1SW5kRtnQUnJaiqgHCcPnaWllQ8SNMMtrEum72izZ2zcSrjkJONVsCnqK46ZDcdu608ofDw2TKb0RE3d44WtzdEJ50/QTXNyvFnVKUB2w683zT/KxWqu6BRToZGd8iu7r3DH52pvxVpvZ7cVEr7Jt4YevHscEfxTpjD3oAX75b+ULOIaLYUPK0E7JT3rQGbkTjVkl81ZhVjKx0SCi7w+LYlJKxPXoHfCpoWRqazdWtr7959M3JaC0D4zJeaaW5taix02VeQBOMt7eUXY3doljjITyMs/4fEg5i25gPF00xzmEDTeb5L/socDGfMqXrFt/31ewRNuGieo6GlY3RNXpYARBebW2HsDYOBa2JGn4+tEaLKue6terzkxV4/QKCbPpGF6K4rwCEOk9jPFof1Xp+02vifgZ4xOnuWElvkgDUhWUyF6OOLQ3poOOHYKvNYag3UPzbc5qEA2B6jnppowO7zaq7yqO1Dg++JWC0Qj3887MfgOX70sO3YVn/naT+MIHAfqbqL08NRlyQoJTpuNRAVjmbCdLng+vYsO1MpdUkrHpNNg/Wm+9BVw==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN6PR11MB1953.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(346002)(136003)(396003)(376002)(39860400002)(451199018)(36756003)(71200400001)(54906003)(83380400001)(316002)(6486002)(478600001)(76116006)(2616005)(53546011)(6506007)(6512007)(186003)(26005)(41300700001)(38070700005)(86362001)(8936002)(2906002)(5660300002)(7416002)(4326008)(31696002)(6916009)(91956017)(66476007)(64756008)(66556008)(66446008)(8676002)(122000001)(38100700002)(66946007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?UFJiMGcvaGFydGhFRGdZWUMrNnQvK2RFVUVaLys3OUVjWkV2VHppUmFCZFk5?=
+ =?utf-8?B?UDA4ZlJYVjhTRmNzM0pNdE5TaFZYTlJwTVIyR00xSFlNOURmYS9OSFRXTXNM?=
+ =?utf-8?B?S2tpRUZncnFBN3Q0TnVjM1l6bjBaQWJpeWJIV2hRZE13QzRMeDBKK1JlY0Zp?=
+ =?utf-8?B?YnR1WFNXV1pGdHpxZHFYc2w3ZFlhZDM5K3gwdExSOVpiMTJjM1NWUzg1Y3By?=
+ =?utf-8?B?aUVRdVFHQStyVVU3alkycytOZEdrRm5WYkMzUUNoS0VDcmh4Mmp5QlBUZmhR?=
+ =?utf-8?B?WWZRcWVYSExvMWMzT0hyTmFHamJNT3d3S2pLeGNiYTJrcmY1VzBYUThRWnh1?=
+ =?utf-8?B?cFV5NEtrOWxPamtrYlJYYXhqV0VrUGcwZmxmV0JMa09sbzZuU3VmbDdQMjVr?=
+ =?utf-8?B?ZklaMEkrUDl0dnF1cTJxNGUzTzV5NlVaZzBEOE9QS3RFT1ZpMXFwL2lPVVVI?=
+ =?utf-8?B?UWtaQzIvUjR3amlETlVkSEtuZlcwaHVwdmRLSGlIS1J0ZEdYbTBZR1RiUnJu?=
+ =?utf-8?B?NWtiUWpJL2MxSk5pUUxRR1d5Z3lkenJXTUxKcTFxdVJhb0p3bEl3VmpDZURt?=
+ =?utf-8?B?eWU3NzZCeGxoNWVzZEc1dU1NUER4U2R5Z0R2MzZBWlQyOWJDb0d2NWhuMmI4?=
+ =?utf-8?B?MXYyb1VZTUpvK3RoTC9TbUxXYzJ5QVpOK3NlTW1veEF0ZS82UEtmeXNBb3l0?=
+ =?utf-8?B?RzZRRWthbzEvcFgvWml0Q1pTTXpxd2RZR1NRUXUxSWJOWEwyVU1FUVpKNVVU?=
+ =?utf-8?B?NjRyc1Q2bFVnV2tOcWpQZmJ3SG9mWGxubHNBak1NZENxTGxHdWxWREV4and3?=
+ =?utf-8?B?RWQ4UXlHRzh4U1ozWmJSdHpOUDF1WFVLdUJxUENEWEN2MzJpRWI3czFiUGVi?=
+ =?utf-8?B?K2RCUmFBMVlnSFFvb0xjSHRueWVveFJVeWhwQ3BnL0pYMk41aG9hMHhGbXpV?=
+ =?utf-8?B?Y3Y0UGlVOFpxUUV1R0RFYUZLK1FVT1VqOVY3ZXJIVkZFMHdpUmFGTUQzc3BQ?=
+ =?utf-8?B?VitFNEFxaGkyYVFCb0hzSDJIMTVobU5pMmoxZmlEaENUUmpJWjRyNWlWZjFa?=
+ =?utf-8?B?OUFYaU5kQzNLaEJSRnRQSTdtVlNiT0NoZ1lEbjMyRkdBSm4yb1BJN2VaWXht?=
+ =?utf-8?B?cGUzbXVhejVNd0JtRWsyK0JYbkc4eDdsY2t2ZThWV01JVExWUEdNK1dOUUJk?=
+ =?utf-8?B?cnJjdm5FSGpsNXplYXFYOHRFL3RkNWhIT05PQ0FzczFGcis5VCtPdHpqUmVV?=
+ =?utf-8?B?dVRBTldhaXZpV2w2V2MwMFJpYmxxeEhOUWp2SmVkWXJkOE9LUEpYYXptYUJk?=
+ =?utf-8?B?ODMvbU02Wk9YUWtFSVh4MUZpWENMQkM0MFo0ZVhYV1RwblU5MzdpS1FTRUNG?=
+ =?utf-8?B?aGVjcXhSeUg5RTNxdTFkQUJjVmdpUloxejI1eHowVGR3VGFQWG9wc08wWGV3?=
+ =?utf-8?B?VmFjMWFlaG8vRXlpc2xWanpWZDJxcWtqQnJ1RW1aK3J1SzhqbTJPNjVQRVJ4?=
+ =?utf-8?B?aVd2bk9ic3luODBVd2FEMFV2TDN3YnhBa2E3bGdiQjBkcVJMbUZRTXBULzdE?=
+ =?utf-8?B?RTdETFgzUDZMR0NtL0hWbnRIWkxKRWxsQ2d0TUpsZUU2cGF3SE9taklESHV4?=
+ =?utf-8?B?T0dLeHRWaW9GbG9heGZEZzUxaG1zYVNRL282a2ZMeWk2NDhnTXhjUW1FVXpR?=
+ =?utf-8?B?U0FxQzJpMXQxSnVFQzE3MDREMy8weUtVWWZLTnc2bGJKekhNblhZQW8xTFI4?=
+ =?utf-8?B?cGMxUGhEbkxmOGpJWWJUVENybWo0aEsrZXFrcDc0WTF3NWhmQ1lOdHNKbEk3?=
+ =?utf-8?B?WWFLbGQ2QmFFL3BVdnByeTJ5U2FJM3lBQUFSeTlkc1JnV00rZWM3TURhMUQr?=
+ =?utf-8?B?dERzcC94UTZFNElseGQ3M3psS1dReXExOTgreWV1OXVjOEc0cnhnbFhzRkJm?=
+ =?utf-8?B?UThvRk5OOFlnWDNyS3M2elB2R0FMb3VnQmllUll1ZFZLcHorTXljY1FHRDE0?=
+ =?utf-8?B?b3BXREs1T1hYd0JvU1JFa2l1RWlPRGx5SnpvR1UyZ1RaK01tNmZGMDJseTE4?=
+ =?utf-8?B?VFF6bU81N0RaaHgySkZKM3NtLy9nWUFjZjdSSEs4Vm1tZDZsU2FTR1RtRlQ5?=
+ =?utf-8?B?K1RnSGNpVGtnb1g0MlNtZUlZMm1mOGI0R2xVQ2grK1JLYW9CaHNUNGlWa3hX?=
+ =?utf-8?B?TkE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <7BC461C4F44AED45A212F3A9883F7E4A@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230217124151.236216-3-claudiu.beznea@microchip.com>
-Message-ID-Hash: IHQXLRU372CCTOHSW6LA4R7WK2WQ36KV
-X-Message-ID-Hash: IHQXLRU372CCTOHSW6LA4R7WK2WQ36KV
-X-MailFrom: robherring2@gmail.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR11MB1953.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f16a28bf-d153-40fe-32e7-08db13e30893
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2023 08:10:02.4800
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ w7BaY3zOEjH2QRJKgwo/Rq44buxaww8d6Gp0GJbrn4MQ5Lg5IBX0K5rh/kmK9FpDRoXxqn07ER9wX/bwQg5FjIuH2C4jB1yHo7Ir/vix4T0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5538
+Message-ID-Hash: MNQRZ4AOORX46VSOEN6NUHCPHSFCX7NB
+X-Message-ID-Hash: MNQRZ4AOORX46VSOEN6NUHCPHSFCX7NB
+X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,16 +194,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 CC: lgirdwood@gmail.com, broonie@kernel.org,
  krzysztof.kozlowski+dt@linaro.org, tiwai@suse.com,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ Nicolas.Ferre@microchip.com, alexandre.belloni@bootlin.com,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ krzysztof.kozlowski@linaro.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHQXLRU372CCTOHSW6LA4R7WK2WQ36KV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MNQRZ4AOORX46VSOEN6NUHCPHSFCX7NB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,36 +212,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Feb 17, 2023 at 02:41:50PM +0200, Claudiu Beznea wrote:
-> Add microchip,startup-delay-us binding to let PDMC users to specify
-> startup delay.
-
-The diff tells me all this. Why does this need to be per platform?
-
-> 
-> Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  .../devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml   | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
-> index c4cf1e5ab84b..9b40268537cb 100644
-> --- a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
-> +++ b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
-> @@ -67,6 +67,12 @@ properties:
->      maxItems: 4
->      uniqueItems: true
->  
-> +  microchip,startup-delay-us:
-> +    description: |
-> +      Specifies the delay in microseconds that needs to be applied after
-> +      enabling the PDMC microphones to avoid unwanted noise due to microphones
-> +      not being ready.
-> +
->  required:
->    - compatible
->    - reg
-> -- 
-> 2.34.1
-> 
+T24gMjEuMDIuMjAyMyAwMDo1NiwgUm9iIEhlcnJpbmcgd3JvdGU6DQo+IEVYVEVSTkFMIEVNQUlM
+OiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IGtub3cg
+dGhlIGNvbnRlbnQgaXMgc2FmZQ0KPiANCj4gT24gRnJpLCBGZWIgMTcsIDIwMjMgYXQgMDI6NDE6
+NTBQTSArMDIwMCwgQ2xhdWRpdSBCZXpuZWEgd3JvdGU6DQo+PiBBZGQgbWljcm9jaGlwLHN0YXJ0
+dXAtZGVsYXktdXMgYmluZGluZyB0byBsZXQgUERNQyB1c2VycyB0byBzcGVjaWZ5DQo+PiBzdGFy
+dHVwIGRlbGF5Lg0KPiANCj4gVGhlIGRpZmYgdGVsbHMgbWUgYWxsIHRoaXMuIFdoeSBkb2VzIHRo
+aXMgbmVlZCB0byBiZSBwZXIgcGxhdGZvcm0/DQoNClBETUMgY2FuIHdvcmsgd2l0aCBkaWZmZXJl
+bnQga2luZCBvZiBtaWNyb3Bob25lcywgdGh1cyBkaWZmZXJlbnQgYm9hcmRzDQpjb3VsZCBoYXZl
+IGRpZmZlcmVudCBtaWNyb3Bob25lcy4gRGVwZW5kaW5nIG9uIG1pY3JvcGhvbmUgdHlwZSB0aGUg
+UERNQw0Kd291bGQgbmVlZCB0byB3YWl0IGxvbmdlciBvciBzaG9ydGVyIHBlcmlvZCB0aGFuIHRo
+ZSBkZWZhdWx0IGNob3NlbiBwZXJpb2QNCnRvIGZpbHRlciB1bndhbnRlZCBub2lzZS4gVGh1cyB0
+aGUgbmVlZCBvZiBoYXZpbmcgdGhpcyBzcGVjaWZpZWQgdGhvdWdoDQpkZXZpY2UgdHJlZS4gV291
+bGQgeW91IHByZWZlciB0byBoYXZlIHRoaXMgaW4gY29tbWl0IG1lc3NhZ2U/DQoNClRoYW5rIHlv
+dSwNCkNsYXVkaXUNCg0KPiANCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBDbGF1ZGl1IEJlem5lYSA8
+Y2xhdWRpdS5iZXpuZWFAbWljcm9jaGlwLmNvbT4NCj4+IFJldmlld2VkLWJ5OiBLcnp5c3p0b2Yg
+S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+DQo+PiAtLS0NCj4+ICAu
+Li4vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9taWNyb2NoaXAsc2FtYTdnNS1wZG1jLnlhbWwg
+ICB8IDYgKysrKysrDQo+PiAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+
+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbWlj
+cm9jaGlwLHNhbWE3ZzUtcGRtYy55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL3NvdW5kL21pY3JvY2hpcCxzYW1hN2c1LXBkbWMueWFtbA0KPj4gaW5kZXggYzRjZjFlNWFi
+ODRiLi45YjQwMjY4NTM3Y2IgMTAwNjQ0DQo+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3Mvc291bmQvbWljcm9jaGlwLHNhbWE3ZzUtcGRtYy55YW1sDQo+PiArKysgYi9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbWljcm9jaGlwLHNhbWE3ZzUt
+cGRtYy55YW1sDQo+PiBAQCAtNjcsNiArNjcsMTIgQEAgcHJvcGVydGllczoNCj4+ICAgICAgbWF4
+SXRlbXM6IDQNCj4+ICAgICAgdW5pcXVlSXRlbXM6IHRydWUNCj4+DQo+PiArICBtaWNyb2NoaXAs
+c3RhcnR1cC1kZWxheS11czoNCj4+ICsgICAgZGVzY3JpcHRpb246IHwNCj4+ICsgICAgICBTcGVj
+aWZpZXMgdGhlIGRlbGF5IGluIG1pY3Jvc2Vjb25kcyB0aGF0IG5lZWRzIHRvIGJlIGFwcGxpZWQg
+YWZ0ZXINCj4+ICsgICAgICBlbmFibGluZyB0aGUgUERNQyBtaWNyb3Bob25lcyB0byBhdm9pZCB1
+bndhbnRlZCBub2lzZSBkdWUgdG8gbWljcm9waG9uZXMNCj4+ICsgICAgICBub3QgYmVpbmcgcmVh
+ZHkuDQo+PiArDQo+PiAgcmVxdWlyZWQ6DQo+PiAgICAtIGNvbXBhdGlibGUNCj4+ICAgIC0gcmVn
+DQo+PiAtLQ0KPj4gMi4zNC4xDQo+Pg0KDQo=

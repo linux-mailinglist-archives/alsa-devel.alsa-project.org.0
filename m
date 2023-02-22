@@ -2,95 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D350D69F4E8
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 13:51:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4893569F561
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 14:29:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F7ABEAE;
-	Wed, 22 Feb 2023 13:50:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F7ABEAE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1C66EA3;
+	Wed, 22 Feb 2023 14:28:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C66EA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677070289;
-	bh=lXJSnYFpOaH9S5ry7Q34tB4Egx1wpGFAl6NuADLurBM=;
+	s=default; t=1677072563;
+	bh=f/S92/t3wpapc4JBI5h0TdPTBVC32g/JNIoyRkl5eLw=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uHgxqe6epgPRKN32mSTOMTtFTQh52vdKiyH6+k4H/eneUIUMB1GQPmTpkj9XFLqPd
-	 RvdMlMsNp4ivgSoqWQLO8lTbuQDKIP+sYrOV6xWEGUQ+GMRYr9o9cKAM8mqhrCe/9q
-	 McRKd9t/HUP4e7FMt/hIXaoYZMwRi49fIojBQKyw=
+	b=UYSUK0gagxT/Ct2d2J0XmxLfSE/7HHgc8tCSRMqm8LkBNFOLIxqYahqaglHhDuc0u
+	 M0tS1pHn7y7JxXocEHLsGVQgnGbWFGiQVhZxCWIesDgS44Aehph9OeaH/A2aVWqp4c
+	 zZhM2hSsi/5YMK7YidQQIpAEjLpOwfcdvvEvvxkA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4EA0F8025A;
-	Wed, 22 Feb 2023 13:50:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDCBAF8025A;
+	Wed, 22 Feb 2023 14:28:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F5CDF80266; Wed, 22 Feb 2023 13:50:36 +0100 (CET)
+	id 66EEDF80266; Wed, 22 Feb 2023 14:28:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35BC4F800BA
-	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 13:50:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35BC4F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5A499F80083
+	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 14:28:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A499F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LFo50uq2
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A7F606141C;
-	Wed, 22 Feb 2023 12:50:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CBDC433D2;
-	Wed, 22 Feb 2023 12:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677070232;
-	bh=lXJSnYFpOaH9S5ry7Q34tB4Egx1wpGFAl6NuADLurBM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LFo50uq2a2lA9uGWYxtbfavlMVkm3Yw72WJhQ8xxz1mRv6jd9TUTNMIKxGTUysNkr
-	 Nb+k0Y2e0731kuVnUNSdhcFr8SgH2tESnmrJMz4MoUT2GiIIpUcWTL4UlSUKj8nza8
-	 q5thst7AHxbAJykp867AghZyOOBLmzqb9eyzgr4fLIhilcVBGOO04sckVNohyC+bI9
-	 uC8vi0f6X8jbilfirxI6p9QksJ+8VTLFHuRn+oGtnsSuzq/K2Kiojo/UTpmypEemUE
-	 ZsgVCUAEnQ/8IGyRxe0mrbXm8CUE5HV2X8yql0QQ7274S66o3maduQP4PZvSGHu7le
-	 W4EkztwzvYlHA==
-Date: Wed, 22 Feb 2023 12:50:26 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chancel Liu <chancel.liu@nxp.com>
-Subject: Re: [PATCH 2/4] ASoC: dt-bindings: wlf,wm8524: Add a property to
- specify power up sequency time
-Message-ID: <Y/YPkgOreByREmOz@sirena.org.uk>
-References: <20230222113945.3390672-1-chancel.liu@nxp.com>
- <20230222113945.3390672-2-chancel.liu@nxp.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=UZGYmUBk
+Received: by mail-wm1-x332.google.com with SMTP id
+ o38-20020a05600c512600b003e8320d1c11so974681wms.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 22 Feb 2023 05:28:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WRqorO2vW/DufntBHkr33Jk+mJdL3BUMcZ2IPymDsYQ=;
+        b=UZGYmUBk9dzhFyTJ1mKIzeCgtz3H8PPlnNWpL6GNgTh+WCEVQIs6MyBhpYapgTzHzb
+         LmnkbOn6oPezl1KawOa5hQqnXZPTWd9lxLUIoEknDT8ydTZz3AyYJkgMiJBbMDPu2RZ2
+         vziscPHbZEtDqKiksO4g1bjQmu9l8XMfeQ/sH5ZipD1bBiCtXVTLa+oZ+QYrq/qjNLo0
+         GoqdbW+iAFseShtisMEEYCaPCBbJ/9R6ahQlFNMd33yvu2xqRA7sqtiaLIQobfy26yr6
+         uxOFMQxxpi2HrxkuiwwQftRpannj5OABrzbwOjUHXHXOFFalmKb6XYjTTG7WYewLnR48
+         FRzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WRqorO2vW/DufntBHkr33Jk+mJdL3BUMcZ2IPymDsYQ=;
+        b=PhnYA9AjJzciCIgQyCSKzbsz8Y721B8SQ5t9tir4zn7k3n9ocobt/J9Zefnvs8ZtpL
+         nVVIdejl4xk4vijFHxqBoJJZ959TuS+oY0QZzEN9ZFXdOzqL9wHB4+tQMvMXkX4h7iOb
+         aErIEF1WF71206LMpUfrPlV+7sdCyOhJrGu2CyytDDwmb8qdDfG2V/fUa+vTjfsUUFcb
+         EPmg1kpqWTtkQLxZJYZGfqYVto2ZGoicM9IWFwKBNLbD3RFfesFNQzKdzsIG09wqod3Y
+         TMeg8SPcr7xDkgkdMgkozOa+GQkdyH+Tg1aQEeM6tdu6i3x0OqQtyA4vK1UkLLWI+bZl
+         3R3A==
+X-Gm-Message-State: AO0yUKWKXAOSTQLfPWuNT0Lh2VViQDd3MI2WFMKIWuhiZeCOZlctR1y3
+	J+27HtotAP3ePoqL/g37vU0=
+X-Google-Smtp-Source: 
+ AK7set+1T7UXYTMG+b5hEaUsQLKpOa7X0ZCsLXXfMprUIO7Z2kOeVL2AXaWm/ZKLRpGhcUYrnXFSlA==
+X-Received: by 2002:a05:600c:4493:b0:3e1:97d:612e with SMTP id
+ e19-20020a05600c449300b003e1097d612emr318020wmo.29.1677072497017;
+        Wed, 22 Feb 2023 05:28:17 -0800 (PST)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ o18-20020a05600c4fd200b003e9ded91c27sm1370wmq.4.2023.02.22.05.28.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Feb 2023 05:28:16 -0800 (PST)
+Date: Wed, 22 Feb 2023 16:28:09 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: Re: [PATCH v1 04/10] ASoC: tegra: Support RT5631 by machine driver
+Message-ID: <Y/YYaVhE7WwqLIey@kadam>
+References: <20230221183211.21964-1-clamor95@gmail.com>
+ <20230221183211.21964-5-clamor95@gmail.com>
+ <Y/UcXNueAmrrhWG0@kadam>
+ <CAPVz0n01YWQ6FY9RDsa1rw_36n=NKpRLokFiVTxLsMDpQEd4YA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pnbOLaS+zEft1evo"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20230222113945.3390672-2-chancel.liu@nxp.com>
-X-Cookie: My LESLIE GORE record is BROKEN ...
-Message-ID-Hash: UBSK6VASSAUGUPJYWPITDANXQGH2RKPA
-X-Message-ID-Hash: UBSK6VASSAUGUPJYWPITDANXQGH2RKPA
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+In-Reply-To: 
+ <CAPVz0n01YWQ6FY9RDsa1rw_36n=NKpRLokFiVTxLsMDpQEd4YA@mail.gmail.com>
+Message-ID-Hash: DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T
+X-Message-ID-Hash: DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T
+X-MailFrom: error27@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
+CC: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>, Maxim Schwalm <maxim.schwalm@gmail.com>,
+ Dmitry Osipenko <digetx@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UBSK6VASSAUGUPJYWPITDANXQGH2RKPA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,35 +131,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, Feb 22, 2023 at 09:55:52AM +0200, Svyatoslav Ryhel wrote:
+> вт, 21 лют. 2023 р. о 21:32 Dan Carpenter <error27@gmail.com> пише:
+> >
+> > On Tue, Feb 21, 2023 at 08:32:05PM +0200, Svyatoslav Ryhel wrote:
+> > > diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+> > > index 78faa8bcae27..607800ec07a6 100644
+> > > --- a/sound/soc/tegra/tegra_asoc_machine.c
+> > > +++ b/sound/soc/tegra/tegra_asoc_machine.c
+> > > @@ -51,6 +51,17 @@ static struct snd_soc_jack_gpio tegra_machine_headset_jack_gpio = {
+> > >  };
+> > >
+> > >  /* Mic Jack */
+> >
+> > This comment doesn't make sense now.  It was never super useful, though.
+> > Just delete it.
+> 
+> It does. Headset is Mic Jack + Headphones combined. headset_check function
+> performs check for a Mic Jack component in plugged Jack 3.5
+> 
 
---pnbOLaS+zEft1evo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I feel if we need to discuess what a comment means or if it even means
+anything then that's a useless comment by definition.
 
-On Wed, Feb 22, 2023 at 07:39:43PM +0800, Chancel Liu wrote:
-> This property specifies power up to audio out time. It's necessary
-> beacause this device has to wait some time before ready to output audio
-> after MCLK, BCLK and MUTE=1 are enabled. For more details about the
-> timing constraints, please refer to WTN0302 on
-> https://www.cirrus.com/products/wm8524/
+regards,
+dan carpenter
 
-According to that the delay is a property of MCLK and the sample rate
-rather than a per board constant, it shouldn't be in DT but rather the
-driver should figure out the required delay on each startup.
-
---pnbOLaS+zEft1evo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP2D5EACgkQJNaLcl1U
-h9CbBwf+PFUPJ7J2/dmJK6wM+TWjfAtu4keu+9j+lOKo3Pnkd/BlCPx73MZ+DWsZ
-9HspBYBZ5wWZLV4CJMusG+v9Th9nB5ojpBW5hLHVlml9+IfdIm3zE9gm72M8pRZa
-xP8/dlMRVOwZgA0BO3xsncSJ+2N/WBHEA0A74LUYJlpSMYdSwi0LlFBF/6CilAm+
-CzpVBYBJj0/8SgfMv02kV/3BYRepWg/U2BhDJr++vWMs/ELAGs4P+UK95IEDT3ca
-Ueu333LU0a2J09wYLIy9UpY9UFZGpKnFTmreetXFBPySKtHUWhgzjtVGvXE+AiRS
-fcC4ecoxVBYJmBgSyvhxLef+uHMgFQ==
-=HX3c
------END PGP SIGNATURE-----
-
---pnbOLaS+zEft1evo--

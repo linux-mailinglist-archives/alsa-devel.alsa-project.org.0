@@ -2,155 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C7769EF0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 08:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17C169EF29
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 08:16:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44DE71F1;
-	Wed, 22 Feb 2023 08:00:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DE71F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3F36E7E;
+	Wed, 22 Feb 2023 08:15:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3F36E7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677049286;
-	bh=HMqy37WxfTqkKliIi9hhNeX5H3Vpi2aBAICvaxAgPmo=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1677050193;
+	bh=qCVEKZLw4laKzJEyTOxaBacnKcknRt6tRYeUkxWdTAs=;
+	h=Date:From:Subject:To:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UDVsEFnkZr6LQvxw45Jcq9bWUhLHh25qDG5Fiefll8gFWYJOB4Zn7WqwUDTo4AqX1
-	 OiecTtfMNsGZtPwQrMqIKjXMh1aVMYhZKru+ccBJa57KByxl+Qej05+SaywllNYWJT
-	 nPzqMAJuf0CMtwF2BTSBxfgJlisfIlgrqkK+1GOM=
+	b=EtTSaj7jI9m3VKAGP/IDyH3rZJ66Mxt4EH8DsMh+a/0gSssDwQsrWVCBEhU1RGRvb
+	 quHSr3gG9TxDBonNZzeu1PY5KgdScM1UmpPoPVaQGSdIDxrOotm/ZlyzHTsmuIgGlM
+	 19URh9124FIYLqyDeEwH9SxqAwNei1LxTNBRWFiA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C07B4F8025A;
-	Wed, 22 Feb 2023 08:00:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98603F8025A;
+	Wed, 22 Feb 2023 08:15:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AB8BF80266; Wed, 22 Feb 2023 08:00:31 +0100 (CET)
+	id DF348F80266; Wed, 22 Feb 2023 08:15:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20721.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::721])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2060d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::60d])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DCE7CF80125
-	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 07:58:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCE7CF80125
+	by alsa1.perex.cz (Postfix) with ESMTPS id CE0EFF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 08:15:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE0EFF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=p7tonAl/
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=2Au1pQlR
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cXqUNISX/eUcv1wq1mtZQkUurruhHcSV6rg7aYJEmy2yI0/74Si9MgxSD5AIRyb1g2FbPAVq8kPIygY8HUL1o9i29J7EwZ95LY4C5WsdrWeI+FT203/E+iCIqTdceTYq9fKj0P+FiEM9iW2wUgXxV6T7exQzocp1gwANkcNPfXBfVq0/aOC2NAAKEvbgsg0bqW/k7ny4VOjkxNCq/Tw8sCkN1r2LZAFJKt/DgOUR2f9psnIyYGkFpzgtVs2F5Y9cNdJMDRrPZieBzlBc01OoH5YaJWPmPw/MzZuZpuUgv3eYoK3A+OLpEuFLGGYqMjEh1VtsjFcgw+qPZUkA1Mbing==
+ b=f8Pl0ICcIaXtxSKFNlgvwtGiIGp+YMjqygwif2yRNgzVJMNCFfX/zXthHh9jQJRU2s0RFS05vuvVSmDyz3whXLaAmKiAqj/s/8iIfAPmWk2hLSRGQfILTuprnjPxtg9hwflq21jkPbLU2bZs5opnNJu0ehgtv4Yzj/tV+BoqaIESfAvyJGhx84BuCPpJxLvLtatogxPei0UtTt5ybHK5cY+hsXHe+ZX8UVChcw/3fNcWNZJuP6AInUhPAGkBpvfgM1VVJ/YT3qD675/US/1z4PS9ComHcGEBZeH64H0G3yYf9qiZrh9R8KcWrdGZM5slqbfA531C/CPkaPId7jUo5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nvoitf4TNjzW8os/z0eZWqyAcsvlpD+FZuTfpjJ3maY=;
- b=Fn2ROT8x5R5bI/UKALKf7iJhr5UuLOO2GaZrCN5v6+yDchX0rJS3JeD2pg8huam7PdrXGWw5YWTRX0dF6lWJ0Xk5xR3oXgLqFw4MYS8+WxB+BTbVThJrrpCQ0lVNmq/27nw50bVtsQCnQ3EUOhny7ouV/1UHwasH7ObgFDCnDZHOQlQdw/bAzx/HajvNYYgdzMhW0LOF2Hm8+jdvnmvCOWE++njNbSdMwfiAAoIIXKyGHrtcdZq2tiN4X60Y/7bkAxDJT19VgkCBtwJj5rIhqgzn0B9bp1krM7oJ3f9Vn4JUW70ib6e/k4lx4dykWKgqQSuI57iue8+DKQAqnMBZDA==
+ bh=A1nfF6+ZsmHoyXMx8EoBBhhd9H7NbxZxuoNeQ0ciZyc=;
+ b=L6jh0h77jURhqFreTnlfz2r9y/J1fPBmd/uApkKnvrXOAJdjuRB8Kyt2MDXMz1y4ra5SqGUUvA6yaZknD7itGLqDXTwUCs/NNQ0A4qsr+kMjUcVFRLJWCgjQcUSzRkXxFPbQ4GdqhbLQfZIeRlwu8Q3uvguk8aEkdw/icHwIile8p4XwYckD9/tPPt32eSPLXQjAnkWpKQHlsDTkKPs0tHlqYv0w5EkABpE4LGmu1p7Z+Q/8MQD8Klej0+IrzTM5mSsA/ycmgqZOwLtYMx29OuO6c0+Cv4kujJpX9qPYsdhPQwjrRBeu9LZxL6lZd9QFhxEqhJmViTzwxbo8j+zyWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nvoitf4TNjzW8os/z0eZWqyAcsvlpD+FZuTfpjJ3maY=;
- b=p7tonAl/UfRg8zG2RsSzizUg3DbZWFpkv383hTSMI1RQdVkJpFqnnAFp419YRNu8FmCubJWrdqg6R9R8enEBTB4iMDEfd7Sd5ZIsRi8bvC4Sar/VHVhmZnqu7umnKxtJRn3y3JgAO0UgVpdi6boapg0uXffn+qSQdIw7Icds2BI=
+ bh=A1nfF6+ZsmHoyXMx8EoBBhhd9H7NbxZxuoNeQ0ciZyc=;
+ b=2Au1pQlRufhg77S/SWOX/iMFDAp4J6B8uu4Ia5Pl26T+/UNSIsyRUnpHQb/2WBIz/3vogRhcg4OG0H1tyb3SVyqveqBPZ0XQIer9oiu9rGE2p/s2qqWG0D2WlozgFEpgdKN3wkmenhMttcsYUXrlhYO1M1f8qLdktAq7kiTYQT4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYWPR01MB8790.jpnprd01.prod.outlook.com (2603:1096:400:16f::8) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Wed, 22 Feb
- 2023 06:58:34 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::e03e:1938:695b:f472]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::e03e:1938:695b:f472%5]) with mapi id 15.20.6134.018; Wed, 22 Feb 2023
- 06:58:34 +0000
-Message-ID: <87356yqj8m.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <875ybuqjcg.wl-kuninori.morimoto.gx@renesas.com>
-References: <875ybuqjcg.wl-kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/2] ASoC: patch_ca0132.c: fixup buffer overrun at
- tuning_ctl_set()
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 22 Feb 2023 06:58:33 +0000
-X-ClientProxiedBy: TY2PR02CA0021.apcprd02.prod.outlook.com
- (2603:1096:404:56::33) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+ 2023 07:15:16 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6134.019; Wed, 22 Feb 2023
+ 07:15:16 +0000
+Message-ID: <591d19d9-9d98-0d4c-c061-759dc5dec738@amd.com>
+Date: Wed, 22 Feb 2023 12:48:02 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH V3 2/8] soundwire: amd: Add support for AMD Manager driver
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230220100418.76754-1-Vijendar.Mukunda@amd.com>
+ <20230220100418.76754-3-Vijendar.Mukunda@amd.com>
+ <03cac551-b77e-0109-5895-5a009e0fba61@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <03cac551-b77e-0109-5895-5a009e0fba61@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN0PR01CA0052.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:49::21) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB8790:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8690cf9-6a9a-4be8-1cf9-08db14a236e5
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|BL1PR12MB5320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26993d7b-9293-45bc-e130-08db14a48be2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	pIMtXcztbZy3QLR6AA+bqlGLrQpfT2VeKpNYcOUDet3NCcThzf/7vWcTJobkTA57sI2GKufeZTiCfTgeqkraN2hZCNJb4C1HDCgwWJMzvSluRBUAZ36Ii74uL9TbyW+sx+giNLaw5UFkjDL+X52QunE+C1auC9Tg1OKi2rbxmneoY/1jT3ka5IJ7Ci0YMunSg0BVl3FJ354H0Mnu8NRbggztFIq18P5ORk3pzonakxHBqUjWGarDJ7a8NRXnSNGZmHsOz8SDfQoK4QOcERNEG+nlG7f9Zm0SQNDuFUz8GAc0H6L7wiTUM50oAq3zJH8sC432f8ljWjbtoFx0bKPVhHpWNYoxtcu+KjiNsi5eBwqDU1yTSrpMZghrlywn/booZve/gYsg0d84N95wrRMjHGv+kNj13hlaQvooBbyPDOAFgfF4UWOaZsc4OD/GM+lCvmnCCqFTnCbmng+F9XcOuHagDML7YQ0wvYtJ3ZJJHF6GI7qnM5zCZaw0wIW0i4GTLMqoKexX6rSd5z2jPc70trv8XoKG0Mm6jF5DtHZyrSZ6X+xnYaBfu8Ha3gSjReSLXQ4k6rgfhOel/4z6V7hHpnvSFgjRZ098yM12aQLW+F1HdDP6EsfbM6dU906zmjH2ve6/3sBilxThv954XZr/poORvytqecfMGad3fxLXux6cDoLwINkenvcFDYpTCVSQZ2emZL46RvSsZ0/cLWESug==
+	f/GaibkDiMjXNyhzPNQ2n/ngKThU5UiaL7W8b+i7TfZk20NQN7Q6d6MZmPs0EJmChUISU5DH2/IHZYaOo27Wq4QyorWAEifx8IVnFeu2cj9IfZ1dkQ+lI+571g+mhqve97j6q/dvOd+e6t605hG6PWhik7MVdaRLIvpCi1UCbF0jjzJ0jvuLYeJU/RJB0pr69tfUna3Vxbo80607hnO+t0R51dmjnTC1AmsYFDEAjzXkOq/tORuB/pjaCzycY4/b+zMXPY/2OseOu79qnjS3j0JpkZM14mPUBxnUhY5tl7u8xNIff7zbB5LKJ4cFVXp1bWGThGQCwMlIGipi07TUDZGEHR2lB2ky9Tfz3GLUZrQNffrzYzW6C0JleiLtqN0RxLQxYBdtvJY5rRKPTL+5zXqMxtzE5cOt6MkJI0B7rZWdoiDwD3NcwexnjcH3sLgi+68fJJLr1ATm63htEepk3a8/uzV3cOF4yY5RnmmrzDRo4la3+UtPU5mIec3qoqMeg3zMMH6EKeRSHy8rvvKeTjgwLW5ETTTfmfdQYts8rWYM5ReS4ulnMxDjGsrAdmIn/Ert074Qkdu84wZC2K6GdnaIU/FhwLlMQ1A+KZPU38bpPxRXzrIoXMo7yfLnbUC9vrlBvGgjXFKJitZPyir07CoBdlHcvUCKICeC/gi4/rsEAuiPAWH4m0ZqYfgONBUeQwmCgbyLGkT5PuJqovvBcDPVy/2eXqsBsEsImmGQM68=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(376002)(136003)(366004)(39860400002)(346002)(451199018)(316002)(6512007)(186003)(6506007)(26005)(54906003)(8936002)(41300700001)(4326008)(66946007)(66476007)(66556008)(6916009)(8676002)(5660300002)(36756003)(6486002)(478600001)(52116002)(2906002)(86362001)(2616005)(83380400001)(38100700002)(38350700002);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(451199018)(316002)(26005)(186003)(6512007)(53546011)(41300700001)(4326008)(8676002)(66476007)(66556008)(66946007)(6486002)(54906003)(6506007)(31696002)(478600001)(86362001)(6666004)(2906002)(36756003)(83380400001)(38100700002)(8936002)(2616005)(30864003)(5660300002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?t4Yge6he1VON4Xwvr9C9ZWAMtdZ0Ho2haeMy6DeSUKKsFGWLJAOYzTiv28FJ?=
- =?us-ascii?Q?wyGXmXV6ZB57wQdmI4x3emP+GYbH9CQSopYqYWsEKivJ1vQeELUNHHfym361?=
- =?us-ascii?Q?TkBY9M2Lm2aDsqXMCDPALZpoRLLwdDvPV0CKUmMr5soXg/cMH2HEYlHGATEK?=
- =?us-ascii?Q?bl9MAXIRjMs9c3vV4voIwpWmetjNyFh6NzXFdOlFINYggzsqE20kgattOS+a?=
- =?us-ascii?Q?D3GQ2I/TiyuUN6qFOplGla2YsgD3PpYg1DQeh5L51zdWVDcMNFd7PHM9hVN7?=
- =?us-ascii?Q?XYkaRSzbtYsp8qFpFc1b+pCHs1JFYj19zhF7NE/b2hyRNkCJe2vImnJ4qVr+?=
- =?us-ascii?Q?6xRqSys348GyTV2xs77BD6p98PSJG3jCrp+sQpOFgd3mTGEX0l8RWoVWW6J0?=
- =?us-ascii?Q?Oyf6LNkh5kJEwsUNxIsYgKW21SE8kmz2Xv6FEVvovATPUWois/tYUtBUXo6y?=
- =?us-ascii?Q?171CY/pabuHmwVdjDr4PlCUd2RfkFoXGoLYNyGRHjjpEH9fagEH5qiL88676?=
- =?us-ascii?Q?+o/EM5vxW4buqt7tR8ARJdWHQgSyj47N5TmhRtFZ8zXBRxREa3vK0ZbhbcXJ?=
- =?us-ascii?Q?CPj3JpFj1QdP4JyKuhzd4DWfcfI6B3O2tWmK0WvFuEBksPgNJlQZ9aAI9H2x?=
- =?us-ascii?Q?rUTDew70WFdTT5eSXe0Y0sOEIGfMuSH5MVlzFefQlkWcX5rm4ESEgG5AO5Tg?=
- =?us-ascii?Q?QmVTrVMpzeWVu1HM0Lrud69Je3kyRH/g+CZd4tWv574eA1RfupsfJ7YhxIeA?=
- =?us-ascii?Q?XKLOOo0VjQBT8Uw1mSzxv/5o41bMGWQlilYAGJMjb24yZNMwTs08uk7EQeng?=
- =?us-ascii?Q?PKXE/P7A2NqGEXy5X8jeJT2/tPwBYF0iYVlqEh2RBY/MPdn/uHG5J6cvYb8y?=
- =?us-ascii?Q?Olbs/r7TvGb40uyeli971+GfbRo4RWPfkHXOY4sh3DADMzTbdEjVnJ9Be9Z7?=
- =?us-ascii?Q?ZC//ryR85stG66+VcQKZseAspPSfnwQu5S45Ye8pQJb36d/M+MbXEPgJsH6s?=
- =?us-ascii?Q?Zt7azC7eF5xJ4LSe03Qq4UW3Gd4BexYSB59FQSkX+OKA9Xs5gO+ncceL12AY?=
- =?us-ascii?Q?IHcdQqjD35n5d2CPVzYEjhoCbDRXFIlQuledJ0vQ+KjYEKCDF9gjqpEbN1K6?=
- =?us-ascii?Q?G2IpgJkJyd4WU312dyEo8oNoj7CX5E8g9jExd7csRBiNON77IsfjU6WySst3?=
- =?us-ascii?Q?JROp1zFx+WNO78RTx7yUc9qnpMU75rh0UYIaQqJuV2ScUcWLlc4WX2PEIbzM?=
- =?us-ascii?Q?XLQhKmRQcSrjl2QsoqyYdYfXMYXWZPLcxKWAqyOvAW7HLVrDzavmOWyRZCjq?=
- =?us-ascii?Q?9GH0V25yXRAjnu8ZQPiHvqWCboYIrf9e8Uq3mKBP6Ll0wYsX0tQApyojYUUx?=
- =?us-ascii?Q?Yp8SIY7GnOLs1vQUX5oHNgw010hw6XwP5T3FhfuVkQ74BZfXjMtQoQlmar08?=
- =?us-ascii?Q?1pV3bZUQqdNRJh1mzSZpU6Nr22LJw+mjyCggOsQKzGOJYLFVhhh9EJ271pB6?=
- =?us-ascii?Q?51QCz2GDyLhDIXGrH1WLQosX5BurAUAb72oyuHwyoa/zzRcxy2A5zx95HhOk?=
- =?us-ascii?Q?cHXxLJIJ/sSWgvfJBfeUTQFAqXFGxWMe5KCggd5NtEVDkVurmnGh14QrF6Za?=
- =?us-ascii?Q?53JgpCuPZKSluMtnUQku/IM=3D?=
-X-OriginatorOrg: renesas.com
+	=?utf-8?B?R1QvU093ZWtsSWpvNUVjZEtiRmt4ZkkybUZ6OE83M2h0RjVQdGl4V0hQSzZH?=
+ =?utf-8?B?QlZBaGZyMTdMMU11NDZoSWRPS0VoQjBPS2lTcGphdThYK2JjVXdNZVdaWDc5?=
+ =?utf-8?B?eUtLSTYyTWhXSnltem5xS1grRHJkWmR0dXJwYzJzMHVsM3RkRGZRSXlYN0ZG?=
+ =?utf-8?B?aEhhMEdLdDBoejhOSjRoclpXWlBWeXpwdzArWnNyVVF2KzJIZnhVSHlBbW5T?=
+ =?utf-8?B?SmtCSGt3blM1bStWYkFlVlBGNVc5QTBqU1NLMC9iMjIrSnhPSkxTWjdLNTBD?=
+ =?utf-8?B?WVdwQWM0MXVWWElwMHZrQ0N6UUJ5cFJDVGxxWTNEY0lpeDlpYU1WUHIxMlU4?=
+ =?utf-8?B?M3hWc0VGdXFjZFhzb0pZU3F5RU9hdG5QSXRlK3F1RzlmdjdBTFJHbjNPU2k0?=
+ =?utf-8?B?WTdvMm5CKzVCQ1FwWW1xN0xaMlVyR3N5dWxtZzRZZ1RGS2ZhclNFd205REgv?=
+ =?utf-8?B?cWl3bTd5MGhVZHV1TWw5KzNtWERsT2UxaFk5TFR1TDllZEJ5RkNSU1pWNG93?=
+ =?utf-8?B?aHdzZVNDeklVWVB2ZFFBT3MwWmh0bXl2WTAzanVvVHNPNG9jVEpGTDhiaUVi?=
+ =?utf-8?B?aEhWd3pscnd0VUtRazFQVlZ6a3ZRVk1hYzV4d3QvQmt4Y2YxQlMxemkwaDhk?=
+ =?utf-8?B?TWRZYXJKVWJLMkdGd3pPcjFvb2lhdVFLUzFnN1NSeHpMZm81bTVkZ0Eza292?=
+ =?utf-8?B?c2JMNlg4QS9waWNaVlN0akNWMzdvendlb1dNcXc2bzRDK0VudnFsUXdoMEZh?=
+ =?utf-8?B?Mmx6NktSS0ZsdUIvQzJJYmdIWXk2dXJNVmxYOWdjTkNNdFA5cW1wUTlJaVhu?=
+ =?utf-8?B?UWpHNlI2UC8wOGtZMDR4L3pscGNzV0tyRE0xdzJmelBucWwwVjV4bU1pdkdO?=
+ =?utf-8?B?Vm8yTUR5TlU1d2NJcVFaZUxoR3VZd1lIT0pIMHMwWllIdFhHelUzMkxpaXo0?=
+ =?utf-8?B?aVMwNzBmdXBXV2dJeFFDVnlaQXR3SWV5UEl4YnVmQWNkQ1Rmci8yM1JKVjhu?=
+ =?utf-8?B?aGJaeFkwOGtqdWwwajVhZ3BkWC9rNHBYaEdIR2pjK2lNUWNQS21PZWc5MGtj?=
+ =?utf-8?B?L1Y4M1NLRTErbUdvQUkrYVY1dlJEdE85WEFhaFVxSVJ1RVFpRXZVaUhtZDlR?=
+ =?utf-8?B?UFZSZmVaMWVtWmtUeUgzUnA3aU92RGkyU3FJZmxhYVZrVUdodHFuZE1CVDRJ?=
+ =?utf-8?B?SGM3M1orMkZDWGYvSXNrK1VLVE9mUGZRcm1FTnNSdk1UV04rbURqSko1RGlG?=
+ =?utf-8?B?VWYvUzdwVFY3dWYyR25RNjA1RENrT2FpQlhaenVmcHdiUWwwSnRhSzcvb0Vj?=
+ =?utf-8?B?OExaZ2kxN3E4UWRZYVZSL25CeHhiRHBkaFBGZDJPazNzcTVmVXczUUdFZDNV?=
+ =?utf-8?B?dUpFVEZPTm03OXNUK1dLYVFoK040KzlxWlFVNk5ZWCtlYWV3QzFLMElIWnJP?=
+ =?utf-8?B?VkRjZW11L3d0M3ZvVWxLNUptZENYSklCRXpkUVNwZWwrN3Q1SCs0Wi9kd2J6?=
+ =?utf-8?B?UWRCSmY3Vjh0bDRFZGhsd3Bac2J5MjZHWGRCL2U1a1NvaWJ1S21ZQmo4Tm5r?=
+ =?utf-8?B?eFA2cFN1V0NWb0dzMW9ZNkJMb3M0QVdBWHF4eGljMUZpUHJscW4wZXFXL0Z6?=
+ =?utf-8?B?SmZTaVNRaFNQVmRvaWloOEZySmxCV2NWNko1bnUxK2tnWlI5c1M3aWtnZTNk?=
+ =?utf-8?B?WnNuMDdJMklHQkU1ODZ3SmRUSHNvT01LdzF5dlJkVGE1OG5sWFJFUVlyNzc0?=
+ =?utf-8?B?RDJma3JlUlhYU3N3NjdPUk5FUnY3Z3NxUTI0dVVUREVJTnJIVkVhdkJsV1RL?=
+ =?utf-8?B?dzlyb2xWbEEvNnU5Tm1iUGxZZVJHWHdkNnAvR1ZrRERiV1RtMzdia0JGYytw?=
+ =?utf-8?B?UzNXaEM5MzlKcklqRXh5VFJmYVVDTVc4M0MvMk9rTXJpd3ZackVoaVgycmd3?=
+ =?utf-8?B?cFlONkdNSlNIemNoLzk5ZzNxenRtb2lqWk54dzZaQWZvM1F1R0t6djJZVEZK?=
+ =?utf-8?B?TVA2d3RPSWlsWHoxRkkzVGtiT3hLRWRFWEJWVmpTLzJOMG9ydGxhbFVZSlBi?=
+ =?utf-8?B?OWZ0NnlSejZqclhadXFMQlRtTzlHT3hiOUg5TjhJSWVIWDdPQWd3MWRBQkV1?=
+ =?utf-8?Q?ZbF2xm3up3tDFF7pj0+RsJNfw?=
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d8690cf9-6a9a-4be8-1cf9-08db14a236e5
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+ 26993d7b-9293-45bc-e130-08db14a48be2
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 06:58:34.2549
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 07:15:15.8557
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- BPxVpojeFoDyZ1Ea4Wa58RHJ/Uhqtd7JMb/UE+YC+w0toGfiqjx5UmyNlpX8QoBuOXFG+QqvorJPWn4isH3DAN2Otvm0f58ZUZk9I2f2UHVBcy24tayOXiKVbttr7fWj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB8790
-Message-ID-Hash: M4RIDKK46PEX2DMZPH5UUOBF74UJ7N57
-X-Message-ID-Hash: M4RIDKK46PEX2DMZPH5UUOBF74UJ7N57
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+ YvvjR2awEHmHG0wP2E1RDCq7oDglggD4D7Xq0Q7kjmfy1xsWuM9JFLPnZDEe8BIDuNAwWFinCZ8OPT4ZMOWxew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5320
+Message-ID-Hash: MDJPC64ZAQFJ4HVPIHD7CV64KO3WPDOF
+X-Message-ID-Hash: MDJPC64ZAQFJ4HVPIHD7CV64KO3WPDOF
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>,
- Xian Wang <dev@xianwang.io>, ye xingchen <ye.xingchen@zte.com.cn>
+CC: alsa-devel@alsa-project.org, amadeuszx.slawinski@linux.intel.com,
+ Mario.Limonciello@amd.com, Sunil-kumar.Dommati@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4RIDKK46PEX2DMZPH5UUOBF74UJ7N57/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MDJPC64ZAQFJ4HVPIHD7CV64KO3WPDOF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,53 +176,350 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tuning_ctl_set() might have buffer overrun at (X) if it didn't break
-from loop by matching (A).
+On 21/02/23 21:27, Pierre-Louis Bossart wrote:
+>> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	u32 val;
+>> +	u32 timeout = 0;
+>> +	u32 retry_count = 0;
+>> +
+>> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+>> +	do {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+>> +		if (val)
+>> +			break;
+>> +		usleep_range(10, 50);
+> that's a 5x range used for all usleep_range() in this file, is this
+> intentional?
+>
+usleep_range(10, 20) will be enough.
+Will fix it.
+>> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+>> +
+>> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+>> +		return -ETIMEDOUT;
+>> +
+>> +	/* SoundWire manager bus reset */
+>> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	while (!(val & AMD_SDW_BUS_RESET_DONE)) {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+>> +			break;
+> so if you break here...
+>
+>> +		usleep_range(1, 5);
+>> +		timeout++;
+>> +	}
+>> +	if (timeout == AMD_DELAY_LOOP_ITERATION)
+>> +		return -ETIMEDOUT;
+> ... this test will never be used. the timeout management looks wrong?
+Yes it overlooked.  Will fix it.
+>> +	timeout = 0;
+>> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	while (val) {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+>> +			break;
+> same here...
 
-	static int tuning_ctl_set(...)
-	{
-		for (i = 0; i < TUNING_CTLS_COUNT; i++)
-(A)			if (nid == ca0132_tuning_ctls[i].nid)
-				break;
+>> +		usleep_range(1, 5);
+>> +		timeout++;
+>> +	}
+>> +	if (timeout == AMD_DELAY_LOOP_ITERATION) {
+> ... and here.
+will fix it.
+>> +		dev_err(amd_manager->dev, "Failed to reset SoundWire manager instance%d\n",
+>> +			amd_manager->instance);
+>> +		return -ETIMEDOUT;
+>> +	}
+>> +	retry_count = 0;
+>> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+>> +	do {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+>> +		if (!val)
+>> +			break;
+>> +		usleep_range(10, 50);
+>> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+>> +
+>> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+>> +		return -ETIMEDOUT;
+> that one looks correct though.
+>
+>> +	return 0;
+>> +}
+>> +static void amd_enable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+>> +	u32 val;
+>> +
+>> +	mutex_lock(amd_manager->acp_sdw_lock);
+>> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+>> +	val |= reg_mask->acp_sdw_intr_mask;
+>> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> here you handle a read-modify-write sequence on the INTL_CNTL register...
+>
+>> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> ... but here you only read from the same register. what's the purpose of
+> this read?
+This read to print the register value.
+This register read is really not required. we can drop dev_dbg() statement.
+>> +	mutex_unlock(amd_manager->acp_sdw_lock);
+>> +	dev_dbg(amd_manager->dev, "acp_ext_intr_ctrl[0x%x]:0x%x\n",
+>> +		ACP_EXTERNAL_INTR_CNTL(amd_manager->instance), val);
+>> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_STAT(amd_manager->instance));
+>> +	if (val)
+>> +		acp_reg_writel(val, amd_manager->acp_mmio +
+>> +			       ACP_EXTERNAL_INTR_STAT(amd_manager->instance));
+we will also remove ACP_EXTERNAL_INTR_STAT register update code.
+This change has side effects.
+ACP_EXTERNAL_INTR_STAT register should be updated in ACP PCI driver(parent driver) IRQ handler.
 
-		snd_hda_power_up(...);
-(X)		dspio_set_param(..., ca0132_tuning_ctls[i].mid, ...);
-		snd_hda_power_down(...);                ^
 
-		return 1;
-	}
+>> +
+>> +	acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
+>> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+>> +	acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11, amd_manager->mmio +
+>> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+>> +	acp_reg_writel(AMD_SDW_IRQ_ERROR_MASK, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> can you explain why the writes are not protected by the mutex?
 
-We will get below error by cppcheck
+ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7, ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11, ACP_SW_ERROR_INTR_MASK registers
+are soundwire manager instance specific registers whereas ACP_EXTERNAL_INTR_CNTL register is part of ACP common
+space registers will be accessed by ACP PCI driver and other DMA driver modules, which needs to be protected by mutex
+lock.
 
-	sound/pci/hda/patch_ca0132.c:4229:2: note: After for loop, i has value 12
-	 for (i = 0; i < TUNING_CTLS_COUNT; i++)
-	 ^
-	sound/pci/hda/patch_ca0132.c:4234:43: note: Array index out of bounds
-	 dspio_set_param(codec, ca0132_tuning_ctls[i].mid, 0x20,
-	                                           ^
-This patch cares non match case.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/pci/hda/patch_ca0132.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>> +}
+>> +
+>> +static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+>> +	u32 val;
+>> +
+>> +	mutex_lock(amd_manager->acp_sdw_lock);
+>> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+>> +	val &= ~reg_mask->acp_sdw_intr_mask;
+>> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> you don't have the read here as in the enable sequence to presumably
+> that wasn't needed?
+please refer above reply.
+>> +	mutex_unlock(amd_manager->acp_sdw_lock);
+>> +
+>> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+>> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+>> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> same, not clear why the writes are not protected?
+please refer above reply.
+>> +}
+> ...
+>
+>> +static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lword, u32 uword)
+>> +{
+>> +	u64 resp;
+>> +	u32 resp_lower, resp_high;
+>> +	u32 sts;
+>> +	u32 timeout = 0;
+>> +
+>> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while (sts & AMD_SDW_IMM_CMD_BUSY) {
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x previous cmd status clear failed\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +		timeout++;
+> no usleep_range() here?
+will fix it by using usleep_range(5, 10).
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 0a292bf271f2..5ce4b5f62983 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -4228,8 +4228,10 @@ static int tuning_ctl_set(struct hda_codec *codec, hda_nid_t nid,
- 
- 	for (i = 0; i < TUNING_CTLS_COUNT; i++)
- 		if (nid == ca0132_tuning_ctls[i].nid)
--			break;
-+			goto found;
- 
-+	return -EINVAL;
-+found:
- 	snd_hda_power_up(codec);
- 	dspio_set_param(codec, ca0132_tuning_ctls[i].mid, 0x20,
- 			ca0132_tuning_ctls[i].req,
--- 
-2.25.1
+> Also is there any merit in using the same retry count across the board,
+> this is about command handling, not enabling the hardware - presumably
+> this should be tied to the SoundWire bus frame timing, not internal delays.
+>
+>> +	}
+>> +
+>> +	timeout = 0;
+>> +	if (sts & AMD_SDW_IMM_RES_VALID) {
+>> +		dev_err(amd_manager->dev, "SDW%x manager is in bad state\n", amd_manager->instance);
+>> +		acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	}
+>> +	acp_reg_writel(uword, amd_manager->mmio + ACP_SW_IMM_CMD_UPPER_WORD);
+>> +	acp_reg_writel(lword, amd_manager->mmio + ACP_SW_IMM_CMD_LOWER_QWORD);
+>> +
+>> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while (!(sts & AMD_SDW_IMM_RES_VALID)) {
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x cmd response timeout occurred\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+> usleep_range?
+will fix it by using usleep_range(5, 10).
+>> +		}
+>> +		timeout++;
+>> +	}
+>> +	resp_high = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_UPPER_WORD);
+>> +	resp_lower = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_LOWER_QWORD);
+>> +	timeout = 0;
+>> +	acp_reg_writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while ((sts & AMD_SDW_IMM_RES_VALID)) {
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +		if (timeout > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x cmd status retry failed\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +		timeout++;
+> usleep_range() ?
+will fix it by using usleep_range(5, 10).
+>> +	}
+>> +	resp = resp_high;
+>> +	resp = (resp << 32) | resp_lower;
+>> +	return resp;
+>> +}
+>> +
+>> +static enum sdw_command_response
+>> +amd_program_scp_addr(struct amd_sdw_manager *amd_manager, struct sdw_msg *msg)
+>> +{
+>> +	struct sdw_msg scp_msg = {0};
+>> +	u64 response_buf[2] = {0};
+>> +	u32 uword = 0, lword = 0;
+>> +	int nack = 0, no_ack = 0;
+>> +	int index, timeout = 0;
+>> +
+>> +	scp_msg.dev_num = msg->dev_num;
+>> +	scp_msg.addr = SDW_SCP_ADDRPAGE1;
+>> +	scp_msg.buf = &msg->addr_page1;
+>> +	amd_sdw_ctl_word_prep(&lword, &uword, AMD_SDW_CMD_WRITE, &scp_msg, 0);
+>> +	response_buf[0] = amd_sdw_send_cmd_get_resp(amd_manager, lword, uword);
+>> +	scp_msg.addr = SDW_SCP_ADDRPAGE2;
+>> +	scp_msg.buf = &msg->addr_page2;
+>> +	amd_sdw_ctl_word_prep(&lword, &uword, AMD_SDW_CMD_WRITE, &scp_msg, 0);
+>> +	response_buf[1] = amd_sdw_send_cmd_get_resp(amd_manager, lword, uword);
+>> +
+>> +	/* check response the writes */
+> revisit comment, grammar does not add up - missing to/if/after?
+will fix it.
+>> +	for (index = 0; index < 2; index++) {
+> what is the 2 here?
+2 denotes SCP commands response buffer count.
+>> +		if (response_buf[index] == -ETIMEDOUT) {
+>> +			dev_err(amd_manager->dev, "Program SCP cmd timeout\n");
+> that's one log here, possibly 2 ...
+we are checking inside loop.
+>> +			timeout = 1;
+>> +		} else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
+>> +			no_ack = 1;
+>> +			if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
+>> +				nack = 1;
+>> +				dev_err(amd_manager->dev, "Program SCP NACK received\n");
+>> +			}
+>> +		}
+>> +	}
+>> +
+>> +	if (timeout) {
+>> +		dev_err_ratelimited(amd_manager->dev,
+>> +				    "SCP_addrpage command timeout for Slave %d\n", msg->dev_num);
+> ... and one more here. Is this needed/useful?
+Even if any one of the scp command response reports timeout , we need to return timeout
+error.
+>> +		return SDW_CMD_TIMEOUT;
+>> +	}
+>> +
+>> +	if (nack) {
+>> +		dev_err_ratelimited(amd_manager->dev,
+>> +				    "SCP_addrpage NACKed for Slave %d\n", msg->dev_num);
+>> +		return SDW_CMD_FAIL;
+>> +	}
+>> +
+>> +	if (no_ack) {
+>> +		dev_dbg_ratelimited(amd_manager->dev,
+>> +				    "SCP_addrpage ignored for Slave %d\n", msg->dev_num);
+>> +		return SDW_CMD_IGNORED;
+>> +	}
+>> +	return SDW_CMD_OK;
+>> +}
+>> +static int amd_sdw_manager_probe(struct platform_device *pdev)
+>> +{
+>> +	const struct acp_sdw_pdata *pdata = pdev->dev.platform_data;
+>> +	struct resource *res;
+>> +	struct device *dev = &pdev->dev;
+>> +	struct sdw_master_prop *prop;
+>> +	struct sdw_bus_params *params;
+>> +	struct amd_sdw_manager *amd_manager;
+>> +	int ret;
+>> +
+>> +	if (!pdev->dev.platform_data) {
+>> +		dev_err(dev, "platform_data not retrieved\n");
+> can this happen?
+not needed. we can drop this check.
+>> +		return -ENODEV;
+>> +	}
+>> +	amd_manager = devm_kzalloc(dev, sizeof(struct amd_sdw_manager), GFP_KERNEL);
+>> +	if (!amd_manager)
+>> +		return -ENOMEM;
+>> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +	if (!res)
+>> +		return -ENOMEM;
+>> +	amd_manager->acp_mmio = devm_ioremap(dev, res->start, resource_size(res));
+>> +	if (IS_ERR(amd_manager->mmio)) {
+>> +		dev_err(dev, "mmio not found\n");
+>> +		return PTR_ERR(amd_manager->mmio);
+>> +	}
+>> +	amd_manager->instance = pdata->instance;
+>> +	amd_manager->mmio = amd_manager->acp_mmio +
+>> +			    (amd_manager->instance * SDW_MANAGER_REG_OFFSET);
+>> +	amd_manager->acp_sdw_lock = pdata->acp_sdw_lock;
+>> +	amd_manager->cols_index = sdw_find_col_index(AMD_SDW_DEFAULT_COLUMNS);
+>> +	amd_manager->rows_index = sdw_find_row_index(AMD_SDW_DEFAULT_ROWS);
+>> +	amd_manager->dev = dev;
+>> +	amd_manager->bus.ops = &amd_sdw_ops;
+>> +	amd_manager->bus.port_ops = &amd_sdw_port_ops;
+>> +	amd_manager->bus.compute_params = &amd_sdw_compute_params;
+>> +	amd_manager->bus.clk_stop_timeout = 200;
+>> +	amd_manager->bus.link_id = amd_manager->instance;
+>> +	switch (amd_manager->instance) {
+>> +	case ACP_SDW0:
+>> +		amd_manager->num_dout_ports = AMD_SDW0_MAX_TX_PORTS;
+>> +		amd_manager->num_din_ports = AMD_SDW0_MAX_RX_PORTS;
+>> +		break;
+>> +	case ACP_SDW1:
+>> +		amd_manager->num_dout_ports = AMD_SDW1_MAX_TX_PORTS;
+>> +		amd_manager->num_din_ports = AMD_SDW1_MAX_RX_PORTS;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +	amd_manager->reg_mask = &sdw_manager_reg_mask_array[amd_manager->instance];
+>> +	params = &amd_manager->bus.params;
+>> +	params->max_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
+>> +	params->curr_dr_freq = AMD_SDW_DEFAULT_CLK_FREQ * 2;
+>> +	params->col = AMD_SDW_DEFAULT_COLUMNS;
+>> +	params->row = AMD_SDW_DEFAULT_ROWS;
+>> +	prop = &amd_manager->bus.prop;
+>> +	prop->clk_freq = &amd_sdw_freq_tbl[0];
+>> +	prop->mclk_freq = AMD_SDW_BUS_BASE_FREQ;
+>> +
+>> +	ret = sdw_bus_master_add(&amd_manager->bus, dev, dev->fwnode);
+>> +	if (ret) {
+>> +		dev_err(dev, "Failed to register SoundWire manager(%d)\n", ret);
+>> +		return ret;
+>> +	}
+>> +	dev_set_drvdata(dev, amd_manager);
+>> +	INIT_WORK(&amd_manager->probe_work, amd_sdw_probe_work);
+>> +	/*
+>> +	 * Instead of having lengthy probe sequence, spilt probe in two and
+> typo: split.
+>
+>> +	 * use work queue for SoundWire manager startup sequence.
+> The wording 'startup' is confusing in that you do not have a startup
+> sequence as for Intel. It's just deferred probe to avoid taking too much
+> time.
+will modify the comment.
+>> +	 */
+>> +	schedule_work(&amd_manager->probe_work);
+>> +	return 0;
+>> +}
 

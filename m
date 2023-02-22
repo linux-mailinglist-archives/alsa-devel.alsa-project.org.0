@@ -2,104 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4893569F561
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 14:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC8D69F589
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 14:33:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1C66EA3;
-	Wed, 22 Feb 2023 14:28:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C66EA3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6097AEA6;
+	Wed, 22 Feb 2023 14:32:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6097AEA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677072563;
-	bh=f/S92/t3wpapc4JBI5h0TdPTBVC32g/JNIoyRkl5eLw=;
+	s=default; t=1677072781;
+	bh=GCexlCc6q0YIleEdHXJ8A2Lj9iQ1o949khcqEXouHhg=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UYSUK0gagxT/Ct2d2J0XmxLfSE/7HHgc8tCSRMqm8LkBNFOLIxqYahqaglHhDuc0u
-	 M0tS1pHn7y7JxXocEHLsGVQgnGbWFGiQVhZxCWIesDgS44Aehph9OeaH/A2aVWqp4c
-	 zZhM2hSsi/5YMK7YidQQIpAEjLpOwfcdvvEvvxkA=
+	b=evY0114so4P3iE5VKfp/3f8HDwvRVuH2qvO2FAHQCMmZl2hruyKY30D+b6v8dOewS
+	 1lR8i4+B7fVL14N61pNElGkUbHg7lhk63/MZxHU+BXtS29B/aoimU7Sg9KF2LZle0E
+	 Ik2Df79V+bsu6PpsYNR705bH2an5kFNCm2wek1KE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDCBAF8025A;
-	Wed, 22 Feb 2023 14:28:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6D7FF8025A;
+	Wed, 22 Feb 2023 14:32:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66EEDF80266; Wed, 22 Feb 2023 14:28:27 +0100 (CET)
+	id 2FEFEF80266; Wed, 22 Feb 2023 14:32:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A499F80083
-	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 14:28:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A499F80083
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F6FCF80083
+	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 14:32:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F6FCF80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=UZGYmUBk
-Received: by mail-wm1-x332.google.com with SMTP id
- o38-20020a05600c512600b003e8320d1c11so974681wms.1
+ header.s=20210112 header.b=cboTumAA
+Received: by mail-wm1-x333.google.com with SMTP id
+ iv11-20020a05600c548b00b003dc52fed235so5353572wmb.1
         for <alsa-devel@alsa-project.org>;
- Wed, 22 Feb 2023 05:28:19 -0800 (PST)
+ Wed, 22 Feb 2023 05:32:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WRqorO2vW/DufntBHkr33Jk+mJdL3BUMcZ2IPymDsYQ=;
-        b=UZGYmUBk9dzhFyTJ1mKIzeCgtz3H8PPlnNWpL6GNgTh+WCEVQIs6MyBhpYapgTzHzb
-         LmnkbOn6oPezl1KawOa5hQqnXZPTWd9lxLUIoEknDT8ydTZz3AyYJkgMiJBbMDPu2RZ2
-         vziscPHbZEtDqKiksO4g1bjQmu9l8XMfeQ/sH5ZipD1bBiCtXVTLa+oZ+QYrq/qjNLo0
-         GoqdbW+iAFseShtisMEEYCaPCBbJ/9R6ahQlFNMd33yvu2xqRA7sqtiaLIQobfy26yr6
-         uxOFMQxxpi2HrxkuiwwQftRpannj5OABrzbwOjUHXHXOFFalmKb6XYjTTG7WYewLnR48
-         FRzQ==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PyYX0RfftztzNQ8Ex28d1K9RdtJ42UqMq/VeELB++KA=;
+        b=cboTumAALVn0tztGHhz524kh3qEE1BaKuwQ+9TKzGCagRocvzz9VniWUMM70t4S3Mh
+         wXtPaXnHMx9upygBI1p0ty72+s7JUI2ujbm6H2GRfV3Hl4jX9TU2SuDR4KwtVR6AJDow
+         gn0xOeqCqIjAjDxlZA1J7ejlHlTGnQVjXnYvYdXgIxNzkmomxQfLqmPwVHdgn9tHg/Sr
+         4uMPIGJ6GqQE6c8YmOBAJLM1efuG9fdu41l/xX014LpI6plim0AJ5ZkYlQOF5NyuIR+P
+         MJuc/Oe8sYLQuDGjl2rGKrr3Ke6rXMtEpNt4zFZkBs72wkb8RpnSCPTk0zCzf2JKl00V
+         803A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WRqorO2vW/DufntBHkr33Jk+mJdL3BUMcZ2IPymDsYQ=;
-        b=PhnYA9AjJzciCIgQyCSKzbsz8Y721B8SQ5t9tir4zn7k3n9ocobt/J9Zefnvs8ZtpL
-         nVVIdejl4xk4vijFHxqBoJJZ959TuS+oY0QZzEN9ZFXdOzqL9wHB4+tQMvMXkX4h7iOb
-         aErIEF1WF71206LMpUfrPlV+7sdCyOhJrGu2CyytDDwmb8qdDfG2V/fUa+vTjfsUUFcb
-         EPmg1kpqWTtkQLxZJYZGfqYVto2ZGoicM9IWFwKBNLbD3RFfesFNQzKdzsIG09wqod3Y
-         TMeg8SPcr7xDkgkdMgkozOa+GQkdyH+Tg1aQEeM6tdu6i3x0OqQtyA4vK1UkLLWI+bZl
-         3R3A==
-X-Gm-Message-State: AO0yUKWKXAOSTQLfPWuNT0Lh2VViQDd3MI2WFMKIWuhiZeCOZlctR1y3
-	J+27HtotAP3ePoqL/g37vU0=
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PyYX0RfftztzNQ8Ex28d1K9RdtJ42UqMq/VeELB++KA=;
+        b=hlkiWH1l6oVLCFLLdCNmQzdspiKT7zTSu0cztUvvXMVjEin4fGxyzyH0rRw5wBSff7
+         q857qSGLPp84mihnD5sjiOcANlOs1eeiWkARE/oQAL9ghr6e4qe15U5HcvuH3PvMFo+e
+         GqDiF9ReSjsLiX6gtuuhuDgbvFhLa3dYXJUVyr/Pm4eZQSuK/EU0yp4hJYfgtq58MFzs
+         qWeUR1ehFitKCPgyVsukxt7kOWB7Y4w4eNU8MYQJ8jcOXr7TjHcBsDRehZV5laOWrp13
+         d0iCbrKgwOnb87XcEYm2iIgdoZCHDxmF9rtkUiAPhQ+/NQKdukH6TBuQdpJeAL2O9iLW
+         w/5g==
+X-Gm-Message-State: AO0yUKWlW2kDI1tcfdM4buEYvwub/IPBH5LxqALZdJ8D/XpKSyGqSvyC
+	whaeNDx1iIh3IFsojhsOIXaoue0jGcM=
 X-Google-Smtp-Source: 
- AK7set+1T7UXYTMG+b5hEaUsQLKpOa7X0ZCsLXXfMprUIO7Z2kOeVL2AXaWm/ZKLRpGhcUYrnXFSlA==
-X-Received: by 2002:a05:600c:4493:b0:3e1:97d:612e with SMTP id
- e19-20020a05600c449300b003e1097d612emr318020wmo.29.1677072497017;
-        Wed, 22 Feb 2023 05:28:17 -0800 (PST)
+ AK7set/gESPrf22n9AJwmTDxhH2PBFDYBYEXN0r91+GYDbxXdjcQ1Ws8FAyeME56gFOWtdYsGsfRGQ==
+X-Received: by 2002:a05:600c:a287:b0:3e9:372:10b3 with SMTP id
+ hu7-20020a05600ca28700b003e9037210b3mr1655060wmb.25.1677072718790;
+        Wed, 22 Feb 2023 05:31:58 -0800 (PST)
 Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- o18-20020a05600c4fd200b003e9ded91c27sm1370wmq.4.2023.02.22.05.28.14
+ t6-20020a1c7706000000b003e1fee8baacsm7000775wmi.25.2023.02.22.05.31.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Feb 2023 05:28:16 -0800 (PST)
-Date: Wed, 22 Feb 2023 16:28:09 +0300
+        Wed, 22 Feb 2023 05:31:58 -0800 (PST)
+Date: Wed, 22 Feb 2023 16:31:55 +0300
 From: Dan Carpenter <error27@gmail.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v1 04/10] ASoC: tegra: Support RT5631 by machine driver
-Message-ID: <Y/YYaVhE7WwqLIey@kadam>
+Subject: Re: [PATCH v1 09/10] staging: dsp: add support for Fortemedia FM34NE
+ DSP
+Message-ID: <Y/YZS95D4MMjI56a@kadam>
 References: <20230221183211.21964-1-clamor95@gmail.com>
- <20230221183211.21964-5-clamor95@gmail.com>
- <Y/UcXNueAmrrhWG0@kadam>
- <CAPVz0n01YWQ6FY9RDsa1rw_36n=NKpRLokFiVTxLsMDpQEd4YA@mail.gmail.com>
+ <20230221183211.21964-10-clamor95@gmail.com>
+ <Y/Ud1bn+LExxLb/Q@kadam>
+ <CAPVz0n3T-SiTbDyQTTE4L==OGkpSQrfBAP5gRjEevt4ozZLB-g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: 
- <CAPVz0n01YWQ6FY9RDsa1rw_36n=NKpRLokFiVTxLsMDpQEd4YA@mail.gmail.com>
-Message-ID-Hash: DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T
-X-Message-ID-Hash: DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T
+ <CAPVz0n3T-SiTbDyQTTE4L==OGkpSQrfBAP5gRjEevt4ozZLB-g@mail.gmail.com>
+Message-ID-Hash: KKTGVH3NGWRVXEC2M34AMAGFEVGP54CO
+X-Message-ID-Hash: KKTGVH3NGWRVXEC2M34AMAGFEVGP54CO
 X-MailFrom: error27@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWHP46SCM36UKVUEP2BAS5P5QPRMEK3T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KKTGVH3NGWRVXEC2M34AMAGFEVGP54CO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,28 +130,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Feb 22, 2023 at 09:55:52AM +0200, Svyatoslav Ryhel wrote:
-> вт, 21 лют. 2023 р. о 21:32 Dan Carpenter <error27@gmail.com> пише:
+On Wed, Feb 22, 2023 at 10:06:23AM +0200, Svyatoslav Ryhel wrote:
+> > > +static int fm34ne_dsp_set_hw(struct fm34ne_dsp_data *fm34)
+> > > +{
+> > > +     struct device *dev = &fm34->client->dev;
+> > > +     int ret;
+> > > +
+> > > +     ret = clk_prepare_enable(fm34->dap_mclk);
+> > > +     if (ret) {
+> > > +             dev_err(dev, "failed to enable the DSP MCLK: %d\n", ret);
+> > > +             return ret;
+> > > +     }
+> > > +
+> > > +     ret = regulator_enable(fm34->vdd_supply);
+> > > +     if (ret < 0) {
+> > > +             dev_err(dev, "failed to enable vdd power supply\n");
 > >
-> > On Tue, Feb 21, 2023 at 08:32:05PM +0200, Svyatoslav Ryhel wrote:
-> > > diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-> > > index 78faa8bcae27..607800ec07a6 100644
-> > > --- a/sound/soc/tegra/tegra_asoc_machine.c
-> > > +++ b/sound/soc/tegra/tegra_asoc_machine.c
-> > > @@ -51,6 +51,17 @@ static struct snd_soc_jack_gpio tegra_machine_headset_jack_gpio = {
-> > >  };
-> > >
-> > >  /* Mic Jack */
-> >
-> > This comment doesn't make sense now.  It was never super useful, though.
-> > Just delete it.
+> > clk_disable_unprepare(fm34->dap_mclk);
 > 
-> It does. Headset is Mic Jack + Headphones combined. headset_check function
-> performs check for a Mic Jack component in plugged Jack 3.5
+> No, dap_mclk has to be on, else there will be no sound on the device.
 > 
 
-I feel if we need to discuess what a comment means or if it even means
-anything then that's a useless comment by definition.
+If regulator_enable(fm34->vdd_supply); fails then the probe() is going
+to fail so the sound isn't going to work anyway.  (I have a static
+checker warning for missing calls to clk_disable_unprepare(), so it's
+important for me to find out if we are deliberately not cleaning up).
+
+> > > +             return ret;
+> > > +     }
+> > > +
+> > > +     return 0;
+> > > +}
 
 regards,
 dan carpenter

@@ -2,92 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C9269F4BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 13:38:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93FD669F4CE
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Feb 2023 13:43:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2349FEAF;
-	Wed, 22 Feb 2023 13:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2349FEAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B45FEA5;
+	Wed, 22 Feb 2023 13:42:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B45FEA5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677069513;
-	bh=henxqy0xYaRYGP6yBhxb71yaXwkLf6f6GT5Ezc/YQU4=;
+	s=default; t=1677069798;
+	bh=JANObHzmxGF7zP/7x4Z4YcpyhXYxmPEhKVOA2vDnM68=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=oplIDxOEmdPzCcrEUEVnQ+xJZu0+tKTWlQIJcFJgTl6W/B/4vmJxBOTuk+l56N9Ug
-	 o3fWZ3k7dc8bQsqzEtbu1FO6eayomP//Bb10XH/jo0uRX2tLGBR+hn4xg3qbDTilnP
-	 u5/7/aLCV4DyA414oirXXDAO7hwvCFlG5iFWCOKM=
+	b=uplIXXL+04pj1Z/AB4soYzM/H64YXwi7mbVNmTYxhLNByzg/wQ/9/D+Wa4uveS2LF
+	 s1ZxMTr5C+oF+1AbXjX9AwBlInqPdYZfhHbEAqBk/ytfpanQGqhgRc+Kn8qsySmCaP
+	 g64lgAMOcFQQmikVJU2RNN5B9ju4HqpEqEmLghA8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66B43F80496;
-	Wed, 22 Feb 2023 13:37:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C3A1F8025A;
+	Wed, 22 Feb 2023 13:42:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BBDEF804B0; Wed, 22 Feb 2023 13:36:59 +0100 (CET)
+	id C57D8F80266; Wed, 22 Feb 2023 13:42:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7342DF80266
-	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 13:36:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7342DF80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id 262B0F80083
+	for <alsa-devel@alsa-project.org>; Wed, 22 Feb 2023 13:42:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 262B0F80083
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ogVriWu9
-Received: by mail-ed1-x52c.google.com with SMTP id ec43so29226396edb.8
+ header.s=google header.b=bQ2HpWZ9
+Received: by mail-ed1-x531.google.com with SMTP id o12so30224078edb.9
         for <alsa-devel@alsa-project.org>;
- Wed, 22 Feb 2023 04:36:53 -0800 (PST)
+ Wed, 22 Feb 2023 04:42:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=rWfO3bHN/QEhS+Xs0UzkJUsUmv76YTb0jgQPn6Hkz8U=;
-        b=ogVriWu9pImQoFQu6bo/zNCC8eZ0Duy+7bRXnFrKEdX/j/4s2vUWCcAKYZfQkJAiTD
-         /02ZY3Psih2fZrLmQFw6SlEdNK31kCqtEEELWpHYe/cacSbLcRgZtYmpkkjU4/mvYe9C
-         G1kmVKF49UuLhb/ry/6NSlXBGCj0NXjoGFYwIIip8THXSWK7KeSQo8vs9csFiXSEaXxL
-         VOn5sNWrt1Voc4gucYEq8RkJ8E2VUSqSf9t/qHiYajoCztVx6xvAIv7xAOMjTyzUP+g9
-         Q2TFH6pBbUI8zxGPdOgiIhcPcmqgwqYXg0TNZVsuU0u5rc0FST+suYhpqDSrVjSWYsjL
-         rgLg==
+        bh=YrzMakcOOzZUVFm4JbVcFgj1K440KfwGhI4SW59K+OI=;
+        b=bQ2HpWZ9B+PCUcf4/YZOLKZWOYmH5rZUdEl/DIha3BPOImbopbhwhJQpcSKSZdW5Yv
+         WpBX37Duc9+JC6Y/aDCXEyY5NUq4sF3yfXc6avmaLWqUkpTTrQ7dkhnnD8autQD39jUa
+         1oc54E1b+B1uMWzdV3pLVyuoeSLXPSspFDsq9VZCR/dQ1tmQhNAygUxDXg+BpvZpLVmc
+         7DEwFY6261GjSwmewUTbdh4IZJ4I3xq2ergB+EVJWwGwUqsZRvfOKWYoTW9t7KQ6imby
+         BWeaJ8dLadBBafh5DyaivsoqpbLhtzve574wpK4Kkr6KAnsf2OljEhQX/cnHZiefFlDP
+         Um4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rWfO3bHN/QEhS+Xs0UzkJUsUmv76YTb0jgQPn6Hkz8U=;
-        b=vmJCOKKQ8OfcbofeoNsx1btuiH0l7qG8tR++BeUakMsxOOB8/bLRCxJEVjnzOP0ZAY
-         b7seY3xEMmWB4/mWtdic0PwjUZiXEgZVwceypX3ZYMIJBlnuUkB0TGsxeswKdXsy+ZRr
-         EnR93yztcpNCf/YKY8Vs6k/CGyJ9sp6Jsdi5yb5lqV17i/NIlyfc6J1unhTs1uU1IiNE
-         V+E4/SbAnz2rWnJs3TKFX9lIncwg0s+F0AeNh9wqOhshrHx/i25IGs0hyJESzADaAtyx
-         2IcuDX4pToi1Wl3ENw1BJexk0Ahxt0RrND+zOB0Qlqq+HLkKcGFztnW/A+moyoiyTu4y
-         yLIA==
-X-Gm-Message-State: AO0yUKVxFEuC9yQoQaN+v53ui/e8+sOMt9x2zCP/ZrHj843+ttKskbrm
-	A6JoUyhdPOPX9KvCB2Q/0Yilcw==
+        bh=YrzMakcOOzZUVFm4JbVcFgj1K440KfwGhI4SW59K+OI=;
+        b=t8+N4OfaAgwzCLKadTxvhrbmS4A7hHlB2/cIeC0w27bSrFwS3ZLEhLng1FkEGvxdmr
+         LXyKgokpyqavENK+ceHpj+tuzOGJBGKuu47n8ia18BIeE2FTnsbYC2m+nLA/W4I64sY5
+         7iqqQjM5lVeD+x1tkBqNV4MmlXzG7nGv2nFQ0rVRYtw4h7oLVEh0iiTc2BLk9STH1lFo
+         rewHVnE71eSeZpNaVtpXMQ3ZQLkzC/ayj6plm5b/vPnmyrU6LoiEMkQvoKHbKHY4WcB0
+         fXKmNgHTVP0N7CIwPrOFga2WUAsOXNHEgymQ/81RAxdOiv2MZArWpqrSPEqwVNUHxjnA
+         fgcw==
+X-Gm-Message-State: AO0yUKVhmao15bZVR2U1mTWzcj/DfK/+hj2DsTeQ4OHHCZmGASZ+meWw
+	LUrWYGSWBfatR2vGAbtJdLjhqw==
 X-Google-Smtp-Source: 
- AK7set/v1HvDm7IY1V+42v11cvnsliWIfG7RseOCxxbVQCy4vucFFgoP7tyDKRoeQOO3T7cz/WInrw==
-X-Received: by 2002:a17:906:fca5:b0:878:42af:aa76 with SMTP id
- qw5-20020a170906fca500b0087842afaa76mr14505727ejb.54.1677069411749;
-        Wed, 22 Feb 2023 04:36:51 -0800 (PST)
+ AK7set+Osxu3f3jN7fxzKcBM4yGQLcOKGxAn0fzmJemEkNsgcp7K4ihSod8UT6RPaLf/MzCWkBPXMg==
+X-Received: by 2002:a17:906:4081:b0:878:72d0:2817 with SMTP id
+ u1-20020a170906408100b0087872d02817mr14835920ejj.29.1677069738302;
+        Wed, 22 Feb 2023 04:42:18 -0800 (PST)
 Received: from [192.168.1.109] ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- fp16-20020a1709069e1000b008e22978b98bsm1640150ejc.61.2023.02.22.04.36.50
+ bw10-20020a170906c1ca00b008b133f9b33dsm8347517ejb.169.2023.02.22.04.42.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Feb 2023 04:36:51 -0800 (PST)
-Message-ID: <fd395ae4-d182-c637-e4b7-6d166ebc1b21@linaro.org>
-Date: Wed, 22 Feb 2023 13:36:49 +0100
+        Wed, 22 Feb 2023 04:42:17 -0800 (PST)
+Message-ID: <506f92cd-7cf5-4fd5-a930-9af086732f84@linaro.org>
+Date: Wed, 22 Feb 2023 13:42:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: wlf,wm8524: Convert to json-schema
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: wlf,wm8524: Add a property to
+ specify power up sequency time
 Content-Language: en-US
 To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
  broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
@@ -95,12 +96,13 @@ To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
  patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 References: <20230222113945.3390672-1-chancel.liu@nxp.com>
+ <20230222113945.3390672-2-chancel.liu@nxp.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230222113945.3390672-1-chancel.liu@nxp.com>
+In-Reply-To: <20230222113945.3390672-2-chancel.liu@nxp.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GKJXIJMDY3AKNFVP5MKFPYJSW6WUKK3D
-X-Message-ID-Hash: GKJXIJMDY3AKNFVP5MKFPYJSW6WUKK3D
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: FLS2X4AZVGYUGIA7L5GQVKDDCHTBJT73
+X-Message-ID-Hash: FLS2X4AZVGYUGIA7L5GQVKDDCHTBJT73
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -113,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKJXIJMDY3AKNFVP5MKFPYJSW6WUKK3D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FLS2X4AZVGYUGIA7L5GQVKDDCHTBJT73/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,68 +125,51 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 22/02/2023 12:39, Chancel Liu wrote:
-> Convert the Wolfson WM8524 24-bit 192KHz Stereo DAC device tree
-> binding documentation to json-schema.
+> This property specifies power up to audio out time. It's necessary
+> beacause this device has to wait some time before ready to output audio
+
+typo... run spellcheck, also on the subject
+
+> after MCLK, BCLK and MUTE=1 are enabled. For more details about the
+> timing constraints, please refer to WTN0302 on
+> https://www.cirrus.com/products/wm8524/
 > 
 > Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 > ---
->  .../devicetree/bindings/sound/wlf,wm8524.yaml | 37 +++++++++++++++++++
->  .../devicetree/bindings/sound/wm8524.txt      | 16 --------
->  2 files changed, 37 insertions(+), 16 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/wm8524.txt
+>  .../devicetree/bindings/sound/wlf,wm8524.yaml          | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
 > diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
-> new file mode 100644
-> index 000000000000..09c54cc7de95
-> --- /dev/null
+> index 09c54cc7de95..54b4da5470e4 100644
+> --- a/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
 > +++ b/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
-> @@ -0,0 +1,37 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/wlf,wm8524.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Wolfson WM8524 24-bit 192KHz Stereo DAC
-> +
-> +maintainers:
-> +  - patches@opensource.cirrus.com
-> +
+> @@ -21,6 +21,15 @@ properties:
+>      description:
+>        a GPIO spec for the MUTE pin.
+>  
+> +  wlf,power-up-delay-ms:
+> +    maximum: 1500
 
-$ref to dai-common.yaml
+maximum is 1003. Where do you see 1500?
 
-> +properties:
-> +  compatible:
-> +    const: wlf,wm8524
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  wlf,mute-gpios:
-> +    maxItems: 1
+minimum: 82
+
+> +    default: 100
 > +    description:
-> +      a GPIO spec for the MUTE pin.
-> +
-> +required:
-> +  - compatible
-> +  - wlf,mute-gpios
-> +
-> +additionalProperties: false
+> +      Power up sequency delay time in millisecond. It specifies power up to
 
-and then this should be unevaluatedProperties: false
+typo: sequence?
 
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    wm8524: codec {
-> +            compatible = "wlf,wm8524";
+> +      audio out time. For more details about the timing constraints of this
+> +      device, please refer to WTN0302 on
+> +      https://www.cirrus.com/products/wm8524/.
 
-Use 4 spaces for example indentation.
-
-
+According to WTN0302 this might or might not include regulator
+ramp-up-delay. You should clearly indicate which part of it this delay
+is to not mix up with ramp up. IOW, mention exactly from where the value
+comes (e.g. Δt POWER UP TO AUDIO OUT TIMING table, depending on sampling
+clock rate). Otherwise you introduce quite loose property which will be
+including regulator ramp up in some cases...
 
 Best regards,
 Krzysztof

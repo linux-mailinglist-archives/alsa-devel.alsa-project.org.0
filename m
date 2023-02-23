@@ -2,27 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF486A04F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Feb 2023 10:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B7F36A04FD
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Feb 2023 10:36:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E7D384C;
-	Thu, 23 Feb 2023 10:34:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E7D384C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CEA8868;
+	Thu, 23 Feb 2023 10:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CEA8868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677144914;
-	bh=GMNLgIFNtQnpjHejB6ZnrsRERAgeCSEurCJiJf6wE/A=;
-	h=From:To:Subject:Date:References:CC:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=m/+VumLx0tmq3TNqda+mcfiSUypZRbs31ag5YFEsg2EyfaGISjZytBmNcoeNp9BCO
-	 vGRyowz+0Cr6f2pbiU01f3ir1xtqR9qd108QnQ0i5HVzeBaoGHh1x0wNxNmbP4B0p3
-	 onEk7DhgXUliCd4lMPN5UAxDJAyzo2F8+rFEigJ8=
+	s=default; t=1677144964;
+	bh=UlnpCU7O94K6AvYpdwCDctFmyQxgYb2UsnmY+itAv54=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PC5L6Kr3WlB1GJKKp61qkemhKZ3xc4gTIcfb8PnDAWADB7wXDYOC/RCRnkEzScYxy
+	 CoJOEyAoPhHZFP2p30aM2DT0o2SLm2ICRkAbghvO9ElhqqsiA0Evr5OROjeU1lzEZU
+	 jeY6rDvlz2TGGySBwIgbHU9zHh33U0yGyjbjDAQ4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64CE7F8025A;
-	Thu, 23 Feb 2023 10:34:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0914F8047C;
+	Thu, 23 Feb 2023 10:34:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CEFFF80266; Thu, 23 Feb 2023 08:49:05 +0100 (CET)
+	id 01ADBF80266; Thu, 23 Feb 2023 08:50:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -30,135 +31,126 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6C5BF800BA
-	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 08:48:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6C5BF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2137FF800BA
+	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 08:50:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2137FF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=Y4ZOSUMo
+ header.s=mail20170921 header.b=dT52E8+m
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20230223074852euoutp0105e52e4e9967f936ea0bf734bf39ec3b~GZJwU25FR2109321093euoutp01p
-	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 07:48:52 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20230223074852euoutp0105e52e4e9967f936ea0bf734bf39ec3b~GZJwU25FR2109321093euoutp01p
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20230223075036euoutp021c4c13a4bc07b9ebff857ce6912e59a8~GZLQpC3z61802818028euoutp02b;
+	Thu, 23 Feb 2023 07:50:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20230223075036euoutp021c4c13a4bc07b9ebff857ce6912e59a8~GZLQpC3z61802818028euoutp02b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1677138532;
-	bh=FHMeuxDQ29NoJR984ZVYqUGWMF3uiw9hNp+xL3i+jhM=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=Y4ZOSUMoUHG2l6Jd1iFQ99s4Dth3d5SKSRERIIHNXe2MCuRhVhoNJDv2zW+vXxn0Z
-	 PA9yjUlSrXvxbtK47g11aHTDCVp67qxWKYaq6HhXDJEi7iOw+M0GPi13ynswRSrMcR
-	 LhiVfP4xodi7ic7DeaPHRgiQRfVTzKtRctm17A0o=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTP id
-	20230223074852eucas1p1dc671cdfb1d6a7bb734ad938c209efaa~GZJwJXQsY1073310733eucas1p1d;
-	Thu, 23 Feb 2023 07:48:52 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
-	eusmges2new.samsung.com (EUCPMTA) with SMTP id A2.36.13597.46A17F36; Thu, 23
-	Feb 2023 07:48:52 +0000 (GMT)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20230223074852eucas1p2c91d153aa806db963711e1809861f76b~GZJvzIgBf1618616186eucas1p2k;
-	Thu, 23 Feb 2023 07:48:52 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
-	eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
-	20230223074852eusmtrp2884a711b837748b0bdbc700d4b765c46~GZJvyie7e2908229082eusmtrp2g;
-	Thu, 23 Feb 2023 07:48:52 +0000 (GMT)
-X-AuditID: cbfec7f4-1f1ff7000000351d-1c-63f71a64361f
+	s=mail20170921; t=1677138636;
+	bh=GFAZ/3IuE6eIIcn01fkSuz8JSlgQCo7Nso4cDg9+cgQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=dT52E8+my4by4vXXG95Ynz5tNYQ6JS1GJzC3vH8akNRh9mn2RY7xjjdmGtQDeJ0iy
+	 KNu8DS+c0rMxYlFsCcZ6M7UlMqbo8/8aeP9x5eFoDN9w0IcEkRFJ6bmNKBNw6XHoyU
+	 D7DjI3yCLG7eXFiiZAPaZRcPwIhlsHXZGtUDT2wk=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+	20230223075035eucas1p21b3a07e8438962f3d49818f4ae8d35a7~GZLQY_xwD1526815268eucas1p2n;
+	Thu, 23 Feb 2023 07:50:35 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+	eusmges3new.samsung.com (EUCPMTA) with SMTP id 4F.C4.61197.BCA17F36; Thu, 23
+	Feb 2023 07:50:35 +0000 (GMT)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20230223075035eucas1p15a1c5f534f932b2b36510a39f6921d99~GZLP_rvFy2599225992eucas1p17;
+	Thu, 23 Feb 2023 07:50:35 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+	eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+	20230223075035eusmtrp1166f53104f454cd5dd4e63588e215c12~GZLP95CcW2270422704eusmtrp14;
+	Thu, 23 Feb 2023 07:50:35 +0000 (GMT)
+X-AuditID: cbfec7f5-7dbff7000000ef0d-2a-63f71acbf4b9
 Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
-	eusmgms1.samsung.com (EUCPMTA) with SMTP id AC.9B.02722.46A17F36; Thu, 23
-	Feb 2023 07:48:52 +0000 (GMT)
+	eusmgms2.samsung.com (EUCPMTA) with SMTP id ED.DD.00518.BCA17F36; Thu, 23
+	Feb 2023 07:50:35 +0000 (GMT)
 Received: from localhost (unknown [106.120.51.111]) by eusmtip1.samsung.com
 	(KnoxPortal) with ESMTPA id
-	20230223074852eusmtip184fbdd648ced38e8e3af702f2136ea31~GZJvpBLsK2855628556eusmtip1Y;
-	Thu, 23 Feb 2023 07:48:52 +0000 (GMT)
-From: =?UTF-8?q?=C5=81ukasz=20Stelmach?= <l.stelmach@samsung.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP EliteDesk 800 G6 Tower
- PC
-Date: Thu, 23 Feb 2023 08:47:48 +0100
-Message-Id: <20230223074749.1026060-1-l.stelmach@samsung.com>
-X-Mailer: git-send-email 2.30.2
+	20230223075035eusmtip1584df142059fb8dda2a16a0f8c916d88~GZLPyubwT2175921759eusmtip18;
+	Thu, 23 Feb 2023 07:50:35 +0000 (GMT)
+From: Lukasz Stelmach <l.stelmach@samsung.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP EliteDesk 800 G6
+ Tower PC
+Date: Thu, 23 Feb 2023 08:50:34 +0100
+In-Reply-To: <20230223074749.1026060-1-l.stelmach@samsung.com>
+	(=?utf-8?Q?=22=C5=81ukasz?= Stelmach"'s message of "Thu, 23 Feb 2023
+	08:47:48 +0100")
+Message-ID: <dleftj8rgo95x1.fsf%l.stelmach@samsung.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Organization: Samsung R&D Institute Poland
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1200;
-	i=l.stelmach@samsung.com; h=from:subject;
-	bh=GMNLgIFNtQnpjHejB6ZnrsRERAgeCSEurCJiJf6wE/A=;
-	b=owEBbQGS/pANAwAIAbCuHpyYpYAQAcsmYgBj9xok0rbLx+ROmcNE9ifOZII8l1rQWyEYhD2zd
-	5+o6Iqd+bmJATMEAAEIAB0WIQRem7KqOr2QYRWv1RCwrh6cmKWAEAUCY/caJAAKCRCwrh6cmKWA
-	EBNrCACsI1MT/eBg/C1UEQVIbL0TijFr0SM5EAlFFXND+JGmRlZSR/7eCSrDKWZxPBuDRJm62aP
-	880M534VRT2/yHBGWSygQ8fazKs4qScno7iXlr42DXfIOrS2nd9R4bKD7ydinvStqpqSwCCAaFF
-	BemKx2fGa4YUUFWBVjk/Ew/iXXDQfLQlBv1GajfNzH/0HsXAN72xHTpl/R8+DXqDilXKZUYbgZw
-	+3hor0Z6zulWJOTD6zkMSI8YVsIC7UOCob9taDoVHnAjOLLOGiaTAcdQOlepso4+viqHGZ7fFli
-	sIfOPvqKWL5PkXVYsNyAaYfXLrFOKpeate+UYugvBgmJBqu2
-X-Developer-Key: i=l.stelmach@samsung.com; a=openpgp;
-	fpr=A2B9843766B15A4D32BCBF0DEC1B3A02E80CD5C8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="=-=-="; micalg="pgp-sha256";
+	protocol="application/pgp-signature"
 X-Brightmail-Tracker: 
- H4sIAAAAAAAAA+NgFupjleLIzCtJLcpLzFFi42LZduznOd0Uqe/JBnf/y1tcuXiIyeLmoRWM
-	Fpd3zWGzWHvkLrtF565+VosN39cyOrB5bPjcxOax7+0yNo++LasYPdZvucri8XmTXABrFJdN
-	SmpOZllqkb5dAlfG8o09TAWbOCs+fsxrYFzA0cXIySEhYCKxZ9M7pi5GLg4hgRWMEj1z9rJB
-	OF8YJfqe7GGBcD4zSjT0/WCBadn3/Tg7RGI5o0THoQZmCOcFo0Tv8g3sIFVsAo4S/UtPsILY
-	IgLOEhP3QixhFljNKHF90xKwImGBAIlln46BFbEIqErcPH4CaDkHB6+ArcT5OYIQ2+Ql2q5P
-	ZwSxeQUEJU7OfAJ2Bb+AlsSaputg50kIzGaV6L3ewQrRkCLx8HIrWAMzUHPz1tnMEEVXOCTm
-	nznHBFHkIrHm70dGCFtY4tXxLewQtozE/53zmSAa2hklmq4sZIVwJjBKfO5oguq2lrhz7hfY
-	qcwCmhLrd+lDhB0lvjdOZgIJSwjwSdx4KwhxBJ/EpG3TmSHCvBIdbUIQ1SoS6/r3sExgVJ6F
-	5LdZSM6ehTB/ASPzKkbx1NLi3PTUYqO81HK94sTc4tK8dL3k/NxNjMAkc/rf8S87GJe/+qh3
-	iJGJg/EQowQHs5II71Sm78lCvCmJlVWpRfnxRaU5qcWHGKU5WJTEebVtTyYLCaQnlqRmp6YW
-	pBbBZJk4OKUamDxUPt0LnVvyWdzz/8clYuIe4edrw/ynqvYHPDkhFJp0SaaZacH9E1WVD6/G
-	lOpG5rPPP3Pmf2SOxq1fSr+lxK/XbalbnuSZ+yXwyKTVaxU3fL17TWDZwzoV9gTra0drQtPW
-	TCufdFxmuqewTG6Oqlf4zux8/j864S692b5be1tnMMQXhGjtkRLtvpahkT9pc4HDoTv6b9zT
-	2X4kLHqsuIff91VP0ZrD5RLTjQS4pVOvlXKL9XLvvGrqpbFjm+GrTR4PrBsuiRYdW/qmZtGv
-	57wX7tSW7i1Zf7t6f9jPdudjLxLYnB7G/jsSIPr9XlG0xwL+xXOn/tMLsVUISgw9MYWNpaI9
-	JlXcd+OBef8FlViKMxINtZiLihMBbyCg3qEDAAA=
+ H4sIAAAAAAAAA+NgFlrLKsWRmVeSWpSXmKPExsWy7djP87qnpb4nGxw9bmhx5eIhJovLu+aw
+	Waw9cpfdonNXP6vFhu9rGR1YPTZ8bmLz2Pd2GZtH35ZVjB7rt1xl8fi8SS6ANYrLJiU1J7Ms
+	tUjfLoEr49nNWywFbwUqbizbwNrA+Jmvi5GDQ0LARKJxj3oXIxeHkMAKRollU+YyQThfGCUu
+	z7/ACOF8ZpS49OkeaxcjJ1jHzp3XwWwhgeWMEp9X80EUvWCU+P9oGivIWDYBPYm1ayNAakQE
+	VCSeTp/CDlLDLNDPKPFpTQMLSEJYIERi6b9DbCA2i4CqxMUDHawgRZwCMxgl9j8HuYODg1fA
+	XGLV9gKQGlEBS4k/zz6yg9i8AoISJ2c+AZvDLJArMfP8G7BLJQQ+cEhMu3KTGeJSF4nrJ+ay
+	Q9jCEq+Ob4GyZSROT+5hgWhoZ5RourKQFcKZAPRORxMTRJW1xJ1zv9ggbEeJPYevs0JCjE/i
+	xltBiM18EpO2TWeGCPNKdLQJQVSrSKzr38MCYUtJ9L5awQhhe0hcuXWADRJaExklVs/ezT6B
+	UWEWkodmIXloFtBYZgFNifW79CHC2hLLFr5mhrBtJdate8+ygJF1FaN4amlxbnpqsXFearle
+	cWJucWleul5yfu4mRmAqOv3v+NcdjCtefdQ7xMjEwXiIUQWo+dGG1RcYpVjy8vNSlUR4pzJ9
+	TxbiTUmsrEotyo8vKs1JLT7EKM3BoiTOq217MllIID2xJDU7NbUgtQgmy8TBKdXApHdtzfyi
+	Lbq9/9rvrCx+MXvfnbasY59K9Tb3B/y2Cv6/Z0uVhcJxCd5GjW97JnvF1UU43WJ//0v6uGxm
+	/x2TsH4prdr7PBUrTrivNFshHV/gqCkyXTDY7tTc8AmXH8df6bTb/GbqS/9JEQVB2ZOfSS7+
+	xu9udcP3QtPsmtqzSWo39goKXmxxb+ny9rR/buKvtTym0vXHtX3fEqfF6spdjWaRYHGrrk06
+	vNldK+zpy12tLWy7A34tW2N1h92WWb63iCn9d9ydya+m2E8/tMXiatKvG59jmj5+a5qZ0sLh
+	tKrE+ledlOja5V1px258LL7jyHak8sQWYeXFe/YvV/+z4V3AMjfpLb/VAlgc5ZJrlViKMxIN
+	tZiLihMBemoGacADAAA=
 X-Brightmail-Tracker: 
- H4sIAAAAAAAAA+NgFprDIsWRmVeSWpSXmKPExsVy+t/xu7opUt+TDX6957C4cvEQk8XNQysY
-	LS7vmsNmsfbIXXaLzl39rBYbvq9ldGDz2PC5ic1j39tlbB59W1YxeqzfcpXF4/MmuQDWKD2b
-	ovzSklSFjPziElulaEMLIz1DSws9IxNLPUNj81grI1MlfTublNSczLLUIn27BL2M5Rt7mAo2
-	cVZ8/JjXwLiAo4uRk0NCwERi3/fj7F2MXBxCAksZJXb9WAXkcAAlpCRWzk2HqBGW+HOtiw2i
-	5hmjxOZtExlBEmwCjhL9S0+wgtgiAq4SV+/dZgQpYhZYCzSoeTtYQljAT6JxRSeYzSKgKnHz
-	+Ak2kAW8ArYS5+cIQiyQl2i7Ph1sJq+AoMTJmU9YQEqYBdQl1s8TAgnzC2hJrGm6zgIyXkKg
-	k1XiyYqlbBC9SRIH1q8D62UGmtO8dTbzBEahWUhGzUIYNQtJ1QJG5lWMIqmlxbnpucWGesWJ
-	ucWleel6yfm5mxiB0bTt2M/NOxjnvfqod4iRiYPxEKMEB7OSCO9Upu/JQrwpiZVVqUX58UWl
-	OanFhxhNgT6byCwlmpwPjOe8knhDMwNTQxMzSwNTSzNjJXFez4KORCGB9MSS1OzU1ILUIpg+
-	Jg5OqQamaRJr5kblRq5w7kxUmPdMJSJ/WeVSudb/6xdO2XbmlapW5ifBxu/Lv3k8/PJT10bf
-	Lt7RZFuqpm/neeaEE7/Zv15lPCr3a8bbIy41vVIP98zLdHi0geFDGUel/3a1sur9XjG177pE
-	rG8p6NSxeJyQ7o73MFbUvziV+/V/vtuHrtZMT9X2m67K5NEZum95QwR76JRCtqSvWZdXVPon
-	ux4TP8Ti+iNTL0WE4+SRxFiGGqm2Cqc9rPOXp2fkzRO9Ld3W6vPlzo+22JI3PMV7lobzB81t
-	WJ15fLthk8H+K3fOn3P8p+uYGvdsR2/tVsUXu3XmOs2duP9LfZ3/ky3LXW5skIwS/Dmz4cBt
-	jty6nzuVWIozEg21mIuKEwEfqItvLwMAAA==
-X-CMS-MailID: 20230223074852eucas1p2c91d153aa806db963711e1809861f76b
+ H4sIAAAAAAAAA+NgFlrCIsWRmVeSWpSXmKPExsVy+t/xu7qnpb4nG0z5IG5x5eIhJovLu+aw
+	Waw9cpfdonNXP6vFhu9rGR1YPTZ8bmLz2Pd2GZtH35ZVjB7rt1xl8fi8SS6ANUrPpii/tCRV
+	ISO/uMRWKdrQwkjP0NJCz8jEUs/Q2DzWyshUSd/OJiU1J7MstUjfLkEv49nNWywFbwUqbizb
+	wNrA+Jmvi5GTQ0LARGLnzuusXYxcHEICSxkl3nceZuli5ABKSEmsnJsOUSMs8edaFxtEzTNG
+	iT0HbrCD1LAJ6EmsXRsBUiMioCLxdPoUdpAaZoEJjBJn5+5kAUkIC4RILP13iA3EFhKwlehd
+	sQ0sziKgKnHxQAfYYk6BGYwSv//MYQQZyitgLrFqewFIjaiApcSfZx/ZQWxeAUGJkzOfgPUy
+	C2RLfF39nHkCo8AsJKlZSFKzgCYxC2hKrN+lDxHWlli28DUzhG0rsW7de5YFjKyrGEVSS4tz
+	03OLjfSKE3OLS/PS9ZLzczcxAqNo27GfW3Ywrnz1Ue8QIxMH4yFGFaDORxtWX2CUYsnLz0tV
+	EuGdyvQ9WYg3JbGyKrUoP76oNCe1+BCjKdBrE5mlRJPzgfGdVxJvaGZgamhiZmlgamlmrCTO
+	61nQkSgkkJ5YkpqdmlqQWgTTx8TBKdXAFL/Gy++J3fp2lRtbQ1gKJzbZ8T3kyRGKfhLsV/Fg
+	l++Vukq77UHzIw70HPx83/xO42KNkKV1l54vL7Q1P1D4WGOF4uZ80Xt7OnevXM+z5p6NzwT3
+	Cb2mHiu2ThCf5iU480Xs8n0LZxjsviJxsC5mru5yblXLRPNIkZINv/6VC61beS/we7LzgtnZ
+	PyVOvmHp/RJR12j58PQh30aZrasec4rm8mx7v3R33on46Sdlbh9O+/R3nlCg4k7WuoUVE77M
+	vlW1orz4VoR4iX9HWIXkyQ3auQcfrI5TP2P7d8Kdoy3iysxJhfkLz9ptmrdu0yHt/mKuk1zH
+	N9zxd5p2pqNtSfWcr9sWWqQ/rNwWxbnd8LcSS3FGoqEWc1FxIgD9MQUjNwMAAA==
+X-CMS-MailID: 20230223075035eucas1p15a1c5f534f932b2b36510a39f6921d99
 X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20230223074852eucas1p2c91d153aa806db963711e1809861f76b
+X-RootMTR: 20230223075035eucas1p15a1c5f534f932b2b36510a39f6921d99
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20230223074852eucas1p2c91d153aa806db963711e1809861f76b
-References: 
- <CGME20230223074852eucas1p2c91d153aa806db963711e1809861f76b@eucas1p2.samsung.com>
+X-CMS-RootMailID: 20230223075035eucas1p15a1c5f534f932b2b36510a39f6921d99
+References: <20230223074749.1026060-1-l.stelmach@samsung.com>
+	<CGME20230223075035eucas1p15a1c5f534f932b2b36510a39f6921d99@eucas1p1.samsung.com>
 X-MailFrom: l.stelmach@samsung.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XGRYOCLEEAJLC2FNMYI2HRY7JARONI4O
-X-Message-ID-Hash: XGRYOCLEEAJLC2FNMYI2HRY7JARONI4O
-X-Mailman-Approved-At: Thu, 23 Feb 2023 09:34:20 +0000
-CC: Marek Szyprowski <m.szyprowski@samsung.com>,
- =?UTF-8?q?=C5=81ukasz=20Stelmach?= <l.stelmach@samsung.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Message-ID-Hash: RXAWXFRWKMD6YO7PSWPA3B5VFZWTX2RS
+X-Message-ID-Hash: RXAWXFRWKMD6YO7PSWPA3B5VFZWTX2RS
+X-Mailman-Approved-At: Thu, 23 Feb 2023 09:34:21 +0000
+CC: Takashi Iwai <tiwai@suse.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XGRYOCLEEAJLC2FNMYI2HRY7JARONI4O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RXAWXFRWKMD6YO7PSWPA3B5VFZWTX2RS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -167,31 +159,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-HP EliteDesk 800 G6 Tower PC (103c:870c) requires a quirk for enabling
-headset-mic.
+--=-=-=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Łukasz Stelmach <l.stelmach@samsung.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+It was <2023-02-23 czw 08:47>, when =C5=81ukasz Stelmach wrote:
+> HP EliteDesk 800 G6 Tower PC (103c:870c) requires a quirk for enabling
+> headset-mic.
+>
+> Signed-off-by: =C5=81ukasz Stelmach <l.stelmach@samsung.com>
 
-Verified by
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=3D217008
 
- echo 0x19 0x01a1913c > /sys/class/sound/card0/device/sound/card0/hwC0D0/user_pin_configs
- echo 1 > /sys/class/sound/card0/device/sound/card0/hwC0D0/reconfig 
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> Verified by
+>
+>  echo 0x19 0x01a1913c > /sys/class/sound/card0/device/sound/card0/hwC0D0/=
+user_pin_configs
+>  echo 1 > /sys/class/sound/card0/device/sound/card0/hwC0D0/reconfig=20
+>
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 6fab7c8fc19a..ac196db573e4 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -11599,6 +11599,7 @@ static const struct snd_pci_quirk alc662_fixup_tb=
+l[] =3D {
+>  	SND_PCI_QUIRK(0x1028, 0x0698, "Dell", ALC668_FIXUP_DELL_MIC_NO_PRESENCE=
+),
+>  	SND_PCI_QUIRK(0x1028, 0x069f, "Dell", ALC668_FIXUP_DELL_MIC_NO_PRESENCE=
+),
+>  	SND_PCI_QUIRK(0x103c, 0x1632, "HP RP5800", ALC662_FIXUP_HP_RP5800),
+> +	SND_PCI_QUIRK(0x103c, 0x870c, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
+>  	SND_PCI_QUIRK(0x103c, 0x8719, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
+>  	SND_PCI_QUIRK(0x103c, 0x873e, "HP", ALC671_FIXUP_HP_HEADSET_MIC2),
+>  	SND_PCI_QUIRK(0x103c, 0x877e, "HP 288 Pro G6", ALC671_FIXUP_HP_HEADSET_=
+MIC2),
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 6fab7c8fc19a..ac196db573e4 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -11599,6 +11599,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x0698, "Dell", ALC668_FIXUP_DELL_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x069f, "Dell", ALC668_FIXUP_DELL_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x1632, "HP RP5800", ALC662_FIXUP_HP_RP5800),
-+	SND_PCI_QUIRK(0x103c, 0x870c, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x103c, 0x8719, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x103c, 0x873e, "HP", ALC671_FIXUP_HP_HEADSET_MIC2),
- 	SND_PCI_QUIRK(0x103c, 0x877e, "HP 288 Pro G6", ALC671_FIXUP_HP_HEADSET_MIC2),
--- 
-2.30.2
+=2D-=20
+=C5=81ukasz Stelmach
+Samsung R&D Institute Poland
+Samsung Electronics
 
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEXpuyqjq9kGEVr9UQsK4enJilgBAFAmP3GsoACgkQsK4enJil
+gBAVUQgAhBKTIp6oQqMufqdLTmtjA0NB91AuBWEE2y3LEdBWepSoM56Uz10fXeEI
+7AHhPcKM6pWMrjQmchakdCQH1JcOeZFGyuTG3oHZLngDYtB2LM1wUjIWVD4ceLRB
+TnfEiiH8BgzA55xe+67KxQrXLJuzIj9GTEJUrwoD4tuv2r2anuhGbCCX+Z65zz6H
+fmc6HZ/EYgxLph4lFq2Qj+YCcpvS4IPvNGLJ/gilcZFX70cBobRUa+kjco+8Di18
+WWLpXqH5/ht7BQS40CJwXzCH3Cnzi4d0Y127eDH3e+3v5fvW5YMTqJmuIhkdR3+D
+srlpcQKDFnnzgpp/r9aLqfLgSfe6EQ==
+=00pt
+-----END PGP SIGNATURE-----
+--=-=-=--

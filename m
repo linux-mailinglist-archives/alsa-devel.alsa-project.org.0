@@ -2,114 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06A506A195D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:02:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2182B6A195E
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:02:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5779D206;
-	Fri, 24 Feb 2023 11:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5779D206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 158FC82B;
+	Fri, 24 Feb 2023 11:01:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158FC82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677232933;
-	bh=BLFWdNGhpFf3Ri5Wo2KA54/rskQ97JOUIGZnEfrC4Ao=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1677232935;
+	bh=VwfKSeFIkeFcqNh7PHZP+Prwek31m9Idb1O4s83BLqA=;
+	h=Date:Subject:From:To:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=RRdEYIIjMQ7pL+mAcHu5cWucIeZS0j3ZFV1VnOkFIRJMeNQY4vOgQeIsW8cPbThV6
-	 uk3YQUaF7cn4skIXyJ2wMwjYp8p/6MhGTOc9D+Uuycf6lRcV9ExI69UF3POEkWA31X
-	 GAhMllMARiZ0NUAj6Q2JqVpgAc0xGBrQIjkvqOtg=
+	b=DTnXff7b9qDBcZs6jNdnnCGO3IDBU6mOsdExM3j7RUIexA49BaFcoSlf1EXANwNtW
+	 fEuaGTFvyqmKln6SOlkYhEGvhlgbhhHTzZpV7B1IdECZNeAoVqhgxOPmzqCTQ85aof
+	 uTl7TelDtRL2Iy38p/JN4oaZdTl6oVG8Ay17bXG8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 314A5F8014C;
-	Fri, 24 Feb 2023 11:00:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E86E4F80529;
+	Fri, 24 Feb 2023 11:00:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A5F8F80496; Thu, 23 Feb 2023 15:32:36 +0100 (CET)
+	id 7ABADF80496; Thu, 23 Feb 2023 15:48:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FROM_LOCAL_HEX,
+	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-io1-f77.google.com (mail-io1-f77.google.com
+ [209.85.166.77])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 91261F800BA
-	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 15:32:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91261F800BA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=If+KJkWn
-Received: by mail-ed1-x530.google.com with SMTP id eg37so38969438edb.12
+	by alsa1.perex.cz (Postfix) with ESMTPS id 75662F800BA
+	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 15:48:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75662F800BA
+Received: by mail-io1-f77.google.com with SMTP id
+ u25-20020a5ec019000000b00733ef3dabe3so6730601iol.14
         for <alsa-devel@alsa-project.org>;
- Thu, 23 Feb 2023 06:32:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677162748;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=4hI9AYfo2vkeh8LJLJ62ywUBp+xjNfPbHlFhXyS9ADk=;
-        b=If+KJkWnVnSQ0e8UH/zKyfMnfWUKBrxoVM4ziAgfhk/mNOmXLOc1/UEzg/JFMqgBOL
-         V10xZjxKXLIeprGB84JxlkCRFL/5ShOG0RvrJ0zhWNU/aXNhRfZumHAlwX9gQ0/BGdR7
-         XjPiDcyb6DJ8eQxzfnTeKgR9ANhASfq2msQfjEa4a9+bLAXB4jXXeXvzOZsPKIm5IHdx
-         j21kDf6JyzGvSGHRdHV9P93gWwx3b/wSD6YR/a45nEa7D25Rv1uiXThjkFjxtsL5fNPI
-         /KTVKodQmULZRuqyEo2TLQ54+ntTc/Q91Qnu7iDd+CRU9hpOkcv1D6OV/Zh6RKN89tFk
-         2MjQ==
+ Thu, 23 Feb 2023 06:48:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677162748;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4hI9AYfo2vkeh8LJLJ62ywUBp+xjNfPbHlFhXyS9ADk=;
-        b=Wn/pv6hliTDeaEul8bRxflDPI5uKUd3chNM85PYhPRFsSkaCtf7z2lRWc3uvODYOVN
-         6ZvYIQOs3l4tIoJ8rZzLRr3C5uTLkGYcOj4EVpNtnEIgQ4EsSCjF2n83SdU9cirlT2H/
-         mcb5VL1hriROInVMRt4BPw/PNODVZHiWmH7hENTMa2b87bTNp0Pa4o7yuUoCULcljF7y
-         BYhck/rjJ8r06yHZ7n1gsILBqNQq0vEs91NsRzpT6Y3+DrhNcH8/9PjICBCGUYKrcfEJ
-         w0I1TYKOEj0WgYk/xy6MjrOMkMGF16mSCf1a7yFZL7d88FEJKEMhfq2KSPErByhd+774
-         medw==
-X-Gm-Message-State: AO0yUKX/nQuEXF3eppiyoo56B2HGdy3QEgxECCkb6g4L1ES60BGP9TBE
-	+2REe7VC7RuJ9P5VsF9kZtJ6xfun/AwJ5Vvq
+        d=1e100.net; s=20210112;
+        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=COE5VwF/vvKFFOC9oJDqmFgQgL4RUw4zQOyKGtZlhGs=;
+        b=BapsqKsfJHg/n/ruEHw5tGoH3awH49qjek7IXItGpfau59TTewH1EwV8S0BfecA20F
+         7HkTCm2YV4AVcHh4CvOZ4tWvkXqIhbuu4luS8Z0vVLBdQBZHwO0K37nV0PsgmIsVL6eC
+         0gz2s3dZPifTN2ZSSXfP9lYDsfkvwDmdZWO/l30sn8ZpsSi3pKHEgxK70i28PzXXVu38
+         mWAtkfIg+Eb/Dcn2FqS0Y1U8NaSWxcWl4TJJF8Tu/mxQrqkOiro7UpCANKiL6cJHlHrn
+         a4ZJ0629lBapl+dztvNGdVRAljvSDaoLaOPf7l1Cn27Lhh+sxMZ0q0YiypeQj8chmp74
+         t38Q==
+X-Gm-Message-State: AO0yUKX5y+TVjS480mLfecCNGuxR+/0DvqMI1frNXyeLINSkFlB9ouF/
+	vtIMppqO0wAGVOoAHyJiSXdbDxIQ8PXsw16drxcAvQSncqK3xIQVhw==
 X-Google-Smtp-Source: 
- AK7set8VR6mBMUFQbc8DS56GFmWhwsINpNhuXfNnC0hGJEn9VF27jsYJu58HVUwilxFVChJAlMpDvw==
-X-Received: by 2002:a05:6402:34d5:b0:4ae:e4d2:174b with SMTP id
- w21-20020a05640234d500b004aee4d2174bmr12747120edc.2.1677162748494;
-        Thu, 23 Feb 2023 06:32:28 -0800 (PST)
-Received: from mineorpe-virtual-machine.localdomain ([37.252.81.68])
-        by smtp.gmail.com with ESMTPSA id
- t29-20020a508d5d000000b004acb696a0f6sm3994603edt.91.2023.02.23.06.32.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Feb 2023 06:32:28 -0800 (PST)
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-To: broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	shuah@kernel.org
-Subject: [PATCH] Fix snprintf format warnings during 'alsa' kselftest
- compilation
-Date: Thu, 23 Feb 2023 17:32:14 +0300
-Message-Id: <20230223143214.16564-1-ivan.orlov0322@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ AK7set+cp4vBf5gxEHJljUKC6PZeXjk8NWZOZ5TMcY6Ftg14mLXfwKYV0YCZhraunCEp7iYnXqBCba60JPUBW0xphAepjsQl/b4R
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: ivan.orlov0322@gmail.com
+X-Received: by 2002:a05:6638:cd0:b0:3c4:88de:524 with SMTP id
+ e16-20020a0566380cd000b003c488de0524mr5019123jak.3.1677163714245; Thu, 23 Feb
+ 2023 06:48:34 -0800 (PST)
+Date: Thu, 23 Feb 2023 06:48:34 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000006afabd05f55f1b51@google.com>
+Subject: [syzbot] [alsa?] kernel BUG in __vunmap
+From: syzbot <syzbot+656c0cde55a9d107a76f@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz,
+	syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
+X-MailFrom: 
+ 3wnz3YwkbAL8x34pfqqjwfuuni.lttlqjzxjwhtsyjsy.htr@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PFKGH5ALC5ZJADLYOBJ6DFBS5PB3BZEF
-X-Message-ID-Hash: PFKGH5ALC5ZJADLYOBJ6DFBS5PB3BZEF
-X-Mailman-Approved-At: Fri, 24 Feb 2023 10:00:07 +0000
-CC: Ivan Orlov <ivan.orlov0322@gmail.com>, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org
+Message-ID-Hash: WLFVDZFGR3TGREFGEIKIYLJZXFDSONKV
+X-Message-ID-Hash: WLFVDZFGR3TGREFGEIKIYLJZXFDSONKV
+X-Mailman-Approved-At: Fri, 24 Feb 2023 10:00:14 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PFKGH5ALC5ZJADLYOBJ6DFBS5PB3BZEF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLFVDZFGR3TGREFGEIKIYLJZXFDSONKV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,65 +94,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix 'alsa' kselftest compilation warnings by making snprintf
-format correspond the actual parameters types.
+Hello,
 
-Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
+syzbot found the following issue on:
+
+HEAD commit:    a5541c0811a0 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=12b4018b880000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=cbd4e584773e9397
+dashboard link: https://syzkaller.appspot.com/bug?extid=656c0cde55a9d107a76f
+compiler:       Debian clang version 13.0.1-++20220126092033+75e33f71c2da-1~exp1~20220126212112.63, GNU ld (GNU Binutils for Debian) 2.35.2
+userspace arch: arm64
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4b7702208fb9/disk-a5541c08.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9ec0153ec051/vmlinux-a5541c08.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6f8725ad290a/Image-a5541c08.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+656c0cde55a9d107a76f@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+kernel BUG at mm/vmalloc.c:2707!
+Internal error: Oops - BUG: 00000000f2000800 [#1] PREEMPT SMP
+Modules linked in:
+CPU: 1 PID: 9210 Comm: syz-executor.0 Not tainted 6.1.0-rc8-syzkaller-33330-ga5541c0811a0 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/26/2022
+pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+pc : __vunmap+0x488/0x4cc mm/vmalloc.c:2707
+lr : __vunmap+0x488/0x4cc mm/vmalloc.c:2707
+sp : ffff800013d73ba0
+x29: ffff800013d73bb0 x28: 00000000000c0002 x27: 0000000000002000
+x26: ffff0000c5a44d68 x25: ffff0000c6a14080 x24: ffff00012b5ed000
+x23: 0000000000000001 x22: 0000000000000200 x21: 0000000000000000
+x20: ffff80000cbdd3b4 x19: ffff0001268cfa00 x18: 0000000000000000
+x17: 0000000000000000 x16: ffff80000dbe6158 x15: ffff000114e01a40
+x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+x11: ff808000084b647c x10: 0000000000000000 x9 : ffff8000084b647c
+x8 : ffff000114e01a40 x7 : ffff8000084bf4d4 x6 : 0000000000000000
+x5 : 0000000000000080 x4 : 0000000000000000 x3 : 0000000000000000
+x2 : 0000000000000000 x1 : ffff80000cbaae40 x0 : 0000000000000000
+Call trace:
+ __vunmap+0x488/0x4cc mm/vmalloc.c:2707
+ __vfree mm/vmalloc.c:2761 [inline]
+ vfree+0xb0/0xfc mm/vmalloc.c:2792
+ snd_dma_vmalloc_free+0x20/0x30 sound/core/memalloc.c:356
+ snd_dma_free_pages+0x84/0xc0 sound/core/memalloc.c:127
+ do_free_pages sound/core/pcm_memory.c:65 [inline]
+ snd_pcm_lib_free_pages+0xa0/0x12c sound/core/pcm_memory.c:471
+ do_hw_free sound/core/pcm_native.c:876 [inline]
+ snd_pcm_release_substream+0x15c/0x1dc sound/core/pcm_native.c:2705
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2413 [inline]
+ snd_pcm_oss_release+0x98/0x130 sound/core/oss/pcm_oss.c:2592
+ __fput+0x198/0x3e4 fs/file_table.c:320
+ ____fput+0x20/0x30 fs/file_table.c:348
+ task_work_run+0x100/0x148 kernel/task_work.c:179
+ resume_user_mode_work include/linux/resume_user_mode.h:49 [inline]
+ do_notify_resume+0x174/0x1f0 arch/arm64/kernel/signal.c:1132
+ prepare_exit_to_user_mode arch/arm64/kernel/entry-common.c:137 [inline]
+ exit_to_user_mode arch/arm64/kernel/entry-common.c:142 [inline]
+ el0_svc+0x9c/0x150 arch/arm64/kernel/entry-common.c:638
+ el0t_64_sync_handler+0x84/0xf0 arch/arm64/kernel/entry-common.c:655
+ el0t_64_sync+0x190/0x194 arch/arm64/kernel/entry.S:584
+Code: 17ffff1f 97f7c16d 17ffff18 97f7c16b (d4210000) 
+---[ end trace 0000000000000000 ]---
+
+
 ---
- tools/testing/selftests/alsa/pcm-test.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index f293c7d81009..52b109a162c6 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -318,7 +318,7 @@ static void test_pcm_time1(struct pcm_data *data,
- 		goto __close;
- 	}
- 	if (rchannels != channels) {
--		snprintf(msg, sizeof(msg), "channels unsupported %ld != %ld", channels, rchannels);
-+		snprintf(msg, sizeof(msg), "channels unsupported %ld != %u", channels, rchannels);
- 		skip = true;
- 		goto __close;
- 	}
-@@ -329,7 +329,7 @@ static void test_pcm_time1(struct pcm_data *data,
- 		goto __close;
- 	}
- 	if (rrate != rate) {
--		snprintf(msg, sizeof(msg), "rate unsupported %ld != %ld", rate, rrate);
-+		snprintf(msg, sizeof(msg), "rate unsupported %ld != %u", rate, rrate);
- 		skip = true;
- 		goto __close;
- 	}
-@@ -393,24 +393,24 @@ static void test_pcm_time1(struct pcm_data *data,
- 			frames = snd_pcm_writei(handle, samples, rate);
- 			if (frames < 0) {
- 				snprintf(msg, sizeof(msg),
--					 "Write failed: expected %d, wrote %li", rate, frames);
-+					 "Write failed: expected %ld, wrote %li", rate, frames);
- 				goto __close;
- 			}
- 			if (frames < rate) {
- 				snprintf(msg, sizeof(msg),
--					 "expected %d, wrote %li", rate, frames);
-+					 "expected %ld, wrote %li", rate, frames);
- 				goto __close;
- 			}
- 		} else {
- 			frames = snd_pcm_readi(handle, samples, rate);
- 			if (frames < 0) {
- 				snprintf(msg, sizeof(msg),
--					 "expected %d, wrote %li", rate, frames);
-+					 "expected %ld, wrote %li", rate, frames);
- 				goto __close;
- 			}
- 			if (frames < rate) {
- 				snprintf(msg, sizeof(msg),
--					 "expected %d, wrote %li", rate, frames);
-+					 "expected %ld, wrote %li", rate, frames);
- 				goto __close;
- 			}
- 		}
--- 
-2.34.1
-
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

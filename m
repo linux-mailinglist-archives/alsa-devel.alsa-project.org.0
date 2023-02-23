@@ -2,92 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8C16A0C83
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Feb 2023 16:06:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E446A1246
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Feb 2023 22:48:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B96DA1FB;
-	Thu, 23 Feb 2023 16:06:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B96DA1FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B9181DE;
+	Thu, 23 Feb 2023 22:47:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B9181DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677164815;
-	bh=pILPGxBt1kJYtwWzhF/f0Y6FgifBCmAAPLsPd7Uf7Jg=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1677188920;
+	bh=Dfqw8sapSjtjgdlWcdVpfySA8bxdV6bk8TMoqHqo2xs=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cf5xdoCpW2Ht+uXXry8zew14bTKNKhkUaO07PCM7pC+pWlbA4VuOjILj4f5A4E8Nz
-	 AV0GmcFPHzr/5dUDRcWrcnxHu7ZyJRLERxqdI0ZQV/+wjSHtn5g7tbSSHpx1dSAy81
-	 ATiylziApKcz/GRYj+ArK6/AMrO5So7fj0jcczMY=
+	b=Q4D5jmA2gj73UTfe1f3j8moSB+orlnuxIBqF1Cu4vBDeBdDBhkKdXnXuzYc82lluJ
+	 IEq1dX0oZJSgyeI18UHwZ5EBujlX8AVAmnkF7NQjaKY4zWZKsiCtoFlK1uoFsid29Q
+	 +sPUFlGE7ysxrWOrONXSjs+nDSo6hk6P2nlHmHyE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E406DF802DB;
-	Thu, 23 Feb 2023 16:06:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 458B4F802DB;
+	Thu, 23 Feb 2023 22:47:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18122F80496; Thu, 23 Feb 2023 16:06:00 +0100 (CET)
+	id 6E4D5F8014C; Thu, 23 Feb 2023 22:47:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF2B8F800BA
-	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 16:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF2B8F800BA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZSK0Z7mA
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E5A126170C;
-	Thu, 23 Feb 2023 15:05:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BAB9C433D2;
-	Thu, 23 Feb 2023 15:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677164753;
-	bh=pILPGxBt1kJYtwWzhF/f0Y6FgifBCmAAPLsPd7Uf7Jg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZSK0Z7mAF/TyVWOcprYHz1DoIxuKXxjdElzHtikBLLxCwtqZVmfpCoOwLTdOt5F1E
-	 Jz3ROmBmPnbHHmFnZl3wnN1TBaQQ56an4akdlBDe0l7bhEA33gR128c6YNXEX9Y05C
-	 cC7cHKy1bQYSWu8dDYHNxhtU45IbisBGe0Zc7KdMVFnuclopStvYwXlIFKLuKaa8ua
-	 OpSWgd7ZNZNZnYmEXPnoapvcYaruSPAy2JUupm4oXJENg3a4EtlAD7oP7u/n73GNM6
-	 PMpyLMOBN9+R+C8huYkwV9DbOeCrwZckzhpJo2tw3PrhOlN7RtEnJZxrO7IAOJhay4
-	 fe+acPowrfZpQ==
-Date: Thu, 23 Feb 2023 15:05:46 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>
-Subject: Re: [PATCH] Fix snprintf format warnings during 'alsa' kselftest
- compilation
-Message-ID: <Y/eAyrYs+wEu180d@sirena.org.uk>
-References: <20230223143214.16564-1-ivan.orlov0322@gmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F45EF802DB
+	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 22:47:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F45EF802DB
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=S73TWyHt
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31NBEP0c019239;
+	Thu, 23 Feb 2023 15:47:35 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=MPgklapgIivTZkEnsPfFYy3bgpg/8bL3U4Tfg87jGoc=;
+ b=S73TWyHtEZvHhgwXXKV8PVmYcwAQkgFzS0eqKvsVbatLfvJcj4UskeFQm7Xb1kBKmvC8
+ yGH23n9hwKgLi0jbs6wlALKw6rff38CFjz1JARpyxCNxMgUymP4gF5juKcIxKx3Qe6bI
+ Ugkp/ED/9JUaMr41hDoxxShexo9cqZp8k1sWnVN0bNVNWWqai/AHEvMFZx/7GUEpEhvf
+ API5+KaRwuW3tA5p0yEsIakLUGB8vwxD+sXbq0751BPoscTsTDvxXqFyFyFEcABYRwSY
+ 8aBc6vXYY+YMlPrg1oSxZ84+JTrbyjJ5dxs7v8l3v2VtTHH5qleyFQ5CKQNp5mUtKMOI xQ==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nwy4k1765-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Feb 2023 15:47:34 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.21; Thu, 23 Feb
+ 2023 15:47:33 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.21 via Frontend Transport; Thu, 23 Feb 2023 15:47:33 -0600
+Received: from [141.131.215.58] (david-linux.ad.cirrus.com [141.131.215.58])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 01DF745;
+	Thu, 23 Feb 2023 21:47:30 +0000 (UTC)
+Message-ID: <0e3ee09e-638a-060b-a4f2-95d45a9e1107@opensource.cirrus.com>
+Date: Thu, 23 Feb 2023 15:47:30 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="moK3dVaIIIQiq0dD"
-Content-Disposition: inline
-In-Reply-To: <20230223143214.16564-1-ivan.orlov0322@gmail.com>
-X-Cookie: Hindsight is an exact science.
-Message-ID-Hash: ZPJUFG5PXJMTL6JNIRVZABKEBF6HHOP3
-X-Message-ID-Hash: ZPJUFG5PXJMTL6JNIRVZABKEBF6HHOP3
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v7 0/4] Add CS35L41 shared boost feature
+Content-Language: en-US
+To: Lucas Tanure <lucas.tanure@collabora.com>,
+        David Rhodes
+	<david.rhodes@cirrus.com>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>,
+        Mark Brown <broonie@kernel.org>, "Rob
+ Herring" <robh+dt@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>
+References: <20230223084324.9076-1-lucas.tanure@collabora.com>
+From: David Rhodes <drhodes@opensource.cirrus.com>
+In-Reply-To: <20230223084324.9076-1-lucas.tanure@collabora.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 69VSMWsx4T4dAY-4PoQ00VlaoHfWXYuS
+X-Proofpoint-GUID: 69VSMWsx4T4dAY-4PoQ00VlaoHfWXYuS
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 6EHY27HZI4VAVRKDCSJQXKOIWM7UDH72
+X-Message-ID-Hash: 6EHY27HZI4VAVRKDCSJQXKOIWM7UDH72
+X-MailFrom: prvs=74182b8289=drhodes@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, shuah@kernel.org, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPJUFG5PXJMTL6JNIRVZABKEBF6HHOP3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6EHY27HZI4VAVRKDCSJQXKOIWM7UDH72/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,38 +121,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 2/23/23 02:43, Lucas Tanure wrote:
+> Valve's Steam Deck uses CS35L41 in shared boost mode, where both speakers
+> share the boost circuit.
+> Add this support in the shared lib, but for now, shared boost is not
+> supported in HDA systems as would require BIOS changes.
+> 
+> Based on David Rhodes shared boost patches.
+> 
+> Also, fix boost config overwriting in IRQ found in the review and do a
+> small refactor of the code.
+> 
+> Changes from V6:
+>   - Fix TX/RX bits in passive amp
 
---moK3dVaIIIQiq0dD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+v7 works as intended on my Deck.
 
-On Thu, Feb 23, 2023 at 05:32:14PM +0300, Ivan Orlov wrote:
-> Fix 'alsa' kselftest compilation warnings by making snprintf
-> format correspond the actual parameters types.
+Reviewed-by: David Rhodes <david.rhodes@cirrus.com>
 
-What warnings are you seeing in what configuration (arch, toolchain, any
-custom options...)?  I'm not seeing anything when I test.  Are these
-perhaps architecture dependent warnings?
-
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
-
---moK3dVaIIIQiq0dD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP3gMkACgkQJNaLcl1U
-h9CM4Qf9E0H850zw25V6gVtIWyUE7gWogdUbveseWkxHrigCVh4D6QNPMAPEhfZ+
-hJHzOTntQ3rTerdrTVsAHTbv9CFFiJq/q/nHFgbaLzNtWZXEAGpc0SOaIyo3zpIX
-EM7Q4yuMVgTCEwVXtyORE+866Mv/ZQdoLc1nLCkuXW5gRxFtitPyQaWppIT78ELA
-L7ecbqFM5YzAPSrm3fz9GSXZZ0b7oDlWMh5JbW4ptilREvBwZoGEiXzS8iXYGk1K
-4ikV3nfCjeIgTgOFvaAHY3RhpEpesaAA9yw1D4Xp/uRGtVYKVM6ox5KUQefRrixc
-CSXH8aLRckd288owYYnZglJxk9fHKA==
-=Hvq3
------END PGP SIGNATURE-----
-
---moK3dVaIIIQiq0dD--
+Thanks,
+David

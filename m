@@ -2,102 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3E496A1A88
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:45:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C28916A1AAE
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:55:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D460204;
-	Fri, 24 Feb 2023 11:44:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D460204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91D4C206;
+	Fri, 24 Feb 2023 11:54:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D4C206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677235522;
-	bh=R54f0chdWf5oEyxsccz/CXdM2qdcPwCj0KYPumDuF6Y=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=q5DMZh62zYfZPl39/OI4X5k+ABnOKG7bMHPPmFinqs8H2+nZNH7UGLWyoZROIgWUN
-	 Z/6rROStzJTegxbjtxV0ezIqhyKgIostlXs9DCx0vA1lPa3VSLFPt1SXpJdiHV5Pj7
-	 Ns5FCrs9gEEzx24x9nWkHoZ4ezcDdbUEgK256wsA=
+	s=default; t=1677236137;
+	bh=SKgjP2d8sigCYFfigcE5Zt1VXGfRCJJbv6zQQA54xIk=;
+	h=From:To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Uhv+bBuN0skIz6J/wxT/JSCNSBF1/1usifN+iTMQeRi10hFXq3s3MI17jcOuNmj24
+	 Mmf02erJ6LZXH20/Nf7VPr/8SwRDR1HNWWmDkLIvl73G1L8FYK5iU32doYC6BaSTau
+	 I4yO6mFc57Siuc/vic9P0skb3Lh23G+rnbeP5lM0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AABBF800DF;
-	Fri, 24 Feb 2023 11:44:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC2FDF80116;
+	Fri, 24 Feb 2023 11:54:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A3EEF80125; Fri, 24 Feb 2023 11:44:27 +0100 (CET)
+	id DBA87F80125; Fri, 24 Feb 2023 11:54:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe1f::604])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9794FF800BA
-	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 11:44:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9794FF800BA
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31OAUxoU013317;
-	Fri, 24 Feb 2023 05:44:14 -0500
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3nxc0e4vp4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 24 Feb 2023 05:44:14 -0500
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 31OAiDej036087
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
- verify=FAIL);
-	Fri, 24 Feb 2023 05:44:13 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.14; Fri, 24 Feb
- 2023 05:44:12 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.986.14 via Frontend
- Transport; Fri, 24 Feb 2023 05:44:12 -0500
-Received: from nsa.ad.analog.com ([10.44.3.102])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 31OAhvHl023569;
-	Fri, 24 Feb 2023 05:43:59 -0500
-From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-To: <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: adau7118: don't disable regulators on device unbind
-Date: Fri, 24 Feb 2023 11:45:51 +0100
-Message-ID: <20230224104551.1139981-1-nuno.sa@analog.com>
-X-Mailer: git-send-email 2.39.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D57BEF800BA
+	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 11:54:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D57BEF800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=iPp93AZk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JfmmCJaksmx8znpLm5uO/KvyMwb47hlLP8tk2BJ9kDtx/2T/lsLLbItPYPzfyUsh7hp7PvwIQDyeBWNSkz0sTkvAbevzwWINEQ3sO40U6usLilUEyC+cppskWmp3J+VLW4L8LQCsrjO+7JpY0gV208CDwt96uGFpbMriD+QXvvNz+tKJBAkv6XLaQxkO0P/Mtscw2a9kux5xDp2qIZRRPe/MIMRMrko7F5f1Z7nRa4SfCVNEChncE9iR9/ouRYJQ73kf7dpC7Q2B5I9NZDxtSBstHflyU7Su+zQi4YE2sZY3oCwcQFQnc2LWX6d3YEo0yPdSLqPMbBJlHkdjKkpGYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A8XmVxurwKCUdM0vIemCM+Z22mR4h9VbuTCpm5Igb/8=;
+ b=PoOHLwMDZz3K55gpzQ3xv+7zulcKh1Hi/gb4S8rQe8lipmKYkTrpDqgJ6crtb2kKKYEgBdQgna0xFN8pb/xWaHEIXvSuCkMnEzCFGEuS9MaRvscu8E6iAo55tH5NJ8/iWOrrl5zC1JZWbJ+4dAag0iTjwqQkJjxJes5SQ+7i1roZwfO8marsNqlYlv9MY/ExuIXSQPjMDIAzdRQ87PnKbSzvLETzkKhna4bo877Z7eLFwgsLXOh4xRSQwpmFAl3VfNHSTSmZV2/yWASIK7obFVOqCzEiP4j3EcqQu8k0e18LGlyZycXisRmkJ1eSPGIUjxAmz7RzOBb+2ikJAiB+EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A8XmVxurwKCUdM0vIemCM+Z22mR4h9VbuTCpm5Igb/8=;
+ b=iPp93AZk754kWF+QuGOdLcgHn5FRlOcpvOnMAi81RjMZQ6TS6LHfQDLW1hIPRlzaiezHiFwBQ8QD6PQsIxRHm3N2mWfW9ox5eIzFWRB/l+qZA2lgjJFNa+7GHE/gRKEvbZmApVUJYSVcnNtC55Qktm5+fC6l4WiaAcTjIP3P1Ag=
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com (2603:10a6:803:46::19)
+ by PA4PR04MB9687.eurprd04.prod.outlook.com (2603:10a6:102:270::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Fri, 24 Feb
+ 2023 10:54:35 +0000
+Received: from VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::8562:affc:e0c:c610]) by VI1PR04MB4222.eurprd04.prod.outlook.com
+ ([fe80::8562:affc:e0c:c610%7]) with mapi id 15.20.6134.024; Fri, 24 Feb 2023
+ 10:54:35 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
+	<broonie@kernel.org>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
+	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+	"perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+	"ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+	"patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: Re: [PATCH 2/4] ASoC: dt-bindings: wlf,wm8524: Add a property to
+ specify power up sequency time
+Thread-Topic: Re: [PATCH 2/4] ASoC: dt-bindings: wlf,wm8524: Add a property to
+ specify power up sequency time
+Thread-Index: AQHZSD5h4i88ZjQ6SECLRgRO4tCkLw==
+Date: Fri, 24 Feb 2023 10:54:35 +0000
+Message-ID: 
+ <VI1PR04MB42221B1708BA02B1FA2149D9E3A89@VI1PR04MB4222.eurprd04.prod.outlook.com>
+References: <20230222113945.3390672-1-chancel.liu@nxp.com>
+ <20230222113945.3390672-2-chancel.liu@nxp.com>
+ <506f92cd-7cf5-4fd5-a930-9af086732f84@linaro.org>
+In-Reply-To: <506f92cd-7cf5-4fd5-a930-9af086732f84@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR04MB4222:EE_|PA4PR04MB9687:EE_
+x-ms-office365-filtering-correlation-id: 5483e13b-bd62-457a-8ecd-08db16558469
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 5kzlAJPzGhoLqcZAuz+6ZUG9TFLaoJP4tv9kEZe1RYyOAf/9fQHsnz3MGQEVTgWFnhO6dV8PXjk3YHrbG8ZNgDoj/GFKEVOfL3IsmgIxmlSMSz47R7SmZrFKoOYUgiDWFMatfP1FahSSfutFYX6Ysu7OodoWDuOhiBEJ2POQ9L2qucBjuQN044u84fzUSG/rPsEwlWbGjb/UT4Prbgx4a9zebwZdk5tAF+kAkJfHiHyp5y3dnDm4VZ3FJmI8NX6o8xOg8qLaDI+uIQ0VV8n1juVO0oW+JHm1Bnuf/OKGksTShN1G26HW9GcHMdhT8PVXunv1W/qPPzs403IYy9qTZUGXPCx1UHwbG9kBQc+2BozgwbNHVzKYlJs5fHcZ/QxcIdXj2GuitLzrxu0/dw9QaB4LD4wii7EJ68aY31ZpHK8SLh3S0LrQ5dyq23CqJIMmfbdEIZQYdd4mjWkyi0rtW7K4xdLCuQujUnUCvRq9SYFLlkqz4g0pDuorVPBc8aQLN16//r1ZoIrtkQB5LMC5AJTR2bE0MPLrcHdQVREgwLRHsJtuahnhh8rftQcI6TO4+P83sRqIfwX/e79LBhtiIOhZEu6BwiFnwYc7jgOqbRmrMLN/hKCLevEf9pDObYUnvjYwPFkhxdbnnmE+7iA8jdDFkme6EP7Fca1BbHbZSdMOHFxZiZg47DvSy/pLGhlbda5SlfqjasnKs6/+LR/URTST5uMlj0tlkPXXPIhATBE=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB4222.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(346002)(366004)(136003)(396003)(39860400002)(451199018)(921005)(71200400001)(110136005)(316002)(478600001)(86362001)(7696005)(33656002)(122000001)(38070700005)(38100700002)(53546011)(6506007)(2906002)(66946007)(55016003)(66476007)(8676002)(66556008)(64756008)(76116006)(44832011)(41300700001)(52536014)(26005)(66446008)(7416002)(8936002)(5660300002)(9686003)(186003)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-7?Q?CbwbJZQr6rJ6rEnMRjdLIVaVHyuGs8SEgND4EFU9iu+X/Ra73D5X9AE1M8?=
+ =?iso-8859-7?Q?+E6/VNEbyiw408OzICxiJcEEp+eQ4wBhidDiWtnT41f5XTfIfsFoQGhMFU?=
+ =?iso-8859-7?Q?S5a23FJS86DOnXi0E9KlmqaAyG1GxCkABcdgUyI2xYQuHLoCKb/4zxecOm?=
+ =?iso-8859-7?Q?CKyIyUt4mOZjMfhB0YFmFeQKb24DgfTk03doXt0Z2V5P/KQX0O198B/X/W?=
+ =?iso-8859-7?Q?w+ZCCmKLIT9cW0f/idlUiSk5yGLswmBTvT5kIN2hTTZXhw+p9S3f2YtFW2?=
+ =?iso-8859-7?Q?0gSgI7OEjfFFojHne+sKJrBSs+cZgIwcfQk86GtjzuOMYq7szqm3KTmBI/?=
+ =?iso-8859-7?Q?kWJxEC3UmeCPiq8xMHTayl6JHFoNUFauN5osMip1bBWHqc1zuQvMI2cVmi?=
+ =?iso-8859-7?Q?f+4jR98r5I9eaNtHSvtxPQhR9fnOhlbevVFuZiUl5I1bhIu1HR2U4kj/SJ?=
+ =?iso-8859-7?Q?Ceyc4mvrBSOneYaTthfKlsJBhws7leiZIRZzF4J4V2Qg20cpLEMRLPMcfg?=
+ =?iso-8859-7?Q?fXsEG4CGh7SvgvdKvCzFN08zhcO0PUxwq8Skfy9jQimdStiJkNBetKFACE?=
+ =?iso-8859-7?Q?IpRCIIgZJUo1ati0N+eMwJP3mTXgBJBEjoO9W1b+vSPf3akjdjAiBFwIOX?=
+ =?iso-8859-7?Q?2M066sjgcXDcEPXjDJ59KeveWMPPl4LrUSWurv8FjlTbjN2XWzCI6TPM4M?=
+ =?iso-8859-7?Q?Bg6XIneqZ91SRVDK78dBf9aOkaw9yqcVWUdH9lO1D4bh51SQZhtWqQORTW?=
+ =?iso-8859-7?Q?FJFdFqcTS+QT4OJ0AY7LECbrdUl+pgbNuNTPpO+5jcunYyA972WXM5KUd9?=
+ =?iso-8859-7?Q?bpA5+vuohTRCL5JtbHuqBwrT5eic4RjfuROdT86grVw2Zv1Xm8qFE+AGSs?=
+ =?iso-8859-7?Q?2VRUpuK6txFosu3pNRDIBq3xhDlJ2b2A4uqlyFNDJqRnzMukOCZx9ysJF9?=
+ =?iso-8859-7?Q?+PgBCP7CuZ4cN2DZ0OAXOieCFWUtle+zzVXXE+UN6hseHBYlPDTp3vQ9xC?=
+ =?iso-8859-7?Q?ImLo/H6NvmAGMhDPvyFvzip9wM6gDSBWJYYJ2F5cQSzMaxwy6pN7Fx5345?=
+ =?iso-8859-7?Q?DKfKKj9vn8oA8tAOOH7Oc0Am+eGFRlSoxuqCEmJZLBvIPJhgXbP7Xtt3Gi?=
+ =?iso-8859-7?Q?qlplnQEIG5x4mn+TZt2Mdf9EgykO0TrIbxjVi1UwsW1IOb6E/E06Mfi926?=
+ =?iso-8859-7?Q?zFqdmt1FiSvFDwtdrjR4yjcsBe5mJGvhpRUGn+1lK5STh/aI8gKWD/yWBH?=
+ =?iso-8859-7?Q?6B3mn1IhPfS7RjU6zFDdYWC1nPHs6ANTTbnbTsB96CLhPZZJ6z1GgnVYy/?=
+ =?iso-8859-7?Q?0aVvESiMQ5Wjkk6pqoCUEWZ8+R+5HfzgMoPp2PW+wLGKZy3dO8fTxM4jDm?=
+ =?iso-8859-7?Q?wL0r0bbA4GKO66UHChJmMuHJOwmfS99fjZPMO9K+8W3v/U8Ol7FmyMWDw8?=
+ =?iso-8859-7?Q?Ck+BUYuJWlUyDkf/QOBu+l43mi1TezF+oeJuPgsOSKRBQBty16IyIgxOoY?=
+ =?iso-8859-7?Q?ZAd9mtjjyxTrFF2GFo/1mI/XYRerZqAo89/hVKRG7LOpoSlHXUu3enm2Ny?=
+ =?iso-8859-7?Q?BflIXzrp/o5KMtfEYRSD5jIjSyNd+ZQyiAk9gKQ5FfeZgSu57Cz/78ijBk?=
+ =?iso-8859-7?Q?PcTE/B9ylnvSAe7b9y5D3bLL7RlinILSEc?=
+Content-Type: text/plain; charset="iso-8859-7"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: RjWFZ8c7-UZz9DPnim9YoSlTg7hPFVoG
-X-Proofpoint-GUID: RjWFZ8c7-UZz9DPnim9YoSlTg7hPFVoG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-24_06,2023-02-24_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- spamscore=0 mlxscore=0 mlxlogscore=921 bulkscore=0 malwarescore=0
- adultscore=0 impostorscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 clxscore=1011 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2212070000 definitions=main-2302240088
-Message-ID-Hash: LMTIXU7AN4Y3H3BYX35QXGDWYKWZ4HIB
-X-Message-ID-Hash: LMTIXU7AN4Y3H3BYX35QXGDWYKWZ4HIB
-X-MailFrom: Nuno.Sa@analog.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5483e13b-bd62-457a-8ecd-08db16558469
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2023 10:54:35.2129
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ Vys+1+b+cmV2FSIl1H8fz3iGsEyNrArcEIxxqzeZtBuhgfBFfBd6J/Ow6J9o/ciy43Gk9hNNlLpS86y/yS/AeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9687
+Message-ID-Hash: GVQS3GNE44ZZZO3V4AAEEUXI3N7FUYJC
+X-Message-ID-Hash: GVQS3GNE44ZZZO3V4AAEEUXI3N7FUYJC
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LMTIXU7AN4Y3H3BYX35QXGDWYKWZ4HIB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWZ5AFQP7VH564TBAUS6NABNHU5ZN4IM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,59 +173,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The regulators are supposed to be controlled through the
-set_bias_level() component callback. Moreover, the regulators are not
-enabled during probe and so, this would lead to a regulator unbalanced
-use count.
+> On 22/02/2023 12:39, Chancel Liu wrote:
+> > This property specifies power up to audio out time. It's necessary
+> > beacause this device has to wait some time before ready to output audio
+>=20
+> typo... run spellcheck, also on the subject
+>=20
+> > after MCLK, BCLK and MUTE=3D1 are enabled. For more details about the
+> > timing constraints, please refer to WTN0302 on
+> >
+> >
+> > Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+> > ---
+> >  .../devicetree/bindings/sound/wlf,wm8524.yaml          | 10
+> ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
+> b/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
+> > index 09c54cc7de95..54b4da5470e4 100644
+> > --- a/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
+> > +++ b/Documentation/devicetree/bindings/sound/wlf,wm8524.yaml
+> > @@ -21,6 +21,15 @@ properties:
+> >      description:
+> >        a GPIO spec for the MUTE pin.
+> >
+> > +  wlf,power-up-delay-ms:
+> > +    maximum: 1500
+>=20
+> maximum is 1003. Where do you see 1500?
+>=20
+> minimum: 82
+>=20
 
-Fixes: ca514c0f12b02 ("ASOC: Add ADAU7118 8 Channel PDM-to-I2S/TDM Converter driver")
-Signed-off-by: Nuno Sá <nuno.sa@analog.com>
----
+Yes, you are absolutely right. From the power up to audio out timing table =
+in
+WTN0302, the minimum number is 82 and the maximum is 1003.
 
-Note this was only checked by code inspection but unless I'm missing
-something, it looks clear this could happen by just insmod + rmmod the
-module.
+Consider the following possibilities:
+1. These timings may depend on the system design
+2. These timings may be simulated results
+3. These timings may be the minimum values
 
- sound/soc/codecs/adau7118.c | 19 +------------------
- 1 file changed, 1 insertion(+), 18 deletions(-)
+I set a larger value trying to extend the time. The larger value of course
+introduces unwanted time delay but it benefits on avoiding beginning audio
+lost.
 
-diff --git a/sound/soc/codecs/adau7118.c b/sound/soc/codecs/adau7118.c
-index bbb097249887..a663d37e5776 100644
---- a/sound/soc/codecs/adau7118.c
-+++ b/sound/soc/codecs/adau7118.c
-@@ -444,22 +444,6 @@ static const struct snd_soc_component_driver adau7118_component_driver = {
- 	.endianness		= 1,
- };
- 
--static void adau7118_regulator_disable(void *data)
--{
--	struct adau7118_data *st = data;
--	int ret;
--	/*
--	 * If we fail to disable DVDD, don't bother in trying IOVDD. We
--	 * actually don't want to be left in the situation where DVDD
--	 * is enabled and IOVDD is disabled.
--	 */
--	ret = regulator_disable(st->dvdd);
--	if (ret)
--		return;
--
--	regulator_disable(st->iovdd);
--}
--
- static int adau7118_regulator_setup(struct adau7118_data *st)
- {
- 	st->iovdd = devm_regulator_get(st->dev, "iovdd");
-@@ -481,8 +465,7 @@ static int adau7118_regulator_setup(struct adau7118_data *st)
- 		regcache_cache_only(st->map, true);
- 	}
- 
--	return devm_add_action_or_reset(st->dev, adau7118_regulator_disable,
--					st);
-+	return 0;
- }
- 
- static int adau7118_parset_dt(const struct adau7118_data *st)
--- 
-2.39.2
+I also did some tests on a board. If I want to work on 48KHZ sample rate an=
+d
+512FS, the recommended value is 143. But the test result showed 143ms is no=
+t
+enough. I increased the value to 500ms and could hear the beginning sound.
+
+Maybe it's a better choice to let DT set the suitable value? Is there a sim=
+ilar
+situation before?
+
+> > +    default: 100
+> > +    description:
+> > +      Power up sequency delay time in millisecond. It specifies power =
+up to
+>=20
+> typo: sequence?
+>=20
+
+Sorry. I must avoid these spelling mistakes.
+
+> > +      audio out time. For more details about the timing constraints of=
+ this
+> > +      device, please refer to WTN0302 on
+> > +
+>=20
+> According to WTN0302 this might or might not include regulator
+> ramp-up-delay. You should clearly indicate which part of it this delay
+> is to not mix up with ramp up. IOW, mention exactly from where the value
+> comes (e.g. =C4t POWER UP TO AUDIO OUT TIMING table, depending on samplin=
+g
+> clock rate). Otherwise you introduce quite loose property which will be
+> including regulator ramp up in some cases...
+>=20
+> Best regards,
+> Krzysztof
+
+Yes. This property is designed for power up to audio out timing. I need to
+clearly point this out.
+
+Thank you very much for your suggestions!
+
+Regards,=20
+Chancel Liu
 

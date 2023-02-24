@@ -2,108 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55BCF6A1CEB
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 14:21:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5992D6A1D3B
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 15:08:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34148203;
-	Fri, 24 Feb 2023 14:21:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34148203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79F63203;
+	Fri, 24 Feb 2023 15:07:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79F63203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677244918;
-	bh=7ODUv3D8xf81slIDQs9GhkgTjA9Y9Xu/c56SdK+cH1A=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q71R8HxBx3qAX+yDaoUhslNcBLX7kNNKg86HbMzCbjxgtigS/Y8zI8drzKFSMbubC
-	 lCZvnJU1TMCI9/QrC0kXOWrPvc7wC89pmABFZQvOV1rIXKpqfA+O4zqn9wIvUpvd67
-	 iyWf4Yyrd9bWzIgeDRmtQxk+WEfEMLvGZLfTja8k=
+	s=default; t=1677247720;
+	bh=6WgQseSSE1/0RjYTZmTF8phVwKCFajro+gk7cetd7fg=;
+	h=From:Subject:Date:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=F8Jjm0OBH2NmNdIKGNZ1dsYeikypA3K5dycWhhY+iNRf6t/euYl5/VcsoeT9CGUsL
+	 eMnkK/auHVz/VEeqZAQn4OvZ25F0Z89EQ91Omj7yIDL2ma30RDbUpo27bWlJ7sjJL/
+	 8ud/xRi9LUxiI5AxI6Wi4GwNDW2lN8rc0xxrzvIo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 937B5F800BA;
-	Fri, 24 Feb 2023 14:21:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5DC0F8014C;
+	Fri, 24 Feb 2023 15:07:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31AEAF80125; Fri, 24 Feb 2023 14:21:04 +0100 (CET)
+	id 07095F80125; Fri, 24 Feb 2023 15:07:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8F04F800C7;
-	Fri, 24 Feb 2023 14:20:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8F04F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3473FF800DF
+	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 15:07:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3473FF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XZg8aBne
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677244858; x=1708780858;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7ODUv3D8xf81slIDQs9GhkgTjA9Y9Xu/c56SdK+cH1A=;
-  b=XZg8aBnemT34o2AG7gsTjgxJfXs+/4Dx5xvh8k22/mF5HAGG/MoZE6xa
-   PU1HHfnaQM593owOk18w9TauwvsNJWnQREPAwz2bCPI4xGS/u87Pa9x/h
-   bSqvfy4vMbk38+2fQ3wST5v1hIY5UDwcQe5CQzd8UP1CAyUvSyn/8urol
-   QWI7VlOV1SK93F5Etp/j2LgxVUxQlf8AwH8jFkuaKFFqBzpAWFQl+VkvH
-   KzuIYlOdo/QsclMRr5ljEMBtXSrseIf77O/DohkR2mSlmtniQB20HK7iB
-   6Ct5StEisn6E4PsnysVDV/qVn8ktZVKUuO+7s8ajp/eqHn50wrTUU0QfR
-   Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="333477530"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000";
-   d="scan'208";a="333477530"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2023 05:20:51 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="741671090"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000";
-   d="scan'208";a="741671090"
-Received: from nderuite-mobl1.ger.corp.intel.com (HELO [10.251.215.190])
- ([10.251.215.190])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2023 05:20:48 -0800
-Message-ID: <f258311c-cbb3-7d5b-7f7f-2034809aad57@linux.intel.com>
-Date: Fri, 24 Feb 2023 15:21:04 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=e3icBfRR
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5A82661843;
+	Fri, 24 Feb 2023 14:07:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A58EC433EF;
+	Fri, 24 Feb 2023 14:07:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677247654;
+	bh=6WgQseSSE1/0RjYTZmTF8phVwKCFajro+gk7cetd7fg=;
+	h=From:Subject:Date:To:Cc:From;
+	b=e3icBfRRHSaWBxoU7LXlhkkJ0dYzqRGcFoeLU+fspHDzlaA9zBC8GeNEr0XoWqRYb
+	 XrWCoGjjVBIjqcs7d4Fn0XnOqYQPZ66sLSLH85VvoqWnwlZbCSUYTqBzMqkbk9Gol+
+	 qJyNPR1dH8GkTHU/eTurusY2fu4NeKRdFDjG5Ci98wc7ru8+xQso8CEw4jFzJd9hlb
+	 aZABOvgqo7J2hWYjnyLse4bS0PkJM5HA1SkEOKbThYc9T6S5x7xLhJ60RS0EJu/apn
+	 lhCFM1kQJZGHnb3Qjo7eTeasTkDA7K/1drnv3JHFpNrmyqdmpU7BU6FNYQU88xQxys
+	 CN+qvpn2mCfkw==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/4] ASoC: mt8192: Fixes from initial glance at kselftest
+ run
+Date: Fri, 24 Feb 2023 14:03:54 +0000
+Message-Id: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.2
-Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Replace fake flexible
- arrays with flexible-array member
-Content-Language: en-US
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <Y/gyIg1qZduhigPi@work>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <Y/gyIg1qZduhigPi@work>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QSONP6CUGECW6UA4EQWEEMI3BIRVYR4C
-X-Message-ID-Hash: QSONP6CUGECW6UA4EQWEEMI3BIRVYR4C
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMrD+GMC/x2L0QrCMAwAf2Xk2UCbwqz+iviQdZkLsm42U4Sxf
+ 7fz8Y67DUyKisG12aDIR03nXMGfGkgj54eg9pWBHAVHFJBtTjit0V8IX29NTxz0K4ZxCOLYxzN
+ RC/Xu2AS7wjmNx79Oy2GXIv+8qtt9338NhGfcfwAAAA==
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+X-Mailer: b4 0.12.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=949; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=6WgQseSSE1/0RjYTZmTF8phVwKCFajro+gk7cetd7fg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBj+MSgptemsOYFwoH0fc5cIPy9dkZo6raLVN9t/bwB
+ +1VF2laJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY/jEoAAKCRAk1otyXVSH0F4CB/
+ wO8wM26BECdCimtw2TUtGGjddmXPhsckwQto7lBLJnqtFnOxrYE4eHSGXjRkRyvFN1BjKnEObQY6Cb
+ ZrzIw5s7kYMxAd0ik6y/+TOM5X+a2h7PJvwkfFlQEnTNUXz06e+Wr7+2th0RPw28ovpvrv9suUyjMf
+ PrlaTSKbcvL/ThYL94y2bKP8bqL9segFhHf8NwSpneSBlVAsg3lHNb2tUKoVxZP4OeTMNSgMTlyYxd
+ GfYjWV1qZgwIKdzteb1WDVZQn20VkgeGqSy4G+XqdAsor1IPfo26xdcE0snqTs7tID86Yvi9yBN9ss
+ MfryzIZcD7L/hWfFve8dZ9/dvrj84m
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: 6KSSPL3GQVLMXJUWZIZ7QYJXPZRVH7VA
+X-Message-ID-Hash: 6KSSPL3GQVLMXJUWZIZ7QYJXPZRVH7VA
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+CC: =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSONP6CUGECW6UA4EQWEEMI3BIRVYR4C/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,60 +107,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This is a collection of fixes I came up after glancing through an
+initial test run with the Spherion Chromebook on KernelCI.  There are
+more issues flagged, this is just what I fixed thus far - the volume
+controls on the MT6359 have issues for example, and a lot of controls
+aren't marked as Switches like they should be.
 
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Mark Brown (4):
+      ASoC: mt8192: Remove spammy log messages
+      ASoC: mt8192: Fix event generation for controls
+      ASoC: mt8192: Report an error if when an invalid sidetone gain is written
+      ASoC: mt8192: Fix range for sidetone positive gain
 
-On 24/02/2023 05:42, Gustavo A. R. Silva wrote:
-> Zero-length arrays as fake flexible arrays are deprecated and we are
-> moving towards adopting C99 flexible-array members, instead.
-> 
-> Use the DECLARE_FLEX_ARRAY() helper macro to transform zero-length
-> arrays in unions with flexible-array members.
-> 
-> Address the following warnings found with GCC-13 and
-> -fstrict-flex-arrays=3 enabled:
-> sound/soc/sof/ipc4-control.c:176:77: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:78:29: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:80:33: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:95:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:96:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:93:53: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:140:58: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:141:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:142:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-topology.c:1475:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-topology.c:1476:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> 
-> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> routines on memcpy() and help us make progress towards globally
-> enabling -fstrict-flex-arrays=3 [1].
+ sound/soc/mediatek/mt8192/mt8192-dai-adda.c | 58 ++++++++++-------------------
+ 1 file changed, 19 insertions(+), 39 deletions(-)
+---
+base-commit: b361d5d2464a88184f6e17a6462719ba79180b1a
+change-id: 20230223-asoc-mt8192-quick-fixes-8f3e0a187226
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-
-> 
-> Link: https://github.com/KSPP/linux/issues/21
-> Link: https://github.com/KSPP/linux/issues/193
-> Link: https://github.com/KSPP/linux/issues/258
-> Link: https://gcc.gnu.org/pipermail/gcc-patches/2022-October/602902.html [1]
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> ---
->  sound/soc/sof/ipc4-topology.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-> index 72529179ac22..8507171a6e4d 100644
-> --- a/sound/soc/sof/ipc4-topology.h
-> +++ b/sound/soc/sof/ipc4-topology.h
-> @@ -266,8 +266,8 @@ struct sof_ipc4_control_data {
->  	int index;
->  
->  	union {
-> -		struct sof_ipc4_ctrl_value_chan chanv[0];
-> -		struct sof_abi_hdr data[0];
-> +		DECLARE_FLEX_ARRAY(struct sof_ipc4_ctrl_value_chan, chanv);
-> +		DECLARE_FLEX_ARRAY(struct sof_abi_hdr, data);
->  	};
->  };
->  
-
+Best regards,
 -- 
-Péter
+Mark Brown <broonie@kernel.org>
+

@@ -2,119 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9E36A195F
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:02:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0906A195B
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 11:01:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBA8182C;
-	Fri, 24 Feb 2023 11:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA8182C
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC1F5204;
+	Fri, 24 Feb 2023 11:00:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC1F5204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677232953;
-	bh=qv1ebqxNKYeh2P2ahXxCf6dkKAslAGphNWhUKZ3rmH4=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fQkN+k70q+xFq7TiO7JHa99+lNqMfqPisqTDi6hRHsoBSCYade1lbP8SnW09o0QYz
-	 OzItkrJ4yeGmU1uNhDu4ayrKBeLXSXKZaEK7SBb+TYkY89dkuChNXsBh07aIAI348g
-	 tsb/j+Wsf8LB5qvG1UrHk1TqepIp5BGx3jCc/IdY=
+	s=default; t=1677232882;
+	bh=A4Cse4Ql0QKE8ukskC9Ct7aLZhHr9QdI/m8PW+PjYJM=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=mGuJE2KuCWenyvI0Ob231x4dpOnnJaaXERtB6OUZRc2YyQ0YgFzIRk8eFCPFsjXd3
+	 kk35dXo7WSlae4KttxHlwgcqrb/yxXK0Giiqo9WouB85b97/22Q66X/ZSC6pvMv64W
+	 L+2eaILb0xYW+Ytyxk6oOcHUfqgp9r7ZEYjeXa/A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68B21F8053B;
-	Fri, 24 Feb 2023 11:00:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 366A5F80116;
+	Fri, 24 Feb 2023 11:00:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B57CF80496; Thu, 23 Feb 2023 21:15:10 +0100 (CET)
+	id 7F5B8F8014C; Fri, 24 Feb 2023 10:59:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 913FDF80038
-	for <alsa-devel@alsa-project.org>; Thu, 23 Feb 2023 21:15:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 913FDF80038
+	by alsa1.perex.cz (Postfix) with ESMTPS id E64D4F800C7
+	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 10:59:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64D4F800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=BaLgVKhu
-Received: by mail-ed1-x52d.google.com with SMTP id cy6so41152562edb.5
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ee085rvn
+Received: by mail-ed1-x535.google.com with SMTP id x10so51875443edd.13
         for <alsa-devel@alsa-project.org>;
- Thu, 23 Feb 2023 12:15:00 -0800 (PST)
+ Fri, 24 Feb 2023 01:59:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677183298;
-        h=content-transfer-encoding:in-reply-to:cc:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kAb0qzqWSP/U+Kj5L5nLqdqYurAmo6JZhKfQvH683Pk=;
-        b=BaLgVKhuX1clAmVVahaKedAK7xDb7n37VgbEl5j85och7Y9+re7M8ZB/GCXlN0iW4P
-         RpY+bsTzN0egXJpJpNN6fArx526j4YSZMdYk9+RQAwoSaK8RddM/LoJ7NJ4WNge1jI4W
-         293i+uUBsLoU17XWO6XQoOMRekI+h/hSXlrVMYaHq9e9lyshfu5uXQ+L7ErgJk07+5VO
-         wf5Y+moJHpgaDl2hpoPsc/ktmPyHoaI1J4Y6eO9UQJ0D8/75X+SR2Hgj3Kz+Q7PDGUwJ
-         wEKJF4emYuhPovJsIuKN13NKtTWZayn5CQ7InFhtxFJueiuJvH7c89YgRPQnJjKVVYvb
-         GSwg==
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wtIuDW2eQkRbGFvSewuxjU4xIOGxpYMc+vOIKksGCaU=;
+        b=ee085rvn0DvOv8XgdsY8PLoWCb0jLodHKCg3Tp+9D8nhapZxcfYT+jcPzwNG8npDwf
+         AvM0Bzz9+nybDUnui66nmjEDuVymoj/ZrcK9+SZau2GTSdlC97KlJQtimdhoMrX2xyEV
+         W24ZaRgXqwre2fDNy314t/AHyvGccj/WchIMENAT0hdnkBkf2ZZfeI32NBHZ9myrN6D/
+         BXSOY37i8R6ihe6gE4xJEyvxD/DwZ1utOKTqkxb2368KlhoaXdp1tteP2ByMPwDnjlae
+         jp1qvG3b2T7U1OTOBJspiOgIUoIjg2qGNdF9iAL6TZlZx2aaK6v0ouw3XQfx+uzqqF9+
+         5aew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677183298;
-        h=content-transfer-encoding:in-reply-to:cc:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kAb0qzqWSP/U+Kj5L5nLqdqYurAmo6JZhKfQvH683Pk=;
-        b=YDkMtUB7KhsB0IoqOYL4tFhZm5b9frvK46Als/9mz0d6AaGT6QQYjIMFTTryh1/z7D
-         Odb15ecRk/AsfJVQRQwrk/85mgHWOJrvqHPnDVAKKJWDv0CwDrc769ujB9ryq1n6Hn9J
-         Ea46Cm6GHl5YUmDgusR1TP4juzHkB8XB2VQCb1Ca5t/ELCB1Y0g88g0DN64W29xJ1MK+
-         gFint0A8gUEXEHbcOl1CCx4vDyBMUYC8TLFrmFa4Xzwta4snmVM9pGli+0A0Mz8j3Cgf
-         VdGNNas/1vL9hcz7fzhjCDgRMsKmnkRW91lrKcJSUkY3JVdu15Wfi0xRtTJ7/8AnfnGw
-         Tfhg==
-X-Gm-Message-State: AO0yUKXVGfAylqtERzi+k2C4N6/IIiP04pqA3YkV0aVV2RszZNPfTMKq
-	gw1nfDJtxwHAARLsBeVnJFM=
+        bh=wtIuDW2eQkRbGFvSewuxjU4xIOGxpYMc+vOIKksGCaU=;
+        b=wiqdZpLg0h70xHIqytCjbBtudkJOAPvQgPjVx3/bgpSwa0hQDC9cwYyOAf7eAGDc4Q
+         A7L45owRXhqTelVposeXP7jSDFxvCkVHd5gq8VGKnXEhD3mD1fwospcg8mpnkF202mC/
+         LHsvm5bIkbKHqyTNDRkp85FZsxRFbrtLwIs5QJ7ddKXt70GhdxX/Fe3QDwcqPi9lcEyG
+         7mjG3JEeUj46X7QhEE4UugrPlW9lRbmfHafC8a0QxoOBHi++G1fl1BPArn8UVJenDjFZ
+         MtxCxHd5pnEGKpYFwdV8G+ZE7ikQc1wUjqJkm7HiSJ/akcV3E3OfQVZzgRJB8XfYTkoE
+         JfIw==
+X-Gm-Message-State: AO0yUKXwmv8ED+85IRxRmKP3C6hA3tInxdECiUoU8TgvXek7S3VD/gXm
+	KIK0rKg+b43DtzXOHrIRtGnc3w==
 X-Google-Smtp-Source: 
- AK7set+fyV8NY7swJO99sprnqCQsbhtz4OVtCCE4+qb/xglPT66O02/tvTfiEpZ9YzNZX/uhSq5ksQ==
-X-Received: by 2002:a05:6402:34d5:b0:4ac:8e63:300a with SMTP id
- w21-20020a05640234d500b004ac8e63300amr12695555edc.3.1677183298324;
-        Thu, 23 Feb 2023 12:14:58 -0800 (PST)
-Received: from [192.168.88.131] ([37.252.81.68])
+ AK7set9h4c7mDwoIZ//68yJseIkY4LktumLVuRyyDSSLBuK/4Q79zZF04ClwiptuRbJhP4gLNPBtag==
+X-Received: by 2002:a05:6402:1287:b0:4ad:7c30:2596 with SMTP id
+ w7-20020a056402128700b004ad7c302596mr14133282edv.3.1677232786097;
+        Fri, 24 Feb 2023 01:59:46 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- s21-20020a50d495000000b004aee548b3e2sm5338830edi.69.2023.02.23.12.14.57
+ n14-20020a170906840e00b008eaf99be56esm2326189ejx.170.2023.02.24.01.59.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Feb 2023 12:14:58 -0800 (PST)
-Message-ID: <1db3bfe5-0982-b445-9c94-784478279028@gmail.com>
-Date: Thu, 23 Feb 2023 23:14:56 +0300
+        Fri, 24 Feb 2023 01:59:45 -0800 (PST)
+Message-ID: <7cbd979d-2126-2b8e-35d9-14e4f9681ea8@linaro.org>
+Date: Fri, 24 Feb 2023 10:59:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] Fix snprintf format warnings during 'alsa' kselftest
- compilation
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: max98363: add soundwire amplifier
+ driver
+To: =?UTF-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ rf@opensource.cirrus.com, ckeepax@opensource.cirrus.com,
+ pierre-louis.bossart@linux.intel.com, herve.codina@bootlin.com,
+ wangweidong.a@awinic.com, james.schulman@cirrus.com,
+ ajye_huang@compal.corp-partner.google.com, shumingf@realtek.com,
+ povik+lin@cutebit.org, flatmax@flatmax.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, robh+dt@kernel.org, devicetree@vger.kernel.org,
+ ryans.lee@analog.com
+References: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
+ <20230224010814.504016-2-ryan.lee.analog@gmail.com>
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230223143214.16564-1-ivan.orlov0322@gmail.com>
- <Y/eAyrYs+wEu180d@sirena.org.uk>
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <Y/eAyrYs+wEu180d@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: ivan.orlov0322@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230224010814.504016-2-ryan.lee.analog@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZHGFV7TXF6GCAPPB2VFK4NQ5WPZGEFKT
+X-Message-ID-Hash: ZHGFV7TXF6GCAPPB2VFK4NQ5WPZGEFKT
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DN5EGZCYT5MZ45TJOP5JG4OMUXRSDPMV
-X-Message-ID-Hash: DN5EGZCYT5MZ45TJOP5JG4OMUXRSDPMV
-X-Mailman-Approved-At: Fri, 24 Feb 2023 10:00:14 +0000
-CC: tiwai@suse.com, shuah@kernel.org, alsa-devel@alsa-project.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DN5EGZCYT5MZ45TJOP5JG4OMUXRSDPMV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHGFV7TXF6GCAPPB2VFK4NQ5WPZGEFKT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,23 +128,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23.02.2023 18:05, Mark Brown wrote:
+On 24/02/2023 02:08, “Ryan wrote:
+> From: Ryan Lee <ryans.lee@analog.com>
 
-> What warnings are you seeing in what configuration (arch, toolchain, any
-> custom options...)?  I'm not seeing anything when I test.  Are these
-> perhaps architecture dependent warnings?
+Thank you for your patch. There is something to discuss/improve.
+
+Your patch is corrupted because you modified it after creating it. It
+won't apply correctly and won't work. The bot's response with error is
+about this.
+
+Except broken patch, here are some more comments:
+
 > 
-> Please submit patches using subject lines reflecting the style for the
-> subsystem, this makes it easier for people to identify relevant patches.
-> Look at what existing commits in the area you're changing are doing and
-> make sure your subject lines visually resemble what they're doing.
-> There's no need to resubmit to fix this alone.
+> This patch adds dt-bindings information for Analog Devices MAX98363
 
-Thank you for the review! I will follow the common subject lines style 
-in the future.
+Do not use "This commit/patch".
+https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
 
-I compiled the test via gcc 11.3.0 without any custom options, the arch 
-is x86_64. There were five warnings during the test compilation, and all 
-of them were caused by incorrect format in 'snprintf' function calls. As 
-I know, using incorrect format in 'snprintf' creates an undefined 
-behavior. Maybe there is a point to fix it?
+> SoundWire Amplifier.
+> 
+
+Subject: drop driver. Bindings are about hardware, not drivers.
+
+> Signed-off-by: Ryan Lee <ryans.lee@analog.com>
+> ---
+>  .../bindings/sound/adi,max98363.yaml          | 53 +++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/adi,max98363.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/adi,max98363.yaml b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
+> new file mode 100644
+> index 000000000000..fda571d04a64
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/adi,max98363.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices MAX98363 SoundWire Amplifier
+> +
+> +maintainers:
+> +  - Ryan Lee <ryans.lee@analog.com>
+> +
+> +description:
+> +  The MAX98363 is a SoundWire input Class D mono amplifier that
+> +  supports MIPI SoundWire v1.2-compatible digital interface for
+> +  audio and control data.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,max98363
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: Peripheral-device unique ID decoded from pin
+> +
+> +  vdd-supply:
+> +    description:
+> +      A 2.5V to 5.5V supply that powers up the VDD pin.
+> +
+> +  dvddio-supply:
+> +    description:
+> +      A 1.7V or 1.9V supply that powers up the DVDDIO pin.
+> +      This property is only needed for MAX98363A/B.
+
+It's not a DAI?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - dvddio-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+
+Drop the header, you do not use it.
+
+> +    soundwire {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        max98363: amplifier@3 {
+
+also drop label (max98363).
+
+> +            compatible = "adi,max98363";
+> +            reg = <0x3>;
+> +            vdd-supply = <&regulator_vdd>;
+> +            dvddio-supply = <&regulator_1v8>;
+> +        };
+> +    };
+
+Best regards,
+Krzysztof
+

@@ -2,96 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856C76A224D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 20:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F0486A225E
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 20:34:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 641751E9;
-	Fri, 24 Feb 2023 20:20:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 641751E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFA9C1F1;
+	Fri, 24 Feb 2023 20:33:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFA9C1F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677266459;
-	bh=93WOmXt3Of9KXOA1+0JJLvM2QcA/MehDyh1OEKDHA+k=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=hTn4T2ZIHoQHNujZLfTtLct3zDsEsp3NpGDAH8ewL391KqkohxzNZGKi1azmlamnd
-	 A8VK0uetaq5IEtzuXB9ZI6zsX+exM02eYTNC91QVSIkgv1SWidDL7a9oe1VjbErWDQ
-	 d/IrN8U57uJWyDLqTLA7pIcViRg4r1AdAf2Y6lus=
+	s=default; t=1677267270;
+	bh=Vijctpact0xck3jF9kb3XgIQNfirOUFsJaFMDkEqy8w=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=PqnXM3Eg8nmjyvIb5HpgDV7DhflWNZ+h1HutcqZf18vCvPEpXeo6VTcZYK3bwuzw1
+	 xWVswsOBF05VYLmFW/pv9H0s/Vx//BUocTH33UHlZe6qBfFTHxAIyK/iXwSF7Av8uL
+	 cYEJISHp3oInWOpCCohYINKhU8OeNwIl8Ud+VHDI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE7B9F80116;
-	Fri, 24 Feb 2023 20:20:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E63AF80116;
+	Fri, 24 Feb 2023 20:33:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61A2FF80125; Fri, 24 Feb 2023 20:20:05 +0100 (CET)
+	id BD06CF80125; Fri, 24 Feb 2023 20:33:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23199F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 20:20:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23199F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 414A0F800BA
+	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 20:33:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 414A0F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=OusYABMC
-Received: from notapiano (unknown
- [IPv6:2600:4041:5b1a:cd00:524d:e95d:1a9c:492a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nfraprado)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 1F2056602FCE;
-	Fri, 24 Feb 2023 19:20:00 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1677266401;
-	bh=93WOmXt3Of9KXOA1+0JJLvM2QcA/MehDyh1OEKDHA+k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OusYABMC/GMZI+VunNJn3PdsgJr6AbABf3RI19Z1F5wcqComEwcdMt3gCFzU+VeML
-	 6AxCeO8L3MXcza4//XqoCgfkw0BS6i3wFu7D/X0JdzOZ6+paNaY7TqOwIWWJDmtjmI
-	 1SbSHD3oFMbBCS0BQdEZN4bIkyXnui+7nTUSVBjtGOR+gp2ijk6NOu15oIksRJqT5A
-	 cqcvCvUYNWL/TcK/jbaVSE5cEHPmJfR0da9XXJRaZopq6z0K24GUTQEpJeaqAOo9gP
-	 RDCe7n/j6Ig7Mna3GMw8pvbRqx5e53yUV/4pAPY+3ucozGAdr2F4Thmgo427LOW2SK
-	 5QN6mVPjtIW3Q==
-Date: Fri, 24 Feb 2023 14:19:55 -0500
-From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 4/4] ASoC: mt8192: Fix range for sidetone positive gain
-Message-ID: <20230224191955.h74h3fcsj6w3k5al@notapiano>
-References: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
- <20230223-asoc-mt8192-quick-fixes-v1-4-9a85f90368e1@kernel.org>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=qvYqkTux
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-172afa7bee2so656482fac.6
+        for <alsa-devel@alsa-project.org>;
+ Fri, 24 Feb 2023 11:33:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=suuHc+QssPUgMgWFyXBbvhN4v+IEsVH6gYnhCegTahE=;
+        b=qvYqkTuxCbJRdHAIXjQvM2aAUUvy7GUoz2pkRSfK4FBNPF4IbDhs/9DYX/uuBZyN9o
+         VX8fawuT0QXYIrfeHN8mhxeRhsq7pkXGy4NOaBhMKyeo6+Qn2rcOkf2nwvMQrPdjCxJx
+         839bmudhSm8ZINO2p5rgrBcJpmBr2tF5JdnygWQ2kh+c9c7RCgASeVKzvVtw/AiYzkF0
+         55zqk1AFvy3k/Nm6G3WC3AR9BNLvoTjKKo9rWAUQQ8Pedj4/M0rwfMVjx9k9EPrS2QSR
+         HjWqCaimGiEaAbeQ44YgeZo+UUnWt6P4oevqMKokZhuQT49b2VmNHzePzp6MS8HFIHW2
+         huVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=suuHc+QssPUgMgWFyXBbvhN4v+IEsVH6gYnhCegTahE=;
+        b=AwAWqrlPSRELXXSgPp7JsM7ZAQ/EgpqoQVvneAF2OSkQ5/g9HlcxYSmv7Xjl7TgJek
+         tDQMJrSEqtZeZDeejiobb1xe/bqUQF1BGlL82sX/IMDLIuHScu+BX8WCyZVqYMTvs9f3
+         tVcl5ZHTHsJEp/CcnEhGwFNPoem6/tvaBtKdkaBCZPJJrtbbF4mgdJjNocaz8EvwYgeN
+         Vq4Cja8WopCU4Xc33lXmBxccB1tyc8uyXlX6OC+YFDgj2JhUYHiFgYdo9bLqNnPy9cC1
+         lghMp3cBLni3sszuqjH26UR0Uxtlu2gqUWgQmCPI1hzeV4SJv3YstXtvHonkrU1kBRhP
+         haFw==
+X-Gm-Message-State: AO0yUKWrUIx1T1RKDJAM2BhIxVT2BxTi9iORNsgmw9oZvRR4rsmSvM5V
+	xVlnlKxoElMNSbcgrUMaGPFzTOxOs3Q=
+X-Google-Smtp-Source: 
+ AK7set99yoJ3nM67hFfoBqWEBkgikeqpA9TMMSRwB3HYC0AOgmPLXsPR4Z4ujdZlLq81xbc+ECMdmQ==
+X-Received: by 2002:a05:6870:b487:b0:16d:eaa7:66d7 with SMTP id
+ y7-20020a056870b48700b0016deaa766d7mr15659791oap.2.1677267203881;
+        Fri, 24 Feb 2023 11:33:23 -0800 (PST)
+Received: from localhost.localdomain ([76.244.6.13])
+        by smtp.gmail.com with ESMTPSA id
+ b6-20020a056870918600b0015f4d1b195bsm460696oaf.36.2023.02.24.11.33.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Feb 2023 11:33:23 -0800 (PST)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH V2] ucm2: Rockchip: rk817: Add ALSA UCM support
+Date: Fri, 24 Feb 2023 13:33:20 -0600
+Message-Id: <20230224193320.1503-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230223-asoc-mt8192-quick-fixes-v1-4-9a85f90368e1@kernel.org>
-Message-ID-Hash: SJ6QGLJCG4SPHAYUOGFXABXTR5S5UWH6
-X-Message-ID-Hash: SJ6QGLJCG4SPHAYUOGFXABXTR5S5UWH6
-X-MailFrom: nfraprado@collabora.com
+Message-ID-Hash: 5IUU75IWZID6O2VDSNXX3AMHNRLKNIZR
+X-Message-ID-Hash: 5IUU75IWZID6O2VDSNXX3AMHNRLKNIZR
+X-MailFrom: macroalpha82@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+CC: Chris Morgan <macromorgan@hotmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SJ6QGLJCG4SPHAYUOGFXABXTR5S5UWH6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5IUU75IWZID6O2VDSNXX3AMHNRLKNIZR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,17 +113,130 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Feb 24, 2023 at 02:03:58PM +0000, Mark Brown wrote:
-> The Sidetone_Positive_Gain_dB control reports a range of 0..100 as valid
-> but the put() function rejects anything larger than 24. Fix this.
-> 
-> There are numerous other problems with this control, the name is very non
-> idiomatic and it should be a TLV, but it's ABI so probably we should leave
-> those alone.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+From: Chris Morgan <macromorgan@hotmail.com>
 
-Reviewed-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Add ALSA-UCM support for the Rockchip RK817 audio codec. This codec
+is typically configured either with an internal or external amplifier
+as reflected by the longname. This configuration has been tested on
+the Anbernic RG353P (rk817_ext) and the Odroid Go Advance (rk817_int).
 
-Thanks,
-Nícolas
+Changes from V1:
+ - Use a constant to control if the output mux is set to HP or SPK.
+
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+---
+ ucm2/Rockchip/rk817-sound/HiFi.conf        | 68 ++++++++++++++++++++++
+ ucm2/Rockchip/rk817-sound/rk817-sound.conf |  6 ++
+ ucm2/conf.d/simple-card/rk817_ext.conf     |  1 +
+ ucm2/conf.d/simple-card/rk817_int.conf     |  1 +
+ 4 files changed, 76 insertions(+)
+ create mode 100644 ucm2/Rockchip/rk817-sound/HiFi.conf
+ create mode 100644 ucm2/Rockchip/rk817-sound/rk817-sound.conf
+ create mode 120000 ucm2/conf.d/simple-card/rk817_ext.conf
+ create mode 120000 ucm2/conf.d/simple-card/rk817_int.conf
+
+diff --git a/ucm2/Rockchip/rk817-sound/HiFi.conf b/ucm2/Rockchip/rk817-sound/HiFi.conf
+new file mode 100644
+index 0000000..8d90567
+--- /dev/null
++++ b/ucm2/Rockchip/rk817-sound/HiFi.conf
+@@ -0,0 +1,68 @@
++Define.pbk_mux "SPK"
++
++If.1 {
++	Condition {
++		Type ControlExists
++		Control "name='Internal Speakers Switch'"
++	}
++
++	True {
++		Define.pbk_mux "HP"
++		SectionDevice."Speaker".EnableSequence [
++			cset "name='Internal Speakers Switch' on"
++		]
++
++		SectionDevice."Speaker".DisableSequence [
++			cset "name='Internal Speakers Switch' off"
++		]
++	}
++}
++
++SectionDevice."Speaker" {
++	Comment "Internal Speaker"
++
++	EnableSequence [
++		cset "name='Playback Mux' ${var:pbk_mux}"
++	]
++
++	Value {
++		PlaybackMixerElem "Master Playback Volume"
++		PlaybackPriority 100
++		PlaybackPCM "hw:${CardId}"
++	}
++
++	ConflictingDevice [
++		"Headphones"
++	]
++}
++
++SectionDevice."Mic" {
++	Comment "Microphone"
++
++	Value {
++		CapturePriority 100
++		CapturePCM "hw:${CardId}"
++		CaptureMixerElem "Mic Capture Gain"
++		CaptureMasterElem "Master Capture Volume"
++	}
++}
++
++SectionDevice."Headphones" {
++	Comment "Headphones"
++
++	EnableSequence [
++		cset "name='Playback Mux' HP"
++	]
++
++	Value {
++		PlaybackMixerElem "Master Playback Volume"
++		PlaybackPriority 200
++		PlaybackPCM "hw:${CardId}"
++		JackControl "Headphones Jack"
++		JackHWMute "Speaker"
++	}
++
++	ConflictingDevice [
++		"Speaker"
++	]
++}
+diff --git a/ucm2/Rockchip/rk817-sound/rk817-sound.conf b/ucm2/Rockchip/rk817-sound/rk817-sound.conf
+new file mode 100644
+index 0000000..90ec794
+--- /dev/null
++++ b/ucm2/Rockchip/rk817-sound/rk817-sound.conf
+@@ -0,0 +1,6 @@
++Syntax 4
++
++SectionUseCase."HiFi" {
++	File "/Rockchip/rk817-sound/HiFi.conf"
++	Comment "Play HiFi quality music"
++}
+diff --git a/ucm2/conf.d/simple-card/rk817_ext.conf b/ucm2/conf.d/simple-card/rk817_ext.conf
+new file mode 120000
+index 0000000..6fa8db7
+--- /dev/null
++++ b/ucm2/conf.d/simple-card/rk817_ext.conf
+@@ -0,0 +1 @@
++../../Rockchip/rk817-sound/rk817-sound.conf
+\ No newline at end of file
+diff --git a/ucm2/conf.d/simple-card/rk817_int.conf b/ucm2/conf.d/simple-card/rk817_int.conf
+new file mode 120000
+index 0000000..6fa8db7
+--- /dev/null
++++ b/ucm2/conf.d/simple-card/rk817_int.conf
+@@ -0,0 +1 @@
++../../Rockchip/rk817-sound/rk817-sound.conf
+\ No newline at end of file
+-- 
+2.34.1
+

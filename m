@@ -2,132 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB7F6A1484
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 02:09:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 350F66A1593
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Feb 2023 04:43:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D76674C;
-	Fri, 24 Feb 2023 02:08:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D76674C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 751AC201;
+	Fri, 24 Feb 2023 04:42:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751AC201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677200985;
-	bh=KE/0v749NOhj0oVLjbhpdEtVE51fA1OHQPFREe5UHso=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=LVpnhOWWAGcmzGvnU25quTRBSwVQ3DiBuRItbrxFpmUW+pe/wjdmUVzQbi4JD7ZNV
-	 wO6WPsnLYgstkNvCw28DjE4XEqg6rhs9CDhUw+8ju/83Kc5alzd1wGLUsFQmoDGZRZ
-	 M4eo0vv6ro1+W60nhFqdK37hq7qcuiuj4p6g2ycQ=
+	s=default; t=1677210190;
+	bh=1+iTjI8144LQifhA5jGdDFhZRv+AUNRCi/0OKx4iOfA=;
+	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qTWr6WoLOmYpT8MB1IvCi8B8fr0K7+PCnu3NjUJLXRJ9UmuEAt4+VnG99zP79dq1f
+	 SeTfurdEmEpxLfrqrjReI5Sa6bm+e4LO/j9r4FJgTU/70w8SZdM0LK8y8rf6NQGFKk
+	 Ni0I2NzCAbJEe6w29Nd3J4qGaawfx0uVpErdr//Y=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8864EF80125;
-	Fri, 24 Feb 2023 02:08:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4580F80116;
+	Fri, 24 Feb 2023 04:42:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86411F80130; Fri, 24 Feb 2023 02:08:47 +0100 (CET)
+	id 925D4F80125; Fri, 24 Feb 2023 04:42:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 22C69F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 24 Feb 2023 02:08:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22C69F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E47CF800C7;
+	Fri, 24 Feb 2023 04:42:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E47CF800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=YyJtXr4d
-Received: by mail-pj1-x102a.google.com with SMTP id x34so11464592pjj.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 23 Feb 2023 17:08:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vEGaxTrptF/i88hDG2ZZPDfmgm+Q0tSvkYEKB/u7k1M=;
-        b=YyJtXr4dCPBimtyO0bOKFjj9lpU+V6GliYEV7tT3zN2u+sfwV4sTTMiDL2XR+o7l50
-         B+pCrCrnMs2950ptW9F23gafbWVKjWxFhHfA3+HrN5+15ofJTKXD8oQGKnr70/fxFXty
-         nvt6zzjPLifLD2ZKoNOjPoudRHzs6P6LWu55Tj8eUGKzgo9d1RkoOscD4v51jfITbo3I
-         Y+dPA9ygtTSDnJFyHZMx8HgMPFMqRj5qfp1r6NopPa1grEsWVvsGMoHOkJskZ9vv22pb
-         wh5MALsek/GFvAjNFMulQyXMMYRY3tq1/y0c+Pu5XxNDvK2ZKD9W5zC5USIKJ0zjjJWy
-         tVjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vEGaxTrptF/i88hDG2ZZPDfmgm+Q0tSvkYEKB/u7k1M=;
-        b=UWGcyvUozaOPhm/vY1sQta0cdKRc/TiKZI6atrRYIXBjjViozuqsz8tLfBRRMtieIA
-         wlYGpYUnlh/+lsWkmCpW8ilpra2DNqP/TPy+fJtsNiLAv0rbqwzCuUV65gI1HymVZ7WB
-         +mHNSlP2FxIlcP4QDA0qFS6TCE89e7PzwlogqxrnHwpNgGC8YikKU/5km4Yl077l8fiG
-         AgAqkMZbEtNga9JCUHPFY8yBZCJUCvefnyqng5C7a2i+wRTBs7NQQlTRoGqzbUuv4Feb
-         aVwNXOLHuirthC+MsvN8LhFPvIwOInpKdsMUTkjOIGZlC0hKXl0FvKxyaJmT7fEzNEco
-         VTgw==
-X-Gm-Message-State: AO0yUKVv9C6Dpk4ehVyE6msKWyzPFtqHXgt3LVeHDciw8aFXaA0pOf1l
-	KOKGKxVSLcJcnQID/8vR56w=
-X-Google-Smtp-Source: 
- AK7set9Br2M0tdazVDbZiCs0X3VbrL7as0h5R9J9TKRZGADBmXew7lvFqbL+fhZWHf0GFxrQlyz61Q==
-X-Received: by 2002:a17:90b:224f:b0:236:9eef:e280 with SMTP id
- hk15-20020a17090b224f00b002369eefe280mr16311616pjb.46.1677200913497;
-        Thu, 23 Feb 2023 17:08:33 -0800 (PST)
-Received: from ryan-ThinkPad-T470.. (c-24-6-63-212.hsd1.ca.comcast.net.
- [24.6.63.212])
-        by smtp.gmail.com with ESMTPSA id
- p5-20020a170902a40500b0019adfb96084sm3821008plq.36.2023.02.23.17.08.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Feb 2023 17:08:33 -0800 (PST)
-From: =?UTF-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	krzysztof.kozlowski@linaro.org,
-	rf@opensource.cirrus.com,
-	ckeepax@opensource.cirrus.com,
-	pierre-louis.bossart@linux.intel.com,
-	herve.codina@bootlin.com,
-	wangweidong.a@awinic.com,
-	james.schulman@cirrus.com,
-	ajye_huang@compal.corp-partner.google.com,
-	shumingf@realtek.com,
-	povik+lin@cutebit.org,
-	flatmax@flatmax.com,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	robh+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	ryans.lee@analog.com
-Subject: [PATCH 2/2] ASoC: dt-bindings: max98363: add soundwire amplifier
- driver
-Date: Thu, 23 Feb 2023 17:08:14 -0800
-Message-Id: <20230224010814.504016-2-ryan.lee.analog@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
-References: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gVdn/Kr6
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6A685617D4;
+	Fri, 24 Feb 2023 03:42:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37274C433EF;
+	Fri, 24 Feb 2023 03:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677210121;
+	bh=1+iTjI8144LQifhA5jGdDFhZRv+AUNRCi/0OKx4iOfA=;
+	h=Date:From:To:Cc:Subject:From;
+	b=gVdn/Kr6HlfAF4N4sGLeETDSym4W2TYS6eQ9fS9Y2TWtyJgMvii4tT2z9zqsl9toP
+	 AHoUlgZ3KsGIFLoAMkIfyHdv5cdtBK83uYoQFZA4GMZ/FfrIOCiuOxrxDega6mHW36
+	 PFA36m0IlQUPmxeaxIUPcU/aIWKOCSdaZOSITiq7sWZ8fhc8FGp/ZB3gw5uTijKclA
+	 gwVoB69VTh6wpIaF4l9wM6BzuRGF/Z0FMAfBN8TYRjdSUh/jWyeG1pnaOkphfq1Kr5
+	 bnMf0FqURXn1SIsiQFUrJv0OTpbAWIuOhufuiMuu4DxEgGUPERQQbF4zAmSBfnbD8n
+	 Ud86u32tRXzVw==
+Date: Thu, 23 Feb 2023 21:42:26 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH][next] ASoC: SOF: ipc4-topology: Replace fake flexible arrays
+ with flexible-array member
+Message-ID: <Y/gyIg1qZduhigPi@work>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: P2JNTRZYRL3WXWRH2ITWXL5IULBRGMS4
-X-Message-ID-Hash: P2JNTRZYRL3WXWRH2ITWXL5IULBRGMS4
-X-MailFrom: ryan.lee.analog@gmail.com
+Message-ID-Hash: 22N6JVNITEE25Z5XA4S6GCP7KH2YNAFY
+X-Message-ID-Hash: 22N6JVNITEE25Z5XA4S6GCP7KH2YNAFY
+X-MailFrom: gustavoars@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-hardening@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P2JNTRZYRL3WXWRH2ITWXL5IULBRGMS4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22N6JVNITEE25Z5XA4S6GCP7KH2YNAFY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,78 +101,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ryan Lee <ryans.lee@analog.com>
+Zero-length arrays as fake flexible arrays are deprecated and we are
+moving towards adopting C99 flexible-array members, instead.
 
-This patch adds dt-bindings information for Analog Devices MAX98363
-SoundWire Amplifier.
+Use the DECLARE_FLEX_ARRAY() helper macro to transform zero-length
+arrays in unions with flexible-array members.
 
-Signed-off-by: Ryan Lee <ryans.lee@analog.com>
+Address the following warnings found with GCC-13 and
+-fstrict-flex-arrays=3 enabled:
+sound/soc/sof/ipc4-control.c:176:77: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:78:29: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:80:33: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:95:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:96:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:93:53: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:140:58: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:141:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-control.c:142:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-topology.c:1475:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+sound/soc/sof/ipc4-topology.c:1476:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+
+This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
+routines on memcpy() and help us make progress towards globally
+enabling -fstrict-flex-arrays=3 [1].
+
+Link: https://github.com/KSPP/linux/issues/21
+Link: https://github.com/KSPP/linux/issues/193
+Link: https://github.com/KSPP/linux/issues/258
+Link: https://gcc.gnu.org/pipermail/gcc-patches/2022-October/602902.html [1]
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 ---
- .../bindings/sound/adi,max98363.yaml          | 53 +++++++++++++++++++
- 1 file changed, 53 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/adi,max98363.yaml
+ sound/soc/sof/ipc4-topology.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/adi,max98363.yaml b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
-new file mode 100644
-index 000000000000..fda571d04a64
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/adi,max98363.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices MAX98363 SoundWire Amplifier
-+
-+maintainers:
-+  - Ryan Lee <ryans.lee@analog.com>
-+
-+description:
-+  The MAX98363 is a SoundWire input Class D mono amplifier that
-+  supports MIPI SoundWire v1.2-compatible digital interface for
-+  audio and control data.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,max98363
-+
-+  reg:
-+    maxItems: 1
-+    description: Peripheral-device unique ID decoded from pin
-+
-+  vdd-supply:
-+    description:
-+      A 2.5V to 5.5V supply that powers up the VDD pin.
-+
-+  dvddio-supply:
-+    description:
-+      A 1.7V or 1.9V supply that powers up the DVDDIO pin.
-+      This property is only needed for MAX98363A/B.
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - dvddio-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    soundwire {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        max98363: amplifier@3 {
-+            compatible = "adi,max98363";
-+            reg = <0x3>;
-+            vdd-supply = <&regulator_vdd>;
-+            dvddio-supply = <&regulator_1v8>;
-+        };
-+    };
+diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
+index 72529179ac22..8507171a6e4d 100644
+--- a/sound/soc/sof/ipc4-topology.h
++++ b/sound/soc/sof/ipc4-topology.h
+@@ -266,8 +266,8 @@ struct sof_ipc4_control_data {
+ 	int index;
+ 
+ 	union {
+-		struct sof_ipc4_ctrl_value_chan chanv[0];
+-		struct sof_abi_hdr data[0];
++		DECLARE_FLEX_ARRAY(struct sof_ipc4_ctrl_value_chan, chanv);
++		DECLARE_FLEX_ARRAY(struct sof_abi_hdr, data);
+ 	};
+ };
+ 
 -- 
 2.34.1
 

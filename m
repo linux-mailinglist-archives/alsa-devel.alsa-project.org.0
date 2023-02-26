@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9DB56A33B4
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Feb 2023 20:40:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13C0C6A33BD
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Feb 2023 20:43:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76C6B839;
-	Sun, 26 Feb 2023 20:39:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C6B839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B101832;
+	Sun, 26 Feb 2023 20:43:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B101832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677440400;
-	bh=LN5QS8CyXsifENjAxl7Jy3Wfu1vOQAjkQUD9fiiVLNw=;
+	s=default; t=1677440635;
+	bh=J0km2FGGIQpGApXfCgQPLtvuY01QV6tTcY6a/StdI8g=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ls6G6mK3GFxggesJT/IBpCp9Q+t9AvWGv5ik387T/Wp005+O8MIMf2V9ii1oTwKtc
-	 2cfYpa1g2IEfV+9utTnS6G01TN77edqPvimBxCRLrr2LduZFdQx7u1ZaXElxXydHeb
-	 OYczDob4RgyJVWOYZfitsvpCgTz30V3t1peEv6FA=
+	b=aWhy0d5qSXxorYlF/chfbrp3TRoT9rFi26BGhq8q+FkSs0KMqmTz5DXFo3+F5k+WD
+	 jLDttSJTq8so4I/ENsJdu0+iOk+L5d9XPtNE8Dk7MIaVca753hisT6g7I/x9GwztFN
+	 9fHW3bWEEMGJoNZdadNSOodh0A+x23jSzSCRp2pU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0845CF802BE;
-	Sun, 26 Feb 2023 20:39:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3CB4F802BE;
+	Sun, 26 Feb 2023 20:43:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CABE4F8049C; Sun, 26 Feb 2023 20:39:06 +0100 (CET)
+	id BCC3FF8049C; Sun, 26 Feb 2023 20:43:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
 	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
+ [209.85.166.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B0B9F80236
-	for <alsa-devel@alsa-project.org>; Sun, 26 Feb 2023 20:39:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B0B9F80236
-Received: by mail-io1-f49.google.com with SMTP id q6so1781440iot.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0BA33F80236
+	for <alsa-devel@alsa-project.org>; Sun, 26 Feb 2023 20:42:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BA33F80236
+Received: by mail-il1-f172.google.com with SMTP id i4so2936000ils.1
         for <alsa-devel@alsa-project.org>;
- Sun, 26 Feb 2023 11:39:04 -0800 (PST)
+ Sun, 26 Feb 2023 11:42:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=89W8sQtkd61sVfaU10t/qKgr0MKiSQvzQZkuL6seV7U=;
-        b=F1jvbnz7yHkPZSAnQHajGnpDhyRu/7105Pxs/e0KpdbsQqse/gLX+WroDUKLcB0GAJ
-         8WKYRSkran9MlQvaO3u1Lu3xNpA9SS/8lJ5WKvvjt4zOb2p3K1xpbi+Ns+X/aQEHVZXw
-         xBUeknNZCNRVMsoC7IezKs9cZrygqLbIGTjP0pGzP/3GxD3JufZOCv28TQd4rejInw98
-         pGRXGHaChi69y3PQKTk8YkxoMezrnyLmaCpfd7dYruRWshOI531qvauf7ZKbtVI6/ie8
-         BN4ya9XK6COc8Djh47c5QbupXmBwpe74huHQS02q1K6uSHJ0HUEt0YWeJPs2yn3mp7vb
-         Rqog==
-X-Gm-Message-State: AO0yUKU67+0Unypf5vgPp2yuNHUKbBpAAG4VqtQz9N6lwNmGAoor3UEi
-	qXQiFoNnG/JUGwlSy1w/pg==
+        bh=UtT+Z3pFPpOEqZmngNc+yA6W219QO8If0bra67yUF28=;
+        b=l9hC5F6xuj5tNftL/bGLg9KkU68Wsc719vmgPFjZBM6zK/dD3G9VMdoko88N659ZNp
+         vpIDvdD4Uhmx+2PRwraM4368myXWEFhti7eBJiDj9mntr4aaIhI6YZDGiDX7Tt/3FlfB
+         mQ8ycMvCdLjtmOiqjgYeu30eDUiIvqqwgNiuMMrsJI9uPSIxnf5jiTyh2IUaziKJtPcH
+         54ikHXIb9TlWlDBA7lL9mENyrjvYnDCJSL/occRgH23RaaVCd2BJAvjz7M/E+XrM57cr
+         ijTZfCTlEjJ9c2p3FHAPIvPioshTQbYRYezaOueLQ3D6dowmion/wHtq5pBWkK33HdIn
+         T+Yw==
+X-Gm-Message-State: AO0yUKXoAYctQtyQWyJ+lzOaZ/wB19XxOum5Fgh8WvC2sAgyrz1ECT15
+	jofz4GYAymwr4xoNLE2afQ==
 X-Google-Smtp-Source: 
- AK7set/5nBIZVAj/LVt6z9Ors0aU51Gq8OePJvNbEIYYnG/6pe8XlIx9yljAd/4a/CPHttVJgHuDsg==
-X-Received: by 2002:a5d:8e01:0:b0:74c:822c:a6ac with SMTP id
- e1-20020a5d8e01000000b0074c822ca6acmr14735248iod.15.1677440342580;
-        Sun, 26 Feb 2023 11:39:02 -0800 (PST)
+ AK7set+Mmdqra371m8aWNR9Mf1y+Mo8dbFVW+d9I13ug2maKvRB/Jd3LigcdwUGIRXdeDS8Xw4aJRQ==
+X-Received: by 2002:a05:6e02:1445:b0:316:e54a:828f with SMTP id
+ p5-20020a056e02144500b00316e54a828fmr16022653ilo.6.1677440576320;
+        Sun, 26 Feb 2023 11:42:56 -0800 (PST)
 Received: from robh_at_kernel.org ([2605:ef80:8069:8ddf:ff6b:c94c:94fd:4442])
         by smtp.gmail.com with ESMTPSA id
- v22-20020a6b5b16000000b007453a11bdf5sm1635543ioh.13.2023.02.26.11.38.59
+ k6-20020a02a706000000b003c48d97bea7sm1495927jam.147.2023.02.26.11.42.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Feb 2023 11:39:02 -0800 (PST)
-Received: (nullmailer pid 192292 invoked by uid 1000);
-	Sun, 26 Feb 2023 19:38:58 -0000
-Date: Sun, 26 Feb 2023 13:38:58 -0600
+        Sun, 26 Feb 2023 11:42:55 -0800 (PST)
+Received: (nullmailer pid 197344 invoked by uid 1000);
+	Sun, 26 Feb 2023 19:42:51 -0000
+Date: Sun, 26 Feb 2023 13:42:51 -0600
 From: Rob Herring <robh@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v1 05/10] dt-bindings: sound: nvidia,tegra-audio: add
- MAX9808x CODEC
-Message-ID: <167744033766.192237.14439523199147830921.robh@kernel.org>
+Subject: Re: [PATCH v1 08/10] dt-bindings: dsp: add Fortemedia FM34 DSP
+Message-ID: <20230226194251.GA192429-robh@kernel.org>
 References: <20230221183211.21964-1-clamor95@gmail.com>
- <20230221183211.21964-6-clamor95@gmail.com>
+ <20230221183211.21964-9-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230221183211.21964-6-clamor95@gmail.com>
-Message-ID-Hash: BVDGBJ6DJMMQ3VRDP6BGQFNEHH2LG4OQ
-X-Message-ID-Hash: BVDGBJ6DJMMQ3VRDP6BGQFNEHH2LG4OQ
+In-Reply-To: <20230221183211.21964-9-clamor95@gmail.com>
+Message-ID-Hash: SIMKI7Q5XS7M7UVYGM64FT3AL3IQNXQT
+X-Message-ID-Hash: SIMKI7Q5XS7M7UVYGM64FT3AL3IQNXQT
 X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,21 +89,21 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Dmitry Osipenko <digetx@gmail.com>,
+CC: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Thierry Reding <thierry.reding@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
- Maxim Schwalm <maxim.schwalm@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, alsa-devel@alsa-project.org
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>, Maxim Schwalm <maxim.schwalm@gmail.com>,
+ Dmitry Osipenko <digetx@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BVDGBJ6DJMMQ3VRDP6BGQFNEHH2LG4OQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIMKI7Q5XS7M7UVYGM64FT3AL3IQNXQT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,16 +112,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Tue, 21 Feb 2023 20:32:06 +0200, Svyatoslav Ryhel wrote:
-> Add dt-binding for MAX9808x CODEC.
+On Tue, Feb 21, 2023 at 08:32:09PM +0200, Svyatoslav Ryhel wrote:
+> Add dt-binding for Fortemedia FM34NE DSP.
 > 
 > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  .../sound/nvidia,tegra-audio-max9808x.yaml    | 93 +++++++++++++++++++
->  1 file changed, 93 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+>  .../bindings/dsp/fortemedia,dsp.yaml          | 95 +++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dsp/fortemedia,dsp.yaml
 > 
+> diff --git a/Documentation/devicetree/bindings/dsp/fortemedia,dsp.yaml b/Documentation/devicetree/bindings/dsp/fortemedia,dsp.yaml
+> new file mode 100644
+> index 000000000000..78f30969d9bf
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dsp/fortemedia,dsp.yaml
+> @@ -0,0 +1,95 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/dsp/fortemedia,dsp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Fortemedia DSP core
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +
+> +description: |
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Don't need '|'
 
+> +  Asus Transformer T20/T30 tablet family contains a DSP core
+> +  used for advanced noise cancellation.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - asus,tf101-dsp
+> +          - asus,tf201-dsp
+> +          - asus,tf300t-dsp
+> +          - asus,tf700t-dsp
+> +          - pegatron,chagall-dsp
+> +
+
+Drop blank line.
+
+> +      - const: fortemedia,fm34
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  bypass-gpios:
+
+Needs a description what this is.
+
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: mclk
+> +
+> +  assigned-clocks:
+> +    maxItems: 1
+> +
+> +  assigned-clock-parents:
+> +    maxItems: 1
+> +
+> +  assigned-clock-rates:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/tegra30-car.h>
+> +    #include <dt-bindings/soc/tegra-pmc.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        dsp@60 {
+> +            compatible = "asus,tf201-dsp", "fortemedia,fm34";
+> +            reg = <0x60>;
+> +
+> +            bypass-gpios = <&gpio 222 0>;
+> +            reset-gpios = <&gpio 115 1>;
+> +
+> +            vdd-supply = <&vdd_1v8_dsp>;
+> +
+> +            clocks = <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
+> +            clock-names = "mclk";
+> +
+> +            assigned-clocks = <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
+> +            assigned-clock-parents = <&tegra_car TEGRA30_CLK_EXTERN1>;
+> +        };
+> +    };
+> +
+> +    vdd_1v8_dsp: regulator-dsp {
+> +        compatible = "regulator-fixed";
+> +        regulator-name = "vdd_1v8_dsp";
+> +        regulator-min-microvolt = <1800000>;
+> +        regulator-max-microvolt = <1800000>;
+> +        gpio = <&gpio 165 0>;
+> +        enable-active-high;
+> +    };
+
+Drop this node. No need to show providers in consumer examples.
+
+Rob

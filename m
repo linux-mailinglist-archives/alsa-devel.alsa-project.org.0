@@ -2,88 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E096A2F77
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Feb 2023 13:50:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8DE6A2F73
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Feb 2023 13:50:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEF4982C;
-	Sun, 26 Feb 2023 13:49:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEF4982C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04B00843;
+	Sun, 26 Feb 2023 13:49:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04B00843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677415824;
-	bh=yAKKZS93DzBbBINmZ67z5s72Cs2zUCyYJViPEg1/Iyc=;
+	s=default; t=1677415804;
+	bh=myDYJsmBOb8gHjAvQqUQgdCx6N4vYiHnypwvnwHY+4s=;
 	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KrSKalhJrUp8iqcJ+SOtGO7oKNta7LlqHd2JuOfVlyIBjV6lqge0ifgY1FkN9tkqc
-	 KWM5qUqaqzjEnEcHzZ3vcJtEb2rbziYjJmW+53JhZjb2cPG7ic6l3Z21NSwVZWh+X5
-	 6uctJxC0CB3eQJu13ARYElZmk57V5CL5hfVzlZgc=
+	b=dAJqn7bXwJS0LeWFHSnS2jzz9sAU5wLvej2gpVeN+CuA9RUPDKFS1Uuub5gitTATU
+	 2uEiVHtB+YJiIyfspCuq15ZZ3BVA1J90uIwf/ePYPSPIKNuGJKmUqWijUTUB9Ho6nA
+	 mtKg7FaSZB6/DgPXseuEp7yZNiya4dBNGdZGBRxw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9DD2F8052D;
-	Sun, 26 Feb 2023 13:49:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21FAEF80520;
+	Sun, 26 Feb 2023 13:48:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7427EF8052D; Sun, 26 Feb 2023 13:49:07 +0100 (CET)
+	id D44A6F804FE; Sun, 26 Feb 2023 13:48:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CC6EF800DF
-	for <alsa-devel@alsa-project.org>; Sun, 26 Feb 2023 13:48:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC6EF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4DEDDF802BE
+	for <alsa-devel@alsa-project.org>; Sun, 26 Feb 2023 13:48:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DEDDF802BE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qp2pI8J/
+ header.s=k20201202 header.b=lXmQqneI
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E74FC60C1F;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3FA5060B5B;
+	Sun, 26 Feb 2023 12:48:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFB8C433EF;
 	Sun, 26 Feb 2023 12:48:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FC8C4339C;
-	Sun, 26 Feb 2023 12:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677415687;
-	bh=yAKKZS93DzBbBINmZ67z5s72Cs2zUCyYJViPEg1/Iyc=;
+	s=k20201202; t=1677415689;
+	bh=myDYJsmBOb8gHjAvQqUQgdCx6N4vYiHnypwvnwHY+4s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qp2pI8J//AKX4bbskvSW7LqB8nwGHcFwA4+KF2iS4ECxC9l3ZH6MUY+3NAKfv/Ae5
-	 p+6HXpL3Y0qX33Z2V+gR71ns+YZB02tOVKVi5GyWwMTUuhbJxNyjVDGIfkNXP0By/b
-	 +OBOaEnqNmpVMm2rZ10Iy7+y5Ikk9GaW00r4r+2yues/l3+XFTkCdhlbP7kLHoPqcK
-	 0vrNFWo+R4dwP9lCBQuSyKFHaaIqJZTp0GH51d8vNJvGR5WCqaf9hbtNB8D+0Ju8kn
-	 2R9GoecYsIfBiYAJi0xG8UIBQVXd59MOg8RcbIi71etKohPEyUkm23Tm5kt2PyjMed
-	 grOpHdqWM9RuQ==
+	b=lXmQqneI92pqzTJvMvB92/dlWf95v1nIBdHn/LaUO094h0a8mRdisPqgqEqm98WFM
+	 KLjfKh9sOc9uhjeU8Y4qDwqjY3VO5PYjcRyr5w7+cKicnOtLY6T+/iZWD6nNF8CFV5
+	 GsoyfKM/TAmBltf1epICe1zB284JIJemwndJbTSzN77X/Hn2bCSSoHN/Tiqy41U2zt
+	 82lnheACCp7HNXM+Qnp7lmbB7h3AOvdQrIfT1W+XTGPDCH15rFbIfr0Ie7fUDZiL4P
+	 1vV5YXxPtW0KEsAyEdJC6J+njbroNlnqNIJuIlRGGrLTvbp/ytqffC4GryXLYhyQX+
+	 V1LVYVBc+Lh2w==
 From: Mark Brown <broonie@kernel.org>
-Date: Sun, 26 Feb 2023 12:47:56 +0000
-Subject: [PATCH 1/3] ASoC: mt6358: Fix event generation for wake on voice
- stage 2 switch
+Date: Sun, 26 Feb 2023 12:47:57 +0000
+Subject: [PATCH 2/3] ASoC: mt6358: Validate Wake on Voice 2 writes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230224-asoc-mt6358-quick-fixes-v1-1-747d9186be4b@kernel.org>
+Message-Id: <20230224-asoc-mt6358-quick-fixes-v1-2-747d9186be4b@kernel.org>
 References: <20230224-asoc-mt6358-quick-fixes-v1-0-747d9186be4b@kernel.org>
 In-Reply-To: <20230224-asoc-mt6358-quick-fixes-v1-0-747d9186be4b@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 X-Mailer: b4 0.13-dev-ada30
-X-Developer-Signature: v=1; a=openpgp-sha256; l=710; i=broonie@kernel.org;
- h=from:subject:message-id; bh=yAKKZS93DzBbBINmZ67z5s72Cs2zUCyYJViPEg1/Iyc=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBj+1UA+dtvLWAoGO6f76qudLS6vUAWHu8gYMrdKViY
- zbBwra2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY/tVAAAKCRAk1otyXVSH0HPfB/
- 9AMgPSX7Cs9sm1+9clPmQLcJowiC/LkJjILn2UY0FykRyCcV5LygYf2P2FvKWbYxlpAGUUqYcic+zX
- NFKw+jYmb3Fo4at8hkoQJHP+0SXEpg0TFD3GbvWB4irPoyQBkiU8moJSVugdyv+9h4f6QNCHFnqV7W
- onn0TRjbm/usiX17wVkSceuej7eFjwyMpIQraiUCflU5p2VUnNPiyfXAhCShePQ85xc8Bz+Ols0W3u
- 05H9hEE6clJgrHE1YWmd8ou2zkmdvaDDo4NDVcr9G/0BeTM7oKjUg33lqIlrvMXtG2Wn5BLc/qkZQf
- m8BOAYUfOKb0AoNJNWPPbuhgaMJzZz
+X-Developer-Signature: v=1; a=openpgp-sha256; l=846; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=myDYJsmBOb8gHjAvQqUQgdCx6N4vYiHnypwvnwHY+4s=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBj+1UBQXRJd3he2b0fKcFSDBDJVxJc19sEfIgpXRZ8
+ wWf3w4GJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCY/tVAQAKCRAk1otyXVSH0Oo3B/
+ 910h+pTiRCco9oKRj3PMiCimp3XauEGVJdrJyivL73hfrDgnNCcp4VtngLqPCxfodWykqLQbjrq6V7
+ ISlOAsJzjrZiWw6pTrWqTwEtXde+o1g0dZoSM/TYOC0eTgPqev1TpFK2d9HhHfGbAryLLpiMQAYTBB
+ LkSGqJsPR7rv2hXT8BSDJKkBG+PEgQDnBbN8rAul89S2+j16NX3W7AHZF7ulY0zGFRteJ+n3Cxp1LW
+ lYeUXRp7WkeK8FStLNF0LV9OFy9PkD4cctzPEm+rRoz0X3DcyEee+okX4ziVA+xX3N1mTCDO1Ybtc6
+ GpZnr11PmWZ9CRpaA6O/qYqLlU7TpT
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Message-ID-Hash: ICSO7EJYTPXOAFI3CFO3YZ34NFL5XKQO
-X-Message-ID-Hash: ICSO7EJYTPXOAFI3CFO3YZ34NFL5XKQO
+Message-ID-Hash: UABI75XCRM3HFIXO3QLHDJU6IPD7EXGZ
+X-Message-ID-Hash: UABI75XCRM3HFIXO3QLHDJU6IPD7EXGZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ICSO7EJYTPXOAFI3CFO3YZ34NFL5XKQO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UABI75XCRM3HFIXO3QLHDJU6IPD7EXGZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,28 +106,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-ALSA control put() operations should return 0 if the value changed so that
-events can be generated appropriately for userspace but the custom control
-for wake on voice stage 2 doesn't do this, fix it.
+Currently the Wake on Voice 2 control accepts and stores any value written
+but it reports that only 0 and 1 are valid values. Reject any out of range
+values written by userspace.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/mt6358.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/codecs/mt6358.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-index 93f35e8d26fc..9004377461f7 100644
+index 9004377461f7..89d0dcb2635b 100644
 --- a/sound/soc/codecs/mt6358.c
 +++ b/sound/soc/codecs/mt6358.c
-@@ -567,6 +567,8 @@ static int mt6358_put_wov(struct snd_kcontrol *kcontrol,
- 			mt6358_disable_wov_phase2(priv);
+@@ -560,6 +560,9 @@ static int mt6358_put_wov(struct snd_kcontrol *kcontrol,
+ 	struct mt6358_priv *priv = snd_soc_component_get_drvdata(c);
+ 	int enabled = ucontrol->value.integer.value[0];
  
- 		priv->wov_enabled = enabled;
++	if (enabled < 0 || enabled > 1)
++		return -EINVAL;
 +
-+		return 1;
- 	}
- 
- 	return 0;
+ 	if (priv->wov_enabled != enabled) {
+ 		if (enabled)
+ 			mt6358_enable_wov_phase2(priv);
 
 -- 
 2.30.2

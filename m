@@ -2,130 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA7226A4206
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 13:50:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553646A43E7
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 15:13:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D84C829;
-	Mon, 27 Feb 2023 13:49:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D84C829
+	by alsa0.perex.cz (Postfix) with ESMTPS id D877E829;
+	Mon, 27 Feb 2023 15:12:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D877E829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677502222;
-	bh=bjNcivIuHHwjV31GD/BV21kteFHxvYdKxS6iCSjhZSU=;
+	s=default; t=1677507188;
+	bh=6AG7SceOELnCwREF/HAA2yOyakikt8NQE9ObYcefNKo=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=apz2Ls6m5+Tp0W08ZNKrWHVkUjACECa26do7LELsGr/wxuXWmJAXFeIjexMZXqKlO
-	 Ni6JdlxJIjnJ96oDsJoKtvJOyXo7vyrruDWlF47TITZHb0j1PqKnDW2XseD73DWtyu
-	 4d9xabYYZWcNwAyDTmgwF79V3ZcO3AXxMsAvW0Co=
+	b=mlWmhuT9fbii1+NJOxlluqgY6h8Jvh5nbCchN8TVXzswSWyqeWrk0DWf+CFq8IFBA
+	 4YoVTAgZpYMv4aGyMmQzEZhvhzDBKoMAD/OvzRhY8SMqEUC+0BJ0YvBNkllftOUCxk
+	 +juUr9noFFfTK3K3/9gBn7ieeDxvPlgrloOJQo/c=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9FA7F802BE;
-	Mon, 27 Feb 2023 13:49:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2548CF802BE;
+	Mon, 27 Feb 2023 15:12:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA0F0F8049C; Mon, 27 Feb 2023 13:49:26 +0100 (CET)
+	id 929DDF8049C; Mon, 27 Feb 2023 15:12:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CFD6F800FA
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 13:49:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFD6F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60F2AF800BA
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 15:12:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60F2AF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=eCmMQpmz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=LMKo8sKk
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id A821C5C010C;
-	Mon, 27 Feb 2023 07:49:15 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Mon, 27 Feb 2023 07:49:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1677502155; x=1677588555; bh=Eq
-	S+idSS171sl5ym4IciX/DeVIr0POofqgdNAlp+/BA=; b=eCmMQpmzY3R58t6Q23
-	6py5de8w/F9GS+89rLtnTUlRUrMvS0gHKEiWD/AP4PmqIIYHLaoOT5Jy5KmJjDhZ
-	pz0XqlfK+iwAUdcP5p2OQDRpOmzNi8Oi+wDzfg2O4rjvSR8EbRAm5ahMrQGpoejT
-	M5sUI9irfO/WUqiBKxTi2JLcTMX10xHC7/tRqyX3UF9O9pK/V9amZ2vQGXmlg3Jv
-	xQhlud8gQ2LVmpxfEypjL0zv/v1ISTzA5LmNCZGlaOYgUrvpwoHOln1ZVJCYRPQj
-	CNBPiqFU4bD7yXP9pg3y2UpJQiET3hbg46Uxr13+4rH4PObgsHtv7hNOniKOuMWZ
-	hHFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1677502155; x=1677588555; bh=EqS+idSS171sl5ym4IciX/DeVIr0
-	POofqgdNAlp+/BA=; b=LMKo8sKk7QfAYAO/BQT7tJdHBbybDDpdNoZQ14kWO2l1
-	7UzXWeJbI65bGRuawLwLtgcoVafQnkqljVdsM6raJ6rgSxkCq/4aeqfciMJfQhQc
-	aBKE4Y7UFPyt+GwxwQOmGrcSvoNIjer2el4tpEPRirIe1uMNuK7FdcwU0h+S76C3
-	5uz9DgkriGoT7VIBekLCI4j1fZr3w2hQjeN8Aic5hoimF/xMDtj45a8CxT53cv8y
-	77Ajw2+n20fYaWxds3BOtmAJMRW5IherfntOnz04K88pvCMKPA2FOufZVhHlGVHr
-	McUHIIEUctTfQptW69wlP6cGvKbBKQQLQD5rV9UDLg==
-X-ME-Sender: <xms:y6b8Y7tLm_tGyaojFrGUycOSgnehDFmBMLJSfDRrRjIOFFK5SzyUcQ>
-    <xme:y6b8Y8dcg-mAcN-SzfDhxe0oUYCn3YsaPyt6NooBb7qIXzTAi5VKiWdGzjXbsZfQM
-    oYhQi-SHTH4M1jlWfA>
-X-ME-Received: 
- <xmr:y6b8Y-yiHYP9bTeK4AvdNvau1opou0-oj6FmcMwsFCnMsy_2Vyn9hxwVuIVLsRJJGAXo8ufYdD_czULd1CzG8iHsZwQ>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrudeltddggedvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtuggjsehttd
-    ertddttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
-    rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeehhffhte
-    etgfekvdeiueffveevueeftdelhfejieeitedvleeftdfgfeeuudekueenucevlhhushht
-    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
-    hsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:y6b8Y6PScZK-cYHAu8AE8ufjZOD-EPd4cRRH5xl1IH8cWrc-NCSEyg>
-    <xmx:y6b8Y7_lPGLHAIsaytJnHe-WGfyCAYifAr7r4UUO8LxeoVmZpwC-9Q>
-    <xmx:y6b8Y6UIUnmfWJI1aAx2iSu5Yhcw-Dfz_lAjGWAE88Za28odWficOw>
-    <xmx:y6b8Y9JL8Q5yBXHKGKcQIG2-g5CNrrBBYhb-09jITiRYC4fNF5UOkw>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 27 Feb 2023 07:49:14 -0500 (EST)
-Date: Mon, 27 Feb 2023 21:49:11 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Dan Carpenter <error27@gmail.com>
-Subject: Re: [bug report] firewire: cdev: obsolete NULL check to detect IEC
- 61883-1 FCP region
-Message-ID: <Y/ymx6WZIAlrtjLc@workstation>
-Mail-Followup-To: Dan Carpenter <error27@gmail.com>,
-	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-References: <Y/yOy6Ddz1263Zln@kili>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qxn5Czsv
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 63745B80D38;
+	Mon, 27 Feb 2023 14:12:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FAB1C433EF;
+	Mon, 27 Feb 2023 14:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677507126;
+	bh=6AG7SceOELnCwREF/HAA2yOyakikt8NQE9ObYcefNKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qxn5CzsvFHeDdbXDE2G/zhqcVECnDGBw5Q1mylYpQHZe5sOORg5OdojkjbridiYVL
+	 joL3+Rp+Fmz/W1yfW3ENC4vIy1uA/GCOTpy73zSTFEwRHFCPuUwcMKmgbLmPQ34O+l
+	 ZpX8wh0bwwcXn/2EDUcdzxgokoitrK8kJqhBKtj4BX77OOF8DHkWOYYQVLUSAj6Zka
+	 uUVbhTHrj5mwfrkp4YsgNYYvkPKkJ2y/IJhnUeO2s2FfR/dXhijZz3st7MvciqggLV
+	 EgoMSHjo4T9/W260zsxzTmEmlvMQBr1rf8h1nOSVZxPvvx3lWO3JABw2K9ybemM+X3
+	 S5qPvr6GhBOJw==
+Date: Mon, 27 Feb 2023 14:12:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ivan Orlov <ivan.orlov0322@gmail.com>
+Subject: Re: [PATCH] Fix snprintf format warnings during 'alsa' kselftest
+ compilation
+Message-ID: <Y/y6MNh8yXcsQWWj@sirena.org.uk>
+References: <20230223143214.16564-1-ivan.orlov0322@gmail.com>
+ <Y/eAyrYs+wEu180d@sirena.org.uk>
+ <1db3bfe5-0982-b445-9c94-784478279028@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wjrc9TRZIcm10rXr"
 Content-Disposition: inline
-In-Reply-To: <Y/yOy6Ddz1263Zln@kili>
-Message-ID-Hash: C5CXPTTJ5BWF4IE3WWCFRJW4FR7SUDB3
-X-Message-ID-Hash: C5CXPTTJ5BWF4IE3WWCFRJW4FR7SUDB3
-X-MailFrom: o-takashi@sakamocchi.jp
+In-Reply-To: <1db3bfe5-0982-b445-9c94-784478279028@gmail.com>
+X-Cookie: On the eighth day, God created FORTRAN.
+Message-ID-Hash: 4ZINRO7KEQDTQPIQKOYICMAQRDJDYQDB
+X-Message-ID-Hash: 4ZINRO7KEQDTQPIQKOYICMAQRDJDYQDB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
+CC: tiwai@suse.com, shuah@kernel.org, alsa-devel@alsa-project.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5CXPTTJ5BWF4IE3WWCFRJW4FR7SUDB3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4ZINRO7KEQDTQPIQKOYICMAQRDJDYQDB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,59 +98,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
-(C.C.ed to LKML and alsa-devel)
 
-On Mon, Feb 27, 2023 at 02:06:51PM +0300, Dan Carpenter wrote:
-> Hello Takashi Sakamoto,
-> 
-> The patch e699600232e0: "firewire: cdev: obsolete NULL check to
-> detect IEC 61883-1 FCP region" from Jan 20, 2023, leads to the
-> following Smatch static checker warning:
-> 
-> 	drivers/firewire/core-transaction.c:947 handle_fcp_region_request()
-> 	warn: passing freed memory 'request'
-> 
-> drivers/firewire/core-transaction.c
->     930                 fw_send_response(card, request, RCODE_TYPE_ERROR);
->     931 
->     932                 return;
->     933         }
->     934 
->     935         rcu_read_lock();
->     936         list_for_each_entry_rcu(handler, &address_handler_list, link) {
->     937                 if (is_enclosing_handler(handler, offset, request->length))
->     938                         handler->address_callback(card, request, tcode,
->                                                                 ^^^^^^^
-> This warning is because fwnet_receive_packet() has a kfree(r) on the
-> first return path.
-> 
->     939                                                   destination, source,
->     940                                                   p->generation, offset,
->     941                                                   request->data,
->     942                                                   request->length,
->     943                                                   handler->callback_data);
->     944         }
->     945         rcu_read_unlock();
->     946 
-> --> 947         fw_send_response(card, request, RCODE_COMPLETE);
->     948 }
+--wjrc9TRZIcm10rXr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks for your report.
+On Thu, Feb 23, 2023 at 11:14:56PM +0300, Ivan Orlov wrote:
 
-Fortunately, We can not see the access to the released memory since the
-fwnet's address handler is registered to high memory region
-(0x'0001'0000'0000 to 0x'ffff'e000'0000). The region does not overlap
-IEC 61883-1 FCP region (0x'ffff'f000'0b00 to 0x'ffff'f000'0f00). The
-handler is called from handle_exclusive_region_request() instead of
-handle_fcp_region_request().
+> I compiled the test via gcc 11.3.0 without any custom options, the arch is
+> x86_64. There were five warnings during the test compilation, and all of
+> them were caused by incorrect format in 'snprintf' function calls. As I
+> know, using incorrect format in 'snprintf' creates an undefined behavior.
+> Maybe there is a point to fix it?
 
-However, the code in fwnet is against the design of address handler
-apparently. The callee never release the memory for the request structure
-directly. It should be done by the call of fw_send_response(). I'll
-correct it for next merge window; i.e. for v6.4.
+The question is more where does the warning come from and is this a good
+fix - a common pattern where generic types like size_t get used is that
+the underlying type changes between platforms and warnings just get
+moved about by changing the printf format around.
 
+--wjrc9TRZIcm10rXr
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks
+-----BEGIN PGP SIGNATURE-----
 
-Takashi Sakamoto
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP8ujAACgkQJNaLcl1U
+h9BwQwf+P5EOVKFjuPDJj1+sBltQmwV+lc9tBNVgCfUuyNl2YVOxr4M5gIgzZ8MV
+4MKKEq2gK8Oiwb52v6zRXjwyswsgNiJI6l0RvbM8uW05kE4T71pvtSnt83eN9cLC
+9HgHf1ErUxg8rauXvjRl6RZJNiZRs4k/MK7Jnb0aI4qP3wRrK8t49MJbZ95ukibz
+F6WcumWdD58Jg7fspthrSvs7vn1q3TNqwMBYWWtuyZEwPRUqueIUH2SrcZ8It6ov
+UW2gQaqCaOYw3YP2+EHsdFJPpJgsSa9tQ8VrVW+HEpZ7iP5r7ystzY1OoUE5MGwf
+BXZ4rpvbBbA4jehWBVPhTv9QLwno/g==
+=C6G+
+-----END PGP SIGNATURE-----
+
+--wjrc9TRZIcm10rXr--

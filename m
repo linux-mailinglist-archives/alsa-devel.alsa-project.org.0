@@ -2,106 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43BC56A47B2
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 18:15:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9CE66A488D
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 18:48:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9190868;
-	Mon, 27 Feb 2023 18:15:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9190868
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3EEA20B;
+	Mon, 27 Feb 2023 18:47:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3EEA20B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677518152;
-	bh=v7SeSzLWRnY4KlcEImoHo5oqZX4MNLiw33Iga3FRf4M=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1677520117;
+	bh=je6Bz/Pb53L7AJRKDXmLUBTm/Pxb0Qt9+y/hqaITn18=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=isrQef+6Er3H6ZQphXB/5KhCaF4mzpExcx9h4VdwfEODNd1loJfyXZUAyJyjnD0Ew
-	 GD6YZr8VOKeR8vaGRSrrCmtTJie7kqAr5IUMZ8zn+UGGgdNDsE4f8EG2Wh5Pb07uEX
-	 1vQ1/6yeTSSmzn2Ja8qMz4T7ddLjPQTNLl2Wgsgc=
+	b=MnZNItmuUQJl8Mv2ygYzzW7PLBbPxdxc6NwKo1YoP9cCOcJmpXm+QBWKeb4vhLzp7
+	 bdufBexGMXd21RMrPOGwOeS00loNJ4QFidYtLCgUUuN+J3Fle+EDY2JSfgXRlZv4KM
+	 /klzRopzi/+9T4ywugXc/tXpM9FKGFN1AYcvgP/o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03E04F8055C;
-	Mon, 27 Feb 2023 18:13:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5EE6F802BE;
+	Mon, 27 Feb 2023 18:47:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F3F4F80558; Mon, 27 Feb 2023 18:13:40 +0100 (CET)
+	id 75DD4F8049C; Mon, 27 Feb 2023 18:47:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36FACF800FA
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 18:13:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36FACF800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5006F800FA
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 18:47:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5006F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Zwj8nwJZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677517989; x=1709053989;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=v7SeSzLWRnY4KlcEImoHo5oqZX4MNLiw33Iga3FRf4M=;
-  b=Zwj8nwJZgCsUVKuBEaVLtPMG8QHG4SSVeSt4IgzioSSSAboWt94AWK9i
-   MEPNM0EOT+rFFOagNijsBPFhNTNDiP+oVxbwLN+hbEEWk0FMkLLTaeQVA
-   s5O8Tp9TYn+mQMUd45N8n3Oi9l1rG5mE+3iewAQDMSQ+cxh0PYeAMTmSf
-   /Gh619dDoZ+42FjlqKNzv6sz3I+2rspaUCGyER1dYV0xzvYtNGUeMtfjp
-   fagfEQnVCYHQZ+rZj4WiSmfuBL6CfHSHiFe2gtr5cIi+qzC8QJmi1SE7v
-   K8lJdeXdZsKz4lySXbir5TXJjBobVVSPbDug6awJVFjTtXE5Cn9SgTGZe
-   g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="313583780"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400";
-   d="scan'208";a="313583780"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 09:08:43 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="651302272"
-X-IronPort-AV: E=Sophos;i="5.98,219,1673942400";
-   d="scan'208";a="651302272"
-Received: from jaidenno-mobl.amr.corp.intel.com (HELO [10.212.85.4])
- ([10.212.85.4])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 09:08:40 -0800
-Message-ID: <82c7303b-131e-0633-2c08-5b4b414ad941@linux.intel.com>
-Date: Mon, 27 Feb 2023 12:07:57 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XVrT/nnM
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7D4E960ED2;
+	Mon, 27 Feb 2023 17:47:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC39C433D2;
+	Mon, 27 Feb 2023 17:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677520049;
+	bh=je6Bz/Pb53L7AJRKDXmLUBTm/Pxb0Qt9+y/hqaITn18=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XVrT/nnMvPYu6UzG9YF0HNpeuGQhj+LuLQX66SXtYRTyunL5K5XjWYt2R/chjUB0L
+	 ABjkS9XDUbz9wDdqOS+LzWiXqzB+BWP+5SeZ0xd8oXuKg3b2oR+e40lw9G7nxMMYa/
+	 KfPUmbmXpn11A64K2xAUgBFQ2YHGzYaZnFHfv4BAa9Srop7qfPIwxXuBB3p3EBQTdI
+	 M3HOHIluptoMazcnOnX2NT0nQ6kEga61TmLI+knHe00KjyiBbhm5ztOsNzkPzj21wI
+	 sGpbnMi4PUYZUO2T+1gQ6AQeflLhje8/4QfyuiSGMhlQeK74Dh54v3lESIzpxfyILA
+	 5Sjd1BjhM2L6A==
+Date: Mon, 27 Feb 2023 17:47:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/2] ASoC: max98363: add soundwire amplifier driver
+Message-ID: <Y/zsqjOWFKrpDtl8@sirena.org.uk>
+References: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
+ <0fb47fe7-719b-0773-fc14-3d62d7d33619@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH V4 8/8] soundwire: amd: add pm_prepare callback and pm ops
- support
-Content-Language: en-US
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
-References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
- <20230227154801.50319-9-Vijendar.Mukunda@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230227154801.50319-9-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3LNVNM27SXMTI6ZG475X7EH76PSLLZZM
-X-Message-ID-Hash: 3LNVNM27SXMTI6ZG475X7EH76PSLLZZM
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="X8+/QatuS77Fl/Hx"
+Content-Disposition: inline
+In-Reply-To: <0fb47fe7-719b-0773-fc14-3d62d7d33619@linux.intel.com>
+X-Cookie: On the eighth day, God created FORTRAN.
+Message-ID-Hash: 2KHSVW67XN34BCFYURQCARM7L5LI2XD7
+X-Message-ID-Hash: 2KHSVW67XN34BCFYURQCARM7L5LI2XD7
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
- amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+CC: =?utf-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>, lgirdwood@gmail.com,
+ tiwai@suse.com, krzysztof.kozlowski@linaro.org, rf@opensource.cirrus.com,
+ ckeepax@opensource.cirrus.com, herve.codina@bootlin.com,
+ wangweidong.a@awinic.com, james.schulman@cirrus.com,
+ ajye_huang@compal.corp-partner.google.com, shumingf@realtek.com,
+ povik+lin@cutebit.org, flatmax@flatmax.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, robh+dt@kernel.org, devicetree@vger.kernel.org,
+ ryans.lee@analog.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3LNVNM27SXMTI6ZG475X7EH76PSLLZZM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KHSVW67XN34BCFYURQCARM7L5LI2XD7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,132 +101,93 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--X8+/QatuS77Fl/Hx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2/27/23 10:48, Vijendar Mukunda wrote:
-> Add pm_prepare callback and System level pm ops support for
-> AMD SoundWire manager driver.
-> 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
+On Mon, Feb 27, 2023 at 10:17:45AM -0500, Pierre-Louis Bossart wrote:
 
-seems like you missed my comments in
-https://lore.kernel.org/alsa-devel/7d32d552-6ca0-3c40-11ce-c8d727cadc05@linux.intel.com/
+> > +static struct reg_default max98363_reg[] = {
+> > +	{MAX98363_R0040_SCP_INIT_STAT_1, 0x00},
+> > +	{MAX98363_R0041_SCP_INIT_MASK_1, 0x00},
+> > +	{MAX98363_R0042_SCP_INIT_STAT_2, 0x00},
+> > +	{MAX98363_R0044_SCP_CTRL, 0x00},
+> > +	{MAX98363_R0045_SCP_SYSTEM_CTRL, 0x00},
+> > +	{MAX98363_R0046_SCP_DEV_NUMBER, 0x00},
+> > +	{MAX98363_R004D_SCP_BUS_CLK, 0x00},
+> > +	{MAX98363_R0050_SCP_DEV_ID_0, 0x21},
+> > +	{MAX98363_R0051_SCP_DEV_ID_1, 0x01},
+> > +	{MAX98363_R0052_SCP_DEV_ID_2, 0x9F},
+> > +	{MAX98363_R0053_SCP_DEV_ID_3, 0x87},
+> > +	{MAX98363_R0054_SCP_DEV_ID_4, 0x08},
+> > +	{MAX98363_R0055_SCP_DEV_ID_5, 0x00},
 
-> ---
->  drivers/soundwire/amd_manager.c | 89 +++++++++++++++++++++++++++++++++
->  1 file changed, 89 insertions(+)
-> 
-> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index 88f0ad7ea7ec..5337443d9aea 100644
-> --- a/drivers/soundwire/amd_manager.c
-> +++ b/drivers/soundwire/amd_manager.c
-> @@ -1141,6 +1141,93 @@ static int amd_sdw_clock_stop_exit(struct amd_sdw_manager *amd_manager)
->  	return 0;
->  }
->  
-> +static int amd_resume_child_device(struct device *dev, void *data)
-> +{
-> +	int ret;
-> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-> +
-> +	if (!slave->probed) {
-> +		dev_dbg(dev, "skipping device, no probed driver\n");
-> +		return 0;
-> +	}
-> +	if (!slave->dev_num_sticky) {
-> +		dev_dbg(dev, "skipping device, never detected on bus\n");
-> +		return 0;
-> +	}
-> +	if (!pm_runtime_suspended(dev))
-> +		return 0;
-> +	ret = pm_request_resume(dev);
+> That seems wrong, why would you declare standard registers that are
+> known to the bus and required to be implemented?
 
-I think it's just better to let the pm_runtime framework deal with the
-states than do this is two steps.
+This is the register defaults table, it gets used to initialise the
+register cache and optimise resync after suspend - all this does is
+supply defaults for the cache.  That said...
 
-> +	if (ret < 0)
-> +		dev_err(dev, "pm_request_resume failed: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int __maybe_unused amd_pm_prepare(struct device *dev)
-> +{
-> +	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-> +	struct sdw_bus *bus = &amd_manager->bus;
-> +	int ret;
-> +
-> +	if (bus->prop.hw_disabled) {
-> +		dev_dbg(bus->dev, "SoundWire manager %d is disabled, ignoring\n",
-> +			bus->link_id);
-> +		return 0;
-> +	}
-> +	/*
-> +	 * When multiple peripheral devices connected over the same link, if SoundWire manager
-> +	 * device is not in runtime suspend state, observed that device alerts are missing
-> +	 * without pm_prepare on AMD platforms in clockstop mode0.
-> +	 */
-> +	if (pm_runtime_suspended(dev) && amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-> +		ret = pm_request_resume(dev);
+I would suggest it's better to not supply defaults for ID registers and
+read them back from the device otherwise things might get confused.
 
-same here.
+> > +static const struct regmap_config max98363_sdw_regmap = {
+> > +	.reg_bits = 32,
+> > +	.val_bits = 8,
+> > +	.max_register = MAX98363_R21FF_REV_ID,
+> > +	.reg_defaults  = max98363_reg,
+> > +	.num_reg_defaults = ARRAY_SIZE(max98363_reg),
+> > +	.readable_reg = max98363_readable_register,
+> > +	.volatile_reg = max98363_volatile_reg,
 
-> +		if (ret < 0) {
-> +			dev_err(bus->dev, "pm_request_resume failed: %d\n", ret);
-> +			return 0;
-> +		}
-> +	}
-> +	/* To force peripheral devices to system level suspend state, resume the devices
-> +	 * from runtime suspend state first. Without that unable to dispatch the alert
-> +	 * status to peripheral driver during system level resume as they are in runtime
-> +	 * suspend state.
-> +	 */
-> +	ret = device_for_each_child(bus->dev, NULL, amd_resume_child_device);
-> +	if (ret < 0)
-> +		dev_err(dev, "amd_resume_child_device failed: %d\n", ret);
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused amd_suspend(struct device *dev)
-> +{
-> +	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-> +	struct sdw_bus *bus = &amd_manager->bus;
-> +	int ret;
-> +
-> +	if (bus->prop.hw_disabled) {
-> +		dev_dbg(bus->dev, "SoundWire manager %d is disabled, ignoring\n",
-> +			bus->link_id);
-> +		return 0;
-> +	}
-> +
-> +	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-> +		ret = amd_sdw_clock_stop(amd_manager);
-> +		if (ret)
-> +			return ret;
-> +	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-> +		/*
-> +		 * As per hardware programming sequence on AMD platforms,
-> +		 * clock stop should be invoked first before powering-off
-> +		 */
-> +		ret = amd_sdw_clock_stop(amd_manager);
-> +		if (ret)
-> +			return ret;
-> +		ret = amd_deinit_sdw_manager(amd_manager);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	return 0;
-> +}
-> +
->  static int __maybe_unused amd_suspend_runtime(struct device *dev)
->  {
->  	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-> @@ -1213,6 +1300,8 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
->  }
->  
->  static const struct dev_pm_ops amd_pm = {
-> +	.prepare = amd_pm_prepare,
-> +	SET_SYSTEM_SLEEP_PM_OPS(amd_suspend, amd_resume_runtime)
->  	SET_RUNTIME_PM_OPS(amd_suspend_runtime, amd_resume_runtime, NULL)
->  };
->  
+> I don't see why the SoundWire standard registers are part of regmap?
+
+...if there's an issue with the SoundWire core modifying the registers
+directly then the driver would need to mark all the core registers as
+volatile so that they're not cached otherwise there will be collisions.
+Or is it the case that we always need to go via the SoundWire core for
+the generic registers, so they should just never be written at all?
+
+> > +	if (max98363->dvddio) {
+> > +		ret = regulator_enable(max98363->dvddio);
+> > +		if (ret < 0)
+> > +			return ret;
+> > +	}
+> > +
+> > +	if (max98363->vdd) {
+> > +		ret = regulator_enable(max98363->vdd);
+> > +		if (ret < 0)
+> > +			return ret;
+> > +	}
+
+> that is very very odd. It's the first time we see a SoundWire codec
+> driver that has a power dependency, and it's quite likely that it's too
+> late to enable power resources *AFTER* dealing with all the
+> initialization and enumeration.
+
+> It's not even clear to me how this device would be enumerated.
+
+> You'd need to explain what part of the amplifier is controlled by those
+> regulator, otherwise it's impossible to review and understand if the
+> driver does the 'right thing'
+
+It's also buggy to have regulators treated as optional unless they may
+be physically absent.
+
+--X8+/QatuS77Fl/Hx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP87KkACgkQJNaLcl1U
+h9Bv7Qf/YeP3QSU5T9ffyKOEPzEa0RwdpuLjBCjiDvdaCTaKpPSEZ74eMbh7LDJa
+Pp+Nl3FhE3e3gYMZgJsU92VB2blKAyJ2ucRVdVon2R4KibZcmQo5uzJMm2Atc65e
+psqnyn8ivHkOD7VNLgISErLRKchM+1tWbpchvxGXFrB/1atwRQ0w4I8AAr7tAeya
+ArpGpzwcry/mZxUkqNlaVPkvCWnVQ2bSTBFg1VRGPkDAd3Ut97UWE8rN3/JVdUbL
+GucL8qXeDkpIQsS9e6oNOgS6smmVpl7tMVOY+P1B1O6K8mZywLJW/1SKvuj9f8fl
+yokBKgAoCkD7b0UzeepBdGDDtu7Vkg==
+=FsGr
+-----END PGP SIGNATURE-----
+
+--X8+/QatuS77Fl/Hx--

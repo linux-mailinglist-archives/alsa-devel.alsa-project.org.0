@@ -2,96 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9CE66A488D
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 18:48:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903B46A4929
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 19:05:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3EEA20B;
-	Mon, 27 Feb 2023 18:47:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3EEA20B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DCE120C;
+	Mon, 27 Feb 2023 19:04:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DCE120C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677520117;
-	bh=je6Bz/Pb53L7AJRKDXmLUBTm/Pxb0Qt9+y/hqaITn18=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1677521141;
+	bh=nTlD3DIwy61JvsxAjtBrkjcZfspyFeWNJqGRYlE6kRI=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MnZNItmuUQJl8Mv2ygYzzW7PLBbPxdxc6NwKo1YoP9cCOcJmpXm+QBWKeb4vhLzp7
-	 bdufBexGMXd21RMrPOGwOeS00loNJ4QFidYtLCgUUuN+J3Fle+EDY2JSfgXRlZv4KM
-	 /klzRopzi/+9T4ywugXc/tXpM9FKGFN1AYcvgP/o=
+	b=m/sxCD0R+coc/ej+AVXq/x2zL7O0Pwzi3FeJdNDeLWqMKohb826xqEnvJJR1wKNwc
+	 dT8iiZlisFxlJoRwxNVdXXn4TMe8CLOXCcUYxPwYsWYrarBxcPwoLI2s+FDzq/hLUc
+	 K1fzNeL9Re+Xi8KHIfgQ0ZIYA3xFtOvyjOKm5ESo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5EE6F802BE;
-	Mon, 27 Feb 2023 18:47:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C968F802BE;
+	Mon, 27 Feb 2023 19:04:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75DD4F8049C; Mon, 27 Feb 2023 18:47:42 +0100 (CET)
+	id 5D645F8049C; Mon, 27 Feb 2023 19:04:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5006F800FA
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 18:47:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5006F800FA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XVrT/nnM
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::62c])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7D4E960ED2;
-	Mon, 27 Feb 2023 17:47:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC39C433D2;
-	Mon, 27 Feb 2023 17:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677520049;
-	bh=je6Bz/Pb53L7AJRKDXmLUBTm/Pxb0Qt9+y/hqaITn18=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XVrT/nnMvPYu6UzG9YF0HNpeuGQhj+LuLQX66SXtYRTyunL5K5XjWYt2R/chjUB0L
-	 ABjkS9XDUbz9wDdqOS+LzWiXqzB+BWP+5SeZ0xd8oXuKg3b2oR+e40lw9G7nxMMYa/
-	 KfPUmbmXpn11A64K2xAUgBFQ2YHGzYaZnFHfv4BAa9Srop7qfPIwxXuBB3p3EBQTdI
-	 M3HOHIluptoMazcnOnX2NT0nQ6kEga61TmLI+knHe00KjyiBbhm5ztOsNzkPzj21wI
-	 sGpbnMi4PUYZUO2T+1gQ6AQeflLhje8/4QfyuiSGMhlQeK74Dh54v3lESIzpxfyILA
-	 5Sjd1BjhM2L6A==
-Date: Mon, 27 Feb 2023 17:47:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/2] ASoC: max98363: add soundwire amplifier driver
-Message-ID: <Y/zsqjOWFKrpDtl8@sirena.org.uk>
-References: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
- <0fb47fe7-719b-0773-fc14-3d62d7d33619@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CDBFF80236
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 19:04:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CDBFF80236
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=DPgM86nF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bbmlt++yXztM3qspjpAYWKaSERxhCoa0HqHzhnkMSH8hRquwifGU3UpuBxD5MJezRSkRj7LSfH3MsFiHnBE5U5tVvjM/SJZJ3WAtDpJG3iLI4Me/A2M1jLj50puqEU/a+suhvksGJCOdfuqF2IflfW9o6/ujI7vogIoli/jkxX9LNV38cHBs5XzjHLQDBhaafOCdzPhl63uyJJK/Y8Xgs5+S1nD6g/5Km3b8pu9yMe1NdgX8rY8AemHI2//3PYbhZ86wy4k0/H9uap9HAr9IIcDG6b4Rc7cJVkEK0YlHgqzamz/OQLBHvxTXBMgJBdrqbaCThGgVqTbjVorp9szaaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y50qX6zAbi4hJ/Mz1hQgiDCH/OhbXMp4Kb3GmA7mBTg=;
+ b=J0mlzMqWIPvHL3QVf86y4IhRWZ5+Pz7fiKruYC8cCg8XhspHN1IsIxzI81tAwJ5YiF7LycSnJGFxY15KWZm4RBGr0vv33/dpZX36TlnSnuZz20iRpORn6B25LusMiBjqAPJPO1FR4y7ZFRy5xXnsfL2Jks9ne1MQ+Q6wZPyWj0KbU36mlnPVXBaiHhm9VsJd/iiPoE86yoQO/jJOR1J6Q52DvdpbvjcAk09GKDOJa3dMmbQYO5784kUsUr995e5G6N7yC1uys9lH3pqgyJ+Zpyl8EA/Er34NnvPfLM/8s9CLORmgWgVCX21nHvphkPyrY01hMjBUJhLk6e9bWGnQ7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y50qX6zAbi4hJ/Mz1hQgiDCH/OhbXMp4Kb3GmA7mBTg=;
+ b=DPgM86nFGyc+VgTYxOiokhE1qWgMupRJaxcJPJu2iHYdUTx8Scc+e+94aYJxhG6Nb4aO7u52uMHUOlDzWY1Fij+B9WivevpsB7NxpDGnLnOVa/58zKjg83xW4mKzpcFCYWbgbG328kOeSmLpQNYj0oo77w/XwhE+qiEjqy1wQ9A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by PH7PR12MB5781.namprd12.prod.outlook.com (2603:10b6:510:1d0::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
+ 2023 18:04:30 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%7]) with mapi id 15.20.6134.029; Mon, 27 Feb 2023
+ 18:04:30 +0000
+Message-ID: <ff01e54f-72e2-8baf-ac31-3c249002e3d5@amd.com>
+Date: Mon, 27 Feb 2023 23:38:30 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH V4 2/8] soundwire: amd: Add support for AMD Manager driver
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
+ <20230227154801.50319-3-Vijendar.Mukunda@amd.com>
+ <606c1b31-d83e-6ef0-8b01-45e7e0be4cbc@linux.intel.com>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <606c1b31-d83e-6ef0-8b01-45e7e0be4cbc@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0131.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::16) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="X8+/QatuS77Fl/Hx"
-Content-Disposition: inline
-In-Reply-To: <0fb47fe7-719b-0773-fc14-3d62d7d33619@linux.intel.com>
-X-Cookie: On the eighth day, God created FORTRAN.
-Message-ID-Hash: 2KHSVW67XN34BCFYURQCARM7L5LI2XD7
-X-Message-ID-Hash: 2KHSVW67XN34BCFYURQCARM7L5LI2XD7
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH7PR12MB5781:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3d18fa4-c5dd-4a73-915a-08db18ed1277
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Jpwq9xaPkVx6bFvxncmOjozIqZy//nAUbv5IuyMySMx0ov7djKBz1BdQpu+udApp5R2zYL2ZdyVfOL7V7PSGsKItdFKKRoC97wnjoT/Tq/Zzf6lw9unagrXBPpK9Dlsz4uGNce4wLhz2m589L4bEC+dTTlIhAH4M2/19n/xS2BgB7RyGG4+awUsuff4NycUc0XwSTbB1xQ7nd6N5cK9sIn5yHm4IKYjmGXIdnskukGKrA+eTwcCPDbELFuit75RxMfaYiUgazAtKcHmbVOySbRbJKggKZyAWngaRuHPwdAjX7TTFKUqnQh+4+uQSgIe/y+zCrWt7xrJSN9M+fIDuBE4n7ymPUvfv4oAyUamVzk1OHLW/nHtNE4DkZb7+Hi03JXVN3jJxyk6QPkYzzZfIKH67TxZOhBupJ/CUFemyz0eKOXEWbtmwR1mqGw35Mc+UQBX5hgGltvkuo95JCsfcnM8Q/bRo5IjEVteB6XP4KAQo/MiV4QNvrq3jk55jTS+/vk/IiWLvSWCRrZMg/JY2n4qOBQEPmF/UDyQxeEYlpuEZzznTmWgna62QojE+x9ynBToMfZ1HBswlKynzJ7n/J2qg16+Kynw1zg+Hibogm8mU5vUKaByHZCby0s3EKrHZn1Tw8dbbwlvKjn/IIhGaIYoFew2HOsOrCnlv8YIpMPK0JHCD450L7EhFo5/JQPf6QJXjv7sIeLy+pqR4p6tsYP3cruX/WVhkEnJIXWyqllE=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(346002)(396003)(366004)(376002)(451199018)(38100700002)(31686004)(2906002)(5660300002)(83380400001)(8936002)(186003)(2616005)(6486002)(86362001)(66476007)(66556008)(316002)(6512007)(53546011)(66946007)(8676002)(41300700001)(6506007)(4326008)(26005)(478600001)(54906003)(31696002)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?WTBISVFCeEJDcjBnWmhCeW0rcDVENldxY2JBSy9jbCtWTkh0SWdNbDlFMjIv?=
+ =?utf-8?B?Zm54QWFDS1pXNnVSQkJDSjdEZVNzS3B4M3hOMnhVQmhxUUlaQ1JjQjI1VGJq?=
+ =?utf-8?B?dHdXRnZNUlA5V2xHb3h2M3JPQlRuM3drR0Vhc283SXYxRWNQTzQ1aDFmVHUr?=
+ =?utf-8?B?cW83RlFlR2JReTdBMml4ZzFoY0ovbGg4dTMvdnNaYXpNSzRNd0ZHM2FBYVY3?=
+ =?utf-8?B?WTJBckppeVZzc2xpQ3Q1b2VKcmRHek83UnZhV1FWOWZhajk0WWtwSGJ5djFo?=
+ =?utf-8?B?K1doenkvU1ZNa25XT1IvMTZuZExNaHNQcDlWM2x1WHVSa2RrQWMrTGZLa3F2?=
+ =?utf-8?B?TVZwZFlGck9RQ3krWXNJNDE0WjlncUh4WlBMVk5rMjN2emRvQXdMbXpFUi9j?=
+ =?utf-8?B?TEtWVGhSWFpBem1TdW4xbGdSZjRCaUpYU3JaK0EyRFdqeUxtbzFGRTg2cHJO?=
+ =?utf-8?B?dElOL05tN0piVHF6bUhTb3R4UklhcWx4U3JuRitvSTBPVzFaNHJXYjhIamZR?=
+ =?utf-8?B?NkJjTlJHbnJlVm1MelJ4TTFxL3JsY29aSXNKQXBTd0RhaHBKNFo2Q3BOa2Uz?=
+ =?utf-8?B?SHRaaXhETkJ2NGdSanloamxGZkMvd1VyZVlUMUllWFJ4RFUyZVB4MWs3OUhl?=
+ =?utf-8?B?NTBlUWZSdzh2ZEJ3WWhZelhwdXFtN2d4bXN2STc0bVNGZTVpd081SHpQbVR0?=
+ =?utf-8?B?WkFNZ1BqZHEwTW5sK0dlVGp2Q0wvcUVOYmVqVG1zNncyb3dXNnR0RlpGNjc3?=
+ =?utf-8?B?dWU2b1hocXp0cm5wL0VPRUxzTDQ5VWNVazhCb1RZMm94b3J6ekRKTVdwRWpK?=
+ =?utf-8?B?ZjZLVTFPRHRWUUx6c2lmUDN3bXNiSzVwUk9hN0JyeWE5WXBFRFZxZUcrZVQv?=
+ =?utf-8?B?bDBpQ2MwUElnb0JtWE9ENm9LSXlBSXpOVldTbEp4NVlTS0ZrbmUwU0JFT2lZ?=
+ =?utf-8?B?V3J5WFM5eVE5b0xNaDFYTU0yZ3BVL3FYQUFkbFhQbi9yOG1vSnhZK2k1SEFh?=
+ =?utf-8?B?SXJWVUJESmFJNVZUNkF1NUNNeUxac253Z0JRM1Q1NVNQTzI2STZLeTBnb2Q4?=
+ =?utf-8?B?TEU0a1J5cGZuSmxaYW1jekhna1lsZ01XdVF1YVkzWitFM3EvaXVCY2xlS0o0?=
+ =?utf-8?B?T2RNeHJPOUQrQmxOVmlMeEpSRHplZmZwSE5WRDk1QmhFdTRUUnlIcndFYWVD?=
+ =?utf-8?B?ZHFOMGJRSlhYRHJrYXAvYXVxYVVJd29FdjRJSWpGeGExRWdtS0E3Q2FxODRq?=
+ =?utf-8?B?OEswYUFiUUx4a3R5L05ydFZmcDROYUhpdk14N0ltUjU2SmFpQWtORnJkSUdK?=
+ =?utf-8?B?MXIzR1lBSS9BSTBDRHNYd3BCeFI2aDNLZ1VsTFg1Z281amdWejFaSE1Fb1JX?=
+ =?utf-8?B?ZkRZcGlQVW5GUWVQRWpaZW96bDRrK3YvQWRlN3VUMGg2S1VtVldSbkNpQkIw?=
+ =?utf-8?B?U0hmdEE4b2krOU9MWHJ1clIwd1NzM2FCYzd5eFNGRUJzMzE5bjNZUUJuMlQ1?=
+ =?utf-8?B?cVFWVE5KMjRXTDl1UDZKZ0wwUEk4akxocDFSTDdzNmdBOTQ2WnNRZjI0eHNn?=
+ =?utf-8?B?ci9iL0pPWmpzbW1IUW1uNXpTbjZRUktaVWZCbEdEbWhucGZnbG5WR1FKSkhG?=
+ =?utf-8?B?NHd2OWRyM0hPR3BVTjhENVhCa0M0OGZQdU00MTlCL1QwVnhUSWMvb2NSamI1?=
+ =?utf-8?B?c0p5WHRLa2p0ZDVGUUUzZDJ2dWZ0UFdpb2t4RXkyQmpHa3orSC8zWDM2cW0y?=
+ =?utf-8?B?S24yZVJxVUJsSVV3VlNIZEdPUEFsUmYxc0JoR3ZNN21sNkhjalNKNnhSdDhw?=
+ =?utf-8?B?TEhiWW5QU3lEK0J6Y1JjOTVZTDg5R1hJc0sxNndsVmdaMVZUN3VORnI4RENE?=
+ =?utf-8?B?Mnp0RHZQY1FqVURkbWZpWDlUNHRGMDE1TUI5blV6WTYwR0Flayt3bWFUNEp5?=
+ =?utf-8?B?WmZzcGNKZDU3dU96Sk5NU1VLejhMTHdOVlVTbTNoQU1mNyt0cWF5eTJ2VEhL?=
+ =?utf-8?B?VFFzRG9VbHQzU3hlZGJRcVQ1T25MNUIvN3lnSXhtcVFyZUtKWkNScWp5cHdj?=
+ =?utf-8?B?SWNmMlR4eThLeFlaaDdkNEg1QjhQYUZRTjgyc2E2c3hVbmljNGsvYWE3aHZ0?=
+ =?utf-8?Q?qjcnlcX8ASFuxpn0LDbwsntee?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d3d18fa4-c5dd-4a73-915a-08db18ed1277
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 18:04:30.2792
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 1W0K30rMaEruyMAawVj8DZ8GhM5BmJjNsdLJ5qijamQMyK5kn2ZUfPeinZ0AVGfMXPPomR65EZ63anu65qzqrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5781
+Message-ID-Hash: 4QJUQTD44GOLA6NETSFEQY44ZBF5FKRK
+X-Message-ID-Hash: 4QJUQTD44GOLA6NETSFEQY44ZBF5FKRK
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: =?utf-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>, lgirdwood@gmail.com,
- tiwai@suse.com, krzysztof.kozlowski@linaro.org, rf@opensource.cirrus.com,
- ckeepax@opensource.cirrus.com, herve.codina@bootlin.com,
- wangweidong.a@awinic.com, james.schulman@cirrus.com,
- ajye_huang@compal.corp-partner.google.com, shumingf@realtek.com,
- povik+lin@cutebit.org, flatmax@flatmax.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, robh+dt@kernel.org, devicetree@vger.kernel.org,
- ryans.lee@analog.com
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KHSVW67XN34BCFYURQCARM7L5LI2XD7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4QJUQTD44GOLA6NETSFEQY44ZBF5FKRK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,94 +176,256 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 27/02/23 22:05, Pierre-Louis Bossart wrote:
+>
+> On 2/27/23 10:47, Vijendar Mukunda wrote:
+>> AMD ACP(v6.x) IP block has two SoundWire manager devices.
+>> Add support for
+>>   - Manager driver probe & remove sequence
+>>   - Helper functions to enable/disable interrupts,
+>>     Initialize sdw manager, enable sdw pads
+>>   - Manager driver sdw_master_ops & port_ops callbacks
+>>
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> ---
+>>  drivers/soundwire/amd_manager.c   | 749 ++++++++++++++++++++++++++++++
+>>  drivers/soundwire/amd_manager.h   | 252 ++++++++++
+>>  include/linux/soundwire/sdw_amd.h |  67 +++
+>>  3 files changed, 1068 insertions(+)
+>>  create mode 100644 drivers/soundwire/amd_manager.c
+>>  create mode 100644 drivers/soundwire/amd_manager.h
+>>  create mode 100644 include/linux/soundwire/sdw_amd.h
+>>
+>> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+>> new file mode 100644
+>> index 000000000000..63cd8d066602
+>> --- /dev/null
+>> +++ b/drivers/soundwire/amd_manager.c
+>> @@ -0,0 +1,749 @@
+>> +// SPDX-License-Identifier: GPL-2.0+
+>> +/*
+>> + * SoundWire AMD Manager driver
+>> + *
+>> + * Copyright 2023 Advanced Micro Devices, Inc.
+>> + */
+>> +
+>> +#include <linux/completion.h>
+>> +#include <linux/device.h>
+>> +#include <linux/io.h>
+>> +#include <linux/jiffies.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/soundwire/sdw.h>
+>> +#include <linux/soundwire/sdw_registers.h>
+>> +#include <linux/wait.h>
+>> +#include <sound/pcm_params.h>
+>> +#include <sound/soc.h>
+>> +#include "bus.h"
+>> +#include "amd_manager.h"
+>> +
+>> +#define DRV_NAME "amd_sdw_manager"
+>> +
+>> +#define to_amd_sdw(b)	container_of(b, struct amd_sdw_manager, bus)
+>> +
+>> +static void amd_enable_sdw_pads(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	u32 sw_pad_pulldown_val;
+>> +	u32 val;
+>> +
+>> +	mutex_lock(amd_manager->acp_sdw_lock);
+>> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+>> +	val |= amd_manager->reg_mask->sw_pad_enable_mask;
+>> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+>> +	usleep_range(1000, 1500);
+>> +
+>> +	sw_pad_pulldown_val = acp_reg_readl(amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+>> +	sw_pad_pulldown_val &= amd_manager->reg_mask->sw_pad_pulldown_mask;
+>> +	acp_reg_writel(sw_pad_pulldown_val, amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+>> +	mutex_unlock(amd_manager->acp_sdw_lock);
+>> +}
+>> +
+>> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	u32 val;
+>> +	u32 timeout = 0;
+>> +	u32 retry_count = 0;
+>> +
+>> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+>> +	do {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+>> +		if (val)
+>> +			break;
+>> +		usleep_range(10, 20);
+>> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+>> +
+>> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+>> +		return -ETIMEDOUT;
+>> +
+>> +	/* SoundWire manager bus reset */
+>> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	while (!(val & AMD_SDW_BUS_RESET_DONE)) {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+>> +			break;
+>> +		usleep_range(1, 5);
+>> +		timeout++;
+>> +	}
+>> +	if (timeout > AMD_DELAY_LOOP_ITERATION)
+>> +		return -ETIMEDOUT;
+> nit-pick: add a new line here since you're starting a different sequence.
+>
+will fix it.
+>> +	timeout = 0;
+>> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +	while (val) {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+>> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+>> +			break;
+>> +		usleep_range(1, 5);
+>> +		timeout++;
+>> +	}
+>> +	if (timeout > AMD_DELAY_LOOP_ITERATION) {
+>> +		dev_err(amd_manager->dev, "Failed to reset SoundWire manager instance%d\n",
+>> +			amd_manager->instance);
+>> +		return -ETIMEDOUT;
+>> +	}
+> and same here, this is a new sequence starting here so a newline would help
+will fix it.
+>> +	retry_count = 0;
+>> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+>> +	do {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+>> +		if (!val)
+>> +			break;
+>> +		usleep_range(10, 20);
+>> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+>> +
+>> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+>> +		return -ETIMEDOUT;
+>> +	return 0;
+>> +}
+>> +
+>> +static int amd_enable_sdw_manager(struct amd_sdw_manager *amd_manager)
+>> +{
+>> +	u32 val;
+>> +	u32 retry_count = 0;
+>> +
+>> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+>> +	do {
+>> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+>> +		if (val)
+>> +			break;
+>> +		usleep_range(10, 20);
+>> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+>> +
+>> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+>> +		return -ETIMEDOUT;
+>> +	return 0;
+>> +}
+>> +static void amd_sdw_ctl_word_prep(u32 *low_word, u32 *high_word, u32 cmd_type,
+>> +				  struct sdw_msg *msg, int cmd_offset)
+>> +{
+>> +	u32 low_data = 0, high_data;
+>> +	u16 addr;
+>> +	u8 addr_high, addr_low;
+>> +	u8 data = 0;
+> nit-pick: this looks a bit messy, usually it's simpler to have
+> initialized variables on separate lines. If you keep the low and high on
+> the same line, then at least use the same order.
+will fix it.
+>> +
+>> +	addr = msg->addr + cmd_offset;
+>> +	addr_high = (addr & 0xFF00) >> 8;
+>> +	addr_low = addr & 0xFF;
+>> +
+>> +	if (cmd_type == AMD_SDW_CMD_WRITE)
+>> +		data = msg->buf[cmd_offset];
+>> +
+>> +	high_data = FIELD_PREP(AMD_SDW_MCP_CMD_DEV_ADDR, msg->dev_num);
+>> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_COMMAND, cmd_type);
+>> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_HIGH, addr_high);
+>> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_LOW, addr_low);
+>> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_DATA, data);
+>> +
+>> +	*high_word = high_data;
+>> +	*low_word = low_data;
+>> +}
+>> +
+>> +static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lword, u32 uword)
+>> +{
+>> +	u64 resp;
+>> +	u32 resp_lower, resp_high;
+> nit-pick: resp_low? you seem to use this low/high pattern in a number of
+> places.
+will fix it.
+>> +	u32 sts;
+>> +	u32 timeout = 0;
+>> +
+>> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while (sts & AMD_SDW_IMM_CMD_BUSY) {
+>> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x previous cmd status clear failed\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +		usleep_range(5, 10);
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	}
+>> +
+>> +	timeout = 0;
+>> +	if (sts & AMD_SDW_IMM_RES_VALID) {
+>> +		dev_err(amd_manager->dev, "SDW%x manager is in bad state\n", amd_manager->instance);
+>> +		acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	}
+>> +	acp_reg_writel(uword, amd_manager->mmio + ACP_SW_IMM_CMD_UPPER_WORD);
+>> +	acp_reg_writel(lword, amd_manager->mmio + ACP_SW_IMM_CMD_LOWER_QWORD);
+>> +
+>> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while (!(sts & AMD_SDW_IMM_RES_VALID)) {
+>> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x cmd response timeout occurred\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +		usleep_range(5, 10);
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	}
+>> +	resp_high = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_UPPER_WORD);
+>> +	resp_lower = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_LOWER_QWORD);
+> nit-pick: newline here.
+will fix it.
+>> +	timeout = 0;
+>> +	acp_reg_writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	while ((sts & AMD_SDW_IMM_RES_VALID)) {
+>> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+>> +			dev_err(amd_manager->dev, "SDW%x cmd status retry failed\n",
+>> +				amd_manager->instance);
+>> +			return -ETIMEDOUT;
+>> +		}
+>> +		usleep_range(5, 10);
+>> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+>> +	}
+>> +	resp = resp_high;
+>> +	resp = (resp << 32) | resp_lower;
+>> +	return resp;
+>> +}
+>> +static unsigned int _amd_sdw_xfer_msg(struct amd_sdw_manager *amd_manager, struct sdw_msg *msg,
+>> +				      int cmd, int cmd_offset)
+>> +{
+>> +	u64 response;
+>> +	u32 uword = 0, lword = 0;
+> couldn't figure out what uword and lword refer to. Is this high/low as
+> above or something else?
+its high and low. Register naming convention uses
+upper word and lower word. will use naming convention
+throughout the code.
+>> +
+>> +	amd_sdw_ctl_word_prep(&lword, &uword, cmd, msg, cmd_offset);
+>> +	response = amd_sdw_send_cmd_get_resp(amd_manager, lword, uword);
+>> +	return amd_sdw_fill_msg_resp(amd_manager, msg, response, cmd_offset);
+>> +}
 
---X8+/QatuS77Fl/Hx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Feb 27, 2023 at 10:17:45AM -0500, Pierre-Louis Bossart wrote:
-
-> > +static struct reg_default max98363_reg[] = {
-> > +	{MAX98363_R0040_SCP_INIT_STAT_1, 0x00},
-> > +	{MAX98363_R0041_SCP_INIT_MASK_1, 0x00},
-> > +	{MAX98363_R0042_SCP_INIT_STAT_2, 0x00},
-> > +	{MAX98363_R0044_SCP_CTRL, 0x00},
-> > +	{MAX98363_R0045_SCP_SYSTEM_CTRL, 0x00},
-> > +	{MAX98363_R0046_SCP_DEV_NUMBER, 0x00},
-> > +	{MAX98363_R004D_SCP_BUS_CLK, 0x00},
-> > +	{MAX98363_R0050_SCP_DEV_ID_0, 0x21},
-> > +	{MAX98363_R0051_SCP_DEV_ID_1, 0x01},
-> > +	{MAX98363_R0052_SCP_DEV_ID_2, 0x9F},
-> > +	{MAX98363_R0053_SCP_DEV_ID_3, 0x87},
-> > +	{MAX98363_R0054_SCP_DEV_ID_4, 0x08},
-> > +	{MAX98363_R0055_SCP_DEV_ID_5, 0x00},
-
-> That seems wrong, why would you declare standard registers that are
-> known to the bus and required to be implemented?
-
-This is the register defaults table, it gets used to initialise the
-register cache and optimise resync after suspend - all this does is
-supply defaults for the cache.  That said...
-
-I would suggest it's better to not supply defaults for ID registers and
-read them back from the device otherwise things might get confused.
-
-> > +static const struct regmap_config max98363_sdw_regmap = {
-> > +	.reg_bits = 32,
-> > +	.val_bits = 8,
-> > +	.max_register = MAX98363_R21FF_REV_ID,
-> > +	.reg_defaults  = max98363_reg,
-> > +	.num_reg_defaults = ARRAY_SIZE(max98363_reg),
-> > +	.readable_reg = max98363_readable_register,
-> > +	.volatile_reg = max98363_volatile_reg,
-
-> I don't see why the SoundWire standard registers are part of regmap?
-
-...if there's an issue with the SoundWire core modifying the registers
-directly then the driver would need to mark all the core registers as
-volatile so that they're not cached otherwise there will be collisions.
-Or is it the case that we always need to go via the SoundWire core for
-the generic registers, so they should just never be written at all?
-
-> > +	if (max98363->dvddio) {
-> > +		ret = regulator_enable(max98363->dvddio);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +	}
-> > +
-> > +	if (max98363->vdd) {
-> > +		ret = regulator_enable(max98363->vdd);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +	}
-
-> that is very very odd. It's the first time we see a SoundWire codec
-> driver that has a power dependency, and it's quite likely that it's too
-> late to enable power resources *AFTER* dealing with all the
-> initialization and enumeration.
-
-> It's not even clear to me how this device would be enumerated.
-
-> You'd need to explain what part of the amplifier is controlled by those
-> regulator, otherwise it's impossible to review and understand if the
-> driver does the 'right thing'
-
-It's also buggy to have regulators treated as optional unless they may
-be physically absent.
-
---X8+/QatuS77Fl/Hx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmP87KkACgkQJNaLcl1U
-h9Bv7Qf/YeP3QSU5T9ffyKOEPzEa0RwdpuLjBCjiDvdaCTaKpPSEZ74eMbh7LDJa
-Pp+Nl3FhE3e3gYMZgJsU92VB2blKAyJ2ucRVdVon2R4KibZcmQo5uzJMm2Atc65e
-psqnyn8ivHkOD7VNLgISErLRKchM+1tWbpchvxGXFrB/1atwRQ0w4I8AAr7tAeya
-ArpGpzwcry/mZxUkqNlaVPkvCWnVQ2bSTBFg1VRGPkDAd3Ut97UWE8rN3/JVdUbL
-GucL8qXeDkpIQsS9e6oNOgS6smmVpl7tMVOY+P1B1O6K8mZywLJW/1SKvuj9f8fl
-yokBKgAoCkD7b0UzeepBdGDDtu7Vkg==
-=FsGr
------END PGP SIGNATURE-----
-
---X8+/QatuS77Fl/Hx--

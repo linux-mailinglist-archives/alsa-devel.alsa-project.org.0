@@ -2,139 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5466A4669
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 16:47:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA3616A47A1
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 18:14:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 240AC1D7;
-	Mon, 27 Feb 2023 16:46:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 240AC1D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D567A20C;
+	Mon, 27 Feb 2023 18:13:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D567A20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677512862;
-	bh=/thxQrlfj/0ZC8W4HWrx/C9m0j7wCbNTOhGnYN/5YG8=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1677518048;
+	bh=ahUrroTHl6zZ2xmQQr9wwI5mo7+SqybLJn4AYfRsubY=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TRXW713h+QEdLQirvgVfKi98CnMGsXW5RKYaBbqmGJD7x40CHR7XQJ1MmEK+nJcqe
-	 arg8nYYU0MARe4BtXMHMwapA+Ng2GlXn2wG5K0VasDQxo3skQORXdgG4Hf32vBLG65
-	 ToVeDyF+yJwah7BaCft0LjsdPjZgwb4EkLGtK71E=
+	b=MPv3Qb/747TQhL7BmogHorWvfDpceREVbh1K6XILcCgz2/fqdqycRwu+dBDJAwIcZ
+	 044R6F0dR+fmyyJnRGTW0pku2rUcN4r65r6KcmPJKcK0H3wkRjdM55HMMnq3NupZbG
+	 C7sByRpP9jhdG6nKbClh3lvX9ljgK/bzMfJ8OG0Y=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7737CF80587;
-	Mon, 27 Feb 2023 16:44:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0EA4F8049C;
+	Mon, 27 Feb 2023 18:13:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2A35F80588; Mon, 27 Feb 2023 16:44:44 +0100 (CET)
+	id DB062F80527; Mon, 27 Feb 2023 18:13:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::604])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EF3EF8057C
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 16:44:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EF3EF8057C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2DAC9F80236
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 18:13:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DAC9F80236
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=5DLiZKJO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aPPvLYKT9JPiLD+coyIeqpyKIbECdoZXHORTNyqyGR/XW9rDqdnBmlTv/sDUzOuPDWvUxg5vwWrPwMHtrUyl06oomEqSEzm/NP6FYzBKy9v9FMzAGxEbmbxOV0wjs2GP+E8zMOXpL1gRk0OJ/umkhoXrKI2Dno8yBY4zLowpJeF6Bw/1ISwdi1yc2Nl3UVq23cqC3ekBgTru4FfDkMCM6xbBiocNAGVmfdg56C6kMEYQ7OYTwAW/xR6qn5YuSjqIFS9oB9IgNN6WsfMt+niNIWRRq3uea3KwsIgS2hEV1kuNNGdZlqUiPJgq3/7E15XENR66vBBQP/CnziJBUKuvgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3CIh4p3x6qEsHkFDRxtCSWeM760MarUfBf+LGXFiOVc=;
- b=RM2xplrNjB7/AHTGt6PDv3BigES4PoXWjH4Al9xgyWAPGAGab5Pt3Yk84dwhLWvu5kayQnaqwlYko+0jdi2YBT5Wmsqbc+TxIVTSCPdyo/yz3g3lRoFtyFOGUr8HJR5OSOAQLbO4zqsVjsY9OLoF1pScxwPB6DjOPTZvTRZfvTCETDdspzGYKtI/ZylzlRDbVnGWy3I+n47l81csT6GP+Cfw1vAmiptoQkGTicaFSDSp4gqJZ2JyWGIaqFc1bjll5EOBk3Vr8qetYvQvDMC8GjHOTRdd59uLz3jzngIlI4w2TkzXl3CQtxP77XypAGpUEGzBn3mvCzgL9u4Xdq6YEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3CIh4p3x6qEsHkFDRxtCSWeM760MarUfBf+LGXFiOVc=;
- b=5DLiZKJOVGkGw8ReZ1emh/T4T9LrTt7m67M5WQglWOXTkVu6sE8D7el8v6PsmEi99QFgRzm6mTWtIaSURZCWVEa+4pHyg7tMkJ357BCSYqZ6Dguu2Jfj3QA08pmw0JLxRT2z3iiXxn55sdDYEqhhSTyMcdxH958AsBKVDha5mAA=
-Received: from BN7PR06CA0047.namprd06.prod.outlook.com (2603:10b6:408:34::24)
- by DS0PR12MB7606.namprd12.prod.outlook.com (2603:10b6:8:13c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.28; Mon, 27 Feb
- 2023 15:44:34 +0000
-Received: from BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:34:cafe::ed) by BN7PR06CA0047.outlook.office365.com
- (2603:10b6:408:34::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29 via Frontend
- Transport; Mon, 27 Feb 2023 15:44:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT107.mail.protection.outlook.com (10.13.176.149) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.16 via Frontend Transport; Mon, 27 Feb 2023 15:44:34 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
- 2023 09:44:33 -0600
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 27 Feb 2023 09:44:29 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-Subject: [PATCH V4 8/8] soundwire: amd: add pm_prepare callback and pm ops
- support
-Date: Mon, 27 Feb 2023 21:18:01 +0530
-Message-ID: <20230227154801.50319-9-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
-References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=K8NQd64n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1677517982; x=1709053982;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ahUrroTHl6zZ2xmQQr9wwI5mo7+SqybLJn4AYfRsubY=;
+  b=K8NQd64npyUGADTJYtnJsbSgqr1m1lXT1pttwD5cv0V3oOQKMiqe/0ZM
+   6fEWIc0afD2d6P17zTAr2Pwwhp8d2xzWsRLBiIE8Ci2FKTd+oMCUmYQlh
+   P2PGjfW4g3xnBtSkMJeFEt1ShSjiCVluL8Frrun5rBdjcW9ZeDWinZQ99
+   0xQBZXUVpNBGxil251e96kGECkZnA4lLxsjMAoeVHmAYzsLpQmyQ+VqZD
+   V3J78zJfAp/Rkmd7c+XCZHU0WhLyhqDmcGVm0tkCUNn3LF2I7T+8ElyxE
+   Ch/MImnYp4951kbrKy5q7GTAA6SNpKtHSdD4F1ZBLQjGl0wHQ6Jraa9xT
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="313583656"
+X-IronPort-AV: E=Sophos;i="5.98,219,1673942400";
+   d="scan'208";a="313583656"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 09:08:27 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="651302239"
+X-IronPort-AV: E=Sophos;i="5.98,219,1673942400";
+   d="scan'208";a="651302239"
+Received: from jaidenno-mobl.amr.corp.intel.com (HELO [10.212.85.4])
+ ([10.212.85.4])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 09:08:23 -0800
+Message-ID: <606c1b31-d83e-6ef0-8b01-45e7e0be4cbc@linux.intel.com>
+Date: Mon, 27 Feb 2023 11:35:34 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT107:EE_|DS0PR12MB7606:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0943e7c1-6301-46a7-55d3-08db18d98642
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	EOpRmoeN42hEW9yPPOMFpdJlVYVF87aCF4+QXhztbkvvG+jvObBemxlVyDZuXsAS5WSM0ylR+HvnO3OZ7IicTsGxbrfpRWlmgZXrq6HV3UGKqIiYAQU8jZEl3rrWlAwpmbbLCjzqLAmqueRHDUdfVzSQV1qObCLzYZUz1Zqo5VzEagKwk2kK7d7xa4IDcLWo0kBSDdStyiSqHjzdpkYOKByCy5ysoTY9AtpP1Q6Ojwu6lbV3kN6UW3lmbmFKl+ZvyXbsIRlU9tcCwKyfhMTsnpqLJ4y4Pg9kUcRw2tyJEsHvz/SGQ3NHSR5FHnTDdwcbqDYcMPW6/VBIQMu+QDI1n5B7mw0yB22dlDTffrtrqLgKT4Vpw7yPQlBD7wrctkX77KS9ZH+388Yl2vcU/WxBzoY4LxLU57qdahTBVI0kRR62DFSfdJqs0wfOOR5HMZ7fC9J1QHGprFM9mGrIdM48V0/oU5aV2o22fW3F8itLrsMyrIqFp6J+ZargR+B1hd1Q/9yPJPK+HORu5iFhKFa8fxUx0NxFcy9aiHZauT6b10NtWwb/TyxcSNQLcVVlVGmb2TnwHoOlHYL/Mxxv39N4T49oOutLbKugv2BTtJiHYQHSmvWcH0ucnyVfwPnIunSzNgjlgSQjiObBbre8Qm6+ME+VRKBgi40R8ma11Op2FBrbM7refs+V9JK7fQvG7OIscLTRU/ExMDGwvpR6ibkHhpX+i/Gxo9GyTiHU8UpcGF8=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199018)(36840700001)(46966006)(40470700004)(336012)(426003)(47076005)(316002)(36756003)(40460700003)(54906003)(86362001)(40480700001)(356005)(36860700001)(82740400003)(1076003)(6666004)(83380400001)(82310400005)(2616005)(81166007)(186003)(26005)(2906002)(8936002)(5660300002)(7696005)(478600001)(4326008)(41300700001)(8676002)(6916009)(70586007)(70206006)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 15:44:34.2052
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0943e7c1-6301-46a7-55d3-08db18d98642
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7606
-Message-ID-Hash: KSYOVDY5V7V5DTISBVGC4QQA5PAIU2DY
-X-Message-ID-Hash: KSYOVDY5V7V5DTISBVGC4QQA5PAIU2DY
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.1
+Subject: Re: [PATCH V4 2/8] soundwire: amd: Add support for AMD Manager driver
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
+References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
+ <20230227154801.50319-3-Vijendar.Mukunda@amd.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230227154801.50319-3-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: R6CCQXWX46RCLYSQDOLADGEJN7TUVXV2
+X-Message-ID-Hash: R6CCQXWX46RCLYSQDOLADGEJN7TUVXV2
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
- Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
  Sanyog Kale <sanyog.r.kale@intel.com>,
  open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
@@ -142,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSYOVDY5V7V5DTISBVGC4QQA5PAIU2DY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6CCQXWX46RCLYSQDOLADGEJN7TUVXV2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,122 +109,260 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add pm_prepare callback and System level pm ops support for
-AMD SoundWire manager driver.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
----
- drivers/soundwire/amd_manager.c | 89 +++++++++++++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 88f0ad7ea7ec..5337443d9aea 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -1141,6 +1141,93 @@ static int amd_sdw_clock_stop_exit(struct amd_sdw_manager *amd_manager)
- 	return 0;
- }
- 
-+static int amd_resume_child_device(struct device *dev, void *data)
-+{
-+	int ret;
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+
-+	if (!slave->probed) {
-+		dev_dbg(dev, "skipping device, no probed driver\n");
-+		return 0;
-+	}
-+	if (!slave->dev_num_sticky) {
-+		dev_dbg(dev, "skipping device, never detected on bus\n");
-+		return 0;
-+	}
-+	if (!pm_runtime_suspended(dev))
-+		return 0;
-+	ret = pm_request_resume(dev);
-+	if (ret < 0)
-+		dev_err(dev, "pm_request_resume failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int __maybe_unused amd_pm_prepare(struct device *dev)
-+{
-+	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	int ret;
-+
-+	if (bus->prop.hw_disabled) {
-+		dev_dbg(bus->dev, "SoundWire manager %d is disabled, ignoring\n",
-+			bus->link_id);
-+		return 0;
-+	}
-+	/*
-+	 * When multiple peripheral devices connected over the same link, if SoundWire manager
-+	 * device is not in runtime suspend state, observed that device alerts are missing
-+	 * without pm_prepare on AMD platforms in clockstop mode0.
-+	 */
-+	if (pm_runtime_suspended(dev) && amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		ret = pm_request_resume(dev);
-+		if (ret < 0) {
-+			dev_err(bus->dev, "pm_request_resume failed: %d\n", ret);
-+			return 0;
-+		}
-+	}
-+	/* To force peripheral devices to system level suspend state, resume the devices
-+	 * from runtime suspend state first. Without that unable to dispatch the alert
-+	 * status to peripheral driver during system level resume as they are in runtime
-+	 * suspend state.
-+	 */
-+	ret = device_for_each_child(bus->dev, NULL, amd_resume_child_device);
-+	if (ret < 0)
-+		dev_err(dev, "amd_resume_child_device failed: %d\n", ret);
-+	return 0;
-+}
-+
-+static int __maybe_unused amd_suspend(struct device *dev)
-+{
-+	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-+	struct sdw_bus *bus = &amd_manager->bus;
-+	int ret;
-+
-+	if (bus->prop.hw_disabled) {
-+		dev_dbg(bus->dev, "SoundWire manager %d is disabled, ignoring\n",
-+			bus->link_id);
-+		return 0;
-+	}
-+
-+	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		ret = amd_sdw_clock_stop(amd_manager);
-+		if (ret)
-+			return ret;
-+	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-+		/*
-+		 * As per hardware programming sequence on AMD platforms,
-+		 * clock stop should be invoked first before powering-off
-+		 */
-+		ret = amd_sdw_clock_stop(amd_manager);
-+		if (ret)
-+			return ret;
-+		ret = amd_deinit_sdw_manager(amd_manager);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
- static int __maybe_unused amd_suspend_runtime(struct device *dev)
- {
- 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-@@ -1213,6 +1300,8 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- }
- 
- static const struct dev_pm_ops amd_pm = {
-+	.prepare = amd_pm_prepare,
-+	SET_SYSTEM_SLEEP_PM_OPS(amd_suspend, amd_resume_runtime)
- 	SET_RUNTIME_PM_OPS(amd_suspend_runtime, amd_resume_runtime, NULL)
- };
- 
--- 
-2.34.1
+On 2/27/23 10:47, Vijendar Mukunda wrote:
+> AMD ACP(v6.x) IP block has two SoundWire manager devices.
+> Add support for
+>   - Manager driver probe & remove sequence
+>   - Helper functions to enable/disable interrupts,
+>     Initialize sdw manager, enable sdw pads
+>   - Manager driver sdw_master_ops & port_ops callbacks
+> 
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  drivers/soundwire/amd_manager.c   | 749 ++++++++++++++++++++++++++++++
+>  drivers/soundwire/amd_manager.h   | 252 ++++++++++
+>  include/linux/soundwire/sdw_amd.h |  67 +++
+>  3 files changed, 1068 insertions(+)
+>  create mode 100644 drivers/soundwire/amd_manager.c
+>  create mode 100644 drivers/soundwire/amd_manager.h
+>  create mode 100644 include/linux/soundwire/sdw_amd.h
+> 
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> new file mode 100644
+> index 000000000000..63cd8d066602
+> --- /dev/null
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -0,0 +1,749 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * SoundWire AMD Manager driver
+> + *
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/completion.h>
+> +#include <linux/device.h>
+> +#include <linux/io.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/slab.h>
+> +#include <linux/soundwire/sdw.h>
+> +#include <linux/soundwire/sdw_registers.h>
+> +#include <linux/wait.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include "bus.h"
+> +#include "amd_manager.h"
+> +
+> +#define DRV_NAME "amd_sdw_manager"
+> +
+> +#define to_amd_sdw(b)	container_of(b, struct amd_sdw_manager, bus)
+> +
+> +static void amd_enable_sdw_pads(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 sw_pad_pulldown_val;
+> +	u32 val;
+> +
+> +	mutex_lock(amd_manager->acp_sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+> +	val |= amd_manager->reg_mask->sw_pad_enable_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_SW_PAD_KEEPER_EN);
+> +	usleep_range(1000, 1500);
+> +
+> +	sw_pad_pulldown_val = acp_reg_readl(amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+> +	sw_pad_pulldown_val &= amd_manager->reg_mask->sw_pad_pulldown_mask;
+> +	acp_reg_writel(sw_pad_pulldown_val, amd_manager->acp_mmio + ACP_PAD_PULLDOWN_CTRL);
+> +	mutex_unlock(amd_manager->acp_sdw_lock);
+> +}
+> +
+> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val;
+> +	u32 timeout = 0;
+> +	u32 retry_count = 0;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (val)
+> +			break;
+> +		usleep_range(10, 20);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +
+> +	/* SoundWire manager bus reset */
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	while (!(val & AMD_SDW_BUS_RESET_DONE)) {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+> +			break;
+> +		usleep_range(1, 5);
+> +		timeout++;
+> +	}
+> +	if (timeout > AMD_DELAY_LOOP_ITERATION)
+> +		return -ETIMEDOUT;
 
+nit-pick: add a new line here since you're starting a different sequence.
+
+> +	timeout = 0;
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	while (val) {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +		if (timeout > AMD_DELAY_LOOP_ITERATION)
+> +			break;
+> +		usleep_range(1, 5);
+> +		timeout++;
+> +	}
+> +	if (timeout > AMD_DELAY_LOOP_ITERATION) {
+> +		dev_err(amd_manager->dev, "Failed to reset SoundWire manager instance%d\n",
+> +			amd_manager->instance);
+> +		return -ETIMEDOUT;
+> +	}
+
+and same here, this is a new sequence starting here so a newline would help
+
+> +	retry_count = 0;
+> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (!val)
+> +			break;
+> +		usleep_range(10, 20);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +	return 0;
+> +}
+> +
+> +static int amd_enable_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val;
+> +	u32 retry_count = 0;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	do {
+> +		val = acp_reg_readl(amd_manager->mmio + ACP_SW_EN_STATUS);
+> +		if (val)
+> +			break;
+> +		usleep_range(10, 20);
+> +	} while (retry_count++ < AMD_SDW_STAT_MAX_RETRY_COUNT);
+> +
+> +	if (retry_count > AMD_SDW_STAT_MAX_RETRY_COUNT)
+> +		return -ETIMEDOUT;
+> +	return 0;
+> +}
+
+> +static void amd_sdw_ctl_word_prep(u32 *low_word, u32 *high_word, u32 cmd_type,
+> +				  struct sdw_msg *msg, int cmd_offset)
+> +{
+> +	u32 low_data = 0, high_data;
+> +	u16 addr;
+> +	u8 addr_high, addr_low;
+> +	u8 data = 0;
+
+nit-pick: this looks a bit messy, usually it's simpler to have
+initialized variables on separate lines. If you keep the low and high on
+the same line, then at least use the same order.
+
+> +
+> +	addr = msg->addr + cmd_offset;
+> +	addr_high = (addr & 0xFF00) >> 8;
+> +	addr_low = addr & 0xFF;
+> +
+> +	if (cmd_type == AMD_SDW_CMD_WRITE)
+> +		data = msg->buf[cmd_offset];
+> +
+> +	high_data = FIELD_PREP(AMD_SDW_MCP_CMD_DEV_ADDR, msg->dev_num);
+> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_COMMAND, cmd_type);
+> +	high_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_HIGH, addr_high);
+> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_LOW, addr_low);
+> +	low_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_DATA, data);
+> +
+> +	*high_word = high_data;
+> +	*low_word = low_data;
+> +}
+> +
+> +static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lword, u32 uword)
+> +{
+> +	u64 resp;
+> +	u32 resp_lower, resp_high;
+
+nit-pick: resp_low? you seem to use this low/high pattern in a number of
+places.
+
+> +	u32 sts;
+> +	u32 timeout = 0;
+> +
+> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while (sts & AMD_SDW_IMM_CMD_BUSY) {
+> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x previous cmd status clear failed\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		usleep_range(5, 10);
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	}
+> +
+> +	timeout = 0;
+> +	if (sts & AMD_SDW_IMM_RES_VALID) {
+> +		dev_err(amd_manager->dev, "SDW%x manager is in bad state\n", amd_manager->instance);
+> +		acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	}
+> +	acp_reg_writel(uword, amd_manager->mmio + ACP_SW_IMM_CMD_UPPER_WORD);
+> +	acp_reg_writel(lword, amd_manager->mmio + ACP_SW_IMM_CMD_LOWER_QWORD);
+> +
+> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while (!(sts & AMD_SDW_IMM_RES_VALID)) {
+> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x cmd response timeout occurred\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		usleep_range(5, 10);
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	}
+> +	resp_high = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_UPPER_WORD);
+> +	resp_lower = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_RESP_LOWER_QWORD);
+
+nit-pick: newline here.
+
+> +	timeout = 0;
+> +	acp_reg_writel(AMD_SDW_IMM_RES_VALID, amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	while ((sts & AMD_SDW_IMM_RES_VALID)) {
+> +		if (timeout++ > AMD_SDW_RETRY_COUNT) {
+> +			dev_err(amd_manager->dev, "SDW%x cmd status retry failed\n",
+> +				amd_manager->instance);
+> +			return -ETIMEDOUT;
+> +		}
+> +		usleep_range(5, 10);
+> +		sts = acp_reg_readl(amd_manager->mmio + ACP_SW_IMM_CMD_STS);
+> +	}
+> +	resp = resp_high;
+> +	resp = (resp << 32) | resp_lower;
+> +	return resp;
+> +}
+
+> +static unsigned int _amd_sdw_xfer_msg(struct amd_sdw_manager *amd_manager, struct sdw_msg *msg,
+> +				      int cmd, int cmd_offset)
+> +{
+> +	u64 response;
+> +	u32 uword = 0, lword = 0;
+
+couldn't figure out what uword and lword refer to. Is this high/low as
+above or something else?
+
+> +
+> +	amd_sdw_ctl_word_prep(&lword, &uword, cmd, msg, cmd_offset);
+> +	response = amd_sdw_send_cmd_get_resp(amd_manager, lword, uword);
+> +	return amd_sdw_fill_msg_resp(amd_manager, msg, response, cmd_offset);
+> +}

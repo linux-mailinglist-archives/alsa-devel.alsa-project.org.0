@@ -2,122 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10D46A4FBB
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 00:39:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6AF6A4FCF
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 00:49:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B85D220C;
-	Tue, 28 Feb 2023 00:38:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B85D220C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 318E8208;
+	Tue, 28 Feb 2023 00:48:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318E8208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677541173;
-	bh=ixxBTf5Ocgi76s8GFyE+uxGzNzt2DbcOET9UuIiMt50=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1677541743;
+	bh=6rRSWIUOyV/bPjpPtcg6s2wLKCzUHg+yUcTGaXmWvSY=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VC7QAn4qE/HKwcorxJoGpkUgklNZLZjzKkFL8Q+VWXt8IzjH1nRsrmLCehLVVMZkb
-	 PizGO+JmuzpBCPh1SxnmFMEKSAD2BevbP8F7xrFyoKo2lxBCrlVSddn0q6dYHH06G3
-	 zwU721ma/JDIMv2zLlj6/mpRWZJwnDr1wBGeoT2Y=
+	b=Xk0A4n7WULexUp4+zYtKEnWiBXexzef9/lCFe9jR0yL6K3XYOfQ/YFf5Up+/RZI/w
+	 NwLznx6GRFVSrr1HZ5eqAnJXrvklz8BYfXv/GLf0e8VpEBaadfkDVP9I0SUns/vx7C
+	 ql/cHTqEmAMhppAWazl8EMRkvkO/11Nw60lwV7cE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C2CAF802BE;
-	Tue, 28 Feb 2023 00:38:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82B2CF802BE;
+	Tue, 28 Feb 2023 00:48:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1F0BF8049C; Tue, 28 Feb 2023 00:38:37 +0100 (CET)
+	id 3E3D2F8049C; Tue, 28 Feb 2023 00:48:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F3E0F800FA
-	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 00:38:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F3E0F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id C4C86F800BA
+	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 00:48:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C86F800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gFodlIVp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677541111; x=1709077111;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ixxBTf5Ocgi76s8GFyE+uxGzNzt2DbcOET9UuIiMt50=;
-  b=gFodlIVpBRzQc+ItM+FcOcobKhI/hGaVBMsNIjafxyIo+i9xXtvyUeZc
-   ZoWjUcNgX+zsrS4IWvPFMGL3zg9N9dBz2trIbJVhjh+P3AEmhLZZ0HDif
-   1M6IhkhiHlmxZt2mztO76EzTIwyY15/19KuenzPuF04Us865zxLm0urTS
-   rGi/XaVDqHyxaG0cslC17C0fWpAJbkeLY/uxRrMbhOWpKCzlfQGDIP90A
-   VFkQM5bV3BShYinLkgQBxBrwHBaWtGVLoRxhmH/9ZA1tC2tGTiY6/2KiP
-   M/JtEIbqNYb0i1oPHB8ePPlTjMhrgds4wYbiQptv5SFGvwjlPafhgiy3z
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="313672719"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400";
-   d="scan'208";a="313672719"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 15:38:12 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="1002997697"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400";
-   d="scan'208";a="1002997697"
-Received: from jaidenno-mobl.amr.corp.intel.com (HELO [10.212.85.4])
- ([10.212.85.4])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 15:38:10 -0800
-Message-ID: <5d78bbc6-340e-dea8-40c6-d065c7e7a878@linux.intel.com>
-Date: Mon, 27 Feb 2023 18:38:09 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH 1/2] ASoC: max98363: add soundwire amplifier driver
-To: "Lee, RyanS" <RyanS.Lee@analog.com>, Mark Brown <broonie@kernel.org>
-References: <20230224010814.504016-1-ryan.lee.analog@gmail.com>
- <0fb47fe7-719b-0773-fc14-3d62d7d33619@linux.intel.com>
- <Y/zsqjOWFKrpDtl8@sirena.org.uk>
- <d95d15f3-34c3-32df-1a50-0ebce35bf81f@linux.intel.com>
- <Y/z6EB+0beX2Ji2h@sirena.org.uk>
- <SJ0PR03MB66814E588528C771D7BEAB3D8AAF9@SJ0PR03MB6681.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: 
- <SJ0PR03MB66814E588528C771D7BEAB3D8AAF9@SJ0PR03MB6681.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: INPCOUEXJSNFB6F4KWWGB44LHGQPX5KT
-X-Message-ID-Hash: INPCOUEXJSNFB6F4KWWGB44LHGQPX5KT
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=xQwK0UHB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yIkjKxxH
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 19AAD1FDA9;
+	Mon, 27 Feb 2023 23:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1677541683;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3i/mCxhNSrbvf9Qr3qMeM0ojflb+JEmsr0zh2f/Sg0g=;
+	b=xQwK0UHBSe4Pvzau9AkBlToN9kwZe015gxGbBDNnuQDWfnhIyDN9/r/Et0Gs1HBI4i9Vnz
+	d+jE6TNXKprHvm63hjaXTxWxIfgBSFHMo1AvuO4tASfUd6VdqFynqiJ6M7o62AwCcoxCRC
+	eh3ZoRHBZB3J9mm9bQyPnhIqksWjk2Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1677541683;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3i/mCxhNSrbvf9Qr3qMeM0ojflb+JEmsr0zh2f/Sg0g=;
+	b=yIkjKxxHFS3Gbf+d/wgoGqlt8hPK9tOidbFt4BZGGT7XD5MJM9cug+EgZPho+UDc2ZKAzP
+	/N/7ArhiP+XMk5Bw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0319313A43;
+	Mon, 27 Feb 2023 23:48:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id sAZgADNB/WP5awAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 27 Feb 2023 23:48:03 +0000
+Date: Tue, 28 Feb 2023 00:48:02 +0100
+Message-ID: <s5h8rgipt59.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH v2 1/3] ALSA: hda: cs35l41: Correct error condition
+ handling
+In-Reply-To: <ca8e1fe4-1c1e-ff1f-8c61-6c9228edb5ca@opensource.cirrus.com>
+References: <20230213145008.1215849-1-sbinding@opensource.cirrus.com>
+	<20230213145008.1215849-2-sbinding@opensource.cirrus.com>
+	<ca8e1fe4-1c1e-ff1f-8c61-6c9228edb5ca@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF
+X-Message-ID-Hash: ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: =?UTF-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
- "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
- "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
- "wangweidong.a@awinic.com" <wangweidong.a@awinic.com>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
- "ajye_huang@compal.corp-partner.google.com"
- <ajye_huang@compal.corp-partner.google.com>,
- "shumingf@realtek.com" <shumingf@realtek.com>,
- "povik+lin@cutebit.org" <povik+lin@cutebit.org>,
- "flatmax@flatmax.com" <flatmax@flatmax.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+CC: Stefan Binding <sbinding@opensource.cirrus.com>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+ Martin Wolf <info@martinwolf.pub>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/INPCOUEXJSNFB6F4KWWGB44LHGQPX5KT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,86 +121,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
->>> Put differently, SoundWire codec drivers should only deal with
->>> non-standard vendor-specific registers.
->>
->> OK, it'd be good to be clear about what the issue is when reviewing things.
->> The registers *are* in the device's register map but the driver shouldn't be
->> referencing them at all and should instead be going via the SoundWire core
->> for anything in there.
+On Sun, 26 Feb 2023 12:16:43 +0100,
+Richard Fitzgerald wrote:
 > 
-> Thanks for the comment.
-> The only reason I added standard SoundWire registers to the amp driver is
-> to check the values for the debugging purpose because these registers values are
-> important to understand the device status, but it is not visible from the regmap
-> debugfs if those registers are not included on the regmap table of the driver.
-> The driver never controls the standard SoundWire registers by itself.
-> Do you recommend removing the standard SoundWire registers from the driver
-> or keeping it non-volatile?
-> (The reg_default values in the table are all amp reset values and those registers
-> are treated as volatile. I shall clear 'unique ID' field because it is determined by
-> the hardware pin connection.)
+> On 13/2/23 14:50, Stefan Binding wrote:
+> > From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> > 
+> > Function cs_dsp_coeff_write_ctrl() can return 3 possible values:
+> > 0 - no change, 1 - value has changed and -1 - error, so positive value
+> > is not an error.
+> > Fixes: 7406bdbc4fb8 ("ASoC: wm_adsp: Return whether changed when writing controls")
+> > 
+> > Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> > ---
+> >   sound/pci/hda/hda_cs_dsp_ctl.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
+> > index 5433f6227ac9..463ca06036bf 100644
+> > --- a/sound/pci/hda/hda_cs_dsp_ctl.c
+> > +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
+> > @@ -218,10 +218,10 @@ int hda_cs_dsp_write_ctl(struct cs_dsp *dsp, const char *name, int type,
+> >   	cs_ctl = cs_dsp_get_ctl(dsp, name, type, alg);
+> >   	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, buf, len);
+> >   	mutex_unlock(&dsp->pwr_lock);
+> > -	if (ret)
+> > +	if (ret < 0)
+> >   		return ret;
+> >   -	if (cs_ctl->flags & WMFW_CTL_FLAG_SYS)
+> > +	if (ret == 0 || (cs_ctl->flags & WMFW_CTL_FLAG_SYS))
+> >   		return 0;
+> >     	ctl = cs_ctl->priv;
+> 
+> Hi Takashi
+> 
+> Could you queue this patch as a bugfix for 6.2 please?
+> The cs_dsp patch to return 1 for changed has gone into 6.2
+> but we missed that this hda_cs_dsp code would break.
 
-We already have debugfs support for those registers, see
-sdw_slave_reg_show() in drivers/soundwire/debugfs.c
+Could you just request the cherry-pick of the necessary fix commits
+via stable@vger.kernel.org (with Cc to Greg / Sasha)?
 
-It's not the same file as regmap debugfs but the information is already
-there, see e.g. an example on the SOF CI devices:
+I've been still traveling in this week, so it's better for you doing
+that by yourself.
 
-cd /sys/kernel/debug/soundwire/master-0-1/sdw:1:025d:0700:00
-more registers
 
-Register  Value
+thanks,
 
-DP0
-  0	 0
-  1	 0
-  2	 0
-  3	 0
-  4	 0
-  5	 1
-Bank0
- 20	 0
- 22	 0
- 23	 0
- 24	 0
- 25	 0
- 26	 0
- 27	XX
- 28	XX
-Bank1
- 30	 0
- 32	 0
- 33	 0
- 34	 0
- 35	 0
- 36	 0
- 37	XX
- 38	XX
-
-SCP
- 40	 0
- 41	 7
- 42	 0
- 43	 0
- 44	20
- 45	 9
- 46	 4
- 47	XX
- 48	XX
- 49	XX
- 4a	XX
- 4b	XX
- 50	10
- 51	 2
- 52	5d
- 53	 7
- 54	 0
- 55	 0
-
-DP1
-100	 0
-101	 0
-102	 0
-
+Takashi

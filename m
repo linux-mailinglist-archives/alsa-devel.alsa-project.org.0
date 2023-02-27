@@ -2,92 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C14BC6A37E1
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 03:12:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF84B6A3D84
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 09:54:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0B4484A;
-	Mon, 27 Feb 2023 03:11:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0B4484A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 367E384D;
+	Mon, 27 Feb 2023 09:54:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 367E384D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677463960;
-	bh=wrq5jHUabRBflrkWpwE4WjoGLE4YQ9ZqL0e4y3mndnc=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1677488095;
+	bh=1cjR+Xq8SfKyd+hm/j5K52t9SjZ2Kqz/fBguJHl9Mrw=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cl1bzZw1sgo/gQeZNHRtLUp5+nRHkS+/1u5Lk+3rajYf3zzmOjRWdHUyg+s2pQgBI
-	 NTlThCWEAyOhe7UqaoZa2eYaKAyMYPz1cgqjfOw2iGuktvufSjixavNRas2T0vAL+3
-	 qxyWrHTUFvpflNiWsvDB+7KW2Ctj/mvREdKSEwh0=
+	b=Kk8ehXYksTirY1HRFQwwdc89FyzSohmLyEqLTQ2/V7n2bm6uzpe35gc9KOlmF1c40
+	 ACc8QD3c6qsW+ZkWceUwW6vI4EtFxy/BPEslzcC3O9qJv12SbXF7B/nn0BlxD6dSOU
+	 yCnlXMA2diEYHO/91c1Qm1gMpzL0/1AfkjokGxc0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89617F80527;
-	Mon, 27 Feb 2023 03:11:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3007F8053B;
+	Mon, 27 Feb 2023 09:53:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 703C3F80529; Mon, 27 Feb 2023 03:11:46 +0100 (CET)
+	id 7E364F8053D; Mon, 27 Feb 2023 09:52:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [46.235.227.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6B9FF80520
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 03:11:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6B9FF80520
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1ECE1F80236
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 09:52:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ECE1F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=D3bUMv+F
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=XIyPZGUS
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 708B0B80D1D;
-	Mon, 27 Feb 2023 02:11:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B710C433EF;
-	Mon, 27 Feb 2023 02:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677463903;
-	bh=wrq5jHUabRBflrkWpwE4WjoGLE4YQ9ZqL0e4y3mndnc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=D3bUMv+FatucHUXJi+lpEi74SswNSYx4Y/X+8TXxsLuQf5QdWJQyG7eWzgSKJgw7R
-	 9uZZqmxM6/QhOnfB0AbdKyTj+GvFeABDj3sSpIIrfyWSxglnH1SaKqymsC3PKZhj27
-	 3hQxWYbjLfqAKnVyetB9le2OYjTosDiiQpJYyAEdXj78bu+Y4X2SdRXt4FxFpcqpww
-	 hIxcAI1Bcr5GZJOZpZdPN1a7SIcn3zRoi8hiEP//T69i3tHUhtyi7Ts9gDSV4z2Sx4
-	 v0xSOZwCitlYfpCkCuyPCaIXDPabu87GUpm/znAIFZwMmReJU18vBpHF8xSWXiCBF7
-	 cng6f/Jfy8/yQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 4/9] ASoC: kirkwood: Iterate over array indexes
- instead of using pointer math
-Date: Sun, 26 Feb 2023 21:11:26 -0500
-Message-Id: <20230227021131.1053662-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230227021131.1053662-1-sashal@kernel.org>
-References: <20230227021131.1053662-1-sashal@kernel.org>
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 27FFE660230B;
+	Mon, 27 Feb 2023 08:52:17 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1677487937;
+	bh=1cjR+Xq8SfKyd+hm/j5K52t9SjZ2Kqz/fBguJHl9Mrw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XIyPZGUS8NuNQhjSRdzFXQH7V5W3pLmlbZbKtXq601AbToU/PdBQ459erH1nO1gTi
+	 A++sXxNeBe8oO7PVeH0oiUeeAfPQ9nfqdPlZOgd/yxYiTQXPqCuDF4YEfsbu9VhplK
+	 mVir1CDVv66TueYNfAJlivi/XeEo2hPpbj+b0Xkh4O1TkNqMbQOIpun0gRHR4/LtEF
+	 AmvwOZQjuQHKoyMDobuourF4wxH8j0Ip3eHkexHUXpuk3PFEgE5CVgAODAn8NQJl2K
+	 UcujQrVARxpKEYvU2gOI+lOcy51hjCyZHxPZX5RgKb0gb4Sh8piRU5OBTFqoq5hV+q
+	 5cNu18kR8a16g==
+Message-ID: <14138157-aff8-2a60-ec97-12495f30dd8f@collabora.com>
+Date: Mon, 27 Feb 2023 09:52:14 +0100
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GPHXVRPKHU2BK4TLDMDLWTJ3F3RZ3VTY
-X-Message-ID-Hash: GPHXVRPKHU2BK4TLDMDLWTJ3F3RZ3VTY
-X-MailFrom: sashal@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 4/4] ASoC: mt8192: Fix range for sidetone positive gain
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+References: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
+ <20230223-asoc-mt8192-quick-fixes-v1-4-9a85f90368e1@kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20230223-asoc-mt8192-quick-fixes-v1-4-9a85f90368e1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WAOD3PFT3NZ6XIJP47ALJ2T234YK3RMH
+X-Message-ID-Hash: WAOD3PFT3NZ6XIJP47ALJ2T234YK3RMH
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Kees Cook <keescook@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, Sasha Levin <sashal@kernel.org>
+CC: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GPHXVRPKHU2BK4TLDMDLWTJ3F3RZ3VTY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAOD3PFT3NZ6XIJP47ALJ2T234YK3RMH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,47 +103,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kees Cook <keescook@chromium.org>
+Il 24/02/23 15:03, Mark Brown ha scritto:
+> The Sidetone_Positive_Gain_dB control reports a range of 0..100 as valid
+> but the put() function rejects anything larger than 24. Fix this.
+> 
+> There are numerous other problems with this control, the name is very non
+> idiomatic and it should be a TLV, but it's ABI so probably we should leave
+> those alone.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
 
-[ Upstream commit b3bcedc0402fcdc5c8624c433562d9d1882749d8 ]
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Walking the dram->cs array was seen as accesses beyond the first array
-item by the compiler. Instead, use the array index directly. This allows
-for run-time bounds checking under CONFIG_UBSAN_BOUNDS as well. Seen
-with GCC 13 with -fstrict-flex-arrays:
-
-../sound/soc/kirkwood/kirkwood-dma.c: In function
-'kirkwood_dma_conf_mbus_windows.constprop':
-../sound/soc/kirkwood/kirkwood-dma.c:90:24: warning: array subscript 0 is outside array bounds of 'const struct mbus_dram_window[0]' [-Warray-bounds=]
-   90 |                 if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
-      |                      ~~^~~~~~
-
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Link: https://lore.kernel.org/r/20230127224128.never.410-kees@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/kirkwood/kirkwood-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
-index 35ca8e8bb5e52..9736fb36082fb 100644
---- a/sound/soc/kirkwood/kirkwood-dma.c
-+++ b/sound/soc/kirkwood/kirkwood-dma.c
-@@ -90,7 +90,7 @@ kirkwood_dma_conf_mbus_windows(void __iomem *base, int win,
- 
- 	/* try to find matching cs for current dma address */
- 	for (i = 0; i < dram->num_cs; i++) {
--		const struct mbus_dram_window *cs = dram->cs + i;
-+		const struct mbus_dram_window *cs = &dram->cs[i];
- 		if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
- 			writel(cs->base & 0xffff0000,
- 				base + KIRKWOOD_AUDIO_WIN_BASE_REG(win));
--- 
-2.39.0
 

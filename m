@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ADCF6A37C7
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 03:11:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 657AB6A37D9
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Feb 2023 03:11:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 639C484A;
-	Mon, 27 Feb 2023 03:10:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 639C484A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE0B7852;
+	Mon, 27 Feb 2023 03:11:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE0B7852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677463887;
-	bh=cFpbj60kZHtj6RC5MZkO/nVr1a2Em6G/gnlTG83I51U=;
+	s=default; t=1677463913;
+	bh=OeGSgoZHxlxuB0GxHTd+DiB/i8v0b+Z7449EpWMtVjQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VUkQzBCaB2p4Mt+3hST5J62VURKyg737xSOUZlVAt24iPcLGEQtar0H6OlpYcLeQ+
-	 rRrCe7SgA4ZetQdm8wGlWf2U1Jirwp2eerWXux2IfpXicMODsWtIfjdrG5SnmEuoaQ
-	 WVn0fPQYyjWybBjqn2FOhUeBQnpARA9ZI6YMns1I=
+	b=OS//OWEXn8iHR0MLYny1+hbFNSwD/HcgLCMk4wWwudvbIAe+c/Y/3M2srQIcKi0RB
+	 QX9+X+YF/k2R1T0osNvijZU6Sf8MisbhWrkYP0FG9e6IdJNgnwoVf1W81I0AQFsFo1
+	 fiTTXnnHNYRom+mbG58pTlSp5XGSFUVKse/vG+EU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07B85F8052D;
-	Mon, 27 Feb 2023 03:10:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59946F8049C;
+	Mon, 27 Feb 2023 03:11:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7040AF8052E; Mon, 27 Feb 2023 03:10:25 +0100 (CET)
+	id C6430F804B1; Mon, 27 Feb 2023 03:11:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2164F80529
-	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 03:10:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2164F80529
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24EA4F802BE
+	for <alsa-devel@alsa-project.org>; Mon, 27 Feb 2023 03:10:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24EA4F802BE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Jzsdcd7p
+ header.s=k20201202 header.b=PZ5CAvA6
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 3D847B80D11;
-	Mon, 27 Feb 2023 02:10:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD07C433D2;
-	Mon, 27 Feb 2023 02:10:21 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E1C7D60DD3;
+	Mon, 27 Feb 2023 02:10:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA00C433EF;
+	Mon, 27 Feb 2023 02:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677463822;
-	bh=cFpbj60kZHtj6RC5MZkO/nVr1a2Em6G/gnlTG83I51U=;
+	s=k20201202; t=1677463857;
+	bh=OeGSgoZHxlxuB0GxHTd+DiB/i8v0b+Z7449EpWMtVjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Jzsdcd7pJYnZ9dB9dT3/a+8KXIVIKQsOe/CSKOes+yXAwXPaG57zH1c3kLMg9QEpN
-	 pM6RIbJ+OpOE6XArvJ0CE/NO6MWmkJIYzWqq//O/3acfx5srBPgJTQH0RnnJozupcr
-	 bhvXTNhVjUGBDOq4omv0orJW02ELqwj8BXyCsua0P+hJcItrY9WTVKiVxUqFR3DWQe
-	 MVBeA4ylSoi9gK5VSGWvdsymswgi1eTWEbVBI1hKsroHQSwk735ISwMWhxgOkpZ43r
-	 U9Nl1glVGloXWf4hUrLmG33lr/xdEc/QYexdnTbPUdst38NfyRdqNFlGVgUK5LsMiG
-	 sjGlBlM2ebqog==
+	b=PZ5CAvA6LKwubEp1q4GVoQuD+0xxuvcehHx5gMKmLhtn5AN5TfGeU4NvDglkYZc3o
+	 KdUrXQQSUIOaFssobYWIZJ52/L0t2rjTNZgHRLBGNWYLk978AuUZctiDgJnH30XF8q
+	 avfjb0DPXVaqEgft/U8EVcTYsFm9TmX4+OANIzKqQeOKCZCDO7yW+BfriCbxUB0ZHd
+	 +xdfGiJVRbUoEV2Zom5K7MiHv0Drqq6z/nUImomRjdyIwGXRQX+UuaWaDKirbaOkjO
+	 aaEjeEI+REd7fUltzHF9a1ZFnvOeE896LtMrRdoBWbU4l08hSqzRtEA3A+/G9Wtkuw
+	 eJqb++4i7DZBw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 09/19] ASoC: kirkwood: Iterate over array indexes
+Subject: [PATCH AUTOSEL 5.4 07/15] ASoC: kirkwood: Iterate over array indexes
  instead of using pointer math
-Date: Sun, 26 Feb 2023 21:09:44 -0500
-Message-Id: <20230227020957.1052252-9-sashal@kernel.org>
+Date: Sun, 26 Feb 2023 21:10:26 -0500
+Message-Id: <20230227021038.1052958-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230227020957.1052252-1-sashal@kernel.org>
-References: <20230227020957.1052252-1-sashal@kernel.org>
+In-Reply-To: <20230227021038.1052958-1-sashal@kernel.org>
+References: <20230227021038.1052958-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L7YSQPADU4CQNPA5GT2CVQXEUU74Q2GY
-X-Message-ID-Hash: L7YSQPADU4CQNPA5GT2CVQXEUU74Q2GY
+Message-ID-Hash: FQ2JMQ33VJEK4XXQJQCC7RF2IPDFQ3Y5
+X-Message-ID-Hash: FQ2JMQ33VJEK4XXQJQCC7RF2IPDFQ3Y5
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7YSQPADU4CQNPA5GT2CVQXEUU74Q2GY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQ2JMQ33VJEK4XXQJQCC7RF2IPDFQ3Y5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,7 +126,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
-index e037826b24517..2d41e6ab2ce4e 100644
+index d2d5c25bf5502..0215d187bdff5 100644
 --- a/sound/soc/kirkwood/kirkwood-dma.c
 +++ b/sound/soc/kirkwood/kirkwood-dma.c
 @@ -86,7 +86,7 @@ kirkwood_dma_conf_mbus_windows(void __iomem *base, int win,

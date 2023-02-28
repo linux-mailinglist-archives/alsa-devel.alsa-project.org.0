@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A186A5E87
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 19:01:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE836A5E88
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 19:02:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 642B6826;
-	Tue, 28 Feb 2023 19:00:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642B6826
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3ADC828;
+	Tue, 28 Feb 2023 19:01:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3ADC828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677607298;
-	bh=g/zRMqEHWvrUdMovSA/zwPxEgtx1YbVsjFwL8peZugg=;
+	s=default; t=1677607349;
+	bh=R/7POyqmq1O7Bzcc0o56fhcltvP3fzPvqgmzOYaJR8U=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NKDZ8ZUlqGKUkY86SPm8zCNN2wloD9+Lb5CIHtmehd6WXlDogCMnXql06/+GkEBiM
-	 rGYKqBdOB7zpjjOF8sPS7/GXJ6qJdkU7W5r4sK/tHqI9ev4RHUhUJ/rw4dpLhK72nK
-	 vlYPgBRx9K7AYIrlieW5fur0vB/QcEydG9aItffU=
+	b=pYJGBp2Ttvg6pPgnvfrFK0JakEpooWTBho5wlaYHm0yrFWgb3+ZbUrAL9E//sDRz8
+	 VkohSAfN2FCkBHAcw/0YmTRwl1yNwYc1YwqVpjT2oUv0YZufK8TB57NaDEFNbqTo+r
+	 DAHYF0fT0Eao3n5n+W+i7lrkAkmdebL6bUloKI7A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55C3AF800FA;
-	Tue, 28 Feb 2023 19:00:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93F83F80527;
+	Tue, 28 Feb 2023 19:00:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21BF3F8051B; Tue, 28 Feb 2023 19:00:42 +0100 (CET)
+	id 502E1F8051B; Tue, 28 Feb 2023 19:00:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 787E6F800BA
-	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 19:00:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 787E6F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B2FEAF800FA
+	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 19:00:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2FEAF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HZobxikk
+ header.s=k20201202 header.b=ufFPg2bk
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4A8C261179;
+	by ams.source.kernel.org (Postfix) with ESMTPS id 98503B80E9D;
+	Tue, 28 Feb 2023 18:00:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F8FC4339B;
 	Tue, 28 Feb 2023 18:00:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BD8C433D2;
-	Tue, 28 Feb 2023 18:00:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677607230;
-	bh=g/zRMqEHWvrUdMovSA/zwPxEgtx1YbVsjFwL8peZugg=;
+	s=k20201202; t=1677607233;
+	bh=R/7POyqmq1O7Bzcc0o56fhcltvP3fzPvqgmzOYaJR8U=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=HZobxikkQG2ou9HWf9cwO80G/+gCBkcX18aLab76EEwpTtYw+lxF8IHqxBAC6+GXJ
-	 BlkOzb9P9w01cIPARw6UG+mydWBCXarm5pTkQ/RmNVbBI10GrzvoGeExZLBRKCSgeF
-	 I8s7vbJ7tshwQ8R5n9o9pz/Dbtic7IqxKrxQB+tV7jjiB4Idr3n6T8fDtTwoueM4Jj
-	 lM9v8Ed7TbLgf5FNexWIfvjADWwcPYMGqwCU4vpk7fc5QyS+VP2xqGw6Gy7od/kMY/
-	 Klpv/cAv4vLHt+IuQnw04T/aUYaxaMCCeIxFV4sFZvVOsWNjst+9TL9BqyEQMVNs7K
-	 TK4UF3I2GouTA==
+	b=ufFPg2bk7+2WvYWDcsSzbKVfit/Oft1Z9PyGt9qcvsTWxLyJQyohKsbFi+/dk0iDu
+	 km0RaMt8Bavvj0U/VhMKENOFNz1DYEETmuezgKRzogenDXOlan858UhcnXK+GYQ45K
+	 J/zvr4SU7u6UjxLMUjY3dKH+1yUOkRNXmIZWX6ylj/nhBlo0ajPbHIDWWw3GaaTG1G
+	 zaYZVn6Mbac0SC0QqiTENjFGm+BxEKHwpMviez02BruQ+YkzXtZgFEiBAW4WktFGKm
+	 pjnSrNUAITG1euMH4biu6bhLdzwdmEC6LYYMlmi1216SFeMlt/nKdBLdaI3kWNhA7R
+	 ncmAHUGky6uWg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Mark Brown <broonie@kernel.org>
-In-Reply-To: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
-References: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
-Subject: Re: [PATCH 0/4] ASoC: mt8192: Fixes from initial glance at
+In-Reply-To: <20230224-asoc-mt6358-quick-fixes-v1-0-747d9186be4b@kernel.org>
+References: <20230224-asoc-mt6358-quick-fixes-v1-0-747d9186be4b@kernel.org>
+Subject: Re: [PATCH 0/3] ASoC: mt6358: Fixes from an initial glance at a
  kselftest run
-Message-Id: <167760722797.68866.15387830398391668204.b4-ty@kernel.org>
-Date: Tue, 28 Feb 2023 18:00:27 +0000
+Message-Id: <167760723093.68866.904867313003535507.b4-ty@kernel.org>
+Date: Tue, 28 Feb 2023 18:00:30 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-ada30
-Message-ID-Hash: IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M
-X-Message-ID-Hash: IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M
+Message-ID-Hash: XIUNJ6WCLY5VQEYLYZ4B5EHKUH5SRCXT
+X-Message-ID-Hash: XIUNJ6WCLY5VQEYLYZ4B5EHKUH5SRCXT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -83,13 +82,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 CC: =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
  alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+ linux-mediatek@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XIUNJ6WCLY5VQEYLYZ4B5EHKUH5SRCXT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,15 +97,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 24 Feb 2023 14:03:54 +0000, Mark Brown wrote:
+On Sun, 26 Feb 2023 12:47:55 +0000, Mark Brown wrote:
 > This is a collection of fixes I came up after glancing through an
-> initial test run with the Spherion Chromebook on KernelCI.  There are
-> more issues flagged, this is just what I fixed thus far - the volume
-> controls on the MT6359 have issues for example, and a lot of controls
-> aren't marked as Switches like they should be.
+> initial test run with the snappily named Kukui Jacuzzi SKU16 Chromebook
+> on KernelCI.  There are more issues flagged, this is just what I fixed
+> thus far.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -114,14 +111,12 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: mt8192: Remove spammy log messages
-      commit: 5df1a5d28449f2b98ff84f69dea74b06f9b8e362
-[2/4] ASoC: mt8192: Fix event generation for controls
-      commit: b373076f609993d333dbbc3283b65320c7a41834
-[3/4] ASoC: mt8192: Report an error if when an invalid sidetone gain is written
-      commit: 05437a91173b8780692ac35313f98cac68be7c42
-[4/4] ASoC: mt8192: Fix range for sidetone positive gain
-      commit: ce40d93b062c0bdcd29218c12ab1dba544382dd8
+[1/3] ASoC: mt6358: Fix event generation for wake on voice stage 2 switch
+      commit: 3425ddaea57af77ca96a59a5b8eaa2f9e1b021ba
+[2/3] ASoC: mt6358: Validate Wake on Voice 2 writes
+      commit: 8e847a43c28fca0aaa11fba8f91da7dfd9d6936f
+[3/3] ASoC: mt6358: Remove undefined HPx Mux enumeration values
+      commit: 8cbd7273a724d4e9615b26d696bb1221a8a48e4c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

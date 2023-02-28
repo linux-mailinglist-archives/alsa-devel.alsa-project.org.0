@@ -2,117 +2,175 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6AF6A4FCF
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 00:49:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 977AF6A5059
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 02:01:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 318E8208;
-	Tue, 28 Feb 2023 00:48:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318E8208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DB58208;
+	Tue, 28 Feb 2023 02:00:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DB58208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677541743;
-	bh=6rRSWIUOyV/bPjpPtcg6s2wLKCzUHg+yUcTGaXmWvSY=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1677546068;
+	bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Xk0A4n7WULexUp4+zYtKEnWiBXexzef9/lCFe9jR0yL6K3XYOfQ/YFf5Up+/RZI/w
-	 NwLznx6GRFVSrr1HZ5eqAnJXrvklz8BYfXv/GLf0e8VpEBaadfkDVP9I0SUns/vx7C
-	 ql/cHTqEmAMhppAWazl8EMRkvkO/11Nw60lwV7cE=
+	b=uRUTCxO1+IIGkOyMgl1GIBFKhyLkuCS+Z+QMQc+qqTIDCzt6wK3Xwh2Z0zSe/T2yb
+	 0LgQd8eQHMP3Z5FF4Tl2s4OPQVvh818i6IQ2j5m3BCvzx2tTaYEWixPxDfShXnd95Y
+	 Ppu5QWib7XUhy/78zs+d8JTqij/AuFuIZSWnEmrU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82B2CF802BE;
-	Tue, 28 Feb 2023 00:48:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BCF5F800DF;
+	Tue, 28 Feb 2023 02:00:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E3D2F8049C; Tue, 28 Feb 2023 00:48:09 +0100 (CET)
+	id E90F0F800BA; Tue, 28 Feb 2023 02:00:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4C86F800BA
-	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 00:48:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C86F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62ACAF800DF
+	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 01:59:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62ACAF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xQwK0UHB;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=yIkjKxxH
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 19AAD1FDA9;
-	Mon, 27 Feb 2023 23:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1677541683;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3i/mCxhNSrbvf9Qr3qMeM0ojflb+JEmsr0zh2f/Sg0g=;
-	b=xQwK0UHBSe4Pvzau9AkBlToN9kwZe015gxGbBDNnuQDWfnhIyDN9/r/Et0Gs1HBI4i9Vnz
-	d+jE6TNXKprHvm63hjaXTxWxIfgBSFHMo1AvuO4tASfUd6VdqFynqiJ6M7o62AwCcoxCRC
-	eh3ZoRHBZB3J9mm9bQyPnhIqksWjk2Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1677541683;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3i/mCxhNSrbvf9Qr3qMeM0ojflb+JEmsr0zh2f/Sg0g=;
-	b=yIkjKxxHFS3Gbf+d/wgoGqlt8hPK9tOidbFt4BZGGT7XD5MJM9cug+EgZPho+UDc2ZKAzP
-	/N/7ArhiP+XMk5Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0319313A43;
-	Mon, 27 Feb 2023 23:48:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id sAZgADNB/WP5awAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 27 Feb 2023 23:48:03 +0000
-Date: Tue, 28 Feb 2023 00:48:02 +0100
-Message-ID: <s5h8rgipt59.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [PATCH v2 1/3] ALSA: hda: cs35l41: Correct error condition
- handling
-In-Reply-To: <ca8e1fe4-1c1e-ff1f-8c61-6c9228edb5ca@opensource.cirrus.com>
-References: <20230213145008.1215849-1-sbinding@opensource.cirrus.com>
-	<20230213145008.1215849-2-sbinding@opensource.cirrus.com>
-	<ca8e1fe4-1c1e-ff1f-8c61-6c9228edb5ca@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF
-X-Message-ID-Hash: ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=Im042UNl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jvQA/Zt8D3y2VuvI9yOPQGSFcPh9JzL0BOz3XWCWOMn4SG/sqL/OvUUUzImjLvTBHNvosbZWCP7at7kkTIHk9dbTXe0dl7rrnc9Df70pvagoKpBzgphfGx9+XM39lTIxXBW649VqDiVIs3HyvZYt8gQ2lpj7X6mENptLJ9n4DzvasRQPyaLLdGQrjiZ732cOgGxY1Qkxsnlt9RpkIcXZWec8GZQeiK/FlKCvh6EPV1T4eHoNQUnYW50hFewPCEsImVhsib+A25ewc3Q+IQQ0Hwo6ipO2iLMHcVyRSm99NScuALZbR0lLNqKInEt8vG53ppY8MTui4/IO0/ZC+TExeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
+ b=ASY6U7HUAEtGDIt9NpRzXRuXL3feC/Zl8o3DB7fAi4FuN+925Oelpl3yxIzCOCcyg9MsSpkNf3gl2bqhbDpHMCg7pLABRlcr0tIpKsrWFU70aE4N+CaKIMng4OXe0Sg5xriBKR8A39wEPp2BnCoXOkSJlc6szoNTQVEbSMSlCZgE9ZIlCCAATiPc0W8XXGIN2OtVKhOXsP8/85V39uO13Nrp3zRrRYYdiKwz+seoVK4OvYgtYQPHSA+kEfEW2EBecdMS8MOrFKq25Mtx21MGVsibpjYeGQd0kH66rsL/q+tWnbeQf+B60pKXsoKiIwKFuX879Hcq4H9YnPvzmF6xkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
+ b=Im042UNlb4P3kGNV5xrgjwB8cGH9ENGbFeSVoLhePCuwDKDINCr3s7rGjwkug1NtMbu2PZ5VsJW1dlagyD6oditAAGEN8rkGi23mCLbTPPm1tJsy+gjwH1n291w2ArF5rj7Xdk82OX4nj2ZlsMZ0AFCPXKR0zL7vAC0YqHTkM3Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by BL0PR12MB4961.namprd12.prod.outlook.com (2603:10b6:208:1c9::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Tue, 28 Feb
+ 2023 00:59:54 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6134.030; Tue, 28 Feb 2023
+ 00:59:54 +0000
+Message-ID: <64888213-0fc9-cea4-fdea-fa51bdcbf0bb@amd.com>
+Date: Tue, 28 Feb 2023 06:33:52 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH V4 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
+ <20230227154801.50319-9-Vijendar.Mukunda@amd.com>
+ <82c7303b-131e-0633-2c08-5b4b414ad941@linux.intel.com>
+ <acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com>
+ <3a6d02a6-0b1d-6e9e-2f14-337373edec48@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <3a6d02a6-0b1d-6e9e-2f14-337373edec48@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0219.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:ea::13) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|BL0PR12MB4961:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac7d729b-3963-4bc6-8119-08db19271890
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ci+hZ4L5c4rvwoGtmfQIPeqM93Tg3rcSfCCw+p46RreWwxvaDqido4w4unMrg/HMfxXxxBMOGSIWeU3soH0sOIuoFpCWvDJhbnEEkXAM3ao29G5M5/vQ34UWAIesLy4xtHX9bMo6dNUj5Fq1jg7L75cE3+mdU5R98dDqQ/jT2YYhxjYsCK7lVcNn+SVsisRSaI5eAuIT6pg9GZW1QoZlkqYVc1PFmHGnLvOF1j7duQGoIBaGWbu9IO/sV+EIOHfGJ96rNdiChRyMZG0BZfjfyyMEy6w7V4FKRQebtnzaN9ddP+CpUgTAUl76yRyHT5X5sIGUbCi62SfkpZMKny0MhYF8Oa1XAMZmDBfbgQazGiomxquaekl6LD8rZ533t3/we9OEnHLG5ajc1Dr0ICo2pTS87USkg6USRei185G9VbJdXLw/1cWsdpUoOQafhWaq24kGIiEHqqBV6pePXvqimiRFyo57joEAfLVx2V5/0BtQlheM0H7usJGGFa1Y6NwgOVuvUduwj/jH8czebdJj4V+RccWD1p0MpIywm+NkuK1yzr/HYvXceZGTF3rfY5T31jhsvb8Z75v7NgPmBGKKWo+I1wOsEg2YO1Sny9KEyRA+PpBm3UfgtbJ/Kzl1R2o1pBaJZfajMnCSalB+AzEYyJAA8RPhfhtl8UUhAof7U+EcOy4OkekbmJhQcVOM52MfnLUmVa5vWFUnTioAA4P9OlP1Iwbt4ZO093EfhY/LYqm+MHwR8TeTnmxDFkdc6UiJ
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(451199018)(2906002)(31686004)(5660300002)(8936002)(66476007)(36756003)(4744005)(54906003)(66946007)(41300700001)(86362001)(31696002)(6486002)(966005)(478600001)(4326008)(66556008)(8676002)(6512007)(316002)(38100700002)(6506007)(53546011)(186003)(26005)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?SmYreEdUQlhtRmtWQWJoNXdvdzRUZ1R3anp2bTZkOWJIR0l6SEtsOG5nQyt4?=
+ =?utf-8?B?dWhoWXh0cEp2Q1haNUpnRlhVY1FyaTBFZHdzaFQzSE1OWGl5WnJFU25aOFNa?=
+ =?utf-8?B?U0hoQm9jbHdCaDR0blBlclBqQXV4N1BXbk5USlAyT3d6cUZhY3hHSTh5S1FT?=
+ =?utf-8?B?ZHdhaU1HeHhyQmkrdHdLSjROSU5UMnBGYUpQZU85TW5DdUxNRXhkWURZN1BF?=
+ =?utf-8?B?MWV5dGhaeXJUTmRCTkNMM0xKWnVJRjJ0VVNpNkRGczZic1BBL1d6cWRyTkVv?=
+ =?utf-8?B?RUwybXVlUk9XT0lNY2pPUGxqU05jUzEvS0NFRUtaQ3RMZGdSZjd3SXU3U1hQ?=
+ =?utf-8?B?NHhUdXRVUTNwNm40eGFhT211QUhCTjkyZWJnZ0NqRFc2VVRvSDhIb0ZCV1I0?=
+ =?utf-8?B?azd5ZDRnb1FjRkV1R0RFRXVjRXF3Rk5pcUhlK3RMYnRoTXFaaUJzSngvMlh1?=
+ =?utf-8?B?VTJYQWV1VDVsbG02OGZDWGh3c3M1VThvMUF1WGlDK3F1QUZHSVlzSGFEQVY3?=
+ =?utf-8?B?cG9vYVBSMHhncGZuUzl3NlRtZit3TWxDekhkQlMrOWlsN00xdFNiTk8vdHZE?=
+ =?utf-8?B?dVlHaXBHaVZCVWNlTm81RWtuaGdpYm1tWHBWQU9qOStPK1F3TTRqOGJoUjYx?=
+ =?utf-8?B?Yy9acmJmKzlPaEtGbkZaQS9Jenl1TDhXM1dLWUY0MzB5QWFCZEtrQkVycldz?=
+ =?utf-8?B?VlQ5WDZWTGdNWm9BenBkMlNKNlJkTitXWE5aRGZxN1ljTjlRaXlwNnQ0SVhr?=
+ =?utf-8?B?eEdGdGFxUkpWaEszZmNqMDRldnhidzhIQ0Zoc2lDS3hzWTllak9xaHlkamZY?=
+ =?utf-8?B?ZjhDWWYwa1hCTHU5aDhUMTJoOEhTbGo4TUkyNnRLT0dHTzFhUmlmcERQVlNZ?=
+ =?utf-8?B?clVoY1lpUWVmbU1kT3BoYXBSM0tOM0ZHak9QaTg1Mnp3Y21FalFKK21XU005?=
+ =?utf-8?B?SHB4bzBqdXJHNzY1bDlPamIxM2FQbnQ5WE1CYW8rM0d0U2FBRDBrTU10QVhk?=
+ =?utf-8?B?YkFtRURLUE8zUFo5ZE5IMFFvRVFFeC9YSjMwRHQ0eUlOVktLa1pxc0luQXRk?=
+ =?utf-8?B?Ri9rN3V3amxEWWlBUDczMUtRK29FZlJCWk05R0Q0dERkeHoxMVRQVVJMUHJK?=
+ =?utf-8?B?K1dQS3lReE1lVDR4ZnN0QWczYlIrZzVaNytpcktQVDgrWG9XQ1hsVndZYlB1?=
+ =?utf-8?B?RlhReWNrYmErWkdTV2Z1QWcvRTFVMmlobEY4Z1J1dE04TjMwUFExNnZMMlhP?=
+ =?utf-8?B?eFkvNFNNeXlMZ3pEcit5WmVFQkdVSzlKL3JNc0RkU1lZSXVGNnYwQjcySGRi?=
+ =?utf-8?B?VjRXcm42UmNvc25MdmdMTmhVa0hZSjBxVGw3bWZvalcwZkYyU3k3Z3RnTTUy?=
+ =?utf-8?B?eVh6amxlSzB5SnVLZG4wVEpXNzhTVFFVQ2Rxa1lNQnRQYS9aMWxnTjJmYXFM?=
+ =?utf-8?B?NzdjY3U5UTQwdVVYUzFUbXpZRm5jL3cvZHZWS0VFR2tVVzBxd1FjYU44bWdk?=
+ =?utf-8?B?QmVaTDBPZW95cDdiUURzMUN4emNsVVlRaUg5V3p1RmRnd0tDWkZRcmRsMFZV?=
+ =?utf-8?B?cVVLVmhFV2JRNVlRZmg0MWt2cU5RTFJGckp0K2hudmFUd1RjTWNNbzM5Sm04?=
+ =?utf-8?B?QkFBamQ0UkdJcTNqTXVJVnRBOGVadk1TMFJPYll5QTBQd0NDT05KaG5ldWhx?=
+ =?utf-8?B?UDlqMXdLSXFWMWJLOTI4Z2RDbmlvUUF3QllnZW1EQkpWemNONmVwRVlTVENM?=
+ =?utf-8?B?VVJlNEc1ZlFQamNsOGNLV1NPbFllbFdwdTBFMVFxWTJwcEFVNzNDeXdhZ3pp?=
+ =?utf-8?B?ckF2d3NCR1k4WndFd0M4UnVId0NQUThGTVoyQzhDRnFJK2l5TlRCRFhGMzE5?=
+ =?utf-8?B?L1EwMlJKdE0zaVRaQXZsYk0wQmxVOFg2SzlSOUEwbUowQ0plWWpPczhxbVU0?=
+ =?utf-8?B?YkdtN3IxbVZDZy9SQjFPODhPYzZQTUFmcktHZCt0bjZPQWtJN1JpdTlNWjNC?=
+ =?utf-8?B?TUh6NXFXUjc5c09xVUQxY3p6VmJsSXR5OVVoWDUvanB4SWlLaW1mcGVaL1Zz?=
+ =?utf-8?B?T2JNNWh4cE1EUm1GelNidUR4UHorZ0hhVWIvaG1zc0hkQmt3disyV3FLUlBI?=
+ =?utf-8?Q?LSzM+NxXc2AVEOoadgs2iCj+a?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ ac7d729b-3963-4bc6-8119-08db19271890
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 00:59:53.5229
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Iatg8+Tr2zFdJzcGXA+2Fy/Dw/XgzTTxEADjgEe3Vx1DtQiIN1HqYst/7rYe9tfRi9WSyg4t73R2YLBIbNweyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4961
+Message-ID-Hash: MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF
+X-Message-ID-Hash: MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Stefan Binding <sbinding@opensource.cirrus.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- Martin Wolf <info@martinwolf.pub>
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ALA7SNWAX5ZVI4ZGF3UPWSPZWOXJ6SKF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,52 +179,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 26 Feb 2023 12:16:43 +0100,
-Richard Fitzgerald wrote:
-> 
-> On 13/2/23 14:50, Stefan Binding wrote:
-> > From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> > 
-> > Function cs_dsp_coeff_write_ctrl() can return 3 possible values:
-> > 0 - no change, 1 - value has changed and -1 - error, so positive value
-> > is not an error.
-> > Fixes: 7406bdbc4fb8 ("ASoC: wm_adsp: Return whether changed when writing controls")
-> > 
-> > Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-> > Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> > ---
-> >   sound/pci/hda/hda_cs_dsp_ctl.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
-> > index 5433f6227ac9..463ca06036bf 100644
-> > --- a/sound/pci/hda/hda_cs_dsp_ctl.c
-> > +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
-> > @@ -218,10 +218,10 @@ int hda_cs_dsp_write_ctl(struct cs_dsp *dsp, const char *name, int type,
-> >   	cs_ctl = cs_dsp_get_ctl(dsp, name, type, alg);
-> >   	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, buf, len);
-> >   	mutex_unlock(&dsp->pwr_lock);
-> > -	if (ret)
-> > +	if (ret < 0)
-> >   		return ret;
-> >   -	if (cs_ctl->flags & WMFW_CTL_FLAG_SYS)
-> > +	if (ret == 0 || (cs_ctl->flags & WMFW_CTL_FLAG_SYS))
-> >   		return 0;
-> >     	ctl = cs_ctl->priv;
-> 
-> Hi Takashi
-> 
-> Could you queue this patch as a bugfix for 6.2 please?
-> The cs_dsp patch to return 1 for changed has gone into 6.2
-> but we missed that this hda_cs_dsp code would break.
-
-Could you just request the cherry-pick of the necessary fix commits
-via stable@vger.kernel.org (with Cc to Greg / Sasha)?
-
-I've been still traveling in this week, so it's better for you doing
-that by yourself.
-
-
-thanks,
-
-Takashi
+On 28/02/23 01:10, Pierre-Louis Bossart wrote:
+>
+> On 2/27/23 13:42, Mukunda,Vijendar wrote:
+>> On 27/02/23 22:37, Pierre-Louis Bossart wrote:
+>>> On 2/27/23 10:48, Vijendar Mukunda wrote:
+>>>> Add pm_prepare callback and System level pm ops support for
+>>>> AMD SoundWire manager driver.
+>>>>
+>>>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>>>> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
+>>> seems like you missed my comments in
+>>> https://lore.kernel.org/alsa-devel/7d32d552-6ca0-3c40-11ce-c8d727cadc05@linux.intel.com/
+>> you missed my mail in reply thread. That's why we couldn't
+>> get a chance to check your review comments.
+> I don't see a reply be it in my local mail client or lore?
+we have provided replies for your comments in below link.
+https://lore.kernel.org/lkml/acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com/

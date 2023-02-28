@@ -2,98 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FD236A5BF3
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 16:30:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98A186A5E87
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 19:01:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B3D8828;
-	Tue, 28 Feb 2023 16:29:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B3D8828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 642B6826;
+	Tue, 28 Feb 2023 19:00:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642B6826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677598230;
-	bh=hcXafIxHuoahz1Cokb3IrPCYphDo8xRmiIBP8KWMMW8=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1677607298;
+	bh=g/zRMqEHWvrUdMovSA/zwPxEgtx1YbVsjFwL8peZugg=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BPtKXxVuaVes/XP/0Ao083/70Qel5Eh393sGfGGdgOjt6qBUzgOahyOgRYfsna78T
-	 U6fiYrrQpVkdEBzcFs7EOFTKrN+jGyNeBPZx3d5lt0S7uun3PvG0H9Oi9mojcjoghp
-	 aNMnvdJ0zvD4RpdH4Nev9OZ8RvdWNLv5e3Wzh+ms=
+	b=NKDZ8ZUlqGKUkY86SPm8zCNN2wloD9+Lb5CIHtmehd6WXlDogCMnXql06/+GkEBiM
+	 rGYKqBdOB7zpjjOF8sPS7/GXJ6qJdkU7W5r4sK/tHqI9ev4RHUhUJ/rw4dpLhK72nK
+	 vlYPgBRx9K7AYIrlieW5fur0vB/QcEydG9aItffU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6A58F800FA;
-	Tue, 28 Feb 2023 16:29:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55C3AF800FA;
+	Tue, 28 Feb 2023 19:00:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D83D9F8049C; Tue, 28 Feb 2023 16:29:33 +0100 (CET)
+	id 21BF3F8051B; Tue, 28 Feb 2023 19:00:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 90593F800FA
-	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 16:29:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90593F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 787E6F800BA
+	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 19:00:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 787E6F800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=2bvrZc0h
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=HZobxikk
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 5FEE4B80E67;
-	Tue, 28 Feb 2023 15:29:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C2DC433EF;
-	Tue, 28 Feb 2023 15:29:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1677598161;
-	bh=hcXafIxHuoahz1Cokb3IrPCYphDo8xRmiIBP8KWMMW8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=2bvrZc0hDxg6mbBnAIMY0O72OpR3+QAyiBK3BjlyFb+zHGlH4G23le/063J2XMs6B
-	 HZpUVrM359GPeSUL2HWAH5PPSpBnCd+DCedkVNH01gdwIvQpcTYFkUOwn+ivo09o8Z
-	 u0z9zhu58bwTCwgfv2/4hxBK71fsF/L1NIFzK3VY=
-Date: Tue, 28 Feb 2023 16:29:18 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: Re: [RFC PATCH v2 12/22] sound: usb: card: Introduce USB SND
- platform op callbacks
-Message-ID: <Y/4dzus7J07quj61@kroah.com>
-References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
- <20230126031424.14582-13-quic_wcheng@quicinc.com>
- <Y9Ui82OaI54Qx8Ft@kroah.com>
- <2c062ab0-905c-f1fe-eca2-02e23cc9fa6f@quicinc.com>
- <5e5c6481-8d5d-dc3f-e40e-986e3ac30387@quicinc.com>
- <Y/2tsfGGzAlLzxwd@kroah.com>
- <b38b317e-9c5e-a655-4364-df49c3b64b88@quicinc.com>
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4A8C261179;
+	Tue, 28 Feb 2023 18:00:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BD8C433D2;
+	Tue, 28 Feb 2023 18:00:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677607230;
+	bh=g/zRMqEHWvrUdMovSA/zwPxEgtx1YbVsjFwL8peZugg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HZobxikkQG2ou9HWf9cwO80G/+gCBkcX18aLab76EEwpTtYw+lxF8IHqxBAC6+GXJ
+	 BlkOzb9P9w01cIPARw6UG+mydWBCXarm5pTkQ/RmNVbBI10GrzvoGeExZLBRKCSgeF
+	 I8s7vbJ7tshwQ8R5n9o9pz/Dbtic7IqxKrxQB+tV7jjiB4Idr3n6T8fDtTwoueM4Jj
+	 lM9v8Ed7TbLgf5FNexWIfvjADWwcPYMGqwCU4vpk7fc5QyS+VP2xqGw6Gy7od/kMY/
+	 Klpv/cAv4vLHt+IuQnw04T/aUYaxaMCCeIxFV4sFZvVOsWNjst+9TL9BqyEQMVNs7K
+	 TK4UF3I2GouTA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Mark Brown <broonie@kernel.org>
+In-Reply-To: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
+References: <20230223-asoc-mt8192-quick-fixes-v1-0-9a85f90368e1@kernel.org>
+Subject: Re: [PATCH 0/4] ASoC: mt8192: Fixes from initial glance at
+ kselftest run
+Message-Id: <167760722797.68866.15387830398391668204.b4-ty@kernel.org>
+Date: Tue, 28 Feb 2023 18:00:27 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b38b317e-9c5e-a655-4364-df49c3b64b88@quicinc.com>
-Message-ID-Hash: XPZT2YMZQG4LGRAZ7KWUMGCCRFHN24Q5
-X-Message-ID-Hash: XPZT2YMZQG4LGRAZ7KWUMGCCRFHN24Q5
-X-MailFrom: gregkh@linuxfoundation.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-ada30
+Message-ID-Hash: IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M
+X-Message-ID-Hash: IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: srinivas.kandagatla@linaro.org, mathias.nyman@intel.com,
- lgirdwood@gmail.com, andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XPZT2YMZQG4LGRAZ7KWUMGCCRFHN24Q5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHGIUW5ETXIWVGDSCZPKUPFD2VUYY32M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,100 +98,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Feb 28, 2023 at 01:19:33AM -0800, Wesley Cheng wrote:
-> Hi Greg,
+On Fri, 24 Feb 2023 14:03:54 +0000, Mark Brown wrote:
+> This is a collection of fixes I came up after glancing through an
+> initial test run with the Spherion Chromebook on KernelCI.  There are
+> more issues flagged, this is just what I fixed thus far - the volume
+> controls on the MT6359 have issues for example, and a lot of controls
+> aren't marked as Switches like they should be.
 > 
-> On 2/27/2023 11:30 PM, Greg KH wrote:
-> > On Mon, Feb 27, 2023 at 06:59:32PM -0800, Wesley Cheng wrote:
-> > > Hi Greg,
-> > > 
-> > > On 2/10/2023 2:49 PM, Wesley Cheng wrote:
-> > > > Hi Greg,
-> > > > 
-> > > > On 1/28/2023 5:28 AM, Greg KH wrote:
-> > > > > On Wed, Jan 25, 2023 at 07:14:14PM -0800, Wesley Cheng wrote:
-> > > > > > Allow for different platforms to be notified on USB SND
-> > > > > > connect/disconnect
-> > > > > > seqeunces.  This allows for platform USB SND modules to properly
-> > > > > > initialize
-> > > > > > and populate internal structures with references to the USB SND chip
-> > > > > > device.
-> > > > > > 
-> > > > > > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> > > > > > ---
-> > > > > >    sound/usb/card.c | 28 ++++++++++++++++++++++++++++
-> > > > > >    sound/usb/card.h | 20 ++++++++++++++++++++
-> > > > > >    2 files changed, 48 insertions(+)
-> > > > > > 
-> > > > > > diff --git a/sound/usb/card.c b/sound/usb/card.c
-> > > > > > index 26268ffb8274..803230343c16 100644
-> > > > > > --- a/sound/usb/card.c
-> > > > > > +++ b/sound/usb/card.c
-> > > > > > @@ -117,6 +117,24 @@ MODULE_PARM_DESC(skip_validation, "Skip
-> > > > > > unit descriptor validation (default: no)
-> > > > > >    static DEFINE_MUTEX(register_mutex);
-> > > > > >    static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
-> > > > > >    static struct usb_driver usb_audio_driver;
-> > > > > > +static struct snd_usb_platform_ops *platform_ops;
-> > > > > 
-> > > > > You can not have a single "platform_ops" pointer, this HAS to be
-> > > > > per-bus.
-> > > > > 
-> > > > 
-> > > > Agreed.
-> > > > 
-> > > 
-> > > I looked at seeing how we could implement this at a per bus level, but the
-> > > USB class driver model doesn't exactly have a good framework for supporting
-> > > this.  Reason being is because, at the time of the USB SND class driver
-> > > initialization, there is a big chance that there isn't a USB bus registered
-> > > in the system, so the point of adding the operations is not clear.  However,
-> > > we need to ensure that we've added the platform/driver operations before any
-> > > USB SND devices are detected.
-> > 
-> > But the offload "engine" is associated with the specific USB bus
-> > controller instance in the system, so perhaps you are just not adding
-> > this to the correct location?
-> > 
 > 
-> There are several parts to the offload logic:
-> 1.  XHCI interrupter/resource components - fetching addresses to the proper
-> event ring and transfer rings for the audio DSP.  This is the part which is
-> specific to the controller instance, and APIs are being directly exported
-> from the XHCI HCD, as the offloading features utilized are only specific for
-> XHCI based controllers.  This is handled in patches 1-6 in this series.
-> Each XHCI instance will have its own set of interrupters, and transfer
-> resources.
-> 
-> 2.  USB offload class driver - driver which interacts with USB SND for
-> operations like UAC descriptor parsing, USB audio device support params, and
-> USB endpoint setup (ie issuing SET_INTERFACE to enable the device to start
-> playback this is a SETUP transaction).  It will interact with the USB
-> backend and items in #1, to set up the audio playback.
-> 
-> > The sound core shouldn't care about this at all, add the logic to the
-> > USB host controller driver instead, why isn't this just another USB bus
-> > function?
-> > 
-> 
-> The intention of the platform ops here is to mainly keep track of USB SND
-> card/pcm device creation, and access to the main "struct snd_usb_audio".
-> This structure carries all the information about the different substreams
-> allocated, as well as the formats supported by the audio device.  This is
-> passed onto the USB backend, which will be utilized in my next revision to
-> allow userspace to specifically select the proper card/PCM device to enable
-> offload on.
+> [...]
 
-Oh, I can't wait to see that user/kernel api :)
+Applied to
 
-It's really hard to answer you here as I don't see any patches, and I
-don't know how your hardware really works.  But in general, you should
-always be working on the bus level here, and that will get rid of any
-static lists or any "single controller pointers" that you all have had
-in previous versions.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I'll wait for patches to be able to comment further.
+Thanks!
 
-thanks,
+[1/4] ASoC: mt8192: Remove spammy log messages
+      commit: 5df1a5d28449f2b98ff84f69dea74b06f9b8e362
+[2/4] ASoC: mt8192: Fix event generation for controls
+      commit: b373076f609993d333dbbc3283b65320c7a41834
+[3/4] ASoC: mt8192: Report an error if when an invalid sidetone gain is written
+      commit: 05437a91173b8780692ac35313f98cac68be7c42
+[4/4] ASoC: mt8192: Fix range for sidetone positive gain
+      commit: ce40d93b062c0bdcd29218c12ab1dba544382dd8
 
-greg k-h
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

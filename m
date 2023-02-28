@@ -2,175 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977AF6A5059
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 02:01:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AEBB6A5192
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Feb 2023 04:00:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DB58208;
-	Tue, 28 Feb 2023 02:00:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DB58208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5554F828;
+	Tue, 28 Feb 2023 04:00:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5554F828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677546068;
-	bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1677553250;
+	bh=Jdpu0OIEVOn3VZsm6kaPQn7MbpCWAMy/ZwhdIIdFWqs=;
+	h=Date:Subject:From:To:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uRUTCxO1+IIGkOyMgl1GIBFKhyLkuCS+Z+QMQc+qqTIDCzt6wK3Xwh2Z0zSe/T2yb
-	 0LgQd8eQHMP3Z5FF4Tl2s4OPQVvh818i6IQ2j5m3BCvzx2tTaYEWixPxDfShXnd95Y
-	 Ppu5QWib7XUhy/78zs+d8JTqij/AuFuIZSWnEmrU=
+	b=FPvWtIlAL/Xa6LWm6HQUvB5iOtFgmVirk+eS+KOyeT0E+st7icP3R7phzgD7P/EbX
+	 q2a5StY9mgcWZxVap1cz4DjpMufUo7cB5Zm6EwAEI8fQPn/K0hZ0D919srPGFOUEai
+	 IHtSlgJvN2CgsRfNjds12CScKT4pwn8cX2x2gJqE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BCF5F800DF;
-	Tue, 28 Feb 2023 02:00:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2920F802BE;
+	Tue, 28 Feb 2023 03:59:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E90F0F800BA; Tue, 28 Feb 2023 02:00:10 +0100 (CET)
+	id 5C5D4F8049C; Tue, 28 Feb 2023 03:59:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62ACAF800DF
-	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 01:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62ACAF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D4FAF800BA
+	for <alsa-devel@alsa-project.org>; Tue, 28 Feb 2023 03:59:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D4FAF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Im042UNl
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jvQA/Zt8D3y2VuvI9yOPQGSFcPh9JzL0BOz3XWCWOMn4SG/sqL/OvUUUzImjLvTBHNvosbZWCP7at7kkTIHk9dbTXe0dl7rrnc9Df70pvagoKpBzgphfGx9+XM39lTIxXBW649VqDiVIs3HyvZYt8gQ2lpj7X6mENptLJ9n4DzvasRQPyaLLdGQrjiZ732cOgGxY1Qkxsnlt9RpkIcXZWec8GZQeiK/FlKCvh6EPV1T4eHoNQUnYW50hFewPCEsImVhsib+A25ewc3Q+IQQ0Hwo6ipO2iLMHcVyRSm99NScuALZbR0lLNqKInEt8vG53ppY8MTui4/IO0/ZC+TExeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
- b=ASY6U7HUAEtGDIt9NpRzXRuXL3feC/Zl8o3DB7fAi4FuN+925Oelpl3yxIzCOCcyg9MsSpkNf3gl2bqhbDpHMCg7pLABRlcr0tIpKsrWFU70aE4N+CaKIMng4OXe0Sg5xriBKR8A39wEPp2BnCoXOkSJlc6szoNTQVEbSMSlCZgE9ZIlCCAATiPc0W8XXGIN2OtVKhOXsP8/85V39uO13Nrp3zRrRYYdiKwz+seoVK4OvYgtYQPHSA+kEfEW2EBecdMS8MOrFKq25Mtx21MGVsibpjYeGQd0kH66rsL/q+tWnbeQf+B60pKXsoKiIwKFuX879Hcq4H9YnPvzmF6xkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zo73tznIKtC4KnxNhrOrxWVt/64P3jqvc5cEwhJ6T3c=;
- b=Im042UNlb4P3kGNV5xrgjwB8cGH9ENGbFeSVoLhePCuwDKDINCr3s7rGjwkug1NtMbu2PZ5VsJW1dlagyD6oditAAGEN8rkGi23mCLbTPPm1tJsy+gjwH1n291w2ArF5rj7Xdk82OX4nj2ZlsMZ0AFCPXKR0zL7vAC0YqHTkM3Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by BL0PR12MB4961.namprd12.prod.outlook.com (2603:10b6:208:1c9::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Tue, 28 Feb
- 2023 00:59:54 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::fc88:7080:445e:6866%8]) with mapi id 15.20.6134.030; Tue, 28 Feb 2023
- 00:59:54 +0000
-Message-ID: <64888213-0fc9-cea4-fdea-fa51bdcbf0bb@amd.com>
-Date: Tue, 28 Feb 2023 06:33:52 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH V4 8/8] soundwire: amd: add pm_prepare callback and pm ops
- support
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20230227154801.50319-1-Vijendar.Mukunda@amd.com>
- <20230227154801.50319-9-Vijendar.Mukunda@amd.com>
- <82c7303b-131e-0633-2c08-5b4b414ad941@linux.intel.com>
- <acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com>
- <3a6d02a6-0b1d-6e9e-2f14-337373edec48@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <3a6d02a6-0b1d-6e9e-2f14-337373edec48@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0219.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:ea::13) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=oXwk5/gM
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31S2Rpqh010567;
+	Tue, 28 Feb 2023 02:59:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : from : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=iGExTyfqA8UiNaWVM0CI3ERBpJ+ppSBXThFNDZNWvK0=;
+ b=oXwk5/gMO3nnoQ3P1KcNZleSvKuZqit8I0FiBa65PV2bn6RtCDKE/6j95NxtdYUvXHxv
+ mItLLNhIlVPQ+U/NehbpdViJwsZ1UufCsNhciEV6IKFYMO0kF8An6OjIe40ANQBnjMFm
+ yePoXLWawYELCIbDaxtmWpqJRDgo2QTL4FQ9IgkWwGSJFTObPrsQBP5X/Dtc8wvUaFUh
+ QYgG3LAXuYU0tdws+uFI3utDIprUOW16ubk7ECuLVhO+8czFLk98v+usiBXbzK9WwpXU
+ bBh//Y0LZLu/8g41ES06UIxrjFJ65QBEad/9DRfHnUJv/rZtBwa5EloPxinJ8dP3FCcD pA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3p17ryr78w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Feb 2023 02:59:41 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 31S2xe9F013059
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Feb 2023 02:59:40 GMT
+Received: from [10.110.31.193] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Mon, 27 Feb
+ 2023 18:59:39 -0800
+Message-ID: <5e5c6481-8d5d-dc3f-e40e-986e3ac30387@quicinc.com>
+Date: Mon, 27 Feb 2023 18:59:32 -0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|BL0PR12MB4961:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac7d729b-3963-4bc6-8119-08db19271890
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	ci+hZ4L5c4rvwoGtmfQIPeqM93Tg3rcSfCCw+p46RreWwxvaDqido4w4unMrg/HMfxXxxBMOGSIWeU3soH0sOIuoFpCWvDJhbnEEkXAM3ao29G5M5/vQ34UWAIesLy4xtHX9bMo6dNUj5Fq1jg7L75cE3+mdU5R98dDqQ/jT2YYhxjYsCK7lVcNn+SVsisRSaI5eAuIT6pg9GZW1QoZlkqYVc1PFmHGnLvOF1j7duQGoIBaGWbu9IO/sV+EIOHfGJ96rNdiChRyMZG0BZfjfyyMEy6w7V4FKRQebtnzaN9ddP+CpUgTAUl76yRyHT5X5sIGUbCi62SfkpZMKny0MhYF8Oa1XAMZmDBfbgQazGiomxquaekl6LD8rZ533t3/we9OEnHLG5ajc1Dr0ICo2pTS87USkg6USRei185G9VbJdXLw/1cWsdpUoOQafhWaq24kGIiEHqqBV6pePXvqimiRFyo57joEAfLVx2V5/0BtQlheM0H7usJGGFa1Y6NwgOVuvUduwj/jH8czebdJj4V+RccWD1p0MpIywm+NkuK1yzr/HYvXceZGTF3rfY5T31jhsvb8Z75v7NgPmBGKKWo+I1wOsEg2YO1Sny9KEyRA+PpBm3UfgtbJ/Kzl1R2o1pBaJZfajMnCSalB+AzEYyJAA8RPhfhtl8UUhAof7U+EcOy4OkekbmJhQcVOM52MfnLUmVa5vWFUnTioAA4P9OlP1Iwbt4ZO093EfhY/LYqm+MHwR8TeTnmxDFkdc6UiJ
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(451199018)(2906002)(31686004)(5660300002)(8936002)(66476007)(36756003)(4744005)(54906003)(66946007)(41300700001)(86362001)(31696002)(6486002)(966005)(478600001)(4326008)(66556008)(8676002)(6512007)(316002)(38100700002)(6506007)(53546011)(186003)(26005)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?SmYreEdUQlhtRmtWQWJoNXdvdzRUZ1R3anp2bTZkOWJIR0l6SEtsOG5nQyt4?=
- =?utf-8?B?dWhoWXh0cEp2Q1haNUpnRlhVY1FyaTBFZHdzaFQzSE1OWGl5WnJFU25aOFNa?=
- =?utf-8?B?U0hoQm9jbHdCaDR0blBlclBqQXV4N1BXbk5USlAyT3d6cUZhY3hHSTh5S1FT?=
- =?utf-8?B?ZHdhaU1HeHhyQmkrdHdLSjROSU5UMnBGYUpQZU85TW5DdUxNRXhkWURZN1BF?=
- =?utf-8?B?MWV5dGhaeXJUTmRCTkNMM0xKWnVJRjJ0VVNpNkRGczZic1BBL1d6cWRyTkVv?=
- =?utf-8?B?RUwybXVlUk9XT0lNY2pPUGxqU05jUzEvS0NFRUtaQ3RMZGdSZjd3SXU3U1hQ?=
- =?utf-8?B?NHhUdXRVUTNwNm40eGFhT211QUhCTjkyZWJnZ0NqRFc2VVRvSDhIb0ZCV1I0?=
- =?utf-8?B?azd5ZDRnb1FjRkV1R0RFRXVjRXF3Rk5pcUhlK3RMYnRoTXFaaUJzSngvMlh1?=
- =?utf-8?B?VTJYQWV1VDVsbG02OGZDWGh3c3M1VThvMUF1WGlDK3F1QUZHSVlzSGFEQVY3?=
- =?utf-8?B?cG9vYVBSMHhncGZuUzl3NlRtZit3TWxDekhkQlMrOWlsN00xdFNiTk8vdHZE?=
- =?utf-8?B?dVlHaXBHaVZCVWNlTm81RWtuaGdpYm1tWHBWQU9qOStPK1F3TTRqOGJoUjYx?=
- =?utf-8?B?Yy9acmJmKzlPaEtGbkZaQS9Jenl1TDhXM1dLWUY0MzB5QWFCZEtrQkVycldz?=
- =?utf-8?B?VlQ5WDZWTGdNWm9BenBkMlNKNlJkTitXWE5aRGZxN1ljTjlRaXlwNnQ0SVhr?=
- =?utf-8?B?eEdGdGFxUkpWaEszZmNqMDRldnhidzhIQ0Zoc2lDS3hzWTllak9xaHlkamZY?=
- =?utf-8?B?ZjhDWWYwa1hCTHU5aDhUMTJoOEhTbGo4TUkyNnRLT0dHTzFhUmlmcERQVlNZ?=
- =?utf-8?B?clVoY1lpUWVmbU1kT3BoYXBSM0tOM0ZHak9QaTg1Mnp3Y21FalFKK21XU005?=
- =?utf-8?B?SHB4bzBqdXJHNzY1bDlPamIxM2FQbnQ5WE1CYW8rM0d0U2FBRDBrTU10QVhk?=
- =?utf-8?B?YkFtRURLUE8zUFo5ZE5IMFFvRVFFeC9YSjMwRHQ0eUlOVktLa1pxc0luQXRk?=
- =?utf-8?B?Ri9rN3V3amxEWWlBUDczMUtRK29FZlJCWk05R0Q0dERkeHoxMVRQVVJMUHJK?=
- =?utf-8?B?K1dQS3lReE1lVDR4ZnN0QWczYlIrZzVaNytpcktQVDgrWG9XQ1hsVndZYlB1?=
- =?utf-8?B?RlhReWNrYmErWkdTV2Z1QWcvRTFVMmlobEY4Z1J1dE04TjMwUFExNnZMMlhP?=
- =?utf-8?B?eFkvNFNNeXlMZ3pEcit5WmVFQkdVSzlKL3JNc0RkU1lZSXVGNnYwQjcySGRi?=
- =?utf-8?B?VjRXcm42UmNvc25MdmdMTmhVa0hZSjBxVGw3bWZvalcwZkYyU3k3Z3RnTTUy?=
- =?utf-8?B?eVh6amxlSzB5SnVLZG4wVEpXNzhTVFFVQ2Rxa1lNQnRQYS9aMWxnTjJmYXFM?=
- =?utf-8?B?NzdjY3U5UTQwdVVYUzFUbXpZRm5jL3cvZHZWS0VFR2tVVzBxd1FjYU44bWdk?=
- =?utf-8?B?QmVaTDBPZW95cDdiUURzMUN4emNsVVlRaUg5V3p1RmRnd0tDWkZRcmRsMFZV?=
- =?utf-8?B?cVVLVmhFV2JRNVlRZmg0MWt2cU5RTFJGckp0K2hudmFUd1RjTWNNbzM5Sm04?=
- =?utf-8?B?QkFBamQ0UkdJcTNqTXVJVnRBOGVadk1TMFJPYll5QTBQd0NDT05KaG5ldWhx?=
- =?utf-8?B?UDlqMXdLSXFWMWJLOTI4Z2RDbmlvUUF3QllnZW1EQkpWemNONmVwRVlTVENM?=
- =?utf-8?B?VVJlNEc1ZlFQamNsOGNLV1NPbFllbFdwdTBFMVFxWTJwcEFVNzNDeXdhZ3pp?=
- =?utf-8?B?ckF2d3NCR1k4WndFd0M4UnVId0NQUThGTVoyQzhDRnFJK2l5TlRCRFhGMzE5?=
- =?utf-8?B?L1EwMlJKdE0zaVRaQXZsYk0wQmxVOFg2SzlSOUEwbUowQ0plWWpPczhxbVU0?=
- =?utf-8?B?YkdtN3IxbVZDZy9SQjFPODhPYzZQTUFmcktHZCt0bjZPQWtJN1JpdTlNWjNC?=
- =?utf-8?B?TUh6NXFXUjc5c09xVUQxY3p6VmJsSXR5OVVoWDUvanB4SWlLaW1mcGVaL1Zz?=
- =?utf-8?B?T2JNNWh4cE1EUm1GelNidUR4UHorZ0hhVWIvaG1zc0hkQmt3disyV3FLUlBI?=
- =?utf-8?Q?LSzM+NxXc2AVEOoadgs2iCj+a?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ac7d729b-3963-4bc6-8119-08db19271890
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 00:59:53.5229
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Iatg8+Tr2zFdJzcGXA+2Fy/Dw/XgzTTxEADjgEe3Vx1DtQiIN1HqYst/7rYe9tfRi9WSyg4t73R2YLBIbNweyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4961
-Message-ID-Hash: MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF
-X-Message-ID-Hash: MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [RFC PATCH v2 12/22] sound: usb: card: Introduce USB SND platform
+ op callbacks
+Content-Language: en-US
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20230126031424.14582-1-quic_wcheng@quicinc.com>
+ <20230126031424.14582-13-quic_wcheng@quicinc.com>
+ <Y9Ui82OaI54Qx8Ft@kroah.com>
+ <2c062ab0-905c-f1fe-eca2-02e23cc9fa6f@quicinc.com>
+In-Reply-To: <2c062ab0-905c-f1fe-eca2-02e23cc9fa6f@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 6SRmoeFCRlxObLlSUAo-jbjYTEJwar6h
+X-Proofpoint-GUID: 6SRmoeFCRlxObLlSUAo-jbjYTEJwar6h
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-27_19,2023-02-27_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 mlxscore=0 phishscore=0
+ adultscore=0 malwarescore=0 suspectscore=0 clxscore=1011 spamscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302280018
+Message-ID-Hash: T27UIE3G7E5BFZLOGRXL6N34SXJD5VWV
+X-Message-ID-Hash: T27UIE3G7E5BFZLOGRXL6N34SXJD5VWV
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
- amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+CC: srinivas.kandagatla@linaro.org, mathias.nyman@intel.com,
+ lgirdwood@gmail.com, andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
+ tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMLK3U6E2EXWGI7CGRG3CST7CMLKGRAF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T27UIE3G7E5BFZLOGRXL6N34SXJD5VWV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,20 +134,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28/02/23 01:10, Pierre-Louis Bossart wrote:
->
-> On 2/27/23 13:42, Mukunda,Vijendar wrote:
->> On 27/02/23 22:37, Pierre-Louis Bossart wrote:
->>> On 2/27/23 10:48, Vijendar Mukunda wrote:
->>>> Add pm_prepare callback and System level pm ops support for
->>>> AMD SoundWire manager driver.
->>>>
->>>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->>>> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
->>> seems like you missed my comments in
->>> https://lore.kernel.org/alsa-devel/7d32d552-6ca0-3c40-11ce-c8d727cadc05@linux.intel.com/
->> you missed my mail in reply thread. That's why we couldn't
->> get a chance to check your review comments.
-> I don't see a reply be it in my local mail client or lore?
-we have provided replies for your comments in below link.
-https://lore.kernel.org/lkml/acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com/
+Hi Greg,
+
+On 2/10/2023 2:49 PM, Wesley Cheng wrote:
+> Hi Greg,
+> 
+> On 1/28/2023 5:28 AM, Greg KH wrote:
+>> On Wed, Jan 25, 2023 at 07:14:14PM -0800, Wesley Cheng wrote:
+>>> Allow for different platforms to be notified on USB SND 
+>>> connect/disconnect
+>>> seqeunces.  This allows for platform USB SND modules to properly 
+>>> initialize
+>>> and populate internal structures with references to the USB SND chip
+>>> device.
+>>>
+>>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>>> ---
+>>>   sound/usb/card.c | 28 ++++++++++++++++++++++++++++
+>>>   sound/usb/card.h | 20 ++++++++++++++++++++
+>>>   2 files changed, 48 insertions(+)
+>>>
+>>> diff --git a/sound/usb/card.c b/sound/usb/card.c
+>>> index 26268ffb8274..803230343c16 100644
+>>> --- a/sound/usb/card.c
+>>> +++ b/sound/usb/card.c
+>>> @@ -117,6 +117,24 @@ MODULE_PARM_DESC(skip_validation, "Skip unit 
+>>> descriptor validation (default: no)
+>>>   static DEFINE_MUTEX(register_mutex);
+>>>   static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
+>>>   static struct usb_driver usb_audio_driver;
+>>> +static struct snd_usb_platform_ops *platform_ops;
+>>
+>> You can not have a single "platform_ops" pointer, this HAS to be
+>> per-bus.
+>>
+> 
+> Agreed.
+> 
+
+I looked at seeing how we could implement this at a per bus level, but 
+the USB class driver model doesn't exactly have a good framework for 
+supporting this.  Reason being is because, at the time of the USB SND 
+class driver initialization, there is a big chance that there isn't a 
+USB bus registered in the system, so the point of adding the operations 
+is not clear.  However, we need to ensure that we've added the 
+platform/driver operations before any USB SND devices are detected.
+
+To add to the above, in case of OTG/DRD (dual role) designs, the USB 
+HCD/bus isn't created until we move into the host role.  At that time, 
+using DWC3 as an example, we will create the XHCI platform device, and 
+probe the USB HCD, where a USB bus is created.
+
+In general, we currently think this USB offload driver should co-exist 
+with the USB SND class driver, which handles all devices connected 
+across every bus.  We can add a check to the platform connect routine to 
+ensure that there is a reference to the USB backend.  If so, then that 
+particular USB bus/sysdev can be supported by the audio DSP.  That way, 
+we do not falsely populate USB SND cards which are present on another 
+USB bus/controller.
+
+Thanks
+Wesley Cheng

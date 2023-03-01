@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3786A6BD8
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Mar 2023 12:40:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1EF76A6BDD
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Mar 2023 12:41:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79069209;
-	Wed,  1 Mar 2023 12:39:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79069209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47D6C843;
+	Wed,  1 Mar 2023 12:40:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47D6C843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677670823;
-	bh=KXEtH9jKkzGjGt3ggsFrpH4RQJqfkFidzUrK69mPhKo=;
+	s=default; t=1677670876;
+	bh=5tklInZTjxW7nUOT7xUU9g3nrOpxKYCG1GaGB1k0my8=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bi3lPWIeAvmmboTQICvo34jm2/LaTS1wou3HkcUmvcs3aUQ8tuyb/q6VkBB46HL7/
-	 pukFt4J+bakcs04I5EUYhqOmjeMsdWh54B9lwMJLUqCk7hsSu/IAgcsJbj9tDz/Pex
-	 /tAP/1J4LdcKBe479xAEXmbKyMlbSo658BJYPQ+w=
+	b=aKjP93tbhA4GQZM5c+2SLuELbSa56A8bi3Tq8x2Ee2n1kxxeQq+XEBk+MFBJq6rs/
+	 dsC1RjxFLenDsc+B7ehatuQsgT0gZ5nIQQX26Onf+x2XCqgka6Eo/5eN0TzZdHJRD3
+	 GGMN0LnEalm+NPHX2EY6Kz1VY/mYCBMxcCDSNJOU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30FEBF80520;
-	Wed,  1 Mar 2023 12:38:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BF36F80553;
+	Wed,  1 Mar 2023 12:38:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32912F80520; Wed,  1 Mar 2023 12:38:43 +0100 (CET)
+	id 7AD3EF80544; Wed,  1 Mar 2023 12:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -31,56 +31,56 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
+ [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A11DBF800BA
-	for <alsa-devel@alsa-project.org>; Wed,  1 Mar 2023 12:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A11DBF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9C75F8052E
+	for <alsa-devel@alsa-project.org>; Wed,  1 Mar 2023 12:38:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9C75F8052E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=qr0tge4i
+ header.a=rsa-sha256 header.s=mchp header.b=2GbAd0fY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1677670720; x=1709206720;
+  t=1677670731; x=1709206731;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KXEtH9jKkzGjGt3ggsFrpH4RQJqfkFidzUrK69mPhKo=;
-  b=qr0tge4incRfzr6d+P5kZhABj29ehzqzAXjjgjFWanha2W51WAe1Jrly
-   kjrAaSiiG0r0rzWLxk6Dfu6Xq8LhMwWMwAQ+/IqmnBckEYJxcNZJlfBdO
-   Cy/U8mk/Kr04dbx9QpCa/+Rm/SQg4mwJ9d97/mXqHWdkKAl3xHhbjq2SH
-   p8w1KGdgD9Jetg8xnH48IiDVXFbG/qo7t9X/PRUWO1anS/AUWO9chhND1
-   n0WWNsWnEInmwzSRnQKYy7s3w/jIci7u36dn0osXAotiSJPyfGJh7gfcc
-   NlIY0XTrue0Mn3ycApp5Xak04fiLLiXGXW8l6pXRhvVLcrYm0HVFFtMm0
-   w==;
+  bh=5tklInZTjxW7nUOT7xUU9g3nrOpxKYCG1GaGB1k0my8=;
+  b=2GbAd0fY1RigRvxtgc8ZfGhuN+5GLhmlX+dEpur6fCrZqx4XojQsnqLe
+   NKYuKLd/heECPSEZa0XXngaUC+bCGcO09L486QXrfkuuYMy/z61wdtid6
+   fYLLX7TbQSEkPoXKKYXIaKyQwWmUY6AuPfVsWVFaTD4DJV9grAcVibmHR
+   nllPSA0Q+17H5T4LLDPqzDw8OIZOWmT9PoCIt17JnEj9F0Qcxbc1OAnEZ
+   v5yvpK5mos+GWybFNj4M1ITbfQZBbym1WfE33V1Q6xfq48fHdaf17VhIx
+   6ZYWSqEIXv5pB0+wSkzluN3QpZAytLOjq3hWafFYeykTm5D6Z1zoF83N6
+   A==;
 X-IronPort-AV: E=Sophos;i="5.98,224,1673938800";
-   d="scan'208";a="202746412"
+   d="scan'208";a="139640258"
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 01 Mar 2023 04:38:37 -0700
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 01 Mar 2023 04:38:48 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Wed, 1 Mar 2023 04:38:37 -0700
+ 15.1.2507.16; Wed, 1 Mar 2023 04:38:41 -0700
 Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
  chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.16 via Frontend Transport; Wed, 1 Mar 2023 04:38:34 -0700
+ 15.1.2507.16 via Frontend Transport; Wed, 1 Mar 2023 04:38:37 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
 	<tiwai@suse.com>, <nicolas.ferre@microchip.com>,
 	<alexandre.belloni@bootlin.com>
-Subject: [PATCH 3/8] ASoC: mchp-spdiftx: update debug message
-Date: Wed, 1 Mar 2023 13:38:02 +0200
-Message-ID: <20230301113807.24036-4-claudiu.beznea@microchip.com>
+Subject: [PATCH 4/8] ASoC: mchp-pdmc: use FIELD_PREP() where possible
+Date: Wed, 1 Mar 2023 13:38:03 +0200
+Message-ID: <20230301113807.24036-5-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230301113807.24036-1-claudiu.beznea@microchip.com>
 References: <20230301113807.24036-1-claudiu.beznea@microchip.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Message-ID-Hash: 3QZWV3CDI6K2QYTGZU3LMKTLAO3HIBRP
-X-Message-ID-Hash: 3QZWV3CDI6K2QYTGZU3LMKTLAO3HIBRP
+Message-ID-Hash: CQNKYIZQGF3QGDCS7TDNCII75CYDAW3W
+X-Message-ID-Hash: CQNKYIZQGF3QGDCS7TDNCII75CYDAW3W
 X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QZWV3CDI6K2QYTGZU3LMKTLAO3HIBRP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CQNKYIZQGF3QGDCS7TDNCII75CYDAW3W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,28 +105,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Previous debug message states that there was a failure and tx was not
-disabled. Which is not true as the TX in this function could also be
-enabled. Thus improve a bit the debug message by s/disable/start\/stop/.
+Use FIELD_PREP() macro where possible instead of driver local defined
+macros.
 
 Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 ---
- sound/soc/atmel/mchp-spdiftx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/atmel/mchp-pdmc.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/atmel/mchp-spdiftx.c b/sound/soc/atmel/mchp-spdiftx.c
-index e7241d819748..02a2fa7a42dd 100644
---- a/sound/soc/atmel/mchp-spdiftx.c
-+++ b/sound/soc/atmel/mchp-spdiftx.c
-@@ -337,7 +337,7 @@ static int mchp_spdiftx_trigger(struct snd_pcm_substream *substream, int cmd,
- 	}
- 	spin_unlock(&ctrl->lock);
- 	if (ret)
--		dev_err(dev->dev, "unable to disable TX: %d\n", ret);
-+		dev_err(dev->dev, "unable to start/stop TX: %d\n", ret);
+diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
+index 1aed3baa9369..6ec5324fd65e 100644
+--- a/sound/soc/atmel/mchp-pdmc.c
++++ b/sound/soc/atmel/mchp-pdmc.c
+@@ -8,6 +8,7 @@
  
- 	return ret;
- }
+ #include <dt-bindings/sound/microchip,pdmc.h>
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -49,8 +50,6 @@
+ #define MCHP_PDMC_MR_OSR256		(3 << 16)
+ 
+ #define MCHP_PDMC_MR_SINCORDER_MASK	GENMASK(23, 20)
+-#define MCHP_PDMC_MR_SINCORDER(order)	(((order) << 20) & \
+-					 MCHP_PDMC_MR_SINCORDER_MASK)
+ 
+ #define MCHP_PDMC_MR_SINC_OSR_MASK	GENMASK(27, 24)
+ #define MCHP_PDMC_MR_SINC_OSR_DIS	(0 << 24)
+@@ -62,8 +61,6 @@
+ #define MCHP_PDMC_MR_SINC_OSR_256	(6 << 24)
+ 
+ #define MCHP_PDMC_MR_CHUNK_MASK		GENMASK(31, 28)
+-#define MCHP_PDMC_MR_CHUNK(chunk)	(((chunk) << 28) & \
+-					 MCHP_PDMC_MR_CHUNK_MASK)
+ 
+ /*
+  * ---- Configuration Register (Read/Write) ----
+@@ -617,10 +614,10 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	mr_val |= mchp_pdmc_mr_set_osr(dd->audio_filter_en, osr);
+ 
+-	mr_val |= MCHP_PDMC_MR_SINCORDER(dd->sinc_order);
++	mr_val |= FIELD_PREP(MCHP_PDMC_MR_SINCORDER_MASK, dd->sinc_order);
+ 
+ 	dd->addr.maxburst = mchp_pdmc_period_to_maxburst(snd_pcm_lib_period_bytes(substream));
+-	mr_val |= MCHP_PDMC_MR_CHUNK(dd->addr.maxburst);
++	mr_val |= FIELD_PREP(MCHP_PDMC_MR_CHUNK_MASK, dd->addr.maxburst);
+ 	dev_dbg(comp->dev, "maxburst set to %d\n", dd->addr.maxburst);
+ 
+ 	snd_soc_component_update_bits(comp, MCHP_PDMC_MR,
 -- 
 2.34.1
 

@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC006A6B6B
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Mar 2023 12:11:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3FBE6A6B55
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Mar 2023 12:04:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14A724E;
-	Wed,  1 Mar 2023 12:10:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14A724E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19E651E8;
+	Wed,  1 Mar 2023 12:03:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19E651E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677669066;
-	bh=O2WzMx0ArZitOyvBrS0o+kbTJn0qnyw4jpa3bcgqE7I=;
-	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Wpw1LOsHvT/ifgdTGlZ7IaehMhTDSKlECEU6+HcY/fAY8LmsCNEa8TUQwBWucKPpf
-	 uQNpEBo4XRGxR+pn1nf0Gpk3gaCfF/B56ZrX/vo/t0UzGK1uRVzygie1RhvQOXMvgt
-	 rj4IrwMcWhDKYUnNd3MFBawjnqpXBnB5ifScNLDQ=
+	s=default; t=1677668651;
+	bh=pBALsHODXBivH3xqKdlCHLJcE3QW2TJipYNZeqpkysg=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QGoejcBdFkqXOAPOiQfTZwznLg1OVuIxVSRdKYOOyvvawwK4vA3A+C4xNoA0NVHnk
+	 qHSs2wYNAhknoqjd1rEkUBXJZ3kDyKhAv6AHvGNDug3Iqvf4wnvjB0J9qQVNqQcown
+	 YTXp21re/wkQvJ34+pltot+9NrneGI9Qm0IzgBiQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 645EDF80310;
-	Wed,  1 Mar 2023 12:10:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA022F8051B;
+	Wed,  1 Mar 2023 12:02:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5FB77F8049C; Wed,  1 Mar 2023 12:10:12 +0100 (CET)
+	id 6DD67F804B1; Wed,  1 Mar 2023 12:02:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,157 +34,56 @@ Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AD2BF80236
-	for <alsa-devel@alsa-project.org>; Wed,  1 Mar 2023 12:10:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AD2BF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 58CAEF800DF
+	for <alsa-devel@alsa-project.org>; Wed,  1 Mar 2023 12:02:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58CAEF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=WLpBwwDT;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=WgmoOMKq
-X-UUID: 9cb89376b82111eda06fc9ecc4dadd91-20230301
+ header.s=dk header.b=Zm+OPMeL
+X-UUID: 7f5ade8eb82011eda06fc9ecc4dadd91-20230301
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=O2WzMx0ArZitOyvBrS0o+kbTJn0qnyw4jpa3bcgqE7I=;
-	b=WLpBwwDTE2xuGGIyBdRT19mRRgFYAClgc7tYPwzbvmX2DU2JGy40twX781oKgVLO4HtmZhE4VAMz+qbL6yr2pA053KsngexjVMV7hDYjXi+o1oxTmuXBRC3025uLGsIP6Atg1h4z5GKdayYzYLIfUXjnNHvs35+8e4mc4fsRiS4=;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=hEfAOvZJXLtdoX37aHyT09q7nlqO9HPu0KdVdJ5LDDc=;
+	b=Zm+OPMeLf5MzQ5BuPcFdPCddPFkY1CYUugR67Rj5OyMJhkEdlx0kRa9rgot4uJ7dnbqbHD79dNO3kmyrcMGJc68o+7a0EVAO34UrDRZP5ECQLEwHtu4TPcxsR2vAwxJ7t4UwYcFhgE6rdpeqki20M6T2yF5gMNSQ4Wq65gwu1qY=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.20,REQID:15e3aa50-a124-4947-95fc-c4eaf1d923a9,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:25b5999,CLOUDID:a733deb1-beed-4dfc-bd9c-e1b22fa6ccc4,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-UUID: 9cb89376b82111eda06fc9ecc4dadd91-20230301
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+X-CID-O-INFO: VERSION:1.1.20,REQID:49b1b3a6-f03a-416f-9541-c0e64fc07ed3,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:95
+X-CID-INFO: VERSION:1.1.20,REQID:49b1b3a6-f03a-416f-9541-c0e64fc07ed3,IP:0,URL
+	:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
+	:quarantine,TS:95
+X-CID-META: VersionHash:25b5999,CLOUDID:8009deb1-beed-4dfc-bd9c-e1b22fa6ccc4,B
+	ulkID:2303011902059S38TP4B,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-UUID: 7f5ade8eb82011eda06fc9ecc4dadd91-20230301
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
  mailgw01.mediatek.com
 	(envelope-from <trevor.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1276757335; Wed, 01 Mar 2023 19:10:02 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+	with ESMTP id 1883867757; Wed, 01 Mar 2023 19:02:03 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Wed, 1 Mar 2023 19:10:00 +0800
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Wed, 1 Mar 2023 19:10:00 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jZPrubQ0Tbz8BUrNBP5J8EnBBq7HCkSS0gk4HH89Mm+vdxAqDYB6lJtcElXF7bIOGjAfCLXFK2M5G3v+11Rp1NmBMg7KUWEqAb1E6PCRaFlqvW5AW7mRsacYsk//wkjGCL+2HR0prR3jHIHVlqH2W4kb3u0I+4p4i1nGtX3hWamVgiBoAYOUmz2EjZgEjQCxecG85LxbDy6g//u4LFxCe5rQyL9JD+xkGgffAnPppK6TIz9BNIcze1uKRxlSXgi5Tgc+UijhrxpnVp8c1We+3gzkGWxAfqquhWtXafiauX3LPYII1JJu8ngrzNEhBGwFd4VpSOCdANhU2ymNa+gqZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O2WzMx0ArZitOyvBrS0o+kbTJn0qnyw4jpa3bcgqE7I=;
- b=RxxdCycRRHjMFHf84mDkp+nyqtDJ3Nyx8oYatTT5RWtX3H9zSOjt6bVf2oyq3Sp/kW+nZMkdh7ehhF3UNXp7pPoqrQMVj8DZS7ogMka3T4gnWSHXDyWsUnnyTdf6fShCEO1IHdT+bsWtKuCQYX4bUp4rmDhC9brQ/6oD91AQFBlvRU7fTgBfebtTkTNTRblLZo5uSoyzdaj4KBx+FMSC45+DUKfGQZBwQeHlKzEH7Vh+bcGC3SxAAFBlAVbEyWHIzmDvLS92YDtL9X/jZ+ZeSyb+rIyeIoCxzCyoAZ5XfcBUbtA8M+sM4G0ue4w4cLdocdc10d4I8y1A9aSToZtgsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O2WzMx0ArZitOyvBrS0o+kbTJn0qnyw4jpa3bcgqE7I=;
- b=WgmoOMKqd0aRIGTXqPBXUjMbAGrigSMh2FeK/fcNQ9UyYuBLqHE2EzhSuS3Tc5rIo873q3vlEIZQRG8+hdzZOb9JwpI/Xm1H0TXttgJHhasKijIS2+RWWV8fSyqs7lYvKKJXy2w/YHNn9s6jBciFgr59C0/wMRgZQC4CLKZ8rOA=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by SG2PR03MB6586.apcprd03.prod.outlook.com (2603:1096:4:1d8::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.28; Wed, 1 Mar
- 2023 10:37:12 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::5055:f50e:65c0:6815]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::5055:f50e:65c0:6815%9]) with mapi id 15.20.6134.029; Wed, 1 Mar 2023
- 10:37:12 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>, "broonie@kernel.org"
-	<broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>, "perex@perex.cz"
-	<perex@perex.cz>
-Subject: Re: [PATCH] ASoC: mediatek: add missing initialization
-Thread-Topic: [PATCH] ASoC: mediatek: add missing initialization
-Thread-Index: AQHZS/OB7KTboj73Nku/VeXTJ7+/kK7lsYIAgAAKJoA=
-Date: Wed, 1 Mar 2023 10:37:12 +0000
-Message-ID: <eca88f53e1f767eb7c2e6e45b0e335accf18023b.camel@mediatek.com>
-References: <20230301040835.6322-1-trevor.wu@mediatek.com>
-	 <3d2f385e-dc85-8033-cf77-e5f0634c5be0@collabora.com>
-In-Reply-To: <3d2f385e-dc85-8033-cf77-e5f0634c5be0@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|SG2PR03MB6586:EE_
-x-ms-office365-filtering-correlation-id: 1a7f4cea-3ab5-4bef-5a31-08db1a40eafc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- sChtZMVCYTCzq+2A5me2+t8Bmj+xHmcFdrXnDnbUsQvMRTaGJjNPlFCnCxhRY16N125NiLj1ukLVa7hvPSqxt3rsD0H5hEGl0LLVGKIM7QiO6fnTqHfJgkPDnvStMgUwks35TxgwvZULgwrfWx7saMjJBmV1pvMYwtiw+++BIvUYd0wal/WE75HQeuQNeKHFspihjhCciOwkmzLJP9Rq5198jGlnwnFrppzaWjIk0eM8WM6uYfSnXREKmUSMINpyLQIyFwfYOFP+aATDUP1XF98RHv9WSU/4L9MuOTw8Wgn6CJH4tMJBE7kGMvtZlnV9obeBejhO9an6puqNmywt1140R/ff0V5Q6iOj8xTaELRvjXj+F9cAaLfwhyYyiFuP2tUkzIlYBGfWzGbfF2/XAt0ix0WARnWb8bQGmn7aex4e+ZtZl7KzF4Sr3Yq0ux03Iqaw/Gm14bwn7Fkl8vPpDl9QqxYlZPq6+yoSTiksbHPoC2nc+9uc/YMGPj9QY6XaLrUbnt0+y0K46orfRPiXxq0olEAdpHXwx3FtBGvJesIKCIZQTc8J8ZnhCPZhCGXQMI8N5fhI3gWff6/98aaoc39C0NQwWoOzO/KJMZFLom+OW3vQNj49bHdl17njuAUCy7y1liNcBSriyYV0kvj0rPhcIvVyju4Lsuz9/RCvWRWaVzD6GuF61nnIevXis4I+pbtsU0JdgA4c5A5if88zDyJA7OC+Dbw7tNid7BFM6GGfGW59h4BShSad96DhWxUVpRo2JtNIitB2e31kDnJQXw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199018)(8676002)(122000001)(86362001)(85182001)(36756003)(38100700002)(8936002)(7416002)(5660300002)(6512007)(38070700005)(64756008)(26005)(6486002)(6506007)(478600001)(66476007)(76116006)(66556008)(66446008)(2906002)(4326008)(316002)(66946007)(71200400001)(186003)(4744005)(110136005)(2616005)(54906003)(41300700001)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?VHFveG1ZSHRMR1VkU2Nhc1plS0duV2dOcnVrayt6N1JnZnhpZFJEQUJDTnBk?=
- =?utf-8?B?SXI5cWNuZVFPeEZHcmJXVWFrNGQvLzViZFRpR01qS004dUI4MUkzWUZ2dzJT?=
- =?utf-8?B?cWNId1JiQ3hrNXdTNndYbUEyeW0xak9nYXBNUjJhSmVnbWtjMEIyU2xCVndV?=
- =?utf-8?B?d3p1S1V5TU44NVEvd0ZPemIyOCsxZ2RaS3Y4QXFWSFZBMHpLT05uNWlFUVIr?=
- =?utf-8?B?UnFzT0ExKzFRYWxpelVidG5vQm9DZW90VzU2MnBCZVRtcURScFdmYWxLTVhy?=
- =?utf-8?B?RTUwQk5uTk9HcWpIV01pR1pxcFNrV0NuV1FhalVWNWtpSUdpMEdzaElFSkhn?=
- =?utf-8?B?WnU4UUxONDhPRWNzR1dKUnhXUUpaRkVjNHZMUFBJRlo0MTlLYnZFTXg3SzR2?=
- =?utf-8?B?TFduR1pxbmkxMDVsRk91eGkydjhMNDFQMHhzcWo5WXhlemFRMkUrNmdJZ1c4?=
- =?utf-8?B?cENSNmwwWmdyNTV2aTJpaitiVlVaVG52bGYzaEVlMWVlUHVFazVFdjB2dDlw?=
- =?utf-8?B?V21RcHJvN1RrRGhxekIxZGtWT3NzMU5LdXVKdnZYRk1BUjFiaGppNnFxM2xJ?=
- =?utf-8?B?YXEyWHNrUjZlTXVlZ3ROS2VVamtDL3lLdkhRaVY1NUtZN1ZYNEEzWXhndjNh?=
- =?utf-8?B?RkVwa0pTS2hSQWFCeDVNQUZNTDBsK0RHY09yWGxPMmd0UHZ6cDRtMC9DUTBm?=
- =?utf-8?B?emd6TUxOcFlPemtnZnhYM1pWSWppaVRDUDlWRkpHLzB6UVJWM0xLeDhzUkhn?=
- =?utf-8?B?TDhzdzJXb0dWTVZvd2s0dkNjb0RaTEZWNm9tYmNFMkJNRXpFZlpzZGZLbk5S?=
- =?utf-8?B?dUR0Nzdsb3Q1UW1kNmNSb29vbmpUNzRtM211MzRlL3BHSXVJY0pnVDdFR0Ny?=
- =?utf-8?B?WHE3Wnd3U0dJNGRBMXBCOEtzbGpUaFBiRmRWVGo4dVd2ejh2LzlqdnkwdVhh?=
- =?utf-8?B?ZDVJcVM1UUNHdnBnZ201YUkvU2g5YVpwRUxmbXJhL0YvdzFFQnFvd00vSFV4?=
- =?utf-8?B?Uzh5dEdFdS9jRVd1bk4wVDlIYlp4WjFSVGw2akMzYW9VQWJTU1J1SGJkbkpF?=
- =?utf-8?B?OTZzQit0aWowSzZPL1pYbXlpa2h5Q2pmMjViWEJ5QmFRS3EvWHNWRyt2dkJD?=
- =?utf-8?B?ZjI0WjZpbmhVS2NuaXVEcVZaNzFVQVF2RElLdXMzV3RFamtMVXhzZGNoUVYy?=
- =?utf-8?B?RkRkZFhjRWxJQk1LV2V6Vm91bk0wLzJ0c2huVXhMSUZ5K0h4YjNUcWFSZ1NC?=
- =?utf-8?B?MDJDOW44SE5nSHlMS1lqRm0xTDJBQ3c0ZWlmYkUrT3BZeXc5ZnBwdkJUL2hC?=
- =?utf-8?B?SUxtN1JIclhqNXl3MXkzSTlCZDNwaXJYWVlrQjMybHNrUXZQYlUwU0YzUE5r?=
- =?utf-8?B?RkptZ3Z6RVB3Yk41QUN0YUxROTd5THpGSEdXWXVNU2c1QnNxejlaV0JVRVhz?=
- =?utf-8?B?elpkclZsTTVGWUdqMWc2T1J5Yk5GSHFwaGhxR2RVcEZmUm5USVhUQ0pZMjkx?=
- =?utf-8?B?L2djc0R0NHlXVGxHb0R1dk5uNXppdTRoWHI2QWZQOUFLWTN4YVF3OUE4c0tB?=
- =?utf-8?B?R0lLQ2N1bUdLRFI2MWk2azlKUGNZZVRLRW9GV0wyOXRIT25YVXpDQVdOSjlz?=
- =?utf-8?B?UmY5azI1TGdVUEk4R21OaXpSbVBzVTkzNnd6eXZzbytjRHlkb3c4L1hBQ0F1?=
- =?utf-8?B?VnE3NmVqUkd2ZTdRY0tzYmNHTEZKUDE2dU9OOEpka3h5ZFJ5UFgxWHN1aGlO?=
- =?utf-8?B?VTU5ZHdHQk1VWi9LR0VsRHNPM2JKM3czQ1VQSWZheFF3YUwrOW5xQ0Uxbml3?=
- =?utf-8?B?aFd2c0VHWTdKZnJWQkp1Uis0NUFZNERFMjMzTm9DNEtmVmthRVBnSUVXanRQ?=
- =?utf-8?B?NmRxaVN0bjZlUHlVNElmT1VXbWZmUFAxZVhhNmxLZTViWCs2STI4cGR6eFJh?=
- =?utf-8?B?UEhMVzBGMktDQXZsOUllRW1pdXlLUCs3eW00SWpYbXBJRkFnenY2b0x0bW1i?=
- =?utf-8?B?dlB5RkpubWJ1Q3RiM0huRjdlQ01QdU5DTU1yL28wRzA3UlVJK0lxQnlQK1ZD?=
- =?utf-8?B?dDRkSlFRZGk0aXZFWVRVWDE1bkwxcVk5bW5BRVRrb29KK29MOVQ4d2N4cFIz?=
- =?utf-8?B?dkJCU25Hb3ZCbkl2ZHVWcHZ1N0VIbmtib3dmSkdHdkR4cmdOUDdKSXRrZzhk?=
- =?utf-8?B?UWc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <9A7FFBE83DFC5E4EA3CAA0CD77E36D1F@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ 15.2.1118.25; Wed, 1 Mar 2023 19:02:02 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Wed, 1 Mar 2023 19:02:02 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <matthias.bgg@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: mediatek: add missing initialization
+Date: Wed, 1 Mar 2023 19:01:58 +0800
+Message-ID: <20230301110200.26177-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 1a7f4cea-3ab5-4bef-5a31-08db1a40eafc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2023 10:37:12.5536
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- +iflu+AIoo/X8ss2lNs4S/5fkp8vqgBiomQLcPBp7shTZnpVNEbnJELaD6PekJrK1evxqYSbamfuzrPNgc3l4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB6586
+Content-Type: text/plain
 X-MTK: N
-Message-ID-Hash: RJ3GGJZEL2CNNWLN5DJJIXGNEDUYWG7X
-X-Message-ID-Hash: RJ3GGJZEL2CNNWLN5DJJIXGNEDUYWG7X
+Message-ID-Hash: INZVQZAFE4M6WN5FYWSNSKX2IAX7S3E6
+X-Message-ID-Hash: INZVQZAFE4M6WN5FYWSNSKX2IAX7S3E6
 X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -193,17 +91,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+CC: trevor.wu@mediatek.com, angelogioacchino.delregno@collabora.com,
+ alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RJ3GGJZEL2CNNWLN5DJJIXGNEDUYWG7X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/INZVQZAFE4M6WN5FYWSNSKX2IAX7S3E6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -212,19 +108,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gV2VkLCAyMDIzLTAzLTAxIGF0IDExOjAwICswMTAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gSWwgMDEvMDMvMjMgMDU6MDgsIFRyZXZvciBXdSBoYSBzY3JpdHRvOg0K
-PiA+IEluIGV0ZG0gZGFpIGRyaXZlciwgZGFpX2V0ZG1fcGFyc2Vfb2YoKSBmdW5jdGlvbiBpcyB1
-c2VkIHRvIHBhcnNlDQo+ID4gZHRzDQo+ID4gcHJvcGVydGllcyB0byBnZXQgcGFyYW1ldGVycy4g
-VGhlcmUgYXJlIHR3byBmb3ItbG9vcHMgd2hpY2ggYXJlDQo+ID4gc2VwZWFyYXRlbHkgZm9yIGFs
-bCBldGRtIGFuZCBldGRtIGlucHV0IG9ubHkgY2FzZXMuIEluIGV0ZG0gaW4gb25seQ0KPiA+IGxv
-b3AsIGRhaV9pZCBpcyBub3QgaW5pdGlhbGl6ZWQsIHNvIGl0IGtlZXBzIHRoZSB2YWx1ZSBpbnRp
-bGlhemVkDQo+ID4gaW4NCj4gPiBhbm90aGVyIGxvb3AuDQo+ID4gDQo+ID4gSW4gdGhlIHBhdGNo
-LCBhZGQgdGhlIG1pc3NpbmcgaW5pdGlhbGl6YXRpb24gdG8gZml4IHRoZSB1bmV4cGVjdGVkDQo+
-ID4gcGFyc2luZyBwcm9ibGVtLg0KPiA+IA0KPiA+IFNpZ25lZC1vZmYtYnk6IFRyZXZvciBXdSA8
-dHJldm9yLnd1QG1lZGlhdGVrLmNvbT4NCj4gDQo+IEkgYWdyZWUgYWJvdXQgdGhpcyBmaXgsIGJ1
-dCB0aGlzIGNvbW1pdCBpcyBub3QgZmluZSBhcyBpdCBpczoNCj4gUGxlYXNlIHNwbGl0IGl0IGlu
-IHR3byBjb21taXRzIGFuZCBhZGQgdGhlIGFwcHJvcHJpYXRlIEZpeGVzIHRhZyB0bw0KPiBlYWNo
-DQo+IGZvciBiYWNrcG9ydHMuDQo+IA0KPiBSZWdhcmRzLA0KPiBBbmdlbG8NCj4gDQoNCkdvdCBp
-dC4NCkkgd2lsbCBzcGxpdCBpdCBpbnRvIHR3byBjb21taXRzIGluIFYyLg0KDQpUaGFua3MsDQpU
-cmV2b3INCg==
+Fix dts parsing problem in mt8188 and mt8195 etdm dai drivers.
+
+Changes since v1:
+  - split the patch into two commits and add Fixes tag.
+
+Trevor Wu (2):
+  ASoC: mediatek: mt8188: add missing initialization
+  ASoC: mediatek: mt8195: add missing initialization
+
+ sound/soc/mediatek/mt8188/mt8188-dai-etdm.c | 3 +++
+ sound/soc/mediatek/mt8195/mt8195-dai-etdm.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+-- 
+2.18.0
+

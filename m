@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFFD6ACADA
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:41:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E4636ACADD
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:42:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C0DA1150;
-	Mon,  6 Mar 2023 18:40:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C0DA1150
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5732E114E;
+	Mon,  6 Mar 2023 18:41:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5732E114E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678124502;
-	bh=RrW1piIzpapYsdd/1b5S7KS37OY1AbM+pNktrXQj1kQ=;
+	s=default; t=1678124519;
+	bh=FObMvCDvwMH2KH0SLSHxFlWtOkwCva/S1emt4p7AvOA=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hdZ8Mk2l3XWfmBv/cT3n9aqvx62UDsyGTZ/UGX8KBwEqJcdHukGKZcBctw6fwyIIQ
-	 2o8rNhKEVlER04V4vch7XPws6fX/E55dYM5nk7F6T0GkzeBge76Okmq/O6rUE+QMRh
-	 cGlLeOg6zW4u0qJAdtrlJ+bGAjWs7Mgcp5OL/f9Y=
+	b=Kwqgrsy/ZaAEoEDn19q8ZHaLsC6ptD9Dv5xvoH917csGdImVGjfs2arkUq/yxDTlj
+	 1Wk2nm4BpEqgRNYTF8h4gxr+EVVxE5JtZE/8Ss4uYNmqbzQfAgLRrCSI7SyhcI6pMc
+	 n4Z0Rh0varuNI0xIg76cQ3dnvL1P714ohOvYL4eo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2ABC2F80564;
-	Mon,  6 Mar 2023 18:38:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA7DEF80570;
+	Mon,  6 Mar 2023 18:38:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 439C5F80266; Thu,  2 Mar 2023 15:34:53 +0100 (CET)
+	id 4B696F80266; Thu,  2 Mar 2023 15:46:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from out-30.mta0.migadu.com (out-30.mta0.migadu.com
- [IPv6:2001:41d0:1004:224b::1e])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out-14.mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31568F800DF
-	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 15:34:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31568F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7AEE4F800DF
+	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 15:46:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AEE4F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256
- header.s=key1 header.b=YfxbP5Wy
-Date: Thu, 2 Mar 2023 15:34:36 +0100
+ header.s=key1 header.b=BhdP8+r9
+Date: Thu, 2 Mar 2023 15:46:40 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1677767681;
+	t=1677768403;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ekEV5MAm7E6bjxp2q4ldu7Xx50sJODF+lRB04Y8cTWY=;
-	b=YfxbP5WynmZcy/mSFqeS8QHrrfDbdj3xuSCY7Nbir/eL0wkrwMT1QYZLcNGOc2pLv4ipFE
-	S00O9ppI7M8mC88e/oRAJsh7AhkuEd2tuJYR1l1vYYERKoYqHHEu8tnKE9g6F4plFuduMC
-	jdKeqFfVfCr1e7TYwJ7FUuygQPCVQtI=
+	bh=iwol87XDWXqBL/XnmrtGtZtjABgKSyQA6ugkaogEFYY=;
+	b=BhdP8+r9QSbtpRZiPRsN2Qey92rHcMc4bJCYEeGLYJZQ3XT/dwlU9qW6ZYJhiPwbbaJXfO
+	Jy3AkKN9/IeAX8RxOw8b/c3vSHNpqIT7gJ7vdeTd/NEijOF0466e9JtYbN2bJMSX7CAD4S
+	qenb0nX+9WkWKdFs3UDYU9onft5PhF0=
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Richard Leitner <richard.leitner@linux.dev>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: maxim,max9867: convert txt
- bindings to yaml
-Message-ID: <ZACz/C/lMh/WsyrB@g0hl1n.net>
+To: Claudiu.Beznea@microchip.com, robh+dt@kernel.org
+Subject: Re: [PATCH 3/3] ASoC: maxim,max9867: add "mclk" support
+Message-ID: <ZAC20AcKy/O+9DkV@g0hl1n.net>
 References: <20230302-max9867-v1-0-aa9f7f25db5e@skidata.com>
- <20230302-max9867-v1-1-aa9f7f25db5e@skidata.com>
- <167775917220.270950.1253335215666674705.robh@kernel.org>
+ <20230302-max9867-v1-3-aa9f7f25db5e@skidata.com>
+ <b0a5c0c2-dfbd-460a-af0d-c9d498607d72@sirena.org.uk>
+ <61e4485b-9211-fa38-5061-f5861292ddd1@microchip.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <167775917220.270950.1253335215666674705.robh@kernel.org>
+In-Reply-To: <61e4485b-9211-fa38-5061-f5861292ddd1@microchip.com>
 X-Migadu-Flow: FLOW_OUT
 X-MailFrom: richard.leitner@linux.dev
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -75,22 +73,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BPURVGNALOFZN3JNLXVENFFJVHIFCDXA
-X-Message-ID-Hash: BPURVGNALOFZN3JNLXVENFFJVHIFCDXA
+Message-ID-Hash: SSY4DHRQG4V4RNSOZCG6T7WGPMKDXJVC
+X-Message-ID-Hash: SSY4DHRQG4V4RNSOZCG6T7WGPMKDXJVC
 X-Mailman-Approved-At: Mon, 06 Mar 2023 17:38:45 +0000
-CC: Richard Leitner <richard.leitner@skidata.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Ladislav Michl <ladis@linux-mips.org>,
- Benjamin Bara <benjamin.bara@skidata.com>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+CC: broonie@kernel.org, lgirdwood@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, ladis@linux-mips.org, tiwai@suse.com,
+ benjamin.bara@skidata.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ richard.leitner@skidata.com, bbara93@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BPURVGNALOFZN3JNLXVENFFJVHIFCDXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSY4DHRQG4V4RNSOZCG6T7WGPMKDXJVC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,62 +95,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Mar 02, 2023 at 07:05:02AM -0600, Rob Herring wrote:
-> 
-> On Thu, 02 Mar 2023 12:55:01 +0100, richard.leitner@linux.dev wrote:
-> > From: Richard Leitner <richard.leitner@skidata.com>
-> > 
-> > Convert from max9867.txt to maxim,max9867.yaml and add missing
-> > '#sound-dai-cells' property.
-> > 
-> > Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
-> > ---
-> >  .../devicetree/bindings/sound/max9867.txt          | 17 --------
-> >  .../devicetree/bindings/sound/maxim,max9867.yaml   | 51 ++++++++++++++++++++++
-> >  2 files changed, 51 insertions(+), 17 deletions(-)
-> > 
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Hi Claudiu,
 
-Thank you for the pointer, Rob!
+On Thu, Mar 02, 2023 at 12:45:50PM +0000, Claudiu.Beznea@microchip.com wrote:
+> On 02.03.2023 14:20, Mark Brown wrote:
+> >> +	max9867->mclk = devm_clk_get(&i2c->dev, "mclk");
+> >> +	if (IS_ERR(max9867->mclk))
+> >> +		return PTR_ERR(max9867->mclk);
+> >> +	ret = clk_prepare_enable(max9867->mclk);
+> >> +	if (ret < 0)
+> >> +		dev_err(&i2c->dev, "Failed to enable MCLK: %d\n", ret);
+> >> +
+> > Nothing ever disables the clock - we need a disable in the remove path
+> > at least.
+> 
+> I don't have the full context of this patch but this diff seems a good
+> candidate for devm_clk_get_enabled().
 
-Will fix those in v2 and from now on run 'make DT_CHECKER_FLAGS=-m
-dt_binding_check' before sending any patches 😉
+Thanks for that pointer, but currently we are thinking of prepare_enable
+the clock in SND_SOC_BIAS_ON and disable_unprepare it in SND_SOC_BIAS_OFF
+(similar to wm8731.c).
+Therefore probe() will only do a devm_clk_get().
+
+Claudiu, Rob: Will this be an acceptable solution?
 
 regards;rl
-
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/maxim,max9867.yaml: 'oneOf' conditional failed, one must be fixed:
-> 	'unevaluatedProperties' is a required property
-> 	'additionalProperties' is a required property
-> 	hint: Either unevaluatedProperties or additionalProperties must be present
-> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
-> ./Documentation/devicetree/bindings/sound/maxim,max9867.yaml: $id: relative path/filename doesn't match actual path or filename
-> 	expected: http://devicetree.org/schemas/sound/maxim,max9867.yaml#
-> Error: Documentation/devicetree/bindings/sound/maxim,max9867.example.dts:18.9-13 syntax error
-> FATAL ERROR: Unable to parse input tree
-> make[1]: *** [scripts/Makefile.lib:434: Documentation/devicetree/bindings/sound/maxim,max9867.example.dtb] Error 1
-> make[1]: *** Waiting for unfinished jobs....
-> make: *** [Makefile:1508: dt_binding_check] Error 2
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230302-max9867-v1-1-aa9f7f25db5e@skidata.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 

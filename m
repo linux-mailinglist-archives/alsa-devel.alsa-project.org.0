@@ -2,108 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D29416A833A
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Mar 2023 14:06:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D546A8349
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Mar 2023 14:11:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D539510E;
-	Thu,  2 Mar 2023 14:05:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D539510E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 944F91FA;
+	Thu,  2 Mar 2023 14:10:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 944F91FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677762366;
-	bh=frWoAE5XQ4SaLtqfCBvI8MPVLtMjarZnlBiNvn1W4xk=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1677762692;
+	bh=2azW0FPDD1s11292BzAocYdZUw9EDxNjZSvw+x+Qrkw=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oKepsUt4u2yihBHNyuPWu6se2T5UOipGOpKsNnPXUITFnhP8sgbX+FeETxuG4/nP2
-	 b/ITJRW7f2WOTydeue21mE2edbgqa+P3iQseclUY/m05KHxfWrjgL39VsGeDCtfpxh
-	 7gxgdks99zr99eeo8cD9KIduVUBnv/NzgjRGh8Yo=
+	b=luriuNAw5RXhIVsrg5hfr5ArjkSXKpuvzoDSYgOLDL8+lj2mhtohYvPUvbDUfsscj
+	 JRurZrModN2Exja8fDSl2W+z3lsUxEW+eDG+ua/37e3CaG/eTZhv0JjoMnub5lzIIu
+	 8CRneEmxgwsRQEu2N3DLgxAQjXbLonB7rOUU33Ac=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 298C1F8025A;
-	Thu,  2 Mar 2023 14:05:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED473F8025A;
+	Thu,  2 Mar 2023 14:10:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7E42F80266; Thu,  2 Mar 2023 14:05:11 +0100 (CET)
+	id 67ACBF80266; Thu,  2 Mar 2023 14:10:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3A1CF800DF
-	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 14:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3A1CF800DF
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-53852143afcso427082717b3.3
+	by alsa1.perex.cz (Postfix) with ESMTPS id A50BDF800DF
+	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 14:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A50BDF800DF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=RQh0pRw3
+Received: by mail-wr1-x430.google.com with SMTP id t15so16469696wrz.7
         for <alsa-devel@alsa-project.org>;
- Thu, 02 Mar 2023 05:05:06 -0800 (PST)
+ Thu, 02 Mar 2023 05:10:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1677762634;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LTMb2uiAKQy8zkbJrBkzpMbRkO+dwt0YiEEiYQBT8oM=;
+        b=RQh0pRw3GZQXbuvLXDlP/waEUyZWHkYkc0rlKmxYZpkshO94bQ7StbBQ1MtI3m2kDU
+         KzH1v7ZpIiP6QCzqx4vsx2CV8F9WfIPKzeFrYTe7sCiXIVlHgAuLatKo0cjH+Oy3g927
+         PmrQkT9MQv12j2neob8toCo4kW/kb+xG/bQAbNNIDLAlN2jCDZ3Ag3ILQYl8ynlogXXO
+         kjLhWz4Z00knAmyth4KuQYshKND2D1o4hOaJw4KnALM7ucc1PjbfA0GKF9JRljTSuZZe
+         UrV4v7degPV2NP3gxGd/BRB3oGSoGZqYEn4i7kFx/cPiVwbvyuDCaOtZLtXJcM3BY3Eq
+         po9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=date:subject:message-id:references:in-reply-to:cc:to:from
-         :mime-version:content-transfer-encoding:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=X18LEh0g5lt3E5bs+v6xlkNcEAN9JmhuluP548V82lk=;
-        b=r4+mXP87uH1wik95MrwZiVnaJgdER6dpdYsYi6Da5DmIHRNCbOeWZM5YWgSAI+11LF
-         QrRCjj2MKGmt/fvVAXo6n03aMF2H2l8gS5fiN7cXZI+gKtPhWud6EDAKYOHs57x6dY9s
-         fGHSNS7uygcXvO64Z1tV6arb9+zuumY66fPw3FCkfWyxJIAXtkmTqB8vxCPQeJ+MKPVc
-         0F87xn5Y0N5Y+WiZp7Lgbd2J0bwi0r7Vv/lcZUjria4GG3r4Pe0y9lxsfBwaCBE17PxJ
-         lXzfTAgLYzrMgyMUIhSsLv7DgLV/yQRgDB3x/TudE+oK7xrbdkFXHFrOipZOwvbJ41Fq
-         d+8Q==
-X-Gm-Message-State: AO0yUKXWQn7GkSgRG1q8+x2EsSn54TgYipbxBSx0vWgq3WYU8+eR6FLJ
-	jDNnkI8UUS8Q5h3/r85LhQ==
+        d=1e100.net; s=20210112; t=1677762634;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LTMb2uiAKQy8zkbJrBkzpMbRkO+dwt0YiEEiYQBT8oM=;
+        b=JzXvc/pQbVYxqLPXqPthW55XCE9LqDBXEjdqUxodsVjouq14krH2pHge3KKKdVpHCG
+         1KOIC/YTIjCRPfVcOGRjKNcOW5gVII20wktmGr0uH3QVp0nqkmF3zUnrvhz5jXuW6MK9
+         xi9Yad+kZ+QvQmLerYYm6ryrf9E40CAAn1/aLCVebzQ/hqtBXduYr9TC3BiH+1b1/t0f
+         Yxawp7hD1kdDcUa5QjcG771tp5+gHlxknM7nZW6O1aSmD6N6GDbipk2VdetrFSdPwf8S
+         t886XWMmZbMqIGkqyPNzoSf3WD1WH4wJKqHZbiY6eomaGKVg+zdz94zUX+64e0HqwCC0
+         4exQ==
+X-Gm-Message-State: AO0yUKUfgME2p7n5gTc4L2CLY5+kCTPyKBmnsUprauNDWU7rsdZgOFDU
+	L6xN2Xw/NWQrF8RegDfazAHW8g==
 X-Google-Smtp-Source: 
- AK7set99Kml+ZlGBFLIQciIuYyUn/ayyZxT/PJoaMEmLBbf6uluXXipONSdP2IEsSPutmUjyQ1oISw==
-X-Received: by 2002:a05:7500:4395:b0:f8:882c:4e5e with SMTP id
- fn21-20020a057500439500b000f8882c4e5emr246636gab.77.1677762304745;
-        Thu, 02 Mar 2023 05:05:04 -0800 (PST)
-Received: from robh_at_kernel.org ([209.91.220.210])
-        by smtp.gmail.com with ESMTPSA id
- l4-20020ab053c4000000b0068b8c1fa859sm1977991uaa.26.2023.03.02.05.05.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Mar 2023 05:05:04 -0800 (PST)
-Received: (nullmailer pid 284033 invoked by uid 1000);
-	Thu, 02 Mar 2023 13:05:02 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ AK7set/UY2mu+bVvyesOlReohTFVfVRqwfeXA8qbg0d09zP+0hh61PBsHLM+AjPQwB0/GuENcMxemw==
+X-Received: by 2002:a5d:4dd2:0:b0:2cb:c66d:6ac1 with SMTP id
+ f18-20020a5d4dd2000000b002cbc66d6ac1mr7025325wru.3.1677762633759;
+        Thu, 02 Mar 2023 05:10:33 -0800 (PST)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ t14-20020adfe44e000000b002c5503a8d21sm15622256wrm.70.2023.03.02.05.10.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Mar 2023 05:10:33 -0800 (PST)
+Message-ID: <ee0a09bd-831b-9ac4-7b9c-d584497cd7a0@linaro.org>
+Date: Thu, 2 Mar 2023 13:10:30 +0000
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: richard.leitner@linux.dev
-In-Reply-To: <20230302-max9867-v1-1-aa9f7f25db5e@skidata.com>
-References: <20230302-max9867-v1-0-aa9f7f25db5e@skidata.com>
- <20230302-max9867-v1-1-aa9f7f25db5e@skidata.com>
-Message-Id: <167775917220.270950.1253335215666674705.robh@kernel.org>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: maxim,max9867: convert txt
- bindings to yaml
-Date: Thu, 02 Mar 2023 07:05:02 -0600
-Message-ID-Hash: 2UISJQ3UENLAA5VVXRPLWVTWX3HEZJGC
-X-Message-ID-Hash: 2UISJQ3UENLAA5VVXRPLWVTWX3HEZJGC
-X-MailFrom: robherring2@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] ASoC: qcom: q6prm: fix incorrect clk_root passed to ADSP
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20230302122908.221398-1-krzysztof.kozlowski@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230302122908.221398-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: IUDBLN5YKOEBC3DCIPLWHHIM3LOBANTL
+X-Message-ID-Hash: IUDBLN5YKOEBC3DCIPLWHHIM3LOBANTL
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Richard Leitner <richard.leitner@skidata.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Ladislav Michl <ladis@linux-mips.org>,
- Benjamin Bara <benjamin.bara@skidata.com>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+CC: stable@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UISJQ3UENLAA5VVXRPLWVTWX3HEZJGC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUDBLN5YKOEBC3DCIPLWHHIM3LOBANTL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,52 +124,43 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Thu, 02 Mar 2023 12:55:01 +0100, richard.leitner@linux.dev wrote:
-> From: Richard Leitner <richard.leitner@skidata.com>
+
+On 02/03/2023 12:29, Krzysztof Kozlowski wrote:
+> The second to last argument is clk_root (root of the clock), however the
+> code called q6prm_request_lpass_clock() with clk_attr instead
+> (copy-paste error).  This effectively was passing value of 1 as root
+> clock which worked on some of the SoCs (e.g. SM8450) but fails on
+> others, depending on the ADSP.  For example on SM8550 this "1" as root
+> clock is not accepted and results in errors coming from ADSP.
 > 
-> Convert from max9867.txt to maxim,max9867.yaml and add missing
-> '#sound-dai-cells' property.
-> 
-> Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
+> Fixes: 2f20640491ed ("ASoC: qdsp6: qdsp6: q6prm: handle clk disable correctly")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Nice Find, Tested on sc8280xp
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+
+--srini
 > ---
->  .../devicetree/bindings/sound/max9867.txt          | 17 --------
->  .../devicetree/bindings/sound/maxim,max9867.yaml   | 51 ++++++++++++++++++++++
->  2 files changed, 51 insertions(+), 17 deletions(-)
+>   sound/soc/qcom/qdsp6/q6prm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/maxim,max9867.yaml: 'oneOf' conditional failed, one must be fixed:
-	'unevaluatedProperties' is a required property
-	'additionalProperties' is a required property
-	hint: Either unevaluatedProperties or additionalProperties must be present
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
-./Documentation/devicetree/bindings/sound/maxim,max9867.yaml: $id: relative path/filename doesn't match actual path or filename
-	expected: http://devicetree.org/schemas/sound/maxim,max9867.yaml#
-Error: Documentation/devicetree/bindings/sound/maxim,max9867.example.dts:18.9-13 syntax error
-FATAL ERROR: Unable to parse input tree
-make[1]: *** [scripts/Makefile.lib:434: Documentation/devicetree/bindings/sound/maxim,max9867.example.dtb] Error 1
-make[1]: *** Waiting for unfinished jobs....
-make: *** [Makefile:1508: dt_binding_check] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230302-max9867-v1-1-aa9f7f25db5e@skidata.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+> diff --git a/sound/soc/qcom/qdsp6/q6prm.c b/sound/soc/qcom/qdsp6/q6prm.c
+> index 8aa1a213bfb7..c1dc5bae715a 100644
+> --- a/sound/soc/qcom/qdsp6/q6prm.c
+> +++ b/sound/soc/qcom/qdsp6/q6prm.c
+> @@ -183,9 +183,9 @@ int q6prm_set_lpass_clock(struct device *dev, int clk_id, int clk_attr, int clk_
+>   			  unsigned int freq)
+>   {
+>   	if (freq)
+> -		return q6prm_request_lpass_clock(dev, clk_id, clk_attr, clk_attr, freq);
+> +		return q6prm_request_lpass_clock(dev, clk_id, clk_attr, clk_root, freq);
+>   
+> -	return q6prm_release_lpass_clock(dev, clk_id, clk_attr, clk_attr, freq);
+> +	return q6prm_release_lpass_clock(dev, clk_id, clk_attr, clk_root, freq);
+>   }
+>   EXPORT_SYMBOL_GPL(q6prm_set_lpass_clock);
+>   

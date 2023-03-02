@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60306ACAEE
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:44:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989F56ACAF4
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:44:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 099DA1152;
-	Mon,  6 Mar 2023 18:43:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 099DA1152
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5B45115F;
+	Mon,  6 Mar 2023 18:43:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5B45115F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678124645;
+	s=default; t=1678124664;
 	bh=JSi7EemZCUPtWCmpuXCPTfDGbYK8js+emGU+Dy+rToQ=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uU7fj3XsMiscU4eagK3NXz5D1qNRGL5KvLs5F6L/FDBjVHDrSFOdr3PTG+YatL9Yp
-	 Iyz6dcoyjGAZwwYBXlaY82D07LVAPV2KrXwXwXUE4B0zx5vJUbue67ki7yyLk2oZif
-	 64qE7lhQ65HPAT7R+GXOyWwcrigzBUHCXh8JcpXc=
+	b=EK5vqpcddeo40aJUX6kEespEyXCcJVQmA6dxGuEIqE3fhtfrfhY65yjsRIO9BCA7U
+	 gaARdSd/WegWqWol5HLYiVC/q1SO7LOxjJ1oYEq/it2dvvgQpaQVnxCsQ9a49XFqIu
+	 d23jpFLE8hmSCykCKXabSY05Ntu6H+YfX+q4v47A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23ACBF805C7;
-	Mon,  6 Mar 2023 18:39:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D7B6F800DF;
+	Mon,  6 Mar 2023 18:40:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24AFAF80266; Thu,  2 Mar 2023 18:22:29 +0100 (CET)
+	id 4017DF80266; Thu,  2 Mar 2023 18:26:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B141FF80236
-	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 18:22:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B141FF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 01F84F80236
+	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 18:26:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01F84F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=nfPr/Vun
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3225JDQf001850;
-	Thu, 2 Mar 2023 11:22:21 -0600
+ header.s=PODMain02222019 header.b=mJQQqz1I
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3226vmNW014653;
+	Thu, 2 Mar 2023 11:26:42 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=PODMain02222019;
  bh=EHHCWzHpF4rQVg0WOJz1Y6d6fEeVpaItK9KZDCSViAc=;
- b=nfPr/Vundrqi7LWKMIrAh6QjaHIuazkX1lMEmodv6CKdZjSKCErlzomNQQxng3gFTpea
- z46i3CNcxxPg29WYElZTKSCylBg5wHJFjbElJPWmKw57yazKI0bB8WI3BKSK6qw9QEPR
- gncHw6vGIlh8dKET28gl82qM5ey390eodDcsg3oVHhhkOjFnT0XhRkjuoxLmU5lEAN8z
- pgSpedVv08rGiwGmro62tOauU2cku2Pv4mE5G8LXOjxeuvHsRBBzbmoTJ05ahe2Ka/WA
- 1lXasK52W9YZ/8nU5cWmgb3L4f1NtMKeI5rBr70BnAHKzJIR9EYLiL6bMJ++OcB2JqOU MA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3nyfmt92kp-1
+ b=mJQQqz1IgHYhq7DqljqnNdJSOhs6xcd9nRsBNmOEv54xXB6VQj4E43PGjH7xFqCxsJXQ
+ xCve9TfiHXjSm7yebMy9n0k+zIcRq8ZLD5y6cKWnjQitWBvcFb7RVbYkgzk9C6XwwG5w
+ DAingXGKV3Fd7c4hgGsOA7CZ+/Bck+0cY/ndhcrxdu+q7RyUt/AI7nrK+yQTZatSfJ7p
+ D7Ty94vWtecjJ6ldzBlBSl36UTi+xH8eNxHe7YNxOseyzb3/Ferv+7qkMGS3aTRtzg4Y
+ ISI5DMYkPnr9PyZgpeFd/jKty7V1IqS7rbsfXKaIwg5O+8x1LzLcEuSJvWA5UJY4gkC5 Hg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3nygm714ac-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Mar 2023 11:22:21 -0600
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+	Thu, 02 Mar 2023 11:26:42 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Thu, 2 Mar
- 2023 11:22:19 -0600
+ 2023 11:26:40 -0600
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
  anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Thu, 2 Mar 2023 11:22:19 -0600
+ 15.2.1118.25 via Frontend Transport; Thu, 2 Mar 2023 11:26:40 -0600
 Received: from vkarpovich-ThinkStation-P620.crystal.cirrus.com
  (vkarpovich-ThinkStation-P620.ad.cirrus.com [141.131.206.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1C590B06;
-	Thu,  2 Mar 2023 17:22:17 +0000 (UTC)
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 65A13B06;
+	Thu,  2 Mar 2023 17:26:39 +0000 (UTC)
 From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
         Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 5/5] ASoC: cs34l45: Hibernation support
-Date: Thu, 2 Mar 2023 11:22:14 -0600
-Message-ID: <20230302172214.2343528-1-vkarpovi@opensource.cirrus.com>
+Subject: [PATCH 5/5] ASoC: cs35l45: Hibernation support
+Date: Thu, 2 Mar 2023 11:26:36 -0600
+Message-ID: <20230302172636.2344058-1-vkarpovi@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: uDsb-E1TVjfV2xal4R-cLSjN2BzDQwp1
-X-Proofpoint-GUID: uDsb-E1TVjfV2xal4R-cLSjN2BzDQwp1
+X-Proofpoint-ORIG-GUID: TLI_zyYrcrslliocW8rTnQCBa3OluUco
+X-Proofpoint-GUID: TLI_zyYrcrslliocW8rTnQCBa3OluUco
 X-Proofpoint-Spam-Reason: safe
 X-MailFrom: prvs=8425611b2f=vkarpovi@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -87,9 +87,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZC3MS3AXJC3QUQBBGSIXFBO3DGJFY5JH
-X-Message-ID-Hash: ZC3MS3AXJC3QUQBBGSIXFBO3DGJFY5JH
-X-Mailman-Approved-At: Mon, 06 Mar 2023 17:39:06 +0000
+Message-ID-Hash: MWQEXJB4YL6MHUJXDZP2TKG7MZU6FDDI
+X-Message-ID-Hash: MWQEXJB4YL6MHUJXDZP2TKG7MZU6FDDI
+X-Mailman-Approved-At: Mon, 06 Mar 2023 17:40:30 +0000
 CC: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  linux-kernel@vger.kernel.org,
  "Vlad.Karpovich" <vkarpovi@opensource.cirrus.com>
@@ -98,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZC3MS3AXJC3QUQBBGSIXFBO3DGJFY5JH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MWQEXJB4YL6MHUJXDZP2TKG7MZU6FDDI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 812226ACACF
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:40:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4A16ACAD2
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:40:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C64181141;
-	Mon,  6 Mar 2023 18:39:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C64181141
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91159114D;
+	Mon,  6 Mar 2023 18:40:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91159114D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678124427;
-	bh=PBHQ2YaiO+Kb0G+Zsb50BNzMNdU9/0QHXu2V4sDcIzM=;
+	s=default; t=1678124451;
+	bh=luqWqC5oSH8yC4fXm8WRZe7hyqd7VZiS3FzmSlAoZgk=;
 	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AtuwPwAuK/88qqltwzRnhdt5dLC4BhRdjwxo18rQsO9BTzPLDCWFWsH/XqSkvEEz+
-	 SiJvSRM5E29/1XpOBvgIjG8EKIV2EB+SjU7Flwf1JfS6nlLSE1RQeStVLfqJzae7hC
-	 cEzvAZ0TnsCkPhBa/nbUU7CUlASfpWQVK9IFPMJI=
+	b=VasiKVrtwDdVjTyLaR3i2CtEG2uIYu051IXwJuuc3mdUidBykVEEz7mXTw8GZcgwq
+	 888hLSuTCi+GgSFxBtM77ggchU2jgaPOD/FvlWKrW7gcM7gI3QnZoIX9xoTpxRNtqa
+	 nUGJBLuUCzJWDcXJ9NDoJr4EowFQHukikgnuthJE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15EDBF804B1;
-	Mon,  6 Mar 2023 18:38:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91236F80529;
+	Mon,  6 Mar 2023 18:38:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C792F80310; Thu,  2 Mar 2023 12:57:30 +0100 (CET)
+	id D6080F8049C; Thu,  2 Mar 2023 12:57:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from out-18.mta1.migadu.com (out-18.mta1.migadu.com
- [IPv6:2001:41d0:203:375::12])
+Received: from out-32.mta1.migadu.com (out-32.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85CDCF8049C
-	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 12:57:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85CDCF8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9B0CCF804B1
+	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 12:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B0CCF804B1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256
- header.s=key1 header.b=xEL5Mwbq
+ header.s=key1 header.b=p3i2oWfX
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
@@ -51,17 +51,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AR5vfcbTzXg9GS9xts3Lxqv5/GJy7ozqxusymEf3afo=;
-	b=xEL5MwbqhEW/vkHHggpCjUihFiwwscme7Ym7cn7njoh9i5up9Qq5IN3roJUWuLzSrwAafy
-	6nuRb4mUGB2rYjivL9tVTqWqY5tLYIXPLoUSW9Vz2vB7CDL6bQzXpkO3bkIBiZEbAM1xoJ
-	yA+F9n/NbDz/Uhp8IWXq03+Y4rYqF+M=
+	bh=sredrf5PjZ7jQFXwhsTWfhRpimvvGAc4wV/iwzTmZq0=;
+	b=p3i2oWfXX64J/GM40FQzzz9ICV3FS6E6pH4lDCCyy7YOp2GeNRWM0L6LgWvaaDUFYG8nrS
+	JsC4lt9h3nfU1JJGScOJBu6/x+XrQKJnq360TuI5WChEuOL3dC/CGCuPgG3RaxCBz9v/4o
+	SuxS+lrnpNYeCA30kp61Se0VWYaGU0A=
 From: richard.leitner@linux.dev
-Date: Thu, 02 Mar 2023 12:55:02 +0100
-Subject: [PATCH 2/3] ASoC: dt-bindings: maxim,max9867: add "mclk" property
+Date: Thu, 02 Mar 2023 12:55:03 +0100
+Subject: [PATCH 3/3] ASoC: maxim,max9867: add "mclk" support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230302-max9867-v1-2-aa9f7f25db5e@skidata.com>
+Message-Id: <20230302-max9867-v1-3-aa9f7f25db5e@skidata.com>
 References: <20230302-max9867-v1-0-aa9f7f25db5e@skidata.com>
 In-Reply-To: <20230302-max9867-v1-0-aa9f7f25db5e@skidata.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -69,12 +69,12 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Ladislav Michl <ladis@linux-mips.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, Benjamin Bara <benjamin.bara@skidata.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1153;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1453;
  i=richard.leitner@skidata.com; h=from:subject:message-id;
- bh=bMNg7GqHmP3qmoCg4huIjZzqkxCE2jKo6J6fNpJ+8ks=;
- b=owGbwMvMwCX2R2KahkXN7wuMp9WSGFIY+uUZl4XzaBlcvvyYkbF0S63p1x1bTl9f5Xlnb0Dkcb27
- GZ9+dJSyMIhxMciKKbLYG3O1u+eWva9U1MmFmcPKBDKEgYtTACYiu47hv/fyK+tYfm98tmiN8OOAnI
- qsGz/bv/7fPXeyr52E2+cH6rqMDGt92Cs2bOXVTyg35Ih2NQlPrZJ1vR6+MKpgV/9tVg45DgA=
+ bh=t7JeLv5Avx9AQ87GdXmgLhpXQCWm8ePC8Uj/0k4VhNI=;
+ b=owGbwMvMwCX2R2KahkXN7wuMp9WSGFIY+uU7ly5v9/95II6d2/TEmpl/JRpjl/9oubQ0q6J9w9Pg
+ BJ1PHaUsDGJcDLJiiiz2xlzt7rll7ysVdXJh5rAygQxh4OIUgImcimX4p+Rb7Xtxr/wJwSKfq3Jq+z
+ 3TBM53av9zm7Gv/Nbi8hlPpjH8lanmVk9hWxPJdoeZ6dvrUyq+6x84Fxjm/T4//3H/R2tLZgA=
 X-Developer-Key: i=richard.leitner@skidata.com; a=openpgp;
  fpr=3F330A87476D76EF79212C6DFC189628387CFBD0
 X-Migadu-Flow: FLOW_OUT
@@ -84,9 +84,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: SURX7CTGPJGS6HR4HQOATYRXNTSXIA6J
-X-Message-ID-Hash: SURX7CTGPJGS6HR4HQOATYRXNTSXIA6J
-X-Mailman-Approved-At: Mon, 06 Mar 2023 17:38:43 +0000
+Message-ID-Hash: 4V4O7GLVTJZGWKL7UF4Y6TZRXJRC6P2K
+X-Message-ID-Hash: 4V4O7GLVTJZGWKL7UF4Y6TZRXJRC6P2K
+X-Mailman-Approved-At: Mon, 06 Mar 2023 17:38:44 +0000
 CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Richard Leitner <richard.leitner@skidata.com>
 X-Mailman-Version: 3.3.8
@@ -94,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SURX7CTGPJGS6HR4HQOATYRXNTSXIA6J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4V4O7GLVTJZGWKL7UF4Y6TZRXJRC6P2K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,47 +103,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Richard Leitner <richard.leitner@skidata.com>
+From: Benjamin Bara <benjamin.bara@skidata.com>
 
-Add clocks and clock-names properties to require a "mclk" definition for
-the maxim,max9867 codec.
+Add basic support for the codecs mclk by enabling it during probing.
 
-Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
+Signed-off-by: Benjamin Bara <benjamin.bara@skidata.com>
 ---
- Documentation/devicetree/bindings/sound/maxim,max9867.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/codecs/max9867.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/maxim,max9867.yaml b/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
-index cefa43c3d34e..152340fe9cc7 100644
---- a/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
-+++ b/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
-@@ -35,9 +35,17 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index e161ab037bf7..b92dd61bb2b2 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -6,6 +6,7 @@
+ // Copyright 2018 Ladislav Michl <ladis@linux-mips.org>
+ //
  
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: "mclk"
-+
- required:
-   - compatible
-   - reg
-+  - clocks
-+  - clock-names
++#include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+@@ -16,6 +17,7 @@
+ #include "max9867.h"
  
- examples:
-   - |
-@@ -46,6 +54,8 @@ examples:
-                     compatible = "maxim,max9867";
-                     #sound-dai-cells = <0>;
-                     reg = <0x18>;
-+                    clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_SAI3_MCLK1>;
-+                    clock-names = "mclk";
-             };
-     };
- ...
+ struct max9867_priv {
++	struct clk *mclk;
+ 	struct regmap *regmap;
+ 	const struct snd_pcm_hw_constraint_list *constraints;
+ 	unsigned int sysclk, pclk;
+@@ -663,8 +665,18 @@ static int max9867_i2c_probe(struct i2c_client *i2c)
+ 	dev_info(&i2c->dev, "device revision: %x\n", reg);
+ 	ret = devm_snd_soc_register_component(&i2c->dev, &max9867_component,
+ 			max9867_dai, ARRAY_SIZE(max9867_dai));
+-	if (ret < 0)
++	if (ret < 0) {
+ 		dev_err(&i2c->dev, "Failed to register component: %d\n", ret);
++		return ret;
++	}
++
++	max9867->mclk = devm_clk_get(&i2c->dev, "mclk");
++	if (IS_ERR(max9867->mclk))
++		return PTR_ERR(max9867->mclk);
++	ret = clk_prepare_enable(max9867->mclk);
++	if (ret < 0)
++		dev_err(&i2c->dev, "Failed to enable MCLK: %d\n", ret);
++
+ 	return ret;
+ }
+ 
 
 -- 
 2.39.2

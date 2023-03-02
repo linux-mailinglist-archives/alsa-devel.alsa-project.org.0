@@ -2,111 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB716A81E0
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Mar 2023 13:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2883F6A8212
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Mar 2023 13:21:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C92961F6;
-	Thu,  2 Mar 2023 13:03:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C92961F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1F151F6;
+	Thu,  2 Mar 2023 13:20:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1F151F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677758680;
-	bh=3byWzyurPXEYR4RfyHktCOisOGO3wgw4mCo4r3lDIXs=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MxzaMc+lWqgILdHGCRIYK1TbPGfzDRC3UuwRZ7PHqVok7T++dkMFVUfCIJqgL0kjY
-	 MGNxo4ATdUfo+3rfPH9Ng9r0TRCCS77BBNM87vMp5kuWTXt0XLtkkSKAYIsfzFKG6F
-	 g9z/dba64QZuSbjnCxRPGJfO6wvqMOJ1ZcPGk778=
+	s=default; t=1677759683;
+	bh=UkLrRZGFWz4j9QDCZEWFzdN5QysERiBI8gpLVzs0Ss8=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Q/owhM8rNNUMIAfxGaIpym5pYbQq3pPGuIA5vWUPai/P0jCdb2wLkQzkQLJn8Ajb8
+	 6MJlJTdZ+VjaI4aIDoZXXyBeQDVZPsV30slOpKtBomrl/gUuXleFCxu7jX733g9aeM
+	 ofTUPhEuUh1gj9LzQfTn/a282VBlYbixjR0Ek+Rc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22D48F80310;
-	Thu,  2 Mar 2023 13:03:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3668F80310;
+	Thu,  2 Mar 2023 13:20:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14C25F8049C; Thu,  2 Mar 2023 13:03:46 +0100 (CET)
+	id BC898F8049C; Thu,  2 Mar 2023 13:20:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2C12F80236
-	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 13:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C12F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id BFAC3F800DF
+	for <alsa-devel@alsa-project.org>; Thu,  2 Mar 2023 13:20:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFAC3F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=xC3lGcWe
-Received: by mail-wr1-x434.google.com with SMTP id r18so16302024wrx.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 02 Mar 2023 04:03:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1677758619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=//nTMjC91UXahku8+Tdgj1LSFzE35LjlMWcyU1qZ1CQ=;
-        b=xC3lGcWemHgD69Qa6SjC7iLvsWcoyMqrRP2tbnso0lWItT3NJRh97pgog8qb12RHPd
-         vcYzmy4CqHGya/xFYdqheKBrfkkMNCDsdpfECVxn/sOr07JdI+bN8RQzQipunChja1SW
-         THeCPlrarcDbbQ2ghM3lMuli9UboDI5yFER6FuoxnqVQw52CGhvNSzPB74o1RZ2iY5VC
-         55EBjwBlSKzE2/5qIwbkbSHrG3Q7Ty+Qb5kT+CRJ7LM3Z9PBmoQfFtyh3zkZU1IOHzNh
-         P3Gxz9Vvvbga2/CjT2Y+BjNSO2yfAAgbnrKzt6vKAAL4EXJq0dEBNHqH2lbiEN+ivuMl
-         bfnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677758619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=//nTMjC91UXahku8+Tdgj1LSFzE35LjlMWcyU1qZ1CQ=;
-        b=E06opeKN4YEIh5/mWYSmYXzULNRdd+LBdJ3+Meoe7eTAByP0jR9kQBjLH0/qVjO2ry
-         3Va0/1UDA8nlqN0o3brPyCX9z1fgV/AXarbYnP4PUD2Ifm8xzjDL2Ydjg3KojYGQvJdf
-         OmAPL2JHOPqQrZCV5J1HYfLG0QDgM5KdtxcpGkdtA7UOn4hIaudvegvn3Dh8MdTo6HH0
-         T0x85y5ZMmkciqWFRg8Nx5/CiqRZllXfktnjw4S3zfjRwTl2L1jI5U2+FoGy9jne3O48
-         mWpvZ6gjroho2ZJLQ/zD7lD4foGvr/2XHQbVCMNNnQoxptAhvtrOkcn15y7sn7QTNuHo
-         Yt8Q==
-X-Gm-Message-State: AO0yUKUN0ATgHyieMlTWNlj1BIJlc0+2N2VjrffPOGdMLfe1qNP9RuJi
-	dZVsk1yMgZ7nel0tQEKJe+NVXQ==
-X-Google-Smtp-Source: 
- AK7set/cuxTBk2fSWYhYU5b2FKv5Yqgg6rOXfNsTT+RpLAGnq0BSBmhWdoPN6utwXYOimmwl91XfaA==
-X-Received: by 2002:adf:f6c5:0:b0:2c7:148c:b04f with SMTP id
- y5-20020adff6c5000000b002c7148cb04fmr7122753wrp.37.1677758619031;
-        Thu, 02 Mar 2023 04:03:39 -0800 (PST)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- a4-20020a5d5704000000b002c559843748sm15293422wrv.10.2023.03.02.04.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Mar 2023 04:03:38 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: qcom: common: add default jack dapm pins
-Date: Thu,  2 Mar 2023 12:03:27 +0000
-Message-Id: <20230302120327.10823-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Jc+2QXJZ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id E3B6FB811EF;
+	Thu,  2 Mar 2023 12:20:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38027C433D2;
+	Thu,  2 Mar 2023 12:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677759624;
+	bh=UkLrRZGFWz4j9QDCZEWFzdN5QysERiBI8gpLVzs0Ss8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Jc+2QXJZDZRysL8lvu7f7BBWGcMnP656F43eWCBBO6elfthqASaUNwc8v0VOImKy/
+	 njDycTe4B8sWChXD2RV62gSsRmf2IXDanTXbNF8NU7W4Wdq+1peRTUvrAyGorQXsBJ
+	 GnuSyD0azT3DH65uaO2zWZM8v0uFdNxvsMdZ/JiOyi9jUQQVS9q/2NhTPmCx19dpIy
+	 yWunxw9UuUMhics9ohLCBvKmDiH0bKBh6SI/+wUuayFXwxTD9Z9C1guTl6bsDuYDat
+	 J0Y4U69qR1lhbkq474DsoGGasaSPrWg54Dul3Wt+RWUQq1czUW3TA9hwA06kK5bShG
+	 JY6fj0Oxuj/Dw==
+Date: Thu, 2 Mar 2023 12:20:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: richard.leitner@linux.dev
+Subject: Re: [PATCH 3/3] ASoC: maxim,max9867: add "mclk" support
+Message-ID: <b0a5c0c2-dfbd-460a-af0d-c9d498607d72@sirena.org.uk>
+References: <20230302-max9867-v1-0-aa9f7f25db5e@skidata.com>
+ <20230302-max9867-v1-3-aa9f7f25db5e@skidata.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GH55MTQ3SY5VGJPMS6QXHBNOWVLZXCCY
-X-Message-ID-Hash: GH55MTQ3SY5VGJPMS6QXHBNOWVLZXCCY
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vZhJFgRVoDnGJw+Q"
+Content-Disposition: inline
+In-Reply-To: <20230302-max9867-v1-3-aa9f7f25db5e@skidata.com>
+X-Cookie: Who messed with my anti-paranoia shot?
+Message-ID-Hash: UDOKSCWNUM3WUIBWK3FU7JNKTRTGGFIG
+X-Message-ID-Hash: UDOKSCWNUM3WUIBWK3FU7JNKTRTGGFIG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, steev@kali.org, johan+linaro@kernel.org,
- quic_bjorande@quicinc.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+CC: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Ladislav Michl <ladis@linux-mips.org>, Takashi Iwai <tiwai@suse.com>,
+ Benjamin Bara <benjamin.bara@skidata.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Richard Leitner <richard.leitner@skidata.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GH55MTQ3SY5VGJPMS6QXHBNOWVLZXCCY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UDOKSCWNUM3WUIBWK3FU7JNKTRTGGFIG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,42 +98,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If the soundcard does not specify the dapm pins, let the common
-code add these pins for jack.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/common.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+--vZhJFgRVoDnGJw+Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index c1f24af17506..555feb845c41 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -8,6 +8,11 @@
- #include "qdsp6/q6afe.h"
- #include "common.h"
- 
-+static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Mic Jack", NULL),
-+};
-+
- int qcom_snd_parse_of(struct snd_soc_card *card)
- {
- 	struct device_node *np;
-@@ -169,6 +174,11 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 		of_node_put(platform);
- 	}
- 
-+	if (!card->dapm_widgets) {
-+		card->dapm_widgets = qcom_jack_snd_widgets;
-+		card->num_dapm_widgets = ARRAY_SIZE(qcom_jack_snd_widgets);
-+	}
-+
- 	return 0;
- err:
- 	of_node_put(cpu);
--- 
-2.21.0
+On Thu, Mar 02, 2023 at 12:55:03PM +0100, richard.leitner@linux.dev wrote:
 
+> +	max9867->mclk = devm_clk_get(&i2c->dev, "mclk");
+> +	if (IS_ERR(max9867->mclk))
+> +		return PTR_ERR(max9867->mclk);
+> +	ret = clk_prepare_enable(max9867->mclk);
+> +	if (ret < 0)
+> +		dev_err(&i2c->dev, "Failed to enable MCLK: %d\n", ret);
+> +
+
+Nothing ever disables the clock - we need a disable in the remove path
+at least.
+
+--vZhJFgRVoDnGJw+Q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQAlIEACgkQJNaLcl1U
+h9CpjQf8DCWgZStUPCJltIYPDoRugIPverAChi1iNMKLKqO9Rwi3VF2ulGPf9639
+hTE+u7lHCXrsfWLn0BpvQk+RZ4aJTnbTbj9ndDlnSPWStGpcl6pIK4i5S3R7RvYJ
+KesklhoL1nRCoBlYpwEdpnfRz6TL0NMo3bsqxHZqhGAxNcXuT/8ylPr3dPWYSljP
+FiqTg6fqtBAuXES4A9OxtllOrcYMc5VbvEdNtIOyfVs3gNzJaMiiVX2LUG1t4bS3
+6QXssdNh5JQHzZwkwKHE2gKiTHR3i3nK4RNBD9WB//DVCDaPuzPLASiyNz5m72T4
+zDHfnV2WYtGr2tKlR82hF3AV8C1vfg==
+=YJvp
+-----END PGP SIGNATURE-----
+
+--vZhJFgRVoDnGJw+Q--

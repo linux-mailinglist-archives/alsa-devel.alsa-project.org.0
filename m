@@ -2,93 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1456A9766
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 13:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89ACB6A985C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:28:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C37B193A;
-	Fri,  3 Mar 2023 13:43:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C37B193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFA7FA4A;
+	Fri,  3 Mar 2023 14:27:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFA7FA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677847450;
-	bh=0joJXlrLY2FhKeY0R+mHaabUyq405E4hscw3qzY4bGg=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1677850107;
+	bh=w4FSGvzoh7PqX2fuZI8tTwJX4eWO8Eoz/HIeIgY6tfs=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JJ57qJ0TjpyuTJ9g2GGLhogn15oFl3zo8abod1fjNPZifZbItgfkBhY81IcyACmKI
-	 pikFNlKH2FqgLR9apPziRpHZhy0l8YpwGqE0fDbp/bWTTgvtBBjSkDuqCTtnB+IfYp
-	 wOZtFzTp82EdQ0esqhNjpPm5x1DoYZ98sgTURB2g=
+	b=iZ+Dfy1d+EJAZCXhznY7TAn7uUIyeK9qAuChLtqAzP2c/Qy3eGEPxjmJDnB1sXvnl
+	 +2HKYbZCyyWREjmEb0pDQMGKdhVaQjedok5YHOQjPXRERzoGnEojUKYgrEAJG/o6Ny
+	 IvYy10AW1lNjnWMsiOU9gJ4DXVgvqrIPjMAg7vHU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FB5CF800BA;
-	Fri,  3 Mar 2023 13:43:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44FE8F8025A;
+	Fri,  3 Mar 2023 14:27:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D861F80266; Fri,  3 Mar 2023 13:43:17 +0100 (CET)
+	id D9922F80266; Fri,  3 Mar 2023 14:27:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86F72F80236
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 13:43:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F72F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BEE0F80236
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:27:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEE0F80236
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BvrmjQrn
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=FpqBogtr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=6xsuWKc0
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id DE1DCB8163F;
-	Fri,  3 Mar 2023 12:43:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D420C4339B;
-	Fri,  3 Mar 2023 12:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677847392;
-	bh=0joJXlrLY2FhKeY0R+mHaabUyq405E4hscw3qzY4bGg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BvrmjQrn31tBey39NdmtTU2RL0bB1Uty1VxBaH2Gzm/EvWcEROFLRM+qt7qWEYPzK
-	 /rvgSycDmt3W0rz4odwLiNqit4XDG+AhhBkgLnaJ006paESXLFjgKszufH8x9Xky1r
-	 uqLI/xwVaEDoDeIMn1+o0V27DtClyiwZO0JN0YCHKNkNbXkeksUeFSGNGqgAzr6Pu0
-	 jG4I/I7Vqb9zTKaOGKM6GBxgvro5/363LlKOrBSk7/QVFGnSV6ilIefBF/T65qYTsb
-	 jc1ykinJXhiUjIF7pDNtjWjyUScEaherthghFoy5knREIqbTqaiZHzTn1b+rQ/ZMGj
-	 RvCNkKd3RK6xw==
-Date: Fri, 3 Mar 2023 12:43:07 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] ASoC: clarify that SND_SOC_IMX_SGTL5000 is the old driver
-Message-ID: <a36d3650-f0f9-4604-8262-cbcfa881b54c@sirena.org.uk>
-References: <20230303093410.357621-1-luca.ceresoli@bootlin.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QTeiKIHJAymC+ynn"
-Content-Disposition: inline
-In-Reply-To: <20230303093410.357621-1-luca.ceresoli@bootlin.com>
-X-Cookie: You are fairminded, just and loving.
-Message-ID-Hash: 4MDZNTLOY4TEUOKYZFVQC4XPGNTKHITT
-X-Message-ID-Hash: 4MDZNTLOY4TEUOKYZFVQC4XPGNTKHITT
-X-MailFrom: broonie@kernel.org
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 440062051D;
+	Fri,  3 Mar 2023 13:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1677850047;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N/GU770gw3IetrXC/cepymTNz39BTn++wfqJ80K6ie4=;
+	b=FpqBogtrS1pY2USGWbIUmILLs/nlQKGU08ovUE7asuEcEzW33rc9EIXCep98cgUqjbWNfi
+	1LtB/wT0beFcN6mV10qxQIxhmEX46MYn5mllwQ0Zldsn4GSZ59OY8/Z8mZzXPwgheB59Cw
+	c3mTffKGmxaUzX+YfSTiO1vdkPLCrUw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1677850047;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N/GU770gw3IetrXC/cepymTNz39BTn++wfqJ80K6ie4=;
+	b=6xsuWKc0Pcz+jVYnfRDII5nzgfI3PaQgTgdK8jsiYa4GiAm+3rORWUds46XyFUdQV20oqx
+	U8HFSfyQxG/9dgAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2196D1329E;
+	Fri,  3 Mar 2023 13:27:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id mq1RB7/1AWTFdQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 03 Mar 2023 13:27:27 +0000
+Date: Fri, 03 Mar 2023 14:27:26 +0100
+Message-ID: <871qm6t16p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/realtek: Improve support for Dell Precision
+ 3260
+In-Reply-To: <20230221102157.515852-1-perex@perex.cz>
+References: <20230221102157.515852-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC
+X-Message-ID-Hash: VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Viorel Suman <viorel.suman@nxp.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linux-kernel@vger.kernel.org
+CC: ALSA development <alsa-devel@alsa-project.org>, steven_wu2@dell.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MDZNTLOY4TEUOKYZFVQC4XPGNTKHITT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,35 +115,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, 21 Feb 2023 11:21:57 +0100,
+Jaroslav Kysela wrote:
+> 
+> The headset jack works better with model=alc283-dac-wcaps. Without this
+> option, the headset insertion (separate physical jack) may not be handled
+> correctly (re-insertion is required).
+> 
+> It seems that it follows the "Intel Reference Board" defaults.
+> 
+> Reported-by: steven_wu2@dell.com
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
---QTeiKIHJAymC+ynn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks, applied now.
 
-On Fri, Mar 03, 2023 at 10:34:10AM +0100, Luca Ceresoli wrote:
-> Both SND_SOC_IMX_SGTL5000 and SND_SOC_FSL_ASOC_CARD implement the
-> fsl,imx-audio-sgtl5000 compatible string, which is confusing. It took a
-> little research to find out that the latter is much newer and it is
-> supposed to be the preferred choice since several years.
->=20
-> Add a clarification note to avoid wasting time for future readers.
 
-Perhaps it's time to just retire the old driver?
-
---QTeiKIHJAymC+ynn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQB61oACgkQJNaLcl1U
-h9C+Lgf/fx3hpA4MUUUkOYrBGKMMCFhcQ/4OoSQcxV5n2rJCC584mHb9fEA3Yycs
-2GLwVUiJc6y2Co0xpjil7IkOuHCKBjUP9vCAZn3jQCENbGeafJvLe79fgGE5a8VX
-jmE5iQD8ZcwOZiX9KCJq8Ro6RJKVNqfWrZtGNXrcu+QbGOfqr2fu7tu/apxyv8rp
-JC8rpx4Kv7hTsaNel3RTsbcOIVOUKljtaXEfxbCijzhmhBu6o4ck7Q17LEFRc/kx
-1BkpLJQOBYVIJfOQZ1CNlKC8S6KZ4aNqZTqCkOF0Ae6bV2X3VeRyt4yvC5ayH99y
-bHBgeVGyX/DJf07TuN5s9KSBTKFPwg==
-=tYaW
------END PGP SIGNATURE-----
-
---QTeiKIHJAymC+ynn--
+Takashi

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89ACB6A985C
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:28:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857AF6A985F
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:29:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFA7FA4A;
-	Fri,  3 Mar 2023 14:27:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFA7FA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28E66AE9;
+	Fri,  3 Mar 2023 14:28:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28E66AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677850107;
-	bh=w4FSGvzoh7PqX2fuZI8tTwJX4eWO8Eoz/HIeIgY6tfs=;
+	s=default; t=1677850167;
+	bh=Xva7HiM17gG6Z9n1CzUXh/lVK0f5qgWrBHMUSt7Ti+g=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iZ+Dfy1d+EJAZCXhznY7TAn7uUIyeK9qAuChLtqAzP2c/Qy3eGEPxjmJDnB1sXvnl
-	 +2HKYbZCyyWREjmEb0pDQMGKdhVaQjedok5YHOQjPXRERzoGnEojUKYgrEAJG/o6Ny
-	 IvYy10AW1lNjnWMsiOU9gJ4DXVgvqrIPjMAg7vHU=
+	b=jdxmQ94hc9jVG/Z/c/h49riRqrZRhA1Y3gZ2bYQoWnK0VmExOzwv5GpwlrAk/hrym
+	 yL7qegTntsZ3LR8HBF8KsfC84YKHx3kYgbmhFn5N89hwX49OxwBSBqoc9hR4HBM9/P
+	 kNgfFmYj4NpVW4RP5y/cb/EVX7zzyWxT4geFpbBU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44FE8F8025A;
-	Fri,  3 Mar 2023 14:27:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C703FF800DF;
+	Fri,  3 Mar 2023 14:28:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9922F80266; Fri,  3 Mar 2023 14:27:31 +0100 (CET)
+	id 46B35F8049C; Fri,  3 Mar 2023 14:28:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,64 +35,69 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5BEE0F80236
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:27:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEE0F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 922A2F80236
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:28:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 922A2F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=FpqBogtr;
+ header.s=susede2_rsa header.b=QU7HXpjS;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=6xsuWKc0
+ header.s=susede2_ed25519 header.b=CMqrPRDD
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 440062051D;
-	Fri,  3 Mar 2023 13:27:27 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 62C622051E;
+	Fri,  3 Mar 2023 13:28:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1677850047;
+	t=1677850108;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=N/GU770gw3IetrXC/cepymTNz39BTn++wfqJ80K6ie4=;
-	b=FpqBogtrS1pY2USGWbIUmILLs/nlQKGU08ovUE7asuEcEzW33rc9EIXCep98cgUqjbWNfi
-	1LtB/wT0beFcN6mV10qxQIxhmEX46MYn5mllwQ0Zldsn4GSZ59OY8/Z8mZzXPwgheB59Cw
-	c3mTffKGmxaUzX+YfSTiO1vdkPLCrUw=
+	bh=5VGPucUlGhbkn4argd7McyJHX2QBTMw3+75agdamk40=;
+	b=QU7HXpjShZk3Ix+GO07k2xYNj9ILhVPpQ3Ihcodrfl0SKr5hQ6eAAkL954gAK737WqOhfW
+	7PnGBPbHvi4L117qA8IE4p8XUuzZUw1sMbKzdj2pU7FST1ExeNdxr5wslKdWXra23ho2TE
+	jtwCi1YosA8wUcrzTCYM1YuBIA3002c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1677850047;
+	s=susede2_ed25519; t=1677850108;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=N/GU770gw3IetrXC/cepymTNz39BTn++wfqJ80K6ie4=;
-	b=6xsuWKc0Pcz+jVYnfRDII5nzgfI3PaQgTgdK8jsiYa4GiAm+3rORWUds46XyFUdQV20oqx
-	U8HFSfyQxG/9dgAg==
+	bh=5VGPucUlGhbkn4argd7McyJHX2QBTMw3+75agdamk40=;
+	b=CMqrPRDDYk0faLTkaw3TVnmOiNl8pmsLzx+TtQSm9UyuDpl35eYli7kosSinY/7cSMvJ2w
+	rPVql7Lk86RhsNDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2196D1329E;
-	Fri,  3 Mar 2023 13:27:27 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40BE11329E;
+	Fri,  3 Mar 2023 13:28:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id mq1RB7/1AWTFdQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 03 Mar 2023 13:27:27 +0000
-Date: Fri, 03 Mar 2023 14:27:26 +0100
-Message-ID: <871qm6t16p.wl-tiwai@suse.de>
+	id VjYqD/z1AWRbdgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 03 Mar 2023 13:28:28 +0000
+Date: Fri, 03 Mar 2023 14:28:27 +0100
+Message-ID: <87zg8urmkk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: hda/realtek: Improve support for Dell Precision
- 3260
-In-Reply-To: <20230221102157.515852-1-perex@perex.cz>
-References: <20230221102157.515852-1-perex@perex.cz>
+To: =?ISO-8859-2?Q?=A3ukasz?= Stelmach <l.stelmach@samsung.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP EliteDesk 800 G6
+ Tower PC
+In-Reply-To: <20230223074749.1026060-1-l.stelmach@samsung.com>
+References: 
+ <CGME20230223074852eucas1p2c91d153aa806db963711e1809861f76b@eucas1p2.samsung.com>
+	<20230223074749.1026060-1-l.stelmach@samsung.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC
-X-Message-ID-Hash: VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: M6QNZCR3FT6RDX53VHTODJ2GGJLNBMQQ
+X-Message-ID-Hash: M6QNZCR3FT6RDX53VHTODJ2GGJLNBMQQ
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,32 +105,29 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: ALSA development <alsa-devel@alsa-project.org>, steven_wu2@dell.com
+CC: Takashi Iwai <tiwai@suse.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VJ2PNQ2GNVPG55M2CLHZCOHXG2J7IWAC/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M6QNZCR3FT6RDX53VHTODJ2GGJLNBMQQ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 21 Feb 2023 11:21:57 +0100,
-Jaroslav Kysela wrote:
+On Thu, 23 Feb 2023 08:47:48 +0100,
+£ukasz Stelmach wrote:
 > 
-> The headset jack works better with model=alc283-dac-wcaps. Without this
-> option, the headset insertion (separate physical jack) may not be handled
-> correctly (re-insertion is required).
+> HP EliteDesk 800 G6 Tower PC (103c:870c) requires a quirk for enabling
+> headset-mic.
 > 
-> It seems that it follows the "Intel Reference Board" defaults.
-> 
-> Reported-by: steven_wu2@dell.com
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Signed-off-by: £ukasz Stelmach <l.stelmach@samsung.com>
 
 Thanks, applied now.
 

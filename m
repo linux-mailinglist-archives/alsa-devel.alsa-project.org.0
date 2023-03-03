@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3052D6A98E9
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:53:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05286A98EA
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:53:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 849C3DEC;
-	Fri,  3 Mar 2023 14:52:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 849C3DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA4C9F6;
+	Fri,  3 Mar 2023 14:52:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA4C9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677851585;
-	bh=fr1TX/muqSKhj7unvsuELKJ9mleoeebLhIbGPOllTKo=;
+	s=default; t=1677851596;
+	bh=sanC6Jt1tjQPITAda83dPQ89Fu2XuJu8kW31jwXgN24=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dbWQIyPlszzKUNbyaEvseBq6Ju5ShhY/eDkcBWHp8PHLn3kUPS1thwljNxb4IBxjT
-	 5uA3W5Qi6J/78VXjIQKjJhDsfCeovSdRiSTJgarhBCIEkY/H0RVyB6sBTEbQ66vaf7
-	 pHNL5Lctpnonx1X4NQAeVjkJ6IMwMJF8qepYk54Q=
+	b=jZDcHXhgwTrH9qQaq0kvml0IBapssNmnnss9j4sdftTntmHcDTET0rB6bU+nnFgIx
+	 SwLJaFoLFPKKWPA8TR0Hh9v5TXpu7n3lfltfTjDu878f5KnFa4R04IrNFfrKZ/cKC4
+	 H+tc9xZN2TwuooUF4EAygGOueTdHn35OCgDzgyq8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 936CDF80553;
-	Fri,  3 Mar 2023 14:50:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 360C7F80564;
+	Fri,  3 Mar 2023 14:50:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C73CF80542; Fri,  3 Mar 2023 14:50:46 +0100 (CET)
+	id 37428F80542; Fri,  3 Mar 2023 14:50:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,52 +33,52 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D0A4F80533
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8B34F80520
 	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:50:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D0A4F80533
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8B34F80520
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cEbkN7wQ
+ header.s=Intel header.b=WtuNa7hx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677851442; x=1709387442;
+  t=1677851439; x=1709387439;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=fr1TX/muqSKhj7unvsuELKJ9mleoeebLhIbGPOllTKo=;
-  b=cEbkN7wQRQXxPqRU5Ple+NGGaANHhArPV5VQOXRjQe/m6ZAn2wKE2uLP
-   OKQH0UGxVjnGD2hjslbq8X3zjdY8RxCTN+oZSI2UpVZ/0fPyowL0nrM0B
-   svi1Etnz+pYD8+rmt7eUcrUEM/uD8pkeyAQumjrt2bLEE+1h/zwk697ty
-   dcVJGtescTLqWU7QHFO9x4UYlCRqNoGYNb2MxsXFqhy2N2LgriUbOwkpT
-   0/MN2lSp/TovIJuPhDc1Tv6hV6mmukBrgbZEhW0DpYyzb2rwYYvzIb8Qv
-   BFzt41wuIIEDgUpLO/26LeMQ7q01uG6gQrOZuvsUMIvFPtpvMDgQ+Ajbt
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564466"
+  bh=sanC6Jt1tjQPITAda83dPQ89Fu2XuJu8kW31jwXgN24=;
+  b=WtuNa7hxA/7EOJZTyaVNsUdQTH4nYMUKY8piyV4R7ZuiMldSJmHRZUC+
+   Mz9SFzQP+dgbwuIYzMX3WwPLJ9JwbwvWpovCl8jnFQvkDg5wtDbyHIpLT
+   XxIm81WGljQCKc29cXuvLKyxPEsJL++UM9kOLNuQpXcLndZ/nKtmyRubb
+   1Agd2JORCI87LeVAIFui9CAPVsEhJfZOTNZpIrT/EZMaAqfkx91r1OSMF
+   yjUxr6NCTZ61CYmC8C7/zZePGMBxGiEM55EHfICGM+NsWTKK7dyTdsaVy
+   WzflnDoONuJ7WJ3TJIV+tTIx4C+8mUj6kZCOH06lfhj2PMcrV4arNkvQZ
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564485"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="336564466"
+   d="scan'208";a="336564485"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 05:49:30 -0800
+ 03 Mar 2023 05:49:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660744"
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660757"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="668660744"
+   d="scan'208";a="668660757"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:28 -0800
+  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:30 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/5] ASoC: Intel: avs: ssm4567: Remove nau8825 bits
-Date: Fri,  3 Mar 2023 14:48:53 +0100
-Message-Id: <20230303134854.2277146-5-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 5/5] ASoC: Intel: avs: nau8825: Adjust clock control
+Date: Fri,  3 Mar 2023 14:48:54 +0100
+Message-Id: <20230303134854.2277146-6-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
 References: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GZ4G55OH4JADGCLTMEGLOV7GWWE2L7BK
-X-Message-ID-Hash: GZ4G55OH4JADGCLTMEGLOV7GWWE2L7BK
+Message-ID-Hash: 2T7GSDRUPGJCVV2V6T4MVLMYCOCOOIL7
+X-Message-ID-Hash: 2T7GSDRUPGJCVV2V6T4MVLMYCOCOOIL7
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GZ4G55OH4JADGCLTMEGLOV7GWWE2L7BK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2T7GSDRUPGJCVV2V6T4MVLMYCOCOOIL7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,68 +107,42 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Some of the nau8825 clock control got into the ssm4567, remove it.
+Internal clock shall be adjusted also in cases when DAPM event other
+than 'ON' is triggered.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/avs/boards/ssm4567.c | 31 ----------------------------
- 1 file changed, 31 deletions(-)
+ sound/soc/intel/avs/boards/nau8825.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/intel/avs/boards/ssm4567.c b/sound/soc/intel/avs/boards/ssm4567.c
-index c5db69612762..2b7f5ad92aca 100644
---- a/sound/soc/intel/avs/boards/ssm4567.c
-+++ b/sound/soc/intel/avs/boards/ssm4567.c
-@@ -15,7 +15,6 @@
- #include <sound/soc-acpi.h>
- #include "../../../codecs/nau8825.h"
+diff --git a/sound/soc/intel/avs/boards/nau8825.c b/sound/soc/intel/avs/boards/nau8825.c
+index b31fa931ba8b..b69fc5567135 100644
+--- a/sound/soc/intel/avs/boards/nau8825.c
++++ b/sound/soc/intel/avs/boards/nau8825.c
+@@ -33,15 +33,15 @@ avs_nau8825_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *co
+ 		return -EINVAL;
+ 	}
  
--#define SKL_NUVOTON_CODEC_DAI	"nau8825-hifi"
- #define SKL_SSM_CODEC_DAI	"ssm4567-hifi"
- 
- static struct snd_soc_codec_conf card_codec_conf[] = {
-@@ -34,41 +33,11 @@ static const struct snd_kcontrol_new card_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Right Speaker"),
- };
- 
--static int
--platform_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *control, int event)
--{
--	struct snd_soc_dapm_context *dapm = w->dapm;
--	struct snd_soc_card *card = dapm->card;
--	struct snd_soc_dai *codec_dai;
--	int ret;
--
--	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
--	if (!codec_dai) {
--		dev_err(card->dev, "Codec dai not found\n");
--		return -EINVAL;
--	}
--
--	if (SND_SOC_DAPM_EVENT_ON(event)) {
--		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_MCLK, 24000000,
--					     SND_SOC_CLOCK_IN);
--		if (ret < 0)
+-	if (!SND_SOC_DAPM_EVENT_ON(event)) {
++	if (SND_SOC_DAPM_EVENT_ON(event))
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_MCLK, 24000000,
++					     SND_SOC_CLOCK_IN);
++	else
+ 		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
+-		if (ret < 0) {
 -			dev_err(card->dev, "set sysclk err = %d\n", ret);
--	} else {
--		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
--		if (ret < 0)
--			dev_err(card->dev, "set sysclk err = %d\n", ret);
+-			return ret;
+-		}
 -	}
--
--	return ret;
--}
--
- static const struct snd_soc_dapm_widget card_widgets[] = {
- 	SND_SOC_DAPM_SPK("Left Speaker", NULL),
- 	SND_SOC_DAPM_SPK("Right Speaker", NULL),
- 	SND_SOC_DAPM_SPK("DP1", NULL),
- 	SND_SOC_DAPM_SPK("DP2", NULL),
--	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, platform_clock_control,
--			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- };
++	if (ret < 0)
++		dev_err(card->dev, "Set sysclk failed: %d\n", ret);
  
- static const struct snd_soc_dapm_route card_base_routes[] = {
+-	return 0;
++	return ret;
+ }
+ 
+ static const struct snd_kcontrol_new card_controls[] = {
 -- 
 2.34.1
 

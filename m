@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F20426A98E6
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:52:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76D66A98E7
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:52:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA756A4E;
-	Fri,  3 Mar 2023 14:51:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA756A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3B47DF5;
+	Fri,  3 Mar 2023 14:51:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3B47DF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677851538;
-	bh=78bhLIpL0583yO/A6uau/UxIuNrUxTtdCO8dsISk3OM=;
+	s=default; t=1677851541;
+	bh=pP8AQruczD+pfiRSN3UN24ECjKcr1OzxB4s+RtGyJb0=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZDkM+9oLMHTmmdJC8qwZFdi4uwO838lUpHpPjDNPbamPVWV94DOHpU17kJfQAP5iU
-	 dPjyBsqb6rnKcf+qkNo1otzpQ8/NlKc0k2DpbYLNGWsbJiN+8T8/7wdnJU6yKWeJXS
-	 kn1N6UeAC4D81OSHhYpangBFNgjjZGlavnhMbrGw=
+	b=FjzrY+uuXP3xgr9vwmbBS8CjD1BPmotFGgyOmVGjzmV2h0prKj0Bj+qp9kLnpV680
+	 1tszJbW086mepAK4tDuDFilQ6/E4SJl7cM2RXiKOZl0SOrk29qnJnbimshC62TDMma
+	 H/RLEkw4crnSB1HUqxcT20hJieBsFX+61C0l61M4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67E63F804B1;
-	Fri,  3 Mar 2023 14:50:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4FD9F8053B;
+	Fri,  3 Mar 2023 14:50:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E7CDF800BA; Fri,  3 Mar 2023 14:50:34 +0100 (CET)
+	id A01E0F80266; Fri,  3 Mar 2023 14:50:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,53 +33,52 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5663EF800BA
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:50:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5663EF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7179BF8025A
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:50:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7179BF8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=epkxIjJ+
+ header.s=Intel header.b=UrJGOLsq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677851430; x=1709387430;
+  t=1677851434; x=1709387434;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=78bhLIpL0583yO/A6uau/UxIuNrUxTtdCO8dsISk3OM=;
-  b=epkxIjJ+i+0hWxJFodQvoNiRHSl59gVTFB6odVxjUxTjIrfJSW6+eMOu
-   uahg7Q5QlL+dJOKCCutAFh5qudEfTlNqDPF8ppgJFDIEAe02NfVp46RXn
-   NfFOJkUBYyEJapeGPt4UFTMQ7D8hT7HJ0eLBlFX5GbLkqTr8vVWfIzH0q
-   ceoGJKFDxfhT+wY1586QhtjqV5SRdpF9xJ4zGuMykIo+YMX7VQGJcnRYu
-   cEaZpLw0iS0Pkf6vcas/gTlMFirGaC/nvpUsthC28kbdQ2FJvdrtzoIXR
-   /tjsRzoVn+NXheLQcny8ZiEYvGrOsdatrbfiK641GX62zHFC6ebJdWdPG
+  bh=pP8AQruczD+pfiRSN3UN24ECjKcr1OzxB4s+RtGyJb0=;
+  b=UrJGOLsqpe4th7A5KGagrBfOOqSGJOC/pK07Bh/6+9yDND2GhWEwtHRl
+   ay8Ux4X6yjAYX/JgfO4lPASfw3Ft6ioPtNZO5H29ZnmcSs5+laBcQRoqT
+   n0o24PjIoPu1hSXmFBxp5REewd4vjQE/z2hSOs24pz79/8samBIJ4+WBW
+   pyx+gesPY7tXXlbq7h5x0ghR+m5GbJOt5PtN+hq2jBM9QEG42PAE15ref
+   Z/yD3tKOehIlKoLDZLq65PW6gwJH8PD9diqNgQ1HhJC75mmez1QzU7/XR
+   qt+6+icM7+WQv3NVZU6wwrvwNjMIB7ZPLp3eRQht2Zv1+nlAtQlovAgvL
    g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564410"
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564433"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="336564410"
+   d="scan'208";a="336564433"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 05:49:24 -0800
+ 03 Mar 2023 05:49:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660677"
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660703"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="668660677"
+   d="scan'208";a="668660703"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:22 -0800
+  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:24 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 1/5] ASoC: Intel: avs: max98357a: Explicitly define codec
- format
-Date: Fri,  3 Mar 2023 14:48:50 +0100
-Message-Id: <20230303134854.2277146-2-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 2/5] ASoC: Intel: avs: da7219: Explicitly define codec format
+Date: Fri,  3 Mar 2023 14:48:51 +0100
+Message-Id: <20230303134854.2277146-3-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
 References: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57
-X-Message-ID-Hash: LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57
+Message-ID-Hash: L4K6NFD2XNFP7WLXE3K5AZMX7BSX5KHH
+X-Message-ID-Hash: L4K6NFD2XNFP7WLXE3K5AZMX7BSX5KHH
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4K6NFD2XNFP7WLXE3K5AZMX7BSX5KHH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,33 +105,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-max98357a is speaker codec configured in 48000/2/S16_LE format
-regardless of front end format, so force it to be so.
+da7219 is headset codec configured in 48000/2/S24_LE format regardless
+of front end format, so force it to be so.
 
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/avs/boards/max98357a.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ sound/soc/intel/avs/boards/da7219.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/sound/soc/intel/avs/boards/max98357a.c b/sound/soc/intel/avs/boards/max98357a.c
-index 921f42caf7e0..183123d08c5a 100644
---- a/sound/soc/intel/avs/boards/max98357a.c
-+++ b/sound/soc/intel/avs/boards/max98357a.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <sound/soc-acpi.h>
- #include <sound/soc-dapm.h>
-@@ -24,6 +25,26 @@ static const struct snd_soc_dapm_route card_base_routes[] = {
- 	{ "Spk", NULL, "Speaker" },
- };
+diff --git a/sound/soc/intel/avs/boards/da7219.c b/sound/soc/intel/avs/boards/da7219.c
+index acd43b6108e9..1a1d572cc1d0 100644
+--- a/sound/soc/intel/avs/boards/da7219.c
++++ b/sound/soc/intel/avs/boards/da7219.c
+@@ -117,6 +117,26 @@ static void avs_da7219_codec_exit(struct snd_soc_pcm_runtime *rtd)
+ 	snd_soc_component_set_jack(asoc_rtd_to_codec(rtd, 0)->component, NULL, NULL);
+ }
  
 +static int
-+avs_max98357a_be_fixup(struct snd_soc_pcm_runtime *runrime, struct snd_pcm_hw_params *params)
++avs_da7219_be_fixup(struct snd_soc_pcm_runtime *runrime, struct snd_pcm_hw_params *params)
 +{
 +	struct snd_interval *rate, *channels;
 +	struct snd_mask *fmt;
@@ -145,23 +136,23 @@ index 921f42caf7e0..183123d08c5a 100644
 +	rate->min = rate->max = 48000;
 +	channels->min = channels->max = 2;
 +
-+	/* set SSP0 to 16 bit */
++	/* set SSP0 to 24 bit */
 +	snd_mask_none(fmt);
-+	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
 +	return 0;
 +}
 +
  static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
  			       struct snd_soc_dai_link **dai_link)
  {
-@@ -55,6 +76,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+@@ -148,6 +168,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
  	dl->num_platforms = 1;
  	dl->id = 0;
  	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
-+	dl->be_hw_params_fixup = avs_max98357a_be_fixup;
++	dl->be_hw_params_fixup = avs_da7219_be_fixup;
+ 	dl->init = avs_da7219_codec_init;
+ 	dl->exit = avs_da7219_codec_exit;
  	dl->nonatomic = 1;
- 	dl->no_pcm = 1;
- 	dl->dpcm_playback = 1;
 -- 
 2.34.1
 

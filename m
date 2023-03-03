@@ -2,27 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DEB6A98E5
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:51:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20426A98E6
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 14:52:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 843ABA4A;
-	Fri,  3 Mar 2023 14:50:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 843ABA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA756A4E;
+	Fri,  3 Mar 2023 14:51:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA756A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677851488;
-	bh=SXdaFd0DfsYzTiTeHm+fudxCVI58R5GreWavxdI1474=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=phUHTXFKmsyLZAVh1ex5wZUJAsU+0jEikF1XxNADkgB5nClE+GIC2tx4X0ZHK0SU7
-	 rRDh8LB1uXWPiBwpK7aIEbpM+54eo8RM9nWUTn7MxvL+wBR52Lk2nLfpMeLqWJz6j6
-	 6eCGo/hESCq7V4TnJg2idJJLfwRlLEFxA5VgSwlo=
+	s=default; t=1677851538;
+	bh=78bhLIpL0583yO/A6uau/UxIuNrUxTtdCO8dsISk3OM=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ZDkM+9oLMHTmmdJC8qwZFdi4uwO838lUpHpPjDNPbamPVWV94DOHpU17kJfQAP5iU
+	 dPjyBsqb6rnKcf+qkNo1otzpQ8/NlKc0k2DpbYLNGWsbJiN+8T8/7wdnJU6yKWeJXS
+	 kn1N6UeAC4D81OSHhYpangBFNgjjZGlavnhMbrGw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19829F800BA;
-	Fri,  3 Mar 2023 14:50:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67E63F804B1;
+	Fri,  3 Mar 2023 14:50:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C059F80310; Fri,  3 Mar 2023 14:50:32 +0100 (CET)
+	id 2E7CDF800BA; Fri,  3 Mar 2023 14:50:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,50 +33,53 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DE89F80236
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:50:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DE89F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5663EF800BA
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 14:50:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5663EF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=br81HUbV
+ header.s=Intel header.b=epkxIjJ+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1677851428; x=1709387428;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SXdaFd0DfsYzTiTeHm+fudxCVI58R5GreWavxdI1474=;
-  b=br81HUbV25M8p/OylEBeNiUauqvxq31fL3DO02OJJGMu4YI8Kz9i2g7w
-   NaBbklgvR1HSXD83s52wCv6aM3u48Ovk3krhewZ9Dbmn4FN7D2Rf/Fh7A
-   JCYKRst6Kr0zjFhJnLMPKeW9cLl10jJM4Jfm41XPbdyGzfBJTALmKhYsN
-   bPrh+Z5ead6d7nPrvSguOybnjQJZ/AP/MuawD96gcrC6EMxwjDzfJp76m
-   sxqSJ1KvnqBE9xS7h4M/xpW0fUFU/OoVt1724wsISrqTQubLrjIcLxASM
-   eXTFz5pBf6OHWg+o8R48vAT+/XqJ/Av18KlRPeHjGhLD/PRnsRJXKCtQP
+  t=1677851430; x=1709387430;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=78bhLIpL0583yO/A6uau/UxIuNrUxTtdCO8dsISk3OM=;
+  b=epkxIjJ+i+0hWxJFodQvoNiRHSl59gVTFB6odVxjUxTjIrfJSW6+eMOu
+   uahg7Q5QlL+dJOKCCutAFh5qudEfTlNqDPF8ppgJFDIEAe02NfVp46RXn
+   NfFOJkUBYyEJapeGPt4UFTMQ7D8hT7HJ0eLBlFX5GbLkqTr8vVWfIzH0q
+   ceoGJKFDxfhT+wY1586QhtjqV5SRdpF9xJ4zGuMykIo+YMX7VQGJcnRYu
+   cEaZpLw0iS0Pkf6vcas/gTlMFirGaC/nvpUsthC28kbdQ2FJvdrtzoIXR
+   /tjsRzoVn+NXheLQcny8ZiEYvGrOsdatrbfiK641GX62zHFC6ebJdWdPG
    g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564395"
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336564410"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="336564395"
+   d="scan'208";a="336564410"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 05:49:22 -0800
+ 03 Mar 2023 05:49:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660657"
+X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="668660677"
 X-IronPort-AV: E=Sophos;i="5.98,230,1673942400";
-   d="scan'208";a="668660657"
+   d="scan'208";a="668660677"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:20 -0800
+  by orsmga007.jf.intel.com with ESMTP; 03 Mar 2023 05:49:22 -0800
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 0/5] ASoC: Intel: avs: Machine board fixes
-Date: Fri,  3 Mar 2023 14:48:49 +0100
-Message-Id: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 1/5] ASoC: Intel: avs: max98357a: Explicitly define codec
+ format
+Date: Fri,  3 Mar 2023 14:48:50 +0100
+Message-Id: <20230303134854.2277146-2-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
+References: <20230303134854.2277146-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ON3GP7MVZ5WJWNJSWRVPL6ABG3GN4GKR
-X-Message-ID-Hash: ON3GP7MVZ5WJWNJSWRVPL6ABG3GN4GKR
+Message-ID-Hash: LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57
+X-Message-ID-Hash: LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ON3GP7MVZ5WJWNJSWRVPL6ABG3GN4GKR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LLDTKHJR7XOVBLWP43VY5NLFN4WFWM57/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,25 +106,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Series of adjustments to machine board files. Use fixed format in boards
-that were not using one. Fix clock handling.
+max98357a is speaker codec configured in 48000/2/S16_LE format
+regardless of front end format, so force it to be so.
 
-Amadeusz Sławiński (3):
-  ASoC: Intel: avs: max98357a: Explicitly define codec format
-  ASoC: Intel: avs: da7219: Explicitly define codec format
-  ASoC: Intel: avs: rt5682: Explicitly define codec format
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+---
+ sound/soc/intel/avs/boards/max98357a.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Cezary Rojewski (2):
-  ASoC: Intel: avs: ssm4567: Remove nau8825 bits
-  ASoC: Intel: avs: nau8825: Adjust clock control
-
- sound/soc/intel/avs/boards/da7219.c    | 21 +++++++++++++++++
- sound/soc/intel/avs/boards/max98357a.c | 22 ++++++++++++++++++
- sound/soc/intel/avs/boards/nau8825.c   | 14 ++++++------
- sound/soc/intel/avs/boards/rt5682.c    | 22 ++++++++++++++++++
- sound/soc/intel/avs/boards/ssm4567.c   | 31 --------------------------
- 5 files changed, 72 insertions(+), 38 deletions(-)
-
+diff --git a/sound/soc/intel/avs/boards/max98357a.c b/sound/soc/intel/avs/boards/max98357a.c
+index 921f42caf7e0..183123d08c5a 100644
+--- a/sound/soc/intel/avs/boards/max98357a.c
++++ b/sound/soc/intel/avs/boards/max98357a.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-dapm.h>
+@@ -24,6 +25,26 @@ static const struct snd_soc_dapm_route card_base_routes[] = {
+ 	{ "Spk", NULL, "Speaker" },
+ };
+ 
++static int
++avs_max98357a_be_fixup(struct snd_soc_pcm_runtime *runrime, struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *rate, *channels;
++	struct snd_mask *fmt;
++
++	rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
++	channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
++	fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
++
++	/* The ADSP will convert the FE rate to 48k, stereo */
++	rate->min = rate->max = 48000;
++	channels->min = channels->max = 2;
++
++	/* set SSP0 to 16 bit */
++	snd_mask_none(fmt);
++	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++	return 0;
++}
++
+ static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
+ 			       struct snd_soc_dai_link **dai_link)
+ {
+@@ -55,6 +76,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+ 	dl->num_platforms = 1;
+ 	dl->id = 0;
+ 	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
++	dl->be_hw_params_fixup = avs_max98357a_be_fixup;
+ 	dl->nonatomic = 1;
+ 	dl->no_pcm = 1;
+ 	dl->dpcm_playback = 1;
 -- 
 2.34.1
 

@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A217B6AA276
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 22:48:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B775C6AA277
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 22:48:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAB72E7C;
-	Fri,  3 Mar 2023 22:47:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAB72E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F647E74;
+	Fri,  3 Mar 2023 22:47:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F647E74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677880089;
-	bh=835pITj3L+K0+nJB6m2dMarsglz50CzJfHG+9XJm0Oc=;
+	s=default; t=1677880102;
+	bh=F3NoOOYlAfGhlHphkBlJjylv7gfqdUjywibnVvhv6U4=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RWrIm/FHaPrcprirBz4PAcmp6aCacLvN2dytiT8Si3M5+ZFoVYtjQTRu7q7QATQ5D
-	 iRO136aEPFaiR4eQU6hHK3M16a/wE2OTsKKGOKPrJs9/HSOlzx7qX5UqdqpJNf0GxC
-	 QkHLRjhWA+zSnyMEXo3GO1WHZNtkzexX6Dy3YnKg=
+	b=RziBZ0e6CGK9I/2BFZhSPVeT6VRNcmIweUpgIZVEp6j8BcBsdQuu9KSXVGWsC6EPo
+	 /xiTlQwSlCC0t3SLCbkaYQawKO7Z4FgYcEGKXZfruoJVvm1pzca64hBwY1dDOHY928
+	 zxCowVMz/BfLlp9AaS8uo5NKlgWLSwRI7b0wAyrI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8877AF8049C;
-	Fri,  3 Mar 2023 22:47:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E83D2F8052D;
+	Fri,  3 Mar 2023 22:47:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18A79F804FE; Fri,  3 Mar 2023 22:47:16 +0100 (CET)
+	id C2802F804FE; Fri,  3 Mar 2023 22:47:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51FB2F80266
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 22:47:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51FB2F80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8726F80266
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 22:47:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8726F80266
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=c92s2Nps
+ header.s=k20201202 header.b=i6iBoX78
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 417876195F;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7959B61919;
+	Fri,  3 Mar 2023 21:47:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830D3C4339C;
 	Fri,  3 Mar 2023 21:47:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507EAC4339E;
-	Fri,  3 Mar 2023 21:47:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677880033;
-	bh=835pITj3L+K0+nJB6m2dMarsglz50CzJfHG+9XJm0Oc=;
+	s=k20201202; t=1677880034;
+	bh=F3NoOOYlAfGhlHphkBlJjylv7gfqdUjywibnVvhv6U4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=c92s2NpsHh8wy2e9kzPgzHhwP+Ok4JblK8opuYgbY/geuX/NqIsOu5/inkSZugxBh
-	 2uKFdeODS9X8weOIoB0RL4k1+EPQ2Mr8vehrbiIozBDcQXj7ja/l5vXdsIHqWpITCY
-	 2Zn6Ua22TleklAe6ttCNxQp8BDTUSgJi37f03OjjQUSddjYhap++BWmd8D09Lgg9aP
-	 2+2qL10TdMKgrAY2rKJDezGgOgRdjQ5GwTkcIEqyPOipSuakOFNjjXxOVtWoG7T65G
-	 OURVY2xUKFiMytJi1HPyI15XFGt5hjHNYwVvRqnfGN/ekEkjK3eArSF82vqB5edDU1
-	 2JvKHt2DDNQPw==
+	b=i6iBoX786w4vgJ4kabz9QS+dpH8NJTcr6GikZCC+uENfIKNEoIwUQRNb73mgMqHRu
+	 fts0r1L20gYkGn8bbWfKaZtshuPu+wPnnJDj6es4VruPWCFrVBtS+hplMAIQJbm8PA
+	 gyDjaj1NpGjklFBR0hzKNATXt/jhK1owGclLv8fQd4UVdmoDSSWUPAt2S/cSGcXyzD
+	 7suLgbkaTfpEm6Obgd6/VN5m2oX1NOinBg9A02jFoQLJ7VuDHDIPoCS+9cGxV+SgMj
+	 lOffzEFbBwEu6eKxL2NN5B0aYo85VpiS1tSkDHTB6RrQnOxiSsVhB/DaeZ3NVbxI4Q
+	 EL4pxPBMGeyAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 49/50] soundwire: cadence: Remove wasted space in
- response_buf
-Date: Fri,  3 Mar 2023 16:45:30 -0500
-Message-Id: <20230303214531.1450154-49-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 50/50] soundwire: cadence: Drain the RX FIFO
+ after an IO timeout
+Date: Fri,  3 Mar 2023 16:45:31 -0500
+Message-Id: <20230303214531.1450154-50-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230303214531.1450154-1-sashal@kernel.org>
 References: <20230303214531.1450154-1-sashal@kernel.org>
@@ -70,8 +71,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: D2BFFQYWZTMUNMSRJNHTZFXWD55VIEZZ
-X-Message-ID-Hash: D2BFFQYWZTMUNMSRJNHTZFXWD55VIEZZ
+Message-ID-Hash: Y5NLASYHJOEM5FOWFN3QVKOX6IURF6PP
+X-Message-ID-Hash: Y5NLASYHJOEM5FOWFN3QVKOX6IURF6PP
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D2BFFQYWZTMUNMSRJNHTZFXWD55VIEZZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5NLASYHJOEM5FOWFN3QVKOX6IURF6PP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,78 +100,108 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-[ Upstream commit 827c32d0df4bbe0d1c47d79f6a5eabfe9ac75216 ]
+[ Upstream commit 0603a47bd3a8f439d7844b841eee1819353063e0 ]
 
-The response_buf was declared much larger (128 entries) than the number
-of responses that could ever be written into it. The Cadence IP is
-configurable up to a maximum of 32 entries, and the datasheet says
-that RX_FIFO_AVAIL can be 2 larger than this. So allow up to 34
-responses.
+If wait_for_completion_timeout() times-out in _cdns_xfer_msg() it
+is possible that something could have been written to the RX FIFO.
+In this case, we should drain the RX FIFO so that anything in it
+doesn't carry over and mess up the next transfer.
 
-Also add checking in cdns_read_response() to prevent overflowing
-reponse_buf if RX_FIFO_AVAIL contains an unexpectedly large number.
+Obviously, if we got to this state something went wrong, and we
+don't really know the state of everything. The cleanup in this
+situation cannot be bullet-proof but we should attempt to avoid
+breaking future transaction, if only to reduce the amount of
+error noise when debugging the failure from a kernel log.
+
+Note that this patch only implements the draining for blocking
+(non-deferred) transfers. The deferred API doesn't have any proper
+handling of error conditions and would need some re-design before
+implementing cleanup. That is a task for a separate patch...
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20221202161812.4186897-3-rf@opensource.cirrus.com
+Link: https://lore.kernel.org/r/20221202161812.4186897-4-rf@opensource.cirrus.com
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/cadence_master.c |  7 +++++++
- drivers/soundwire/cadence_master.h | 13 ++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ drivers/soundwire/cadence_master.c | 50 ++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 18d2f9b3e2010..b229e1e0d7d97 100644
+index b229e1e0d7d97..842e08c56796b 100644
 --- a/drivers/soundwire/cadence_master.c
 +++ b/drivers/soundwire/cadence_master.c
-@@ -769,8 +769,15 @@ static void cdns_read_response(struct sdw_cdns *cdns)
- 	u32 num_resp, cmd_base;
- 	int i;
+@@ -555,6 +555,29 @@ cdns_fill_msg_resp(struct sdw_cdns *cdns,
+ 	return SDW_CMD_OK;
+ }
  
++static void cdns_read_response(struct sdw_cdns *cdns)
++{
++	u32 num_resp, cmd_base;
++	int i;
++
 +	/* RX_FIFO_AVAIL can be 2 entries more than the FIFO size */
 +	BUILD_BUG_ON(ARRAY_SIZE(cdns->response_buf) < CDNS_MCP_CMD_LEN + 2);
 +
- 	num_resp = cdns_readl(cdns, CDNS_MCP_FIFOSTAT);
- 	num_resp &= CDNS_MCP_RX_FIFO_AVAIL;
++	num_resp = cdns_readl(cdns, CDNS_MCP_FIFOSTAT);
++	num_resp &= CDNS_MCP_RX_FIFO_AVAIL;
 +	if (num_resp > ARRAY_SIZE(cdns->response_buf)) {
 +		dev_warn(cdns->dev, "RX AVAIL %d too long\n", num_resp);
 +		num_resp = ARRAY_SIZE(cdns->response_buf);
 +	}
- 
- 	cmd_base = CDNS_MCP_CMD_BASE;
- 
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index e587aede63bf0..e437a604429fa 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -8,6 +8,12 @@
- #define SDW_CADENCE_GSYNC_KHZ		4 /* 4 kHz */
- #define SDW_CADENCE_GSYNC_HZ		(SDW_CADENCE_GSYNC_KHZ * 1000)
- 
-+/*
-+ * The Cadence IP supports up to 32 entries in the FIFO, though implementations
-+ * can configure the IP to have a smaller FIFO.
-+ */
-+#define CDNS_MCP_IP_MAX_CMD_LEN		32
 +
- /**
-  * struct sdw_cdns_pdi: PDI (Physical Data Interface) instance
-  *
-@@ -119,7 +125,12 @@ struct sdw_cdns {
- 	struct sdw_bus bus;
- 	unsigned int instance;
- 
--	u32 response_buf[0x80];
-+	/*
-+	 * The datasheet says the RX FIFO AVAIL can be 2 entries more
-+	 * than the FIFO capacity, so allow for this.
-+	 */
-+	u32 response_buf[CDNS_MCP_IP_MAX_CMD_LEN + 2];
++	cmd_base = CDNS_MCP_CMD_BASE;
 +
- 	struct completion tx_complete;
- 	struct sdw_defer *defer;
++	for (i = 0; i < num_resp; i++) {
++		cdns->response_buf[i] = cdns_readl(cdns, cmd_base);
++		cmd_base += CDNS_MCP_CMD_WORD_LEN;
++	}
++}
++
+ static enum sdw_command_response
+ _cdns_xfer_msg(struct sdw_cdns *cdns, struct sdw_msg *msg, int cmd,
+ 	       int offset, int count, bool defer)
+@@ -596,6 +619,10 @@ _cdns_xfer_msg(struct sdw_cdns *cdns, struct sdw_msg *msg, int cmd,
+ 		dev_err(cdns->dev, "IO transfer timed out, cmd %d device %d addr %x len %d\n",
+ 			cmd, msg->dev_num, msg->addr, msg->len);
+ 		msg->len = 0;
++
++		/* Drain anything in the RX_FIFO */
++		cdns_read_response(cdns);
++
+ 		return SDW_CMD_TIMEOUT;
+ 	}
  
+@@ -764,29 +791,6 @@ EXPORT_SYMBOL(cdns_reset_page_addr);
+  * IRQ handling
+  */
+ 
+-static void cdns_read_response(struct sdw_cdns *cdns)
+-{
+-	u32 num_resp, cmd_base;
+-	int i;
+-
+-	/* RX_FIFO_AVAIL can be 2 entries more than the FIFO size */
+-	BUILD_BUG_ON(ARRAY_SIZE(cdns->response_buf) < CDNS_MCP_CMD_LEN + 2);
+-
+-	num_resp = cdns_readl(cdns, CDNS_MCP_FIFOSTAT);
+-	num_resp &= CDNS_MCP_RX_FIFO_AVAIL;
+-	if (num_resp > ARRAY_SIZE(cdns->response_buf)) {
+-		dev_warn(cdns->dev, "RX AVAIL %d too long\n", num_resp);
+-		num_resp = ARRAY_SIZE(cdns->response_buf);
+-	}
+-
+-	cmd_base = CDNS_MCP_CMD_BASE;
+-
+-	for (i = 0; i < num_resp; i++) {
+-		cdns->response_buf[i] = cdns_readl(cdns, cmd_base);
+-		cmd_base += CDNS_MCP_CMD_WORD_LEN;
+-	}
+-}
+-
+ static int cdns_update_slave_status(struct sdw_cdns *cdns,
+ 				    u64 slave_intstat)
+ {
 -- 
 2.39.2
 

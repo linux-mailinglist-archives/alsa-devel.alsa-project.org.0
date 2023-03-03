@@ -2,93 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31F396A94DA
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 11:09:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 481836A94DD
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Mar 2023 11:10:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D63B6868;
-	Fri,  3 Mar 2023 11:08:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D63B6868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33E4586F;
+	Fri,  3 Mar 2023 11:09:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33E4586F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1677838148;
-	bh=Brnd7udyDhvq6BWqTkviyeNdEgXNRN2Uv2A6x+MqMqw=;
+	s=default; t=1677838219;
+	bh=9Z2lqN5AlBZiuWn3mn+L8jhGBmqdcrgEIgbEVwPTxwg=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=diUVml4qatbeoRtjUXFKCWFSrAycEL/5cqyLliOAD+nC1dRvFK7XINHXnYQp6u7X7
-	 dPb7Xw2WKu8h2P4+ZJz8lw1gCLF4xom5jMm3JFJVeIpJvxyecw8fe55hhSs2liG97h
-	 NQZSvAQ1RfQx19gW+1YeqMsKKaJsSCSQHACvxR2k=
+	b=PEoIyiLPqyTta2TLXVM1I7DGvLsnzXHbVmEXMxdC214aqAMizsbNlnOQv6TYsF/oc
+	 wkxi6aEVZATGDMGOMmduVj2xNIArm6WOaQrhO0fR+EtQfRQ0Xpt22r+uAxAQftnqRo
+	 n8X7nORCz+EI/ncQzwHVm7NGiALiPJ7y9Ii8oVxo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33403F8025A;
-	Fri,  3 Mar 2023 11:08:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9CACF8025A;
+	Fri,  3 Mar 2023 11:09:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D84DF80266; Fri,  3 Mar 2023 11:08:14 +0100 (CET)
+	id 964EDF80310; Fri,  3 Mar 2023 11:09:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5060EF800DF
-	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 11:08:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5060EF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63FBDF800DF
+	for <alsa-devel@alsa-project.org>; Fri,  3 Mar 2023 11:09:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63FBDF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=PGRkUs4K
-Received: by mail-ed1-x52e.google.com with SMTP id u9so8221615edd.2
+ header.s=google header.b=GDRKF4xL
+Received: by mail-ed1-x52c.google.com with SMTP id a25so8398386edb.0
         for <alsa-devel@alsa-project.org>;
- Fri, 03 Mar 2023 02:08:10 -0800 (PST)
+ Fri, 03 Mar 2023 02:09:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1677838089;
+        d=linaro.org; s=google; t=1677838157;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=4ESrclwBCHM69+hLsPL2pqUpQkFKX4EOhHF1Eje8eSI=;
-        b=PGRkUs4K5kO9por33thnuXgcO+reDiGastPA2Dp5H/pHJ06Egemrwng4RG4q0GnnzC
-         9Ex9M2x04CFgb8fHQm/eYOMkDggcVOvks0DCBoqZxFEBpU87cNN9RGaib7xlccFm7eIm
-         9b5/y2MZLL4BKuruSQcTHTfZ/AC8tbuc8YNgENUPD/Q7tdGasN+Ni1KDPnsI2CddUEkN
-         Ydj+2QcmGKqeXaXuCtak6YZao2mH0YO19qTpy0ZZfQv084E+271q+PSsPlB777FL1w3S
-         47nKilU+OnouEvxEFHNThXBAJetTXiagDNBGC1RWHsMGRrrLqmZJcnn3UtSLh9vLd7Sp
-         AfJg==
+        bh=fI5/Jh41zzz66+bX6TPVbQtVq4+vv/aKacxWrTWABSE=;
+        b=GDRKF4xLTB19IREv6jG4HYZQ0ofjbXmSt9cp0hUeSzkffeEljgn0DuezlRwNSxvv0h
+         vsvkgIH9DkVJBTEEM9XbulZhffMKFFota432hx6lQMB1DMjsESXujWd3ehi1K0lF5Q2+
+         g4Lf+pwaNmhyxY3xlBdAUVKyx4D4An/79s9GTR2Lwc0IIJBiUkNLNPfKIWMugcnJHNPB
+         O5yFGNO5VqxxftWzj0gAW+weu3TAsXvO4WE6URMTidh8+pKZVIDq0z1pvQdJuvn4EkGc
+         BejAS25JdUJ+/3jLx/i/ElM9mqbXsLh9kp/XoWcrBPX5bmgDy/NWTt6WpB8ilyOeLJol
+         dPnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677838089;
+        d=1e100.net; s=20210112; t=1677838157;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4ESrclwBCHM69+hLsPL2pqUpQkFKX4EOhHF1Eje8eSI=;
-        b=SIgckH4TgHM4C8J+bBTochX+ROOirn4wBnc4hZxeiVwmHbr0DMlwcVbsY5zY+rw76a
-         zTS6UU1EZiCDSUYdZWjeP4HJH6iPLgWEgTiju2WIUeeUYvipMWF6dEpKOCO4Olj4ffBm
-         OtO2JWtRSOce73ECsnaSMPLQO6FqjIGUFD4J3+LRHQUxVzwfufgThSatua2AFNC9YJWh
-         2gGdMCosNfT0+X5pq8zmpmXArVn3lDmeEPSui++Ojd+hUdjyvl+31dBt0t6SMWq36PcW
-         ypVU2xiZ7ZQgpxpAxp5lWglAneV0gVX49lEXIGW5pSEsQceeIEshcyRsU1+jTl2VNT88
-         RG4g==
-X-Gm-Message-State: AO0yUKU/jC3OGTJN+olLglh+OPMsdlk0TVnd97sOdQ7BOukmiJG0TZYg
-	qebaeJUuAhpTyVaWqyKmE58FTA==
+        bh=fI5/Jh41zzz66+bX6TPVbQtVq4+vv/aKacxWrTWABSE=;
+        b=AcXqaT9ILF6jiAUKN323E50wLj4ynHbte049H2BZbaH6OKG+0aOnn3NcWN4yV4jYmA
+         AqIOsok6odaje+X6RjzJJlsuRxP/62LEOsMoovJ27ZksWS/7LN9X0UkiLtzlzMyXbkDm
+         9MFl3NIO5/IvX7VX0S6sHs19eGNtUk0FJEElqyNMA8Zlh3XKHQPQL1cWvLHOtNQ0jtuI
+         vqkgOkng3rmG/7SBxbz2MUbqbLkQ2/GEZMmbZSElJcTJrcmFTHPbg1zBVNq8g4PIhfoc
+         UU7AJIIdzsCpK94UFpJ2eCwMXFPdIBeRM/lWPHWghJ/CC9Mpejh3z+sOqZs4zrmacGKy
+         tKeQ==
+X-Gm-Message-State: AO0yUKXnZPMCAZX/R8dN/aZUWZ17GKoKmKSbLplk9t4sAuomimebYQD0
+	QDzUCpw4XOVG4jcncSUztHulFQ==
 X-Google-Smtp-Source: 
- AK7set85Koytwyp8k9BMsQvzSBYoh1IytCTgthCWFMdVefdMvJrjVRop+xFCZwSfBoyFqtTTrxnyXw==
-X-Received: by 2002:a17:906:1450:b0:8af:ef00:b853 with SMTP id
- q16-20020a170906145000b008afef00b853mr1092169ejc.73.1677838089296;
-        Fri, 03 Mar 2023 02:08:09 -0800 (PST)
+ AK7set+lYy9fbQ5CtagXjbaTvZl/r3WY5kdiT+NQAjR24/Xnjs6G0dloTGXariMq8eLU9YUg4roYEQ==
+X-Received: by 2002:aa7:c147:0:b0:4bd:e63c:d3be with SMTP id
+ r7-20020aa7c147000000b004bde63cd3bemr1328940edp.20.1677838157226;
+        Fri, 03 Mar 2023 02:09:17 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.216.144])
         by smtp.gmail.com with ESMTPSA id
- d25-20020a1709064c5900b008b17de96f00sm768389ejw.151.2023.03.03.02.08.07
+ c5-20020a056402120500b004c17977da1esm959561edw.8.2023.03.03.02.09.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Mar 2023 02:08:08 -0800 (PST)
-Message-ID: <6781aacb-a44b-bff7-214a-3b3b5cee427b@linaro.org>
-Date: Fri, 3 Mar 2023 11:08:07 +0100
+        Fri, 03 Mar 2023 02:09:16 -0800 (PST)
+Message-ID: <45d306d3-8efb-12ac-0a83-f01ca2982b0a@linaro.org>
+Date: Fri, 3 Mar 2023 11:09:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: maxim,max9867: convert txt
- bindings to yaml
+Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: maxim,max9867: add clocks
+ property
 Content-Language: en-US
 To: richard.leitner@linux.dev, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
@@ -96,13 +96,13 @@ To: richard.leitner@linux.dev, Liam Girdwood <lgirdwood@gmail.com>,
  Ladislav Michl <ladis@linux-mips.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, Benjamin Bara <benjamin.bara@skidata.com>
 References: <20230302-max9867-v2-0-fd2036d5e825@skidata.com>
- <20230302-max9867-v2-1-fd2036d5e825@skidata.com>
+ <20230302-max9867-v2-2-fd2036d5e825@skidata.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230302-max9867-v2-1-fd2036d5e825@skidata.com>
+In-Reply-To: <20230302-max9867-v2-2-fd2036d5e825@skidata.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AKASKQLOOADPSWIHZ2KSMGPJG3EF7S3L
-X-Message-ID-Hash: AKASKQLOOADPSWIHZ2KSMGPJG3EF7S3L
+Message-ID-Hash: 6YF7KA3CLYPSI2V6NDALLHWLDK4PTGER
+X-Message-ID-Hash: 6YF7KA3CLYPSI2V6NDALLHWLDK4PTGER
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,9 +118,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKASKQLOOADPSWIHZ2KSMGPJG3EF7S3L/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YF7KA3CLYPSI2V6NDALLHWLDK4PTGER/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -130,20 +129,50 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On 03/03/2023 11:04, richard.leitner@linux.dev wrote:
 > From: Richard Leitner <richard.leitner@skidata.com>
 > 
-> Convert from max9867.txt to maxim,max9867.yaml and add missing
-> '#sound-dai-cells' property.
+> Add clocks property to require a "mclk" definition for the
+> maxim,max9867 codec.
+
+But why? You just wrote what the patch does, which is easy to see.
+Commit msgs should explain why you are doing something.
+
 > 
 > Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
 > ---
->  .../devicetree/bindings/sound/max9867.txt          | 17 -------
->  .../devicetree/bindings/sound/maxim,max9867.yaml   | 55 ++++++++++++++++++++++
->  2 files changed, 55 insertions(+), 17 deletions(-)
+>  Documentation/devicetree/bindings/sound/maxim,max9867.yaml | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/sound/maxim,max9867.yaml b/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
+> index 74cd163546ec..6f27029b137d 100644
+> --- a/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
+> +++ b/Documentation/devicetree/bindings/sound/maxim,max9867.yaml
+> @@ -35,9 +35,13 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  clocks:
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - reg
+> +  - clocks
+>  
+>  additionalProperties: false
+>  
+> @@ -50,6 +54,13 @@ examples:
+>              compatible = "maxim,max9867";
+>              #sound-dai-cells = <0>;
+>              reg = <0x18>;
+> +            clocks = <&codec_clk>;
+>          };
+>      };
+> +
+> +    codec_clk: clock {
+> +        compatible = "fixed-clock";
+> +        #clock-cells = <0>;
+> +        clock-frequency = <12288000>;
 
-Looks ok. Need to wait for Rob's bot to check for issues.
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Drop the node, it's entirely common/regular stuff.
 
 Best regards,
 Krzysztof

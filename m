@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179FE6AC13D
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 14:33:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED896AC169
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 14:36:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D00B1106;
-	Mon,  6 Mar 2023 14:32:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D00B1106
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66C2D110F;
+	Mon,  6 Mar 2023 14:35:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66C2D110F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678109626;
-	bh=lOMMXCrqcZ0WdD9lu+uR7/4pU15uVAojtXmRh6v04yw=;
+	s=default; t=1678109785;
+	bh=xk2sxBEfsiN8aKVYWYbUYCkQgq5QDPcbaOkOnFjwYec=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FtYV/0EJbl34hTCOzTbTebWwxqh9llExaBLHYfDcdU6c+ue1ztmCk+9Fcj1pzeQ7W
-	 GwwcQCDb/pdlp09WPiqC1VxPDe4B2WutXX0CCRsSsysar61dUgaqDHrXT8cl61rX2m
-	 ClqKd9dGxOKPTdXQOwIQh3CMGi0BtOvqRT8IrFqU=
+	b=ZivorQmkpALXVexBtF5iiIZFXct5XndoJNDPPur383fdLTa1ZIf67Jet7cY4KVS57
+	 fUcAfmagHar98w8fOuv5z+a7va0SwWgTj47quNfXmu/0jwGgAUaJXzvSFv9adukqxE
+	 41oIWvWOjwCCp3MPZ+I/hV0m3YPcwnPYgexxD2GM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B611F8051B;
-	Mon,  6 Mar 2023 14:32:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4FFFF80588;
+	Mon,  6 Mar 2023 14:33:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0748EF80482; Mon,  6 Mar 2023 14:32:01 +0100 (CET)
+	id D052CF8053D; Mon,  6 Mar 2023 14:32:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2730AF80236;
-	Mon,  6 Mar 2023 14:31:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2730AF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id C2D22F800C9
+	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 14:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2D22F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AeZk/3JJ
+ header.s=k20201202 header.b=sddlj8en
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 87B6D60F32;
+	by ams.source.kernel.org (Postfix) with ESMTPS id 19063B80E3F;
+	Mon,  6 Mar 2023 13:31:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FF6C433D2;
 	Mon,  6 Mar 2023 13:31:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5A3C4339B;
-	Mon,  6 Mar 2023 13:31:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678109512;
-	bh=lOMMXCrqcZ0WdD9lu+uR7/4pU15uVAojtXmRh6v04yw=;
+	s=k20201202; t=1678109515;
+	bh=xk2sxBEfsiN8aKVYWYbUYCkQgq5QDPcbaOkOnFjwYec=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AeZk/3JJHagl8xaCuTIAc3M4RebSNAzb28psjHJWhcCVhm4M/S6iy+HVD5gJkc0mh
-	 n/10jZHJnvbWRU9xkVYRXrc0H2K4Y9H07xtpRiwr9CezUBbB+x88PDR1TPfWOTJqOO
-	 o9vQtdgOvi1MXdiKZQKLIFsavxcz6t2x6zP2FnkVjOT4fMr4/ePXE9RlPDvlztXPBT
-	 TYOYldIygLg1602a+elpTozZ92cX8OJofiE+Y0d6+xkr8uV5bFBgFLX1TVDbvMrPR+
-	 rXjC0fTyXdCg2kR+u7N6h7UH38u1RXgQQ4TBoPSyb8NPmpS5rPZxsY8CzR3gcueMvA
-	 Vl6dtQ/x0XsjA==
+	b=sddlj8enGoNsBB53XnM6yLjlWH6qW0MM4/OXj2+Rd0hDjZKdOA8lStIgrDIroyhqS
+	 z3y7rgMjk3K0fqY2Wvs1ndD1L26gzBtFoNFxT6Sl+vOD+o+tVGnW0lHEWqTRn6YOwM
+	 ptESxC8P7B5UMiwsRl1dHQEEgUl4gW4Gl1yv2I+8eQnA9Khh6P/Atisof+/iZLsjCw
+	 YbZzdtgqrkrjTIULwrFsypWiN3RmoBcRrKua8GqJJYMWtehYD6ls1ftWD9T1mKO70W
+	 mmXI8ERzpLqaQ3fedpWkCKXxWlKZm7H2U8NCLy8reO8GCxL3qDrQ4wiuO9D2S42qGk
+	 8a8K8eDvN6yvA==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-In-Reply-To: <Y/gyIg1qZduhigPi@work>
-References: <Y/gyIg1qZduhigPi@work>
-Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Replace fake flexible
- arrays with flexible-array member
-Message-Id: <167810950942.75807.970526676500961922.b4-ty@kernel.org>
-Date: Mon, 06 Mar 2023 13:31:49 +0000
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Maxim Schwalm <maxim.schwalm@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+In-Reply-To: <20230221183211.21964-1-clamor95@gmail.com>
+References: <20230221183211.21964-1-clamor95@gmail.com>
+Subject: Re: (subset) [PATCH v1 00/10] Fix sound on ASUS Transformers
+Message-Id: <167810951258.75807.6694477245258374695.b4-ty@kernel.org>
+Date: Mon, 06 Mar 2023 13:31:52 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: M4TL72JOIW7AFIDI74LWQVRBZEEWE3GA
-X-Message-ID-Hash: M4TL72JOIW7AFIDI74LWQVRBZEEWE3GA
+Message-ID-Hash: GSBT3SXEMGK4EDMMRCFXQTMDY5ZXSEKC
+X-Message-ID-Hash: GSBT3SXEMGK4EDMMRCFXQTMDY5ZXSEKC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,14 +85,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+CC: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
+ linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4TL72JOIW7AFIDI74LWQVRBZEEWE3GA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSBT3SXEMGK4EDMMRCFXQTMDY5ZXSEKC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,26 +102,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 23 Feb 2023 21:42:26 -0600, Gustavo A. R. Silva wrote:
-> Zero-length arrays as fake flexible arrays are deprecated and we are
-> moving towards adopting C99 flexible-array members, instead.
-> 
-> Use the DECLARE_FLEX_ARRAY() helper macro to transform zero-length
-> arrays in unions with flexible-array members.
-> 
-> Address the following warnings found with GCC-13 and
-> -fstrict-flex-arrays=3 enabled:
-> sound/soc/sof/ipc4-control.c:176:77: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:78:29: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:80:33: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:95:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:96:53: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:93:53: warning: array subscript 0 is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:140:58: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:141:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-control.c:142:29: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-topology.c:1475:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
-> sound/soc/sof/ipc4-topology.c:1476:36: warning: array subscript i is outside array bounds of ‘struct sof_ipc4_ctrl_value_chan[0]’ [-Warray-bounds=]
+On Tue, 21 Feb 2023 20:32:01 +0200, Svyatoslav Ryhel wrote:
+> - add quirk for headset detection used by some T30 devices
+>   (ASUS Transformers, LG Optimus 4X HD and Vu);
+> - add RT5631 and MAX9808x machine drivers
+> - add Fortemedia FM34NE DSP driver used by ASUS Transformers
+>   and mandatory for correct sound work
+> - bind everything into working configuration
 > 
 > [...]
 
@@ -131,8 +118,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: ipc4-topology: Replace fake flexible arrays with flexible-array member
-      commit: 587cbe99152fd735605f3502f42f640bb54f6048
+[02/10] sound: soc: jack: allow multiple interrupt per gpio
+        commit: a2d4051b0bd6dffcd736888ae89a550d6f60b060
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

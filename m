@@ -2,96 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F766ACB3C
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:49:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F19C6AC98A
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:13:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE8B511A2;
-	Mon,  6 Mar 2023 18:48:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE8B511A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2165B1134;
+	Mon,  6 Mar 2023 18:13:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2165B1134
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678124956;
-	bh=gS13Pi8NIZfYbbwqKoWFz+JaetXsKjXOR4Yv4pYVBmE=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:Reply-To:List-Id:
+	s=default; t=1678122838;
+	bh=+tAyT3UdCX36GB3CTDFNB7mti8+xcEFZDOP01rqyk9g=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rwL6aKBWP6zJ9aog6KBSxWAnqPILYSRLATePgG7H4ywvw49mDwzf/H+AA6XflHbt3
-	 Q+ChsFe/Gz3N5iq5pcP3fpp67LY8K2BpaqxSSdNKgM96Fgnmu3hzuE3eO0CWfwVmnW
-	 p+5jaKZJSmBOwhpiLsAu1DJu+wDfMIxaP2agqpXU=
+	b=WaVjpan0ignbTziC/Z3eMBODB8P1jX5Rx6ckRkoaD4KpmqpHiz0oxwHQAe75ir6KJ
+	 6u+TE3D4+WxplLtXw2BVJScCFZF3cqBn7RImeNhKWZvbr6LO/MKMwSBYkrTjHXncTR
+	 v/U4lQDTqd1S9hsmQZCy6K3luXI8gLg/WiirNXeQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E9DDF80588;
-	Mon,  6 Mar 2023 18:42:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 714E6F80236;
+	Mon,  6 Mar 2023 18:13:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73492F8042F; Mon,  6 Mar 2023 09:17:12 +0100 (CET)
+	id 63CDBF8042F; Mon,  6 Mar 2023 18:13:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp16.bhosted.nl (smtp16.bhosted.nl [IPv6:2a02:9e0:8000::27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9615EF8007E
-	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 09:16:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9615EF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0EACEF800C9
+	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 18:12:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EACEF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=protonic.nl header.i=@protonic.nl header.a=rsa-sha256
- header.s=202111 header.b=oDYibHiF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=protonic.nl; s=202111;
-	h=message-id:references:in-reply-to:reply-to:subject:cc:to:from:date:
-	 content-transfer-encoding:content-type:mime-version:from;
-	bh=iGJBerep9CUnwc0kKc070FLg5wgjahdY5flMGzZYQMs=;
-	b=oDYibHiF3QQbdSnLfVFRXWqS6z3NQmb6kugL8YV+AzvXesLHyr5JzoQv36TlUtoc6W5KCotN1l9wN
-	 9LSOB4Bu9Yfgb0XpMplMCVfXibebalo7a5aESxI1lFy0L3DA6RZo6UFgR79W8gl98jQrxQ/tLvd2T2
-	 0xEQnuRgzH1ORWF+wpRq+raboR/TqFqi3nosbBYytoNMkARO5GE2FASMRvbgozacXT968pNevzID08
-	 kd2Bb6hh7pzuv819gTpRFHFjwmhc4+RnlmqnZW8aNjXY3z24ty79Y1uQG7spYocRbf484LhNNLEwf4
-	 6CAVA7hl0v6jQA7FXN1mdH2h85/uHYw==
-X-MSG-ID: 412d5329-bbf7-11ed-829c-0050569d2c73
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=T+38ATFZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1678122778; x=1709658778;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=+tAyT3UdCX36GB3CTDFNB7mti8+xcEFZDOP01rqyk9g=;
+  b=T+38ATFZpfCRUQKMSDufTQVk43vyUamY8w93L//+D9Izm37MTKRUPegT
+   4Z3bjP50VDICYhl2FBCq7XyFK26DsXWLCeE0zioCmFQVs0ciQ5gwE0xrO
+   a4MfA0E8qTuYqb2Ix0/pmfYHI2nbtfl5PvvoFq424pTYwHemYlAbf3Ryn
+   VeyEDfnn8nesgNNeBBtrMD5wRputWVGnXgpMZQpnzdf16UCkh7AuBSePL
+   4jGg+g31GRQ4c4Ao68a6lLuYc6xUKxIFfBddiVV5/q1tf5b6kkgqXYYIO
+   71cXOKkg7MtXvAqyfP9Tr9Ca8YSm8q5BeirsypBWrg/ySzqOQtMSGdmV9
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="316012883"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400";
+   d="scan'208";a="316012883"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2023 09:11:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="786309787"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400";
+   d="scan'208";a="786309787"
+Received: from malintan-mobl.amr.corp.intel.com (HELO [10.212.70.29])
+ ([10.212.70.29])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2023 09:11:53 -0800
+Message-ID: <6d7e2834-f90c-6175-6b69-3779b819eb0b@linux.intel.com>
+Date: Mon, 6 Mar 2023 10:18:47 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Mon, 06 Mar 2023 09:16:54 +0100
-From: Robin van der Gracht <robin@protonic.nl>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Fix SPI and I2C bus node names in examples
-Organization: Protonic Holland
-Mail-Reply-To: robin@protonic.nl
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.1
+Subject: Re: soundwire: user space test utilities
+Content-Language: en-US
+To: Muni Sekhar <munisekharrms@gmail.com>
+References: 
+ <CAHhAz+iuAYpxkpVGWp1g6u_j+wyB+vsFR8FGz1i_8G5TQhOVZw@mail.gmail.com>
+ <9a68a02a-d724-8475-e6a0-082b20e93956@linux.intel.com>
+ <CAHhAz+j88YwjBa2y2G8Hj20BksbeShf5TiuP3zqr6o5MBzvk_Q@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 In-Reply-To: 
- <CANiq72mm9qX8uuS2y_vvtcza2hAgG3zFEy24koQTfSEOWkKDYQ@mail.gmail.com>
-References: <20230228215433.3944508-1-robh@kernel.org>
- <CANiq72mm9qX8uuS2y_vvtcza2hAgG3zFEy24koQTfSEOWkKDYQ@mail.gmail.com>
-Message-ID: <61190cb766083d73ef3b1455dcf3ff61@protonic.nl>
-X-Sender: robin@protonic.nl
-User-Agent: Roundcube Webmail/1.3.1 
-X-MailFrom: robin@protonic.nl
-X-Mailman-Rule-Hits: nonmember-moderation
+ <CAHhAz+j88YwjBa2y2G8Hj20BksbeShf5TiuP3zqr6o5MBzvk_Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: CALBSXHNEKOJ2UVU2KOCJZ2GQB6R2N3W
+X-Message-ID-Hash: CALBSXHNEKOJ2UVU2KOCJZ2GQB6R2N3W
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JDJSELDVLT2HBOOG3LAWEO33WL4DSI24
-X-Message-ID-Hash: JDJSELDVLT2HBOOG3LAWEO33WL4DSI24
-X-Mailman-Approved-At: Mon, 06 Mar 2023 17:42:40 +0000
-CC: devicetree@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-i2c@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-can@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-pm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-usb@vger.kernel.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: vkoul@kernel.org, sanyog.r.kale@intel.com,
+ alsa-devel <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: robin@protonic.nl
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDJSELDVLT2HBOOG3LAWEO33WL4DSI24/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CALBSXHNEKOJ2UVU2KOCJZ2GQB6R2N3W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,106 +109,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> From: Rob Herring <robh@kernel.org>
-> Date: Tue, Feb 28, 2023 at 10:54 PM
-> Subject: [PATCH] dt-bindings: Fix SPI and I2C bus node names in 
-> examples
-> To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: <devicetree@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-> Benson Leung <bleung@chromium.org>, Guenter Roeck
-> <groeck@chromium.org>, Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda
-> <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
-> Robert Foss <rfoss@kernel.org>, Thierry Reding
-> <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, MyungJoo
-> Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
-> Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
-> <brgl@bgdev.pl>, Pavel Machek <pavel@ucw.cz>, Lee Jones
-> <lee@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, David S.
-> Miller <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-> Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-> Wolfgang Grandegger <wg@grandegger.com>, Kalle Valo
-> <kvalo@kernel.org>, Sebastian Reichel <sre@kernel.org>, Mark Brown
-> <broonie@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-> <linux-clk@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-> <linux-gpio@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-> <linux-leds@vger.kernel.org>, <linux-media@vger.kernel.org>,
-> <netdev@vger.kernel.org>, <linux-can@vger.kernel.org>,
-> <linux-wireless@vger.kernel.org>, <linux-pm@vger.kernel.org>,
-> <alsa-devel@alsa-project.org>, <linux-usb@vger.kernel.org>
-> 
-> 
-> SPI and I2C bus node names are expected to be "spi" or "i2c",
-> respectively, with nothing else, a unit-address, or a '-N' index. A
-> pattern of 'spi0' or 'i2c0' or similar has crept in. Fix all these
-> cases. Mostly scripted with the following commands:
-> 
-> git grep -l '\si2c[0-9] {' Documentation/devicetree/ | xargs sed -i -e
-> 's/i2c[0-9] {/i2c {/'
-> git grep -l '\sspi[0-9] {' Documentation/devicetree/ | xargs sed -i -e
-> 's/spi[0-9] {/spi {/'
-> 
-> With this, a few errors in examples were exposed and fixed.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> Cc: Miguel Ojeda <ojeda@kernel.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-> Cc: Benson Leung <bleung@chromium.org>
-> Cc: Guenter Roeck <groeck@chromium.org>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Robert Foss <rfoss@kernel.org>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: MyungJoo Ham <myungjoo.ham@samsung.com>
-> Cc: Chanwoo Choi <cw00.choi@samsung.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-> Cc: Pavel Machek <pavel@ucw.cz>
-> Cc: Lee Jones <lee@kernel.org>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Wolfgang Grandegger <wg@grandegger.com>
-> Cc: Kalle Valo <kvalo@kernel.org>
-> Cc: Sebastian Reichel <sre@kernel.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-leds@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-can@vger.kernel.org
-> Cc: linux-wireless@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-usb@vger.kernel.org
-> ---
->  .../bindings/auxdisplay/holtek,ht16k33.yaml       |  2 +-
 
-....
 
->  86 files changed, 110 insertions(+), 103 deletions(-)
-> 
-> diff --git 
-> a/Documentation/devicetree/bindings/auxdisplay/holtek,ht16k33.yaml
-> b/Documentation/devicetree/bindings/auxdisplay/holtek,ht16k33.yaml
-> index fc4873deb76f..286e726cd052 100644
-> --- a/Documentation/devicetree/bindings/auxdisplay/holtek,ht16k33.yaml
-> +++ b/Documentation/devicetree/bindings/auxdisplay/holtek,ht16k33.yaml
-> @@ -72,7 +72,7 @@ examples:
->      #include <dt-bindings/interrupt-controller/irq.h>
->      #include <dt-bindings/input/input.h>
->      #include <dt-bindings/leds/common.h>
-> -    i2c1 {
-> +    i2c {
->              #address-cells = <1>;
->              #size-cells = <0>;
+On 3/6/23 01:39, Muni Sekhar wrote:
+> On Tue, May 31, 2022 at 8:44 PM Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> wrote:
+>>
+>>
+>>> I am looking for any existing user space test utilities to test
+>>> SOUNDWIRE SUBSYSTEM in Linux kernel. Can someone please point me to
+>>> this.
+>>
+>> There are no specific userspace utilities to test the bus itself, you
+>> can use existing alsa-lib/alsa-utils applications to play/capture audio
+>> and check for events, i.e. aplay, arecord, speaker-test, amixer,
+>> alsamixer, evtest
+> alsa-lib/alsa-utils applications can be used for transmitting audio data.
+> How to transmit non-audio data over the Soundwire interface?
 
-Acked-by: Robin van der Gracht <robin@protonic.nl>
+There's no good answer to such a vague question. "non-audio data" can be
+transmitted over the control channel or the "BRA" mode, if supported.
+That's how drivers provide firmware or configuration blobs, but that's
+internal to the kernel. There's no dedicated/standard interface to send
+"non-audio data" from userpace to a specific device. It's not SoundWire
+specific btw, you'd have the same answer for HDaudio.
+
+

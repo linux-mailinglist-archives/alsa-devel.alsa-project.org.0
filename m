@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E505A6ACB44
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E7D06ACB46
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 18:51:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA60310F9;
-	Mon,  6 Mar 2023 18:50:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA60310F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D096211D0;
+	Mon,  6 Mar 2023 18:50:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D096211D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678125065;
-	bh=QMrH5vB0twwBCm9P9aZs1s/9q7s9zotaIFX3nHWUQHM=;
+	s=default; t=1678125080;
+	bh=o8rB5eZbTpCVBz91Gfc0gp1aGOmbkTiFCIMlCgm47JE=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=is8d84COP6aqmkRrlrY5flPh3yuOe1PuyOOXkSkM3UlsD4P/a3uTQGQTSYC+rjDli
-	 nNB7yjKEfYBIy9xnrVnofRd6CP1rRIw0mLlok+owZ5thWB8G1SI+hPArogiPnzO0wf
-	 MSQSBKrPdR4OseKFs0LEb2JLGM93FIqyd8g0giVw=
+	b=TF751U+7EB4Wu65q/RPS1/oUUFydYGsC29Ta8V2KdsBRUa5m9G1v29GppqIyw8Ci0
+	 aCwIWuCdI22RgMGvo10PTtHCQbjD7x9mNwK1s/qhwJqqPx3jeC+9FQEmBq5bgxAtVR
+	 /v4wszrzuEFCG91mWNBT2B1IFK7I7uqO+jtQeCtc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C5E3F80630;
-	Mon,  6 Mar 2023 18:43:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A2CEF805C3;
+	Mon,  6 Mar 2023 18:43:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7AECBF8042F; Mon,  6 Mar 2023 18:24:31 +0100 (CET)
+	id 056D1F8042F; Mon,  6 Mar 2023 18:25:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20602.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::602])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20621.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::621])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 05CDBF800DF
-	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 18:24:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05CDBF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27C8CF800DF
+	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 18:25:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27C8CF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=RFaekxbv
+ header.s=selector1 header.b=nEGTy0kP
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XgrGUvyhJbFcj5MzUD/66qXHmhtJhcU8FmT41WKUTGTJdy0pgrmSANNN6FwxGaEniwzg6LRvMBdavYfM6w/iy9WsYN8dsH9AI9MD4RxlYlHEV2UwEKjwwwVXG/5yB4/h6ymg9dAr12gaS1hCl4vxRNkO6CtPjrHK55+8glzZ+QQV08XoqtS+8u5V7i5Odq+gY/vTVbjTZdj2coyyaxrsOE/nDWAdNU83Z6KIvHnhX0PgKzPXkAu1zmr2mjZUzy13D0Fe3ypwvEhSfd+rNCHfO4r/U+Dls6ZBnr0vEwBWSWTLZgH4sFXZtCk+4xNo4oSEy3BU3rQ50MUO9rPUGMl29w==
+ b=NbkIQmHMlenYVDylNHa9tky1MAScGo8S4D9ijGji6DghHAn+OpUBfeoA2vc1oeUEu8KdCxpqnlSg5H5E411AfyMa4Djb9HncGMrt7/odOlFemHUl5hHw3OCVoB1dPXBcMc12KasZ/WlF8kmEwmbkvguTD3CaRAyRQSFYy9ZKa86MXyYJL5mIyXxwNcNeiJ/xtm/3JnonClIefj+rz92BYbDVB5i0cv2IUlaLq2DwX5cy5MtyHKmqr25gI16M1XYtINuWZLls255CI8Qjv/L1pF3ocdZKESMf63GS+DkwCa37hQp6a3X7C8YpSN59IwW4102+EI5scEtGjzHzHF2iug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JrN+S0no9tJJWOPy0MesAGh9gOiwa6v7pOuBcPHrftY=;
- b=MdudOHzdJ8vp9nBrJJCRoVVaTeL849iAzAyxRmMLb+q/X5rlJYEJj1f9MvaDMj8yRSfUpVn4Ri9Lm+QImIrC4jjEQRpPoPKkB1vq/j9U0JMtJazCks8s6zdgJRn+aIocsp8KT28Ez/Q1QAfCP0KDp5KgiYWjgnGlM6bxsDERGkTB4ttRSBcvH4hhOP6rIib09JRYN5Jj6dtMymtXOuHw/mSlC1h6N3JDyvGdlkdXZGAKF7PgU8AMBLe9DupdPZXg9aDS/tAi3H3LxdysM8sJcgmv7eZYvxPHIhqM8KeszhfrhDsP/mb2T2T34MDc7ZMGtnNAnpZBeK4ce907qtg3fg==
+ bh=XxTTaX0RvNIuGzXe79JJPMl4YfA6n1vchK0hnLsPc6A=;
+ b=naPIQEFxrNPys9YdoIfl+H7zsQYlL7TUOZs/XXcgRrksOdKqOXiKyJqwSOCDxv1/TLz/sS/mCLvD6njgl302wWeJTCbjJCnNnwHK8biBSPivzTKzwGl0YQE9pda/S+HR0qzm8ahW+5vdBCRgf9lm7do1ViFDm9qpNkHBCicH8pGMkvg5Oj9x7xIhsyo9uFMI7UGQ7zQqE8n6RCbVi20rp7yXnJ3bEqGLiy4JkQhBVWYr2R+ait41g1zI85TpEiovzkhtPNMu0nM56EHBcJmvc4ToyMEuW9vZlC9Rdw2XgEfmnahfJ2ZigF4NkufgfuBOZgXfWgU1PNTi9JU90ROmOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JrN+S0no9tJJWOPy0MesAGh9gOiwa6v7pOuBcPHrftY=;
- b=RFaekxbvmDB+9KP4yuK13kMPh2S1/2y5uzJ34uumuc2UdKAJlozc/GoKDQjszWM1YH3LZWG3beBVwlfCItQnKK7uSGGN2goj0cDXapxowwyDI8X2rNSFL8WoKs8nSFs9kPBNh5imqgnZMnOojbAKBB6vcnjqa6bBTgK5G6MNaJY=
-Received: from DM6PR12CA0011.namprd12.prod.outlook.com (2603:10b6:5:1c0::24)
- by PH7PR12MB6881.namprd12.prod.outlook.com (2603:10b6:510:1b7::10) with
+ bh=XxTTaX0RvNIuGzXe79JJPMl4YfA6n1vchK0hnLsPc6A=;
+ b=nEGTy0kPmXAoPmOXA6Rc8k8XsTJeV1NoQcbyyWC6BfEG1ix3R4dqNtoKDyNm0wVuocmc+xF0HGCIuaF+UUSutHL4o5D/hcw0B1YoSBiaoEmvl0AcvDfQa/YMCtkswzV4kMEAfwKJ5HAyCWM/ksx2/P/GF3seTJzRj1ZYnHn4v7E=
+Received: from DS7PR03CA0059.namprd03.prod.outlook.com (2603:10b6:5:3b5::34)
+ by BY5PR12MB4147.namprd12.prod.outlook.com (2603:10b6:a03:205::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Mon, 6 Mar
- 2023 17:24:19 +0000
-Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1c0:cafe::c) by DM6PR12CA0011.outlook.office365.com
- (2603:10b6:5:1c0::24) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 17:25:08 +0000
+Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::d5) by DS7PR03CA0059.outlook.office365.com
+ (2603:10b6:5:3b5::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28 via Frontend
- Transport; Mon, 6 Mar 2023 17:24:18 +0000
+ Transport; Mon, 6 Mar 2023 17:25:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.21 via Frontend Transport; Mon, 6 Mar 2023 17:24:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6178.15 via Frontend Transport; Mon, 6 Mar 2023 17:25:08 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 6 Mar
- 2023 11:24:18 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 11:25:05 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 6 Mar
- 2023 11:24:17 -0600
+ 2023 09:24:45 -0800
 Received: from xhdsneeli40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 6 Mar 2023 11:23:50 -0600
+ Transport; Mon, 6 Mar 2023 11:24:17 -0600
 From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
 To: <broonie@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
 	<vigneshr@ti.com>, <jic23@kernel.org>, <tudor.ambarus@microchip.com>,
@@ -113,10 +113,10 @@ To: <broonie@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
 	<windhl@126.com>, <yangyingliang@huawei.com>, <william.zhang@broadcom.com>,
 	<kursad.oney@broadcom.com>, <jonas.gorski@gmail.com>,
 	<anand.gore@broadcom.com>, <rafal@milecki.pl>
-Subject: [PATCH V5 05/15] staging: Replace all spi->chip_select and
- spi->cs_gpiod references with function call
-Date: Mon, 6 Mar 2023 22:50:59 +0530
-Message-ID: <20230306172109.595464-6-amit.kumar-mahapatra@amd.com>
+Subject: [PATCH V5 06/15] platform/x86: serial-multi-instantiate: Replace all
+ spi->chip_select and spi->cs_gpiod references with function call
+Date: Mon, 6 Mar 2023 22:51:00 +0530
+Message-ID: <20230306172109.595464-7-amit.kumar-mahapatra@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
 References: <20230306172109.595464-1-amit.kumar-mahapatra@amd.com>
@@ -125,37 +125,37 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT047:EE_|PH7PR12MB6881:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfa8d561-d899-415d-e0da-08db1e679e4b
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT006:EE_|BY5PR12MB4147:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1422a481-6afc-4b20-fdb4-08db1e67bbf1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	fw6WCUPPqJQqlCLuiUrp7L90PuzUF61/koSWI6LXiBIFKVkTA3cT8Z2iZcajGYZN7+bGA0zc31vRDMAD8Euo9gB2ZxCe3MFFA8T7n20BLCjQXRU1IflYiDXwuCIneLLjlcEzAtdN113AGbAcYDPHBpZuy3VjZ9EioY21FaFOcn7S/RHd9qDN+Es7qoftg0rhjID8m59mgadSqzXxpTyyEEpKd3fwu5DEnQOV5BoDAsx01EvYlZ2oPpHLqeATqigIHlJhPFOKLWHPfNh53N3e5WyiZO6gaQ5XQTlCOYQXZVoGllpBe+GdJoKdfjaxmPi2T7BbZ0Zo3foyS2Lh58C+0OL6WAt0l5NHG674GFpbBcrRbXMCqfyUgrtmrUgCfJMj4ZjV9OHkryMoQBEy/QiPrpTjNBpBieWoRTsX1oHYfi6MQLUNqgsRKLtmpISOsLA4FujhpP4GKja4CgRT4DmDU/cPLTCbOsL1tzC0ZkyjVSyayH7+Ceje6e69IHoJcNLWt+V4lc3UaRRmI+jBCW8nFkaJ3x1HK0VkNz7Q+0XmOMe/TickbLWRWU/k5ceeukOCk3N/LdPv6nC0FILokCo5+10zkdVFEWVjJXm3bKea0g5bf1zsk9rqT8Rv03InmFlZxep91wLjFGEUox+T5HOLgM+dERi7S0kdiVSz/KlvlbX+8On5ub/7FBTehJr0efE5m9AJwhd2k2y8l7sTxalr8rX/IGDzHZD5vdlZRypAN6lWceWMgTMD0KWwcdOtwBnguMR/jWlrFNaxq/3MuMUtl8bimBf9MB2rL+01HGVJpyOiPFilT8AoGiMSemU5MD+gEMSii3qqP6oxeJnekL+MDx2cSnk0YzOAd5FGP3Ar+b4=
+	AzzSJUjobRyMuwK7pspBvT8itA3MpfoIsUnk6QlJ+jW6NaqPAv9xdxXpXr0Foe4qaWvX4J6+01u1XrVYGultnpZNyYePaDI2KxaedeepviAeTRUGX2rshWu68hdS7d7/u/morW4/WVgFBMwB84eyNqKznARBpSA2SACs99Kr9tsHnG/TFmUTpFFZ7vV6VGYlthkKFLd88He+gFA1O8cQsmF91HqZVeE8oBVxeITAWxuItQ452sLqy+9uJX0jCa5gmFuB3rPoqPsZr5IcDjAANZ8EbvofKaTLXCbqXWjoWyR4X/3uJ0U/Gt/pFweaPCH30XfzG6jY7TNfwetiQFHoZlieO7eH0G5F7qqT0AEAgsT7kqWe88sEROr+qzcR9wr7NZs1Is11qSRuU1mJErtwp46QQygpz0DM5qeoRkzbjXgS7I29m/nYu9nAV0ilSJhXUlGB1b75t4XSD9+3WhnCNxuQq6wWaAtivqI6VuxM8MkquyZy0o1K93+ux7kqkRpUAPode0ryFB0bzx9M44ZzruKKHSDa1O3rbYIVQqlOQC4t7F2fBd6RF8tE4+zx9qjkyzNxkdnTEcllXAhpLzWXfuESzsVcZ+IXzrFumwoQIy0djF1abnlev6tmQXDwbVpg0PuSHpwIMdD7u4YnNDQhc7xSbPd6eElzlwQhO6GmZ36W7DQ58Dzj4cJjVcGwvU5364yZYDbiDd/ejwN2b7wqVWGXyB9yeGKH+9BZdn/vPvi/KrYJugYRQ1vbqkez6T1F4JZccnCWFAZVnSMP9GQjvdQ5a1TVgRz5jQ21xBgrXxPvzAh2kjO+ScQ0GyQaX6B0ygIB1GKPNIp8buJiWN63rPHBZpZiHBzQxvqEj7NBHJg=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199018)(40470700004)(46966006)(36840700001)(40460700003)(70206006)(8676002)(54906003)(83380400001)(4326008)(70586007)(110136005)(316002)(8936002)(5660300002)(36860700001)(41300700001)(26005)(1076003)(2616005)(426003)(478600001)(47076005)(186003)(336012)(40480700001)(36756003)(82310400005)(1191002)(7406005)(82740400003)(2906002)(81166007)(7366002)(7336002)(7276002)(356005)(921005)(86362001)(7416002)(36900700001)(41080700001)(84006005)(83996005)(2101003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199018)(36840700001)(46966006)(40470700004)(36860700001)(921005)(86362001)(82740400003)(81166007)(356005)(5660300002)(36756003)(7416002)(7276002)(7336002)(7366002)(2906002)(7406005)(4326008)(70586007)(70206006)(40480700001)(8676002)(8936002)(41300700001)(1191002)(82310400005)(2616005)(336012)(26005)(40460700003)(186003)(83380400001)(47076005)(426003)(54906003)(110136005)(478600001)(316002)(1076003)(6666004)(41080700001)(2101003)(36900700001)(83996005)(84006005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 17:24:18.7419
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 17:25:08.3283
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- dfa8d561-d899-415d-e0da-08db1e679e4b
+ 1422a481-6afc-4b20-fdb4-08db1e67bbf1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6881
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4147
 X-MailFrom: amit.kumar-mahapatra@amd.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: YBSUQK3CJNISKBDC4EKVAJR4KS75L2BE
-X-Message-ID-Hash: YBSUQK3CJNISKBDC4EKVAJR4KS75L2BE
-X-Mailman-Approved-At: Mon, 06 Mar 2023 17:42:58 +0000
+Message-ID-Hash: 7XLVMY4FRIKHT32KAESNZSXDOJLR5ZLI
+X-Message-ID-Hash: 7XLVMY4FRIKHT32KAESNZSXDOJLR5ZLI
+X-Mailman-Approved-At: Mon, 06 Mar 2023 17:42:59 +0000
 CC: git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  joel@jms.id.au, andrew@aj.id.au, radu_nicolae.pirea@upb.ro,
  nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
@@ -179,13 +179,13 @@ CC: git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  michael@walle.cc, palmer@dabbelt.com, linux-riscv@lists.infradead.org,
  alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  linuxppc-dev@lists.ozlabs.org, amitrkcian2002@gmail.com,
- amit.kumar-mahapatra@amd.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ amit.kumar-mahapatra@amd.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBSUQK3CJNISKBDC4EKVAJR4KS75L2BE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XLVMY4FRIKHT32KAESNZSXDOJLR5ZLI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -206,39 +206,25 @@ members of the spi_device structure would be converted to arrays & the
 spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
 
 Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Michal Simek <michal.simek@amd.com>
 ---
- drivers/staging/fbtft/fbtft-core.c | 2 +-
- drivers/staging/greybus/spilib.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/platform/x86/serial-multi-instantiate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
-index afaba94d1d1c..3a4abf3bae40 100644
---- a/drivers/staging/fbtft/fbtft-core.c
-+++ b/drivers/staging/fbtft/fbtft-core.c
-@@ -840,7 +840,7 @@ int fbtft_register_framebuffer(struct fb_info *fb_info)
- 		sprintf(text1, ", %zu KiB buffer memory", par->txbuf.len >> 10);
- 	if (spi)
- 		sprintf(text2, ", spi%d.%d at %d MHz", spi->master->bus_num,
--			spi->chip_select, spi->max_speed_hz / 1000000);
-+			spi_get_chipselect(spi, 0), spi->max_speed_hz / 1000000);
- 	dev_info(fb_info->dev,
- 		 "%s frame buffer, %dx%d, %d KiB video memory%s, fps=%lu%s\n",
- 		 fb_info->fix.id, fb_info->var.xres, fb_info->var.yres,
-diff --git a/drivers/staging/greybus/spilib.c b/drivers/staging/greybus/spilib.c
-index ad0700a0bb81..efb3bec58e15 100644
---- a/drivers/staging/greybus/spilib.c
-+++ b/drivers/staging/greybus/spilib.c
-@@ -237,7 +237,7 @@ static struct gb_operation *gb_spi_operation_create(struct gb_spilib *spi,
- 	request = operation->request->payload;
- 	request->count = cpu_to_le16(count);
- 	request->mode = dev->mode;
--	request->chip_select = dev->chip_select;
-+	request->chip_select = spi_get_chipselect(dev, 0);
+diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/x86/serial-multi-instantiate.c
+index 5362f1a7b77c..270a4700d25d 100644
+--- a/drivers/platform/x86/serial-multi-instantiate.c
++++ b/drivers/platform/x86/serial-multi-instantiate.c
+@@ -139,7 +139,8 @@ static int smi_spi_probe(struct platform_device *pdev, struct smi *smi,
+ 			goto error;
+ 		}
  
- 	gb_xfer = &request->transfers[0];
- 	tx_data = gb_xfer + count;	/* place tx data after last gb_xfer */
+-		dev_dbg(dev, "SPI device %s using chip select %u", name, spi_dev->chip_select);
++		dev_dbg(dev, "SPI device %s using chip select %u", name,
++			spi_get_chipselect(spi_dev, 0));
+ 
+ 		smi->spi_devs[i] = spi_dev;
+ 		smi->spi_num++;
 -- 
 2.25.1
 

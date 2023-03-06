@@ -2,85 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412D36AC141
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 14:34:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B826AC127
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Mar 2023 14:32:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0EB91116;
-	Mon,  6 Mar 2023 14:33:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0EB91116
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A0621103;
+	Mon,  6 Mar 2023 14:32:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A0621103
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678109647;
-	bh=n4vaoJypBj3ZnWOSr2/6ylu1yP0IfC9GLrLhygb790c=;
+	s=default; t=1678109575;
+	bh=JHC0hb+WAOY9fqstxdj26yXXntSJNh6emfvVp8hEuGo=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=inP/dT/1feu6U0pcotFSSr+dNiJymWAhbIl2lK97co4ByAnEtaYpISO5orzrI5Czl
-	 EQOLDYof+U65xaRPwGt6M31Uw1Fx8l2jkd46SyGr/0KTYlWFv0GCNu3XI4ve9oZCC0
-	 o+q/VQ17XP3py2EkAGe4EGXNt9GgFAARo1aTcQ5Q=
+	b=g5GVxox6Yjlok4ovUj8O/GSPv9EDr8gS8KGTNxg755vo46SofPJTWo9sGP2hKUaPw
+	 loiqp1mxmdOOyeXeukpZ9M6/mltC8n49Y8eEJiLNsuUsRz5trT0s4Uwhid9EB8FOc0
+	 sLNKpdkmEQt0tukaTmX4H3ElYEbdMcUmrO8Mt/n8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1257F80482;
-	Mon,  6 Mar 2023 14:33:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4426F8042F;
+	Mon,  6 Mar 2023 14:32:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF0F6F80482; Mon,  6 Mar 2023 14:32:03 +0100 (CET)
+	id 8C24CF80482; Mon,  6 Mar 2023 14:31:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD75BF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8A2D9F800C9
 	for <alsa-devel@alsa-project.org>; Mon,  6 Mar 2023 14:31:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD75BF800DF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A2D9F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aNtuJJnY
+ header.s=k20201202 header.b=D4YBAEUO
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 0971ACE118D;
-	Mon,  6 Mar 2023 13:31:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0819FC433EF;
-	Mon,  6 Mar 2023 13:31:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B997360F24;
+	Mon,  6 Mar 2023 13:31:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB130C4339E;
+	Mon,  6 Mar 2023 13:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678109506;
-	bh=n4vaoJypBj3ZnWOSr2/6ylu1yP0IfC9GLrLhygb790c=;
+	s=k20201202; t=1678109509;
+	bh=JHC0hb+WAOY9fqstxdj26yXXntSJNh6emfvVp8hEuGo=;
 	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=aNtuJJnY+2dUoUEevCcSGoR07uQjisGPJXDnw6+kOmA1iOd8khRlmgL5LGMuPca0/
-	 dTFzP9/v76YbRn+S94AAHQoalLL86WBptYI8NhOyngZIjCgFufmoDCbXft8sEAW159
-	 Vp71lQBEo44MT6gA2XFm6ewD5blb0GRGTpWUD3OcpmsbAo29kkj5CmJ2bmW+ppd8rf
-	 d82y5DTgy+GxpGVD7NnBED4cq16EmyOdq53WeT/c6nDZbEnkqiPLGvX0iOHYzYiDKw
-	 66JQZ++0QmDAFlX+nsZLG3c/9RsnEIHinD0SdkWHj4BUWxvRS4UgEo93sWG0AO4xq6
-	 2U5EKzICKSgJQ==
+	b=D4YBAEUOswQGwANMpLl1pETCzSNx7Ao0XyXYhOD8oGJ4poUBPTQNlY9NI+tD8Rfa4
+	 v2tq1GTztJjUtuMysmF3B3Il4m5jJrMQlRaGF4jAIwl8PRnRc4gI+qlCdLBCJ0ecnf
+	 YELopH+vQwJpWojdhKHIkVT3hl03AdnipCaHlJK9qcGPcX0MiCrPI2vjNXiLFReAEr
+	 JxkrbpQ8YJfOxRKxmJAROGa34Pz1nby1g2F2GV2Uu6DnRpW+8Cx3vvk8uw4ao0L4BC
+	 H8fFgbKjK/y+riJuIzRwl04PmsZxb3+F+nFImjhxlRfdp3OW/eU/yAJ1ixjRe5/q80
+	 PU20dLstNpHnw==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- - <patches@opensource.cirrus.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, Randy Li <ayaka@soulik.info>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
-References: <20230217150627.779764-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH 1/3] ASoC: dt-bindings: wlf,wm8960: Convert to
- dtschema
-Message-Id: <167810950275.75807.2993006253194931204.b4-ty@kernel.org>
-Date: Mon, 06 Mar 2023 13:31:42 +0000
+ Kevin Cernekee <cernekee@chromium.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Crt Mori <cmo@melexis.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kamel Bouhara <kamel.bouhara@bootlin.com>
+In-Reply-To: <20230222083300.218523-1-kamel.bouhara@bootlin.com>
+References: <20230222083300.218523-1-kamel.bouhara@bootlin.com>
+Subject: Re: [PATCH 0/2] Add support for the TAS5733
+Message-Id: <167810950662.75807.17494624901046895740.b4-ty@kernel.org>
+Date: Mon, 06 Mar 2023 13:31:46 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: NI4J2RBG6PETONWYAWGMKCLXXQINICAU
-X-Message-ID-Hash: NI4J2RBG6PETONWYAWGMKCLXXQINICAU
+Message-ID-Hash: SASSYRRM6SR7AOUQRLXKZNOU2MXQCUNG
+X-Message-ID-Hash: SASSYRRM6SR7AOUQRLXKZNOU2MXQCUNG
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NI4J2RBG6PETONWYAWGMKCLXXQINICAU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SASSYRRM6SR7AOUQRLXKZNOU2MXQCUNG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,13 +96,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 17 Feb 2023 16:06:25 +0100, Krzysztof Kozlowski wrote:
-> Convert the Wolfson WM8960 audio codecs bindings to DT schema.
+On Wed, 22 Feb 2023 09:32:58 +0100, Kamel Bouhara wrote:
+> This small series extends the tas571x driver to support the TAS5733
+> audio power amplifier.
 > 
-> Changes against original binding:
-> 1. Document clocks and clock-names - already present in DTS and used
->    by Linux driver.
-> 
+> Kamel Bouhara (2):
+>   ASoC: tas571x: add tas5733 compatible
+>   ASoC: tas571x: add support for TAS5733
 > 
 > [...]
 
@@ -118,8 +112,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: dt-bindings: wlf,wm8960: Convert to dtschema
-      commit: af5932fc58d351d3908d0a732ccabaef088311a0
+[1/2] ASoC: tas571x: add tas5733 compatible
+      commit: 95a29d5f626a37dbefd0883f294ec4e22a8a7911
+[2/2] ASoC: tas571x: add support for TAS5733
+      commit: f5db4d00f73871988beba0277ea29cff73d38445
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,90 +2,217 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198646AF388
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 20:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 735E86AF69C
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 21:22:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B94B1536;
-	Tue,  7 Mar 2023 20:05:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B94B1536
+	by alsa0.perex.cz (Postfix) with ESMTPS id 734991593;
+	Tue,  7 Mar 2023 21:22:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 734991593
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678215977;
-	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=QLuQRCisPPh66cBzF8ThmatQwg4Cmvfu1pvRIx/j9Gsj4xpxUZpoM+Xp/AXTSNhCf
-	 x5zC2tEmlbztFvYbz6iSBmCpXtc/IL5XNwNBIk3Vod1RacMhmlKIBEBhO76XHIgpWh
-	 6eM80YGhhC0yEGQyG9CLaBWLiDLxD1f7XPpWpMdw=
+	s=default; t=1678220577;
+	bh=cTHlfdTegVHosag1N+6oHAnqkuTOGN8fPPCyMoVdBJs=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=BffmV2y0jmyPbKkwUqtb00QG6kc9ExVpupEwsPDri40Yk6bWOoxHVUQt5yMNRGwLG
+	 ZvScQp9FVQCDVbso0qAvMNIwqDY9pGWNNr9SiN/E3ppkzG39j46W6j2FsE1HJa6ECm
+	 DEEoMCzd0bKSs8VGN/MfZ5hYbaViNRtVvfdu2WOc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B1E0F80236;
-	Tue,  7 Mar 2023 20:05:26 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 682DFF8042F; Tue,  7 Mar 2023 20:05:22 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0CE97F800C9
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 20:05:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CE97F800C9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=dIIPI4kb
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id BA197CE1C5D;
-	Tue,  7 Mar 2023 19:05:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D471AC4339B;
-	Tue,  7 Mar 2023 19:05:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1678215913;
-	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dIIPI4kbFFoL8NBh2kDLc5isY0P4VAv/b1Q2eL/SbkxXcCLc+iQJ3u76TnUMb4flL
-	 3GeEKSliUpVe2es1JVd6F3izwZOuhfgeLlAls2DeJ4hvKwEz7CyPwzxw6NaZW68mte
-	 bVJDztU73RifflfZDnLUqf9vRjacgYbPJm58MnLU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.15 415/567] ASoC: kirkwood: Iterate over array indexes
- instead of using pointer math
-Date: Tue,  7 Mar 2023 18:02:31 +0100
-Message-Id: <20230307165923.857034050@linuxfoundation.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230307165905.838066027@linuxfoundation.org>
-References: <20230307165905.838066027@linuxfoundation.org>
-User-Agent: quilt/0.67
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD
-X-Message-ID-Hash: SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD
-X-MailFrom: gregkh@linuxfoundation.org
+	by alsa1.perex.cz (Postfix) with ESMTP id CBCE5F80236;
+	Tue,  7 Mar 2023 21:22:06 +0100 (CET)
+Date: Wed, 8 Mar 2023 01:55:39 +0530
+Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
+ <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+In-Reply-To: <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- Kees Cook <keescook@chromium.org>, Sasha Levin <sashal@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YRS4RDWHNN4KDENDDHJRDKHCXJTJMIRH/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167822052645.26.18392993691713176764@mailman-core.alsa-project.org>
+From: "Mukunda,Vijendar via Alsa-devel" <alsa-devel@alsa-project.org>
+Reply-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id D6A62F8042F; Tue,  7 Mar 2023 21:22:02 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::62b])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 263BDF800DF
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 21:21:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 263BDF800DF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=XPcVK9gW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=deRhVZxcBBOS2Qofg6sJNR1jTN5ir6GwMv5Gwjun9W7fGRz3BjycXi/JtNdJ/XdwtSgo3l3KD0LxYwhxPVAWjx38f1Nvf8wZDneB7zcJwUkKRMx0e3OlI1DTXRdYCQ6NtDHH9NL+BKNj0pSdvWywN1jupTD1Q4cpJF0cDnDa6fMyrptdzy4hDQgQ0D+OMNscwIzhlbq2n3y01IIunxd1tFPwObBJL7X/SIG0c6vB8JunQnd2UKBBsnMDm9vKcruq4X7dQv2QYNtSPJip8oaf9BayFkSuNKckBGulSzYiFT4rQJavNrTsAJByGwmKJgruiMlEprFXnVroZVYCU4bB9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QOStgiROp2/BDEWapku3PR2hSSAuBelsV2s6rafvnlY=;
+ b=Fng4vt4BsvpAKwRDNL2U05HBBNfz1pS5+/8wUf5wfXTufwwy0o+w+V/HMzOfK5ycRwO625zdeed43Bdm7DC/ulf2tyrTUBt6yBrXJ5VvTiUi9yBPb3tnLqRLOaDIphQf39OShBVW2oqLjKyMXD2DEgwUTnfiXSXS1zrQsrLuI+vT3Bx1gxJXnoFfeFefzzkPqImhvX1GVWcOzrlUzZOpqsytyYrBE6rI46pFQTC1GBzQY9LpxCom3kfd3DCcuTcNc/9RvLVOYfY3r1ttrm2qm+r1JfGFgIg9XyZ/4TkVbuP/a3RziUR725vhaNrezB2/budHI+cg9nK9N/QsD+iKZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QOStgiROp2/BDEWapku3PR2hSSAuBelsV2s6rafvnlY=;
+ b=XPcVK9gWMNCjzj3BBddGEumZzdTSarhZWasjUsdjRXpRhc1izYfC6nqMVo1KCInvH6Ohf5mtJPBReeKROIYXdjH2mTLOrgO723IOAJthZr7ocbTTWIDX3WKa1iuxNmbIkUGC0WKK7QSYAYFgmimnLsD04WDt4T5wrpv1lyKpEiQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by PH7PR12MB6418.namprd12.prod.outlook.com (2603:10b6:510:1fe::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Tue, 7 Mar
+ 2023 20:21:47 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb%3]) with mapi id 15.20.6156.029; Tue, 7 Mar 2023
+ 20:21:46 +0000
+Message-ID: <d5a75826-d762-27fc-5820-6826debdecd9@amd.com>
+Date: Wed, 8 Mar 2023 01:55:39 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
+ <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0130.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::15) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH7PR12MB6418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9693429b-2206-41fa-a0de-08db1f49931b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	sFRGN3kS8NM8JC8YGmJ/DaNMx4uw0Sb7YUT1WfZwlMLlDfqAqdS1piNY584pdo1zg1+QHtH4f1Ipbppx7k1E8FjimthBy0g27gKf63UxS/szFhDaAlmtKZ8yLbQMudySZxzBIe4qBQPLyfksc6eTwZZT6Q1BLl9OOh/0NB1UpxHTFkaGDc9YcIrg9Q/prYDnBDB3x4C8k4+9ENNktS57cwdX31seb0DIYl6W5j3Yl4FFr1X1BmVBqogTaJ29mJbptHiOPaF8jGh906aIgyQRdJYXaIq6Net0QwVq2164pIIfAo5iqIJODAbn100g3Zw7ZViOB2Sc8gIPxEZ+RuhtVLlhPLHVkVMS4QV/I6VsHLOnCCz0t7pp36egSMW5LFG+5ZPJEEHnJifUIQuDFVajRxjpZvtnHIBIxAKUgICsTBkoBFHcH3mann3XA1e0Vbf9SgJhLwSWgVq51i7sGfJwtte03UX4E1YUbEK/1hyVOhdJQS+KjxKqu85ELerTJrNugrDqcOntjbTnvzvqz114v843BfF+SKpmuL1Vd2WadFukWt/Fz8B55hvGU+8DQhNOoOqIshfRMMps+SwASdZq3d8PPYbjVEdP0joB5AMhpAhmPQROWsXkdDWBCYlG59ccVF3L+PUuJpegnBDG3wtLpClhPa1K9Up9qC9IOFndSMtCfYr8pcmt+f0T5tS05u9JIuYN8Fg1X1kNsgm9U8YJA0eRWTX4dszMCMHiKeBAcas=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(136003)(39860400002)(396003)(376002)(346002)(451199018)(5660300002)(478600001)(186003)(83380400001)(53546011)(6512007)(26005)(6666004)(2616005)(86362001)(31696002)(2906002)(6506007)(6486002)(966005)(36756003)(316002)(66556008)(66476007)(54906003)(38100700002)(4326008)(41300700001)(8676002)(31686004)(8936002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NHY2cHRUYnlwbGZ0aEZRL1JGQjBYMWQ0TmF1LzNCQ01BY2V6b0ZPT0s1SEkx?=
+ =?utf-8?B?SE1lR3g4eGRRTzI1K2w4ME56RGlXRWw5bjRuUmh4N29DOTkzWDJITDNQYnUv?=
+ =?utf-8?B?cERDRjEvSnlRM1dHQUlPMzhkZnpQQlpJUDlnZGNIWjM3U1drRXJlc1VmSzR3?=
+ =?utf-8?B?emlmTEE3UGIrVTlYRTRHTXRsd25CSXdzdk1vM2JHUkUvdHNUcnVCSURqejJS?=
+ =?utf-8?B?MVZyQ2JvRW9MUjluWDY1elcyQ1l6M3ltWTY2M21HbEpTN0hRZzc4OXN5YU9l?=
+ =?utf-8?B?b3BnSFhXQmJPV3ZBQTZSSExaclRVNGk0Rm14Y3hIUWhpYU85Mm5ISGJBVXdj?=
+ =?utf-8?B?ejVGNytXTHpkbW5ORDJTUXo4a0xvVHB4a1BJREhSUU5TUldpQ21WSVhhR0JO?=
+ =?utf-8?B?R1RqR2pYRnZZR2pEbTFNZktDTGFHb2FqNmdSOVJGc0s1Ny9QNHlrWHFNQW0z?=
+ =?utf-8?B?eGRnZUtObWZ5M3ZZMFlkdjFsSjhwYklkdEtJVkJzMTlSNUQ5T1NTUFc3Y3JR?=
+ =?utf-8?B?SldNNVJpSU5ZbU1sRVlCS0twV2w2ZHMvWEFZOHo1ZEIrbW9sQTRUTS9ubGdz?=
+ =?utf-8?B?dG9xeDViN3JpMC9ZUnRvUVlBak90OUxCRGwya3dJTllUZG9SN1NTQ2xvRCtu?=
+ =?utf-8?B?MWdSNVNDUUhUZU5pQlA5Y2JMRlgwYlpFd2VDNW44cHlrck5GZktjdW81Z3lj?=
+ =?utf-8?B?eGlmOGt6ZDlkVjVOQm9nbkNyTWVBNHFwMWEvWVBIejhQMm5Rb0NIRUVpekpw?=
+ =?utf-8?B?eUVkUTYzd3hZa1QzL3ZScjhvN3FrWW5XY3djR25vOSszZldmNjhiRVJWQmVx?=
+ =?utf-8?B?T3RzV2s5UzBaY1VpSHkySXJjQUlMOGZETkY0NkNsM0RiOXpNS3VnYS93UlFS?=
+ =?utf-8?B?cVAvZDliYWZwVWVEK3N0K0RxMDVtRmw4eUlXdis1WWNpazNuWU9kRjNPNWdT?=
+ =?utf-8?B?MW9aZ0ZGZ1JFbmJIS3BacHpwMyt6QXU0M0ZMOVRPTVNtaERqNlgzZ2ZvQXFE?=
+ =?utf-8?B?cTRjMWRTVkU0R0FxbmI2aGpCWHVXTVc0enlucUx3MkR2aVJsRnJoZ0ppQnF6?=
+ =?utf-8?B?OUUremk3VmNKejVNZUk4eTBSanJqck5hdlZKYXZ2aUtudWJoOVNXZ1FCUzRn?=
+ =?utf-8?B?ekcwZCszRXEwN2lNUjNnRXBWU1dVZlVOaGpIMFlvS1ZwNWxlalhNZzVIeGtB?=
+ =?utf-8?B?Q2wvWm5kZkNSNDhuRlJkT0U5Z1Z4MEFDLzk4VkZhUUVZMGROc0QvV3A3K2dY?=
+ =?utf-8?B?ZnVUbEtDR0pxYjJsMDlUYzI0eThyRDVkeTEwVDduQi9QVG1DMlpOY3J0SHFQ?=
+ =?utf-8?B?MTZZLy9jMTdTcHF5S0pSa2N0MWVxWjk1Um54Sm85OFdBVnA4UlA0aWVpaUoy?=
+ =?utf-8?B?SzhCT2RjU29raE00d2FBbTJDRXRTMUdleGFCQmhVa1ZzcWoxTVp4RTFiMjlW?=
+ =?utf-8?B?RXVaRWhKNHkzZy9YZVpNc21RK2Z0M0psYVppSFFrZ0pWcFJ3K3dSMVZxc0lo?=
+ =?utf-8?B?SS9vM0NlTjFNSzFXWnlndWhzdktGd1d5d3VnRnlIZENVcFRRRU5heDVqdmJq?=
+ =?utf-8?B?RFJxTWY3TTJzVGgzQ0t0ZXY2OFR4eWhHWXo3RER3d0F5aXlmNXBjY3lmMW5k?=
+ =?utf-8?B?Yy9HRUpPVVRQamFpQkpKUFdTK1FVdUFnYTlHbmgvclQ1OURnQ1VBYXgyeFZZ?=
+ =?utf-8?B?Zld1bU9ZRzJXMGw2emhlS2pyWUdBdmxGaDM1VjZtWGZ3WGNXaWgwa2ZSTS9y?=
+ =?utf-8?B?VUNJTWZ0U21NUVIxUGJMeXNrUUFISWJkV0loZWhDd043NW90bTFpeGxJVy9l?=
+ =?utf-8?B?cUJTNnRBYXp3OEpBM2tSdC9PUjdDdTM3SVlBWjA0d05hV09XRHZ6NnFxSjlC?=
+ =?utf-8?B?bm91Q1lFWENWeHJzckNSUXBSU1pGSnhUSzZOYzdDeFM4UVdWMFkxTTNra0tW?=
+ =?utf-8?B?YUVmNnJUODM0L243ZUc0K1phUmVKWGVONUx6d1dCbG9hUlZXWE1VU0h5dktZ?=
+ =?utf-8?B?ajBZaHM4RWozRmJUbWR3cDZ1bjFZS1I5OEUyMU0yeVJTOUlBRWt5c3hKcWdM?=
+ =?utf-8?B?WWpoSEhQRkZJU1JxVEs3VFBBY2VReVZvWHdmNG9IV3hjMlZRWTJUZ2lhSFRm?=
+ =?utf-8?Q?rzFObkxAdyyGf4miSELPh6TXJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 9693429b-2206-41fa-a0de-08db1f49931b
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2023 20:21:46.8097
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ gybYq36Pdmmb5uGNtcoM0BNqRTLjcyuM7rC8Kz+rrS06pKM9yhdOCWEpZS6y7PPoc8AeG0VleqxRSvxq4ryGdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6418
+Message-ID-Hash: YRS4RDWHNN4KDENDDHJRDKHCXJTJMIRH
+X-Message-ID-Hash: YRS4RDWHNN4KDENDDHJRDKHCXJTJMIRH
+X-MailFrom: Vijendar.Mukunda@amd.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YRS4RDWHNN4KDENDDHJRDKHCXJTJMIRH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,49 +221,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kees Cook <keescook@chromium.org>
+On 07/03/23 20:58, Pierre-Louis Bossart wrote:
+>> +static int amd_resume_child_device(struct device *dev, void *data)
+>> +{
+>> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>> +	int ret;
+>> +
+>> +	if (!slave->probed) {
+>> +		dev_dbg(dev, "skipping device, no probed driver\n");
+>> +		return 0;
+>> +	}
+>> +	if (!slave->dev_num_sticky) {
+>> +		dev_dbg(dev, "skipping device, never detected on bus\n");
+>> +		return 0;
+>> +	}
+>> +	if (!pm_runtime_suspended(dev))
+>> +		return 0;
+>> +	ret = pm_request_resume(dev);
+> I still don't get why the test above was needed. It's racy and brings
+> limited benefits.
+As explained below thread,
 
-[ Upstream commit b3bcedc0402fcdc5c8624c433562d9d1882749d8 ]
+https://lore.kernel.org/lkml/acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com
 
-Walking the dram->cs array was seen as accesses beyond the first array
-item by the compiler. Instead, use the array index directly. This allows
-for run-time bounds checking under CONFIG_UBSAN_BOUNDS as well. Seen
-with GCC 13 with -fstrict-flex-arrays:
+Our scenario is multiple peripheral devices are connected
+over the same link.
 
-../sound/soc/kirkwood/kirkwood-dma.c: In function
-'kirkwood_dma_conf_mbus_windows.constprop':
-../sound/soc/kirkwood/kirkwood-dma.c:90:24: warning: array subscript 0 is outside array bounds of 'const struct mbus_dram_window[0]' [-Warray-bounds=]
-   90 |                 if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
-      |                      ~~^~~~~~
+In our implementation, device_for_each_child() function invokes
+amd_resume_child_device callback for each child.
+When any one of the child device is active, It will break the
+iteration, which results in failure resuming all child devices.
 
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Link: https://lore.kernel.org/r/20230127224128.never.410-kees@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/kirkwood/kirkwood-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
-index 700a18561a940..640cebd2983e2 100644
---- a/sound/soc/kirkwood/kirkwood-dma.c
-+++ b/sound/soc/kirkwood/kirkwood-dma.c
-@@ -86,7 +86,7 @@ kirkwood_dma_conf_mbus_windows(void __iomem *base, int win,
- 
- 	/* try to find matching cs for current dma address */
- 	for (i = 0; i < dram->num_cs; i++) {
--		const struct mbus_dram_window *cs = dram->cs + i;
-+		const struct mbus_dram_window *cs = &dram->cs[i];
- 		if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
- 			writel(cs->base & 0xffff0000,
- 				base + KIRKWOOD_AUDIO_WIN_BASE_REG(win));
--- 
-2.39.2
-
-
+If we skip , pm_suspended check , it will not resume all
+peripheral devices when any one of the peripheral device is active.
+>
+>> +	if (ret < 0)
+>> +		dev_err(dev, "pm_request_resume failed: %d\n", ret);
+>> +
+>> +	return ret;
+>> +}
 

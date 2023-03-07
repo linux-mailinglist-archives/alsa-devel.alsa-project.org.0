@@ -2,153 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C146AE204
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 15:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E213C6AE5F9
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 17:08:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80FCE147E;
-	Tue,  7 Mar 2023 15:16:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80FCE147E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08B3914CC;
+	Tue,  7 Mar 2023 17:07:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08B3914CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678198660;
-	bh=/9Zd3MTv3rJFHxBpTqTSfU1u802HF8QnrfFboPggdK8=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=IgokuCdSk3VA03gJbEQsTEfLgrR+/beKMIHb/rywKhK3NHUIfHAhgQypNVlZb0TJQ
-	 EZZfYlrt22c0oRK6ANamgMnosNlVqk/70ZHqdfOV/HgwKVeFMn9euRCvPfBGIKn7eL
-	 vUf6J4QYmeUxAeVHRLrN5XlTIhZGHE3ZupWfndXE=
+	s=default; t=1678205321;
+	bh=aKRuKYTcqGrUuI2WKGB8Q8fERVnjNx4bLC45l3EvKXk=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nNhDDq7tXDB78kjaSaA3arkLXklyOuAoZDmpggIAgAjN4RhlCrEXmbISZTYSuHKrq
+	 8MZT6huovBZam7yNAjedsEZfwPyJQeF61QPbdAZGwJCUmfdSEswk3p5uxVWdxY38B6
+	 TX4BsbJSz/hMa48B35ruCn/IFoo8jPuEGjFDrqd0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 084B1F80533;
-	Tue,  7 Mar 2023 15:15:52 +0100 (CET)
-To: Herve Codina <herve.codina@bootlin.com>,
-	Li Yang <leoyang.li@nxp.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Qiang Zhao <qiang.zhao@nxp.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: [PATCH 3/3] soc: fsl: cpm1: qmc: Fix assigned timeslot masks
-Date: Tue,  7 Mar 2023 15:15:03 +0100
-In-Reply-To: <20230307141503.159766-1-herve.codina@bootlin.com>
-References: <20230307141503.159766-1-herve.codina@bootlin.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FEUMQF5NX3DEBWECECXYXU3MH6YHDVZH/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167819855177.26.11163930602844526001@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 45270F80482;
+	Tue,  7 Mar 2023 17:07:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA34DF80548; Tue,  7 Mar 2023 15:15:48 +0100 (CET)
+	id 9F6A3F804FE; Tue,  7 Mar 2023 17:07:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::231])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21237F8052E
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 15:15:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21237F8052E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81CD4F80482
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 17:07:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81CD4F80482
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=LJYUoewX
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 6D13110000C;
-	Tue,  7 Mar 2023 14:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1678198546;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tebCh8O5AMYYSpkVrb+eHWhJxKEZvKSu3HtDndY/Qyc=;
-	b=LJYUoewXDQBs6tICfbNh9lgrLeF62H5WYhjteP5kSPSvsvKne24IBbid3CAfdmgWLAz+AL
-	4lKh9D2sJnyyVrtpxqyrg1/iyySC0EDpC84+GOgqfiOQpPl4Z6KcFYIGZSZODJEtVJ5xm6
-	/K1SwrCfns/bfGN0zg42AOThla9oZuqtHa0D9Drl/zEgYmAzkI4Sem6xgJte77NHt4Ylgu
-	5yb9Im7yOIY4wga+tj1QI1KS3RP8p1KZ8tyW4piC3OoSSTE5zZqBw4sBiww3Q4tHfPBuUi
-	7a3r4umW1aiqDPRFzDnqL2xlWE+bCwsAXgwMI+1H6e9jVD0Cnrn7SRth3+Bhxg==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Li Yang <leoyang.li@nxp.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Qiang Zhao <qiang.zhao@nxp.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: [PATCH 3/3] soc: fsl: cpm1: qmc: Fix assigned timeslot masks
-Date: Tue,  7 Mar 2023 15:15:03 +0100
-Message-Id: <20230307141503.159766-4-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230307141503.159766-1-herve.codina@bootlin.com>
-References: <20230307141503.159766-1-herve.codina@bootlin.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Tg/TY/wS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1678205254; x=1709741254;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=aKRuKYTcqGrUuI2WKGB8Q8fERVnjNx4bLC45l3EvKXk=;
+  b=Tg/TY/wSebJQGm2hvJ9JiAXcQAfRLToGO0Rcug4fjIzNevqXflJKniVI
+   tBaLDQ3aiPC/RpEv2HHcjpuJmJws+b538UWaXDRLu//NBWry5hLRSnTAL
+   9njF7ua0bFs1NjRp0BCkMUuO8uji4YSpJKw+MGIdmfzqYforzaEqJ/Xdn
+   00l9baBK9zr8ZvPZ5sip9fKe6U2U8/doQuDee7Tg77eJ6O2srRJwg++Y3
+   3VPqBhPWXEXikexHJ1xeD1U7x2wAoEEj0tNisOetn5Xx16IjA/+NWSw1q
+   MjY3u/bDG8rJ8s4JzfpghlZP7JkqjmpvYuFNCBl8XCZgcHObO/A7DUv/B
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="334603057"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400";
+   d="scan'208";a="334603057"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 08:06:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="786744558"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400";
+   d="scan'208";a="786744558"
+Received: from mcdoll-mobl.amr.corp.intel.com (HELO [10.255.36.231])
+ ([10.255.36.231])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 08:06:17 -0800
+Message-ID: <09453549-73b3-bedb-89f6-61d482cabdf9@linux.intel.com>
+Date: Tue, 7 Mar 2023 09:25:43 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FEUMQF5NX3DEBWECECXYXU3MH6YHDVZH
-X-Message-ID-Hash: FEUMQF5NX3DEBWECECXYXU3MH6YHDVZH
-X-MailFrom: herve.codina@bootlin.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.7.1
+Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
+Content-Language: en-US
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-3-Vijendar.Mukunda@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230307133135.545952-3-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL
+X-Message-ID-Hash: OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FEUMQF5NX3DEBWECECXYXU3MH6YHDVZH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,46 +111,143 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The assigned timeslot masks are 64bit values.
-In case of 64 timeslots the code uses (1 << 64) which is undefined on a
-64bit value. On the PowerPC architecture, this lead to an incorrect
-result as (1 << 64) produces the same result as (1 << 0).
 
-Fix the masks values taking care of the 64 timeslots case.
+> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	ret = read_poll_timeout(acp_reg_readl, val, val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
+> +				amd_manager->mmio + ACP_SW_EN_STATUS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* SoundWire manager bus reset */
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	ret = read_poll_timeout(acp_reg_readl, val, (val & AMD_SDW_BUS_RESET_DONE), ACP_DELAY_US,
+> +				AMD_SDW_TIMEOUT, false, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	ret = read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
+> +				amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
+> +	if (ret) {
+> +		dev_err(amd_manager->dev, "Failed to reset SoundWire manager instance%d\n",
+> +			amd_manager->instance);
+> +		return ret;
+> +	}
+> +
+> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+> +	return read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
+> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
+> +}
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- drivers/soc/fsl/qe/qmc.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ironically the change to use read_poll_timeout makes the code less clear
+IMHO, specifically because the success criteria are
 
-diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
-index cfa7207353e0..b3c292c9a14e 100644
---- a/drivers/soc/fsl/qe/qmc.c
-+++ b/drivers/soc/fsl/qe/qmc.c
-@@ -754,6 +754,11 @@ static int qmc_check_chans(struct qmc *qmc)
- 	if (ret)
- 		return ret;
- 
-+	if ((info.nb_tx_ts > 64) || (info.nb_rx_ts > 64)) {
-+		dev_err(qmc->dev, "Number of TSA Tx/Rx TS assigned not supported\n");
-+		return -EINVAL;
-+	}
-+
- 	/*
- 	 * If more than 32 TS are assigned to this serial, one common table is
- 	 * used for Tx and Rx and so masks must be equal for all channels.
-@@ -766,9 +771,8 @@ static int qmc_check_chans(struct qmc *qmc)
- 		is_one_table = true;
- 	}
- 
--
--	tx_ts_assigned_mask = (((u64)1) << info.nb_tx_ts) - 1;
--	rx_ts_assigned_mask = (((u64)1) << info.nb_rx_ts) - 1;
-+	tx_ts_assigned_mask = info.nb_tx_ts == 64 ? U64_MAX : (((u64)1) << info.nb_tx_ts) - 1;
-+	rx_ts_assigned_mask = info.nb_rx_ts == 64 ? U64_MAX : (((u64)1) << info.nb_rx_ts) - 1;
- 
- 	list_for_each_entry(chan, &qmc->chan_head, list) {
- 		if (chan->tx_ts_mask > tx_ts_assigned_mask) {
--- 
-2.39.2
+'val', 'val & AMD_SDW_BUS_RESET_DONE', '!val', '!val'
 
+It's hard to review and hard to spot potential issues. You may want to
+add comments on what you are trying to check. Same comment for all the
+rest of the code.
+
+> +
+> +static int amd_enable_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val;
+> +
+> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
+> +	return read_poll_timeout(acp_reg_readl, val, val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
+> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
+> +}
+> +
+> +static int amd_disable_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 val;
+> +
+> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
+> +	/*
+> +	 * After invoking manager disable sequence, check whether
+> +	 * manager has executed clock stop sequence. In this case,
+> +	 * manager should ignore checking enable status register.
+> +	 */
+> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
+> +	if (val)
+> +		return 0;
+> +	return read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
+> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
+> +}
+> +
+> +static void amd_enable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+> +{
+> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+> +	u32 val;
+> +
+> +	mutex_lock(amd_manager->acp_sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	val |= reg_mask->acp_sdw_intr_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	mutex_unlock(amd_manager->acp_sdw_lock);
+> +
+> +	acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
+> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+> +	acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11, amd_manager->mmio +
+> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +	acp_reg_writel(AMD_SDW_IRQ_ERROR_MASK, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> +}
+> +
+> +static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+> +{
+> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
+> +	u32 val;
+> +
+> +	mutex_lock(amd_manager->acp_sdw_lock);
+> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	val &= ~reg_mask->acp_sdw_intr_mask;
+> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
+> +	mutex_unlock(amd_manager->acp_sdw_lock);
+> +
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+> +}
+> +
+> +static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
+> +{
+> +	u32 frame_size;
+> +
+> +	frame_size = (amd_manager->rows_index << 3) | amd_manager->cols_index;
+> +	acp_reg_writel(frame_size, amd_manager->mmio + ACP_SW_FRAMESIZE);
+> +}
+> +
+> +static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, u32 cmd_type,
+> +				  struct sdw_msg *msg, int cmd_offset)
+> +{
+> +	u32 upper_data;
+> +	u32 lower_data = 0;
+> +	u16 addr;
+> +	u8 addr_upper, addr_lower;
+
+nit-pick: use the same convention for data and addr, e.g. upper_data,
+upper_addr. Same comment for the rest of the code.
+
+> +	u8 data = 0;
+> +
+> +	addr = msg->addr + cmd_offset;
+> +	addr_upper = (addr & 0xFF00) >> 8;
+> +	addr_lower = addr & 0xFF;
+> +
+> +	if (cmd_type == AMD_SDW_CMD_WRITE)
+> +		data = msg->buf[cmd_offset];
+> +
+> +	upper_data = FIELD_PREP(AMD_SDW_MCP_CMD_DEV_ADDR, msg->dev_num);
+> +	upper_data |= FIELD_PREP(AMD_SDW_MCP_CMD_COMMAND, cmd_type);
+> +	upper_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_HIGH, addr_upper);
+> +	lower_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_LOW, addr_lower);
+> +	lower_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_DATA, data);
+> +
+> +	*upper_word = upper_data;
+> +	*lower_word = lower_data;
+> +}

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E213C6AE5F9
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 17:08:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10DAB6AE5F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 17:08:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08B3914CC;
-	Tue,  7 Mar 2023 17:07:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08B3914CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6BA814BD;
+	Tue,  7 Mar 2023 17:07:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6BA814BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678205321;
-	bh=aKRuKYTcqGrUuI2WKGB8Q8fERVnjNx4bLC45l3EvKXk=;
+	s=default; t=1678205318;
+	bh=QbkMlLN5gG1O1qHIBvT5vPDkGfTtH0GRhPyAlrPglYA=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nNhDDq7tXDB78kjaSaA3arkLXklyOuAoZDmpggIAgAjN4RhlCrEXmbISZTYSuHKrq
-	 8MZT6huovBZam7yNAjedsEZfwPyJQeF61QPbdAZGwJCUmfdSEswk3p5uxVWdxY38B6
-	 TX4BsbJSz/hMa48B35ruCn/IFoo8jPuEGjFDrqd0=
+	b=m8XP/Kv4LWwlh/1eysuBf3ybaZ43LYUBeEeHHtJLVZZ0oCXqKukf2K8U5AC+/INEo
+	 kT8hCD8pZ24dSUqr8tYXsWRvvgQ4lV2wKRYeqFCpCl6Z0FT8YAWMRhmi+YPZHnvAPz
+	 h4J4KoWjhnzBytZy81W1aWS1KMHOQd7SDZDN21l4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45270F80482;
-	Tue,  7 Mar 2023 17:07:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0D99F804B1;
+	Tue,  7 Mar 2023 17:07:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F6A3F804FE; Tue,  7 Mar 2023 17:07:38 +0100 (CET)
+	id A8EAAF8051B; Tue,  7 Mar 2023 17:07:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,56 +33,57 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81CD4F80482
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 17:07:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81CD4F80482
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8CFA0F8042F
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 17:07:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CFA0F8042F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Tg/TY/wS
+ header.s=Intel header.b=iFcIWpLW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678205254; x=1709741254;
+  t=1678205252; x=1709741252;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=aKRuKYTcqGrUuI2WKGB8Q8fERVnjNx4bLC45l3EvKXk=;
-  b=Tg/TY/wSebJQGm2hvJ9JiAXcQAfRLToGO0Rcug4fjIzNevqXflJKniVI
-   tBaLDQ3aiPC/RpEv2HHcjpuJmJws+b538UWaXDRLu//NBWry5hLRSnTAL
-   9njF7ua0bFs1NjRp0BCkMUuO8uji4YSpJKw+MGIdmfzqYforzaEqJ/Xdn
-   00l9baBK9zr8ZvPZ5sip9fKe6U2U8/doQuDee7Tg77eJ6O2srRJwg++Y3
-   3VPqBhPWXEXikexHJ1xeD1U7x2wAoEEj0tNisOetn5Xx16IjA/+NWSw1q
-   MjY3u/bDG8rJ8s4JzfpghlZP7JkqjmpvYuFNCBl8XCZgcHObO/A7DUv/B
+  bh=QbkMlLN5gG1O1qHIBvT5vPDkGfTtH0GRhPyAlrPglYA=;
+  b=iFcIWpLWnFCgCMTGJqFGdxZVTkKU8Le0ItcS3fZKNHRojbALaAdzh5Cr
+   n5idPVLDHVgpyL4p5E1EmxCmmNZBs6xMTfPot5lAM0L+ciwbjODMv+gyM
+   FtArlfPgoc3hNB6D8/2vHg6mfuYosKKGvuFA+7V6HkrEkPcB8Gs+qHpvS
+   9woTlVCCBA9g5xD6CFjbEeJswNX2spv6Ucu2UE38XlqF4y5sbb42Kr9/D
+   G2fO+TBvqlFyhmQ+GbRJ57jqEgId+PQ25v3wwdjiJ52fE4j8Ncp45RTQe
+   panUmydd5UjOdep7iCrDGm5edSGkZdjL2VFdL3y7HUYGLbbsBsyLe28vS
    g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="334603057"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="334603077"
 X-IronPort-AV: E=Sophos;i="5.98,241,1673942400";
-   d="scan'208";a="334603057"
+   d="scan'208";a="334603077"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 08:06:18 -0800
+ 07 Mar 2023 08:06:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="786744558"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="786744585"
 X-IronPort-AV: E=Sophos;i="5.98,241,1673942400";
-   d="scan'208";a="786744558"
+   d="scan'208";a="786744585"
 Received: from mcdoll-mobl.amr.corp.intel.com (HELO [10.255.36.231])
  ([10.255.36.231])
   by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 08:06:17 -0800
-Message-ID: <09453549-73b3-bedb-89f6-61d482cabdf9@linux.intel.com>
-Date: Tue, 7 Mar 2023 09:25:43 -0600
+ 07 Mar 2023 08:06:19 -0800
+Message-ID: <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+Date: Tue, 7 Mar 2023 09:28:21 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
+Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
 Content-Language: en-US
 To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
 References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
- <20230307133135.545952-3-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230307133135.545952-3-Vijendar.Mukunda@amd.com>
+In-Reply-To: <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL
-X-Message-ID-Hash: OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL
+Message-ID-Hash: SOEDS5U2JMYR33GK5K5D33S4Z4EHFYSR
+X-Message-ID-Hash: SOEDS5U2JMYR33GK5K5D33S4Z4EHFYSR
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OG2RQNX5K3YZFBHYPVXX7RTFYUCFCXIL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOEDS5U2JMYR33GK5K5D33S4Z4EHFYSR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,142 +113,29 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> +static int amd_init_sdw_manager(struct amd_sdw_manager *amd_manager)
+> +static int amd_resume_child_device(struct device *dev, void *data)
 > +{
-> +	u32 val;
+> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
 > +	int ret;
 > +
-> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
-> +	ret = read_poll_timeout(acp_reg_readl, val, val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
-> +				amd_manager->mmio + ACP_SW_EN_STATUS);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* SoundWire manager bus reset */
-> +	acp_reg_writel(AMD_SDW_BUS_RESET_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
-> +	ret = read_poll_timeout(acp_reg_readl, val, (val & AMD_SDW_BUS_RESET_DONE), ACP_DELAY_US,
-> +				AMD_SDW_TIMEOUT, false, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	acp_reg_writel(AMD_SDW_BUS_RESET_CLEAR_REQ, amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
-> +	ret = read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
-> +				amd_manager->mmio + ACP_SW_BUS_RESET_CTRL);
-> +	if (ret) {
-> +		dev_err(amd_manager->dev, "Failed to reset SoundWire manager instance%d\n",
-> +			amd_manager->instance);
-> +		return ret;
-> +	}
-> +
-> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
-> +	return read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
-> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
-> +}
-
-ironically the change to use read_poll_timeout makes the code less clear
-IMHO, specifically because the success criteria are
-
-'val', 'val & AMD_SDW_BUS_RESET_DONE', '!val', '!val'
-
-It's hard to review and hard to spot potential issues. You may want to
-add comments on what you are trying to check. Same comment for all the
-rest of the code.
-
-> +
-> +static int amd_enable_sdw_manager(struct amd_sdw_manager *amd_manager)
-> +{
-> +	u32 val;
-> +
-> +	acp_reg_writel(AMD_SDW_ENABLE, amd_manager->mmio + ACP_SW_EN);
-> +	return read_poll_timeout(acp_reg_readl, val, val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
-> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
-> +}
-> +
-> +static int amd_disable_sdw_manager(struct amd_sdw_manager *amd_manager)
-> +{
-> +	u32 val;
-> +
-> +	acp_reg_writel(AMD_SDW_DISABLE, amd_manager->mmio + ACP_SW_EN);
-> +	/*
-> +	 * After invoking manager disable sequence, check whether
-> +	 * manager has executed clock stop sequence. In this case,
-> +	 * manager should ignore checking enable status register.
-> +	 */
-> +	val = acp_reg_readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
-> +	if (val)
+> +	if (!slave->probed) {
+> +		dev_dbg(dev, "skipping device, no probed driver\n");
 > +		return 0;
-> +	return read_poll_timeout(acp_reg_readl, val, !val, ACP_DELAY_US, AMD_SDW_TIMEOUT, false,
-> +				 amd_manager->mmio + ACP_SW_EN_STATUS);
-> +}
-> +
-> +static void amd_enable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
-> +{
-> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
-> +	u32 val;
-> +
-> +	mutex_lock(amd_manager->acp_sdw_lock);
-> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
-> +	val |= reg_mask->acp_sdw_intr_mask;
-> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
-> +	mutex_unlock(amd_manager->acp_sdw_lock);
-> +
-> +	acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
-> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +	acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11, amd_manager->mmio +
-> +		       ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +	acp_reg_writel(AMD_SDW_IRQ_ERROR_MASK, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +}
-> +
-> +static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
-> +{
-> +	struct sdw_manager_reg_mask *reg_mask = amd_manager->reg_mask;
-> +	u32 val;
-> +
-> +	mutex_lock(amd_manager->acp_sdw_lock);
-> +	val = acp_reg_readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
-> +	val &= ~reg_mask->acp_sdw_intr_mask;
-> +	acp_reg_writel(val, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(amd_manager->instance));
-> +	mutex_unlock(amd_manager->acp_sdw_lock);
-> +
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +}
-> +
-> +static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
-> +{
-> +	u32 frame_size;
-> +
-> +	frame_size = (amd_manager->rows_index << 3) | amd_manager->cols_index;
-> +	acp_reg_writel(frame_size, amd_manager->mmio + ACP_SW_FRAMESIZE);
-> +}
-> +
-> +static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, u32 cmd_type,
-> +				  struct sdw_msg *msg, int cmd_offset)
-> +{
-> +	u32 upper_data;
-> +	u32 lower_data = 0;
-> +	u16 addr;
-> +	u8 addr_upper, addr_lower;
+> +	}
+> +	if (!slave->dev_num_sticky) {
+> +		dev_dbg(dev, "skipping device, never detected on bus\n");
+> +		return 0;
+> +	}
+> +	if (!pm_runtime_suspended(dev))
+> +		return 0;
+> +	ret = pm_request_resume(dev);
 
-nit-pick: use the same convention for data and addr, e.g. upper_data,
-upper_addr. Same comment for the rest of the code.
+I still don't get why the test above was needed. It's racy and brings
+limited benefits.
 
-> +	u8 data = 0;
+> +	if (ret < 0)
+> +		dev_err(dev, "pm_request_resume failed: %d\n", ret);
 > +
-> +	addr = msg->addr + cmd_offset;
-> +	addr_upper = (addr & 0xFF00) >> 8;
-> +	addr_lower = addr & 0xFF;
-> +
-> +	if (cmd_type == AMD_SDW_CMD_WRITE)
-> +		data = msg->buf[cmd_offset];
-> +
-> +	upper_data = FIELD_PREP(AMD_SDW_MCP_CMD_DEV_ADDR, msg->dev_num);
-> +	upper_data |= FIELD_PREP(AMD_SDW_MCP_CMD_COMMAND, cmd_type);
-> +	upper_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_HIGH, addr_upper);
-> +	lower_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_ADDR_LOW, addr_lower);
-> +	lower_data |= FIELD_PREP(AMD_SDW_MCP_CMD_REG_DATA, data);
-> +
-> +	*upper_word = upper_data;
-> +	*lower_word = lower_data;
+> +	return ret;
 > +}
+

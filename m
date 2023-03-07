@@ -2,167 +2,197 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A53E6ADCD9
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 12:09:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A23C06ADD66
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 12:31:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48ABE143A;
-	Tue,  7 Mar 2023 12:08:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48ABE143A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B336B1422;
+	Tue,  7 Mar 2023 12:30:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B336B1422
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678187364;
-	bh=eOCXqC/6P19MA2TVfR20xSJUyuKNC3v4khTA8eCOvdI=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mnWG4dFoFn4NfqWBbTo+EI/+ZWDppVZDqUOh/ReuEcPmLWra1Izgb1gvHdA8z4Fih
-	 Bkqrd0Mv0RQUcSPY/vE9PGFH79HVOXLROuiT6Tk84RBPzzNenPKj1o5cnpKPuJDlzP
-	 4UVBnpEBY8p3JqCeoxWYaKiFNa38cPg8wA/vbYBA=
+	s=default; t=1678188687;
+	bh=l9dwd2u143LYMCn/dqXT6AR5U8CYTFdijWmuNWjriSc=;
+	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=MZ8CWsb2k3aKsBQ6pg8DC+XecyRx3hRwmYSpKHKgrJKqcRy47AxCEK6Z6HE3MciYZ
+	 I0yJnEm3/b9A8hflyo0kxiE7mKt7qek7Shl+NlmscyXMKAliVrrcSIQwpQ8OOeMND9
+	 Jdn2VNR3MyI+E8gLfnkC60Dx+jokqna4v8Jp1zpo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8322F800C9;
-	Tue,  7 Mar 2023 12:08:33 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 480ECF804B1; Tue,  7 Mar 2023 12:08:30 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66857F80236
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 12:08:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66857F80236
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=iaSS6s1h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678187309; x=1709723309;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=eOCXqC/6P19MA2TVfR20xSJUyuKNC3v4khTA8eCOvdI=;
-  b=iaSS6s1hkQSnJK/sv7UGwchp4JJ+0McQ4KQxDxMm/bVn7Ut2TOMMY8E4
-   ENxCs4ZQDj6zo9I/CR/EssIiMQeNfiL2mbfsISdCMmQUV6Xle4ib3i06C
-   iZ69clz0SP1w/PruD+Pir5U40sV5MAJG86rLb9DAj2eHdUzFC//wyWEtS
-   ma4bilBSYo/t2VlY2fgohEPgMV5Le+wCmDqbS+CeHdNIiETdIfCuRzXW4
-   8K/Vk59FG192TW+8y6B+TXrmoBIHBf0dW8UHTx45OrmT0K2+7maW0O151
-   NlfcgeQk/TdYElSI057/oBQOP0Vsw8Tsflct76b5cFbXGODOZ6yh0qzCm
-   g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="338147914"
-X-IronPort-AV: E=Sophos;i="5.98,240,1673942400";
-   d="scan'208";a="338147914"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 03:08:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="740687943"
-X-IronPort-AV: E=Sophos;i="5.98,240,1673942400";
-   d="scan'208";a="740687943"
-Received: from rganesh-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.47.75])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 03:08:24 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: ipc4-mtrace: process pending logs upon FW crash
-Date: Tue,  7 Mar 2023 13:08:46 +0200
-Message-Id: <20230307110846.2265-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IWEZJKAKFDDL3U3MEIGCYH4HVSYQPJ72
-X-Message-ID-Hash: IWEZJKAKFDDL3U3MEIGCYH4HVSYQPJ72
-X-MailFrom: peter.ujfalusi@linux.intel.com
+	by alsa1.perex.cz (Postfix) with ESMTP id ED1B0F8042F;
+	Tue,  7 Mar 2023 12:30:36 +0100 (CET)
+Date: Tue, 7 Mar 2023 11:30:16 +0000
+To: Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [PATCH] ASoC: do not include pm_runtime.h if not used
+References: <20230307103022.1007420-1-claudiu.beznea@microchip.com>
+In-Reply-To: <20230307103022.1007420-1-claudiu.beznea@microchip.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWEZJKAKFDDL3U3MEIGCYH4HVSYQPJ72/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GF3XDMGTDLY4IZFQJWTALLYZ67D4B5E/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167818863631.26.6699494131684260973@mailman-core.alsa-project.org>
+From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
+ oder_chiou@realtek.com, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, linux-imx@nxp.com,
+ cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ matthias.bgg@gmail.com, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ vkoul@kernel.org, daniel.baluta@nxp.com, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, jarkko.nikula@bitmer.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, sound-open-firmware@alsa-project.org,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id A81E3F8042F; Tue,  7 Mar 2023 12:30:31 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C79E1F800C9;
+	Tue,  7 Mar 2023 12:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C79E1F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=RLWayBHY
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3277tv94022730;
+	Tue, 7 Mar 2023 05:30:19 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=8Gw+hMjGj1I9H2fg3ljNbnH8D9RaMuxw0VHL6fBZJv4=;
+ b=RLWayBHYAC3WRv9HPpNTERg+r3oTqRoc1PhTaiH7YBIi+g27pmBKE71aOiAvS27S3N07
+ +QHcy5hOfjEbFGHVcXXvt9qIN3WGOS3Bqlri7NiCAQhOhMOgUcVD/jtynzPS4OAO8V4x
+ y0soTVGFyQ8h0rjtQN8pahOoaJaEwQF+b1XRYG7PlC2fH/BI33BVKPohDXEuq+sfwinQ
+ st9ocuKEdqcae/7gnnLT1gkEC3NHxNf2+QnaoIAl+yku5tDVskg+wvMD2woy7I197Y8b
+ atlA+qMh5usVUKVHiqBqRp3egA8oAV2JdrRPRQRVEwGGY4zU2uz2Qv/12AeFgHJufFHL 1A==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3p4497427y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 07 Mar 2023 05:30:19 -0600
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Tue, 7 Mar
+ 2023 05:30:16 -0600
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Tue, 7 Mar 2023 05:30:16 -0600
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C72ED11D3;
+	Tue,  7 Mar 2023 11:30:16 +0000 (UTC)
+Date: Tue, 7 Mar 2023 11:30:16 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [PATCH] ASoC: do not include pm_runtime.h if not used
+Message-ID: <20230307113016.GS68926@ediswmail.ad.cirrus.com>
+References: <20230307103022.1007420-1-claudiu.beznea@microchip.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230307103022.1007420-1-claudiu.beznea@microchip.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 8AhJH_Etb0kWl8-U4QDOKiyr044l28y7
+X-Proofpoint-ORIG-GUID: 8AhJH_Etb0kWl8-U4QDOKiyr044l28y7
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3GF3XDMGTDLY4IZFQJWTALLYZ67D4B5E
+X-Message-ID-Hash: 3GF3XDMGTDLY4IZFQJWTALLYZ67D4B5E
+X-MailFrom: prvs=8430349259=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
+ oder_chiou@realtek.com, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, linux-imx@nxp.com,
+ cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ matthias.bgg@gmail.com, srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ vkoul@kernel.org, daniel.baluta@nxp.com, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, jarkko.nikula@bitmer.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, sound-open-firmware@alsa-project.org,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GF3XDMGTDLY4IZFQJWTALLYZ67D4B5E/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+On Tue, Mar 07, 2023 at 12:30:22PM +0200, Claudiu Beznea wrote:
+> Do not include pm_runtime.h header in files where runtime PM support is
+> not implemented.
+> 
+> Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+> ---
+>  sound/soc/codecs/cs35l45.h                                | 1 -
+> diff --git a/sound/soc/codecs/cs35l45.h b/sound/soc/codecs/cs35l45.h
+> index 53fe9d2b7b15..0555702eac03 100644
+> --- a/sound/soc/codecs/cs35l45.h
+> +++ b/sound/soc/codecs/cs35l45.h
+> @@ -11,7 +11,6 @@
+>  #ifndef CS35L45_H
+>  #define CS35L45_H
+>  
+> -#include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  
 
-If the DSP firmware has crashed, some log messages may be pending in the
-mtrace buffer, but not consumed by the driver as no IPC notification has
-been sent by the firmware. Check the buffer status for all mtrace slots
-and ensure any pending log messages are processed before DSP is possibly
-powered down and the log buffer contents is lost.
+cs35l45 does already make use of some functions from that header,
+and more support is in the process of being upstreamed. So this
+part should be dropped.
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/ipc4-mtrace.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/sound/soc/sof/ipc4-mtrace.c b/sound/soc/sof/ipc4-mtrace.c
-index 0ec6ef681012..2b4659a1768e 100644
---- a/sound/soc/sof/ipc4-mtrace.c
-+++ b/sound/soc/sof/ipc4-mtrace.c
-@@ -609,6 +609,16 @@ static void ipc4_mtrace_free(struct snd_sof_dev *sdev)
- 	ipc4_mtrace_disable(sdev);
- }
- 
-+static int sof_ipc4_mtrace_update_pos_all_cores(struct snd_sof_dev *sdev)
-+{
-+	int i;
-+
-+	for (i = 0; i < sdev->num_cores; i++)
-+		sof_ipc4_mtrace_update_pos(sdev, i);
-+
-+	return 0;
-+}
-+
- int sof_ipc4_mtrace_update_pos(struct snd_sof_dev *sdev, int core)
- {
- 	struct sof_mtrace_priv *priv = sdev->fw_trace_data;
-@@ -642,6 +652,16 @@ int sof_ipc4_mtrace_update_pos(struct snd_sof_dev *sdev, int core)
- 	return 0;
- }
- 
-+static void ipc4_mtrace_fw_crashed(struct snd_sof_dev *sdev)
-+{
-+	/*
-+	 * The DSP might not be able to send SOF_IPC4_NOTIFY_LOG_BUFFER_STATUS
-+	 * messages anymore, so check the log buffer status on all
-+	 * cores and process any pending messages.
-+	 */
-+	sof_ipc4_mtrace_update_pos_all_cores(sdev);
-+}
-+
- static int ipc4_mtrace_resume(struct snd_sof_dev *sdev)
- {
- 	return ipc4_mtrace_enable(sdev);
-@@ -655,6 +675,7 @@ static void ipc4_mtrace_suspend(struct snd_sof_dev *sdev, pm_message_t pm_state)
- const struct sof_ipc_fw_tracing_ops ipc4_mtrace_ops = {
- 	.init = ipc4_mtrace_init,
- 	.free = ipc4_mtrace_free,
-+	.fw_crashed = ipc4_mtrace_fw_crashed,
- 	.suspend = ipc4_mtrace_suspend,
- 	.resume = ipc4_mtrace_resume,
- };
--- 
-2.39.2
-
+Thanks,
+Charles

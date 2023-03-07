@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6144C6AEB6E
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 18:44:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3166AF081
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 19:31:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB1381509;
-	Tue,  7 Mar 2023 18:43:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB1381509
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A806152A;
+	Tue,  7 Mar 2023 19:30:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A806152A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678211064;
+	s=default; t=1678213870;
 	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r+19bu5+Xp3q8mPBe5EccYbmqQwVz3ErBgqWFOuqBwddK4VduTKElseTdOVGuPs+b
-	 5pvqaNIhrLdos9ua/42uWjg/TYRIGqZb6w5aUMB5RgluPiLYtV2L6TtPLhtFXh9yD/
-	 4HMYZB6Px0d4HeUzA4f7WSTHbLh1j7i040gePqYQ=
+	b=pLTOO4SRltMYJhRgqYtFTLUmhzLrnoTXIbppa0Qz2OfQrPyVBzM/rVJKiIOSh9NhY
+	 Gjj7LFGXnJmTSuLrQEQQX4/A4aIu8SgDCBOpduEqSXlCHxLS3G9sX+rWVgM4hc0rwr
+	 IxcMcxcvEQNbqYE5PgYDlPQp9eKIioNo6uR1v5hQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F978F80236;
-	Tue,  7 Mar 2023 18:43:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38D31F80236;
+	Tue,  7 Mar 2023 19:30:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4A8DF8042F; Tue,  7 Mar 2023 18:43:28 +0100 (CET)
+	id 03334F8042F; Tue,  7 Mar 2023 19:30:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5EB2F800DF
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 18:43:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5EB2F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 640C4F800DF
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 19:30:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 640C4F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=rHQ4DIC+
+ header.a=rsa-sha256 header.s=korg header.b=2EsW21VQ
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 85CC3614FF;
-	Tue,  7 Mar 2023 17:43:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC19C433EF;
-	Tue,  7 Mar 2023 17:43:11 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 6BC26B819BF;
+	Tue,  7 Mar 2023 18:30:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A287AC4339B;
+	Tue,  7 Mar 2023 18:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1678210992;
+	s=korg; t=1678213802;
 	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rHQ4DIC+XUApDr5EN0ZM4yvs667pwT0jq3xxjpjZRY0CjmTXuTdj6hn2TMx4kFusH
-	 zzhPVFKSa/gsKcy0h6xTL7KT7TkdO0PfXX9y3b64laCyJEhakJIyDInlwrVGpSoORN
-	 A6c3RKMVdFaM7QUqYilwoAfbSdcKUyUQKth5r6tw=
+	b=2EsW21VQDDps6xXht0c6wTaRKQ6nF9o8h1L2zref88TcaNAVzmUrvMhDo7nxGOTnA
+	 O3DDsX59CXBu4AS/RIDE7JDlXqoBPrJ8jr2fA5I8eO00mJ+qDjI6/QTj8XvBrq+gDB
+	 TMk6o1CoiexB/DPx2Ysok+rC63pcEOOkX8nu+aQM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.2 0718/1001] ASoC: kirkwood: Iterate over array indexes
+Subject: [PATCH 6.1 623/885] ASoC: kirkwood: Iterate over array indexes
  instead of using pointer math
-Date: Tue,  7 Mar 2023 17:58:10 +0100
-Message-Id: <20230307170052.822495610@linuxfoundation.org>
+Date: Tue,  7 Mar 2023 17:59:17 +0100
+Message-Id: <20230307170029.318797298@linuxfoundation.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230307170022.094103862@linuxfoundation.org>
-References: <20230307170022.094103862@linuxfoundation.org>
+In-Reply-To: <20230307170001.594919529@linuxfoundation.org>
+References: <20230307170001.594919529@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XZVD6SD6GUGVAMR3VWUYYBZPSKVUJCI5
-X-Message-ID-Hash: XZVD6SD6GUGVAMR3VWUYYBZPSKVUJCI5
+Message-ID-Hash: 7BC4WQN3CKCLHCJ4FOHK4YPQDJCXVO42
+X-Message-ID-Hash: 7BC4WQN3CKCLHCJ4FOHK4YPQDJCXVO42
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -85,8 +84,7 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZVD6SD6GUGVAMR3VWUYYBZPSKVUJCI5/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

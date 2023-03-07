@@ -2,85 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB466AF6E4
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 21:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198646AF388
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 20:06:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CF221599;
-	Tue,  7 Mar 2023 21:44:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CF221599
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B94B1536;
+	Tue,  7 Mar 2023 20:05:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B94B1536
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678221899;
-	bh=NuO8UAZcKVDSwoFoeZu9FBy6Ay4iiw09tdqRjBF8Ies=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=t5OSnzuyxc6hY+juXISSGgkk8NqaesSE4gC3qwqqucX4A9H+/q9bxckR903I9TKj7
-	 RRN6kvEGXhs3cZBA4CbeEUsorKza9WT9s+RCjM5goBaJ012QLh8XEIvHvnZOuvtUcZ
-	 Hmq+F1iBCQgwKn5oE69s1E2I9b4yQ9FUri60qFoU=
+	s=default; t=1678215977;
+	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QLuQRCisPPh66cBzF8ThmatQwg4Cmvfu1pvRIx/j9Gsj4xpxUZpoM+Xp/AXTSNhCf
+	 x5zC2tEmlbztFvYbz6iSBmCpXtc/IL5XNwNBIk3Vod1RacMhmlKIBEBhO76XHIgpWh
+	 6eM80YGhhC0yEGQyG9CLaBWLiDLxD1f7XPpWpMdw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A8EDF80236;
-	Tue,  7 Mar 2023 21:44:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B1E0F80236;
+	Tue,  7 Mar 2023 20:05:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F813F8042F; Tue,  7 Mar 2023 17:40:37 +0100 (CET)
+	id 682DFF8042F; Tue,  7 Mar 2023 20:05:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C30BBF800DF
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 17:40:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C30BBF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CE97F800C9
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 20:05:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CE97F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256
- header.s=2017 header.b=D26WLG0/
-Received: from submission (posteo.de [185.67.36.169])
-	by mout01.posteo.de (Postfix) with ESMTPS id 266D5240540
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 17:40:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
-	t=1678207229; bh=NuO8UAZcKVDSwoFoeZu9FBy6Ay4iiw09tdqRjBF8Ies=;
-	h=From:To:Cc:Subject:Date:From;
-	b=D26WLG0/L6TQuTI+MRYCsOI6ePQjCzQ3YOKIaJKeNyT1+ls/gowd/1N2v8uu1W0Ch
-	 wW9JSzkZ9lDYn37n3ecJIa9UpjuD8cTmV5QNRl6ksWCji0Ggd8sXu+0Z98FjpfEnO/
-	 KL3PTnT2/INqeEwHmbyC2oTOxUAWkB3VsVUCqZYfOFUPEFTkdMz6FHpwsaocOOHN0W
-	 K+FDCNih5W+1TKVygc0Jv9FoCu5TzeadVJhu+QTDSV3GSq2TImf9escB8WEPMqWoRL
-	 ozMtjvHUao+0WC0KIM9+AsGFjPV91BoeLDrG2W+QD8SVgQlzsUWfVB3UWJWvuLl/W7
-	 HhwuOLLnOng7Q==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4PWLlv686Dz9rxD;
-	Tue,  7 Mar 2023 17:40:27 +0100 (CET)
-From: "Hamidreza H. Fard" <nitocris@posteo.net>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: hda/realtek: Fix the speaker output on Samsung Galaxy
- Book2 Pro
-Date: Tue,  7 Mar 2023 16:37:41 +0000
-Message-Id: <20230307163741.3878-1-nitocris@posteo.net>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=dIIPI4kb
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by sin.source.kernel.org (Postfix) with ESMTPS id BA197CE1C5D;
+	Tue,  7 Mar 2023 19:05:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D471AC4339B;
+	Tue,  7 Mar 2023 19:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1678215913;
+	bh=OvNyHpAAeeiTPusi5F0W7Sq5fJ9njNoI5QzTKir0DAQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=dIIPI4kbFFoL8NBh2kDLc5isY0P4VAv/b1Q2eL/SbkxXcCLc+iQJ3u76TnUMb4flL
+	 3GeEKSliUpVe2es1JVd6F3izwZOuhfgeLlAls2DeJ4hvKwEz7CyPwzxw6NaZW68mte
+	 bVJDztU73RifflfZDnLUqf9vRjacgYbPJm58MnLU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.15 415/567] ASoC: kirkwood: Iterate over array indexes
+ instead of using pointer math
+Date: Tue,  7 Mar 2023 18:02:31 +0100
+Message-Id: <20230307165923.857034050@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230307165905.838066027@linuxfoundation.org>
+References: <20230307165905.838066027@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MailFrom: nitocris@posteo.net
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD
+X-Message-ID-Hash: SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O42VMA663KW44TELGOMSNZA7NJUC25KB
-X-Message-ID-Hash: O42VMA663KW44TELGOMSNZA7NJUC25KB
-X-Mailman-Approved-At: Tue, 07 Mar 2023 20:44:06 +0000
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- "Hamidreza H. Fard" <nitocris@posteo.net>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Kees Cook <keescook@chromium.org>, Sasha Levin <sashal@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O42VMA663KW44TELGOMSNZA7NJUC25KB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBLEUYOGSO3H3HM5GT36XWCWPHP6Q7FD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,29 +94,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Samsung Galaxy Book2 Pro (13" 2022 NP930XED-KA1DE) with codec SSID
-144d:c868 requires the same workaround for enabling the speaker amp
-like other Samsung models with ALC298 code.
+From: Kees Cook <keescook@chromium.org>
 
-Signed-off-by: Hamidreza H. Fard <nitocris@posteo.net>
+[ Upstream commit b3bcedc0402fcdc5c8624c433562d9d1882749d8 ]
+
+Walking the dram->cs array was seen as accesses beyond the first array
+item by the compiler. Instead, use the array index directly. This allows
+for run-time bounds checking under CONFIG_UBSAN_BOUNDS as well. Seen
+with GCC 13 with -fstrict-flex-arrays:
+
+../sound/soc/kirkwood/kirkwood-dma.c: In function
+'kirkwood_dma_conf_mbus_windows.constprop':
+../sound/soc/kirkwood/kirkwood-dma.c:90:24: warning: array subscript 0 is outside array bounds of 'const struct mbus_dram_window[0]' [-Warray-bounds=]
+   90 |                 if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
+      |                      ~~^~~~~~
+
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20230127224128.never.410-kees@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/kirkwood/kirkwood-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 3c629f4ae080..ef78553fe6f0 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9539,6 +9539,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_AMP),
- 	SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha (NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xca03, "Samsung Galaxy Book2 Pro 360 (NP930QED)", ALC298_FIXUP_SAMSUNG_AMP),
-+	SND_PCI_QUIRK(0x144d, 0xc868, "Samsung Galaxy Book2 Pro (NP930XED)", ALC298_FIXUP_SAMSUNG_AMP),
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
-
-base-commit: a1eeed68b1f1d23ed05f66f43058988ba734ba8f
+diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
+index 700a18561a940..640cebd2983e2 100644
+--- a/sound/soc/kirkwood/kirkwood-dma.c
++++ b/sound/soc/kirkwood/kirkwood-dma.c
+@@ -86,7 +86,7 @@ kirkwood_dma_conf_mbus_windows(void __iomem *base, int win,
+ 
+ 	/* try to find matching cs for current dma address */
+ 	for (i = 0; i < dram->num_cs; i++) {
+-		const struct mbus_dram_window *cs = dram->cs + i;
++		const struct mbus_dram_window *cs = &dram->cs[i];
+ 		if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
+ 			writel(cs->base & 0xffff0000,
+ 				base + KIRKWOOD_AUDIO_WIN_BASE_REG(win));
 -- 
 2.39.2
+
+
 

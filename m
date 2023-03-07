@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53F56ADDF7
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 12:51:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095A26ADEDA
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 13:36:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C495B1437;
-	Tue,  7 Mar 2023 12:50:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C495B1437
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C351144B;
+	Tue,  7 Mar 2023 13:35:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C351144B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678189864;
-	bh=NwE5paZKCc4F6cV/BRZp+8nOhJFO5PIFHzKc0KnYcVM=;
+	s=default; t=1678192606;
+	bh=0w5StcIv7JrIw2dYJR9PXOs9iPVVlQMoWcUCrLH6kHc=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LJ5ZqkhohgtLesoAQQo4S55jC0rv1/D+togByF2Ea7HG9UnPWlD1pDIl3xI2XCtAX
-	 4jZ3dGgoU2z1xNvcZY23s2hck5KiHIW6hJf7w3N6G/xsLjfS6VY8QBAyvs/BPxfg5V
-	 qzxRSnuN+VM7DqS+E9xOTbqeFJMM0N3wtH1W9Vto=
+	b=o6oM3Oui00oyM7+k+Fu0P+t6QaLyKrVIfsEDDmKoeQib45r2hHReT0tELVX1X4X1y
+	 UHq8MTFLbO3LKdyofob+HZiHlTpFZkapUBrj2g/6F6jP1mZcJX0BgSHzn7njuS7c9q
+	 NJwdfqklfracz60ZwmAN09C8CVOpUlpQuJ1AogI4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67235F800C9;
-	Tue,  7 Mar 2023 12:50:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FEA5F80236;
+	Tue,  7 Mar 2023 13:35:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF578F80431; Tue,  7 Mar 2023 12:50:10 +0100 (CET)
+	id 757E8F8042F; Tue,  7 Mar 2023 13:35:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C18F4F80093
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 12:50:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C18F4F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id C7130F80093
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 13:35:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7130F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=N6BpcLIM
+ header.s=Intel header.b=b4N3g5tb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678189809; x=1709725809;
+  t=1678192543; x=1709728543;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=NwE5paZKCc4F6cV/BRZp+8nOhJFO5PIFHzKc0KnYcVM=;
-  b=N6BpcLIMr0nSHJuHafETcGT6LY9kN980GhnalTbsrSLR+N1tVUhBlxBH
-   Dbjxa+QMeeGyz9PSm3wc6bbHOoJwmeMeItAbL7KCfuHwtp1NU+QgMkgEV
-   MorgrTfUsLfnoQmJKaNWml5kat+MxbatOjYGeKX+XAuNavAQA7YOaYLgn
-   emBfBQOMA/bH+SUEYteKq/W6LDHXQEDE/GTjGZbOdMTdUnZP/C5gJ95gm
-   2HaMiTFT7IIgclY9QcXvW0V9CZWRfy9SptGHT+ZE++eXPHUpvb5lLOnsN
-   CvpIZ5qOfjgdkU7pVpT2OpXA74ppOQEZXfaoDmuqFJAiyHilJ2+Cw8OnA
+  bh=0w5StcIv7JrIw2dYJR9PXOs9iPVVlQMoWcUCrLH6kHc=;
+  b=b4N3g5tbTPxSYJ2sUj7nsow7VGoyk9qvjlZhrOmEIi70f7Nh4yFL1kTK
+   ugl7FRwFgIpsZc+M4Csh/DuXzSu7ElNPa4o8B3GJKebF3a4hbzkz11JQg
+   kIWUVEUGkoL+5IYK2vh6mXkISt8o82Me0mdO3b2/TmSXtpf7/XwCz+vNk
+   kQYNdKa/pb/dEi/tRd1BQmi6NNdLd2ByY++RUyrbxcaFKWKOjcxWK3+6c
+   rjxzbXhmpT+F2DKzJHZXj3W2b8k/T6w+tUrvHGFzYaTzCIEvGDaJrlP72
+   YlsUdSE6wVs1RclsdK1j+THS0vAuqY/IxgvE+18LXIi0QFCMYlZn696bT
    Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="335852844"
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="315492787"
 X-IronPort-AV: E=Sophos;i="5.98,240,1673942400";
-   d="scan'208";a="335852844"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 03:49:58 -0800
+   d="scan'208";a="315492787"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 04:35:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="819736862"
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="745444348"
 X-IronPort-AV: E=Sophos;i="5.98,240,1673942400";
-   d="scan'208";a="819736862"
+   d="scan'208";a="745444348"
 Received: from rganesh-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.47.75])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 03:49:56 -0800
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 04:35:34 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: loader: Remove log prefixes for
- snd_sof_run_firmware
-Date: Tue,  7 Mar 2023 13:50:18 +0200
-Message-Id: <20230307115018.5588-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 0/3] ASoC: SOF: ipc4: Add core_id support from topology
+Date: Tue,  7 Mar 2023 14:35:53 +0200
+Message-Id: <20230307123556.31328-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FCDHSFETQU2HKKBA3JT4OAKAB2Q4Z3KA
-X-Message-ID-Hash: FCDHSFETQU2HKKBA3JT4OAKAB2Q4Z3KA
+Message-ID-Hash: KDM6BNF6XP2LYCMXSIQDXWMNKDFVVWG5
+X-Message-ID-Hash: KDM6BNF6XP2LYCMXSIQDXWMNKDFVVWG5
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,13 +86,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- cujomalainey@chromium.org
+ rander.wang@intel.com, chao.song@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCDHSFETQU2HKKBA3JT4OAKAB2Q4Z3KA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KDM6BNF6XP2LYCMXSIQDXWMNKDFVVWG5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,41 +101,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
+Hi,
 
-Prefixs are unneeded since log level explains the same information
+The following series will add support for handling the core_id token which is
+needed for supporting multiple cores with complex topologies.
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Regards,
+Peter
 ---
- sound/soc/sof/loader.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Peter Ujfalusi (2):
+  ASoC: SOF: ipc4: Add macro to set the core_id in create_pipe message
+  ASoC: SOF: ipc4-topology: Add support for core_id for pipelines
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 81d202e5ce53..2f8555f11c03 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -123,7 +123,7 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 					       "fw_version", 0444);
- 		/* errors are only due to memory allocation, not debugfs */
- 		if (ret < 0) {
--			dev_err(sdev->dev, "error: snd_sof_debugfs_buf_item failed\n");
-+			dev_err(sdev->dev, "snd_sof_debugfs_buf_item failed\n");
- 			return ret;
- 		}
- 	}
-@@ -131,7 +131,7 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 	/* perform pre fw run operations */
- 	ret = snd_sof_dsp_pre_fw_run(sdev);
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: failed pre fw run op\n");
-+		dev_err(sdev->dev, "failed pre fw run op\n");
- 		return ret;
- 	}
- 
+Rander Wang (1):
+  ASoC: SOF: ipc4-topology: add core token in each module extended token
+    list
+
+ include/sound/sof/ipc4/header.h |  4 ++++
+ sound/soc/sof/ipc4-topology.c   | 13 ++++++++++---
+ sound/soc/sof/ipc4-topology.h   |  2 ++
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
 -- 
 2.39.2
 

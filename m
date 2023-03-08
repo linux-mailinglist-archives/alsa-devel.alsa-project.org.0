@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E086AFE87
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 06:41:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE0276AFEA1
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 06:55:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F5101747;
-	Wed,  8 Mar 2023 06:40:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F5101747
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7694F1744;
+	Wed,  8 Mar 2023 06:54:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7694F1744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678254066;
-	bh=MTzegJfU6vcQRuhaYnATVa/8JlBb1g6VFkODs/TFcxM=;
+	s=default; t=1678254906;
+	bh=oyW0CNGtPeuIEN3WNW7DpjoT9mY81reUjYE3tBvJxvc=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=noUPFHJBGTjEY77IzrOzFy09gH5HpMTkdmmwGcp8SopFcDpNCB2p7tY0VChvjU0DB
-	 T2EmKBksvmQuC6qHon8ob+LzGrSvZpGNcbSxXPlPhIp0l0ko+dYXGotLMuNMPBlKQN
-	 1hDRaxQstSIer305KLTWWc3FJJSC+B60Tmr3dSWg=
+	b=e/3CE4eCVmd64F72sZxe29sqO4ZkwsdY281cJ9EhHqlKk0UfYv+KXzP1gzzo3uH1O
+	 cdNLChdIg6JsPM7hK2uyebaUmkUPDKoJK162DaUPKxmTVy5NT9SfyGFsM/Tw+GpM0H
+	 cyrmO1upkbM8vU4R/miRmXOvZkGrUMyeSrIxmm7U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3590AF800DF;
-	Wed,  8 Mar 2023 06:40:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA3D4F80236;
+	Wed,  8 Mar 2023 06:54:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3439F80431; Wed,  8 Mar 2023 06:40:12 +0100 (CET)
+	id 69D7AF8042F; Wed,  8 Mar 2023 06:54:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,64 +35,66 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2088F80236
-	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 06:40:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2088F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id E475FF800DF
+	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 06:54:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E475FF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=N/Xyvu55;
+ header.s=susede2_rsa header.b=OHhzqCHl;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MsSFLmMg
+ header.s=susede2_ed25519 header.b=zFlA40Pl
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A3E31219CE;
-	Wed,  8 Mar 2023 05:40:08 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3410B21A37;
+	Wed,  8 Mar 2023 05:54:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1678254008;
+	t=1678254847;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SETYpkpQMST49MYA3BJbWtmG/kyTZaprDENnjGclN4M=;
-	b=N/Xyvu55i0lMn43T8vdaknu3x7Dn38FeXrixfhP/EyEb1pllzLflDrrZQM4lFbX1iDG7Lc
-	E6YejEa6SrqMaCD0RKZ0PQEG6NRjNXrVyARFdO2P9YNdvzEsnbsn6QKPupq68HCIdb+ymH
-	ZuLYD2Lpk1F3uoeGXmOiXRS/ddwd0Dc=
+	bh=WRph0MlMZ9SrWnexmzkHQlI+8YcXbcBj2+3PrBveAFU=;
+	b=OHhzqCHlkPz6/VTQed6SvvTr38HW7fp/8ErB0PvZywbqTBMzr+Wy9ZQUrHTtrtPeoPyG0I
+	z93QKe1PZnmGBBZ1fHx2eAVhtOJ+hJsAqBg/m876dXP8Ll1StUxKv6EoQtUOxB4Rrzh5bb
+	N0JuqhUJ9SJS4AhPz3cc1Lcf9ALtM50=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1678254008;
+	s=susede2_ed25519; t=1678254847;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SETYpkpQMST49MYA3BJbWtmG/kyTZaprDENnjGclN4M=;
-	b=MsSFLmMgNpHVspljo64fgULCejAWOxbQBM/qRj2sde0MMcqxcR4pZom2sOyrFbrqdcCouV
-	aT6gmM1uKDBnyqCA==
+	bh=WRph0MlMZ9SrWnexmzkHQlI+8YcXbcBj2+3PrBveAFU=;
+	b=zFlA40PluklopShGGzZ54NuGAZlwsv1EIa1ejla4wrjPNlVlg5EofusUAMvNDEkAvle6gB
+	JHh1FzWmdc9EYtBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 792D913596;
-	Wed,  8 Mar 2023 05:40:08 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 197FB13596;
+	Wed,  8 Mar 2023 05:54:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id dlO0HLgfCGRmQAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 08 Mar 2023 05:40:08 +0000
-Date: Wed, 08 Mar 2023 06:40:07 +0100
-Message-ID: <87h6uviyx4.wl-tiwai@suse.de>
+	id VSFlBf8iCGSORgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 08 Mar 2023 05:54:07 +0000
+Date: Wed, 08 Mar 2023 06:54:06 +0100
+Message-ID: <87fsafiy9t.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH] ALSA: hda: Match only Intel devices with
- CONTROLLER_IN_GPU()
-In-Reply-To: <20230307214054.886721-1-helgaas@kernel.org>
-References: <20230307214054.886721-1-helgaas@kernel.org>
+To: Florian =?ISO-8859-1?Q?H=E4nel?= <florian.haenel@echtzeit.solutions>
+Subject: Re: TC-Helicon Blender
+In-Reply-To: <948733d5-cbea-2c9f-95c7-6e95fdcacaba@echtzeit.solutions>
+References: <948733d5-cbea-2c9f-95c7-6e95fdcacaba@echtzeit.solutions>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4KN5WPSY65DSH6QTXMWNXUWRLT3U7727
-X-Message-ID-Hash: 4KN5WPSY65DSH6QTXMWNXUWRLT3U7727
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JEU65WI6S6OBHDW2WX4ZCE4FNPBAU6UV
+X-Message-ID-Hash: JEU65WI6S6OBHDW2WX4ZCE4FNPBAU6UV
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,14 +102,12 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4KN5WPSY65DSH6QTXMWNXUWRLT3U7727/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,22 +116,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 07 Mar 2023 22:40:54 +0100,
-Bjorn Helgaas wrote:
+On Mon, 13 Feb 2023 08:57:19 +0100,
+Florian Hänel wrote:
 > 
-> From: Bjorn Helgaas <bhelgaas@google.com>
+> I have this USB device called TC-Helicon Blender which provides 12
+> input streams, 8 output streams (6/4 stereo plugs), in addition to
+> some midi interface and internal playback and record channel.
 > 
-> CONTROLLER_IN_GPU() is clearly intended to match only Intel devices, but
-> previously it checked only the PCI Device ID, not the Vendor ID, so it
-> could match devices from other vendors that happened to use the same Device
-> ID.
+> Bus 005 Device 016: ID 1220:8fe1 TC Electronic Blender
 > 
-> Update CONTROLLER_IN_GPU() so it matches only Intel devices.
+> If I power the device on while connected to a windows machine with its
+> driver installed, then plug it into my linux machine, it appears to
+> work correctly:
 > 
-> Fixes: 535115b5ff51 ("ALSA: hda - Abort the probe without i915 binding for HSW/B")
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+> arecord -D front:CARD=Blender  -r48000 -fS32_LE -c 12 blender.wav -d 20
+> Recording WAVE 'blender.wav' : Signed 32 bit Little Endian, Rate 48000
+> Hz, Channels 12
+> 
+> 46080044 blender.wav
+> 
+> However if I have it on my linux machine while powering it on, I only
+> get timeouts and no samples from arecord:
+> 
+> arecord -D front:CARD=Blender  -r48000 -fS32_LE -c 12 blender.wav -d 20
+> Recording WAVE 'blender.wav' : Signed 32 bit Little Endian, Rate 48000
+> Hz, Channels 12
+> arecord: pcm_read:2221: read error: Input/output error
+> 
+> 44 blender.wav
 
-Thanks, applied now.
+So the device didn't give any data.
+
+> What can I do to try and get this device to init correctly under
+> linux? I have captured USB packets of the init phase using wireshark
+> on both windows and linux but comparing them is tedious if I don't
+> know what to look for. Are there quirks flags I can play around with?
+> This is my first time looking at a linux device driver issue like
+> this.
+
+Is it only about capture, i.e. playback works?
+Also, which kernel version are you testing?
+
+There are lots of quirks in USB-audio driver, take a look at
+sound/usb/quirks.c.  You can apply the existing quirk for your device
+with quirk_alias module option.
+
+> Would it be ok to attach the usb captures on this mailing list?
+
+The size matters, so no big data please.
 
 
 Takashi

@@ -2,112 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BBA36B0A3B
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 14:59:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9396B0AA4
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 15:12:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 684721872;
-	Wed,  8 Mar 2023 14:58:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 684721872
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C675185C;
+	Wed,  8 Mar 2023 15:11:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C675185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678283984;
-	bh=fDkj2qqI5Hd3gyncELfzGm9AhlqswmOIQl8Kz6+UxNw=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1678284736;
+	bh=eVViCHHqQHzki6sv582y6zVn0xSFW/QgACChNyDI+dM=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iTUeyonzrsbtjBfipc7kkn8syO/V9YKPRIxfwOtSSb3vQ1Qg41XBsfq+ktu/zS690
-	 t3l02+kxrNrcDPawTtyz2o52hXXF4hBn/HUvfKNKWXeOukD8JK+j60B441aszC4ims
-	 1ogMa5Gy0cpz6cHFqdwAnWotpJo8ydHBZ3pZcwk4=
+	b=JNGGxALv4yadSZ+aAU8+4R8Bgy76QwkBT55lhrWPr0u908XqCA0UJ2bcXx7wHGnwb
+	 FJdT3/gjXh0dNiLevbUfyBeMnTLYtIuk5jp/J1hhMIj7bcKlSZrQQdpgNvdC+ZDIGQ
+	 eJJO/sYAGAUfGbfGN9WTtsrB1ZOOPzCjRlcAfgfw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D830BF8042F;
-	Wed,  8 Mar 2023 14:58:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2996F80236;
+	Wed,  8 Mar 2023 15:11:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 358D2F80482; Wed,  8 Mar 2023 14:58:51 +0100 (CET)
+	id 9FE06F800DF; Wed,  8 Mar 2023 15:11:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1422BF80236
-	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 14:58:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1422BF80236
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=HMzSO0Os
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678283929; x=1709819929;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=fDkj2qqI5Hd3gyncELfzGm9AhlqswmOIQl8Kz6+UxNw=;
-  b=HMzSO0OsV0+eFwKsc4BZh/l2vKiZ+GqsPM7M3qNV5bqb5/pyY6+ltp7+
-   JzgzaDa/itIGSu9e7Y5FGRa/Rq8FOQ8gS0VDlpBcgC88JkeAOTVHfXWqi
-   C8bUCjRqOH4j+IeXjFybKoBmCmbN317jZyuZtpehifq1M0Tq/9zmJAdqp
-   SloACFpPYD5K2wBjV4yKePCYMpdkOx+hvQrZh4u1xq0X5PvWBG2oxCc8c
-   6qsmiljt6e3OIuGAv8XZwyUuUtXntICAQjH+yTW4xUwgi/pwpjnx6yLPW
-   CWdOGmVXTgK0yHnt6ZbAKbPpra371HKtUDP6nskXqr37jMMV7FLw9MKjm
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="336170525"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400";
-   d="scan'208";a="336170525"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 05:58:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="709429695"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400";
-   d="scan'208";a="709429695"
-Received: from vkhatavx-mobl.amr.corp.intel.com (HELO [10.255.34.124])
- ([10.255.34.124])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 05:58:44 -0800
-Message-ID: <85aba51e-1feb-5eb0-2e21-b714e217f9e4@linux.intel.com>
-Date: Wed, 8 Mar 2023 07:58:43 -0600
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3423FF8007E
+	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 15:10:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3423FF8007E
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-176d1a112bfso9971816fac.5
+        for <alsa-devel@alsa-project.org>;
+ Wed, 08 Mar 2023 06:10:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678284654;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BG0LVvFn1C/Da2Gc5O3YD8isCIsXrAwtxSQEVgE87AI=;
+        b=aQcDSITKw2k1ho8KegW8mXTzbq3CIMONJLNWOzqDpb/bujgn2+X2QS2wK5gB9T22pk
+         dqxpQPplD3Sl3m8tZKquOKwhCEQ/F/51XhxNBB5PRLlI48A2Xn2nO/VU/YUTyDYKQpTJ
+         ptoiQfEyYZ90PCRDZn+stZnPcYzb/f1EaAFVfpF5DItQCs8yPGxjL1jG4BZVtR71redS
+         2vCkKvEd4spfq/3lUwXBrKK+aRpPFov62yMAXW7MWkeCL0TAo2jCkmg3kRYgjgWeiv/l
+         XYbtSZKXEokpRGtEZRZOa36htY1HbDUhiHfQirLt4BkrdwWbvzYT1POWwZFhUbLedl71
+         efUg==
+X-Gm-Message-State: AO0yUKUMfvRiTFDdAYafDWXR/kQ/T1EX55dVkAXbj1wj2e5a3hygVn/O
+	he9wcpEqhXl2+eQm8rtmlA==
+X-Google-Smtp-Source: 
+ AK7set/cT2sp1M7e47IzQCQD2W8xtmPnZuAp+jI6K0s2N6oikhajQ93ypk71x4/YPZM2+Kr1qDFxTg==
+X-Received: by 2002:a05:6871:b11:b0:176:3849:4e96 with SMTP id
+ fq17-20020a0568710b1100b0017638494e96mr10140723oab.13.1678284654485;
+        Wed, 08 Mar 2023 06:10:54 -0800 (PST)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ f8-20020a9d2c08000000b00690dc5d9b9esm6498673otb.6.2023.03.08.06.10.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Mar 2023 06:10:54 -0800 (PST)
+Received: (nullmailer pid 2719199 invoked by uid 1000);
+	Wed, 08 Mar 2023 14:10:52 -0000
+Date: Wed, 8 Mar 2023 08:10:52 -0600
+From: Rob Herring <robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Fix SPI and I2C bus node names in examples
+Message-ID: <167828463126.2715010.4541489267949266802.robh@kernel.org>
+References: <20230228215433.3944508-1-robh@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.1
-Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
- support
-Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, vkoul@kernel.org
-References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
- <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
- <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
- <d5a75826-d762-27fc-5820-6826debdecd9@amd.com>
- <9399110b-bbba-f96e-85ef-a317e8f4d518@linux.intel.com>
- <4cbbff8a-c596-e9cc-a6cf-6f8b66607505@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <4cbbff8a-c596-e9cc-a6cf-6f8b66607505@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JLLI4EX4Z6SA77K5RADZVUS3V7ITXFXS
-X-Message-ID-Hash: JLLI4EX4Z6SA77K5RADZVUS3V7ITXFXS
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230228215433.3944508-1-robh@kernel.org>
+Message-ID-Hash: 4KF5XTOL5K2SUZKS325QX23LMB7JPNXA
+X-Message-ID-Hash: 4KF5XTOL5K2SUZKS325QX23LMB7JPNXA
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
- amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+CC: Pavel Machek <pavel@ucw.cz>, Neil Armstrong <neil.armstrong@linaro.org>,
+ devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>, linux-leds@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pm@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-gpio@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Lee Jones <lee@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-usb@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, alsa-devel@alsa-project.org,
+ netdev@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Chanwoo Choi <cw00.choi@samsung.com>,
+ Eric Dumazet <edumazet@google.com>, Mark Brown <broonie@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-can@vger.kernel.org, Guenter Roeck <groeck@chromium.org>,
+ Stephen Boyd <sboyd@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Benson Leung <bleung@chromium.org>,
+ linux-i2c@vger.kernel.org, Wolfgang Grandegger <wg@grandegger.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLLI4EX4Z6SA77K5RADZVUS3V7ITXFXS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4KF5XTOL5K2SUZKS325QX23LMB7JPNXA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,97 +125,146 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-
-On 3/7/23 22:32, Mukunda,Vijendar wrote:
-> On 08/03/23 02:38, Pierre-Louis Bossart wrote:
->>
->> On 3/7/23 14:25, Mukunda,Vijendar wrote:
->>> On 07/03/23 20:58, Pierre-Louis Bossart wrote:
->>>>> +static int amd_resume_child_device(struct device *dev, void *data)
->>>>> +{
->>>>> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
->>>>> +	int ret;
->>>>> +
->>>>> +	if (!slave->probed) {
->>>>> +		dev_dbg(dev, "skipping device, no probed driver\n");
->>>>> +		return 0;
->>>>> +	}
->>>>> +	if (!slave->dev_num_sticky) {
->>>>> +		dev_dbg(dev, "skipping device, never detected on bus\n");
->>>>> +		return 0;
->>>>> +	}
->>>>> +	if (!pm_runtime_suspended(dev))
->>>>> +		return 0;
->>>>> +	ret = pm_request_resume(dev);
->>>> I still don't get why the test above was needed. It's racy and brings
->>>> limited benefits.
->>> As explained below thread,
->>>
->>> https://lore.kernel.org/lkml/acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com
->>>
->>> Our scenario is multiple peripheral devices are connected
->>> over the same link.
->>>
->>> In our implementation, device_for_each_child() function invokes
->>> amd_resume_child_device callback for each child.
->>> When any one of the child device is active, It will break the
->>> iteration, which results in failure resuming all child devices.
->> Can you clarify the 'it will break the iteration' statement?
->>
->> Are you saying pm_request_resume() will return a negative error code if
->> the device is already active?
->>
->> We've used an unconditional pm_request_resume() in the Intel code for
->> quite some time, including with multiple amplifiers per link, and have
->> never observed the issue you report, so I'd like to get to the root
->> cause pretty please. You took the Intel code and added a test for AMD
->> platforms, and I'd really like to understand if the Intel code was wrong
->> in the first place, or if the test is not needed. Something does not add
->> up here.
-> AMP Codec (In aggregate mode) + Jack Codec connected over the same
-> link on our platform.
-> Consider below, scenario.
-> Active stream is running on AMP codec and Jack codec is already in runtime
-> suspend state.
-> If system level suspend is invoked, in prepare callback, we need to resume
-> both the codec devices.
+On Tue, 28 Feb 2023 15:54:33 -0600, Rob Herring wrote:
+> SPI and I2C bus node names are expected to be "spi" or "i2c",
+> respectively, with nothing else, a unit-address, or a '-N' index. A
+> pattern of 'spi0' or 'i2c0' or similar has crept in. Fix all these
+> cases. Mostly scripted with the following commands:
 > 
-> device_for_each_child() will invoke amd_resume_child_device() function callback
-> for each device which will try to resume the child device in this case.
-> By definition, device_for_each_child() Iterate over @parent's child devices,
-> and invokes the callback for each. We check the return of amd_resume_child_device()
-> each time.
-> If it returns anything other than 0, we break out and return that value.
+> git grep -l '\si2c[0-9] {' Documentation/devicetree/ | xargs sed -i -e 's/i2c[0-9] {/i2c {/'
+> git grep -l '\sspi[0-9] {' Documentation/devicetree/ | xargs sed -i -e 's/spi[0-9] {/spi {/'
 > 
-> In current scenario, As AMP codec is not in runtime suspend state,
-> pm_request_resume() will return a value as 1. This will break the
-> sequence for resuming rest of the child devices(JACK codec in our case).
-
-Well, yes, now that makes sense, thanks for the details.
-
-I think the reason why we didn't see the problem with the Intel code is
-that both amplifiers are on the same dailink, so they are by
-construction either both suspended or both active. We never had
-different types of devices on the same link.
-
-I would however suggest this simpler alternative, where only negative
-return values are returned:
-
-ret = pm_request_resume(dev);
-if (ret < 0) {
-	dev_err(dev, "pm_request_resume failed: %d\n", ret);
-        return ret;
-}
-return 0;
-
-this would work just fine, no?
-
-
+> With this, a few errors in examples were exposed and fixed.
 > 
-> As mentioned in an earlier thread, there are two possible solutions.
-> 1. check pm runtime suspend state and return 0 if it is not suspended
-> 2. simply always return 0 for amd_resume_child_device() function callback.
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+> Cc: Miguel Ojeda <ojeda@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Benson Leung <bleung@chromium.org>
+> Cc: Guenter Roeck <groeck@chromium.org>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Robert Foss <rfoss@kernel.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: MyungJoo Ham <myungjoo.ham@samsung.com>
+> Cc: Chanwoo Choi <cw00.choi@samsung.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+> Cc: Pavel Machek <pavel@ucw.cz>
+> Cc: Lee Jones <lee@kernel.org>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Wolfgang Grandegger <wg@grandegger.com>
+> Cc: Kalle Valo <kvalo@kernel.org>
+> Cc: Sebastian Reichel <sre@kernel.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: linux-clk@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-i2c@vger.kernel.org
+> Cc: linux-leds@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: linux-can@vger.kernel.org
+> Cc: linux-wireless@vger.kernel.org
+> Cc: linux-pm@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-usb@vger.kernel.org
+> ---
+>  .../bindings/auxdisplay/holtek,ht16k33.yaml       |  2 +-
+>  .../bindings/chrome/google,cros-ec-typec.yaml     |  2 +-
+>  .../chrome/google,cros-kbd-led-backlight.yaml     |  2 +-
+>  .../devicetree/bindings/clock/ti,lmk04832.yaml    |  2 +-
+>  .../bindings/display/bridge/analogix,anx7625.yaml |  2 +-
+>  .../bindings/display/bridge/anx6345.yaml          |  2 +-
+>  .../bindings/display/bridge/lontium,lt8912b.yaml  |  2 +-
+>  .../bindings/display/bridge/nxp,ptn3460.yaml      |  2 +-
+>  .../bindings/display/bridge/ps8640.yaml           |  2 +-
+>  .../bindings/display/bridge/sil,sii9234.yaml      |  2 +-
+>  .../bindings/display/bridge/ti,dlpc3433.yaml      |  2 +-
+>  .../bindings/display/bridge/toshiba,tc358762.yaml |  2 +-
+>  .../bindings/display/bridge/toshiba,tc358768.yaml |  2 +-
+>  .../bindings/display/panel/nec,nl8048hl11.yaml    |  2 +-
+>  .../bindings/display/solomon,ssd1307fb.yaml       |  4 ++--
+>  .../devicetree/bindings/eeprom/at25.yaml          |  2 +-
+>  .../bindings/extcon/extcon-usbc-cros-ec.yaml      |  2 +-
+>  .../bindings/extcon/extcon-usbc-tusb320.yaml      |  2 +-
+>  .../devicetree/bindings/gpio/gpio-pca9570.yaml    |  2 +-
+>  .../devicetree/bindings/gpio/gpio-pca95xx.yaml    |  8 ++++----
+>  .../bindings/i2c/google,cros-ec-i2c-tunnel.yaml   |  2 +-
+>  .../bindings/leds/cznic,turris-omnia-leds.yaml    |  2 +-
+>  .../devicetree/bindings/leds/issi,is31fl319x.yaml |  2 +-
+>  .../devicetree/bindings/leds/leds-aw2013.yaml     |  2 +-
+>  .../devicetree/bindings/leds/leds-rt4505.yaml     |  2 +-
+>  .../devicetree/bindings/leds/ti,tca6507.yaml      |  2 +-
+>  .../bindings/media/i2c/aptina,mt9p031.yaml        |  2 +-
+>  .../bindings/media/i2c/aptina,mt9v111.yaml        |  2 +-
+>  .../devicetree/bindings/media/i2c/imx219.yaml     |  2 +-
+>  .../devicetree/bindings/media/i2c/imx258.yaml     |  4 ++--
+>  .../devicetree/bindings/media/i2c/mipi-ccs.yaml   |  2 +-
+>  .../bindings/media/i2c/ovti,ov5648.yaml           |  2 +-
+>  .../bindings/media/i2c/ovti,ov772x.yaml           |  2 +-
+>  .../bindings/media/i2c/ovti,ov8865.yaml           |  2 +-
+>  .../bindings/media/i2c/ovti,ov9282.yaml           |  2 +-
+>  .../bindings/media/i2c/rda,rda5807.yaml           |  2 +-
+>  .../bindings/media/i2c/sony,imx214.yaml           |  2 +-
+>  .../bindings/media/i2c/sony,imx274.yaml           |  2 +-
+>  .../bindings/media/i2c/sony,imx334.yaml           |  2 +-
+>  .../bindings/media/i2c/sony,imx335.yaml           |  2 +-
+>  .../bindings/media/i2c/sony,imx412.yaml           |  2 +-
+>  .../devicetree/bindings/mfd/actions,atc260x.yaml  |  2 +-
+>  .../devicetree/bindings/mfd/google,cros-ec.yaml   |  6 +++---
+>  .../devicetree/bindings/mfd/ti,tps65086.yaml      |  2 +-
+>  .../devicetree/bindings/mfd/x-powers,axp152.yaml  |  4 ++--
+>  .../devicetree/bindings/net/asix,ax88796c.yaml    |  2 +-
+>  .../bindings/net/can/microchip,mcp251xfd.yaml     |  2 +-
+>  .../bindings/net/dsa/microchip,ksz.yaml           |  2 +-
+>  .../bindings/net/nfc/samsung,s3fwrn5.yaml         |  2 +-
+>  .../bindings/net/vertexcom-mse102x.yaml           |  2 +-
+>  .../bindings/net/wireless/ti,wlcore.yaml          | 10 ++++++++--
+>  .../devicetree/bindings/pinctrl/pinmux-node.yaml  |  2 +-
+>  .../bindings/pinctrl/starfive,jh7100-pinctrl.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq2415x.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq24190.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq24257.yaml |  4 ++--
+>  .../devicetree/bindings/power/supply/bq24735.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq2515x.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq25890.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq25980.yaml |  2 +-
+>  .../devicetree/bindings/power/supply/bq27xxx.yaml | 15 ++++++++-------
+>  .../bindings/power/supply/lltc,ltc294x.yaml       |  2 +-
+>  .../bindings/power/supply/ltc4162-l.yaml          |  2 +-
+>  .../bindings/power/supply/maxim,max14656.yaml     |  2 +-
+>  .../bindings/power/supply/maxim,max17040.yaml     |  4 ++--
+>  .../bindings/power/supply/maxim,max17042.yaml     |  2 +-
+>  .../bindings/power/supply/richtek,rt9455.yaml     |  2 +-
+>  .../bindings/power/supply/ti,lp8727.yaml          |  2 +-
+>  .../bindings/regulator/active-semi,act8865.yaml   |  2 +-
+>  .../regulator/google,cros-ec-regulator.yaml       |  2 +-
+>  .../bindings/regulator/nxp,pf8x00-regulator.yaml  |  2 +-
+>  .../devicetree/bindings/sound/everest,es8316.yaml |  2 +-
+>  .../devicetree/bindings/sound/tas2562.yaml        |  2 +-
+>  .../devicetree/bindings/sound/tas2770.yaml        |  2 +-
+>  .../devicetree/bindings/sound/tas27xx.yaml        |  2 +-
+>  .../devicetree/bindings/sound/tas5805m.yaml       |  2 +-
+>  .../devicetree/bindings/sound/tlv320adcx140.yaml  |  2 +-
+>  .../devicetree/bindings/sound/zl38060.yaml        |  2 +-
+>  .../devicetree/bindings/usb/maxim,max33359.yaml   |  2 +-
+>  .../bindings/usb/maxim,max3420-udc.yaml           |  2 +-
+>  .../bindings/usb/mediatek,mt6360-tcpc.yaml        |  2 +-
+>  .../devicetree/bindings/usb/richtek,rt1711h.yaml  |  2 +-
+>  .../devicetree/bindings/usb/richtek,rt1719.yaml   |  2 +-
+>  .../devicetree/bindings/usb/st,stusb160x.yaml     |  2 +-
+>  .../devicetree/bindings/usb/ti,hd3ss3220.yaml     |  2 +-
+>  .../devicetree/bindings/usb/ti,tps6598x.yaml      |  2 +-
+>  86 files changed, 110 insertions(+), 103 deletions(-)
 > 
-> We opted first one as solution.
 
-My suggestion looks like your option 2. It's cleaner IMHO.
+Applied, thanks!
+

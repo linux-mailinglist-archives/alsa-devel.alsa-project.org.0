@@ -2,34 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9126AD788
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 07:41:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33AEC6AD966
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Mar 2023 09:41:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28994139D;
-	Tue,  7 Mar 2023 07:40:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28994139D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A18F213B2;
+	Tue,  7 Mar 2023 09:41:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18F213B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678171293;
-	bh=0NWlXFmoGb4iNHFxbintGg6KUtGtwY2CogNttcdS208=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=mTg+cvIACoNYs+an2JjGKRHbqLC9omUoH4WTSHCf3maRFKL8me0IaNknaD8du2D3t
-	 NIXNshfFpWdmHjE8FgH0qdjnjw6rXxbUizlQRBqltEOKEJfjHDCz+YxU2iUNVqSAM/
-	 fK3vYO64XgRscfFhnwiCLCM5GWy0T/JOEL1VGpdw=
+	s=default; t=1678178510;
+	bh=H8pzGBn/Xmtw/MdTtcG+q+5Z5tWrtSLxmJccdev1lsM=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=M7/lHw2KDe5ICRnFAxWNym2k1eS/tVpve5HFgGTCIJ8HxmdEu3zSUw7lG3duH0KvC
+	 U+56T+GS1p/JzNEKHFp7v6dBvtioLNWlBgyuPEmipEo+4TUJXjPX/H2Zo4RH8hqEmC
+	 4ZwJ2ArGWaeqpO5aa/hAuOfdp3LhplK24pH3a9Ws=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 193ECF80236;
-	Tue,  7 Mar 2023 07:40:18 +0100 (CET)
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 1/4] ASoC: mediatek: mt8195: add dai id check before accessing
- array
-Date: Tue, 7 Mar 2023 12:09:35 +0800
-In-Reply-To: <20230307040938.7484-1-trevor.wu@mediatek.com>
-References: <20230307040938.7484-1-trevor.wu@mediatek.com>
+	by alsa1.perex.cz (Postfix) with ESMTP id 0951DF80236;
+	Tue,  7 Mar 2023 09:41:00 +0100 (CET)
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 0/2] ASoC: SOF: amd: Add pointer callback for amd
+Date: Wed, 8 Mar 2023 14:15:07 +0530
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -41,7 +35,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJ7PCI5GFBJF6TK7PM6XDL7W43WKQGDX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7I7GPPSRFUSNBM4MYTOLVV7JYFCQKL4O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -51,101 +45,128 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167817121195.26.14478837111894848170@mailman-core.alsa-project.org>
-From: Trevor Wu via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Trevor Wu <trevor.wu@mediatek.com>
-Cc: trevor.wu@mediatek.com, jiaxin.yu@mediatek.com,
- alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ <167817845922.26.18383455049932755085@mailman-core.alsa-project.org>
+From: V sujith kumar Reddy via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, ajitkumar.pandey@amd.com,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 611AFF8042F; Tue,  7 Mar 2023 07:39:34 +0100 (CET)
+	id E7983F8042F; Tue,  7 Mar 2023 09:40:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_FUTURE_24_48,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61e])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 757E5F800C9
-	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 07:39:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 757E5F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99610F800C9
+	for <alsa-devel@alsa-project.org>; Tue,  7 Mar 2023 09:40:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99610F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=LJOt7XCC
-X-UUID: aef009bcbcb211ed945fc101203acc17-20230307
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=uX8FTUwRYfAy8w7Dy3s9sKBg/HS7F0rl+yXqTa3r7zY=;
-	b=LJOt7XCCC5Sj3WmWSkj0ThTrGiJfwHCmuPBeTLF6IhzqUF/2gUa2lLbNWc3yDam5v0oVHVQuPMBeh7wUZ0ktK0PiRKfphPrS4sTYapKZEcooPt+k2ZMGEA41IFfvyyZz1IYcmTDbMUbdWOCyc4AqrR9pYstf77WrA8YGhC6ZtvE=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.20,REQID:4aa62433-61e6-45da-b3aa-f0df16fb824d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:95
-X-CID-INFO: VERSION:1.1.20,REQID:4aa62433-61e6-45da-b3aa-f0df16fb824d,IP:0,URL
-	:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
-	:quarantine,TS:95
-X-CID-META: VersionHash:25b5999,CLOUDID:3a6c9027-564d-42d9-9875-7c868ee415ec,B
-	ulkID:230307120943G2KIQYNQ,BulkQuantity:7,Recheck:0,SF:38|29|28|17|19|48,T
-	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,
-	OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-UUID: aef009bcbcb211ed945fc101203acc17-20230307
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 831957375; Tue, 07 Mar 2023 14:38:34 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with ShadowRedundancy id
- 15.2.1118.7; Tue, 7 Mar 2023 06:38:33 +0000
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Tue, 7 Mar 2023 12:09:41 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Tue, 7 Mar 2023 12:09:41 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 1/4] ASoC: mediatek: mt8195: add dai id check before accessing
- array
-Date: Tue, 7 Mar 2023 12:09:35 +0800
-Message-ID: <20230307040938.7484-2-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230307040938.7484-1-trevor.wu@mediatek.com>
-References: <20230307040938.7484-1-trevor.wu@mediatek.com>
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=XmC4bGVp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KwG8zOnAH88rA6LdpDHC7401di7FpzXbns/V2oHQZnbcGVEMjYVxqmfiY7ntBtqWMN483Nbc+3o+mjOqEJdW45BQeAnI/eP92qHUp6Wm3CCKBKhkvsmVI8Um2rkTZ8OZI/sWLH5ogDX75cchR+M2x/VR6znN0AjYjSgzQl651qHp+SsyUFyXc7r46S0CnEDMUPIkSspliO+33fC38lUuSuSJIQ7deddzu0S3LC2GhlbgLu4GkpjaM0jrUtBL/Mv/QSqXSFMOXlyzPvabrL49Zl0gx7mQ93D/8B2su5CDmvYJFbZo60A3reIOmPudZdzEk8O8bvLOqKEFKtCU/TrclA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j4TlNDftitA+kNbZAwsq83agQjMVHzxqstbOIzsgzbE=;
+ b=DRC1daiErb+BIwayVo6KYwVQQa7pPFf2X6VdTeR6s4OepDs+8y3evgwr9w6jH7iwGKE8aGrNWpG41VFeJE9clP+Zd5uyXG7B9k4QVsN5asbqoe8zchhTTG7M5b8YXSzI6tbtFWbN8SHj1i7oKbaHDG7XSZex4qIUI2gCyBzAMLoNrOcBo/IYADHTQmAs6G5AXOOCutc2mM3h6BW3OIctPRPgx499XjBSd5ivNBhEKrcCT3r1CGCsfXnBS+YFXtG9ZsXhYp1NBMADH6ebxnd0ujPV1TDmu2qlk/7sbzl4QJ+G3rqZEjLMrv/ledikOjPZcV/jnanyysJg8Og5KlDRKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j4TlNDftitA+kNbZAwsq83agQjMVHzxqstbOIzsgzbE=;
+ b=XmC4bGVpfKopsDu7HH2vW8Wc0WRPmWsTr5fnTSdp+Pr39Z7hrNe4ry7QIpIRKw5U1tUCbYhIqf/k1HVE1TBB6QmRAFKUOvitQYLcYuB9Zk24PsTsoXTu5VXkAKNWwv6LYkHNYHAWcm3bYGkgQTXbP+9jkb+LtipNXRIJqx2vu18=
+Received: from MW4P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::25)
+ by SA1PR12MB5671.namprd12.prod.outlook.com (2603:10b6:806:23b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Tue, 7 Mar
+ 2023 08:40:44 +0000
+Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8b:cafe::a5) by MW4P221CA0020.outlook.office365.com
+ (2603:10b6:303:8b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28 via Frontend
+ Transport; Tue, 7 Mar 2023 08:40:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.16 via Frontend Transport; Tue, 7 Mar 2023 08:40:43 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Mar
+ 2023 02:40:42 -0600
+Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 7 Mar 2023 02:40:40 -0600
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 0/2] ASoC: SOF: amd: Add pointer callback for amd
+Date: Wed, 8 Mar 2023 14:15:07 +0530
+Message-ID: <20230308084509.1496256-1-Vsujithkumar.Reddy@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: MJ7PCI5GFBJF6TK7PM6XDL7W43WKQGDX
-X-Message-ID-Hash: MJ7PCI5GFBJF6TK7PM6XDL7W43WKQGDX
-X-MailFrom: trevor.wu@mediatek.com
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|SA1PR12MB5671:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7eefa19a-f921-4a5e-6168-08db1ee7a40b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	cghJTt72wQ7sUCElfDyrFVWB80GhRRkN7tkMjFt3J5TZum8toHG2QmrvUvDA5oI1vf/gjNZG5pafyPaS9FKAoWugNI8hJaYW7Yp1CbdMFexVW/kMAc3kYOkNTJVMIsAb0StGKy+KbYNA6WopU7bv+tQ+SxK8+RbaQoo70c1WbaIjlOma5zGy89JqnzQ6tJPpKri81I4ib9dSYnP/f6bZDYd/L+P8y9Z6QMH7Y100dhNFYxWGW0EI1PCnzhMVIynyRymwPwFQQsqXm6kD2AzHwrfEaEnDvzevJ6GvFHwRmsLnFXRp/vCjwhyZ++HfL0L5aBojlINSQniR8Ihp8ho5Otq0tTIRtIou3Www5IRolPt+oiPGERQEoIncjjXBAD/F9IbHgYGstU3FyOZ02331KSFVNcJXUaqCYkVQBUe9j+NgB0K5dNV8SzH0+KY2fD6iWDqvvLAuT8Ggef0Yh+pfs+xEz2Ninudb5XMXRoW4QeonwmwhrjQ3uLBakmqxQC14RLkuOTizU7a1T/OeTJCEbOGxDORHJ3NccBtM0OViwpzPfTxS284BKilMSqnkS4MTNFQFdrxXNP8h3Vd78RAdWxJR887KjxdV1/pJGSrKY2tl9WbhGtqOb2B5J4hY4nG48dQboqrVFnUHwFOGV2RKi7UVrLEj0M8KuPwzy5AwAdbEvVyM4n1Qy6yQyYW7iKvDQyKeJIjtVtX8lU4b2lM43OM3BRSpyjNwGBGlZgVh58E=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(83380400001)(70206006)(70586007)(4326008)(8676002)(86362001)(82310400005)(186003)(81166007)(336012)(40480700001)(2616005)(356005)(36860700001)(82740400003)(36756003)(478600001)(110136005)(316002)(54906003)(6666004)(1076003)(426003)(47076005)(26005)(40460700003)(7696005)(2906002)(4744005)(8936002)(5660300002)(41300700001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2023 08:40:43.8889
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 7eefa19a-f921-4a5e-6168-08db1ee7a40b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5671
+Message-ID-Hash: 7I7GPPSRFUSNBM4MYTOLVV7JYFCQKL4O
+X-Message-ID-Hash: 7I7GPPSRFUSNBM4MYTOLVV7JYFCQKL4O
+X-MailFrom: Vsujithkumar.Reddy@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: trevor.wu@mediatek.com, jiaxin.yu@mediatek.com,
- alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, ajitkumar.pandey@amd.com,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJ7PCI5GFBJF6TK7PM6XDL7W43WKQGDX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7I7GPPSRFUSNBM4MYTOLVV7JYFCQKL4O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,511 +175,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Coverity shows "afe_priv->dai_priv[dai_id] evaluates to an address that
-could be at negative offset of an array.". Add dai id check before
-accessing the array element. This ensures that the offset of an array must
-be a valid index.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- sound/soc/mediatek/mt8195/mt8195-dai-adda.c |  17 +-
- sound/soc/mediatek/mt8195/mt8195-dai-etdm.c | 177 +++++++++++++++++---
- sound/soc/mediatek/mt8195/mt8195-dai-pcm.c  |  26 ++-
- 3 files changed, 185 insertions(+), 35 deletions(-)
+V sujith kumar Reddy (2):
+  ASoC: SOF: amd: Add pcm pointer callback for amd platforms.
+  ASoC: SOF: amd: Enable cont_update_posn variable in pcm hw_params.
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-adda.c b/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-index f04bd1781356..0dd35255066b 100644
---- a/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-@@ -704,13 +704,18 @@ static int mtk_dai_adda_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_adda_priv *adda_priv = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_adda_priv *adda_priv;
- 	unsigned int rate = params_rate(params);
--	int id = dai->id;
--	int ret = 0;
-+	int ret;
-+
-+	if (dai->id != MT8195_AFE_IO_DL_SRC &&
-+	    dai->id != MT8195_AFE_IO_UL_SRC1 &&
-+	    dai->id != MT8195_AFE_IO_UL_SRC2)
-+		return -EINVAL;
-+	adda_priv = afe_priv->dai_priv[dai->id];
- 
- 	dev_dbg(afe->dev, "%s(), id %d, stream %d, rate %d\n",
--		__func__, id, substream->stream, rate);
-+		__func__, dai->id, substream->stream, rate);
- 
- 	if (rate > ADDA_HIRES_THRES)
- 		adda_priv->hires_required = 1;
-@@ -718,9 +723,9 @@ static int mtk_dai_adda_hw_params(struct snd_pcm_substream *substream,
- 		adda_priv->hires_required = 0;
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		ret = mtk_dai_da_configure(afe, rate, id);
-+		ret = mtk_dai_da_configure(afe, rate, dai->id);
- 	else
--		ret = mtk_dai_ad_configure(afe, rate, id);
-+		ret = mtk_dai_ad_configure(afe, rate, dai->id);
- 
- 	return ret;
- }
-diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-index f2c9a1fdbe0d..eedb9165f911 100644
---- a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-@@ -137,6 +137,38 @@ static const struct mtk_dai_etdm_rate mt8195_etdm_rates[] = {
- 	{ .rate = 352800, .reg_value = 21, },
- };
- 
-+static bool mt8195_afe_etdm_is_valid(int id)
-+{
-+	switch (id) {
-+	case MT8195_AFE_IO_ETDM1_IN:
-+		fallthrough;
-+	case MT8195_AFE_IO_ETDM2_IN:
-+		fallthrough;
-+	case MT8195_AFE_IO_ETDM1_OUT:
-+		fallthrough;
-+	case MT8195_AFE_IO_ETDM2_OUT:
-+		fallthrough;
-+	case MT8195_AFE_IO_DPTX:
-+		fallthrough;
-+	case MT8195_AFE_IO_ETDM3_OUT:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool mt8195_afe_hdmitx_dptx_is_valid(int id)
-+{
-+	switch (id) {
-+	case MT8195_AFE_IO_DPTX:
-+		fallthrough;
-+	case MT8195_AFE_IO_ETDM3_OUT:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int get_etdm_fs_timing(unsigned int rate)
- {
- 	int i;
-@@ -236,8 +268,12 @@ static int is_cowork_mode(struct snd_soc_dai *dai)
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai->id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai->id];
- 	return (etdm_data->cowork_slv_count > 0 ||
- 		etdm_data->cowork_source_id != COWORK_ETDM_NONE);
- }
-@@ -264,8 +300,14 @@ static int get_etdm_cowork_master_id(struct snd_soc_dai *dai)
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
--	int dai_id = etdm_data->cowork_source_id;
-+	struct mtk_dai_etdm_priv *etdm_data;
-+	int dai_id;
-+
-+	if (!mt8195_afe_etdm_is_valid(dai->id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai->id];
-+	dai_id = etdm_data->cowork_source_id;
- 
- 	if (dai_id == COWORK_ETDM_NONE)
- 		dai_id = dai->id;
-@@ -1276,9 +1318,13 @@ static int mt8195_afe_enable_etdm(struct mtk_base_afe *afe, int dai_id)
- 	int ret = 0;
- 	struct etdm_con_reg etdm_reg;
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	unsigned long flags;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
- 	spin_lock_irqsave(&afe_priv->afe_ctrl_lock, flags);
- 	etdm_data->en_ref_cnt++;
- 	if (etdm_data->en_ref_cnt == 1) {
-@@ -1299,9 +1345,13 @@ static int mt8195_afe_disable_etdm(struct mtk_base_afe *afe, int dai_id)
- 	int ret = 0;
- 	struct etdm_con_reg etdm_reg;
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	unsigned long flags;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
- 	spin_lock_irqsave(&afe_priv->afe_ctrl_lock, flags);
- 	if (etdm_data->en_ref_cnt > 0) {
- 		etdm_data->en_ref_cnt--;
-@@ -1357,12 +1407,16 @@ static int etdm_cowork_slv_sel(int id, int slave_mode)
- static int mt8195_etdm_sync_mode_configure(struct mtk_base_afe *afe, int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	unsigned int reg = 0;
- 	unsigned int mask;
- 	unsigned int val;
- 	int cowork_source_sel;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
- 	if (etdm_data->cowork_source_id == COWORK_ETDM_NONE)
- 		return 0;
- 
-@@ -1532,8 +1586,10 @@ static int mtk_dai_etdm_startup(struct snd_pcm_substream *substream,
- 
- 	if (is_cowork_mode(dai)) {
- 		mst_dai_id = get_etdm_cowork_master_id(dai);
--		mtk_dai_etdm_enable_mclk(afe, mst_dai_id);
-+		if (!mt8195_afe_etdm_is_valid(mst_dai_id))
-+			return -EINVAL;
- 
-+		mtk_dai_etdm_enable_mclk(afe, mst_dai_id);
- 		cg_id = mtk_dai_etdm_get_cg_id_by_dai_id(mst_dai_id);
- 		if (cg_id >= 0)
- 			mt8195_afe_enable_clk(afe, afe_priv->clk[cg_id]);
-@@ -1571,6 +1627,9 @@ static void mtk_dai_etdm_shutdown(struct snd_pcm_substream *substream,
- 
- 	if (is_cowork_mode(dai)) {
- 		mst_dai_id = get_etdm_cowork_master_id(dai);
-+		if (!mt8195_afe_etdm_is_valid(mst_dai_id))
-+			return;
-+
- 		cg_id = mtk_dai_etdm_get_cg_id_by_dai_id(mst_dai_id);
- 		if (cg_id >= 0)
- 			mt8195_afe_disable_clk(afe, afe_priv->clk[cg_id]);
-@@ -1631,16 +1690,24 @@ static int mtk_dai_etdm_in_configure(struct mtk_base_afe *afe,
- 				     int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	struct etdm_con_reg etdm_reg;
--	bool slave_mode = etdm_data->slave_mode;
--	unsigned int data_mode = etdm_data->data_mode;
--	unsigned int lrck_width = etdm_data->lrck_width;
-+	bool slave_mode;
-+	unsigned int data_mode;
-+	unsigned int lrck_width;
- 	unsigned int val = 0;
- 	unsigned int mask = 0;
- 	int i;
- 	int ret;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
-+	slave_mode = etdm_data->slave_mode;
-+	data_mode = etdm_data->data_mode;
-+	lrck_width = etdm_data->lrck_width;
-+
- 	dev_dbg(afe->dev, "%s rate %u channels %u, id %d\n",
- 		__func__, rate, channels, dai_id);
- 
-@@ -1748,15 +1815,22 @@ static int mtk_dai_etdm_out_configure(struct mtk_base_afe *afe,
- 				      int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	struct etdm_con_reg etdm_reg;
--	bool slave_mode = etdm_data->slave_mode;
--	unsigned int lrck_width = etdm_data->lrck_width;
-+	bool slave_mode;
-+	unsigned int lrck_width;
- 	unsigned int val = 0;
- 	unsigned int mask = 0;
- 	int ret;
- 	int fs = 0;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
-+	slave_mode = etdm_data->slave_mode;
-+	lrck_width = etdm_data->lrck_width;
-+
- 	dev_dbg(afe->dev, "%s rate %u channels %u, id %d\n",
- 		__func__, rate, channels, dai_id);
- 
-@@ -1837,7 +1911,7 @@ static int mtk_dai_etdm_out_configure(struct mtk_base_afe *afe,
- static int mtk_dai_etdm_mclk_configure(struct mtk_base_afe *afe, int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	int clk_id = mtk_dai_etdm_get_clk_id_by_dai_id(dai_id);
- 	int clkdiv_id = mtk_dai_etdm_get_clkdiv_id_by_dai_id(dai_id);
- 	int apll;
-@@ -1850,6 +1924,10 @@ static int mtk_dai_etdm_mclk_configure(struct mtk_base_afe *afe, int dai_id)
- 	if (clk_id < 0 || clkdiv_id < 0)
- 		return 0;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
- 	ret = get_etdm_reg(dai_id, &etdm_reg);
- 	if (ret < 0)
- 		return ret;
-@@ -1888,9 +1966,9 @@ static int mtk_dai_etdm_configure(struct mtk_base_afe *afe,
- 				  int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	struct etdm_con_reg etdm_reg;
--	bool slave_mode = etdm_data->slave_mode;
-+	bool slave_mode;
- 	unsigned int etdm_channels;
- 	unsigned int val = 0;
- 	unsigned int mask = 0;
-@@ -1898,6 +1976,11 @@ static int mtk_dai_etdm_configure(struct mtk_base_afe *afe,
- 	unsigned int wlen = get_etdm_wlen(bit_width);
- 	int ret;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
-+	slave_mode = etdm_data->slave_mode;
- 	ret = get_etdm_reg(dai_id, &etdm_reg);
- 	if (ret < 0)
- 		return ret;
-@@ -1973,6 +2056,8 @@ static int mtk_dai_etdm_hw_params(struct snd_pcm_substream *substream,
- 
- 	if (is_cowork_mode(dai)) {
- 		mst_dai_id = get_etdm_cowork_master_id(dai);
-+		if (!mt8195_afe_etdm_is_valid(mst_dai_id))
-+			return -EINVAL;
- 
- 		ret = mtk_dai_etdm_mclk_configure(afe, mst_dai_id);
- 		if (ret)
-@@ -2024,6 +2109,9 @@ static int mtk_dai_etdm_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 		if (is_cowork_mode(dai)) {
- 			mst_dai_id = get_etdm_cowork_master_id(dai);
-+			if (!mt8195_afe_etdm_is_valid(mst_dai_id))
-+				return -EINVAL;
-+
- 			mst_etdm_data = afe_priv->dai_priv[mst_dai_id];
- 
- 			//open master first
-@@ -2040,6 +2128,9 @@ static int mtk_dai_etdm_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 		if (is_cowork_mode(dai)) {
- 			mst_dai_id = get_etdm_cowork_master_id(dai);
-+			if (!mt8195_afe_etdm_is_valid(mst_dai_id))
-+				return -EINVAL;
-+
- 			mst_etdm_data = afe_priv->dai_priv[mst_dai_id];
- 
- 			for (i = 0; i < mst_etdm_data->cowork_slv_count; i++) {
-@@ -2061,10 +2152,14 @@ static int mtk_dai_etdm_trigger(struct snd_pcm_substream *substream, int cmd,
- static int mtk_dai_etdm_cal_mclk(struct mtk_base_afe *afe, int freq, int dai_id)
- {
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai_id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	int apll;
- 	int apll_rate;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai_id];
- 	if (freq == 0) {
- 		etdm_data->mclk_freq = freq;
- 		return 0;
-@@ -2104,6 +2199,9 @@ static int mtk_dai_etdm_set_sysclk(struct snd_soc_dai *dai,
- 	else
- 		dai_id = dai->id;
- 
-+	if (!mt8195_afe_etdm_is_valid(dai_id))
-+		return -EINVAL;
-+
- 	etdm_data = afe_priv->dai_priv[dai_id];
- 	etdm_data->mclk_dir = dir;
- 	return mtk_dai_etdm_cal_mclk(afe, freq, dai_id);
-@@ -2115,8 +2213,12 @@ static int mtk_dai_etdm_set_tdm_slot(struct snd_soc_dai *dai,
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
-+
-+	if (!mt8195_afe_etdm_is_valid(dai->id))
-+		return -EINVAL;
- 
-+	etdm_data = afe_priv->dai_priv[dai->id];
- 	dev_dbg(dai->dev, "%s id %d slot_width %d\n",
- 		__func__, dai->id, slot_width);
- 
-@@ -2129,8 +2231,12 @@ static int mtk_dai_etdm_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
-+
-+	if (!mt8195_afe_etdm_is_valid(dai->id))
-+		return -EINVAL;
- 
-+	etdm_data = afe_priv->dai_priv[dai->id];
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
- 		etdm_data->format = MTK_DAI_ETDM_FORMAT_I2S;
-@@ -2248,13 +2354,18 @@ static int mtk_dai_hdmitx_dptx_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 	unsigned int rate = params_rate(params);
- 	unsigned int channels = params_channels(params);
- 	snd_pcm_format_t format = params_format(params);
- 	int width = snd_pcm_format_physical_width(format);
- 	int ret = 0;
- 
-+	if (!mt8195_afe_hdmitx_dptx_is_valid(dai->id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai->id];
-+
- 	/* dptx configure */
- 	if (dai->id == MT8195_AFE_IO_DPTX) {
- 		regmap_update_bits(afe->regmap, AFE_DPTX_CON,
-@@ -2331,7 +2442,12 @@ static int mtk_dai_hdmitx_dptx_set_sysclk(struct snd_soc_dai *dai,
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
-+
-+	if (!mt8195_afe_hdmitx_dptx_is_valid(dai->id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai->id];
- 
- 	dev_dbg(dai->dev, "%s id %d freq %u, dir %d\n",
- 		__func__, dai->id, freq, dir);
-@@ -2370,10 +2486,14 @@ static int mtk_dai_etdm_probe(struct snd_soc_dai *dai)
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_etdm_priv *etdm_data = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_etdm_priv *etdm_data;
- 
- 	dev_dbg(dai->dev, "%s id %d\n", __func__, dai->id);
- 
-+	if (!mt8195_afe_etdm_is_valid(dai->id))
-+		return -EINVAL;
-+
-+	etdm_data = afe_priv->dai_priv[dai->id];
- 	if (etdm_data->mclk_freq) {
- 		dev_dbg(afe->dev, "MCLK always on, rate %d\n",
- 			etdm_data->mclk_freq);
-@@ -2477,6 +2597,11 @@ static void mt8195_etdm_update_sync_info(struct mtk_base_afe *afe)
- 		etdm_data = afe_priv->dai_priv[i];
- 		if (etdm_data->cowork_source_id != COWORK_ETDM_NONE) {
- 			mst_dai_id = etdm_data->cowork_source_id;
-+			if (!mt8195_afe_etdm_is_valid(mst_dai_id)) {
-+				dev_err(afe->dev, "%s invalid dai id %d\n",
-+					__func__, mst_dai_id);
-+				return;
-+			}
- 			mst_data = afe_priv->dai_priv[mst_dai_id];
- 			if (mst_data->cowork_source_id != COWORK_ETDM_NONE)
- 				dev_info(afe->dev, "%s [%d] wrong sync source\n"
-@@ -2513,6 +2638,12 @@ static void mt8195_dai_etdm_parse_of(struct mtk_base_afe *afe)
- 
- 	for (i = 0; i < MT8195_AFE_IO_ETDM_NUM; i++) {
- 		dai_id = ETDM_TO_DAI_ID(i);
-+		if (!mt8195_afe_etdm_is_valid(dai_id)) {
-+			dev_err(afe->dev, "%s invalid dai id %d\n",
-+				__func__, dai_id);
-+			return;
-+		}
-+
- 		etdm_data = afe_priv->dai_priv[dai_id];
- 
- 		ret = snprintf(prop, sizeof(prop),
-diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-pcm.c b/sound/soc/mediatek/mt8195/mt8195-dai-pcm.c
-index 051433689ff5..6d6d79300d51 100644
---- a/sound/soc/mediatek/mt8195/mt8195-dai-pcm.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-dai-pcm.c
-@@ -122,17 +122,26 @@ static int mtk_dai_pcm_configure(struct snd_pcm_substream *substream,
- 	struct snd_pcm_runtime * const runtime = substream->runtime;
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_pcmif_priv *pcmif_priv = afe_priv->dai_priv[dai->id];
--	unsigned int slave_mode = pcmif_priv->slave_mode;
--	unsigned int lrck_inv = pcmif_priv->lrck_inv;
--	unsigned int bck_inv = pcmif_priv->bck_inv;
--	unsigned int fmt = pcmif_priv->format;
-+	struct mtk_dai_pcmif_priv *pcmif_priv;
-+	unsigned int slave_mode;
-+	unsigned int lrck_inv;
-+	unsigned int bck_inv;
-+	unsigned int fmt;
- 	unsigned int bit_width = dai->sample_bits;
- 	unsigned int val = 0;
- 	unsigned int mask = 0;
- 	int fs = 0;
- 	int mode = 0;
- 
-+	if (dai->id != MT8195_AFE_IO_PCM)
-+		return -EINVAL;
-+
-+	pcmif_priv = afe_priv->dai_priv[dai->id];
-+	slave_mode = pcmif_priv->slave_mode;
-+	lrck_inv = pcmif_priv->lrck_inv;
-+	bck_inv = pcmif_priv->bck_inv;
-+	fmt = pcmif_priv->format;
-+
- 	/* sync freq mode */
- 	fs = mt8195_afe_fs_timing(runtime->rate);
- 	if (fs < 0)
-@@ -230,10 +239,15 @@ static int mtk_dai_pcm_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
--	struct mtk_dai_pcmif_priv *pcmif_priv = afe_priv->dai_priv[dai->id];
-+	struct mtk_dai_pcmif_priv *pcmif_priv;
- 
- 	dev_dbg(dai->dev, "%s fmt 0x%x\n", __func__, fmt);
- 
-+	if (dai->id != MT8195_AFE_IO_PCM)
-+		return -EINVAL;
-+
-+	pcmif_priv = afe_priv->dai_priv[dai->id];
-+
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
- 		pcmif_priv->format = MTK_DAI_PCM_FMT_I2S;
+ sound/soc/sof/amd/acp-common.c |  1 +
+ sound/soc/sof/amd/acp-pcm.c    | 34 ++++++++++++++++++++++++++++++++++
+ sound/soc/sof/amd/acp.h        |  2 ++
+ 3 files changed, 37 insertions(+)
+
 -- 
-2.18.0
+2.25.1
 

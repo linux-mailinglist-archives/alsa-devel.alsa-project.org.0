@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793A16B05C2
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 12:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A7246B05D7
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 12:23:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A232017D3;
-	Wed,  8 Mar 2023 12:21:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A232017D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 569A31817;
+	Wed,  8 Mar 2023 12:22:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 569A31817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678274565;
-	bh=lGdJ9WTyXXmC97TknANQhOpSyraJGI5n8TG/m7EnJIk=;
+	s=default; t=1678274600;
+	bh=X1lKIGGl7ws0P2KZsZjxpuTlLgot/OH2rmRADrkQEWs=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aQVX/CwtlH1fgSxbtcQymAM2NmXR1Q0D/rPrfgw0UsD8/xHm+Vggky45lJNhAT5SA
-	 aJjsvpzGoage2CVlBwYtUMKrS0wFf8MENa0U6cCJkRTGIGXXSEvVWno95Bobtn6Qre
-	 edqCTwFNesUkN27JRPjFXnCsKniu1icAtFA89sj8=
+	b=HvCjfv7NxioXI3aMotBtgjAkbYSoNiRatFaRLCnNzfb0ExGv6C9te3v3Nfzzt8YUx
+	 7AwBXQCqgSrRoaZxSGpqbhsDv6zouqVqWmZUljaZfoHXOHZSTG8vGhqfDDCybJCA6q
+	 ZRK/FIGYhd99FGb4ZrMbv22rnHIjvIsmDoozALz8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0722F8055A;
-	Wed,  8 Mar 2023 12:20:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26F75F80580;
+	Wed,  8 Mar 2023 12:20:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E671F8052D; Wed,  8 Mar 2023 08:35:47 +0100 (CET)
+	id 0E8B3F8042F; Wed,  8 Mar 2023 08:37:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3AC1F8051B
-	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 08:35:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3AC1F8051B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13CF7F80482
+	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 08:35:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13CF7F80482
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=QHNf0aLV
-Received: by mail-ed1-x52a.google.com with SMTP id g3so62151986eda.1
+ header.s=20210112 header.b=Qm6adxrv
+Received: by mail-ed1-x530.google.com with SMTP id da10so62106485edb.3
         for <alsa-devel@alsa-project.org>;
- Tue, 07 Mar 2023 23:35:31 -0800 (PST)
+ Tue, 07 Mar 2023 23:35:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678260930;
+        d=gmail.com; s=20210112; t=1678260931;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=39MKY2PBggsOqLz16dtI8J1bAyc0BT5d5OTGVqhjQKs=;
-        b=QHNf0aLV0JBCmKc7lo9CAcdqetX0+L7WO5mOJT6e1MG2iD5mPktKd8CpCvITismNE8
-         nAZbon1hMTDWH09FXCFpkBeJiqt4LhWe0frq9/LtZIhSMrd8Er0+VvpimR8KbJtjHFZe
-         ShlFEbH/K7Vpz65ubEXRTnjKglid7YAbP9NQGR+tKBzWZX8mv1S7YANnYTRcJ7fh6OhS
-         NyHDOUMasETq8xtiwNndMKQlL24TffXN4qtUUmF1S97ASdNp57vJTJ5a5yUYaWsouYCS
-         Nq94fWqucEqCW9D9ZJLVLFlL6HRf2w01sjBcWaUZtNoVQ+Tkcv5U6QGtKjsyMAFomo6p
-         /ogQ==
+        bh=1fl8uW/bQJEJTin+QIg8DWseVdDDVo44lOoVAOeBzPc=;
+        b=Qm6adxrvZNiyIQbLUCsj66urFNjR/BgPWPxUMP16ivYCXpi1zIYeSQe3B2yITeMI3u
+         +AuwNDUqk1IB12ZPyulZha3fwvbO0M3KCw9u45yMdbfZHe+PypAHHybYmS7QqV1X2Mz9
+         gp/AhXVhWCpZb0l9wBU7lQjQgYrYuWGo8Nr/y/ypJcFe3lUgCd0gMSFHQvmSBhryxtmj
+         l7bZ1pn37/vkR2VS0HK8TdOWdFro+H/2GMrXTc95U3EZ72b9x9SGYvp7nANgg5HbSi9x
+         4lUkHhKPuF50dmL+J1rYVJXtPVxo2DVnahdjWzVpW743ojRgB/LWD6wiynXWGrLCLqkE
+         eDeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678260930;
+        d=1e100.net; s=20210112; t=1678260931;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=39MKY2PBggsOqLz16dtI8J1bAyc0BT5d5OTGVqhjQKs=;
-        b=xVKhwyMkRW017y50Cm49lSeBNgTsTkV2goeVHApCDUCpPMNrfT3NLcpq7bV555eN3C
-         Dph9ob5LHP7ZpE6RRVgu0YZIcwIzFOdKumUT71VnxnatgB5/VpZWvc1hbgDB8xImUldw
-         GuYwSIUN+sph/yG+pHc0oyGPk67xlnlcvA4L+dQFE4uNe/gwWCZaoBJyLCH4dqMgedQf
-         dPuxjLCER3ssu+ZvvH9zIkk1g3Bmj2jRYrb1j0V8avFGvxazyo43jfBFwG/cU/bnuZx1
-         Cj49LusmV+HUo4bFso423Eopx+F4Mw3IRM80t4ih4q0ECbIrWRNaajC62jRjT9ftNfsl
-         +INQ==
-X-Gm-Message-State: AO0yUKVMDyGn+loGAMlSMHy0WIMEfZb17SdgTMJ45Jmjq0p3V2i0mAeU
-	SJhhDxL01pD2QABOF5greXM=
+        bh=1fl8uW/bQJEJTin+QIg8DWseVdDDVo44lOoVAOeBzPc=;
+        b=mAzSk1OanPoNhRv4iEANQcJqgVejDJEAo1DzSVYB2BOIABvTMqm8A6WP/ybPQMQweJ
+         V+ki+qca/BV/if7Ms5gbMTzlaDGOm4YuEZKFgj8VDEIrJpEhtVqmy8JKkOhkIQW/9sLW
+         aa8oMpjAlt+rdXZ93bS5LY2leTlE+O8qnthQH6ys3ggamr5yaMgO7P78i0ja5iflcia9
+         qWVWk9M4wGRkBICnB7c5pqh/9jK1vS7gTP2mIQgzMaS+VheW5pzaAB2XQlXvbsYSHVWv
+         mm+OtA89fJA62EG8pGkDGoJejTXRWxCIcFNVUaBd/XPMye3Xdu1Lj2LatcpIb/+mcOio
+         pwrg==
+X-Gm-Message-State: AO0yUKWBGFocWR/igDJx0OkFPcUp7c3c+mo7wAhn3KloKmFc3XmE0t9A
+	HlOHvSEzc8HhL6XRiRz0Sm8=
 X-Google-Smtp-Source: 
- AK7set8ZGa8fQHr0KjSuQKfjIPJyG5o7GhZibY+r358ltED0FvEzlU0aKzEoqt3sLzCE8W9a4IOqnw==
-X-Received: by 2002:a05:6402:1810:b0:4ab:ec2:3cd1 with SMTP id
- g16-20020a056402181000b004ab0ec23cd1mr15708604edy.25.1678260930042;
-        Tue, 07 Mar 2023 23:35:30 -0800 (PST)
+ AK7set/NFf6G0tf6b/6ZRhaWwjmnNrR8ydXanCprah2G3RGIl8hZqeFlEBgXKgqA6/TtHiX34T82dA==
+X-Received: by 2002:a17:906:fe44:b0:88f:8a5:b4cd with SMTP id
+ wz4-20020a170906fe4400b0088f08a5b4cdmr19309704ejb.1.1678260931239;
+        Tue, 07 Mar 2023 23:35:31 -0800 (PST)
 Received: from xeon.. ([188.163.112.76])
         by smtp.gmail.com with ESMTPSA id
- h15-20020a1709062dcf00b008dffda52d71sm7051880eji.124.2023.03.07.23.35.28
+ h15-20020a1709062dcf00b008dffda52d71sm7051880eji.124.2023.03.07.23.35.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Mar 2023 23:35:29 -0800 (PST)
+        Tue, 07 Mar 2023 23:35:31 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -94,9 +94,10 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	Svyatoslav Ryhel <clamor95@gmail.com>,
 	Maxim Schwalm <maxim.schwalm@gmail.com>,
 	Dmitry Osipenko <digetx@gmail.com>
-Subject: [PATCH v2 6/8] ARM: tegra: transformers: bind RT5631 sound nodes
-Date: Wed,  8 Mar 2023 09:35:00 +0200
-Message-Id: <20230308073502.5421-7-clamor95@gmail.com>
+Subject: [PATCH v2 7/8] dt-bindings: sound: nvidia,tegra-audio: add MAX9808x
+ CODEC
+Date: Wed,  8 Mar 2023 09:35:01 +0200
+Message-Id: <20230308073502.5421-8-clamor95@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230308073502.5421-1-clamor95@gmail.com>
 References: <20230308073502.5421-1-clamor95@gmail.com>
@@ -108,9 +109,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TFJEMMN53ROFW2WJ6PJPOC3SD37VQAVE
-X-Message-ID-Hash: TFJEMMN53ROFW2WJ6PJPOC3SD37VQAVE
-X-Mailman-Approved-At: Wed, 08 Mar 2023 11:20:03 +0000
+Message-ID-Hash: TPYVVOUWJSJOTORRDSMYA5ZCKSIWFMEG
+X-Message-ID-Hash: TPYVVOUWJSJOTORRDSMYA5ZCKSIWFMEG
+X-Mailman-Approved-At: Wed, 08 Mar 2023 11:20:25 +0000
 CC: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
  linux-staging@lists.linux.dev
@@ -119,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFJEMMN53ROFW2WJ6PJPOC3SD37VQAVE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TPYVVOUWJSJOTORRDSMYA5ZCKSIWFMEG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,99 +129,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-TF201, TF300TG and TF700T support RT5631 codec.
+Add dt-binding for MAX9808x CODEC.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/tegra30-asus-tf201.dts   | 17 +++++++++++++++++
- arch/arm/boot/dts/tegra30-asus-tf300tg.dts | 17 +++++++++++++++++
- arch/arm/boot/dts/tegra30-asus-tf700t.dts  | 17 +++++++++++++++++
- 3 files changed, 51 insertions(+)
+ .../sound/nvidia,tegra-audio-max9808x.yaml    | 90 +++++++++++++++++++
+ 1 file changed, 90 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
 
-diff --git a/arch/arm/boot/dts/tegra30-asus-tf201.dts b/arch/arm/boot/dts/tegra30-asus-tf201.dts
-index 315c6dc068c5..47865deeb88a 100644
---- a/arch/arm/boot/dts/tegra30-asus-tf201.dts
-+++ b/arch/arm/boot/dts/tegra30-asus-tf201.dts
-@@ -605,6 +605,23 @@ haptic-feedback {
- 		enable-gpios = <&gpio TEGRA_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
- 		vcc-supply = <&vdd_3v3_sys>;
- 	};
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+new file mode 100644
+index 000000000000..fc89dbd6bf24
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-max9808x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	sound {
-+		compatible = "asus,tegra-audio-rt5631-tf201",
-+			     "nvidia,tegra-audio-rt5631";
-+		nvidia,model = "Asus Transformer Prime TF201 RT5631";
++title: NVIDIA Tegra audio complex with MAX9808x CODEC
 +
-+		nvidia,audio-routing =
-+			"Headphone Jack", "HPOL",
-+			"Headphone Jack", "HPOR",
-+			"Int Spk", "SPOL",
-+			"Int Spk", "SPOR",
-+			"MIC1", "MIC Bias1",
-+			"MIC Bias1", "Headset Mic",
-+			"DMIC", "Int Mic";
++maintainers:
++  - Jon Hunter <jonathanh@nvidia.com>
++  - Thierry Reding <thierry.reding@gmail.com>
 +
-+		nvidia,audio-codec = <&rt5631>;
-+	};
- };
- 
- &emc_icc_dvfs_opp_table {
-diff --git a/arch/arm/boot/dts/tegra30-asus-tf300tg.dts b/arch/arm/boot/dts/tegra30-asus-tf300tg.dts
-index 96345f821c3d..82c51e177a70 100644
---- a/arch/arm/boot/dts/tegra30-asus-tf300tg.dts
-+++ b/arch/arm/boot/dts/tegra30-asus-tf300tg.dts
-@@ -1072,6 +1072,23 @@ timing-667000000 {
- 	display-panel {
- 		compatible = "innolux,g101ice-l01";
- 	};
++allOf:
++  - $ref: nvidia,tegra-audio-common.yaml#
 +
-+	sound {
-+		compatible = "asus,tegra-audio-rt5631-tf300tg",
-+			     "nvidia,tegra-audio-rt5631";
-+		nvidia,model = "Asus Transformer Pad TF300TG RT5631";
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-max98088(-[a-z0-9]+)+$'
++          - const: nvidia,tegra-audio-max98088
++      - items:
++          - pattern: '^[a-z0-9]+,tegra-audio-max98089(-[a-z0-9]+)+$'
++          - const: nvidia,tegra-audio-max98089
 +
-+		nvidia,audio-routing =
-+			"Headphone Jack", "HPOL",
-+			"Headphone Jack", "HPOR",
-+			"Int Spk", "SPOL",
-+			"Int Spk", "SPOR",
-+			"MIC1", "MIC Bias1",
-+			"MIC Bias1", "Headset Mic",
-+			"DMIC", "Int Mic";
++  nvidia,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      A list of the connections between audio components.
++      Each entry is a pair of strings, the first being the connection's sink,
++      the second being the connection's source. Valid names for sources and
++      sinks are the pins (documented in the binding document),
++      and the jacks on the board.
++    minItems: 2
++    items:
++      enum:
++        # Board Connectors
++        - "Int Spk"
++        - "Headphone Jack"
++        - "Earpiece"
++        - "Headset Mic"
++        - "Internal Mic 1"
++        - "Internal Mic 2"
 +
-+		nvidia,audio-codec = <&rt5631>;
-+	};
- };
- 
- &emc_icc_dvfs_opp_table {
-diff --git a/arch/arm/boot/dts/tegra30-asus-tf700t.dts b/arch/arm/boot/dts/tegra30-asus-tf700t.dts
-index 1a331dec3cfe..766225ebdeab 100644
---- a/arch/arm/boot/dts/tegra30-asus-tf700t.dts
-+++ b/arch/arm/boot/dts/tegra30-asus-tf700t.dts
-@@ -812,6 +812,23 @@ vdd_1v2_mipi: regulator-mipi {
- 		enable-active-high;
- 		vin-supply = <&vdd_3v3_sys>;
- 	};
++        # CODEC Pins
++        - HPL
++        - HPR
++        - SPKL
++        - SPKR
++        - RECL
++        - RECR
++        - INA1
++        - INA2
++        - INB1
++        - INB2
++        - MIC1
++        - MIC2
++        - MICBIAS
 +
-+	sound {
-+		compatible = "asus,tegra-audio-rt5631-tf700t",
-+			     "nvidia,tegra-audio-rt5631";
-+		nvidia,model = "Asus Transformer Infinity TF700T RT5631";
++unevaluatedProperties: false
 +
-+		nvidia,audio-routing =
-+			"Headphone Jack", "HPOL",
-+			"Headphone Jack", "HPOR",
-+			"Int Spk", "SPOL",
-+			"Int Spk", "SPOR",
-+			"MIC1", "MIC Bias1",
-+			"MIC Bias1", "Headset Mic",
-+			"DMIC", "Int Mic";
++examples:
++  - |
++    #include <dt-bindings/clock/tegra30-car.h>
++    #include <dt-bindings/soc/tegra-pmc.h>
++    sound {
++        compatible = "lge,tegra-audio-max98089-p895",
++                     "nvidia,tegra-audio-max98089";
++        nvidia,model = "LG Optimus Vu MAX98089";
 +
-+		nvidia,audio-codec = <&rt5631>;
-+	};
- };
- 
- &emc_icc_dvfs_opp_table {
++        nvidia,audio-routing =
++            "Headphone Jack", "HPL",
++            "Headphone Jack", "HPR",
++            "Int Spk", "SPKL",
++            "Int Spk", "SPKR",
++            "Earpiece", "RECL",
++            "Earpiece", "RECR",
++            "INA1", "Headset Mic",
++            "MIC1", "MICBIAS",
++            "MICBIAS", "Internal Mic 1",
++            "MIC2", "Internal Mic 2";
++
++        nvidia,i2s-controller = <&tegra_i2s0>;
++        nvidia,audio-codec = <&codec>;
++
++        clocks = <&tegra_car TEGRA30_CLK_PLL_A>,
++                 <&tegra_car TEGRA30_CLK_PLL_A_OUT0>,
++                 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++        clock-names = "pll_a", "pll_a_out0", "mclk";
++    };
 -- 
 2.37.2
 

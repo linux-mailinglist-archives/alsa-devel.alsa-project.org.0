@@ -2,32 +2,37 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707C56AFB84
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 01:50:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502A66AFDD9
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 05:29:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44C0E167B;
-	Wed,  8 Mar 2023 01:49:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C0E167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17BC31718;
+	Wed,  8 Mar 2023 05:28:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17BC31718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678236619;
-	bh=g9NCJshF3KuF7gz2aXB6VnrV7KmPV9cfyA/T65pd7N8=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1678249773;
+	bh=lsjNCs24zSGpqZxbq/DyKtDVD7zi2oQih9Hb8er3OyM=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=OjyCX156JqXwZ4l2Mk0hDT2TOWG13dBppEEV9OhSAIhmj5iLj0TN/YTY85eY+/P5Q
-	 EOnzt55sy37vQBuCJC0LlIxw+5MmxBcQ7BRudRYeyvYudWDE6EQuKybCM+rVFKjX9Q
-	 +W1IyVlyIj3agNj79lkF7gHrRfDXXAn7q5G5aXeg=
+	b=AoXFXNmeG15+CeqxizWBuBPFEIMyPxsSLenwaHZLTxkbNuBuAPWyTB8BUjJL+xYVG
+	 WZhxphNO9+sX+D8qRYPPFPMOsq3TlV4P4VVRG7kJP+EHSKAng639qSjHklutfoodnp
+	 s6RQEtuUJZTCQU23XyIudk3W5ejYTW7E1UEj2T6k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B79C4F80236;
-	Wed,  8 Mar 2023 01:49:28 +0100 (CET)
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [EXTERNAL] Re: [PATCH v3] ASoC: tas2781: Add tas2781 driver
-Date: Wed, 8 Mar 2023 00:48:59 +0000
-References: <20230227153811.2395-1-luminlong@139.com>
- <5c1969de-eecc-47c6-9d66-4214a94c7841@sirena.org.uk>
-In-Reply-To: <5c1969de-eecc-47c6-9d66-4214a94c7841@sirena.org.uk>
+	by alsa1.perex.cz (Postfix) with ESMTP id 08873F80236;
+	Wed,  8 Mar 2023 05:28:40 +0100 (CET)
+Date: Wed, 8 Mar 2023 10:02:04 +0530
+Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
+ <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+ <d5a75826-d762-27fc-5820-6826debdecd9@amd.com>
+ <9399110b-bbba-f96e-85ef-a317e8f4d518@linux.intel.com>
+In-Reply-To: <9399110b-bbba-f96e-85ef-a317e8f4d518@linux.intel.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -39,7 +44,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VOND5PEVTK7LXHRLJSRJ5FDZAWT2MCVV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RUGBXFSLPVG6LWGAVQLARA3YTT7DJBU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -49,99 +54,169 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167823656781.26.14254983904483823012@mailman-core.alsa-project.org>
-From: "Ding, Shenghao via Alsa-devel" <alsa-devel@alsa-project.org>
-Reply-To: "Ding, Shenghao" <shenghao-ding@ti.com>
-Cc: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "Lu, Kevin" <kevin-lu@ti.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kevin Lu <luminlong@139.com>
+ <167824971827.26.1434538287559944065@mailman-core.alsa-project.org>
+From: "Mukunda,Vijendar via Alsa-devel" <alsa-devel@alsa-project.org>
+Reply-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BFB86F8042F; Wed,  8 Mar 2023 01:49:24 +0100 (CET)
+	id 1A4B2F8042F; Wed,  8 Mar 2023 05:28:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::619])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B82F2F8007E
-	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 01:49:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B82F2F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25C4FF800DF
+	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 05:28:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C4FF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=T37CCMfH
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 3280n0Ja063406;
-	Tue, 7 Mar 2023 18:49:00 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1678236540;
-	bh=X+tNoh0oC+nG72BSEFRagxkGxwdTIvVUNukCFitZJ1c=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=T37CCMfHLsjthIa4zC8Z7kGvFHen5bxChSft1oGfGbi4iVD3wEEMwxs8cFRiPf7wZ
-	 BPXrFTa99tiLomqAvfDuYsTQSKnRDn0CwgnYntWGRrO2Y+xLYS1dVd3FFc1GY4tPma
-	 EdIiHoYAtBJx1uQpNAfTyqDfAzJ1gGzIeTrY3wAU=
-Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 3280n0oV072971
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 7 Mar 2023 18:49:00 -0600
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Tue, 7
- Mar 2023 18:49:00 -0600
-Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
- DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
- 15.01.2507.016; Tue, 7 Mar 2023 18:49:00 -0600
-From: "Ding, Shenghao" <shenghao-ding@ti.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [EXTERNAL] Re: [PATCH v3] ASoC: tas2781: Add tas2781 driver
-Thread-Topic: [EXTERNAL] Re: [PATCH v3] ASoC: tas2781: Add tas2781 driver
-Thread-Index: AQHZUTYuc/GK7xUd5EWhN/UMALSpRK7v7R+Q
-Date: Wed, 8 Mar 2023 00:48:59 +0000
-Message-ID: <633e33992256406c8f72f46fc0128a3a@ti.com>
-References: <20230227153811.2395-1-luminlong@139.com>
- <5c1969de-eecc-47c6-9d66-4214a94c7841@sirena.org.uk>
-In-Reply-To: <5c1969de-eecc-47c6-9d66-4214a94c7841@sirena.org.uk>
-Accept-Language: zh-CN, en-US
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=MjJ/wFjZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RxLUm759P5N50SIc2VSY+mGKg6/HzT6AD3d4h33PX9cygY/hdfcaHPOOuuXMNGV673/FoUe4XzGaiaaWuD2/9XgWvDJQgxZLYxFGXQW645alarFlzxx12L+ZYu93Md7lXRHAwns5jc9iKdg85CzlPeuTpNnPJfgyUdYh/q/F50zjbGZe/C8zqGrHpLpkebr9lLQDZOkLsVjZjRFXYfQb7cpZdZtHMkVSP8hY7Jrgntz2S3Hv5EM3GbYCAPHbItGgjVedV8NVfbMXKbge+MpcWMu+jB52GJBvJ1crQ5ADzSKkq4UiiRqMGUgYUl7FqPO+OwIqTvm/Xm41mR2+TBa4Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1ZpvPFAV17wHjtxpSWFinEu6D6lNgOnCGAC0n3rasFU=;
+ b=fSLIJZfy/Chf65FtzeIMl4Yzjw8+xLfJg/nxygar0ppzWFs6XNp8/1tQiQ3NjLJJR4kzZbM+jcitckMSMKn4SywBJw3gFNge2edFuzirQP6l1NYPiITfunFGxgKdLpStd2ME/p/CB5hEzCHcwxjAomoHvnF7jHq3wSzlKXwBMyXTaTlKPPlJ7PRSAkE1A8PQXNlsug8N+LDvufUi3ZabjestWwsJzZ6LCAOXflovnxvnWGqn6Hw5xNsSnRnngd4sPxwRHcTNRUPamcTDOgcIQhcL/Yb1xfDhVvdynBgNuqXjW1BQTcOczmI0y6SSXH9cOfG8hAxuKEJb+qO1Yk3ZoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1ZpvPFAV17wHjtxpSWFinEu6D6lNgOnCGAC0n3rasFU=;
+ b=MjJ/wFjZ2102NNyJAnAwF0KhW4URNL4nKKfkrq30KXM5HVch1GLd4/RTArpp6kcBxPgpLNdiBsurz9pl6UVxnBuggV5ucWi8i+0TOejLSRvEM1qLTRDQNKaA6r/omKBJTsxJq8BBo1ibAu+v2qWDEJ0KsK6rF/NmT3AWiNqZKOs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by SA0PR12MB7477.namprd12.prod.outlook.com (2603:10b6:806:24b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
+ 2023 04:28:15 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb%3]) with mapi id 15.20.6156.029; Wed, 8 Mar 2023
+ 04:28:15 +0000
+Message-ID: <4cbbff8a-c596-e9cc-a6cf-6f8b66607505@amd.com>
+Date: Wed, 8 Mar 2023 10:02:04 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH V6 8/8] soundwire: amd: add pm_prepare callback and pm ops
+ support
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.250.160.107]
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ vkoul@kernel.org
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-9-Vijendar.Mukunda@amd.com>
+ <4330af6a-ce97-53ed-f675-6d3d0ac8f32f@linux.intel.com>
+ <d5a75826-d762-27fc-5820-6826debdecd9@amd.com>
+ <9399110b-bbba-f96e-85ef-a317e8f4d518@linux.intel.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <9399110b-bbba-f96e-85ef-a317e8f4d518@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0210.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e9::19) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Message-ID-Hash: VOND5PEVTK7LXHRLJSRJ5FDZAWT2MCVV
-X-Message-ID-Hash: VOND5PEVTK7LXHRLJSRJ5FDZAWT2MCVV
-X-MailFrom: shenghao-ding@ti.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SA0PR12MB7477:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2877bf80-de69-46ff-ab00-08db1f8d88a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	YlTYxoZxfZZZl9mJaDlxG2DrAygDcRH+CfCTIzaBKeLVy9QoPcp3iK8xOGvh/o6t3X6q5GqH5VkscMhfsXQzAR2orXmhb+wMHo2KhQ1wqwyyHF6dwpyyLA2E2dVly9lhx3cYrZc4Lb/h7ff7K+LnflbuHAGbE8Hdb8Qxe52ZjbIdy+kp5qxpRd3I4rFZYT2hcMDIH2ztuyJsUWnZpCinzWJXeUgxIIlD1prbftBmNmecnacEaryqMgeMOdh3m1jfxJ35ZWVe1rUkbXSp4XN9pjYowabzkU4a7gQ6IMs3h6YnJs/tJjQxvy8PW+9M46E6f85yevxu0Cba1RItoLjlASEaXFIk01zvvkm83rMIo/uAmlus8G0cT/C+QhN2NHN9nE0PABrwpcv3zlZQxI32tc4RpqXOmmIhJRLm/Etk1VI7LKo9NWsMQYwdq0hEno32bJ75KfWUR61hDigxjoHoZi6lPef25g5hb5O95Kh8HjT41vfWVOtT9Tta1zzDYU0dv3yn/zYUq6501EfardvTAzpkg7f8pIV544uZkfq8bNuNsZ2HO8lKGU7lJPyiCVmkAk+HxWjjed09jO6x0Il9pIr2WyeK7TyTId6wIUtMuy4kKzHkH5H3ee4xyLzkqd9BNn1dZBsXL/v3LEwYKcq+TZcBetwLhhpcFUcigybOIIsifJSxbQfDhJl9V3oAhchoa80tkjAoL+eGLzxJdYRQFj7uyxLsLaLgZCCQfm9li2E=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(39860400002)(136003)(376002)(396003)(366004)(451199018)(66946007)(26005)(5660300002)(186003)(4326008)(66476007)(8676002)(66556008)(966005)(478600001)(6486002)(6506007)(54906003)(31696002)(86362001)(6512007)(316002)(36756003)(53546011)(8936002)(41300700001)(38100700002)(6666004)(2906002)(83380400001)(31686004)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?dUgxYWFGejhwSWo3cFNEaGZzN1VPS2F6dEZJanVjVWxhS1JrYnY5dEhzS25i?=
+ =?utf-8?B?d0hvU3dHWG0zd2RROUo1eXJSSVRySTZJbndOQlR0TkZZQmV4bVJwOFhlUi83?=
+ =?utf-8?B?QVJiOWRhNDlyN3Bid3dPQ2hHUWNqUHp1UHFQM0YyeTNsdzB4Wks4eFptNXpi?=
+ =?utf-8?B?WEhwZmJqR20wSDVYZ2lPbC9RWmVhY0duRVFxeFo2ZVpDN2R0b0hzemNXN2Nx?=
+ =?utf-8?B?M0ptMjgzNzRvaFduMG9KcjdPWDgyVkhSSWl0aWpzRFZiUDRick1aTlJ0NmtD?=
+ =?utf-8?B?d011TmlyYWJsRWE3Q2t1bFFBdnlCMVdNRU5oeEtUQmU2L3czc2VKSVlvSlF5?=
+ =?utf-8?B?b0U2ZXhrZGVYMFFVNVFyS0ZJV2xJeFpIRWNMWXZvKy9OenpWWkl6TUVPVFZO?=
+ =?utf-8?B?MDVqajJGNVU3YjhzT0xIUFo4QS9CckVLVXFqSzYyMUlyQi91VUZ0bDV4Ui9U?=
+ =?utf-8?B?WUVVQUpLU3lJS1l4S1c4ZnVjK01xcy9UVFhwblVRd3lPOUZTZk00bTRXQVUr?=
+ =?utf-8?B?M3BOSUtzSk9ySnphYmVHUi9XU1lvN2lsRlZmaVNVSDBoci9KL3VYZm5IalV3?=
+ =?utf-8?B?dG0yYTI4QzlwYW9TWXRQZjV2dDlrM2NTVmhZVFFpcldZTWwrbVFNRmxwTmNm?=
+ =?utf-8?B?OHFXYXZsZ1RxdnJ0WDQ3NUwwT25lakg1NFV3cSs1c010Q041VE9aMG43RnEz?=
+ =?utf-8?B?QUhSUEpaRlg4UE5aay96V0JTSlVYYjFOV1czZkxJSTg5VjhWSmMxcXdSWHpJ?=
+ =?utf-8?B?TEYza2s4ZTRuK01CMW5sRlNkSkdSM1lER3JkQUY4L0lrT1h2aUU5ZkRaUFV2?=
+ =?utf-8?B?cFJXbjhqTHdGNHQvZUwrSFJ2U1JyT0gxUGgwc1Fjelo4NndReTN5dDc4cjRv?=
+ =?utf-8?B?NGppYlU4czJPSk5SZ3U1cDFPc3djTzBYNkdoZnhDVGthVndBM2xxc3ZUbjVk?=
+ =?utf-8?B?WW9LNnpXS21MTXdwdzR2UkpPNnVKK3FTL2h5cktjUmJSYTFxNzh6a0hPZVNT?=
+ =?utf-8?B?Y2FDV1pTVUpBSVFkdXBVU3pmRzRTQVU2WGtVS0pBMjZJTWNiWU1sRFNQbFBo?=
+ =?utf-8?B?aEhHcWoyekpXVWxHeEFEYUFlaVkrTUp3bjh0M0tqNjNYem5NbkZ5TjhQRndQ?=
+ =?utf-8?B?T1hxZ3h1UGQrd1hUZjIvZ0dTZGN4cmVGNEVZcDVaT2l2QktHaXVXdm0yM2RL?=
+ =?utf-8?B?VU5WKzhnZGpNVDJyckFzN2xPL0IxRithMFhISFRUL2dRMUJBcllZRE9WbzJO?=
+ =?utf-8?B?cTNXVDBYakdhMFVTMUlzV0g0dnZCZi9vWmh3YVRtRVVIdFRCTEhOMGpwcTk1?=
+ =?utf-8?B?WjNvbkEyMjBaclB2UFg3amU0ZjhKYzVZYkp2YkVmRUMxNTkxNXZKZGs4TDVh?=
+ =?utf-8?B?VktBREtlNW5TVW1pcHgwaDVzT2FUZW4wU0VYajhkanFPNmsveXBDclhHdUFp?=
+ =?utf-8?B?Vm9XVDdpVmdTaHJTaVh6Z1Aydi90cHdWUmQwS3NqWVVJMGo4Tk5heUVqbUJH?=
+ =?utf-8?B?UnNnZWlhcnBCVmdUdExDWWszNEJJOUFPK0g5dE9UWm5qRVRtQlpoOEZ3ZGt2?=
+ =?utf-8?B?cFZvQzVXazNLMHhqUkJyQ3U3TUtrK1dyQXlpWXIyMXl6WXJna09JYzRIUkJB?=
+ =?utf-8?B?VWVsYnRiZEt2dDhRM3hCbWhlZDRkdVhpRlJJbUF2d29Lei9ta1hCcEhWRVBm?=
+ =?utf-8?B?cnVFQnVua0RESzJzc1FZbTB6ZUQ5dWpzbjF6dC9TOWJkWEdRbTlReXh0T1Ex?=
+ =?utf-8?B?VXloRlZyalZlQ2N3Skw1N3hQRWxPK042Z3hzYlpJblhKcmxLL211SGJ3eWt1?=
+ =?utf-8?B?QXhKcjVHTEphWWR4SVVIRWNMOHlQM2J3aEloSTl4UW4wNzZMeUJkUDBlemIy?=
+ =?utf-8?B?NGxwVmxlS3JFV3N2T0FlTC9aZlhhYk1CU3RhQjFGVFVjMVRiV2tzeWVFNWFJ?=
+ =?utf-8?B?K2lkaFJXT2lQeWZXSnRNVGhBN1dFS28va1BRbzZSVWhHUlJQRzlxbXFVQjhE?=
+ =?utf-8?B?djc4RTZZcVdCVm9DTnE2YzN4dnc1NGxKRUhOcXhCL0o0RkJtRGlyT2tXZkNw?=
+ =?utf-8?B?WlR5bHQ5b3BuaFg0U0R3WG9NOTdzdTN4QklvaGZLb0l0MUxCUWdFaVdJV3lN?=
+ =?utf-8?Q?jsNS3+x/K/GgwkrC8lugfTjXD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 2877bf80-de69-46ff-ab00-08db1f8d88a5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 04:28:15.0214
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ b9pyPpkKDTVuf8LXwzJar7Hg0qQVQdaTr/PiRJoitJfJxqiRZoQnea4khAnKxgmuSF2icJfHYBQUls7RYhFCAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7477
+Message-ID-Hash: 6RUGBXFSLPVG6LWGAVQLARA3YTT7DJBU
+X-Message-ID-Hash: 6RUGBXFSLPVG6LWGAVQLARA3YTT7DJBU
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "Lu, Kevin" <kevin-lu@ti.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kevin Lu <luminlong@139.com>
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mario.Limonciello@amd.com,
+ amadeuszx.slawinski@linux.intel.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, claudiu.beznea@microchip.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VOND5PEVTK7LXHRLJSRJ5FDZAWT2MCVV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RUGBXFSLPVG6LWGAVQLARA3YTT7DJBU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,442 +225,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Brown
-Thanks for your comments. You will rework and upstream immediately.
-DT document has been already prepared, once the code has been upstream succ=
-essfully, DT document will be done soon.
+On 08/03/23 02:38, Pierre-Louis Bossart wrote:
+>
+> On 3/7/23 14:25, Mukunda,Vijendar wrote:
+>> On 07/03/23 20:58, Pierre-Louis Bossart wrote:
+>>>> +static int amd_resume_child_device(struct device *dev, void *data)
+>>>> +{
+>>>> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>>>> +	int ret;
+>>>> +
+>>>> +	if (!slave->probed) {
+>>>> +		dev_dbg(dev, "skipping device, no probed driver\n");
+>>>> +		return 0;
+>>>> +	}
+>>>> +	if (!slave->dev_num_sticky) {
+>>>> +		dev_dbg(dev, "skipping device, never detected on bus\n");
+>>>> +		return 0;
+>>>> +	}
+>>>> +	if (!pm_runtime_suspended(dev))
+>>>> +		return 0;
+>>>> +	ret = pm_request_resume(dev);
+>>> I still don't get why the test above was needed. It's racy and brings
+>>> limited benefits.
+>> As explained below thread,
+>>
+>> https://lore.kernel.org/lkml/acd3a560-1218-9f1d-06ec-19e4d3d4e2c9@amd.com
+>>
+>> Our scenario is multiple peripheral devices are connected
+>> over the same link.
+>>
+>> In our implementation, device_for_each_child() function invokes
+>> amd_resume_child_device callback for each child.
+>> When any one of the child device is active, It will break the
+>> iteration, which results in failure resuming all child devices.
+> Can you clarify the 'it will break the iteration' statement?
+>
+> Are you saying pm_request_resume() will return a negative error code if
+> the device is already active?
+>
+> We've used an unconditional pm_request_resume() in the Intel code for
+> quite some time, including with multiple amplifiers per link, and have
+> never observed the issue you report, so I'd like to get to the root
+> cause pretty please. You took the Intel code and added a test for AMD
+> platforms, and I'd really like to understand if the Intel code was wrong
+> in the first place, or if the test is not needed. Something does not add
+> up here.
+AMP Codec (In aggregate mode) + Jack Codec connected over the same
+link on our platform.
+Consider below, scenario.
+Active stream is running on AMP codec and Jack codec is already in runtime
+suspend state.
+If system level suspend is invoked, in prepare callback, we need to resume
+both the codec devices.
+
+device_for_each_child() will invoke amd_resume_child_device() function callback
+for each device which will try to resume the child device in this case.
+By definition, device_for_each_child() Iterate over @parent's child devices,
+and invokes the callback for each. We check the return of amd_resume_child_device()
+each time.
+If it returns anything other than 0, we break out and return that value.
+
+In current scenario, As AMP codec is not in runtime suspend state,
+pm_request_resume() will return a value as 1. This will break the
+sequence for resuming rest of the child devices(JACK codec in our case).
+
+As mentioned in an earlier thread, there are two possible solutions.
+1. check pm runtime suspend state and return 0 if it is not suspended
+2. simply always return 0 for amd_resume_child_device() function callback.
+
+We opted first one as solution.
+>
+>> If we skip , pm_suspended check , it will not resume all
+>> peripheral devices when any one of the peripheral device is active.
+>>>> +	if (ret < 0)
+>>>> +		dev_err(dev, "pm_request_resume failed: %d\n", ret);
+>>>> +
+>>>> +	return ret;
+>>>> +}
 
-As to the comment on global mode, the mode is used for downloading the dsp =
-firmware in multiple devices cases, all the=20
-devices can share the same generic i2c address in order to download the fir=
-mware simultaneously to save downloading firmware time consumption.
-I will add the comment for this part in the code.
-
-As to the comment on page changing, this code only handles book changing, n=
-o extra code for page changing,=20
-all the page changings are handled automatically by the kernel system.
-
------Original Message-----
-From: Mark Brown <broonie@kernel.org>=20
-Sent: Wednesday, March 8, 2023 4:48 AM
-To: Kevin Lu <luminlong@139.com>
-Cc: lgirdwood@gmail.com; perex@perex.cz; pierre-louis.bossart@linux.intel.c=
-om; tiwai@suse.com; Lu, Kevin <kevin-lu@ti.com>; Ding, Shenghao <shenghao-d=
-ing@ti.com>; alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
-Subject: [EXTERNAL] Re: [PATCH v3] ASoC: tas2781: Add tas2781 driver
-
-On Mon, Feb 27, 2023 at 11:38:11PM +0800, Kevin Lu wrote:
-> Create tas2781 driver.
-
-Quite a few comments below, a lot of them are fairly simple stylistic ones =
-rather than substantial things but there are a few bigger things.
-A lot of the bigger comments are essentially that the driver is doing more =
-work than it needs to be and could either stop doing things that seem redun=
-dant or use generic functionality.
-
-The bulk of the code looks good though.
-
->=20
-> ---
-> Changes in v3:
->  - fixed issues reported-by: kernel test robot <lkp@intel.com>
->  - correct all the inconsistent indenting warnings
->  - correct uninitialized symbol 'pwr_state'
->  - correct unsigned 'val' is never less than zero
->  - correct 'tas_dev' could be null
->=20
-> Signed-off-by: Kevin Lu <luminlong@139.com>
-
-Your signoff needs to go before the ---, tooling will remove anything after=
- the --- but your signoff needs to stay.
-
->  snd-soc-tas2562-objs :=3D tas2562.o
->  snd-soc-tas2764-objs :=3D tas2764.o
->  snd-soc-tas2780-objs :=3D tas2780.o
-> +snd-soc-tas2781-objs :=3D	tas2781-i2c.o tas2781-dsp.o
->  # Mux
-
-Please keep the blank line in the file.
-
-> --- /dev/null
-> +++ b/sound/soc/codecs/tas2781-dsp.c
-> @@ -0,0 +1,2261 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
-> + *
-
-Please make the entire comment block a C++ one so things look more intentio=
-nal.
-
-> +static const unsigned char crc8_lookup_table[CRC8_TABLE_SIZE] =3D {
-> +	0x00, 0x4D, 0x9A, 0xD7, 0x79, 0x34, 0xE3, 0xAE,
-> +	0xF2, 0xBF, 0x68, 0x25, 0x8B, 0xC6, 0x11, 0x5C,
-
-Should the driver be using one of the crc8_populate_() functions here?
-
-> +	ret =3D check_yram(&crc_data, book, page, reg, len);
-> +	dev_info(tasdevice->dev,
-> +		"isYRAM: Bk 0x%02x, Pg 0x%02x, Rg 0x%02x\n",
-> +		book, page, reg);
-> +	dev_info(tasdevice->dev,
-> +		"isYRAM: crc_data.mnLen 0x%x, len 0x%x, nResult %d\n",
-> +		crc_data.len, len, ret);
-
-There's a lot of logging in this firmware load code which should at least b=
-e reduced to dbg level if not vdbg, it's pretty loud and it looks like at l=
-east some of it can be triggered after initial boot.
-
-> +/* max. length of the alsa mixer control name */
-> +#define MAX_CONTROL_NAME		(48)
-
-This should be coming from the ALSA headers.
-
-
-> +{
-> +	struct tasdevice_priv *tas_dev =3D
-> +		(struct tasdevice_priv *)pContext;
-
-The kernel doesn't gennerally use hungarian notation (I see a bunch of it i=
-n the driver, n_result and p_tasdevice for example), and if there's a need =
-to cast away from void that usually means something's gone wrong
-- it looks unneeded here so you can just remove the cast.
-
-> +	if (config_offset + 4 > (int)config_size) {
-> +		dev_err(tas_dev->dev,
-> +			"add config: Out of memory\n");
-
-This isn't OOM though?
-
-> +	cfg_info->blk_data =3D kcalloc(
-> +		cfg_info->nblocks, sizeof(struct tasdev_blk_data *),
-> +		GFP_KERNEL);
-> +	if (!cfg_info->blk_data) {
-> +		dev_err(tas_dev->dev,
-> +			"add config: blk_data alloc failed!\n");
-
-No need to log failures to allocate, the kernel is already pretty loud when=
- it runs out of memory.
-
-> +static int tas2781_digital_getvol(struct snd_kcontrol *kcontrol,
-> +       struct snd_ctl_elem_value *ucontrol)
-
-> +	/* Read the primary device as the whole */
-> +	ret =3D tasdevice_dev_read(tas_dev, 0, mc->reg, &val);
-> +	if (ret) {
-> +		dev_err(tas_dev->dev,
-> +		"%s, get digital vol error\n",
-> +		__func__);
-> +		goto out;
-
-Your regmap looked like it already had paging support so I'm not clear why =
-this is a custom control - can't you just use the standard ASoC helpers, th=
-e regmap paging support will work for paged register maps?
-
-> +	}
-> +	val =3D (val > mc->max) ? mc->max : val;
-> +	val =3D mc->invert ? mc->max - val : val;
-
-Please write normal conditional statements, they're easier to read than the=
- ternery opreator.
-
-> +static int tas2781_digital_putvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol) {
-> +	struct snd_soc_component *codec
-> +		=3D snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *tas_dev =3D
-> +		snd_soc_component_get_drvdata(codec);
-> +	struct soc_mixer_control *mc =3D
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	int val;
-> +	int i, ret =3D 0;
-
-Please run the mixer-test selftest on a card with this device, it'll tell y=
-ou that this function doesn't return 1 on value changes so doesn't generate=
- events for changes.  Similar issues with a lot of other custom controls.
-
-> +static const struct snd_kcontrol_new tas2781_snd_controls[] =3D {
-> +	SOC_SINGLE_RANGE_EXT_TLV("Amp Gain Volume", TAS2781_AMP_LEVEL,
-> +		1, 0, 20, 0, tas2781_amp_getvol,
-> +		tas2781_amp_putvol, amp_vol_tlv),
-> +	SOC_SINGLE_RANGE_EXT_TLV("Digital Volume Control", TAS2781_DVC_LVL,
-> +		0, 0, 200, 1, tas2781_digital_getvol,
-> +		tas2781_digital_putvol, dvc_tlv),
-
-Control names for volumes should end with Volume, see control-names.rst.
-
-> +static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
-> +			struct snd_ctl_elem_info *uinfo)
-> +{
-> +	struct snd_soc_component *codec
-> +		=3D snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *p_tasdevice =3D
-> +		snd_soc_component_get_drvdata(codec);
-> +	struct tasdevice_fw *tas_fw =3D p_tasdevice->fmw;
-> +
-> +	uinfo->type =3D SNDRV_CTL_ELEM_TYPE_INTEGER;
-> +	/* Codec Lock Hold*/
-> +	mutex_lock(&p_tasdevice->codec_lock);
-> +	uinfo->count =3D 1;
-> +	uinfo->value.integer.min =3D 0;
-> +	uinfo->value.integer.max =3D (int)tas_fw->n_programs;
-> +	/* Codec Lock Release*/
-> +	mutex_unlock(&p_tasdevice->codec_lock);
-
-Why does this need a lock - what might be changing?  The casting is suspici=
-ous too.
-
-> +static void tasdevice_rca_ready(const struct firmware *fmw,
-> +	void *context)
-> +{
-
-> +	mutex_lock(&tas_dev->codec_lock);
-> +	rca =3D &(tas_dev->rcabin);
-> +	fw_hdr =3D &(rca->fw_hdr);
-> +	if (unlikely(!fmw) || unlikely(!fmw->data)) {
-
-If you're not in a *very* hot path it's seldom useful to annotate with
-likely() or unlikely().
-
-> +static void tasdevice_enable_irq(
-> +	struct tasdevice_priv *tas_dev, bool enable) {
-> +	if (enable) {
-> +		if (tas_dev->irq_info.is_irq_enable)
-> +			return;
-> +		if (gpio_is_valid(tas_dev->irq_info.irq_gpio))
-> +			enable_irq(tas_dev->irq_info.irq);
-> +		tas_dev->irq_info.is_irq_enable =3D true;
-
-The driver shouldn't need to care if the interrupt is implemented with some=
-thing that can also be a GPIO, and indeed I can't see anything that actuall=
-y looks at the GPIO other than these checks.  The check for double enalbes =
-also seems suspicious, I don't think it's needed but...
-
-> +	} else {
-> +		if (gpio_is_valid(tas_dev->irq_info.irq_gpio))
-> +			disable_irq_nosync(tas_dev->irq_info.irq);
-
-...it's certainly not matched in the disable path.  In general it looks lik=
-e this function is just redundant and could be replaced by
-enable_irq()/disable_irq() calls in the callers, though I'm not sure it's n=
-eeded at all.
-
-> +static void tasdevice_set_power_state(
-> +	struct tasdevice_priv *tas_dev, int state) {
-> +	switch (state) {
-> +	case 0:
-> +		schedule_delayed_work(&tas_dev->tuning_switch_wrk,
-> +			msecs_to_jiffies(20));
-> +		break;
-> +	default:
-> +		if (!(tas_dev->pstream || tas_dev->cstream)) {
-> +			if (tas_dev->irq_work_func)
-> +				tasdevice_enable_irq(tas_dev, false);
-> +			tasdevice_select_cfg_blk(tas_dev,
-> +				tas_dev->rcabin.profile_cfg_id,
-> +				TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
-> +		}
-> +		break;
-> +	}
-
-It's really not clear what thisis supposed to do - what are the two power s=
-tates here?
-
-> +static int tasdevice_dapm_event(struct snd_soc_dapm_widget *w,
-> +			struct snd_kcontrol *kcontrol, int event) {
-> +	struct snd_soc_component *codec =3D snd_soc_dapm_to_component(w->dapm);
-> +	struct tasdevice_priv *tas_dev =3D snd_soc_component_get_drvdata(codec)=
-;
-> +	int stream;
-> +
-> +	/* Codec Lock Hold */
-> +	mutex_lock(&tas_dev->codec_lock);
-> +	stream =3D strcmp(w->name, "SPK") ? SNDRV_PCM_STREAM_PLAYBACK :
-> +		SNDRV_PCM_STREAM_CAPTURE;
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_POST_PMU:
-> +		dev_info(tas_dev->dev, "SND_SOC_DAPM_POST_PMU\n");
-
-dev_info() on DAPM events is going to be way too noisy, there's a lot of lo=
-gging in the core so you can probably just remove this.
-
-> +	case SND_SOC_DAPM_PRE_PMD:
-> +		dev_info(tas_dev->dev, "SND_SOC_DAPM_PRE_PMD\n");
-> +		/* stop DSP only when both playback and capture streams
-> +		 * are deactivated
-> +		 */
-> +		if (stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-> +			tas_dev->pstream =3D 0;
-> +		else
-> +			tas_dev->cstream =3D 0;
-> +		if (tas_dev->pstream !=3D 0 || tas_dev->cstream !=3D 0)
-> +			goto out;
-
-It would probably be easier to have a supply widget that feeds both the ASI=
- and speaker widgets, that way DAPM will reference count for you and the dr=
-iver can just handle the event without these checks.
-
-> +static int tasdevice_hw_params(struct snd_pcm_substream *substream,
-> +	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai) {
-> +	struct tasdevice_priv *tas_dev =3D snd_soc_dai_get_drvdata(dai);
-> +	unsigned int fsrate;
-> +	unsigned int slot_width;
-> +	int bclk_rate;
-> +	int rc =3D 0;
-> +
-> +	dev_info(tas_dev->dev, "%s: %s\n",
-> +		__func__, substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK ?
-> +		"Playback":"Capture");
-
-Again, too much logging.  The driver should be silent during normal operati=
-on - some logging on boot or error is fine but userspace shouldn't be able =
-to spam the logs and hide other information.
-
-> +static int tasdevice_set_dai_sysclk(struct snd_soc_dai *codec_dai,
-> +	int clk_id, unsigned int freq, int dir) {
-> +	struct tasdevice_priv *tas_dev =3D snd_soc_dai_get_drvdata(codec_dai);
-> +
-> +	dev_info(tas_dev->dev,
-> +		"%s: clk_id =3D %d, freq =3D %u, CLK direction %s\n",
-> +		__func__, clk_id, freq,
-> +		dir =3D=3D TASDEVICE_CLK_DIR_OUT ? "OUT":"IN");
-> +
-> +	return 0;
-> +}
-
-You can just remove this, it doesn't do anything except log.
-
-> +static void tasdevice_codec_remove(
-> +	struct snd_soc_component *codec)
-> +{
-
-Weird indentation here.
-
-> +static void irq_work_routine(struct work_struct *pWork) {
-> +	struct tasdevice_priv *tas_dev =3D
-> +		container_of(pWork, struct tasdevice_priv,
-> +		irq_info.irq_work.work);
-> +
-> +	mutex_lock(&tas_dev->codec_lock);
-> +	if (tas_dev->runtime_suspend) {
-> +		dev_info(tas_dev->dev, "%s, Runtime Suspended\n", __func__);
-> +		goto end;
-> +	}
-> +	/*Logical Layer IRQ function, return is ignored*/
-> +	if (tas_dev->irq_work_func)
-> +		tas_dev->irq_work_func(tas_dev);
-> +	else
-> +		dev_info(tas_dev->dev,
-> +			"%s, irq_work_func is NULL\n", __func__);
-> +end:
-> +	mutex_unlock(&tas_dev->codec_lock);
-> +}
-
-There is only one function that's ever assigned for the irq_work_func, just=
- inline it and don't bother with the pointer in the driver structure - that=
- should be a lot simpler.
-
-> +static void tas2781_irq_work_func(struct tasdevice_priv *tas_dev) {
-> +	int rc =3D 0;
-> +	unsigned int reg_val =3D 0, array_size =3D 0, i =3D 0, ndev =3D 0;
-> +	unsigned int int_reg_array[] =3D {
-> +		TAS2781_REG_INT_LTCH0,
-> +		TAS2781_REG_INT_LTCH1,
-> +		TAS2781_REG_INT_LTCH1_0,
-> +		TAS2781_REG_INT_LTCH2,
-> +		TAS2781_REG_INT_LTCH3,
-> +		TAS2781_REG_INT_LTCH4};
-> +
-> +	tasdevice_enable_irq(tas_dev, false);
-
-It needs to be a lot clearer what will reenable the interrupt - some commen=
-ts would help, I see there's some interlock with tuning_switch_routine() bu=
-t I'm not clear what that does...
-
-> +	array_size =3D ARRAY_SIZE(int_reg_array);
-> +
-> +	for (ndev =3D 0; ndev < tas_dev->ndev; ndev++) {
-> +		for (i =3D 0; i < array_size; i++) {
-> +			rc =3D tasdevice_dev_read(tas_dev,
-> +				ndev, int_reg_array[i], &reg_val);
-> +			if (!rc)
-> +				dev_info(tas_dev->dev,
-> +					"INT STATUS REG 0x%04x=3D0x%02x\n",
-> +					int_reg_array[i], reg_val);
-> +			else
-> +				dev_err(tas_dev->dev,
-> +					"Read Reg 0x%04x error(rc=3D%d)\n",
-> +					int_reg_array[i], rc);
-> +		}
-> +	}
-> +}
-
-...and this seems to just read the interrupt status registers and log the r=
-esults so do we even need to enable the interrupt?
-
-> +static int tasdevice_parse_dt(struct tasdevice_priv *tas_dev) {
-> +	struct device_node *np =3D tas_dev->dev->of_node;
-> +	int rc =3D 0, i =3D 0, ndev =3D 0;
-> +	unsigned int dev_addrs[max_chn];
-> +	struct i2c_client *client =3D (struct i2c_client *)tas_dev->client;
-
-If you're adding DT bindings you need to send a DT bindings document.
-
-> +static int tasdevice_change_chn_book(struct tasdevice_priv *tas_dev,
-> +	enum channel chn, int book)
-> +{
-
-As I said earlier the regmap uses ranges so I'm not clear why there's open =
-coding of page changing?
-
-> +static void tas2781_set_global_mode(struct tasdevice_priv *tas_dev) {
-> +	int i =3D 0;
-> +	int ret =3D 0;
-
-What's all this global mode stuff about?  It's not clear from the code.
-
-> +	mutex_init(&tas_dev->codec_lock);
-> +	ret =3D devm_snd_soc_register_component(tas_dev->dev,
-> +		&soc_codec_driver_tasdevice,
-> +		tasdevice_dai_driver, ARRAY_SIZE(tasdevice_dai_driver));
-> +	if (ret)
-> +		dev_err(tas_dev->dev, "%s: codec register error:0x%08x\n",
-> +			__func__, ret);
-> +
-> +	INIT_DELAYED_WORK(&tas_dev->irq_info.irq_work, irq_work_routine);
-> +	tas_dev->irq_info.is_irq_enable =3D false;
-
-Shouldn't this happen before we register with the core?
-
-> +static int tasdevice_pm_suspend(struct device *dev) {
-> +	struct tasdevice_priv *tas_dev =3D dev_get_drvdata(dev);
-> +
-> +	mutex_lock(&tas_dev->codec_lock);
-> +	tas_dev->runtime_suspend =3D true;
-> +
-> +	if (tas_dev->irq_work_func) {
-> +		if (delayed_work_pending(&tas_dev->irq_info.irq_work)) {
-> +			dev_dbg(tas_dev->dev, "cancel IRQ work\n");
-> +			cancel_delayed_work_sync(&tas_dev->irq_info.irq_work);
-> +		}
-> +	}
-
-Just cancelling the work unconditionally should do the right thing, though =
-given that there's no configuration done for the device it's unclear why we=
-'re implementing runtime suspend at all?
-
-> +static int tasdevice_i2c_probe(struct i2c_client *i2c,
-> +	const struct i2c_device_id *id)
-> +{
-> +	struct tasdevice_priv *tas_dev =3D NULL;
-> +	int ret =3D 0;
-> +
-> +	if (!i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C)) {
-> +		dev_err(&i2c->dev,
-> +			"%s: I2C check failed\n", __func__);
-> +		ret =3D -ENODEV;
-> +		goto out;
-> +	}
-
-Why the functionality check?

@@ -2,97 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6D716AFE5D
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 06:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E716AFE6F
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Mar 2023 06:34:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11B271736;
-	Wed,  8 Mar 2023 06:32:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11B271736
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D6E41740;
+	Wed,  8 Mar 2023 06:33:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D6E41740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678253612;
-	bh=oTssYxgr4v9YEs2Mi+wRM53RpCinf6UiRz81DuWKBBw=;
+	s=default; t=1678253662;
+	bh=J3r/0sw35v79TJJSjxF1qRpWHmK2Hc+fvpMKKidub94=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BiA3y09sJcsWeg325sdrZSh82PRi4y1ARvFLKGGHeVUc5eeNryqQ5cQCgxCdD6kHe
-	 yK+Zw2xsryl/nWiZhypIpTMZq24TJ1vX22mJFpcy1WZc2dpstWBoPB6+1HjonRha8x
-	 f38oreeMiW30LBhyXZz5ui/W0n7GvjcSxw9GQ/mA=
+	b=LtdaGxqQsCE/7iQT+bDoCXuHaRPHGjns4nnAH7sRyIxu4nffW4yl6D8DlrFsj8UU9
+	 YQ26wqwS1HboRHE8dzZgVOSN76IAKtW6yEL4YqRDA68cluMlizNDcu0g2VMJaGPuy+
+	 JkB1k0V1x3idPjAeVT326yksgF9PVrQ0BkFM0t3U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68CF0F80236;
-	Wed,  8 Mar 2023 06:32:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE542F80482;
+	Wed,  8 Mar 2023 06:33:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A65B3F8042F; Wed,  8 Mar 2023 06:32:20 +0100 (CET)
+	id 0247EF804B1; Wed,  8 Mar 2023 06:33:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41664F8007E
-	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 06:32:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41664F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4D6AF800DF
+	for <alsa-devel@alsa-project.org>; Wed,  8 Mar 2023 06:33:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4D6AF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=2SUm94wE;
+ header.s=susede2_rsa header.b=Uw6NVDEt;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ktJJOH9+
+ header.s=susede2_ed25519 header.b=SdX3GTyP
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2F678219CE;
-	Wed,  8 Mar 2023 05:32:09 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3019C1FE37;
+	Wed,  8 Mar 2023 05:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1678253529;
+	t=1678253594;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JStVWXkigta9lMAjoyTsVckovR5ZkUtL02ZFcFyWx9A=;
-	b=2SUm94wEh44KMUKqjw8/XbX7VEeQrOYiY7St8XUA3idKiXe5TglkKwgNqVie5eYPqrn5f8
-	aSSn96mmcmvqU1potQ9PiYO227H18SMGBA+sXQkluAk3rZvB07Ml4nzD3qr9nGeRek6uMh
-	L9QoykWfaFD/wtFSBFBxzNSIhwuwQo8=
+	bh=mw9v6ZfrYjd6hWthtWfhOe8EfGRfXYdEq20k8/Rb+zA=;
+	b=Uw6NVDEtyp3bF8u+EVV4abxSEaf0BVreYjCR4iqWVjirPxi/yr7t5CFyTWnZpYF4O7lNAj
+	GWVFf0RiiwFu6/0W4rbdt5vsgE2bIO3vtKpX6SGD2A97/hceeAYCQgeGukNb/xP3ir/gH6
+	Q/mkunB82gJCuNMXzwLzUi81SPXlI2E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1678253529;
+	s=susede2_ed25519; t=1678253594;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JStVWXkigta9lMAjoyTsVckovR5ZkUtL02ZFcFyWx9A=;
-	b=ktJJOH9+vrCOfzFooXPOPCcpQcrbgGl3PNUmj3dRbglFHkIYIYS1e64Xxb5VEsKyQ0lb28
-	RaZYcNjkQes8PzDQ==
+	bh=mw9v6ZfrYjd6hWthtWfhOe8EfGRfXYdEq20k8/Rb+zA=;
+	b=SdX3GTyPtFM2JbZpVSmlh+24eQoiXui20AfNJWLBiyoGVsXzIh7EUQZsX8HXP+ZOszw56b
+	rHU3HZ1+xeWqn8AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DCE7713596;
-	Wed,  8 Mar 2023 05:32:08 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F051013596;
+	Wed,  8 Mar 2023 05:33:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id z6hbNdgdCGTJPAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 08 Mar 2023 05:32:08 +0000
-Date: Wed, 08 Mar 2023 06:32:08 +0100
-Message-ID: <87pm9jizaf.wl-tiwai@suse.de>
+	id fnGbORkeCGQzPQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 08 Mar 2023 05:33:13 +0000
+Date: Wed, 08 Mar 2023 06:33:13 +0100
+Message-ID: <87o7p3iz8m.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 0/130+] ALSA: emu10k1 & more
-In-Reply-To: <Y+4UcetSxH6lDPoy@ugly>
-References: <Y+4UcetSxH6lDPoy@ugly>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: add MTL PCI id
+In-Reply-To: <20230306074101.3906707-1-yung-chuan.liao@linux.intel.com>
+References: <20230306074101.3906707-1-yung-chuan.liao@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: E2HJOJLYWBXS4MZAQ5GRJD72IJUVQYWS
-X-Message-ID-Hash: E2HJOJLYWBXS4MZAQ5GRJD72IJUVQYWS
+Message-ID-Hash: E2QMA45FZ2CPKNHQYYP3ON6TIVFV4CND
+X-Message-ID-Hash: E2QMA45FZ2CPKNHQYYP3ON6TIVFV4CND
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,19 +99,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Lee Revell <rlrevell@joe-job.com>,
- James Courtier-Dutton <James@superbug.co.uk>,
- Veli-Matti Valtonen <maligor@gmail.com>, Ctirad Fertr <c.fertr@gmail.com>,
- Pavel Hofman <dustin@seznam.cz>, michael@gernoth.net,
- Maxim Kachur <mcdebugger@duganet.ru>, shane-alsa@cm.nu,
- Thomas Zehetbauer <thomasz@hostmaster.org>,
- Alexander Samad <alex@samad.com.au>
+CC: broonie@kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
+ peter.ujfalusi@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2HJOJLYWBXS4MZAQ5GRJD72IJUVQYWS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2QMA45FZ2CPKNHQYYP3ON6TIVFV4CND/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,51 +116,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 16 Feb 2023 12:33:05 +0100,
-Oswald Buddenhagen wrote:
+On Mon, 06 Mar 2023 08:41:01 +0100,
+Bard Liao wrote:
 > 
-> moin,
+> Use SOF as default audio driver.
 > 
-> i got myself an old e-mu 0404 card, because i found the analog
-> hardware well hackable for dc operation.
-> then i found the driver to be lacking, and got hacking that,
-> too. hence this blast from the past.
-> 
-> this is a huge branch with many internal dependencies, so i'm assuming
-> i'm not supposed to post a patch series.
-> instead it's on https://github.com/ossilator/linux/tree/ossis-alsa -
-> let me know if another review platform is preferable.
-> 
-> apart from the actual driver work, this contains some alsa patches
-> unrelated to emu10k1, some patches which really shouldn't be merged
-> via the alsa route (if at all), and some patches which are just
-> collections of questions (to which i hope to receive answers on
-> github). this is of course meant to be cleaned up in due time.
-> 
-> feel free to cherry-pick the patches you deem ready; i'll happily
-> rebase the branch.
-> 
-> some of these patches are not (fully) tested due to lack of
-> hardware. in particular, someone should check that SB Live! and Audigy
-> cards still work. then there is a whole bunch of e-mu card specific
-> functionality which targets the "bigger members of the family". all
-> patches that need testing are clearly marked as such.
-> if someone wants to provide me with hardware (temporarily or
-> permanently), go ahead (i'm in berlin, germany).
-> 
-> on CC is everyone who is recorded to have hacked the emu1010 part of
-> the driver or tested something. i fully expect half the addresses to
-> bounce, and the remainder to wonder what i'm smoking. ;-)
-> when you reply, please do so only to the list and me.
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Gongjun Song <gongjun.song@intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-The patches look nice, but it's not how we can work on merging.
-Each patch has to be submitted to ML and reviewed.
+Thanks, applied.
 
-Could you start from the fixes for the common PCM or whatever more
-important ones or the trivial fixes?  Submit to alsa-devel ML and put
-me to Cc.
-
-
-thanks,
 
 Takashi

@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4E66B1BAF
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 07:42:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A02C6B1BBC
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 07:45:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E86BE18A7;
-	Thu,  9 Mar 2023 07:42:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E86BE18A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FF9118AA;
+	Thu,  9 Mar 2023 07:44:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FF9118AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678344178;
-	bh=anlaQGXty2j4C1rrpEoCgHw52aLsUAs5MLJO7BHeLtw=;
+	s=default; t=1678344340;
+	bh=Gla20dVFtwcmsJDIAEDLkVJjHhYsTxUuqXoz/zhlRZQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qFKjGItgTs7X+Ug20glFcmIFv0VcMQo9UALahnlrmuZsTOXed+wi+GRv3uG1RWJrQ
-	 Hcc9a/IalNRg/PdKvnyZKCgDODJPWtIx/KtJAkFxGc3RT4RjImXyUlIWGNOmDbnJTz
-	 sG6e8846t9OgsXSyc0d90KucSIoKSiwi2LF/24j8=
+	b=LcIKEQoIhdcwGE1wFXjutQfyM8ownNb/dTNt8aVNgYRBPgQIcjwS6twDyKqGAskyf
+	 NVyNHgTiwBykKxHFQtVZmj/TcDunW70UE0jR19KiLYoZvZWthHPdtSMQcAQAi/sgjB
+	 R5s6KmXAXAd11kRLrViZDEORzLJxO8LXERnidZus=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42A77F8042F;
-	Thu,  9 Mar 2023 07:41:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0BFC9F80236;
+	Thu,  9 Mar 2023 07:44:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEFD2F80431; Thu,  9 Mar 2023 07:41:38 +0100 (CET)
+	id 1B49DF8042F; Thu,  9 Mar 2023 07:44:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7E243F80236
-	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 07:41:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E243F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4119EF800C9
+	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 07:44:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4119EF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=Tp9UzSYO
+ header.a=rsa-sha256 header.s=korg header.b=hB45rpj6
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1C4EE61A01;
-	Thu,  9 Mar 2023 06:41:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06258C433D2;
-	Thu,  9 Mar 2023 06:41:31 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 92DCC61A01;
+	Thu,  9 Mar 2023 06:44:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80510C433EF;
+	Thu,  9 Mar 2023 06:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1678344091;
-	bh=anlaQGXty2j4C1rrpEoCgHw52aLsUAs5MLJO7BHeLtw=;
+	s=korg; t=1678344256;
+	bh=Gla20dVFtwcmsJDIAEDLkVJjHhYsTxUuqXoz/zhlRZQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Tp9UzSYOO7BblVcizcgJB0esyCT6luFhHreKeawJZE6BxreN6ibZ6wbkze8JzrZvm
-	 1nAeEs0nKuc+Du2rjYFK/qrr++qdd2iuphGhl0/2UezDrdhTaen4go1SOHXwEd/C7S
-	 OmtiiYzQy3znxH/FHwl/NvEYL2vHh3h0+MA78xVo=
-Date: Thu, 9 Mar 2023 07:41:28 +0100
+	b=hB45rpj6auN1lvLcMx7FccHj36FkHW2EiQNnC1Cch8WJPq6nVBtzVN407174rNmDf
+	 hS7AypxF0/at9zgv8L/hTLhQ1YQxgyqJ1zjO1d8cLBrD/3opMnBOnKHyz7YstkrAGS
+	 NRuQx2nCvslh48jhroPy7gN0+61Mu2N/rU+u3McM=
+Date: Thu, 9 Mar 2023 07:44:13 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: Re: [PATCH v3 04/28] ASoC: Add SOC USB APIs for adding an USB backend
-Message-ID: <ZAl/mHuP7U6zgzmZ@kroah.com>
+Subject: Re: [PATCH v3 09/28] sound: usb: card: Introduce USB SND platform op
+ callbacks
+Message-ID: <ZAmAPX6Q1m0HU/Qo@kroah.com>
 References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-5-quic_wcheng@quicinc.com>
+ <20230308235751.495-10-quic_wcheng@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230308235751.495-5-quic_wcheng@quicinc.com>
-Message-ID-Hash: SG746XMPRMY63HAVYPIZLMFMOFTFHPHX
-X-Message-ID-Hash: SG746XMPRMY63HAVYPIZLMFMOFTFHPHX
+In-Reply-To: <20230308235751.495-10-quic_wcheng@quicinc.com>
+Message-ID-Hash: MTZZZLY5BUYG36MX24UGJ34MGMZDQCSX
+X-Message-ID-Hash: MTZZZLY5BUYG36MX24UGJ34MGMZDQCSX
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SG746XMPRMY63HAVYPIZLMFMOFTFHPHX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MTZZZLY5BUYG36MX24UGJ34MGMZDQCSX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,159 +96,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Mar 08, 2023 at 03:57:27PM -0800, Wesley Cheng wrote:
-> Some platforms may have support for offloading USB audio devices to a
-> dedicated audio DSP.  Introduce a set of APIs that allow for management of
-> USB sound card and PCM devices enumerated by the USB SND class driver.
-> This allows for the ASoC components to be aware of what USB devices are
-> available for offloading.
+On Wed, Mar 08, 2023 at 03:57:32PM -0800, Wesley Cheng wrote:
+> Allow for different platforms to be notified on USB SND connect/disconnect
+> seqeunces.  This allows for platform USB SND modules to properly initialize
+> and populate internal structures with references to the USB SND chip
+> device.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
->  include/sound/soc-usb.h |  35 ++++++++
->  sound/soc/Makefile      |   2 +-
->  sound/soc/soc-usb.c     | 180 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 216 insertions(+), 1 deletion(-)
->  create mode 100644 include/sound/soc-usb.h
->  create mode 100644 sound/soc/soc-usb.c
+>  sound/usb/card.c | 36 ++++++++++++++++++++++++++++++++++++
+>  sound/usb/card.h | 20 ++++++++++++++++++++
+>  2 files changed, 56 insertions(+)
 > 
-> diff --git a/include/sound/soc-usb.h b/include/sound/soc-usb.h
-> new file mode 100644
-> index 000000000000..378992ea07bd
-> --- /dev/null
-> +++ b/include/sound/soc-usb.h
-> @@ -0,0 +1,35 @@
-> +/* SPDX-License-Identifier: GPL-2.0
-> + *
-> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#ifndef __LINUX_SND_SOC_USB_H
-> +#define __LINUX_SND_SOC_USB_H
-> +
-> +/**
-> + * struct snd_soc_usb
-> + * @list - list head for SND SOC struct list
-> + * @dev - USB backend device reference
-> + * @component - reference to DAPM component
-> + * @connection_status_cb - callback to notify connection events
-> + * @priv_data - driver data
-> + **/
-> +struct snd_soc_usb {
-> +	struct list_head list;
-> +	struct device *dev;
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 26268ffb8274..9bcbaa0c0a55 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
+> @@ -117,6 +117,30 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
+>  static DEFINE_MUTEX(register_mutex);
+>  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
+>  static struct usb_driver usb_audio_driver;
+> +static struct snd_usb_platform_ops *platform_ops;
 
-If this is a USB device, then make it a pointer to the real structure,
-not just struct device.
+As I've said before, you can not just have one of these.  They need to
+be per-bus structure.  Or per-device, something dynamic, not static like
+this.
 
-
-> +	struct snd_soc_component *component;
-> +	int (*connection_status_cb)(struct snd_soc_usb *usb, int card_idx,
-> +				int connected);
-> +	void *priv_data;
-> +};
-> +
-> +int snd_soc_usb_connect(struct device *usbdev, int card_idx);
-> +int snd_soc_usb_disconnect(struct device *usbdev);
-> +void snd_soc_usb_set_priv_data(struct device *dev, void *priv);
-> +void *snd_soc_usb_get_priv_data(struct device *usbdev);
-
-Same here, you mix "dev" and "usbdev" in the names, make them real USB
-devices please.
-
-
-> +
-> +struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev, void *priv,
-
-And here.
-
-> +			int (*connection_cb)(struct snd_soc_usb *usb, int card_idx,
-> +			int connected));
-> +int snd_soc_usb_remove_port(struct device *dev);
-> +#endif
-> diff --git a/sound/soc/Makefile b/sound/soc/Makefile
-> index 507eaed1d6a1..3305ceb59d84 100644
-> --- a/sound/soc/Makefile
-> +++ b/sound/soc/Makefile
-> @@ -1,5 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
-> -snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o soc-dai.o soc-component.o
-> +snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-usb.o soc-utils.o soc-dai.o soc-component.o
->  snd-soc-core-objs += soc-pcm.o soc-devres.o soc-ops.o soc-link.o soc-card.o
->  snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
->  
-> diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
-> new file mode 100644
-> index 000000000000..4293451cdd49
-> --- /dev/null
-> +++ b/sound/soc/soc-usb.c
-> @@ -0,0 +1,180 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +#include <linux/of.h>
-> +#include <linux/usb.h>
-> +#include <sound/soc.h>
-> +#include <sound/soc-usb.h>
-> +#include "../usb/card.h"
-> +
-> +static DEFINE_MUTEX(ctx_mutex);
-> +static LIST_HEAD(usb_ctx_list);
-> +
-> +static struct device_node *snd_soc_find_phandle(struct device *dev)
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
 > +{
-> +	struct device_node *node;
+> +	if (platform_ops)
+> +		return -EEXIST;
 > +
-> +	node = of_parse_phandle(dev->of_node, "usb-soc-be", 0);
-> +	if (!node)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	return node;
-> +}
-> +
-> +static struct snd_soc_usb *snd_soc_find_usb_ctx(struct device *dev)
-> +{
-> +	struct device_node *node;
-> +	struct snd_soc_usb *ctx = NULL;
-> +
-> +	node = snd_soc_find_phandle(dev);
-> +	if (IS_ERR(node))
-> +		return NULL;
-> +
-> +	mutex_lock(&ctx_mutex);
-> +	list_for_each_entry(ctx, &usb_ctx_list, list) {
-> +		if (ctx->dev->of_node == node) {
-> +			of_node_put(node);
-> +			mutex_unlock(&ctx_mutex);
-> +			return ctx;
-> +		}
-> +	}
-> +	of_node_put(node);
-> +	mutex_unlock(&ctx_mutex);
-> +
-> +	return NULL;
-> +}
-> +
-> +/**
-> + * snd_soc_usb_get_priv_data() - Retrieve private data stored
-> + * @dev: device reference
-> + *
-> + * Fetch the private data stored in the USB SND SOC structure.
-> + *
-> + */
-> +void *snd_soc_usb_get_priv_data(struct device *dev)
-> +{
-> +	struct snd_soc_usb *ctx;
-> +
-> +	ctx = snd_soc_find_usb_ctx(dev);
-> +	if (!ctx) {
-> +		/* Check if backend device */
-> +		list_for_each_entry(ctx, &usb_ctx_list, list) {
-> +			if (dev->of_node == ctx->dev->of_node)
-> +				goto out;
+> +	mutex_lock(&register_mutex);
+> +	platform_ops = ops;
+> +	mutex_unlock(&register_mutex);
 
-No locking for this list traversal?
+Your locking is odd for a single pointer, why is it needed at all?
+
+Also you check the pointer before using the lock, which defeats the lock
+in the first place.
 
 thanks,
 

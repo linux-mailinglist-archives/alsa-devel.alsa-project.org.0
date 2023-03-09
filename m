@@ -2,214 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB2A76B231B
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 12:34:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADB556B265D
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 15:11:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E035917E7;
-	Thu,  9 Mar 2023 12:33:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E035917E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA5591817;
+	Thu,  9 Mar 2023 15:10:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA5591817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678361640;
-	bh=50HCcidOkPJIlL/Al43B79grygLyP8tmRlUT86Erf7A=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=lWmP/UVR32CfYVqHuQKIkB1bzMDCeDARkgF/eo2/Q36vSPcEJTWfoQymGjWabTbas
-	 gMJYBc9nz6x+LNki+Z5HIis5qWfCLUfdizEYr+RO531r5WjM16iAkFokF2lCkU4yXz
-	 oyrJ70yfERy1+0DLkIWMkoi4Na0NcRM9R9l6IOPk=
+	s=default; t=1678371082;
+	bh=RWtipuFF4/MU3/D2DDCzzXNXv2dqA21xjIsQ6IZ1rUg=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MI3QqnTOeO8bDZwB82GmwB3l4bV4+ha1H9sOsC8nrpVjF6MC2M0UgoicSdDKBs+0r
+	 MBfHfJfaM4cxpgrdFRPd0Q2B0SBzjzdHsOa8kHcd8RQdAUfpoQgNDuwztifMQoDvsi
+	 RWHoke+CJjzCBBYQOPmyhYlb0R3qlQntDBHIjMSQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 372F3F80093;
-	Thu,  9 Mar 2023 12:33:09 +0100 (CET)
-Date: Thu, 9 Mar 2023 12:32:48 +0100
-Subject: Re: [PATCH v3 27/28] sound: usb: card: Allow for rediscovery of
- connected USB SND devices
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, andersson@kernel.org,
- robh+dt@kernel.org, gregkh@linuxfoundation.org, tiwai@suse.com
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-28-quic_wcheng@quicinc.com>
-In-Reply-To: <20230308235751.495-28-quic_wcheng@quicinc.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B2ZZBDOODZMPTM7RWBEN7RDMZP7ZMOME/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167836158865.26.13894362578519919051@mailman-core.alsa-project.org>
-From: Oliver Neukum via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Oliver Neukum <oneukum@suse.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DB98F80236;
+	Thu,  9 Mar 2023 15:10:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83C5EF8042F; Thu,  9 Mar 2023 12:33:04 +0100 (CET)
+	id 33D1EF8042F; Thu,  9 Mar 2023 15:10:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0624.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0e::624])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D7F40F8007E
-	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 12:32:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7F40F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18690F8007E
+	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 15:10:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18690F8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256
- header.s=selector1 header.b=Ti8skcY3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nrATZLpBnqqzapAULjnhtcfHhsFGyrH62Dyn49YR/eP1YwztQniLcn58P8oZmOR0YK0CREEuRG+/WktGV3ZkWUNAU0GW/w7ftQnsj41Lu6GpPY7eTUXB48fxoYqvU3q0rdbzmRh4tYmWqjp8V/Hz8ERHw9VL9Nzrla6mDFliEHuK/gt4CJ2dOsG89ZqiQKkuQbxwbHE8C1lgP6rmE7FIOC2ZrnNKndJo/gcwOeeCEcgd26C/WP3Jwj3TC8AGWKzSbhIAWu1YDoUVriZG7Hfiiw3cwOa/gO5FQk67AXvPrP0EZkZQkGw7Rhn7Yt/BVXBGVmidZ11bnu2l/R5A+sZSUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4wt+irh6E4LNDD72G2FQCU+PsBXMEjcPPzE0oZD5hlk=;
- b=T97cjVCNiqFhXTXRy7V3WwIy7Zs/e7voHz4OeUqiY0LkQ8srvBHDmvdvqJ1XL0e4V6Y98qYd5+8t6BaT6ZXKJM74loIKUP0bDCFClBkDGCLZ8WKDGV9QzE/CQGreS1oLG9cG4UY1oQlIw3OMjRtSpOPvBQxuCoR0gz1gnGZiLZOmlPehM6z/CI4uPTL32l4L1b7uNLl5ohdknnvL4peU2oBYvXAEx+yTueNLW0kloSD3aq/ObcnCwR6Ut8IL+zpARbndephqfiMkAVBOwuUA0H6qRBSX9jdhSYoR7L5hPgz+1CGMpPkESH3HxYNOi4VmOCckpD8b4ineEFZ/pS3k6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4wt+irh6E4LNDD72G2FQCU+PsBXMEjcPPzE0oZD5hlk=;
- b=Ti8skcY3wE32Tm36NJsstXhIpD14z16xheW10g3lmULX8r8Q64pdoNs/cgrwEwuY6OprM0PNLSvOOdB6Oprw0A4PeCS3ykKUMrGzpeC8Ca2mii2bz4sqDVkEkIc3TIyY5fYNhHftgQgKArrwJVR009Gh1GAGorL3y7FM0pxhIWWIRO7EvDwawVyUqv3XyHPENloLEyr0E66tkwoQ9m8kz/waJekkyrJjv1Sv4dT5M0Hejj9ouVe+ZIJLcZ6wZtbyqX/67YQLwf+1ttQNXTfHS59qhugytLH5P0YQ4mqZr4xeY1faSZEgdxXy+i8T8SSUEpcvMQsOq2QijWMQcN19Cg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB7104.eurprd04.prod.outlook.com (2603:10a6:800:126::9)
- by AS8PR04MB8200.eurprd04.prod.outlook.com (2603:10a6:20b:3f8::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17; Thu, 9 Mar
- 2023 11:32:52 +0000
-Received: from VI1PR04MB7104.eurprd04.prod.outlook.com ([fe80::2ea:4a86:9ab7])
- by VI1PR04MB7104.eurprd04.prod.outlook.com ([fe80::2ea:4a86:9ab7%3]) with
- mapi id 15.20.6178.019; Thu, 9 Mar 2023 11:32:52 +0000
-Message-ID: <9a05953e-fc43-3223-2c96-8e12eac93bf4@suse.com>
-Date: Thu, 9 Mar 2023 12:32:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v3 27/28] sound: usb: card: Allow for rediscovery of
- connected USB SND devices
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, andersson@kernel.org,
- robh+dt@kernel.org, gregkh@linuxfoundation.org, tiwai@suse.com
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-28-quic_wcheng@quicinc.com>
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20230308235751.495-28-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0189.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::12) To VI1PR04MB7104.eurprd04.prod.outlook.com
- (2603:10a6:800:126::9)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=eb8CwY+E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1678371019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ODObCz4UpLnL30PCazA7QvVVaLpuERoMVAQqToE74AA=;
+	b=eb8CwY+ETMRNxvTfJK8+y/X/Yix1xL55xwD4XqMB3+xokHvvyXqjAPCefOY13GuP+cuIOt
+	NH7GTfVOYXkiCI4uLrhcP1TGx06EGPs9EZuiPN379JG12WoHW0NqPGrw9rg/SVSsjq0wGU
+	XY7pFd+KCua9oo/MnbpSjjxRm2LzXj4=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-84-Q6ayuyb5MwKUIGb7qdpQSQ-1; Thu, 09 Mar 2023 09:10:18 -0500
+X-MC-Unique: Q6ayuyb5MwKUIGb7qdpQSQ-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ 19-20020a370c13000000b007428253bb55so1198135qkm.23
+        for <alsa-devel@alsa-project.org>;
+ Thu, 09 Mar 2023 06:10:18 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678371002;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ODObCz4UpLnL30PCazA7QvVVaLpuERoMVAQqToE74AA=;
+        b=eOuZR8p5EVW79A7Us9kA2kVZNnvLxR4V95GBYAfRRs/8jx/Hq4a1CYGaxdgRhp/JgW
+         rU9firrqyWKiZ+HF2ftzBkRmUa9v9ekCAfRXNbbD7DriYbV7/MKQ91SGuczxh55il3+2
+         HTipmoSkVErV1rHOMdD3J28pYDN2Nuxz6G7TSvf6gVC8ylUuTzdOkIiW+fOehOohwfVK
+         1a2F1H8uzRzVCZ1mE/fTWS0ascPnu6ZlNXNf/aJwa9+1O3UYnsg1iAMQZRnRmvdazu41
+         24VIRZ1R8nIs2o1CSHOAr8aRfHOgEWKKaF35+WfzdKxx6nOD8rwecmR7Gih9IgZRKT1g
+         0+lw==
+X-Gm-Message-State: AO0yUKVnE9fyoJG31ZC3k96VReW+L5ujB6c4wlHeaQ1lqJ9XevOHUofc
+	kGLwc0sZvoMZOgCRjGcuZlr+EvWlPjPMV9ICbyr+58cWM5fAr/Ng1ysivphvt+/8J1iZUQvB+93
+	4lmGTMKErmbPxypVeCHSBhS0=
+X-Received: by 2002:a05:622a:1ba5:b0:3bf:dc55:ab0b with SMTP id
+ bp37-20020a05622a1ba500b003bfdc55ab0bmr38055404qtb.42.1678371002496;
+        Thu, 09 Mar 2023 06:10:02 -0800 (PST)
+X-Google-Smtp-Source: 
+ AK7set84SFK+UksjKHoQN7ky4OZAF9Nw0lVdbFSnR+EKabrEC4f94ZV+uwnSojcAGif2fvgAjpoXEg==
+X-Received: by 2002:a05:622a:1ba5:b0:3bf:dc55:ab0b with SMTP id
+ bp37-20020a05622a1ba500b003bfdc55ab0bmr38055355qtb.42.1678371002162;
+        Thu, 09 Mar 2023 06:10:02 -0800 (PST)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+        by smtp.gmail.com with ESMTPSA id
+ d17-20020ac800d1000000b003b848759ed8sm13644719qtg.47.2023.03.09.06.10.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Mar 2023 06:10:01 -0800 (PST)
+From: Tom Rix <trix@redhat.com>
+To: kiseok.jo@irondevice.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH] ASoC: SMA1303: set sma_i2c_regmap storage-class-specifier to
+ static
+Date: Thu,  9 Mar 2023 09:09:59 -0500
+Message-Id: <20230309140959.2616497-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7104:EE_|AS8PR04MB8200:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef912e41-d57e-48b0-6460-08db2092048c
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	WKixnNsVS2SRwESte1ztiWbxBWS4LyU0P0Bgun0OUHvG3GhdX9JH/et2UT3rwMcrcMvMghB2jN7HZsNAqLf4smPUvLUB6rzbGRSooCN0iUtjMMBNJyXXiU2XS3+PFpgvO7qYP6WU7uAzD4sx6Dlfim8I7vS6+F+3PIoZDqoNsIqodk8jzJHUBVu5YgCNaU8e06Y9NAbrtRE9C5Tx6t5Aotd5k0Sl9SGxTKKZXhIyF/pczUX8UuGpXp+fg2GibQYb3vo/RDoSIyY5yymTrcLRDJo2VEqC4y5zTyX9hl+zhkyVNsdG87k7YqiHtQWSRVK8u22HQKtGyA/tqYF+gviE1uDLxGklqXESggbY3NuVYP8ngIFRmcdzy73qtEC34hJtbdU5n6EVRQ03XxuzAUx1cArd3h5Vg6o6qOE/s9s+6Jq5gjr3fKx7Cf2SaNKp3p/gJuzX2dJEHuclg5AMkrYmu7Yk/tQP2UEPxKOVVzdo6FpbhjK+6u48p88YpNdeZrY5RZJGMt5zKFCY/pU+fTOomofFpVbJwrDst94CXOJ8xmA/h5p/Bti/8FuLIJN7g+ds4Is044Z03uVclBOMwdCKur4J10cv/ukajH0GCwZSJCdCv/MIkv5B96lk6sqRSp3ZLCW0UXTuzuNAuQab9yNh8beb+/mQkKON2kQSaN9ASAXxROC7+AlknKFTAxnEk0U76IVSigadps0Fz3jnpyJ10ebIoEcLlx5Gs8zx4zk+bToKYucKPy0wmwC54wS3sDHV
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB7104.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(39860400002)(376002)(136003)(346002)(366004)(451199018)(31686004)(4326008)(36756003)(5660300002)(41300700001)(7416002)(8936002)(66476007)(66946007)(4744005)(2906002)(66556008)(8676002)(31696002)(921005)(86362001)(38100700002)(6512007)(6486002)(6636002)(478600001)(316002)(6506007)(6666004)(83380400001)(2616005)(186003)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?bEVEcjBGQitjVisxd0ZacHAvWWdVQjJiRkFUSGtXNVZId3RLS1ZLTWd3ZStD?=
- =?utf-8?B?U3BIVVovMWNRNHk5VTJ3UXhNc216NDhkL1JTZFVUVkRicW4xOHRYRE13ZHQ1?=
- =?utf-8?B?dkJRVlVGWHFOaCsySGZ4UGVrd3NBM3Y4QkxaRXpCZ2Rwdzg0VkhzeGx4RlFm?=
- =?utf-8?B?bEF6akJNbkVHR1YrYnRWK2VJb0lRTWtHemNZNlNzam5IZW1HSkt1ZUMybFVT?=
- =?utf-8?B?akIvOW1GR1d2SWQ4aE5ybUdzbU1vK2l2UDBCMk5EN1RlUDNUY2RWL0ZyZXc1?=
- =?utf-8?B?L3N3RHNZQlhGMGhZeTdnYjQ1RUs1SmhiMS9ydWN4cGdZWnVvVkIrSi9QaHo0?=
- =?utf-8?B?dzNkeWRONTllZGFMZ3l1eEplOGVnakRiTzM5ZThUNVplK3pudXBnM3VHMHlV?=
- =?utf-8?B?QVdhZXZGL3YyMThZLzQ2SDJBSzhEZ0czbTNJZWNwTENzcUU4OFpGNkFJU3lY?=
- =?utf-8?B?UmthRzZNRFRGamI3bnprdklENDUyaWZOWEkrUmIrcWRJVDFnU0xMYjV6MWhy?=
- =?utf-8?B?aStDdmMzR2ttWmdaTkREcDIrYzd1UEJDRDNCQXpLZEZ3L1MyNTc0MGFvd0Iv?=
- =?utf-8?B?VGtKMzFrSDVveDhIQXpOSzNKamxrVnRjTmxKaXc5aGh3T2FwWmVnTmx4R0Jn?=
- =?utf-8?B?QUV4OTJGNXdrTU1RYm40RFNLYkd1eHhxYTRFUzErYWtacDduRXBnVlNSNTVo?=
- =?utf-8?B?OG1veFlCUCtpVkw2TGk3SmJKaXlVSm9NQlVqLzJmdVdRTC8rQ1piR2Rkd01a?=
- =?utf-8?B?RDU1M25jYVVaTEtNakl2UVlYaURsVUZRSjREQml1cEpHRTJKbHduZSsxam5D?=
- =?utf-8?B?RXd3UUVkQU9oeHYxd09DcUVpc0FBSDNKZWR0b0JMNXAwL3ZaUy9xLzFWd3Zl?=
- =?utf-8?B?eEo5U2hFcEl1alV5NUFJTXppRmhmK1ZjU1hueGt5TUlFVEJGMXN2dVQxWk9I?=
- =?utf-8?B?My9oS21CYll3RWM2citmamx3NUljTEdrQzZNNWM1MmRVMzVVTlhBaldabExS?=
- =?utf-8?B?MnN5cjdhYndwemF3Skl3Y0lmeHNHQkZKRjlwYVQ3ZktvWE50djBDQm5Gc2k2?=
- =?utf-8?B?dlZZd2NXR2YvMTNZM3lLTU5vMVdOVHBPQS9yT1dreFBVQ3luNEt2ME85K1Ev?=
- =?utf-8?B?UWtkN3B2cXgwckJJVUdSMUtMTTg1ZytvRDdvdkN4SURYYTFRUzd6RmcyZGZu?=
- =?utf-8?B?REc1cytQTVpRbGZFOFJLMkRtb2tjOGJxSWh6Szhjd2EvbHE2aGdya1hUb2xR?=
- =?utf-8?B?d1RsVG9VSWp3Wkh3am1tSGJXZzFmSnhvSEpaUFAyNXFPYU9yZUptcS9kWjht?=
- =?utf-8?B?N2ZWek43M2w5K0xuMk93VVo5T3YzQmxWMlhFU0pYWDdicnF0VGJwaDNwSll0?=
- =?utf-8?B?MGY1UXRxOU1MSnozYS9ZVFRLTlE2Qyt5V0ZQL2tVcDN5c1JVVmkxdTBzT1Nz?=
- =?utf-8?B?ZFdRMlkwRndmaTYyTVFBa0Z1aTFSdkdGeEZ6c1pNcEJLa1NXN3oyMlA1dExo?=
- =?utf-8?B?NVlwQmFtbjlIQThNWjEzcXlqdGhkNE1vVjhlM0EwVFV4OXRlMnpVcm5taHpK?=
- =?utf-8?B?eG5NVFZ5M2R1K3lPTjZpTE9JZ1FpU21iQXZFNkp5b2E3Vkdoazc1aW5DT1RT?=
- =?utf-8?B?Y09iUW94RzJqVnp6akdJQmVQaXllYmxBYWNEMHFKK1Vwa2tKM1JBak9JYTRu?=
- =?utf-8?B?Q3lMWExPUXlMNEY4eE51Qlk2YWpPbm50WjJvVjA3UE9nYWE3Q0lTKy9kRWpq?=
- =?utf-8?B?Snpib3pQMllzZ1BYTXB0YzNNcW5ZWmJ0VjNVUFJla1BUdjRkTmxlMnJ3VTA1?=
- =?utf-8?B?c3h2cWloYXA0QldxQUZkRjBrcEptUFNhOEdoMDdPa0tHRjV6b1BtUWZjZ2N1?=
- =?utf-8?B?dDNqekhqZEg5ZmlsM1RTWTU5aXRRanIxWXlmTTlyQ1dyYkg3VXdJajlzL2NB?=
- =?utf-8?B?UE5KdkZhczBQNDBlZHVKOE12UTQwekVyTWZuQmFyRTI5cktTUzZ4cFhTM1Nv?=
- =?utf-8?B?ZnFaM1JRelRJb21hT21RMUdTbUN1YUxNNThDV2tiNEZPZVk0UVlPOE1vck5P?=
- =?utf-8?B?ZnVqLzRicXdMMkxPdnBST2lsMWloUmtjblVoSFZxMlNoOFg3dlk3b2NlekRF?=
- =?utf-8?B?cTg5UEZFMzhrbXBkV3JSaVhxMGhCOWFweThGOS83cEdsZUlqWEJDbXpNWFNX?=
- =?utf-8?Q?rzGidzUUwFAA/9n+L/TSQu+Mwm7FltOxUxpu+ar82r/V?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ef912e41-d57e-48b0-6460-08db2092048c
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB7104.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 11:32:51.8243
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- y2EKruafpNH6a5roXDjl1SJh7VHSZVZWlIFpg1jJYbo2SyL5FMMqPQw0c39NXw3oRly4CP/lVk0qhmmhzavpHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8200
-Message-ID-Hash: B2ZZBDOODZMPTM7RWBEN7RDMZP7ZMOME
-X-Message-ID-Hash: B2ZZBDOODZMPTM7RWBEN7RDMZP7ZMOME
-X-MailFrom: ONeukum@suse.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Message-ID-Hash: 6OLRUG4EXW37UFRG2WBWSBWWESW7YY2J
+X-Message-ID-Hash: 6OLRUG4EXW37UFRG2WBWSBWWESW7YY2J
+X-MailFrom: trix@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Tom Rix <trix@redhat.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B2ZZBDOODZMPTM7RWBEN7RDMZP7ZMOME/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6OLRUG4EXW37UFRG2WBWSBWWESW7YY2J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -218,23 +130,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09.03.23 00:57, Wesley Cheng wrote:
-  
-> +/*
-> + * in case the platform driver was not ready at the time of USB SND
-> + * device connect, expose an API to discover all connected USB devices
-> + * so it can populate any dependent resources/structures.
-> + */
-> +void snd_usb_rediscover_devices(void)
-> +{
-> +	int i;
-> +
-> +	mutex_lock(&register_mutex);
-> +	for (i = 0; i < SNDRV_CARDS; i++) {
-> +		if (usb_chip[i])
-> +			if (platform_ops && platform_ops->connect_cb)
+smatch reports
+sound/soc/codecs/sma1303.c:1594:28:
+  warning: symbol 'sma_i2c_regmap' was not declared. Should it be static?
 
-Really check this every time?
+sma_i2c_regmap is only used in sma1303, so it should be static
 
-	Regards
-		Oliver
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ sound/soc/codecs/sma1303.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
+index fa4b0a60f8a9..b6c132edf3bd 100644
+--- a/sound/soc/codecs/sma1303.c
++++ b/sound/soc/codecs/sma1303.c
+@@ -1591,7 +1591,7 @@ static const struct snd_soc_component_driver sma1303_component = {
+ 	.num_dapm_routes = ARRAY_SIZE(sma1303_audio_map),
+ };
+ 
+-const struct regmap_config sma_i2c_regmap = {
++static const struct regmap_config sma_i2c_regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+ 
+-- 
+2.27.0
+

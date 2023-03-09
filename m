@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 526AA6B1BA5
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 07:39:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4E66B1BAF
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Mar 2023 07:42:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85791189A;
-	Thu,  9 Mar 2023 07:38:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85791189A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E86BE18A7;
+	Thu,  9 Mar 2023 07:42:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E86BE18A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678343956;
-	bh=9nSwtX3Wf3/5+FtvhHud7kQXnwukhhS9l0t7/nNRwok=;
+	s=default; t=1678344178;
+	bh=anlaQGXty2j4C1rrpEoCgHw52aLsUAs5MLJO7BHeLtw=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aYe4V878R1+LpcbZISlfys5CYun38IApAKJEPdCswVB7M/SQpn1VLEBWBXuH29lwB
-	 hX50JH3X3qEpSfVEBWgfpHPkVQQwGOqFqS85zBQ+0W1PvNqwHCvwCEtFmR9wnS6z96
-	 SjT/hu3wQ4x81tndFTcbc5qMDXE2p8A5D/NemR9A=
+	b=qFKjGItgTs7X+Ug20glFcmIFv0VcMQo9UALahnlrmuZsTOXed+wi+GRv3uG1RWJrQ
+	 Hcc9a/IalNRg/PdKvnyZKCgDODJPWtIx/KtJAkFxGc3RT4RjImXyUlIWGNOmDbnJTz
+	 sG6e8846t9OgsXSyc0d90KucSIoKSiwi2LF/24j8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4359F80236;
-	Thu,  9 Mar 2023 07:38:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42A77F8042F;
+	Thu,  9 Mar 2023 07:41:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3F10F8042F; Thu,  9 Mar 2023 07:38:16 +0100 (CET)
+	id AEFD2F80431; Thu,  9 Mar 2023 07:41:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E06A5F800C9
-	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 07:38:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E06A5F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E243F80236
+	for <alsa-devel@alsa-project.org>; Thu,  9 Mar 2023 07:41:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E243F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=ZaIxZhuP
+ header.a=rsa-sha256 header.s=korg header.b=Tp9UzSYO
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id BDF0060A75;
-	Thu,  9 Mar 2023 06:38:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BB5C433D2;
-	Thu,  9 Mar 2023 06:38:03 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1C4EE61A01;
+	Thu,  9 Mar 2023 06:41:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06258C433D2;
+	Thu,  9 Mar 2023 06:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1678343884;
-	bh=9nSwtX3Wf3/5+FtvhHud7kQXnwukhhS9l0t7/nNRwok=;
+	s=korg; t=1678344091;
+	bh=anlaQGXty2j4C1rrpEoCgHw52aLsUAs5MLJO7BHeLtw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZaIxZhuPjcAExla3SzFkbj7+7Rt4x9y5wh/8+bgaTXCuKUUyEzbcFdJmCRtxJ993k
-	 Ncz8MfR+Ia9lxpYbmnTl2aYEVJUPyYL75/YRo6OO1dXSXsgmy8UIGImgsrSG5nS1+s
-	 DqZjGmiT6M8d9FGFsHxGVtthkDutN4Qfoo5jN7wA=
-Date: Thu, 9 Mar 2023 07:38:01 +0100
+	b=Tp9UzSYOO7BblVcizcgJB0esyCT6luFhHreKeawJZE6BxreN6ibZ6wbkze8JzrZvm
+	 1nAeEs0nKuc+Du2rjYFK/qrr++qdd2iuphGhl0/2UezDrdhTaen4go1SOHXwEd/C7S
+	 OmtiiYzQy3znxH/FHwl/NvEYL2vHh3h0+MA78xVo=
+Date: Thu, 9 Mar 2023 07:41:28 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: Re: [PATCH v3 02/28] usb: xhci: Add XHCI APIs to support USB
- offloading
-Message-ID: <ZAl+ydxOCoGXIj1Y@kroah.com>
+Subject: Re: [PATCH v3 04/28] ASoC: Add SOC USB APIs for adding an USB backend
+Message-ID: <ZAl/mHuP7U6zgzmZ@kroah.com>
 References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-3-quic_wcheng@quicinc.com>
+ <20230308235751.495-5-quic_wcheng@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230308235751.495-3-quic_wcheng@quicinc.com>
-Message-ID-Hash: DQCCHQ4D72QB5DHBHAORA6QJ5EDAMUBP
-X-Message-ID-Hash: DQCCHQ4D72QB5DHBHAORA6QJ5EDAMUBP
+In-Reply-To: <20230308235751.495-5-quic_wcheng@quicinc.com>
+Message-ID-Hash: SG746XMPRMY63HAVYPIZLMFMOFTFHPHX
+X-Message-ID-Hash: SG746XMPRMY63HAVYPIZLMFMOFTFHPHX
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQCCHQ4D72QB5DHBHAORA6QJ5EDAMUBP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SG746XMPRMY63HAVYPIZLMFMOFTFHPHX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,211 +96,159 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Mar 08, 2023 at 03:57:25PM -0800, Wesley Cheng wrote:
-> Some use cases, such as USB audio offloading, will allow for a DSP to take
-> over issuing USB transfers to the host controller.  In order for the DSP to
-> submit transfers for a particular endpoint, and to handle its events, the
-> client driver will need to query for some parameters allocated by XHCI.
-> 
-> - XHCI secondary interrupter event ring address
-> - XHCI transfer ring address (for a particular EP)
-> - Stop endpoint command API
-> 
-> Once the resources are handed off to the DSP, the offload begins, and the
-> main processor can enter idle.  When stopped, since there are no URBs
-> submitted from the main processor, the client will just issue a stop
-> endpoint command to halt any pending transfers.
+On Wed, Mar 08, 2023 at 03:57:27PM -0800, Wesley Cheng wrote:
+> Some platforms may have support for offloading USB audio devices to a
+> dedicated audio DSP.  Introduce a set of APIs that allow for management of
+> USB sound card and PCM devices enumerated by the USB SND class driver.
+> This allows for the ASoC components to be aware of what USB devices are
+> available for offloading.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
->  drivers/usb/host/xhci.c       | 130 ++++++++++++++++++++++++++++++++++
->  include/linux/usb/xhci-intr.h |   8 +++
->  2 files changed, 138 insertions(+)
+>  include/sound/soc-usb.h |  35 ++++++++
+>  sound/soc/Makefile      |   2 +-
+>  sound/soc/soc-usb.c     | 180 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 216 insertions(+), 1 deletion(-)
+>  create mode 100644 include/sound/soc-usb.h
+>  create mode 100644 sound/soc/soc-usb.c
+> 
+> diff --git a/include/sound/soc-usb.h b/include/sound/soc-usb.h
+> new file mode 100644
+> index 000000000000..378992ea07bd
+> --- /dev/null
+> +++ b/include/sound/soc-usb.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: GPL-2.0
+> + *
+> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#ifndef __LINUX_SND_SOC_USB_H
+> +#define __LINUX_SND_SOC_USB_H
+> +
+> +/**
+> + * struct snd_soc_usb
+> + * @list - list head for SND SOC struct list
+> + * @dev - USB backend device reference
+> + * @component - reference to DAPM component
+> + * @connection_status_cb - callback to notify connection events
+> + * @priv_data - driver data
+> + **/
+> +struct snd_soc_usb {
+> +	struct list_head list;
+> +	struct device *dev;
 
-Please use checkpatch.pl on your patches before sending them out :(
+If this is a USB device, then make it a pointer to the real structure,
+not just struct device.
 
-Some other minor comments:
 
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index 88435b9cd66e..5c6b3d8f834c 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -1603,6 +1603,136 @@ static int xhci_check_args(struct usb_hcd *hcd, struct usb_device *udev,
->  	return 1;
->  }
+> +	struct snd_soc_component *component;
+> +	int (*connection_status_cb)(struct snd_soc_usb *usb, int card_idx,
+> +				int connected);
+> +	void *priv_data;
+> +};
+> +
+> +int snd_soc_usb_connect(struct device *usbdev, int card_idx);
+> +int snd_soc_usb_disconnect(struct device *usbdev);
+> +void snd_soc_usb_set_priv_data(struct device *dev, void *priv);
+> +void *snd_soc_usb_get_priv_data(struct device *usbdev);
+
+Same here, you mix "dev" and "usbdev" in the names, make them real USB
+devices please.
+
+
+> +
+> +struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev, void *priv,
+
+And here.
+
+> +			int (*connection_cb)(struct snd_soc_usb *usb, int card_idx,
+> +			int connected));
+> +int snd_soc_usb_remove_port(struct device *dev);
+> +#endif
+> diff --git a/sound/soc/Makefile b/sound/soc/Makefile
+> index 507eaed1d6a1..3305ceb59d84 100644
+> --- a/sound/soc/Makefile
+> +++ b/sound/soc/Makefile
+> @@ -1,5 +1,5 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> -snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-utils.o soc-dai.o soc-component.o
+> +snd-soc-core-objs := soc-core.o soc-dapm.o soc-jack.o soc-usb.o soc-utils.o soc-dai.o soc-component.o
+>  snd-soc-core-objs += soc-pcm.o soc-devres.o soc-ops.o soc-link.o soc-card.o
+>  snd-soc-core-$(CONFIG_SND_SOC_COMPRESS) += soc-compress.o
 >  
-> +int xhci_stop_endpoint(struct usb_device *udev,
-> +			struct usb_host_endpoint *ep)
-
-That all can be on one line, right?
-
-And no documentation for a global function?
-
+> diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
+> new file mode 100644
+> index 000000000000..4293451cdd49
+> --- /dev/null
+> +++ b/sound/soc/soc-usb.c
+> @@ -0,0 +1,180 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +#include <linux/of.h>
+> +#include <linux/usb.h>
+> +#include <sound/soc.h>
+> +#include <sound/soc-usb.h>
+> +#include "../usb/card.h"
+> +
+> +static DEFINE_MUTEX(ctx_mutex);
+> +static LIST_HEAD(usb_ctx_list);
+> +
+> +static struct device_node *snd_soc_find_phandle(struct device *dev)
 > +{
-> +	struct usb_hcd *hcd = bus_to_hcd(udev->bus);
-> +	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
-> +	unsigned int ep_index;
-> +	struct xhci_virt_device *virt_dev;
-> +	struct xhci_command *cmd;
-> +	unsigned long flags;
-> +	int ret = 0;
+> +	struct device_node *node;
 > +
-> +	ret = xhci_check_args(hcd, udev, ep, 1, true, __func__);
-> +	if (ret <= 0)
-> +		return ret;
+> +	node = of_parse_phandle(dev->of_node, "usb-soc-be", 0);
+> +	if (!node)
+> +		return ERR_PTR(-ENODEV);
 > +
-> +	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
-> +	if (!cmd)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_irqsave(&xhci->lock, flags);
-> +	virt_dev = xhci->devs[udev->slot_id];
-> +	if (!virt_dev) {
-> +		ret = -ENODEV;
-> +		goto err;
-> +	}
-> +
-> +	ep_index = xhci_get_endpoint_index(&ep->desc);
-> +	if (virt_dev->eps[ep_index].ring &&
-> +			virt_dev->eps[ep_index].ring->dequeue) {
-> +		ret = xhci_queue_stop_endpoint(xhci, cmd, udev->slot_id,
-> +				ep_index, 0);
-> +		if (ret)
-> +			goto err;
-> +
-> +		xhci_ring_cmd_db(xhci);
-> +		spin_unlock_irqrestore(&xhci->lock, flags);
-> +
-> +		/* Wait for stop endpoint command to finish */
-> +		wait_for_completion(cmd->completion);
-> +
-> +		if (cmd->status == COMP_COMMAND_ABORTED ||
-> +				cmd->status == COMP_STOPPED) {
-> +			xhci_warn(xhci,
-> +				"stop endpoint command timeout for ep%d%s\n",
-> +				usb_endpoint_num(&ep->desc),
-> +				usb_endpoint_dir_in(&ep->desc) ? "in" : "out");
-> +			ret = -ETIME;
-> +				}
-> +		goto free_cmd;
-> +	}
-> +
-> +err:
-> +	spin_unlock_irqrestore(&xhci->lock, flags);
-> +free_cmd:
-> +	xhci_free_command(xhci, cmd);
-> +
-> +	return ret;
+> +	return node;
 > +}
-> +EXPORT_SYMBOL_GPL(xhci_stop_endpoint);
 > +
-> +/* Retrieve the transfer ring base address for a specific endpoint. */
-
-At least some comment, but not much for a global function.
-
-> +phys_addr_t xhci_get_xfer_resource(struct usb_device *udev,
-> +					struct usb_host_endpoint *ep, dma_addr_t *dma)
+> +static struct snd_soc_usb *snd_soc_find_usb_ctx(struct device *dev)
 > +{
-> +	struct usb_hcd *hcd = bus_to_hcd(udev->bus);
-> +	struct device *dev = hcd->self.sysdev;
-> +	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
-> +	struct sg_table sgt;
-> +	phys_addr_t pa;
-> +	int ret;
-> +	unsigned int ep_index;
-> +	struct xhci_virt_device *virt_dev;
-> +	unsigned long flags;
+> +	struct device_node *node;
+> +	struct snd_soc_usb *ctx = NULL;
 > +
-> +	if (!HCD_RH_RUNNING(hcd))
-> +		return 0;
-
-Isn't 0 a valid address?
-
-
+> +	node = snd_soc_find_phandle(dev);
+> +	if (IS_ERR(node))
+> +		return NULL;
 > +
-> +	ret = xhci_check_args(hcd, udev, ep, 1, true, __func__);
-> +	if (ret <= 0) {
-> +		xhci_err(xhci, "%s: invalid args\n", __func__);
-> +		return 0;
+> +	mutex_lock(&ctx_mutex);
+> +	list_for_each_entry(ctx, &usb_ctx_list, list) {
+> +		if (ctx->dev->of_node == node) {
+> +			of_node_put(node);
+> +			mutex_unlock(&ctx_mutex);
+> +			return ctx;
+> +		}
 > +	}
+> +	of_node_put(node);
+> +	mutex_unlock(&ctx_mutex);
 > +
-> +	spin_lock_irqsave(&xhci->lock, flags);
-> +
-> +	virt_dev = xhci->devs[udev->slot_id];
-> +	ep_index = xhci_get_endpoint_index(&ep->desc);
-> +
-> +	if (virt_dev->eps[ep_index].ring &&
-> +		virt_dev->eps[ep_index].ring->first_seg) {
-> +
-> +		dma_get_sgtable(dev, &sgt,
-> +			virt_dev->eps[ep_index].ring->first_seg->trbs,
-> +			virt_dev->eps[ep_index].ring->first_seg->dma,
-> +			TRB_SEGMENT_SIZE);
-> +
-> +		*dma = virt_dev->eps[ep_index].ring->first_seg->dma;
-> +
-> +		pa = page_to_phys(sg_page(sgt.sgl));
-> +		sg_free_table(&sgt);
-> +		spin_unlock_irqrestore(&xhci->lock, flags);
-> +
-> +		return pa;
-> +	}
-> +	spin_unlock_irqrestore(&xhci->lock, flags);
-> +
-> +	return 0;
+> +	return NULL;
 > +}
-> +EXPORT_SYMBOL_GPL(xhci_get_xfer_resource);
 > +
-> +phys_addr_t xhci_get_ir_resource(struct usb_device *udev, struct xhci_interrupter *ir)
-
-kerneldoc for global functions?
-
+> +/**
+> + * snd_soc_usb_get_priv_data() - Retrieve private data stored
+> + * @dev: device reference
+> + *
+> + * Fetch the private data stored in the USB SND SOC structure.
+> + *
+> + */
+> +void *snd_soc_usb_get_priv_data(struct device *dev)
 > +{
-> +	struct usb_hcd *hcd = bus_to_hcd(udev->bus);
-> +	struct device *dev = hcd->self.sysdev;
-> +	struct sg_table sgt;
-> +	phys_addr_t pa;
+> +	struct snd_soc_usb *ctx;
 > +
-> +	if (!ir)
-> +		return 0;
+> +	ctx = snd_soc_find_usb_ctx(dev);
+> +	if (!ctx) {
+> +		/* Check if backend device */
+> +		list_for_each_entry(ctx, &usb_ctx_list, list) {
+> +			if (dev->of_node == ctx->dev->of_node)
+> +				goto out;
 
-How can ir ever be NULL?  You control the callers, just don't do that.
-
-> +
-> +	dma_get_sgtable(dev, &sgt, ir->event_ring->first_seg->trbs,
-> +		ir->event_ring->first_seg->dma, TRB_SEGMENT_SIZE);
-> +
-> +	pa = page_to_phys(sg_page(sgt.sgl));
-> +	sg_free_table(&sgt);
-> +
-> +	return pa;
-> +}
-> +EXPORT_SYMBOL_GPL(xhci_get_ir_resource);
-> +
->  static int xhci_configure_endpoint(struct xhci_hcd *xhci,
->  		struct usb_device *udev, struct xhci_command *command,
->  		bool ctx_change, bool must_succeed);
-> diff --git a/include/linux/usb/xhci-intr.h b/include/linux/usb/xhci-intr.h
-> index 738b0f0481a6..d42cc9a1e698 100644
-> --- a/include/linux/usb/xhci-intr.h
-> +++ b/include/linux/usb/xhci-intr.h
-> @@ -80,7 +80,15 @@ struct xhci_interrupter {
->  	u64	s3_erst_dequeue;
->  };
->  
-> +/* Secondary interrupter */
->  struct xhci_interrupter *
->  xhci_create_secondary_interrupter(struct usb_hcd *hcd, int intr_num);
->  void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct xhci_interrupter *ir);
-> +
-> +/* Offload */
-> +int xhci_stop_endpoint(struct usb_device *udev,
-> +			struct usb_host_endpoint *ep);
-> +phys_addr_t xhci_get_xfer_resource(struct usb_device *udev,
-> +					struct usb_host_endpoint *ep, dma_addr_t *dma);
-> +phys_addr_t xhci_get_ir_resource(struct usb_device *udev, struct xhci_interrupter *ir);
-
-Why are these functions unique to offload?
+No locking for this list traversal?
 
 thanks,
 

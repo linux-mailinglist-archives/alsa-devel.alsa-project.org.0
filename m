@@ -2,107 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 733416B48D9
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 16:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958026B49B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 16:15:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2B88189C;
-	Fri, 10 Mar 2023 16:06:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2B88189C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AECD01662;
+	Fri, 10 Mar 2023 16:14:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AECD01662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678460844;
-	bh=uRO3ncPTAeH91sp2hvb+p3FEDisPorSl78+BYWZMFcs=;
-	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	s=default; t=1678461320;
+	bh=sgc8sIikzUKf8oaUnbtaXcTY2+rUOaKm8L45dmJWIxw=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NCIJ+kJkbLjkJHkFQclxHThjUFfKuo7g1xEPuJHrdH1auxsohs6yz90Vp5xtExqjE
-	 5r59DFDOQvbWGWWrkHzBG5QoMUnYDkANsk2C/ZSs40r5psvxGPF4j5Z/a2SGUknpNZ
-	 NLugv/VoV0n1BbYnKSRyv2ns4/AympFpDkIxgDUU=
+	b=rCTkgn3caEr1dQ0G0XdeZfFWHatXJZy/g38Dn2CpY96C1JCOZrWt2p+3YwjcLlEA5
+	 1U45MHcybv+AtaVWNNGW0M7xbIcOxTyRCywMC5Kl0MCvfR24knqz80Jj3PifBHZsJu
+	 bvZUq/UoThfCXf5rkqYpdzs0AtyKWC3HMy7ntwKc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17F70F80236;
-	Fri, 10 Mar 2023 16:06:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11BDEF80236;
+	Fri, 10 Mar 2023 16:14:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61B3AF8007E; Fri, 10 Mar 2023 16:06:30 +0100 (CET)
+	id D1148F8042F; Fri, 10 Mar 2023 16:14:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27675F8007E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 16:06:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27675F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 871CCF8007E
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 16:14:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 871CCF8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dpuE+wWq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678460788; x=1709996788;
-  h=message-id:date:mime-version:to:cc:references:from:
-   subject:in-reply-to:content-transfer-encoding;
-  bh=uRO3ncPTAeH91sp2hvb+p3FEDisPorSl78+BYWZMFcs=;
-  b=dpuE+wWqPKAuZF4VhR6X1UtP/doW8isqFBxLdkEO1pulEZNR6wqV687e
-   JJ5byKCXdh98Gfc4c02feOClCiamLdh+tJ6+RM3/N5AqeP59Ea+Ld1IJX
-   EpFIKj9nuJaWUdVRP0ghh8Wj+IMJF2YdcD7K1hsG/9VVIAlOvHJ5jscJ/
-   g0v95nk9bSUUz0qRLSDHhBd+yLMKyk4pYS/WxOFHpVHxKO+AnSBXSv1ga
-   OxZjcnVyccfVvY75coqb7PKWo1OrpxOltVYGb6pXI1XHLIb3JZjlFTAZ1
-   535uXKKqDFXehSh38OVmo0kiCqboqYSLKbftHlim6h/ey+7PR/+g5C5UX
-   g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="399342962"
-X-IronPort-AV: E=Sophos;i="5.98,250,1673942400";
-   d="scan'208";a="399342962"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2023 07:06:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="655216793"
-X-IronPort-AV: E=Sophos;i="5.98,250,1673942400";
-   d="scan'208";a="655216793"
-Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
- ([10.237.72.199])
-  by orsmga006.jf.intel.com with ESMTP; 10 Mar 2023 07:06:19 -0800
-Message-ID: <a45ff335-0563-85c7-3b31-d6ca23a54a3f@linux.intel.com>
-Date: Fri, 10 Mar 2023 17:07:35 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XsSdofoM
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 45A48B82302
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 15:14:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4605C433A8
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 15:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678461261;
+	bh=sgc8sIikzUKf8oaUnbtaXcTY2+rUOaKm8L45dmJWIxw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=XsSdofoMEl9DiYAK/5ZfZwS39YNneCyCkE2OMaRWREuFbfAKyFkSbPfX7MGZcG4M7
+	 JAeBtbixw/gZHCVfI2L/DClYn6pJa7qjBMGz08lE6JrnCEkh0hSOMt43r5/aUqmZSz
+	 OH855hrU5l1onGHH6KfbzuDFtdHssh/uoofSzr19FlyR2g9v+q5I70AUu22M+BmnRO
+	 b8+zztOPCyBsxmSt4a6CqbzxeWH73JK8u/OCwRnI6XUMFF6eeqPuu0PTriEqEY1Asx
+	 1WnD7DVAkpnF8vMtJpiy6LsQrLt/e0y4uqrj2F4+wPGAlLSnraGi8gEAXKDxdBpMdK
+	 ELb1vvyozXFrw==
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-536c02c9dfbso102816167b3.11
+        for <alsa-devel@alsa-project.org>;
+ Fri, 10 Mar 2023 07:14:21 -0800 (PST)
+X-Gm-Message-State: AO0yUKVqX08OOJTQTk8RO4gmokA3rgOfrBbLV7Iotw3KsyZQsQhiaK88
+	cdgFXBeKsVs/yszZwG6ot9tVGiYyHtFoMK+xIw==
+X-Google-Smtp-Source: 
+ AK7set9VS13tgdT+DzbUPAyK1hhAFX+2x0Vswnb9c7OreYxCI/2ydgI/cIMuWNP/8hWsvzFznbnbU6n4F1bUdn7w/qM=
+X-Received: by 2002:a81:ad5a:0:b0:536:4d58:54b2 with SMTP id
+ l26-20020a81ad5a000000b005364d5854b2mr17238450ywk.4.1678461260807; Fri, 10
+ Mar 2023 07:14:20 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.7.1
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, andersson@kernel.org,
- robh+dt@kernel.org, gregkh@linuxfoundation.org, tiwai@suse.com
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-2-quic_wcheng@quicinc.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: Re: [PATCH v3 01/28] xhci: Add support to allocate several
- interrupters
-In-Reply-To: <20230308235751.495-2-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: SPLCIR3WRK7LT2WXIA6IHTRH6N4WYRR7
-X-Message-ID-Hash: SPLCIR3WRK7LT2WXIA6IHTRH6N4WYRR7
-X-MailFrom: mathias.nyman@linux.intel.com
+References: <20230310144732.1546328-1-robh@kernel.org>
+ <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
+In-Reply-To: <a23852d7-c70c-a03c-99fb-b453bdc750a1@linux.intel.com>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 10 Mar 2023 09:14:08 -0600
+X-Gmail-Original-Message-ID: 
+ <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
+Message-ID: 
+ <CAL_Jsq+XBzEMWrz=quxq4TkrejMMFRRvo0UinghmBphtmr=XXw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: Use of_property_present() for testing DT property
+ presence
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: VNDU6DMPAGFE5C4PGEP224ENE64VBPDD
+X-Message-ID-Hash: VNDU6DMPAGFE5C4PGEP224ENE64VBPDD
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SPLCIR3WRK7LT2WXIA6IHTRH6N4WYRR7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VNDU6DMPAGFE5C4PGEP224ENE64VBPDD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,46 +121,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 9.3.2023 1.57, Wesley Cheng wrote:
-> From: Mathias Nyman <mathias.nyman@linux.intel.com>
-> 
-> Introduce xHCI APIs to allow for clients to allocate and free
-> interrupters.  This allocates an array of interrupters, which is based on
-> the max_interrupters parameter.  The primary interrupter is set as the
-> first entry in the array, and secondary interrupters following after.
-> 
+On Fri, Mar 10, 2023 at 9:01=E2=80=AFAM Amadeusz S=C5=82awi=C5=84ski
+<amadeuszx.slawinski@linux.intel.com> wrote:
+>
+> On 3/10/2023 3:47 PM, Rob Herring wrote:
+> > It is preferred to use typed property access functions (i.e.
+> > of_property_read_<type> functions) rather than low-level
+> > of_get_property/of_find_property functions for reading properties. As
+> > part of this, convert of_get_property/of_find_property calls to the
+> > recently added of_property_present() helper when we just want to test
+> > for presence of a property and nothing more.
+> >
+> > Signed-off-by: Rob Herring <robh@kernel.org>
+> > ---
+> >   sound/soc/codecs/lpass-macro-common.c | 2 +-
+> >   sound/soc/generic/audio-graph-card.c  | 2 +-
+> >   sound/soc/generic/audio-graph-card2.c | 2 +-
+> >   sound/soc/mxs/mxs-sgtl5000.c          | 2 +-
+> >   sound/soc/samsung/i2s.c               | 2 +-
+> >   sound/soc/sh/fsi.c                    | 2 +-
+> >   sound/soc/stm/stm32_i2s.c             | 2 +-
+> >   sound/soc/stm/stm32_sai_sub.c         | 4 ++--
+> >   sound/soc/tegra/tegra_asoc_machine.c  | 2 +-
+> >   9 files changed, 10 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/l=
+pass-macro-common.c
+> > index 1b9082d237c1..f54baaad54d4 100644
+> > --- a/sound/soc/codecs/lpass-macro-common.c
+> > +++ b/sound/soc/codecs/lpass-macro-common.c
+> > @@ -16,7 +16,7 @@ struct lpass_macro *lpass_macro_pds_init(struct devic=
+e *dev)
+> >       struct lpass_macro *l_pds;
+> >       int ret;
+> >
+> > -     if (!of_find_property(dev->of_node, "power-domains", NULL))
+> > +     if (!of_property_present(dev->of_node, "power-domains"))
+> >               return NULL;
+> >
+> >       l_pds =3D devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
+> > diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/a=
+udio-graph-card.c
+> > index 5daa824a4ffc..d788f5f23a8a 100644
+> > --- a/sound/soc/generic/audio-graph-card.c
+> > +++ b/sound/soc/generic/audio-graph-card.c
+> > @@ -78,7 +78,7 @@ static int graph_get_dai_id(struct device_node *ep)
+> >                * only of_graph_parse_endpoint().
+> >                * We need to check "reg" property
+> >                */
+> > -             if (of_get_property(ep,   "reg", NULL))
+> > +             if (of_property_present(ep,   "reg"))
+>
+> Bit of nit picking, but any reason, why there are multiple spaces,
+> before "reg" here?
 
-I'm thinking about changing this offloading xHCI API
-xhci should be aware and keep track of which devices and endpoints that
-are offloaded to avoid device getting offloaded twice, avoid xhci driver
-from queuing anything itself for these, and act properly if the offloaded
-device or entire host is removed.
+Only because there was before and it was a scripted change.
 
-So first thing audio side would need to do do is register/create an
-offload entry for the device using the API:
-
-struct xhci_sideband *xhci_sideband_register(struct usb_device *udev)
-
-(xHCI specs calls offload sideband)
-Then endpoints and interrupters can be added and removed from this
-offload entry
-
-I have some early thoughts written as non-compiling code in:
-
-git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git feature_interrupters
-https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters
-
-Let me know what you think about this.
-
-> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-
-My Signed-off-by tag is being misused here.
-
-I wrote a chunk of the code in this patch as PoC that I shared in a separate topic branch.
-It was incomplete and not intended for upstream yet. (lacked locking, several fixme parts, etc..)
-The rest of the code in this patch is completely new to me.
-
-Thanks
--Mathias
-
+Rob

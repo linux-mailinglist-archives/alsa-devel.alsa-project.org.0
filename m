@@ -2,74 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622656B488C
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 16:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9A66B4892
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 16:04:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 832C618CB;
-	Fri, 10 Mar 2023 16:02:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 832C618CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B9D818D1;
+	Fri, 10 Mar 2023 16:03:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B9D818D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678460623;
-	bh=Vdvs+yw3NOP4d/F28x2YUI9Mi00oG7OrQIUrmGGZgsw=;
+	s=default; t=1678460641;
+	bh=4nO6S7AVKJRkqUospk0gd3rr/UVmqm229W5wXjOFSqU=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kTCXKkbJOLMrOMZX8mwVpi0JWNvrZfhzDhvaRJUkZ4GeSNyJEEprArlKzNWbQaJvS
-	 BcpJUCzRVQKn8MqMBQnNIV/9nraCOSyXxv40lgkWH4xUMW4vEXQ3SqTefiuxs2iA7p
-	 Jz5EF7k4jeHL66/dnOT8JiSG574YTEG9UmcmdQTI=
+	b=XvR87ExLo7zNNFvVwPE1Az5WGnDZ61isfT4iFyg+N9U4NIC6YRDD94YDD8rglQ4sJ
+	 n1ppsy/znzi376aMEtTSeX36phQXo62vmj6YVDl/PRcP27AmO2XofpugSCTOkpdB9d
+	 JJCWb2UoSNsKL5huHwYnc+nEB+G/XdjdfGZ2268E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CAA1F80236;
-	Fri, 10 Mar 2023 16:02:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D0BFF8051B;
+	Fri, 10 Mar 2023 16:02:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8232F80482; Fri, 10 Mar 2023 16:02:49 +0100 (CET)
+	id C89ACF8042F; Fri, 10 Mar 2023 16:02:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B444F8007E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 16:02:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B444F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84795F80236
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 16:02:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84795F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rD/CuzaJ
+ header.s=k20201202 header.b=aInGjzrM
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 89AA161A66;
+	by ams.source.kernel.org (Postfix) with ESMTPS id 860FCB822E7;
+	Fri, 10 Mar 2023 15:02:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80517C4339C;
 	Fri, 10 Mar 2023 15:02:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2E6C433D2;
-	Fri, 10 Mar 2023 15:02:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678460555;
-	bh=Vdvs+yw3NOP4d/F28x2YUI9Mi00oG7OrQIUrmGGZgsw=;
+	s=k20201202; t=1678460558;
+	bh=4nO6S7AVKJRkqUospk0gd3rr/UVmqm229W5wXjOFSqU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rD/CuzaJcPNMWhhXnguLLReJzC6vy3BMl64hLPP2bB5nUPMLtaBroHTpSOgfFFBGl
-	 UJG0xpFl3urRlwhbVWMqcET8GKjwGDSNYxXn1pHaHOWzOoURI70qf+Tqe4G9I8PFMY
-	 tPTvvw8h0a3L5FnHERxfFTEV/JQ2JZhnsnYHtm34J4BnD5VV8sx/MxExoXnoj+zrQt
-	 nXENrllsz/26xrTUMMvU18tle3jYPzYXBG77IFcDz11PCiwffevevxNr5XkaBaB+1H
-	 zmVvfYr98Wp+Bfm+yFnGD9yg6FxYa+cBFWuA+Iy1u9EZHVH+UKodZzSoTvQeoe4Puy
-	 7QNQUt4fnugZA==
+	b=aInGjzrM0pCcji/YZ458YXHR90uLPoDBXPhufKIlVHPF1oUYsOmmdDfPDnJnymjPS
+	 UPCWykKdDBlosBZCTOoGVn1OSgobEzk1joCjc06+G+rntnOlyY6vaCPAOyp6Nn8qJb
+	 ofguEF1TwOAv6Lt3moUg6h3+E2KyIBflz/HUM+Ri5+Kfr+c3Q2+t8dlY/8rblXzje6
+	 A9Yp1H0hHnQZ+EA53Xt5Nn4qbBr3IUp98y/Vfv6i3vS+GnuM9L4Rbn52MHYDbM82ak
+	 cUMUvchz4BPKuQ9NDxqgrhy0LPbQTFjZINV6ndYWXuUJZTO+8AREyTxD9PQzz9PThO
+	 ghTAnWA/kFlqw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230117120830.23851-1-peter.ujfalusi@linux.intel.com>
-References: <20230117120830.23851-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda-loader: use SOF helper for
- consistency
-Message-Id: <167846055304.924369.12515577947591832121.b4-ty@kernel.org>
-Date: Fri, 10 Mar 2023 15:02:33 +0000
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, perex@perex.cz, tiwai@suse.com,
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+In-Reply-To: <20221213112851.89212-1-claudiu.beznea@microchip.com>
+References: <20221213112851.89212-1-claudiu.beznea@microchip.com>
+Subject: Re: [PATCH v3 0/4] ASoC: microchip: power saving features and
+ cleanups
+Message-Id: <167846055521.924369.14328317678015706144.b4-ty@kernel.org>
+Date: Fri, 10 Mar 2023 15:02:35 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: K2FNAUB7ZGESEZCOR3OVVYUILGAAMHIF
-X-Message-ID-Hash: K2FNAUB7ZGESEZCOR3OVVYUILGAAMHIF
+Message-ID-Hash: JY7IO3XQDUSE4GNKLXLPXSY5BQPTWLLP
+X-Message-ID-Hash: JY7IO3XQDUSE4GNKLXLPXSY5BQPTWLLP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,15 +80,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+CC: alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K2FNAUB7ZGESEZCOR3OVVYUILGAAMHIF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JY7IO3XQDUSE4GNKLXLPXSY5BQPTWLLP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,11 +96,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 17 Jan 2023 14:08:30 +0200, Peter Ujfalusi wrote:
-> Update code to remove mix between legacy and SOF definitions. No
-> functionality change.
+On Tue, 13 Dec 2022 13:28:47 +0200, Claudiu Beznea wrote:
+> The following series adds runtime PM and suspend to RAM features for
+> mchp-pdmc driver.
 > 
+> Along with it 2 cleanup patches were added:
+> - patch 1/4: use vendor,device.yaml file format for Microchip AT91 ASoC
+>   bindings
+> - patch 4/4: use FIELD_PREP() in mchp-spdiftx.c
 > 
+> [...]
 
 Applied to
 
@@ -106,8 +113,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda-loader: use SOF helper for consistency
-      commit: 1d045d77756d07495ce379343455b1f829fe737d
+[1/4] ASoC: dt-bindings: microchip: use proper naming syntax
+      (no commit info)
+[2/4] ASoC: mchp-pdmc: use runtime pm for clock power saving
+      (no commit info)
+[3/4] ASoC: mchp-pdmc: add support for suspend to RAM
+      (no commit info)
+[4/4] ASoC: mchp-spdiftx: use FIELD_PREP() where possible
+      commit: 28ce5698456ab53540093836c6fee15119cf1821
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

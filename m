@@ -2,96 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159A46B471D
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 15:48:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB796B474C
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 15:49:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6100E18AE;
-	Fri, 10 Mar 2023 15:48:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6100E18AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3DC018C0;
+	Fri, 10 Mar 2023 15:48:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3DC018C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678459737;
-	bh=KzD5GY515ptwHFTcAVXR8EtlJ5ilwmppy3W5Ka05Yc8=;
+	s=default; t=1678459788;
+	bh=8+b0NRCQNRPSnRbAYOZn1D6oJnNwOaXrEmvt70tjj/I=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mGYQ3TnRnyeGVsJ4lPBWTNJP14zyPqm2N7J5MxBBWuQJa533fz8x56wCNlV/7XaIQ
-	 zD5YYmabftUzxztsu4AtIzhaenaYOdI/Vdt1h/DnY6IkHKA438+pwBOhRXy05OaP0/
-	 0y6iJ0p7uhA9zBT+YOmfhHGpIQaDVVeBI5Aj18Dk=
+	b=GBBUltWN9wn7Bq3MiDQEuv/jKeAW0bo1RL/YtkdbjyHcWKEH/HIvBbZbSBDjthpd0
+	 Zn3VpNBUScEbW/ks4cfKokr8q81tPWJkbWl7A/JpKtWuOL2jv2W6rGGqbKly0ALGaT
+	 lULkOLJ//siF2KiSN5MQr2C5+w48bqH/aZ8nsLgQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3A5DF8042F;
-	Fri, 10 Mar 2023 15:48:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1518CF804B1;
+	Fri, 10 Mar 2023 15:48:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D6BBF8042F; Fri, 10 Mar 2023 15:48:04 +0100 (CET)
+	id 0AC69F804FE; Fri, 10 Mar 2023 15:48:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
 	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
+ [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3BFA4F80093
-	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 15:47:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BFA4F80093
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-17638494edbso6034384fac.10
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5638BF80093
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 15:48:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5638BF80093
+Received: by mail-oa1-f52.google.com with SMTP id
+ 586e51a60fabf-176e43eb199so6065526fac.7
         for <alsa-devel@alsa-project.org>;
- Fri, 10 Mar 2023 06:47:58 -0800 (PST)
+ Fri, 10 Mar 2023 06:48:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678459677;
+        d=1e100.net; s=20210112; t=1678459682;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8lNbDhvtNNABoeoJ1EEfrQ6VIu2kxnEGjaB82Wf/W24=;
-        b=cg0ATSKjxXf2zpc4n5qOy49F3mKo2sTtDM+RsczQ/qyLlzGxg/Sl+HmcQ6592ndDtG
-         mX9rEGngDPqb7PsuOOwNNASvYADFhkm4UyFdkFZl6bWRpAMgyGKwafxqBtpRB6M7FJTF
-         NAcFF7P/7vm50wjIPK5miljinI3WtkrOwvex8qlGnERjOiKveRFexMF7DWXusZYbOKOc
-         RsnWtShAGAhVdD6E9OOlcvvZFkZgEeJ3brdfxxTXYLoNqvBbYCJAQqU0xx5gvqd7ZYSt
-         usdvmfydnH0B2q67zVomEuvs8d0qWcUy5nGaZz80uZNzfyHzdFeMJcZ8Ys3XBwOliGR3
-         8XrA==
-X-Gm-Message-State: AO0yUKWTrWzhOALCEtnGIzP4Jom5gUgHtFDARwMFXLisKgMJ4aF+3TuN
-	xWmmk721IqgIMA5PaSsqxQ==
+        bh=MeMfBv4qQBDw/gdQ6DRV1lIN5tc704+WbXsfATt4Sf8=;
+        b=PiT8EBmdUDKInGuQTCXnHXV1R4pJ7Em8t9I/Jm70iw8GUpryToP7s0UbRqPe/VHFNu
+         Xh7SdjEwURxqoG0CHQgCUFjZf/Eog5d41NzUF3oxN5WL689nDCwoTJpc9vz6fJDjxUA/
+         YsT9qOUpNKiiyV6Wog3qGppFQhWXN8XoHNLfanUL5HX1WdSZ8fY9Gu6VNgWrZ+2PJQaG
+         Tl9Ay+L47Ji35f9oLVHrSlkNlZkP9Z5d2F9+wQP0kf569sgK1JX7ge6+Gm5NjlEyW+zM
+         FG6D5TLZ52KBUeSO0I6GobGqgFDpFRc3hYu2Ihy0JbEt69HSAObNd4cj09doR6ofLmBr
+         zQCg==
+X-Gm-Message-State: AO0yUKVK0oaGVfuMflDlA8ADKUcHto/e+9MrhAheWKONMl+gkRXNWh3r
+	vYKDBUD8PPj+c3XvFRispA==
 X-Google-Smtp-Source: 
- AK7set9I+4VRoGtOVjvZEWPeH4QUf03Pg5OM+6KwBoqWhi2Fyc9oRdnGlhttZ2bQMXTrEhf9nUK3ig==
-X-Received: by 2002:a05:6870:73c6:b0:163:535d:4a86 with SMTP id
- a6-20020a05687073c600b00163535d4a86mr15295757oan.22.1678459676973;
-        Fri, 10 Mar 2023 06:47:56 -0800 (PST)
+ AK7set8szTbZ+YaspgWW0DP50UUQDJz+VFULa71hkxc+OI/0UNVu/Ygd6JIK1cuNuWckROeaP/6v4w==
+X-Received: by 2002:a05:6870:d113:b0:176:5b6f:12ff with SMTP id
+ e19-20020a056870d11300b001765b6f12ffmr15944517oac.4.1678459682358;
+        Fri, 10 Mar 2023 06:48:02 -0800 (PST)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107])
         by smtp.gmail.com with ESMTPSA id
- m3-20020a056870a40300b00172289de1besm115189oal.18.2023.03.10.06.47.54
+ n22-20020a4ae1d6000000b005253a5cc3cfsm866059oot.29.2023.03.10.06.48.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Mar 2023 06:47:56 -0800 (PST)
-Received: (nullmailer pid 1546370 invoked by uid 1000);
-	Fri, 10 Mar 2023 14:47:32 -0000
+        Fri, 10 Mar 2023 06:48:01 -0800 (PST)
+Received: (nullmailer pid 1546457 invoked by uid 1000);
+	Fri, 10 Mar 2023 14:47:33 -0000
 From: Rob Herring <robh@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Subject: [PATCH] ASoC: Use of_property_present() for testing DT property
- presence
-Date: Fri, 10 Mar 2023 08:47:31 -0600
-Message-Id: <20230310144732.1546328-1-robh@kernel.org>
+ NXP Linux Team <linux-imx@nxp.com>
+Subject: [PATCH] ASoC: Use of_property_read_bool() for boolean properties
+Date: Fri, 10 Mar 2023 08:47:32 -0600
+Message-Id: <20230310144733.1546413-1-robh@kernel.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: H5LKDWYGISI6QYYYBCINM3CCR55ZK2Z5
-X-Message-ID-Hash: H5LKDWYGISI6QYYYBCINM3CCR55ZK2Z5
+Message-ID-Hash: 4GKMX7ISRT2B5265UD4CM4BJCTPSCBS7
+X-Message-ID-Hash: 4GKMX7ISRT2B5265UD4CM4BJCTPSCBS7
 X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,14 +93,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
 CC: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5LKDWYGISI6QYYYBCINM3CCR55ZK2Z5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4GKMX7ISRT2B5265UD4CM4BJCTPSCBS7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,150 +111,266 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 It is preferred to use typed property access functions (i.e.
 of_property_read_<type> functions) rather than low-level
-of_get_property/of_find_property functions for reading properties. As
-part of this, convert of_get_property/of_find_property calls to the
-recently added of_property_present() helper when we just want to test
-for presence of a property and nothing more.
+of_get_property/of_find_property functions for reading properties.
+Convert reading boolean properties to to of_property_read_bool().
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- sound/soc/codecs/lpass-macro-common.c | 2 +-
- sound/soc/generic/audio-graph-card.c  | 2 +-
- sound/soc/generic/audio-graph-card2.c | 2 +-
- sound/soc/mxs/mxs-sgtl5000.c          | 2 +-
- sound/soc/samsung/i2s.c               | 2 +-
- sound/soc/sh/fsi.c                    | 2 +-
- sound/soc/stm/stm32_i2s.c             | 2 +-
- sound/soc/stm/stm32_sai_sub.c         | 4 ++--
- sound/soc/tegra/tegra_asoc_machine.c  | 2 +-
- 9 files changed, 10 insertions(+), 10 deletions(-)
+ sound/soc/codecs/sta32x.c  | 39 +++++++++++------------
+ sound/soc/codecs/sta350.c  | 63 +++++++++++++++++---------------------
+ sound/soc/codecs/tas5086.c |  2 +-
+ sound/soc/fsl/fsl_sai.c    | 12 ++++----
+ sound/soc/fsl/fsl_ssi.c    |  2 +-
+ sound/soc/fsl/imx-card.c   |  2 +-
+ sound/soc/sh/rcar/ssi.c    |  4 +--
+ 7 files changed, 57 insertions(+), 67 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-index 1b9082d237c1..f54baaad54d4 100644
---- a/sound/soc/codecs/lpass-macro-common.c
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -16,7 +16,7 @@ struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- 	struct lpass_macro *l_pds;
- 	int ret;
+diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
+index 8c86b578eba8..29af9595dac1 100644
+--- a/sound/soc/codecs/sta32x.c
++++ b/sound/soc/codecs/sta32x.c
+@@ -1054,35 +1054,32 @@ static int sta32x_probe_dt(struct device *dev, struct sta32x_priv *sta32x)
+ 	of_property_read_u8(np, "st,ch3-output-mapping",
+ 			    &pdata->ch3_output_mapping);
  
--	if (!of_find_property(dev->of_node, "power-domains", NULL))
-+	if (!of_property_present(dev->of_node, "power-domains"))
- 		return NULL;
+-	if (of_get_property(np, "st,fault-detect-recovery", NULL))
+-		pdata->fault_detect_recovery = 1;
+-	if (of_get_property(np, "st,thermal-warning-recovery", NULL))
+-		pdata->thermal_warning_recovery = 1;
+-	if (of_get_property(np, "st,thermal-warning-adjustment", NULL))
+-		pdata->thermal_warning_adjustment = 1;
+-	if (of_get_property(np, "st,needs_esd_watchdog", NULL))
+-		pdata->needs_esd_watchdog = 1;
++	pdata->fault_detect_recovery =
++		of_property_read_bool(np, "st,fault-detect-recovery");
++	pdata->thermal_warning_recovery =
++		of_property_read_bool(np, "st,thermal-warning-recovery");
++	pdata->thermal_warning_adjustment =
++		of_property_read_bool(np, "st,thermal-warning-adjustment");
++	pdata->needs_esd_watchdog =
++		of_property_read_bool(np, "st,needs_esd_watchdog");
  
- 	l_pds = devm_kzalloc(dev, sizeof(*l_pds), GFP_KERNEL);
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 5daa824a4ffc..d788f5f23a8a 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -78,7 +78,7 @@ static int graph_get_dai_id(struct device_node *ep)
- 		 * only of_graph_parse_endpoint().
- 		 * We need to check "reg" property
- 		 */
--		if (of_get_property(ep,   "reg", NULL))
-+		if (of_property_present(ep,   "reg"))
- 			return info.id;
+ 	tmp = 140;
+ 	of_property_read_u16(np, "st,drop-compensation-ns", &tmp);
+ 	pdata->drop_compensation_ns = clamp_t(u16, tmp, 0, 300) / 20;
  
- 		node = of_get_parent(ep);
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 06609a526b78..259544f64df9 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -376,7 +376,7 @@ static int graph_get_dai_id(struct device_node *ep)
- 		 * only of_graph_parse_endpoint().
- 		 * We need to check "reg" property
- 		 */
--		if (of_get_property(ep,   "reg", NULL))
-+		if (of_property_present(ep,   "reg"))
- 			return info.id;
+ 	/* CONFE */
+-	if (of_get_property(np, "st,max-power-use-mpcc", NULL))
+-		pdata->max_power_use_mpcc = 1;
+-
+-	if (of_get_property(np, "st,max-power-correction", NULL))
+-		pdata->max_power_correction = 1;
+-
+-	if (of_get_property(np, "st,am-reduction-mode", NULL))
+-		pdata->am_reduction_mode = 1;
+-
+-	if (of_get_property(np, "st,odd-pwm-speed-mode", NULL))
+-		pdata->odd_pwm_speed_mode = 1;
++	pdata->max_power_use_mpcc =
++		of_property_read_bool(np, "st,max-power-use-mpcc");
++	pdata->max_power_correction =
++		of_property_read_bool(np, "st,max-power-correction");
++	pdata->am_reduction_mode =
++		of_property_read_bool(np, "st,am-reduction-mode");
++	pdata->odd_pwm_speed_mode =
++		of_property_read_bool(np, "st,odd-pwm-speed-mode");
  
- 		node = of_get_parent(ep);
-diff --git a/sound/soc/mxs/mxs-sgtl5000.c b/sound/soc/mxs/mxs-sgtl5000.c
-index 746f40938675..a55e7256a4c3 100644
---- a/sound/soc/mxs/mxs-sgtl5000.c
-+++ b/sound/soc/mxs/mxs-sgtl5000.c
-@@ -150,7 +150,7 @@ static int mxs_sgtl5000_probe(struct platform_device *pdev)
+ 	/* CONFF */
+-	if (of_get_property(np, "st,invalid-input-detect-mute", NULL))
+-		pdata->invalid_input_detect_mute = 1;
++	pdata->invalid_input_detect_mute =
++		of_property_read_bool(np, "st,invalid-input-detect-mute");
  
- 	card->dev = &pdev->dev;
+ 	sta32x->pdata = pdata;
  
--	if (of_find_property(np, "audio-routing", NULL)) {
-+	if (of_property_present(np, "audio-routing")) {
- 		card->dapm_widgets = mxs_sgtl5000_dapm_widgets;
- 		card->num_dapm_widgets = ARRAY_SIZE(mxs_sgtl5000_dapm_widgets);
+diff --git a/sound/soc/codecs/sta350.c b/sound/soc/codecs/sta350.c
+index 9ed13aeb3cbd..b033a5fcd6c0 100644
+--- a/sound/soc/codecs/sta350.c
++++ b/sound/soc/codecs/sta350.c
+@@ -1106,12 +1106,12 @@ static int sta350_probe_dt(struct device *dev, struct sta350_priv *sta350)
+ 	of_property_read_u8(np, "st,ch3-output-mapping",
+ 			    &pdata->ch3_output_mapping);
  
-diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
-index 6f96032090de..083e278aa021 100644
---- a/sound/soc/samsung/i2s.c
-+++ b/sound/soc/samsung/i2s.c
-@@ -1289,7 +1289,7 @@ static int i2s_register_clock_provider(struct samsung_i2s_priv *priv)
- 	int ret, i;
+-	if (of_get_property(np, "st,thermal-warning-recovery", NULL))
+-		pdata->thermal_warning_recovery = 1;
+-	if (of_get_property(np, "st,thermal-warning-adjustment", NULL))
+-		pdata->thermal_warning_adjustment = 1;
+-	if (of_get_property(np, "st,fault-detect-recovery", NULL))
+-		pdata->fault_detect_recovery = 1;
++	pdata->thermal_warning_recovery =
++		of_property_read_bool(np, "st,thermal-warning-recovery");
++	pdata->thermal_warning_adjustment =
++		of_property_read_bool(np, "st,thermal-warning-adjustment");
++	pdata->fault_detect_recovery =
++		of_property_read_bool(np, "st,fault-detect-recovery");
  
- 	/* Register the clock provider only if it's expected in the DTB */
--	if (!of_find_property(dev->of_node, "#clock-cells", NULL))
-+	if (!of_property_present(dev->of_node, "#clock-cells"))
- 		return 0;
+ 	pdata->ffx_power_output_mode = STA350_FFX_PM_VARIABLE_DROP_COMP;
+ 	if (!of_property_read_string(np, "st,ffx-power-output-mode",
+@@ -1133,41 +1133,34 @@ static int sta350_probe_dt(struct device *dev, struct sta350_priv *sta350)
+ 	of_property_read_u16(np, "st,drop-compensation-ns", &tmp);
+ 	pdata->drop_compensation_ns = clamp_t(u16, tmp, 0, 300) / 20;
  
- 	/* Get the RCLKSRC mux clock parent clock names */
-diff --git a/sound/soc/sh/fsi.c b/sound/soc/sh/fsi.c
-index f3edc2e3d9d7..9f3f1af6349f 100644
---- a/sound/soc/sh/fsi.c
-+++ b/sound/soc/sh/fsi.c
-@@ -1855,7 +1855,7 @@ static void fsi_of_parse(char *name,
+-	if (of_get_property(np, "st,overcurrent-warning-adjustment", NULL))
+-		pdata->oc_warning_adjustment = 1;
++	pdata->oc_warning_adjustment =
++		of_property_read_bool(np, "st,overcurrent-warning-adjustment");
  
- 	for (i = 0; i < ARRAY_SIZE(of_parse_property); i++) {
- 		sprintf(prop, "%s,%s", name, of_parse_property[i].name);
--		if (of_get_property(np, prop, NULL))
-+		if (of_property_present(np, prop))
- 			flags |= of_parse_property[i].val;
+ 	/* CONFE */
+-	if (of_get_property(np, "st,max-power-use-mpcc", NULL))
+-		pdata->max_power_use_mpcc = 1;
+-
+-	if (of_get_property(np, "st,max-power-correction", NULL))
+-		pdata->max_power_correction = 1;
+-
+-	if (of_get_property(np, "st,am-reduction-mode", NULL))
+-		pdata->am_reduction_mode = 1;
+-
+-	if (of_get_property(np, "st,odd-pwm-speed-mode", NULL))
+-		pdata->odd_pwm_speed_mode = 1;
+-
+-	if (of_get_property(np, "st,distortion-compensation", NULL))
+-		pdata->distortion_compensation = 1;
++	pdata->max_power_use_mpcc =
++		of_property_read_bool(np, "st,max-power-use-mpcc");
++	pdata->max_power_correction =
++		of_property_read_bool(np, "st,max-power-correction");
++	pdata->am_reduction_mode =
++		of_property_read_bool(np, "st,am-reduction-mode");
++	pdata->odd_pwm_speed_mode =
++		of_property_read_bool(np, "st,odd-pwm-speed-mode");
++	pdata->distortion_compensation =
++		of_property_read_bool(np, "st,distortion-compensation");
+ 
+ 	/* CONFF */
+-	if (of_get_property(np, "st,invalid-input-detect-mute", NULL))
+-		pdata->invalid_input_detect_mute = 1;
++	pdata->invalid_input_detect_mute =
++		of_property_read_bool(np, "st,invalid-input-detect-mute");
+ 
+ 	/* MISC */
+-	if (of_get_property(np, "st,activate-mute-output", NULL))
+-		pdata->activate_mute_output = 1;
+-
+-	if (of_get_property(np, "st,bridge-immediate-off", NULL))
+-		pdata->bridge_immediate_off = 1;
+-
+-	if (of_get_property(np, "st,noise-shape-dc-cut", NULL))
+-		pdata->noise_shape_dc_cut = 1;
+-
+-	if (of_get_property(np, "st,powerdown-master-volume", NULL))
+-		pdata->powerdown_master_vol = 1;
++	pdata->activate_mute_output =
++		of_property_read_bool(np, "st,activate-mute-output");
++	pdata->bridge_immediate_off =
++		of_property_read_bool(np, "st,bridge-immediate-off");
++	pdata->noise_shape_dc_cut =
++		of_property_read_bool(np, "st,noise-shape-dc-cut");
++	pdata->powerdown_master_vol =
++		of_property_read_bool(np, "st,powerdown-master-volume");
+ 
+ 	if (!of_property_read_u8(np, "st,powerdown-delay-divider", &tmp8)) {
+ 		if (is_power_of_2(tmp8) && tmp8 >= 1 && tmp8 <= 128)
+diff --git a/sound/soc/codecs/tas5086.c b/sound/soc/codecs/tas5086.c
+index 22143cc5afa7..f9e7122894bd 100644
+--- a/sound/soc/codecs/tas5086.c
++++ b/sound/soc/codecs/tas5086.c
+@@ -840,7 +840,7 @@ static int tas5086_probe(struct snd_soc_component *component)
+ 			snprintf(name, sizeof(name),
+ 				 "ti,mid-z-channel-%d", i + 1);
+ 
+-			if (of_get_property(of_node, name, NULL) != NULL)
++			if (of_property_read_bool(of_node, name))
+ 				priv->pwm_start_mid_z |= 1 << i;
+ 		}
  	}
- 	info->flags = flags;
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index f3dd9f8e621c..9dad85ecb93f 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1066,7 +1066,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 				     "Could not get x11k parent clock\n");
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 1b197478b3d9..4e6b75f1ddd0 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1380,18 +1380,18 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 	sai->cpu_dai_drv.symmetric_channels = 1;
+ 	sai->cpu_dai_drv.symmetric_sample_bits = 1;
  
- 	/* Register mclk provider if requested */
--	if (of_find_property(np, "#clock-cells", NULL)) {
-+	if (of_property_present(np, "#clock-cells")) {
- 		ret = stm32_i2s_add_mclk_provider(i2s);
- 		if (ret < 0)
- 			return ret;
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index eb31b49e6597..8ba4206f751d 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1394,7 +1394,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+-	if (of_find_property(np, "fsl,sai-synchronous-rx", NULL) &&
+-	    of_find_property(np, "fsl,sai-asynchronous", NULL)) {
++	if (of_property_read_bool(np, "fsl,sai-synchronous-rx") &&
++	    of_property_read_bool(np, "fsl,sai-asynchronous")) {
+ 		/* error out if both synchronous and asynchronous are present */
+ 		dev_err(dev, "invalid binding for synchronous mode\n");
+ 		return -EINVAL;
+ 	}
  
- 	/* Get spdif iec60958 property */
- 	sai->spdif = false;
--	if (of_get_property(np, "st,iec60958", NULL)) {
-+	if (of_property_present(np, "st,iec60958")) {
- 		if (!STM_SAI_HAS_SPDIF(sai) ||
- 		    sai->dir == SNDRV_PCM_STREAM_CAPTURE) {
- 			dev_err(&pdev->dev, "S/PDIF IEC60958 not supported\n");
-@@ -1480,7 +1480,7 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 		return 0;
+-	if (of_find_property(np, "fsl,sai-synchronous-rx", NULL)) {
++	if (of_property_read_bool(np, "fsl,sai-synchronous-rx")) {
+ 		/* Sync Rx with Tx */
+ 		sai->synchronous[RX] = false;
+ 		sai->synchronous[TX] = true;
+-	} else if (of_find_property(np, "fsl,sai-asynchronous", NULL)) {
++	} else if (of_property_read_bool(np, "fsl,sai-asynchronous")) {
+ 		/* Discard all settings for asynchronous mode */
+ 		sai->synchronous[RX] = false;
+ 		sai->synchronous[TX] = false;
+@@ -1400,7 +1400,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 		sai->cpu_dai_drv.symmetric_sample_bits = 0;
+ 	}
  
- 	/* Register mclk provider if requested */
--	if (of_find_property(np, "#clock-cells", NULL)) {
-+	if (of_property_present(np, "#clock-cells")) {
- 		ret = stm32_sai_add_mclk_provider(sai);
- 		if (ret < 0)
- 			return ret;
-diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-index 78faa8bcae27..2dc1f44c5a8b 100644
---- a/sound/soc/tegra/tegra_asoc_machine.c
-+++ b/sound/soc/tegra/tegra_asoc_machine.c
-@@ -502,7 +502,7 @@ int tegra_asoc_machine_probe(struct platform_device *pdev)
- 	 * If clock parents are not set in DT, configure here to use clk_out_1
- 	 * as mclk and extern1 as parent for Tegra30 and higher.
- 	 */
--	if (!of_find_property(dev->of_node, "assigned-clock-parents", NULL) &&
-+	if (!of_property_present(dev->of_node, "assigned-clock-parents") &&
- 	    !of_machine_is_compatible("nvidia,tegra20")) {
- 		struct clk *clk_out_1, *clk_extern1;
+-	if (of_find_property(np, "fsl,sai-mclk-direction-output", NULL) &&
++	if (of_property_read_bool(np, "fsl,sai-mclk-direction-output") &&
+ 	    of_device_is_compatible(np, "fsl,imx6ul-sai")) {
+ 		gpr = syscon_regmap_lookup_by_compatible("fsl,imx6ul-iomuxc-gpr");
+ 		if (IS_ERR(gpr)) {
+@@ -1443,7 +1443,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
+ 		dev_warn(dev, "Error reading SAI version: %d\n", ret);
  
+ 	/* Select MCLK direction */
+-	if (of_find_property(np, "fsl,sai-mclk-direction-output", NULL) &&
++	if (of_property_read_bool(np, "fsl,sai-mclk-direction-output") &&
+ 	    sai->soc_data->max_register >= FSL_SAI_MCTL) {
+ 		regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
+ 				   FSL_SAI_MCTL_MCLK_EN, FSL_SAI_MCTL_MCLK_EN);
+diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
+index 46a53551b955..6af00b62a60f 100644
+--- a/sound/soc/fsl/fsl_ssi.c
++++ b/sound/soc/fsl/fsl_ssi.c
+@@ -1447,7 +1447,7 @@ static int fsl_ssi_probe_from_dt(struct fsl_ssi *ssi)
+ 			return -EINVAL;
+ 		}
+ 		strcpy(ssi->card_name, "ac97-codec");
+-	} else if (!of_find_property(np, "fsl,ssi-asynchronous", NULL)) {
++	} else if (!of_property_read_bool(np, "fsl,ssi-asynchronous")) {
+ 		/*
+ 		 * In synchronous mode, STCK and STFS ports are used by RX
+ 		 * as well. So the software should limit the sample rates,
+diff --git a/sound/soc/fsl/imx-card.c b/sound/soc/fsl/imx-card.c
+index 3f128ced4180..64a4d7e9db60 100644
+--- a/sound/soc/fsl/imx-card.c
++++ b/sound/soc/fsl/imx-card.c
+@@ -563,7 +563,7 @@ static int imx_card_parse_of(struct imx_card_data *data)
+ 			link_data->cpu_sysclk_id = FSL_SAI_CLK_MAST1;
+ 
+ 			/* sai may support mclk/bclk = 1 */
+-			if (of_find_property(np, "fsl,mclk-equal-bclk", NULL)) {
++			if (of_property_read_bool(np, "fsl,mclk-equal-bclk")) {
+ 				link_data->one2one_ratio = true;
+ 			} else {
+ 				int i;
+diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
+index 8ddee5b03ece..690ac0d6ef41 100644
+--- a/sound/soc/sh/rcar/ssi.c
++++ b/sound/soc/sh/rcar/ssi.c
+@@ -1211,10 +1211,10 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
+ 			goto rsnd_ssi_probe_done;
+ 		}
+ 
+-		if (of_get_property(np, "shared-pin", NULL))
++		if (of_property_read_bool(np, "shared-pin"))
+ 			rsnd_flags_set(ssi, RSND_SSI_CLK_PIN_SHARE);
+ 
+-		if (of_get_property(np, "no-busif", NULL))
++		if (of_property_read_bool(np, "no-busif"))
+ 			rsnd_flags_set(ssi, RSND_SSI_NO_BUSIF);
+ 
+ 		ssi->irq = irq_of_parse_and_map(np, 0);
 -- 
 2.39.2
 

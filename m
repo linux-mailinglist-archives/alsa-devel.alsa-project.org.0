@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6F516B4090
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 14:38:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F616B4870
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 16:02:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A423C17F8;
-	Fri, 10 Mar 2023 14:37:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A423C17F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEA5B18B8;
+	Fri, 10 Mar 2023 16:01:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEA5B18B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678455481;
-	bh=aAy0Lj+fHM1y5bA4dye14eUV1gEszDc0S4fp9Vd/pC8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=OmwMslKazSygtQ2TUxZPQssbq5+FOWmqwqRGC6ckTzwnkLuBvKOLUHtXg47Vz9Slz
-	 NAlv0LbkvUqPfo8WG87wAIPCrc41jnUStUJqu5CyeXYYfa+Pu1xUp9lxJdr27TsSMu
-	 yVJ18EgMpAai9xkPq2RueKQEgxhCmhFmTP02ukhE=
+	s=default; t=1678460545;
+	bh=HIkRTG1llgQTfENqu/ncJuUWajmDiD1A4UQ4X1aaIcw=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=eHid6vvPApiP9VgepS8VBXkOlt2hIQBzzn/VgD/NE/g5d7i8QPWFBnavnpT1yBHsC
+	 zdBWW4hU1VZ9ikxK78hviz07M9YmBf7yTk86xjxpRE9ESxCGhURf5ZTY7XhMP3r+05
+	 2i2Phlh6vWgpVFZ83ybJYAgytxkxLz4n+EHYNOhk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5447EF800DF;
-	Fri, 10 Mar 2023 14:37:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 152EEF80236;
+	Fri, 10 Mar 2023 16:01:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9686F8042F; Fri, 10 Mar 2023 14:37:07 +0100 (CET)
+	id 84D2EF8042F; Fri, 10 Mar 2023 16:01:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7011AF800DF
-	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 14:37:01 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id F109011C8;
-	Fri, 10 Mar 2023 14:36:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz F109011C8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1678455420; bh=RinGyNJpsQxHWm4s5hWPI2K0uUCSkIS8RckCaICpbsY=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=FR7dvmbrGm/BDXDT4ibTGTUWcBTppgVv4G81sUer/PO7qpUqAlI/a7qWb8PNBVoke
-	 Uh72D0I76enE4C7BxWnRQNrLybwEZQxFU6XSA7YuG2Wq2sVrIFg4OlxQi4Cw27Ymyf
-	 apUUtUZZ293SF/rKmkCFpB/wPyDu52K7HVZhbT7k=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 97266F80093
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 16:01:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97266F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=2q1iSx0C
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Fri, 10 Mar 2023 14:36:57 +0100 (CET)
-Message-ID: <6f003598-4cae-a521-233f-2c19eb439359@perex.cz>
-Date: Fri, 10 Mar 2023 14:36:57 +0100
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 957B361A0A;
+	Fri, 10 Mar 2023 15:01:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F59C4339C;
+	Fri, 10 Mar 2023 15:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1678460479;
+	bh=HIkRTG1llgQTfENqu/ncJuUWajmDiD1A4UQ4X1aaIcw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=2q1iSx0C+alTprRo0PLHDb5mjkJrdYdBoDBZroaFubds5ok8xUK7aulSP1xIooPMH
+	 GOPFtXsh0C7kQgaudgzSjKXXueMLOhO/W6K9WYTwwpPpQcA9d6xuPrk4d9EhlLF1x/
+	 NV52xVfvx/JOe+B6tW2SVUD8JPZu2+XJpS2EsVqs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.10 317/529] ASoC: kirkwood: Iterate over array indexes
+ instead of using pointer math
+Date: Fri, 10 Mar 2023 14:37:40 +0100
+Message-Id: <20230310133819.686285892@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230310133804.978589368@linuxfoundation.org>
+References: <20230310133804.978589368@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: alsa-devel - message mangling?
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
-References: <20230307103022.1007420-1-claudiu.beznea@microchip.com>
- <167818863631.26.6699494131684260973@mailman-core.alsa-project.org>
- <1232949a-0efd-9814-5587-bb5e0417bf1d@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <1232949a-0efd-9814-5587-bb5e0417bf1d@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 74TIX76ANYZDWRAEHWRO2LTVGQMFLK4B
-X-Message-ID-Hash: 74TIX76ANYZDWRAEHWRO2LTVGQMFLK4B
-X-MailFrom: perex@perex.cz
+Message-ID-Hash: KPNFYAAZF2LUYDO3IP5KRF76ULDF6NPF
+X-Message-ID-Hash: KPNFYAAZF2LUYDO3IP5KRF76ULDF6NPF
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Kees Cook <keescook@chromium.org>, Sasha Levin <sashal@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74TIX76ANYZDWRAEHWRO2LTVGQMFLK4B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KPNFYAAZF2LUYDO3IP5KRF76ULDF6NPF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,49 +94,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10. 03. 23 9:40, Amadeusz Sławiński wrote:
-> On 3/7/2023 12:30 PM, Charles Keepax via Alsa-devel wrote:
-> 
-> Hi Jaroslav,
+From: Kees Cook <keescook@chromium.org>
 
-Hi,
+[ Upstream commit b3bcedc0402fcdc5c8624c433562d9d1882749d8 ]
 
-> any chance that you can take a look at mailing list settings, it seems
-> like from few days some messages to mailing list come as "Someone via
-> Alsa-devel", like in top line, also content is attached as messages, so
-> when I clicked reply it didn't quote the email, as message body is
-> "empty", because all content is in attachment. You can also see it on
-> archives:
-> https://lore.kernel.org/alsa-devel/167843595709.26.931771458197876919@mailman-core.alsa-project.org/T/#m543a4c13e2f291684e54807a10ba638d906006de
+Walking the dram->cs array was seen as accesses beyond the first array
+item by the compiler. Instead, use the array index directly. This allows
+for run-time bounds checking under CONFIG_UBSAN_BOUNDS as well. Seen
+with GCC 13 with -fstrict-flex-arrays:
 
-I've turned on for the testing purposes the DMARC [1] mitigation which 
-encapsulates the original message as attachment [2] in mailman 3. The original 
-message is not mangled. You should use the attachment as the source for the 
-reply. The other mitigation option is to mangle From, but I think that it's 
-even worse for the replies.
+../sound/soc/kirkwood/kirkwood-dma.c: In function
+'kirkwood_dma_conf_mbus_windows.constprop':
+../sound/soc/kirkwood/kirkwood-dma.c:90:24: warning: array subscript 0 is outside array bounds of 'const struct mbus_dram_window[0]' [-Warray-bounds=]
+   90 |                 if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
+      |                      ~~^~~~~~
 
-Note that this mitigation is only for senders which have strict DMARC rules 
-(reject or quarantine) in their DNS records like mentioned cirrus.com, 
-bootlin.com etc.
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20230127224128.never.410-kees@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/kirkwood/kirkwood-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-It is really difficult to play nicely here. But breaking DMARC rules means 
-delivery issues and putting the outbound SMTP server to the reject list (as a 
-spam source).
-
-If we cannot live with this settings, I can turn it off, but consider to:
-
-1) ask the senders with the strict DMARC to use another domain
-2) work with the attachment (original message) for those senders
-3) if the message is not delivered to all members, the purpose of this mailing 
-list is lost
-
-					Jaroslav
-
-[1] https://dmarc.org
-[2] 
-https://docs.mailman3.org/projects/mailman/en/latest/src/mailman/handlers/docs/dmarc-mitigations.html
-
+diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
+index e037826b24517..2d41e6ab2ce4e 100644
+--- a/sound/soc/kirkwood/kirkwood-dma.c
++++ b/sound/soc/kirkwood/kirkwood-dma.c
+@@ -86,7 +86,7 @@ kirkwood_dma_conf_mbus_windows(void __iomem *base, int win,
+ 
+ 	/* try to find matching cs for current dma address */
+ 	for (i = 0; i < dram->num_cs; i++) {
+-		const struct mbus_dram_window *cs = dram->cs + i;
++		const struct mbus_dram_window *cs = &dram->cs[i];
+ 		if ((cs->base & 0xffff0000) < (dma & 0xffff0000)) {
+ 			writel(cs->base & 0xffff0000,
+ 				base + KIRKWOOD_AUDIO_WIN_BASE_REG(win));
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.39.2
+
+
 

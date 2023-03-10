@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A4D6B5321
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 22:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6206B5323
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Mar 2023 22:45:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ED9D162F;
-	Fri, 10 Mar 2023 22:44:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ED9D162F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5269D18B0;
+	Fri, 10 Mar 2023 22:44:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5269D18B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678484733;
-	bh=ynzigxjx52v0iPglNzJ/ugcqkjbMglUIbAnZyqxsGOA=;
+	s=default; t=1678484735;
+	bh=xqzo+FI6ngi/puM7Pe3gWQhRnpEHNxCaKHdfek1i+/A=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=cIq4x5gcqNKJwe/MhxiHWL95kWtmAJ7xliRqVMNXql6Gspg9a7zCZY3xEhlModiI4
-	 vn4Ml6T+2vhlTHrdNShA4b6b3uoIhD92no2bGq0YwFxfXTABhqonRFaGlmXSvUMP4P
-	 1V+K2zZxVWGJ5m88o+1KwlGJ4zIjUPoP5hM046LY=
+	b=p3atF5ayA0eyl8PY18wHl43oCbUeD7zIjtyFZu/wJHbjVVzFS/SgT3lm6CCZar7u4
+	 qU3B6Mhyz40sRxZ6gATI428kFVU2ahl8Bo1rVxKxCxoJ9s7GRt/xgFCEnRLjt5aAQO
+	 zQlNCUgjLfEOiQE+1H4c8q6t0xF1DA/i9FefQS0s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BCE4F80520;
-	Fri, 10 Mar 2023 22:43:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1499F80533;
+	Fri, 10 Mar 2023 22:43:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12FFDF804FE; Fri, 10 Mar 2023 22:43:48 +0100 (CET)
+	id 7445EF80236; Fri, 10 Mar 2023 22:43:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 281D1F8007E
-	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 22:43:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 281D1F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54365F80236
+	for <alsa-devel@alsa-project.org>; Fri, 10 Mar 2023 22:43:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54365F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=SUNi2TaX
-Received: by mail-ed1-x532.google.com with SMTP id o12so26066505edb.9
+ header.s=google header.b=haEy2ydI
+Received: by mail-ed1-x529.google.com with SMTP id ec29so26084713edb.6
         for <alsa-devel@alsa-project.org>;
- Fri, 10 Mar 2023 13:43:40 -0800 (PST)
+ Fri, 10 Mar 2023 13:43:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678484619;
+        d=linaro.org; s=google; t=1678484620;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=YIfiMP3YESLd/oa/N7VLY54fnA1n1mTobvMyaeAJG5I=;
-        b=SUNi2TaXheAbWPG/KVUefcPFHvQs9X6TNeLNLxse1maLOXEGTl4/TyuaVqStDczSnd
-         EXs4WAYhkL8UPIiQcgLk+EfoS5XdVMurMYigvZ7oXcwdz/+XJL5xAF2ZzCqv/grclfFN
-         RTRK4GXBvCHkvg6cvw8Yl7A94AoQfHauKem9e6r5R16eKeWor5pGclrxLxrAFIpu9QCF
-         UiMfeAcMguDx4E6r4e1owv2+G/n4mxUqwoQ+YgGVJUWc9EPIhP2fdRu6QzXKiZmMU5Ud
-         fxlvZMnRkhKd2qyFmWHHaxT88WgodGOk76u1I3ZLhOHFUb42R6f7EEuxRIajZqkBHwlH
-         gbRQ==
+        bh=OodZcTc1W904hklpN17tVTAGqTvpntmH7F34q8bSVFI=;
+        b=haEy2ydI/93VirwC68PAqDgHfgBgaRW9fuhmEo4FHbTnT+yd+hfaTXZ2DQO8024uiN
+         rWA8Kvp/QQWUQxqwnmRVNVUdVkBNsBNm/R3F42PX6N9xTLFBfkFcbLFc3Em7FI4JCVzE
+         IZY0NLK/6Kk4QOBWVs3bAZXdaDhlKocwUO8buNpplD1R4rZd6ad55XRrs8jj2zxs+Efh
+         Ih/R245AA36qMuC8DCIH67+2qCrbLHkdtgKjvnW+33k0uPRavZhwdPjZPk0z4zc7FHVj
+         PKJRfSAEVssfGirw5H7phcxVZ1zj8McSSjuzfSpJfU3lZmO1O0s8OECUceYiEISEONiN
+         SF1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678484619;
+        d=1e100.net; s=20210112; t=1678484620;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=YIfiMP3YESLd/oa/N7VLY54fnA1n1mTobvMyaeAJG5I=;
-        b=7CWlRljlEqymnQmYowrTydzNF+hVB+pE6xlaxEFkFZpOgGmx1tSL/FTkf4K7w7oHe+
-         3X/w9R8H8JeynrndyVv7sN4oNhboebn7xPpwdP6ZaJUrCfcKcdpTLVPu10ElwA+ININA
-         RqCnjBiKUV6pOtDrlaQyOfuyY6pE2zishIwsU84cTo500KWEzl8f+zo1+sEBe4AI0+cp
-         JhynNOg4aH9WZpqkgtxF6W8efv9E8WWtUz2PGMBmqKTrftch5wAz6QXpKX+MY58M8tZL
-         d/DBOULvPUaciv7JxsSLj75klGnWCh88NwD2WN3EIrYr1YXciF8HcOa9S5h3FqTz3qcI
-         MOOA==
-X-Gm-Message-State: AO0yUKU0ofop8hc9J1QM0A41GoYBtdGxDRPgA0j2nKY+iS3JoNmvotML
-	gDzUu47nB0izeSkZ5xE1DqgQDQ==
+        bh=OodZcTc1W904hklpN17tVTAGqTvpntmH7F34q8bSVFI=;
+        b=IiDtj/zPKkXESoKI/cgs6Gr9CWB0eDyQi0PaSJccPv5nqV2/fZufNorrrr/ZpMOHl0
+         n0COEIDgkISEFMs79MyETOcq5il/IKxgdYiBwqHbDS198ciiGtBetyp1B0DR42zEPzge
+         Fz1PxcuxQMJQqmpMiSmRfDbW88LNFMH5WPWR1PN2p6OmyYVBwD5McVwWWXxRR4cR2zq8
+         gTTV/nXdh+lqZFhIKni2UspFJgwwmp5eVfNhEs2YW7zYLGbPRW3xL6n9ulTi1M4RVzi1
+         +Au7P7r0hgRXEEXHz97zqQ1DvhJtQ9DG1vLsDva9mbDxCR9TbGY7Rrrr5sqWlE5CR8GG
+         Wuvw==
+X-Gm-Message-State: AO0yUKV7cS9tBJ+zb7WvWHkxG/mFPUZc7qhu7c8nbYqcH1R/35zPhkfo
+	loPLS/DAsIoz91M4a3Ie1Nr2tg==
 X-Google-Smtp-Source: 
- AK7set+6+KrtBdSfaV0uxoCP+fEPUyNxImT6xVJWnAKpCnDbvKIKZNH0aQlabNfXa7pbDKxh5ul0BA==
-X-Received: by 2002:a17:906:fe41:b0:8f1:949f:37b5 with SMTP id
- wz1-20020a170906fe4100b008f1949f37b5mr32934345ejb.32.1678484618989;
-        Fri, 10 Mar 2023 13:43:38 -0800 (PST)
+ AK7set8rdSwuJIZjVXbyv0eXXG6ZQ8Z4Y3OpjtXysYZ6r1dQ5W/2Lf4cBRGLcMFVT5dX8XLJ864avA==
+X-Received: by 2002:a17:907:9b03:b0:8f0:9566:c1ff with SMTP id
+ kn3-20020a1709079b0300b008f09566c1ffmr28443272ejc.69.1678484620243;
+        Fri, 10 Mar 2023 13:43:40 -0800 (PST)
 Received: from krzk-bin.. ([2a02:810d:15c0:828:34:52e3:a77e:cac5])
         by smtp.gmail.com with ESMTPSA id
- f2-20020a1709064dc200b008dcf89a72d7sm327228ejw.147.2023.03.10.13.43.37
+ f2-20020a1709064dc200b008dcf89a72d7sm327228ejw.147.2023.03.10.13.43.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Mar 2023 13:43:38 -0800 (PST)
+        Fri, 10 Mar 2023 13:43:39 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -106,16 +106,18 @@ To: Andy Gross <agross@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] power: reset: qcom-pon: drop of_match_ptr for ID table
-Date: Fri, 10 Mar 2023 22:43:25 +0100
-Message-Id: <20230310214333.274903-2-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 2/9] ASoC: atmel: sam9x5_wm8731: Drop of_match_ptr for ID
+ table
+Date: Fri, 10 Mar 2023 22:43:26 +0100
+Message-Id: <20230310214333.274903-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230310214333.274903-1-krzysztof.kozlowski@linaro.org>
 References: <20230310214333.274903-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JLHSQF26JDVPASF3QIQMXPH3N4XHCPMX
-X-Message-ID-Hash: JLHSQF26JDVPASF3QIQMXPH3N4XHCPMX
+Message-ID-Hash: T64WSZWWPGWH5BG2HBSFWQ4S4SQJCL5D
+X-Message-ID-Hash: T64WSZWWPGWH5BG2HBSFWQ4S4SQJCL5D
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -128,36 +130,39 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLHSQF26JDVPASF3QIQMXPH3N4XHCPMX/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T64WSZWWPGWH5BG2HBSFWQ4S4SQJCL5D/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Qualcomm SoC power-on driver is specific to ARCH_QCOM which depends
-on OF thus the driver is OF-only.  It's of_device_id table is built
-unconditionally, thus of_match_ptr() for ID table does not make sense.
+The driver can match only via the DT table so the table should be always
+used and the of_match_ptr does not have any sense (this also allows ACPI
+matching via PRP0001, even though it is not relevant here).
+
+  sound/soc/atmel/sam9x5_wm8731.c:189:34: error: ‘sam9x5_wm8731_of_match’ defined but not used [-Werror=unused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/power/reset/qcom-pon.c | 2 +-
+ sound/soc/atmel/sam9x5_wm8731.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/reset/qcom-pon.c b/drivers/power/reset/qcom-pon.c
-index 16bc01738be9..ebdcfb28c4a0 100644
---- a/drivers/power/reset/qcom-pon.c
-+++ b/drivers/power/reset/qcom-pon.c
-@@ -91,7 +91,7 @@ static struct platform_driver pm8916_pon_driver = {
- 	.probe = pm8916_pon_probe,
+diff --git a/sound/soc/atmel/sam9x5_wm8731.c b/sound/soc/atmel/sam9x5_wm8731.c
+index 99310e40e7a6..2bc622e86376 100644
+--- a/sound/soc/atmel/sam9x5_wm8731.c
++++ b/sound/soc/atmel/sam9x5_wm8731.c
+@@ -195,7 +195,7 @@ MODULE_DEVICE_TABLE(of, sam9x5_wm8731_of_match);
+ static struct platform_driver sam9x5_wm8731_driver = {
  	.driver = {
- 		.name = "pm8916-pon",
--		.of_match_table = of_match_ptr(pm8916_pon_id_table),
-+		.of_match_table = pm8916_pon_id_table,
+ 		.name = DRV_NAME,
+-		.of_match_table = of_match_ptr(sam9x5_wm8731_of_match),
++		.of_match_table = sam9x5_wm8731_of_match,
  	},
- };
- module_platform_driver(pm8916_pon_driver);
+ 	.probe = sam9x5_wm8731_driver_probe,
+ 	.remove = sam9x5_wm8731_driver_remove,
 -- 
 2.34.1
 

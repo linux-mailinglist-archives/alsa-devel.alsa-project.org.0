@@ -2,116 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32536B676C
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Mar 2023 16:13:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00AE26B676D
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Mar 2023 16:14:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C549F1390;
-	Sun, 12 Mar 2023 16:12:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C549F1390
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5496913A9;
+	Sun, 12 Mar 2023 16:13:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5496913A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678633998;
-	bh=rp0sBjbVSPP/oXeEFgiRZtFdXP6mccGDb3TJCoJlQFk=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DBjEpGQzdVuQCiVTfWp35DVQIjdMpIuoqiwleOKM+IeSwHCra1Te7TRHFlseL07wA
-	 jDGtK2VQ3gvsfBkJFwr/nfvgVOsQwJcfBWrXe4LL7lWGePLp7/C9nEa/4X2CiJtpyv
-	 hx/FFAzJWMd6tOBrt+goyvjv+4VAOaKatPQIN93M=
+	s=default; t=1678634049;
+	bh=+DzB7/8CoWnkO/XRI1leyDdvUnpN9ch8MSd2GNMDJTM=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=XutA6JAb9Wx4/KMwLA3JIQyF1RX2Ps3OprXLiqD+ywue/FrRWE2uMZn3fiQPjobBH
+	 hKyqCxyTpdlTYfMrk48He3K1YhqgP1hzoYLUoxPvHh80Nyp9S0OY1bWMqwjs1qUh5f
+	 pVsMEiaux+cISSB0jD4uRomruh2x19sEXUrmVUqk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1908EF8032D;
-	Sun, 12 Mar 2023 16:12:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A59CEF804B1;
+	Sun, 12 Mar 2023 16:12:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4EECDF8042F; Sat, 11 Mar 2023 21:03:45 +0100 (CET)
+	id 354B8F8042F; Sat, 11 Mar 2023 22:17:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 350ACF800DF
-	for <alsa-devel@alsa-project.org>; Sat, 11 Mar 2023 21:03:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 350ACF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 028C0F800DF
+	for <alsa-devel@alsa-project.org>; Sat, 11 Mar 2023 22:16:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 028C0F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=NyLgIqHF
-Received: by mail-pj1-x102b.google.com with SMTP id
- me6-20020a17090b17c600b0023816b0c7ceso13234048pjb.2
-        for <alsa-devel@alsa-project.org>;
- Sat, 11 Mar 2023 12:03:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678565014;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tn6uanZ75/AtO/6uD8tRhIGr3tlvAld8WET0HuG22qg=;
-        b=NyLgIqHF0KgRhHyBW2b5aIoxWf34dCTp9KdqnU2+NiZaod/2dLsG90LERd9bUfKa7q
-         pO27w98ompOHqzXAbzrbdho5DoJQi2429JNNLIgqC3d7bMxp/vckTp4AQtgaZf7xLT/d
-         egVPApFRevYJrtlTUWSXZp+dF5FG61LgbGQ8PKyL3IcmlW9lDMygIp5efDMTrK7bi0J1
-         JS8IByg428W8ROmO2OK52dhTY1qnvfPcDcw8bLXCwVGK5Guydonynq9O2BY4zBvWZ2A/
-         73nMxjGfaw+ihvbMu0JxczIX1PI6nazeWuLWBGTnyl5g5d2yDJT6NPE5ak2HKeDkv0C6
-         4I0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678565014;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tn6uanZ75/AtO/6uD8tRhIGr3tlvAld8WET0HuG22qg=;
-        b=vEvwfsuf5OcTFsMeiKWFkjorTp7fweNsXVTuAy5Bpy8XyPe3PtiiW5lswsdcfhwkuZ
-         +EtrVHcciU6nhPMDppWeqrBYvEetSuz6J9SNanuobySfcQKKO7e21jS4MjQ0S8GaGsWc
-         KekJ8ocSa3WeVOqW7VZIBLLFgtpg0P0hWFHHJraROFYYdcUySf0Y7vCIL2tcog3jv8al
-         j5jDlHDn/HBDWOg23Vv1Vo5Wr2vODH41uTsOsA4C84DlCJjt+vQsFa5lFOrlG2UlZ3e0
-         myfmMSdoxcY34RQ4c/9Yp2DMnz5G1xMuAGwxefL19SBPT72U9ZP7hJh2X/c2rM3egWSd
-         AzlQ==
-X-Gm-Message-State: AO0yUKVxvdn6wMm6U2mHJseaIpEZX//Xp7EME9dJyJaE1tfK+OOvGo96
-	f+O7YP6YapH58ReXvbKqsqw=
-X-Google-Smtp-Source: 
- AK7set8lSKverypePwj+U3/vR/Fs/55zW0LXDGO+Xec2AdRSTGZx79cHgSY2He2AMzAHzV66Y5+JNA==
-X-Received: by 2002:a17:90b:3ec9:b0:237:ae7c:15b9 with SMTP id
- rm9-20020a17090b3ec900b00237ae7c15b9mr30737682pjb.36.1678565013918;
-        Sat, 11 Mar 2023 12:03:33 -0800 (PST)
-Received: from localhost.localdomain ([49.43.248.22])
-        by smtp.googlemail.com with ESMTPSA id
- n13-20020a17090a928d00b002341c0ff245sm1879787pjo.19.2023.03.11.12.03.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 11 Mar 2023 12:03:33 -0800 (PST)
-From: Vijaya Anand <sunrockers8@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] ASoC: dt-bindings: adi,adau17x1: Convert to DT schema
-Date: Sun, 12 Mar 2023 01:33:05 +0530
-Message-Id: <20230311200305.82087-1-sunrockers8@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MtiLuqbg
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 24F1CCE0948;
+	Sat, 11 Mar 2023 21:16:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CADC433EF;
+	Sat, 11 Mar 2023 21:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678569403;
+	bh=+DzB7/8CoWnkO/XRI1leyDdvUnpN9ch8MSd2GNMDJTM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=MtiLuqbg+ewNrORM7gYuVWtDY1WITP8fnDMohaMDfvWiK44HvE3TXPL+xscranYBF
+	 yf1cemIotmGqM2ROCJKFIbsDGJT3UhZqQwDXgx6UPzbcJrejJnMC8imhMQDvh/3otz
+	 wQ6QvUFpmKZqwcQ0FlnWNou2FH119vYfI+6XYOoc4Eq2rGIbp0vxaPq+RgishnR9ku
+	 DRAHcvNCbawn8KZYF6NlW5WDU1hyJ4TX6kHb4jQ03jf2xQJXjTCRrFF2p/607748IQ
+	 RgZSHqHtQF0djp0rR09WieyymQvaZ306PNgk7wdUdd9UxHPOis6usgGrTDI1JSrbQM
+	 TV9gW7JLoVEeg==
+From: Mark Brown <broonie@kernel.org>
+To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+ jic23@kernel.org, pratyush@kernel.org, sanju.mehta@amd.com,
+ chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com,
+ f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com,
+ eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com,
+ john.garry@huawei.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ khilman@baylibre.com, matthias.bgg@gmail.com, haibo.chen@nxp.com,
+ linus.walleij@linaro.org, daniel@zonque.org, haojian.zhuang@gmail.com,
+ robert.jarzmik@free.fr, agross@kernel.org, heiko@sntech.de,
+ krzysztof.kozlowski@linaro.org, andi@etezian.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
+ samuel@sholland.org, masahisa.kojima@linaro.org, jaswinder.singh@linaro.org,
+ rostedt@goodmis.org, mingo@redhat.com, l.stelmach@samsung.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, alex.aring@gmail.com, stefan@datenfreihafen.org,
+ kvalo@kernel.org, james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com, perex@perex.cz,
+ tiwai@suse.com, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ mpe@ellerman.id.au, oss@buserror.net, windhl@126.com,
+ yangyingliang@huawei.com, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+In-Reply-To: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
+References: <20230210193647.4159467-1-amit.kumar-mahapatra@amd.com>
+Subject: Re: (subset) [PATCH v4 00/15] spi: Add support for
+ stacked/parallel memories
+Message-Id: <167856937606.964268.6047676283886463336.b4-ty@kernel.org>
+Date: Sat, 11 Mar 2023 21:16:16 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: sunrockers8@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-2eb1a
+X-MailFrom: broonie@kernel.org
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JCDIGQCSVTU75S6CVFXXWLJWIZDJHV2A
-X-Message-ID-Hash: JCDIGQCSVTU75S6CVFXXWLJWIZDJHV2A
-X-Mailman-Approved-At: Sun, 12 Mar 2023 15:12:23 +0000
-CC: Vijaya Anand <sunrockers8@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: FDOB5HISKJLXN6PUHUQJOCXTFEXY2VZ2
+X-Message-ID-Hash: FDOB5HISKJLXN6PUHUQJOCXTFEXY2VZ2
+X-Mailman-Approved-At: Sun, 12 Mar 2023 15:12:29 +0000
+CC: git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ joel@jms.id.au, andrew@aj.id.au, radu_nicolae.pirea@upb.ro,
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ claudiu.beznea@microchip.com, bcm-kernel-feedback-list@broadcom.com,
+ fancer.lancer@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
+ linux-imx@nxp.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+ avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
+ venture@google.com, yuenn@google.com, benjaminfair@google.com,
+ yogeshgaur.83@gmail.com, konrad.dybcio@somainline.org,
+ alim.akhtar@samsung.com, ldewangan@nvidia.com, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, michal.simek@amd.com, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wpan@vger.kernel.org, libertas-dev@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-mtd@lists.infradead.org,
+ lars@metafoo.de, Michael.Hennerich@analog.com, linux-iio@vger.kernel.org,
+ michael@walle.cc, palmer@dabbelt.com, linux-riscv@lists.infradead.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linuxppc-dev@lists.ozlabs.org, amitrkcian2002@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JCDIGQCSVTU75S6CVFXXWLJWIZDJHV2A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FDOB5HISKJLXN6PUHUQJOCXTFEXY2VZ2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,116 +139,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the binding document for adi,adau17x1 from txt to yaml
-so one could validate dt-entries correctly and any future additions
-can go into yaml format. Add address and size cells to example to
-prevent errors regarding reg format.
+On Sat, 11 Feb 2023 01:06:31 +0530, Amit Kumar Mahapatra wrote:
+> This patch is in the continuation to the discussions which happened on
+> 'commit f89504300e94 ("spi: Stacked/parallel memories bindings")' for
+> adding dt-binding support for stacked/parallel memories.
+> 
+> This patch series updated the spi-nor, spi core and the spi drivers
+> to add stacked and parallel memories support.
+> 
+> [...]
 
-Signed-off-by: Vijaya Anand <sunrockers8@gmail.com>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>
----
- .../bindings/sound/adi,adau17x1.txt           | 32 ------------
- .../bindings/sound/adi,adau17x1.yaml          | 52 +++++++++++++++++++
- 2 files changed, 52 insertions(+), 32 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/adi,adau17x1.txt
- create mode 100644 Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
+Applied to
 
-diff --git a/Documentation/devicetree/bindings/sound/adi,adau17x1.txt b/Documentation/devicetree/bindings/sound/adi,adau17x1.txt
-deleted file mode 100644
-index 1447dec28125..000000000000
---- a/Documentation/devicetree/bindings/sound/adi,adau17x1.txt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--Analog Devices ADAU1361/ADAU1461/ADAU1761/ADAU1961/ADAU1381/ADAU1781
--
--Required properties:
--
-- - compatible:		Should contain one of the following:
--			"adi,adau1361"
--			"adi,adau1461"
--			"adi,adau1761"
--			"adi,adau1961"
--			"adi,adau1381"
--			"adi,adau1781"
--
-- - reg:			The i2c address. Value depends on the state of ADDR0
--			and ADDR1, as wired in hardware.
--
--Optional properties:
-- - clock-names:		If provided must be "mclk".
-- - clocks:		phandle + clock-specifiers for the clock that provides
--			the audio master clock for the device.
--
--Examples:
--#include <dt-bindings/sound/adau17x1.h>
--
--	i2c_bus {
--		adau1361@38 {
--			compatible = "adi,adau1761";
--			reg = <0x38>;
--
--			clock-names = "mclk";
--			clocks = <&audio_clock>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml b/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
-new file mode 100644
-index 000000000000..9c1dbf2b4e70
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/adi,adau17x1.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADAU1361/ADAU1461/ADAU1761/ADAU1961/ADAU1381/ADAU1781
-+
-+maintainers:
-+  - Lars-Peter Clausen <lars@metafoo.de>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adau1361
-+      - adi,adau1461
-+      - adi,adau1761
-+      - adi,adau1961
-+      - adi,adau1381
-+      - adi,adau1781
-+
-+  reg:
-+    maxItems: 1
-+    description: The i2c address. Value depends on the state of ADDR0 and ADDR1, as wired in hardware.
-+
-+  clock-names:
-+    const: mclk
-+
-+  clocks:
-+    maxItems: 1
-+    description:
-+      phandle + clock-specifiers for the clock that provides the audio master
-+      clock for the device.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c_bus {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      adau1361@38 {
-+        compatible = "adi,adau1761";
-+        reg = <0x38>;
-+        clock-names = "mclk";
-+        clocks = <&audio_clock>;
-+      };
-+    };
--- 
-2.37.1 (Apple Git-137.1)
+   broonie/spi.git for-next
+
+Thanks!
+
+[01/15] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1
+[02/15] net: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 25fd0550d9b9c92288a17fb7d605cdcdb4a65a64
+[03/15] iio: imu: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 0183f81fce154ae1d4df2bb28d22ad6612317148
+[04/15] mtd: devices: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: 0817bcef53e4e3df23c023eddaa2b35b7288400e
+[05/15] staging: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: caa9d3475b1c5566f0272273c147cc9b72f2be28
+[06/15] platform/x86: serial-multi-instantiate: Replace all spi->chip_select and spi->cs_gpiod references with function call
+        commit: e20451f44ca33ec40422e9868775e117ef2da935
+[07/15] powerpc/83xx/mpc832x_rdb: Replace all spi->chip_select references with function call
+        commit: 3aba06a9fee04f6fefa9df71d3ee27dd4c464ad5
+[08/15] ALSA: hda: cs35l41: Replace all spi->chip_select references with function call
+        commit: 06b5e53c8b2b016e06a53ab6f01006ca7bbfa5df
+[09/15] spi: Add stacked and parallel memories support in SPI core
+        (no commit info)
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,123 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AF0B6B5B36
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Mar 2023 12:31:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0779F6B5B89
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Mar 2023 13:19:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E91F71412;
-	Sat, 11 Mar 2023 12:30:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E91F71412
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28AB11868;
+	Sat, 11 Mar 2023 13:18:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28AB11868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678534283;
-	bh=xzIoW7pFQkDGUJ6p5Qz66cJO2CZGrkxdMlV8r5SEEnc=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=PTS5OshVJX3dnVqmil8kVjt8VlEadRTMQfnjtH7BHQqDLsEF/lHy40BTLyVuzDVbR
-	 K03GqNDl1aOM6Kn+ZUvRqxl6wDDmUl2MHBAyKWY+yPHhI7hiFMljacA2ujj83dmBKY
-	 ZTovDdMzL95Qzv/TgUqp5vXOUCLGNkz/bqyatpOc=
+	s=default; t=1678537178;
+	bh=AQlotD2af5IQPfCHzMtJ4+Zn55SqqkJNOpXS3in15nY=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=LrptJCOvP+e77YfoFOqjTjkAG+CPRBiYeBju6YnAHbIJU2T7m+QKVncCDS4z/IvO+
+	 mq+AH3vFenUjsltCHNsknhPq9WHszQRrmGlXS/BM27QorBU0/3Ecydwef+82SKiVm4
+	 c7a4t1anIuw0YilYGGKhbQ1gVaceMccc51ZBOCqU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C0E5F80236;
-	Sat, 11 Mar 2023 12:30:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82F01F80236;
+	Sat, 11 Mar 2023 13:18:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98A76F804FE; Sat, 11 Mar 2023 12:28:28 +0100 (CET)
+	id 72F0CF8042F; Sat, 11 Mar 2023 13:18:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6DA7DF80482
-	for <alsa-devel@alsa-project.org>; Sat, 11 Mar 2023 12:28:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DA7DF80482
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0E90F800DF
+	for <alsa-devel@alsa-project.org>; Sat, 11 Mar 2023 13:18:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0E90F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=y6fhnsSr
-Received: by mail-wr1-x42e.google.com with SMTP id l25so7334809wrb.3
-        for <alsa-devel@alsa-project.org>;
- Sat, 11 Mar 2023 03:28:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678534102;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XDMAzPVGWaW2YqhCLxx5Xr14Zn9rwUVyczdQ2OeXd7I=;
-        b=y6fhnsSrEgQsstfpWqjDwJogogEcQNx8m4O3ID0vcK44x859+0PjMTdKh7GhBrg8Rv
-         oRQmEEetEaW2ijNqSK64ioCBSw4WijTWGxsn8e2gdm5aJcrCMJuHmCwBA0gZ36/4CoID
-         vKtVp41kS4+Oj8M1Xuhsnbds1ZFv8noivoMeGD0AdFEUJYJ5ZhA0e8Lpp4PViWvNbKem
-         TnlJGCg1e70AxFxViWiG4bHFLWzQdfCHdjLmTj3wjf7Kf8I784AUhkarQ/05BoGqs7If
-         nd8HYMeT+eLsnk1gK01/EfSQ3Yvk3NVp7X/nSJ7CmC/Ho4G//iq8lT/NXC2ylOxWZrPL
-         Fnug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678534102;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XDMAzPVGWaW2YqhCLxx5Xr14Zn9rwUVyczdQ2OeXd7I=;
-        b=6wVmu/leBOcgbFjIHLsC7VUjuEKbCnAncMYpON6MNWB1ZZLLhMYaqLSS4Wb5i4gnrR
-         qkLnyXbA8BGgu4mO4kE16BbyKX10gUf80pm4iWhU2iR8pyJqbEZ/acdhOKaj3A0YwaDk
-         VJHlSZKljRJ8gVgynyOYDcZfWDlz9+byp7toI+48rqe9bXEZRPCXsAzj7520QBd8qGYb
-         wRnUkSAEF2WdLtKjaYPYBHXcDiwgB+tp7l7vt8AySmhg5TRxSFEgY5YnJDRwwfVsgcn5
-         8z2b0JbW+TWXgEtOSJvWwF2zOZdw4GIGypQxav1tVfN7gRA0jnLldU/JS98UA+KszK5s
-         0Xqw==
-X-Gm-Message-State: AO0yUKWIItiFBPmghgaKZOVRaOZKcJdCWT9q8fk00CUQ5GFJOHF/uPSU
-	NozzEvT+suqzzuIobaefpS0Fxg==
-X-Google-Smtp-Source: 
- AK7set+ILtHB+iI50WOHx6Ly0RIbpaYq3bu/QFN6T1Ki2GT7UvOs3HlFmGpSOYj9IWfqP+TZyP5aog==
-X-Received: by 2002:adf:e452:0:b0:2ce:a8a2:37d7 with SMTP id
- t18-20020adfe452000000b002cea8a237d7mr87809wrm.27.1678534102573;
-        Sat, 11 Mar 2023 03:28:22 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- h16-20020adffd50000000b002c56af32e8csm2214201wrs.35.2023.03.11.03.28.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Mar 2023 03:28:21 -0800 (PST)
-Message-ID: <e99b2c89-c9c4-8d79-d14e-221ff106798f@linaro.org>
-Date: Sat, 11 Mar 2023 11:28:20 +0000
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=oedbHRA2
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 1C45EB8250B;
+	Sat, 11 Mar 2023 12:18:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72DA9C433EF;
+	Sat, 11 Mar 2023 12:18:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678537118;
+	bh=AQlotD2af5IQPfCHzMtJ4+Zn55SqqkJNOpXS3in15nY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=oedbHRA2kTUWxGrDqpW5l+I8g5NskpwrvHjL0csCdzV60WZPxZueXt+A4j8zZguCB
+	 MaTC5XyRgDyMeceCmlscF+wNvtx3Y7WWdQXANxNv2PtsEAKyfgrnMViPODHJ8/gjYr
+	 pC8Y8NGWXHTCoE2d4EqQYc6haKuEdMOCV06JHVVF9TKVxfIiy8K0+cBmVYV8ykHJpg
+	 W72YJ051L5geosEGecu6nf18XZJ4aCqDgIU6ty4dWs3QXoLb3ZP79iB/mrE9UAs/8Y
+	 Bn7cdbTGgmYl/qgLwULCZ9T3A9t0Y9Idg8VIwHV1mLxTF4Bj1jzVeXEKJ7Vlpm5C7E
+	 7VntIRkuzxo4w==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230310133454.15362-1-peter.ujfalusi@linux.intel.com>
+References: <20230310133454.15362-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] Revert "ASoC: SOF: Intel: MTL: Enable DMI L1"
+Message-Id: <167853711777.932037.5748389115137713572.b4-ty@kernel.org>
+Date: Sat, 11 Mar 2023 12:18:37 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 9/9] ASoC: codecs: lpass-wsa-macro: add support for SM8550
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20230310132201.322148-1-krzysztof.kozlowski@linaro.org>
- <20230310132201.322148-10-krzysztof.kozlowski@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230310132201.322148-10-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AOKW6DV5BV7JVXLOHP6LNPMOJ54KBXZL
-X-Message-ID-Hash: AOKW6DV5BV7JVXLOHP6LNPMOJ54KBXZL
-X-MailFrom: srinivas.kandagatla@linaro.org
+X-Mailer: b4 0.13-dev-2eb1a
+Message-ID-Hash: E7H4TRTUIIRSNEIKICWXLDS4WQGWAZAN
+X-Message-ID-Hash: E7H4TRTUIIRSNEIKICWXLDS4WQGWAZAN
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AOKW6DV5BV7JVXLOHP6LNPMOJ54KBXZL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7H4TRTUIIRSNEIKICWXLDS4WQGWAZAN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,104 +92,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 10/03/2023 13:22, Krzysztof Kozlowski wrote:
-> Add support for the WSA macro codec on Qualcomm SM8550.  SM8550 does not
-> use NPL clock, thus add flags allowing to skip it.
+On Fri, 10 Mar 2023 15:34:54 +0200, Peter Ujfalusi wrote:
+> This reverts commit 2b5a30cafb2eff4e6a34bc80b1d16ed6ca5c2c71.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   sound/soc/codecs/lpass-wsa-macro.c | 38 +++++++++++++++++++++++-------
->   1 file changed, 30 insertions(+), 8 deletions(-)
+> It came to our attention that the access to the EM2 register is restricted
+> to the DSP side on MTL compared to prior platforms.
 > 
-> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-> index ba7480f3831e..5155362de111 100644
-> --- a/sound/soc/codecs/lpass-wsa-macro.c
-> +++ b/sound/soc/codecs/lpass-wsa-macro.c
-> @@ -246,6 +246,9 @@
->   #define WSA_MACRO_EC_MIX_TX1_MASK 0x18
->   #define WSA_MACRO_MAX_DMA_CH_PER_PORT 0x2
->   
-> +/* NPL clock is expected */
-> +#define WSA_MACRO_FLAG_HAS_NPL_CLOCK		BIT(0)
-> +
+> Writing to it from the host side has no effect (negative or positive), it
+> is better to remove the code to not cause confusion and wrong impression.
+> 
+> [...]
 
+Applied to
 
-Same nit as 3/9
+   broonie/sound.git for-next
 
-Once done,
+Thanks!
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+[1/1] Revert "ASoC: SOF: Intel: MTL: Enable DMI L1"
+      commit: 75034eb5e4c267d4ab93085b5d6fa3dab2535b34
 
---srini
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
->   enum {
->   	WSA_MACRO_GAIN_OFFSET_M1P5_DB,
->   	WSA_MACRO_GAIN_OFFSET_0_DB,
-> @@ -2346,7 +2349,10 @@ static int wsa_macro_register_mclk_output(struct wsa_macro *wsa)
->   	struct clk_init_data init;
->   	int ret;
->   
-> -	parent_clk_name = __clk_get_name(wsa->npl);
-> +	if (wsa->npl)
-> +		parent_clk_name = __clk_get_name(wsa->npl);
-> +	else
-> +		parent_clk_name = __clk_get_name(wsa->mclk);
->   
->   	init.name = "mclk";
->   	of_property_read_string(dev_of_node(dev), "clock-output-names",
-> @@ -2379,9 +2385,12 @@ static int wsa_macro_probe(struct platform_device *pdev)
->   {
->   	struct device *dev = &pdev->dev;
->   	struct wsa_macro *wsa;
-> +	kernel_ulong_t flags;
->   	void __iomem *base;
->   	int ret;
->   
-> +	flags = (kernel_ulong_t)device_get_match_data(dev);
-> +
->   	wsa = devm_kzalloc(dev, sizeof(*wsa), GFP_KERNEL);
->   	if (!wsa)
->   		return -ENOMEM;
-> @@ -2398,9 +2407,11 @@ static int wsa_macro_probe(struct platform_device *pdev)
->   	if (IS_ERR(wsa->mclk))
->   		return PTR_ERR(wsa->mclk);
->   
-> -	wsa->npl = devm_clk_get(dev, "npl");
-> -	if (IS_ERR(wsa->npl))
-> -		return PTR_ERR(wsa->npl);
-> +	if (flags & WSA_MACRO_FLAG_HAS_NPL_CLOCK) {
-> +		wsa->npl = devm_clk_get(dev, "npl");
-> +		if (IS_ERR(wsa->npl))
-> +			return PTR_ERR(wsa->npl);
-> +	}
->   
->   	wsa->fsgen = devm_clk_get(dev, "fsgen");
->   	if (IS_ERR(wsa->fsgen))
-> @@ -2553,10 +2564,21 @@ static const struct dev_pm_ops wsa_macro_pm_ops = {
->   };
->   
->   static const struct of_device_id wsa_macro_dt_match[] = {
-> -	{.compatible = "qcom,sc7280-lpass-wsa-macro"},
-> -	{.compatible = "qcom,sm8250-lpass-wsa-macro"},
-> -	{.compatible = "qcom,sm8450-lpass-wsa-macro"},
-> -	{.compatible = "qcom,sc8280xp-lpass-wsa-macro" },
-> +	{
-> +		.compatible = "qcom,sc7280-lpass-wsa-macro",
-> +		.data = (void *)WSA_MACRO_FLAG_HAS_NPL_CLOCK,
-> +	}, {
-> +		.compatible = "qcom,sm8250-lpass-wsa-macro",
-> +		.data = (void *)WSA_MACRO_FLAG_HAS_NPL_CLOCK,
-> +	}, {
-> +		.compatible = "qcom,sm8450-lpass-wsa-macro",
-> +		.data = (void *)WSA_MACRO_FLAG_HAS_NPL_CLOCK,
-> +	}, {
-> +		.compatible = "qcom,sm8550-lpass-wsa-macro",
-> +	}, {
-> +		.compatible = "qcom,sc8280xp-lpass-wsa-macro",
-> +		.data = (void *)WSA_MACRO_FLAG_HAS_NPL_CLOCK,
-> +	},
->   	{}
->   };
->   MODULE_DEVICE_TABLE(of, wsa_macro_dt_match);
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,120 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A9486B6AEF
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Mar 2023 21:09:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58BF46B6BF8
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Mar 2023 23:30:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBF8A141A;
-	Sun, 12 Mar 2023 21:09:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBF8A141A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 697DE1424;
+	Sun, 12 Mar 2023 23:29:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 697DE1424
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678651792;
-	bh=BX3JWvM/dexX9Y36MYf38c8gkb696GRMUJCOT8KIers=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gno0+eQffSSy2WYQDJrzAey85AV2YITK3Nxm7OJXA4+U9OqhcWq+LX2VXaQt9Q2Mw
-	 CBAlSGkeqIypKwh90Y9DUC4D7l/a+2xKR1WAqfJGa27CR+OylhoU/c4CFQonSxXnsk
-	 NyVS/9wdJU4kcqMrTKPkgpuMAaADxclcDUsr/sDA=
+	s=default; t=1678660207;
+	bh=h3mDD9V3RraGDU/VpKbobrz/Y1YCr7Kb5j9JSQ1T7uk=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Cymhj4p5KbV0E1+gobjbmkR4I1Lv7lvuIm/9D28LokO54UCCClbDE3CqxxrY1dZK+
+	 Id6X98OqLwIkkllHHVOlcTwKihs1D9LBWv+0Xg0jaxpbw8NTsulp2uJ4GN3YqvDCP6
+	 waj51FTwaARNZnBxL9ZAE8+1ymvMBgCbZeyDa1Rs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48FD0F8032D;
-	Sun, 12 Mar 2023 21:09:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3F32F800C9;
+	Sun, 12 Mar 2023 23:29:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 01360F80423; Sun, 12 Mar 2023 21:08:57 +0100 (CET)
+	id 0B06FF80423; Sun, 12 Mar 2023 23:29:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
+ [IPv6:2607:f8b0:4864:20::f29])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CDA7F80272
-	for <alsa-devel@alsa-project.org>; Sun, 12 Mar 2023 21:08:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CDA7F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id C676CF800C9
+	for <alsa-devel@alsa-project.org>; Sun, 12 Mar 2023 23:29:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C676CF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=qSqjIZy1
-Received: by mail-yb1-xb2e.google.com with SMTP id g27so6024630ybe.3
+ header.s=20210112 header.b=SdNC01Qv
+Received: by mail-qv1-xf29.google.com with SMTP id nf5so7199188qvb.5
         for <alsa-devel@alsa-project.org>;
- Sun, 12 Mar 2023 13:08:48 -0700 (PDT)
+ Sun, 12 Mar 2023 15:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678651727;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mmi+J++OGCebvXG2OuteACsXG7VG8WEMmH0VAhRv8oA=;
-        b=qSqjIZy125h3FNoRcrriOFeNadFlctDcytOGs+PrwpqMpRKmZZgQQcobiIcwzcmcUe
-         oNeZLvnbL7M7wddMHg3nedL2yHXhT3/Fi+f5/X/yCxPtszsPbJo5ffbGgRq06/C/gJNg
-         w9ZxFvYKON/0jDT0k2UB9gMj3+sSkSAVfwXZiG3+BYWFy2QqVMtsEkBZZOMx/ml1UsZy
-         8VZDUiduKT52X1hvS8BNtVAUtWUGAb7W5yw8UKeb0i493JF/CzHgo7P6GUi7Ql+Pkhh5
-         mMQuJgXmWSHF+v4AkkkRXxVA4ihmcbkTSy27mwjOlAvHnTkG04eqLvITKYU7EXwo/JKt
-         m5Rg==
+        d=gmail.com; s=20210112; t=1678660139;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0Bm8357knKBz2M26Sj/9hOvriOOgO862bSiwrgatoRU=;
+        b=SdNC01QvISkfUd6mLyOxMYpMiwmohWX04EGJAd2LdJQUqBvKn34hqgFX+/kqLRhr2T
+         ea3DWFMAUIW33aTPAVp+t40D5y6yzgqvmlsx8qqIm05cq6ZcUEw4s1CFCDNLbEKT1QDr
+         1UvQEoIbGif4Ihb7LEMu1rsdXDjcXWSMwDZM/kZr540WMJJNTQbDaV+L1qyRU4mDSDd4
+         zUJFcGPoZhoLfvTIZdZHLHsWnQlNBzRieoZJLYUeW7a1BpU2HREPgf91DdiAitWw4+lh
+         minpXg+W/qbA7aA+WI5J984ZcNd7izX31GEkq9ucaVs5eYDEPB0JWfT3vT9B2nG+J27O
+         +qog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678651727;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Mmi+J++OGCebvXG2OuteACsXG7VG8WEMmH0VAhRv8oA=;
-        b=oGMkI1gl+/P+blBDakswEkm90sxDSGxGIm1edZ7HHQoqw6QstnuJ8i2HIWk304B/Xm
-         +tqA0JsQys2Sy2etNrMOL74lF35oPyeKutx/vdmsZuExHc7OGnVxCJ8///WS4cRJUG2l
-         s0pPi19eJEuqMbWFafgq4BYfvvwG3mjezpREw6hwsu5kSckScjIgVvGYajZRc3nz7p/6
-         KrZZVVJCfNkOltPoZlSHcQT0D4+IYMLtcw60inM+NOEhWa7DQjJYuTimSlvCNt5V1gvy
-         KteEmAn9JldCuUrBYd4FkOrMKy3QNJFPzDo7Qn7wL1s0k9jR/OuPnXboUl77iugc7wh7
-         VQ3A==
-X-Gm-Message-State: AO0yUKU2m+nGek9avn3reQbvTKzc5SVWIzzcKXsqVTOdKKQJIr4yu8Dc
-	qGxdqB1rYpJ2PafqhhNeDOuD5AClojUo+PMa96s=
+        d=1e100.net; s=20210112; t=1678660139;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0Bm8357knKBz2M26Sj/9hOvriOOgO862bSiwrgatoRU=;
+        b=VVXWje5/DYJOcamdgUZgxF/VU09/K6cgWDQhAtqK1rBwg1cTmrDnwWgQztDRG8qQ2F
+         JxustGPSZtLnurn5aXpS+RsAf+szzT5ZPSHgDILyZGN1Q/FV16FyN749xqPnI4tFs9oa
+         CkQdipUOmuEBwKT8NgRggFqs4hvs1RVSZycP9peCV3s5G6kgQ7xAlfLRjEhd5AVlvDwk
+         GvQyblOYGWH+M902GAqYKucasRWhef37BVUleQfcwfbL/qXLhnesJd7bM+dXe23FUMCw
+         5Mvp8RPWtfZ9ItN6GoCWVi95oGpkHHO8fw2uzq44JQs7YqfXg7ShvpRj9vpZldMouE4y
+         n7VQ==
+X-Gm-Message-State: AO0yUKVVLE7+njkBryiiO/Qiq8WDm14FQBcKFmYMOYvLqe8sNCvAHiya
+	8hEWq1oN+EaaoJkCuHQjmsU=
 X-Google-Smtp-Source: 
- AK7set+6kHalpwaiIcd3v7fpFSrd6c7dAP8piuDmYsjqoY/hPg2fu8i7tGskRB1bAa2poI7EYmOdjFdiPyRigEoQq24=
-X-Received: by 2002:a25:9109:0:b0:b13:7a6:f462 with SMTP id
- v9-20020a259109000000b00b1307a6f462mr5610638ybl.3.1678651726777; Sun, 12 Mar
- 2023 13:08:46 -0700 (PDT)
+ AK7set+AEA4x5zoXDBLqU0q2A2fxnkrHDdCSS2ejWSQY+y6StT7fu+Z/pZ6GaUMrC0zLC1KZQcXOBA==
+X-Received: by 2002:a05:6214:1bc7:b0:57f:5ab1:a42b with SMTP id
+ m7-20020a0562141bc700b0057f5ab1a42bmr11877192qvc.32.1678660138951;
+        Sun, 12 Mar 2023 15:28:58 -0700 (PDT)
+Received: from localhost ([72.138.97.66])
+        by smtp.gmail.com with ESMTPSA id
+ r200-20020a3744d1000000b0074305413c73sm4183807qka.95.2023.03.12.15.28.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Mar 2023 15:28:58 -0700 (PDT)
+From: Ruslan Bilovol <ruslan.bilovol@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Subject: [PATCH] sound: usb: remove Wireless USB dead code
+Date: Sun, 12 Mar 2023 18:28:57 -0400
+Message-Id: <20230312222857.296623-1-ruslan.bilovol@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20230217185225.43310-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20230217185225.43310-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdU=mCAWQNFCkkCxBkDyYTLM87QdrYMYE9hpOv1fuS=bWw@mail.gmail.com>
-In-Reply-To: 
- <CAMuHMdU=mCAWQNFCkkCxBkDyYTLM87QdrYMYE9hpOv1fuS=bWw@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Sun, 12 Mar 2023 20:08:20 +0000
-Message-ID: 
- <CA+V-a8u4ovdBjdijGCJ3cfoQ-p=G55YwNCY-14DVfsLjCeVGcQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] arm64: dts: renesas: r9a07g044: Update IRQ numbers
- for SSI channels
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: NNGJWMFCP3SHRNBTGHV2VHYUCBKQ53FB
-X-Message-ID-Hash: NNGJWMFCP3SHRNBTGHV2VHYUCBKQ53FB
-X-MailFrom: prabhakar.csengg@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 66WDJZOJD34K243N5IY25CONIGDZ2WH5
+X-Message-ID-Hash: 66WDJZOJD34K243N5IY25CONIGDZ2WH5
+X-MailFrom: ruslan.bilovol@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NNGJWMFCP3SHRNBTGHV2VHYUCBKQ53FB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/66WDJZOJD34K243N5IY25CONIGDZ2WH5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,54 +113,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Geert,
+Wireless USB host controller support has been removed
+from Linux Kernel more than 3 years ago in commit
+caa6772db4c1 ("Staging: remove wusbcore and UWB from the
+kernel tree."), and the associated code in the
+snd-usb-audio driver became unused and untested.
 
-On Fri, Mar 10, 2023 at 12:05=E2=80=AFPM Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Fri, Feb 17, 2023 at 7:53=E2=80=AFPM Prabhakar <prabhakar.csengg@gmail=
-.com> wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > From R01UH0914EJ0120 Rev.1.20 HW manual the interrupt numbers for SSI
-> > channels have been updated,
-> >
-> > SPI 329 - SSIF0 is now marked as reserved
-> > SPI 333 - SSIF1 is now marked as reserved
-> > SPI 335 - SSIF2 is now marked as reserved
-> > SPI 336 - SSIF2 is now marked as reserved
-> > SPI 341 - SSIF3 is now marked as reserved
-> >
-> > This patch drops the above IRQs from SoC DTSI.
-> >
-> > Fixes: 92a341315afc9 ("arm64: dts: renesas: r9a07g044: Add SSI support"=
-)
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> i.e. will queue in renesas-devel for v6.4.
->
-> > As this is is a fixes patch and we are still waiting for [0] to be merg=
-ed
-> > shall do the same for V2L SoC?
-> >
-> > [0] https://patchwork.kernel.org/project/linux-renesas-soc/cover/202301=
-31223529.11905-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
->
-> No need to send, I cloned the above with
->     s/G2L/V2L/
->     s/g044/g054/
->     s/G044/G054/
->     s/R01UH0914EJ0120/R01UH0936EJ0120/
->
-> and
-> Fixes: cd0339ec25895c0b ("arm64: dts: renesas: r9a07g054: Add
-> SSI{1,2,3} nodes and fillup the SSI0 stub node")
->
-Thank you for taking care of this.
+If in the future somebody will return WUSB/UWB support
+back to the kernel, the snd-usb-audio driver will reject
+Wireless USB audio devices at probe stage, and this patch
+should be reverted.
 
-Cheers,
-Prabhakar
+Signed-off-by: Ruslan Bilovol <ruslan.bilovol@gmail.com>
+---
+ sound/usb/card.c     |  1 -
+ sound/usb/endpoint.c | 16 +---------------
+ sound/usb/helper.c   |  1 -
+ 3 files changed, 1 insertion(+), 17 deletions(-)
+
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 26268ffb8274..f6e99ced8068 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -609,7 +609,6 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+ 	case USB_SPEED_LOW:
+ 	case USB_SPEED_FULL:
+ 	case USB_SPEED_HIGH:
+-	case USB_SPEED_WIRELESS:
+ 	case USB_SPEED_SUPER:
+ 	case USB_SPEED_SUPER_PLUS:
+ 		break;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 419302e2057e..1e0af1179ca8 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1173,22 +1173,8 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 	 */
+ 	if (usb_pipein(ep->pipe) || ep->implicit_fb_sync) {
+ 
+-		urb_packs = packs_per_ms;
+-		/*
+-		 * Wireless devices can poll at a max rate of once per 4ms.
+-		 * For dataintervals less than 5, increase the packet count to
+-		 * allow the host controller to use bursting to fill in the
+-		 * gaps.
+-		 */
+-		if (snd_usb_get_speed(chip->dev) == USB_SPEED_WIRELESS) {
+-			int interval = ep->datainterval;
+-			while (interval < 5) {
+-				urb_packs <<= 1;
+-				++interval;
+-			}
+-		}
+ 		/* make capture URBs <= 1 ms and smaller than a period */
+-		urb_packs = min(max_packs_per_urb, urb_packs);
++		urb_packs = min(max_packs_per_urb, packs_per_ms);
+ 		while (urb_packs > 1 && urb_packs * maxsize >= ep->cur_period_bytes)
+ 			urb_packs >>= 1;
+ 		ep->nurbs = MAX_URBS;
+diff --git a/sound/usb/helper.c b/sound/usb/helper.c
+index a4410267bf70..bf80e55d013a 100644
+--- a/sound/usb/helper.c
++++ b/sound/usb/helper.c
+@@ -108,7 +108,6 @@ unsigned char snd_usb_parse_datainterval(struct snd_usb_audio *chip,
+ {
+ 	switch (snd_usb_get_speed(chip->dev)) {
+ 	case USB_SPEED_HIGH:
+-	case USB_SPEED_WIRELESS:
+ 	case USB_SPEED_SUPER:
+ 	case USB_SPEED_SUPER_PLUS:
+ 		if (get_endpoint(alts, 0)->bInterval >= 1 &&
+-- 
+2.39.2
+

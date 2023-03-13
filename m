@@ -2,160 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE7A06B6F73
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 07:17:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F22366B709A
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 08:57:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FAA71422;
-	Mon, 13 Mar 2023 07:16:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FAA71422
+	by alsa0.perex.cz (Postfix) with ESMTPS id E72651488;
+	Mon, 13 Mar 2023 08:56:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E72651488
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678688233;
-	bh=/5XKQgEDMKxoho50znxyKbloospOU4PvGZeg/zIFXzs=;
-	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=hXn5Pd71EQWM1SlRlooEJ9UEXVerKxTMeaLH0s5l4ZlC7KN9K92QN18JuifxDebSe
-	 t6It77W61fBY+JTY60CMRTIPF6sAKR3YXDe1nt/yzmnz/3tx/1J2cvOSY2wwkNqPuE
-	 JJqByNQy5bpM1fTHGFxLZIQ5Y7XUX19TNbx+CMwg=
+	s=default; t=1678694270;
+	bh=4MWTDB6xmkyQqDGTss3nKymH9mFKCDBJEw0bzXEALnU=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qCVjnl0xUD3lmiDywnruUG90M3XgNm3GtV269E2BMc/AbuN2w4jINqY+9NuTcR0tL
+	 wzoxnMAOB5pkvo7EWDOBq6QKRgD8FuDttH0Ivsl9tj9WHq5rP1Jljyq7DKIbik88QG
+	 Gq4ofBK4gLgqj56f2+eniPqfcLr9NOh5otOUeyJ8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8651F80423;
-	Mon, 13 Mar 2023 07:16:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E1A9F80423;
+	Mon, 13 Mar 2023 08:56:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1F47F80482; Mon, 13 Mar 2023 07:16:15 +0100 (CET)
+	id 242DAF80520; Mon, 13 Mar 2023 08:55:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20719.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::719])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED00AF8032D
-	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 07:16:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED00AF8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02CBFF80272
+	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 08:54:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02CBFF80272
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=PV/qtXeD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oRVgNiqcAdU7ShaauoAq6nXt6YLy7D+e8jm/uv9amEDgeVlPxo4rlrzF4rgMAp9sn4mhlf9veC3XLY2lN+CS5pSyFtBYgRHxmgsWhM1MuHHhxuYsmgf6v8H+964v27mEjxOpoE1o//8NpDr5+/7JCm6fIfY2ECQSmtPnln8qVTVikeJ14RfKY1E7Ja9VIpHcx1iTSbsnRb3RHHqt9yMY0u19gDSXKS9S7VUvx3q5nXdNdFkmPMlZFBz0wV2xfpHfD6yTS+9W4zQbg1qCcpFDoZnDskrHGnmXQsg53ln42tZcJbO+5P1oUh/cIgwVZk1sgMnzJPdjI/vgaFRETyYxzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S4JlwXGcKv920Cu5T/OU1xkkKcbw2uKcKGBF+/CoPio=;
- b=XjODUmhNjAeRgKWm34uKpp3JruVqxPyHSMrdwlgi/fMRD55zsK/sbIDvlOYh/aoIUj6zjHVA/nmRnvKE7Xq0617HTwtfp6p8+xCUL0x9WgIrPNc2H4HwoAINcYu7MoiKY/aQSpfDnbXr5V4mAwJEo4aia6r2YmUxwnmXMdZoIK+iFD7Mlt9H2ugBjzQ2Lu0oaR0xkTnhp2MFG2fHwvKZKYY2IVofjQyd5M7S/XnNXJsUsWxTqCuWwnZFRiPHwL+IysVw9G7Ml8QstTPYIgXFgE5600NdsEHgacrVgnJzdXBWnnXlaoLH5b2EqkU1mR1ydViUehb/Ue09J/Ho7MR0kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S4JlwXGcKv920Cu5T/OU1xkkKcbw2uKcKGBF+/CoPio=;
- b=PV/qtXeDHi92s1PWtrKRH/QLI7K2KGSNZND+kM332U3Fiazy+cBX4UHnTmPYBWg4skoYB/BIAvrxOXvC9QHxeC9V3DuP+brzaXETM0n6EMpzTLSQJeaZs9uD11xGDP78B4YgEC2tF9Ei+G0EDhX55RbdqxLsHIOGE5hsMwl2NnU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYYPR01MB8231.jpnprd01.prod.outlook.com (2603:1096:400:fa::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Mon, 13 Mar
- 2023 06:15:55 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::e03e:1938:695b:f472]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::e03e:1938:695b:f472%8]) with mapi id 15.20.6178.024; Mon, 13 Mar 2023
- 06:15:55 +0000
-Message-ID: <87r0ttdvmt.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: fix hw->formats cleared by
- soc_pcm_hw_init() for dpcm
-In-Reply-To: 
- <CAA+D8AOztY7Qp3hs3OOhKuhCDFzqWjSrk240S0CzLR7cg94GLA@mail.gmail.com>
-References: <1678346017-3660-1-git-send-email-shengjiu.wang@nxp.com>
-	<875yb5frnl.wl-kuninori.morimoto.gx@renesas.com>
-	<CAA+D8AOztY7Qp3hs3OOhKuhCDFzqWjSrk240S0CzLR7cg94GLA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 13 Mar 2023 06:15:54 +0000
-X-ClientProxiedBy: TYCP286CA0125.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::7) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=PZJTlA13
+Received: by mail-ed1-x533.google.com with SMTP id ek18so13787081edb.6
+        for <alsa-devel@alsa-project.org>;
+ Mon, 13 Mar 2023 00:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1678694091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BbnW+HQXXMov2YCkKGIA3Ip1jgaMjvv36rVivoZ/sxY=;
+        b=PZJTlA13gQWFQFIrQIYA9l4hTDVIPGJzn7hnQUc6ArNl6Jh85UndmLYxMGd06xQnKC
+         Dl/vQKHIjeTJc9i3UAV661s6QUgZ2dtyH0KjxxxOEpAbKaK0vlpJpfmxqCFxFUjaO0cl
+         tKZoSkW4jcECGIRosDo9sc5bjUqXy4/Ou/vcYd7dRbLOrrf+ljTR42qxbPTWxOrVs3Nx
+         +AWqyiWKadxq1taPKevOKDueaps4JoYjLCg46IWa9ZQxN455HqIKgp5eqlOrFunrGA/B
+         UuFnS1/jBxO9hzW+uPmxt2d5spffpWoWCLM2wFt7taAdDsT4VzdXeGzriQZLM0malsm9
+         566w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678694091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BbnW+HQXXMov2YCkKGIA3Ip1jgaMjvv36rVivoZ/sxY=;
+        b=Q+dabWtKWWY70kGryZcFpmOchkm/Dt65oaqk2MWTwzBt51ZQdv1qDsR0yQ/VKcBaJ9
+         ogXzsK18vpgm/elAjv3DFB2609XQOl/xGaa2xN06t0c1JcqbH4mqMRUSxx9fyH08Zqkt
+         Pa0NQOvTOXLKdGjgozJI13z1XAXqzgehPV5iG0lANz/tz0ZlWluFXmEYv5n6dY+JpS0J
+         +BwmcyPxDggGHj7zxnZevhuItIlcWDSQrvt24J8zvzhe9VTJr08EpAahvF9ZegW+1XPB
+         DKIoZBD/qEow+0FaZGB5ge7dtiELEnV19ovbrt0gDIlqNPJzOSZ5hR/kZprMUC5mM/gS
+         0nLQ==
+X-Gm-Message-State: AO0yUKWku6hWWD7kKjO9l/129IhqzfEfBX8H/wn3oipr+YYpdNW4JRqG
+	mYanypBeB+6vkB/qkI9XtpwKug==
+X-Google-Smtp-Source: 
+ AK7set+XOjPCtML5HmxF40axQsuv+8HUsC4sRrOwjJpKSU+H/Ylhp1qLJyift7RrPLPstpEjzVTcUg==
+X-Received: by 2002:a17:907:1c1f:b0:884:930:b014 with SMTP id
+ nc31-20020a1709071c1f00b008840930b014mr42208755ejc.6.1678694091073;
+        Mon, 13 Mar 2023 00:54:51 -0700 (PDT)
+Received: from krzk-bin.. ([2a02:810d:15c0:828:f052:f15:3f90:fcb3])
+        by smtp.gmail.com with ESMTPSA id
+ g7-20020a1709061c8700b008b980c3e013sm3146943ejh.179.2023.03.13.00.54.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Mar 2023 00:54:50 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/9] ASoC: dt-bindings: qcom,lpass-rx-macro: narrow clocks
+ per variants
+Date: Mon, 13 Mar 2023 08:54:37 +0100
+Message-Id: <20230313075445.17160-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYYPR01MB8231:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e87e727-7313-4d06-0f0c-08db238a673a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	kIojG/QWKU8IWdNHJdN00DxD9QL+hpzxzKv0y3w2kxGJ74Hxj7Rznmq8jHLwdCnB53UO+RkPkOSMtcTRkaAtGeApRcltMfw1rjugLCk6KCa9ntffWFH+BRnAXEloeyxao3fz2hwHj/5Q0Cfsc89s02J0EdScQssB0ociYndkAPUYOO/B9W72R+sHq7tEoO2+0jd5JlrnzNebj+lThYhvKfWgNqmJbPEJhDVU4rmTTAb+/QSv9fH/rQbYgwHoygJzZZSC7J0i+pdE7thGgFDfyhp2zvOEE2ZT9z94UgOUdErsuejYzozUh8Yc90Xg4gw99Hsg9jhnwwF573KRMHp7z++c87D9BTmtB7hJ0k+B7rCXvR19d0M1MmdRTCDiayRhhCuj2HZGlxNWmV5yGsYK0YTrwzQmmsr71Lozr/J4o+EzIjA2LHcA9NoIWoc9lO+yrCwWoJjGwrzrFD6gCDubFsTEXhgZaN4GzA+JQO5r0h1wE/6lWRbeJQSl1uG2nlBYdy6cvgt+m28r4/bEhVx2bSOQPcbeeU2c+Qcy4jyvYOJlJblokgY6anWeT38hK8kdT6aemX8vXZs6HdM0+xlhBIVM0gnHwp/yKCxVkUY3xsQlscW1SHwz3uiUIYyWL+J71TYQwu9uAh4PVp0zxLYO3/ub8krFGQ1yl8QtzP2pqrLM6c+qYb3xC4g9/nAVJjgn92yMNPdzJyoPhUx7t/QQMA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(366004)(136003)(39860400002)(376002)(396003)(451199018)(66476007)(6916009)(41300700001)(66946007)(8676002)(66556008)(4326008)(5660300002)(4744005)(26005)(8936002)(186003)(6486002)(6506007)(6512007)(316002)(478600001)(52116002)(2616005)(36756003)(86362001)(2906002)(38350700002)(38100700002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?gLpz86Zp+9EDJXWZZYE48lW80uC0040E8Mq11qfb7n+Aavs5XhTd2hi/FJUj?=
- =?us-ascii?Q?taHXCY9OhuIdZcdkPvrEgSc9ISKTGSnWaOBh5QgFQ/+qvQffUolGrN9ghBrS?=
- =?us-ascii?Q?rnBJn67aM0oeyVOgOufweVZbEP/EICB5+rOP6kbvGxo5CrsN91b8T8R9daDb?=
- =?us-ascii?Q?/0CqU/dVNy8ud11Gs4d5uPBIksnhYGvpcsxTYWmipl0dwKguq+pChIsrsvXQ?=
- =?us-ascii?Q?nU0eN7LXTGo2B5mCEg8hhoJHOdp8+fIBq1p+GWU3ZrnNyJ4XSNsx8D7+d3ca?=
- =?us-ascii?Q?RV5Yky1fGjYJzJ8xow1uc7frkidUsGPRKOVroiapuYmxJCfbDgq2OJl/lAFl?=
- =?us-ascii?Q?cCI4bba+PQBhmbxU1YUaSE4fC4EoNq05n2z+JZhDD3i/iRaTtWVxsQv48u8/?=
- =?us-ascii?Q?nTErj5bMpC6HY1Lod9zjGX6aJK1gBHo5NaQCXBqif/csRHH86MdKREC4c/tM?=
- =?us-ascii?Q?LOrTYHPoIUmguQOvO8gjsqCtx0qfqWKCNq5vSZnqK6GcSqCERELAj87Zj78R?=
- =?us-ascii?Q?k6fpYlh2+vJT4aQa6cjfS2zMy8a8BUPHfbKvYG2x9svoU41Cxe5GNX7zJLEG?=
- =?us-ascii?Q?sOmvRIC6Gb5HeJdP7noJO2XiHBKMxH3LcEBa2wNyTi1kKMC9mp0UZ0vjqeWJ?=
- =?us-ascii?Q?XqF73hnPfnlxS0eUt1uwskxbmiCbeLqXpXhqMFS1qMpjAsqsROwmmVi8I0o1?=
- =?us-ascii?Q?TY/IQvKWYlm4VeMaXj28h19GX6+iKgl/vrdV2jho5diewHu39Pzkd90LKefk?=
- =?us-ascii?Q?6X6T1hUgy6IU1JIhHaNyi4uMR1zB7AXXWMjRj/gFmVH1uYQ2E4t3i8Ntg655?=
- =?us-ascii?Q?z1v4A/6qk+Inxk2PHoyIEjFluc+2Fb4fNrG6AjpIHS2Gdw3ngmOxHD08ttUH?=
- =?us-ascii?Q?b9PIGri206CXL3WHI1LMXUuc0CGuPaPw8VqLri3YV0xmoGiWEvRomZbMChv6?=
- =?us-ascii?Q?qwInveqTCycNWc2j/yoOfexUqT8HOKQuM3OjXWzm3L7OjPmJxYwI9DA0m5xw?=
- =?us-ascii?Q?YIKWeelRY+WzQD+W+jUr7K26W/l90e7uquAL6PCmkVouOmdzB4IdftrJ5dJC?=
- =?us-ascii?Q?0LNf/ET1vKBS/d4XmC+43MDo9MpPUiOz7fsmYfWPHiGt9rLf4RbZkEOPhGM2?=
- =?us-ascii?Q?9otQ78QEK/sv97VYXekVwe5tkd9m73qKfZwXDvW0J7fNiyLMq07QwTmPsdio?=
- =?us-ascii?Q?AZgjvBwO5EXciFqmhzWROieGI2iGx3WKYvQ0jpwGwQ1+yIPr4bIP5hs/pLnD?=
- =?us-ascii?Q?ZNcNXuIdu2+VJ67vjT2K4t2Hb2oudH2maS9rD/zRFXeMTn0eIYdCDD2tY3Ip?=
- =?us-ascii?Q?2x38nXOO0i3mIoooKbm80TRz/yMTGyOsbOQ7FJ4esFScl0xQ5UuLjeLxw2TD?=
- =?us-ascii?Q?sQCPVa3E0gASixGYnG+MpjCRJbwaGUsu8uUXRRTLGBcA60pmWHwUoWil+1ip?=
- =?us-ascii?Q?amxV/O2Ft7I4IB5FQXTZ5vl3vKmyev/xvwKs7QIe9ZoLKaARevOXvg/EZGSx?=
- =?us-ascii?Q?R0FKYRpDem88PdgWWav3Ij8A6dHDI+vLtPNwpDAgg2PNNiM2LKtitpDGG+4l?=
- =?us-ascii?Q?NPbvNQmHOtBxJD/tlCR7BYyd5/sVjqMMb2jYYLxdVdPT30oMfnHz3chxJWpf?=
- =?us-ascii?Q?W5dKhoHnqIznfp8YJSAN0QQ=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 6e87e727-7313-4d06-0f0c-08db238a673a
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 06:15:54.9405
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 3Z23IG6eNC1TC1jGI1YXYtJWZ2xBZAno8Pb4mzEMTvQdMJvi7x1gNTco/DmHpAVbIWZEPvF6AXH9RJfqzWJmQtWarZHqJbUd7cnQjTyOabNkeT38NebUA4MoXXCzSl0B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB8231
-Message-ID-Hash: ZO2MJLBIJKZSONRGI4F2QKTBJNCN673G
-X-Message-ID-Hash: ZO2MJLBIJKZSONRGI4F2QKTBJNCN673G
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: GKEVJ7AZKCGKXHMPT7OUSSKZKFYQ2YOD
+X-Message-ID-Hash: GKEVJ7AZKCGKXHMPT7OUSSKZKFYQ2YOD
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZO2MJLBIJKZSONRGI4F2QKTBJNCN673G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKEVJ7AZKCGKXHMPT7OUSSKZKFYQ2YOD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -164,23 +127,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Currently the Qualcomm RX macro codec binding allows two different clock
+setups - with (for ADSP) and without macro/dcodec entries (for ADSP
+bypassed).  With more devices coming soon, this will keep growing, thus
+rework the clocks/clock-names to be specific for each binding.
 
-Hi Shengjiu
-
->     But, it is doing same things under (A), too.
->     Do we need to initialize hw many times ? I'm not sure.
->     Can we simply remove soc_pcm_hw_init() from dpcm_runtime_setup_fe() ?
-(snip)
-> which only calls soc_pcm_init_runtime_hw() for non dpcm case.
-> 
-> So the initialization of hw is not many times.
->  
-> For dpcm the code here will be skipped. The initialization happens
-> only in dpcm_runtime_setup_fe().
-
-Oh I see.
-Thank you for clarify it.
-
-Best regards
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
-Kuninori Morimoto
+ .../bindings/sound/qcom,lpass-rx-macro.yaml   | 58 ++++++++++++++-----
+ 1 file changed, 44 insertions(+), 14 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+index b0b95689d78b..8b3d617a9578 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+@@ -9,9 +9,6 @@ title: LPASS(Low Power Audio Subsystem) RX Macro audio codec
+ maintainers:
+   - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ 
+-allOf:
+-  - $ref: dai-common.yaml#
+-
+ properties:
+   compatible:
+     enum:
+@@ -34,17 +31,8 @@ properties:
+     maxItems: 5
+ 
+   clock-names:
+-    oneOf:
+-      - items:   #for ADSP based platforms
+-          - const: mclk
+-          - const: npl
+-          - const: macro
+-          - const: dcodec
+-          - const: fsgen
+-      - items:   #for ADSP bypass based platforms
+-          - const: mclk
+-          - const: npl
+-          - const: fsgen
++    minItems: 3
++    maxItems: 5
+ 
+   clock-output-names:
+     maxItems: 1
+@@ -62,6 +50,48 @@ required:
+   - reg
+   - "#sound-dai-cells"
+ 
++allOf:
++  - $ref: dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,sc7280-lpass-rx-macro
++    then:
++      properties:
++        clock-names:
++          oneOf:
++            - items:   #for ADSP based platforms
++                - const: mclk
++                - const: npl
++                - const: macro
++                - const: dcodec
++                - const: fsgen
++            - items:   #for ADSP bypass based platforms
++                - const: mclk
++                - const: npl
++                - const: fsgen
++
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,sc8280xp-lpass-rx-macro
++            - qcom,sm8250-lpass-rx-macro
++            - qcom,sm8450-lpass-rx-macro
++    then:
++      properties:
++        clocks:
++          minItems: 5
++          maxItems: 5
++        clock-names:
++          items:
++            - const: mclk
++            - const: npl
++            - const: macro
++            - const: dcodec
++            - const: fsgen
++
+ unevaluatedProperties: false
+ 
+ examples:
+-- 
+2.34.1
+

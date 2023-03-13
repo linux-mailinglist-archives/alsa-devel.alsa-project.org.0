@@ -2,102 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070CA6B8172
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 20:09:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97EC06B825F
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 21:10:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B30FD1443;
-	Mon, 13 Mar 2023 20:08:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B30FD1443
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4724B1425;
+	Mon, 13 Mar 2023 21:09:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4724B1425
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678734581;
-	bh=mixkviXkrTQKP4glJUkMivKz0/es3ZvvcLqTmvgYhWQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=tz5I1A9Z2YO3CdE+3hJI+smhJh7QNlwhQieHXrm1bXBml19yH7zb7j3euAGmkcq9U
-	 7C7BgxA9aH3y9Wxz1WUjLlSt11I+WqgxbNMQLkznk0L62dphIqeHJuCWyhCQeI76jk
-	 04CzUKi/DThG2Rk5SH7erCvGMU3MW419CibqBfhM=
+	s=default; t=1678738201;
+	bh=QQnLw12sATkxoTDDvQ6SRZASxar/1oaBlKauOjrDCRE=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rZ0MClCZJ1zCLRK/XZqFxsEdakMY7U1ieyR8iVGL0jQkizSqP3d+5mCJY9R+nzc6J
+	 oWpMjZMfq6kNY5JxnJ74HYC6LKokERpyqZkJmQjzgZC1Xsggeqc40Kom8PjWj36NvF
+	 FXIlxMQ98I3LqUkcey9qGrn7ST7tqXosQU/MbmWE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4410FF80527;
-	Mon, 13 Mar 2023 20:08:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 804D0F80093;
+	Mon, 13 Mar 2023 21:09:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77E31F8032D; Mon, 13 Mar 2023 20:07:58 +0100 (CET)
+	id 4EB94F80423; Mon, 13 Mar 2023 21:09:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B870EF8032D
-	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 20:07:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B870EF8032D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gMPEuJOW
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8163C6148E;
-	Mon, 13 Mar 2023 19:07:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23CAC4339C;
-	Mon, 13 Mar 2023 19:07:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678734469;
-	bh=mixkviXkrTQKP4glJUkMivKz0/es3ZvvcLqTmvgYhWQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=gMPEuJOWVffTQXdCaxYCQVCoYfBtXQ+/emqhw9/rBwO340K0nrNHThlQ+JuSc7JO1
-	 o1RaJ5azj9+AIAmhoHqRamzIA1F+D3cRWGeG47J533OnytjJ2xYEItFr6s95t46qwr
-	 zoSp3ejYiUUGbvkDgD5ahMgeBF5+yiowztsNutT345Oi/Q2+cqZjaYU1HLNoUacAEp
-	 nh7NkZ4y1jD95dJl+veq4EzY0RBJqHcptAYFLQC5BwhbvPIxYDWqcmG16YBp/TVhyY
-	 8Qa2oD4/lTIB19Y/uHQIf2eia3vlbfeFfgwS4ytVu6y1KZiXbNdSSzQ0nMBZa0Ct/l
-	 oC3/Db4klimqA==
-From: Mark Brown <broonie@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Sebastian Reichel <sre@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Oder Chiou <oder_chiou@realtek.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-arm-msm@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230310214333.274903-1-krzysztof.kozlowski@linaro.org>
-References: <20230310214333.274903-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH 1/9] ASoC: qcom: lpass-sc7280: Drop
- of_match_ptr for ID table
-Message-Id: <167873446544.106067.10586777003172589901.b4-ty@kernel.org>
-Date: Mon, 13 Mar 2023 19:07:45 +0000
+	by alsa1.perex.cz (Postfix) with ESMTPS id 21028F80272
+	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 21:08:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21028F80272
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=ON5fCxDH
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32DGaXwg011798;
+	Mon, 13 Mar 2023 20:08:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=KwnIdWoiVAJBwcmcN8HpxRc9ZCasr2KvHIlvHAI8gXg=;
+ b=ON5fCxDH4yEO3kIK7jweHPgWTQTR2Nc5gH1GXJL9wtM/0mznKSKf7x8/lujxEWqhGgOo
+ YLFIH/3XnpL/0K+GamfQttfKh7f05nSU1hQTYOevJnz88MHfNP/qC6B8dXVDCyDxm2Xu
+ hp6nOBZiS8ld2iAIZXhP0w4T9eMLpim/PLG8SKP/DB2nSQI5fMWP8zkkWsFM2+ydEl4I
+ xqQdowKL/zklP0AhiIqpSYxSlhBEZZd2TNitlQcl1vtsxgcY5q8gVey0Nd4CDewDyo3O
+ vKBbGkxz7+4VR3QT05c2jbwAWvTZst2Rdf6kGgzeVrpFkEdeifpjCvWilFTIUolAPUY1 rQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pa6n30kn0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Mar 2023 20:08:55 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 32DK8sO4014513
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Mar 2023 20:08:54 GMT
+Received: from [10.110.94.159] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Mon, 13 Mar
+ 2023 13:08:53 -0700
+Message-ID: <6024f762-6085-10cd-e73a-9031722b2334@quicinc.com>
+Date: Mon, 13 Mar 2023 13:08:47 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: 34UXXM3WUQUW5HGUIHHWG6KXM36L7SOT
-X-Message-ID-Hash: 34UXXM3WUQUW5HGUIHHWG6KXM36L7SOT
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v3 01/28] xhci: Add support to allocate several
+ interrupters
+Content-Language: en-US
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+        <krzysztof.kozlowski+dt@linaro.org>, <agross@kernel.org>,
+        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>,
+        <andersson@kernel.org>, <robh+dt@kernel.org>,
+        <gregkh@linuxfoundation.org>, <tiwai@suse.com>
+References: <20230308235751.495-1-quic_wcheng@quicinc.com>
+ <20230308235751.495-2-quic_wcheng@quicinc.com>
+ <a45ff335-0563-85c7-3b31-d6ca23a54a3f@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <a45ff335-0563-85c7-3b31-d6ca23a54a3f@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 3_oXSt_A1iE145gYnGnDroRcA8q41vMD
+X-Proofpoint-GUID: 3_oXSt_A1iE145gYnGnDroRcA8q41vMD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-13_09,2023-03-13_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 mlxscore=0
+ bulkscore=0 mlxlogscore=994 impostorscore=0 priorityscore=1501
+ adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2303130158
+Message-ID-Hash: 5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S
+X-Message-ID-Hash: 5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/34UXXM3WUQUW5HGUIHHWG6KXM36L7SOT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,46 +135,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 10 Mar 2023 22:43:24 +0100, Krzysztof Kozlowski wrote:
-> The driver is specific to ARCH_QCOM which depends on OF thus the driver
-> is OF-only.  Its of_device_id table is built unconditionally, thus
-> of_match_ptr() for ID table does not make sense.
+Hi Mathias,
+
+On 3/10/2023 7:07 AM, Mathias Nyman wrote:
+> On 9.3.2023 1.57, Wesley Cheng wrote:
+>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>
+>> Introduce xHCI APIs to allow for clients to allocate and free
+>> interrupters.  This allocates an array of interrupters, which is based on
+>> the max_interrupters parameter.  The primary interrupter is set as the
+>> first entry in the array, and secondary interrupters following after.
+>>
+> 
+> I'm thinking about changing this offloading xHCI API
+> xhci should be aware and keep track of which devices and endpoints that
+> are offloaded to avoid device getting offloaded twice, avoid xhci driver
+> from queuing anything itself for these, and act properly if the offloaded
+> device or entire host is removed.
+> 
+> So first thing audio side would need to do do is register/create an
+> offload entry for the device using the API:
+> 
+> struct xhci_sideband *xhci_sideband_register(struct usb_device *udev)
+> 
+> (xHCI specs calls offload sideband)
+> Then endpoints and interrupters can be added and removed from this
+> offload entry
+> 
+> I have some early thoughts written as non-compiling code in:
+> 
+> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
+> feature_interrupters
+> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
 > 
 > 
+> Let me know what you think about this.
+> 
 
-Applied to
+The concept/framework you built looks good to me.  Makes sense to have 
+XHCI better maintain the offloading users.  One thing I would request is 
+to move xhci-sideband.h to the include directory since the class driver 
+levels would need to be able to reference the structure and APIs you've 
+exposed.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I have yet to try it with our implementation, but I'll work on plugging 
+it in and fix any issues I see along the way.
 
-Thanks!
-
-[5/9] ASoC: codecs: adau1977-spi: Mark OF related data as maybe unused
-      commit: a9048d64fb9605eb68c9912724e4a1346db8ba1a
-[6/9] ASoC: codecs: pcm179x-spi: Mark OF related data as maybe unused
-      commit: 413beba1a336e6068119f31a4441c51a7aeb1b55
-[7/9] ASoC: codecs: rt1019: Mark OF related data as maybe unused
-      commit: 0e8599a35823f05e90513918ff1201f8d210e315
-[8/9] ASoC: codecs: src4xxx-i2c: Mark OF related data as maybe unused
-      commit: 075a430db402eed0907b80493f1432d47a5120a7
-[9/9] ASoC: codecs: zl38060: Mark OF related data as maybe unused
-      commit: da1f22825b4fec7e25431fa5238252452f3dce46
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Thanks
+Wesley Cheng

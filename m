@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97EC06B825F
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 21:10:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864946B82C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 21:33:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4724B1425;
-	Mon, 13 Mar 2023 21:09:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4724B1425
+	by alsa0.perex.cz (Postfix) with ESMTPS id 661BA1419;
+	Mon, 13 Mar 2023 21:32:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 661BA1419
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678738201;
-	bh=QQnLw12sATkxoTDDvQ6SRZASxar/1oaBlKauOjrDCRE=;
+	s=default; t=1678739614;
+	bh=ZbPPZwaylNYecQMAdMdHDfpAAHuJ2OudjbnXBsvQX9o=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rZ0MClCZJ1zCLRK/XZqFxsEdakMY7U1ieyR8iVGL0jQkizSqP3d+5mCJY9R+nzc6J
-	 oWpMjZMfq6kNY5JxnJ74HYC6LKokERpyqZkJmQjzgZC1Xsggeqc40Kom8PjWj36NvF
-	 FXIlxMQ98I3LqUkcey9qGrn7ST7tqXosQU/MbmWE=
+	b=mzrtgcInpkWQIw+xaPr3Kz9dgG2fcF0fMfVtX8gkUQhYrNXigsurF9vgHVvAwt6Iz
+	 6Rc4I0vfT9LZlkoXxgh3Q4qlzXUUt36rVH+k4CO9KtTqev5aC98Jdwoie121Sw9WCJ
+	 S7L67bYshoWgz12tSbfrkd3I1+WXbJ40n6jCw7hs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 804D0F80093;
-	Mon, 13 Mar 2023 21:09:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DE8FF8032D;
+	Mon, 13 Mar 2023 21:32:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4EB94F80423; Mon, 13 Mar 2023 21:09:06 +0100 (CET)
+	id F3A08F80423; Mon, 13 Mar 2023 21:32:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21028F80272
-	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 21:08:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21028F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E2FFF80093
+	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 21:32:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E2FFF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=ON5fCxDH
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=C23u7Xmc
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32DGaXwg011798;
-	Mon, 13 Mar 2023 20:08:56 GMT
+ 32DIKwqQ006403;
+	Mon, 13 Mar 2023 20:32:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=KwnIdWoiVAJBwcmcN8HpxRc9ZCasr2KvHIlvHAI8gXg=;
- b=ON5fCxDH4yEO3kIK7jweHPgWTQTR2Nc5gH1GXJL9wtM/0mznKSKf7x8/lujxEWqhGgOo
- YLFIH/3XnpL/0K+GamfQttfKh7f05nSU1hQTYOevJnz88MHfNP/qC6B8dXVDCyDxm2Xu
- hp6nOBZiS8ld2iAIZXhP0w4T9eMLpim/PLG8SKP/DB2nSQI5fMWP8zkkWsFM2+ydEl4I
- xqQdowKL/zklP0AhiIqpSYxSlhBEZZd2TNitlQcl1vtsxgcY5q8gVey0Nd4CDewDyo3O
- vKBbGkxz7+4VR3QT05c2jbwAWvTZst2Rdf6kGgzeVrpFkEdeifpjCvWilFTIUolAPUY1 rQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=JdArQtncnrhXuVCDqX76U7cnvzMjwG0vfZ5UFiZDHus=;
+ b=C23u7Xmc+6pnD6oa2qpN5GDDmtdFiO6tfvPM9+Q2vHTybpezQSWFD6mT8auuT4Z1XhtH
+ tJt3yyNIuAdzG8rq3acysDgb+UxWiI1BIRBx/EvTVbExOhtfyegOm25O+pLMJLkpZtNm
+ a7twem6VJP7zp6z6IOm9rBC3bUWYyZf6vqSI+kcHLaQ5UevqoQhTmmsHrJjlmmTN02vO
+ 705Br3rQ+s9mrrEh+7i3pCPFb3uAuKwbDRdxXJsOuI7hlZ6bw9BVOoidls4mT6RvhYFW
+ Qhz0SmOQkw+LpSMoA+UIYNNDV6SqN0unSI9psTM1i0jeyaKWo/UWpi9hcFRC2udIDLkv AA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pa6n30kn0-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pa7w6re8q-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Mar 2023 20:08:55 +0000
+	Mon, 13 Mar 2023 20:32:29 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 32DK8sO4014513
+	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 32DKWSEV003110
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Mar 2023 20:08:54 GMT
+	Mon, 13 Mar 2023 20:32:28 GMT
 Received: from [10.110.94.159] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Mon, 13 Mar
- 2023 13:08:53 -0700
-Message-ID: <6024f762-6085-10cd-e73a-9031722b2334@quicinc.com>
-Date: Mon, 13 Mar 2023 13:08:47 -0700
+ 2023 13:32:27 -0700
+Message-ID: <ed0397eb-da17-fbee-647e-f3a2a57577fe@quicinc.com>
+Date: Mon, 13 Mar 2023 13:32:27 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
@@ -98,19 +98,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 3_oXSt_A1iE145gYnGnDroRcA8q41vMD
-X-Proofpoint-GUID: 3_oXSt_A1iE145gYnGnDroRcA8q41vMD
+X-Proofpoint-ORIG-GUID: MqVEeoOgEXkSl6IwZpf9qmzWimkd3taE
+X-Proofpoint-GUID: MqVEeoOgEXkSl6IwZpf9qmzWimkd3taE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-13_09,2023-03-13_02,2023-02-09_01
+ definitions=2023-03-13_10,2023-03-13_02,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0
- bulkscore=0 mlxlogscore=994 impostorscore=0 priorityscore=1501
- adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2303130158
-Message-ID-Hash: 5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S
-X-Message-ID-Hash: 5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S
+ spamscore=0 suspectscore=0
+ mlxlogscore=913 malwarescore=0 impostorscore=0 phishscore=0 mlxscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2303130162
+Message-ID-Hash: IMS2LA6X4Z3KKZXLWGCEQM4RHWXNJ25M
+X-Message-ID-Hash: IMS2LA6X4Z3KKZXLWGCEQM4RHWXNJ25M
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5PQ426NGVUJSEKNVMMQ4GK7LTWFRFI4S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IMS2LA6X4Z3KKZXLWGCEQM4RHWXNJ25M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,15 +171,21 @@ On 3/10/2023 7:07 AM, Mathias Nyman wrote:
 > 
 > Let me know what you think about this.
 > 
+>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> 
+> My Signed-off-by tag is being misused here.
+> 
+> I wrote a chunk of the code in this patch as PoC that I shared in a 
+> separate topic branch.
+> It was incomplete and not intended for upstream yet. (lacked locking, 
+> several fixme parts, etc..)
+> The rest of the code in this patch is completely new to me.
+> 
 
-The concept/framework you built looks good to me.  Makes sense to have 
-XHCI better maintain the offloading users.  One thing I would request is 
-to move xhci-sideband.h to the include directory since the class driver 
-levels would need to be able to reference the structure and APIs you've 
-exposed.
-
-I have yet to try it with our implementation, but I'll work on plugging 
-it in and fix any issues I see along the way.
+Sorry about this.  I cherry picked the change directly from your branch, 
+so it carried your signed off tag with it.  Will make to include them 
+properly next time.
 
 Thanks
 Wesley Cheng

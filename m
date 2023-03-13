@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E0CF6B753A
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 12:05:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E4A6B7544
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 12:06:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCB27147E;
-	Mon, 13 Mar 2023 12:04:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCB27147E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D06C9148F;
+	Mon, 13 Mar 2023 12:05:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D06C9148F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678705549;
-	bh=miL0D9BfCShEftzf2YWntzDjLwJZxpqx9D0xLPPlnNA=;
+	s=default; t=1678705579;
+	bh=PaZrZtWlkzJxawO1dITV7qlvYBknzDgGJ7kHMLhPzT8=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NjTPGvHiG1vM9E5/49bdEaLcNpw7A6gHvLNKPd9MlOAiKuvzAt6mkPUPDcsbtR7s5
-	 PPU8S1kl60vkzhMAkVnjfwyk1VTfePo7CW9mgTbgKeeuZyvrZiWiJr96ggjgw9/4EK
-	 L4wv9ZKLonJfU5WdqDMscFDD7olKp3UqcfgJSkCc=
+	b=XUNZ4EFWYqSsgtySSgZ5TexsoKYEVeyfzLbERDN89t1jSLThk93POkDTzQGTg04v9
+	 7smwaVv6g3EdsqlFSyhAxihAXEx4e2xy/08VrD2OhRAa0qU+Cs3JmNcpwj12nNKRiO
+	 Ix0cAfnKIlyIxob80etwuUeAO1diXCzC3nyjX5Q0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C9D4F80548;
-	Mon, 13 Mar 2023 12:03:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F42BF80558;
+	Mon, 13 Mar 2023 12:03:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67932F8051B; Mon, 13 Mar 2023 12:03:48 +0100 (CET)
+	id B12E4F8053B; Mon, 13 Mar 2023 12:03:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,54 +33,54 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BA82DF8032D
-	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 12:03:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA82DF8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1525F80423
+	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 12:03:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1525F80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WT50ErhR
+ header.s=Intel header.b=HYgmkSVd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678705423; x=1710241423;
+  t=1678705428; x=1710241428;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=miL0D9BfCShEftzf2YWntzDjLwJZxpqx9D0xLPPlnNA=;
-  b=WT50ErhRvGbJPs3CECkBwx/IEVF39dkfasYe//ayNn1bMOS6XUJvB6nF
-   U3KIuO56qTpY6Ls2M1sZKrfnlWxIEEsRsODn42ntPPe5AxiP9Q1FHpe1C
-   /yrYy+yeEZ9JZA7rdw+/vepgTN4RFQO0xmBW1itWEolQX0kLonuNuk2OK
-   0VLgutNqW2x48ArZZnnXPM5HxI7o5CviFCMXyKTRKMSOUxNKylRq/rI39
-   JhqMpgotheTi8aqO3zWCNszPe05Y/cJZeNWJtHg5TtouLbItNU7uXOcL+
-   Y8N2HJQJzFNVfKoDgkUjFMblEIZoOOoUNszycFn5x142qB2vzsfKeBDGO
-   Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="423384156"
+  bh=PaZrZtWlkzJxawO1dITV7qlvYBknzDgGJ7kHMLhPzT8=;
+  b=HYgmkSVdT2A7bWy/RZ/Td3vAuIRtgUHz8bawIfKTGcMM0UryCIGVstlR
+   yTXhACfUAbUD7Jhf0AYEloMe3+dLVhkBnxYfcvbaA/D0MJSxD1gaSPXBM
+   Lh6SbAq9nsYELYNdoShoQOjM5xoCi2wSHc2DqwIiNlcewxdx10UKI72lj
+   qiaKI85nvNgKAPaEzWP83Avt1lvG5jlzl4P+KM6p+y8tWhd5bMG8owEj7
+   zV/UPIV8j2PSEb2ANzxxFFDVJqv1+KD+4H2s7gu6piCzQl6wmO9sJCLl+
+   /FOJoC3ruCGgwxhCEleXi2kuI50FlEx5SFiYoWJCJZ4WMBsxLDOCZkNOt
+   A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="423384169"
 X-IronPort-AV: E=Sophos;i="5.98,256,1673942400";
-   d="scan'208";a="423384156"
+   d="scan'208";a="423384169"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
   by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2023 04:03:40 -0700
+ 13 Mar 2023 04:03:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="655939099"
+X-IronPort-AV: E=McAfee;i="6500,9779,10647"; a="655939104"
 X-IronPort-AV: E=Sophos;i="5.98,256,1673942400";
-   d="scan'208";a="655939099"
+   d="scan'208";a="655939104"
 Received: from tchambon-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.43.68])
   by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2023 04:03:37 -0700
+ 13 Mar 2023 04:03:40 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 6/7] ASoC: SOF: ipc4-topology: Add support for TPLG_CTL_BYTES
-Date: Mon, 13 Mar 2023 13:03:43 +0200
-Message-Id: <20230313110344.16644-7-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 7/7] ASoC: SOF: ipc4-control: Add support for bytes control
+ get and put
+Date: Mon, 13 Mar 2023 13:03:44 +0200
+Message-Id: <20230313110344.16644-8-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230313110344.16644-1-peter.ujfalusi@linux.intel.com>
 References: <20230313110344.16644-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JJGC5CGXVWOYRNOEPLHOPQWOBP5ML64H
-X-Message-ID-Hash: JJGC5CGXVWOYRNOEPLHOPQWOBP5ML64H
+Message-ID-Hash: 5P7FXAE4ACEEFJBTDNE2SWAVIXMUHQHH
+X-Message-ID-Hash: 5P7FXAE4ACEEFJBTDNE2SWAVIXMUHQHH
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJGC5CGXVWOYRNOEPLHOPQWOBP5ML64H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5P7FXAE4ACEEFJBTDNE2SWAVIXMUHQHH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,106 +106,310 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Libin Yang <libin.yang@intel.com>
+Add support for bytes control by implementing bytes_get/put and
+bytes_ext_get/put and blobs with either module init instance or
+large config type.
 
-Add byte type support for IPC4. The bytes controls are used to transfer
-configuration blobs to/from firmware via large_config messages.
+For module init instance type the put will only update the stored
+configuration blob and it is going to be taken into use next time the
+module is (re-)initialized.
 
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Large config type of blobs are sent to the firmware whenever the DSP is
+powered up.
+
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 67 +++++++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+ sound/soc/sof/ipc4-control.c | 248 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 241 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 0bb16ed38e48..7cc57e795f5a 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1506,6 +1506,71 @@ static int sof_ipc4_control_load_volume(struct snd_sof_dev *sdev, struct snd_sof
+diff --git a/sound/soc/sof/ipc4-control.c b/sound/soc/sof/ipc4-control.c
+index 56d42f2eb6e2..d26ed2a6029f 100644
+--- a/sound/soc/sof/ipc4-control.c
++++ b/sound/soc/sof/ipc4-control.c
+@@ -181,11 +181,237 @@ static int sof_ipc4_volume_get(struct snd_sof_control *scontrol,
  	return 0;
  }
  
-+static int sof_ipc4_control_load_bytes(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++static int sof_ipc4_set_get_bytes_data(struct snd_sof_dev *sdev,
++				       struct snd_sof_control *scontrol,
++				       bool set, bool lock)
 +{
-+	struct sof_ipc4_control_data *control_data;
-+	struct sof_ipc4_msg *msg;
-+	int ret;
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct sof_abi_hdr *data = cdata->data;
++	struct sof_ipc4_msg *msg = &cdata->msg;
++	int ret = 0;
 +
-+	if (scontrol->max_size < (sizeof(*control_data) + sizeof(struct sof_abi_hdr))) {
-+		dev_err(sdev->dev, "insufficient size for a bytes control %s: %zu.\n",
-+			scontrol->name, scontrol->max_size);
-+		return -EINVAL;
-+	}
++	/* Send the new data to the firmware only if it is powered up */
++	if (set && !pm_runtime_active(sdev->dev))
++		return 0;
 +
-+	if (scontrol->priv_size > scontrol->max_size - sizeof(*control_data)) {
-+		dev_err(sdev->dev, "scontrol %s bytes data size %zu exceeds max %zu.\n",
-+			scontrol->name, scontrol->priv_size,
-+			scontrol->max_size - sizeof(*control_data));
-+		return -EINVAL;
-+	}
++	msg->extension = SOF_IPC4_MOD_EXT_MSG_PARAM_ID(data->type);
 +
-+	scontrol->size = sizeof(struct sof_ipc4_control_data) + scontrol->priv_size;
++	msg->data_ptr = data->data;
++	msg->data_size = data->size;
 +
-+	scontrol->ipc_control_data = kzalloc(scontrol->max_size, GFP_KERNEL);
-+	if (!scontrol->ipc_control_data)
-+		return -ENOMEM;
++	ret = sof_ipc4_set_get_kcontrol_data(scontrol, set, lock);
++	if (ret < 0)
++		dev_err(sdev->dev, "Failed to %s for %s\n",
++			set ? "set bytes update" : "get bytes",
++			scontrol->name);
 +
-+	control_data = scontrol->ipc_control_data;
-+	control_data->index = scontrol->index;
-+	if (scontrol->priv_size > 0) {
-+		memcpy(control_data->data, scontrol->priv, scontrol->priv_size);
-+		kfree(scontrol->priv);
-+		scontrol->priv = NULL;
++	msg->data_ptr = NULL;
++	msg->data_size = 0;
 +
-+		if (control_data->data->magic != SOF_IPC4_ABI_MAGIC) {
-+			dev_err(sdev->dev, "Wrong ABI magic (%#x) for control: %s\n",
-+				control_data->data->magic, scontrol->name);
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		/* TODO: check the ABI version */
-+
-+		if (control_data->data->size + sizeof(struct sof_abi_hdr) !=
-+		    scontrol->priv_size) {
-+			dev_err(sdev->dev, "Control %s conflict in bytes %zu vs. priv size %zu.\n",
-+				scontrol->name,
-+				control_data->data->size + sizeof(struct sof_abi_hdr),
-+				scontrol->priv_size);
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+	}
-+
-+	msg = &control_data->msg;
-+	msg->primary = SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_LARGE_CONFIG_SET);
-+	msg->primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg->primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+
-+	return 0;
-+
-+err:
-+	kfree(scontrol->ipc_control_data);
-+	scontrol->ipc_control_data = NULL;
 +	return ret;
 +}
 +
- static int sof_ipc4_control_setup(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++static int sof_ipc4_bytes_put(struct snd_sof_control *scontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct snd_soc_component *scomp = scontrol->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct sof_abi_hdr *data = cdata->data;
++	size_t size;
++
++	if (scontrol->max_size > sizeof(ucontrol->value.bytes.data)) {
++		dev_err_ratelimited(scomp->dev,
++				    "data max %zu exceeds ucontrol data array size\n",
++				    scontrol->max_size);
++		return -EINVAL;
++	}
++
++	/* scontrol->max_size has been verified to be >= sizeof(struct sof_abi_hdr) */
++	if (data->size > scontrol->max_size - sizeof(*data)) {
++		dev_err_ratelimited(scomp->dev,
++				    "data size too big %u bytes max is %zu\n",
++				    data->size, scontrol->max_size - sizeof(*data));
++		return -EINVAL;
++	}
++
++	size = data->size + sizeof(*data);
++
++	/* copy from kcontrol */
++	memcpy(data, ucontrol->value.bytes.data, size);
++
++	sof_ipc4_set_get_bytes_data(sdev, scontrol, true, true);
++
++	return 0;
++}
++
++static int sof_ipc4_bytes_get(struct snd_sof_control *scontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct snd_soc_component *scomp = scontrol->scomp;
++	struct sof_abi_hdr *data = cdata->data;
++	size_t size;
++
++	if (scontrol->max_size > sizeof(ucontrol->value.bytes.data)) {
++		dev_err_ratelimited(scomp->dev, "data max %zu exceeds ucontrol data array size\n",
++				    scontrol->max_size);
++		return -EINVAL;
++	}
++
++	if (data->size > scontrol->max_size - sizeof(*data)) {
++		dev_err_ratelimited(scomp->dev,
++				    "%u bytes of control data is invalid, max is %zu\n",
++				    data->size, scontrol->max_size - sizeof(*data));
++		return -EINVAL;
++	}
++
++	size = data->size + sizeof(*data);
++
++	/* copy back to kcontrol */
++	memcpy(ucontrol->value.bytes.data, data, size);
++
++	return 0;
++}
++
++static int sof_ipc4_bytes_ext_put(struct snd_sof_control *scontrol,
++				  const unsigned int __user *binary_data,
++				  unsigned int size)
++{
++	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct snd_soc_component *scomp = scontrol->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct sof_abi_hdr *data = cdata->data;
++	struct sof_abi_hdr abi_hdr;
++	struct snd_ctl_tlv header;
++
++	/*
++	 * The beginning of bytes data contains a header from where
++	 * the length (as bytes) is needed to know the correct copy
++	 * length of data from tlvd->tlv.
++	 */
++	if (copy_from_user(&header, tlvd, sizeof(struct snd_ctl_tlv)))
++		return -EFAULT;
++
++	/* make sure TLV info is consistent */
++	if (header.length + sizeof(struct snd_ctl_tlv) > size) {
++		dev_err_ratelimited(scomp->dev,
++				    "Inconsistent TLV, data %d + header %zu > %d\n",
++				    header.length, sizeof(struct snd_ctl_tlv), size);
++		return -EINVAL;
++	}
++
++	/* be->max is coming from topology */
++	if (header.length > scontrol->max_size) {
++		dev_err_ratelimited(scomp->dev,
++				    "Bytes data size %d exceeds max %zu\n",
++				    header.length, scontrol->max_size);
++		return -EINVAL;
++	}
++
++	/* Verify the ABI header first */
++	if (copy_from_user(&abi_hdr, tlvd->tlv, sizeof(abi_hdr)))
++		return -EFAULT;
++
++	if (abi_hdr.magic != SOF_IPC4_ABI_MAGIC) {
++		dev_err_ratelimited(scomp->dev, "Wrong ABI magic 0x%08x\n",
++				    abi_hdr.magic);
++		return -EINVAL;
++	}
++
++	if (abi_hdr.size > scontrol->max_size - sizeof(abi_hdr)) {
++		dev_err_ratelimited(scomp->dev,
++				    "%u bytes of control data is invalid, max is %zu\n",
++				    abi_hdr.size, scontrol->max_size - sizeof(abi_hdr));
++		return -EINVAL;
++	}
++
++	/* Copy the whole binary data which includes the ABI header and the payload */
++	if (copy_from_user(data, tlvd->tlv, header.length))
++		return -EFAULT;
++
++	sof_ipc4_set_get_bytes_data(sdev, scontrol, true, true);
++
++	return 0;
++}
++
++static int _sof_ipc4_bytes_ext_get(struct snd_sof_control *scontrol,
++				   const unsigned int __user *binary_data,
++				   unsigned int size, bool from_dsp)
++{
++	struct snd_ctl_tlv __user *tlvd = (struct snd_ctl_tlv __user *)binary_data;
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct snd_soc_component *scomp = scontrol->scomp;
++	struct sof_abi_hdr *data = cdata->data;
++	struct snd_ctl_tlv header;
++	size_t data_size;
++
++	/*
++	 * Decrement the limit by ext bytes header size to ensure the user space
++	 * buffer is not exceeded.
++	 */
++	if (size < sizeof(struct snd_ctl_tlv))
++		return -ENOSPC;
++
++	size -= sizeof(struct snd_ctl_tlv);
++
++	/* get all the component data from DSP */
++	if (from_dsp) {
++		struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++		int ret = sof_ipc4_set_get_bytes_data(sdev, scontrol, false, true);
++
++		if (ret < 0)
++			return ret;
++
++		/* Set the ABI magic (if the control is not initialized) */
++		data->magic = SOF_IPC4_ABI_MAGIC;
++	}
++
++	if (data->size > scontrol->max_size - sizeof(*data)) {
++		dev_err_ratelimited(scomp->dev,
++				    "%u bytes of control data is invalid, max is %zu\n",
++				    data->size, scontrol->max_size - sizeof(*data));
++		return -EINVAL;
++	}
++
++	data_size = data->size + sizeof(struct sof_abi_hdr);
++
++	/* make sure we don't exceed size provided by user space for data */
++	if (data_size > size)
++		return -ENOSPC;
++
++	header.numid = scontrol->comp_id;
++	header.length = data_size;
++
++	if (copy_to_user(tlvd, &header, sizeof(struct snd_ctl_tlv)))
++		return -EFAULT;
++
++	if (copy_to_user(tlvd->tlv, data, data_size))
++		return -EFAULT;
++
++	return 0;
++}
++
++static int sof_ipc4_bytes_ext_get(struct snd_sof_control *scontrol,
++				  const unsigned int __user *binary_data,
++				  unsigned int size)
++{
++	return _sof_ipc4_bytes_ext_get(scontrol, binary_data, size, false);
++}
++
++static int sof_ipc4_bytes_ext_volatile_get(struct snd_sof_control *scontrol,
++					   const unsigned int __user *binary_data,
++					   unsigned int size)
++{
++	return _sof_ipc4_bytes_ext_get(scontrol, binary_data, size, true);
++}
++
+ /* set up all controls for the widget */
+ static int sof_ipc4_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
  {
- 	switch (scontrol->info_type) {
-@@ -1513,6 +1578,8 @@ static int sof_ipc4_control_setup(struct snd_sof_dev *sdev, struct snd_sof_contr
- 	case SND_SOC_TPLG_CTL_VOLSW_SX:
- 	case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
- 		return sof_ipc4_control_load_volume(sdev, scontrol);
-+	case SND_SOC_TPLG_CTL_BYTES:
-+		return sof_ipc4_control_load_bytes(sdev, scontrol);
- 	default:
- 		break;
+ 	struct snd_sof_control *scontrol;
+-	int ret;
++	int ret = 0;
+ 
+ 	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+ 		if (scontrol->comp_id == swidget->comp_id) {
+@@ -195,11 +421,10 @@ static int sof_ipc4_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_s
+ 			case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
+ 				ret = sof_ipc4_set_volume_data(sdev, swidget,
+ 							       scontrol, false);
+-				if (ret < 0) {
+-					dev_err(sdev->dev, "kcontrol %d set up failed for widget %s\n",
+-						scontrol->comp_id, swidget->widget->name);
+-					return ret;
+-				}
++				break;
++			case SND_SOC_TPLG_CTL_BYTES:
++				ret = sof_ipc4_set_get_bytes_data(sdev, scontrol,
++								  true, false);
+ 				break;
+ 			default:
+ 				break;
+@@ -207,7 +432,11 @@ static int sof_ipc4_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_s
+ 		}
  	}
+ 
+-	return 0;
++	if (ret < 0)
++		dev_err(sdev->dev, "kcontrol %d set up failed for widget %s\n",
++			scontrol->comp_id, swidget->widget->name);
++
++	return ret;
+ }
+ 
+ static int
+@@ -235,6 +464,11 @@ sof_ipc4_set_up_volume_table(struct snd_sof_control *scontrol, int tlv[SOF_TLV_I
+ const struct sof_ipc_tplg_control_ops tplg_ipc4_control_ops = {
+ 	.volume_put = sof_ipc4_volume_put,
+ 	.volume_get = sof_ipc4_volume_get,
++	.bytes_put = sof_ipc4_bytes_put,
++	.bytes_get = sof_ipc4_bytes_get,
++	.bytes_ext_put = sof_ipc4_bytes_ext_put,
++	.bytes_ext_get = sof_ipc4_bytes_ext_get,
++	.bytes_ext_volatile_get = sof_ipc4_bytes_ext_volatile_get,
+ 	.widget_kcontrol_setup = sof_ipc4_widget_kcontrol_setup,
+ 	.set_up_volume_table = sof_ipc4_set_up_volume_table,
+ };
 -- 
 2.39.2
 

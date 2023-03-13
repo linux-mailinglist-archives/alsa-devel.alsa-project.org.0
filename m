@@ -2,105 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977036B7B9B
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 16:12:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CD86B7C98
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Mar 2023 16:52:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 883441463;
-	Mon, 13 Mar 2023 16:11:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 883441463
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7E0D146B;
+	Mon, 13 Mar 2023 16:51:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7E0D146B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678720358;
-	bh=JpK1Bsp/00/mAlSXP6iIotaNh7ZeAYHTZv65JHlesGE=;
-	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QNzOHG2d9LYvlLbfrFJeDAtW7wGRlnkpEZ+fx4UnKc+u7MzPLtTKUoMXozYMYgnIf
-	 iIH/h5Q0dLdOpyECc4qaS8ropIVKfnzgXAsbSFnmc/vbVbSy7M8ZopmTu4IHPHO1dC
-	 xXlg3U7fvGtgQ9o4S+Qa/Yb4WP+2eVMWWVNvRc1Y=
+	s=default; t=1678722723;
+	bh=sxBQ1mj1K2yrkBgJry+sj9Mv0c47R51qhcaLe4l1YWg=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=SfzRPWmltLd2TsdT7MjKJAKqXD/LeRZ/5xGo5VPnsR4zVP3Ims7lrW/4VvqR1mCXV
+	 yllKxRDe9FR62M9Khm5h2fhXH4ETANlqfdpxBYIE1EV7fdxxP8FIXlqAKnY/kZbf3C
+	 muV8FqqcA/sLCLCs77CN0oL6Jo3+j4sut5XjmGxQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDFF1F8032D;
-	Mon, 13 Mar 2023 16:11:47 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA882F80423; Mon, 13 Mar 2023 16:11:15 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9E0DF80272
-	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 16:11:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9E0DF80272
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=YVauq20v
-Received: by mail-ed1-x532.google.com with SMTP id j11so50059654edq.4
-        for <alsa-devel@alsa-project.org>;
- Mon, 13 Mar 2023 08:11:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678720266;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=iYwRBWhd/gnT5KWpDxu3GVM2rDxcHXfYBG+AZ04ghkU=;
-        b=YVauq20vd4PDhA85eBFlplBg0czGyL0zg9UniRkUhD/8q9JeVYaJ5DCJ59+sCYxuBM
-         lOfOGTME5ndTNy9GIBccH9Ufy9klp4bRUdzWCgAvWFIEfJ9lS/b+8TMtvcXOjyxlxUOx
-         VGuOYRBgHBp+SzejDwroikBGvjSL7Sna9JaI+yxZ1m/yLVxIoqddnPu8H6ecLSaURVaW
-         bF+Sm0JknLK+TMKa4MSSQYvls6jRI5fZjeUAA2EKrmb/cbhOz1vrPMYLuUUmNQNoiP0/
-         Qs53oSmHruIit5g3LP1nU/mF+2ljOz8C3DuuV8ztzax7EXQ1M/x83x9IvzPTPX+t7/Mb
-         qDsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678720266;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=iYwRBWhd/gnT5KWpDxu3GVM2rDxcHXfYBG+AZ04ghkU=;
-        b=c/XfAaHyJ+NM9f9NOPGI6TLFkv4kWvthaf33Bm59JIaw0aT1RP1vk3U5MIN9gETuJg
-         dbTEFlip3G530U8DZZic1F08KZxkcii8ymF2R5Ft36O4zna10vtExLqECdoMwt3Ml96S
-         xSTT+/PIqqDUOTGYHGzYFHKFkMmSdf1Ory5wSuE3KF9G3ehP1wbSQfnkTHUkcLfwZ47B
-         DbiWye6Fm7Wd7+p2cIq6wQ/j2oN/A+tih9asdkl1kMwXNwxTnYegCUmN9z8vWFNfVx7V
-         VqaDBpD7M42ZS70md/Pe2mzubemZO+xxiv4ZMIaRNmdNq7NKuyBG2zngBBXu71F2E/WR
-         /k/w==
-X-Gm-Message-State: AO0yUKURW+j+Eki0CiblHVYlC5/+pwBSW7Bc7xuZr9hrnTqkOKeHqgCe
-	j6wETjIfVbDHi2KHMgGa8I2M93NvWLQzC/clOqI=
-X-Google-Smtp-Source: 
- AK7set+W24xs0TNecG9YLv4RTZC06WlcBwhmNY3iOLWhmk0Bev6pDw8huR+eRCMSzXMwY/sGw1em9mw4+QCG+sbRJtM=
-X-Received: by 2002:a17:906:36d6:b0:8b2:23fb:dfd8 with SMTP id
- b22-20020a17090636d600b008b223fbdfd8mr17581155ejc.12.1678720266605; Mon, 13
- Mar 2023 08:11:06 -0700 (PDT)
-MIME-Version: 1.0
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 13 Mar 2023 17:10:55 +0200
-Message-ID: 
- <CAEnQRZBoo+v9JRztP_on7c_C_Laei5w8XAdZ7zaHxmGYAaKSeA@mail.gmail.com>
-Subject: dpcm_be_connect: FE is atomic but BE is nonatomic,
- invalid configuration
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: HFA4WIPXTE4WT5TFWTSKNBQAOHAIAEBE
-X-Message-ID-Hash: HFA4WIPXTE4WT5TFWTSKNBQAOHAIAEBE
-X-MailFrom: daniel.baluta@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C872F80534;
+	Mon, 13 Mar 2023 16:50:24 +0100 (CET)
+To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 0/8]  ASoC: Initial support for Cirrus Logic CS35L56
+Date: Mon, 13 Mar 2023 15:49:47 +0000
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Paul Olaru <paul.olaru@nxp.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HFA4WIPXTE4WT5TFWTSKNBQAOHAIAEBE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HUQNML7E3XUZCI7AQKUJCGLMHMEDC5T3/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167872262373.26.3724999217660547026@mailman-core.alsa-project.org>
+From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com, Richard Fitzgerald <rf@opensource.cirrus.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 70E49F8052D; Mon, 13 Mar 2023 16:50:20 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id BACDBF8032D
+	for <alsa-devel@alsa-project.org>; Mon, 13 Mar 2023 16:50:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BACDBF8032D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=fPfj4Cqa
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32D5bF4A000339;
+	Mon, 13 Mar 2023 10:50:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=KUfQ6GcH3lWPczqeS3uNxeSaXBxGISrBhuo1nu75FLg=;
+ b=fPfj4CqabP90AqWSxF8RpoNgHGnLCFBlaWX0aZpt0m00WXP9cavigHJrBRkAwJ879TT3
+ AnPRE3cXCOuOV3yOFRMDOxNq8FsWRCYXOqQ25PI8IMQR5j5vr9eGhtFsTJIaBtfqDLll
+ efhveAbRQTN9sjUwSfNWmmpcge1I+qnBkDTu9q/JjMWUqXV1gkk3ThyGxg82jDWiB3Pl
+ t6bkra9m0d3tLWcVobY/fy2hWL/mKvhPlBVc8nECZKaCB0PQW4o3Wap29GlzPzz2zzWx
+ NIt+QadGZRpBut7bi90fX8A8gI6F5fcB/qdc0uivX6BsIbIsjTmvLHPUASMx4GFLzibW ig==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3p8pxvb6hn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Mar 2023 10:50:05 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Mon, 13 Mar
+ 2023 10:50:04 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Mon, 13 Mar 2023 10:50:04 -0500
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.64.92])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DF6C311AB;
+	Mon, 13 Mar 2023 15:50:03 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v2 0/8]  ASoC: Initial support for Cirrus Logic CS35L56
+Date: Mon, 13 Mar 2023 15:49:47 +0000
+Message-ID: <20230313154955.4268-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: NaiokJsNiYk2GZDLmG0X-GgRimUKvyR_
+X-Proofpoint-GUID: NaiokJsNiYk2GZDLmG0X-GgRimUKvyR_
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: HUQNML7E3XUZCI7AQKUJCGLMHMEDC5T3
+X-Message-ID-Hash: HUQNML7E3XUZCI7AQKUJCGLMHMEDC5T3
+X-MailFrom: prvs=843636b565=rf@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com, Richard Fitzgerald <rf@opensource.cirrus.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HUQNML7E3XUZCI7AQKUJCGLMHMEDC5T3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,22 +139,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Morimoto-san,
+The CS35L56 is a high-performance boosted mono audio amplifier.
+Supported control interfaces are I2C, SPI or SoundWire.
+Supported audio interfaces are I2S/TDM or SoundWire.
 
-I would like to know your take on the following issue.
+The CS35L56 has a self-booting firmware in ROM, with the ability
+to patch the firmware and/or apply tunings.
+Patches #1 to #7 add support to cs_dsp and wm_adsp for self-booting
+firmware and the ability to apply a .bin file without having to
+apply a .wmfw.
 
-On I.MX with SOF we use simple-card and hit the following error:
+Changes since v1:
+- Check for error when getting pm_runtime in cs35l56_irq().
+- Use SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK instead of the old define.
+- Re-word two comments in cs35l56-sdw.c.
+- Add an comment explaining the wait for init_completion in
+  cs35l56_dsp_work().
+- Omit patches to Intel machine driver. These will be done as a
+  separate thread.
 
-  sai1-wm8960-hifi: dpcm_be_connect: FE is atomic but BE is nonatomic,
-invalid configuration
+Richard Fitzgerald (1):
+  ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
 
-and I think it makes sense to have the BE nonatomic as set by SOF core.
+Simon Trimmer (7):
+  firmware: cs_dsp: Introduce no_core_startstop for self-booting DSPs
+  ASoC: wm_adsp: Use no_core_startstop to prevent creating preload
+    control
+  firmware: cs_dsp: Support DSPs that don't require firmware download
+  ASoC: wm_adsp: Support DSPs that don't require firmware download
+  ASoC: wm_adsp: Expose the DSP boot work actions as wm_adsp_power_up()
+  ASoC: wm_adsp: Add support for loading bin files without wmfw
+  ASoC: wm_adsp: Simplify the logging of requested firmware files
 
-In order to fix this, we need to make FE nonatomic too. But FE is
-handled by simple-card and it doesn't set .nonatomic field leaving it
-as default (.nonatomic = 0).
+ MAINTAINERS                            |    1 +
+ drivers/firmware/cirrus/cs_dsp.c       |   17 +-
+ include/linux/firmware/cirrus/cs_dsp.h |    1 +
+ include/sound/cs35l56.h                |  266 +++++
+ sound/soc/codecs/Kconfig               |   34 +
+ sound/soc/codecs/Makefile              |   10 +
+ sound/soc/codecs/cs35l56-i2c.c         |   83 ++
+ sound/soc/codecs/cs35l56-sdw.c         |  528 +++++++++
+ sound/soc/codecs/cs35l56-shared.c      |  390 +++++++
+ sound/soc/codecs/cs35l56-spi.c         |   81 ++
+ sound/soc/codecs/cs35l56.c             | 1461 ++++++++++++++++++++++++
+ sound/soc/codecs/cs35l56.h             |   77 ++
+ sound/soc/codecs/wm_adsp.c             |   63 +-
+ sound/soc/codecs/wm_adsp.h             |    3 +
+ 14 files changed, 2999 insertions(+), 16 deletions(-)
+ create mode 100644 include/sound/cs35l56.h
+ create mode 100644 sound/soc/codecs/cs35l56-i2c.c
+ create mode 100644 sound/soc/codecs/cs35l56-sdw.c
+ create mode 100644 sound/soc/codecs/cs35l56-shared.c
+ create mode 100644 sound/soc/codecs/cs35l56-spi.c
+ create mode 100644 sound/soc/codecs/cs35l56.c
+ create mode 100644 sound/soc/codecs/cs35l56.h
 
-How do you think we can update this field? Would a DT property be good enough?
+-- 
+2.30.2
 
-thanks,
-Daniel.

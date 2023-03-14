@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC6FF6B9A85
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:02:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867BB6B9A96
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:04:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A80F71338;
-	Tue, 14 Mar 2023 17:01:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A80F71338
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0330D1342;
+	Tue, 14 Mar 2023 17:03:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0330D1342
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678809768;
-	bh=skrAiRXT8ogOmfkz3mKbQIjgYVVmc3gQXoOt/PeV360=;
+	s=default; t=1678809879;
+	bh=/acl6j4I+NZzv5xHsqOjSqr3+Qbi8dxMbStRJpTTgkM=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=swUifu654H2Gf7UNCclFb0GVd1PiRT2xCVUbBLR5cfNL6lxQQ0V/anAOeIgtKdQer
-	 7Px5ljBX8DN4Z2yxyWv7VprZn75v/w+u/MyAboNbxw49/6FHop0NtYyzSa5WNO0NIa
-	 h478Cc3kibgR1pE/MH71uZNFMUFbfDk5822KRSCc=
+	b=Mwl0OKsdUkdRRkW7PcxOd2iE1zERF4yLFclVarta3cbCB21OoB0NpjSRHj2+v+K5Z
+	 Kv28i4NRVjFBm+FL5L9J0h4Je9JPaLhobEu0cI9X7YtwVeD7gXKnle10okyEvhXJNx
+	 rndb1SJcxU5WUEOxeHWkrapcZEDIxbE8NX5+pS6g=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EDE0F800C9;
-	Tue, 14 Mar 2023 17:01:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1D09F8032D;
+	Tue, 14 Mar 2023 17:03:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D6D6F80423; Tue, 14 Mar 2023 17:01:53 +0100 (CET)
+	id 535D0F80423; Tue, 14 Mar 2023 17:03:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F01F1F80272
-	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:01:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01F1F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1EA97F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:03:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EA97F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=aWwJxfPo;
+ header.s=susede2_rsa header.b=OmbRgRrM;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=8Xm3B6kI
+ header.s=susede2_ed25519 header.b=Q2vfQKx8
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E98321B1A;
-	Tue, 14 Mar 2023 16:01:48 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C523A1F8B5;
+	Tue, 14 Mar 2023 16:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1678809708;
+	t=1678809811;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+8IuhxaTGu9PZQr5muU6k8w0fHt96XLDZ7FDJyoEVFM=;
-	b=aWwJxfPodjo5c08Os7tIFiLI/Ti2mGQ2n9phEZ7+o9MrarTHGAZrpdM7nTpUkTTKkxBaFw
-	ddMlOMwqLOMMJjM9AVyTXlWEac6jln4/Vtlc8TIzyVCfUlPwrQUlGEJW5JOdcMjJkRvA1T
-	+3hIAapIRsw5uDRsFMYmsEk+A0n0QlU=
+	bh=oQ5Qoe3so/8p+ezgqcR+LYuwsQhHdUhGaFSG7Qtgp4Y=;
+	b=OmbRgRrMciGmDi+OBCoFWN4SUGtCKXZtA4b23EdiFLwWNMnUeOkyVB/X+wWmgbq6cYc24o
+	TuF77YeEvgnmY7vqw89DyKyvr2+MZdRA9bNhLzlDhBIstWQZUwZA5gbJ2JnhSw+U9a4Qyd
+	eIrbnZ/UEieEJv/CvRlLa/n/IM6koGE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1678809708;
+	s=susede2_ed25519; t=1678809811;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+8IuhxaTGu9PZQr5muU6k8w0fHt96XLDZ7FDJyoEVFM=;
-	b=8Xm3B6kIRmZoc/RPqe9QTlfcecdRR0rVYyDIc8AdLBKuUioLdHD6sNP5GyobZl5v0/6bBS
-	gRsNTrTcz9YdjhCA==
+	bh=oQ5Qoe3so/8p+ezgqcR+LYuwsQhHdUhGaFSG7Qtgp4Y=;
+	b=Q2vfQKx8lCVBIxUU3ocJPPXJ9AESjLlctWL1lqH7POHSu4Tp+yBZU+ifi++Kiy/Jbm1EGU
+	HKdFGgl9ClhwdPBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3BA3B13A1B;
-	Tue, 14 Mar 2023 16:01:48 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AF20A13A1B;
+	Tue, 14 Mar 2023 16:03:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 4OK+DWyaEGQnVgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 14 Mar 2023 16:01:48 +0000
-Date: Tue, 14 Mar 2023 17:01:47 +0100
-Message-ID: <87ilf3b9uc.wl-tiwai@suse.de>
+	id O0gvKtOaEGT+VgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 14 Mar 2023 16:03:31 +0000
+Date: Tue, 14 Mar 2023 17:03:31 +0100
+Message-ID: <87h6unb9rg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ruslan Bilovol <ruslan.bilovol@gmail.com>
-Subject: Re: [PATCH] sound: usb: remove Wireless USB dead code
-In-Reply-To: <20230312222857.296623-1-ruslan.bilovol@gmail.com>
-References: <20230312222857.296623-1-ruslan.bilovol@gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ALSA: asihpi: check pao in control_message()
+In-Reply-To: <87ttypeaqz.wl-kuninori.morimoto.gx@renesas.com>
+References: <87ttypeaqz.wl-kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: DOBPHDQL3CYPQBUE75OB6O72JPW4UJC5
-X-Message-ID-Hash: DOBPHDQL3CYPQBUE75OB6O72JPW4UJC5
+Message-ID-Hash: B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV
+X-Message-ID-Hash: B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,13 +100,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: Linux-ALSA <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DOBPHDQL3CYPQBUE75OB6O72JPW4UJC5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,23 +115,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 12 Mar 2023 23:28:57 +0100,
-Ruslan Bilovol wrote:
+On Mon, 13 Mar 2023 01:49:24 +0100,
+Kuninori Morimoto wrote:
 > 
-> Wireless USB host controller support has been removed
-> from Linux Kernel more than 3 years ago in commit
-> caa6772db4c1 ("Staging: remove wusbcore and UWB from the
-> kernel tree."), and the associated code in the
-> snd-usb-audio driver became unused and untested.
+> control_message() might be called with pao = NULL.
+> Here indicates control_message() as sample.
 > 
-> If in the future somebody will return WUSB/UWB support
-> back to the kernel, the snd-usb-audio driver will reject
-> Wireless USB audio devices at probe stage, and this patch
-> should be reverted.
+> (B)	static void control_message(struct hpi_adapter_obj *pao, ...)
+> 	{                                                   ^^^
+> 		struct hpi_hw_obj *phw = pao->priv;
+> 		...                      ^^^
+> 	}
 > 
-> Signed-off-by: Ruslan Bilovol <ruslan.bilovol@gmail.com>
+> (A)	void _HPI_6205(struct hpi_adapter_obj *pao, ...)
+> 	{                                      ^^^
+> 		...
+> 		case HPI_OBJ_CONTROL:
+> (B)			control_message(pao, phm, phr);
+> 			break;          ^^^
+> 		...
+> 	}
+> 
+> 	void HPI_6205(...)
+> 	{
+> 		...
+> (A)		_HPI_6205(NULL, phm, phr);
+> 		...       ^^^^
+> 	}
+> 
+> Therefore, We will get too many warning via cppcheck, like below
+> 
+> 	sound/pci/asihpi/hpi6205.c:238:27: warning: Possible null pointer dereference: pao [nullPointer]
+> 		 struct hpi_hw_obj *phw = pao->priv;
+> 		                          ^
+> 	sound/pci/asihpi/hpi6205.c:433:13: note: Calling function '_HPI_6205', 1st argument 'NULL' value is 0
+> 		  _HPI_6205(NULL, phm, phr);
+> 		            ^
+> 	sound/pci/asihpi/hpi6205.c:401:20: note: Calling function 'control_message', 1st argument 'pao' value is 0
+> 	   control_message(pao, phm, phr);
+> 	                   ^
+> Set phr->error like many functions doing, and don't call _HPI_6205()
+> with NULL.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Thanks, applied now to for-next branch.
+Thanks, applied.
 
 
 Takashi

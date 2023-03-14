@@ -2,141 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6636B8D58
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 09:32:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C69D6B8DD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 09:53:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC457144A;
-	Tue, 14 Mar 2023 09:31:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC457144A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 203AC13A4;
+	Tue, 14 Mar 2023 09:52:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 203AC13A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678782733;
-	bh=SyRjQwNb2TkJVrz2UqDUCTgr/EKJCFDz2Ylx+j8B7oY=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=iJlZesJhH7oHRzEKNiiFbNG1GVhb8kRFPNvRH9QNsXC3ojObJUcORQA0e4CUJYp6j
-	 jzzZIKZtPvj2nsC//uF65T3zuFQwdk5LNpzYSdI8TH2UgFOOb2LQlkVW9J5UrBpuHQ
-	 c9bYuyJKLjLpuyajHST18GHoPgBB3OfioD9I+V1I=
+	s=default; t=1678783983;
+	bh=RYbPGPwOyrB4kX7jCHA/LDZEmKuPUa0OZpKHbq+cdrI=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=RbkRlzI4pcXq99hdpJvdFjNNS9dXPtBNubH0a0jHAo6ZrTyColrcS/TXjVTyryavz
+	 U33q9ieuOqbEBGD5vLvWD/xArrajyMpmdwPzJVA2wCVFOnl7aG9dRb3tiulBKcpDKe
+	 UssJPxPL6a2Jg2sYZV1Tdyt+5ALz/YGJFvIff1gQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C6ACF80423;
-	Tue, 14 Mar 2023 09:31:23 +0100 (CET)
-Date: Tue, 14 Mar 2023 09:30:17 +0100
-Subject: Re: [PATCH 2/2] ASoC: mt8192: Move spammy messages to debug level
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230313212908.2282961-1-nfraprado@collabora.com>
- <20230313212908.2282961-3-nfraprado@collabora.com>
-In-Reply-To: <20230313212908.2282961-3-nfraprado@collabora.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D5SGLFHDPTQDZL24DGM23NW7WA5BR5L4/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167878268327.26.2490909441321922915@mailman-core.alsa-project.org>
-From: AngeloGioacchino Del Regno via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: kernel@collabora.com, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 79818F80423;
+	Tue, 14 Mar 2023 09:52:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 655EEF804B1; Tue, 14 Mar 2023 09:31:20 +0100 (CET)
+	id 66FE9F80425; Tue, 14 Mar 2023 09:52:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B401F80272
-	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 09:30:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B401F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8BB54F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 09:52:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB54F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=bgpZlO8/
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id E06206603089;
-	Tue, 14 Mar 2023 08:30:19 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1678782620;
-	bh=7O502ynukGGELoy5eu2smTVAZg2WvwENXfr+mfABoa4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bgpZlO8/yAK9Qd9L/27Jk63Ds6t31aAvwlnTD71nc3k/kJLkmhOY3yzU5BjKcNo5W
-	 KxEpxBnf9wLDAWdPE2gbsIeEZWuN6ubgCgWVHQbATElIpA7Vz0Qx62wREsoekrmbRz
-	 2Yp4vK8AQ+jXsSXvLj2Xc7vhIZ93sC1+Q6fQdFRv2w9Ro1ZOQFjwu16dPa91+ewWow
-	 fE0+ophxfOYrV+4QYg9dqUrIXsY02OUkWrFMDT2vQcAcNygHA37mD8cKGspj7nXJwM
-	 oh5UdE6yDUiJcjKQ9W/PbELp3qFIA56/SKOyPFQdGWmTfHY9R3KP2VEkn645bt2FRv
-	 Bt10L7gE24aKA==
-Message-ID: <61425c0f-a486-1503-042b-9327f414684d@collabora.com>
-Date: Tue, 14 Mar 2023 09:30:17 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=gHtHcpMo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1678783925; x=1710319925;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=RYbPGPwOyrB4kX7jCHA/LDZEmKuPUa0OZpKHbq+cdrI=;
+  b=gHtHcpMocAjWhGi9rrP4xxACz67ZxnbvlIqQu35FeLjBnTAG+mjNbJKR
+   YrejnW9sNr5FH6eYOSF7KOHe5oirDugHMAbiW/kYuIWqOE3+QpwI7YN92
+   9M334dh6ALXpIhmOTuV0LHkZPr7tkrf+CUMu9qxKtmm901kfUl1BpW/Uh
+   koBNZWRBrjO54/dm4mQkyoxt7XbKSEFue6RkAJCtaer/IN2sJ9aYXSO8q
+   cS0WGTuh+riFQIZHWwKmyR2KVnZGPKCvJzthECBnIkDrhpWV+fuyueXZx
+   Jnz8Ii28ZQxIFCIv1DpZWDNbv9bl6zKpqUKKbO78/s1xNwzX8bwykCiOt
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="336060836"
+X-IronPort-AV: E=Sophos;i="5.98,259,1673942400";
+   d="scan'208";a="336060836"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2023 01:51:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10648"; a="711438058"
+X-IronPort-AV: E=Sophos;i="5.98,259,1673942400";
+   d="scan'208";a="711438058"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2023 01:51:47 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.de
+Subject: [PATCH 0/2] ASOC: Intel: add quirk for Intel 'Rooks County' NUC M15
+Date: Tue, 14 Mar 2023 17:05:51 +0800
+Message-Id: <20230314090553.498664-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 2/2] ASoC: mt8192: Move spammy messages to debug level
-Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230313212908.2282961-1-nfraprado@collabora.com>
- <20230313212908.2282961-3-nfraprado@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230313212908.2282961-3-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: D5SGLFHDPTQDZL24DGM23NW7WA5BR5L4
-X-Message-ID-Hash: D5SGLFHDPTQDZL24DGM23NW7WA5BR5L4
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Message-ID-Hash: 7RPG7NMQHGVTH7IQEN6CD24TWQCKCQVA
+X-Message-ID-Hash: 7RPG7NMQHGVTH7IQEN6CD24TWQCKCQVA
+X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: kernel@collabora.com, Akihiko Odaki <akihiko.odaki@gmail.com>,
- Jiaxin Yu <jiaxin.yu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Tzung-Bi Shih <tzungbi@kernel.org>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ vkoul@kernel.org, bard.liao@intel.com, peter.ujfalusi@linux.intel.com,
+ vinod.koul@linaro.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D5SGLFHDPTQDZL24DGM23NW7WA5BR5L4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7RPG7NMQHGVTH7IQEN6CD24TWQCKCQVA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,13 +101,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 13/03/23 22:29, Nícolas F. R. A. Prado ha scritto:
-> There are many log messages throughout the mt8192 sound drivers that
-> print to the info level and are triggered very frequently. Move these
-> messages to the debug level to avoid spamming the console.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Adding Intel 'Rooks County' NUC M15 support. To support 'Rooks County', we
+also need the "soundwire: dmi-quirks: add remapping for Intel 'Rooks
+County'" patch.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Eugene Huang (2):
+  ASOC: Intel: sof_sdw: add quirk for Intel 'Rooks County' NUC M15
+  ASoC: Intel: soc-acpi: add table for Intel 'Rooks County' NUC M15
 
+ sound/soc/intel/boards/sof_sdw.c              | 11 ++++++++++
+ .../intel/common/soc-acpi-intel-adl-match.c   | 20 +++++++++++++++++++
+ 2 files changed, 31 insertions(+)
+
+-- 
+2.25.1
 

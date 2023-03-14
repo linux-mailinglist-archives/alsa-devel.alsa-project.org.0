@@ -2,90 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580496B9B50
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 894066B9BC6
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:38:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EDC11344;
-	Tue, 14 Mar 2023 17:25:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EDC11344
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3E881342;
+	Tue, 14 Mar 2023 17:37:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3E881342
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678811175;
-	bh=decudFp3VIkjiluy8tE5KkWpYRUux8eT0psi0tJBpWA=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1678811918;
+	bh=1pyrULOGQqe3k70cHTeL2UGT1WQH9QdcWdN8rdO3DcM=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a0sLuniHQA+6pU86GMTcYDQoM/PG8bvBLkbfSZXsqZarKIYMVTjoUv6Mci/n1/0cY
-	 0QHQXnMe59GsjPJ0F2l4zBgZG4tgf35iQsbRXL53r7PLFxT3/tDVnNhhhEcS4qypzx
-	 zKnY26p0SUSnkR1XnoxlLNfzc0CnlbV22YOwkoVA=
+	b=pdhvZlSVGDCwuV3Og0b1mJ3yiDJaIGYbNesMBHlP0oIOWFOlCJnluApNG4vwcvKGg
+	 xHiGW7trPo/4ToyAtMR8e2Hou/f+UFcAcE189SC7bIqQsms21HJPKoD6ytpB+OAxR0
+	 zXZliGw3v6YBLEguEa32P77oO4vQBX7qHPQODLXs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E385DF8032D;
-	Tue, 14 Mar 2023 17:25:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E1F9F8032D;
+	Tue, 14 Mar 2023 17:37:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EB90F80423; Tue, 14 Mar 2023 17:25:20 +0100 (CET)
+	id E5B9BF80423; Tue, 14 Mar 2023 17:37:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B234FF800C9
-	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B234FF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76FB8F80272
+	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:37:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76FB8F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uDrJu8Ys
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5E2026182E;
-	Tue, 14 Mar 2023 16:25:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D888C433D2;
-	Tue, 14 Mar 2023 16:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678811113;
-	bh=decudFp3VIkjiluy8tE5KkWpYRUux8eT0psi0tJBpWA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=uDrJu8YsznmBfKiOwdHq+al+eUquoambKh1YHG2RF+joax7iJ+SbxdFgS3j+XFOAo
-	 LisnHysOw/wScgEBoiwVQN4auMDPuYN49GpN3IwtZchk+b5FtrFaY4P5P3jhthABsD
-	 4dbtnNQ9JtnuFcAlbCFEKVAzJ7hgXGLlFoRX0NMwMfSYwV1wM6/vC++HbL2bl722pK
-	 J0/88nsh9RyHXfG7mmyvsSrdZKuVeu+a9dKCr3B3/AA9OOXaL6D/CyyqeukUUcqJhW
-	 ffpmlcrRLFjp7pwpEpqkpUhfmemGOb/WVkYE64Sr5bSfjI0AIwqi7NQv4N3MikPakA
-	 Bz10fbnESXvSw==
-From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20230314090553.498664-1-yung-chuan.liao@linux.intel.com>
-References: <20230314090553.498664-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASOC: Intel: add quirk for Intel 'Rooks County'
- NUC M15
-Message-Id: <167881111191.52016.12428043763542728562.b4-ty@kernel.org>
-Date: Tue, 14 Mar 2023 16:25:11 +0000
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=RvXo81au
+Received: by mail-ed1-x52c.google.com with SMTP id j11so64484756edq.4
+        for <alsa-devel@alsa-project.org>;
+ Tue, 14 Mar 2023 09:37:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678811852;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6/za17hscILXMYDNEFJAfU0x+/d+UxB9pPnmfHSM0Yo=;
+        b=RvXo81auGFsdaYyzozWvFDu53E6OZGPj1/IIcyLb9eDD2kQscDMlZPgfal94OhR66M
+         yArZe2qhbbGGcwBprgCkfBhtvKo7I0eRm5EKjYmihneboZeh1K9y/fuyPlaqWWMy0biA
+         PjdRJBrSlX0MvFaWYVIFVb+uSaMVNpahfCN5GWOjVENEMGtAhUJVQ3OpH9IwKATwdMJm
+         GVIaWUFVGNlDe65q0JM2AO/x86+G9z68XXMoOQ57O0dIWPmJpDNCF9HmABZJdKWSM3Ei
+         IjZYU6JMbM/mMyUlbeUzm8F+Lzuo7+jef+EYd4nBSuKaOlWk70csCubqyMZqsePdhnZY
+         /R5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678811852;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6/za17hscILXMYDNEFJAfU0x+/d+UxB9pPnmfHSM0Yo=;
+        b=ieM1kZEMr6UIABqjRCPiK0rY2z4txwj8fNiYCQMIl3fA9aL/z9LzBICsfpbNCUVaTY
+         G//evku4gKY/R3N3LvNfQBkBJ7/uyYLlbyz8vyWofSJkdHOLWw3mjg70NAtXsOROpcUy
+         /rtttWJ1yujZS3/jvwck3ns7Ii+H6Ys4c/H3LPHmiV7jFxqrM6LGPScPK3vQinUrEZ3u
+         SMIo0c8z5CLF5J8OYDQvJJxzTh90lNYOt83J0ljLogoi26qSKW+NrMuI2lNcLfxSLLrZ
+         7H/Zpxb4O5eRMo6AdJHkbtyPGsOiWnXPKitoMjQ/gTHuW9Te5z9u3jbhlkuRcsFMJPJh
+         hrig==
+X-Gm-Message-State: AO0yUKUZ6WshIdmriWFSHi3YbMkmFpoBDk2K9ofrX9SnRJSGUML5242U
+	lOoRUg+bPGdSr53pqKG5FFNsxRtD+hDgmanBRmk=
+X-Google-Smtp-Source: 
+ AK7set9qHO+MH9xAROxLYOE4p043LeWqXnPRsevKXosllot95F0KIdU/0MxvEzFV4Xs2KqeuIq+REdqIbhJF91WRAFI=
+X-Received: by 2002:a50:f68a:0:b0:4fa:ff23:a87a with SMTP id
+ d10-20020a50f68a000000b004faff23a87amr5365843edn.5.1678811852580; Tue, 14 Mar
+ 2023 09:37:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: LVQHWZB4RMW3HORY2OW36LYRGBLRJUXK
-X-Message-ID-Hash: LVQHWZB4RMW3HORY2OW36LYRGBLRJUXK
-X-MailFrom: broonie@kernel.org
+References: <20230314153409.1805280-1-daniel.baluta@oss.nxp.com>
+ <6d9d09aa-d83e-e811-1d43-34780ea05d4d@linux.intel.com>
+In-Reply-To: <6d9d09aa-d83e-e811-1d43-34780ea05d4d@linux.intel.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 14 Mar 2023 18:37:20 +0200
+Message-ID: 
+ <CAEnQRZAj-FW-fCWsyupUDAH4Z2kTf0RL1acivyDHszMuU-75pg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: soc-compress: Inherit atomicity from DAI link for
+ Compress FE
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: C6KGQ5QDACOGM2TXM4AUQKBQM7XIRL7U
+X-Message-ID-Hash: C6KGQ5QDACOGM2TXM4AUQKBQM7XIRL7U
+X-MailFrom: daniel.baluta@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- vkoul@kernel.org, bard.liao@intel.com, peter.ujfalusi@linux.intel.com,
- vinod.koul@linaro.org
+CC: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ linux-kernel@vger.kernel.org, paul.olaru@nxp.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LVQHWZB4RMW3HORY2OW36LYRGBLRJUXK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C6KGQ5QDACOGM2TXM4AUQKBQM7XIRL7U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,44 +117,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 14 Mar 2023 17:05:51 +0800, Bard Liao wrote:
-> Adding Intel 'Rooks County' NUC M15 support. To support 'Rooks County', we
-> also need the "soundwire: dmi-quirks: add remapping for Intel 'Rooks
-> County'" patch.
-> 
-> Eugene Huang (2):
->   ASOC: Intel: sof_sdw: add quirk for Intel 'Rooks County' NUC M15
->   ASoC: Intel: soc-acpi: add table for Intel 'Rooks County' NUC M15
-> 
-> [...]
+On Tue, Mar 14, 2023 at 6:14=E2=80=AFPM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+>
+>
+> On 3/14/23 10:34, Daniel Baluta wrote:
+> > From: Daniel Baluta <daniel.baluta@nxp.com>
+> >
+> > After commit bbf7d3b1c4f40 ("ASoC: soc-pcm: align BE 'atomicity' with
+> > that of the FE") BE and FE atomicity must match.
+> >
+> > In the case of Compress PCM there is a mismatch in atomicity between FE
+> > and BE and we get errors like this:
+> >
+> > [   36.434566]  sai1-wm8960-hifi: dpcm_be_connect: FE is atomic but BE
+> > is nonatomic, invalid configuration
+>
+> Not clear on the 'FE is atomic' in the case of a compressed stream,
+> which has to be handled with some sort of IPC, i.e. be nonatomic.
+>
 
-Applied to
+'FE is atomic' in this message is printed because this is the default value
+of nonatomic field when PCM struct associated for a Compress PCM
+struct is allocated.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+No one changes 'nonatomic' field for Compress FE until my current patch.
 
-Thanks!
+> Also not sure why the FE is not set as nonatomic by the SOF parts?
+> If it's needed for PCM, why wouldn't it be needed for compressed data?
 
-[1/2] ASOC: Intel: sof_sdw: add quirk for Intel 'Rooks County' NUC M15
-      commit: 3c728b1bc5b99c5275ac5c7788ef814c0e51ef54
-[2/2] ASoC: Intel: soc-acpi: add table for Intel 'Rooks County' NUC M15
-      commit: 9c691a42b8926c8966561265cdae3ddc7464d3a2
+FE is not touched for SOF parts. Only BE is set to nonatomic by SOF.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+See: sound/soc/topology.c
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+=C2=BB       /* Set nonatomic property for FE dai links as their trigger
+action involves IPC's */
+=C2=BB       if (!link->no_pcm) {
+=C2=BB       =C2=BB       link->nonatomic =3D true;
+=C2=BB       =C2=BB       return 0;
+=C2=BB       }
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+FE for PCM is modified by sound/soc/soc-pcm.c
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+=C2=BB       pcm->nonatomic =3D rtd->dai_link->nonatomic;
 
-Thanks,
-Mark
+So, I guess people assumed that is enough to use RTD dai link to set
+pcm->noatomic field
+and didn't look at it in SOF.
 
+When FE for Compress PCM is created, we don't use soc_new_pcm but instead
+we use snd_pcm_new_internal which doesn't inherit the nonatomic field
+of the rtd->dai_link
+as Normal PCM does inside soc_pcm_new.
+
+So, my patch makes sure we inherit the nonatomic field from
+rtd->dai_link also for Compress PCM
+similar with what already happens for Normal PCM.
+
+tl;dr: when creating a Normal PCM pcm->nonatomic is inherited from RTD
+DAI link. when creating a
+Compress PCM pcm->nonatomic field is not set. This patch makes sure
+that for Compres PCM
+we also inherit nonatomic from RTD DAI link.
+
+
+thanks,
+Daniel.

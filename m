@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867BB6B9A96
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:04:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAE16B9AA9
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 17:06:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0330D1342;
-	Tue, 14 Mar 2023 17:03:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0330D1342
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBFC31342;
+	Tue, 14 Mar 2023 17:05:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBFC31342
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678809879;
-	bh=/acl6j4I+NZzv5xHsqOjSqr3+Qbi8dxMbStRJpTTgkM=;
+	s=default; t=1678809963;
+	bh=ctvavJRoWtzOtGYRVTVB1y0T2i9104+KXdatCcO90tU=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Mwl0OKsdUkdRRkW7PcxOd2iE1zERF4yLFclVarta3cbCB21OoB0NpjSRHj2+v+K5Z
-	 Kv28i4NRVjFBm+FL5L9J0h4Je9JPaLhobEu0cI9X7YtwVeD7gXKnle10okyEvhXJNx
-	 rndb1SJcxU5WUEOxeHWkrapcZEDIxbE8NX5+pS6g=
+	b=UxeP7YMm8G+76QbuvyenQg/wb+8nqio+SgFmby41XJHUK0M+GQYVDBjEmsZqAorfa
+	 3c09WA39hQPZ6JkHRpqZjRi/qV1FmwyOg0EU8BcDPGPf2kDgj1BqFWPJpUumujYyoi
+	 OHZ6EthF7JMTJzGSeKxql7LVgM+u59yshj8jmQPQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1D09F8032D;
-	Tue, 14 Mar 2023 17:03:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61E58F800C9;
+	Tue, 14 Mar 2023 17:05:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 535D0F80423; Tue, 14 Mar 2023 17:03:44 +0100 (CET)
+	id 22308F80423; Tue, 14 Mar 2023 17:05:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1EA97F800C9
-	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:03:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EA97F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56D5AF80272
+	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 17:05:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56D5AF80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=OmbRgRrM;
+ header.s=susede2_rsa header.b=Lcn6SvER;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q2vfQKx8
+ header.s=susede2_ed25519 header.b=jzNSkTCe
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C523A1F8B5;
-	Tue, 14 Mar 2023 16:03:31 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C62681F8B5;
+	Tue, 14 Mar 2023 16:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1678809811;
+	t=1678809906;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oQ5Qoe3so/8p+ezgqcR+LYuwsQhHdUhGaFSG7Qtgp4Y=;
-	b=OmbRgRrMciGmDi+OBCoFWN4SUGtCKXZtA4b23EdiFLwWNMnUeOkyVB/X+wWmgbq6cYc24o
-	TuF77YeEvgnmY7vqw89DyKyvr2+MZdRA9bNhLzlDhBIstWQZUwZA5gbJ2JnhSw+U9a4Qyd
-	eIrbnZ/UEieEJv/CvRlLa/n/IM6koGE=
+	bh=IBJGHM7hDpD+AtF6DMGO2CoPdkke6PSckMUSkntEeY4=;
+	b=Lcn6SvER/FCxB6HON5ZXojBSgjsjr5fM/68o7LLievZSMVWZFBG/194WtFsp5yWGH813OS
+	Y4CNoniz2lcCgnPusH4TERGmIyawKEVruIP4O/8m0M9794f/dAfQcoOMq9O4ZQS3mYskqS
+	WTF8rIt53fmBLWf5UiQJJbPKyuval4I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1678809811;
+	s=susede2_ed25519; t=1678809906;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oQ5Qoe3so/8p+ezgqcR+LYuwsQhHdUhGaFSG7Qtgp4Y=;
-	b=Q2vfQKx8lCVBIxUU3ocJPPXJ9AESjLlctWL1lqH7POHSu4Tp+yBZU+ifi++Kiy/Jbm1EGU
-	HKdFGgl9ClhwdPBQ==
+	bh=IBJGHM7hDpD+AtF6DMGO2CoPdkke6PSckMUSkntEeY4=;
+	b=jzNSkTCe73htXa211zYfw1LiM4zjNWqwqSGPj4CMq+Qf2L00fs+oHqyvUe2Y28Y4BGzfTf
+	szZU61ri3Q4krRDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AF20A13A1B;
-	Tue, 14 Mar 2023 16:03:31 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E2ED13A1B;
+	Tue, 14 Mar 2023 16:05:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id O0gvKtOaEGT+VgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 14 Mar 2023 16:03:31 +0000
-Date: Tue, 14 Mar 2023 17:03:31 +0100
-Message-ID: <87h6unb9rg.wl-tiwai@suse.de>
+	id IEuLJTKbEGTeVwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 14 Mar 2023 16:05:06 +0000
+Date: Tue, 14 Mar 2023 17:05:06 +0100
+Message-ID: <87fsa7b9ot.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ALSA: asihpi: check pao in control_message()
-In-Reply-To: <87ttypeaqz.wl-kuninori.morimoto.gx@renesas.com>
-References: <87ttypeaqz.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ALSA: hda/ca0132: fixup buffer overrun at
+ tuning_ctl_set()
+In-Reply-To: <87sfe9eap7.wl-kuninori.morimoto.gx@renesas.com>
+References: <87sfe9eap7.wl-kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV
-X-Message-ID-Hash: B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV
+Message-ID-Hash: ASWBW4BURL7ZQQXWEMERF43BCLBZAVHI
+X-Message-ID-Hash: ASWBW4BURL7ZQQXWEMERF43BCLBZAVHI
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6YQ2JXKQQJYX3JZUM3T57H5CI4XAVOV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ASWBW4BURL7ZQQXWEMERF43BCLBZAVHI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,51 +115,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 13 Mar 2023 01:49:24 +0100,
+On Mon, 13 Mar 2023 01:50:28 +0100,
 Kuninori Morimoto wrote:
 > 
-> control_message() might be called with pao = NULL.
-> Here indicates control_message() as sample.
+> tuning_ctl_set() might have buffer overrun at (X) if it didn't break
+> from loop by matching (A).
 > 
-> (B)	static void control_message(struct hpi_adapter_obj *pao, ...)
-> 	{                                                   ^^^
-> 		struct hpi_hw_obj *phw = pao->priv;
-> 		...                      ^^^
-> 	}
-> 
-> (A)	void _HPI_6205(struct hpi_adapter_obj *pao, ...)
-> 	{                                      ^^^
-> 		...
-> 		case HPI_OBJ_CONTROL:
-> (B)			control_message(pao, phm, phr);
-> 			break;          ^^^
-> 		...
-> 	}
-> 
-> 	void HPI_6205(...)
+> 	static int tuning_ctl_set(...)
 > 	{
-> 		...
-> (A)		_HPI_6205(NULL, phm, phr);
-> 		...       ^^^^
+> 		for (i = 0; i < TUNING_CTLS_COUNT; i++)
+> (A)			if (nid == ca0132_tuning_ctls[i].nid)
+> 				break;
+> 
+> 		snd_hda_power_up(...);
+> (X)		dspio_set_param(..., ca0132_tuning_ctls[i].mid, ...);
+> 		snd_hda_power_down(...);                ^
+> 
+> 		return 1;
 > 	}
 > 
-> Therefore, We will get too many warning via cppcheck, like below
+> We will get below error by cppcheck
 > 
-> 	sound/pci/asihpi/hpi6205.c:238:27: warning: Possible null pointer dereference: pao [nullPointer]
-> 		 struct hpi_hw_obj *phw = pao->priv;
-> 		                          ^
-> 	sound/pci/asihpi/hpi6205.c:433:13: note: Calling function '_HPI_6205', 1st argument 'NULL' value is 0
-> 		  _HPI_6205(NULL, phm, phr);
-> 		            ^
-> 	sound/pci/asihpi/hpi6205.c:401:20: note: Calling function 'control_message', 1st argument 'pao' value is 0
-> 	   control_message(pao, phm, phr);
-> 	                   ^
-> Set phr->error like many functions doing, and don't call _HPI_6205()
-> with NULL.
+> 	sound/pci/hda/patch_ca0132.c:4229:2: note: After for loop, i has value 12
+> 	 for (i = 0; i < TUNING_CTLS_COUNT; i++)
+> 	 ^
+> 	sound/pci/hda/patch_ca0132.c:4234:43: note: Array index out of bounds
+> 	 dspio_set_param(codec, ca0132_tuning_ctls[i].mid, 0x20,
+> 	                                           ^
+> This patch cares non match case.
 > 
 > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

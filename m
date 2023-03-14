@@ -2,90 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E7A6B98B7
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 16:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE44B6B996A
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Mar 2023 16:35:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB2C513B7;
-	Tue, 14 Mar 2023 16:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB2C513B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55C3D1353;
+	Tue, 14 Mar 2023 16:34:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55C3D1353
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678806865;
-	bh=HYGfl2nv/L/zNAt09zcNi7tEiIXFZVfStqNB2ZQJs78=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=NFl58/GDHV2b385P1Myhrp6FBb/AYyBlHyeU40IkNf4fWz1GUnMK180pn/X48G1K3
-	 6okavFnWKD+iEmBTW57Xtp3eK+WCDSH5bIdru5mDe9ZDt12EdnyW9NWZQkj8kKciR2
-	 YvpiTvpgP36Nparl57B/lAIFRsAUzBbLh9CUi52U=
+	s=default; t=1678808131;
+	bh=1G1zMeht/WlyuhmuonP+l4frSpmQIv6r742X7ZAq8Jg=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MZ0B8VY5j9/IBxEfosegG5YzaFxCcCe+2VfkYmVX2+xpBQ/NE5EjLtn2p94Ei/0dE
+	 cSboPRBCE8kk9SiOpvW6HMmlKmO9357vDc3v1HgfZ55xtyBJrhhYpqjK/+LR5Rgcp+
+	 gvOVkcyuQS9kftTcSj/JmoO6Y2crdTvjbbkWcT7A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4F9BF80542;
-	Tue, 14 Mar 2023 16:12:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE941F8032D;
+	Tue, 14 Mar 2023 16:34:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B83C9F80534; Tue, 14 Mar 2023 16:12:41 +0100 (CET)
+	id 38CADF80423; Tue, 14 Mar 2023 16:34:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B81C1F80529
-	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 16:12:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B81C1F80529
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=s/E/MIf0
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,T_SPF_PERMERROR
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0627.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0e::627])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id CA4D0B819C8;
-	Tue, 14 Mar 2023 15:12:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37261C4339B;
-	Tue, 14 Mar 2023 15:12:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678806752;
-	bh=HYGfl2nv/L/zNAt09zcNi7tEiIXFZVfStqNB2ZQJs78=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=s/E/MIf0GLDV6n+oz0kIR4lHk3t8lSPBjj87apXdPREeNbyogHtT3tC2i9+gVWANR
-	 MUM4dcrHVynn3BLeiYhm2GZF/Dc3rVz3GB34q9QE9QPZLC5llfrkA5J7cxLZ/M+PmZ
-	 tcIRFGHfId0VYJEmPf0/gSlM/6OWSE5DBV2M/vcPs9n2h+gDeknKNmYCRmu6bSQlYq
-	 rjlPxtR2VSQN+YG6/L+g6h/n5kHnR3oJkAu4yQERrJjc1QL/ZKZJ1w1jxGP+D+PpuJ
-	 D0ViDzm836zkXso3N5AJQSW58aSdN3o0B1MkVeaTefjNUrl79SvMxXbD8GnaiWtx5H
-	 fgHDDuKywK98Q==
-From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1678346017-3660-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1678346017-3660-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: fix hw->formats cleared by
- soc_pcm_hw_init() for dpcm
-Message-Id: <167880675094.43040.10172504832541716184.b4-ty@kernel.org>
-Date: Tue, 14 Mar 2023 15:12:30 +0000
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5433FF80093
+	for <alsa-devel@alsa-project.org>; Tue, 14 Mar 2023 16:34:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5433FF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-NXP1-onmicrosoft-com header.b=WTtW9iMb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O2moNVOv3A3Lc08X3LNexfxfkuac3OLX5voPpQ1lN4cnEzdSqokRkPiIt+j/nUX/ex4Dgm55oSwzNfgtJjVqAH8zoI1xNX/uh839G7b5EmX7+Id8eJbGjKuY2Aem8MkwwDVMaBB+bjHVrnPBD0opnVthuAN2vTmBrcSG8JilNhydbvjvl+u50BFioz1hJMQEoHaUcOqA+8qK5MR2cm33bal88vhM5uIXMXFs5vr5eDx1mjVGQDln+oZVcMHNQUzhGPJOzO7I2D+8Vlyk5w7QUt7/uMLQRh3ox5MYXwKRqmvWoXJrB0CqivCUfG80+zEeyY2xKA/iFLCI3Q4f4wBuyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9oiEE/Se8r5+8USjZJ3+s8fYimwB6HJy4aLNW7gkBhU=;
+ b=FWGTVB/6kqqSa6zhY+p0Q0775KRVM7hXeHgKwm4rt5PxytK75Rtbf5pU0ruKT8KmqLVHbJzBnyJ/Vc72WKIkJT/Lf+PxG0KxjqCBkgY5IqBkVzeBvxXsIVqGYvOU1JdtOtXRJJaWXqeoy1hU6M0sS2F2uK0MUcR27tar3jmcjTrLz0A3L0TcuHyP8lx6bMxxPvEbBiNU2vuBNTGnh8Fi9Txtou2+zwf3Wvx6651ds/9aSdsCDs5n7nfD5xXxG6p925scoB6iEK2NRcfDHB15VM9qZH2z9azfsK22mw/2Gj0KmYxzJ7a5kdJvqZM53x+f9v/TvrJePFydmTAVRKkABA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9oiEE/Se8r5+8USjZJ3+s8fYimwB6HJy4aLNW7gkBhU=;
+ b=WTtW9iMbCgx/eRqJlIamFN6l5WS3n+BMKI428oZ2tf1OZybCodl2436ZrlbH+o4zCewleTvciS2wzof/tIgbQiVMT+9TNULFezjPm+x42niVhdawlss4dcEVgas7Nqtc/WsNf6xAw1dJ0dyHTpxUOGAlNt2G42UDAK1lCgDq47g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by VI1PR04MB7055.eurprd04.prod.outlook.com (2603:10a6:800:123::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Tue, 14 Mar
+ 2023 15:34:24 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::f922:7fbe:d027:5597]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::f922:7fbe:d027:5597%3]) with mapi id 15.20.6178.024; Tue, 14 Mar 2023
+ 15:34:24 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: soc-compress: Inherit atomicity from DAI link for
+ Compress FE
+Date: Tue, 14 Mar 2023 17:34:09 +0200
+Message-Id: <20230314153409.1805280-1-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VI1PR06CA0213.eurprd06.prod.outlook.com
+ (2603:10a6:802:2c::34) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: Y6WUUKG6OFBGT66IHNNZCYWVZPQT5SAG
-X-Message-ID-Hash: Y6WUUKG6OFBGT66IHNNZCYWVZPQT5SAG
-X-MailFrom: broonie@kernel.org
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5151:EE_|VI1PR04MB7055:EE_
+X-MS-Office365-Filtering-Correlation-Id: 026bbd4e-fdff-480a-1bb4-08db24a1964d
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Nbw+P6F36dyaBNpMgjMCvrlk2dx96F9nT4sv8GG82e08NM/X4hjt/Xj00O0k8faSPHic/e4zPmW+aBXJYmOnapnQKTzo1qfqTFBEMV+qxpQSXqr9k0dbrdsMeNjoPjuqVIcJnkkZkoTzsI3nQFOt6aDuAatXDsbSR0MmSXS6WTnA6Ri5RoXlmmhq/T/iCHwD99HMtjdX0s1b3Qh3AEHmtcnNtam2s+fGsj0WzgEmnBR6s3eVi7pD8HtDmqKA/9+MPB1JgPfxLVFmw4zynSWveZf6XbQPxhwE1TqFuM4G254gKNU9uT0BKu7vxPc/CM8OYLJf7OViKaywAeL0vx/B9FzBXZb3admoh+HdfTky49E9WHhwVxAvwnPGkmCPYlKkJgjjDgsx4WumBEz9J4noNyETIoiz/6hAwf4+GtuUKbciLhZDmIVBylDdoFr1LdA9BZZZeqre1k34Uw4GiyF6CLfxd6GZJ6b6QpwnH+eIFus32kMGbF1/SRbF+Iv0wzud48Qx4VeSTMc9ktiXwVe6S0n2cwvGQ+Lt7vZnERZs9gXJgpR6UZB+OduXz0nbit19s7tatAvb++cfjQdbraGw+iWh+YQ0r+yH8NTJbYY+ErV6VBsW/PdIkReOuR0vp0SqQ13vbekH03rNUDdbdsjy6oN7V9lsG4/6TtNa87Yy+QuVOXeT9epytRdNzKmkYl3rlNVld/kNEfyGUgNOli5T3w==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5151.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(39860400002)(346002)(396003)(376002)(136003)(451199018)(8676002)(478600001)(44832011)(316002)(66556008)(4326008)(66476007)(66946007)(8936002)(5660300002)(2906002)(41300700001)(86362001)(6486002)(26005)(6506007)(6512007)(1076003)(6666004)(2616005)(186003)(52116002)(38350700002)(38100700002)(83380400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?Ess1RHlSc7zim2bNerSXh5cuFkzLVPIRAxkmoAZ3N51OEof56c6OVWAy1+F5?=
+ =?us-ascii?Q?/OuAg+EONpVNNH/BwiGdEHuuZzVdLZT/5pUmhVj2vRi76j506wkRP1k61cwf?=
+ =?us-ascii?Q?MxL/MrvFfmvFFmrEzL9VGEEoYkhhaQFvJHMFaHlKyQS/NAMHHdfab9puDAn1?=
+ =?us-ascii?Q?Pf0zqaBQ/tHxke0NQlYgDqAwC3Ge+zGBrXb6J79WbTtAfok0DXlbKdu6t3kP?=
+ =?us-ascii?Q?+5eJIxjdIA9xXA++c2s0ERvagRH4KFUo+ja4zPpTOHxfDy6OQg1ZQS65JFeW?=
+ =?us-ascii?Q?ArQp1QxdXgRQfCEKpFephv0k641Yn5ikCzhc90PaHt9k5N9aB5ylUMkHzVdA?=
+ =?us-ascii?Q?50KxtaWTcBq9QNnQOobolM9zpPL8M/mQoCrqgSDkgDa87uSjCLR5TUERWbRf?=
+ =?us-ascii?Q?LbltWN8W1XCTZsJ+4409s4bq8fpWxvFBMMNYd9VntLZBzoHPj2l9Gt+bZjp0?=
+ =?us-ascii?Q?A0Uj1w/RxXyf3XiLybYqUtN5b2a22mn87KTKT5ETivzKPeMFZ+ZCbFPvdQTW?=
+ =?us-ascii?Q?i27Ty/JSSjH87sQU4s8NkB/3bK9BJzC5WukduZ+2xObn4zsBOdl2+LYm/ver?=
+ =?us-ascii?Q?vdfO8GgqVm+/m9oqwoqVtSp5kL12waNk0dDyK8uniJg+U4hXYXTb+lElacIX?=
+ =?us-ascii?Q?j3OxXgXyeVgeeJkqKkUyH/Wrj2nsEu+pvq9v1Figs2y7wVlR5BCs2DHgkqif?=
+ =?us-ascii?Q?gcQrdqEdm1MQRHpN3iJcrwp6ZEjDjqffSpt6eCyAuvEUvAUR0Vgk/aHmvwAD?=
+ =?us-ascii?Q?3ndfSHHQj+5SGliwjiLjUYDawTS7XLdq2ESOZ4JoPZrGYsts7/wR6pNTNo4+?=
+ =?us-ascii?Q?70pGhRFQ3MYcMkKWDHyn0MrTvCSpbLQIl/1VB+r1i1iC5JSn//sKzv9HVGg1?=
+ =?us-ascii?Q?LBPrKLd/35H0u8/ptG4IuZ8TH0vs2ChGIMSL1FTwhZr0G8nr+/bJRHHEEQq9?=
+ =?us-ascii?Q?WduISVBiZOhX093QfqRRuOrhjI2W6CEhSC0FIFwN2fgqLkRwWNt9QbknbXub?=
+ =?us-ascii?Q?1m81rulqE7E1Mv6PyZRK/FBEYCEW4onsrm3JLp2wAutDOCIZj8764P08m/Gf?=
+ =?us-ascii?Q?0YCgoFguMKI+4KKB7BUscHRP2lcO6lX6lJMyWnGK0V30a9t/0gVYuhxt2Rtu?=
+ =?us-ascii?Q?DyYlYsIZ1UsVoBAmjF6uEfusIP0m2Gg6PookD25Ab+NmCUfa6gKLgeyRdujj?=
+ =?us-ascii?Q?JYuKbNN0VnslmvptVrgd+3I5CkUCDfT//mRbjtdPNYjy3r7dFpcsKXMYAp2I?=
+ =?us-ascii?Q?PC4jwREF2OXIEkVRdsDoWqmJOyNPRHEouGqmjCFCa76fH8gKEDJ+SAMQhmot?=
+ =?us-ascii?Q?UtA1DNshRwhp07lov6G+wdeOSvW7wmhAFouIPznx9iQN42e4OLBSJeqz221b?=
+ =?us-ascii?Q?PqfnJczXxCm4Hrr4o+vmTSiz9ztZxEMztZ1CSsIzpyGpEDoqH019RAXN6BJY?=
+ =?us-ascii?Q?AVSjivJrCHguFod8PF2cW2v2TFcdqmRmtn4eswlMrCKD4nlBhu6mBzSIjcsv?=
+ =?us-ascii?Q?YhFVmgpzGi6LGr6nzHPxqadjGtglzq7dv6nNzzVpbZW2vM0U+aq6/q+tn8i1?=
+ =?us-ascii?Q?OFJvrfn09jpCbJNn+Bgi2um6nkquZLsMNh4bBejzO0hwlEuLgy07VWNQZeZl?=
+ =?us-ascii?Q?BA=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 026bbd4e-fdff-480a-1bb4-08db24a1964d
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 15:34:23.5371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ sLgsGnc1CoSKOnYDs9Ezkjwy4Ay2pdgXyE4ZIc2M203+kgEJB/EhjKtwkjY2v4s/1c9Jk2DLSs0rAf9NXfPKWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7055
+Message-ID-Hash: H3PTUIVJVPTZCY7DMJTA5QIFMBWLNUU5
+X-Message-ID-Hash: H3PTUIVJVPTZCY7DMJTA5QIFMBWLNUU5
+X-MailFrom: daniel.baluta@oss.nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: lgirdwood@gmail.com, kai.vehmanen@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ linux-kernel@vger.kernel.org, daniel.baluta@gmail.com, paul.olaru@nxp.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y6WUUKG6OFBGT66IHNNZCYWVZPQT5SAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3PTUIVJVPTZCY7DMJTA5QIFMBWLNUU5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,42 +161,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 09 Mar 2023 15:13:37 +0800, Shengjiu Wang wrote:
-> The hw->formats may be set by snd_dmaengine_pcm_refine_runtime_hwparams()
-> in component's startup()/open(), but soc_pcm_hw_init() will init
-> hw->formats in dpcm_runtime_setup_fe() after component's startup()/open(),
-> which causes the valuable hw->formats to be cleared.
-> 
-> So need to store the hw->formats before initialization, then restore
-> it after initialization.
-> 
-> [...]
+From: Daniel Baluta <daniel.baluta@nxp.com>
 
-Applied to
+After commit bbf7d3b1c4f40 ("ASoC: soc-pcm: align BE 'atomicity' with
+that of the FE") BE and FE atomicity must match.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+In the case of Compress PCM there is a mismatch in atomicity between FE
+and BE and we get errors like this:
 
-Thanks!
+[   36.434566]  sai1-wm8960-hifi: dpcm_be_connect: FE is atomic but BE
+is nonatomic, invalid configuration
+[   36.444278]  PCM Deep Buffer: ASoC: can't connect SAI1.OUT
 
-[1/1] ASoC: soc-pcm: fix hw->formats cleared by soc_pcm_hw_init() for dpcm
-      commit: 083a25b18d6ad9f1f540e629909aa3eaaaf01823
+In order to fix this we must inherit the atomicity from DAI link
+associated with current PCM Compress FE.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Fixes: bbf7d3b1c4f4 ("ASoC: soc-pcm: align BE 'atomicity' with that of the FE")
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+---
+ sound/soc/soc-compress.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index e7aa6f360cab..d649b0cf4744 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -622,6 +622,9 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 			return ret;
+ 		}
+ 
++		/* inherit atomicity from DAI link */
++		be_pcm->nonatomic = rtd->dai_link->nonatomic;
++
+ 		rtd->pcm = be_pcm;
+ 		rtd->fe_compr = 1;
+ 		if (rtd->dai_link->dpcm_playback)
+-- 
+2.25.1
 

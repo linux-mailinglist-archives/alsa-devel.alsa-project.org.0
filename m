@@ -2,93 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D756BB9A8
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 17:27:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BE906BB9B3
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 17:30:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2B51134D;
-	Wed, 15 Mar 2023 17:26:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2B51134D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B20A1325;
+	Wed, 15 Mar 2023 17:29:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B20A1325
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678897622;
-	bh=CwSs/CpgMYsyT7tBqe4pATuLM71TcCTlLaVbFhCxu9Y=;
+	s=default; t=1678897848;
+	bh=jjn5cdVupJ0A22hzLeqblsWGnn86f9oIpQTR3zJXyMs=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kRu0S6tibmWPTFt2V5lwINvRPi61bsPtP7zHykQRRtPMCY1c34OWyCt8FDzmEE91a
-	 KRBL2ieJs4GWAFKa2MAJ8kOqdMkuQxc95GhZ/F8v6C/NsIzS8zn8O1ZfzN/OIbRlvA
-	 THhYGD9X0CTCK3fbLGO5llcyfdm41BaJBr8pKLsI=
+	b=tXetSwMwqC0DWtTY+ENpMjtKCJCEsun1HEshkCYkETf0045U5WSdy+65ejKDLDEJV
+	 YRmW2lCuTUg2jApH4S3Csd0nNp2kcLDjAPuczL0fk2naSkJLGIXaz43Hk7WDYyJOPZ
+	 nqB26LSEcwl0i5XDxCVIyadqbvNqmwZMklgFRoLc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00797F8032D;
-	Wed, 15 Mar 2023 17:26:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E86C9F8032D;
+	Wed, 15 Mar 2023 17:29:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B8BCF80423; Wed, 15 Mar 2023 17:26:08 +0100 (CET)
+	id 53E7FF80423; Wed, 15 Mar 2023 17:29:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 174D2F80093
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 17:26:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 174D2F80093
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pcTwp-0005Mq-1t; Wed, 15 Mar 2023 17:25:55 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pcTwl-004LiI-Ql; Wed, 15 Mar 2023 17:25:51 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pcTwk-005933-TO; Wed, 15 Mar 2023 17:25:50 +0100
-Date: Wed, 15 Mar 2023 17:25:47 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
-Subject: Re: [PATCH 120/173] ASoC: rockchip: rockchip_i2s_tdm: Convert to
- platform remove callback returning void
-Message-ID: <20230315162547.5ccghwu5kblefcao@pengutronix.de>
-References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
- <20230315150745.67084-121-u.kleine-koenig@pengutronix.de>
- <3717794.rJMogTuNcH@archbook>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C5CDF8016C
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 17:29:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C5CDF8016C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=SrGZE6Sk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5B40A61DEE;
+	Wed, 15 Mar 2023 16:29:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF974C433EF;
+	Wed, 15 Mar 2023 16:29:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678897783;
+	bh=jjn5cdVupJ0A22hzLeqblsWGnn86f9oIpQTR3zJXyMs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SrGZE6Sk04Pizzg1tuzcS8CHPA2fWPGLs4KeZnsayQbgSEQA4cnJK0Pfeq0SJeJBK
+	 k3vxt0IAld+aKoIhiC1zd5okC/+vL8oWVyyuI6ZfWamyvj388DwIwIYix0jC3bwxmi
+	 DkeIXcnQUWjdJXHT/9ZFLPb9Mobk2cNyIzLuPwIw5rsLql0YKamZVRUoXUYTdyODoV
+	 Qvri59v7Ipro4ikDj/8KVduqsAhq0rRHgWmjSR1HC0SJWkOuQY5nxeUuemo7vvLdpn
+	 GcuwDkUNsFs3zlki+Ro5SvcGO6afswtXZknOUs/tFssFYs5ilBEfvwFoULnPAv3CIu
+	 EL6OIvNSFjCYw==
+Date: Wed, 15 Mar 2023 16:29:36 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v3 00/28] Introduce QC USB SND audio offloading support
+Message-ID: <e270cffa-d27b-40e0-aed5-104514e4ba94@sirena.org.uk>
+References: <20230308235751.495-1-quic_wcheng@quicinc.com>
+ <4f8a66c0-398f-5655-3aa7-a59bc9ba56cc@linux.intel.com>
+ <8b2f3ce7-3e0c-bdf0-8d9f-9aeabba09a15@quicinc.com>
+ <a211f26d-a045-0729-871f-248d5fce3f3f@linux.intel.com>
+ <684daf86-6c3f-7310-eebf-4ebfc3c480ca@quicinc.com>
+ <8a37ccd3-f19e-b30d-d736-04e81b49f3a0@linux.intel.com>
+ <0810f951-f4a6-a51d-97e3-43691b05f702@quicinc.com>
+ <b671e263-5cb8-18e5-dc28-648ab1133c6c@linux.intel.com>
+ <14d726a7-6ffc-705c-b012-0c08d7dd7b9b@quicinc.com>
+ <6b811766-cd2a-54c0-d090-640812686a45@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bfjtlbmpqubgku6t"
+	protocol="application/pgp-signature"; boundary="Z0fuEYQGMv0a0e38"
 Content-Disposition: inline
-In-Reply-To: <3717794.rJMogTuNcH@archbook>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: GW2VA5CT2ADCIHJORDD775DO7RW4QWNV
-X-Message-ID-Hash: GW2VA5CT2ADCIHJORDD775DO7RW4QWNV
-X-MailFrom: ukl@pengutronix.de
+In-Reply-To: <6b811766-cd2a-54c0-d090-640812686a45@linux.intel.com>
+X-Cookie: "Speed is subsittute fo accurancy."
+Message-ID-Hash: HMC2ZXH5MKOYNBCV52F2IRDVHZKMFYXY
+X-Message-ID-Hash: HMC2ZXH5MKOYNBCV52F2IRDVHZKMFYXY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Heiko Stuebner <heiko@sntech.de>,
- linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org
+CC: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, lgirdwood@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
+ Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, andersson@kernel.org,
+ robh+dt@kernel.org, gregkh@linuxfoundation.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GW2VA5CT2ADCIHJORDD775DO7RW4QWNV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HMC2ZXH5MKOYNBCV52F2IRDVHZKMFYXY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,59 +110,38 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---bfjtlbmpqubgku6t
-Content-Type: text/plain; charset=iso-8859-1
+--Z0fuEYQGMv0a0e38
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 15, 2023 at 05:00:49PM +0100, Nicolas Frattaroli wrote:
-> On Mittwoch, 15. M=E4rz 2023 16:06:52 CET Uwe Kleine-K=F6nig wrote:
-> > The .remove() callback for a platform driver returns an int which makes
-> > many driver authors wrongly assume it's possible to do error handling by
-> > returning an error code. However the value returned is (mostly) ignored
-> > and this typically results in resource leaks. To improve here there is a
-> > quest to make the remove callback return void. In the first step of this
-> > quest all drivers are converted to .remove_new() which already returns
-> > void.
-> >=20
-> > Trivially convert this driver from always returning zero in the remove
-> > callback to the void returning variant.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
->=20
-> Hello,
->=20
-> this looks fine, but the commit prefix should either be
-> "ASoC: rockchip: i2s_tdm:" or "ASoC: rockchip: i2s-tdm" to align
-> with previous commits. We've already broken convention once before,
-> hence the two names, and I'd rather not have this convention broken
-> again.
+On Wed, Mar 15, 2023 at 09:30:58AM -0500, Pierre-Louis Bossart wrote:
 
-I fixed that in my tree. I assume Mark will skip this patch when
-applying and when I come around cleaning up the fall-out I will resend
-this one with the subject fixed. (I picked the variant with _ now as
-this seems to be the more recent one.)
+> That's probably ok then, am I getting this right that the the DSP card
+> would not expose any USB-related kcontrols then, i.e. the ONLY path to
+> change volumes, etc.,  would through the regular USB card kcontrols?
 
-Thanks for the feedback
-Uwe
+> That would limit the changes in the platform sound card to the addition
+> of a PCM USB device.
 
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+I'd guess that there might be some volume control in the DSP as part of
+the generic routing to the port (eg, if all ports have some output
+control) but I'm not sure that's an issue, could even be useful for
+normalising the output of DSP algorithms compared to direct PCM
+playback.
 
---bfjtlbmpqubgku6t
+--Z0fuEYQGMv0a0e38
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmQR8YgACgkQwfwUeK3K
-7AlK/Af+NWFZfi8QLk2cKG4X0JaQKjI1gcIExYzIW+fzuj91q5eOaqZn8o7Cwr0w
-iCShZRaieuefb5do5+AhU5OFC1kG8mL8gXoq9vOp0yFhgdFssknREzIFuAqQQ+fs
-ICwyeJ6M0VNd12hvpYf9uWR6yk/E53ktvYi4ybhW1dflOE108bMsjmZ3NIDpouML
-vULhI+Lh1ik18b3tpBUzb2umC0hLo41X7GuAtYPv3U+quntBkNuTGyJCe6VgFoR2
-h/m8YZXTBf311MDJ6MmGQW430q47F6C/DBBYBO+5vom0iVU0lmMS4Khs77kn4PXp
-kHuDcRfRLfyIT8CFSSLlogvxz+NTMg==
-=G6QF
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQR8m8ACgkQJNaLcl1U
+h9Cp3Af/fp7qmzx3dIqaYfXDA3inZKGAJxlBPLnKX7FXrObh2rhSDh/htyeF/xtx
+6tpnHQ1zB2RqEeffKTwu9lobnS2+x/SYkDG2vw5ONFKl3U7L3L87l76a67mR5Hk8
+d7nCQBAdHetX8yl/6H4iVbQztzwFNbuAfT61GYm+zxd98Psps6JucWS8IXwH8lfd
+XGRC/kENH9CPClFzhOCLGnlc+lMRkIGPDH38CN/IGl1GqHr5GgpWlRf6U5dFxpYC
+gAAATPlnhXUSp3o2+qT0bmqjEDpeWXUbeAQuayhdQ3fS0TzGBgoynfR7OyKEHPyl
+X3poldFU1Joz448CW+mSRjG2W9VTpw==
+=+zSv
 -----END PGP SIGNATURE-----
 
---bfjtlbmpqubgku6t--
+--Z0fuEYQGMv0a0e38--

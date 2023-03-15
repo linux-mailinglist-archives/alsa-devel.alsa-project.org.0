@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFB06BAD0C
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 11:07:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A616BAD1F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 11:10:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 194CF12D7;
-	Wed, 15 Mar 2023 11:07:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 194CF12D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27BE212D9;
+	Wed, 15 Mar 2023 11:09:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27BE212D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678874876;
-	bh=a1mBgV1xiO8Grnca7MjKIp4dVrfIFe61NhyeSSkXJvg=;
+	s=default; t=1678875014;
+	bh=eXPQpD4bRYDF5NT+if6f4+A0IwSmQw0qHuuIm39/+L0=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IL18+53leOK8VwCo44XoYcuqCi4+eSZQwVKSQtibuYd2rLJ43TZ4ZMMT8y87JJ0Ns
-	 QzZkGGeG7+m2sAXpy0MZ+vwREOAg4pcKqETPGXUCxO9kocbvbljfvmBC7oUUUN2qQn
-	 JKuR5o0RAH2N6uoaxn3nLVjbZ2WQETqA6m5D3zmo=
+	b=DI7V3jTrLrBIW38VYtuQLR5ylo15dGLFXEUBiFOToFDldg+9lHXtbXI1or1rfUwfA
+	 DMHdjpvPLpkyasr5e/k5+87ZzHcyzGou3zwjFWecza7jmlaJi4isXkdH1iMXGIjmDs
+	 pT29cjV5qwgcvfL3oOMGUuDwLUP5jtgsAxULWskg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21D99F8032D;
-	Wed, 15 Mar 2023 11:07:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0F35F8032D;
+	Wed, 15 Mar 2023 11:09:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F2C8F80423; Wed, 15 Mar 2023 11:07:01 +0100 (CET)
+	id 3A432F80423; Wed, 15 Mar 2023 11:09:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F158F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 11:06:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F158F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6051F80093
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 11:09:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6051F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=COg5KEa4
+ header.s=k20201202 header.b=NmCpI8Pe
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A6D2261CB7;
-	Wed, 15 Mar 2023 10:06:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB50C433EF;
-	Wed, 15 Mar 2023 10:06:52 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DC61B61CBD;
+	Wed, 15 Mar 2023 10:09:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7EE5C433D2;
+	Wed, 15 Mar 2023 10:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678874813;
-	bh=a1mBgV1xiO8Grnca7MjKIp4dVrfIFe61NhyeSSkXJvg=;
+	s=k20201202; t=1678874955;
+	bh=eXPQpD4bRYDF5NT+if6f4+A0IwSmQw0qHuuIm39/+L0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=COg5KEa4yQ+1jyzTij5CZJvyoDVHmbYd48Dsty1NHaKfFNASUDoxWEFMna0I5OQEM
-	 DO8HD9OwxjZCjvWx/W6t28J0zpjAIDNxmRDpzHNRHVub+QL+j3aMDnQRmquPGpXZ9y
-	 YWHpFfexpcEs0unxHMTqcYAFS/AIWYRf9leHNS1kPNGJkj0zHMiyKKvumJweusEV9C
-	 pjgzaDm84fRnPTwj3X+1WvTmajaYTWLddZNxHkqCi4wG8+AEscHJsLkmhjlqDA9k8o
-	 w2pdnan8ZRwpCQHxc5Eyk7GUeQclaURJjqlqAYv7HW6XSA6Bzs0UXI7L01aXw3uWf5
-	 xrNZSugTNASqg==
-Date: Wed, 15 Mar 2023 15:36:49 +0530
+	b=NmCpI8Pe4X1CTy+4q5l/PX2K8h603UKRaVsu6jOYm99KecuvDlB4RxHE1mUY3mXim
+	 U/bCTZtrvGWYOSu7ZiFpdlMv3MQ+4aVAKznyxtwDmjSPOO7Jd/7R3ciAyUwrn2mZ0C
+	 tET5V/IsCdrLTKBjJWMx2ItHjiDc/MT4CApVpTxwQyGAaEZAc1bto8xCfVsOS3Jofb
+	 4ILpwxA8RWvurwSuaq7hWaoBhIruivmRZwu9pXIVUxXiWVdDpiGTuSzxxrw7eXzqOL
+	 pwU3s558P+i/T5jF28wo5lY6cvnFQEDnYRgF0s1cLcCfnlOpoM+hxJTJdR/Io5hhsl
+	 DpdnAphUkV0/A==
+Date: Wed, 15 Mar 2023 15:39:11 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH V6 5/8] soundwire: amd: add SoundWire manager interrupt
- handling
-Message-ID: <ZBGYubOYyu7E8ueo@matsya>
-References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
- <20230307133135.545952-6-Vijendar.Mukunda@amd.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] soundwire: stream: uniquify dev_err() logs
+Message-ID: <ZBGZR2ACa8AbNmvy@matsya>
+References: <20230309054905.21507-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230307133135.545952-6-Vijendar.Mukunda@amd.com>
-Message-ID-Hash: SK2RPGPBZZG6ZXZU7V2V273WHZSJV4S7
-X-Message-ID-Hash: SK2RPGPBZZG6ZXZU7V2V273WHZSJV4S7
+In-Reply-To: <20230309054905.21507-1-yung-chuan.liao@linux.intel.com>
+Message-ID-Hash: XFSURWSELHJHEQPS3I3XEXKFEBSGSP6M
+X-Message-ID-Hash: XFSURWSELHJHEQPS3I3XEXKFEBSGSP6M
 X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,19 +76,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
- Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
- claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SK2RPGPBZZG6ZXZU7V2V273WHZSJV4S7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFSURWSELHJHEQPS3I3XEXKFEBSGSP6M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,232 +92,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07-03-23, 19:01, Vijendar Mukunda wrote:
-> Add support for handling SoundWire manager interrupts.
+On 09-03-23, 13:49, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Link: https://lore.kernel.org/lkml/20230227154801.50319-6-Vijendar.Mukunda@amd.com
+> There are a couple of duplicate logs which makes harder than needed to
+> follow the error flows. Add __func__ or make the log unique.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 > ---
->  drivers/soundwire/amd_manager.c   | 130 ++++++++++++++++++++++++++++++
->  drivers/soundwire/amd_manager.h   |   1 +
->  include/linux/soundwire/sdw_amd.h |   7 ++
->  3 files changed, 138 insertions(+)
+>  drivers/soundwire/stream.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index dd7fd4036d89..165078beca2e 100644
-> --- a/drivers/soundwire/amd_manager.c
-> +++ b/drivers/soundwire/amd_manager.c
-> @@ -357,6 +357,51 @@ static enum sdw_command_response amd_sdw_xfer_msg(struct sdw_bus *bus, struct sd
->  	return SDW_CMD_OK;
->  }
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index 2e39587ed1de..dd09855caac9 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -1389,7 +1389,7 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
 >  
-> +static void amd_sdw_fill_slave_status(struct amd_sdw_manager *amd_manager, u16 index, u32 status)
-> +{
-> +	switch (status) {
-> +	case SDW_SLAVE_ATTACHED:
-> +		amd_manager->status[index] = SDW_SLAVE_ATTACHED;
-> +		break;
-> +	case SDW_SLAVE_UNATTACHED:
-> +		amd_manager->status[index] = SDW_SLAVE_UNATTACHED;
-> +		break;
-> +	case SDW_SLAVE_ALERT:
-> +		amd_manager->status[index] = SDW_SLAVE_ALERT;
-> +		break;
+>  	ret = do_bank_switch(stream);
+>  	if (ret < 0) {
+> -		dev_err(bus->dev, "Bank switch failed: %d\n", ret);
+> +		pr_err("%s: do_bank_switch failed: %d\n", __func__, ret);
 
-why not:
+why make it pr_ and loose the dev name? There is a trick to emit
+function for dev_err too using dynamic debug
 
-        case SDW_SLAVE_ATTACHED:
-        case SDW_SLAVE_UNATTACHED:
-        case SDW_SLAVE_ALERT:
-                amd_manager->status[index] = status;
-                break;
 
-> +	default:
-> +		amd_manager->status[index] = SDW_SLAVE_RESERVED;
-> +		break;
-> +	}
-> +}
-> +
-> +static void amd_sdw_process_ping_status(u64 response, struct amd_sdw_manager *amd_manager)
-> +{
-> +	u64 slave_stat;
-> +	u32 val;
-> +	u16 dev_index;
-> +
-> +	/* slave status response */
-> +	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
-> +	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
-> +	dev_dbg(amd_manager->dev, "slave_stat:0x%llx\n", slave_stat);
-> +	for (dev_index = 0; dev_index <= SDW_MAX_DEVICES; ++dev_index) {
-> +		val = (slave_stat >> (dev_index * 2)) & AMD_SDW_MCP_SLAVE_STATUS_MASK;
-> +		dev_dbg(amd_manager->dev, "val:0x%x\n", val);
-> +		amd_sdw_fill_slave_status(amd_manager, dev_index, val);
-> +	}
-> +}
-> +
-> +static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_manager)
-> +{
-> +	u64 response;
-> +
-> +	mutex_lock(&amd_manager->bus.msg_lock);
-> +	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
-> +	mutex_unlock(&amd_manager->bus.msg_lock);
-> +	amd_sdw_process_ping_status(response, amd_manager);
-> +}
-> +
->  static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
->  {
->  	struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
-> @@ -757,6 +802,89 @@ static int amd_sdw_register_dais(struct amd_sdw_manager *amd_manager)
->  					       dais, num_dais);
->  }
+>  		goto restore_params;
+>  	}
 >  
-> +static void amd_sdw_update_slave_status_work(struct work_struct *work)
-> +{
-> +	struct amd_sdw_manager *amd_manager =
-> +		container_of(work, struct amd_sdw_manager, amd_sdw_work);
-> +	int retry_count = 0;
-> +
-> +	if (amd_manager->status[0] == SDW_SLAVE_ATTACHED) {
-> +		acp_reg_writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +		acp_reg_writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +	}
-> +
-> +update_status:
-> +	sdw_handle_slave_status(&amd_manager->bus, amd_manager->status);
-> +	/*
-> +	 * During the peripheral enumeration sequence, the SoundWire manager interrupts
-> +	 * are masked. Once the device number programming is done for all peripherals,
-> +	 * interrupts will be unmasked. Read the peripheral device status from ping command
-> +	 * and process the response. This sequence will ensure all peripheral devices enumerated
-> +	 * and initialized properly.
-> +	 */
-> +	if (amd_manager->status[0] == SDW_SLAVE_ATTACHED) {
-> +		if (retry_count++ < SDW_MAX_DEVICES) {
-> +			acp_reg_writel(AMD_SDW_IRQ_MASK_0TO7, amd_manager->mmio +
-> +				       ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +			acp_reg_writel(AMD_SDW_IRQ_MASK_8TO11,
-> +				       amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +			amd_sdw_read_and_process_ping_status(amd_manager);
-> +			goto update_status;
-
-goto are mostly used for error handling, i dont thing case here deserves
-a goto, can you please change this...
-
-> +		} else {
-> +			dev_err_ratelimited(amd_manager->dev,
-> +					    "Device0 detected after %d iterations\n",
-> +					    retry_count);
-> +		}
-> +	}
-> +}
-> +
-> +static void amd_sdw_update_slave_status(u32 status_change_0to7, u32 status_change_8to11,
-> +					struct amd_sdw_manager *amd_manager)
-> +{
-> +	u64 slave_stat;
-> +	u32 val;
-> +	int dev_index;
-> +
-> +	if (status_change_0to7 == AMD_SDW_SLAVE_0_ATTACHED)
-> +		memset(amd_manager->status, 0, sizeof(amd_manager->status));
-> +	slave_stat = status_change_0to7;
-> +	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STATUS_8TO_11, status_change_8to11) << 32;
-> +	dev_dbg(amd_manager->dev, "status_change_0to7:0x%x status_change_8to11:0x%x\n",
-> +		status_change_0to7, status_change_8to11);
-> +	if (slave_stat) {
-> +		for (dev_index = 0; dev_index <= SDW_MAX_DEVICES; ++dev_index) {
-> +			if (slave_stat & AMD_SDW_MCP_SLAVE_STATUS_VALID_MASK(dev_index)) {
-> +				val = (slave_stat >> AMD_SDW_MCP_SLAVE_STAT_SHIFT_MASK(dev_index)) &
-> +				      AMD_SDW_MCP_SLAVE_STATUS_MASK;
-> +				amd_sdw_fill_slave_status(amd_manager, dev_index, val);
-> +			}
-> +		}
-> +	}
-> +}
-> +
-> +static void amd_sdw_irq_thread(struct work_struct *work)
-> +{
-> +	struct amd_sdw_manager *amd_manager =
-> +			container_of(work, struct amd_sdw_manager, amd_sdw_irq_thread);
-> +	u32 status_change_8to11;
-> +	u32 status_change_0to7;
-> +
-> +	status_change_8to11 = acp_reg_readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
-> +	status_change_0to7 = acp_reg_readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
-> +	dev_dbg(amd_manager->dev, "[SDW%d] SDW INT: 0to7=0x%x, 8to11=0x%x\n",
-> +		amd_manager->instance, status_change_0to7, status_change_8to11);
-> +	if (status_change_8to11 & AMD_SDW_PREQ_INTR_STAT) {
-> +		amd_sdw_read_and_process_ping_status(amd_manager);
-> +	} else {
-> +		/* Check for the updated status on peripheral device */
-> +		amd_sdw_update_slave_status(status_change_0to7, status_change_8to11, amd_manager);
-> +	}
-> +	if (status_change_8to11 || status_change_0to7)
-> +		schedule_work(&amd_manager->amd_sdw_work);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
-> +	acp_reg_writel(0x00, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
-> +}
-> +
->  static void amd_sdw_probe_work(struct work_struct *work)
->  {
->  	struct amd_sdw_manager *amd_manager = container_of(work, struct amd_sdw_manager,
-> @@ -847,6 +975,8 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
+> @@ -1477,7 +1477,7 @@ static int _sdw_enable_stream(struct sdw_stream_runtime *stream)
+>  		/* Program params */
+>  		ret = sdw_program_params(bus, false);
+>  		if (ret < 0) {
+> -			dev_err(bus->dev, "Program params failed: %d\n", ret);
+> +			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+>  			return ret;
+>  		}
+>  
+> @@ -1497,7 +1497,7 @@ static int _sdw_enable_stream(struct sdw_stream_runtime *stream)
+>  
+>  	ret = do_bank_switch(stream);
+>  	if (ret < 0) {
+> -		dev_err(bus->dev, "Bank switch failed: %d\n", ret);
+> +		pr_err("%s: do_bank_switch failed: %d\n", __func__, ret);
 >  		return ret;
 >  	}
->  	dev_set_drvdata(dev, amd_manager);
-> +	INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
-> +	INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
->  	INIT_WORK(&amd_manager->probe_work, amd_sdw_probe_work);
->  	/*
->  	 * Instead of having lengthy probe sequence, use deferred probe.
-> diff --git a/drivers/soundwire/amd_manager.h b/drivers/soundwire/amd_manager.h
-> index cad26034087b..807bc5a314d8 100644
-> --- a/drivers/soundwire/amd_manager.h
-> +++ b/drivers/soundwire/amd_manager.h
-> @@ -185,6 +185,7 @@
->  #define AMD_SDW1_PAD_KEEPER_EN_MASK			0x10
->  #define AMD_SDW0_PAD_KEEPER_DISABLE_MASK		0x1E
->  #define AMD_SDW1_PAD_KEEPER_DISABLE_MASK		0xF
-> +#define AMD_SDW_PREQ_INTR_STAT				BIT(19)
 >  
->  enum amd_sdw_cmd_type {
->  	AMD_SDW_CMD_PING = 0,
-> diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
-> index ac537419301d..df60bc0de6fc 100644
-> --- a/include/linux/soundwire/sdw_amd.h
-> +++ b/include/linux/soundwire/sdw_amd.h
-> @@ -45,8 +45,11 @@ struct sdw_amd_dai_runtime {
->   * @mmio: SoundWire registers mmio base
->   * @acp_mmio: acp registers mmio base
->   * @reg_mask: register mask structure per manager instance
-> + * @amd_sdw_irq_thread: SoundWire manager irq workqueue
-> + * @amd_sdw_work: peripheral status work queue
->   * @probe_work: SoundWire manager probe workqueue
->   * @acp_sdw_lock: mutex to protect acp share register access
-> + * @status: peripheral devices status array
->   * @num_din_ports: number of input ports
->   * @num_dout_ports: number of output ports
->   * @cols_index: Column index in frame shape
-> @@ -65,10 +68,14 @@ struct amd_sdw_manager {
->  	void __iomem *acp_mmio;
+> @@ -1567,14 +1567,14 @@ static int _sdw_disable_stream(struct sdw_stream_runtime *stream)
+>  		/* Program params */
+>  		ret = sdw_program_params(bus, false);
+>  		if (ret < 0) {
+> -			dev_err(bus->dev, "Program params failed: %d\n", ret);
+> +			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+>  			return ret;
+>  		}
+>  	}
 >  
->  	struct sdw_manager_reg_mask *reg_mask;
-> +	struct work_struct amd_sdw_irq_thread;
-> +	struct work_struct amd_sdw_work;
->  	struct work_struct probe_work;
->  	/* mutex to protect acp common register access */
->  	struct mutex *acp_sdw_lock;
+>  	ret = do_bank_switch(stream);
+>  	if (ret < 0) {
+> -		pr_err("Bank switch failed: %d\n", ret);
+> +		pr_err("%s: do_bank_switch failed: %d\n", __func__, ret);
+>  		return ret;
+>  	}
 >  
-> +	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
-> +
->  	int num_din_ports;
->  	int num_dout_ports;
+> @@ -1664,7 +1664,7 @@ static int _sdw_deprepare_stream(struct sdw_stream_runtime *stream)
+>  		/* Program params */
+>  		ret = sdw_program_params(bus, false);
+>  		if (ret < 0) {
+> -			dev_err(bus->dev, "Program params failed: %d\n", ret);
+> +			dev_err(bus->dev, "%s: Program params failed: %d\n", __func__, ret);
+>  			return ret;
+>  		}
+>  	}
+> @@ -1893,7 +1893,8 @@ int sdw_stream_add_master(struct sdw_bus *bus,
 >  
+>  	m_rt = sdw_master_rt_alloc(bus, stream);
+>  	if (!m_rt) {
+> -		dev_err(bus->dev, "Master runtime alloc failed for stream:%s\n", stream->name);
+> +		dev_err(bus->dev, "%s: Master runtime alloc failed for stream:%s\n",
+> +			__func__, stream->name);
+>  		ret = -ENOMEM;
+>  		goto unlock;
+>  	}
+> @@ -2012,7 +2013,8 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+>  	 */
+>  	m_rt = sdw_master_rt_alloc(slave->bus, stream);
+>  	if (!m_rt) {
+> -		dev_err(&slave->dev, "Master runtime alloc failed for stream:%s\n", stream->name);
+> +		dev_err(&slave->dev, "%s: Master runtime alloc failed for stream:%s\n",
+> +			__func__, stream->name);
+>  		ret = -ENOMEM;
+>  		goto unlock;
+>  	}
 > -- 
-> 2.34.1
+> 2.25.1
 
 -- 
 ~Vinod

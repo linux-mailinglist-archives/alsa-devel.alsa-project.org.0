@@ -2,107 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08AA76BB909
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 17:06:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A18D6BB90D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 17:06:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06A371552;
-	Wed, 15 Mar 2023 17:05:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06A371552
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68CB5156B;
+	Wed, 15 Mar 2023 17:05:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68CB5156B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678896372;
-	bh=86IeAvpsTT3xJy/sz6LqwjgqlIjj1bKneY0DeRcEJvM=;
+	s=default; t=1678896394;
+	bh=D53RBrkXnIF9BhgYUQjg3p17ZJ3AJtJot9AvZCK4lXM=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nfGC900W8ZyuP5QGo1HQTXmtBgNovbZxTCo3cTkMrQtHuVWI9YYDSrHPPEppv7OFX
-	 g6tB0Wd9rRewniOUXh5rZAm7668Rbx9b68GNWXknLEXaURG/qw5ZUeibGtbmkqo3ek
-	 JP4uZGBgStF0/azaatNj1RA9IwjszfKn4AMFsDyE=
+	b=tYPS0OR4U8kRb85TBbCjoBAxa5tBLRqN8h/mS8raDicMQ162jxqTp1r1FKryV7fNn
+	 0Cad/C67i8xpGQOY5fv0dvOReRns4BGEe0egzr7GYvXHD/6X/8WNzpLEUtE4V6LlMW
+	 PL8DiQ6HBINOd1D8idpWHN6odb7vsIQSFVnhUcXI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84E96F80482;
-	Wed, 15 Mar 2023 17:05:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C60CF804FE;
+	Wed, 15 Mar 2023 17:05:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56BBDF80527; Wed, 15 Mar 2023 17:05:10 +0100 (CET)
+	id 5C9A1F80527; Wed, 15 Mar 2023 17:05:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 562BCF80482
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 17:05:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 562BCF80482
+	by alsa1.perex.cz (Postfix) with ESMTPS id B7527F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 17:05:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7527F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=GYgwADQD
-Received: by mail-ed1-x52f.google.com with SMTP id w9so6721251edc.3
+ header.s=20210112 header.b=OLQvLwhq
+Received: by mail-ed1-x535.google.com with SMTP id eg48so18286941edb.13
         for <alsa-devel@alsa-project.org>;
- Wed, 15 Mar 2023 09:05:07 -0700 (PDT)
+ Wed, 15 Mar 2023 09:05:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678896305;
+        d=gmail.com; s=20210112; t=1678896326;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OrfavOiI9RHFnuLIIn9fSoym+hJaH0KWDtFZHQ7FhFE=;
-        b=GYgwADQDRBv/KWKhXsXUcAUFhDAgznha4R9pZMM9lDygOvRsskp2sjqb5eGtcIsRjb
-         +BQBH+S7c2+bFJrgEcsJ33lmxXF+xaHV+Zf6R1acx0kd4THA11wrWaDE2PS71ADw1nhn
-         Zx65qJONgMbEaCHuppuPpK/f19Y0eRvpyxKFsy2BYQpLOWC1Mysn+5xwS+qj0OBSMovR
-         Uao5l7U1tmHILuzCEi0wR413TLsrQz3cmOUWwtDxd4w6T4wD/oEOOPpUwbCuBoECppEq
-         vBHqkwqTycHcEvSf+HIIuFtDOtNKeTswqPcdwrlIsB2rmFNZOi/+cUOYLoGfJBl78Au4
-         pr1g==
+        bh=YYGX99pO1QhMCjaMfA2tt6x0aDGPLDNKPraVBhA8mfY=;
+        b=OLQvLwhqfZHoCdUd/CB/heb6Rkub5zLWqQ38FphV9KG8d+V2dnKGE7Bxfw22JsCW/E
+         gVMJose6qpqyl3T3eZb0IpEVaKi2c+Ci3EM560ZAyfil/YUE41QJBT8+m96IUCfripPt
+         Ofctldl7TlC9G6UqCH8PolRbTmhmYStv5U+j5fCHM2uBzS4Q04ACs/vyGP7hnezZiSJv
+         TL72vXaeZXEDWMdcaLJW+t/4PTcQ0NQsDVtvemmGH0GQ9JKMoGq65FNZ/T92/ibbBCI7
+         hRRHXCEBFirLBfq8zxBlCannFFvVZVbqO89r0rfcixvjNo++uaHeFcaFz4osjuwZRhgw
+         Wbgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678896305;
+        d=1e100.net; s=20210112; t=1678896326;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=OrfavOiI9RHFnuLIIn9fSoym+hJaH0KWDtFZHQ7FhFE=;
-        b=XLlwFwi9if5HofIt7lOOazq1P/2SDcTiNoe/XUb2Jr6AcCM9RUUKR06oSVKZkR9ifd
-         2zexoE365nNl2B/kGusug1a7A/Y4t2Iq8Z+GHoGAWhsOQYMncHOAxFR3mRFHTh+hKYyh
-         SbESbyvVZUMEDmrg2udA7YpyqgL5zO3QDjrS14G42/t23euVvsUDQn72FaQ7waqJTdUD
-         qLMqblfR6XLO56pC3GzXKTHmRPTpBWPHfhvCHE7hqmB2KjL4u7XRo+tlqxdRFY3VlrDL
-         8sv8PIyzb/PLsbcug6CBLdjvlX4C4/ybsJEhCSURaoNbNl30+rFE5ZTbDxK8vtugGOnd
-         Wh9Q==
-X-Gm-Message-State: AO0yUKWWnORzCWZXecT66F2QbFGFAJ51U/piDy+J4NJQjiOjiA/4gxeA
-	Xvm4pwvk962V3PfQxqcNaOs=
+        bh=YYGX99pO1QhMCjaMfA2tt6x0aDGPLDNKPraVBhA8mfY=;
+        b=rf56ORk08GraT4qd7t+Z8MCzbB/P4S0zCj66JYhMRc28JzGJTo4ABgFHRyW5OaEROX
+         tVOfN3pXTqWuPKy0UBV0vfKFR6yLfjanTqVbIvv0nHpeObHOrl1eWFOK1jtkXwFdMkdh
+         VMboUcQ0rAZHJaAq+STG3wVccnkokHRfPi1w3LzxgejD9eANuDV8JpvRf2nyMjlU5FDC
+         LpRrIY08JsGi/jIJDwn4aqyHWljwMXGIBqtFWqAGTQVEBAsxdHqv1BBibHaLK0u58Exz
+         rTMoJd36hlSB6Uu48hX/IVQsLX/GsLOuTlSwFwfYudJ7s72C0pOi8b9xFKkQGcHZSBKS
+         lotw==
+X-Gm-Message-State: AO0yUKXc2DC+B4PiyGDL/Uwp5Po7fTWU2RRmLTMEW896ovD34nVWTjWR
+	9i7PS2s9gU3VP3wjOaa4SO4=
 X-Google-Smtp-Source: 
- AK7set+myhS2q8BMTQLFMetCV+tCvu86Y0EnLMDAIQz6lrKoBkjoRsSEoQr/z5hKWoUoEpc8DQ+YAQ==
-X-Received: by 2002:a17:906:d211:b0:926:9c33:ea4 with SMTP id
- w17-20020a170906d21100b009269c330ea4mr7175408ejz.27.1678896305325;
-        Wed, 15 Mar 2023 09:05:05 -0700 (PDT)
+ AK7set/5iYiiCkiPNXJhp+k6XG0KokT/w7XIYCxSgGW7s6z/i1G3KHv3tbWMDV5m8dnbU+bgoCcLsw==
+X-Received: by 2002:a17:906:4c4d:b0:888:db6b:5fa9 with SMTP id
+ d13-20020a1709064c4d00b00888db6b5fa9mr8133172ejw.67.1678896325683;
+        Wed, 15 Mar 2023 09:05:25 -0700 (PDT)
 Received: from jernej-laptop.localnet (82-149-1-233.dynamic.telemach.net.
  [82.149.1.233])
         by smtp.gmail.com with ESMTPSA id
- h11-20020a17090619cb00b008b30e2a450csm2714894ejd.144.2023.03.15.09.05.04
+ dt5-20020a170906b78500b008e82cb55195sm2704185ejb.203.2023.03.15.09.05.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Mar 2023 09:05:04 -0700 (PDT)
+        Wed, 15 Mar 2023 09:05:25 -0700 (PDT)
 From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Chen-Yu Tsai <wens@csie.org>, Samuel Holland <samuel@sholland.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
+To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>,
  Uwe =?ISO-8859-1?Q?Kleine=2DK=F6nig?= <u.kleine-koenig@pengutronix.de>
 Subject: 
- Re: [PATCH 142/173] ASoC: sunxi: sun4i-spdif: Convert to platform remove
+ Re: [PATCH 143/173] ASoC: sunxi: sun50i-dmic: Convert to platform remove
  callback returning void
-Date: Wed, 15 Mar 2023 17:05:03 +0100
-Message-ID: <2745562.BEx9A2HvPv@jernej-laptop>
-In-Reply-To: <20230315150745.67084-143-u.kleine-koenig@pengutronix.de>
+Date: Wed, 15 Mar 2023 17:05:23 +0100
+Message-ID: <4127320.1IzOArtZ34@jernej-laptop>
+In-Reply-To: <20230315150745.67084-144-u.kleine-koenig@pengutronix.de>
 References: 
  <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
- <20230315150745.67084-143-u.kleine-koenig@pengutronix.de>
+ <20230315150745.67084-144-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="iso-8859-1"
-Message-ID-Hash: DQIJEVTI3ZX45QME3FVGE5FI4HAT4ROC
-X-Message-ID-Hash: DQIJEVTI3ZX45QME3FVGE5FI4HAT4ROC
+Message-ID-Hash: P5VWP44GPGSAUPVUNWAJ3BDK4B76FSCY
+X-Message-ID-Hash: P5VWP44GPGSAUPVUNWAJ3BDK4B76FSCY
 X-MailFrom: jernej.skrabec@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQIJEVTI3ZX45QME3FVGE5FI4HAT4ROC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P5VWP44GPGSAUPVUNWAJ3BDK4B76FSCY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,7 +126,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dne sreda, 15. marec 2023 ob 16:07:14 CET je Uwe Kleine-K=F6nig napisal(a):
+Dne sreda, 15. marec 2023 ob 16:07:15 CET je Uwe Kleine-K=F6nig napisal(a):
 > The .remove() callback for a platform driver returns an int which makes
 > many driver authors wrongly assume it's possible to do error handling by
 > returning an error code. However the value returned is (mostly) ignored
@@ -146,37 +146,37 @@ Best regards,
 Jernej
 
 > ---
->  sound/soc/sunxi/sun4i-spdif.c | 6 ++----
+>  sound/soc/sunxi/sun50i-dmic.c | 6 ++----
 >  1 file changed, 2 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/sound/soc/sunxi/sun4i-spdif.c b/sound/soc/sunxi/sun4i-spdif.c
-> index bcceebca915a..ff18d4113aac 100644
-> --- a/sound/soc/sunxi/sun4i-spdif.c
-> +++ b/sound/soc/sunxi/sun4i-spdif.c
-> @@ -703,13 +703,11 @@ static int sun4i_spdif_probe(struct platform_device
+> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+> index 069c993acb31..c10439b9e0a2 100644
+> --- a/sound/soc/sunxi/sun50i-dmic.c
+> +++ b/sound/soc/sunxi/sun50i-dmic.c
+> @@ -373,13 +373,11 @@ static int sun50i_dmic_probe(struct platform_device
 > *pdev) return ret;
 >  }
 >=20
-> -static int sun4i_spdif_remove(struct platform_device *pdev)
-> +static void sun4i_spdif_remove(struct platform_device *pdev)
+> -static int sun50i_dmic_remove(struct platform_device *pdev)
+> +static void sun50i_dmic_remove(struct platform_device *pdev)
 >  {
 >  	pm_runtime_disable(&pdev->dev);
 >  	if (!pm_runtime_status_suspended(&pdev->dev))
->  		sun4i_spdif_runtime_suspend(&pdev->dev);
+>  		sun50i_dmic_runtime_suspend(&pdev->dev);
 > -
 > -	return 0;
 >  }
 >=20
->  static const struct dev_pm_ops sun4i_spdif_pm =3D {
-> @@ -724,7 +722,7 @@ static struct platform_driver sun4i_spdif_driver =3D {
->  		.pm	=3D &sun4i_spdif_pm,
+>  static const struct dev_pm_ops sun50i_dmic_pm =3D {
+> @@ -394,7 +392,7 @@ static struct platform_driver sun50i_dmic_driver =3D {
+>  		.pm     =3D &sun50i_dmic_pm,
 >  	},
->  	.probe		=3D sun4i_spdif_probe,
-> -	.remove		=3D sun4i_spdif_remove,
-> +	.remove_new	=3D sun4i_spdif_remove,
+>  	.probe          =3D sun50i_dmic_probe,
+> -	.remove         =3D sun50i_dmic_remove,
+> +	.remove_new     =3D sun50i_dmic_remove,
 >  };
 >=20
->  module_platform_driver(sun4i_spdif_driver);
+>  module_platform_driver(sun50i_dmic_driver);
 
 
 

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D91A6BB7E6
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 16:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92F76BB7FE
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 16:36:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D8BD13BE;
-	Wed, 15 Mar 2023 16:32:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D8BD13BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B94F1419;
+	Wed, 15 Mar 2023 16:35:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B94F1419
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678894421;
-	bh=Vrevh/9+Tt9NBTkdA3ayadMtrznBbxNATV0c6JUQjk8=;
+	s=default; t=1678894580;
+	bh=dFzHDZxFY1LnF/vH5qoG7cREA6ZssUK4dysHkK1fy3A=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UXqP6mrsd4Z05lOB0fsu5PfqGsbEL1pxqp0FqScP56BLr2NDJ5TIDtN6HA04D4WoL
-	 8cJabYlnhvldxZJTppRIgdizZDHbP6EdHPZsHBats848RpQLreRBkcJEHRpKVaQjFI
-	 AgvgkbGMvU2J1UnOxB48/KkxZww6mLuaxsTqSqYo=
+	b=h2HTMhhTYgmY8C8wWqTWGSR4Z81gprQMR27HmCo1DhxP82tlXGpcD8fKD/WnaM7nH
+	 C3YkjiMJw5+TmysKBA5ApJkR/vrGzQ9J5gtm8EL2rudvSoY9YvvuCCVCbqMbdOMA4t
+	 qeBWS9jfqQOlTydASgB2I1si9btqCELttm06ghdc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 335F7F80764;
-	Wed, 15 Mar 2023 16:13:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62508F805B5;
+	Wed, 15 Mar 2023 16:14:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE76FF805D5; Wed, 15 Mar 2023 16:09:50 +0100 (CET)
+	id 00D99F805E2; Wed, 15 Mar 2023 16:09:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
@@ -35,47 +35,49 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64364F805EC
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 16:08:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64364F805EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3AA60F805F6
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 16:08:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AA60F805F6
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
 	by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjq-0008SQ-Hd; Wed, 15 Mar 2023 16:08:26 +0100
+	id 1pcSjq-0008Ss-Lv; Wed, 15 Mar 2023 16:08:26 +0100
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjm-004KcH-Fr; Wed, 15 Mar 2023 16:08:22 +0100
+	id 1pcSjm-004KcQ-M1; Wed, 15 Mar 2023 16:08:22 +0100
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjl-0057j5-O5; Wed, 15 Mar 2023 16:08:21 +0100
+	id 1pcSjm-0057j8-0A; Wed, 15 Mar 2023 16:08:22 +0100
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
+To: Jerome Brunet <jbrunet@baylibre.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [PATCH 113/173] ASoC: mediatek: mt8195-afe-pcm: Convert to platform
- remove callback returning void
-Date: Wed, 15 Mar 2023 16:06:45 +0100
-Message-Id: <20230315150745.67084-114-u.kleine-koenig@pengutronix.de>
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>
+Subject: [PATCH 114/173] ASoC: meson: aiu: Convert to platform remove callback
+ returning void
+Date: Wed, 15 Mar 2023 16:06:46 +0100
+Message-Id: <20230315150745.67084-115-u.kleine-koenig@pengutronix.de>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
 References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1866;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1491;
  i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=Vrevh/9+Tt9NBTkdA3ayadMtrznBbxNATV0c6JUQjk8=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBkEd6FPMOFGppFQCVABceDv/v8niyN69Vxw1dPW
- t1vVl8VttKJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZBHehQAKCRDB/BR4rcrs
- CROfB/9cn1lQZJZwq/BhnTEC7pmpcbvVu6MtU9rYrHSQOGFOlTJgeHY+o3jrkDezY2n6GGRxv77
- A5y6LSFfENIfLl63FiSEcffYanjqtLo4RT19eJdXfaRbPfgE6yHOqKAeEsjY8Ub0kSS0MgG0ZRY
- u0evzAnY0guqz33nlb9dNaf5uThRrCVCpOZG/xOD6jbP88DDOgdIX8eYCkLJfqk0D/JIU98PvdL
- Kyk0SXvSAUL9PkW96Fn40F7SNm8o3KLuDVOKWNBZju57X1zCVv9spZtcN17bGGVywKxOgGCUOSY
- tJrlX8VFULBs8lKcYpY4feO33SfXKPRapCo69sle/NXefRGC
+ bh=dFzHDZxFY1LnF/vH5qoG7cREA6ZssUK4dysHkK1fy3A=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBkEd6IFDyIZ+oP9ndVzNSV6myRohvWzvUoe1phQ
+ d70M0WZcFGJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZBHeiAAKCRDB/BR4rcrs
+ CedYCACaTxr2Cr6x7kpn5otGsM2h3AKhrioeNQ8GDsl1gB4YmGd9E1ofZNVLrIZTrNUaWI0Zde7
+ Y1zXna1xWS3sHW9SJCuBa+HQ/xaETvenpY4Fe+wV304I0Apc9wOMK+cm1L56OfMmTKcFowRQV5w
+ 4ua2v/XE+PN1Z/YYoZk+NXdcmR/MDs2X4Fd/mfYn4QdYpfeOC598kaD2KQow3eBjWAis2TClebj
+ SFO6orzadXQ7yAjJoAt/pOVhjOaDP4/jU10XNl18SKLlFveYaHXQStNg/mhYO6c+o0BjON1RTVK
+ dLpi1gJ8qzhs/LzSOEhsE1ZIUC5GqBxDNsuzwMdOu7E3tOU5
 X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -84,8 +86,8 @@ X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: EOTJNOKI2HJIJYMA2HWRZASB46JQZPU3
-X-Message-ID-Hash: EOTJNOKI2HJIJYMA2HWRZASB46JQZPU3
+Message-ID-Hash: I74NJUFG5X426Q7ZEM6AON6TQJ3REH46
+X-Message-ID-Hash: I74NJUFG5X426Q7ZEM6AON6TQJ3REH46
 X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,15 +95,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- alsa-devel@alsa-project.org, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, kernel@pengutronix.de
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EOTJNOKI2HJIJYMA2HWRZASB46JQZPU3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I74NJUFG5X426Q7ZEM6AON6TQJ3REH46/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,39 +125,35 @@ callback to the void returning variant.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/meson/aiu.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-index 72b2c6d629b9..9e45efeada55 100644
---- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-@@ -3253,7 +3253,7 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
+index 88e611e64d14..da351a60df0c 100644
+--- a/sound/soc/meson/aiu.c
++++ b/sound/soc/meson/aiu.c
+@@ -331,11 +331,9 @@ static int aiu_probe(struct platform_device *pdev)
  	return ret;
  }
  
--static int mt8195_afe_pcm_dev_remove(struct platform_device *pdev)
-+static void mt8195_afe_pcm_dev_remove(struct platform_device *pdev)
+-static int aiu_remove(struct platform_device *pdev)
++static void aiu_remove(struct platform_device *pdev)
  {
- 	struct mtk_base_afe *afe = platform_get_drvdata(pdev);
- 
-@@ -3264,7 +3264,6 @@ static int mt8195_afe_pcm_dev_remove(struct platform_device *pdev)
- 		mt8195_afe_runtime_suspend(&pdev->dev);
- 
- 	mt8195_afe_deinit_clock(afe);
+ 	snd_soc_unregister_component(&pdev->dev);
+-
 -	return 0;
  }
  
- static const struct of_device_id mt8195_afe_pcm_dt_match[] = {
-@@ -3285,7 +3284,7 @@ static struct platform_driver mt8195_afe_pcm_driver = {
- 		   .pm = &mt8195_afe_pm_ops,
- 	},
- 	.probe = mt8195_afe_pcm_dev_probe,
--	.remove = mt8195_afe_pcm_dev_remove,
-+	.remove_new = mt8195_afe_pcm_dev_remove,
- };
+ static const struct aiu_platform_data aiu_gxbb_pdata = {
+@@ -364,7 +362,7 @@ MODULE_DEVICE_TABLE(of, aiu_of_match);
  
- module_platform_driver(mt8195_afe_pcm_driver);
+ static struct platform_driver aiu_pdrv = {
+ 	.probe = aiu_probe,
+-	.remove = aiu_remove,
++	.remove_new = aiu_remove,
+ 	.driver = {
+ 		.name = "meson-aiu",
+ 		.of_match_table = aiu_of_match,
 -- 
 2.39.2
 

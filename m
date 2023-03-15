@@ -2,412 +2,208 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F92D6C1ED2
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:00:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8216C1EDA
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:01:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7490A1F9;
-	Mon, 20 Mar 2023 19:00:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7490A1F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1164A847;
+	Mon, 20 Mar 2023 19:00:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1164A847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679335254;
-	bh=soQgI/9dH9NW7PVBV1PynA5L9fAZKHTXphwaQzPEfSU=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=dBKksgWfxXVlLa95ur7Jv7Pbd4TXvsdpH7J539Wgu4Dop/GI8Ns2R+C1PnQpCkZco
-	 QZnHVp8GKo3PnkapYzcLkEer36RaauljxrEL8nkW/L+297WqACNBeMzNdu/BS1k8xr
-	 0QLaVzz9VfYuoL3SM0gbygNvPoppCcTljTIxnlbY=
+	s=default; t=1679335299;
+	bh=wLKqHQRjI2D2KZUIOXY/jJbOJxCaUAFsauLmbN33B2s=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DyzqR0rAqtfj77ySSLZbzWIHxEALPnesLqhQStuJa6DW5qqv6LrOej9SMaTjjkudm
+	 SwRdcRTnjE+DyOvFC3cHCoEzn88zAB4pdU3yPyFnWegevi2tBpzWHH88AJ2HKuPiI1
+	 1/XjpYluuCnO59GjzgTGvg1XPXMyjF9JPnjg5mvw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF26FF80529;
-	Mon, 20 Mar 2023 18:58:32 +0100 (CET)
-To: James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring
-	<robh+dt@kernel.org>
-Subject: [PATCH v3 5/5] ASoC: cs35l45: Hibernation support
-Date: Wed, 15 Mar 2023 10:47:22 -0500
-In-Reply-To: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
-References: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-X-Mailman-Approved-At: Mon, 20 Mar 2023 17:58:13 +0000
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QY7NN46ZFIGAGICA2FYRSHIPE5ZYEXD/>
-List-Archive: <>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167933511185.26.10641185496218226278@mailman-core.alsa-project.org>
-From: Vlad Karpovich via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- "Vlad.Karpovich" <vkarpovi@opensource.cirrus.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id A99A8F80557;
+	Mon, 20 Mar 2023 18:59:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E307F80571; Wed, 15 Mar 2023 16:48:09 +0100 (CET)
+	id DB588F80423; Wed, 15 Mar 2023 18:43:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5CFCF80564
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 16:47:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5CFCF80564
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4E143F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 18:43:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E143F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Y/i7lHzd
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32FFMICO019360;
-	Wed, 15 Mar 2023 10:47:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=bQStFoqbeGVMMU6tdxat9vYq90aSti2LujKJG0D9iPE=;
- b=Y/i7lHzdZEoTsUElplofd1etx3YW0ffHOPmlToQs3qcQOmMPHdRnDMvGQzFp3TmKnlhH
- v5LPawDfmIC3QHQk7ZuwEE5w2rvDaKAeIZHoruQye84qzbLAeLJsVceyIePcSUBTvTnM
- Z6fFSENRYkt/m11EZmxQW5CKCPfc7l0JK2PADR2MVaapTPw8igCKDY2MylOzpwzw4Uji
- fI/99Hjp/DmgIoMSR+bm5+YE1+TEMeURv+vbzGdcTlVVPY5t1k0G8p6o0Yg70j4EBLwO
- ZTSzf56eTV9mTGrqd8/qmygckCx/mamVSlysk3fNyBvLWuRrkj1yALEE0MbYvc+58dKx mQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pb7utgrqd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 15 Mar 2023 10:47:52 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Wed, 15 Mar
- 2023 10:47:51 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
- Transport; Wed, 15 Mar 2023 10:47:51 -0500
-Received: from vkarpovich-ThinkStation-P620.crystal.cirrus.com
- (vkarpovich-ThinkStation-P620.ad.cirrus.com [141.131.206.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 732D02A1;
-	Wed, 15 Mar 2023 15:47:49 +0000 (UTC)
-From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
-To: James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring
-	<robh+dt@kernel.org>
-Subject: [PATCH v3 5/5] ASoC: cs35l45: Hibernation support
-Date: Wed, 15 Mar 2023 10:47:22 -0500
-Message-ID: <20230315154722.3911463-5-vkarpovi@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
-References: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=PU6a6Bo1
+Received: by mail-lj1-x22c.google.com with SMTP id l22so2185539ljc.11
+        for <alsa-devel@alsa-project.org>;
+ Wed, 15 Mar 2023 10:43:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678902191;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QOzpvocKnFn0bAY8kRGLV91Cn/phdFGP7VeaxQqiMc4=;
+        b=PU6a6Bo1HBsIOsXuNxNPjGHmlOnM3WpM2kO9fAy259HWUtfyjGdYxZEH9ZnYBkpVO5
+         kDEEmKGRrjskEwEsKOBIpNobTQVBUfhgjQUGxPl9LWd9iRUo8YUq06Q7PPUYIgZK/Kdx
+         ODcxcaefggEbctRVYy+yERJLWEi8azmbt9YFFgrhuuzQVMkOo8Rheo6Tte4ZmcKujJtM
+         lJgFaCS0o1yzqPWDb1diMRg5RQPOwmUcNa/Vm/FwIM3SRxwWmaKJuQwjpb4zjqUVnotp
+         eeqgpLeOkixV6RQ3MBZvfKkKHE8abN6nlPt4PTMtWgbJqLs4SC5Kmd0zAg3WQ/H429gR
+         afNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678902191;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QOzpvocKnFn0bAY8kRGLV91Cn/phdFGP7VeaxQqiMc4=;
+        b=Wu2OtBE6M3yn2CU8Zf9e88ULCokL7nv1OApp+8Cd6S1QU5yNuKfQveH3iG1LtNv03B
+         nt+WTlb9QTcxNScZCZzjfooFWrQrySvfBBhmTYvUjXRr7hGWa4e7nspNhF7GyE2tfsw7
+         GpQysC77TTx0jpVucX38Y8hTEiqgr3ZwLGvpac6Sd8IYVsd1INno2wDKi2AKxXuDyS5G
+         gW4VzhSNB+Ki3Qid9O7OtoosiF2azUSGDNXug8vEn8GS/fyqflnzjo7H1x7RHSwwwJ38
+         A5ZT7dBg7qACktGHN7+Ca408lrYzFT+QBsxUcfZmDDviMTgOjb9WtlPxNJ7WiMECx9hR
+         MJeA==
+X-Gm-Message-State: AO0yUKUmac9mKRta3rEPr5NMkdORUe9ecQWgAgvAITSOmDG4YXAq6N9x
+	riCzYKpGwOzKXq/51ReVsFY=
+X-Google-Smtp-Source: 
+ AK7set9BOXMjvo9FUWWObEWS1XtxgqYPJQ6b1AdcZ2lDSva8HdsWyaENajgJqB/WNCNScPJPi6JWKA==
+X-Received: by 2002:a2e:a54a:0:b0:298:aa76:2fb8 with SMTP id
+ e10-20020a2ea54a000000b00298aa762fb8mr1439229ljn.12.1678902190973;
+        Wed, 15 Mar 2023 10:43:10 -0700 (PDT)
+Received: from otabekn-HP-ProBook-650-G4.. ([93.170.231.237])
+        by smtp.googlemail.com with ESMTPSA id
+ s25-20020a2e9c19000000b0029870223d23sm927000lji.73.2023.03.15.10.43.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Mar 2023 10:43:10 -0700 (PDT)
+From: Otabek Nazrullaev <otabeknazrullaev1998@gmail.com>
+To: 
+Subject: [PATCH] ASoC: dt-bindings: maxim,max9759: Convert to DT schema.
+Date: Thu, 16 Mar 2023 02:33:30 +0900
+Message-Id: <20230315173404.7215-1-otabeknazrullaev1998@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: oA3mm_BNseWrPiJNZL9Xv9rx_dZoX7E2
-X-Proofpoint-GUID: oA3mm_BNseWrPiJNZL9Xv9rx_dZoX7E2
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=843822f42b=vkarpovi@opensource.cirrus.com
+X-MailFrom: otabeknazrullaev1998@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 3QY7NN46ZFIGAGICA2FYRSHIPE5ZYEXD
-X-Message-ID-Hash: 3QY7NN46ZFIGAGICA2FYRSHIPE5ZYEXD
-X-Mailman-Approved-At: Mon, 20 Mar 2023 17:58:13 +0000
-CC: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- "Vlad.Karpovich" <vkarpovi@opensource.cirrus.com>
+Message-ID-Hash: 6GSNO5FTJTVTAZUJCGOMP7MIMWSH6J3Q
+X-Message-ID-Hash: 6GSNO5FTJTVTAZUJCGOMP7MIMWSH6J3Q
+X-Mailman-Approved-At: Mon, 20 Mar 2023 17:59:13 +0000
+CC: Otabek Nazrullaev <otabeknazrullaev1998@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QY7NN46ZFIGAGICA2FYRSHIPE5ZYEXD/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6GSNO5FTJTVTAZUJCGOMP7MIMWSH6J3Q/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: "Vlad.Karpovich" <vkarpovi@opensource.cirrus.com>
+Convert Maxim MAX9759 Speaker Amplifier bindings to DT schema.
+Add missing gpio header file into examples section
 
-Adds support for a low-power Hibernation State.
-Add support for a low-power hibernation state for the DSP. In
-this state the DSP RAM contents are maintained, such that
-firmware does not need to be re-downloaded, but the rest of the
-chip's register state is lost.
-Entry to this state is achieved via the register interface
-(either by an external driver using the control port, or the
-programmable DSP). Exit from this state is triggered by activity
-on device GPIO pins, intended SPI transaction, or I2C
-transaction with intended slave address.
-
-Signed-off-by: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
+Signed-off-by: Otabek Nazrullaev <otabeknazrullaev1998@gmail.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/codecs/cs35l45-i2c.c    |  2 +
- sound/soc/codecs/cs35l45-spi.c    |  1 +
- sound/soc/codecs/cs35l45-tables.c |  6 +++
- sound/soc/codecs/cs35l45.c        | 80 +++++++++++++++++++++++++++++++
- sound/soc/codecs/cs35l45.h        | 29 +++++++++++
- 5 files changed, 118 insertions(+)
+ .../bindings/sound/maxim,max9759.txt          | 18 --------
+ .../bindings/sound/maxim,max9759.yaml         | 45 +++++++++++++++++++
+ 2 files changed, 45 insertions(+), 18 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/maxim,max9759.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/maxim,max9759.yaml
 
-diff --git a/sound/soc/codecs/cs35l45-i2c.c b/sound/soc/codecs/cs35l45-i2c.c
-index 5224aaf584b8..1c644ddf66bc 100644
---- a/sound/soc/codecs/cs35l45-i2c.c
-+++ b/sound/soc/codecs/cs35l45-i2c.c
-@@ -33,6 +33,8 @@ static int cs35l45_i2c_probe(struct i2c_client *client)
- 
- 	cs35l45->dev = dev;
- 	cs35l45->irq = client->irq;
-+	cs35l45->bus_type = CONTROL_BUS_I2C;
-+	cs35l45->i2c_addr = client->addr;
- 
- 	return cs35l45_probe(cs35l45);
- }
-diff --git a/sound/soc/codecs/cs35l45-spi.c b/sound/soc/codecs/cs35l45-spi.c
-index bfb79255783e..3ea2e6fd2b88 100644
---- a/sound/soc/codecs/cs35l45-spi.c
-+++ b/sound/soc/codecs/cs35l45-spi.c
-@@ -36,6 +36,7 @@ static int cs35l45_spi_probe(struct spi_device *spi)
- 
- 	cs35l45->dev = dev;
- 	cs35l45->irq = spi->irq;
-+	cs35l45->bus_type = CONTROL_BUS_SPI;
- 
- 	return cs35l45_probe(cs35l45);
- }
-diff --git a/sound/soc/codecs/cs35l45-tables.c b/sound/soc/codecs/cs35l45-tables.c
-index 6b68773979ec..212d9cb5a4fb 100644
---- a/sound/soc/codecs/cs35l45-tables.c
-+++ b/sound/soc/codecs/cs35l45-tables.c
-@@ -47,6 +47,8 @@ static const struct reg_default cs35l45_defaults[] = {
- 	{ CS35L45_INTB_GPIO2_MCLK_REF,		0x00000005 },
- 	{ CS35L45_GPIO3,			0x00000005 },
- 	{ CS35L45_PWRMGT_CTL,			0x00000000 },
-+	{ CS35L45_WAKESRC_CTL,			0x00000008 },
-+	{ CS35L45_WKI2C_CTL,			0x00000030 },
- 	{ CS35L45_REFCLK_INPUT,			0x00000510 },
- 	{ CS35L45_GLOBAL_SAMPLE_RATE,		0x00000003 },
- 	{ CS35L45_ASP_ENABLES1,			0x00000000 },
-@@ -126,6 +128,9 @@ static bool cs35l45_readable_reg(struct device *dev, unsigned int reg)
- 	case CS35L45_INTB_GPIO2_MCLK_REF:
- 	case CS35L45_GPIO3:
- 	case CS35L45_PWRMGT_CTL:
-+	case CS35L45_WAKESRC_CTL:
-+	case CS35L45_WKI2C_CTL:
-+	case CS35L45_PWRMGT_STS:
- 	case CS35L45_REFCLK_INPUT:
- 	case CS35L45_GLOBAL_SAMPLE_RATE:
- 	case CS35L45_ASP_ENABLES1:
-@@ -210,6 +215,7 @@ static bool cs35l45_volatile_reg(struct device *dev, unsigned int reg)
- 	case CS35L45_GLOBAL_ENABLES:
- 	case CS35L45_ERROR_RELEASE:
- 	case CS35L45_AMP_PCM_HPF_TST:	/* not cachable */
-+	case CS35L45_PWRMGT_STS:
- 	case CS35L45_IRQ1_STATUS:
- 	case CS35L45_IRQ1_EINT_1 ... CS35L45_IRQ1_EINT_18:
- 	case CS35L45_IRQ1_STS_1 ... CS35L45_IRQ1_STS_18:
-diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-index e7b40b063eb2..8a351cb6d692 100644
---- a/sound/soc/codecs/cs35l45.c
-+++ b/sound/soc/codecs/cs35l45.c
-@@ -36,6 +36,8 @@ static bool cs35l45_check_cspl_mbox_sts(const enum cs35l45_cspl_mboxcmd cmd,
- 		return (sts == CSPL_MBOX_STS_RUNNING);
- 	case CSPL_MBOX_CMD_STOP_PRE_REINIT:
- 		return (sts == CSPL_MBOX_STS_RDY_FOR_REINIT);
-+	case CSPL_MBOX_CMD_HIBERNATE:
-+		return (sts == CSPL_MBOX_STS_HIBERNATE);
- 	default:
- 		return false;
- 	}
-@@ -744,11 +746,81 @@ static const struct snd_soc_component_driver cs35l45_component = {
- 	.endianness = 1,
- };
- 
-+static void cs35l45_setup_hibernate(struct cs35l45_private *cs35l45)
-+{
-+	unsigned int wksrc;
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max9759.txt b/Documentation/devicetree/bindings/sound/maxim,max9759.txt
+deleted file mode 100644
+index 737a996374d3..000000000000
+--- a/Documentation/devicetree/bindings/sound/maxim,max9759.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-Maxim MAX9759 Speaker Amplifier
+-===============================
+-
+-Required properties:
+-- compatible : "maxim,max9759"
+-- shutdown-gpios : the gpio connected to the shutdown pin
+-- mute-gpios : the gpio connected to the mute pin
+-- gain-gpios : the 2 gpios connected to the g1 and g2 pins
+-
+-Example:
+-
+-max9759: analog-amplifier {
+-	compatible = "maxim,max9759";
+-	shutdown-gpios = <&gpio3 20 GPIO_ACTIVE_LOW>;
+-	mute-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
+-	gain-gpios = <&gpio3 23 GPIO_ACTIVE_LOW>,
+-		     <&gpio3 25 GPIO_ACTIVE_LOW>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max9759.yaml b/Documentation/devicetree/bindings/sound/maxim,max9759.yaml
+new file mode 100644
+index 000000000000..a76ee6a635af
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/maxim,max9759.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/maxim,max9759.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	if (cs35l45->bus_type == CONTROL_BUS_I2C)
-+		wksrc = CS35L45_WKSRC_I2C;
-+	else
-+		wksrc = CS35L45_WKSRC_SPI;
++title: Maxim MAX9759 Speaker Amplifier
 +
-+	regmap_update_bits(cs35l45->regmap, CS35L45_WAKESRC_CTL,
-+			   CS35L45_WKSRC_EN_MASK,
-+			   wksrc << CS35L45_WKSRC_EN_SHIFT);
++maintainers:
++  - Otabek Nazrullaev <otabeknazrullaev1998@gmail.com>
 +
-+	regmap_set_bits(cs35l45->regmap, CS35L45_WAKESRC_CTL,
-+			   CS35L45_UPDT_WKCTL_MASK);
++properties:
++  compatible:
++    const: maxim,max9759
 +
-+	regmap_update_bits(cs35l45->regmap, CS35L45_WKI2C_CTL,
-+			   CS35L45_WKI2C_ADDR_MASK, cs35l45->i2c_addr);
++  shutdown-gpios:
++    maxItems: 1
++    description: the gpio connected to the shutdown pin
 +
-+	regmap_set_bits(cs35l45->regmap, CS35L45_WKI2C_CTL,
-+			   CS35L45_UPDT_WKI2C_MASK);
-+}
++  mute-gpios:
++    maxItems: 1
++    description: the gpio connected to the mute pin
 +
-+static int cs35l45_enter_hibernate(struct cs35l45_private *cs35l45)
-+{
-+	dev_dbg(cs35l45->dev, "Enter hibernate\n");
++  gain-gpios:
++    maxItems: 2
++    description: the 2 gpios connected to the g1 and g2 pins
 +
-+	cs35l45_setup_hibernate(cs35l45);
++required:
++  - compatible
++  - shutdown-gpios
++  - mute-gpios
++  - gain-gpios
 +
-+	// Don't wait for ACK since bus activity would wake the device
-+	regmap_write(cs35l45->regmap, CS35L45_DSP_VIRT1_MBOX_1, CSPL_MBOX_CMD_HIBERNATE);
++additionalProperties: false
 +
-+	return 0;
-+}
-+
-+static int cs35l45_exit_hibernate(struct cs35l45_private *cs35l45)
-+{
-+	const int wake_retries = 20;
-+	const int sleep_retries = 5;
-+	int ret, i, j;
-+
-+	for (i = 0; i < sleep_retries; i++) {
-+		dev_dbg(cs35l45->dev, "Exit hibernate\n");
-+
-+		for (j = 0; j < wake_retries; j++) {
-+			ret = cs35l45_set_cspl_mbox_cmd(cs35l45, cs35l45->regmap,
-+					  CSPL_MBOX_CMD_OUT_OF_HIBERNATE);
-+			if (!ret) {
-+				dev_dbg(cs35l45->dev, "Wake success at cycle: %d\n", j);
-+				return 0;
-+			}
-+			usleep_range(100, 200);
-+		}
-+
-+		dev_err(cs35l45->dev, "Wake failed, re-enter hibernate: %d\n", ret);
-+
-+		cs35l45_setup_hibernate(cs35l45);
-+	}
-+
-+	dev_err(cs35l45->dev, "Timed out waking device\n");
-+
-+	return -ETIMEDOUT;
-+}
-+
- static int __maybe_unused cs35l45_runtime_suspend(struct device *dev)
- {
- 	struct cs35l45_private *cs35l45 = dev_get_drvdata(dev);
- 
-+	if (!cs35l45->dsp.preloaded || !cs35l45->dsp.cs_dsp.running)
-+		return 0;
-+
-+	cs35l45_enter_hibernate(cs35l45);
-+
- 	regcache_cache_only(cs35l45->regmap, true);
-+	regcache_mark_dirty(cs35l45->regmap);
- 
- 	dev_dbg(cs35l45->dev, "Runtime suspended\n");
- 
-@@ -760,9 +832,17 @@ static int __maybe_unused cs35l45_runtime_resume(struct device *dev)
- 	struct cs35l45_private *cs35l45 = dev_get_drvdata(dev);
- 	int ret;
- 
-+	if (!cs35l45->dsp.preloaded || !cs35l45->dsp.cs_dsp.running)
-+		return 0;
-+
- 	dev_dbg(cs35l45->dev, "Runtime resume\n");
- 
- 	regcache_cache_only(cs35l45->regmap, false);
-+
-+	ret = cs35l45_exit_hibernate(cs35l45);
-+	if (ret)
-+		return ret;
-+
- 	ret = regcache_sync(cs35l45->regmap);
- 	if (ret != 0)
- 		dev_warn(cs35l45->dev, "regcache_sync failed: %d\n", ret);
-diff --git a/sound/soc/codecs/cs35l45.h b/sound/soc/codecs/cs35l45.h
-index 87032619b341..0da28439f628 100644
---- a/sound/soc/codecs/cs35l45.h
-+++ b/sound/soc/codecs/cs35l45.h
-@@ -30,6 +30,9 @@
- #define CS35L45_INTB_GPIO2_MCLK_REF		0x00002434
- #define CS35L45_GPIO3				0x00002438
- #define CS35L45_PWRMGT_CTL			0x00002900
-+#define CS35L45_WAKESRC_CTL			0x00002904
-+#define CS35L45_WKI2C_CTL			0x00002908
-+#define CS35L45_PWRMGT_STS			0x0000290C
- #define CS35L45_REFCLK_INPUT			0x00002C04
- #define CS35L45_GLOBAL_SAMPLE_RATE		0x00002C0C
- #define CS35L45_BOOST_CCM_CFG			0x00003808
-@@ -348,6 +351,25 @@
- #define CS35L45_POST_GLOBAL_EN_US		5000
- #define CS35L45_PRE_GLOBAL_DIS_US		3000
- 
-+/* WAKESRC_CTL */
-+#define CS35L45_WKSRC_SYNC_GPIO1		BIT(0)
-+#define CS35L45_WKSRC_INT_GPIO2			BIT(1)
-+#define CS35L45_WKSRC_GPIO3			BIT(2)
-+#define CS35L45_WKSRC_SPI			BIT(3)
-+#define CS35L45_WKSRC_I2C			BIT(4)
-+#define CS35L45_UPDT_WKCTL_SHIFT		15
-+#define CS35L45_UPDT_WKCTL_MASK			BIT(15)
-+#define CS35L45_WKSRC_EN_SHIFT			8
-+#define CS35L45_WKSRC_EN_MASK			GENMASK(12, 8)
-+#define CS35L45_WKSRC_POL_SHIFT			0
-+#define CS35L45_WKSRC_POL_MASK			GENMASK(3, 0)
-+
-+/* WAKEI2C_CTL */
-+#define CS35L45_UPDT_WKI2C_SHIFT		15
-+#define CS35L45_UPDT_WKI2C_MASK			BIT(15)
-+#define CS35L45_WKI2C_ADDR_SHIFT		0
-+#define CS35L45_WKI2C_ADDR_MASK			GENMASK(6, 0)
-+
- #define CS35L45_SPI_MAX_FREQ			4000000
- 
- enum cs35l45_cspl_mboxstate {
-@@ -369,6 +391,11 @@ enum cs35l45_cspl_mboxcmd {
- 	CSPL_MBOX_CMD_INVALID_SEQUENCE = -2,
- };
- 
-+enum control_bus_type {
-+	CONTROL_BUS_I2C = 0,
-+	CONTROL_BUS_SPI = 1,
-+};
-+
- #define CS35L45_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
- 			 SNDRV_PCM_FMTBIT_S24_3LE| \
- 			 SNDRV_PCM_FMTBIT_S24_LE)
-@@ -439,6 +466,8 @@ struct cs35l45_private {
- 	u8 slot_count;
- 	int irq_invert;
- 	int irq;
-+	unsigned int i2c_addr;
-+	enum control_bus_type bus_type;
- 	struct regmap_irq_chip_data *irq_data;
- };
- 
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    amplifier {
++      compatible = "maxim,max9759";
++      shutdown-gpios = <&gpio3 20 GPIO_ACTIVE_LOW>;
++      mute-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
++      gain-gpios = <&gpio3 23 GPIO_ACTIVE_LOW>,
++             <&gpio3 25 GPIO_ACTIVE_LOW>;
++    };
 -- 
-2.25.1
+2.34.1
 

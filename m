@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79D36BB466
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 14:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB886BB4BE
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 14:33:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED351266;
-	Wed, 15 Mar 2023 14:20:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED351266
+	by alsa0.perex.cz (Postfix) with ESMTPS id 973C1125A;
+	Wed, 15 Mar 2023 14:33:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973C1125A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678886486;
-	bh=PK1O3y9+r1puzLG20UwgRR1S6gFSsEgasvLF9x6/5NY=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1678887238;
+	bh=mJTyFmQ7lRhkRno0YrsyWzsjSuYv4KlKhEc2I+D+cOo=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W9MHkyUttmP2pSqOiNkJYdeayK4buBHb1aX8fjrpyZ3DyPoiwal9uNc2P3kN9NGEB
-	 IhtBK/acOhfEBi5L02i58XlKjhz8T7CZnt6qlTAwn2BgOutsRM8xMIlBHbhZrJjduf
-	 Q6Za44x/Nt16bbOw7UZVsoxnQ0H2cfjN1xzhnbrk=
+	b=PsKR3FlJF3K7L+qP41jYb9LIbSAwOH0TQqJv3rLdRi54XarVM0DSmDuIcV5D91ILH
+	 jRggPEw78Iqgp0xaHHV+v2OF4HLPSlNpoXmZT79n7CsebMPjXlaa/ctCiOKkfxGs1y
+	 xO66gjBijvOkNicrCr53lvjqNxXXn+HYEXCQZg34=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37995F80527;
-	Wed, 15 Mar 2023 14:19:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD19AF8032D;
+	Wed, 15 Mar 2023 14:33:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17AECF80423; Wed, 15 Mar 2023 14:19:41 +0100 (CET)
+	id 1FF14F80423; Wed, 15 Mar 2023 14:33:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 12FEDF8032D
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 14:19:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12FEDF8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33406F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 14:32:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33406F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SGJDQiCp
+ header.s=k20201202 header.b=uDwNglAp
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3731861D5E;
-	Wed, 15 Mar 2023 13:19:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19EF7C4339B;
-	Wed, 15 Mar 2023 13:19:29 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id ED76AB81DFF;
+	Wed, 15 Mar 2023 13:32:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC399C433EF;
+	Wed, 15 Mar 2023 13:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678886370;
-	bh=PK1O3y9+r1puzLG20UwgRR1S6gFSsEgasvLF9x6/5NY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SGJDQiCpfkjYDWVKIBsO0J50So8Ary9yLv5FfMndcD/tvAGNjnfSuHtLQ+rOeQc3h
-	 4g0WgVsV2XFQANFJnqOnwWZiSkpX3ERrw+oz5LplzMPd2wJ2m2e/LO4uLRY9DfaLDy
-	 f4uNKdRjtj2VuNqO9svQPOndXjjk++gq3XQjxnUcOWnUdbfoRWiUnDwvaSsmhbO8UX
-	 dLU97k3za/WV6V21yR2gbuceTE14TDCFUrj0/+MAT1I+5HXTp9oE6boCCbHKbkJPlH
-	 E6XSreONM40bx/RiK4+X2pg3JipvlFv89VpF49CxIv8YeAlMUqD3gdwBWwOkJzpfN/
-	 pecZNu0zBrXkA==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87v8je64dh.wl-kuninori.morimoto.gx@renesas.com>
-References: <87v8je64dh.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-pcm.c: remove indirect runtime copy
-Message-Id: <167888636983.25434.15496395610678093750.b4-ty@kernel.org>
-Date: Wed, 15 Mar 2023 13:19:29 +0000
+	s=k20201202; t=1678887172;
+	bh=mJTyFmQ7lRhkRno0YrsyWzsjSuYv4KlKhEc2I+D+cOo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uDwNglApiS/OSnY6eVLeEi+PgkzkwwexumhcikV4F+037vmwMZbBQVmoJtJsxyKvD
+	 U7bxkQXWuK2A2vKcM1moDTM4LuIYzk7LRoHXrnDlsA8TCikXSgUmUdpbnjkHgMwxCj
+	 xEa/7jOjiUVRTYAdmUEjfXMZT1OLg+CRiGjcwCT4NLFfrQQMitySiPXeBDho1TIF4c
+	 Wkxfa2n/xZAFC+AqGGQU2JE/qioj3htYRO0acjXEXYPu03tzFad+aRhR/nMSyKMIrj
+	 HtPAK1mGIoLmqK2DEYn2/GwDGj8PUewO8RPRewxMvoasB2WuEPzd1fTi8pKnQ8Jy7l
+	 TQQgkVTSRqxkw==
+Date: Wed, 15 Mar 2023 19:02:48 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] soundwire: dmi-quirks: add remapping for Intel 'Rooks
+ County' NUC M15
+Message-ID: <ZBHJAH6WI1aWq9kd@matsya>
+References: <20230314090618.498716-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: CF2DR4WTQ7YRAE7G3ELXEG6ZOD22JOM6
-X-Message-ID-Hash: CF2DR4WTQ7YRAE7G3ELXEG6ZOD22JOM6
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230314090618.498716-1-yung-chuan.liao@linux.intel.com>
+Message-ID-Hash: UAMBSVOXEMNSV4I6QPS3Y4TTLGZQM7YJ
+X-Message-ID-Hash: UAMBSVOXEMNSV4I6QPS3Y4TTLGZQM7YJ
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
+ broonie@kernel.org, peter.ujfalusi@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CF2DR4WTQ7YRAE7G3ELXEG6ZOD22JOM6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UAMBSVOXEMNSV4I6QPS3Y4TTLGZQM7YJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,43 +94,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 06 Mar 2023 01:43:54 +0000, Kuninori Morimoto wrote:
-> substream->runtime will be attached when substream was opened
-> at snd_pcm_attach_substream(). When it uses DPCM,
-> FE substream->runtime is attached, but BE substream->runtime is not.
-> Thus, we are copying FE substream->runtime to BE.
+On 14-03-23, 17:06, Bard Liao wrote:
+> From: Eugene Huang <eugene.huang99@gmail.com>
 > 
-> But, we are copyig FE substream->runtime to FE dpcm->runtime first (A),
-> and copy it to BE dpcm->runtime (B), and copy it to
-> BE substream->runtime (C).
+> Same DSDT problem as the HP Omen 16-k0005TX, except rt1316 amp is on
+> link2.
 > 
-> [...]
+> Link: https://github.com/thesofproject/linux/issues/4088
+> Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Applied to
+Applied, thanks
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: soc-pcm.c: remove indirect runtime copy
-      commit: 0d3a5178c2994eaf91ad135816a79138055b394a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+~Vinod

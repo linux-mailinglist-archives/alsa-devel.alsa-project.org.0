@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B33E16BB613
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 15:32:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56446BB64F
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 15:39:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A66820B;
-	Wed, 15 Mar 2023 15:31:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A66820B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9795A125F;
+	Wed, 15 Mar 2023 15:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9795A125F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678890742;
-	bh=z2C/BkfaVtAyVUV8tLuReKIAo/iPls0ApsKzq+thVY0=;
+	s=default; t=1678891181;
+	bh=rNfYVw1Y+3DpMigD974Ti51cxEjaa+Bxwr0aNjinN1I=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BXHDsS/ljlveSIcb/sVSJEYjFhplUD+laXuXONbbenuKrWRvAxXDzVLDozQX/KleR
-	 YmO1r2AS0WVskfveIYI4nRWrVtEtsF1ivlTf3pANn6/MQv3J136ic8CwCKsXdzrI9q
-	 oQVUe8OrOXrXo2rfN71ISy7/xSRQ2YQfG4sKxLUc=
+	b=DVz6vZ5tW4JXJhA2nDM737WL/TkrBTcxacw785RkKc9MCxKqcc/nhuSVrM65olMvh
+	 qi3KHlq5iApjKd/vA2NWea9wVug5sX4Gxv27+MPJv+YTikpd4KZBTrXc8pvyOClFza
+	 qqeHy/sETLvHpX0H1Ku3rAwuoWvKwwE0wMDn3JB0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0107F8032D;
-	Wed, 15 Mar 2023 15:31:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F4074F8032D;
+	Wed, 15 Mar 2023 15:38:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 815F0F80423; Wed, 15 Mar 2023 15:31:27 +0100 (CET)
+	id 7228DF80423; Wed, 15 Mar 2023 15:38:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,67 +33,56 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39478F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 15:31:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39478F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 433E2F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 15:38:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 433E2F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cFj4BJ8W
+ header.s=Intel header.b=n4wn1Lmv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678890676; x=1710426676;
+  t=1678891125; x=1710427125;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=z2C/BkfaVtAyVUV8tLuReKIAo/iPls0ApsKzq+thVY0=;
-  b=cFj4BJ8WiG7/8OVSyMlWgUIZNxPgXgBcy4pKKUJrjasoJIao7EnDzhUK
-   RJB82gE3ibu/7nt23OEpCCVS5URA5d4OJ/WahCSi/QQLr9CrJ08La/ndd
-   ahWwmpXkzAYF+/bPBZ+32NKXg49ovIghspwEEXcLbKhbFfg/Wet2Hbm4P
-   GIdbYYZBDqyIVo0v0ne/SSMvgoF0wpb1rzG5zT7qN3wB04EfGqOOuHGAF
-   5rgD+OsyQBIOiYF2bkXWGMLfVUX4G0I0BFhqqmPLogFvLdIrnjH61l90z
-   PuKiEfP63wwrZE68Eo78oThmr/eqYRs8UZ6Nyxzba5CH+dZnD9etHC6ii
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="423987756"
+  bh=rNfYVw1Y+3DpMigD974Ti51cxEjaa+Bxwr0aNjinN1I=;
+  b=n4wn1LmvYFMLu3m5e+d0hIDwH3apQiNq1bXlozIlvwndoZLOgAddH+t4
+   +VcRqvxFInXRMY555EUkWBF9llSUleW0ku3KT0AX7/yBQNOUEewywT4WM
+   171ApcUn91d1YJokVWb9Fstb/RtnXUbWhOwnfpJGXLKCDojcX0JNRLgN0
+   S/oiq08utp11YtGGLoshvzejZ2AUpKgvOmUeNc6e2DIEYguqcObdLrAN8
+   +R8/b2RXJBMg2MRmrrMWv1BMf+h/ZPcuHhRXiE8uE5mpPpRWJpFtiaViW
+   QHeBNZYUO1flh0D7orwkNp6e3HCQZT0pwPGHbGzbGrf/mIjFY27Fj6gU9
+   A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="423990090"
 X-IronPort-AV: E=Sophos;i="5.98,262,1673942400";
-   d="scan'208";a="423987756"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+   d="scan'208";a="423990090"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
   by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 07:31:01 -0700
+ 15 Mar 2023 07:38:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="748450293"
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="681872352"
 X-IronPort-AV: E=Sophos;i="5.98,262,1673942400";
-   d="scan'208";a="748450293"
+   d="scan'208";a="681872352"
 Received: from rperez12-mobl.amr.corp.intel.com (HELO [10.255.35.81])
  ([10.255.35.81])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 07:30:59 -0700
-Message-ID: <6b811766-cd2a-54c0-d090-640812686a45@linux.intel.com>
-Date: Wed, 15 Mar 2023 09:30:58 -0500
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 07:38:41 -0700
+Message-ID: <c40192e9-6207-3204-819f-abbabc320c38@linux.intel.com>
+Date: Wed, 15 Mar 2023 09:38:40 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.8.0
-Subject: Re: [PATCH v3 00/28] Introduce QC USB SND audio offloading support
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, broonie@kernel.org,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, agross@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, andersson@kernel.org,
- robh+dt@kernel.org, gregkh@linuxfoundation.org, tiwai@suse.com
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <4f8a66c0-398f-5655-3aa7-a59bc9ba56cc@linux.intel.com>
- <8b2f3ce7-3e0c-bdf0-8d9f-9aeabba09a15@quicinc.com>
- <a211f26d-a045-0729-871f-248d5fce3f3f@linux.intel.com>
- <684daf86-6c3f-7310-eebf-4ebfc3c480ca@quicinc.com>
- <8a37ccd3-f19e-b30d-d736-04e81b49f3a0@linux.intel.com>
- <0810f951-f4a6-a51d-97e3-43691b05f702@quicinc.com>
- <b671e263-5cb8-18e5-dc28-648ab1133c6c@linux.intel.com>
- <14d726a7-6ffc-705c-b012-0c08d7dd7b9b@quicinc.com>
+Subject: Re: [PATCH] soundwire: stream: uniquify dev_err() logs
 Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20230309054905.21507-1-yung-chuan.liao@linux.intel.com>
+ <ZBGZR2ACa8AbNmvy@matsya>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <14d726a7-6ffc-705c-b012-0c08d7dd7b9b@quicinc.com>
+In-Reply-To: <ZBGZR2ACa8AbNmvy@matsya>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: X7QSXFWHXAK3K2DJKJA5M4KNAFD5RXZR
-X-Message-ID-Hash: X7QSXFWHXAK3K2DJKJA5M4KNAFD5RXZR
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: TKG46JE43FPX72FJ4IDLKPTHL4BZG5ZR
+X-Message-ID-Hash: TKG46JE43FPX72FJ4IDLKPTHL4BZG5ZR
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,15 +90,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ bard.liao@intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7QSXFWHXAK3K2DJKJA5M4KNAFD5RXZR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKG46JE43FPX72FJ4IDLKPTHL4BZG5ZR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,77 +106,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Wesley,
 
-> Sorry made a mistake on the diagram.  There is no connection from
-> SOC-USB to the APR/GLINK.  The Q6USB driver will be the one that is
-> going to configure some of the Q6AFE ports along withe the Q6AFE DAI
-> driver.
-> 
-> |            ASoC
-> ----------------------------------
-> |  _________________________
-> | |sm8250 platform card     |
-> | |_________________________|
-> |         |           |
-> |      ___V____   ____V____
-> |     |Q6USB   | |Q6AFE    |  #5
-> |     |"codec" | |"cpu"    |
-> |     |________| |_________|
-> |         ^  ^        ^
-> |      #6 |  |________|
-> |      ___V____     |
-> |     |SOC-USB |    |
-> #7    |        |    |
-> ----->|________|    |
-> ---                 |
-> | |                 |
-> | |    _____________V________
-> | |   |APR/GLINK             |
-> | |   |______________________|
-> | |              ^
-> | | #8           |
-> | |   ___________V___________
-> | |->|audio DSP              |
-> |    |_______________________|
-> |
-> |
-> 
->>>
 
-Makes sense now, thank you for the clarification.
-
-I'll have to dig more in this 'soc-usb' block, it's clearly a key
-component that will have to maintain a consistent state across two
-different parts of the stack and deal with probe/remove/shutdown.
-
->> My initial thought was to add a 'DSP offload' PCM to the USB card, you
->> added a "USB offload" PCM to the DSP card. Nice logical swap!
+On 3/15/23 05:09, Vinod Koul wrote:
+> On 09-03-23, 13:49, Bard Liao wrote:
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 >>
->> Your proposal might be easier in practice since there's typically a
->> vendor-specific configuration file (UCM or custom) file for the DSP,
->> where USB information can be added.
+>> There are a couple of duplicate logs which makes harder than needed to
+>> follow the error flows. Add __func__ or make the log unique.
 >>
->> It's more problematic to change a generic USB card as we know it today
->> and bolt vendor-specific DSP information on top.
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> ---
+>>  drivers/soundwire/stream.c | 18 ++++++++++--------
+>>  1 file changed, 10 insertions(+), 8 deletions(-)
 >>
->> The only open I have with your option is that there are still two
->> control paths to e.g. set the volume. It would be so much easier for
->> userspace if there was a single volume control no matter what path is
->> used for data, or make sure the kcontrols are 'mirrored' somehow. If we
->> found a way to address this issue that would be ideal.
->>
+>> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+>> index 2e39587ed1de..dd09855caac9 100644
+>> --- a/drivers/soundwire/stream.c
+>> +++ b/drivers/soundwire/stream.c
+>> @@ -1389,7 +1389,7 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
+>>  
+>>  	ret = do_bank_switch(stream);
+>>  	if (ret < 0) {
+>> -		dev_err(bus->dev, "Bank switch failed: %d\n", ret);
+>> +		pr_err("%s: do_bank_switch failed: %d\n", __func__, ret);
 > 
-> Got it.  Let me look to see if that is something we can address/add.  I
-> think the current implementation is that USB SND will expose some mixer
-> controls based on the UAC descriptor parsing.  Then when they want to
-> change the volume (for example) it will result in a USB SETUP transaction.
-> 
-> So USB SND will eventually be the entity controlling these changes.
+> why make it pr_ and loose the dev name? There is a trick to emit
+> function for dev_err too using dynamic debug
 
-That's probably ok then, am I getting this right that the the DSP card
-would not expose any USB-related kcontrols then, i.e. the ONLY path to
-change volumes, etc.,  would through the regular USB card kcontrols?
+a stream can be cased on multiple managers/buses.
 
-That would limit the changes in the platform sound card to the addition
-of a PCM USB device.
+It's incorrect to use bus->dev in this case, see all other error cases
+in stream.c, they all use pr_err already for the same reason. bus->dev
+is only valid when dealing with a single bus, typically in loops in that
+file.
+
+That said we could have split the two changes where dev_err() is changed
+as pr_err() for clarity.
+

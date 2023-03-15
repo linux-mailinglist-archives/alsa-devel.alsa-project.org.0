@@ -2,26 +2,26 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB84D6BAFAE
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 12:52:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7136BAFAF
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 12:52:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BED1512A5;
-	Wed, 15 Mar 2023 12:51:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BED1512A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDD1D12EB;
+	Wed, 15 Mar 2023 12:51:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDD1D12EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678881141;
-	bh=91jAbaiVI273uzFOYXrVJPyeg82zysigxZ0CkKdmvtw=;
+	s=default; t=1678881156;
+	bh=uKeQEZtjo+KBFFiAlMQ7XPKG+fvRCZ1HW9EDAA64NBQ=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=WSfmTBiW2f0S3GwKyiFx+3c9BuExSGDtrPAtYm2zkbwtMYEzqOH6IPMZMyc7exE2+
-	 cgHdMxNYdnwB/z1iZR6iS9a9HY2QpYWkeJ2GUlC58oUT2W5FqfS11uwbp8gyQWirMQ
-	 sQVTsIJlFnkvt1pNcjah3Ym/E64AWWb+t+KKJvYQ=
+	b=WYP0GpwG2LxqFBhbKj9wJBF+XhqCLhmDO23RDMemszc5lGKuZN/wH3uh6ztOK2OHD
+	 KKVuSaW4QgOTOJ9RJ0G2DwL8fQyVI57F0rdwCBqWxLhlSrBIzDn5BuXJxBWN/30qqk
+	 N7eTchSVsV1HDQuvnBM4TuELynwJ1OnaWYY4Vv8Q=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 477C8F80588;
-	Wed, 15 Mar 2023 12:49:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65985F805AB;
+	Wed, 15 Mar 2023 12:49:05 +0100 (CET)
 To: Sudeep Holla <sudeep.holla@arm.com>,
 	Cristian Marussi <cristian.marussi@arm.com>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -38,8 +38,8 @@ To: Sudeep Holla <sudeep.holla@arm.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Daniel Drake <drake@endlessm.com>,
 	Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Subject: [PATCH 10/11] arm64: dts: rockchip: rk3588: Add I2S nodes
-Date: Wed, 15 Mar 2023 13:48:05 +0200
+Subject: [PATCH 11/11] arm64: dts: rockchip: rk3588-rock-5b: Add analog audio
+Date: Wed, 15 Mar 2023 13:48:06 +0200
 In-Reply-To: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
 References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -53,7 +53,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4YJQLC3E646JFJROQ26RR4K67WQR3WC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZSKHKDISLR5SCVGDYB3FVTUE5TP5TBK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -63,7 +63,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167888094016.26.5698776553721838193@mailman-core.alsa-project.org>
+ <167888094408.26.8519612268176404044@mailman-core.alsa-project.org>
 From: Cristian Ciocaltea via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
@@ -74,7 +74,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89B88F8057A; Wed, 15 Mar 2023 12:48:47 +0100 (CET)
+	id 901D4F8057C; Wed, 15 Mar 2023 12:48:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -85,31 +85,31 @@ Received: from madras.collabora.co.uk (madras.collabora.co.uk
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0168AF80567
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 12:48:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0168AF80567
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C43FF80571
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 12:48:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C43FF80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=GEmnuHjt
+ header.a=rsa-sha256 header.s=mail header.b=ZrvzslQ6
 Received: from localhost (unknown [188.24.156.231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id BB7D566030A2;
-	Wed, 15 Mar 2023 11:48:41 +0000 (GMT)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 8E64B66030A4;
+	Wed, 15 Mar 2023 11:48:45 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1678880921;
-	bh=eQCXYgqHtoDoPnQr1Kh/+2JsPmWvR1YeKeDsSCDErl8=;
+	s=mail; t=1678880925;
+	bh=wrYnFVXqR4x5khiXgk8aZhgK1Ok1W3waRicWpzY70j8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GEmnuHjtbURflUVDzcV7yWFrZAElkBCTYnUz7DjpcHovetAonO7zGPQbIan3IJAnA
-	 UcWvdUkCYQRVUVdg/tRiemEFSwjmU6kgtTqQ6nQ72p4Awe5tITzpVCMlDO18IqDn6p
-	 LGQ/Te6j5l+jy9QJlAoGUuP+us4oKwMY/bOvoHYZb6xqMFyXylDknNrbA6wB00F19Y
-	 IlVbHwUESru03GjNGeYxVyTMIpgSfRmDytfGtq8kHPS6LhWvkwVNzQRwiXjSsRUKKV
-	 wAWS7lj/+FSxwhR25bOE1IzXeHAAQakigOoSDzbw3Pk3hcn5o804pvTrZjx/P046EN
-	 KmBRFysr3KyCw==
+	b=ZrvzslQ6t0mFJsIwODjyUCMWcpCpX1Vh23/fY9DiS244etRA6/j8uUGzt9boQqdHR
+	 un7yCiajQCFimFeAnyWCWEQt/VlvijltG0Re4JcHTuRpEPCmNpAh52TzCyRVEkBP4X
+	 /k8E38z9SYh6otb6ywMwVqL7D45K+5BNNHDFnhYcLDJmjgCz5Oc+AHlHjXc/Cu44Cz
+	 ZWAXtj3HPzBXpAm9DKg7AzFRghmCUYfQ9eqOG5tzAqbhh+qM/s/8W23Fm+/lxJN/XQ
+	 KXjOpVNlnG2HqsYyconlqfCeFpDXa3ccz0l68nOqb0b1ftJsmWW6vbrbLHoxLb2I2u
+	 mJq1Zp4hoW99g==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: Sudeep Holla <sudeep.holla@arm.com>,
 	Cristian Marussi <cristian.marussi@arm.com>,
@@ -127,16 +127,16 @@ To: Sudeep Holla <sudeep.holla@arm.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Daniel Drake <drake@endlessm.com>,
 	Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Subject: [PATCH 10/11] arm64: dts: rockchip: rk3588: Add I2S nodes
-Date: Wed, 15 Mar 2023 13:48:05 +0200
-Message-Id: <20230315114806.3819515-11-cristian.ciocaltea@collabora.com>
+Subject: [PATCH 11/11] arm64: dts: rockchip: rk3588-rock-5b: Add analog audio
+Date: Wed, 15 Mar 2023 13:48:06 +0200
+Message-Id: <20230315114806.3819515-12-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
 References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: O4YJQLC3E646JFJROQ26RR4K67WQR3WC
-X-Message-ID-Hash: O4YJQLC3E646JFJROQ26RR4K67WQR3WC
+Message-ID-Hash: EZSKHKDISLR5SCVGDYB3FVTUE5TP5TBK
+X-Message-ID-Hash: EZSKHKDISLR5SCVGDYB3FVTUE5TP5TBK
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -153,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4YJQLC3E646JFJROQ26RR4K67WQR3WC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZSKHKDISLR5SCVGDYB3FVTUE5TP5TBK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -162,96 +162,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In addition to the five I2S/PCM/TDM controllers and the two I2S/PCM
-controllers shared between the RK3588 and RK3588S SoCs, RK3588 contains
-another four I2S/PCM/TDM controllers.
-
-Add the DT nodes corresponding to the additional controllers.
+Add the necessary DT nodes for the Rock 5B board to enable the analog
+audio support provided by the Everest Semi ES8316 codec.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588.dtsi | 68 ++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+ .../boot/dts/rockchip/rk3588-rock-5b.dts      | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588.dtsi b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-index d085e57fbc4c..8be75556af8f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588.dtsi
-@@ -7,6 +7,74 @@
- #include "rk3588-pinctrl.dtsi"
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+index 95805cb0adfa..945eac304766 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+@@ -2,6 +2,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/gpio/gpio.h>
+ #include "rk3588.dtsi"
  
  / {
-+	i2s8_8ch: i2s@fddc8000 {
-+		compatible = "rockchip,rk3588-i2s-tdm";
-+		reg = <0x0 0xfddc8000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru MCLK_I2S8_8CH_TX>, <&cru MCLK_I2S8_8CH_TX>, <&cru HCLK_I2S8_8CH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		assigned-clocks = <&cru CLK_I2S8_8CH_TX_SRC>;
-+		assigned-clock-parents = <&cru PLL_AUPLL>;
-+		dmas = <&dmac2 22>;
-+		dma-names = "tx";
-+		power-domains = <&power RK3588_PD_VO0>;
-+		resets = <&cru SRST_M_I2S8_8CH_TX>;
-+		reset-names = "tx-m";
-+		#sound-dai-cells = <0>;
-+		status = "disabled";
-+	};
+@@ -25,6 +26,59 @@ vcc5v0_sys: vcc5v0-sys-regulator {
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+ 	};
 +
-+	i2s6_8ch: i2s@fddf4000 {
-+		compatible = "rockchip,rk3588-i2s-tdm";
-+		reg = <0x0 0xfddf4000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru MCLK_I2S6_8CH_TX>, <&cru MCLK_I2S6_8CH_TX>, <&cru HCLK_I2S6_8CH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		assigned-clocks = <&cru CLK_I2S6_8CH_TX_SRC>;
-+		assigned-clock-parents = <&cru PLL_AUPLL>;
-+		dmas = <&dmac2 4>;
-+		dma-names = "tx";
-+		power-domains = <&power RK3588_PD_VO1>;
-+		resets = <&cru SRST_M_I2S6_8CH_TX>;
-+		reset-names = "tx-m";
-+		#sound-dai-cells = <0>;
-+		status = "disabled";
-+	};
++	sound {
++		compatible = "audio-graph-card";
++		label = "Analog";
 +
-+	i2s7_8ch: i2s@fddf8000 {
-+		compatible = "rockchip,rk3588-i2s-tdm";
-+		reg = <0x0 0xfddf8000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru MCLK_I2S7_8CH_RX>, <&cru MCLK_I2S7_8CH_RX>, <&cru HCLK_I2S7_8CH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		assigned-clocks = <&cru CLK_I2S7_8CH_RX_SRC>;
-+		assigned-clock-parents = <&cru PLL_AUPLL>;
-+		dmas = <&dmac2 21>;
-+		dma-names = "rx";
-+		power-domains = <&power RK3588_PD_VO1>;
-+		resets = <&cru SRST_M_I2S7_8CH_RX>;
-+		reset-names = "rx-m";
-+		#sound-dai-cells = <0>;
-+		status = "disabled";
-+	};
++		widgets = "Microphone", "Mic Jack",
++			  "Headphone", "Headphones";
 +
-+	i2s10_8ch: i2s@fde00000 {
-+		compatible = "rockchip,rk3588-i2s-tdm";
-+		reg = <0x0 0xfde00000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru MCLK_I2S10_8CH_RX>, <&cru MCLK_I2S10_8CH_RX>, <&cru HCLK_I2S10_8CH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		assigned-clocks = <&cru CLK_I2S10_8CH_RX_SRC>;
-+		assigned-clock-parents = <&cru PLL_AUPLL>;
-+		dmas = <&dmac2 24>;
-+		dma-names = "rx";
-+		power-domains = <&power RK3588_PD_VO1>;
-+		resets = <&cru SRST_M_I2S10_8CH_RX>;
-+		reset-names = "rx-m";
-+		#sound-dai-cells = <0>;
-+		status = "disabled";
-+	};
++		routing = "MIC2", "Mic Jack",
++			  "Headphones", "HPOL",
++			  "Headphones", "HPOR";
 +
- 	gmac0: ethernet@fe1b0000 {
- 		compatible = "rockchip,rk3588-gmac", "snps,dwmac-4.20a";
- 		reg = <0x0 0xfe1b0000 0x0 0x10000>;
++		dais = <&i2s0_8ch_p0>;
++		hp-det-gpio = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&hp_detect>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	es8316: es8316@11 {
++		compatible = "everest,es8316";
++		reg = <0x11>;
++		clocks = <&cru I2S0_8CH_MCLKOUT>;
++		clock-names = "mclk";
++		#sound-dai-cells = <0>;
++
++		port {
++			es8316_p0_0: endpoint {
++				remote-endpoint = <&i2s0_8ch_p0_0>;
++			};
++		};
++	};
++};
++
++&i2s0_8ch {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2s0_lrck
++		     &i2s0_mclk
++		     &i2s0_sclk
++		     &i2s0_sdi0
++		     &i2s0_sdo0>;
++	status = "okay";
++
++	i2s0_8ch_p0: port {
++		i2s0_8ch_p0_0: endpoint {
++			dai-format = "i2s";
++			mclk-fs = <256>;
++			remote-endpoint = <&es8316_p0_0>;
++		};
++	};
+ };
+ 
+ &sdhci {
+@@ -42,3 +96,11 @@ &uart2 {
+ 	pinctrl-0 = <&uart2m0_xfer>;
+ 	status = "okay";
+ };
++
++&pinctrl {
++	sound {
++		hp_detect: hp-detect {
++			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
 -- 
 2.39.1
 

@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4067D6BB749
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 16:14:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0CB6BB71B
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Mar 2023 16:10:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA8CF1277;
-	Wed, 15 Mar 2023 16:13:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA8CF1277
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5D481280;
+	Wed, 15 Mar 2023 16:09:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5D481280
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678893268;
-	bh=ccbxKj/wVrW1k3p+wz37IPmkCcgaA7P6rLPSrcKu3F0=;
+	s=default; t=1678893013;
+	bh=Nv0fFDdpMsYv/AziGAvneOUwDP6WrEsgaTtZmnVlKCs=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ftYuZBNgHoOx/qwiZPkfhWZJdKZ7cRq8jxZp0jiaIfpivDygf/VnuSU69j7XEBdhr
-	 tLuBuToJW+LEtbVzVjoJPn2R+x36R/DC2w/CMKJ2al2TUBh8Fby/cA8rA4s3eODc41
-	 nxoZYv1EDVfJTuys5F/FJxF1d96tfFW/BeW5ZBAM=
+	b=FI8a4DCRREPHfHs7ODb1ClhZBJ+3zo0U0TXEtbqJEVsWfaCfytweO9acTyi+EMakI
+	 uRm33pj9PaIuWuWaRQhmASMrX9vp40tZKGjiCOjSMYKv7ZOtU2nzElEbbNP7owHFnz
+	 DLuutFckkETZhWyxV5UG8277oAWJqw5X8v2AycmY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5D9AF805BF;
-	Wed, 15 Mar 2023 16:09:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 007F1F805AF;
+	Wed, 15 Mar 2023 16:08:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 925DDF805ED; Wed, 15 Mar 2023 16:08:35 +0100 (CET)
+	id 1DAAEF80551; Wed, 15 Mar 2023 16:08:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
@@ -35,49 +35,45 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B758F80552
-	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 16:08:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B758F80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20A77F8051B
+	for <alsa-devel@alsa-project.org>; Wed, 15 Mar 2023 16:08:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20A77F8051B
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
 	by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjQ-00076f-Kj; Wed, 15 Mar 2023 16:08:00 +0100
+	id 1pcSjR-00076k-Ax; Wed, 15 Mar 2023 16:08:01 +0100
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjP-004KUA-Ma; Wed, 15 Mar 2023 16:07:59 +0100
+	id 1pcSjP-004KUH-UP; Wed, 15 Mar 2023 16:07:59 +0100
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1pcSjO-0057cM-Ep; Wed, 15 Mar 2023 16:07:58 +0100
+	id 1pcSjO-0057cP-L6; Wed, 15 Mar 2023 16:07:58 +0100
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mohan Kumar <mkumard@nvidia.com>,
-	Geoff Levand <geoff@infradead.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: [PATCH 009/173] ALSA: hda/tegra: Convert to platform remove callback
- returning void
-Date: Wed, 15 Mar 2023 16:05:01 +0100
-Message-Id: <20230315150745.67084-10-u.kleine-koenig@pengutronix.de>
+	Michael Ellerman <mpe@ellerman.id.au>
+Subject: [PATCH 010/173] ALSA: ppc/powermac: Convert to platform remove
+ callback returning void
+Date: Wed, 15 Mar 2023 16:05:02 +0100
+Message-Id: <20230315150745.67084-11-u.kleine-koenig@pengutronix.de>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
 References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1647;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1522;
  i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=ccbxKj/wVrW1k3p+wz37IPmkCcgaA7P6rLPSrcKu3F0=;
- b=owEBbAGT/pANAwAKAcH8FHityuwJAcsmYgBkEd1DYvVyivyZVtM1lJfkVuZJPFCK+WU9VbX+D
- U5mXh5bhASJATIEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZBHdQwAKCRDB/BR4rcrs
- Cbb8B/iw1O2f2Gyx2OcdkGH+Wt6GGyPScEG1op/2RCJQHmkxubaapU/62d+28zhjgeUdd/seE6j
- JnIJQgUTL0zSDLhbw94f2hlN5KAFySmn/bmxlRkRD4zvRwkU47GsYLUekZJrff9Vek2Rfqj7DHr
- vWB6vw1Yg8kc3m3qgehv7J7M5RDXEmktnO4HPjyqcrU7iDw91fKQb9Z356EANd3fgjwMD9VfEYM
- rsQTlN1gMwoNBBFFqZV4iIOJdrTLJocWx36hsdE7kJRwCMNGP+oVeC5Av++dOniI0KXuywYVI9v
- S0EbIrUrOrBFtYe3aMk46wWIiJwvehmjHbDO/Onbk0Eop7g=
+ bh=Nv0fFDdpMsYv/AziGAvneOUwDP6WrEsgaTtZmnVlKCs=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBkEd1Fc2m0HdG8hA2w0W66WSSsQN5kZZ2uuzZom
+ b2v/sqUuJeJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCZBHdRQAKCRDB/BR4rcrs
+ CZ0jCACPrpIlHkrSaBq80LSctZcXy1yzAvLgskca4LBO4LBxyHTTfFqyTugrTL1GHnkHXn20Yd3
+ qNiV7pzR8UaVog2UzIuYKI/Gi1m2RpaEjbKH1DiowL6BhptZtU2lpFdSarRMoTqSQzhB+mRNSlQ
+ 1i4INPcYOTV4qgeWvJ9WF2kVUTWDx97fFyM/EXzloZXvgcZ6naAHbsep49lw9jSyKf0u615E3Hs
+ CO6gHhimXOCTNEWaRcapCulnRlma6ioLO2QYKmyGdY9hg73FWmMcfzbu9caNUa4Xfkvpd4cof8F
+ /fcHSV3XnyjSoJgJXTbPwrfr7wt8waK16GdZ5ZTLI+tbA/mO
 X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -86,8 +82,8 @@ X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 3NWSRGOXTKREFISSYEXCZMP3JT4GA6O6
-X-Message-ID-Hash: 3NWSRGOXTKREFISSYEXCZMP3JT4GA6O6
+Message-ID-Hash: IQ3ZC3VKT2O4OYXONQT7UIMFGSW7PMHH
+X-Message-ID-Hash: IQ3ZC3VKT2O4OYXONQT7UIMFGSW7PMHH
 X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,15 +91,17 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
- kernel@pengutronix.de
+CC: Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, kernel@pengutronix.de
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NWSRGOXTKREFISSYEXCZMP3JT4GA6O6/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IQ3ZC3VKT2O4OYXONQT7UIMFGSW7PMHH/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -123,36 +121,34 @@ callback to the void returning variant.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- sound/pci/hda/hda_tegra.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ sound/ppc/powermac.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index c2bf86781894..9d0ab043880b 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -580,12 +580,10 @@ static void hda_tegra_probe_work(struct work_struct *work)
- 	return; /* no error return from async probe */
+diff --git a/sound/ppc/powermac.c b/sound/ppc/powermac.c
+index db414b61157e..e17af46abddd 100644
+--- a/sound/ppc/powermac.c
++++ b/sound/ppc/powermac.c
+@@ -130,10 +130,9 @@ static int snd_pmac_probe(struct platform_device *devptr)
  }
  
--static int hda_tegra_remove(struct platform_device *pdev)
-+static void hda_tegra_remove(struct platform_device *pdev)
+ 
+-static int snd_pmac_remove(struct platform_device *devptr)
++static void snd_pmac_remove(struct platform_device *devptr)
  {
- 	snd_card_free(dev_get_drvdata(&pdev->dev));
- 	pm_runtime_disable(&pdev->dev);
--
+ 	snd_card_free(platform_get_drvdata(devptr));
 -	return 0;
  }
  
- static void hda_tegra_shutdown(struct platform_device *pdev)
-@@ -607,7 +605,7 @@ static struct platform_driver tegra_platform_hda = {
- 		.of_match_table = hda_tegra_match,
- 	},
- 	.probe = hda_tegra_probe,
--	.remove = hda_tegra_remove,
-+	.remove_new = hda_tegra_remove,
- 	.shutdown = hda_tegra_shutdown,
- };
- module_platform_driver(tegra_platform_hda);
+ #ifdef CONFIG_PM_SLEEP
+@@ -161,7 +160,7 @@ static SIMPLE_DEV_PM_OPS(snd_pmac_pm, snd_pmac_driver_suspend, snd_pmac_driver_r
+ 
+ static struct platform_driver snd_pmac_driver = {
+ 	.probe		= snd_pmac_probe,
+-	.remove		= snd_pmac_remove,
++	.remove_new	= snd_pmac_remove,
+ 	.driver		= {
+ 		.name	= SND_PMAC_DRIVER,
+ 		.pm	= SND_PMAC_PM_OPS,
 -- 
 2.39.2
 

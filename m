@@ -2,143 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05476BD598
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:30:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 551C76BD5A6
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:32:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD05109F;
-	Thu, 16 Mar 2023 17:29:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD05109F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 548C210A6;
+	Thu, 16 Mar 2023 17:31:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 548C210A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678984205;
-	bh=k/b1aHop4pw4H4A/g01EAMkT0bmn4FBdxp50LXt0CJo=;
-	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=OUnumNtBNyrlbL6ddiGnjsKdE5dhvI7lYsc6feWK2oWcSUbACMOBqdnQmIdbZ6yLQ
-	 HlhobEImNSXpA6upYwINBrpT8YiF85f2ghIAuYXXxQ9k9Cq/JhiI4J+Xmt6Nd572y6
-	 03uIQIAa54NcG8wU0BJ3zeUn5THH9P5fc3chPJcU=
+	s=default; t=1678984343;
+	bh=pirosOyYPxb7gdRU1NPpfNvNnz15Z33y9681TnHTFlM=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YVFBQWh2vVC0x+zu4IMKYQOhO+YhkRKKU/NIl4pEcI4M+/plHlDYNlzWyS3kzF3nC
+	 CELuj0me+gljXvcHbwdjbqS/0wIJl5czqhUK65JE82Oky3GUfuuhYHxv6WFP3qNg1u
+	 pRB0U6Qo+LFARkCK9mYIpwnEGNHulYESFnDpKfwM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03584F8032D;
-	Thu, 16 Mar 2023 17:29:15 +0100 (CET)
-Date: Thu, 16 Mar 2023 17:29:00 +0100
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
- PEF2256 framer
-In-Reply-To: <ZBMQTxFsrKQesd4v@kroah.com>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
-	<20230316122741.577663-3-herve.codina@bootlin.com>
-	<ZBMQTxFsrKQesd4v@kroah.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167898415428.26.12040884489691786607@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Derek Kiernan <derek.kiernan@xilinx.com>,
- Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 08759F8032D;
+	Thu, 16 Mar 2023 17:31:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CE66F80423; Thu, 16 Mar 2023 17:29:10 +0100 (CET)
+	id 27102F80272; Thu, 16 Mar 2023 17:31:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E72B8F800C9
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:29:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E72B8F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8A5D4F80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:31:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A5D4F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=mXFzboS0
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id CF611FF811;
-	Thu, 16 Mar 2023 16:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1678984143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jeRzDs4ihJbeI7tp32i3vf2hG703FkbCNPgA50D/FNA=;
-	b=mXFzboS07wKLrh31pNwHjrVSBN14J/n9oejyp51jQ/bRh1ex0pQ7a21J4KKzxljg005gqX
-	pp45HUxC6IHCfX+F8PGrmOOe/FB8XqVLKHmpyjW1yXy3R2vmaaqTe+RfLiqjIa572fiwh1
-	RiXLGu+b5LQW2DT+RLrmq9+oiqzS89YrL38unneeJIJ+7SpG81P2m+vSnxwz88EdkoB1sF
-	VyzyCQSwkEHO3RqJ+C/o/N3qLhutNpOSA87VuQciRtJpa83iHr0vAJYZb7YRZTLMvqUb8f
-	K4JbNS/lXslxJ//oyVuBGcG7p/c1fqW0TZPO/CAIRgW7v1iHsyAMjBZ955oItA==
-Date: Thu, 16 Mar 2023 17:29:00 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
- PEF2256 framer
-Message-ID: <20230316172900.2bb49a13@bootlin.com>
-In-Reply-To: <ZBMQTxFsrKQesd4v@kroah.com>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
-	<20230316122741.577663-3-herve.codina@bootlin.com>
-	<ZBMQTxFsrKQesd4v@kroah.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=l6mv/K/P
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id A7BA5B8226B;
+	Thu, 16 Mar 2023 16:31:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ECBCC433D2;
+	Thu, 16 Mar 2023 16:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678984279;
+	bh=pirosOyYPxb7gdRU1NPpfNvNnz15Z33y9681TnHTFlM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=l6mv/K/P87rQtBc+pauTpDhxdURklyAnTWHyzHqnWtLN8gyTfdngQVD+JY+UBJjiZ
+	 McKhk7fRcBG7iIkrlx0AMU3r28X13AkoeHcBwYkZaJJ3Bz58Ayd47bTzB9rDHAqmbz
+	 tbwmNtXZ5O0KHEDzJoeHLtKABDVXKF1uHixkCIWs9nUtiPbk5lvrYUvhPECpSJv8j/
+	 5tC4OKR0FyM0aEBVsek45kzbTfTwgQl5jPm+8q6DX7oxYzdS1EKTSPRIZY/oIa19FV
+	 8jdU2xQk3iRybalVS6EShGE4AdWS1c9Y0KbJXfDF8sbYRZVPPe/9+EjdB+28+kA4re
+	 QR9w/0HcH1DjA==
+Date: Thu, 16 Mar 2023 16:31:14 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
+Subject: Re: [PATCH] ASoC: codecs:rx-macro: Fixing uninitialized variables.
+Message-ID: <e3165099-96c9-4326-af73-6020f0276f7b@sirena.org.uk>
+References: <20230316162249.17044-1-quic_visr@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN
-X-Message-ID-Hash: K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN
-X-MailFrom: herve.codina@bootlin.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+5Ml4SivzgiYppgJ"
+Content-Disposition: inline
+In-Reply-To: <20230316162249.17044-1-quic_visr@quicinc.com>
+X-Cookie: ... I have read the INSTRUCTIONS ...
+Message-ID-Hash: WC5NHUPVMHHBAUPW46KILBBUKKHINCDU
+X-Message-ID-Hash: WC5NHUPVMHHBAUPW46KILBBUKKHINCDU
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Derek Kiernan <derek.kiernan@xilinx.com>,
- Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WC5NHUPVMHHBAUPW46KILBBUKKHINCDU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -147,34 +96,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Greg,
 
-On Thu, 16 Mar 2023 13:49:19 +0100
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+--+5Ml4SivzgiYppgJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On Thu, Mar 16, 2023 at 01:27:36PM +0100, Herve Codina wrote:
-> > +EXPORT_SYMBOL(pef2256_get_byphandle); =20
->=20
-> You have a mixture of EXPORT_SYMBOL() and EXPORT_SYMBOL_GPL() in the
-> same file here.  As this one:
->=20
-> > +
-> > +void pef2256_put(struct pef2256 *pef2256)
-> > +{
-> > +	put_device(pef2256->dev);
-> > +}
-> > +EXPORT_SYMBOL(pef2256_put); =20
->=20
-> Is just a wrapper around a EXPORT_SYMBOL_GPL() function, please revisit
-> and perhaps make them all EXPORT_SYMBOL_GPL() calls?
->=20
+On Thu, Mar 16, 2023 at 09:52:49PM +0530, Ravulapati Vishnu Vardhan Rao wro=
+te:
 
-Indeed.
-I will make them consistent in the v3 series.
+>  {
+>  	u16 hd2_scale_reg, hd2_enable_reg;
+> +	hd2_scale_reg =3D 0;
+> +	hd2_enable_reg =3D 0;
+> =20
+>  	switch (interp_idx) {
+>  	case INTERP_HPHL:
 
-Thanks for pointing that out.
-Herv=C3=A9
---=20
-Herv=C3=A9 Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+This is just shutting the warning up, it's not like 0 is ever a sensible
+value to use there.
+
+--+5Ml4SivzgiYppgJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQTRFEACgkQJNaLcl1U
+h9BQCgf9EcoNSrCHri4SWhSYpoQdenmY3y0ta3Qssx4xLq5Qzeq/jtkdcXRjhuXh
+nA0uDYje3v5CDwZi7Hd6rew/iuryk4wDz2tHXxGDIcQ3e4xrRDrTKtj5VcyH0Dm/
+s0XtLWw8z0KHpFAlKSAxf90h0/oAOblT3Q+BtQ6+2V62gcPSCdfckiVii7TJPN8V
+O+vqfM7XRUy4twlstCuxnUqJe+3A5r38L8RQDpfIRhiSJOeIHnmxBlG3oswxWryr
+Huyio2s1fC1MU7iigW6bO9SEMEgZFiMA5Zqqc0cPinseQ8QzpRIrPN++Y7Mca0Bq
+VfzTC+k1FiasIBVh3/B64k5RFWdppA==
+=Jnv4
+-----END PGP SIGNATURE-----
+
+--+5Ml4SivzgiYppgJ--

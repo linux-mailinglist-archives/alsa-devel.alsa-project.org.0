@@ -2,115 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8019A6BC66E
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 08:00:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F066BC744
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 08:32:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92EEC1151;
-	Thu, 16 Mar 2023 07:59:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92EEC1151
+	by alsa0.perex.cz (Postfix) with ESMTPS id 792601149;
+	Thu, 16 Mar 2023 08:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 792601149
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678950043;
-	bh=VTEUN5TlsF5BNPN1SSwMgrms8CPEi/57uayzgBPJIMY=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1678951967;
+	bh=bRuPOGfZnu4JByDAsSat1lIPi/d4YuYFnKKqk6RPkbs=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FuKvAqoKVQvdYM/pYu7X76E2QtqQ5lJIUyHkEIq0CyFLYK1jFHKLP0e0IO3BMd/tu
-	 QVnPelqJcnfhwEyllbFi7jPrlQhmVmHrOuGszJCDFJfjX+fTKhoso6HR1OJlm0hoE1
-	 FVJIuQoia5eCl59hb2vl8lMM2s4VT0gU4BRzZ3tk=
+	b=ievtJlLkBytM75mzLQjySSKNLGquPtfibhaC6/EYMin5T4+IYZQaczQrjwF+WzSxJ
+	 1lF8BCoKeH9wqbDNsW8VbLaPDnqUWcerN262yfJbsW2EZEQ95qHQU7XQs+nhSWRIZP
+	 PU3h93GPMgrOuMdKKA6JgiAatuk7O3jQ/o0ElE6A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A13AF8016C;
-	Thu, 16 Mar 2023 07:59:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F03ACF8032D;
+	Thu, 16 Mar 2023 08:31:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B269F80423; Thu, 16 Mar 2023 07:59:25 +0100 (CET)
+	id 35957F80423; Thu, 16 Mar 2023 08:31:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 75213F8016C
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 07:59:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75213F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2D887F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 08:31:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D887F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=WKjcew4l
-Received: by mail-ed1-x52e.google.com with SMTP id w9so3669097edc.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 15 Mar 2023 23:59:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678949947;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VgDKGokQR+4JPSgN0QqCTweCwRsx4eTE4MHO9hOb9T0=;
-        b=WKjcew4l/h348OTCKt6zEsmhdyILWxegry52zwbTUXK5+ORd93qwQJYlaWWBcYu0nF
-         H+xPjC1V3S64zgWDnfPWvxaQUA8pXwZz+Ugu253yLvKXWbw6zcXBbFEKpm8oUlkfJcez
-         qO1wVd5iPhyw9I3FrEfhFr9jrgG9vrjK8D3NjCMrvjjN57ok0Kuj39CzaPVXwR5XhcXF
-         WEz+DRS4WZ5XA4QfGTsI9ctDUPRhbcO+a8ec25xVp6BeQq0xVzUVJzZG3W5qa2QFFmVM
-         x6c72mP0BIuyVDCpOjzZdfdXk+G56D1J59tSFObLmfchCM/GU11Clr7QGYm3dRRX0c4M
-         agXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678949947;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VgDKGokQR+4JPSgN0QqCTweCwRsx4eTE4MHO9hOb9T0=;
-        b=uoeOYtTPHLQggxXYeDp+B/nMT9NJkTrZRrI7B/tc/moshpjmxTxG+1uF5y3JT4UVE0
-         +EQeG88Z36wUleYCdk1VbhI9PLsWm0iYEGwqJnDUBGtPUGw5nDWyLrtLWpv2hJsU9aZG
-         iTlJE2t8DO1hdvZOt5G7jRLvO9sAD+llhHM+/3n1/Hfx+9R1VGyHf5XCqqmRK0JGdfho
-         h419+tz8M2aJYiFLFmDNwVejQjNUPrv0+QYTgEDQENpTosW4beH6DCz2qUH+sSILX89V
-         Z+dWH5w3FhI/uAZiwJmSi/g6ailrvlGa9CbrMNAttuLH1Bozuoj69p73YrdCUT9SEgB2
-         hoBg==
-X-Gm-Message-State: AO0yUKVV0yLupjWOyjXg5KtQyO+18qaFujA/JD6QVgqfQQoGI0dOxKvQ
-	ZcR/BFlDPfhfhXuuaFL5C36FXjLDhQ7BF827n4M=
-X-Google-Smtp-Source: 
- AK7set/hRGu/gvEAQOZy55e95HFYusYBm+MYWsGO+1P/oimOY18G0R+Vs517oYPB5xrG+vDfgyyAyuLM0FDlExZIfig=
-X-Received: by 2002:a17:906:1dcc:b0:8b2:23fb:dfd8 with SMTP id
- v12-20020a1709061dcc00b008b223fbdfd8mr4667764ejh.12.1678949947098; Wed, 15
- Mar 2023 23:59:07 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bj1vbAi3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1678951904; x=1710487904;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bRuPOGfZnu4JByDAsSat1lIPi/d4YuYFnKKqk6RPkbs=;
+  b=bj1vbAi3U8YClQokQzgdN9imO7BLq/nM75w1TMal4SXRKmKniwo+5qyz
+   fRzv42LtCcMX5WD3Mr8jIGb9vgBNoAewX83ZK7IYslhOYrmB81yIITDVp
+   We6cHTVFnWH4AP7lO2CerdRwOwQ2Vq0IoGd7CdNQiDbh/mm1mgCE+ghYc
+   hVJj/MzSief/tirrPTKZqY7VsztKco/UHhRcscXdwspmPEzFMhXoSGZsJ
+   rCa4PdWBJPlrSWNoBDfgnm8v5dRSQt+mUuPVMAU1qV6A7jdDKuHHGcEzo
+   OJe4AcRQAJCCioX6yE4+CrDYXgSaZhx3MGkpUc1NBBc8gLsF4pMUWaGmQ
+   A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="336606560"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400";
+   d="scan'208";a="336606560"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 00:31:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="679794068"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400";
+   d="scan'208";a="679794068"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by orsmga002.jf.intel.com with ESMTP; 16 Mar 2023 00:31:25 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pci56-0008PO-2a;
+	Thu, 16 Mar 2023 07:31:24 +0000
+Date: Thu, 16 Mar 2023 15:30:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Derek Kiernan <derek.kiernan@xilinx.com>,
+	Dragan Cvetic <dragan.cvetic@xilinx.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH 3/7] Documentation: sysfs: Document the Lantiq PEF2256
+ sysfs entry
+Message-ID: <202303161547.ZzSQWnIQ-lkp@intel.com>
+References: 
+ <167888779364.26.9200222608363841485@mailman-core.alsa-project.org>
 MIME-Version: 1.0
-References: <20230314153409.1805280-1-daniel.baluta@oss.nxp.com>
- <6d9d09aa-d83e-e811-1d43-34780ea05d4d@linux.intel.com>
- <CAEnQRZAj-FW-fCWsyupUDAH4Z2kTf0RL1acivyDHszMuU-75pg@mail.gmail.com>
- <5e26ef3e-1319-25cd-f7d5-245eaea66769@linux.intel.com>
-In-Reply-To: <5e26ef3e-1319-25cd-f7d5-245eaea66769@linux.intel.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 16 Mar 2023 08:58:55 +0200
-Message-ID: 
- <CAEnQRZCtmXdFqrsUEaDMG49=ZreFE2oBowjP1M4pywrQP4PA2A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: soc-compress: Inherit atomicity from DAI link for
- Compress FE
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 2KZCUGC5KVDRAYSFI3NM4DZDMO77GHBP
-X-Message-ID-Hash: 2KZCUGC5KVDRAYSFI3NM4DZDMO77GHBP
-X-MailFrom: daniel.baluta@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <167888779364.26.9200222608363841485@mailman-core.alsa-project.org>
+Message-ID-Hash: 3PM4EEAVENSR5LPV5J375U5PUXV2GHWK
+X-Message-ID-Hash: 3PM4EEAVENSR5LPV5J375U5PUXV2GHWK
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
- linux-kernel@vger.kernel.org, paul.olaru@nxp.com
+CC: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KZCUGC5KVDRAYSFI3NM4DZDMO77GHBP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3PM4EEAVENSR5LPV5J375U5PUXV2GHWK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,125 +119,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Mar 14, 2023 at 6:52=E2=80=AFPM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 3/14/23 11:37, Daniel Baluta wrote:
-> > On Tue, Mar 14, 2023 at 6:14=E2=80=AFPM Pierre-Louis Bossart
-> > <pierre-louis.bossart@linux.intel.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/14/23 10:34, Daniel Baluta wrote:
-> >>> From: Daniel Baluta <daniel.baluta@nxp.com>
-> >>>
-> >>> After commit bbf7d3b1c4f40 ("ASoC: soc-pcm: align BE 'atomicity' with
-> >>> that of the FE") BE and FE atomicity must match.
-> >>>
-> >>> In the case of Compress PCM there is a mismatch in atomicity between =
-FE
-> >>> and BE and we get errors like this:
-> >>>
-> >>> [   36.434566]  sai1-wm8960-hifi: dpcm_be_connect: FE is atomic but B=
-E
-> >>> is nonatomic, invalid configuration
-> >>
-> >> Not clear on the 'FE is atomic' in the case of a compressed stream,
-> >> which has to be handled with some sort of IPC, i.e. be nonatomic.
-> >>
-> >
-> > 'FE is atomic' in this message is printed because this is the default v=
-alue
-> > of nonatomic field when PCM struct associated for a Compress PCM
-> > struct is allocated.
-> >
-> > No one changes 'nonatomic' field for Compress FE until my current patch=
-.
-> >
-> >> Also not sure why the FE is not set as nonatomic by the SOF parts?
-> >> If it's needed for PCM, why wouldn't it be needed for compressed data?
-> >
-> > FE is not touched for SOF parts. Only BE is set to nonatomic by SOF.
->
-> Where do you see the BE being changed by SOF?
->
-> >
-> > See: sound/soc/topology.c
-> >
-> > =C2=BB       /* Set nonatomic property for FE dai links as their trigge=
-r
-> > action involves IPC's */
-> > =C2=BB       if (!link->no_pcm) {
-> > =C2=BB       =C2=BB       link->nonatomic =3D true;
-> > =C2=BB       =C2=BB       return 0;
-> > =C2=BB       }
->
-> that's a FE property, not BE.
+Hi Herve,
 
-You are right.
+Thank you for the patch! Perhaps something to improve:
 
->
-> > FE for PCM is modified by sound/soc/soc-pcm.c
-> >
-> > int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
-> > =C2=BB       pcm->nonatomic =3D rtd->dai_link->nonatomic;
-> >
-> > So, I guess people assumed that is enough to use RTD dai link to set
-> > pcm->noatomic field
-> > and didn't look at it in SOF.
->
-> Ah yes, now I see your point now. You still had a logical inversion
-> above but you're correct here.
->
-> > When FE for Compress PCM is created, we don't use soc_new_pcm but inste=
-ad
-> > we use snd_pcm_new_internal which doesn't inherit the nonatomic field
-> > of the rtd->dai_link
-> > as Normal PCM does inside soc_pcm_new.
-> >
-> > So, my patch makes sure we inherit the nonatomic field from
-> > rtd->dai_link also for Compress PCM
-> > similar with what already happens for Normal PCM.
-> >
-> > tl;dr: when creating a Normal PCM pcm->nonatomic is inherited from RTD
-> > DAI link. when creating a
-> > Compress PCM pcm->nonatomic field is not set. This patch makes sure
-> > that for Compres PCM
-> > we also inherit nonatomic from RTD DAI link.
->
-> That makes sense. It's quite likely that the compress PCM should be
-> nonatomic by default, not sure how it can work otherwise.
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on robh/for-next char-misc/char-misc-testing char-misc/char-misc-next char-misc/char-misc-linus linus/master v6.3-rc2 next-20230316]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-To sum up:
+url:    https://github.com/intel-lab-lkp/linux/commits/Herve-Codina-via-Alsa-devel/drivers-misc-Add-support-for-the-Lantiq-PEF2256-framer/20230315-214833
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/167888779364.26.9200222608363841485%40mailman-core.alsa-project.org
+patch subject: [PATCH 3/7] Documentation: sysfs: Document the Lantiq PEF2256 sysfs entry
+reproduce:
+        # https://github.com/intel-lab-lkp/linux/commit/0140596e508d18933cd319314838bc802214b345
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Herve-Codina-via-Alsa-devel/drivers-misc-Add-support-for-the-Lantiq-PEF2256-framer/20230315-214833
+        git checkout 0140596e508d18933cd319314838bc802214b345
+        make menuconfig
+        # enable CONFIG_COMPILE_TEST, CONFIG_WARN_MISSING_DOCUMENTS, CONFIG_WARN_ABI_ERRORS
+        make htmldocs
 
-- we need to merge current patch  because Compress PCM needs to
-inherit the atomicity from FE DAI
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303161547.ZzSQWnIQ-lkp@intel.com/
 
-Because SOF FE DAI links are made to be nonatomic:
+All warnings (new ones prefixed by >>):
 
-sound/soc/sof/topology.c
-=C2=BB       /* Set nonatomic property for FE dai links as their trigger
-action involves IPC's */
-=C2=BB       if (!link->no_pcm) {
-=C2=BB       =C2=BB       link->nonatomic =3D true;
-=C2=BB       =C2=BB       return 0;
-=C2=BB       }
+>> Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256:2: WARNING: Unexpected indentation.
+>> Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256:2: WARNING: Block quote ends without a blank line; unexpected unindent.
 
-and with my patch:
+vim +2 Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
 
-sound/soc/soc-compress.c
+   > 2	KernelVersion:	6.4
 
-+               /* inherit atomicity from DAI link */
-+               be_pcm->nonatomic =3D rtd->dai_link->nonatomic;
-+
-                rtd->pcm =3D be_pcm;
-
-... then Compres PCM will be nonatomic.
-
-Side note: I think be_pcm from the patch above should be called fe_pcm
-instead. But that's a story for another patch.
-
-thanks,
-Daniel.
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

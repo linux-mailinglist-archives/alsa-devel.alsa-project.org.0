@@ -2,141 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934AB6BD48D
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 16:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A4F6BD57D
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:24:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96DD410E1;
-	Thu, 16 Mar 2023 16:58:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96DD410E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95E84F2E;
+	Thu, 16 Mar 2023 17:23:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95E84F2E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678982371;
-	bh=+NIXVypj3mPSjYmkKruxPPpCcGhKjct/8+Amql9AO48=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=QPDC3OVpxCDc2EhfhiVPuXEsrkbjrdbQNgFjBvPzXWh+APaIX/75vuZCUKFRb4wb6
-	 VxbGqEJN+9caeO1K2zltLm7Sd0Q5Vb2sSd9xS4TIxc50YvCXs5g4DWQ+rk3TXvwhST
-	 Ovev7JgmUHPHNTUhE3BCsFOBHPUq0e+dZJa9CRwU=
+	s=default; t=1678983858;
+	bh=ntbVqT/Oid2sufd8/ToZ6mjA46yGSEpFNXxar2Qt3f4=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nUPJ6wclZS+xAcUC+HKzoyY5JTe9Xp5Zt0HMpFIeqNATFzd2qVtC0wmlG4yvcgM+o
+	 wAvj/JvCpfCiOb5wbe1PsL/294c7W564ynB+bhyHSwY+VW59jnxCXC6NjVOwXSY1zq
+	 sjhC1LglGYdk8UKL4yTC4zOslGq6clenFilUGgVk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41DBAF804B1;
-	Thu, 16 Mar 2023 16:57:52 +0100 (CET)
-To: <vkoul@kernel.org>
-Subject: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to handle
- page boundaries
-Date: Thu, 16 Mar 2023 15:57:34 +0000
-In-Reply-To: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
-References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBK2AGBQ7O6UCVTUR2CGHQNWUECGC7SU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167898227099.26.9813853342986450785@mailman-core.alsa-project.org>
-From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id DBF7DF8032D;
+	Thu, 16 Mar 2023 17:23:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AD34F80423; Thu, 16 Mar 2023 16:57:48 +0100 (CET)
+	id 42F14F80423; Thu, 16 Mar 2023 17:23:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28521F80272
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 16:57:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28521F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id E48E9F80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:23:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48E9F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=TNPgfDSs
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32GFpjVl015162;
-	Thu, 16 Mar 2023 10:57:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=juqyQqag
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32GDV56A018052;
+	Thu, 16 Mar 2023 16:23:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=zwa+Kz3z5JsstvJyyjsKd/9rebLnLWbVJ5G8ya5H37k=;
- b=TNPgfDSs79sO1vKqlcoH5bW71KMuMKW0xiODu1gRUUiJCQOz/6O6hnk3tafiC9vMv6Wz
- VaqAAK/4pytrLZbrUDtPkTchkd3dcxPLPstc+D5Gsy1IJNQ8cEDvc8xoQkJ4QTAqmp3l
- 4juR8sOZUfiJLgS2Jwyz76Sr6KyFDDEgy6dyLiXuW0JFQmMuCwTyGtPaZ0BPgGzfz7Du
- bY8oCJ/KoS5+6ZCXtHFmHh/nO4Q/W1MW746VUnVxn4gmaTmTDcD50C0ynNXIdnNTZv3a
- GABlEvnoQHEHhgxJ9pEVz9//KFoQqdLz4DN5Bfge8o0A5BJBN0RAMS4kpWbXiLIsooXa yw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs2nrxxu-1
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=DGUvrfDfGZ0mbCeDP3/EhKDi0cTkzcFUFWcFAevMCBI=;
+ b=juqyQqagh6XfT4n0bC6pdOcYosEk5GGDLFnh82f1MBoagZUbQxz9lLyDWQ4pZsk1/JOj
+ lSYjCdulBRqIZ3l6YPJPoXuCZcqhehcA3GcIyeNeKYETigB7q/cECgAKyPGVpVOwFory
+ ediP4M3yG8Y/L1p9i2i8/8gPIboEjtQD8ixnIqjAdDMOWnx4eT6z+0Y4wtDy2qEL3UaV
+ YUoUdHl0YPcvIhoqMyjHAVS/f28nwLb6qrhvGdW9QFmYzGi7ecq0lBXZcU4STx2Dvc8J
+ IkTGvoT0Ner7Yl813JH3pBsXMhUjZplntzp08yg8w/8+u3eHF6qNWZyO3kRdj4uUoFZw kQ==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pbst923ej-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Mar 2023 10:57:35 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Thu, 16 Mar
- 2023 10:57:34 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Thu, 16 Mar 2023 10:57:34 -0500
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1EAD311D4;
-	Thu, 16 Mar 2023 15:57:34 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <vkoul@kernel.org>
-Subject: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to handle
- page boundaries
-Date: Thu, 16 Mar 2023 15:57:34 +0000
-Message-ID: <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
-References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
+	Thu, 16 Mar 2023 16:23:10 +0000
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+	by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 32GGNABF019780
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 16 Mar 2023 16:23:10 GMT
+Received: from hu-visr-hyd.qualcomm.com (10.80.80.8) by
+ nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.41; Thu, 16 Mar 2023 09:23:07 -0700
+From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
+To: <quic_visr@quicinc.com>
+Subject: [PATCH] ASoC: codecs:rx-macro: Fixing uninitialized variables.
+Date: Thu, 16 Mar 2023 21:52:49 +0530
+Message-ID: <20230316162249.17044-1-quic_visr@quicinc.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: p0Dgp2C0Dmwbcqi8GtGVhGNykvjqSFYc
-X-Proofpoint-ORIG-GUID: p0Dgp2C0Dmwbcqi8GtGVhGNykvjqSFYc
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: QBK2AGBQ7O6UCVTUR2CGHQNWUECGC7SU
-X-Message-ID-Hash: QBK2AGBQ7O6UCVTUR2CGHQNWUECGC7SU
-X-MailFrom: prvs=843980a8d3=ckeepax@opensource.cirrus.com
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: PRpImEHXJKZHExf2lT0jZY0_lmw7rFrh
+X-Proofpoint-GUID: PRpImEHXJKZHExf2lT0jZY0_lmw7rFrh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-16_10,2023-03-16_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 suspectscore=0 mlxlogscore=725 malwarescore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303150002
+ definitions=main-2303160130
+Message-ID-Hash: XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ
+X-Message-ID-Hash: XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ
+X-MailFrom: quic_visr@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBK2AGBQ7O6UCVTUR2CGHQNWUECGC7SU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,93 +121,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Currently issuing a sdw_nread/nwrite_no_pm across a page boundary
-will silently fail to write correctly as nothing updates the page
-registers, meaning the same page of the chip will get rewritten
-with each successive page of data.
+Initializing the uninitialized variables to avoid any unexpected garbage
+value to be propagated further.
 
-As the sdw_msg structure contains page information it seems
-reasonable that a single sdw_msg should always be within one
-page. It is also mostly simpler to handle the paging at the
-bus level rather than each master having to handle it in their
-xfer_msg callback.
-
-As such add handling to the bus code to split up a transfer into
-multiple sdw_msg's when they go across page boundaries.
-
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
 ---
- drivers/soundwire/bus.c | 47 +++++++++++++++++++++++------------------
- 1 file changed, 26 insertions(+), 21 deletions(-)
+ sound/soc/codecs/lpass-rx-macro.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 3c67266f94834..bdd251e871694 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -386,37 +386,42 @@ int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
-  * Read/Write IO functions.
-  */
- 
--int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-+static int sdw_ntransfer_no_pm(struct sdw_slave *slave, u32 addr, u8 flags,
-+			       size_t count, u8 *val)
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index a73a7d7a1c0a..0c8b79ff2fc5 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -2219,6 +2219,8 @@ static void rx_macro_hd2_control(struct snd_soc_component *component,
+ 				 u16 interp_idx, int event)
  {
- 	struct sdw_msg msg;
-+	size_t size;
- 	int ret;
+ 	u16 hd2_scale_reg, hd2_enable_reg;
++	hd2_scale_reg = 0;
++	hd2_enable_reg = 0;
  
--	ret = sdw_fill_msg(&msg, slave, addr, count,
--			   slave->dev_num, SDW_MSG_FLAG_READ, val);
--	if (ret < 0)
--		return ret;
-+	while (count) {
-+		// Only handle bytes up to next page boundary
-+		size = min(count, (SDW_REGADDR + 1) - (addr & SDW_REGADDR));
- 
--	ret = sdw_transfer(slave->bus, &msg);
--	if (slave->is_mockup_device)
--		ret = 0;
--	return ret;
-+		ret = sdw_fill_msg(&msg, slave, addr, size, slave->dev_num, flags, val);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = sdw_transfer(slave->bus, &msg);
-+		if (ret < 0 && !slave->is_mockup_device)
-+			return ret;
-+
-+		addr += size;
-+		val += size;
-+		count -= size;
-+	}
-+
-+	return 0;
-+}
-+
-+int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-+{
-+	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_READ, count, val);
- }
- EXPORT_SYMBOL(sdw_nread_no_pm);
- 
- int sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
- {
--	struct sdw_msg msg;
--	int ret;
--
--	ret = sdw_fill_msg(&msg, slave, addr, count,
--			   slave->dev_num, SDW_MSG_FLAG_WRITE, (u8 *)val);
--	if (ret < 0)
--		return ret;
--
--	ret = sdw_transfer(slave->bus, &msg);
--	if (slave->is_mockup_device)
--		ret = 0;
--	return ret;
-+	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_WRITE, count, (u8 *)val);
- }
- EXPORT_SYMBOL(sdw_nwrite_no_pm);
- 
+ 	switch (interp_idx) {
+ 	case INTERP_HPHL:
 -- 
-2.30.2
+2.17.1
 

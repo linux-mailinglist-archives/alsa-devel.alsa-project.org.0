@@ -2,143 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B97796BCF7F
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:30:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0946BCF9B
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:37:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4D261118;
-	Thu, 16 Mar 2023 13:29:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4D261118
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0E5F1119;
+	Thu, 16 Mar 2023 13:36:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0E5F1119
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678969834;
-	bh=EWLFJ94opePlRYYupFELkQjSobCndV/mkvn4Azbg3Hc=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=YIAprGhMrcJFR2sFyJcHt5snmJr3PGy5dZ2PlG20P/SYIr8zA6B7CgUWQ1ANZKdrO
-	 tEPedQzEtMdVD6h2IEW9/XOf/YusLAzeq86MKZsN3vw5uHAnLirHSi9VDjcMeztKxT
-	 akQIll0cPVrUMXTGJZOqa43F1o435vgO1X8xfomY=
+	s=default; t=1678970235;
+	bh=LEMmm+P/YsBKRZwyeHpOAEERU5kliRkrHncf65a34AI=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bSTq05Q072zvUdkKyI9SFxytrfy3ftAuV0tHWPYp1gYy9Dru14rn3Gs3tBQPlx9jc
+	 5jlCR5rxGR+2hwbibzuxYUoMzPmjdGjgi5Nzc0H+TeuEWBBU9nxWzaIrSA4kpRtPTs
+	 6k7MnX0aZPcmcq4pYFOuU1ZLxwu0NkA69vXN5lIQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE99EF80558;
-	Thu, 16 Mar 2023 13:28:22 +0100 (CET)
-To: Herve Codina <herve.codina@bootlin.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Derek Kiernan <derek.kiernan@xilinx.com>,
-	Dragan Cvetic <dragan.cvetic@xilinx.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 7/7] MAINTAINERS: Add the Lantiq PEF2256 ASoC codec entry
-Date: Thu, 16 Mar 2023 13:27:41 +0100
-In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7DXZANMDJFLDPOQD4HNM32M6UQNL3JV/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167896970137.26.1848140838652769443@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B18AF8016C;
+	Thu, 16 Mar 2023 13:36:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F5B1F8055B; Thu, 16 Mar 2023 13:28:18 +0100 (CET)
+	id 672A7F80425; Thu, 16 Mar 2023 13:36:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5605F80529
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5605F80529
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6FCA6F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:36:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FCA6F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=W9X0VEUT
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 2DBBA1BF20B;
-	Thu, 16 Mar 2023 12:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1678969687;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DV4CC5O5iyRa+8OQdtxcgwDs8G2cCnQDmrmdt77V24E=;
-	b=W9X0VEUTnKlIqDMIQhKIIklbmTh83DTK5aI7TJxCI9EaaYxcRQPF/+zHObVTAuaPycXCLu
-	Br7j/H6/YAKyoGPkmyVcCdOEI6BF7cvDZ8JH47BlDES/o5e2fvt06tnWCyvo6mhaQ2TVFB
-	iqPPIF3lx4MTvoig1qfHCfecccARmSiC93pv0Px96lS9UdUUOsWudqXQNQlcRq9yMaaFwk
-	HtMisZsmDSIvOsLsw6aVruKG11UElfDN6UFwFHFKzaVocXkJaU5X/tBaMwpp4uv9J/ewfy
-	Eg4Kd9tMlD1uY/cdCHMMCX9LJ1wcCCxYyweaY3ywaEDvW3DU5Oq7du5AWsQugA==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ unprotected) header.d=tq-group.com header.i=@tq-group.com header.a=rsa-sha256
+ header.s=key1 header.b=n+ABVS1N;
+	dkim=pass (2048-bit key) header.d=tq-group.com header.i=@tq-group.com
+ header.a=rsa-sha256 header.s=key1 header.b=KFvm+kL7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+  t=1678970178; x=1710506178;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=srkpdC+yB+EdyLTj0WhGzLGs6EFRQ5wKwgJvE5nC0hQ=;
+  b=n+ABVS1NYLql5DOHIEtGyNPCOZienMt3MFbJG16NY+88G+RlXHP7hXTC
+   D7ULoLGNjZpM5lhMQWJwd5LUeDbgspwH8q/EsKaQ8ZVYnDj2EOX8y9pAw
+   b03UHRfHs44IkTwrwNUwWMBLilyF1SlTVceoT0hMZAuwNLyVaGCq+Ve0i
+   FzKq1P5WfOLE1zX8YyoML2lTOOaP7kmu+bYzi+Tv9HtPgvQi+P/2LFOCK
+   Eeimuj1/zfN5roIJOiUynyDwYafuURb7t2w8NzyCHew3MNiJ0cMaS6vL+
+   fcBsTlL57VLbM6VDTDx9PJbI5JnofHDeE4wpn5jUYbumZJ7/wodph5PKh
+   Q==;
+X-IronPort-AV: E=Sophos;i="5.98,265,1673910000";
+   d="scan'208";a="29738028"
+Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
+  by mx1-pgp.tq-group.com with ESMTP; 16 Mar 2023 13:36:16 +0100
+Received: from mx1.tq-group.com ([192.168.6.7])
+  by tq-pgp-pr1.tq-net.de (PGP Universal service);
+  Thu, 16 Mar 2023 13:36:16 +0100
+X-PGP-Universal: processed;
+	by tq-pgp-pr1.tq-net.de on Thu, 16 Mar 2023 13:36:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+  t=1678970176; x=1710506176;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=srkpdC+yB+EdyLTj0WhGzLGs6EFRQ5wKwgJvE5nC0hQ=;
+  b=KFvm+kL7CHuuM5/eAedvnG/nJcC2LiZLSDpCSK88WRZsbyOx7zzCGCW5
+   BAQ4la6/E2QWkMSkXLgttnUCGcEL489cIHHw4Rm7a2ZOWumY+HVC5xlM5
+   MRBWc1QyHNCJioC0e8O675RiD5IKWZD0B3PxLo3sKzab2gnZtzvoouRz/
+   cnUa2y7sR1LcMBeokficFCpBoDqRN48YRXPJcPAPZtxewbSeRR0IevjFh
+   YPnwFZMwaVvzXjqPPOTuriMF8Qb7STRzd/KAlJ8MvkYvLb0uxnumhU7DM
+   ap2Iuwnv3UbBfNA5sPCrnFa+frhtfRGx5O7hMKMrBaAZ4FGfEonNbB0ly
+   g==;
+X-IronPort-AV: E=Sophos;i="5.98,265,1673910000";
+   d="scan'208";a="29738026"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+  by mx1.tq-group.com with ESMTP; 16 Mar 2023 13:36:16 +0100
+Received: from steina-w.tq-net.de (unknown [10.123.53.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 50D81280056;
+	Thu, 16 Mar 2023 13:36:16 +0100 (CET)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Derek Kiernan <derek.kiernan@xilinx.com>,
-	Dragan Cvetic <dragan.cvetic@xilinx.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 7/7] MAINTAINERS: Add the Lantiq PEF2256 ASoC codec entry
-Date: Thu, 16 Mar 2023 13:27:41 +0100
-Message-Id: <20230316122741.577663-8-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
+Subject: [PATCH 1/2] ASoC: fsl: define a common DRIVER_NAME
+Date: Thu, 16 Mar 2023 13:36:10 +0100
+Message-Id: <20230316123611.3495597-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: U7DXZANMDJFLDPOQD4HNM32M6UQNL3JV
-X-Message-ID-Hash: U7DXZANMDJFLDPOQD4HNM32M6UQNL3JV
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: UY5CQ7L3N3ZILGXEHN4QXRZALJ4HOSAM
+X-Message-ID-Hash: UY5CQ7L3N3ZILGXEHN4QXRZALJ4HOSAM
+X-MailFrom: alexander.stein@ew.tq-group.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7DXZANMDJFLDPOQD4HNM32M6UQNL3JV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UY5CQ7L3N3ZILGXEHN4QXRZALJ4HOSAM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -147,32 +124,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-After contributing the codec, add myself as the maintainer for the
-Lantiq PEF2256 codec.
+Instead of copying the driver name manually, use a common define.
+No functional change.
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/fsl/fsl-asoc-card.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b258498aa8ac..81c17580b402 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11651,6 +11651,13 @@ S:	Maintained
- F:	arch/mips/lantiq
- F:	drivers/soc/lantiq
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index cdfca9fd1eb0..e956abfd50f8 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -28,6 +28,8 @@
+ #include "../codecs/wm8994.h"
+ #include "../codecs/tlv320aic31xx.h"
  
-+LANTIQ PEF2256 ASoC CODEC
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml
-+F:	sound/soc/codecs/pef2256-codec.c
++#define DRIVER_NAME "fsl-asoc-card"
 +
- LANTIQ PEF2256 DRIVER
- M:	Herve Codina <herve.codina@bootlin.com>
- S:	Maintained
+ #define CS427x_SYSCLK_MCLK 0
+ 
+ #define RX 0
+@@ -915,7 +917,7 @@ MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
+ static struct platform_driver fsl_asoc_card_driver = {
+ 	.probe = fsl_asoc_card_probe,
+ 	.driver = {
+-		.name = "fsl-asoc-card",
++		.name = DRIVER_NAME,
+ 		.pm = &snd_soc_pm_ops,
+ 		.of_match_table = fsl_asoc_card_dt_ids,
+ 	},
+@@ -924,5 +926,5 @@ module_platform_driver(fsl_asoc_card_driver);
+ 
+ MODULE_DESCRIPTION("Freescale Generic ASoC Sound Card driver with ASRC");
+ MODULE_AUTHOR("Nicolin Chen <nicoleotsuka@gmail.com>");
+-MODULE_ALIAS("platform:fsl-asoc-card");
++MODULE_ALIAS("platform:" DRIVER_NAME);
+ MODULE_LICENSE("GPL");
 -- 
-2.39.2
+2.34.1
 

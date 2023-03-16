@@ -2,116 +2,220 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB68B6C1ED8
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:01:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D626C1EDB
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:01:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3200A3E8;
-	Mon, 20 Mar 2023 19:00:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3200A3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E562D1F9;
+	Mon, 20 Mar 2023 19:01:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E562D1F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679335286;
-	bh=9gki55ZiiB5S52FPkA0HXqZ93ejl6EdRce4I22N5Gds=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hdf3KVIGr1diZCznCDj//noqPZMxGgjLpYBDRn3qps+QS6IcvkNLJ3IdRH2zXF2C7
-	 URYBpRlskQbfTaNEqDwgPUVx7Z4xO9WmS271Srjz5I4yNgPN87v+zfd+4uXKxTdDN2
-	 mxRDPVWw17WD0sp1TCO1ralpT4t+7hokZsrMBerc=
+	s=default; t=1679335317;
+	bh=EHia0Z/ZV8IwonMqPduUm5/mXVgHjO/L0u7v1lqWyk4=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=JVMY0onHPC9RzDV3O+KOK/1msF8jioxytkdBTE0ruhehO9WcCeMrRWCHYsgUI43vh
+	 8nIwHkz6b9c5M/UC8QDvQB7jO/sLnZPvulNBHaS4qR9VzJpeTMnEWHDSS8L/og3qka
+	 zag/EvOpX7yNClmQ9+neyq+oZs6TShGPJ/PehNZo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A588F80520;
-	Mon, 20 Mar 2023 18:58:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6ADF5F80567;
+	Mon, 20 Mar 2023 18:59:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48F7EF80423; Thu, 16 Mar 2023 00:11:29 +0100 (CET)
+	id 954D3F80423; Thu, 16 Mar 2023 10:32:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EB956F8016C
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 00:11:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB956F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EB9CF80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 10:32:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EB9CF80272
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=kSOKXaLA
-Received: by mail-pj1-x102a.google.com with SMTP id
- gp15-20020a17090adf0f00b0023d1bbd9f9eso3571495pjb.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 15 Mar 2023 16:11:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678921877;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kzy0B/VYnSJRvZ8pGtdA2kQJazW5NtKMyoTehvrQmDw=;
-        b=kSOKXaLA2XOfIn6OLaCrF7ohz5hyFI9gZZMaZu62+ifKfKT+mpEtUk7LbMNO8nsoda
-         zZ4dpu2h1nnINsgPWb6laXAilEFF4M+hvfyO0USrhjhjkol45xsvEzR7qw631mk+Vjt5
-         NKRRMTEsF1jZxH90kXSw9eN7SeegJWB/zU3SoTZGfTOA8l8s7tu2A22/rjj/d/ya7BF2
-         2s4FTetw1dgkoqGLk1Dux1vanxLFT0mAm0J3lCY+hPmGC0BWhadUDpB0fz+zjNZrgG0p
-         /FIqa6uw7NN0ka16S1u1YlHXWNiz+0aEheoFLWxwqXjqTWD30JZ/K+mT6lXXOhtWb/Qy
-         2K5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678921877;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kzy0B/VYnSJRvZ8pGtdA2kQJazW5NtKMyoTehvrQmDw=;
-        b=L5ewnwjUfRDi7NQVyhudI8AvH6KVqOwBdMTaJyAssZu6ZPaKFlOXKTBiQn5NGdrDfh
-         OKeillLe9FwwiFzZUqSKSut18CLQ90Qa+NRruldUqoSP0zkAj9UnGcEpnI7vNlxksoM1
-         f34H1ul0bPbW39JAyd/TTuz8/z1bMgOSiP/2OAMAKgJ14dNmyFqD9kYFvU6JwBv7sIGu
-         3wvYIZ9MlIKU3nSp23jUyhmuxGUP9hDyRkBRVpSTD4m0unm9UUmiBksxiYJ8SqFwsXGB
-         s6+NpCY7bFlUvJyIuhhOYNvvUq7jOxXaVEvp69EEE7geKqrP/kXavK7dNhxFIhNKo48s
-         N12w==
-X-Gm-Message-State: AO0yUKWqDBFrfCQkrrRrfnR7812Y1+9XUpK90XSMKTn9sQR5O+fUe+tn
-	qQ3SlQhYKapkbByk0zM+pKk=
-X-Google-Smtp-Source: 
- AK7set9wsbdkZ1LjU01R5iAlOExPzKZm3vwKjuDjqLuZR0UayRfcjyyy0SFPQvHT2QRZ2N2EQDGl1w==
-X-Received: by 2002:a05:6a20:8e2a:b0:cb:f76c:e1a8 with SMTP id
- y42-20020a056a208e2a00b000cbf76ce1a8mr1604364pzj.15.1678921877048;
-        Wed, 15 Mar 2023 16:11:17 -0700 (PDT)
-Received: from localhost.localdomain ([14.139.38.154])
-        by smtp.googlemail.com with ESMTPSA id
- m123-20020a632681000000b0050bebfe464dsm212616pgm.53.2023.03.15.16.11.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 15 Mar 2023 16:11:16 -0700 (PDT)
-From: Vijaya Anand <sunrockers8@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ASoC: dt-bindings: adi,adau17x1: Convert to DT schema
-Date: Thu, 16 Mar 2023 04:40:55 +0530
-Message-Id: <20230315231055.3067-1-sunrockers8@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=H9aXq6XW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=vrFmJJMH
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E4D3C1FDFB;
+	Thu, 16 Mar 2023 09:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1678959130;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LgQ6KC2ybaQuhcxvNbj5yWV84Hdg07Eok3qBPbbxY94=;
+	b=H9aXq6XWzgXy3V6gUMaMgKEQOC4u2wwCwuM31XT6epw3vcSavDTpG7v1DmpLitT3aAzvrb
+	Uij7YtTtCMzKsnoVFyM4P36fE8radT/BVqUmJO5oz33vf5WRPcRwuHN+AiCd+tOxzXuyQp
+	7HO6F55yqLXCARRi8VELwLEQafIfemA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1678959130;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LgQ6KC2ybaQuhcxvNbj5yWV84Hdg07Eok3qBPbbxY94=;
+	b=vrFmJJMHnJyGAG4vQo3kBbAm10wkR+7Kjjsf57BxURiziFHRuM5x12k5OToJ7bvAHK8XWM
+	BGwhhqI50dx0VBCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE806133E0;
+	Thu, 16 Mar 2023 09:32:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 9o+MNRjiEmRkRAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 16 Mar 2023 09:32:08 +0000
+Date: Thu, 16 Mar 2023 10:32:08 +0100
+Message-ID: <87ttylhwiv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH 000/173] ALSA/ASoC: Convert to platform remove callback
+ returning void
+In-Reply-To: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
+References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-X-MailFrom: sunrockers8@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-MailFrom: tiwai@suse.de
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PMOJOMPMFS4QCI4UDW5KACMYAG4RT3Q2
-X-Message-ID-Hash: PMOJOMPMFS4QCI4UDW5KACMYAG4RT3Q2
-X-Mailman-Approved-At: Mon, 20 Mar 2023 17:58:14 +0000
-CC: Vijaya Anand <sunrockers8@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: VECLOAKJOD4R6T5I63O7AM6LX466HQUG
+X-Message-ID-Hash: VECLOAKJOD4R6T5I63O7AM6LX466HQUG
+X-Mailman-Approved-At: Mon, 20 Mar 2023 17:59:14 +0000
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Gaosheng Cui <cuigaosheng1@huawei.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Mohan Kumar <mkumard@nvidia.com>,
+ Geoff Levand <geoff@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ syed saba kareem <syed.sabakareem@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Meng Tang <tangmeng@uniontech.com>,
+ Martin =?ISO-8859-2?Q?Povi=B9er?= <povik+lin@cutebit.org>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Peter Rosin <peda@axentia.se>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>, Allison Randal <allison@lohutok.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Miaoqian Lin <linmq006@gmail.com>,
+ Colin Ian King <colin.i.king@gmail.com>,
+ Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
+ Zhang Qilong <zhangqilong3@huawei.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Liang He <windhl@126.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Minghao Chi <chi.minghao@zte.com.cn>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Moises Cardona <moisesmcardona@gmail.com>, Zhen Ni <nizhen@uniontech.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Andrey Turkin <andrey.turkin@gmail.com>,
+ Muralidhar Reddy <muralidhar.reddy@intel.com>,
+ Zhu Ning <zhuning0077@gmail.com>, Gongjun Song <gongjun.song@intel.com>,
+ Shuming Fan <shumingf@realtek.com>, Yong Zhi <yong.zhi@intel.com>,
+ Lior Amsalem <alior@marvell.com>, Andrew Lunn <andrew@lunn.ch>,
+ Hezi Shahmoon <hezi@marvell.com>, Neta Zur Hershkovits <neta@marvell.com>,
+ Marcin Wojtas <mw@semihalf.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Ricardo Ribalda <ribalda@chromium.org>, Trevor Wu <trevor.wu@mediatek.com>,
+ Dan Carpenter <error27@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Linh Phung <linh.phung.jy@renesas.com>,
+ Shang XiaoJing <shangxiaojing@huawei.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Mikhail Rudenko <mike.rudenko@gmail.com>, Li Chen <lchen@ambarella.com>,
+ Ban Tao <fengzheng923@gmail.com>, Sameer Pujar <spujar@nvidia.com>,
+ YueHaibing <yuehaibing@huawei.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Li kunyu <kunyu@nfschina.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>,
+ Michal Simek <michal.simek@xilinx.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ alsa-devel@alsa-project.org, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ linuxppc-dev@lists.ozlabs.org, asahi@lists.linux.dev,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ patches@opensource.cirrus.com, Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-mediatek@lists.infradead.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-omap@vger.kernel.org, linux-xtensa@linux-xtensa.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PMOJOMPMFS4QCI4UDW5KACMYAG4RT3Q2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VECLOAKJOD4R6T5I63O7AM6LX466HQUG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,125 +224,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the binding document for adi,adau17x1 from txt to yaml
-so one could validate dt-entries correctly and any future additions
-can go into yaml format. Add address and size cells to example to
-prevent errors regarding reg format.
+On Wed, 15 Mar 2023 16:04:52 +0100,
+Uwe Kleine-König wrote:
+> 
+> Hello,
+> 
+> this series adapts the platform drivers below sound/ to use the .remove_new()
+> callback. Compared to the traditional .remove() callback .remove_new() returns
+> no value. This is a good thing because the driver core doesn't (and cannot)
+> cope for errors during remove. The only effect of a non-zero return value in
+> .remove() is that the driver core emits a warning. The device is removed anyhow
+> and an early return from .remove() usually yields a resource leak.
+> 
+> By changing the remove callback to return void driver authors cannot
+> reasonably assume any more that there is some kind of cleanup later.
+> 
+> The first two patches simplify a driver each to return zero unconditionally,
+> and then all drivers are trivially converted to .remove_new().
+> 
+> There are nearly no interdependencies in this patch set---only 1 <- 11 and
+> 2 <- 16. So even if some individual problems are found (I don't expect that),
+> the other patches can (and from my POV should) still be applied.
+> 
+> Best regards
+> Uwe
+> 
+> Uwe Kleine-König (173):
+(snip)
 
-Signed-off-by: Vijaya Anand <sunrockers8@gmail.com>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>
----
-Changes since v1:
-- added 'Codec' in title to clarify type of devices
-- put compatible devices in lexographic order
-- changed description of clocks
-- changed 'unevaluatedProperties' to 'additionalProperties'
-- changed node names to be generic
+For the whole series,
 
----
- .../bindings/sound/adi,adau17x1.txt           | 32 ------------
- .../bindings/sound/adi,adau17x1.yaml          | 52 +++++++++++++++++++
- 2 files changed, 52 insertions(+), 32 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/adi,adau17x1.txt
- create mode 100644 Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
+Acked-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/Documentation/devicetree/bindings/sound/adi,adau17x1.txt b/Documentation/devicetree/bindings/sound/adi,adau17x1.txt
-deleted file mode 100644
-index 1447dec28125..000000000000
---- a/Documentation/devicetree/bindings/sound/adi,adau17x1.txt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--Analog Devices ADAU1361/ADAU1461/ADAU1761/ADAU1961/ADAU1381/ADAU1781
--
--Required properties:
--
-- - compatible:		Should contain one of the following:
--			"adi,adau1361"
--			"adi,adau1461"
--			"adi,adau1761"
--			"adi,adau1961"
--			"adi,adau1381"
--			"adi,adau1781"
--
-- - reg:			The i2c address. Value depends on the state of ADDR0
--			and ADDR1, as wired in hardware.
--
--Optional properties:
-- - clock-names:		If provided must be "mclk".
-- - clocks:		phandle + clock-specifiers for the clock that provides
--			the audio master clock for the device.
--
--Examples:
--#include <dt-bindings/sound/adau17x1.h>
--
--	i2c_bus {
--		adau1361@38 {
--			compatible = "adi,adau1761";
--			reg = <0x38>;
--
--			clock-names = "mclk";
--			clocks = <&audio_clock>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml b/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
-new file mode 100644
-index 000000000000..8ef1e7f6ec91
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/adi,adau17x1.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/adi,adau17x1.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title:
-+ Analog Devices ADAU1361/ADAU1461/ADAU1761/ADAU1961/ADAU1381/ADAU1781 Codec
-+
-+maintainers:
-+  - Lars-Peter Clausen <lars@metafoo.de>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adau1361
-+      - adi,adau1381
-+      - adi,adau1461
-+      - adi,adau1761
-+      - adi,adau1781
-+      - adi,adau1961
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      The i2c address. Value depends on the state of ADDR0 and ADDR1,
-+      as wired in hardware.
-+
-+  clock-names:
-+    const: mclk
-+
-+  clocks:
-+    items:
-+      - description: provides the audio master clock for the device.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      audio-codec@38 {
-+        compatible = "adi,adau1761";
-+        reg = <0x38>;
-+        clock-names = "mclk";
-+        clocks = <&audio_clock>;
-+      };
-+    };
--- 
-2.37.1 (Apple Git-137.1)
 
+thanks,
+
+Takashi

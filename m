@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E526BDCD3
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 00:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841536BDCE5
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 00:30:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2357F1042;
-	Fri, 17 Mar 2023 00:20:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2357F1042
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2911042;
+	Fri, 17 Mar 2023 00:30:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2911042
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679008855;
-	bh=w27aUi7It9h8nbGZhrTxFUQlsPX0IjHEaDxbMAWRWjM=;
+	s=default; t=1679009453;
+	bh=Rbr/g7dQDAdpmJSSKnIlY6nrlZaM5+D6RZogNiDirpg=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nYTXHLOIhBGEg93uyi7rqsHhe/x0pTBpNjHVsxYJsW+1KzoIsfh2KQWfMvkV/ymfo
-	 +ezn0BBnZkNDYPQBmoqedemRmgMWGKh3ax6ikmuTwbDz1QkX0GezYOnyB058QR8OEp
-	 rYuRk1prbtBMfWn2yY+53lMAcnkTvHL+OwKfGUoQ=
+	b=P6/DtICg1ipY8Ro3Ig6/HJ5r8GzqBUTRFe7jxv+ynlyjCicAkkkinE6zB+wRd29ST
+	 uzlXhOUv5zKhKsQ3AES6KHHy3TPBM+/Xf1aFzLYgI/mUZT6d2fvWdqvN5ILJBUwGGQ
+	 92Q8JMDVp9j0TVTQvFWmJ4ax3SdR4VVincgvoDWo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB8CBF8032D;
-	Fri, 17 Mar 2023 00:20:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7ABC4F8032D;
+	Fri, 17 Mar 2023 00:30:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C229F80423; Fri, 17 Mar 2023 00:20:02 +0100 (CET)
+	id 53070F80423; Fri, 17 Mar 2023 00:29:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,55 +34,55 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 153FFF80093
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 00:19:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 153FFF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1AC97F80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 00:29:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC97F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EahNDIfv
+ header.s=Intel header.b=LdXLryz2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679008794; x=1710544794;
+  t=1679009393; x=1710545393;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=w27aUi7It9h8nbGZhrTxFUQlsPX0IjHEaDxbMAWRWjM=;
-  b=EahNDIfvteAxqeXpWt6npd1P8f6yxKXlRnnqII23LxRoXyIeqbsiLDB9
-   pFnV6Gfntpd0YbBQN8UadmSlZOLa6s2qyVRt3u59JKINdLi+cNOHqO6QH
-   vENaA3OuENoMaPwQdjGzOFsjJQpnefXIdK0pbfqrfHAOoLBNK8q1UfkUL
-   EpfSqUW6DqWwaA/5U6FhGDy+PiQsKTpeOTTO9mdbkWWNjmY+Y4f3o4dON
-   +8irxhnv/usdmyXCb/D3dVH+CAUKPZ2XuvGOfF17WDlAraEZww8KMSWR2
-   jWjxy7LWkfq7vdJrN5R9uOm6fZE+YDEawYcV9ktZx6zNhBECxNPTXBq9h
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="326501733"
+  bh=Rbr/g7dQDAdpmJSSKnIlY6nrlZaM5+D6RZogNiDirpg=;
+  b=LdXLryz21yGWS1oaW5kyNEaebIEjdThK5Kxm4iyblld9DAzqk1lQN0OM
+   ZmdPwlSEh/ji/AXmZ1JWBYN7RmCtGFmC0l92L/28KaSufO+OOYRo+h9KE
+   zmrPRnWowWwVU6DgLITV9AXxUlTK77rXpB8F4y0iZiblr3bsE39HH9OEJ
+   OHV+AIh6z8kkLQ5lLSsm7S00yefwcTPRxo3WChyobq3A/FAdBjBs/CFZx
+   8PzrQ0QbuCzfb5fuDStE3Egg+5Rj74OuTBMXtEUVM6QFKgpG5klOkceaF
+   Na91PAG9LDBUVoC71YsitxUmBRg0pI6BcHlH2/d6edxx40xhvxeOtRLwJ
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="326502866"
 X-IronPort-AV: E=Sophos;i="5.98,267,1673942400";
-   d="scan'208";a="326501733"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+   d="scan'208";a="326502866"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 16:19:49 -0700
+ 16 Mar 2023 16:29:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="744351234"
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="1009437979"
 X-IronPort-AV: E=Sophos;i="5.98,267,1673942400";
-   d="scan'208";a="744351234"
+   d="scan'208";a="1009437979"
 Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
-  by fmsmga008.fm.intel.com with ESMTP; 16 Mar 2023 16:19:47 -0700
+  by fmsmga005.fm.intel.com with ESMTP; 16 Mar 2023 16:29:46 -0700
 Received: from kbuild by b613635ddfff with local (Exim 4.96)
 	(envelope-from <lkp@intel.com>)
-	id 1pcwss-0008sg-0H;
-	Thu, 16 Mar 2023 23:19:46 +0000
-Date: Fri, 17 Mar 2023 07:19:11 +0800
+	id 1pcx2Y-0008so-0Y;
+	Thu, 16 Mar 2023 23:29:46 +0000
+Date: Fri, 17 Mar 2023 07:29:34 +0800
 From: kernel test robot <lkp@intel.com>
 To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
 Subject: Re: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to
  handle page boundaries
-Message-ID: <202303170724.NdbQwtQo-lkp@intel.com>
+Message-ID: <202303170749.83Yd8Oh0-lkp@intel.com>
 References: <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
-Message-ID-Hash: W4LBALDNHL2GSUQ2KU5FHM7AWSBZCCUS
-X-Message-ID-Hash: W4LBALDNHL2GSUQ2KU5FHM7AWSBZCCUS
+Message-ID-Hash: NA3TT23IIQ5SKSA5VII6ED3QQFUG3Y4L
+X-Message-ID-Hash: NA3TT23IIQ5SKSA5VII6ED3QQFUG3Y4L
 X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W4LBALDNHL2GSUQ2KU5FHM7AWSBZCCUS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NA3TT23IIQ5SKSA5VII6ED3QQFUG3Y4L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,25 +121,23 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 url:    https://github.com/intel-lab-lkp/linux/commits/Charles-Keepax/soundwire-bus-Update-sdw_nread-nwrite_no_pm-to-handle-page-boundaries/20230317-000005
 patch link:    https://lore.kernel.org/r/20230316155734.3191577-2-ckeepax%40opensource.cirrus.com
 patch subject: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to handle page boundaries
-config: mips-randconfig-r022-20230312 (https://download.01.org/0day-ci/archive/20230317/202303170724.NdbQwtQo-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 67409911353323ca5edf2049ef0df54132fa1ca7)
+config: i386-randconfig-a011-20230313 (https://download.01.org/0day-ci/archive/20230317/202303170749.83Yd8Oh0-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # install mips cross compiling tool for clang build
-        # apt-get install binutils-mipsel-linux-gnu
         # https://github.com/intel-lab-lkp/linux/commit/6944d7175bd15a9a16a411c57f200d3bcecd3c00
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Charles-Keepax/soundwire-bus-Update-sdw_nread-nwrite_no_pm-to-handle-page-boundaries/20230317-000005
         git checkout 6944d7175bd15a9a16a411c57f200d3bcecd3c00
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=mips olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash drivers/soundwire/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/soundwire/
 
 If you fix the issue, kindly add following tag where applicable
 | Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303170724.NdbQwtQo-lkp@intel.com/
+| Link: https://lore.kernel.org/oe-kbuild-all/202303170749.83Yd8Oh0-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 

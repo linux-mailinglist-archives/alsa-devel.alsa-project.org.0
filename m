@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 825C66BD5CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C486BD5CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:34:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E150F109F;
-	Thu, 16 Mar 2023 17:33:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E150F109F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5C3A10E1;
+	Thu, 16 Mar 2023 17:33:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5C3A10E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678984461;
-	bh=ioD3xUhnDD/kN66mIEPreBlmwTQml2JuCHXZJ35GMJ4=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=IVorpn7X+sVOvSwTyVLyO5XnuTfo3V06t+3K+4YI3jcW2mvARCyhxnDvfnQD0VUCB
-	 APHNygYSR8LM2Lyb5mY64L/M7n6HV9G7CNKC1juCFlaHkoLvP/s3029GohdUVNBCDC
-	 zLlcef0xIsU2SNbMlZuIMb2TT8I8SMo7N+oPQBhc=
+	s=default; t=1678984469;
+	bh=KASXsKcwhzOFvQl9CRD+V3oEgR7AUj1FxHxAfxlkrZg=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DSL/zzLExtYcKywl3/qPE/OsOmXBTfp4mVGefgkOdTPsnzymbyMZqgLhNc1OjzcQ0
+	 4iVYyXXt4dV9sSr/vwx2RIGhuhhQeJyY0g8CUse5tlFqjBSRH4qoOg6nSVOafrmWW6
+	 aBTq3pnCgPfy5fW+ZITkaZyqGEUhrxlIy0Gcs5KI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FE19F80529;
-	Thu, 16 Mar 2023 17:33:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EC12F80272;
+	Thu, 16 Mar 2023 17:33:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 106F6F8052D; Thu, 16 Mar 2023 17:33:16 +0100 (CET)
+	id 36DC1F80425; Thu, 16 Mar 2023 17:33:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34270F80527
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:33:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34270F80527
+	by alsa1.perex.cz (Postfix) with ESMTPS id CFE0DF80533
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:33:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFE0DF80533
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ir6jkhir
+ header.s=k20201202 header.b=ks9z3oxK
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id CB2B2B8227B;
-	Thu, 16 Mar 2023 16:33:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29DA8C433A0;
-	Thu, 16 Mar 2023 16:33:11 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 52A90620B3;
+	Thu, 16 Mar 2023 16:33:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AFCC4339E;
+	Thu, 16 Mar 2023 16:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678984392;
-	bh=ioD3xUhnDD/kN66mIEPreBlmwTQml2JuCHXZJ35GMJ4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ir6jkhirjcqj8gUeJ92Hq5ePtkml4N9NJsAc2w/p8ktLMMGfo2uD9nKAARy+go+vf
-	 pGaVQ9IzZkanZdKH3Dg5OGVj52fpQR4EAxah9uojm1qEykdhDPHDuf4rcAoYoGDT0Y
-	 UTA3ABs9KverooIwbyM2evWYyzWvs4Oh8rHpIK1wu2daSC55DmkvKXzD/sxqgsz33G
-	 9wSA0iT80NYT6EPFE1ExsHr5Ibbi98HrrgjtSdcZILDeijy96DnZLwdYPUSKad5xfN
-	 GgimGpjOYuObPtBn2c5SnOTgVl/rNXHkEYQ5FhDOa18mrORxDTGsnPl63N4XlncndK
-	 q4peihw2MOhBA==
+	s=k20201202; t=1678984407;
+	bh=KASXsKcwhzOFvQl9CRD+V3oEgR7AUj1FxHxAfxlkrZg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ks9z3oxKXvFTUvqT172yFQ6sGLxLMmWx3jxYZkDMQ7UYUWl79iiMZyijHo2Fnxc4Y
+	 Nsw8XqfwhVURzNrWEuUhYSjbHZVLXatdyHdkANz2EeDE6T/ZBFmOA8JeUYXbBoL42K
+	 lVp8zFHTyef0wmOl6cDLe09CwGqB8jlUhv67vk0KNJ/rBWwFT3VqcYVkR/THYWGxEQ
+	 3xrVF7TuL+uEIT6hhLSfJ4YfcKOyvsMLv4+xZqdJN3C4vEsqqHxRBl9Oyd89tKuawZ
+	 aNMqYUm8CbJP5lD1YDxG7VuKqJlrIpQm20m/etmS+M/0ZQSfJr2wyBr65z8oKcoqhM
+	 PuM+WU3tFZlvg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 1/6] ASoC: amd: yp: Add OMEN by HP Gaming Laptop
- 16z-n000 to quirks
-Date: Thu, 16 Mar 2023 12:33:02 -0400
-Message-Id: <20230316163309.708796-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 3/6] ASoC: amd: yc: Add DMI entries to support HP
+ OMEN 16-n0xxx (8A43)
+Date: Thu, 16 Mar 2023 12:33:04 -0400
+Message-Id: <20230316163309.708796-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230316163309.708796-1-sashal@kernel.org>
+References: <20230316163309.708796-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EUG5BHRVLKMM2VCUN64TERAA6CMYKOT2
-X-Message-ID-Hash: EUG5BHRVLKMM2VCUN64TERAA6CMYKOT2
+Message-ID-Hash: ZHPYQ6YJPXTW6MJCEJPO3LZBV7RJQGTQ
+X-Message-ID-Hash: ZHPYQ6YJPXTW6MJCEJPO3LZBV7RJQGTQ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -76,17 +79,17 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Joseph Hunkeler <jhunkeler@gmail.com>, Mark Brown <broonie@kernel.org>,
+CC: Duc Anh Le <lub.the.studio@gmail.com>, Mark Brown <broonie@kernel.org>,
  Sasha Levin <sashal@kernel.org>, lgirdwood@gmail.com, tiwai@suse.com,
- mario.limonciello@amd.com, Syed.SabaKareem@amd.com, mendiebm@gmail.com,
- dukzcry@ya.ru, leohearts@leohearts.com, xazrael@hotmail.com,
- alsa-devel@alsa-project.org
+ mario.limonciello@amd.com, Syed.SabaKareem@amd.com, aniol@aniolmarti.cat,
+ mendiebm@gmail.com, wimvanboven@gmail.com, lxy.lixiaoyan@gmail.com,
+ xazrael@hotmail.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUG5BHRVLKMM2VCUN64TERAA6CMYKOT2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHPYQ6YJPXTW6MJCEJPO3LZBV7RJQGTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,14 +98,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Joseph Hunkeler <jhunkeler@gmail.com>
+From: Duc Anh Le <lub.the.studio@gmail.com>
 
-[ Upstream commit 22ce6843abec19270bf69b176d7ee0a4ef781da5 ]
+[ Upstream commit d52279d5c9204a041e9ba02a66a353573b2f96e4 ]
 
-Enables display microphone on the HP OMEN 16z-n000 (8A42) laptop
+This model requires an additional detection quirk to enable the internal microphone.
 
-Signed-off-by: Joseph Hunkeler <jhunkeler@gmail.com>
-Link: https://lore.kernel.org/r/20230216155007.26143-1-jhunkeler@gmail.com
+Signed-off-by: Duc Anh Le <lub.the.studio@gmail.com>
+Link: https://lore.kernel.org/r/20230227234921.7784-1-lub.the.studio@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -110,18 +113,18 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 36314753923b8..4e681e9c08fe5 100644
+index 4e681e9c08fe5..4a69ce702360c 100644
 --- a/sound/soc/amd/yc/acp6x-mach.c
 +++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -255,6 +255,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "15NBC1011"),
+@@ -262,6 +262,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16z-n000"),
  		}
  	},
 +	{
 +		.driver_data = &acp6x_card,
 +		.matches = {
 +			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16z-n000"),
++			DMI_MATCH(DMI_BOARD_NAME, "8A43"),
 +		}
 +	},
  	{}

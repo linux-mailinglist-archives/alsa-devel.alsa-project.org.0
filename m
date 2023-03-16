@@ -2,117 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A4F6BD57D
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:24:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05476BD598
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 17:30:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95E84F2E;
-	Thu, 16 Mar 2023 17:23:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95E84F2E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD05109F;
+	Thu, 16 Mar 2023 17:29:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD05109F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678983858;
-	bh=ntbVqT/Oid2sufd8/ToZ6mjA46yGSEpFNXxar2Qt3f4=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nUPJ6wclZS+xAcUC+HKzoyY5JTe9Xp5Zt0HMpFIeqNATFzd2qVtC0wmlG4yvcgM+o
-	 wAvj/JvCpfCiOb5wbe1PsL/294c7W564ynB+bhyHSwY+VW59jnxCXC6NjVOwXSY1zq
-	 sjhC1LglGYdk8UKL4yTC4zOslGq6clenFilUGgVk=
+	s=default; t=1678984205;
+	bh=k/b1aHop4pw4H4A/g01EAMkT0bmn4FBdxp50LXt0CJo=;
+	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=OUnumNtBNyrlbL6ddiGnjsKdE5dhvI7lYsc6feWK2oWcSUbACMOBqdnQmIdbZ6yLQ
+	 HlhobEImNSXpA6upYwINBrpT8YiF85f2ghIAuYXXxQ9k9Cq/JhiI4J+Xmt6Nd572y6
+	 03uIQIAa54NcG8wU0BJ3zeUn5THH9P5fc3chPJcU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBF7DF8032D;
-	Thu, 16 Mar 2023 17:23:27 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42F14F80423; Thu, 16 Mar 2023 17:23:21 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E48E9F80272
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:23:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48E9F80272
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=juqyQqag
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32GDV56A018052;
-	Thu, 16 Mar 2023 16:23:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=DGUvrfDfGZ0mbCeDP3/EhKDi0cTkzcFUFWcFAevMCBI=;
- b=juqyQqagh6XfT4n0bC6pdOcYosEk5GGDLFnh82f1MBoagZUbQxz9lLyDWQ4pZsk1/JOj
- lSYjCdulBRqIZ3l6YPJPoXuCZcqhehcA3GcIyeNeKYETigB7q/cECgAKyPGVpVOwFory
- ediP4M3yG8Y/L1p9i2i8/8gPIboEjtQD8ixnIqjAdDMOWnx4eT6z+0Y4wtDy2qEL3UaV
- YUoUdHl0YPcvIhoqMyjHAVS/f28nwLb6qrhvGdW9QFmYzGi7ecq0lBXZcU4STx2Dvc8J
- IkTGvoT0Ner7Yl813JH3pBsXMhUjZplntzp08yg8w/8+u3eHF6qNWZyO3kRdj4uUoFZw kQ==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3pbst923ej-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Mar 2023 16:23:10 +0000
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
-	by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 32GGNABF019780
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Mar 2023 16:23:10 GMT
-Received: from hu-visr-hyd.qualcomm.com (10.80.80.8) by
- nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.41; Thu, 16 Mar 2023 09:23:07 -0700
-From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
-To: <quic_visr@quicinc.com>
-Subject: [PATCH] ASoC: codecs:rx-macro: Fixing uninitialized variables.
-Date: Thu, 16 Mar 2023 21:52:49 +0530
-Message-ID: <20230316162249.17044-1-quic_visr@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: PRpImEHXJKZHExf2lT0jZY0_lmw7rFrh
-X-Proofpoint-GUID: PRpImEHXJKZHExf2lT0jZY0_lmw7rFrh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-16_10,2023-03-16_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 mlxlogscore=725 malwarescore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303150002
- definitions=main-2303160130
-Message-ID-Hash: XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ
-X-Message-ID-Hash: XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ
-X-MailFrom: quic_visr@quicinc.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 03584F8032D;
+	Thu, 16 Mar 2023 17:29:15 +0100 (CET)
+Date: Thu, 16 Mar 2023 17:29:00 +0100
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
+ PEF2256 framer
+In-Reply-To: <ZBMQTxFsrKQesd4v@kroah.com>
+References: <20230316122741.577663-1-herve.codina@bootlin.com>
+	<20230316122741.577663-3-herve.codina@bootlin.com>
+	<ZBMQTxFsrKQesd4v@kroah.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQV2E4HWSQP6IRHRLFT4CJ5OJH7HN2GJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167898415428.26.12040884489691786607@mailman-core.alsa-project.org>
+From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Derek Kiernan <derek.kiernan@xilinx.com>,
+ Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 6CE66F80423; Thu, 16 Mar 2023 17:29:10 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::229])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E72B8F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 17:29:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E72B8F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=mXFzboS0
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id CF611FF811;
+	Thu, 16 Mar 2023 16:29:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1678984143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jeRzDs4ihJbeI7tp32i3vf2hG703FkbCNPgA50D/FNA=;
+	b=mXFzboS07wKLrh31pNwHjrVSBN14J/n9oejyp51jQ/bRh1ex0pQ7a21J4KKzxljg005gqX
+	pp45HUxC6IHCfX+F8PGrmOOe/FB8XqVLKHmpyjW1yXy3R2vmaaqTe+RfLiqjIa572fiwh1
+	RiXLGu+b5LQW2DT+RLrmq9+oiqzS89YrL38unneeJIJ+7SpG81P2m+vSnxwz88EdkoB1sF
+	VyzyCQSwkEHO3RqJ+C/o/N3qLhutNpOSA87VuQciRtJpa83iHr0vAJYZb7YRZTLMvqUb8f
+	K4JbNS/lXslxJ//oyVuBGcG7p/c1fqW0TZPO/CAIRgW7v1iHsyAMjBZ955oItA==
+Date: Thu, 16 Mar 2023 17:29:00 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
+ PEF2256 framer
+Message-ID: <20230316172900.2bb49a13@bootlin.com>
+In-Reply-To: <ZBMQTxFsrKQesd4v@kroah.com>
+References: <20230316122741.577663-1-herve.codina@bootlin.com>
+	<20230316122741.577663-3-herve.codina@bootlin.com>
+	<ZBMQTxFsrKQesd4v@kroah.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN
+X-Message-ID-Hash: K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN
+X-MailFrom: herve.codina@bootlin.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Derek Kiernan <derek.kiernan@xilinx.com>,
+ Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6JYDZJ2N2QBMPNRT5ECWLDPGR4PSRSN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,27 +147,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Initializing the uninitialized variables to avoid any unexpected garbage
-value to be propagated further.
+Hi Greg,
 
-Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
----
- sound/soc/codecs/lpass-rx-macro.c | 2 ++
- 1 file changed, 2 insertions(+)
+On Thu, 16 Mar 2023 13:49:19 +0100
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index a73a7d7a1c0a..0c8b79ff2fc5 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -2219,6 +2219,8 @@ static void rx_macro_hd2_control(struct snd_soc_component *component,
- 				 u16 interp_idx, int event)
- {
- 	u16 hd2_scale_reg, hd2_enable_reg;
-+	hd2_scale_reg = 0;
-+	hd2_enable_reg = 0;
- 
- 	switch (interp_idx) {
- 	case INTERP_HPHL:
--- 
-2.17.1
+> On Thu, Mar 16, 2023 at 01:27:36PM +0100, Herve Codina wrote:
+> > +EXPORT_SYMBOL(pef2256_get_byphandle); =20
+>=20
+> You have a mixture of EXPORT_SYMBOL() and EXPORT_SYMBOL_GPL() in the
+> same file here.  As this one:
+>=20
+> > +
+> > +void pef2256_put(struct pef2256 *pef2256)
+> > +{
+> > +	put_device(pef2256->dev);
+> > +}
+> > +EXPORT_SYMBOL(pef2256_put); =20
+>=20
+> Is just a wrapper around a EXPORT_SYMBOL_GPL() function, please revisit
+> and perhaps make them all EXPORT_SYMBOL_GPL() calls?
+>=20
 
+Indeed.
+I will make them consistent in the v3 series.
+
+Thanks for pointing that out.
+Herv=C3=A9
+--=20
+Herv=C3=A9 Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

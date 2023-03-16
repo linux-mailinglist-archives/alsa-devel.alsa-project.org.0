@@ -2,145 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BF0C6BCAAC
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 10:22:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791266BCADD
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 10:30:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C376114D;
-	Thu, 16 Mar 2023 10:21:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C376114D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25D66111B;
+	Thu, 16 Mar 2023 10:29:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D66111B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678958550;
-	bh=6H8TIxUuMMR2W9HGLwmeJDx2K3XUT+ke2pmdF4s4Ngc=;
-	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=FMOit+FzvvTSpmGrF2vwlwOwecn5O3gHbcavuT0gNHp20FewpHYpykWLePfn5Fvus
-	 qgKxQKki5ZC7Joq/oyBYSrzvVU0eM94zJBCKPk+dZGPPTCyeV/Iec4Nl6BuEuqPCL2
-	 dfTPXtvPd4YSkFPJKIGGsSVAZFxw96rUWBbi1vxw=
+	s=default; t=1678959041;
+	bh=vg+nQ5qTUb5iY5kiTFLuyLsFpxn8tQDXhqnM5h55sZc=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YVo8zkl2vnQP0j7meQA5v79Viy9ry2iMytzXR6akubwa/t+ieRCIuMAP0+va65wBm
+	 U/D3TCwwwqVPiGzuMd6wUEvS9dD+l5D1Jou43BR/DcVvZz9CeIhchtAELtBrALd4U9
+	 pjt/TE3mOyT02RKzmbxR+vd8Qw/IBoQT/CegiDq4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3806AF8051B;
-	Thu, 16 Mar 2023 10:21:04 +0100 (CET)
-Date: Thu, 16 Mar 2023 09:20:55 +0000
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 061/173] ASoC: codecs: wm8998: Convert to platform remove
- callback returning void
-References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
- <20230315150745.67084-62-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20230315150745.67084-62-u.kleine-koenig@pengutronix.de>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4DLKY7XNYCLJWSWIO6TNZOAAXXNIP7SH/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167895846382.26.9787498472656066649@mailman-core.alsa-project.org>
-From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, kernel@pengutronix.de
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 77880F8032D;
+	Thu, 16 Mar 2023 10:29:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 745C0F80533; Thu, 16 Mar 2023 10:21:00 +0100 (CET)
+	id C57BCF80423; Thu, 16 Mar 2023 10:29:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65F70F8032D
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 10:20:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F70F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D82FF80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 10:29:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D82FF80272
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Fqiz6n+n
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32G4TiBW000913;
-	Thu, 16 Mar 2023 04:20:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=B1W28wnCn1Exum77L/Y5Jt458FMQ8RYv6HFWX4+x1Jg=;
- b=Fqiz6n+nk42CK9vqV4ZgmtqNgIWlTk0JMMo4WMkv0CxR/zhctOaKQx5QVJBMdn+OA4/e
- 6eTfmzC1GDnk40BndxnFulI7YDRVgW2mEYwdbtItCUath4j0spvzi7lhMvmMqbFRBaMG
- s9Tg9/6GNPdE/IVSCVUZch4IErPwM2Tes2kGPBOzzIrQ/Kx8SEGgTjZgWVXlf3l+/+I4
- wt3IR2NLy/nUaFhc0HK5K17xl+GpydHwl3swnuApqWef2wC4nu2s/EXt8zvnGtn4wnu3
- 1PcI9yq8alOHpDO7JI9XpUzhh9HbwXHcUbfM9p8W4b9iQQTR+2xo4neJZcXOd16RQb42 xw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs2nrcvy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Mar 2023 04:20:56 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Thu, 16 Mar
- 2023 04:20:55 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Thu, 16 Mar 2023 04:20:55 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5727D45;
-	Thu, 16 Mar 2023 09:20:55 +0000 (UTC)
-Date: Thu, 16 Mar 2023 09:20:55 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 061/173] ASoC: codecs: wm8998: Convert to platform remove
- callback returning void
-Message-ID: <20230316092055.GH68926@ediswmail.ad.cirrus.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=M8bXr/p0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=6rKlw2Re
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B46A921852;
+	Thu, 16 Mar 2023 09:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1678958977;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QurUAm30I5Yi6Kk4+3SaU6oagBb/DXxtu8Cu1rTU19A=;
+	b=M8bXr/p0UbfkHA9ih35j1klIA6wLZkOdXQczP0evLR+8F2YnTg6h5bDZz4r8h4Si43MCei
+	z/lMvlaAOZ3nZbJ6hbyaSH3INpFv3ZePolMj7Sx7y9HFltlm5Xe8Qpj84rhfLfMWQfj97W
+	w/sV7a7sd9faJxUtaKIlaoByaL0kMVo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1678958977;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QurUAm30I5Yi6Kk4+3SaU6oagBb/DXxtu8Cu1rTU19A=;
+	b=6rKlw2Recdv+p/2cL/ZhTdZaV9bZdRhp9icelXpPrXt9uCNZbGd2NiDhkmxX/IRa0b4gm5
+	IWG4YaRK0LQZF0Bg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7DB6B133E0;
+	Thu, 16 Mar 2023 09:29:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id oS/SHYHhEmToQgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 16 Mar 2023 09:29:37 +0000
+Date: Thu, 16 Mar 2023 10:29:36 +0100
+Message-ID: <87v8j1hwn3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 000/173] ALSA/ASoC: Convert to platform remove callback
+ returning void
+In-Reply-To: <17d833f6-5e7c-4016-9dd5-0305891fddc2@sirena.org.uk>
 References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
- <20230315150745.67084-62-u.kleine-koenig@pengutronix.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+	<17d833f6-5e7c-4016-9dd5-0305891fddc2@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230315150745.67084-62-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: z1Pls_0sKK3-MLn2NTjQ6ss7K_JwmgXq
-X-Proofpoint-ORIG-GUID: z1Pls_0sKK3-MLn2NTjQ6ss7K_JwmgXq
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4DLKY7XNYCLJWSWIO6TNZOAAXXNIP7SH
-X-Message-ID-Hash: 4DLKY7XNYCLJWSWIO6TNZOAAXXNIP7SH
-X-MailFrom: prvs=843980a8d3=ckeepax@opensource.cirrus.com
+Message-ID-Hash: ZA7A66IYZ4W2T5547MPNUOQZOKANTYHF
+X-Message-ID-Hash: ZA7A66IYZ4W2T5547MPNUOQZOKANTYHF
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, kernel@pengutronix.de
+CC: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4DLKY7XNYCLJWSWIO6TNZOAAXXNIP7SH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZA7A66IYZ4W2T5547MPNUOQZOKANTYHF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,22 +122,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Mar 15, 2023 at 04:05:53PM +0100, Uwe Kleine-König wrote:
-> The .remove() callback for a platform driver returns an int which makes
-> many driver authors wrongly assume it's possible to do error handling by
-> returning an error code. However the value returned is (mostly) ignored
-> and this typically results in resource leaks. To improve here there is a
-> quest to make the remove callback return void. In the first step of this
-> quest all drivers are converted to .remove_new() which already returns
-> void.
+On Wed, 15 Mar 2023 18:23:23 +0100,
+Mark Brown wrote:
 > 
-> Trivially convert this driver from always returning zero in the remove
-> callback to the void returning variant.
+> On Wed, Mar 15, 2023 at 04:04:52PM +0100, Uwe Kleine-König wrote:
+> > Hello,
+> > 
+> > this series adapts the platform drivers below sound/ to use the .remove_new()
+> > callback. Compared to the traditional .remove() callback .remove_new() returns
+> > no value. This is a good thing because the driver core doesn't (and cannot)
+> > cope for errors during remove. The only effect of a non-zero return value in
+> > .remove() is that the driver core emits a warning. The device is removed anyhow
+> > and an early return from .remove() usually yields a resource leak.
 > 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-> ---
+> ALSA and ASoC patches generally get applied to separate trees so it's
+> probably better to send them separately unless there's dependencies.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Judging from the small portion of non-ASoC patches in the series and
+also from the nature of the changes, it's fine to pick up all patches
+in your tree.
 
-Thanks,
-Charles
+
+thanks,
+
+Takashi

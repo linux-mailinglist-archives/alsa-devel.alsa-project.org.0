@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 923126BD239
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 15:19:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065736BD23B
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 15:19:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BA8F10E5;
-	Thu, 16 Mar 2023 15:18:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BA8F10E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B5DA10F1;
+	Thu, 16 Mar 2023 15:19:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B5DA10F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678976346;
-	bh=98zjYF4qPdU7E5+W0pjvEly3t4PzMPxRXgQA3FyuV20=;
+	s=default; t=1678976397;
+	bh=Ci9ItVkj5gf1I+OfearvK0vmfMCatFwAi/+AzU1GIrs=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jWzy+kPmVF1vkfoKS4d1pRs0Y0WCu4OcRWAGKRcPF3wgAdxNnfzpVj55KOcBZsyOh
-	 xMUxIEmdK97LcjEZSUIEP++/uvsiFuLrZJ6DqUD2wibHrqIutPScC+wIaaNwQbuSv7
-	 +9CUTZlWQyxyOo0/Ld3L1qeUB4ZWv7dcbvhnSHsY=
+	b=CaWSjwYwXSTUSz54X7fq7VWwGxJWu8IzkVYvziZA6SS1mjpARYJL0VhxVsPEcpqyA
+	 JQXhON6v3PokeE2XrwQGpd+ACVKYq7iCMQezblE0Y29XBR9BR6g9OZSeGTEqFajAIR
+	 0FyD9s1WCKzVayqDwQOIxSr1ZMTmhjaCqcAWWfHg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41CE6F8032D;
-	Thu, 16 Mar 2023 15:18:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECA9FF804B1;
+	Thu, 16 Mar 2023 15:18:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 368E6F80423; Thu, 16 Mar 2023 15:18:11 +0100 (CET)
+	id 63ABCF80423; Thu, 16 Mar 2023 15:18:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA2D9F800C9
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 15:18:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA2D9F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id EB3A3F80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 15:18:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB3A3F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cq/2eBWe
+ header.s=k20201202 header.b=uquHCU9v
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C69F162051;
+	by ams.source.kernel.org (Postfix) with ESMTPS id A7136B821F5;
+	Thu, 16 Mar 2023 14:18:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F28C4339C;
 	Thu, 16 Mar 2023 14:18:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237B8C433D2;
-	Thu, 16 Mar 2023 14:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678976285;
-	bh=98zjYF4qPdU7E5+W0pjvEly3t4PzMPxRXgQA3FyuV20=;
+	s=k20201202; t=1678976287;
+	bh=Ci9ItVkj5gf1I+OfearvK0vmfMCatFwAi/+AzU1GIrs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=cq/2eBWekY/DtQUoH8V4SMuY0JDOu4a+mwkNWpkfSz1iSs6nkKlKp/jjBKUAgv7DV
-	 3guczbA6rCGiawhfcmoISmuPe7qLSBOAa8trRfGz6w/QYJaZM6hh8Q+ly0dAX5AVbZ
-	 30tnqvFiW0PwrZhD1csFw8f6QQeR/FbSdA3PfjOtm9J0yer1u1/KbSbRJvPYfL0BUC
-	 kSrk5uSoUbeMCgf6blqakPnS9vQn3jjzyOSr9DamN0U4WClDIXUIFBORU6Fqqapic2
-	 mdgp+wcUQgq0ADDpvP2qK2oZHt4mrq/yQPvcYjIUaHlGDBH5189pZBJ6So/JVEIQju
-	 ECugjNRdqjiyw==
+	b=uquHCU9vxLG7cVct5aKtyyF4TQz0jeQpavetxw3BxTL6nq5AWvFn/wexwv190xFKt
+	 LVwi7vPXbb3dl95UF0V+QrLhu1nqDwqafyTbOEB1NaPHMFuwaUyY/1gbsI0t9Ol0ot
+	 u8wz9ZjJFvzmu6VpX4gWcasTpnrN6ofWhnjU+LaAXzaJDd1Fsm3Zc08OyS3VWx7WKD
+	 pBZsWcw0onQWVdZCytoAN2Lgj6ZvfMFFlHK+TIuH/YDXFPiGXrx31x/LMOxXbYFKo9
+	 uG+XxJ9kdANmbcIWSUW7kMAGwP41bNzXiOMqZw/M3X1hTQu5l/xVEn0PENvI8u2gD+
+	 vB3HFlPM2u/QQ==
 From: Mark Brown <broonie@kernel.org>
-To: Otabek Nazrullaev <otabeknazrullaev1998@gmail.com>
-In-Reply-To: <20230315173404.7215-1-otabeknazrullaev1998@gmail.com>
-References: <20230315173404.7215-1-otabeknazrullaev1998@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: maxim,max9759: Convert to DT
- schema.
-Message-Id: <167897628282.92626.2266406042057860602.b4-ty@kernel.org>
-Date: Thu, 16 Mar 2023 14:18:02 +0000
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vijaya Anand <sunrockers8@gmail.com>
+In-Reply-To: <20230315231055.3067-1-sunrockers8@gmail.com>
+References: <20230315231055.3067-1-sunrockers8@gmail.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: adi,adau17x1: Convert to DT
+ schema
+Message-Id: <167897628543.92626.6326219364017588458.b4-ty@kernel.org>
+Date: Thu, 16 Mar 2023 14:18:05 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: SNJKIJCI6PD7O5JVIJ6YATVNHFTMMV3P
-X-Message-ID-Hash: SNJKIJCI6PD7O5JVIJ6YATVNHFTMMV3P
+Message-ID-Hash: 2UR6JDRVTEDAKYDEMIRDP44RH3UKQDBU
+X-Message-ID-Hash: 2UR6JDRVTEDAKYDEMIRDP44RH3UKQDBU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,17 +81,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Daniel Baluta <daniel.baluta@nxp.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+CC: Daniel Baluta <daniel.baluta@nxp.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SNJKIJCI6PD7O5JVIJ6YATVNHFTMMV3P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UR6JDRVTEDAKYDEMIRDP44RH3UKQDBU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,9 +96,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 16 Mar 2023 02:33:30 +0900, Otabek Nazrullaev wrote:
-> Convert Maxim MAX9759 Speaker Amplifier bindings to DT schema.
-> Add missing gpio header file into examples section
+On Thu, 16 Mar 2023 04:40:55 +0530, Vijaya Anand wrote:
+> Convert the binding document for adi,adau17x1 from txt to yaml
+> so one could validate dt-entries correctly and any future additions
+> can go into yaml format. Add address and size cells to example to
+> prevent errors regarding reg format.
 > 
 > 
 
@@ -108,8 +110,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: maxim,max9759: Convert to DT schema.
-      commit: 1d8777d21fbb36c4a0e103eb128ca86f9761e61c
+[1/1] ASoC: dt-bindings: adi,adau17x1: Convert to DT schema
+      commit: 87771c94025890246a6dfec9773eb62bd41c4c5a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

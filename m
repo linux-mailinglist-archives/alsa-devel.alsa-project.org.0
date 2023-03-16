@@ -2,26 +2,26 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C16D6BCF7D
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:29:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922F16BCF7E
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:30:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0C71137;
-	Thu, 16 Mar 2023 13:29:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0C71137
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5F97111C;
+	Thu, 16 Mar 2023 13:29:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5F97111C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678969791;
-	bh=UqosudXSbxLc5JCdSQIMkWFpXTTmm+V8NqO8HNLvyjU=;
+	s=default; t=1678969810;
+	bh=hCbTkNpEo4LVzNNojtk66dA4FrGB7fKzbD4rV0YRqzY=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=a88vW0td7qVkd6TaKfMTMVRvt14NJQ4LdbaQGWfpqqRTnE+1sLDgCeq49BEKj5iGU
-	 e4Vl3vnjGImUCeE+wvE4DvzNWuVcJoK0VyDeHfU54EgG9WghywVEeZqlFbukVTt6eC
-	 JG/pRTcKZ63DrhGZA36LDi31Obub6bgTOfQi1uzs=
+	b=GdSNwUE5B6NvGYO/xiw8N8Jha+df7CS/fccJvl6FhHbRRkks0EKbWSdsEjR8rF1YT
+	 rJUwxMAwG1v02Y3v+jPwDfUer7l2KeaL5K1xBpITpLAp3FJNaW596vjs+lQn/2Xwi/
+	 Oac53VtnAPXTRnbMRVL2IfLjGYVLg73YfAk0SnPk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E9D8F80534;
-	Thu, 16 Mar 2023 13:28:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF989F80553;
+	Thu, 16 Mar 2023 13:28:17 +0100 (CET)
 To: Herve Codina <herve.codina@bootlin.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -33,9 +33,8 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 3/7] Documentation: sysfs: Document the Lantiq PEF2256
- sysfs entry
-Date: Thu, 16 Mar 2023 13:27:37 +0100
+Subject: [PATCH v2 4/7] MAINTAINERS: Add the Lantiq PEF2256 driver entry
+Date: Thu, 16 Mar 2023 13:27:38 +0100
 In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
 References: <20230316122741.577663-1-herve.codina@bootlin.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -49,7 +48,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMI7XEBG2VI2L7J7JTFUHBCE6QGE3UPJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUPFZKZADDNTCBU72S4FVBMGMH5ZPVLZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -58,8 +57,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
-Message-ID: 
- <167896969451.26.1489293912016379356@mailman-core.alsa-project.org>
+Message-ID: <167896969706.26.588790668721488223@mailman-core.alsa-project.org>
 From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Herve Codina <herve.codina@bootlin.com>
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
@@ -69,39 +67,39 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C9D6F8052E; Thu, 16 Mar 2023 13:28:10 +0100 (CET)
+	id D6712F8052D; Thu, 16 Mar 2023 13:28:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::228])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07222F8032D
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:28:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07222F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3519AF8016C
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:28:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3519AF8016C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=XlvvnEOo
+ header.s=gm1 header.b=KXGDlvA1
 Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 8EA8D1BF20A;
-	Thu, 16 Mar 2023 12:27:58 +0000 (UTC)
+	by mail.gandi.net (Postfix) with ESMTPA id 398F11BF211;
+	Thu, 16 Mar 2023 12:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1678969680;
+	t=1678969682;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lQuTmgHRjRFeVd5utxFMcX2f7ahQxt0Yf7fzkOvSL4U=;
-	b=XlvvnEOoGbAQp/kgbsNGLPXN5qwehm78P0izYTPZGX0Lio9E58CEHezAqmbc6e2PLqATIg
-	Gx/3dG9uKoM9gYufFLOf5ASyi0aISmYK3WOotEJUhWhUzDoe3zMZm8WKyI5cPy7/D+dmIF
-	VoACc0zs5e4mbII0h09LJ8yWevkVcl/zCGNsVwC5qHpqNme/z6HxDZCB8B0GaITpvC+/8a
-	HU9FUzCFRfm2BtXWJYejAPzhWjIcCAgU2xSIfC/Oepm9xvrHg767j53In0RJyYgQhQ4DRN
-	YfazEGxb1zKOMeSUlnPwB+D/EhhlQrzyvpH011OGu9vdqlmoLDmNOo6CQ7+lSA==
+	bh=0YBlfkWN4uRgoK2zQn1smyULeh9+sx/f01ppPsRKAF4=;
+	b=KXGDlvA1oa0LZyXwwPUkBgyyTl2OxkfkgX04AZQYysRiSHHc9GWOa6UDp29msCdOiY+URG
+	CNnzIkpGOJ3qw/A56Vq5kYjp2nHBoJQB10psAGvOOhPGV0f18lT71J2Nc6nHfY4uoWjTvv
+	M/5rgzn0w1m54jp0zIFg/pL4tbT1AMho7uyzl7PGO3/r45soEWUTy/vz9K4FkRAE/6PMMf
+	7O+Kk8egchORmAYky1y9tq4ONvOIYTr7LT7oQE5pZln/WnyiLWbe5E6kuxFciUu22RAiCs
+	5zFeMXM6BpR/6zkfnT+ZxOdCOAwsOoox0vpNyJsyEecIh4J8C3O9lx8kK9sCrw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -114,17 +112,16 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 3/7] Documentation: sysfs: Document the Lantiq PEF2256
- sysfs entry
-Date: Thu, 16 Mar 2023 13:27:37 +0100
-Message-Id: <20230316122741.577663-4-herve.codina@bootlin.com>
+Subject: [PATCH v2 4/7] MAINTAINERS: Add the Lantiq PEF2256 driver entry
+Date: Thu, 16 Mar 2023 13:27:38 +0100
+Message-Id: <20230316122741.577663-5-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
 References: <20230316122741.577663-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UMI7XEBG2VI2L7J7JTFUHBCE6QGE3UPJ
-X-Message-ID-Hash: UMI7XEBG2VI2L7J7JTFUHBCE6QGE3UPJ
+Message-ID-Hash: IUPFZKZADDNTCBU72S4FVBMGMH5ZPVLZ
+X-Message-ID-Hash: IUPFZKZADDNTCBU72S4FVBMGMH5ZPVLZ
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMI7XEBG2VI2L7J7JTFUHBCE6QGE3UPJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUPFZKZADDNTCBU72S4FVBMGMH5ZPVLZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,33 +146,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Document the "subordinate" sysfs attribute exposed by the pef2256
-driver.
+After contributing the driver, add myself as the maintainer for the
+Lantiq PEF2256 driver.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- .../ABI/testing/sysfs-bus-platform-devices-pef2256   | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256 b/Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
-new file mode 100644
-index 000000000000..95ba1ae55daf
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
-@@ -0,0 +1,12 @@
-+What:		/sys/bus/platform/devices/*.pef2256/subordinate
-+KernelVersion:	6.4
-+Contact:	Herve Codina <herve.codina@bootlin.com>
-+Description:
-+		(RW) Controls whether the PEF2256 works as subordinate or main
-+		device mode.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fcb69242cd19..b258498aa8ac 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11651,6 +11651,14 @@ S:	Maintained
+ F:	arch/mips/lantiq
+ F:	drivers/soc/lantiq
+ 
++LANTIQ PEF2256 DRIVER
++M:	Herve Codina <herve.codina@bootlin.com>
++S:	Maintained
++F:	Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
++F:	Documentation/devicetree/bindings/misc/lantiq,pef2256.yaml
++F:	drivers/misc/pef2256.c
++F:	include/linux/pef2256.h
 +
-+		- 0: main device mode
-+		- 1: subordinate mode
-+
-+		In subordinate device mode it synchronizes on line interface
-+		clock signals. Otherwise, it synchronizes on internal clocks.
+ LASI 53c700 driver for PARISC
+ M:	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+ L:	linux-scsi@vger.kernel.org
 -- 
 2.39.2
 

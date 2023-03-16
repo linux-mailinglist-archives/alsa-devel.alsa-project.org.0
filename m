@@ -2,26 +2,26 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5594D6BCF80
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:30:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC6A6BCF81
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Mar 2023 13:30:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87BA8114C;
-	Thu, 16 Mar 2023 13:29:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87BA8114C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC6F5114B;
+	Thu, 16 Mar 2023 13:30:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC6F5114B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1678969842;
-	bh=mFp5GmtDkCba1h9r/+chBCrVq1/usfJfwkUHZO4I8xs=;
+	s=default; t=1678969858;
+	bh=opHrvH39WXbIVJRN+GybzJZP9d5jQ9nOBTgJvcsJl5w=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=ucoWrvwn+yZ5RFA47Z4fDmOYzZiFZIhEoCxOy+Ijgr5ckjY9kex1adDHjvi/3OTbs
-	 uOqp8jgP0bDfZQmqdr2cCpf6zKEYaipFozytW24mCnQ2bkHQidCFDIyeQ5FZ6hiN7f
-	 tujQ2WyexDHn23yMiXSAgjz5uuftxd7pT9TEArV8=
+	b=PcXgcXWyXx0qrFE2zwnOjbxeiiIJePjSS6EtA8W+fh6XOKS8fHrVn3bhaHy3BanCD
+	 2XXXAiFkpVNC/wQpOt98/Vocjh+lzBq4dG0vUbU/W1iX+eeVhb+d5VpizmWZVhBiXC
+	 lOqF7aPbiTPoaxPyYZQCpmyqgFQdHD0tMcfkHMGw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51FA8F8055C;
-	Thu, 16 Mar 2023 13:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF775F80568;
+	Thu, 16 Mar 2023 13:28:28 +0100 (CET)
 To: Herve Codina <herve.codina@bootlin.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -33,9 +33,8 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 5/7] dt-bindings: sound: Add support for the Lantiq PEF2256
- codec
-Date: Thu, 16 Mar 2023 13:27:39 +0100
+Subject: [PATCH v2 6/7] ASoC: codecs: Add support for the Lantiq PEF2256 codec
+Date: Thu, 16 Mar 2023 13:27:40 +0100
 In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
 References: <20230316122741.577663-1-herve.codina@bootlin.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -49,7 +48,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLTJQDP2FM5N2BBK4M4KQKLSBPWGAPL2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4PAVLVGD3MQ3ORKDJNW5ULNHEUOF22K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -59,7 +58,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167896970372.26.6524664644002247738@mailman-core.alsa-project.org>
+ <167896970763.26.14559838372519675953@mailman-core.alsa-project.org>
 From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Herve Codina <herve.codina@bootlin.com>
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
@@ -69,39 +68,39 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE11FF80558; Thu, 16 Mar 2023 13:28:19 +0100 (CET)
+	id 6B2A3F80529; Thu, 16 Mar 2023 13:28:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
 	version=3.4.6
 Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::228])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72C61F80425
-	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:28:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72C61F80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60F9DF80482
+	for <alsa-devel@alsa-project.org>; Thu, 16 Mar 2023 13:28:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60F9DF80482
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=Nbi7TrkL
+ header.s=gm1 header.b=ZBnsB1Ls
 Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id 99B131BF213;
-	Thu, 16 Mar 2023 12:28:02 +0000 (UTC)
+	by mail.gandi.net (Postfix) with ESMTPA id 833E51BF216;
+	Thu, 16 Mar 2023 12:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1678969684;
+	t=1678969686;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nSK6QmzgFgboixiIAQGzqWb/rCb1DitwrXgQXi+UVkQ=;
-	b=Nbi7TrkLkYJVMDTy7OyTKmYnRLxHrnx4sCdvuefGXrQkz7tjz9ZGk1Yiv4POn8l8J2Z4PL
-	KsmdLKcxC64YiJKkbx7oKXF5LDWaYWPz9sWgK+ZExCqGchCF4Yei07leAanl68MUavJz0u
-	RmTefd4l5Ooa0ukzfh/RFHRm5VN0G4hu9krzH0sPz0xhkuQlCZcoyNJDgmYwIlpudR1wzY
-	XV+SKwlffdNMRuSp5pTWbiPvCK5JT5rN5wwIbm2bf7EMYwLjipUEnK8CYxYgpzIijSEywI
-	x6DvWbaddlUh07zBVg5x8uHC0O9nPeq0dhhUP/ckGRwDIEj1BGST03skyeR3eA==
+	bh=jFTga6H8v4jCHKSa95S6ahlZ49X3KutAxMtq/OnPXY0=;
+	b=ZBnsB1LsIXK1KLQ6Rz5MQbOgQZekWP1xGiH9vMPDsbbSi2RnQx7YICKjTJRH7W7Z9w89VQ
+	aR8bOkAl/n4gGIKFQv0DyJ0lDGvP9zGaKagAqLWXAenxSjFUQbrUZPOddvtRZo44j239Bc
+	E5zW14Oe8hdkRJhNdQIVNJG5gEbYj9fGaGigh1vrpxzUl63UcEh/xchDR+/u1C5dCyCmBm
+	QKLL079oEEetBQZmWkCQlxFMP/mkuudrC8v9OxeILbcDGAVfNfaq2fMxklyQbkRM86CdWw
+	XxH6kicFKtnpB+Wyf+mCW2MZDXIkFW0twj8ZRzPPg19z1w78cl3Jh9ya+umC1A==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -114,17 +113,16 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 5/7] dt-bindings: sound: Add support for the Lantiq PEF2256
- codec
-Date: Thu, 16 Mar 2023 13:27:39 +0100
-Message-Id: <20230316122741.577663-6-herve.codina@bootlin.com>
+Subject: [PATCH v2 6/7] ASoC: codecs: Add support for the Lantiq PEF2256 codec
+Date: Thu, 16 Mar 2023 13:27:40 +0100
+Message-Id: <20230316122741.577663-7-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230316122741.577663-1-herve.codina@bootlin.com>
 References: <20230316122741.577663-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SLTJQDP2FM5N2BBK4M4KQKLSBPWGAPL2
-X-Message-ID-Hash: SLTJQDP2FM5N2BBK4M4KQKLSBPWGAPL2
+Message-ID-Hash: B4PAVLVGD3MQ3ORKDJNW5ULNHEUOF22K
+X-Message-ID-Hash: B4PAVLVGD3MQ3ORKDJNW5ULNHEUOF22K
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +138,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLTJQDP2FM5N2BBK4M4KQKLSBPWGAPL2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4PAVLVGD3MQ3ORKDJNW5ULNHEUOF22K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,77 +154,470 @@ highway/H.100 bus.
 
 The codec support allows to use some of the PCM system highway
 time-slots as audio channels to transport audio data over the E1/T1/J1
-lines.
+lines. It provides also line carrier detection events reported through
+the ALSA jack detection feature.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- .../bindings/sound/lantiq,pef2256-codec.yaml  | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml
+ sound/soc/codecs/Kconfig         |  14 ++
+ sound/soc/codecs/Makefile        |   2 +
+ sound/soc/codecs/pef2256-codec.c | 395 +++++++++++++++++++++++++++++++
+ 3 files changed, 411 insertions(+)
+ create mode 100644 sound/soc/codecs/pef2256-codec.c
 
-diff --git a/Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml b/Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 0be061953e9a..bec4f9200072 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -168,6 +168,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_PCM512x_I2C
+ 	imply SND_SOC_PCM512x_SPI
+ 	imply SND_SOC_PEB2466
++	imply SND_SOC_PEF2256
+ 	imply SND_SOC_RK3328
+ 	imply SND_SOC_RK817
+ 	imply SND_SOC_RT274
+@@ -1252,6 +1253,19 @@ config SND_SOC_PEB2466
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called snd-soc-peb2466.
+ 
++config SND_SOC_PEF2256
++	tristate "Lantiq PEF2256 codec"
++	depends on PEF2256
++	help
++	  Enable support for the Lantiq PEF2256 (FALC56) codec.
++	  The PEF2256 is a framer and line interface between analog E1/T1/J1
++	  line and a digital PCM bus.
++	  This codec allows to use some of the time slots available on the
++	  PEF2256 PCM bus to transport some audio data.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called snd-soc-pef2256.
++
+ config SND_SOC_RK3328
+ 	tristate "Rockchip RK3328 audio CODEC"
+ 	select REGMAP_MMIO
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 20b388b77f1f..11bd66d46f7b 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -188,6 +188,7 @@ snd-soc-pcm512x-objs := pcm512x.o
+ snd-soc-pcm512x-i2c-objs := pcm512x-i2c.o
+ snd-soc-pcm512x-spi-objs := pcm512x-spi.o
+ snd-soc-peb2466-objs := peb2466.o
++snd-soc-pef2256-objs := pef2256-codec.o
+ snd-soc-rk3328-objs := rk3328_codec.o
+ snd-soc-rk817-objs := rk817_codec.o
+ snd-soc-rl6231-objs := rl6231.o
+@@ -551,6 +552,7 @@ obj-$(CONFIG_SND_SOC_PCM512x)	+= snd-soc-pcm512x.o
+ obj-$(CONFIG_SND_SOC_PCM512x_I2C)	+= snd-soc-pcm512x-i2c.o
+ obj-$(CONFIG_SND_SOC_PCM512x_SPI)	+= snd-soc-pcm512x-spi.o
+ obj-$(CONFIG_SND_SOC_PEB2466)	+= snd-soc-peb2466.o
++obj-$(CONFIG_SND_SOC_PEF2256)	+= snd-soc-pef2256.o
+ obj-$(CONFIG_SND_SOC_RK3328)	+= snd-soc-rk3328.o
+ obj-$(CONFIG_SND_SOC_RK817)	+= snd-soc-rk817.o
+ obj-$(CONFIG_SND_SOC_RL6231)	+= snd-soc-rl6231.o
+diff --git a/sound/soc/codecs/pef2256-codec.c b/sound/soc/codecs/pef2256-codec.c
 new file mode 100644
-index 000000000000..acba3a0ccd1b
+index 000000000000..08ed54c7bd56
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml
-@@ -0,0 +1,57 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/lantiq,pef2256-codec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/codecs/pef2256-codec.c
+@@ -0,0 +1,395 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// pef2256.c  --  Lantiq PEF2256 ALSA SoC driver
++//
++// Copyright 2023 CS GROUP France
++//
++// Author: Herve Codina <herve.codina@bootlin.com>
 +
-+title: Lantiq PEF2256 codec device
++#include <linux/clk.h>
++#include <linux/module.h>
++#include <linux/notifier.h>
++#include <linux/pef2256.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++#include <sound/jack.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/tlv.h>
 +
-+maintainers:
-+  - Herve Codina <herve.codina@bootlin.com>
++#define PEF2256_NB_CHANNEL	32
++#define PEF2256_JACK_MASK (SND_JACK_LINEIN | SND_JACK_LINEOUT)
 +
-+description: |
-+  Codec support for PEF2256.
++struct pef2256_codec {
++	struct pef2256 *pef2256;
++	struct device *dev;
++	struct snd_soc_jack jack;
++	struct notifier_block nb;
++	struct work_struct carrier_work;
++	int max_chan_playback;
++	int max_chan_capture;
++};
 +
-+  The Lantiq PEF2256, also known as Infineon PEF2256 or FALC256, is a framer and
-+  line interface component designed to fulfill all required interfacing between
-+  an analog E1/T1/J1 line and the digital PCM system highway/H.100 bus.
++static int pef2256_dai_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
++				    unsigned int rx_mask, int slots, int width)
++{
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
 +
-+  The codec support allows to use some of the PCM system highway time-slots as
-+  audio channels to transport audio data over the E1/T1/J1 lines.
++	switch (width) {
++	case 0:
++		/* Not set -> default 8 */
++	case 8:
++		break;
++	default:
++		dev_err(dai->dev, "tdm slot width %d not supported\n", width);
++		return -EINVAL;
++	}
 +
-+  The time-slots used by the codec must be set and so, the properties
-+  'dai-tdm-slot-num', 'dai-tdm-slot-width', 'dai-tdm-slot-tx-mask' and
-+  'dai-tdm-slot-rx-mask' must be present in the ALSA sound card node for
-+  sub-nodes that involve the codec. The codec uses 8bit time-slots.
-+  'dai-tdm-tdm-slot-with' must be set to 8.
++	pef2256->max_chan_playback = hweight32(tx_mask);
++	if (pef2256->max_chan_playback > PEF2256_NB_CHANNEL) {
++		dev_err(dai->dev, "too much tx slots defined (mask = 0x%x) support max %d\n",
++			tx_mask, PEF2256_NB_CHANNEL);
++		return -EINVAL;
++	}
 +
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+  - $ref: dai-common.yaml#
++	pef2256->max_chan_capture = hweight32(rx_mask);
++	if (pef2256->max_chan_capture > PEF2256_NB_CHANNEL) {
++		dev_err(dai->dev, "too much rx slots defined (mask = 0x%x) support max %d\n",
++			rx_mask, PEF2256_NB_CHANNEL);
++		return -EINVAL;
++	}
 +
-+properties:
-+  compatible:
-+    const: lantiq,pef2256-codec
++	return 0;
++}
 +
-+  lantiq,pef2256:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      phandle to the PEF2256
++/*
++ * The constraints for format/channel is to match with the number of 8bit
++ * time-slots available.
++ */
++static int pef2256_dai_hw_rule_channels_by_format(struct snd_soc_dai *dai,
++						  struct snd_pcm_hw_params *params,
++						  unsigned int nb_ts)
++{
++	struct snd_interval *c = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
++	snd_pcm_format_t format = params_format(params);
++	struct snd_interval ch = {0};
 +
-+  '#sound-dai-cells':
-+    const: 0
++	switch (snd_pcm_format_physical_width(format)) {
++	case 8:
++		ch.max = nb_ts;
++		break;
++	case 16:
++		ch.max = nb_ts/2;
++		break;
++	case 32:
++		ch.max = nb_ts/4;
++		break;
++	case 64:
++		ch.max = nb_ts/8;
++		break;
++	default:
++		dev_err(dai->dev, "format physical width %u not supported\n",
++			snd_pcm_format_physical_width(format));
++		return -EINVAL;
++	}
 +
-+required:
-+  - compatible
-+  - lantiq,pef2256
-+  - '#sound-dai-cells'
++	ch.min = ch.max ? 1 : 0;
 +
-+unevaluatedProperties: false
++	return snd_interval_refine(c, &ch);
++}
 +
-+examples:
-+  - |
-+    audio-codec {
-+        compatible = "lantiq,pef2256-codec";
-+        lantiq,pef2256 = <&pef2256>;
-+        #sound-dai-cells = <0>;
-+    };
++static int pef2256_dai_hw_rule_playback_channels_by_format(struct snd_pcm_hw_params *params,
++							   struct snd_pcm_hw_rule *rule)
++{
++	struct snd_soc_dai *dai = rule->private;
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
++
++	return pef2256_dai_hw_rule_channels_by_format(dai, params, pef2256->max_chan_playback);
++}
++
++static int pef2256_dai_hw_rule_capture_channels_by_format(struct snd_pcm_hw_params *params,
++							  struct snd_pcm_hw_rule *rule)
++{
++	struct snd_soc_dai *dai = rule->private;
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
++
++	return pef2256_dai_hw_rule_channels_by_format(dai, params, pef2256->max_chan_capture);
++}
++
++static int pef2256_dai_hw_rule_format_by_channels(struct snd_soc_dai *dai,
++						  struct snd_pcm_hw_params *params,
++						  unsigned int nb_ts)
++{
++	struct snd_mask *f_old = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
++	unsigned int channels = params_channels(params);
++	unsigned int slot_width;
++	struct snd_mask f_new;
++	unsigned int i;
++
++	if (!channels || channels > nb_ts) {
++		dev_err(dai->dev, "channels %u not supported\n", nb_ts);
++		return -EINVAL;
++	}
++
++	slot_width = (nb_ts / channels) * 8;
++
++	snd_mask_none(&f_new);
++	for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
++		if (snd_mask_test(f_old, i)) {
++			if (snd_pcm_format_physical_width(i) <= slot_width)
++				snd_mask_set(&f_new, i);
++		}
++	}
++
++	return snd_mask_refine(f_old, &f_new);
++}
++
++static int pef2256_dai_hw_rule_playback_format_by_channels(struct snd_pcm_hw_params *params,
++							   struct snd_pcm_hw_rule *rule)
++{
++	struct snd_soc_dai *dai = rule->private;
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
++
++	return pef2256_dai_hw_rule_format_by_channels(dai, params, pef2256->max_chan_playback);
++}
++
++static int pef2256_dai_hw_rule_capture_format_by_channels(struct snd_pcm_hw_params *params,
++							  struct snd_pcm_hw_rule *rule)
++{
++	struct snd_soc_dai *dai = rule->private;
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
++
++	return pef2256_dai_hw_rule_format_by_channels(dai, params, pef2256->max_chan_capture);
++}
++
++static u64 pef2256_formats(u8 nb_ts)
++{
++	u64 formats;
++	unsigned int chan_width;
++	unsigned int format_width;
++	int i;
++
++	if (!nb_ts)
++		return 0;
++
++	formats = 0;
++	chan_width = nb_ts * 8;
++	for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
++		/* Support physical width multiple of 8bit */
++		format_width = snd_pcm_format_physical_width(i);
++		if (format_width == 0 || format_width % 8)
++			continue;
++
++		/*
++		 * And support physical width that can fit N times in the
++		 * channel
++		 */
++		if (format_width > chan_width || chan_width % format_width)
++			continue;
++
++		formats |= (1ULL << i);
++	}
++	return formats;
++}
++
++static int pef2256_dai_startup(struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *dai)
++{
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(dai->component);
++	snd_pcm_hw_rule_func_t hw_rule_channels_by_format;
++	snd_pcm_hw_rule_func_t hw_rule_format_by_channels;
++	unsigned int frame_bits;
++	u64 format;
++	int ret;
++
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
++		format = pef2256_formats(pef2256->max_chan_capture);
++		hw_rule_channels_by_format = pef2256_dai_hw_rule_capture_channels_by_format;
++		hw_rule_format_by_channels = pef2256_dai_hw_rule_capture_format_by_channels;
++		frame_bits = pef2256->max_chan_capture * 8;
++	} else {
++		format = pef2256_formats(pef2256->max_chan_playback);
++		hw_rule_channels_by_format = pef2256_dai_hw_rule_playback_channels_by_format;
++		hw_rule_format_by_channels = pef2256_dai_hw_rule_playback_format_by_channels;
++		frame_bits = pef2256->max_chan_playback * 8;
++	}
++
++	ret = snd_pcm_hw_constraint_mask64(substream->runtime,
++					   SNDRV_PCM_HW_PARAM_FORMAT, format);
++	if (ret) {
++		dev_err(dai->dev, "Failed to add format constraint (%d)\n", ret);
++		return ret;
++	}
++
++	ret = snd_pcm_hw_rule_add(substream->runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
++				  hw_rule_channels_by_format, dai,
++				  SNDRV_PCM_HW_PARAM_FORMAT, -1);
++	if (ret) {
++		dev_err(dai->dev, "Failed to add channels rule (%d)\n", ret);
++		return ret;
++	}
++
++	ret = snd_pcm_hw_rule_add(substream->runtime, 0,  SNDRV_PCM_HW_PARAM_FORMAT,
++				  hw_rule_format_by_channels, dai,
++				  SNDRV_PCM_HW_PARAM_CHANNELS, -1);
++	if (ret) {
++		dev_err(dai->dev, "Failed to add format rule (%d)\n", ret);
++		return ret;
++	}
++
++	ret = snd_pcm_hw_constraint_single(substream->runtime,
++					   SNDRV_PCM_HW_PARAM_FRAME_BITS,
++					   frame_bits);
++	if (ret < 0) {
++		dev_err(dai->dev, "Failed to add frame_bits constraint (%d)\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static u64 pef2256_dai_formats[] = {
++	SND_SOC_POSSIBLE_DAIFMT_DSP_B,
++};
++
++static const struct snd_soc_dai_ops pef2256_dai_ops = {
++	.startup	= pef2256_dai_startup,
++	.set_tdm_slot	= pef2256_dai_set_tdm_slot,
++	.auto_selectable_formats     = pef2256_dai_formats,
++	.num_auto_selectable_formats = ARRAY_SIZE(pef2256_dai_formats),
++};
++
++static struct snd_soc_dai_driver pef2256_dai_driver = {
++	.name = "pef2256",
++	.playback = {
++		.stream_name = "Playback",
++		.channels_min = 1,
++		.channels_max = PEF2256_NB_CHANNEL,
++		.rates = SNDRV_PCM_RATE_8000,
++		.formats = U64_MAX, /* Will be refined on DAI .startup() */
++	},
++	.capture = {
++		.stream_name = "Capture",
++		.channels_min = 1,
++		.channels_max = PEF2256_NB_CHANNEL,
++		.rates = SNDRV_PCM_RATE_8000,
++		.formats = U64_MAX, /* Will be refined on DAI .startup() */
++	},
++	.ops = &pef2256_dai_ops,
++};
++
++static void pef2256_carrier_work(struct work_struct *work)
++{
++	struct pef2256_codec *pef2256 = container_of(work, struct pef2256_codec, carrier_work);
++	int status;
++
++	status = pef2256_get_carrier(pef2256->pef2256) ? PEF2256_JACK_MASK : 0;
++	snd_soc_jack_report(&pef2256->jack, status, PEF2256_JACK_MASK);
++}
++
++static int pef2256_carrier_notifier(struct notifier_block *nb, unsigned long action,
++				    void *data)
++{
++	struct pef2256_codec *pef2256 = container_of(nb, struct pef2256_codec, nb);
++
++	switch (action) {
++	case PEF2256_EVENT_CARRIER:
++		queue_work(system_power_efficient_wq, &pef2256->carrier_work);
++		break;
++	default:
++		return NOTIFY_DONE;
++	}
++
++	return NOTIFY_OK;
++}
++
++static int pef2256_component_probe(struct snd_soc_component *component)
++{
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(component);
++	char *name;
++	int ret;
++
++	INIT_WORK(&pef2256->carrier_work, pef2256_carrier_work);
++
++	name = "carrier";
++	if (component->name_prefix) {
++		name = kasprintf(GFP_KERNEL, "%s carrier", component->name_prefix);
++		if (!name)
++			return -ENOMEM;
++	}
++
++	ret = snd_soc_card_jack_new(component->card, name, PEF2256_JACK_MASK, &pef2256->jack);
++	if (component->name_prefix)
++		kfree(name); /* A copy is done by snd_soc_card_jack_new */
++	if (ret) {
++		dev_err(component->dev, "Cannot create jack\n");
++		return ret;
++	}
++
++	pef2256->nb.notifier_call = pef2256_carrier_notifier;
++	ret = pef2256_register_event_notifier(pef2256->pef2256, &pef2256->nb);
++	if (ret) {
++		dev_err(component->dev, "Cannot register event notifier\n");
++		return ret;
++	}
++
++	/* Queue work to set the initial value */
++	queue_work(system_power_efficient_wq, &pef2256->carrier_work);
++
++	return 0;
++}
++
++static void pef2256_component_remove(struct snd_soc_component *component)
++{
++	struct pef2256_codec *pef2256 = snd_soc_component_get_drvdata(component);
++
++	pef2256_unregister_event_notifier(pef2256->pef2256, &pef2256->nb);
++	cancel_work_sync(&pef2256->carrier_work);
++}
++
++static const struct snd_soc_component_driver pef2256_component_driver = {
++	.probe		= pef2256_component_probe,
++	.remove		= pef2256_component_remove,
++	.endianness	= 1,
++};
++
++static int pef2256_codec_probe(struct platform_device *pdev)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct pef2256_codec *pef2256;
++
++	pef2256 = devm_kzalloc(&pdev->dev, sizeof(*pef2256), GFP_KERNEL);
++	if (!pef2256)
++		return -ENOMEM;
++
++	pef2256->dev = &pdev->dev;
++
++	pef2256->pef2256 = devm_pef2256_get_byphandle(&pdev->dev, np, "lantiq,pef2256");
++	if (IS_ERR(pef2256->pef2256))
++		return dev_err_probe(&pdev->dev, PTR_ERR(pef2256->pef2256),
++				     "get pef2256 failed\n");
++
++	platform_set_drvdata(pdev, pef2256);
++
++	return devm_snd_soc_register_component(&pdev->dev, &pef2256_component_driver,
++					       &pef2256_dai_driver, 1);
++}
++
++static const struct of_device_id pef2256_codec_of_match[] = {
++	{ .compatible = "lantiq,pef2256-codec" },
++	{} /* sentinel */
++};
++MODULE_DEVICE_TABLE(of, pef2256_codec_of_match);
++
++static struct platform_driver pef2256_codec_driver = {
++	.driver = {
++		.name = "lantiq-pef2256-codec",
++		.of_match_table = of_match_ptr(pef2256_codec_of_match),
++	},
++	.probe = pef2256_codec_probe,
++};
++module_platform_driver(pef2256_codec_driver);
++
++MODULE_AUTHOR("Herve Codina <herve.codina@bootlin.com>");
++MODULE_DESCRIPTION("PEF2256 ALSA SoC driver");
++MODULE_LICENSE("GPL");
 -- 
 2.39.2
 

@@ -2,162 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFD576BDD1E
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 00:45:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7EA6BDFB2
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 04:37:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FBF11042;
-	Fri, 17 Mar 2023 00:44:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FBF11042
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BC3EFCA;
+	Fri, 17 Mar 2023 04:36:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BC3EFCA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679010313;
-	bh=K/Cq/PYnZUxyFYZlEdWctxDkv0iWePU1IncasvgNuAs=;
-	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
+	s=default; t=1679024239;
+	bh=IHt4G0WAu2gSTDXf0Ktg9cVBi8lPEQATGOe4AJGToN8=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dsSXMtkii5z9Pj6rgRpUvVqAg4ZrJAWNMKM7YZbfJ65X4QeCuCYti+CtFALWAF96U
-	 qnclbGqNQAsCMUT/mAzjQmLLf+8iJmMSul7X0x2Dv5lmK2S4sYObpqHUZLoE4/QGQG
-	 2/LbUXC1q78GQB42/OrZ5s+MWE9irsIXLsV/UCq0=
+	b=R9V25msWlDkE+oEfros5aIfzWam1ilKgrMP7qIwt6s/MhVtp3ypy4DqyoLdlZuZOH
+	 4vKO36K8b87GVl5r/1q326WMQ/ZdKe6NxoHdCXXiB1NFM1FvH59y+AqR9SUPhWEL3b
+	 yWlxCGwpCzfJq2C2E0V4yCySNyPTMKVXOMUn3pSU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54B25F8032D;
-	Fri, 17 Mar 2023 00:44:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C87D9F8032D;
+	Fri, 17 Mar 2023 04:36:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BD93F80423; Fri, 17 Mar 2023 00:44:18 +0100 (CET)
+	id C8530F80423; Fri, 17 Mar 2023 04:36:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20730.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::730])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 401BDF80093
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 00:44:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 401BDF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id E45ECF80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 04:36:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E45ECF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=lRwV/vdv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jc073woibVsYDJ6PsJWleJ+pdjlvD4lDbIao49LHIkPGnUPfSLEbua7pV15wPvA/pXz8TOt6R1P1O/Uor6Er7juu4uz9MNxkUrHk6ioaUKcXGnURfQN29eIJL2HmggYJ17BLIhN55q+XChhEz2C+ILFpN7UKKc/cf7WanGr+a8wcS56Dlwl0KscivcfWE/nVWIC9oDf82kvw/WtlRftwnnXaFjmhW3Vv2ZjpGU4MsAMsyYaWEMXNTLhynTMfpcL68Xx6jQ4WzsPRl4qQDBbJ/x2M6Zrz6dfyI0QQbqb0fFPoMHtJngBs0Lp1ZuVSGQxJJ1/w3tIaRvIXDblXCsHqFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i54KQRMredqQM2sAUXn+J25MYPOrQ0gZqHymtnnWoFY=;
- b=hoSKGYDX8w/AuWjF1vPxxSRUFJ8qjhG3rKpqtoXJ4gvQAY/xU+UmUblBiUOnG2NVKxmBGJtf3WaqJGZ8u9TWmU3XYjDLn9o4EMNx+9k2PLKppLi8Vf6RXH2Nco4W/7ghuqJnzR7+1A3gUu7r9eSt2e3sulWP93vdxW3lYbEYHdZmIkOf5JGDBkWZEEFN8WFnsRt2cgPtW/bUI0O1Q+sT018CtOS895GWABmejo5fZInCMBdC38E0errp7HaFZBnJkF3iklKjeyPhdKacSfAdFvsAYQo+GSfUqg/6JT+nVIHZFGGwQhFsxhDM+frQK9vQIbPeSylxXPvzPTSmPpELFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i54KQRMredqQM2sAUXn+J25MYPOrQ0gZqHymtnnWoFY=;
- b=lRwV/vdv5sRcbZkpmqQYyWBlPrV/9Yxa+TxScCdUPE+b8Xm3EbMXmYRQ7jCzG9QcgW0lQ7I0hraKvtQ/JzMoNVXvGS7Wwb93BveTx4LDv+MOLiaHont5Ok1OvSVIHfmsfhH4qcF+nQPQhHkIaKyNmDdRs0/zZuDjE52wES+7Ybk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com (2603:1096:400:15d::5)
- by TYWPR01MB11379.jpnprd01.prod.outlook.com (2603:1096:400:3f6::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35; Thu, 16 Mar
- 2023 23:44:04 +0000
-Received: from TYCPR01MB8440.jpnprd01.prod.outlook.com
- ([fe80::c012:df4d:8ba9:3291]) by TYCPR01MB8440.jpnprd01.prod.outlook.com
- ([fe80::c012:df4d:8ba9:3291%4]) with mapi id 15.20.6178.035; Thu, 16 Mar 2023
- 23:44:04 +0000
-Message-ID: <87a60c6z3w.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: =?ISO-8859-2?Q?Rafa=B3_Mi=B3ecki?= <zajec5@gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: dt-bindings: renesas,rsnd.yaml: add R-Car
- Gen4 support
-In-Reply-To: <b2810924-169d-0bad-8f20-6ec2e683d170@gmail.com>
-References: <87ttzq8ga4.wl-kuninori.morimoto.gx@renesas.com>
-	<87sffa8g99.wl-kuninori.morimoto.gx@renesas.com>
-	<b2810924-169d-0bad-8f20-6ec2e683d170@gmail.com>
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Mar 2023 23:44:03 +0000
-X-ClientProxiedBy: TYWPR01CA0047.jpnprd01.prod.outlook.com
- (2603:1096:400:17f::12) To TYCPR01MB8440.jpnprd01.prod.outlook.com
- (2603:1096:400:15d::5)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=GUhXJVut
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679024171; x=1710560171;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IHt4G0WAu2gSTDXf0Ktg9cVBi8lPEQATGOe4AJGToN8=;
+  b=GUhXJVut8B0eD22euO+2tKZSfjvAjlvtzvpoJI/WLpS9X5jMLUaPbH89
+   RA633n8HCL01jKWShKNY8nJPyzbJp17X87d/dZWp0I8kPqbpapMn9fadz
+   wWfKxq16wAea5KWG7/cKZvqAntf6MKBgoXrfx4wL2cmhIiO1jQZCagbp3
+   5Nd9Y9MCuplqO2MFEdYcMiltrsxjU/TlmVULoSNd2+cElOaXpuKLiXsCJ
+   4/F6qxIhyw71JoYR6Si30gY/uub1xLq2xL/Qsioi7d916KGErn1nvSAjX
+   0wwv84fA1gBBQJU06D+HCg+qKamgNVmguDiWHhv6excHhP0bLVZ9hmUg7
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="318567510"
+X-IronPort-AV: E=Sophos;i="5.98,267,1673942400";
+   d="scan'208";a="318567510"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 20:35:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="926001442"
+X-IronPort-AV: E=Sophos;i="5.98,267,1673942400";
+   d="scan'208";a="926001442"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by fmsmga006.fm.intel.com with ESMTP; 16 Mar 2023 20:35:54 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pd0sj-00092s-2I;
+	Fri, 17 Mar 2023 03:35:53 +0000
+Date: Fri, 17 Mar 2023 11:35:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>,
+	broonie@kernel.org, pierre-louis.bossart@linux.intel.com
+Subject: Re: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+Message-ID: <202303171105.3mGHjK8s-lkp@intel.com>
+References: <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB8440:EE_|TYWPR01MB11379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00606bac-1056-4d76-5bbd-08db26785350
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	pQP/VveHpMWP3LfImGXDLgZa2kIWZv80S8sX+M+Bgzkir0l5OWzOREdGKxZg70GZ63rxLg+3FI1ufvMxcN5AU2GQofGaqWdudtSrXxEhowLGdUiXBCT62vrQL+e41cjqQw0AtQVn5OLHIBj6aUkmrZYuhPAN55AnAygIrxtfuMaQ7v0Ur01JkghLsH9nF/mY0rhfBmQTHn7IAFU4DohtBDFSf4RQC9pmWkJ626Y9HV+WGMI/bWqqMK2Oh70crW1hx4oOeOFJgZ6vliPct7D6Vfpa/w+b75ER/7zF2HRPHft4393Ev6Ki63ihD+gzZv3NfjM473rFPLbRjG/7qjgGDePi1SBA7o+D0fdLHc0PHfL3F16N0sNcVtiMCIMFnnEXMx8RusyOiF9oYo1tEh+OgXoAS/DI6ksjMQCqo78WM36exed1vDIiUDpL37muBXhON9CaQXKUhvZ1EQcsjRzHjQZgXqOFcoVSyVhPnW1royezAjt0mEfo3tzM7nd+6JB4mPaL78tT7aKKtRKrEpkLzIbsNTcixLK7NxUAFMzF2AQGTOzeI0/oo46qQHcJSVVmt+yZLYgCUrR4eIIl9lFkLwlUSBfucqR4CjBFg4CBCX6Hcd1lUyY3rE0hjMzfbcfSMyhQXqd99CzmAdAW/MCmAKnwDtKf0FcBCooYqFoR/c+fAmVQGMZLCR9m31gWO3idpUyfneDprQ+w3w0PjIHtjA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB8440.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(451199018)(5660300002)(8936002)(4744005)(41300700001)(38100700002)(38350700002)(86362001)(36756003)(2906002)(316002)(54906003)(186003)(26005)(6486002)(52116002)(6512007)(478600001)(6506007)(2616005)(6916009)(4326008)(8676002)(66476007)(66556008)(66946007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?iso-8859-2?Q?Nqk0VEVMvzPM5nJF4dDqqm6jLGPlgl/LD79xoCJQ/TKutcw05T7n9Oq9qQ?=
- =?iso-8859-2?Q?SDXq/lmWGVL54NZ95eCUtM0EfEUZab12AEf/lBtXlpdjv2ZgsqiT4DrFBc?=
- =?iso-8859-2?Q?3OgNWS9l+rP3ASvHeOzSGY9MRblTqrbothBMelAIl1omWNI1djEtp9oQGh?=
- =?iso-8859-2?Q?eDoWeJ3BvPXTh7UzofDyYeHh7En7AUa5PTH6ZC95C9XDPlRNZ5GOPR9lbo?=
- =?iso-8859-2?Q?FC67K6vipBkA/X3wHftwMyeuEDNDnM1mfrO1PsyuSu4dq3PNuH5mYacWO8?=
- =?iso-8859-2?Q?Ws/d7JaGo3et1mTgPKnyYiEqdpBOzGVh8GLq/kfwyHKzuJqYgALjNgl1Gb?=
- =?iso-8859-2?Q?ZGX+48vDXq9A0Mb3Sur26X9fw/xRB5pYd/tIlQdsvjyfA+z/tn1DjdUp+v?=
- =?iso-8859-2?Q?YQG6unK8GD0jv4leAIpzdrakyW5DSow5y0QlNxgwlmXpChpL6RRtgAjrK2?=
- =?iso-8859-2?Q?8Aitum3LIpVvrSwcCpE0sLS6ZiVkrRGUI5FC1hhEMB+XZ5wmtPITTQnUnp?=
- =?iso-8859-2?Q?H4FKN7nV2J9pz0mU14YkPFHnLbcWAAa73PhrMbbu8FPsggCGhV/2tTMcNZ?=
- =?iso-8859-2?Q?raAXkqBZhYY3Y8ba3lM7ha8cGiLHdWg+sjKQBhkJ1TuryOsWlSbvb3Vbsl?=
- =?iso-8859-2?Q?sJLmGKj2IDpoBmWG68tjAo0i89WRmQgvLQj6MnKGb6ubbITYErVyzB40Av?=
- =?iso-8859-2?Q?XpzF9u1tZYdZTDnQisNoqZjrnXdnKQRC88r6SRQeRxu5xCSKrOnoggrzRz?=
- =?iso-8859-2?Q?Gn6YBIC23ckc9AqAY/X5iPT/MJrwgjkY/W9NW13OSuwJFjW3UAyUAb7sGa?=
- =?iso-8859-2?Q?1Q5/5WjJ6ZSOYpeO86HK1WuagXtusj9J5Kow5PsuiX4JkYw6wpOb8bj4CK?=
- =?iso-8859-2?Q?eH6v2EKUW0PhM68BKW5dVExFGB49DMyf4Bmk83LnEFrg7SBU8t6JbPBFgH?=
- =?iso-8859-2?Q?jczGbJcwbp2KogLwv3/PSjAL7rIVMHihPV4AxmpxrLO2BRaBz8P4Grm9lM?=
- =?iso-8859-2?Q?ZyGDmqhz/3YgoB8hQewDyKbLtVICrSeI1etiH4LbqI72FHLSzMd8ZUXpWK?=
- =?iso-8859-2?Q?VT7n/sAwZ/0/mlpQYXG8Wdl3t2voP+lBkUuv+4Woyaeq4b7qAHGfjFRbRK?=
- =?iso-8859-2?Q?ler8MYI4p+rtJveNeNlRuLvAKTQVsFP3GdCeRHjgBoT3MkBBRJX7m29zEl?=
- =?iso-8859-2?Q?5KqRtfzuwOb7PdU4q5wFJwEbQakgaUUisy8eYoLisqpGFW579wedOAmzQR?=
- =?iso-8859-2?Q?II7+0icJl/Kd6cXLyTgLSvqdVGRupZSVpCMFFsrWkSyzccOXEEDj3O9ysG?=
- =?iso-8859-2?Q?yya+YJuHRDjp/q9fb7pF54/EzX8Z9LFfuIAIkETSA0BeFrLCV4L2iQwYx1?=
- =?iso-8859-2?Q?HetBOZnqRVIGn/b0HB38BbPUhszX+Gb/snlvQL/5EHwWCflTGEA4//rEZq?=
- =?iso-8859-2?Q?1F4czl5pGPg5o0uRhhIF+DWbI4wobZiX5+2jUakeYo4fNEVUE1w7EvTBH+?=
- =?iso-8859-2?Q?wdEXhaLN2kCXgu6EChILmMI9GtNP9rB0OD7mMx5IkkXxXCmJEuNBvRqY6Q?=
- =?iso-8859-2?Q?o6nNU3iNhcH8RMNIrO9F1l4yUWi0iPBUznd752NEfLzxrkqUP13qlZgjmy?=
- =?iso-8859-2?Q?Il9j8wvBNUtxRRYjWqQbuSmq4csmrTWZUM+Y5mvJmnntcbw7U7vJA7RDAa?=
- =?iso-8859-2?Q?5wYPB6x7lrhghTSeRm4=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 00606bac-1056-4d76-5bbd-08db26785350
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB8440.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 23:44:04.1106
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Ng4HnxZrIuLsXvTVbmvwpPJT99R4g55eFxqqMKAEVNxoZXCONfHD16IhDqXMvaK6dJY1crQiBzqTYOipAXDExX8RExl9Y1wBdNx9jRqlkAIzuikzSp01b7lkAPa8Gw0E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11379
-Message-ID-Hash: 3332LONCKUAU5VBRBGCABQBY4NBMYTDQ
-X-Message-ID-Hash: 3332LONCKUAU5VBRBGCABQBY4NBMYTDQ
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
+Message-ID-Hash: JFAPCQIMBSZQ7LZGGU75H4GA5VPMN4O3
+X-Message-ID-Hash: JFAPCQIMBSZQ7LZGGU75H4GA5VPMN4O3
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Linux-DT <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>
+CC: oe-kbuild-all@lists.linux.dev, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3332LONCKUAU5VBRBGCABQBY4NBMYTDQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JFAPCQIMBSZQ7LZGGU75H4GA5VPMN4O3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -166,33 +109,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Richard,
 
-Hi Rafa=B3
+Thank you for the patch! Yet something to improve:
 
-> Hi, this patch seems to add errors for me. Are my tools outdated or is
-> it a real issue? See below.
-(snip)
-> > +  #--------------------
-> > +  # reg/reg-names
-> > +  #--------------------
-> > +  # for Gen1
->=20
-> This seems to cause:
->=20
-> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:282:4: [error=
-] missing starting space in comment (comments)
-> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:284:4: [error=
-] missing starting space in comment (comments)
-> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:339:4: [error=
-] missing starting space in comment (comments)
-> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:341:4: [error=
-] missing starting space in comment (comments)
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on linus/master v6.3-rc2 next-20230316]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Hmm... I couldn't reproduce this
+url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/167872265923.26.336497278776737619%40mailman-core.alsa-project.org
+patch subject: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+config: x86_64-buildonly-randconfig-r004-20230313 (https://download.01.org/0day-ci/archive/20230317/202303171105.3mGHjK8s-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/5856c94d659f9c9963f5c37762cf201e1f1765e9
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
+        git checkout 5856c94d659f9c9963f5c37762cf201e1f1765e9
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=x86_64 olddefconfig
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/platform/x86/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303171105.3mGHjK8s-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   drivers/platform/x86/serial-multi-instantiate.c: In function 'smi_spi_probe':
+>> drivers/platform/x86/serial-multi-instantiate.c:98:15: error: implicit declaration of function 'acpi_spi_count_resources'; did you mean 'acpi_set_current_resources'? [-Werror=implicit-function-declaration]
+      98 |         ret = acpi_spi_count_resources(adev);
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~
+         |               acpi_set_current_resources
+>> drivers/platform/x86/serial-multi-instantiate.c:112:27: error: implicit declaration of function 'acpi_spi_device_alloc' [-Werror=implicit-function-declaration]
+     112 |                 spi_dev = acpi_spi_device_alloc(NULL, adev, i);
+         |                           ^~~~~~~~~~~~~~~~~~~~~
+>> drivers/platform/x86/serial-multi-instantiate.c:112:25: warning: assignment to 'struct spi_device *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     112 |                 spi_dev = acpi_spi_device_alloc(NULL, adev, i);
+         |                         ^
+>> drivers/platform/x86/serial-multi-instantiate.c:115:59: error: invalid use of undefined type 'struct acpi_device'
+     115 |                                             dev_name(&adev->dev));
+         |                                                           ^~
+   drivers/platform/x86/serial-multi-instantiate.c:137:53: error: invalid use of undefined type 'struct acpi_device'
+     137 |                                       dev_name(&adev->dev));
+         |                                                     ^~
+   cc1: some warnings being treated as errors
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for SERIAL_MULTI_INSTANTIATE
+   Depends on [n]: X86_PLATFORM_DEVICES [=n] && I2C [=y] && SPI [=y] && ACPI [=n]
+   Selected by [y]:
+   - SND_SOC_CS35L56_I2C [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=y]
+   - SND_SOC_CS35L56_SPI [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SPI_MASTER [=y]
 
 
-Thank you for your help !!
+vim +112 drivers/platform/x86/serial-multi-instantiate.c
 
-Best regards
----
-Kuninori Morimoto
+68f201f9061c000 Stefan Binding  2022-01-21   79  
+68f201f9061c000 Stefan Binding  2022-01-21   80  /**
+68f201f9061c000 Stefan Binding  2022-01-21   81   * smi_spi_probe - Instantiate multiple SPI devices from inst array
+68f201f9061c000 Stefan Binding  2022-01-21   82   * @pdev:	Platform device
+68f201f9061c000 Stefan Binding  2022-01-21   83   * @smi:	Internal struct for Serial multi instantiate driver
+68f201f9061c000 Stefan Binding  2022-01-21   84   * @inst_array:	Array of instances to probe
+68f201f9061c000 Stefan Binding  2022-01-21   85   *
+68f201f9061c000 Stefan Binding  2022-01-21   86   * Returns the number of SPI devices instantiate, Zero if none is found or a negative error code.
+68f201f9061c000 Stefan Binding  2022-01-21   87   */
+8b50c48d59a9cd0 Andy Shevchenko 2022-07-10   88  static int smi_spi_probe(struct platform_device *pdev, struct smi *smi,
+68f201f9061c000 Stefan Binding  2022-01-21   89  			 const struct smi_instance *inst_array)
+68f201f9061c000 Stefan Binding  2022-01-21   90  {
+68f201f9061c000 Stefan Binding  2022-01-21   91  	struct device *dev = &pdev->dev;
+8b50c48d59a9cd0 Andy Shevchenko 2022-07-10   92  	struct acpi_device *adev = ACPI_COMPANION(dev);
+68f201f9061c000 Stefan Binding  2022-01-21   93  	struct spi_controller *ctlr;
+68f201f9061c000 Stefan Binding  2022-01-21   94  	struct spi_device *spi_dev;
+68f201f9061c000 Stefan Binding  2022-01-21   95  	char name[50];
+68f201f9061c000 Stefan Binding  2022-01-21   96  	int i, ret, count;
+68f201f9061c000 Stefan Binding  2022-01-21   97  
+68f201f9061c000 Stefan Binding  2022-01-21  @98  	ret = acpi_spi_count_resources(adev);
+68f201f9061c000 Stefan Binding  2022-01-21   99  	if (ret < 0)
+68f201f9061c000 Stefan Binding  2022-01-21  100  		return ret;
+f3e13bbc6f5a84f Andy Shevchenko 2022-07-10  101  	if (!ret)
+2b5b27826a48eea Andy Shevchenko 2022-07-10  102  		return -ENOENT;
+68f201f9061c000 Stefan Binding  2022-01-21  103  
+68f201f9061c000 Stefan Binding  2022-01-21  104  	count = ret;
+68f201f9061c000 Stefan Binding  2022-01-21  105  
+68f201f9061c000 Stefan Binding  2022-01-21  106  	smi->spi_devs = devm_kcalloc(dev, count, sizeof(*smi->spi_devs), GFP_KERNEL);
+68f201f9061c000 Stefan Binding  2022-01-21  107  	if (!smi->spi_devs)
+68f201f9061c000 Stefan Binding  2022-01-21  108  		return -ENOMEM;
+68f201f9061c000 Stefan Binding  2022-01-21  109  
+68f201f9061c000 Stefan Binding  2022-01-21  110  	for (i = 0; i < count && inst_array[i].type; i++) {
+68f201f9061c000 Stefan Binding  2022-01-21  111  
+68f201f9061c000 Stefan Binding  2022-01-21 @112  		spi_dev = acpi_spi_device_alloc(NULL, adev, i);
+68f201f9061c000 Stefan Binding  2022-01-21  113  		if (IS_ERR(spi_dev)) {
+14a9aa99aca6c28 Andy Shevchenko 2022-07-10  114  			ret = dev_err_probe(dev, PTR_ERR(spi_dev), "failed to allocate SPI device %s from ACPI\n",
+14a9aa99aca6c28 Andy Shevchenko 2022-07-10 @115  					    dev_name(&adev->dev));
+68f201f9061c000 Stefan Binding  2022-01-21  116  			goto error;
+68f201f9061c000 Stefan Binding  2022-01-21  117  		}
+68f201f9061c000 Stefan Binding  2022-01-21  118  
+68f201f9061c000 Stefan Binding  2022-01-21  119  		ctlr = spi_dev->controller;
+68f201f9061c000 Stefan Binding  2022-01-21  120  
+68f201f9061c000 Stefan Binding  2022-01-21  121  		strscpy(spi_dev->modalias, inst_array[i].type, sizeof(spi_dev->modalias));
+68f201f9061c000 Stefan Binding  2022-01-21  122  
+68f201f9061c000 Stefan Binding  2022-01-21  123  		ret = smi_get_irq(pdev, adev, &inst_array[i]);
+68f201f9061c000 Stefan Binding  2022-01-21  124  		if (ret < 0) {
+68f201f9061c000 Stefan Binding  2022-01-21  125  			spi_dev_put(spi_dev);
+68f201f9061c000 Stefan Binding  2022-01-21  126  			goto error;
+68f201f9061c000 Stefan Binding  2022-01-21  127  		}
+68f201f9061c000 Stefan Binding  2022-01-21  128  		spi_dev->irq = ret;
+68f201f9061c000 Stefan Binding  2022-01-21  129  
+68f201f9061c000 Stefan Binding  2022-01-21  130  		snprintf(name, sizeof(name), "%s-%s-%s.%d", dev_name(&ctlr->dev), dev_name(dev),
+68f201f9061c000 Stefan Binding  2022-01-21  131  			 inst_array[i].type, i);
+68f201f9061c000 Stefan Binding  2022-01-21  132  		spi_dev->dev.init_name = name;
+68f201f9061c000 Stefan Binding  2022-01-21  133  
+68f201f9061c000 Stefan Binding  2022-01-21  134  		ret = spi_add_device(spi_dev);
+68f201f9061c000 Stefan Binding  2022-01-21  135  		if (ret) {
+14a9aa99aca6c28 Andy Shevchenko 2022-07-10  136  			dev_err_probe(&ctlr->dev, ret, "failed to add SPI device %s from ACPI\n",
+14a9aa99aca6c28 Andy Shevchenko 2022-07-10  137  				      dev_name(&adev->dev));
+68f201f9061c000 Stefan Binding  2022-01-21  138  			spi_dev_put(spi_dev);
+68f201f9061c000 Stefan Binding  2022-01-21  139  			goto error;
+68f201f9061c000 Stefan Binding  2022-01-21  140  		}
+68f201f9061c000 Stefan Binding  2022-01-21  141  
+68f201f9061c000 Stefan Binding  2022-01-21  142  		dev_dbg(dev, "SPI device %s using chip select %u", name, spi_dev->chip_select);
+68f201f9061c000 Stefan Binding  2022-01-21  143  
+68f201f9061c000 Stefan Binding  2022-01-21  144  		smi->spi_devs[i] = spi_dev;
+68f201f9061c000 Stefan Binding  2022-01-21  145  		smi->spi_num++;
+68f201f9061c000 Stefan Binding  2022-01-21  146  	}
+68f201f9061c000 Stefan Binding  2022-01-21  147  
+68f201f9061c000 Stefan Binding  2022-01-21  148  	if (smi->spi_num < count) {
+68f201f9061c000 Stefan Binding  2022-01-21  149  		dev_dbg(dev, "Error finding driver, idx %d\n", i);
+68f201f9061c000 Stefan Binding  2022-01-21  150  		ret = -ENODEV;
+68f201f9061c000 Stefan Binding  2022-01-21  151  		goto error;
+68f201f9061c000 Stefan Binding  2022-01-21  152  	}
+68f201f9061c000 Stefan Binding  2022-01-21  153  
+68f201f9061c000 Stefan Binding  2022-01-21  154  	dev_info(dev, "Instantiated %d SPI devices.\n", smi->spi_num);
+68f201f9061c000 Stefan Binding  2022-01-21  155  
+68f201f9061c000 Stefan Binding  2022-01-21  156  	return 0;
+68f201f9061c000 Stefan Binding  2022-01-21  157  error:
+68f201f9061c000 Stefan Binding  2022-01-21  158  	smi_devs_unregister(smi);
+68f201f9061c000 Stefan Binding  2022-01-21  159  
+68f201f9061c000 Stefan Binding  2022-01-21  160  	return ret;
+35a36cbb7b1ce75 Lucas Tanure    2022-01-21  161  }
+35a36cbb7b1ce75 Lucas Tanure    2022-01-21  162  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

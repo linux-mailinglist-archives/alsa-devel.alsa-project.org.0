@@ -2,101 +2,213 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456CF6BEA54
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 14:41:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C35C6BEA98
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 15:01:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13AB3F59;
-	Fri, 17 Mar 2023 14:40:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13AB3F59
+	by alsa0.perex.cz (Postfix) with ESMTPS id 328F4F5B;
+	Fri, 17 Mar 2023 15:01:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 328F4F5B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679060488;
-	bh=jw8ycedN/Zf9HoGhXQF7yT17adsda8z6c+G1UVKYT1E=;
-	h=Date:Subject:From:To:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WQrFBD/jlPDZiTLnWzN9BmBWxOTPUU2NjDr283XdHr/WHn/OFU0Ppm242Go+R5NFu
-	 1Jpo9TqeULIJjksxbN5qnXlo9z2HcGaa1Z67NeVDgb1liEjNn9vHwpIjx6XjQxSw1H
-	 RGZ4QKwsh10AwVBhsedw1Rf7oQjIAehIGJaGJOHU=
+	s=default; t=1679061714;
+	bh=bcou5y7SreZAKKabfRBa7pMhSvsNhYs0seVjV2tghuY=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=nt4DdH6CvkxQXjWk3GvDVyg7e6WIi+kvTRhlvHRHmLDI0aRKrr+PXrjjn+6WAsSkl
+	 9zu8Hc1d3jvf3THE+ugUSKnHGPSY6EMHlE+6789J7SoRZxxt/JOcbH9yKlj24rsgID
+	 dhjmI5UdAIF6IhjDKzJXrza3rDKA/Iu5njQ3pSEE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2998F80423;
-	Fri, 17 Mar 2023 14:40:36 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BB5BF80482; Fri, 17 Mar 2023 14:40:32 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_NEUTRAL,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail.insite.cz
- (dynamic-2a00-1028-cc00-021d-021b-78ff-fe9a-2881.ipv6.o2.cz
- [IPv6:2a00:1028:cc00:21d:21b:78ff:fe9a:2881])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 206F7F80423
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 14:40:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 206F7F80423
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=MkjllpzD;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=aJ+qjQ9E
-Received: from localhost (localhost [127.0.0.1])
-	by mail.insite.cz (Postfix) with ESMTP id 8EEB1A1A32302;
-	Fri, 17 Mar 2023 14:41:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1679060503; bh=jw8ycedN/Zf9HoGhXQF7yT17adsda8z6c+G1UVKYT1E=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=MkjllpzDNBrpWH7OElh0RTldw7RRPiTG4fEmI1RmldzDsxZQf+Gy2SqjyORNjjmHm
-	 EjW24pc7d4j/M4Q24YKbpyEZtEFa9DCbYzsVcIAoA9ZuTKUAgQzWpWYKTmcOXfnTt7
-	 A88LcGEWST5l78zNWBr89GyiMpcmPsxXIsvXtr0c=
-Received: from mail.insite.cz ([10.0.1.254])
-	by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id Z07IUZpZlqtN; Fri, 17 Mar 2023 14:41:37 +0100 (CET)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by mail.insite.cz (Postfix) with ESMTPSA id 38172A1A32301;
-	Fri, 17 Mar 2023 14:41:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1679060496; bh=jw8ycedN/Zf9HoGhXQF7yT17adsda8z6c+G1UVKYT1E=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=aJ+qjQ9ExAFKi1lwftgSysF5th6vap5qpwJ60ntV1V1k8cOqMmUPzwd+F7+7B2BIH
-	 3YBqkwrdZgqLKAU9demNnf3gM2z8hAgykDsqS5Ej+KALUU3vIy7y65aZlKGPtLHBLq
-	 1Ya/sjDDeRs/JzVEMa0agMgSBBUl4Gags72DkDdI=
-Message-ID: <d2bf41f1-cc77-eeb5-d5b1-40f6ae146077@ivitera.com>
-Date: Fri, 17 Mar 2023 14:40:21 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: Unlikely big volume range volume range on EMEET webcam
-Content-Language: en-US
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <64d33968-3a5f-83f4-1730-4f91f5b82607@ivitera.com>
-In-Reply-To: <64d33968-3a5f-83f4-1730-4f91f5b82607@ivitera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JE6JMGVQ52DTZ5QA3LA5KYM7EX3JKUW5
-X-Message-ID-Hash: JE6JMGVQ52DTZ5QA3LA5KYM7EX3JKUW5
-X-MailFrom: pavel.hofman@ivitera.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 97C54F8032D;
+	Fri, 17 Mar 2023 15:01:03 +0100 (CET)
+Date: Fri, 17 Mar 2023 19:34:18 +0530
+Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
+To: Vinod Koul <vkoul@kernel.org>
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-3-Vijendar.Mukunda@amd.com> <ZBGTDXJvVjVuUkiZ@matsya>
+ <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com> <ZBRsX7W4l1HyT44y@matsya>
+In-Reply-To: <ZBRsX7W4l1HyT44y@matsya>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JE6JMGVQ52DTZ5QA3LA5KYM7EX3JKUW5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167906166283.26.7234443636305492316@mailman-core.alsa-project.org>
+From: "Mukunda,Vijendar via Alsa-devel" <alsa-devel@alsa-project.org>
+Reply-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
+ Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
+ claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 2D669F80425; Fri, 17 Mar 2023 15:00:57 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::630])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 038DAF80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 15:00:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 038DAF80272
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=lkgAymEP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=f0CJkudvj2j6CMpjt4zUyo2eoyIewaXoMG+wFQKBihuB99AJ7kX13Nqs5U6uaOf1fzRRVLRSyLzfvr0qZxQKk0msEhzFT0yxCbBhHKzO7rB/UDV222y0e3H8A9qssdCihsszxGCU95z1lKag7L0wKt1/UcbdnJQEk1reWFOIphE09swWedKyyRFpJqq7BUHRPB1bOr9csrE2WW1CnbnhSchnXGtgMFGgWsU976ma23/Dl57h68ZWiBjENMkpvU2ZMcj7i3x0pOs/1fO7raZkP2fL+Da9byqrqQ1MzJCKkJDM5Ky5lMwgF+UYtvGxdSOhO/pO+GtKvTXbXQEDCoz8rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mgSe9oXsGjAzeKLsGpTW+b3uyngs/KyrcUQnjQ6l2+I=;
+ b=DahnqaFh9MvUbxj2ZciyXACxU1b8L4sEoZKiyc4b8J067ixDSR4IJMBfMPIiWMJAAeGXFdRHHmp4L10+QY2X7xYI44WQFpVPjcjwdGEqwkcUfcO1Yo8QhVnPG2QM5cr+vCOmxkljtw+Vb8Xm6XLysSXsZ05YU+pzUjL9AA552AUQDWCJz5b24z+lPJTQE+K/IZRZ/eXM9N2Km9i5pUGFjGulF3yix5P4UK0HvnwJCa1My/WUWohLfaOtyMONdmKUapMDNPoybIvmABs3YPbzFcZxsX1HW/MuZbufNHuTFC0C8zhk1lPlJmlHXvt5ngFw0kLX4cwQZbxgvzT1HCct5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgSe9oXsGjAzeKLsGpTW+b3uyngs/KyrcUQnjQ6l2+I=;
+ b=lkgAymEP7K9uNyBRQQ7MR+JxHGa1xdL8riDmnjgqXAiweeOE4T5KkbeByQC8mgGkUV8A+Htkwi+zGuVOcfUiATZ6iOa7kc4umc9akmFgYY4J1zllN0RdYPYwzGMrZ2aIX6wqL+g7ulLztMcPkhGLYP1dP0mUQU2E+h8OPxjFVyw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by IA1PR12MB8238.namprd12.prod.outlook.com (2603:10b6:208:3f9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Fri, 17 Mar
+ 2023 14:00:36 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::e4f3:9509:c6ee:41cb%4]) with mapi id 15.20.6178.035; Fri, 17 Mar 2023
+ 14:00:36 +0000
+Message-ID: <f30689fb-3fd8-b76a-f614-0aa2c4719327@amd.com>
+Date: Fri, 17 Mar 2023 19:34:18 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
+Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-3-Vijendar.Mukunda@amd.com> <ZBGTDXJvVjVuUkiZ@matsya>
+ <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com> <ZBRsX7W4l1HyT44y@matsya>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <ZBRsX7W4l1HyT44y@matsya>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0030.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::35) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|IA1PR12MB8238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c0759f1-ce67-4829-7a9b-08db26effb3d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	8o1G6K+UqDEIZd5tzikuANIrfyjy/0q4gj4GpVZXrOldT2zq0h1xxBW44gHykx06n+hA9tnL1PLyRyZCwN0qjlHyrozQWCiWNkuLCJoof9VlLz3ayukCDud+IhPQnqz7Wjkq/zIrF/0vATp5Bz5PQO6K3S4Uc83stKQQJWWJiWDCzBXG070k0zKFM8CHOM6dELKGlYChQL1NR8Zg/JG+UUr3vCgcRZafpsVgK6ywgIeTwjpLAo4S1rpseOGZ4QO/Qoyag7rcAcyeaULbcpA3XpafdeN62syDJbfze551ytqWBl+dawU1lCE7zvznL4UR8VJbnwVPJCgvLY6zXZ6MMY9+jyq5rsupxJ7UjktC5V1yPRCh2oGiHWb5LnxNzZPCFVaoV3cbARAvu/jTQhTvifENQAWLxMUuOancveDI4kqmvaP9EQlsagsD6wu1dkf35SR64ZEbyIbrC3FEZt2FcLSHcIiOjwtF7S/vA6Z36JcbcWfm6V/IAJOIfggVARCiqaQop/25Sva7SHHUZsQA2vDAwUDd+PbSkKa40Ljgngv5bejGYIvkr5U5ZmF/BzM9aEEXQfCp5EwI8JBeozvJ9KRVEGmk0gIO4ai7cJ7Vt4UljGOKPIURUI4ja7jxKQSn7vM7av3VoLobrSNNhIN8BCzBGrd2M+MxqIKRqLPgeTsh34yousryRMIfDhIGCbu1g1BobNjMDsuEDFbklHv/yt7tBhk3Vu9mH5VRWrr5juU=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(366004)(346002)(136003)(396003)(451199018)(5660300002)(38100700002)(86362001)(41300700001)(36756003)(8936002)(31696002)(2906002)(6666004)(4326008)(6506007)(53546011)(6512007)(83380400001)(26005)(2616005)(186003)(316002)(54906003)(478600001)(66476007)(966005)(66556008)(6916009)(66946007)(8676002)(6486002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?dUVJQm8yZWhyL1NIRWJ6em4zYTRwdkxjZjlJN2xhdkxtcE4yZXRSZ2pRdk01?=
+ =?utf-8?B?RnM0eTFXYXFCbFJEYm5ZTnlleU9GMUkzOHFDQUV1a0Z5QjN5S0V0NktxSFY3?=
+ =?utf-8?B?UUtvNzhIVm1kTGljK0Zzd1I0VTAxd1JtRHoxSXRsd2pmeE5oc2dzZk5Ea05V?=
+ =?utf-8?B?bkdxVGtid1pIaE5EcHBueXh5T0N0N2o1OUFMTE5icmtOYS8rMEpqT1J6aGNw?=
+ =?utf-8?B?M0hRQ0o2K1ZqbWFBc3NkM3ZDdzR1WjVKUUtieFpjdGpjd1Y4eVNSS0IxR1lz?=
+ =?utf-8?B?NTJPc2hPUmhjblRkTERhYVF3cXR4cmlTdEJEUDlHQ2Z1RnZ0UVNBQTlLT0cv?=
+ =?utf-8?B?dXBFREQ0ZVgrY28zQ1VNbDNldUUwTGNXMDB0VHI1V1JQVGlCWnlDcGpsWkxp?=
+ =?utf-8?B?dUJ6ME9tWkJtczFteG12WlF6MXRyVVhFSzE4ZzZuendQdlBiS1VhYi9BSlRh?=
+ =?utf-8?B?enEvM3NEZExuQWtSR3dvZGNSUDdSVk1CcGhwV0pCR3B1b2xtaW5wMlVVVSsv?=
+ =?utf-8?B?NW41ai9IZlFhcE1pbTNFTmd2aHlnT3VkUTB6RklTZG1ZVHJja2hJbjlBdHpY?=
+ =?utf-8?B?YTNLUFUvVDhsc3ZvS095ZGxxWVBjdkNNK0hhOFhjeGt0SGJ3TnBxZHJiQzYw?=
+ =?utf-8?B?ODdyYmprOGc1T0JXTC9ocGtINWFWSmpEUlFhNnl4cldWZ3FBRWk1clhoSTRo?=
+ =?utf-8?B?S1RjdDBmZHBTeTJoSDZnZEErS2pKYWJPTWkxbk5yc0dXVzl0SFkxYzh5dTFo?=
+ =?utf-8?B?N1ZZd2dCQzV0SzFmcUJxeFFLZmErWnlSSEk0Y3l2UlI2Q20wNHpsREZ4SVdo?=
+ =?utf-8?B?Zk5zU3JVNFZ1TUNaN3lPd3Q2a2laYWNxeHVTbm5tbmw2UXV0WVQxV3lGZ3pK?=
+ =?utf-8?B?dDRpRDM2R1kzSkJwV3RxemJnaUFIOEgzM015TFNDSkdOS0hzQUxtbmovVFJ1?=
+ =?utf-8?B?aGRxNnV3ZGh4cktsL3diQjJJTU9Pa285ekVVMW9hU1Iwd0ZlbHdsQzIxV2pB?=
+ =?utf-8?B?Z1lFSTRRSDBvaThlVEZLbklxb09lNlRYeWpHY1ppK2dyQ094Vm9BaFZCYnRJ?=
+ =?utf-8?B?TkxXc0xDMXY1a05KQlJtRXJoM1JSM1ROLzFzTWlmeEl0MzhvQ01RL3RkVnRN?=
+ =?utf-8?B?bGxpd1lZb2h1MUdPYXdNenBSZUpaQktVODlvaWZ2Mk1uckREMCtPOVpzK1E5?=
+ =?utf-8?B?S05RRzBSVUxzQkYwMCtFVlU5cmtRdE5waVk0R0hyNHhnL3F4TnRKWmpkRlJv?=
+ =?utf-8?B?dkVLQWJ3OW5sNmswdGJ3WEE1UVJiQmpOdHZ2aFZWWDJDRUFpSkdnZUh6eEhQ?=
+ =?utf-8?B?Nnd6dEYvUSsrZ3MyWjdMVzU5UjNoUys3ZkFJcmtYNGM2eUJMMThYaGVSTWdt?=
+ =?utf-8?B?TVZXQnJsUmc5ZGpMYkdmY3VQbklxSWgvc3JGQ2ZnTk80M0dtNlRLNmhWVStU?=
+ =?utf-8?B?R1l5OStRZnljRXVSd0piYVhwSnZmN0dBTVBiUVYzOFBxNm1GZWdxc2d4cmJH?=
+ =?utf-8?B?a25RRWs0N0oxbEVlbEU5OVdGdEUraWsvd0Z0d3ZROXJQZFdLSjF1Mnk1dys2?=
+ =?utf-8?B?VHNpNCtJVWhmOUY1a2RFTFdZcjhReHhxNDlZcWE3RHRSMTUwMHhmeDhsQUM5?=
+ =?utf-8?B?V2NTV2FFYWNUZmtGb2xHdUUreWRidG82UDRRS1B4ZExyRXJnMEd6enRSOWpt?=
+ =?utf-8?B?TnB5U3I3ZVRGU05QbnpyMmlnWnlhcHRlcm5hSXEwZ3JpUW01akRBOWFRTlhW?=
+ =?utf-8?B?dk40OHlyQ3B5Slp2Q0FWQUNlMWNhdjhpcHJwTXgvUzg3V0ppcVM5cXhCNzVM?=
+ =?utf-8?B?enN0bVRSdWRZc05pbkNTUnVWRVZIbmJsemN2Nk1GazBqYndZOEJ4ZFVLTC9u?=
+ =?utf-8?B?NG05NlBGRFkzUmNFQ0sxVTh3ejQvQndmSTZocUJQcFY4MW8vNUJLaHdkK0py?=
+ =?utf-8?B?UFlML1dLd0xqRzM4b29FY1JoUnR5aVdtK2gzVXcwbjZucXdmT1dRZjVtTWI3?=
+ =?utf-8?B?UzQvRkprbndxeFoveThQTUNyWVRXMDk0TmVZSXhodGw3N0VNbEE4RVBKZjJm?=
+ =?utf-8?B?R3VXZnQ5Y3lQNFFJL0Q0dTlwZ0J5ZW5yaW5oZmJkTkNYK0tTR0kxNkduVWt4?=
+ =?utf-8?Q?9nD2aikClezmPY5QKZqspGFYZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 2c0759f1-ce67-4829-7a9b-08db26effb3d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 14:00:36.1268
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ EZUbEHJE2DihQbNMmz6oae4pb0HNIkgTa4FW4z3DGK6BAwcSfK7X0AlO5i8UhW5VcXyt3eZvq/XVHI9uYyJmqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8238
+Message-ID-Hash: LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID
+X-Message-ID-Hash: LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID
+X-MailFrom: Vijendar.Mukunda@amd.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
+ Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
+ claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,64 +217,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 17/03/23 19:04, Vinod Koul wrote:
+> On 16-03-23, 19:28, Mukunda,Vijendar wrote:
+>> On 15/03/23 15:12, Vinod Koul wrote:
+>>> On 07-03-23, 19:01, Vijendar Mukunda wrote:
+>>>> +/**
+>>>> + * struct amd_sdw_manager - amd manager driver context
+>>>> + * @bus: bus handle
+>>>> + * @dev: linux device
+>>>> + * @mmio: SoundWire registers mmio base
+>>>> + * @acp_mmio: acp registers mmio base
+>>>> + * @reg_mask: register mask structure per manager instance
+>>>> + * @probe_work: SoundWire manager probe workqueue
+>>>> + * @acp_sdw_lock: mutex to protect acp share register access
+>>>> + * @num_din_ports: number of input ports
+>>>> + * @num_dout_ports: number of output ports
+>>>> + * @cols_index: Column index in frame shape
+>>>> + * @rows_index: Rows index in frame shape
+>>>> + * @instance: SoundWire manager instance
+>>>> + * @quirks: SoundWire manager quirks
+>>>> + * @wake_en_mask: wake enable mask per SoundWire manager
+>>>> + * @power_mode_mask: flag interprets amd SoundWire manager power mode
+>>>> + */
+>>>> +struct amd_sdw_manager {
+>>>> +	struct sdw_bus bus;
+>>>> +	struct device *dev;
+>>>> +
+>>>> +	void __iomem *mmio;
+>>>> +	void __iomem *acp_mmio;
+>>>> +
+>>>> +	struct sdw_manager_reg_mask *reg_mask;
+>>>> +	struct work_struct probe_work;
+>>>> +	/* mutex to protect acp common register access */
+>>>> +	struct mutex *acp_sdw_lock;
+>>>> +
+>>>> +	int num_din_ports;
+>>>> +	int num_dout_ports;
+>>>> +
+>>>> +	int cols_index;
+>>>> +	int rows_index;
+>>>> +
+>>>> +	u32 instance;
+>>>> +	u32 quirks;
+>>>> +	u32 wake_en_mask;
+>>>> +	u32 power_mode_mask;
+>>>> +};
+>>> Does the manager need to be exposed to rest of kernel or users of this
+>>> driver, is so why?
+>> Currently, amd_manager structure being used in ACP PCI driver
+>> (parent driver) and Soundwire DMA driver.
+>>
+>> In ACP PCI driver, IRQ handler we will use amd_manager structure to
+>> schedule workqueue based on soundwire manager instance.
+>> In Soundwire DMA driver, we need to retrieve amd_manager instance.
+>> As per our design, we have fixed mapping. We need to use same set of
+>> DMA registers based on CPU DAI ID.
+>>  i.e if AUDIO0 TX port is selected in amd_manager driver
+>> then we need to use AUDIO0 TX registers for DMA programming.
+>> we have included comments for describing mapping in amd_manager.h
+>> file.
+> Sorry not sure I follow, can you elaborate which members of above struct
+> are used by PCI driver?
 
-Dne 10. 03. 23 v 14:43 Pavel Hofman napsal(a):
-> Hi,
-> 
-> Speaker-webcam eMeet C980 Pro does not play, outputs only silent noise. 
-> The digital volume seems to be down.
-> 
-> dmesg:
-> 
-> [22406.805176] input: HD Webcam eMeet C980 Pro: HD We as 
-> /devices/pci0000:00/0000:00:01.2/0000:02:00.0/usb1/1-7/1-7.1/1-7.1:1.0/input/input27
-> [22406.829048] usb 1-7.1: current rate 16000 is different from the 
-> runtime rate 48000
-> [22406.933044] usb 1-7.1: Warning! Unlikely big volume range (=10240), 
-> cval->res is probably wrong.
-> [22406.933048] usb 1-7.1: [5] FU [PCM Playback Volume] ch = 1, val = 
-> -7168/3072/1
-> [22407.001043] usb 1-7.1: Warning! Unlikely big volume range (=3072), 
-> cval->res is probably wrong.
-> [22407.001047] usb 1-7.1: [6] FU [Headset Capture Volume] ch = 1, val = 
-> -1536/1536/1
-> 
+ACP PCI driver uses "amd_sdw_irq_thread" structure member which was added
+in below patch.
+https://www.spinics.net/lists/alsa-devel/msg155118.html
 
-Maybe it's a problem with endianness, like e.g. reported in 
-https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2181737.html
+amd_manager structure "instance" member will be used by ACP Soundwire DMA driver.
+>
 
-All the large numbers are divisible by 256.
-
-But honestly I do not know what the fix should be - converting the 
-min/max (min >>=8) or the resolution (res >>=8)?
-
-What difference do the two methods make?
-What effect does rewriting the cval min/max/res values actually have, 
-with regards to the reading from the device (get) and writing to the 
-device (put) methods?
-
-Thanks a lot for any hint.
-
-Best regards,
-
-Pavel.
-
-> 
-> amixer contents:
-> .....
-> numid=3,iface=MIXER,name='PCM Playback Switch'
->    ; type=BOOLEAN,access=rw------,values=1
->    : values=on
-> numid=4,iface=MIXER,name='PCM Playback Volume'
->    ; type=INTEGER,access=rw---R--,values=1,min=0,max=10240,step=0
->    : values=10240
->    | dBminmax-min=-28.00dB,max=12.00dB
-> numid=5,iface=MIXER,name='Headset Capture Switch'
->    ; type=BOOLEAN,access=rw------,values=1
->    : values=on
-> numid=6,iface=MIXER,name='Headset Capture Volume'
->    ; type=INTEGER,access=rw---R--,values=1,min=0,max=3072,step=0
->    : values=3072
->    | dBminmax-min=-6.00dB,max=6.00dB
-> .....
-> 

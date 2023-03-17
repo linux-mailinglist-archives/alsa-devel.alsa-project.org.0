@@ -2,34 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83076BEAB8
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 15:09:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 263386BEB00
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 15:20:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00EDAF67;
-	Fri, 17 Mar 2023 15:08:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00EDAF67
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2E2CF63;
+	Fri, 17 Mar 2023 15:19:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E2CF63
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679062153;
-	bh=1k4ExcCQDDcAeZlFdpBatjTRv7COF4iRvM1hSyJesbc=;
-	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=Aip3T1C6x/DLtGslXYALZFrkOTGCLiFxkr33tynNIzMPLnuGMLnqsqi3TgWdoib9H
-	 SNuDMZSkBggovP5klNcGxX9w3naBSKayP8a+C4ugBnzRp+4/tzRGEKBX9tjwl5T0d/
-	 eNuZNdjbgoKk/hX4tNXR75Emk3OiVL+hMKT4NJcY=
+	s=default; t=1679062815;
+	bh=qDh25MIbzRLxzMtauBVUUSgfgT09pHlGVjynGGJcVTk=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=l/Xz5ItCCbnt88YP4FFzAdNrCEdPnRBsID/jkhcJqZMjiZAjr1KbREPXc/0p+WDme
+	 xDcxB0oisi+Rp/HqpsD9uVa4zuXCNpbwVz4orFvlYeb9NH/JNanQiFZR36z51FtLRH
+	 Ky1Lw2qD1ZNW6GP8QjedNOO7iljXpwKcg5gKdq2k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A54BF8032D;
-	Fri, 17 Mar 2023 15:08:22 +0100 (CET)
-Date: Fri, 17 Mar 2023 14:08:07 +0000
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to
- handle page boundaries
-References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
- <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
- <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
-In-Reply-To: <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTP id 86EB1F8032D;
+	Fri, 17 Mar 2023 15:19:24 +0100 (CET)
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirks for some Clevo laptops
+Date: Fri, 17 Mar 2023 08:18:25 -0600
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -41,7 +35,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VRGA5TBSLLS2MJZRPSFARHZMJGNTDN5V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -51,97 +45,111 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167906210132.26.2857505700065614255@mailman-core.alsa-project.org>
-From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+ <167906276359.26.3908012498848335076@mailman-core.alsa-project.org>
+From: Tim Crawford via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Tim Crawford <tcrawford@system76.com>
+Cc: tiwai@suse.de, productdev@system76.com,
+ Tim Crawford <tcrawford@system76.com>, Jeremy Soller <jeremy@system76.com>
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99002F80423; Fri, 17 Mar 2023 15:08:17 +0100 (CET)
+	id 82092F80423; Fri, 17 Mar 2023 15:19:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7E867F80093
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 15:08:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E867F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6BD44F80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 15:19:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BD44F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=n4v5zv0M
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32HDk5Yo002807;
-	Fri, 17 Mar 2023 09:08:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=H4ggXK1Md9Bl/gFWgbNqPW1hTdT0QlUPDN7cqK9juWI=;
- b=n4v5zv0M9zrOnUE26M00QfQkUPac50atub66LqY8vWDeKUV/g1T7AeLTAhYxDknJeLUA
- KQOrxH0wDJHF7Mx195dXT4pA+ePcOpABDqAPgbOOpT2GjrEMxXuCWYJK8mo8IbWbznk9
- JmSIzHOtGEx1Hq2yWfr7mcnKf4OBlp2D7DR2R3E+MW+L/OXOCaLfF3DUqsOFfHgoqwuQ
- dB9iWzhmTBHa79a44tgyJBCt1Gxspvpqs6yh+E+7yRrQBuuahSdy3T2QZreJUGXmXluA
- 8/moZ0jWjO0hA8QxtoxpvqKSHWH2nShlu0/8QBOugTNd5MgjnO2f2IlMuquB+Rz7/eQU dw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs2ntj82-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Mar 2023 09:08:08 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 17 Mar
- 2023 09:08:07 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Fri, 17 Mar 2023 09:08:07 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3269711D3;
-	Fri, 17 Mar 2023 14:08:07 +0000 (UTC)
-Date: Fri, 17 Mar 2023 14:08:07 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to
- handle page boundaries
-Message-ID: <20230317140807.GI68926@ediswmail.ad.cirrus.com>
-References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
- <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
- <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
+ unprotected) header.d=system76.com header.i=@system76.com header.a=rsa-sha256
+ header.s=fm2 header.b=ITd0E2bw;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=vbb0+hgm
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 5D6E45C00BC;
+	Fri, 17 Mar 2023 10:19:11 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Fri, 17 Mar 2023 10:19:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm2; t=1679062751; x=1679149151; bh=nZCjnYQuDt
+	Ic5SKcMl6MLPQR7OpMzSgOgwrW7xPjVHo=; b=ITd0E2bw7bdQApJjmDY2+doOKe
+	dDbeghE1Ow3G9QGWtvOkjs/dJB23KFlOEXS+t1dFHyaQuw3MhaMsYTZGVsZc4eEu
+	w+4kTsdNXmd8rrP5Dowz+dcjBSYRaesLaxstjzQvzEHYxPLnMzmEfS6DZvm4S7Jr
+	5vfdMKVLVxCnSNjTvUPyxEnMaskCHOp4O/F2oUPAf1voP25ZgNz+IRe9aN9w/Ys/
+	ZTGd0vg9Ec76fXTZmYc7t9y6fLGvnt9iFZuhmi4zAi7y1P/I+IHBSLUtLWVk1xnI
+	LLIXFV9TT9A0MDUisfgBHOjKuqfnAuHetWRWKilNZJlcF3Dp9DNZHQizT9PQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1679062751; x=1679149151; bh=nZCjnYQuDtIc5
+	SKcMl6MLPQR7OpMzSgOgwrW7xPjVHo=; b=vbb0+hgmzAWP6fT+l+58DstNylM0m
+	X2GbZEgnWfR6UImPq55Vt4UhfTeOsvoqiidF6s+GmPnnSeUGoH/RwsOeQ4wm8vmb
+	uhGwxB2+FaZ1vW8nAKZjDUfj/L+nEMvn2bmF+YWknqwppgF4ptJVvMNdVdU9cx23
+	cqvwfb6nmqbnu65qIzO1h52LYPKsvZspeNXE8JJgs5w1hm84ZJUhGfri5cGHS+oc
+	UFMzpjSCp+zbmLSY8JmQgSeAEBuwHWJ5i7tsef2v2MaP+01hzkqPP0t3KWdYo5oH
+	AWNLpoDq5bLNgBIQQ/FxJZvACLlY+8Zk5FyBg6VZhV4PPTr03aMK24vWQ==
+X-ME-Sender: <xms:33YUZCy-wzdTIk2GBwWJs1gRleyq79UOW59LKFqkfi0XA3qXNg1ARQ>
+    <xme:33YUZOScuVuVWjjDNhsy9UeowehpE3ZcZuMbdLkhwHK4uKcGU-Piu8F3K-AzVrVGK
+    KNlJpdfMyLVTx-xRQ>
+X-ME-Received: 
+ <xmr:33YUZEX9jCJaVenp-OwJKFmNX5PsGKftm87Mw0mQdzf85AU1h23QN2zZMgzG3rXZjtL7Jv5geUR7aZdSvvEL8ajiMHMaH4t-6jeo9k5Ksg>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrvdefvddgiedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepvfhimhcuvehr
+    rgiffhhorhguuceothgtrhgrfihfohhrugesshihshhtvghmjeeirdgtohhmqeenucggtf
+    frrghtthgvrhhnpeekgfetfedviedvhffftdffgfeifffhteeguddukeeifeeuuedtleef
+    tdevueehfeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpehttghrrgiffhhorhgusehshihsthgvmhejiedrtghomh
+X-ME-Proxy: <xmx:33YUZIhAE_gTtwIWYP8thzJ7KSijHREzup3PCRAzCDGRzFY2tl_rdw>
+    <xmx:33YUZEBu0JVgi7WCDQna1w8Sb7FXdhvjtYgxFcVvWOCGtTITaJSSFw>
+    <xmx:33YUZJINs7DKfuVjMGYX7QibqS3bSRPLjL7xkA1tOPYCVyEMjp5xaQ>
+    <xmx:33YUZHPTRIYa1SsGmJvNKYEWugFAYsL217NjJmQb8qfzkseo6IlN8Q>
+Feedback-ID: i1761444e:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Mar 2023 10:19:10 -0400 (EDT)
+From: Tim Crawford <tcrawford@system76.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirks for some Clevo laptops
+Date: Fri, 17 Mar 2023 08:18:25 -0600
+Message-Id: <20230317141825.11807-1-tcrawford@system76.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: JMdtH2Aj5Hij6muQ-VxAE3SfVder22uf
-X-Proofpoint-ORIG-GUID: JMdtH2Aj5Hij6muQ-VxAE3SfVder22uf
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU
-X-Message-ID-Hash: I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU
-X-MailFrom: prvs=8440ae90cc=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VRGA5TBSLLS2MJZRPSFARHZMJGNTDN5V
+X-Message-ID-Hash: VRGA5TBSLLS2MJZRPSFARHZMJGNTDN5V
+X-MailFrom: tcrawford@system76.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+CC: tiwai@suse.de, productdev@system76.com,
+ Tim Crawford <tcrawford@system76.com>, Jeremy Soller <jeremy@system76.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VRGA5TBSLLS2MJZRPSFARHZMJGNTDN5V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,126 +158,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Mar 16, 2023 at 01:46:57PM -0500, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 3/16/23 10:57, Charles Keepax wrote:
-> > Currently issuing a sdw_nread/nwrite_no_pm across a page boundary
-> > will silently fail to write correctly as nothing updates the page
-> > registers, meaning the same page of the chip will get rewritten
-> > with each successive page of data.
-> > 
-> > As the sdw_msg structure contains page information it seems
-> > reasonable that a single sdw_msg should always be within one
-> > page. It is also mostly simpler to handle the paging at the
-> > bus level rather than each master having to handle it in their
-> > xfer_msg callback.
-> > 
-> > As such add handling to the bus code to split up a transfer into
-> > multiple sdw_msg's when they go across page boundaries.
-> 
-> This sounds good but we need to clarify that the multiple sdw_msg's will
-> not necessarily be sent one after the other, the msg_lock is held in the
-> sdw_transfer() function, so there should be no expectation that e.g. one
-> big chunk of firmware code can be sent without interruption.
-> 
+Add the audio quirk for some of Clevo's latest RPL laptops:
 
-I will update the kdoc for nread/nwrite to specify that
-transactions that cross a page boundry are not expected to be
-atomic.
+- NP50RNJS (ALC256)
+- NP70SNE (ALC256)
+- PD50SNE (ALC1220)
+- PE60RNE (ALC1220)
 
-> I also wonder if we should have a lower bar than the page to avoid
-> hogging the bus with large read/write transactions. If there are
-> multiple devices on the same link and one of them signals an alert
-> status while a large transfer is on-going, the alert handling will
-> mechanically be delayed by up to a page - that's 32k reads/writes, isn't it?
-> 
+Co-authored-by: Jeremy Soller <jeremy@system76.com>
+Signed-off-by: Tim Crawford <tcrawford@system76.com>
+---
+ sound/pci/hda/patch_realtek.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I think its 16k, but I would be inclined to say this is a
-separate fix. The current code will tie up the bus for longer
-than my fix does, since it only calls sdw_transfer once, and it
-will write the wrong registers whilst doing it. Also to be clear
-this wasn't found with super large transfers just medium sized
-ones that happened to cross a page boundry.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3c629f4ae080..d7beff1aed2a 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -2631,6 +2631,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x65e5, "Clevo PC50D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x65f1, "Clevo PC50HS", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x65f5, "Clevo PD50PN[NRT]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
++	SND_PCI_QUIRK(0x1558, 0x66a2, "Clevo PE60RNE", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67d1, "Clevo PB71[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67e1, "Clevo PB71[DE][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK(0x1558, 0x67e5, "Clevo PC70D[PRS](?:-D|-G)?", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+@@ -2651,6 +2652,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x96e1, "Clevo P960[ER][CDFN]-K", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1558, 0x97e1, "Clevo P970[ER][CDFN]", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1558, 0x97e2, "Clevo P970RC-M", ALC1220_FIXUP_CLEVO_P950),
++	SND_PCI_QUIRK(0x1558, 0xd502, "Clevo PD50SNE", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
+ 	SND_PCI_QUIRK_VENDOR(0x1558, "Clevo laptop", ALC882_FIXUP_EAPD),
+ 	SND_PCI_QUIRK(0x161f, 0x2054, "Medion laptop", ALC883_FIXUP_EAPD),
+ 	SND_PCI_QUIRK(0x17aa, 0x3a0d, "Lenovo Y530", ALC882_FIXUP_LENOVO_Y530),
+@@ -9573,6 +9575,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x5101, "Clevo S510WU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x5157, "Clevo W517GU1", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x51a1, "Clevo NS50MU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1558, 0x5630, "Clevo NP50RNJS", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x70a1, "Clevo NB70T[HJK]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x70b3, "Clevo NK70SB", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0x70f2, "Clevo NH79EPY", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+@@ -9607,6 +9610,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1558, 0x971d, "Clevo N970T[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0xa500, "Clevo NL5[03]RU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0xa600, "Clevo NL50NU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1558, 0xa671, "Clevo NP70SN[CDE]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0xb018, "Clevo NP50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0xb019, "Clevo NH77D[BE]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1558, 0xb022, "Clevo NH77D[DC][QW]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+-- 
+2.39.2
 
-If we want to add some transaction size capping that is really
-a new feature, this patch a bug fix. I would also be inclined
-to say if we are going to add transaction size capping, we
-probably want some property to specify what we are capping to.
-
-Thanks,
-Charles
-
-> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > ---
-> >  drivers/soundwire/bus.c | 47 +++++++++++++++++++++++------------------
-> >  1 file changed, 26 insertions(+), 21 deletions(-)
-> > 
-> > diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> > index 3c67266f94834..bdd251e871694 100644
-> > --- a/drivers/soundwire/bus.c
-> > +++ b/drivers/soundwire/bus.c
-> > @@ -386,37 +386,42 @@ int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
-> >   * Read/Write IO functions.
-> >   */
-> >  
-> > -int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-> > +static int sdw_ntransfer_no_pm(struct sdw_slave *slave, u32 addr, u8 flags,
-> > +			       size_t count, u8 *val)
-> >  {
-> >  	struct sdw_msg msg;
-> > +	size_t size;
-> >  	int ret;
-> >  
-> > -	ret = sdw_fill_msg(&msg, slave, addr, count,
-> > -			   slave->dev_num, SDW_MSG_FLAG_READ, val);
-> > -	if (ret < 0)
-> > -		return ret;
-> > +	while (count) {
-> > +		// Only handle bytes up to next page boundary
-> > +		size = min(count, (SDW_REGADDR + 1) - (addr & SDW_REGADDR));
-> >  
-> > -	ret = sdw_transfer(slave->bus, &msg);
-> > -	if (slave->is_mockup_device)
-> > -		ret = 0;
-> > -	return ret;
-> > +		ret = sdw_fill_msg(&msg, slave, addr, size, slave->dev_num, flags, val);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +
-> > +		ret = sdw_transfer(slave->bus, &msg);
-> > +		if (ret < 0 && !slave->is_mockup_device)
-> > +			return ret;
-> > +
-> > +		addr += size;
-> > +		val += size;
-> > +		count -= size;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
-> > +{
-> > +	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_READ, count, val);
-> >  }
-> >  EXPORT_SYMBOL(sdw_nread_no_pm);
-> >  
-> >  int sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
-> >  {
-> > -	struct sdw_msg msg;
-> > -	int ret;
-> > -
-> > -	ret = sdw_fill_msg(&msg, slave, addr, count,
-> > -			   slave->dev_num, SDW_MSG_FLAG_WRITE, (u8 *)val);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	ret = sdw_transfer(slave->bus, &msg);
-> > -	if (slave->is_mockup_device)
-> > -		ret = 0;
-> > -	return ret;
-> > +	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_WRITE, count, (u8 *)val);
-> >  }
-> >  EXPORT_SYMBOL(sdw_nwrite_no_pm);
-> >  

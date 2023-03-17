@@ -2,107 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C8B6BEE98
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 17:41:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A1A6BEEA1
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 17:41:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB188F08;
-	Fri, 17 Mar 2023 17:40:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB188F08
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF090F10;
+	Fri, 17 Mar 2023 17:40:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF090F10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679071281;
-	bh=2v5KGCsSgyMRHT6gNorCH55vojy/Wzdb3f7Rs7XmD3o=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1679071300;
+	bh=zzj5xFoA7fcW2ai1OCzgVDIOUVE95vKPZjxuGeoZ1w4=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oXRrc8sx2zVdrfzVnrMDDJ4e+e/ufXqtyavPSeioyHqM/dPzf4sYT8VYK81FMQUGm
-	 hUT+CwtbMfauUCe4Riz0FgDkd/7JM9j7tf9cTzyhH5tBDZ+n4QtmdXLFsFjoFzSRYU
-	 GZBP4BpmUeLo7PXDk23DyB0rxyLXWyShIvC2jPHg=
+	b=Y4dt7DLpQw+qFHiIWIFOl8hWxNpNFyfKbSV0wRpcUQn/lfEGpU2pbSG1hwaNyld4n
+	 VkP3C+4I7MC8WPP754hXRsNu9nWWOutaaxyRjBdCY6duOWc7FkVIM3mjJgGc0LRhO2
+	 YTugToxF9579hohd/FT3q9GjUc09skbs1dsJbS7g=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DF38F80482;
-	Fri, 17 Mar 2023 17:40:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BE7CF80527;
+	Fri, 17 Mar 2023 17:40:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C49E3F804B1; Fri, 17 Mar 2023 17:40:12 +0100 (CET)
+	id E46EFF80520; Fri, 17 Mar 2023 17:40:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50740F80425
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 17:40:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50740F80425
-Received: by mail-il1-f180.google.com with SMTP id r4so3051122ila.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 17 Mar 2023 09:40:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679071209;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=v33jTujTH/OFC+DJVoBM0tNLHgECUl0wsEd9HZhpYyc=;
-        b=tjaMtW6bPmI4pMrjG3hQ66jz/KE9a8KOI6MtLMSj5rO75pYDhLgtV3McBGnWmCbseK
-         zgnRw2bVIbJ7NPHEdVIUmw7doHN4ScVQ+Hj53tvBT/5qfC4miV/MbQw6YsRUgZ/yULIg
-         RbgDx5y1XbuHamrR5q2NYDEfiWEjANZq+Vpj8Yu29RrpE9uEbSoDJNZ8gNHDwdEFZlPO
-         H5iAUUrZHtU9ku+CZzrhzOW76nupwg1mN32Vkv/0R0Gg0xci63ZuxstKqB9VctIvjNva
-         RWqHDVnTHPFRDIgKXpAuzEm+o3sYr5V4RpGNHdCEf9aL1G6wqd8xQKOTLTtn5GZFGex3
-         5hig==
-X-Gm-Message-State: AO0yUKWI/Vj4h8Wg/8AnVJSkjOySfF4xNXwm1L5IIEbI+JkowVe4gmE4
-	p9GGW2t5gY7Ik874GNA8hg==
-X-Google-Smtp-Source: 
- AK7set95yeMjd43ZHB4zet+gvJIkbO0gPEKt9Jexe55AqlrQLHHNTXz4/AEJcZr+bcE0kI7TXg9mgw==
-X-Received: by 2002:a05:6e02:4c7:b0:315:498b:415a with SMTP id
- f7-20020a056e0204c700b00315498b415amr31499ils.18.1679071209632;
-        Fri, 17 Mar 2023 09:40:09 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.249])
-        by smtp.gmail.com with ESMTPSA id
- r23-20020a02b117000000b00406328003a4sm815346jah.65.2023.03.17.09.40.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Mar 2023 09:40:09 -0700 (PDT)
-Received: (nullmailer pid 2442436 invoked by uid 1000);
-	Fri, 17 Mar 2023 16:40:07 -0000
-Date: Fri, 17 Mar 2023 11:40:07 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 7/9] ASoC: dt-bindings: qcom,lpass-va-macro: Add
- SM8550 VA macro
-Message-ID: <167907118259.2441907.2410899318611218643.robh@kernel.org>
-References: <20230313075445.17160-1-krzysztof.kozlowski@linaro.org>
- <20230313075445.17160-7-krzysztof.kozlowski@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 556A2F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 17:40:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 556A2F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=G1dMEdK2
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2F01360B85;
+	Fri, 17 Mar 2023 16:40:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD02C433EF;
+	Fri, 17 Mar 2023 16:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679071240;
+	bh=zzj5xFoA7fcW2ai1OCzgVDIOUVE95vKPZjxuGeoZ1w4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=G1dMEdK26p1myMFu7+Mqy4HjKMe55IVEq9DN9WFO+7qT12rCyLskpS674dUOULU/F
+	 kWhLaiB/by9Yed/p8dyCtB4tT6IPymd23UekXr1J4OacDsuZqkg7admWKBEnxz2uWE
+	 TAGMcXNzelhGOvofLlNMNbY28ixqo7fVXaO2d+Tl3wgeTtkIoc1ltzre9/th+fsma1
+	 82xQBjCX5cWh9ssZ5zIli01Cgolxf6R/vzvtRLh5o9G1Z36iwZ+jzARqt3DMcMt89K
+	 3sg9uMLPiIjkwVatg0AaYqXZoCGvnUYO/5MKOKSLW8UU/nLipigjp/p1vcSX4lXE3m
+	 KdSRI0oW9y29g==
+From: Mark Brown <broonie@kernel.org>
+To: Ge-org Brohammer <gbrohammer@outlook.com>
+In-Reply-To: 
+ <PAVP195MB22610BD3A98379E740C93C08DABF9@PAVP195MB2261.EURP195.PROD.OUTLOOK.COM>
+References: 
+ <PAVP195MB22610BD3A98379E740C93C08DABF9@PAVP195MB2261.EURP195.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI entries to support Victus by HP
+ Laptop 16-e1xxx (8A22)
+Message-Id: <167907123961.46507.2293327345396862339.b4-ty@kernel.org>
+Date: Fri, 17 Mar 2023 16:40:39 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230313075445.17160-7-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: O3UBL2SGRPSHVSHYISUQBVQLFK6H4WT2
-X-Message-ID-Hash: O3UBL2SGRPSHVSHYISUQBVQLFK6H4WT2
-X-MailFrom: robherring2@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bd1bf
+Message-ID-Hash: 6RZNQRAV6XRTBOTO7DTVKQ7LYIQ36DSY
+X-Message-ID-Hash: 6RZNQRAV6XRTBOTO7DTVKQ7LYIQ36DSY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Andy Gross <agross@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Bjorn Andersson <andersson@kernel.org>
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3UBL2SGRPSHVSHYISUQBVQLFK6H4WT2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RZNQRAV6XRTBOTO7DTVKQ7LYIQ36DSY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,21 +95,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Mon, 13 Mar 2023 08:54:43 +0100, Krzysztof Kozlowski wrote:
-> Add the VA macro codec on Qualcomm SM8550, which comes without NPL clock
-> exposed.
+On Wed, 15 Mar 2023 21:26:00 +0000, Ge-org Brohammer wrote:
+> This model requires an additional detection quirk to
+> enable the internal microphone.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Depends on:
-> https://lore.kernel.org/r/20221118071849.25506-2-srinivas.kandagatla@linaro.org
-> ---
->  .../bindings/sound/qcom,lpass-va-macro.yaml    | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
 > 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: amd: yc: Add DMI entries to support Victus by HP Laptop 16-e1xxx (8A22)
+      commit: 205efd4619b860404ebb5882e5a119eb3b3b3716
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,222 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A53976BF0B0
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 19:28:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6886BF1F4
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 20:52:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9383EBF;
-	Fri, 17 Mar 2023 19:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9383EBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECD72ECE;
+	Fri, 17 Mar 2023 20:51:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECD72ECE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679077737;
-	bh=7UFAVw05vVAQZMh8v3cZAo88te3XG3Vz6ShjN2sWvS4=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=dOOvajbiZGSoFbKBBzMdxR0gEOzU9uzhoiJCxqunkfJd9Yc4fkPEV2B5yDwK5yNAe
-	 D2t+M/w5h/oCrd2joFwvkqOkrWnAeTkRhCtMQadw4JBoe3A6PE2uc6+3b4VAGkwBbd
-	 i1r08BPI9tTDuMzJtdDXAVIUZ0YISv04w0KzLYiM=
+	s=default; t=1679082756;
+	bh=cKDRB7kk2YGr7OBXD2Zsehi7mROsyMrgQGyl8pjX/bA=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=S+GZ0SjqU9RXbSpFN+9nNT9pKgtsQr7OcOka3wd25qEWOA+yx3dAf6XVJER6GIsKv
+	 zwhHAdclAg7urdBJZwOFLu0Jpji4Vh3/rDygqBH7M6n/4dFDQusUKrTZjoqc5QiReU
+	 IP6nnOXMWpXh9pIBKvxKwOVOZyNHrUNLO+YVEbfo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2901F80272;
-	Fri, 17 Mar 2023 19:28:02 +0100 (CET)
-To: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Derek Kiernan
-	<derek.kiernan@xilinx.com>, Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 6/7] ASoC: codecs: Add support for the Lantiq PEF2256
- codec
-Date: Fri, 17 Mar 2023 18:27:46 +0000
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
- <20230316122741.577663-7-herve.codina@bootlin.com>
-In-Reply-To: <20230316122741.577663-7-herve.codina@bootlin.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OPJR5OIQ64XN7SHBPTNW2DHMTIQX4VQ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167907768131.26.3274099281449860763@mailman-core.alsa-project.org>
-From: Christophe Leroy via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Christophe Leroy <christophe.leroy@csgroup.eu>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 29A1CF8032D;
+	Fri, 17 Mar 2023 20:51:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE07FF80423; Fri, 17 Mar 2023 19:27:57 +0100 (CET)
+	id 32BFEF80423; Fri, 17 Mar 2023 20:51:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from FRA01-PR2-obe.outbound.protection.outlook.com
- (mail-pr2fra01on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e18::62c])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RDNS_NONE,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from metanate.com (unknown [IPv6:2001:8b0:1628:5005::111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F356BF80272
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 19:27:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F356BF80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id C33FAF80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 20:51:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C33FAF80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
- header.s=selector1 header.b=R/hz7KzK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hPC6TjSYxUZzW+4Ea4P77zuLwc0hTQAxJxyFI0DXlVgXpABE6p+O+l8IPHQgE2GbNJjiL/YRdAGo6iMqq8kMXgsK6avRxRmkrVenBjpPuoG7Q+IjKsBwLef2QYri9g78tgI8t8xwPTOR0LHjBJe9HCDd7uIpXiNCQXD1LG9SJMxSJsgALllmvT+wE2D619ugIlTQ78drGKwpOIiEwufkIBjm3j5jxK2Edt16rYPDxvx0NvPfshVUc6r9K7jfIoVoCzp6BKj9U8yKn03vXElt1IK+e7pFg34vlS0vgGjljPJcDlMLc7I76vQAcs3752wA7VdVmME99fA6E9pjClNe5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gMViuVaQTmgg72Adv6Or7FehfTm6gpiGz/lF4+Hj8yQ=;
- b=Ufle4ZH0qQCG91VGYBWXdgyacb+ZZAfm+SZdcdZOMMXr/hm5AP6cl+jOoD9uV3NJKiBDe0D/dducgKtehO+XSnet6QSB6BPBZ0SydECGftnhELc6rzeUt6LUCJUeWMG43Ud5NudZLYzLdHjaaOJ1FbZmjsfeui2Aj4vPwk/8T0SrqE+fcsEThVPC/ypbaSKcah/sRfnVaY/NMfNB3kguO7eoemeCSGOghqAqR0z2HLrhIfbu9QximRE/AeH4XtE7SquK7x3xiW8tupRY5BLL0Y4CbkTcNzfqydj8t2qeUdpT2X4k9gKDVi0s7zpn6JrtDkxH1zAdv5j5nVRjHlpfaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
- dkim=pass header.d=csgroup.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gMViuVaQTmgg72Adv6Or7FehfTm6gpiGz/lF4+Hj8yQ=;
- b=R/hz7KzKp+OiHzr30+mqOll/Ii04mpYJoTprTM9i28XJT2RmLVZLJ3x1g2LeLFPAd2wefl3EpVtQBTRUqJm4lB1EfxbRXI5EVvCPVc9bw60fOoe8NgYwOwSzetRIHhnpOtle0+LFLPFISMKr1dChN0m2Q44HaxQCS8bnpEfcz+eCwy+ECtZUC7iWmWtq1CRoWJz0NcBw1OMGzbW59Ks+j9GBV6SjVDKU0kOdA/W9dIqlOvqDvDUTuIWUeYprBy64rOvOcnDfrtH+Icgigel8mzKOtfVoGaQKpZPV4TIaBLl03SuxhnDYHA+uXGUX6FyVWKFkfJM6i8iYgpA4UZbSyQ==
-Received: from MR1P264MB2980.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:3d::7) by
- PR1P264MB1741.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1b7::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.35; Fri, 17 Mar 2023 18:27:47 +0000
-Received: from MR1P264MB2980.FRAP264.PROD.OUTLOOK.COM
- ([fe80::c102:f008:98e:6be9]) by MR1P264MB2980.FRAP264.PROD.OUTLOOK.COM
- ([fe80::c102:f008:98e:6be9%7]) with mapi id 15.20.6178.035; Fri, 17 Mar 2023
- 18:27:47 +0000
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Derek Kiernan
-	<derek.kiernan@xilinx.com>, Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v2 6/7] ASoC: codecs: Add support for the Lantiq PEF2256
- codec
-Thread-Topic: [PATCH v2 6/7] ASoC: codecs: Add support for the Lantiq PEF2256
- codec
-Thread-Index: AQHZWALDk9MOxDU0qEqbYg7qs98fMq7/TFKA
-Date: Fri, 17 Mar 2023 18:27:46 +0000
-Message-ID: <1a92533f-258c-20b0-541e-2d03ea367873@csgroup.eu>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
- <20230316122741.577663-7-herve.codina@bootlin.com>
-In-Reply-To: <20230316122741.577663-7-herve.codina@bootlin.com>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=csgroup.eu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MR1P264MB2980:EE_|PR1P264MB1741:EE_
-x-ms-office365-filtering-correlation-id: 59df1faa-b75e-448a-bd9b-08db27154ea9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- DUqIrsOjXboGi3ncVD/t6e3rzWzeqymwAMIXIfhj2lGpK4UbjUSsRX8h3Dxhgrj2vVb+fSjEp/MXXPdFA5XfmIVBv7fmFYuo7E5sAkb7IKx0TxERuxKCgNU7HGIePXgwOmHmv/0RTUlVsFZZrKjowbfm4hU4levo7Juoo1jaWkQrvlqOA8Um7GFc7kqZmKzsHdIUKWoxhl+CmdZKR7rIMQrUEzbkjasjCh/QBGE7rPsL/sS+okB0ue/3d54yV6ZmZPogcatXnOcNiZIBO1tnUW2OAr208p5MbFVOaWnoJ3JZmD+QWkMlQ7FoQ2eo88xcoLYsHrzRW4M/+jb7SJe8jBBlAuvjlnILpr1KFMW8U29j7fysHQNgf/rgUbbpBJ29FdqAEIj5h0SPkHbtP3GpHm3nQg1/zdhD827Yc8OAVAGB+09Yv1h2uH9lOZ+6hIY7ZjtVpNUKhldmwZ6gW1OYNmTPsv7uBiKTYJO/Rpl2m75wt0G8GahgxMiDJDNduQW73dk9ghYG4aknKDMWrn3rYMlZ18lTKvRgK5WEFoFqGWS27dhVTqwLpu2a9TA7fjSRJ8DS42EYX9VWFZWnvFmvv3SHLVPREqZMDfbyNObSAWRngu6KMZYK2xuKSe8Pf7EPTfDEftntqUBo/4VvCKrpm3FbRPVOJNQvVgC5iN0pH3ulRL8874/RaLr96rnyeLIF3o7WNp3C1SdVg+ocB5mnr2Isqbq9lTw81shbcsD8REenVuJalJzs5t1+CbMkc6P5ktTAYiOmhF3NNNLIE3qNaA==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MR1P264MB2980.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(39850400004)(376002)(136003)(366004)(346002)(451199018)(31686004)(8936002)(2906002)(4744005)(5660300002)(7416002)(44832011)(38100700002)(36756003)(122000001)(921005)(38070700005)(31696002)(86362001)(2616005)(186003)(26005)(6506007)(6512007)(54906003)(8676002)(316002)(41300700001)(4326008)(478600001)(6486002)(110136005)(91956017)(71200400001)(83380400001)(66556008)(66946007)(66446008)(66476007)(76116006)(64756008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?VVQ4bU5zaWpyU1UzQVlGUEZES0FnSE9VOWdpV2VwdHFNZ0plWDNVdW5TQUpC?=
- =?utf-8?B?Zi9aNk9kSFBDTnZEVTRYZWp5ZzFXQkptWExuL1NVMWxzbjlJZUZUMnFHWG55?=
- =?utf-8?B?VFo1T3doQi9HQS9HVDdEYjJzVFVkdUtVcXdvWU1RdHFEWjZHLzNWSyt1eFR6?=
- =?utf-8?B?aDRXMzdaMFg2RTM0S2JmQ2JKVzd1aDdQckR2SlpjemJJc0hhSTNwZ3lnR2Zi?=
- =?utf-8?B?TXlXa1haVS9pVFJrNGZrdnMwd01pN3VGenA1Rm94dnRGdkFlKzBqcTlMZDVy?=
- =?utf-8?B?bFgrUmp0KzFuK3NXdXdDYXpiR0tGNndWY0Q0V2h4dWQ2VkJqaXNzVk56YjVI?=
- =?utf-8?B?cURrZXJlbmhiM2lOSDVtWmRiMVlwZFpYOFVqeTJYczhZRGd0V2Vtc0FsUHEr?=
- =?utf-8?B?a29SNmk0QzlDMjFBeHhaR1p5aHR0NGlpdjgwajd4NFZrNVBnL2xnVXhLZEhG?=
- =?utf-8?B?N3E0d1NxZjNvL0JJQXNkRzA2aC90Kyt1dEhSMkhjMllEWlNhcTdyUHA2dGFM?=
- =?utf-8?B?L2NCL3ViT1V6T2dnYVA0Qkh3NktMbmVGd3lvVXpyUVdZdUpiYmw0NWZKS0pD?=
- =?utf-8?B?cG9wN2IrRHFLQjVjWEFXYUplblBLNG56U2Jva25jdE01WWcxUnE4Vll2dnhF?=
- =?utf-8?B?Y0V3THN1RGg1eVVYVnJwOFQ4YWRGdHliSFJyY05XNFBqSnRwbXR4elZXSFh3?=
- =?utf-8?B?aEx2Q0tZYVpjVGxEbEdEQ2FwZ2c4emFPemdZbHNJSmNkb3lQVjd0WFJPbWxs?=
- =?utf-8?B?RVlTakFFaFZvRkhnTU1Fc1E4VElqUEcxNU03M3Fyd2Y2OVE2UGlHbDVmSmE0?=
- =?utf-8?B?NmwwUUljdEFaZHFVbEpmNjdPcXdzWnpUSFRNNm9zYjI5RjZtTUZvUC9KeHlq?=
- =?utf-8?B?aGo2b0hMY0FwNmpJVy9FVXBzb3NGV1R1eURJa3NuOVVncXpwM3oweEU2aVhW?=
- =?utf-8?B?NThFdmp0eUtkTDlGTXBqYVRvK2FqTmxWUzJJdUJMRkErbU9taVU5RUUzaG5j?=
- =?utf-8?B?Nm5RbUV4clZtU0s3Wm5FUisxczhyTGdwRitJOGdZOEI5STcrb3UwY1JDV0Nk?=
- =?utf-8?B?cXpjaUNubUFNNXQxVnViWjhFclZuTC93QWI0WGFPNW5oNEV6NUp1RTR2Um15?=
- =?utf-8?B?NnA1cTQ1YjYzV0hhcGdjK2dQQWNBZHRzcjh5cXdGZ1d4OTdJSUZVVWxnbyt3?=
- =?utf-8?B?QXgvYTVSZHhkRW45Y2EwbXJ2anVNaWJMK3oyTUlsSTNkT0x0ekFSNmhEaTJG?=
- =?utf-8?B?QmxRc0xKdkxpL0dwRU9rdGZUZVlZTXVJNlozQzB0MFloQUtZNUgxWWM5cDJQ?=
- =?utf-8?B?ZC9mbkZSbU5oa3V6aDI3YjBIaWh1d3VxaGQ2b09vNVpOcHRBT2ZjbnZkVVdw?=
- =?utf-8?B?Y3VqNHg5aUFoOXJ6aU9iZjM4dnVrRURlcUlaTnpEYXFFSkVMRGlOM2JYbnFt?=
- =?utf-8?B?L0p6Y2Q5Q0FMTW1SbWh1N0FRc0E3UTJoSitoZk5aR1N2WWJnRTJDUGJyRFFR?=
- =?utf-8?B?bzdxUUlvbm1oMkhoM0xPSWwwSTR1UGhKR2IvcWdSbUY5aVltSWNnaStCSDA2?=
- =?utf-8?B?K2JNR0VEMWxyR0d5dUxKME5MZzA5L1kyd2ZFdWNqT083RFUxRFNJSSt1N1ox?=
- =?utf-8?B?UzFMbWRQRU5WUklFdE1UUmxubDNHRXBqOVRQaVpXYnZVSVF4Ui9jSWZ6eVBv?=
- =?utf-8?B?QVd2MjV1U3hOZVB5bjlqOXFmYjZKWWlHeDd0djUvSkkxNE5JWlFEZ09kcWxi?=
- =?utf-8?B?Z0ZHN2h3T0dyNUYyc3k4Y28ycGdjSFFMMk5tcU0rOVRxS2NtMW1xMld3ZnlO?=
- =?utf-8?B?d0t2Q0hWS2JuUVcwSE04Z3Y1RDQxZ2VQcUU4SUQwcndod3lacnBrZjdNM1N3?=
- =?utf-8?B?dzdMVTRDOW9pWERmL3pMQzdOYlNveGFFbGRWRXdpQVlMV3dwY2hoMUZWam1r?=
- =?utf-8?B?SUFjQ01JL3dHTG5ES3paMWpIbHBjeENoNHpxcVcyMjdwWmhsT082ZlZ1VkZ0?=
- =?utf-8?B?Z3ZxL25zRXNoK2NSNFVJVXNYNnAzcEtDRUg2WnJlK0x3dUhiSGZHRXVIVmhU?=
- =?utf-8?B?S01wUGoweXp3Q0UzN0daOER4QkNIbGlYdmZHdkc1Z1FNSVA5QnVSOHVKS0Vw?=
- =?utf-8?B?SzkzOHZUdEJzbVExMXh2aG9pajBGQWswWnlxYzFLWHRINmdQOHBCd2RlSm5C?=
- =?utf-8?B?N2c9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7377D35C56F537458B6FE66DEA6241E4@FRAP264.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+ unprotected) header.d=metanate.com header.i=@metanate.com header.a=rsa-sha256
+ header.s=stronger header.b=BjfN6g0P
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
+	Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
+	In-Reply-To:References; bh=WMRMW29s9nOaMfP2biYXwZDcUwXYbo2yYgouF2jc1Vo=; b=Bj
+	fN6g0PhfTM4vzqmTfbkfbg7O0909IYYyF09Boh7IFtKJobke6zESAOEhA6gRjUiFH7S/8rbFCoWGh
+	TCzSRlJBE0w24cuZ6M6KhIulMJ22fm9yn2vSCnouEci+r2Ugkp8YFH+1dlpPlobg6BDnomta6su5X
+	z7TyexeNpIklJ/vXXbQLQ7CmTTGDFN2zSH3gTkFUjluvobjMmW5RV74QRcCWC77O2OHGNwuR6t6MA
+	+lQ/SH10NAHsfnOWVFFGYYYYf52/499AiwqMcW/eKTgcrpKQvegvJ8cNB+b+caI+WxoOigmzItrGk
+	xKle75lA8JZJetsHLviWyNjXQO+3rHWw==;
+Received: from [81.174.171.191] (helo=donbot.metanate.com)
+	by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.95)
+	(envelope-from <john@metanate.com>)
+	id 1pdG6u-00008O-4s;
+	Fri, 17 Mar 2023 19:51:33 +0000
+From: John Keeping <john@metanate.com>
+To: Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: usb-audio: Fix recursive locking on XRUN
+Date: Fri, 17 Mar 2023 19:51:27 +0000
+Message-Id: <20230317195128.3911155-1-john@metanate.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-X-OriginatorOrg: csgroup.eu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MR1P264MB2980.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 59df1faa-b75e-448a-bd9b-08db27154ea9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2023 18:27:46.9963
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- 64EoShDb++LZDj3pYkqEn8MI01zIum2F/S2MKMkIi/Ov1z7qGmDBA4rFHBd1i+nyPAsTiz0qkki1vEu+MBVim3nWAgMLBTKuNvqwVk9FEuw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR1P264MB1741
-Message-ID-Hash: 4OPJR5OIQ64XN7SHBPTNW2DHMTIQX4VQ
-X-Message-ID-Hash: 4OPJR5OIQ64XN7SHBPTNW2DHMTIQX4VQ
-X-MailFrom: christophe.leroy@csgroup.eu
+Content-Transfer-Encoding: 8bit
+X-Authenticated: YES
+Message-ID-Hash: C6K7EZ4URF4XASUU7FEB7FBNIU7POB6C
+X-Message-ID-Hash: C6K7EZ4URF4XASUU7FEB7FBNIU7POB6C
+X-MailFrom: john@metanate.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: John Keeping <john@metanate.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OPJR5OIQ64XN7SHBPTNW2DHMTIQX4VQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C6K7EZ4URF4XASUU7FEB7FBNIU7POB6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -226,20 +91,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQoNCkxlIDE2LzAzLzIwMjMgw6AgMTM6MjcsIEhlcnZlIENvZGluYSBhIMOpY3JpdMKgOg0KPiBU
-aGUgTGFudGlxIFBFRjIyNTYsIGFsc28ga25vd24gYXMgSW5maW5lb24gUEVGMjI1NiBvciBGQUxD
-MjU2LCBpcyBhDQoNCnMvRkFMQzI1Ni9GQUxDNTYNCg0KPiBmcmFtZXIgYW5kIGxpbmUgaW50ZXJm
-YWNlIGNvbXBvbmVudCBkZXNpZ25lZCB0byBmdWxmaWxsIGFsbCByZXF1aXJlZA0KPiBpbnRlcmZh
-Y2luZyBiZXR3ZWVuIGFuIGFuYWxvZyBFMS9UMS9KMSBsaW5lIGFuZCB0aGUgZGlnaXRhbCBQQ00g
-c3lzdGVtDQo+IGhpZ2h3YXkvSC4xMDAgYnVzLg0KPiANCj4gVGhlIGNvZGVjIHN1cHBvcnQgYWxs
-b3dzIHRvIHVzZSBzb21lIG9mIHRoZSBQQ00gc3lzdGVtIGhpZ2h3YXkNCj4gdGltZS1zbG90cyBh
-cyBhdWRpbyBjaGFubmVscyB0byB0cmFuc3BvcnQgYXVkaW8gZGF0YSBvdmVyIHRoZSBFMS9UMS9K
-MQ0KPiBsaW5lcy4gSXQgcHJvdmlkZXMgYWxzbyBsaW5lIGNhcnJpZXIgZGV0ZWN0aW9uIGV2ZW50
-cyByZXBvcnRlZCB0aHJvdWdoDQo+IHRoZSBBTFNBIGphY2sgZGV0ZWN0aW9uIGZlYXR1cmUuDQo+
-IA0KPiBTaWduZWQtb2ZmLWJ5OiBIZXJ2ZSBDb2RpbmEgPGhlcnZlLmNvZGluYUBib290bGluLmNv
-bT4NCj4gLS0tDQo+ICAgc291bmQvc29jL2NvZGVjcy9LY29uZmlnICAgICAgICAgfCAgMTQgKysN
-Cj4gICBzb3VuZC9zb2MvY29kZWNzL01ha2VmaWxlICAgICAgICB8ICAgMiArDQo+ICAgc291bmQv
-c29jL2NvZGVjcy9wZWYyMjU2LWNvZGVjLmMgfCAzOTUgKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKw0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgNDExIGluc2VydGlvbnMoKykNCj4gICBjcmVh
-dGUgbW9kZSAxMDA2NDQgc291bmQvc29jL2NvZGVjcy9wZWYyMjU2LWNvZGVjLmMNCj4gDQoNCk5v
-IG90aGVyIGNvbW1lbnQuDQoNCkNocmlzdG9waGUNCg==
+snd_usb_queue_pending_output_urbs() may be called from
+snd_pcm_ops::ack() which means the PCM stream is locked.
+
+For the normal case where the call back into the PCM core is via
+prepare_output_urb() the "_under_stream_lock" variant of
+snd_pcm_period_elapsed() is called, but when an error occurs and the
+stream is stopped as XRUN then snd_pcm_xrun() tries to recursively lock
+the stream which results in deadlock.
+
+Follow the example of snd_pcm_period_elapsed() by adding
+snd_pcm_xrun_under_stream_lock() and use this when the PCM substream
+lock is already held.
+
+Signed-off-by: John Keeping <john@metanate.com>
+---
+ include/sound/pcm.h     |  1 +
+ sound/core/pcm_native.c | 28 ++++++++++++++++++++++++----
+ sound/usb/endpoint.c    | 18 +++++++++++-------
+ 3 files changed, 36 insertions(+), 11 deletions(-)
+
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index 27040b472a4f..98551907453a 100644
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -571,6 +571,7 @@ int snd_pcm_status64(struct snd_pcm_substream *substream,
+ int snd_pcm_start(struct snd_pcm_substream *substream);
+ int snd_pcm_stop(struct snd_pcm_substream *substream, snd_pcm_state_t status);
+ int snd_pcm_drain_done(struct snd_pcm_substream *substream);
++int snd_pcm_stop_xrun_under_stream_lock(struct snd_pcm_substream *substream);
+ int snd_pcm_stop_xrun(struct snd_pcm_substream *substream);
+ #ifdef CONFIG_PM
+ int snd_pcm_suspend_all(struct snd_pcm *pcm);
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 331380c2438b..617f5dc74df0 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -1559,24 +1559,44 @@ int snd_pcm_drain_done(struct snd_pcm_substream *substream)
+ 				     SNDRV_PCM_STATE_SETUP);
+ }
+ 
++/**
++ * snd_pcm_stop_xrun_under_stream_lock - stop the running stream as XRUN under the lock of
++ * 					 the PCM substream.
++ * @substream: the PCM substream instance
++ *
++ * This stops the given running substream (and all linked substreams) as XRUN.
++ * This function assumes that the substream lock is already held.
++ *
++ * Return: Zero if successful, or a negative error core.
++ */
++int snd_pcm_stop_xrun_under_stream_lock(struct snd_pcm_substream *substream)
++{
++	if (substream->runtime && snd_pcm_running(substream))
++		__snd_pcm_xrun(substream);
++
++	return 0;
++}
++
+ /**
+  * snd_pcm_stop_xrun - stop the running streams as XRUN
+  * @substream: the PCM substream instance
+  *
++ * This function is similar to ``snd_pcm_stop_xrun_under_stream_lock()`` except that it
++ * acquires the substream lock itself.
++ *
+  * This stops the given running substream (and all linked substreams) as XRUN.
+- * Unlike snd_pcm_stop(), this function takes the substream lock by itself.
+  *
+  * Return: Zero if successful, or a negative error code.
+  */
+ int snd_pcm_stop_xrun(struct snd_pcm_substream *substream)
+ {
+ 	unsigned long flags;
++	int ret;
+ 
+ 	snd_pcm_stream_lock_irqsave(substream, flags);
+-	if (substream->runtime && snd_pcm_running(substream))
+-		__snd_pcm_xrun(substream);
++	ret = snd_pcm_stop_xrun_under_stream_lock(substream);
+ 	snd_pcm_stream_unlock_irqrestore(substream, flags);
+-	return 0;
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_stop_xrun);
+ 
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 1e0af1179ca8..83a6b6d41374 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -400,13 +400,17 @@ static int prepare_inbound_urb(struct snd_usb_endpoint *ep,
+ }
+ 
+ /* notify an error as XRUN to the assigned PCM data substream */
+-static void notify_xrun(struct snd_usb_endpoint *ep)
++static void notify_xrun(struct snd_usb_endpoint *ep, bool in_stream_lock)
+ {
+ 	struct snd_usb_substream *data_subs;
+ 
+ 	data_subs = READ_ONCE(ep->data_subs);
+-	if (data_subs && data_subs->pcm_substream)
+-		snd_pcm_stop_xrun(data_subs->pcm_substream);
++	if (data_subs && data_subs->pcm_substream) {
++		if (in_stream_lock)
++			snd_pcm_stop_xrun_under_stream_lock(data_subs->pcm_substream);
++		else
++			snd_pcm_stop_xrun(data_subs->pcm_substream);
++	}
+ }
+ 
+ static struct snd_usb_packet_info *
+@@ -498,7 +502,7 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 			if (err == -EAGAIN)
+ 				push_back_to_ready_list(ep, ctx);
+ 			else
+-				notify_xrun(ep);
++				notify_xrun(ep, in_stream_lock);
+ 			return;
+ 		}
+ 
+@@ -507,7 +511,7 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 			usb_audio_err(ep->chip,
+ 				      "Unable to submit urb #%d: %d at %s\n",
+ 				      ctx->index, err, __func__);
+-			notify_xrun(ep);
++			notify_xrun(ep, in_stream_lock);
+ 			return;
+ 		}
+ 
+@@ -574,7 +578,7 @@ static void snd_complete_urb(struct urb *urb)
+ 		return;
+ 
+ 	usb_audio_err(ep->chip, "cannot submit urb (err = %d)\n", err);
+-	notify_xrun(ep);
++	notify_xrun(ep, false);
+ 
+ exit_clear:
+ 	clear_bit(ctx->index, &ep->active_mask);
+@@ -1762,7 +1766,7 @@ static void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
+ 			usb_audio_err(ep->chip,
+ 				      "next package FIFO overflow EP 0x%x\n",
+ 				      ep->ep_num);
+-			notify_xrun(ep);
++			notify_xrun(ep, false);
+ 			return;
+ 		}
+ 
+-- 
+2.40.0
+

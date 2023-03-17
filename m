@@ -2,134 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670176BED64
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 16:55:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3B36BEE0F
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 17:25:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71233ECF;
-	Fri, 17 Mar 2023 16:55:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71233ECF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FC54EEE;
+	Fri, 17 Mar 2023 17:25:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FC54EEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679068556;
-	bh=3U604+fuqF+FG/uaXBR8oOENgI6wzpBxD1TLFn8jgYg=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=K2wc7UWrS3Nz/ClmB9DOocPTb3P2A457VGGepwI1FOjlVekUT5iW8XFrUtOjJCiiI
-	 t4JeVMHOujnHPK+RMzDO6bha/qpZZwTdr10U8jduaG8/iOfUwRPyhoAxUCgowukiJe
-	 gvpsoLg9nTcruK191vn1Y3b2/qX/KRkYF8Ff5C+c=
+	s=default; t=1679070358;
+	bh=2oa5/8+fym6dH+ZuSO25jUD5fupnJt0SUv+hrcS9GAs=;
+	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=CI1jTUp0B2lte2jdyr1rTV7HlTqCG1YPcKMDR6lNSZXt3t5yMjJVg9V4nM1K8XmtB
+	 mIgk8FvI0n91tIMt3/XSJpkeuAOBXRstOv1PSGFaJMP/KR7wc3CIYgI6h5Ie7RG0X6
+	 69PGeEtWp57qc0F/Q7bwos56Q16t8wHlGwmYMGC0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7900F8032D;
-	Fri, 17 Mar 2023 16:55:05 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34BDBF80272; Fri, 17 Mar 2023 16:55:00 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 113FCF80272
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 16:54:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 113FCF80272
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=J3OI5NGj
-Received: by mail-ed1-x52f.google.com with SMTP id x3so22131652edb.10
-        for <alsa-devel@alsa-project.org>;
- Fri, 17 Mar 2023 08:54:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679068490;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=a6MfDM7+OPKEruVq5Qw+tL9foQplTG2gH4LeyrZ6K0I=;
-        b=J3OI5NGj9npu+foP+NF4EKylYoqNwBGWTTFoaBFl/rtJptvgmBqbgaaNwy0O7xtBZV
-         OoRN0BmTI0Vf421lNAAHbcxY37muIyEDCYlutZBnnT5RsycZvFq/PuFUBlELpOocRsuJ
-         K0xbCzcc3REibeoG9AcCeLCc+b1sQocdX11eHVM8JkPs4x/rdJcow6Ii+OL2asqAn6zf
-         rFPh/33gn2hrfP6UFSb8aYJBRoSxMyXd5IrQNX/xxa37k91f2ZMBbsDpnJJM7Oepr39r
-         v3SYngKEeCsRngXiYqXXSOEwTxlT71jNY/ehg8AgbVg5CxUKjNiBr60b6cJpnHThX7pf
-         CoKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679068490;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a6MfDM7+OPKEruVq5Qw+tL9foQplTG2gH4LeyrZ6K0I=;
-        b=CwF5y5yJuLxtjNc7VEVVJjvqaK/GpktlLtnD3Qss2T6QvRuQlj88Ael2YtHYse92tH
-         uY8h8bBiRaEgEr09QbmZAlH51bD6aGYhUq8ciVcC1KIdWE/jkJ+MNknm3wrd+jvDAIpM
-         zoeIhEdQuYavWWm4KxdsCdCTnUAsrCXWdSymnfPT2ZOwtmeQ18m/cJBrASuyL+l1bFP1
-         I7JGw/2DGNLMJfHYJZerClpNQVkr25QIBC8Z+AfrT5VVubobHUJRhgVDIjxpPZ0S1p4K
-         8CN2iPKjg/36LcipLNS9wkLOGtFhxAYgtytT5URMQ2cOyQ66fU5IPDl38fwv5eDDe2sx
-         bVgw==
-X-Gm-Message-State: AO0yUKWp9X9dlJwDI1FeeZgoFyXVCTMiODJeX8N+vZeSvjQwb79twIMy
-	WgYFoPmk0OpiYwMKtLrrm7hDQQ==
-X-Google-Smtp-Source: 
- AK7set+MZ5pmlFpN+w8RxZMV5gSssYKuD9NQ8ZrDbPdbH6ontcivRAhcm8upFtI00t/Upa7xjOUp1Q==
-X-Received: by 2002:a17:907:cf88:b0:92f:7c42:8631 with SMTP id
- ux8-20020a170907cf8800b0092f7c428631mr10502230ejc.16.1679068489976;
-        Fri, 17 Mar 2023 08:54:49 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:d013:3eeb:7658:cec?
- ([2a02:810d:15c0:828:d013:3eeb:7658:cec])
-        by smtp.gmail.com with ESMTPSA id
- kx1-20020a170907774100b0091fdd2ee44bsm1112929ejc.197.2023.03.17.08.54.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Mar 2023 08:54:49 -0700 (PDT)
-Message-ID: <80796828-7b38-184a-2e8e-3cfe9158b67f@linaro.org>
-Date: Fri, 17 Mar 2023 16:54:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
- dma-names order constraint
-Content-Language: en-US
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
- <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
- <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2CATRAIGFOWIDAAT7GAUAND4AVK7W27C
-X-Message-ID-Hash: 2CATRAIGFOWIDAAT7GAUAND4AVK7W27C
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 65A61F8032D;
+	Fri, 17 Mar 2023 17:25:07 +0100 (CET)
+Date: Fri, 17 Mar 2023 17:24:41 +0100
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
+ PEF2256 framer
+In-Reply-To: <43b7e386-5b85-3d51-5431-4a46b2779729@csgroup.eu>
+References: <20230316122741.577663-1-herve.codina@bootlin.com>
+ <20230316122741.577663-3-herve.codina@bootlin.com>
+ <43b7e386-5b85-3d51-5431-4a46b2779729@csgroup.eu>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CATRAIGFOWIDAAT7GAUAND4AVK7W27C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSNXRDNT7QNX32ODPJJCKS6ALEIMSD5U/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167907030600.26.1265214238414721668@mailman-core.alsa-project.org>
+From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Derek Kiernan <derek.kiernan@xilinx.com>,
+ Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 3A70EF80423; Fri, 17 Mar 2023 17:25:02 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
+ [217.70.178.231])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F72EF80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 17:24:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F72EF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=Oj0gtqhy
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 92AC6100005;
+	Fri, 17 Mar 2023 16:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1679070285;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OJYMrde9Tsch86i3JGsu8G+CJ4MPghfFAWP4131uPlI=;
+	b=Oj0gtqhytwyH3QX+CItruqfC6F9ZAFryHzOo1uX59FXNO7HPAi0Wd8KFc3EQ9pTlIxYDXZ
+	96oKbRwvOcZwNfRHigMz5q2kltQfIyH0IaAnSj3o/My+oeQlrQCZ400JvtmwfPWTO5bEko
+	E9Ss400GhGwhBm1JNnlzGvT5DcCYN6zg7ot77f8xX/iRIDwfs9eevucc79zHrW9pSb7GC/
+	sTCbT9KFhZSWsETsme2U9yFUv3vOutzc7ztHItViaHa60FgU0hnCyD+z0bweNlZACRy39x
+	zjsatBH1a0NPLO3UE2z+xZSOMzZkm/IIIW5P43ZiFwV/rbl0mQ5jRwn6xVyZGA==
+Date: Fri, 17 Mar 2023 17:24:41 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [PATCH v2 2/7] drivers: misc: Add support for the Lantiq
+ PEF2256 framer
+Message-ID: <20230317172441.0b0985b4@bootlin.com>
+In-Reply-To: <43b7e386-5b85-3d51-5431-4a46b2779729@csgroup.eu>
+References: <20230316122741.577663-1-herve.codina@bootlin.com>
+ <20230316122741.577663-3-herve.codina@bootlin.com>
+ <43b7e386-5b85-3d51-5431-4a46b2779729@csgroup.eu>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: NSNXRDNT7QNX32ODPJJCKS6ALEIMSD5U
+X-Message-ID-Hash: NSNXRDNT7QNX32ODPJJCKS6ALEIMSD5U
+X-MailFrom: herve.codina@bootlin.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Derek Kiernan <derek.kiernan@xilinx.com>,
+ Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSNXRDNT7QNX32ODPJJCKS6ALEIMSD5U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,31 +151,683 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/03/2023 11:21, Cristian Ciocaltea wrote:
-> On 3/17/23 10:31, Krzysztof Kozlowski wrote:
->> On 15/03/2023 12:47, Cristian Ciocaltea wrote:
->>> Commit 370f696e4474 ("dt-bindings: serial: snps-dw-apb-uart: add dma &
->>> dma-names properties") documented dma-names property to handle Allwiner
->>> D1 dtbs_check warnings, but relies on a strict rx->tx ordering, which is
->>> the reverse of what a different board expects:
->>>
->>>    rk3326-odroid-go2.dtb: serial@ff030000: dma-names:0: 'rx' was expected
->>>
->>> A quick and incomplete check shows the inconsistency is present in many
->>> other DT files:
->>
->> Why not fixing the DTS? The properties should have fixed order.
-> 
-> I was initially concerned about the risk of a potential ABI breakage, 
-> but I think that's not really a problem since dma-names is not directly 
-> accessed in the driver and DT Kernel API doesn't rely on a particular order.
-> 
-> If there are no objections, I would switch the order in the binding to 
-> tx->rx, since that's what most of the DTS use, and fix the remaining ones.
+Hi Christophe,
 
-Since we added the order recently, I rather assume it is the correct or
-preferred one.
+On Thu, 16 Mar 2023 14:00:42 +0000
+Christophe Leroy <christophe.leroy@csgroup.eu> wrote:
 
-Best regards,
-Krzysztof
+[...]
+> > +#define PEF2256_PC6	        0x86 /* Port Configuration 6 */
+> > +#define PEF2256_GCM(_n)         (0x92 + _n - 1) /* Global Counter Mode=
+ n=3D1..8 */ =20
+>=20
+> Should be (0x92 + (_n) - 1) to avoid any risk.
 
+Yes definitively.
+Will be updated in v3.
+
+>=20
+> > +#define PEF2256_GCM1	        0x92 /* Global Counter Mode 1 */
+[...]
+> > +#define   PEF2256_GIS_ISR(_n)	(1<<(n)) =20
+>=20
+> _n or n ?
+
+Should be (1 << (_n))
+Will be updated in v3.
+
+>=20
+> > +#define PEF2256_WID	0xEC /* Wafer Identification Register */
+[...]
+> > +static inline void pef2256_clrbits8(struct pef2256 *pef2256, int offse=
+t, u8 clr)
+> > +{
+> > +	u8 v;
+> > +
+> > +	v =3D pef2256_read8(pef2256, offset);
+> > +	v &=3D ~clr;
+> > +	pef2256_write8(pef2256, offset, v);
+> > +} =20
+>=20
+> Not sure it is worth the number of lines.
+>=20
+> Would liekly be as good with just:
+>=20
+> 	pef2256_write8(pef2256, offset, pef2256_read8(pef2256, offset) & ~clr);
+>=20
+> Same for all.
+
+Will be updated in v3.
+
+>=20
+>=20
+> Also, it shouldn't need to be flagged 'inline' as it is defined in the C=
+=20
+> file it is used. GCC will decide by itself if it is worth inlining.
+
+In the kernel register accessor helpers are traditionally inline.
+  # git grep 'static .* u32 .*read.*(' drivers/*.c | grep inline | wc -l
+  432
+  # git grep 'static .* u32 .*read.*(' drivers/*.c | grep -v inline | wc -l
+  1
+Sure, my git grep is not accurate but it gives ideas of the quantities.
+
+I prefer to keep the inline for the register accessor helpers.
+
+
+>=20
+> > +
+> > +static inline void pef2256_setbits8(struct pef2256 *pef2256, int offse=
+t, u8 set)
+> > +{
+> > +	u8 v;
+> > +
+> > +	v =3D pef2256_read8(pef2256, offset);
+> > +	v |=3D set;
+> > +	pef2256_write8(pef2256, offset, v);
+> > +}
+> > +
+> > +
+> > +static inline void pef2256_clrsetbits8(struct pef2256 *pef2256, int of=
+fset, u8 clr, u8 set)
+> > +{
+> > +	u8 v;
+> > +
+> > +	v =3D pef2256_read8(pef2256, offset);
+> > +	v &=3D ~clr;
+> > +	v |=3D set;
+> > +	pef2256_write8(pef2256, offset, v);
+> > +}
+> > +
+> > +static enum pef2256_version pef2256_get_version(struct pef2256 *pef225=
+6)
+> > +{
+> > +	enum pef2256_version version;
+> > +	const char *version_txt;
+> > +	u8 vstr, wid;
+> > +
+> > +	vstr =3D pef2256_read8(pef2256, PEF2256_VSTR);
+> > +	wid =3D pef2256_read8(pef2256, PEF2256_WID);
+> > +
+> > +	switch (vstr) {
+> > +	case PEF2256_VSTR_VERSION_12:
+> > +		if ((wid & PEF2256_12_WID_MASK) =3D=3D PEF2256_12_WID_VERSION_12) {
+> > +			version_txt =3D "1.2";
+> > +			version =3D PEF2256_VERSION_1_2;
+> > +			goto end;
+> > +		}
+> > +		break;
+> > +	case PEF2256_VSTR_VERSION_2x:
+> > +		switch (wid & PEF2256_2X_WID_MASK) {
+> > +		case PEF2256_2X_WID_VERSION_21:
+> > +			version_txt =3D "2.1 (2.x)";
+> > +			version =3D PEF2256_VERSION_2_1;
+> > +			goto end;
+> > +		case PEF2256_2X_WID_VERSION_22:
+> > +			version_txt =3D "2.2 (2.x)";
+> > +			version =3D PEF2256_VERSION_2_2;
+> > +			goto end;
+> > +		default:
+> > +			break;
+> > +		}
+> > +		break;
+> > +	case PEF2256_VSTR_VERSION_21:
+> > +		version_txt =3D "2.1";
+> > +		version =3D PEF2256_VERSION_2_1;
+> > +		goto end;
+> > +	default:
+> > +		break; =20
+>=20
+> A default doing nothing is not needed unless the switch handles a enum=20
+> and you have not covered all possible values.
+>=20
+> My preference would be that you use the default to set:
+> version =3D PEF2256_VERSION_UNKNOWN;
+>=20
+> then use an if (version =3D=3D PEF2256_VERSION_UNKNOWN) / else below for =
+the=20
+> dev_err/dev_info.
+
+The function will be reworked in v3
+
+>=20
+> > +	}
+> > +
+> > +	dev_err(pef2256->dev, "Unknown version (0x%02x, 0x%02x)\n", vstr, wid=
+);
+> > +	return PEF2256_VERSION_UNKNOWN;
+> > +
+> > +end:
+> > +	dev_info(pef2256->dev, "Version %s detected\n", version_txt);
+> > +	return version;
+> > +}
+> > +
+> > +static int pef2256_12_setup_gcm(struct pef2256 *pef2256)
+> > +{
+> > +	static const u8 gcm_1544000[6] =3D {0xF0, 0x51, 0x00, 0x80, 0x00, 0x1=
+5};
+> > +	static const u8 gcm_2048000[6] =3D {0x00, 0x58, 0xD2, 0xC2, 0x00, 0x1=
+0};
+> > +	static const u8 gcm_8192000[6] =3D {0x00, 0x58, 0xD2, 0xC2, 0x03, 0x1=
+0};
+> > +	static const u8 gcm_10000000[6] =3D {0x90, 0x51, 0x81, 0x8F, 0x04, 0x=
+10};
+> > +	static const u8 gcm_12352000[6] =3D {0xF0, 0x51, 0x00, 0x80, 0x07, 0x=
+15};
+> > +	static const u8 gcm_16384000[6] =3D {0x00, 0x58, 0xD2, 0xC2, 0x07, 0x=
+10};
+> > +	unsigned long mclk_rate;
+> > +	const u8 *gcm;
+> > +	int i;
+> > +
+> > +	mclk_rate =3D clk_get_rate(pef2256->mclk);
+> > +	switch (mclk_rate) {
+> > +	case 1544000:
+> > +		gcm =3D gcm_1544000;
+> > +		break;
+> > +	case 2048000:
+> > +		gcm =3D gcm_2048000;
+> > +		break;
+> > +	case 8192000:
+> > +		gcm =3D gcm_8192000;
+> > +		break;
+> > +	case 10000000:
+> > +		gcm =3D gcm_10000000;
+> > +		break;
+> > +	case 12352000:
+> > +		gcm =3D gcm_12352000;
+> > +		break;
+> > +	case 16384000:
+> > +		gcm =3D gcm_16384000;
+> > +		break;
+> > +	default:
+> > +		dev_err(pef2256->dev, "Unsupported v1.2 MCLK rate %lu\n", mclk_rate);
+> > +		return -EINVAL;
+> > +	}
+> > +	for (i =3D 0; i < 6; i++)
+> > +		pef2256_write8(pef2256, PEF2256_GCM(i+1), gcm[i]);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int pef2256_2x_setup_gcm(struct pef2256 *pef2256)
+> > +{
+> > +	static const u8 gcm_1544000[8] =3D {0x00, 0x15, 0x00, 0x08, 0x00, 0x3=
+F, 0x9C, 0xDF};
+> > +	static const u8 gcm_2048000[8] =3D {0x00, 0x18, 0xFB, 0x0B, 0x00, 0x2=
+F, 0xDB, 0xDF};
+> > +	static const u8 gcm_8192000[8] =3D {0x00, 0x18, 0xFB, 0x0B, 0x00, 0x0=
+B, 0xDB, 0xDF};
+> > +	static const u8 gcm_10000000[8] =3D {0x40, 0x1B, 0x3D, 0x0A, 0x00, 0x=
+07, 0xC9, 0xDC};
+> > +	static const u8 gcm_12352000[8] =3D {0x00, 0x19, 0x00, 0x08, 0x01, 0x=
+0A, 0x98, 0xDA};
+> > +	static const u8 gcm_16384000[8] =3D {0x00, 0x18, 0xFB, 0x0B, 0x01, 0x=
+0B, 0xDB, 0xDF};
+> > +	unsigned long mclk_rate;
+> > +	const u8 *gcm;
+> > +	int i;
+> > +
+> > +	mclk_rate =3D clk_get_rate(pef2256->mclk);
+> > +	switch (mclk_rate) {
+> > +	case 1544000:
+> > +		gcm =3D gcm_1544000;
+> > +		break;
+> > +	case 2048000:
+> > +		gcm =3D gcm_2048000;
+> > +		break;
+> > +	case 8192000:
+> > +		gcm =3D gcm_8192000;
+> > +		break;
+> > +	case 10000000:
+> > +		gcm =3D gcm_10000000;
+> > +		break;
+> > +	case 12352000:
+> > +		gcm =3D gcm_12352000;
+> > +		break;
+> > +	case 16384000:
+> > +		gcm =3D gcm_16384000;
+> > +		break;
+> > +	default:
+> > +		dev_err(pef2256->dev, "Unsupported v2.x MCLK rate %lu\n", mclk_rate);
+> > +		return -EINVAL;
+> > +	}
+> > +	for (i =3D 0; i < 8; i++)
+> > +		pef2256_write8(pef2256, PEF2256_GCM(i+1), gcm[i]);
+> > +
+> > +	return 0;
+> > +} =20
+>=20
+> This function and the previous one look very similar, can we merge them ?
+
+Yes, will be merged in v3.
+
+>=20
+> > +
+> > +static int pef2256_setup_gcm(struct pef2256 *pef2256)
+> > +{
+> > +	return (pef2256->version =3D=3D PEF2256_VERSION_1_2) ?
+> > +		pef2256_12_setup_gcm(pef2256) : pef2256_2x_setup_gcm(pef2256);
+> > +}
+> > +
+> > +static int pef2256_setup_e1(struct pef2256 *pef2256)
+> > +{
+> > +	u8 fmr1, fmr2, sic1;
+> > +	int ret;
+> > +
+> > +	/* Basic setup, Master clocking mode (GCM8..1) */
+> > +	ret =3D pef2256_setup_gcm(pef2256);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* RCLK output : DPLL clock, DCO-X enabled, DCO-X internal ref clock =
+*/
+> > +	pef2256_write8(pef2256, PEF2256_CMR1, 0x00);
+> > +
+> > +	/*
+> > +	 * SCLKR selected, SCLKX selected,
+> > +	 * receive synchro pulse sourced by SYPR,
+> > +	 * transmit synchro pulse sourced by SYPX
+> > +	 */
+> > +	pef2256_write8(pef2256, PEF2256_CMR2, 0x00);
+> > +
+> > +	/* NRZ coding, no alarm simulation */
+> > +	pef2256_write8(pef2256, PEF2256_FMR0, 0x00);
+> > +
+> > +	/*
+> > +	 * E1, frame format, 2 Mbit/s system data rate, no AIS
+> > +	 * transmission to remote end or system interface, payload loop
+> > +	 * off, transmit remote alarm on
+> > +	 */
+> > +	fmr1 =3D 0x00;
+> > +	fmr2 =3D PEF2256_FMR2_AXRA;
+> > +	switch (pef2256->frame_type) {
+> > +	case PEF2256_FRAME_E1_DOUBLEFRAME:
+> > +		fmr2 |=3D PEF2256_FMR2_RFS_DOUBLEFRAME;
+> > +		break;
+> > +	case PEF2256_FRAME_E1_CRC4_MULTIFRAME:
+> > +		fmr1 |=3D PEF2256_FMR1_XFS;
+> > +		fmr2 |=3D PEF2256_FMR2_RFS_CRC4_MULTIFRAME;
+> > +		break;
+> > +	case PEF2256_FRAME_E1_AUTO_MULTIFRAME:
+> > +		fmr1 |=3D PEF2256_FMR1_XFS;
+> > +		fmr2 |=3D PEF2256_FMR2_RFS_AUTO_MULTIFRAME;
+> > +		break;
+> > +	default:
+> > +		dev_err(pef2256->dev, "Unsupported frame type %d\n", pef2256->frame_=
+type);
+> > +		return -EINVAL;
+> > +	}
+> > +	pef2256_write8(pef2256, PEF2256_FMR1, fmr1);
+> > +	pef2256_write8(pef2256, PEF2256_FMR2, fmr2);
+> > +
+> > +	/* E1 default for the receive slicer threshold */
+> > +	pef2256_write8(pef2256, PEF2256_LIM2, PEF2256_LIM2_SLT_THR50);
+> > +	if (!pef2256->is_subordinate) {
+> > +		/* SEC input, active high */
+> > +		pef2256_write8(pef2256, PEF2256_GPC1, PEF2256_GPC1_CSFP_SEC_IN_HIGH);
+> > +	} else {
+> > +		/* Loop-timed */
+> > +		pef2256_setbits8(pef2256, PEF2256_LIM2, PEF2256_LIM2_ELT);
+> > +		/* FSC output, active high */
+> > +		pef2256_write8(pef2256, PEF2256_GPC1, PEF2256_GPC1_CSFP_FSC_OUT_HIGH=
+);
+> > +	}
+> > +
+> > +	/* internal second timer, power on */
+> > +	pef2256_write8(pef2256, PEF2256_GCR, 0x00);
+> > +
+> > +	/*
+> > +	 * slave mode, local loop off, mode short-haul
+> > +	 * In v2.x, bit3 is a forced 1 bit in the datasheet -> Need to be set.
+> > +	 */
+> > +	if (pef2256->version =3D=3D PEF2256_VERSION_1_2)
+> > +		pef2256_write8(pef2256, PEF2256_LIM0, 0x00);
+> > +	else
+> > +		pef2256_write8(pef2256, PEF2256_LIM0, PEF2256_2X_LIM0_BIT3);
+> > +
+> > +	/* analog interface selected, remote loop off */
+> > +	pef2256_write8(pef2256, PEF2256_LIM1, 0x00);
+> > +
+> > +	/*
+> > +	 * SCLKR, SCLKX, RCLK configured to inputs,
+> > +	 * XFMS active low, CLK1 and CLK2 pin configuration
+> > +	 */
+> > +	pef2256_write8(pef2256, PEF2256_PC5, 0x00);
+> > +	pef2256_write8(pef2256, PEF2256_PC6, 0x00);
+> > +
+> > +	/*
+> > +	 * 2.048 MHz system clocking rate, receive buffer 2 frames, transmit
+> > +	 * buffer bypass, data sampled and transmitted on the falling edge of
+> > +	 * SCLKR/X, automatic freeze signaling, data is active in the first
+> > +	 * channel phase
+> > +	 */
+> > +	pef2256_write8(pef2256, PEF2256_SIC1, 0x00);
+> > +	pef2256_write8(pef2256, PEF2256_SIC2, 0x00);
+> > +	pef2256_write8(pef2256, PEF2256_SIC3, 0x00);
+> > +
+> > +	/* channel loop-back and single frame mode are disabled */
+> > +	pef2256_write8(pef2256, PEF2256_LOOP, 0x00);
+> > +
+> > +	/* all bits of the transmitted service word are cleared */
+> > +	pef2256_write8(pef2256, PEF2256_XSW, PEF2256_XSW_XY(0x1F));
+> > +	/* CAS disabled and clear spare bit values */
+> > +	pef2256_write8(pef2256, PEF2256_XSP, 0x00);
+> > +
+> > +	/* no transparent mode active */
+> > +	pef2256_write8(pef2256, PEF2256_TSWM, 0x00);
+> > +
+> > +	/*
+> > +	 * the transmit clock offset is cleared
+> > +	 * the transmit time slot offset is cleared
+> > +	 */
+> > +	pef2256_write8(pef2256, PEF2256_XC0, 0x00);
+> > +
+> > +	/* Keep default value for the transmit offset */
+> > +	pef2256_write8(pef2256, PEF2256_XC1, 0x9C);
+> > +
+> > +	/*
+> > +	 * transmit pulse mask, default value from datasheet
+> > +	 * transmitter in tristate mode
+> > +	 */
+> > +	if (pef2256->version =3D=3D PEF2256_VERSION_1_2) {
+> > +		pef2256_write8(pef2256, PEF2256_XPM0, 0x7B);
+> > +		pef2256_write8(pef2256, PEF2256_XPM1, 0x03);
+> > +		pef2256_write8(pef2256, PEF2256_XPM2, PEF2256_XPM2_XLT | 0x00);
+> > +	} else {
+> > +		pef2256_write8(pef2256, PEF2256_XPM0, 0x9C);
+> > +		pef2256_write8(pef2256, PEF2256_XPM1, 0x03);
+> > +		pef2256_write8(pef2256, PEF2256_XPM2, PEF2256_XPM2_XLT | 0x00);
+> > +	} =20
+>=20
+> Only first line seem different, could XPM1 and XPM2 be outside the if/els=
+e ?
+
+Sure.
+Will be updated in v3.
+
+>=20
+> > +
+> > +	/* "master" mode */
+> > +	if (!pef2256->is_subordinate)
+> > +		pef2256_setbits8(pef2256, PEF2256_LIM0, PEF2256_LIM0_MAS);
+> > +
+> > +	/* transmit line in normal operation */
+> > +	pef2256_clrbits8(pef2256, PEF2256_XPM2, PEF2256_XPM2_XLT);
+> > +
+> > +	if (pef2256->version =3D=3D PEF2256_VERSION_1_2) {
+> > +		/* receive input threshold =3D 0,21V */
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_LIM1, PEF2256_12_LIM1_RIL_MASK,
+> > +				    PEF2256_12_LIM1_RIL_210);
+> > +	} else {
+> > +		/* receive input threshold =3D 0,21V */ =20
+>=20
+> Same comment twice, could be before the 'if' and remove the { } then ?
+
+Will be updated in v3.
+
+>=20
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_LIM1, PEF2256_2X_LIM1_RIL_MASK,
+> > +				    PEF2256_2X_LIM1_RIL_210);
+> > +	}
+> > +	/* transmit line coding =3D HDB3 */
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_FMR0, PEF2256_FMR0_XC_MASK,
+> > +			    PEF2256_FMR0_XC_HDB3); =20
+>=20
+> Wouldn't that fit in a single line with the new recommended 100 char max=
+=20
+> line length ? I thing it would be more readable as a single line.
+
+Will be updated in v3 if it fits in 100 chars.
+Same for the line right below related to the receive part.
+
+>=20
+> > +
+> > +	/* receive line coding =3D HDB3 */
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_FMR0, PEF2256_FMR0_RC_MASK,
+> > +			    PEF2256_FMR0_RC_HDB3);
+> > +
+> > +	/* detection of LOS alarm =3D 176 pulses (ie (10 + 1) * 16) */
+> > +	pef2256_write8(pef2256, PEF2256_PCD, 10);
+> > +
+> > +	/* recovery of LOS alarm =3D 22 pulses (ie 21 + 1) */
+> > +	pef2256_write8(pef2256, PEF2256_PCR, 21);
+> > +
+> > +	/* DCO-X center frequency enabled */
+> > +	pef2256_setbits8(pef2256, PEF2256_CMR2, PEF2256_CMR2_DCOXC);
+> > +
+> > +	if (pef2256->is_subordinate) {
+> > +		/* select RCLK source =3D 2M */
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_CMR1, PEF2256_CMR1_RS_MASK,
+> > +				    PEF2256_CMR1_RS_DCOR_2048);
+> > +		/* disable switching from RCLK to SYNC */
+> > +		pef2256_setbits8(pef2256, PEF2256_CMR1, PEF2256_CMR1_DCS);
+> > +	} =20
+>=20
+> I'd move the comments into a single one before the 'if', the two=20
+> comments are related.
+
+I will change to a single line comment but not before the 'if'.
+The comment is related to the subordinate case and not global for 'all'
+cases.
+
+>=20
+> > +
+> > +	if (pef2256->version !=3D PEF2256_VERSION_1_2) {
+> > +		/* during inactive channel phase switch RDO/RSIG into tri-state */
+> > +		pef2256_setbits8(pef2256, PEF2256_SIC3, PEF2256_SIC3_RTRI);
+> > +	} =20
+>=20
+> I'd put the comment before the 'if' and remove the { }
+
+Same reason to keep as it.
+The comment is specific to the if content.
+
+>=20
+> > +
+> > +	if (!pef2256->is_tx_falling_edge) {
+> > +		/* rising edge sync pulse transmit */ =20
+>=20
+> This comment doesn't seem to match the condition (rising versus falling).
+
+if not falling, it is rising.
+
+I will update in v3 to invert the condition and improve the comment by
+mentioning transmit and receive in each cases.
+
+>=20
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_SIC3,
+> > +				    PEF2256_SIC3_RESR, PEF2256_SIC3_RESX);
+> > +	} else {
+> > +		/* rising edge sync pulse receive */ =20
+>=20
+> This comment doesn't seem to match the condition (receive versus tx).
+>=20
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_SIC3,
+> > +				    PEF2256_SIC3_RESX, PEF2256_SIC3_RESR);
+> > +	}
+> > +
+> > +	/* transmit offset counter (XCO10..0) =3D 4 */
+> > +	pef2256_write8(pef2256, PEF2256_XC0, 0);
+> > +	pef2256_write8(pef2256, PEF2256_XC1, 4);
+> > +	/* receive offset counter (RCO10..0) =3D 4 */
+> > +	pef2256_write8(pef2256, PEF2256_RC0, 0);
+> > +	pef2256_write8(pef2256, PEF2256_RC1, 4);
+> > +
+> > +	/* system clock rate */
+> > +	switch (pef2256->sysclk_rate) {
+> > +	case 2048000:
+> > +		sic1 =3D PEF2256_SIC1_SSC_2048;
+> > +		break;
+> > +	case 4096000:
+> > +		sic1 =3D PEF2256_SIC1_SSC_4096;
+> > +		break;
+> > +	case 8192000:
+> > +		sic1 =3D PEF2256_SIC1_SSC_8192;
+> > +		break;
+> > +	case 16384000:
+> > +		sic1 =3D PEF2256_SIC1_SSC_16384;
+> > +		break;
+> > +	default:
+> > +		dev_err(pef2256->dev, "Unsupported sysclk rate %u\n", pef2256->syscl=
+k_rate);
+> > +		return -EINVAL;
+> > +	}
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_SIC1, PEF2256_SIC1_SSC_MASK, sic=
+1);
+> > +
+> > +	/* data clock rate */
+> > +	switch (pef2256->data_rate) {
+> > +	case 2048000:
+> > +		fmr1 =3D PEF2256_FMR1_SSD_2048;
+> > +		sic1 =3D PEF2256_SIC1_SSD_2048;
+> > +		break;
+> > +	case 4096000:
+> > +		fmr1 =3D PEF2256_FMR1_SSD_4096;
+> > +		sic1 =3D PEF2256_SIC1_SSD_4096;
+> > +		break;
+> > +	case 8192000:
+> > +		fmr1 =3D PEF2256_FMR1_SSD_8192;
+> > +		sic1 =3D PEF2256_SIC1_SSD_8192;
+> > +		break;
+> > +	case 16384000:
+> > +		fmr1 =3D PEF2256_FMR1_SSD_16384;
+> > +		sic1 =3D PEF2256_SIC1_SSD_16384;
+> > +		break;
+> > +	default:
+> > +		dev_err(pef2256->dev, "Unsupported data rate %u\n", pef2256->data_ra=
+te);
+> > +		return -EINVAL;
+> > +	}
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_FMR1, PEF2256_FMR1_SSD_MASK, fmr=
+1);
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_SIC1, PEF2256_SIC1_SSD_MASK, sic=
+1);
+> > +
+> > +	/* channel phase */
+> > +	pef2256_clrsetbits8(pef2256, PEF2256_SIC2, PEF2256_SIC2_SICS_MASK,
+> > +			    PEF2256_SIC2_SICS(pef2256->channel_phase));
+> > +
+> > +	if (pef2256->is_subordinate) {
+> > +		/* transmit buffer size =3D 2 frames */
+> > +		pef2256_clrsetbits8(pef2256, PEF2256_SIC1, PEF2256_SIC1_XBS_MASK,
+> > +				    PEF2256_SIC1_XBS_2FRAMES);
+> > +		/* transmit transparent mode */
+> > +		pef2256_setbits8(pef2256, PEF2256_XSW, PEF2256_XSW_XTM);
+> > +	} =20
+>=20
+> Could this block get regrouped with the RX block depending on=20
+> is_subordinate ?
+
+Yes,
+Will be done in v3.
+
+>=20
+> > +
+> > +	/* error counter latched every 1s */
+> > +	pef2256_setbits8(pef2256, PEF2256_FMR1, PEF2256_FMR1_ECM);
+> > +	/* error counter mode COFA */
+> > +	pef2256_setbits8(pef2256, PEF2256_GCR, PEF2256_GCR_ECMC);
+> > +	/* errors in service words have no influence */
+> > +	pef2256_setbits8(pef2256, PEF2256_RC0, PEF2256_RC0_SWD);
+> > +	/* 4 consecutive incorrect FAS causes loss of sync */
+> > +	pef2256_setbits8(pef2256, PEF2256_RC0, PEF2256_RC0_ASY4);
+> > +	/* Si-Bit, Spare bit For International, FAS word */
+> > +	pef2256_setbits8(pef2256, PEF2256_XSW, PEF2256_XSW_XSIS);
+> > +	pef2256_setbits8(pef2256, PEF2256_XSP, PEF2256_XSP_XSIF);
+> > +
+> > +	/* port RCLK is output */
+> > +	pef2256_setbits8(pef2256, PEF2256_PC5, PEF2256_PC5_CRP);
+> > +	/* status changed interrupt at both up and down */
+> > +	pef2256_setbits8(pef2256, PEF2256_GCR, PEF2256_GCR_SCI);
+> > +
+> > +	/* Clear any ISR2 pending interrupts and unmask needed interrupts */
+> > +	pef2256_read8(pef2256, PEF2256_ISR2);
+> > +	pef2256_clrbits8(pef2256, PEF2256_IMR2, PEF2256_INT2_LOS | PEF2256_IN=
+T2_AIS);
+> > +
+> > +	/* reset lines */
+> > +	pef2256_write8(pef2256, PEF2256_CMDR, PEF2256_CMDR_RRES | PEF2256_CMD=
+R_XRES);
+> > +	return 0;
+> > +}
+> > +
+> > +static int pef2256_setup(struct pef2256 *pef2256)
+> > +{
+> > +	if (!pef2256->is_e1) {
+> > +		dev_err(pef2256->dev, "Only E1 line is currently supported\n");
+> > +		return -EOPNOTSUPP;
+> > +	}
+> > +
+> > +	return pef2256_setup_e1(pef2256); =20
+>=20
+> In order to use future addition of other modes, I'd do:
+>=20
+> 	if (!pef2256->is_e1)
+> 		return pef2256_setup_e1(pef2256);
+>=20
+> 	dev_err(pef2256->dev, "Only E1 line is currently supported\n");
+> 	return -EOPNOTSUPP;
+>=20
+
+Will be changed in v3 using your proposition (with 'if' condition fixed).
+
+> > +}
+> > +
+> > +
+> > +
+> > +static void pef2256_isr_default_handler(struct pef2256 *pef2256, u8 nb=
+r, u8 isr)
+> > +{
+> > +	dev_warn(pef2256->dev, "ISR%u: 0x%02x not handled\n", nbr, isr);
+> > +}
+> > +
+> > +static bool pef2256_is_carrier_on(struct pef2256 *pef2256)
+> > +{
+> > +	u8 frs0;
+> > +
+> > +	frs0 =3D pef2256_read8(pef2256, PEF2256_FRS0);
+> > +	return !(frs0 & (PEF2256_FRS0_LOS | PEF2256_FRS0_AIS));
+> > +}
+> > +
+> > +static void pef2256_isr2_handler(struct pef2256 *pef2256, u8 nbr, u8 i=
+sr)
+> > +{
+> > +	bool is_changed =3D false;
+> > +	unsigned long flags;
+> > +	bool is_carrier_on;
+> > +
+> > +	if (isr & (PEF2256_INT2_LOS | PEF2256_INT2_AIS)) {
+> > +
+> > +		spin_lock_irqsave(&pef2256->lock, flags);
+> > +		is_carrier_on =3D pef2256_is_carrier_on(pef2256);
+> > +		if (is_carrier_on !=3D pef2256->is_carrier_on) {
+> > +			pef2256->is_carrier_on =3D is_carrier_on;
+> > +			is_changed =3D true;
+> > +		}
+> > +		spin_unlock_irqrestore(&pef2256->lock, flags); =20
+>=20
+> Do we really need spin_locks for that ?
+> If atomicity is really an issue, may we use atomic operations instead ?
+
+Indeed, I can use atomic ops here.
+Will be changed in v3.
+
+>=20
+> > +
+> > +		if (is_changed)
+> > +			atomic_notifier_call_chain(&pef2256->event_notifier_list,
+> > +						   PEF2256_EVENT_CARRIER, NULL);
+> > +	}
+> > +}
+> > +
+
+Thanks for the review.
+
+Regards,
+Herv=C3=A9
+
+--=20
+Herv=C3=A9 Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

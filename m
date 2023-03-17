@@ -2,155 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D8E6BE735
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 11:46:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03356BEA29
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 14:35:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D446F9B;
-	Fri, 17 Mar 2023 11:45:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D446F9B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D5BFF36;
+	Fri, 17 Mar 2023 14:34:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D5BFF36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679050006;
-	bh=ra2hHUtg/cweOH8Inub7601QpMUjDC+HkQHZrUQ7x84=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=jHU9ZMOEz0SVUX7czElTAPYZXzz0iJiixMDSyw4koyHcoW4Vuof94KIIqbZeCBdyc
-	 zUqVCCue/65QCmbZW0H6LQq1fT4RR9Uj9ot67gluCxEuMi7y+e0Eq8GmAsCJ4vcpi8
-	 9r1bmtfpUxBcILOCD3KgzCAKDFqnIJVQ5mMgRA3U=
+	s=default; t=1679060132;
+	bh=acAFgWVAW9Z16jtQyDLytLmE2NTyzAFRY8egGYSBlpA=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=d09yXAUS8qvUXGCpHEZAEIr9RZDSzC4WkO8rNP2I+0Vwfx6C3JSuZVjKyW22T3nO2
+	 nVKpDfCEveTSR5bgAUzwIFYXzV/XN7qcyKxNZ5sr03XZpGZdIBj2YY5n1dQGvLXB9M
+	 yaYDGcVuSC5vrULU1pBuUTz7RUx7MIaSnHn1d6kU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16253F80093;
-	Fri, 17 Mar 2023 11:45:55 +0100 (CET)
-Date: Fri, 17 Mar 2023 10:45:42 +0000
-Subject: Re: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
-To: kernel test robot <lkp@intel.com>,
-        Richard Fitzgerald via Alsa-devel
-	<alsa-devel@alsa-project.org>,
-        <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
-References: <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
- <202303170422.ZYpOtc4P-lkp@intel.com>
- <2f983fe6-8c43-be16-758b-098ea461836b@opensource.cirrus.com>
-In-Reply-To: <2f983fe6-8c43-be16-758b-098ea461836b@opensource.cirrus.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VAZPOOQ5FI5Q5CBCO5W52CQWZEUWML3Z/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167904995359.26.15880055864006167551@mailman-core.alsa-project.org>
-From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- Simon Trimmer <simont@opensource.cirrus.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id A6210F8032D;
+	Fri, 17 Mar 2023 14:34:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8BEEF80423; Fri, 17 Mar 2023 11:45:50 +0100 (CET)
+	id 99F77F80423; Fri, 17 Mar 2023 14:34:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5DE5F80093
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 11:45:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5DE5F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 136FCF80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 14:34:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 136FCF80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=i1IWqaIH
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32HABu1c032534;
-	Fri, 17 Mar 2023 05:45:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : from : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=JhmEC93g+SxlROvIkYC7tyHstq9M2CgefcOULYathYE=;
- b=i1IWqaIHUhbr7mManT/cOWX/6ohQC9aFxy4tp7CZdivbzuPzdMXbXAMWg6J4PcDoYjpK
- rUz+bgP0FS0koY6Vaq0pSgYUfLeS8lVL+ePDH9LYS3nGNZX2KTigOZLP3ZKSZtD/tnB1
- j06CQ3XI6W6+Ej4iVRCHrv91vhXW95X6gMmsPAP0jrPfatVXlfi6ALKGco5slsB04Oe9
- UTy3swRRyU44orn01pJIrLBtLQ/QGGRJG8uhvlnVn/hL6ErU5DtSBTSQEYPIFxvmkWz4
- qiz9gRZp9HVctoeMw3f8mQRvbaF5VQo/zDQboWwR7IRUyBUtYZD0lgtXrPxjdCMcjkmW +A==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs3b9x06-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Mar 2023 05:45:45 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 17 Mar
- 2023 05:45:43 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Fri, 17 Mar 2023 05:45:43 -0500
-Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DC8A411D3;
-	Fri, 17 Mar 2023 10:45:42 +0000 (UTC)
-Message-ID: <27d797fb-c68b-ebc0-7d87-39c6287415e8@opensource.cirrus.com>
-Date: Fri, 17 Mar 2023 10:45:42 +0000
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=henuGGhg
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F2B72622A4;
+	Fri, 17 Mar 2023 13:34:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F1EC4339B;
+	Fri, 17 Mar 2023 13:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679060067;
+	bh=acAFgWVAW9Z16jtQyDLytLmE2NTyzAFRY8egGYSBlpA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=henuGGhglknoZ8qup/Rt9WTxF4ivkJWfsz2ImqjDbnJ92C2CgIQGjZrIUn/WKo4QI
+	 DhZwVK+o0WyqaQ3i2G9eHS4dcAX7rbb8rk4XpomxiFyFAt8mB1OJ+HJgW2QgpFNTjx
+	 hZoKtVrDEcpsH8BVSowgifyWvH/SHT+fc6slkV1EoWee56IQjCTQg8OXsAmev7VdNK
+	 faESzw0kkHGJRbAHsFB9xpX5MxYVRdd1I3SdmUgH5GRtihWE+4O/KOv8l2tg33fz4r
+	 +tGwJyEAwbpvxrjy3XyajTq9a6V9I4lFMX5gwzTofV8RKDNEltIF0LNG9nKr86Zexp
+	 BYTI3SBRfNRDw==
+Date: Fri, 17 Mar 2023 19:04:23 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
+Message-ID: <ZBRsX7W4l1HyT44y@matsya>
+References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
+ <20230307133135.545952-3-Vijendar.Mukunda@amd.com>
+ <ZBGTDXJvVjVuUkiZ@matsya>
+ <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
-Content-Language: en-US
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: kernel test robot <lkp@intel.com>,
-        Richard Fitzgerald via Alsa-devel
-	<alsa-devel@alsa-project.org>,
-        <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
-References: <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
- <202303170422.ZYpOtc4P-lkp@intel.com>
- <2f983fe6-8c43-be16-758b-098ea461836b@opensource.cirrus.com>
-In-Reply-To: <2f983fe6-8c43-be16-758b-098ea461836b@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: eFWrPVLIvg54Zq8KlnYfb8DSZi5XORmD
-X-Proofpoint-ORIG-GUID: eFWrPVLIvg54Zq8KlnYfb8DSZi5XORmD
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: VAZPOOQ5FI5Q5CBCO5W52CQWZEUWML3Z
-X-Message-ID-Hash: VAZPOOQ5FI5Q5CBCO5W52CQWZEUWML3Z
-X-MailFrom: prvs=8440ce0520=rf@opensource.cirrus.com
+In-Reply-To: <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com>
+Message-ID-Hash: E462GQHS3D4MIK3ZNZDWX6JZPJFIAFG6
+X-Message-ID-Hash: E462GQHS3D4MIK3ZNZDWX6JZPJFIAFG6
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- Simon Trimmer <simont@opensource.cirrus.com>
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
+ Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
+ claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VAZPOOQ5FI5Q5CBCO5W52CQWZEUWML3Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E462GQHS3D4MIK3ZNZDWX6JZPJFIAFG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,82 +100,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/03/2023 10:40, Richard Fitzgerald wrote:
-> On 16/03/2023 20:15, kernel test robot wrote:
->> Hi Richard,
->>
->> Thank you for the patch! Yet something to improve:
->>
->> [auto build test ERROR on broonie-sound/for-next]
->> [also build test ERROR on linus/master v6.3-rc2 next-20230316]
->> [If your patch is applied to the wrong git tree, kindly drop us a note.
->> And when submitting patch, we suggest to use '--base' as documented in
->> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->>
->> url:    
->> https://github.com/intel-lab-lkp/linux/commits/Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
->> base:   
->> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
->> for-next
->> patch link:    
->> https://lore.kernel.org/r/167872265923.26.336497278776737619%40mailman-core.alsa-project.org
->> patch subject: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus 
->> Logic CS35L56
->> config: s390-randconfig-r044-20230313 
->> (https://download.01.org/0day-ci/archive/20230317/202303170422.ZYpOtc4P-lkp@intel.com/config)
->> compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 
->> 67409911353323ca5edf2049ef0df54132fa1ca7)
->> reproduce (this is a W=1 build):
->>          wget 
->> https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->>          chmod +x ~/bin/make.cross
->>          # install s390 cross compiling tool for clang build
->>          # apt-get install binutils-s390x-linux-gnu
->>          # 
->> https://github.com/intel-lab-lkp/linux/commit/5856c94d659f9c9963f5c37762cf201e1f1765e9
->>          git remote add linux-review 
->> https://github.com/intel-lab-lkp/linux
->>          git fetch --no-tags linux-review 
->> Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
->>          git checkout 5856c94d659f9c9963f5c37762cf201e1f1765e9
->>          # save the config file
->>          mkdir build_dir && cp config build_dir/.config
->>          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross 
->> W=1 O=build_dir ARCH=s390 olddefconfig
->>          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross 
->> W=1 O=build_dir ARCH=s390 SHELL=/bin/bash
->>
->> If you fix the issue, kindly add following tag where applicable
->> | Reported-by: kernel test robot <lkp@intel.com>
->> | Link: 
->> https://lore.kernel.org/oe-kbuild-all/202303170422.ZYpOtc4P-lkp@intel.com/
->>
->> All errors (new ones prefixed by >>):
->>
->>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function 
->> `cs35l56_dsp_work':
->>>> sound/soc/codecs/cs35l56.c:887: undefined reference to 
->>>> `sdw_write_no_pm'
->>>> s390x-linux-ld: sound/soc/codecs/cs35l56.c:888: undefined reference 
->>>> to `sdw_read_no_pm'
->>>> s390x-linux-ld: sound/soc/codecs/cs35l56.c:889: undefined reference 
->>>> to `sdw_write_no_pm'
->>     s390x-linux-ld: sound/soc/codecs/cs35l56.c:953: undefined 
->> reference to `sdw_write_no_pm'
->>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function 
->> `cs35l56_sdw_dai_hw_params':
->>>> sound/soc/codecs/cs35l56.c:710: undefined reference to 
->>>> `sdw_stream_add_slave'
->>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function 
->> `cs35l56_sdw_dai_hw_free':
->>>> sound/soc/codecs/cs35l56.c:729: undefined reference to 
->>>> `sdw_stream_remove_slave'
->>
-> 
-> I don't understand what's happened here.
-> include/linux/soundwire/sdw.h provides inline dummy versions of these
-> functions if !IS_ENABLED(CONFIG_SOUNDWIRE) so how can they be
-> undefined reference?
+On 16-03-23, 19:28, Mukunda,Vijendar wrote:
+> On 15/03/23 15:12, Vinod Koul wrote:
+> > On 07-03-23, 19:01, Vijendar Mukunda wrote:
 
-Oh, I see it now.
-CONFIG_SOUNDWIRE=m but CONFIG_SND_SOC_CS35L56=y so it can't link.
+> >> +/**
+> >> + * struct amd_sdw_manager - amd manager driver context
+> >> + * @bus: bus handle
+> >> + * @dev: linux device
+> >> + * @mmio: SoundWire registers mmio base
+> >> + * @acp_mmio: acp registers mmio base
+> >> + * @reg_mask: register mask structure per manager instance
+> >> + * @probe_work: SoundWire manager probe workqueue
+> >> + * @acp_sdw_lock: mutex to protect acp share register access
+> >> + * @num_din_ports: number of input ports
+> >> + * @num_dout_ports: number of output ports
+> >> + * @cols_index: Column index in frame shape
+> >> + * @rows_index: Rows index in frame shape
+> >> + * @instance: SoundWire manager instance
+> >> + * @quirks: SoundWire manager quirks
+> >> + * @wake_en_mask: wake enable mask per SoundWire manager
+> >> + * @power_mode_mask: flag interprets amd SoundWire manager power mode
+> >> + */
+> >> +struct amd_sdw_manager {
+> >> +	struct sdw_bus bus;
+> >> +	struct device *dev;
+> >> +
+> >> +	void __iomem *mmio;
+> >> +	void __iomem *acp_mmio;
+> >> +
+> >> +	struct sdw_manager_reg_mask *reg_mask;
+> >> +	struct work_struct probe_work;
+> >> +	/* mutex to protect acp common register access */
+> >> +	struct mutex *acp_sdw_lock;
+> >> +
+> >> +	int num_din_ports;
+> >> +	int num_dout_ports;
+> >> +
+> >> +	int cols_index;
+> >> +	int rows_index;
+> >> +
+> >> +	u32 instance;
+> >> +	u32 quirks;
+> >> +	u32 wake_en_mask;
+> >> +	u32 power_mode_mask;
+> >> +};
+> > Does the manager need to be exposed to rest of kernel or users of this
+> > driver, is so why?
+> Currently, amd_manager structure being used in ACP PCI driver
+> (parent driver) and Soundwire DMA driver.
+> 
+> In ACP PCI driver, IRQ handler we will use amd_manager structure to
+> schedule workqueue based on soundwire manager instance.
+> In Soundwire DMA driver, we need to retrieve amd_manager instance.
+> As per our design, we have fixed mapping. We need to use same set of
+> DMA registers based on CPU DAI ID.
+> �i.e if AUDIO0 TX port is selected in amd_manager driver
+> then we need to use AUDIO0 TX registers for DMA programming.
+> we have included comments for describing mapping in amd_manager.h
+> file.
+
+Sorry not sure I follow, can you elaborate which members of above struct
+are used by PCI driver?
+
+-- 
+~Vinod

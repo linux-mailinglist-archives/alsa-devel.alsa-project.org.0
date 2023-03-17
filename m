@@ -2,170 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD746BF00E
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 18:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EB5E6BF011
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 18:45:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B92B7F09;
-	Fri, 17 Mar 2023 18:44:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92B7F09
+	by alsa0.perex.cz (Postfix) with ESMTPS id D255EF0F;
+	Fri, 17 Mar 2023 18:44:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D255EF0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679075099;
-	bh=uEO4+kcg3KRR7GK5o7LwZ6ojEdWGRstFE+ObVzr5nlk=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=AOt991SgepwFWuT2P96xVDBt3I+tVVkCJsAn1lIw4x4wVPOYakBkhmKOqB87ZRemQ
-	 GNOYdIvHq7Sby0CT4jst/tctqrdZ/8CNMYhLaWgeA2CsWsnc98G25UnFvOUjNcoRh6
-	 6NkuM1u4+wv+AJ8fYMDU36jacFzfwejSCO+qCMdg=
+	s=default; t=1679075149;
+	bh=A3PAnQ+JIwFpDASrObxS7EcNbU8UPLp1qv6JS9SVhr0=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=lmYEE+PzQesAl0C3rfxNka+QDMxHlIIatOYnXZM5ySlN2O9VUMJurCAplUuqGdJNl
+	 JDxsTosgFk4tIo0Hr9Xt3gEpJb6sQxzSttb7xBz7NbRx5hJvv/th5Pzd8aMc4NhTu5
+	 UvBX3jqX/mWEUfsMiDb8Jd0sZd2jeRpEQhQ5UnvE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35588F8032D;
-	Fri, 17 Mar 2023 18:44:09 +0100 (CET)
-Date: Fri, 17 Mar 2023 19:43:53 +0200
-Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
- dma-names order constraint
-To: Conor Dooley <conor@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
- <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
- <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
- <80796828-7b38-184a-2e8e-3cfe9158b67f@linaro.org>
- <13cb8dbd-994c-4b38-b715-44a3bf3d278d@spud>
-In-Reply-To: <13cb8dbd-994c-4b38-b715-44a3bf3d278d@spud>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4LZHERDQ3WEPM5U4ONZXAZQRFBEJV4V/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167907504888.26.10702772478737511933@mailman-core.alsa-project.org>
-From: Cristian Ciocaltea via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id A1EB7F80482;
+	Fri, 17 Mar 2023 18:44:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64B99F80423; Fri, 17 Mar 2023 18:44:06 +0100 (CET)
+	id D6C4BF804FE; Fri, 17 Mar 2023 18:44:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6732F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 18:43:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6732F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B7D0F80423
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 18:44:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B7D0F80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=dwBoIYsL
-Received: from [192.168.1.90] (unknown [188.24.156.231])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=jPUojEvk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 4B80866030BF;
-	Fri, 17 Mar 2023 17:43:56 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1679075037;
-	bh=shPYMuCODMkFNZjlOGCzX1xSspkhpTtkW3qN+SA5vgY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dwBoIYsLp+X4EZ5VGBf9C8ruKohVTzsEh46ctOJfM+2uehmidYGbx2ySpEG6S8XPi
-	 PfHEP9cIkHFIDTg/MFj+btE06jGlnQcmTZJy2q/UB+iC9kSbbsm9j1jEGdyk3QDmvG
-	 juJn5aJnBZwJVPTXz/VaXKg4bCiAaAfpd3tWNPaEa8wcxtdti81O0x3v+JsC+zwORH
-	 2nmd6vw7ir1lsEERedx3pV2T9+xrGXk9wZSOIaDjv7pc6fsqk9p4fnSsp9WpuctEQ7
-	 6eTCFCeMGePzaUWoYdEPL/Qntt+hvlfI+a8Yasyqw9Fy2Az0o0IUji6LpEC2reJ9Ls
-	 Of5YYPuUEuh9w==
-Message-ID: <e81f02f2-e692-e4ef-1510-fdc285dd5964@collabora.com>
-Date: Fri, 17 Mar 2023 19:43:53 +0200
+	by ams.source.kernel.org (Postfix) with ESMTPS id 61B26B82640;
+	Fri, 17 Mar 2023 17:44:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ECF6C433D2;
+	Fri, 17 Mar 2023 17:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679075058;
+	bh=A3PAnQ+JIwFpDASrObxS7EcNbU8UPLp1qv6JS9SVhr0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=jPUojEvktM746XQp+okCdmU344IMAZercGFW3k2GndJKtH1lLkYO/6DE/sBchpkyq
+	 8h+QgoHwF1iPaDyjafGNlY85LDvCL8JH0e7O3JCzXj//BcSQvCNPwaeHQSYPA883VG
+	 nVWm7CmHDauKib0N1e1ecOdTkMnZN7lqoAMJKj6ii/SIpwmSn0y6MjH+9WSptvTRnX
+	 Z6mA4TtAFGoEAVx146EpDS0AKzq/l0RZXxYo8odl2cWalks6QMLp8waMKjHji/Pmvn
+	 ft0WSYdGw0OSKdQ/Jwuo2RC+RsOgfrJeIO3rH8E5slWZm9sgi9jfAeFzuRkiitae37
+	 t0C21zPaDAPkw==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230316151137.7598-1-peter.ujfalusi@linux.intel.com>
+References: <20230316151137.7598-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/6] ASoC: SOF: ipc4-topology: Add support for effect
+ widget
+Message-Id: <167907505577.51817.16690400395812320291.b4-ty@kernel.org>
+Date: Fri, 17 Mar 2023 17:44:15 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
- dma-names order constraint
-Content-Language: en-US
-To: Conor Dooley <conor@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
- <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
- <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
- <80796828-7b38-184a-2e8e-3cfe9158b67f@linaro.org>
- <13cb8dbd-994c-4b38-b715-44a3bf3d278d@spud>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <13cb8dbd-994c-4b38-b715-44a3bf3d278d@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: R4LZHERDQ3WEPM5U4ONZXAZQRFBEJV4V
-X-Message-ID-Hash: R4LZHERDQ3WEPM5U4ONZXAZQRFBEJV4V
-X-MailFrom: cristian.ciocaltea@collabora.com
+X-Mailer: b4 0.13-dev-bd1bf
+Message-ID-Hash: EU3NG4PFJ7GC7SRLDOADI3MP5M3VIAXH
+X-Message-ID-Hash: EU3NG4PFJ7GC7SRLDOADI3MP5M3VIAXH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ libin.yang@intel.com, yung-chuan.liao@linux.intel.com,
+ chao.song@linux.intel.com, jaska.uimonen@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4LZHERDQ3WEPM5U4ONZXAZQRFBEJV4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EU3NG4PFJ7GC7SRLDOADI3MP5M3VIAXH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,46 +95,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 3/17/23 18:26, Conor Dooley wrote:
-> On Fri, Mar 17, 2023 at 04:54:47PM +0100, Krzysztof Kozlowski wrote:
->> On 17/03/2023 11:21, Cristian Ciocaltea wrote:
->>> On 3/17/23 10:31, Krzysztof Kozlowski wrote:
->>>> On 15/03/2023 12:47, Cristian Ciocaltea wrote:
->>>>> Commit 370f696e4474 ("dt-bindings: serial: snps-dw-apb-uart: add dma &
->>>>> dma-names properties") documented dma-names property to handle Allwiner
->>>>> D1 dtbs_check warnings, but relies on a strict rx->tx ordering, which is
->>>>> the reverse of what a different board expects:
->>>>>
->>>>>     rk3326-odroid-go2.dtb: serial@ff030000: dma-names:0: 'rx' was expected
->>>>>
->>>>> A quick and incomplete check shows the inconsistency is present in many
->>>>> other DT files:
->>>>
->>>> Why not fixing the DTS? The properties should have fixed order.
->>>
->>> I was initially concerned about the risk of a potential ABI breakage,
->>> but I think that's not really a problem since dma-names is not directly
->>> accessed in the driver and DT Kernel API doesn't rely on a particular order.
->>>
->>> If there are no objections, I would switch the order in the binding to
->>> tx->rx, since that's what most of the DTS use, and fix the remaining ones.
->>
->> Since we added the order recently, I rather assume it is the correct or
->> preferred one.
+On Thu, 16 Mar 2023 17:11:31 +0200, Peter Ujfalusi wrote:
+> The following series will add support for IPC4 process modules as effect widgets.
+> We can cover wide range of modules as a generic process or effect module, the
+> patches will lay down the fundation and the generic code to handle them.
 > 
-> IIRC I checked around the other serial bindings & there was not a
-> consistent order that all serial bindings used, so I picked the order that
-> was used across the various allwinner boards that do use dma-names.
+> At initialization time process modules can receive additional information on
+> top of the base_cfg, which is defined as base_cfg_ext, an extension for the base
+> configuration struct.
+> Other parameters or blobs for these modules are sent as a separate message via
+> LARGE_CONFIG message, which is handled by the existing bytes control support.
+> 
+> [...]
 
-Thanks for clarifying this, Conor! Would it be fine to switch to tx->rx 
-order as it requires less changes to fix the inconsistencies?
+Applied to
 
-> Before changing dts files, it's probably a good idea to make sure that
-> the dma-names are not used somewhere outside of Linux.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Right, that means we cannot exclude the ABI breakage concern. Not sure 
-how easy would be to actually verify this. Hence I wonder if there is 
-really no chance to allow the flexible order in the binding..
+Thanks!
 
-> Cheers,
-> Conor
+[1/6] ASoC: SOF: ipc4-topology: Move the kcontrol module_id update to helper
+      commit: 04b522a4d2acf8447d69bf87b3ab67d5e6d631a2
+[2/6] ASoC: SOF: ipc4-topology: add effect widget support
+      commit: 7711a2bbc8447dd7185c6da9e405d89ce3ec2f0f
+[3/6] ASoC: SOF: ipc4-topology: add base module config extension structure
+      commit: d0be868c5a6e0dafb53d0ee9f0b9d66e40d963f6
+[4/6] ASoC: SOF: ipc4-topology: Add support for base config extension
+      commit: f9efae954905a07a9d152e9b30546a6632227eef
+[5/6] ASoC: SOF: ipc4-topology: set copier output format for process module
+      commit: 648fea12847695d60ddeebea86597114885ee76e
+[6/6] ASoC: SOF: ipc4-topology: update pipeline_params in process prepare
+      commit: 811a742f2d4d1b0aee686bc2f4282b51534898a2
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

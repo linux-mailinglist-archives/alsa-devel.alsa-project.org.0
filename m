@@ -2,45 +2,35 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B2406BE685
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 11:22:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1CF6BE70C
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 11:42:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC7B3F85;
-	Fri, 17 Mar 2023 11:21:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7B3F85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7963EF91;
+	Fri, 17 Mar 2023 11:41:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7963EF91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679048564;
-	bh=ef/tNNf4nIJM52fPRDKXTjFtKh6NtDvsmqD3B4umWcA=;
+	s=default; t=1679049731;
+	bh=MbU3gMYH6xcShD7bcDsz7L3w0KX9bSmMcqOc6toHGug=;
 	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=oTaciK//EFwbMjB7I3kQg+OUWawUaihNlSHqWRY4FNPWvhGkSaGPJNcRF3galEnAc
-	 jht7q1KLilHuXUOuQ7YQjpsvBIJn9FYL2ypjpreg/dgNfFjU5u59hlSRK864BJZeH5
-	 hyRwq5AlqWBEuq/9P8hzOK/XTwT0u/03POGlk9JA=
+	b=sAK6HR0KYctPjVEuDZ8qLXGrqNq44g03aXmJaqlpZG7A4DIUOHLgVWatPjouhdPdP
+	 GLKboaejWJKjVoAw1tLJyCuANVD2xS5llN9RfMhklcVcFW2BDf7KoAZ5z1xaiZACqa
+	 kCOlAPPO23H1CrBCDRrIQ3GjdCdnMCTDmSJpi3bY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20B70F8032D;
-	Fri, 17 Mar 2023 11:21:54 +0100 (CET)
-Date: Fri, 17 Mar 2023 12:21:41 +0200
-Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
- dma-names order constraint
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
- <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
-In-Reply-To: <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTP id E6DA1F8032D;
+	Fri, 17 Mar 2023 11:41:20 +0100 (CET)
+Date: Fri, 17 Mar 2023 10:40:58 +0000
+Subject: Re: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+To: kernel test robot <lkp@intel.com>,
+        Richard Fitzgerald via Alsa-devel
+	<alsa-devel@alsa-project.org>,
+        <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
+References: <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
+ <202303170422.ZYpOtc4P-lkp@intel.com>
+In-Reply-To: <202303170422.ZYpOtc4P-lkp@intel.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -52,7 +42,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QL4PRAPCZX5HG67V3QWHANJPQ3KS7QXW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -62,99 +52,103 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167904851367.26.16449705310108549543@mailman-core.alsa-project.org>
-From: Cristian Ciocaltea via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
+ <167904967991.26.7260883847213793440@mailman-core.alsa-project.org>
+From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ Simon Trimmer <simont@opensource.cirrus.com>
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21928F80423; Fri, 17 Mar 2023 11:21:51 +0100 (CET)
+	id C0C14F80423; Fri, 17 Mar 2023 11:41:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92053F80272
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 11:21:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92053F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4AFFF80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 11:41:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4AFFF80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=bzQBHJvu
-Received: from [192.168.1.90] (unknown [188.24.156.231])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 41CFA66030AA;
-	Fri, 17 Mar 2023 10:21:44 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1679048505;
-	bh=Dm30hfUK/ZdXDVg1rCbXsR0BnwH4IRiPfIqA2q405Ls=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bzQBHJvu17Oeth8lZ8Cb+nujPSlPj2BwvCf4/6emcigFdBmI9bCTs8qtiWzTIq9tb
-	 Ff/Drf9RarmfQ5751LBrwjCkRpywYybDTwWmNLaVbDURC9T2FVLIif8LBQ67tmu3dx
-	 ngL2z79aAh2AK9RRG9p8uhI0jDpDPHx9iLWrhSGQ2C20WwljgXDM68svaFZej+nlFE
-	 dD1JpzcuMCGrxsH4i8UZsi+H7wl109GAhv0KNlWoa3uHQp2AZ9Gxn6hRUwk2Tke86g
-	 Try3mpmzEEAsyktX6rpRPT9EOvDOTruIBOTtWce/s02dAynoQ7WydXYhzgDAns5GvA
-	 HaqmPo236G4gg==
-Message-ID: <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
-Date: Fri, 17 Mar 2023 12:21:41 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=QEPeAY4b
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32H7foUJ015333;
+	Fri, 17 Mar 2023 05:41:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=KKA0KiB1b7sWikqUS2H+de2M8bIODACLff8UqwwIRKI=;
+ b=QEPeAY4bjHDR8f8q/I3SzD8amteUtM1B3ocVkO24bWFQh0Z8oUqN8gWYimJxHzGjNRaB
+ DuUJ7Twuid1w+yLki2ivqdb1rGHrmZCoK7Ynr9BdJmNqWg3V0o1xDcyzfmHHim6r/+NR
+ BPYOqoUjne6gyKF6BOvVbXEAsCXpv8hrLltG7saBPkltoaHVACk/tf4aRagzzO0210us
+ 9SDXo17Ay/9n7n+Oh4sM93/2PYKPZNOEW1xpbxXeym6rZbm7RKpi+NOFHQ10bhNhVZel
+ /2qv/X6OEnjCAUWLKtjMs3vkVhWDeeHBaF+K5e2Fh+6N4k/2b0UHtNQe11+KwMnx0Z2y Mg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs3b9wuk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Mar 2023 05:41:01 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 17 Mar
+ 2023 05:40:58 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
+ Transport; Fri, 17 Mar 2023 05:40:58 -0500
+Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9815D45;
+	Fri, 17 Mar 2023 10:40:58 +0000 (UTC)
+Message-ID: <2f983fe6-8c43-be16-758b-098ea461836b@opensource.cirrus.com>
+Date: Fri, 17 Mar 2023 10:40:58 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
- dma-names order constraint
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+To: kernel test robot <lkp@intel.com>,
+        Richard Fitzgerald via Alsa-devel
+	<alsa-devel@alsa-project.org>,
+        <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
+References: <167872265923.26.336497278776737619@mailman-core.alsa-project.org>
+ <202303170422.ZYpOtc4P-lkp@intel.com>
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
- <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <202303170422.ZYpOtc4P-lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ
-X-Message-ID-Hash: J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ
-X-MailFrom: cristian.ciocaltea@collabora.com
+X-Proofpoint-GUID: OePiBmjLWfhCxasIpBWCnONiYz13bGq6
+X-Proofpoint-ORIG-GUID: OePiBmjLWfhCxasIpBWCnONiYz13bGq6
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: QL4PRAPCZX5HG67V3QWHANJPQ3KS7QXW
+X-Message-ID-Hash: QL4PRAPCZX5HG67V3QWHANJPQ3KS7QXW
+X-MailFrom: prvs=8440ce0520=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
+CC: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ Simon Trimmer <simont@opensource.cirrus.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QL4PRAPCZX5HG67V3QWHANJPQ3KS7QXW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,29 +157,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 3/17/23 10:31, Krzysztof Kozlowski wrote:
-> On 15/03/2023 12:47, Cristian Ciocaltea wrote:
->> Commit 370f696e4474 ("dt-bindings: serial: snps-dw-apb-uart: add dma &
->> dma-names properties") documented dma-names property to handle Allwiner
->> D1 dtbs_check warnings, but relies on a strict rx->tx ordering, which is
->> the reverse of what a different board expects:
->>
->>    rk3326-odroid-go2.dtb: serial@ff030000: dma-names:0: 'rx' was expected
->>
->> A quick and incomplete check shows the inconsistency is present in many
->> other DT files:
+On 16/03/2023 20:15, kernel test robot wrote:
+> Hi Richard,
 > 
-> Why not fixing the DTS? The properties should have fixed order.
+> Thank you for the patch! Yet something to improve:
+> 
+> [auto build test ERROR on broonie-sound/for-next]
+> [also build test ERROR on linus/master v6.3-rc2 next-20230316]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> patch link:    https://lore.kernel.org/r/167872265923.26.336497278776737619%40mailman-core.alsa-project.org
+> patch subject: [PATCH v2 8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
+> config: s390-randconfig-r044-20230313 (https://download.01.org/0day-ci/archive/20230317/202303170422.ZYpOtc4P-lkp@intel.com/config)
+> compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 67409911353323ca5edf2049ef0df54132fa1ca7)
+> reproduce (this is a W=1 build):
+>          wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>          chmod +x ~/bin/make.cross
+>          # install s390 cross compiling tool for clang build
+>          # apt-get install binutils-s390x-linux-gnu
+>          # https://github.com/intel-lab-lkp/linux/commit/5856c94d659f9c9963f5c37762cf201e1f1765e9
+>          git remote add linux-review https://github.com/intel-lab-lkp/linux
+>          git fetch --no-tags linux-review Richard-Fitzgerald-via-Alsa-devel/ASoC-wm_adsp-Use-no_core_startstop-to-prevent-creating-preload-control/20230313-235605
+>          git checkout 5856c94d659f9c9963f5c37762cf201e1f1765e9
+>          # save the config file
+>          mkdir build_dir && cp config build_dir/.config
+>          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=s390 olddefconfig
+>          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=s390 SHELL=/bin/bash
+> 
+> If you fix the issue, kindly add following tag where applicable
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Link: https://lore.kernel.org/oe-kbuild-all/202303170422.ZYpOtc4P-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>):
+> 
+>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function `cs35l56_dsp_work':
+>>> sound/soc/codecs/cs35l56.c:887: undefined reference to `sdw_write_no_pm'
+>>> s390x-linux-ld: sound/soc/codecs/cs35l56.c:888: undefined reference to `sdw_read_no_pm'
+>>> s390x-linux-ld: sound/soc/codecs/cs35l56.c:889: undefined reference to `sdw_write_no_pm'
+>     s390x-linux-ld: sound/soc/codecs/cs35l56.c:953: undefined reference to `sdw_write_no_pm'
+>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function `cs35l56_sdw_dai_hw_params':
+>>> sound/soc/codecs/cs35l56.c:710: undefined reference to `sdw_stream_add_slave'
+>     s390x-linux-ld: sound/soc/codecs/cs35l56.o: in function `cs35l56_sdw_dai_hw_free':
+>>> sound/soc/codecs/cs35l56.c:729: undefined reference to `sdw_stream_remove_slave'
+> 
 
-I was initially concerned about the risk of a potential ABI breakage, 
-but I think that's not really a problem since dma-names is not directly 
-accessed in the driver and DT Kernel API doesn't rely on a particular order.
-
-If there are no objections, I would switch the order in the binding to 
-tx->rx, since that's what most of the DTS use, and fix the remaining ones.
-
-> Best regards,
-> Krzysztof
-
-Thanks,
-Cristian
+I don't understand what's happened here.
+include/linux/soundwire/sdw.h provides inline dummy versions of these
+functions if !IS_ENABLED(CONFIG_SOUNDWIRE) so how can they be
+undefined reference?

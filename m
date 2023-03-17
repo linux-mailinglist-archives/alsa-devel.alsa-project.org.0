@@ -2,98 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A87E6BE161
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 07:40:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01AF96BE304
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 09:21:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B768FB6;
-	Fri, 17 Mar 2023 07:39:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B768FB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0F1F76;
+	Fri, 17 Mar 2023 09:20:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0F1F76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679035200;
-	bh=YdzJtfVv/f8E0Pw5lfKJZk1i185rf+CEnK0xP/V7oBo=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=FN2S1wr9psv+5Z6PXB4B4qzsJM9H5R951YtW0jEqbzHiEqSShOQ7RYXBWTaJlz2gr
-	 80PMvXP9MLdhcJd+qKYZ46XquMwenZLZk6MPx33PrdMCN+GwdersU7Ro+zi1qp0iMV
-	 +3bk3np+6pXyeSbFT36AIKIoFcB8KnYz88TjpxQk=
+	s=default; t=1679041297;
+	bh=0QPMfZArZ7rWYmRbFni+eqOM4l0z7dd+4iFim97ZmzQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=MO3Gnh+Z2QvYQljeJbpQcdnLaHUtgGerbLnmez3+h9lH+c0bgVbUS/vp9UfoYU/Rm
+	 CbBYoJzgS61/Ismydaw+BXkd/W2FWnkJG5Fmjx350TK4WisV+9X5WPBMfEQVFIDs+S
+	 /TAvJVYIy2yn0wy641FHV8O0+DfhZ7vBdH+HJZ7s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 969FBF804B1;
-	Fri, 17 Mar 2023 07:38:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD885F8032D;
+	Fri, 17 Mar 2023 09:20:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6787EF80425; Fri, 17 Mar 2023 07:35:36 +0100 (CET)
+	id A86EAF80423; Fri, 17 Mar 2023 09:19:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0CE2F80272
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 07:35:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0CE2F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1AFD4F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 09:19:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFD4F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cZvFlPbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679034929; x=1710570929;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=YdzJtfVv/f8E0Pw5lfKJZk1i185rf+CEnK0xP/V7oBo=;
-  b=cZvFlPbdUZmw3XEilu9awb+W9h5xXNL6JTxKxOzvf3cPZh0udKagelpU
-   G+urzrEIB9qd7tCOLae88F5305rQRfzD8zAE8QAYpa82EtJVqVFXgzPEX
-   raxhULrnFj3Gxto3Vg5BfyYjvgX6vQ4ighNAeJCRDOd9+TMpb7z93gMLT
-   lT1WTQmc4CUahwCRqR/oviCfuZrKQSw+BZPtfTjE/gTI3ShcVjql1Ssw7
-   GHOXuW2mWCTRTzL08e/w7QlvsN7TYMeEFP+ZaRXJhOlPoC1DTt7piBZHI
-   qPHTGL33arpm4OCKdjN7lsJdRNxAsUmfGNKNZHLFuPjhFRnDgmKxd2td3
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="340559385"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400";
-   d="scan'208";a="340559385"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 23:35:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="823544008"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400";
-   d="scan'208";a="823544008"
-Received: from kshutemo-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.221.123])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 23:34:58 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH] ASoC: SOF: ipc4-topology: Initialize in_format to NULL in
- sof_ipc4_get_audio_fmt
-Date: Fri, 17 Mar 2023 08:35:24 +0200
-Message-Id: <20230317063524.8280-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.40.0
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=WuHwb10j
+Received: by mail-ed1-x529.google.com with SMTP id fd5so17223284edb.7
+        for <alsa-devel@alsa-project.org>;
+ Fri, 17 Mar 2023 01:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1679041152;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5xqxJ/Errvh7wTgkyukFgXhpHkQvHOoUf0yySqdZXEc=;
+        b=WuHwb10j4ZxrwbpDxJqZm1zFX4l3Ic3OXIYvg3IoG4vH8Dxg/a3knpSIJn2vjYdJ55
+         zECsKris+3Wy4AosfG5m6uXFaWDmPjLH5cXynqreGAyEmy6Ho//IpEiICB3A4SgimERU
+         33EHFCjKrpDzJMdgsMivryFfzJAlO8A84MfizU66pMLS/suklD8GJh3EoBI6dV9LsJEk
+         9vJ9Io2Ymh0WHcHrGzzxB7QcgYshT+InI0GoIRG3ZYIREXDhiWOVKTKKyr8ikjFazVXl
+         xKYJqGZp59mteUhzHTlo+73wZXERUsy/nwBvLT824vetfRU8nFFwW6NXq5ZHkcgGaEF8
+         Ok4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679041152;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5xqxJ/Errvh7wTgkyukFgXhpHkQvHOoUf0yySqdZXEc=;
+        b=r5rEirn0zvqfhPL/uVT8uNWtJna7AI3wR28g3LgRKr+sGcyFjk/JBc+GwczxJDifjq
+         cUwH+uF854k4rfGawS+puTiZHU5j803AkVcE0/StLnbnid5VIg9/b2yYnOPPpwfiCFT0
+         qtVA0ZQsBbZVs2bW/OI1cY4ms+VYpvkJwHEfcJ1EtpxV+ZFyX8G8Pc9N5o2bJglYNFVI
+         x7mdWBC+ARIJADti/IQrvnM/T1DgvunCHW9ecGw37vVd3gVi85kdlK4RtaSg6f+03UB5
+         4IyYJpD+T9jGn4n6xskqUoWokoGJhE2sPkIQJ2YZI35zvyjavVbH//K/AS5wP8bLXvZ3
+         x8dg==
+X-Gm-Message-State: AO0yUKVZM/Omd9niymn0eUWB8FoVHoEbXxoM1zc0PLF2t9tBVyOmfNpY
+	yB6/CusXuXRKHkMNsoP7tLDo7A==
+X-Google-Smtp-Source: 
+ AK7set+GY5sRcdwV9p/Ih5m6RTtaxAHA+cQleoUzhIWWZQ+nikjFfQYvaJcuYuAuJa25hiouXcahzw==
+X-Received: by 2002:a17:906:8393:b0:8ae:f73e:233f with SMTP id
+ p19-20020a170906839300b008aef73e233fmr14594869ejx.32.1679041152263;
+        Fri, 17 Mar 2023 01:19:12 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:848a:1971:93e0:b465?
+ ([2a02:810d:15c0:828:848a:1971:93e0:b465])
+        by smtp.gmail.com with ESMTPSA id
+ x23-20020a50d617000000b004fa268da13esm722779edi.56.2023.03.17.01.19.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Mar 2023 01:19:10 -0700 (PDT)
+Message-ID: <976e4d20-fa9a-bbdc-396a-62775eb347fc@linaro.org>
+Date: Fri, 17 Mar 2023 09:19:09 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3 2/2] ASoC: dt-bindings: renesas,rsnd.yaml: add R-Car
+ Gen4 support
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+References: <87ttzq8ga4.wl-kuninori.morimoto.gx@renesas.com>
+ <87sffa8g99.wl-kuninori.morimoto.gx@renesas.com>
+ <b2810924-169d-0bad-8f20-6ec2e683d170@gmail.com>
+ <87a60c6z3w.wl-kuninori.morimoto.gx@renesas.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <87a60c6z3w.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6IIQRBQ6NII4FPICS4XIXAW46WHBPJ6C
-X-Message-ID-Hash: 6IIQRBQ6NII4FPICS4XIXAW46WHBPJ6C
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Message-ID-Hash: ISZZTA3VJSRT2HWZ42VPBE4R3HELQPIN
+X-Message-ID-Hash: ISZZTA3VJSRT2HWZ42VPBE4R3HELQPIN
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com
+CC: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Linux-DT <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6IIQRBQ6NII4FPICS4XIXAW46WHBPJ6C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ISZZTA3VJSRT2HWZ42VPBE4R3HELQPIN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,35 +128,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If the available_fmt->num_input_formats is 0 and there is a failure during
-the output format parsing then a kfree() would be called on the
-uninitialized in_format pointer.
+On 17/03/2023 00:44, Kuninori Morimoto wrote:
+> 
+> Hi Rafał
+> 
+>> Hi, this patch seems to add errors for me. Are my tools outdated or is
+>> it a real issue? See below.
+> (snip)
+>>> +  #--------------------
+>>> +  # reg/reg-names
+>>> +  #--------------------
+>>> +  # for Gen1
+>>
+>> This seems to cause:
+>>
+>> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:282:4: [error] missing starting space in comment (comments)
+>> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:284:4: [error] missing starting space in comment (comments)
+>> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:339:4: [error] missing starting space in comment (comments)
+>> ./Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:341:4: [error] missing starting space in comment (comments)
+> 
+> Hmm... I couldn't reproduce this
+> 
 
-By initializing the in_format to NULL, this error can be avoided.
+It's visible on current next. I'll send a fix.
 
-Fixes: 7ab6b1e8302c ("ASoC: SOF: ipc4-topology: Modify the type of available input/output formats")
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/ipc4-topology.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index e7b3bdc95dd7..2a2c4cda63fd 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -179,7 +179,8 @@ static int sof_ipc4_get_audio_fmt(struct snd_soc_component *scomp,
- 				  struct sof_ipc4_available_audio_format *available_fmt,
- 				  struct sof_ipc4_base_module_cfg *module_base_cfg)
- {
--	struct sof_ipc4_pin_format *out_format, *in_format;
-+	struct sof_ipc4_pin_format *in_format = NULL;
-+	struct sof_ipc4_pin_format *out_format;
- 	int ret;
- 
- 	ret = sof_update_ipc_object(scomp, available_fmt,
--- 
-2.40.0
+Best regards,
+Krzysztof
 

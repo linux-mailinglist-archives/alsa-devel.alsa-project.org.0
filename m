@@ -2,35 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C1E6BE621
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 11:00:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B2406BE685
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 11:22:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90437F66;
-	Fri, 17 Mar 2023 10:59:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90437F66
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC7B3F85;
+	Fri, 17 Mar 2023 11:21:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7B3F85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679047234;
-	bh=OytFPUYPssWwpQ1HAmRQNoIu0duhnCPdZNUZ+cUZbwc=;
+	s=default; t=1679048564;
+	bh=ef/tNNf4nIJM52fPRDKXTjFtKh6NtDvsmqD3B4umWcA=;
 	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=btC4QcTn30nbAvWD2KtAeQBLs7OsAVQZ+4S4vmgQWZJg8mewENLSag5laHkf1FJqg
-	 ofH/5AXBBTDuHuIu8YeNTP6CUdErhRbOE01wQ+LU4aHw+a3G0pybYlDCQVFuYNd6Uw
-	 f82MpNdNAXKxd+3a7aYIJ5EIE5wlBp3E4H/B43ec=
+	b=oTaciK//EFwbMjB7I3kQg+OUWawUaihNlSHqWRY4FNPWvhGkSaGPJNcRF3galEnAc
+	 jht7q1KLilHuXUOuQ7YQjpsvBIJn9FYL2ypjpreg/dgNfFjU5u59hlSRK864BJZeH5
+	 hyRwq5AlqWBEuq/9P8hzOK/XTwT0u/03POGlk9JA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10404F8032D;
-	Fri, 17 Mar 2023 10:59:44 +0100 (CET)
-Date: Fri, 17 Mar 2023 11:59:27 +0200
-Subject: Re: [PATCH 01/11] dt-bindings: firmware: arm,scmi: Document
- assigned-clocks and assigned-clock-rates
-To: Sudeep Holla <sudeep.holla@arm.com>, Rob Herring <robh@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTP id 20B70F8032D;
+	Fri, 17 Mar 2023 11:21:54 +0100 (CET)
+Date: Fri, 17 Mar 2023 12:21:41 +0200
+Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
+ dma-names order constraint
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Cristian Marussi <cristian.marussi@arm.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Daniel Drake <drake@endlessm.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>
 References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-2-cristian.ciocaltea@collabora.com>
- <20230316203417.GA3833267-robh@kernel.org>
- <20230316222619.r4jzk3lzdxzamr2s@bogus>
-In-Reply-To: <20230316222619.r4jzk3lzdxzamr2s@bogus>
+ <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
+ <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
+In-Reply-To: <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -42,7 +52,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHBQPRPNA3VM6UYA43PEZITEWK7WKLF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -52,21 +62,10 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167904718351.26.14947123162997910308@mailman-core.alsa-project.org>
+ <167904851367.26.16449705310108549543@mailman-core.alsa-project.org>
 From: Cristian Ciocaltea via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, kernel@collabora.com
@@ -74,7 +73,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B6B8F80423; Fri, 17 Mar 2023 10:59:39 +0100 (CET)
+	id 21928F80423; Fri, 17 Mar 2023 11:21:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -84,53 +83,61 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ACA89F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 10:59:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA89F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92053F80272
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 11:21:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92053F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=YVYud1Tu
+ header.a=rsa-sha256 header.s=mail header.b=bzQBHJvu
 Received: from [192.168.1.90] (unknown [188.24.156.231])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 6A95F660309E;
-	Fri, 17 Mar 2023 09:59:30 +0000 (GMT)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 41CFA66030AA;
+	Fri, 17 Mar 2023 10:21:44 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1679047171;
-	bh=e/KIg4k8GoTPg3uxt66ysJDkUFF6y215cPiS3F7Sts0=;
+	s=mail; t=1679048505;
+	bh=Dm30hfUK/ZdXDVg1rCbXsR0BnwH4IRiPfIqA2q405Ls=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YVYud1TuEBVXmXkXbL84ROVSh+8LrsQTp9qsY/suO+Mi2ohhnI2YrqfBzGSWxqZ3R
-	 NzAnEKiPbXJHeHOq1MSFLtlj37ZTtCQWzFsaKy3tZTgFLDy+mPxjENInrPX7gJHkc8
-	 TDovH0xsLRqc19bzi9A1g5LafgzL1/Ya0GWhG/g/dUw9I+ZUufmc3VA1HsPyZLgoRm
-	 CC4jb2MnVPSKJUA8MAfStC248ug82iwQGT+huw6WSr6kzA+7MagnRGk/AixlrGAZS5
-	 uo4fNU+QOW9if3no+vYTaNJixrIzEKtRiDk6xg5MKbXEX2Sl79TKml8dmtwAXQ8nqe
-	 0MzrDkENAOKDQ==
-Message-ID: <d5881d9f-90cc-f7a2-72a3-0701348a03fe@collabora.com>
-Date: Fri, 17 Mar 2023 11:59:27 +0200
+	b=bzQBHJvu17Oeth8lZ8Cb+nujPSlPj2BwvCf4/6emcigFdBmI9bCTs8qtiWzTIq9tb
+	 Ff/Drf9RarmfQ5751LBrwjCkRpywYybDTwWmNLaVbDURC9T2FVLIif8LBQ67tmu3dx
+	 ngL2z79aAh2AK9RRG9p8uhI0jDpDPHx9iLWrhSGQ2C20WwljgXDM68svaFZej+nlFE
+	 dD1JpzcuMCGrxsH4i8UZsi+H7wl109GAhv0KNlWoa3uHQp2AZ9Gxn6hRUwk2Tke86g
+	 Try3mpmzEEAsyktX6rpRPT9EOvDOTruIBOTtWce/s02dAynoQ7WydXYhzgDAns5GvA
+	 HaqmPo236G4gg==
+Message-ID: <8ae57fe3-56aa-7e50-3eaa-a12a40657baf@collabora.com>
+Date: Fri, 17 Mar 2023 12:21:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Subject: Re: [PATCH 01/11] dt-bindings: firmware: arm,scmi: Document
- assigned-clocks and assigned-clock-rates
-To: Sudeep Holla <sudeep.holla@arm.com>, Rob Herring <robh@kernel.org>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
- <20230315114806.3819515-2-cristian.ciocaltea@collabora.com>
- <20230316203417.GA3833267-robh@kernel.org>
- <20230316222619.r4jzk3lzdxzamr2s@bogus>
+Subject: Re: [PATCH 02/11] dt-bindings: serial: snps-dw-apb-uart: Relax
+ dma-names order constraint
 Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Cristian Marussi <cristian.marussi@arm.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Daniel Drake <drake@endlessm.com>, Katsuhiro Suzuki <katsuhiro@katsuster.net>
+References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
+ <20230315114806.3819515-3-cristian.ciocaltea@collabora.com>
+ <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20230316222619.r4jzk3lzdxzamr2s@bogus>
+In-Reply-To: <3679f2d0-55f0-1710-abc2-b268b6fc6969@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RHBQPRPNA3VM6UYA43PEZITEWK7WKLF7
-X-Message-ID-Hash: RHBQPRPNA3VM6UYA43PEZITEWK7WKLF7
+Message-ID-Hash: J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ
+X-Message-ID-Hash: J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -138,18 +145,7 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Stephen Boyd <sboyd@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+CC: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, kernel@collabora.com
@@ -158,7 +154,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHBQPRPNA3VM6UYA43PEZITEWK7WKLF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2J42LLB26HCCDGC3GNF7D6UZFGBVQTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -167,32 +163,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 3/17/23 00:26, Sudeep Holla wrote:
-> On Thu, Mar 16, 2023 at 03:34:17PM -0500, Rob Herring wrote:
->> +Stephen
+On 3/17/23 10:31, Krzysztof Kozlowski wrote:
+> On 15/03/2023 12:47, Cristian Ciocaltea wrote:
+>> Commit 370f696e4474 ("dt-bindings: serial: snps-dw-apb-uart: add dma &
+>> dma-names properties") documented dma-names property to handle Allwiner
+>> D1 dtbs_check warnings, but relies on a strict rx->tx ordering, which is
+>> the reverse of what a different board expects:
 >>
->> On Wed, Mar 15, 2023 at 01:47:56PM +0200, Cristian Ciocaltea wrote:
->>> Since commit df4fdd0db475 ("dt-bindings: firmware: arm,scmi: Restrict
->>> protocol child node properties") the following dtbs_check warning is
->>> shown:
->>>
->>>    rk3588-rock-5b.dtb: scmi: protocol@14: Unevaluated properties are not allowed ('assigned-clock-rates', 'assigned-clocks' were unexpected)
+>>    rk3326-odroid-go2.dtb: serial@ff030000: dma-names:0: 'rx' was expected
 >>
->> I think that's a somewhat questionable use of assigned-clock-rates. It
->> should be located with the consumer rather than the provider IMO. The
->> consumers of those 2 clocks are the CPU nodes.
->>
+>> A quick and incomplete check shows the inconsistency is present in many
+>> other DT files:
 > 
-> Agreed. We definitely don't use those in the scmi clk provider driver.
-> So NACK for the generic SCMI binding change.
+> Why not fixing the DTS? The properties should have fixed order.
 
-According to [1], "configuration of common clocks, which affect multiple 
-consumer devices can be similarly specified in the clock provider node".
+I was initially concerned about the risk of a potential ABI breakage, 
+but I think that's not really a problem since dma-names is not directly 
+accessed in the driver and DT Kernel API doesn't rely on a particular order.
 
-That would avoid duplicating assigned-clock-rates in the CPU nodes.
+If there are no objections, I would switch the order in the binding to 
+tx->rx, since that's what most of the DTS use, and fix the remaining ones.
 
-[1] 
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/clock/clock.yaml
+> Best regards,
+> Krzysztof
 
 Thanks,
 Cristian

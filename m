@@ -2,33 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C35C6BEA98
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 15:01:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83076BEAB8
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Mar 2023 15:09:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 328F4F5B;
-	Fri, 17 Mar 2023 15:01:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 328F4F5B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00EDAF67;
+	Fri, 17 Mar 2023 15:08:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00EDAF67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679061714;
-	bh=bcou5y7SreZAKKabfRBa7pMhSvsNhYs0seVjV2tghuY=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1679062153;
+	bh=1k4ExcCQDDcAeZlFdpBatjTRv7COF4iRvM1hSyJesbc=;
+	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=nt4DdH6CvkxQXjWk3GvDVyg7e6WIi+kvTRhlvHRHmLDI0aRKrr+PXrjjn+6WAsSkl
-	 9zu8Hc1d3jvf3THE+ugUSKnHGPSY6EMHlE+6789J7SoRZxxt/JOcbH9yKlj24rsgID
-	 dhjmI5UdAIF6IhjDKzJXrza3rDKA/Iu5njQ3pSEE=
+	b=Aip3T1C6x/DLtGslXYALZFrkOTGCLiFxkr33tynNIzMPLnuGMLnqsqi3TgWdoib9H
+	 SNuDMZSkBggovP5klNcGxX9w3naBSKayP8a+C4ugBnzRp+4/tzRGEKBX9tjwl5T0d/
+	 eNuZNdjbgoKk/hX4tNXR75Emk3OiVL+hMKT4NJcY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97C54F8032D;
-	Fri, 17 Mar 2023 15:01:03 +0100 (CET)
-Date: Fri, 17 Mar 2023 19:34:18 +0530
-Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
-To: Vinod Koul <vkoul@kernel.org>
-References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
- <20230307133135.545952-3-Vijendar.Mukunda@amd.com> <ZBGTDXJvVjVuUkiZ@matsya>
- <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com> <ZBRsX7W4l1HyT44y@matsya>
-In-Reply-To: <ZBRsX7W4l1HyT44y@matsya>
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A54BF8032D;
+	Fri, 17 Mar 2023 15:08:22 +0100 (CET)
+Date: Fri, 17 Mar 2023 14:08:07 +0000
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to
+ handle page boundaries
+References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
+ <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
+ <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
+In-Reply-To: <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -40,7 +41,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -50,165 +51,97 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167906166283.26.7234443636305492316@mailman-core.alsa-project.org>
-From: "Mukunda,Vijendar via Alsa-devel" <alsa-devel@alsa-project.org>
-Reply-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
- Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
- claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+ <167906210132.26.2857505700065614255@mailman-core.alsa-project.org>
+From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D669F80425; Fri, 17 Mar 2023 15:00:57 +0100 (CET)
+	id 99002F80423; Fri, 17 Mar 2023 15:08:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::630])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 038DAF80272
-	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 15:00:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 038DAF80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E867F80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Mar 2023 15:08:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E867F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=lkgAymEP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f0CJkudvj2j6CMpjt4zUyo2eoyIewaXoMG+wFQKBihuB99AJ7kX13Nqs5U6uaOf1fzRRVLRSyLzfvr0qZxQKk0msEhzFT0yxCbBhHKzO7rB/UDV222y0e3H8A9qssdCihsszxGCU95z1lKag7L0wKt1/UcbdnJQEk1reWFOIphE09swWedKyyRFpJqq7BUHRPB1bOr9csrE2WW1CnbnhSchnXGtgMFGgWsU976ma23/Dl57h68ZWiBjENMkpvU2ZMcj7i3x0pOs/1fO7raZkP2fL+Da9byqrqQ1MzJCKkJDM5Ky5lMwgF+UYtvGxdSOhO/pO+GtKvTXbXQEDCoz8rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mgSe9oXsGjAzeKLsGpTW+b3uyngs/KyrcUQnjQ6l2+I=;
- b=DahnqaFh9MvUbxj2ZciyXACxU1b8L4sEoZKiyc4b8J067ixDSR4IJMBfMPIiWMJAAeGXFdRHHmp4L10+QY2X7xYI44WQFpVPjcjwdGEqwkcUfcO1Yo8QhVnPG2QM5cr+vCOmxkljtw+Vb8Xm6XLysSXsZ05YU+pzUjL9AA552AUQDWCJz5b24z+lPJTQE+K/IZRZ/eXM9N2Km9i5pUGFjGulF3yix5P4UK0HvnwJCa1My/WUWohLfaOtyMONdmKUapMDNPoybIvmABs3YPbzFcZxsX1HW/MuZbufNHuTFC0C8zhk1lPlJmlHXvt5ngFw0kLX4cwQZbxgvzT1HCct5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mgSe9oXsGjAzeKLsGpTW+b3uyngs/KyrcUQnjQ6l2+I=;
- b=lkgAymEP7K9uNyBRQQ7MR+JxHGa1xdL8riDmnjgqXAiweeOE4T5KkbeByQC8mgGkUV8A+Htkwi+zGuVOcfUiATZ6iOa7kc4umc9akmFgYY4J1zllN0RdYPYwzGMrZ2aIX6wqL+g7ulLztMcPkhGLYP1dP0mUQU2E+h8OPxjFVyw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by IA1PR12MB8238.namprd12.prod.outlook.com (2603:10b6:208:3f9::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Fri, 17 Mar
- 2023 14:00:36 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::e4f3:9509:c6ee:41cb]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::e4f3:9509:c6ee:41cb%4]) with mapi id 15.20.6178.035; Fri, 17 Mar 2023
- 14:00:36 +0000
-Message-ID: <f30689fb-3fd8-b76a-f614-0aa2c4719327@amd.com>
-Date: Fri, 17 Mar 2023 19:34:18 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH V6 2/8] soundwire: amd: Add support for AMD Manager driver
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-References: <20230307133135.545952-1-Vijendar.Mukunda@amd.com>
- <20230307133135.545952-3-Vijendar.Mukunda@amd.com> <ZBGTDXJvVjVuUkiZ@matsya>
- <7a7f5d93-d6ec-5ad1-9927-7ac4b6d9a643@amd.com> <ZBRsX7W4l1HyT44y@matsya>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <ZBRsX7W4l1HyT44y@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0030.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::35) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=n4v5zv0M
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32HDk5Yo002807;
+	Fri, 17 Mar 2023 09:08:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=H4ggXK1Md9Bl/gFWgbNqPW1hTdT0QlUPDN7cqK9juWI=;
+ b=n4v5zv0M9zrOnUE26M00QfQkUPac50atub66LqY8vWDeKUV/g1T7AeLTAhYxDknJeLUA
+ KQOrxH0wDJHF7Mx195dXT4pA+ePcOpABDqAPgbOOpT2GjrEMxXuCWYJK8mo8IbWbznk9
+ JmSIzHOtGEx1Hq2yWfr7mcnKf4OBlp2D7DR2R3E+MW+L/OXOCaLfF3DUqsOFfHgoqwuQ
+ dB9iWzhmTBHa79a44tgyJBCt1Gxspvpqs6yh+E+7yRrQBuuahSdy3T2QZreJUGXmXluA
+ 8/moZ0jWjO0hA8QxtoxpvqKSHWH2nShlu0/8QBOugTNd5MgjnO2f2IlMuquB+Rz7/eQU dw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pbs2ntj82-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Mar 2023 09:08:08 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 17 Mar
+ 2023 09:08:07 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Fri, 17 Mar 2023 09:08:07 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3269711D3;
+	Fri, 17 Mar 2023 14:08:07 +0000 (UTC)
+Date: Fri, 17 Mar 2023 14:08:07 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 2/2] soundwire: bus: Update sdw_nread/nwrite_no_pm to
+ handle page boundaries
+Message-ID: <20230317140807.GI68926@ediswmail.ad.cirrus.com>
+References: <20230316155734.3191577-1-ckeepax@opensource.cirrus.com>
+ <20230316155734.3191577-2-ckeepax@opensource.cirrus.com>
+ <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|IA1PR12MB8238:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c0759f1-ce67-4829-7a9b-08db26effb3d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	8o1G6K+UqDEIZd5tzikuANIrfyjy/0q4gj4GpVZXrOldT2zq0h1xxBW44gHykx06n+hA9tnL1PLyRyZCwN0qjlHyrozQWCiWNkuLCJoof9VlLz3ayukCDud+IhPQnqz7Wjkq/zIrF/0vATp5Bz5PQO6K3S4Uc83stKQQJWWJiWDCzBXG070k0zKFM8CHOM6dELKGlYChQL1NR8Zg/JG+UUr3vCgcRZafpsVgK6ywgIeTwjpLAo4S1rpseOGZ4QO/Qoyag7rcAcyeaULbcpA3XpafdeN62syDJbfze551ytqWBl+dawU1lCE7zvznL4UR8VJbnwVPJCgvLY6zXZ6MMY9+jyq5rsupxJ7UjktC5V1yPRCh2oGiHWb5LnxNzZPCFVaoV3cbARAvu/jTQhTvifENQAWLxMUuOancveDI4kqmvaP9EQlsagsD6wu1dkf35SR64ZEbyIbrC3FEZt2FcLSHcIiOjwtF7S/vA6Z36JcbcWfm6V/IAJOIfggVARCiqaQop/25Sva7SHHUZsQA2vDAwUDd+PbSkKa40Ljgngv5bejGYIvkr5U5ZmF/BzM9aEEXQfCp5EwI8JBeozvJ9KRVEGmk0gIO4ai7cJ7Vt4UljGOKPIURUI4ja7jxKQSn7vM7av3VoLobrSNNhIN8BCzBGrd2M+MxqIKRqLPgeTsh34yousryRMIfDhIGCbu1g1BobNjMDsuEDFbklHv/yt7tBhk3Vu9mH5VRWrr5juU=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(366004)(346002)(136003)(396003)(451199018)(5660300002)(38100700002)(86362001)(41300700001)(36756003)(8936002)(31696002)(2906002)(6666004)(4326008)(6506007)(53546011)(6512007)(83380400001)(26005)(2616005)(186003)(316002)(54906003)(478600001)(66476007)(966005)(66556008)(6916009)(66946007)(8676002)(6486002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?dUVJQm8yZWhyL1NIRWJ6em4zYTRwdkxjZjlJN2xhdkxtcE4yZXRSZ2pRdk01?=
- =?utf-8?B?RnM0eTFXYXFCbFJEYm5ZTnlleU9GMUkzOHFDQUV1a0Z5QjN5S0V0NktxSFY3?=
- =?utf-8?B?UUtvNzhIVm1kTGljK0Zzd1I0VTAxd1JtRHoxSXRsd2pmeE5oc2dzZk5Ea05V?=
- =?utf-8?B?bkdxVGtid1pIaE5EcHBueXh5T0N0N2o1OUFMTE5icmtOYS8rMEpqT1J6aGNw?=
- =?utf-8?B?M0hRQ0o2K1ZqbWFBc3NkM3ZDdzR1WjVKUUtieFpjdGpjd1Y4eVNSS0IxR1lz?=
- =?utf-8?B?NTJPc2hPUmhjblRkTERhYVF3cXR4cmlTdEJEUDlHQ2Z1RnZ0UVNBQTlLT0cv?=
- =?utf-8?B?dXBFREQ0ZVgrY28zQ1VNbDNldUUwTGNXMDB0VHI1V1JQVGlCWnlDcGpsWkxp?=
- =?utf-8?B?dUJ6ME9tWkJtczFteG12WlF6MXRyVVhFSzE4ZzZuendQdlBiS1VhYi9BSlRh?=
- =?utf-8?B?enEvM3NEZExuQWtSR3dvZGNSUDdSVk1CcGhwV0pCR3B1b2xtaW5wMlVVVSsv?=
- =?utf-8?B?NW41ai9IZlFhcE1pbTNFTmd2aHlnT3VkUTB6RklTZG1ZVHJja2hJbjlBdHpY?=
- =?utf-8?B?YTNLUFUvVDhsc3ZvS095ZGxxWVBjdkNNK0hhOFhjeGt0SGJ3TnBxZHJiQzYw?=
- =?utf-8?B?ODdyYmprOGc1T0JXTC9ocGtINWFWSmpEUlFhNnl4cldWZ3FBRWk1clhoSTRo?=
- =?utf-8?B?S1RjdDBmZHBTeTJoSDZnZEErS2pKYWJPTWkxbk5yc0dXVzl0SFkxYzh5dTFo?=
- =?utf-8?B?N1ZZd2dCQzV0SzFmcUJxeFFLZmErWnlSSEk0Y3l2UlI2Q20wNHpsREZ4SVdo?=
- =?utf-8?B?Zk5zU3JVNFZ1TUNaN3lPd3Q2a2laYWNxeHVTbm5tbmw2UXV0WVQxV3lGZ3pK?=
- =?utf-8?B?dDRpRDM2R1kzSkJwV3RxemJnaUFIOEgzM015TFNDSkdOS0hzQUxtbmovVFJ1?=
- =?utf-8?B?aGRxNnV3ZGh4cktsL3diQjJJTU9Pa285ekVVMW9hU1Iwd0ZlbHdsQzIxV2pB?=
- =?utf-8?B?Z1lFSTRRSDBvaThlVEZLbklxb09lNlRYeWpHY1ppK2dyQ094Vm9BaFZCYnRJ?=
- =?utf-8?B?TkxXc0xDMXY1a05KQlJtRXJoM1JSM1ROLzFzTWlmeEl0MzhvQ01RL3RkVnRN?=
- =?utf-8?B?bGxpd1lZb2h1MUdPYXdNenBSZUpaQktVODlvaWZ2Mk1uckREMCtPOVpzK1E5?=
- =?utf-8?B?S05RRzBSVUxzQkYwMCtFVlU5cmtRdE5waVk0R0hyNHhnL3F4TnRKWmpkRlJv?=
- =?utf-8?B?dkVLQWJ3OW5sNmswdGJ3WEE1UVJiQmpOdHZ2aFZWWDJDRUFpSkdnZUh6eEhQ?=
- =?utf-8?B?Nnd6dEYvUSsrZ3MyWjdMVzU5UjNoUys3ZkFJcmtYNGM2eUJMMThYaGVSTWdt?=
- =?utf-8?B?TVZXQnJsUmc5ZGpMYkdmY3VQbklxSWgvc3JGQ2ZnTk80M0dtNlRLNmhWVStU?=
- =?utf-8?B?R1l5OStRZnljRXVSd0piYVhwSnZmN0dBTVBiUVYzOFBxNm1GZWdxc2d4cmJH?=
- =?utf-8?B?a25RRWs0N0oxbEVlbEU5OVdGdEUraWsvd0Z0d3ZROXJQZFdLSjF1Mnk1dys2?=
- =?utf-8?B?VHNpNCtJVWhmOUY1a2RFTFdZcjhReHhxNDlZcWE3RHRSMTUwMHhmeDhsQUM5?=
- =?utf-8?B?V2NTV2FFYWNUZmtGb2xHdUUreWRidG82UDRRS1B4ZExyRXJnMEd6enRSOWpt?=
- =?utf-8?B?TnB5U3I3ZVRGU05QbnpyMmlnWnlhcHRlcm5hSXEwZ3JpUW01akRBOWFRTlhW?=
- =?utf-8?B?dk40OHlyQ3B5Slp2Q0FWQUNlMWNhdjhpcHJwTXgvUzg3V0ppcVM5cXhCNzVM?=
- =?utf-8?B?enN0bVRSdWRZc05pbkNTUnVWRVZIbmJsemN2Nk1GazBqYndZOEJ4ZFVLTC9u?=
- =?utf-8?B?NG05NlBGRFkzUmNFQ0sxVTh3ejQvQndmSTZocUJQcFY4MW8vNUJLaHdkK0py?=
- =?utf-8?B?UFlML1dLd0xqRzM4b29FY1JoUnR5aVdtK2gzVXcwbjZucXdmT1dRZjVtTWI3?=
- =?utf-8?B?UzQvRkprbndxeFoveThQTUNyWVRXMDk0TmVZSXhodGw3N0VNbEE4RVBKZjJm?=
- =?utf-8?B?R3VXZnQ5Y3lQNFFJL0Q0dTlwZ0J5ZW5yaW5oZmJkTkNYK0tTR0kxNkduVWt4?=
- =?utf-8?Q?9nD2aikClezmPY5QKZqspGFYZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 2c0759f1-ce67-4829-7a9b-08db26effb3d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 14:00:36.1268
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- EZUbEHJE2DihQbNMmz6oae4pb0HNIkgTa4FW4z3DGK6BAwcSfK7X0AlO5i8UhW5VcXyt3eZvq/XVHI9uYyJmqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8238
-Message-ID-Hash: LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID
-X-Message-ID-Hash: LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID
-X-MailFrom: Vijendar.Mukunda@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <447cac77-4cc7-b2a3-23e7-978e1641a401@linux.intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: JMdtH2Aj5Hij6muQ-VxAE3SfVder22uf
+X-Proofpoint-ORIG-GUID: JMdtH2Aj5Hij6muQ-VxAE3SfVder22uf
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU
+X-Message-ID-Hash: I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU
+X-MailFrom: prvs=8440ae90cc=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Mario.Limonciello@amd.com, amadeuszx.slawinski@linux.intel.com,
- Mastan.Katragadda@amd.com, Arungopal.kondaveeti@amd.com,
- claudiu.beznea@microchip.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
+CC: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LECZTTCO3IGP5Q2V4VPZ5Z7D6JMKX4ID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2YTZHWTJTZSTHSU6CH6XXXX7WRJQDVU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -217,72 +150,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/03/23 19:04, Vinod Koul wrote:
-> On 16-03-23, 19:28, Mukunda,Vijendar wrote:
->> On 15/03/23 15:12, Vinod Koul wrote:
->>> On 07-03-23, 19:01, Vijendar Mukunda wrote:
->>>> +/**
->>>> + * struct amd_sdw_manager - amd manager driver context
->>>> + * @bus: bus handle
->>>> + * @dev: linux device
->>>> + * @mmio: SoundWire registers mmio base
->>>> + * @acp_mmio: acp registers mmio base
->>>> + * @reg_mask: register mask structure per manager instance
->>>> + * @probe_work: SoundWire manager probe workqueue
->>>> + * @acp_sdw_lock: mutex to protect acp share register access
->>>> + * @num_din_ports: number of input ports
->>>> + * @num_dout_ports: number of output ports
->>>> + * @cols_index: Column index in frame shape
->>>> + * @rows_index: Rows index in frame shape
->>>> + * @instance: SoundWire manager instance
->>>> + * @quirks: SoundWire manager quirks
->>>> + * @wake_en_mask: wake enable mask per SoundWire manager
->>>> + * @power_mode_mask: flag interprets amd SoundWire manager power mode
->>>> + */
->>>> +struct amd_sdw_manager {
->>>> +	struct sdw_bus bus;
->>>> +	struct device *dev;
->>>> +
->>>> +	void __iomem *mmio;
->>>> +	void __iomem *acp_mmio;
->>>> +
->>>> +	struct sdw_manager_reg_mask *reg_mask;
->>>> +	struct work_struct probe_work;
->>>> +	/* mutex to protect acp common register access */
->>>> +	struct mutex *acp_sdw_lock;
->>>> +
->>>> +	int num_din_ports;
->>>> +	int num_dout_ports;
->>>> +
->>>> +	int cols_index;
->>>> +	int rows_index;
->>>> +
->>>> +	u32 instance;
->>>> +	u32 quirks;
->>>> +	u32 wake_en_mask;
->>>> +	u32 power_mode_mask;
->>>> +};
->>> Does the manager need to be exposed to rest of kernel or users of this
->>> driver, is so why?
->> Currently, amd_manager structure being used in ACP PCI driver
->> (parent driver) and Soundwire DMA driver.
->>
->> In ACP PCI driver, IRQ handler we will use amd_manager structure to
->> schedule workqueue based on soundwire manager instance.
->> In Soundwire DMA driver, we need to retrieve amd_manager instance.
->> As per our design, we have fixed mapping. We need to use same set of
->> DMA registers based on CPU DAI ID.
->>  i.e if AUDIO0 TX port is selected in amd_manager driver
->> then we need to use AUDIO0 TX registers for DMA programming.
->> we have included comments for describing mapping in amd_manager.h
->> file.
-> Sorry not sure I follow, can you elaborate which members of above struct
-> are used by PCI driver?
+On Thu, Mar 16, 2023 at 01:46:57PM -0500, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 3/16/23 10:57, Charles Keepax wrote:
+> > Currently issuing a sdw_nread/nwrite_no_pm across a page boundary
+> > will silently fail to write correctly as nothing updates the page
+> > registers, meaning the same page of the chip will get rewritten
+> > with each successive page of data.
+> > 
+> > As the sdw_msg structure contains page information it seems
+> > reasonable that a single sdw_msg should always be within one
+> > page. It is also mostly simpler to handle the paging at the
+> > bus level rather than each master having to handle it in their
+> > xfer_msg callback.
+> > 
+> > As such add handling to the bus code to split up a transfer into
+> > multiple sdw_msg's when they go across page boundaries.
+> 
+> This sounds good but we need to clarify that the multiple sdw_msg's will
+> not necessarily be sent one after the other, the msg_lock is held in the
+> sdw_transfer() function, so there should be no expectation that e.g. one
+> big chunk of firmware code can be sent without interruption.
+> 
 
-ACP PCI driver uses "amd_sdw_irq_thread" structure member which was added
-in below patch.
-https://www.spinics.net/lists/alsa-devel/msg155118.html
+I will update the kdoc for nread/nwrite to specify that
+transactions that cross a page boundry are not expected to be
+atomic.
 
-amd_manager structure "instance" member will be used by ACP Soundwire DMA driver.
->
+> I also wonder if we should have a lower bar than the page to avoid
+> hogging the bus with large read/write transactions. If there are
+> multiple devices on the same link and one of them signals an alert
+> status while a large transfer is on-going, the alert handling will
+> mechanically be delayed by up to a page - that's 32k reads/writes, isn't it?
+> 
 
+I think its 16k, but I would be inclined to say this is a
+separate fix. The current code will tie up the bus for longer
+than my fix does, since it only calls sdw_transfer once, and it
+will write the wrong registers whilst doing it. Also to be clear
+this wasn't found with super large transfers just medium sized
+ones that happened to cross a page boundry.
+
+If we want to add some transaction size capping that is really
+a new feature, this patch a bug fix. I would also be inclined
+to say if we are going to add transaction size capping, we
+probably want some property to specify what we are capping to.
+
+Thanks,
+Charles
+
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > ---
+> >  drivers/soundwire/bus.c | 47 +++++++++++++++++++++++------------------
+> >  1 file changed, 26 insertions(+), 21 deletions(-)
+> > 
+> > diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> > index 3c67266f94834..bdd251e871694 100644
+> > --- a/drivers/soundwire/bus.c
+> > +++ b/drivers/soundwire/bus.c
+> > @@ -386,37 +386,42 @@ int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
+> >   * Read/Write IO functions.
+> >   */
+> >  
+> > -int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
+> > +static int sdw_ntransfer_no_pm(struct sdw_slave *slave, u32 addr, u8 flags,
+> > +			       size_t count, u8 *val)
+> >  {
+> >  	struct sdw_msg msg;
+> > +	size_t size;
+> >  	int ret;
+> >  
+> > -	ret = sdw_fill_msg(&msg, slave, addr, count,
+> > -			   slave->dev_num, SDW_MSG_FLAG_READ, val);
+> > -	if (ret < 0)
+> > -		return ret;
+> > +	while (count) {
+> > +		// Only handle bytes up to next page boundary
+> > +		size = min(count, (SDW_REGADDR + 1) - (addr & SDW_REGADDR));
+> >  
+> > -	ret = sdw_transfer(slave->bus, &msg);
+> > -	if (slave->is_mockup_device)
+> > -		ret = 0;
+> > -	return ret;
+> > +		ret = sdw_fill_msg(&msg, slave, addr, size, slave->dev_num, flags, val);
+> > +		if (ret < 0)
+> > +			return ret;
+> > +
+> > +		ret = sdw_transfer(slave->bus, &msg);
+> > +		if (ret < 0 && !slave->is_mockup_device)
+> > +			return ret;
+> > +
+> > +		addr += size;
+> > +		val += size;
+> > +		count -= size;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +int sdw_nread_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
+> > +{
+> > +	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_READ, count, val);
+> >  }
+> >  EXPORT_SYMBOL(sdw_nread_no_pm);
+> >  
+> >  int sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
+> >  {
+> > -	struct sdw_msg msg;
+> > -	int ret;
+> > -
+> > -	ret = sdw_fill_msg(&msg, slave, addr, count,
+> > -			   slave->dev_num, SDW_MSG_FLAG_WRITE, (u8 *)val);
+> > -	if (ret < 0)
+> > -		return ret;
+> > -
+> > -	ret = sdw_transfer(slave->bus, &msg);
+> > -	if (slave->is_mockup_device)
+> > -		ret = 0;
+> > -	return ret;
+> > +	return sdw_ntransfer_no_pm(slave, addr, SDW_MSG_FLAG_WRITE, count, (u8 *)val);
+> >  }
+> >  EXPORT_SYMBOL(sdw_nwrite_no_pm);
+> >  

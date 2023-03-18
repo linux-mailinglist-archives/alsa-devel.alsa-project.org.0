@@ -2,124 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9DA6BF6DD
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 01:21:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D319B6BF766
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 03:31:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9509BE84;
-	Sat, 18 Mar 2023 01:20:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9509BE84
+	by alsa0.perex.cz (Postfix) with ESMTPS id E90AF886;
+	Sat, 18 Mar 2023 03:30:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E90AF886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679098886;
-	bh=y74493xeE0HgYnNTkDZwLsBEunu1DEVlrQUkCz6YJpg=;
+	s=default; t=1679106700;
+	bh=GvmzAJef4m3BJVSEAGAssA83vtoA9QXJ2aaMijbn1ok=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=L7n90qu9e2PReTpAaiQDkNIvFCEZurFljlWNme+88488CHLBhlA1bBZcfRb77X6D2
-	 V7cy12k5HlyDbFXTUxmopIFxj1hBlfCabnYBuha4FUMwq4ybkYJt/so37SqY1xdJ85
-	 aO1UvXeIYJlJxS90Y9vAd2k2hJxBsDQX+yx6NTzI=
+	b=K2s1qb8zTeQQc44EEzETmNrJb6tH9Qe3Gmy1DaU0TRh0aGjhiDVQcJZznhLkx+IVI
+	 trU0qk55HjNpIYYSDlNjH6NlNBrXAUE+tsPZ64zy5kBUfG3ICj9+E6RWa30g3Azx4W
+	 svFWLSGH6/KSqCJ3cYEmf66PjZxeSmDTmOY64B74=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3DA1F8032D;
-	Sat, 18 Mar 2023 01:20:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 566A7F8032D;
+	Sat, 18 Mar 2023 03:30:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB5D6F80423; Sat, 18 Mar 2023 01:20:21 +0100 (CET)
+	id 78B28F80423; Sat, 18 Mar 2023 03:30:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B64EDF8016C
-	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 01:20:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B64EDF8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4F5EF80093
+	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 03:30:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4F5EF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm2 header.b=QQsazoCl;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=AHiaz+UK
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 053C95C00D7;
-	Fri, 17 Mar 2023 20:20:10 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute2.internal (MEProxy); Fri, 17 Mar 2023 20:20:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1679098809; x=
-	1679185209; bh=nX0oud/9S89MnfIUf3HEr5T2aFhtLvPiEe1qO71PwG4=; b=Q
-	QsazoCl5arG2jecd48M6hA/M6I5A7pE6CeDEVAbIhCAGF936IYBCYnWRU0es8d/e
-	7NKIV/AF1iI+oG3mxWcpnklf/GmOmM4oRXdV1yRxGcyE0584KI+YHUvGyRE9qo9v
-	yH+SIN2ykXwFZhyEunTnRbaC8DwiREPfM+21TBG54oBIPWVuOIdZIf5qJHCJS36U
-	92a3hiYz9oMWQnJ7MpUVBPkSrYa7dnxPoKnbIOLmlgFyW5pCBhGoOwg6cD4TzXRa
-	yud7AK3XuD8TPcm1sNSVC2hxWkApHiIgX80FLsP0YD1j1S2N29W9NwOfNtlV4mVG
-	EpRwKP7binTjYAO65kKCA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1679098809; x=1679185209; bh=nX0oud/9S89Mn
-	fIUf3HEr5T2aFhtLvPiEe1qO71PwG4=; b=AHiaz+UKQv7Bce7Cf1/M8DPnLOCsw
-	Gm7ahjBeSWkGwb/eDmJzb1J3p+NTRoJuOpxoTtf4MSYqxb1qkky9G8upGjOXTmct
-	nOBuiI2a6XDQ/GDQAMzRL9TpH46tgvaOYUD3OiWIYvo0lVbOGxkedx5yD3BuCiLj
-	NxA9CEVqYZdm/8MjiueDfnZzCysJrBuKkRwBQuxdGzu7OTgpyGUTYt61Swir/6Gz
-	dfMYtq3Jh/Ub9Kjp/zZoJ2OAHOby6Btsz6TadTxhg12UO/MOeivfZ7gsCUBJn6jr
-	Lvtg8PWvcqpQebXUpPfSfY8ea2pe4BGDkN6nsbv5gz+OP4Nw9s+rYgFpA==
-X-ME-Sender: <xms:uQMVZA5o38OaCFdcw29IZqvhsjbeeJHZdqrtjIjSxP_zlAISgVIQ3g>
-    <xme:uQMVZB7-eXZ2tBBZqOSGp20DsPKgn-e-rXiJzpBkNeDOuNP5KqNVb65iqH1QemkQR
-    Bn2Ct1hlOs4BQLonRA>
-X-ME-Received: 
- <xmr:uQMVZPd-SEuPe9HsOciV_kQYcGwo6QpxGyldUvAmBpI2cOLLopsP9LwzccezecLjBYxSF5y-rpx2oEeG-86-465h-S0>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrvdeffedgvdduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
-    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
-    hjpheqnecuggftrfgrthhtvghrnhepheffledvtdeigefhudehvefgveehgeeggedtveek
-    ueelfffhjeeghefhudegheeunecuffhomhgrihhnpedugedrihhnnecuvehluhhsthgvrh
-    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgr
-    khgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:uQMVZFJlh7J7WJ_aYvTbotp8ZpvjAxrS5Z7sCPeAZ6YoQsDipdBEsg>
-    <xmx:uQMVZEKUiWi9XygtZQWj5eaYKy1s5IbmxoMtHHymlrcbzI7FfsOybw>
-    <xmx:uQMVZGwIhofNBC58_2ulQpt9LsdVZrf8Ny8wLHVd_LryKKXxcLdHvA>
-    <xmx:uQMVZLUnJhUnNHV9hUFoQVOsqd3-LLJx7ZFGXaDyLRgJ143st4wlDQ>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Mar 2023 20:20:08 -0400 (EDT)
-Date: Sat, 18 Mar 2023 09:20:05 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: John Keeping <john@metanate.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=XAMpXpps
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679106636; x=1710642636;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GvmzAJef4m3BJVSEAGAssA83vtoA9QXJ2aaMijbn1ok=;
+  b=XAMpXppsjQzErn1JSoUdNAgPK0t0p7VO17aCGVjgPppjn9eDxfdF3Oo1
+   Hxmj+Ekn0wWlrdvOX5yWEtEY5Yr9s4Z3xENQnDqSIpZcu2iEleH8O13J1
+   GFPVtr3aX2I0FhrXuJz+wirncr2Yx3BxMpv9vka72fgb3A/Opny2Uk2rz
+   d9xL455sv/TYmnwTtKeajoSzXhcbBxY/VIf2KMTF6C4Apgqg3PMPEKRWp
+   kvJZZTie5cAYe8cw6ltIf/zpghzxrCXfiryK+T31sc+243yyZR0FewL6+
+   smn9gxwQADknHNKslDHb+fAuKDtDUiNrgT2ovN7uMB/zASdgItEN73ZwH
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335894895"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400";
+   d="scan'208";a="335894895"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2023 19:30:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="673775340"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400";
+   d="scan'208";a="673775340"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by orsmga007.jf.intel.com with ESMTP; 17 Mar 2023 19:30:29 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pdMKy-0009js-2F;
+	Sat, 18 Mar 2023 02:30:28 +0000
+Date: Sat, 18 Mar 2023 10:29:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: John Keeping <john@metanate.com>, Takashi Iwai <tiwai@suse.com>
 Subject: Re: [PATCH] ALSA: usb-audio: Fix recursive locking on XRUN
-Message-ID: <20230318002005.GA84781@workstation>
-Mail-Followup-To: John Keeping <john@metanate.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	"moderated list:SOUND" <alsa-devel@alsa-project.org>,
-	open list <linux-kernel@vger.kernel.org>
+Message-ID: <202303181006.qGZbdrAN-lkp@intel.com>
 References: <20230317195128.3911155-1-john@metanate.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20230317195128.3911155-1-john@metanate.com>
-Message-ID-Hash: A2S2BBTMA2DLSJ3BAFCYNMQIPX33RAID
-X-Message-ID-Hash: A2S2BBTMA2DLSJ3BAFCYNMQIPX33RAID
-X-MailFrom: o-takashi@sakamocchi.jp
+Message-ID-Hash: C2IQ73XCZUUCSAQCCDWAMAQLRTKQ4FBR
+X-Message-ID-Hash: C2IQ73XCZUUCSAQCCDWAMAQLRTKQ4FBR
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>,
+CC: oe-kbuild-all@lists.linux.dev, John Keeping <john@metanate.com>,
  "moderated list:SOUND" <alsa-devel@alsa-project.org>,
  open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
@@ -127,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2S2BBTMA2DLSJ3BAFCYNMQIPX33RAID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C2IQ73XCZUUCSAQCCDWAMAQLRTKQ4FBR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,65 +105,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Hi John,
 
-On Fri, Mar 17, 2023 at 07:51:27PM +0000, John Keeping wrote:
-> snd_usb_queue_pending_output_urbs() may be called from
-> snd_pcm_ops::ack() which means the PCM stream is locked.
-> 
-> For the normal case where the call back into the PCM core is via
-> prepare_output_urb() the "_under_stream_lock" variant of
-> snd_pcm_period_elapsed() is called, but when an error occurs and the
-> stream is stopped as XRUN then snd_pcm_xrun() tries to recursively lock
-> the stream which results in deadlock.
-> 
-> Follow the example of snd_pcm_period_elapsed() by adding
-> snd_pcm_xrun_under_stream_lock() and use this when the PCM substream
-> lock is already held.
-> 
-> Signed-off-by: John Keeping <john@metanate.com>
-> ---
->  include/sound/pcm.h     |  1 +
->  sound/core/pcm_native.c | 28 ++++++++++++++++++++++++----
->  sound/usb/endpoint.c    | 18 +++++++++++-------
->  3 files changed, 36 insertions(+), 11 deletions(-)
- 
-The name of added kernel API implies me that you refer to existent
-'snd_pcm_period_elapsed_under_stream_lock()' which I added to Linux
-v5.14.
+Thank you for the patch! Yet something to improve:
 
-In my opinion, unlike the version of period elapsed API, the version of
-XRUN API seems not to be necessarily required to ALSA PCM core, since PCM
-device drivers can implement .pointer callback in the part of PCM operation.
-When the callback returns SNDRV_PCM_POS_XRUN, ALSA PCM application get
-occurence of XRUN as a result of any operation relevant to hwptr movement
-(e.g. SNDRV_PCM_IOCTL_HWSYNC).
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on tiwai-sound/for-linus v6.3-rc2 next-20230317]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Therefore I think it possible to fix the issue without the proposed
-kernel API. I can assume some scenario:
+url:    https://github.com/intel-lab-lkp/linux/commits/John-Keeping/ALSA-usb-audio-Fix-recursive-locking-on-XRUN/20230318-035430
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230317195128.3911155-1-john%40metanate.com
+patch subject: [PATCH] ALSA: usb-audio: Fix recursive locking on XRUN
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20230318/202303181006.qGZbdrAN-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/21bbf1266d22cbc0e1ec7c8d535738f66bbc9801
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review John-Keeping/ALSA-usb-audio-Fix-recursive-locking-on-XRUN/20230318-035430
+        git checkout 21bbf1266d22cbc0e1ec7c8d535738f66bbc9801
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash
 
-1. Failure at tasklet for URB completion
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303181006.qGZbdrAN-lkp@intel.com/
 
-It is softIRQ context. The stream lock is not acquired. It doesn't
-matter to call current XRUN API.
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
-2. Failure at PCM operation called by ALSA PCM application
+>> ERROR: modpost: "snd_pcm_stop_xrun_under_stream_lock" [sound/usb/snd-usb-audio.ko] undefined!
 
-It is process context. The stream lock is acquired before calling driver
-code. When detecting any type of failure, driver code stores the state.
-Then .pointer callback should return SNDRV_PCM_IOCTL_HWSYNC refering to
-the state.
-
-Of course, I'm not a developer for USB audio devices. I'm just a developer
-for the other type of packet-oriented drivers (IEC 61883-1/6 packet
-streaming engine for audio and music unit in IEEE 1394 bus). So I do not
-get every part of USB driver. However, from my experience for the
-packet-oriented drivers, I have the above concern about adding the new
-XRUN API.
-
-I apologize if miss-hitting the point for your issue.
-
-
-Regards
-
-Takashi Sakamoto
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

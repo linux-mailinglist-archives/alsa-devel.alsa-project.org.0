@@ -2,108 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 097FA6BFA44
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 14:32:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43E1D6BFA93
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 14:53:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B2A8A4F;
-	Sat, 18 Mar 2023 14:32:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B2A8A4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0A19BC0;
+	Sat, 18 Mar 2023 14:52:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0A19BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679146374;
-	bh=7InbK17Ckv7kSV9KcHqA1uRBMwDQgo91D+FWHQ7nShI=;
+	s=default; t=1679147621;
+	bh=61ac7KqP10rdbFvJF+l/UIV1LFJuSVtlmUsAQzrJFNY=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=L8KAVSkf1SsBpaeL9R3mG51fphceEo7hWc0HL/9ezr9vgTOwa0PHEwQCGgZY/D4HM
-	 M4PUhw9P+1h4EPRXn8SqHlD5ovLw2+zhTup629LH0Fq6HWnH52KMxrK5Ag8VyUdbLH
-	 8WMYClSRwna6mihkLhD0SIYjWnKD71bU9MbrzMco=
+	b=vR9nYNJjfEIIzoh/xWFgzT8c5RZUGYd2z/eWKa67uIgQQuGr0+3f8skk39nrzn+wX
+	 useHb36aTzeTlwft90rgSnRePNx161r4lO+rbsoewanBAEVaeZBL8i1tXB0R00bwaX
+	 +KRPBoviXoPInsIZYlgjzs8R/IdhdugRMVSPnD50=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8314AF80425;
-	Sat, 18 Mar 2023 14:32:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DA70F8032D;
+	Sat, 18 Mar 2023 14:52:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40360F80423; Sat, 18 Mar 2023 14:31:59 +0100 (CET)
+	id 3FB8CF80423; Sat, 18 Mar 2023 14:52:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AB4F4F8016C
-	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 14:31:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4F4F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23F43F8016C
+	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 14:52:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23F43F8016C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=D4H/xXT6
+ header.s=mimecast20190719 header.b=jQZavzbP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679146311;
+	s=mimecast20190719; t=1679147558;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=UUlLexOxTlL2rJRhRjOGMCzDKj9OAhc0E+V/p5S5fiE=;
-	b=D4H/xXT6QNhMcvKvRUTmdRQXP8AWMTOL6ECfhO2vNokoQe6LmVSvu79CfbLT3bco9RM4pl
-	GssN0LD2AyotOXZO5rAXQ8B9IVZFRcOXdtLibPC/dFssZWRliwgoPCmpT4vFPyJsZHEbuL
-	AHDHHBZ6MnyqpQTY2U3c475OMGac7TE=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=8JKKCoHtsIdOT+kL0un84AUvIlxjWeKq5FTVFUrPKc8=;
+	b=jQZavzbPWANKQpnr/2PFA8K4P6BJXWqSqOQtk7bmv3E9DRekvJuTMcXJbT6EBRkxpYFG3e
+	eoIixJltzQbpqZLzLigyT1Q+UNHgaKY+F9dutzSgCgc9hAmtruMAXD4ZpHCglDiC99/fkS
+	5tCxDELBH4uT3VmFsn7UDS4U1+ieBbY=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-KFK5-uCYOt-Z3beJQZgbeA-1; Sat, 18 Mar 2023 09:31:49 -0400
-X-MC-Unique: KFK5-uCYOt-Z3beJQZgbeA-1
-Received: by mail-qk1-f200.google.com with SMTP id
- b28-20020a05620a127c00b00745f4772ca0so3719173qkl.7
+ us-mta-407-3CQ8qsQbPH-NbwFTOoDHLA-1; Sat, 18 Mar 2023 09:52:35 -0400
+X-MC-Unique: 3CQ8qsQbPH-NbwFTOoDHLA-1
+Received: by mail-qt1-f197.google.com with SMTP id
+ fz25-20020a05622a5a9900b003d6c5910689so4037541qtb.9
         for <alsa-devel@alsa-project.org>;
- Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
+ Sat, 18 Mar 2023 06:52:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679146309;
+        d=1e100.net; s=20210112; t=1679147555;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UUlLexOxTlL2rJRhRjOGMCzDKj9OAhc0E+V/p5S5fiE=;
-        b=ekwK7DYj9s++TxpRVBMrJKADT3DdEk8Qr/pfZpxhCp09pOLBoocYMbkbeaC4AfXnqF
-         qO+HFcydlqxbeD0hUx558jyyKV99xek7M5JVeO7QVQrKCulZiaqP7aUtpaqVCwkbReXW
-         XRaugx6eX43WPYnRIr9Jx3CpbIwYvI5ARJ65R1xATDnlr5pktTJpiJif92f0PzGZjaOC
-         C30gXwvM/EsZMPVbqnYB2S2IQIPpdh2odwkplGbodwaBin8eQ4beQGJT/JksTU/BcOEj
-         NiaBIXOOg+VcrLTrRb3MC/Tb7iNPiXwFprBP9/WA2nKauu2H4QPAphUICEadl2d2y9kD
-         kxAA==
-X-Gm-Message-State: AO0yUKW+ZU0UgZ6EmBgL0EXwE5BCWk2jZSfhDswdrIxb1hKhA15cDWfP
-	fhPM35xQ/JCd0t4MlXv3hsAhA1M+WgJjMjEOXbw85c26qez0YPZrxactgzR0XEUirT/5sNNxGfD
-	UrzFIx98uePAJlCOnoLwizyc=
-X-Received: by 2002:a05:6214:5281:b0:56e:bc62:e151 with SMTP id
- kj1-20020a056214528100b0056ebc62e151mr46569176qvb.7.1679146309324;
-        Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
+        bh=8JKKCoHtsIdOT+kL0un84AUvIlxjWeKq5FTVFUrPKc8=;
+        b=y6CRuNwyTle6T1NAt8dyQMgQ0OW425WwKqzhpS4N2hIYgAA/9phdZoSW3+p0CcyRpS
+         MT+3X0m4qadlMQdlf9wG4bEqPCCupHr82BNpLoJwBjJrmv+VGKjdk3TWB7xUWn5Sgz8C
+         NPV33r080C9XiTYqCkWyp0Vq4PlAms8H2y6c/Tq5sDREw8NTHgzGMLWvHzcJC2kpn/hF
+         MOEfilqD+W31jZP51SoJekgyiJDjzZxR/kFCZVt33jCm3K+oRJn1jgUYP9aTzXo1Y8LN
+         fIlNOdHqwAiB/LC6kL/aaNDDKIfDgVkUtlMCWwnXLCtbT/h2gJSnxM0LBKe6rOKD1MJK
+         7Mjg==
+X-Gm-Message-State: AO0yUKWS/tdwjwUXxylnhe8RekAsgfZh+mA4Xv7kGHfoqFUmvmO/aTej
+	HEdDSHi/XhghFO2ju67GtF8mk1kUd/awmVUsN+rnoWl3tcG5Jf7zVXTl9jTNZOjLGtd721CBRS7
+	pSMAa0fNryOGcDWh1M9x4ues=
+X-Received: by 2002:a05:622a:110a:b0:3bf:cd81:399f with SMTP id
+ e10-20020a05622a110a00b003bfcd81399fmr18628200qty.3.1679147554776;
+        Sat, 18 Mar 2023 06:52:34 -0700 (PDT)
 X-Google-Smtp-Source: 
- AK7set+PZFX2mVoz7k+s6UMIaLaX9bdTOGY4ZLkhjSi2vKRtz+hqyRNo8gymhk+SaWflKTunQ1zwDg==
-X-Received: by 2002:a05:6214:5281:b0:56e:bc62:e151 with SMTP id
- kj1-20020a056214528100b0056ebc62e151mr46569138qvb.7.1679146309006;
-        Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
+ AK7set8IGPXW4iPtLnhcFdeE5DBfD6algKbXB9t7jslQwB7wD2STcpXKORYgPtCB7dq5QEEc6Kgcjw==
+X-Received: by 2002:a05:622a:110a:b0:3bf:cd81:399f with SMTP id
+ e10-20020a05622a110a00b003bfcd81399fmr18628176qty.3.1679147554463;
+        Sat, 18 Mar 2023 06:52:34 -0700 (PDT)
 Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
  (nat-pool-bos-t.redhat.com. [66.187.233.206])
         by smtp.gmail.com with ESMTPSA id
- p16-20020a05620a057000b00746476405bbsm3566936qkp.122.2023.03.18.06.31.48
+ t72-20020a37464b000000b00725d8d6983asm3626195qka.61.2023.03.18.06.52.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Mar 2023 06:31:48 -0700 (PDT)
+        Sat, 18 Mar 2023 06:52:34 -0700 (PDT)
 From: Tom Rix <trix@redhat.com>
 To: perex@perex.cz,
 	tiwai@suse.com,
 	nathan@kernel.org,
 	ndesaulniers@google.com
-Subject: [PATCH] ALSA: ymfpci: remove unused snd_ymfpci_readb function
-Date: Sat, 18 Mar 2023 09:27:08 -0400
-Message-Id: <20230318132708.1684504-1-trix@redhat.com>
+Subject: [PATCH] ALSA: portman2x4: remove unused portman_read_command,data
+ functions
+Date: Sat, 18 Mar 2023 09:52:29 -0400
+Message-Id: <20230318135229.1685266-1-trix@redhat.com>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Message-ID-Hash: TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO
-X-Message-ID-Hash: TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO
+Message-ID-Hash: R4HJDCCRXV4TJLSF5TEF7HELJXCBFVP4
+X-Message-ID-Hash: R4HJDCCRXV4TJLSF5TEF7HELJXCBFVP4
 X-MailFrom: trix@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4HJDCCRXV4TJLSF5TEF7HELJXCBFVP4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,33 +129,47 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 clang with W=1 reports
-sound/pci/ymfpci/ymfpci_main.c:34:18: error:
-  unused function 'snd_ymfpci_readb' [-Werror,-Wunused-function]
-static inline u8 snd_ymfpci_readb(struct snd_ymfpci *chip, u32 offset)
+sound/drivers/portman2x4.c:185:18: error: unused function
+  'portman_read_command' [-Werror,-Wunused-function]
+static inline u8 portman_read_command(struct portman *pm)
                  ^
-This static function is not used, so remove it.
+sound/drivers/portman2x4.c:195:18: error: unused function
+  'portman_read_data' [-Werror,-Wunused-function]
+static inline u8 portman_read_data(struct portman *pm)
+                 ^
+These static functions are not used, so remove them.
 
 Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- sound/pci/ymfpci/ymfpci_main.c | 5 -----
- 1 file changed, 5 deletions(-)
+ sound/drivers/portman2x4.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/sound/pci/ymfpci/ymfpci_main.c b/sound/pci/ymfpci/ymfpci_main.c
-index c80114c0ad7b..2858736ed20a 100644
---- a/sound/pci/ymfpci/ymfpci_main.c
-+++ b/sound/pci/ymfpci/ymfpci_main.c
-@@ -31,11 +31,6 @@
+diff --git a/sound/drivers/portman2x4.c b/sound/drivers/portman2x4.c
+index 52a656735365..4cdf56a0eb65 100644
+--- a/sound/drivers/portman2x4.c
++++ b/sound/drivers/portman2x4.c
+@@ -182,21 +182,11 @@ static inline void portman_write_command(struct portman *pm, u8 value)
+ 	parport_write_control(pm->pardev->port, value);
+ }
  
- static void snd_ymfpci_irq_wait(struct snd_ymfpci *chip);
- 
--static inline u8 snd_ymfpci_readb(struct snd_ymfpci *chip, u32 offset)
+-static inline u8 portman_read_command(struct portman *pm)
 -{
--	return readb(chip->reg_area_virt + offset);
+-	return parport_read_control(pm->pardev->port);
 -}
 -
- static inline void snd_ymfpci_writeb(struct snd_ymfpci *chip, u32 offset, u8 val)
+ static inline u8 portman_read_status(struct portman *pm)
  {
- 	writeb(val, chip->reg_area_virt + offset);
+ 	return parport_read_status(pm->pardev->port);
+ }
+ 
+-static inline u8 portman_read_data(struct portman *pm)
+-{
+-	return parport_read_data(pm->pardev->port);
+-}
+-
+ static inline void portman_write_data(struct portman *pm, u8 value)
+ {
+ 	parport_write_data(pm->pardev->port, value);
 -- 
 2.27.0
 

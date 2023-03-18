@@ -2,115 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C756BF9C3
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 13:13:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 097FA6BFA44
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Mar 2023 14:32:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51A33DEB;
-	Sat, 18 Mar 2023 13:12:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A33DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B2A8A4F;
+	Sat, 18 Mar 2023 14:32:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B2A8A4F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679141627;
-	bh=cJ4/i/geM3URcibhmRUnvN7uSoFx78nMegE2t9nEoFU=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=r649rgnTnccwmdTGwMbSJ1cEK0Tv1GIZF2OKa69qDZ7Rf4XWI9QHYtQE7rZU31YB0
-	 B4DWDOUvDIywlLQS8oqadXk65tovF8tmVEM9aSAIwT0IbQM0WtQ0VtZMLeE1U8A0XW
-	 cahB2+PSl5m36rH5JaMKhvhqy0oT16JHfIVEGVN8=
+	s=default; t=1679146374;
+	bh=7InbK17Ckv7kSV9KcHqA1uRBMwDQgo91D+FWHQ7nShI=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=L8KAVSkf1SsBpaeL9R3mG51fphceEo7hWc0HL/9ezr9vgTOwa0PHEwQCGgZY/D4HM
+	 M4PUhw9P+1h4EPRXn8SqHlD5ovLw2+zhTup629LH0Fq6HWnH52KMxrK5Ag8VyUdbLH
+	 8WMYClSRwna6mihkLhD0SIYjWnKD71bU9MbrzMco=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E5A3F8032D;
-	Sat, 18 Mar 2023 13:12:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8314AF80425;
+	Sat, 18 Mar 2023 14:32:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80A00F80423; Sat, 18 Mar 2023 13:11:14 +0100 (CET)
+	id 40360F80423; Sat, 18 Mar 2023 14:31:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3FF5AF80272
-	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 13:11:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FF5AF80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id AB4F4F8016C
+	for <alsa-devel@alsa-project.org>; Sat, 18 Mar 2023 14:31:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4F4F8016C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=l31eQyIB
-Received: by mail-wm1-x32e.google.com with SMTP id m35so4769650wms.4
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=D4H/xXT6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1679146311;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UUlLexOxTlL2rJRhRjOGMCzDKj9OAhc0E+V/p5S5fiE=;
+	b=D4H/xXT6QNhMcvKvRUTmdRQXP8AWMTOL6ECfhO2vNokoQe6LmVSvu79CfbLT3bco9RM4pl
+	GssN0LD2AyotOXZO5rAXQ8B9IVZFRcOXdtLibPC/dFssZWRliwgoPCmpT4vFPyJsZHEbuL
+	AHDHHBZ6MnyqpQTY2U3c475OMGac7TE=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-624-KFK5-uCYOt-Z3beJQZgbeA-1; Sat, 18 Mar 2023 09:31:49 -0400
+X-MC-Unique: KFK5-uCYOt-Z3beJQZgbeA-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ b28-20020a05620a127c00b00745f4772ca0so3719173qkl.7
         for <alsa-devel@alsa-project.org>;
- Sat, 18 Mar 2023 05:11:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679141463;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=TyoxkUTuMKSdk6W3xN39zPhRNeiQvIKJzTcTLKQfVjk=;
-        b=l31eQyIBzvPnkoe0Jby/r7paHARRhElcixj5PunA1YxeZkpCiM9ZbWDdI2P1WxBa/X
-         ftsLsjmpW//fZrUrtaZPKqCdNsii81owMCAPhUdVuu0n968JX07t4pnaV+b88Oah0cd3
-         Fecj+fzMV/punAvdU/lxOTvAza8IxyVCjgiPv7jayfoWWDgeIXL3iiizs3BTND1gpF4i
-         u+f7NKGIAC4QTB9k+ZcCbpzx6Mgteoipsug/hz7Hi4Ejy+nofG+jadkpZ+bJt50987JN
-         EiZrGTttGQ6+m7mdRxsMQbnfY1OAl1XjX7WlU0b70RhHDdyDAIsVETMRCGupUk0+23ns
-         lJ6Q==
+ Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679141463;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20210112; t=1679146309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TyoxkUTuMKSdk6W3xN39zPhRNeiQvIKJzTcTLKQfVjk=;
-        b=0AKxSbK0JDG+1N4UU+71NXbEY/9mCQALOIVcfXy8sMuo6PmyZapngGybXbY70SvMV/
-         buxzEfcu1AtKBSG0KCH4OCKfoQgbwF5geRBBvx5FjuUVF969JlUWbNOwdnFAl5xKKkjJ
-         LANa72T4Q1NB6UqQrLEpcZ2/rUicMZdlclwbihnGWc5+UvO1OQMps7pwkQSGZsqKzZb1
-         LG+2OJQ5UG2dwAX2xKzP4fJWDvJq6/9iQzbTZS5Z8LnzOR2SsATOqa78EHv0vlx1C2oz
-         R5ZTW0kNWdsV20XdTICkBNVzOhkqY6ZpO1CcWyCo4JchJ0Iv4UXMydM7G2YpRGE8cFQ/
-         RqFw==
-X-Gm-Message-State: AO0yUKVFDH90qceQ1V6NGsAEu2slWKg6ZiaQHr+xhZSYHC/Sh9VHdlxT
-	aMagHS4C2M+IUXAkJIyH9T/I74f3hxH8GRGymg==
+        bh=UUlLexOxTlL2rJRhRjOGMCzDKj9OAhc0E+V/p5S5fiE=;
+        b=ekwK7DYj9s++TxpRVBMrJKADT3DdEk8Qr/pfZpxhCp09pOLBoocYMbkbeaC4AfXnqF
+         qO+HFcydlqxbeD0hUx558jyyKV99xek7M5JVeO7QVQrKCulZiaqP7aUtpaqVCwkbReXW
+         XRaugx6eX43WPYnRIr9Jx3CpbIwYvI5ARJ65R1xATDnlr5pktTJpiJif92f0PzGZjaOC
+         C30gXwvM/EsZMPVbqnYB2S2IQIPpdh2odwkplGbodwaBin8eQ4beQGJT/JksTU/BcOEj
+         NiaBIXOOg+VcrLTrRb3MC/Tb7iNPiXwFprBP9/WA2nKauu2H4QPAphUICEadl2d2y9kD
+         kxAA==
+X-Gm-Message-State: AO0yUKW+ZU0UgZ6EmBgL0EXwE5BCWk2jZSfhDswdrIxb1hKhA15cDWfP
+	fhPM35xQ/JCd0t4MlXv3hsAhA1M+WgJjMjEOXbw85c26qez0YPZrxactgzR0XEUirT/5sNNxGfD
+	UrzFIx98uePAJlCOnoLwizyc=
+X-Received: by 2002:a05:6214:5281:b0:56e:bc62:e151 with SMTP id
+ kj1-20020a056214528100b0056ebc62e151mr46569176qvb.7.1679146309324;
+        Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
 X-Google-Smtp-Source: 
- AK7set+DuVmzWNfJrk6Xf/nKKlAOFqPypFDgCv4/8Txmn+WbXyB9SzAs4yXIlyLwx1NHU4kkI5vnoH6r/RCo/cVB6rs=
-X-Received: by 2002:a1c:4b0b:0:b0:3ed:6979:3b7 with SMTP id
- y11-20020a1c4b0b000000b003ed697903b7mr1973053wma.8.1679141463317; Sat, 18 Mar
- 2023 05:11:03 -0700 (PDT)
+ AK7set+PZFX2mVoz7k+s6UMIaLaX9bdTOGY4ZLkhjSi2vKRtz+hqyRNo8gymhk+SaWflKTunQ1zwDg==
+X-Received: by 2002:a05:6214:5281:b0:56e:bc62:e151 with SMTP id
+ kj1-20020a056214528100b0056ebc62e151mr46569138qvb.7.1679146309006;
+        Sat, 18 Mar 2023 06:31:49 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+        by smtp.gmail.com with ESMTPSA id
+ p16-20020a05620a057000b00746476405bbsm3566936qkp.122.2023.03.18.06.31.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Mar 2023 06:31:48 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	nathan@kernel.org,
+	ndesaulniers@google.com
+Subject: [PATCH] ALSA: ymfpci: remove unused snd_ymfpci_readb function
+Date: Sat, 18 Mar 2023 09:27:08 -0400
+Message-Id: <20230318132708.1684504-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20230315150745.67084-1-u.kleine-koenig@pengutronix.de>
- <20230315150745.67084-144-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20230315150745.67084-144-u.kleine-koenig@pengutronix.de>
-From: =?UTF-8?B?54+t5rab?= <fengzheng923@gmail.com>
-Date: Sat, 18 Mar 2023 20:10:51 +0800
-Message-ID: 
- <CAE=m619ox7An5JtBZAzuFRy-05iD+-gggUJBBFjPCAjYZjNU9Q@mail.gmail.com>
-Subject: Re: [PATCH 143/173] ASoC: sunxi: sun50i-dmic: Convert to platform
- remove callback returning void
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID-Hash: FJ7JEI6Y73NOWUZMBSFLKGAFJZHY2YUE
-X-Message-ID-Hash: FJ7JEI6Y73NOWUZMBSFLKGAFJZHY2YUE
-X-MailFrom: fengzheng923@gmail.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Message-ID-Hash: TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO
+X-Message-ID-Hash: TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO
+X-MailFrom: trix@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- kernel@pengutronix.de
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, Tom Rix <trix@redhat.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FJ7JEI6Y73NOWUZMBSFLKGAFJZHY2YUE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSXC5WEEFWJKHPUUGPC25NACQW63D6ZO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,38 +127,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-VXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4g5LqOMjAy
-M+W5tDPmnIgxNeaXpeWRqOS4iSAyMzowOOWGmemBk++8mg0KDQo+IFRoZSAucmVtb3ZlKCkgY2Fs
-bGJhY2sgZm9yIGEgcGxhdGZvcm0gZHJpdmVyIHJldHVybnMgYW4gaW50IHdoaWNoIG1ha2VzDQo+
-IG1hbnkgZHJpdmVyIGF1dGhvcnMgd3JvbmdseSBhc3N1bWUgaXQncyBwb3NzaWJsZSB0byBkbyBl
-cnJvciBoYW5kbGluZyBieQ0KPiByZXR1cm5pbmcgYW4gZXJyb3IgY29kZS4gSG93ZXZlciB0aGUg
-dmFsdWUgcmV0dXJuZWQgaXMgKG1vc3RseSkgaWdub3JlZA0KPiBhbmQgdGhpcyB0eXBpY2FsbHkg
-cmVzdWx0cyBpbiByZXNvdXJjZSBsZWFrcy4gVG8gaW1wcm92ZSBoZXJlIHRoZXJlIGlzIGENCj4g
-cXVlc3QgdG8gbWFrZSB0aGUgcmVtb3ZlIGNhbGxiYWNrIHJldHVybiB2b2lkLiBJbiB0aGUgZmly
-c3Qgc3RlcCBvZiB0aGlzDQo+IHF1ZXN0IGFsbCBkcml2ZXJzIGFyZSBjb252ZXJ0ZWQgdG8gLnJl
-bW92ZV9uZXcoKSB3aGljaCBhbHJlYWR5IHJldHVybnMNCj4gdm9pZC4NCj4NCj4gVHJpdmlhbGx5
-IGNvbnZlcnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJuaW5nIHplcm8gaW4gdGhlIHJl
-bW92ZQ0KPiBjYWxsYmFjayB0byB0aGUgdm9pZCByZXR1cm5pbmcgdmFyaWFudC4NCj4NCj4gU2ln
-bmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25p
-eC5kZT4NCj4NCkFja2VkLWJ5OiBCYW4gVGFvIDxmZW5nemhlbmc5MjNAZ21haWwuY29tPg0KDQo+
-IC0tLQ0KPiAgc291bmQvc29jL3N1bnhpL3N1bjUwaS1kbWljLmMgfCA2ICsrLS0tLQ0KPiAgMSBm
-aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAt
-LWdpdCBhL3NvdW5kL3NvYy9zdW54aS9zdW41MGktZG1pYy5jIGIvc291bmQvc29jL3N1bnhpL3N1
-bjUwaS1kbWljLmMNCj4gaW5kZXggMDY5Yzk5M2FjYjMxLi5jMTA0MzliOWUwYTIgMTAwNjQ0DQo+
-IC0tLSBhL3NvdW5kL3NvYy9zdW54aS9zdW41MGktZG1pYy5jDQo+ICsrKyBiL3NvdW5kL3NvYy9z
-dW54aS9zdW41MGktZG1pYy5jDQo+IEBAIC0zNzMsMTMgKzM3MywxMSBAQCBzdGF0aWMgaW50IHN1
-bjUwaV9kbWljX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UNCj4gKnBkZXYpDQo+ICAgICAg
-ICAgcmV0dXJuIHJldDsNCj4gIH0NCj4NCj4gLXN0YXRpYyBpbnQgc3VuNTBpX2RtaWNfcmVtb3Zl
-KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ICtzdGF0aWMgdm9pZCBzdW41MGlfZG1p
-Y19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gIHsNCj4gICAgICAgICBw
-bV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7DQo+ICAgICAgICAgaWYgKCFwbV9ydW50aW1l
-X3N0YXR1c19zdXNwZW5kZWQoJnBkZXYtPmRldikpDQo+ICAgICAgICAgICAgICAgICBzdW41MGlf
-ZG1pY19ydW50aW1lX3N1c3BlbmQoJnBkZXYtPmRldik7DQo+IC0NCj4gLSAgICAgICByZXR1cm4g
-MDsNCj4gIH0NCj4NCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBzdW41MGlfZG1p
-Y19wbSA9IHsNCj4gQEAgLTM5NCw3ICszOTIsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2Ry
-aXZlciBzdW41MGlfZG1pY19kcml2ZXIgPSB7DQo+ICAgICAgICAgICAgICAgICAucG0gICAgID0g
-JnN1bjUwaV9kbWljX3BtLA0KPiAgICAgICAgIH0sDQo+ICAgICAgICAgLnByb2JlICAgICAgICAg
-ID0gc3VuNTBpX2RtaWNfcHJvYmUsDQo+IC0gICAgICAgLnJlbW92ZSAgICAgICAgID0gc3VuNTBp
-X2RtaWNfcmVtb3ZlLA0KPiArICAgICAgIC5yZW1vdmVfbmV3ICAgICA9IHN1bjUwaV9kbWljX3Jl
-bW92ZSwNCj4gIH07DQo+DQo+ICBtb2R1bGVfcGxhdGZvcm1fZHJpdmVyKHN1bjUwaV9kbWljX2Ry
-aXZlcik7DQo+IC0tDQo+IDIuMzkuMg0KPg0KPg0K
+clang with W=1 reports
+sound/pci/ymfpci/ymfpci_main.c:34:18: error:
+  unused function 'snd_ymfpci_readb' [-Werror,-Wunused-function]
+static inline u8 snd_ymfpci_readb(struct snd_ymfpci *chip, u32 offset)
+                 ^
+This static function is not used, so remove it.
+
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ sound/pci/ymfpci/ymfpci_main.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/sound/pci/ymfpci/ymfpci_main.c b/sound/pci/ymfpci/ymfpci_main.c
+index c80114c0ad7b..2858736ed20a 100644
+--- a/sound/pci/ymfpci/ymfpci_main.c
++++ b/sound/pci/ymfpci/ymfpci_main.c
+@@ -31,11 +31,6 @@
+ 
+ static void snd_ymfpci_irq_wait(struct snd_ymfpci *chip);
+ 
+-static inline u8 snd_ymfpci_readb(struct snd_ymfpci *chip, u32 offset)
+-{
+-	return readb(chip->reg_area_virt + offset);
+-}
+-
+ static inline void snd_ymfpci_writeb(struct snd_ymfpci *chip, u32 offset, u8 val)
+ {
+ 	writeb(val, chip->reg_area_virt + offset);
+-- 
+2.27.0
+

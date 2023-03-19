@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D41746BFFFA
-	for <lists+alsa-devel@lfdr.de>; Sun, 19 Mar 2023 09:12:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668EA6BFFFC
+	for <lists+alsa-devel@lfdr.de>; Sun, 19 Mar 2023 09:13:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8A2084D;
-	Sun, 19 Mar 2023 09:11:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A2084D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1943844;
+	Sun, 19 Mar 2023 09:12:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1943844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679213521;
-	bh=HIWvHn0bYlEbfoobiF04EYD9S5zGk01NUvJEevheOkk=;
+	s=default; t=1679213591;
+	bh=vCyY7XvRqjvy233Mro83XJ4Vzdy5vA7uJqKk12H5Q/Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BM+ubHVDJ8lP8cQ5ZpDGZcPkCvtKg4sjvyp1f07rvimsKg0xNegfUYx06F5a2sBIr
-	 oG3zOgot4vV6zgDghkmd0bsiduMu/GlaCK1zIU3eppZC4pKnYg77dkyeVYYNd6uTRT
-	 XahW4K7QmsDe6GeoIx3D2ZyNHt9qjZWzV1dpMzy0=
+	b=gsSFJOdP3UNxPtjT2lUuMF/E6DEFSDFBtvdhsmi9B/g7Bf+1elb/ID3/8V72sL83n
+	 llKQZuF0s8EurGp7gw8B8xknxZcbb/MH4MzGCTg3LhiensHPIm5WObm3eAT4Feroey
+	 DbX8PBAYOvR1kKTyA05V8wkoZRfscAkDacAvVw/4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7CDDF80482;
-	Sun, 19 Mar 2023 09:11:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57EE5F8027B;
+	Sun, 19 Mar 2023 09:12:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87451F804B1; Sun, 19 Mar 2023 09:11:07 +0100 (CET)
+	id 09B7FF8027B; Sun, 19 Mar 2023 09:12:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3755F802E8
-	for <alsa-devel@alsa-project.org>; Sun, 19 Mar 2023 09:11:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3755F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E151F800C9
+	for <alsa-devel@alsa-project.org>; Sun, 19 Mar 2023 09:12:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E151F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=WCRXxqKv;
+ header.s=susede2_rsa header.b=0JZXbeD8;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=6JHgZDJH
+ header.s=susede2_ed25519 header.b=5vZ15FiN
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 42FE81F88B;
-	Sun, 19 Mar 2023 08:11:05 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BBB9321B2C;
+	Sun, 19 Mar 2023 08:12:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1679213465;
+	t=1679213534;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VHFwDneLiJmFquAHdRWujYxIig/wGVMksdhxhMhz/ic=;
-	b=WCRXxqKvbstBzc9v+FWk4+AcC+wRYWmAm7kGYNR1bT7QfHTNfp0rkQ5Ut7t9X2ERkEi8ej
-	+b+svi9muuHHO/ujQwYsYPjXMuYtdDyHVYr8PzHrSzOvTLQpv8TUTkybDQKlGWO4OxvDMc
-	zLHDuTAQT1UZPdXKZXxm6v5ZEtCeaWo=
+	bh=XTWPTgVfbJaJykAj83aY5/2Ng9TDpTjlaR8XdjuJMBo=;
+	b=0JZXbeD83TBfzcTMwe6vdJ9nFKh/J0nYexzaJr2Yixyr8+q+PILLl16wkqKhWR/BQcKang
+	UIUcMEVrKlW9Al9YqES7dzTBIQGY+23UwtLBZFdjER/KJcVFJuYtU6nbaiV3r1iqaxLuIR
+	V1R5PYkukWaZJOb8uKVQqRaHcfx0AxA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679213465;
+	s=susede2_ed25519; t=1679213534;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VHFwDneLiJmFquAHdRWujYxIig/wGVMksdhxhMhz/ic=;
-	b=6JHgZDJHcmi/yCpJ+qDdOyXsD19r8pQf/lToSf0I/dhBpsvSIuz1CJcnt8gnrBqB06+Tv1
-	vEDQaoJI97Qu/0AQ==
+	bh=XTWPTgVfbJaJykAj83aY5/2Ng9TDpTjlaR8XdjuJMBo=;
+	b=5vZ15FiNSbvJPj7byrcU95ivrmIg2eFvtJQr6h0BYgngGjnUPfd7P5WB5MZWn23MiNR3nj
+	xKSaFSGjw5lTWsBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FDA4133E6;
-	Sun, 19 Mar 2023 08:11:05 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96486133E6;
+	Sun, 19 Mar 2023 08:12:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id i2HtApnDFmTXPQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 19 Mar 2023 08:11:05 +0000
-Date: Sun, 19 Mar 2023 09:11:04 +0100
-Message-ID: <87lejtma93.wl-tiwai@suse.de>
+	id r64AJN7DFmRAPgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 19 Mar 2023 08:12:14 +0000
+Date: Sun, 19 Mar 2023 09:12:14 +0100
+Message-ID: <87jzzdma75.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tom Rix <trix@redhat.com>
-Subject: Re: [PATCH] ALSA: portman2x4: remove unused portman_read_command,data
- functions
-In-Reply-To: <20230318135229.1685266-1-trix@redhat.com>
-References: <20230318135229.1685266-1-trix@redhat.com>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH] ALSA: drivers: Remove the unused variable
+ portman_read_data
+In-Reply-To: <87pm95mahe.wl-tiwai@suse.de>
+References: <20230317063338.18029-1-jiapeng.chong@linux.alibaba.com>
+	<87pm95mahe.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: XGZ7HJ5BVKGMYXUQ3SWX3KN7KVPFT2OM
-X-Message-ID-Hash: XGZ7HJ5BVKGMYXUQ3SWX3KN7KVPFT2OM
+Message-ID-Hash: 7HIGXVUJFHKDTYVIMTLRPTDRQUNC4OKX
+X-Message-ID-Hash: 7HIGXVUJFHKDTYVIMTLRPTDRQUNC4OKX
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,15 +101,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, nathan@kernel.org, ndesaulniers@google.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
+CC: tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XGZ7HJ5BVKGMYXUQ3SWX3KN7KVPFT2OM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HIGXVUJFHKDTYVIMTLRPTDRQUNC4OKX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,23 +117,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 18 Mar 2023 14:52:29 +0100,
-Tom Rix wrote:
+On Sun, 19 Mar 2023 09:06:05 +0100,
+Takashi Iwai wrote:
 > 
-> clang with W=1 reports
-> sound/drivers/portman2x4.c:185:18: error: unused function
->   'portman_read_command' [-Werror,-Wunused-function]
-> static inline u8 portman_read_command(struct portman *pm)
->                  ^
-> sound/drivers/portman2x4.c:195:18: error: unused function
->   'portman_read_data' [-Werror,-Wunused-function]
-> static inline u8 portman_read_data(struct portman *pm)
->                  ^
-> These static functions are not used, so remove them.
+> On Fri, 17 Mar 2023 07:33:38 +0100,
+> Jiapeng Chong wrote:
+> > 
+> > Variable portman_read_data is not effectively used, so delete it.
+> > 
+> > sound/drivers/portman2x4.c:195:18: warning: unused function 'portman_read_data'.
+> > 
+> > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> > Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4557
+> > Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> Thanks, applied now.
 
-Applied now, thanks.
+... and now I see Tom's patch removing one more unused one, so I took
+Tom's fix instead of yours.
+  https://lore.kernel.org/r/20230318135229.1685266-1-trix@redhat.com
 
+
+thanks,
 
 Takashi

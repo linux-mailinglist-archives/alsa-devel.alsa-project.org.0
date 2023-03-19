@@ -2,157 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A58CC6C2184
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 20:32:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8756C218B
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 20:32:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 971667F1;
-	Mon, 20 Mar 2023 20:31:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 971667F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08269829;
+	Mon, 20 Mar 2023 20:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08269829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679340739;
-	bh=ebeksVMII9YwDxvXYdfttDaYd4l1OPHfQMPn5j67Wvo=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1679340767;
+	bh=35UDK0ICx3fSgENqFsWeZvzNhczrHI56i9q3qOfHiyw=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G3YH20RH1qkp1Yh7YVSWsiBruIZqIAzgKEAqdd6T/D/8Z+ZV6KWUAGhP19wT0wKPR
-	 qP76SK2O7yL0nqmehmxTE8YXTZWqVsvmNfbObeL03X20I8b4pgQmNp+QeqlpjTkyc8
-	 s3it6Ze86RtkUp5dNR0waTqIKjOGXW+7VHqK54bc=
+	b=kCLCEbUduXvJODhf3i9tzJsiYrdDPPirUmnKkmv7fF3UjXvy9skDxAM1Ol+xxSl7G
+	 z4Mv2I0ag2yXEctTNCW3tvVRDMNI33hSFNkwH/6S46sdyhsIVkHxbJdia0h1/J3v2f
+	 uuOfpfdK5sB6a8DjS/YpeQ9tJ2VDiMX33ftBk2+s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B3C5F80527;
-	Mon, 20 Mar 2023 20:30:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFE38F80520;
+	Mon, 20 Mar 2023 20:30:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31E52F8027B; Sun, 19 Mar 2023 11:56:19 +0100 (CET)
+	id 262DDF8027B; Sun, 19 Mar 2023 16:00:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4825CF800C9
-	for <alsa-devel@alsa-project.org>; Sun, 19 Mar 2023 11:56:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4825CF800C9
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	HTML_MESSAGE,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from 163.com (m12.mail.163.com [220.181.12.214])
+	by alsa1.perex.cz (Postfix) with ESMTP id 0693AF80093
+	for <alsa-devel@alsa-project.org>; Sun, 19 Mar 2023 16:00:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0693AF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=LoyXTmuT
-Received: by mail-ed1-x52c.google.com with SMTP id x3so36351859edb.10
-        for <alsa-devel@alsa-project.org>;
- Sun, 19 Mar 2023 03:56:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679223369;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zjQK98wMTvC2q3E7fdiQTGy4CfE9nib0P1aeqr32BDM=;
-        b=LoyXTmuTmKGgTLGBo0qYnX6Jp8bEDf17eVvP7XGO2qhfRemxtwJtrRH9Ep1JHhGnQk
-         DM7G/ianKOJTy+onrcx5K+rasN1+P/5phdjTikcBfSCvls5VoUEtU19R0HbCgCF7aobg
-         40WRU2UHhFcDZODehVDDkwN/snWgAt/4QDmupCFnR47uQEZePsVew0+rLxSDOdDvvAwp
-         3JMq8P2tanxmPYuvLeuCmLNfn9yRr7Dfe9NF+r536JdXbCdxebQX1OVjBpyJ7mUDvRMU
-         iVtQ2+uN79keOw++o+t+UG4w2ddZnZ5CBm+iLIx5uFLx+Pf3+PRu53Jz68pAER7B1gdw
-         MxHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679223369;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zjQK98wMTvC2q3E7fdiQTGy4CfE9nib0P1aeqr32BDM=;
-        b=dTL2SSqZC9ZsECS1V3YM7yJVKiYkwxbSu7oXrtNPMNNf4GsOgVPdvC0255UGv+wuXN
-         VRGQN3OxGlEXfbvSQVuJnjCGcJUZ/Xnn4sUG2ZgdEkFkmo59BWVomE63XywjaoAIy0Qr
-         QgBqAZt2g60VaaYFkXLnAqJBszcBqccJeZ3qypbfIE6mIL0sv8jXovhydp8ZDgISZ+Na
-         VvPB72373BdHMBYrfAQNYA5SJM6/TB2YuCOYiBEJjWesHmDtKgq8zVfA/Xk/+NMr/GG4
-         0SEbu0AOobu3smmNm36G//XN3oKBF8kQyPJ5soIMBE+pCM0qfTS3iq8ZCnNNLEfCYLzu
-         cyAQ==
-X-Gm-Message-State: AO0yUKUqpnilh/foZOUQevQz9fhAScYaAazFJQgp/g/QC+qzT9I48los
-	OM++c9DeH2SuvqLF8rAc0J4qoQ==
-X-Google-Smtp-Source: 
- AK7set8aBKLZuOSLuGkgBgWSIN+Nyo0cQB4QbrQUYK+fT1WnG6tZns0BtbZAKs7jswp9C0GRLAkphg==
-X-Received: by 2002:a17:906:7fc6:b0:923:812c:a5d3 with SMTP id
- r6-20020a1709067fc600b00923812ca5d3mr5250858ejs.25.1679223369254;
-        Sun, 19 Mar 2023 03:56:09 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:5b5f:f22b:a0b:559d?
- ([2a02:810d:15c0:828:5b5f:f22b:a0b:559d])
-        by smtp.gmail.com with ESMTPSA id
- 21-20020a170906319500b008d68d018153sm3115271ejy.23.2023.03.19.03.56.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Mar 2023 03:56:08 -0700 (PDT)
-Message-ID: <23036bfc-cceb-2ac5-85fb-5e2d0bc0cbb5@linaro.org>
-Date: Sun, 19 Mar 2023 11:56:05 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=XKa3xfjm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Jpgrs2HhI5+g2rxd7vUV4SdzpmTYWsCw80CnwkJ0OH4=; b=X
+	Ka3xfjmH38sLdSkYhXrdj+qN9sHPJ+/OQGZvzT4WBUYCaWXudY7oRWDmJO9r38Kd
+	Ww/DnxDMVh44O0nYJWYX/2azFq35ZZ9cGWFCkGFhIYB9RPreUkmtzEm6eiIdlGMG
+	ZiDcIvsvW1obEnYFOYE3tIdErz4+VvEuo5gueHnUVY=
+Received: from sensor1010$163.com ( [120.245.132.192] ) by
+ ajax-webmail-wmsvr40 (Coremail) ; Sun, 19 Mar 2023 22:59:47 +0800 (CST)
+X-Originating-IP: [120.245.132.192]
+Date: Sun, 19 Mar 2023 22:59:47 +0800 (CST)
+From: lizhe <sensor1010@163.com>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	fthain@linux-m68k.org, linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] kernel/drivers: Remove redundant driver match
+ function
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20230109(dcb5de15)
+ Copyright (c) 2002-2023 www.mailtech.cn 163com
+In-Reply-To: <20220507082137.i23gbxkbjwt36ggd@pengutronix.de>
+References: <20220506045952.136290-1-sensor1010@163.com>
+ <20220507082137.i23gbxkbjwt36ggd@pengutronix.de>
+X-NTES-SC: 
+ AL_QuycC/6YuEEs5yKYZ+kXn0kShuc8WcC4v/Qv345RP5k0ginq+hAKdnx/N0P56/+wJwmrsxuHXwFf+/5zRIN4WYd1eu3OqiVidmvfVg/noT6f
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] dt-bindings: pinctrl: Drop unneeded quotes
-To: Rob Herring <robh@kernel.org>, =?UTF-8?Q?Andreas_F=c3=a4rber?=
- <afaerber@suse.de>, Manivannan Sadhasivam <mani@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Hector Martin <marcan@marcan.st>,
- Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- Damien Le Moal <damien.lemoal@wdc.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Jacky Bai <ping.bai@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, NXP Linux Team <linux-imx@nxp.com>,
- Sean Wang <sean.wang@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>, Tomasz Figa <tomasz.figa@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Jianlong Huang <jianlong.huang@starfivetech.com>,
- Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Michal Simek <michal.simek@xilinx.com>
-References: <20230317233623.3968172-1-robh@kernel.org>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230317233623.3968172-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-MailFrom: krzysztof.kozlowski@linaro.org
-X-Mailman-Rule-Hits: max-recipients
+Message-ID: <6d78cd4a.1f62.186fa623e48.Coremail.sensor1010@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: _____wBncidkIxdkHHcTAA--.20701W
+X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/xtbBlwQ3q2I0YaQj6wAAsU
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-MailFrom: sensor1010@163.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: R3AM4WY6APLSP2X5OJ3XDSHZG24ZJ5YL
-X-Message-ID-Hash: R3AM4WY6APLSP2X5OJ3XDSHZG24ZJ5YL
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: BXJOUA2THSZB3DYIPSJ2LZIZEDULV777
+X-Message-ID-Hash: BXJOUA2THSZB3DYIPSJ2LZIZEDULV777
 X-Mailman-Approved-At: Mon, 20 Mar 2023 19:30:07 +0000
-CC: linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, lee.jones@linaro.org,
+ fthain@linux-m68k.org, akrowiak@linux.ibm.com, pasic@linux.ibm.com,
+ jjherne@linux.ibm.com, freude@linux.ibm.com, hca@linux.ibm.com,
+ gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+ svens@linux.ibm.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+ zbr@ioremap.net, tiwai@suse.com, bvanassche@acm.org,
+ dan.j.williams@intel.com, srinivas.kandagatla@linaro.org, wens@csie.org,
+ colin.king@intel.com, hare@suse.de, linux-kernel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3AM4WY6APLSP2X5OJ3XDSHZG24ZJ5YL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BXJOUA2THSZB3DYIPSJ2LZIZEDULV777/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,16 +106,117 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18/03/2023 00:36, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+CgoKSEkgOiBVd2UgS2xlaW5lLUtvbmlnCiAKICAgICAgIFRoaXMgaXMgdGhlIHNlY29uZCB0aW1l
+IHlvdSBoYXZlIGtub3duIHRoZSBwcm9ibGVtIHdpdGggdGhpcyBwYXRjaCBhbmQgaGF2ZSBhbHNv
+IHJlcGxpZWQgd2l0aCBjb21tZW50cy4KICAgICAgICBGdGhhaW4sIHBsZWFzZSBjb25zaWRlciBy
+ZWNlaXZpbmcgbXkgcGF0Y2gKICAgIAoKCgoKCgoKCgoKCgoKCkF0IDIwMjItMDUtMDcgMTY6MjE6
+MzcsICJVd2UgS2xlaW5lLUvDtm5pZyIgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4g
+d3JvdGU6Cj5IZWxsbywKPgo+T24gVGh1LCBNYXkgMDUsIDIwMjIgYXQgMDk6NTk6NTJQTSAtMDcw
+MCwgbGl6aGUgd3JvdGU6Cj4+IElmIHRoZXJlIGlzIG5vIGRyaXZlciBtYXRjaCBmdW5jdGlvbiwg
+dGhlIGRyaXZlciBjb3JlIGFzc3VtZXMgdGhhdCBlYWNoCj4+IGNhbmRpZGF0ZSBwYWlyIChkcml2
+ZXIsIGRldmljZSkgbWF0Y2hlcywgc2VlIGRyaXZlcl9tYXRjaF9kZXZpY2UoKS4KPgo+SSB3b25k
+ZXIgd2hvIGlzIHN1cHBvc2VkIHRvIGFwcGx5IHRoaXMgcGF0Y2guIEVpdGhlciBpdCBzaG91bGQg
+YmUgc3BsaXQKPmJ5IGZpbGUgYW5kIGdvIGluIHZpYSB0aGUgcmVzcGVjdGl2ZSBtYWludGFpbmVy
+cywgb3IgaXQgZ29lcyBpbiB2aWEKPkdyZWcncyB0cmVlPyBJIGFkZGVkIEdyZWcgdG8gVG86IGZv
+ciBoaW0gdG8gY2hpbWUgaW4uCj4KPkJlc3QgcmVnYXJkcwo+VXdlCj4gCj4+IFNpZ25lZC1vZmYt
+Ynk6IGxpemhlIDxzZW5zb3IxMDEwQDE2My5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9tZmQvbWNw
+LWNvcmUuYyAgICAgICAgICAgICB8ICA2IC0tLS0tLQo+PiAgZHJpdmVycy9udWJ1cy9idXMuYyAg
+ICAgICAgICAgICAgICB8ICA2IC0tLS0tLQo+PiAgZHJpdmVycy9zMzkwL2NyeXB0by92ZmlvX2Fw
+X2Rydi5jICB8ICA2IC0tLS0tLQo+PiAgZHJpdmVycy9zY3NpL3Njc2lfZGVidWcuYyAgICAgICAg
+ICB8ICA3IC0tLS0tLS0KPj4gIGRyaXZlcnMvdGFyZ2V0L2xvb3BiYWNrL3RjbV9sb29wLmMgfCAg
+NyAtLS0tLS0tCj4+ICBkcml2ZXJzL3cxL3cxLmMgICAgICAgICAgICAgICAgICAgIHwgIDYgLS0t
+LS0tCj4+ICBzb3VuZC9hYzk3X2J1cy5jICAgICAgICAgICAgICAgICAgIHwgMTEgLS0tLS0tLS0t
+LS0KPj4gIDcgZmlsZXMgY2hhbmdlZCwgNDkgZGVsZXRpb25zKC0pCj4+IAo+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9tZmQvbWNwLWNvcmUuYyBiL2RyaXZlcnMvbWZkL21jcC1jb3JlLmMKPj4gaW5k
+ZXggMmZhNTkyYzM3YzZmLi4yODFhOTM2OWYyYjMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbWZk
+L21jcC1jb3JlLmMKPj4gKysrIGIvZHJpdmVycy9tZmQvbWNwLWNvcmUuYwo+PiBAQCAtMjAsMTEg
+KzIwLDYgQEAKPj4gICNkZWZpbmUgdG9fbWNwKGQpCQljb250YWluZXJfb2YoZCwgc3RydWN0IG1j
+cCwgYXR0YWNoZWRfZGV2aWNlKQo+PiAgI2RlZmluZSB0b19tY3BfZHJpdmVyKGQpCWNvbnRhaW5l
+cl9vZihkLCBzdHJ1Y3QgbWNwX2RyaXZlciwgZHJ2KQo+PiAgCj4+IC1zdGF0aWMgaW50IG1jcF9i
+dXNfbWF0Y2goc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlX2RyaXZlciAqZHJ2KQo+
+PiAtewo+PiAtCXJldHVybiAxOwo+PiAtfQo+PiAtCj4+ICBzdGF0aWMgaW50IG1jcF9idXNfcHJv
+YmUoc3RydWN0IGRldmljZSAqZGV2KQo+PiAgewo+PiAgCXN0cnVjdCBtY3AgKm1jcCA9IHRvX21j
+cChkZXYpOwo+PiBAQCAtNDMsNyArMzgsNiBAQCBzdGF0aWMgdm9pZCBtY3BfYnVzX3JlbW92ZShz
+dHJ1Y3QgZGV2aWNlICpkZXYpCj4+ICAKPj4gIHN0YXRpYyBzdHJ1Y3QgYnVzX3R5cGUgbWNwX2J1
+c190eXBlID0gewo+PiAgCS5uYW1lCQk9ICJtY3AiLAo+PiAtCS5tYXRjaAkJPSBtY3BfYnVzX21h
+dGNoLAo+PiAgCS5wcm9iZQkJPSBtY3BfYnVzX3Byb2JlLAo+PiAgCS5yZW1vdmUJCT0gbWNwX2J1
+c19yZW1vdmUsCj4+ICB9Owo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9udWJ1cy9idXMuYyBiL2Ry
+aXZlcnMvbnVidXMvYnVzLmMKPj4gaW5kZXggMTdmYWQ2NjAwMzJjLi43MjkyMWU0ZjM1ZjYgMTAw
+NjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbnVidXMvYnVzLmMKPj4gKysrIGIvZHJpdmVycy9udWJ1cy9i
+dXMuYwo+PiBAQCAtMTQsMTEgKzE0LDYgQEAKPj4gICNkZWZpbmUgdG9fbnVidXNfYm9hcmQoZCkg
+ICAgICAgY29udGFpbmVyX29mKGQsIHN0cnVjdCBudWJ1c19ib2FyZCwgZGV2KQo+PiAgI2RlZmlu
+ZSB0b19udWJ1c19kcml2ZXIoZCkgICAgICBjb250YWluZXJfb2YoZCwgc3RydWN0IG51YnVzX2Ry
+aXZlciwgZHJpdmVyKQo+PiAgCj4+IC1zdGF0aWMgaW50IG51YnVzX2J1c19tYXRjaChzdHJ1Y3Qg
+ZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcml2ZXIpCj4+IC17Cj4+IC0JcmV0
+dXJuIDE7Cj4+IC19Cj4+IC0KPj4gIHN0YXRpYyBpbnQgbnVidXNfZGV2aWNlX3Byb2JlKHN0cnVj
+dCBkZXZpY2UgKmRldikKPj4gIHsKPj4gIAlzdHJ1Y3QgbnVidXNfZHJpdmVyICpuZHJ2ID0gdG9f
+bnVidXNfZHJpdmVyKGRldi0+ZHJpdmVyKTsKPj4gQEAgLTM5LDcgKzM0LDYgQEAgc3RhdGljIHZv
+aWQgbnVidXNfZGV2aWNlX3JlbW92ZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+ICAKPj4gIHN0cnVj
+dCBidXNfdHlwZSBudWJ1c19idXNfdHlwZSA9IHsKPj4gIAkubmFtZQkJPSAibnVidXMiLAo+PiAt
+CS5tYXRjaAkJPSBudWJ1c19idXNfbWF0Y2gsCj4+ICAJLnByb2JlCQk9IG51YnVzX2RldmljZV9w
+cm9iZSwKPj4gIAkucmVtb3ZlCQk9IG51YnVzX2RldmljZV9yZW1vdmUsCj4+ICB9Owo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9zMzkwL2NyeXB0by92ZmlvX2FwX2Rydi5jIGIvZHJpdmVycy9zMzkw
+L2NyeXB0by92ZmlvX2FwX2Rydi5jCj4+IGluZGV4IDI5ZWJkNTRmODkxOS4uMGE2NjJjNDUxZjJh
+IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3MzOTAvY3J5cHRvL3ZmaW9fYXBfZHJ2LmMKPj4gKysr
+IGIvZHJpdmVycy9zMzkwL2NyeXB0by92ZmlvX2FwX2Rydi5jCj4+IEBAIC0xNzIsMTQgKzE3Miw4
+IEBAIHN0YXRpYyB2b2lkIHZmaW9fYXBfbWF0cml4X2Rldl9yZWxlYXNlKHN0cnVjdCBkZXZpY2Ug
+KmRldikKPj4gIAlrZnJlZShtYXRyaXhfZGV2KTsKPj4gIH0KPj4gIAo+PiAtc3RhdGljIGludCBt
+YXRyaXhfYnVzX21hdGNoKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZV9kcml2ZXIg
+KmRydikKPj4gLXsKPj4gLQlyZXR1cm4gMTsKPj4gLX0KPj4gLQo+PiAgc3RhdGljIHN0cnVjdCBi
+dXNfdHlwZSBtYXRyaXhfYnVzID0gewo+PiAgCS5uYW1lID0gIm1hdHJpeCIsCj4+IC0JLm1hdGNo
+ID0gJm1hdHJpeF9idXNfbWF0Y2gsCj4+ICB9Owo+PiAgCj4+ICBzdGF0aWMgc3RydWN0IGRldmlj
+ZV9kcml2ZXIgbWF0cml4X2RyaXZlciA9IHsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvc2NzaS9z
+Y3NpX2RlYnVnLmMgYi9kcml2ZXJzL3Njc2kvc2NzaV9kZWJ1Zy5jCj4+IGluZGV4IDU5MmEyOTBl
+NmNmYS4uODEwNzQ4OWIzNmU4IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3Njc2kvc2NzaV9kZWJ1
+Zy5jCj4+ICsrKyBiL2RyaXZlcnMvc2NzaS9zY3NpX2RlYnVnLmMKPj4gQEAgLTc4NDQsMTUgKzc4
+NDQsOCBAQCBzdGF0aWMgdm9pZCBzZGVidWdfZHJpdmVyX3JlbW92ZShzdHJ1Y3QgZGV2aWNlICpk
+ZXYpCj4+ICAJc2NzaV9ob3N0X3B1dChzZGJnX2hvc3QtPnNob3N0KTsKPj4gIH0KPj4gIAo+PiAt
+c3RhdGljIGludCBwc2V1ZG9fbGxkX2J1c19tYXRjaChzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+IC0J
+CQkJc3RydWN0IGRldmljZV9kcml2ZXIgKmRldl9kcml2ZXIpCj4+IC17Cj4+IC0JcmV0dXJuIDE7
+Cj4+IC19Cj4+IC0KPj4gIHN0YXRpYyBzdHJ1Y3QgYnVzX3R5cGUgcHNldWRvX2xsZF9idXMgPSB7
+Cj4+ICAJLm5hbWUgPSAicHNldWRvIiwKPj4gLQkubWF0Y2ggPSBwc2V1ZG9fbGxkX2J1c19tYXRj
+aCwKPj4gIAkucHJvYmUgPSBzZGVidWdfZHJpdmVyX3Byb2JlLAo+PiAgCS5yZW1vdmUgPSBzZGVi
+dWdfZHJpdmVyX3JlbW92ZSwKPj4gIAkuZHJ2X2dyb3VwcyA9IHNkZWJ1Z19kcnZfZ3JvdXBzLAo+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90YXJnZXQvbG9vcGJhY2svdGNtX2xvb3AuYyBiL2RyaXZl
+cnMvdGFyZ2V0L2xvb3BiYWNrL3RjbV9sb29wLmMKPj4gaW5kZXggNDQwN2I1NmFhNmQxLi5lZWI2
+M2RlZmY5NGYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvdGFyZ2V0L2xvb3BiYWNrL3RjbV9sb29w
+LmMKPj4gKysrIGIvZHJpdmVycy90YXJnZXQvbG9vcGJhY2svdGNtX2xvb3AuYwo+PiBAQCAtODMs
+MTUgKzgzLDggQEAgc3RhdGljIGludCB0Y21fbG9vcF9zaG93X2luZm8oc3RydWN0IHNlcV9maWxl
+ICptLCBzdHJ1Y3QgU2NzaV9Ib3N0ICpob3N0KQo+PiAgc3RhdGljIGludCB0Y21fbG9vcF9kcml2
+ZXJfcHJvYmUoc3RydWN0IGRldmljZSAqKTsKPj4gIHN0YXRpYyB2b2lkIHRjbV9sb29wX2RyaXZl
+cl9yZW1vdmUoc3RydWN0IGRldmljZSAqKTsKPj4gIAo+PiAtc3RhdGljIGludCBwc2V1ZG9fbGxk
+X2J1c19tYXRjaChzdHJ1Y3QgZGV2aWNlICpkZXYsCj4+IC0JCQkJc3RydWN0IGRldmljZV9kcml2
+ZXIgKmRldl9kcml2ZXIpCj4+IC17Cj4+IC0JcmV0dXJuIDE7Cj4+IC19Cj4+IC0KPj4gIHN0YXRp
+YyBzdHJ1Y3QgYnVzX3R5cGUgdGNtX2xvb3BfbGxkX2J1cyA9IHsKPj4gIAkubmFtZQkJCT0gInRj
+bV9sb29wX2J1cyIsCj4+IC0JLm1hdGNoCQkJPSBwc2V1ZG9fbGxkX2J1c19tYXRjaCwKPj4gIAku
+cHJvYmUJCQk9IHRjbV9sb29wX2RyaXZlcl9wcm9iZSwKPj4gIAkucmVtb3ZlCQkJPSB0Y21fbG9v
+cF9kcml2ZXJfcmVtb3ZlLAo+PiAgfTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdzEvdzEuYyBi
+L2RyaXZlcnMvdzEvdzEuYwo+PiBpbmRleCBmMmFlMmU1NjNkYzUuLmE2ZWNmYTFiMzQxNyAxMDA2
+NDQKPj4gLS0tIGEvZHJpdmVycy93MS93MS5jCj4+ICsrKyBiL2RyaXZlcnMvdzEvdzEuYwo+PiBA
+QCAtNTgsMTEgKzU4LDYgQEAgTU9EVUxFX1BBUk1fREVTQyhzbGF2ZV90dGwsCj4+ICBERUZJTkVf
+TVVURVgodzFfbWxvY2spOwo+PiAgTElTVF9IRUFEKHcxX21hc3RlcnMpOwo+PiAgCj4+IC1zdGF0
+aWMgaW50IHcxX21hc3Rlcl9tYXRjaChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2Vf
+ZHJpdmVyICpkcnYpCj4+IC17Cj4+IC0JcmV0dXJuIDE7Cj4+IC19Cj4+IC0KPj4gIHN0YXRpYyBp
+bnQgdzFfbWFzdGVyX3Byb2JlKHN0cnVjdCBkZXZpY2UgKmRldikKPj4gIHsKPj4gIAlyZXR1cm4g
+LUVOT0RFVjsKPj4gQEAgLTE3NCw3ICsxNjksNiBAQCBzdGF0aWMgaW50IHcxX3VldmVudChzdHJ1
+Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBrb2JqX3VldmVudF9lbnYgKmVudik7Cj4+ICAKPj4gIHN0
+YXRpYyBzdHJ1Y3QgYnVzX3R5cGUgdzFfYnVzX3R5cGUgPSB7Cj4+ICAJLm5hbWUgPSAidzEiLAo+
+PiAtCS5tYXRjaCA9IHcxX21hc3Rlcl9tYXRjaCwKPj4gIAkudWV2ZW50ID0gdzFfdWV2ZW50LAo+
+PiAgfTsKPj4gIAo+PiBkaWZmIC0tZ2l0IGEvc291bmQvYWM5N19idXMuYyBiL3NvdW5kL2FjOTdf
+YnVzLmMKPj4gaW5kZXggYjQ2ODVjNTNmZjExLi5jN2FlZThjNDJjNTUgMTAwNjQ0Cj4+IC0tLSBh
+L3NvdW5kL2FjOTdfYnVzLmMKPj4gKysrIGIvc291bmQvYWM5N19idXMuYwo+PiBAQCAtNzUsMTkg
+Kzc1LDggQEAgaW50IHNuZF9hYzk3X3Jlc2V0KHN0cnVjdCBzbmRfYWM5NyAqYWM5NywgYm9vbCB0
+cnlfd2FybSwgdW5zaWduZWQgaW50IGlkLAo+PiAgfQo+PiAgRVhQT1JUX1NZTUJPTF9HUEwoc25k
+X2FjOTdfcmVzZXQpOwo+PiAgCj4+IC0vKgo+PiAtICogTGV0IGRyaXZlcnMgZGVjaWRlIHdoZXRo
+ZXIgdGhleSB3YW50IHRvIHN1cHBvcnQgZ2l2ZW4gY29kZWMgZnJvbSB0aGVpcgo+PiAtICogcHJv
+YmUgbWV0aG9kLiBEcml2ZXJzIGhhdmUgZGlyZWN0IGFjY2VzcyB0byB0aGUgc3RydWN0IHNuZF9h
+Yzk3Cj4+IC0gKiBzdHJ1Y3R1cmUgYW5kIG1heSAgZGVjaWRlIGJhc2VkIG9uIHRoZSBpZCBmaWVs
+ZCBhbW9uZ3N0IG90aGVyIHRoaW5ncy4KPj4gLSAqLwo+PiAtc3RhdGljIGludCBhYzk3X2J1c19t
+YXRjaChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcnYpCj4+IC17
+Cj4+IC0JcmV0dXJuIDE7Cj4+IC19Cj4+IC0KPj4gIHN0cnVjdCBidXNfdHlwZSBhYzk3X2J1c190
+eXBlID0gewo+PiAgCS5uYW1lCQk9ICJhYzk3IiwKPj4gLQkubWF0Y2gJCT0gYWM5N19idXNfbWF0
+Y2gsCj4+ICB9Owo+PiAgCj4+ICBzdGF0aWMgaW50IF9faW5pdCBhYzk3X2J1c19pbml0KHZvaWQp
+Cj4+IC0tIAo+PiAyLjI1LjEKPj4gCj4+IAo+Cj4tLSAKPlBlbmd1dHJvbml4IGUuSy4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICB8IFV3ZSBLbGVpbmUtS8O2bmlnICAgICAgICAgICAgfAo+SW5k
+dXN0cmlhbCBMaW51eCBTb2x1dGlvbnMgICAgICAgICAgICAgICAgIHwgaHR0cHM6Ly93d3cucGVu
+Z3V0cm9uaXguZGUvIHwK

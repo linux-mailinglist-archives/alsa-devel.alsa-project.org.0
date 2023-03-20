@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03CB66C2314
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 21:44:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 588986C232E
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 21:55:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAFE81E9;
-	Mon, 20 Mar 2023 21:43:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAFE81E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 252E41E1;
+	Mon, 20 Mar 2023 21:54:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 252E41E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679345089;
-	bh=4A/kaxf1QABlVJo5RDUirZ+pZId2W89U9ANAnoVHmrk=;
+	s=default; t=1679345727;
+	bh=MZj38O/W/p2Sts3TdUPlHpLMxwEzR0oUA5rPgwYg7+Q=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bD4O6i+jkxqJ8Ymb1wYpCkf9LGSA9osJYITebseJO45F2SPICV8nH6cEQqIdr4HQ/
-	 /EEJG+i3pVBESEBLPj+oIbnSY52TvgLJMmI6E/gp8JuaoHKrAcHh343mPo47qdobG1
-	 YErGGHEq8i5CjH3lUP13x1gynlwcZqXB9xWWZZWs=
+	b=QPhLGicfjysYCuXAzRcGvrcHe007Cfmsjd4NnXIBgvkfBqMtgI9kK4j6qzk7r/yz8
+	 KPAEoMh92IyozUuwAfhte7v9kCtGi8jNdIN5hvTyjX4TRiAqrAt8smPk7yBXqoeO9d
+	 MzsC73patqVV7vSaw0fsA0FFcmrU3PmzIXcIb34k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E8BBF80254;
-	Mon, 20 Mar 2023 21:43:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87853F80254;
+	Mon, 20 Mar 2023 21:54:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADA7DF800C9; Mon, 20 Mar 2023 21:43:55 +0100 (CET)
+	id 019D2F8027B; Mon, 20 Mar 2023 21:54:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02D2BF80254
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 21:43:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D2BF80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id D5C10F80093
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 21:54:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5C10F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WnQ7RzwC
+ header.s=k20201202 header.b=usO8YYEd
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id E7625B8100E;
-	Mon, 20 Mar 2023 20:43:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36111C433D2;
-	Mon, 20 Mar 2023 20:43:49 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CD6DF617E1;
+	Mon, 20 Mar 2023 20:54:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9948C433A0;
+	Mon, 20 Mar 2023 20:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679345030;
-	bh=4A/kaxf1QABlVJo5RDUirZ+pZId2W89U9ANAnoVHmrk=;
+	s=k20201202; t=1679345668;
+	bh=MZj38O/W/p2Sts3TdUPlHpLMxwEzR0oUA5rPgwYg7+Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WnQ7RzwCrP+QBck7FNLyWYmo/Dkl8dFJwPwqzqy8QGKelJ9pRu/xH+2TOT/p8W1Nj
-	 JqG9xE24FJrhPgsFYddfN9VuimMqjk/4cGftBLedTePkHSGN2UZzalZyw/9srAMlEp
-	 xAdt9biFZ57sglbIqJ2Yg4g5gk0BJkZ2HoQ+lGZ4D7DNfIEepF/NSlpxjbhekkMnLE
-	 b8IVsTIKZ0DQbiaj3oIoDmOxP4Yunh4CcavcWcbchc2RaT7x03JsswsIS9sS/E+ODH
-	 xfmwJVEGAdb8ve9NKMirygrEvrY17pRy2Jht5+rOgiSXjRRCjjKQFPJljzwBzxBC3U
-	 2eM2U7VmoVvDQ==
-Date: Mon, 20 Mar 2023 20:43:45 +0000
+	b=usO8YYEd0Opfv8bzMub5hflWtFIy5FBj8Cn3yUAXTmTfeWM7Nl9omOIqzdwrnbaN8
+	 cVA7IioabHmBlt4fc1xKDmhJae1akbROvGI4Zw7GPkf3O8sRcNykasE0ZF64vVvWz+
+	 9m/V5d6KmVbVBBzpS9CMJPAyxMUt8jUGMrXbAHSzlzFX8TbX6HzligNTM9Lgw5SsdH
+	 Va6fiuFXma0lqrZIjKBPaXpeEcxZhTI4CzOYJQhdKWbS/aP+PPOPLNrJ5mrk5w14Zf
+	 S5yuMK/PnW/DuG9SgfgCrKimqj8+wEEbaSHv7iU66vwShlfaCe+RB1MxKITN2qNBVJ
+	 1w/75ab/wXd5w==
+Date: Mon, 20 Mar 2023 20:54:23 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Marian Postevca <posteuca@mutex.one>
-Subject: Re: [PATCH 1/4] ASoC: es8316: Enable support for S32 LE format and
- MCLK div by 2
-Message-ID: <6825a54e-f2c0-41c4-981c-fafcd10454fd@sirena.org.uk>
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+Message-ID: <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
 References: <20230320203519.20137-1-posteuca@mutex.one>
- <20230320203519.20137-2-posteuca@mutex.one>
+ <20230320203519.20137-4-posteuca@mutex.one>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="I8SYPlSVeAQJbM4T"
+	protocol="application/pgp-signature"; boundary="HjbsShExCSghonkH"
 Content-Disposition: inline
-In-Reply-To: <20230320203519.20137-2-posteuca@mutex.one>
+In-Reply-To: <20230320203519.20137-4-posteuca@mutex.one>
 X-Cookie: Keep away from fire or flame.
-Message-ID-Hash: 5DLKKTVC3ZW7PUDRMQAZEWBRASGZQPUN
-X-Message-ID-Hash: 5DLKKTVC3ZW7PUDRMQAZEWBRASGZQPUN
+Message-ID-Hash: SAK6WOJWG2LUW7QKGIH4XLWGVLDZB3HZ
+X-Message-ID-Hash: SAK6WOJWG2LUW7QKGIH4XLWGVLDZB3HZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5DLKKTVC3ZW7PUDRMQAZEWBRASGZQPUN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SAK6WOJWG2LUW7QKGIH4XLWGVLDZB3HZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,43 +97,79 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---I8SYPlSVeAQJbM4T
+--HjbsShExCSghonkH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Mar 20, 2023 at 10:35:16PM +0200, Marian Postevca wrote:
+On Mon, Mar 20, 2023 at 10:35:18PM +0200, Marian Postevca wrote:
 
-> To properly support a line of Huawei laptops with AMD CPU and a
-> ES8336 codec connected to the ACP3X module we need to enable
-> the S32 LE format and the codec option to divide the MCLK by 2.
-
-The 32 bit support and MCLK division are two separate changes so should
-be two separate patches.
-
-> -	lrck_divider = es8316->sysclk / params_rate(params);
+> +static int acp_asoc_suspend_pre(struct snd_soc_card *card)
+> +{
+> +	int ret;
 > +
-> +	mclk_div_option = device_property_read_bool(component->dev,
-> +						    "everest,mclk-div-by-2");
-> +	if (mclk_div_option) {
+> +	ret = acp_ops_suspend_pre(card);
+> +	return ret == 1 ? 0 : ret;
 
-This introduces a DT property but there's no documentation for it, but I
-don't see why we'd want this in the bindings - the driver should be able
-to tell from the input clock rate and required output/internal clocks if
-it needs to divide MCLK.
+Please write normal conditional statements to improve legibility (or
+just have the function that's being called return a directly usable
+value?).
 
---I8SYPlSVeAQJbM4T
+> +	if (priv->quirk & ES83XX_48_MHZ_MCLK) {
+> +		dev_dbg(priv->codec_dev, "using a 48Mhz MCLK\n");
+> +		snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+> +					   &hw_constraint_rates_48mhz);
+> +		freq = ES83xx_48_MHZ_MCLK_FREQ;
+> +	} else {
+> +		dev_dbg(priv->codec_dev, "using a 12.288Mhz MCLK\n");
+> +		snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+> +					   &hw_constraint_rates_normal);
+> +		freq = ES83xx_12288_KHZ_MCLK_FREQ;
+> +	}
+
+The CODEC driver should be able to set these constraints for itself.
+
+> +	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+> +				   | SND_SOC_DAIFMT_CBP_CFP);
+
+Set this in the dai_link.
+
+> +static int acp3x_es83xx_speaker_power_event(struct snd_soc_dapm_widget *w,
+> +					    struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct acp3x_es83xx_private *priv = get_mach_priv(w->dapm->card);
+> +
+> +	dev_dbg(priv->codec_dev, "speaker power event: %d\n", event);
+> +	if (SND_SOC_DAPM_EVENT_ON(event))
+> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
+> +	else
+> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
+
+Why are these two GPIOs tied together like this?
+
+> +static int acp3x_es83xx_suspend_pre(struct snd_soc_card *card)
+> +{
+> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
+> +
+> +	dev_dbg(priv->codec_dev, "card suspend\n");
+> +	snd_soc_component_set_jack(priv->codec, NULL, NULL);
+> +	return 0;
+> +}
+
+That's weird, why do that?
+
+--HjbsShExCSghonkH
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQYxYAACgkQJNaLcl1U
-h9CX8gf/RmwyEoVVmr3aQ8Bp4SWGDyii+5RBC0xwiRgZWpgWzB4Dc2tmrAiPwu/S
-DlPYvD699CAaluybZtEVr0GDyLE2ijsmd3IlNH41Zv7/EU5zh3pf/9nHwCz7c5XA
-0IUONdpeqhsaGivX+mgCnKsDuNRM3Vglfw3RziTKVm8BmwKBYxMTgOQ2C4dB4wb1
-YSHPdUE8x5gj7Ft5UMUPUqRNhFJX2+mA6VNtDR2P5YG2guKPrZGPIcNgtViqEfkU
-ZA7U0mOvHZQNgqrM6C+XzBLH2nIXTI1IlCSAW5/XFFaD75yTwn+rmpuSe+EnjXRs
-qd7ochD5wURL1ibYOSHqOrZnAqDhRg==
-=+ZJZ
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQYx/4ACgkQJNaLcl1U
+h9D+Wwf/bKdQ7lKzAYzNiRwqoNAblsODFOoW6si8H9tMBez8Xe8oxGGlginVJFzV
+v3p2/ostjrMN/wu3reCAtpfGI3yDt674B00qSL0dk9zZZVjSBPrFwVE8vgRnxo1w
+1Hbkq1HSHdyIv07ec7+rqfzfhfHt20q7sXro0D/Gq6D36SgnHc1Pq/oi0ffSahOW
+bLcA0xUMTV0yJ8oK2Gzg/p83GMtzIC7IrInQF8Cuz04tSSgnwMwAVCQP5Bdui6sK
+1+vjnVbAuiO8C/D6l80tLvXKE5Pg9gKyIgFgDZqW28zC+JIAfdV5+8ds9qlQXhU0
+pzEQagoJ5lMgF5jxD1r5hBQ6YrXyWg==
+=Y9Xp
 -----END PGP SIGNATURE-----
 
---I8SYPlSVeAQJbM4T--
+--HjbsShExCSghonkH--

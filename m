@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C4336C10C5
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 12:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 549F06C10C4
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 12:26:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAEEA825;
-	Mon, 20 Mar 2023 12:25:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAEEA825
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF3E1210;
+	Mon, 20 Mar 2023 12:25:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF3E1210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679311575;
-	bh=jC2plIyP4bbfIwCSQMGOTbE8/gI12aiPXQiOxG2rgRs=;
+	s=default; t=1679311565;
+	bh=XWD/gcI9/BbtRfE5GnEkaKuIH1P0ZHSGLbRrD3F5mcY=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=E82c3gFUNnUJa2LygH5u8OFV7wg3GwbQrxnWioNPFe30rEBmuU9DLuNeRuZEXyWqQ
-	 x6gfLPBj1zknEO265XizMpkWTWyciwlZbSlc/6ie6euxAQB5yH5DWMQLs1yvnnNkWg
-	 pq71dtB1Hq2gKIvllwHUQFGdBFK07F31w+IuYg6o=
+	b=H/77a+H/IXOvM/UA0cycp0y/G8oChXBVqn8q7ujkhIQiQYZmjZirhIglrLESXGB/M
+	 0qUJVVyYVNk2LgFqP665SRQo8rkchKID317GovUWnA489ZfhM32NPOPzL0CcdBsamP
+	 J2v8PcGYfP0UScLCY45ZqFNBxxxK/oX9s5T0eMzs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0001F80564;
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EE51F8055A;
 	Mon, 20 Mar 2023 12:23:28 +0100 (CET)
 To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v3 5/8] ASoC: wm_adsp: Expose the DSP boot work actions as
- wm_adsp_power_up()
-Date: Mon, 20 Mar 2023 11:22:42 +0000
+Subject: [PATCH v3 6/8] ASoC: wm_adsp: Add support for loading bin files
+ without wmfw
+Date: Mon, 20 Mar 2023 11:22:43 +0000
 In-Reply-To: <20230320112245.115720-1-rf@opensource.cirrus.com>
 References: <20230320112245.115720-1-rf@opensource.cirrus.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -39,7 +39,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GC5QWRTZSOC4IXR4IMEWTKJZLFT3JFDK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IU7OQSBS272KUY5LW6QH7FJTXAXKYVA4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -49,7 +49,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <167931140832.26.15416831831977214867@mailman-core.alsa-project.org>
+ <167931140648.26.12842285182456366955@mailman-core.alsa-project.org>
 From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
 Cc: peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
@@ -60,7 +60,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43991F80254; Mon, 20 Mar 2023 12:23:09 +0100 (CET)
+	id B37F8F80254; Mon, 20 Mar 2023 12:23:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -70,59 +70,59 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56CEBF804B1
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 12:22:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56CEBF804B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id C0EB8F804FE
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 12:22:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0EB8F804FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=XLTS8JvA
+ header.s=PODMain02222019 header.b=jwMpr+85
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32K6xMZg028388;
-	Mon, 20 Mar 2023 06:22:48 -0500
+ 32K6xMZi028388;
+	Mon, 20 Mar 2023 06:22:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=uFBC8RrDMvweaYvhR9SIiEznOkshqG+7URIf1J9cblY=;
- b=XLTS8JvAP+BIX8IRRpkDl0+rWol7YNNAXwO+BQPP6kj3hjGbXwLufRwXJUAf8PgqyG4y
- FQ1dzj4yScSj3BMTx1X9bARkWHcZaTMldC4vYaUWpo2Epqc2IddDuVkbN/2MyUhCTUF3
- SKse6P7058YaWMUppll3JkZZH12CCk9qpyJ+HIqr3O8YcrFn7walbuXF0qRxkI4iP+Fi
- hg+vH9CeuYMCvZqAi2F8HiOAs6Hvbn6m8cQUfDG4Z2JrpU9nH+1hh3hnG7/RXhFk1+iM
- 95j5ZNdk70cuDAbAZnqmiSTIlPGSHa1+t2CxMLVQGZsRRDZONoCzQdiLGOnS0FQaE31X ug==
+ bh=EKnDAwCfy9GRT/qvjYxeHgVu90MN/3twhG33D7PV3Pw=;
+ b=jwMpr+85uOHvZl8nVQtcC2eWXwoJvGgrjBKStZteg6HYDZE40ZpIMKjtF5QusrJ8WUci
+ jfDRCar1j+IvDqaq/J4LfuvkgQAsgdPB+tGU/iv+rLa8xcSgg5bdvmrcY3DGwN8AC1br
+ +dP3UhDzV1QJF8VTefRPQwOKlGs2objLhXfoQtCTfN8AGMDzmq5CRwX9ViLWJeJoOh9A
+ TTILbxBKNvjLR/aiIdFngER61UwSLredPxxK7WSmJPZOuwzNAiCy3m9gw1lY9pLVquzy
+ 1lKqtnF+z2jW1rc9i+en7YsqqEY7Iux3BLa6s0eSUvSwklG/8KkM7WQ+LfOHyi8x7rOw 5A==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pd9qptc80-3
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pd9qptc80-4
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Mon, 20 Mar 2023 06:22:48 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Mon, 20 Mar
  2023 06:22:45 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Mon, 20 Mar 2023 06:22:45 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
+ Transport; Mon, 20 Mar 2023 06:22:45 -0500
 Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
  [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D423CB38;
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E4A9511D4;
 	Mon, 20 Mar 2023 11:22:45 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH v3 5/8] ASoC: wm_adsp: Expose the DSP boot work actions as
- wm_adsp_power_up()
-Date: Mon, 20 Mar 2023 11:22:42 +0000
-Message-ID: <20230320112245.115720-6-rf@opensource.cirrus.com>
+Subject: [PATCH v3 6/8] ASoC: wm_adsp: Add support for loading bin files
+ without wmfw
+Date: Mon, 20 Mar 2023 11:22:43 +0000
+Message-ID: <20230320112245.115720-7-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230320112245.115720-1-rf@opensource.cirrus.com>
 References: <20230320112245.115720-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: KWXUtwz3Okw7vFPhKk3rn10sUtyXJQc3
-X-Proofpoint-ORIG-GUID: KWXUtwz3Okw7vFPhKk3rn10sUtyXJQc3
+X-Proofpoint-GUID: HexwZbFcq_TtVm_dyJI1QkMk_t5MLavq
+X-Proofpoint-ORIG-GUID: HexwZbFcq_TtVm_dyJI1QkMk_t5MLavq
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: GC5QWRTZSOC4IXR4IMEWTKJZLFT3JFDK
-X-Message-ID-Hash: GC5QWRTZSOC4IXR4IMEWTKJZLFT3JFDK
+Message-ID-Hash: IU7OQSBS272KUY5LW6QH7FJTXAXKYVA4
+X-Message-ID-Hash: IU7OQSBS272KUY5LW6QH7FJTXAXKYVA4
 X-MailFrom: prvs=8443a53618=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -139,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GC5QWRTZSOC4IXR4IMEWTKJZLFT3JFDK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IU7OQSBS272KUY5LW6QH7FJTXAXKYVA4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,84 +150,50 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Simon Trimmer <simont@opensource.cirrus.com>
 
-To support self-booting DSPs that are considered always running, the work
-that is usually invoked as part of a DAPM sequence needs to be triggered
-by a client of wm_adsp as part of it's startup sequence.
-
-These actions load firmware files that might create ALSA controls and
-apply configuration to the device.
+A self-booted DSP may have a file of coefficients to apply to the device
+even when there is no firmware to download.
 
 Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/wm_adsp.c | 27 ++++++++++++++++++---------
- sound/soc/codecs/wm_adsp.h |  2 ++
- 2 files changed, 20 insertions(+), 9 deletions(-)
+ sound/soc/codecs/wm_adsp.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 8176b6173de9..d4bffa2f7005 100644
+index d4bffa2f7005..c23c306dc38d 100644
 --- a/sound/soc/codecs/wm_adsp.c
 +++ b/sound/soc/codecs/wm_adsp.c
-@@ -998,11 +998,8 @@ int wm_adsp2_preloader_put(struct snd_kcontrol *kcontrol,
- }
- EXPORT_SYMBOL_GPL(wm_adsp2_preloader_put);
+@@ -850,8 +850,29 @@ static int wm_adsp_request_firmware_files(struct wm_adsp *dsp,
+ 		return 0;
+ 	}
  
--static void wm_adsp_boot_work(struct work_struct *work)
-+int wm_adsp_power_up(struct wm_adsp *dsp)
- {
--	struct wm_adsp *dsp = container_of(work,
--					   struct wm_adsp,
--					   boot_work);
- 	int ret = 0;
- 	char *wmfw_filename = NULL;
- 	const struct firmware *wmfw_firmware = NULL;
-@@ -1013,16 +1010,28 @@ static void wm_adsp_boot_work(struct work_struct *work)
- 					     &wmfw_firmware, &wmfw_filename,
- 					     &coeff_firmware, &coeff_filename);
- 	if (ret)
--		return;
-+		return ret;
- 
--	cs_dsp_power_up(&dsp->cs_dsp,
--			wmfw_firmware, wmfw_filename,
--			coeff_firmware, coeff_filename,
--			wm_adsp_fw_text[dsp->fw]);
-+	ret = cs_dsp_power_up(&dsp->cs_dsp,
-+			      wmfw_firmware, wmfw_filename,
-+			      coeff_firmware, coeff_filename,
-+			      wm_adsp_fw_text[dsp->fw]);
- 
- 	wm_adsp_release_firmware_files(dsp,
- 				       wmfw_firmware, wmfw_filename,
- 				       coeff_firmware, coeff_filename);
+-	if (dsp->wmfw_optional)
++	if (dsp->wmfw_optional) {
++		if (system_name) {
++			if (asoc_component_prefix)
++				wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
++							      cirrus_dir, system_name,
++							      asoc_component_prefix, "bin");
 +
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(wm_adsp_power_up);
++			if (!*coeff_firmware)
++				wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
++							      cirrus_dir, system_name,
++							      NULL, "bin");
++		}
 +
-+static void wm_adsp_boot_work(struct work_struct *work)
-+{
-+	struct wm_adsp *dsp = container_of(work,
-+					   struct wm_adsp,
-+					   boot_work);
++		if (!*coeff_firmware)
++			wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
++						      "", NULL, NULL, "bin");
 +
-+	wm_adsp_power_up(dsp);
- }
++		if (!*coeff_firmware)
++			wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
++						      cirrus_dir, NULL, NULL, "bin");
++
+ 		return 0;
++	}
  
- int wm_adsp_early_event(struct snd_soc_dapm_widget *w,
-diff --git a/sound/soc/codecs/wm_adsp.h b/sound/soc/codecs/wm_adsp.h
-index 173dcae2c260..769904d34a87 100644
---- a/sound/soc/codecs/wm_adsp.h
-+++ b/sound/soc/codecs/wm_adsp.h
-@@ -91,6 +91,8 @@ int wm_adsp1_event(struct snd_soc_dapm_widget *w,
- int wm_adsp_early_event(struct snd_soc_dapm_widget *w,
- 			struct snd_kcontrol *kcontrol, int event);
- 
-+int wm_adsp_power_up(struct wm_adsp *dsp);
-+
- irqreturn_t wm_adsp2_bus_error(int irq, void *data);
- irqreturn_t wm_halo_bus_error(int irq, void *data);
- irqreturn_t wm_halo_wdt_expire(int irq, void *data);
+ 	adsp_err(dsp, "Failed to request firmware <%s>%s-%s-%s<-%s<%s>>.wmfw\n",
+ 		 cirrus_dir, dsp->part, dsp->fwf_name, wm_adsp_fw[dsp->fw].file,
 -- 
 2.30.2
 

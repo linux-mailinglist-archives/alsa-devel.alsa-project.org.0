@@ -2,95 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEC1B6C14B9
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 15:29:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1E5F6C1502
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 15:43:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68478832;
-	Mon, 20 Mar 2023 15:28:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68478832
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2C4B1E1;
+	Mon, 20 Mar 2023 15:42:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2C4B1E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679322580;
-	bh=ayYUMaXHqmBWhgS+bimHdeOYLNDophEFxSNUjKxUvxk=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qF5bOvcUmjMqs2CaXxdTu/HgWKtmQbq8ncqnVNQHZRIUuzgcG7DEbrvBefOLhxv7z
-	 8wk1wijV+s2Mk5ZCrmKTzRDUav0fDX97MXuWtPSRKaXG8EeW45s8U0Pwv/NM6EUHZn
-	 opccesQWTCATf+LG/qY4RKZfuC7Q8oUYRP1vK0LI=
+	s=default; t=1679323397;
+	bh=6ovM0T9TVMGjqDSbyWQDwqpTnYKG0xlbFq50tHK3Q+k=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=vjKcKIGCavf5ioSSIxFdJId29eUaqrLCovKxPQeqMofeputCDWMGHpCT3U+xp04/D
+	 Tu4NLnruKzW4FYRV6XlFKbkbSJqT1pmIr7ssuRw6l3Dt1pXbEHeITxN/kQqkmeUwd7
+	 /BPdGSRpzmEwEbpFkGJgQUF8Av6Tl09EXf78Ezx8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06B6FF80520;
-	Mon, 20 Mar 2023 15:28:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA217F80254;
+	Mon, 20 Mar 2023 15:42:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F2A1F80552; Mon, 20 Mar 2023 15:28:46 +0100 (CET)
+	id 9C598F8027B; Mon, 20 Mar 2023 15:42:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1DB5F804FE
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 15:28:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DB5F804FE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=EM3B4QFk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=59YFOcLD
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E043F80105
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 15:42:20 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EC93E11CB;
+	Mon, 20 Mar 2023 15:42:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EC93E11CB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1679323340; bh=jiG7tttAllibNSjSkUujMcxdbJ8P0x2ks4YQyVlQdxI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JktfRXHlcDl2aOCC4rlYRsolYLLtQMyUi3jtdSozHhz9+ytDIHktW/07YTUHNdceW
+	 llfU0yYaC+M9Q8liNav+KdONovt2roPh0LcgaitDD4+mkm08BBNagMX3Ha7vs3J+Mi
+	 iPhJQymHD94FCrC2qm13jUwwVuPmeJ7lh4tyobkM=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 50A9521AC1;
-	Mon, 20 Mar 2023 14:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1679322521;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=GXhH0Zf3ddbOhjTnkaTD6Jq/pUNkdWmgM9xdhNjAOe0=;
-	b=EM3B4QFk6aRwx6Uh73uAdNyaSjHkDOwySN+BgQk7v67qXD0le0gho1CLWIaq4zjOi//UyE
-	P3syH4M4BOZcIFjxNfXeG/1jhrGWedxSb3xzGBLUEMMwjHt+lEqsAy2wiBGiDuTs4pLsAA
-	7rM5aft78k4IL1j8HU/PeA2H7MFtUS0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679322521;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=GXhH0Zf3ddbOhjTnkaTD6Jq/pUNkdWmgM9xdhNjAOe0=;
-	b=59YFOcLDSH3kwWc8MTEcoP8xb5l4aAaZikEsmkGRw1F40lDGGifNA7Xc9sFPRNlkONfih/
-	RAHHiEbBeB61ygBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2FF7D13A00;
-	Mon, 20 Mar 2023 14:28:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id s2zxCpltGGTfIwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 20 Mar 2023 14:28:41 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: Fix recursive locking at XRUN during syncing
-Date: Mon, 20 Mar 2023 15:28:38 +0100
-Message-Id: <20230320142838.494-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Mon, 20 Mar 2023 15:42:16 +0100 (CET)
+Message-ID: <77bb2ac9-94b9-8e9f-0b9b-8e7a1c8c9dd6@perex.cz>
+Date: Mon, 20 Mar 2023 15:42:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 56RMZNVWMANEJJ5RPNYR2ZYMULPUYRM4
-X-Message-ID-Hash: 56RMZNVWMANEJJ5RPNYR2ZYMULPUYRM4
-X-MailFrom: tiwai@suse.de
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] ALSA: usb-audio: Fix recursive locking at XRUN during
+ syncing
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20230320142838.494-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230320142838.494-1-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: VCRVYBEEX5KJ2AVWR7CUUDE7KP4L445G
+X-Message-ID-Hash: VCRVYBEEX5KJ2AVWR7CUUDE7KP4L445G
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/56RMZNVWMANEJJ5RPNYR2ZYMULPUYRM4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VCRVYBEEX5KJ2AVWR7CUUDE7KP4L445G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,135 +93,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The recent support of low latency playback in USB-audio driver made
-the snd_usb_queue_pending_output_urbs() function to be called via PCM
-ack ops.  In the new code path, the function is performed alread in
-the PCM stream lock.  The problem is that, when an XRUN is detected,
-the  function calls snd_pcm_xrun() to notify, but snd_pcm_xrun() is
-supposed to be called only outside the stream lock.  As a result, it
-leads to a deadlock of PCM stream locking.
+On 20. 03. 23 15:28, Takashi Iwai wrote:
+> The recent support of low latency playback in USB-audio driver made
+> the snd_usb_queue_pending_output_urbs() function to be called via PCM
+> ack ops.  In the new code path, the function is performed alread in
+> the PCM stream lock.  The problem is that, when an XRUN is detected,
+> the  function calls snd_pcm_xrun() to notify, but snd_pcm_xrun() is
+> supposed to be called only outside the stream lock.  As a result, it
+> leads to a deadlock of PCM stream locking.
+> 
+> For avoiding such a recursive locking, this patch adds an additional
+> check to the code paths in PCM core that call the ack callback; now it
+> checks the error code from the callback, and if it's -EPIPE, the XRUN
+> is handled in the PCM core side gracefully.  Along with it, the
+> USB-audio driver code is changed to follow that, i.e. -EPIPE is
+> returned instead of the explicit snd_pcm_xrun() call when the function
+> is performed already in the stream lock.
+> 
+> Fixes: d5f871f89e21 ("ALSA: usb-audio: Improved lowlatency playback support")
+> Reported-and-tested-by: John Keeping <john@metanate.com>
+> Link: https://lore.kernel.org/r/20230317195128.3911155-1-john@metanate.com
+> Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-For avoiding such a recursive locking, this patch adds an additional
-check to the code paths in PCM core that call the ack callback; now it
-checks the error code from the callback, and if it's -EPIPE, the XRUN
-is handled in the PCM core side gracefully.  Along with it, the
-USB-audio driver code is changed to follow that, i.e. -EPIPE is
-returned instead of the explicit snd_pcm_xrun() call when the function
-is performed already in the stream lock.
+I think that this is the best variant of the proposed solutions.
 
-Fixes: d5f871f89e21 ("ALSA: usb-audio: Improved lowlatency playback support")
-Reported-and-tested-by: John Keeping <john@metanate.com>
-Link: https://lore.kernel.org/r/20230317195128.3911155-1-john@metanate.com
-Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/pcm_lib.c |  2 ++
- sound/usb/endpoint.c | 22 ++++++++++++++--------
- sound/usb/endpoint.h |  4 ++--
- sound/usb/pcm.c      |  2 +-
- 4 files changed, 19 insertions(+), 11 deletions(-)
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 8b6aeb8a78f7..02fd65993e7e 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -2155,6 +2155,8 @@ int pcm_lib_apply_appl_ptr(struct snd_pcm_substream *substream,
- 		ret = substream->ops->ack(substream);
- 		if (ret < 0) {
- 			runtime->control->appl_ptr = old_appl_ptr;
-+			if (ret == -EPIPE)
-+				__snd_pcm_xrun(substream);
- 			return ret;
- 		}
- 	}
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 419302e2057e..647fa054d8b1 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -455,8 +455,8 @@ static void push_back_to_ready_list(struct snd_usb_endpoint *ep,
-  * This function is used both for implicit feedback endpoints and in low-
-  * latency playback mode.
-  */
--void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
--				       bool in_stream_lock)
-+int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
-+				      bool in_stream_lock)
- {
- 	bool implicit_fb = snd_usb_endpoint_implicit_feedback_sink(ep);
- 
-@@ -480,7 +480,7 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
- 		spin_unlock_irqrestore(&ep->lock, flags);
- 
- 		if (ctx == NULL)
--			return;
-+			break;
- 
- 		/* copy over the length information */
- 		if (implicit_fb) {
-@@ -495,11 +495,14 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
- 			break;
- 		if (err < 0) {
- 			/* push back to ready list again for -EAGAIN */
--			if (err == -EAGAIN)
-+			if (err == -EAGAIN) {
- 				push_back_to_ready_list(ep, ctx);
--			else
-+				break;
-+			}
-+
-+			if (!in_stream_lock)
- 				notify_xrun(ep);
--			return;
-+			return -EPIPE;
- 		}
- 
- 		err = usb_submit_urb(ctx->urb, GFP_ATOMIC);
-@@ -507,13 +510,16 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
- 			usb_audio_err(ep->chip,
- 				      "Unable to submit urb #%d: %d at %s\n",
- 				      ctx->index, err, __func__);
--			notify_xrun(ep);
--			return;
-+			if (!in_stream_lock)
-+				notify_xrun(ep);
-+			return -EPIPE;
- 		}
- 
- 		set_bit(ctx->index, &ep->active_mask);
- 		atomic_inc(&ep->submitted_urbs);
- 	}
-+
-+	return 0;
- }
- 
- /*
-diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
-index 924f4351588c..c09f68ce08b1 100644
---- a/sound/usb/endpoint.h
-+++ b/sound/usb/endpoint.h
-@@ -52,7 +52,7 @@ int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep);
- int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep,
- 				      struct snd_urb_ctx *ctx, int idx,
- 				      unsigned int avail);
--void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
--				       bool in_stream_lock);
-+int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
-+				      bool in_stream_lock);
- 
- #endif /* __USBAUDIO_ENDPOINT_H */
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index d959da7a1afb..eec5232f9fb2 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1639,7 +1639,7 @@ static int snd_usb_pcm_playback_ack(struct snd_pcm_substream *substream)
- 	 * outputs here
- 	 */
- 	if (!ep->active_mask)
--		snd_usb_queue_pending_output_urbs(ep, true);
-+		return snd_usb_queue_pending_output_urbs(ep, true);
- 	return 0;
- }
- 
+					Jaroslav
+
 -- 
-2.35.3
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

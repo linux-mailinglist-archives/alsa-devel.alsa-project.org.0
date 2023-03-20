@@ -2,78 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206FA6C1FBA
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:32:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41976C1FC5
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:33:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B35D21DE;
-	Mon, 20 Mar 2023 19:32:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B35D21DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51DF81EF;
+	Mon, 20 Mar 2023 19:32:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51DF81EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679337175;
-	bh=UX0KNBrfaHWjg27sM+jbAaSTv4YTjtaGVwsG4hFjvOo=;
+	s=default; t=1679337226;
+	bh=1k2HdZd7GXcK9Rf8Iw4VOgSYsoDP5B0+bCp15WVe8Ss=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FnzdaAA8FJuhgAbXZUsvYLTk2y5JPX8m0UpBYpNSwcj2UYsHNE9V862I4122JnILf
-	 M2y4xgS4dlwCxG4gCdJNKsQSsBksECfT8sU6Mg/XROHx9V8rUHoJTuNvY66TCgiNy6
-	 NnP7fj47y1KwA2DOFqP32FTBjgXtO4MgFPJTcjMM=
+	b=ejXA5Vi6Eyk8Nrc+hN5gWQdyQYxvx6ZPvjPZqS8fIabdfY4xRnmKKu21lJq/Ggx+W
+	 LKwhWXWL6zgVVt65z1/cgXS4IaBnsSmHwCmfc+sS1lRBZnGVJXmuUM1NcFcdtPD0TE
+	 2if7OFnR2abikWDhgwuXwN+e0MeR+JCUM7iscXec=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAF19F80254;
-	Mon, 20 Mar 2023 19:32:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBD1CF804FE;
+	Mon, 20 Mar 2023 19:32:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86299F802E8; Mon, 20 Mar 2023 19:31:59 +0100 (CET)
+	id 356ABF8027B; Mon, 20 Mar 2023 19:32:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60E90F80093
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 19:31:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60E90F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC73EF800C9
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 19:31:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC73EF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gKknHFPc
+ header.s=k20201202 header.b=Tm7liQ/n
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id E1160B8108F;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F3BF6179A;
+	Mon, 20 Mar 2023 18:31:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47034C4339E;
 	Mon, 20 Mar 2023 18:31:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F56C433EF;
-	Mon, 20 Mar 2023 18:31:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679337106;
-	bh=UX0KNBrfaHWjg27sM+jbAaSTv4YTjtaGVwsG4hFjvOo=;
+	s=k20201202; t=1679337111;
+	bh=1k2HdZd7GXcK9Rf8Iw4VOgSYsoDP5B0+bCp15WVe8Ss=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=gKknHFPcLo78NnBNJVeeZKcUzj8MRPZY8qxbRLHQW22jfEyhQLFgVJS1SFP8WepUE
-	 rSQXKxzoSCLrfjZjufMNQzGzTBRO+E2x7w3sBpb0gzaB2BCBHo6197kKyTGiP7CyCX
-	 fsSFnNfudxnPxJ0v2lDDXAiIYMyNbj+SV/y1AOfVmsbvFzBA4rzr37EqcTmD4SppmO
-	 rWpv9IS1xSqOydS0av20N01i/OmTyABTIC7nS22408X3RXVl7AmvLhgoBBgTqG3RhY
-	 kjESvV0/k+kbdfV/zKx6/vgkc+Uk3RJfGkBE5/4VyDaFLuY9h41AYS9g+MzkbH9x+u
-	 hSz4YO/zKfbmA==
+	b=Tm7liQ/nAFkV3CyP8a5RNECtveLtuaotxTZ21TXsgIzjk1jw7OqCcVuv5NSZClLep
+	 A+YM+EoDWvAq/odu/8f8PeyGDE0GTZ7mII3jhBhwbOwFwfve8X9bPGiPxOZYoicIRJ
+	 20oCl/tDXbBYel8S0o+06wWKtlPcbSkhLyu5fEfx2owYwn11EaGWcMfhLn5S7E4/+M
+	 eqQBsPmIEofHdZei6aya7XgzWnYrNqKzbu9V9UWiKA/U6KKAnVB4hg8gyW270SN6hT
+	 105QGLl+bxcHLDrriY5dCPHD1av/R5D9e7OdcgqJJYlemAvgytJV6awT6gwaLTENb6
+	 zrw/M/zLSUxFA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+To: Sudeep Holla <sudeep.holla@arm.com>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Maxim Schwalm <maxim.schwalm@gmail.com>,
- Dmitry Osipenko <digetx@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
-In-Reply-To: <20230308073502.5421-1-clamor95@gmail.com>
-References: <20230308073502.5421-1-clamor95@gmail.com>
-Subject: Re: (subset) [PATCH v2 0/8] Fix sound on ASUS Transformers
-Message-Id: <167933710348.198283.16107220354236772396.b4-ty@kernel.org>
-Date: Mon, 20 Mar 2023 18:31:43 +0000
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Daniel Drake <drake@endlessm.com>,
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
+References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
+Subject: Re: (subset) [PATCH 00/11] Enable I2S support for RK3588/RK3588S
+ SoCs
+Message-Id: <167933710700.198283.8153226214101331490.b4-ty@kernel.org>
+Date: Mon, 20 Mar 2023 18:31:47 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: UJBGURDGQVLDOJUE6WH67ZBWQNN53S2X
-X-Message-ID-Hash: UJBGURDGQVLDOJUE6WH67ZBWQNN53S2X
+Message-ID-Hash: NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7
+X-Message-ID-Hash: NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -81,15 +90,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
- linux-staging@lists.linux.dev
+CC: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, kernel@collabora.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UJBGURDGQVLDOJUE6WH67ZBWQNN53S2X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,12 +108,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 08 Mar 2023 09:34:54 +0200, Svyatoslav Ryhel wrote:
-> - add quirk for headset detection used by some T30 devices
->   (ASUS Transformers, LG Optimus 4X HD and Vu);
-> - add RT5631 and MAX9808x machine drivers
-> - update bindings
+On Wed, 15 Mar 2023 13:47:55 +0200, Cristian Ciocaltea wrote:
+> There are five I2S/PCM/TDM controllers and two I2S/PCM controllers embedded
+> in the RK3588 and RK3588S SoCs. Furthermore, RK3588 provides four additional
+> I2S/PCM/TDM controllers.
 > 
+> This patch series adds the required device tree nodes to support all the above.
+> 
+> Additionally, it enables analog audio support for the Rock 5B SBC, which has
+> been used to test both audio playback and recording.
+> 
+> [...]
 
 Applied to
 
@@ -111,18 +126,18 @@ Applied to
 
 Thanks!
 
-[1/8] dt-bindings: sound: nvidia,tegra-audio-common: add coupled-mic-hp-detect property
-      commit: 2a7a8ebe85e1fa7e929f6f986a61f10321093c43
-[2/8] ASoC: tegra: Support coupled mic-hp detection
-      commit: eb0b8481c2e03a5ae01f6bea60b42109bd12b6fe
-[4/8] dt-bindings: sound: nvidia,tegra-audio: add RT5631 CODEC
-      commit: 2060c9b8ae2a1f6abec483709f4209b6e3602b89
-[5/8] ASoC: tegra: Support RT5631 by machine driver
-      commit: 44b2fc2edb61e956885b4305bddaaec7f05d93d2
-[7/8] dt-bindings: sound: nvidia,tegra-audio: add MAX9808x CODEC
-      commit: 85a375fe8df906b2701346e03e71501e6861a75a
-[8/8] ASoC: tegra: Support MAX9808x by machine driver
-      commit: d007a87bd7d181854b53b3e7fcbcf66c4bef86b2
+[03/11] ASoC: dt-bindings: everest,es8316: Document audio graph port
+        commit: 2f43ef99ac623b6d9154c26d4f6785df18b4d8e4
+[04/11] ASoC: dt-bindings: rockchip: Document audio graph port
+        commit: bf4062b7420d01b4fafd7211fd2dc68b916591bd
+[05/11] ASoC: dt-bindings: rockchip: i2s-tdm: Document audio graph port
+        commit: bfbae373c55e3b1c15a6ba656211dbbe7c390aa1
+[06/11] ASoC: dt-bindings: rockchip: i2s-tdm: Document power-domains
+        commit: 9971f3358338950d9d3345184fb2c0cfc6fc8552
+[07/11] ASoC: dt-bindings: rockchip: Add compatible for RK3588
+        commit: b0fe6a91fa9d5599ba3cace2748906e086c5a56e
+[08/11] ASoC: rockchip: i2s: Add compatible for RK3588
+        commit: 0e6c37610934e9b91f6f5f2599de5e2f1ab59e72
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

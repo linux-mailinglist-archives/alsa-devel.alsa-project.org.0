@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41976C1FC5
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:33:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35996C1FC6
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 19:34:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51DF81EF;
-	Mon, 20 Mar 2023 19:32:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51DF81EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BA301DF;
+	Mon, 20 Mar 2023 19:33:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BA301DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679337226;
-	bh=1k2HdZd7GXcK9Rf8Iw4VOgSYsoDP5B0+bCp15WVe8Ss=;
+	s=default; t=1679337247;
+	bh=h+iKiZTxlrZriKA3thm4jrdMcAtXKyFnJ24Dz8l78d0=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ejXA5Vi6Eyk8Nrc+hN5gWQdyQYxvx6ZPvjPZqS8fIabdfY4xRnmKKu21lJq/Ggx+W
-	 LKwhWXWL6zgVVt65z1/cgXS4IaBnsSmHwCmfc+sS1lRBZnGVJXmuUM1NcFcdtPD0TE
-	 2if7OFnR2abikWDhgwuXwN+e0MeR+JCUM7iscXec=
+	b=J1ro5lMzS8NVZuY13j7LWJiERSaZMda7Kr+PgaQJmyrWmNyUx4f/K1XCq9JdEwkjE
+	 XRNpdfQoJSRWicN7r990+ESUiXCeyOYVEys6jbfEANW42K62+a1PD16tTSv5y2eUBj
+	 iUOlBPNYbysvGFp1pPDN2yfnLCe6z7LkrWACNT0A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBD1CF804FE;
-	Mon, 20 Mar 2023 19:32:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17D6BF80533;
+	Mon, 20 Mar 2023 19:32:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 356ABF8027B; Mon, 20 Mar 2023 19:32:02 +0100 (CET)
+	id 41D38F80529; Mon, 20 Mar 2023 19:32:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC73EF800C9
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 19:31:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC73EF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id EFFADF8027B
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 19:31:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFFADF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Tm7liQ/n
+ header.s=k20201202 header.b=H9/UnK1y
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F3BF6179A;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 157E06179B;
+	Mon, 20 Mar 2023 18:31:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63B21C4339C;
 	Mon, 20 Mar 2023 18:31:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47034C4339E;
-	Mon, 20 Mar 2023 18:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679337111;
-	bh=1k2HdZd7GXcK9Rf8Iw4VOgSYsoDP5B0+bCp15WVe8Ss=;
+	s=k20201202; t=1679337117;
+	bh=h+iKiZTxlrZriKA3thm4jrdMcAtXKyFnJ24Dz8l78d0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Tm7liQ/nAFkV3CyP8a5RNECtveLtuaotxTZ21TXsgIzjk1jw7OqCcVuv5NSZClLep
-	 A+YM+EoDWvAq/odu/8f8PeyGDE0GTZ7mII3jhBhwbOwFwfve8X9bPGiPxOZYoicIRJ
-	 20oCl/tDXbBYel8S0o+06wWKtlPcbSkhLyu5fEfx2owYwn11EaGWcMfhLn5S7E4/+M
-	 eqQBsPmIEofHdZei6aya7XgzWnYrNqKzbu9V9UWiKA/U6KKAnVB4hg8gyW270SN6hT
-	 105QGLl+bxcHLDrriY5dCPHD1av/R5D9e7OdcgqJJYlemAvgytJV6awT6gwaLTENb6
-	 zrw/M/zLSUxFA==
+	b=H9/UnK1ymJI55JadZlMZt3CaGTo7zVWc9YDKQD58whi14JvN209bNcfx2cHOwOacq
+	 TkhEo5Hyeno5MlLqz8uj/IawP1UYIFRwPRJBljlrqDVWm79Qy9QK4bgVYKVY7ERfCx
+	 rtSWhyUs478HsFID8DrTEEHfxNGoS9cBnL11ZLKqAhFYlhTitI9/jTSRA4VFhuqBEA
+	 YNQ2vtqGNSavM/jsoi9trYKBb9s6sdxBn12ATX94eXGklnYmTbka8GGlRfnC9MCmjO
+	 YymQgcG5gmDBGnws6SG9uXRjtC3B2X1R0orAKTAbuCJZt9+9U5sYjuCH+PCLjCgMkB
+	 z2PWQaNcp84SQ==
 From: Mark Brown <broonie@kernel.org>
-To: Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Rob Herring <robh+dt@kernel.org>,
+To: Liam Girdwood <lgirdwood@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Daniel Drake <drake@endlessm.com>,
- Katsuhiro Suzuki <katsuhiro@katsuster.net>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
-References: <20230315114806.3819515-1-cristian.ciocaltea@collabora.com>
-Subject: Re: (subset) [PATCH 00/11] Enable I2S support for RK3588/RK3588S
- SoCs
-Message-Id: <167933710700.198283.8153226214101331490.b4-ty@kernel.org>
-Date: Mon, 20 Mar 2023 18:31:47 +0000
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Rob Herring <robh@kernel.org>
+In-Reply-To: <20230317233612.3967849-1-robh@kernel.org>
+References: <20230317233612.3967849-1-robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: Drop unneeded quotes
+Message-Id: <167933711212.198283.1787020882861078735.b4-ty@kernel.org>
+Date: Mon, 20 Mar 2023 18:31:52 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7
-X-Message-ID-Hash: NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7
+Message-ID-Hash: TTDOIB3MJIUHM4UACUHFRBEZNB35EXE6
+X-Message-ID-Hash: TTDOIB3MJIUHM4UACUHFRBEZNB35EXE6
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,16 +92,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, kernel@collabora.com
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-arm-msm@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NY2L5WAHUPKKBIUYBPZZQ6AOQHUZ2AV7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TTDOIB3MJIUHM4UACUHFRBEZNB35EXE6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,17 +110,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 15 Mar 2023 13:47:55 +0200, Cristian Ciocaltea wrote:
-> There are five I2S/PCM/TDM controllers and two I2S/PCM controllers embedded
-> in the RK3588 and RK3588S SoCs. Furthermore, RK3588 provides four additional
-> I2S/PCM/TDM controllers.
+On Fri, 17 Mar 2023 18:36:10 -0500, Rob Herring wrote:
+> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+> checking for this can be enabled in yamllint.
 > 
-> This patch series adds the required device tree nodes to support all the above.
 > 
-> Additionally, it enables analog audio support for the Rock 5B SBC, which has
-> been used to test both audio playback and recording.
-> 
-> [...]
 
 Applied to
 
@@ -126,18 +122,8 @@ Applied to
 
 Thanks!
 
-[03/11] ASoC: dt-bindings: everest,es8316: Document audio graph port
-        commit: 2f43ef99ac623b6d9154c26d4f6785df18b4d8e4
-[04/11] ASoC: dt-bindings: rockchip: Document audio graph port
-        commit: bf4062b7420d01b4fafd7211fd2dc68b916591bd
-[05/11] ASoC: dt-bindings: rockchip: i2s-tdm: Document audio graph port
-        commit: bfbae373c55e3b1c15a6ba656211dbbe7c390aa1
-[06/11] ASoC: dt-bindings: rockchip: i2s-tdm: Document power-domains
-        commit: 9971f3358338950d9d3345184fb2c0cfc6fc8552
-[07/11] ASoC: dt-bindings: rockchip: Add compatible for RK3588
-        commit: b0fe6a91fa9d5599ba3cace2748906e086c5a56e
-[08/11] ASoC: rockchip: i2s: Add compatible for RK3588
-        commit: 0e6c37610934e9b91f6f5f2599de5e2f1ab59e72
+[1/1] ASoC: dt-bindings: Drop unneeded quotes
+      commit: d9e909e219a843c6bf49f9affe536660f830d6fc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,112 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488206C0B48
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 08:23:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A04756C0BA0
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 08:51:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A5E4210;
-	Mon, 20 Mar 2023 08:22:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A5E4210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65409FA;
+	Mon, 20 Mar 2023 08:50:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65409FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679296991;
-	bh=b2GcyEMDDVOWlL6udEVpKFE1ZR0jWviVjFmGHupjjDw=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1679298694;
+	bh=vFbVBJpx+R5YyGo+E9uYKPdfdgli9wwn4gbIL3A5Q+w=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EnH/TfTE7acmlYRTzVf0dWHWm5AsB6zgpFvY2ooeIE0YVl/iK6g85MxbRzZ+DDMaX
-	 P1/iTpSE1gC3okrYTMKDCvn0QFOdsHIToKi2KY8uGHzt4w6QkHW8AcijJ/fAi7+Eg4
-	 vertxl6ILtAg5rJ6JcgTj/FcAsvPwI2aRgQM6DTM=
+	b=qR0Vv6BoaUMQ5Wyf2i0cWfdbEFZmcWUjrN+QnMYFACrJcJWPYT9uKALKzaklbao+S
+	 MLY0vzsTNU8Rf3HRdeCyB+NsADJhk3fLTUzdmzxBe3OksXGn0FhHTLdVv9xSp3OA+7
+	 UACVWvgvKgrdKnhU0uLwiLqxB5ufnznqm4osBOf0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC43BF804B1;
-	Mon, 20 Mar 2023 08:21:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEADEF80254;
+	Mon, 20 Mar 2023 08:50:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D3F2F80105; Mon, 20 Mar 2023 08:20:11 +0100 (CET)
+	id B58C4F8027B; Mon, 20 Mar 2023 08:50:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 96A8AF80105
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 08:17:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A8AF80105
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D63EF80093
+	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 08:50:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D63EF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=PMXRutyh
-Received: by mail-wm1-x334.google.com with SMTP id w11so5700276wmo.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 Mar 2023 00:17:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679296630;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=CPfksq9HcHZfOW713EHJPP4EqV5hzLLqhdQlnIpNQ4w=;
-        b=PMXRutyhQFx1KU9gPiiDMqyuz2dvA92bTRqogWM4OB4usYcokfKFO13vIDzfzAXNeU
-         qKHvl5c1d9tk4TCbPT3R/zca2Dhle0sxmuYyCp8h52n1LZWspQQQbmeYX0xpFI0Pm7r2
-         ebxxMqKSwc9xGFdUQvyx7eepNit6IMhsjRx3rC9AquJbcIgRMbgj7fTli8FnKhMALz9a
-         HBKHMRMaf9lBufOCNRkVQ+Lp+g9ELub7Pq52voEkfp13ainxAk6BdejDKUKHEHdwE8Nq
-         IZXgulMujh932zf7F+uOS4gh2iT8rL2R5X5NJ/QBxkyjGU6KmL8akyuGNLPcjecTU3rz
-         lFEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679296630;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CPfksq9HcHZfOW713EHJPP4EqV5hzLLqhdQlnIpNQ4w=;
-        b=g8182rr8eCW7310xF/XGT3/JubsGBzUGX8LF0Q9GQEcCn7Vy69NbnPqJEAriWFYJ/U
-         Z8jYVSItupaX0TsMuXlAHl/EnPSUZI7vriCYa7b1BO29nHmNIldFp1jGys6JRx050EdK
-         a/ZrOQMN62svUyg8aGgYN/QUVlvLOdTHNqv9MIMS29FJVJR/azjuiDr1FaOTHskumNBb
-         cvPzmL7SsS6qpavRJ1UelqPK44KPWhgTf2bLIFDwySvPgs5cAN6A8IuP7//Q4Jxw3edd
-         41hwUHJ46O6Xjcq8NE07v7K0ujhFjKLYl60MuG6YAO3BTLy0MtoUREg7BelRtg1AWunx
-         oPAA==
-X-Gm-Message-State: AO0yUKUZ0nnmKxBNHw0IU0DtkUf89EOsqEEZ8dVz90KPl/xe6BZW/T0B
-	1gJplt4v532QFl6bHmXiJ37MrYW1vkBsU4rv3v8=
-X-Google-Smtp-Source: 
- AK7set/OBiFs7Xg2IWUgP/EwAtFtEoS5w1aGmFF2v9Tj2CD2CdHIr6sfWK/qn/FwI6ulg5h/4/qGKVw4GVQbr7pNspc=
-X-Received: by 2002:a7b:c398:0:b0:3ed:f221:9a49 with SMTP id
- s24-20020a7bc398000000b003edf2219a49mr549201wmj.7.1679296630506; Mon, 20 Mar
- 2023 00:17:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230316123611.3495597-1-alexander.stein@ew.tq-group.com>
- <20230316123611.3495597-2-alexander.stein@ew.tq-group.com>
-In-Reply-To: <20230316123611.3495597-2-alexander.stein@ew.tq-group.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 20 Mar 2023 15:16:59 +0800
-Message-ID: 
- <CAA+D8AMUd0JSKipzY+7tc4ihpYApg0yrLHjYgeAn0gVL11phKA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: fsl: Specify driver name in ASoC card
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Message-ID-Hash: XU2UGNI2KZIDYVNE3MHO5JBMLFXPLZY3
-X-Message-ID-Hash: XU2UGNI2KZIDYVNE3MHO5JBMLFXPLZY3
-X-MailFrom: shengjiu.wang@gmail.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=L1X9g0Ud;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=s3KRZN6U
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4541C21AA2;
+	Mon, 20 Mar 2023 07:50:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1679298630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7wWFxNwBeI6QSlHFitfcPhehJyQxi9nEaShLJ5NEVOM=;
+	b=L1X9g0Ud8Wux2i8xISKl5VsEteG2EOpaG38S5l0rPLbymKyV1rRpeRUGn98oWjy31caBsT
+	Xv7gbC5wqHm12ScAoul3Kj/zf+u6AHkElvCKYEfn9RA72+W4E00DOhX9SW/7gBTlXBFqa1
+	9gDd2x0D5E70UgQ4o/JwgnfnpKmCfSg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1679298630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7wWFxNwBeI6QSlHFitfcPhehJyQxi9nEaShLJ5NEVOM=;
+	b=s3KRZN6U79ZtB0Ry/XOLMdRSAsaHn21BfNrDlLMNKMqEkAtCZMpUdaMO6gDqujwDs8MCgi
+	Hlc/QTak8/1M9XDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 149C613A00;
+	Mon, 20 Mar 2023 07:50:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 17JTBEYQGGTUPAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 20 Mar 2023 07:50:30 +0000
+Date: Mon, 20 Mar 2023 08:50:29 +0100
+Message-ID: <87wn3blv3u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: lizhe  <sensor1010@163.com>
+Subject: Re: [PATCH v1] ALSA:ac97: Remove redundant driver match function
+In-Reply-To: <77006340.15c8.186f97b96e7.Coremail.sensor1010@163.com>
+References: <20230319044733.327091-1-sensor1010@163.com>
+	<87h6uhma0g.wl-tiwai@suse.de>
+	<77006340.15c8.186f97b96e7.Coremail.sensor1010@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: Z2QRWNO3FQCFFBVDIULI7IGXU6CMLYBK
+X-Message-ID-Hash: Z2QRWNO3FQCFFBVDIULI7IGXU6CMLYBK
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
-CC: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+CC: tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XU2UGNI2KZIDYVNE3MHO5JBMLFXPLZY3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z2QRWNO3FQCFFBVDIULI7IGXU6CMLYBK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,26 +116,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gVGh1LCBNYXIgMTYsIDIwMjMgYXQgODozNuKAr1BNIEFsZXhhbmRlciBTdGVpbiA8DQphbGV4
-YW5kZXIuc3RlaW5AZXcudHEtZ3JvdXAuY29tPiB3cm90ZToNCg0KPiBTZXQgdGhlIHNuZF9zb2Nf
-Y2FyZCBkcml2ZXIgbmFtZSB3aGljaCBmaXhlcyB0aGUgd2FybmluZzoNCj4gZnNsLWFzb2MtY2Fy
-ZCBzb3VuZDogQVNvQzogZHJpdmVyIG5hbWUgdG9vIGxvbmcgJ2lteC1hdWRpby10bHYzMjBhaWMz
-Mng0Jw0KPiAtPiAnaW14LWF1ZGlvLXRsdjMyJw0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4YW5k
-ZXIgU3RlaW4gPGFsZXhhbmRlci5zdGVpbkBldy50cS1ncm91cC5jb20+DQo+DQoNCkFja2VkLWJ5
-OiBTaGVuZ2ppdSBXYW5nIDxzaGVuZ2ppdS53YW5nQGdtYWlsLmNvbT4NCg0KQmVzdCByZWdhcmRz
-DQp3YW5nIHNoZW5naml1DQoNCj4gLS0tDQo+IFRoZXNlIHBhdGNoZXMgY291bGQgYmUgc3F1YXNo
-ZWQsIGJ1dCBJIG9wdGVkIGZvciBzZXBhcmF0aW9uIHRoaXMgcGF0Y2gNCj4gaXMgdGhlIGFjdHVh
-bCBmdW5jdGlvbmFsIGNoYW5nZS4gUGF0Y2ggMSBpcyBqdXN0IHByZXBhcmF0aW9uLg0KPg0KPiAg
-c291bmQvc29jL2ZzbC9mc2wtYXNvYy1jYXJkLmMgfCAxICsNCj4gIDEgZmlsZSBjaGFuZ2VkLCAx
-IGluc2VydGlvbigrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2ZzbC9mc2wtYXNvYy1j
-YXJkLmMgYi9zb3VuZC9zb2MvZnNsL2ZzbC1hc29jLWNhcmQuYw0KPiBpbmRleCBlOTU2YWJmZDUw
-ZjguLmJmZmExMDQ4ZDMxZSAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2ZzbC9mc2wtYXNvYy1j
-YXJkLmMNCj4gKysrIGIvc291bmQvc29jL2ZzbC9mc2wtYXNvYy1jYXJkLmMNCj4gQEAgLTYwOSw2
-ICs2MDksNyBAQCBzdGF0aWMgaW50IGZzbF9hc29jX2NhcmRfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
-X2RldmljZQ0KPiAqcGRldikNCj4NCj4gICAgICAgICBwcml2LT5jYXJkLmRhcG1fcm91dGVzID0g
-YXVkaW9fbWFwOw0KPiAgICAgICAgIHByaXYtPmNhcmQubnVtX2RhcG1fcm91dGVzID0gQVJSQVlf
-U0laRShhdWRpb19tYXApOw0KPiArICAgICAgIHByaXYtPmNhcmQuZHJpdmVyX25hbWUgPSBEUklW
-RVJfTkFNRTsNCj4gICAgICAgICAvKiBEaXZlcnNpZnkgdGhlIGNhcmQgY29uZmlndXJhdGlvbnMg
-Ki8NCj4gICAgICAgICBpZiAob2ZfZGV2aWNlX2lzX2NvbXBhdGlibGUobnAsICJmc2wsaW14LWF1
-ZGlvLWNzNDI4ODgiKSkgew0KPiAgICAgICAgICAgICAgICAgY29kZWNfZGFpX25hbWUgPSAiY3M0
-Mjg4OCI7DQo+IC0tDQo+IDIuMzQuMQ0KPg0KPg0K
+On Sun, 19 Mar 2023 11:47:51 +0100,
+lizhe wrote:
+> 
+> 
+> HI : 
+>      my name is li Zhe, I am Chinese
+
+OK, then applied the patch now.
+
+
+thanks,
+
+Takashi
+
+> At 2023-03-19 16:16:15, "Takashi Iwai" <tiwai@suse.de> wrote:
+> >On Sun, 19 Mar 2023 05:47:33 +0100,
+> >Lizhe wrote:
+> >> 
+> >> If there is no driver match function, the driver core assumes that each
+> >> candidate pair (driver, device) matches, see driver_match_device()
+> >> 
+> >> Drop the bus's match function that always returned 1 and so
+> >> implements the same behaviour as when there is no match function.
+> >> 
+> >> Signed-off-by: Lizhe <sensor1010@163.com>
+> >
+> >Is Lizeh your real full name?  (i.e. your name is "Li Zhe" ?)
+> >I'm asking because the Signed-off-by line is a legal requirement.
+> >
+> >
+> >thanks,
+> >
+> >Takashi
+> 
+> 

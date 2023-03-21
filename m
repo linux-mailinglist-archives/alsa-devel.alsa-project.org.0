@@ -2,91 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618EE6C32BC
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 14:23:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D2316C3307
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 14:37:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45C6C1EF;
-	Tue, 21 Mar 2023 14:22:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45C6C1EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9683F1FE;
+	Tue, 21 Mar 2023 14:36:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9683F1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679404991;
-	bh=6nQmTXWR0S5yZAO/vh9jjHZ8e6HnzfqVY7IbBOcHD98=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1679405840;
+	bh=Q/pZBiOvWmfzws0dgFOxHl76o/p6fw/aP4l5e37PI2g=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c78oKysSORYfaklM6NM5YIWpnXRjvh1bfKM5lQp/ICqbgxuaN6oJ6CfxyQiJqmG4n
-	 0+2CX7qvaha9JTMqyO4weRpxzcFTS62BvOVDWyaRZ66reS/yiFsHZvvYntyTk0+KJT
-	 agL2HkKLhkK3xfUrwWqHC8gyUT3GDp2bFZ7odJZA=
+	b=r2YQ1hQudMT39ESH5abnnSadANjLQnwkb3TB9QHklbeQD4qJQulWLJMOmGk0Ua8La
+	 BbhA8oUmMQBXg+01b1XWYnA1VXyJcwNojTTsy6DMDtz3w/gEmggDH3BxoxfqlXrP37
+	 9BmfV1F788JorZ8zWGb1wKQ+qf5f4c6eRADgkHCQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6E0FF80254;
-	Tue, 21 Mar 2023 14:22:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FF60F80254;
+	Tue, 21 Mar 2023 14:36:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DDC0F8027B; Tue, 21 Mar 2023 14:22:17 +0100 (CET)
+	id 3206CF8027B; Tue, 21 Mar 2023 14:36:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00867F800C9
-	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 14:22:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00867F800C9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IogLwT03
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EC6BA61BBB;
-	Tue, 21 Mar 2023 13:22:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9C3C433EF;
-	Tue, 21 Mar 2023 13:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679404931;
-	bh=6nQmTXWR0S5yZAO/vh9jjHZ8e6HnzfqVY7IbBOcHD98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IogLwT033y5KY0sEFYrePVyrpD/N7OIvRDlrC1p1hfhU5OympYUhOIxEjPufXraKm
-	 4uaW4oOp+iHIM/DapN1B5HEmFbzIFjmFMdD29Q0B0gX1BaaVqtvAG8dE7qARlNLMo9
-	 XNG4c84zR+JBic2jq8DtdWDyTVuoetX0c35821RLP4UhBE8sF7vmmREfkdk6Y4qbIZ
-	 QEB/VY96BlWHnz4SbUdk97TZ6IoV0GSw44yxItISmOGId/Hitq9Eym29EnJFoS5O8S
-	 Kb5j44ouix6KCCasa5HvkvSvY9opaFER5fcr1qC9KFnqbnuA5YlcGLSSVU9tKuYJFK
-	 +SyIPYTHna8tw==
-Date: Tue, 21 Mar 2023 13:22:05 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <13916275206@139.com>
-Subject: Re: [PATCH v5] ASoC: tas2781: Add tas2781 driver
-Message-ID: <e9134abb-5caa-45aa-b623-e1ceb40223d1@sirena.org.uk>
-References: <20230321113130.25853-1-13916275206@139.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3D93F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 14:36:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3D93F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RVj1M5lS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679405783; x=1710941783;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Q/pZBiOvWmfzws0dgFOxHl76o/p6fw/aP4l5e37PI2g=;
+  b=RVj1M5lSDCYQly43JW+3T+1YJqkeOQ+KtZx82dNCte8f9tyD/8borbcY
+   jNc0vt8aved+lpNnZA9V0iDBSaymKEnCd3StSBkZykg6mjsKjNt5ZM6dF
+   8VZSm7RMA6rmd1sb6dRICHXpwHhM8iRxXTd/L9XXBlR+BqB0h0oxZLIz/
+   yWY6x4f16VnNhX3aF8913JRL/V1R9B7dXlijD1DOYRRBQ1DX242ZfJqtJ
+   xSWX4RA9FBZRvDk8+dOTVzKjIKzYcMKNnDTuWOeXC+HAtdN0P6NiVqKoH
+   PohVdUBfZ158GbwBHcos3mxpDjZrQJUjyEvHNEJOV0J6PjeOtEkTwv+v3
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="401507409"
+X-IronPort-AV: E=Sophos;i="5.98,279,1673942400";
+   d="scan'208";a="401507409"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2023 06:36:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="792088425"
+X-IronPort-AV: E=Sophos;i="5.98,279,1673942400";
+   d="scan'208";a="792088425"
+Received: from markusbu-mobl.ger.corp.intel.com (HELO [10.252.60.215])
+ ([10.252.60.215])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2023 06:36:18 -0700
+Message-ID: <6be945d2-40cb-46fb-67ba-ed3a19cddfa4@linux.intel.com>
+Date: Tue, 21 Mar 2023 15:36:47 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0KwVVK9qwawOe9aF"
-Content-Disposition: inline
-In-Reply-To: <20230321113130.25853-1-13916275206@139.com>
-X-Cookie: Will it improve my CASH FLOW?
-Message-ID-Hash: 33XGU22GTJ2JLJOA65CRL2Y2LPTLAQB5
-X-Message-ID-Hash: 33XGU22GTJ2JLJOA65CRL2Y2LPTLAQB5
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.9.0
+Subject: Re: [bug report] ASoC: SOF: ipc4-control: Add support for bytes
+ control get and put
+To: Dan Carpenter <error27@gmail.com>
+References: <4c3570c3-67fe-4b58-baaf-455f69bdfc6b@kili.mountain>
+Content-Language: en-US
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <4c3570c3-67fe-4b58-baaf-455f69bdfc6b@kili.mountain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: XA3Z4X5EBGAEX3YWQDC7QVIJXA7AGJ4E
+X-Message-ID-Hash: XA3Z4X5EBGAEX3YWQDC7QVIJXA7AGJ4E
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- kevin-lu@ti.com, shenghao-ding@ti.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, x1077012@ti.com, peeyush@ti.com, navada@ti.com
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33XGU22GTJ2JLJOA65CRL2Y2LPTLAQB5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XA3Z4X5EBGAEX3YWQDC7QVIJXA7AGJ4E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,34 +105,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Dan,
 
---0KwVVK9qwawOe9aF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 21/03/2023 09:21, Dan Carpenter wrote:
+> Hello Peter Ujfalusi,
+> 
+> The patch a062c8899fed: "ASoC: SOF: ipc4-control: Add support for
+> bytes control get and put" from Mar 13, 2023, leads to the following
+> Smatch static checker warning:
+> 
+> 	sound/soc/sof/ipc4-control.c:436 sof_ipc4_widget_kcontrol_setup()
+> 	warn: iterator used outside loop: 'scontrol'
+> 
+> sound/soc/sof/ipc4-control.c
+>     411 static int sof_ipc4_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_sof_widget *swidget)
+>     412 {
+>     413         struct snd_sof_control *scontrol;
+>     414         int ret = 0;
+>     415 
+>     416         list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+>     417                 if (scontrol->comp_id == swidget->comp_id) {
+>     418                         switch (scontrol->info_type) {
+>     419                         case SND_SOC_TPLG_CTL_VOLSW:
+>     420                         case SND_SOC_TPLG_CTL_VOLSW_SX:
+>     421                         case SND_SOC_TPLG_CTL_VOLSW_XR_SX:
+>     422                                 ret = sof_ipc4_set_volume_data(sdev, swidget,
+>     423                                                                scontrol, false);
+>     424                                 break;
+>     425                         case SND_SOC_TPLG_CTL_BYTES:
+>     426                                 ret = sof_ipc4_set_get_bytes_data(sdev, scontrol,
+>     427                                                                   true, false);
+>     428                                 break;
+> 
+> This breaks out of the switch statement and not the loop.  So that means
+> that it will continue through the loop and ret is reset.
+> 
+>     429                         default:
+>     430                                 break;
+>     431                         }
+>     432                 }
+>     433         }
+>     434 
+>     435         if (ret < 0)
+> --> 436                 dev_err(sdev->dev, "kcontrol %d set up failed for widget %s\n",
+>     437                         scontrol->comp_id, swidget->widget->name);
+>                                 ^^^^^^^^^^^^^^^^^
+> "scontrol" cannot be a valid pointer at this stage.  It is always an
+> offset off the &sdev->kcontrol_list because of the above issue.
 
-On Tue, Mar 21, 2023 at 07:31:30PM +0800, Shenghao Ding wrote:
-> Create tas2781 driver.
->=20
-> Signed-off-by: Shenghao Ding <13916275206@139.com>
+This is valid in a semantics sense and I will fix it.
+In real life we have single control per swidget and this should have
+been one step up.
 
-Not looked at the code properly yet but as previously noted you are
-adding a new DT binding so you need to send a patch documenting that
-binding along with the driver.
+> 
+>     438 
+>     439         return ret;
+>     440 }
+> 
+> regards,
+> dan carpenter
 
---0KwVVK9qwawOe9aF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQZr3wACgkQJNaLcl1U
-h9A6Cgf/dONTG2ih8NwPlAV46YcR7SHyEM6ke3V0bNPQrib8DgEyj9w86A4dskHF
-2EpQaQOVpGTgjS6pYH2srs2i30iV7yYLb+a1rSCt/QzBzJL0bolEskKXCHCqk/+L
-+yMBi/zXMpIZtXaBZ9LWFt+7s07/CaaBtrxam4yMs8gM/YACW6RRZXIjCXX90Rc5
-zkXIkHHxN01RZlcXf8sWqpeB8hn71MdWr0bKzlBCk8/xs7ygKffLmB9PyYASoepZ
-S1E6uxk83SBXDaf5xFEwxD3cHucGrretW8yvy06vdYfrvTEKsac6afts/TWDtHmJ
-VFRyjEqZHbMQZgBaQaaLm3nIdsGVKw==
-=30hx
------END PGP SIGNATURE-----
-
---0KwVVK9qwawOe9aF--
+-- 
+Péter

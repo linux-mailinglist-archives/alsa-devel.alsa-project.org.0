@@ -2,96 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F18206C27E8
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 03:12:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D0596C28FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 05:04:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9313610E;
-	Tue, 21 Mar 2023 03:12:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9313610E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E7C81F1;
+	Tue, 21 Mar 2023 05:04:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E7C81F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679364777;
-	bh=gC9u9R+eER52MkKmLB/PDhyl14IPCemBeV7g5a5ZfwY=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jQT8BJf/M99XRr23N9XY/EmO6xlnCV186XI0xUaJjma2wQ3IhaR+rh8VkbxaKWQjc
-	 iNV+34NNKuKGF9BuGE5tOKgnHhgubJm9xmlLjNk7JfK7oNyuhWQT41ZWdr+5ICZJzU
-	 z45udymOTyvovnPbTb7n558LXz+uOzPZpBHD1Cnw=
+	s=default; t=1679371494;
+	bh=dMQi12IVsPxWGKLYwvXme7CY0iHjdvuL3QSXZMhcWt0=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=b39YIZ/vzRV+wXmNuD8P1sEZJMTXVdcCSBK749E3qjsu6EnIy+THvPCnnyFcbwibH
+	 LAKOYkg/eJatwMKKoRbnyx3it39mvrj9YuEYbV/gcRP3T3mAnxHi9cSxc3i4blZcPA
+	 QU3NBxo75OdHMckJLHvmXShQzqXtnBVknuSsexjQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE77AF80105;
-	Tue, 21 Mar 2023 03:12:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9478BF80105;
+	Tue, 21 Mar 2023 05:04:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B2DAF80105; Tue, 21 Mar 2023 03:12:02 +0100 (CET)
+	id C07D3F80254; Tue, 21 Mar 2023 05:03:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 13133F80105
-	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 03:11:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13133F80105
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC053F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 05:03:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC053F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EaS5I8MO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679364714; x=1710900714;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=gC9u9R+eER52MkKmLB/PDhyl14IPCemBeV7g5a5ZfwY=;
-  b=EaS5I8MOFgJVQ0wh4bkG8ZX2jN/pxut/FGuHpW/bAl3kKY369E1PIYGx
-   +8vjaWHY7dH5IQdpA9trSK0kAWvxAgsMziCMMOovlIN3E7axK+teS4FkZ
-   9XJWcfaLEdY9sQKNC+ANvAAcaGJXoakKHfAyj+kH/wGnCHMZ8sE/vlLAS
-   IdHq3O6EjJER0H3leNvvJsdelIfIGvsEEjUZPlyL7IdY68tqRg8a8oQwN
-   wQuuvYUVHxXdFJqvooznsKbqcXVN8b34HAgAvV1CitIZI2SUVe493GtzX
-   8Bkt2b/2nGVlfF95P75xFiFWI6P4q15OHgNwq6ABxmsTXkLJv9jbp00gm
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="319224684"
-X-IronPort-AV: E=Sophos;i="5.98,277,1673942400";
-   d="scan'208";a="319224684"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2023 19:11:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="674648777"
-X-IronPort-AV: E=Sophos;i="5.98,277,1673942400";
-   d="scan'208";a="674648777"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2023 19:11:43 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH] soundwire: intel: don't save hw_params for use in prepare
-Date: Tue, 21 Mar 2023 10:26:42 +0800
-Message-Id: <20230321022642.1426611-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm2 header.b=hGdANAQT;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=AAldSW0I
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailout.west.internal (Postfix) with ESMTP id 98D603200AA7;
+	Tue, 21 Mar 2023 00:03:03 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute4.internal (MEProxy); Tue, 21 Mar 2023 00:03:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1679371383; x=
+	1679457783; bh=0g3T+cCNoR1oj1mdKsHNAaouTdAPcrjk5K+sJFWn1ok=; b=h
+	GdANAQTtooWh8pj1fzqnihUity+kEbj1Ze7TKdyPeLrEtB30LMUkXs3sgNMG9nFM
+	ycS/PjdsFvHbR26YfrVOipH0ya+VDhzm6hpLlyGSX1e2IQ4lQwnPCkhJFQzZybWv
+	bVvENyYKdfXG8QXycl3Rx8oyORxGwyLz6PDwKf8c4kJU8qs/ZoQ4i2nejq85TBrJ
+	jE7T8Cv3nWPBj+iWFtt7i0IhKD3S9s+teISKk9Q6Nz0ujhmU/TYSSoX24smmNJFu
+	e4SDisrLM/dXSvfv/Xfuxm7tC3xKMSB5ZyXkv89AgCh3PKPZhsHFTw27xOXlUAsQ
+	BwOBDjl5hB1NIqjPungWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1679371383; x=1679457783; bh=0g3T+cCNoR1oj
+	1mdKsHNAaouTdAPcrjk5K+sJFWn1ok=; b=AAldSW0INBsvz/iEZ+zrKtjOaN65F
+	ASx5R0NjNfvprU98oUzpNpb3Uc0ckSiNiKNMoEbPZGhZcndODsWSz2nNHPCCfnB1
+	T6RLk9Mko+ULGZ4zgq9hX+u4DNGb7sNSL2GmBcet32uKohJ7xs14CgTjw2a/+3wU
+	QB7lT98oLVo25DE4VzU/B639vUVY6XR5WpDu+qhdRzb5zqqIsvqDp0LkIRTjSTMN
+	wIBNsnioIksRgTJkNl+RZBY6hKtWHz7Dq39u7vNwCL4Ip6HDgjEVidzZhD7Yf2RX
+	1UGAjOqpnE+zM1xSRkVPmQbocAzeoUwqqw+2DRFa4Sqfx1Z4SfzepoLXA==
+X-ME-Sender: <xms:diwZZCfMpXUhGN6kr62nUOlzvEMfV7D_FVf0ilv6ZKTkS2YRe27paw>
+    <xme:diwZZMMS7VrPw2d1zaKr_ZbND6F57uSXsZDIprXvlYhdVGA6imlBTHlYfbD3acIiK
+    QQR3_-0nn-z1hI-W74>
+X-ME-Received: 
+ <xmr:diwZZDiH8BJQgGAZu8XLbt5WJOEKn7bHr2_y93lU-YbGRpgU9PXM7ptj2ECa8gVgIQoqcfEgEo2WN0txKepDSm0IHRQ>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrvdefledgieegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+    hjpheqnecuggftrfgrthhtvghrnhepveeilefhudekffehkeffudduvedvfeduleelfeeg
+    ieeljeehjeeuvdeghfetvedvnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghs
+    hhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:diwZZP9OaaafhR8izipDHsIjni4nnGqlXz91cqYw_DIuF6ih8dB5tw>
+    <xmx:diwZZOuAJ6kYagoJ7qlGjMv8iZZfkzLFExnKR5HHkrTqRVrxS4Ph1Q>
+    <xmx:diwZZGGiL6fQGMSUDdH4SEU984-YfjA3lezsFXh3UpUtC55CjIYn4w>
+    <xmx:dywZZDWb1cLFIDxW0nYebmr7qLDe6xEqXhY_0IinPmi7YRRPoaDXQg>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 21 Mar 2023 00:03:01 -0400 (EDT)
+Date: Tue, 21 Mar 2023 13:02:58 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix recursive locking at XRUN during
+ syncing
+Message-ID: <20230321040258.GA164337@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	John Keeping <john@metanate.com>
+References: <20230320142838.494-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 53TQ63GOQEBMGS6JE4DJYUDULEG56DGT
-X-Message-ID-Hash: 53TQ63GOQEBMGS6JE4DJYUDULEG56DGT
-X-MailFrom: yung-chuan.liao@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230320142838.494-1-tiwai@suse.de>
+Message-ID-Hash: 6SSOYBSXCPE5ISG6ZN3ICPMWETXFRWHI
+X-Message-ID-Hash: 6SSOYBSXCPE5ISG6ZN3ICPMWETXFRWHI
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: vinod.koul@linaro.org, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+CC: alsa-devel@alsa-project.org, John Keeping <john@metanate.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/53TQ63GOQEBMGS6JE4DJYUDULEG56DGT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6SSOYBSXCPE5ISG6ZN3ICPMWETXFRWHI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,118 +133,165 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Hi,
 
-The existing code copies the hw_params pointer and reuses it later in
-.prepare, specifically to re-initialize the ALH DMA channel
-information that's lost in suspend-resume cycles.
+On Mon, Mar 20, 2023 at 03:28:38PM +0100, Takashi Iwai wrote:
+> The recent support of low latency playback in USB-audio driver made
+> the snd_usb_queue_pending_output_urbs() function to be called via PCM
+> ack ops.  In the new code path, the function is performed alread in
 
-This is not needed, we can directly access the information from the
-substream/rtd - as done for the HDAudio DAIs in
-sound/soc/sof/intel/hda-dai.c
+'s/alread/already/' or slang.
 
-In addition, using the saved pointer causes the suspend-resume test
-cases to fail on specific platforms, depending on which version of GCC
-is used. Péter Ujfalusi and I have spent long hours to root-cause this
-problem that was reported by the Intel CI first with 6.2-rc1 and again
-v6.3-rc1. In the latter case we were lucky that the problem was 100%
-reproducible on local test devices, and found out that adding a
-dev_dbg() or adding a call to usleep_range() just before accessing the
-saved pointer "fixed" the issue. With errors appearing just by
-changing the compiler version or minor changes in the code generated,
-clearly we have a memory management Heisenbug.
+> the PCM stream lock.  The problem is that, when an XRUN is detected,
+> the  function calls snd_pcm_xrun() to notify, but snd_pcm_xrun() is
 
-The root-cause seems to be that the hw_params pointer is not
-persistent. The soc-pcm code allocates the hw_params structure on the
-stack, and passes it to the BE dailink hw_params and DAIs
-hw_params. Saving such a pointer and reusing it later during the
-.prepare stage cannot possibly work reliably, it's broken-by-design
-since v5.10. It's astonishing that the problem was not seen earlier.
+'s/the  function/the function/'
 
-This simple fix will have to be back-ported to -stable, due to changes
-to avoid the use of the get/set_dmadata routines this patch will only
-apply on kernels older than v6.1.
-
-Fixes: a5a0239c27fe ("soundwire: intel: reinitialize IP+DSP in .prepare(), but only when resuming")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/cadence_master.h |  2 --
- drivers/soundwire/intel.c          | 11 +++++++----
- 2 files changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index b653734085d9..27c56274217f 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -84,7 +84,6 @@ struct sdw_cdns_stream_config {
-  * @bus: Bus handle
-  * @stream_type: Stream type
-  * @link_id: Master link id
-- * @hw_params: hw_params to be applied in .prepare step
-  * @suspended: status set when suspended, to be used in .prepare
-  * @paused: status set in .trigger, to be used in suspend
-  * @direction: stream direction
-@@ -96,7 +95,6 @@ struct sdw_cdns_dai_runtime {
- 	struct sdw_bus *bus;
- 	enum sdw_stream_type stream_type;
- 	int link_id;
--	struct snd_pcm_hw_params *hw_params;
- 	bool suspended;
- 	bool paused;
- 	int direction;
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 046c67a2a39b..238acf5c97a9 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -725,7 +725,6 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
- 	dai_runtime->paused = false;
- 	dai_runtime->suspended = false;
- 	dai_runtime->pdi = pdi;
--	dai_runtime->hw_params = params;
+> supposed to be called only outside the stream lock.  As a result, it
+> leads to a deadlock of PCM stream locking.
+> 
+> For avoiding such a recursive locking, this patch adds an additional
+> check to the code paths in PCM core that call the ack callback; now it
+> checks the error code from the callback, and if it's -EPIPE, the XRUN
+> is handled in the PCM core side gracefully.  Along with it, the
+> USB-audio driver code is changed to follow that, i.e. -EPIPE is
+> returned instead of the explicit snd_pcm_xrun() call when the function
+> is performed already in the stream lock.
  
- 	/* Inform DSP about PDI stream number */
- 	ret = intel_params_stream(sdw, substream->stream, dai, params,
-@@ -778,6 +777,11 @@ static int intel_prepare(struct snd_pcm_substream *substream,
- 	}
- 
- 	if (dai_runtime->suspended) {
-+		struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+		struct snd_pcm_hw_params *hw_params;
-+
-+		hw_params = &rtd->dpcm[substream->stream].hw_params;
-+
- 		dai_runtime->suspended = false;
- 
- 		/*
-@@ -789,7 +793,7 @@ static int intel_prepare(struct snd_pcm_substream *substream,
- 		 */
- 
- 		/* configure stream */
--		ch = params_channels(dai_runtime->hw_params);
-+		ch = params_channels(hw_params);
- 		if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
- 			dir = SDW_DATA_DIR_RX;
- 		else
-@@ -801,7 +805,7 @@ static int intel_prepare(struct snd_pcm_substream *substream,
- 
- 		/* Inform DSP about PDI stream number */
- 		ret = intel_params_stream(sdw, substream->stream, dai,
--					  dai_runtime->hw_params,
-+					  hw_params,
- 					  sdw->instance,
- 					  dai_runtime->pdi->intel_alh_id);
- 	}
-@@ -840,7 +844,6 @@ intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- 		return ret;
- 	}
- 
--	dai_runtime->hw_params = NULL;
- 	dai_runtime->pdi = NULL;
- 
- 	return 0;
--- 
-2.25.1
+Practically, the implementation of 'pcm_hw' in alsa-lib never evaluates
+the return value (see 'snd_pcm_hw_mmap_commit()' and the others). I guess
+that it is inconvenient for the low-latency mode of USB Audio device class
+driver for the case of failure.
 
+My additional concern is PCM indirect layer, since typically the layer
+is used by drivers with SNDRV_PCM_INFO_SYNC_APPLPTR. But as long as I
+read, the change does not matter to them.
+
+> Fixes: d5f871f89e21 ("ALSA: usb-audio: Improved lowlatency playback support")
+> Reported-and-tested-by: John Keeping <john@metanate.com>
+> Link: https://lore.kernel.org/r/20230317195128.3911155-1-john@metanate.com
+> Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/core/pcm_lib.c |  2 ++
+>  sound/usb/endpoint.c | 22 ++++++++++++++--------
+>  sound/usb/endpoint.h |  4 ++--
+>  sound/usb/pcm.c      |  2 +-
+>  4 files changed, 19 insertions(+), 11 deletions(-)
+ 
+Anyway, John Keeping reports the change works well to solve the issue. I
+have no objection to it.
+
+Reviewed-by; Takashi Sakamoto <o-takashi@sakamocchi.jp>
+
+It is also convenient to IEC 61883-1/6 packet streaming engine for audio
+and music unit in IEEE 1394 bus. I will post patches enough later for it.
+
+> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> index 8b6aeb8a78f7..02fd65993e7e 100644
+> --- a/sound/core/pcm_lib.c
+> +++ b/sound/core/pcm_lib.c
+> @@ -2155,6 +2155,8 @@ int pcm_lib_apply_appl_ptr(struct snd_pcm_substream *substream,
+>  		ret = substream->ops->ack(substream);
+>  		if (ret < 0) {
+>  			runtime->control->appl_ptr = old_appl_ptr;
+> +			if (ret == -EPIPE)
+> +				__snd_pcm_xrun(substream);
+>  			return ret;
+>  		}
+>  	}
+> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+> index 419302e2057e..647fa054d8b1 100644
+> --- a/sound/usb/endpoint.c
+> +++ b/sound/usb/endpoint.c
+> @@ -455,8 +455,8 @@ static void push_back_to_ready_list(struct snd_usb_endpoint *ep,
+>   * This function is used both for implicit feedback endpoints and in low-
+>   * latency playback mode.
+>   */
+> -void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+> -				       bool in_stream_lock)
+> +int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+> +				      bool in_stream_lock)
+>  {
+>  	bool implicit_fb = snd_usb_endpoint_implicit_feedback_sink(ep);
+>  
+> @@ -480,7 +480,7 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+>  		spin_unlock_irqrestore(&ep->lock, flags);
+>  
+>  		if (ctx == NULL)
+> -			return;
+> +			break;
+>  
+>  		/* copy over the length information */
+>  		if (implicit_fb) {
+> @@ -495,11 +495,14 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+>  			break;
+>  		if (err < 0) {
+>  			/* push back to ready list again for -EAGAIN */
+> -			if (err == -EAGAIN)
+> +			if (err == -EAGAIN) {
+>  				push_back_to_ready_list(ep, ctx);
+> -			else
+> +				break;
+> +			}
+> +
+> +			if (!in_stream_lock)
+>  				notify_xrun(ep);
+> -			return;
+> +			return -EPIPE;
+>  		}
+>  
+>  		err = usb_submit_urb(ctx->urb, GFP_ATOMIC);
+> @@ -507,13 +510,16 @@ void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+>  			usb_audio_err(ep->chip,
+>  				      "Unable to submit urb #%d: %d at %s\n",
+>  				      ctx->index, err, __func__);
+> -			notify_xrun(ep);
+> -			return;
+> +			if (!in_stream_lock)
+> +				notify_xrun(ep);
+> +			return -EPIPE;
+>  		}
+>  
+>  		set_bit(ctx->index, &ep->active_mask);
+>  		atomic_inc(&ep->submitted_urbs);
+>  	}
+> +
+> +	return 0;
+>  }
+>  
+>  /*
+> diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+> index 924f4351588c..c09f68ce08b1 100644
+> --- a/sound/usb/endpoint.h
+> +++ b/sound/usb/endpoint.h
+> @@ -52,7 +52,7 @@ int snd_usb_endpoint_implicit_feedback_sink(struct snd_usb_endpoint *ep);
+>  int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep,
+>  				      struct snd_urb_ctx *ctx, int idx,
+>  				      unsigned int avail);
+> -void snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+> -				       bool in_stream_lock);
+> +int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+> +				      bool in_stream_lock);
+>  
+>  #endif /* __USBAUDIO_ENDPOINT_H */
+> diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+> index d959da7a1afb..eec5232f9fb2 100644
+> --- a/sound/usb/pcm.c
+> +++ b/sound/usb/pcm.c
+> @@ -1639,7 +1639,7 @@ static int snd_usb_pcm_playback_ack(struct snd_pcm_substream *substream)
+>  	 * outputs here
+>  	 */
+>  	if (!ep->active_mask)
+> -		snd_usb_queue_pending_output_urbs(ep, true);
+> +		return snd_usb_queue_pending_output_urbs(ep, true);
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.35.3
+
+
+Thanks
+
+Takashi Sakamoto

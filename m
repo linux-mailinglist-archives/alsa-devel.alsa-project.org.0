@@ -2,100 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6E26C2DDB
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 10:29:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DB166C3079
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 12:33:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2CFE1F9;
-	Tue, 21 Mar 2023 10:28:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2CFE1F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BAF21F4;
+	Tue, 21 Mar 2023 12:33:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BAF21F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679390974;
-	bh=h1GsKTmMcKTIanpSPySFiy2iNgJqMU8B2uUyhDo1SbM=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JCbqSD6ezV5dFGYjKnn6IBGmxLC9nQ1mjDcAoLmNfLWTpOYlFpXWrpJtFV9+UzBG6
-	 6J7XlpOyV2RlszfqS0HyWhQx9T3oeTKcMlOApYOn35oSsSDWOwvesizRo+nrkCWbiR
-	 dhAKQDxrWAVBXrYvoYDFTbo7SXA0acKOBnc931dU=
+	s=default; t=1679398435;
+	bh=s/UpdTf0YJ+zvIS/OKa9H44eqNFh/uZA/SEr2VVZwkw=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=N8i2QdEW652iqefBKc9jIUMoG2vKHunA4au2lCde88ReTMbHVAHTE27LBRPwBrlBi
+	 BMr/RRxzftKvwzelJF60gMDCqF1FPxx/2L8ktAfFZxTF07hBlgUkbhkQV6ilsyRPen
+	 +ah7z48DaOFt0VHS13Ip082CwbkfpdxvDvHC/TH0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8056F8027B;
-	Tue, 21 Mar 2023 10:28:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D58D1F80254;
+	Tue, 21 Mar 2023 12:32:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4075EF8052D; Tue, 21 Mar 2023 10:26:59 +0100 (CET)
+	id 11DDDF8027B; Tue, 21 Mar 2023 12:32:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D4BEF80254
-	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 10:26:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D4BEF80254
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=W/UCS0Pt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679390797; x=1710926797;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=h1GsKTmMcKTIanpSPySFiy2iNgJqMU8B2uUyhDo1SbM=;
-  b=W/UCS0PthZiq4SoscvDEG7/Z6zx61Evz0S9L8R+DF61DM+0NtxCet2Sa
-   sCGiZD4zVPy+D7aIV8IdZKwcAIe/Uxv/mUe8U2BYf06PUTdzUOSLXXGy+
-   GESf5cylhgUOfpxGwpLdviPw90zeu5HEPGUI4FKi85iCQr/CkGC8j3kqs
-   djSW1QqvtSyDFLZ/6udYIMm09C/OLlajZWmZKpcNRYCJfaXjk7IRbUxew
-   TfwSrPbJQnAbqG7q4BbUxk9puK4qgjZ0GLJeuBWUqdeigL0KNSwKcqtN/
-   E8NGEtA9G1C8P7y2RmLGRj5zebsw6ACy5dkxDbdqvfQQjfIe4jfZsRVKr
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="401462907"
-X-IronPort-AV: E=Sophos;i="5.98,278,1673942400";
-   d="scan'208";a="401462907"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 02:26:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="770559827"
-X-IronPort-AV: E=Sophos;i="5.98,278,1673942400";
-   d="scan'208";a="770559827"
-Received: from markusbu-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.60.215])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 02:26:32 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: SOF: ipc4/intel: Add support for chained DMA
-Date: Tue, 21 Mar 2023 11:26:54 +0200
-Message-Id: <20230321092654.7292-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230321092654.7292-1-peter.ujfalusi@linux.intel.com>
-References: <20230321092654.7292-1-peter.ujfalusi@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 04ED0F80105
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 12:32:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04ED0F80105
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[183.194.157.166])
+	by rmsmtp-lg-appmail-21-12024 (RichMail) with SMTP id 2ef8641995add64-b04f8;
+	Tue, 21 Mar 2023 19:31:59 +0800 (CST)
+X-RM-TRANSID: 2ef8641995add64-b04f8
+From: Shenghao Ding <13916275206@139.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com
+Subject: [PATCH v5] ASoC: tas2781: Add tas2781 driver
+Date: Tue, 21 Mar 2023 19:31:30 +0800
+Message-Id: <20230321113130.25853-1-13916275206@139.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L23YCSUNA3FQ52RAXGRQANBZFWTRJSAI
-X-Message-ID-Hash: L23YCSUNA3FQ52RAXGRQANBZFWTRJSAI
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Message-ID-Hash: RCBIHMNZ7P64QMZKCX3TB7PKMKLWLVWR
+X-Message-ID-Hash: RCBIHMNZ7P64QMZKCX3TB7PKMKLWLVWR
+X-MailFrom: 13916275206@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- jyri.sarha@intel.com, rander.wang@intel.com
+CC: kevin-lu@ti.com, shenghao-ding@ti.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, x1077012@ti.com, peeyush@ti.com, navada@ti.com,
+ Shenghao Ding <13916275206@139.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L23YCSUNA3FQ52RAXGRQANBZFWTRJSAI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCBIHMNZ7P64QMZKCX3TB7PKMKLWLVWR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,524 +79,4286 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jyri Sarha <jyri.sarha@intel.com>
+Create tas2781 driver.
 
-Add logic for setting up and tearing down chained DMA connections.
+Signed-off-by: Shenghao Ding <13916275206@139.com>
 
-Since pipelines are not used, all the logic to set the pipeline states
-can be bypassed, with only the DMA programming sequences remaining. In
-addition the same format needs to be used for host- and link-DMA,
-without the usual fixup to use the S32_LE format on the link.
-
-Note however that for convenience and compatibility with existing
-definitions, the topology relies on the concept of pipelines with a
-'USE_CHAIN_DMA' token indicating that all the logic shall be bypassed.
-
-Unlike 'normal' ALSA sequences, the chain DMA is not programmed in
-hw_params/hw_free. The IPC message to set-up and tear-down chained DMA
-are sent in sof_ipc4_trigger_pipelines(), but the contents prepared
-earlier.
-
-Chained DMA is only supported by the Intel HDA DAI for now, and only
-S16_LE and S32_LE formats are supported for now.
-
-Signed-off-by: Jyri Sarha <jyri.sarha@intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- include/uapi/sound/sof/tokens.h   |   1 +
- sound/soc/sof/intel/hda-dai-ops.c |  18 ++++-
- sound/soc/sof/ipc4-pcm.c          | 122 +++++++++++++++++++++++++++++-
- sound/soc/sof/ipc4-topology.c     | 120 ++++++++++++++++++++++++++++-
- sound/soc/sof/ipc4-topology.h     |   2 +
- 5 files changed, 255 insertions(+), 8 deletions(-)
+Changes in v5:
+ - fixed indentation issues
+ - correct header file in alphabetical order
+ - remove useless initialization
+ - Add comments for lock
+ | Reported-by: kernel test robot <lkp@intel.com>
+ | Link:
+ | https://lore.kernel.org/oe-kbuild-all/202303210435.ij3d6YHB-lkp@intel.
+ | com/
+ - remove unused is_set_glb_mode
+ - remove unused dts_dev_addr_tag
+ | Reported-by: kernel test robot <lkp@intel.com>
+ | Link:
+ | https://lore.kernel.org/oe-kbuild-all/202303210419.sTqbh3R4-lkp@intel.
+ | com/
+ - fixed Using plain integer as NULL pointer
+ Changes to be committed:
+	modified:   sound/soc/codecs/Kconfig
+	modified:   sound/soc/codecs/Makefile
+	new file:   sound/soc/codecs/tas2781-dsp.c
+	new file:   sound/soc/codecs/tas2781-dsp.h
+	new file:   sound/soc/codecs/tas2781-i2c.c
+	new file:   sound/soc/codecs/tas2781.h
+---
+ sound/soc/codecs/Kconfig       |   12 +
+ sound/soc/codecs/Makefile      |    2 +
+ sound/soc/codecs/tas2781-dsp.c | 2152 ++++++++++++++++++++++++++++++++
+ sound/soc/codecs/tas2781-dsp.h |  178 +++
+ sound/soc/codecs/tas2781-i2c.c | 1665 ++++++++++++++++++++++++
+ sound/soc/codecs/tas2781.h     |  169 +++
+ 6 files changed, 4178 insertions(+)
+ create mode 100644 sound/soc/codecs/tas2781-dsp.c
+ create mode 100644 sound/soc/codecs/tas2781-dsp.h
+ create mode 100644 sound/soc/codecs/tas2781-i2c.c
+ create mode 100644 sound/soc/codecs/tas2781.h
 
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index bd02842124f9..bbc37877aaff 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -54,6 +54,7 @@
- #define SOF_TKN_SCHED_DYNAMIC_PIPELINE		206
- #define SOF_TKN_SCHED_LP_MODE			207
- #define SOF_TKN_SCHED_MEM_USAGE			208
-+#define SOF_TKN_SCHED_USE_CHAIN_DMA		209
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 07747565c3b5..e1afe1ced5d7 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -229,6 +229,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_TAS2764
+ 	imply SND_SOC_TAS2770
+ 	imply SND_SOC_TAS2780
++	imply SND_SOC_TAS2781
+ 	imply SND_SOC_TAS5086
+ 	imply SND_SOC_TAS571X
+ 	imply SND_SOC_TAS5720
+@@ -1637,6 +1638,17 @@ config SND_SOC_TAS2780
+ 	  Enable support for Texas Instruments TAS2780 high-efficiency
+ 	  digital input mono Class-D audio power amplifiers.
  
- /* volume */
- #define SOF_TKN_VOLUME_RAMP_STEP_TYPE		250
-diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
-index be109f33715f..de48f13259f1 100644
---- a/sound/soc/sof/intel/hda-dai-ops.c
-+++ b/sound/soc/sof/intel/hda-dai-ops.c
-@@ -277,6 +277,15 @@ static const struct hda_dai_widget_dma_ops hda_ipc4_dma_ops = {
- 	.post_trigger = hda_ipc4_post_trigger
- };
- 
-+static const struct hda_dai_widget_dma_ops hda_ipc4_chain_dma_ops = {
-+	.get_hext_stream = hda_get_hext_stream,
-+	.assign_hext_stream = hda_assign_hext_stream,
-+	.release_hext_stream = hda_release_hext_stream,
-+	.setup_hext_stream = hda_setup_hext_stream,
-+	.reset_hext_stream = hda_reset_hext_stream,
-+	.trigger = hda_trigger,
++config SND_SOC_TAS2781
++	tristate "Texas Instruments TAS2781 speaker amplifier"
++	depends on I2C
++	select REGMAP_I2C
++	select CRC8
++	help
++	  Enable support for Texas Instruments TAS2781 Smart Amplifier
++	  Digital input mono Class-D and DSP-inside audio power amplifiers.
++	  Note the TAS2781 driver implements a flexible and configurable
++	  algo coff setting, for one, two, even multiple TAS2781 chips.
++
+ config SND_SOC_TAS5086
+ 	tristate "Texas Instruments TAS5086 speaker amplifier"
+ 	depends on I2C
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index f1ca18f7946c..5559b9e9cc17 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -262,6 +262,7 @@ snd-soc-tas5805m-objs := tas5805m.o
+ snd-soc-tas6424-objs := tas6424.o
+ snd-soc-tda7419-objs := tda7419.o
+ snd-soc-tas2770-objs := tas2770.o
++snd-soc-tas2781-objs :=	tas2781-i2c.o tas2781-dsp.o
+ snd-soc-tfa9879-objs := tfa9879.o
+ snd-soc-tfa989x-objs := tfa989x.o
+ snd-soc-tlv320adc3xxx-objs := tlv320adc3xxx.o
+@@ -619,6 +620,7 @@ obj-$(CONFIG_SND_SOC_TAS2552)	+= snd-soc-tas2552.o
+ obj-$(CONFIG_SND_SOC_TAS2562)	+= snd-soc-tas2562.o
+ obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
+ obj-$(CONFIG_SND_SOC_TAS2780)	+= snd-soc-tas2780.o
++obj-$(CONFIG_SND_SOC_TAS2781)	+= snd-soc-tas2781.o
+ obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
+ obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
+ obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
+diff --git a/sound/soc/codecs/tas2781-dsp.c b/sound/soc/codecs/tas2781-dsp.c
+new file mode 100644
+index 000000000000..22c256237335
+--- /dev/null
++++ b/sound/soc/codecs/tas2781-dsp.c
+@@ -0,0 +1,2152 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable algo coff setting
++// for one, two, even multiple TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#include <linux/crc8.h>
++#include <linux/firmware.h>
++#include <linux/fs.h>
++#include <linux/i2c.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++
++#include "tas2781.h"
++
++#define ERROR_PRAM_CRCCHK			0x0000000
++#define ERROR_YRAM_CRCCHK			0x0000001
++#define	PPC_DRIVER_CRCCHK			0x00000200
++
++#define TAS2781_SA_COEFF_SWAP_REG		TASDEVICE_REG(0, 0x35, 0x2c)
++#define TAS2781_YRAM_BOOK1			140
++#define TAS2781_YRAM1_PAGE			42
++#define TAS2781_YRAM1_START_REG			88
++
++#define TAS2781_YRAM2_START_PAGE		43
++#define TAS2781_YRAM2_END_PAGE			49
++#define TAS2781_YRAM2_START_REG			8
++#define TAS2781_YRAM2_END_REG			127
++
++#define TAS2781_YRAM3_PAGE			50
++#define TAS2781_YRAM3_START_REG			8
++#define TAS2781_YRAM3_END_REG			27
++
++/*should not include B0_P53_R44-R47 */
++#define TAS2781_YRAM_BOOK2			0
++#define TAS2781_YRAM4_START_PAGE		50
++#define TAS2781_YRAM4_END_PAGE			60
++
++#define TAS2781_YRAM5_PAGE			61
++#define TAS2781_YRAM5_START_REG			8
++#define TAS2781_YRAM5_END_REG			27
++
++#define TASDEVICE_MAXPROGRAM_NUM_KERNEL			5
++#define TASDEVICE_MAXCONFIG_NUM_KERNEL_MULTIPLE_AMPS	64
++#define TASDEVICE_MAXCONFIG_NUM_KERNEL			10
++#define MAIN_ALL_DEVICES_1X				0x01
++#define MAIN_DEVICE_A_1X				0x02
++#define MAIN_DEVICE_B_1X				0x03
++#define MAIN_DEVICE_C_1X				0x04
++#define MAIN_DEVICE_D_1X				0x05
++#define COEFF_DEVICE_A_1X				0x12
++#define COEFF_DEVICE_B_1X				0x13
++#define COEFF_DEVICE_C_1X				0x14
++#define COEFF_DEVICE_D_1X				0x15
++#define PRE_DEVICE_A_1X					0x22
++#define PRE_DEVICE_B_1X					0x23
++#define PRE_DEVICE_C_1X					0x24
++#define PRE_DEVICE_D_1X					0x25
++
++struct tas_crc {
++	unsigned char offset;
++	unsigned char len;
 +};
 +
- static int hda_ipc3_post_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
- 				 struct snd_pcm_substream *substream, int cmd)
- {
-@@ -331,8 +340,15 @@ hda_select_dai_widget_ops(struct snd_sof_dev *sdev, struct snd_sof_widget *swidg
- 	{
- 		struct sof_ipc4_copier *ipc4_copier = sdai->private;
- 
--		if (ipc4_copier->dai_type == SOF_DAI_INTEL_HDA)
-+		if (ipc4_copier->dai_type == SOF_DAI_INTEL_HDA) {
-+			struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+			struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
++const char deviceNumber[TASDEVICE_DSP_TAS_MAX_DEVICE] = {
++	1, 2, 1, 2, 1, 1, 0, 2, 4, 3, 1, 2, 3, 4
++};
 +
-+			if (pipeline->use_chain_dma)
-+				return &hda_ipc4_chain_dma_ops;
-+
- 			return &hda_ipc4_dma_ops;
-+		}
- 		break;
- 	}
- 	default:
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-index 4598057b7f28..db64200ba1e5 100644
---- a/sound/soc/sof/ipc4-pcm.c
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -193,6 +193,88 @@ sof_ipc4_update_pipeline_state(struct snd_sof_dev *sdev, int state, int cmd,
-  * prepare ioctl before the START trigger.
-  */
- 
-+/*
-+ * Chained DMA is a special case where there is no processing on
-+ * DSP. The samples are just moved over by host side DMA to a single
-+ * buffer on DSP and directly from there to link DMA. However, the
-+ * model on SOF driver has two notional pipelines, one at host DAI,
-+ * and another at link DAI. They both shall have the use_chain_dma
-+ * attribute.
-+ */
-+
-+static int sof_ipc4_chain_dma_trigger(struct snd_sof_dev *sdev,
-+				      struct snd_sof_pcm_stream_pipeline_list *pipeline_list,
-+				      int state, int cmd)
++static int fw_parse_block_data_kernel(struct tasdevice_fw *tas_fmw,
++	struct tasdev_blk *block, const struct firmware *fmw, int offset)
 +{
-+	bool allocate, enable, set_fifo_size;
-+	struct sof_ipc4_msg msg = {{ 0 }};
-+	int i;
++	const unsigned char *data = fmw->data;
 +
-+	switch (state) {
-+	case SOF_IPC4_PIPE_RUNNING: /* Allocate and start chained dma */
-+		allocate = true;
-+		enable = true;
-+		/*
-+		 * SOF assumes creation of a new stream from the presence of fifo_size
-+		 * in the message, so we must leave it out in pause release case.
-+		 */
-+		if (cmd == SNDRV_PCM_TRIGGER_PAUSE_RELEASE)
-+			set_fifo_size = false;
-+		else
-+			set_fifo_size = true;
-+		break;
-+	case SOF_IPC4_PIPE_PAUSED: /* Disable chained DMA. */
-+		allocate = true;
-+		enable = false;
-+		set_fifo_size = false;
-+		break;
-+	case SOF_IPC4_PIPE_RESET: /* Disable and free chained DMA. */
-+		allocate = false;
-+		enable = false;
-+		set_fifo_size = false;
-+		break;
-+	default:
-+		dev_err(sdev->dev, "Unexpected state %d", state);
-+		return -EINVAL;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
 +	}
++	block->type = SMS_HTONL(data[offset],
++			data[offset + 1], data[offset + 2],
++			data[offset + 3]);
++	offset  += 4;
 +
-+	msg.primary = SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_CHAIN_DMA);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
-+
-+	/*
-+	 * To set-up the DMA chain, the host DMA ID and SCS setting
-+	 * are retrieved from the host pipeline configuration. Likewise
-+	 * the link DMA ID and fifo_size are retrieved from the link
-+	 * pipeline configuration.
-+	 */
-+	for (i = 0; i < pipeline_list->count; i++) {
-+		struct snd_sof_pipeline *spipe = pipeline_list->pipelines[i];
-+		struct snd_sof_widget *pipe_widget = spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (!pipeline->use_chain_dma) {
-+			dev_err(sdev->dev,
-+				"All pipelines in chained DMA stream should have use_chain_dma attribute set.");
-+			return -EINVAL;
-+		}
-+
-+		msg.primary |= pipeline->msg.primary;
-+
-+		/* Add fifo_size (actually DMA buffer size) field to the message */
-+		if (set_fifo_size)
-+			msg.extension |= pipeline->msg.extension;
++	if (offset + 1 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: PChkSumPresent error\n", __func__);
++		offset = -1;
++		goto out;
 +	}
++	block->is_pchksum_present = data[offset];
++	offset++;
 +
-+	if (allocate)
-+		msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_ALLOCATE_MASK;
++	if (offset + 1 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mnPChkSum error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->pchksum = data[offset];
++	offset++;
 +
-+	if (enable)
-+		msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_ENABLE_MASK;
++	if (offset + 1 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: YChkSumPresent error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->is_ychksum_present = data[offset];
++	offset++;
 +
-+	return sof_ipc_tx_message(sdev->ipc, &msg, 0, NULL, 0);
++	if (offset + 1 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mnYChkSum error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->ychksum = data[offset];
++	offset++;
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: blk_size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->blk_size = SMS_HTONL(data[offset], data[offset + 1],
++		data[offset + 2], data[offset + 3]);
++	offset  += 4;
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: nSublocks error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->nr_subblocks = SMS_HTONL(data[offset], data[offset + 1],
++		data[offset + 2], data[offset + 3]);
++	offset  += 4;
++
++	block->data = kzalloc(block->blk_size, GFP_KERNEL);
++	if (block->data == NULL) {
++		offset = -1;
++		goto out;
++	}
++	memcpy(block->data, &data[offset], block->blk_size);
++	offset  += block->blk_size;
++out:
++	return offset;
 +}
 +
- static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 				      struct snd_pcm_substream *substream, int state, int cmd)
- {
-@@ -201,6 +283,8 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 	struct snd_sof_pcm_stream_pipeline_list *pipeline_list;
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct ipc4_pipeline_set_state_data *trigger_list;
-+	struct snd_sof_widget *pipe_widget;
-+	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_sof_pipeline *spipe;
- 	struct snd_sof_pcm *spcm;
- 	int ret;
-@@ -218,6 +302,17 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 	if (!pipeline_list->pipelines || !pipeline_list->count)
- 		return 0;
- 
-+	spipe = pipeline_list->pipelines[0];
-+	pipe_widget = spipe->pipe_widget;
-+	pipeline = pipe_widget->private;
++static int fw_parse_data_kernel(struct tasdevice_fw *tas_fmw,
++	struct tasdevice_data *img_data, const struct firmware *fmw,
++	int offset)
++{
++	const unsigned char *data = fmw->data;
++	unsigned int nr_block;
 +
-+	/*
-+	 * If use_chain_dma attribute is set we proceed to chained DMA
-+	 * trigger function that handles the rest for the substream.
-+	 */
-+	if (pipeline->use_chain_dma)
-+		return sof_ipc4_chain_dma_trigger(sdev, pipeline_list, state, cmd);
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	img_data->nr_blk = SMS_HTONL(data[offset],
++		data[offset + 1], data[offset + 2], data[offset + 3]);
++	offset  += 4;
 +
- 	/* allocate memory for the pipeline data */
- 	trigger_list = kzalloc(struct_size(trigger_list, pipeline_ids, pipeline_list->count),
- 			       GFP_KERNEL);
-@@ -422,8 +517,10 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
- 	struct snd_sof_dai *dai = snd_sof_find_dai(component, rtd->dai_link->name);
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct sof_ipc4_copier *ipc4_copier;
--	int ret;
-+	bool use_chain_dma = false;
-+	int dir;
- 
- 	if (!dai) {
- 		dev_err(component->dev, "%s: No DAI found with name %s\n", __func__,
-@@ -438,9 +535,26 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		return -EINVAL;
- 	}
- 
--	ret = sof_ipc4_pcm_dai_link_fixup_rate(sdev, params, ipc4_copier);
--	if (ret)
--		return ret;
-+	for_each_pcm_streams(dir) {
-+		struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, dir);
-+
-+		if (w) {
-+			struct snd_sof_widget *swidget = w->dobj.private;
-+			struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+			struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+			if (pipeline->use_chain_dma)
-+				use_chain_dma = true;
-+		}
++	img_data->dev_blks =
++		kcalloc(img_data->nr_blk, sizeof(struct tasdev_blk),
++			GFP_KERNEL);
++	if (img_data->dev_blks == NULL) {
++		dev_err(tas_fmw->dev, "%s: FW memory failed!\n", __func__);
++		goto out;
 +	}
 +
-+	/* Chain DMA does not use copiers, so no fixup needed */
-+	if (!use_chain_dma) {
-+		int ret = sof_ipc4_pcm_dai_link_fixup_rate(sdev, params, ipc4_copier);
-+
-+		if (ret)
-+			return ret;
++	for (nr_block = 0; nr_block < img_data->nr_blk; nr_block++) {
++		offset = fw_parse_block_data_kernel(tas_fmw,
++			&(img_data->dev_blks[nr_block]), fmw, offset);
++		if (offset < 0) {
++			offset = -1;
++			goto out;
++		}
 +	}
- 
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_SSP:
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 3a4a3267017b..f1e1aed94da4 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -19,6 +19,7 @@
- 
- #define SOF_IPC4_GAIN_PARAM_ID  0
- #define SOF_IPC4_TPLG_ABI_SIZE 6
-+#define SOF_IPC4_CHAIN_DMA_BUF_SIZE_MS 2
- 
- static DEFINE_IDA(alh_group_ida);
- static DEFINE_IDA(pipeline_ida);
-@@ -26,6 +27,8 @@ static DEFINE_IDA(pipeline_ida);
- static const struct sof_topology_token ipc4_sched_tokens[] = {
- 	{SOF_TKN_SCHED_LP_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
- 		offsetof(struct sof_ipc4_pipeline, lp_mode)},
-+	{SOF_TKN_SCHED_USE_CHAIN_DMA, SND_SOC_TPLG_TUPLE_TYPE_BOOL, get_token_u16,
-+		offsetof(struct sof_ipc4_pipeline, use_chain_dma)},
- 	{SOF_TKN_SCHED_CORE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
- 		offsetof(struct sof_ipc4_pipeline, core_id)},
- };
-@@ -475,6 +478,8 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 	struct snd_soc_component *scomp = swidget->scomp;
- 	struct snd_sof_dai *dai = swidget->private;
- 	struct sof_ipc4_copier *ipc4_copier;
-+	struct snd_sof_widget *pipe_widget;
-+	struct sof_ipc4_pipeline *pipeline;
- 	int node_type = 0;
- 	int ret;
- 
-@@ -512,6 +517,16 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 
- 	ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
- 
-+	pipe_widget = swidget->spipe->pipe_widget;
-+	pipeline = pipe_widget->private;
-+	if (pipeline->use_chain_dma && ipc4_copier->dai_type != SOF_DAI_INTEL_HDA) {
-+		dev_err(scomp->dev,
-+			"Bad DAI type '%d', Chained DMA is only supported by HDA DAIs (%d).\n",
-+			ipc4_copier->dai_type, SOF_DAI_INTEL_HDA);
-+		ret = -ENODEV;
-+		goto free_available_fmt;
++out:
++	return offset;
++}
++
++static int fw_parse_program_data_kernel(
++	struct tasdevice_priv *tas_dev, struct tasdevice_fw *tas_fmw,
++	const struct firmware *fmw, int offset)
++{
++	struct tasdevice_prog *program;
++	unsigned int  nr_program;
++
++	for (nr_program = 0; nr_program < tas_fmw->nr_programs; nr_program++) {
++		program = &(tas_fmw->programs[nr_program]);
++		if (offset + 64 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: mpName error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 64;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: AppMode error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "PDMI2SMode err\n");
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: ISnsPD error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: VSnsPD error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		//skip 3-byte reserved
++		offset  += 3;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PowerLDG err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		offset = fw_parse_data_kernel(tas_fmw, &(program->dev_data),
++			fmw, offset);
++		if (offset < 0)
++			goto out;
 +	}
++out:
++	return offset;
++}
 +
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_ALH:
- 	{
-@@ -643,6 +658,12 @@ static int sof_ipc4_widget_setup_comp_pipeline(struct snd_sof_widget *swidget)
- 
- 	swidget->core = pipeline->core_id;
- 
-+	if (pipeline->use_chain_dma) {
-+		dev_dbg(scomp->dev, "Set up chain DMA for %s\n", swidget->widget->name);
-+		swidget->private = pipeline;
-+		return 0;
++static int fw_parse_configuration_data_kernel(
++	struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw, const struct firmware *fmw, int offset)
++{
++	const unsigned char *data = fmw->data;
++	unsigned int nr_conf;
++	struct tasdevice_config *config;
++
++	for (nr_conf = 0; nr_conf < tas_fmw->nr_configurations; nr_conf++) {
++		config = &(tas_fmw->configs[nr_conf]);
++		if (offset + 64 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: mpName error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		memcpy(config->name, &data[offset], 64);
++		offset  += 64;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "orientation err\n");
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: Devices error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 1;
++
++		if (offset + 2 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: Program error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 2;
++
++		if (offset + 4 > fmw->size) {
++			dev_err(tas_dev->dev, "SamplingRate err\n");
++			offset = -1;
++			goto out;
++		}
++		offset  += 4;
++
++		if (offset + 2 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PLLSrc error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 2;
++
++		if (offset + 2 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: FsRate error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 2;
++
++		if (offset + 4 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PLLRate err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 4;
++		offset = fw_parse_data_kernel(tas_fmw,
++			&(config->dev_data), fmw, offset);
++		if (offset < 0)
++			goto out;
 +	}
++out:
++	return offset;
++}
 +
- 	/* parse one set of pipeline tokens */
- 	ret = sof_update_ipc_object(scomp, swidget, SOF_PIPELINE_TOKENS, swidget->tuples,
- 				    swidget->num_tuples, sizeof(*swidget), 1);
-@@ -1103,11 +1124,21 @@ static void sof_ipc4_unprepare_copier_module(struct snd_sof_widget *swidget)
- 	pipeline->mem_usage = 0;
- 
- 	if (WIDGET_IS_AIF(swidget->id) || swidget->id == snd_soc_dapm_buffer) {
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary = 0;
-+			pipeline->msg.extension = 0;
-+		}
- 		ipc4_copier = swidget->private;
- 	} else if (WIDGET_IS_DAI(swidget->id)) {
- 		struct snd_sof_dai *dai = swidget->private;
- 
- 		ipc4_copier = dai->private;
++static int fw_parse_variable_header_kernel(
++	struct tasdevice_priv *tas_dev, const struct firmware *fmw, int offset)
++{
++	struct tasdevice_fw *tas_fmw = tas_dev->fmw;
++	struct tasdevice_dspfw_hdr *fw_hdr = &(tas_fmw->fw_hdr);
++	const unsigned char *buf = fmw->data;
++	struct tasdevice_prog *program;
++	struct tasdevice_config *config;
++	unsigned int  nr_program, nr_configs;
++	unsigned short max_confs;
 +
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary = 0;
-+			pipeline->msg.extension = 0;
-+		}
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device_family = SMS_HTONS(buf[offset], buf[offset + 1]);
++	if (fw_hdr->device_family != 0) {
++		dev_err(tas_dev->dev, "ERROR:%s:not TAS device\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 2;
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnDevice error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device = SMS_HTONS(buf[offset], buf[offset + 1]);
++	if (fw_hdr->device >= TASDEVICE_DSP_TAS_MAX_DEVICE ||
++		fw_hdr->device == 6) {
++		dev_err(tas_dev->dev, "Not support dev %d\n", fw_hdr->device);
++		offset = -1;
++		goto out;
++	}
++	offset  += 2;
++	fw_hdr->ndev = deviceNumber[fw_hdr->device];
 +
- 		if (ipc4_copier->dai_type == SOF_DAI_INTEL_ALH) {
- 			struct sof_ipc4_copier_data *copier_data = &ipc4_copier->data;
- 			struct sof_ipc4_alh_configuration_blob *blob;
-@@ -1344,13 +1375,44 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 			return ret;
- 		}
- 
--		pipe_widget = swidget->spipe->pipe_widget;
--		pipeline = pipe_widget->private;
- 		ipc4_copier = (struct sof_ipc4_copier *)swidget->private;
- 		gtw_attr = ipc4_copier->gtw_attr;
- 		copier_data = &ipc4_copier->data;
- 		available_fmt = &ipc4_copier->available_fmt;
- 
-+		pipe_widget = swidget->spipe->pipe_widget;
-+		pipeline = pipe_widget->private;
-+
-+		if (pipeline->use_chain_dma) {
-+			u32 host_dma_id;
-+			u32 fifo_size;
-+
-+			host_dma_id = platform_params->stream_tag - 1;
-+			pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_HOST_ID(host_dma_id);
-+
-+			/* Set SCS bit for S16_LE format only */
-+			if (params_format(fe_params) == SNDRV_PCM_FORMAT_S16_LE)
-+				pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_SCS_MASK;
-+
-+			/*
-+			 * Despite its name the bitfield 'fifo_size' is used to define DMA buffer
-+			 * size. The expression calculates 2ms buffer size.
-+			 */
-+			fifo_size = DIV_ROUND_UP((SOF_IPC4_CHAIN_DMA_BUF_SIZE_MS *
-+						  params_rate(fe_params) *
-+						  params_channels(fe_params) *
-+						  params_physical_width(fe_params)), 8000);
-+			pipeline->msg.extension |= SOF_IPC4_GLB_EXT_CHAIN_DMA_FIFO_SIZE(fifo_size);
-+
-+			/*
-+			 * Chain DMA does not support stream timestamping, set node_id to invalid
-+			 * to skip the code in sof_ipc4_get_stream_start_offset().
-+			 */
-+			copier_data->gtw_cfg.node_id = SOF_IPC4_INVALID_NODE_ID;
-+
-+			return 0;
-+		}
-+
- 		/*
- 		 * Use the input_pin_fmts to match pcm params for playback and the output_pin_fmts
- 		 * for capture.
-@@ -1375,6 +1437,12 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 	case snd_soc_dapm_dai_in:
- 	case snd_soc_dapm_dai_out:
- 	{
-+		struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		dai = swidget->private;
- 
- 		ipc4_copier = (struct sof_ipc4_copier *)dai->private;
-@@ -1921,6 +1989,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	case snd_soc_dapm_scheduler:
- 		pipeline = swidget->private;
- 
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		dev_dbg(sdev->dev, "pipeline: %d memory pages: %d\n", swidget->pipeline_id,
- 			pipeline->mem_usage);
- 
-@@ -1943,6 +2014,10 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	{
- 		struct sof_ipc4_copier *ipc4_copier = swidget->private;
- 
-+		pipeline = pipe_widget->private;
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-@@ -1955,6 +2030,10 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		struct snd_sof_dai *dai = swidget->private;
- 		struct sof_ipc4_copier *ipc4_copier = dai->private;
- 
-+		pipeline = pipe_widget->private;
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-@@ -2066,6 +2145,9 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		struct sof_ipc4_msg msg = {{ 0 }};
- 		u32 header;
- 
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		header = SOF_IPC4_GLB_PIPE_INSTANCE_ID(swidget->instance_id);
- 		header |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_DELETE_PIPELINE);
- 		header |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-@@ -2082,7 +2164,11 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		pipeline->state = SOF_IPC4_PIPE_UNINITIALIZED;
- 		ida_free(&pipeline_ida, swidget->instance_id);
- 	} else {
--		ida_free(&fw_module->m_ida, swidget->instance_id);
-+		struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (!pipeline->use_chain_dma)
-+			ida_free(&fw_module->m_ida, swidget->instance_id);
- 	}
- 
- 	mutex_unlock(&ipc4_data->pipeline_state_mutex);
-@@ -2234,12 +2320,27 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- {
- 	struct snd_sof_widget *src_widget = sroute->src_widget;
- 	struct snd_sof_widget *sink_widget = sroute->sink_widget;
-+	struct snd_sof_widget *src_pipe_widget = src_widget->spipe->pipe_widget;
-+	struct snd_sof_widget *sink_pipe_widget = sink_widget->spipe->pipe_widget;
- 	struct sof_ipc4_fw_module *src_fw_module = src_widget->module_info;
- 	struct sof_ipc4_fw_module *sink_fw_module = sink_widget->module_info;
-+	struct sof_ipc4_pipeline *src_pipeline = src_pipe_widget->private;
-+	struct sof_ipc4_pipeline *sink_pipeline = sink_pipe_widget->private;
- 	struct sof_ipc4_msg msg = {{ 0 }};
- 	u32 header, extension;
- 	int ret;
- 
-+	/* no route set up if chain DMA is used */
-+	if (src_pipeline->use_chain_dma || sink_pipeline->use_chain_dma) {
-+		if (!src_pipeline->use_chain_dma || !sink_pipeline->use_chain_dma) {
-+			dev_err(sdev->dev,
-+				"use_chain_dma must be set for both src %s and sink %s pipelines\n",
-+				src_widget->widget->name, sink_widget->widget->name);
-+			return -EINVAL;
-+		}
-+		return 0;
++	if (fw_hdr->ndev != tas_dev->ndev) {
++		dev_err(tas_dev->dev,
++			"%s: ndev(%u) in dspbin dismatch ndev(%u) in DTS\n",
++			__func__, fw_hdr->ndev, tas_dev->ndev);
++		offset = -1;
++		goto out;
 +	}
 +
- 	sroute->src_queue_id = sof_ipc4_get_queue_id(src_widget, sink_widget,
- 						     SOF_PIN_TYPE_OUTPUT);
- 	if (sroute->src_queue_id < 0) {
-@@ -2310,9 +2411,17 @@ static int sof_ipc4_route_free(struct snd_sof_dev *sdev, struct snd_sof_route *s
- 	struct sof_ipc4_fw_module *src_fw_module = src_widget->module_info;
- 	struct sof_ipc4_fw_module *sink_fw_module = sink_widget->module_info;
- 	struct sof_ipc4_msg msg = {{ 0 }};
-+	struct snd_sof_widget *src_pipe_widget = src_widget->spipe->pipe_widget;
-+	struct snd_sof_widget *sink_pipe_widget = sink_widget->spipe->pipe_widget;
-+	struct sof_ipc4_pipeline *src_pipeline = src_pipe_widget->private;
-+	struct sof_ipc4_pipeline *sink_pipeline = sink_pipe_widget->private;
- 	u32 header, extension;
- 	int ret = 0;
- 
-+	/* no route is set up if chain DMA is used */
-+	if (src_pipeline->use_chain_dma || sink_pipeline->use_chain_dma)
-+		return 0;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnPrograms error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	tas_fmw->nr_programs = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
 +
- 	dev_dbg(sdev->dev, "unbind modules %s:%d -> %s:%d\n",
- 		src_widget->widget->name, sroute->src_queue_id,
- 		sink_widget->widget->name, sroute->dst_queue_id);
-@@ -2374,6 +2483,11 @@ static int sof_ipc4_dai_config(struct snd_sof_dev *sdev, struct snd_sof_widget *
- 
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_HDA:
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary &= ~SOF_IPC4_GLB_CHAIN_DMA_LINK_ID_MASK;
-+			pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_LINK_ID(data->dai_data);
++	if (tas_fmw->nr_programs == 0 || tas_fmw->nr_programs >
++		TASDEVICE_MAXPROGRAM_NUM_KERNEL) {
++		dev_err(tas_dev->dev, "%s: mnPrograms is invalid\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	if (offset + 4 * TASDEVICE_MAXPROGRAM_NUM_KERNEL > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mpPrograms error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	tas_fmw->programs = kcalloc(tas_fmw->nr_programs,
++		sizeof(struct tasdevice_prog), GFP_KERNEL);
++	if (tas_fmw->programs == NULL) {
++		offset = -1;
++		goto out;
++	}
++
++	for (nr_program = 0; nr_program < tas_fmw->nr_programs; nr_program++) {
++		program = &(tas_fmw->programs[nr_program]);
++		program->prog_size = SMS_HTONL(buf[offset], buf[offset + 1],
++			buf[offset + 2], buf[offset + 3]);
++		offset  += 4;
++	}
++	offset  += (4 * (5 - nr_program));
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: Configurations error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	tas_fmw->nr_configurations = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	max_confs = (fw_hdr->ndev >= 4) ?
++		TASDEVICE_MAXCONFIG_NUM_KERNEL_MULTIPLE_AMPS :
++		TASDEVICE_MAXCONFIG_NUM_KERNEL;
++	if (tas_fmw->nr_configurations == 0 ||
++		tas_fmw->nr_configurations > max_confs) {
++		dev_err(tas_dev->dev, "%s: Conf is invalid\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	if (offset + 4 * max_confs > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mpConfigurations err\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	tas_fmw->configs = kcalloc(tas_fmw->nr_configurations,
++		sizeof(struct tasdevice_config), GFP_KERNEL);
++	if (tas_fmw->configs == NULL) {
++		offset = -1;
++		goto out;
++	}
++
++	for (nr_configs = 0; nr_configs < tas_fmw->nr_programs;
++		nr_configs++) {
++		config =
++			&(tas_fmw->configs[nr_configs]);
++		config->cfg_size = SMS_HTONL(buf[offset],
++			buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++		offset  += 4;
++	}
++
++	offset  += (4 * (max_confs - nr_configs));
++out:
++	return offset;
++}
++
++static int tasdevice_load_block_kernel(
++	struct tasdevice_priv *tasdevice, struct tasdev_blk *block)
++{
++	unsigned char *data = block->data;
++	unsigned int i, length;
++	const unsigned int blk_size = block->blk_size;
++	unsigned char dev_idx = 0;
++	struct tasdevice_dspfw_hdr *fw_hdr = &(tasdevice->fmw->fw_hdr);
++	struct tasdevice_fw_fixed_hdr *fw_fixed_hdr = &(fw_hdr->fixed_hdr);
++
++	if (fw_fixed_hdr->ppcver >= PPC3_VERSION) {
++		switch (block->type) {
++		case MAIN_ALL_DEVICES_1X:
++			dev_idx = 0|0x80;
++			break;
++		case MAIN_DEVICE_A_1X:
++			dev_idx = 1|0x80;
++			break;
++		case COEFF_DEVICE_A_1X:
++		case PRE_DEVICE_A_1X:
++			dev_idx = 1|0xC0;
++			break;
++		case MAIN_DEVICE_B_1X:
++			dev_idx = 2|0x80;
++			break;
++		case COEFF_DEVICE_B_1X:
++		case PRE_DEVICE_B_1X:
++			dev_idx = 2|0xC0;
++			break;
++		case MAIN_DEVICE_C_1X:
++			dev_idx = 3|0x80;
++			break;
++		case COEFF_DEVICE_C_1X:
++		case PRE_DEVICE_C_1X:
++			dev_idx = 3|0xC0;
++			break;
++		case MAIN_DEVICE_D_1X:
++			dev_idx = 4|0x80;
++			break;
++		case COEFF_DEVICE_D_1X:
++		case PRE_DEVICE_D_1X:
++			dev_idx = 4|0xC0;
++			break;
++		default:
++			dev_info(tasdevice->dev,
++				"%s: load block: Other Type = 0x%02x\n",
++				__func__, block->type);
 +			break;
 +		}
- 		gtw_attr = ipc4_copier->gtw_attr;
- 		gtw_attr->lp_buffer_alloc = pipeline->lp_mode;
- 		pipeline->skip_during_fe_trigger = true;
-diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 015027b23588..cf007282867b 100644
---- a/sound/soc/sof/ipc4-topology.h
-+++ b/sound/soc/sof/ipc4-topology.h
-@@ -126,6 +126,7 @@ struct sof_ipc4_copier_config_set_sink_format {
-  * @mem_usage: Memory usage
-  * @core_id: Target core for the pipeline
-  * @state: Pipeline state
-+ * @use_chain_dma: flag to indicate if the firmware shall use chained DMA
-  * @msg: message structure for pipeline
-  * @skip_during_fe_trigger: skip triggering this pipeline during the FE DAI trigger
-  */
-@@ -135,6 +136,7 @@ struct sof_ipc4_pipeline {
- 	uint32_t mem_usage;
- 	uint32_t core_id;
- 	int state;
-+	bool use_chain_dma;
- 	struct sof_ipc4_msg msg;
- 	bool skip_during_fe_trigger;
- };
++	} else {
++		switch (block->type) {
++		case MAIN_ALL_DEVICES:
++			dev_idx = 0|0x80;
++			break;
++		case MAIN_DEVICE_A:
++			dev_idx = 1|0x80;
++			break;
++		case COEFF_DEVICE_A:
++		case PRE_DEVICE_A:
++			dev_idx = 1|0xC0;
++			break;
++		case MAIN_DEVICE_B:
++			dev_idx = 2|0x80;
++			break;
++		case COEFF_DEVICE_B:
++		case PRE_DEVICE_B:
++			dev_idx = 2|0xC0;
++			break;
++		case MAIN_DEVICE_C:
++			dev_idx = 3|0x80;
++			break;
++		case COEFF_DEVICE_C:
++		case PRE_DEVICE_C:
++			dev_idx = 3|0xC0;
++			break;
++		case MAIN_DEVICE_D:
++			dev_idx = 4|0x80;
++			break;
++		case COEFF_DEVICE_D:
++		case PRE_DEVICE_D:
++			dev_idx = 4|0xC0;
++			break;
++		default:
++			dev_info(tasdevice->dev,
++				"%s: load block: Other Type = 0x%02x\n",
++				__func__, block->type);
++			break;
++		}
++	}
++
++	for (i = 0, length = 0; i < block->nr_subblocks; i++) {
++		int rc = tasdevice_process_block(tasdevice, data + length,
++			dev_idx, blk_size - length);
++		if (rc < 0) {
++			dev_err(tasdevice->dev,
++				"%s: ERROR:%u %u sublock write error\n",
++				__func__, length, blk_size);
++			break;
++		}
++		length  += (unsigned int)rc;
++		if (blk_size < length) {
++			dev_err(tasdevice->dev,
++				"%s: ERROR:%u %u out of bounary\n",
++				__func__, length, blk_size);
++			break;
++		}
++	}
++
++	return 0;
++}
++
++static int fw_parse_variable_header_git(struct tasdevice_priv
++	*tas_dev, const struct firmware *fmw, int offset)
++{
++	const unsigned char *buf = fmw->data;
++	struct tasdevice_fw *tas_fmw = tas_dev->fmw;
++	struct tasdevice_dspfw_hdr *fw_hdr = &(tas_fmw->fw_hdr);
++	int len = strlen((char *)&buf[offset]);
++
++	len++;
++
++	if (offset + len > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	offset  += len;
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device_family = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	if (fw_hdr->device_family != 0) {
++		dev_err(tas_dev->dev, "ERROR:%s: not TAS device\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	if (fw_hdr->device >= TASDEVICE_DSP_TAS_MAX_DEVICE ||
++		fw_hdr->device == 6) {
++		dev_err(tas_dev->dev, "Not support dev %d\n", fw_hdr->device);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	fw_hdr->ndev = deviceNumber[fw_hdr->device];
++	if (fw_hdr->ndev != tas_dev->ndev) {
++		dev_err(tas_dev->dev,
++			"%s: ndev(%u) in dspbin dismatch ndev(%u) in DTS\n",
++			__func__, fw_hdr->ndev,
++			tas_dev->ndev);
++		offset = -1;
++	}
++
++out:
++	return offset;
++}
++
++static int fw_parse_variable_hdr_cal(struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw, const struct firmware *fmw, int offset)
++{
++	const unsigned char *buf = fmw->data;
++	struct tasdevice_dspfw_hdr *fw_hdr = &(tas_fmw->fw_hdr);
++	int len = strlen((char *)&buf[offset]);
++
++	len++;
++
++	if (offset + len > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++
++	offset  += len;
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnDeviceFamily error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device_family = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	if (fw_hdr->device_family != 0) {
++		dev_err(tas_dev->dev, "ERROR:%s: not TAS device\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnDevice error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_hdr->device = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	if (fw_hdr->device >= TASDEVICE_DSP_TAS_MAX_DEVICE ||
++		fw_hdr->device == 6) {
++		dev_err(tas_dev->dev, "Not support dev %d\n", fw_hdr->device);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	fw_hdr->ndev = deviceNumber[fw_hdr->device];
++	if (fw_hdr->ndev != 1) {
++		dev_err(tas_dev->dev,
++			"%s: calbin must be 1, but currently ndev(%u)\n",
++			__func__, fw_hdr->ndev);
++		offset = -1;
++	}
++
++out:
++	return offset;
++}
++
++static inline void tas2781_clear_calfirmware(struct tasdevice_fw
++	*tas_fmw)
++{
++	int i;
++	unsigned int blks;
++
++	if (tas_fmw->calibrations) {
++		struct tasdevice_calibration *calibration;
++
++		for (i = 0; i < tas_fmw->nr_calibrations; i++) {
++			calibration = &(tas_fmw->calibrations[i]);
++			if (calibration) {
++				struct tasdevice_data *im =
++					&(calibration->dev_data);
++
++				if (im->dev_blks) {
++					struct tasdev_blk *block;
++
++					for (blks = 0; blks < im->nr_blk;
++						blks++) {
++						block = &(im->dev_blks[blks]);
++						kfree(block->data);
++					}
++					kfree(im->dev_blks);
++				}
++			}
++		}
++		kfree(tas_fmw->calibrations);
++	}
++	kfree(tas_fmw);
++}
++
++static int fw_parse_block_data(struct tasdevice_fw *tas_fmw,
++	struct tasdev_blk *block, const struct firmware *fmw, int offset)
++{
++	unsigned char *data = (unsigned char *)fmw->data;
++	int n;
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mnType error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->type = SMS_HTONL(data[offset], data[offset + 1],
++		data[offset + 2], data[offset + 3]);
++	offset  += 4;
++
++	if (tas_fmw->fw_hdr.fixed_hdr.drv_ver >=
++		PPC_DRIVER_CRCCHK) {
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_fmw->dev, "PChkSumPresent error\n");
++			offset = -1;
++			goto out;
++		}
++		block->is_pchksum_present = data[offset];
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_fmw->dev, "%s: PChkSum error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		block->pchksum = data[offset];
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_fmw->dev, "YChkSumPresent error\n");
++			offset = -1;
++			goto out;
++		}
++		block->is_ychksum_present = data[offset];
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_fmw->dev, "%s: YChkSum error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		block->ychksum = data[offset];
++		offset++;
++	} else {
++		block->is_pchksum_present = 0;
++		block->is_ychksum_present = 0;
++	}
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mnCommands error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	block->nr_cmds = SMS_HTONL(data[offset], data[offset + 1],
++		data[offset + 2], data[offset + 3]);
++	offset  += 4;
++
++	n = block->nr_cmds * 4;
++	if (offset + n > fmw->size) {
++		dev_err(tas_fmw->dev,
++			"%s: File Size(%lu) error offset = %d n = %d\n",
++			__func__, (unsigned long)fmw->size, offset, n);
++		offset = -1;
++		goto out;
++	}
++	block->data = kmemdup(&data[offset], n, GFP_KERNEL);
++	if (block->data == NULL) {
++		offset = -1;
++		goto out;
++	}
++	offset  += n;
++out:
++	return offset;
++}
++
++static int fw_parse_data(struct tasdevice_fw *tas_fmw,
++	struct tasdevice_data *img_data, const struct firmware *fmw,
++	int offset)
++{
++	const unsigned char *data = (unsigned char *)fmw->data;
++	int n;
++	unsigned int nr_block;
++
++	if (offset + 64 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mpName error\n", __func__);
++		n = -1;
++		goto out;
++	}
++	memcpy(img_data->name, &data[offset], 64);
++	offset  += 64;
++
++	n = strlen((char *)&data[offset]);
++	n++;
++	if (offset + n > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mpDescription error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += n;
++
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_fmw->dev, "%s: mnBlocks error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	img_data->nr_blk = SMS_HTONS(data[offset], data[offset + 1]);
++	offset  += 2;
++
++	img_data->dev_blks =
++		kcalloc(img_data->nr_blk, sizeof(struct tasdev_blk),
++			GFP_KERNEL);
++	if (img_data->dev_blks == NULL) {
++		dev_err(tas_fmw->dev, "%s: FW memory failed!\n", __func__);
++		goto out;
++	}
++	for (nr_block = 0; nr_block < img_data->nr_blk; nr_block++) {
++		offset = fw_parse_block_data(tas_fmw,
++			&(img_data->dev_blks[nr_block]), fmw, offset);
++		if (offset < 0) {
++			offset = -1;
++			goto out;
++		}
++	}
++out:
++	return offset;
++}
++
++static int fw_parse_calibration_data(struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw, const struct firmware *fmw, int offset)
++{
++	unsigned char *data = (unsigned char *)fmw->data;
++	unsigned int n;
++	unsigned int nr_calibration = 0;
++	struct tasdevice_calibration *calibration;
++
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnCalibrations error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	tas_fmw->nr_calibrations = SMS_HTONS(data[offset], data[offset + 1]);
++	offset  += 2;
++
++	if (tas_fmw->nr_calibrations != 1) {
++		dev_err(tas_dev->dev,
++			"%s: only support one calibraiton(%d)!\n",
++			__func__, tas_fmw->nr_calibrations);
++		goto out;
++	}
++
++	tas_fmw->calibrations =
++		kcalloc(tas_fmw->nr_calibrations,
++			sizeof(struct tasdevice_calibration), GFP_KERNEL);
++	if (tas_fmw->calibrations == NULL) {
++		dev_err(tas_dev->dev, "pCalibrations mem failed!\n");
++		offset = -1;
++		goto out;
++	}
++	for (nr_calibration = 0; nr_calibration < tas_fmw->nr_calibrations;
++		nr_calibration++) {
++		if (offset + 64 > fmw->size) {
++			dev_err(tas_dev->dev, "pCalibrations error\n");
++			offset = -1;
++			goto out;
++		}
++		calibration = &(tas_fmw->calibrations[nr_calibration]);
++		offset  += 64;
++
++		n = strlen((char *)&data[offset]);
++		n++;
++		if (offset + n > fmw->size) {
++			dev_err(tas_dev->dev, "pDescription err\n");
++			offset = -1;
++			goto out;
++		}
++		offset  += n;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: Prog err, offset = %d\n",
++				__func__, offset);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: Conf err, offset = %d\n",
++				__func__, offset);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		offset = fw_parse_data(tas_fmw, &(calibration->dev_data), fmw,
++			offset);
++		if (offset < 0)
++			goto out;
++	}
++
++out:
++
++	return offset;
++}
++
++static int fw_parse_program_data(struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw, const struct firmware *fmw, int offset)
++{
++	struct tasdevice_prog *program;
++	unsigned char *buf = (unsigned char *)fmw->data;
++	int nr_program;
++
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	tas_fmw->nr_programs = SMS_HTONS(buf[offset], buf[offset + 1]);
++	offset  += 2;
++
++	if (tas_fmw->nr_programs == 0) {
++		/*Not error in calibration Data file, return directly*/
++		dev_err(tas_dev->dev, "%s: Programs is null, maybe calbin\n",
++			__func__);
++		goto out;
++	}
++
++	tas_fmw->programs =
++		kcalloc(tas_fmw->nr_programs, sizeof(struct tasdevice_prog),
++			GFP_KERNEL);
++	if (tas_fmw->programs == NULL) {
++		offset = -1;
++		goto out;
++	}
++	for (nr_program = 0; nr_program < tas_fmw->nr_programs; nr_program++) {
++		int n = 0;
++
++		program = &(tas_fmw->programs[nr_program]);
++		if (offset + 64 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: mpName error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 64;
++
++		n = strlen((char *)&buf[offset]);
++		n++;
++		if (offset + n > fmw->size) {
++			dev_err(tas_dev->dev, "Description err\n");
++			offset = -1;
++			goto out;
++		}
++
++		offset  += n;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: AppMode err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "PDMI2SMode err\n");
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: ISnsPD error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: VSnsPD error\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PowerLDG err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		offset = fw_parse_data(tas_fmw, &(program->dev_data), fmw,
++			offset);
++		if (offset < 0)
++			goto out;
++	}
++out:
++	return offset;
++}
++
++static int fw_parse_configuration_data(
++	struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw,
++	const struct firmware *fmw, int offset)
++{
++	unsigned char *data = (unsigned char *)fmw->data;
++	int n;
++	unsigned int n_configs;
++	struct tasdevice_config *config;
++
++	if (offset + 2 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	tas_fmw->nr_configurations = SMS_HTONS(data[offset], data[offset + 1]);
++	offset  += 2;
++
++	if (tas_fmw->nr_configurations == 0) {
++		dev_err(tas_dev->dev, "%s: Conf is zero\n", __func__);
++		//Do not "offset = -1;", because of calbin
++		goto out;
++	}
++	tas_fmw->configs =
++		kcalloc(tas_fmw->nr_configurations,
++				sizeof(struct tasdevice_config), GFP_KERNEL);
++
++	for (n_configs = 0; n_configs < tas_fmw->nr_configurations;
++		n_configs++) {
++		config =
++			&(tas_fmw->configs[n_configs]);
++		if (offset + 64 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: File Size err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		memcpy(config->name, &data[offset], 64);
++		offset  += 64;
++
++		n = strlen((char *)&data[offset]);
++		n++;
++		if (offset + n > fmw->size) {
++			dev_err(tas_dev->dev, "Description err\n");
++			offset = -1;
++			goto out;
++		}
++
++		offset  += n;
++		if (offset + 2 > fmw->size) {
++			dev_err(tas_dev->dev, "Device_orientation err\n");
++			offset = -1;
++			goto out;
++		}
++		offset  += 2;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: Program err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		if (offset + 4 > fmw->size) {
++			dev_err(tas_dev->dev, "SampleRate err\n");
++			offset = -1;
++			goto out;
++		}
++		offset  += 4;
++
++		if (offset + 1 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PLLSrc err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset++;
++
++		if (offset + 4 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: PLLRate err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 4;
++
++		if (offset + 2 > fmw->size) {
++			dev_err(tas_dev->dev, "%s: mnFsRate err\n", __func__);
++			offset = -1;
++			goto out;
++		}
++		offset  += 2;
++
++		offset = fw_parse_data(tas_fmw, &(config->dev_data),
++			fmw, offset);
++		if (offset < 0)
++			goto out;
++	}
++out:
++	return offset;
++}
++
++static int fw_parse_header(struct tasdevice_priv *tas_dev,
++	struct tasdevice_fw *tas_fmw, const struct firmware *fmw, int offset)
++{
++	struct tasdevice_dspfw_hdr *fw_hdr = &(tas_fmw->fw_hdr);
++	struct tasdevice_fw_fixed_hdr *fw_fixed_hdr = &(fw_hdr->fixed_hdr);
++	const unsigned char *buf = (unsigned char *)fmw->data;
++	const unsigned char magic_number[] = { 0x35, 0x35, 0x35, 0x32 };
++
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	if (memcmp(&buf[offset], magic_number, 4)) {
++		dev_err(tas_dev->dev, "%s: Magic num NOT match\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnFWSize error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_fixed_hdr->fwsize = SMS_HTONL(buf[offset],
++		buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: File Size error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	if (fw_fixed_hdr->fwsize != fmw->size) {
++		dev_err(tas_dev->dev, "File size not match, %lu %u",
++			(unsigned long)fmw->size, fw_fixed_hdr->fwsize);
++		offset = -1;
++		goto out;
++	}
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnChecksum error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnPPCVersion error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_fixed_hdr->ppcver = SMS_HTONL(buf[offset],
++		buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnFWVersion error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnDriverVersion error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	fw_fixed_hdr->drv_ver = SMS_HTONL(buf[offset],
++		buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	if (offset + 4 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mnTimeStamp error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 4;
++	if (offset + 64 > fmw->size) {
++		dev_err(tas_dev->dev, "%s: mpDDCName error\n", __func__);
++		offset = -1;
++		goto out;
++	}
++	offset  += 64;
++
++ out:
++	return offset;
++}
++
++// Return Code:
++// 1 -- the registers are in the inpage yram
++// 0 -- the registers are NOT in the inpage yram
++static int check_inpage_yram(struct tas_crc *cd, unsigned char book,
++	unsigned char page, unsigned char reg, unsigned char len)
++{
++	int ret;
++
++	if (book == TAS2781_YRAM_BOOK1) {
++		if (page == TAS2781_YRAM1_PAGE) {
++			if (reg >= TAS2781_YRAM1_START_REG) {
++				cd->offset = reg;
++				cd->len = len;
++				ret = 1;
++			} else if ((reg + len) > TAS2781_YRAM1_START_REG) {
++				cd->offset = TAS2781_YRAM1_START_REG;
++				cd->len =
++				len - (TAS2781_YRAM1_START_REG - reg);
++				ret = 1;
++			} else
++				ret = 0;
++		} else if (page == TAS2781_YRAM3_PAGE) {
++			if (reg > TAS2781_YRAM3_END_REG) {
++				ret = 0;
++			} else if (reg >= TAS2781_YRAM3_START_REG) {
++				if ((reg + len) > TAS2781_YRAM3_END_REG) {
++					cd->offset = reg;
++					cd->len =
++					TAS2781_YRAM3_END_REG - reg + 1;
++					ret = 1;
++				} else {
++					cd->offset = reg;
++					cd->len = len;
++					ret = 1;
++				}
++			} else {
++				if ((reg + (len-1)) <
++					TAS2781_YRAM3_START_REG)
++					ret = 0;
++				else {
++					cd->offset =
++					TAS2781_YRAM3_START_REG;
++					cd->len =
++					len - (TAS2781_YRAM3_START_REG - reg);
++					ret = 1;
++				}
++			}
++		}
++	} else if (book ==
++		TAS2781_YRAM_BOOK2) {
++		if (page == TAS2781_YRAM5_PAGE) {
++			if (reg > TAS2781_YRAM5_END_REG) {
++				ret = 0;
++			} else if (reg >= TAS2781_YRAM5_START_REG) {
++				if ((reg + len) > TAS2781_YRAM5_END_REG) {
++					cd->offset = reg;
++					cd->len =
++					TAS2781_YRAM5_END_REG - reg + 1;
++					ret = 1;
++				} else {
++					cd->offset = reg;
++					cd->len = len;
++					ret = 1;
++				}
++			} else {
++				if ((reg + (len-1)) <
++					TAS2781_YRAM5_START_REG)
++					ret = 0;
++				else {
++					cd->offset =
++					TAS2781_YRAM5_START_REG;
++					cd->len =
++					len - (TAS2781_YRAM5_START_REG - reg);
++					ret = 1;
++				}
++			}
++		}
++	} else
++		ret = 0;
++
++	return ret;
++}
++
++// Return Code:
++// 1 -- the registers are in the inblock yram
++// 0 -- the registers are NOT in the inblock yram
++static int check_inblock_yram(struct tas_crc *cd, unsigned char book,
++	unsigned char page, unsigned char reg, unsigned char len)
++{
++	int ret;
++
++	if (book == TAS2781_YRAM_BOOK1) {
++		if (page < TAS2781_YRAM2_START_PAGE)
++			ret = 0;
++		else if (page <= TAS2781_YRAM2_END_PAGE) {
++			if (reg > TAS2781_YRAM2_END_REG)
++				ret = 0;
++			else if (reg >= TAS2781_YRAM2_START_REG) {
++				cd->offset = reg;
++				cd->len = len;
++				ret = 1;
++			} else {
++				if ((reg + (len-1)) <
++					TAS2781_YRAM2_START_REG)
++					ret = 0;
++				else {
++					cd->offset =
++					TAS2781_YRAM2_START_REG;
++					cd->len =
++					reg + len - TAS2781_YRAM2_START_REG;
++					ret = 1;
++				}
++			}
++		} else
++			ret = 0;
++	} else if (book ==
++		TAS2781_YRAM_BOOK2) {
++		if (page < TAS2781_YRAM4_START_PAGE)
++			ret = 0;
++		else if (page <= TAS2781_YRAM4_END_PAGE) {
++			if (reg > TAS2781_YRAM2_END_REG)
++				ret = 0;
++			else if (reg >= TAS2781_YRAM2_START_REG) {
++				cd->offset = reg;
++				cd->len = len;
++				ret = 1;
++			} else {
++				if ((reg + (len-1))
++					< TAS2781_YRAM2_START_REG)
++					ret = 0;
++				else {
++					cd->offset =
++					TAS2781_YRAM2_START_REG;
++					cd->len =
++					reg + len - TAS2781_YRAM2_START_REG;
++					ret = 1;
++				}
++			}
++		} else
++			ret = 0;
++	} else
++		ret = 0;
++
++	return ret;
++}
++
++static int check_yram(struct tas_crc *cd, unsigned char book,
++	unsigned char page, unsigned char reg, unsigned char len)
++{
++	int ret;
++
++	ret = check_inpage_yram(cd, book, page, reg, len);
++	if (ret == 0)
++		ret = check_inblock_yram(cd, book,
++				page, reg, len);
++
++	return ret;
++}
++
++static int do_singlereg_checksum(struct tasdevice_priv *tasdevice,
++	enum channel chl, unsigned char book, unsigned char page,
++	unsigned char reg, unsigned char val)
++{
++	int ret;
++	struct tas_crc crc_data;
++	unsigned int nData1;
++
++	if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG))
++		&& (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG))
++		&& (reg >= TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG))
++		&& (reg <= (TASDEVICE_PAGE_REG(
++		TAS2781_SA_COEFF_SWAP_REG) + 4))) {
++		/*DSP swap command, pass */
++		ret = 0;
++		goto end;
++	}
++
++	ret = check_yram(&crc_data, book, page, reg, 1);
++	if (ret == 1) {
++		ret = tasdevice_dev_read(tasdevice, chl,
++			TASDEVICE_REG(book, page, reg), &nData1);
++		if (ret < 0)
++			goto end;
++
++		if (nData1 != val) {
++			dev_err(tasdevice->dev,
++				"B[0x%x]P[0x%x]R[0x%x] W[0x%x], R[0x%x]\n",
++				book, page, reg,
++				val, nData1);
++			ret = -EAGAIN;
++			tasdevice->tasdevice[chl].err_code |=
++				ERROR_YRAM_CRCCHK;
++			ret = -EAGAIN;
++			goto end;
++		}
++
++		ret = crc8(tasdevice->crc8_lkp_tbl, &val, 1, 0);
++	}
++
++end:
++	return ret;
++}
++
++static int do_multireg_checksum(struct tasdevice_priv *tasdevice,
++	enum channel chn, unsigned char book, unsigned char page,
++	unsigned char reg, unsigned int len)
++{
++	int ret, i;
++	unsigned char crc_chksum = 0;
++	unsigned char nBuf1[128];
++	struct tas_crc crc_data;
++
++	if ((reg + len-1) > 127) {
++		ret = -EINVAL;
++		dev_err(tasdevice->dev, "firmware error\n");
++		goto end;
++	}
++
++	if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG))
++		&& (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG))
++		&& (reg == TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG))
++		&& (len == 4)) {
++		/*DSP swap command, pass */
++		ret = 0;
++		goto end;
++	}
++
++	ret = check_yram(&crc_data, book, page, reg, len);
++	if (ret == 1) {
++		if (len == 1) {
++			dev_err(tasdevice->dev, "firmware error\n");
++			ret = -EINVAL;
++			goto end;
++		} else {
++			ret = tasdevice_dev_bulk_read(tasdevice, chn,
++				TASDEVICE_REG(book, page, crc_data.offset),
++				nBuf1, crc_data.len);
++			if (ret < 0)
++				goto end;
++
++			for (i = 0; i < crc_data.len; i++) {
++				if ((book == TASDEVICE_BOOK_ID(
++					TAS2781_SA_COEFF_SWAP_REG))
++					&& (page == TASDEVICE_PAGE_ID(
++						TAS2781_SA_COEFF_SWAP_REG))
++					&& ((i + crc_data.offset)
++					>= TASDEVICE_PAGE_REG(
++						TAS2781_SA_COEFF_SWAP_REG))
++					&& ((i + crc_data.offset)
++					<= (TASDEVICE_PAGE_REG(
++						TAS2781_SA_COEFF_SWAP_REG)
++						+ 4))) {
++					/*DSP swap command, bypass */
++					continue;
++				} else
++					crc_chksum  +=
++						crc8(tasdevice->crc8_lkp_tbl,
++							&nBuf1[i], 1, 0);
++			}
++
++			ret = crc_chksum;
++		}
++	}
++
++end:
++	return ret;
++}
++
++static int tasdevice_load_block(struct tasdevice_priv *tas_dev,
++	struct tasdev_blk *block)
++{
++	int ret = 0;
++	unsigned int nr_cmds;
++	unsigned char book;
++	unsigned char page;
++	unsigned char offset;
++	unsigned char val;
++	unsigned int len;
++	unsigned int sleep_dur;
++	unsigned char crc_chksum = 0;
++	unsigned int nr_value;
++	int nr_retry = 6;
++	unsigned char *data = block->data;
++	int chn = 0, chnend = 0;
++
++	switch (block->type) {
++	case MAIN_ALL_DEVICES:
++		chn = 0;
++		chnend = tas_dev->ndev;
++		break;
++	case MAIN_DEVICE_A:
++	case COEFF_DEVICE_A:
++	case PRE_DEVICE_A:
++		chn = 0;
++		chnend = 1;
++		break;
++	case MAIN_DEVICE_B:
++	case COEFF_DEVICE_B:
++	case PRE_DEVICE_B:
++		chn = 1;
++		chnend = 2;
++		break;
++	case MAIN_DEVICE_C:
++	case COEFF_DEVICE_C:
++	case PRE_DEVICE_C:
++		chn = 2;
++		chnend = 3;
++		break;
++	case MAIN_DEVICE_D:
++	case COEFF_DEVICE_D:
++	case PRE_DEVICE_D:
++		chn = 3;
++		chnend = 4;
++		break;
++	default:
++		dev_dbg(tas_dev->dev, "load blk: Other Type = 0x%02x\n",
++			block->type);
++		break;
++	}
++
++	for (; chn < chnend; chn++) {
++		if (tas_dev->tasdevice[chn].is_loading == false)
++			continue;
++start:
++		if (block->is_pchksum_present) {
++			ret = tasdevice_dev_write(tas_dev, chn,
++				TASDEVICE_I2CChecksum, 0);
++			if (ret < 0)
++				goto end;
++		}
++
++		if (block->is_ychksum_present)
++			crc_chksum = 0;
++
++		nr_cmds = 0;
++
++		while (nr_cmds < block->nr_cmds) {
++			data = block->data + nr_cmds * 4;
++
++			book = data[0];
++			page = data[1];
++			offset = data[2];
++			val = data[3];
++
++			nr_cmds++;
++
++			if (offset <= 0x7F) {
++				ret = tasdevice_dev_write(tas_dev, chn,
++					TASDEVICE_REG(book, page, offset),
++					val);
++				if (ret < 0)
++					goto end;
++				if (block->is_ychksum_present) {
++					ret = do_singlereg_checksum(tas_dev,
++						chn, book, page, offset,
++						val);
++					if (ret < 0)
++						goto check;
++					crc_chksum  += (unsigned char)ret;
++				}
++				continue;
++			}
++			if (offset == 0x81) {
++				sleep_dur = (book << 8) + page;
++				msleep(sleep_dur);
++				continue;
++			}
++			if (offset == 0x85) {
++				data  += 4;
++				len = (book << 8) + page;
++				book = data[0];
++				page = data[1];
++				offset = data[2];
++				if (len > 1) {
++					ret = tasdevice_dev_bulk_write(
++						tas_dev, chn,
++						TASDEVICE_REG(book, page,
++						offset), data + 3, len);
++					if (ret < 0)
++						goto end;
++					if (!block->is_ychksum_present)
++						goto next;
++					ret = do_multireg_checksum(
++						tas_dev, chn, book,
++						page, offset,
++						len);
++					if (ret < 0)
++						goto check;
++					crc_chksum +=
++						(unsigned char)ret;
++				} else {
++					ret = tasdevice_dev_write(tas_dev,
++						chn,
++						TASDEVICE_REG(book, page,
++						offset),
++						data[3]);
++					if (ret < 0)
++						goto end;
++					if (!block->is_ychksum_present)
++						goto next;
++					ret = do_singlereg_checksum(
++						tas_dev, chn, book,
++						page, offset,
++						data[3]);
++					if (ret < 0)
++						goto check;
++					crc_chksum +=
++						(unsigned char)ret;
++				}
++next:
++				nr_cmds++;
++				if (len >= 2)
++					nr_cmds += ((len - 2) / 4) + 1;
++			}
++		}
++		if (block->is_pchksum_present) {
++			ret = tasdevice_dev_read(tas_dev, chn,
++				TASDEVICE_I2CChecksum, &nr_value);
++			if (ret < 0) {
++				dev_err(tas_dev->dev, "%s: Chn %d\n", __func__,
++					chn);
++				goto check;
++			}
++			if ((nr_value & 0xff) != block->pchksum) {
++				dev_err(tas_dev->dev, "Blk PChkSum Chn %d ",
++					chn);
++				dev_err(tas_dev->dev,
++					"FW = 0x%x, Reg = 0x%x\n",
++					block->pchksum,
++					(nr_value & 0xff));
++				ret = -EAGAIN;
++				tas_dev->tasdevice[chn].err_code |=
++					ERROR_PRAM_CRCCHK;
++				goto check;
++			}
++			ret = 0;
++			tas_dev->tasdevice[chn].err_code &=
++				~ERROR_PRAM_CRCCHK;
++		}
++
++		if (block->is_ychksum_present) {
++			//TBD, open it when FW ready
++			dev_err(tas_dev->dev,
++				"Block YChkSum: FW = 0x%x, YCRC = 0x%x\n",
++				block->ychksum, crc_chksum);
++
++			tas_dev->tasdevice[chn].err_code &=
++				~ERROR_YRAM_CRCCHK;
++			ret = 0;
++		}
++check:
++		if (ret == -EAGAIN) {
++			nr_retry--;
++			if (nr_retry > 0)
++				goto start;
++			else {
++				if ((block->type == MAIN_ALL_DEVICES)
++					|| (block->type == MAIN_DEVICE_A)
++					|| (block->type == MAIN_DEVICE_B)
++					|| (block->type == MAIN_DEVICE_C)
++					|| (block->type == MAIN_DEVICE_D))
++					tas_dev->tasdevice[chn].cur_prog = -1;
++				else
++					tas_dev->tasdevice[chn].cur_conf = -1;
++				nr_retry = 6;
++			}
++		}
++	}
++end:
++	if (ret < 0)
++		dev_err(tas_dev->dev, "Block (%d) load error\n", block->type);
++
++	return ret;
++}
++
++
++static int tasdevice_load_data(struct tasdevice_priv *tas_dev,
++	struct tasdevice_data *dev_data)
++{
++	int ret = 0;
++	unsigned int nr_block;
++	struct tasdev_blk *block;
++
++	for (nr_block = 0; nr_block < dev_data->nr_blk; nr_block++) {
++		block = &(dev_data->dev_blks[nr_block]);
++		ret = tas_dev->tasdevice_load_block(tas_dev, block);
++		if (ret < 0)
++			break;
++	}
++
++	return ret;
++}
++
++static int tasdevice_load_calibrated_data(
++	struct tasdevice_priv *tas_dev, struct tasdevice_data *dev_data)
++{
++	int ret = 0;
++	unsigned int nr_block;
++	struct tasdev_blk *block;
++
++	for (nr_block = 0; nr_block < dev_data->nr_blk; nr_block++) {
++		block = &(dev_data->dev_blks[nr_block]);
++		ret = tasdevice_load_block(tas_dev, block);
++		if (ret < 0)
++			break;
++	}
++
++	return ret;
++}
++
++int tas2781_load_calibration(void *context,
++			char *file_name, enum channel i)
++{
++	int ret, offset = 0;
++	struct firmware fmw;
++	const struct firmware *fw_entry;
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *)context;
++	struct tasdevice *tasdev = &(tas_dev->tasdevice[i]);
++	struct tasdevice_fw *tas_fmw;
++
++	ret = request_firmware(&fw_entry, file_name, tas_dev->dev);
++	if (!ret) {
++		if (!fw_entry->size) {
++			dev_err(tas_dev->dev,
++				"%s: file read error: size = %lu\n",
++				__func__, (unsigned long)fw_entry->size);
++			goto out;
++		}
++		fmw.size = fw_entry->size;
++		fmw.data = fw_entry->data;
++	} else {
++		dev_info(tas_dev->dev,
++			"%s: Request firmware %s failed\n",
++			__func__, file_name);
++		goto out;
++	}
++
++	tas_fmw = tasdev->cali_data_fmw = kcalloc(1,
++		sizeof(struct tasdevice_fw), GFP_KERNEL);
++	if (tasdev->cali_data_fmw == NULL) {
++		dev_err(tas_dev->dev, "%s: FW memory failed!\n", __func__);
++		ret = -1;
++		goto out;
++	}
++	tas_fmw->dev = tas_dev->dev;
++	offset = fw_parse_header(tas_dev, tas_fmw, &fmw, offset);
++	if (offset == -1) {
++		dev_err(tas_dev->dev, "%s: fw_parse_header EXIT!\n", __func__);
++		goto out;
++	}
++	offset = fw_parse_variable_hdr_cal(tas_dev, tas_fmw, &fmw, offset);
++	if (offset == -1) {
++		dev_err(tas_dev->dev,
++			"%s: fw_parse_variable_header_cal EXIT!\n", __func__);
++		goto out;
++	}
++	offset = fw_parse_program_data(tas_dev, tas_fmw, &fmw, offset);
++	if (offset == -1) {
++		dev_err(tas_dev->dev, "fw_parse_program_data EXIT!\n");
++		goto out;
++	}
++	offset = fw_parse_configuration_data(tas_dev, tas_fmw, &fmw,
++		offset);
++	if (offset == -1) {
++		dev_err(tas_dev->dev, "fw_parse_configuration_data EXIT!\n");
++		goto out;
++	}
++	offset = fw_parse_calibration_data(tas_dev,
++		tas_fmw, &fmw, offset);
++	if (offset == -1) {
++		dev_err(tas_dev->dev, "fw_parse_calibration_data EXIT!\n");
++		goto out;
++	}
++	tasdev->is_calibrated_data_loaded = true;
++out:
++	if (fw_entry) {
++		release_firmware(fw_entry);
++		fw_entry = NULL;
++	}
++	return ret;
++}
++
++int tasdevice_dspfw_ready(const struct firmware *fmw, void *context)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++	struct tasdevice_fw *tas_fmw;
++	struct tasdevice_fw_fixed_hdr *fw_fixed_hdr;
++	int offset = 0, ret = 0;
++
++	if (!fmw || !fmw->data) {
++		dev_err(tas_dev->dev, "%s: Failed to read firmware %s\n",
++			__func__, tas_dev->coef_binaryname);
++		ret = -1;
++		goto out;
++	}
++
++	tas_dev->fmw = kcalloc(1,
++		sizeof(struct tasdevice_fw), GFP_KERNEL);
++	if (tas_dev->fmw == NULL) {
++		ret = -1;
++		goto out;
++	}
++	tas_fmw = tas_dev->fmw;
++	tas_fmw->dev = tas_dev->dev;
++	offset = fw_parse_header(tas_dev, tas_fmw, fmw, offset);
++
++	if (offset == -1)
++		goto out;
++	fw_fixed_hdr = &(tas_fmw->fw_hdr.fixed_hdr);
++	switch (fw_fixed_hdr->drv_ver) {
++	case 0x301:
++	case 0x302:
++	case 0x502:
++		tas_dev->fw_parse_variable_header =
++			fw_parse_variable_header_kernel;
++		tas_dev->fw_parse_program_data =
++			fw_parse_program_data_kernel;
++		tas_dev->fw_parse_configuration_data =
++			fw_parse_configuration_data_kernel;
++		tas_dev->tasdevice_load_block =
++			tasdevice_load_block_kernel;
++		break;
++	case 0x202:
++	case 0x400:
++		tas_dev->fw_parse_variable_header =
++			fw_parse_variable_header_git;
++		tas_dev->fw_parse_program_data =
++			fw_parse_program_data;
++		tas_dev->fw_parse_configuration_data =
++			fw_parse_configuration_data;
++		tas_dev->tasdevice_load_block =
++			tasdevice_load_block;
++		break;
++	default:
++	if (fw_fixed_hdr->drv_ver == 0x100) {
++		if (fw_fixed_hdr->ppcver >= PPC3_VERSION) {
++			tas_dev->fw_parse_variable_header =
++				fw_parse_variable_header_kernel;
++			tas_dev->fw_parse_program_data =
++				fw_parse_program_data_kernel;
++			tas_dev->fw_parse_configuration_data =
++				fw_parse_configuration_data_kernel;
++			tas_dev->tasdevice_load_block =
++				tasdevice_load_block_kernel;
++			tas_dev->fw_parse_calibration_data = NULL;
++		} else {
++			switch (fw_fixed_hdr->ppcver) {
++			case 0x00:
++				tas_dev->fw_parse_variable_header =
++					fw_parse_variable_header_git;
++				tas_dev->fw_parse_program_data =
++					fw_parse_program_data;
++				tas_dev->fw_parse_configuration_data =
++					fw_parse_configuration_data;
++				tas_dev->fw_parse_calibration_data =
++					fw_parse_calibration_data;
++				tas_dev->tasdevice_load_block =
++					tasdevice_load_block;
++				break;
++			default:
++				dev_err(tas_dev->dev,
++					"%s: PPCVersion must be 0x0 or 0x%02x",
++					__func__, PPC3_VERSION);
++				dev_err(tas_dev->dev, " Current:0x%02x\n",
++					fw_fixed_hdr->ppcver);
++				offset = -1;
++				break;
++			}
++		}
++	} else {
++		dev_err(tas_dev->dev,
++			"DriverVersion must be 0x0, 0x230 or above 0x230 ");
++		dev_err(tas_dev->dev, "current is 0x%02x\n",
++			fw_fixed_hdr->drv_ver);
++		offset = -1;
++	}
++		break;
++	}
++
++	offset = tas_dev->fw_parse_variable_header(tas_dev, fmw, offset);
++	if (offset == -1)
++		goto out;
++
++	offset = tas_dev->fw_parse_program_data(tas_dev, tas_fmw, fmw,
++		offset);
++	if (offset < 0) {
++		ret = -1;
++		goto out;
++	}
++	offset = tas_dev->fw_parse_configuration_data(tas_dev,
++		tas_fmw, fmw, offset);
++	if (offset < 0)
++		ret = -1;
++
++out:
++	return ret;
++}
++
++void tasdevice_calbin_remove(void *context)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++	struct tasdevice *tasdev;
++	int i;
++
++	if (tas_dev) {
++		for (i = 0; i < tas_dev->ndev; i++) {
++			tasdev = &(tas_dev->tasdevice[i]);
++			if (tasdev->cali_data_fmw) {
++				tas2781_clear_calfirmware(
++					tasdev->cali_data_fmw);
++				tasdev->cali_data_fmw = NULL;
++			}
++		}
++	}
++}
++
++static void tasdev_dsp_prog_blk_remove(struct tasdevice_prog *prog)
++{
++	struct tasdevice_data *im;
++	unsigned int nr_blk;
++	struct tasdev_blk *blk;
++
++	if (prog) {
++		im = &(prog->dev_data);
++
++		if (!im->dev_blks)
++			return;
++
++		for (nr_blk = 0; nr_blk < im->nr_blk; nr_blk++) {
++			blk = &(im->dev_blks[nr_blk]);
++			kfree(blk->data);
++		}
++		kfree(im->dev_blks);
++	}
++}
++
++static void tasdev_dsp_prog_remove(struct tasdevice_prog *prog,
++	unsigned short nr)
++{
++	int i;
++
++	for (i = 0; i < nr; i++)
++		tasdev_dsp_prog_blk_remove(&prog[i]);
++	kfree(prog);
++}
++
++static void tasdev_dsp_cfg_blk_remove(struct tasdevice_config *cfg)
++{
++	struct tasdevice_data *im;
++	unsigned int nr_blk;
++	struct tasdev_blk *blk;
++
++	if (cfg) {
++		im = &(cfg->dev_data);
++
++		if (!im->dev_blks)
++			return;
++
++		for (nr_blk = 0; nr_blk < im->nr_blk; nr_blk++) {
++			blk = &(im->dev_blks[nr_blk]);
++			kfree(blk->data);
++		}
++		kfree(im->dev_blks);
++	}
++}
++
++static void tasdev_dsp_cfg_remove(struct tasdevice_config *config,
++	unsigned short nr)
++{
++	int i;
++
++	for (i = 0; i < nr; i++)
++		tasdev_dsp_cfg_blk_remove(&config[i]);
++	kfree(config);
++}
++
++void tasdevice_dsp_remove(void *context)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++
++	if (tas_dev->fmw) {
++		struct tasdevice_fw *tas_fmw = tas_dev->fmw;
++
++		if (tas_fmw->programs)
++			tasdev_dsp_prog_remove(tas_fmw->programs,
++				tas_fmw->nr_programs);
++		if (tas_fmw->configs)
++			tasdev_dsp_cfg_remove(tas_fmw->configs,
++				tas_fmw->nr_configurations);
++		kfree(tas_fmw);
++		tas_dev->fmw = NULL;
++	}
++}
++
++static int tas2781_set_calibration(void *context, enum channel i,
++	int n_calibration)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++	int ret = 0;
++	struct tasdevice *tasdevice = &(tas_dev->tasdevice[i]);
++	struct tasdevice_fw *cal_fmw = tasdevice->cali_data_fmw;
++
++	if ((!tas_dev->fmw->programs) || (!tas_dev->fmw->configs)) {
++		dev_err(tas_dev->dev, "%s, Firmware not loaded\n\r", __func__);
++		ret = 0;
++		goto out;
++	}
++
++	if (n_calibration == 0xFF || (n_calibration == 0x100
++		&& tasdevice->is_calibrated_data_loaded == false)) {
++		if (cal_fmw) {
++			tasdevice->is_calibrated_data_loaded = false;
++			tas2781_clear_calfirmware(cal_fmw);
++			cal_fmw = NULL;
++		}
++
++		scnprintf(tas_dev->cal_binaryname[i], 64, "%s_cal_0x%02x.bin",
++			tas_dev->dev_name, tas_dev->tasdevice[i].dev_addr);
++		ret = tas2781_load_calibration(tas_dev,
++			tas_dev->cal_binaryname[i], i);
++		if (ret != 0) {
++			dev_err(tas_dev->dev,
++				"%s: load %s error, no-side effect\n",
++				__func__, tas_dev->cal_binaryname[i]);
++			ret = 0;
++		}
++	}
++	tasdevice->is_loading = true;
++	tasdevice->is_loaderr = false;
++
++	if (cal_fmw) {
++		struct tasdevice_calibration *calibration =
++			cal_fmw->calibrations;
++
++		if (calibration)
++			tasdevice_load_calibrated_data(tas_dev,
++				&(calibration->dev_data));
++	} else
++		dev_err(tas_dev->dev, "%s: No calibrated data for dev %d\n",
++			__func__, i);
++
++out:
++	return ret;
++}
++
++int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
++	int cfg_no, int rca_conf_no)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++	struct tasdevice_rca *rca = &(tas_dev->rcabin);
++	struct tasdevice_config_info **cfg_info = rca->cfg_info;
++	struct tasdevice_fw *tas_fmw = tas_dev->fmw;
++	struct tasdevice_config *conf;
++	struct tasdevice_prog *program;
++	int i;
++	int status;
++	int prog_status;
++
++	if (!tas_fmw) {
++		dev_err(tas_dev->dev, "%s: Firmware is NULL\n", __func__);
++		goto out;
++	}
++
++	if (cfg_no >= tas_fmw->nr_configurations) {
++		dev_err(tas_dev->dev,
++			"%s: cfg(%d) is not in range of conf %u\n",
++			__func__, cfg_no, tas_fmw->nr_configurations);
++		goto out;
++	}
++
++	if (prm_no >= tas_fmw->nr_programs) {
++		dev_err(tas_dev->dev,
++			"%s: prm(%d) is not in range of Programs %u\n",
++			__func__,  prm_no, tas_fmw->nr_programs);
++		goto out;
++	}
++
++	if (rca_conf_no > rca->ncfgs || rca_conf_no <= 0 ||
++		cfg_info == NULL) {
++		dev_err(tas_dev->dev,
++			"conf_no:%d should be in range from 0 to %u\n",
++			rca_conf_no, rca->ncfgs-1);
++		goto out;
++	}
++
++	conf = &(tas_fmw->configs[cfg_no]);
++	for (i = 0, prog_status = 0; i < tas_dev->ndev; i++) {
++		if (cfg_info[rca_conf_no]->active_dev & (1 << i)) {
++			if (tas_dev->tasdevice[i].cur_prog != prm_no) {
++				tas_dev->tasdevice[i].cur_conf = -1;
++				tas_dev->tasdevice[i].is_loading = true;
++				prog_status++;
++			}
++		} else
++			tas_dev->tasdevice[i].is_loading = false;
++		tas_dev->tasdevice[i].is_loaderr = false;
++	}
++
++	if (prog_status) {
++		program = &(tas_fmw->programs[prm_no]);
++		tasdevice_load_data(tas_dev, &(program->dev_data));
++		for (i = 0; i < tas_dev->ndev; i++) {
++			if (tas_dev->tasdevice[i].is_loaderr == true)
++				continue;
++			else if (tas_dev->tasdevice[i].is_loaderr == false
++				&& tas_dev->tasdevice[i].is_loading == true) {
++				struct tasdevice_fw *cal_fmw =
++					tas_dev->tasdevice[i].cali_data_fmw;
++
++				if (cal_fmw) {
++					struct tasdevice_calibration
++						*calibration =
++							cal_fmw->calibrations;
++
++					if (calibration)
++						tasdevice_load_calibrated_data(
++						tas_dev,
++						&(calibration->dev_data));
++				}
++				tas_dev->tasdevice[i].cur_prog = prm_no;
++			}
++		}
++	}
++
++	if (tas_dev->is_glb_calibrated_data_loaded == false) {
++		for (i = 0; i < tas_dev->ndev; i++)
++			tas2781_set_calibration(tas_dev, i, 0x100);
++		tas_dev->is_glb_calibrated_data_loaded = true;
++		/* Unwise to reload calibrationdata everytime,
++		 * this code will work once even if calibrated
++		 * data still failed to be got
++		 */
++	}
++
++	for (i = 0, status = 0; i < tas_dev->ndev; i++) {
++		if (tas_dev->tasdevice[i].cur_conf != cfg_no
++			&& (cfg_info[rca_conf_no]->active_dev & (1 << i))
++			&& (tas_dev->tasdevice[i].is_loaderr == false)) {
++			status++;
++			tas_dev->tasdevice[i].is_loading = true;
++		} else
++			tas_dev->tasdevice[i].is_loading = false;
++	}
++
++	if (status) {
++		status = 0;
++		tasdevice_load_data(tas_dev, &(conf->dev_data));
++		for (i = 0; i < tas_dev->ndev; i++) {
++			if (tas_dev->tasdevice[i].is_loaderr == true) {
++				status |= 1 << (i + 4);
++				continue;
++			} else if (tas_dev->tasdevice[i].is_loaderr == false
++				&& tas_dev->tasdevice[i].is_loading == true)
++				tas_dev->tasdevice[i].cur_conf = cfg_no;
++		}
++	} else
++		dev_err(tas_dev->dev,
++			"%s: No device is in active in conf %d\n",
++			__func__, rca_conf_no);
++
++	status |= cfg_info[rca_conf_no]->active_dev;
++out:
++	return prog_status;
++}
+diff --git a/sound/soc/codecs/tas2781-dsp.h b/sound/soc/codecs/tas2781-dsp.h
+new file mode 100644
+index 000000000000..26a6f5796349
+--- /dev/null
++++ b/sound/soc/codecs/tas2781-dsp.h
+@@ -0,0 +1,178 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable algo coff setting
++// for one, two, even multiple TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TASDEVICE_DSP_H__
++#define __TASDEVICE_DSP_H__
++
++#define MAIN_ALL_DEVICES			0x0d
++#define MAIN_DEVICE_A				0x01
++#define MAIN_DEVICE_B				0x08
++#define MAIN_DEVICE_C				0x10
++#define MAIN_DEVICE_D				0x14
++#define COEFF_DEVICE_A				0x03
++#define COEFF_DEVICE_B				0x0a
++#define COEFF_DEVICE_C				0x11
++#define COEFF_DEVICE_D				0x15
++#define PRE_DEVICE_A				0x04
++#define PRE_DEVICE_B				0x0b
++#define PRE_DEVICE_C				0x12
++#define PRE_DEVICE_D				0x16
++
++#define PPC3_VERSION				0x4100
++#define RCA_CONFIGID_BYPASS_ALL			0
++#define TASDEVICE_DEVICE_SUM			8
++#define TASDEVICE_CONFIG_SUM			64
++
++enum channel {
++	top_left_Chn,
++	top_right_chn,
++	bottom_left_Chn,
++	bottom_right_chn,
++	max_chn,
++};
++
++enum tasdevice_dsp_dev_idx {
++	TASDEVICE_DSP_TAS_2555 = 0,
++	TASDEVICE_DSP_TAS_2555_STEREO,
++	TASDEVICE_DSP_TAS_2557_MONO,
++	TASDEVICE_DSP_TAS_2557_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2559,
++	TASDEVICE_DSP_TAS_2563,
++	TASDEVICE_DSP_TAS_2563_DUAL_MONO = 7,
++	TASDEVICE_DSP_TAS_2563_QUAD,
++	TASDEVICE_DSP_TAS_2563_21,
++	TASDEVICE_DSP_TAS_2781,
++	TASDEVICE_DSP_TAS_2781_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2781_21,
++	TASDEVICE_DSP_TAS_2781_QUAD,
++	TASDEVICE_DSP_TAS_MAX_DEVICE
++};
++
++struct tasdevice_fw_fixed_hdr {
++	unsigned int fwsize;
++	unsigned int ppcver;
++	unsigned int drv_ver;
++};
++
++struct tasdevice_dspfw_hdr {
++	struct tasdevice_fw_fixed_hdr fixed_hdr;
++	unsigned short device_family;
++	unsigned short device;
++	unsigned char ndev;
++};
++
++struct tasdev_blk {
++	unsigned int type;
++	unsigned char is_pchksum_present;
++	unsigned char pchksum;
++	unsigned char is_ychksum_present;
++	unsigned char ychksum;
++	unsigned int nr_cmds;
++	unsigned int blk_size;
++	unsigned int nr_subblocks;
++	unsigned char *data;
++};
++
++struct tasdevice_data {
++	char name[64];
++	unsigned int nr_blk;
++	struct tasdev_blk *dev_blks;
++};
++struct tasdevice_prog {
++	unsigned int prog_size;
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_config {
++	unsigned int cfg_size;
++	char name[64];
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_calibration {
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_fw {
++	struct tasdevice_dspfw_hdr fw_hdr;
++	unsigned short nr_programs;
++	struct tasdevice_prog *programs;
++	unsigned short nr_configurations;
++	struct tasdevice_config *configs;
++	unsigned short nr_calibrations;
++	struct tasdevice_calibration *calibrations;
++	struct device *dev;
++};
++
++enum tasdevice_dsp_fw_state {
++	TASDEVICE_DSP_FW_NONE = 0,
++	TASDEVICE_DSP_FW_PENDING,
++	TASDEVICE_DSP_FW_FAIL,
++	TASDEVICE_DSP_FW_ALL_OK,
++};
++
++enum tasdevice_bin_blk_type {
++	TASDEVICE_BIN_BLK_COEFF = 1,
++	TASDEVICE_BIN_BLK_POST_POWER_UP,
++	TASDEVICE_BIN_BLK_PRE_SHUTDOWN,
++	TASDEVICE_BIN_BLK_PRE_POWER_UP,
++	TASDEVICE_BIN_BLK_POST_SHUTDOWN
++};
++
++struct tasdevice_rca_hdr {
++	unsigned int img_sz;
++	unsigned int checksum;
++	unsigned int binary_version_num;
++	unsigned int drv_fw_version;
++	unsigned char plat_type;
++	unsigned char dev_family;
++	unsigned char reserve;
++	unsigned char ndev;
++	unsigned char devs[TASDEVICE_DEVICE_SUM];
++	unsigned int nconfig;
++	unsigned int config_size[TASDEVICE_CONFIG_SUM];
++};
++
++struct tasdev_blk_data {
++	unsigned char dev_idx;
++	unsigned char block_type;
++	unsigned short yram_checksum;
++	unsigned int block_size;
++	unsigned int n_subblks;
++	unsigned char *regdata;
++};
++
++struct tasdevice_config_info {
++	unsigned int nblocks;
++	unsigned int real_nblocks;
++	unsigned char active_dev;
++	struct tasdev_blk_data **blk_data;
++};
++
++struct tasdevice_rca {
++	struct tasdevice_rca_hdr fw_hdr;
++	int ncfgs;
++	struct tasdevice_config_info **cfg_info;
++	int profile_cfg_id;
++};
++
++int tasdevice_dspfw_ready(const struct firmware *fmw, void *context);
++void tasdevice_dsp_remove(void *context);
++void tasdevice_calbin_remove(void *context);
++int tas2781_load_calibration(void *tas_dev, char *filename,
++	enum channel i);
++int tasdevice_select_tuningprm_cfg(void *context, int prm,
++	int cfg_no, int rca_conf_no);
++
++#endif
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+new file mode 100644
+index 000000000000..5c4af6b8069c
+--- /dev/null
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -0,0 +1,1665 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable algo coff setting
++// for one, two, even multiple TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#include <linux/crc8.h>
++#include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/init.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
++#include <linux/of_irq.h>
++#include <linux/pm.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/tlv.h>
++
++#include "tas2781.h"
++
++#define TASDEVICE_CRC8_POLYNOMIAL	0x4d
++
++const char *blocktype[5] = {
++	"COEFF",
++	"POST_POWER_UP",
++	"PRE_SHUTDOWN",
++	"PRE_POWER_UP",
++	"POST_SHUTDOWN"
++};
++
++static const struct i2c_device_id tasdevice_id[] = {
++	{ "tas2781", TAS2781	 },
++	{}
++};
++
++MODULE_DEVICE_TABLE(i2c, tasdevice_id);
++
++static const struct regmap_range_cfg tasdevice_ranges[] = {
++	{
++		.range_min = 0,
++		.range_max = 256 * 128,
++		.selector_reg = TASDEVICE_PAGE_SELECT,
++		.selector_mask = 0xff,
++		.selector_shift = 0,
++		.window_start = 0,
++		.window_len = 128,
++	},
++};
++
++static const struct regmap_config tasdevice_regmap = {
++	.reg_bits = 16,
++	.val_bits = 8,
++	.cache_type = REGCACHE_RBTREE,
++	.ranges = tasdevice_ranges,
++	.num_ranges = ARRAY_SIZE(tasdevice_ranges),
++	.max_register = 256 * 128,
++};
++
++static const struct of_device_id tasdevice_of_match[] = {
++	{ .compatible = "ti,tas2781" },
++	{},
++};
++
++MODULE_DEVICE_TABLE(of, tasdevice_of_match);
++
++int tasdevice_process_block(void *context,
++	unsigned char *data, unsigned char dev_idx, int sublocksize)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *)context;
++	unsigned char subblk_typ = data[1];
++	int subblk_offset;
++	int chn, chnend;
++	int rc;
++	int blktyp = dev_idx & 0xC0;
++	int idx = dev_idx & 0x3F;
++	bool is_err = false;
++
++	if (idx) {
++		chn = idx-1;
++		chnend = idx;
++	} else {
++		if (tas_dev->set_global_mode) {
++			chn = tas_dev->ndev;
++			chnend = tas_dev->ndev + 1;
++		} else {
++			chn = 0;
++			chnend = tas_dev->ndev;
++		}
++	}
++
++	for (; chn < chnend; chn++) {
++		if (!tas_dev->set_global_mode &&
++			tas_dev->tasdevice[chn].is_loading == false)
++			continue;
++
++		is_err = false;
++		subblk_offset = 2;
++		switch (subblk_typ) {
++		case TASDEVICE_CMD_SING_W: {
++			int i = 0;
++			unsigned short len = SMS_HTONS(data[2], data[3]);
++
++			subblk_offset  += 2;
++			if (subblk_offset + 4 * len > sublocksize) {
++				dev_err(tas_dev->dev,
++					"process_block: Out of bounary\n");
++				is_err = true;
++				break;
++			}
++
++			for (i = 0; i < len; i++) {
++				rc = tasdevice_dev_write(tas_dev, chn,
++					TASDEVICE_REG(data[subblk_offset],
++						data[subblk_offset + 1],
++						data[subblk_offset + 2]),
++					data[subblk_offset + 3]);
++				if (rc < 0) {
++					is_err = true;
++					dev_err(tas_dev->dev,
++					"process_block: single write error\n");
++				}
++				subblk_offset  += 4;
++			}
++		}
++			break;
++		case TASDEVICE_CMD_BURST: {
++			unsigned short len =
++				SMS_HTONS(data[2], data[3]);
++
++			subblk_offset  += 2;
++			if (subblk_offset + 4 + len > sublocksize) {
++				dev_err(tas_dev->dev,
++					"%s: BST Out of bounary\n",
++					__func__);
++				is_err = true;
++				break;
++			}
++			if (len % 4) {
++				dev_err(tas_dev->dev,
++					"%s:Bst-len(%u)not div by 4\n",
++					__func__, len);
++				break;
++			}
++
++			rc = tasdevice_dev_bulk_write(tas_dev, chn,
++				TASDEVICE_REG(data[subblk_offset],
++					data[subblk_offset + 1],
++					data[subblk_offset + 2]),
++					&(data[subblk_offset + 4]),
++					len);
++			if (rc < 0) {
++				is_err = true;
++				dev_err(tas_dev->dev,
++					"%s: bulk_write error = %d\n",
++					__func__, rc);
++			}
++			subblk_offset  += (len + 4);
++		}
++			break;
++		case TASDEVICE_CMD_DELAY: {
++			unsigned short delay_time = 0;
++
++			if (subblk_offset + 2 > sublocksize) {
++				dev_err(tas_dev->dev,
++					"%s: deley Out of bounary\n",
++					__func__);
++				is_err = true;
++				break;
++			}
++			delay_time = SMS_HTONS(data[2], data[3]);
++			usleep_range(delay_time*1000, delay_time*1000);
++			subblk_offset  += 2;
++		}
++			break;
++		case TASDEVICE_CMD_FIELD_W:
++			if (subblk_offset + 6 > sublocksize) {
++				dev_err(tas_dev->dev,
++					"%s: bit write Out of bounary\n",
++					__func__);
++				is_err = true;
++				break;
++			}
++			rc = tasdevice_dev_update_bits(tas_dev, chn,
++				TASDEVICE_REG(data[subblk_offset + 2],
++					data[subblk_offset + 3],
++					data[subblk_offset + 4]),
++					data[subblk_offset + 1],
++					data[subblk_offset + 5]);
++			if (rc < 0) {
++				is_err = true;
++				dev_err(tas_dev->dev,
++					"%s: update_bits error = %d\n",
++					__func__, rc);
++			}
++			subblk_offset  += 6;
++			break;
++		default:
++			break;
++		};
++		if (is_err == true && blktyp != 0) {
++			if (blktyp == 0x80) {
++				tas_dev->tasdevice[chn].cur_prog = -1;
++				tas_dev->tasdevice[chn].cur_conf = -1;
++			} else
++				tas_dev->tasdevice[chn].cur_conf = -1;
++		}
++	}
++	return subblk_offset;
++}
++
++static void tasdevice_select_cfg_blk(void *pContext, int conf_no,
++	unsigned char block_type)
++{
++	struct tasdevice_priv *tas_dev =
++		(struct tasdevice_priv *) pContext;
++	struct tasdevice_rca *rca = &(tas_dev->rcabin);
++	struct tasdevice_config_info **cfg_info = rca->cfg_info;
++	int j, k, chn, chnend;
++
++	if (conf_no >= rca->ncfgs || conf_no < 0 || NULL == cfg_info) {
++		dev_err(tas_dev->dev,
++			"conf_no should be not more than %u\n",
++			rca->ncfgs);
++		goto out;
++	}
++
++	for (j = 0; j < (int)cfg_info[conf_no]->real_nblocks; j++) {
++		unsigned int length = 0, rc = 0;
++
++		if (block_type > 5 || block_type < 2) {
++			dev_err(tas_dev->dev,
++			"ERROR!!!block_type should be in range from 2 to 5\n");
++			goto out;
++		}
++		if (block_type != cfg_info[conf_no]->blk_data[j]->block_type)
++			continue;
++
++		for (k = 0; k < (int)cfg_info[conf_no]->blk_data[j]->n_subblks;
++			k++) {
++			if (cfg_info[conf_no]->blk_data[j]->dev_idx) {
++				chn =
++				cfg_info[conf_no]->blk_data[j]->dev_idx
++				- 1;
++				chnend =
++				cfg_info[conf_no]->blk_data[j]->dev_idx;
++			} else {
++				chn = 0;
++				chnend = tas_dev->ndev;
++			}
++			for (; chn < chnend; chn++)
++				tas_dev->tasdevice[chn].is_loading = true;
++
++			rc = tasdevice_process_block(tas_dev,
++				cfg_info[conf_no]->blk_data[j]->regdata +
++					length,
++				cfg_info[conf_no]->blk_data[j]->dev_idx,
++				cfg_info[conf_no]->blk_data[j]->block_size -
++					length);
++			length  += rc;
++			if (cfg_info[conf_no]->blk_data[j]->block_size <
++				length) {
++				dev_err(tas_dev->dev,
++					"%s: ERROR:%u %u out of bounary\n",
++					__func__, length,
++					cfg_info[conf_no]->blk_data[j]
++					->block_size);
++				break;
++			}
++		}
++		if (length != cfg_info[conf_no]->blk_data[j]->block_size)
++			dev_err(tas_dev->dev,
++				"%s: %u %u size is not same\n",
++				__func__, length,
++				cfg_info[conf_no]->blk_data[j]->block_size);
++
++	}
++
++out:
++	return;
++}
++
++static struct tasdevice_config_info *tasdevice_add_config(
++	void *context, unsigned char *config_data,
++	unsigned int config_size)
++{
++	struct tasdevice_priv *tas_dev =
++		(struct tasdevice_priv *)context;
++	struct tasdevice_config_info *cfg_info = NULL;
++	int config_offset = 0, i;
++
++	cfg_info = kzalloc(
++		sizeof(struct tasdevice_config_info), GFP_KERNEL);
++	if (!cfg_info)
++		goto out;
++
++	if (tas_dev->rcabin.fw_hdr.binary_version_num >= 0x105) {
++		if (config_offset + 64 > (int)config_size) {
++			dev_err(tas_dev->dev, "add config: Out of bounary\n");
++			goto out;
++		}
++		config_offset  += 64;
++	}
++
++	if (config_offset + 4 > (int)config_size) {
++		dev_err(tas_dev->dev, "add config: Out of bounary\n");
++		goto out;
++	}
++	cfg_info->nblocks =
++		SMS_HTONL(config_data[config_offset],
++		config_data[config_offset + 1],
++	config_data[config_offset + 2], config_data[config_offset + 3]);
++	config_offset  +=  4;
++
++	cfg_info->blk_data = kcalloc(
++		cfg_info->nblocks, sizeof(struct tasdev_blk_data *),
++		GFP_KERNEL);
++	if (!cfg_info->blk_data)
++		goto out;
++
++	cfg_info->real_nblocks = 0;
++	for (i = 0; i < (int)cfg_info->nblocks; i++) {
++		if (config_offset + 12 > config_size) {
++			dev_err(tas_dev->dev,
++			"add config: Out of bounary: i = %d nblocks = %u!\n",
++			i, cfg_info->nblocks);
++			break;
++		}
++		cfg_info->blk_data[i] = kzalloc(
++			sizeof(struct tasdev_blk_data), GFP_KERNEL);
++		if (!cfg_info->blk_data[i])
++			break;
++
++		cfg_info->blk_data[i]->dev_idx = config_data[config_offset];
++		config_offset++;
++
++		cfg_info->blk_data[i]->block_type = config_data[config_offset];
++		config_offset++;
++
++		if (cfg_info->blk_data[i]->block_type  ==
++			TASDEVICE_BIN_BLK_PRE_POWER_UP) {
++			if (cfg_info->blk_data[i]->dev_idx == 0)
++				cfg_info->active_dev = 1;
++			else
++				cfg_info->active_dev =
++					1 <<
++					(cfg_info->blk_data[i]->dev_idx - 1);
++
++		}
++		cfg_info->blk_data[i]->yram_checksum =
++			SMS_HTONS(config_data[config_offset],
++			config_data[config_offset + 1]);
++		config_offset  += 2;
++		cfg_info->blk_data[i]->block_size =
++			SMS_HTONL(config_data[config_offset],
++			config_data[config_offset + 1],
++			config_data[config_offset + 2],
++		config_data[config_offset + 3]);
++		config_offset  += 4;
++
++		cfg_info->blk_data[i]->n_subblks =
++			SMS_HTONL(config_data[config_offset],
++			config_data[config_offset + 1],
++			config_data[config_offset + 2],
++		config_data[config_offset + 3]);
++
++		config_offset  += 4;
++		cfg_info->blk_data[i]->regdata = kzalloc(
++			cfg_info->blk_data[i]->block_size, GFP_KERNEL);
++		if (cfg_info->blk_data[i]->regdata == NULL)
++			goto out;
++
++		if (config_offset + cfg_info->blk_data[i]->block_size
++			> config_size) {
++			dev_err(tas_dev->dev,
++			"%s: block_size Out of bounary: i = %d blks = %u!\n",
++			__func__, i, cfg_info->nblocks);
++			break;
++		}
++		memcpy(cfg_info->blk_data[i]->regdata,
++			&config_data[config_offset],
++		cfg_info->blk_data[i]->block_size);
++		config_offset  += cfg_info->blk_data[i]->block_size;
++		cfg_info->real_nblocks  += 1;
++	}
++out:
++	return cfg_info;
++}
++
++/* tas2781 contain book and page two-level regmap, especially book switching
++ * will set the register BXXP00R7F, after switching to the correct book,
++ * then leverage the mechanism for paging to access the register. Custom
++ * control is primarily for regmap booking, paging depends on internal
++ * regmap mechanism
++ */
++static int tas2781_digital_getvol(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int val;
++	unsigned int invert = mc->invert;
++	int max = mc->max;
++	int ret = 0;
++
++	/* Read the primary device as the whole */
++	ret = tasdevice_dev_read(tas_dev, 0, mc->reg, &val);
++	if (ret) {
++		dev_err(tas_dev->dev, "%s, get digital vol error\n", __func__);
++		goto out;
++	}
++
++	if (val > max)
++		val = max;
++	if (invert)
++		val = max - val;
++	if (val < 0)
++		val = 0;
++	ucontrol->value.integer.value[0] = val;
++
++out:
++	return ret;
++}
++
++static int tas2781_digital_putvol(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int val, i;
++	unsigned int invert = mc->invert;
++	int max = mc->max;
++	int err_cnt = 0;
++	int ret = 1;
++
++	val = ucontrol->value.integer.value[0];
++	if (val > max)
++		val = max;
++	if (invert)
++		val = max - val;
++	if (val < 0)
++		val = 0;
++
++	if (!tas_dev->set_global_mode) {
++		ret = tasdevice_dev_write(tas_dev, tas_dev->ndev,
++			mc->reg, (unsigned int)val);
++		if (ret)
++			dev_err(tas_dev->dev, "%s, error in global mode\n",
++				__func__);
++	}
++
++	if (tas_dev->set_global_mode == NULL || ret == 1) {
++		for (i = 0; i < tas_dev->ndev; i++) {
++			ret = tasdevice_dev_write(tas_dev, i, mc->reg,
++				(unsigned int)val);
++			if (ret) {
++				err_cnt++;
++				dev_err(tas_dev->dev,
++					"set digital vol err in dev %d\n", i);
++			}
++		}
++	}
++	/* All the devices set error, return 0*/
++	return (err_cnt == tas_dev->ndev) ? 0 : 1;
++}
++
++static int tas2781_amp_getvol(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int val;
++	unsigned char mask = 0;
++	int max = mc->max;
++	int ret = 0;
++	unsigned int invert = mc->invert;
++
++	/* Read the primary device */
++	ret = tasdevice_dev_read(tas_dev, 0, mc->reg, &val);
++	if (ret) {
++		dev_err(tas_dev->dev, "%s, get AMP vol error\n", __func__);
++		goto out;
++	}
++
++	mask = (1 << fls(mc->max)) - 1;
++	mask <<= mc->shift;
++	val = (val & mask) >> mc->shift;
++	if (val > max)
++		val = max;
++	if (invert)
++		val = max - val;
++	if (val < 0)
++		val = 0;
++	ucontrol->value.integer.value[0] = val;
++
++out:
++	return ret;
++}
++
++static int tas2781_amp_putvol(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int val;
++	int i, ret;
++	unsigned char mask;
++	int max = mc->max;
++	unsigned int invert = mc->invert;
++	int err_cnt = 0;
++
++	mask = (1 << fls(mc->max)) - 1;
++	mask <<= mc->shift;
++	val = ucontrol->value.integer.value[0];
++	if (val > max)
++		val = max;
++	if (invert)
++		val = max - val;
++	if (val < 0)
++		val = 0;
++	for (i = 0; i < tas_dev->ndev; i++) {
++		ret = tasdevice_dev_update_bits(tas_dev, i,
++			mc->reg, mask, (unsigned int)(val << mc->shift));
++		if (ret) {
++			err_cnt++;
++			dev_err(tas_dev->dev, "set AMP vol error in dev %d\n",
++				i);
++		}
++	}
++
++	/* All the devices set error, return 0*/
++	return (err_cnt == tas_dev->ndev) ? 0 : 1;
++}
++
++static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
++static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
++
++static const struct snd_kcontrol_new tas2781_snd_controls[] = {
++	SOC_SINGLE_RANGE_EXT_TLV("Amp Gain Volume", TAS2781_AMP_LEVEL,
++		1, 0, 20, 0, tas2781_amp_getvol,
++		tas2781_amp_putvol, amp_vol_tlv),
++	SOC_SINGLE_RANGE_EXT_TLV("Digital Volume", TAS2781_DVC_LVL,
++		0, 0, 200, 1, tas2781_digital_getvol,
++		tas2781_digital_putvol, dvc_tlv),
++};
++
++static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++
++	tas_dev->rcabin.profile_cfg_id =
++		ucontrol->value.integer.value[0];
++
++	return 1;
++}
++
++static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_info *uinfo)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct tasdevice_fw *tas_fw = tas_dev->fmw;
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = (int)tas_fw->nr_programs;
++
++	return 0;
++}
++
++static int tasdevice_info_configurations(
++	struct snd_kcontrol *kcontrol, struct snd_ctl_elem_info *uinfo)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	struct tasdevice_fw *tas_fw = tas_dev->fmw;
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = (int)tas_fw->nr_configurations - 1;
++
++
++	return 0;
++}
++
++static int tasdevice_info_profile(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_info *uinfo)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++
++	uinfo->count = 1;
++	uinfo->value.integer.min = 1;
++	uinfo->value.integer.max = max(0, tas_dev->rcabin.ncfgs);
++
++	return 0;
++}
++
++static int tasdevice_get_profile_id(struct snd_kcontrol *kcontrol,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev
++		= snd_soc_component_get_drvdata(codec);
++
++	ucontrol->value.integer.value[0] =
++		tas_dev->rcabin.profile_cfg_id;
++
++	return 0;
++}
++
++static int tasdevice_create_controls(struct tasdevice_priv *tas_dev)
++{
++	int  nr_controls = 1, ret = 0, mix_index = 0;
++	char *name = NULL;
++	struct snd_kcontrol_new *tasdevice_profile_controls = NULL;
++
++	tasdevice_profile_controls = devm_kzalloc(tas_dev->dev,
++			nr_controls * sizeof(tasdevice_profile_controls[0]),
++			GFP_KERNEL);
++	if (tasdevice_profile_controls == NULL) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	/* Create a mixer item for selecting the active profile */
++	name = devm_kzalloc(tas_dev->dev,
++		SNDRV_CTL_ELEM_ID_NAME_MAXLEN, GFP_KERNEL);
++	if (!name) {
++		ret = -ENOMEM;
++		goto out;
++	}
++	scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "TASDEVICE Profile id");
++	tasdevice_profile_controls[mix_index].name = name;
++	tasdevice_profile_controls[mix_index].iface =
++		SNDRV_CTL_ELEM_IFACE_MIXER;
++	tasdevice_profile_controls[mix_index].info =
++		tasdevice_info_profile;
++	tasdevice_profile_controls[mix_index].get =
++		tasdevice_get_profile_id;
++	tasdevice_profile_controls[mix_index].put =
++		tasdevice_set_profile_id;
++	mix_index++;
++
++	ret = snd_soc_add_component_controls(tas_dev->codec,
++		tasdevice_profile_controls,
++		nr_controls < mix_index ? nr_controls : mix_index);
++
++	tas_dev->tas_ctrl.nr_controls =
++		nr_controls < mix_index ? nr_controls : mix_index;
++out:
++	return ret;
++}
++
++static int tasdevice_program_get(struct snd_kcontrol *pKcontrol,
++		struct snd_ctl_elem_value *pValue)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(pKcontrol);
++	struct tasdevice_priv *pTAS2781 = snd_soc_component_get_drvdata(codec);
++
++	pValue->value.integer.value[0] = pTAS2781->cur_prog;
++
++	return 0;
++}
++
++static int tasdevice_program_put(struct snd_kcontrol *pKcontrol,
++		struct snd_ctl_elem_value *pValue)
++{
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(pKcontrol);
++	struct tasdevice_priv *pTAS2781 = snd_soc_component_get_drvdata(codec);
++	unsigned int nProgram = pValue->value.integer.value[0];
++
++	pTAS2781->cur_prog = nProgram;
++
++	return 1;
++}
++
++static int tasdevice_configuration_get(
++	struct snd_kcontrol *pKcontrol,
++	struct snd_ctl_elem_value *pValue)
++{
++
++	struct snd_soc_component *codec
++		= snd_soc_kcontrol_component(pKcontrol);
++	struct tasdevice_priv *pTAS2781 = snd_soc_component_get_drvdata(codec);
++
++	pValue->value.integer.value[0] = pTAS2781->cur_conf;
++
++	return 0;
++}
++
++static int tasdevice_configuration_put(
++	struct snd_kcontrol *pKcontrol,
++	struct snd_ctl_elem_value *pValue)
++{
++	struct snd_soc_component *codec
++			= snd_soc_kcontrol_component(pKcontrol);
++	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
++	unsigned int n_configuration = pValue->value.integer.value[0];
++
++	tas_dev->cur_conf = n_configuration;
++
++	return 1;
++}
++
++static int tasdevice_dsp_create_control(
++	struct tasdevice_priv *tas_dev)
++{
++	int  nr_controls = 2, ret = 0, mix_index = 0;
++	char *program_name = NULL;
++	char *configuration_name = NULL;
++	struct snd_kcontrol_new *tasdevice_dsp_controls = NULL;
++
++	tasdevice_dsp_controls = devm_kzalloc(tas_dev->dev,
++			nr_controls * sizeof(tasdevice_dsp_controls[0]),
++			GFP_KERNEL);
++	if (tasdevice_dsp_controls == NULL) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	/* Create a mixer item for selecting the active profile */
++	program_name = devm_kzalloc(tas_dev->dev,
++		SNDRV_CTL_ELEM_ID_NAME_MAXLEN, GFP_KERNEL);
++	configuration_name = devm_kzalloc(tas_dev->dev,
++		SNDRV_CTL_ELEM_ID_NAME_MAXLEN, GFP_KERNEL);
++	if (!program_name || !configuration_name) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	scnprintf(program_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "Program");
++	tasdevice_dsp_controls[mix_index].name = program_name;
++	tasdevice_dsp_controls[mix_index].iface =
++		SNDRV_CTL_ELEM_IFACE_MIXER;
++	tasdevice_dsp_controls[mix_index].info =
++		tasdevice_info_programs;
++	tasdevice_dsp_controls[mix_index].get =
++		tasdevice_program_get;
++	tasdevice_dsp_controls[mix_index].put =
++		tasdevice_program_put;
++	mix_index++;
++
++	scnprintf(configuration_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
++		"Configuration");
++	tasdevice_dsp_controls[mix_index].name = configuration_name;
++	tasdevice_dsp_controls[mix_index].iface =
++		SNDRV_CTL_ELEM_IFACE_MIXER;
++	tasdevice_dsp_controls[mix_index].info =
++		tasdevice_info_configurations;
++	tasdevice_dsp_controls[mix_index].get =
++		tasdevice_configuration_get;
++	tasdevice_dsp_controls[mix_index].put =
++		tasdevice_configuration_put;
++	mix_index++;
++
++	ret = snd_soc_add_component_controls(tas_dev->codec,
++		tasdevice_dsp_controls,
++		nr_controls < mix_index ? nr_controls : mix_index);
++
++	tas_dev->tas_ctrl.nr_controls += nr_controls;
++out:
++	return ret;
++}
++
++static void tasdevice_rca_ready(const struct firmware *fmw,
++	void *context)
++{
++	struct tasdevice_priv *tas_dev =
++		(struct tasdevice_priv *) context;
++	struct tasdevice_rca *rca;
++	struct tasdevice_rca_hdr *fw_hdr;
++	struct tasdevice_config_info **cfg_info = NULL;
++	const struct firmware *fw_entry;
++	unsigned char *buf;
++	int offset = 0;
++	int i, ret;
++	unsigned int total_config_sz = 0;
++
++	mutex_lock(&tas_dev->codec_lock);
++	rca = &(tas_dev->rcabin);
++	fw_hdr = &(rca->fw_hdr);
++	if (!fmw || !fmw->data) {
++		dev_err(tas_dev->dev,
++		"Failed to read %s, no side - effect on driver running\n",
++		tas_dev->rca_binaryname);
++		ret = -1;
++		goto out;
++	}
++	buf = (unsigned char *)fmw->data;
++
++	fw_hdr->img_sz = SMS_HTONL(buf[offset], buf[offset + 1],
++		buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	if (fw_hdr->img_sz != fmw->size) {
++		dev_err(tas_dev->dev,
++			"File size not match, %d %u", (int)fmw->size,
++			fw_hdr->img_sz);
++		ret = -1;
++		goto out;
++	}
++
++	fw_hdr->checksum = SMS_HTONL(buf[offset], buf[offset + 1],
++					buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++	fw_hdr->binary_version_num = SMS_HTONL(buf[offset],
++		buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++	if (fw_hdr->binary_version_num < 0x103) {
++		dev_err(tas_dev->dev,
++			"File version 0x%04x is too low",
++			fw_hdr->binary_version_num);
++		ret = -1;
++		goto out;
++	}
++	offset  += 4;
++	fw_hdr->drv_fw_version = SMS_HTONL(buf[offset], buf[offset + 1],
++					buf[offset + 2], buf[offset + 3]);
++	offset  += 8;
++	fw_hdr->plat_type = buf[offset];
++	offset  += 1;
++	fw_hdr->dev_family = buf[offset];
++	offset  += 1;
++	fw_hdr->reserve = buf[offset];
++	offset  += 1;
++	fw_hdr->ndev = buf[offset];
++	offset  += 1;
++	if (fw_hdr->ndev != tas_dev->ndev) {
++		dev_err(tas_dev->dev,
++			"ndev(%u) fro rcabin and ndev(%u) fro DTS NOT match\n",
++			fw_hdr->ndev, tas_dev->ndev);
++		ret = -1;
++		goto out;
++	}
++	if (offset + TASDEVICE_DEVICE_SUM > fw_hdr->img_sz) {
++		dev_err(tas_dev->dev, "rca_ready: Out of bounary!\n");
++		ret = -1;
++		goto out;
++	}
++
++	for (i = 0; i < TASDEVICE_DEVICE_SUM; i++, offset++)
++		fw_hdr->devs[i] = buf[offset];
++
++	fw_hdr->nconfig = SMS_HTONL(buf[offset], buf[offset + 1],
++				buf[offset + 2], buf[offset + 3]);
++	offset  += 4;
++
++	for (i = 0; i < TASDEVICE_CONFIG_SUM; i++) {
++		fw_hdr->config_size[i] = SMS_HTONL(buf[offset],
++			buf[offset + 1], buf[offset + 2], buf[offset + 3]);
++		offset  += 4;
++		total_config_sz  += fw_hdr->config_size[i];
++	}
++
++	if (fw_hdr->img_sz - total_config_sz != (unsigned int)offset) {
++		dev_err(tas_dev->dev, "Bin file error!\n");
++		ret = -1;
++		goto out;
++	}
++	cfg_info = kcalloc(fw_hdr->nconfig,
++		sizeof(struct tasdevice_config_info *),
++		GFP_KERNEL);
++
++	if (!cfg_info) {
++		ret = -1;
++		goto out;
++	}
++	rca->cfg_info = cfg_info;
++	rca->ncfgs = 0;
++	for (i = 0; i < (int)fw_hdr->nconfig; i++) {
++		cfg_info[i] = tasdevice_add_config(context, &buf[offset],
++				fw_hdr->config_size[i]);
++		if (!cfg_info[i]) {
++			ret = -1;
++			break;
++		}
++		offset  += (int)fw_hdr->config_size[i];
++		rca->ncfgs  += 1;
++	}
++	tasdevice_create_controls(tas_dev);
++
++	tasdevice_dsp_remove(tas_dev);
++	tasdevice_calbin_remove(tas_dev);
++	tas_dev->fw_state = TASDEVICE_DSP_FW_PENDING;
++	scnprintf(tas_dev->coef_binaryname, 64, "%s_coef.bin",
++		tas_dev->dev_name);
++	ret = request_firmware(&fw_entry, tas_dev->coef_binaryname,
++		tas_dev->dev);
++	if (!ret) {
++		ret = tasdevice_dspfw_ready(fw_entry, tas_dev);
++		release_firmware(fw_entry);
++		fw_entry = NULL;
++	} else {
++		tas_dev->fw_state = TASDEVICE_DSP_FW_FAIL;
++		dev_err(tas_dev->dev, "%s: load %s error\n", __func__,
++			tas_dev->coef_binaryname);
++		goto out;
++	}
++	tasdevice_dsp_create_control(tas_dev);
++
++	tas_dev->fw_state = TASDEVICE_DSP_FW_ALL_OK;
++	tas_dev->is_glb_calibrated_data_loaded = true;
++	for (i = 0; i < tas_dev->ndev; i++) {
++		scnprintf(tas_dev->cal_binaryname[i], 64, "%s_cal_0x%02x.bin",
++			tas_dev->dev_name, tas_dev->tasdevice[i].dev_addr);
++		ret = tas2781_load_calibration(tas_dev,
++			tas_dev->cal_binaryname[i], i);
++		if (ret != 0) {
++			dev_err(tas_dev->dev,
++				"%s: load %s error, no-side effect\n",
++				__func__, tas_dev->cal_binaryname[i]);
++			ret = 0;
++			tas_dev->is_glb_calibrated_data_loaded = false;
++		}
++	}
++
++out:
++	mutex_unlock(&tas_dev->codec_lock);
++	if (fmw)
++		release_firmware(fmw);
++}
++
++static void tasdevice_config_info_remove(void *context)
++{
++	struct tasdevice_priv *tas_dev =
++		(struct tasdevice_priv *) context;
++	struct tasdevice_rca *rca = &(tas_dev->rcabin);
++	struct tasdevice_config_info **cfg_info = rca->cfg_info;
++	int i, j;
++
++	if (cfg_info) {
++		for (i = 0; i < rca->ncfgs; i++) {
++			if (cfg_info[i]) {
++				for (j = 0; j < (int)cfg_info[i]->real_nblocks;
++					j++) {
++					kfree(
++					cfg_info[i]->blk_data[j]->regdata);
++					kfree(cfg_info[i]->blk_data[j]);
++				}
++				kfree(cfg_info[i]->blk_data);
++				kfree(cfg_info[i]);
++			}
++		}
++		kfree(cfg_info);
++	}
++}
++
++static void tasdevice_tuning_switch(
++	struct tasdevice_priv *tas_dev, int state)
++{
++	struct tasdevice_fw *tas_fmw = tas_dev->fmw;
++	int profile_cfg_id = 0;
++
++	if (state == 0) {
++		if (tas_fmw) {
++			if (tas_dev->cur_prog >= tas_fmw->nr_programs)
++				/*bypass all in rca is profile id 0*/
++				profile_cfg_id = RCA_CONFIGID_BYPASS_ALL;
++			else {
++				/*dsp mode or tuning mode*/
++				profile_cfg_id =
++					tas_dev->rcabin.profile_cfg_id;
++
++				tasdevice_select_tuningprm_cfg(tas_dev,
++					tas_dev->cur_prog,
++					tas_dev->cur_conf,
++					profile_cfg_id);
++				if (tas_dev->set_global_mode != NULL)
++					tas_dev->set_global_mode(tas_dev);
++			}
++		}  else
++			profile_cfg_id = RCA_CONFIGID_BYPASS_ALL;
++
++		tasdevice_select_cfg_blk(tas_dev, profile_cfg_id,
++			TASDEVICE_BIN_BLK_PRE_POWER_UP);
++	} else
++		tasdevice_select_cfg_blk(tas_dev,
++			tas_dev->rcabin.profile_cfg_id,
++			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
++}
++
++static int tasdevice_dapm_event(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *codec = snd_soc_dapm_to_component(w->dapm);
++	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
++	int state = 1;
++
++	/* Codec Lock Hold */
++	mutex_lock(&tas_dev->codec_lock);
++	if (event == SND_SOC_DAPM_PRE_PMD)
++		state = 0;
++	tasdevice_tuning_switch(tas_dev, state);
++	/* Codec Lock Release*/
++	mutex_unlock(&tas_dev->codec_lock);
++
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget tasdevice_dapm_widgets[] = {
++	SND_SOC_DAPM_AIF_IN("ASI", "ASI Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT_E("ASI OUT", "ASI Capture", 0, SND_SOC_NOPM,
++		0, 0, tasdevice_dapm_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_SPK("SPK", tasdevice_dapm_event),
++	SND_SOC_DAPM_OUTPUT("OUT"),
++	SND_SOC_DAPM_INPUT("DMIC")
++};
++
++static const struct snd_soc_dapm_route tasdevice_audio_map[] = {
++	{"SPK", NULL, "ASI"},
++	{"OUT", NULL, "SPK"},
++	{"ASI OUT", NULL, "DMIC"}
++};
++
++static int tasdevice_startup(struct snd_pcm_substream *substream,
++						struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *codec = dai->component;
++	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
++	int ret = 0;
++
++	if (tas_dev->fw_state != TASDEVICE_DSP_FW_ALL_OK) {
++		dev_err(tas_dev->dev, "DSP bin file not loaded\n");
++		ret = -EINVAL;
++	}
++	return ret;
++}
++
++static int tasdevice_hw_params(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
++{
++	struct tasdevice_priv *tas_dev = snd_soc_dai_get_drvdata(dai);
++	unsigned int fsrate;
++	unsigned int slot_width;
++	int bclk_rate;
++	int rc = 0;
++
++	fsrate = params_rate(params);
++	switch (fsrate) {
++	case 48000:
++		break;
++	case 44100:
++		break;
++	default:
++		dev_err(tas_dev->dev, "%s: incorrect sample rate = %u\n",
++			__func__, fsrate);
++		rc = -EINVAL;
++		goto out;
++	}
++
++	slot_width = params_width(params);
++	switch (slot_width) {
++	case 16:
++		break;
++	case 20:
++		break;
++	case 24:
++		break;
++	case 32:
++		break;
++	default:
++		dev_err(tas_dev->dev, "%s: incorrect slot width = %u\n",
++			__func__, slot_width);
++		rc = -EINVAL;
++		goto out;
++	}
++
++	bclk_rate = snd_soc_params_to_bclk(params);
++	if (bclk_rate < 0) {
++		dev_err(tas_dev->dev, "%s: incorrect bclk rate = %d\n",
++			__func__, bclk_rate);
++		rc = bclk_rate;
++		goto out;
++	}
++out:
++	return rc;
++}
++
++static int tasdevice_set_dai_sysclk(struct snd_soc_dai *codec_dai,
++	int clk_id, unsigned int freq, int dir)
++{
++	struct tasdevice_priv *tas_dev = snd_soc_dai_get_drvdata(codec_dai);
++
++	tas_dev->sysclk = freq;
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops tasdevice_dai_ops = {
++	.startup = tasdevice_startup,
++	.hw_params = tasdevice_hw_params,
++	.set_sysclk = tasdevice_set_dai_sysclk,
++};
++
++static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
++	{
++		.name = "tas2781_codec",
++		.id = 0,
++		.playback = {
++			.stream_name	= "Playback",
++			.channels_min   = 1,
++			.channels_max   = 4,
++			.rates	 = TASDEVICE_RATES,
++			.formats	= TASDEVICE_FORMATS,
++		},
++		.capture = {
++			.stream_name	= "Capture",
++			.channels_min   = 1,
++			.channels_max   = 4,
++			.rates	 = TASDEVICE_RATES,
++			.formats	= TASDEVICE_FORMATS,
++		},
++		.ops = &tasdevice_dai_ops,
++		.symmetric_rate = 1,
++	},
++};
++
++static void tas2781_reset(struct tasdevice_priv *tas_dev)
++{
++	int ret = 0;
++	int i = 0;
++
++	if (tas_dev->reset) {
++		gpiod_set_value_cansleep(tas_dev->reset, 0);
++		usleep_range(500, 1000);
++		gpiod_set_value_cansleep(tas_dev->reset, 1);
++	} else {
++
++		for (i = 0; i < tas_dev->ndev; i++) {
++			ret = tasdevice_dev_write(tas_dev, i,
++				TAS2871_REG_SWRESET,
++				TAS2871_REG_SWRESET_RESET);
++			if (ret < 0)
++				dev_err(tas_dev->dev,
++					"dev %d swreset fail, %d\n",
++					i, ret);
++		}
++	}
++	usleep_range(1000, 1050);
++}
++
++static int tasdevice_codec_probe(
++	struct snd_soc_component *codec)
++{
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	int ret;
++
++	/* Codec Lock Hold */
++	mutex_lock(&tas_dev->codec_lock);
++
++	crc8_populate_msb(tas_dev->crc8_lkp_tbl, TASDEVICE_CRC8_POLYNOMIAL);
++	tas_dev->codec = codec;
++	scnprintf(tas_dev->rca_binaryname, 64, "%s_rca.bin",
++		tas_dev->dev_name);
++	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
++		tas_dev->rca_binaryname, tas_dev->dev, GFP_KERNEL, tas_dev,
++		tasdevice_rca_ready);
++	if (ret)
++		dev_err(tas_dev->dev, "request_firmware_nowait err:0x%08x\n",
++			ret);
++
++	tas2781_reset(tas_dev);
++	if (tas_dev->set_global_mode != NULL)
++		tas_dev->set_global_mode(tas_dev);
++
++	/* Codec Lock Release*/
++	mutex_unlock(&tas_dev->codec_lock);
++
++	return ret;
++}
++
++static void tasdevice_deinit(void *context)
++{
++	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) context;
++
++	tasdevice_config_info_remove(tas_dev);
++	tasdevice_dsp_remove(tas_dev);
++	tasdevice_calbin_remove(tas_dev);
++	tas_dev->fw_state = TASDEVICE_DSP_FW_PENDING;
++}
++
++static void tasdevice_codec_remove(
++	struct snd_soc_component *codec)
++{
++	struct tasdevice_priv *tas_dev =
++		snd_soc_component_get_drvdata(codec);
++	/* Codec Lock Hold */
++	mutex_lock(&tas_dev->codec_lock);
++	tasdevice_deinit(tas_dev);
++	/* Codec Lock Release*/
++	mutex_unlock(&tas_dev->codec_lock);
++}
++
++static const struct snd_soc_component_driver
++	soc_codec_driver_tasdevice = {
++	.probe			= tasdevice_codec_probe,
++	.remove			= tasdevice_codec_remove,
++	.controls		= tas2781_snd_controls,
++	.num_controls		= ARRAY_SIZE(tas2781_snd_controls),
++	.dapm_widgets		= tasdevice_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(tasdevice_dapm_widgets),
++	.dapm_routes		= tasdevice_audio_map,
++	.num_dapm_routes	= ARRAY_SIZE(tasdevice_audio_map),
++	.idle_bias_on		= 1,
++	.endianness		= 1,
++};
++
++static int tasdevice_parse_dt(struct tasdevice_priv *tas_dev)
++{
++	struct device_node *np = tas_dev->dev->of_node;
++	int rc, i, ndev;
++	unsigned int dev_addrs[max_chn];
++	struct i2c_client *client = (struct i2c_client *)tas_dev->client;
++
++	if (tas_dev->isacpi) {
++		ndev = device_property_read_u32_array(&client->dev,
++			"ti,audio-slots", NULL, 0);
++		if (ndev <= 0) {
++			ndev = 1;
++			dev_addrs[0] = client->addr;
++		} else {
++			ndev = (ndev < ARRAY_SIZE(dev_addrs))
++				? ndev : ARRAY_SIZE(dev_addrs);
++			ndev = device_property_read_u32_array(&client->dev,
++				"ti,audio-slots", dev_addrs, ndev);
++		}
++
++		tas_dev->irq_info.irq_gpio =
++			acpi_dev_gpio_irq_get(ACPI_COMPANION(&client->dev), 0);
++	} else {
++		ndev = of_property_read_variable_u32_array(np,
++			"ti,audio-slots", dev_addrs, 0, ARRAY_SIZE(dev_addrs));
++		if (ndev <= 0) {
++			ndev = 1;
++			dev_addrs[0] = client->addr;
++		}
++		tas_dev->irq_info.irq_gpio = of_irq_get(np, 0);
++	}
++	tas_dev->ndev = ndev;
++	for (i = 0; i < ndev; i++)
++		tas_dev->tasdevice[i].dev_addr = dev_addrs[i];
++
++	if (ndev > 1) {
++		rc = of_property_read_u32(np, "ti,broadcast-addr",
++				&(tas_dev->glb_addr.dev_addr));
++		if (rc) {
++			dev_err(tas_dev->dev, "Looking up node %s failed %d\n",
++				np->full_name, rc);
++			tas_dev->glb_addr.dev_addr = 0;
++		}
++	}
++
++	tas_dev->ndev = ndev;
++
++	tas_dev->reset = devm_gpiod_get_optional(&client->dev,
++			"reset-gpios", GPIOD_OUT_HIGH);
++	if (IS_ERR(tas_dev->reset))
++		dev_err(tas_dev->dev, "%s ERROR: Can't get reset GPIO\n",
++			__func__);
++
++	strcpy(tas_dev->dev_name, tasdevice_id[tas_dev->chip_id].name);
++
++	tas_dev->irq_info.irq_gpio = of_get_named_gpio(np,
++		"interrupts", 0);
++	if (gpio_is_valid(tas_dev->irq_info.irq_gpio)) {
++		rc = gpio_request(tas_dev->irq_info.irq_gpio,
++				"AUDEV-IRQ");
++		if (!rc) {
++			gpio_direction_input(
++				tas_dev->irq_info.irq_gpio);
++
++			tas_dev->irq_info.irq =
++				gpio_to_irq(tas_dev->irq_info.irq_gpio);
++		} else
++			dev_err(tas_dev->dev, "%s: GPIO %d request error\n",
++				__func__, tas_dev->irq_info.irq_gpio);
++	} else
++		dev_err(tas_dev->dev,
++			"Looking up irq-gpio property in node %s failed %d\n",
++			np->full_name, tas_dev->irq_info.irq_gpio);
++
++	return 0;
++}
++
++static int tasdevice_change_chn_book(struct tasdevice_priv *tas_dev,
++	enum channel chn, int book)
++{
++	int ret = 0;
++	struct i2c_client *client =
++		(struct i2c_client *)tas_dev->client;
++
++	if (chn < tas_dev->ndev) {
++		if (tas_dev->glb_addr.ref_cnt != 0) {
++			tas_dev->glb_addr.ref_cnt = 0;
++			tas_dev->glb_addr.cur_book = -1;
++		}
++		client->addr = tas_dev->tasdevice[chn].dev_addr;
++		if (tas_dev->tasdevice[chn].cur_book != book) {
++			ret = regmap_write(tas_dev->regmap,
++				TASDEVICE_BOOKCTL_REG, book);
++			if (ret < 0) {
++				dev_err(tas_dev->dev, "%s, ERROR, E=%d\n",
++					__func__, ret);
++				goto out;
++			}
++			tas_dev->tasdevice[chn].cur_book = book;
++		}
++	} else if (chn == tas_dev->ndev) {
++		int i = 0;
++
++		if (tas_dev->glb_addr.ref_cnt == 0)
++			for (i = 0; i < tas_dev->ndev; i++)
++				tas_dev->tasdevice[i].cur_book = -1;
++		client->addr = tas_dev->glb_addr.dev_addr;
++		if (tas_dev->glb_addr.cur_book != book) {
++			ret = regmap_write(tas_dev->regmap,
++				TASDEVICE_BOOKCTL_PAGE, 0);
++			if (ret < 0) {
++				dev_err(tas_dev->dev,
++					"%s, 0ERROR, E=%d\n",
++					__func__, ret);
++				goto out;
++			}
++			ret = regmap_write(tas_dev->regmap,
++				TASDEVICE_BOOKCTL_REG, book);
++			if (ret < 0) {
++				dev_err(tas_dev->dev,
++					"%s, book%xERROR, E=%d\n",
++					__func__, book, ret);
++				goto out;
++			}
++			tas_dev->glb_addr.cur_book = book;
++		}
++
++		tas_dev->glb_addr.ref_cnt++;
++	} else
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++
++out:
++	return ret;
++}
++
++int tasdevice_dev_read(struct tasdevice_priv *tas_dev,
++	enum channel chn, unsigned int reg, unsigned int *val)
++{
++	int ret = 0;
++
++	if (chn < tas_dev->ndev) {
++		ret = tasdevice_change_chn_book(tas_dev, chn,
++			TASDEVICE_BOOK_ID(reg));
++		if (ret < 0)
++			goto out;
++
++		ret = regmap_read(tas_dev->regmap,
++			TASDEVICE_PGRG(reg), val);
++		if (ret < 0)
++			dev_err(tas_dev->dev, "%s, ERROR,E=%d\n",
++				__func__, ret);
++	} else {
++
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++	}
++
++out:
++	return ret;
++}
++
++int tasdevice_dev_write(struct tasdevice_priv *tas_dev,
++	enum channel chn, unsigned int reg, unsigned int value)
++{
++	int ret = 0;
++
++	if (chn <= tas_dev->ndev) {
++		ret = tasdevice_change_chn_book(tas_dev, chn,
++			TASDEVICE_BOOK_ID(reg));
++		if (ret < 0)
++			goto out;
++
++		ret = regmap_write(tas_dev->regmap,
++			TASDEVICE_PGRG(reg), value);
++		if (ret < 0)
++			dev_err(tas_dev->dev, "%s, ERROR, E=%d\n",
++				__func__, ret);
++	} else
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++out:
++	return ret;
++}
++
++int tasdevice_dev_bulk_write(
++	struct tasdevice_priv *tas_dev, enum channel chn,
++	unsigned int reg, unsigned char *data,
++	unsigned int len)
++{
++	int ret = 0;
++
++	if (chn <= tas_dev->ndev) {
++		ret = tasdevice_change_chn_book(tas_dev, chn,
++			TASDEVICE_BOOK_ID(reg));
++		if (ret < 0)
++			goto out;
++
++		ret = regmap_bulk_write(tas_dev->regmap,
++			TASDEVICE_PGRG(reg), data, len);
++		if (ret < 0)
++			dev_err(tas_dev->dev, "%s, ERROR, E=%d\n", __func__,
++				ret);
++	} else
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++out:
++	return ret;
++}
++
++int tasdevice_dev_bulk_read(struct tasdevice_priv *tas_dev,
++	enum channel chn, unsigned int reg, unsigned char *data,
++	unsigned int len)
++{
++	int ret = 0;
++
++	if (chn < tas_dev->ndev) {
++		ret = tasdevice_change_chn_book(tas_dev, chn,
++			TASDEVICE_BOOK_ID(reg));
++		if (ret < 0)
++			goto out;
++
++		ret = regmap_bulk_read(tas_dev->regmap,
++			TASDEVICE_PGRG(reg), data, len);
++		if (ret < 0)
++			dev_err(tas_dev->dev, "%s, ERROR, E=%d\n",
++				__func__, ret);
++	} else
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++
++out:
++	return ret;
++}
++
++int tasdevice_dev_update_bits(
++	struct tasdevice_priv *tas_dev, enum channel chn,
++	unsigned int reg, unsigned int mask, unsigned int value)
++{
++	int ret = 0;
++	struct i2c_client *client =
++		(struct i2c_client *)tas_dev->client;
++
++	if (chn < tas_dev->ndev) {
++		ret = tasdevice_change_chn_book(tas_dev, chn,
++			TASDEVICE_BOOK_ID(reg));
++		if (ret < 0)
++			goto out;
++		client->addr = tas_dev->tasdevice[chn].dev_addr;
++		ret = regmap_update_bits(tas_dev->regmap,
++			TASDEVICE_PGRG(reg), mask, value);
++		if (ret < 0)
++			dev_err(tas_dev->dev, "%s, ERROR, E=%d\n",
++				__func__, ret);
++	} else {
++		dev_err(tas_dev->dev, "%s, ERROR, no such channel(%d)\n",
++			__func__, chn);
++		ret = -1;
++	}
++
++out:
++	return ret;
++}
++
++static void tas2781_set_global_mode(struct tasdevice_priv *tas_dev)
++{
++	int i = 0;
++	int ret = 0;
++
++	for (; i < tas_dev->ndev; i++) {
++		ret = tasdevice_dev_update_bits(tas_dev, i,
++			TAS2871_MISC_CFG2, TAS2871_GLOBAL_ADDR_MASK,
++			TAS2871_GLOBAL_ADDR_ENABLE);
++		if (ret < 0) {
++			dev_err(tas_dev->dev, "%s: chn %d set glb fail, %d\n",
++				__func__, i, ret);
++			continue;
++		}
++	}
++}
++
++static int tasdevice_init(struct tasdevice_priv *tas_dev)
++{
++	int ret, i;
++
++	tas_dev->cur_prog = -1;
++	tas_dev->cur_conf = -1;
++
++	for (i = 0; i < tas_dev->ndev; i++) {
++		tas_dev->tasdevice[i].cur_book = -1;
++		tas_dev->tasdevice[i].cur_prog = -1;
++		tas_dev->tasdevice[i].cur_conf = -1;
++	}
++
++	if (tas_dev->glb_addr.dev_addr != 0
++		&& tas_dev->glb_addr.dev_addr < 0x7F)
++		tas_dev->set_global_mode = tas2781_set_global_mode;
++	dev_set_drvdata(tas_dev->dev, tas_dev);
++
++	mutex_init(&tas_dev->codec_lock);
++	ret = devm_snd_soc_register_component(tas_dev->dev,
++		&soc_codec_driver_tasdevice,
++		tasdevice_dai_driver, ARRAY_SIZE(tasdevice_dai_driver));
++	if (ret) {
++		dev_err(tas_dev->dev, "%s: codec register error:0x%08x\n",
++			__func__, ret);
++		goto out;
++	}
++
++out:
++	return ret;
++}
++
++static void tasdevice_remove(struct tasdevice_priv *tas_dev)
++{
++	if (gpio_is_valid(tas_dev->irq_info.irq_gpio))
++		gpio_free(tas_dev->irq_info.irq_gpio);
++
++	mutex_destroy(&tas_dev->codec_lock);
++}
++
++static int tasdevice_i2c_probe(struct i2c_client *i2c)
++{
++	struct tasdevice_priv *tas_dev = NULL;
++	int ret;
++	const struct acpi_device_id *acpi_id;
++	const struct i2c_device_id *id = i2c_match_id(tasdevice_id, i2c);
++
++	tas_dev = devm_kzalloc(&i2c->dev, sizeof(*tas_dev), GFP_KERNEL);
++	if (!tas_dev) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	if (ACPI_HANDLE(&i2c->dev)) {
++		acpi_id = acpi_match_device(i2c->dev.driver->acpi_match_table,
++				&i2c->dev);
++		if (!acpi_id) {
++			dev_err(&i2c->dev, "No driver data\n");
++			ret = -EINVAL;
++			goto out;
++		}
++		tas_dev->chip_id = acpi_id->driver_data;
++		tas_dev->isacpi = true;
++	} else {
++		tas_dev->chip_id = (id != NULL) ? id->driver_data : 0;
++		tas_dev->isacpi = false;
++	}
++
++	tas_dev->dev = &i2c->dev;
++	tas_dev->client = (void *)i2c;
++
++	if (i2c->dev.of_node)
++		ret = tasdevice_parse_dt(tas_dev);
++	else {
++		dev_err(tas_dev->dev, "No DTS info\n");
++		goto out;
++	}
++
++	tas_dev->regmap = devm_regmap_init_i2c(i2c,
++		&tasdevice_regmap);
++	if (IS_ERR(tas_dev->regmap)) {
++		ret = PTR_ERR(tas_dev->regmap);
++		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
++			ret);
++		goto out;
++	}
++	ret = tasdevice_init(tas_dev);
++
++out:
++	if (ret < 0 && tas_dev != NULL)
++		tasdevice_remove(tas_dev);
++	return ret;
++
++}
++
++static void tasdevice_i2c_remove(struct i2c_client *client)
++{
++	struct tasdevice_priv *tas_dev = i2c_get_clientdata(client);
++
++	tasdevice_remove(tas_dev);
++
++}
++
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id tasdevice_acpi_match[] = {
++	{ "TAS2781", TAS2781       },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, tasdevice_acpi_match);
++#endif
++
++static struct i2c_driver tasdevice_i2c_driver = {
++	.driver = {
++		.name = "tas2781-codec",
++		.owner = THIS_MODULE,
++		.of_match_table = of_match_ptr(tasdevice_of_match),
++		.acpi_match_table = ACPI_PTR(tasdevice_acpi_match),
++	},
++	.probe	= tasdevice_i2c_probe,
++	.remove = tasdevice_i2c_remove,
++	.id_table = tasdevice_id,
++};
++
++module_i2c_driver(tasdevice_i2c_driver);
++
++MODULE_AUTHOR("Shenghao Ding <shenghao-ding@ti.com>");
++MODULE_AUTHOR("Kevin Lu <kevin-lu@ti.com>");
++MODULE_DESCRIPTION("ASoC TAS2781 Driver");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/tas2781.h b/sound/soc/codecs/tas2781.h
+new file mode 100644
+index 000000000000..383a330df865
+--- /dev/null
++++ b/sound/soc/codecs/tas2781.h
+@@ -0,0 +1,169 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable algo coff setting
++// for one, two, even multiple TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TAS2781_H__
++#define __TAS2781_H__
++
++#include "tas2781-dsp.h"
++
++#define TAS2781_DRV_VER			1	/* version number */
++#define SMARTAMP_MODULE_NAME		"tas2781"
++#define TASDEVICE_RATES			(SNDRV_PCM_RATE_44100 |\
++	SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |\
++	SNDRV_PCM_RATE_88200)
++#define TASDEVICE_MAX_CHANNELS		8
++
++#define TASDEVICE_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE | \
++	SNDRV_PCM_FMTBIT_S24_LE | \
++	SNDRV_PCM_FMTBIT_S32_LE)
++
++/*PAGE Control Register (available in page0 of each book) */
++#define TASDEVICE_PAGE_SELECT		0x00
++#define TASDEVICE_BOOKCTL_PAGE		0x00
++#define TASDEVICE_BOOKCTL_REG		127
++#define TASDEVICE_BOOK_ID(reg)		(reg / (256 * 128))
++#define TASDEVICE_PAGE_ID(reg)		((reg % (256 * 128)) / 128)
++#define TASDEVICE_PAGE_REG(reg)		((reg % (256 * 128)) % 128)
++#define TASDEVICE_PGRG(reg)		((reg % (256 * 128)))
++#define TASDEVICE_REG(book, page, reg)	(((book * 256 * 128) + \
++					(page * 128)) + reg)
++
++/*Software Reset */
++#define TAS2871_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x02)
++#define TAS2871_REG_SWRESET_RESET	BIT(0)
++
++/* Enable Global addresses */
++#define TAS2871_MISC_CFG2		TASDEVICE_REG(0x0, 0X0, 0x07)
++#define TAS2871_GLOBAL_ADDR_MASK	BIT(1)
++#define TAS2871_GLOBAL_ADDR_ENABLE	BIT(1)
++
++/*I2C Checksum */
++#define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
++
++/* Volume control */
++#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
++#define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
++#define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
++
++#define TASDEVICE_CMD_SING_W		0x1
++#define TASDEVICE_CMD_BURST		0x2
++#define TASDEVICE_CMD_DELAY		0x3
++#define TASDEVICE_CMD_FIELD_W		0x4
++
++enum audio_device {
++	TAS2781	= 0,
++};
++
++#define SMS_HTONS(a, b)			((((a)&0x00FF)<<8) | ((b)&0x00FF))
++#define SMS_HTONL(a, b, c, d)		((((a)&0x000000FF)<<24) | \
++	(((b)&0x000000FF)<<16) | (((c)&0x000000FF)<<8) | \
++	((d)&0x000000FF))
++
++struct tasdevice {
++	unsigned int dev_addr;
++	unsigned int err_code;
++	short cur_prog;
++	short cur_conf;
++	bool is_loading;
++	bool is_loaderr;
++	bool is_calibrated_data_loaded;
++	unsigned char cur_book;
++	struct tasdevice_fw *cali_data_fmw;
++};
++
++/*
++ * This item is used to store the generic i2c address of
++ * all the tas2781 devices for I2C broadcast during the multi-device
++ *  writes, useless in mono case.
++ */
++struct global_addr {
++	unsigned char cur_book;
++	unsigned int dev_addr;
++	int ref_cnt;
++};
++
++struct tas_control {
++	struct snd_kcontrol_new *tasdevice_profile_controls;
++	int nr_controls;
++};
++
++struct tasdevice_irqinfo {
++	int irq_gpio;
++	int irq;
++};
++
++struct tasdevice_priv {
++	struct device *dev;
++	void *client;
++	struct regmap *regmap;
++	/* Lock for serialising dsp processing on this mutex */
++	struct mutex codec_lock;
++	struct gpio_desc *reset;
++	struct tasdevice tasdevice[max_chn];
++	struct tasdevice_fw *fmw;
++	struct tasdevice_rca rcabin;
++	struct tasdevice_irqinfo irq_info;
++	struct tas_control tas_ctrl;
++	struct global_addr glb_addr;
++	bool is_glb_calibrated_data_loaded;
++	bool isacpi;
++	int cur_prog;
++	int cur_conf;
++	unsigned int chip_id;
++	void (*set_global_mode)(struct tasdevice_priv *tas_dev);
++	int (*fw_parse_variable_header)(struct tasdevice_priv *tas_dev,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_program_data)(struct tasdevice_priv *tas_dev,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_configuration_data)(struct tasdevice_priv *tas_dev,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*tasdevice_load_block)(struct tasdevice_priv *tas_dev,
++		struct tasdev_blk *pBlock);
++	int (*fw_parse_calibration_data)(struct tasdevice_priv *tas_dev,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int fw_state;
++	unsigned int magic_num;
++	unsigned char ndev;
++	unsigned char dev_name[32];
++	unsigned char rca_binaryname[64];
++	unsigned char coef_binaryname[64];
++	unsigned char cal_binaryname[max_chn][64];
++	unsigned char crc8_lkp_tbl[CRC8_TABLE_SIZE];
++	void *codec;
++	unsigned int sysclk;
++};
++
++int tasdevice_dev_read(struct tasdevice_priv *tasdevice,
++	enum channel chn, unsigned int reg, unsigned int *value);
++int tasdevice_process_block(void *context,
++	unsigned char *data, unsigned char dev_idx, int sublocksize);
++int tasdevice_dev_write(struct tasdevice_priv *tasdevice,
++	enum channel chn, unsigned int reg, unsigned int value);
++
++int tasdevice_dev_bulk_write(
++	struct tasdevice_priv *tasdevice, enum channel chn,
++	unsigned int reg, unsigned char *p_data, unsigned int n_length);
++
++int tasdevice_dev_bulk_read(struct tasdevice_priv *tasdevice,
++	enum channel chn, unsigned int reg, unsigned char *p_data,
++	unsigned int n_length);
++
++int tasdevice_dev_update_bits(
++	struct tasdevice_priv *tasdevice, enum channel chn,
++	unsigned int reg, unsigned int mask, unsigned int value);
++
++#endif /*__TAS2781_H__ */
 -- 
-2.40.0
+2.34.1
+
 

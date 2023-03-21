@@ -2,91 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7A06C2355
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Mar 2023 22:02:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FDD76C269A
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 01:56:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BCB01E9;
-	Mon, 20 Mar 2023 22:01:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BCB01E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9B871DF;
+	Tue, 21 Mar 2023 01:55:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B871DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679346134;
-	bh=u3MqWhlNO9Ez1oFr9MAB0V4YaP3aY5B7Rle7IvtQ/h0=;
+	s=default; t=1679360203;
+	bh=ZHer9Ncbg/NVTXk2nlism8j1Sf+fLmesX1WdkPxr0pA=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Zh7DGkcxvjRssGmlJ64ZiSM8Mf6kQbyHtRcMQGgKhr32DzPQmqHtf6B/v7+y5aYKy
-	 NaiIir1INbCZxViJn8CDdOFluzh+QCz5vz+gEDpTQPvLtDgz+PhpHUnGMqG+bd3Siz
-	 S+/Prff9BckoJ5RiddFEwhme+ZHwC/7ELnSjVqnI=
+	b=YZviuEW6BWfiw/VLd4I4tSJhWzNozucRl74JONYDq0Vy7d9/bJhhX5iq//FndkdHS
+	 jJ0X9qKmTzxGUak8uWVqoQSs3/Ij8INEnpsBKkCmmz/d6qulzn0Gl9tw234XCpLd3+
+	 qYFayJJVPrVhzyxWLjh9LqUeYJYlTjOoIXjLK0Fw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8235FF8027B;
-	Mon, 20 Mar 2023 22:01:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF5E5F80254;
+	Tue, 21 Mar 2023 01:55:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCBE6F802E8; Mon, 20 Mar 2023 22:01:20 +0100 (CET)
+	id 88326F8027B; Tue, 21 Mar 2023 01:55:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBCB4F80093
-	for <alsa-devel@alsa-project.org>; Mon, 20 Mar 2023 22:01:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBCB4F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XL6OBdBy
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 30157B810D6;
-	Mon, 20 Mar 2023 21:01:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842A5C433EF;
-	Mon, 20 Mar 2023 21:01:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679346076;
-	bh=u3MqWhlNO9Ez1oFr9MAB0V4YaP3aY5B7Rle7IvtQ/h0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XL6OBdByFzSN/Jbjx0IDvRNV1JHope619zvo7lq6xNy4Sq6SZtNZwvsy5YFG+dWxY
-	 WXEY8wdUWnv1wKXDHA0efPGenPHaSgnim9X8Uy0mx21Zalaaq8Oqy696EXPl9Vn3HH
-	 /WmEmvvAjBv/9Ygg+CnDqX+f9mdPEKEvS8w3zeXsCJgl/3LouKTHB5TD37tztkCqsq
-	 H7YvJVDxoulwcpB8Gcdkib+WaR/lLr942LHugV8ZEmmyE1LafhTvmdf0PEAQ/0/fyd
-	 IISmlWmPtCEjuYceZ5Nj1bQMluPWa+jpirAT9QLKT4GPfTaR35B0CGvuAa8WNJ2SLj
-	 JQG3Z1Gk1vEhg==
-Date: Mon, 20 Mar 2023 21:01:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Marian Postevca <posteuca@mutex.one>
-Subject: Re: [PATCH 4/4] ASoC: amd: acp: Improve support for speaker power
- events
-Message-ID: <0989fc51-fee7-4558-ba2c-084cc4fb6833@sirena.org.uk>
-References: <20230320203519.20137-1-posteuca@mutex.one>
- <20230320203519.20137-5-posteuca@mutex.one>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E10CF80105
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 01:55:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E10CF80105
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Tz4fdXLu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679360113; x=1710896113;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZHer9Ncbg/NVTXk2nlism8j1Sf+fLmesX1WdkPxr0pA=;
+  b=Tz4fdXLumBiqxd9moV0iWe80n50wmt/yiA7xFhcULM5FZ5UAkiF3in8h
+   ExUZTkjtND1XjEBLYWEiVaHgY/6SjxeOlnAANXQiunG5WvQOmOPLlobPr
+   T8e9W/g+oFyvnxesDNsUteQmZN4XTbcWjdJGBK8vepclbLCDRVeWys+0e
+   Z1Cg+BbS8A4vQQEL0GroixbF1ouzDuex22SLktKLLonyC8JSey941uVgi
+   lXcyaSembziBvTKTM3hw5QO5g7LvbZvP5qtZs0G+/9fdAE7cVXmzSbaqQ
+   AekEmtXqnWzFVFas2d4Dgxqw4r9wWFgW+GXFdY5fYUkkveN553SXdh9SB
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="322655860"
+X-IronPort-AV: E=Sophos;i="5.98,277,1673942400";
+   d="scan'208";a="322655860"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2023 17:55:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="683641879"
+X-IronPort-AV: E=Sophos;i="5.98,277,1673942400";
+   d="scan'208";a="683641879"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by fmsmga007.fm.intel.com with ESMTP; 20 Mar 2023 17:55:05 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1peQHI-000BRq-1U;
+	Tue, 21 Mar 2023 00:55:04 +0000
+Date: Tue, 21 Mar 2023 08:54:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Marian Postevca <posteuca@mutex.one>, Takashi Iwai <tiwai@suse.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+Message-ID: <202303210820.JYm7LOnS-lkp@intel.com>
+References: <20230320203519.20137-4-posteuca@mutex.one>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gK7rshqe2sdB/wQi"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230320203519.20137-5-posteuca@mutex.one>
-X-Cookie: Keep away from fire or flame.
-Message-ID-Hash: LUOUVAAACHN6WTAJ3DYKA46WZNH6HJ5P
-X-Message-ID-Hash: LUOUVAAACHN6WTAJ3DYKA46WZNH6HJ5P
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230320203519.20137-4-posteuca@mutex.one>
+Message-ID-Hash: 72JYZKN6HI5XD5UFEJ3Z5IM6FFZDZVNU
+X-Message-ID-Hash: 72JYZKN6HI5XD5UFEJ3Z5IM6FFZDZVNU
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+CC: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Marian Postevca <posteuca@mutex.one>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LUOUVAAACHN6WTAJ3DYKA46WZNH6HJ5P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72JYZKN6HI5XD5UFEJ3Z5IM6FFZDZVNU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,60 +108,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Marian,
 
---gK7rshqe2sdB/wQi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for the patch! Perhaps something to improve:
 
-On Mon, Mar 20, 2023 at 10:35:19PM +0200, Marian Postevca wrote:
-> In order to reduce the audible pops when speaker or headphones
-> are activated or disabled we need to delay the switching of the
-> GPIOs.
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on linus/master v6.3-rc3 next-20230320]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The usual mechanism for doing this is with the standard kernel delay
-functions.  Why not use them in the DAPM event?
+url:    https://github.com/intel-lab-lkp/linux/commits/Marian-Postevca/ASoC-es8316-Enable-support-for-S32-LE-format-and-MCLK-div-by-2/20230321-043847
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230320203519.20137-4-posteuca%40mutex.one
+patch subject: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables sound for systems with a ES8336 codec
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230321/202303210820.JYm7LOnS-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/0562079546d40f50d025ea1c4dacd31120b8b0bc
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Marian-Postevca/ASoC-es8316-Enable-support-for-S32-LE-format-and-MCLK-div-by-2/20230321-043847
+        git checkout 0562079546d40f50d025ea1c4dacd31120b8b0bc
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=x86_64 olddefconfig
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash sound/soc/amd/acp/
 
-> We need to also disable/enable the speaker/headphones GPIOs when
-> the audio stream is stopped/started. To avoid race conditions
-> between the speaker power event callback and the trigger callback
-> we use a ring buffer to save the events that we need to process
-> in the delayed work callback.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303210820.JYm7LOnS-lkp@intel.com/
 
-Why is this required?  DAPM is integrated with stream start and stop,
-and there's a mute callback to mask any noise played back from the SoC
-while it stops and starts without requiring all this complexity.  If
-there is any audible noise then why would it only affect the speaker?
+All warnings (new ones prefixed by >>):
 
-> +static int acp3x_es83xx_trigger(struct snd_pcm_substream *substream, int cmd)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-> +	struct snd_soc_card *card = rtd->card;
-> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +		if (substream->stream == 0) {
-> +			dev_dbg(priv->codec_dev, "trigger start/release/resume, activating GPIOs\n");
-> +			mutex_lock(&priv->rb_lock);
+>> sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c:464:6: warning: no previous prototype for 'acp3x_es83xx_init_ops' [-Wmissing-prototypes]
+     464 | void acp3x_es83xx_init_ops(struct acp_mach_ops *ops)
+         |      ^~~~~~~~~~~~~~~~~~~~~
 
-Triggers run in atomic context, you can't use mutexes in atomic context.
-lockdep should tell you this.
 
---gK7rshqe2sdB/wQi
-Content-Type: application/pgp-signature; name="signature.asc"
+vim +/acp3x_es83xx_init_ops +464 sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c
 
------BEGIN PGP SIGNATURE-----
+   462	
+   463	
+ > 464	void acp3x_es83xx_init_ops(struct acp_mach_ops *ops)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQYyZcACgkQJNaLcl1U
-h9DkaQf+OTpwoJCS9rupSqOFbQKX/TWXlrvy/kIF0A80++s1yYuhU/1GjGj8oGE/
-nqWgL6q2s0QHMENex4/EzSEL+OfQ++ibKPDOnILjgoNBmUP16Vmwz+bv2H/2Sruk
-L0CmSPokXA7y31gZ6TgD3bW+ixPIE5NEE5YxsQ+Dm1pGj5xhXHyKvm9O9AjqzSPk
-ltInh6wqRtlMTNOnGxNKpYGjLX20wKE5qZu1Kgih47iRUrvRqAozfusMd+cqBdo9
-+ss1lnJyU9SQcq4PdD1YLZACjIaWnLotAPOjerFsjzEJvHTvtdxHGO2z+RdZfXz/
-Snlzbh9qHUrhFJxJLbgFlyXkV4gIHw==
-=lTjH
------END PGP SIGNATURE-----
-
---gK7rshqe2sdB/wQi--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

@@ -2,76 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0637F6C3768
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 17:52:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A9FB6C376C
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 17:53:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 978C31F4;
-	Tue, 21 Mar 2023 17:51:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 978C31F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7471206;
+	Tue, 21 Mar 2023 17:52:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7471206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679417539;
-	bh=AbKt52iNEb6SnYQa9HSck3GX1mTBCsjvzSB4fCNRt1Y=;
+	s=default; t=1679417588;
+	bh=JtUlGAZMXgUNcqufA6J7cwV2ToEYYL5jW3Tbh1xClAc=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tEX0gpkkPbasD6kIQmv4Gg5u6dbrmfE80Bnhfpbfmro2Q9pjhd8YN0rIInB7Yw8x2
-	 WjS9fnl/dE/zz2TIrsqw0b/qN5mGlUhHX3HDTKWxSJ+drVBAlYOlUSVnXHTmUheSp8
-	 bJ06CIS7lHXhUbSNJHgHs1XubGa/J1HMFAbgz4AE=
+	b=vaszS7ZMLw9r5E5Co1qxo/P3pnosLB1w/j10XC8KXPju0Mme0xQi5QfkjLRl+1zEV
+	 Ez81NHdDblv4IAh/ZP3q5CTxy3B88YtibC9yhKUsm+bb90vxLo5XbaYEKGFkKfDS+f
+	 luS7B7/jWmd+viuknqjTx4RxpHevqYK5SWgoe2ew=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB8B9F802E8;
-	Tue, 21 Mar 2023 17:51:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65244F804FE;
+	Tue, 21 Mar 2023 17:51:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FD92F80482; Tue, 21 Mar 2023 17:51:23 +0100 (CET)
+	id E3465F804FE; Tue, 21 Mar 2023 17:51:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3F3AF80254
-	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 17:51:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F3AF80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id 724E0F8027B
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 17:51:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724E0F8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=k0mQmIrm
+ header.s=k20201202 header.b=tOzkW1uN
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id ABD43B818E5;
-	Tue, 21 Mar 2023 16:51:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2C5C433EF;
-	Tue, 21 Mar 2023 16:51:01 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id D858BB818E5;
+	Tue, 21 Mar 2023 16:51:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D963DC4339B;
+	Tue, 21 Mar 2023 16:51:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679417463;
-	bh=AbKt52iNEb6SnYQa9HSck3GX1mTBCsjvzSB4fCNRt1Y=;
+	s=k20201202; t=1679417466;
+	bh=JtUlGAZMXgUNcqufA6J7cwV2ToEYYL5jW3Tbh1xClAc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=k0mQmIrmb6hJNlW1BXbDJDN7Ph0HeBy0tiqlqX6qDCCQtH6KVk6J6IKqtDHGSQilg
-	 QBLViDfFi/eUhPcXADNnChTBSXvK53oWdCD3qlYEFUgbNEh08EJ10bCdkxmHp6M2zL
-	 szBpfxVMIdELmIQCZqk9Tqd/af+RKWOWevsLbqk+Gab/azeXqchV/lswthRpodkFZg
-	 7vU2DY1uj1LNUdFYlZF1NSVMbojBPbntC8ADPKTsX7xSF75smXJOnoCv4bOWK7TQrC
-	 i9atCvW/z1Q0MRAPi7MVNw7FOL5weyf2U9qkGye8IVJkukCXKnBgUIcnJ60GLA1kPk
-	 /Iz8HXSMXUqsg==
+	b=tOzkW1uNUz1v7Go4gsYwSzpYycomUajHGJIl3lGZelBbAe8TZo6TQTxapIiWJfLO8
+	 SutzO7dH/M/pPQhsQovO4TeBJSUSqZj5m53q2/INCFKcOAPUtIkTyU9SLDd+stfnti
+	 TSYiK/Ql8hrWS8LrE4Hq+HQNy8OFA0Vuiv+3ShLxVW6qHrqNv9puJxc4Sz7db9jyLM
+	 pAQHFjhA+xHJgKAUF/Tuudq+cjPnCQERU1AKRVlB5EJWbIv4LVODb6NdH0lPZie8cD
+	 h6OV6+nSDFsRX6sCl47QgBzCpFiEreaqQ4bg/H+qSIgz3M6wgHGggcLLOVPzibwK8U
+	 FhinZRHsORQGQ==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20230320112245.115720-1-rf@opensource.cirrus.com>
-References: <20230320112245.115720-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v3 0/8] ASoC: Initial support for Cirrus Logic CS35L56
-Message-Id: <167941746163.67241.16095967873543822189.b4-ty@kernel.org>
-Date: Tue, 21 Mar 2023 16:51:01 +0000
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Vlad Karpovich <vkarpovi@opensource.cirrus.com>
+In-Reply-To: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
+References: <20230315154722.3911463-1-vkarpovi@opensource.cirrus.com>
+Subject: Re: [PATCH v3 1/5] ASoC: cs35l45: Support for GPIO pins
+ configuration.
+Message-Id: <167941746356.67241.8098477595420536001.b4-ty@kernel.org>
+Date: Tue, 21 Mar 2023 16:51:03 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bd1bf
-Message-ID-Hash: YFFW5T6CYGRVERRTZELVNUBSER643ASX
-X-Message-ID-Hash: YFFW5T6CYGRVERRTZELVNUBSER643ASX
+Message-ID-Hash: MFWSS3TY25NSB2TPBZUUZMRIRLCBIUA3
+X-Message-ID-Hash: MFWSS3TY25NSB2TPBZUUZMRIRLCBIUA3
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,34 +82,26 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
+CC: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YFFW5T6CYGRVERRTZELVNUBSER643ASX/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFWSS3TY25NSB2TPBZUUZMRIRLCBIUA3/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 20 Mar 2023 11:22:37 +0000, Richard Fitzgerald wrote:
-> The CS35L56 is a high-performance boosted mono audio amplifier.
-> Supported control interfaces are I2C, SPI or SoundWire.
-> Supported audio interfaces are I2S/TDM or SoundWire.
+On Wed, 15 Mar 2023 10:47:18 -0500, Vlad Karpovich wrote:
+> Adds device tree configuration for cs35l45 GPIOs
 > 
-> The CS35L56 has a self-booting firmware in ROM, with the ability
-> to patch the firmware and/or apply tunings.
-> Patches #1 to #7 add support to cs_dsp and wm_adsp for self-booting
-> firmware and the ability to apply a .bin file without having to
-> apply a .wmfw.
 > 
-> [...]
 
 Applied to
 
@@ -114,22 +109,16 @@ Applied to
 
 Thanks!
 
-[1/8] firmware: cs_dsp: Introduce no_core_startstop for self-booting DSPs
-      commit: 7062e1c727ec99a9c5b40586964304d60a43f240
-[2/8] ASoC: wm_adsp: Use no_core_startstop to prevent creating preload control
-      commit: 0cd1fd571719e19bd6824a98855382a70e47d932
-[3/8] firmware: cs_dsp: Support DSPs that don't require firmware download
-      commit: 107c167419e75213e078e4f2468c0f2f55fdd11a
-[4/8] ASoC: wm_adsp: Support DSPs that don't require firmware download
-      commit: 65a314b7ddc09f6b1bad8decc6670e68d45ef07d
-[5/8] ASoC: wm_adsp: Expose the DSP boot work actions as wm_adsp_power_up()
-      commit: 11520b87e2232c6e3defed69ec94f0e28fb80f84
-[6/8] ASoC: wm_adsp: Add support for loading bin files without wmfw
-      commit: 0e7d82cbea8bc0db8ced613aea04da17ac0f0249
-[7/8] ASoC: wm_adsp: Simplify the logging of requested firmware files
-      commit: 991b1de830f61076b7dc29bec081a4d2e50724cf
-[8/8] ASoC: cs35l56: Add driver for Cirrus Logic CS35L56
-      commit: e496112529006ce0c2cfe67d1136186e2786d2e8
+[1/5] ASoC: cs35l45: Support for GPIO pins configuration.
+      commit: fa8c052b4c614aa1d2d60e5c9f40e9d885bf9511
+[2/5] ASoC: dt-bindings: cs35l45: GPIOs configuration
+      commit: c6cec088ab037b57e08e0694e2b150b1b034826c
+[3/5] ASoC: cs35l45: IRQ support
+      commit: 6085f9e6dc1973cf98ee7f5dcf629939e50f1b84
+[4/5] ASoC: cs35l45: DSP Support
+      commit: 74b14e2850a34740c121cf2758d4181063d4c77c
+[5/5] ASoC: cs35l45: Hibernation support
+      commit: 6c07be8fe92c6b0c24ee1c599601dce3506b83c7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

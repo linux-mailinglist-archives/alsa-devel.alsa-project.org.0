@@ -2,94 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF576C3819
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 18:22:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A04A06C3D9E
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Mar 2023 23:19:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D96A21F7;
-	Tue, 21 Mar 2023 18:21:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D96A21F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1DEF208;
+	Tue, 21 Mar 2023 23:18:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1DEF208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679419350;
-	bh=zgTHrxXgfF59J+d9taf5zXXMOLYG3apCi7j7rkTOU70=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1679437180;
+	bh=esiCyKOeRzOLdYIVhVrXW6XDb+dUfcaBNizQSQbemhA=;
+	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VFGEvg9JWGqySELrk+c/nVt6cefpiLWkEYl3nCXQ5ihDWg/jJkHlJWosoiOkGqlAr
-	 4UVRrzegOykBwmauXuuCl6HCoUncfwXhIM5vSjjGykoSYkrE+OWaAJcbPJUZamt/Oc
-	 5NGaCzriNURL4cZ/PqGzDe87CTCSSd/PTvoH2Wiw=
+	b=ozTEMhbOQohDhPQJmnkmmv0mo30HABhn3eS0LcPHVi3TpwHDWx+dvOlAGO59njkID
+	 dVIPnpS6uEYkXX78FbAehiEUElSp6hiv6kl9mR5LwdDoJ8u6UzSsyO5ApYMT2A7wXN
+	 fXYt8D/pzOQHgUvMErgSJYYLIStoMSEwEHKWBObs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A5E1F80254;
-	Tue, 21 Mar 2023 18:21:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46FFFF80254;
+	Tue, 21 Mar 2023 23:18:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A172F8027B; Tue, 21 Mar 2023 18:21:37 +0100 (CET)
+	id 701B9F8027B; Tue, 21 Mar 2023 23:18:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3955DF80105
-	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 18:21:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3955DF80105
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29DBCF8024E
+	for <alsa-devel@alsa-project.org>; Tue, 21 Mar 2023 23:18:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29DBCF8024E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Qs9AvSrC
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 32A16B81900;
-	Tue, 21 Mar 2023 17:21:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BF6AC4339B;
-	Tue, 21 Mar 2023 17:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679419288;
-	bh=zgTHrxXgfF59J+d9taf5zXXMOLYG3apCi7j7rkTOU70=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qs9AvSrCqAMOAWzdXzibR6qQlQlM5EBVg2qvVn719h6FxpNItyMGzoR7jBmZtq1e6
-	 9JOXtpAbvfQC8HvXx2h+RqzsCwibxACNZgaZZOvSF70X4ZstqD6hYd7BSQA0Jstvwc
-	 NWFtE3a+dx+Jh59l0Xn3zzTwDtY1C6uknFQJBjVSOMRrfY6sqnW3n0DBYThCFVkfAY
-	 sstoHuZSF1LVk9ZRr2pzOFW/RDaeqivhPjc6Oqi4GNCoOR1hCjTAIzL8LCV8m0zpfj
-	 QGESSGOHBuC50iN/Dy/QXo/LQ48EOI7VJMKNubusHnI2bksRI3uMIP/Ob7DuKOFnf7
-	 vvent8cKPRCLw==
-Date: Tue, 21 Mar 2023 17:21:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Marian Postevca <posteuca@mutex.one>
-Subject: Re: [PATCH 1/4] ASoC: es8316: Enable support for S32 LE format and
- MCLK div by 2
-Message-ID: <ab2f5d31-2797-427c-9c4c-1d0166018a2d@sirena.org.uk>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=Gs+vK6HP
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id 04DE516C0008;
+	Wed, 22 Mar 2023 00:18:37 +0200 (EET)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id E3HaXk0NAyie; Wed, 22 Mar 2023 00:18:33 +0200 (EET)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1679437113; bh=esiCyKOeRzOLdYIVhVrXW6XDb+dUfcaBNizQSQbemhA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Gs+vK6HPaIqLXChtT2Kk/SmmFCHQ5yHmyT9ThRurlMegTjCiW8/aT95i8jdmIioPq
+	 iHeLYuz8urbvwB+u0F8MSPQWdbIWthONiiIhavj2vNGRb9aMV+l6IwWfW8Me5Af+9y
+	 sD+UY2i9lHYR6sRn0xbBuEuzuh1IvuqQXrmBXK9k=
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+In-Reply-To: <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
 References: <20230320203519.20137-1-posteuca@mutex.one>
- <20230320203519.20137-2-posteuca@mutex.one>
- <6825a54e-f2c0-41c4-981c-fafcd10454fd@sirena.org.uk>
- <87o7omvxns.fsf@mutex.one>
+ <20230320203519.20137-4-posteuca@mutex.one>
+ <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
+Date: Wed, 22 Mar 2023 00:17:24 +0200
+Message-ID: <87lejpwxzf.fsf@mutex.one>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/N4FohmuSkAWokHz"
-Content-Disposition: inline
-In-Reply-To: <87o7omvxns.fsf@mutex.one>
-X-Cookie: Will it improve my CASH FLOW?
-Message-ID-Hash: 7VIGLP3HZNZTGXY2O7DI5EWKPF27BWNG
-X-Message-ID-Hash: 7VIGLP3HZNZTGXY2O7DI5EWKPF27BWNG
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain
+Message-ID-Hash: 4H2SROVTKF4KZAFVO5D2WVVK6SL553VY
+X-Message-ID-Hash: 4H2SROVTKF4KZAFVO5D2WVVK6SL553VY
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: zhuning@everest-semi.com, yangxiaohua@everest-semi.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7VIGLP3HZNZTGXY2O7DI5EWKPF27BWNG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4H2SROVTKF4KZAFVO5D2WVVK6SL553VY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,48 +90,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Mark Brown <broonie@kernel.org> writes:
 
---/N4FohmuSkAWokHz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>> +static int acp3x_es83xx_speaker_power_event(struct snd_soc_dapm_widget *w,
+>> +					    struct snd_kcontrol *kcontrol, int event)
+>> +{
+>> +	struct acp3x_es83xx_private *priv = get_mach_priv(w->dapm->card);
+>> +
+>> +	dev_dbg(priv->codec_dev, "speaker power event: %d\n", event);
+>> +	if (SND_SOC_DAPM_EVENT_ON(event))
+>> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
+>> +	else
+>> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
+>
+> Why are these two GPIOs tied together like this?
+>
 
-On Tue, Mar 21, 2023 at 07:09:43PM +0200, Marian Postevca wrote:
-> Mark Brown <broonie@kernel.org> writes:
-> > On Mon, Mar 20, 2023 at 10:35:16PM +0200, Marian Postevca wrote:
+These GPIOs represent the speaker and the headphone switches. When
+activating the speaker GPIO you have to deactivate the headphone GPIO
+and vice versa. The logic is taken from the discussion on the sofproject
+pull request:
+https://github.com/thesofproject/linux/pull/4112/commits/810d03e0aecdf0caf580a5179ee6873fb33485ab
+and
+https://github.com/thesofproject/linux/pull/4066
 
-> > This introduces a DT property but there's no documentation for it, but I
-> > don't see why we'd want this in the bindings - the driver should be able
-> > to tell from the input clock rate and required output/internal clocks if
-> > it needs to divide MCLK.
+>> +static int acp3x_es83xx_suspend_pre(struct snd_soc_card *card)
+>> +{
+>> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
+>> +
+>> +	dev_dbg(priv->codec_dev, "card suspend\n");
+>> +	snd_soc_component_set_jack(priv->codec, NULL, NULL);
+>> +	return 0;
+>> +}
+>
+> That's weird, why do that?
 
-> The problem here is that I have no knowledge what is the maximum MCLK
-> that the codec accepts. According to the datasheet the maximum supported
-> frequency of MCLK is 51.2 Mhz. But this doesn't seem to be the case in
-> practice since a MCLK of 48Mhz causes noises in the sound output.
-> The idea to divide the MCLK by 2 was proposed by a Everest Semiconductor
-> engineer.
-> So I don't know how to make this generic enough to be activated from the
-> codec driver.
+This is needed because if suspending the laptop with the headphones
+inserted, when resuming, the sound is not working anymore. Sound stops
+working on speakers and headphones. Reinsertion and removals of the
+headphone doesn't solve the problem.
 
-The usual constraint would be that MCLK can be at most some multiple of
-LRCLK or something similar (are all the other dividers in the chip set
-sensibly for the full scale MCLK?).  In any case you're clearly aware of
-a specific case where it needs to be divided down which can be
-identified even if you're concerned about dividing down for other cases.
+This seems to be caused by the fact
+that the GPIO IRQ stops working in es8316_irq() after resume.
+Now the call to snd_soc_component_set_jack() in suspend disables the
+GPIO IRQ and in resume the GPIO IRQ is reactivated.
+By the way this sequence is also used in bytcht_es8316.c in suspend and
+resume:
 
---/N4FohmuSkAWokHz
-Content-Type: application/pgp-signature; name="signature.asc"
+static int byt_cht_es8316_suspend(struct snd_soc_card *card)
+{
+	struct snd_soc_component *component;
 
------BEGIN PGP SIGNATURE-----
+	for_each_card_components(card, component) {
+		if (!strcmp(component->name, codec_name)) {
+			dev_dbg(component->dev, "disabling jack detect before suspend\n");
+			snd_soc_component_set_jack(component, NULL, NULL);
+			break;
+		}
+	}
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQZ55IACgkQJNaLcl1U
-h9BRNwf/enfamwGA+bFuLN4JarnDOoeq63H5NfeuP7o4LBw3WpvjiXhv6WkFNYkT
-Xm76+yP16XFfTkW/DADzJMydsnD2QY+S0OlFgoRDrBoa/eVXfJC4K7wT66+LHcSx
-afreEzw253YAXMiBB1jNwRxv6Tnu9ug9iLlRzGc9tmvzrPZAnS5BqRcS5LnZaH0W
-7qAif6zk0rldbnovVW2dtAIZNOxgJ8jYD44nEfz5zHxiyRtQknAVVdALP/L7blTd
-AvKzX1s2/mMufD4z/+wBLpZ/GsRsN3rzYd6/nft/7Kvh1jjHe8HiTuzgNj2LKz45
-4pMXK/j3SOtXh9p1F90kn7Lz9JYepA==
-=qzEz
------END PGP SIGNATURE-----
+	return 0;
+}
 
---/N4FohmuSkAWokHz--
+static int byt_cht_es8316_resume(struct snd_soc_card *card)
+{
+	struct byt_cht_es8316_private *priv = snd_soc_card_get_drvdata(card);
+	struct snd_soc_component *component;
+
+	for_each_card_components(card, component) {
+		if (!strcmp(component->name, codec_name)) {
+			dev_dbg(component->dev, "re-enabling jack detect after resume\n");
+			snd_soc_component_set_jack(component, &priv->jack, NULL);
+			break;
+		}
+	}

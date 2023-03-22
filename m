@@ -2,149 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B20386C477A
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 11:22:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D27D6C4AE4
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 13:41:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17618DF6;
-	Wed, 22 Mar 2023 11:21:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17618DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EBD2E73;
+	Wed, 22 Mar 2023 13:40:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EBD2E73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679480534;
-	bh=hqUyF+qzO18a3X6JM7I8ZFTz7sF7DrH5QiNKA4u+gQ4=;
-	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=s56hBwgTTsBfW0X3wH4AahblwKysT9yJIqyCQuj0w8qm1bIFwHzzUOvcdhcMaM6AT
-	 urhTff1dBbvraagm2LpelRRiBHNh1CAjMzl8b8IMIEJeo4NPXPQD6PNuMQJjUYYMDP
-	 ZMtdaeQxvxAsRT/08jTMP9eTrzIm4d2uZ2da8pFM=
+	s=default; t=1679488887;
+	bh=0l908Dhy5R/Z2oksXpxHjRVm6BCKihrU+e4g/SYr3N4=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=j38w5obB3iYNYaZi6iHZRp1to+3jyMkB9Whd3tgoUSGJIRUaWYrS5asRALzJpeH+P
+	 DCtcPerxw092awWjGLZGDqOhGxP/Z37LbcLRcMaEiRROgabJxnBB7tTrwpxcC+vseY
+	 p4uQtJoECDXG4uQ32VYI7kG0ut1j7mo0L5HBK2N0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 751DDF80254;
-	Wed, 22 Mar 2023 11:21:23 +0100 (CET)
-Date: Wed, 22 Mar 2023 11:20:56 +0100
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v2 1/7] dt-bindings: misc: Add the Lantiq PEF2466
- E1/T1/J1 framer
-In-Reply-To: <20230320185127.GA2233912-robh@kernel.org>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
-	<20230316122741.577663-2-herve.codina@bootlin.com>
-	<96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-	<167930560089.26.8624952010101991814@mailman-core.alsa-project.org>
-	<20230320185127.GA2233912-robh@kernel.org>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AOKZ3DGOM4L2FPBEHOKN3PD5PHIVPXXW/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167948048307.26.16805930109507404147@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Derek Kiernan <derek.kiernan@xilinx.com>,
- Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EE02F80254;
+	Wed, 22 Mar 2023 13:40:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1DD94F8027B; Wed, 22 Mar 2023 11:21:19 +0100 (CET)
+	id 7AF3AF8027B; Wed, 22 Mar 2023 13:40:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::227])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E10CEF80105
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 11:21:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E10CEF80105
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02BA0F80105
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 13:40:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02BA0F80105
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=HtjGfkHE
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 9E7C22000E;
-	Wed, 22 Mar 2023 10:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1679480461;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=jWU0iYmy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=YXt+X/RS
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9BA6D20D83;
+	Wed, 22 Mar 2023 12:40:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1679488824;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yHRR+ZzTc8/EDVI+d045594/Yqq9SE2ErGHk/ufubiw=;
-	b=HtjGfkHENsCRwaX2ZIkB51gvjhNUKV9hFMF1RqHiQS7c32+u8QbF4ZA0M51XANTtctFG0b
-	E0loAfQ989J83fLYYBxwv5aC+MiPMxAE8WrXs+qkA+PjwATlAgPfid8qFkUW4Pzxew+tIm
-	GtjFBiStrszYPpM8YAzttMAe72wDiF9HW3yudyRCJWutMZ4jtLUS4XzNEy0c8I9nHGOm3q
-	2MnfJkRsJ+cRqnzpPzWJvcGHK/Fkl9MZ3rDmYcg8MJq2TYMRKcbaywZbLdMZPBUURKRzSW
-	CexPJPWdEjTt+uc1NST51Y9FZA/3Zz8K753qGiXVC7f2LmRz0+DnJcG56JHDuQ==
-Date: Wed, 22 Mar 2023 11:20:56 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v2 1/7] dt-bindings: misc: Add the Lantiq PEF2466
- E1/T1/J1 framer
-Message-ID: <20230322112056.7ffcd503@bootlin.com>
-In-Reply-To: <20230320185127.GA2233912-robh@kernel.org>
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
-	<20230316122741.577663-2-herve.codina@bootlin.com>
-	<96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-	<167930560089.26.8624952010101991814@mailman-core.alsa-project.org>
-	<20230320185127.GA2233912-robh@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AOKZ3DGOM4L2FPBEHOKN3PD5PHIVPXXW
-X-Message-ID-Hash: AOKZ3DGOM4L2FPBEHOKN3PD5PHIVPXXW
-X-MailFrom: herve.codina@bootlin.com
+	bh=O8WlaW7xwhQ5ujf65ODy9eZu9DpYfDTLlvf4d5EmsiQ=;
+	b=jWU0iYmy58sHbAqivG4TCn1TOebsOgGQHABM/7PTZoQOx3MMzuax+NU2HKsFgZylaAEQJK
+	3wAKarsyoOMVQeES70+DRUC3FUttLoYKEJ19aQfAmlMJYJhu9jLIeE1TRlOnLTH8O04LLs
+	Br92HCibXZ4vI/zLxiG5772uegQRC90=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1679488824;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O8WlaW7xwhQ5ujf65ODy9eZu9DpYfDTLlvf4d5EmsiQ=;
+	b=YXt+X/RSXhfFAzBkrUlrWM64Uvm9CTZ/VLNuyiNmvOAoriu3FJrlTv5CjLz/zV1XVu274K
+	Wgvf8583SKyQD3Cw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8319F138E9;
+	Wed, 22 Mar 2023 12:40:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id bTOEHjj3GmSEYgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 22 Mar 2023 12:40:24 +0000
+Date: Wed, 22 Mar 2023 13:40:24 +0100
+Message-ID: <87jzz9gds7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pavel Hofman <pavel.hofman@ivitera.com>
+Subject: Re: Unlikely big volume range volume range on EMEET webcam
+In-Reply-To: <d2bf41f1-cc77-eeb5-d5b1-40f6ae146077@ivitera.com>
+References: <64d33968-3a5f-83f4-1730-4f91f5b82607@ivitera.com>
+	<d2bf41f1-cc77-eeb5-d5b1-40f6ae146077@ivitera.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 5FTLXLLKQGI4XITEOCKLE2O6GIUASJP7
+X-Message-ID-Hash: 5FTLXLLKQGI4XITEOCKLE2O6GIUASJP7
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Derek Kiernan <derek.kiernan@xilinx.com>,
- Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AOKZ3DGOM4L2FPBEHOKN3PD5PHIVPXXW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5FTLXLLKQGI4XITEOCKLE2O6GIUASJP7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,105 +116,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Rob,
-
-On Mon, 20 Mar 2023 13:51:27 -0500
-Rob Herring <robh@kernel.org> wrote:
-
-> On Mon, Mar 20, 2023 at 10:46:19AM +0100, Herve Codina via Alsa-devel wrote:
-> > Received: by alsa1.perex.cz (Postfix, from userid 50401) id 16494F8027B;
-> >  Mon, 20 Mar 2023 10:46:37 +0100 (CET)
-> > X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-> > X-Spam-Level: 
-> > X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-> >  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-> >  URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-> >  version=3.4.6
-> > Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
-> >  [217.70.183.198]) (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384
-> >  (256/256 bits)) (No client certificate requested) by alsa1.perex.cz
-> >  (Postfix) with ESMTPS id 3FF5FF80105 for <alsa-devel@alsa-project.org>;
-> >  Mon, 20 Mar 2023 10:46:22 +0100 (CET)
-> > DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FF5FF80105
-> > Authentication-Results: alsa1.perex.cz; dkim=pass (2048-bit key,
-> >  unprotected) header.d=bootlin.com header.i=@bootlin.com
-> >  header.a=rsa-sha256 header.s=gm1 header.b=m4O7nLC1
-> > Received: (Authenticated sender: herve.codina@bootlin.com) by
-> >  mail.gandi.net (Postfix) with ESMTPSA id 40453C0009; Mon, 20 Mar 2023
-> >  09:46:20 +0000 (UTC)
-> > DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-> >  t=1679305582;
-> >  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-> >   to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-> >   content-transfer-encoding:content-transfer-encoding:
-> >   in-reply-to:in-reply-to:references:references;
-> >  bh=Ieu9Fv38se4lD4z/BVXUHLrVJL9Tx5iKWZgvO8X+VoY=;
-> >  b=m4O7nLC1LPZDOI5eM/hmgqouxdkin2veA6CvJhT9kU9rGQALB3ya2fuybMfDvrkTqqBjEd
-> >  j6DAxXMgOKgwuUfEsZsp3BFJpoii00hSaf0r2uIbnnGcUrDGVQqUQVEqv51O6VBqnrViQk
-> >  PstlJM0lcE9R/AFASd5D/HQGoYYyRY+NKT7xt8g1Ax23Yk/tUG59LXku/skn/4faSLodnU
-> >  vV2ng3VMUcoLuvSMJtdYY3hrXEWqUrW1ZogxAFHJNiKuyOELmqZGmNo4B4yAFOEcqqyano
-> >  /f4m/7BtT7X1wwPvGu29gg+0aOFrGQq5kb4UNrMoriSQyKnxPRha8zL3J2Jckw==
-> > Date: Mon, 20 Mar 2023 10:46:19 +0100
-> > From: Herve Codina <herve.codina@bootlin.com>
-> > To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > Subject: Re: [PATCH v2 1/7] dt-bindings: misc: Add the Lantiq PEF2466
-> >  E1/T1/J1 framer
-> > Message-ID: <20230320104619.468a304b@bootlin.com>
-> > In-Reply-To: <96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-> > References: <20230316122741.577663-1-herve.codina@bootlin.com>
-> >  <20230316122741.577663-2-herve.codina@bootlin.com>
-> >  <96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-> > Organization: Bootlin
-> > X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
-> > MIME-Version: 1.0
-> > Content-Type: text/plain; charset=UTF-8
-> > Content-Transfer-Encoding: quoted-printable
-> > Message-ID-Hash: AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB
-> > X-Message-ID-Hash: AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB
-> > X-MailFrom: herve.codina@bootlin.com
-> > X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
-> >  loop; banned-address; member-moderation;
-> >  header-match-alsa-devel.alsa-project.org-0;
-> >  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
-> >  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
-> >  no-subject; digests; suspicious-header
-> > CC: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-> >  <krzysztof.kozlowski+dt@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
-> >  Mark Brown <broonie@kernel.org>, Derek Kiernan <derek.kiernan@xilinx.com>,
-> >  Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
-> >  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai
-> >  <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-> >  devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Christophe Leroy
-> >  <christophe.leroy@csgroup.eu>, Thomas Petazzoni
-> >  <thomas.petazzoni@bootlin.com>
-> > X-Mailman-Version: 3.3.8
-> > Precedence: list
-> > List-Id: "Alsa-devel mailing list for ALSA developers -
-> >  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-> > Archived-At: <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB/>
-> > List-Archive: <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-> > List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-> > List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-> > List-Post: <mailto:alsa-devel@alsa-project.org>
-> > List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-> > List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>  
+On Fri, 17 Mar 2023 14:40:21 +0100,
+Pavel Hofman wrote:
 > 
-> The alsa-devel list doesn't seem to like your emails. The archives 
-> (lore) has 2 copies with the 2nd having the original headers in the 
-> body. I'm seeing this recently on other senders too. Best I can tell is  
-> you sent this as quoted-printable.
 > 
-> Rob
+> Dne 10. 03. 23 v 14:43 Pavel Hofman napsal(a):
+> > Hi,
+> > 
+> > Speaker-webcam eMeet C980 Pro does not play, outputs only silent
+> > noise. The digital volume seems to be down.
+> > 
+> > dmesg:
+> > 
+> > [22406.805176] input: HD Webcam eMeet C980 Pro: HD We as
+> > /devices/pci0000:00/0000:00:01.2/0000:02:00.0/usb1/1-7/1-7.1/1-7.1:1.0/input/input27
+> > [22406.829048] usb 1-7.1: current rate 16000 is different from the
+> > runtime rate 48000
+> > [22406.933044] usb 1-7.1: Warning! Unlikely big volume range
+> > (=10240), cval->res is probably wrong.
+> > [22406.933048] usb 1-7.1: [5] FU [PCM Playback Volume] ch = 1, val =
+> > -7168/3072/1
+> > [22407.001043] usb 1-7.1: Warning! Unlikely big volume range
+> > (=3072), cval->res is probably wrong.
+> > [22407.001047] usb 1-7.1: [6] FU [Headset Capture Volume] ch = 1,
+> > val = -1536/1536/1
+> > 
+> 
+> Maybe it's a problem with endianness, like e.g. reported in
+> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2181737.html
+> 
+> All the large numbers are divisible by 256.
+> 
+> But honestly I do not know what the fix should be - converting the
+> min/max (min >>=8) or the resolution (res >>=8)?
+> 
+> What difference do the two methods make?
 
-I don't known what happened with alsa-devel list.
+The difference is what are real values to be passed to the hardware.
+The driver scales down and shifts to 0-minimum for ALSA controls in
+anyway, so the appearance on user-space would be same, but the values
+to be actually applied to the hardware matter.
 
-For this answer, I tried to force '8bit' encoding instead of quoted-printable.
-Let me know if it is better.
+> What effect does rewriting the cval min/max/res values actually have,
+> with regards to the reading from the device (get) and writing to the
+> device (put) methods?
 
-Regards,
-Hervé
+You should check the actual raw values and see the influence on the
+hardware at first in trial-and-error manners.  This also means to
+figure out the corresponding dB level, too.  The rest depends whether
+it's a linear mapping with a parameter correction or better to replace
+with the fixed values, etc.
 
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+Takashi

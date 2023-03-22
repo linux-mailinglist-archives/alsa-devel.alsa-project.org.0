@@ -2,98 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5D76C4B77
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 14:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CEE06C4C40
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 14:48:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 810FDE7E;
-	Wed, 22 Mar 2023 14:15:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 810FDE7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B7F2E0F;
+	Wed, 22 Mar 2023 14:47:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B7F2E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679490956;
-	bh=u9GikT43rfqNNchHEzB4MC9MRag1S1z9pDfJEAUESrA=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=buVyKdi3BXuNDfh2HDQftHHVIxceh60HMhKECkS8Upy7Homn68HO0SCyEBNYyU+H0
-	 rQ1LXIZsN5aBk0MiJuCjYApHGCN5FBE2OiJ/hDqnWB3qBac3NjNSDgPTJ8PuFRNgG6
-	 +AQ8r1Au86G/AtixBAHO4Wq+4OHufvFeiM32Sshk=
+	s=default; t=1679492893;
+	bh=nUfNgdldTU20djNbOec/ux4amykIkUpRGT1aSovMQfE=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=bqlWCxA4gnvGIPlPRUVLyGkzR3DhuDTlLUsSHWK4a4zEQUuzh0QUYmzJbg7dqxriB
+	 BK0ZW5J7r53BdcRfyZKEvJaqdmee1PnZQk8Bc7KBbCZz5vJq2IRtUzqizKDBv8hDOr
+	 JBelZsz13Ssfvbmg56DlNC2RyIRpP7JcwrvrKY5g=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B867EF80254;
-	Wed, 22 Mar 2023 14:15:05 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 272FFF8027B; Wed, 22 Mar 2023 14:15:03 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DAA4F80093
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 14:14:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DAA4F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HqdlowXM
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id E3B8ACE1D97;
-	Wed, 22 Mar 2023 13:14:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73ED7C433EF;
-	Wed, 22 Mar 2023 13:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679490891;
-	bh=u9GikT43rfqNNchHEzB4MC9MRag1S1z9pDfJEAUESrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HqdlowXMk3DZJFG71QvOsdJ3Nt3cdYJHXOru5Q51NotqX9F+albV1whddzlSd9Vof
-	 ShfquJWr2WtURNplk+TdeRhaGnqRVGV6ej0sL4l61cjjfewsHbFG1dlKjKcWlSzfrF
-	 DpJWWjNpW1rmXGzWmX3xvSE9LWpS+r1M0hgFMpqC5WM3MXSq6e8HaeZJnoNcl2MyFH
-	 cOhFaD0o2GPbnA10rLOn9XN4pf6STgYxSYlcbFcdRVmDb3XKkUAeDBj/BWf1+eQnL3
-	 KbIRlc5khLIPwtPGUsAKNxs3OZXNoRgorioDh+e7ixpV1lT9cSRA5Uc1PQCKVx9mYq
-	 JaSryf9u1o9HQ==
-Date: Wed, 22 Mar 2023 13:15:03 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: (subset) [PATCH v2 0/8] Fix sound on ASUS Transformers
-Message-ID: <ZBr/V8kEJqan38Nw@sirena.org.uk>
-References: <20230308073502.5421-1-clamor95@gmail.com>
- <167933710348.198283.16107220354236772396.b4-ty@kernel.org>
- <CAPVz0n2AuCb7fmLkzdimiZvqneQw7gXCfMTRvhp1n1zwRckfaA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MsWazqoCnTV+oHgS"
-Content-Disposition: inline
-In-Reply-To: 
- <CAPVz0n2AuCb7fmLkzdimiZvqneQw7gXCfMTRvhp1n1zwRckfaA@mail.gmail.com>
-X-Cookie: Single tasking: Just Say No.
-Message-ID-Hash: I2RIRCTLX4I632AAQQY3OPPDYAHT3X4Z
-X-Message-ID-Hash: I2RIRCTLX4I632AAQQY3OPPDYAHT3X4Z
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E41AF804FE;
+	Wed, 22 Mar 2023 14:47:22 +0100 (CET)
+To: Herve Codina <herve.codina@bootlin.com>,
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v3 0/6] Add the Lantiq PEF2256 audio support
+Date: Wed, 22 Mar 2023 14:46:48 +0100
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Takashi Iwai <tiwai@suse.com>,
- Maxim Schwalm <maxim.schwalm@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
- linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2RIRCTLX4I632AAQQY3OPPDYAHT3X4Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VFMLMDANS44TSJOS3EYDN6YSFTXKB5A/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167949284179.26.2700639871411951244@mailman-core.alsa-project.org>
+From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Herve Codina <herve.codina@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id E8A25F804B1; Wed, 22 Mar 2023 14:47:17 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4F5E5F8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 14:47:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F5E5F8024E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=d9eFJ8qI
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPA id B255D20002;
+	Wed, 22 Mar 2023 13:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1679492827;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=T+MhMxWN1EUNsUGAqTUd7ORZBQVY4DIgA/LbY8h2In0=;
+	b=d9eFJ8qIFHG3s/7lo5O1t9AiUIXS/4ZUEyfp+tzQ9976UAktovkfqzEGD8xOn/fzTqL4CG
+	5y3SCAp6cYVxYtVIIefgvvUQreBEwopg5RWMI7l5oFV5068w9x1EMCbrjy6upqRKlMy1Z9
+	ZBFpQmLTkZK8u+ovPmMkl7xFlcad7OjB9r//PoFz2IYHrVF1+5I0LPiYjg56gn5vfALPf1
+	amWGAmOYhCq6IoRW5IKeDorbZIHUCojBhwaqeMRayWjLPQldSnPmx7vzDnVIGMdCJeorqA
+	WTYhOG4JBD2bUGOBMjvqTF9SeDfaQmRkBpDlaAEiMseeQ0MKPN+Q1I4DPvfkpQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v3 0/6] Add the Lantiq PEF2256 audio support
+Date: Wed, 22 Mar 2023 14:46:48 +0100
+Message-Id: <20230322134654.219957-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 6VFMLMDANS44TSJOS3EYDN6YSFTXKB5A
+X-Message-ID-Hash: 6VFMLMDANS44TSJOS3EYDN6YSFTXKB5A
+X-MailFrom: herve.codina@bootlin.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VFMLMDANS44TSJOS3EYDN6YSFTXKB5A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,43 +135,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
---MsWazqoCnTV+oHgS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This series adds support for audio using the Lantiq PEF2256 framer.
 
-On Wed, Mar 22, 2023 at 12:56:06PM +0200, Svyatoslav Ryhel wrote:
+The Lantiq PEF2256 is a framer and line interface component designed to
+fulfill all required interfacing between an analog E1/T1/J1 line and the
+digital PCM system highway/H.100 bus.
 
-> Thank you, Mark Brown! You have asked me to update commit name for
-> codec machine dts schema commits (those, which contain CODEC in the
-> subject), should I still update and resend them or you will handle those?
+The first part of this series (patches 1 to 4) adds the Lantiq PEF2256
+driver core.
+The second part (patches 5 to 7) adds the audio support using the Lantiq
+PEF2256 driver core.
 
-> I still need v3 to update existing device bindings to the currently working
-> scheme. Should I exclude commits you have picked?
+The consumer/provider relation between the codec and the driver core
+allows to use the PEF2256 framer for other purpose than audio support.
 
-No need to resend anything that's already been applied, drop any
-commits that were applied and don't worry about their changelogs
-any more.  If there's fixes needed in the newly added code then
-make incremental patches for those.
+Compared to the previous iteration
+  https://lore.kernel.org/linux-kernel/20230316122741.577663-1-herve.codina@bootlin.com/
+This v3 series mainly:
+  - takes into account pef2256.c modifications suggested by Christophe.
+  - fixes binding
+  - Moves to MFD.
+  - Merges MAINTAINERS entries
 
-> I have DMIC fix for wm8903 codec driver required for tf101 and tf300t,
-> should I add it into v3 or I have to send it separately?
+Best regards,
+Herve Codina
 
-Just send it as a new series.
+Changes v2 -> v3
+  - Patch 1
+    Remove unneeded 'allOf' and quotes.
+    Add several 'additionalProperties: false'
+    Fix example (node name, interrupts and reg properties)
+    Replace the lantiq,sysclk-rate-hz property by sclkr and sclkx clocks.
+    Define 'lantiq,frame-format' property in top level.
+    Move to MFD
 
---MsWazqoCnTV+oHgS
-Content-Type: application/pgp-signature; name="signature.asc"
+  - Patch 2
+    Fix some #define.
+    Compact the register accessor helpers.
+    Rework pef2256_get_version().
+    Merge v1.2 and v2.x GCM setup functions into one pef2256_setup_gcm().
+    Update comments, avoid duplicates and change some conditionals.
+    Remove the carrier spinlock and use atomic_t.
+    Make exported symbol consistent and use EXPORT_SYMBOL_GPL.
+    Remove the no more needed pef2256_get_byphandle() and
+    devm_pef2256_get_byphandle().
+    Replace the lantiq,sysclk-rate-hz property by sclkr and sclkx clocks.
+    Move to MFD
 
------BEGIN PGP SIGNATURE-----
+  - Patch 4
+    Remove, merged with patch 7
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQa/1YACgkQJNaLcl1U
-h9B5+gf/QdroK8bOm9/dNaSen/YbUl4L0XULQYZIRiHx0f8gYEP4ym0OV82dgFxg
-3zi64foG8GRXipaY4+F1m8xPrKaetXjKcLu2BlqH6mKISmle4eUtbs5J+CYlrEFn
-g2/XRw8UNhK6/U6fWCqIjT273HYOXESDXJodKAhgCKH4w+oT0xJVs/RIWq4wXQXa
-vh/C9ewbN+xD1IUWnQ8hdIkHwsttxylFR/RwKXuooGC41hL85IGYMztsLqii/5BZ
-ypxgQPO6KIhh8fo6uEfpWKcaW8ktA5S/zSDXNYSLpYj3JKkYvKrzqzaRyPyIYaHv
-llA+8HogqAGyDQh6UnsU/2OPXuQHfw==
-=YegK
------END PGP SIGNATURE-----
+  - Patch 4 (patch 5 in v2)
+    Update title and description.
+    Remove incorrect SPI reference.
+    Remove the 'lantiq,pef2256' phandle.
+    Fix commit log
 
---MsWazqoCnTV+oHgS--
+  - Patch 5 (patch 6 in v2)
+    Remove devm_pef2256_get_byphandle().
+    Fix commit log
+
+  - Patch 6 (patch 7 in v2)
+    Merge v2 patch 4. One entry only for PEF2256
+
+Changes v1 -> v2
+  - Patch 2
+    Remove duplicate const qualifiers.
+    Add HAS_IOMEM as a dependency
+
+  - Patch 3
+    Fix a "Block quote ends without a blank line; unexpected unindent"
+    syntax issue.
+
+Herve Codina (6):
+  dt-bindings: mfd: Add the Lantiq  PEF2256 E1/T1/J1 framer
+  mfd: Add support for the Lantiq PEF2256 framer
+  Documentation: sysfs: Document the Lantiq PEF2256 sysfs entry
+  dt-bindings: sound: Add support for the Lantiq PEF2256 codec
+  ASoC: codecs: Add support for the Lantiq PEF2256 codec
+  MAINTAINERS: Add the Lantiq PEF2256 driver entry
+
+ .../sysfs-bus-platform-devices-pef2256        |   12 +
+ .../bindings/mfd/lantiq,pef2256.yaml          |  205 +++
+ .../bindings/sound/lantiq,pef2256-codec.yaml  |   54 +
+ MAINTAINERS                                   |   10 +
+ drivers/mfd/Kconfig                           |   16 +
+ drivers/mfd/Makefile                          |    1 +
+ drivers/mfd/pef2256.c                         | 1355 +++++++++++++++++
+ include/linux/mfd/pef2256.h                   |   28 +
+ sound/soc/codecs/Kconfig                      |   14 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/pef2256-codec.c              |  390 +++++
+ 11 files changed, 2087 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-platform-devices-pef2256
+ create mode 100644 Documentation/devicetree/bindings/mfd/lantiq,pef2256.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/lantiq,pef2256-codec.yaml
+ create mode 100644 drivers/mfd/pef2256.c
+ create mode 100644 include/linux/mfd/pef2256.h
+ create mode 100644 sound/soc/codecs/pef2256-codec.c
+
+-- 
+2.39.2
+

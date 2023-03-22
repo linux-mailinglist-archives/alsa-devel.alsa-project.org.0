@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A26766C58CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 22:29:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 002546C58D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 22:36:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87F71EA0;
-	Wed, 22 Mar 2023 22:28:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87F71EA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 049D5E9C;
+	Wed, 22 Mar 2023 22:36:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 049D5E9C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679520544;
-	bh=U7ZA4ZzajtB3yTZYIzLq7NVdSezmrWNVSZd/pwipOXw=;
+	s=default; t=1679521011;
+	bh=O5urGvWE65epCWTJLDmjCHr4A+CyLtsq+Kqk9qfHOL4=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OkHyiCbECpq7NXe3Lh0KKJ7kD5vfmooEpUQ/AqRUyy3OrKHv2sjTMggcFb+ppktv4
-	 9knRpcOMc9GRiUVWUBMMZhk7Po2qkQvwEKclmnkTOUbH7jxqNjaLIwDkrLl0wh5vYK
-	 1jqrit9csobQHXJGjSVWwm/UWlpVM8Pw1f69K7EE=
+	b=E1FSlr7r6OXP8BPxjk0W9iTwADkejBKLLKnfoKtCCjISJ3OGPGrLFDZnyin6CX7Ti
+	 Z2ylFiNiga2cakoQQjx+R2T/OqIdDwC2ASlqNA1elO0Mo4bUq0TL42Ja95DaYukdAY
+	 PkvAI7PEg+g1SO1AqhMN8DkoDiTFyffDyF/46fAs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD527F80254;
-	Wed, 22 Mar 2023 22:28:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FC28F8027B;
+	Wed, 22 Mar 2023 22:36:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F583F8027B; Wed, 22 Mar 2023 22:28:08 +0100 (CET)
+	id CEC18F8027B; Wed, 22 Mar 2023 22:35:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88811F80093
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 22:27:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88811F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 002DDF8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 22:35:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 002DDF8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BDZg1c8e
+ header.s=k20201202 header.b=SnaWKepN
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 195D6CE1EB8;
-	Wed, 22 Mar 2023 21:27:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7943C433D2;
-	Wed, 22 Mar 2023 21:27:51 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B4F90622E9;
+	Wed, 22 Mar 2023 21:35:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F21C433EF;
+	Wed, 22 Mar 2023 21:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679520472;
-	bh=U7ZA4ZzajtB3yTZYIzLq7NVdSezmrWNVSZd/pwipOXw=;
+	s=k20201202; t=1679520951;
+	bh=O5urGvWE65epCWTJLDmjCHr4A+CyLtsq+Kqk9qfHOL4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BDZg1c8eq+qM8F9GtHtE2Y2kTFca3WB/rFf41Ha7wwWW9LML0iSBduYNCnEJk2vTa
-	 LYY14IoAvBZbPDCeXFKjIALMDsLAAnl4S8CXw2W5e3q7x+GceFIg6jO85axrHVAoBx
-	 cyq5iikM13aTNELSCBQg2JvRAokB7MDdFUcIBgbPuMeqdyP/vzlFryjh0CvRaDbpHr
-	 gqIgNcy6J5dL9Ega9tBSRZbf7uNDvJbDSdMdYZ8l9nb4zYXXQh5W7m1A4Q2Myfi2CN
-	 KbCby2aHF7/pK6HDzctw1G1VigHL9beGCVSVZH1Hvjhp5iAkGoFqs5wqLcPf57v0Yw
-	 ESKr4gNeRwzoA==
-Date: Wed, 22 Mar 2023 21:27:48 +0000
+	b=SnaWKepNaCqaM0TGWvWnmgG9ZOTs1u+Sgl9iE1yv6p16x9G2frQ2/P6nEhG0XWMRh
+	 ftOlbraFA/yRMLAqneu0snlMCiotob4hI6Mj29q7Qq3Z4+0t1axSmrOTafJibksJzW
+	 5CAw/4Jhdd6hZw8khDaiQIDpHukFoWgrTrfMmybEHIrvCZlgWldQoJSjAjpbEP2Rvw
+	 naM96uSXJuGSi050+lsZKAFNKcdT3x8N80/NPRS4CvhfxLCYHOl2S6o1eCWjvxmwDk
+	 su+uB2tUF2VFcbdUooT7C/XfsUWiNJ1oEf9kqsaeRFRvphbWGR7KZsUeSmX6bJPXjZ
+	 rkQ2k7jy9WYkA==
+Date: Wed, 22 Mar 2023 21:35:47 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Marian Postevca <posteuca@mutex.one>
-Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
- sound for systems with a ES8336 codec
-Message-ID: <ZBty1CdPaWm0IcRi@sirena.org.uk>
+Subject: Re: [PATCH 4/4] ASoC: amd: acp: Improve support for speaker power
+ events
+Message-ID: <ZBt0syAowVRYaCuL@sirena.org.uk>
 References: <20230320203519.20137-1-posteuca@mutex.one>
- <20230320203519.20137-4-posteuca@mutex.one>
- <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
- <87lejpwxzf.fsf@mutex.one>
- <ZBr9rJn50ovG1w9W@sirena.org.uk>
- <87ttycjyw3.fsf@mutex.one>
+ <20230320203519.20137-5-posteuca@mutex.one>
+ <0989fc51-fee7-4558-ba2c-084cc4fb6833@sirena.org.uk>
+ <87r0tgjy9v.fsf@mutex.one>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pZnMYUgZ7ZDcg5Bx"
+	protocol="application/pgp-signature"; boundary="wNnmN3SGdiALnLaa"
 Content-Disposition: inline
-In-Reply-To: <87ttycjyw3.fsf@mutex.one>
+In-Reply-To: <87r0tgjy9v.fsf@mutex.one>
 X-Cookie: Single tasking: Just Say No.
-Message-ID-Hash: 2LOMQAFXMVXJO74DRHCSVFNQNT47ZTXP
-X-Message-ID-Hash: 2LOMQAFXMVXJO74DRHCSVFNQNT47ZTXP
+Message-ID-Hash: 4KG54NZBGZZ2YGBAUUFR6M5ZIE2QMTFI
+X-Message-ID-Hash: 4KG54NZBGZZ2YGBAUUFR6M5ZIE2QMTFI
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -83,17 +82,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: =?utf-8?B?5rKI5LiA6LaF?= <zhuning0077@gmail.com>,
- yangxiaohua <yangxiaohua@everest-semi.com>,
- Zhu Ning <zhuning@everest-semi.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2LOMQAFXMVXJO74DRHCSVFNQNT47ZTXP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4KG54NZBGZZ2YGBAUUFR6M5ZIE2QMTFI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,51 +99,54 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---pZnMYUgZ7ZDcg5Bx
+--wNnmN3SGdiALnLaa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Mar 22, 2023 at 10:48:28PM +0200, Marian Postevca wrote:
+On Wed, Mar 22, 2023 at 11:01:48PM +0200, Marian Postevca wrote:
+> Mark Brown <broonie@kernel.org> writes:
 
-> Regarding playing the speaker and headphone simultaneously, is not
-> something I took into account. Is this even a valid usecase? The intel driver
-> for es8336 doesn't seem to support it.
+> > The usual mechanism for doing this is with the standard kernel delay
+> > functions.  Why not use them in the DAPM event?
 
-Yes, for example consider a critical notification - the system
-may wish to ensure it is audible even if the user has taken off
-their headphones for some reason.
+> I just followed the logic from sof_es8336.c, the reason for the change
+> there is given in commit log of 89cdb224f2abe37ec:
 
-> >> This is needed because if suspending the laptop with the headphones
-> >> inserted, when resuming, the sound is not working anymore. Sound stops
-> >> working on speakers and headphones. Reinsertion and removals of the
-> >> headphone doesn't solve the problem.
+> commit 89cdb224f2abe37ec4ac21ba0d9ddeb5a6a9cf68
+> Author: Zhu Ning <zhuning0077@gmail.com>
+> Date:   Fri Oct 28 10:04:56 2022 +0800
 
-> >> This seems to be caused by the fact
-> >> that the GPIO IRQ stops working in es8316_irq() after resume.
+>     ASoC: sof_es8336: reduce pop noise on speaker
 
-> > That's a bug that should be fixed.
+>     The Speaker GPIO needs to be turned on slightly behind the codec turned on.
+>     It also need to be turned off slightly before the codec turned down.
+>     Current code uses delay in DAPM_EVENT to do it but the mdelay delays the
+>     DAPM itself and thus has no effect. A delayed_work is added to turn on the
+>     speaker.
+>     The Speaker is turned off in .trigger since trigger is called slightly
+>     before the DAPM events.
 
-> Agreed, but I don't know how easy it is to fix, and I would like to
-> first offer users of these laptops a working sound driver.
-> Afterwards this issue can be analyzed and properly fixed.
+This just sounds like a complicated way of implementing a DAPM
+POST event?  Or now I think about it possibly we just need to
+tweak the current sorting such that speakers aren't run in
+parallel with headphones and line outputs, that should cover any
+issues with external speaker amplifiers.  AFAICT the issue here
+is a speaker driver amplifying a pop in a line output from the
+CODEC?
 
-Surely if nothing else a good first step would be to have the
-CODEC driver do whatever disabling the jack does on suspend
-without needing the machine driver to bodge things?
-
---pZnMYUgZ7ZDcg5Bx
+--wNnmN3SGdiALnLaa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQbctEACgkQJNaLcl1U
-h9CSngf/VGQQgPsTs+Ok0ohatQmEmhxeehBDIScHFJ/0wlEFMpzy6WXr9xcN/C8P
-lGJtD2RikJ423HM4rEtzq0DlG2aJXYJ7A52dsrWVT9hVj+5cgnIx7c+h5WoeRwTn
-0OCUzvb//tBIDkkqK9mWEMj1Vv0KO8GAFKeLwo6tU8Ag0u9s+RRlQjY4k/k/JGOj
-AOG4QVYsxgP3YQC8V7ldUwMLiKfFKPBkXp97/30jMEIlCY5EXkHnWra9JG5WcH9r
-mLFKPePvZH2jbnXu2auZj/7ksXx60vQT7fr5e8p08nxk/amtGc8jsb0szpEo7/47
-wuaf5Z6OGcxilwC7OHSRd/1etcOl0A==
-=WEnp
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQbdLIACgkQJNaLcl1U
+h9AUnwf+OVcj15mqwDAb7rmH2vJ7jbUAEpSCQ1QLsxCiVu+GmGNG8AGELD60P7W4
+rN7oAGSHPfKOFKBf9igvag/7DruYk6nhhB4yCI6DwQ/XYiJKqH8NT7MnPKf3r+WI
+XcUS4il+ynF0zQx5OinVjmqhjOZN4aJxij62DdsZsaaR1nXeoG8miJwp4XN6BTzo
+is7MtVHoU78ZfIe+JtY+U9aJZirsL5e2S8uzxYckSt5SZWNWThnklIEWW2Cq84Ll
+gK1qM7UimxsAwSucT7/EfKIk31CxKkfJllhADldZNwIiwVg5LlYmjIc3Gx/BnkYS
+BNVGgblEi2Ofos8t6iYuD7lI+6/b/w==
+=OYG4
 -----END PGP SIGNATURE-----
 
---pZnMYUgZ7ZDcg5Bx--
+--wNnmN3SGdiALnLaa--

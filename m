@@ -2,99 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 876416C4CCF
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 15:03:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C396E6C4CE0
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 15:05:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1168CE99;
-	Wed, 22 Mar 2023 15:03:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1168CE99
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB94DE8C;
+	Wed, 22 Mar 2023 15:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB94DE8C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679493839;
-	bh=WEVoNaxzYqHRuI6li9d2UMXhACYWI8dfznI5q4HSXDg=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1679493911;
+	bh=kQeEJQhzQ1qb2clj3gu7TZ61M8ol7Sig5WBGaaImw+0=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Avk0dO/sHQAnX46DZdFGerOI+OcefZubbrnFBd4cwgVC3vneFqpb43RK0teO6GxlW
-	 yNoBNahow3EGqYOP2LN86XxiU8GeVkT5j73K4LYvhj7a7XltH8qYsqtz+IAWjXyotA
-	 GG7r/Sj/zzD8eh0STeBXYOKu/oiyBvy/9UGwUaq8=
+	b=HWWOgytPBAEgjK2bhmUXxAmRsB2NM6soeZkXjiBDn2s+TyfzBuuDqbWHYJ4OJMFFw
+	 r7OuJ/5B7UGEzSH4uGnB/t9xVT92jj7DuBluO71O5Fxc39j38Ik8XB+UCEs7bmfa72
+	 XH1nUWIbQpCAjb/pXNXg+wJDH1IMBfECJzSF+HD0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC382F8057B;
-	Wed, 22 Mar 2023 15:01:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F274F80254;
+	Wed, 22 Mar 2023 15:04:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D311F8053B; Wed, 22 Mar 2023 15:00:57 +0100 (CET)
+	id 931B0F802E8; Wed, 22 Mar 2023 15:04:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 080A4F8024E
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 15:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 080A4F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7DE9F8027B
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 15:04:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7DE9F8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=eYc/MiFy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679493655; x=1711029655;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=WEVoNaxzYqHRuI6li9d2UMXhACYWI8dfznI5q4HSXDg=;
-  b=eYc/MiFymNt6V5xZd1r2iLC7fbQVarHkCHzIyjLkEUSA5qBcpjrGhxTA
-   HXxHZ9yzhcN1FlbZhMwMnVzRODdfChDLYP6HQnczyMWM/W1pEadwuv9ZY
-   2rwe6rsKpznYXTkL7cZg+p7h8NIAiepqM4dH+ayVFFpisDj7lPTQb7t01
-   GhyaeiDUOrobQViPEZCQH46Qf+xdj7SeKWCVyBjOZ7ACKchU7uV2yJ0ja
-   L0IAgGq9PM/BBtjTY8yLruEpQmDKY+CkadX0T8hVnE83EX0uHNFCSyZYR
-   I/qLZhRPXrfmtDuOGI4gYC5a+TTcCCAYJuRucArVIsz3XJLL+AUiSC9GH
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="341576133"
-X-IronPort-AV: E=Sophos;i="5.98,282,1673942400";
-   d="scan'208";a="341576133"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 06:59:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="659197967"
-X-IronPort-AV: E=Sophos;i="5.98,282,1673942400";
-   d="scan'208";a="659197967"
-Received: from cmelen-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.222.142])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 06:59:06 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Subject: [PATCH v2 3/3] ASoC: SOF: ipc4/intel: Add support for chained DMA
-Date: Wed, 22 Mar 2023 15:59:27 +0200
-Message-Id: <20230322135927.7668-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230322135927.7668-1-peter.ujfalusi@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=clxOzlte
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6F11162053;
+	Wed, 22 Mar 2023 14:04:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2A0C433D2;
+	Wed, 22 Mar 2023 14:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679493849;
+	bh=kQeEJQhzQ1qb2clj3gu7TZ61M8ol7Sig5WBGaaImw+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=clxOzlteSD4o22yBMLhu2961tMzxFRhEnkatiCnZwNO2DvjtLX0sFzS7Wu+NFuyzQ
+	 X4B21AyizzubUf2954aM/Z43nrqOfgHiijGKbwnrP3Sz4kbNiU2GT1t6Q03l9+kmij
+	 1FVtzDStQNjLvNpuCUZ9VJmAoQUAxvCnC6A8uZ0JwGIfusf5FvudW48CLPbaQtOJVl
+	 EQ8Vlzz5sp7jjGC2bUvzbRZxxqBkpVwebLb+wIcBRBLsSWz2qgr8UdGvdKwEL+HFEB
+	 AyIAVwUeSLWc/vZMBxAc3OFlKJCHNgYwQFiTWLZgInXLQHr1mUr/TmKHbTTbWKCQji
+	 gE831QEHg+LcA==
+Date: Wed, 22 Mar 2023 14:04:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2 0/3] ASoC: SOF: ipc4/intel: Support for ChainDMA
+Message-ID: <ZBsK5mJUfHSyrlU5@sirena.org.uk>
 References: <20230322135927.7668-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6R7I7SKTD37OVS63OQPHZXALNHC4AV4V
-X-Message-ID-Hash: 6R7I7SKTD37OVS63OQPHZXALNHC4AV4V
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Y+JzEVFg7Oj9jhO7"
+Content-Disposition: inline
+In-Reply-To: <20230322135927.7668-1-peter.ujfalusi@linux.intel.com>
+X-Cookie: Single tasking: Just Say No.
+Message-ID-Hash: 7OI65UR54KI6UYVJRKNNI36DXMDRBM3U
+X-Message-ID-Hash: 7OI65UR54KI6UYVJRKNNI36DXMDRBM3U
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- jyri.sarha@intel.com, rander.wang@intel.com, error27@gmail.com
+CC: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, jyri.sarha@intel.com, rander.wang@intel.com,
+ error27@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OI65UR54KI6UYVJRKNNI36DXMDRBM3U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,526 +96,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jyri Sarha <jyri.sarha@intel.com>
 
-Add logic for setting up and tearing down chained DMA connections.
+--Y+JzEVFg7Oj9jhO7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Since pipelines are not used, all the logic to set the pipeline states
-can be bypassed, with only the DMA programming sequences remaining. In
-addition the same format needs to be used for host- and link-DMA,
-without the usual fixup to use the S32_LE format on the link.
+On Wed, Mar 22, 2023 at 03:59:24PM +0200, Peter Ujfalusi wrote:
+> Hi,
+>=20
+> Changes since v1:
+> - Fix missed mutex unlocking in sof_ipc4_widget_free()
+>   Reported by Dan Carpenter (thank you!)
 
-Note however that for convenience and compatibility with existing
-definitions, the topology relies on the concept of pipelines with a
-'USE_CHAIN_DMA' token indicating that all the logic shall be bypassed.
+Please do not submit new versions of already applied patches, please
+submit incremental updates to the existing code.  Modifying existing
+commits creates problems for other users building on top of those
+commits so it's best practice to only change pubished git commits if
+absolutely essential.
 
-Unlike 'normal' ALSA sequences, the chain DMA is not programmed in
-hw_params/hw_free. The IPC message to set-up and tear-down chained DMA
-are sent in sof_ipc4_trigger_pipelines(), but the contents prepared
-earlier.
+--Y+JzEVFg7Oj9jhO7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Chained DMA is only supported by the Intel HDA DAI for now, and only
-S16_LE and S32_LE formats are supported for now.
+-----BEGIN PGP SIGNATURE-----
 
-Signed-off-by: Jyri Sarha <jyri.sarha@intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- include/uapi/sound/sof/tokens.h   |   1 +
- sound/soc/sof/intel/hda-dai-ops.c |  18 ++++-
- sound/soc/sof/ipc4-pcm.c          | 122 +++++++++++++++++++++++++++++-
- sound/soc/sof/ipc4-topology.c     | 122 +++++++++++++++++++++++++++++-
- sound/soc/sof/ipc4-topology.h     |   2 +
- 5 files changed, 257 insertions(+), 8 deletions(-)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQbCuMACgkQJNaLcl1U
+h9D+Twf+OxTEABgKjq5hdIIuCWQs4gYUEOuA7rTZzctemNwag2O6tXoVk7RW9Oaf
+aCr6bzQt9qcZhBv8nJbysq1uXx01btcZ6H1iI0HK3SCR2B9HACtTkgNbULqpVjLh
+D0CAyBbh9uYshE++2qxY+Ju/YV4ftfC2Y28JasWUvrl69SMAunzMlaxjbjTgzvW6
+mOaQu6vtnpTzTNHzYU+uk0CEOdrxQiyOhLW7yG0ayx9uFcWFM9rYqoW6D4MCPz7q
+l/C4gbWBF08pBCnq/Cyd1u9J2XLmPLosJuTvtQducVZJslkrU58zHJqC9jCqz3zr
+sXDbyAPfMVjlVHtzf/aW98o+pTL9MA==
+=55zD
+-----END PGP SIGNATURE-----
 
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index bd02842124f9..bbc37877aaff 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -54,6 +54,7 @@
- #define SOF_TKN_SCHED_DYNAMIC_PIPELINE		206
- #define SOF_TKN_SCHED_LP_MODE			207
- #define SOF_TKN_SCHED_MEM_USAGE			208
-+#define SOF_TKN_SCHED_USE_CHAIN_DMA		209
- 
- /* volume */
- #define SOF_TKN_VOLUME_RAMP_STEP_TYPE		250
-diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
-index be109f33715f..de48f13259f1 100644
---- a/sound/soc/sof/intel/hda-dai-ops.c
-+++ b/sound/soc/sof/intel/hda-dai-ops.c
-@@ -277,6 +277,15 @@ static const struct hda_dai_widget_dma_ops hda_ipc4_dma_ops = {
- 	.post_trigger = hda_ipc4_post_trigger
- };
- 
-+static const struct hda_dai_widget_dma_ops hda_ipc4_chain_dma_ops = {
-+	.get_hext_stream = hda_get_hext_stream,
-+	.assign_hext_stream = hda_assign_hext_stream,
-+	.release_hext_stream = hda_release_hext_stream,
-+	.setup_hext_stream = hda_setup_hext_stream,
-+	.reset_hext_stream = hda_reset_hext_stream,
-+	.trigger = hda_trigger,
-+};
-+
- static int hda_ipc3_post_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
- 				 struct snd_pcm_substream *substream, int cmd)
- {
-@@ -331,8 +340,15 @@ hda_select_dai_widget_ops(struct snd_sof_dev *sdev, struct snd_sof_widget *swidg
- 	{
- 		struct sof_ipc4_copier *ipc4_copier = sdai->private;
- 
--		if (ipc4_copier->dai_type == SOF_DAI_INTEL_HDA)
-+		if (ipc4_copier->dai_type == SOF_DAI_INTEL_HDA) {
-+			struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+			struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+			if (pipeline->use_chain_dma)
-+				return &hda_ipc4_chain_dma_ops;
-+
- 			return &hda_ipc4_dma_ops;
-+		}
- 		break;
- 	}
- 	default:
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-index 4598057b7f28..db64200ba1e5 100644
---- a/sound/soc/sof/ipc4-pcm.c
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -193,6 +193,88 @@ sof_ipc4_update_pipeline_state(struct snd_sof_dev *sdev, int state, int cmd,
-  * prepare ioctl before the START trigger.
-  */
- 
-+/*
-+ * Chained DMA is a special case where there is no processing on
-+ * DSP. The samples are just moved over by host side DMA to a single
-+ * buffer on DSP and directly from there to link DMA. However, the
-+ * model on SOF driver has two notional pipelines, one at host DAI,
-+ * and another at link DAI. They both shall have the use_chain_dma
-+ * attribute.
-+ */
-+
-+static int sof_ipc4_chain_dma_trigger(struct snd_sof_dev *sdev,
-+				      struct snd_sof_pcm_stream_pipeline_list *pipeline_list,
-+				      int state, int cmd)
-+{
-+	bool allocate, enable, set_fifo_size;
-+	struct sof_ipc4_msg msg = {{ 0 }};
-+	int i;
-+
-+	switch (state) {
-+	case SOF_IPC4_PIPE_RUNNING: /* Allocate and start chained dma */
-+		allocate = true;
-+		enable = true;
-+		/*
-+		 * SOF assumes creation of a new stream from the presence of fifo_size
-+		 * in the message, so we must leave it out in pause release case.
-+		 */
-+		if (cmd == SNDRV_PCM_TRIGGER_PAUSE_RELEASE)
-+			set_fifo_size = false;
-+		else
-+			set_fifo_size = true;
-+		break;
-+	case SOF_IPC4_PIPE_PAUSED: /* Disable chained DMA. */
-+		allocate = true;
-+		enable = false;
-+		set_fifo_size = false;
-+		break;
-+	case SOF_IPC4_PIPE_RESET: /* Disable and free chained DMA. */
-+		allocate = false;
-+		enable = false;
-+		set_fifo_size = false;
-+		break;
-+	default:
-+		dev_err(sdev->dev, "Unexpected state %d", state);
-+		return -EINVAL;
-+	}
-+
-+	msg.primary = SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_CHAIN_DMA);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
-+
-+	/*
-+	 * To set-up the DMA chain, the host DMA ID and SCS setting
-+	 * are retrieved from the host pipeline configuration. Likewise
-+	 * the link DMA ID and fifo_size are retrieved from the link
-+	 * pipeline configuration.
-+	 */
-+	for (i = 0; i < pipeline_list->count; i++) {
-+		struct snd_sof_pipeline *spipe = pipeline_list->pipelines[i];
-+		struct snd_sof_widget *pipe_widget = spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (!pipeline->use_chain_dma) {
-+			dev_err(sdev->dev,
-+				"All pipelines in chained DMA stream should have use_chain_dma attribute set.");
-+			return -EINVAL;
-+		}
-+
-+		msg.primary |= pipeline->msg.primary;
-+
-+		/* Add fifo_size (actually DMA buffer size) field to the message */
-+		if (set_fifo_size)
-+			msg.extension |= pipeline->msg.extension;
-+	}
-+
-+	if (allocate)
-+		msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_ALLOCATE_MASK;
-+
-+	if (enable)
-+		msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_ENABLE_MASK;
-+
-+	return sof_ipc_tx_message(sdev->ipc, &msg, 0, NULL, 0);
-+}
-+
- static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 				      struct snd_pcm_substream *substream, int state, int cmd)
- {
-@@ -201,6 +283,8 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 	struct snd_sof_pcm_stream_pipeline_list *pipeline_list;
- 	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct ipc4_pipeline_set_state_data *trigger_list;
-+	struct snd_sof_widget *pipe_widget;
-+	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_sof_pipeline *spipe;
- 	struct snd_sof_pcm *spcm;
- 	int ret;
-@@ -218,6 +302,17 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
- 	if (!pipeline_list->pipelines || !pipeline_list->count)
- 		return 0;
- 
-+	spipe = pipeline_list->pipelines[0];
-+	pipe_widget = spipe->pipe_widget;
-+	pipeline = pipe_widget->private;
-+
-+	/*
-+	 * If use_chain_dma attribute is set we proceed to chained DMA
-+	 * trigger function that handles the rest for the substream.
-+	 */
-+	if (pipeline->use_chain_dma)
-+		return sof_ipc4_chain_dma_trigger(sdev, pipeline_list, state, cmd);
-+
- 	/* allocate memory for the pipeline data */
- 	trigger_list = kzalloc(struct_size(trigger_list, pipeline_ids, pipeline_list->count),
- 			       GFP_KERNEL);
-@@ -422,8 +517,10 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, SOF_AUDIO_PCM_DRV_NAME);
- 	struct snd_sof_dai *dai = snd_sof_find_dai(component, rtd->dai_link->name);
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	struct sof_ipc4_copier *ipc4_copier;
--	int ret;
-+	bool use_chain_dma = false;
-+	int dir;
- 
- 	if (!dai) {
- 		dev_err(component->dev, "%s: No DAI found with name %s\n", __func__,
-@@ -438,9 +535,26 @@ static int sof_ipc4_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		return -EINVAL;
- 	}
- 
--	ret = sof_ipc4_pcm_dai_link_fixup_rate(sdev, params, ipc4_copier);
--	if (ret)
--		return ret;
-+	for_each_pcm_streams(dir) {
-+		struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, dir);
-+
-+		if (w) {
-+			struct snd_sof_widget *swidget = w->dobj.private;
-+			struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+			struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+			if (pipeline->use_chain_dma)
-+				use_chain_dma = true;
-+		}
-+	}
-+
-+	/* Chain DMA does not use copiers, so no fixup needed */
-+	if (!use_chain_dma) {
-+		int ret = sof_ipc4_pcm_dai_link_fixup_rate(sdev, params, ipc4_copier);
-+
-+		if (ret)
-+			return ret;
-+	}
- 
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_SSP:
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 3a4a3267017b..013aba33604d 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -19,6 +19,7 @@
- 
- #define SOF_IPC4_GAIN_PARAM_ID  0
- #define SOF_IPC4_TPLG_ABI_SIZE 6
-+#define SOF_IPC4_CHAIN_DMA_BUF_SIZE_MS 2
- 
- static DEFINE_IDA(alh_group_ida);
- static DEFINE_IDA(pipeline_ida);
-@@ -26,6 +27,8 @@ static DEFINE_IDA(pipeline_ida);
- static const struct sof_topology_token ipc4_sched_tokens[] = {
- 	{SOF_TKN_SCHED_LP_MODE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
- 		offsetof(struct sof_ipc4_pipeline, lp_mode)},
-+	{SOF_TKN_SCHED_USE_CHAIN_DMA, SND_SOC_TPLG_TUPLE_TYPE_BOOL, get_token_u16,
-+		offsetof(struct sof_ipc4_pipeline, use_chain_dma)},
- 	{SOF_TKN_SCHED_CORE, SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
- 		offsetof(struct sof_ipc4_pipeline, core_id)},
- };
-@@ -475,6 +478,8 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 	struct snd_soc_component *scomp = swidget->scomp;
- 	struct snd_sof_dai *dai = swidget->private;
- 	struct sof_ipc4_copier *ipc4_copier;
-+	struct snd_sof_widget *pipe_widget;
-+	struct sof_ipc4_pipeline *pipeline;
- 	int node_type = 0;
- 	int ret;
- 
-@@ -512,6 +517,16 @@ static int sof_ipc4_widget_setup_comp_dai(struct snd_sof_widget *swidget)
- 
- 	ipc4_copier->data.gtw_cfg.node_id = SOF_IPC4_NODE_TYPE(node_type);
- 
-+	pipe_widget = swidget->spipe->pipe_widget;
-+	pipeline = pipe_widget->private;
-+	if (pipeline->use_chain_dma && ipc4_copier->dai_type != SOF_DAI_INTEL_HDA) {
-+		dev_err(scomp->dev,
-+			"Bad DAI type '%d', Chained DMA is only supported by HDA DAIs (%d).\n",
-+			ipc4_copier->dai_type, SOF_DAI_INTEL_HDA);
-+		ret = -ENODEV;
-+		goto free_available_fmt;
-+	}
-+
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_ALH:
- 	{
-@@ -643,6 +658,12 @@ static int sof_ipc4_widget_setup_comp_pipeline(struct snd_sof_widget *swidget)
- 
- 	swidget->core = pipeline->core_id;
- 
-+	if (pipeline->use_chain_dma) {
-+		dev_dbg(scomp->dev, "Set up chain DMA for %s\n", swidget->widget->name);
-+		swidget->private = pipeline;
-+		return 0;
-+	}
-+
- 	/* parse one set of pipeline tokens */
- 	ret = sof_update_ipc_object(scomp, swidget, SOF_PIPELINE_TOKENS, swidget->tuples,
- 				    swidget->num_tuples, sizeof(*swidget), 1);
-@@ -1103,11 +1124,21 @@ static void sof_ipc4_unprepare_copier_module(struct snd_sof_widget *swidget)
- 	pipeline->mem_usage = 0;
- 
- 	if (WIDGET_IS_AIF(swidget->id) || swidget->id == snd_soc_dapm_buffer) {
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary = 0;
-+			pipeline->msg.extension = 0;
-+		}
- 		ipc4_copier = swidget->private;
- 	} else if (WIDGET_IS_DAI(swidget->id)) {
- 		struct snd_sof_dai *dai = swidget->private;
- 
- 		ipc4_copier = dai->private;
-+
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary = 0;
-+			pipeline->msg.extension = 0;
-+		}
-+
- 		if (ipc4_copier->dai_type == SOF_DAI_INTEL_ALH) {
- 			struct sof_ipc4_copier_data *copier_data = &ipc4_copier->data;
- 			struct sof_ipc4_alh_configuration_blob *blob;
-@@ -1344,13 +1375,44 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 			return ret;
- 		}
- 
--		pipe_widget = swidget->spipe->pipe_widget;
--		pipeline = pipe_widget->private;
- 		ipc4_copier = (struct sof_ipc4_copier *)swidget->private;
- 		gtw_attr = ipc4_copier->gtw_attr;
- 		copier_data = &ipc4_copier->data;
- 		available_fmt = &ipc4_copier->available_fmt;
- 
-+		pipe_widget = swidget->spipe->pipe_widget;
-+		pipeline = pipe_widget->private;
-+
-+		if (pipeline->use_chain_dma) {
-+			u32 host_dma_id;
-+			u32 fifo_size;
-+
-+			host_dma_id = platform_params->stream_tag - 1;
-+			pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_HOST_ID(host_dma_id);
-+
-+			/* Set SCS bit for S16_LE format only */
-+			if (params_format(fe_params) == SNDRV_PCM_FORMAT_S16_LE)
-+				pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_SCS_MASK;
-+
-+			/*
-+			 * Despite its name the bitfield 'fifo_size' is used to define DMA buffer
-+			 * size. The expression calculates 2ms buffer size.
-+			 */
-+			fifo_size = DIV_ROUND_UP((SOF_IPC4_CHAIN_DMA_BUF_SIZE_MS *
-+						  params_rate(fe_params) *
-+						  params_channels(fe_params) *
-+						  params_physical_width(fe_params)), 8000);
-+			pipeline->msg.extension |= SOF_IPC4_GLB_EXT_CHAIN_DMA_FIFO_SIZE(fifo_size);
-+
-+			/*
-+			 * Chain DMA does not support stream timestamping, set node_id to invalid
-+			 * to skip the code in sof_ipc4_get_stream_start_offset().
-+			 */
-+			copier_data->gtw_cfg.node_id = SOF_IPC4_INVALID_NODE_ID;
-+
-+			return 0;
-+		}
-+
- 		/*
- 		 * Use the input_pin_fmts to match pcm params for playback and the output_pin_fmts
- 		 * for capture.
-@@ -1375,6 +1437,12 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 	case snd_soc_dapm_dai_in:
- 	case snd_soc_dapm_dai_out:
- 	{
-+		struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		dai = swidget->private;
- 
- 		ipc4_copier = (struct sof_ipc4_copier *)dai->private;
-@@ -1921,6 +1989,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	case snd_soc_dapm_scheduler:
- 		pipeline = swidget->private;
- 
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		dev_dbg(sdev->dev, "pipeline: %d memory pages: %d\n", swidget->pipeline_id,
- 			pipeline->mem_usage);
- 
-@@ -1943,6 +2014,10 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	{
- 		struct sof_ipc4_copier *ipc4_copier = swidget->private;
- 
-+		pipeline = pipe_widget->private;
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-@@ -1955,6 +2030,10 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		struct snd_sof_dai *dai = swidget->private;
- 		struct sof_ipc4_copier *ipc4_copier = dai->private;
- 
-+		pipeline = pipe_widget->private;
-+		if (pipeline->use_chain_dma)
-+			return 0;
-+
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-@@ -2066,6 +2145,11 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		struct sof_ipc4_msg msg = {{ 0 }};
- 		u32 header;
- 
-+		if (pipeline->use_chain_dma) {
-+			mutex_unlock(&ipc4_data->pipeline_state_mutex);
-+			return 0;
-+		}
-+
- 		header = SOF_IPC4_GLB_PIPE_INSTANCE_ID(swidget->instance_id);
- 		header |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_DELETE_PIPELINE);
- 		header |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-@@ -2082,7 +2166,11 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		pipeline->state = SOF_IPC4_PIPE_UNINITIALIZED;
- 		ida_free(&pipeline_ida, swidget->instance_id);
- 	} else {
--		ida_free(&fw_module->m_ida, swidget->instance_id);
-+		struct snd_sof_widget *pipe_widget = swidget->spipe->pipe_widget;
-+		struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
-+
-+		if (!pipeline->use_chain_dma)
-+			ida_free(&fw_module->m_ida, swidget->instance_id);
- 	}
- 
- 	mutex_unlock(&ipc4_data->pipeline_state_mutex);
-@@ -2234,12 +2322,27 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- {
- 	struct snd_sof_widget *src_widget = sroute->src_widget;
- 	struct snd_sof_widget *sink_widget = sroute->sink_widget;
-+	struct snd_sof_widget *src_pipe_widget = src_widget->spipe->pipe_widget;
-+	struct snd_sof_widget *sink_pipe_widget = sink_widget->spipe->pipe_widget;
- 	struct sof_ipc4_fw_module *src_fw_module = src_widget->module_info;
- 	struct sof_ipc4_fw_module *sink_fw_module = sink_widget->module_info;
-+	struct sof_ipc4_pipeline *src_pipeline = src_pipe_widget->private;
-+	struct sof_ipc4_pipeline *sink_pipeline = sink_pipe_widget->private;
- 	struct sof_ipc4_msg msg = {{ 0 }};
- 	u32 header, extension;
- 	int ret;
- 
-+	/* no route set up if chain DMA is used */
-+	if (src_pipeline->use_chain_dma || sink_pipeline->use_chain_dma) {
-+		if (!src_pipeline->use_chain_dma || !sink_pipeline->use_chain_dma) {
-+			dev_err(sdev->dev,
-+				"use_chain_dma must be set for both src %s and sink %s pipelines\n",
-+				src_widget->widget->name, sink_widget->widget->name);
-+			return -EINVAL;
-+		}
-+		return 0;
-+	}
-+
- 	sroute->src_queue_id = sof_ipc4_get_queue_id(src_widget, sink_widget,
- 						     SOF_PIN_TYPE_OUTPUT);
- 	if (sroute->src_queue_id < 0) {
-@@ -2310,9 +2413,17 @@ static int sof_ipc4_route_free(struct snd_sof_dev *sdev, struct snd_sof_route *s
- 	struct sof_ipc4_fw_module *src_fw_module = src_widget->module_info;
- 	struct sof_ipc4_fw_module *sink_fw_module = sink_widget->module_info;
- 	struct sof_ipc4_msg msg = {{ 0 }};
-+	struct snd_sof_widget *src_pipe_widget = src_widget->spipe->pipe_widget;
-+	struct snd_sof_widget *sink_pipe_widget = sink_widget->spipe->pipe_widget;
-+	struct sof_ipc4_pipeline *src_pipeline = src_pipe_widget->private;
-+	struct sof_ipc4_pipeline *sink_pipeline = sink_pipe_widget->private;
- 	u32 header, extension;
- 	int ret = 0;
- 
-+	/* no route is set up if chain DMA is used */
-+	if (src_pipeline->use_chain_dma || sink_pipeline->use_chain_dma)
-+		return 0;
-+
- 	dev_dbg(sdev->dev, "unbind modules %s:%d -> %s:%d\n",
- 		src_widget->widget->name, sroute->src_queue_id,
- 		sink_widget->widget->name, sroute->dst_queue_id);
-@@ -2374,6 +2485,11 @@ static int sof_ipc4_dai_config(struct snd_sof_dev *sdev, struct snd_sof_widget *
- 
- 	switch (ipc4_copier->dai_type) {
- 	case SOF_DAI_INTEL_HDA:
-+		if (pipeline->use_chain_dma) {
-+			pipeline->msg.primary &= ~SOF_IPC4_GLB_CHAIN_DMA_LINK_ID_MASK;
-+			pipeline->msg.primary |= SOF_IPC4_GLB_CHAIN_DMA_LINK_ID(data->dai_data);
-+			break;
-+		}
- 		gtw_attr = ipc4_copier->gtw_attr;
- 		gtw_attr->lp_buffer_alloc = pipeline->lp_mode;
- 		pipeline->skip_during_fe_trigger = true;
-diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
-index 015027b23588..cf007282867b 100644
---- a/sound/soc/sof/ipc4-topology.h
-+++ b/sound/soc/sof/ipc4-topology.h
-@@ -126,6 +126,7 @@ struct sof_ipc4_copier_config_set_sink_format {
-  * @mem_usage: Memory usage
-  * @core_id: Target core for the pipeline
-  * @state: Pipeline state
-+ * @use_chain_dma: flag to indicate if the firmware shall use chained DMA
-  * @msg: message structure for pipeline
-  * @skip_during_fe_trigger: skip triggering this pipeline during the FE DAI trigger
-  */
-@@ -135,6 +136,7 @@ struct sof_ipc4_pipeline {
- 	uint32_t mem_usage;
- 	uint32_t core_id;
- 	int state;
-+	bool use_chain_dma;
- 	struct sof_ipc4_msg msg;
- 	bool skip_during_fe_trigger;
- };
--- 
-2.40.0
-
+--Y+JzEVFg7Oj9jhO7--

@@ -2,82 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8952B6C4F87
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 16:35:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896186C5020
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 17:09:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E1A7E99;
-	Wed, 22 Mar 2023 16:34:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E1A7E99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 995EEE9A;
+	Wed, 22 Mar 2023 17:08:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 995EEE9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679499327;
-	bh=mhDPLCXiWwyQ7liE3k4hthgkZBaW2DfXC0wvn7367zM=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nZOxQLeyFhmsLQAVSzR2hxKlwSt+R6/M1n1uQO2QzayKcBgIi15lVFDUSJV9e8ngf
-	 RNgsx6KlsAnJTkU4n8v9/EkHqbQ18R7OQnRJN4sfNmpq1L8rnjlZBrxyNuTjDVUcJL
-	 DmI4lo6Z3ZucDdAMRJCj/TrB1/m1NcK37bPwsLOg=
+	s=default; t=1679501361;
+	bh=ynBqubm5vHEzbO0naSJXUYiTTBnJKMDn8SUBmc4x4d0=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=jA4L+D26k2SWMEja+vfXf8Nylo//KVojvf3E3B9b4wtOyyC8EUX1QaXlhXlVHEOPg
+	 hAO855POJUeo5WTG4eC+aIrvs3UYmu5DNQwvQ5kv+NN7cjvuWeoQEiRbYtxlqpZuTW
+	 zeRz9AjWE3WWoUWjrnT0hbvBZQ7eBqq7DmjjLtNs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D270F8024E;
-	Wed, 22 Mar 2023 16:34:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DD03F80254;
+	Wed, 22 Mar 2023 17:08:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C0A9F8027B; Wed, 22 Mar 2023 16:34:33 +0100 (CET)
+	id BF355F8027B; Wed, 22 Mar 2023 17:08:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 865F7F8024E
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 16:34:27 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B07C811CF;
-	Wed, 22 Mar 2023 16:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B07C811CF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1679499266; bh=mAapAaud0Uf41ah5JIg8B1goYGWd8TYnMMUgfkcJRYs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=wgJWgQt8n2yBdeuZqr/U048iQcwqqcVIUQIwZB8u/p47pu6YQYk72Qxhg9vns+Eos
-	 xwINimSLP5QAGMDkrgiMbxF2+S/bu1vO9t4GKZOtFvs9FYs0gDuuHco/9AvRvFl9sj
-	 KznzgTAlgYiviQESviNoF2HnSKvykQzmY1cwFxaA=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+	by alsa1.perex.cz (Postfix) with ESMTPS id 52721F8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 17:08:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52721F8024E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=U/ms2ilP;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=PPOOkTEz
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 22 Mar 2023 16:34:23 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ALSA: hda/realtek: Fix support for Dell Precision 3260
-Date: Wed, 22 Mar 2023 16:34:04 +0100
-Message-Id: <20230322153404.386473-1-perex@perex.cz>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT
-X-Message-ID-Hash: ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT
-X-MailFrom: perex@perex.cz
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 12F7E20FB0;
+	Wed, 22 Mar 2023 16:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1679501303;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yq4jujgkd1a/ZgTKJVU2Oz2fWij/kNVuvsWDWQJe2RM=;
+	b=U/ms2ilPeSlJtk9iK3D/xmveo1Whg7NMA7SdwNehYMJTby42fpZq8cZ4Zvxtx+AbPHY+OO
+	gEWlCrhvogXRPBycio/tLDCn8sGGdwRGES/IR91uK+MuQKf0tcmIv7qCuAybreloXX9v54
+	h1Tk7TiKg4ZofRHx61PnIbGVZ4atxDY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1679501303;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yq4jujgkd1a/ZgTKJVU2Oz2fWij/kNVuvsWDWQJe2RM=;
+	b=PPOOkTEzCm0xWsSif2Ui5G1D7+svrAKuhgUswKt89PkM7V8Mvliuzhng+TOmHeJUkRMsxx
+	wMt32E9p0YiaNSAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC6CE13416;
+	Wed, 22 Mar 2023 16:08:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id FOP6OPYnG2TXZAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 22 Mar 2023 16:08:22 +0000
+Date: Wed, 22 Mar 2023 17:08:22 +0100
+Message-ID: <87jzz8ixah.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix support for Dell Precision 3260
+In-Reply-To: <20230322153404.386473-1-perex@perex.cz>
+References: <20230322153404.386473-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: FW4H4W524FJISGLQ57J4OCMJL3CTLRR4
+X-Message-ID-Hash: FW4H4W524FJISGLQ57J4OCMJL3CTLRR4
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: ALSA development <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FW4H4W524FJISGLQ57J4OCMJL3CTLRR4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,29 +115,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Unfortunately, in commit 5911d78fabbb a wrong codec patch was selected.
-The model=alc283-dac-wcaps is equivalent to ALC283_FIXUP_CHROME_BOOK not
-ALC295_FIXUP_CHROME_BOOK.
+On Wed, 22 Mar 2023 16:34:04 +0100,
+Jaroslav Kysela wrote:
+> 
+> Unfortunately, in commit 5911d78fabbb a wrong codec patch was selected.
+> The model=alc283-dac-wcaps is equivalent to ALC283_FIXUP_CHROME_BOOK not
+> ALC295_FIXUP_CHROME_BOOK.
+> 
+> Fixes: 5911d78fabbb ("ALSA: hda/realtek: Improve support for Dell Precision 3260")
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Fixes: 5911d78fabbb ("ALSA: hda/realtek: Improve support for Dell Precision 3260")
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
----
- sound/pci/hda/patch_realtek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks, applied now.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index f09a1d7c1b18..3a304010bc9f 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9260,7 +9260,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x0a62, "Dell Precision 5560", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1028, 0x0ac9, "Dell Precision 3260", ALC295_FIXUP_CHROME_BOOK),
-+	SND_PCI_QUIRK(0x1028, 0x0ac9, "Dell Precision 3260", ALC283_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0x1028, 0x0b19, "Dell XPS 15 9520", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620 2-in-1", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
--- 
-2.39.2
 
+Takashi

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D7C6C5557
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 20:57:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C2C6C556F
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 20:58:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 789A5EB3;
-	Wed, 22 Mar 2023 20:57:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 789A5EB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF58CEBD;
+	Wed, 22 Mar 2023 20:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF58CEBD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679515070;
-	bh=I5p+nFrt1hderaCIh4QWIYwi/J9OVB299B44AzHSw3I=;
+	s=default; t=1679515120;
+	bh=XrrhMWQnqt1ikQWLiMWwcVO1PUIEDtnXn1ngPJpkiys=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mnvJjOmqB9QLzDsg5BnEwKKJJbCko55ELSvtaN2DqduLwaUSMc4/1k6gBgfXR3Njp
-	 Re5BgtzAzJ+KoLONBO5+2tvdO+UyjtxCVObHTBX+IWidVimUzNeQkvJ3heH6X6uWEo
-	 hd2dfzEPIz90Op1QTn7XdgLF42l/6eASEyX1cQ5s=
+	b=tkPxm+Xw7KcGuiK9x0tPfDJ37sTcEMXxzIyzap/l9iHGIRYCGNjtF9/NFYzVon4Jx
+	 lxA2OzzaRMWjyIq7zodKf/C9x9ZjEOidtNFyW/GGQ9lPOKI2XgCL2CBJAbUCBDcTAz
+	 RijYM8e2tmTbX84Pb7hkUj/gvEWGFHqWgo7B6XO4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C0A3F80254;
-	Wed, 22 Mar 2023 20:57:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 961B6F804B1;
+	Wed, 22 Mar 2023 20:57:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 805B5F8027B; Wed, 22 Mar 2023 20:56:54 +0100 (CET)
+	id 314FFF8027B; Wed, 22 Mar 2023 20:56:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,46 +32,47 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31CB6F8024E
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:56:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31CB6F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2AE77F80093
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:56:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AE77F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E+F98dBo
+ header.s=k20201202 header.b=ah7XpLjL
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DC63A622B0;
-	Wed, 22 Mar 2023 19:56:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E68EC433D2;
-	Wed, 22 Mar 2023 19:56:43 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D38F7622B2;
+	Wed, 22 Mar 2023 19:56:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33B8C433EF;
+	Wed, 22 Mar 2023 19:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679515004;
-	bh=I5p+nFrt1hderaCIh4QWIYwi/J9OVB299B44AzHSw3I=;
+	s=k20201202; t=1679515013;
+	bh=XrrhMWQnqt1ikQWLiMWwcVO1PUIEDtnXn1ngPJpkiys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=E+F98dBoCunSkg96oFbFI5q7RqHIv6gvXE2s+GU3QQxykQCIZQAk4uAOtfJEfBQx1
-	 DJJjDt/sgr8HF25LD+2F3VJdh9Jn9vmWoIp4RFY6hg3+ePfSEJgI2fX5CQskEaC59T
-	 YL3FhBpDJCVxMOKmf2Lll0u7K/5NZwHumb5C63McEcDJcbIlx49Lk2TqND2ysU0sP8
-	 qgwy/lY+12Iy7q5uSKic41QaR7pQ6w9RDgaQ0GNHdEJpDUM33QASlj10T/UU/FBDeN
-	 Zh4HTXaOhE8x7+VWIhTeB8ZppTuOo4GaEZtq2/BON5x8AGwHBFG1Nz/DiB0vh9HB/i
-	 5h3pVbQBCh0jg==
+	b=ah7XpLjL9ye5D+AnQpbshf4njYK0ylip+22deqyTRJZBupxJDUfccZRve2iWHhJtn
+	 pfABLLt9pvdU/vzTg+1ro8+VNUHRvGNvRQRRukosW4v5PFDQNXisJPDa8Do7tx9ajB
+	 AKZopyf0DGxl7iLn3SwhkuNQSnExvVe1nWP4lKOy0T6TN6fnv3rAnvLlIA7+O/Yj3g
+	 x/ntkB1QPSUiKaMelviV6G4KNxNZDZaGsWwXJnHnZH5l0aeTrPKCH7VrE4fWn1ieQU
+	 QOBYgAnZhXGCfAikmtU6RYU6wd+BGX4HtyuEAx5EahVV8x1TxCeFIGJkcdbUdDQBIF
+	 2PrmNum4UvZaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 02/45] ASoC: codecs: tx-macro: Fix for KASAN:
- slab-out-of-bounds
-Date: Wed, 22 Mar 2023 15:55:56 -0400
-Message-Id: <20230322195639.1995821-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 03/45] ASoC: Intel: avs: max98357a: Explicitly
+ define codec format
+Date: Wed, 22 Mar 2023 15:55:57 -0400
+Message-Id: <20230322195639.1995821-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230322195639.1995821-1-sashal@kernel.org>
 References: <20230322195639.1995821-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UVD3WSTZWSSBFOE5Z2CYPLSQK7QD7PF7
-X-Message-ID-Hash: UVD3WSTZWSSBFOE5Z2CYPLSQK7QD7PF7
+Message-ID-Hash: U2WMFU6BUA4BMKCTB2HFWKERSNBVBSEY
+X-Message-ID-Hash: U2WMFU6BUA4BMKCTB2HFWKERSNBVBSEY
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,16 +80,19 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>,
- Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, lgirdwood@gmail.com,
- tiwai@suse.com, alsa-devel@alsa-project.org
+CC: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+ Sasha Levin <sashal@kernel.org>, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, tiwai@suse.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVD3WSTZWSSBFOE5Z2CYPLSQK7QD7PF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U2WMFU6BUA4BMKCTB2HFWKERSNBVBSEY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,91 +101,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
+From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-[ Upstream commit e5e7e398f6bb7918dab0612eb6991f7bae95520d ]
+[ Upstream commit d16c893425d07ada1fdd817ec06d322efcf69480 ]
 
-When we run syzkaller we get below Out of Bound.
-    "KASAN: slab-out-of-bounds Read in regcache_flat_read"
+max98357a is speaker codec configured in 48000/2/S16_LE format
+regardless of front end format, so force it to be so.
 
-    Below is the backtrace of the issue:
-
-    dump_backtrace+0x0/0x4c8
-    show_stack+0x34/0x44
-    dump_stack_lvl+0xd8/0x118
-    print_address_description+0x30/0x2d8
-    kasan_report+0x158/0x198
-    __asan_report_load4_noabort+0x44/0x50
-    regcache_flat_read+0x10c/0x110
-    regcache_read+0xf4/0x180
-    _regmap_read+0xc4/0x278
-    _regmap_update_bits+0x130/0x290
-    regmap_update_bits_base+0xc0/0x15c
-    snd_soc_component_update_bits+0xa8/0x22c
-    snd_soc_component_write_field+0x68/0xd4
-    tx_macro_digital_mute+0xec/0x140
-
-    Actually There is no need to have decimator with 32 bits.
-    By limiting the variable with short type u8 issue is resolved.
-
-Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
-Link: https://lore.kernel.org/r/20230304080702.609-1-quic_visr@quicinc.com
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Link: https://lore.kernel.org/r/20230303134854.2277146-2-amadeuszx.slawinski@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ sound/soc/intel/avs/boards/max98357a.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 2449a2df66df0..8facdb922f076 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -242,7 +242,7 @@ enum {
+diff --git a/sound/soc/intel/avs/boards/max98357a.c b/sound/soc/intel/avs/boards/max98357a.c
+index 921f42caf7e09..183123d08c5a3 100644
+--- a/sound/soc/intel/avs/boards/max98357a.c
++++ b/sound/soc/intel/avs/boards/max98357a.c
+@@ -8,6 +8,7 @@
  
- struct tx_mute_work {
- 	struct tx_macro *tx;
--	u32 decimator;
-+	u8 decimator;
- 	struct delayed_work dwork;
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-dapm.h>
+@@ -24,6 +25,26 @@ static const struct snd_soc_dapm_route card_base_routes[] = {
+ 	{ "Spk", NULL, "Speaker" },
  };
  
-@@ -635,7 +635,7 @@ static int tx_macro_mclk_enable(struct tx_macro *tx,
- 	return 0;
- }
- 
--static bool is_amic_enabled(struct snd_soc_component *component, int decimator)
-+static bool is_amic_enabled(struct snd_soc_component *component, u8 decimator)
++static int
++avs_max98357a_be_fixup(struct snd_soc_pcm_runtime *runrime, struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *rate, *channels;
++	struct snd_mask *fmt;
++
++	rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
++	channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
++	fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
++
++	/* The ADSP will convert the FE rate to 48k, stereo */
++	rate->min = rate->max = 48000;
++	channels->min = channels->max = 2;
++
++	/* set SSP0 to 16 bit */
++	snd_mask_none(fmt);
++	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++	return 0;
++}
++
+ static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
+ 			       struct snd_soc_dai_link **dai_link)
  {
- 	u16 adc_mux_reg, adc_reg, adc_n;
- 
-@@ -849,7 +849,7 @@ static int tx_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 			       struct snd_kcontrol *kcontrol, int event)
- {
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
--	unsigned int decimator;
-+	u8 decimator;
- 	u16 tx_vol_ctl_reg, dec_cfg_reg, hpf_gate_reg, tx_gain_ctl_reg;
- 	u8 hpf_cut_off_freq;
- 	int hpf_delay = TX_MACRO_DMIC_HPF_DELAY_MS;
-@@ -1064,7 +1064,8 @@ static int tx_macro_hw_params(struct snd_pcm_substream *substream,
- 			      struct snd_soc_dai *dai)
- {
- 	struct snd_soc_component *component = dai->component;
--	u32 decimator, sample_rate;
-+	u32 sample_rate;
-+	u8 decimator;
- 	int tx_fs_rate;
- 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
- 
-@@ -1128,7 +1129,7 @@ static int tx_macro_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
- {
- 	struct snd_soc_component *component = dai->component;
- 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
--	u16 decimator;
-+	u8 decimator;
- 
- 	/* active decimator not set yet */
- 	if (tx->active_decimator[dai->id] == -1)
+@@ -55,6 +76,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+ 	dl->num_platforms = 1;
+ 	dl->id = 0;
+ 	dl->dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS;
++	dl->be_hw_params_fixup = avs_max98357a_be_fixup;
+ 	dl->nonatomic = 1;
+ 	dl->no_pcm = 1;
+ 	dl->dpcm_playback = 1;
 -- 
 2.39.2
 

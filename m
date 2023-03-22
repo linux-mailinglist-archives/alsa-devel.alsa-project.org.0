@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A516C581B
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 21:49:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EEC6C585D
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 22:02:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21054F0B;
-	Wed, 22 Mar 2023 21:48:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21054F0B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73F75E86;
+	Wed, 22 Mar 2023 22:02:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73F75E86
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679518172;
-	bh=UGI4wuqk28si00gqCk+pXZy1oVhNUVal257IJk22lcA=;
+	s=default; t=1679518972;
+	bh=Qb0DCB9GnOZWIWTpK2flB93CdhdyhfwNaN1lSFU0oNA=;
 	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fAA60FLcAEErcWgWlqSiuq1PI3xBwAz93uun0q/0SyXwB8zYfm3d1l7hDdhn8qxN4
-	 50AvRKmIzYD6psltnh0bAUeg7CseTaP5ZCKWpvvWEWN8JkqSPg408fRBS//tBS8GqQ
-	 l8peCgw+Lkm8GU7Ipc7o9q21fJ0NM0FE2tko0+pI=
+	b=lhyfaF5p2xDAUH7u2ic3IPVY/HRx6WjkK6CjeHOW/bZ8LCR1UhkqdDRi9TlKyP9wx
+	 5psJebOCMi+VBakiHfnJdJVYgzlM3H/yttyKljMu4m8khXLTE0z6HnSRKe1GrlHp6h
+	 tbk/j1MN8LjChAfJUW0mDvPKsOOzLk0VajuPyv7E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EF69F80254;
-	Wed, 22 Mar 2023 21:48:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5538F80254;
+	Wed, 22 Mar 2023 22:02:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31057F8027B; Wed, 22 Mar 2023 21:48:38 +0100 (CET)
+	id 2E7E8F8027B; Wed, 22 Mar 2023 22:01:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,44 +33,40 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B246F80105
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 21:48:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B246F80105
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36D1FF8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 22:01:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36D1FF8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
- header.s=default header.b=NMckDuv5
+ header.s=default header.b=TO+7w9ZK
 Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.mutex.one (Postfix) with ESMTP id 6BD4616C0008;
-	Wed, 22 Mar 2023 22:48:32 +0200 (EET)
+	by mail.mutex.one (Postfix) with ESMTP id 5836116C0008;
+	Wed, 22 Mar 2023 23:01:52 +0200 (EET)
 X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
 Received: from mail.mutex.one ([127.0.0.1])
 	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 5D_69F_8jHUO; Wed, 22 Mar 2023 22:48:31 +0200 (EET)
+	with ESMTP id Nphm6PsD5iIt; Wed, 22 Mar 2023 23:01:50 +0200 (EET)
 From: Marian Postevca <posteuca@mutex.one>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
-	t=1679518111; bh=UGI4wuqk28si00gqCk+pXZy1oVhNUVal257IJk22lcA=;
+	t=1679518910; bh=Qb0DCB9GnOZWIWTpK2flB93CdhdyhfwNaN1lSFU0oNA=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=NMckDuv5o61W0GTAMnDxZYomYSjRDvNjw2n9tfnDDAipdtO80UIWbF8O6iq+58nl5
-	 fCy4eAxEWvy3bgxhjzzyZIE4/SKKpQ6F1XvSAHs2/wVoORoUGR/XK+vYiA65Igati2
-	 XR3es+DN0t0kKnjmLkUiDN+OBObA4KNmfyoe8BPI=
-To: Mark Brown <broonie@kernel.org>, =?utf-8?B?5rKI5LiA6LaF?=
- <zhuning0077@gmail.com>,
- yangxiaohua <yangxiaohua@everest-semi.com>, Zhu Ning
- <zhuning@everest-semi.com>
-Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
- sound for systems with a ES8336 codec
-In-Reply-To: <ZBr9rJn50ovG1w9W@sirena.org.uk>
+	b=TO+7w9ZKS0P1CHWXiF/YmH3IQ4w0a6oeAqxZNDIHBNPujD2W6vxkggKIk2lIxDcWK
+	 Mq0pMKaHauI+4hGRKYz193ScwivpDmShRlD3expIDcmniGFii1LJyIOioRjyrtPaVQ
+	 YiILjmItA5qzE8/cjao/ZcRB2GzlHFaRd8M8aAf8=
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 4/4] ASoC: amd: acp: Improve support for speaker power
+ events
+In-Reply-To: <0989fc51-fee7-4558-ba2c-084cc4fb6833@sirena.org.uk>
 References: <20230320203519.20137-1-posteuca@mutex.one>
- <20230320203519.20137-4-posteuca@mutex.one>
- <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
- <87lejpwxzf.fsf@mutex.one> <ZBr9rJn50ovG1w9W@sirena.org.uk>
-Date: Wed, 22 Mar 2023 22:48:28 +0200
-Message-ID: <87ttycjyw3.fsf@mutex.one>
+ <20230320203519.20137-5-posteuca@mutex.one>
+ <0989fc51-fee7-4558-ba2c-084cc4fb6833@sirena.org.uk>
+Date: Wed, 22 Mar 2023 23:01:48 +0200
+Message-ID: <87r0tgjy9v.fsf@mutex.one>
 MIME-Version: 1.0
 Content-Type: text/plain
-Message-ID-Hash: I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY
-X-Message-ID-Hash: I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY
+Message-ID-Hash: BKKM5DQWYBXJWRTTWZ24PJKITACMIDNY
+X-Message-ID-Hash: BKKM5DQWYBXJWRTTWZ24PJKITACMIDNY
 X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -85,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BKKM5DQWYBXJWRTTWZ24PJKITACMIDNY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,80 +92,63 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Mark Brown <broonie@kernel.org> writes:
 
-> On Wed, Mar 22, 2023 at 12:17:24AM +0200, Marian Postevca wrote:
->> Mark Brown <broonie@kernel.org> writes:
+> On Mon, Mar 20, 2023 at 10:35:19PM +0200, Marian Postevca wrote:
+>> In order to reduce the audible pops when speaker or headphones
+>> are activated or disabled we need to delay the switching of the
+>> GPIOs.
 >
->> >> +	if (SND_SOC_DAPM_EVENT_ON(event))
->> >> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
->> >> +	else
->> >> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
->
->> > Why are these two GPIOs tied together like this?
->
->> These GPIOs represent the speaker and the headphone switches. When
->> activating the speaker GPIO you have to deactivate the headphone GPIO
->> and vice versa. The logic is taken from the discussion on the sofproject
->> pull request:
->> https://github.com/thesofproject/linux/pull/4112/commits/810d03e0aecdf0caf580a5179ee6873fb33485ab
->> and
->> https://github.com/thesofproject/linux/pull/4066
->
-> Sure, but that doesn't answer the question.  What is the reason
-> they're tied together - what if someone wants to play back from
-> both speaker and headphones simultaneously?
+> The usual mechanism for doing this is with the standard kernel delay
+> functions.  Why not use them in the DAPM event?
 >
 
-The GPIO handling is not documented in the codec datasheet, so I
-constructed this logic by looking at the existing implementations of
-machine drivers for this codec (sof_es8336.c, bytcht_es8316.c) and
-comments of Everest Semiconductor engineers on the sofproject
-pull requests. I'm saying all of this because I don't know the reasons
-why these GPIOs work the way they do.
+I just followed the logic from sof_es8336.c, the reason for the change
+there is given in commit log of 89cdb224f2abe37ec:
 
-According to the Everest Semiconductor engineers this is the recommended
-way to switch these GPIOs:
+commit 89cdb224f2abe37ec4ac21ba0d9ddeb5a6a9cf68
+Author: Zhu Ning <zhuning0077@gmail.com>
+Date:   Fri Oct 28 10:04:56 2022 +0800
 
-+--------------+--------------+----------------+
-|              | Speaker GPIO | Headphone GPIO |
-+--------------+--------------+----------------+
-| Speaker on   | active       | inactive       |
-| Headphone on | inactive     | active         |
-| Suspended    | inactive     | inactive       |
-+--------------+--------------+----------------+
-(https://github.com/thesofproject/linux/pull/4066/commits/b7f12e46a36b74a9992920154a65cd55f5b0cdb4#r1041693056)
-
-This lockstep between these two GPIOs can be seen in sof_es8336.c in
-pcm_pop_work_events() too.
-
-Regarding playing the speaker and headphone simultaneously, is not
-something I took into account. Is this even a valid usecase? The intel driver
-for es8336 doesn't seem to support it.
-
-Maybe someone from Everest Semiconductor can comment on this GPIO handling?
-
->> >> +static int acp3x_es83xx_suspend_pre(struct snd_soc_card *card)
->> >> +{
->> >> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
->> >> +
->> >> +	dev_dbg(priv->codec_dev, "card suspend\n");
->> >> +	snd_soc_component_set_jack(priv->codec, NULL, NULL);
->> >> +	return 0;
->> >> +}
+    ASoC: sof_es8336: reduce pop noise on speaker
+    
+    The Speaker GPIO needs to be turned on slightly behind the codec turned on.
+    It also need to be turned off slightly before the codec turned down.
+    Current code uses delay in DAPM_EVENT to do it but the mdelay delays the
+    DAPM itself and thus has no effect. A delayed_work is added to turn on the
+    speaker.
+    The Speaker is turned off in .trigger since trigger is called slightly
+    before the DAPM events.
+    
+  
+>> We need to also disable/enable the speaker/headphones GPIOs when
+>> the audio stream is stopped/started. To avoid race conditions
+>> between the speaker power event callback and the trigger callback
+>> we use a ring buffer to save the events that we need to process
+>> in the delayed work callback.
 >
->> > That's weird, why do that?
+> Why is this required?  DAPM is integrated with stream start and stop,
+> and there's a mute callback to mask any noise played back from the SoC
+> while it stops and starts without requiring all this complexity.  If
+> there is any audible noise then why would it only affect the speaker?
 >
->> This is needed because if suspending the laptop with the headphones
->> inserted, when resuming, the sound is not working anymore. Sound stops
->> working on speakers and headphones. Reinsertion and removals of the
->> headphone doesn't solve the problem.
+
+Same reason as above, just followed the logic in sof_es8336.c
+
+>> +static int acp3x_es83xx_trigger(struct snd_pcm_substream *substream, int cmd)
+>> +{
+>> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+>> +	struct snd_soc_card *card = rtd->card;
+>> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
+>> +
+>> +	switch (cmd) {
+>> +	case SNDRV_PCM_TRIGGER_START:
+>> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+>> +	case SNDRV_PCM_TRIGGER_RESUME:
+>> +		if (substream->stream == 0) {
+>> +			dev_dbg(priv->codec_dev, "trigger start/release/resume, activating GPIOs\n");
+>> +			mutex_lock(&priv->rb_lock);
 >
->> This seems to be caused by the fact
->> that the GPIO IRQ stops working in es8316_irq() after resume.
->
-> That's a bug that should be fixed.
+> Triggers run in atomic context, you can't use mutexes in atomic context.
+> lockdep should tell you this.
 
-Agreed, but I don't know how easy it is to fix, and I would like to
-first offer users of these laptops a working sound driver.
-Afterwards this issue can be analyzed and properly fixed.
-
-
+Sorry, I didn't run lockdep before sending the patches, I will rework
+the locking code.

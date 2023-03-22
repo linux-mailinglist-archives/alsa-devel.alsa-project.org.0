@@ -2,99 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEDEF6C4F72
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 16:30:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8952B6C4F87
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 16:35:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05259E94;
-	Wed, 22 Mar 2023 16:29:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05259E94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E1A7E99;
+	Wed, 22 Mar 2023 16:34:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E1A7E99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679499031;
-	bh=2zoPJMnWq/u/bTluQqdM/f2vCtvdx4CTaSygIbhGhJA=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NEh788cZRmtFcEMPP3VCMrFLx1aoC+eWEJkqYZMWFYX+saymQ8VAcb21cy+jD/d54
-	 mMIcp+YoNRvLHNBzws2/S1zyXydVsMuOicDPkGLkrzdGNsqxb7s2699IlG6nKWyihe
-	 HP240NRZ1x2LdjWHY8b0iyMvCpewjyLjpTQOGbFI=
+	s=default; t=1679499327;
+	bh=mhDPLCXiWwyQ7liE3k4hthgkZBaW2DfXC0wvn7367zM=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nZOxQLeyFhmsLQAVSzR2hxKlwSt+R6/M1n1uQO2QzayKcBgIi15lVFDUSJV9e8ngf
+	 RNgsx6KlsAnJTkU4n8v9/EkHqbQ18R7OQnRJN4sfNmpq1L8rnjlZBrxyNuTjDVUcJL
+	 DmI4lo6Z3ZucDdAMRJCj/TrB1/m1NcK37bPwsLOg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1AD4F80254;
-	Wed, 22 Mar 2023 16:29:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D270F8024E;
+	Wed, 22 Mar 2023 16:34:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5370DF8027B; Wed, 22 Mar 2023 16:29:36 +0100 (CET)
+	id 0C0A9F8027B; Wed, 22 Mar 2023 16:34:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3CA7F8024E
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 16:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3CA7F8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dqsa1Lc+
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 865F7F8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 16:34:27 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B07C811CF;
+	Wed, 22 Mar 2023 16:34:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B07C811CF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1679499266; bh=mAapAaud0Uf41ah5JIg8B1goYGWd8TYnMMUgfkcJRYs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=wgJWgQt8n2yBdeuZqr/U048iQcwqqcVIUQIwZB8u/p47pu6YQYk72Qxhg9vns+Eos
+	 xwINimSLP5QAGMDkrgiMbxF2+S/bu1vO9t4GKZOtFvs9FYs0gDuuHco/9AvRvFl9sj
+	 KznzgTAlgYiviQESviNoF2HnSKvykQzmY1cwFxaA=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 77FC0CE1DEF;
-	Wed, 22 Mar 2023 15:28:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E3CC433D2;
-	Wed, 22 Mar 2023 15:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679498880;
-	bh=2zoPJMnWq/u/bTluQqdM/f2vCtvdx4CTaSygIbhGhJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dqsa1Lc+lWmwECLKMjcqQg1I7UfauF7FyMZBjAOtGkiLXfap7dxYrQV2YofrW0yGj
-	 X/Q7oLweoY4D03Y25L4HSW3G5+RcflQNXRUC0kWiQloG90cdlPUgJNrmQfQjziX7cH
-	 r1sNoPHemlSV7yqx5zQtrU6DdfhAGSRz+KK8em2SdQHbX4Mlt0+hosBx18oF9aQxoo
-	 5HVfnolU6GTF1JWf9E/x2VqjFdlXFcBvhEEObeTRb7tmSTDRaBRef8Vs63jrqA9Chx
-	 S+Es6cG2wmZ2Xrv3HtwpSHIIKcoxfXGLkRpgOqrZp2uVYsCcTvU80/hsONoAIYvm4y
-	 R/cltOGI4iWkA==
-Date: Wed, 22 Mar 2023 15:27:57 +0000
-From: Mark Brown <broonie@kernel.org>
-To: "Sarha, Jyri" <jyri.sarha@intel.com>
-Subject: Re: [PATCH v2 0/3] ASoC: SOF: ipc4/intel: Support for ChainDMA
-Message-ID: <ZBsefQsoRHJDiju2@sirena.org.uk>
-References: <20230322135927.7668-1-peter.ujfalusi@linux.intel.com>
- <ZBsK5mJUfHSyrlU5@sirena.org.uk>
- <578daea5b7bc0db3164c84e550b24bd724de9ebe.camel@intel.com>
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 22 Mar 2023 16:34:23 +0100 (CET)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH] ALSA: hda/realtek: Fix support for Dell Precision 3260
+Date: Wed, 22 Mar 2023 16:34:04 +0100
+Message-Id: <20230322153404.386473-1-perex@perex.cz>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Krty86AUnvl/yIiV"
-Content-Disposition: inline
-In-Reply-To: <578daea5b7bc0db3164c84e550b24bd724de9ebe.camel@intel.com>
-X-Cookie: Single tasking: Just Say No.
-Message-ID-Hash: XZBF3OWCHKKAPDYJGWDXB2JU6RRUVBSV
-X-Message-ID-Hash: XZBF3OWCHKKAPDYJGWDXB2JU6RRUVBSV
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT
+X-Message-ID-Hash: ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>, "Wang,
- Rander" <rander.wang@intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "error27@gmail.com" <error27@gmail.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZBF3OWCHKKAPDYJGWDXB2JU6RRUVBSV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ABVTKSKE3KBC3CAIHUI5V7P2DILPJWRT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,41 +86,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Unfortunately, in commit 5911d78fabbb a wrong codec patch was selected.
+The model=alc283-dac-wcaps is equivalent to ALC283_FIXUP_CHROME_BOOK not
+ALC295_FIXUP_CHROME_BOOK.
 
---Krty86AUnvl/yIiV
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fixes: 5911d78fabbb ("ALSA: hda/realtek: Improve support for Dell Precision 3260")
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+---
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Mar 22, 2023 at 03:15:23PM +0000, Sarha, Jyri wrote:
-> On Wed, 2023-03-22 at 14:04 +0000, Mark Brown wrote:
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f09a1d7c1b18..3a304010bc9f 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9260,7 +9260,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0a62, "Dell Precision 5560", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+-	SND_PCI_QUIRK(0x1028, 0x0ac9, "Dell Precision 3260", ALC295_FIXUP_CHROME_BOOK),
++	SND_PCI_QUIRK(0x1028, 0x0ac9, "Dell Precision 3260", ALC283_FIXUP_CHROME_BOOK),
+ 	SND_PCI_QUIRK(0x1028, 0x0b19, "Dell XPS 15 9520", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620 2-in-1", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
+-- 
+2.39.2
 
-> > Please do not submit new versions of already applied patches, please
-> > submit incremental updates to the existing code.=A0 Modifying existing
-> > commits creates problems for other users building on top of those
-> > commits so it's best practice to only change pubished git commits if
-> > absolutely essential.
-
-> Hi Mark,
-> Would a git fixup patch do at this phase, or should we do just a
-> regular patch with
-
-To repeat what's quoted above "please submit incremental updates
-to the existing code".
-
---Krty86AUnvl/yIiV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQbHnwACgkQJNaLcl1U
-h9CvBgf+IHb6ZSl2PAmAyn4Hny1Yw65TBE9FO7E7RShE8/BtiNgRrAhCUZYyX3vl
-q96rcHjb7/2SIyZgySbvnb9b547TJFze21YqzCMwZZaSwfFmo7ZsupauUW8LOpmq
-NiqwOvlpR/0EwcPYKLJERCBfmdPxagpffMDI5prQIL41s6XWgPbZSOo2KI2E1bcs
-23zQ54HG+BXevBTpgC+ftijp/fjkk5LyAmFRa4Ppp7mAzPcbd78QzZrcOp/WjMPU
-SePd2tmallrcEds+O6OFtBVZGsKz190+zAOOQKdcnRHvB0collQP68AlHDqvoZ+m
-9RxL0ZjZkMgOSRZXQ+i04Ke8aBBsqQ==
-=ht+Q
------END PGP SIGNATURE-----
-
---Krty86AUnvl/yIiV--

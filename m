@@ -2,113 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2CD6C4B34
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 13:57:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2986C4B4A
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 14:08:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FE7FE7D;
-	Wed, 22 Mar 2023 13:57:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FE7FE7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3817E7E;
+	Wed, 22 Mar 2023 14:07:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3817E7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679489873;
-	bh=pFBXYdxdFklmnPVMqDW3np+O3CSV0Nc/150QPIQEDko=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1679490529;
+	bh=2Y7bTCRnlSlrxK3L/xRJycRafvM776NSZ/Krg4zHKwE=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FQQMDm+YcUXE581M7XjetDm3Ou9y10245fklLiIQNb5uZWd36ZC3dvWIvYXSO6pFV
-	 X820B1oiSxT3gMeab1hzpnO7lpUbvJ4vnRP8a3JamRJ1DczYrCFBodt4931qiW7bSF
-	 4Rs7MuaD0XSbEfA1AnJX+k/i1JgGCMHFXa6bAzKo=
+	b=B9eoXaJpiKWLiBeHL6v+O9T8VRt+jHHhpUDrf7rK4XVbZ3G2z5y55Z/LddIa/1nH6
+	 VMEUvqrZzKjkkml2ZOW79ySbX4nBfnJ0b+xQ3yjfrIyXSYQd7Zs1cJ7SpdBjc1VF4s
+	 Ur01fbBLnzl0OtwhOnlpoAlG4aJcRnnz9voEaUmw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBB03F80482;
-	Wed, 22 Mar 2023 13:57:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61848F80254;
+	Wed, 22 Mar 2023 14:07:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB9DEF8027B; Wed, 22 Mar 2023 13:56:57 +0100 (CET)
+	id 16221F8027B; Wed, 22 Mar 2023 14:07:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 497E4F80093;
-	Wed, 22 Mar 2023 13:56:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 497E4F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 96ACFF80105
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 14:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96ACFF80105
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=B1YqJ662
+ header.s=k20201202 header.b=kiW+ueNe
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 76522620DA;
-	Wed, 22 Mar 2023 12:56:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D5EC433AC;
-	Wed, 22 Mar 2023 12:56:41 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 8CB25B81CE3;
+	Wed, 22 Mar 2023 13:07:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C5CC433EF;
+	Wed, 22 Mar 2023 13:07:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679489801;
-	bh=pFBXYdxdFklmnPVMqDW3np+O3CSV0Nc/150QPIQEDko=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=B1YqJ662CNRHq1SZZ5xOnh8JZWS5raGfq0N8HP4Ui1eqjznKBGcNLyknUY5pMRoe5
-	 bjAgEs+5gvX4iHoTQB5NKwDQWtGHaS1YkCrBUcfNJjdgaINaMVknMV260jrfbobz1z
-	 R4y0oUjl+b3njnY3dXf1kBEoeE95No6VoXmjz4gtExGMkdLhrX0C7pdoeSCJRx+7no
-	 ncZaQG2cAfBFaaTCLVdjswDPeVHcK7HLTR1Nxdy8tmuc8FQLbCyPb/hlo7qNBzlWm4
-	 stU5rExSIY1Qya/lJnjLsEF5IksVXnozsbRSYjGf/6X7FXzillc9kgNTQI7BVv7tja
-	 2Bb0SS8IwVB5g==
-Received: by mail-yb1-f175.google.com with SMTP id s67so4018077ybi.5;
-        Wed, 22 Mar 2023 05:56:41 -0700 (PDT)
-X-Gm-Message-State: AAQBX9dIeN1fjmSx+/K/d6GGuFTZbLi5wyiMcqMqTddbUzWcJiL/o+e2
-	mybomJOGyHP0fEUvPbBWKeMHdtHS0BXXP4eZ5Q==
-X-Google-Smtp-Source: 
- AKy350bdJZMyzaTU1EssNK+DI7EbAc1FdWvsdKrzrsaQLrlv+0e71ugQkgXFJRYmdHQVGZUfpbVoUPOCBzQN8RX6K70=
-X-Received: by 2002:a05:6902:283:b0:b33:531b:3dd4 with SMTP id
- v3-20020a056902028300b00b33531b3dd4mr3273257ybh.1.1679489800138; Wed, 22 Mar
- 2023 05:56:40 -0700 (PDT)
+	s=k20201202; t=1679490463;
+	bh=2Y7bTCRnlSlrxK3L/xRJycRafvM776NSZ/Krg4zHKwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kiW+ueNetZbct+oeecx3pIRKgXYRoB0MujJ6y7p74Bnxfg4mHSKAflQFuIoL1OM0z
+	 YfwaJwepj/h1PqtqdJFEYLtJATdPJqrD3bi+niSbmb7ZnbNDBNCAmnsnUMWXgdr1kF
+	 ISflWttkCzGmRl5+rSnUcUeLch46tx3qik6Sy16V3nNQAOlGy2hlXST0JhSYFcjvIa
+	 rhVu0Ks/TaeYzsM8kSRLwL3xynQuTWta/div7YAC7uZBWDN1axi/bEHKdJHHPia6A8
+	 bHWjl6s22r0vCDQKSHO2Yc4ls1AF+jwBePPjmLDgRXflvplvklsKqjIGBQU1vbjR7C
+	 FtVQrwfCr+UUQ==
+Date: Wed, 22 Mar 2023 13:07:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Marian Postevca <posteuca@mutex.one>
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+Message-ID: <ZBr9rJn50ovG1w9W@sirena.org.uk>
+References: <20230320203519.20137-1-posteuca@mutex.one>
+ <20230320203519.20137-4-posteuca@mutex.one>
+ <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
+ <87lejpwxzf.fsf@mutex.one>
 MIME-Version: 1.0
-References: <20230316122741.577663-1-herve.codina@bootlin.com>
- <20230316122741.577663-2-herve.codina@bootlin.com>
- <96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
- <167930560089.26.8624952010101991814@mailman-core.alsa-project.org>
- <20230320185127.GA2233912-robh@kernel.org>
- <20230322112056.7ffcd503@bootlin.com>
-In-Reply-To: <20230322112056.7ffcd503@bootlin.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 22 Mar 2023 07:56:29 -0500
-X-Gmail-Original-Message-ID: 
- <CAL_JsqK-=9BJEbEUji0ac=cXqBz3ijD5m33MBPyms-9O44gvag@mail.gmail.com>
-Message-ID: 
- <CAL_JsqK-=9BJEbEUji0ac=cXqBz3ijD5m33MBPyms-9O44gvag@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] dt-bindings: misc: Add the Lantiq PEF2466 E1/T1/J1
- framer
-To: Herve Codina <herve.codina@bootlin.com>, alsa-devel-owner@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: I5BGTGQJUEPXGHI4QT7HQDSXII2XZKPN
-X-Message-ID-Hash: I5BGTGQJUEPXGHI4QT7HQDSXII2XZKPN
-X-MailFrom: robh@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ox7OggTfOqKWPV/Q"
+Content-Disposition: inline
+In-Reply-To: <87lejpwxzf.fsf@mutex.one>
+X-Cookie: Single tasking: Just Say No.
+Message-ID-Hash: YDW75URUIISVBMKXNB24DIWO4OBZG5FM
+X-Message-ID-Hash: YDW75URUIISVBMKXNB24DIWO4OBZG5FM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Derek Kiernan <derek.kiernan@xilinx.com>,
- Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I5BGTGQJUEPXGHI4QT7HQDSXII2XZKPN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDW75URUIISVBMKXNB24DIWO4OBZG5FM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,131 +97,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Mar 22, 2023 at 5:21=E2=80=AFAM Herve Codina <herve.codina@bootlin.=
-com> wrote:
->
-> Hi Rob,
->
-> On Mon, 20 Mar 2023 13:51:27 -0500
-> Rob Herring <robh@kernel.org> wrote:
->
-> > On Mon, Mar 20, 2023 at 10:46:19AM +0100, Herve Codina via Alsa-devel w=
-rote:
-> > > Received: by alsa1.perex.cz (Postfix, from userid 50401) id 16494F802=
-7B;
-> > >  Mon, 20 Mar 2023 10:46:37 +0100 (CET)
-> > > X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.pere=
-x.cz
-> > > X-Spam-Level:
-> > > X-Spam-Status: No, score=3D-5.2 required=3D5.0 tests=3DDKIM_SIGNED,DK=
-IM_VALID,
-> > >  DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-> > >  URIBL_BLOCKED shortcircuit=3Dno autolearn=3Dham autolearn_force=3Dno
-> > >  version=3D3.4.6
-> > > Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
-> > >  [217.70.183.198]) (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384
-> > >  (256/256 bits)) (No client certificate requested) by alsa1.perex.cz
-> > >  (Postfix) with ESMTPS id 3FF5FF80105 for <alsa-devel@alsa-project.or=
-g>;
-> > >  Mon, 20 Mar 2023 10:46:22 +0100 (CET)
-> > > DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FF5FF80105
-> > > Authentication-Results: alsa1.perex.cz; dkim=3Dpass (2048-bit key,
-> > >  unprotected) header.d=3Dbootlin.com header.i=3D@bootlin.com
-> > >  header.a=3Drsa-sha256 header.s=3Dgm1 header.b=3Dm4O7nLC1
-> > > Received: (Authenticated sender: herve.codina@bootlin.com) by
-> > >  mail.gandi.net (Postfix) with ESMTPSA id 40453C0009; Mon, 20 Mar 202=
-3
-> > >  09:46:20 +0000 (UTC)
-> > > DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed; d=3Dbootl=
-in.com; s=3Dgm1;
-> > >  t=3D1679305582;
-> > >  h=3Dfrom:from:reply-to:subject:subject:date:date:message-id:message-=
-id:
-> > >   to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-> > >   content-transfer-encoding:content-transfer-encoding:
-> > >   in-reply-to:in-reply-to:references:references;
-> > >  bh=3DIeu9Fv38se4lD4z/BVXUHLrVJL9Tx5iKWZgvO8X+VoY=3D;
-> > >  b=3Dm4O7nLC1LPZDOI5eM/hmgqouxdkin2veA6CvJhT9kU9rGQALB3ya2fuybMfDvrkT=
-qqBjEd
-> > >  j6DAxXMgOKgwuUfEsZsp3BFJpoii00hSaf0r2uIbnnGcUrDGVQqUQVEqv51O6VBqnrVi=
-Qk
-> > >  PstlJM0lcE9R/AFASd5D/HQGoYYyRY+NKT7xt8g1Ax23Yk/tUG59LXku/skn/4faSLod=
-nU
-> > >  vV2ng3VMUcoLuvSMJtdYY3hrXEWqUrW1ZogxAFHJNiKuyOELmqZGmNo4B4yAFOEcqqya=
-no
-> > >  /f4m/7BtT7X1wwPvGu29gg+0aOFrGQq5kb4UNrMoriSQyKnxPRha8zL3J2Jckw=3D=3D
-> > > Date: Mon, 20 Mar 2023 10:46:19 +0100
-> > > From: Herve Codina <herve.codina@bootlin.com>
-> > > To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > > Subject: Re: [PATCH v2 1/7] dt-bindings: misc: Add the Lantiq PEF2466
-> > >  E1/T1/J1 framer
-> > > Message-ID: <20230320104619.468a304b@bootlin.com>
-> > > In-Reply-To: <96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-> > > References: <20230316122741.577663-1-herve.codina@bootlin.com>
-> > >  <20230316122741.577663-2-herve.codina@bootlin.com>
-> > >  <96b01241-d57d-a460-4a8b-9e83eaab24ae@linaro.org>
-> > > Organization: Bootlin
-> > > X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
-> > > MIME-Version: 1.0
-> > > Content-Type: text/plain; charset=3DUTF-8
-> > > Content-Transfer-Encoding: quoted-printable
-> > > Message-ID-Hash: AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB
-> > > X-Message-ID-Hash: AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB
-> > > X-MailFrom: herve.codina@bootlin.com
-> > > X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emerge=
-ncy;
-> > >  loop; banned-address; member-moderation;
-> > >  header-match-alsa-devel.alsa-project.org-0;
-> > >  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
-> > >  administrivia; implicit-dest; max-recipients; max-size; news-moderat=
-ion;
-> > >  no-subject; digests; suspicious-header
-> > > CC: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-> > >  <krzysztof.kozlowski+dt@linaro.org>, Liam Girdwood <lgirdwood@gmail.=
-com>,
-> > >  Mark Brown <broonie@kernel.org>, Derek Kiernan <derek.kiernan@xilinx=
-.com>,
-> > >  Dragan Cvetic <dragan.cvetic@xilinx.com>, Arnd Bergmann <arnd@arndb.=
-de>,
-> > >  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai
-> > >  <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-> > >  devicetree@vger.kernel.org, alsa-devel@alsa-project.org, Christophe =
-Leroy
-> > >  <christophe.leroy@csgroup.eu>, Thomas Petazzoni
-> > >  <thomas.petazzoni@bootlin.com>
-> > > X-Mailman-Version: 3.3.8
-> > > Precedence: list
-> > > List-Id: "Alsa-devel mailing list for ALSA developers -
-> > >  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-> > > Archived-At: <https://mailman.alsa-project.org/hyperkitty/list/alsa-d=
-evel@alsa-project.org/message/AJZF4VHU24ASVVBCPRMLJCDG4ZDX55LB/>
-> > > List-Archive: <https://mailman.alsa-project.org/hyperkitty/list/alsa-=
-devel@alsa-project.org/>
-> > > List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=3Dhelp=
->
-> > > List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-> > > List-Post: <mailto:alsa-devel@alsa-project.org>
-> > > List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-> > > List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-> >
-> > The alsa-devel list doesn't seem to like your emails. The archives
-> > (lore) has 2 copies with the 2nd having the original headers in the
-> > body. I'm seeing this recently on other senders too. Best I can tell is
-> > you sent this as quoted-printable.
-> >
-> > Rob
->
-> I don't known what happened with alsa-devel list.
->
-> For this answer, I tried to force '8bit' encoding instead of quoted-print=
-able.
-> Let me know if it is better.
 
-Nope, still the same issue:
+--Ox7OggTfOqKWPV/Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-https://lore.kernel.org/all/167948048307.26.16805930109507404147@mailman-co=
-re.alsa-project.org/
+On Wed, Mar 22, 2023 at 12:17:24AM +0200, Marian Postevca wrote:
+> Mark Brown <broonie@kernel.org> writes:
 
-I added the alsa-devel owner. Maybe they know what's happening.
+> >> +	if (SND_SOC_DAPM_EVENT_ON(event))
+> >> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
+> >> +	else
+> >> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
 
-Rob
+> > Why are these two GPIOs tied together like this?
+
+> These GPIOs represent the speaker and the headphone switches. When
+> activating the speaker GPIO you have to deactivate the headphone GPIO
+> and vice versa. The logic is taken from the discussion on the sofproject
+> pull request:
+> https://github.com/thesofproject/linux/pull/4112/commits/810d03e0aecdf0caf580a5179ee6873fb33485ab
+> and
+> https://github.com/thesofproject/linux/pull/4066
+
+Sure, but that doesn't answer the question.  What is the reason
+they're tied together - what if someone wants to play back from
+both speaker and headphones simultaneously?
+
+> >> +static int acp3x_es83xx_suspend_pre(struct snd_soc_card *card)
+> >> +{
+> >> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
+> >> +
+> >> +	dev_dbg(priv->codec_dev, "card suspend\n");
+> >> +	snd_soc_component_set_jack(priv->codec, NULL, NULL);
+> >> +	return 0;
+> >> +}
+
+> > That's weird, why do that?
+
+> This is needed because if suspending the laptop with the headphones
+> inserted, when resuming, the sound is not working anymore. Sound stops
+> working on speakers and headphones. Reinsertion and removals of the
+> headphone doesn't solve the problem.
+
+> This seems to be caused by the fact
+> that the GPIO IRQ stops working in es8316_irq() after resume.
+
+That's a bug that should be fixed.
+
+--Ox7OggTfOqKWPV/Q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQa/akACgkQJNaLcl1U
+h9Ae4gf/e6/5uF/Cshw0/KAUpswFNPMtqowgQJKCeb1t0sE1bo9NguN2cK8tey2g
+tycLYii10gLKkaZAHbwUntUmcTPMR/lpArrSRCfrycoJyqZ0XikSIeGloLdOlqAS
+czi8c7f/CRq2XJP2YQQ7BY7/6z00KnP7+qXcKO9/Lk1DLd1ZorBC0WEuKPEX6+lz
+0FygLY91cCbw1pWB6JiUbvEhgPUXKTKpIaM51W0UB5ShX9hSMiPb2XrWjlY5JOzo
+8y3rIClYOMkrrpW855Ep8wZDsx3WbbwjqKvl9onarPQvINYHxA5waQUm3O6rOwwV
+gI9AVmGankR8assP1w8NLp1ZcQBmwg==
+=s0wu
+-----END PGP SIGNATURE-----
+
+--Ox7OggTfOqKWPV/Q--

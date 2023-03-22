@@ -2,67 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 231C36C5582
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 20:59:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 058806C5590
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 20:59:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68444ECE;
-	Wed, 22 Mar 2023 20:58:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68444ECE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 787D9EB9;
+	Wed, 22 Mar 2023 20:58:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 787D9EB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679515140;
-	bh=Bxw8gk1frQfqGVVaV8G4o0rrL81Chi1otyRo1UbmXOU=;
+	s=default; t=1679515169;
+	bh=PyIAoE5TE12w64lhX+6kgpBNu5MU7e5E2YpbPVOcYCs=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WWtNI13UxbsHra+QS6pDMxzhXHu6iEz94O+U9nbvfEhqnXLSSH6aZ0W3tcuFg98N8
-	 ZFnfZSJ7F0IRi1UNKkviL4lOsE11ZjDnwcSvjxyOwVhu/iqe5HR8MSNbCzOCaAOwIq
-	 4Nh4zrJDeHRJTtMLJ+EjL4NE6gSKcggXoxP8sn94=
+	b=i3EDv3Qe1mwzl6Sa6xJNrhyiyOCwvYfyGG/f1lTS1Y41eIIFgMNkAKIqRjsvgdVEk
+	 1geg5rBKTdYyjGm6FLL7bKV0E2LXiSqSyEHfvCVfoNelq/htNEcpaCV98v3q1By75m
+	 QtehmpHIEiaNnUTxxwzsx/WVeTjIys58YJP3hNCo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 844BCF80529;
-	Wed, 22 Mar 2023 20:57:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06319F80544;
+	Wed, 22 Mar 2023 20:57:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 406C6F8053B; Wed, 22 Mar 2023 20:57:24 +0100 (CET)
+	id 998C9F80548; Wed, 22 Mar 2023 20:57:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38E68F80533
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:57:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38E68F80533
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0BCAF80534
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:57:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0BCAF80534
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tj8BG08d
+ header.s=k20201202 header.b=K3H1tKJh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 94B67B81B97;
-	Wed, 22 Mar 2023 19:57:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADCDC433EF;
-	Wed, 22 Mar 2023 19:57:18 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 745A46229E;
+	Wed, 22 Mar 2023 19:57:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE4FC433D2;
+	Wed, 22 Mar 2023 19:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679515040;
-	bh=Bxw8gk1frQfqGVVaV8G4o0rrL81Chi1otyRo1UbmXOU=;
+	s=k20201202; t=1679515056;
+	bh=PyIAoE5TE12w64lhX+6kgpBNu5MU7e5E2YpbPVOcYCs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tj8BG08dmTBz/NOhk7QFynZg/adFjAaUEZbYeIgHWbpetO/SP9jxY4Upgze2a/KWT
-	 /KXpPH0NWV1H6FJWw3oCSN4+bYfsiNf5YeKe3dpWrTBScU5jlNThbVfMQUbfNDfWTH
-	 qcExYzlwwaU3Gnqn2yrY/Rl+lvNd6BzODDq2gZ51V43QEU+QKk2wjjoGhM0AnWtSMD
-	 f/Ho3o6ZBGyFPNW1ZBH5WqT/gv6818RNnaefHWTVlpkbgH3gOdbMLRLtiaG4WhOmui
-	 oG5fE6iVHmTmzYw7HcacNxN9stSKef8pjxET7SLlHli2Q2A5m3LEmI+55E1EimZVCa
-	 ptotyU0VQannA==
+	b=K3H1tKJhq+PsJEB96uUahw4hj3q/RY/YYY6ZngBMCLQBRckrLhx2E9X9snq6J7RDk
+	 vDvJ/kJyqpLKILcCwEk7nMsS6H1csBVE8ORy8+Fj4ZB9Aj+FAatGB5A4LgTaMfiV0l
+	 Ie00EgR535p+DV/SEBD/jzQ/fhWPIieDXthxYDSTO5bkcWkPIaczVneb7pL1pcrj+5
+	 Udkf50SRwpLBvkvrGcAD5A06fyVs7RRmPDBXBLm5rDgedEaG0tyvHhf5eD5kfBLO89
+	 E2QGphMu4+ony97CO+Buh2uKjTDAsO5ZIDfTHOsT5a/M8tFvF7oMQHDtOIqsu/Wab7
+	 /q477T+xLRQmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 05/45] ASoC: Intel: avs: rt5682: Explicitly define
- codec format
-Date: Wed, 22 Mar 2023 15:55:59 -0400
-Message-Id: <20230322195639.1995821-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 06/45] ASoC: Intel: avs: ssm4567: Remove nau8825
+ bits
+Date: Wed, 22 Mar 2023 15:56:00 -0400
+Message-Id: <20230322195639.1995821-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230322195639.1995821-1-sashal@kernel.org>
 References: <20230322195639.1995821-1-sashal@kernel.org>
@@ -71,8 +72,8 @@ Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XMYAP5ZKE6IYGIFLI4LEL3Q2UOEXEYS5
-X-Message-ID-Hash: XMYAP5ZKE6IYGIFLI4LEL3Q2UOEXEYS5
+Message-ID-Hash: 67YOXAQZLDN3FEUYWRLYOWMEPOSN3ZEP
+X-Message-ID-Hash: 67YOXAQZLDN3FEUYWRLYOWMEPOSN3ZEP
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,9 +81,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+CC: Cezary Rojewski <cezary.rojewski@intel.com>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>,
  Sasha Levin <sashal@kernel.org>, pierre-louis.bossart@linux.intel.com,
  liam.r.girdwood@linux.intel.com, peter.ujfalusi@linux.intel.com,
  yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
@@ -92,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XMYAP5ZKE6IYGIFLI4LEL3Q2UOEXEYS5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67YOXAQZLDN3FEUYWRLYOWMEPOSN3ZEP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,62 +102,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit d24dbc865c2bd5946bef62bb862a65df092dfc79 ]
+[ Upstream commit 933de2d127281731166cf2880fa1e23c5a0f7faa ]
 
-rt5682 is headset codec configured in 48000/2/S24_LE format regardless
-of front end format, so force it to be so.
+Some of the nau8825 clock control got into the ssm4567, remove it.
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Link: https://lore.kernel.org/r/20230303134854.2277146-4-amadeuszx.slawinski@linux.intel.com
+Link: https://lore.kernel.org/r/20230303134854.2277146-5-amadeuszx.slawinski@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/avs/boards/rt5682.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ sound/soc/intel/avs/boards/ssm4567.c | 31 ----------------------------
+ 1 file changed, 31 deletions(-)
 
-diff --git a/sound/soc/intel/avs/boards/rt5682.c b/sound/soc/intel/avs/boards/rt5682.c
-index 473e9fe5d0bf7..b2c2ba93dcb56 100644
---- a/sound/soc/intel/avs/boards/rt5682.c
-+++ b/sound/soc/intel/avs/boards/rt5682.c
-@@ -169,6 +169,27 @@ static const struct snd_soc_ops avs_rt5682_ops = {
- 	.hw_params = avs_rt5682_hw_params,
+diff --git a/sound/soc/intel/avs/boards/ssm4567.c b/sound/soc/intel/avs/boards/ssm4567.c
+index c5db696127624..2b7f5ad92aca7 100644
+--- a/sound/soc/intel/avs/boards/ssm4567.c
++++ b/sound/soc/intel/avs/boards/ssm4567.c
+@@ -15,7 +15,6 @@
+ #include <sound/soc-acpi.h>
+ #include "../../../codecs/nau8825.h"
+ 
+-#define SKL_NUVOTON_CODEC_DAI	"nau8825-hifi"
+ #define SKL_SSM_CODEC_DAI	"ssm4567-hifi"
+ 
+ static struct snd_soc_codec_conf card_codec_conf[] = {
+@@ -34,41 +33,11 @@ static const struct snd_kcontrol_new card_controls[] = {
+ 	SOC_DAPM_PIN_SWITCH("Right Speaker"),
  };
  
-+static int
-+avs_rt5682_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pcm_hw_params *params)
-+{
-+	struct snd_interval *rate, *channels;
-+	struct snd_mask *fmt;
-+
-+	rate = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
-+	channels = hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
-+	fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
-+
-+	/* The ADSP will convert the FE rate to 48k, stereo */
-+	rate->min = rate->max = 48000;
-+	channels->min = channels->max = 2;
-+
-+	/* set SSPN to 24 bit */
-+	snd_mask_none(fmt);
-+	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
-+
-+	return 0;
-+}
-+
- static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
- 			       struct snd_soc_dai_link **dai_link)
- {
-@@ -201,6 +222,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
- 	dl->id = 0;
- 	dl->init = avs_rt5682_codec_init;
- 	dl->exit = avs_rt5682_codec_exit;
-+	dl->be_hw_params_fixup = avs_rt5682_be_fixup;
- 	dl->ops = &avs_rt5682_ops;
- 	dl->nonatomic = 1;
- 	dl->no_pcm = 1;
+-static int
+-platform_clock_control(struct snd_soc_dapm_widget *w, struct snd_kcontrol *control, int event)
+-{
+-	struct snd_soc_dapm_context *dapm = w->dapm;
+-	struct snd_soc_card *card = dapm->card;
+-	struct snd_soc_dai *codec_dai;
+-	int ret;
+-
+-	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
+-	if (!codec_dai) {
+-		dev_err(card->dev, "Codec dai not found\n");
+-		return -EINVAL;
+-	}
+-
+-	if (SND_SOC_DAPM_EVENT_ON(event)) {
+-		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_MCLK, 24000000,
+-					     SND_SOC_CLOCK_IN);
+-		if (ret < 0)
+-			dev_err(card->dev, "set sysclk err = %d\n", ret);
+-	} else {
+-		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
+-		if (ret < 0)
+-			dev_err(card->dev, "set sysclk err = %d\n", ret);
+-	}
+-
+-	return ret;
+-}
+-
+ static const struct snd_soc_dapm_widget card_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Left Speaker", NULL),
+ 	SND_SOC_DAPM_SPK("Right Speaker", NULL),
+ 	SND_SOC_DAPM_SPK("DP1", NULL),
+ 	SND_SOC_DAPM_SPK("DP2", NULL),
+-	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0, platform_clock_control,
+-			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ };
+ 
+ static const struct snd_soc_dapm_route card_base_routes[] = {
 -- 
 2.39.2
 

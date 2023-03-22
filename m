@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 852436C56AA
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 21:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A516C581B
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 21:49:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95EC1EED;
-	Wed, 22 Mar 2023 21:07:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95EC1EED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21054F0B;
+	Wed, 22 Mar 2023 21:48:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21054F0B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679515703;
-	bh=2yJDhlgtT2RyRVOjfRfz4bd8Xvh8tCq8cDWSbB+IWv4=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1679518172;
+	bh=UGI4wuqk28si00gqCk+pXZy1oVhNUVal257IJk22lcA=;
+	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fcUxxn7tDqLZfelqY3oyI8TeriXUh37Qu7udMq8jdWYyp6m+C4zjOdQvTJADH1DJb
-	 HiKmABKpbwAfC0H9OiMaEp1tqKGz29V4tS0p+NpXcHbSustWg9CHHm0hRdVRCF7o1i
-	 5HrlJA6wIj7u0FNGcNFpD0mN433wOsPRO7LNPshc=
+	b=fAA60FLcAEErcWgWlqSiuq1PI3xBwAz93uun0q/0SyXwB8zYfm3d1l7hDdhn8qxN4
+	 50AvRKmIzYD6psltnh0bAUeg7CseTaP5ZCKWpvvWEWN8JkqSPg408fRBS//tBS8GqQ
+	 l8peCgw+Lkm8GU7Ipc7o9q21fJ0NM0FE2tko0+pI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55EA3F8059F;
-	Wed, 22 Mar 2023 21:03:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EF69F80254;
+	Wed, 22 Mar 2023 21:48:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0D2BF805C0; Wed, 22 Mar 2023 21:03:50 +0100 (CET)
+	id 31057F8027B; Wed, 22 Mar 2023 21:48:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AAA9F8055A
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 21:03:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AAA9F8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B246F80105
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 21:48:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B246F80105
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dHPGYBIM
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A4891622B4;
-	Wed, 22 Mar 2023 20:03:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D7CC433D2;
-	Wed, 22 Mar 2023 20:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679515427;
-	bh=2yJDhlgtT2RyRVOjfRfz4bd8Xvh8tCq8cDWSbB+IWv4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dHPGYBIMVFtxswFPr5yivaZ4atQT4F0S8BgyXWVB0gpZnrxZdFB0sWgzKmuF0e6BG
-	 tVRcPf3ST8rzf8oH6837kyEMepCKArvTmzvvVK7DkUuSzri8xs+aeeb6qJYDBzoLT5
-	 cv+FU9uU0udypAch/4aYRILNVy/Mu2Uq+sm0AfL+FpemDHLJN+p5KTdr15FXZZeqKr
-	 zMXAiYssT89nKL6KH5sQgJTa8kc4fu5SFY+Lrs5GWQP6YD7i7PMVndhAUZm5SiYgWJ
-	 pGzeiiMtPb4XGgLINahfJgH8jV49D4v1x1Uqua+dvfoEk5YmRUc8ob5qN3pJSELxgD
-	 P1vWi57+wuvjg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 3/9] ALSA: hda/ca0132: fixup buffer overrun at
- tuning_ctl_set()
-Date: Wed, 22 Mar 2023 16:03:30 -0400
-Message-Id: <20230322200337.1997810-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230322200337.1997810-1-sashal@kernel.org>
-References: <20230322200337.1997810-1-sashal@kernel.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=NMckDuv5
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id 6BD4616C0008;
+	Wed, 22 Mar 2023 22:48:32 +0200 (EET)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 5D_69F_8jHUO; Wed, 22 Mar 2023 22:48:31 +0200 (EET)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1679518111; bh=UGI4wuqk28si00gqCk+pXZy1oVhNUVal257IJk22lcA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=NMckDuv5o61W0GTAMnDxZYomYSjRDvNjw2n9tfnDDAipdtO80UIWbF8O6iq+58nl5
+	 fCy4eAxEWvy3bgxhjzzyZIE4/SKKpQ6F1XvSAHs2/wVoORoUGR/XK+vYiA65Igati2
+	 XR3es+DN0t0kKnjmLkUiDN+OBObA4KNmfyoe8BPI=
+To: Mark Brown <broonie@kernel.org>, =?utf-8?B?5rKI5LiA6LaF?=
+ <zhuning0077@gmail.com>,
+ yangxiaohua <yangxiaohua@everest-semi.com>, Zhu Ning
+ <zhuning@everest-semi.com>
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+In-Reply-To: <ZBr9rJn50ovG1w9W@sirena.org.uk>
+References: <20230320203519.20137-1-posteuca@mutex.one>
+ <20230320203519.20137-4-posteuca@mutex.one>
+ <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
+ <87lejpwxzf.fsf@mutex.one> <ZBr9rJn50ovG1w9W@sirena.org.uk>
+Date: Wed, 22 Mar 2023 22:48:28 +0200
+Message-ID: <87ttycjyw3.fsf@mutex.one>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3FU4DWA6QBAJATACVYNDRWLPGAJZ3IGB
-X-Message-ID-Hash: 3FU4DWA6QBAJATACVYNDRWLPGAJZ3IGB
-X-MailFrom: sashal@kernel.org
+Content-Type: text/plain
+Message-ID-Hash: I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY
+X-Message-ID-Hash: I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- tiwai@suse.com, dev@xianwang.io, ye.xingchen@zte.com.cn,
- gremlin@altlinux.org, alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FU4DWA6QBAJATACVYNDRWLPGAJZ3IGB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I7K4JZMGM655SLF2ZGXEXIZ4CK5Y2ZPY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,60 +94,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Mark Brown <broonie@kernel.org> writes:
 
-[ Upstream commit 98e5eb110095ec77cb6d775051d181edbf9cd3cf ]
+> On Wed, Mar 22, 2023 at 12:17:24AM +0200, Marian Postevca wrote:
+>> Mark Brown <broonie@kernel.org> writes:
+>
+>> >> +	if (SND_SOC_DAPM_EVENT_ON(event))
+>> >> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
+>> >> +	else
+>> >> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
+>
+>> > Why are these two GPIOs tied together like this?
+>
+>> These GPIOs represent the speaker and the headphone switches. When
+>> activating the speaker GPIO you have to deactivate the headphone GPIO
+>> and vice versa. The logic is taken from the discussion on the sofproject
+>> pull request:
+>> https://github.com/thesofproject/linux/pull/4112/commits/810d03e0aecdf0caf580a5179ee6873fb33485ab
+>> and
+>> https://github.com/thesofproject/linux/pull/4066
+>
+> Sure, but that doesn't answer the question.  What is the reason
+> they're tied together - what if someone wants to play back from
+> both speaker and headphones simultaneously?
+>
 
-tuning_ctl_set() might have buffer overrun at (X) if it didn't break
-from loop by matching (A).
+The GPIO handling is not documented in the codec datasheet, so I
+constructed this logic by looking at the existing implementations of
+machine drivers for this codec (sof_es8336.c, bytcht_es8316.c) and
+comments of Everest Semiconductor engineers on the sofproject
+pull requests. I'm saying all of this because I don't know the reasons
+why these GPIOs work the way they do.
 
-	static int tuning_ctl_set(...)
-	{
-		for (i = 0; i < TUNING_CTLS_COUNT; i++)
-(A)			if (nid == ca0132_tuning_ctls[i].nid)
-				break;
+According to the Everest Semiconductor engineers this is the recommended
+way to switch these GPIOs:
 
-		snd_hda_power_up(...);
-(X)		dspio_set_param(..., ca0132_tuning_ctls[i].mid, ...);
-		snd_hda_power_down(...);                ^
++--------------+--------------+----------------+
+|              | Speaker GPIO | Headphone GPIO |
++--------------+--------------+----------------+
+| Speaker on   | active       | inactive       |
+| Headphone on | inactive     | active         |
+| Suspended    | inactive     | inactive       |
++--------------+--------------+----------------+
+(https://github.com/thesofproject/linux/pull/4066/commits/b7f12e46a36b74a9992920154a65cd55f5b0cdb4#r1041693056)
 
-		return 1;
-	}
+This lockstep between these two GPIOs can be seen in sof_es8336.c in
+pcm_pop_work_events() too.
 
-We will get below error by cppcheck
+Regarding playing the speaker and headphone simultaneously, is not
+something I took into account. Is this even a valid usecase? The intel driver
+for es8336 doesn't seem to support it.
 
-	sound/pci/hda/patch_ca0132.c:4229:2: note: After for loop, i has value 12
-	 for (i = 0; i < TUNING_CTLS_COUNT; i++)
-	 ^
-	sound/pci/hda/patch_ca0132.c:4234:43: note: Array index out of bounds
-	 dspio_set_param(codec, ca0132_tuning_ctls[i].mid, 0x20,
-	                                           ^
-This patch cares non match case.
+Maybe someone from Everest Semiconductor can comment on this GPIO handling?
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87sfe9eap7.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/pci/hda/patch_ca0132.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>> >> +static int acp3x_es83xx_suspend_pre(struct snd_soc_card *card)
+>> >> +{
+>> >> +	struct acp3x_es83xx_private *priv = get_mach_priv(card);
+>> >> +
+>> >> +	dev_dbg(priv->codec_dev, "card suspend\n");
+>> >> +	snd_soc_component_set_jack(priv->codec, NULL, NULL);
+>> >> +	return 0;
+>> >> +}
+>
+>> > That's weird, why do that?
+>
+>> This is needed because if suspending the laptop with the headphones
+>> inserted, when resuming, the sound is not working anymore. Sound stops
+>> working on speakers and headphones. Reinsertion and removals of the
+>> headphone doesn't solve the problem.
+>
+>> This seems to be caused by the fact
+>> that the GPIO IRQ stops working in es8316_irq() after resume.
+>
+> That's a bug that should be fixed.
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 280643f72c6e2..13c32f3414d2f 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -2943,8 +2943,10 @@ static int tuning_ctl_set(struct hda_codec *codec, hda_nid_t nid,
- 
- 	for (i = 0; i < TUNING_CTLS_COUNT; i++)
- 		if (nid == ca0132_tuning_ctls[i].nid)
--			break;
-+			goto found;
- 
-+	return -EINVAL;
-+found:
- 	snd_hda_power_up(codec);
- 	dspio_set_param(codec, ca0132_tuning_ctls[i].mid,
- 			ca0132_tuning_ctls[i].req,
--- 
-2.39.2
+Agreed, but I don't know how easy it is to fix, and I would like to
+first offer users of these laptops a working sound driver.
+Afterwards this issue can be analyzed and properly fixed.
+
 

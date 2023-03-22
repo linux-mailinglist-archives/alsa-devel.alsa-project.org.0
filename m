@@ -2,76 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 555866C3FF6
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 02:44:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 560956C400E
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 02:59:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FF70210;
-	Wed, 22 Mar 2023 02:43:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FF70210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 268CC210;
+	Wed, 22 Mar 2023 02:58:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268CC210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679449485;
-	bh=IfFNrewpW+W4cofzuPUDqXC+4oJK2QcJanNS6hWPVpI=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BwQGmSsXHWHDUbvGNb4gta/mn8CS/6kxYSt7mI8k1xpaspFs1FA/cQeB1htAa4Pd9
-	 ITFhnk8jR2ZrHl/7948yd8vDAD8a5OAaSrEH7eYdpzqMe+IUkxhjckOaTALdvjd3n9
-	 qXQTTtRXrW7lRpTK2Zk5DxelbBgpmvppVB84+J34=
+	s=default; t=1679450369;
+	bh=3Gh9EtYgNBOUaS3nSeIeyhsENXuq+d6Y7mIFyooKfiY=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=maNkjFeho+trWbASIr3OuEfzWEsWi0Ch8VRTctrC8cNOLTyENq0lYr3araaxP+hEI
+	 P+D1C3e24EhNHxt///k+wHGsAJuVhfsuF/aqLHOPQv8lyyBr2M6OTc+w8o9/qKvW3J
+	 zkPXtHVJNypRgpylODjRqskmxNRyKj7FUrIrFq38=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBF79F80254;
-	Wed, 22 Mar 2023 02:43:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F573F8024E;
+	Wed, 22 Mar 2023 02:58:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2DC2F8027B; Wed, 22 Mar 2023 02:43:48 +0100 (CET)
+	id 53C3EF80254; Wed, 22 Mar 2023 02:58:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=5.0 tests=ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_IN_DEF_SPF_WL shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from out30-118.freemail.mail.aliyun.com
- (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38A57F80105
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 02:43:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38A57F80105
-X-Alimail-AntiSpam: 
- AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046059;MF=jiapeng.chong@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0VeOZfe3_1679449412;
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VeOZfe3_1679449412)
-          by smtp.aliyun-inc.com;
-          Wed, 22 Mar 2023 09:43:36 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: lgirdwood@gmail.com
-Subject: [PATCH] ASoC: tegra: remove unneeded semicolon
-Date: Wed, 22 Mar 2023 09:43:30 +0800
-Message-Id: <20230322014330.97079-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C322F80105
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 02:58:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C322F80105
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=HwW1tlUu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679450309; x=1710986309;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=3Gh9EtYgNBOUaS3nSeIeyhsENXuq+d6Y7mIFyooKfiY=;
+  b=HwW1tlUuu/mFmAunbIG1hc0en85HYJUjKa+Xki8I3wsEZFIkLms9WYr6
+   mfkpPWIVg16jYfxQVd8p3pENVBgtn7PJH3YfOGV5odJ2nzmnqoK05Fbns
+   sNTbv01uqB4iw699zxtRpmLtixqUcyB+Awg7L4xoGV5jxpVBeTN8vW54D
+   Qb+uqm9Vh1uqKfPlqrbkj0oN2X19cxNhOJfMC/5VZE3vrpj9zgFqzSz/g
+   HtihwF+TCLg2qKwgzQ+v9NQlnVOgBWdVWntH9m3tdcP609UcLLM+idrAc
+   +WGG2avFDhAvwysyeInOlGD0FvxPkLO8NsmBwRmrQ4cIiqDzYGVqM0EDR
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="319492600"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400";
+   d="scan'208";a="319492600"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2023 18:58:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="750867887"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400";
+   d="scan'208";a="750867887"
+Received: from bkerker-mobl.amr.corp.intel.com (HELO [10.212.160.104])
+ ([10.212.160.104])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2023 18:58:24 -0700
+Message-ID: <cf458a5a-a0c0-ded7-1819-a85e548cb491@linux.intel.com>
+Date: Tue, 21 Mar 2023 20:58:23 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4WRNGJVGYQYXEICKND2KC4W5WFY5COES
-X-Message-ID-Hash: 4WRNGJVGYQYXEICKND2KC4W5WFY5COES
-X-MailFrom: jiapeng.chong@linux.alibaba.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.8.0
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables sound
+ for systems with a ES8336 codec
+Content-Language: en-US
+To: Marian Postevca <posteuca@mutex.one>, Mark Brown <broonie@kernel.org>
+References: <20230320203519.20137-1-posteuca@mutex.one>
+ <20230320203519.20137-4-posteuca@mutex.one>
+ <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
+ <87lejpwxzf.fsf@mutex.one>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <87lejpwxzf.fsf@mutex.one>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WKTIHKTQBK3PZBJQCFIG7X7SZM6QFMFI
+X-Message-ID-Hash: WKTIHKTQBK3PZBJQCFIG7X7SZM6QFMFI
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: broonie@kernel.org, tiwai@suse.com, thierry.reding@gmail.com,
- jonathanh@nvidia.com, alsa-devel@alsa-project.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
+CC: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WRNGJVGYQYXEICKND2KC4W5WFY5COES/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WKTIHKTQBK3PZBJQCFIG7X7SZM6QFMFI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -80,28 +109,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-./sound/soc/tegra/tegra_asoc_machine.c:206:3-4: Unneeded semicolon.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4583
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- sound/soc/tegra/tegra_asoc_machine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-index c2aaa496468c..f5092b410926 100644
---- a/sound/soc/tegra/tegra_asoc_machine.c
-+++ b/sound/soc/tegra/tegra_asoc_machine.c
-@@ -203,7 +203,7 @@ int tegra_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
- 					  "nvidia,coupled-mic-hp-det")) {
- 			tegra_machine_mic_jack_gpio.desc = machine->gpiod_hp_det;
- 			tegra_machine_mic_jack_gpio.jack_status_check = coupled_mic_hp_check;
--		};
-+		}
- 
- 		err = snd_soc_jack_add_gpios(&tegra_machine_mic_jack, 1,
- 					     &tegra_machine_mic_jack_gpio);
--- 
-2.20.1.7.g153144c
 
+>>> +static int acp3x_es83xx_speaker_power_event(struct snd_soc_dapm_widget *w,
+>>> +					    struct snd_kcontrol *kcontrol, int event)
+>>> +{
+>>> +	struct acp3x_es83xx_private *priv = get_mach_priv(w->dapm->card);
+>>> +
+>>> +	dev_dbg(priv->codec_dev, "speaker power event: %d\n", event);
+>>> +	if (SND_SOC_DAPM_EVENT_ON(event))
+>>> +		acp3x_es83xx_set_gpios_values(priv, 1, 0);
+>>> +	else
+>>> +		acp3x_es83xx_set_gpios_values(priv, 0, 1);
+>>
+>> Why are these two GPIOs tied together like this?
+>>
+> 
+> These GPIOs represent the speaker and the headphone switches. When
+> activating the speaker GPIO you have to deactivate the headphone GPIO
+> and vice versa. The logic is taken from the discussion on the sofproject
+> pull request:
+> https://github.com/thesofproject/linux/pull/4112/commits/810d03e0aecdf0caf580a5179ee6873fb33485ab
+> and
+> https://github.com/thesofproject/linux/pull/4066
+
+These threads didn't exactly lead to a firm conclusion on how the GPIOs
+should be used, IIRC there are cases where the levels are inverted and
+all kinds of issues still not clear at all even after reading the tables
+from ACPI _DSM methods.
+
+I personally gave up, and I would recommend you take these threads as
+inputs rather than firm directions.

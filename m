@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E4E36C55E1
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 21:01:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7DB6C55EE
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 21:02:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 667D0EEA;
-	Wed, 22 Mar 2023 21:00:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667D0EEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D496EB9;
+	Wed, 22 Mar 2023 21:01:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D496EB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679515304;
-	bh=S7xw1KZi9wgWBe4cQ7BxQezBNrU2pPn0w8A9pR4J7cI=;
+	s=default; t=1679515328;
+	bh=YpKGVIZwXXwpPXYfMjguBK41oZD5x+E7M/c8749YMQc=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ijKFLbKi3X7lweq4aXvuRVTfMJSNEUMLZtLXlAHO7q1mTXiHDl15o1tgpcgGMRu0M
-	 XSOVGkG4kBXkoYLx+R7DlJ1U5CsqODPn5t1YGP9iOTQG7+MciwJzbiZzyIbmzbLc5o
-	 pMuBopoVidP+hnl9fnNbP4oTgpsZeFIt67CmuAIg=
+	b=r3pIxsdoXd3miCbnSLm+tkT2uBakX/WE1i+tG6Km8vVEzjLPFxjr+ru6et5vlVDfz
+	 ZbiRI8mqqxHfG862ltqdpoz8oJhTbj7nxPka7SLcQ8PZCN9yEFVhFNCxHcwbfX7HTT
+	 2KmTo4hKK6h7D40TeQuy45KDv/GF00+QfV6pUi6k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9F59F805B4;
-	Wed, 22 Mar 2023 20:58:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E7C8F80533;
+	Wed, 22 Mar 2023 20:59:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22387F80588; Wed, 22 Mar 2023 20:58:30 +0100 (CET)
+	id 1C781F8053B; Wed, 22 Mar 2023 20:59:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 73EFDF8057E
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:58:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73EFDF8057E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C52FF80254
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 20:58:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C52FF80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=plJmx5Ai
+ header.s=k20201202 header.b=h6BeHHnW
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AB1F3622B6;
-	Wed, 22 Mar 2023 19:58:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D680FC433A4;
-	Wed, 22 Mar 2023 19:58:20 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 7BCCBB81DE6;
+	Wed, 22 Mar 2023 19:58:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29FB9C4339C;
+	Wed, 22 Mar 2023 19:58:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679515102;
-	bh=S7xw1KZi9wgWBe4cQ7BxQezBNrU2pPn0w8A9pR4J7cI=;
+	s=k20201202; t=1679515137;
+	bh=YpKGVIZwXXwpPXYfMjguBK41oZD5x+E7M/c8749YMQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=plJmx5Aiq+9nx+iTeESo0tAUoRiB+fnpwOj3zbvTbeowMtYNhmX9AvqQKp3Oiu9GM
-	 ArvgCzh7IoGfWmhXhND0aBxNb87ZKBBbAluq3oeIIU6RSD4ppf/Xd5YCN6+nuymstP
-	 lGU24l9yzllUSREWpudHR4lQz3pdLBDWfD++wiqXYiKvFo+frCJCjZCvPAZ0fB7QOj
-	 Po0FBm5wmVhHyHg5ynLoQvdjgpGkXJeFg/N3jmtv1fowtAlZALryyK8eTKQ2Lintt0
-	 Qg2cywCIdoVtOQU+9u+DdPDCqyIuGyKLtQ1rtJyhJA9mYpIOuddRSTOZU2aSJO2VFz
-	 q35Ns6N81AAVw==
+	b=h6BeHHnWUdAhr6mRv9EELkUJZJLjdqWDiiNeUhO3xJ8BkzwEw906U+Wv4XCCjrlpG
+	 yiAeCs8zVVKzNEKnzYz47pqwdFx7tXuJha2Om65e02LtPOPD6RCEfkrwHPuyh5rHg4
+	 B5KRSeNwvgN0i5nk7lIWGb9adJxBlqD46Ogb6GNgF8GQLO0pDkWehkac0h5lOPA4gd
+	 mmnNWDltGuMBLSdGG67DdZO/P5G3x5/GZzJsLi99PBIDN0MUlXqB7cy7YEUa54dFer
+	 Gxi17icmACWcojAplDXhDVGBQdQgrYjAf92mSDQFtQeE3kd9qGBZlqbrC88d5UT1CI
+	 yhKWgYMd56FWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 20/45] ASoC: hdmi-codec: only startup/shutdown on
- supported streams
-Date: Wed, 22 Mar 2023 15:56:14 -0400
-Message-Id: <20230322195639.1995821-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 30/45] ALSA: asihpi: check pao in
+ control_message()
+Date: Wed, 22 Mar 2023 15:56:24 -0400
+Message-Id: <20230322195639.1995821-30-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230322195639.1995821-1-sashal@kernel.org>
 References: <20230322195639.1995821-1-sashal@kernel.org>
@@ -71,8 +70,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HNMWUYMCCXPPEJ26UF4V4GWDKEQIRMLS
-X-Message-ID-Hash: HNMWUYMCCXPPEJ26UF4V4GWDKEQIRMLS
+Message-ID-Hash: WK5FE66KTVC4AH7ODO5D6EIGBOJX32ME
+X-Message-ID-Hash: WK5FE66KTVC4AH7ODO5D6EIGBOJX32ME
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,17 +79,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Emil Abildgaard Svendsen <EMAS@bang-olufsen.dk>,
- Emil Svendsen <emas@bang-olufsen.dk>, Mark Brown <broonie@kernel.org>,
- Sasha Levin <sashal@kernel.org>, lgirdwood@gmail.com, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
- kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org
+CC: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ tiwai@suse.com, dengshaomin@cdjrlc.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HNMWUYMCCXPPEJ26UF4V4GWDKEQIRMLS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WK5FE66KTVC4AH7ODO5D6EIGBOJX32ME/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,63 +96,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Emil Abildgaard Svendsen <EMAS@bang-olufsen.dk>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-[ Upstream commit e041a2a550582106cba6a7c862c90dfc2ad14492 ]
+[ Upstream commit 9026c0bf233db53b86f74f4c620715e94eb32a09 ]
 
-Currently only one stream is supported. This isn't usally a problem
-until you have a multi codec audio card. Because the audio card will run
-startup and shutdown on both capture and playback streams. So if your
-hdmi-codec only support either playback or capture. Then ALSA can't open
-for playback and capture.
+control_message() might be called with pao = NULL.
+Here indicates control_message() as sample.
 
-This patch will ignore if startup and shutdown are called with a non
-supported stream. Thus, allowing an audio card like this:
+(B)	static void control_message(struct hpi_adapter_obj *pao, ...)
+	{                                                   ^^^
+		struct hpi_hw_obj *phw = pao->priv;
+		...                      ^^^
+	}
 
-           +-+
- cpu1 <--@-| |-> codec1 (HDMI-CODEC)
-           | |<- codec2 (NOT HDMI-CODEC)
-           +-+
+(A)	void _HPI_6205(struct hpi_adapter_obj *pao, ...)
+	{                                      ^^^
+		...
+		case HPI_OBJ_CONTROL:
+(B)			control_message(pao, phm, phr);
+			break;          ^^^
+		...
+	}
 
-Signed-off-by: Emil Svendsen <emas@bang-olufsen.dk>
-Link: https://lore.kernel.org/r/20230309065432.4150700-2-emas@bang-olufsen.dk
-Signed-off-by: Mark Brown <broonie@kernel.org>
+	void HPI_6205(...)
+	{
+		...
+(A)		_HPI_6205(NULL, phm, phr);
+		...       ^^^^
+	}
+
+Therefore, We will get too many warning via cppcheck, like below
+
+	sound/pci/asihpi/hpi6205.c:238:27: warning: Possible null pointer dereference: pao [nullPointer]
+		 struct hpi_hw_obj *phw = pao->priv;
+		                          ^
+	sound/pci/asihpi/hpi6205.c:433:13: note: Calling function '_HPI_6205', 1st argument 'NULL' value is 0
+		  _HPI_6205(NULL, phm, phr);
+		            ^
+	sound/pci/asihpi/hpi6205.c:401:20: note: Calling function 'control_message', 1st argument 'pao' value is 0
+	   control_message(pao, phm, phr);
+	                   ^
+Set phr->error like many functions doing, and don't call _HPI_6205()
+with NULL.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87ttypeaqz.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/hdmi-codec.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/pci/asihpi/hpi6205.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 74cbbe16f9aec..a22f2ec95901f 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -428,8 +428,13 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
- {
- 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	bool has_capture = !hcp->hcd.no_i2s_capture;
-+	bool has_playback = !hcp->hcd.no_i2s_playback;
- 	int ret = 0;
+diff --git a/sound/pci/asihpi/hpi6205.c b/sound/pci/asihpi/hpi6205.c
+index 27e11b5f70b97..c7d7eff86727f 100644
+--- a/sound/pci/asihpi/hpi6205.c
++++ b/sound/pci/asihpi/hpi6205.c
+@@ -430,7 +430,7 @@ void HPI_6205(struct hpi_message *phm, struct hpi_response *phr)
+ 		pao = hpi_find_adapter(phm->adapter_index);
+ 	} else {
+ 		/* subsys messages don't address an adapter */
+-		_HPI_6205(NULL, phm, phr);
++		phr->error = HPI_ERROR_INVALID_OBJ_INDEX;
+ 		return;
+ 	}
  
-+	if (!((has_playback && tx) || (has_capture && !tx)))
-+		return 0;
-+
- 	mutex_lock(&hcp->lock);
- 	if (hcp->busy) {
- 		dev_err(dai->dev, "Only one simultaneous stream supported!\n");
-@@ -468,6 +473,12 @@ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *dai)
- {
- 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	bool has_capture = !hcp->hcd.no_i2s_capture;
-+	bool has_playback = !hcp->hcd.no_i2s_playback;
-+
-+	if (!((has_playback && tx) || (has_capture && !tx)))
-+		return;
- 
- 	hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
- 	hcp->hcd.ops->audio_shutdown(dai->dev->parent, hcp->hcd.data);
 -- 
 2.39.2
 

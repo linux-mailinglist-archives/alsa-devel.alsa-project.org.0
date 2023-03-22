@@ -2,106 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E671B6C436B
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 07:42:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA7D6C4437
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Mar 2023 08:39:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D352F829;
-	Wed, 22 Mar 2023 07:41:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D352F829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 031B1843;
+	Wed, 22 Mar 2023 08:38:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 031B1843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679467349;
-	bh=aEorBz5DAEsqWv7UypA60gCqwdVRXbToFGJhJfuZjkg=;
+	s=default; t=1679470761;
+	bh=sKGJjMoP8fvL6AXbiisJ8Bj1a/nq1rL2Q6j68gmxwUo=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uFH/4Jx4QC6gtBAjQ2cKJAJRWyQ3iyd4jASr8c/Xo1zbY+91QAZ7O8UHRiZxK2Mc1
-	 VSHe2NqDtFbhiFR9NMvuRZ2/xpcls1IDSF2tDus6l3tkUJeWH/5bx6Zo7pHzC+bVKU
-	 0zNibZEITeWAcFTkx3V3CsOvPBl1TMqowqAjIy5o=
+	b=VknRvEhg2n3quv9UP+XqYKiAXAOsJtSY/e4OK55C/XGdvSUhYXD5953cQ/oFq0rL5
+	 tEX3FZ0j/v0gGGZw6XvNx/NSWad4Gnkp/mKwskg0AKwC5kPc88ide/J1rQKeljMxxw
+	 Y7xvre3ShPAIPzdENPYFyDGKDvX9kwp6/R6NZm0M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85D2CF80254;
-	Wed, 22 Mar 2023 07:41:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3EEAF8024E;
+	Wed, 22 Mar 2023 08:38:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A597DF80093; Wed, 22 Mar 2023 07:38:47 +0100 (CET)
+	id ECDC8F8027B; Wed, 22 Mar 2023 08:38:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D139EF80093
-	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 07:36:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D139EF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9046F8024E
+	for <alsa-devel@alsa-project.org>; Wed, 22 Mar 2023 08:38:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9046F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=iHS1hBOs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679466986; x=1711002986;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=aEorBz5DAEsqWv7UypA60gCqwdVRXbToFGJhJfuZjkg=;
-  b=iHS1hBOsZ2uzxpA+1prLFYcABAakaTOAt6CT+eyahxCztYfQ/Kz61RXJ
-   OCE8S55AX8slXtdeOel6X0egvCzrwgV/rYYq+Y5ewZRvYxwRZOltVAvz9
-   Z8UK90SXQzGLSyH3MI0bdkLeXTauSEL7LUMJzUEmBvKqWXfhWMpAgqqDF
-   Dhx/F644YoSn4bFssCk63WaCsttUUM15I+tgcqDZC813KrdX+IVOIzGJ1
-   sqa0LmQzwhFBiwv+v4lJcnTajCl+ao2MQDfxEuzikf5FyAdgfRLMvnc13
-   RtidZTgWZSW8lg8UkZz2yGxRLJVYrmfxmA/I/nWU7vbzfVAvI9a0a5zPI
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="339179814"
-X-IronPort-AV: E=Sophos;i="5.98,281,1673942400";
-   d="scan'208";a="339179814"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 23:36:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="770939251"
-X-IronPort-AV: E=Sophos;i="5.98,281,1673942400";
-   d="scan'208";a="770939251"
-Received: from gjantea-mobl.ger.corp.intel.com (HELO [10.251.222.2])
- ([10.251.222.2])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 23:36:18 -0700
-Message-ID: <e85214c6-9dd6-73f7-6c61-eaefa86fc405@linux.intel.com>
-Date: Wed, 22 Mar 2023 08:36:48 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=Ovk6gx9L
+Received: by mail-ed1-x534.google.com with SMTP id eg48so68985030edb.13
+        for <alsa-devel@alsa-project.org>;
+ Wed, 22 Mar 2023 00:38:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1679470683;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fIlFrePZXbAkRU2ELLJPQAlw9IYOtHNm0vNBQivbWPw=;
+        b=Ovk6gx9LBcuOvIdpF+utI2+huZW2TwdhnKy6VxEQRwDCZA9TY4mdwyiqUaV/Q0Ue4i
+         t6IQatnKJOtNRArp68GUTKweCl0MlKdRfog2LEAolB4T7hzD70haB7PLcvCCN85tjkG4
+         Ffd3aNS8kKC1a3YTllsPUi64p+SQbAKjB89v0mexDiB0guMTeC6Wuyk503iTcsh+Rv/m
+         e0bAZnP3FxV4ktpIDfsRFBoPOauLZJM7zoaWTj9ZRQtq6faWDENs04KxRhFVdiqtiwAb
+         pI2vcKOq5KKoCWZREkNLl+6B6AOS7uDTBO7viKCZcHMHZ8sbbw7yPndR6ciO6jVrTeSu
+         Pnvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679470683;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fIlFrePZXbAkRU2ELLJPQAlw9IYOtHNm0vNBQivbWPw=;
+        b=ZhwpId0KI8ldQS/wHH0Cv7I2EIXOgI9PKYZNZWw5yO5mZYw3a3mHWeVRFqOFYB0/Do
+         PPWXE7h4hvlL6xc5nl4eifLSbEEDvFM0vlKFUURIxTGIYwzgWUqcAE1CMzLtBQBTjsB/
+         ps6rHDKSN+cIJag5JTcPWE96KTU/WS/h9ddc7G7oPHRnLLPARqnPrIsIYvuMgjNPEv9J
+         46vqXxCmqrq+OiAwmvdmM3DU7ySWsMiJ/SVbxLFFx88dif0X3FBxt324bmy1Flgw3bTm
+         Gil87AGgKspxcJzPl0DWcrwm54h4y8Yae0dQB9AHyQiCQuDS4OL4lJibhjVifCoQnNzy
+         0Szg==
+X-Gm-Message-State: AO0yUKXhu4eKXpFZZiqTqb/TTJyvcHuiz1Rm1gCX2RjrtEp/EpSwZaET
+	XxzCiFaS2kgQolPyITjIBTfSFg==
+X-Google-Smtp-Source: 
+ AK7set9uNqqqp+RTyy+Lsso2YFsulLEsLgbXC/U05maYZvjld3UjEALosJg2dArGoCc9ViY65hz1fA==
+X-Received: by 2002:aa7:c84e:0:b0:4fb:e9b8:ca5a with SMTP id
+ g14-20020aa7c84e000000b004fbe9b8ca5amr5669909edt.40.1679470682958;
+        Wed, 22 Mar 2023 00:38:02 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:5050:151b:e755:1c6?
+ ([2a02:810d:15c0:828:5050:151b:e755:1c6])
+        by smtp.gmail.com with ESMTPSA id
+ g4-20020a170906520400b0093a35f65a30sm1619990ejm.41.2023.03.22.00.38.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Mar 2023 00:38:02 -0700 (PDT)
+Message-ID: <d1559192-8f6d-26e0-ef19-d14ac7987a74@linaro.org>
+Date: Wed, 22 Mar 2023 08:38:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.0
-Subject: Re: [PATCH] ASoC: SOF: ipc4-control: Return on error in
- sof_ipc4_widget_kcontrol_setup()
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] ASoC: dt-bindings: ak5558: Convert to dtschema
 Content-Language: en-US
-To: Dan Carpenter <error27@gmail.com>
-References: <20230321134919.25844-1-peter.ujfalusi@linux.intel.com>
- <c6e2f1d2-bdc0-4028-a9c3-5a077e52722d@kili.mountain>
- <692de037-f69f-be82-7f8c-a00e03952c53@linux.intel.com>
- <2b3f2d22-afcc-4552-b608-783801c7f2b1@kili.mountain>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <2b3f2d22-afcc-4552-b608-783801c7f2b1@kili.mountain>
+To: Saalim Quadri <danascape@gmail.com>, broonie@kernel.org,
+ robh+dt@kernel.org, lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org
+References: <20230321180809.9215-1-danascape@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230321180809.9215-1-danascape@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: F2YJPRXLRX4R3HISBN7ACUIIXWEO42GO
-X-Message-ID-Hash: F2YJPRXLRX4R3HISBN7ACUIIXWEO42GO
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: D6VQXYQ2UTQ64SXPEGNGFRJ2VVOSYQ4Y
+X-Message-ID-Hash: D6VQXYQ2UTQ64SXPEGNGFRJ2VVOSYQ4Y
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2YJPRXLRX4R3HISBN7ACUIIXWEO42GO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6VQXYQ2UTQ64SXPEGNGFRJ2VVOSYQ4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,47 +122,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Dan,
-
-On 21/03/2023 16:46, Dan Carpenter wrote:
-> On Tue, Mar 21, 2023 at 04:40:05PM +0200, Péter Ujfalusi wrote:
->>
->>
->> On 21/03/2023 16:16, Dan Carpenter wrote:
->>> On Tue, Mar 21, 2023 at 03:49:19PM +0200, Peter Ujfalusi wrote:
->>>> The patch adding the bytes control support moved the error check outside
->>>> of the list_for_each_entry() which will cause issues when we will have
->>>> support for multiple controls per widgets.
->>>
->>> Even now it causes an issue.  We're exiting the list_for_each_entry()
->>> without hitting a break statement so the scontrol points to somewhere
->>> in the middle of the sdev instead of to a valid scontrol entry.
->>>
->>> The scontrol->comp_id will be some garbage value.
->>
->> I'm not sure what you see
+On 21/03/2023 19:08, Saalim Quadri wrote:
+> Convert the AK5558 ADC audio codec bindings to DT schema.
 > 
-> No, the patch is correct.  My issue is with the commit message because
-> it says "will cause issues when we will have support for multiple
-> controls per widgets."  The bug already causes issues now.
+> Signed-off-by: Saalim Quadri <danascape@gmail.com>
+> ---
+>  .../devicetree/bindings/sound/ak5558.txt      | 24 ---------
+>  .../devicetree/bindings/sound/ak5558.yaml     | 49 +++++++++++++++++++
+>  2 files changed, 49 insertions(+), 24 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/ak5558.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/ak5558.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/ak5558.txt b/Documentation/devicetree/bindings/sound/ak5558.txt
+> deleted file mode 100644
+> index e28708db6686..000000000000
+> --- a/Documentation/devicetree/bindings/sound/ak5558.txt
+> +++ /dev/null
+> @@ -1,24 +0,0 @@
+> -AK5558 8 channel differential 32-bit delta-sigma ADC
+> -
+> -This device supports I2C mode only.
+> -
+> -Required properties:
+> -
+> -- compatible : "asahi-kasei,ak5558" or "asahi-kasei,ak5552".
+> -- reg : The I2C address of the device.
+> -
+> -Optional properties:
+> -
+> -- reset-gpios: A GPIO specifier for the power down & reset pin.
+> -- AVDD-supply: Analog power supply
+> -- DVDD-supply: Digital power supply
+> -
+> -Example:
+> -
+> -&i2c {
+> -	ak5558: adc@10 {
+> -		compatible = "asahi-kasei,ak5558";
+> -		reg = <0x10>;
+> -		reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/ak5558.yaml b/Documentation/devicetree/bindings/sound/ak5558.yaml
+> new file mode 100644
+> index 000000000000..90fd734daeec
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/ak5558.yaml
 
-It bugged me a great deal how could I have missed this initially as I
-was testing the firmware side and user space, I had not one failure with
-this until all the pieces found there places...
+Missing vendor prefix, so
+asahi-kasei,ak5558.yaml
 
-The reason is simple: we have one control per swidget and in the error
-print:
-dev_err(sdev->dev, "kcontrol %d set up failed for widget %s\n",
-	scontrol->comp_id, swidget->widget->name);
+> @@ -0,0 +1,49 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/ak5558.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AK5558 ADC Device Tree Bindings
 
-only the widget's name gave usable information for a human. If we would
-have taken the comp_id from swidget->comp_id then this would not have
-been discovered.
+drop "Device Tree Bindings"
 
-scontrol was not invalid (but ignored), swidget name was correct, one
-control per swidget, all looked about right for the eye ;)
+You dropped few pieces of device description. Why? Also ADC is very
+confusing.
 
-Again, thanks for the report!
+> +
+> +maintainers:
+> +  - Junichi Wakasugi <wakasugi.jb@om.asahi-kasei.co.jp>
+> +  - Mihai Serban <mihai.serban@nxp.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - asahi-kasei,ak5558
+> +      - asahi-kasei,ak5552
 
--- 
-Péter
+Keep them ordered by name.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: I2C address of the device.
+
+Drop description, obvious.
+
+> +
+> +  avdd-supply:
+> +    description: A 1.8V supply that powers up the AVDD pin.
+> +
+> +  dvdd-supply:
+> +    description: A 1.2V supply that powers up the DVDD pin.
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+
+
+Best regards,
+Krzysztof
+

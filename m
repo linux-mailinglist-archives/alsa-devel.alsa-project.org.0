@@ -2,77 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1E26C6AA0
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 15:19:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42306C6AA6
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 15:20:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82C79EC8;
-	Thu, 23 Mar 2023 15:18:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82C79EC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79B90ECC;
+	Thu, 23 Mar 2023 15:19:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79B90ECC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679581172;
-	bh=HqrpakKe5lJcHsgFvPpYXNpcDu87zy3AKYG7fAHjv9I=;
+	s=default; t=1679581220;
+	bh=rKJhtcWF5Sbv4BWK06vkFvdXqPI6Oa3L46gyDJuZXFQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZxDbhyo9V1oL/59XDwYOMsiHNt64S8vMDphFTtMwHrGk2YXmDH97hPKkPfhm0rdGL
-	 hjx9Yf5h89HjTN3bonFYrX7yLBE9YHqhougQvUdSobTAiWGlGph4lwIiNPqIzuHC1p
-	 weYdL0S9/c5wN4C5ZEH5/TgYUtczfyUBI/DqCVI8=
+	b=m1dlgIEcyySakRw1At1DJ7f299SgsbdGTKVkR3DXCJzelU55O3oaEk4s2T7mxQoVj
+	 2IUucsioVaclNoNNsQGaXic5dSIimgCoiGBgQmszpI5GURxoCdnLv/9DFIltZ9/C6D
+	 vpIz4dou18+JPJf3HWAYMoBA7rYMu/gLlCK/Kdjg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F2D7F8027B;
-	Thu, 23 Mar 2023 15:18:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADF4AF8051B;
+	Thu, 23 Mar 2023 15:19:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F86EF804B1; Thu, 23 Mar 2023 15:18:39 +0100 (CET)
+	id 242D8F80520; Thu, 23 Mar 2023 15:19:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AFD7F80254
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 15:18:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AFD7F80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id 38850F804FE
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 15:19:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38850F804FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DVC5Br2N
+ header.s=k20201202 header.b=aHNaIbGL
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E001362747;
-	Thu, 23 Mar 2023 14:18:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482D0C433D2;
-	Thu, 23 Mar 2023 14:18:32 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 1D9A6B820D1;
+	Thu, 23 Mar 2023 14:19:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0569CC433EF;
+	Thu, 23 Mar 2023 14:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679581114;
-	bh=HqrpakKe5lJcHsgFvPpYXNpcDu87zy3AKYG7fAHjv9I=;
+	s=k20201202; t=1679581143;
+	bh=rKJhtcWF5Sbv4BWK06vkFvdXqPI6Oa3L46gyDJuZXFQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DVC5Br2NhxQscX10B1smeT8zYIWtnkT/j2QfugtZISLy4Zhqi7Am8rHWdfDmNZbCV
-	 l7XGBw1Kq9dujwW0pbUoStRK7Pwl6F6sWMpZmYKjou1jjFOFzT8CRwZzreztp5gtno
-	 iCMmpqUsaTqTF3TGCAZxu+qX8fn58I5J6DNMqvmEaU2HiLMScVkV2hYOq/agR8d0VP
-	 47lK5OJ5nvFJb9rk4A/8k6ydYCgIH3YuFS+cBm3RQ1eLzcoYNBhaoJeBo7dMlDUooI
-	 +9M+HkdP/lkeMWubk78U+VtTgoRcGGAVlyk37R526lDJiPoUK+AYRGpzbuxuug7qNp
-	 ZGCLgAm0cUpJA==
-Date: Thu, 23 Mar 2023 14:18:28 +0000
+	b=aHNaIbGLVewvMY2yAbCr24zRc80qFHyHIM+R7ZbSIeHa4G04XXTCTZe9rsepM1W6B
+	 uuDmVPJtSqWmLJnMhOAG9n/Pv+cj2143cERJG5eApY4oTLy4/DkFZN/6miSFf16sYq
+	 zu1RwtFzLyy1s5E7zrpNI/uJkH/ic76YpJaC8O7eBqSEnSEFgmap6Ril3f1w2mofLW
+	 isxk6Y2vjpUGeOr1rOCKfhZh4NpVHMhRV8rX5cQkpn/hFcKC/SEdwbnEeYuHLuy6es
+	 5vorGNTyvx6XZSS+ajbw3JKOHUsPfp2aGfVOBQaflr4Ut5MZZ95/2F0hS8jlNy4Z3s
+	 sOT43yztiv1Sg==
+Date: Thu, 23 Mar 2023 14:18:58 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 01/20] ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP
- used in LunarLake
-Message-ID: <0254bc37-5cb5-4200-b483-de3e3677a468@sirena.org.uk>
+Subject: Re: [PATCH 04/20] soundwire/ASOC: Intel: update offsets for LunarLake
+Message-ID: <ea0ff833-5124-4438-a452-1b281b3fbc5a@sirena.org.uk>
 References: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
- <20230323054452.1543233-2-yung-chuan.liao@linux.intel.com>
+ <20230323054452.1543233-5-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qAA6JU3CumurpAhC"
+	protocol="application/pgp-signature"; boundary="VNygY43YA50jeNm4"
 Content-Disposition: inline
-In-Reply-To: <20230323054452.1543233-2-yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20230323054452.1543233-5-yung-chuan.liao@linux.intel.com>
 X-Cookie: A lie in time saves nine.
-Message-ID-Hash: F6OWD65GTW24KESEZXOUX2ZGM3HIM5PW
-X-Message-ID-Hash: F6OWD65GTW24KESEZXOUX2ZGM3HIM5PW
+Message-ID-Hash: RJFT4Q7XLMWP4CK2YLHIFJOQQV45PAFE
+X-Message-ID-Hash: RJFT4Q7XLMWP4CK2YLHIFJOQQV45PAFE
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6OWD65GTW24KESEZXOUX2ZGM3HIM5PW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RJFT4Q7XLMWP4CK2YLHIFJOQQV45PAFE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,32 +96,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---qAA6JU3CumurpAhC
+--VNygY43YA50jeNm4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 23, 2023 at 01:44:33PM +0800, Bard Liao wrote:
+On Thu, Mar 23, 2023 at 01:44:36PM +0800, Bard Liao wrote:
 > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 >=20
-> Add the new enum needed for SoundWire IP selection. The LunarLake PCI
-> descriptors and DSP parts will be added at a later time.
+> The previous settings are not applicable, use a flag to determine what
+> the register layout is.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---qAA6JU3CumurpAhC
+--VNygY43YA50jeNm4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQcX7QACgkQJNaLcl1U
-h9DepAf/XSQrsI1JBnl6eDTHtPGEsBtDT/1R90Y3mMDWZxfGkI+F1lupoWdETNdm
-cAjF6dJEG9Zho1zVhVmrH37+kRNOG4qaaG5vAAmXNwnJoX6jB94ul7OANJ3Z7pcw
-J9yP5z1ZCuPY8T4jfgec3TvDvuFOhgOHUFT5Pqb/hPdhZ9AUI21mK7BIwo4GM4qg
-jDFxb6u8XKAkdoWeDVwExq/SJOfqfmcV+pPpvHo1MTMOl/5I773/KTOOs//aLyXX
-8gct4XgEFVHr2Cnu5YusJcpRZp6iX4z6UUgMrVW2HA87JhiU337ydW9vB7rNmQi+
-xzi6qVZSAY6vmN2m/y3sLhIeYkb3PQ==
-=DR0C
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQcX9EACgkQJNaLcl1U
+h9BfvAf+NahuxKYi8m2GUOc9HDxl3uBfiiJR25oj2vuLxSmq7ACpD1P92KacpNcx
+AYtTP4y8bzoMAKuIxMuJhd7jQaRlYoKYo7gSi1anVoMbljFp95X02iKHaAd0BmfO
+4ldvWLpLMMkw8RfNriAa/Z7Yn5fdlvDsXUPTteAMmRjbXE0405GZHNJKeZNYUhdP
+TFven2IQ9xBf3fMuUAJfONVamhq5LxYKIFiQruRof9/SZCoPVXxJxWBqOT72VDmD
+h3h04V9dp4U7YThmIpflHj4z2BNoBEDp/R+Lo93ZGRX4VTULHcOUJcVgwSxN7BZn
+XHTIgj7pQ+r5aqWZvVngf7SkgY1lJA==
+=ASuf
 -----END PGP SIGNATURE-----
 
---qAA6JU3CumurpAhC--
+--VNygY43YA50jeNm4--

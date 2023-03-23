@@ -2,124 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 342B16CEEAB
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:06:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFB76CEEB1
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:06:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9693F20F;
-	Wed, 29 Mar 2023 18:05:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9693F20F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 653D174C;
+	Wed, 29 Mar 2023 18:06:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 653D174C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680105993;
-	bh=84z9dvZQZ7AFbL5YOyZwdk0KE8WG2QAZL6b2FyR4pzs=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QrM8rugKmG5n6HrDEOV5Co0tgRHs6OKssxUt4rSXVEIVHWzRa4AdIb3m5Rl1EXMyK
-	 jRmPfWdfvsjT0wrwSsH0KFFdVutMieAdKKIx129GSjRQPQ7wZMAzA1iUpsDIwyy/Uz
-	 q9BIOV82VIZYT5BAqhK0I8b3RCni7zFixkLAzjeY=
+	s=default; t=1680106017;
+	bh=Yk7SEtB9O6XaM6uP+epD7ilSH+AGZvmgcFSg/qKerCI=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NvrM6cuanpUugn2k+GsqOKnwi/E1Ng+RnSHITNEXmE/pBdlxtm0b0qSB3ZjLdB1xv
+	 eOA72CK6+gtSZC1//ywrazibA0gY2Soouy/Lo1SUNKGrssi7+tbH1+Vch1uTlaTbhF
+	 ZNAjrVMDp5K/3m7iNCjwko6AwBuqHVC/w7Arbp8w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD1D8F8052D;
-	Wed, 29 Mar 2023 18:05:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29A61F8053B;
+	Wed, 29 Mar 2023 18:05:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 536A4F802E8; Thu, 23 Mar 2023 17:58:38 +0100 (CET)
+	id B1AB2F802E8; Thu, 23 Mar 2023 18:11:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6ACCF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 17:58:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6ACCF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 149EAF80093
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 18:11:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 149EAF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2022-7-12 header.b=0PtONMNR
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32NGhxFR029981;
-	Thu, 23 Mar 2023 16:58:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2022-7-12; bh=k0nkBOpBPQn3qEZsCqp0qC0xkDKC3vHQpmGwoMe+jmo=;
- b=0PtONMNRTTgheSl+oucIktTj3HqdJ9DHo5WegQEn7fJlll+6Fc3ZyHq2LikK7z1b95OO
- ZhmYRUs1sNXh3D0TpRZxdLkxocI53rkwPIkji3pEpOAAdo++mzKmUurUDWj6VHX2MQB5
- ZtzlvKjwKb0/VVEMPbu9Kefkd6CGh1R3rfg+PActM+EavLRZaqYyMXA4wr3XdBBejYHc
- N7cybiRGrS8Vr7McQXlNCriE/Hgc5SPV1gujO/IEd1MOnZbsJts30LgDWBjw54mhTtjj
- PvxKizOfFPtO0Bn/VSmSTmDmhMyHWFs3GTO6HMq6Zj6DDAWcSZPGPfcQDfvHGz59q0G0 7Q==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3pd4wtcbug-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Mar 2023 16:58:31 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 32NGsQoc028052;
-	Thu, 23 Mar 2023 16:58:30 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pgtpvg4bh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Mar 2023 16:58:30 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 32NGwTr4040712;
-	Thu, 23 Mar 2023 16:58:30 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3pgtpvg49s-1;
-	Thu, 23 Mar 2023 16:58:29 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: 
-Subject: [PATCH next] ASoC: cs35l56: Fix unsigned 'rv' comparison with zero in
- cs35l56_irq()
-Date: Thu, 23 Mar 2023 09:58:25 -0700
-Message-Id: <20230323165825.1588629-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=NmeHd9TY
+Received: by mail-pl1-x62c.google.com with SMTP id o2so15527077plg.4
+        for <alsa-devel@alsa-project.org>;
+ Thu, 23 Mar 2023 10:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679591478;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Yk7SEtB9O6XaM6uP+epD7ilSH+AGZvmgcFSg/qKerCI=;
+        b=NmeHd9TY+roYM/Oz03gAgRhQpqw9mDk2J/rCkAUwkIPRvr6pA590KPpv/gJ/tcsf0r
+         zO5zOAa+CT7U9/5gEnfw5rNV3kXYt796M8eTNCYSXYRk3MJqFjKo4YZHQmd/hSrOg54W
+         JEpmfTUn1d5eKmXJN1oyaOcsFi0aJroF3kIvVdxAeE6kX2jRAoTOA5+w6f5tuk8yCiLb
+         sLxgleQcvk1IDzNcHI+48fMVnzHyXyUyTaGstu+aWw4L8q+sxiMuq6jtJZasI6vY4HO+
+         Owvzyj9x23lsTM8X9uJ+9pET/S2y2HfhZokU5sU3/DhSJSUc2sSHveidQcMcTLiGcAUa
+         wLMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679591478;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Yk7SEtB9O6XaM6uP+epD7ilSH+AGZvmgcFSg/qKerCI=;
+        b=iJfQcQpsO5VJMCsplVTAk3A3rXMkUHNI7oP5XZt+a8eL+jpAgxrPUnSEit4QnXq40C
+         O83B5wPSeVGKhy5KwX2jSU0Rb0foAH1KtDi0uw2q75ghw1CO/ls4jwBlK5+F2+UuuMgO
+         I+PHQi8jz2++JISNcW5wvT1t1vrPnp1f4zjMbShsSvevl2IohxDa+3UK7IjlWFY6o6Pa
+         EjBhFGmsN+yoMNOLiimkX9tXNCI1yiYhIcOmKvgGN5+FpoMLZaFV5xh+/ZijI/qUeyMN
+         Lan57CNdbcdwI9FydEoPV0ZcPhqo6W59jF6YjhKblGLmYY5rWCoAGyPX9cpaZx5jB1E5
+         w13g==
+X-Gm-Message-State: AO0yUKVZXyodaiQs6VHT+RbSWdgWK1QmOysiJVHMhe8/lOoNma3eUnst
+	8YVZBC6RxjK/xUnDc9cR3o0=
+X-Google-Smtp-Source: 
+ AK7set9zYXnWHCU6xqJjbpiCYnTLpN1sKQOZhAruDh4oyjqc2OCxFzrs+aD7PF4vpswXjJtR2sHA2Q==
+X-Received: by 2002:a17:902:d1cd:b0:19f:27fd:7cb5 with SMTP id
+ g13-20020a170902d1cd00b0019f27fd7cb5mr5396016plb.10.1679591478507;
+        Thu, 23 Mar 2023 10:11:18 -0700 (PDT)
+Received: from pavilion.. ([2402:e280:2146:a9a:96dd:65b4:8354:3919])
+        by smtp.gmail.com with ESMTPSA id
+ b4-20020a170902a9c400b0019f3da8c2a4sm12557102plr.69.2023.03.23.10.11.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Mar 2023 10:11:18 -0700 (PDT)
+From: Saalim Quadri <danascape@gmail.com>
+To: krzysztof.kozlowski@linaro.org
+Subject: Re: [PATCH] ASoC: dt-bindings: alc5632: Convert to dtschema
+Date: Thu, 23 Mar 2023 22:41:11 +0530
+Message-Id: <20230323171111.17393-1-danascape@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <1a2e0f7a-771f-5590-fc54-b9dbf059a925@linaro.org>
+References: <1a2e0f7a-771f-5590-fc54-b9dbf059a925@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-22_21,2023-03-23_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 mlxscore=0
- mlxlogscore=999 malwarescore=0 spamscore=0 phishscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303150002
- definitions=main-2303230123
-X-Proofpoint-GUID: LMFp-spo0qJRomp9eCU3LxurxeNtTS1d
-X-Proofpoint-ORIG-GUID: LMFp-spo0qJRomp9eCU3LxurxeNtTS1d
-X-MailFrom: harshit.m.mogalapalli@oracle.com
+X-MailFrom: danascape@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TWSMK72EODFBENBZCI6V2JRDQPZN3CA7
-X-Message-ID-Hash: TWSMK72EODFBENBZCI6V2JRDQPZN3CA7
+Message-ID-Hash: YDYDSXKF3DSTHBQTF2CFOEN7SRXFTJ77
+X-Message-ID-Hash: YDYDSXKF3DSTHBQTF2CFOEN7SRXFTJ77
 X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:21 +0000
-CC: error27@gmail.com, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Simon Trimmer <simont@opensource.cirrus.com>,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, broonie@kernel.org, danascape@gmail.com,
+ daniel.baluta@nxp.com, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWSMK72EODFBENBZCI6V2JRDQPZN3CA7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDYDSXKF3DSTHBQTF2CFOEN7SRXFTJ77/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,40 +119,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-'rv' is of type unsigned int, which can never be less than zero.
+Hello,
 
-	rv = pm_runtime_resume_and_get(cs35l56->dev);
-	if (rv < 0) { // can never be true.
-		...
-	}
+This is my first time using the Linux Kernel Mailing List. I apologise if I commit any mistakes.
 
-As pm_runtime_resume_and_get returns integers, change the type of 'rv'
-to int to fix this.
+> This should not be subsystem maintainer but someone related to the
+> device. It's maintainer or interested contributor. Unless that's the
+> case here?
 
-This is found by static analysis with smatch.
+yes it is wrong, he is not the subsystem maintainer. I will send the updated patch.
 
-Fixes: e49611252900 ("ASoC: cs35l56: Add driver for Cirrus Logic CS35L56")
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
-Only compile tested.
----
- sound/soc/codecs/cs35l56.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I have a doubt, for the maintainers list, is it required to include all the names of the subsystem maintainer
+in the yaml too? As for this codec, there are 4, shall I include the names of all of them or the one to whom the
+module is authored to?
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 90fc79b5666d..b3772005668a 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -321,7 +321,8 @@ irqreturn_t cs35l56_irq(int irq, void *data)
- 	struct cs35l56_private *cs35l56 = data;
- 	unsigned int status1 = 0, status8 = 0, status20 = 0;
- 	unsigned int mask1, mask8, mask20;
--	unsigned int rv, val;
-+	unsigned int val;
-+	int rv;
- 	irqreturn_t ret = IRQ_NONE;
- 
- 	if (!cs35l56->init_done)
--- 
-2.38.1
+Apologies,
 
+Saalim

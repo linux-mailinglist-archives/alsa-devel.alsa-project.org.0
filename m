@@ -2,95 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20EC6C6A1A
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 14:55:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE1076C6A2B
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 14:58:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCB30E98;
-	Thu, 23 Mar 2023 14:54:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCB30E98
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD0B6EC4;
+	Thu, 23 Mar 2023 14:57:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD0B6EC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679579742;
-	bh=YN3pd5fa+PABp2NpDPUc5U8fZzNOy4moYU5bs9sls9k=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1679579905;
+	bh=iso66AJgN26iFn+GhQjJv1sSkC9KzaauszCdj/saEIM=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RbGV6jC9mlUYJ3fDSz81ieWyg/ZGFgg5VRhTeMNvVcUIS4yh2Kdz6Fx2deG692/H5
-	 p3cXHTLlfHrJtNR4HJA5nl1fCj3Zo//TMHPShMSqAvR4adMM8Lyqv7lF+UTZM2zmOs
-	 slMkBtkVtWcXbqNdwZNLBdKyh6IeSzrCmaprewco=
+	b=ou9OfNAkc82OxISlCaGqmbVcKtZ/7GRfVAUNMsbZYia62xM8KNfKtQA6GIv+hRqcA
+	 dCrHOWZ8Nsu05u90aOX+C6KGuQC5WGa4mh6tHg3cIW3mNxP5VEC1ufqCW3ge/F5W+N
+	 5YZcFUm6TYP+foN2mNBTRolEJ/Gz+/oV93BOuYrU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53BEBF8027B;
-	Thu, 23 Mar 2023 14:54:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8726F8027B;
+	Thu, 23 Mar 2023 14:57:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F28C1F802E8; Thu, 23 Mar 2023 14:54:47 +0100 (CET)
+	id 92EFAF802E8; Thu, 23 Mar 2023 14:57:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [IPv6:2607:f8b0:4864:20::836])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 127CEF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 14:54:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 127CEF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 343EAF80254
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 14:57:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 343EAF80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=j0ikepir
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 158EAB81E21;
-	Thu, 23 Mar 2023 13:54:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC88C433D2;
-	Thu, 23 Mar 2023 13:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679579681;
-	bh=YN3pd5fa+PABp2NpDPUc5U8fZzNOy4moYU5bs9sls9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j0ikepir2a4P6A5QIXaDyC5op/5TG0l/bm+uANGiOdsLVO5NCliC56Pxj7aPJ72kv
-	 NVwEOhgI+HwWqSN0tnk1vEHyeREGjnq/Z/BWlgZcKjma4eEDrc6H/pO9MIQLihFaPc
-	 2+h5m0JtOvmXmLkOuV8fC7Kzj1rTUeGRKTp2ctiZkz2XXdqydC5K6QYKmNv1mvLhqZ
-	 efJuGJRmrNyQo9EU43ctAu61zs7SbFcJwce51llkGvZsvez78msOYTSUDwQxAI2q6O
-	 bROFjq2zaMng+TMs9r6V8vf1dhaEgAuYji9QhFXcCKuuXX6Usf13rsXUHso22TJy4d
-	 waC0AR3lbc2KA==
-Date: Thu, 23 Mar 2023 13:54:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?5rKI5LiA6LaF?= <zhuning0077@gmail.com>
-Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
- sound for systems with a ES8336 codec
-Message-ID: <42b02a34-1b96-4699-8b0d-3610c5376a7c@sirena.org.uk>
-References: 
- <CANPLYpD8Ty9QjMf3vs9n8wCCFyaHiiRpYM-b3kNGiA0r3q+sEg@mail.gmail.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=PzDrElI8
+Received: by mail-qt1-x836.google.com with SMTP id g19so1430059qts.9
+        for <alsa-devel@alsa-project.org>;
+ Thu, 23 Mar 2023 06:57:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1679579845;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=0UGsNG9W2UNoFjKyA3o9SiIejcO47eu8yFQSpE9OdRs=;
+        b=PzDrElI8d//E88KzlNQY0S7DnaQI6jMaVTRjxQG2/24vqEDUl3v8eOFIFLbEhlMiCY
+         xbKk/iVjjqH17t43fDNG9ZxrXsA0fOomC6/jDawCYMHxOB9Y7gIKhYanOa0NdgQd0Tir
+         AP0ntaA0L5934i17YnX7azpE4YgRy7QRCNYTnWIWpvwmfCTMzxM/vU+LnRalrf4ykVQO
+         ++YP02zeGsmVJtvlXStzv3aQwkBQUAsCOTXqo3HDlOI3ohkDjPhv+JClrKOxx6zCvw9n
+         wpLRmjvaOhwjGJPe2E6CL+RS1Hn1k3pBWn0ufI+CQEN8t4zfATsciu3w+r2fbK6xcjZv
+         nVoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679579845;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0UGsNG9W2UNoFjKyA3o9SiIejcO47eu8yFQSpE9OdRs=;
+        b=bG+jm597dJhkPq6HZUtpP4xJ/oW+sBJY+F7B7Bt/PTQTBv8vWYenDtk+v8Lp7ZuJ+V
+         lkkTLhJXiI4q51zVqJzvYjQg3RTKM1cPU3RAQyTj2UDWVcR9GufT8lQXmIfdtv6WJGkZ
+         7SCekI5MUZCaUbQM8cMdvx+LlEv4uRcIg5KtypDMYgDIHNw1v315m1Doin+/vKGjXDka
+         6ksMgVylvyuM+SHP77p/msHwoZFmzPGyyZKCWsAXVOyfj8x9HrdkT3OCvWyVBvtk7TuV
+         bEabhcg8o8SVlTOWinbvG0+Ydu9cr4gy5ftjqtmLUeVt8sWa4c/83UmnSLarD9m7DZgc
+         kJGw==
+X-Gm-Message-State: AO0yUKVstNY0ZEs63WwOBCU3o3B8kn3VfDOQPH5pJtYEHhk4uZ+GYAk3
+	vujcAzkmmtKRCfsntOE2zaaxEoCrHIC96mOLl/jATw==
+X-Google-Smtp-Source: 
+ AK7set+ocAuMC9Lw34FR+ipU4tXGRuA5/YrqvfJbPUY/bllTbULe/XpImra+yz2e8OVOj3Ln8NUQqtOTrPqiteXXVKY=
+X-Received: by 2002:a05:622a:34d:b0:3e3:8a0e:495f with SMTP id
+ r13-20020a05622a034d00b003e38a0e495fmr2368502qtw.13.1679579845233; Thu, 23
+ Mar 2023 06:57:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8VlENQAJDfsfHDVY"
-Content-Disposition: inline
-In-Reply-To: 
- <CANPLYpD8Ty9QjMf3vs9n8wCCFyaHiiRpYM-b3kNGiA0r3q+sEg@mail.gmail.com>
-X-Cookie: A lie in time saves nine.
-Message-ID-Hash: GHFVRH55Y6P6IDVOCI3IF7B2JVUKFWQX
-X-Message-ID-Hash: GHFVRH55Y6P6IDVOCI3IF7B2JVUKFWQX
-X-MailFrom: broonie@kernel.org
+References: <20230323110125.23790-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230323110125.23790-1-srinivas.kandagatla@linaro.org>
+From: Amit Pundir <amit.pundir@linaro.org>
+Date: Thu, 23 Mar 2023 19:26:49 +0530
+Message-ID: 
+ <CAMi1Hd0Zg2nydXu0J_zGbcd9AwLbTWU2h_YNAb8ZRSOBRTWQbg@mail.gmail.com>
+Subject: Re: [RESEND PATCH] ASoC: codecs: lpass: fix the order or clks turn
+ off during suspend
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: 3U5GIDPCUYM7A3IY2QG5AFE57XK6PUQU
+X-Message-ID-Hash: 3U5GIDPCUYM7A3IY2QG5AFE57XK6PUQU
+X-MailFrom: amit.pundir@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, posteuca@mutex.one, tiwai@suse.com,
- yangxiaohua <yangxiaohua@everest-semi.com>,
- Zhu Ning <zhuning@everest-semi.com>
+CC: broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ stable <stable@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GHFVRH55Y6P6IDVOCI3IF7B2JVUKFWQX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3U5GIDPCUYM7A3IY2QG5AFE57XK6PUQU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,60 +113,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 23 Mar 2023 at 16:31, Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+> The order in which clocks are stopped matters as some of the clock
+> like NPL are derived from MCLK.
+>
+> Without this patch, Dragonboard RB5 DSP would crash with below error:
+>  qcom_q6v5_pas 17300000.remoteproc: fatal error received:
+>  ABT_dal.c:278:ABTimeout: AHB Bus hang is detected,
+>  Number of bus hang detected := 2 , addr0 = 0x3370000 , addr1 = 0x0!!!
+>
+> Turn off  fsgen first, followed by npl and then finally mclk, which is exactly
+> the opposite order of enable sequence.
+>
 
---8VlENQAJDfsfHDVY
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Tested-by: Amit Pundir <amit.pundir@linaro.org>
+CC: stable@vger.kernel.org # v6.1.y
 
-On Thu, Mar 23, 2023 at 09:56:56AM +0800, =E6=B2=88=E4=B8=80=E8=B6=85 wrote:
 
-> > Yes, for example consider a critical notification - the system
-> > may wish to ensure it is audible even if the user has taken off
-> > their headphones for some reason.
-
-> In practice the speaker and the headphone are conflicting devices, see
-> https://github.com/alsa-project/alsa-ucm-conf/blob/master/ucm2/Intel/sof-=
-essx8336/HiFi.conf
-
-That's a particular UCM configuration that someone has created, someone
-with a different set of use cases might create a different UCM setup (or
-not use UCM at all).  This is a large part of the point of having use
-case configuration in userspace.
-
-> There is no such situation, and the system doesn't produce sound from spe=
-aker
-> when headphones are plugged in. The user may manually open speaker using
-> amixer sset 'Speaker' on or pavucontrol.
-
-Again, you're describing a specific configuration - someone might want
-to do something different.
-
-> The GPIO thing on Huawei Intel platform is too complicated, they use two =
-GPIOs
-> for headphone and speaker, and the headphone GPIO is inverted, which mean=
-s low
-> means on and high means off. Luckily there should be only one hardware co=
-nfig
-> for the AMD acp3x platform GPIO and you may just choose the correct one.
-
-There being two different GPIOs sounds like it just allows the headphone
-and speaker to be controlled separately - that seems more flexible, not
-a problem?
-
---8VlENQAJDfsfHDVY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQcWhsACgkQJNaLcl1U
-h9AN5gf/RQqA84CKvfzCVkUU7Gd3CL1ND9/ZkZ1k/a4lEqn0Rpq99tbk1hCUuFvq
-2jAhp8Sd0XtxLl8FO4WqQxpiIxWMs1Vkp5Hwz0N+Admm4yvfjnX8UUf9GULKqbNb
-2dSarPGe7SASIjJl2YWa8L4H2HSgGOoAe8TNaY5o3CZafqWVRCZXEuX5QCzDm260
-fVN5vgAQjqG+IJoYz2uBLSPp2snzCM+L+yB1nZeMxEsTVLgSmXyyM/KWHVEdOzvJ
-FxYrFITGKsk2ejLd2p+QuYIk0t0EPEQxWL59Ti/BHk7kiQbskwQEKNJuNDO8fb6G
-RhHDDOMZChSuipICfkUAOsAt/sCPiQ==
-=+n6T
------END PGP SIGNATURE-----
-
---8VlENQAJDfsfHDVY--
+> Fixes: 1dc3459009c3 ("ASoC: codecs: lpass: register mclk after runtime pm")
+> Reported-by: Amit Pundir <amit.pundir@linaro.org>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>
+> Sorry for noise, resending this one, as I missed the asoc mailing list in my previous send.
+>
+>
+>  sound/soc/codecs/lpass-rx-macro.c  | 4 ++--
+>  sound/soc/codecs/lpass-tx-macro.c  | 4 ++--
+>  sound/soc/codecs/lpass-wsa-macro.c | 4 ++--
+>  3 files changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+> index 9e0a4e8a46c3..372bea8b3525 100644
+> --- a/sound/soc/codecs/lpass-rx-macro.c
+> +++ b/sound/soc/codecs/lpass-rx-macro.c
+> @@ -3668,9 +3668,9 @@ static int __maybe_unused rx_macro_runtime_suspend(struct device *dev)
+>         regcache_cache_only(rx->regmap, true);
+>         regcache_mark_dirty(rx->regmap);
+>
+> -       clk_disable_unprepare(rx->mclk);
+> -       clk_disable_unprepare(rx->npl);
+>         clk_disable_unprepare(rx->fsgen);
+> +       clk_disable_unprepare(rx->npl);
+> +       clk_disable_unprepare(rx->mclk);
+>
+>         return 0;
+>  }
+> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+> index b044c9c6f89b..d9318799f6b7 100644
+> --- a/sound/soc/codecs/lpass-tx-macro.c
+> +++ b/sound/soc/codecs/lpass-tx-macro.c
+> @@ -2096,9 +2096,9 @@ static int __maybe_unused tx_macro_runtime_suspend(struct device *dev)
+>         regcache_cache_only(tx->regmap, true);
+>         regcache_mark_dirty(tx->regmap);
+>
+> -       clk_disable_unprepare(tx->mclk);
+> -       clk_disable_unprepare(tx->npl);
+>         clk_disable_unprepare(tx->fsgen);
+> +       clk_disable_unprepare(tx->npl);
+> +       clk_disable_unprepare(tx->mclk);
+>
+>         return 0;
+>  }
+> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+> index 728f26d12ab0..6484c335bd5d 100644
+> --- a/sound/soc/codecs/lpass-wsa-macro.c
+> +++ b/sound/soc/codecs/lpass-wsa-macro.c
+> @@ -2504,9 +2504,9 @@ static int __maybe_unused wsa_macro_runtime_suspend(struct device *dev)
+>         regcache_cache_only(wsa->regmap, true);
+>         regcache_mark_dirty(wsa->regmap);
+>
+> -       clk_disable_unprepare(wsa->mclk);
+> -       clk_disable_unprepare(wsa->npl);
+>         clk_disable_unprepare(wsa->fsgen);
+> +       clk_disable_unprepare(wsa->npl);
+> +       clk_disable_unprepare(wsa->mclk);
+>
+>         return 0;
+>  }
+> --
+> 2.21.0
+>

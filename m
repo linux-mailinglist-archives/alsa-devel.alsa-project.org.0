@@ -2,121 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEEE16C62BD
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 10:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1095E6C644A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 11:01:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD39EBF;
-	Thu, 23 Mar 2023 10:05:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD39EBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 281FCEA2;
+	Thu, 23 Mar 2023 11:00:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 281FCEA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679562394;
-	bh=8fDgTYrfEVLrfxcWEZwXD5AoyoDI00UEFVDYVTBJUBg=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mREMDLRqZhK4p7lOXPd4CBOVT/N+LONd82lpJ118jMUnja21sP5B2fiBbB+p8T5pC
-	 WEum4BSlM7IVoYJzy9ae5xJOSBw0tjeWKS2muERtDPB8q9ycZJG9LxIU6p4iMxb1Yv
-	 x53PUEQBgj045aZMnnYjqI5V8eM30gvhHzpBCWtI=
+	s=default; t=1679565660;
+	bh=dAkyqC3hOHmFX77mgn+4nQPRz4NvpYM2L5xHuIi23I8=;
+	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=YSMeoV25L+ZbgXKg0xPqDRjvV67aKkTW5a6i9FnUTber+sAcbFtjGLQ0PnkT0XeZX
+	 cL9VqAf8uvTKNa/HewLJ0u6XVknvt7XdXXbicd6I+3TDn0IqSj4fFeRR05vHTRce4V
+	 Xt5o9KJDiLvmGx5QYBD3lUFr8xgEf6GMvIs9TDR8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0A62F800C9;
-	Thu, 23 Mar 2023 10:05:43 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98E5BF802E8; Thu, 23 Mar 2023 10:05:40 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A5459F80254;
-	Thu, 23 Mar 2023 10:05:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5459F80254
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=ZaQXzTUj
-Received: by mail-wr1-x434.google.com with SMTP id l27so11306385wrb.2;
-        Thu, 23 Mar 2023 02:05:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679562332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZtM1/6aT9Hs8L0/Z5EjLhrB2E2q0vn+Gu2UY/Kc0m8I=;
-        b=ZaQXzTUjeJuWR7nWdtwf4QSQSdcp3+kIhkGEgjk4f9tZsWJ+yaUavlgvydHIWxalI3
-         HvEEDOq4X7xCsTnh3p7f8o/6hsJvrzNP/yqFTDT5Eoq1mY2RqO5Ul1b0qyxW3DGycnKS
-         1rGttUrCkEzU4rRdc9roM5Xx4ENsPKbfZx84SWouYOB55n1GhB19aBnzrn0eqyHvAd+R
-         AspCR5MEgXgrp+UN78HUpy9xIt3Dd3bfRXImxDWkM8Xvu8S41n6gyoV3Iz60PY+u+wMQ
-         aHvIVQaZOFa7t4AcojFK5rlrVKej1wFVLTIdmTeOBIaJP0JHbzavD/fzd5MO+nTPaCVc
-         8YEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679562332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZtM1/6aT9Hs8L0/Z5EjLhrB2E2q0vn+Gu2UY/Kc0m8I=;
-        b=I+ARt93ngWjKaK1J8y8lbzq5SwWobGvZOaTZfyvduviYNvDO9ljtnR7cDA4LbJ7hzG
-         wDBC6Y+G/+L6EtORMPEODxY1/7NPMaf4hp3gJbk3NSKK2Shky4pJsokkZ5UV9czAjVHP
-         75U43dNeTe041wAsjtWS6taRK91e2fFFhe+iXI7HUOUpWsun6/J81NQxwoq04caqwfTQ
-         ea4AKFjvFa6PBj0YW5lpoZINKRCsfsWBvSbJmPi03wB8+dT6QLKpKGEA3d/a8iP21AK8
-         TUCSXNEO+h0xa9Az6tk2kdTgaLM/5y1PKajDp9P8KPj/zyYYran47zAirWfDjuZ2ZDbp
-         2fuw==
-X-Gm-Message-State: AAQBX9dpgTi44DtXMFUaCBU2aS9UFijdguuY+dW/ZJMcM08RLZeSLo+r
-	dNTkwfLgC8NEZs8O1QK3VsE=
-X-Google-Smtp-Source: 
- AKy350Z9vPGF5pLhiKFKopvx4kjzoGNumrNcki7pJup/RNEkcWBlS3eBt8/YiZoRHJr9f0BLq0yB7Q==
-X-Received: by 2002:adf:dc12:0:b0:2ce:a85d:5319 with SMTP id
- t18-20020adfdc12000000b002cea85d5319mr1793247wri.39.1679562332546;
-        Thu, 23 Mar 2023 02:05:32 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
-        by smtp.gmail.com with ESMTPSA id
- o10-20020a5d684a000000b002d89e113691sm6623425wrw.52.2023.03.23.02.05.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 02:05:32 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH][next] ASoC: SOF: ipc4/intel: Fix spelling mistake "schduler"
- -> "scheduler"
-Date: Thu, 23 Mar 2023 09:05:31 +0000
-Message-Id: <20230323090531.67679-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT
-X-Message-ID-Hash: 3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT
-X-MailFrom: colin.i.king@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A2BBF80093;
+	Thu, 23 Mar 2023 11:00:09 +0100 (CET)
+Date: Thu, 23 Mar 2023 09:59:49 +0000
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [RESEND PATCH v2] ASoC: dt-bindings: wlf,wm8994: Convert to
+ dtschema
+References: <20230322193541.827291-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230322193541.827291-1-krzysztof.kozlowski@linaro.org>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT/>
+Archived-At: <>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167956560813.26.12711931179467908819@mailman-core.alsa-project.org>
+From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ - <patches@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 8F828F802E8; Thu, 23 Mar 2023 11:00:00 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id ECBB5F80093
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 10:59:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECBB5F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=A47k0i+P
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32N4wNPH023252;
+	Thu, 23 Mar 2023 04:59:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=9JgvNgkPqkgRi6AnnSC6Vys13XuiVMKrTr777lGgXL4=;
+ b=A47k0i+Pq27Oyh7dFtM7wPuo7+YYnqNxHUG0yO06i3TXQUTS2FBpydZ2M4yyFan0PeFE
+ 3mBsxYtpwXT/78pxKq4e2SVhedeGkzOA/DFQClo//XsgibcRtloW374CmsiDjfv9HquG
+ nMpP2Y0rqnyeGPBUWJinJaZlZ6JDpT63IxnKUPje68RfUeh5XPVqqgZmZLy/ZOKmgo3U
+ vf5sEogg3hc331Qa4OfaCv0MQPwGh475VAqb/TuDXtE5AZ9YAU39x/R5pxG0IAYkSUbk
+ 82SByOYRypSs6Y8LGalFoAdfGz8EZq1s+XZJGbY/GGFeyFxlkly8B4frFKTjI4a4nJul bg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pf7tj4f2u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Mar 2023 04:59:51 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Thu, 23 Mar
+ 2023 04:59:49 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
+ Transport; Thu, 23 Mar 2023 04:59:49 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AD67611AD;
+	Thu, 23 Mar 2023 09:59:49 +0000 (UTC)
+Date: Thu, 23 Mar 2023 09:59:49 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [RESEND PATCH v2] ASoC: dt-bindings: wlf,wm8994: Convert to
+ dtschema
+Message-ID: <20230323095949.GK68926@ediswmail.ad.cirrus.com>
+References: <20230322193541.827291-1-krzysztof.kozlowski@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230322193541.827291-1-krzysztof.kozlowski@linaro.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: 6qABHI4z29TTzFVbmsHgbjMOQLWECsOQ
+X-Proofpoint-GUID: 6qABHI4z29TTzFVbmsHgbjMOQLWECsOQ
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: FEBAHGEZIWTL4C6ABEE6U6RADPGK4VAC
+X-Message-ID-Hash: FEBAHGEZIWTL4C6ABEE6U6RADPGK4VAC
+X-MailFrom: prvs=8446dab74a=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ - <patches@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,35 +150,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There are two spelling mistakes in dev_warn messages. Fix them.
+On Wed, Mar 22, 2023 at 08:35:41PM +0100, Krzysztof Kozlowski wrote:
+> Convert the Wolfson WM1811/WM8994/WM8958 audio codecs bindings to DT
+> schema.
+> 
+> Changes against original binding:
+> 1. Add missing LDO1VDD-supply and LDO2VDD-supply.
+> 2. Use "gpios" suffix for wlf,ldo1ena and wlf,ldo2ena (Linux kernel's
+>    gpiolib already looks for both variants).
+> 3. Do not require AVDD1-supply and DCVDD-supply, because at least on
+>    Arndale board with Exynos5250 these are being supplied by internal
+>    LDOs.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> 
+> ---
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/soc/sof/ipc4-topology.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 12775fcb6b54..de7213237b27 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1990,7 +1990,7 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		pipeline = swidget->private;
- 
- 		if (pipeline->use_chain_dma) {
--			dev_warn(sdev->dev, "use_chain_dma set for schduler %s",
-+			dev_warn(sdev->dev, "use_chain_dma set for scheduler %s",
- 				 swidget->widget->name);
- 			return 0;
- 		}
-@@ -2149,7 +2149,7 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		u32 header;
- 
- 		if (pipeline->use_chain_dma) {
--			dev_warn(sdev->dev, "use_chain_dma set for schduler %s",
-+			dev_warn(sdev->dev, "use_chain_dma set for scheduler %s",
- 				 swidget->widget->name);
- 			mutex_unlock(&ipc4_data->pipeline_state_mutex);
- 			return 0;
--- 
-2.30.2
-
+Thanks,
+Charles

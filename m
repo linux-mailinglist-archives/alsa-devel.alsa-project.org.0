@@ -2,112 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A006C660E
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 12:02:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29356C689A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 13:40:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66BE5EC8;
-	Thu, 23 Mar 2023 12:01:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66BE5EC8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89234EC4;
+	Thu, 23 Mar 2023 13:39:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89234EC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679569356;
-	bh=+IR3/3hsQmMxdnHwf5wOi9y8mStWTKoBiHt2euuxRhQ=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=dZyd0+toYVbjSnlZF6GoYo8encqJ96gGEUle/NGmFX2pG+4EV+o1kptfbybLCY3TD
-	 IS2u7ymUwG0V27DdNetELjv8WBx5vgqwQcDL+qwCFKpaQ7zO+jAkOFnYiNdQleYkKz
-	 FFYkonSB8LpcSR2CkeJfk8Vd/7DhHloyWYWl3SMg=
+	s=default; t=1679575245;
+	bh=UHioeRbqsRW1aI2gh/OPoblCdXKPVzZ8xrK9N619VW4=;
+	h=Date:Subject:From:To:References:In-Reply-To:CC:Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=C8j0YU/ZnEopGOXqNYFknWogASu+WJnY1mUqCy3laClVIlFGHMhzuj4HK/4hYrhV1
+	 Q9NqrKUa7OMQFkIEm6T29jAGZBXd1wQ/E9FmTD13Yh4xClhA8Vd3Bks70EMqlI3Wnd
+	 sXnEe10Dvqh43J0vtQSsQBzyFdKu+DE6yiMssbfk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4C2AF8027B;
-	Thu, 23 Mar 2023 12:01:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D94ADF8027B;
+	Thu, 23 Mar 2023 13:39:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17C9EF802E8; Thu, 23 Mar 2023 12:01:42 +0100 (CET)
+	id 50E67F802E8; Thu, 23 Mar 2023 13:39:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0F2B9F80093
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 12:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F2B9F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QuK7pVzc
-Received: by mail-ed1-x529.google.com with SMTP id ew6so21648489edb.7
-        for <alsa-devel@alsa-project.org>;
- Thu, 23 Mar 2023 04:01:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679569293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ahu8cJkhHnhzUOlpxuAtr0xDCT/S8rOYab9pN6g8aow=;
-        b=QuK7pVzcIN1kxnSgkMaJd1q1aZ/0cNK/3nrFNc7eXQ8fUBlIAlZIe9nJ4UZPfrBgCP
-         NJD13PXxGHT+CcouoFJLdjzhXO4s+ogC7g8qE4bGZAvQ60eqDbmcY9eB0KdJkwSp6Ujw
-         f5TteRs0xrHf1KPJFT1HdxxNcCbXJIWChpoW7ZR1DQAQ5RcV2xyuHUXOx8WWjDnUwvxq
-         FBuS88qeSTOZ1uLPA105JEK7F4vs9zMGjvOMpe8eOS2Jdorrsby+MV7VLKLoQp22DyFI
-         ihF0194SQ2ChEs4FwrbryvXk6Hp8lbJHtQ+NTuoBQCMIk/bKXMaE3KKkKUBudoLlZ/Sp
-         PREQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679569293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ahu8cJkhHnhzUOlpxuAtr0xDCT/S8rOYab9pN6g8aow=;
-        b=S4YEbKN5nfo1hFy7/9+TX/1CJCFIgD/ie6wIuLobCsR7dy8IMXjmcwvumHG7HmqKVH
-         jSafn5FeRXmDhbmcz9tM+CW8aSlsa9bYLcL+QpHW9hLmRFAGfOdf3amBljJc8eOPD4tZ
-         vLtJ/nnBm0UA8eVZSDuSqIYHNIhfZCpAh0XjPlifqEidDiz8w3o2WPachZJLIlTRyNYH
-         RDzTguRPrDXIC6zAchJ+or+0eOKYZdQuvfSdYktwjPpPuzNT3GoxzR/9tQcnWIyepzKe
-         NPZvDQvBcYHsKvu0FzOAMTULBEp5y24zSTM6VEDRZJ3VbOrkDnoFM82RQE0ij4zBfqip
-         9ncg==
-X-Gm-Message-State: AO0yUKXs115YZlyeez6tyREkQxDRP6E1XP8U+mwgPd1ZJS/egH/g09Gn
-	D3WdQ+lNd0tj3Ngdw8NoMxEOOQ==
-X-Google-Smtp-Source: 
- AK7set+VkIEJFUs3BcCNTxgxlbqPZF4opEfOOks6fNYPBLX0E2pUV8JwSmNwHYOpN53HDRb9qr81+g==
-X-Received: by 2002:a05:6402:1619:b0:4fc:3777:f630 with SMTP id
- f25-20020a056402161900b004fc3777f630mr10171556edv.0.1679569292850;
-        Thu, 23 Mar 2023 04:01:32 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- x23-20020a50d617000000b004fa268da13esm9129009edi.56.2023.03.23.04.01.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 04:01:32 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [RESEND PATCH] ASoC: codecs: lpass: fix the order or clks turn off
- during suspend
-Date: Thu, 23 Mar 2023 11:01:25 +0000
-Message-Id: <20230323110125.23790-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 48269F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 13:39:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48269F800C9
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	id 1pfKEB-0007XV-1v; Thu, 23 Mar 2023 13:39:35 +0100
+Message-ID: <61065a7f-19ce-0308-57ed-4cd4c4d681a0@leemhuis.info>
+Date: Thu, 23 Mar 2023 13:39:33 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3ZXHSB7MVBFPZLQIMHVW6MSQHOWJHDGY
-X-Message-ID-Hash: 3ZXHSB7MVBFPZLQIMHVW6MSQHOWJHDGY
-X-MailFrom: srinivas.kandagatla@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [REGRESSION] kbl-r5514-5663-max hdmi no longer working
+Content-Language: en-US, de-DE
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: 
+ <CAJD_bPKQdtaExvVEKxhQ47G-ZXDA=k+gzhMJRHLBe=mysPnuKA@mail.gmail.com>
+ <f96431ee-abc0-ff76-3963-c45d3b092840@leemhuis.info>
+In-Reply-To: <f96431ee-abc0-ff76-3963-c45d3b092840@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: 
+ webpack.hosteurope.de;regressions@leemhuis.info;1679575181;0e35de15;
+X-HE-SMSGID: 1pfKEB-0007XV-1v
+Message-ID-Hash: 4TDA4NGOLH3NHCCBOHHXEZTPLHXJOUUQ
+X-Message-ID-Hash: 4TDA4NGOLH3NHCCBOHHXEZTPLHXJOUUQ
+X-MailFrom: regressions@leemhuis.info
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amit Pundir <amit.pundir@linaro.org>
+CC: Jason Montleon <jmontleo@redhat.com>, stable@vger.kernel.org,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ Mark Brown <broonie@kernel.org>, Alsa-devel <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Bard Liao <yung-chuan.liao@linux.intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ZXHSB7MVBFPZLQIMHVW6MSQHOWJHDGY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TDA4NGOLH3NHCCBOHHXEZTPLHXJOUUQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,78 +88,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The order in which clocks are stopped matters as some of the clock
-like NPL are derived from MCLK.
+On 13.03.23 18:32, Linux regression tracking (Thorsten Leemhuis) wrote:
+> [adding a push of people and lists to the recipients that dealt with the
+> culprit; leaving the stable list in CC for now, even if this is a
+> mainline issue (apart from the backport of the culprit to 5.10.y Takashi
+> asked for a while ago)]
+> 
+> On 13.03.23 17:34, Jason Montleon wrote:
+>> It looks like HDMI audio stopped working in 5.17-rc1. I ran a bisect
+>> which points to 636110411ca726f19ef8e87b0be51bb9a4cdef06.
+> 
+> FWIW, that's "ASoC: Intel/SOF: use set_stream() instead of
+> set_tdm_slots() for HDAudio" from Pierre-Louis Bossart.
 
-Without this patch, Dragonboard RB5 DSP would crash with below error:
- qcom_q6v5_pas 17300000.remoteproc: fatal error received:
- ABT_dal.c:278:ABTimeout: AHB Bus hang is detected,
- Number of bus hang detected := 2 , addr0 = 0x3370000 , addr1 = 0x0!!!
+Pierre-Louis Bossart, did you find time to look into this?
 
-Turn off  fsgen first, followed by npl and then finally mclk, which is exactly
-the opposite order of enable sequence.
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
 
-Fixes: 1dc3459009c3 ("ASoC: codecs: lpass: register mclk after runtime pm")
-Reported-by: Amit Pundir <amit.pundir@linaro.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
+#regzbot poke
 
-Sorry for noise, resending this one, as I missed the asoc mailing list in my previous send.
-
-
- sound/soc/codecs/lpass-rx-macro.c  | 4 ++--
- sound/soc/codecs/lpass-tx-macro.c  | 4 ++--
- sound/soc/codecs/lpass-wsa-macro.c | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 9e0a4e8a46c3..372bea8b3525 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -3668,9 +3668,9 @@ static int __maybe_unused rx_macro_runtime_suspend(struct device *dev)
- 	regcache_cache_only(rx->regmap, true);
- 	regcache_mark_dirty(rx->regmap);
- 
--	clk_disable_unprepare(rx->mclk);
--	clk_disable_unprepare(rx->npl);
- 	clk_disable_unprepare(rx->fsgen);
-+	clk_disable_unprepare(rx->npl);
-+	clk_disable_unprepare(rx->mclk);
- 
- 	return 0;
- }
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index b044c9c6f89b..d9318799f6b7 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -2096,9 +2096,9 @@ static int __maybe_unused tx_macro_runtime_suspend(struct device *dev)
- 	regcache_cache_only(tx->regmap, true);
- 	regcache_mark_dirty(tx->regmap);
- 
--	clk_disable_unprepare(tx->mclk);
--	clk_disable_unprepare(tx->npl);
- 	clk_disable_unprepare(tx->fsgen);
-+	clk_disable_unprepare(tx->npl);
-+	clk_disable_unprepare(tx->mclk);
- 
- 	return 0;
- }
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 728f26d12ab0..6484c335bd5d 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -2504,9 +2504,9 @@ static int __maybe_unused wsa_macro_runtime_suspend(struct device *dev)
- 	regcache_cache_only(wsa->regmap, true);
- 	regcache_mark_dirty(wsa->regmap);
- 
--	clk_disable_unprepare(wsa->mclk);
--	clk_disable_unprepare(wsa->npl);
- 	clk_disable_unprepare(wsa->fsgen);
-+	clk_disable_unprepare(wsa->npl);
-+	clk_disable_unprepare(wsa->mclk);
- 
- 	return 0;
- }
--- 
-2.21.0
-
+>> I built
+>> 5.17.14 with it reverted and it restored HDMI output, but it doesn't
+>> revert cleanly from 5.18 onward.
+>>
+>> >From what I can tell it looks like -ENOTSUPP is returned from
+>> snd_soc_dai_set_stream for hdmi1 and hdmi2 now. I'm not sure if that's
+>> expected, but I made the following change and I have working HDMI
+>> audio now. https://gist.github.com/jmontleon/4780154c309f956d97ca9a304a00da3f
+> 
+> Thanks for the report and the patch. I CCed the relevant people for this.
+> 
+> [TLDR For the rest of the mail: : I'm adding this report to the list of
+> tracked Linux kernel regressions; the text you find below is based on a
+> few templates paragraphs you might have encountered already in similar
+> form. See link in footer if these mails annoy you.]
+> 
+> To be sure the issue doesn't fall through the cracks unnoticed, I'm
+> adding it to regzbot, the Linux kernel regression tracking bot:
+> 
+> #regzbot ^introduced 636110411ca726f19ef8e87b0be51bb9a4cdef06
+> #regzbot title alsa/asoc: kbl-r5514-5663-max hdmi stopped working
+> #regzbot ignore-activity
+> 
+> This isn't a regression? This issue or a fix for it are already
+> discussed somewhere else? It was fixed already? You want to clarify when
+> the regression started to happen? Or point out I got the title or
+> something else totally wrong? Then just reply and tell me -- ideally
+> while also telling regzbot about it, as explained by the page listed in
+> the footer of this mail.
+> 
+> Developers: When fixing the issue, remember to add 'Link:' tags pointing
+> to the report (the parent of this mail). See page linked in footer for
+> details.
+> 
+> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+> --
+> Everything you wanna know about Linux kernel regression tracking:
+> https://linux-regtracking.leemhuis.info/about/#tldr
+> That page also explains what to do if mails like this annoy you.

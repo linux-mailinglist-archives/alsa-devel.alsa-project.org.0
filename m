@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009E76C6008
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 07:54:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B756C600A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 07:54:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F4B1ECC;
-	Thu, 23 Mar 2023 07:53:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F4B1ECC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19FA3ED9;
+	Thu, 23 Mar 2023 07:54:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19FA3ED9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679554470;
-	bh=3GWwdnYNEedQDKvDEsKzSqwrQEOuXEfl++HAhaJK7k8=;
+	s=default; t=1679554493;
+	bh=xUMXMcJ0y6HcNVGe6ccqmKmvRprZG3PMML60AvdQP0s=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=jIEfieTfFB/ktIzrxt+NPkcMQ6PD3FXgdmGvODnHHRTbLfxeSRyJ5Q/P+cBUCJgrp
-	 Av2/U0BKpbklELAA2U8IJXOR6oA6M4/cGduj1wsZyiY1YHFTi7OhWSLaloueJE5dQJ
-	 Jy+bOnQjmDEIBFyylfwM+1n6DZtYVoIqn7Vpc270=
+	b=lO4AIded75d7tO0dMy2xrhc3MEa2k4DYwowptWAtNnMx7UHctNn4jQt5jQhLwD84x
+	 ucsr79WgzwZkFT2PD+9ClTYqh5Yqe1JoUb6nBwFr9U0OJnUUe98fiPMK2ZkDRAgBqI
+	 HBlt24UcuU2X/XFulRikTg/jX34SY13nXTYBCb5Q=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4651F8051B;
-	Thu, 23 Mar 2023 07:52:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A027AF80534;
+	Thu, 23 Mar 2023 07:52:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC8A7F80482; Thu, 23 Mar 2023 07:52:45 +0100 (CET)
+	id 53EDBF804B1; Thu, 23 Mar 2023 07:52:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 13F35F802E8
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 07:52:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13F35F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3BAE6F804B1
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 07:52:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BAE6F804B1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=QuEhXtUZ;
+ header.s=susede2_rsa header.b=xqk5w9e7;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jvYOfSt7
+ header.s=susede2_ed25519 header.b=s+szM6H0
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A9A4A5C442;
-	Thu, 23 Mar 2023 06:52:41 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 68699343D6;
+	Thu, 23 Mar 2023 06:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1679554361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1679554363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iZ/mBUVfSSsQVWWIBI5QYGo4/NOsaWQonA6DVbNhKks=;
-	b=QuEhXtUZr8+Z0a5A7er+Z87uooMuowxbKErt4t7/Jo44haHOCS771lXHjDMJ0cckAHTnTG
-	5oeGpZ6uj1PoMPfJTbOGtl8tH0QmwYHprztfWrZKYOgeBAyZCblJFNM+H+B5I4+Hfoquh2
-	xPTzmFZZfskPjzujbW8PCx/Pkq82VM0=
+	bh=la69nbGyKIu8Re0yRxWaK1dihnrS3qIKPsKGsLWm2h4=;
+	b=xqk5w9e7bCQnaBENC21fc3dD4FwAFFKm6I8N4AaH1f4oJmtHXyI1HDpRBrtzGwEwSq5k95
+	/Aw8XNjOvr7xWFprcZbDiC77/AylR0LvSJsPdfLhsCArnNN4I+FBd2BgLtON7JsyX05xy9
+	vmXBQcNape2RZqt4fDW2r7B2OUEuR8g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679554361;
+	s=susede2_ed25519; t=1679554363;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iZ/mBUVfSSsQVWWIBI5QYGo4/NOsaWQonA6DVbNhKks=;
-	b=jvYOfSt7VfP9gZ0D82PnsFE8SY0/GUAZnKhAO1/WQe1GpHv2z26c20y/2khjHfXLtS58dp
-	ep04skgxkcWz7GDQ==
+	bh=la69nbGyKIu8Re0yRxWaK1dihnrS3qIKPsKGsLWm2h4=;
+	b=s+szM6H01vrmKf6yq9P/dA8ZB4Btoap2ayryxdtMiV8DkkaE6K/sYG5fNSloZHrTfKRdfc
+	e29TLylQ6qu2GpDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D25313596;
-	Thu, 23 Mar 2023 06:52:41 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 41DBB13596;
+	Thu, 23 Mar 2023 06:52:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id UOiWITn3G2QJcQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 23 Mar 2023 06:52:41 +0000
+	id qCNXDzv3G2QJcQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 23 Mar 2023 06:52:43 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/3] ALSA: docs: Add description about ack callback -EPIPE
- error handling
-Date: Thu, 23 Mar 2023 07:52:36 +0100
-Message-Id: <20230323065237.5062-3-tiwai@suse.de>
+Subject: [PATCH 3/3] ALSA: docs: A few more words for PCM XRUN handling and
+ stream locks
+Date: Thu, 23 Mar 2023 07:52:37 +0100
+Message-Id: <20230323065237.5062-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230323065237.5062-1-tiwai@suse.de>
 References: <20230323065237.5062-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TJBAJXXEKUC7JX4B6U4HKMZBDEN6F5IX
-X-Message-ID-Hash: TJBAJXXEKUC7JX4B6U4HKMZBDEN6F5IX
+Message-ID-Hash: XFZM74HJUMM24VKJEAS743HZ7QSMG7RY
+X-Message-ID-Hash: XFZM74HJUMM24VKJEAS743HZ7QSMG7RY
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,37 +107,67 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJBAJXXEKUC7JX4B6U4HKMZBDEN6F5IX/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFZM74HJUMM24VKJEAS743HZ7QSMG7RY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a brief description about the newly added behavior of the PCM ack
-callback with -EPIPE error.
+Enhance the documents about the PCM, missing descriptions for a couple
+of helpers like snd_pcm_period_elapsed_under_stream_lock() and
+snd_pcm_stop_xrun().
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- Documentation/sound/kernel-api/writing-an-alsa-driver.rst | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../kernel-api/writing-an-alsa-driver.rst      | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-index 5c9523b7d55c..6b8f3495407f 100644
+index 6b8f3495407f..a368529e8ed3 100644
 --- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
 +++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-@@ -2137,6 +2137,10 @@ This callback is also not mandatory. This callback is called when the
- emu10k1-fx and cs46xx need to track the current ``appl_ptr`` for the
- internal buffer, and this callback is useful only for such a purpose.
+@@ -2215,6 +2215,12 @@ Typical code would be like:
+               return IRQ_HANDLED;
+       }
  
-+The callback function may return 0 or a negative error. When the
-+return value is ``-EPIPE``, PCM core treats as a buffer XRUN happens,
-+and changes the state to ``SNDRV_PCM_STATE_XRUN`` automatically.
++Also, when the device can detect a buffer underrun/overrun, the driver
++can notify the XRUN status to the PCM core by calling
++:c:func:`snd_pcm_stop_xrun()`. This function stops the stream and sets
++the PCM state to ``SNDRV_PCM_STATE_XRUN``. Note that it must be called
++outside the PCM stream lock, hence it can't be called from the atomic
++callback.
+ 
+ 
+ High frequency timer interrupts
+@@ -2294,8 +2300,9 @@ mutexes or semaphores instead.
+ As already seen, some pcm callbacks are atomic and some are not. For
+ example, the ``hw_params`` callback is non-atomic, while ``trigger``
+ callback is atomic. This means, the latter is called already in a
+-spinlock held by the PCM middle layer. Please take this atomicity into
+-account when you choose a locking scheme in the callbacks.
++spinlock held by the PCM middle layer, the PCM stream lock. Please
++take this atomicity into account when you choose a locking scheme in
++the callbacks.
+ 
+ In the atomic callbacks, you cannot use functions which may call
+ :c:func:`schedule()` or go to :c:func:`sleep()`. Semaphores and
+@@ -2318,6 +2325,13 @@ in the PCM core instead of spin and rwlocks, so that you can call all PCM
+ functions safely in a non-atomic
+ context.
+ 
++Also, in some cases, you might need to call
++:c:func:`snd_pcm_period_elapsed()` in the atomic context (e.g. the
++period gets elapsed during ``ack`` or other callback). There is a
++variant that can be called inside the PCM stream lock
++:c:func:`snd_pcm_period_elapsed_under_stream_lock()` for that purpose,
++too.
 +
- This callback is atomic as default.
+ Constraints
+ -----------
  
- page callback
 -- 
 2.35.3
 

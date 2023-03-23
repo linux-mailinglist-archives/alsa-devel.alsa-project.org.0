@@ -2,113 +2,160 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1CBA6CEEAA
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:06:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FCB6CEEBD
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:07:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26EB4204;
-	Wed, 29 Mar 2023 18:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26EB4204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5958D1F7;
+	Wed, 29 Mar 2023 18:06:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5958D1F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680105989;
-	bh=KIS8/hfK3+0CPKRyehKBUeBe0Dx+miYFkUR+34rbOTE=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=NpoGrhpuiEt1tOIxCIwVnas0ayiTW+YxVNGyR0/E6Zlz5sTCvOfdw2zk2fmD7L3Oq
-	 WVf4xRbFhyJv3q9x7VynIAfQu5pskUAm1klzl/1MPyFMCqTq1GwzBZ95e5EXclPyJG
-	 7nGsly3MZfTVh6rzdpTCQhdg58LMYTMluOzcUGYg=
+	s=default; t=1680106046;
+	bh=QLz+dBVN44xqZj1ma4qnMOGZEacDvJIUbtUrBRXe378=;
+	h=References:From:To:Subject:Date:In-reply-to:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nRG5FubSZUOwx5fCgTYMKxbJZaNQ0MQevgw/651s6c48TaONIvoIXDZ0tJVrm/Uar
+	 CDfa7cTsg6AGDOF9nNLbe1UQ5BuYUaUqqnOEpZJf21GSrao10jf6sEUEr7hQmJ1iT0
+	 e/fDPr5t32gm8rSRCKlj8cpLEf3XwZwrG49vRPis=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E698F80114;
-	Wed, 29 Mar 2023 18:05:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 660BFF80533;
+	Wed, 29 Mar 2023 18:05:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7856AF8027B; Thu, 23 Mar 2023 14:05:32 +0100 (CET)
+	id B004DF804FE; Fri, 24 Mar 2023 12:09:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_12_24,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9FD0CF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 14:05:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD0CF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F98AF80529
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 12:09:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F98AF80529
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=EvIAw5uY
-Received: by mail-pj1-x102b.google.com with SMTP id j13so21411056pjd.1
+ header.s=20210112 header.b=hzyILuXn
+Received: by mail-wr1-x433.google.com with SMTP id l27so1391539wrb.2
         for <alsa-devel@alsa-project.org>;
- Thu, 23 Mar 2023 06:05:20 -0700 (PDT)
+ Fri, 24 Mar 2023 04:09:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679576718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=aWCXPXA01MTxciO2O9Gpy0spNBsM2s0w3oGvveagMoo=;
-        b=EvIAw5uYNDJCs83AkTe8PKJ5PTxaFvQrrndavIdnGESuO3Uval6+/8U5VTh2BJBgV8
-         pgpLTIEc64554ew8zGYznC3JjP0rlDsTQurPqqSJ7jRB35auHPVBnn8ZFfBhGLGNo53a
-         wBF9MtM8hIAzN57m9kDxcLWIS2xCQf73oyc/njFgodOTWg/eDyE+R47WdheRwUJaDEAx
-         QTj3J8jlE5eB1w+D6dsrmxO5QeeMccRnV4aSvajvhP4SfRnzq2pQHYhy+PGrK5iqLyPK
-         0LNJc15sUyVZoD85cAhyY8Z+8KP0NIKcFzN9sePx0pQ1ayKzZe/uwdAbNclUafEzOwSU
-         uZLw==
+        d=gmail.com; s=20210112; t=1679656180;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:from:to:cc:subject:date:message-id:reply-to;
+        bh=KKGzHAjESOwY5CJ6aIkXRblEUT9vcmLWXQ+M0lRFaT8=;
+        b=hzyILuXnSZ7lMaDYB5rhB/bnNUkufwU6fB5inzHRnGwGUpJquemA3X84Lzp++Y2YJ+
+         xX92fJNLk8xQHwS1+YxTda7OSm5DtCOvp4pDLhNSgUC+z/fJXup9nphjXvyJHgvtZySv
+         Ing1oEJUNGaC5fkPShiXmhVhP4ZVm14D3SAO1J3Mw26nhpiPZuGPtANkaXRqnth94OzX
+         eWmkntp/5aW21aNCDZJKirG9vn5GmZabE2CYZSk/g1dEY9qxrgIgg/yw5kqOFSzwoNBS
+         JwX3UeufEHb7ANEt7KtJeAKptHBPlTmLr2bfmp8WEFpNkr4PD3Q/FNi6OhewGezr1Z61
+         Chlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679576718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20210112; t=1679656180;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=aWCXPXA01MTxciO2O9Gpy0spNBsM2s0w3oGvveagMoo=;
-        b=7lmqj4qg8lgRpWB/PQm1CJyFAxavY8YYrxUG1fdu7ke8gc9rhyEfojPn46RP9O9XR7
-         8FqzdRCUxb5UkYLc2oSHybtHnvYg9OrbkJpFpOzQQkWhS9+lV8NXpRUm0gn8c2+Fbwo0
-         5tKPzE6W/5r3Dm/bEQhXOjncgl1S/uhWKaibwJVTFgON5/yCxUYmxm2fKxaEnXs0S/j/
-         5b3cOVLV0Kty41SQoVt6eEoMxs7tH2NA2MrBVMtUn5qdJ7xnWyb5VTpjR3r4z1vkQfjR
-         eet8Cv1TFp5rDkWeU8IKDE6gK5PIZHUDNBqAqrlqxzG7/S3R5XFZxWuYTKdMH2eCbTk5
-         aPgA==
-X-Gm-Message-State: AO0yUKVSmtiLqp6/IRylbrwVPYCGdr2dFRHhHHIK5RynHRsHmCcsTZW0
-	1LCwvaSV3nWGuEAQjruZOOw=
+        bh=KKGzHAjESOwY5CJ6aIkXRblEUT9vcmLWXQ+M0lRFaT8=;
+        b=TKsOGeYafp9ctw94FLPoBjhDTAK56cADIsMpPN8kxkP9ljBu2zShqBF74Uaui9ipP1
+         upwBIxNrNeB84BmhzndVO9pRLMGF+C5Dn7jtsYQUDpO3IQrhQ4v6dFckPUn/VYDCoWgu
+         qpAIKA0h2Wg24c4Vls1lUHPaYek534vcu7K7zZv3DXKZOpxO/fpJwLe+rFMeccKcFpGB
+         UNy+AR2SGxDC6rzpo4ZSoOq7aFVN5+6bgDAprOyjJhm0qMvY4nNMvXWvT1zO8GVBdlfP
+         UxIXxlqje24sfk9z22nUzpwn7a4hy3SBqM55wWbHfa1AII42P8OQf/xmoZQuqx5vnt2u
+         KCxg==
+X-Gm-Message-State: AAQBX9cB2mrSZ06YIqiM4e2ZDigJGbU7vxZ08xtQtVQJ9ufOcGp1cxM8
+	CE1ACDMoiR6/p9tqqvD9T1c=
 X-Google-Smtp-Source: 
- AK7set8S+0kJoTpHKtB6cXVVZlN4fSFDi/M+zMk/Fq8rKQE2qE0kdzqchatkBUco0c3oAb20eqdpRA==
-X-Received: by 2002:a05:6a20:b214:b0:d9:84d2:7aae with SMTP id
- eh20-20020a056a20b21400b000d984d27aaemr3111303pzb.22.1679576718295;
-        Thu, 23 Mar 2023 06:05:18 -0700 (PDT)
-Received: from pavilion.. ([2402:e280:2146:a9a:96dd:65b4:8354:3919])
+ AKy350ZmBQJTJNYHdzNhp0Qvsm2ha5bci7Pffhjn47i2N4HkGJnSU/0GajVbD8LVTLhlg10uq2ysNw==
+X-Received: by 2002:a5d:6290:0:b0:2da:53e3:57cf with SMTP id
+ k16-20020a5d6290000000b002da53e357cfmr1959487wru.71.1679656180460;
+        Fri, 24 Mar 2023 04:09:40 -0700 (PDT)
+Received: from localhost (188.28.8.105.threembb.co.uk. [188.28.8.105])
         by smtp.gmail.com with ESMTPSA id
- d16-20020aa78150000000b005825b8e0540sm11880245pfn.204.2023.03.23.06.05.15
+ a8-20020a056000100800b002d8566128e5sm9760336wrx.25.2023.03.24.04.09.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 06:05:17 -0700 (PDT)
-From: Saalim Quadri <danascape@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	daniel.baluta@nxp.com
-Subject: [PATCH] ASoC: dt-bindings: alc5632: Convert to dtschema
-Date: Thu, 23 Mar 2023 18:35:11 +0530
-Message-Id: <20230323130511.16367-1-danascape@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Fri, 24 Mar 2023 04:09:39 -0700 (PDT)
+References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
+ <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
+ <20221107085417.xrsh6xy3ouwdkp4z@houat>
+ <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
+ <20221109110045.j24vwkaq3s4yzoy3@houat>
+ <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
+Date: Thu, 23 Mar 2023 15:35:30 +0000
+In-reply-to: <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
+Message-ID: <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: danascape@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+X-MailFrom: aidanmacdonald.0x0@gmail.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UD4APJG67NPEFCUHCCTAHQ5HLWL66PP2
-X-Message-ID-Hash: UD4APJG67NPEFCUHCCTAHQ5HLWL66PP2
-X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:21 +0000
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Saalim Quadri <danascape@gmail.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: ZZFNGHZ332VW35QXUEC2QHWA2DAQVAQT
+X-Message-ID-Hash: ZZFNGHZ332VW35QXUEC2QHWA2DAQVAQT
+X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:51 +0000
+CC: Maxime Ripard <maxime@cerno.tech>, Paul Cercueil <paul@crapouillou.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dinh Nguyen <dinguyen@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sekhar Nori <nsekhar@ti.com>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ David Airlie <airlied@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Lechner <david@lechnology.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Mark Brown <broonie@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-stm32@st-md-mailman.stormreply.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ patches@opensource.cirrus.com, linux-tegra@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UD4APJG67NPEFCUHCCTAHQ5HLWL66PP2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZFNGHZ332VW35QXUEC2QHWA2DAQVAQT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,134 +164,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the ALC5632 audio codec bindings to DT schema.
 
-Signed-off-by: Saalim Quadri <danascape@gmail.com>
----
- .../devicetree/bindings/sound/alc5632.txt     | 43 -------------
- .../bindings/sound/realtek,alc5632.yaml       | 63 +++++++++++++++++++
- 2 files changed, 63 insertions(+), 43 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/alc5632.txt
- create mode 100644 Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
+Stephen Boyd <sboyd@kernel.org> writes:
 
-diff --git a/Documentation/devicetree/bindings/sound/alc5632.txt b/Documentation/devicetree/bindings/sound/alc5632.txt
-deleted file mode 100644
-index ffd886d110bd..000000000000
---- a/Documentation/devicetree/bindings/sound/alc5632.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--ALC5632 audio CODEC
--
--This device supports I2C only.
--
--Required properties:
--
--  - compatible : "realtek,alc5632"
--
--  - reg : the I2C address of the device.
--
--  - gpio-controller : Indicates this device is a GPIO controller.
--
--  - #gpio-cells : Should be two. The first cell is the pin number and the
--    second cell is used to specify optional parameters (currently unused).
--
--Pins on the device (for linking into audio routes):
--
--  * SPK_OUTP
--  * SPK_OUTN
--  * HP_OUT_L
--  * HP_OUT_R
--  * AUX_OUT_P
--  * AUX_OUT_N
--  * LINE_IN_L
--  * LINE_IN_R
--  * PHONE_P
--  * PHONE_N
--  * MIC1_P
--  * MIC1_N
--  * MIC2_P
--  * MIC2_N
--  * MICBIAS1
--  * DMICDAT
--
--Example:
--
--alc5632: alc5632@1e {
--	compatible = "realtek,alc5632";
--	reg = <0x1a>;
--
--	gpio-controller;
--	#gpio-cells = <2>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml b/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
-new file mode 100644
-index 000000000000..7c2de067fb27
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/realtek,alc5632.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ALC5632 audio CODEC
-+
-+description: |
-+  Pins on the device (for linking into audio routes):
-+      * SPK_OUTP
-+      * SPK_OUTN
-+      * HP_OUT_L
-+      * HP_OUT_R
-+      * AUX_OUT_P
-+      * AUX_OUT_N
-+      * LINE_IN_L
-+      * LINE_IN_R
-+      * PHONE_P
-+      * PHONE_N
-+      * MIC1_P
-+      * MIC1_N
-+      * MIC2_P
-+      * MIC2_N
-+      * MICBIAS1
-+      * DMICDAT
-+
-+maintainers:
-+  - Liam Girdwood <lgirdwood@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: realtek,alc5632
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  gpio-controller: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#gpio-cells'
-+  - gpio-controller
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        alc5632: alc5632@1a {
-+            compatible = "realtek,alc5632";
-+            reg = <0x1a>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+        };
-+    };
--- 
-2.34.1
+> Quoting Maxime Ripard (2022-11-09 03:00:45)
+>> On Mon, Nov 07, 2022 at 08:57:22PM +0000, Aidan MacDonald wrote:
+>> >
+>> > Maxime Ripard <maxime@cerno.tech> writes:
+>> >
+>> > > Hi,
+>> > >
+>> > > On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
+>> >
+>> > Assigning the parent clock in the DT works once, at boot, but going off
+>> > what you wrote in the commit message, if the clock driver has a
+>> > .determine_rate() implementation that *can* reparent clocks then it
+>> > probably *will* reparent them, and the DT assignment will be lost.
+>>
+>> Yes, indeed, but assigned-clock-parents never provided any sort of
+>> guarantee on whether or not the clock was allowed to reparent or not.
+>> It's just a one-off thing, right before probe, and a clk_set_parent()
+>> call at probe will override that just fine.
+>>
+>> Just like assigned-clock-rates isn't permanent.
+>>
+>> > What I'm suggesting is a runtime constraint that the clock subsystem
+>> > would enforce, and actively prevent drivers from changing the parent.
+>> > Either explicitly with clk_set_parent() or due to .determine_rate().
+>> >
+>> > That way you could write a .determine_rate() implementation that *can*
+>> > select a better parent, but if the DT applies a constraint to fix the
+>> > clock to a particular parent, the clock subsystem will force that parent
+>> > to be used so you can be sure the clock is never reparented by accident.
+>>
+>> Yeah, that sounds like a good idea, and CLK_SET_RATE_NO_REPARENT isn't
+>> too far off from this, it's just ignored by clk_set_parent() for now. I
+>> guess we could rename CLK_SET_RATE_NO_REPARENT to CLK_NO_REPARENT, make
+>> clk_set_parent handle it, and set that flag whenever
+>> assigned-clock-parents is set on a clock.
+>>
+>> It's out of scope for this series though, and I certainly don't want to
+>> deal with all the regressions it might create :)
+>>
+>
+> This sounds like a new dt binding that says the assigned parent should
+> never change. It sounds sort of like gpio hogs. A clock-hogs binding?
 
+Ideally we want the clock driver to be able to reparent clocks freely
+to get the best rate. But we also need some control over that to stop
+consumers from being reparented in undesired ways. Eg. you might want
+to make sure the GPU gets its own PLL so it can be reclocked easily,
+and putting another device on the GPU's PLL could prevent that.
+
+The only way to achieve this today is (1) never do any reparenting in
+the clock driver; and (2) use assigned-clock-parents in the DT to set
+up the entire clock tree manually.
+
+Maxime said that (2) is basically wrong -- if assigned-clock-parents
+provides no guarantee on what the OS does "after boot" then the OS is
+pretty much free to ignore it.
+
+My suggestion: add a per-clock bitmap to keep track of which parents
+are allowed. Any operation that would select a parent clock not on the
+whitelist should fail. Automatic reparenting should only select from
+clocks on the whitelist. And we need new DT bindings for controlling
+the whitelist, for example:
+
+    clock-parents-0 = <&clk1>, <&pll_c>;
+    clock-parents-1 = <&clk2>, <&pll_a>, <&pll_b>;
+
+This means that clk1 can only have pll_c as a parent, while clk2 can
+have pll_a or pll_b as parents. By default every clock will be able
+to use any parent, so a list is only needed if the machine needs a
+more restrictive policy.
+
+assigned-clock-parents should disable automatic reparenting, but allow
+explicit clk_set_parent(). This will allow clock drivers to start doing
+reparenting without breaking old DTs.

@@ -2,106 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F6E6C7008
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 19:12:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B78C46C7085
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 19:49:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C76C8ECF;
-	Thu, 23 Mar 2023 19:11:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C76C8ECF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4734ECE;
+	Thu, 23 Mar 2023 19:48:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4734ECE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679595139;
-	bh=rUn3oqJLeZ+PcZAIu66R71ASeFhwezXaOFWYnk+LTbQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WYe7zei2tKh+3lXXtze/UlK+KTR6eqmLceYVSzWFq8xbk+ms3tyIxjSPvr3eHm0SL
-	 MYs3g8q2xv730uW1FJmfG7Y4MsRZ2J5evCdrWaL1f9GE8YZZAeGJaNAbQTEG9/d0zn
-	 RG1ecSNL4ptc9E5/KUXnwyQ5deNwVcLeUFdonChc=
+	s=default; t=1679597378;
+	bh=0hW7ou4yKKzkx7XuuV6id7JupKItK72eoKHvINXaR/g=;
+	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=AeYTGBGa4y62qi3KDqSyncFpDsYCMqFun3SwX0O/+CL1VFno6F4wDBZ8I70LtcfXy
+	 5ienjID/kC3qAbiPnf2d4UYBQNY/G02A0LzpOeVLi+9OSokeNFVnRMdNtwB3H8Wz5v
+	 MyLoRE8OFqDSrHrOZ+36KHGOVd7nDobUtRIZgYo4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41C32F80254;
-	Thu, 23 Mar 2023 19:11:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20999F80254;
+	Thu, 23 Mar 2023 19:48:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3664F802E8; Thu, 23 Mar 2023 19:11:24 +0100 (CET)
+	id 24B9DF802E8; Thu, 23 Mar 2023 19:48:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5A29F80093
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 19:11:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5A29F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id D94B9F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 19:48:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D94B9F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YIrQAwHT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679595079; x=1711131079;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=rUn3oqJLeZ+PcZAIu66R71ASeFhwezXaOFWYnk+LTbQ=;
-  b=YIrQAwHTzl2cFin0pkdlX2+iCzt1mx5uOYlHOpBsV4P4ab02jAWrgggG
-   n7Dq62yXPnmVOCNu9xSsl7eZQNU5Pmj99apUnu/1paWfXXG2IIroZHGh6
-   /kNmvtUKuIdf4dc9cYWYMTEMlAnAsxbfOyyYzdbxLbi5/jBD8E9YclFfI
-   qbDc1tmZVKHhu+eXzxMPrYjIc/SkaVKGWtxiSzUtzrmeLR6f80GNy0Et5
-   3X15QLk+GxIcnLqzP6Vs4q0D8DQz0Xwkxv017fiJ1FhgZaG4aBDBeFmEJ
-   YDMyFHROReqfu1v0zsgsohfdueAl7B/DFhXulwYQCpnRh1++xhg4LcDIK
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="319239500"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400";
-   d="scan'208";a="319239500"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 11:11:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="682390296"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400";
-   d="scan'208";a="682390296"
-Received: from dsamoylo-mobl.amr.corp.intel.com (HELO [10.209.65.26])
- ([10.209.65.26])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 11:11:12 -0700
-Message-ID: <5dc11c47-bae6-2f4e-4ffd-58c4f462fd68@linux.intel.com>
-Date: Thu, 23 Mar 2023 13:11:11 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=HqPjcFMX
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id C7A24B821EA;
+	Thu, 23 Mar 2023 18:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47367C433D2;
+	Thu, 23 Mar 2023 18:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679597314;
+	bh=0hW7ou4yKKzkx7XuuV6id7JupKItK72eoKHvINXaR/g=;
+	h=From:Date:Subject:To:Cc:From;
+	b=HqPjcFMXRRGfmNZl9SbWgq2UXbQeJguo7vNCSJgukRxSzyvtqDNFAMquWswFmBzKH
+	 xKjxAVul3SMHdelFUoroEgCTEup8RqTfB6AuIJhZD7V99jT7m7uZj6gHB9xyaibfke
+	 16yOKZbQwh7/DcFD8S54E532ry0wKtfa47xkzA763w3wVtzJXmqoSnJTNP5XLLItVD
+	 +vMRp/P9gYE/gxlaTunFfOW3f5Jrz11gJsPImNvorSwCgM8jWmzazl5TurI1KHMSZp
+	 SsaZ01uswqS9vp5kYb/mZ3RBmvU0qZ6mB8cEPPj/dYTlYZ8IcKRjYKH8NUqvSNCgb7
+	 vo5SKiIcvIQSQ==
+From: Mark Brown <broonie@kernel.org>
+Date: Thu, 23 Mar 2023 18:48:28 +0000
+Subject: [PATCH] kselftest/alsa - pcm-test: Don't include diagnostic
+ message in test name
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.8.0
-Subject: Re: [PATCH 3/4] ASoC: codecs: wsa883x: mute/unmute PA in correct
- sequence
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20230323164403.6654-1-srinivas.kandagatla@linaro.org>
- <20230323164403.6654-4-srinivas.kandagatla@linaro.org>
- <ff3eb88a-6941-4303-a4ba-17cad3842b88@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ff3eb88a-6941-4303-a4ba-17cad3842b88@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NCK5B6C7WN4UM7IDDY67VATJGUYJOL3X
-X-Message-ID-Hash: NCK5B6C7WN4UM7IDDY67VATJGUYJOL3X
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-Id: <20230323-alsa-pcm-test-names-v1-1-8be67a8885ff@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAPueHGQC/x2NQQqDQAwAvyI5N6C7WNp+pfSQjWkNraskYgvi3
+ 117nIFhVnAxFYdbtYLJoq5jLtCcKuCe8ktQu8IQ6hDrGCLSxwknHnAWnzHTII6Ju9ik9nJmukI
+ pE7lgMsrcH+13tPehJ5On/v6z+2PbdtOTZcx8AAAA
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+X-Mailer: b4 0.13-dev-bd1bf
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1895; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0hW7ou4yKKzkx7XuuV6id7JupKItK72eoKHvINXaR/g=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkHJ8ArrjYNOz4WBOk/FnbKxWklUcuQ1FG7p5o1Iov
+ 0w94Y92JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZByfAAAKCRAk1otyXVSH0KVpB/
+ 95WrxkkhbtiPCEmm8bG8RydT5ktpFzt1qrLZy0inaBl/htzrlxQVvFAbskJnSTO6BUx9CXLR+NSe0/
+ GM6PZaRs9gxNBbJbDUYodigTluRSTvwOmS0veoiCrftnGSquU2nEIgy8N5A0oBFM4/LE9iUI/d8vr/
+ XFKowdpqHGO4vWuzrY1AN/xrFpngzgysx7TfGtZDRtEOc+or0zKV6LbFz3WVSsU6XgTZaOPxIjHAhM
+ exjLO7OwyMT1RfMUbagFY/QcrBZ+RuiTgL3jtGed5of0fl+ShKjWlNxQxRF9hvOdbryCEMrOWdgz+B
+ 3x+p8HCg5WPf8VSeyUK9chcrcBai/D
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: C4OYCDNQL6AA5NSDUIMLMIYFI5524PZ6
+X-Message-ID-Hash: C4OYCDNQL6AA5NSDUIMLMIYFI5524PZ6
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, johan+linaro@kernel.org, steev@kali.org,
- dmitry.baryshkov@linaro.org
+CC: alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NCK5B6C7WN4UM7IDDY67VATJGUYJOL3X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C4OYCDNQL6AA5NSDUIMLMIYFI5524PZ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,30 +106,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+When reporting errors or skips we currently include the diagnostic message
+indicating why we're failing or skipping. This isn't ideal since KTAP
+defines the entire print as the test name, so if there's an error then test
+systems won't detect the test as being the same one as a passing test. Move
+the diagnostic to a separate ksft_print_msg() to avoid this issue, the test
+name part will always be the same for passes, fails and skips and the
+diagnostic information is still displayed.
 
->> +static int wsa883x_trigger(struct snd_pcm_substream *s, int cmd,
->> +			   struct snd_soc_dai *dai)
->> +{
->> +	switch (cmd) {
->> +	case SNDRV_PCM_TRIGGER_START:
->> +	case SNDRV_PCM_TRIGGER_RESUME:
->> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->> +		wsa883x_digital_mute(dai, false, 0);
->> +		break;
-> 
->>  static const struct snd_soc_dai_ops wsa883x_dai_ops = {
->> +	.startup = wsa883x_startup,
->>  	.hw_params = wsa883x_hw_params,
->>  	.hw_free = wsa883x_hw_free,
->> -	.mute_stream = wsa883x_digital_mute,
->> +	.trigger = wsa883x_trigger,
-> 
-> The trigger is run in atomic context, can you really write safely to a
-> SoundWire device there?
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/alsa/pcm-test.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-Mark, I've seen that comment from you several times, and I wonder if I
-am missing something: the triggers for SoundWire managers and dailinks
-are typically nonatomic - at least for the Cadence-based solution the
-trigger is based on a bank switch that may happen with a delay and with
-a wait_for_completion(). Sending a command over the SoundWire channel is
-also typically not atomic, there's usually a wait_for_completion() as well.
+diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
+index 58b525a4a32c..bab56ea67e89 100644
+--- a/tools/testing/selftests/alsa/pcm-test.c
++++ b/tools/testing/selftests/alsa/pcm-test.c
+@@ -489,17 +489,18 @@ static void test_pcm_time(struct pcm_data *data, enum test_class class,
+ 	}
+ 
+ 	if (!skip)
+-		ksft_test_result(pass, "%s.%s.%d.%d.%d.%s%s%s\n",
++		ksft_test_result(pass, "%s.%s.%d.%d.%d.%s\n",
+ 				 test_class_name, test_name,
+ 				 data->card, data->device, data->subdevice,
+-				 snd_pcm_stream_name(data->stream),
+-				 msg[0] ? " " : "", msg);
++				 snd_pcm_stream_name(data->stream));
+ 	else
+-		ksft_test_result_skip("%s.%s.%d.%d.%d.%s%s%s\n",
++		ksft_test_result_skip("%s.%s.%d.%d.%d.%s\n",
+ 				 test_class_name, test_name,
+ 				 data->card, data->device, data->subdevice,
+-				 snd_pcm_stream_name(data->stream),
+-				 msg[0] ? " " : "", msg);
++				 snd_pcm_stream_name(data->stream));
++
++	if (msg[0])
++		ksft_print_msg("%s\n", msg);
+ 
+ 	pthread_mutex_unlock(&results_lock);
+ 
+
+---
+base-commit: e8d018dd0257f744ca50a729e3d042cf2ec9da65
+change-id: 20230323-alsa-pcm-test-names-bcd31b586ca9
+
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>
+

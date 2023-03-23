@@ -2,137 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FBA96C61BB
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 09:33:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEEE16C62BD
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 10:06:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67B82EC3;
-	Thu, 23 Mar 2023 09:32:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67B82EC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD39EBF;
+	Thu, 23 Mar 2023 10:05:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD39EBF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679560379;
-	bh=jARnPAZ4PvcBPJorEwvxuj0CwW1dXaCSwWqHey/qwB4=;
-	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=rUqDtU1OHylZhx2CqBxJduSY/neQDJQziz5DWcImcEtvDOr8ibCpfMnQVMIf9IHvZ
-	 BMb8tN5KeOF55xBnQpqJka02XBy+JCGbZKQGsQpn344lU8LODpyzw+RWCrpkf2Rq9m
-	 nrxWqEoimeaO7sjbFJg3ZQ4khMXg1tpJDLv8l90o=
+	s=default; t=1679562394;
+	bh=8fDgTYrfEVLrfxcWEZwXD5AoyoDI00UEFVDYVTBJUBg=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mREMDLRqZhK4p7lOXPd4CBOVT/N+LONd82lpJ118jMUnja21sP5B2fiBbB+p8T5pC
+	 WEum4BSlM7IVoYJzy9ae5xJOSBw0tjeWKS2muERtDPB8q9ycZJG9LxIU6p4iMxb1Yv
+	 x53PUEQBgj045aZMnnYjqI5V8eM30gvhHzpBCWtI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9A20F8027B;
-	Thu, 23 Mar 2023 09:32:08 +0100 (CET)
-Date: Thu, 23 Mar 2023 09:31:54 +0100
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
-In-Reply-To: <551fe9b4-4c99-74b8-af44-9f431c488af8@linaro.org>
-References: <20230322134654.219957-1-herve.codina@bootlin.com>
-	<20230322134654.219957-3-herve.codina@bootlin.com>
-	<551fe9b4-4c99-74b8-af44-9f431c488af8@linaro.org>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MNQA5K7LMKPJ5TCVL4JJPFXJPT2I3CPK/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <167956032827.26.17701255324489779431@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id F0A62F800C9;
+	Thu, 23 Mar 2023 10:05:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D2A3F802E8; Thu, 23 Mar 2023 09:32:05 +0100 (CET)
+	id 98E5BF802E8; Thu, 23 Mar 2023 10:05:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::231])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2D90F800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 09:31:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2D90F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id A5459F80254;
+	Thu, 23 Mar 2023 10:05:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5459F80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=PzcT9o7j
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id E7332100005;
-	Thu, 23 Mar 2023 08:31:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1679560317;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HDd1tQ/W5Z8aDygD3qGQ9dvWDUINrjV0N0N66+d7lpc=;
-	b=PzcT9o7ji9u/dXSGXb6PtP6CQzgcHhTT8zhGYCvtujxPxxKXBTaggDueOSiguXoX2aVL5l
-	31PPwc3OLu2pSDIlUnig5zhy7LCBDOpynVLazso+9YfV1tWvnmQmDWU45ebTgzX6JeZBMA
-	5JF/KUs5PvgRUZ8JQRkCx00/HczUmyvT5rUg1QmIg2TjSh2mxufeBLBGiPYIttQ0nQbCRg
-	evjwELvxhhf5oOOKkGbMRzqU+5KtKaaqIwfYnwq/U29or35s0wnWPrXjgSoDcjCYvSqyYA
-	QV07XU3erWsCTRpwPFliOzu8NDId3K4aJ+qu3R/ZVka3eUpzuOlPm/PdpaOkog==
-Date: Thu, 23 Mar 2023 09:31:54 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
-Message-ID: <20230323093154.5852f81b@bootlin.com>
-In-Reply-To: <551fe9b4-4c99-74b8-af44-9f431c488af8@linaro.org>
-References: <20230322134654.219957-1-herve.codina@bootlin.com>
-	<20230322134654.219957-3-herve.codina@bootlin.com>
-	<551fe9b4-4c99-74b8-af44-9f431c488af8@linaro.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=ZaQXzTUj
+Received: by mail-wr1-x434.google.com with SMTP id l27so11306385wrb.2;
+        Thu, 23 Mar 2023 02:05:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679562332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZtM1/6aT9Hs8L0/Z5EjLhrB2E2q0vn+Gu2UY/Kc0m8I=;
+        b=ZaQXzTUjeJuWR7nWdtwf4QSQSdcp3+kIhkGEgjk4f9tZsWJ+yaUavlgvydHIWxalI3
+         HvEEDOq4X7xCsTnh3p7f8o/6hsJvrzNP/yqFTDT5Eoq1mY2RqO5Ul1b0qyxW3DGycnKS
+         1rGttUrCkEzU4rRdc9roM5Xx4ENsPKbfZx84SWouYOB55n1GhB19aBnzrn0eqyHvAd+R
+         AspCR5MEgXgrp+UN78HUpy9xIt3Dd3bfRXImxDWkM8Xvu8S41n6gyoV3Iz60PY+u+wMQ
+         aHvIVQaZOFa7t4AcojFK5rlrVKej1wFVLTIdmTeOBIaJP0JHbzavD/fzd5MO+nTPaCVc
+         8YEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679562332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZtM1/6aT9Hs8L0/Z5EjLhrB2E2q0vn+Gu2UY/Kc0m8I=;
+        b=I+ARt93ngWjKaK1J8y8lbzq5SwWobGvZOaTZfyvduviYNvDO9ljtnR7cDA4LbJ7hzG
+         wDBC6Y+G/+L6EtORMPEODxY1/7NPMaf4hp3gJbk3NSKK2Shky4pJsokkZ5UV9czAjVHP
+         75U43dNeTe041wAsjtWS6taRK91e2fFFhe+iXI7HUOUpWsun6/J81NQxwoq04caqwfTQ
+         ea4AKFjvFa6PBj0YW5lpoZINKRCsfsWBvSbJmPi03wB8+dT6QLKpKGEA3d/a8iP21AK8
+         TUCSXNEO+h0xa9Az6tk2kdTgaLM/5y1PKajDp9P8KPj/zyYYran47zAirWfDjuZ2ZDbp
+         2fuw==
+X-Gm-Message-State: AAQBX9dpgTi44DtXMFUaCBU2aS9UFijdguuY+dW/ZJMcM08RLZeSLo+r
+	dNTkwfLgC8NEZs8O1QK3VsE=
+X-Google-Smtp-Source: 
+ AKy350Z9vPGF5pLhiKFKopvx4kjzoGNumrNcki7pJup/RNEkcWBlS3eBt8/YiZoRHJr9f0BLq0yB7Q==
+X-Received: by 2002:adf:dc12:0:b0:2ce:a85d:5319 with SMTP id
+ t18-20020adfdc12000000b002cea85d5319mr1793247wri.39.1679562332546;
+        Thu, 23 Mar 2023 02:05:32 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194])
+        by smtp.gmail.com with ESMTPSA id
+ o10-20020a5d684a000000b002d89e113691sm6623425wrw.52.2023.03.23.02.05.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Mar 2023 02:05:32 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH][next] ASoC: SOF: ipc4/intel: Fix spelling mistake "schduler"
+ -> "scheduler"
+Date: Thu, 23 Mar 2023 09:05:31 +0000
+Message-Id: <20230323090531.67679-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MNQA5K7LMKPJ5TCVL4JJPFXJPT2I3CPK
-X-Message-ID-Hash: MNQA5K7LMKPJ5TCVL4JJPFXJPT2I3CPK
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: 3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT
+X-Message-ID-Hash: 3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT
+X-MailFrom: colin.i.king@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MNQA5K7LMKPJ5TCVL4JJPFXJPT2I3CPK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TQ7F2FBFH65ASPOODABJNH3F3R3RHNT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,40 +125,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 23 Mar 2023 08:30:39 +0100
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+There are two spelling mistakes in dev_warn messages. Fix them.
 
-> On 22/03/2023 14:46, Herve Codina wrote:
-> > The Lantiq PEF2256 is a framer and line interface component designed to
-> > fulfill all required interfacing between an analog E1/T1/J1 line and the
-> > digital PCM system highway/H.100 bus.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
-> 
-> 
-> > +static const struct of_device_id pef2256_id_table[] = {
-> > +	{ .compatible = "lantiq,pef2256" },
-> > +	{} /* sentinel */
-> > +};
-> > +MODULE_DEVICE_TABLE(of, pef2256_id_table);
-> > +
-> > +static struct platform_driver pef2256_driver = {
-> > +	.driver = {
-> > +		.name = "lantiq-pef2256",
-> > +		.of_match_table = of_match_ptr(pef2256_id_table),  
-> 
-> Drop of_match_ptr. This will case warnings with W=1 and !OF.
-> 
-> Best regards,
-> Krzysztof
-> 
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ sound/soc/sof/ipc4-topology.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Acked. Will be dropped in v4.
-
-Thanks.
-Hervé
-
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 12775fcb6b54..de7213237b27 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1990,7 +1990,7 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		pipeline = swidget->private;
+ 
+ 		if (pipeline->use_chain_dma) {
+-			dev_warn(sdev->dev, "use_chain_dma set for schduler %s",
++			dev_warn(sdev->dev, "use_chain_dma set for scheduler %s",
+ 				 swidget->widget->name);
+ 			return 0;
+ 		}
+@@ -2149,7 +2149,7 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		u32 header;
+ 
+ 		if (pipeline->use_chain_dma) {
+-			dev_warn(sdev->dev, "use_chain_dma set for schduler %s",
++			dev_warn(sdev->dev, "use_chain_dma set for scheduler %s",
+ 				 swidget->widget->name);
+ 			mutex_unlock(&ipc4_data->pipeline_state_mutex);
+ 			return 0;
 -- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.30.2
+

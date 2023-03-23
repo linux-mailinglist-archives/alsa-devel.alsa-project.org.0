@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9646C5F07
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 06:37:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06286C5F09
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 06:37:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5E52EB8;
-	Thu, 23 Mar 2023 06:36:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5E52EB8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D473BEDB;
+	Thu, 23 Mar 2023 06:36:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D473BEDB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679549843;
-	bh=SbHuuXPdMaBgfOruu1bZggLsJuDVCwmXsFFke6IavfA=;
+	s=default; t=1679549855;
+	bh=gtkWDGGprYUCa/NujUo+nrfpqYowlmMRMlh2EJAtBoc=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kzTf90lq7E+VQlUCCnGa8x9TuCs3+H59cEBvzGWeBdC3om6tf5XkZ+rsFf1mu/3oG
-	 w1hDG0dibzDnL7PLh3uiUi4Ja27Yt9vrIOnIafQHnJPiPL+fTiLVAj/sKojRN9qlw/
-	 FyKANmbQ+mnDxADi/XDWvgd92qEhb/zoqm/7XhOI=
+	b=btyr03yke8troxxxE8gtzEp+CZvxmPbtE2Rj1fQDYzokfCaIr96su+F9FlucxILQa
+	 UlUp3lQHEUgQP7kOzGriP2t8zxnViCp9Gcz+qTySZCJ9DapJH9ko/penavzoW7GIVH
+	 QbLPIEBdxgHu8NRlCSQ4gvEN6UPY69XpiT1xYJzM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCA5EF805AC;
-	Thu, 23 Mar 2023 06:33:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 561BEF805B1;
+	Thu, 23 Mar 2023 06:33:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A270F804FE; Thu, 23 Mar 2023 06:31:12 +0100 (CET)
+	id 7C64CF80482; Thu, 23 Mar 2023 06:31:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,55 +33,55 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5F7A4F80482
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 06:30:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F7A4F80482
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91C14F804B1
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 06:30:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91C14F804B1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=k8aiHJuH
+ header.s=Intel header.b=EZ2GdjCx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679549438; x=1711085438;
+  t=1679549443; x=1711085443;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=SbHuuXPdMaBgfOruu1bZggLsJuDVCwmXsFFke6IavfA=;
-  b=k8aiHJuH0FwP3/5wUocI0ut2kIoj3vI00JW/tyj/2fVJ524IhP//iuNd
-   UmrFodsFpQp7n5iI+0GI8nuZZ+A7aM4aZI2AijY/mA5xc8YqQ2RQ/xF3o
-   KbIROEmikK0IssUcNmk+xHaYiY/uYQJHpZeBTLZdXdpHTmAUwdiq0pDE+
-   7GjX00Bhpeu2K7ry+089XeQ4synU7T2dL0A9v0XIVLa7SZfHfpDOqd0x5
-   v7NPwQqY9gIo2h0zN3EEALDgE492cdUvZgAwSM+tjJxCskp7uFnC5tGEX
-   JJV4Qe4dtRKk6xoxVwF04cSAznADyuv342CAZBydye62fpIRJfPSaqXzJ
+  bh=gtkWDGGprYUCa/NujUo+nrfpqYowlmMRMlh2EJAtBoc=;
+  b=EZ2GdjCx92Qbq9M3HBUqNoc+geZTyCCKBg51rRY+soxSFBv2gALVPHJi
+   mXb3sxuJqh2QWEOmP0BVqSbCdfz6yTKksRVD1nYE3v5ORkx4KS7w58+Gl
+   cUittRpFQEVo4t9QPpYwfI/BY92ICXb6ha9aVB4oSLhV4WBr9cYi5Vir6
+   nk0LyJk/xwVnmH5RM/5CcU5tY7avrOMy27wZX4zFPN0ndVcz5JFnSVArz
+   lvBJmJV+cVRfoJoTGq7wpGjvDjTcPJRKaNzZsu3yFlFpKh+ZmvabZtDz5
+   2s+SEbbhuJHjr2HDorSA4oi3MQcQtN0hM1cTQ4AfOvObZ/9XSlcM8kKeN
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327779493"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327779507"
 X-IronPort-AV: E=Sophos;i="5.98,283,1673942400";
-   d="scan'208";a="327779493"
+   d="scan'208";a="327779507"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 22:30:36 -0700
+ 22 Mar 2023 22:30:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="675567258"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="675567269"
 X-IronPort-AV: E=Sophos;i="5.98,283,1673942400";
-   d="scan'208";a="675567258"
+   d="scan'208";a="675567269"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 22:30:33 -0700
+ 22 Mar 2023 22:30:36 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org,
 	broonie@kernel.org
-Subject: [PATCH 18/20] soundwire: intel_ace2x: add check_cmdsync_unlocked
- helper
-Date: Thu, 23 Mar 2023 13:44:50 +0800
-Message-Id: <20230323054452.1543233-19-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 19/20] soundwire: bus: add new manager callback to deal with
+ peripheral enumeration
+Date: Thu, 23 Mar 2023 13:44:51 +0800
+Message-Id: <20230323054452.1543233-20-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
 References: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: T6PNAQLJE5NAHBFZKOGLGZZ4JUXJN4C5
-X-Message-ID-Hash: T6PNAQLJE5NAHBFZKOGLGZZ4JUXJN4C5
+Message-ID-Hash: ZQI5L32IEAWYUNMZYHFI3SPXUKKL45V5
+X-Message-ID-Hash: ZQI5L32IEAWYUNMZYHFI3SPXUKKL45V5
 X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6PNAQLJE5NAHBFZKOGLGZZ4JUXJN4C5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQI5L32IEAWYUNMZYHFI3SPXUKKL45V5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,8 +107,16 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-This is the last callback needed for all bus management routines on
-new hardware. Same concept as before, just different register.
+When a peripheral reports as ATTACHED, the manager may need to follow
+a programming sequence, e.g. to assign DMA resources and/or assign a
+command queue for that peripheral.
+
+This patch adds an optional callback, which will be invoked every time
+the peripheral attaches. This might be overkill in some scenarios, and
+one could argue that this should be invoked only on the first
+attachment. The bus does not however track this first attachment with
+any existing state-mirroring variable, and using dev_num_sticky would
+not work across suspend-resume cycles.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -116,33 +124,45 @@ Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel_ace2x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/soundwire/bus.c       | 3 +++
+ include/linux/soundwire/sdw.h | 3 ++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
-index fe950b3ea3bc..a12fee8a5bfa 100644
---- a/drivers/soundwire/intel_ace2x.c
-+++ b/drivers/soundwire/intel_ace2x.c
-@@ -186,6 +186,11 @@ static int intel_sync_go(struct sdw_intel *sdw)
- 	return ret;
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index b6aca59c3130..35f49bcc53e5 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -716,6 +716,9 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
+ 	/* After xfer of msg, restore dev_num */
+ 	slave->dev_num = slave->dev_num_sticky;
+ 
++	if (bus->ops && bus->ops->new_peripheral_assigned)
++		bus->ops->new_peripheral_assigned(bus, dev_num);
++
+ 	return 0;
  }
  
-+static bool intel_check_cmdsync_unlocked(struct sdw_intel *sdw)
-+{
-+	return hdac_bus_eml_sdw_check_cmdsync_unlocked(sdw->link_res->hbus);
-+}
-+
- /*
-  * DAI operations
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index ef645de13ae9..c076a3f879b3 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -846,6 +846,7 @@ struct sdw_defer {
+  * @post_bank_switch: Callback for post bank switch
+  * @read_ping_status: Read status from PING frames, reported with two bits per Device.
+  * Bits 31:24 are reserved.
++ * @new_peripheral_assigned: Callback to handle enumeration of new peripheral.
   */
-@@ -366,6 +371,7 @@ const struct sdw_intel_hw_ops sdw_intel_lnl_hw_ops = {
- 	.sync_arm = intel_sync_arm,
- 	.sync_go_unlocked = intel_sync_go_unlocked,
- 	.sync_go = intel_sync_go,
-+	.sync_check_cmdsync_unlocked = intel_check_cmdsync_unlocked,
+ struct sdw_master_ops {
+ 	int (*read_prop)(struct sdw_bus *bus);
+@@ -860,7 +861,7 @@ struct sdw_master_ops {
+ 	int (*pre_bank_switch)(struct sdw_bus *bus);
+ 	int (*post_bank_switch)(struct sdw_bus *bus);
+ 	u32 (*read_ping_status)(struct sdw_bus *bus);
+-
++	void (*new_peripheral_assigned)(struct sdw_bus *bus, int dev_num);
  };
- EXPORT_SYMBOL_NS(sdw_intel_lnl_hw_ops, SOUNDWIRE_INTEL);
  
+ /**
 -- 
 2.25.1
 

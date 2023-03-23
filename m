@@ -2,112 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A05D96C5F8D
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 07:20:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBCF6C5FCB
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 07:36:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B20C6EC0;
-	Thu, 23 Mar 2023 07:20:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B20C6EC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73F24EC2;
+	Thu, 23 Mar 2023 07:35:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73F24EC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679552453;
-	bh=v5/X3NetNicrtZVtfhXCKnWJmMxgErbklbiCtQx1sZE=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1679553404;
+	bh=8R/gKbVwRBvEBSRlPb7bwvqqpHwl2eeN8fMHtrK/2m4=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nPfK8eV6ve+U2j6O+7BwRxNnLCw5duTODbdbs9py4H0JdgJ/tiUkYDCA1Uy9CJeeX
-	 R0z44JIH17DM9xhwLZ+MeDmLqGIwnUcbSk52hx3SpJRZO8SSRfwev1OJNIsHLRA917
-	 Yr//uPugy3aPyF+T/8pYL8cUEWvoebbVq8tU8yX4=
+	b=ufwA4OTCuQq8bW99ep2hZlqQbhlx1+xVYqOFMOyqpC9E72prRFWnKyC77yU/IPxPN
+	 HtwlKQpURIbqrulvOfr+RWYvRgWHR9ddSjprkWiGedTyjYHjLB1neEPDbskZErMKs3
+	 vQHJ5bwJffg9zC9BtvpKmt4lyReEC7tpQkr4FeGs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E9EBF80254;
-	Thu, 23 Mar 2023 07:20:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEFB7F80093;
+	Thu, 23 Mar 2023 07:35:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30E00F8027B; Thu, 23 Mar 2023 07:19:57 +0100 (CET)
+	id F3E79F8027B; Thu, 23 Mar 2023 07:35:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5793BF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 07:19:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5793BF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 945D1F80093
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 07:35:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 945D1F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=e/8a+V3A;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Y0n2FhdE
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A177D5C3F0;
-	Thu, 23 Mar 2023 06:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1679552385;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EYi4fD8rvvMEL4nOPWgKnVgUrejpR5/mRke3S4EHm3M=;
-	b=e/8a+V3Aji1uw4KG3zYIuw8eJDmijLTbitDcQvw+6pxfRZfDh1l8C1mA2DQ2Aspty2Rcp8
-	pKvRFzfeQVXMHsR0wRKEnnf0+fQD1fNZLux6MmQnn+3PqFUfdNZ+t2FnKpp/NMtiQwUtjF
-	AGsdaqjiDYHnv7RyjHk9MlsD8+aqW18=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679552385;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EYi4fD8rvvMEL4nOPWgKnVgUrejpR5/mRke3S4EHm3M=;
-	b=Y0n2FhdEszVSJcTqHvOLoBuX2hy1iyLDnTODBYU9qgk8coQdwdVCbZwxiTEFKRWIMs0ia2
-	4ypwCi8iw8TWE5DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F42C132C2;
-	Thu, 23 Mar 2023 06:19:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id SNuOHYHvG2SlYwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 23 Mar 2023 06:19:45 +0000
-Date: Thu, 23 Mar 2023 07:19:45 +0100
-Message-ID: <87cz50htvi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix recursive locking at XRUN during
- syncing
-In-Reply-To: <20230321040258.GA164337@workstation>
-References: <20230320142838.494-1-tiwai@suse.de>
-	<20230321040258.GA164337@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: UHHVFOG2TMOHENO3FSTRYCIDHTWA7FXK
-X-Message-ID-Hash: UHHVFOG2TMOHENO3FSTRYCIDHTWA7FXK
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=fiVYKJ8W
+Received: by mail-ed1-x530.google.com with SMTP id w9so82269470edc.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 22 Mar 2023 23:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1679553340;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M8FMzTY6q5btYc/0V6wZVAFqAPO/lou94Wj6pSxpohs=;
+        b=fiVYKJ8WFPkbZOS+OaFNF1g8SVtUVsKtYnO8lwtKtBtM/KRGN6mp75f5ff4QMjfDZ8
+         3QOZlVoMTIXgyJaDorsrLt7DXPKp4v5vl1/+dzbGgX8arqCozP9krwMMIIWpHyLIsn6N
+         xX3d4fEvrv7/cPPqQF2pLs0hgnWV/dASourLzBUg3plt6GZyKZzqtAnhAaidJx+IAliS
+         9TI1RRIrfInMo4njmTcxINcJ+eLpSv4gfUJqjlkFfoxBiZLyRqe8gw+yZ8gh2Hnggx7r
+         GsdBtD+Jpw/gJxyNvwpRBZEL4DglpNKw2q79kQ+Vkm3oadIEcp5eArI6lsk8ZxO14wJk
+         TtKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679553340;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=M8FMzTY6q5btYc/0V6wZVAFqAPO/lou94Wj6pSxpohs=;
+        b=NzvUMXPuZscr8MJoivj2UYSRK2ldzEyD3wBOZx00Ji0zeOEUu33XtWEzURY3Sa5g64
+         MuYHwhwHqO9IemA0zzBgiY1fYzY3I8tDmmoVpXU3rq2sQa4VzEvyMnTQHm1LIccwBjs3
+         0u/QsLCSNUmCcVSFFt4WWl0Gce8hSjbnnVMoOemuKtKVBYGtahm6DFConSv/x0fJQwZZ
+         K4KCrPZ3vNW/gSNPLWqMSKCGBXmBHhIXBjqCCf+QBDBB6uxZUd2xkc754XxRjXJ68APo
+         3dmHpWqvu+7P0wJb4kzPR/+mN5GuKg6xTCwLORSjy+WxOEW8NVaMimogBijugSbc7Pfi
+         2CHg==
+X-Gm-Message-State: AO0yUKUeSnnk+U3Gt3pGY04YRvpXnx8pfn1QqdTSpn7DuSM6NN+uNU5A
+	bzOFWSIgpVuQE3ATjDM0fGh+YA==
+X-Google-Smtp-Source: 
+ AK7set8eEzWYxNr66Ew154eC20TxMTLywUYnk7e9yySgeanJd+Y6A7RWRyMlYBh41WTjvuXrI+uFLA==
+X-Received: by 2002:a17:906:f8db:b0:8b1:7ae8:ba6f with SMTP id
+ lh27-20020a170906f8db00b008b17ae8ba6fmr9570962ejb.16.1679553340695;
+        Wed, 22 Mar 2023 23:35:40 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:a665:ed1e:3966:c991?
+ ([2a02:810d:15c0:828:a665:ed1e:3966:c991])
+        by smtp.gmail.com with ESMTPSA id
+ q2-20020a1709066b0200b0092be0d267besm8344890ejr.142.2023.03.22.23.35.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Mar 2023 23:35:40 -0700 (PDT)
+Message-ID: <fc444dbc-2ac2-91b3-42eb-f16e7c1a2ec2@linaro.org>
+Date: Thu, 23 Mar 2023 07:35:39 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v2] ASoC: dt-bindings: ak5558: Convert to dtschema
+Content-Language: en-US
+To: Saalim Quadri <danascape@gmail.com>, daniel.baluta@nxp.com
+References: <d1559192-8f6d-26e0-ef19-d14ac7987a74@linaro.org>
+ <20230322200949.8986-1-danascape@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230322200949.8986-1-danascape@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 54G7QGEPKTWGOC6XEDRM45GH5MA22AUY
+X-Message-ID-Hash: 54G7QGEPKTWGOC6XEDRM45GH5MA22AUY
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, John Keeping <john@metanate.com>
+CC: alsa-devel@alsa-project.org, broonie@kernel.org,
+ devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHHVFOG2TMOHENO3FSTRYCIDHTWA7FXK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/54G7QGEPKTWGOC6XEDRM45GH5MA22AUY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,54 +123,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 21 Mar 2023 05:02:58 +0100,
-Takashi Sakamoto wrote:
+On 22/03/2023 21:09, Saalim Quadri wrote:
+> Convert the AK5558 ADC audio codec bindings to DT schema.
 > 
-> Hi,
-> 
-> On Mon, Mar 20, 2023 at 03:28:38PM +0100, Takashi Iwai wrote:
-> > The recent support of low latency playback in USB-audio driver made
-> > the snd_usb_queue_pending_output_urbs() function to be called via PCM
-> > ack ops.  In the new code path, the function is performed alread in
-> 
-> 's/alread/already/' or slang.
-> 
-> > the PCM stream lock.  The problem is that, when an XRUN is detected,
-> > the  function calls snd_pcm_xrun() to notify, but snd_pcm_xrun() is
-> 
-> 's/the  function/the function/'
-
-Corrected at applying.
-
-> > supposed to be called only outside the stream lock.  As a result, it
-> > leads to a deadlock of PCM stream locking.
-> > 
-> > For avoiding such a recursive locking, this patch adds an additional
-> > check to the code paths in PCM core that call the ack callback; now it
-> > checks the error code from the callback, and if it's -EPIPE, the XRUN
-> > is handled in the PCM core side gracefully.  Along with it, the
-> > USB-audio driver code is changed to follow that, i.e. -EPIPE is
-> > returned instead of the explicit snd_pcm_xrun() call when the function
-> > is performed already in the stream lock.
->  
-> Practically, the implementation of 'pcm_hw' in alsa-lib never evaluates
-> the return value (see 'snd_pcm_hw_mmap_commit()' and the others). I guess
-> that it is inconvenient for the low-latency mode of USB Audio device class
-> driver for the case of failure.
-> 
-> My additional concern is PCM indirect layer, since typically the layer
-> is used by drivers with SNDRV_PCM_INFO_SYNC_APPLPTR. But as long as I
-> read, the change does not matter to them.
-
-I find rather that's an extra bonus :)  It allows the existing code to
-give a more proper error handling.  For example, the indirect PCM
-helper returned -EINVAL, but this can be switched to -EPIPE for
-stopping the stream.
-
-I'm going to submit the patch together with the documentation
-updates.
+> Signed-off-by: Saalim Quadri <danascape@gmail.com>
 
 
-thanks,
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Takashi
+Best regards,
+Krzysztof
+

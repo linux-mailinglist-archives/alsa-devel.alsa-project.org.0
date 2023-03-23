@@ -2,115 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C21A6C69AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 14:38:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83C876C69F0
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Mar 2023 14:50:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C7CFEB9;
-	Thu, 23 Mar 2023 14:37:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C7CFEB9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85C22EC3;
+	Thu, 23 Mar 2023 14:50:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85C22EC3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679578690;
-	bh=UN/xrfJzI51X/L0fUOVzVqIYSqjOuGp6ROg5ubCqogI=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1679579454;
+	bh=yAzkV6grSee3ZhAMytDT78qAG+Cw2Q+FPunKiJuj/lw=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vcPfVil8CDqn34PWxG+4E6vgPvV7SCYd36FNt0DuVmok6ING659TWoDZSubY0uzhU
-	 UK97AyZL5doJKnaeIr0FKrJ9pjtMHU8dH8eS/SPhpgQPpdAmVl+vckO97L12M3LVbv
-	 HG5n+r7TNGfEllWJOW9dPMQGROZzuT2eEmJ7kzO4=
+	b=dQuuQwezkXQVLZSpAMI0mOptH0MyXMGpRuvYueHKzweRlekhYZBtVOw5+cgnwweVh
+	 IbIYm/8UZyZMykbZxVTOfpyafcDjkA6HvSKW7gOxryHTGvD5wgy5RwVgleplx5EMOd
+	 olgij7Wx9jGA7fiAS80CHw2/P5N853nLscuyRXfs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2572F80254;
-	Thu, 23 Mar 2023 14:37:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21226F8027B;
+	Thu, 23 Mar 2023 14:50:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68930F8027B; Thu, 23 Mar 2023 14:37:16 +0100 (CET)
+	id 2ED68F804B1; Thu, 23 Mar 2023 14:49:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D04C3F800C9
-	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 14:37:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D04C3F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70980F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 23 Mar 2023 14:49:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70980F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=X4wtv2aO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=m788v6nr
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Nq68+a6B
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3993522998;
-	Thu, 23 Mar 2023 13:37:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1679578633;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8TDa2feyoE1uYNfpnSNfdF/V7hELQLoI+CoP9Sfggzk=;
-	b=X4wtv2aOI+hyianrnuYfE/CKrDSKuMiEQM8+TdCYA4AS1w1NTChPxy3rfFt7WNCdPsm+YQ
-	8qcw6S87amFmFTV1/pDQ6KeLCbjTEE/Zi8NxGkw0hNf3eZhBRuDMpj+SsTbSg9cawNBMsz
-	xfNpxxNgct1PInXqGm7Is9Mxs1vDVgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679578633;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8TDa2feyoE1uYNfpnSNfdF/V7hELQLoI+CoP9Sfggzk=;
-	b=m788v6nrAA7uXvh/Hdb8Meb9t/41WPf47FAZ7Bm0dByD3oFDpTh0iv6obxmgOPAexhFthl
-	ZzJmqqc0cmDtMGDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1EFD213596;
-	Thu, 23 Mar 2023 13:37:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 4tEUBwlWHGTzXgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 23 Mar 2023 13:37:13 +0000
-Date: Thu, 23 Mar 2023 14:37:12 +0100
-Message-ID: <87pm8z612v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix recursive locking at XRUN during
- syncing
-In-Reply-To: <20230323132916.GA235532@workstation>
-References: <20230320142838.494-1-tiwai@suse.de>
-	<20230321040258.GA164337@workstation>
-	<87cz50htvi.wl-tiwai@suse.de>
-	<20230323132916.GA235532@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: QPBB5CNVOHSLNU5QZVQ6TPII5TY2HUIU
-X-Message-ID-Hash: QPBB5CNVOHSLNU5QZVQ6TPII5TY2HUIU
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4F689626BB;
+	Thu, 23 Mar 2023 13:49:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23815C433EF;
+	Thu, 23 Mar 2023 13:49:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679579391;
+	bh=yAzkV6grSee3ZhAMytDT78qAG+Cw2Q+FPunKiJuj/lw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Nq68+a6BvMZaLwlV29Ile/3Db56WqBNHtLNH+SLq1M8HU3mqXhmcp4wEqXjAv+JJJ
+	 zap+FM6qd0kHcLyaamnCnhKmnodFB/FtE0kdpPy3tS4rUKkmopsPqK87FTaHrCqdz4
+	 ettwr7s4SWQMQ9R1Xp/7IkuizvXI4WXRVVt4eoq63nevG/h9IeD422J29IW554jtA7
+	 HhJioogWYOBH2DDdWCRQxpZDTgNi2v8ysnYQNLSRuBZuyyAF/PlOXEPaNvU2KjlrnS
+	 j1t5nbM8fiTCfQ3EGlweehbzDL3h/pN0d7FjdTweJ8iNxemcGyq3RHz5ZL/TkI98Zf
+	 G+7S6RLR+QwWg==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230321092654.7292-1-peter.ujfalusi@linux.intel.com>
+References: <20230321092654.7292-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: ipc4/intel: Support for ChainDMA
+Message-Id: <167957938986.26985.1129337044165292533.b4-ty@kernel.org>
+Date: Thu, 23 Mar 2023 13:49:49 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bd1bf
+Message-ID-Hash: CJJG3C3YL3OTIFAZ7JQLMIHSLH7QA6EK
+X-Message-ID-Hash: CJJG3C3YL3OTIFAZ7JQLMIHSLH7QA6EK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, John Keeping <john@metanate.com>
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ jyri.sarha@intel.com, rander.wang@intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPBB5CNVOHSLNU5QZVQ6TPII5TY2HUIU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CJJG3C3YL3OTIFAZ7JQLMIHSLH7QA6EK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,67 +93,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 23 Mar 2023 14:29:16 +0100,
-Takashi Sakamoto wrote:
+On Tue, 21 Mar 2023 11:26:51 +0200, Peter Ujfalusi wrote:
+> On a platform when the DSP is in use, we cannot select individual links to use
+> or not use the DSP, it is either all or none.
+> On some audio endpoint, like HDMI/DP, it is preferred to not use any processing
+> in DSP to reduce the latency and to allow bytestream pass-through (DTS, DD, etc)
 > 
-> On Thu, Mar 23, 2023 at 07:19:45AM +0100, Takashi Iwai wrote:
-> > On Tue, 21 Mar 2023 05:02:58 +0100,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > Hi,
-> > > 
-> > > On Mon, Mar 20, 2023 at 03:28:38PM +0100, Takashi Iwai wrote:
-> > > > The recent support of low latency playback in USB-audio driver made
-> > > > the snd_usb_queue_pending_output_urbs() function to be called via PCM
-> > > > ack ops.  In the new code path, the function is performed alread in
-> > > 
-> > > 's/alread/already/' or slang.
-> > > 
-> > > > the PCM stream lock.  The problem is that, when an XRUN is detected,
-> > > > the  function calls snd_pcm_xrun() to notify, but snd_pcm_xrun() is
-> > > 
-> > > 's/the  function/the function/'
-> > 
-> > Corrected at applying.
-> > 
-> > > > supposed to be called only outside the stream lock.  As a result, it
-> > > > leads to a deadlock of PCM stream locking.
-> > > > 
-> > > > For avoiding such a recursive locking, this patch adds an additional
-> > > > check to the code paths in PCM core that call the ack callback; now it
-> > > > checks the error code from the callback, and if it's -EPIPE, the XRUN
-> > > > is handled in the PCM core side gracefully.  Along with it, the
-> > > > USB-audio driver code is changed to follow that, i.e. -EPIPE is
-> > > > returned instead of the explicit snd_pcm_xrun() call when the function
-> > > > is performed already in the stream lock.
-> > >  
-> > > Practically, the implementation of 'pcm_hw' in alsa-lib never evaluates
-> > > the return value (see 'snd_pcm_hw_mmap_commit()' and the others). I guess
-> > > that it is inconvenient for the low-latency mode of USB Audio device class
-> > > driver for the case of failure.
-> > > 
-> > > My additional concern is PCM indirect layer, since typically the layer
-> > > is used by drivers with SNDRV_PCM_INFO_SYNC_APPLPTR. But as long as I
-> > > read, the change does not matter to them.
-> > 
-> > I find rather that's an extra bonus :)  It allows the existing code to
-> > give a more proper error handling.  For example, the indirect PCM
-> > helper returned -EINVAL, but this can be switched to -EPIPE for
-> > stopping the stream.
-> > 
-> > I'm going to submit the patch together with the documentation
-> > updates.
+> IPC4 introduces a new type of end-to-end connection within the DSP which is using
+> the host DMA and link DMA in a single buffer, working back-to-back, passing the
+> received data without looking at it or trying to understand the format, content.
 > 
-> In my opinion, extra care is required for the simple replacement of
-> -EINVAL with -EPIPE, since it may not come from any operation relevant
-> to hardware. In my understanding, it comes from just careless
-> implementation of user space PCM application, thus it is still reasonable
-> to return -EINVAL.
+> [...]
 
-Yeah, we can't always replace such condition blindly.  But in the case
-of indirect PCM helpers, it's the place where the bogus values have
-been already set and processed, so we can't return -EINVAL, hence an
-XRUN notification would be appreciate.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/3] ASoC: SOF: topology: Set pipeline widget before updating IPC structures
+      commit: 3d3e223f09ed59f7a47d27cf4301b4d0d5c7fc3d
+[2/3] ASoC: SOF: ipc4: Add macros for chain-dma message bits
+      commit: cb3cdef33136baceada86ba2a21ba30cd53a9087
+[3/3] ASoC: SOF: ipc4/intel: Add support for chained DMA
+      commit: ca5ce0caa67fa9eeecaa29d895c2e4c3151c159e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,120 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0576C781D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 07:46:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A9D6C782F
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 07:51:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9506EEC6;
-	Fri, 24 Mar 2023 07:45:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9506EEC6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D50EAE9E;
+	Fri, 24 Mar 2023 07:50:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50EAE9E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679640376;
-	bh=abObpxyVBFXoVEcNWBqXhzdBUtHmnS6BGES4iMOSXNk=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1679640687;
+	bh=flLAE72ZgN3/Im1/4T4AFPkVxtOXVJqkxxY7yjgCtH0=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gdIkIrheBTxsrrJoei+MNoyss1zsgkbIcgoImO/m5o5DHXmh11wP+V64IsUI9Bo5g
-	 pAj3Bs6JKnt4wSdt1jhVz1OFg8vWu/xVKZDtUZ/EeVjQA1KspZiilmrUFV/OSMvH7A
-	 feSAFJO4XjfchE/3Q+tQJocZo31eeXOmU5APdWHA=
+	b=IP6u4lUvVRi2S8fICexaMlHsyzVcO0IaKifPZA97RD3tAo9L8TXyflp46mdWIckP5
+	 meu8h2A6uytI+VU2nxbJH1rUSLM1YWRR927+PoQZ3lKbXBLBZKphUz8NbIaKGigOJE
+	 qon1tPFqsQRqjrDjr6WISBmEIdra+JuM/cZyskDM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12359F804B1;
-	Fri, 24 Mar 2023 07:44:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A973F8027B;
+	Fri, 24 Mar 2023 07:50:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91F01F804FE; Fri, 24 Mar 2023 07:44:49 +0100 (CET)
+	id A9788F802E8; Fri, 24 Mar 2023 07:50:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF83CF80482
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 07:44:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF83CF80482
+	by alsa1.perex.cz (Postfix) with ESMTPS id BB39DF800C9
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 07:50:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB39DF800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=VQcF+cyC
-Received: by mail-ed1-x529.google.com with SMTP id eg48so3782840edb.13
-        for <alsa-devel@alsa-project.org>;
- Thu, 23 Mar 2023 23:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679640282;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sCX/SFYH/vwWzfLjx0NaL7F5JK5dcabJ3U2Bkjqieto=;
-        b=VQcF+cyCC1f8OrBQq8fWy7c7wZ0CwMWosRl6X3GKeEVMv53aLT1LLpK07Fb8P3k7hE
-         xJsfaDi9M2z0/td6Y+9/+rwp+o9FnmkyrnjzRcv/8ynsw8yup8oAw09c0DUuxzYAPR2b
-         kUvVhTjHfSrZyBea4+snXIQyDgSxdkW4mgD5um0xvRCdy+haLAazQ7t46fZpL+nGDuk1
-         rYAUX65wCYgY8Gvq8jLaGnifR+p4OFc6jEbM4o0Y94kkTM5PXm8aFW8TwXMkoQWzD+X1
-         Vs7VY2XUQqGxqhSWBurxz73sgunhDVX2ki1m6AB4iWTCdWJ/tvr02vkLgnwRwlJPMvd6
-         uRaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679640282;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sCX/SFYH/vwWzfLjx0NaL7F5JK5dcabJ3U2Bkjqieto=;
-        b=zoe1nwZo4p/t/L9WL2WbAt+l0cXSUuzsm2ULWRxgnLrvLiiA1MrLmKA5YMnLaRqeHL
-         pK3Mym3oyw8E9E4GGlKnsYZD+WJ1pXKvB0uB7E1OOUD1HVxejrgKUMIAqMQx3bE6jjNg
-         hnbYMAOUCGJwJItqeoWU9ci+RLNL4uDlb9dmsIJqAWuW5y4X3C/CE3SBfvAL4xl4hK2P
-         blQW95uSYxAi0n6w87axx5UUBBo9UpVHwx/RvRH8HxGDVlyR+trS7VV6YHGryKUXfcIS
-         SaAiv75ynhKgq1YEIf7k5Yr7eeww2kTVAEmn+uScdOV6RMZ9mjSk832ptExeNYyPPDcV
-         9jrg==
-X-Gm-Message-State: AAQBX9fjFGXACX8DYzv8RInmEhx8MjWWGlq+sGQ4m1fWozoudEQatb9x
-	GSixJGqKmqhc15Gen5E5EMKms3zU7DmB9Hi6daA=
-X-Google-Smtp-Source: 
- AKy350aHpVcS7kolMKTfZDwzBvwwMj2QB/Cak9w9IiM0iWmf6V+KHjzNTHdojkbwziWSVqs47kZtrg==
-X-Received: by 2002:aa7:cd9a:0:b0:4ac:b687:f57e with SMTP id
- x26-20020aa7cd9a000000b004acb687f57emr1798860edv.1.1679640282078;
-        Thu, 23 Mar 2023 23:44:42 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- e22-20020a50a696000000b005021c7f08absm872205edc.29.2023.03.23.23.44.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Mar 2023 23:44:41 -0700 (PDT)
-Message-ID: <2a0aabf5-41a3-cc07-3203-9b0bca6b71aa@linaro.org>
-Date: Fri, 24 Mar 2023 06:44:40 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 3/4] ASoC: codecs: wsa883x: mute/unmute PA in correct
- sequence
-Content-Language: en-US
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=ivgjV34H;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=OwCPvcFo
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 44C6D1FE73;
+	Fri, 24 Mar 2023 06:50:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1679640630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KAIVbVA0kWjDSsp3eCHgDldfRGBwyOVQfzNSUdfb5Zs=;
+	b=ivgjV34HVOZldlEZdd3m9v67T4dDgvXUTrQ6JQaa5eFoMfMCQNjeE9/DCOIPJ6fhpG6E2k
+	FwsWTHD84eQBXdM02Vu3cxAkx4Z+AikLvzrWW6wOGCDbRQk44MM5RlwPPHFKZwyS0HIzsV
+	ZKjnWXcSdpeCaelzIomrU9noVOC6YWw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1679640630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KAIVbVA0kWjDSsp3eCHgDldfRGBwyOVQfzNSUdfb5Zs=;
+	b=OwCPvcFoA6iCYKtMF9ktDTgFtxnpxAnrdPGv7rS7xSu0q76nLGzOZotdVcQseGyggip60S
+	Y636lEC6hvs3UcAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 20F0A133E5;
+	Fri, 24 Mar 2023 06:50:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id bMhfBzZIHWQRTAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 24 Mar 2023 06:50:30 +0000
+Date: Fri, 24 Mar 2023 07:50:29 +0100
+Message-ID: <87bkkihccq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-References: <20230323164403.6654-1-srinivas.kandagatla@linaro.org>
- <20230323164403.6654-4-srinivas.kandagatla@linaro.org>
- <ff3eb88a-6941-4303-a4ba-17cad3842b88@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <ff3eb88a-6941-4303-a4ba-17cad3842b88@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: LXIVLK4IXRHFOQOJFJMFIYU3NYSXVXCO
-X-Message-ID-Hash: LXIVLK4IXRHFOQOJFJMFIYU3NYSXVXCO
-X-MailFrom: srinivas.kandagatla@linaro.org
+Subject: Re: [PATCH] kselftest/alsa - mixer-test: Log values associated with
+ event issues
+In-Reply-To: <20230322-alsa-mixer-event-values-v1-1-78189fcf6655@kernel.org>
+References: <20230322-alsa-mixer-event-values-v1-1-78189fcf6655@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: LJV2YAHSKJCCHALT6QHL6TJH766ABUMP
+X-Message-ID-Hash: LJV2YAHSKJCCHALT6QHL6TJH766ABUMP
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, johan+linaro@kernel.org, steev@kali.org,
- dmitry.baryshkov@linaro.org
+CC: Takashi Iwai <tiwai@suse.com>, Shuah Khan <shuah@kernel.org>,
+ alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXIVLK4IXRHFOQOJFJMFIYU3NYSXVXCO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LJV2YAHSKJCCHALT6QHL6TJH766ABUMP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,47 +116,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 22 Mar 2023 16:18:07 +0100,
+Mark Brown wrote:
+> 
+> While it is common for driver bugs with events to apply to all events there
+> are some issues which only trigger for specific values. Understanding these
+> is easier if we know what we were trying to do when configuring the control
+> so add logging for the specific values involved in the spurious event.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+
+Thanks, applied now.
 
 
-On 23/03/2023 17:07, Mark Brown wrote:
-> On Thu, Mar 23, 2023 at 04:44:02PM +0000, Srinivas Kandagatla wrote:
->> In the current setup the PA is left unmuted even when the
->> Soundwire ports are not started streaming. This can lead to click
->> and pop sounds during start.
->> There is a same issue in the reverse order where in the PA is
->> left unmute even after the data stream is stopped, the time
->> between data stream stopping and port closing is long enough
->> to accumulate DC on the line resulting in Click/Pop noise
->> during end of stream.
-> 
-> Wow, that hardware sounds *super* fragile.
-> 
->> Moving the mute/unmute to trigger stop/start respectively seems to
->> help a lot with this Click/Pop issues reported on this Codec.
-> 
->> +static int wsa883x_trigger(struct snd_pcm_substream *s, int cmd,
->> +			   struct snd_soc_dai *dai)
->> +{
->> +	switch (cmd) {
->> +	case SNDRV_PCM_TRIGGER_START:
->> +	case SNDRV_PCM_TRIGGER_RESUME:
->> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->> +		wsa883x_digital_mute(dai, false, 0);
->> +		break;
-> 
->>   static const struct snd_soc_dai_ops wsa883x_dai_ops = {
->> +	.startup = wsa883x_startup,
->>   	.hw_params = wsa883x_hw_params,
->>   	.hw_free = wsa883x_hw_free,
->> -	.mute_stream = wsa883x_digital_mute,
->> +	.trigger = wsa883x_trigger,
-> 
-> The trigger is run in atomic context, can you really write safely to a
-> SoundWire device there?
-> 
-> This feels like we should be doing it at the framework level, either
-> tightening up where the mute happens in general or having some option
-> that devices can select if they really need it.
-That makes more sense, I can give that a try.
-
---srini
+Takashi

@@ -2,87 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36FB6C7FC1
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 15:20:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD2B56C80EE
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 16:14:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78CA6E91;
-	Fri, 24 Mar 2023 15:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78CA6E91
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53B90E91;
+	Fri, 24 Mar 2023 16:13:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53B90E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679667624;
-	bh=n3yZhCNRYqhUI8ezw2bTrABJGBLPd/F+0COzNNhNOqM=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qWA55IV7TwZkZJQoNTEJH13bMqucEzqPMgKHr9vslNTsGS69PvrowCHQDvOPDQkER
-	 TujmbC1K4RT7zo5jFDCNTGmGKLoruriAx4JYgrNzsh/s7+kfHCSyLR6dX9UA+quUCD
-	 8DZ1aB/v+hxTC7hfsZWPFPTRyAVvDqnTRS9F7ZUk=
+	s=default; t=1679670864;
+	bh=ny0mQ3SAXK+PY+9gPkS7781xCct7bSODSCyo1xu9Ouw=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=SIQoWnG+WVMEAGC8TUEXkiPcDx0/Wl8xRS93LXHF1CHD8E66Fsqmjzj4pjGYmKFRc
+	 YRQJWqsJcW6q2CfKV3XLXCitFmHizx7+S7MBtm2M6PTdEtBZdwL8riZ2tLsmklIO67
+	 gYZRby4ALPcNxAVTJ/5GjpEE5oeca/9BcU0tpCMA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E66BF8027B;
-	Fri, 24 Mar 2023 15:19:33 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BFEAF80482; Fri, 24 Mar 2023 15:19:29 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94D81F8024E
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 15:19:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D81F8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=X+1DcwJY
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D519862B16;
-	Fri, 24 Mar 2023 14:19:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1256C4339B;
-	Fri, 24 Mar 2023 14:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679667562;
-	bh=n3yZhCNRYqhUI8ezw2bTrABJGBLPd/F+0COzNNhNOqM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=X+1DcwJYdUdwQ2TV+It548kHu30IyJ3QpkjIqawnIy37jcYZZwCm1kXtZIwxCk43M
-	 mQewPzHgzBv2Oke6ftXP9R9LK4ozqncMoEPTqkOCU8TyvHWnovOOLaJfOdCP0nYfDP
-	 YlKM54fBY14jceumH6pbq0OOj9KeGLb0dttBTSaxzfip6Rs9D9H2LfzvF6CEqmB4s6
-	 7xQSccxpolZO7Pye/KG3uvBoULbyfObml+wXMzdmIEHXUwCmAyxDHrVSg3KjfEbFBe
-	 9D6fqS0E7SBpy4zwdbsymb2JVUQBz5GKjx2ryyoT8hfckJA9Caa6ZtU5uqExVHeU86
-	 R3ffq0DMAZl/g==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ilerjcvr.wl-kuninori.morimoto.gx@renesas.com>
-References: <87ilerjcvr.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2] ASoC: simple-card.c: add missing of_node_put()
-Message-Id: <167966756150.2601012.15699243105545842344.b4-ty@kernel.org>
-Date: Fri, 24 Mar 2023 14:19:21 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-2eb1a
-Message-ID-Hash: KCEZHBZJNYGAS2ZD7BWVBDTMNBEU27N7
-X-Message-ID-Hash: KCEZHBZJNYGAS2ZD7BWVBDTMNBEU27N7
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTP id A4A9CF8027B;
+	Fri, 24 Mar 2023 16:13:33 +0100 (CET)
+Date: Fri, 24 Mar 2023 15:13:19 +0000
+Subject: Re: [PATCH next] ASoC: cs35l56: Remove redundant return statement in
+ cs35l56_spi_probe()
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+References: <20230324145535.3951689-1-harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20230324145535.3951689-1-harshit.m.mogalapalli@oracle.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCEZHBZJNYGAS2ZD7BWVBDTMNBEU27N7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AWJNOEA3PI5TX2VB3JGEVWQFWEK7U3MB/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167967081288.26.13303471790898624841@mailman-core.alsa-project.org>
+From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: error27@gmail.com, James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Simon Trimmer <simont@opensource.cirrus.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id ECFCBF802E8; Fri, 24 Mar 2023 16:13:29 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 43A77F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 16:13:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43A77F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=hukVNPJx
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32OCMYLV023795;
+	Fri, 24 Mar 2023 10:13:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=OY6gbhc5rqK8NYwaF/FMiViAq5PqtbZQ2uVGYmYXC0I=;
+ b=hukVNPJxDWEhPwK5RMrGrnxDcVcMD01NYtmPDO2Tm1dQuHvPKKOmKxUC9+029W/NzHcX
+ 2fNpBiUSSqWvpbmx/WisDoN7XE0n2fDg6Sp5Wol8ykJGEAaU1DyvzH1rYTGn4VJ7mNgJ
+ fXYQBHO2KHAUWw2xTihwNxrVNBaABWW/WF0fcidAkhWsKJFKS9XIGcdqeqSIYyv1iYqn
+ IY/9SyyRAjNVPRwJUogpuGUVeuXdWRGHuZjyHV5dum+bHqtlyLLBnHK8Ozpd1yfaX9v/
+ l11byvjchL6FKUG4UDShLo7ktPQGCxQyfi7VtfvvM3raMWhai5qU5ZkkeA8aGqrZNS2J nQ==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3pgy30h0qc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 24 Mar 2023 10:13:22 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 24 Mar
+ 2023 10:13:20 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
+ Transport; Fri, 24 Mar 2023 10:13:20 -0500
+Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D206511D4;
+	Fri, 24 Mar 2023 15:13:19 +0000 (UTC)
+Message-ID: <11a0b85f-d705-145d-fc6a-1bcbb78d3686@opensource.cirrus.com>
+Date: Fri, 24 Mar 2023 15:13:19 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH next] ASoC: cs35l56: Remove redundant return statement in
+ cs35l56_spi_probe()
+Content-Language: en-US
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+References: <20230324145535.3951689-1-harshit.m.mogalapalli@oracle.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20230324145535.3951689-1-harshit.m.mogalapalli@oracle.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ScCh2NKqnHL0z9szIBr078J_Gg_bgyKa
+X-Proofpoint-ORIG-GUID: ScCh2NKqnHL0z9szIBr078J_Gg_bgyKa
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: AWJNOEA3PI5TX2VB3JGEVWQFWEK7U3MB
+X-Message-ID-Hash: AWJNOEA3PI5TX2VB3JGEVWQFWEK7U3MB
+X-MailFrom: prvs=8447a757ae=rf@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: error27@gmail.com, James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Simon Trimmer <simont@opensource.cirrus.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AWJNOEA3PI5TX2VB3JGEVWQFWEK7U3MB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,37 +157,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 23 Mar 2023 22:56:08 +0000, Kuninori Morimoto wrote:
-> It is missing of_node_put() for platform.
-> This patch fixup it.
+On 24/03/2023 14:55, Harshit Mogalapalli wrote:
+> We have unreachable 'return ret' statement in cs35l56_spi_probe(),
+> delete it as its dead code..
 > 
+> This is found by static analysis with smatch.
 > 
-
-Applied to
-
-   broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: simple-card.c: add missing of_node_put()
-      commit: 92405802a7d6aa1953915af869192296d1792d18
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> Fixes: e49611252900 ("ASoC: cs35l56: Add driver for Cirrus Logic CS35L56")
+> Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+> ---
+> Only compile tested.
+> ---
+>   sound/soc/codecs/cs35l56-spi.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/cs35l56-spi.c b/sound/soc/codecs/cs35l56-spi.c
+> index 80dcf37daae2..4b2084e85f29 100644
+> --- a/sound/soc/codecs/cs35l56-spi.c
+> +++ b/sound/soc/codecs/cs35l56-spi.c
+> @@ -29,7 +29,6 @@ static int cs35l56_spi_probe(struct spi_device *spi)
+>   	if (IS_ERR(cs35l56->regmap)) {
+>   		ret = PTR_ERR(cs35l56->regmap);
+>   		return dev_err_probe(&spi->dev, ret, "Failed to allocate register map\n");
+> -		return ret;
+>   	}
+>   
+>   	cs35l56->dev = &spi->dev;
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>

@@ -2,176 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC4396CEEBE
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0636CEEC2
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:07:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43F2B832;
-	Wed, 29 Mar 2023 18:06:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43F2B832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E2A81EF;
+	Wed, 29 Mar 2023 18:07:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E2A81EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680106059;
-	bh=iXlEyrDevEeOIsB4/m6BorLFSi03s90ljZfReag/C9Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1680106077;
+	bh=/BnjmxS7L0+apEiuUwsijqlY5TxC1O4BR+IoVkYGEpU=;
+	h=Date:To:Subject:From:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VUNCNs5rtAyMuscLZODX42ykkrExt8sxNoqJZHixbSUidaPVIxtVLE0KjPooon6s2
-	 YYu72bbX4UWf5q6AEXSVCWVfzGyTZ9OLSiPoR4m86bs97jwO+gyaXPwb1WzaEFFAKO
-	 fzt77SRyHOpCFYHbVsPg5uMuNmJsaew8cT3+Q3+I=
+	b=bIM686uWXPMoIaV7DhbXoQY5kASatdyOEakrzQNpoQZtS6BlL8qax15Js6EUsi/8v
+	 J+NVuY43UH7ZPmB7Dk8lyCe/gwT9j4f/moWYBRuNzOsoKUc6+JYUfmNvhwq4FEPLWK
+	 TOJF/TYOBpFlRFt2XmVOndE5NXV+JSYB6nkRx6TA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED0FCF8055C;
-	Wed, 29 Mar 2023 18:05:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9AC9F80563;
+	Wed, 29 Mar 2023 18:05:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A83CCF802E8; Fri, 24 Mar 2023 12:20:13 +0100 (CET)
+	id E0E0DF802E8; Fri, 24 Mar 2023 12:22:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7ECBF800C9
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 12:20:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7ECBF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4499AF800C9
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 12:22:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4499AF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm3 header.b=RINbDJrD;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=G4KWdAq5
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
-	by mailnew.nyi.internal (Postfix) with ESMTP id 02E8758211D;
-	Fri, 24 Mar 2023 07:20:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute6.internal (MEProxy); Fri, 24 Mar 2023 07:20:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm3; t=1679656805; x=1679664005; bh=jn
-	hC/DvfTlyZcOnZuUe9LuHIarcRp2uTbbPObwOvLtk=; b=RINbDJrDavr91qApxS
-	4BIapnsTSMpJsQcMuiekOJ4buZfgO1V5bxZUX92x96X+70RG5pM597H6X6A8ze2Q
-	J3K3HTIk9bh/ZbHNJcL4cY9CXoNlp9BFd+TTAQzaGhbL4Q/xS5FNx1TElQW6xvG7
-	0pWgXxxHWJn2xo8oKO6WZBtJ8/apSTxWaFgzT4XANpTX/yFywGqPfreFSFA+SxYy
-	DVWfFOmgiUFFAwcBCuUS5l1GOHRlbwP6IKA226oMHwgNZfpxX+vE/kqqplzGKxN6
-	3CA6w8YfKEc956VkNbvyMcVk4fjXMyE6jZ/K83ddG+CzpHvsr07jRCCCdY737Omz
-	uzeA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1679656805; x=1679664005; bh=jnhC/DvfTlyZc
-	OnZuUe9LuHIarcRp2uTbbPObwOvLtk=; b=G4KWdAq5u3yOdbhwSK/77/yGH7IQB
-	2xysJ+4DHASMDHD4DpUNSh0qiUQ7PoZ0HeB31FPCqa3ypIcHnjDyiqx4+OASl4vt
-	YII+0RiTBeUGCTuHiRp/2zrlkY7JsRYyob4hyT9jfvFspEvX+TWDxi6HeqVtkkkI
-	EIEz+43mJMF3TccMFqhY9/s2d2q0Bnzb5506eHVsiiRibRjc0JM/OyGd5+joNcoL
-	b2y+9ja4sW5wabUkTzlsQiAxcTUWRGjZRPmuIIWmJFWEdsTq0+X56oaR8GkrkVqB
-	dX4i5J533jmuMxkiG1iqzEHijtLWz0ghQXTKvlKaafFgHLlEw3jiDRZ4g==
-X-ME-Sender: <xms:YocdZJLt50SkjajEyhHxYSSrkPY2nLRG7oaF9-PbUsC11O7ePH7evw>
-    <xme:YocdZFJvv5yKSgbbCu2PjUCjA3iwB3zBFKv-CakFAJTI01X8NjMVPj3knfOKgALZS
-    iMcO2SYsLNKDxAxjx0>
-X-ME-Received: 
- <xmr:YocdZBtqfm5ufo2nxuPX_n4UUydUMdQkmyrCYSBkP5S6uLxOjnGe7GgKlZv5k0gAuEdnyA>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrvdegiedgvdejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
-    mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
-    htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
-    hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:YocdZKbb7h5XVzEGX4iPtxOkH5TmcsjFZOlhmJTWiCjxSzGBF3gLdQ>
-    <xmx:YocdZAZuVnKbOWnxm7JK_ixmWayh3DAJUGZTPl_6A4AyOaeCS8MgPA>
-    <xmx:YocdZODYFHhXEhG6sanelWXub-LDcHvfMUzvrDzXEPo_cfiaikGjCA>
-    <xmx:ZYcdZJnXIuUKCYqWP9MzEN0pWHGV9cxtt8SL0wrI9YqOxIudpLjjYg>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Mar 2023 07:20:01 -0400 (EDT)
-Date: Fri, 24 Mar 2023 12:19:59 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
-Message-ID: <20230324111959.frjf4neopbs67ugd@houat>
-References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
- <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
- <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
- <20221104145946.orsyrhiqvypisl5j@houat>
- <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
- <20221107085417.xrsh6xy3ouwdkp4z@houat>
- <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
- <20221109110045.j24vwkaq3s4yzoy3@houat>
- <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
- <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ygvujwxxgbycerm7"
-Content-Disposition: inline
-In-Reply-To: <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
-X-MailFrom: maxime@cerno.tech
-X-Mailman-Rule-Hits: max-recipients
+ unprotected) header.d=fairphone.com header.i=@fairphone.com
+ header.a=rsa-sha256 header.s=fair header.b=rByZavlt
+Received: by mail-ed1-x52a.google.com with SMTP id o12so6533091edb.9
+        for <alsa-devel@alsa-project.org>;
+ Fri, 24 Mar 2023 04:22:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1679656938;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HRr72t+4UZ9OP3mnlpRJ8YUSEtD1+XLxKD3GEqqnIeE=;
+        b=rByZavltipXd6PeR2v95ebI03dIGh+3m2D/LZWooOg5lz5WRzXzg/D3YV9l6c0uKxL
+         jmZHyS9y3jTCVpIFONpkVGKNXMgqnEoCtaALhrvBxRcbhy7HZAO65bc/g/LbBuXCXQQq
+         I0GAjGQd/+iNmUagoaSY16uUt3vBsSa/WZr3QMIH9KM3NswBASm4ZC0Y4Mn2CONJZed9
+         gY6oxtGvKUnV7EMSeoXWDnT23dCbFjxq4MKzORJ1TDHUbU2+aP0X8kol/QZ89GQ3s0Ec
+         bcIzag9bxLfvF2eRS7XN3NkjTpxb97uICwhyXyalcsyXQH5rGpou8OAfP+VUeZHyMHz4
+         6Feg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679656938;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HRr72t+4UZ9OP3mnlpRJ8YUSEtD1+XLxKD3GEqqnIeE=;
+        b=P22CmCtfYkA8K8vKmzStwJ3bbge1hsVt4tjPSPBZOZUCoZy4FZ2fqdmpJgzt4GNbim
+         iBEpy5C8UaQSH9axvYqIWUq1RFfZ9S3iPsPXOqm7uUd63/iXES7AQlnG/nv4cjRDNG/f
+         XPWXBRDkCmWauXBCVetIT/NZgu22T5htLJnYKsRABxue08pcF84yQ/8LUbhIIqp88XBx
+         n7CPAc0MwL+lHLwRUXMvgjFMhnzDEn+1EoSegXjA+8bVoA/T+FR66FhH+nJnIuk6cZjF
+         HUMWQvCp434i88WNjfDwVYpUdBhDujKoxN79iT/74h9LKlQyO9hl6nuE1Th4mZF4sZQl
+         hwjg==
+X-Gm-Message-State: AAQBX9ckpqgiv9TarAfLSrpQ1pE6xfWcY37+NPABDLyXm/8J+GZsGXbZ
+	g/w2hyPxsQuLk90aocDMLMPBvnFnlUakG86AiNDOrQ==
+X-Google-Smtp-Source: 
+ AKy350bjEB9tApb06Tb8yG8b1P3/ZPV+Lg4I1D0D6bOj4xxx8mW783dZePdsRRnmgNADtBJDf0pU8g==
+X-Received: by 2002:a17:906:5288:b0:932:3d1b:b67a with SMTP id
+ c8-20020a170906528800b009323d1bb67amr2333180ejm.41.1679656938274;
+        Fri, 24 Mar 2023 04:22:18 -0700 (PDT)
+Received: from localhost (84-115-214-73.cable.dynamic.surfer.at.
+ [84.115.214.73])
+        by smtp.gmail.com with ESMTPSA id
+ g9-20020a056402320900b004fd219242a5sm10458496eda.7.2023.03.24.04.22.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Mar 2023 04:22:18 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 24 Mar 2023 12:22:17 +0100
+Message-Id: <CREKOWOABXLP.28VKF824CFB3O@otso>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@linaro.org>,
+ <broonie@kernel.org>
+Subject: Re: [PATCH 5/8] ASoC: codecs: lpass: register mclk after runtime pm
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.14.0
+References: <20230209122806.18923-1-srinivas.kandagatla@linaro.org>
+ <20230209122806.18923-6-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230209122806.18923-6-srinivas.kandagatla@linaro.org>
+X-MailFrom: luca.weiss@fairphone.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: PV3AMSIERO7OBHGLNHUZPTBHIGBWHGEX
-X-Message-ID-Hash: PV3AMSIERO7OBHGLNHUZPTBHIGBWHGEX
-X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:51 +0000
-CC: Stephen Boyd <sboyd@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Daniel Vetter <daniel@ffwll.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Dinh Nguyen <dinguyen@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Orson Zhai <orsonzhai@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Samuel Holland <samuel@sholland.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Vinod Koul <vkoul@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Sekhar Nori <nsekhar@ti.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- David Airlie <airlied@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Lechner <david@lechnology.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Mark Brown <broonie@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-stm32@st-md-mailman.stormreply.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- patches@opensource.cirrus.com, linux-tegra@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: HVVRNY3RF7L7D2ZYXHLI7DQRKL4W33VQ
+X-Message-ID-Hash: HVVRNY3RF7L7D2ZYXHLI7DQRKL4W33VQ
+X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:52 +0000
+CC: lgirdwood@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, steev@kali.org, johan+linaro@kernel.org,
+ quic_bjorande@quicinc.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PV3AMSIERO7OBHGLNHUZPTBHIGBWHGEX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVVRNY3RF7L7D2ZYXHLI7DQRKL4W33VQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,119 +122,185 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Srinivas,
 
---ygvujwxxgbycerm7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu Feb 9, 2023 at 1:28 PM CET, Srinivas Kandagatla wrote:
+> move mclk out registration after runtime pm is enabled so that the
+> clk framework can resume the codec if it requires to enable the mclk out.
+>
+> Fixes: c96baa2949b2 ("ASoC: codecs: wsa-macro: add runtime pm support")
+> Fixes: 72ad25eabda0 ("ASoC: codecs: va-macro: add runtime pm support")
+> Fixes: 366ff79ed539 ("ASoC: codecs: rx-macro: add runtime pm support")
+> Fixes: 1fb83bc5cf64 ("ASoC: codecs: tx-macro: add runtime pm support")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-Hi,
+I see the following remoteproc crash with this patch in on
+sm6350/sm7225-fairphone-fp4.
 
-On Thu, Mar 23, 2023 at 03:35:30PM +0000, Aidan MacDonald wrote:
->=20
-> Stephen Boyd <sboyd@kernel.org> writes:
->=20
-> > Quoting Maxime Ripard (2022-11-09 03:00:45)
-> >> On Mon, Nov 07, 2022 at 08:57:22PM +0000, Aidan MacDonald wrote:
-> >> >
-> >> > Maxime Ripard <maxime@cerno.tech> writes:
-> >> >
-> >> > > Hi,
-> >> > >
-> >> > > On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
-> >> >
-> >> > Assigning the parent clock in the DT works once, at boot, but going =
-off
-> >> > what you wrote in the commit message, if the clock driver has a
-> >> > .determine_rate() implementation that *can* reparent clocks then it
-> >> > probably *will* reparent them, and the DT assignment will be lost.
-> >>
-> >> Yes, indeed, but assigned-clock-parents never provided any sort of
-> >> guarantee on whether or not the clock was allowed to reparent or not.
-> >> It's just a one-off thing, right before probe, and a clk_set_parent()
-> >> call at probe will override that just fine.
-> >>
-> >> Just like assigned-clock-rates isn't permanent.
-> >>
-> >> > What I'm suggesting is a runtime constraint that the clock subsystem
-> >> > would enforce, and actively prevent drivers from changing the parent.
-> >> > Either explicitly with clk_set_parent() or due to .determine_rate().
-> >> >
-> >> > That way you could write a .determine_rate() implementation that *ca=
-n*
-> >> > select a better parent, but if the DT applies a constraint to fix the
-> >> > clock to a particular parent, the clock subsystem will force that pa=
-rent
-> >> > to be used so you can be sure the clock is never reparented by accid=
-ent.
-> >>
-> >> Yeah, that sounds like a good idea, and CLK_SET_RATE_NO_REPARENT isn't
-> >> too far off from this, it's just ignored by clk_set_parent() for now. I
-> >> guess we could rename CLK_SET_RATE_NO_REPARENT to CLK_NO_REPARENT, make
-> >> clk_set_parent handle it, and set that flag whenever
-> >> assigned-clock-parents is set on a clock.
-> >>
-> >> It's out of scope for this series though, and I certainly don't want to
-> >> deal with all the regressions it might create :)
-> >>
-> >
-> > This sounds like a new dt binding that says the assigned parent should
-> > never change. It sounds sort of like gpio hogs. A clock-hogs binding?
->=20
-> Ideally we want the clock driver to be able to reparent clocks freely
-> to get the best rate. But we also need some control over that to stop
-> consumers from being reparented in undesired ways. Eg. you might want
-> to make sure the GPU gets its own PLL so it can be reclocked easily,
-> and putting another device on the GPU's PLL could prevent that.
->=20
-> The only way to achieve this today is (1) never do any reparenting in
-> the clock driver; and (2) use assigned-clock-parents in the DT to set
-> up the entire clock tree manually.
->=20
-> Maxime said that (2) is basically wrong -- if assigned-clock-parents
-> provides no guarantee on what the OS does "after boot" then the OS is
-> pretty much free to ignore it.
+To be clear, all the audio parts for that SoC are not upstream (yet) and
+there's still many issues to solve so not sure if it's actually my fault.
 
-I didn't really say it's wrong, just that it never provided the
-guarantee you expect it to provide. I can't really say whether it's an
-issue or not on your platform.
+Anyways, getting this crash after starting adsp.
 
-It's mostly unrelated to this series though, none of these patches
-affect that behavior in one way or the other.
+[   97.212943] qcom_q6v5_pas 3000000.remoteproc: fatal error received: ABT_=
+dal.c:287:ABTimeout: AHB Bus hang is detected, Number of bus hang detected =
+:=3D 1 , addr0 =3D 0x3370000 , addr1 =3D 0x0!!!
+[   97.212995] remoteproc remoteproc0: crash detected in 3000000.remoteproc=
+: type fatal error
+[   97.213015] remoteproc remoteproc0: handling crash #1 in 3000000.remotep=
+roc
+[   97.213022] remoteproc remoteproc0: recovering 3000000.remoteproc
 
-> My suggestion: add a per-clock bitmap to keep track of which parents
-> are allowed. Any operation that would select a parent clock not on the
-> whitelist should fail. Automatic reparenting should only select from
-> clocks on the whitelist. And we need new DT bindings for controlling
-> the whitelist, for example:
->=20
->     clock-parents-0 =3D <&clk1>, <&pll_c>;
->     clock-parents-1 =3D <&clk2>, <&pll_a>, <&pll_b>;
->=20
-> This means that clk1 can only have pll_c as a parent, while clk2 can
-> have pll_a or pll_b as parents. By default every clock will be able
-> to use any parent, so a list is only needed if the machine needs a
-> more restrictive policy.
->=20
-> assigned-clock-parents should disable automatic reparenting, but allow
-> explicit clk_set_parent(). This will allow clock drivers to start doing
-> reparenting without breaking old DTs.
+This happens just after some clocks on the adsp get disabled, this is
+from my own debug prints:
+[   97.189097] q6afe_set_lpass_clock: clk_id=3D780, attri=3D1, clk_root=3D0=
+, freq=3D0
+[   97.189426] q6afe_set_lpass_clock: clk_id=3D781, attri=3D1, clk_root=3D0=
+, freq=3D0
 
-I'm generally not a fan of putting all these policies in the device
-tree. Do you have an example where it wouldn't be possible to do exactly
-this from the driver itself?
+And then a couple of seconds later the whole phone just crashes into the
+900e mode.
 
-Maxime
+Regards
+Luca
 
---ygvujwxxgbycerm7
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> ---
+>  sound/soc/codecs/lpass-rx-macro.c  |  8 ++++----
+>  sound/soc/codecs/lpass-tx-macro.c  |  8 ++++----
+>  sound/soc/codecs/lpass-va-macro.c  | 20 ++++++++++----------
+>  sound/soc/codecs/lpass-wsa-macro.c |  9 ++++-----
+>  4 files changed, 22 insertions(+), 23 deletions(-)
+>
+> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-r=
+x-macro.c
+> index a9ef9d5ffcc5..dd6970d5eb8d 100644
+> --- a/sound/soc/codecs/lpass-rx-macro.c
+> +++ b/sound/soc/codecs/lpass-rx-macro.c
+> @@ -3601,10 +3601,6 @@ static int rx_macro_probe(struct platform_device *=
+pdev)
+>  	if (ret)
+>  		goto err_fsgen;
+> =20
+> -	ret =3D rx_macro_register_mclk_output(rx);
+> -	if (ret)
+> -		goto err_clkout;
+> -
+>  	ret =3D devm_snd_soc_register_component(dev, &rx_macro_component_drv,
+>  					      rx_macro_dai,
+>  					      ARRAY_SIZE(rx_macro_dai));
+> @@ -3618,6 +3614,10 @@ static int rx_macro_probe(struct platform_device *=
+pdev)
+>  	pm_runtime_set_active(dev);
+>  	pm_runtime_enable(dev);
+> =20
+> +	ret =3D rx_macro_register_mclk_output(rx);
+> +	if (ret)
+> +		goto err_clkout;
+> +
+>  	return 0;
+> =20
+>  err_clkout:
+> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-t=
+x-macro.c
+> index 2ef62d6edc30..b9475ba55e20 100644
+> --- a/sound/soc/codecs/lpass-tx-macro.c
+> +++ b/sound/soc/codecs/lpass-tx-macro.c
+> @@ -2036,10 +2036,6 @@ static int tx_macro_probe(struct platform_device *=
+pdev)
+>  	if (ret)
+>  		goto err_fsgen;
+> =20
+> -	ret =3D tx_macro_register_mclk_output(tx);
+> -	if (ret)
+> -		goto err_clkout;
+> -
+>  	ret =3D devm_snd_soc_register_component(dev, &tx_macro_component_drv,
+>  					      tx_macro_dai,
+>  					      ARRAY_SIZE(tx_macro_dai));
+> @@ -2052,6 +2048,10 @@ static int tx_macro_probe(struct platform_device *=
+pdev)
+>  	pm_runtime_set_active(dev);
+>  	pm_runtime_enable(dev);
+> =20
+> +	ret =3D tx_macro_register_mclk_output(tx);
+> +	if (ret)
+> +		goto err_clkout;
+> +
+>  	return 0;
+> =20
+>  err_clkout:
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
+a-macro.c
+> index b0b6cf29cba3..1623ba78ddb3 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -1524,16 +1524,6 @@ static int va_macro_probe(struct platform_device *=
+pdev)
+>  	if (ret)
+>  		goto err_mclk;
+> =20
+> -	ret =3D va_macro_register_fsgen_output(va);
+> -	if (ret)
+> -		goto err_clkout;
+> -
+> -	va->fsgen =3D clk_hw_get_clk(&va->hw, "fsgen");
+> -	if (IS_ERR(va->fsgen)) {
+> -		ret =3D PTR_ERR(va->fsgen);
+> -		goto err_clkout;
+> -	}
+> -
+>  	if (va->has_swr_master) {
+>  		/* Set default CLK div to 1 */
+>  		regmap_update_bits(va->regmap, CDC_VA_TOP_CSR_SWR_MIC_CTL0,
+> @@ -1560,6 +1550,16 @@ static int va_macro_probe(struct platform_device *=
+pdev)
+>  	pm_runtime_set_active(dev);
+>  	pm_runtime_enable(dev);
+> =20
+> +	ret =3D va_macro_register_fsgen_output(va);
+> +	if (ret)
+> +		goto err_clkout;
+> +
+> +	va->fsgen =3D clk_hw_get_clk(&va->hw, "fsgen");
+> +	if (IS_ERR(va->fsgen)) {
+> +		ret =3D PTR_ERR(va->fsgen);
+> +		goto err_clkout;
+> +	}
+> +
+>  	return 0;
+> =20
+>  err_clkout:
+> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-=
+wsa-macro.c
+> index 5cfe96f6e430..c0b86d69c72e 100644
+> --- a/sound/soc/codecs/lpass-wsa-macro.c
+> +++ b/sound/soc/codecs/lpass-wsa-macro.c
+> @@ -2451,11 +2451,6 @@ static int wsa_macro_probe(struct platform_device =
+*pdev)
+>  	if (ret)
+>  		goto err_fsgen;
+> =20
+> -	ret =3D wsa_macro_register_mclk_output(wsa);
+> -	if (ret)
+> -		goto err_clkout;
+> -
+> -
+>  	ret =3D devm_snd_soc_register_component(dev, &wsa_macro_component_drv,
+>  					      wsa_macro_dai,
+>  					      ARRAY_SIZE(wsa_macro_dai));
+> @@ -2468,6 +2463,10 @@ static int wsa_macro_probe(struct platform_device =
+*pdev)
+>  	pm_runtime_set_active(dev);
+>  	pm_runtime_enable(dev);
+> =20
+> +	ret =3D wsa_macro_register_mclk_output(wsa);
+> +	if (ret)
+> +		goto err_clkout;
+> +
+>  	return 0;
+> =20
+>  err_clkout:
+> --=20
+> 2.21.0
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZB2HXwAKCRDj7w1vZxhR
-xSbnAQCJvmVlpJgunPtELVTvf4BU6vbdciJ5jecqJV2UslBqNAEA3GtvUaTD5e0p
-e0nSvm2EbCQGLtQFj+xVrIWIaKTMYAc=
-=GgBk
------END PGP SIGNATURE-----
-
---ygvujwxxgbycerm7--

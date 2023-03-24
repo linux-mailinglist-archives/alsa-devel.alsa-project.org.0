@@ -2,119 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FC476C7A4C
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 09:51:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984D06C7CA0
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 11:31:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0247BEC2;
-	Fri, 24 Mar 2023 09:50:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0247BEC2
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9D4AEA4;
+	Fri, 24 Mar 2023 11:30:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9D4AEA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679647867;
-	bh=p2oAod3vh6L85GNzebDYS42fCnPKLhEZ85v2wqu+kT4=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bKtDhmIMM10RN323VJDfnO3bwWp+ic+Dq6cl9BLJFQaUrYUMXZoZljUQl3VKMDajC
-	 sFqBZoFgRuLoUHbNs9RK1LBJa7bjpEyUCtfyo7F5pCdaSOuUuSnAmZ19qg2/e37xaO
-	 iLgbAfv1OY9iHlKLcxQOApKT/psk4P225zTFyFUM=
+	s=default; t=1679653861;
+	bh=KOt4sROOwywdA2ovHKDwu1hAgbSfagN5Hf846U6L1ow=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=vCUrRhuwgt5TQR7+XZlfvHna75mYtu+AcElUZQ33Y4+qZkIE8kTq8AZUXToUUFpQt
+	 owTLBTvNq1W6lFRHGXcmcNYFFHw93v2zJG4azdcNE42GlLBZ1WkmExyQ7yXslrKBnW
+	 7aAFn2otDfldrJo4VO7VX5n7q5sqwTZcp2X7yX1k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BA3EF804FE;
-	Fri, 24 Mar 2023 09:49:26 +0100 (CET)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3507EF802E8; Fri, 24 Mar 2023 09:45:56 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83519F8024E
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 09:45:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83519F8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=g4xcmZD7
-Received: by mail-ed1-x530.google.com with SMTP id ew6so4882582edb.7
-        for <alsa-devel@alsa-project.org>;
- Fri, 24 Mar 2023 01:45:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679647544;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fk/3/3DIvawnE3jueJhVp1irCLDgjRQLsPqOm9m9zFY=;
-        b=g4xcmZD7cpX7ajUFVMrQHVHkK8dDi+aGBHhtoLKtZWoe2Bo2NBaDV8svN46KDdtFqq
-         +Vx5JvyTH/G7Zfxsnz2ZLCjX+WEkhoMtgsNcoH9LDuAQ4F+tcYUbc0Uzzxe2/SRnpNzl
-         bOpPqvHfX4Tzotpit4fE60KGY9B1pzzDIsqU1HVY6wqyNokqQPfmi967DXKZY4SxshIO
-         ES7rb5WKf6GM0SaImWd1Y7G3qahPP6FYm/T5xGKQACGyrPCQt8+Npqzg1wUWx8xXJz5G
-         Nqww2/sZUAl/bFOAgVAS91puakAbPXmMsznq3XjLEwsuXaeVOgw2wqDge159auJe+QZP
-         EBJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679647544;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fk/3/3DIvawnE3jueJhVp1irCLDgjRQLsPqOm9m9zFY=;
-        b=y2CAzhpqBmwnZo0oUYqyFsvtTnHXthRQuv326aNfCYK8+SczzbHiLhG/0K+n1kHa0j
-         sou8HCQqOGRL/Bn++aSpXF4YEqLEBQAuMeA4Hm8aai+icDFqN/kuOjOmcl72LVt5i0Vz
-         kcRhId9rD0/pn+Hf2TctWiYTTv2fN8RFdAOmbC6SK/0u1oukHdgRAJoE6DjFk7mK4c+o
-         rHFA1F57XRKkLzArAurke/T3ruHmqx/kw8hGVmkTI7kzyn3WHYel75NSUZvGerfpwKTO
-         uooKPlzRnUC4nj9ebh/5CLFN5ro7UN7natp1kwPskjSdtlXCbF5I45Fsr01MiShsH9eI
-         uXKw==
-X-Gm-Message-State: AAQBX9ewPssJI1oOvnHeNM87C2r4eZqZRflPbJCp6a+I7n1tllkBs4w+
-	83xSOvZ36ZjxsfhNQhzcFQzPcA==
-X-Google-Smtp-Source: 
- AKy350Y+gYHEv6PuyzvwQhIPQS9VvWOc5+813JMaAAyJdMB3rFzWm0z8LvCylzql59aJ/Urejp0XGg==
-X-Received: by 2002:a17:906:38b:b0:8af:4120:63a8 with SMTP id
- b11-20020a170906038b00b008af412063a8mr1889312eja.68.1679647544644;
-        Fri, 24 Mar 2023 01:45:44 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:ce50:243f:54cc:5373?
- ([2a02:810d:15c0:828:ce50:243f:54cc:5373])
-        by smtp.gmail.com with ESMTPSA id
- lk8-20020a170906cb0800b009311c9d33d7sm9788826ejb.184.2023.03.24.01.45.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Mar 2023 01:45:44 -0700 (PDT)
-Message-ID: <4888cf8b-e9b8-ddf2-1a0c-b2b4d6fd70a8@linaro.org>
-Date: Fri, 24 Mar 2023 09:45:43 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH v2] ASoC: dt-bindings: alc5632: Convert to dtschema
-Content-Language: en-US
-To: Saalim Quadri <danascape@gmail.com>, broonie@kernel.org
-References: <4a553ab8-4cd3-4ce4-8225-20f43b70a5be@sirena.org.uk>
- <20230323193709.5176-1-danascape@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230323193709.5176-1-danascape@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VVHJJV6HNGWUMAUHV534VGU3CASY7A47
-X-Message-ID-Hash: VVHJJV6HNGWUMAUHV534VGU3CASY7A47
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	by alsa1.perex.cz (Postfix) with ESMTP id EDE2DF802E8;
+	Fri, 24 Mar 2023 11:30:03 +0100 (CET)
+Date: Fri, 24 Mar 2023 10:29:15 +0000
+Subject: Re: [PATCH] ASoC: cs35l56: Fix an unsigned comparison which can never
+ be negative
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, <broonie@kernel.org>
+References: <20230324022303.121485-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20230324022303.121485-1-jiapeng.chong@linux.alibaba.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, daniel.baluta@nxp.com,
- devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VVHJJV6HNGWUMAUHV534VGU3CASY7A47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDD45HLLOQUCCOXPOREUSG2CCGKXROSC/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <167965379262.26.7264259412177120137@mailman-core.alsa-project.org>
+From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: tiwai@suse.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 98E09F80093; Fri, 24 Mar 2023 11:29:30 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBF77F80093
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 11:29:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBF77F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=M3mE0KyM
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32O4jujo024321;
+	Fri, 24 Mar 2023 05:29:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=H3Al6fxftb4sYSq8AeR6Z82rHyYTeUIs6TxuWGnCgFc=;
+ b=M3mE0KyMQ/lsqGR0YBSbUf8ZbXwxCaYCljMErDy720aMJUtOXprdfYYcPOE4O/i8J/t2
+ J6TW8AHVGLJ42a4bcXOha9xIaIcDvgJjC/vEDxuAR3ftHCGW5n/vePpOA2Y8UoB1GiM0
+ foIvASGLFpCfK4FP+mlqc6B0k4Is3Ka8fo1glfAgtcBtpqekiUiNIPD3J4P3Shw2jBrV
+ 3AW4K5A4cD2SsXd8gRkUREtyV/az6FFGrUMKP/yizScwVZel3Ip2e4c0It4UD4KgTZcs
+ pHJpRbs2mA2oXUAteTIkf45mKWvnT9Zv9KzffhoNl0Yre9KviStCgx+HoUvbeDmcmQkF IA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pgy7drtsq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 24 Mar 2023 05:29:17 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Fri, 24 Mar
+ 2023 05:29:16 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Fri, 24 Mar 2023 05:29:16 -0500
+Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1381CB06;
+	Fri, 24 Mar 2023 10:29:16 +0000 (UTC)
+Message-ID: <ceac5217-2fae-7d56-341f-6527ef3f538e@opensource.cirrus.com>
+Date: Fri, 24 Mar 2023 10:29:15 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] ASoC: cs35l56: Fix an unsigned comparison which can never
+ be negative
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, <broonie@kernel.org>
+References: <20230324022303.121485-1-jiapeng.chong@linux.alibaba.com>
+Content-Language: en-US
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20230324022303.121485-1-jiapeng.chong@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: -kcnwc-THJq-5LmDGdDARbCNF7iboNym
+X-Proofpoint-GUID: -kcnwc-THJq-5LmDGdDARbCNF7iboNym
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IDD45HLLOQUCCOXPOREUSG2CCGKXROSC
+X-Message-ID-Hash: IDD45HLLOQUCCOXPOREUSG2CCGKXROSC
+X-MailFrom: prvs=8447a757ae=rf@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: tiwai@suse.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDD45HLLOQUCCOXPOREUSG2CCGKXROSC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,19 +149,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23/03/2023 20:37, Saalim Quadri wrote:
-> Convert the ALC5632 audio codec bindings to DT schema.
+On 24/03/2023 02:23, Jiapeng Chong wrote:
+> The variable 'rv' is defined as unsigned type, so the following if
+> statement is invalid, we can modify the type of rv to int.
+> if (rv < 0) {
+> 	dev_err(cs35l56->dev, "irq: failed to get pm_runtime:
+> 		%d\n", rv);
+> 	goto err_unlock;
+> }
 > 
-> Signed-off-by: Saalim Quadri <danascape@gmail.com>
+> ./sound/soc/codecs/cs35l56.c:333:5-7: WARNING: Unsigned expression compared with zero: rv < 0.
+> 
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4599
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  .../devicetree/bindings/sound/alc5632.txt     | 43 -------------
->  .../bindings/sound/realtek,alc5632.yaml       | 64 +++++++++++++++++++
->  2 files changed, 64 insertions(+), 43 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/alc5632.txt
+>   sound/soc/codecs/cs35l56.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+> index 90fc79b5666d..d97b465f0d3c 100644
+> --- a/sound/soc/codecs/cs35l56.c
+> +++ b/sound/soc/codecs/cs35l56.c
+> @@ -321,7 +321,9 @@ irqreturn_t cs35l56_irq(int irq, void *data)
+>   	struct cs35l56_private *cs35l56 = data;
+>   	unsigned int status1 = 0, status8 = 0, status20 = 0;
+>   	unsigned int mask1, mask8, mask20;
+> -	unsigned int rv, val;
+> +	unsigned int val;
+> +	int rv;
+> +
+>   	irqreturn_t ret = IRQ_NONE;
+>   
+>   	if (!cs35l56->init_done)
 
-Also, do not attach your new patches to some other threads. Each
-patchset version is new submission and new thread.
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>

@@ -2,124 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EF96CEEC5
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:08:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E589F6CEECC
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:08:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88FAB84A;
-	Wed, 29 Mar 2023 18:07:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88FAB84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79F2020B;
+	Wed, 29 Mar 2023 18:07:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79F2020B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680106097;
-	bh=G73bPPq+mgOejSMC0IfV5XAR0FSepGCObl4MXLPqVCA=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QaZSm2uR4EkiKJMA5X3jz17heMAVb7373HA6sSqrzcTVgXPJrDKDKP8hEXf5k0NtN
-	 AghFtQkpIwa00eIQT2zfgPyNwys611Zn5PIewiJ155QGfQhIt247uo9erUpNmuEE+9
-	 pLzDqeZWfzza5uEFPexg+c4YE+gS5sifZ36wndGk=
+	s=default; t=1680106116;
+	bh=ipngeYgaSnaVbrM8xVYaNt0f4Bwuvba5Wixq45ybVuI=;
+	h=References:From:To:Subject:Date:In-reply-to:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=LyMW8bUEW/e9SXDA2Bv1u3+5i7F7cQvq0KGJzuvwt9r1kCUKP+gfjnD/cHqOBqitv
+	 Ed5Xe8oBlRJwnljURRtxyMdlat/NhLtET4iNYRbhgbD/VdIlEbwz3+QTgvSMk4MbrL
+	 Ss9SCXtS96eaqPbY/+NoyM4STDmaIIwA6qciybk8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A8EEF80571;
-	Wed, 29 Mar 2023 18:06:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FC15F8057F;
+	Wed, 29 Mar 2023 18:06:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B353FF802E8; Fri, 24 Mar 2023 16:05:53 +0100 (CET)
+	id 166A8F802E8; Fri, 24 Mar 2023 23:04:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 89943F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 16:05:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89943F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE3D8F80093
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 23:03:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE3D8F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2022-7-12 header.b=alkTre79
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32OF4ERE023932;
-	Fri, 24 Mar 2023 15:05:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2022-7-12; bh=bbarXCl626B39KPisJMC+F/vsaqimQLhqQdGF0IiSTY=;
- b=alkTre79gDNlGUovG8GXVbG9mVDEOfFcIXswnosA8ogwQH3gBfCKdi3KayGsBFi51/FY
- tf5THEmfnjvn7OIkbYYJgWQlLoS9HWDubGkhPypUjf7SCgWHcsQSkl0sLFLnr9aUTyot
- c4Gv6f/k0LT8uZBKrRUhYXuLtLZNcyX8zxBiE7780cvpvej73R23ezVWrHKugriN+cO4
- gCwFUeUAc7cAiHq0S2AcmQo/B/ETDmSSANPFOoUucaqbM/d5HZqv8AYNY2IK1fjSOWCh
- oIFEaHFWe4+2dzSe2/43487TG/kU/DQt1nl2Y1CCPLw0xvPrnGL6I+vEoCTwf1KmdCFv TA==
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3phe69r0fd-25
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 24 Mar 2023 15:05:45 +0000
-Received: from pps.filterd
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 32OEkqVf037930;
-	Fri, 24 Mar 2023 14:55:39 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pgxpy4d73-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 24 Mar 2023 14:55:39 +0000
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 32OEtcBl033198;
-	Fri, 24 Mar 2023 14:55:39 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
-	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
- 3pgxpy4d6j-1;
-	Fri, 24 Mar 2023 14:55:38 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: 
-Subject: [PATCH next] ASoC: cs35l56: Remove redundant return statement in
- cs35l56_spi_probe()
-Date: Fri, 24 Mar 2023 07:55:35 -0700
-Message-Id: <20230324145535.3951689-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=T3F8aNz2
+Received: by mail-wr1-x429.google.com with SMTP id y14so3143736wrq.4
+        for <alsa-devel@alsa-project.org>;
+ Fri, 24 Mar 2023 15:03:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679695435;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:from:to:cc:subject:date:message-id:reply-to;
+        bh=eQ3RSbBi4GxRzlwFNletxU5cxz92xG3Lj6FTyrjdc0o=;
+        b=T3F8aNz2ox9uoURQlE0mq2sXW4z262BpvG7ZxRtAtIbFhPc/TQEpQM0a0SgR+TrqHO
+         CLYGJXT6hxHwzdY9UN32CZG2dOkIF2LFvXUPmwkIF/2GkwmMW7kb6axItHjQcEjAF96P
+         YoZ2Q3loL8sCvN2e52vHQqe+AQbmZyqmh9t2+HCpPytsWAA2sxbaBc61b92bJ1dDr0QQ
+         Tdx2iHxB/Aa/m/jyDHMcs00O0mdizZduxSlMQxMVQw/7cAeVdYgYGEV+MFN8ajK6+qK2
+         SFuRxlx0kY19AQ86OkmU5aCJ9GqDDqrZ45+h67Pz4nAn4V4ElL3E8abtemphkRCVy/gF
+         HzMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679695435;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eQ3RSbBi4GxRzlwFNletxU5cxz92xG3Lj6FTyrjdc0o=;
+        b=28zeYuvEU8ctDszdKhX1jtGJd77f0RAenBEup/50U0KwSAm0Tr8lgvyZJMApHp3Jgw
+         1Ak23mrQ677heuNwwffaOqDGmTqSIePJtl5P2au9UbLRKFAEaipenwZECm2IhH7akU9K
+         o82P+nNUDYuGiCbplC+wg+h5AEEaoS07H1flHJ/NDTlNmmbDJ7h0QJO32Rhsd1cO9O4i
+         ObEk+Mx3mCSEuK8IfJEIvFl6cmaiX/z5OAOlWveLTD9Llv724rEj8iAyjt2L3tfm72nu
+         6LewsPtY5GqKvFheMagrQbNZ/AKue2Y80WTIyh3wM1thGH3zhUuE2cdQC3x31HkLyaPy
+         Vspg==
+X-Gm-Message-State: AAQBX9dSpN6q7/N4z3byDZZ2kVX5bILX5bUaBM8AXol1IWfKffWxdww2
+	y81WOpIHRnxBS7Q6EHfp96Q=
+X-Google-Smtp-Source: 
+ AKy350bTnEgVdoWb1kTWyTj04kbZ8RkYf2o8/EHnYZiiSg63myut6K0B/vHtQugbPkbZgvwsB8kF9A==
+X-Received: by 2002:adf:e905:0:b0:2ce:a096:3ff2 with SMTP id
+ f5-20020adfe905000000b002cea0963ff2mr3187613wrm.63.1679695434807;
+        Fri, 24 Mar 2023 15:03:54 -0700 (PDT)
+Received: from localhost (94.197.5.156.threembb.co.uk. [94.197.5.156])
+        by smtp.gmail.com with ESMTPSA id
+ e9-20020adffc49000000b002be5bdbe40csm19237361wrs.27.2023.03.24.15.03.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Mar 2023 15:03:54 -0700 (PDT)
+References: <20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech>
+ <20221018-clk-range-checks-fixes-v2-56-f6736dec138e@cerno.tech>
+ <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
+ <20221107085417.xrsh6xy3ouwdkp4z@houat>
+ <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
+ <20221109110045.j24vwkaq3s4yzoy3@houat>
+ <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
+ <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
+ <20230324111959.frjf4neopbs67ugd@houat>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
+Date: Fri, 24 Mar 2023 20:58:48 +0000
+In-reply-to: <20230324111959.frjf4neopbs67ugd@houat>
+Message-ID: <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_08,2023-03-24_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- malwarescore=0
- adultscore=0 spamscore=0 suspectscore=0 bulkscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2303240120
-X-Proofpoint-ORIG-GUID: FtsxNHGA5rOB_qmHc35Rq0PHR0iURuRI
-X-Proofpoint-GUID: FtsxNHGA5rOB_qmHc35Rq0PHR0iURuRI
-X-MailFrom: harshit.m.mogalapalli@oracle.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+X-MailFrom: aidanmacdonald.0x0@gmail.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: T5V3LADYUGLADRRRTXDDLQJWWLCGFEI2
-X-Message-ID-Hash: T5V3LADYUGLADRRRTXDDLQJWWLCGFEI2
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: JNGEC5EECCTE5VZVTQY2UTR5P7XLUW3V
+X-Message-ID-Hash: JNGEC5EECCTE5VZVTQY2UTR5P7XLUW3V
 X-Mailman-Approved-At: Wed, 29 Mar 2023 16:05:52 +0000
-CC: error27@gmail.com, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Simon Trimmer <simont@opensource.cirrus.com>,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
+CC: Stephen Boyd <sboyd@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dinh Nguyen <dinguyen@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sekhar Nori <nsekhar@ti.com>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ David Airlie <airlied@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Lechner <david@lechnology.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Mark Brown <broonie@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-stm32@st-md-mailman.stormreply.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ patches@opensource.cirrus.com, linux-tegra@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T5V3LADYUGLADRRRTXDDLQJWWLCGFEI2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNGEC5EECCTE5VZVTQY2UTR5P7XLUW3V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,31 +165,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-We have unreachable 'return ret' statement in cs35l56_spi_probe(),
-delete it as its dead code..
 
-This is found by static analysis with smatch.
+Maxime Ripard <maxime@cerno.tech> writes:
 
-Fixes: e49611252900 ("ASoC: cs35l56: Add driver for Cirrus Logic CS35L56")
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
-Only compile tested.
----
- sound/soc/codecs/cs35l56-spi.c | 1 -
- 1 file changed, 1 deletion(-)
+> On Thu, Mar 23, 2023 at 03:35:30PM +0000, Aidan MacDonald wrote:
+>>
+>> Stephen Boyd <sboyd@kernel.org> writes:
+>>
+>> > Quoting Maxime Ripard (2022-11-09 03:00:45)
+>> >> On Mon, Nov 07, 2022 at 08:57:22PM +0000, Aidan MacDonald wrote:
+>> >> >
+>> >> > Maxime Ripard <maxime@cerno.tech> writes:
+>> >> >
+>> >> > > Hi,
+>> >> > >
+>> >> > > On Fri, Nov 04, 2022 at 05:35:29PM +0000, Aidan MacDonald wrote:
+>> >> >
+>> >> > Assigning the parent clock in the DT works once, at boot, but going off
+>> >> > what you wrote in the commit message, if the clock driver has a
+>> >> > .determine_rate() implementation that *can* reparent clocks then it
+>> >> > probably *will* reparent them, and the DT assignment will be lost.
+>> >>
+>> >> Yes, indeed, but assigned-clock-parents never provided any sort of
+>> >> guarantee on whether or not the clock was allowed to reparent or not.
+>> >> It's just a one-off thing, right before probe, and a clk_set_parent()
+>> >> call at probe will override that just fine.
+>> >>
+>> >> Just like assigned-clock-rates isn't permanent.
+>> >>
+>> >> > What I'm suggesting is a runtime constraint that the clock subsystem
+>> >> > would enforce, and actively prevent drivers from changing the parent.
+>> >> > Either explicitly with clk_set_parent() or due to .determine_rate().
+>> >> >
+>> >> > That way you could write a .determine_rate() implementation that *can*
+>> >> > select a better parent, but if the DT applies a constraint to fix the
+>> >> > clock to a particular parent, the clock subsystem will force that parent
+>> >> > to be used so you can be sure the clock is never reparented by accident.
+>> >>
+>> >> Yeah, that sounds like a good idea, and CLK_SET_RATE_NO_REPARENT isn't
+>> >> too far off from this, it's just ignored by clk_set_parent() for now. I
+>> >> guess we could rename CLK_SET_RATE_NO_REPARENT to CLK_NO_REPARENT, make
+>> >> clk_set_parent handle it, and set that flag whenever
+>> >> assigned-clock-parents is set on a clock.
+>> >>
+>> >> It's out of scope for this series though, and I certainly don't want to
+>> >> deal with all the regressions it might create :)
+>> >>
+>> >
+>> > This sounds like a new dt binding that says the assigned parent should
+>> > never change. It sounds sort of like gpio hogs. A clock-hogs binding?
+>>
+>> Ideally we want the clock driver to be able to reparent clocks freely
+>> to get the best rate. But we also need some control over that to stop
+>> consumers from being reparented in undesired ways. Eg. you might want
+>> to make sure the GPU gets its own PLL so it can be reclocked easily,
+>> and putting another device on the GPU's PLL could prevent that.
+>>
+>> The only way to achieve this today is (1) never do any reparenting in
+>> the clock driver; and (2) use assigned-clock-parents in the DT to set
+>> up the entire clock tree manually.
+>>
+>> Maxime said that (2) is basically wrong -- if assigned-clock-parents
+>> provides no guarantee on what the OS does "after boot" then the OS is
+>> pretty much free to ignore it.
+>
+> I didn't really say it's wrong, just that it never provided the
+> guarantee you expect it to provide. I can't really say whether it's an
+> issue or not on your platform.
+>
+> It's mostly unrelated to this series though, none of these patches
+> affect that behavior in one way or the other.
 
-diff --git a/sound/soc/codecs/cs35l56-spi.c b/sound/soc/codecs/cs35l56-spi.c
-index 80dcf37daae2..4b2084e85f29 100644
---- a/sound/soc/codecs/cs35l56-spi.c
-+++ b/sound/soc/codecs/cs35l56-spi.c
-@@ -29,7 +29,6 @@ static int cs35l56_spi_probe(struct spi_device *spi)
- 	if (IS_ERR(cs35l56->regmap)) {
- 		ret = PTR_ERR(cs35l56->regmap);
- 		return dev_err_probe(&spi->dev, ret, "Failed to allocate register map\n");
--		return ret;
- 	}
- 
- 	cs35l56->dev = &spi->dev;
--- 
-2.38.1
+I know. Sorry for derailing your patch :(
 
+>> My suggestion: add a per-clock bitmap to keep track of which parents
+>> are allowed. Any operation that would select a parent clock not on the
+>> whitelist should fail. Automatic reparenting should only select from
+>> clocks on the whitelist. And we need new DT bindings for controlling
+>> the whitelist, for example:
+>>
+>>     clock-parents-0 = <&clk1>, <&pll_c>;
+>>     clock-parents-1 = <&clk2>, <&pll_a>, <&pll_b>;
+>>
+>> This means that clk1 can only have pll_c as a parent, while clk2 can
+>> have pll_a or pll_b as parents. By default every clock will be able
+>> to use any parent, so a list is only needed if the machine needs a
+>> more restrictive policy.
+>>
+>> assigned-clock-parents should disable automatic reparenting, but allow
+>> explicit clk_set_parent(). This will allow clock drivers to start doing
+>> reparenting without breaking old DTs.
+>
+> I'm generally not a fan of putting all these policies in the device
+> tree. Do you have an example where it wouldn't be possible to do exactly
+> this from the driver itself?
+>
+> Maxime
+
+I'm confused. What's implicit in the example is clk1 and clk2 might
+have *other* possible choices of parent clock and the device tree is
+limiting what the OS is allowed to choose.
+
+Why would you put such arbitrary limitations into the driver? They
+would be different from machine to machine, unless the clock tree is
+so simple there is only *one* meaningful way to configure it. Most
+SoCs are complicated enough that there will be tradeoffs depending
+on what peripherals you are using (typically a single machine will
+not use *every* peripheral device provided by the SoC).

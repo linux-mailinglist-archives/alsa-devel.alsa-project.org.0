@@ -2,97 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A9D6C782F
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 07:51:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5292E6C784E
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Mar 2023 07:53:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D50EAE9E;
-	Fri, 24 Mar 2023 07:50:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50EAE9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74ACFE9E;
+	Fri, 24 Mar 2023 07:52:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74ACFE9E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679640687;
-	bh=flLAE72ZgN3/Im1/4T4AFPkVxtOXVJqkxxY7yjgCtH0=;
+	s=default; t=1679640792;
+	bh=Zc9d007BOjsTQeq6gXFVP7Cbh8k5dq7+H8vo99Yucrk=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IP6u4lUvVRi2S8fICexaMlHsyzVcO0IaKifPZA97RD3tAo9L8TXyflp46mdWIckP5
-	 meu8h2A6uytI+VU2nxbJH1rUSLM1YWRR927+PoQZ3lKbXBLBZKphUz8NbIaKGigOJE
-	 qon1tPFqsQRqjrDjr6WISBmEIdra+JuM/cZyskDM=
+	b=mnnZMQGeTAXd0PivconuuQ/4Ed/q+kxsHB4seCBzehJk7sigwnuhJTHFalWT3P66Y
+	 KAABTeFhJyOxlPHtSn1vBTjArczOZIEkcpcNmybH+Z73kwirZ8+0UOoagyR76eL99m
+	 5l6Bu1r7lPyLjT3m7XCwAzp2Nej1AubF9ZbJnuYc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A973F8027B;
-	Fri, 24 Mar 2023 07:50:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1355CF8027B;
+	Fri, 24 Mar 2023 07:52:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9788F802E8; Fri, 24 Mar 2023 07:50:33 +0100 (CET)
+	id 51B13F8051B; Fri, 24 Mar 2023 07:50:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB39DF800C9
-	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 07:50:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB39DF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15E09F80482
+	for <alsa-devel@alsa-project.org>; Fri, 24 Mar 2023 07:50:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15E09F80482
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ivgjV34H;
+ header.s=susede2_rsa header.b=rCUi29E2;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=OwCPvcFo
+ header.s=susede2_ed25519 header.b=bCxQiSTO
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 44C6D1FE73;
-	Fri, 24 Mar 2023 06:50:30 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1F061339D0;
+	Fri, 24 Mar 2023 06:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1679640630;
+	t=1679640655;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KAIVbVA0kWjDSsp3eCHgDldfRGBwyOVQfzNSUdfb5Zs=;
-	b=ivgjV34HVOZldlEZdd3m9v67T4dDgvXUTrQ6JQaa5eFoMfMCQNjeE9/DCOIPJ6fhpG6E2k
-	FwsWTHD84eQBXdM02Vu3cxAkx4Z+AikLvzrWW6wOGCDbRQk44MM5RlwPPHFKZwyS0HIzsV
-	ZKjnWXcSdpeCaelzIomrU9noVOC6YWw=
+	bh=NxyX9q1VYVSFzYPMQaaKPjGrb1QDBq295V4jkkU49IY=;
+	b=rCUi29E2/NT6lntN1p6jq6ObXr/jOE+j8IljXyD7/G+eEVOxpRWRT9U8wJOn11jUJWoB5i
+	FoOiMiJtv4Ib8SyxdLHL5g2nxIgWv/33A42zC90OgygYgDy8LW6yEyJzHWjeUyf/27i+7d
+	ZijIAXorRvzH3GiG0ds0ezefJZ3zBXo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1679640630;
+	s=susede2_ed25519; t=1679640655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KAIVbVA0kWjDSsp3eCHgDldfRGBwyOVQfzNSUdfb5Zs=;
-	b=OwCPvcFoA6iCYKtMF9ktDTgFtxnpxAnrdPGv7rS7xSu0q76nLGzOZotdVcQseGyggip60S
-	Y636lEC6hvs3UcAQ==
+	bh=NxyX9q1VYVSFzYPMQaaKPjGrb1QDBq295V4jkkU49IY=;
+	b=bCxQiSTOMwt/7tpEJF/Dsrch7G8gETK9f2Wx4LHCAx7QSsNxHmWcXhFshqkD3P8gd/PBLz
+	Rz5tGhdkFREy5/BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 20F0A133E5;
-	Fri, 24 Mar 2023 06:50:30 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDB5F133E5;
+	Fri, 24 Mar 2023 06:50:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id bMhfBzZIHWQRTAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 24 Mar 2023 06:50:30 +0000
-Date: Fri, 24 Mar 2023 07:50:29 +0100
-Message-ID: <87bkkihccq.wl-tiwai@suse.de>
+	id z9NOOU5IHWQtTAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 24 Mar 2023 06:50:54 +0000
+Date: Fri, 24 Mar 2023 07:50:54 +0100
+Message-ID: <87a602hcc1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] kselftest/alsa - mixer-test: Log values associated with
- event issues
-In-Reply-To: <20230322-alsa-mixer-event-values-v1-1-78189fcf6655@kernel.org>
-References: <20230322-alsa-mixer-event-values-v1-1-78189fcf6655@kernel.org>
+Subject: Re: [PATCH] kselftest/alsa - pcm-test: Don't include diagnostic
+ message in test name
+In-Reply-To: <20230323-alsa-pcm-test-names-v1-1-8be67a8885ff@kernel.org>
+References: <20230323-alsa-pcm-test-names-v1-1-8be67a8885ff@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: LJV2YAHSKJCCHALT6QHL6TJH766ABUMP
-X-Message-ID-Hash: LJV2YAHSKJCCHALT6QHL6TJH766ABUMP
+Message-ID-Hash: 7OLH3Q42ESMZNTYKXVU4LB4VCRYFI63U
+X-Message-ID-Hash: 7OLH3Q42ESMZNTYKXVU4LB4VCRYFI63U
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LJV2YAHSKJCCHALT6QHL6TJH766ABUMP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OLH3Q42ESMZNTYKXVU4LB4VCRYFI63U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,13 +117,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 22 Mar 2023 16:18:07 +0100,
+On Thu, 23 Mar 2023 19:48:28 +0100,
 Mark Brown wrote:
 > 
-> While it is common for driver bugs with events to apply to all events there
-> are some issues which only trigger for specific values. Understanding these
-> is easier if we know what we were trying to do when configuring the control
-> so add logging for the specific values involved in the spurious event.
+> When reporting errors or skips we currently include the diagnostic message
+> indicating why we're failing or skipping. This isn't ideal since KTAP
+> defines the entire print as the test name, so if there's an error then test
+> systems won't detect the test as being the same one as a passing test. Move
+> the diagnostic to a separate ksft_print_msg() to avoid this issue, the test
+> name part will always be the same for passes, fails and skips and the
+> diagnostic information is still displayed.
 > 
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 

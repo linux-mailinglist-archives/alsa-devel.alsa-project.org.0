@@ -2,131 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B3826C89DD
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Mar 2023 02:17:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 754E66C8A8E
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Mar 2023 04:03:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2B4FE7E;
-	Sat, 25 Mar 2023 02:16:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2B4FE7E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30D7EE87;
+	Sat, 25 Mar 2023 04:02:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30D7EE87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679707038;
-	bh=BP35YZvk8FLlEqWdmT0gYtx0cLDptNrJ0W/Ef/CJxvM=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1679713396;
+	bh=iQJGa7yfXG9hUk26kSizEa/MoGGxWJ3Cee01d8SSU+8=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nwIdnc1TaLvWNfl6VVhj2L/CIH4NymqhVrw03hD8SHehNdJCylsQ9RFcXfwcmcQ3B
-	 pX6tZIOd+WznbFCVx8nN+q04UvXkj6M2zFD9briZx0FWEQE7HEESA8fRb0W7cq2jH8
-	 ZHbRSJBUgKOa9G/2X+P6Xven9M3tXNsLguXDQUk0=
+	b=MOrpvH/HerMBt6YpdnhR5240Yh1pxqnp1S5rGBG4qRuwAlx5Tj7Lgd0jkDsMbDmFM
+	 h4p/xk4Xmr7t8bVLvex5vPdUuOHWUmJpknCTSjxUQGeicyDMf5Tb16vjHS+B3c4goF
+	 eiksOz16YPCcMhU2VVGcKJr6miVJ0kzl8QV9o2t0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9020BF8027B;
-	Sat, 25 Mar 2023 02:16:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47748F8027B;
+	Sat, 25 Mar 2023 04:02:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3FA2F802E8; Sat, 25 Mar 2023 02:16:20 +0100 (CET)
+	id 905A9F802E8; Sat, 25 Mar 2023 04:02:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1082F80254
-	for <alsa-devel@alsa-project.org>; Sat, 25 Mar 2023 02:16:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1082F80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA27EF80093
+	for <alsa-devel@alsa-project.org>; Sat, 25 Mar 2023 04:02:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA27EF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=TmGDT2Kv
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32P19H3f015520;
-	Sat, 25 Mar 2023 01:16:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=bhYjiuvUfwpUCea0950cvK2HHYTarKFcAn58TsVx+2E=;
- b=TmGDT2KvUAujQf21HnAjsCtf65vznBdpzxn+q4Syf/fE12FrUmPGXccgLwBBLBQ+YB7q
- y2+r5IM0cxIPG93qqucTe/PP6dEwGNtrV7IRE4ZtA7SlrPPuJv9/lWtP1cwvYFM2u0az
- OINZPMkKYI3neNygHLvPr/yOsde85I6RMaNrNNNdkQ1VIVzwtlBT5i+H2rD7OYMK7UH8
- OlDbPgct3kpiPE2nLe4j50UhuNmMoK5UmD+hlViikRDJJpsMJveBtt1a5KA4YvIrJ3l3
- aF62+ZuWOf5QKXXlMBPDzLMiS06WgP85X2MnhkPcUr8/Kp1104/Xr13oEIIdv9Ux9Nk4 yg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3phgtu8sas-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 25 Mar 2023 01:16:06 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 32P1G5S8018750
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 25 Mar 2023 01:16:05 GMT
-Received: from [10.110.22.108] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.41; Fri, 24 Mar
- 2023 18:16:03 -0700
-Message-ID: <318549cb-dd83-55f2-fa05-57fce041ed40@quicinc.com>
-Date: Fri, 24 Mar 2023 18:15:58 -0700
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=TT6AmLba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679713328; x=1711249328;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iQJGa7yfXG9hUk26kSizEa/MoGGxWJ3Cee01d8SSU+8=;
+  b=TT6AmLbaFHc+7hwufq0a2u7OaqWNp3Bo2ms0z8reqx5sQYCPFqY9kfNn
+   orCvGAKza5m91A721EBO19N4qzRIbzMReZiEJ7LbwA9wlI7MWFjHxb7mx
+   ohDCarxS6gmjN59JVMPG8vbTRvptBn6LpAVLuO2E9adwM9+L5lAl4Bdkh
+   Ff7LGMl9YRRx7Esp2dYPX3e50ZwMRyY3bqVcdFKGeaMyidznvLJ73uOSt
+   r9iwiyt8ALFzFp80d01XVdvk8DwQSm7lrkNHsaeUoOTOtxTrKBWTdqzR+
+   5QlvaZow2VRJffT2nx711FBHTz5RiW1rhyrFM7aeB7zRXoA1wrza/Ez3l
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10659"; a="319580305"
+X-IronPort-AV: E=Sophos;i="5.98,289,1673942400";
+   d="scan'208";a="319580305"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2023 20:01:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10659"; a="826460917"
+X-IronPort-AV: E=Sophos;i="5.98,289,1673942400";
+   d="scan'208";a="826460917"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by fmsmga001.fm.intel.com with ESMTP; 24 Mar 2023 20:01:44 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pfuA4-000FtT-0T;
+	Sat, 25 Mar 2023 03:01:44 +0000
+Date: Sat, 25 Mar 2023 11:01:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, broonie@kernel.org
+Subject: Re: [PATCH] firmware: cs_dsp: Add a debugfs entry containing control
+ details
+Message-ID: <202303251059.g8YEWRGa-lkp@intel.com>
+References: <20230324161010.938599-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v3 08/28] ASoC: qcom: Add USB backend ASoC driver for Q6
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-        <mathias.nyman@intel.com>, <perex@perex.cz>, <broonie@kernel.org>,
-        <lgirdwood@gmail.com>, <krzysztof.kozlowski+dt@linaro.org>,
-        <agross@kernel.org>, <Thinh.Nguyen@synopsys.com>,
-        <bgoswami@quicinc.com>, <andersson@kernel.org>, <robh+dt@kernel.org>,
-        <gregkh@linuxfoundation.org>, <tiwai@suse.com>
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-9-quic_wcheng@quicinc.com>
- <ad7dd26d-0ee6-675f-72a5-a93bb0240121@linaro.org>
- <64fc529a-3250-e655-e06e-952f25b1ac2b@quicinc.com>
- <3795f87d-ae1b-bc58-79b7-56c67329de02@linaro.org>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <3795f87d-ae1b-bc58-79b7-56c67329de02@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: oUTp3vkfgygB_tfMuxg05aK4khzpnl5J
-X-Proofpoint-GUID: oUTp3vkfgygB_tfMuxg05aK4khzpnl5J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-24_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 mlxscore=0 phishscore=0
- malwarescore=0 adultscore=0 mlxlogscore=788 priorityscore=1501
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2303250007
-Message-ID-Hash: O6TQREOHCF56VHPUIDMUFB6BFYI2POMF
-X-Message-ID-Hash: O6TQREOHCF56VHPUIDMUFB6BFYI2POMF
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230324161010.938599-1-rf@opensource.cirrus.com>
+Message-ID-Hash: JYO6PJG6UFR2U4YTP74I54NZJGZKPN4D
+X-Message-ID-Hash: JYO6PJG6UFR2U4YTP74I54NZJGZKPN4D
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
+CC: oe-kbuild-all@lists.linux.dev, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O6TQREOHCF56VHPUIDMUFB6BFYI2POMF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JYO6PJG6UFR2U4YTP74I54NZJGZKPN4D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,92 +107,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Srini,
+Hi Richard,
 
-On 3/9/2023 11:21 PM, Srinivas Kandagatla wrote:
-> 
-> 
-> On 09/03/2023 19:38, Wesley Cheng wrote:
->> Hi Srinivas,
->>
->> On 3/9/2023 1:01 AM, Srinivas Kandagatla wrote:
->>>
->>>
->>> On 08/03/2023 23:57, Wesley Cheng wrote:
->>>> Create a USB BE component that will register a new USB port to the 
->>>> ASoC USB
->>>> framework.  This will handle determination on if the requested audio
->>>> profile is supported by the USB device currently selected.
->>>>
->>>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->>>
->>> Thanks Wesley for the patch, I have few minor comments.
->>>
->>
->> Thanks for the review!
->>
->>>> ---
->>>>   include/sound/q6usboffload.h  |  20 ++++
->>>>   sound/soc/qcom/Kconfig        |   4 +
->>>>   sound/soc/qcom/qdsp6/Makefile |   1 +
->>>>   sound/soc/qcom/qdsp6/q6usb.c  | 208 
->>>> ++++++++++++++++++++++++++++++++++
->>>>   4 files changed, 233 insertions(+)
->>>>   create mode 100644 include/sound/q6usboffload.h
->>>>   create mode 100644 sound/soc/qcom/qdsp6/q6usb.c
->>>>
->>>> diff --git a/include/sound/q6usboffload.h 
->>>> b/include/sound/q6usboffload.h
->>>> new file mode 100644
->>>> index 000000000000..4fb1912d9f55
->>>> --- /dev/null
->>>> +++ b/include/sound/q6usboffload.h
->>>> @@ -0,0 +1,20 @@
->>>> +/* SPDX-License-Identifier: GPL-2.0
->>>> + *
->>>> + * linux/sound/q6usboffload.h -- QDSP6 USB offload
->>>> + *
->>>> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All 
->>>> rights reserved.
->>>> + */
->>>> +
->>>> +/**
->>>> + * struct q6usb_offload
->>>> + * @dev - dev handle to usb be
->>>> + * @sid - streamID for iommu
->>>> + * @intr_num - usb interrupter number
->>>> + * @domain - allocated iommu domain
->>>> + **/
->>>> +struct q6usb_offload {
->>>> +    struct device *dev;
->>>> +    long long sid;
->>>> +    u32 intr_num;
->>>> +    struct iommu_domain *domain;
->>> Why do we need to store this domain, You can remove this along with 
->>> the one line that gets domain in probe function.
->>>
->>
->> We'll need a reference to the iommu domain, because the QC USB offload 
->> driver will be the one that is going to map the XHCI interrupter and 
->> transfer ring regions for the audio DSP.  This happens when a USB QMI 
-> 
-> this is okay, AFAIU, as long as uaudio_qdev->dev pointer is used in dma 
-> alloc apis like dma_map*, dma_alloc_* you would not need to handle 
-> iommu_domain directly like this in drivers.
-> 
+I love your patch! Perhaps something to improve:
 
-Was looking into this a bit more, but couldn't figure out the proper DMA 
-API that would achieve what we're attempting to do.  So we are trying to 
-map the PA of the memory allocated by the XHCI driver, for say...the 
-xfer buffers being used for the ISOC ep.
+[auto build test WARNING on linus/master]
+[also build test WARNING on v6.3-rc3 next-20230324]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-If I call the DMA MAP variants, ie dma_map_single_attrs, we pass in a 
-virtual address only, and the DMA map api will map to a PA that it 
-derives from that.  However, we're trying to map to memory accessible by 
-the audio DSP, which is the virtual address we're passing into 
-iommu_map(), and the PA mapping to is the XHCI xfer buffer.  There 
-wasn't a similar API that achieved this.  Please clarify if there might 
-be something I'm missing.
+url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Fitzgerald/firmware-cs_dsp-Add-a-debugfs-entry-containing-control-details/20230325-001218
+patch link:    https://lore.kernel.org/r/20230324161010.938599-1-rf%40opensource.cirrus.com
+patch subject: [PATCH] firmware: cs_dsp: Add a debugfs entry containing control details
+config: mips-randconfig-r005-20230322 (https://download.01.org/0day-ci/archive/20230325/202303251059.g8YEWRGa-lkp@intel.com/config)
+compiler: mips-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/62afac6e0c35c0d7e44e0bd1e4b2af8380413164
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Richard-Fitzgerald/firmware-cs_dsp-Add-a-debugfs-entry-containing-control-details/20230325-001218
+        git checkout 62afac6e0c35c0d7e44e0bd1e4b2af8380413164
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=mips olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash drivers/firmware/cirrus/
 
-Thanks
-Wesley Cheng
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303251059.g8YEWRGa-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/firmware/cirrus/cs_dsp.c: In function 'cs_dsp_debugfs_read_controls_show':
+>> drivers/firmware/cirrus/cs_dsp.c:471:44: warning: format '%lx' expects argument of type 'long unsigned int', but argument 5 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
+     471 |                 seq_printf(s, "%22.*s: %#8lx %s:%08x %#8x %s %#8x %#4x %c%c%c%c %s %s\n",
+         |                                        ~~~~^
+         |                                            |
+         |                                            long unsigned int
+         |                                        %#8x
+     472 |                            ctl->subname_len, ctl->subname, ctl->len,
+         |                                                            ~~~~~~~~
+         |                                                               |
+         |                                                               size_t {aka unsigned int}
+
+
+vim +471 drivers/firmware/cirrus/cs_dsp.c
+
+   459	
+   460	static int cs_dsp_coeff_base_reg(struct cs_dsp_coeff_ctl *ctl, unsigned int *reg,
+   461					 unsigned int off);
+   462	
+   463	static int cs_dsp_debugfs_read_controls_show(struct seq_file *s, void *ignored)
+   464	{
+   465		struct cs_dsp *dsp = s->private;
+   466		struct cs_dsp_coeff_ctl *ctl;
+   467		unsigned int reg;
+   468	
+   469		list_for_each_entry(ctl, &dsp->ctl_list, list) {
+   470			cs_dsp_coeff_base_reg(ctl, &reg, 0);
+ > 471			seq_printf(s, "%22.*s: %#8lx %s:%08x %#8x %s %#8x %#4x %c%c%c%c %s %s\n",
+   472				   ctl->subname_len, ctl->subname, ctl->len,
+   473				   cs_dsp_mem_region_name(ctl->alg_region.type),
+   474				   ctl->offset, reg, ctl->fw_name, ctl->alg_region.alg, ctl->type,
+   475				   ctl->flags & WMFW_CTL_FLAG_VOLATILE ? 'V' : '-',
+   476				   ctl->flags & WMFW_CTL_FLAG_SYS ? 'S' : '-',
+   477				   ctl->flags & WMFW_CTL_FLAG_READABLE ? 'R' : '-',
+   478				   ctl->flags & WMFW_CTL_FLAG_WRITEABLE ? 'W' : '-',
+   479				   ctl->enabled ? "enabled" : "disabled",
+   480				   ctl->set ? "dirty" : "clean");
+   481		}
+   482	
+   483		return 0;
+   484	}
+   485	DEFINE_SHOW_ATTRIBUTE(cs_dsp_debugfs_read_controls);
+   486	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

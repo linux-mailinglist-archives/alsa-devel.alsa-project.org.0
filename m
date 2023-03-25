@@ -2,140 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9C36C8ED0
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Mar 2023 15:24:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCDE6C8FF2
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Mar 2023 19:03:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86D53E12;
-	Sat, 25 Mar 2023 15:23:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86D53E12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1851AAEA;
+	Sat, 25 Mar 2023 19:03:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1851AAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679754279;
-	bh=jiYyKGv1Gu17pWE8VnuAPHHtV3ro909OfE/D4PTJS6E=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=L4K06V47IlZlVjjyZm9gfGsbzgl8bniObv0Du9hUccHQGCMdw2wv4F/VpKryo7KR5
-	 nwj96pUZjXEhu9cxnHK7lcj3NWOQm6rv6aoADevTOFYSlNfveW/GowQLT4h+bcIpRG
-	 gOr1w4606AB2K76zyw+YpFECxoSWxGSt09eVY6mQ=
+	s=default; t=1679767436;
+	bh=qGnFSMgK4wtGx+uHwd6Vg5FVaygMBut9NMr2BRuntgw=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=VZtFO614Fxq+i4lndrgCkSfsDM10qGCTkgXpmImHxBGVbZEoKRpMBCrD3lIgeJtzX
+	 nTUHYiEXAehSfOvk5f80hluakaUz3LkcZArG6zSVgqi1D1BmQTA/o0PK7nvgtT27hk
+	 PP5/SroAcSgXvE99Fs9++MCKZMN8TqCgg85hS51w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4737AF8027B;
-	Sat, 25 Mar 2023 15:23:49 +0100 (CET)
-To: Banajit Goswami <bgoswami@quicinc.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 1/1] sound: soc: codecs: wcd-mbhc-v2: expose ALSA control
- for jack
-Date: Sat, 25 Mar 2023 15:21:42 +0100
-In-Reply-To: <20230325142142.24337-1-me@dylanvanassche.be>
-References: <20230325142142.24337-1-me@dylanvanassche.be>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GUOPZ6ODTNNPR35HK2PTOQM5KXHVHS3T/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: <167975422905.26.343811493761575023@mailman-core.alsa-project.org>
-From: Dylan Van Assche via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Dylan Van Assche <me@dylanvanassche.be>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Dylan Van Assche <me@dylanvanassche.be>,
- Joel Selvaraj <joelselvaraj.oss@gmail.com>,
- Caleb Connolly <caleb@connolly.tech>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 48C88F8027B;
+	Sat, 25 Mar 2023 19:03:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A26F3F8027B; Sat, 25 Mar 2023 15:22:07 +0100 (CET)
+	id 66B55F802E8; Sat, 25 Mar 2023 19:03:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C2EBEF80093
-	for <alsa-devel@alsa-project.org>; Sat, 25 Mar 2023 15:22:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2EBEF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8090F800C9
+	for <alsa-devel@alsa-project.org>; Sat, 25 Mar 2023 19:02:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8090F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=dylanvanassche.be header.i=@dylanvanassche.be
- header.a=rsa-sha256 header.s=MBO0001 header.b=uc0SbByH
-Received: from smtp102.mailbox.org (unknown [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=X3LYU8YE
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4PkLqp72BJz9slh;
-	Sat, 25 Mar 2023 15:21:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dylanvanassche.be;
-	s=MBO0001; t=1679754119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uo56ilykXnyoQsO7PNYE1eo/ncujGlXqfqKWuFiXTd8=;
-	b=uc0SbByHFJBINZfPbjEbTckBFejSkmSJpqHGDy5jtIB4+pnm+eQ1Db7KlQA0eDxpslWxi8
-	NDYaqBHn85hmfm+L8idgkpbZdCSosAuMA73bdQAB/RHEzPpUZTgtnjkL0Fzrc4V24iLp2q
-	SwczWaznyqpXwEFbZzjfY3LOxjOFQSoEpkOTQjjVIr/0WWxGOBy0H0LVZ7J3xM+PPTDOs9
-	vwMpLJzQzBeoR3OWreCifLCx+OqrC9VFVtdW773TpTOw2Z+dJsyVtcWLF7hFhJxxxvAd0l
-	gx+4+G9uGu5qjdRGtxlbWVyXy+HZ+6Ra2NL6E6QxtmV+3is6LlEhRPSRl7jtLA==
-From: Dylan Van Assche <me@dylanvanassche.be>
-To: Banajit Goswami <bgoswami@quicinc.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v3 1/1] sound: soc: codecs: wcd-mbhc-v2: expose ALSA control
- for jack
-Date: Sat, 25 Mar 2023 15:21:42 +0100
-Message-Id: <20230325142142.24337-2-me@dylanvanassche.be>
-In-Reply-To: <20230325142142.24337-1-me@dylanvanassche.be>
+	by ams.source.kernel.org (Postfix) with ESMTPS id BF33EB8075C;
+	Sat, 25 Mar 2023 18:02:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38F5C433EF;
+	Sat, 25 Mar 2023 18:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679767372;
+	bh=qGnFSMgK4wtGx+uHwd6Vg5FVaygMBut9NMr2BRuntgw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=X3LYU8YE2flgUNxbEWJMvFRvYn4ZIv7eAMsrH0PmGi6au+2KdF+FXHxRBAHqV+HV1
+	 9pfKVP+cYP/Sk9+7joZC+krh2qfGGBa90d63oicDcKW5NX362q7HazY4fiNfK+IuFD
+	 fdp+pEZjnJx32g65Ql1qb690aYJN9t9I0KZ9FlA7wrcZ73JrRg6vJwd1FF1+UqTS8C
+	 be84N/puyueHt11l0a1U4egyAaTwTUwm2WBOvv2iAKzyR5wjNXsO8vckhqox773x3a
+	 gujJ3y9/rLqihwKB0OUwYmGO4aXvTJC8AglbbTumRjaTfr/oZhMMaFdrMzatV+ti4v
+	 acNj0LOlIONrg==
+Date: Sat, 25 Mar 2023 18:02:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dylan Van Assche <me@dylanvanassche.be>
+Subject: Re: [PATCH v3 0/1] Expose ALSA control for jack
+Message-ID: <ZB83SZo44kiloMrX@sirena.org.uk>
 References: <20230325142142.24337-1-me@dylanvanassche.be>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GUOPZ6ODTNNPR35HK2PTOQM5KXHVHS3T
-X-Message-ID-Hash: GUOPZ6ODTNNPR35HK2PTOQM5KXHVHS3T
-X-MailFrom: me@dylanvanassche.be
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/mdumUZgSzjwqsJd"
+Content-Disposition: inline
+In-Reply-To: <20230325142142.24337-1-me@dylanvanassche.be>
+X-Cookie: Single tasking: Just Say No.
+Message-ID-Hash: 5JARO6HMEIU7PSP2EU6NJFK7QU7HN2YJ
+X-Message-ID-Hash: 5JARO6HMEIU7PSP2EU6NJFK7QU7HN2YJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Dylan Van Assche <me@dylanvanassche.be>,
- Joel Selvaraj <joelselvaraj.oss@gmail.com>,
- Caleb Connolly <caleb@connolly.tech>
+CC: Banajit Goswami <bgoswami@quicinc.com>, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GUOPZ6ODTNNPR35HK2PTOQM5KXHVHS3T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JARO6HMEIU7PSP2EU6NJFK7QU7HN2YJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,36 +96,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Jack detection is currently fully functional via the input
-interface together with multimedia buttons, but is not exposed
-as an ALSA control. Therefore, ALSA clients such as PulseAudio
-do not pick up the jack detection events as they only support
-one of the possible interface (ALSA control or input interface,
-but not both). Expose the jack events as an ALSA control and input
-interface to provide ALSA clients both interfaces.
 
-Signed-off-by: Dylan Van Assche <me@dylanvanassche.be>
-Tested-by: Joel Selvaraj <joelselvaraj.oss@gmail.com>
-Tested-by: Caleb Connolly <caleb@connolly.tech>
----
- sound/soc/codecs/wcd-mbhc-v2.c | 4 ++++
- 1 file changed, 4 insertions(+)
+--/mdumUZgSzjwqsJd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-index 1911750f7445..1b75f49b2858 100644
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -725,6 +725,10 @@ static int wcd_mbhc_initialise(struct wcd_mbhc *mbhc)
- 
- 	mutex_lock(&mbhc->lock);
- 
-+	ret = snd_jack_add_new_kctl(mbhc->jack->jack, "Headset Jack", WCD_MBHC_JACK_MASK);
-+	if (ret)
-+		dev_warn(component->dev, "failed creating Headset Jack kctl with err: %d\n", ret);
-+
- 	/* enable HS detection */
- 	if (mbhc->mbhc_cb->hph_pull_up_control_v2)
- 		mbhc->mbhc_cb->hph_pull_up_control_v2(component,
--- 
-2.39.2
+On Sat, Mar 25, 2023 at 03:21:41PM +0100, Dylan Van Assche wrote:
+> Qualcomm SDM845 features a headphone jack via a Qualcomm WCD9340
+> codec which has jack detection through the wcd-mbhc-v2 driver.
 
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
+
+--/mdumUZgSzjwqsJd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQfN0QACgkQJNaLcl1U
+h9D4pAf9HqtRrn0E7n6E622qQv0sfrnUOVp9U3FT7tvjC1ivuQ7Tu0gE5vKtBpxg
+oWs2eMXBZeP+KjQVxiYRfghcPWcc71cQ7cd+cmgfwsexLmSCUswlD9JPibpOeRN6
++NMn0qLfAlhijGX/hOV6Tqaid7KGMyPBFq9GR9+TEmxWZCvrrwv1sywqCOOTLWE7
+SevV4Di+OHTEHtLPWzRCWqIqL1kHDAVROsJ5Jwk5rn9ZwyiCtlTuCn/K676CisU1
+YBmJXRu9XYiuPP1eG8H7Exa7aW0iyYPOVvV7Rv1oCieKUZsJFPMSGo7wy3TDweFV
+PMCc7KxGZGGwnkveEouHnyzvozirNQ==
+=Df2L
+-----END PGP SIGNATURE-----
+
+--/mdumUZgSzjwqsJd--

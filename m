@@ -2,119 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105A76C95CF
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Mar 2023 16:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 185226C9641
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Mar 2023 17:51:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88FE0886;
-	Sun, 26 Mar 2023 16:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88FE0886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18DCAA4E;
+	Sun, 26 Mar 2023 17:50:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18DCAA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679842218;
-	bh=TwVcgpgviT2tbzMi/SDK2R8SoPG3ae59E5hzHokxdxM=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1679845860;
+	bh=OaKvVJRvcWuHtVOvJttpA3gJz8/VcByd+7+i/AbP3iw=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lwkg7s6iniG1AX1sCrF1NRoGH6zqwir69KHkegAkNvaoCldOgYglluEU8cJen9Xl1
-	 s508JIZZBY7/VebTkxkXAeig7KDe0/9lpDfKfOFmMZJ/jknSAOdvy7Ou8rjXpwx0Gy
-	 4M0fC9IL9ZBpEpLOEEUKWHLQ+C+tvnpR3b/wovSY=
+	b=W7O3gr1PstoIiOe5pmQGzJlEO/av3vYy+/i+yY+lQGQONSpwJ1/HY9lfgW+Y1Lj8p
+	 /vlkxdsBsP2SX5ivzcNqFDELSaKVAMeWtI7erAlsVFmooACWoef8AG+pWrkn21p7xb
+	 Ohhkgt52pCJRZSQFxaLfZUZumtubVCFtDXtqK7XM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E3DEF8024E;
-	Sun, 26 Mar 2023 16:49:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91E78F8024E;
+	Sun, 26 Mar 2023 17:50:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 732B1F80272; Sun, 26 Mar 2023 16:49:25 +0200 (CEST)
+	id 89574F80272; Sun, 26 Mar 2023 17:50:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F213FF80249
-	for <alsa-devel@alsa-project.org>; Sun, 26 Mar 2023 16:49:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F213FF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25DC4F800C9
+	for <alsa-devel@alsa-project.org>; Sun, 26 Mar 2023 17:49:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25DC4F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=IXiwMi8o
-Received: by mail-ed1-x52e.google.com with SMTP id eg48so25723877edb.13
-        for <alsa-devel@alsa-project.org>;
- Sun, 26 Mar 2023 07:49:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679842161;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=iT9B1aKF9yJ12QmOx1QgiryrgEw9qF6otzhh3qqptZk=;
-        b=IXiwMi8o3JmSm95Jwv3M1jLx/L5NOcP7f9NB6Q5sLnJpgzEmAXhhzs3pG/X8OBcuZy
-         TLAUsHroaaKoE67do67fCKspAhtbVkiQuxwUwoRATkoJE/U/pXxCh9fmBId2/jTxAs2g
-         ywJLdKxTZm41YnM2iFqBmELADwCfioIUM6G2R+PBluY4gEaVyIVPjEMPzLyZPh0Qe6al
-         Z+U3uojayhZiI8jWwxI13etksWA9PpuGf04U2tixb+ATJQdzzGECldSgqqO9F1ontwme
-         gLL2Q0B3BYJorBodILde5RbSBYBH+kKV69SfMmhhLY93CgiVt9hCJ+2YqoMs/LAx6yQW
-         g6jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679842161;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iT9B1aKF9yJ12QmOx1QgiryrgEw9qF6otzhh3qqptZk=;
-        b=sdsijTRpkZZ919sSePTzH5QLpm87hLoHx1XFSP9CDTTdSj2LTTsdK4+rGqNy/PHX6H
-         19jQjjojcoUtgI7D7PCgHE8RdLqQ//1jkdeUUQnZH0x/WLk3oNZyohn4KlbuTswBndJa
-         hy0bPzJoSgNg0CyvyV1D09Uty5JKlCymCXHj7IZB/YLRl4BgHBW+Xehn8cG7suGtK65K
-         OH68/klsc1sMS1+cIwlUceOI76ZHaAoWSDy7AxE1PknEP1xlnFIrm1iOHDdMvqIp/j/W
-         T+kCzG3xA58UarMJjmA3TKsoLMtjq4GZ0KkHQpCegNQas0Jo+SrImXCm3uT0NuwMDwk0
-         3X4Q==
-X-Gm-Message-State: AAQBX9cmIePUBVBQP8X0B3GDNxAiVpUq+e1Q/qyklWY9NmbnwDNmBqOQ
-	ccmlWHsUptlbNgBokj8QswBKug==
-X-Google-Smtp-Source: 
- AKy350ad6D065/wohSaDAKojWzAl2ktvz1jF7/iGTZwc4RKVWp1rzHxYPItKCoVoZGzRKeCEnp+AFA==
-X-Received: by 2002:a05:6402:708:b0:502:4182:963e with SMTP id
- w8-20020a056402070800b005024182963emr1720975edx.26.1679842161115;
-        Sun, 26 Mar 2023 07:49:21 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:eca3:3b8f:823b:2669?
- ([2a02:810d:15c0:828:eca3:3b8f:823b:2669])
-        by smtp.gmail.com with ESMTPSA id
- lk8-20020a170906cb0800b009311c9d33d7sm12917378ejb.184.2023.03.26.07.49.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 26 Mar 2023 07:49:20 -0700 (PDT)
-Message-ID: <7dc532c8-de85-8db2-ad48-5d6d717f6d52@linaro.org>
-Date: Sun, 26 Mar 2023 16:49:19 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RDYOUDpG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679845796; x=1711381796;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OaKvVJRvcWuHtVOvJttpA3gJz8/VcByd+7+i/AbP3iw=;
+  b=RDYOUDpG1YmpwTOna2FwZy8KpEESiJN2beUe4TqMitV2b1pwJ+9KHXV8
+   uuxIzrNCTzf3+RhFxzeeZyhamZt/s1V9n2cmXSG4pmUh4MeIMgtblL0P5
+   bF/Hkv2VQ0Dwmst2mcQekdFnv5g/nJyxoXQXrGvixu+hx68OW9Uq3qj9Y
+   maJmLkxCXyNFduUvtfQPsrbYqx5927I7WdDl5yBbKTI8aiNR2WJ4DMJeI
+   KGle3qzfYxtc9Anl3K2P7ELomYo/IR79xfyt+K17mKTmANqys2iorm4m/
+   Cn+h9RDMpS8DCcNfPJkKKEcJAQbuHmMmjOmd/+AVH/S/e3XpyurFldhGz
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="319755946"
+X-IronPort-AV: E=Sophos;i="5.98,292,1673942400";
+   d="scan'208";a="319755946"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2023 08:49:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="807231038"
+X-IronPort-AV: E=Sophos;i="5.98,292,1673942400";
+   d="scan'208";a="807231038"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+  by orsmga004.jf.intel.com with ESMTP; 26 Mar 2023 08:49:45 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pgScq-000HDn-1x;
+	Sun, 26 Mar 2023 15:49:44 +0000
+Date: Sun, 26 Mar 2023 23:49:42 +0800
+From: kernel test robot <lkp@intel.com>
+To: Herve Codina <herve.codina@bootlin.com>, Lee Jones <lee@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
+Message-ID: <202303262358.vWU2dypT-lkp@intel.com>
+References: <20230322134654.219957-3-herve.codina@bootlin.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] ASoC: dt-bindings: ak4458: Convert to dtschema
-Content-Language: en-US
-To: Saalim Quadri <danascape@gmail.com>
-References: <4762f4a1-5e99-4e5a-72c0-9c4c61cdc856@linaro.org>
- <20230326125819.18986-1-danascape@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230326125819.18986-1-danascape@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MGQYADRXGWP6LCZ7QN7YVNJFHUQNMFD7
-X-Message-ID-Hash: MGQYADRXGWP6LCZ7QN7YVNJFHUQNMFD7
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230322134654.219957-3-herve.codina@bootlin.com>
+Message-ID-Hash: WP7YS7Y66PVYGC4FTXT65ZZLEH5N2DWM
+X-Message-ID-Hash: WP7YS7Y66PVYGC4FTXT65ZZLEH5N2DWM
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, broonie@kernel.org, daniel.baluta@nxp.com,
- devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, shengjiu.wang@nxp.com
+CC: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGQYADRXGWP6LCZ7QN7YVNJFHUQNMFD7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WP7YS7Y66PVYGC4FTXT65ZZLEH5N2DWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,28 +111,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26/03/2023 14:58, Saalim Quadri wrote:
->> allOf:
->> - if:
->>      properties:
->>        compatible:
->>          enum:
->>            - ak4458.....
->>  then:
->>    properties:
->>      dsd-path: false
-> 
-> Do we also require to add a descriptioon to explain the pins which will be selected based off on the value?
+Hi Herve,
 
-Description where? What pins?
+I love your patch! Yet something to improve:
 
-> Or have you disabled it based on, that it is disabled for ak4458 codecs?
+[auto build test ERROR on lee-mfd/for-mfd-next]
+[also build test ERROR on broonie-sound/for-next lee-leds/for-leds-next robh/for-next linus/master v6.3-rc3 next-20230324]
+[cannot apply to lee-mfd/for-mfd-fixes]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-What is disabled? The driver indicates the property is valid only for
-ak4497.
+url:    https://github.com/intel-lab-lkp/linux/commits/Herve-Codina/dt-bindings-mfd-Add-the-Lantiq-PEF2256-E1-T1-J1-framer/20230322-214827
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git for-mfd-next
+patch link:    https://lore.kernel.org/r/20230322134654.219957-3-herve.codina%40bootlin.com
+patch subject: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
+config: parisc-randconfig-p001-20230326 (https://download.01.org/0day-ci/archive/20230326/202303262358.vWU2dypT-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/53e683ee1cad96a898f7fed03f88a3898e8dcd15
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Herve-Codina/dt-bindings-mfd-Add-the-Lantiq-PEF2256-E1-T1-J1-framer/20230322-214827
+        git checkout 53e683ee1cad96a898f7fed03f88a3898e8dcd15
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=parisc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=parisc SHELL=/bin/bash
 
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303262358.vWU2dypT-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
 
-Best regards,
-Krzysztof
+   hppa-linux-ld: drivers/mfd/pef2256.o: in function `.LC58':
+>> pef2256.c:(.rodata.cst4+0x54): undefined reference to `pinconf_generic_dt_node_to_map'
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

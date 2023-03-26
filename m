@@ -2,110 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70B76C9775
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Mar 2023 20:24:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7707A6C97E9
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Mar 2023 22:58:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 049A2AEA;
-	Sun, 26 Mar 2023 20:23:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 049A2AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A3CF886;
+	Sun, 26 Mar 2023 22:57:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A3CF886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679855043;
-	bh=NoAMrGG8BO82WF0/W/nj7Qdz5t8YcEaBhEumn5bnTws=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MM10ZpqYYaPmxYbkl9ZycOwv38DhD1jjyX84Ib2RKiZXBVAkUJKGJT4JOssmBxGPO
-	 maqgioR/ZKYXQFTvmlnDb93gKRmtWKOhzgJ7l2XA0/ScerNxtGYnfAJ+pw1fLlUEGQ
-	 q8z8jdYUe4sa1qSjphkYZF3+w69Ecf9P5XFIxrs0=
+	s=default; t=1679864300;
+	bh=AA3VxSM2xHTRRvcpw/aQcZLJcbC/CT/VaMN0US/HuV4=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VSAoEz30KOfubBO7n6ddbIkftztFWIqJ1CmHAQ4aCy4RgT/2pKeVmMw2268HOJxCi
+	 dd6DY3aW24Z+CrjhQgww+avdMgov4KaG+FFEm9gqo4IiylZ7s3/ktA5Ry6JueyBj+r
+	 2kx5ldJSVHno0lzRz3GxCOQq8z5OQN2SETyctKTg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65232F8024E;
-	Sun, 26 Mar 2023 20:23:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7ECE7F8024E;
+	Sun, 26 Mar 2023 22:57:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7032F80272; Sun, 26 Mar 2023 20:23:07 +0200 (CEST)
+	id 6672CF80272; Sun, 26 Mar 2023 22:57:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CAC2DF80249
-	for <alsa-devel@alsa-project.org>; Sun, 26 Mar 2023 20:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAC2DF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id CEDA7F800C9
+	for <alsa-devel@alsa-project.org>; Sun, 26 Mar 2023 22:57:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEDA7F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZV4ElzKi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679854978; x=1711390978;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NoAMrGG8BO82WF0/W/nj7Qdz5t8YcEaBhEumn5bnTws=;
-  b=ZV4ElzKiwFcwD7iLWTI2gW090vcWVzTM4Lns62KuyeBfMGaFccchbxUs
-   9ovTZ7AWKHMR9bUHJTc8Ox7LXQfT42CYkP+o4xzQ3enOUpZ3KrkRnq/lk
-   bbYR3v9nFEteAIT55cCkAL2vDHDNIAwKjtpgDsU1T40R3LI2R0BMF864q
-   SRQLdSibiQ5j0mgfmM4rgDqvADNbXQsR7U/xW9MskRNQCg0z6FpDT3pxW
-   a7Sgtp4L40hWjWR9AVUad6x+PLLBR9Q34FnMTNaRFwprGEX28jtJtpJdL
-   9dpR4rLJ2AaKsrNZkpw1soZGYVyVCj2DWdm6bc9Ibd3y/7C5wlqmOG2Do
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402714551"
-X-IronPort-AV: E=Sophos;i="5.98,292,1673942400";
-   d="scan'208";a="402714551"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2023 11:22:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="660631212"
-X-IronPort-AV: E=Sophos;i="5.98,293,1673942400";
-   d="scan'208";a="660631212"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
-  by orsmga006.jf.intel.com with ESMTP; 26 Mar 2023 11:22:48 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1pgV0y-000HIT-0m;
-	Sun, 26 Mar 2023 18:22:48 +0000
-Date: Mon, 27 Mar 2023 02:22:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>,
-	Herve Codina <herve.codina@bootlin.com>, Lee Jones <lee@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
-Message-ID: <202303270203.QeRuuc9d-lkp@intel.com>
-References: 
- <167949286900.26.3992817728812049195@mailman-core.alsa-project.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=DkNsDvcx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1679864238;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ufG0EzSJoZX2ZjEcM3na2tjubK9S5CNNR2tM4hGa6ao=;
+	b=DkNsDvcxWgUP+8VBbEl4RMzZhibv7Zdwn/MGLVpErXowxpt9bdcjm3WbrLozDXgUrKeDn3
+	14lpWrWdCdrp+h7GPWrbWA2LEgOvHU/rRj6CkhP5bqOLz16GUCkKWCfu51nA3t+cj3BBIB
+	F0hkgLch5698fYEduMk7wtz/2mo2CMc=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-167-u9F98JVHMVehIjT1Gu3Ngw-1; Sun, 26 Mar 2023 16:57:16 -0400
+X-MC-Unique: u9F98JVHMVehIjT1Gu3Ngw-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ r4-20020ac867c4000000b003bfefb6dd58so4794413qtp.2
+        for <alsa-devel@alsa-project.org>;
+ Sun, 26 Mar 2023 13:57:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679864236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ufG0EzSJoZX2ZjEcM3na2tjubK9S5CNNR2tM4hGa6ao=;
+        b=Z4oS7jO0j7anftOyBxrteAjqRXdOY2/DIkpZxQgaNxiusdkrkB9IEmN+fOq5v4Qws0
+         kBri9OOWUH51zMuaiOUrRkaLMGUgeZaMy1KrfXmXKD193MwiQv1cv09vl7iYpbrPuTL2
+         jDBquWf+v0KprbBTTSl06MKAxHXHUhNZTLKAZiBgbixKQuqAKPWsRSXQv2A014skEkUF
+         7/MA989VwdI2NTOT1S168Z/lERyGHPO7kav3pOy8a+uGm+wyfVe3MdyDe26UBGToZeXz
+         7kF/CkIhuffnetr0dOnWBdWqhAOp75ib1xch87sbT0kXKi3ZW8cvphuZzyZ4Jy5kUp3Q
+         /ziQ==
+X-Gm-Message-State: AAQBX9dci7EcpM/exjRAGw2ib+pKZQnSwUFenWaeVpyR4JricQn+RA0Q
+	JMBeqlMsERUnqTXKGo5nIDHMoaNM1T/aNNU+F6zceyxazAEqs14hUQMBrmfXsqbLItyNPzc0zIl
+	/muvaYCsUmDuHtOsp24vQr+8=
+X-Received: by 2002:a05:6214:27c6:b0:5cd:f9fd:f66a with SMTP id
+ ge6-20020a05621427c600b005cdf9fdf66amr17047967qvb.0.1679864236125;
+        Sun, 26 Mar 2023 13:57:16 -0700 (PDT)
+X-Google-Smtp-Source: 
+ AKy350bvbaW/HvmNUD1O5GI6KZgnKPbVGv3bPPwbsQ+CWQB5zxGNwM7H9VkAJkVX4CFGJxeRjvsYFQ==
+X-Received: by 2002:a05:6214:27c6:b0:5cd:f9fd:f66a with SMTP id
+ ge6-20020a05621427c600b005cdf9fdf66amr17047944qvb.0.1679864235774;
+        Sun, 26 Mar 2023 13:57:15 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+        by smtp.gmail.com with ESMTPSA id
+ l4-20020ad44244000000b005dd8b9345cesm2409267qvq.102.2023.03.26.13.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Mar 2023 13:57:15 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	wangjianli@cdjrlc.com
+Subject: [PATCH] ALSA: remove unused loop_count variable
+Date: Sun, 26 Mar 2023 16:57:12 -0400
+Message-Id: <20230326205712.1358918-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: 
- <167949286900.26.3992817728812049195@mailman-core.alsa-project.org>
-Message-ID-Hash: CYVCECDWTL2MNFDW72MO76ZIIJ7T7BMN
-X-Message-ID-Hash: CYVCECDWTL2MNFDW72MO76ZIIJ7T7BMN
-X-MailFrom: lkp@intel.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Message-ID-Hash: MKBG4CMGAMDDEJNZF2Z74EYTOHVHVDA3
+X-Message-ID-Hash: MKBG4CMGAMDDEJNZF2Z74EYTOHVHVDA3
+X-MailFrom: trix@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, Tom Rix <trix@redhat.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYVCECDWTL2MNFDW72MO76ZIIJ7T7BMN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MKBG4CMGAMDDEJNZF2Z74EYTOHVHVDA3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,44 +129,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Herve,
+clang with W=1 reports
+sound/pci/asihpi/hpi6000.c:1256:6: error: variable
+  'loop_count' set but not used [-Werror,-Wunused-but-set-variable]
+        u32 loop_count = 0;
+            ^
+This variable is not used so remove it.
 
-Thank you for the patch! Yet something to improve:
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ sound/pci/asihpi/hpi6000.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-[auto build test ERROR on lee-mfd/for-mfd-next]
-[also build test ERROR on broonie-sound/for-next lee-leds/for-leds-next robh/for-next linus/master v6.3-rc3 next-20230324]
-[cannot apply to lee-mfd/for-mfd-fixes]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Herve-Codina-via-Alsa-devel/mfd-Add-support-for-the-Lantiq-PEF2256-framer/20230322-215208
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git for-mfd-next
-patch link:    https://lore.kernel.org/r/167949286900.26.3992817728812049195%40mailman-core.alsa-project.org
-patch subject: [PATCH v3 2/6] mfd: Add support for the Lantiq PEF2256 framer
-config: m68k-randconfig-c024-20230326 (https://download.01.org/0day-ci/archive/20230327/202303270203.QeRuuc9d-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/d60948895815b59306d870e7c189741b7d14d5e2
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Herve-Codina-via-Alsa-devel/mfd-Add-support-for-the-Lantiq-PEF2256-framer/20230322-215208
-        git checkout d60948895815b59306d870e7c189741b7d14d5e2
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303270203.QeRuuc9d-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   m68k-linux-ld: drivers/mfd/pef2256.o: in function `pinconf_generic_dt_node_to_map_pin':
->> pef2256.c:(.text+0x280): undefined reference to `pinconf_generic_dt_node_to_map'
-
+diff --git a/sound/pci/asihpi/hpi6000.c b/sound/pci/asihpi/hpi6000.c
+index 88d902997b74..72aa135d69f8 100644
+--- a/sound/pci/asihpi/hpi6000.c
++++ b/sound/pci/asihpi/hpi6000.c
+@@ -1253,7 +1253,6 @@ static u16 hpi6000_dsp_block_read32(struct hpi_adapter_obj *pao,
+ 	int local_count = count;
+ 	int xfer_size;
+ 	u32 *pdata = dest;
+-	u32 loop_count = 0;
+ 
+ 	while (local_count) {
+ 		if (local_count > c6711_burst_size)
+@@ -1273,7 +1272,6 @@ static u16 hpi6000_dsp_block_read32(struct hpi_adapter_obj *pao,
+ 		pdata += xfer_size;
+ 		local_hpi_address += sizeof(u32) * xfer_size;
+ 		local_count -= xfer_size;
+-		loop_count++;
+ 	}
+ 
+ 	if (time_out)
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.27.0
+

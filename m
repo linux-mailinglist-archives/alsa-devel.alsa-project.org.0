@@ -2,89 +2,177 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B3C46CEF25
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:20:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8389B6CEF1B
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:18:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9C33839;
-	Wed, 29 Mar 2023 18:19:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9C33839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D50B20B;
+	Wed, 29 Mar 2023 18:17:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D50B20B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680106804;
-	bh=2QDriybfok28zgEIOBPq16NBqwdvGyH821rDD9mIx0M=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=poSxeDMRb4iduru9wrGoP3OMyGTFYYf6AJL0vC5x+X5nmh5NDCT00OVX5RG3fCFhR
-	 Du2rbRiJz4YufqVN2uKJgRwyvHWCzM1VXQfIhQjgYUbsJCnwrmT43KUu6wp7SkW/oe
-	 EK3SOEqnom5NE5JIsGubW/KeYczMUHFb5H4aB/J8=
+	s=default; t=1680106725;
+	bh=oFCahmshpTHUiFnA9gPWymTBnjdE8TxFh6lCWETv0Cs=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AtQIEZ6ykweQE1PWhbJp5nOWN9vgIPJMKoL0jv4z2oU+osgHTkru5inrugvk0H91j
+	 jTTVv0HA8Uk9gCEWWsog1uG9PfkCBfFaeUWeDVB0UU/YsuhzN6htwjEO+xEQLrtMhF
+	 45Laa0rTl0R6xo8htkXnd46ukPcjZOzFoLZe5q/8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD93AF80570;
-	Wed, 29 Mar 2023 18:15:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 628DAF805C2;
+	Wed, 29 Mar 2023 18:14:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EE4EF80272; Mon, 27 Mar 2023 16:56:32 +0200 (CEST)
+	id 79982F80272; Mon, 27 Mar 2023 21:24:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1DA1DF80249
-	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 16:56:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DA1DF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 310FDF80114
+	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 21:24:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 310FDF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=brFZTdzb
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 43784CE1796;
-	Mon, 27 Mar 2023 14:56:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802D1C433EF;
-	Mon, 27 Mar 2023 14:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679928980;
-	bh=2QDriybfok28zgEIOBPq16NBqwdvGyH821rDD9mIx0M=;
-	h=From:To:Cc:Subject:Date:From;
-	b=brFZTdzbRCEJKhn/gixnOI7R3/N5P9HVm/0P4E4JsRnzL4oyI4qiXPv2EJ2oH6O2k
-	 xB4+Dl/nsUWxx/F1iujnEROwvQxsY8sLMrSqjtUtv94z05xfhU7nhJ5d0kQiFuK5py
-	 18eGd8iJ8GH4eGv1C3qtCsG9kq0SqWnzaPWiFwzKfEmKpWVsFt5tAkmdDdaWA2hsTo
-	 GH6MfXbJakVM86+TGz3xeHrYjW6ckFq8Hz84yMfDP74lPvlJ98VMs1bGhd32Ra692D
-	 nXn+kMdPYq1nErt8ITK/GWk4hzrVctwoBOMmyD4r+1831iFEJfumCWj/3W+4bqTpxi
-	 Znsy0YiPL4uKA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
-	(envelope-from <johan+linaro@kernel.org>)
-	id 1pgoGr-000537-AR; Mon, 27 Mar 2023 16:56:30 +0200
-From: Johan Hovold <johan+linaro@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>
-Subject: [PATCH] ASoC: qcom: audioreach: drop stray 'get' from error message
-Date: Mon, 27 Mar 2023 16:55:55 +0200
-Message-Id: <20230327145555.19351-1-johan+linaro@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
+ header.s=fm3 header.b=Gbu8P4ud;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=SHHB4k7b
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailnew.nyi.internal (Postfix) with ESMTP id A10135821C9;
+	Mon, 27 Mar 2023 15:24:35 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute3.internal (MEProxy); Mon, 27 Mar 2023 15:24:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1679945075; x=1679952275; bh=rUuK9HXT1QKP+JaV2sHZBw1jLvvNj/LeTVl
+	Vzz2mgnE=; b=Gbu8P4udsMzoUHOjBbc5vfZkP8tmap7dDKr2UbNlg1rixDocDy1
+	FxnzMOf4IOE2QfpQC16ztGYJPxILJkIxjIgvAYZvE6YKh8ByrZaG/DwGgBebbWeR
+	u897wwvNEQblafmWFWlheo89ARPXU3Y8oogaRB7FitYdT+Ut11wADq6gdu2WovDh
+	Xkmp8I7I9FIQMArX6acMwEXaNFUqd2HKMXcH43MHmPOzshN26/iirV1eH6W3dVXI
+	8/qFTx4K/XYsgt3TO6s0Awb2KVJUO/QYpQYZyPru8lsOFL1AaMAGCylG/7RBI5k9
+	jN2zsyhGhjzCZHGorsCFbB/6Ikisoduw5rw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1679945075; x=1679952275; bh=rUuK9HXT1QKP+JaV2sHZBw1jLvvNj/LeTVl
+	Vzz2mgnE=; b=SHHB4k7bT/dpA/WpBJ4y6Me/WnLbpnFXIndTiaB8/gRhPh84gMh
+	BWWBeQ2XwYOIN72SfXrmMvw1Fp7uf/LOu2PSFypexIyJHggZzMGs7l6ee1zSHLSh
+	oDdQ+vdPBe9KNPXErhfHevDOs1nDqM2OVelCWFp97TAwMIVY0/2/h3xlmXqOtiYf
+	EVwH2yJfjFhnXvgqDRNyzHjPstZZOaYq3QFTE2qxYXpu0A46u0Mm1LUIMjT71nea
+	MN2+d/lsVf8chYLWOQNX2owgkOwLov/Ep9ne8iDdinid6yyrileqeAyQzZn48c9N
+	Q0qZYiL21tuinlqT4OtghVeAeGKaikoV2ow==
+X-ME-Sender: <xms:ce0hZIdM24euIGEUtoe65OkBtoRYVeI3ONUCSPWoGVW_5JO4kFnMXA>
+    <xme:ce0hZKP7isXAj98ojUZU3qfBX3AC7TN1qwun_tqjjRNsKWlTzcp_QsyECQ0whwQwo
+    rwnun8onbXM8eXunNI>
+X-ME-Received: 
+ <xmr:ce0hZJju5UXKYf1ZB4-cgid8Z7MS1h-PShHiUVPZRgduIHmJvBnjnu1tYdV9>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrvdehvddgudefkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtugfgjgesthhqredttddtvdenucfhrhhomhepofgr
+    gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
+    frrghtthgvrhhnpeetgfelgefggeekkefggfeludeiudffjeffgeevveekjedukedtudeu
+    teefteefgfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:ce0hZN-SRmDaQe-0vFu3eAyHD4JPegYDiDKo-JQR5BGerdxYpxnFaQ>
+    <xmx:ce0hZEun2Gmy0YnOs-3_4-7t5O9t6z8MgMYrxxX_G44CPUvCVCr81Q>
+    <xmx:ce0hZEE5l3ugjz44F874HhjsOZZjibqjYjw1zy4XvsjTYlW2FEW9Yg>
+    <xmx:c-0hZFMocL39774IjxJ1l8UQZNiYw8FCE5ns7VU4Jf79p3npVDrKMQ>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 27 Mar 2023 15:24:32 -0400 (EDT)
+Date: Mon, 27 Mar 2023 21:24:30 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
+Message-ID: <20230327192430.b2cp3yyrkzy4g4vw@penduick>
+References: <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
+ <20221104145946.orsyrhiqvypisl5j@houat>
+ <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
+ <20221107085417.xrsh6xy3ouwdkp4z@houat>
+ <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
+ <20221109110045.j24vwkaq3s4yzoy3@houat>
+ <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
+ <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
+ <20230324111959.frjf4neopbs67ugd@houat>
+ <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: johan+linaro@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
+X-MailFrom: maxime@cerno.tech
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: KMG3S7YJ75JBA3A6WEWMICPY7LI4BGVL
-X-Message-ID-Hash: KMG3S7YJ75JBA3A6WEWMICPY7LI4BGVL
-X-Mailman-Approved-At: Wed, 29 Mar 2023 16:15:08 +0000
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Johan Hovold <johan+linaro@kernel.org>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF
+X-Message-ID-Hash: ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF
+X-Mailman-Approved-At: Wed, 29 Mar 2023 16:14:49 +0000
+CC: Stephen Boyd <sboyd@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Dinh Nguyen <dinguyen@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>, Vinod Koul <vkoul@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>, Sekhar Nori <nsekhar@ti.com>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ David Airlie <airlied@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Lechner <david@lechnology.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Mark Brown <broonie@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-stm32@st-md-mailman.stormreply.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-actions@lists.infradead.org, linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ patches@opensource.cirrus.com, linux-tegra@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KMG3S7YJ75JBA3A6WEWMICPY7LI4BGVL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,27 +181,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Drop the stray 'get', which appears to be a copy-paste error, from the
-registration-failure error message.
+On Fri, Mar 24, 2023 at 08:58:48PM +0000, Aidan MacDonald wrote:
+> >> My suggestion: add a per-clock bitmap to keep track of which parents
+> >> are allowed. Any operation that would select a parent clock not on the
+> >> whitelist should fail. Automatic reparenting should only select from
+> >> clocks on the whitelist. And we need new DT bindings for controlling
+> >> the whitelist, for example:
+> >>
+> >>     clock-parents-0 =3D <&clk1>, <&pll_c>;
+> >>     clock-parents-1 =3D <&clk2>, <&pll_a>, <&pll_b>;
+> >>
+> >> This means that clk1 can only have pll_c as a parent, while clk2 can
+> >> have pll_a or pll_b as parents. By default every clock will be able
+> >> to use any parent, so a list is only needed if the machine needs a
+> >> more restrictive policy.
+> >>
+> >> assigned-clock-parents should disable automatic reparenting, but allow
+> >> explicit clk_set_parent(). This will allow clock drivers to start doing
+> >> reparenting without breaking old DTs.
+> >
+> > I'm generally not a fan of putting all these policies in the device
+> > tree. Do you have an example where it wouldn't be possible to do exactly
+> > this from the driver itself?
+>=20
+> I'm confused. What's implicit in the example is clk1 and clk2 might
+> have *other* possible choices of parent clock and the device tree is
+> limiting what the OS is allowed to choose.
+>
+> Why would you put such arbitrary limitations into the driver?
 
-Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
----
- sound/soc/qcom/qdsp6/q6apm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Why would we put such arbitrary limitations in the firmware? As this
+entire thread can attest, people are already using the device tree to
+work around the limitations of the Linux driver, or reduce the
+features of Linux because they can rely on the device tree. Either
+way, it's linked to the state of the Linux driver, and any other OS or
+Linux version could very well implement something more dynamic.
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index 994c9e823a88..a7a3f973eb6d 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -676,7 +676,7 @@ static int apm_probe(gpr_device_t *gdev)
- 
- 	ret = devm_snd_soc_register_component(dev, &q6apm_audio_component, NULL, 0);
- 	if (ret < 0) {
--		dev_err(dev, "failed to get register q6apm: %d\n", ret);
-+		dev_err(dev, "failed to register q6apm: %d\n", ret);
- 		return ret;
- 	}
- 
--- 
-2.39.2
+> They would be different from machine to machine, unless the clock
+> tree is so simple there is only *one* meaningful way to configure
+> it.
 
+If we look at the device trees we have in-tree, most of the users of
+assigned-clocks are the same from one board to another.
+
+> Most SoCs are complicated enough that there will be tradeoffs
+> depending on what peripherals you are using (typically a single
+> machine will not use *every* peripheral device provided by the SoC).
+
+We already have APIs to lock parents or rates on a given clock from
+the consumer. It's far superior (feature-wise) than what the device
+tree will ever offer because it's code, and it depends on the usage
+already since an unused driver won't probe.
+
+Maxime

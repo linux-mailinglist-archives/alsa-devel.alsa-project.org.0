@@ -2,140 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D275D6C9A95
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Mar 2023 06:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2831D6C9BAC
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Mar 2023 09:10:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A8F883E;
-	Mon, 27 Mar 2023 06:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A8F883E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA220836;
+	Mon, 27 Mar 2023 09:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA220836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679891936;
-	bh=m0dh0Xmm6L7vOw9y6bh5UyCsIwzLibYMYktuzZGZf/w=;
-	h=From:Subject:To:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nyAdBFgTAFWh5LDh31KNezeVeV4dsjx7udNqcsPnX1GpE3Qg3Qz5ESTlhyx81QbDA
-	 o26X4GA9yA3trO+cS2YWvNNZ2jKIYF1dHVW79xeuvvab0XJxqVBkjoueTngwGkqSKF
-	 OZpK3dX7aY80pUTWUB9zQyrRRplDDCzzMysU5Htc=
+	s=default; t=1679901035;
+	bh=EMz9KMFHLtCenWCBhnG99qT0LCx75jII0kKAxwJMMmM=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=l9F3I5w1iC1Pn+kOlHsO45RNrXpLBPPAGLlmndCpn9jgc6DINHlzd7iE11+eoF7yW
+	 fkSWq9cKLuTzLmVxAuyplR0oUynObOtnYzV01pPuXI9+PSaurEvglsWBFW6TZJbqa1
+	 gEYJJdrWnkHyIGWwEG9/0g3GpG1Mrp8crT4l5EJw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 402DFF8024E;
-	Mon, 27 Mar 2023 06:38:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6002F8024E;
+	Mon, 27 Mar 2023 09:09:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F355AF80272; Mon, 27 Mar 2023 06:36:24 +0200 (CEST)
+	id DE41CF80272; Mon, 27 Mar 2023 09:09:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-3.7 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20703.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::703])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB3CCF80249
-	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 06:33:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB3CCF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8536F800C9
+	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 09:08:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8536F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=Qr4Hu56z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dvT9YjY+BWV4WRuWXHv6UWdUTD0I/xdSz5vaDttBuIoCJPvPBeBFK9BnxS1mbLemOzeggLbol84eIvCbsLxHVuBy9I6NLLTRt/eyxcMqGZka5LeqdgR2Br/ZRGI4B/gyvEfYfqcAVhbFAICD6tVbcEkQxzdyrv+sdxOCbGDESH2Ov7VopEAfI+X8ZQhcq8d2MrjvgHFla42P8e14MJjkVMFIx4gGzj6lSyS0neS/VRFlVQEDB91kpfE6T/tKqu+10n/xI1joQGZFcMGeu3VRqCyXveXRbGOtSs3SKPfiIi2Pt+plFHV2FpxA6xYXmw0D2+pRuQNp0UcmL+qvdAA2jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XdNsUbKL5R3rr90rCFw4UmjDI6q9Bd/fCF5oSc4EJJg=;
- b=eRkoIa6tqhVX31qkOEUn6Ay+BcFy5FP6DRt/6cCyoSzTCA05lg7FpcY/LnXRmcrMlujulsM+LgmdkK2nxbmLp/EejMFXtA4FXM3KpwjHTH1BfPuv/CJ7a3dZ1tjXXu6NBCn1Y+O94weQPd4eZR0ZX4X9g1Q0/H0Hl4xwtyghcO02eK2+uulMzGCsWWTJec5tEBjDjkFyAAaNI+N4MNaHxdCl/3Fay8XRh16GCIbSDp26/RT32fI9crlJkisJjVZQU/dbH9Q/Ug9Df+uRfUDQZboNmNeQh+UjGzzaJ2KJeaZxYUjYXlLXmCac41pp1yBRn249XnrKcB3Q1IKDzA+JJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XdNsUbKL5R3rr90rCFw4UmjDI6q9Bd/fCF5oSc4EJJg=;
- b=Qr4Hu56zG6UP/STrzu0PUD1KeOrTWV/UhpjXtj2iRFID7c5n/idUzH+2FpBfMiTFnIevrh0syrYk0fbR8SfbI4BRziV9HQUUqRtAVCXRnqCPz0zmB+VS5QNy+R+3WZ1tlFVrEsSXEBIawtTCx8PcVbd/0nrwCKisWq7PRsm+AsI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TY3PR01MB11673.jpnprd01.prod.outlook.com (2603:1096:400:373::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
- 2023 04:33:41 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::b005:5b0f:6ad8:3eb1]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::b005:5b0f:6ad8:3eb1%3]) with mapi id 15.20.6222.030; Mon, 27 Mar 2023
- 04:33:41 +0000
-Message-ID: <87bkke7qzf.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: audio-graph-card2-custom-sample.dtsi: use card->name to
- avoid long name
-User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 27 Mar 2023 04:33:41 +0000
-X-ClientProxiedBy: TYCP286CA0162.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:383::17) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=i4092/VB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679900940; x=1711436940;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=EMz9KMFHLtCenWCBhnG99qT0LCx75jII0kKAxwJMMmM=;
+  b=i4092/VBkVghvrQzNIC1SWjxEewZI2VH3EsXZAd6q09N4V/MllMLO2Gh
+   QrGrLhrrbCMRBlSWItQhRChD2X6Ren3kbpjPZZZRTWnn0nBS4otbC72dP
+   tR/BafAwU3yvRxKPAf/mWAUEPZDv7+BhL1wMHYTrOmq2tnv0c5vbkrYpy
+   R0+iwj++CdTeRfQNdqOzxR4SIWGL+3QaShAicv5ssjEMTRuYRXyMyyFDR
+   nTomINkQlmmi6h9XAQS1XTiMOafpzv2oHM3qZ4ADcc1l0+843tyloSoR3
+   vnfC4xUl0dQ8eOriUbMl6b31/6nVRETR0TGquzprM3V/kZ8RjgpKxaBBi
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402792417"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400";
+   d="scan'208";a="402792417"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2023 00:08:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="633513725"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400";
+   d="scan'208";a="633513725"
+Received: from asebenix-mobl1.ger.corp.intel.com (HELO [10.251.223.110])
+ ([10.251.223.110])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2023 00:08:53 -0700
+Message-ID: <5a284544-bc08-a7e3-7be3-48641762ba44@linux.intel.com>
+Date: Mon, 27 Mar 2023 10:09:27 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB11673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a5f7c3b-b8cb-47fc-abe5-08db2e7c7115
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	mTw1xFH6c6jWRWHhSS9RYQ0pHKI0IsMKLYAR6BljiZAG/FN1cl770tQ644lcZA65bRAYGtABYnBEh9LLIS43A8Sc7+WRl7jH9Bd9kgmGY2w/4wmLzeuydM30zlgfbYHK9bB3e3r9Xq2nSlq0I6guK2u3mLYQ3Vjj2RFP5IpvRRgOVg/GuOcwwOglMUkvWZmfnoJ/ZP81g1snj2CWNQfQ9kN1ej5kB8Hjee/WWat7bmZVl8rMKkdsuYVNz2ibyXBROwSpUPVc2X7Q8ReK1kisYep21wGdGwm1qSEAmPzOgQroZg4nsF5E+XNtwwpTWB0+N0LcGICclvXS90QFl2iPHJrAbzcxIOuleENIqTLe6sUQ6YtygHAqKCxTtZ9XaA2JTpwtxuqXDLrnH9psPLoqcmvlNWb7EgPMXVlRKxOATvDlLILVShNhhWxkvD9b5DwSZae8tWC0OqnBDXKJ0UVfNURhHVUlfxgPucW5gkKhOaBfuZ92d0hZRp1V9pVvVnLPg1+lCu1En7ep9iPaEN6P5ceo53cUxH4/Y7i5qWcfEsJsPuxgC3hASMdpJvahKbpL1sNw2ydlSrjuXA6Z5/cjUCxTa8r8oPwkKUd9jtmrJciGIcvG7iU+25ldy0sZAwMn
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(376002)(366004)(396003)(136003)(451199021)(316002)(478600001)(8936002)(5660300002)(36756003)(86362001)(38350700002)(38100700002)(2906002)(4326008)(66556008)(66476007)(6916009)(8676002)(66946007)(41300700001)(186003)(6512007)(6506007)(26005)(2616005)(52116002)(6486002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?+eKibtXOHUENyqnzo/1Q6EyqIldBxaFmHkFIwe5yfCXLIRC4Dz/I7g8tm8XB?=
- =?us-ascii?Q?AsjFsEF85KQXOwgRgz/omVYEOaDfuSZpVuPSjRhvtK8A5YEajgSOP4Embfzb?=
- =?us-ascii?Q?hex1O8ghcSK6lnM+CMdeWjOVB9Q4pbFNQWod9qYlPmzTwSDfVicVr/D3nzpJ?=
- =?us-ascii?Q?hJWmIdinZXK7v6L+WjhG26xZrPGOEnIOknhsVimwUz8MOLNuVhpBSKPa2luM?=
- =?us-ascii?Q?7o+VB2rjDeRTN4BwzuEwtKCKOpg5R9m8yG9K8G0kOeJBaXp6g5+XeAQ0UtOp?=
- =?us-ascii?Q?IyDxnOu11vCfwfkxUvXosc83io2qTYTpC+i0T3LL+6uYQqbL2sDTdM2d6XAI?=
- =?us-ascii?Q?CTFaiieRMcWCqaK5xugQM1hsSuHUTdt88oD5mzBDYZK5Dqn3sDLYo//HjjDA?=
- =?us-ascii?Q?btePheITjFiBULSARq8S2wn9uSLJfLYYrP5YijBZcpxQOKANLH5vVuxULz2u?=
- =?us-ascii?Q?lcXixQcf7TkTybN1szYh/xIMyu0XsNGT4EBT+aMg9F4nDEg3SzDGAduEuihC?=
- =?us-ascii?Q?ZQN3xfs1uFdjpCNROKDAb3/gzcRrIjPuGYmh7yw5JCwSCk6pxdGl+8buy5U2?=
- =?us-ascii?Q?2Wezb9Md8WpdPQbW4ljBlbaELWYqTU6/63/bRbyiIxP5fyLIHeFqM4pXMlr4?=
- =?us-ascii?Q?C12FyqZE9ghNuA2+Gu82Ug9bfyPTbM8qNnIvCm2CjZwXRpCNoFt/DiwIVdqn?=
- =?us-ascii?Q?dch/yhu9j/TFxxpyFq6R7bqBzfsxC3hv71lwWrsBGnNZ6vE5BzC1DQ4NBU/U?=
- =?us-ascii?Q?yR6ES3bZdV8eu/DNmHv+eOjhWK8QsQcaZYc/3d3QVYi/h+2yJFLUacUPwS71?=
- =?us-ascii?Q?Ymmz5j/IY5yZjYp1nxG7Kz9ERKoEslTDE3S7oJyMgq7pNbPxdmh0DAYXxfD6?=
- =?us-ascii?Q?qUDVb2CHxwTPfCcyS+/yuu1sZWqqDXTJRle1gsYT569iEnknzfdQ1jkeuSO6?=
- =?us-ascii?Q?kzBb/kWJqq8qu97YzmoG88bey8f4PTtHlHLhNRpVpvOUf222wrY8A+9LTiGh?=
- =?us-ascii?Q?a33S/lqG0B7Y8/HdTOUAnj8rLOBdovHdXWh6jGTW1HuS22v1ubLpyb0bFNcV?=
- =?us-ascii?Q?3vmY5xQxg2ZYMlly/YaFUiXuPGSigv95SSpICg8YhayjnYtmUmIYxaXtZ3GI?=
- =?us-ascii?Q?hYQenbi/fxrKhFeXEaW2S88sNl4hrIJj9mZq/gcLr1h/Zx8T1/K1+X26d8LP?=
- =?us-ascii?Q?U02hxDB66GVZ1OTbVsS5KtXeXQ+61QwlyPEfmJPzFdEDQ+YF2xBMibbc6SxZ?=
- =?us-ascii?Q?NuPOMuQ3jWJAyEFXr/Qpzl01swwsTwaGuWZgiMoEhVCMMfMhLMKN/GwCa1rD?=
- =?us-ascii?Q?ohnSZfuqc2aHR9iHh8rDKepWdr02foBxyoBng3JZbtX+sN/Ym6WvtjxxOKPK?=
- =?us-ascii?Q?GVZmF1kqnwT6GYbwG/MVBuHyXZ2NI+rEkc7AP4QbmJOoYCT2GwXKUxJkRpcF?=
- =?us-ascii?Q?6HVdylInrRg7zW2cYl6lorbzDyp2VNb0V00VPRnbCAUZqjbC4a3hrJQDKA2R?=
- =?us-ascii?Q?I33OhamKAi/n+NABs26WE7nN5Z7QopbSqzszK396HmtPLcfOTLvdgsnvCBvw?=
- =?us-ascii?Q?eZMfvyCSnpFpCJ0tq9t26V35MqtXKPyOh9S1SBUDz3M0/Ku8loT9A+tT1wLv?=
- =?us-ascii?Q?xZKm1nEcN4fYiYMYhRYxgi4=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4a5f7c3b-b8cb-47fc-abe5-08db2e7c7115
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 04:33:41.2290
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Mz8h6iEbvbPjRFnAaLtDwAJjsri+57HNjWyGJ1akRbpNhZvr+8U+cPzBD4hu5eKNkwU4+Ytz1TnabiQDVyKihC0Wjq5UmCuiQz9auUbDhP1KQNM/1ZK1qfSForup31yg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11673
-Message-ID-Hash: FNXOAEFKAHPKPQZMSVV2WDI5NDUVDMX4
-X-Message-ID-Hash: FNXOAEFKAHPKPQZMSVV2WDI5NDUVDMX4
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.9.0
+Subject: Re: [PATCH] ASoC: soc-dapm.c: tidyup dapm_connect_dai_pair()
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87ilen6ni4.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <87ilen6ni4.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EZYOS4VSNKYRMYGP5HXS3J5AFCANPV5D
+X-Message-ID-Hash: EZYOS4VSNKYRMYGP5HXS3J5AFCANPV5D
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -148,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FNXOAEFKAHPKPQZMSVV2WDI5NDUVDMX4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZYOS4VSNKYRMYGP5HXS3J5AFCANPV5D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,33 +105,210 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Current Card2 Custom Sample will be too long Card name, and be error
 
-	audio-graph-card2-custom-sample audio-graph-card2-custom-sample \
-		ASoC: driver name too long \
-		audio-graph-card2-custom-sample' -> 'audio-graph-car'
 
-This patch uses short name to avoid it
+On 27/03/2023 03:34, Kuninori Morimoto wrote:
+> dapm_connect_dai_pair() handles
+> "Normal/Codec2Codec" x "CPU/Codec" x "Playback/Capture".
+> 
+> (A) is "Codec2Codec" case of "CPU"   widget x "Playback/Capture",
+> (B) is "Normal"      case of "CPU"   widget x "Playback/Capture",
+> (C) is each          case of "Codec" widget.
+> 
+> (X) is handling "Playback" case DAI connecting,
+> (Y) is handling "Capture"  case DAI connecting.
+> 
+> 	static void dapm_connect_dai_pair(...)
+> 	{
+> 		...
+> 
+> (A)		if (dai_link->params) {
+> 			playback_cpu	= ...
+> 			capture_cpu	= ...
+> (B)		} else {
+> 			playback_cpu	= ...
+> 			capture_cpu	= ...
+> 		}
+> 
+>  ^		/* connect BE DAI playback if widgets are valid */
+>  |		stream = SNDRV_PCM_STREAM_PLAYBACK;
+>  | (C)		codec = codec_dai->playback_widget;
+>  |
+>  |		if (playback_cpu && codec) {
+> (X)			if (dai_link->params && !rtd->c2c_widget[stream]) {
+>  |				...
+>  |			}
+>  |
+>  | (z)			dapm_connect_dai_routes(...);
+>  v		}
+> 
+> 	capture:
+>  ^		/* connect BE DAI capture if widgets are valid */
+>  |		stream = SNDRV_PCM_STREAM_CAPTURE;
+>  | (C)		codec = codec_dai->capture_widget;
+>  |
+>  |		if (codec && capture_cpu) {
+> (Y)			if (dai_link->params && !rtd->c2c_widget[stream]) {
+>  |				...
+>  |			}
+>  |
+>  | (z)			dapm_connect_dai_routes(...);
+>  v		}
+> 	}
+> 
+> (X) part and (Y) part are almost same.
+> Main purpose of these parts (and this function) is calling
+> dapm_connect_dai_routes() (= z) on each cases.
+> The difference is "parameter"
+> (= Normal/Codec2Codec x CPU/Codec x Playback/Capture).
+> 
+> This patch cleanup these, but nothing changed for meaning.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  sound/soc/soc-dapm.c | 93 +++++++++++++++++++++++++++-----------------
+>  1 file changed, 58 insertions(+), 35 deletions(-)
+> 
+> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+> index 3fa30a3afec2..064547e77063 100644
+> --- a/sound/soc/soc-dapm.c
+> +++ b/sound/soc/soc-dapm.c
+> @@ -4325,60 +4325,83 @@ static void dapm_connect_dai_routes(struct snd_soc_dapm_context *dapm,
+>  	snd_soc_dapm_add_path(dapm, src, sink, NULL, NULL);
+>  }
+>  
+> +static int convert_stream(int stream)
+> +{
+> +	if (stream == SNDRV_PCM_STREAM_CAPTURE)
+> +		return SNDRV_PCM_STREAM_PLAYBACK;
+> +
+> +	return SNDRV_PCM_STREAM_CAPTURE;
+> +}
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/soc/generic/audio-graph-card2-custom-sample.c | 3 +++
- 1 file changed, 3 insertions(+)
+int get_cpu_stream_direction(struct snd_soc_dai_link *dai_link,
+			     int stream)
+{
+	if (!dai_link->c2c_params)
+		return stream;
 
-diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.c b/sound/soc/generic/audio-graph-card2-custom-sample.c
-index 4a2c743e286c..a3142be9323e 100644
---- a/sound/soc/generic/audio-graph-card2-custom-sample.c
-+++ b/sound/soc/generic/audio-graph-card2-custom-sample.c
-@@ -151,6 +151,9 @@ static int custom_probe(struct platform_device *pdev)
- 	simple_priv		= &custom_priv->simple_priv;
- 	simple_priv->ops	= &custom_ops; /* customize dai_link ops */
- 
-+	/* "audio-graph-card2-custom-sample" is too long */
-+	simple_priv->snd_card.name = "card2-custom";
-+
- 	/* use audio-graph-card2 parsing with own custom hooks */
- 	ret = audio_graph2_parse_of(simple_priv, dev, &custom_hooks);
- 	if (ret < 0)
+	if (stream == SNDRV_PCM_STREAM_CAPTURE)
+		return SNDRV_PCM_STREAM_PLAYBACK;
+
+	return SNDRV_PCM_STREAM_CAPTURE;
+}
+
+Add the comments here and use this to set the stream_cpu?
+
+The convert_stream() is an odd choice for the functionality.
+
+> +
+>  static void dapm_connect_dai_pair(struct snd_soc_card *card,
+>  				  struct snd_soc_pcm_runtime *rtd,
+>  				  struct snd_soc_dai *codec_dai,
+>  				  struct snd_soc_dai *cpu_dai)
+>  {
+>  	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+> -	struct snd_soc_dapm_widget *dai, *codec, *playback_cpu, *capture_cpu;
+> -	struct snd_pcm_substream *substream;
+> -	struct snd_pcm_str *streams = rtd->pcm->streams;
+> +	struct snd_soc_dapm_widget *codec, *cpu;
+> +	struct snd_soc_dai *src_dai[]		= { cpu_dai,	codec_dai };
+> +	struct snd_soc_dai *sink_dai[]		= { codec_dai,	cpu_dai };
+> +	struct snd_soc_dapm_widget **src[]	= { &cpu,	&codec };
+> +	struct snd_soc_dapm_widget **sink[]	= { &codec,	&cpu };
+> +	char *widget_name[]			= { "playback",	"capture" };
+>  	int stream;
+>  
+> -	if (dai_link->c2c_params) {
+> -		playback_cpu	= snd_soc_dai_get_widget_capture(cpu_dai);
+> -		capture_cpu	= snd_soc_dai_get_widget_playback(cpu_dai);
+> -	} else {
+> -		playback_cpu	= snd_soc_dai_get_widget_playback(cpu_dai);
+> -		capture_cpu	= snd_soc_dai_get_widget_capture(cpu_dai);
+> -	}
+> +	for_each_pcm_streams(stream) {
+> +		int stream_cpu, stream_codec;
+>  
+> -	/* connect BE DAI playback if widgets are valid */
+> -	stream = SNDRV_PCM_STREAM_PLAYBACK;
+> -	codec = snd_soc_dai_get_widget(codec_dai, stream);
+> -
+> -	if (playback_cpu && codec) {
+> -		if (dai_link->c2c_params && !rtd->c2c_widget[stream]) {
+> -			substream = streams[stream].substream;
+> -			dai = snd_soc_dapm_new_dai(card, substream, "playback");
+> -			if (IS_ERR(dai))
+> -				goto capture;
+> -			rtd->c2c_widget[stream] = dai;
+> +		if (dai_link->c2c_params) {
+> +			/*
+> +			 * [Codec2Codec]
+> +			 *
+> +			 * Playback
+> +			 *	CPU  : SNDRV_PCM_STREAM_CAPTURE
+> +			 *	Codec: SNDRV_PCM_STREAM_PLAYBACK
+> +			 *
+> +			 * Capture
+> +			 *	CPU  : SNDRV_PCM_STREAM_PLAYBACK
+> +			 *	Codec: SNDRV_PCM_STREAM_CAPTURE
+> +			 */
+> +			stream_cpu   = convert_stream(stream);
+> +			stream_codec = stream;
+> +		} else {
+> +			/*
+> +			 * [Normal]
+> +			 *
+> +			 * Playback
+> +			 *	CPU  : SNDRV_PCM_STREAM_PLAYBACK
+> +			 *	Codec: SNDRV_PCM_STREAM_PLAYBACK
+> +			 *
+> +			 * Playback
+> +			 *	CPU  : SNDRV_PCM_STREAM_CAPTURE
+> +			 *	Codec: SNDRV_PCM_STREAM_CAPTURE
+> +			 */
+> +			stream_cpu   = stream;
+> +			stream_codec = stream;
+>  		}
+>  
+> -		dapm_connect_dai_routes(&card->dapm, cpu_dai, playback_cpu,
+> -					rtd->c2c_widget[stream],
+> -					codec_dai, codec);
+> -	}
+> +		/* connect BE DAI playback if widgets are valid */
+> +		cpu	= snd_soc_dai_get_widget(cpu_dai,	stream_cpu);
+> +		codec	= snd_soc_dai_get_widget(codec_dai,	stream_codec);
+>  
+> -capture:
+> -	/* connect BE DAI capture if widgets are valid */
+> -	stream = SNDRV_PCM_STREAM_CAPTURE;
+> -	codec = snd_soc_dai_get_widget(codec_dai, stream);
+> +		if (!cpu || !codec)
+> +			continue;
+>  
+> -	if (codec && capture_cpu) {
+> +		/* special handling for [Codec2Codec] */
+>  		if (dai_link->c2c_params && !rtd->c2c_widget[stream]) {
+> -			substream = streams[stream].substream;
+> -			dai = snd_soc_dapm_new_dai(card, substream, "capture");
+> +			struct snd_pcm_substream *substream = rtd->pcm->streams[stream].substream;
+> +			struct snd_soc_dapm_widget *dai = snd_soc_dapm_new_dai(card, substream,
+> +									       widget_name[stream]);
+> +
+>  			if (IS_ERR(dai))
+> -				return;
+> +				continue;
+> +
+>  			rtd->c2c_widget[stream] = dai;
+>  		}
+>  
+> -		dapm_connect_dai_routes(&card->dapm, codec_dai, codec,
+> +		dapm_connect_dai_routes(&card->dapm, src_dai[stream], *src[stream],
+>  					rtd->c2c_widget[stream],
+> -					cpu_dai, capture_cpu);
+> +					sink_dai[stream], *sink[stream]);
+>  	}
+>  }
+>  
+
 -- 
-2.25.1
-
+Péter

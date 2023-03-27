@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07146CA289
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Mar 2023 13:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF15C6CA26F
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Mar 2023 13:31:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11E06E71;
-	Mon, 27 Mar 2023 13:34:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11E06E71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39BAC825;
+	Mon, 27 Mar 2023 13:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39BAC825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679916901;
-	bh=texlN+ae0SmycWuXRad5CpiU9Xez+C8SyXvw+1hdOiY=;
+	s=default; t=1679916717;
+	bh=crp3rBgrJAHr8/NVFw0xsDYD6SYIaAZFzC729BQTE/c=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W0YlCqeyVyJgE2/oE+NGgVz4SgyOvNDjDh2QgX3GRZz1Bkk1cIDClmYAGxjXx+bxX
-	 r/JqPWpiUwulaHmR5TDG8dFhytqvTYZLfq6yAI3ICV99J4pnpZ//PLyqcwjFo/enJp
-	 hWCM0fzsUjQhxXqntzAkXbRP/B5kQBoYwAnHDLFs=
+	b=clM646hxSY6ezEQGfa9kTNWBJzSW6I7mbxnTo1nUDfuYLcr7vxrC6/hk0HPv97kmb
+	 P9U3QxcuPPj3Anl+A9Z3z6hvPiw1gm1Gj/W/gozq6IVuuo0FiXKNqp/uaIPKsBNNM2
+	 /N0XyEKEn2f32xzwlaqWATSRjU6IIPXjq0VXv0Og=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7FA1EF8052D;
-	Mon, 27 Mar 2023 13:32:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40DACF80549;
+	Mon, 27 Mar 2023 13:29:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C790AF80272; Mon, 27 Mar 2023 13:32:44 +0200 (CEST)
+	id 1DA76F80568; Mon, 27 Mar 2023 13:29:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,56 +33,57 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0AD2F8032D
-	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 13:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0AD2F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1590F80495
+	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 13:29:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1590F80495
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YJhU2y0I
+ header.s=Intel header.b=Bqk1eSGt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679916559; x=1711452559;
+  t=1679916560; x=1711452560;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=texlN+ae0SmycWuXRad5CpiU9Xez+C8SyXvw+1hdOiY=;
-  b=YJhU2y0IZgF01Hztbjd3bzHG/qzizf2C5bEdac0Hedu9tfcrT9f2qSNu
-   YMqp0F81f9WEl+loQq1HHSGcEWZHYjBkIzwAGlVApvS50TvcBgW4Jh0EH
-   b7cAt4Bd7qCMMwxhKwR9tH69ZdzEkTPrOgXil8t1sj5mZOE9bhphclnsp
-   kxt9ql68Co7YGaoPdIk7/4mQJtNru4KjOvIw1R/Gc2wiRw88z0m2rC4Z1
-   nNB39tqrdZnAk5DW2q2nBieSb/+MRk1s1uukygUUjq15lk7pZ6xc0aNX+
-   LzH7fto16lVB7pd1ImZKYX1MUuy37uudNRTEO/XMKMiK4y6SqeUIYlRUz
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="367986930"
+  bh=crp3rBgrJAHr8/NVFw0xsDYD6SYIaAZFzC729BQTE/c=;
+  b=Bqk1eSGtIMjj0WxfJeA2DKM5t14CItY/5SRrmHh2FyWwlHvw9KZYcK1Y
+   Yrr32pOmbB+NyLox1E7Y1sFuMal30kDiA+7Wn4AEwBoZ5A4tIDPFyovO+
+   YjtNLPYTxCMw2efpZmFhTEYhF1ViOL5l0pyKl2ZCZNFK1YYTnB+MvSaXr
+   0ZxPdRBp/cmGbBl/+sZo6IIg81pP6f0SMRJP6O9lrFA6Qw3v30m3oNDQH
+   alPwXf9osecqAMnS8v4/NRa3p6GHg8YMZNtB+dOj+ng9qOESFFkWLSUae
+   7nMx4MNNHOn0F57AOIDrf1JBgDpI7Es6pxrq0wd4QD96o1y/FLbFmKxHx
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="367986944"
 X-IronPort-AV: E=Sophos;i="5.98,294,1673942400";
-   d="scan'208";a="367986930"
+   d="scan'208";a="367986944"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
   by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 04:29:16 -0700
+ 27 Mar 2023 04:29:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="857620404"
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="857620419"
 X-IronPort-AV: E=Sophos;i="5.98,294,1673942400";
-   d="scan'208";a="857620404"
+   d="scan'208";a="857620419"
 Received: from asebenix-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.251.223.110])
   by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 04:29:13 -0700
+ 27 Mar 2023 04:29:16 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
 	tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 05/18] ASoC: SOF: Intel: hda-mlink: move to a dedicated module
-Date: Mon, 27 Mar 2023 14:29:18 +0300
-Message-Id: <20230327112931.23411-6-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 06/18] ASoC: SOF: Intel: hda-mlink: add structures to parse
+ ALT links
+Date: Mon, 27 Mar 2023 14:29:19 +0300
+Message-Id: <20230327112931.23411-7-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
 References: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5JJDKLL6TQLBDFLEI33NAG5SRKMD5RQQ
-X-Message-ID-Hash: 5JJDKLL6TQLBDFLEI33NAG5SRKMD5RQQ
+Message-ID-Hash: NESSQVJJCJ2NHTX72ZW3A7KCMAWQH4P2
+X-Message-ID-Hash: NESSQVJJCJ2NHTX72ZW3A7KCMAWQH4P2
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JJDKLL6TQLBDFLEI33NAG5SRKMD5RQQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NESSQVJJCJ2NHTX72ZW3A7KCMAWQH4P2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,12 +110,20 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Some of the functions will be used for SoundWire enumeration and power
-management, to avoid cycles in module dependencies and simplify
-integration all the HDaudio multi-link needs to move to a dedicated
-module.
+Extend hdac_ext_link to store information needed for ALT
+links. Follow-up patches will include more functional patches for
+power-up and down.
 
-Drop no longer needed headers at the same time.
+Note that this patch suggests the use of an 'eml_lock' to serialize
+access to shared registers. SoundWire-specific sequence require the
+lock to be taken at a higher level, as a result the helpers added in
+follow-up patches will provide 'unlocked' versions when needed.
+
+Also note that the low-level sequences with the 'hdaml_' prefix are
+taken directly from the hardware specifications - naming conventions
+included. The code will be split in two, with locking and linked-list
+management handled separately to avoid mixing required hardware setup
+and Linux-based resource management.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -122,246 +131,256 @@ Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- include/sound/hda-mlink.h       | 31 +++++++++++++++++++++++++++++++
- sound/soc/sof/intel/Kconfig     |  7 +++++++
- sound/soc/sof/intel/Makefile    |  5 ++++-
- sound/soc/sof/intel/hda-ctrl.c  |  1 +
- sound/soc/sof/intel/hda-dsp.c   |  1 +
- sound/soc/sof/intel/hda-mlink.c | 24 +++++++++++-------------
- sound/soc/sof/intel/hda.c       |  2 ++
- sound/soc/sof/intel/hda.h       | 20 --------------------
- 8 files changed, 57 insertions(+), 34 deletions(-)
- create mode 100644 include/sound/hda-mlink.h
+ sound/soc/sof/intel/hda-mlink.c | 217 +++++++++++++++++++++++++++++++-
+ 1 file changed, 214 insertions(+), 3 deletions(-)
 
-diff --git a/include/sound/hda-mlink.h b/include/sound/hda-mlink.h
-new file mode 100644
-index 000000000000..beef5f509e47
---- /dev/null
-+++ b/include/sound/hda-mlink.h
-@@ -0,0 +1,31 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
-+/*
-+ * This file is provided under a dual BSD/GPLv2 license.  When using or
-+ * redistributing this file, you may do so under either license.
-+ *
-+ * Copyright(c) 2022-2023 Intel Corporation. All rights reserved.
-+ */
-+
-+struct hdac_bus;
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_MLINK)
-+
-+int hda_bus_ml_get_capabilities(struct hdac_bus *bus);
-+void hda_bus_ml_free(struct hdac_bus *bus);
-+void hda_bus_ml_put_all(struct hdac_bus *bus);
-+void hda_bus_ml_reset_losidv(struct hdac_bus *bus);
-+int hda_bus_ml_resume(struct hdac_bus *bus);
-+int hda_bus_ml_suspend(struct hdac_bus *bus);
-+
-+#else
-+
-+static inline int
-+hda_bus_ml_get_capabilities(struct hdac_bus *bus) { return 0; }
-+
-+static inline void hda_bus_ml_free(struct hdac_bus *bus) { }
-+static inline void hda_bus_ml_put_all(struct hdac_bus *bus) { }
-+static inline void hda_bus_ml_reset_losidv(struct hdac_bus *bus) { }
-+static inline int hda_bus_ml_resume(struct hdac_bus *bus) { return 0; }
-+static inline int hda_bus_ml_suspend(struct hdac_bus *bus) { return 0; }
-+
-+#endif /* CONFIG_SND_SOC_SOF_HDA */
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 715ba8a7f2f8..f4eeacf1f281 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -269,6 +269,13 @@ config SND_SOC_SOF_HDA_COMMON
- 	select SND_INTEL_DSP_CONFIG
- 	select SND_SOC_SOF_HDA_LINK_BASELINE
- 	select SND_SOC_SOF_HDA_PROBES
-+	select SND_SOC_SOF_HDA_MLINK if SND_SOC_SOF_HDA_LINK
-+	help
-+	  This option is not user-selectable but automagically handled by
-+	  'select' statements at a higher level.
-+
-+config SND_SOC_SOF_HDA_MLINK
-+	tristate
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level.
-diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
-index 38ab86b6a9fe..fdb463c12e91 100644
---- a/sound/soc/sof/intel/Makefile
-+++ b/sound/soc/sof/intel/Makefile
-@@ -5,10 +5,12 @@ snd-sof-acpi-intel-bdw-objs := bdw.o
- 
- snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
- 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
--				 hda-dai.o hda-dai-ops.o hda-bus.o hda-mlink.o \
-+				 hda-dai.o hda-dai-ops.o hda-bus.o \
- 				 skl.o hda-loader-skl.o \
- 				 apl.o cnl.o tgl.o icl.o mtl.o hda-common-ops.o
- 
-+snd-sof-intel-hda-mlink-objs := hda-mlink.o
-+
- snd-sof-intel-hda-common-$(CONFIG_SND_SOC_SOF_HDA_PROBES) += hda-probes.o
- 
- snd-sof-intel-hda-objs := hda-codec.o
-@@ -19,6 +21,7 @@ obj-$(CONFIG_SND_SOC_SOF_INTEL_ATOM_HIFI_EP) += snd-sof-intel-atom.o
- obj-$(CONFIG_SND_SOC_SOF_BAYTRAIL) += snd-sof-acpi-intel-byt.o
- obj-$(CONFIG_SND_SOC_SOF_BROADWELL) += snd-sof-acpi-intel-bdw.o
- obj-$(CONFIG_SND_SOC_SOF_HDA_COMMON) += snd-sof-intel-hda-common.o
-+obj-$(CONFIG_SND_SOC_SOF_HDA_MLINK) += snd-sof-intel-hda-mlink.o
- obj-$(CONFIG_SND_SOC_SOF_HDA) += snd-sof-intel-hda.o
- 
- snd-sof-pci-intel-tng-objs := pci-tng.o
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index e1dba6b79065..84bf01bd360a 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -19,6 +19,7 @@
- #include <sound/hdaudio_ext.h>
- #include <sound/hda_register.h>
- #include <sound/hda_component.h>
-+#include <sound/hda-mlink.h>
- #include "../ops.h"
- #include "hda.h"
- 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index c9231aeacc53..a8722f0774b1 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -18,6 +18,7 @@
- #include <linux/module.h>
- #include <sound/hdaudio_ext.h>
- #include <sound/hda_register.h>
-+#include <sound/hda-mlink.h>
- #include <trace/events/sof_intel.h>
- #include "../sof-audio.h"
- #include "../ops.h"
 diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
-index e426d5e41e52..fbf86f2350fb 100644
+index fbf86f2350fb..cc944311a671 100644
 --- a/sound/soc/sof/intel/hda-mlink.c
 +++ b/sound/soc/sof/intel/hda-mlink.c
-@@ -12,21 +12,11 @@
- 
- #include <sound/hdaudio_ext.h>
+@@ -14,14 +14,221 @@
  #include <sound/hda_register.h>
-+#include <sound/hda-mlink.h>
+ #include <sound/hda-mlink.h>
  
--#include <linux/acpi.h>
++#include <linux/bitfield.h>
  #include <linux/module.h>
--#include <linux/soundwire/sdw.h>
--#include <linux/soundwire/sdw_intel.h>
--#include <sound/intel-dsp-config.h>
--#include <sound/intel-nhlt.h>
--#include <sound/sof.h>
--#include <sound/sof/xtensa.h>
--#include "../sof-audio.h"
--#include "../sof-pci-dev.h"
--#include "../ops.h"
--#include "hda.h"
--
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_MLINK)
  
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_MLINK)
+ 
++/**
++ * struct hdac_ext2_link - HDAudio extended+alternate link
++ *
++ * @hext_link:		hdac_ext_link
++ * @alt:		flag set for alternate extended links
++ * @intc:		boolean for interrupt capable
++ * @ofls:		boolean for offload support
++ * @lss:		boolean for link synchronization capabilities
++ * @slcount:		sublink count
++ * @elid:		extended link ID (AZX_REG_ML_LEPTR_ID_ defines)
++ * @elver:		extended link version
++ * @leptr:		extended link pointer
++ * @eml_lock:		mutual exclusion to access shared registers e.g. CPA/SPA bits
++ * in LCTL register
++ * @base_ptr:		pointer to shim/ip/shim_vs space
++ * @instance_offset:	offset between each of @slcount instances managed by link
++ * @shim_offset:	offset to SHIM register base
++ * @ip_offset:		offset to IP register base
++ * @shim_vs_offset:	offset to vendor-specific (VS) SHIM base
++ */
++struct hdac_ext2_link {
++	struct hdac_ext_link hext_link;
++
++	/* read directly from LCAP register */
++	bool alt;
++	bool intc;
++	bool ofls;
++	bool lss;
++	int slcount;
++	int elid;
++	int elver;
++	u32 leptr;
++
++	struct mutex eml_lock; /* prevent concurrent access to e.g. CPA/SPA */
++
++	/* internal values computed from LCAP contents */
++	void __iomem *base_ptr;
++	u32 instance_offset;
++	u32 shim_offset;
++	u32 ip_offset;
++	u32 shim_vs_offset;
++};
++
++#define hdac_ext_link_to_ext2(h) container_of(h, struct hdac_ext2_link, hext_link)
++
++#define AZX_REG_SDW_INSTANCE_OFFSET			0x8000
++#define AZX_REG_SDW_SHIM_OFFSET				0x0
++#define AZX_REG_SDW_IP_OFFSET				0x100
++#define AZX_REG_SDW_VS_SHIM_OFFSET			0x6000
++
++/* only one instance supported */
++#define AZX_REG_INTEL_DMIC_SHIM_OFFSET			0x0
++#define AZX_REG_INTEL_DMIC_IP_OFFSET			0x100
++#define AZX_REG_INTEL_DMIC_VS_SHIM_OFFSET		0x6000
++
++#define AZX_REG_INTEL_SSP_INSTANCE_OFFSET		0x1000
++#define AZX_REG_INTEL_SSP_SHIM_OFFSET			0x0
++#define AZX_REG_INTEL_SSP_IP_OFFSET			0x100
++#define AZX_REG_INTEL_SSP_VS_SHIM_OFFSET		0xC00
++
++/* only one instance supported */
++#define AZX_REG_INTEL_UAOL_SHIM_OFFSET			0x0
++#define AZX_REG_INTEL_UAOL_IP_OFFSET			0x100
++#define AZX_REG_INTEL_UAOL_VS_SHIM_OFFSET		0xC00
++
++/* HDAML section - this part follows sequences in the hardware specification,
++ * including naming conventions and the use of the hdaml_ prefix.
++ * The code is intentionally minimal with limited dependencies on frameworks or
++ * helpers. Locking and scanning lists is handled at a higher level
++ */
++
++static int hdaml_lnk_enum(struct device *dev, struct hdac_ext2_link *h2link,
++			  void __iomem *ml_addr, int link_idx)
++{
++	struct hdac_ext_link *hlink = &h2link->hext_link;
++	u32 base_offset;
++
++	hlink->lcaps  = readl(ml_addr + AZX_REG_ML_LCAP);
++
++	h2link->alt = FIELD_GET(AZX_ML_HDA_LCAP_ALT, hlink->lcaps);
++
++	/* handle alternate extensions */
++	if (!h2link->alt) {
++		h2link->slcount = 1;
++
++		/*
++		 * LSDIID is initialized by hardware for HDaudio link,
++		 * it needs to be setup by software for alternate links
++		 */
++		hlink->lsdiid = readw(ml_addr + AZX_REG_ML_LSDIID);
++
++		dev_dbg(dev, "Link %d: HDAudio - lsdiid=%d\n",
++			link_idx, hlink->lsdiid);
++
++		return 0;
++	}
++
++	h2link->intc = FIELD_GET(AZX_ML_HDA_LCAP_INTC, hlink->lcaps);
++	h2link->ofls = FIELD_GET(AZX_ML_HDA_LCAP_OFLS, hlink->lcaps);
++	h2link->lss = FIELD_GET(AZX_ML_HDA_LCAP_LSS, hlink->lcaps);
++
++	/* read slcount (increment due to zero-based hardware representation */
++	h2link->slcount = FIELD_GET(AZX_ML_HDA_LCAP_SLCOUNT, hlink->lcaps) + 1;
++	dev_dbg(dev, "Link %d: HDAudio extended - sublink count %d\n",
++		link_idx, h2link->slcount);
++
++	/* find IP ID and offsets */
++	h2link->leptr = readl(hlink->ml_addr + AZX_REG_ML_LEPTR);
++
++	h2link->elid = FIELD_GET(AZX_REG_ML_LEPTR_ID, h2link->leptr);
++
++	base_offset = FIELD_GET(AZX_REG_ML_LEPTR_PTR, h2link->leptr);
++	h2link->base_ptr = hlink->ml_addr + base_offset;
++
++	switch (h2link->elid) {
++	case AZX_REG_ML_LEPTR_ID_SDW:
++		h2link->shim_offset = AZX_REG_SDW_SHIM_OFFSET;
++		h2link->ip_offset = AZX_REG_SDW_IP_OFFSET;
++		h2link->shim_vs_offset = AZX_REG_SDW_VS_SHIM_OFFSET;
++		dev_dbg(dev, "Link %d: HDAudio extended - SoundWire alternate link, leptr.ptr %#x\n",
++			link_idx, base_offset);
++		break;
++	case AZX_REG_ML_LEPTR_ID_INTEL_DMIC:
++		h2link->shim_offset = AZX_REG_INTEL_DMIC_SHIM_OFFSET;
++		h2link->ip_offset = AZX_REG_INTEL_DMIC_IP_OFFSET;
++		h2link->shim_vs_offset = AZX_REG_INTEL_DMIC_VS_SHIM_OFFSET;
++		dev_dbg(dev, "Link %d: HDAudio extended - INTEL DMIC alternate link, leptr.ptr %#x\n",
++			link_idx, base_offset);
++		break;
++	case AZX_REG_ML_LEPTR_ID_INTEL_SSP:
++		h2link->shim_offset = AZX_REG_INTEL_SSP_SHIM_OFFSET;
++		h2link->ip_offset = AZX_REG_INTEL_SSP_IP_OFFSET;
++		h2link->shim_vs_offset = AZX_REG_INTEL_SSP_VS_SHIM_OFFSET;
++		dev_dbg(dev, "Link %d: HDAudio extended - INTEL SSP alternate link, leptr.ptr %#x\n",
++			link_idx, base_offset);
++		break;
++	case AZX_REG_ML_LEPTR_ID_INTEL_UAOL:
++		h2link->shim_offset = AZX_REG_INTEL_UAOL_SHIM_OFFSET;
++		h2link->ip_offset = AZX_REG_INTEL_UAOL_IP_OFFSET;
++		h2link->shim_vs_offset = AZX_REG_INTEL_UAOL_VS_SHIM_OFFSET;
++		dev_dbg(dev, "Link %d: HDAudio extended - INTEL UAOL alternate link, leptr.ptr %#x\n",
++			link_idx, base_offset);
++		break;
++	default:
++		dev_err(dev, "Link %d: HDAudio extended - Unsupported alternate link, leptr.id=%#02x value\n",
++			link_idx, h2link->elid);
++		return -EINVAL;
++	}
++	return 0;
++}
++
++/* END HDAML section */
++
++static int hda_ml_alloc_h2link(struct hdac_bus *bus, int index)
++{
++	struct hdac_ext2_link *h2link;
++	struct hdac_ext_link *hlink;
++	int ret;
++
++	h2link  = kzalloc(sizeof(*h2link), GFP_KERNEL);
++	if (!h2link)
++		return -ENOMEM;
++
++	/* basic initialization */
++	hlink = &h2link->hext_link;
++
++	hlink->index = index;
++	hlink->bus = bus;
++	hlink->ml_addr = bus->mlcap + AZX_ML_BASE + (AZX_ML_INTERVAL * index);
++
++	ret = hdaml_lnk_enum(bus->dev, h2link, hlink->ml_addr, index);
++	if (ret < 0) {
++		kfree(h2link);
++		return ret;
++	}
++
++	mutex_init(&h2link->eml_lock);
++
++	list_add_tail(&hlink->list, &bus->hlink_list);
++
++	/*
++	 * HDaudio regular links are powered-on by default, the
++	 * refcount needs to be initialized.
++	 */
++	if (!h2link->alt)
++		hlink->ref_count = 1;
++
++	return 0;
++}
++
  int hda_bus_ml_get_capabilities(struct hdac_bus *bus)
  {
-@@ -34,6 +24,7 @@ int hda_bus_ml_get_capabilities(struct hdac_bus *bus)
- 		return snd_hdac_ext_bus_get_ml_capabilities(bus);
+-	if (bus->mlcap)
+-		return snd_hdac_ext_bus_get_ml_capabilities(bus);
++	u32 link_count;
++	int ret;
++	int i;
++
++	if (!bus->mlcap)
++		return 0;
++
++	link_count = readl(bus->mlcap + AZX_REG_ML_MLCD) + 1;
++
++	dev_dbg(bus->dev, "HDAudio Multi-Link count: %d\n", link_count);
++
++	for (i = 0; i < link_count; i++) {
++		ret = hda_ml_alloc_h2link(bus, i);
++		if (ret < 0) {
++			hda_bus_ml_free(bus);
++			return ret;
++		}
++	}
  	return 0;
  }
-+EXPORT_SYMBOL_NS(hda_bus_ml_get_capabilities, SND_SOC_SOF_HDA_MLINK);
- 
+ EXPORT_SYMBOL_NS(hda_bus_ml_get_capabilities, SND_SOC_SOF_HDA_MLINK);
+@@ -29,13 +236,17 @@ EXPORT_SYMBOL_NS(hda_bus_ml_get_capabilities, SND_SOC_SOF_HDA_MLINK);
  void hda_bus_ml_free(struct hdac_bus *bus)
  {
-@@ -47,6 +38,7 @@ void hda_bus_ml_free(struct hdac_bus *bus)
- 		kfree(hlink);
- 	}
- }
-+EXPORT_SYMBOL_NS(hda_bus_ml_free, SND_SOC_SOF_HDA_MLINK);
+ 	struct hdac_ext_link *hlink, *_h;
++	struct hdac_ext2_link *h2link;
  
- void hda_bus_ml_put_all(struct hdac_bus *bus)
- {
-@@ -55,6 +47,7 @@ void hda_bus_ml_put_all(struct hdac_bus *bus)
- 	list_for_each_entry(hlink, &bus->hlink_list, list)
- 		snd_hdac_ext_bus_link_put(bus, hlink);
- }
-+EXPORT_SYMBOL_NS(hda_bus_ml_put_all, SND_SOC_SOF_HDA_MLINK);
+ 	if (!bus->mlcap)
+ 		return;
  
- void hda_bus_ml_reset_losidv(struct hdac_bus *bus)
- {
-@@ -64,6 +57,7 @@ void hda_bus_ml_reset_losidv(struct hdac_bus *bus)
- 	list_for_each_entry(hlink, &bus->hlink_list, list)
- 		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
- }
-+EXPORT_SYMBOL_NS(hda_bus_ml_reset_losidv, SND_SOC_SOF_HDA_MLINK);
- 
- int hda_bus_ml_resume(struct hdac_bus *bus)
- {
-@@ -80,10 +74,14 @@ int hda_bus_ml_resume(struct hdac_bus *bus)
- 	}
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_bus_ml_resume, SND_SOC_SOF_HDA_MLINK);
- 
- int hda_bus_ml_suspend(struct hdac_bus *bus)
- {
- 	return snd_hdac_ext_bus_link_power_down_all(bus);
- }
-+EXPORT_SYMBOL_NS(hda_bus_ml_suspend, SND_SOC_SOF_HDA_MLINK);
- 
- #endif
+ 	list_for_each_entry_safe(hlink, _h, &bus->hlink_list, list) {
+ 		list_del(&hlink->list);
+-		kfree(hlink);
++		h2link = hdac_ext_link_to_ext2(hlink);
 +
-+MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 65389c7278e2..ac61233029b7 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -26,6 +26,7 @@
- #include <sound/intel-nhlt.h>
- #include <sound/sof.h>
- #include <sound/sof/xtensa.h>
-+#include <sound/hda-mlink.h>
- #include "../sof-audio.h"
- #include "../sof-pci-dev.h"
- #include "../ops.h"
-@@ -1647,3 +1648,4 @@ MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
- MODULE_IMPORT_NS(SND_INTEL_SOUNDWIRE_ACPI);
- MODULE_IMPORT_NS(SOUNDWIRE_INTEL_INIT);
- MODULE_IMPORT_NS(SOUNDWIRE_INTEL);
-+MODULE_IMPORT_NS(SND_SOC_SOF_HDA_MLINK);
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 259b34eea677..0e0cfa81a8f2 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -763,26 +763,6 @@ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
- 
- #endif
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--
--int hda_bus_ml_get_capabilities(struct hdac_bus *bus);
--void hda_bus_ml_free(struct hdac_bus *bus);
--void hda_bus_ml_put_all(struct hdac_bus *bus);
--void hda_bus_ml_reset_losidv(struct hdac_bus *bus);
--int hda_bus_ml_resume(struct hdac_bus *bus);
--int hda_bus_ml_suspend(struct hdac_bus *bus);
--
--#else
--
--static inline int hda_bus_ml_get_capabilities(struct hdac_bus *bus) { return 0; }
--static inline void hda_bus_ml_free(struct hdac_bus *bus) { }
--static inline void hda_bus_ml_put_all(struct hdac_bus *bus) { }
--static inline void hda_bus_ml_reset_losidv(struct hdac_bus *bus) { }
--static inline int hda_bus_ml_resume(struct hdac_bus *bus) { return 0; }
--static inline int hda_bus_ml_suspend(struct hdac_bus *bus) { return 0; }
--
--#endif /* CONFIG_SND_SOC_SOF_HDA */
--
- /*
-  * Trace Control.
-  */
++		mutex_destroy(&h2link->eml_lock);
++		kfree(h2link);
+ 	}
+ }
+ EXPORT_SYMBOL_NS(hda_bus_ml_free, SND_SOC_SOF_HDA_MLINK);
 -- 
 2.40.0
 

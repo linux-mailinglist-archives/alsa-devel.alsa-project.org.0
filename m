@@ -2,177 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8389B6CEF1B
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:18:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBCC16CEF1C
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:19:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D50B20B;
-	Wed, 29 Mar 2023 18:17:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D50B20B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 350A21F3;
+	Wed, 29 Mar 2023 18:18:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 350A21F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680106725;
-	bh=oFCahmshpTHUiFnA9gPWymTBnjdE8TxFh6lCWETv0Cs=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AtQIEZ6ykweQE1PWhbJp5nOWN9vgIPJMKoL0jv4z2oU+osgHTkru5inrugvk0H91j
-	 jTTVv0HA8Uk9gCEWWsog1uG9PfkCBfFaeUWeDVB0UU/YsuhzN6htwjEO+xEQLrtMhF
-	 45Laa0rTl0R6xo8htkXnd46ukPcjZOzFoLZe5q/8=
+	s=default; t=1680106747;
+	bh=chpTrOeL3OzfrnuLLsuaMyHKFzgbceT167nxXqy4zus=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uQVWRZb+GSkq9j1uhWLj2iF7Cv5p9dzWcKd3qiy810jTzCMXxOi4Y4WuG3JUgRf7x
+	 I2yLzMincoDKe1zyH48yoN4jSbIwtGfnZeqdTBPQ9aWnIpOx3piqd1vc1Ws6d8RfS4
+	 ZiEF1c7g9ry+Q++GwtsTopUwCzxOD5O3eL1369ZI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 628DAF805C2;
-	Wed, 29 Mar 2023 18:14:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 081E1F805C5;
+	Wed, 29 Mar 2023 18:14:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79982F80272; Mon, 27 Mar 2023 21:24:53 +0200 (CEST)
+	id C4BAFF80272; Mon, 27 Mar 2023 23:16:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 310FDF80114
-	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 21:24:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 310FDF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 49F7FF800C9
+	for <alsa-devel@alsa-project.org>; Mon, 27 Mar 2023 23:16:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F7FF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm3 header.b=Gbu8P4ud;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=SHHB4k7b
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailnew.nyi.internal (Postfix) with ESMTP id A10135821C9;
-	Mon, 27 Mar 2023 15:24:35 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute3.internal (MEProxy); Mon, 27 Mar 2023 15:24:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1679945075; x=1679952275; bh=rUuK9HXT1QKP+JaV2sHZBw1jLvvNj/LeTVl
-	Vzz2mgnE=; b=Gbu8P4udsMzoUHOjBbc5vfZkP8tmap7dDKr2UbNlg1rixDocDy1
-	FxnzMOf4IOE2QfpQC16ztGYJPxILJkIxjIgvAYZvE6YKh8ByrZaG/DwGgBebbWeR
-	u897wwvNEQblafmWFWlheo89ARPXU3Y8oogaRB7FitYdT+Ut11wADq6gdu2WovDh
-	Xkmp8I7I9FIQMArX6acMwEXaNFUqd2HKMXcH43MHmPOzshN26/iirV1eH6W3dVXI
-	8/qFTx4K/XYsgt3TO6s0Awb2KVJUO/QYpQYZyPru8lsOFL1AaMAGCylG/7RBI5k9
-	jN2zsyhGhjzCZHGorsCFbB/6Ikisoduw5rw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1679945075; x=1679952275; bh=rUuK9HXT1QKP+JaV2sHZBw1jLvvNj/LeTVl
-	Vzz2mgnE=; b=SHHB4k7bT/dpA/WpBJ4y6Me/WnLbpnFXIndTiaB8/gRhPh84gMh
-	BWWBeQ2XwYOIN72SfXrmMvw1Fp7uf/LOu2PSFypexIyJHggZzMGs7l6ee1zSHLSh
-	oDdQ+vdPBe9KNPXErhfHevDOs1nDqM2OVelCWFp97TAwMIVY0/2/h3xlmXqOtiYf
-	EVwH2yJfjFhnXvgqDRNyzHjPstZZOaYq3QFTE2qxYXpu0A46u0Mm1LUIMjT71nea
-	MN2+d/lsVf8chYLWOQNX2owgkOwLov/Ep9ne8iDdinid6yyrileqeAyQzZn48c9N
-	Q0qZYiL21tuinlqT4OtghVeAeGKaikoV2ow==
-X-ME-Sender: <xms:ce0hZIdM24euIGEUtoe65OkBtoRYVeI3ONUCSPWoGVW_5JO4kFnMXA>
-    <xme:ce0hZKP7isXAj98ojUZU3qfBX3AC7TN1qwun_tqjjRNsKWlTzcp_QsyECQ0whwQwo
-    rwnun8onbXM8eXunNI>
-X-ME-Received: 
- <xmr:ce0hZJju5UXKYf1ZB4-cgid8Z7MS1h-PShHiUVPZRgduIHmJvBnjnu1tYdV9>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrvdehvddgudefkecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtugfgjgesthhqredttddtvdenucfhrhhomhepofgr
-    gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
-    frrghtthgvrhhnpeetgfelgefggeekkefggfeludeiudffjeffgeevveekjedukedtudeu
-    teefteefgfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
-    hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:ce0hZN-SRmDaQe-0vFu3eAyHD4JPegYDiDKo-JQR5BGerdxYpxnFaQ>
-    <xmx:ce0hZEun2Gmy0YnOs-3_4-7t5O9t6z8MgMYrxxX_G44CPUvCVCr81Q>
-    <xmx:ce0hZEE5l3ugjz44F874HhjsOZZjibqjYjw1zy4XvsjTYlW2FEW9Yg>
-    <xmx:c-0hZFMocL39774IjxJ1l8UQZNiYw8FCE5ns7VU4Jf79p3npVDrKMQ>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 27 Mar 2023 15:24:32 -0400 (EDT)
-Date: Mon, 27 Mar 2023 21:24:30 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-Subject: Re: [PATCH v2 56/65] clk: ingenic: cgu: Switch to determine_rate
-Message-ID: <20230327192430.b2cp3yyrkzy4g4vw@penduick>
-References: <80VTKR.CE8RVN8M3ZYK3@crapouillou.net>
- <20221104145946.orsyrhiqvypisl5j@houat>
- <cp7Yh29ndlOOi1yW8KwCcpzoLPLxm1vR@localhost>
- <20221107085417.xrsh6xy3ouwdkp4z@houat>
- <ucJ6KSBqdPTxfxUQqLUr9C9RGiQRnY1I@localhost>
- <20221109110045.j24vwkaq3s4yzoy3@houat>
- <06a293adc75990ed3e297b076fc38d8a.sboyd@kernel.org>
- <xpKMzGb1sOsucWMTlJIMzrT5KjLlZ7JP@localhost>
- <20230324111959.frjf4neopbs67ugd@houat>
- <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=MwU8vqEn
+Received: by mail-pj1-x1035.google.com with SMTP id
+ l9-20020a17090a3f0900b0023d32684e7fso215370pjc.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 27 Mar 2023 14:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679951798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pHbx2+i6d7WFk9FZPMTqiI0CTx6nH8Bhl3pHJcsKVZI=;
+        b=MwU8vqEn95ASx7oGflXK9X6O7CvMq+dJHT/8wNlGJEgIUuVCnWuMTbT2OdcLTlEmcm
+         mxtm0N4DChvB/wumC6pK8m65JpVlEqbuBvGSlc38aBp9NEqQ2l0EG8SK3QhpN/Z6uRGO
+         u0StbdPeSmm/OllhbF76mrTyDKgJHeVNr+Mjqad+aoZyMTG4/ouRbzwlbJAr7FGpRSXj
+         OXxPvdg2g6QWiGHRs/icKkGNUi/MUcqt8iF6bE+spTQSOKyPQ52xvVrsw776iQGi5KAZ
+         UOLoFkl2fr1Jk36nuyktFNAJAO4r+ZfwC3/QOn6aopSeIhqINYqMzzSV1PjGN0HmZC+I
+         RMCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679951798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pHbx2+i6d7WFk9FZPMTqiI0CTx6nH8Bhl3pHJcsKVZI=;
+        b=MUaAIrYibntS6U8m1qLpF/ZCWRmSEk/BYv5STyEFXac16PAT+fq72xqL4FhujrMLad
+         YJCPddNKEvp5CMRZtoEjtapg0VIhVpu3KizajJsDuv4UX666NubwUxN7onZ6lUZ4apJR
+         d/ZWZuxaqoX0kIfP2DuGsxzHjfituL0SfQpmDtO3BGdm9G3UVH0c2IgwRVWnaPOQrAGj
+         q8kTqhRMzab5uiQS8Yh9tEwrfpiUNX/tYP9D0fmTWibhFLwDiiIg7WQ6EwdcrvBC70UE
+         Rwbd6ZMIAZfYg5bsuAvoIzYufSUXiM+I3V9mvivZzw8Oroad5S/YluRibnh5LRZpfVPo
+         tTcQ==
+X-Gm-Message-State: AAQBX9fBxEcRqF1ro4gerV+5OhBQnOrNS39HqkTgMtZui1XFb60j1s1u
+	Ndae2WI7XPrHLTqo9jcugf8=
+X-Google-Smtp-Source: 
+ AKy350YtYRsSrUBMMwteIyDuBFeHhB3bhAGF0ICkTYrV+gWx4xbh8tYmYsZ619XiDEAwYCsSYgmuMQ==
+X-Received: by 2002:a17:90a:ab01:b0:237:b4c0:e15b with SMTP id
+ m1-20020a17090aab0100b00237b4c0e15bmr13940176pjq.44.1679951797912;
+        Mon, 27 Mar 2023 14:16:37 -0700 (PDT)
+Received: from pavilion.. ([2402:e280:2146:a9a:db37:2c9f:dcb8:89a9])
+        by smtp.gmail.com with ESMTPSA id
+ j12-20020a17090aeb0c00b00230b8431323sm8020724pjz.30.2023.03.27.14.16.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Mar 2023 14:16:37 -0700 (PDT)
+From: Saalim Quadri <danascape@gmail.com>
+To: krzysztof.kozlowski@linaro.org,
+	daniel.baluta@nxp.com,
+	krzysztof.kozlowski+dt@linaro.org,
+	lgirdwood@gmail.com,
+	robh+dt@kernel.org
+Subject: [PATCH v4] ASoC: dt-bindings: alc5632: Convert to dtschema
+Date: Tue, 28 Mar 2023 02:46:29 +0530
+Message-Id: <20230327211629.28643-1-danascape@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <rTJKpeLOBeu3eOLW5z3P5fEpcOJJLrGs@localhost>
-X-MailFrom: maxime@cerno.tech
-X-Mailman-Rule-Hits: max-recipients
+Content-Transfer-Encoding: 8bit
+X-MailFrom: danascape@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF
-X-Message-ID-Hash: ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: TT7KIGVAXBDDBLEW5TRBYF5RQX3KSJ3V
+X-Message-ID-Hash: TT7KIGVAXBDDBLEW5TRBYF5RQX3KSJ3V
 X-Mailman-Approved-At: Wed, 29 Mar 2023 16:14:49 +0000
-CC: Stephen Boyd <sboyd@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Daniel Vetter <daniel@ffwll.ch>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Dinh Nguyen <dinguyen@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- Jonathan Hunter <jonathanh@nvidia.com>, Abel Vesa <abelvesa@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Orson Zhai <orsonzhai@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Samuel Holland <samuel@sholland.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Vinod Koul <vkoul@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Sekhar Nori <nsekhar@ti.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Takashi Iwai <tiwai@suse.com>,
- David Airlie <airlied@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Lechner <david@lechnology.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Mark Brown <broonie@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-stm32@st-md-mailman.stormreply.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- patches@opensource.cirrus.com, linux-tegra@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+CC: alsa-devel@alsa-project.org, broonie@kernel.org, danascape@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITVOFQWQDH2OJRY6UQIUQ7DDT6BT2FUF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TT7KIGVAXBDDBLEW5TRBYF5RQX3KSJ3V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -181,56 +118,139 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Mar 24, 2023 at 08:58:48PM +0000, Aidan MacDonald wrote:
-> >> My suggestion: add a per-clock bitmap to keep track of which parents
-> >> are allowed. Any operation that would select a parent clock not on the
-> >> whitelist should fail. Automatic reparenting should only select from
-> >> clocks on the whitelist. And we need new DT bindings for controlling
-> >> the whitelist, for example:
-> >>
-> >>     clock-parents-0 =3D <&clk1>, <&pll_c>;
-> >>     clock-parents-1 =3D <&clk2>, <&pll_a>, <&pll_b>;
-> >>
-> >> This means that clk1 can only have pll_c as a parent, while clk2 can
-> >> have pll_a or pll_b as parents. By default every clock will be able
-> >> to use any parent, so a list is only needed if the machine needs a
-> >> more restrictive policy.
-> >>
-> >> assigned-clock-parents should disable automatic reparenting, but allow
-> >> explicit clk_set_parent(). This will allow clock drivers to start doing
-> >> reparenting without breaking old DTs.
-> >
-> > I'm generally not a fan of putting all these policies in the device
-> > tree. Do you have an example where it wouldn't be possible to do exactly
-> > this from the driver itself?
->=20
-> I'm confused. What's implicit in the example is clk1 and clk2 might
-> have *other* possible choices of parent clock and the device tree is
-> limiting what the OS is allowed to choose.
->
-> Why would you put such arbitrary limitations into the driver?
+Convert the ALC5632 audio codec bindings to DT schema.
 
-Why would we put such arbitrary limitations in the firmware? As this
-entire thread can attest, people are already using the device tree to
-work around the limitations of the Linux driver, or reduce the
-features of Linux because they can rely on the device tree. Either
-way, it's linked to the state of the Linux driver, and any other OS or
-Linux version could very well implement something more dynamic.
+Signed-off-by: Saalim Quadri <danascape@gmail.com>
+---
+Changes:                                                          
+V1 -> V2: Use correct node name 
+V2 -> V3: Add correct maintainer name                   
+V3 -> V4: Drop alc5632 label name
 
-> They would be different from machine to machine, unless the clock
-> tree is so simple there is only *one* meaningful way to configure
-> it.
+ .../devicetree/bindings/sound/alc5632.txt     | 43 -------------
+ .../bindings/sound/realtek,alc5632.yaml       | 63 +++++++++++++++++++
+ 2 files changed, 63 insertions(+), 43 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/alc5632.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
 
-If we look at the device trees we have in-tree, most of the users of
-assigned-clocks are the same from one board to another.
+diff --git a/Documentation/devicetree/bindings/sound/alc5632.txt b/Documentation/devicetree/bindings/sound/alc5632.txt
+deleted file mode 100644
+index ffd886d110bd..000000000000
+--- a/Documentation/devicetree/bindings/sound/alc5632.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-ALC5632 audio CODEC
+-
+-This device supports I2C only.
+-
+-Required properties:
+-
+-  - compatible : "realtek,alc5632"
+-
+-  - reg : the I2C address of the device.
+-
+-  - gpio-controller : Indicates this device is a GPIO controller.
+-
+-  - #gpio-cells : Should be two. The first cell is the pin number and the
+-    second cell is used to specify optional parameters (currently unused).
+-
+-Pins on the device (for linking into audio routes):
+-
+-  * SPK_OUTP
+-  * SPK_OUTN
+-  * HP_OUT_L
+-  * HP_OUT_R
+-  * AUX_OUT_P
+-  * AUX_OUT_N
+-  * LINE_IN_L
+-  * LINE_IN_R
+-  * PHONE_P
+-  * PHONE_N
+-  * MIC1_P
+-  * MIC1_N
+-  * MIC2_P
+-  * MIC2_N
+-  * MICBIAS1
+-  * DMICDAT
+-
+-Example:
+-
+-alc5632: alc5632@1e {
+-	compatible = "realtek,alc5632";
+-	reg = <0x1a>;
+-
+-	gpio-controller;
+-	#gpio-cells = <2>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml b/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
+new file mode 100644
+index 000000000000..fb05988ff7ea
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/realtek,alc5632.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/realtek,alc5632.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ALC5632 audio CODEC
++
++description: |
++  Pins on the device (for linking into audio routes):
++      * SPK_OUTP
++      * SPK_OUTN
++      * HP_OUT_L
++      * HP_OUT_R
++      * AUX_OUT_P
++      * AUX_OUT_N
++      * LINE_IN_L
++      * LINE_IN_R
++      * PHONE_P
++      * PHONE_N
++      * MIC1_P
++      * MIC1_N
++      * MIC2_P
++      * MIC2_N
++      * MICBIAS1
++      * DMICDAT
++
++maintainers:
++  - Leon Romanovsky <leon@leon.nu>
++
++properties:
++  compatible:
++    const: realtek,alc5632
++
++  reg:
++    maxItems: 1
++
++  '#gpio-cells':
++    const: 2
++
++  gpio-controller: true
++
++required:
++  - compatible
++  - reg
++  - '#gpio-cells'
++  - gpio-controller
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        codec@1a {
++            compatible = "realtek,alc5632";
++            reg = <0x1a>;
++            gpio-controller;
++            #gpio-cells = <2>;
++        };
++    };
+-- 
+2.34.1
 
-> Most SoCs are complicated enough that there will be tradeoffs
-> depending on what peripherals you are using (typically a single
-> machine will not use *every* peripheral device provided by the SoC).
-
-We already have APIs to lock parents or rates on a given clock from
-the consumer. It's far superior (feature-wise) than what the device
-tree will ever offer because it's code, and it depends on the usage
-already since an unused driver won't probe.
-
-Maxime

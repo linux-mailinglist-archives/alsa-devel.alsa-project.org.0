@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 519896CBC7A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:24:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DCEA6CBC9E
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:36:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B48D1EE;
-	Tue, 28 Mar 2023 12:23:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B48D1EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5FB91F0;
+	Tue, 28 Mar 2023 12:35:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5FB91F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679999081;
-	bh=Geahv+dwmJea+gJ1RquT1QpcjFoZC1hMncJ+5QUhhUY=;
+	s=default; t=1679999769;
+	bh=9+VfIAZcVCip9jC3+d+kyhpcs5Fk+I9d7G8G4kmuTTw=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YpqSpRbOAHjHhkdtp/QbqQaosHjyVQ9b8dlsm3NPg8pWhyW6CjbzD4OO6VOWF+8pg
-	 XEize3dhfNxzEFtvMA84csx1FAh9B3ki4qIn78EaTb4019nNra6VvKbknR+A+5YNtC
-	 nGYfCMpRtgt4y9/+QYKJjxzl2UXXMOXFTqVfHKL0=
+	b=a6nGHr01eRcF/JljrYlIL/R1Zj1AXXkZzX1IHQzDt+P6UsFH3p46UfwJeaB7lJUT8
+	 alDa7jIkLWRXCk1ZVRZ8k4Bxs+xfg8CsCfL8miDcGFecy8bmE5n2J/al0d990M6ifX
+	 L3uzY+xwKzVyXAua5KEKq0pJLue0SU28+KVDCpls=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9329AF8024E;
-	Tue, 28 Mar 2023 12:23:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00347F8024E;
+	Tue, 28 Mar 2023 12:35:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5588F80272; Tue, 28 Mar 2023 12:23:46 +0200 (CEST)
+	id 0545BF80272; Tue, 28 Mar 2023 12:35:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9627BF80249
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:23:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9627BF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84CE8F80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:35:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84CE8F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=C1ITgizD
+ header.s=Intel header.b=PdJDWqqG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679999022; x=1711535022;
+  t=1679999708; x=1711535708;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=Geahv+dwmJea+gJ1RquT1QpcjFoZC1hMncJ+5QUhhUY=;
-  b=C1ITgizD9t6YDcfkeBj75yleOgrCgbz6ooFSxyZgWJoNu4DoRyXnub8C
-   o1BrjcRyXYWL6zLPDqqenGYAb29dVSyj3T5Al5lvq//4yri6ZITND85Ce
-   U2SRC/Z1HrqKqUIXDCkEYgM3/d9vXWcy8kEWcyO1sXLgLPtjNpOgmI8gq
-   9uKJNb89yskHcMcHgYnb4pcuExbBM6dQH41aEiONhwcZt0pLpS8lUn9A1
-   OAHvfRsdDAC2x92yWEjGWtnJ4fwDP+W9t6SF2ulY6YEqhZ28qD51piRZe
-   ziOOF2a/0sgq3FAQ/mOE7S5as/sPydlybBX5662nrb5XgQ3Johd3pFth1
+  bh=9+VfIAZcVCip9jC3+d+kyhpcs5Fk+I9d7G8G4kmuTTw=;
+  b=PdJDWqqGQGHQmET9uc7rp9xUp3GvcPDwMNSipoi2ZnyZD9yIbAN8h9Qr
+   OI4hK6diXjBVKCZFk+1RhOYDSw64VJRL+K1cbwrZsLfj+p2bVEqmRvAYj
+   gO+NaubCjiWT8EpCTFZQutJuirsO+Bu1zcDqd7bo5pAH2CARN2O3xHQfR
+   7EyTgmwlfukSTK9TVcRU8aVnioHV71iVBTkNFKM+tPNJAdQ0YKNrWjLeL
+   l5VyEfauMuNniMONxhjYaD2vIuOVqHudrFNf/lQtyRoz8TIMcpZjSiwkp
+   alPYp8+i6qxBbWNWTVmg/ovW0wGuZ/8n0MH/oNVf5xJpQNBe+GCk9WUTk
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="403140847"
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="426794516"
 X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
-   d="scan'208";a="403140847"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 03:23:39 -0700
+   d="scan'208";a="426794516"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 03:34:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="716444819"
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="686379180"
 X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
-   d="scan'208";a="716444819"
+   d="scan'208";a="686379180"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
  ([10.99.16.144])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 03:23:35 -0700
-Message-ID: <2c15c579-c62d-b972-0b56-a3632e767132@linux.intel.com>
-Date: Tue, 28 Mar 2023 12:23:33 +0200
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 03:34:34 -0700
+Message-ID: <cc5a4267-f050-c311-5d56-a2e7cfe7e747@linux.intel.com>
+Date: Tue, 28 Mar 2023 12:34:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH v2] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic
- topology
+Subject: Re: [PATCH 08/18] ASoC: SOF: Intel: hda-mlink: introduce helpers for
+ 'extended links' PM
 Content-Language: en-US
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20230328092854.156478-1-shumingf@realtek.com>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, tiwai@suse.de, perex@perex.cz
+References: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
+ <20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
 From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230328092854.156478-1-shumingf@realtek.com>
+In-Reply-To: <20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3
-X-Message-ID-Hash: ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW
+X-Message-ID-Hash: CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,15 +93,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- pierre-louis.bossart@intel.com, bard.liao@intel.com, Yijun.Shen@dell.com
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,110 +110,106 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 3/28/2023 11:28 AM, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
+On 3/27/2023 1:29 PM, Peter Ujfalusi wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> This is the initial codec driver for rt712 SDCA (Mic topology).
-> The host should connect with rt712 SdW2 interface.
+> Add helpers to program SPA/CPA bits, using a mutex to access the
+> shared LCTL register if required.
 > 
-> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+> All links are managed with the same LCTLx.SPA bits. However there are
+> quite a few implementation details to be aware of:
+> 
+> Legacy HDaudio multi-links are powered-up when exiting reset, which
+> requires the ref_count to be manually set to one when initializing the
+> link.
+> 
+> Alternate links for SoundWire/DMIC/SSP need to be explicitly
+> powered-up before accessing the SHIM/IP/Vendor-Specific SHIM space for
+> each sublink. DMIC/SSP/SoundWire are all different cases with a
+> different device/dai/hlink relationship.
+> 
+> SoundWire will handle power management with the auxiliary device
+> resume/suspend routine. The ref_count is not necessary in this case.
+> 
+> The DMIC/SSP will by contrast handle the power management from DAI
+> .startup and .shutdown callbacks.
+> 
+> The SSP has a 1:1 mapping between sublink and DAI, but it's
+> bidirectional so the ref_count will help avoid turning off the sublink
+> when one of the two directions is still in use.
+> 
+> The DMIC has a single link but two DAIs for data generated at
+> different sampling frequencies, again the ref_count will make sure the
+> two DAIs can be used concurrently.
+> 
+> And last the SoundWire Intel require power-up/down and bank switch to
+> be handled with a lock already taken, so the 'eml_lock' is made
+> optional with the _unlocked versions of the helpers.
+> 
+> Note that the _check_power_active() implementation is similar to
+> previous helpers in sound/hda/ext, with sleep duration and timeout
+> aligned with hardware recommendations. If desired, this helper could
+> be modified in a second step with .e.g. readl_poll_timeout()
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Rander Wang <rander.wang@intel.com>
+> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 > ---
->   sound/soc/codecs/Kconfig           |   7 +
->   sound/soc/codecs/Makefile          |   2 +
->   sound/soc/codecs/rt712-sdca-dmic.c | 991 +++++++++++++++++++++++++++++
->   sound/soc/codecs/rt712-sdca-dmic.h | 106 +++
->   4 files changed, 1106 insertions(+)
->   create mode 100644 sound/soc/codecs/rt712-sdca-dmic.c
->   create mode 100644 sound/soc/codecs/rt712-sdca-dmic.h
+>   include/sound/hda-mlink.h       |  32 +++++++
+>   sound/soc/sof/intel/hda-mlink.c | 163 ++++++++++++++++++++++++++++++++
+>   2 files changed, 195 insertions(+)
 > 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index 03630d13d35f..8d41fc509637 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -203,6 +203,7 @@ config SND_SOC_ALL_CODECS
->   	imply SND_SOC_RT711_SDW
->   	imply SND_SOC_RT711_SDCA_SDW
->   	imply SND_SOC_RT712_SDCA_SDW
-> +	imply SND_SOC_RT712_SDCA_DMIC_SDW
->   	imply SND_SOC_RT715_SDW
->   	imply SND_SOC_RT715_SDCA_SDW
->   	imply SND_SOC_RT1308_SDW
-> @@ -1521,6 +1522,12 @@ config SND_SOC_RT712_SDCA_SDW
->   	select REGMAP_SOUNDWIRE
->   	select REGMAP_SOUNDWIRE_MBQ
+
+...
+
+> diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
+> index 90b68ae2564c..4cfef4007d0c 100644
+> --- a/sound/soc/sof/intel/hda-mlink.c
+> +++ b/sound/soc/sof/intel/hda-mlink.c
+> @@ -170,6 +170,68 @@ static int hdaml_lnk_enum(struct device *dev, struct hdac_ext2_link *h2link,
+>   	return 0;
+>   }
 >   
-> +config SND_SOC_RT712_SDCA_DMIC_SDW
-> +	tristate "Realtek RT712 SDCA DMIC Codec - SDW"
-> +	depends on SOUNDWIRE
-> +	select REGMAP_SOUNDWIRE
-> +	select REGMAP_SOUNDWIRE_MBQ
+> +/*
+> + * Hardware recommendations are to wait ~10us before checking any hardware transition
+> + * reported by bits changing status.
+> + * This value does not need to be super-precise, a slack of 5us is perfectly acceptable.
+> + * The worst-case is about 1ms before reporting an issue
+> + */
+> +#define HDAML_POLL_DELAY_MIN_US 10
+> +#define HDAML_POLL_DELAY_SLACK_US 5
+> +#define HDAML_POLL_DELAY_RETRY  100
 > +
->   config SND_SOC_RT715
->   	tristate
->   
-> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-> index 25ebce58a0ba..dac48236db02 100644
-> --- a/sound/soc/codecs/Makefile
-> +++ b/sound/soc/codecs/Makefile
-> @@ -233,6 +233,7 @@ snd-soc-rt700-objs := rt700.o rt700-sdw.o
->   snd-soc-rt711-objs := rt711.o rt711-sdw.o
->   snd-soc-rt711-sdca-objs := rt711-sdca.o rt711-sdca-sdw.o
->   snd-soc-rt712-sdca-objs := rt712-sdca.o rt712-sdca-sdw.o
-> +snd-soc-rt712-sdca-dmic-objs := rt712-sdca-dmic.o
->   snd-soc-rt715-objs := rt715.o rt715-sdw.o
->   snd-soc-rt715-sdca-objs := rt715-sdca.o rt715-sdca-sdw.o
->   snd-soc-rt9120-objs := rt9120.o
-> @@ -601,6 +602,7 @@ obj-$(CONFIG_SND_SOC_RT700)     += snd-soc-rt700.o
->   obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
->   obj-$(CONFIG_SND_SOC_RT711_SDCA_SDW)     += snd-soc-rt711-sdca.o
->   obj-$(CONFIG_SND_SOC_RT712_SDCA_SDW)     += snd-soc-rt712-sdca.o
-> +obj-$(CONFIG_SND_SOC_RT712_SDCA_DMIC_SDW)     += snd-soc-rt712-sdca-dmic.o
->   obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
->   obj-$(CONFIG_SND_SOC_RT715_SDCA_SDW)     += snd-soc-rt715-sdca.o
->   obj-$(CONFIG_SND_SOC_RT9120)	+= snd-soc-rt9120.o
-> diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
-> new file mode 100644
-> index 000000000000..e5d765d84369
-> --- /dev/null
-> +++ b/sound/soc/codecs/rt712-sdca-dmic.c
-> @@ -0,0 +1,991 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +//
-> +// rt712-sdca-dmic.c -- rt712 SDCA DMIC ALSA SoC audio driver
-> +//
-> +// Copyright(c) 2023 Realtek Semiconductor Corp.
-> +//
-> +//
+> +static int check_power_active(u32 __iomem *lctl, int sublink, bool enable)
+
+Should last argument be named 'active' instead of 'enable'? It would 
+make more sense to me.
+
+> +{
+> +	int mask = BIT(sublink) << AZX_ML_LCTL_CPA_SHIFT;
+> +	int retry = HDAML_POLL_DELAY_RETRY;
+> +	u32 val;
 > +
-> +#include <linux/bitops.h>
-> +#include <sound/core.h>
-> +#include <linux/device.h>
-> +#include <linux/delay.h>
-> +#include <linux/init.h>
-> +#include <sound/initval.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/moduleparam.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/pm_runtime.h>
-> +#include <sound/pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <linux/soundwire/sdw_registers.h>
-> +#include <linux/slab.h>
-> +#include <sound/soc-dapm.h>
-> +#include <sound/tlv.h>
-
-Ordering of those includes seems bit weird to me, can't you include 
-sound/ ones after linux/ ones?
-
-And a bit of nitpicking linux/moduleparam.h seems redundant if you 
-include linux/module.h
-
-And I'm not sure why do you need linux/delay.h, I don't see any *sleep 
-or *delay functions in the patch?
-
-> +#include "rt712-sdca.h"
-> +#include "rt712-sdca-dmic.h"
+> +	usleep_range(HDAML_POLL_DELAY_MIN_US,
+> +		     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
+> +	do {
+> +		val = readl(lctl);
+> +		if (enable) {
+> +			if (val & mask)
+> +				return 0;
+> +		} else {
+> +			if (!(val & mask))
+> +				return 0;
+> +		}
+> +		usleep_range(HDAML_POLL_DELAY_MIN_US,
+> +			     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
+> +
+> +	} while (--retry);
+> +
+> +	return -EIO;
+> +}
 > +
 
 ...

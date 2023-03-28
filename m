@@ -2,108 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A58166CB912
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 10:08:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7F66CB944
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 10:23:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E17D1EB;
-	Tue, 28 Mar 2023 10:07:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E17D1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E4781EE;
+	Tue, 28 Mar 2023 10:22:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E4781EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679990883;
-	bh=4aU5YsDQVuPNXUfEODsG5OYhMvrBMofnFamF1POnBPs=;
+	s=default; t=1679991798;
+	bh=mBO9ClON7j0/dTXAUPkIWLugX+L8ai2U7x/x859rrN0=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kmOyKhWhLlm9xYEOvP8qEURlN1amDz+U7JvXZ3ucJD+GTpR4i4wwDFQZyLIZGv6G/
-	 bDtiAu1SWKAMcQ7TufHLrWkDfOSXYue6fue+5clyFMGWkhUqBPQrHSC3RZO4xJU8IL
-	 yWOuINtv9+dHkAFzMvTNjcrJqy9oVzoTygl3CJFg=
+	b=cE+Yym49LZ4AV1fAn/75uvz5XW/ouCLUnNp2s2GhnURM0ZRdNkGAahfecskXcJgNp
+	 gOn1q/2FEuf2AKODu5mfYTxO8CW2G1oxe963+oI7V/IIPG12cPh9ydHdA08VXU3Aba
+	 aRG7YLq3zyWJt2raShxmdc5OS1Xash+mLFt0FYeI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8005F8024E;
-	Tue, 28 Mar 2023 10:07:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 919C0F8024E;
+	Tue, 28 Mar 2023 10:22:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BB86F80272; Tue, 28 Mar 2023 10:07:06 +0200 (CEST)
+	id 3917DF80272; Tue, 28 Mar 2023 10:22:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3D3EF80249
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 10:06:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D3EF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C7FAF80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 10:22:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C7FAF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=j6ycI3Kt
-Received: by mail-ed1-x530.google.com with SMTP id w9so46124120edc.3
+ header.s=google header.b=nbVgsIqD
+Received: by mail-ed1-x52c.google.com with SMTP id b20so46284996edd.1
         for <alsa-devel@alsa-project.org>;
- Tue, 28 Mar 2023 01:06:47 -0700 (PDT)
+ Tue, 28 Mar 2023 01:22:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679990805;
+        d=linaro.org; s=google; t=1679991731;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VyF2OqvnXBD6NyaUZpw1o6ca+S8z8pOJepbtCtI7p8Y=;
-        b=j6ycI3Kt6mgu6WTquTNZrmOtTP2SlDHhUefx7XNEJFAlllQuZWc5EylnPFsbis9QdP
-         9iW3epMZlPtkh4aUU1EOO3CsFtptDflNyjbydK7KWdnyUkTRa0wMQen2RqN5M886UJzJ
-         BcwKGnTNalL+PnnyRB8Iw7B7laorNNQgalMam7vbAjhSTVCEyxgzP2ygJNGcBIwL8rrl
-         Nsqv8b/aHGvTeaqwlVAuyVt5/DLV2gbk42fQOzfGC7CcxFP+gjHjvZqVQvGD8UCpZofj
-         0KRI+JV1itZiBvKXN6D5kySI0KFuaAKzy/1Ug52ouicKxvU+ncG9elCk51/xIr0jtpy/
-         355Q==
+        bh=TjLk7s/ILNPy05fW3mtB8q+T3+ZfJadYGXeEI//OHA4=;
+        b=nbVgsIqDmhYjo2zpI1NxF9G7P13ZUCoomofgad9VxdCmVGj6Nu3tBawyjCSeRg1jxG
+         VfmoFSaRMJgNmxHFUVX94hkTRg6MBrIBXssSDToYHfi4JpviP6q2Mi8s6G7SWIg8MNFD
+         TWxJUDigcLS9p/mKxugg4jOd6JbZDVbtlVCUg0ngqdgG87zhDsgJIKkRTgU2EEG/uw1e
+         hf4nwVFHC6l69V4pdCKqi9jwACf/df8FDrNXCyAjPoLOwsEqZcGND0g3S4oCTwv/UaKZ
+         z7VWSxEG6gxsUK3WjBOm99ekdolfW75Wp80rZDW8hgXqd8iiBX0qGdU4j1PVjndDzS51
+         yEDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679990805;
+        d=1e100.net; s=20210112; t=1679991731;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VyF2OqvnXBD6NyaUZpw1o6ca+S8z8pOJepbtCtI7p8Y=;
-        b=z25iGJWPj/ZsOyDuGKdFVzL5QjPfJiVY6BQcUetZ3OJ3kt1T9sBtbsF8iMiKFlG66A
-         Y4SKEa+tWkXIDUjIpumqUhLqGnJfozOqEbsPKk+4Ek+D2PhZoZAodSn6Dvtl9rPzJxfP
-         fCyVT+UPbqwlv/UdIVkfH8upIPDzvylGaNpygS1eWFi3LoWIYUPmPNT2d/NVO2uEU42d
-         HT2VwGN7nN2eEVAN1KME2rkNjkvyzWTsI8CeUKfDvCzc5HuiVtKWdD5Y83OgouQHF/Oj
-         TFMMS62oRtppDDix3ieXZZghkDrtKsG32nFvxZYYX4iuQrvk9fVM4LjCyFCqbjwvv74C
-         PewQ==
-X-Gm-Message-State: AAQBX9e3VadJU6niYgj6uhqqX0QlslE1UL+1nX5ScxEK1rqlvVnffzf4
-	8MQLRAmGb6kwfw6WN70OeaHPEA==
+        bh=TjLk7s/ILNPy05fW3mtB8q+T3+ZfJadYGXeEI//OHA4=;
+        b=tNoZHQ7JavYc6zy9cNkENPSg+wELh5guSjRB54hOfUHD8pA3YoS3fPg5w0Cy3tWdwz
+         45zri9Ck/4ley9j7tGMTLSqO+p04ZrjGSVItsBIg1hyaoijOar7loeMd98YXZfluUgSi
+         PIGJgy5TemfbaqPQzIv4/xXE6ipObhsclt1ckd4GVlbVaGRe3ZCJZ2xyyTyI+jWipLhN
+         cAwcC/EgOr5iODWH7Hx6EiTrJS2cKNjcoG4YWLZ1b+MozscifpRsusaOo4+pMZsw1Q7B
+         1EHr+fJ2IY45vsQxLXi9QOIRcyHsfl/V7O4rU8o3LU3wRzFnNTtS9/ElgtwF1Dw03yB0
+         tEVw==
+X-Gm-Message-State: AAQBX9fUvBKh6Egl72hDUsoc2IcKKzR4Ua5/rR7IbnfbywTFhm/v8LDf
+	mgj0HZQmYzRDgrhT7M27QhivgQ==
 X-Google-Smtp-Source: 
- AKy350Y6GOi3awN4oHd3MDvKCOcYgqq2rVYVRnK9rFawD570hz6iS9fbvtK4Yq5LHDk6d8WEcNcH0A==
-X-Received: by 2002:aa7:c1ce:0:b0:502:1f0d:140b with SMTP id
- d14-20020aa7c1ce000000b005021f0d140bmr14733894edp.11.1679990805474;
-        Tue, 28 Mar 2023 01:06:45 -0700 (PDT)
+ AKy350bZ4edHuT+xY2SDY2CDRsHlxVx3YYIulDNRVyIMWIfCBo1UlW2mN+FmnKM1kDtckc9i+joyjQ==
+X-Received: by 2002:aa7:c249:0:b0:4fb:395a:6aa4 with SMTP id
+ y9-20020aa7c249000000b004fb395a6aa4mr14791797edo.31.1679991730921;
+        Tue, 28 Mar 2023 01:22:10 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:9e92:dca6:241d:71b6?
  ([2a02:810d:15c0:828:9e92:dca6:241d:71b6])
         by smtp.gmail.com with ESMTPSA id
- c25-20020a50f619000000b004bd6e3ed196sm15751194edn.86.2023.03.28.01.06.44
+ r12-20020a50c00c000000b00501d2f10d19sm11134313edb.20.2023.03.28.01.22.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Mar 2023 01:06:45 -0700 (PDT)
-Message-ID: <ddd7bc0b-7ec0-ee4b-7872-fe03dcf69b86@linaro.org>
-Date: Tue, 28 Mar 2023 10:06:43 +0200
+        Tue, 28 Mar 2023 01:22:10 -0700 (PDT)
+Message-ID: <0a77e40f-1b6a-38ed-78df-9259959fd2c1@linaro.org>
+Date: Tue, 28 Mar 2023 10:22:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH v4 1/5] dt-bindings: mfd: Add the Lantiq PEF2256 E1/T1/J1
- framer
+Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4458: Convert to dtschema
 Content-Language: en-US
-To: Herve Codina <herve.codina@bootlin.com>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20230328074811.594361-1-herve.codina@bootlin.com>
- <20230328074811.594361-2-herve.codina@bootlin.com>
+To: Saalim Quadri <danascape@gmail.com>, broonie@kernel.org,
+ daniel.baluta@nxp.com, krzysztof.kozlowski+dt@linaro.org,
+ robh+dt@kernel.org, shengjiu.wang@nxp.com
+References: <20230327213250.29199-1-danascape@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230328074811.594361-2-herve.codina@bootlin.com>
+In-Reply-To: <20230327213250.29199-1-danascape@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OALR24VNRJJUFBVBSKZS47JNNNBDFYY2
-X-Message-ID-Hash: OALR24VNRJJUFBVBSKZS47JNNNBDFYY2
+Message-ID-Hash: 27Y26YPP7A2LP6JV6SESZ2JD36RNV5GM
+X-Message-ID-Hash: 27Y26YPP7A2LP6JV6SESZ2JD36RNV5GM
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,15 +107,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OALR24VNRJJUFBVBSKZS47JNNNBDFYY2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/27Y26YPP7A2LP6JV6SESZ2JD36RNV5GM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,231 +123,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28/03/2023 09:48, Herve Codina wrote:
-> The Lantiq PEF2256 is a framer and line interface component designed to
-> fulfill all required interfacing between an analog E1/T1/J1 line and the
-> digital PCM system highway/H.100 bus.
+On 27/03/2023 23:32, Saalim Quadri wrote:
+> Convert the AK4458 audio DAC bindings to DT schema.
 > 
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Saalim Quadri <danascape@gmail.com>
 > ---
->  .../bindings/mfd/lantiq,pef2256.yaml          | 270 ++++++++++++++++++
->  1 file changed, 270 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mfd/lantiq,pef2256.yaml
-
-
-> +  pinctrl:
-> +    $ref: /schemas/pinctrl/pinctrl.yaml#
+> Changes:
+> V1 -> V2: Use the correct way for dsd-path property
+>           Drop ak4458 label form example
+> V2 -> V3: ak4458 is the only one that does not support dsd-path, so we
+>           do not require to define an array
+> 
+>  .../devicetree/bindings/sound/ak4458.txt      | 28 --------
+>  .../bindings/sound/asahi-kasei,ak4458.yaml    | 65 +++++++++++++++++++
+>  2 files changed, 65 insertions(+), 28 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/ak4458.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/ak4458.txt b/Documentation/devicetree/bindings/sound/ak4458.txt
+> deleted file mode 100644
+> index 0416c14895d6..000000000000
+> --- a/Documentation/devicetree/bindings/sound/ak4458.txt
+> +++ /dev/null
+> @@ -1,28 +0,0 @@
+> -AK4458 audio DAC
+> -
+> -This device supports I2C mode.
+> -
+> -Required properties:
+> -
+> -- compatible : "asahi-kasei,ak4458" or "asahi-kasei,ak4497"
+> -- reg : The I2C address of the device for I2C
+> -
+> -Optional properties:
+> -- reset-gpios: A GPIO specifier for the power down & reset pin
+> -- mute-gpios: A GPIO specifier for the soft mute pin
+> -- AVDD-supply: Analog power supply
+> -- DVDD-supply: Digital power supply
+> -- dsd-path: Select DSD input pins for ak4497
+> -            0: select #16, #17, #19 pins
+> -            1: select #3, #4, #5 pins
+> -
+> -Example:
+> -
+> -&i2c {
+> -	ak4458: dac@10 {
+> -		compatible = "asahi-kasei,ak4458";
+> -		reg = <0x10>;
+> -		reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>
+> -		mute-gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
+> new file mode 100644
+> index 000000000000..3842e75d9921
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/asahi-kasei,ak4458.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +    patternProperties:
-> +      '-pins$':
-> +        type: object
-> +        $ref: /schemas/pinctrl/pincfg-node.yaml#
+> +title: AK4458 audio DAC
 > +
-> +        properties:
-> +          pins:
-> +            enum: [ RPA, RPB, RPC, RPD, XPA, XPB, XPC, XPD ]
+> +maintainers:
+> +  - Shengjiu Wang <shengjiu.wang@nxp.com>
 > +
-> +          function:
-> +            enum: [ SYPR, RFM, RFMB, RSIGM, RSIG, DLR, FREEZE, RFSP, LOS,
-> +                    SYPX, XFMS, XSIG, TCLK, XMFB, XSIGM, DLX, XCLK, XLT,
-> +                    GPI, GPOH, GPOL ]
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - asahi-kasei,ak4458
+> +      - asahi-kasei,ak4497
 > +
-> +        additionalProperties: false
-
-Move it up (Put it after $ref: /schemas/pinctrl/pincfg-node.yaml#)
-
+> +  reg:
+> +    maxItems: 1
 > +
-> +        required:
-> +          - pins
-> +          - function
+> +  avdd-supply:
+> +    description: Analog power supply
 > +
-> +    additionalProperties: false
-
-Put it after $ref
-
-
+> +  dvdd-supply:
+> +    description: Digital power supply
 > +
-> +  lantiq,line-interface:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum: [e1, t1j1]
-> +    default: e1
-> +    description: |
-> +      The line interface type
-> +        - e1: E1 line
-> +        - t1j1: T1/J1 line
+> +  reset-gpios:
+> +    maxItems: 1
 > +
-> +  lantiq,frame-format:
-> +    $ref: /schemas/types.yaml#/definitions/string
+> +  mute-gpios:
+> +    maxItems: 1
 > +    description:
-> +      The line interface frame format.
-> +
-> +  lantiq,data-rate-bps:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [2048000, 4096000, 8192000, 16384000]
-> +    default: 2048000
-> +    description:
-> +      Data rate (bit per seconds) on the system highway.
-> +
-> +  lantiq,clock-falling-edge:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      Data is sent on falling edge of the clock (and received on the rising
-> +      edge). If 'clock-falling-edge' is not present, data is sent on the
-> +      rising edge (and received on the falling edge).
-> +
-> +  lantiq,channel-phase:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1, 2, 3, 4, 5, 6, 7]
-> +    default: 0
-> +    description:
-> +      The pef2256 delivers a full frame (32 8bit time-slots in E1 and 24 8bit
-> +      time-slots 8 8bit signaling in E1/J1) every 125us. This lead to a data
-> +      rate of 2048000 bit/s. When lantiq,data-rate-bps is more than 2048000
-> +      bit/s, the data (all 32 8bit) present in the frame are interleave with
-> +      unused time-slots. The lantiq,channel-phase property allows to set the
-> +      correct alignment of the interleave mechanism.
-> +      For instance, suppose lantiq,data-rate-bps = 8192000 (ie 4*2048000), and
-> +      lantiq,channel-phase = 2, the interleave schema with unused time-slots
-> +      (nu) and used time-slots (XX) for TSi is
-> +        nu nu XX nu nu nu XX nu nu nu XX nu
-> +        <-- TSi --> <- TSi+1 -> <- TSi+2 ->
-> +      With lantiq,data-rate-bps = 8192000, and lantiq,channel-phase = 1, the
-> +      interleave schema is
-> +        nu XX nu nu nu XX nu nu nu XX nu nu
-> +        <-- TSi --> <- TSi+1 -> <- TSi+2 ->
-> +      With lantiq,data-rate-bps = 4096000 (ie 2*2048000), and
-> +      lantiq,channel-phase = 1, the interleave schema is
-> +        nu    XX    nu    XX    nu    XX
-> +        <-- TSi --> <- TSi+1 -> <- TSi+2 ->
-> +
-> +  lantiq,subordinate:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      If present, the pef2256 works in subordinate mode. In this mode it
-> +      synchronizes on line interface clock signals. Otherwise, it synchronizes
-> +      on internal clocks.
-> +
-> +patternProperties:
-> +  '^codec([0-9]|[1-2][0-9]|3[0-1])?$':
+> +      GPIO used to mute all the outputs
 
-Missing '-' before suffix numbers.
+What happened to dsd-path? Do not remove properties from the bindings
+without some valid reason.
 
-> +    type: object
-> +    $ref: /schemas/sound/dai-common.yaml
-> +    description:
-> +      Codec provided by the pef2256. This codec allows to use some of the PCM
-> +      system highway time-slots as audio channels to transport audio data over
-> +      the E1/T1/J1 lines.
-> +      The time-slots used by the codec must be set and so, the properties
-> +      'dai-tdm-slot-num', 'dai-tdm-slot-width', 'dai-tdm-slot-tx-mask' and
-> +      'dai-tdm-slot-rx-mask' must be present in the sound card node for
-> +      sub-nodes that involve the codec. The codec uses 8bit time-slots.
-> +      'dai-tdm-tdm-slot-with' must be set to 8.
-> +      The tx and rx masks define the pef2256 time-slots assigned to the codec.
-> +
-> +    properties:
-> +      compatible:
-> +        const: lantiq,pef2256-codec
-> +
-> +      '#sound-dai-cells':
-> +        const: 0
-> +
-> +    required:
-> +      - compatible
-> +      - '#sound-dai-cells'
-> +
-> +    unevaluatedProperties: false
-
-Put it after $ref
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
 > +
 > +allOf:
 > +  - if:
 > +      properties:
-> +        lantiq,line-interface:
+> +        compatible:
 > +          contains:
-> +            const: e1
+> +            const:
+> +              asahi-kasei,ak4458
+
+This is one line - const: foo bar
+
+> +
 > +    then:
 > +      properties:
-> +        lantiq,frame-format:
-> +          enum: [doubleframe, crc4-multiframe, auto-multiframe]
-> +          default: doubleframe
-> +          description: |
-> +            The E1 line interface frame format
-> +              - doubleframe: Doubleframe format
-> +              - crc4-multiframe: CRC4 multiframe format
-> +              - auto-multiframe: CRC4 multiframe format with interworking
-> +                                 capabilities (ITU-T G.706 Annex B)
+> +        dsd-path: false
 > +
-> +    else:
-> +      # T1/J1 line
-> +      properties:
-> +        lantiq,frame-format:
-> +          enum: [4frame, 12frame, 24frame, 72frame]
-> +          default: 12frame
-> +          description: |
-> +            The T1/J1 line interface frame format
-> +              - 4frame: 4-frame multiframe format (F4)
-> +              - 12frame: 12-frame multiframe format (F12, D3/4)
-> +              - 24frame: 24-frame multiframe format (ESF)
-> +              - 72frame: 72-frame multiframe format (F72, remote switch mode)
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    framer@2000000 {
-> +      compatible = "lantiq,pef2256", "simple-mfd";
-> +      reg = <0x2000000 0x100>;
-> +      interrupts = <8 IRQ_TYPE_LEVEL_LOW>;
-> +      interrupt-parent = <&intc>;
-> +      clocks = <&clk_mclk>, <&clk_sclkr>, <&clk_sclkx>;
-> +      clock-names = "mclk", "sclkr", "sclkx";
-> +      reset-gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
-> +      lantiq,data-rate-bps = <4096000>;
-> +
-> +      pinctrl {
-> +        pef2256_rpa_sypr: rpa-pins {
-> +          pins = "RPA";
-> +          function = "SYPR";
-> +        };
-> +        pef2256_xpa_sypx: xpa-pins {
-> +          pins = "XPA";
-> +          function = "SYPX";
-> +        };
-> +      };
-> +
-> +      pef2256_codec0: codec0 {
-
-codec-0
-
-> +        compatible = "lantiq,pef2256-codec";
-> +        #sound-dai-cells = <0>;
-> +        sound-name-prefix = "PEF2256_0";
-> +      };
-> +
-> +      pef2256_codec1: codec1 {
-
-codec-1
-
-> +        compatible = "lantiq,pef2256-codec";
-> +        #sound-dai-cells = <0>;
-> +        sound-name-prefix = "PEF2256_1";
-> +      };
-> +    };
-> +
-
-
 Best regards,
 Krzysztof
 

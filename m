@@ -2,130 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59B26CBC5B
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 519896CBC7A
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:24:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0161E1F0;
-	Tue, 28 Mar 2023 12:15:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0161E1F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B48D1EE;
+	Tue, 28 Mar 2023 12:23:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B48D1EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679998572;
-	bh=lC0hKOmAE17iA1gBKh65atvoPCE0brTqxj9/7aDl8vo=;
+	s=default; t=1679999081;
+	bh=Geahv+dwmJea+gJ1RquT1QpcjFoZC1hMncJ+5QUhhUY=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jaPXiuKUJ6J2KNdkxzQRQKimUwfvHP1p5V06Ok1+TbuKOd6TKWPiRhQiUzI3rCR6/
-	 WX0HIF9S3gQeAfcc4Kh/kdmntiPzM/3l5E1l5EglLvPmy3AFk+idOst7pxGS0XAPKq
-	 245ysjzcj24k5EkO3xPz3xJXUZtto7aYHNKhm+JA=
+	b=YpqSpRbOAHjHhkdtp/QbqQaosHjyVQ9b8dlsm3NPg8pWhyW6CjbzD4OO6VOWF+8pg
+	 XEize3dhfNxzEFtvMA84csx1FAh9B3ki4qIn78EaTb4019nNra6VvKbknR+A+5YNtC
+	 nGYfCMpRtgt4y9/+QYKJjxzl2UXXMOXFTqVfHKL0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D5C4F8024E;
-	Tue, 28 Mar 2023 12:15:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9329AF8024E;
+	Tue, 28 Mar 2023 12:23:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37AE1F8021D; Tue, 28 Mar 2023 12:15:17 +0200 (CEST)
+	id D5588F80272; Tue, 28 Mar 2023 12:23:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D0B5F8021D
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D0B5F8021D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9627BF80249
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9627BF80249
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=EYyWjjnK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679998509;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yVTl6Zqhno+wxlfGSCgUpjuBfnVHjRtvpGdjuseKXvQ=;
-	b=EYyWjjnK2Gg3BXgghL4yBzpCRxgu1UfjeL1tC1gnZkSbVjn1wvFq1chzAYWzkxtVcSkeLh
-	yj1/sViHRpH+Jo2jrgwZ4LwExyzs/CVo9KN3R/3h6k43QPRlbLh3tI4Sq4scuPwwJIAQUo
-	yRI/TLUrx3bARWKK+xuelJLLClkuBvA=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-W6j5lvtlMTiLkA3OyOTUWw-1; Tue, 28 Mar 2023 06:15:05 -0400
-X-MC-Unique: W6j5lvtlMTiLkA3OyOTUWw-1
-Received: by mail-ed1-f69.google.com with SMTP id
- k30-20020a50ce5e000000b00500544ebfb1so16716361edj.7
-        for <alsa-devel@alsa-project.org>;
- Tue, 28 Mar 2023 03:15:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679998504;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yVTl6Zqhno+wxlfGSCgUpjuBfnVHjRtvpGdjuseKXvQ=;
-        b=C5RQkzMGHciqldohKgjMXSmjNiPnhKxxQ7iXH9LY13qYpy6xA97pXiUXCBpT4FHM5X
-         3i/pGm96H/f4hQFFI6Ta4paUTJ+tbyIGhI2RLa6zlxrQLEvxBh8aqou4lq82l3sKop/1
-         Z3X1zRABEFxLtv2qfKgU2h8wjjl1uasaQZD+BFTLs1FhVhNnXUI+s7luEUxg5Rju9I/u
-         dU596E89TyFHEPbt9wQ3cmGkEUmr2r697O1Auxsn3EcQ8ErOyjNZemsFIaJgLyWgPPgl
-         yQeS92ayOPs+YLEURPfecutO0sfk9ZI8/kxG7A6GGiMGPYLWj2J78OX/KZsIv2blDmR1
-         BhBw==
-X-Gm-Message-State: AAQBX9frZkUcSzIX7X2/2zgmqcxEi45mbFeeAe4o1i0YWvBRobv8i1f1
-	su0egJQ0xqs/uKEIEqD5IJxSgY1VyjDkd4Urm0hYXS705xEkLriu5yY9FA3QXU+Y4Y518VIRv6F
-	f5RFGJx0cjFjjCGB1usnnbPY=
-X-Received: by 2002:a05:6402:31e2:b0:4fc:c6fe:1d3a with SMTP id
- dy2-20020a05640231e200b004fcc6fe1d3amr15738425edb.22.1679998504511;
-        Tue, 28 Mar 2023 03:15:04 -0700 (PDT)
-X-Google-Smtp-Source: 
- AKy350YAjL4A52eBRX9X9NGG7KuyR3mYs6dt88IHCIOn5pHRYMcQvxffUNRTHX2vlt4kPN8bsRrd/w==
-X-Received: by 2002:a05:6402:31e2:b0:4fc:c6fe:1d3a with SMTP id
- dy2-20020a05640231e200b004fcc6fe1d3amr15738413edb.22.1679998504260;
-        Tue, 28 Mar 2023 03:15:04 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id
- i22-20020a17090671d600b0093348be32cfsm13232182ejk.90.2023.03.28.03.15.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Mar 2023 03:15:03 -0700 (PDT)
-Message-ID: <ae65a407-9c39-c48a-0cb9-44b3eacda410@redhat.com>
-Date: Tue, 28 Mar 2023 12:15:02 +0200
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=C1ITgizD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679999022; x=1711535022;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Geahv+dwmJea+gJ1RquT1QpcjFoZC1hMncJ+5QUhhUY=;
+  b=C1ITgizD9t6YDcfkeBj75yleOgrCgbz6ooFSxyZgWJoNu4DoRyXnub8C
+   o1BrjcRyXYWL6zLPDqqenGYAb29dVSyj3T5Al5lvq//4yri6ZITND85Ce
+   U2SRC/Z1HrqKqUIXDCkEYgM3/d9vXWcy8kEWcyO1sXLgLPtjNpOgmI8gq
+   9uKJNb89yskHcMcHgYnb4pcuExbBM6dQH41aEiONhwcZt0pLpS8lUn9A1
+   OAHvfRsdDAC2x92yWEjGWtnJ4fwDP+W9t6SF2ulY6YEqhZ28qD51piRZe
+   ziOOF2a/0sgq3FAQ/mOE7S5as/sPydlybBX5662nrb5XgQ3Johd3pFth1
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="403140847"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
+   d="scan'208";a="403140847"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 03:23:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="716444819"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
+   d="scan'208";a="716444819"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 03:23:35 -0700
+Message-ID: <2c15c579-c62d-b972-0b56-a3632e767132@linux.intel.com>
+Date: Tue, 28 Mar 2023 12:23:33 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] ASoC: es8316: Handle optional IRQ assignment
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20230328094901.50763-1-cristian.ciocaltea@collabora.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20230328094901.50763-1-cristian.ciocaltea@collabora.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v2] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic
+ topology
+Content-Language: en-US
+To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20230328092854.156478-1-shumingf@realtek.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230328092854.156478-1-shumingf@realtek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ULGH7LSXLWPQBPS42BZYEPMW7GO3LUA3
-X-Message-ID-Hash: ULGH7LSXLWPQBPS42BZYEPMW7GO3LUA3
-X-MailFrom: hdegoede@redhat.com
+Message-ID-Hash: ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3
+X-Message-ID-Hash: ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
+CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
+ pierre-louis.bossart@intel.com, bard.liao@intel.com, Yijun.Shen@dell.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ULGH7LSXLWPQBPS42BZYEPMW7GO3LUA3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUCXURSRNMBU526YQYBVNUZDTUXPXSU3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,64 +108,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
-
-On 3/28/23 11:49, Cristian Ciocaltea wrote:
-> The driver is able to work fine without relying on a mandatory interrupt
-> being assigned to the I2C device. This is only needed when making use of
-> the jack-detect support.
+On 3/28/2023 11:28 AM, shumingf@realtek.com wrote:
+> From: Shuming Fan <shumingf@realtek.com>
 > 
-> However, the following warning message is always emitted when there is
-> no such interrupt available:
+> This is the initial codec driver for rt712 SDCA (Mic topology).
+> The host should connect with rt712 SdW2 interface.
 > 
->   es8316 0-0011: Failed to get IRQ 0: -22
-> 
-> Do not attempt to request an IRQ if it is not available/valid. This also
-> ensures the rather misleading message is not displayed anymore.
-> 
-> Also note the IRQ validation relies on commit dab472eb931bc291 ("i2c /
-> ACPI: Use 0 to indicate that device does not have interrupt assigned").
-> 
-> Fixes: 822257661031 ("ASoC: es8316: Add jack-detect support")
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-
-Regards,
-
-Hans
-
-
-
+> Signed-off-by: Shuming Fan <shumingf@realtek.com>
 > ---
->  sound/soc/codecs/es8316.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
+>   sound/soc/codecs/Kconfig           |   7 +
+>   sound/soc/codecs/Makefile          |   2 +
+>   sound/soc/codecs/rt712-sdca-dmic.c | 991 +++++++++++++++++++++++++++++
+>   sound/soc/codecs/rt712-sdca-dmic.h | 106 +++
+>   4 files changed, 1106 insertions(+)
+>   create mode 100644 sound/soc/codecs/rt712-sdca-dmic.c
+>   create mode 100644 sound/soc/codecs/rt712-sdca-dmic.h
 > 
-> diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-> index 056c3082fe02..f7d7a9c91e04 100644
-> --- a/sound/soc/codecs/es8316.c
-> +++ b/sound/soc/codecs/es8316.c
-> @@ -842,12 +842,14 @@ static int es8316_i2c_probe(struct i2c_client *i2c_client)
->  	es8316->irq = i2c_client->irq;
->  	mutex_init(&es8316->lock);
->  
-> -	ret = devm_request_threaded_irq(dev, es8316->irq, NULL, es8316_irq,
-> -					IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> -					"es8316", es8316);
-> -	if (ret) {
-> -		dev_warn(dev, "Failed to get IRQ %d: %d\n", es8316->irq, ret);
-> -		es8316->irq = -ENXIO;
-> +	if (es8316->irq > 0) {
-> +		ret = devm_request_threaded_irq(dev, es8316->irq, NULL, es8316_irq,
-> +						IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +						"es8316", es8316);
-> +		if (ret) {
-> +			dev_warn(dev, "Failed to get IRQ %d: %d\n", es8316->irq, ret);
-> +			es8316->irq = -ENXIO;
-> +		}
->  	}
->  
->  	return devm_snd_soc_register_component(&i2c_client->dev,
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index 03630d13d35f..8d41fc509637 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -203,6 +203,7 @@ config SND_SOC_ALL_CODECS
+>   	imply SND_SOC_RT711_SDW
+>   	imply SND_SOC_RT711_SDCA_SDW
+>   	imply SND_SOC_RT712_SDCA_SDW
+> +	imply SND_SOC_RT712_SDCA_DMIC_SDW
+>   	imply SND_SOC_RT715_SDW
+>   	imply SND_SOC_RT715_SDCA_SDW
+>   	imply SND_SOC_RT1308_SDW
+> @@ -1521,6 +1522,12 @@ config SND_SOC_RT712_SDCA_SDW
+>   	select REGMAP_SOUNDWIRE
+>   	select REGMAP_SOUNDWIRE_MBQ
+>   
+> +config SND_SOC_RT712_SDCA_DMIC_SDW
+> +	tristate "Realtek RT712 SDCA DMIC Codec - SDW"
+> +	depends on SOUNDWIRE
+> +	select REGMAP_SOUNDWIRE
+> +	select REGMAP_SOUNDWIRE_MBQ
+> +
+>   config SND_SOC_RT715
+>   	tristate
+>   
+> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+> index 25ebce58a0ba..dac48236db02 100644
+> --- a/sound/soc/codecs/Makefile
+> +++ b/sound/soc/codecs/Makefile
+> @@ -233,6 +233,7 @@ snd-soc-rt700-objs := rt700.o rt700-sdw.o
+>   snd-soc-rt711-objs := rt711.o rt711-sdw.o
+>   snd-soc-rt711-sdca-objs := rt711-sdca.o rt711-sdca-sdw.o
+>   snd-soc-rt712-sdca-objs := rt712-sdca.o rt712-sdca-sdw.o
+> +snd-soc-rt712-sdca-dmic-objs := rt712-sdca-dmic.o
+>   snd-soc-rt715-objs := rt715.o rt715-sdw.o
+>   snd-soc-rt715-sdca-objs := rt715-sdca.o rt715-sdca-sdw.o
+>   snd-soc-rt9120-objs := rt9120.o
+> @@ -601,6 +602,7 @@ obj-$(CONFIG_SND_SOC_RT700)     += snd-soc-rt700.o
+>   obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
+>   obj-$(CONFIG_SND_SOC_RT711_SDCA_SDW)     += snd-soc-rt711-sdca.o
+>   obj-$(CONFIG_SND_SOC_RT712_SDCA_SDW)     += snd-soc-rt712-sdca.o
+> +obj-$(CONFIG_SND_SOC_RT712_SDCA_DMIC_SDW)     += snd-soc-rt712-sdca-dmic.o
+>   obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
+>   obj-$(CONFIG_SND_SOC_RT715_SDCA_SDW)     += snd-soc-rt715-sdca.o
+>   obj-$(CONFIG_SND_SOC_RT9120)	+= snd-soc-rt9120.o
+> diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
+> new file mode 100644
+> index 000000000000..e5d765d84369
+> --- /dev/null
+> +++ b/sound/soc/codecs/rt712-sdca-dmic.c
+> @@ -0,0 +1,991 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// rt712-sdca-dmic.c -- rt712 SDCA DMIC ALSA SoC audio driver
+> +//
+> +// Copyright(c) 2023 Realtek Semiconductor Corp.
+> +//
+> +//
+> +
+> +#include <linux/bitops.h>
+> +#include <sound/core.h>
+> +#include <linux/device.h>
+> +#include <linux/delay.h>
+> +#include <linux/init.h>
+> +#include <sound/initval.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/moduleparam.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/pm_runtime.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <linux/soundwire/sdw_registers.h>
+> +#include <linux/slab.h>
+> +#include <sound/soc-dapm.h>
+> +#include <sound/tlv.h>
 
+Ordering of those includes seems bit weird to me, can't you include 
+sound/ ones after linux/ ones?
+
+And a bit of nitpicking linux/moduleparam.h seems redundant if you 
+include linux/module.h
+
+And I'm not sure why do you need linux/delay.h, I don't see any *sleep 
+or *delay functions in the patch?
+
+> +#include "rt712-sdca.h"
+> +#include "rt712-sdca-dmic.h"
+> +
+
+...

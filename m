@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 551B56CB94F
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 10:25:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F816CB9F7
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 10:59:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF7151ED;
-	Tue, 28 Mar 2023 10:24:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF7151ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC071F6;
+	Tue, 28 Mar 2023 10:58:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC071F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679991906;
-	bh=FlF2aOV6rHsmx/9FgyhhfDVRg3+GmHHaYAf1AT2WMMQ=;
+	s=default; t=1679993979;
+	bh=VXeNGA3Y+MzuA+ghMXub7O/cVml5Z19GYS0mXtT/zMM=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f3UXpiliBBcg48gZyf8ZBw+DPUhjTsek+5mjut2L/j2iPbklDhtiGD0bbrFq+kWFf
-	 cpKf2JP5EP2C+PoUI3EL+Z2TZ9uW+FgV20TEbS/22CxkD8+OuSuEdMgky0BH/1H2ns
-	 TBZPyDY1+3WxiAEj9h/EKDRKGTceO+kl+geR8iDw=
+	b=viYjOiHGMICV6wROkE4uuRirU05zgHfZ5B5hqr2hyZESZoqBmKPapo5Q/KSpgNyyG
+	 5DMo4b3es4QUZsmO3W4QVe2kBHJ5PnYJZZxB86xpecyIZ9nXDZ1v4bsMXqQ1qEdqWm
+	 yh5sVmqVxLy9wYhjG+6zp5Cn/ryFLOZV4Lcc0Cs4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70EFCF8024E;
-	Tue, 28 Mar 2023 10:24:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1552DF8024E;
+	Tue, 28 Mar 2023 10:58:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 072E6F80272; Tue, 28 Mar 2023 10:24:13 +0200 (CEST)
+	id 5E981F80272; Tue, 28 Mar 2023 10:58:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,69 +36,69 @@ Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56578F80114
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 10:24:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56578F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id CA5A6F8021D
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 10:58:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA5A6F8021D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=lIe36//w
-Received: by mail-ed1-x52b.google.com with SMTP id ew6so46175181edb.7
+ header.s=google header.b=ivg7HcYS
+Received: by mail-ed1-x52b.google.com with SMTP id h8so46533909ede.8
         for <alsa-devel@alsa-project.org>;
- Tue, 28 Mar 2023 01:24:05 -0700 (PDT)
+ Tue, 28 Mar 2023 01:58:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679991843;
+        d=linaro.org; s=google; t=1679993918;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ywfDEh4j3TIad7B4v5GyW5cEwUOW1bLBQ19ZKpGmXtQ=;
-        b=lIe36//we0gyKnYLvwkSXARqX6I5K/VdhR/nFiiQBaNRlzn67lPotVDQIdLxAmT7+x
-         xZgE0zThDvODSfroz/rsBcTkls5kY5cxdfEHEJ69cNZW8g8nI8YkwZFyl11H/K8DR427
-         whs5mIXjWQ+PO2oV1vmmu9HF8GMp5wyTBmz+QGUpk8k2IjvpvCgJgVOLmH0hxAz+Tx3S
-         ksG8jepCM76ZZoXTe9i0033BosNhQxbYXUOn/kecUyiu6c0UZo//YeTFDjgwI2x4kpik
-         Ove0VK+/zhXZYNLffbAWHLUZiDrOQZkqh7Plhpc0sT/3ert6WxSaz0HoVvjd1pje5EXB
-         4RDQ==
+        bh=kpvilR/XMH01vCvH1yrllb4SROq3hX6QXJn5vfFvDPQ=;
+        b=ivg7HcYSurzEcIJRyhtiqosZF0S7xNoMozSq8GQm95XA21gcNFA49bqhGKjvUkbUXH
+         fPx0/XcFg9c5k5qK0KQD/Hb2Kft+M+FGVCZRg3lVSDzjfXWs09vQH0QTBUrUTGqNnnoH
+         IN/42FTPss2XbI60ljcHBqsSZxOyhhh9M05y07K0zmryARMdhOx9BNHaGNOdLzYDfDhL
+         3FiGIpxqxXcI2eOLqFzb5LGiTw2jX8B2cGgvhvR5JWTqpGezbapiwH4Aa7GglKygYT1l
+         pXJ4q/fkgony3UAyTUUzv1omdqizfg8kpw+Fmj5ET9Dv2BQ9EvGT0dqI8MXccYrG3pK4
+         /WdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679991843;
+        d=1e100.net; s=20210112; t=1679993918;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ywfDEh4j3TIad7B4v5GyW5cEwUOW1bLBQ19ZKpGmXtQ=;
-        b=imRKyck7T+JrA3OJ/B4Y/GYdv8lUdpWvLlRRVfhgiN4ThkoFUN+XKbtoksMaazx435
-         rzIZ/S1ex3MR4EK+eUjFanJOMhcjcv/ecqAFaU8Y6Sw43zalHdsMAsHj6j+9KtXboHD6
-         EZOu4vbcF7lpAVTe31+Y+d2vXs9holWv1j0DxHUEhq4gHkTxn2oISuDqqbd+1KO8sVSR
-         qDHqZqWpPbOB8bPJR0VV4p6gVyNC4lrnT64/XLkAgATXzqMtyEhGhM4meFy7/uo7+BTb
-         QiW2iin+EDD24u/MisRUG7+N0gptQ+AdmEvUIJGCzBCvQl+DFjwY09Dp9r1aZewOH+qB
-         lLRg==
-X-Gm-Message-State: AAQBX9fthJYcdk2CsEM3pd7Utx45isVa83WISe7eJ8aMjByztjEOJf6A
-	PAeceEbgowaoLngRz/YFoiF75w==
+        bh=kpvilR/XMH01vCvH1yrllb4SROq3hX6QXJn5vfFvDPQ=;
+        b=e9ei+tz/k7MsQPjYy3dPdkb9UMFHdqGrLGqN5NhbEID3IMgKU4pYUzjFefnV7CNHkS
+         cQkugumsZS1guT/JHLMxHxkwhSngzHaQ4QNceeAARUq4RQsVc+EDxZRxfJ7qEY+Dl63d
+         bbsCo5xHuznzh1zRF/4M5XGwqn9yVQOQG4b1x7+OYkpzxt8uHfVzYkbFOgqcOqWdrRHE
+         sGsI3G3XzWtV1JmgMGrqcH3KmCE+8DcYKB5fpVWSKDuyVu/Z2+kyoOj67CpgWGuxYbZl
+         D4gNBgyGQHSagfK0TzoEg1k62AxQdLNFgyFqEonYQkIzn4pq0ofZjEAAvc6C1m0niZgL
+         mkJQ==
+X-Gm-Message-State: AAQBX9dbV9EGHN0gjRpX1v017/W1u4AxVtO0oLYoI4e/TWzX2w9/tWEF
+	yWaIZiqfRsGYJahGTXhbqledPw==
 X-Google-Smtp-Source: 
- AKy350YPZFDeXBQ1t0a9hoZeT7QNScxDyGG1LAp0JRVDNEdIQKa/fTHx35lWl5jX5FSZFuH7mh5Eqw==
-X-Received: by 2002:a17:906:fcc9:b0:92c:138e:ff1f with SMTP id
- qx9-20020a170906fcc900b0092c138eff1fmr14321837ejb.18.1679991843377;
-        Tue, 28 Mar 2023 01:24:03 -0700 (PDT)
+ AKy350YCad6dmgcHiPby31nO1lCTaRrcmAnP6WSKHPXvnSI4p36XgIeKIaKsXzZVY6YOXxvI+VZyEg==
+X-Received: by 2002:a17:906:2f96:b0:932:8cd:1021 with SMTP id
+ w22-20020a1709062f9600b0093208cd1021mr14701563eji.33.1679993917953;
+        Tue, 28 Mar 2023 01:58:37 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:9e92:dca6:241d:71b6?
  ([2a02:810d:15c0:828:9e92:dca6:241d:71b6])
         by smtp.gmail.com with ESMTPSA id
- n22-20020a17090695d600b009222a7192b4sm14964442ejy.30.2023.03.28.01.24.02
+ gy24-20020a170906f25800b00930445428acsm15283740ejb.14.2023.03.28.01.58.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Mar 2023 01:24:03 -0700 (PDT)
-Message-ID: <9490b5ef-3068-fcbb-0105-baf3839c21df@linaro.org>
-Date: Tue, 28 Mar 2023 10:24:02 +0200
+        Tue, 28 Mar 2023 01:58:37 -0700 (PDT)
+Message-ID: <0824738d-d431-bb4a-16d8-e4e4064969c5@linaro.org>
+Date: Tue, 28 Mar 2023 10:58:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Subject: Re: [PATCH v4] ASoC: dt-bindings: alc5632: Convert to dtschema
 Content-Language: en-US
-To: Saalim Quadri <danascape@gmail.com>, daniel.baluta@nxp.com,
- krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com, robh+dt@kernel.org
-References: <20230327211629.28643-1-danascape@gmail.com>
+To: Saalim Quadri <danascape@gmail.com>
+References: <9490b5ef-3068-fcbb-0105-baf3839c21df@linaro.org>
+ <20230328083347.54958-1-danascape@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230327211629.28643-1-danascape@gmail.com>
+In-Reply-To: <20230328083347.54958-1-danascape@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 4OBAORVE6JPBXUWCGBUNBPK2ZJTLSWAR
-X-Message-ID-Hash: 4OBAORVE6JPBXUWCGBUNBPK2ZJTLSWAR
+Message-ID-Hash: JYAYMTM7YGSZ6VFUTFOXSPOA33WGROPW
+X-Message-ID-Hash: JYAYMTM7YGSZ6VFUTFOXSPOA33WGROPW
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,14 +106,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, broonie@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, broonie@kernel.org, daniel.baluta@nxp.com,
+ devicetree@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ leon@leon.nu
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OBAORVE6JPBXUWCGBUNBPK2ZJTLSWAR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JYAYMTM7YGSZ6VFUTFOXSPOA33WGROPW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,22 +124,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27/03/2023 23:16, Saalim Quadri wrote:
-> Convert the ALC5632 audio codec bindings to DT schema.
+On 28/03/2023 10:33, Saalim Quadri wrote:
+>> Please use scripts/get_maintainers.pl to get a list of necessary people
+>> and lists to CC.  It might happen, that command when run on an older
+>> kernel, gives you outdated entries.  Therefore please be sure you base
+>> your patches on recent Linux kernel.
 > 
-> Signed-off-by: Saalim Quadri <danascape@gmail.com>
-> ---
+> Apologies but, this is the output of get_maintainers.pl, is there something that I missed?
+> 
+> I am currently working no 6.3-rc3 as my base kernel.
+> 
+>> saalim@pavilion:~/workspace/linux$ scripts/get_maintainer.pl Documentation/devicetree/bindings/sound/alc5632.txt
 
+It's not the correct way to run it. It should not even work at all -
+there is no alc5632.txt file, so I really doubt you run it exactly like
+this. Anyway:
 
-I wanted to review it but for some reason you keep ignoring my comment.
-So one more time:
+git format-patch -1 -5
+scripts/get_maintainer.pl v5-*
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC.  It might happen, that command when run on an older
-kernel, gives you outdated entries.  Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Is there something not clear about my request above?
+and you will get a bit different results.
 
 Best regards,
 Krzysztof

@@ -2,27 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B82396CBA46
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 11:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E03C86CBA87
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 11:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D233A1F7;
-	Tue, 28 Mar 2023 11:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D233A1F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD5E01F9;
+	Tue, 28 Mar 2023 11:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD5E01F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679994945;
-	bh=KsLzJZfXtuTldFFgZZCMkBPiYzlLSWh7QY5OYbCuiIs=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=fyo3amX9ZSJRW6BY6dPYToq6zcp14lvMXxIlKTn1J7F1U99Q2P/kSAXB0HwDclLBD
-	 74CubOTehThfLGxuzubwGbHnJUko9dnO7Q2woh3//LP7IyhuWMC7wyGqbear48TFhe
-	 JDVECGPEgTUdNfjXBr3JUQH4n+TnJeIBOI5DEnEo=
+	s=default; t=1679995619;
+	bh=yZ05k51lM1hUjTeEe0JUPTodusfcDIcF8pXKQ5UURHw=;
+	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UieMVGpdun4IXky3A80s+e2ao9YA7Q5aK71PPp2SsLX3R5AlCBjf+FV3WOuNSkUd6
+	 lb5x7R6I9I78xP97exs4i6qI40HP5cTtWgRBkgRxbEwMyzSEI23wh2EcZR1h7QAzjY
+	 U4KEQhKbAz99M+lpy6j9iL+MzZrF80oYxY5mbn+M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C81AEF80272;
-	Tue, 28 Mar 2023 11:14:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 831ABF8032D;
+	Tue, 28 Mar 2023 11:26:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44E6BF8024E; Tue, 28 Mar 2023 11:14:49 +0200 (CEST)
+	id 192CAF80290; Tue, 28 Mar 2023 11:25:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -33,46 +34,60 @@ Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2EE9DF80114
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 11:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EE9DF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id CD3C2F8024E
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 11:25:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD3C2F8024E
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 32S9E2B90007453,
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 32S9PUkvC014673,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 32S9E2B90007453
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 32S9PUkvC014673
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
-	Tue, 28 Mar 2023 17:14:02 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+	Tue, 28 Mar 2023 17:25:30 +0800
+Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
  RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Tue, 28 Mar 2023 17:14:18 +0800
-Received: from ubuntu.localdomain (172.22.102.209) by RTEXMBS01.realtek.com.tw
- (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Tue, 28 Mar
- 2023 17:14:18 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology
-Date: Tue, 28 Mar 2023 17:14:08 +0800
-Message-ID: <20230328091409.156222-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.34.1
+ 15.1.2375.32; Tue, 28 Mar 2023 17:25:47 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 28 Mar 2023 17:25:46 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::98d2:65f8:dcdf:fa31]) by
+ RTEXMBS01.realtek.com.tw ([fe80::98d2:65f8:dcdf:fa31%5]) with mapi id
+ 15.01.2375.007; Tue, 28 Mar 2023 17:25:46 +0800
+From: =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>
+To: =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+Subject: RE: [PATCH] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology
+Thread-Topic: [PATCH] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology
+Thread-Index: AQHZYVXTuJ7VuT87zkyGjt7u3EkT3q8P60Gg
+Date: Tue, 28 Mar 2023 09:25:46 +0000
+Message-ID: <2f61bc3316064749abcb74432d38fd65@realtek.com>
+References: <20230328091409.156222-1-shumingf@realtek.com>
+In-Reply-To: <20230328091409.156222-1-shumingf@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.209]
+x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
+x-kse-attachmentfiltering-interceptor-info: no applicable attachment filtering
+ rules found
+x-kse-antivirus-interceptor-info: scan successful
+x-kse-antivirus-info: 
+ =?big5?B?Q2xlYW4sIGJhc2VzOiAyMDIzLzMvMjggpFekyCAwODowMTowMA==?=
+x-kse-bulkmessagesfiltering-scan-result: protection disabled
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.209]
-X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
 X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
 X-KSE-AntiSpam-Interceptor-Info: fallback
 X-KSE-Antivirus-Interceptor-Info: fallback
 X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: FSG2PN4CDTAJFOUGN4DKHQBO25BR7ROL
-X-Message-ID-Hash: FSG2PN4CDTAJFOUGN4DKHQBO25BR7ROL
+Message-ID-Hash: K347HUFYBVQ5XTZPC45QQE6ZT6VOFLEY
+X-Message-ID-Hash: K347HUFYBVQ5XTZPC45QQE6ZT6VOFLEY
 X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,16 +95,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- pierre-louis.bossart@intel.com, bard.liao@intel.com, Yijun.Shen@dell.com,
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
+ "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>,
+ "bard.liao@intel.com" <bard.liao@intel.com>,
+ "Yijun.Shen@dell.com" <Yijun.Shen@dell.com>,
  "shuming.fan" <shuming.fan@realtek.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSG2PN4CDTAJFOUGN4DKHQBO25BR7ROL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K347HUFYBVQ5XTZPC45QQE6ZT6VOFLEY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,1175 +117,712 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: "shuming.fan" <shuming.fan@realtek.com>
-
-This is the initial codec driver for rt712 SDCA (Mic topology).
-The host should connect with rt712 SdW2 interface.
-
-Signed-off-by: shuming.fan <shuming.fan@realtek.com>
----
- sound/soc/codecs/Kconfig           |   7 +
- sound/soc/codecs/Makefile          |   2 +
- sound/soc/codecs/rt712-sdca-dmic.c | 991 +++++++++++++++++++++++++++++
- sound/soc/codecs/rt712-sdca-dmic.h | 106 +++
- 4 files changed, 1106 insertions(+)
- create mode 100644 sound/soc/codecs/rt712-sdca-dmic.c
- create mode 100644 sound/soc/codecs/rt712-sdca-dmic.h
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 07747565c3b5..6286ab2be6a4 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -200,6 +200,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_RT711_SDW
- 	imply SND_SOC_RT711_SDCA_SDW
- 	imply SND_SOC_RT712_SDCA_SDW
-+	imply SND_SOC_RT712_SDCA_DMIC_SDW
- 	imply SND_SOC_RT715_SDW
- 	imply SND_SOC_RT715_SDCA_SDW
- 	imply SND_SOC_RT1308_SDW
-@@ -1477,6 +1478,12 @@ config SND_SOC_RT712_SDCA_SDW
- 	select REGMAP_SOUNDWIRE
- 	select REGMAP_SOUNDWIRE_MBQ
- 
-+config SND_SOC_RT712_SDCA_DMIC_SDW
-+	tristate "Realtek RT712 SDCA DMIC Codec - SDW"
-+	depends on SOUNDWIRE
-+	select REGMAP_SOUNDWIRE
-+	select REGMAP_SOUNDWIRE_MBQ
-+
- config SND_SOC_RT715
- 	tristate
- 
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index f1ca18f7946c..e731fe55aa4b 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -228,6 +228,7 @@ snd-soc-rt700-objs := rt700.o rt700-sdw.o
- snd-soc-rt711-objs := rt711.o rt711-sdw.o
- snd-soc-rt711-sdca-objs := rt711-sdca.o rt711-sdca-sdw.o
- snd-soc-rt712-sdca-objs := rt712-sdca.o rt712-sdca-sdw.o
-+snd-soc-rt712-sdca-dmic-objs := rt712-sdca-dmic.o
- snd-soc-rt715-objs := rt715.o rt715-sdw.o
- snd-soc-rt715-sdca-objs := rt715-sdca.o rt715-sdca-sdw.o
- snd-soc-rt9120-objs := rt9120.o
-@@ -591,6 +592,7 @@ obj-$(CONFIG_SND_SOC_RT700)     += snd-soc-rt700.o
- obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
- obj-$(CONFIG_SND_SOC_RT711_SDCA_SDW)     += snd-soc-rt711-sdca.o
- obj-$(CONFIG_SND_SOC_RT712_SDCA_SDW)     += snd-soc-rt712-sdca.o
-+obj-$(CONFIG_SND_SOC_RT712_SDCA_DMIC_SDW)     += snd-soc-rt712-sdca-dmic.o
- obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
- obj-$(CONFIG_SND_SOC_RT715_SDCA_SDW)     += snd-soc-rt715-sdca.o
- obj-$(CONFIG_SND_SOC_RT9120)	+= snd-soc-rt9120.o
-diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
-new file mode 100644
-index 000000000000..e5d765d84369
---- /dev/null
-+++ b/sound/soc/codecs/rt712-sdca-dmic.c
-@@ -0,0 +1,991 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// rt712-sdca-dmic.c -- rt712 SDCA DMIC ALSA SoC audio driver
-+//
-+// Copyright(c) 2023 Realtek Semiconductor Corp.
-+//
-+//
-+
-+#include <linux/bitops.h>
-+#include <sound/core.h>
-+#include <linux/device.h>
-+#include <linux/delay.h>
-+#include <linux/init.h>
-+#include <sound/initval.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/pm_runtime.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <linux/soundwire/sdw_registers.h>
-+#include <linux/slab.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/tlv.h>
-+#include "rt712-sdca.h"
-+#include "rt712-sdca-dmic.h"
-+
-+static bool rt712_sdca_dmic_readable_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x201a ... 0x201f:
-+	case 0x2029 ... 0x202a:
-+	case 0x202d ... 0x2034:
-+	case 0x2230 ... 0x2232:
-+	case 0x2f01 ... 0x2f0a:
-+	case 0x2f35 ... 0x2f36:
-+	case 0x2f52:
-+	case 0x2f58 ... 0x2f59:
-+	case 0x3201:
-+	case 0x320c:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool rt712_sdca_dmic_volatile_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x201b:
-+	case 0x201c:
-+	case 0x201d:
-+	case 0x201f:
-+	case 0x202d ... 0x202f:
-+	case 0x2230:
-+	case 0x2f01:
-+	case 0x2f35:
-+	case 0x320c:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool rt712_sdca_dmic_mbq_readable_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x2000000 ... 0x200008e:
-+	case 0x5300000 ... 0x530000e:
-+	case 0x5400000 ... 0x540000e:
-+	case 0x5600000 ... 0x5600008:
-+	case 0x5700000 ... 0x570000d:
-+	case 0x5800000 ... 0x5800021:
-+	case 0x5900000 ... 0x5900028:
-+	case 0x5a00000 ... 0x5a00009:
-+	case 0x5b00000 ... 0x5b00051:
-+	case 0x5c00000 ... 0x5c0009a:
-+	case 0x5d00000 ... 0x5d00009:
-+	case 0x5f00000 ... 0x5f00030:
-+	case 0x6100000 ... 0x6100068:
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_01):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_02):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_03):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_04):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_01):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_02):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_03):
-+	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_04):
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool rt712_sdca_dmic_mbq_volatile_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x2000000:
-+	case 0x200001a:
-+	case 0x2000024:
-+	case 0x2000046:
-+	case 0x200008a:
-+	case 0x5800000:
-+	case 0x5800001:
-+	case 0x6100008:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config rt712_sdca_dmic_regmap = {
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.readable_reg = rt712_sdca_dmic_readable_register,
-+	.volatile_reg = rt712_sdca_dmic_volatile_register,
-+	.max_register = 0x40981300,
-+	.reg_defaults = rt712_sdca_dmic_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(rt712_sdca_dmic_reg_defaults),
-+	.cache_type = REGCACHE_RBTREE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+static const struct regmap_config rt712_sdca_dmic_mbq_regmap = {
-+	.name = "sdw-mbq",
-+	.reg_bits = 32,
-+	.val_bits = 16,
-+	.readable_reg = rt712_sdca_dmic_mbq_readable_register,
-+	.volatile_reg = rt712_sdca_dmic_mbq_volatile_register,
-+	.max_register = 0x40800f14,
-+	.reg_defaults = rt712_sdca_dmic_mbq_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(rt712_sdca_dmic_mbq_defaults),
-+	.cache_type = REGCACHE_RBTREE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+static int rt712_sdca_dmic_index_write(struct rt712_sdca_dmic_priv *rt712,
-+		unsigned int nid, unsigned int reg, unsigned int value)
-+{
-+	int ret;
-+	struct regmap *regmap = rt712->mbq_regmap;
-+	unsigned int addr = (nid << 20) | reg;
-+
-+	ret = regmap_write(regmap, addr, value);
-+	if (ret < 0)
-+		dev_err(&rt712->slave->dev,
-+			"Failed to set private value: %06x <= %04x ret=%d\n",
-+			addr, value, ret);
-+
-+	return ret;
-+}
-+
-+static int rt712_sdca_dmic_index_read(struct rt712_sdca_dmic_priv *rt712,
-+		unsigned int nid, unsigned int reg, unsigned int *value)
-+{
-+	int ret;
-+	struct regmap *regmap = rt712->mbq_regmap;
-+	unsigned int addr = (nid << 20) | reg;
-+
-+	ret = regmap_read(regmap, addr, value);
-+	if (ret < 0)
-+		dev_err(&rt712->slave->dev,
-+			"Failed to get private value: %06x => %04x ret=%d\n",
-+			addr, *value, ret);
-+
-+	return ret;
-+}
-+
-+static int rt712_sdca_dmic_index_update_bits(struct rt712_sdca_dmic_priv *rt712,
-+	unsigned int nid, unsigned int reg, unsigned int mask, unsigned int val)
-+{
-+	unsigned int tmp;
-+	int ret;
-+
-+	ret = rt712_sdca_dmic_index_read(rt712, nid, reg, &tmp);
-+	if (ret < 0)
-+		return ret;
-+
-+	set_mask_bits(&tmp, mask, val);
-+	return rt712_sdca_dmic_index_write(rt712, nid, reg, tmp);
-+}
-+
-+int rt712_sdca_dmic_io_init(struct device *dev, struct sdw_slave *slave)
-+{
-+	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(dev);
-+
-+	if (rt712->hw_init)
-+		return 0;
-+
-+	if (rt712->first_hw_init) {
-+		regcache_cache_only(rt712->regmap, false);
-+		regcache_cache_bypass(rt712->regmap, true);
-+		regcache_cache_only(rt712->mbq_regmap, false);
-+		regcache_cache_bypass(rt712->mbq_regmap, true);
-+	} else {
-+		/*
-+		 * PM runtime is only enabled when a Slave reports as Attached
-+		 */
-+
-+		/* set autosuspend parameters */
-+		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
-+		pm_runtime_use_autosuspend(&slave->dev);
-+
-+		/* update count of parent 'active' children */
-+		pm_runtime_set_active(&slave->dev);
-+
-+		/* make sure the device does not suspend immediately */
-+		pm_runtime_mark_last_busy(&slave->dev);
-+
-+		pm_runtime_enable(&slave->dev);
-+	}
-+
-+	pm_runtime_get_noresume(&slave->dev);
-+
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_ADC0A_08_PDE_FLOAT_CTL, 0x1112);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_ADC0B_11_PDE_FLOAT_CTL, 0x1111);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_DMIC1_2_PDE_FLOAT_CTL, 0x1111);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_I2S_IN_OUT_PDE_FLOAT_CTL, 0x1155);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_DMIC_ENT_FLOAT_CTL, 0x2626);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_ADC_ENT_FLOAT_CTL, 0x1e19);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_DMIC_GAIN_ENT_FLOAT_CTL0, 0x1515);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_ADC_VOL_CH_FLOAT_CTL2, 0x0304);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_DMIC_GAIN_ENT_FLOAT_CTL2, 0x0304);
-+	rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_HDA_LEGACY_CONFIG_CTL0, 0x0050);
-+	regmap_write(rt712->regmap,
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_IT26, RT712_SDCA_CTL_VENDOR_DEF, 0), 0x01);
-+	rt712_sdca_dmic_index_write(rt712, RT712_ULTRA_SOUND_DET,
-+		RT712_ULTRA_SOUND_DETECTOR6, 0x3200);
-+	regmap_write(rt712->regmap, RT712_RC_CAL, 0x23);
-+	regmap_write(rt712->regmap, 0x2f52, 0x00);
-+
-+	if (rt712->first_hw_init) {
-+		regcache_cache_bypass(rt712->regmap, false);
-+		regcache_mark_dirty(rt712->regmap);
-+		regcache_cache_bypass(rt712->mbq_regmap, false);
-+		regcache_mark_dirty(rt712->mbq_regmap);
-+	} else
-+		rt712->first_hw_init = true;
-+
-+	/* Mark Slave initialization complete */
-+	rt712->hw_init = true;
-+
-+	pm_runtime_mark_last_busy(&slave->dev);
-+	pm_runtime_put_autosuspend(&slave->dev);
-+
-+	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_set_gain_get(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_kctrl_priv *p =
-+		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
-+	unsigned int regvalue, ctl, i;
-+	unsigned int adc_vol_flag = 0;
-+	const unsigned int interval_offset = 0xc0;
-+
-+	if (strstr(ucontrol->id.name, "FU1E Capture Volume"))
-+		adc_vol_flag = 1;
-+
-+	/* check all channels */
-+	for (i = 0; i < p->count; i++) {
-+		regmap_read(rt712->mbq_regmap, p->reg_base + i, &regvalue);
-+
-+		if (!adc_vol_flag) /* boost gain */
-+			ctl = regvalue / 0x0a00;
-+		else { /* ADC gain */
-+			if (adc_vol_flag)
-+				ctl = p->max - (((0x1e00 - regvalue) & 0xffff) / interval_offset);
-+			else
-+				ctl = p->max - (((0 - regvalue) & 0xffff) / interval_offset);
-+		}
-+
-+		ucontrol->value.integer.value[i] = ctl;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_set_gain_put(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt712_sdca_dmic_kctrl_priv *p =
-+		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
-+	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	unsigned int gain_val[4];
-+	unsigned int i, adc_vol_flag = 0, changed = 0;
-+	unsigned int regvalue[4];
-+	const unsigned int interval_offset = 0xc0;
-+	int err;
-+
-+	if (strstr(ucontrol->id.name, "FU1E Capture Volume"))
-+		adc_vol_flag = 1;
-+
-+	/* check all channels */
-+	for (i = 0; i < p->count; i++) {
-+		regmap_read(rt712->mbq_regmap, p->reg_base + i, &regvalue[i]);
-+
-+		gain_val[i] = ucontrol->value.integer.value[i];
-+		if (gain_val[i] > p->max)
-+			gain_val[i] = p->max;
-+
-+		if (!adc_vol_flag) /* boost gain */
-+			gain_val[i] = gain_val[i] * 0x0a00;
-+		else { /* ADC gain */
-+			gain_val[i] = 0x1e00 - ((p->max - gain_val[i]) * interval_offset);
-+			gain_val[i] &= 0xffff;
-+		}
-+
-+		if (regvalue[i] != gain_val[i])
-+			changed = 1;
-+	}
-+
-+	if (!changed)
-+		return 0;
-+
-+	for (i = 0; i < p->count; i++) {
-+		err = regmap_write(rt712->mbq_regmap, p->reg_base + i, gain_val[i]);
-+		if (err < 0)
-+			dev_err(&rt712->slave->dev, "0x%08x can't be set\n", p->reg_base + i);
-+	}
-+
-+	return changed;
-+}
-+
-+static int rt712_sdca_set_fu1e_capture_ctl(struct rt712_sdca_dmic_priv *rt712)
-+{
-+	int err, i;
-+	unsigned int ch_mute;
-+
-+	for (i = 0; i < ARRAY_SIZE(rt712->fu1e_mixer_mute); i++) {
-+		ch_mute = (rt712->fu1e_dapm_mute || rt712->fu1e_mixer_mute[i]) ? 0x01 : 0x00;
-+		err = regmap_write(rt712->regmap,
-+				SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E,
-+				RT712_SDCA_CTL_FU_MUTE, CH_01) + i, ch_mute);
-+		if (err < 0)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_fu1e_capture_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_kctrl_priv *p =
-+		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
-+	unsigned int i;
-+
-+	for (i = 0; i < p->count; i++)
-+		ucontrol->value.integer.value[i] = !rt712->fu1e_mixer_mute[i];
-+
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_fu1e_capture_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_kctrl_priv *p =
-+		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
-+	int err, changed = 0, i;
-+
-+	for (i = 0; i < p->count; i++) {
-+		if (rt712->fu1e_mixer_mute[i] != !ucontrol->value.integer.value[i])
-+			changed = 1;
-+		rt712->fu1e_mixer_mute[i] = !ucontrol->value.integer.value[i];
-+	}
-+
-+	err = rt712_sdca_set_fu1e_capture_ctl(rt712);
-+	if (err < 0)
-+		return err;
-+
-+	return changed;
-+}
-+
-+static int rt712_sdca_fu_info(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	struct rt712_sdca_dmic_kctrl_priv *p =
-+		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
-+
-+	if (p->max == 1)
-+		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
-+	else
-+		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = p->count;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = p->max;
-+	return 0;
-+}
-+
-+#define RT712_SDCA_PR_VALUE(xreg_base, xcount, xmax, xinvert) \
-+	((unsigned long)&(struct rt712_sdca_dmic_kctrl_priv) \
-+		{.reg_base = xreg_base, .count = xcount, .max = xmax, \
-+		.invert = xinvert})
-+
-+#define RT712_SDCA_FU_CTRL(xname, reg_base, xmax, xinvert, xcount) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
-+	.info = rt712_sdca_fu_info, \
-+	.get = rt712_sdca_dmic_fu1e_capture_get, \
-+	.put = rt712_sdca_dmic_fu1e_capture_put, \
-+	.private_value = RT712_SDCA_PR_VALUE(reg_base, xcount, xmax, xinvert)}
-+
-+#define RT712_SDCA_EXT_TLV(xname, reg_base, xhandler_get,\
-+	 xhandler_put, xcount, xmax, tlv_array) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
-+	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
-+		 SNDRV_CTL_ELEM_ACCESS_READWRITE, \
-+	.tlv.p = (tlv_array), \
-+	.info = rt712_sdca_fu_info, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = RT712_SDCA_PR_VALUE(reg_base, xcount, xmax, 0) }
-+
-+static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
-+static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
-+
-+static const struct snd_kcontrol_new rt712_sdca_dmic_snd_controls[] = {
-+	RT712_SDCA_FU_CTRL("FU1E Capture Switch",
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_MUTE, CH_01),
-+		1, 1, 4),
-+	RT712_SDCA_EXT_TLV("FU1E Capture Volume",
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_01),
-+		rt712_sdca_dmic_set_gain_get, rt712_sdca_dmic_set_gain_put, 4, 0x3f, in_vol_tlv),
-+	RT712_SDCA_EXT_TLV("FU15 Boost Volume",
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_01),
-+		rt712_sdca_dmic_set_gain_get, rt712_sdca_dmic_set_gain_put, 4, 3, mic_vol_tlv),
-+};
-+
-+static int rt712_sdca_dmic_mux_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	unsigned int val = 0, mask_sft;
-+
-+	if (strstr(ucontrol->id.name, "ADC 25 Mux"))
-+		mask_sft = 8;
-+	else if (strstr(ucontrol->id.name, "ADC 26 Mux"))
-+		mask_sft = 4;
-+	else
-+		return -EINVAL;
-+
-+	rt712_sdca_dmic_index_read(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_HDA_LEGACY_MUX_CTL0, &val);
-+
-+	ucontrol->value.enumerated.item[0] = (val >> mask_sft) & 0x7;
-+
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_mux_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	unsigned int *item = ucontrol->value.enumerated.item;
-+	unsigned int val, val2 = 0, change, mask_sft;
-+
-+	if (item[0] >= e->items)
-+		return -EINVAL;
-+
-+	if (strstr(ucontrol->id.name, "ADC 25 Mux"))
-+		mask_sft = 8;
-+	else if (strstr(ucontrol->id.name, "ADC 26 Mux"))
-+		mask_sft = 4;
-+	else
-+		return -EINVAL;
-+
-+	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
-+
-+	rt712_sdca_dmic_index_read(rt712, RT712_VENDOR_HDA_CTL,
-+		RT712_HDA_LEGACY_MUX_CTL0, &val2);
-+	val2 = (0x7 << mask_sft) & val2;
-+
-+	if (val == val2)
-+		change = 0;
-+	else
-+		change = 1;
-+
-+	if (change)
-+		rt712_sdca_dmic_index_update_bits(rt712, RT712_VENDOR_HDA_CTL,
-+			RT712_HDA_LEGACY_MUX_CTL0, 0x7 << mask_sft,
-+			val << mask_sft);
-+
-+	snd_soc_dapm_mux_update_power(dapm, kcontrol,
-+		item[0], e, NULL);
-+
-+	return change;
-+}
-+
-+static const char * const adc_mux_text[] = {
-+	"DMIC1",
-+	"DMIC2",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(
-+	rt712_adc25_enum, SND_SOC_NOPM, 0, adc_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(
-+	rt712_adc26_enum, SND_SOC_NOPM, 0, adc_mux_text);
-+
-+static const struct snd_kcontrol_new rt712_sdca_dmic_adc25_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 25 Mux", rt712_adc25_enum,
-+			rt712_sdca_dmic_mux_get, rt712_sdca_dmic_mux_put);
-+
-+static const struct snd_kcontrol_new rt712_sdca_dmic_adc26_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 26 Mux", rt712_adc26_enum,
-+			rt712_sdca_dmic_mux_get, rt712_sdca_dmic_mux_put);
-+
-+static int rt712_sdca_dmic_fu1e_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		rt712->fu1e_dapm_mute = false;
-+		rt712_sdca_set_fu1e_capture_ctl(rt712);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		rt712->fu1e_dapm_mute = true;
-+		rt712_sdca_set_fu1e_capture_ctl(rt712);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_pde11_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	unsigned char ps0 = 0x0, ps3 = 0x3;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		regmap_write(rt712->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PDE11,
-+				RT712_SDCA_CTL_REQ_POWER_STATE, 0),
-+				ps0);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		regmap_write(rt712->regmap,
-+			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PDE11,
-+				RT712_SDCA_CTL_REQ_POWER_STATE, 0),
-+				ps3);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_dapm_widget rt712_sdca_dmic_dapm_widgets[] = {
-+	SND_SOC_DAPM_INPUT("DMIC1"),
-+	SND_SOC_DAPM_INPUT("DMIC2"),
-+
-+	SND_SOC_DAPM_SUPPLY("PDE 11", SND_SOC_NOPM, 0, 0,
-+		rt712_sdca_dmic_pde11_event,
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+
-+	SND_SOC_DAPM_ADC_E("FU 1E", NULL, SND_SOC_NOPM, 0, 0,
-+		rt712_sdca_dmic_fu1e_event,
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_MUX("ADC 25 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt712_sdca_dmic_adc25_mux),
-+	SND_SOC_DAPM_MUX("ADC 26 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt712_sdca_dmic_adc26_mux),
-+
-+	SND_SOC_DAPM_AIF_OUT("DP2TX", "DP2 Capture", 0, SND_SOC_NOPM, 0, 0),
-+};
-+
-+static const struct snd_soc_dapm_route rt712_sdca_dmic_audio_map[] = {
-+	{"DP2TX", NULL, "FU 1E"},
-+
-+	{"FU 1E", NULL, "PDE 11"},
-+	{"FU 1E", NULL, "ADC 25 Mux"},
-+	{"FU 1E", NULL, "ADC 26 Mux"},
-+	{"ADC 25 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 25 Mux", "DMIC2", "DMIC2"},
-+	{"ADC 26 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 26 Mux", "DMIC2", "DMIC2"},
-+};
-+
-+static int rt712_sdca_dmic_probe(struct snd_soc_component *component)
-+{
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	rt712->component = component;
-+
-+	ret = pm_runtime_resume(component->dev);
-+	if (ret < 0 && ret != -EACCES)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver soc_sdca_dev_rt712_dmic = {
-+	.probe = rt712_sdca_dmic_probe,
-+	.controls = rt712_sdca_dmic_snd_controls,
-+	.num_controls = ARRAY_SIZE(rt712_sdca_dmic_snd_controls),
-+	.dapm_widgets = rt712_sdca_dmic_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(rt712_sdca_dmic_dapm_widgets),
-+	.dapm_routes = rt712_sdca_dmic_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(rt712_sdca_dmic_audio_map),
-+	.endianness = 1,
-+};
-+
-+static int rt712_sdca_dmic_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
-+				int direction)
-+{
-+	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
-+
-+	return 0;
-+}
-+
-+static void rt712_sdca_dmic_shutdown(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+}
-+
-+static int rt712_sdca_dmic_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_config stream_config;
-+	struct sdw_port_config port_config;
-+	struct sdw_stream_runtime *sdw_stream;
-+	int retval, num_channels;
-+	unsigned int sampling_rate;
-+
-+	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
-+	sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!sdw_stream)
-+		return -EINVAL;
-+
-+	if (!rt712->slave)
-+		return -EINVAL;
-+
-+	stream_config.frame_rate = params_rate(params);
-+	stream_config.ch_count = params_channels(params);
-+	stream_config.bps = snd_pcm_format_width(params_format(params));
-+	stream_config.direction = SDW_DATA_DIR_TX;
-+
-+	num_channels = params_channels(params);
-+	port_config.ch_mask = GENMASK(num_channels - 1, 0);
-+	port_config.num = 2;
-+
-+	retval = sdw_stream_add_slave(rt712->slave, &stream_config,
-+					&port_config, 1, sdw_stream);
-+	if (retval) {
-+		dev_err(dai->dev, "Unable to configure port\n");
-+		return retval;
-+	}
-+
-+	if (params_channels(params) > 4) {
-+		dev_err(component->dev, "Unsupported channels %d\n",
-+			params_channels(params));
-+		return -EINVAL;
-+	}
-+
-+	/* sampling rate configuration */
-+	switch (params_rate(params)) {
-+	case 16000:
-+		sampling_rate = RT712_SDCA_RATE_16000HZ;
-+		break;
-+	case 32000:
-+		sampling_rate = RT712_SDCA_RATE_32000HZ;
-+		break;
-+	case 44100:
-+		sampling_rate = RT712_SDCA_RATE_44100HZ;
-+		break;
-+	case 48000:
-+		sampling_rate = RT712_SDCA_RATE_48000HZ;
-+		break;
-+	case 96000:
-+		sampling_rate = RT712_SDCA_RATE_96000HZ;
-+		break;
-+	case 192000:
-+		sampling_rate = RT712_SDCA_RATE_192000HZ;
-+		break;
-+	default:
-+		dev_err(component->dev, "Rate %d is not supported\n",
-+			params_rate(params));
-+		return -EINVAL;
-+	}
-+
-+	/* set sampling frequency */
-+	regmap_write(rt712->regmap,
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_CS1F, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
-+		sampling_rate);
-+	regmap_write(rt712->regmap,
-+		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_CS1C, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
-+		sampling_rate);
-+
-+	return 0;
-+}
-+
-+static int rt712_sdca_dmic_hw_free(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_runtime *sdw_stream =
-+		snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!rt712->slave)
-+		return -EINVAL;
-+
-+	sdw_stream_remove_slave(rt712->slave, sdw_stream);
-+	return 0;
-+}
-+
-+#define RT712_STEREO_RATES (SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 | \
-+			SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_192000)
-+#define RT712_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
-+			SNDRV_PCM_FMTBIT_S24_LE)
-+
-+static const struct snd_soc_dai_ops rt712_sdca_dmic_ops = {
-+	.hw_params	= rt712_sdca_dmic_hw_params,
-+	.hw_free	= rt712_sdca_dmic_hw_free,
-+	.set_stream	= rt712_sdca_dmic_set_sdw_stream,
-+	.shutdown	= rt712_sdca_dmic_shutdown,
-+};
-+
-+static struct snd_soc_dai_driver rt712_sdca_dmic_dai[] = {
-+	{
-+		.name = "rt712-sdca-dmic-aif1",
-+		.id = RT712_AIF1,
-+		.capture = {
-+			.stream_name = "DP2 Capture",
-+			.channels_min = 1,
-+			.channels_max = 4,
-+			.rates = RT712_STEREO_RATES,
-+			.formats = RT712_FORMATS,
-+		},
-+		.ops = &rt712_sdca_dmic_ops,
-+	},
-+};
-+
-+int rt712_sdca_dmic_init(struct device *dev, struct regmap *regmap,
-+			struct regmap *mbq_regmap, struct sdw_slave *slave)
-+{
-+	struct rt712_sdca_dmic_priv *rt712;
-+	int ret;
-+
-+	rt712 = devm_kzalloc(dev, sizeof(*rt712), GFP_KERNEL);
-+	if (!rt712)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, rt712);
-+	rt712->slave = slave;
-+	rt712->regmap = regmap;
-+	rt712->mbq_regmap = mbq_regmap;
-+
-+	/*
-+	 * Mark hw_init to false
-+	 * HW init will be performed when device reports present
-+	 */
-+	rt712->hw_init = false;
-+	rt712->first_hw_init = false;
-+	rt712->fu1e_dapm_mute = true;
-+	rt712->fu1e_mixer_mute[0] = rt712->fu1e_mixer_mute[1] =
-+		rt712->fu1e_mixer_mute[2] = rt712->fu1e_mixer_mute[3] = true;
-+
-+	ret =  devm_snd_soc_register_component(dev,
-+			&soc_sdca_dev_rt712_dmic,
-+			rt712_sdca_dmic_dai,
-+			ARRAY_SIZE(rt712_sdca_dmic_dai));
-+
-+	dev_dbg(&slave->dev, "%s\n", __func__);
-+
-+	return ret;
-+}
-+
-+
-+static int rt712_sdca_dmic_update_status(struct sdw_slave *slave,
-+				enum sdw_slave_status status)
-+{
-+	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(&slave->dev);
-+
-+	/* Update the status */
-+	rt712->status = status;
-+
-+	if (status == SDW_SLAVE_UNATTACHED)
-+		rt712->hw_init = false;
-+
-+	/*
-+	 * Perform initialization only if slave status is present and
-+	 * hw_init flag is false
-+	 */
-+	if (rt712->hw_init || rt712->status != SDW_SLAVE_ATTACHED)
-+		return 0;
-+
-+	/* perform I/O transfers required for Slave initialization */
-+	return rt712_sdca_dmic_io_init(&slave->dev, slave);
-+}
-+
-+static int rt712_sdca_dmic_read_prop(struct sdw_slave *slave)
-+{
-+	struct sdw_slave_prop *prop = &slave->prop;
-+	int nval, i;
-+	u32 bit;
-+	unsigned long addr;
-+	struct sdw_dpn_prop *dpn;
-+
-+	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
-+
-+	prop->paging_support = true;
-+
-+	/* first we need to allocate memory for set bits in port lists */
-+	prop->source_ports = BIT(2); /* BITMAP: 00000100 */
-+	prop->sink_ports = 0;
-+
-+	nval = hweight32(prop->source_ports);
-+	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+		sizeof(*prop->src_dpn_prop), GFP_KERNEL);
-+	if (!prop->src_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->src_dpn_prop;
-+	addr = prop->source_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* set the timeout values */
-+	prop->clk_stop_timeout = 200;
-+
-+	/* wake-up event */
-+	prop->wake_capable = 1;
-+
-+	return 0;
-+}
-+
-+static const struct sdw_device_id rt712_sdca_dmic_id[] = {
-+	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1712, 0x3, 0x1, 0),
-+	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1713, 0x3, 0x1, 0),
-+	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1716, 0x3, 0x1, 0),
-+	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1717, 0x3, 0x1, 0),
-+	{},
-+};
-+MODULE_DEVICE_TABLE(sdw, rt712_sdca_dmic_id);
-+
-+static int __maybe_unused rt712_sdca_dmic_dev_suspend(struct device *dev)
-+{
-+	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(dev);
-+
-+	if (!rt712->hw_init)
-+		return 0;
-+
-+	regcache_cache_only(rt712->regmap, true);
-+	regcache_cache_only(rt712->mbq_regmap, true);
-+
-+	return 0;
-+}
-+
-+static int __maybe_unused rt712_sdca_dmic_dev_system_suspend(struct device *dev)
-+{
-+	struct rt712_sdca_dmic_priv *rt712_sdca = dev_get_drvdata(dev);
-+
-+	if (!rt712_sdca->hw_init)
-+		return 0;
-+
-+	return rt712_sdca_dmic_dev_suspend(dev);
-+}
-+
-+#define RT712_PROBE_TIMEOUT 5000
-+
-+static int __maybe_unused rt712_sdca_dmic_dev_resume(struct device *dev)
-+{
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(dev);
-+	unsigned long time;
-+
-+	if (!rt712->first_hw_init)
-+		return 0;
-+
-+	if (!slave->unattach_request)
-+		goto regmap_sync;
-+
-+	time = wait_for_completion_timeout(&slave->initialization_complete,
-+				msecs_to_jiffies(RT712_PROBE_TIMEOUT));
-+	if (!time) {
-+		dev_err(&slave->dev, "Initialization not complete, timed out\n");
-+		sdw_show_ping_status(slave->bus, true);
-+
-+		return -ETIMEDOUT;
-+	}
-+
-+regmap_sync:
-+	slave->unattach_request = 0;
-+	regcache_cache_only(rt712->regmap, false);
-+	regcache_sync(rt712->regmap);
-+	regcache_cache_only(rt712->mbq_regmap, false);
-+	regcache_sync(rt712->mbq_regmap);
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops rt712_sdca_dmic_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(rt712_sdca_dmic_dev_system_suspend, rt712_sdca_dmic_dev_resume)
-+	SET_RUNTIME_PM_OPS(rt712_sdca_dmic_dev_suspend, rt712_sdca_dmic_dev_resume, NULL)
-+};
-+
-+
-+static struct sdw_slave_ops rt712_sdca_dmic_slave_ops = {
-+	.read_prop = rt712_sdca_dmic_read_prop,
-+	.update_status = rt712_sdca_dmic_update_status,
-+};
-+
-+static int rt712_sdca_dmic_sdw_probe(struct sdw_slave *slave,
-+				const struct sdw_device_id *id)
-+{
-+	struct regmap *regmap, *mbq_regmap;
-+
-+	/* Regmap Initialization */
-+	mbq_regmap = devm_regmap_init_sdw_mbq(slave, &rt712_sdca_dmic_mbq_regmap);
-+	if (IS_ERR(mbq_regmap))
-+		return PTR_ERR(mbq_regmap);
-+
-+	regmap = devm_regmap_init_sdw(slave, &rt712_sdca_dmic_regmap);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	return rt712_sdca_dmic_init(&slave->dev, regmap, mbq_regmap, slave);
-+}
-+
-+static int rt712_sdca_dmic_sdw_remove(struct sdw_slave *slave)
-+{
-+	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(&slave->dev);
-+
-+	if (rt712->first_hw_init)
-+		pm_runtime_disable(&slave->dev);
-+
-+	return 0;
-+}
-+
-+static struct sdw_driver rt712_sdca_dmic_sdw_driver = {
-+	.driver = {
-+		.name = "rt712-sdca-dmic",
-+		.owner = THIS_MODULE,
-+		.pm = &rt712_sdca_dmic_pm,
-+	},
-+	.probe = rt712_sdca_dmic_sdw_probe,
-+	.remove = rt712_sdca_dmic_sdw_remove,
-+	.ops = &rt712_sdca_dmic_slave_ops,
-+	.id_table = rt712_sdca_dmic_id,
-+};
-+module_sdw_driver(rt712_sdca_dmic_sdw_driver);
-+
-+MODULE_DESCRIPTION("ASoC RT712 SDCA DMIC SDW driver");
-+MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/rt712-sdca-dmic.h b/sound/soc/codecs/rt712-sdca-dmic.h
-new file mode 100644
-index 000000000000..b31e57918e3e
---- /dev/null
-+++ b/sound/soc/codecs/rt712-sdca-dmic.h
-@@ -0,0 +1,106 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * rt712-sdca-dmic.h -- RT712 SDCA DMIC ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2023 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __RT712_SDW_DMIC_H__
-+#define __RT712_SDW_DMIC_H__
-+
-+#include <linux/regmap.h>
-+#include <linux/soundwire/sdw_registers.h>
-+
-+struct  rt712_sdca_dmic_priv {
-+	struct regmap *regmap, *mbq_regmap;
-+	struct snd_soc_component *component;
-+	struct sdw_slave *slave;
-+	enum sdw_slave_status status;
-+	struct sdw_bus_params params;
-+	bool hw_init;
-+	bool first_hw_init;
-+	bool fu1e_dapm_mute, fu1e_mixer_mute[4];
-+};
-+
-+struct rt712_sdca_dmic_kctrl_priv {
-+	unsigned int reg_base;
-+	unsigned int count;
-+	unsigned int max;
-+	unsigned int invert;
-+};
-+
-+/* SDCA (Channel) */
-+#define CH_01	0x01
-+#define CH_02	0x02
-+#define CH_03	0x03
-+#define CH_04	0x04
-+
-+static const struct reg_default rt712_sdca_dmic_reg_defaults[] = {
-+	{ 0x201a, 0x00 },
-+	{ 0x201b, 0x00 },
-+	{ 0x201c, 0x00 },
-+	{ 0x201d, 0x00 },
-+	{ 0x201e, 0x00 },
-+	{ 0x201f, 0x00 },
-+	{ 0x2029, 0x00 },
-+	{ 0x202a, 0x00 },
-+	{ 0x202d, 0x00 },
-+	{ 0x202e, 0x00 },
-+	{ 0x202f, 0x00 },
-+	{ 0x2030, 0x00 },
-+	{ 0x2031, 0x00 },
-+	{ 0x2032, 0x00 },
-+	{ 0x2033, 0x00 },
-+	{ 0x2034, 0x00 },
-+	{ 0x2230, 0x00 },
-+	{ 0x2231, 0x2f },
-+	{ 0x2232, 0x80 },
-+	{ 0x2f01, 0x00 },
-+	{ 0x2f02, 0x09 },
-+	{ 0x2f03, 0x00 },
-+	{ 0x2f04, 0x00 },
-+	{ 0x2f05, 0x0b },
-+	{ 0x2f06, 0x01 },
-+	{ 0x2f08, 0x00 },
-+	{ 0x2f09, 0x00 },
-+	{ 0x2f0a, 0x01 },
-+	{ 0x2f35, 0x02 },
-+	{ 0x2f36, 0xcf },
-+	{ 0x2f52, 0x08 },
-+	{ 0x2f58, 0x07 },
-+	{ 0x2f59, 0x07 },
-+	{ 0x3201, 0x01 },
-+	{ 0x320c, 0x00 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_IT26, RT712_SDCA_CTL_VENDOR_DEF, 0), 0x00 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_MUTE, CH_01), 0x01 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_MUTE, CH_02), 0x01 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_MUTE, CH_03), 0x01 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_MUTE, CH_04), 0x01 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_CS1F, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), 0x09 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_CS1C, RT712_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), 0x09 },
-+};
-+
-+static const struct reg_default rt712_sdca_dmic_mbq_defaults[] = {
-+	{ 0x0590001e, 0x0020 },
-+	{ 0x06100000, 0x0010 },
-+	{ 0x06100006, 0x0055 },
-+	{ 0x06100010, 0x2630 },
-+	{ 0x06100011, 0x152f },
-+	{ 0x06100013, 0x0102 },
-+	{ 0x06100015, 0x2219 },
-+	{ 0x06100018, 0x0102 },
-+	{ 0x06100026, 0x2c29 },
-+	{ 0x06100027, 0x2d2b },
-+	{ 0x0610002b, 0x2a32 },
-+	{ 0x0610002f, 0x3355 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_01), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_02), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_03), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_PLATFORM_FU15, RT712_SDCA_CTL_FU_CH_GAIN, CH_04), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_01), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_02), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_03), 0x0000 },
-+	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_USER_FU1E, RT712_SDCA_CTL_FU_VOLUME, CH_04), 0x0000 },
-+};
-+
-+#endif /* __RT712_SDW_DMIC_H__ */
--- 
-2.34.1
-
+U29ycnksIHdyb25nIGUtbWFpbCBhZGRyZXNzIHdpdGggdGhlIHNpZ25lZC1vZmYuIEkgd2lsbCBz
+ZW5kIGl0IGFnYWluLg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IHNo
+dW1pbmdmQHJlYWx0ZWsuY29tIDxzaHVtaW5nZkByZWFsdGVrLmNvbT4NCj4gU2VudDogVHVlc2Rh
+eSwgTWFyY2ggMjgsIDIwMjMgNToxNCBQTQ0KPiBUbzogYnJvb25pZUBrZXJuZWwub3JnOyBsZ2ly
+ZHdvb2RAZ21haWwuY29tDQo+IENjOiBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7IGxhcnNA
+bWV0YWZvby5kZTsgRmxvdmUoSHNpbkZ1KQ0KPiA8ZmxvdmVAcmVhbHRlay5jb20+OyBPZGVyIENo
+aW91IDxvZGVyX2NoaW91QHJlYWx0ZWsuY29tPjsgSmFjayBZdQ0KPiA8amFjay55dUByZWFsdGVr
+LmNvbT47IERlcmVrIFuk6Lx3uHFdIDxkZXJlay5mYW5nQHJlYWx0ZWsuY29tPjsNCj4gcGllcnJl
+LWxvdWlzLmJvc3NhcnRAaW50ZWwuY29tOyBiYXJkLmxpYW9AaW50ZWwuY29tOyBZaWp1bi5TaGVu
+QGRlbGwuY29tOw0KPiBzaHVtaW5nLmZhbiA8c2h1bWluZy5mYW5AcmVhbHRlay5jb20+DQo+IFN1
+YmplY3Q6IFtQQVRDSF0gQVNvQzogcnQ3MTItc2RjYTogQWRkIFJUNzEyIFNEQ0EgZHJpdmVyIGZv
+ciBNaWMgdG9wb2xvZ3kNCj4gDQo+IEZyb206ICJzaHVtaW5nLmZhbiIgPHNodW1pbmcuZmFuQHJl
+YWx0ZWsuY29tPg0KPiANCj4gVGhpcyBpcyB0aGUgaW5pdGlhbCBjb2RlYyBkcml2ZXIgZm9yIHJ0
+NzEyIFNEQ0EgKE1pYyB0b3BvbG9neSkuDQo+IFRoZSBob3N0IHNob3VsZCBjb25uZWN0IHdpdGgg
+cnQ3MTIgU2RXMiBpbnRlcmZhY2UuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBzaHVtaW5nLmZhbiA8
+c2h1bWluZy5mYW5AcmVhbHRlay5jb20+DQo+IC0tLQ0KPiAgc291bmQvc29jL2NvZGVjcy9LY29u
+ZmlnICAgICAgICAgICB8ICAgNyArDQo+ICBzb3VuZC9zb2MvY29kZWNzL01ha2VmaWxlICAgICAg
+ICAgIHwgICAyICsNCj4gIHNvdW5kL3NvYy9jb2RlY3MvcnQ3MTItc2RjYS1kbWljLmMgfCA5OTEN
+Cj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysgIHNvdW5kL3NvYy9jb2RlY3MvcnQ3MTIt
+c2RjYS1kbWljLmggfA0KPiAxMDYgKysrDQo+ICA0IGZpbGVzIGNoYW5nZWQsIDExMDYgaW5zZXJ0
+aW9ucygrKQ0KPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNvdW5kL3NvYy9jb2RlY3MvcnQ3MTItc2Rj
+YS1kbWljLmMNCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBzb3VuZC9zb2MvY29kZWNzL3J0NzEyLXNk
+Y2EtZG1pYy5oDQo+IA0KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9LY29uZmlnIGIv
+c291bmQvc29jL2NvZGVjcy9LY29uZmlnIGluZGV4DQo+IDA3NzQ3NTY1YzNiNS4uNjI4NmFiMmJl
+NmE0IDEwMDY0NA0KPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL0tjb25maWcNCj4gKysrIGIvc291
+bmQvc29jL2NvZGVjcy9LY29uZmlnDQo+IEBAIC0yMDAsNiArMjAwLDcgQEAgY29uZmlnIFNORF9T
+T0NfQUxMX0NPREVDUw0KPiAgCWltcGx5IFNORF9TT0NfUlQ3MTFfU0RXDQo+ICAJaW1wbHkgU05E
+X1NPQ19SVDcxMV9TRENBX1NEVw0KPiAgCWltcGx5IFNORF9TT0NfUlQ3MTJfU0RDQV9TRFcNCj4g
+KwlpbXBseSBTTkRfU09DX1JUNzEyX1NEQ0FfRE1JQ19TRFcNCj4gIAlpbXBseSBTTkRfU09DX1JU
+NzE1X1NEVw0KPiAgCWltcGx5IFNORF9TT0NfUlQ3MTVfU0RDQV9TRFcNCj4gIAlpbXBseSBTTkRf
+U09DX1JUMTMwOF9TRFcNCj4gQEAgLTE0NzcsNiArMTQ3OCwxMiBAQCBjb25maWcgU05EX1NPQ19S
+VDcxMl9TRENBX1NEVw0KPiAgCXNlbGVjdCBSRUdNQVBfU09VTkRXSVJFDQo+ICAJc2VsZWN0IFJF
+R01BUF9TT1VORFdJUkVfTUJRDQo+IA0KPiArY29uZmlnIFNORF9TT0NfUlQ3MTJfU0RDQV9ETUlD
+X1NEVw0KPiArCXRyaXN0YXRlICJSZWFsdGVrIFJUNzEyIFNEQ0EgRE1JQyBDb2RlYyAtIFNEVyIN
+Cj4gKwlkZXBlbmRzIG9uIFNPVU5EV0lSRQ0KPiArCXNlbGVjdCBSRUdNQVBfU09VTkRXSVJFDQo+
+ICsJc2VsZWN0IFJFR01BUF9TT1VORFdJUkVfTUJRDQo+ICsNCj4gIGNvbmZpZyBTTkRfU09DX1JU
+NzE1DQo+ICAJdHJpc3RhdGUNCj4gDQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL01h
+a2VmaWxlIGIvc291bmQvc29jL2NvZGVjcy9NYWtlZmlsZSBpbmRleA0KPiBmMWNhMThmNzk0NmMu
+LmU3MzFmZTU1YWE0YiAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9NYWtlZmlsZQ0K
+PiArKysgYi9zb3VuZC9zb2MvY29kZWNzL01ha2VmaWxlDQo+IEBAIC0yMjgsNiArMjI4LDcgQEAg
+c25kLXNvYy1ydDcwMC1vYmpzIDo9IHJ0NzAwLm8gcnQ3MDAtc2R3Lm8NCj4gc25kLXNvYy1ydDcx
+MS1vYmpzIDo9IHJ0NzExLm8gcnQ3MTEtc2R3Lm8gIHNuZC1zb2MtcnQ3MTEtc2RjYS1vYmpzIDo9
+DQo+IHJ0NzExLXNkY2EubyBydDcxMS1zZGNhLXNkdy5vICBzbmQtc29jLXJ0NzEyLXNkY2Etb2Jq
+cyA6PSBydDcxMi1zZGNhLm8NCj4gcnQ3MTItc2RjYS1zZHcubw0KPiArc25kLXNvYy1ydDcxMi1z
+ZGNhLWRtaWMtb2JqcyA6PSBydDcxMi1zZGNhLWRtaWMubw0KPiAgc25kLXNvYy1ydDcxNS1vYmpz
+IDo9IHJ0NzE1Lm8gcnQ3MTUtc2R3Lm8gIHNuZC1zb2MtcnQ3MTUtc2RjYS1vYmpzIDo9DQo+IHJ0
+NzE1LXNkY2EubyBydDcxNS1zZGNhLXNkdy5vICBzbmQtc29jLXJ0OTEyMC1vYmpzIDo9IHJ0OTEy
+MC5vDQo+IEBAIC01OTEsNiArNTkyLDcgQEAgb2JqLSQoQ09ORklHX1NORF9TT0NfUlQ3MDApICAg
+ICArPQ0KPiBzbmQtc29jLXJ0NzAwLm8NCj4gIG9iai0kKENPTkZJR19TTkRfU09DX1JUNzExKSAg
+ICAgKz0gc25kLXNvYy1ydDcxMS5vDQo+ICBvYmotJChDT05GSUdfU05EX1NPQ19SVDcxMV9TRENB
+X1NEVykgICAgICs9IHNuZC1zb2MtcnQ3MTEtc2RjYS5vDQo+ICBvYmotJChDT05GSUdfU05EX1NP
+Q19SVDcxMl9TRENBX1NEVykgICAgICs9IHNuZC1zb2MtcnQ3MTItc2RjYS5vDQo+ICtvYmotJChD
+T05GSUdfU05EX1NPQ19SVDcxMl9TRENBX0RNSUNfU0RXKSAgICAgKz0NCj4gc25kLXNvYy1ydDcx
+Mi1zZGNhLWRtaWMubw0KPiAgb2JqLSQoQ09ORklHX1NORF9TT0NfUlQ3MTUpICAgICArPSBzbmQt
+c29jLXJ0NzE1Lm8NCj4gIG9iai0kKENPTkZJR19TTkRfU09DX1JUNzE1X1NEQ0FfU0RXKSAgICAg
+Kz0gc25kLXNvYy1ydDcxNS1zZGNhLm8NCj4gIG9iai0kKENPTkZJR19TTkRfU09DX1JUOTEyMCkJ
+Kz0gc25kLXNvYy1ydDkxMjAubw0KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9ydDcx
+Mi1zZGNhLWRtaWMuYw0KPiBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MTItc2RjYS1kbWljLmMNCj4g
+bmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4gaW5kZXggMDAwMDAwMDAwMDAwLi5lNWQ3NjVkODQzNjkN
+Cj4gLS0tIC9kZXYvbnVsbA0KPiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0NzEyLXNkY2EtZG1p
+Yy5jDQo+IEBAIC0wLDAgKzEsOTkxIEBADQo+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
+R1BMLTIuMC1vbmx5IC8vIC8vIHJ0NzEyLXNkY2EtZG1pYy5jIC0tDQo+ICtydDcxMiBTRENBIERN
+SUMgQUxTQSBTb0MgYXVkaW8gZHJpdmVyIC8vIC8vIENvcHlyaWdodChjKSAyMDIzIFJlYWx0ZWsN
+Cj4gK1NlbWljb25kdWN0b3IgQ29ycC4NCj4gKy8vDQo+ICsvLw0KPiArDQo+ICsjaW5jbHVkZSA8
+bGludXgvYml0b3BzLmg+DQo+ICsjaW5jbHVkZSA8c291bmQvY29yZS5oPg0KPiArI2luY2x1ZGUg
+PGxpbnV4L2RldmljZS5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+DQo+ICsjaW5jbHVk
+ZSA8bGludXgvaW5pdC5oPg0KPiArI2luY2x1ZGUgPHNvdW5kL2luaXR2YWwuaD4NCj4gKyNpbmNs
+dWRlIDxsaW51eC9rZXJuZWwuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4NCj4gKyNp
+bmNsdWRlIDxsaW51eC9tb2R1bGVwYXJhbS5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L21vZF9kZXZp
+Y2V0YWJsZS5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4NCj4gKyNpbmNsdWRl
+IDxzb3VuZC9wY20uaD4NCj4gKyNpbmNsdWRlIDxzb3VuZC9wY21fcGFyYW1zLmg+DQo+ICsjaW5j
+bHVkZSA8bGludXgvc291bmR3aXJlL3Nkd19yZWdpc3RlcnMuaD4gI2luY2x1ZGUgPGxpbnV4L3Ns
+YWIuaD4NCj4gKyNpbmNsdWRlIDxzb3VuZC9zb2MtZGFwbS5oPiAjaW5jbHVkZSA8c291bmQvdGx2
+Lmg+ICNpbmNsdWRlDQo+ICsicnQ3MTItc2RjYS5oIg0KPiArI2luY2x1ZGUgInJ0NzEyLXNkY2Et
+ZG1pYy5oIg0KPiArDQo+ICtzdGF0aWMgYm9vbCBydDcxMl9zZGNhX2RtaWNfcmVhZGFibGVfcmVn
+aXN0ZXIoc3RydWN0IGRldmljZSAqZGV2LA0KPiArdW5zaWduZWQgaW50IHJlZykgew0KPiArCXN3
+aXRjaCAocmVnKSB7DQo+ICsJY2FzZSAweDIwMWEgLi4uIDB4MjAxZjoNCj4gKwljYXNlIDB4MjAy
+OSAuLi4gMHgyMDJhOg0KPiArCWNhc2UgMHgyMDJkIC4uLiAweDIwMzQ6DQo+ICsJY2FzZSAweDIy
+MzAgLi4uIDB4MjIzMjoNCj4gKwljYXNlIDB4MmYwMSAuLi4gMHgyZjBhOg0KPiArCWNhc2UgMHgy
+ZjM1IC4uLiAweDJmMzY6DQo+ICsJY2FzZSAweDJmNTI6DQo+ICsJY2FzZSAweDJmNTggLi4uIDB4
+MmY1OToNCj4gKwljYXNlIDB4MzIwMToNCj4gKwljYXNlIDB4MzIwYzoNCj4gKwkJcmV0dXJuIHRy
+dWU7DQo+ICsJZGVmYXVsdDoNCj4gKwkJcmV0dXJuIGZhbHNlOw0KPiArCX0NCj4gK30NCj4gKw0K
+PiArc3RhdGljIGJvb2wgcnQ3MTJfc2RjYV9kbWljX3ZvbGF0aWxlX3JlZ2lzdGVyKHN0cnVjdCBk
+ZXZpY2UgKmRldiwNCj4gK3Vuc2lnbmVkIGludCByZWcpIHsNCj4gKwlzd2l0Y2ggKHJlZykgew0K
+PiArCWNhc2UgMHgyMDFiOg0KPiArCWNhc2UgMHgyMDFjOg0KPiArCWNhc2UgMHgyMDFkOg0KPiAr
+CWNhc2UgMHgyMDFmOg0KPiArCWNhc2UgMHgyMDJkIC4uLiAweDIwMmY6DQo+ICsJY2FzZSAweDIy
+MzA6DQo+ICsJY2FzZSAweDJmMDE6DQo+ICsJY2FzZSAweDJmMzU6DQo+ICsJY2FzZSAweDMyMGM6
+DQo+ICsJCXJldHVybiB0cnVlOw0KPiArCWRlZmF1bHQ6DQo+ICsJCXJldHVybiBmYWxzZTsNCj4g
+Kwl9DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBib29sIHJ0NzEyX3NkY2FfZG1pY19tYnFfcmVhZGFi
+bGVfcmVnaXN0ZXIoc3RydWN0IGRldmljZSAqZGV2LA0KPiArdW5zaWduZWQgaW50IHJlZykgew0K
+PiArCXN3aXRjaCAocmVnKSB7DQo+ICsJY2FzZSAweDIwMDAwMDAgLi4uIDB4MjAwMDA4ZToNCj4g
+KwljYXNlIDB4NTMwMDAwMCAuLi4gMHg1MzAwMDBlOg0KPiArCWNhc2UgMHg1NDAwMDAwIC4uLiAw
+eDU0MDAwMGU6DQo+ICsJY2FzZSAweDU2MDAwMDAgLi4uIDB4NTYwMDAwODoNCj4gKwljYXNlIDB4
+NTcwMDAwMCAuLi4gMHg1NzAwMDBkOg0KPiArCWNhc2UgMHg1ODAwMDAwIC4uLiAweDU4MDAwMjE6
+DQo+ICsJY2FzZSAweDU5MDAwMDAgLi4uIDB4NTkwMDAyODoNCj4gKwljYXNlIDB4NWEwMDAwMCAu
+Li4gMHg1YTAwMDA5Og0KPiArCWNhc2UgMHg1YjAwMDAwIC4uLiAweDViMDAwNTE6DQo+ICsJY2Fz
+ZSAweDVjMDAwMDAgLi4uIDB4NWMwMDA5YToNCj4gKwljYXNlIDB4NWQwMDAwMCAuLi4gMHg1ZDAw
+MDA5Og0KPiArCWNhc2UgMHg1ZjAwMDAwIC4uLiAweDVmMDAwMzA6DQo+ICsJY2FzZSAweDYxMDAw
+MDAgLi4uIDB4NjEwMDA2ODoNCj4gKwljYXNlIFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJS
+QVksDQo+IFJUNzEyX1NEQ0FfRU5UX1VTRVJfRlUxRSwgUlQ3MTJfU0RDQV9DVExfRlVfVk9MVU1F
+LCBDSF8wMSk6DQo+ICsJY2FzZSBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBS
+VDcxMl9TRENBX0VOVF9VU0VSX0ZVMUUsIFJUNzEyX1NEQ0FfQ1RMX0ZVX1ZPTFVNRSwgQ0hfMDIp
+Og0KPiArCWNhc2UgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4gUlQ3MTJfU0RD
+QV9FTlRfVVNFUl9GVTFFLCBSVDcxMl9TRENBX0NUTF9GVV9WT0xVTUUsIENIXzAzKToNCj4gKwlj
+YXNlIFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1VT
+RVJfRlUxRSwgUlQ3MTJfU0RDQV9DVExfRlVfVk9MVU1FLCBDSF8wNCk6DQo+ICsJY2FzZSBTRFdf
+U0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QTEFURk9STV9G
+VTE1LCBSVDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLA0KPiBDSF8wMSk6DQo+ICsJY2FzZSBTRFdf
+U0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QTEFURk9STV9G
+VTE1LCBSVDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLA0KPiBDSF8wMik6DQo+ICsJY2FzZSBTRFdf
+U0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QTEFURk9STV9G
+VTE1LCBSVDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLA0KPiBDSF8wMyk6DQo+ICsJY2FzZSBTRFdf
+U0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QTEFURk9STV9G
+VTE1LCBSVDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLA0KPiBDSF8wNCk6DQo+ICsJCXJldHVybiB0
+cnVlOw0KPiArCWRlZmF1bHQ6DQo+ICsJCXJldHVybiBmYWxzZTsNCj4gKwl9DQo+ICt9DQo+ICsN
+Cj4gK3N0YXRpYyBib29sIHJ0NzEyX3NkY2FfZG1pY19tYnFfdm9sYXRpbGVfcmVnaXN0ZXIoc3Ry
+dWN0IGRldmljZSAqZGV2LA0KPiArdW5zaWduZWQgaW50IHJlZykgew0KPiArCXN3aXRjaCAocmVn
+KSB7DQo+ICsJY2FzZSAweDIwMDAwMDA6DQo+ICsJY2FzZSAweDIwMDAwMWE6DQo+ICsJY2FzZSAw
+eDIwMDAwMjQ6DQo+ICsJY2FzZSAweDIwMDAwNDY6DQo+ICsJY2FzZSAweDIwMDAwOGE6DQo+ICsJ
+Y2FzZSAweDU4MDAwMDA6DQo+ICsJY2FzZSAweDU4MDAwMDE6DQo+ICsJY2FzZSAweDYxMDAwMDg6
+DQo+ICsJCXJldHVybiB0cnVlOw0KPiArCWRlZmF1bHQ6DQo+ICsJCXJldHVybiBmYWxzZTsNCj4g
+Kwl9DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcmVnbWFwX2NvbmZpZyBydDcx
+Ml9zZGNhX2RtaWNfcmVnbWFwID0gew0KPiArCS5yZWdfYml0cyA9IDMyLA0KPiArCS52YWxfYml0
+cyA9IDgsDQo+ICsJLnJlYWRhYmxlX3JlZyA9IHJ0NzEyX3NkY2FfZG1pY19yZWFkYWJsZV9yZWdp
+c3RlciwNCj4gKwkudm9sYXRpbGVfcmVnID0gcnQ3MTJfc2RjYV9kbWljX3ZvbGF0aWxlX3JlZ2lz
+dGVyLA0KPiArCS5tYXhfcmVnaXN0ZXIgPSAweDQwOTgxMzAwLA0KPiArCS5yZWdfZGVmYXVsdHMg
+PSBydDcxMl9zZGNhX2RtaWNfcmVnX2RlZmF1bHRzLA0KPiArCS5udW1fcmVnX2RlZmF1bHRzID0g
+QVJSQVlfU0laRShydDcxMl9zZGNhX2RtaWNfcmVnX2RlZmF1bHRzKSwNCj4gKwkuY2FjaGVfdHlw
+ZSA9IFJFR0NBQ0hFX1JCVFJFRSwNCj4gKwkudXNlX3NpbmdsZV9yZWFkID0gdHJ1ZSwNCj4gKwku
+dXNlX3NpbmdsZV93cml0ZSA9IHRydWUsDQo+ICt9Ow0KPiArDQo+ICtzdGF0aWMgY29uc3Qgc3Ry
+dWN0IHJlZ21hcF9jb25maWcgcnQ3MTJfc2RjYV9kbWljX21icV9yZWdtYXAgPSB7DQo+ICsJLm5h
+bWUgPSAic2R3LW1icSIsDQo+ICsJLnJlZ19iaXRzID0gMzIsDQo+ICsJLnZhbF9iaXRzID0gMTYs
+DQo+ICsJLnJlYWRhYmxlX3JlZyA9IHJ0NzEyX3NkY2FfZG1pY19tYnFfcmVhZGFibGVfcmVnaXN0
+ZXIsDQo+ICsJLnZvbGF0aWxlX3JlZyA9IHJ0NzEyX3NkY2FfZG1pY19tYnFfdm9sYXRpbGVfcmVn
+aXN0ZXIsDQo+ICsJLm1heF9yZWdpc3RlciA9IDB4NDA4MDBmMTQsDQo+ICsJLnJlZ19kZWZhdWx0
+cyA9IHJ0NzEyX3NkY2FfZG1pY19tYnFfZGVmYXVsdHMsDQo+ICsJLm51bV9yZWdfZGVmYXVsdHMg
+PSBBUlJBWV9TSVpFKHJ0NzEyX3NkY2FfZG1pY19tYnFfZGVmYXVsdHMpLA0KPiArCS5jYWNoZV90
+eXBlID0gUkVHQ0FDSEVfUkJUUkVFLA0KPiArCS51c2Vfc2luZ2xlX3JlYWQgPSB0cnVlLA0KPiAr
+CS51c2Vfc2luZ2xlX3dyaXRlID0gdHJ1ZSwNCj4gK307DQo+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3
+MTJfc2RjYV9kbWljX2luZGV4X3dyaXRlKHN0cnVjdCBydDcxMl9zZGNhX2RtaWNfcHJpdiAqcnQ3
+MTIsDQo+ICsJCXVuc2lnbmVkIGludCBuaWQsIHVuc2lnbmVkIGludCByZWcsIHVuc2lnbmVkIGlu
+dCB2YWx1ZSkgew0KPiArCWludCByZXQ7DQo+ICsJc3RydWN0IHJlZ21hcCAqcmVnbWFwID0gcnQ3
+MTItPm1icV9yZWdtYXA7DQo+ICsJdW5zaWduZWQgaW50IGFkZHIgPSAobmlkIDw8IDIwKSB8IHJl
+ZzsNCj4gKw0KPiArCXJldCA9IHJlZ21hcF93cml0ZShyZWdtYXAsIGFkZHIsIHZhbHVlKTsNCj4g
+KwlpZiAocmV0IDwgMCkNCj4gKwkJZGV2X2VycigmcnQ3MTItPnNsYXZlLT5kZXYsDQo+ICsJCQki
+RmFpbGVkIHRvIHNldCBwcml2YXRlIHZhbHVlOiAlMDZ4IDw9ICUwNHggcmV0PSVkXG4iLA0KPiAr
+CQkJYWRkciwgdmFsdWUsIHJldCk7DQo+ICsNCj4gKwlyZXR1cm4gcmV0Ow0KPiArfQ0KPiArDQo+
+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19pbmRleF9yZWFkKHN0cnVjdCBydDcxMl9zZGNh
+X2RtaWNfcHJpdiAqcnQ3MTIsDQo+ICsJCXVuc2lnbmVkIGludCBuaWQsIHVuc2lnbmVkIGludCBy
+ZWcsIHVuc2lnbmVkIGludCAqdmFsdWUpIHsNCj4gKwlpbnQgcmV0Ow0KPiArCXN0cnVjdCByZWdt
+YXAgKnJlZ21hcCA9IHJ0NzEyLT5tYnFfcmVnbWFwOw0KPiArCXVuc2lnbmVkIGludCBhZGRyID0g
+KG5pZCA8PCAyMCkgfCByZWc7DQo+ICsNCj4gKwlyZXQgPSByZWdtYXBfcmVhZChyZWdtYXAsIGFk
+ZHIsIHZhbHVlKTsNCj4gKwlpZiAocmV0IDwgMCkNCj4gKwkJZGV2X2VycigmcnQ3MTItPnNsYXZl
+LT5kZXYsDQo+ICsJCQkiRmFpbGVkIHRvIGdldCBwcml2YXRlIHZhbHVlOiAlMDZ4ID0+ICUwNHgg
+cmV0PSVkXG4iLA0KPiArCQkJYWRkciwgKnZhbHVlLCByZXQpOw0KPiArDQo+ICsJcmV0dXJuIHJl
+dDsNCj4gK30NCj4gKw0KPiArc3RhdGljIGludCBydDcxMl9zZGNhX2RtaWNfaW5kZXhfdXBkYXRl
+X2JpdHMoc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2DQo+ICpydDcxMiwNCj4gKwl1bnNpZ25l
+ZCBpbnQgbmlkLCB1bnNpZ25lZCBpbnQgcmVnLCB1bnNpZ25lZCBpbnQgbWFzaywgdW5zaWduZWQg
+aW50DQo+ICt2YWwpIHsNCj4gKwl1bnNpZ25lZCBpbnQgdG1wOw0KPiArCWludCByZXQ7DQo+ICsN
+Cj4gKwlyZXQgPSBydDcxMl9zZGNhX2RtaWNfaW5kZXhfcmVhZChydDcxMiwgbmlkLCByZWcsICZ0
+bXApOw0KPiArCWlmIChyZXQgPCAwKQ0KPiArCQlyZXR1cm4gcmV0Ow0KPiArDQo+ICsJc2V0X21h
+c2tfYml0cygmdG1wLCBtYXNrLCB2YWwpOw0KPiArCXJldHVybiBydDcxMl9zZGNhX2RtaWNfaW5k
+ZXhfd3JpdGUocnQ3MTIsIG5pZCwgcmVnLCB0bXApOyB9DQo+ICsNCj4gK2ludCBydDcxMl9zZGNh
+X2RtaWNfaW9faW5pdChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBzZHdfc2xhdmUNCj4gKypz
+bGF2ZSkgew0KPiArCXN0cnVjdCBydDcxMl9zZGNhX2RtaWNfcHJpdiAqcnQ3MTIgPSBkZXZfZ2V0
+X2RydmRhdGEoZGV2KTsNCj4gKw0KPiArCWlmIChydDcxMi0+aHdfaW5pdCkNCj4gKwkJcmV0dXJu
+IDA7DQo+ICsNCj4gKwlpZiAocnQ3MTItPmZpcnN0X2h3X2luaXQpIHsNCj4gKwkJcmVnY2FjaGVf
+Y2FjaGVfb25seShydDcxMi0+cmVnbWFwLCBmYWxzZSk7DQo+ICsJCXJlZ2NhY2hlX2NhY2hlX2J5
+cGFzcyhydDcxMi0+cmVnbWFwLCB0cnVlKTsNCj4gKwkJcmVnY2FjaGVfY2FjaGVfb25seShydDcx
+Mi0+bWJxX3JlZ21hcCwgZmFsc2UpOw0KPiArCQlyZWdjYWNoZV9jYWNoZV9ieXBhc3MocnQ3MTIt
+Pm1icV9yZWdtYXAsIHRydWUpOw0KPiArCX0gZWxzZSB7DQo+ICsJCS8qDQo+ICsJCSAqIFBNIHJ1
+bnRpbWUgaXMgb25seSBlbmFibGVkIHdoZW4gYSBTbGF2ZSByZXBvcnRzIGFzIEF0dGFjaGVkDQo+
+ICsJCSAqLw0KPiArDQo+ICsJCS8qIHNldCBhdXRvc3VzcGVuZCBwYXJhbWV0ZXJzICovDQo+ICsJ
+CXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5KCZzbGF2ZS0+ZGV2LCAzMDAwKTsNCj4g
+KwkJcG1fcnVudGltZV91c2VfYXV0b3N1c3BlbmQoJnNsYXZlLT5kZXYpOw0KPiArDQo+ICsJCS8q
+IHVwZGF0ZSBjb3VudCBvZiBwYXJlbnQgJ2FjdGl2ZScgY2hpbGRyZW4gKi8NCj4gKwkJcG1fcnVu
+dGltZV9zZXRfYWN0aXZlKCZzbGF2ZS0+ZGV2KTsNCj4gKw0KPiArCQkvKiBtYWtlIHN1cmUgdGhl
+IGRldmljZSBkb2VzIG5vdCBzdXNwZW5kIGltbWVkaWF0ZWx5ICovDQo+ICsJCXBtX3J1bnRpbWVf
+bWFya19sYXN0X2J1c3koJnNsYXZlLT5kZXYpOw0KPiArDQo+ICsJCXBtX3J1bnRpbWVfZW5hYmxl
+KCZzbGF2ZS0+ZGV2KTsNCj4gKwl9DQo+ICsNCj4gKwlwbV9ydW50aW1lX2dldF9ub3Jlc3VtZSgm
+c2xhdmUtPmRldik7DQo+ICsNCj4gKwlydDcxMl9zZGNhX2RtaWNfaW5kZXhfd3JpdGUocnQ3MTIs
+IFJUNzEyX1ZFTkRPUl9IREFfQ1RMLA0KPiArCQlSVDcxMl9BREMwQV8wOF9QREVfRkxPQVRfQ1RM
+LCAweDExMTIpOw0KPiArCXJ0NzEyX3NkY2FfZG1pY19pbmRleF93cml0ZShydDcxMiwgUlQ3MTJf
+VkVORE9SX0hEQV9DVEwsDQo+ICsJCVJUNzEyX0FEQzBCXzExX1BERV9GTE9BVF9DVEwsIDB4MTEx
+MSk7DQo+ICsJcnQ3MTJfc2RjYV9kbWljX2luZGV4X3dyaXRlKHJ0NzEyLCBSVDcxMl9WRU5ET1Jf
+SERBX0NUTCwNCj4gKwkJUlQ3MTJfRE1JQzFfMl9QREVfRkxPQVRfQ1RMLCAweDExMTEpOw0KPiAr
+CXJ0NzEyX3NkY2FfZG1pY19pbmRleF93cml0ZShydDcxMiwgUlQ3MTJfVkVORE9SX0hEQV9DVEws
+DQo+ICsJCVJUNzEyX0kyU19JTl9PVVRfUERFX0ZMT0FUX0NUTCwgMHgxMTU1KTsNCj4gKwlydDcx
+Ml9zZGNhX2RtaWNfaW5kZXhfd3JpdGUocnQ3MTIsIFJUNzEyX1ZFTkRPUl9IREFfQ1RMLA0KPiAr
+CQlSVDcxMl9ETUlDX0VOVF9GTE9BVF9DVEwsIDB4MjYyNik7DQo+ICsJcnQ3MTJfc2RjYV9kbWlj
+X2luZGV4X3dyaXRlKHJ0NzEyLCBSVDcxMl9WRU5ET1JfSERBX0NUTCwNCj4gKwkJUlQ3MTJfQURD
+X0VOVF9GTE9BVF9DVEwsIDB4MWUxOSk7DQo+ICsJcnQ3MTJfc2RjYV9kbWljX2luZGV4X3dyaXRl
+KHJ0NzEyLCBSVDcxMl9WRU5ET1JfSERBX0NUTCwNCj4gKwkJUlQ3MTJfRE1JQ19HQUlOX0VOVF9G
+TE9BVF9DVEwwLCAweDE1MTUpOw0KPiArCXJ0NzEyX3NkY2FfZG1pY19pbmRleF93cml0ZShydDcx
+MiwgUlQ3MTJfVkVORE9SX0hEQV9DVEwsDQo+ICsJCVJUNzEyX0FEQ19WT0xfQ0hfRkxPQVRfQ1RM
+MiwgMHgwMzA0KTsNCj4gKwlydDcxMl9zZGNhX2RtaWNfaW5kZXhfd3JpdGUocnQ3MTIsIFJUNzEy
+X1ZFTkRPUl9IREFfQ1RMLA0KPiArCQlSVDcxMl9ETUlDX0dBSU5fRU5UX0ZMT0FUX0NUTDIsIDB4
+MDMwNCk7DQo+ICsJcnQ3MTJfc2RjYV9kbWljX2luZGV4X3dyaXRlKHJ0NzEyLCBSVDcxMl9WRU5E
+T1JfSERBX0NUTCwNCj4gKwkJUlQ3MTJfSERBX0xFR0FDWV9DT05GSUdfQ1RMMCwgMHgwMDUwKTsN
+Cj4gKwlyZWdtYXBfd3JpdGUocnQ3MTItPnJlZ21hcCwNCj4gKwkJU0RXX1NEQ0FfQ1RMKEZVTkNf
+TlVNX01JQ19BUlJBWSwgUlQ3MTJfU0RDQV9FTlRfSVQyNiwNCj4gUlQ3MTJfU0RDQV9DVExfVkVO
+RE9SX0RFRiwgMCksIDB4MDEpOw0KPiArCXJ0NzEyX3NkY2FfZG1pY19pbmRleF93cml0ZShydDcx
+MiwgUlQ3MTJfVUxUUkFfU09VTkRfREVULA0KPiArCQlSVDcxMl9VTFRSQV9TT1VORF9ERVRFQ1RP
+UjYsIDB4MzIwMCk7DQo+ICsJcmVnbWFwX3dyaXRlKHJ0NzEyLT5yZWdtYXAsIFJUNzEyX1JDX0NB
+TCwgMHgyMyk7DQo+ICsJcmVnbWFwX3dyaXRlKHJ0NzEyLT5yZWdtYXAsIDB4MmY1MiwgMHgwMCk7
+DQo+ICsNCj4gKwlpZiAocnQ3MTItPmZpcnN0X2h3X2luaXQpIHsNCj4gKwkJcmVnY2FjaGVfY2Fj
+aGVfYnlwYXNzKHJ0NzEyLT5yZWdtYXAsIGZhbHNlKTsNCj4gKwkJcmVnY2FjaGVfbWFya19kaXJ0
+eShydDcxMi0+cmVnbWFwKTsNCj4gKwkJcmVnY2FjaGVfY2FjaGVfYnlwYXNzKHJ0NzEyLT5tYnFf
+cmVnbWFwLCBmYWxzZSk7DQo+ICsJCXJlZ2NhY2hlX21hcmtfZGlydHkocnQ3MTItPm1icV9yZWdt
+YXApOw0KPiArCX0gZWxzZQ0KPiArCQlydDcxMi0+Zmlyc3RfaHdfaW5pdCA9IHRydWU7DQo+ICsN
+Cj4gKwkvKiBNYXJrIFNsYXZlIGluaXRpYWxpemF0aW9uIGNvbXBsZXRlICovDQo+ICsJcnQ3MTIt
+Pmh3X2luaXQgPSB0cnVlOw0KPiArDQo+ICsJcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeSgmc2xh
+dmUtPmRldik7DQo+ICsJcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoJnNsYXZlLT5kZXYpOw0K
+PiArDQo+ICsJZGV2X2RiZygmc2xhdmUtPmRldiwgIiVzIGh3X2luaXQgY29tcGxldGVcbiIsIF9f
+ZnVuY19fKTsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArc3RhdGljIGludCBydDcxMl9z
+ZGNhX2RtaWNfc2V0X2dhaW5fZ2V0KHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLA0KPiAr
+CQlzdHJ1Y3Qgc25kX2N0bF9lbGVtX3ZhbHVlICp1Y29udHJvbCkNCj4gK3sNCj4gKwlzdHJ1Y3Qg
+c25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCA9IHNuZF9rY29udHJvbF9jaGlwKGtjb250cm9s
+KTsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9wcml2ICpydDcxMiA9DQo+IHNuZF9zb2NfY29tcG9u
+ZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19r
+Y3RybF9wcml2ICpwID0NCj4gKwkJKHN0cnVjdCBydDcxMl9zZGNhX2RtaWNfa2N0cmxfcHJpdiAq
+KWtjb250cm9sLT5wcml2YXRlX3ZhbHVlOw0KPiArCXVuc2lnbmVkIGludCByZWd2YWx1ZSwgY3Rs
+LCBpOw0KPiArCXVuc2lnbmVkIGludCBhZGNfdm9sX2ZsYWcgPSAwOw0KPiArCWNvbnN0IHVuc2ln
+bmVkIGludCBpbnRlcnZhbF9vZmZzZXQgPSAweGMwOw0KPiArDQo+ICsJaWYgKHN0cnN0cih1Y29u
+dHJvbC0+aWQubmFtZSwgIkZVMUUgQ2FwdHVyZSBWb2x1bWUiKSkNCj4gKwkJYWRjX3ZvbF9mbGFn
+ID0gMTsNCj4gKw0KPiArCS8qIGNoZWNrIGFsbCBjaGFubmVscyAqLw0KPiArCWZvciAoaSA9IDA7
+IGkgPCBwLT5jb3VudDsgaSsrKSB7DQo+ICsJCXJlZ21hcF9yZWFkKHJ0NzEyLT5tYnFfcmVnbWFw
+LCBwLT5yZWdfYmFzZSArIGksICZyZWd2YWx1ZSk7DQo+ICsNCj4gKwkJaWYgKCFhZGNfdm9sX2Zs
+YWcpIC8qIGJvb3N0IGdhaW4gKi8NCj4gKwkJCWN0bCA9IHJlZ3ZhbHVlIC8gMHgwYTAwOw0KPiAr
+CQllbHNlIHsgLyogQURDIGdhaW4gKi8NCj4gKwkJCWlmIChhZGNfdm9sX2ZsYWcpDQo+ICsJCQkJ
+Y3RsID0gcC0+bWF4IC0gKCgoMHgxZTAwIC0gcmVndmFsdWUpICYgMHhmZmZmKSAvDQo+IGludGVy
+dmFsX29mZnNldCk7DQo+ICsJCQllbHNlDQo+ICsJCQkJY3RsID0gcC0+bWF4IC0gKCgoMCAtIHJl
+Z3ZhbHVlKSAmIDB4ZmZmZikgLyBpbnRlcnZhbF9vZmZzZXQpOw0KPiArCQl9DQo+ICsNCj4gKwkJ
+dWNvbnRyb2wtPnZhbHVlLmludGVnZXIudmFsdWVbaV0gPSBjdGw7DQo+ICsJfQ0KPiArDQo+ICsJ
+cmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3MTJfc2RjYV9kbWljX3NldF9n
+YWluX3B1dChzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gKwkJc3RydWN0IHNuZF9j
+dGxfZWxlbV92YWx1ZSAqdWNvbnRyb2wpDQo+ICt7DQo+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9u
+ZW50ICpjb21wb25lbnQgPSBzbmRfa2NvbnRyb2xfY2hpcChrY29udHJvbCk7DQo+ICsJc3RydWN0
+IHJ0NzEyX3NkY2FfZG1pY19rY3RybF9wcml2ICpwID0NCj4gKwkJKHN0cnVjdCBydDcxMl9zZGNh
+X2RtaWNfa2N0cmxfcHJpdiAqKWtjb250cm9sLT5wcml2YXRlX3ZhbHVlOw0KPiArCXN0cnVjdCBy
+dDcxMl9zZGNhX3ByaXYgKnJ0NzEyID0NCj4gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEo
+Y29tcG9uZW50KTsNCj4gKwl1bnNpZ25lZCBpbnQgZ2Fpbl92YWxbNF07DQo+ICsJdW5zaWduZWQg
+aW50IGksIGFkY192b2xfZmxhZyA9IDAsIGNoYW5nZWQgPSAwOw0KPiArCXVuc2lnbmVkIGludCBy
+ZWd2YWx1ZVs0XTsNCj4gKwljb25zdCB1bnNpZ25lZCBpbnQgaW50ZXJ2YWxfb2Zmc2V0ID0gMHhj
+MDsNCj4gKwlpbnQgZXJyOw0KPiArDQo+ICsJaWYgKHN0cnN0cih1Y29udHJvbC0+aWQubmFtZSwg
+IkZVMUUgQ2FwdHVyZSBWb2x1bWUiKSkNCj4gKwkJYWRjX3ZvbF9mbGFnID0gMTsNCj4gKw0KPiAr
+CS8qIGNoZWNrIGFsbCBjaGFubmVscyAqLw0KPiArCWZvciAoaSA9IDA7IGkgPCBwLT5jb3VudDsg
+aSsrKSB7DQo+ICsJCXJlZ21hcF9yZWFkKHJ0NzEyLT5tYnFfcmVnbWFwLCBwLT5yZWdfYmFzZSAr
+IGksICZyZWd2YWx1ZVtpXSk7DQo+ICsNCj4gKwkJZ2Fpbl92YWxbaV0gPSB1Y29udHJvbC0+dmFs
+dWUuaW50ZWdlci52YWx1ZVtpXTsNCj4gKwkJaWYgKGdhaW5fdmFsW2ldID4gcC0+bWF4KQ0KPiAr
+CQkJZ2Fpbl92YWxbaV0gPSBwLT5tYXg7DQo+ICsNCj4gKwkJaWYgKCFhZGNfdm9sX2ZsYWcpIC8q
+IGJvb3N0IGdhaW4gKi8NCj4gKwkJCWdhaW5fdmFsW2ldID0gZ2Fpbl92YWxbaV0gKiAweDBhMDA7
+DQo+ICsJCWVsc2UgeyAvKiBBREMgZ2FpbiAqLw0KPiArCQkJZ2Fpbl92YWxbaV0gPSAweDFlMDAg
+LSAoKHAtPm1heCAtIGdhaW5fdmFsW2ldKSAqIGludGVydmFsX29mZnNldCk7DQo+ICsJCQlnYWlu
+X3ZhbFtpXSAmPSAweGZmZmY7DQo+ICsJCX0NCj4gKw0KPiArCQlpZiAocmVndmFsdWVbaV0gIT0g
+Z2Fpbl92YWxbaV0pDQo+ICsJCQljaGFuZ2VkID0gMTsNCj4gKwl9DQo+ICsNCj4gKwlpZiAoIWNo
+YW5nZWQpDQo+ICsJCXJldHVybiAwOw0KPiArDQo+ICsJZm9yIChpID0gMDsgaSA8IHAtPmNvdW50
+OyBpKyspIHsNCj4gKwkJZXJyID0gcmVnbWFwX3dyaXRlKHJ0NzEyLT5tYnFfcmVnbWFwLCBwLT5y
+ZWdfYmFzZSArIGksDQo+IGdhaW5fdmFsW2ldKTsNCj4gKwkJaWYgKGVyciA8IDApDQo+ICsJCQlk
+ZXZfZXJyKCZydDcxMi0+c2xhdmUtPmRldiwgIjB4JTA4eCBjYW4ndCBiZSBzZXRcbiIsDQo+IHAt
+PnJlZ19iYXNlICsgaSk7DQo+ICsJfQ0KPiArDQo+ICsJcmV0dXJuIGNoYW5nZWQ7DQo+ICt9DQo+
+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3MTJfc2RjYV9zZXRfZnUxZV9jYXB0dXJlX2N0bChzdHJ1Y3Qg
+cnQ3MTJfc2RjYV9kbWljX3ByaXYNCj4gKypydDcxMikgew0KPiArCWludCBlcnIsIGk7DQo+ICsJ
+dW5zaWduZWQgaW50IGNoX211dGU7DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0la
+RShydDcxMi0+ZnUxZV9taXhlcl9tdXRlKTsgaSsrKSB7DQo+ICsJCWNoX211dGUgPSAocnQ3MTIt
+PmZ1MWVfZGFwbV9tdXRlIHx8DQo+IHJ0NzEyLT5mdTFlX21peGVyX211dGVbaV0pID8gMHgwMSA6
+IDB4MDA7DQo+ICsJCWVyciA9IHJlZ21hcF93cml0ZShydDcxMi0+cmVnbWFwLA0KPiArCQkJCVNE
+V19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1VTRVJfRlUx
+RSwNCj4gKwkJCQlSVDcxMl9TRENBX0NUTF9GVV9NVVRFLCBDSF8wMSkgKyBpLCBjaF9tdXRlKTsN
+Cj4gKwkJaWYgKGVyciA8IDApDQo+ICsJCQlyZXR1cm4gZXJyOw0KPiArCX0NCj4gKw0KPiArCXJl
+dHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19mdTFlX2Nh
+cHR1cmVfZ2V0KHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLA0KPiArCQkJc3RydWN0IHNu
+ZF9jdGxfZWxlbV92YWx1ZSAqdWNvbnRyb2wpIHsNCj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKmNvbXBvbmVudCA9IHNuZF9rY29udHJvbF9jaGlwKGtjb250cm9sKTsNCj4gKwlzdHJ1Y3Qg
+cnQ3MTJfc2RjYV9kbWljX3ByaXYgKnJ0NzEyID0NCj4gc25kX3NvY19jb21wb25lbnRfZ2V0X2Ry
+dmRhdGEoY29tcG9uZW50KTsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX2tjdHJsX3ByaXYg
+KnAgPQ0KPiArCQkoc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19rY3RybF9wcml2ICopa2NvbnRyb2wt
+PnByaXZhdGVfdmFsdWU7DQo+ICsJdW5zaWduZWQgaW50IGk7DQo+ICsNCj4gKwlmb3IgKGkgPSAw
+OyBpIDwgcC0+Y291bnQ7IGkrKykNCj4gKwkJdWNvbnRyb2wtPnZhbHVlLmludGVnZXIudmFsdWVb
+aV0gPSAhcnQ3MTItPmZ1MWVfbWl4ZXJfbXV0ZVtpXTsNCj4gKw0KPiArCXJldHVybiAwOw0KPiAr
+fQ0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19mdTFlX2NhcHR1cmVfcHV0KHN0
+cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLA0KPiArCQkJc3RydWN0IHNuZF9jdGxfZWxlbV92
+YWx1ZSAqdWNvbnRyb2wpIHsNCj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVu
+dCA9IHNuZF9rY29udHJvbF9jaGlwKGtjb250cm9sKTsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9k
+bWljX3ByaXYgKnJ0NzEyID0NCj4gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9u
+ZW50KTsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX2tjdHJsX3ByaXYgKnAgPQ0KPiArCQko
+c3RydWN0IHJ0NzEyX3NkY2FfZG1pY19rY3RybF9wcml2ICopa2NvbnRyb2wtPnByaXZhdGVfdmFs
+dWU7DQo+ICsJaW50IGVyciwgY2hhbmdlZCA9IDAsIGk7DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBp
+IDwgcC0+Y291bnQ7IGkrKykgew0KPiArCQlpZiAocnQ3MTItPmZ1MWVfbWl4ZXJfbXV0ZVtpXSAh
+PSAhdWNvbnRyb2wtPnZhbHVlLmludGVnZXIudmFsdWVbaV0pDQo+ICsJCQljaGFuZ2VkID0gMTsN
+Cj4gKwkJcnQ3MTItPmZ1MWVfbWl4ZXJfbXV0ZVtpXSA9ICF1Y29udHJvbC0+dmFsdWUuaW50ZWdl
+ci52YWx1ZVtpXTsNCj4gKwl9DQo+ICsNCj4gKwllcnIgPSBydDcxMl9zZGNhX3NldF9mdTFlX2Nh
+cHR1cmVfY3RsKHJ0NzEyKTsNCj4gKwlpZiAoZXJyIDwgMCkNCj4gKwkJcmV0dXJuIGVycjsNCj4g
+Kw0KPiArCXJldHVybiBjaGFuZ2VkOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3Nk
+Y2FfZnVfaW5mbyhzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gKwlzdHJ1Y3Qgc25k
+X2N0bF9lbGVtX2luZm8gKnVpbmZvKQ0KPiArew0KPiArCXN0cnVjdCBydDcxMl9zZGNhX2RtaWNf
+a2N0cmxfcHJpdiAqcCA9DQo+ICsJCShzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX2tjdHJsX3ByaXYg
+KilrY29udHJvbC0+cHJpdmF0ZV92YWx1ZTsNCj4gKw0KPiArCWlmIChwLT5tYXggPT0gMSkNCj4g
+KwkJdWluZm8tPnR5cGUgPSBTTkRSVl9DVExfRUxFTV9UWVBFX0JPT0xFQU47DQo+ICsJZWxzZQ0K
+PiArCQl1aW5mby0+dHlwZSA9IFNORFJWX0NUTF9FTEVNX1RZUEVfSU5URUdFUjsNCj4gKwl1aW5m
+by0+Y291bnQgPSBwLT5jb3VudDsNCj4gKwl1aW5mby0+dmFsdWUuaW50ZWdlci5taW4gPSAwOw0K
+PiArCXVpbmZvLT52YWx1ZS5pbnRlZ2VyLm1heCA9IHAtPm1heDsNCj4gKwlyZXR1cm4gMDsNCj4g
+K30NCj4gKw0KPiArI2RlZmluZSBSVDcxMl9TRENBX1BSX1ZBTFVFKHhyZWdfYmFzZSwgeGNvdW50
+LCB4bWF4LCB4aW52ZXJ0KSBcDQo+ICsJKCh1bnNpZ25lZCBsb25nKSYoc3RydWN0IHJ0NzEyX3Nk
+Y2FfZG1pY19rY3RybF9wcml2KSBcDQo+ICsJCXsucmVnX2Jhc2UgPSB4cmVnX2Jhc2UsIC5jb3Vu
+dCA9IHhjb3VudCwgLm1heCA9IHhtYXgsIFwNCj4gKwkJLmludmVydCA9IHhpbnZlcnR9KQ0KPiAr
+DQo+ICsjZGVmaW5lIFJUNzEyX1NEQ0FfRlVfQ1RSTCh4bmFtZSwgcmVnX2Jhc2UsIHhtYXgsIHhp
+bnZlcnQsIHhjb3VudCkgXA0KPiArewkuaWZhY2UgPSBTTkRSVl9DVExfRUxFTV9JRkFDRV9NSVhF
+UiwgLm5hbWUgPSAoeG5hbWUpLCBcDQo+ICsJLmluZm8gPSBydDcxMl9zZGNhX2Z1X2luZm8sIFwN
+Cj4gKwkuZ2V0ID0gcnQ3MTJfc2RjYV9kbWljX2Z1MWVfY2FwdHVyZV9nZXQsIFwNCj4gKwkucHV0
+ID0gcnQ3MTJfc2RjYV9kbWljX2Z1MWVfY2FwdHVyZV9wdXQsIFwNCj4gKwkucHJpdmF0ZV92YWx1
+ZSA9IFJUNzEyX1NEQ0FfUFJfVkFMVUUocmVnX2Jhc2UsIHhjb3VudCwgeG1heCwNCj4geGludmVy
+dCl9DQo+ICsNCj4gKyNkZWZpbmUgUlQ3MTJfU0RDQV9FWFRfVExWKHhuYW1lLCByZWdfYmFzZSwg
+eGhhbmRsZXJfZ2V0LFwNCj4gKwkgeGhhbmRsZXJfcHV0LCB4Y291bnQsIHhtYXgsIHRsdl9hcnJh
+eSkgXA0KPiArewkuaWZhY2UgPSBTTkRSVl9DVExfRUxFTV9JRkFDRV9NSVhFUiwgLm5hbWUgPSAo
+eG5hbWUpLCBcDQo+ICsJLmFjY2VzcyA9IFNORFJWX0NUTF9FTEVNX0FDQ0VTU19UTFZfUkVBRCB8
+IFwNCj4gKwkJIFNORFJWX0NUTF9FTEVNX0FDQ0VTU19SRUFEV1JJVEUsIFwNCj4gKwkudGx2LnAg
+PSAodGx2X2FycmF5KSwgXA0KPiArCS5pbmZvID0gcnQ3MTJfc2RjYV9mdV9pbmZvLCBcDQo+ICsJ
+LmdldCA9IHhoYW5kbGVyX2dldCwgLnB1dCA9IHhoYW5kbGVyX3B1dCwgXA0KPiArCS5wcml2YXRl
+X3ZhbHVlID0gUlQ3MTJfU0RDQV9QUl9WQUxVRShyZWdfYmFzZSwgeGNvdW50LCB4bWF4LCAwKSB9
+DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBERUNMQVJFX1RMVl9EQl9TQ0FMRShpbl92b2xfdGx2LCAt
+MTcyNSwgNzUsIDApOyBzdGF0aWMNCj4gK2NvbnN0IERFQ0xBUkVfVExWX0RCX1NDQUxFKG1pY192
+b2xfdGx2LCAwLCAxMDAwLCAwKTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2Nv
+bnRyb2xfbmV3IHJ0NzEyX3NkY2FfZG1pY19zbmRfY29udHJvbHNbXSA9IHsNCj4gKwlSVDcxMl9T
+RENBX0ZVX0NUUkwoIkZVMUUgQ2FwdHVyZSBTd2l0Y2giLA0KPiArCQlTRFdfU0RDQV9DVEwoRlVO
+Q19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9VU0VSX0ZVMUUsIFJUNzEyX1NEQ0Ff
+Q1RMX0ZVX01VVEUsIENIXzAxKSwNCj4gKwkJMSwgMSwgNCksDQo+ICsJUlQ3MTJfU0RDQV9FWFRf
+VExWKCJGVTFFIENhcHR1cmUgVm9sdW1lIiwNCj4gKwkJU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01J
+Q19BUlJBWSwNCj4gUlQ3MTJfU0RDQV9FTlRfVVNFUl9GVTFFLCBSVDcxMl9TRENBX0NUTF9GVV9W
+T0xVTUUsIENIXzAxKSwNCj4gKwkJcnQ3MTJfc2RjYV9kbWljX3NldF9nYWluX2dldCwgcnQ3MTJf
+c2RjYV9kbWljX3NldF9nYWluX3B1dCwgNCwNCj4gMHgzZiwgaW5fdm9sX3RsdiksDQo+ICsJUlQ3
+MTJfU0RDQV9FWFRfVExWKCJGVTE1IEJvb3N0IFZvbHVtZSIsDQo+ICsJCVNEV19TRENBX0NUTChG
+VU5DX05VTV9NSUNfQVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1BMQVRGT1JNX0ZVMTUsIFJUNzEy
+X1NEQ0FfQ1RMX0ZVX0NIX0dBSU4sDQo+IENIXzAxKSwNCj4gKwkJcnQ3MTJfc2RjYV9kbWljX3Nl
+dF9nYWluX2dldCwgcnQ3MTJfc2RjYV9kbWljX3NldF9nYWluX3B1dCwgNCwgMywNCj4gK21pY192
+b2xfdGx2KSwgfTsNCj4gKw0KPiArc3RhdGljIGludCBydDcxMl9zZGNhX2RtaWNfbXV4X2dldChz
+dHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gKwkJCXN0cnVjdCBzbmRfY3RsX2VsZW1f
+dmFsdWUgKnVjb250cm9sKSB7DQo+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25l
+bnQgPQ0KPiArCQlzbmRfc29jX2RhcG1fa2NvbnRyb2xfY29tcG9uZW50KGtjb250cm9sKTsNCj4g
+KwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX3ByaXYgKnJ0NzEyID0NCj4gc25kX3NvY19jb21wb25l
+bnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCj4gKwl1bnNpZ25lZCBpbnQgdmFsID0gMCwgbWFz
+a19zZnQ7DQo+ICsNCj4gKwlpZiAoc3Ryc3RyKHVjb250cm9sLT5pZC5uYW1lLCAiQURDIDI1IE11
+eCIpKQ0KPiArCQltYXNrX3NmdCA9IDg7DQo+ICsJZWxzZSBpZiAoc3Ryc3RyKHVjb250cm9sLT5p
+ZC5uYW1lLCAiQURDIDI2IE11eCIpKQ0KPiArCQltYXNrX3NmdCA9IDQ7DQo+ICsJZWxzZQ0KPiAr
+CQlyZXR1cm4gLUVJTlZBTDsNCj4gKw0KPiArCXJ0NzEyX3NkY2FfZG1pY19pbmRleF9yZWFkKHJ0
+NzEyLCBSVDcxMl9WRU5ET1JfSERBX0NUTCwNCj4gKwkJUlQ3MTJfSERBX0xFR0FDWV9NVVhfQ1RM
+MCwgJnZhbCk7DQo+ICsNCj4gKwl1Y29udHJvbC0+dmFsdWUuZW51bWVyYXRlZC5pdGVtWzBdID0g
+KHZhbCA+PiBtYXNrX3NmdCkgJiAweDc7DQo+ICsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0K
+PiArc3RhdGljIGludCBydDcxMl9zZGNhX2RtaWNfbXV4X3B1dChzdHJ1Y3Qgc25kX2tjb250cm9s
+ICprY29udHJvbCwNCj4gKwkJCXN0cnVjdCBzbmRfY3RsX2VsZW1fdmFsdWUgKnVjb250cm9sKSB7
+DQo+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPQ0KPiArCQlzbmRfc29j
+X2RhcG1fa2NvbnRyb2xfY29tcG9uZW50KGtjb250cm9sKTsNCj4gKwlzdHJ1Y3Qgc25kX3NvY19k
+YXBtX2NvbnRleHQgKmRhcG0gPQ0KPiArCQlzbmRfc29jX2RhcG1fa2NvbnRyb2xfZGFwbShrY29u
+dHJvbCk7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMiA9DQo+IHNuZF9z
+b2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQo+ICsJc3RydWN0IHNvY19lbnVt
+ICplID0gKHN0cnVjdCBzb2NfZW51bSAqKWtjb250cm9sLT5wcml2YXRlX3ZhbHVlOw0KPiArCXVu
+c2lnbmVkIGludCAqaXRlbSA9IHVjb250cm9sLT52YWx1ZS5lbnVtZXJhdGVkLml0ZW07DQo+ICsJ
+dW5zaWduZWQgaW50IHZhbCwgdmFsMiA9IDAsIGNoYW5nZSwgbWFza19zZnQ7DQo+ICsNCj4gKwlp
+ZiAoaXRlbVswXSA+PSBlLT5pdGVtcykNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsNCj4gKwlp
+ZiAoc3Ryc3RyKHVjb250cm9sLT5pZC5uYW1lLCAiQURDIDI1IE11eCIpKQ0KPiArCQltYXNrX3Nm
+dCA9IDg7DQo+ICsJZWxzZSBpZiAoc3Ryc3RyKHVjb250cm9sLT5pZC5uYW1lLCAiQURDIDI2IE11
+eCIpKQ0KPiArCQltYXNrX3NmdCA9IDQ7DQo+ICsJZWxzZQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsN
+Cj4gKw0KPiArCXZhbCA9IHNuZF9zb2NfZW51bV9pdGVtX3RvX3ZhbChlLCBpdGVtWzBdKSA8PCBl
+LT5zaGlmdF9sOw0KPiArDQo+ICsJcnQ3MTJfc2RjYV9kbWljX2luZGV4X3JlYWQocnQ3MTIsIFJU
+NzEyX1ZFTkRPUl9IREFfQ1RMLA0KPiArCQlSVDcxMl9IREFfTEVHQUNZX01VWF9DVEwwLCAmdmFs
+Mik7DQo+ICsJdmFsMiA9ICgweDcgPDwgbWFza19zZnQpICYgdmFsMjsNCj4gKw0KPiArCWlmICh2
+YWwgPT0gdmFsMikNCj4gKwkJY2hhbmdlID0gMDsNCj4gKwllbHNlDQo+ICsJCWNoYW5nZSA9IDE7
+DQo+ICsNCj4gKwlpZiAoY2hhbmdlKQ0KPiArCQlydDcxMl9zZGNhX2RtaWNfaW5kZXhfdXBkYXRl
+X2JpdHMocnQ3MTIsDQo+IFJUNzEyX1ZFTkRPUl9IREFfQ1RMLA0KPiArCQkJUlQ3MTJfSERBX0xF
+R0FDWV9NVVhfQ1RMMCwgMHg3IDw8IG1hc2tfc2Z0LA0KPiArCQkJdmFsIDw8IG1hc2tfc2Z0KTsN
+Cj4gKw0KPiArCXNuZF9zb2NfZGFwbV9tdXhfdXBkYXRlX3Bvd2VyKGRhcG0sIGtjb250cm9sLA0K
+PiArCQlpdGVtWzBdLCBlLCBOVUxMKTsNCj4gKw0KPiArCXJldHVybiBjaGFuZ2U7DQo+ICt9DQo+
+ICsNCj4gK3N0YXRpYyBjb25zdCBjaGFyICogY29uc3QgYWRjX211eF90ZXh0W10gPSB7DQo+ICsJ
+IkRNSUMxIiwNCj4gKwkiRE1JQzIiLA0KPiArfTsNCj4gKw0KPiArc3RhdGljIFNPQ19FTlVNX1NJ
+TkdMRV9ERUNMKA0KPiArCXJ0NzEyX2FkYzI1X2VudW0sIFNORF9TT0NfTk9QTSwgMCwgYWRjX211
+eF90ZXh0KTsNCj4gKw0KPiArc3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKA0KPiArCXJ0NzEy
+X2FkYzI2X2VudW0sIFNORF9TT0NfTk9QTSwgMCwgYWRjX211eF90ZXh0KTsNCj4gKw0KPiArc3Rh
+dGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0NzEyX3NkY2FfZG1pY19hZGMyNV9t
+dXggPQ0KPiArCVNPQ19EQVBNX0VOVU1fRVhUKCJBREMgMjUgTXV4IiwgcnQ3MTJfYWRjMjVfZW51
+bSwNCj4gKwkJCXJ0NzEyX3NkY2FfZG1pY19tdXhfZ2V0LCBydDcxMl9zZGNhX2RtaWNfbXV4X3B1
+dCk7DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBydDcxMl9z
+ZGNhX2RtaWNfYWRjMjZfbXV4ID0NCj4gKwlTT0NfREFQTV9FTlVNX0VYVCgiQURDIDI2IE11eCIs
+IHJ0NzEyX2FkYzI2X2VudW0sDQo+ICsJCQlydDcxMl9zZGNhX2RtaWNfbXV4X2dldCwgcnQ3MTJf
+c2RjYV9kbWljX211eF9wdXQpOw0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19m
+dTFlX2V2ZW50KHN0cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KPiArCXN0cnVjdCBzbmRf
+a2NvbnRyb2wgKmtjb250cm9sLCBpbnQgZXZlbnQpIHsNCj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21w
+b25lbnQgKmNvbXBvbmVudCA9DQo+ICsJCXNuZF9zb2NfZGFwbV90b19jb21wb25lbnQody0+ZGFw
+bSk7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMiA9DQo+ICtzbmRfc29j
+X2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KPiArDQo+ICsJc3dpdGNoIChldmVu
+dCkgew0KPiArCWNhc2UgU05EX1NPQ19EQVBNX1BPU1RfUE1VOg0KPiArCQlydDcxMi0+ZnUxZV9k
+YXBtX211dGUgPSBmYWxzZTsNCj4gKwkJcnQ3MTJfc2RjYV9zZXRfZnUxZV9jYXB0dXJlX2N0bChy
+dDcxMik7DQo+ICsJCWJyZWFrOw0KPiArCWNhc2UgU05EX1NPQ19EQVBNX1BSRV9QTUQ6DQo+ICsJ
+CXJ0NzEyLT5mdTFlX2RhcG1fbXV0ZSA9IHRydWU7DQo+ICsJCXJ0NzEyX3NkY2Ffc2V0X2Z1MWVf
+Y2FwdHVyZV9jdGwocnQ3MTIpOw0KPiArCQlicmVhazsNCj4gKwl9DQo+ICsJcmV0dXJuIDA7DQo+
+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3MTJfc2RjYV9kbWljX3BkZTExX2V2ZW50KHN0cnVj
+dCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KPiArCXN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250
+cm9sLCBpbnQgZXZlbnQpIHsNCj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVu
+dCA9DQo+ICsJCXNuZF9zb2NfZGFwbV90b19jb21wb25lbnQody0+ZGFwbSk7DQo+ICsJc3RydWN0
+IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMiA9DQo+IHNuZF9zb2NfY29tcG9uZW50X2dldF9k
+cnZkYXRhKGNvbXBvbmVudCk7DQo+ICsJdW5zaWduZWQgY2hhciBwczAgPSAweDAsIHBzMyA9IDB4
+MzsNCj4gKw0KPiArCXN3aXRjaCAoZXZlbnQpIHsNCj4gKwljYXNlIFNORF9TT0NfREFQTV9QT1NU
+X1BNVToNCj4gKwkJcmVnbWFwX3dyaXRlKHJ0NzEyLT5yZWdtYXAsDQo+ICsJCQlTRFdfU0RDQV9D
+VEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QREUxMSwNCj4gKwkJCQlS
+VDcxMl9TRENBX0NUTF9SRVFfUE9XRVJfU1RBVEUsIDApLA0KPiArCQkJCXBzMCk7DQo+ICsJCWJy
+ZWFrOw0KPiArCWNhc2UgU05EX1NPQ19EQVBNX1BSRV9QTUQ6DQo+ICsJCXJlZ21hcF93cml0ZShy
+dDcxMi0+cmVnbWFwLA0KPiArCQkJU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4g
+UlQ3MTJfU0RDQV9FTlRfUERFMTEsDQo+ICsJCQkJUlQ3MTJfU0RDQV9DVExfUkVRX1BPV0VSX1NU
+QVRFLCAwKSwNCj4gKwkJCQlwczMpOw0KPiArCQlicmVhazsNCj4gKwl9DQo+ICsJcmV0dXJuIDA7
+DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCBy
+dDcxMl9zZGNhX2RtaWNfZGFwbV93aWRnZXRzW10gPQ0KPiB7DQo+ICsJU05EX1NPQ19EQVBNX0lO
+UFVUKCJETUlDMSIpLA0KPiArCVNORF9TT0NfREFQTV9JTlBVVCgiRE1JQzIiKSwNCj4gKw0KPiAr
+CVNORF9TT0NfREFQTV9TVVBQTFkoIlBERSAxMSIsIFNORF9TT0NfTk9QTSwgMCwgMCwNCj4gKwkJ
+cnQ3MTJfc2RjYV9kbWljX3BkZTExX2V2ZW50LA0KPiArCQlTTkRfU09DX0RBUE1fUE9TVF9QTVUg
+fCBTTkRfU09DX0RBUE1fUFJFX1BNRCksDQo+ICsNCj4gKwlTTkRfU09DX0RBUE1fQURDX0UoIkZV
+IDFFIiwgTlVMTCwgU05EX1NPQ19OT1BNLCAwLCAwLA0KPiArCQlydDcxMl9zZGNhX2RtaWNfZnUx
+ZV9ldmVudCwNCj4gKwkJU05EX1NPQ19EQVBNX1BPU1RfUE1VIHwgU05EX1NPQ19EQVBNX1BSRV9Q
+TUQpLA0KPiArCVNORF9TT0NfREFQTV9NVVgoIkFEQyAyNSBNdXgiLCBTTkRfU09DX05PUE0sIDAs
+IDAsDQo+ICsJCSZydDcxMl9zZGNhX2RtaWNfYWRjMjVfbXV4KSwNCj4gKwlTTkRfU09DX0RBUE1f
+TVVYKCJBREMgMjYgTXV4IiwgU05EX1NPQ19OT1BNLCAwLCAwLA0KPiArCQkmcnQ3MTJfc2RjYV9k
+bWljX2FkYzI2X211eCksDQo+ICsNCj4gKwlTTkRfU09DX0RBUE1fQUlGX09VVCgiRFAyVFgiLCAi
+RFAyIENhcHR1cmUiLCAwLCBTTkRfU09DX05PUE0sDQo+IDAsIDApLA0KPiArfTsNCj4gKw0KPiAr
+c3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29jX2RhcG1fcm91dGUgcnQ3MTJfc2RjYV9kbWljX2F1
+ZGlvX21hcFtdID0gew0KPiArCXsiRFAyVFgiLCBOVUxMLCAiRlUgMUUifSwNCj4gKw0KPiArCXsi
+RlUgMUUiLCBOVUxMLCAiUERFIDExIn0sDQo+ICsJeyJGVSAxRSIsIE5VTEwsICJBREMgMjUgTXV4
+In0sDQo+ICsJeyJGVSAxRSIsIE5VTEwsICJBREMgMjYgTXV4In0sDQo+ICsJeyJBREMgMjUgTXV4
+IiwgIkRNSUMxIiwgIkRNSUMxIn0sDQo+ICsJeyJBREMgMjUgTXV4IiwgIkRNSUMyIiwgIkRNSUMy
+In0sDQo+ICsJeyJBREMgMjYgTXV4IiwgIkRNSUMxIiwgIkRNSUMxIn0sDQo+ICsJeyJBREMgMjYg
+TXV4IiwgIkRNSUMyIiwgIkRNSUMyIn0sDQo+ICt9Ow0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEy
+X3NkY2FfZG1pY19wcm9iZShzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCkgew0K
+PiArCXN0cnVjdCBydDcxMl9zZGNhX2RtaWNfcHJpdiAqcnQ3MTIgPQ0KPiBzbmRfc29jX2NvbXBv
+bmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KPiArCWludCByZXQ7DQo+ICsNCj4gKwlydDcx
+Mi0+Y29tcG9uZW50ID0gY29tcG9uZW50Ow0KPiArDQo+ICsJcmV0ID0gcG1fcnVudGltZV9yZXN1
+bWUoY29tcG9uZW50LT5kZXYpOw0KPiArCWlmIChyZXQgPCAwICYmIHJldCAhPSAtRUFDQ0VTKQ0K
+PiArCQlyZXR1cm4gcmV0Ow0KPiArDQo+ICsJcmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4gK3N0YXRp
+YyBjb25zdCBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnRfZHJpdmVyIHNvY19zZGNhX2Rldl9ydDcx
+Ml9kbWljID0gew0KPiArCS5wcm9iZSA9IHJ0NzEyX3NkY2FfZG1pY19wcm9iZSwNCj4gKwkuY29u
+dHJvbHMgPSBydDcxMl9zZGNhX2RtaWNfc25kX2NvbnRyb2xzLA0KPiArCS5udW1fY29udHJvbHMg
+PSBBUlJBWV9TSVpFKHJ0NzEyX3NkY2FfZG1pY19zbmRfY29udHJvbHMpLA0KPiArCS5kYXBtX3dp
+ZGdldHMgPSBydDcxMl9zZGNhX2RtaWNfZGFwbV93aWRnZXRzLA0KPiArCS5udW1fZGFwbV93aWRn
+ZXRzID0gQVJSQVlfU0laRShydDcxMl9zZGNhX2RtaWNfZGFwbV93aWRnZXRzKSwNCj4gKwkuZGFw
+bV9yb3V0ZXMgPSBydDcxMl9zZGNhX2RtaWNfYXVkaW9fbWFwLA0KPiArCS5udW1fZGFwbV9yb3V0
+ZXMgPSBBUlJBWV9TSVpFKHJ0NzEyX3NkY2FfZG1pY19hdWRpb19tYXApLA0KPiArCS5lbmRpYW5u
+ZXNzID0gMSwNCj4gK307DQo+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3MTJfc2RjYV9kbWljX3NldF9z
+ZHdfc3RyZWFtKHN0cnVjdCBzbmRfc29jX2RhaSAqZGFpLCB2b2lkDQo+ICpzZHdfc3RyZWFtLA0K
+PiArCQkJCWludCBkaXJlY3Rpb24pDQo+ICt7DQo+ICsJc25kX3NvY19kYWlfZG1hX2RhdGFfc2V0
+KGRhaSwgZGlyZWN0aW9uLCBzZHdfc3RyZWFtKTsNCj4gKw0KPiArCXJldHVybiAwOw0KPiArfQ0K
+PiArDQo+ICtzdGF0aWMgdm9pZCBydDcxMl9zZGNhX2RtaWNfc2h1dGRvd24oc3RydWN0IHNuZF9w
+Y21fc3Vic3RyZWFtDQo+ICpzdWJzdHJlYW0sDQo+ICsJCQkJc3RydWN0IHNuZF9zb2NfZGFpICpk
+YWkpDQo+ICt7DQo+ICsJc25kX3NvY19kYWlfc2V0X2RtYV9kYXRhKGRhaSwgc3Vic3RyZWFtLCBO
+VUxMKTsgfQ0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19od19wYXJhbXMoc3Ry
+dWN0IHNuZF9wY21fc3Vic3RyZWFtDQo+ICpzdWJzdHJlYW0sDQo+ICsJCQkJc3RydWN0IHNuZF9w
+Y21faHdfcGFyYW1zICpwYXJhbXMsDQo+ICsJCQkJc3RydWN0IHNuZF9zb2NfZGFpICpkYWkpDQo+
+ICt7DQo+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPSBkYWktPmNvbXBv
+bmVudDsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX3ByaXYgKnJ0NzEyID0NCj4gc25kX3Nv
+Y19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsNCj4gKwlzdHJ1Y3Qgc2R3X3N0cmVh
+bV9jb25maWcgc3RyZWFtX2NvbmZpZzsNCj4gKwlzdHJ1Y3Qgc2R3X3BvcnRfY29uZmlnIHBvcnRf
+Y29uZmlnOw0KPiArCXN0cnVjdCBzZHdfc3RyZWFtX3J1bnRpbWUgKnNkd19zdHJlYW07DQo+ICsJ
+aW50IHJldHZhbCwgbnVtX2NoYW5uZWxzOw0KPiArCXVuc2lnbmVkIGludCBzYW1wbGluZ19yYXRl
+Ow0KPiArDQo+ICsJZGV2X2RiZyhkYWktPmRldiwgIiVzICVzIiwgX19mdW5jX18sIGRhaS0+bmFt
+ZSk7DQo+ICsJc2R3X3N0cmVhbSA9IHNuZF9zb2NfZGFpX2dldF9kbWFfZGF0YShkYWksIHN1YnN0
+cmVhbSk7DQo+ICsNCj4gKwlpZiAoIXNkd19zdHJlYW0pDQo+ICsJCXJldHVybiAtRUlOVkFMOw0K
+PiArDQo+ICsJaWYgKCFydDcxMi0+c2xhdmUpDQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArDQo+
+ICsJc3RyZWFtX2NvbmZpZy5mcmFtZV9yYXRlID0gcGFyYW1zX3JhdGUocGFyYW1zKTsNCj4gKwlz
+dHJlYW1fY29uZmlnLmNoX2NvdW50ID0gcGFyYW1zX2NoYW5uZWxzKHBhcmFtcyk7DQo+ICsJc3Ry
+ZWFtX2NvbmZpZy5icHMgPSBzbmRfcGNtX2Zvcm1hdF93aWR0aChwYXJhbXNfZm9ybWF0KHBhcmFt
+cykpOw0KPiArCXN0cmVhbV9jb25maWcuZGlyZWN0aW9uID0gU0RXX0RBVEFfRElSX1RYOw0KPiAr
+DQo+ICsJbnVtX2NoYW5uZWxzID0gcGFyYW1zX2NoYW5uZWxzKHBhcmFtcyk7DQo+ICsJcG9ydF9j
+b25maWcuY2hfbWFzayA9IEdFTk1BU0sobnVtX2NoYW5uZWxzIC0gMSwgMCk7DQo+ICsJcG9ydF9j
+b25maWcubnVtID0gMjsNCj4gKw0KPiArCXJldHZhbCA9IHNkd19zdHJlYW1fYWRkX3NsYXZlKHJ0
+NzEyLT5zbGF2ZSwgJnN0cmVhbV9jb25maWcsDQo+ICsJCQkJCSZwb3J0X2NvbmZpZywgMSwgc2R3
+X3N0cmVhbSk7DQo+ICsJaWYgKHJldHZhbCkgew0KPiArCQlkZXZfZXJyKGRhaS0+ZGV2LCAiVW5h
+YmxlIHRvIGNvbmZpZ3VyZSBwb3J0XG4iKTsNCj4gKwkJcmV0dXJuIHJldHZhbDsNCj4gKwl9DQo+
+ICsNCj4gKwlpZiAocGFyYW1zX2NoYW5uZWxzKHBhcmFtcykgPiA0KSB7DQo+ICsJCWRldl9lcnIo
+Y29tcG9uZW50LT5kZXYsICJVbnN1cHBvcnRlZCBjaGFubmVscyAlZFxuIiwNCj4gKwkJCXBhcmFt
+c19jaGFubmVscyhwYXJhbXMpKTsNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsJfQ0KPiArDQo+
+ICsJLyogc2FtcGxpbmcgcmF0ZSBjb25maWd1cmF0aW9uICovDQo+ICsJc3dpdGNoIChwYXJhbXNf
+cmF0ZShwYXJhbXMpKSB7DQo+ICsJY2FzZSAxNjAwMDoNCj4gKwkJc2FtcGxpbmdfcmF0ZSA9IFJU
+NzEyX1NEQ0FfUkFURV8xNjAwMEhaOw0KPiArCQlicmVhazsNCj4gKwljYXNlIDMyMDAwOg0KPiAr
+CQlzYW1wbGluZ19yYXRlID0gUlQ3MTJfU0RDQV9SQVRFXzMyMDAwSFo7DQo+ICsJCWJyZWFrOw0K
+PiArCWNhc2UgNDQxMDA6DQo+ICsJCXNhbXBsaW5nX3JhdGUgPSBSVDcxMl9TRENBX1JBVEVfNDQx
+MDBIWjsNCj4gKwkJYnJlYWs7DQo+ICsJY2FzZSA0ODAwMDoNCj4gKwkJc2FtcGxpbmdfcmF0ZSA9
+IFJUNzEyX1NEQ0FfUkFURV80ODAwMEhaOw0KPiArCQlicmVhazsNCj4gKwljYXNlIDk2MDAwOg0K
+PiArCQlzYW1wbGluZ19yYXRlID0gUlQ3MTJfU0RDQV9SQVRFXzk2MDAwSFo7DQo+ICsJCWJyZWFr
+Ow0KPiArCWNhc2UgMTkyMDAwOg0KPiArCQlzYW1wbGluZ19yYXRlID0gUlQ3MTJfU0RDQV9SQVRF
+XzE5MjAwMEhaOw0KPiArCQlicmVhazsNCj4gKwlkZWZhdWx0Og0KPiArCQlkZXZfZXJyKGNvbXBv
+bmVudC0+ZGV2LCAiUmF0ZSAlZCBpcyBub3Qgc3VwcG9ydGVkXG4iLA0KPiArCQkJcGFyYW1zX3Jh
+dGUocGFyYW1zKSk7DQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArCX0NCj4gKw0KPiArCS8qIHNl
+dCBzYW1wbGluZyBmcmVxdWVuY3kgKi8NCj4gKwlyZWdtYXBfd3JpdGUocnQ3MTItPnJlZ21hcCwN
+Cj4gKwkJU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwgUlQ3MTJfU0RDQV9FTlRfQ1Mx
+RiwNCj4gUlQ3MTJfU0RDQV9DVExfU0FNUExFX0ZSRVFfSU5ERVgsIDApLA0KPiArCQlzYW1wbGlu
+Z19yYXRlKTsNCj4gKwlyZWdtYXBfd3JpdGUocnQ3MTItPnJlZ21hcCwNCj4gKwkJU0RXX1NEQ0Ff
+Q1RMKEZVTkNfTlVNX01JQ19BUlJBWSwgUlQ3MTJfU0RDQV9FTlRfQ1MxQywNCj4gUlQ3MTJfU0RD
+QV9DVExfU0FNUExFX0ZSRVFfSU5ERVgsIDApLA0KPiArCQlzYW1wbGluZ19yYXRlKTsNCj4gKw0K
+PiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19o
+d19mcmVlKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3RyZWFtLA0KPiArCQkJCXN0cnVj
+dCBzbmRfc29jX2RhaSAqZGFpKQ0KPiArew0KPiArCXN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAq
+Y29tcG9uZW50ID0gZGFpLT5jb21wb25lbnQ7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19w
+cml2ICpydDcxMiA9DQo+IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7
+DQo+ICsJc3RydWN0IHNkd19zdHJlYW1fcnVudGltZSAqc2R3X3N0cmVhbSA9DQo+ICsJCXNuZF9z
+b2NfZGFpX2dldF9kbWFfZGF0YShkYWksIHN1YnN0cmVhbSk7DQo+ICsNCj4gKwlpZiAoIXJ0NzEy
+LT5zbGF2ZSkNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsNCj4gKwlzZHdfc3RyZWFtX3JlbW92
+ZV9zbGF2ZShydDcxMi0+c2xhdmUsIHNkd19zdHJlYW0pOw0KPiArCXJldHVybiAwOw0KPiArfQ0K
+PiArDQo+ICsjZGVmaW5lIFJUNzEyX1NURVJFT19SQVRFUyAoU05EUlZfUENNX1JBVEVfMTYwMDAg
+fA0KPiBTTkRSVl9QQ01fUkFURV8zMjAwMCB8IFNORFJWX1BDTV9SQVRFXzQ0MTAwIHwgXA0KPiAr
+CQkJU05EUlZfUENNX1JBVEVfNDgwMDAgfCBTTkRSVl9QQ01fUkFURV85NjAwMCB8DQo+IFNORFJW
+X1BDTV9SQVRFXzE5MjAwMCkNCj4gKyNkZWZpbmUgUlQ3MTJfRk9STUFUUyAoU05EUlZfUENNX0ZN
+VEJJVF9TMTZfTEUgfA0KPiBTTkRSVl9QQ01fRk1UQklUX1MyMF8zTEUgfCBcDQo+ICsJCQlTTkRS
+Vl9QQ01fRk1UQklUX1MyNF9MRSkNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29j
+X2RhaV9vcHMgcnQ3MTJfc2RjYV9kbWljX29wcyA9IHsNCj4gKwkuaHdfcGFyYW1zCT0gcnQ3MTJf
+c2RjYV9kbWljX2h3X3BhcmFtcywNCj4gKwkuaHdfZnJlZQk9IHJ0NzEyX3NkY2FfZG1pY19od19m
+cmVlLA0KPiArCS5zZXRfc3RyZWFtCT0gcnQ3MTJfc2RjYV9kbWljX3NldF9zZHdfc3RyZWFtLA0K
+PiArCS5zaHV0ZG93bgk9IHJ0NzEyX3NkY2FfZG1pY19zaHV0ZG93biwNCj4gK307DQo+ICsNCj4g
+K3N0YXRpYyBzdHJ1Y3Qgc25kX3NvY19kYWlfZHJpdmVyIHJ0NzEyX3NkY2FfZG1pY19kYWlbXSA9
+IHsNCj4gKwl7DQo+ICsJCS5uYW1lID0gInJ0NzEyLXNkY2EtZG1pYy1haWYxIiwNCj4gKwkJLmlk
+ID0gUlQ3MTJfQUlGMSwNCj4gKwkJLmNhcHR1cmUgPSB7DQo+ICsJCQkuc3RyZWFtX25hbWUgPSAi
+RFAyIENhcHR1cmUiLA0KPiArCQkJLmNoYW5uZWxzX21pbiA9IDEsDQo+ICsJCQkuY2hhbm5lbHNf
+bWF4ID0gNCwNCj4gKwkJCS5yYXRlcyA9IFJUNzEyX1NURVJFT19SQVRFUywNCj4gKwkJCS5mb3Jt
+YXRzID0gUlQ3MTJfRk9STUFUUywNCj4gKwkJfSwNCj4gKwkJLm9wcyA9ICZydDcxMl9zZGNhX2Rt
+aWNfb3BzLA0KPiArCX0sDQo+ICt9Ow0KPiArDQo+ICtpbnQgcnQ3MTJfc2RjYV9kbWljX2luaXQo
+c3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgcmVnbWFwICpyZWdtYXAsDQo+ICsJCQlzdHJ1Y3Qg
+cmVnbWFwICptYnFfcmVnbWFwLCBzdHJ1Y3Qgc2R3X3NsYXZlICpzbGF2ZSkgew0KPiArCXN0cnVj
+dCBydDcxMl9zZGNhX2RtaWNfcHJpdiAqcnQ3MTI7DQo+ICsJaW50IHJldDsNCj4gKw0KPiArCXJ0
+NzEyID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCpydDcxMiksIEdGUF9LRVJORUwpOw0KPiAr
+CWlmICghcnQ3MTIpDQo+ICsJCXJldHVybiAtRU5PTUVNOw0KPiArDQo+ICsJZGV2X3NldF9kcnZk
+YXRhKGRldiwgcnQ3MTIpOw0KPiArCXJ0NzEyLT5zbGF2ZSA9IHNsYXZlOw0KPiArCXJ0NzEyLT5y
+ZWdtYXAgPSByZWdtYXA7DQo+ICsJcnQ3MTItPm1icV9yZWdtYXAgPSBtYnFfcmVnbWFwOw0KPiAr
+DQo+ICsJLyoNCj4gKwkgKiBNYXJrIGh3X2luaXQgdG8gZmFsc2UNCj4gKwkgKiBIVyBpbml0IHdp
+bGwgYmUgcGVyZm9ybWVkIHdoZW4gZGV2aWNlIHJlcG9ydHMgcHJlc2VudA0KPiArCSAqLw0KPiAr
+CXJ0NzEyLT5od19pbml0ID0gZmFsc2U7DQo+ICsJcnQ3MTItPmZpcnN0X2h3X2luaXQgPSBmYWxz
+ZTsNCj4gKwlydDcxMi0+ZnUxZV9kYXBtX211dGUgPSB0cnVlOw0KPiArCXJ0NzEyLT5mdTFlX21p
+eGVyX211dGVbMF0gPSBydDcxMi0+ZnUxZV9taXhlcl9tdXRlWzFdID0NCj4gKwkJcnQ3MTItPmZ1
+MWVfbWl4ZXJfbXV0ZVsyXSA9IHJ0NzEyLT5mdTFlX21peGVyX211dGVbM10gPSB0cnVlOw0KPiAr
+DQo+ICsJcmV0ID0gIGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoZGV2LA0KPiArCQkJ
+JnNvY19zZGNhX2Rldl9ydDcxMl9kbWljLA0KPiArCQkJcnQ3MTJfc2RjYV9kbWljX2RhaSwNCj4g
+KwkJCUFSUkFZX1NJWkUocnQ3MTJfc2RjYV9kbWljX2RhaSkpOw0KPiArDQo+ICsJZGV2X2RiZygm
+c2xhdmUtPmRldiwgIiVzXG4iLCBfX2Z1bmNfXyk7DQo+ICsNCj4gKwlyZXR1cm4gcmV0Ow0KPiAr
+fQ0KPiArDQo+ICsNCj4gK3N0YXRpYyBpbnQgcnQ3MTJfc2RjYV9kbWljX3VwZGF0ZV9zdGF0dXMo
+c3RydWN0IHNkd19zbGF2ZSAqc2xhdmUsDQo+ICsJCQkJZW51bSBzZHdfc2xhdmVfc3RhdHVzIHN0
+YXR1cykNCj4gK3sNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX3ByaXYgKnJ0NzEyID0gZGV2
+X2dldF9kcnZkYXRhKCZzbGF2ZS0+ZGV2KTsNCj4gKw0KPiArCS8qIFVwZGF0ZSB0aGUgc3RhdHVz
+ICovDQo+ICsJcnQ3MTItPnN0YXR1cyA9IHN0YXR1czsNCj4gKw0KPiArCWlmIChzdGF0dXMgPT0g
+U0RXX1NMQVZFX1VOQVRUQUNIRUQpDQo+ICsJCXJ0NzEyLT5od19pbml0ID0gZmFsc2U7DQo+ICsN
+Cj4gKwkvKg0KPiArCSAqIFBlcmZvcm0gaW5pdGlhbGl6YXRpb24gb25seSBpZiBzbGF2ZSBzdGF0
+dXMgaXMgcHJlc2VudCBhbmQNCj4gKwkgKiBod19pbml0IGZsYWcgaXMgZmFsc2UNCj4gKwkgKi8N
+Cj4gKwlpZiAocnQ3MTItPmh3X2luaXQgfHwgcnQ3MTItPnN0YXR1cyAhPSBTRFdfU0xBVkVfQVRU
+QUNIRUQpDQo+ICsJCXJldHVybiAwOw0KPiArDQo+ICsJLyogcGVyZm9ybSBJL08gdHJhbnNmZXJz
+IHJlcXVpcmVkIGZvciBTbGF2ZSBpbml0aWFsaXphdGlvbiAqLw0KPiArCXJldHVybiBydDcxMl9z
+ZGNhX2RtaWNfaW9faW5pdCgmc2xhdmUtPmRldiwgc2xhdmUpOyB9DQo+ICsNCj4gK3N0YXRpYyBp
+bnQgcnQ3MTJfc2RjYV9kbWljX3JlYWRfcHJvcChzdHJ1Y3Qgc2R3X3NsYXZlICpzbGF2ZSkgew0K
+PiArCXN0cnVjdCBzZHdfc2xhdmVfcHJvcCAqcHJvcCA9ICZzbGF2ZS0+cHJvcDsNCj4gKwlpbnQg
+bnZhbCwgaTsNCj4gKwl1MzIgYml0Ow0KPiArCXVuc2lnbmVkIGxvbmcgYWRkcjsNCj4gKwlzdHJ1
+Y3Qgc2R3X2Rwbl9wcm9wICpkcG47DQo+ICsNCj4gKwlwcm9wLT5zY3BfaW50MV9tYXNrID0gU0RX
+X1NDUF9JTlQxX0JVU19DTEFTSCB8DQo+IFNEV19TQ1BfSU5UMV9QQVJJVFk7DQo+ICsJcHJvcC0+
+cXVpcmtzID0gU0RXX1NMQVZFX1FVSVJLU19JTlZBTElEX0lOSVRJQUxfUEFSSVRZOw0KPiArDQo+
+ICsJcHJvcC0+cGFnaW5nX3N1cHBvcnQgPSB0cnVlOw0KPiArDQo+ICsJLyogZmlyc3Qgd2UgbmVl
+ZCB0byBhbGxvY2F0ZSBtZW1vcnkgZm9yIHNldCBiaXRzIGluIHBvcnQgbGlzdHMgKi8NCj4gKwlw
+cm9wLT5zb3VyY2VfcG9ydHMgPSBCSVQoMik7IC8qIEJJVE1BUDogMDAwMDAxMDAgKi8NCj4gKwlw
+cm9wLT5zaW5rX3BvcnRzID0gMDsNCj4gKw0KPiArCW52YWwgPSBod2VpZ2h0MzIocHJvcC0+c291
+cmNlX3BvcnRzKTsNCj4gKwlwcm9wLT5zcmNfZHBuX3Byb3AgPSBkZXZtX2tjYWxsb2MoJnNsYXZl
+LT5kZXYsIG52YWwsDQo+ICsJCXNpemVvZigqcHJvcC0+c3JjX2Rwbl9wcm9wKSwgR0ZQX0tFUk5F
+TCk7DQo+ICsJaWYgKCFwcm9wLT5zcmNfZHBuX3Byb3ApDQo+ICsJCXJldHVybiAtRU5PTUVNOw0K
+PiArDQo+ICsJaSA9IDA7DQo+ICsJZHBuID0gcHJvcC0+c3JjX2Rwbl9wcm9wOw0KPiArCWFkZHIg
+PSBwcm9wLT5zb3VyY2VfcG9ydHM7DQo+ICsJZm9yX2VhY2hfc2V0X2JpdChiaXQsICZhZGRyLCAz
+Mikgew0KPiArCQlkcG5baV0ubnVtID0gYml0Ow0KPiArCQlkcG5baV0udHlwZSA9IFNEV19EUE5f
+RlVMTDsNCj4gKwkJZHBuW2ldLnNpbXBsZV9jaF9wcmVwX3NtID0gdHJ1ZTsNCj4gKwkJZHBuW2ld
+LmNoX3ByZXBfdGltZW91dCA9IDEwOw0KPiArCQlpKys7DQo+ICsJfQ0KPiArDQo+ICsJLyogc2V0
+IHRoZSB0aW1lb3V0IHZhbHVlcyAqLw0KPiArCXByb3AtPmNsa19zdG9wX3RpbWVvdXQgPSAyMDA7
+DQo+ICsNCj4gKwkvKiB3YWtlLXVwIGV2ZW50ICovDQo+ICsJcHJvcC0+d2FrZV9jYXBhYmxlID0g
+MTsNCj4gKw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0
+IHNkd19kZXZpY2VfaWQgcnQ3MTJfc2RjYV9kbWljX2lkW10gPSB7DQo+ICsJU0RXX1NMQVZFX0VO
+VFJZX0VYVCgweDAyNWQsIDB4MTcxMiwgMHgzLCAweDEsIDApLA0KPiArCVNEV19TTEFWRV9FTlRS
+WV9FWFQoMHgwMjVkLCAweDE3MTMsIDB4MywgMHgxLCAwKSwNCj4gKwlTRFdfU0xBVkVfRU5UUllf
+RVhUKDB4MDI1ZCwgMHgxNzE2LCAweDMsIDB4MSwgMCksDQo+ICsJU0RXX1NMQVZFX0VOVFJZX0VY
+VCgweDAyNWQsIDB4MTcxNywgMHgzLCAweDEsIDApLA0KPiArCXt9LA0KPiArfTsNCj4gK01PRFVM
+RV9ERVZJQ0VfVEFCTEUoc2R3LCBydDcxMl9zZGNhX2RtaWNfaWQpOw0KPiArDQo+ICtzdGF0aWMg
+aW50IF9fbWF5YmVfdW51c2VkIHJ0NzEyX3NkY2FfZG1pY19kZXZfc3VzcGVuZChzdHJ1Y3QgZGV2
+aWNlDQo+ICsqZGV2KSB7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMiA9
+IGRldl9nZXRfZHJ2ZGF0YShkZXYpOw0KPiArDQo+ICsJaWYgKCFydDcxMi0+aHdfaW5pdCkNCj4g
+KwkJcmV0dXJuIDA7DQo+ICsNCj4gKwlyZWdjYWNoZV9jYWNoZV9vbmx5KHJ0NzEyLT5yZWdtYXAs
+IHRydWUpOw0KPiArCXJlZ2NhY2hlX2NhY2hlX29ubHkocnQ3MTItPm1icV9yZWdtYXAsIHRydWUp
+Ow0KPiArDQo+ICsJcmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgX19tYXliZV91
+bnVzZWQgcnQ3MTJfc2RjYV9kbWljX2Rldl9zeXN0ZW1fc3VzcGVuZChzdHJ1Y3QNCj4gK2Rldmlj
+ZSAqZGV2KSB7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMl9zZGNhID0g
+ZGV2X2dldF9kcnZkYXRhKGRldik7DQo+ICsNCj4gKwlpZiAoIXJ0NzEyX3NkY2EtPmh3X2luaXQp
+DQo+ICsJCXJldHVybiAwOw0KPiArDQo+ICsJcmV0dXJuIHJ0NzEyX3NkY2FfZG1pY19kZXZfc3Vz
+cGVuZChkZXYpOyB9DQo+ICsNCj4gKyNkZWZpbmUgUlQ3MTJfUFJPQkVfVElNRU9VVCA1MDAwDQo+
+ICsNCj4gK3N0YXRpYyBpbnQgX19tYXliZV91bnVzZWQgcnQ3MTJfc2RjYV9kbWljX2Rldl9yZXN1
+bWUoc3RydWN0IGRldmljZQ0KPiArKmRldikgew0KPiArCXN0cnVjdCBzZHdfc2xhdmUgKnNsYXZl
+ID0gZGV2X3RvX3Nkd19kZXYoZGV2KTsNCj4gKwlzdHJ1Y3QgcnQ3MTJfc2RjYV9kbWljX3ByaXYg
+KnJ0NzEyID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQo+ICsJdW5zaWduZWQgbG9uZyB0aW1lOw0K
+PiArDQo+ICsJaWYgKCFydDcxMi0+Zmlyc3RfaHdfaW5pdCkNCj4gKwkJcmV0dXJuIDA7DQo+ICsN
+Cj4gKwlpZiAoIXNsYXZlLT51bmF0dGFjaF9yZXF1ZXN0KQ0KPiArCQlnb3RvIHJlZ21hcF9zeW5j
+Ow0KPiArDQo+ICsJdGltZSA9IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgmc2xhdmUtPmlu
+aXRpYWxpemF0aW9uX2NvbXBsZXRlLA0KPiArCQkJCW1zZWNzX3RvX2ppZmZpZXMoUlQ3MTJfUFJP
+QkVfVElNRU9VVCkpOw0KPiArCWlmICghdGltZSkgew0KPiArCQlkZXZfZXJyKCZzbGF2ZS0+ZGV2
+LCAiSW5pdGlhbGl6YXRpb24gbm90IGNvbXBsZXRlLCB0aW1lZCBvdXRcbiIpOw0KPiArCQlzZHdf
+c2hvd19waW5nX3N0YXR1cyhzbGF2ZS0+YnVzLCB0cnVlKTsNCj4gKw0KPiArCQlyZXR1cm4gLUVU
+SU1FRE9VVDsNCj4gKwl9DQo+ICsNCj4gK3JlZ21hcF9zeW5jOg0KPiArCXNsYXZlLT51bmF0dGFj
+aF9yZXF1ZXN0ID0gMDsNCj4gKwlyZWdjYWNoZV9jYWNoZV9vbmx5KHJ0NzEyLT5yZWdtYXAsIGZh
+bHNlKTsNCj4gKwlyZWdjYWNoZV9zeW5jKHJ0NzEyLT5yZWdtYXApOw0KPiArCXJlZ2NhY2hlX2Nh
+Y2hlX29ubHkocnQ3MTItPm1icV9yZWdtYXAsIGZhbHNlKTsNCj4gKwlyZWdjYWNoZV9zeW5jKHJ0
+NzEyLT5tYnFfcmVnbWFwKTsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArc3RhdGljIGNv
+bnN0IHN0cnVjdCBkZXZfcG1fb3BzIHJ0NzEyX3NkY2FfZG1pY19wbSA9IHsNCj4gKwlTRVRfU1lT
+VEVNX1NMRUVQX1BNX09QUyhydDcxMl9zZGNhX2RtaWNfZGV2X3N5c3RlbV9zdXNwZW5kLA0KPiBy
+dDcxMl9zZGNhX2RtaWNfZGV2X3Jlc3VtZSkNCj4gKwlTRVRfUlVOVElNRV9QTV9PUFMocnQ3MTJf
+c2RjYV9kbWljX2Rldl9zdXNwZW5kLA0KPiArcnQ3MTJfc2RjYV9kbWljX2Rldl9yZXN1bWUsIE5V
+TEwpIH07DQo+ICsNCj4gKw0KPiArc3RhdGljIHN0cnVjdCBzZHdfc2xhdmVfb3BzIHJ0NzEyX3Nk
+Y2FfZG1pY19zbGF2ZV9vcHMgPSB7DQo+ICsJLnJlYWRfcHJvcCA9IHJ0NzEyX3NkY2FfZG1pY19y
+ZWFkX3Byb3AsDQo+ICsJLnVwZGF0ZV9zdGF0dXMgPSBydDcxMl9zZGNhX2RtaWNfdXBkYXRlX3N0
+YXR1cywgfTsNCj4gKw0KPiArc3RhdGljIGludCBydDcxMl9zZGNhX2RtaWNfc2R3X3Byb2JlKHN0
+cnVjdCBzZHdfc2xhdmUgKnNsYXZlLA0KPiArCQkJCWNvbnN0IHN0cnVjdCBzZHdfZGV2aWNlX2lk
+ICppZCkNCj4gK3sNCj4gKwlzdHJ1Y3QgcmVnbWFwICpyZWdtYXAsICptYnFfcmVnbWFwOw0KPiAr
+DQo+ICsJLyogUmVnbWFwIEluaXRpYWxpemF0aW9uICovDQo+ICsJbWJxX3JlZ21hcCA9IGRldm1f
+cmVnbWFwX2luaXRfc2R3X21icShzbGF2ZSwNCj4gJnJ0NzEyX3NkY2FfZG1pY19tYnFfcmVnbWFw
+KTsNCj4gKwlpZiAoSVNfRVJSKG1icV9yZWdtYXApKQ0KPiArCQlyZXR1cm4gUFRSX0VSUihtYnFf
+cmVnbWFwKTsNCj4gKw0KPiArCXJlZ21hcCA9IGRldm1fcmVnbWFwX2luaXRfc2R3KHNsYXZlLCAm
+cnQ3MTJfc2RjYV9kbWljX3JlZ21hcCk7DQo+ICsJaWYgKElTX0VSUihyZWdtYXApKQ0KPiArCQly
+ZXR1cm4gUFRSX0VSUihyZWdtYXApOw0KPiArDQo+ICsJcmV0dXJuIHJ0NzEyX3NkY2FfZG1pY19p
+bml0KCZzbGF2ZS0+ZGV2LCByZWdtYXAsIG1icV9yZWdtYXAsIHNsYXZlKTsgfQ0KPiArDQo+ICtz
+dGF0aWMgaW50IHJ0NzEyX3NkY2FfZG1pY19zZHdfcmVtb3ZlKHN0cnVjdCBzZHdfc2xhdmUgKnNs
+YXZlKSB7DQo+ICsJc3RydWN0IHJ0NzEyX3NkY2FfZG1pY19wcml2ICpydDcxMiA9IGRldl9nZXRf
+ZHJ2ZGF0YSgmc2xhdmUtPmRldik7DQo+ICsNCj4gKwlpZiAocnQ3MTItPmZpcnN0X2h3X2luaXQp
+DQo+ICsJCXBtX3J1bnRpbWVfZGlzYWJsZSgmc2xhdmUtPmRldik7DQo+ICsNCj4gKwlyZXR1cm4g
+MDsNCj4gK30NCj4gKw0KPiArc3RhdGljIHN0cnVjdCBzZHdfZHJpdmVyIHJ0NzEyX3NkY2FfZG1p
+Y19zZHdfZHJpdmVyID0gew0KPiArCS5kcml2ZXIgPSB7DQo+ICsJCS5uYW1lID0gInJ0NzEyLXNk
+Y2EtZG1pYyIsDQo+ICsJCS5vd25lciA9IFRISVNfTU9EVUxFLA0KPiArCQkucG0gPSAmcnQ3MTJf
+c2RjYV9kbWljX3BtLA0KPiArCX0sDQo+ICsJLnByb2JlID0gcnQ3MTJfc2RjYV9kbWljX3Nkd19w
+cm9iZSwNCj4gKwkucmVtb3ZlID0gcnQ3MTJfc2RjYV9kbWljX3Nkd19yZW1vdmUsDQo+ICsJLm9w
+cyA9ICZydDcxMl9zZGNhX2RtaWNfc2xhdmVfb3BzLA0KPiArCS5pZF90YWJsZSA9IHJ0NzEyX3Nk
+Y2FfZG1pY19pZCwNCj4gK307DQo+ICttb2R1bGVfc2R3X2RyaXZlcihydDcxMl9zZGNhX2RtaWNf
+c2R3X2RyaXZlcik7DQo+ICsNCj4gK01PRFVMRV9ERVNDUklQVElPTigiQVNvQyBSVDcxMiBTRENB
+IERNSUMgU0RXIGRyaXZlciIpOw0KPiArTU9EVUxFX0FVVEhPUigiU2h1bWluZyBGYW4gPHNodW1p
+bmdmQHJlYWx0ZWsuY29tPiIpOw0KPiArTU9EVUxFX0xJQ0VOU0UoIkdQTCIpOw0KPiBkaWZmIC0t
+Z2l0IGEvc291bmQvc29jL2NvZGVjcy9ydDcxMi1zZGNhLWRtaWMuaA0KPiBiL3NvdW5kL3NvYy9j
+b2RlY3MvcnQ3MTItc2RjYS1kbWljLmgNCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4gaW5kZXgg
+MDAwMDAwMDAwMDAwLi5iMzFlNTc5MThlM2UNCj4gLS0tIC9kZXYvbnVsbA0KPiArKysgYi9zb3Vu
+ZC9zb2MvY29kZWNzL3J0NzEyLXNkY2EtZG1pYy5oDQo+IEBAIC0wLDAgKzEsMTA2IEBADQo+ICsv
+KiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5ICovDQo+ICsvKg0KPiArICog
+cnQ3MTItc2RjYS1kbWljLmggLS0gUlQ3MTIgU0RDQSBETUlDIEFMU0EgU29DIGF1ZGlvIGRyaXZl
+ciBoZWFkZXINCj4gKyAqDQo+ICsgKiBDb3B5cmlnaHQoYykgMjAyMyBSZWFsdGVrIFNlbWljb25k
+dWN0b3IgQ29ycC4NCj4gKyAqLw0KPiArDQo+ICsjaWZuZGVmIF9fUlQ3MTJfU0RXX0RNSUNfSF9f
+DQo+ICsjZGVmaW5lIF9fUlQ3MTJfU0RXX0RNSUNfSF9fDQo+ICsNCj4gKyNpbmNsdWRlIDxsaW51
+eC9yZWdtYXAuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9zb3VuZHdpcmUvc2R3X3JlZ2lzdGVycy5o
+Pg0KPiArDQo+ICtzdHJ1Y3QgIHJ0NzEyX3NkY2FfZG1pY19wcml2IHsNCj4gKwlzdHJ1Y3QgcmVn
+bWFwICpyZWdtYXAsICptYnFfcmVnbWFwOw0KPiArCXN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAq
+Y29tcG9uZW50Ow0KPiArCXN0cnVjdCBzZHdfc2xhdmUgKnNsYXZlOw0KPiArCWVudW0gc2R3X3Ns
+YXZlX3N0YXR1cyBzdGF0dXM7DQo+ICsJc3RydWN0IHNkd19idXNfcGFyYW1zIHBhcmFtczsNCj4g
+Kwlib29sIGh3X2luaXQ7DQo+ICsJYm9vbCBmaXJzdF9od19pbml0Ow0KPiArCWJvb2wgZnUxZV9k
+YXBtX211dGUsIGZ1MWVfbWl4ZXJfbXV0ZVs0XTsgfTsNCj4gKw0KPiArc3RydWN0IHJ0NzEyX3Nk
+Y2FfZG1pY19rY3RybF9wcml2IHsNCj4gKwl1bnNpZ25lZCBpbnQgcmVnX2Jhc2U7DQo+ICsJdW5z
+aWduZWQgaW50IGNvdW50Ow0KPiArCXVuc2lnbmVkIGludCBtYXg7DQo+ICsJdW5zaWduZWQgaW50
+IGludmVydDsNCj4gK307DQo+ICsNCj4gKy8qIFNEQ0EgKENoYW5uZWwpICovDQo+ICsjZGVmaW5l
+IENIXzAxCTB4MDENCj4gKyNkZWZpbmUgQ0hfMDIJMHgwMg0KPiArI2RlZmluZSBDSF8wMwkweDAz
+DQo+ICsjZGVmaW5lIENIXzA0CTB4MDQNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCByZWdf
+ZGVmYXVsdCBydDcxMl9zZGNhX2RtaWNfcmVnX2RlZmF1bHRzW10gPSB7DQo+ICsJeyAweDIwMWEs
+IDB4MDAgfSwNCj4gKwl7IDB4MjAxYiwgMHgwMCB9LA0KPiArCXsgMHgyMDFjLCAweDAwIH0sDQo+
+ICsJeyAweDIwMWQsIDB4MDAgfSwNCj4gKwl7IDB4MjAxZSwgMHgwMCB9LA0KPiArCXsgMHgyMDFm
+LCAweDAwIH0sDQo+ICsJeyAweDIwMjksIDB4MDAgfSwNCj4gKwl7IDB4MjAyYSwgMHgwMCB9LA0K
+PiArCXsgMHgyMDJkLCAweDAwIH0sDQo+ICsJeyAweDIwMmUsIDB4MDAgfSwNCj4gKwl7IDB4MjAy
+ZiwgMHgwMCB9LA0KPiArCXsgMHgyMDMwLCAweDAwIH0sDQo+ICsJeyAweDIwMzEsIDB4MDAgfSwN
+Cj4gKwl7IDB4MjAzMiwgMHgwMCB9LA0KPiArCXsgMHgyMDMzLCAweDAwIH0sDQo+ICsJeyAweDIw
+MzQsIDB4MDAgfSwNCj4gKwl7IDB4MjIzMCwgMHgwMCB9LA0KPiArCXsgMHgyMjMxLCAweDJmIH0s
+DQo+ICsJeyAweDIyMzIsIDB4ODAgfSwNCj4gKwl7IDB4MmYwMSwgMHgwMCB9LA0KPiArCXsgMHgy
+ZjAyLCAweDA5IH0sDQo+ICsJeyAweDJmMDMsIDB4MDAgfSwNCj4gKwl7IDB4MmYwNCwgMHgwMCB9
+LA0KPiArCXsgMHgyZjA1LCAweDBiIH0sDQo+ICsJeyAweDJmMDYsIDB4MDEgfSwNCj4gKwl7IDB4
+MmYwOCwgMHgwMCB9LA0KPiArCXsgMHgyZjA5LCAweDAwIH0sDQo+ICsJeyAweDJmMGEsIDB4MDEg
+fSwNCj4gKwl7IDB4MmYzNSwgMHgwMiB9LA0KPiArCXsgMHgyZjM2LCAweGNmIH0sDQo+ICsJeyAw
+eDJmNTIsIDB4MDggfSwNCj4gKwl7IDB4MmY1OCwgMHgwNyB9LA0KPiArCXsgMHgyZjU5LCAweDA3
+IH0sDQo+ICsJeyAweDMyMDEsIDB4MDEgfSwNCj4gKwl7IDB4MzIwYywgMHgwMCB9LA0KPiArCXsg
+U0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwgUlQ3MTJfU0RDQV9FTlRfSVQyNiwNCj4g
+UlQ3MTJfU0RDQV9DVExfVkVORE9SX0RFRiwgMCksIDB4MDAgfSwNCj4gKwl7IFNEV19TRENBX0NU
+TChGVU5DX05VTV9NSUNfQVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1VTRVJfRlUxRSwgUlQ3MTJf
+U0RDQV9DVExfRlVfTVVURSwgQ0hfMDEpLCAweDAxIH0sDQo+ICsJeyBTRFdfU0RDQV9DVEwoRlVO
+Q19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9VU0VSX0ZVMUUsIFJUNzEyX1NEQ0Ff
+Q1RMX0ZVX01VVEUsIENIXzAyKSwgMHgwMSB9LA0KPiArCXsgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVN
+X01JQ19BUlJBWSwNCj4gUlQ3MTJfU0RDQV9FTlRfVVNFUl9GVTFFLCBSVDcxMl9TRENBX0NUTF9G
+VV9NVVRFLCBDSF8wMyksIDB4MDEgfSwNCj4gKwl7IFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNf
+QVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1VTRVJfRlUxRSwgUlQ3MTJfU0RDQV9DVExfRlVfTVVU
+RSwgQ0hfMDQpLCAweDAxIH0sDQo+ICsJeyBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZ
+LCBSVDcxMl9TRENBX0VOVF9DUzFGLA0KPiBSVDcxMl9TRENBX0NUTF9TQU1QTEVfRlJFUV9JTkRF
+WCwgMCksIDB4MDkgfSwNCj4gKwl7IFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVksIFJU
+NzEyX1NEQ0FfRU5UX0NTMUMsDQo+ICtSVDcxMl9TRENBX0NUTF9TQU1QTEVfRlJFUV9JTkRFWCwg
+MCksIDB4MDkgfSwgfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCByZWdfZGVmYXVsdCBy
+dDcxMl9zZGNhX2RtaWNfbWJxX2RlZmF1bHRzW10gPSB7DQo+ICsJeyAweDA1OTAwMDFlLCAweDAw
+MjAgfSwNCj4gKwl7IDB4MDYxMDAwMDAsIDB4MDAxMCB9LA0KPiArCXsgMHgwNjEwMDAwNiwgMHgw
+MDU1IH0sDQo+ICsJeyAweDA2MTAwMDEwLCAweDI2MzAgfSwNCj4gKwl7IDB4MDYxMDAwMTEsIDB4
+MTUyZiB9LA0KPiArCXsgMHgwNjEwMDAxMywgMHgwMTAyIH0sDQo+ICsJeyAweDA2MTAwMDE1LCAw
+eDIyMTkgfSwNCj4gKwl7IDB4MDYxMDAwMTgsIDB4MDEwMiB9LA0KPiArCXsgMHgwNjEwMDAyNiwg
+MHgyYzI5IH0sDQo+ICsJeyAweDA2MTAwMDI3LCAweDJkMmIgfSwNCj4gKwl7IDB4MDYxMDAwMmIs
+IDB4MmEzMiB9LA0KPiArCXsgMHgwNjEwMDAyZiwgMHgzMzU1IH0sDQo+ICsJeyBTRFdfU0RDQV9D
+VEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENBX0VOVF9QTEFURk9STV9GVTE1LCBS
+VDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLCBDSF8wMSksDQo+IDB4MDAwMCB9LA0KPiArCXsgU0RX
+X1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4gUlQ3MTJfU0RDQV9FTlRfUExBVEZPUk1f
+RlUxNSwgUlQ3MTJfU0RDQV9DVExfRlVfQ0hfR0FJTiwgQ0hfMDIpLA0KPiAweDAwMDAgfSwNCj4g
+Kwl7IFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVksDQo+IFJUNzEyX1NEQ0FfRU5UX1BM
+QVRGT1JNX0ZVMTUsIFJUNzEyX1NEQ0FfQ1RMX0ZVX0NIX0dBSU4sIENIXzAzKSwNCj4gMHgwMDAw
+IH0sDQo+ICsJeyBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcxMl9TRENB
+X0VOVF9QTEFURk9STV9GVTE1LCBSVDcxMl9TRENBX0NUTF9GVV9DSF9HQUlOLCBDSF8wNCksDQo+
+IDB4MDAwMCB9LA0KPiArCXsgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4gUlQ3
+MTJfU0RDQV9FTlRfVVNFUl9GVTFFLCBSVDcxMl9TRENBX0NUTF9GVV9WT0xVTUUsIENIXzAxKSwN
+Cj4gMHgwMDAwIH0sDQo+ICsJeyBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBS
+VDcxMl9TRENBX0VOVF9VU0VSX0ZVMUUsIFJUNzEyX1NEQ0FfQ1RMX0ZVX1ZPTFVNRSwgQ0hfMDIp
+LA0KPiAweDAwMDAgfSwNCj4gKwl7IFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVksDQo+
+IFJUNzEyX1NEQ0FfRU5UX1VTRVJfRlUxRSwgUlQ3MTJfU0RDQV9DVExfRlVfVk9MVU1FLCBDSF8w
+MyksDQo+IDB4MDAwMCB9LA0KPiArCXsgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwN
+Cj4gUlQ3MTJfU0RDQV9FTlRfVVNFUl9GVTFFLA0KPiArUlQ3MTJfU0RDQV9DVExfRlVfVk9MVU1F
+LCBDSF8wNCksIDB4MDAwMCB9LCB9Ow0KPiArDQo+ICsjZW5kaWYgLyogX19SVDcxMl9TRFdfRE1J
+Q19IX18gKi8NCj4gLS0NCj4gMi4zNC4xDQo+IA0KPiANCj4gLS0tLS0tUGxlYXNlIGNvbnNpZGVy
+IHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBlLW1haWwuDQo=

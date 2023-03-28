@@ -2,123 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 094106CB76D
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 08:44:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEAC66CB781
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 08:53:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE91F41;
-	Tue, 28 Mar 2023 08:43:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE91F41
+	by alsa0.perex.cz (Postfix) with ESMTPS id 525101F7;
+	Tue, 28 Mar 2023 08:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 525101F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679985889;
-	bh=nH3G50yq6fOPKmcJWRUk/oesvWZ9P2L24dB4JcoGsCY=;
+	s=default; t=1679986379;
+	bh=S1YBIVF/bROWcOlbmPASl12Ayt/yfUb1s8mC0/TBz7M=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DVjVnFkpOxf8t1BbUhjQoS+Oj71qLCa7dN8uH3JNgxN5nlqLD/SsrZaEDDwnCjpDF
-	 BeWKEWa9bnmJbG1tVAT/X1+rGwUEQOdpBSWpj85atWf6bge1/mRrUQm5DlqydsJrWX
-	 /AC0bqd9VzHTNP9QEiq+lsJZG7te6e1IXsDI/7VI=
+	b=OiG3FPx6YBoVzg/71wncBm/TncuYpwSx/vXkq2dVVaNa0cHdmeTXNJzs1G3GSKJJh
+	 FXGqx6hlOIro4VmJ3w+4CP9+25qDmVXDWXA2G6aBTBQKPGAIS0tWIpbB1ODNSJmBqV
+	 si7hZnrukhu8gtLx4wzq7SsZWgneLE/r5LOH4HHU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BE3FF8024E;
-	Tue, 28 Mar 2023 08:43:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1BA3F8024E;
+	Tue, 28 Mar 2023 08:52:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 288B5F80272; Tue, 28 Mar 2023 08:42:50 +0200 (CEST)
+	id B8F54F80272; Tue, 28 Mar 2023 08:49:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4975BF80249
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 08:42:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4975BF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 510D0F8021D
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 08:49:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 510D0F8021D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ngtTT0iR
-Received: by mail-ed1-x530.google.com with SMTP id y4so45447647edo.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 27 Mar 2023 23:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1679985760;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4USwIO7rQUMdTt0AvopWzJfAqIt2lpjOmFwk/o1NlOc=;
-        b=ngtTT0iRYVCM4ZmXXvc+yseTWLI4wIQU2+APRsRBPySpZFVA1MwZnkwLGEEKrFgCfw
-         LvnXxESZbnMMkqwDMUhTGPmaXlu6SI6lnRmDARnCW63t1a4FYZ3qKt5yfYh3VfPhFlWF
-         ygbLWiqgv8fRRbBXPfQu4oBCEM/AMk695VCbusjPjNrz8MEQCOdgfTd2y82fOjPn8vTl
-         j2AT2JOB11J2vU1CivPHbhvpRwBIEDm6ccYQ8gnJ+aruDoFgf97niPi0Hwcb1U9VA+cG
-         lJQqjIGM1LepCTAMvEKQItzrKG9yRdLovpq1Qx52ZBSMLEEZGjo4zA2YEDMvcbr4S6Tg
-         jhAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679985760;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4USwIO7rQUMdTt0AvopWzJfAqIt2lpjOmFwk/o1NlOc=;
-        b=qQqMImqDbwSCkvUNvfiGiguk092vPvgQ2kmEeiEhEEcGKv8cLOQ23mLbU/gABoXSIW
-         4n7dATuWpqYtJECkQsHW74kkmA/gEJ8B3OIR94RbqC978f7Wfi6pn9R4mtcgeJ98HQwV
-         2XU/7lJFdjJocBbUL1EaNKBRtCsolPR9G3bUaZ9Stn1fy1uhvNZ6LQmLQx5xKXrYcmat
-         8LncXcCPPtebOZMgN0lqn2bE20VTH51TbT3xSpb5QgpdWqFty4Z3yYWb/i/f5dAYocqN
-         ZmvdoaiXFQwNGSM1/O5O2W6KGvDO0+EMaXfTlipx7tjP3dZoOAZdSF/LxMAMQrnB1pOi
-         A0AQ==
-X-Gm-Message-State: AAQBX9dV4I+1hOLgHWqGIidBjLe3SnWcpNxlyLpBARR6tKn7casoDVk4
-	qrbhv8mJhrr1FQKPqsYlV5/Vrg==
-X-Google-Smtp-Source: 
- AKy350a81urn20Et8YB+owcqnHygl1VpRFKCDJT6BT6dQnx9oNwzuS8eEcPoFHWDcWPPvJ2ZjBACyA==
-X-Received: by 2002:a17:907:10cc:b0:932:2874:cc5 with SMTP id
- rv12-20020a17090710cc00b0093228740cc5mr13989964ejb.16.1679985760090;
-        Mon, 27 Mar 2023 23:42:40 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:9e92:dca6:241d:71b6?
- ([2a02:810d:15c0:828:9e92:dca6:241d:71b6])
-        by smtp.gmail.com with ESMTPSA id
- xh1-20020a170906da8100b0093f83562f09sm3860161ejb.87.2023.03.27.23.42.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Mar 2023 23:42:39 -0700 (PDT)
-Message-ID: <33448f1a-ff6d-46b2-b181-d4e57983fbd4@linaro.org>
-Date: Tue, 28 Mar 2023 08:42:38 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=g88lsSLQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679986160; x=1711522160;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=S1YBIVF/bROWcOlbmPASl12Ayt/yfUb1s8mC0/TBz7M=;
+  b=g88lsSLQ48yzr2y/c883osPqFz/y3e5eZPL17lmbvnSAB73kHEIrjgYZ
+   1TOCpE9S11yxoZTL8DCXKQyQMuzIuXgy7yhu5g0DswdmakblQ5i8mDf0k
+   tUTQZo0haS7mE+ppix9eAPVwDt63HfnEfDiTUIRnZaKIIp0TDkYAkXhZK
+   1ntZKZimOfNFGLlcPrV07/ml+G9G/ft5a6ahgUbFG1WUeDu9EYBTChMWQ
+   UFFmNYm0vnOg2s7fq/qhA82mIUtCLJhLTzq4h/4p6wtsSzWrt7v/YCxDD
+   nrnnwcKksjEm2j9eRyvpAiEL3lZ/sVIKMy/PDVLxtObGreFHJlc04nrUs
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="405422862"
+X-IronPort-AV: E=Sophos;i="5.98,296,1673942400";
+   d="scan'208";a="405422862"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2023 23:49:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="1013429168"
+X-IronPort-AV: E=Sophos;i="5.98,296,1673942400";
+   d="scan'208";a="1013429168"
+Received: from dtorrice-mobl1.ger.corp.intel.com (HELO [10.249.32.113])
+ ([10.249.32.113])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2023 23:49:14 -0700
+Message-ID: <e254ea09-1ea7-0317-b227-17a2ab79de02@linux.intel.com>
+Date: Tue, 28 Mar 2023 09:49:47 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] dt-bindings: soc: qcom: Drop unneeded quotes
+ Firefox/102.0 Thunderbird/102.9.0
+Subject: Re: [PATCH v2 4/4] ASoC: soc-topology.c: remove unnecessary
+ dai_link->platform
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Souradeep Chowdhury <quic_schowdhu@quicinc.com>
-References: <20230327170205.4106310-1-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230327170205.4106310-1-robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <87pm8zjd0t.wl-kuninori.morimoto.gx@renesas.com>
+ <87jzz7jczp.wl-kuninori.morimoto.gx@renesas.com>
+ <5eb5c8e5-a6ad-2522-1b53-5f927a3a7d8c@linux.intel.com>
+ <87r0t9g4t4.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <87r0t9g4t4.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: H6Y5YFNNIEM2ADS4YYCLHKFT27TD2ERL
-X-Message-ID-Hash: H6Y5YFNNIEM2ADS4YYCLHKFT27TD2ERL
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: PBDDDPUROFEZLCD345QJAXYKNWOBELFJ
+X-Message-ID-Hash: PBDDDPUROFEZLCD345QJAXYKNWOBELFJ
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+CC: Mark Brown <broonie@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H6Y5YFNNIEM2ADS4YYCLHKFT27TD2ERL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PBDDDPUROFEZLCD345QJAXYKNWOBELFJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,16 +108,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27/03/2023 19:02, Rob Herring wrote:
-> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
-> checking for this can be enabled in yamllint.
+Hi Morimoto-san,
+
+On 28/03/2023 02:20, Kuninori Morimoto wrote:
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Hi Peter
+> 
+> Thank you for your feedback.
+> 
+>>> @@ -1694,11 +1694,9 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+>>>  
+>>>  	link->cpus	= &dlc[0];
+>>>  	link->codecs	= &dlc[1];
+>>> -	link->platforms	= &dlc[2];
+>>>  
+>>>  	link->num_cpus	 = 1;
+>>>  	link->num_codecs = 1;
+>>> -	link->num_platforms = 1;
+>>>  
+>>>  	link->dobj.index = tplg->index;
+>>>  	link->dobj.type = SND_SOC_DOBJ_DAI_LINK;
+>>> @@ -1726,8 +1724,6 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+>>>  	link->codecs->name = "snd-soc-dummy";
+>>>  	link->codecs->dai_name = "snd-soc-dummy-dai";
+>>>  
+>>> -	link->platforms->name = "snd-soc-dummy";
+>>> -
+>>
+>> I think this patch is incorrect and should be reverted (I have received
+>> a note from a SOF developer).
+>> The link->cpus->dai_name is not necessarily "snd-soc-dummy", it is set
+>> earlier:
+>> if (strlen(pcm->dai_name)) {
+>> 	link->cpus->dai_name = devm_kstrdup(tplg->dev, pcm->dai_name,
+>> 					    GFP_KERNEL);
+>> 	if (!link->cpus->dai_name) {
+>> 		ret = -ENOMEM;
+>> 		goto err;
+>> 	}
+>> }
+>>
+>> We cannot be sure that it is the same component, in fact it is most like
+>> not.
+> 
+> But sorry, I don't understand the point.
+> This patch removed dummy PLATFORM which is not necessary I think,
+> but you are talking about CPU.
+
+The patch removes the dummy platform with a justification that if the
+CPU name and the platform name is identical, then the platform name does
+not need to be set.
+
+But in this case the CPU name and the platform name is _not_ identical,
+they are different and we need to have the dummy platform on the FE side
+unconditionally.
+
+> Could you please explain more detail what is the problem ?
+
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm HDMI1
+sof-audio-pci-intel-tgl 0000:00:1f.3: error: no platforms
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: FE link loading failed
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: topology: could not load
+header: -22
+sof-audio-pci-intel-tgl 0000:00:1f.3: error: tplg component load failed -22
+sof-audio-pci-intel-tgl 0000:00:1f.3: error: failed to load DSP topology -22
+sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at
+snd_soc_component_probe on 0000:00:1f.3: -22
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: failed to instantiate
+card -22
+skl_hda_dsp_generic: probe of skl_hda_dsp_generic failed with error -22
+
+which should look like this ideally:
+
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm HDMI1
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm HDMI2
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm HDMI3
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm HDA Analog
+snd_sof:sof_dai_load: sof-audio-pci-intel-tgl 0000:00:1f.3: tplg: load
+pcm DeepBuffer
+
+
+> 
+> 
+> Thank you for your help !!
+> 
+> Best regards
 > ---
+> Kuninori Morimoto
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
-
+-- 
+Péter

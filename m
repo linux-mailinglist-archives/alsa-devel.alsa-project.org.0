@@ -2,106 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCEA6CBC9E
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C216CBCAC
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Mar 2023 12:40:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5FB91F0;
-	Tue, 28 Mar 2023 12:35:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5FB91F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B51E01CF;
+	Tue, 28 Mar 2023 12:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B51E01CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1679999769;
-	bh=9+VfIAZcVCip9jC3+d+kyhpcs5Fk+I9d7G8G4kmuTTw=;
+	s=default; t=1680000040;
+	bh=r+VFqsXlNkyOVK/CAdzHOQz2NJg4yDQsLr8pse+kGVM=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a6nGHr01eRcF/JljrYlIL/R1Zj1AXXkZzX1IHQzDt+P6UsFH3p46UfwJeaB7lJUT8
-	 alDa7jIkLWRXCk1ZVRZ8k4Bxs+xfg8CsCfL8miDcGFecy8bmE5n2J/al0d990M6ifX
-	 L3uzY+xwKzVyXAua5KEKq0pJLue0SU28+KVDCpls=
+	b=SuYhbd7CRAeKfNsziZLtXZIxAPoqiW4IczUckyHw2oAaHjuZabJ9mTI3hEN3vOLgL
+	 3/gADWvssDhwmL2nl3ZgVbg7iuIzM4NF3giaomOszU9ynYT+JlwhsBIh0mk/3sqTun
+	 cCP18elth04oRQIUAhFfid5s4jgfgSohcOlwdnMQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00347F8024E;
-	Tue, 28 Mar 2023 12:35:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AC42F8024E;
+	Tue, 28 Mar 2023 12:39:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0545BF80272; Tue, 28 Mar 2023 12:35:15 +0200 (CEST)
+	id B4F15F80272; Tue, 28 Mar 2023 12:39:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84CE8F80114
-	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:35:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84CE8F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1D93F80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Mar 2023 12:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1D93F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PdJDWqqG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679999708; x=1711535708;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=9+VfIAZcVCip9jC3+d+kyhpcs5Fk+I9d7G8G4kmuTTw=;
-  b=PdJDWqqGQGHQmET9uc7rp9xUp3GvcPDwMNSipoi2ZnyZD9yIbAN8h9Qr
-   OI4hK6diXjBVKCZFk+1RhOYDSw64VJRL+K1cbwrZsLfj+p2bVEqmRvAYj
-   gO+NaubCjiWT8EpCTFZQutJuirsO+Bu1zcDqd7bo5pAH2CARN2O3xHQfR
-   7EyTgmwlfukSTK9TVcRU8aVnioHV71iVBTkNFKM+tPNJAdQ0YKNrWjLeL
-   l5VyEfauMuNniMONxhjYaD2vIuOVqHudrFNf/lQtyRoz8TIMcpZjSiwkp
-   alPYp8+i6qxBbWNWTVmg/ovW0wGuZ/8n0MH/oNVf5xJpQNBe+GCk9WUTk
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="426794516"
-X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
-   d="scan'208";a="426794516"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 03:34:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="686379180"
-X-IronPort-AV: E=Sophos;i="5.98,297,1673942400";
-   d="scan'208";a="686379180"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 03:34:34 -0700
-Message-ID: <cc5a4267-f050-c311-5d56-a2e7cfe7e747@linux.intel.com>
-Date: Tue, 28 Mar 2023 12:34:32 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=IC1gzxtz
+Received: by mail-ed1-x530.google.com with SMTP id r11so47671322edd.5
+        for <alsa-devel@alsa-project.org>;
+ Tue, 28 Mar 2023 03:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1679999980;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6Rp6VZo9LId3BX033N14P3CvaNIPCBV06I8wC19k9S4=;
+        b=IC1gzxtz1oG3wkhY1SGJbyjAopyj4+cuFnb6DHovrkLVwPC1n1MvhFVfj8xQqN/eSi
+         HX9zgt4WbUeZ+GH9dt6RSV3kvCUJ5Z9E8yZqMVTQA2SboqnfBbCTQ/y2DN3J4Xi7bUK4
+         GXiwVHhyCwe5x3l5KDdJZTSs/E99IoeSe3bQzuidTMNWLEIRZz75LuI1vu/56D1rNR4M
+         Jd0do6CLI4JHT5D0en0S+4RaX9rPRfv7eqnUq/KLlblUmhaRkHjl3wBI91j2KQuONyf+
+         3yng0iLbssqZrH0x7HqeMoHjrxAg1GDn93TcV1Zf2uqi0S/0jhHToGMYBfPHkvv+g/33
+         26qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679999980;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6Rp6VZo9LId3BX033N14P3CvaNIPCBV06I8wC19k9S4=;
+        b=5cVrHe5fsh8PZ+8nTRvXgO656gFt1wZv1zAeBkKhMWpzG1pw4lo4n5iDhxDDfcS2ZN
+         ktnvUeIQ6Yy+LxMOj/h8RDTCd1vo6rO6p5SwWgryHMa5KapOAzEk9igyOw6XohYwQ6LK
+         gIXUux15vG0mSU7YYy3DH/kjwkBTDkkBr+APAgl1yIjL6yWDedmop+aegfxRTLla98bj
+         hY8VewGdqE3wmVVxdP17cbUINmWYT0aySyDTTVp6mAQ0Nhuyv5DzLY2UISA2pjCHwXqG
+         +Vqs93Hqxf5CcAb2m7wxicFwozHeGmw3S1t6Udmb43tkLAUG9ybwLtR1dHcfv9bpQN69
+         x69w==
+X-Gm-Message-State: AAQBX9fmfkxiKb7KElkMAL6rihwHa9ISCQC3TioV0h96mENIf/2iAj0f
+	gBKdcuTY6+W6CXFk5d0MYjmUgHoyWpqdk3z2GLY=
+X-Google-Smtp-Source: 
+ AKy350aeR+l2QHShByGShBsM2Crvf40sRkJF4PZYF6Y+FbeRMaArabxY1QQn39ltc8XEMe8dPD7unA==
+X-Received: by 2002:a17:906:bcec:b0:926:8992:4310 with SMTP id
+ op12-20020a170906bcec00b0092689924310mr16185642ejb.38.1679999949968;
+        Tue, 28 Mar 2023 03:39:09 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:9e92:dca6:241d:71b6?
+ ([2a02:810d:15c0:828:9e92:dca6:241d:71b6])
+        by smtp.gmail.com with ESMTPSA id
+ k19-20020a1709063fd300b00928de86245fsm15118289ejj.135.2023.03.28.03.39.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Mar 2023 03:39:09 -0700 (PDT)
+Message-ID: <2dc9dc13-62e0-2b2a-b235-bc6e21d64dbc@linaro.org>
+Date: Tue, 28 Mar 2023 12:39:08 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 08/18] ASoC: SOF: Intel: hda-mlink: introduce helpers for
- 'extended links' PM
+Subject: Re: [PATCH v5 1/5] dt-bindings: mfd: Add the Lantiq PEF2256 E1/T1/J1
+ framer
 Content-Language: en-US
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org, tiwai@suse.de, perex@perex.cz
-References: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
- <20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW
-X-Message-ID-Hash: CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+To: Herve Codina <herve.codina@bootlin.com>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <20230328092645.634375-1-herve.codina@bootlin.com>
+ <20230328092645.634375-2-herve.codina@bootlin.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230328092645.634375-2-herve.codina@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MQGRA7RTHGFVGQ6NOQBJYW43BQ3OEDFT
+X-Message-ID-Hash: MQGRA7RTHGFVGQ6NOQBJYW43BQ3OEDFT
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com
+CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CCZAQBRF6JT4NUQPAFZA6QEYIV3GMINW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MQGRA7RTHGFVGQ6NOQBJYW43BQ3OEDFT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,106 +128,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 3/27/2023 1:29 PM, Peter Ujfalusi wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On 28/03/2023 11:26, Herve Codina wrote:
+> The Lantiq PEF2256 is a framer and line interface component designed to
+> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> digital PCM system highway/H.100 bus.
 > 
-> Add helpers to program SPA/CPA bits, using a mutex to access the
-> shared LCTL register if required.
-> 
-> All links are managed with the same LCTLx.SPA bits. However there are
-> quite a few implementation details to be aware of:
-> 
-> Legacy HDaudio multi-links are powered-up when exiting reset, which
-> requires the ref_count to be manually set to one when initializing the
-> link.
-> 
-> Alternate links for SoundWire/DMIC/SSP need to be explicitly
-> powered-up before accessing the SHIM/IP/Vendor-Specific SHIM space for
-> each sublink. DMIC/SSP/SoundWire are all different cases with a
-> different device/dai/hlink relationship.
-> 
-> SoundWire will handle power management with the auxiliary device
-> resume/suspend routine. The ref_count is not necessary in this case.
-> 
-> The DMIC/SSP will by contrast handle the power management from DAI
-> .startup and .shutdown callbacks.
-> 
-> The SSP has a 1:1 mapping between sublink and DAI, but it's
-> bidirectional so the ref_count will help avoid turning off the sublink
-> when one of the two directions is still in use.
-> 
-> The DMIC has a single link but two DAIs for data generated at
-> different sampling frequencies, again the ref_count will make sure the
-> two DAIs can be used concurrently.
-> 
-> And last the SoundWire Intel require power-up/down and bank switch to
-> be handled with a lock already taken, so the 'eml_lock' is made
-> optional with the _unlocked versions of the helpers.
-> 
-> Note that the _check_power_active() implementation is similar to
-> previous helpers in sound/hda/ext, with sleep duration and timeout
-> aligned with hardware recommendations. If desired, this helper could
-> be modified in a second step with .e.g. readl_poll_timeout()
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Rander Wang <rander.wang@intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > ---
->   include/sound/hda-mlink.h       |  32 +++++++
->   sound/soc/sof/intel/hda-mlink.c | 163 ++++++++++++++++++++++++++++++++
->   2 files changed, 195 insertions(+)
-> 
+>  .../bindings/mfd/lantiq,pef2256.yaml          | 267 ++++++++++++++++++
+>  1 file changed, 267 insertions(+)
 
-...
 
-> diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
-> index 90b68ae2564c..4cfef4007d0c 100644
-> --- a/sound/soc/sof/intel/hda-mlink.c
-> +++ b/sound/soc/sof/intel/hda-mlink.c
-> @@ -170,6 +170,68 @@ static int hdaml_lnk_enum(struct device *dev, struct hdac_ext2_link *h2link,
->   	return 0;
->   }
->   
-> +/*
-> + * Hardware recommendations are to wait ~10us before checking any hardware transition
-> + * reported by bits changing status.
-> + * This value does not need to be super-precise, a slack of 5us is perfectly acceptable.
-> + * The worst-case is about 1ms before reporting an issue
-> + */
-> +#define HDAML_POLL_DELAY_MIN_US 10
-> +#define HDAML_POLL_DELAY_SLACK_US 5
-> +#define HDAML_POLL_DELAY_RETRY  100
-> +
-> +static int check_power_active(u32 __iomem *lctl, int sublink, bool enable)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Should last argument be named 'active' instead of 'enable'? It would 
-make more sense to me.
+Best regards,
+Krzysztof
 
-> +{
-> +	int mask = BIT(sublink) << AZX_ML_LCTL_CPA_SHIFT;
-> +	int retry = HDAML_POLL_DELAY_RETRY;
-> +	u32 val;
-> +
-> +	usleep_range(HDAML_POLL_DELAY_MIN_US,
-> +		     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
-> +	do {
-> +		val = readl(lctl);
-> +		if (enable) {
-> +			if (val & mask)
-> +				return 0;
-> +		} else {
-> +			if (!(val & mask))
-> +				return 0;
-> +		}
-> +		usleep_range(HDAML_POLL_DELAY_MIN_US,
-> +			     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
-> +
-> +	} while (--retry);
-> +
-> +	return -EIO;
-> +}
-> +
-
-...

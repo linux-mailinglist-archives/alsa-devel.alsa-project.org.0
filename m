@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EB6B6CD230
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:41:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AE796CD231
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:41:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCE771F7;
-	Wed, 29 Mar 2023 08:40:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE771F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B96D20B;
+	Wed, 29 Mar 2023 08:40:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B96D20B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680072088;
-	bh=l9xv8Bn4AqA8zADvLPdHk8XvdyvDO6zQ8QTUDFE/BjQ=;
+	s=default; t=1680072095;
+	bh=8q1UPHEiYjkVgnvjQ8ZZ/5Mb5Bmokld53/LI8LSv24g=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Qcu33anuLL3pnL+ub79Q5CeqZLvH9kQj0WK4za64An8sutsxRE4IZVYq35cWj3+At
-	 a66MC5WK3zhj3JYeS3v2T0xqayYLHAwFMhqvGGTVyN34Il29P575DCNX9FggMVtG0R
-	 BgWbqsFRs+Yy3D/evTjoYe7na+y0d/XfsEywv1nQ=
+	b=r3vo8WmFalIvuLERX16aYXL6GrL1rg651WYQLGqdBqg40glH4F9/Ey95I+u9mIJ2Y
+	 JV7yT1ZyUsJCj/2aaWft967owEN9ykMl6wY4YV1rtYl9jjApzgcVT2ueCRF8M3lLYd
+	 2jUcPoHmoyXFcOLr3ybU/8srnDFIPgyP9zQHQu/k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4372F80423;
-	Wed, 29 Mar 2023 08:40:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C88EF80529;
+	Wed, 29 Mar 2023 08:40:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61A83F80482; Wed, 29 Mar 2023 08:39:59 +0200 (CEST)
+	id 3C108F8052D; Wed, 29 Mar 2023 08:40:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,63 +36,64 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A764EF8032D
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:39:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A764EF8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF91CF80527
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:40:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF91CF80527
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=SyB8tnKX;
+ header.s=susede2_rsa header.b=cmK4Cgh5;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/+gd3o4q
+ header.s=susede2_ed25519 header.b=xOPfw50G
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4A4841FDF3;
-	Wed, 29 Mar 2023 06:39:52 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AEF531FDF3;
+	Wed, 29 Mar 2023 06:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680071992;
+	t=1680072020;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rwp2DrTjVIeZtyZtrIRTE0FJzqFTg/gEHV51cL61kos=;
-	b=SyB8tnKXmOYWUDHhHeeI5QY83W/a0PQGGHOIdENcncmIUtSaVZmrS61fiS+UXKqr99LILo
-	a2sgyDyYG14VchvmNau3FUly1tKHr2hv8xhUeU9WhK0ewM194t7r/iF0ddsO9kmHP3Jy6x
-	NLiJL4XI2/M+6m2CM+qBMBhw65GW/fE=
+	bh=eeBhGCcRbtXLSQwM8bfWCGdD4ZUMdgnc41YGwbn3LQg=;
+	b=cmK4Cgh5EjEUMwI4yKBGGvJctRqGqsCmA6Qj5fabUytqcIPwDMFrB/DBWj7Avw/FjAdrz4
+	gDz5cquB0ifTnfDCO0oC3IhMYDMhVSb7mfTALo9cxI/Y4tPWpyM3GiE5rvkSxjhQWlhTaf
+	yNoPHUuSiXBPCx5KGNY5+QV/N6sgG9I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680071992;
+	s=susede2_ed25519; t=1680072020;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rwp2DrTjVIeZtyZtrIRTE0FJzqFTg/gEHV51cL61kos=;
-	b=/+gd3o4qQnQ+U/EV5HoNm578YJbQaCFsP6tZt/Eq/whyIjoflTg+Zp0ROSYQumICz5GmnM
-	BlGlvgRjs90+Q1Dg==
+	bh=eeBhGCcRbtXLSQwM8bfWCGdD4ZUMdgnc41YGwbn3LQg=;
+	b=xOPfw50GVn061qLoZyaKGvY/ZLox0Vktn2N1Y0K/nUKzAyfqFzcz2/h/sH2b/XSqDOvzZN
+	qIx4p313TDUNA7Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F63E138FF;
-	Wed, 29 Mar 2023 06:39:52 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91AE5138FF;
+	Wed, 29 Mar 2023 06:40:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Ab7qCjjdI2S2JQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:39:52 +0000
-Date: Wed, 29 Mar 2023 08:39:51 +0200
-Message-ID: <87tty4oybs.wl-tiwai@suse.de>
+	id bC3tIlTdI2T6JQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:40:20 +0000
+Date: Wed, 29 Mar 2023 08:40:20 +0200
+Message-ID: <87sfdooyaz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Tasos Sahanidis <tasos@tasossah.com>
-Subject: Re: [PATCH] ALSA: ymfpci: Fix BUG_ON in probe function
-In-Reply-To: <20230329032808.170403-1-tasos@tasossah.com>
-References: <20230329032808.170403-1-tasos@tasossah.com>
+Subject: Re: [PATCH] ALSA: ymfpci: Add error messages for abritrary IO ports
+ on older chips
+In-Reply-To: <20230329034204.171901-1-tasos@tasossah.com>
+References: <20230329034204.171901-1-tasos@tasossah.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 3N36EZZVQOZNBYAAHEKPUZLGRZWB46CW
-X-Message-ID-Hash: 3N36EZZVQOZNBYAAHEKPUZLGRZWB46CW
+Message-ID-Hash: 7L6XO5TMGI4MHAWFW3FAFH54RRCCD56T
+X-Message-ID-Hash: 7L6XO5TMGI4MHAWFW3FAFH54RRCCD56T
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3N36EZZVQOZNBYAAHEKPUZLGRZWB46CW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7L6XO5TMGI4MHAWFW3FAFH54RRCCD56T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,48 +116,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 29 Mar 2023 05:28:08 +0200,
+On Wed, 29 Mar 2023 05:42:04 +0200,
 Tasos Sahanidis wrote:
 > 
-> The snd_dma_buffer.bytes field now contains the aligned size, which this
-> snd_BUG_ON() did not account for, resulting in the following:
+> As an end user, it can be confusing to request an arbitrary IO port be
+> used only to find out that it doesn't work without an obvious reason,
+> especially since /sys/module/snd_ymfpci/parameters/{fm,joystick,mpu}_port
+> indicate 0 after the module has been loaded.
 > 
-> [    9.625915] ------------[ cut here ]------------
-> [    9.633440] WARNING: CPU: 0 PID: 126 at sound/pci/ymfpci/ymfpci_main.c:2168 snd_ymfpci_create+0x681/0x698 [snd_ymfpci]
-> [    9.648926] Modules linked in: snd_ymfpci(+) snd_intel_dspcfg kvm(+) snd_intel_sdw_acpi snd_ac97_codec snd_mpu401_uart snd_opl3_lib irqbypass snd_hda_codec gameport snd_rawmidi crct10dif_pclmul crc32_pclmul cfg80211 snd_hda_core polyval_clmulni polyval_generic gf128mul snd_seq_device ghash_clmulni_intel snd_hwdep ac97_bus sha512_ssse3 rfkill snd_pcm aesni_intel tg3 snd_timer crypto_simd snd mxm_wmi libphy cryptd k10temp fam15h_power pcspkr soundcore sp5100_tco wmi acpi_cpufreq mac_hid dm_multipath sg loop fuse dm_mod bpf_preload ip_tables x_tables ext4 crc32c_generic crc16 mbcache jbd2 sr_mod cdrom ata_generic pata_acpi firewire_ohci crc32c_intel firewire_core xhci_pci crc_itu_t pata_via xhci_pci_renesas floppy
-> [    9.711849] CPU: 0 PID: 126 Comm: kworker/0:2 Not tainted 6.1.21-1-lts #1 08d2e5ece03136efa7c6aeea9a9c40916b1bd8da
-> [    9.722200] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./990FX Extreme4, BIOS P2.70 06/05/2014
-> [    9.732204] Workqueue: events work_for_cpu_fn
-> [    9.736580] RIP: 0010:snd_ymfpci_create+0x681/0x698 [snd_ymfpci]
-> [    9.742594] Code: 8c c0 4c 89 e2 48 89 df 48 c7 c6 92 c6 8c c0 e8 15 d0 e9 ff 48 83 c4 08 44 89 e8 5b 5d 41 5c 41 5d 41 5e 41 5f e9 d3 7a 33 e3 <0f> 0b e9 cb fd ff ff 41 bd fb ff ff ff eb db 41 bd f4 ff ff ff eb
-> [    9.761358] RSP: 0018:ffffab64804e7da0 EFLAGS: 00010287
-> [    9.766594] RAX: ffff8fa2df06c400 RBX: ffff8fa3073a8000 RCX: ffff8fa303fbc4a8
-> [    9.773734] RDX: ffff8fa2df06d000 RSI: 0000000000000010 RDI: 0000000000000020
-> [    9.780876] RBP: ffff8fa300b5d0d0 R08: ffff8fa3073a8e50 R09: 00000000df06bf00
-> [    9.788018] R10: ffff8fa2df06bf00 R11: 00000000df068200 R12: ffff8fa3073a8918
-> [    9.795159] R13: 0000000000000000 R14: 0000000000000080 R15: ffff8fa2df068200
-> [    9.802317] FS:  0000000000000000(0000) GS:ffff8fa9fec00000(0000) knlGS:0000000000000000
-> [    9.810414] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    9.816158] CR2: 000055febaf66500 CR3: 0000000101a2e000 CR4: 00000000000406f0
-> [    9.823301] Call Trace:
-> [    9.825747]  <TASK>
-> [    9.827889]  snd_card_ymfpci_probe+0x194/0x950 [snd_ymfpci b78a5fe64b5663a6390a909c67808567e3e73615]
-> [    9.837030]  ? finish_task_switch.isra.0+0x90/0x2d0
-> [    9.841918]  local_pci_probe+0x45/0x80
-> [    9.845680]  work_for_cpu_fn+0x1a/0x30
-> [    9.849431]  process_one_work+0x1c7/0x380
-> [    9.853464]  worker_thread+0x1af/0x390
-> [    9.857225]  ? rescuer_thread+0x3b0/0x3b0
-> [    9.861254]  kthread+0xde/0x110
-> [    9.864414]  ? kthread_complete_and_exit+0x20/0x20
-> [    9.869210]  ret_from_fork+0x22/0x30
-> [    9.872792]  </TASK>
-> [    9.874985] ---[ end trace 0000000000000000 ]---
+> In my case, I was unaware that the YMF724 did not support such usage, and
+> thus ended up spending time attempting to debug the issue.
 > 
-> Fixes: 5c1733e33c88 ("ALSA: memalloc: Align buffer allocations in page size")
+> Now, when a user attempts to request an IO port that isn't supported by
+> the hardware, the following message is printed:
+> 
+> [   25.549530] snd_ymfpci 0000:06:05.0: The Yamaha DS-1 (YMF724F) does not support arbitrary IO ports for FM (requested 0x1234)
+> 
 > Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
 
-This one is also applied to for-linus as an urgent fix.
+As this is no urgent bug, I applied to for-next branch for 6.4.
 
 
 thanks,

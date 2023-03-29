@@ -2,101 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A61A6CD1D9
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 07:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A56766CD226
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:40:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CF961F3;
-	Wed, 29 Mar 2023 07:53:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CF961F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id F13561EE;
+	Wed, 29 Mar 2023 08:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F13561EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680069272;
-	bh=bZGOXSB1uSyAgGLryYZ3B77Qy7A2kvzZgaWeKPYzXzE=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1680072038;
+	bh=gTu0GuoEjdR6m8Qo07jnu0pG8jkj9OWaOiEDL2hc780=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=umM1kpezhVmZ8iyQx8cfsA6Pr9q4oNpHEM0AOq25T/7xkAYkLA5FAsjaxu63gipfH
-	 XP5G26xVj9sO/XUzRyYxBcbjBHtvwvxm9CpVQJ4576aTCF8+xXVnWgyUqVwbDw2lMO
-	 WerE92VdJgVCTARoP++SjMatabayituVhQ6c8QUs=
+	b=h6wSgeb3Le6YCY29lait02qbIxNt1XhECwgrAixwIhSD+b3G2f9Go3GC/jN+Lm8WE
+	 X2cqIuJee97Oma3sJnNaLgsQBviDyEDCLTfqZVl2edo7OO8vrrirPRdwvc7CAAQ4Td
+	 Xec5gGEDFIMdv5MFcf6FJqiUbqlC9Ja2xou4dqQg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD8C4F8024E;
-	Wed, 29 Mar 2023 07:53:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62FD5F8024E;
+	Wed, 29 Mar 2023 08:39:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25176F80272; Wed, 29 Mar 2023 07:53:34 +0200 (CEST)
+	id 3C2CBF80272; Wed, 29 Mar 2023 08:39:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA26F80249
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 07:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA26F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7244AF80249
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:39:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7244AF80249
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=U6FN3Tb5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680069207; x=1711605207;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=bZGOXSB1uSyAgGLryYZ3B77Qy7A2kvzZgaWeKPYzXzE=;
-  b=U6FN3Tb5sPI1vnWK4yMrxZ+5c4ltAkhOR8G2sSHKKHqbcNto+Lco5vrP
-   OiR1nijG4ZMYFnsqCa8yz488029Zw4fUZrpL2oYuFrWq4KbmOL1NPcgPk
-   aGOQnIQqDV+5cZSEtsOaQnB/EXqLkfvCKGAQXza/wjw0fWpuLBcdKj//a
-   WH0bg6xTwCcyffz8uhufSK1brbJcdQ8K77EGyS9GVvB7V2yj/nwoZank6
-   t3D6AIFEknMsdxz7noWyALbU2E/Aw+IcRdprzuYAFfWUusCXdr9MQADjw
-   5ObueLptPtzWaLplp891MSN+CdenVRlMikHIGmt2S6PZiG7s9okXBoeYN
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="427061731"
-X-IronPort-AV: E=Sophos;i="5.98,299,1673942400";
-   d="scan'208";a="427061731"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 22:53:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="661469032"
-X-IronPort-AV: E=Sophos;i="5.98,299,1673942400";
-   d="scan'208";a="661469032"
-Received: from dfchaves-mobl.amr.corp.intel.com (HELO [10.252.41.108])
- ([10.252.41.108])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 22:53:20 -0700
-Message-ID: <ee60952b-95ed-cb91-2eb5-838d23389070@linux.intel.com>
-Date: Wed, 29 Mar 2023 08:53:36 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.0
-Subject: Re: [PATCH] ASoC: soc-topology.c: dai_link->platform again
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HQPFTAG734IXAXU6N2NOUOABHINQ5OZH
-X-Message-ID-Hash: HQPFTAG734IXAXU6N2NOUOABHINQ5OZH
-X-MailFrom: peter.ujfalusi@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=RvmAhff+;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=UCQWNX3K
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D89341FE00;
+	Wed, 29 Mar 2023 06:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1680071968;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xuna5cWaX7XYu3VTh+nPANhfWJqoU3iIpz00/mn1YCY=;
+	b=RvmAhff+BO/yaZpbi3dxyhZRpeXtLtstUbYKXB7EW6ZZ1NR5hwCQpoh5BpXk4Nc0itNVpO
+	l5eegM1PfOiiJ7uMNwt/z7zfSSfpwLl7epgkz75DflzfzVT704rrthgELLiEtwf3VT3s5k
+	enmwFyHWO3n5D5bf/4lqwOY2yOvR5BI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1680071968;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xuna5cWaX7XYu3VTh+nPANhfWJqoU3iIpz00/mn1YCY=;
+	b=UCQWNX3KCdpZxpHVewHoKkSWuYsF9CARQyHtTnoElMXQ95oI3ICEc15TLnfWFv1+qkJrz3
+	LQPhpbMfnsix+PCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A7038138FF;
+	Wed, 29 Mar 2023 06:39:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 40P5JyDdI2SPJQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:39:28 +0000
+Date: Wed, 29 Mar 2023 08:39:28 +0200
+Message-ID: <87v8ikoycf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tasos Sahanidis <tasos@tasossah.com>
+Subject: Re: [PATCH] ALSA: ymfpci: Create card with device-managed
+ snd_devm_card_new()
+In-Reply-To: <20230329032422.170024-1-tasos@tasossah.com>
+References: <20230329032422.170024-1-tasos@tasossah.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: YILVXB5AKBU4RUDAIPQO4SND3XEEC5SK
+X-Message-ID-Hash: YILVXB5AKBU4RUDAIPQO4SND3XEEC5SK
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>
+CC: alsa-devel@alsa-project.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQPFTAG734IXAXU6N2NOUOABHINQ5OZH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YILVXB5AKBU4RUDAIPQO4SND3XEEC5SK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,58 +116,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Morimoto-san,
-
-On 29/03/2023 03:21, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Wed, 29 Mar 2023 05:24:22 +0200,
+Tasos Sahanidis wrote:
 > 
-> On SOF, many topology is assuming dai_link->platform exists, and is
-> allowed to be overwritten on each link_load().
-> This patch restore the removed dai_link->platform for SOF, and add
-> the comment.
-
-Thank you, it works now.
-
-Tested-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-
-> Fixes: e7098ba9b378 ("ASoC: soc-topology.c: remove unnecessary dai_link->platform")
-> Reported-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Link: https://lore.kernel.org/r/87jzz7jczp.wl-kuninori.morimoto.gx@renesas.com
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  sound/soc/soc-topology.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+> snd_card_ymfpci_remove() was removed in commit c6e6bb5eab74 ("ALSA:
+> ymfpci: Allocate resources with device-managed APIs"), but the call to
+> snd_card_new() was not replaced with snd_devm_card_new().
 > 
-> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-> index be9849749713..d0aca6b9058b 100644
-> --- a/sound/soc/soc-topology.c
-> +++ b/sound/soc/soc-topology.c
-> @@ -1685,8 +1685,8 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
->  	struct snd_soc_dai_link_component *dlc;
->  	int ret;
->  
-> -	/* link + cpu + codec */
-> -	link = devm_kzalloc(tplg->dev, sizeof(*link) + (2 * sizeof(*dlc)), GFP_KERNEL);
-> +	/* link + cpu + codec + platform */
-> +	link = devm_kzalloc(tplg->dev, sizeof(*link) + (3 * sizeof(*dlc)), GFP_KERNEL);
->  	if (link == NULL)
->  		return -ENOMEM;
->  
-> @@ -1724,6 +1724,14 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
->  	link->codecs->name = "snd-soc-dummy";
->  	link->codecs->dai_name = "snd-soc-dummy-dai";
->  
-> +	/*
-> +	 * Many topology is assuming link has Platform.
-> +	 * This might be overwritten at soc_tplg_dai_link_load().
-> +	 */
-> +	link->platforms	= &dlc[2];
-> +	link->platforms->name = "snd-soc-dummy";
-> +	link->num_platforms = 1;
-> +
->  	/* enable DPCM */
->  	link->dynamic = 1;
->  	link->ignore_pmdown_time = 1;
+> Since there was no longer a call to snd_card_free, unloading the module
+> would eventually result in Oops:
+> 
+> [697561.532887] BUG: unable to handle page fault for address: ffffffffc0924480
+> [697561.532893] #PF: supervisor read access in kernel mode
+> [697561.532896] #PF: error_code(0x0000) - not-present page
+> [697561.532899] PGD ae1e15067 P4D ae1e15067 PUD ae1e17067 PMD 11a8f5067 PTE 0
+> [697561.532905] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [697561.532909] CPU: 21 PID: 5080 Comm: wireplumber Tainted: G        W  OE      6.2.7 #1
+> [697561.532914] Hardware name: System manufacturer System Product Name/TUF GAMING X570-PLUS, BIOS 4408 10/28/2022
+> [697561.532916] RIP: 0010:try_module_get.part.0+0x1a/0xe0
+> [697561.532924] Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 55 48 89 e5 41 55 41 54 49 89 fc bf 01 00 00 00 e8 56 3c f8 ff <41> 83 3c 24 02 0f 84 96 00 00 00 41 8b 84 24 30 03 00 00 85 c0 0f
+> [697561.532927] RSP: 0018:ffffbe9b858c3bd8 EFLAGS: 00010246
+> [697561.532930] RAX: ffff9815d14f1900 RBX: ffff9815c14e6000 RCX: 0000000000000000
+> [697561.532933] RDX: 0000000000000000 RSI: ffffffffc055092c RDI: ffffffffb3778c1a
+> [697561.532935] RBP: ffffbe9b858c3be8 R08: 0000000000000040 R09: ffff981a1a741380
+> [697561.532937] R10: ffffbe9b858c3c80 R11: 00000009d56533a6 R12: ffffffffc0924480
+> [697561.532939] R13: ffff9823439d8500 R14: 0000000000000025 R15: ffff9815cd109f80
+> [697561.532942] FS:  00007f13084f1f80(0000) GS:ffff9824aef40000(0000) knlGS:0000000000000000
+> [697561.532945] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [697561.532947] CR2: ffffffffc0924480 CR3: 0000000145344000 CR4: 0000000000350ee0
+> [697561.532949] Call Trace:
+> [697561.532951]  <TASK>
+> [697561.532955]  try_module_get+0x13/0x30
+> [697561.532960]  snd_ctl_open+0x61/0x1c0 [snd]
+> [697561.532976]  snd_open+0xb4/0x1e0 [snd]
+> [697561.532989]  chrdev_open+0xc7/0x240
+> [697561.532995]  ? fsnotify_perm.part.0+0x6e/0x160
+> [697561.533000]  ? __pfx_chrdev_open+0x10/0x10
+> [697561.533005]  do_dentry_open+0x169/0x440
+> [697561.533009]  vfs_open+0x2d/0x40
+> [697561.533012]  path_openat+0xa9d/0x10d0
+> [697561.533017]  ? debug_smp_processor_id+0x17/0x20
+> [697561.533022]  ? trigger_load_balance+0x65/0x370
+> [697561.533026]  do_filp_open+0xb2/0x160
+> [697561.533032]  ? _raw_spin_unlock+0x19/0x40
+> [697561.533036]  ? alloc_fd+0xa9/0x190
+> [697561.533040]  do_sys_openat2+0x9f/0x160
+> [697561.533044]  __x64_sys_openat+0x55/0x90
+> [697561.533048]  do_syscall_64+0x3b/0x90
+> [697561.533052]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> [697561.533056] RIP: 0033:0x7f1308a40db4
+> [697561.533059] Code: 24 20 eb 8f 66 90 44 89 54 24 0c e8 46 68 f8 ff 44 8b 54 24 0c 44 89 e2 48 89 ee 41 89 c0 bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 77 32 44 89 c7 89 44 24 0c e8 78 68 f8 ff 8b 44
+> [697561.533062] RSP: 002b:00007ffcce664450 EFLAGS: 00000293 ORIG_RAX: 0000000000000101
+> [697561.533066] RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f1308a40db4
+> [697561.533068] RDX: 0000000000080000 RSI: 00007ffcce664690 RDI: 00000000ffffff9c
+> [697561.533070] RBP: 00007ffcce664690 R08: 0000000000000000 R09: 0000000000000012
+> [697561.533072] R10: 0000000000000000 R11: 0000000000000293 R12: 0000000000080000
+> [697561.533074] R13: 00007f13054b069b R14: 0000565209f83200 R15: 0000000000000000
+> [697561.533078]  </TASK>
+> 
+> Fixes: c6e6bb5eab74 ("ALSA: ymfpci: Allocate resources with device-managed APIs")
+> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
 
--- 
-Péter
+Thanks, this one is applied to for-linus branch now.
+
+
+Takashi

@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E568A6CD97B
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 14:42:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A902F6CD996
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 14:49:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFD5A1F0;
-	Wed, 29 Mar 2023 14:41:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD5A1F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C1491EF;
+	Wed, 29 Mar 2023 14:48:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C1491EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680093754;
-	bh=x4S+BJepRgqwh/sDUI74eKz16sUTKI40TuYwjbXRABs=;
+	s=default; t=1680094175;
+	bh=AN98dXvccM54vY/Ncc8Ma0Mir78GuwbyeQpP9nqy2e4=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A1hVSDvuLdWWPwotFTMTcsBFkIpCUnzkwWoJxFM+HQNtPK7m5wtMTXPGI3V3WJujw
-	 mCa7xmgt8OnxPMhw+kayr6VBhz7+vdO9QZHSNH5sUikWMhwyYz43IcHrDOSV2ciHXM
-	 AGIO73SAGb5EOsLpO2YSU+Ui5rCO7CA3zZeH4fS4=
+	b=GrxFooJuAWxx5TQwsu5O5ZYxrp4gTGoMCSOLXon0B2eQVCO1abc3wGhlmgDtWGSzj
+	 W9qZ7+0UOvj0coCGDbGuhGKBAQs9jfDY1RkPUYPwqFWEiNU4PuCv3CzJTQM9du3tAV
+	 btLucn+rISdmZtpSV85AMLdyKb8hHWAtYBKp+mRM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18AC8F8024E;
-	Wed, 29 Mar 2023 14:41:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECA52F8024E;
+	Wed, 29 Mar 2023 14:48:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 94B26F80272; Wed, 29 Mar 2023 14:41:38 +0200 (CEST)
+	id CD5F7F80272; Wed, 29 Mar 2023 14:48:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74FD6F80249
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 14:41:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74FD6F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 38B49F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 14:48:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38B49F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=EZiuqAq7;
+ header.s=susede2_rsa header.b=Vqqlj+Nc;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=R0mh9Dvp
+ header.s=susede2_ed25519 header.b=I+krg9Bc
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3ECB1219D6;
-	Wed, 29 Mar 2023 12:41:31 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B00001F7AB;
+	Wed, 29 Mar 2023 12:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680093691;
+	t=1680094115;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=526ThITHJeu3eiDm9DxekU/Uxvd0iGFqccGQ3I/p5lM=;
-	b=EZiuqAq7JW9frz4gWRxVSWTZ+OAbZ88JA4rws1K+2JgAcKWyHFGA6wrc83muF+BwBjM3HB
-	fzDWoPVnUx2xiwnbczE8EkIQF1wE7++cUhbnUc4/4cIKy8n/kRWH8LKdETKqyr4TSRO9tf
-	BR8poguflEx7AqnPWa6nioV9zQVvbrs=
+	bh=i3aAFSQGOLQj+HdVSv3QPR0uIhpVJ/1s7I1PvL1kgYM=;
+	b=Vqqlj+Ncw44E7Ei5oQWniKXp40TKroX1E1yH7huVfrHg1h9WAYCtOmLunQanICSguQkDGk
+	Ti+MocgErHprkm70JPFeXpScEXEWYUnUdRXL+yskf/MwWjIBRe4faozI7p/8sfI9wgK2Xp
+	XHRiAetmKvqPn2bykmFMc6BV4hxvtYI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680093691;
+	s=susede2_ed25519; t=1680094115;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=526ThITHJeu3eiDm9DxekU/Uxvd0iGFqccGQ3I/p5lM=;
-	b=R0mh9Dvp3kPTjoh9nm0cKRcznQdHuQCRb4KaUUgE8DKlmD4qmW9u8Ex9hDzpqfAHV32n8z
-	RikYOxH88E0ciHCw==
+	bh=i3aAFSQGOLQj+HdVSv3QPR0uIhpVJ/1s7I1PvL1kgYM=;
+	b=I+krg9BcTjoKEwQ013ztyG39EpjrL9HsL4lYFc+KZs2bdsBNH0OXFtsz4yeji+mFxWgCdp
+	7oQMMMisjaUS6kCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 11944139D3;
-	Wed, 29 Mar 2023 12:41:31 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7902E139D3;
+	Wed, 29 Mar 2023 12:48:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id RJxNA/sxJGTSdgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 12:41:31 +0000
-Date: Wed, 29 Mar 2023 14:41:30 +0200
-Message-ID: <87tty3ohl1.wl-tiwai@suse.de>
+	id 0n6vHKMzJGQIewAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 12:48:35 +0000
+Date: Wed, 29 Mar 2023 14:48:35 +0200
+Message-ID: <87sfdnoh98.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tom Rix <trix@redhat.com>
-Subject: Re: [PATCH] ALSA: remove unused loop_count variable
-In-Reply-To: <20230326205712.1358918-1-trix@redhat.com>
-References: <20230326205712.1358918-1-trix@redhat.com>
+To: huangwenhui <huangwenhuia@uniontech.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo ZhaoYang CF4620Z
+In-Reply-To: <20230328074644.30142-1-huangwenhuia@uniontech.com>
+References: <20230328074644.30142-1-huangwenhuia@uniontech.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: HRZ43V3RGVISMG7WBQFMNDPTZXBGWJ2A
-X-Message-ID-Hash: HRZ43V3RGVISMG7WBQFMNDPTZXBGWJ2A
+Message-ID-Hash: N7HNDNI67CK56CYINOLXFPXGK7BDRGPA
+X-Message-ID-Hash: N7HNDNI67CK56CYINOLXFPXGK7BDRGPA
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,15 +100,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, nathan@kernel.org, ndesaulniers@google.com,
- wangjianli@cdjrlc.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+CC: tiwai@suse.com, jeremy.szu@canonical.com, hui.wang@canonical.com,
+ wse@tuxedocomputers.com, cam@neo-zeon.de, kailang@realtek.com,
+ tanureal@opensource.cirrus.com, sami@loone.fi, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HRZ43V3RGVISMG7WBQFMNDPTZXBGWJ2A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N7HNDNI67CK56CYINOLXFPXGK7BDRGPA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,19 +118,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 26 Mar 2023 22:57:12 +0200,
-Tom Rix wrote:
+On Tue, 28 Mar 2023 09:46:44 +0200,
+huangwenhui wrote:
 > 
-> clang with W=1 reports
-> sound/pci/asihpi/hpi6000.c:1256:6: error: variable
->   'loop_count' set but not used [-Werror,-Wunused-but-set-variable]
->         u32 loop_count = 0;
->             ^
-> This variable is not used so remove it.
+> Fix headset microphone detection on Lenovo ZhaoYang CF4620Z.
 > 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> Signed-off-by: huangwenhui <huangwenhuia@uniontech.com>
+> Change-Id: I89d3f4d1d18193418f74d0095b0e4daaf24c839f
 
-Applied, thanks.
+Applied it with manual adjustment now.
 
+
+thanks,
 
 Takashi
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index e8b7f6bbfc59..a8810231a5b5 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -7137,6 +7137,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x17aa, 0x511f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+>  	SND_PCI_QUIRK(0x17aa, 0x3bf8, "Quanta FL1", ALC269_FIXUP_PCM_44K),
+>  	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
+> +	SND_PCI_QUIRK(0x17aa, 0x9e56, "Lenovo ZhaoYang CF4620Z", ALC286_FIXUP_SONY_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MBXP", ALC256_FIXUP_HUAWEI_MBXP_PINS),
+>  	SND_PCI_QUIRK(0x19e5, 0x320f, "Huawei WRT-WX9 ", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x1b7d, 0xa831, "Ordissimo EVE2 ", ALC269VB_FIXUP_ORDISSIMO_EVE2), /* Also known as Malata PC-B1303 */
+> -- 
+> 2.20.1
+> 

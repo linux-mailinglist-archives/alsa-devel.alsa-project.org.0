@@ -2,94 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8345C6CDB69
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 16:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E36D6CDB84
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 16:06:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8606B1F1;
-	Wed, 29 Mar 2023 16:01:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8606B1F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C47D1F6;
+	Wed, 29 Mar 2023 16:05:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C47D1F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680098567;
-	bh=1JDbhnlCXp+QXLo5gNdlSiUGxdit8Xpa1A249X+r5nM=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nVmYtcl0KmvolYkckX4yY9iL9FOPZrVaAHZA8SJL8OBHPULEr2EAYNiDu0A+XOGo+
-	 2lsDOgILRW9V9VCo2oeuxw50jzKVHIi+VIb2JR7oG5OYrhvXibIwW5PJQsx/foMZOw
-	 pjCXqjoP8JBytbDsV33WDj2Ki/Rk4P5olHmXqX50=
+	s=default; t=1680098798;
+	bh=sNwjrbZfF1yLMKWmQ17OHX6LHmJgawwfIrOMGRuFCTY=;
+	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=buRSnWB4qdqdAaL+kFyX90t478u0ZGUw3Vul0055F0qQRSRCg1JzLkbcJP/BPWdEs
+	 KIeMAFYO48fpiFs22XNevgpE54HNDOJWNcr2ywSjG2Rnchda2QH6eqzU8Rd64EGU9Z
+	 3WgTCOxWvJ34aJSjcajIXD/egPXpE289YJ6kcbok=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF840F8024E;
-	Wed, 29 Mar 2023 16:01:56 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 878E9F80272; Wed, 29 Mar 2023 16:01:53 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23C21F80114
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 16:01:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23C21F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Yb2f4ey8
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 90CAA61D43;
-	Wed, 29 Mar 2023 14:01:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68062C4339B;
-	Wed, 29 Mar 2023 14:01:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680098503;
-	bh=1JDbhnlCXp+QXLo5gNdlSiUGxdit8Xpa1A249X+r5nM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Yb2f4ey82U54YWrWHMhRSO0+xhD3rKO+L0dJds7/mUT6EJmcKsg/pg09cL3+X5yqt
-	 gFuMyYAqbDZY3cEDnM6llKeqjmH9by/n8O2qI6wtTy6hRWxe7iYezwbla/8b25zhJ9
-	 WNJ364D7fx+R6QVth+7HrL7hXm/yzTFQpFxjXTtnm5XnlIjgDpMnWqeYu9lT8id1kz
-	 qcNdtUweOdwD8Ad3f7LSwkUkwfG6kmHjPMuLXYqIuODnuMvqXeCZymI+sCYmdkiadQ
-	 lvKLZfewORTWAwD6ewoFa8F4S45ir/3ctqPG/Atxn7uQou0Rb17xPVGkhvGS3/ZyJI
-	 rlKZgmjOReilA==
-Date: Wed, 29 Mar 2023 15:01:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zhu Ning <zhuning0077@gmail.com>
-Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
- sound for systems with a ES8336 codec
-Message-ID: <ZCREw+j8W0Uo+Fvy@sirena.org.uk>
-References: 
- <CANPLYpBv82p-Fve-JgM=WDwUFp-VnKfG2yFvcGv8AT2roPEifw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XYlcBw+sQgu2A6wr"
-Content-Disposition: inline
-In-Reply-To: 
- <CANPLYpBv82p-Fve-JgM=WDwUFp-VnKfG2yFvcGv8AT2roPEifw@mail.gmail.com>
-X-Cookie: Single tasking: Just Say No.
-Message-ID-Hash: IOHRZBZG3T75A3YEYRQ3TX2N6KXTWHSG
-X-Message-ID-Hash: IOHRZBZG3T75A3YEYRQ3TX2N6KXTWHSG
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTP id B4D78F8024E;
+	Wed, 29 Mar 2023 16:05:47 +0200 (CEST)
+Date: Wed, 29 Mar 2023 14:05:24 +0000
+To: Jianhua Lu <lujianhua000@gmail.com>
+Subject: Re: [PATCH] Asoc: wm_adsp: Add support for loading firmware with
+ prefix name
+References: <20230329130525.15830-1-lujianhua000@gmail.com>
+In-Reply-To: <20230329130525.15830-1-lujianhua000@gmail.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, posteuca@mutex.one, tiwai@suse.com,
- yangxiaohua <yangxiaohua@everest-semi.com>,
- Zhu Ning <zhuning@everest-semi.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IOHRZBZG3T75A3YEYRQ3TX2N6KXTWHSG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7GD65LZGN6ROMP23OXWXL6N5FVQYXNU/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168009874672.26.6407339101118973958@mailman-core.alsa-project.org>
+From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id CFB59F80272; Wed, 29 Mar 2023 16:05:43 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7BF20F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 16:05:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BF20F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Lj+BjEli
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32T9DfFW021397;
+	Wed, 29 Mar 2023 09:05:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=JGh/hvjvBMdxlLHaLhPm0XGhnA/5dNCgYG0Izty01zk=;
+ b=Lj+BjEli4LAR+SVPbVtGv1Z25ZfCumbCwZbmMK3gRw8ibqGwcZyJQTAJNfHYKu5KPkkR
+ 0YCrOwntWbwCorS9iMVOwhG7dp2uqfB6X957z5dQ0OLhATv4q3QlU2yj3r8Ebc27Fb/E
+ 868E2zgbUj2opyXcnrkTdTlOb27OGMqFABGC7Hm6AG8qwGW7rYOm/9EO0hWKuwCeLLwS
+ u9qrw4sy/IadIt0j8dmDjGXO7TJxddL/hgbRteAW28cHen+qmB3rL4ED9cqWj1zNCNg8
+ NTRQak/Ir47EQfyRGsKLCFOPwhVGqCD6ewx/oorhfnrjhH4hu2LTCG3GC9+Z3axKiz8y sA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pmjghgc9q-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 29 Mar 2023 09:05:25 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Wed, 29 Mar
+ 2023 09:05:24 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
+ Transport; Wed, 29 Mar 2023 09:05:24 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2BA5111DA;
+	Wed, 29 Mar 2023 14:05:24 +0000 (UTC)
+Date: Wed, 29 Mar 2023 14:05:24 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Jianhua Lu <lujianhua000@gmail.com>
+Subject: Re: [PATCH] Asoc: wm_adsp: Add support for loading firmware with
+ prefix name
+Message-ID: <20230329140524.GU68926@ediswmail.ad.cirrus.com>
+References: <20230329130525.15830-1-lujianhua000@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230329130525.15830-1-lujianhua000@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: EeUUs62KZ6mNxdeiDQAx0DvUuftRFwmz
+X-Proofpoint-ORIG-GUID: EeUUs62KZ6mNxdeiDQAx0DvUuftRFwmz
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: X7GD65LZGN6ROMP23OXWXL6N5FVQYXNU
+X-Message-ID-Hash: X7GD65LZGN6ROMP23OXWXL6N5FVQYXNU
+X-MailFrom: prvs=9452286330=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7GD65LZGN6ROMP23OXWXL6N5FVQYXNU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,50 +154,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, Mar 29, 2023 at 09:05:25PM +0800, Jianhua Lu wrote:
+> For platform using fdt, system_name is NULL, it doesn't provide
+> a way to load firmware with prefix name, so add it.
+> 
+> Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
+> ---
+>  sound/soc/codecs/wm_adsp.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+> index 216120b68b64..17481e42d440 100644
+> --- a/sound/soc/codecs/wm_adsp.c
+> +++ b/sound/soc/codecs/wm_adsp.c
+> @@ -760,6 +760,10 @@ static int wm_adsp_request_firmware_file(struct wm_adsp *dsp,
+>  		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s-%s.%s", dir, dsp->part,
+>  				      dsp->fwf_name, wm_adsp_fw[dsp->fw].file, system_name,
+>  				      filetype);
+> +	else if (asoc_component_prefix)
+> +		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s-%s.%s", dir, dsp->part,
+> +				      dsp->fwf_name, wm_adsp_fw[dsp->fw].file, asoc_component_prefix,
+> +				      filetype);
+>  	else
+>  		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s.%s", dir, dsp->part, dsp->fwf_name,
+>  				      wm_adsp_fw[dsp->fw].file, filetype);
+> @@ -831,6 +835,16 @@ static int wm_adsp_request_firmware_files(struct wm_adsp *dsp,
+>  							      NULL, "bin");
+>  			return 0;
+>  		}
+> +	} else if (asoc_component_prefix) {
+> +		if (!wm_adsp_request_firmware_file(dsp, wmfw_firmware, wmfw_filename,
+> +						   cirrus_dir, NULL,
+> +						   asoc_component_prefix, "wmfw")) {
+> +			adsp_dbg(dsp, "Found '%s'\n", *wmfw_filename);
+> +			wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
+> +							      cirrus_dir, NULL,
+> +							      asoc_component_prefix, "bin");
+> +			return 0;
+> +		}
+>  	}
 
---XYlcBw+sQgu2A6wr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This direction seems slightly problematic, especially in the
+context of amps (which I presume this relates to, please let know
+if that is wrong). It would probably be better to be fixing
+things up such that the amp in question sets system_name when
+registered through DT. Generally speaking the idea is the amp
+tuning is going to be specific to the enclosure/speaker involved,
+so a generic tuning for say left amps doesn't really make a lot
+of sense.
 
-On Fri, Mar 24, 2023 at 09:54:41AM +0800, Zhu Ning wrote:
-
-> > There being two different GPIOs sounds like it just allows the headphone
-> > and speaker to be controlled separately - that seems more flexible, not
-> > a problem?
-
-> Yes it's called multi stream in Windows. However, extra GPIO causes
-> more confusion
-> in the driver.
-
-That might be true on Windows, however with these being
-representable as DAPM widgets on Linux I would be surprised if
-there were much burden on Linux.
-
-> +       SND_SOC_DAPM_SUPPLY("Headphone Power", SND_SOC_NOPM, 0, 0,
-> +                           acp3x_es83xx_headphone_power_event,
-> +                           SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMU),
->         SND_SOC_DAPM_SUPPLY("Speaker Power", SND_SOC_NOPM, 0, 0,
->                             acp3x_es83xx_speaker_power_event,
->                             SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMU),
-
-Note that both of these would be much better represented as
-events on the actual headphone or speaker widget, these have
-event callbacks.  This will ensure that they are sequenced after
-the CODEC minimising pops and clicks.
-
---XYlcBw+sQgu2A6wr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQkRMIACgkQJNaLcl1U
-h9Dergf2LoQ4OhmixCubBqEKo5pEd7TxQ2no3/OnZjDm9Y71fYE510O+go7U1WdF
-8Sp3iC1O8S9jCMm1hZVdYZaEQvcjZIvgDsVk3K2i6bcjo7B6bwY+v1JmzI8g2uMq
-lbeZL/S2fLefpchh43LU1KWSSkPUm85XOk9Yv5kebnvz9cb5EqNGtypU5bC7+nQY
-Szn7OUiWEbGbQE8hE64lm2HevlovU/v0IsNO31ocHSjGIUFZt/PpHUJCErbh8X8k
-UOhWzu3UCudV4+RV75vRD8jL+zchU1Z+lAiBqJUPrbHqvTEx8IVUzVt0ppOdF/VZ
-Q1la9dgWj9LbBnWZYh7eqVnpKcLQ
-=2zek
------END PGP SIGNATURE-----
-
---XYlcBw+sQgu2A6wr--
+Thanks,
+Charles

@@ -2,112 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7AF46CD235
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1BB76CD3F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 10:05:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43D4D20C;
-	Wed, 29 Mar 2023 08:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43D4D20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D48F841;
+	Wed, 29 Mar 2023 10:04:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D48F841
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680072146;
-	bh=Sd/2yeWBSaCkyTAkKo6QO/dzp6+ERi2BsCUQfIO5+uQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qEpDt9jnHLa1bDAXaWGv6u3Pc/93aDz7OAAUH3HY24HJaxzeXzx5YudLjX/1NipJ2
-	 TUAcWisdIjq+pdVENs8lcH2USTEMQLjwOO86fjQZiaB9AjVnmjZIAn9DcFa+q+UPmW
-	 /uL1mJEZB9Y95aeA972ihU7XxMqmfxUE/Xu6O25k=
+	s=default; t=1680077142;
+	bh=Ktec3xoaNfTPxXp5EkLg3prEJpPSHAO5qkf11XGduuI=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=NklMn/XOjnQWhBSz2N+BN6FR2HSzDhAURnkCgHG6Pf/grsomhSdLWTfmXb4/dq1r9
+	 QVTqzT9+gp8O84tv8IgfaZ9vWxert7P7UErUIyn18y3eqBWRrY08mQqjWBCC9UdrN+
+	 bhLBiwBvnTXN5TddfBYeFbSaWcBmCEYE5biV4T5k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13DD4F8052E;
-	Wed, 29 Mar 2023 08:41:13 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B600DF80534; Wed, 29 Mar 2023 08:41:09 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1B15F80272
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1B15F80272
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=RwFHr/YS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=nx3CIlnW
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9A94C1FE00;
-	Wed, 29 Mar 2023 06:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680072067;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6eVMx4cYrWfQFg9K5FPsSvy7Hd/6KsQ20mwjxWzT3YQ=;
-	b=RwFHr/YSoWsUgxnrEMfW0ke73Et8itQ8B5hCZ5DvHIG1GtoNb7z2KKL5MUpflqD4RjrWrB
-	lhW34+7RbRbPgBhrDXjMZlwemkU7UY32mYQ4Ky3bzRybHA14gN7N+1//MACjMeAlL56tPx
-	ONh0J4jAI7jBZoORGQec6niB06ZdJ6Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680072067;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6eVMx4cYrWfQFg9K5FPsSvy7Hd/6KsQ20mwjxWzT3YQ=;
-	b=nx3CIlnWYtSJjYnO0+C1SOPEWi0LYiIFt1OfzTHMxSyh55aqKlt5XHgKmG+iAv3b/TVnr4
-	G5QRqSbfMaWG+aAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 79A5D138FF;
-	Wed, 29 Mar 2023 06:41:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JWf3HIPdI2RUJgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:41:07 +0000
-Date: Wed, 29 Mar 2023 08:41:07 +0200
-Message-ID: <87o7ocoy9o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tasos Sahanidis <tasos@tasossah.com>
-Subject: Re: [PATCH] ALSA: ymfpci: Use register macro in place of integer
- literal
-In-Reply-To: <20230329043918.179352-1-tasos@tasossah.com>
-References: <20230329043918.179352-1-tasos@tasossah.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 27JCEFD5JUFGQTUHAL7FBIVQTHCZGQHB
-X-Message-ID-Hash: 27JCEFD5JUFGQTUHAL7FBIVQTHCZGQHB
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FE4DF8024E;
+	Wed, 29 Mar 2023 10:04:52 +0200 (CEST)
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+Subject: [PATCH] ASoC: mediatek: mt8186: Move some prints to debug level
+Date: Wed, 29 Mar 2023 16:04:18 +0800
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/27JCEFD5JUFGQTUHAL7FBIVQTHCZGQHB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YP3ZDRWIIYHLZ5PBMZ546PAXAS36QCXA/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168007709116.26.2860716240625460570@mailman-core.alsa-project.org>
+From: Allen-KH Cheng via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Cc: Project_Global_Chrome_Upstream_Group@mediatek.com,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 2BFA0F80272; Wed, 29 Mar 2023 10:04:46 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6D22F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 10:04:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6D22F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=QOdSgFek
+X-UUID: 507ebc2cce0811edb6b9f13eb10bd0fe-20230329
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=E0T0Nt++F0LJaHY91+B3o38cJeCTneBvrK1430ulA6g=;
+	b=QOdSgFekf7oX018+le1rpcaVCAvIEPXObgO2L/9aguBNNwEkTrOq1XfGtDy3J5erYDdnNKtIpqX96wAYoBCVFo04Sg48ABWS63Iyebtm4d3AZ4NovQ7w5pGHW0R/X/lhU71xuZkrB14PbhFrQ6pkapmPQoL+vGoaRzYT+x8rLU0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22,REQID:9e770a60-a8e7-44aa-ad1a-a0cd6d87cc06,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:120426c,CLOUDID:a54544f7-ddba-41c3-91d9-10eeade8eac7,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-UUID: 507ebc2cce0811edb6b9f13eb10bd0fe-20230329
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
+ mailgw02.mediatek.com
+	(envelope-from <allen-kh.cheng@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1639613718; Wed, 29 Mar 2023 16:04:22 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.25; Wed, 29 Mar 2023 16:04:20 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.25 via Frontend Transport; Wed, 29 Mar 2023 16:04:20 +0800
+From: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+Subject: [PATCH] ASoC: mediatek: mt8186: Move some prints to debug level
+Date: Wed, 29 Mar 2023 16:04:18 +0800
+Message-ID: <20230329080418.1100-1-allen-kh.cheng@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: YP3ZDRWIIYHLZ5PBMZ546PAXAS36QCXA
+X-Message-ID-Hash: YP3ZDRWIIYHLZ5PBMZ546PAXAS36QCXA
+X-MailFrom: allen-kh.cheng@mediatek.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Project_Global_Chrome_Upstream_Group@mediatek.com,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YP3ZDRWIIYHLZ5PBMZ546PAXAS36QCXA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,17 +145,192 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 29 Mar 2023 06:39:18 +0200,
-Tasos Sahanidis wrote:
-> 
-> The macro for said register already exists, so just use it, to make the
-> code more readable.
-> 
-> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
+There are many log messages scattered throughout the mt8186 sound
+drivers, and they are frequently triggered.
 
-Applied to for-next branch.
+To avoid spamming the console, move these messages to the debug level.
 
+Signed-off-by: Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+---
+ sound/soc/mediatek/mt8186/mt8186-afe-gpio.c   | 26 +++++++++----------
+ sound/soc/mediatek/mt8186/mt8186-dai-adda.c   |  4 +--
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    |  2 +-
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  6 ++---
+ 4 files changed, 19 insertions(+), 19 deletions(-)
 
-thanks,
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+index eda913fa147a..20b9f5d810ec 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
+@@ -85,7 +85,7 @@ int mt8186_afe_gpio_init(struct device *dev)
+ 							     aud_gpios[i].name);
+ 		if (IS_ERR(aud_gpios[i].gpioctrl)) {
+ 			ret = PTR_ERR(aud_gpios[i].gpioctrl);
+-			dev_info(dev, "%s(), pinctrl_lookup_state %s fail, ret %d\n",
++			dev_dbg(dev, "%s(), pinctrl_lookup_state %s fail, ret %d\n",
+ 				 __func__, aud_gpios[i].name, ret);
+ 		} else {
+ 			aud_gpios[i].gpio_prepare = true;
+@@ -108,13 +108,13 @@ static int mt8186_afe_gpio_select(struct device *dev,
+ 	int ret = 0;
+ 
+ 	if (type < 0 || type >= MT8186_AFE_GPIO_GPIO_NUM) {
+-		dev_err(dev, "%s(), error, invalid gpio type %d\n",
++		dev_dbg(dev, "%s(), error, invalid gpio type %d\n",
+ 			__func__, type);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (!aud_gpios[type].gpio_prepare) {
+-		dev_err(dev, "%s(), error, gpio type %d not prepared\n",
++		dev_dbg(dev, "%s(), error, gpio type %d not prepared\n",
+ 			__func__, type);
+ 		return -EIO;
+ 	}
+@@ -122,7 +122,7 @@ static int mt8186_afe_gpio_select(struct device *dev,
+ 	ret = pinctrl_select_state(aud_pinctrl,
+ 				   aud_gpios[type].gpioctrl);
+ 	if (ret) {
+-		dev_err(dev, "%s(), error, can not set gpio type %d\n",
++		dev_dbg(dev, "%s(), error, can not set gpio type %d\n",
+ 			__func__, type);
+ 		return ret;
+ 	}
+@@ -137,25 +137,25 @@ static int mt8186_afe_gpio_adda_dl(struct device *dev, bool enable)
+ 	if (enable) {
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MOSI_ON);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MOSI CLK ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MOSI CLK ON select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MOSI_ON);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MOSI DAT ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MOSI DAT ON select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 	} else {
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MOSI_OFF);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MOSI DAT OFF select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MOSI DAT OFF select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MOSI_OFF);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MOSI CLK ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MOSI CLK ON select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 	}
+@@ -170,25 +170,25 @@ static int mt8186_afe_gpio_adda_ul(struct device *dev, bool enable)
+ 	if (enable) {
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MISO_ON);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MISO CLK ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MISO CLK ON select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MISO_ON);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MISO DAT ON select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MISO DAT ON select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 	} else {
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_DAT_MISO_OFF);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MISO DAT OFF select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MISO DAT OFF select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 
+ 		ret = mt8186_afe_gpio_select(dev, MT8186_AFE_GPIO_CLK_MISO_OFF);
+ 		if (ret) {
+-			dev_err(dev, "%s(), MISO CLK OFF select fail!\n", __func__);
++			dev_dbg(dev, "%s(), MISO CLK OFF select fail!\n", __func__);
+ 			return ret;
+ 		}
+ 	}
+@@ -230,7 +230,7 @@ int mt8186_afe_gpio_request(struct device *dev, bool enable,
+ 		sel = enable ? MT8186_AFE_GPIO_PCM_ON : MT8186_AFE_GPIO_PCM_OFF;
+ 		break;
+ 	default:
+-		dev_err(dev, "%s(), invalid dai %d\n", __func__, dai);
++		dev_dbg(dev, "%s(), invalid dai %d\n", __func__, dai);
+ 		goto unlock;
+ 	}
+ 
+diff --git a/sound/soc/mediatek/mt8186/mt8186-dai-adda.c b/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+index 094402470dc2..247ab8df941f 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
++++ b/sound/soc/mediatek/mt8186/mt8186-dai-adda.c
+@@ -110,7 +110,7 @@ static unsigned int adda_dl_rate_transform(struct mtk_base_afe *afe,
+ 	case 192000:
+ 		return MTK_AFE_ADDA_DL_RATE_192K;
+ 	default:
+-		dev_info(afe->dev, "%s(), rate %d invalid, use 48kHz!!!\n",
++		dev_dbg(afe->dev, "%s(), rate %d invalid, use 48kHz!!!\n",
+ 			 __func__, rate);
+ 	}
+ 
+@@ -134,7 +134,7 @@ static unsigned int adda_ul_rate_transform(struct mtk_base_afe *afe,
+ 	case 192000:
+ 		return MTK_AFE_ADDA_UL_RATE_192K;
+ 	default:
+-		dev_info(afe->dev, "%s(), rate %d invalid, use 48kHz!!!\n",
++		dev_dbg(afe->dev, "%s(), rate %d invalid, use 48kHz!!!\n",
+ 			 __func__, rate);
+ 	}
+ 
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+index 970b980a81e6..cdf54d1eb50d 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+@@ -1061,7 +1061,7 @@ static int mt8186_mt6366_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 		card->name = card->topology_shortname;
+ 		sof_on = 1;
+ 	} else {
+-		dev_info(&pdev->dev, "Probe without adsp\n");
++		dev_dbg(&pdev->dev, "Probe without adsp\n");
+ 	}
+ 
+ 	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+index b333950aa3c3..7538274641fd 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+@@ -95,7 +95,7 @@ static int dmic_set(struct snd_kcontrol *kcontrol,
+ 	priv->dmic_switch = ucontrol->value.integer.value[0];
+ 	if (priv->dmic_sel) {
+ 		gpiod_set_value(priv->dmic_sel, priv->dmic_switch);
+-		dev_info(dapm->card->dev, "dmic_set_value %d\n",
++		dev_dbg(dapm->card->dev, "dmic_set_value %d\n",
+ 			 priv->dmic_switch);
+ 	}
+ 	return 0;
+@@ -139,7 +139,7 @@ static int primary_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	if (!priv->dmic_sel) {
+-		dev_info(card->dev, "dmic_sel is null\n");
++		dev_dbg(card->dev, "dmic_sel is null\n");
+ 		return 0;
+ 	}
+ 
+@@ -1152,7 +1152,7 @@ static int mt8186_mt6366_rt1019_rt5682s_dev_probe(struct platform_device *pdev)
+ 		card->name = card->topology_shortname;
+ 		sof_on = 1;
+ 	} else {
+-		dev_info(&pdev->dev, "Probe without adsp\n");
++		dev_dbg(&pdev->dev, "Probe without adsp\n");
+ 	}
+ 
+ 	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
+-- 
+2.18.0
 
-Takashi

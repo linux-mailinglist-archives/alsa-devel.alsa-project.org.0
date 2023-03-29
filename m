@@ -2,74 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92FA16CEFDD
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:52:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CFA56CEFDE
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:52:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87BEB208;
-	Wed, 29 Mar 2023 18:51:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87BEB208
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2D2D84A;
+	Wed, 29 Mar 2023 18:51:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2D2D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680108752;
-	bh=n3UbnkUVFSQ4Q0HVTYwtuIs/I4cn+sbwqdlpfV5F9FQ=;
+	s=default; t=1680108756;
+	bh=CKOyZDv3JQWgNTEg9VeWLRnaO9byzwy9arbDVJ5dC3w=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qfun9M62r+28S4WXueICnN2Jf87ASXL67QTa1gPRDLHt4pQaw9L57aQ0PDmDHkbUd
-	 +r7KqJ5dMBeebtZLfyM73fBt1JLLeqQ5N6/Ri8Z/9Wna4gXtw8qU7I0rZg/Z7OwhcU
-	 lt5Ye2yYpxySyJi0G6nLpkUSzeQ1Vy9jwo8ymAWk=
+	b=qARsIppROHwCN7HdQp9IIihOF4MZ4Qp2HF5iEBgY6Gn3JJW9KRqOsXwe4YUGLyZgS
+	 iJbw/+n8nmzZBsTsoXTdQHIGQnpkF+YvBIxo5reZ5Kif0LdZPWWAH3318uLQQEW27A
+	 iOzueV7KQqHGgOw6g0LVoZsgRw+a22p/lyK5EcLg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C73F4F80290;
-	Wed, 29 Mar 2023 18:50:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADA7AF8053B;
+	Wed, 29 Mar 2023 18:50:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA6E5F80272; Wed, 29 Mar 2023 18:50:47 +0200 (CEST)
+	id 50E45F8052E; Wed, 29 Mar 2023 18:50:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 139CBF8024E
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 18:50:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139CBF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id CE325F80114
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 18:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE325F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PXG8Y8PY
+ header.s=k20201202 header.b=Bhs4Pi2/
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3F57561DC5;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AA00F61DC6;
+	Wed, 29 Mar 2023 16:50:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C88FC4339C;
 	Wed, 29 Mar 2023 16:50:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF07C433D2;
-	Wed, 29 Mar 2023 16:50:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680108641;
-	bh=n3UbnkUVFSQ4Q0HVTYwtuIs/I4cn+sbwqdlpfV5F9FQ=;
+	s=k20201202; t=1680108647;
+	bh=CKOyZDv3JQWgNTEg9VeWLRnaO9byzwy9arbDVJ5dC3w=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=PXG8Y8PYY2cBZH/oWyz5HPZGQSd0qlXK8FP+oPgfk+XtLSsNNRXYP2eVd4C302Vl9
-	 3Wlo9AyfThXdIw7r5iY3jh0bjPHAT158ghursmG0aUjb3MCU44af8QuMzS/i4RGBBT
-	 q23b10dYoVQx3O++rUW/og2tCaGAaVtr98Q5F5thETUR7ZXmZlTCZcFaDoFXCcK8kT
-	 NqAqylBWqy7KI/kpqHi819Vq2kldnZpvUdSiYS4n0nc6qY616/9xgGxC2Hcb14rFmt
-	 SIFggsitdNfhUTlCG9FklfFOx+JEwucCdAupot2xhNxaoQv0e5d4pnl4ubwXAkjjQz
-	 utQj09BLsHgZw==
+	b=Bhs4Pi2/PPGsfONY6o5af/Sz8FfzQTQ6DdoLP78cTkekzpSYQ7Jp+kb/d5smuOi1w
+	 OP31cZhs6hUvo4olsJ2a1mwoY6hE72ke+3B326NZWbqb3IZdRDGZ9ihQ0MP8jg/1vW
+	 6DM3YOzl8B0Omyrtta2sirtNrP7S5Rzs96iyrJNj8gMiWAqKbl8V0JViuXMEshZNps
+	 qk5msvzc343cjRR1yIt1G7E413aThAqe3T4TD/2/C9zukHMTAUsBP5UrnqwNhb4x+9
+	 1F58WP58KT9wyMKIh+OTda9p+vApAxbjlTb7wyGMwzfjJB2bByTMDgu33phbU/r0qr
+	 TA8wwPfuLREZg==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
-References: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-topology.c: dai_link->platform again
-Message-Id: <168010864022.3244592.16855327449834755638.b4-ty@kernel.org>
-Date: Wed, 29 Mar 2023 17:50:40 +0100
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
+References: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v3 00/10] ASoC: add audio digital codecs for Qualcomm
+ SM8550
+Message-Id: <168010864198.3244592.2114017565664183933.b4-ty@kernel.org>
+Date: Wed, 29 Mar 2023 17:50:41 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-2eb1a
-Message-ID-Hash: 3A4J4KI7GZXBU2GZSVKTA4GRB62PVDTJ
-X-Message-ID-Hash: 3A4J4KI7GZXBU2GZSVKTA4GRB62PVDTJ
+Message-ID-Hash: QSXYJLBPYLVJO3MP7TX3FX74CD3QFMDQ
+X-Message-ID-Hash: QSXYJLBPYLVJO3MP7TX3FX74CD3QFMDQ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,14 +87,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux-ALSA <alsa-devel@alsa-project.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+CC: Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3A4J4KI7GZXBU2GZSVKTA4GRB62PVDTJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSXYJLBPYLVJO3MP7TX3FX74CD3QFMDQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,13 +102,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 29 Mar 2023 00:21:03 +0000, Kuninori Morimoto wrote:
-> On SOF, many topology is assuming dai_link->platform exists, and is
-> allowed to be overwritten on each link_load().
-> This patch restore the removed dai_link->platform for SOF, and add
-> the comment.
+On Mon, 27 Mar 2023 15:22:44 +0200, Krzysztof Kozlowski wrote:
+> This patchset can be merged as is - no dependencies.
 > 
+> Changes since v2
+> ================
+> 1. Rebase.
+> 2. New patch: ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock.
+> 3. Add Rb tags.
 > 
+> [...]
 
 Applied to
 
@@ -107,8 +119,26 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-topology.c: dai_link->platform again
-      commit: 6a7c51b4d91b5d73aae2647356990573643b2ae4
+[01/10] ASoC: dt-bindings: qcom,lpass-rx-macro: narrow clocks per variants
+        commit: e4cf7805f084772cccf2094b634a16bccf2f444f
+[02/10] ASoC: dt-bindings: qcom,lpass-rx-macro: Add SM8550 RX macro
+        commit: 0fc109f875721f9cef29bb68095f50d67343b4b7
+[03/10] ASoC: codecs: lpass-rx-macro: add support for SM8550
+        commit: 492fe974fed0754f7076580e069e1e182e7b3603
+[04/10] ASoC: dt-bindings: qcom,lpass-tx-macro: narrow clocks per variants
+        commit: bf4afbf950938d42cf0df1ecd915affeb26f4d76
+[05/10] ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM8550 TX macro
+        commit: 050578c6f18c28e95f9659493a52a67b68b4b667
+[06/10] ASoC: codecs: lpass-tx-macro: add support for SM8550
+        commit: 5faf6a1c5256559af98c998b7416e4db8fb09b75
+[07/10] ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock
+        (no commit info)
+[08/10] ASoC: dt-bindings: qcom,lpass-va-macro: Add SM8550 VA macro
+        commit: f769fcefa683e150456555e2a280668509d834df
+[09/10] ASoC: dt-bindings: qcom,lpass-wsa-macro: Add SM8550 WSA macro
+        commit: c1bda22bd2f382f9c3b27fb7a899f8804d92f897
+[10/10] ASoC: codecs: lpass-wsa-macro: add support for SM8550
+        commit: 6b004b836ced4d9ce655b5f1c810833c1a880369
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

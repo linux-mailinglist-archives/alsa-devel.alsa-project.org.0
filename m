@@ -2,119 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 156DA6CEF00
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4394A6CEF01
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 18:15:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E8B6E79;
-	Wed, 29 Mar 2023 18:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E8B6E79
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9AF5A4A;
+	Wed, 29 Mar 2023 18:14:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9AF5A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680106531;
-	bh=2LQtTTa/mu9cgZ0zt5gihw0wU4hZiT1hP5ebSA7aYQk=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MRNYkqZH267LtZK28AXC3AehUJS5hL2c2r5GIUgtQiQliKMjXHYtL6n5IkGIJ7LZX
-	 fhQf6d+h1vGg4P0BWpXmcMmrPGRwrlRSvAV0b2L64qhFmtNr/Hchdw21B6mGIi3sln
-	 uM1PWVehpDaWmVCKXpItxKwAc/QP8i+mwNM5ILzU=
+	s=default; t=1680106548;
+	bh=3vGYd55/P+PEX97Vg/b08oGHjOV038ZWmSkl0lFHJ5Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=klSNqkDp/Y7wFN/ec5EQhGf1RM50wEulKYYV9ZCGn896Fv+oFsU8qhFDoeVSe+rnn
+	 PfygBs8pIK4pr8VzYhSX5PNd/kGQDCldDj86O3BMtpkC/AjBAApwpwXiZAemM5gqpj
+	 kRKPNZV9sLN9j5+iBjIcZw1GpYhM7wis9yZvGoFY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA51EF80534;
-	Wed, 29 Mar 2023 18:13:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D62AF80568;
+	Wed, 29 Mar 2023 18:13:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F4C4F80272; Wed, 29 Mar 2023 15:05:42 +0200 (CEST)
+	id 7683EF80272; Wed, 29 Mar 2023 16:38:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6AA77F80114
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 15:05:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AA77F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id C791CF80114
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 16:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C791CF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=kKA3vi+S
-Received: by mail-pg1-x530.google.com with SMTP id y19so9224926pgk.5
+ header.s=20210112 header.b=Vd7ndb2Z
+Received: by mail-pj1-x1034.google.com with SMTP id
+ gp15-20020a17090adf0f00b0023d1bbd9f9eso18808347pjb.0
         for <alsa-devel@alsa-project.org>;
- Wed, 29 Mar 2023 06:05:37 -0700 (PDT)
+ Wed, 29 Mar 2023 07:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680095134;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jsSpCWEsDfnGoaRyyeTFl4Yy+RKBES/VujFMn4D6v78=;
-        b=kKA3vi+Sbovo5u5+fyCFosu5eQC2C3KVSABeLsujBVqtX/x+zMpbybujpO2IuBQOIT
-         DwJezqf2BIOT+pceWSbiFODF3jKmQxDorL/UKHXwkWd6522a+jrQzsPUwJJqFmnR22Uq
-         X+F7pPYDbnQcZXz30N3YxO2pYYf+YyoLBYU2RCKW+/f/WFkJ0+dLbFryTcGOkakK6aJ3
-         mYwSN4LjEzbHIJhEe6LBCj8jltVwVrHjEoaaktandxKKUk6gWoPnBSP0W0yMU5nzeFHb
-         hJdUEgAiVWG8V0nKMEgQ7to2Y7eEZRGxd04WpQn034AmPcee4Rpy7G3Fu+XuzmP+QP6m
-         S2IA==
+        d=gmail.com; s=20210112; t=1680100686;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MraKaJyT3BxLWbc/N8gjzZ9ahqVsNJ0TWzuq+OChN70=;
+        b=Vd7ndb2ZBTIVZPajT7DIVOKDlUwy3KQZaqVIqSZGlHtMS//uATg2SK5sMuGL1LslZb
+         zwB8VYdD4ZIN0A2dSqN7nbBcGwxKbtMytevBSU2LQ6iYSH3G4z42T1eCLNvOCcziVZSw
+         K5XP/yg+clTm2hH3qb2tiwlKD63EjCsYgNrijs2s/Jca8ukp1EuZQF3IBPeFqJQrSCSO
+         a/w/6sla+BgMTBnNbdkJS/Mi62uqsbj5FO5oMYrVYpLEOBsmjnxZwuHpPS2aMWu1Eut9
+         TlFYubwSzWoXo7pEcvoYfQOueVKt6XE5PCpzHKDfMdCW79CsGDkFEua2ZUlkD39LrlPt
+         4x2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680095134;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jsSpCWEsDfnGoaRyyeTFl4Yy+RKBES/VujFMn4D6v78=;
-        b=E6pfWiADuAcigXR1e5v00C8PM99cKGAX24R6LUidT4KC7UsJ+wA3A5MDqTPK/THW4x
-         2WyROnpb5SqfKIJLPWU9s2oEaPuv5z7f7ximFFqBHedb2DCiYtfqBnoHnUZYj+ZekIz7
-         kfxRxOk8Pf8djjag3iqP2yslDwf3ToEeb2dnyWbMdYG6xxr5vPK8AVvcZZvwYoOFAlED
-         o1dQQFPLEvcQNkE8/iTd5Estd3OiR8YP6FP8czQ4qMbfoCfqZr9qucfZ2Kcw5tFQpQYz
-         xpc6kbycd5PMFSE2pDzXK0FUdfyL3YAbaJSzjvf2T3gYxDgvEIC3Bqtbvxdgi2vs09WA
-         r3QQ==
-X-Gm-Message-State: AAQBX9fu8b/WF2L4vTNMbFsaOquIbjnCED0qcWptOfF7L0emndvTqy00
-	NKkqBoQ22R7HR5zwnO8zjko=
+        d=1e100.net; s=20210112; t=1680100686;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MraKaJyT3BxLWbc/N8gjzZ9ahqVsNJ0TWzuq+OChN70=;
+        b=t2naiO2CrE+TQ0C7uDg+jFGhZFZUQHCIBZFMJvN2iv8GPc88I82kJzKsKPmsmlDPz1
+         xGPq3xmsPG1mAuUNncxlzKHIsnKNAsgBmf7BEh6rGe1Fn44zf6bwSXCytcOe9CiVAB77
+         UHZ4YAYqah1i+gjLueXbEeZDQ4JDVcFiJUp7j0yF+wIpmM8raDEn6tdVO86CzZkOF5Tx
+         hXsAIITrQsU2ybv5gvBSEO8LIVDJ/7gHPz48ZZl35ade86IFljFaGYBHaDD9jvL1uo8O
+         vP8aviunTZ8NIKUldNykvEVzXF50md19EmcQ+EtyvBlx8d9a7PXpia2n1KuXkVnlHMPI
+         3AjA==
+X-Gm-Message-State: AO0yUKWH6TEOCJyt5ipHkGQYzPZ27e/UfaVMTgsyBBVoj+F0nGSkRwc2
+	OJeNmpOqNR8EsbWR/ihcCDs=
 X-Google-Smtp-Source: 
- AKy350YHQ81/8HFFe4IFQNlTZHAgL9aVJ2OJjYSUJfpDcFXzmy0V7n5+Ir+YF95SPcnj0RdBdqvElg==
-X-Received: by 2002:a62:84c4:0:b0:628:134b:6b1c with SMTP id
- k187-20020a6284c4000000b00628134b6b1cmr21327044pfd.2.1680095134256;
-        Wed, 29 Mar 2023 06:05:34 -0700 (PDT)
-Received: from localhost.localdomain (n220246252084.netvigator.com.
- [220.246.252.84])
+ AK7set/GjyQPCIf6KPRezVqHBp6kJIQQzh01GsQSpzJTlJuXy3kQls3oCILpoBTcCMTPnEhr8vkXbA==
+X-Received: by 2002:a05:6a20:7921:b0:d4:b24b:4459 with SMTP id
+ b33-20020a056a20792100b000d4b24b4459mr16274401pzg.13.1680100685823;
+        Wed, 29 Mar 2023 07:38:05 -0700 (PDT)
+Received: from Gentoo (n220246252084.netvigator.com. [220.246.252.84])
         by smtp.gmail.com with ESMTPSA id
- n6-20020aa79046000000b005ae02dc5b94sm22790452pfo.219.2023.03.29.06.05.29
+ a3-20020aa780c3000000b00628e9871c24sm14512864pfn.183.2023.03.29.07.38.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Mar 2023 06:05:33 -0700 (PDT)
+        Wed, 29 Mar 2023 07:38:05 -0700 (PDT)
+Date: Wed, 29 Mar 2023 22:37:58 +0800
 From: Jianhua Lu <lujianhua000@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Simon Trimmer <simont@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH] Asoc: wm_adsp: Add support for loading firmware with prefix
- name
-Date: Wed, 29 Mar 2023 21:05:25 +0800
-Message-Id: <20230329130525.15830-1-lujianhua000@gmail.com>
-X-Mailer: git-send-email 2.39.2
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] Asoc: wm_adsp: Add support for loading firmware with
+ prefix name
+Message-ID: <ZCRNRhI3+6jUbqvy@Gentoo>
+References: <20230329130525.15830-1-lujianhua000@gmail.com>
+ <20230329140524.GU68926@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230329140524.GU68926@ediswmail.ad.cirrus.com>
 X-MailFrom: lujianhua000@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DMSGGYQCT34KAE5VLP2UYYRI5SI5LF4K
-X-Message-ID-Hash: DMSGGYQCT34KAE5VLP2UYYRI5SI5LF4K
+Message-ID-Hash: BNV62Z747ONIXEESLKPUGXQDD6SDMVYI
+X-Message-ID-Hash: BNV62Z747ONIXEESLKPUGXQDD6SDMVYI
 X-Mailman-Approved-At: Wed, 29 Mar 2023 16:13:49 +0000
-CC: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, Jianhua Lu <lujianhua000@gmail.com>
+ phone-devel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DMSGGYQCT34KAE5VLP2UYYRI5SI5LF4K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BNV62Z747ONIXEESLKPUGXQDD6SDMVYI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,46 +124,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For platform using fdt, system_name is NULL, it doesn't provide
-a way to load firmware with prefix name, so add it.
+On Wed, Mar 29, 2023 at 02:05:24PM +0000, Charles Keepax wrote:
+> 
+> This direction seems slightly problematic, especially in the
+> context of amps (which I presume this relates to, please let know
+> if that is wrong). It would probably be better to be fixing
+> things up such that the amp in question sets system_name when
+> registered through DT. Generally speaking the idea is the amp
+I also consider setting system_name when registered by DT, but I don't
+known setting what name to it. Card name or something else?
+> tuning is going to be specific to the enclosure/speaker involved,
+> so a generic tuning for say left amps doesn't really make a lot
+> of sense.
+I don't known about amp tuning much, my need just is loading firmware for
+more than 1 speaker amp at the platform using fdt.
 
-Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
----
- sound/soc/codecs/wm_adsp.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 216120b68b64..17481e42d440 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -760,6 +760,10 @@ static int wm_adsp_request_firmware_file(struct wm_adsp *dsp,
- 		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s-%s.%s", dir, dsp->part,
- 				      dsp->fwf_name, wm_adsp_fw[dsp->fw].file, system_name,
- 				      filetype);
-+	else if (asoc_component_prefix)
-+		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s-%s.%s", dir, dsp->part,
-+				      dsp->fwf_name, wm_adsp_fw[dsp->fw].file, asoc_component_prefix,
-+				      filetype);
- 	else
- 		*filename = kasprintf(GFP_KERNEL, "%s%s-%s-%s.%s", dir, dsp->part, dsp->fwf_name,
- 				      wm_adsp_fw[dsp->fw].file, filetype);
-@@ -831,6 +835,16 @@ static int wm_adsp_request_firmware_files(struct wm_adsp *dsp,
- 							      NULL, "bin");
- 			return 0;
- 		}
-+	} else if (asoc_component_prefix) {
-+		if (!wm_adsp_request_firmware_file(dsp, wmfw_firmware, wmfw_filename,
-+						   cirrus_dir, NULL,
-+						   asoc_component_prefix, "wmfw")) {
-+			adsp_dbg(dsp, "Found '%s'\n", *wmfw_filename);
-+			wm_adsp_request_firmware_file(dsp, coeff_firmware, coeff_filename,
-+							      cirrus_dir, NULL,
-+							      asoc_component_prefix, "bin");
-+			return 0;
-+		}
- 	}
- 
- 	if (!wm_adsp_request_firmware_file(dsp, wmfw_firmware, wmfw_filename,
--- 
-2.39.2
-
+One of the both way is good to me.
+> 
+> Thanks,
+> Charles

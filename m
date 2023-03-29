@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D036CD233
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637B56CD234
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 08:42:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 744ED820;
-	Wed, 29 Mar 2023 08:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 744ED820
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABF5442;
+	Wed, 29 Mar 2023 08:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABF5442
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680072117;
-	bh=q/UevOX9WrRijfgZcSifpS//j2mbi3BX+/jmdtVXeCU=;
+	s=default; t=1680072138;
+	bh=phk7DHrdRm11u9djUYh9qTBFjTjWmNBXB3BeFeWU060=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VEFKFTOpfU0j2x8qqu84V+jdVxAfYjL5ZYgzTv7NUjJGv4hcWg7QtM7aQFeSgi+Pp
-	 TnZkMDxTn1/WSpIzdXwOyFK2UsKobIpBOGm/+DFOL3Q/ycv7flRdq7i2ENFL0Gj6QE
-	 i/0+gC2zC8lPXdzwWYA3FLxxARFDH7/Xk3FA3hBo=
+	b=CcANwMeeuEeNbleJ9CLQqnjX5VDAqGs6Dq6P6/rIHjXByOVyzeqiMoonvDSxvgxEt
+	 J/KFPWsc4bqTsXLdxNjSfDukfa717rLkyoCvdtGZcCmSeQ/KOXbekLCB/1eJ6h7hGg
+	 IFSbJu+0mGFknPF/fpujfQ7hlafFhP+0wr9M6cDQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 310E1F8024E;
-	Wed, 29 Mar 2023 08:40:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C5FEF80548;
+	Wed, 29 Mar 2023 08:40:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33215F80290; Wed, 29 Mar 2023 08:40:40 +0200 (CEST)
+	id 4EFF8F80549; Wed, 29 Mar 2023 08:40:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6792FF8053B
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:40:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6792FF8053B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2518BF800C9
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 08:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2518BF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=jGtV7lvE;
+ header.s=susede2_rsa header.b=EJyhKwRc;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=XVxFs2gN
+ header.s=susede2_ed25519 header.b=ysgLnIEj
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 164AE219EC;
-	Wed, 29 Mar 2023 06:40:37 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A0D2F1FE00;
+	Wed, 29 Mar 2023 06:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680072037;
+	t=1680072051;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/LsRr+oEUWGwndIyGfW+YlcZgUDjSYS32FQuDK5+HgY=;
-	b=jGtV7lvEgAALx3VbhoHaPWPu7ph657Ey6In3hwD6U9EOqmkMVJS7Q5qfXyVcWYA4UAKf3b
-	2pP/XXx6HZZ0s8W3fs2bwNzN5JQ+TKayIbVJCFteLDWmBI8X3bihznrO9qwMYGSXFXe+dR
-	jStaj6ggFfIh9AmRGyVfqFAAJCEti7s=
+	bh=OKyQejGwKbnhOJsduSfCmlmzVYqAMtFLNz7TtFHd31E=;
+	b=EJyhKwRcyH9/+o5zdi7GEU3YX3/2kHYQB3Qb0vTDERawndoL9GBScUDWmx2JspiVxy0LiG
+	6JF24Dlm8CcQRz9L2+H3MBEimCgKyCD8ekbZe5lfOAEHkYo3lYMHrlMQ6UcIdI8oP2dlGH
+	32pJ/yCkYZYnnmHfPlXDCRg2twgzRok=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680072037;
+	s=susede2_ed25519; t=1680072051;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/LsRr+oEUWGwndIyGfW+YlcZgUDjSYS32FQuDK5+HgY=;
-	b=XVxFs2gN91uDHfEuMhppHZ7RIfsVPAbPwP9R3eIueXoNwNGIg9z/QkPE2iwctYubBBXQ5B
-	cxrOtyRUIEbsfMDQ==
+	bh=OKyQejGwKbnhOJsduSfCmlmzVYqAMtFLNz7TtFHd31E=;
+	b=ysgLnIEjcdeVZPdZQlIEsKnYVxYVRwh2fMu/mmdDTAX+ihb7bg33BRgRkTB3fT20saxqjE
+	fW0Jz9AytVdTUcAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD200138FF;
-	Wed, 29 Mar 2023 06:40:36 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 682D2138FF;
+	Wed, 29 Mar 2023 06:40:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ok3FMGTdI2QYJgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:40:36 +0000
-Date: Wed, 29 Mar 2023 08:40:35 +0200
-Message-ID: <87r0t8oyak.wl-tiwai@suse.de>
+	id D6SxGHPdI2Q3JgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 29 Mar 2023 06:40:51 +0000
+Date: Wed, 29 Mar 2023 08:40:50 +0200
+Message-ID: <87pm8soya5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Tasos Sahanidis <tasos@tasossah.com>
-Subject: Re: [PATCH 0/4] ALSA: ymfpci: PM related cleanups and fixes
-In-Reply-To: <20230329041440.177363-1-tasos@tasossah.com>
-References: <20230329041440.177363-1-tasos@tasossah.com>
+Subject: Re: [PATCH] ALSA: ymfpci: Use u16 consistently for old_legacy_ctrl
+In-Reply-To: <20230329043627.178899-1-tasos@tasossah.com>
+References: <20230329043627.178899-1-tasos@tasossah.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: SZUG3ACGIYMYKI35IX3R2C243J7BCDUP
-X-Message-ID-Hash: SZUG3ACGIYMYKI35IX3R2C243J7BCDUP
+Message-ID-Hash: KJG5DHHZKVQOEJCMDK2LHDXO2ZH7NU2F
+X-Message-ID-Hash: KJG5DHHZKVQOEJCMDK2LHDXO2ZH7NU2F
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SZUG3ACGIYMYKI35IX3R2C243J7BCDUP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJG5DHHZKVQOEJCMDK2LHDXO2ZH7NU2F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,23 +114,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 29 Mar 2023 06:14:36 +0200,
+On Wed, 29 Mar 2023 06:36:27 +0200,
 Tasos Sahanidis wrote:
 > 
-> Hi,
+> There's no need to switch between unsigned short and u16, especially since
+> all the functions that end up using old_legacy_ctrl specify u16 anyway.
 > 
-> This series started while attempting to fix the OPL not being detected
-> after restoring from S4 on a YMF744. While attempting to debug the issue,
-> it was found that SIMPLE_DEV_PM_OPS was deprecated, and thus replaced,
-> and a few cleanups were made along the way.
-> 
-> Tasos Sahanidis (4):
->   ALSA: ymfpci: Switch to DEFINE_SIMPLE_DEV_PM_OPS()
->   ALSA: ymfpci: Move allocation of saved registers to struct snd_ymfpci
->   ALSA: ymfpci: Store saved legacy registers in an array
->   ALSA: ymfpci: Store additional legacy registers on suspend
+> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
 
-Applied all four patches to for-next branch.
+Applied to for-next branch.
 
 
 thanks,

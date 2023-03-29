@@ -2,115 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D71D6CD13C
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 06:40:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A61A6CD1D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Mar 2023 07:54:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 198191F1;
-	Wed, 29 Mar 2023 06:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 198191F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CF961F3;
+	Wed, 29 Mar 2023 07:53:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CF961F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680064843;
-	bh=/IRKOz6Q8m5IfA6Ipmr4hI8U5BeVBldP01wAXMYEvPs=;
-	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
-	b=L8f+24JoCEw3x2eo1QPzUe1/XW7B1FjJNdCf6mKtuPgPv1LwZnXghJcylAHFTKW8C
-	 utqk84t6P/2uW5y7RDcDtcYyjIStk7JI7t7zLylz/93Mxr4O5GA8CzHCLRUqaXZP4R
-	 Tm0ZiYJ97a4kvFOt41faGJFGDTIfxVTE5sxTJXtI=
+	s=default; t=1680069272;
+	bh=bZGOXSB1uSyAgGLryYZ3B77Qy7A2kvzZgaWeKPYzXzE=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=umM1kpezhVmZ8iyQx8cfsA6Pr9q4oNpHEM0AOq25T/7xkAYkLA5FAsjaxu63gipfH
+	 XP5G26xVj9sO/XUzRyYxBcbjBHtvwvxm9CpVQJ4576aTCF8+xXVnWgyUqVwbDw2lMO
+	 WerE92VdJgVCTARoP++SjMatabayituVhQ6c8QUs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96AC2F8024E;
-	Wed, 29 Mar 2023 06:39:52 +0200 (CEST)
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: ymfpci: Use register macro in place of integer literal
-Date: Wed, 29 Mar 2023 07:39:18 +0300
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPL76L437KLWWQ3PKBQFJPHXDPUDZMTA/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168006479208.26.12579531357585126343@mailman-core.alsa-project.org>
-From: Tasos Sahanidis via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Tasos Sahanidis <tasos@tasossah.com>
-Cc: tiwai@suse.com, tasos@tasossah.com
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id AD8C4F8024E;
+	Wed, 29 Mar 2023 07:53:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3509F80272; Wed, 29 Mar 2023 06:39:49 +0200 (CEST)
+	id 25176F80272; Wed, 29 Mar 2023 07:53:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from devnull.tasossah.com (devnull.tasossah.com
- [IPv6:2001:41d0:1:e60e::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E160F80114
-	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 06:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E160F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA26F80249
+	for <alsa-devel@alsa-project.org>; Wed, 29 Mar 2023 07:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA26F80249
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=devnull.tasossah.com header.i=@devnull.tasossah.com
- header.a=rsa-sha256 header.s=vps header.b=m+BFAVVc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=devnull.tasossah.com; s=vps; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=z9uLcnNCfZgztK165JywkAznDCF4Q2TN8hXiiy3Gjxo=; b=m+BFAVVcAz0JMfbHQrIzPzNiaM
-	JDOTzdCQQjU6sMvHVg7kGsnkumRzkjXykV7nI0l/izg6v2tPWPjC85A+ZtwtgY9iVzMdOEy5hiAUo
-	PgZGeCPEP5bhF6ZJ7NWFDl6GEJlaedgVD0sRLYI6iKK7vHqJcu+mnD45D5aow2RSNUII=;
-Received: from [2a02:587:6a11:9400::d54] (helo=localhost.localdomain)
-	by devnull.tasossah.com with esmtpsa  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <tasos@tasossah.com>)
-	id 1phNb7-00GusY-3Q; Wed, 29 Mar 2023 07:39:45 +0300
-From: Tasos Sahanidis <tasos@tasossah.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: ymfpci: Use register macro in place of integer literal
-Date: Wed, 29 Mar 2023 07:39:18 +0300
-Message-Id: <20230329043918.179352-1-tasos@tasossah.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=U6FN3Tb5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1680069207; x=1711605207;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=bZGOXSB1uSyAgGLryYZ3B77Qy7A2kvzZgaWeKPYzXzE=;
+  b=U6FN3Tb5sPI1vnWK4yMrxZ+5c4ltAkhOR8G2sSHKKHqbcNto+Lco5vrP
+   OiR1nijG4ZMYFnsqCa8yz488029Zw4fUZrpL2oYuFrWq4KbmOL1NPcgPk
+   aGOQnIQqDV+5cZSEtsOaQnB/EXqLkfvCKGAQXza/wjw0fWpuLBcdKj//a
+   WH0bg6xTwCcyffz8uhufSK1brbJcdQ8K77EGyS9GVvB7V2yj/nwoZank6
+   t3D6AIFEknMsdxz7noWyALbU2E/Aw+IcRdprzuYAFfWUusCXdr9MQADjw
+   5ObueLptPtzWaLplp891MSN+CdenVRlMikHIGmt2S6PZiG7s9okXBoeYN
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="427061731"
+X-IronPort-AV: E=Sophos;i="5.98,299,1673942400";
+   d="scan'208";a="427061731"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 22:53:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="661469032"
+X-IronPort-AV: E=Sophos;i="5.98,299,1673942400";
+   d="scan'208";a="661469032"
+Received: from dfchaves-mobl.amr.corp.intel.com (HELO [10.252.41.108])
+ ([10.252.41.108])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 22:53:20 -0700
+Message-ID: <ee60952b-95ed-cb91-2eb5-838d23389070@linux.intel.com>
+Date: Wed, 29 Mar 2023 08:53:36 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.9.0
+Subject: Re: [PATCH] ASoC: soc-topology.c: dai_link->platform again
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <87v8ikcsr5.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RPL76L437KLWWQ3PKBQFJPHXDPUDZMTA
-X-Message-ID-Hash: RPL76L437KLWWQ3PKBQFJPHXDPUDZMTA
-X-MailFrom: tasos@tasossah.com
+Message-ID-Hash: HQPFTAG734IXAXU6N2NOUOABHINQ5OZH
+X-Message-ID-Hash: HQPFTAG734IXAXU6N2NOUOABHINQ5OZH
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, tasos@tasossah.com
+CC: Linux-ALSA <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPL76L437KLWWQ3PKBQFJPHXDPUDZMTA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQPFTAG734IXAXU6N2NOUOABHINQ5OZH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,27 +105,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The macro for said register already exists, so just use it, to make the
-code more readable.
+Hi Morimoto-san,
 
-Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
----
- sound/pci/ymfpci/ymfpci_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 29/03/2023 03:21, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> On SOF, many topology is assuming dai_link->platform exists, and is
+> allowed to be overwritten on each link_load().
+> This patch restore the removed dai_link->platform for SOF, and add
+> the comment.
 
-diff --git a/sound/pci/ymfpci/ymfpci_main.c b/sound/pci/ymfpci/ymfpci_main.c
-index 2858736ed..24378f6fd 100644
---- a/sound/pci/ymfpci/ymfpci_main.c
-+++ b/sound/pci/ymfpci/ymfpci_main.c
-@@ -2214,7 +2214,7 @@ static void snd_ymfpci_free(struct snd_card *card)
- 
- 	snd_ymfpci_free_gameport(chip);
- 	
--	pci_write_config_word(chip->pci, 0x40, chip->old_legacy_ctrl);
-+	pci_write_config_word(chip->pci, PCIR_DSXG_LEGACY, chip->old_legacy_ctrl);
- 	
- 	release_firmware(chip->dsp_microcode);
- 	release_firmware(chip->controller_microcode);
+Thank you, it works now.
+
+Tested-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
+> Fixes: e7098ba9b378 ("ASoC: soc-topology.c: remove unnecessary dai_link->platform")
+> Reported-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Link: https://lore.kernel.org/r/87jzz7jczp.wl-kuninori.morimoto.gx@renesas.com
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  sound/soc/soc-topology.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+> index be9849749713..d0aca6b9058b 100644
+> --- a/sound/soc/soc-topology.c
+> +++ b/sound/soc/soc-topology.c
+> @@ -1685,8 +1685,8 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+>  	struct snd_soc_dai_link_component *dlc;
+>  	int ret;
+>  
+> -	/* link + cpu + codec */
+> -	link = devm_kzalloc(tplg->dev, sizeof(*link) + (2 * sizeof(*dlc)), GFP_KERNEL);
+> +	/* link + cpu + codec + platform */
+> +	link = devm_kzalloc(tplg->dev, sizeof(*link) + (3 * sizeof(*dlc)), GFP_KERNEL);
+>  	if (link == NULL)
+>  		return -ENOMEM;
+>  
+> @@ -1724,6 +1724,14 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+>  	link->codecs->name = "snd-soc-dummy";
+>  	link->codecs->dai_name = "snd-soc-dummy-dai";
+>  
+> +	/*
+> +	 * Many topology is assuming link has Platform.
+> +	 * This might be overwritten at soc_tplg_dai_link_load().
+> +	 */
+> +	link->platforms	= &dlc[2];
+> +	link->platforms->name = "snd-soc-dummy";
+> +	link->num_platforms = 1;
+> +
+>  	/* enable DPCM */
+>  	link->dynamic = 1;
+>  	link->ignore_pmdown_time = 1;
+
 -- 
-2.25.1
-
+Péter

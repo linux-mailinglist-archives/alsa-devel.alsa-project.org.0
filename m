@@ -2,117 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A93606D0D6F
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 20:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC906D0D9C
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 20:18:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21AB21EF;
-	Thu, 30 Mar 2023 20:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21AB21EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0878C1EF;
+	Thu, 30 Mar 2023 20:17:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0878C1EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680199723;
-	bh=cVw8JXoZRN+rSdxi5i2rHI8PmRS2PgvMeP5kpfl77EY=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680200298;
+	bh=DDlJD1yl51bcJxZV5Y30drIZ7TqazWKau23GoVQ14dk=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qTbxvCMH4yNCwzzSh8FwoilCg70LDTLdDhgaBRmIrR6lGKZ9wCltVrFkkUk7EQVgX
-	 ZfgDCjTNuALlp9eXRKFhR8a+iKWhPlghiKpFKbfoOdzs6cDb7kn7S3KHhT6dJ/9Vg8
-	 nTQyqHA/CNuL+Twa8dKDhQtjKXJNgOF3QMATXmyM=
+	b=qvPbjHlOn9kC/McJdMY9+aDAjyyDs1OE1SBqfXJa4+4oonGJOvK/WIchjJFVy9Z4K
+	 CgLXlXDFydLNAxd0Bgsq/XJu7mFuz8OI/rPtsiie1sV3/pe9PghYPgTtJ5c559rcSs
+	 GeMjYe8Aid3r2CzjiwBKBTo2y/E04SFk/MI+Kn3w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B73CF8024E;
-	Thu, 30 Mar 2023 20:07:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75B00F8024E;
+	Thu, 30 Mar 2023 20:17:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 837D0F80272; Thu, 30 Mar 2023 20:07:46 +0200 (CEST)
+	id A1665F80272; Thu, 30 Mar 2023 20:17:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No,
+ score=-5.0 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp.smtpout.orange.fr (smtp-27.smtpout.orange.fr
+ [80.12.242.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D154F8021D
-	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 20:07:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D154F8021D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=QH3Jz27w;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=1hqCOB8j
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1A6CA1FE07;
-	Thu, 30 Mar 2023 18:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680199656;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jo1Aor4tqA3fdyWQL/gwsRBsv7yVYYlpT1qru+qjKoI=;
-	b=QH3Jz27wHu0a57A25v1yTbhy1rEIuRQl6HYE0bWfeE4YDZ9HGk2Eo7BNgJOPhkjGOHKmaR
-	YP5PuXM2q6JKJDq4d3T3UPtOa/lw0hW3iw5danyH9VVsl9oCV8AgeRqnTavbsgH2+Xdf1j
-	f6CJ1MXXpzQZo7B80qCL+RcVaA+gxJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680199656;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jo1Aor4tqA3fdyWQL/gwsRBsv7yVYYlpT1qru+qjKoI=;
-	b=1hqCOB8jOmeGBrGEopzrO1QZ8K5fQAURlewZR9YxehFyx1/t6bYHflomIcj2iIdQE1uJqZ
-	/P2rMrpjTDkicBCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B45E1348E;
-	Thu, 30 Mar 2023 18:07:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 83mgF+fPJWQcHQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 30 Mar 2023 18:07:35 +0000
-Date: Thu, 30 Mar 2023 20:07:32 +0200
-Message-ID: <87355mkt97.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 06/18] ASoC: SOF: Intel: hda-mlink: add structures to
- parse ALT links
-In-Reply-To: <146f6100-9f99-f463-603c-332c5b9d9eef@linux.intel.com>
-References: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
-	<20230327112931.23411-7-peter.ujfalusi@linux.intel.com>
-	<87bkkakzk2.wl-tiwai@suse.de>
-	<146f6100-9f99-f463-603c-332c5b9d9eef@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: SZ6E57PFVLGTSNOH67BKFQ2RTA5TCQZO
-X-Message-ID-Hash: SZ6E57PFVLGTSNOH67BKFQ2RTA5TCQZO
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37AAEF8021D
+	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 20:17:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37AAEF8021D
+Received: from [192.168.1.18] ([86.243.2.178])
+	by smtp.orange.fr with ESMTPA
+	id hwphptLXW6OWihwphpVejs; Thu, 30 Mar 2023 20:17:16 +0200
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 30 Mar 2023 20:17:16 +0200
+X-ME-IP: 86.243.2.178
+Message-ID: <d14d668b-f351-f6d3-fe85-aac0fcbfb11b@wanadoo.fr>
+Date: Thu, 30 Mar 2023 20:17:09 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
+Content-Language: fr
+To: Shenghao Ding <13916275206@139.com>, broonie@kernel.org,
+ lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com
+References: <20230329100107.8181-1-13916275206@139.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <20230329100107.8181-1-13916275206@139.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WIPSVG3MK2YZ2R7GS3S7MAYA4I2ZVPBX
+X-Message-ID-Hash: WIPSVG3MK2YZ2R7GS3S7MAYA4I2ZVPBX
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org, alsa-devel@alsa-project.org,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com
+CC: kevin-lu@ti.com, shenghao-ding@ti.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, x1077012@ti.com, peeyush@ti.com, navada@ti.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SZ6E57PFVLGTSNOH67BKFQ2RTA5TCQZO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WIPSVG3MK2YZ2R7GS3S7MAYA4I2ZVPBX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,56 +83,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 30 Mar 2023 18:09:36 +0200,
-Pierre-Louis Bossart wrote:
+Le 29/03/2023 à 12:01, Shenghao Ding a écrit :
+> Create tas2781 driver.
 > 
+> Signed-off-by: Shenghao Ding <13916275206@139.com>
 > 
-> 
-> On 3/30/23 10:51, Takashi Iwai wrote:
-> > On Mon, 27 Mar 2023 13:29:19 +0200,
-> > Peter Ujfalusi wrote:
-> >>
-> >>  int hda_bus_ml_get_capabilities(struct hdac_bus *bus)
-> >>  {
-> >> -	if (bus->mlcap)
-> >> -		return snd_hdac_ext_bus_get_ml_capabilities(bus);
-> >> +	u32 link_count;
-> >> +	int ret;
-> >> +	int i;
-> >> +
-> >> +	if (!bus->mlcap)
-> >> +		return 0;
-> >> +
-> >> +	link_count = readl(bus->mlcap + AZX_REG_ML_MLCD) + 1;
-> >> +
-> >> +	dev_dbg(bus->dev, "HDAudio Multi-Link count: %d\n", link_count);
-> >> +
-> >> +	for (i = 0; i < link_count; i++) {
-> >> +		ret = hda_ml_alloc_h2link(bus, i);
-> >> +		if (ret < 0) {
-> >> +			hda_bus_ml_free(bus);
-> >> +			return ret;
-> >> +		}
-> >> +	}
-> >>  	return 0;
-> > 
-> > This makes that each call of hda_bus_ml_get_capabilities() adds the
-> > h2link entries blindly.  If the driver calls it multiple times
-> > mistakenly (the function name sounds as if it's just a helper to query
-> > the capability bits), it'll lead to doubly entries.  Maybe adding some
-> > check would be safer, IMO.
-> 
-> Interesting comment, I didn't think of that one.
-> 
-> This function is currently called in the probe and indirectly via
-> hda_init_caps(). I think the driver framework guarantees the probe is
-> only called once, doesn't it?
-> 
-> we can also rename this function to make it clearer if there are any
-> suggestions, but the name is aligned with previous implementations of
-> the snd_hdac_ext stuff.
+> ---
+> Changes in v10:
 
-Yeah, naming it as an init function would avoid the misuse.
+[...]
 
+Hi,
 
-Takashi
+> +static void tasdevice_select_cfg_blk(void *pContext, int conf_no,
+> +	unsigned char block_type)
+> +{
+> +	struct tasdevice_priv *tas_dev = (struct tasdevice_priv *) pContext;
+> +	struct tasdevice_rca *rca = &(tas_dev->rcabin);
+> +	struct tasdevice_config_info **cfg_info = rca->cfg_info;
+> +	struct tasdev_blk_data **blk_data;
+> +	int j, k, chn, chnend;
+> +
+> +	if (conf_no >= rca->ncfgs || conf_no < 0 || !cfg_info) {
+> +		dev_err(tas_dev->dev, "conf_no should be not more than %u\n",
+> +			rca->ncfgs);
+> +		return;
+> +	}
+> +	blk_data =  cfg_info[conf_no]->blk_data;
+> +
+> +	for (j = 0; j < (int)cfg_info[conf_no]->real_nblocks; j++) {
+> +		unsigned int length = 0, rc = 0;
+> +
+> +		if (block_type > 5 || block_type < 2) {
+> +			dev_err(tas_dev->dev,
+> +				"block_type should be in range from 2 to 5\n");
+> +			break;
+> +		}
+> +		if (block_type != blk_data[j]->block_type)
+> +			continue;
+> +
+> +		for (k = 0; k < (int)blk_data[j]->n_subblks; k++) {
+> +			if (cfg_info[conf_no]->blk_data[j]->dev_idx) {
+
+Just use "blk_data[j]->dev_idx"?
+
+> +				chn = blk_data[j]->dev_idx - 1;
+> +				chnend = blk_data[j]->dev_idx;
+> +			} else {
+> +				chn = 0;
+> +				chnend = tas_dev->ndev;
+> +			}
+
+[...]
+
+> +	/* Several kinds of dsp/algorithm firmwares can run on tas2781,
+> +	 * the number and size of blk are not fixed and different among
+> +	 * thest firmwares.
+
+these?
+
+CJ

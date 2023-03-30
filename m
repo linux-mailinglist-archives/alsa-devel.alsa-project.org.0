@@ -2,110 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A700F6CFC7E
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 09:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B74BC6CFD04
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 09:40:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB3241F0;
-	Thu, 30 Mar 2023 09:14:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB3241F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 509F21EF;
+	Thu, 30 Mar 2023 09:39:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 509F21EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680160503;
-	bh=dR+TqKGt2psOjJVbvLk6TYNCYka5Bwc5gzVdEA5NQtI=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=S/KNlI1mPB1PhHhM174QbOYk9p0m8ENRvorq/UwIe0+rYGTgz6RTjw9QIgz7LQayl
-	 TMrXxWYBJehHLaM1ACOcGLT/PtwZ0GQQ5XwxIT/sM0BviEKHIHoNGVwcrTcT1TEDDH
-	 H6eFpp+o0BQKqFVspr4vAuVnQHz0ygiO7ZYoNyd4=
+	s=default; t=1680162046;
+	bh=jFcS7bUaXABTcnaCmVl+zFu+uN/IB60LPk7WNGMa/1k=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IGs874pMhYrq4ALxUBpnmUXVOIalNy2SuJw+0p7Wz34+KX9aiS81e+c0V+gLLwwU/
+	 EllT3F1qf0nkURYv5JPyctbbehNk/oq4CwR+8A1nE4dbEW8+OfWWiryLGZTjS5zhqe
+	 h25+oLWvtJIkai+29b1ORPgM3hPPtVZDoFXUencY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED57DF80249;
-	Thu, 30 Mar 2023 09:14:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E10F80249;
+	Thu, 30 Mar 2023 09:39:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2039BF80272; Thu, 30 Mar 2023 09:14:09 +0200 (CEST)
+	id D2E99F80272; Thu, 30 Mar 2023 09:39:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1260BF80114
-	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 09:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1260BF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44CC5F80114
+	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 09:39:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44CC5F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=U3YRPvTp
-Received: by mail-lf1-x129.google.com with SMTP id y20so23329218lfj.2
+ header.s=google header.b=ruldmbq6
+Received: by mail-lf1-x12a.google.com with SMTP id j11so23338199lfg.13
         for <alsa-devel@alsa-project.org>;
- Thu, 30 Mar 2023 00:14:02 -0700 (PDT)
+ Thu, 30 Mar 2023 00:39:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680160440;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=loyEBhBPXJSd2oDq+EoAXwWIzrLOsQjO8pe3fhmwgiY=;
-        b=U3YRPvTpjRpsvPS7VgrRRocB1If0hzy/qEXZOGuz1Qk8AwHtevj58Q3gIp31dIn4Cm
-         /Wg7apuNcR/ZghtFLX1rbKEFCVSidlxmh9bmR7bk6hXRRF8Q8KFdWIKUVI7uaLLjh5cq
-         6v5zbzkeKiAJrhMCEMswb4zNv/4qbIGsDYKAYtcTs8XpbYCMn8cCJVpTfnbOn9Rhf04s
-         ON57Tu+OVdS3FOyKFoQQiq/UOpWvsz8SYPDcCZDxzR17NWozVIgzFOyxEEIEeimhR1Aq
-         QWMIlonPYn5CtZFnXCt9a9n2Pg88JZgbNsTQZIZ12cyg0WKn69SPD0IWiRXrbCwYdw5g
-         SyNg==
+        d=linaro.org; s=google; t=1680161978;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Z1BFQFEcp+Yc7eK7+gRqJuLKGd2zLsXk3LDs9OcFmZs=;
+        b=ruldmbq64NM+hwrT/y0is2vQMgd+GIg71Oboaq2lJYwssqBaw6eK86sRZ2/R9RWiWb
+         qZGN+9RZW8Hob34SVoK1OPpL7PTvxVES2P37JZsx/bI5K3VPsMxTmqbIwMAsAFDP3jgR
+         T9C9SpPHR2VTbi2RXgEVjnJ881PG78j/N1bSrbfYc8FyzzmbDrY1kNi4QESoxY7PWhXX
+         Zz+UC8n1m+4CUFohK0Yzqz7RbGeBP6u84ND8MOgCw5xw1EZOC1LX63X5yQwcNFxVM3P0
+         Z3ublQZNxVx67c9jRHkN7OFj4gfp82jHCEmbRP2axY0oiNuIwEHShdjoVOaKESnCGBcB
+         3hZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680160440;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=loyEBhBPXJSd2oDq+EoAXwWIzrLOsQjO8pe3fhmwgiY=;
-        b=1oR8dNYExcZIKOIOMeP9mec8eZvagMZy10g+Ryncjam28gFkc+Q4fGKGKF4mfhshBU
-         +u01Z0e0loZ49DSVPnr/nIAezQlWwuXu2wcBwVEfS8bHZZwUquDmWTjiLu276N5GcGID
-         vDZO1o02BOztf1onVusSAJyuE4HXfXFPBiTvv9NvzfNykITfxj5VKHFb/Qt1iBwXcEJr
-         63mdxsecsP+pHXPkX1A+hweepaXviheZ6GMIhpIqhJZUKW68oTTlbtWmVx36vI16DEII
-         1+ThXMzUtVOoHUTl0rS2NYuUtlr1Tg+l5QB+o4STOagxg4h17zOfDVPaDuFSgzsXbs7E
-         eGDg==
-X-Gm-Message-State: AAQBX9ez3BRW0iNfWZakn24vLT7m9CyKgMEuzS2bk+YQFcnl8AqBtEhe
-	J1xLAHLhMKKKUsqJi8xNOuHyEUYMKcLuJQA3idc=
+        d=1e100.net; s=20210112; t=1680161978;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z1BFQFEcp+Yc7eK7+gRqJuLKGd2zLsXk3LDs9OcFmZs=;
+        b=C7iagP4htftoErS4+c9ZNKDG2TZ9NFO+rp8Kf+twlNuVr0PqduhvIJQefHTCXclSO2
+         Qngl3UJdgFdxWUjJa5XFMmyDFPmloKHT07/3eA6ygqFfuquB8OKMuj02Hip2KTfAnpjW
+         8b/JNmgaRi42JKqg+4puM2RdhlTb2Bk9DztusYkUfQijDnuuPIRpNlPo8MgDUppHZNKq
+         d84Pcwd6dGH++kWkFTW0Iq6vgCXX90s9WZcUTDwjtJcskwtyHe53box1R79yOaXL+QOV
+         KPPiLTqVAiSnDb1BOQoyDbyUGwfOBvNRreWaFDWw7qX31m3zZ2p532ukzNQzwoXkiEp4
+         leaA==
+X-Gm-Message-State: AAQBX9dx5E4pekhcyI+0ngK2XL6CNkGa+KOXz6ulJnW/1xJZI0VhahJV
+	sdeeVd0bHZsL4Y2VkPUUUQrQtw==
 X-Google-Smtp-Source: 
- AKy350b3y9O6CwWcsVsGYE/JWxP5ddszJslLziesflMMk+TImPwhlH4vJ9XHMRo03nUhcvsYp7n7qQ==
-X-Received: by 2002:ac2:5547:0:b0:4db:1bab:98a4 with SMTP id
- l7-20020ac25547000000b004db1bab98a4mr5013932lfk.32.1680160440483;
-        Thu, 30 Mar 2023 00:14:00 -0700 (PDT)
-Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl.
+ AKy350bAQUuZJ9AdRREDwN63mloWL2b2FNGC4p1ekLCHdHGiBahv9ED14kOttKyL58M6k3Pwu6iDbA==
+X-Received: by 2002:ac2:5458:0:b0:4ea:fabb:4db1 with SMTP id
+ d24-20020ac25458000000b004eafabb4db1mr6418948lfn.1.1680161978106;
+        Thu, 30 Mar 2023 00:39:38 -0700 (PDT)
+Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27])
         by smtp.gmail.com with ESMTPSA id
- b16-20020a056512219000b004d85895d7e0sm3949103lft.147.2023.03.30.00.13.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 00:14:00 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Venkata Prasad Potturu <quic_potturu@quicinc.com>,
-	Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
-	linux-arm-msm@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH] ASoC: dt-bindings: qcom,lpass-rx-macro: correct
- minItems for clocks
-Date: Thu, 30 Mar 2023 09:13:33 +0200
-Message-Id: <20230330071333.24308-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ b16-20020a056512219000b004d85895d7e0sm3956796lft.147.2023.03.30.00.39.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Mar 2023 00:39:37 -0700 (PDT)
+Message-ID: <c999da90-1cb9-c767-23bc-c28d37708cf2@linaro.org>
+Date: Thu, 30 Mar 2023 09:39:36 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R6S6SYBFVRHTMROAOUJGVXSPGT4PTEH2
-X-Message-ID-Hash: R6S6SYBFVRHTMROAOUJGVXSPGT4PTEH2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v1 1/3] dt-bindings: sound: Add TDM for StarFive JH7110
+Content-Language: en-US
+To: Walker Chen <walker.chen@starfivetech.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>
+References: <20230329153320.31390-1-walker.chen@starfivetech.com>
+ <20230329153320.31390-2-walker.chen@starfivetech.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230329153320.31390-2-walker.chen@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MG5NKVP4FGMMD6XAURZJBRUGA4BA5ZKO
+X-Message-ID-Hash: MG5NKVP4FGMMD6XAURZJBRUGA4BA5ZKO
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -113,14 +111,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- stable@vger.kernel.org, Rob Herring <robh@kernel.org>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6S6SYBFVRHTMROAOUJGVXSPGT4PTEH2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MG5NKVP4FGMMD6XAURZJBRUGA4BA5ZKO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,32 +127,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The RX macro codec comes on some platforms in two variants - ADSP
-and ADSP bypassed - thus the clock-names varies from 3 to 5.  The clocks
-must vary as well:
+On 29/03/2023 17:33, Walker Chen wrote:
+> Add bindings to describe the TDM driver for the StarFive JH7110 SoC.
+> 
+> Signed-off-by: Walker Chen <walker.chen@starfivetech.com>
+> ---
+>  .../bindings/sound/starfive,jh7110-tdm.yaml   | 95 +++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+> new file mode 100644
+> index 000000000000..d65b9ed781ef
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+> @@ -0,0 +1,95 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/starfive,jh7110-tdm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: StarFive JH7110 TDM Controller
+> +
+> +description: |
+> +  The TDM Controller is a Time Division Multiplexed audio interface
+> +  integrated in StarFive JH7110 SoC, allowing up to 8 channels of
+> +  audio over a serial interface. The TDM controller can operate both
+> +  in master and slave mode.
+> +
+> +maintainers:
+> +  - Walker Chen <walker.chen@starfivetech.com>
+> +
 
-  sc7280-idp.dtb: codec@3200000: clocks: [[202, 8], [202, 7], [203]] is too short
+Missing allOf: with $ref to dai-common.
 
-Fixes: 852fda58d99a ("ASoC: qcom: dt-bindings: Update bindings for clocks in lpass digital codes")
-Cc: <stable@vger.kernel.org>
-Acked-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - starfive,jh7110-tdm
+> +
+> +  reg:
+> +    maxItems: 1
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-index f8972769cc6a..ec4b0ac8ad68 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
-@@ -28,6 +28,7 @@ properties:
-     const: 0
- 
-   clocks:
-+    minItems: 3
-     maxItems: 5
- 
-   clock-names:
--- 
-2.34.1
+(...)
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - dmas
+> +  - dma-names
+> +  - "#sound-dai-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    tdm: tdm@10090000 {
+
+Drop tdm label, not used.
+
+Best regards,
+Krzysztof
 
